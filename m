@@ -2,41 +2,68 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C19F8C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 07:40:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A921C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6D82161930
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 07:40:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D82161930
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 8502861931
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8502861931
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D250C6E3D8;
-	Mon, 22 Mar 2021 07:40:36 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5CF746E3D8;
- Mon, 22 Mar 2021 07:40:35 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4C569A0019;
- Mon, 22 Mar 2021 07:40:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96CBB89DC0;
+	Mon, 22 Mar 2021 09:10:09 +0000 (UTC)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 955056E9EC
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 11:35:35 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id
+ ga23-20020a17090b0397b02900c0b81bbcd4so6612659pjb.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 04:35:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=oKHyKM5HpgM64/v1vzFdLp1d/ZtBozUZ21Nb1Kh1LfE=;
+ b=oA4VSa+nu/9W7HEreKS2m+YjOanl3TPCruPFBgMTvzGK1JsQbrp7ZQne4hciU+1JpL
+ tC2hWULRXHHPm4YwQNXxvUbUHsNu+x7lQ8tKHvDxk7FyQH65oZsd+VfiJrYfgCeNw0x0
+ 2EN2PSSWRcAdVl/GZMvNDl5QVcWps3mc2u+aTI6dsRha6h0AuWq8HTAlXVRbHO39y8q4
+ WZkfB+U/TXLwbSlwImsWvK008U6xWpuA1uj8mdfmuDOUeq0ILBuWvf9PQZDnWX1pHpET
+ Cgam/1cfnlVfvmOO9ujm+CmSjw2dgkAUvDDxyLpJFCwN1ntNUPTBIZ28vTqcL+GsxyRT
+ dvOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oKHyKM5HpgM64/v1vzFdLp1d/ZtBozUZ21Nb1Kh1LfE=;
+ b=YobbzE+oeotBF1252Sr7LPxt4Dw9re5gbmWyQwBj7fOlTNZ6lvtcnYOA18B+2l00iD
+ ZndKlHbia+rZbiklI2lNEIif5S9yKrSrvLW/Qo0ACV2Yut5Tki9g7CAts5XbOtcEZH47
+ irMjWmOaS3BkSUOZNI/sS0aUHXidk0aFn/EbwS/cx3DeF6pbvERNPmeIxdR0K2L34p02
+ NqKGGIh6v9YzvLXNpjBYztJR5Uv7/8Dj0spi/hXfCmg5iKhnjtrQHsq/+04CcN0FVR2y
+ L71uIBQr+nx2UN+Y9Tl7eUjd10eaumMgE+XJBFkDgjb0cFITge+CvEphsOGBju7zbz9c
+ xzJg==
+X-Gm-Message-State: AOAM530gE16EB0ALiINMb/Duo8kZU+bfQItwn/tET/T21diKTZJndN5m
+ PRU3sJlrJNW3Psc0Iztdi+NuK6EYSS1TyF1i3hAlVQ==
+X-Google-Smtp-Source: ABdhPJyYOsIuX8edCxIL4tkKbNSgbtWLcodZmdaiaQmxoRZST0LiH2O2E/Mhxco68rpGovr0mKxDhbougBexQ4y0Q9k=
+X-Received: by 2002:a17:902:e752:b029:e6:822c:355c with SMTP id
+ p18-20020a170902e752b02900e6822c355cmr14084469plf.69.1616153735064; Fri, 19
+ Mar 2021 04:35:35 -0700 (PDT)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Bhanuprakash Modem" <bhanuprakash.modem@intel.com>
-Date: Mon, 22 Mar 2021 07:40:35 -0000
-Message-ID: <161639883530.19227.17032310724591698035@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210322143008.29250-1-bhanuprakash.modem@intel.com>
-In-Reply-To: <20210322143008.29250-1-bhanuprakash.modem@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Add_state_checker_for_CSC_coeff_values?=
+References: <20210219215326.2227596-1-lyude@redhat.com>
+ <20210219215326.2227596-28-lyude@redhat.com>
+In-Reply-To: <20210219215326.2227596-28-lyude@redhat.com>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Fri, 19 Mar 2021 12:35:24 +0100
+Message-ID: <CAG3jFyuvnDQXXJKaY7zqi01_BG7pvFj0_9DJ2eAr2C=FvUtL1A@mail.gmail.com>
+To: Lyude Paul <lyude@redhat.com>
+X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:08 +0000
+Subject: Re: [Intel-gfx] [PATCH 27/30] drm/dp_mst: Pass
+ drm_dp_mst_topology_mgr to drm_dp_get_vc_payload_bw()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,265 +76,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1777917492=="
+Cc: Maxime Ripard <mripard@kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1777917492==
-Content-Type: multipart/alternative;
- boundary="===============4641747161076741299=="
+Hey Lyude,
 
---===============4641747161076741299==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Thanks for the patch.
 
-== Series Details ==
+On Fri, 19 Feb 2021 at 23:03, Lyude Paul <lyude@redhat.com> wrote:
+>
+> Since this is one of the few functions in drm_dp_mst_topology.c that
+> doesn't have any way of getting access to a drm_device, let's pass the
+> drm_dp_mst_topology_mgr down to this function so that it can use
+> drm_dbg_kms().
+>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c       | 7 +++++--
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ++-
+>  include/drm/drm_dp_mst_helper.h             | 3 ++-
+>  3 files changed, 9 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index cf4f2f85711e..fb66df39e0bb 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -3631,6 +3631,7 @@ static int drm_dp_send_up_ack_reply(struct drm_dp_mst_topology_mgr *mgr,
+>
+>  /**
+>   * drm_dp_get_vc_payload_bw - get the VC payload BW for an MST link
+> + * @mgr: The &drm_dp_mst_topology_mgr to use
+>   * @link_rate: link rate in 10kbits/s units
+>   * @link_lane_count: lane count
+>   *
+> @@ -3639,7 +3640,8 @@ static int drm_dp_send_up_ack_reply(struct drm_dp_mst_topology_mgr *mgr,
+>   * convert the number of PBNs required for a given stream to the number of
+>   * timeslots this stream requires in each MTP.
+>   */
+> -int drm_dp_get_vc_payload_bw(int link_rate, int link_lane_count)
+> +int drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
+> +                            int link_rate, int link_lane_count)
+>  {
+>         if (link_rate == 0 || link_lane_count == 0)
+>                 DRM_DEBUG_KMS("invalid link rate/lane count: (%d / %d)\n",
+> @@ -3704,7 +3706,8 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
+>                         goto out_unlock;
+>                 }
+>
+> -               mgr->pbn_div = drm_dp_get_vc_payload_bw(drm_dp_bw_code_to_link_rate(mgr->dpcd[1]),
+> +               mgr->pbn_div = drm_dp_get_vc_payload_bw(mgr,
+> +                                                       drm_dp_bw_code_to_link_rate(mgr->dpcd[1]),
+>                                                         mgr->dpcd[2] & DP_MAX_LANE_COUNT_MASK);
+>                 if (mgr->pbn_div == 0) {
+>                         ret = -EINVAL;
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> index 8e316146b6d1..60ca0fa32d15 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -70,7 +70,8 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+>                 slots = drm_dp_atomic_find_vcpi_slots(state, &intel_dp->mst_mgr,
+>                                                       connector->port,
+>                                                       crtc_state->pbn,
+> -                                                     drm_dp_get_vc_payload_bw(crtc_state->port_clock,
+> +                                                     drm_dp_get_vc_payload_bw(&intel_dp->mst_mgr,
+> +                                                                              crtc_state->port_clock,
+>                                                                                crtc_state->lane_count));
 
-Series: drm/i915: Add state checker for CSC coeff values
-URL   : https://patchwork.freedesktop.org/series/88242/
-State : failure
+checkpatch --strict is unhappy about this chunk
 
-== Summary ==
+WARNING: line length of 102 exceeds 100 columns
+#61: FILE: drivers/gpu/drm/i915/display/intel_dp_mst.c:73:
++                                           crtc_state->port_clock,
 
-CI Bug Log - changes from CI_DRM_9879 -> Patchwork_19820
-====================================================
+Maybe the results of drm_dp_get_vc_payload_bw() can be but in a
+temporary variable.
 
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_19820 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_19820, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/index.html
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_19820:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@runner@aborted:
-    - fi-cml-u2:          NOTRUN -> [FAIL][1]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-cml-u2/igt@runner@aborted.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19820 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-snb-2600:        [PASS][2] -> [INCOMPLETE][3] ([i915#2782])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9879/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-
-  * igt@i915_selftest@live@late_gt_pm:
-    - fi-bsw-nick:        [PASS][4] -> [DMESG-FAIL][5] ([i915#2927])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9879/fi-bsw-nick/igt@i915_selftest@live@late_gt_pm.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-bsw-nick/igt@i915_selftest@live@late_gt_pm.html
-
-  * igt@runner@aborted:
-    - fi-kbl-x1275:       NOTRUN -> [FAIL][6] ([i915#1569] / [i915#192] / [i915#193] / [i915#194])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-kbl-x1275/igt@runner@aborted.html
-    - fi-bsw-nick:        NOTRUN -> [FAIL][7] ([i915#1436])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-bsw-nick/igt@runner@aborted.html
-    - fi-kbl-7500u:       NOTRUN -> [FAIL][8] ([i915#1569] / [i915#192] / [i915#193] / [i915#194])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-kbl-7500u/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_tiled_blits@basic:
-    - fi-kbl-8809g:       [TIMEOUT][9] ([i915#2502] / [i915#3145]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9879/fi-kbl-8809g/igt@gem_tiled_blits@basic.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-kbl-8809g/igt@gem_tiled_blits@basic.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
-  [i915#1569]: https://gitlab.freedesktop.org/drm/intel/issues/1569
-  [i915#1849]: https://gitlab.freedesktop.org/drm/intel/issues/1849
-  [i915#192]: https://gitlab.freedesktop.org/drm/intel/issues/192
-  [i915#193]: https://gitlab.freedesktop.org/drm/intel/issues/193
-  [i915#194]: https://gitlab.freedesktop.org/drm/intel/issues/194
-  [i915#2502]: https://gitlab.freedesktop.org/drm/intel/issues/2502
-  [i915#2782]: https://gitlab.freedesktop.org/drm/intel/issues/2782
-  [i915#2927]: https://gitlab.freedesktop.org/drm/intel/issues/2927
-  [i915#3145]: https://gitlab.freedesktop.org/drm/intel/issues/3145
-  [i915#3180]: https://gitlab.freedesktop.org/drm/intel/issues/3180
-
-
-Participating hosts (43 -> 40)
-------------------------------
-
-  Missing    (3): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9879 -> Patchwork_19820
-
-  CI-20190529: 20190529
-  CI_DRM_9879: 892960f907bece8a020b30ade522352ded06c94c @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6039: 8c4a2cda2a92bdd87797969ef299ad7f6e8e993b @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19820: a629803a4aa1a1a5b767483dad6d33504f632f97 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-a629803a4aa1 FOR_TESTING_ONLY: Print coeffs of hw and sw CTM
-260c2b3ee5a6 drm/i915/display: Extract icl_read_csc()
-44ae7fddb56d drm/i915/display: Extract ilk_read_csc()
-9aaab4f5f76f drm/i915/display: Extract chv_read_csc()
-9330fece07c8 drm/i915/display: Add macro to compare hw/sw CSC matrix
-36688ee5a039 drm/i915/display: Add func to compare hw/sw CSC matrix
-6b4acba31287 drm/i915/display: Introduce vfunc read_csc() to create hw ctm
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/index.html
-
---===============4641747161076741299==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Add state checker for CSC coeff values</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/88242/">https://patchwork.freedesktop.org/series/88242/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9879 -&gt; Patchwork_19820</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_19820 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_19820, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_19820:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@runner@aborted:<ul>
-<li>fi-cml-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-cml-u2/igt@runner@aborted.html">FAIL</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19820 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9879/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2782">i915#2782</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@late_gt_pm:</p>
-<ul>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9879/fi-bsw-nick/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-bsw-nick/igt@i915_selftest@live@late_gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2927">i915#2927</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>
-<p>fi-kbl-x1275:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-kbl-x1275/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1569">i915#1569</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/192">i915#192</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/193">i915#193</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/194">i915#194</a>)</p>
-</li>
-<li>
-<p>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-bsw-nick/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a>)</p>
-</li>
-<li>
-<p>fi-kbl-7500u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-kbl-7500u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1569">i915#1569</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/192">i915#192</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/193">i915#193</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/194">i915#194</a>)</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@gem_tiled_blits@basic:<ul>
-<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9879/fi-kbl-8809g/igt@gem_tiled_blits@basic.html">TIMEOUT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2502">i915#2502</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3145">i915#3145</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19820/fi-kbl-8809g/igt@gem_tiled_blits@basic.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (43 -&gt; 40)</h2>
-<p>Missing    (3): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9879 -&gt; Patchwork_19820</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9879: 892960f907bece8a020b30ade522352ded06c94c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6039: 8c4a2cda2a92bdd87797969ef299ad7f6e8e993b @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19820: a629803a4aa1a1a5b767483dad6d33504f632f97 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>a629803a4aa1 FOR_TESTING_ONLY: Print coeffs of hw and sw CTM<br />
-260c2b3ee5a6 drm/i915/display: Extract icl_read_csc()<br />
-44ae7fddb56d drm/i915/display: Extract ilk_read_csc()<br />
-9aaab4f5f76f drm/i915/display: Extract chv_read_csc()<br />
-9330fece07c8 drm/i915/display: Add macro to compare hw/sw CSC matrix<br />
-36688ee5a039 drm/i915/display: Add func to compare hw/sw CSC matrix<br />
-6b4acba31287 drm/i915/display: Introduce vfunc read_csc() to create hw ctm</p>
-
-</body>
-</html>
-
---===============4641747161076741299==--
-
---===============1777917492==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>                 if (slots == -EDEADLK)
+>                         return slots;
+> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+> index bd1c39907b92..20dc705642bd 100644
+> --- a/include/drm/drm_dp_mst_helper.h
+> +++ b/include/drm/drm_dp_mst_helper.h
+> @@ -783,7 +783,8 @@ drm_dp_mst_detect_port(struct drm_connector *connector,
+>
+>  struct edid *drm_dp_mst_get_edid(struct drm_connector *connector, struct drm_dp_mst_topology_mgr *mgr, struct drm_dp_mst_port *port);
+>
+> -int drm_dp_get_vc_payload_bw(int link_rate, int link_lane_count);
+> +int drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
+> +                            int link_rate, int link_lane_count);
+>
+>  int drm_dp_calc_pbn_mode(int clock, int bpp, bool dsc);
+>
+> --
+> 2.29.2
+>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1777917492==--
