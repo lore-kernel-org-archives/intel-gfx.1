@@ -2,67 +2,75 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0C7CC433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE814C433C1
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9763A61931
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9763A61931
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	by mail.kernel.org (Postfix) with ESMTPS id 6D7EF61931
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D7EF61931
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0822E89DFA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 669E289DFB;
 	Mon, 22 Mar 2021 09:10:24 +0000 (UTC)
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E23D46EA2F
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 14:39:16 +0000 (UTC)
-Received: by mail-pg1-x52c.google.com with SMTP id k24so3811246pgl.6
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 07:39:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xqUIitizMTnYW6S9ohgcqJQ/J1W0YdhVn6Dv9vqrskk=;
- b=SZEnYT7h6DCwyjpq+7bIJP9gm9gyX8+UPSBYtn1U4Ml2edHlstmfKmS7tzo1gVFGGy
- tVIK6T1X69l6L0KBTvH6T3V5b5QYtMRA6hH6ki9WecNYdezFAA/+l/jNwMgt2t8BAm1A
- pZKpWz++WWGHtOWWkc8XVl3IBMjaPYJWv0Yhsv7reWTonWSlm2/UdZDUfrckcQa/as6m
- qHE51eDJJ8+t2beaAm/D3r6+sexCG2oHXenD7PZaSgcpSC8f2FMAnOlMq1hSpJuRGyXy
- j90nuX8PJ8m/ToLUQ/FBWBrpuEQ2rQ+ACJDGKNtaP/hRO3U9rokQks1V74Uy0a8qSQzF
- YPeg==
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3BD6E983;
+ Fri, 19 Mar 2021 04:39:22 +0000 (UTC)
+Received: by mail-qk1-x72a.google.com with SMTP id o5so1675785qkb.0;
+ Thu, 18 Mar 2021 21:39:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0pJOhHalCOQI7CNPLCF/MfvREiZP5xjm22JkU7T65OE=;
+ b=Hv93RUXh1Z3Q+tEkyOUfj/GacorwdT6MPFwGz4Hw++Tte9u0iwDT06L+7NAmYrpiIg
+ 65eBbqriV1rPDWaF/HiGBGd/Pd/cWQzTuplSVdkmLCOsRSkDI3vMCKdQ6dDlv6sxS4qk
+ Hp7EFbHZexEYu6QzcNHtSjYXRwsF31GP7b2BcaYgNOX67gsdSY6zMRTtqxMC/vHxrEd6
+ o5Sg1xQB9lqzXL4sEmTBe4dCNPSgpxsRL/xDtvsMdWJtNddk+YnpmdbueKznCRpLDAUI
+ wqAh8LEAaRPtZJvqmJME/F9yO6tgUsKmaS8muz5tXV/5MIkVDv1LI5ae1rcQWoS4yKf5
+ iIhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xqUIitizMTnYW6S9ohgcqJQ/J1W0YdhVn6Dv9vqrskk=;
- b=Hz/38LC5S6MUJ6WE2RoyLC6xihVDI5zKHvLq7NaTD4OC47a/vfAM9ncs/uN+uMtE0V
- rPocG6FxiICZPocGVwesAPHUOhVSHjEq/PHPKEV0oTR/0Z/HKCC7xcN2rxObI7Wl75rl
- U9OTSf7zd8W69lWYwElf3CKXAB24aMuoTOoPOIYkZc+xAgsKYty4+ik3+sL77nhGBHGo
- jIEuFskS8NeP4r9iPBXvqP+dlqB1UVflcEu2UYe85UQmuLzAvp5Mv7f3HNej/TKJ+vA+
- UsmYFXiHphUuysbL86VRIPq3QBglxe2m6cI0GWTtqcTLetP5IFHLvXlgVpToz8i/jwET
- nGCA==
-X-Gm-Message-State: AOAM5333BIRB5UT/YV0Y9yiEE+JViYfVT7Vd9QPXv/J+cM5cIN9/RTMB
- ZSEJ1rn2NOFnfCVxwonvK04vfmsm5XTGxCoS9MQFpA==
-X-Google-Smtp-Source: ABdhPJxyzaVRIHKqWtfgcw3n5NOIEIk5UCwoTeZ+Esn+3nxwGg5PiW1JJdRjbupSYVJzlFjyNK41/72RfVqZUtibaz8=
-X-Received: by 2002:a62:80cf:0:b029:1f3:1959:2e42 with SMTP id
- j198-20020a6280cf0000b02901f319592e42mr9452067pfd.39.1616164756499; Fri, 19
- Mar 2021 07:39:16 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0pJOhHalCOQI7CNPLCF/MfvREiZP5xjm22JkU7T65OE=;
+ b=Wdd0jf5YmAW7C5/DAk7uGZaL1CjbZA/W2XbbmRtfZvWv+JBZ22yhxuPKWaO37PBwy3
+ nIHJSzzSING0MeUp/9JO1ib1FEG3b7SZqBRTwHoq2Z4PJVMfkQF3bTtqhHRKfN51MORa
+ u6oeg30rXgZwuez7NhQoliUcKoFF587PDcMffyFbISUkO3Q+JprG4qn06z/ZpDQ22zWB
+ WGf94ylV3zKam4ADQWhxYQZ+jMPV4ZXMpOoTL/VH0DR09Sn/kwXsPWtVKtEWGbE3Kj2O
+ vp5VZ3JJpTeMKdU3KbguHkvLNQOT0JTCoGatei0BqOY+ciLuJGBinzxW0vJheGLDhTmv
+ 2hfA==
+X-Gm-Message-State: AOAM533fDWCSEwMrXVKOkomLGisBrcNJ6nkf+sTBf7Ar8IvEiS3be3pb
+ HfB15V3//VvdZ6MitpRsiTM=
+X-Google-Smtp-Source: ABdhPJwhAX/SxVXTbcrANn/VyOtQy7E2wW3G14TkgDUJqG0oDLj9RKl7BlGO6nXO10tgqLmxWJEfHw==
+X-Received: by 2002:a37:8906:: with SMTP id l6mr7814754qkd.232.1616128761345; 
+ Thu, 18 Mar 2021 21:39:21 -0700 (PDT)
+Received: from localhost.localdomain ([37.19.198.87])
+ by smtp.gmail.com with ESMTPSA id m25sm3024917qtq.59.2021.03.18.21.39.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Mar 2021 21:39:20 -0700 (PDT)
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
+ imre.deak@intel.com, ville.syrjala@linux.intel.com,
+ lucas.demarchi@intel.com, matthew.d.roper@intel.com,
+ tejaskumarx.surendrakumar.upadhyay@intel.com, aditya.swarup@intel.com,
+ anusha.srivatsa@intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Fri, 19 Mar 2021 10:07:01 +0530
+Message-Id: <20210319043701.14105-1-unixbhaskar@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-References: <20210219215326.2227596-1-lyude@redhat.com>
- <20210219215326.2227596-11-lyude@redhat.com>
-In-Reply-To: <20210219215326.2227596-11-lyude@redhat.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Fri, 19 Mar 2021 15:39:05 +0100
-Message-ID: <CAG3jFyvL99-b_F2e=A2SsfkiOV5Un3GZUeOfV_Uxb4YxiSf6UA@mail.gmail.com>
-To: Lyude Paul <lyude@redhat.com>
 X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:08 +0000
-Subject: Re: [Intel-gfx] [PATCH 10/30] drm/bridge/analogix/anx6345: Add
- missing drm_dp_aux_unregister() call
+Subject: [Intel-gfx] [PATCH] drm: i915: Fix a typo
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,64 +83,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Sam Ravnborg <sam@ravnborg.org>, amd-gfx@lists.freedesktop.org,
- Vasily Khoruzhick <anarsoul@gmail.com>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Icenowy Zheng <icenowy@aosc.io>, Jonas Karlman <jonas@kwiboo.se>,
- intel-gfx@lists.freedesktop.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- open list <linux-kernel@vger.kernel.org>, Torsten Duwe <duwe@lst.de>,
- Thomas Zimmermann <tzimmermann@suse.de>, Joe Perches <joe@perches.com>
+Cc: rdunlap@infradead.org, Bhaskar Chowdhury <unixbhaskar@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hey Lyude,
 
-Thanks for the patch, it looks good to me.
+s/nothign/nothing/
 
-Reviewed-by: Robert Foss <robert.foss@linaro.org>
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Fri, 19 Feb 2021 at 22:58, Lyude Paul <lyude@redhat.com> wrote:
->
-> Another driver I found that seems to forget to unregister it's DP AUX
-> device. Let's fix this by adding anx6345_bridge_detach().
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
->  drivers/gpu/drm/bridge/analogix/analogix-anx6345.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
-> index d9164fab044d..8e016ba7c54a 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
-> @@ -574,6 +574,11 @@ static int anx6345_bridge_attach(struct drm_bridge *bridge,
->         return 0;
->  }
->
-> +static void anx6345_bridge_detach(struct drm_bridge *bridge)
-> +{
-> +       drm_dp_aux_unregister(&bridge_to_anx6345(bridge)->aux);
-> +}
-> +
->  static enum drm_mode_status
->  anx6345_bridge_mode_valid(struct drm_bridge *bridge,
->                           const struct drm_display_info *info,
-> @@ -624,6 +629,7 @@ static void anx6345_bridge_enable(struct drm_bridge *bridge)
->
->  static const struct drm_bridge_funcs anx6345_bridge_funcs = {
->         .attach = anx6345_bridge_attach,
-> +       .detach = anx6345_bridge_detach,
->         .mode_valid = anx6345_bridge_mode_valid,
->         .disable = anx6345_bridge_disable,
->         .enable = anx6345_bridge_enable,
-> --
-> 2.29.2
->
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index f6ad257a260e..14d784a6fae5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -4185,7 +4185,7 @@ static void icl_pll_disable(struct drm_i915_private *dev_priv,
+ 	/*
+ 	 * DVFS pre sequence would be here, but in our driver the cdclk code
+ 	 * paths should already be setting the appropriate voltage, hence we do
+-	 * nothign here.
++	 * nothing here.
+ 	 */
+
+ 	val = intel_de_read(dev_priv, enable_reg);
+--
+2.26.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
