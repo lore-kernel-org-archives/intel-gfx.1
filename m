@@ -2,77 +2,60 @@ Return-Path: <SRS0=maCC=IV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24AE8C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:38:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE01FC433E2
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:38:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C410C619B1
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:38:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C410C619B1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 81E986157F
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:38:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81E986157F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8566E069;
-	Tue, 23 Mar 2021 12:38:34 +0000 (UTC)
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [IPv6:2607:f8b0:4864:20::730])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3D7E6E81C;
- Tue, 23 Mar 2021 01:16:25 +0000 (UTC)
-Received: by mail-qk1-x730.google.com with SMTP id o5so12774020qkb.0;
- Mon, 22 Mar 2021 18:16:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=S5pECjMsM/qvstnesb/+ZKBN9a5m4sodJTA9keXe8fs=;
- b=dzSqflgkinPRl41IH6b6OavC4s0p/5zLninBkx7jvN5x0aJcq94JpIET1747IB/M34
- /NQ5JHATUU7E2Pl5dV0kMt5gdt+RQRS5LU+f/X7EDMxiVCiFXWAij/EXKpT1w/elqHhD
- rb4eZFhPkBSBN0bIgG7ZSLW7HYN7BvToY6tZT3n40b4ucj1vYqJCWZHebwuP8H10sCmk
- GsUeQdhycaM8SPxIDYfV8dBZH+S86dibxCrrTasFH78QMmsxBZl9rLfkZPoOWLAQ8eQJ
- mC1iozFhXJBE4szBqDdCTGZcdU0VjF8metQOKmbjGoQnHrYGDrl0JhzHfMNLFXszuV44
- LP7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=S5pECjMsM/qvstnesb/+ZKBN9a5m4sodJTA9keXe8fs=;
- b=DwYaUSm3GwvPxULB5Z6yx8cauHW5JD4ZUPy/pO7Sm0rgWTvNTJMtEWo9VFqc225ZGT
- nvSMrjy1fx9t2qlj+Xs3mKbqwqsWxWakYqAW9qWi7hR6tFfdyGmToU29YnDo536SV7ap
- FEMATbdttgXBxDsLzfmwnO3y9wAzkHz+Jkb0JwwgXIjPCTqGOrf9FvCe3GPcfB+Csibc
- TnxVyPzeinRqm9a49XUgu/7ynCTzpDPR7yab8k+YmEohhl5V0cBJEQymLtDp/FjOptqZ
- V8acbrgRIBT41XPjhtq511CUJjqPL3qc3iY+ZI8EvJUyod02rCDItpwskBWwYUcxiPzB
- 71Pw==
-X-Gm-Message-State: AOAM530uSpJB0g0ltjv/YMTL/nZR8vNwRRVXKhBmG8cihvmXsxDxxanM
- RfleZSyZn7WG3WO3J2xQ0Gk=
-X-Google-Smtp-Source: ABdhPJwZ/rCncMQ46/4RmOQg6AKfgCTO4VHUsa9gsBjtXTcAf+WrZsvRdMlXLSN8z2pGmqgSqMrVpQ==
-X-Received: by 2002:a05:620a:1326:: with SMTP id
- p6mr3178972qkj.217.1616462184987; 
- Mon, 22 Mar 2021 18:16:24 -0700 (PDT)
-Received: from localhost.localdomain ([37.19.198.117])
- by smtp.gmail.com with ESMTPSA id i93sm10383114qtd.48.2021.03.22.18.16.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Mar 2021 18:16:24 -0700 (PDT)
-From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
- imre.deak@intel.com, ville.syrjala@linux.intel.com,
- lucas.demarchi@intel.com, matthew.d.roper@intel.com,
- tejaskumarx.surendrakumar.upadhyay@intel.com, unixbhaskar@gmail.com,
- aditya.swarup@intel.com, anusha.srivatsa@intel.com,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 23 Mar 2021 06:46:07 +0530
-Message-Id: <20210323011607.182803-1-unixbhaskar@gmail.com>
-X-Mailer: git-send-email 2.31.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 021A36E8E3;
+	Tue, 23 Mar 2021 12:38:35 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70CBA6E03F;
+ Mon, 22 Mar 2021 22:50:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9008D619AF;
+ Mon, 22 Mar 2021 22:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616453410;
+ bh=uswimGLXSixuyDNhbT1lz8xZrWttoUKDID8KyDH0WG0=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=amyVtju7uIURiCWdHdQflKk1Uy5uaUl0jSM14IOTPFAohfgjX6aNW2KNuxCJtYCAo
+ Iq3iv0T/Fse0yOGtClBFW9lSZE7aaq5x8nvOG96GevRCer6irU7c+80RceV8EVJ5kx
+ MyABhKHnqgLkwgPjFUcsT9rt5Ch7AD6xkqPlfErTbnJ16VSW7CL/8voAWgmiYiZP+2
+ FNG8ibSI2xKBl+QJzXjnar4dGoW1lmiY/KAWQjWwKmqPmSQ5aiKJPzyqeCBCT+W6FE
+ laR6EilYtVT8DnV5kJgvUwfjeNkVR5uJLU421n3+vr2W/G1PBIgRrNWzYxZ4T75LGD
+ pwIqz5PKV+08w==
+Received: by mail-oo1-f42.google.com with SMTP id
+ i25-20020a4aa1190000b02901bbd9429832so4510366ool.0; 
+ Mon, 22 Mar 2021 15:50:10 -0700 (PDT)
+X-Gm-Message-State: AOAM533My+GLmweYJsRLy/BoPt77lxv7gvy0adYG0T6N3Ysy0kVEQ+vD
+ jw7dWxXkGurZTWEROGsBW+8L/RBHkTZCtqPalMI=
+X-Google-Smtp-Source: ABdhPJyFT7IMFvy91F/uYGCzlkCC/fHWW2uOMBKkCcSHVU9m95IK8d72cGqN72gkARj9tN7bu2YOUo8AE/gjduOBJeY=
+X-Received: by 2002:a4a:304a:: with SMTP id z10mr1380770ooz.26.1616453409742; 
+ Mon, 22 Mar 2021 15:50:09 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210322160253.4032422-1-arnd@kernel.org>
+ <20210322160253.4032422-3-arnd@kernel.org>
+ <20210322202958.GA1955909@gmail.com>
+ <b944a853-0e4b-b767-0175-cc2c1edba759@gmail.com>
+In-Reply-To: <b944a853-0e4b-b767-0175-cc2c1edba759@gmail.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Mon, 22 Mar 2021 23:49:53 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a0JW0AqQmHXaveD8za1np+W=Q3D4PuHnYKRd8UJqiwhsw@mail.gmail.com>
+Message-ID: <CAK8P3a0JW0AqQmHXaveD8za1np+W=Q3D4PuHnYKRd8UJqiwhsw@mail.gmail.com>
+To: Martin Sebor <msebor@gmail.com>
 X-Mailman-Approved-At: Tue, 23 Mar 2021 12:38:33 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: A typo fix
+Subject: Re: [Intel-gfx] [PATCH 02/11] x86: tboot: avoid
+ Wstringop-overread-warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,36 +68,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rdunlap@infradead.org
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Will Deacon <will@kernel.org>,
+ Ingo Molnar <mingo@kernel.org>, linux-scsi <linux-scsi@vger.kernel.org>,
+ the arch/x86 maintainers <x86@kernel.org>,
+ James Smart <james.smart@broadcom.com>, tboot-devel@lists.sourceforge.net,
+ Ingo Molnar <mingo@redhat.com>, Kalle Valo <kvalo@codeaurora.org>,
+ ath11k@lists.infradead.org, Serge Hallyn <serge@hallyn.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, Ning Sun <ning.sun@intel.com>,
+ Anders Larsen <al@alarsen.net>, Borislav Petkov <bp@alien8.de>,
+ Cgroups <cgroups@vger.kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Martin Sebor <msebor@gcc.gnu.org>, Networking <netdev@vger.kernel.org>,
+ linux-wireless <linux-wireless@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ LSM List <linux-security-module@vger.kernel.org>, Tejun Heo <tj@kernel.org>,
+ Simon Kelley <simon@thekelleys.org.uk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ Lu Baolu <baolu.lu@linux.intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Mon, Mar 22, 2021 at 11:09 PM Martin Sebor <msebor@gmail.com> wrote:
+> On 3/22/21 2:29 PM, Ingo Molnar wrote:
+> > * Arnd Bergmann <arnd@kernel.org> wrote:
+> >
+> > I.e. the real workaround might be to turn off the -Wstringop-overread-warning,
+> > until GCC-11 gets fixed?
+>
+> In GCC 10 -Wstringop-overread is a subset of -Wstringop-overflow.
+> GCC 11 breaks it out as a separate warning to make it easier to
+> control.  Both warnings have caught some real bugs but they both
+> have a nonzero rate of false positives.  Other than bug reports
+> we don't have enough data to say what their S/N ratio might be
+> but my sense is that it's fairly high in general.
+>
+>    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=wstringop-overread
+>    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=wstringop-overflow
 
-s/nothign/nothing/
+Unfortunately, stringop-overflow is one of the warnings that is
+completely disabled in the kernel at the moment, rather than
+enabled at one of the user-selectable higher warning levels.
 
-Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I have a patch series to change that and to pull some of these
+into the lower W=1 or W=2 levels or even enable them by default.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index f6ad257a260e..14d784a6fae5 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4185,7 +4185,7 @@ static void icl_pll_disable(struct drm_i915_private *dev_priv,
- 	/*
- 	 * DVFS pre sequence would be here, but in our driver the cdclk code
- 	 * paths should already be setting the appropriate voltage, hence we do
--	 * nothign here.
-+	 * nothing here.
- 	 */
+To do this though, I first need to ensure that the actual output
+is empty for the normal builds. I added -Wstringop-overflow to
+the list of warnings I wanted to address because it is a new
+warning and only has a dozen or so occurrences throughout the
+kernel.
 
- 	val = intel_de_read(dev_priv, enable_reg);
---
-2.31.0
+> In GCC 11, all access warnings expect objects to be either declared
+> or allocated.  Pointers with constant values are taken to point to
+> nothing valid (as Arnd mentioned above, this is to detect invalid
+> accesses to members of structs at address zero).
+>
+> One possible solution to the known address problem is to extend GCC
+> attributes address and io that pin an object to a hardwired address
+> to all targets (at the moment they're supported on just one or two
+> targets).  I'm not sure this can still happen before GCC 11 releases
+> sometime in April or May.
+>
+> Until then, another workaround is to convert the fixed address to
+> a volatile pointer before using it for the access, along the lines
+> below.  It should have only a negligible effect on efficiency.
+>
+> diff --git a/arch/x86/kernel/tboot.c b/arch/x86/kernel/tboot.c
+> index 4c09ba110204..76326b906010 100644
+> --- a/arch/x86/kernel/tboot.c
+> +++ b/arch/x86/kernel/tboot.c
+> @@ -67,7 +67,9 @@ void __init tboot_probe(void)
+>          /* Map and check for tboot UUID. */
+>          set_fixmap(FIX_TBOOT_BASE, boot_params.tboot_addr);
+>          tboot = (struct tboot *)fix_to_virt(FIX_TBOOT_BASE);
+> -       if (memcmp(&tboot_uuid, &tboot->uuid, sizeof(tboot->uuid))) {
+> +       if (memcmp(&tboot_uuid,
+> +                  (*(struct tboot* volatile *)(&tboot))->uuid,
+> +                  sizeof(tboot->uuid))) {
+>                  pr_warn("tboot at 0x%llx is invalid\n",
 
+I think a stray 'volatile' would raise too many red flags here, but
+I checked that the RELOC_HIDE() macro has the same effect, e.g.
+
+@@ -66,7 +67,8 @@ void __init tboot_probe(void)
+
+        /* Map and check for tboot UUID. */
+        set_fixmap(FIX_TBOOT_BASE, boot_params.tboot_addr);
+-       tboot = (struct tboot *)fix_to_virt(FIX_TBOOT_BASE);
++       /* RELOC_HIDE to prevent gcc warnings about NULL pointer */
++       tboot = RELOC_HIDE(NULL, fix_to_virt(FIX_TBOOT_BASE));
+        if (memcmp(&tboot_uuid, &tboot->uuid, sizeof(tboot->uuid))) {
+                pr_warn("tboot at 0x%llx is invalid\n", boot_params.tboot_addr);
+                tboot = NULL;
+
+     Arnd
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
