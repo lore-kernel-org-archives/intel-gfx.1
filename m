@@ -7,46 +7,49 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BA40C433C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3461CC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1380460201
+	by mail.kernel.org (Postfix) with ESMTPS id E4EA460201
 	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1380460201
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4EA460201
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C86D96E546;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFE986E54C;
 	Mon, 22 Mar 2021 18:17:40 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8861789CA2;
- Mon, 22 Mar 2021 16:03:56 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4428761998;
- Mon, 22 Mar 2021 16:03:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABA246E505;
+ Mon, 22 Mar 2021 16:05:18 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 72908619A9;
+ Mon, 22 Mar 2021 16:05:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616429036;
- bh=yFqEt0Vza9xx1ZEH6vpmadF/s9WD+9cr+PvfYFx1jTs=;
+ s=k20201202; t=1616429118;
+ bh=EPe3bIidXGt1QSXUt8K/T9qB09rG8+BNJJvNG8YjWag=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DnY2VvcIHWNR00CmYsS8o9sdpXW8IfqlUTn3pfDogyHxX/SIITlr8SG6GxkT3eSRZ
- a7K8jLXsPna4Mm190+MpWcuBICb/n+i193Sgx5UJVnr/NQaks4zNGBOOkdJN7kk+Zx
- IrtL2gHR1/fBjD9NvgLiYwkQqQ/EKWhfodExGrNMHcxDZouSH1dybJZC/EbBnOcXm9
- XQLG8dt1bjMaDOofLpAx013Fhy9k111G7DuVnc/32l3avRksgUDzsBf0x12znYeUYk
- RAdBhG+/y/EhxEsBwjpyhm77vbHfFV6Wbj7ETM5qbIRB/4/X2e34tKnfe8hgDnqlGY
- gToo1OwJ8lpqg==
+ b=odvbczUMlcMOL6OYbdCtO6qt6RZm272nfTphlFLY6klU5CkTn017tx34pnASZGNCF
+ IpTcV7nYkdiHmdTO4YSIbtaihkUG1yjP/yyOdl4AEWNcNqBp3RlBD18ZnYm597BmUn
+ wbL0s1j6ZDhyXNOvtPSEo+IomEmxiiG2PhvFgAApDhn6IwYxk6QphMYP+c26QRueLZ
+ RufWjyGVlIhAtQ1wf9LhLwHYQjNNIjPOnznUa3dYOSsg79XhSsMNd+utp3nEch/2kA
+ G7BxSH7No+IViGt23UWj5mYSj83XwgoEag8qXDcmE/UvDP4IP5Eh1a52oCa4LWy515
+ 1pAfWyFQAG1Kg==
 From: Arnd Bergmann <arnd@kernel.org>
 To: linux-kernel@vger.kernel.org, Martin Sebor <msebor@gcc.gnu.org>,
- Serge Hallyn <serge@hallyn.com>, James Morris <jmorris@namei.org>
-Date: Mon, 22 Mar 2021 17:02:41 +0100
-Message-Id: <20210322160253.4032422-4-arnd@kernel.org>
+ James Smart <james.smart@broadcom.com>,
+ Dick Kennedy <dick.kennedy@broadcom.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>
+Date: Mon, 22 Mar 2021 17:02:47 +0100
+Message-Id: <20210322160253.4032422-10-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210322160253.4032422-1-arnd@kernel.org>
 References: <20210322160253.4032422-1-arnd@kernel.org>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 22 Mar 2021 18:17:39 +0000
-Subject: [Intel-gfx] [PATCH 03/11] security: commoncap: fix
- -Wstringop-overread warning
+Subject: [Intel-gfx] [PATCH 09/11] scsi: lpfc: fix gcc -Wstringop-overread
+ warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,48 +62,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Christian Brauner <christian.brauner@ubuntu.com>, linux-scsi@vger.kernel.org,
- x86@kernel.org, James Smart <james.smart@broadcom.com>,
+Cc: Anders Larsen <al@alarsen.net>, dri-devel@lists.freedesktop.org,
+ Lee Jones <lee.jones@linaro.org>, linux-scsi@vger.kernel.org, x86@kernel.org,
  tboot-devel@lists.sourceforge.net, Kalle Valo <kvalo@codeaurora.org>,
- ath11k@lists.infradead.org, Miklos Szeredi <mszeredi@redhat.com>,
- Kees Cook <keescook@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, Ning Sun <ning.sun@intel.com>,
- Anders Larsen <al@alarsen.net>, cgroups@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-security-module@vger.kernel.org,
- "Eric W. Biederman" <ebiederm@xmission.com>, Tejun Heo <tj@kernel.org>,
- Simon Kelley <simon@thekelleys.org.uk>, intel-gfx@lists.freedesktop.org,
- Tycho Andersen <tycho@tycho.pizza>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ ath11k@lists.infradead.org, Ye Bin <yebin10@huawei.com>,
+ Serge Hallyn <serge@hallyn.com>, Arnd Bergmann <arnd@arndb.de>,
+ intel-gfx@lists.freedesktop.org, Ning Sun <ning.sun@intel.com>,
+ Hannes Reinecke <hare@suse.de>, Colin Ian King <colin.king@canonical.com>,
+ cgroups@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-security-module@vger.kernel.org, Tejun Heo <tj@kernel.org>,
+ Simon Kelley <simon@thekelleys.org.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5kYi5kZT4KCmdjYy0xMSBpbnRyb2RjZXMgYSBo
-YXJtbGVzcyB3YXJuaW5nIGZvciBjYXBfaW5vZGVfZ2V0c2VjdXJpdHk6CgpzZWN1cml0eS9jb21t
-b25jYXAuYzogSW4gZnVuY3Rpb24g4oCYY2FwX2lub2RlX2dldHNlY3VyaXR54oCZOgpzZWN1cml0
-eS9jb21tb25jYXAuYzo0NDA6MzM6IGVycm9yOiDigJhtZW1jcHnigJkgcmVhZGluZyAxNiBieXRl
-cyBmcm9tIGEgcmVnaW9uIG9mIHNpemUgMCBbLVdlcnJvcj1zdHJpbmdvcC1vdmVycmVhZF0KICA0
-NDAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1lbWNweSgmbnNjYXAtPmRhdGEs
-ICZjYXAtPmRhdGEsIHNpemVvZihfX2xlMzIpICogMiAqIFZGU19DQVBfVTMyKTsKICAgICAgfCAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgoKVGhlIHByb2JsZW0gaGVy
-ZSBpcyB0aGF0IHRtcGJ1ZiBpcyBpbml0aWFsaXplZCB0byBOVUxMLCBzbyBnY2MgYXNzdW1lcwpp
-dCBpcyBub3QgYWNjZXNzaWJsZSB1bmxlc3MgaXQgZ2V0cyBzZXQgYnkgdmZzX2dldHhhdHRyX2Fs
-bG9jKCkuICBUaGlzIGlzCmEgbGVnaXRpbWF0ZSB3YXJuaW5nIGFzIGZhciBhcyBJIGNhbiB0ZWxs
-LCBidXQgdGhlIGNvZGUgaXMgY29ycmVjdCBzaW5jZQppdCBjb3JyZWN0bHkgaGFuZGxlcyB0aGUg
-ZXJyb3Igd2hlbiB0aGF0IGZ1bmN0aW9uIGZhaWxzLgoKQWRkIGEgc2VwYXJhdGUgTlVMTCBjaGVj
-ayB0byB0ZWxsIGdjYyBhYm91dCBpdCBhcyB3ZWxsLgoKU2lnbmVkLW9mZi1ieTogQXJuZCBCZXJn
-bWFubiA8YXJuZEBhcm5kYi5kZT4KLS0tCiBzZWN1cml0eS9jb21tb25jYXAuYyB8IDIgKy0KIDEg
-ZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBh
-L3NlY3VyaXR5L2NvbW1vbmNhcC5jIGIvc2VjdXJpdHkvY29tbW9uY2FwLmMKaW5kZXggMjhmNGQy
-NTQ4MGRmLi45YTM2ZWQ2ZGQ3MzcgMTAwNjQ0Ci0tLSBhL3NlY3VyaXR5L2NvbW1vbmNhcC5jCisr
-KyBiL3NlY3VyaXR5L2NvbW1vbmNhcC5jCkBAIC00MDAsNyArNDAwLDcgQEAgaW50IGNhcF9pbm9k
-ZV9nZXRzZWN1cml0eShzdHJ1Y3QgdXNlcl9uYW1lc3BhY2UgKm1udF91c2VybnMsCiAJCQkJICAg
-ICAgJnRtcGJ1Ziwgc2l6ZSwgR0ZQX05PRlMpOwogCWRwdXQoZGVudHJ5KTsKIAotCWlmIChyZXQg
-PCAwKQorCWlmIChyZXQgPCAwIHx8ICF0bXBidWYpCiAJCXJldHVybiByZXQ7CiAKIAlmc19ucyA9
-IGlub2RlLT5pX3NiLT5zX3VzZXJfbnM7Ci0tIAoyLjI5LjIKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+From: Arnd Bergmann <arnd@arndb.de>
+
+gcc-11 warns about an strnlen with a length larger than the size of the
+passed buffer:
+
+drivers/scsi/lpfc/lpfc_attr.c: In function 'lpfc_nvme_info_show':
+drivers/scsi/lpfc/lpfc_attr.c:518:25: error: 'strnlen' specified bound 4095 exceeds source size 24 [-Werror=stringop-overread]
+  518 |                         strnlen(LPFC_NVME_INFO_MORE_STR, PAGE_SIZE - 1)
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In this case, the code is entirely valid, as the string is properly
+terminated, and the size argument is only there out of extra caution
+in case it exceeds a page.
+
+This cannot really happen here, so just simplify it to a sizeof().
+
+Fixes: afff0d2321ea ("scsi: lpfc: Add Buffer overflow check, when nvme_info larger than PAGE_SIZE")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/scsi/lpfc/lpfc_attr.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/scsi/lpfc/lpfc_attr.c b/drivers/scsi/lpfc/lpfc_attr.c
+index bdd9a29f4201..f6d886f9dfb3 100644
+--- a/drivers/scsi/lpfc/lpfc_attr.c
++++ b/drivers/scsi/lpfc/lpfc_attr.c
+@@ -512,11 +512,9 @@ lpfc_nvme_info_show(struct device *dev, struct device_attribute *attr,
+ 				"6314 Catching potential buffer "
+ 				"overflow > PAGE_SIZE = %lu bytes\n",
+ 				PAGE_SIZE);
+-		strlcpy(buf + PAGE_SIZE - 1 -
+-			strnlen(LPFC_NVME_INFO_MORE_STR, PAGE_SIZE - 1),
++		strlcpy(buf + PAGE_SIZE - 1 - sizeof(LPFC_NVME_INFO_MORE_STR),
+ 			LPFC_NVME_INFO_MORE_STR,
+-			strnlen(LPFC_NVME_INFO_MORE_STR, PAGE_SIZE - 1)
+-			+ 1);
++			sizeof(LPFC_NVME_INFO_MORE_STR) + 1);
+ 	}
+ 
+ 	return len;
+-- 
+2.29.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
