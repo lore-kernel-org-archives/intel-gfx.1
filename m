@@ -2,41 +2,72 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95D43C433C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 22:43:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13BF4C433C1
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 23:13:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 31C0161984
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 22:43:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31C0161984
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id C3B70619A9
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 23:13:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3B70619A9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C69BB6E03D;
-	Mon, 22 Mar 2021 22:43:24 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6D6016E03D;
- Mon, 22 Mar 2021 22:43:23 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 5EA53AA912;
- Mon, 22 Mar 2021 22:43:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5C276E042;
+	Mon, 22 Mar 2021 23:13:37 +0000 (UTC)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 188176E041;
+ Mon, 22 Mar 2021 23:13:37 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id j7so18892148wrd.1;
+ Mon, 22 Mar 2021 16:13:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=tYvb3I5DkX3N6jN+5U7mg9SkFokyTC7DYO1POXsmyXA=;
+ b=JAukgRqBFlBqYxoTg07QIe3L0u4Zd4pnU8/KawSiQ9CobCuM3gzIOiljfx6LuzgDWA
+ UowTprAJ6pvQSXvs4KSQRoxyhk97bRV/HvA6p2Z7/U2jyU55VRoMchp/WW94qOWwfctx
+ xjztqDCBK6KyOMwxPOwi4e26tFik5N8gD8ME46WI4P9N9+IGYjmYXftjUoCOmT9YRUhI
+ oxS7NQe6LKxh0Fe3YkrHljuKHXVZGAd59GORjepGb1sCy/oTzRkzKEYxW8PIJ/sFr1d6
+ zI5HyhOjX7JC0HU1eEG4mNxiJ04gBc9w35eUnfsZO8LW67/ihxMVwREYJPst2Xb0XGu3
+ JGJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=tYvb3I5DkX3N6jN+5U7mg9SkFokyTC7DYO1POXsmyXA=;
+ b=OU6TZF9wGheM9uKqNOEjofi9WOvrxDNd8jCWfpV1TTBJuDpHAOiWoz/suHoA4fIaKx
+ l5sQJ/Z5rGcJyvBehQGg8V91XfIzFqfyeZxmeh10cxtNGjwTtRyW28EoutjASpV4+kN6
+ n2uNK1byTAlooAdxvmwFs7LnyrnqzqrsndQitTEyBLuZ/ZZ2OVpTYx/Y6iUkZoOitz60
+ +2SKQ1YGLViXdFWAknuIAvxQksoqvTvTfYEnuV7kNbQI+j7lckFdJXdYZ2yPdEfq1zBS
+ 40d+YhaEezheoaKVfr4gzevjmkkgyWlhXMxdqAKZ4NaEERk8u/8cUbZpUmgaRsOjcqB4
+ uSKw==
+X-Gm-Message-State: AOAM530jVA8veKt6fLGuMUCFhwEPyFMEyK4yJfb7Fd8C6eKpFSnWazBv
+ DhiNNkeW9MjPTnHDIKnKCKo=
+X-Google-Smtp-Source: ABdhPJwD5sKWkDZI+WUiEv9LaU8t0tl7e3Sco91hCCQ6VjFxt+KbUyFjpi5+6SIPcvWKZoMwC1DUgg==
+X-Received: by 2002:adf:b642:: with SMTP id i2mr867183wre.8.1616454815721;
+ Mon, 22 Mar 2021 16:13:35 -0700 (PDT)
+Received: from gmail.com (54033286.catv.pool.telekom.hu. [84.3.50.134])
+ by smtp.gmail.com with ESMTPSA id w6sm20916828wrl.49.2021.03.22.16.13.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Mar 2021 16:13:35 -0700 (PDT)
+Date: Tue, 23 Mar 2021 00:13:32 +0100
+From: Ingo Molnar <mingo@kernel.org>
+To: Martin Sebor <msebor@gmail.com>
+Message-ID: <20210322231332.GA1984184@gmail.com>
+References: <20210322160253.4032422-1-arnd@kernel.org>
+ <20210322160253.4032422-3-arnd@kernel.org>
+ <20210322202958.GA1955909@gmail.com>
+ <b944a853-0e4b-b767-0175-cc2c1edba759@gmail.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matt Roper" <matthew.d.roper@intel.com>
-Date: Mon, 22 Mar 2021 22:43:23 -0000
-Message-ID: <161645300335.19228.6178003035875687031@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210320044245.3920043-1-matthew.d.roper@intel.com>
-In-Reply-To: <20210320044245.3920043-1-matthew.d.roper@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgRGlz?=
- =?utf-8?q?associate_display_version_from_INTEL=5FGEN=28=29_=28rev3=29?=
+Content-Disposition: inline
+In-Reply-To: <b944a853-0e4b-b767-0175-cc2c1edba759@gmail.com>
+Subject: Re: [Intel-gfx] [PATCH 02/11] x86: tboot: avoid
+ Wstringop-overread-warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,289 +80,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1323603810=="
+Cc: dri-devel@lists.freedesktop.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Will Deacon <will@kernel.org>, linux-scsi@vger.kernel.org, x86@kernel.org,
+ James Smart <james.smart@broadcom.com>, tboot-devel@lists.sourceforge.net,
+ Ingo Molnar <mingo@redhat.com>, Kalle Valo <kvalo@codeaurora.org>,
+ intel-gfx@lists.freedesktop.org, Serge Hallyn <serge@hallyn.com>,
+ Arnd Bergmann <arnd@arndb.de>, "James E.J. Bottomley" <jejb@linux.ibm.com>,
+ Ning Sun <ning.sun@intel.com>, Anders Larsen <al@alarsen.net>,
+ Borislav Petkov <bp@alien8.de>, cgroups@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Arnd Bergmann <arnd@kernel.org>, Martin Sebor <msebor@gcc.gnu.org>,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ath11k@lists.infradead.org,
+ linux-security-module@vger.kernel.org, Tejun Heo <tj@kernel.org>,
+ Simon Kelley <simon@thekelleys.org.uk>,
+ Andrew Morton <akpm@linux-foundation.org>, Lu Baolu <baolu.lu@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1323603810==
-Content-Type: multipart/alternative;
- boundary="===============2022862551747051768=="
 
---===============2022862551747051768==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+* Martin Sebor <msebor@gmail.com> wrote:
 
-== Series Details ==
+> > I.e. the real workaround might be to turn off the -Wstringop-overread-warning,
+> > until GCC-11 gets fixed?
+> 
+> In GCC 10 -Wstringop-overread is a subset of -Wstringop-overflow.
+> GCC 11 breaks it out as a separate warning to make it easier to
+> control.  Both warnings have caught some real bugs but they both
+> have a nonzero rate of false positives.  Other than bug reports
+> we don't have enough data to say what their S/N ratio might be
+> but my sense is that it's fairly high in general.
+> 
+>   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=wstringop-overread
+>   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=wstringop-overflow
+> 
+> In GCC 11, all access warnings expect objects to be either declared
+> or allocated.  Pointers with constant values are taken to point to
+> nothing valid (as Arnd mentioned above, this is to detect invalid
+> accesses to members of structs at address zero).
+> 
+> One possible solution to the known address problem is to extend GCC
+> attributes address and io that pin an object to a hardwired address
+> to all targets (at the moment they're supported on just one or two
+> targets).  I'm not sure this can still happen before GCC 11 releases
+> sometime in April or May.
+> 
+> Until then, another workaround is to convert the fixed address to
+> a volatile pointer before using it for the access, along the lines
+> below.  It should have only a negligible effect on efficiency.
 
-Series: Disassociate display version from INTEL_GEN() (rev3)
-URL   : https://patchwork.freedesktop.org/series/88198/
-State : failure
+Thank you for the detailed answer!
 
-== Summary ==
+I think I'll go with Arnd's original patch - which makes the code a 
+slightly bit cleaner by separating out the check_tboot_version() check 
+into a standalone function.
 
-CI Bug Log - changes from CI_DRM_9882 -> Patchwork_19831
-====================================================
+The only ugly aspect is the global nature of the 'tboot' pointer - but 
+that's a self-inflicted wound.
 
-Summary
--------
+I'd also guess that the S/N ratio somewhat unfairly penalizes this 
+warning right now, because the kernel had a decade of growing real 
+fixes via other efforts such as static and dynamic instrumentation as 
+well.
 
-  **FAILURE**
+So the probability of false positive remaining is in fact higher, and 
+going forward we should see a better S/N ratio of this warning. Most 
+of which will never be seen by upstream maintainers, as the mishaps 
+will stay at the individual developer level. :-)
 
-  Serious unknown changes coming with Patchwork_19831 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_19831, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
+Thanks,
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/index.html
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_19831:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@kms_addfb_basic@invalid-set-prop-any:
-    - fi-glk-dsi:         [PASS][1] -> [DMESG-WARN][2] +155 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-glk-dsi/igt@kms_addfb_basic@invalid-set-prop-any.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-glk-dsi/igt@kms_addfb_basic@invalid-set-prop-any.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19831 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_flink_basic@bad-flink:
-    - fi-tgl-y:           [PASS][3] -> [DMESG-WARN][4] ([i915#402]) +1 similar issue
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-tgl-y/igt@gem_flink_basic@bad-flink.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-tgl-y/igt@gem_flink_basic@bad-flink.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-byt-j1900:       NOTRUN -> [SKIP][5] ([fdo#109271]) +27 similar issues
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-byt-j1900/igt@gem_huc_copy@huc-copy.html
-
-  * igt@i915_selftest@live@client:
-    - fi-glk-dsi:         [PASS][6] -> [DMESG-FAIL][7] ([i915#3047])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-glk-dsi/igt@i915_selftest@live@client.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-glk-dsi/igt@i915_selftest@live@client.html
-
-  * igt@kms_chamelium@hdmi-crc-fast:
-    - fi-byt-j1900:       NOTRUN -> [SKIP][8] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-byt-j1900/igt@kms_chamelium@hdmi-crc-fast.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_gttfill@basic:
-    - fi-kbl-8809g:       [TIMEOUT][9] ([i915#3145]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-kbl-8809g/igt@gem_exec_gttfill@basic.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-kbl-8809g/igt@gem_exec_gttfill@basic.html
-
-  * igt@gem_mmap_gtt@basic:
-    - fi-tgl-y:           [DMESG-WARN][11] ([i915#402]) -> [PASS][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-tgl-y/igt@gem_mmap_gtt@basic.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-tgl-y/igt@gem_mmap_gtt@basic.html
-
-  
-#### Warnings ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - fi-glk-dsi:         [DMESG-WARN][13] ([i915#1982] / [i915#3143]) -> [DMESG-WARN][14] ([i915#3143])
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-glk-dsi/igt@i915_pm_rpm@module-reload.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-glk-dsi/igt@i915_pm_rpm@module-reload.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1222]: https://gitlab.freedesktop.org/drm/intel/issues/1222
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-  [i915#3047]: https://gitlab.freedesktop.org/drm/intel/issues/3047
-  [i915#3143]: https://gitlab.freedesktop.org/drm/intel/issues/3143
-  [i915#3145]: https://gitlab.freedesktop.org/drm/intel/issues/3145
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (47 -> 43)
-------------------------------
-
-  Additional (1): fi-byt-j1900 
-  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9882 -> Patchwork_19831
-
-  CI-20190529: 20190529
-  CI_DRM_9882: 34f82d5853a3c6467ccf71e055e3432d2b12ecb9 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6040: 69b578b6ab0a36750f0d23c223a3487fc88fb6a7 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19831: ade0f920fa2677db912cc8bbdd8cee10c9a6c4ed @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-ade0f920fa26 drm/i915/display: Simplify GLK display version tests
-d1ad1ea5e307 drm/i915: Convert INTEL_GEN() to DISPLAY_VER() as appropriate in i915_irq.c
-1f487fdbb53e drm/i915: Convert INTEL_GEN() to DISPLAY_VER() as appropriate in intel_pm.c
-3626652248c9 drm/i915/display: Eliminate most usage of INTEL_GEN()
-da1427ec09b6 drm/i915: Add DISPLAY_VER() and related macros
-88dec695fe5e drm/i915/display: Convert gen5/gen6 tests to IS_IRONLAKE/IS_SANDYBRIDGE
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/index.html
-
---===============2022862551747051768==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Disassociate display version from INTEL_GEN() (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/88198/">https://patchwork.freedesktop.org/series/88198/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9882 -&gt; Patchwork_19831</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_19831 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_19831, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_19831:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@kms_addfb_basic@invalid-set-prop-any:<ul>
-<li>fi-glk-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-glk-dsi/igt@kms_addfb_basic@invalid-set-prop-any.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-glk-dsi/igt@kms_addfb_basic@invalid-set-prop-any.html">DMESG-WARN</a> +155 similar issues</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19831 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_flink_basic@bad-flink:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-tgl-y/igt@gem_flink_basic@bad-flink.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-tgl-y/igt@gem_flink_basic@bad-flink.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-byt-j1900/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +27 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@client:</p>
-<ul>
-<li>fi-glk-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-glk-dsi/igt@i915_selftest@live@client.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-glk-dsi/igt@i915_selftest@live@client.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3047">i915#3047</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@hdmi-crc-fast:</p>
-<ul>
-<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-byt-j1900/igt@kms_chamelium@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_gttfill@basic:</p>
-<ul>
-<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-kbl-8809g/igt@gem_exec_gttfill@basic.html">TIMEOUT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3145">i915#3145</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-kbl-8809g/igt@gem_exec_gttfill@basic.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@gem_mmap_gtt@basic:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-tgl-y/igt@gem_mmap_gtt@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-tgl-y/igt@gem_mmap_gtt@basic.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h4>Warnings</h4>
-<ul>
-<li>igt@i915_pm_rpm@module-reload:<ul>
-<li>fi-glk-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9882/fi-glk-dsi/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3143">i915#3143</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19831/fi-glk-dsi/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3143">i915#3143</a>)</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (47 -&gt; 43)</h2>
-<p>Additional (1): fi-byt-j1900 <br />
-  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9882 -&gt; Patchwork_19831</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9882: 34f82d5853a3c6467ccf71e055e3432d2b12ecb9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6040: 69b578b6ab0a36750f0d23c223a3487fc88fb6a7 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19831: ade0f920fa2677db912cc8bbdd8cee10c9a6c4ed @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>ade0f920fa26 drm/i915/display: Simplify GLK display version tests<br />
-d1ad1ea5e307 drm/i915: Convert INTEL_GEN() to DISPLAY_VER() as appropriate in i915_irq.c<br />
-1f487fdbb53e drm/i915: Convert INTEL_GEN() to DISPLAY_VER() as appropriate in intel_pm.c<br />
-3626652248c9 drm/i915/display: Eliminate most usage of INTEL_GEN()<br />
-da1427ec09b6 drm/i915: Add DISPLAY_VER() and related macros<br />
-88dec695fe5e drm/i915/display: Convert gen5/gen6 tests to IS_IRONLAKE/IS_SANDYBRIDGE</p>
-
-</body>
-</html>
-
---===============2022862551747051768==--
-
---===============1323603810==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+	Ingo
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1323603810==--
