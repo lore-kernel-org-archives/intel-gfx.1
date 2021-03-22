@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3461CC433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E297BC433E0
 	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E4EA460201
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4EA460201
+	by mail.kernel.org (Postfix) with ESMTPS id 8F34461992
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8F34461992
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE986E54C;
-	Mon, 22 Mar 2021 18:17:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 471616E566;
+	Mon, 22 Mar 2021 18:17:41 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABA246E505;
- Mon, 22 Mar 2021 16:05:18 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 72908619A9;
- Mon, 22 Mar 2021 16:05:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4984E6E507;
+ Mon, 22 Mar 2021 16:05:43 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 49D21619CF;
+ Mon, 22 Mar 2021 16:05:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616429118;
- bh=EPe3bIidXGt1QSXUt8K/T9qB09rG8+BNJJvNG8YjWag=;
+ s=k20201202; t=1616429143;
+ bh=ppc9fZupOrjA6hpvzPGCige1HMZi82rKq0OzuPiwp30=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=odvbczUMlcMOL6OYbdCtO6qt6RZm272nfTphlFLY6klU5CkTn017tx34pnASZGNCF
- IpTcV7nYkdiHmdTO4YSIbtaihkUG1yjP/yyOdl4AEWNcNqBp3RlBD18ZnYm597BmUn
- wbL0s1j6ZDhyXNOvtPSEo+IomEmxiiG2PhvFgAApDhn6IwYxk6QphMYP+c26QRueLZ
- RufWjyGVlIhAtQ1wf9LhLwHYQjNNIjPOnznUa3dYOSsg79XhSsMNd+utp3nEch/2kA
- G7BxSH7No+IViGt23UWj5mYSj83XwgoEag8qXDcmE/UvDP4IP5Eh1a52oCa4LWy515
- 1pAfWyFQAG1Kg==
+ b=KfNQhB8I6TCilI9rWZIUvrD60VxxXK7zzzf2CzYQVcPCX4dTFC+5vrq57/HXue9eN
+ 7bPBi+K09Uuo8FgLHJN5cLADDDnPtd+D6sEhJhO/VLvKBoLaRa1BESfKHtMpZuvnwh
+ D3Vc4uZU9Dcg74j9eeiZa4qkcbeOz2ZvcezhMcicUmJ4FzCGExiFKR4ER32CvaOaWV
+ akMTcdJNfGrFGH5JvGZ7qns0oNxpRTzGH0qZ76EqyoQfhjLJvxqyHurET1PBvf6svb
+ dBMESSwDo3iJsmPDGBQ1mVtfw03/ahNqDciEznfWOfvZZJNzU8YYxi4I1doMFPdTRo
+ oo8eGNoKcMUqQ==
 From: Arnd Bergmann <arnd@kernel.org>
 To: linux-kernel@vger.kernel.org, Martin Sebor <msebor@gcc.gnu.org>,
- James Smart <james.smart@broadcom.com>,
- Dick Kennedy <dick.kennedy@broadcom.com>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Date: Mon, 22 Mar 2021 17:02:47 +0100
-Message-Id: <20210322160253.4032422-10-arnd@kernel.org>
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Mon, 22 Mar 2021 17:02:49 +0100
+Message-Id: <20210322160253.4032422-12-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210322160253.4032422-1-arnd@kernel.org>
 References: <20210322160253.4032422-1-arnd@kernel.org>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 22 Mar 2021 18:17:39 +0000
-Subject: [Intel-gfx] [PATCH 09/11] scsi: lpfc: fix gcc -Wstringop-overread
+Subject: [Intel-gfx] [PATCH 11/11] [RFC] drm/i915/dp: fix array overflow
  warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,66 +62,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Anders Larsen <al@alarsen.net>, dri-devel@lists.freedesktop.org,
- Lee Jones <lee.jones@linaro.org>, linux-scsi@vger.kernel.org, x86@kernel.org,
- tboot-devel@lists.sourceforge.net, Kalle Valo <kvalo@codeaurora.org>,
- ath11k@lists.infradead.org, Ye Bin <yebin10@huawei.com>,
+Cc: dri-devel@lists.freedesktop.org, linux-scsi@vger.kernel.org, x86@kernel.org,
+ James Smart <james.smart@broadcom.com>, tboot-devel@lists.sourceforge.net,
+ Kalle Valo <kvalo@codeaurora.org>, ath11k@lists.infradead.org,
  Serge Hallyn <serge@hallyn.com>, Arnd Bergmann <arnd@arndb.de>,
- intel-gfx@lists.freedesktop.org, Ning Sun <ning.sun@intel.com>,
- Hannes Reinecke <hare@suse.de>, Colin Ian King <colin.king@canonical.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, Ning Sun <ning.sun@intel.com>,
+ Anders Larsen <al@alarsen.net>, Sean Paul <seanpaul@chromium.org>,
  cgroups@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
  linux-security-module@vger.kernel.org, Tejun Heo <tj@kernel.org>,
- Simon Kelley <simon@thekelleys.org.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Simon Kelley <simon@thekelleys.org.uk>, intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
-
-gcc-11 warns about an strnlen with a length larger than the size of the
-passed buffer:
-
-drivers/scsi/lpfc/lpfc_attr.c: In function 'lpfc_nvme_info_show':
-drivers/scsi/lpfc/lpfc_attr.c:518:25: error: 'strnlen' specified bound 4095 exceeds source size 24 [-Werror=stringop-overread]
-  518 |                         strnlen(LPFC_NVME_INFO_MORE_STR, PAGE_SIZE - 1)
-      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In this case, the code is entirely valid, as the string is properly
-terminated, and the size argument is only there out of extra caution
-in case it exceeds a page.
-
-This cannot really happen here, so just simplify it to a sizeof().
-
-Fixes: afff0d2321ea ("scsi: lpfc: Add Buffer overflow check, when nvme_info larger than PAGE_SIZE")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/scsi/lpfc/lpfc_attr.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/scsi/lpfc/lpfc_attr.c b/drivers/scsi/lpfc/lpfc_attr.c
-index bdd9a29f4201..f6d886f9dfb3 100644
---- a/drivers/scsi/lpfc/lpfc_attr.c
-+++ b/drivers/scsi/lpfc/lpfc_attr.c
-@@ -512,11 +512,9 @@ lpfc_nvme_info_show(struct device *dev, struct device_attribute *attr,
- 				"6314 Catching potential buffer "
- 				"overflow > PAGE_SIZE = %lu bytes\n",
- 				PAGE_SIZE);
--		strlcpy(buf + PAGE_SIZE - 1 -
--			strnlen(LPFC_NVME_INFO_MORE_STR, PAGE_SIZE - 1),
-+		strlcpy(buf + PAGE_SIZE - 1 - sizeof(LPFC_NVME_INFO_MORE_STR),
- 			LPFC_NVME_INFO_MORE_STR,
--			strnlen(LPFC_NVME_INFO_MORE_STR, PAGE_SIZE - 1)
--			+ 1);
-+			sizeof(LPFC_NVME_INFO_MORE_STR) + 1);
- 	}
- 
- 	return len;
--- 
-2.29.2
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5kYi5kZT4KCmdjYy0xMSB3YXJucyB0aGF0IGlu
+dGVsX2RwX2NoZWNrX21zdF9zdGF0dXMoKSBoYXMgYSBsb2NhbCBhcnJheSBvZgpmb3VydGVlbiBi
+eXRlcyBhbmQgcGFzc2VzIHRoZSBsYXN0IGZvdXIgYnl0ZXMgaW50byBhIGZ1bmN0aW9uIHRoYXQK
+ZXhwZWN0cyBhIHNpeC1ieXRlIGFycmF5OgoKZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9kcC5jOiBJbiBmdW5jdGlvbiDigJhpbnRlbF9kcF9jaGVja19tc3Rfc3RhdHVz4oCZOgpk
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmM6NDU1NjoyMjogZXJyb3I6IOKA
+mGRybV9kcF9jaGFubmVsX2VxX29r4oCZIHJlYWRpbmcgNiBieXRlcyBmcm9tIGEgcmVnaW9uIG9m
+IHNpemUgNCBbLVdlcnJvcj1zdHJpbmdvcC1vdmVycmVhZF0KIDQ1NTYgfCAgICAgICAgICAgICAg
+ICAgICAgICFkcm1fZHBfY2hhbm5lbF9lcV9vaygmZXNpWzEwXSwgaW50ZWxfZHAtPmxhbmVfY291
+bnQpKSB7CiAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgpkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX2RwLmM6NDU1NjoyMjogbm90ZTogcmVmZXJlbmNpbmcgYXJndW1lbnQgMSBvZiB0
+eXBlIOKAmGNvbnN0IHU4ICrigJkge2FrYSDigJhjb25zdCB1bnNpZ25lZCBjaGFyICrigJl9Cklu
+IGZpbGUgaW5jbHVkZWQgZnJvbSBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rw
+LmM6Mzg6CmluY2x1ZGUvZHJtL2RybV9kcF9oZWxwZXIuaDoxNDU5OjY6IG5vdGU6IGluIGEgY2Fs
+bCB0byBmdW5jdGlvbiDigJhkcm1fZHBfY2hhbm5lbF9lcV9va+KAmQogMTQ1OSB8IGJvb2wgZHJt
+X2RwX2NoYW5uZWxfZXFfb2soY29uc3QgdTggbGlua19zdGF0dXNbRFBfTElOS19TVEFUVVNfU0la
+RV0sCiAgICAgIHwgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fgoKQ2xlYXJseSBzb21ldGhpbmcg
+aXMgd3JvbmcgaGVyZSwgYnV0IEkgY2FuJ3QgcXVpdGUgZmlndXJlIG91dCB3aGF0LgpDaGFuZ2lu
+ZyB0aGUgYXJyYXkgc2l6ZSB0byAxNiBieXRlcyBhdm9pZHMgdGhlIHdhcm5pbmcsIGJ1dCBpcwpw
+cm9iYWJseSB0aGUgd3Jvbmcgc29sdXRpb24gaGVyZS4KClNpZ25lZC1vZmYtYnk6IEFybmQgQmVy
+Z21hbm4gPGFybmRAYXJuZGIuZGU+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9kcC5jIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
+aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9k
+cC5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCmluZGV4IDhjMTJk
+NTM3NTYwNy4uODMwZTI1MTVmMTE5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2RwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9kcC5jCkBAIC02NSw3ICs2NSw3IEBACiAjaW5jbHVkZSAiaW50ZWxfdmRzYy5oIgogI2luY2x1
+ZGUgImludGVsX3Zyci5oIgogCi0jZGVmaW5lIERQX0RQUlhfRVNJX0xFTiAxNAorI2RlZmluZSBE
+UF9EUFJYX0VTSV9MRU4gMTYKIAogLyogRFAgRFNDIHRocm91Z2hwdXQgdmFsdWVzIHVzZWQgZm9y
+IHNsaWNlIGNvdW50IGNhbGN1bGF0aW9ucyBLUGl4ZWxzL3MgKi8KICNkZWZpbmUgRFBfRFNDX1BF
+QUtfUElYRUxfUkFURQkJCTI3MjAwMDAKLS0gCjIuMjkuMgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
