@@ -2,50 +2,45 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C444EC433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 819F8C433C1
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6AA4C60201
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AA4C60201
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1C27461992
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C27461992
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ubuntu.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 487D66E53C;
-	Mon, 22 Mar 2021 18:17:40 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 201256E4FE;
- Mon, 22 Mar 2021 16:04:26 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D63E5619A4;
- Mon, 22 Mar 2021 16:04:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616429066;
- bh=nkpO3F9iV2LP9C5b1X1yN1ZVysmYmotRTLuBUWIaptM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MU4IL9JNNK+J8U+vvpLpwovR+/suU+W9R4RhhhMaub4p/qt1HSm7/5H/LxJjfRA1v
- f+dccndcC0t+6DndIOBCJbVJvgtAFbUO/Xj+Ad4PAK3HRVGVN0VmdJVzwNG2nWP60W
- yoMi7GzhcMMul2Me0RQEOrAkh9+ikItIp0T7LrmMn4UxhxHfYhCqAAaad++VD478Ly
- WRurbxWp7EoqaQbB5aDSFB4iZyCpOkFivtOdus8BKdINgwMELaIsTcoM1dTXGsBCvO
- NUlZI47cRIaTlBnQpp36y5LIoHJRasVTH3KqfKgtuhF/A3Vph299qnut15q3EDnfE2
- ATElHLu2Uchbw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: linux-kernel@vger.kernel.org, Martin Sebor <msebor@gcc.gnu.org>,
- Anders Larsen <al@alarsen.net>
-Date: Mon, 22 Mar 2021 17:02:43 +0100
-Message-Id: <20210322160253.4032422-6-arnd@kernel.org>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210322160253.4032422-1-arnd@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F364F6E17E;
+	Mon, 22 Mar 2021 18:17:39 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D6A6E4F8;
+ Mon, 22 Mar 2021 16:31:54 +0000 (UTC)
+Received: from ip5f5af0a0.dynamic.kabel-deutschland.de ([95.90.240.160]
+ helo=wittgenstein) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <christian.brauner@ubuntu.com>)
+ id 1lONSm-0008Gw-T8; Mon, 22 Mar 2021 16:31:33 +0000
+Date: Mon, 22 Mar 2021 17:31:31 +0100
+From: Christian Brauner <christian.brauner@ubuntu.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Message-ID: <20210322163131.yaovowes2raydgyg@wittgenstein>
 References: <20210322160253.4032422-1-arnd@kernel.org>
+ <20210322160253.4032422-4-arnd@kernel.org>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210322160253.4032422-4-arnd@kernel.org>
 X-Mailman-Approved-At: Mon, 22 Mar 2021 18:17:39 +0000
-Subject: [Intel-gfx] [PATCH 05/11] qnx: avoid -Wstringop-overread warning
+Subject: Re: [Intel-gfx] [PATCH 03/11] security: commoncap: fix
+ -Wstringop-overread warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,63 +53,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, x86@kernel.org,
- linux-wireless@vger.kernel.org, James Smart <james.smart@broadcom.com>,
- ath11k@lists.infradead.org, Ning Sun <ning.sun@intel.com>,
- tboot-devel@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
- cgroups@vger.kernel.org, linux-scsi@vger.kernel.org, Tejun Heo <tj@kernel.org>,
+Cc: dri-devel@lists.freedesktop.org, James Morris <jmorris@namei.org>,
+ linux-scsi@vger.kernel.org, x86@kernel.org,
+ James Smart <james.smart@broadcom.com>, tboot-devel@lists.sourceforge.net,
+ Kalle Valo <kvalo@codeaurora.org>, ath11k@lists.infradead.org,
+ Serge Hallyn <serge@hallyn.com>, Miklos Szeredi <mszeredi@redhat.com>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, Ning Sun <ning.sun@intel.com>,
+ Anders Larsen <al@alarsen.net>, cgroups@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Martin Sebor <msebor@gcc.gnu.org>,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ "Eric W. Biederman" <ebiederm@xmission.com>, Tejun Heo <tj@kernel.org>,
  Simon Kelley <simon@thekelleys.org.uk>, intel-gfx@lists.freedesktop.org,
- Kalle Valo <kvalo@codeaurora.org>, Serge Hallyn <serge@hallyn.com>
+ Tycho Andersen <tycho@tycho.pizza>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5kYi5kZT4KCmdjYy0xMSB3YXJucyB0aGF0IHRo
-ZSBzaXplIG9mIHRoZSBsaW5rIG5hbWUgaXMgbG9uZ2VyIHRoYW4gdGhlIGRpX2ZuYW1lCmZpZWxk
-OgoKZnMvcW54NC9kaXIuYzogSW4gZnVuY3Rpb24g4oCYcW54NF9yZWFkZGly4oCZOgpmcy9xbng0
-L2Rpci5jOjUxOjMyOiBlcnJvcjog4oCYc3RybmxlbuKAmSBzcGVjaWZpZWQgYm91bmQgNDggZXhj
-ZWVkcyBzb3VyY2Ugc2l6ZSAxNiBbLVdlcnJvcj1zdHJpbmdvcC1vdmVycmVhZF0KICAgNTEgfCAg
-ICAgICAgICAgICAgICAgICAgICAgICBzaXplID0gc3RybmxlbihkZS0+ZGlfZm5hbWUsIHNpemUp
-OwogICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn5+fn4KSW4gZmlsZSBpbmNsdWRlZCBmcm9tIGZzL3FueDQvcW54NC5oOjMsCiAgICAg
-ICAgICAgICAgICAgZnJvbSBmcy9xbng0L2Rpci5jOjE2OgppbmNsdWRlL3VhcGkvbGludXgvcW54
-NF9mcy5oOjQ1OjI1OiBub3RlOiBzb3VyY2Ugb2JqZWN0IGRlY2xhcmVkIGhlcmUKICAgNDUgfCAg
-ICAgICAgIGNoYXIgICAgICAgICAgICBkaV9mbmFtZVtRTlg0X1NIT1JUX05BTUVfTUFYXTsKClRo
-ZSBwcm9ibGVtIGhlcmUgaXMgdGhhdCB3ZSBhY2Nlc3MgdGhlIHNhbWUgcG9pbnRlciB1c2luZyB0
-d28gZGlmZmVyZW50CnN0cnVjdHVyZSBsYXlvdXRzLCBidXQgZ2NjIGRldGVybWluZXMgdGhlIG9i
-amVjdCBzaXplIGJhc2VkIG9uCndoYXRldmVyIGl0IGVuY291bnRlcnMgZmlyc3QuCgpDaGFuZ2Ug
-dGhlIHN0cm5sZW4gdG8gdXNlIHRoZSBjb3JyZWN0IGZpZWxkIHNpemUgaW4gZWFjaCBjYXNlLCBh
-bmQKY2hhbmdlIHRoZSBmaXJzdCBhY2Nlc3MgdG8gYmUgb24gdGhlIGxvbmdlciBmaWVsZC4KCkxp
-bms6IGh0dHBzOi8vZ2NjLmdudS5vcmcvYnVnemlsbGEvc2hvd19idWcuY2dpP2lkPTk5NTc4ClNp
-Z25lZC1vZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+Ci0tLQogZnMvcW54NC9k
-aXIuYyB8IDExICsrKysrLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA2
-IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2ZzL3FueDQvZGlyLmMgYi9mcy9xbng0L2Rpci5j
-CmluZGV4IGE2ZWUyM2FhZGQyOC4uNjgwNDY0NTBlNTQzIDEwMDY0NAotLS0gYS9mcy9xbng0L2Rp
-ci5jCisrKyBiL2ZzL3FueDQvZGlyLmMKQEAgLTM5LDIxICszOSwyMCBAQCBzdGF0aWMgaW50IHFu
-eDRfcmVhZGRpcihzdHJ1Y3QgZmlsZSAqZmlsZSwgc3RydWN0IGRpcl9jb250ZXh0ICpjdHgpCiAJ
-CWl4ID0gKGN0eC0+cG9zID4+IFFOWDRfRElSX0VOVFJZX1NJWkVfQklUUykgJSBRTlg0X0lOT0RF
-U19QRVJfQkxPQ0s7CiAJCWZvciAoOyBpeCA8IFFOWDRfSU5PREVTX1BFUl9CTE9DSzsgaXgrKywg
-Y3R4LT5wb3MgKz0gUU5YNF9ESVJfRU5UUllfU0laRSkgewogCQkJb2Zmc2V0ID0gaXggKiBRTlg0
-X0RJUl9FTlRSWV9TSVpFOwotCQkJZGUgPSAoc3RydWN0IHFueDRfaW5vZGVfZW50cnkgKikgKGJo
-LT5iX2RhdGEgKyBvZmZzZXQpOwotCQkJaWYgKCFkZS0+ZGlfZm5hbWVbMF0pCisJCQlsZSA9IChz
-dHJ1Y3QgcW54NF9saW5rX2luZm8gKikoYmgtPmJfZGF0YSArIG9mZnNldCk7CisJCQlkZSA9IChz
-dHJ1Y3QgcW54NF9pbm9kZV9lbnRyeSAqKShiaC0+Yl9kYXRhICsgb2Zmc2V0KTsKKwkJCWlmICgh
-bGUtPmRsX2ZuYW1lWzBdKQogCQkJCWNvbnRpbnVlOwogCQkJaWYgKCEoZGUtPmRpX3N0YXR1cyAm
-IChRTlg0X0ZJTEVfVVNFRHxRTlg0X0ZJTEVfTElOSykpKQogCQkJCWNvbnRpbnVlOwogCQkJaWYg
-KCEoZGUtPmRpX3N0YXR1cyAmIFFOWDRfRklMRV9MSU5LKSkKLQkJCQlzaXplID0gUU5YNF9TSE9S
-VF9OQU1FX01BWDsKKwkJCQlzaXplID0gc3RybmxlbihkZS0+ZGlfZm5hbWUsIHNpemVvZihkZS0+
-ZGlfZm5hbWUpKTsKIAkJCWVsc2UKLQkJCQlzaXplID0gUU5YNF9OQU1FX01BWDsKLQkJCXNpemUg
-PSBzdHJubGVuKGRlLT5kaV9mbmFtZSwgc2l6ZSk7CisJCQkJc2l6ZSA9IHN0cm5sZW4obGUtPmRs
-X2ZuYW1lLCBzaXplb2YobGUtPmRsX2ZuYW1lKSk7CiAJCQlRTlg0REVCVUcoKEtFUk5fSU5GTyAi
-cW54NF9yZWFkZGlyOiUuKnNcbiIsIHNpemUsIGRlLT5kaV9mbmFtZSkpOwogCQkJaWYgKCEoZGUt
-PmRpX3N0YXR1cyAmIFFOWDRfRklMRV9MSU5LKSkKIAkJCQlpbm8gPSBibGtudW0gKiBRTlg0X0lO
-T0RFU19QRVJfQkxPQ0sgKyBpeCAtIDE7CiAJCQllbHNlIHsKLQkJCQlsZSAgPSAoc3RydWN0IHFu
-eDRfbGlua19pbmZvKilkZTsKIAkJCQlpbm8gPSAoIGxlMzJfdG9fY3B1KGxlLT5kbF9pbm9kZV9i
-bGspIC0gMSApICoKIAkJCQkJUU5YNF9JTk9ERVNfUEVSX0JMT0NLICsKIAkJCQkJbGUtPmRsX2lu
-b2RlX25keDsKLS0gCjIuMjkuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-aW50ZWwtZ2Z4Cg==
+T24gTW9uLCBNYXIgMjIsIDIwMjEgYXQgMDU6MDI6NDFQTSArMDEwMCwgQXJuZCBCZXJnbWFubiB3
+cm90ZToKPiBGcm9tOiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPgo+IAo+IGdjYy0xMSBp
+bnRyb2RjZXMgYSBoYXJtbGVzcyB3YXJuaW5nIGZvciBjYXBfaW5vZGVfZ2V0c2VjdXJpdHk6Cj4g
+Cj4gc2VjdXJpdHkvY29tbW9uY2FwLmM6IEluIGZ1bmN0aW9uIOKAmGNhcF9pbm9kZV9nZXRzZWN1
+cml0eeKAmToKPiBzZWN1cml0eS9jb21tb25jYXAuYzo0NDA6MzM6IGVycm9yOiDigJhtZW1jcHni
+gJkgcmVhZGluZyAxNiBieXRlcyBmcm9tIGEgcmVnaW9uIG9mIHNpemUgMCBbLVdlcnJvcj1zdHJp
+bmdvcC1vdmVycmVhZF0KPiAgIDQ0MCB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+bWVtY3B5KCZuc2NhcC0+ZGF0YSwgJmNhcC0+ZGF0YSwgc2l6ZW9mKF9fbGUzMikgKiAyICogVkZT
+X0NBUF9VMzIpOwo+ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+
+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn4KPiAKPiBUaGUgcHJvYmxlbSBoZXJlIGlzIHRoYXQgdG1wYnVmIGlzIGluaXRpYWxpemVk
+IHRvIE5VTEwsIHNvIGdjYyBhc3N1bWVzCj4gaXQgaXMgbm90IGFjY2Vzc2libGUgdW5sZXNzIGl0
+IGdldHMgc2V0IGJ5IHZmc19nZXR4YXR0cl9hbGxvYygpLiAgVGhpcyBpcwo+IGEgbGVnaXRpbWF0
+ZSB3YXJuaW5nIGFzIGZhciBhcyBJIGNhbiB0ZWxsLCBidXQgdGhlIGNvZGUgaXMgY29ycmVjdCBz
+aW5jZQo+IGl0IGNvcnJlY3RseSBoYW5kbGVzIHRoZSBlcnJvciB3aGVuIHRoYXQgZnVuY3Rpb24g
+ZmFpbHMuCj4gCj4gQWRkIGEgc2VwYXJhdGUgTlVMTCBjaGVjayB0byB0ZWxsIGdjYyBhYm91dCBp
+dCBhcyB3ZWxsLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIu
+ZGU+Cj4gLS0tCgpTZWVtcyByZWFzb25hYmxlLApBY2tlZC1ieTogQ2hyaXN0aWFuIEJyYXVuZXIg
+PGNocmlzdGlhbi5icmF1bmVyQHVidW50dS5jb20+Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2ludGVsLWdmeAo=
