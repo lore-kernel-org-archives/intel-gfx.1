@@ -2,55 +2,89 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6C11C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD32CC433C1
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 10:45:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B1F661931
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B1F661931
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=163.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8D58361937
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 10:45:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D58361937
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23C0689E05;
-	Mon, 22 Mar 2021 09:10:28 +0000 (UTC)
-X-Greylist: delayed 950 seconds by postgrey-1.36 at gabe;
- Wed, 17 Mar 2021 07:58:31 UTC
-Received: from m12-13.163.com (m12-13.163.com [220.181.12.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 492D86E4D7
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Mar 2021 07:58:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=HhDgB
- qjBcvhk9CXs4aaWu4TwFYv97w8AoJIatOGi19I=; b=US64WvfuweYjELoxrxu9I
- LVTMj2SXNE59ryxPTwN0aoWvBnVLYVTwPmTexdAptIzmkPCey1DWlMEP1OSWt2zM
- 4FLKSQoPcnBm+/6UfZDZXB70qIEOAH5v2c9Jwj6yuDfyae35IQ9Tl2APb7Uc2GIx
- gLI+B7CIzTTGe5hboyM3l0=
-Received: from COOL-20201210PM.ccdomain.com (unknown [218.94.48.178])
- by smtp9 (Coremail) with SMTP id DcCowAC3IwHaslFgA0SmBg--.14447S2;
- Wed, 17 Mar 2021 15:42:22 +0800 (CST)
-From: zuoqilin1@163.com
-To: airlied@linux.ie,
-	daniel@ffwll.ch
-Date: Wed, 17 Mar 2021 15:42:28 +0800
-Message-Id: <20210317074228.1147-1-zuoqilin1@163.com>
-X-Mailer: git-send-email 2.28.0.windows.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 260C589E39;
+	Mon, 22 Mar 2021 10:45:46 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56E4989E39
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 10:45:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1616409943;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=wLOlRGmSw6H8c6zYxSZmN4y6MM8bdfuIMK8QdGlAqUc=;
+ b=OOLjtC8ZonI3b5vIY3gDkfp/7MaCbM2sswsvRukB5UoGvCEmt9jTAWIlqlB1aITv8yng5I
+ TKuZNTsRZSwFCeHIJUge/MtLXriVsJmEpJd7MFZXYm0PgHOfl/hIecv/gapHHjGNIzf+I4
+ /foM/KFoQplJBYQF5tkSV1UTfuwU2lo=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-447-DpQ119bWMlao8r5JVPim3A-1; Mon, 22 Mar 2021 06:45:41 -0400
+X-MC-Unique: DpQ119bWMlao8r5JVPim3A-1
+Received: by mail-ej1-f70.google.com with SMTP id h14so19726202ejg.7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 03:45:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=wLOlRGmSw6H8c6zYxSZmN4y6MM8bdfuIMK8QdGlAqUc=;
+ b=SUYjwp3QKHtt/C2TjaVhALaKHhMyBZzm0mQpvTihd+ltR7xfI+cfEAzGDP6VCXiO2W
+ +f42a7C9UfP4DjIetwG4gztk8TPoNeJuOW6fGrhPDxIGtxvAxMBx/cPwSS5FrBxnqjaL
+ uo3h+bWtNxqyU+VzEJFeySBiLGEZObvumcgTSHI/TAT72ZkSybYbJajP3Q/iPe+anXNh
+ 6sa+dSineZFMFo2uiQn51KeivbcBNxKWYJ+oT7KQO1CVtil1/xm/AxWdSFDKRa7GQp+n
+ Mwplk+8YlNO+cUWHzEh6VX+gJ79lnStynbSTCdF10YFV/+Yiaic9QLg4Gf/k3BRKpIFn
+ LHdA==
+X-Gm-Message-State: AOAM530zoqaiUXk1iLLeVh63M8bwV0AmnnDHFWWRVnYI+pxnqYgwInXk
+ PfCtl9aG6hzv3ORn/mWnC25si6K8OWaRUX/iJf9PAij5Y4+GNMJQRRAWnwadN6TaXqmjMWZxaOj
+ hCcuezFiTG+L0b5w3SLjsWZkbroLvhTjKb8bdra4mRRgff6HQcxdm26B3z1hfESpDtFGiN7gRhw
+ J7LUDM
+X-Received: by 2002:a17:906:c45a:: with SMTP id
+ ck26mr18290800ejb.125.1616409940377; 
+ Mon, 22 Mar 2021 03:45:40 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz1B1FCsOQvuCU/TLfhxHzP/F0ih8FpySlvCLUzguQ9/x1GoUIxfAs+nmAj/C5NtR1/U4T0Lg==
+X-Received: by 2002:a17:906:c45a:: with SMTP id
+ ck26mr18290777ejb.125.1616409940222; 
+ Mon, 22 Mar 2021 03:45:40 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id i10sm9419925ejv.106.2021.03.22.03.45.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Mar 2021 03:45:39 -0700 (PDT)
+To: =?UTF-8?Q?Mario_H=c3=bcttel?= <mario.huettel@gmx.net>,
+ intel-gfx@lists.freedesktop.org
+References: <28b8cfd3f29d3e5ed4224c687ef173d6c45e028d.camel@gmx.net>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <5ad5226b-91ce-8685-4c3f-e6890dd642a2@redhat.com>
+Date: Mon, 22 Mar 2021 11:45:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-X-CM-TRANSID: DcCowAC3IwHaslFgA0SmBg--.14447S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFyrGF43Ary7XF4fGr48JFb_yoWftrb_C3
- WfZrs8uayUZ3Z0vr1akrn8ZrWSv3WYvrW8X3y0q34Fyw12yr1UGrsrWryxXw15XF1UtFWD
- Xa18XFn5ZFsrWjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0UEf5UUUUU==
-X-Originating-IP: [218.94.48.178]
-X-CM-SenderInfo: 52xr1xpolqiqqrwthudrp/1tbiZR5YiV8ZNQXaRgAAsA
-X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:08 +0000
-Subject: [Intel-gfx] [PATCH] display: Fix typo issue
+In-Reply-To: <28b8cfd3f29d3e5ed4224c687ef173d6c45e028d.camel@gmx.net>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [bug report] drm/i915: Computer does not shutdown,
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,40 +97,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zuoqilin <zuoqilin@yulong.com>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: zuoqilin <zuoqilin@yulong.com>
-
-Change 'befor' to 'before'.
-
-Signed-off-by: zuoqilin <zuoqilin@yulong.com>
----
- drivers/gpu/drm/i915/display/vlv_dsi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index f94025e..45187ff 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -846,7 +846,7 @@ static void intel_dsi_pre_enable(struct intel_atomic_state *state,
- 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_INIT_OTP);
- 
- 	/* Enable port in pre-enable phase itself because as per hw team
--	 * recommendation, port should be enabled befor plane & pipe */
-+	 * recommendation, port should be enabled before plane & pipe */
- 	if (is_cmd_mode(intel_dsi)) {
- 		for_each_dsi_port(port, intel_dsi->ports)
- 			intel_de_write(dev_priv,
--- 
-1.9.1
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SGksCgpPbiAzLzE0LzIxIDExOjMwIEFNLCBNYXJpbyBIw7x0dGVsIHdyb3RlOgo+IEhlbGxvLAo+
+IAo+IEl0IHNlZW1zLCBsaWtlIHRoZSBtYWlsaW5nIGxpc3QsIGRpZG4ndCBhY2NlcHQgbXkgZW1h
+aWwuIFNvIEknbGwgc2VuZAo+IGl0IGFnYWluOgo+IAo+IEkgd2FudCB0byByZXBvcnQgYSBidWcu
+IEkgaGF2ZSBhIFBDIHdpdGggSW50ZWwgaTctNjcwMEsgcHJvY2Vzc29yICh3aXRoCj4gaW50ZWdy
+YXRlZCBncmFwaGljcykgYW5kIGFuIEFzUm9jayBGYXRhbDF0eSBaMTcwIEdhbWluZyBLNiBtYWlu
+Ym9hcmQuIEkKPiB1c2UgdGhlIENQVSdzIGludGVncmF0ZWQgZ3JhcGhpY3MuCj4gTXkgc3lzdGVt
+IGlzIEFyY2hsaW51eCB3aXRoIEtlcm5lbCB2NS4xMS42Lgo+IAo+IFVzaW5nIHRoaXMgc2V0dXAs
+IG15IFBDIHdvcmtzIG5vcm1hbGx5LiBIb3dldmVyLCB3aGVuIEkgc2h1dCBpdCBkb3duLAo+IHRo
+ZSBwb3dlciBpcyBub3QgY3V0LiBGYW5zIGtlZXAgc3Bpbm5pbmcgYW5kIExFRHMgc3RheSBvbi4g
+SSBjb3VsZG4ndAo+IGRldGVjdCBhbnkgb3RoZXIgcHJvYmxlbSB3aGVuIHNodXR0aW5nIGRvd24u
+IERyaXZlcyBldGMuIHN0b3AgYXMKPiBleHBlY3RlZCBhbmQgdGhlIHZpZGVvIGlzIGJsYW5rLiBF
+dmVuIGFmdGVyIHdhaXRpbmcgc2V2ZXJhbCBob3VycywgdGhlCj4gc3lzdGVtIGRvZXNuJ3QgcG93
+ZXIgZG93bi4KPiAKPiBSZXN0YXJ0cyB3b3JrIG5vcm1hbGx5Lgo+IAo+IEkgaGF2ZW4ndCB5ZXQg
+Zm91bmQgYW55IG90aGVyIHBlb3BsZSBvbiB0aGUgaW50ZXJuZXQgdGhhdCBoYXZlIHRoZSBzYW1l
+Cj4gYnVnLgo+IAo+IEkgdXNlZCBnaXQgYmlzZWN0IHRvIGZpbmQgdGhlIGNvbW1pdCB0aGF0IGNh
+dXNlcyB0aGlzIGJlaGF2aW9yIG9uIG15Cj4gbWFjaGluZS4KClRoYW5rIHlvdSBmb3IgZG9pbmcg
+YSBiaXNlY3QgdGhhdCBpcyBhbHdheXMgdmVyeSBoZWxwZnVsLgoKPiBUaGUgcmVzdWx0IGlzOiBm
+ZTBmMWUzYmZkZmViNTNlMThmMTIwNmFlYTRmNDBiOWJkMWYyOTFjIGlzIHRoZQo+IGZpcnN0IGJh
+ZCBjb21taXQuCgpUbyBzYXZlIG90aGVycyB0aGUgdHJvdWJsZSBvZiBoYXZpbmcgdG8gbG9vayB1
+cCB0aGUgaGFzaiwgdGhhdCBpczoKCiJkcm0vaTkxNTogU2h1dCBkb3duIGRpc3BsYXlzIGdyYWNl
+ZnVsbHkgb24gcmVib290IgoKV2hpY2ggaXMgdGhlIHNhbWUgY29tbWl0IGFzIHdoaWNoIEkndmUg
+cmVwb3J0ZWQgaXMgY2F1c2luZyBpc3N1ZXMKd2l0aCBEU0kgcGFuZWxzIG5vdCBsaWdodGluZyB1
+cCBvbiByZWJvb3RzIG9uIHNvbWUgQllUL0NIVCBkZXZpY2VzLgoKU2luY2UgdGhpcyBzZWVtcyB0
+byBtb3N0bHkgYmUgaW50ZW5kZWQgdG8gZml4IGlzc3VlcyBzdXJyb3VuZGluZwpEUCBNU1Qgc3R1
+ZmYsIG1heWJlIHRoZSBncmFjZWZ1bCBzaHV0ZG93biBzaG91bGQgb25seSBiZSBkb25lIHdoZW4K
+TVNUIGlzIGluIHVzZT8KClJlZ2FyZHMsCgpIYW5zCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9pbnRlbC1nZngK
