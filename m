@@ -6,61 +6,62 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E71FAC433C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:27:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68D6BC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B13961923
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:26:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B13961923
+	by mail.kernel.org (Postfix) with ESMTPS id 1740061983
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:43:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1740061983
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86B196E517;
-	Mon, 22 Mar 2021 16:26:58 +0000 (UTC)
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCAB96E517
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 16:26:56 +0000 (UTC)
-Received: by mail-ot1-x32e.google.com with SMTP id
- h6-20020a0568300346b02901b71a850ab4so16526274ote.6
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 09:26:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AFDC6E45C;
+	Mon, 22 Mar 2021 16:43:36 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4249C6E45C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 16:43:35 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ l23-20020a05683004b7b02901b529d1a2fdso16569237otd.8
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 09:43:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Tqh9FeOHVd4poYote/ngr+Xzz2Rj23UjzEqrB7uTeRo=;
- b=cpNXOIFlnTrxbTTxFrPv67IFYXotVX6OHbtc9plOtfWvrdMYilu1fSscnSkOvm6A9A
- tb5N3Y4KyIybiyqrF12g2WuE8up3mebJLU084AiAw1XTnKOwJUW4/2TBvdRrSsSuQr8B
- DBVKj27tC8kRrjrGRqEbux3pa6HSRv0qvxcAI=
+ :cc; bh=ePWy0VI2H4PLLEZ4Yu2t5YK/bLUQ3M13LiJKdfqvNIc=;
+ b=II+wanzqgBsWYiVYH4/vtJx0yLXft2Ms6JQQnBZZUK/VjShkpdNQFOJrwWgTkrLKC4
+ OuLusT+UDeFFuyynboHzEtP3lqg9L3vmnMq9S5VDc8GL34DCN0jHNEd4A6EK2uFdWycR
+ HCben+VXxU1T9cdbcQ3tt0jf3lQqzgAAHxXlY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Tqh9FeOHVd4poYote/ngr+Xzz2Rj23UjzEqrB7uTeRo=;
- b=m3rpQi/D+N1UivWSEVgJKBNjFkxLIHdVQX3fG21lzCRQdqz1z060+K7IGXJy/6ogy/
- n6i9n3xEHPl14puklVspq5+5D2Qtrv6sMll39dcEaQNzzXwTyLZzGGt8uHmf06P7Uh44
- Edp6YiT95aXQqHmvrqaQ3B0gif5xHxtGHZCl3b62jpkG7UfirXi1Lc/it5WDPYYioTnC
- HspEFgm/szMLKW0QUUl0nTpB6R08q1axqZZs4O0+w/EmC5th3NiswNI0QRkEg7htyoqM
- WykdvkmxoMM0OhRabsIuOEtj3navspFIrDO6VP156s642O6isk1b9Cs6uJYJ7OtUz7en
- kIqg==
-X-Gm-Message-State: AOAM532SB6LsKketPKmPt3i7LrMdwdpiNtKaUiol2pk4VHFuUEBRYti6
- J98ElMWu770zVrMN0v1QOHxfcuOLwNNYj77edjZimA==
-X-Google-Smtp-Source: ABdhPJzmE4tgEpb/ip2Lx5v3nt77TXD1Cj/CIGBi50PjCLpf9bgUX0JMxFbk82TA8RxbH5/WpyAySxb33kK3SGv1lFs=
-X-Received: by 2002:a9d:7b4e:: with SMTP id f14mr588783oto.281.1616430416150; 
- Mon, 22 Mar 2021 09:26:56 -0700 (PDT)
+ bh=ePWy0VI2H4PLLEZ4Yu2t5YK/bLUQ3M13LiJKdfqvNIc=;
+ b=q5/nq7kS0kAHnUKxbILxfWxt7UYmdnj1iDFurYKjlXAcopKV7t2yrezIH4VO1H6Y0O
+ mmuLuskxc+CvZvlb2hPBu1Pe0yoaUbetryuYYjtpwy8xFdtqqpV3Pa0tZuLbQk5lvhFw
+ aQMVcEYZ818QkwNLXKmRdQQQiRQtGz9YsbxlHAxvU9wQS0LPeR+rb+bHhUuWi6Qc0s4y
+ 6fhUQhGsrZ6I2h2xqz57askYnQ/yvMxHFU1dNe0z/c6VEsQ9vgWzwKFr+Re0nKu7M0k/
+ OEjlR/i4dIyv1PsHfQDHfgJnzXz3dLoZaJkVUm8CMbr7j0ocIWcvbEOFaDzzCi3J/oJn
+ ZHYQ==
+X-Gm-Message-State: AOAM53213/Cfm3pEp4ITVFuJDWQehhwMyZkaJuY7RU3gNOT4FkgCXcbt
+ KmzC3ADG87B6JM7+C0OIyjbA94NpAghCPEB5Jj/inQ==
+X-Google-Smtp-Source: ABdhPJy2oJ5BwuOD6FGP5CZlcvw0CvCHmvR+Hh+ITcj4j1Fcn1qVbsb5hlRl0/rTJOy1z6fQNSmGaR13/AhpLVaInv0=
+X-Received: by 2002:a9d:6481:: with SMTP id g1mr610554otl.303.1616431414329;
+ Mon, 22 Mar 2021 09:43:34 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210319223856.2983244-1-jason@jlekstrand.net>
- <20210319223856.2983244-2-jason@jlekstrand.net>
- <CAOFGe94ggJUBH_+bbxAVLUge8NZQYHK55ZzjnQ2erXhh+r8c=A@mail.gmail.com>
- <87wntz5rdg.fsf@intel.com>
- <CAOFGe97UDA9n6LCGXEZi-2B6ZTNeOG+D7sEX1kwEF5L2kUsWcw@mail.gmail.com>
-In-Reply-To: <CAOFGe97UDA9n6LCGXEZi-2B6ZTNeOG+D7sEX1kwEF5L2kUsWcw@mail.gmail.com>
+ <20210319223856.2983244-4-jason@jlekstrand.net>
+ <7918db68-835c-b416-6187-1e62892ce5ed@linux.intel.com>
+ <YFilKSbKYd+0HbCn@phenom.ffwll.local>
+ <d83162e2-4b9e-c7e9-5324-6612bb9561d6@linux.intel.com>
+ <CAKMK7uG0GLPu+auqDgMgD7ugvWo3E7W7DL6eALKxmp6hk-aZiA@mail.gmail.com>
+ <fb406aca-1211-e1e5-b6a0-830c26d327ae@linux.intel.com>
+In-Reply-To: <fb406aca-1211-e1e5-b6a0-830c26d327ae@linux.intel.com>
 From: Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 22 Mar 2021 17:26:44 +0100
-Message-ID: <CAKMK7uH1o316GKH9234AZUE9Oo3STE7zt1aHY2uqZE9PYy6zzQ@mail.gmail.com>
-To: Jason Ekstrand <jason@jlekstrand.net>
-Subject: Re: [Intel-gfx] [PATCH 1/4] drm/i915: Drop
- I915_CONTEXT_PARAM_RINGSIZE
+Date: Mon, 22 Mar 2021 17:43:23 +0100
+Message-ID: <CAKMK7uEf5p+UJNtr0sBRRjegn=88Pr=BCYhGpTy_J1hpRspk7Q@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915: Drop the CONTEXT_CLONE API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,57 +74,138 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 22, 2021 at 5:01 PM Jason Ekstrand <jason@jlekstrand.net> wrote:
+On Mon, Mar 22, 2021 at 4:31 PM Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
 >
-> On Mon, Mar 22, 2021 at 7:01 AM Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> >
-> > On Sat, 20 Mar 2021, Jason Ekstrand <jason@jlekstrand.net> wrote:
-> > >     This reverts commit 88be76cdafc7e60e2e4ed883bfe7e8dd7f35fa3a.  This API
-> >
-> > Small nit, I think it would be useful to reference commits with the
-> > citation style:
-> >
-> > 88be76cdafc7 ("drm/i915: Allow userspace to specify ringsize on construction")
 >
-> Done.
->
+> On 22/03/2021 14:57, Daniel Vetter wrote:
+> > On Mon, Mar 22, 2021 at 3:33 PM Tvrtko Ursulin
+> > <tvrtko.ursulin@linux.intel.com> wrote:
+> >>
+> >>
+> >> On 22/03/2021 14:09, Daniel Vetter wrote:
+> >>> On Mon, Mar 22, 2021 at 11:22:01AM +0000, Tvrtko Ursulin wrote:
+> >>>>
+> >>>> On 19/03/2021 22:38, Jason Ekstrand wrote:
+> >>>>> This API allows one context to grab bits out of another context upon
+> >>>>> creation.  It can be used as a short-cut for setparam(getparam()) for
+> >>>>> things like I915_CONTEXT_PARAM_VM.  However, it's never been used by any
+> >>>>> real userspace.  It's used by a few IGT tests and that's it.  Since it
+> >>>>> doesn't add any real value (most of the stuff you can CLONE you can copy
+> >>>>> in other ways), drop it.
+> >>>>
+> >>>> No complaints to remove if it ended up unused outside IGT. Latter is a _big_
+> >>>> problem though, since it is much more that a few IGT tests. So I really
+> >>>> think there really needs to be an evaluation and a plan for that (we don't
+> >>>> want to lose 50% of the coverage over night).
+> >>>>
+> >>>>> There is one thing that this API allows you to clone which you cannot
+> >>>>> clone via getparam/setparam: timelines.  However, timelines are an
+> >>>>> implementation detail of i915 and not really something that needs to be
+> >>>>
+> >>>> Not really true timelines are i915 implementation detail. They are in fact a
+> >>>> dma-fence context:seqno concept, nothing more that than. I think you are
+> >>>> probably confusing struct intel_timeline with the timeline wording in the
+> >>>> uapi. Former is i915 implementation detail, but context:seqno are truly
+> >>>> userspace timelines.
+> >>>
+> >>> I think you're both saying the same thing and talking a bit past each
+> >>> another.
+> >>>
+> >>> Yes the timeline is just a string of dma_fence, that's correct. Now
+> >>> usually if you submit batches with execbuf, we have 3 ways to synchronize
+> >>> concurrent submission: implicit sync, sync_file and drm_syncob. They all
+> >>> map to different needs in different protocols/render apis.
+> >>>
+> >>> Now in one additional case the kernel makes sure that batchbuffers are
+> >>> ordered, and that's when you submit them to the same hw ctx. Because
+> >>> there's only 1 hw context and you really can't have batchbuffers run on
+> >>> that single hw context out of order. That's what the timeline object we
+> >>> talk about here is. But that largely is an internal implementation detail,
+> >>> which happens to also use most/all the same infrastructure as the
+> >>> dma_fence uapi pieces above.
+> >>>
+> >>> Now the internal implementation detail leaking here is that we exposed
+> >>> this to userspace, without there being any need for this. What Jason
+> >>> implements with syncobj in the next patch is essentially what userspace
+> >>> should have been using for cross-engine sync. media userspace doesn't care
+> >>> about interop with winsys/client apis, so they equally could have used
+> >>> implicit sync or sync_file here (which I think is the solution now for the
+> >>> new uapi prepped internally), since they all are about equally powerful
+> >>> for stringing batchbuffers together.
+> >>
+> >> Are you saying we exposed a single timeline of execution per hw context
+> >> via the single timeline flag?!
 > >
-> > I use this monster in my .gitconfig:
+> > Nope.
 > >
-> > [alias]
-> >         cite = "!f() { git log -1 '--pretty=format:%H (\"%s\")%n' $1 | sed -e 's/\\([0-f]\\{12\\}\\)[0-f]*/\\1/'; }; f"
+> >> Timelines of execution were always exposed. Any "engine" (ring
+> >> previously) in I915_EXEC_RING_MASK was a single timeline of execution.
+> >> It is completely the same with engine map engines, which are also
+> >> different indices into I915_EXEC_RING_MASK space.
+> >>
+> >> Userspace was aware of these timelines forever as well. Media was
+> >> creating multiple contexts to have multiple timelines (so parallelism).
+> >> Everyone knew that engine-hopping submissions needs to be either
+> >> implicitly or explicitly synchronised, etc.
+> >
+> > Yup, I think we're saying the same thing here.
+> >
+> >> So I really don't see that we have leaked timelines as a concept *now*.
+> >> What the patch has exposed to userspace is a new way to sync between
+> >> timelines and nothing more.
+> >
+> > We've leaked it as something you can now share across hw context.
 >
-> Thanks for the tip!
+> Okay so we agree on most things but apparently have different
+> definitions of what it means to leak internal implementation details.
+>
+> While at the same time proof that we haven't leaked the internal
+> implementation details is that Jason was able to implement the single
+> timeline flag with a drm syncobj at the execbuf top level. (Well mostly,
+> ignoring the probably inconsequential difference of one vs multiple
+> fence contexts.)
 
-dim script from maintainer-tools has a bunch of these helpers
-(andother one is dim fixes for generating Cc: lists) which should work
-even without commit rights and all that set up:
+It's not a matching implementation. It's only good enough for what
+media needs, and essentially what media should have done to begin
+with.
 
-https://gitlab.freedesktop.org/drm/maintainer-tools/-/blob/master/dim
+There's substantially different behaviour between SINGLE_TIMELINE and
+what Jason has done here when you race concurrent execbuf calls:
+Former guarantees total ordering, the latter doesn't even try. They
+are not the same thing, but luckily userspace doesn't care about that
+difference.
 
-Cheers, Daniel
+Aside, just to make sure this wont get lost: I do agree that we should
+only allow this up to maybe ADL, and reject it on anything new (maybe
+including dg1 while we're at it, since the pci ids for that aren't
+even close to upstream yet).
+-Daniel
 
+> > Which is possible because of how it's internally implemented (I think
+> > load balancer relies on that), but not really a synchronization
 >
-> > With that, 'git cite <committish>' will give you the nice reference with
-> > 12 chars of sha1 regardless of core.abbrev config.
-> >
-> >
-> > BR,
-> > Jani.
-> >
-> > --
-> > Jani Nikula, Intel Open Source Graphics Center
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> Virtual engine is a single timeline by definition and it is still that
+> regardless of the implementation details (execlists or GuC, in both
+> cases it is a single hardware context and a single timeline).
+>
+> > primitive we want to export as such to userspace. We have other
+> > interfaces and concepts for that.
+>
+> Yes, that is the only point to argue IMO. We can say it wasn't needed
+> and should have been avoided, but I still maintain we can't really say
+> we leaked anything backend specific to userspace via it.
+>
+> Regards,
+>
+> Tvrtko
 
 
 
