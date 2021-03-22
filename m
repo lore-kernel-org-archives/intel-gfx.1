@@ -2,66 +2,40 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62CD2C433C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 10:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D11DAC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 10:53:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 218F461585
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 10:52:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 218F461585
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 908306191F
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 10:53:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 908306191F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7837C89B29;
-	Mon, 22 Mar 2021 10:52:47 +0000 (UTC)
-Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
- [IPv6:2607:f8b0:4864:20::834])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE19B8997C;
- Mon, 22 Mar 2021 10:52:45 +0000 (UTC)
-Received: by mail-qt1-x834.google.com with SMTP id r14so11896173qtt.7;
- Mon, 22 Mar 2021 03:52:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=WJX7JaYFq4GAMYqJbvtx/XER33QOle3RHNn2d1pX0ts=;
- b=cuBpipzJKTWI1UoftSn58ZUn2sM+Qjcu80NaLIq78WUDZLTrkTGeEIvr05tWplBK/C
- pIxH5zqZMel/vmt+IInn35fsp4WYoNq9oYvUm8qNT8YVV1TQwkNlp+SNhAzW/6lu1w+G
- vpPwKNahrsALLxF7TX/aMRBiOmvmAVzWHl8enxjrxGfEpBkqvqfOjYJUS92FTeKx0U6N
- gSnJp/dDheVf0HTUi8OWMgodUIjpP8D5TcIflyEBjNgRMey1YygEDPsYN6Ry/e0NqkPK
- OYP7zWbBwE4ehRpcxEJhtVSxN1kuUCNc+vq/s0VCWmiaLGipIS5AG7vi7mlCvVfzcpZz
- 90xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=WJX7JaYFq4GAMYqJbvtx/XER33QOle3RHNn2d1pX0ts=;
- b=DispOna0rYWrQauyLw2HekQDA0zCRTmS798j0puiN3dVYdr2ouLMgOiNy/6uQL2HUc
- brd5mZImlpQK+QfLTkmilU4+BQR0pRK2THwhMnxVB9eSatbYbRQaMkUhkZCC+5w9Rfzr
- dTBUATGfsMLmc4wZkC9SYEHgBSwA5ewGiUO9v2LUbNqIVVi+76oek5wTPZDCYmrw921S
- 16q7e7LQcYVDV/owf5cX2F3t/PtRJEcYV76AP87UgnxO0slCMj3fvFNRCuIwd9FX9biE
- mFqEuhvCHVZ8UcW8R8F7m+Ww6HnL7Ka7VbYPuQz+Xc4YB9ECakvYni5Q7aOCOW3et4sf
- 3ahA==
-X-Gm-Message-State: AOAM530GSEREVHFY4Xhq55LW9iKbP+QmXjHXoGQlOnwFdWoW++b4ghyS
- zLylH91KBhYTlURUFaaUUZcOL5ygAETxRW2kUdyfYTDBlUI=
-X-Google-Smtp-Source: ABdhPJzEnFDFVJPaZdyrsL0Jax7/4Pqn9U5B9LRleGY0C6itv9RCY59NWab8obTzvhv8T8tHLFj6iMBrLZpZpFQvwPM=
-X-Received: by 2002:ac8:4d97:: with SMTP id a23mr8808429qtw.265.1616410365095; 
- Mon, 22 Mar 2021 03:52:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A6B189B29;
+	Mon, 22 Mar 2021 10:53:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DD22689B29;
+ Mon, 22 Mar 2021 10:53:55 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D535FA73C7;
+ Mon, 22 Mar 2021 10:53:55 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210319223856.2983244-1-jason@jlekstrand.net>
- <20210319223856.2983244-2-jason@jlekstrand.net>
- <CAOFGe94ggJUBH_+bbxAVLUge8NZQYHK55ZzjnQ2erXhh+r8c=A@mail.gmail.com>
-In-Reply-To: <CAOFGe94ggJUBH_+bbxAVLUge8NZQYHK55ZzjnQ2erXhh+r8c=A@mail.gmail.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Mon, 22 Mar 2021 10:52:18 +0000
-Message-ID: <CAM0jSHPZCAJwaNHWPpKW1xhbm4Y8rBuQeWf+=egmY7VTKXaLwg@mail.gmail.com>
-To: Jason Ekstrand <jason@jlekstrand.net>
-Subject: Re: [Intel-gfx] [PATCH 1/4] drm/i915: Drop
- I915_CONTEXT_PARAM_RINGSIZE
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Date: Mon, 22 Mar 2021 10:53:55 -0000
+Message-ID: <161641043586.19227.3078421307380295956@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210309043915.1921-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20210309043915.1921-1-ankit.k.nautiyal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBI?=
+ =?utf-8?q?DMI2=2E1_PCON_Misc_Fixes_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,42 +48,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 20 Mar 2021 at 14:48, Jason Ekstrand <jason@jlekstrand.net> wrote:
->
-> On Fri, Mar 19, 2021 at 5:39 PM Jason Ekstrand <jason@jlekstrand.net> wrote:
-> >
-> > This reverts commit 88be76cdafc7e60e2e4ed883bfe7e8dd7f35fa3a.  This API
-> > has never been used by any real userspace.
->
-> After further digging, there is a compute-runtime PR for this.  I
-> still think we should drop it and I've updated the commit message
-> locally with the following rationale:
->
->     This reverts commit 88be76cdafc7e60e2e4ed883bfe7e8dd7f35fa3a.  This API
->     was originally added for OpenCL but the compute-runtime PR has sat open
->     for a year without action so we can still pull it out if we want.  I
->     argue we should drop it for three reasons:
->
->      1. If the compute-runtime PR has sat open for a year, this clearly
->         isn't that important.
->
->      2. It's a very leaky API.  Ring size is an implementation detail of the
->         current execlist scheduler and really only makes sense there.  It
->         can't apply to the older ring-buffer scheduler on pre-execlist
->         hardware because that's shared across all contexts and it won't
->         apply to the GuC scheduler that's in the pipeline.
+== Series Details ==
 
-Just a drive-by-comment. I thought the lrc model was shared between
-execlists and the GuC, so in both cases we get something like a ring
-per engine per context which the driver can emit commands into. Why
-doesn't ring size still apply with the GuC scheduler?
+Series: HDMI2.1 PCON Misc Fixes (rev4)
+URL   : https://patchwork.freedesktop.org/series/86677/
+State : failure
+
+== Summary ==
+
+Applying: drm/dp_helper: Define options for FRL training for HDMI2.1 PCON
+Applying: drm/i915/display: Remove FRL related code from disable DP sequence for older platforms
+error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_dp.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0002 drm/i915/display: Remove FRL related code from disable DP sequence for older platforms
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
