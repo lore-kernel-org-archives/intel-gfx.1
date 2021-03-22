@@ -2,54 +2,56 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7200CC433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CA99C433C1
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:45:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 333B961992
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:17:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 333B961992
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 26C5061984
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 18:45:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26C5061984
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B96716E151;
-	Mon, 22 Mar 2021 18:17:55 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B37206E508;
- Mon, 22 Mar 2021 16:05:32 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9E526619B3;
- Mon, 22 Mar 2021 16:05:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616429130;
- bh=Cz6Ib/Jy2MCBRG3RkrW7YxIgzj/6kEv+v4DuuyruVdM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YmX1KQkIWDTM9oL9SIaizhQuXBgId2TgjaOHRvpRa8ujB1Hj1aOwCgrCrMNJVi2gq
- P8VgokfOwAmfnYZLX1rsRk4pLvkeDX2bspNuX1VYi25/JXoxXtnn7F2MgFWC0FsAFu
- N+uQuJ3Me21QeU0KrCs4aFbaBIGeJwlctHwPj1pA51MBMY2ra+UvbFh+zl+P+BsSj9
- 1ElKemq6Wxa1TUdo/FGf/LywTMYZxZt3573Q+qI3GKdCXVd48krzSZHquQETNI++01
- tCB8r6B7NO2iohCFFlGopnfYJGFYOD5rOpt+nJhCejnPW+cx72ztkTHm7tbHkrEoPf
- S1/KeKBMSo8Ag==
-From: Arnd Bergmann <arnd@kernel.org>
-To: linux-kernel@vger.kernel.org, Martin Sebor <msebor@gcc.gnu.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 22 Mar 2021 17:02:48 +0100
-Message-Id: <20210322160253.4032422-11-arnd@kernel.org>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210322160253.4032422-1-arnd@kernel.org>
-References: <20210322160253.4032422-1-arnd@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFE416E24D;
+	Mon, 22 Mar 2021 18:45:56 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D29356E24D
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 18:45:54 +0000 (UTC)
+IronPort-SDR: rJPEuOGCGX5H0yqFRgacRwL6d7Pog+1+ex0gFfH9JHC6TwKBT4aOuh/zTVCMMHvXTTLqr2Rwxq
+ scSRLfm0+44A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="210400026"
+X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="210400026"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2021 11:45:54 -0700
+IronPort-SDR: CMOIjTSDk1pRuYvby60td+hAsV1HNPhIpahLdkA621SasywrueoecHMe5YNw04Fv5n6OyfMS9t
+ BQCBkRj/TE0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,269,1610438400"; d="scan'208";a="441299901"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga002.fm.intel.com with SMTP; 22 Mar 2021 11:45:52 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 22 Mar 2021 20:45:51 +0200
+Date: Mon, 22 Mar 2021 20:45:51 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <YFjl30pjRhN1Myad@intel.com>
+References: <28b8cfd3f29d3e5ed4224c687ef173d6c45e028d.camel@gmx.net>
+ <5ad5226b-91ce-8685-4c3f-e6890dd642a2@redhat.com>
+ <YFivVDZ/j6sybifB@intel.com>
+ <5c73b653-26ff-1e9f-1e38-7379d828a344@redhat.com>
+ <YFi/KSwQIh5ISjd2@intel.com>
+ <8ad78195-9e33-97d7-ae39-0d51158fd12b@redhat.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 22 Mar 2021 18:17:39 +0000
-Subject: [Intel-gfx] [PATCH 10/11] drm/i915: avoid stringop-overread warning
- on pri_latency
+Content-Disposition: inline
+In-Reply-To: <8ad78195-9e33-97d7-ae39-0d51158fd12b@redhat.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [bug report] drm/i915: Computer does not shutdown,
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,58 +64,126 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- linux-scsi@vger.kernel.org, x86@kernel.org,
- James Smart <james.smart@broadcom.com>, tboot-devel@lists.sourceforge.net,
- Kalle Valo <kvalo@codeaurora.org>, ath11k@lists.infradead.org,
- Serge Hallyn <serge@hallyn.com>, Arnd Bergmann <arnd@arndb.de>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, Ning Sun <ning.sun@intel.com>,
- Anders Larsen <al@alarsen.net>, cgroups@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-security-module@vger.kernel.org,
- Tejun Heo <tj@kernel.org>, Simon Kelley <simon@thekelleys.org.uk>,
- intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org,
+ Mario =?iso-8859-1?Q?H=FCttel?= <mario.huettel@gmx.net>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5kYi5kZT4KCmdjYy0xMSB3YXJucyBhYm91dCB3
-aGF0IGFwcGVhcnMgdG8gYmUgYW4gb3V0LW9mLXJhbmdlIGFycmF5IGFjY2VzczoKCkluIGZ1bmN0
-aW9uIOKAmHNuYl93bV9sYXRlbmN5X3F1aXJr4oCZLAogICAgaW5saW5lZCBmcm9tIOKAmGlsa19z
-ZXR1cF93bV9sYXRlbmN54oCZIGF0IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BtLmM6MzEw
-ODozOgpkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wbS5jOjMwNTc6OTogZXJyb3I6IOKAmGlu
-dGVsX3ByaW50X3dtX2xhdGVuY3nigJkgcmVhZGluZyAxNiBieXRlcyBmcm9tIGEgcmVnaW9uIG9m
-IHNpemUgMTAgWy1XZXJyb3I9c3RyaW5nb3Atb3ZlcnJlYWRdCiAzMDU3IHwgICAgICAgICBpbnRl
-bF9wcmludF93bV9sYXRlbmN5KGRldl9wcml2LCAiUHJpbWFyeSIsIGRldl9wcml2LT53bS5wcmlf
-bGF0ZW5jeSk7CiAgICAgIHwgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4KZHJpdmVycy9ncHUvZHJtL2k5
-MTUvaW50ZWxfcG0uYzogSW4gZnVuY3Rpb24g4oCYaWxrX3NldHVwX3dtX2xhdGVuY3nigJk6CmRy
-aXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BtLmM6MzA1Nzo5OiBub3RlOiByZWZlcmVuY2luZyBh
-cmd1bWVudCAzIG9mIHR5cGUg4oCYY29uc3QgdTE2ICrigJkge2FrYSDigJhjb25zdCBzaG9ydCB1
-bnNpZ25lZCBpbnQgKuKAmX0KZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcG0uYzoyOTk0OjEz
-OiBub3RlOiBpbiBhIGNhbGwgdG8gZnVuY3Rpb24g4oCYaW50ZWxfcHJpbnRfd21fbGF0ZW5jeeKA
-mQogMjk5NCB8IHN0YXRpYyB2b2lkIGludGVsX3ByaW50X3dtX2xhdGVuY3koc3RydWN0IGRybV9p
-OTE1X3ByaXZhdGUgKmRldl9wcml2LAogICAgICB8ICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn4KCk15IGd1ZXNzIGlzIHRoYXQgdGhpcyBjb2RlIGlzIGFjdHVhbGx5IHNhZmUgYmVj
-YXVzZSB0aGUgc2l6ZSBvZiB0aGUKYXJyYXkgZGVwZW5kcyBvbiB0aGUgaGFyZHdhcmUgZ2VuZXJh
-dGlvbiwgYW5kIHRoZSBmdW5jdGlvbiBjaGVja3MgZm9yCnRoYXQsIGJ1dCBhdCB0aGUgc2FtZSB0
-aW1lIEkgd291bGQgbm90IGV4cGVjdCB0aGUgY29tcGlsZXIgdG8gd29yayBpdApvdXQgY29ycmVj
-dGx5LCBhbmQgdGhlIGNvZGUgc2VlbXMgYSBsaXR0bGUgZnJhZ2lsZSB3aXRoIHJlZ2FyZHMgdG8K
-ZnV0dXJlIGNoYW5nZXMuIFNpbXBseSBpbmNyZWFzaW5nIHRoZSBzaXplIG9mIHRoZSBhcnJheSBz
-aG91bGQgaGVscC4KClNpZ25lZC1vZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+
-Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCB8IDYgKysrLS0tCiAxIGZpbGUg
-Y2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
-X2Rydi5oCmluZGV4IDI2ZDY5ZDA2YWE2ZC4uMzU2NzYwMmUwYTM1IDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5
-MTVfZHJ2LmgKQEAgLTEwOTUsMTEgKzEwOTUsMTEgQEAgc3RydWN0IGRybV9pOTE1X3ByaXZhdGUg
-ewogCQkgKiBpbiAwLjV1cyB1bml0cyBmb3IgV00xKy4KIAkJICovCiAJCS8qIHByaW1hcnkgKi8K
-LQkJdTE2IHByaV9sYXRlbmN5WzVdOworCQl1MTYgcHJpX2xhdGVuY3lbOF07CiAJCS8qIHNwcml0
-ZSAqLwotCQl1MTYgc3ByX2xhdGVuY3lbNV07CisJCXUxNiBzcHJfbGF0ZW5jeVs4XTsKIAkJLyog
-Y3Vyc29yICovCi0JCXUxNiBjdXJfbGF0ZW5jeVs1XTsKKwkJdTE2IGN1cl9sYXRlbmN5WzhdOwog
-CQkvKgogCQkgKiBSYXcgd2F0ZXJtYXJrIG1lbW9yeSBsYXRlbmN5IHZhbHVlcwogCQkgKiBmb3Ig
-U0tMIGZvciBhbGwgOCBsZXZlbHMKLS0gCjIuMjkuMgoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On Mon, Mar 22, 2021 at 07:00:38PM +0100, Hans de Goede wrote:
+> Hi,
+> =
+
+> On 3/22/21 5:00 PM, Ville Syrj=E4l=E4 wrote:
+> > On Mon, Mar 22, 2021 at 04:51:26PM +0100, Hans de Goede wrote:
+> >> Hi,
+> >>
+> >> On 3/22/21 3:53 PM, Ville Syrj=E4l=E4 wrote:
+> >>> On Mon, Mar 22, 2021 at 11:45:39AM +0100, Hans de Goede wrote:
+> >>>> Hi,
+> >>>>
+> >>>> On 3/14/21 11:30 AM, Mario H=FCttel wrote:
+> >>>>> Hello,
+> >>>>>
+> >>>>> It seems, like the mailing list, didn't accept my email. So I'll se=
+nd
+> >>>>> it again:
+> >>>>>
+> >>>>> I want to report a bug. I have a PC with Intel i7-6700K processor (=
+with
+> >>>>> integrated graphics) and an AsRock Fatal1ty Z170 Gaming K6 mainboar=
+d. I
+> >>>>> use the CPU's integrated graphics.
+> >>>>> My system is Archlinux with Kernel v5.11.6.
+> >>>>>
+> >>>>> Using this setup, my PC works normally. However, when I shut it dow=
+n,
+> >>>>> the power is not cut. Fans keep spinning and LEDs stay on. I couldn=
+'t
+> >>>>> detect any other problem when shutting down. Drives etc. stop as
+> >>>>> expected and the video is blank. Even after waiting several hours, =
+the
+> >>>>> system doesn't power down.
+> >>>>>
+> >>>>> Restarts work normally.
+> >>>>>
+> >>>>> I haven't yet found any other people on the internet that have the =
+same
+> >>>>> bug.
+> >>>>>
+> >>>>> I used git bisect to find the commit that causes this behavior on my
+> >>>>> machine.
+> >>>>
+> >>>> Thank you for doing a bisect that is always very helpful.
+> >>>>
+> >>>>> The result is: fe0f1e3bfdfeb53e18f1206aea4f40b9bd1f291c is the
+> >>>>> first bad commit.
+> >>>>
+> >>>> To save others the trouble of having to look up the hasj, that is:
+> >>>>
+> >>>> "drm/i915: Shut down displays gracefully on reboot"
+> >>>>
+> >>>> Which is the same commit as which I've reported is causing issues
+> >>>> with DSI panels not lighting up on reboots on some BYT/CHT devices.
+> >>>>
+> >>>> Since this seems to mostly be intended to fix issues surrounding
+> >>>> DP MST stuff, maybe the graceful shutdown should only be done when
+> >>>> MST is in use?
+> >>>
+> >>> No. It also fixes Windows, lols.
+> >>
+> >> Ok, can you at least take a look at my patch which fixes (works-around)
+> >> the issues for DSI panel on BYT/CHT DSI devices:
+> >>
+> >> https://patchwork.freedesktop.org/patch/422481/
+> >>
+> >> ?
+> > =
+
+> > Never reached my inbox.
+> =
+
+> Yes I'm seeing a lot of bounces from the linux.intel.com mailserver lately
+> (and only from that mail server and not from any other mailservers).
+> =
+
+> You should have also received a copy through the intel-gfx lists though.
+
+Nope. Didn't come through the list either.
+
+> =
+
+> Or you can grab a raw copy from patchwork.
+> =
+
+> Regardless of the mail-issue a review would be much appreciated.
+> =
+
+> Regards,
+> =
+
+> Hans
+> =
+
+> =
+
+> p.s.
+> =
+
+> While on the subjects of bouncing emails, did you see Jani's reply to:
+> https://patchwork.freedesktop.org/patch/422669/
+> =
+
+> Where he asks for a second opinion on that patch from you ?
+
+I did reply to that patch.
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
