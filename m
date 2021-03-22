@@ -2,73 +2,48 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,
+	DATE_IN_FUTURE_06_12,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFE26C433C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 06:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03E80C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 06:38:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A2776191F
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 06:15:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A2776191F
+	by mail.kernel.org (Postfix) with ESMTPS id AC61C6195D
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 06:38:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC61C6195D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C21E16E0CC;
-	Mon, 22 Mar 2021 06:15:23 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1BD76E0B7;
- Mon, 22 Mar 2021 06:15:21 +0000 (UTC)
-IronPort-SDR: yO8QSuvJOWOfUlOXqWTeosIFUUYazPE4/NFY34uCY1Hzd5ZYrfZ/SXMcI+LKGkZF1MDyUmNxsg
- 4iozwjuxbeRw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9930"; a="170169580"
-X-IronPort-AV: E=Sophos;i="5.81,268,1610438400"; d="scan'208";a="170169580"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F87689E7B;
+	Mon, 22 Mar 2021 06:38:19 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3777689E7B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 06:38:17 +0000 (UTC)
+IronPort-SDR: /D3p7wCrOEAr787FOxLjNgaE9SY8Kzl3GhAXgR4VQWcXHXv1Hs1NsTi27XPmW1YTdiSxRn7aB+
+ Wx8Eq4j6Taig==
+X-IronPort-AV: E=McAfee;i="6000,8403,9930"; a="190238701"
+X-IronPort-AV: E=Sophos;i="5.81,268,1610438400"; d="scan'208";a="190238701"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2021 23:15:21 -0700
-IronPort-SDR: 1CvBvXDB4VyDS30hkPiGvnNeDJWo0f4i52znLnLSeNH3PDYcc9yQcjRsUDhp5/OyO3tPkbfVmp
- EvC7uiS4ylBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,268,1610438400"; d="scan'208";a="451621154"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by orsmga001.jf.intel.com with ESMTP; 21 Mar 2021 23:15:20 -0700
-Received: from bgsmsx606.gar.corp.intel.com (10.67.234.8) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Sun, 21 Mar 2021 23:15:19 -0700
-Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
- BGSMSX606.gar.corp.intel.com (10.67.234.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 22 Mar 2021 11:45:17 +0530
-Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
- BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.2106.013;
- Mon, 22 Mar 2021 11:45:17 +0530
-From: "Shankar, Uma" <uma.shankar@intel.com>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [PATCH v3 3/3] drm/i915/display: Configure HDMI2.1 Pcon for FRL
- only if Src-Ctl mode is available
-Thread-Index: AQHXFJ9+uLFtTEwsjUSNs6NxwTSKSqqPmwwQ
-Date: Mon, 22 Mar 2021 06:15:17 +0000
-Message-ID: <53662c38c348402b83ebde0e753fd5b2@intel.com>
-References: <20210309043915.1921-1-ankit.k.nautiyal@intel.com>
- <20210309043915.1921-4-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20210309043915.1921-4-ankit.k.nautiyal@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [10.22.254.132]
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2021 23:38:17 -0700
+IronPort-SDR: tFlSf0pdsoAD6SjHx76VhYdSRJR9+ZUFLZdWpPU30u97zdHL7LOWpIa7u0GBq8+3OQgLO2Chvc
+ a9dZcByUObLw==
+X-IronPort-AV: E=Sophos;i="5.81,268,1610438400"; d="scan'208";a="451627098"
+Received: from bhanu-nuclab.iind.intel.com ([10.145.162.173])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2021 23:38:15 -0700
+From: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 22 Mar 2021 20:00:01 +0530
+Message-Id: <20210322143008.29250-1-bhanuprakash.modem@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH v3 3/3] drm/i915/display: Configure HDMI2.1
- Pcon for FRL only if Src-Ctl mode is available
+Subject: [Intel-gfx] [PATCH 0/7] drm/i915: Add state checker for CSC coeff
+ values
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,56 +56,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "airlied@linux.ie" <airlied@linux.ie>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+In this patch series, added state checker to validate CSC. This reads
+hardware state, and compares the originally requested state(s/w). This
+is done for chv, ilk, glk and their variant platforms. Rest of
+the platforms will be enabled on top of this later.
 
+Signed-off-by: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
 
-> -----Original Message-----
-> From: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>
-> Sent: Tuesday, March 9, 2021 10:09 AM
-> To: intel-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org; ville.syrjala@linux.intel.com; Shankar, Uma
-> <uma.shankar@intel.com>; airlied@linux.ie; jani.nikula@linux.intel.com
-> Subject: [PATCH v3 3/3] drm/i915/display: Configure HDMI2.1 Pcon for FRL only if
-> Src-Ctl mode is available
-> 
-> Currently we see only the MAX FRL BW from PCON before going for FRL.
-> Also add the check if source control mode is supported by the PCON, before starting
-> configuring PCON for FRL training.
-> 
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
-> b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 2e90359ce21f..8e401d3fd29d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -2638,7 +2638,8 @@ void intel_dp_check_frl_training(struct intel_dp *intel_dp)
->  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-> 
->  	/* Always go for FRL training if supported */
-> -	if (!intel_dp_is_hdmi_2_1_sink(intel_dp) ||
-> +	if (!(intel_dp->dpcd[2] & DP_PCON_SOURCE_CTL_MODE) ||
+Bhanuprakash Modem (7):
+  drm/i915/display: Introduce vfunc read_csc() to create hw ctm
+  drm/i915/display: Add func to compare hw/sw CSC matrix
+  drm/i915/display: Add macro to compare hw/sw CSC matrix
+  drm/i915/display: Extract chv_read_csc()
+  drm/i915/display: Extract ilk_read_csc()
+  drm/i915/display: Extract icl_read_csc()
+  FOR_TESTING_ONLY: Print coeffs of hw and sw CTM
 
-Would be good to add spec reference as well here.
+ drivers/gpu/drm/i915/display/intel_color.c   | 209 ++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_color.h   |   3 +
+ drivers/gpu/drm/i915/display/intel_display.c |  31 +++
+ drivers/gpu/drm/i915/i915_drv.h              |   1 +
+ 4 files changed, 239 insertions(+), 5 deletions(-)
 
-With that added, this is
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-
-> +	    !intel_dp_is_hdmi_2_1_sink(intel_dp) ||
->  	    intel_dp->frl.is_trained)
->  		return;
-> 
-> --
-> 2.29.2
+--
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
