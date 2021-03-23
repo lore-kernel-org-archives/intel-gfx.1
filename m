@@ -2,160 +2,125 @@ Return-Path: <SRS0=maCC=IV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FF03C433C1
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 18:30:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ADED2C433E1
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 18:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D1801619B9
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 18:30:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1801619B9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6E46661963
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 18:30:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E46661963
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B73D06E933;
-	Tue, 23 Mar 2021 18:30:54 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ECF76E0B8;
- Tue, 23 Mar 2021 13:43:32 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12NDeXgr084645;
- Tue, 23 Mar 2021 13:42:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : content-type : content-transfer-encoding :
- mime-version; s=corp-2020-01-29;
- bh=Bf5RdYJr7ILtQEb2JvXJyMU2ULTK6cKWU2GGqdLAlKU=;
- b=sSdXudRVbkGvL+MnpZY7a5P5P1OIjNg7vKq4sS5t7Qhz11ZbFOgtaavjeW3Welj98Iu+
- j4eNxXtT5AM34INhZ/dD2OxqkuHojLh4Z2qOqVNSVXCkL0PVoD87mMAuICHtczcS/gC9
- cj39xI2331KaNhlh8AyjKMONuzhBgH2XqGPT8X2Q41iKTDUod4aVkdclkFa/BEjjCcNf
- di4FVP2McTS5psw70UmIvBxUPksQ+C0Zd0b1wdUHjTwdu5vNnYhQ4e9m7Xl73+AXJa6q
- syyLRItvvwigRsjc7WiKbW5+Tc8r9r8Q9rUHKlVJm1/+PegLLqN0m+G+a917DsSSA+gg CQ== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2120.oracle.com with ESMTP id 37d9pmxyya-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 23 Mar 2021 13:42:24 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12NDeBc2125502;
- Tue, 23 Mar 2021 13:42:23 GMT
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2173.outbound.protection.outlook.com [104.47.56.173])
- by userp3020.oracle.com with ESMTP id 37dttrxt1h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 23 Mar 2021 13:42:23 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BFE36EAD5;
+	Tue, 23 Mar 2021 18:30:58 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690086.outbound.protection.outlook.com [40.107.69.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE9F6E156;
+ Tue, 23 Mar 2021 17:55:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dq5LPg8movfRzttQ+J5BkY/Y1kzXEGrMJfVQdObQKpLBM8z/eerL1NNHAH4P7Wtf5z959wH5atJgLoMIjMPPAWvlxGqHpJpf2iDgUuVGOh3Fjb14GHWU9UspMP5Ttj2ijM1dz1Ko/9nzfhjjY0Qz+IrMt3VmOWDv0f4HCJuWnIEEcs8jp4VHvwr0kIOjYbC8s2bIZIkKPmb1BQM3ZX6LPrcNt9AjA5oeG6rVHJjVENlJdm50Io4smOH/jn4EH99Yw1DlXiNtzxgDhMi2J74XMQVNThcUzr2ZuuyUeVK6HM4eHorLVBw8SMzdPY2ICFVSMWJjK26SvgA8PKK2my7zbg==
+ b=EYQ1mPqLFlrTkVj8ZRY9XQSaTy9N7e7JxCgD2MPoPCf0Tsz2B/s3OdtSq/AxNInyBSIpG8aml8v07phN/QZR6Q1NHvV2bXJcNf7ugL/6vCh5VZBqLFum5G5XqW70bREFVzdiP/WNVvfdjB+E6Uc7FqxJDLufiJQuOlDBsqaXWd5vgT1b2az06WqX6S0qdcSncZ/R8ac7am9piuXBav23mHZ7occqFm49XgKjnu/on9s3gMD+dkPxMNxZcXJm1Qf1gU9pRq7FAbC6uv5yt6FbWdxkXsIzDbs9IqhbLSgV9R0mh+Os7bdbal96futNck88v4bXZ1UJtul3BQonF/qhXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bf5RdYJr7ILtQEb2JvXJyMU2ULTK6cKWU2GGqdLAlKU=;
- b=cKlymwCaNBzzD/gbsUU/1s3n+lU5eYM4+vOBbSZ6ZngKN1G/2eZFY2/J9jxssZhc5Ffo/U2m/KoDlMugfWmrzVW7pNv4bA729FQtjTz+yIvtT86xF9W1eJ7cvC3oAQaHPehitLp4WstUTgHYOrt2rDfo8dD5It2cYcY5GGPpvODDkxNBJwZJPSckg7+C8z/8FEHoH4OGAiDB+kNTB7caUGXKvTmLJEcFEqMQQjqlhAqUrYPtRF6J0pO8tR3BGnnoFByTiMR9k6b+gH0K1K2OXbjM5WYBLIjvIOnTkruJp8SJtvkdtMa54ZZc5d9qV0s84W316YUDJ11ocHNmWddTdQ==
+ bh=+klokg7Imk3XVXvuh32b4sPj9twC4TOfOsVtA4fhaso=;
+ b=AUofxYDWO4KRtepAy1NWAPLdYlWg5StCrGYose5Q/3ccWijtPv2hClSNBPD3GKpTuFsazCEp10pBEVP79Vq0LTArkW7HI2Gcuhp6oUP/xERMcpmDK5RJSpStmcG8DUMhDlswlNKN4h4bWiKJmod/zh+gLt5FCaSMLBuEqArBk5deThN1Z9vMne2qxmdB9Mu1oNJ9arFvylf8fRI9AxK1DeESWn+DippQIvGgA/wkufB2uV21GfGkM9uVZF+NHmAf3Pd8+MXKS1zPVV+BMYLOoexU4L/OrEKg7nEzGVJDxbd87b2NuzliLhJfAU3GAP6M3RWOPh1UTVe+GCIqbBHYOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bf5RdYJr7ILtQEb2JvXJyMU2ULTK6cKWU2GGqdLAlKU=;
- b=0Q82YvGaWLXHuh+Rfwy3frW3bV6lllqHcp+tIbtnM/8/kckDDRseiMDsOE+YQu7yk1EddAaHlRdUOOY3PglAqN1pxqenwftfghRmaQKmT8r9UO2h6Hj/T3EJrJwABTTzIcN1tm42uRjAQiHzfpc6xqB8QCCyfxDlriShuCFc36Y=
-Received: from MWHPR10MB1582.namprd10.prod.outlook.com (2603:10b6:300:22::8)
- by CO6PR10MB5395.namprd10.prod.outlook.com (2603:10b6:5:35c::6) with
+ bh=+klokg7Imk3XVXvuh32b4sPj9twC4TOfOsVtA4fhaso=;
+ b=lV8W9sBmwFMKFd9C8km/tf+dd3dkkfmSK/8luNuuR0/qKTjRW/Euzo5yb2rohy3T0TPE8dwdy9/i+eKyo8JL2qEl1M2rmZ1Ej0LYcBt0R1z9Xmpr2vG+uFMVZ9K8puxt5eMHDwxHocGHA+4JcTepnZbiOkfWESXL7WO2op0t790kBv28o9wp4qDJlasmv5r31fx4WQL6CwbD5IIPqjzFVFnnFE7rqL1qtl8+H3o+LPxsYsgLKzwZagb4gs7anJ5Q72EbWfsIrd3tjL14qLP/l9WWlOgqHxxywtq4X+8xME82vx/2HiA8SmiLubk5mqFbCdWfDZq3J6p2Mht7GSdlHw==
+Authentication-Results: linux.ie; dkim=none (message not signed)
+ header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB3932.namprd12.prod.outlook.com (2603:10b6:5:1c1::24) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Tue, 23 Mar
- 2021 13:42:21 +0000
-Received: from MWHPR10MB1582.namprd10.prod.outlook.com
- ([fe80::1ce7:260b:b004:c82c]) by MWHPR10MB1582.namprd10.prod.outlook.com
- ([fe80::1ce7:260b:b004:c82c%11]) with mapi id 15.20.3955.027; Tue, 23 Mar
- 2021 13:42:21 +0000
-From: Liam Howlett <liam.howlett@oracle.com>
-To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>
-Thread-Topic: [PATCH] i915_vma: Rename vma_lookup to i915_vma_lookup
-Thread-Index: AQHXH+pZpr0zHYAZfU6V/XP+m9CozA==
-Date: Tue, 23 Mar 2021 13:42:21 +0000
-Message-ID: <20210323134208.3077275-1-Liam.Howlett@Oracle.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: git-send-email 2.30.0
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=oracle.com;
-x-originating-ip: [23.233.25.87]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f7b25814-052c-45b8-88f4-08d8ee017c15
-x-ms-traffictypediagnostic: CO6PR10MB5395:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CO6PR10MB53950D74B1B99EF59D209EABFD649@CO6PR10MB5395.namprd10.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4303;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8vfATNN3y5ivEtwfXz6nP79JPf9/T+COtY4+5Z1FEve8+8jiH3SUtOa0LcplyePzcO7ShL/YsrQIhIWrfkylNxjR9ZK2qxtn8DG6vUEC8FQslpfACiyo+ciq+f0qDeLsNkf62DS1Hc2PWe41TUrI6rjLFbBO9F9TRgkv1Ac9+hQbj47Xu58ESHdmeJJpv7ZYCQ7IqU8KfQBSYcB+zu37QFOq8qZP0u13G6KdC0v67QbyTkU/6LeMW9NJtlnOhMFCcsE2gZ9rVexd5GHmP6OJfDS4pt0KdZseyFiWVQTIrfsUzSV2pSV3wjwZt1+TM2beE5rAAlk1SaNYTIZF1o6FHwNJ0MiJCKhOCGUIIw20Exi1rn4VXiD9sZkct3C19PvKFKgeEorDSGmSPnffFnGintL/G5fldEBPzMDKioDWa3DY8xpw4obzAMaM7JXfCeuQwzhmWfvmBiTSU3IlUzj5m8T/8OB581Mq7/Yuwozo5H3EtW0yfGXVD6lsxzjY4Rwn5T9CLk801zzd2+FeCroS1qk7CFn2RRzqdblo1a9CIWkH2qgydlByHcchIAiaEMtzehJYl5LrAF1B2Hs3ajI91NaI8XYnGcWHm1kcH+H9o0L9NNeHVQ4iPgI+d5sWjRqbZ5CS1N2PCAdqxTAc9UKxAQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR10MB1582.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(39850400004)(136003)(346002)(376002)(366004)(396003)(66946007)(2906002)(107886003)(76116006)(478600001)(44832011)(26005)(1076003)(5660300002)(316002)(66476007)(4744005)(66446008)(66556008)(4326008)(8676002)(91956017)(7416002)(6506007)(38100700001)(71200400001)(64756008)(6512007)(54906003)(83380400001)(8936002)(110136005)(186003)(6486002)(36756003)(86362001)(2616005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?AlNip3mAl8u8ewNfw+QgTmP6v/Cqh2R2TBbyvm6wY2SPqTGXYGT+KF0apK?=
- =?iso-8859-1?Q?ghb7poGTCvCiFs3f6EFXe/TuktUv722YecoRAdbN9Hwy1g6E3XuktO5/TO?=
- =?iso-8859-1?Q?mUChFw/GLRraiqV7SMfW15o8++RgsxUa7MxJQT76hyyMbapzumC4yet25C?=
- =?iso-8859-1?Q?QIJ7yqDxGGDaFt9bvS69kFrMal+KOm5eSSRjgQFyd9lg7TNOPvNUveGATm?=
- =?iso-8859-1?Q?ffc4clHUvpkErOX9QFeSLPi7nNUERQMI+4dDNnyzmmFewV5xAofVf/rBEk?=
- =?iso-8859-1?Q?jqlIjbRcJ2v2r42mbe8r9eRoUtewGPEbPv4kP0YFRZPkwPMXkEYBeeoxM+?=
- =?iso-8859-1?Q?fyANqCL4Sj0cFPoGNyACDemmbQoxsh+L1PLcus5+LM3DZJxh8RNO3Btm3M?=
- =?iso-8859-1?Q?MqFvcGjSZT8WFzXy972+Dl7M8+OLWigkYRQy4pVWSKFs4iRleQ0qtBv4Mn?=
- =?iso-8859-1?Q?haMEasOPYLFhB6h2/oqhIn1+z7HwfW8/2avhA4TEmATwV96uUIClarFH+Q?=
- =?iso-8859-1?Q?mMgtCVsgWAnk81/2PHnFtej84qFt8yl5xGPbFTMt/01X3tzY0BCYmDyqJ8?=
- =?iso-8859-1?Q?+Z/iHyPUQsV1lPdMzoHG4GVIzqylRWKGzdbk+DbcJV9f7G+4566+HCEAbD?=
- =?iso-8859-1?Q?LlGi8FnRS9soWtl0iLPVUTykk98alvowJeJj+ngHpLvJWbnrbNotPscv9A?=
- =?iso-8859-1?Q?v/r06WwYcVOwoVfMTfjzXv8DJESblH6pQddGV1Rd3sLdGc5a71B37oSqJ9?=
- =?iso-8859-1?Q?x+CtQazaJ0kuOiV3dLFr10vwf0weeGu1921i+vAev3i2y9PoGgu4tCWdnJ?=
- =?iso-8859-1?Q?yh2j8aXv/n5uKoJE/iIYG/CRCSW3LZTughePcYHW4jBuIaGtshGaoUHnzz?=
- =?iso-8859-1?Q?ag5dpP9Q1/iVDPs2chArcHZJHFWpJvtyv3aGXXeHsFlKTxFdXE+as5P3cw?=
- =?iso-8859-1?Q?UOubxn3Sx0TR3TIju7Y3BncWXU2wkMHeUtkX55YAKDD+i6iyujxdfFZBdV?=
- =?iso-8859-1?Q?UloW+gor2K30+P/dTFzc1Nv9oY5rMKGyTFPOAmqvYAgVQ/GTG6kCUkP963?=
- =?iso-8859-1?Q?jUsPI+aBGNERV3en9If5zns1ikEgZvdNBIK0hdQ5WmH0+RgoQeWA7VuxPm?=
- =?iso-8859-1?Q?kdCPXE/3GN0/+A6lhWXCll4pxk0S2SIvy4feDVxod8peOQsNhnMKjtJ2LE?=
- =?iso-8859-1?Q?yj7a3ADI2rbCRtuL2F6scSaowLFieZ6UC6GZYi/SvBQtQX9qIoN05dLQu6?=
- =?iso-8859-1?Q?/B67Bc62x5ohvlKSRsL+uHv+RK9Q2F+nWOv7mfeTZ6PIZDSL2wq/33BmRr?=
- =?iso-8859-1?Q?GWiV30+CqIZHX3wvL5GNUVNyOC0KwbZ1bdlWKRczeqF7GfFPpgpWB1xUcJ?=
- =?iso-8859-1?Q?wJpvOMnK9f?=
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.23; Tue, 23 Mar
+ 2021 17:55:38 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::1c62:7fa3:617b:ab87]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::1c62:7fa3:617b:ab87%6]) with mapi id 15.20.3955.027; Tue, 23 Mar 2021
+ 17:55:38 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Tue, 23 Mar 2021 14:55:32 -0300
+Message-Id: <15-v1-7dedf20b2b75+4f785-vfio2_jgg@nvidia.com>
+In-Reply-To: <0-v1-7dedf20b2b75+4f785-vfio2_jgg@nvidia.com>
+References: 
+X-Originating-IP: [206.223.160.26]
+X-ClientProxiedBy: BL0PR0102CA0020.prod.exchangelabs.com
+ (2603:10b6:207:18::33) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
 MIME-Version: 1.0
-X-OriginatorOrg: oracle.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (206.223.160.26) by
+ BL0PR0102CA0020.prod.exchangelabs.com (2603:10b6:207:18::33) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3955.18 via Frontend Transport; Tue, 23 Mar 2021 17:55:37 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1lOlFf-001chL-PQ; Tue, 23 Mar 2021 14:55:35 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d10d278a-c7b3-4d5d-234c-08d8ee24dd6b
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3932:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB39321E7648C67A5A3C98B49CC2649@DM6PR12MB3932.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2rKx5FVN+RTeEQe4nzIMw8PXPBgw+AN3QGcuhVIfKNmlVNI4aQ7YFY0rWIWGrf/+RgYF4zfPcEoQCCG0kFviOQ5yp5xX/aiyj4SOuvfrSAIJwe1ikSke1/7R/ms5y6vYMTEeyxkS+pDTFJMofsuYc6fJziKrgYnU5Bt9elsGXD/pVoa+ct9Lai6O6JdyeB3m+xzPdlZ8lB/s6YYrxAjyDByXetoXFX7TsXugdr2Q92Cbi/Vn6VR8ie4rX+q0wVd4m4b0Vo8j2vhi72QjXmTQIH0WGSdBahR5+BaVtSCGpajzeF0jjVS70kxAg1SettsyqU+miqeEMPIcEtoCCmzSevl+CrUYOqc/mRdhYy62Tb6NMasdzYDtU1HTP+oqQCmvDO4coYxWSwsB+8e7emK4w/iI7EeYzwrYgD+t/DQAEh+5jNrT9sySW64YMaQCNMj2NZ1moW2A4u2clhwHVWV6sYuqRWZrqZ1fW5qZh0WPoXgAjEQwTwlLzA1O/vfDz8sORMIwH1M6w2kiy/8JoNbUWmDx3mEVLcNXKE61QOue+40vbAPwiAAQvV5a6RlEDYDEU4swWXM1szQQjhr5QRpIwa0JkanICOSGEEKiJtSULCJI5YIzlAfMkwy3due9PRW4LjkC00hl5IIvuTYocS+beUkpObp2a8i7/XNL6xr//xg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3834.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(136003)(366004)(39840400004)(396003)(346002)(2616005)(6666004)(9786002)(478600001)(66556008)(86362001)(8936002)(107886003)(66946007)(83380400001)(9746002)(66476007)(26005)(5660300002)(54906003)(8676002)(316002)(2906002)(4326008)(186003)(38100700001)(426003)(7416002)(36756003)(110136005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?eZuh0pQbnzBiSLyr+WeZBrMTGS2/4W7M2XHFlF/mjxVj3R7FONI+wAwcvlrv?=
+ =?us-ascii?Q?WU7lsXTX40w3Hitn0EY1ikvNv7AjciLNwuzJfR1caZxYEWxh8aJRY4jCJzcG?=
+ =?us-ascii?Q?KgSXwGpAkGggF1eHKIrnbc6r0wMmkhJWPh1iU2IGMb2YeobVr0m8r+qEekPS?=
+ =?us-ascii?Q?NwidbSVlFGFNiLV1xgIOk6k647lyBkT+DqVs6jW78oclS3g0IsPgrSRz7pQE?=
+ =?us-ascii?Q?Uh4LrVP3QfDNPW2pfqZrkYpQOaZgiopcilSX9hVUkDjey660DOiJm8U2js0e?=
+ =?us-ascii?Q?3mDEDzXgEtrmQ2N74VT03zwF6Gfwp1u/pwLuBCol8x9Ht/UelGN/CwHd+9EI?=
+ =?us-ascii?Q?Rq3xIYCl6Yqyf+Nr4kdxBsfYfZvHC1VC7+HwAwVxrQG9gxMIyzAr2vIJaiSx?=
+ =?us-ascii?Q?4+dEpXqvjTe2gMhGhtY3SxuOnM9C5bUJv2axCGfAGg5+vK/bXdiwv8TS4ROA?=
+ =?us-ascii?Q?ZvKHWp3ZP5XtOl0npy0yoqQKZUux86BcKuQhodNo9+RSFY9BC34upEm/WU67?=
+ =?us-ascii?Q?KXPTOXWN9TfdEKktt7UVH0NYgfaQJ/SY7k329gEaaMT99RpncWIbSH3w++LH?=
+ =?us-ascii?Q?gAW/vDRivNIvYFj8dC6sj7bGWTIC6aKDD6VqPRMPrHml0+eZzZ/7K7o67f24?=
+ =?us-ascii?Q?OjD1Lk58QSYiguzA73ddzpzLNkEUQvqWguEEomNllUUVQgvpTz6XUA/FRhJZ?=
+ =?us-ascii?Q?fxTPfuWkAJpSzywSNLYwWDARA+w5QOAoKM2sLseCInjs6mJw3IyctIKP6rTC?=
+ =?us-ascii?Q?3WPA2Le5Jt9KhW/s3QHKXuAM7hlbeDVCAEMALwblJ6vEiaknj5PDQpKZsfpQ?=
+ =?us-ascii?Q?KXktBORpNctvm8RvSeMygMcdSp2XjKAunQQ3Tm0spbIDHe87Jiw+bQ1XeEKG?=
+ =?us-ascii?Q?+qeyWBeYZ8yesOax7a8sLp2g8wZB7kx9NyIZPL+4oQdo4awQKYDDLWe6E4oB?=
+ =?us-ascii?Q?gJjGzxiOHwvLxtAxLwygZ6ofr+fHFYTwn9PnZeLoMcOdJFrW7YN0Sudm25FN?=
+ =?us-ascii?Q?b0rC32Zzd7y5hGUgvIZhsfe9EK/3Yq092nPUnJCET3q3IlrkWNsVG6HeXZuZ?=
+ =?us-ascii?Q?ZjKyd84CbVP6IeEV6jhuM9sfcajwmFjnt4vDYPin4OhHAhapPeQFlBgRqxci?=
+ =?us-ascii?Q?wzy68G5aYlD6BFX2V2uXH39HAUUPLYJBRMHTBJ3p32GI4Rp/TBEc1i08TVmF?=
+ =?us-ascii?Q?mUhf/TrshWbw+8g9ywwiGZPTSV6J/HqhRHIaGKF8bXWqa88oTAGMb1ZFQrD+?=
+ =?us-ascii?Q?6Y0U/GAZAk28a6bdDmifkirDBgZtpPRTAhhAYuhfn6AG0iDfluJiaesNAIW+?=
+ =?us-ascii?Q?4zJY400+IitO3DwA8DNyqjXQ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d10d278a-c7b3-4d5d-234c-08d8ee24dd6b
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3834.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR10MB1582.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7b25814-052c-45b8-88f4-08d8ee017c15
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2021 13:42:21.5739 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: W6XlCVXmxfMRnKQ1M6BewX8jgeSh9qeBeE6dTUcaot2yBPTvejGzsHgsx5HlEfPf0CFbdcbNKz9wZ91ihtD+OA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR10MB5395
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9931
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- malwarescore=0 spamscore=0
- mlxscore=0 phishscore=0 suspectscore=0 mlxlogscore=999 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103230101
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9931
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 phishscore=0
- mlxlogscore=999 priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0
- adultscore=0 clxscore=1011 malwarescore=0 mlxscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103230101
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2021 17:55:37.5823 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xyMuXhwaeclOHzJqbIyRnyP1r4k5w1NH2+cvIrmxIicXSp7s8Nrux0sX+npp/F1X
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3932
 X-Mailman-Approved-At: Tue, 23 Mar 2021 18:30:53 +0000
-Subject: [Intel-gfx] [PATCH] i915_vma: Rename vma_lookup to i915_vma_lookup
+Subject: [Intel-gfx] [PATCH 15/18] vfio/gvt: Make DRM_I915_GVT depend on
+ VFIO_MDEV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,46 +133,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
- Liam Howlett <liam.howlett@oracle.com>, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Max Gurtovoy <mgurtovoy@nvidia.com>, "Raj, Ashok" <ashok.raj@intel.com>,
+ Tarun Gupta <targupta@nvidia.com>, Dan Williams <dan.j.williams@intel.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use i915 prefix to avoid name collision with future vma_lookup() in mm.
+At some point there may have been some reason for this weird split in this
+driver, but today only the VFIO side is actually implemented.
 
-Signed-off-by: Liam R. Howlett <Liam.Howlett@Oracle.com>
-Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+However, it got messed up at some point and mdev code was put in gvt.c and
+is pretending to be "generic" by masquerading as some generic attribute list:
+
+   static MDEV_TYPE_ATTR_RO(description);
+
+But MDEV_TYPE attributes are only usable with mdev_device, nothing else.
+
+Ideally all of this would be moved to kvmgt.c, but it is entangled with
+the rest of the "generic" code in an odd way. Thus put in a kconfig
+dependency so we don't get randconfig failures when the next patch creates
+a link time dependency related to the use of MDEV_TYPE.
+
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/gpu/drm/i915/i915_vma.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index caa9b041616b..ee0028c697f6 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -230,7 +230,7 @@ vma_create(struct drm_i915_gem_object *obj,
- }
- 
- static struct i915_vma *
--vma_lookup(struct drm_i915_gem_object *obj,
-+i915_vma_lookup(struct drm_i915_gem_object *obj,
- 	   struct i915_address_space *vm,
- 	   const struct i915_ggtt_view *view)
- {
-@@ -278,7 +278,7 @@ i915_vma_instance(struct drm_i915_gem_object *obj,
- 	GEM_BUG_ON(!atomic_read(&vm->open));
- 
- 	spin_lock(&obj->vma.lock);
--	vma = vma_lookup(obj, vm, view);
-+	vma = i915_vma_lookup(obj, vm, view);
- 	spin_unlock(&obj->vma.lock);
- 
- 	/* vma_create() will resolve the race if another creates the vma */
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 1e1cb245fca778..483e9ff8ca1d23 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -101,6 +101,7 @@ config DRM_I915_GVT
+ 	bool "Enable Intel GVT-g graphics virtualization host support"
+ 	depends on DRM_I915
+ 	depends on 64BIT
++	depends on VFIO_MDEV
+ 	default n
+ 	help
+ 	  Choose this option if you want to enable Intel GVT-g graphics
 -- 
-2.30.0
+2.31.0
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
