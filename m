@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B20C2C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:52:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C8F5C433E2
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:52:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7B1FA619B6
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:52:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B1FA619B6
+	by mail.kernel.org (Postfix) with ESMTPS id 40C26619B6
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:52:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40C26619B6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0E216EBA5;
-	Tue, 23 Mar 2021 15:51:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC526EBB7;
+	Tue, 23 Mar 2021 15:51:34 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95E5D6EA7A
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 15:51:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 205ED6EAA2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 15:51:20 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Mar 2021 16:50:59 +0100
-Message-Id: <20210323155059.628690-71-maarten.lankhorst@linux.intel.com>
+Date: Tue, 23 Mar 2021 16:50:41 +0100
+Message-Id: <20210323155059.628690-53-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210323155059.628690-1-maarten.lankhorst@linux.intel.com>
 References: <20210323155059.628690-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v9 70/70] drm/i915: Remove asynchronous vma
- binding
+Subject: [Intel-gfx] [PATCH v9 52/70] drm/i915/selftests: Prepare hangcheck
+ for obj->mm.lock removal
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,461 +45,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The current asynchronous work is done in a dma_fence_work, which
-has signalling annotations, because dma_fence_work signals on completion.
-
-On braswell, we can call stop_machine inside fence_work, causing a splat
-because memory allocation inside stop_machine is allowed.
-
-Strictly speaking this is a false positive, but go for safe and remove
-asynchronous vma binding entirely.
-
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c |   3 -
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c       |   1 -
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c       |   1 -
- drivers/gpu/drm/i915/gt/intel_ggtt.c       |   4 -
- drivers/gpu/drm/i915/gt/intel_gtt.h        |   2 -
- drivers/gpu/drm/i915/i915_gem.c            |   6 -
- drivers/gpu/drm/i915/i915_vma.c            | 174 +++------------------
- drivers/gpu/drm/i915/i915_vma.h            |   5 +-
- drivers/gpu/drm/i915/i915_vma_types.h      |   3 -
- 9 files changed, 21 insertions(+), 178 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index 48b2258091c3..52b35b1a14f1 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -505,9 +505,6 @@ static void dbg_poison(struct i915_ggtt *ggtt,
- 	if (!drm_mm_node_allocated(&ggtt->error_capture))
- 		return;
- 
--	if (ggtt->vm.bind_async_flags & I915_VMA_GLOBAL_BIND)
--		return; /* beware stop_machine() inversion */
--
- 	GEM_BUG_ON(!IS_ALIGNED(size, PAGE_SIZE));
- 
- 	mutex_lock(&ggtt->error_mutex);
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-index e08dff376339..0c5a9a767849 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-@@ -436,7 +436,6 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
- 	ppgtt->base.vm.pd_shift = ilog2(SZ_4K * SZ_4K / sizeof(gen6_pte_t));
- 	ppgtt->base.vm.top = 1;
- 
--	ppgtt->base.vm.bind_async_flags = I915_VMA_LOCAL_BIND;
- 	ppgtt->base.vm.allocate_va_range = gen6_alloc_va_range;
- 	ppgtt->base.vm.clear_range = gen6_ppgtt_clear_range;
- 	ppgtt->base.vm.insert_entries = gen6_ppgtt_insert_entries;
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index 176c19633412..92f8a23e66cc 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -736,7 +736,6 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
- 			goto err_free_pd;
- 	}
- 
--	ppgtt->vm.bind_async_flags = I915_VMA_LOCAL_BIND;
- 	ppgtt->vm.insert_entries = gen8_ppgtt_insert;
- 	ppgtt->vm.allocate_va_range = gen8_ppgtt_alloc;
- 	ppgtt->vm.clear_range = gen8_ppgtt_clear;
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index c2fc49495029..2a36b09a3761 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -127,7 +127,6 @@ void i915_ggtt_suspend(struct i915_ggtt *ggtt)
- 
- 	list_for_each_entry_safe(vma, vn, &ggtt->vm.bound_list, vm_link) {
- 		GEM_BUG_ON(!drm_mm_node_allocated(&vma->node));
--		i915_vma_wait_for_bind(vma);
- 
- 		if (i915_vma_is_pinned(vma))
- 			continue;
-@@ -671,7 +670,6 @@ static int init_aliasing_ppgtt(struct i915_ggtt *ggtt)
- 	ppgtt->vm.allocate_va_range(&ppgtt->vm, &stash, 0, ggtt->vm.total);
- 
- 	ggtt->alias = ppgtt;
--	ggtt->vm.bind_async_flags |= ppgtt->vm.bind_async_flags;
- 
- 	GEM_BUG_ON(ggtt->vm.vma_ops.bind_vma != ggtt_bind_vma);
- 	ggtt->vm.vma_ops.bind_vma = aliasing_gtt_bind_vma;
-@@ -911,8 +909,6 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
- 	    IS_CHERRYVIEW(i915) /* fails with concurrent use/update */) {
- 		ggtt->vm.insert_entries = bxt_vtd_ggtt_insert_entries__BKL;
- 		ggtt->vm.insert_page    = bxt_vtd_ggtt_insert_page__BKL;
--		ggtt->vm.bind_async_flags =
--			I915_VMA_GLOBAL_BIND | I915_VMA_LOCAL_BIND;
- 	}
- 
- 	ggtt->invalidate = gen8_ggtt_invalidate;
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index e67e34e17913..d9d2ca8b4b61 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -230,8 +230,6 @@ struct i915_address_space {
- 	u64 total;		/* size addr space maps (ex. 2GB for ggtt) */
- 	u64 reserved;		/* size addr space reserved */
- 
--	unsigned int bind_async_flags;
--
- 	/*
- 	 * Each active user context has its own address space (in full-ppgtt).
- 	 * Since the vm may be shared between multiple contexts, we count how
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index d23a417295f8..a45ff3b76e93 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -943,12 +943,6 @@ i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
- 		mutex_unlock(&ggtt->vm.mutex);
- 	}
- 
--	ret = i915_vma_wait_for_bind(vma);
--	if (ret) {
--		i915_vma_unpin(vma);
--		return ERR_PTR(ret);
--	}
--
- 	return vma;
- }
- 
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 03291c032814..260020e2dca6 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -289,79 +289,6 @@ i915_vma_instance(struct drm_i915_gem_object *obj,
- 	return vma;
- }
- 
--struct i915_vma_work {
--	struct dma_fence_work base;
--	struct i915_address_space *vm;
--	struct i915_vm_pt_stash stash;
--	struct i915_vma *vma;
--	struct drm_i915_gem_object *pinned;
--	struct i915_sw_dma_fence_cb cb;
--	enum i915_cache_level cache_level;
--	unsigned int flags;
--};
--
--static int __vma_bind(struct dma_fence_work *work)
--{
--	struct i915_vma_work *vw = container_of(work, typeof(*vw), base);
--	struct i915_vma *vma = vw->vma;
--
--	vma->ops->bind_vma(vw->vm, &vw->stash,
--			   vma, vw->cache_level, vw->flags);
--	return 0;
--}
--
--static void __vma_release(struct dma_fence_work *work)
--{
--	struct i915_vma_work *vw = container_of(work, typeof(*vw), base);
--
--	if (vw->pinned) {
--		__i915_gem_object_unpin_pages(vw->pinned);
--		i915_gem_object_put(vw->pinned);
--	}
--
--	i915_vm_free_pt_stash(vw->vm, &vw->stash);
--	i915_vm_put(vw->vm);
--}
--
--static const struct dma_fence_work_ops bind_ops = {
--	.name = "bind",
--	.work = __vma_bind,
--	.release = __vma_release,
--};
--
--struct i915_vma_work *i915_vma_work(void)
--{
--	struct i915_vma_work *vw;
--
--	vw = kzalloc(sizeof(*vw), GFP_KERNEL);
--	if (!vw)
--		return NULL;
--
--	dma_fence_work_init(&vw->base, &bind_ops);
--	vw->base.dma.error = -EAGAIN; /* disable the worker by default */
--
--	return vw;
--}
--
--int i915_vma_wait_for_bind(struct i915_vma *vma)
--{
--	int err = 0;
--
--	if (rcu_access_pointer(vma->active.excl.fence)) {
--		struct dma_fence *fence;
--
--		rcu_read_lock();
--		fence = dma_fence_get_rcu_safe(&vma->active.excl.fence);
--		rcu_read_unlock();
--		if (fence) {
--			err = dma_fence_wait(fence, MAX_SCHEDULE_TIMEOUT);
--			dma_fence_put(fence);
--		}
--	}
--
--	return err;
--}
--
- /**
-  * i915_vma_bind - Sets up PTEs for an VMA in it's corresponding address space.
-  * @vma: VMA to map
-@@ -375,8 +302,7 @@ int i915_vma_wait_for_bind(struct i915_vma *vma)
-  */
- int i915_vma_bind(struct i915_vma *vma,
- 		  enum i915_cache_level cache_level,
--		  u32 flags,
--		  struct i915_vma_work *work)
-+		  u32 flags, struct i915_vm_pt_stash *stash)
- {
- 	u32 bind_flags;
- 	u32 vma_flags;
-@@ -405,39 +331,7 @@ int i915_vma_bind(struct i915_vma *vma,
- 	GEM_BUG_ON(!vma->pages);
- 
- 	trace_i915_vma_bind(vma, bind_flags);
--	if (work && bind_flags & vma->vm->bind_async_flags) {
--		struct dma_fence *prev;
--
--		work->vma = vma;
--		work->cache_level = cache_level;
--		work->flags = bind_flags;
--
--		/*
--		 * Note we only want to chain up to the migration fence on
--		 * the pages (not the object itself). As we don't track that,
--		 * yet, we have to use the exclusive fence instead.
--		 *
--		 * Also note that we do not want to track the async vma as
--		 * part of the obj->resv->excl_fence as it only affects
--		 * execution and not content or object's backing store lifetime.
--		 */
--		prev = i915_active_set_exclusive(&vma->active, &work->base.dma);
--		if (prev) {
--			__i915_sw_fence_await_dma_fence(&work->base.chain,
--							prev,
--							&work->cb);
--			dma_fence_put(prev);
--		}
--
--		work->base.dma.error = 0; /* enable the queue_work() */
--
--		if (vma->obj) {
--			__i915_gem_object_pin_pages(vma->obj);
--			work->pinned = i915_gem_object_get(vma->obj);
--		}
--	} else {
--		vma->ops->bind_vma(vma->vm, NULL, vma, cache_level, bind_flags);
--	}
-+	vma->ops->bind_vma(vma->vm, stash, vma, cache_level, bind_flags);
- 
- 	atomic_or(bind_flags, &vma->flags);
- 	return 0;
-@@ -531,9 +425,6 @@ bool i915_vma_misplaced(const struct i915_vma *vma,
- 	if (!drm_mm_node_allocated(&vma->node))
- 		return false;
- 
--	if (test_bit(I915_VMA_ERROR_BIT, __i915_vma_flags(vma)))
--		return true;
--
- 	if (vma->node.size < size)
- 		return true;
- 
-@@ -752,7 +643,7 @@ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
- 		if (unlikely(flags & ~bound))
- 			return false;
- 
--		if (unlikely(bound & (I915_VMA_OVERFLOW | I915_VMA_ERROR)))
-+		if (unlikely(bound & I915_VMA_OVERFLOW))
- 			return false;
- 
- 		if (!(bound & I915_VMA_PIN_MASK))
-@@ -770,7 +661,7 @@ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
- 	 */
- 	mutex_lock(&vma->vm->mutex);
- 	do {
--		if (unlikely(bound & (I915_VMA_OVERFLOW | I915_VMA_ERROR))) {
-+		if (unlikely(bound & I915_VMA_OVERFLOW)) {
- 			pinned = false;
- 			break;
- 		}
-@@ -858,10 +749,10 @@ static void vma_unbind_pages(struct i915_vma *vma)
- int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 		    u64 size, u64 alignment, u64 flags)
- {
--	struct i915_vma_work *work = NULL;
- 	intel_wakeref_t wakeref = 0;
- 	unsigned int bound;
- 	int err;
-+	struct i915_vm_pt_stash stash = {};
- 
- #ifdef CONFIG_PROVE_LOCKING
- 	if (debug_locks && !WARN_ON(!ww) && vma->resv)
-@@ -884,33 +775,21 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	if (flags & PIN_GLOBAL)
- 		wakeref = intel_runtime_pm_get(&vma->vm->i915->runtime_pm);
- 
--	if (flags & vma->vm->bind_async_flags) {
--		/* lock VM */
--		err = i915_vm_lock_objects(vma->vm, ww);
-+	if (vma->vm->allocate_va_range) {
-+		err = i915_vm_alloc_pt_stash(vma->vm,
-+					     &stash,
-+					     vma->size);
- 		if (err)
- 			goto err_rpm;
- 
--		work = i915_vma_work();
--		if (!work) {
--			err = -ENOMEM;
-+		err = i915_vm_lock_objects(vma->vm, ww);
-+		if (err)
- 			goto err_rpm;
--		}
- 
--		work->vm = i915_vm_get(vma->vm);
--
--		/* Allocate enough page directories to used PTE */
--		if (vma->vm->allocate_va_range) {
--			err = i915_vm_alloc_pt_stash(vma->vm,
--						     &work->stash,
--						     vma->size);
--			if (err)
--				goto err_fence;
--
--			err = i915_vm_pin_pt_stash(vma->vm,
--						   &work->stash);
--			if (err)
--				goto err_fence;
--		}
-+		err = i915_vm_pin_pt_stash(vma->vm,
-+					   &stash);
-+		if (err)
-+			goto err_rpm;
- 	}
- 
- 	/*
-@@ -933,7 +812,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	err = mutex_lock_interruptible_nested(&vma->vm->mutex,
- 					      !(flags & PIN_GLOBAL));
- 	if (err)
--		goto err_fence;
-+		goto err_rpm;
- 
- 	/* No more allocations allowed now we hold vm->mutex */
- 
-@@ -943,11 +822,6 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	}
- 
- 	bound = atomic_read(&vma->flags);
--	if (unlikely(bound & I915_VMA_ERROR)) {
--		err = -ENOMEM;
--		goto err_unlock;
--	}
--
- 	if (unlikely(!((bound + 1) & I915_VMA_PIN_MASK))) {
- 		err = -EAGAIN; /* pins are meant to be fairly temporary */
- 		goto err_unlock;
-@@ -974,7 +848,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	GEM_BUG_ON(!vma->pages);
- 	err = i915_vma_bind(vma,
- 			    vma->obj ? vma->obj->cache_level : 0,
--			    flags, work);
-+			    flags, &stash);
- 	if (err)
- 		goto err_remove;
- 
-@@ -997,10 +871,8 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	i915_active_release(&vma->active);
- err_unlock:
- 	mutex_unlock(&vma->vm->mutex);
--err_fence:
--	if (work)
--		dma_fence_work_commit_imm(&work->base);
- err_rpm:
-+	i915_vm_free_pt_stash(vma->vm, &stash);
- 	if (wakeref)
- 		intel_runtime_pm_put(&vma->vm->i915->runtime_pm, wakeref);
- 	vma_put_pages(vma);
-@@ -1035,14 +907,8 @@ int i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 			err = i915_vma_pin_ww(vma, ww, 0, align, flags | PIN_GLOBAL);
- 		else
- 			err = i915_vma_pin(vma, 0, align, flags | PIN_GLOBAL);
--		if (err != -ENOSPC) {
--			if (!err) {
--				err = i915_vma_wait_for_bind(vma);
--				if (err)
--					i915_vma_unpin(vma);
--			}
-+		if (err != -ENOSPC)
- 			return err;
--		}
- 
- 		/* Unlike i915_vma_pin, we don't take no for an answer! */
- 		flush_idle_contexts(vm->gt);
-@@ -1307,7 +1173,7 @@ void __i915_vma_evict(struct i915_vma *vma)
- 		trace_i915_vma_unbind(vma);
- 		vma->ops->unbind_vma(vma->vm, vma);
- 	}
--	atomic_and(~(I915_VMA_BIND_MASK | I915_VMA_ERROR | I915_VMA_GGTT_WRITE),
-+	atomic_and(~(I915_VMA_BIND_MASK | I915_VMA_GGTT_WRITE),
- 		   &vma->flags);
- 
- 	i915_vma_detach(vma);
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 8df784a026d2..d1d0fc76ef99 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -195,11 +195,10 @@ i915_vma_compare(struct i915_vma *vma,
- 	return memcmp(&vma->ggtt_view.partial, &view->partial, view->type);
- }
- 
--struct i915_vma_work *i915_vma_work(void);
- int i915_vma_bind(struct i915_vma *vma,
- 		  enum i915_cache_level cache_level,
- 		  u32 flags,
--		  struct i915_vma_work *work);
-+		  struct i915_vm_pt_stash *stash);
- 
- bool i915_gem_valid_gtt_space(struct i915_vma *vma, unsigned long color);
- bool i915_vma_misplaced(const struct i915_vma *vma,
-@@ -418,8 +417,6 @@ struct i915_vma *i915_vma_make_unshrinkable(struct i915_vma *vma);
- void i915_vma_make_shrinkable(struct i915_vma *vma);
- void i915_vma_make_purgeable(struct i915_vma *vma);
- 
--int i915_vma_wait_for_bind(struct i915_vma *vma);
--
- static inline int i915_vma_sync(struct i915_vma *vma)
- {
- 	/* Wait for the asynchronous bindings and pending GPU reads */
-diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
-index f5cb848b7a7e..c671b2b5caa1 100644
---- a/drivers/gpu/drm/i915/i915_vma_types.h
-+++ b/drivers/gpu/drm/i915/i915_vma_types.h
-@@ -236,9 +236,6 @@ struct i915_vma {
- 
- #define I915_VMA_ALLOC_BIT	12
- 
--#define I915_VMA_ERROR_BIT	13
--#define I915_VMA_ERROR		((int)BIT(I915_VMA_ERROR_BIT))
--
- #define I915_VMA_GGTT_BIT	14
- #define I915_VMA_CAN_FENCE_BIT	15
- #define I915_VMA_USERFAULT_BIT	16
--- 
-2.31.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Q29udmVydCBhIGZldyBjYWxscyB0byB1c2UgdGhlIHVubG9ja2VkIHZlcnNpb25zLgoKU2lnbmVk
+LW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVs
+LmNvbT4KUmV2aWV3ZWQtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGxp
+bnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9zZWxmdGVzdF9oYW5n
+Y2hlY2suYyB8IDggKysrKy0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRl
+c3RfaGFuZ2NoZWNrLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9zZWxmdGVzdF9oYW5nY2hl
+Y2suYwppbmRleCBjZGIwY2VmZjNiZTEuLjYwOGE2N2Y5YzYzMSAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3RfaGFuZ2NoZWNrLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZ3Qvc2VsZnRlc3RfaGFuZ2NoZWNrLmMKQEAgLTYxLDE1ICs2MSwxNSBAQCBzdGF0
+aWMgaW50IGhhbmdfaW5pdChzdHJ1Y3QgaGFuZyAqaCwgc3RydWN0IGludGVsX2d0ICpndCkKIAl9
+CiAKIAlpOTE1X2dlbV9vYmplY3Rfc2V0X2NhY2hlX2NvaGVyZW5jeShoLT5od3MsIEk5MTVfQ0FD
+SEVfTExDKTsKLQl2YWRkciA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKGgtPmh3cywgSTkxNV9N
+QVBfV0IpOworCXZhZGRyID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2NrZWQoaC0+aHdz
+LCBJOTE1X01BUF9XQik7CiAJaWYgKElTX0VSUih2YWRkcikpIHsKIAkJZXJyID0gUFRSX0VSUih2
+YWRkcik7CiAJCWdvdG8gZXJyX29iajsKIAl9CiAJaC0+c2Vxbm8gPSBtZW1zZXQodmFkZHIsIDB4
+ZmYsIFBBR0VfU0laRSk7CiAKLQl2YWRkciA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKGgtPm9i
+aiwKLQkJCQkJaTkxNV9jb2hlcmVudF9tYXBfdHlwZShndC0+aTkxNSkpOworCXZhZGRyID0gaTkx
+NV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2NrZWQoaC0+b2JqLAorCQkJCQkJIGk5MTVfY29oZXJl
+bnRfbWFwX3R5cGUoZ3QtPmk5MTUpKTsKIAlpZiAoSVNfRVJSKHZhZGRyKSkgewogCQllcnIgPSBQ
+VFJfRVJSKHZhZGRyKTsKIAkJZ290byBlcnJfdW5waW5faHdzOwpAQCAtMTMwLDcgKzEzMCw3IEBA
+IGhhbmdfY3JlYXRlX3JlcXVlc3Qoc3RydWN0IGhhbmcgKmgsIHN0cnVjdCBpbnRlbF9lbmdpbmVf
+Y3MgKmVuZ2luZSkKIAkJcmV0dXJuIEVSUl9DQVNUKG9iaik7CiAJfQogCi0JdmFkZHIgPSBpOTE1
+X2dlbV9vYmplY3RfcGluX21hcChvYmosIGk5MTVfY29oZXJlbnRfbWFwX3R5cGUoZ3QtPmk5MTUp
+KTsKKwl2YWRkciA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3VubG9ja2VkKG9iaiwgaTkxNV9j
+b2hlcmVudF9tYXBfdHlwZShndC0+aTkxNSkpOwogCWlmIChJU19FUlIodmFkZHIpKSB7CiAJCWk5
+MTVfZ2VtX29iamVjdF9wdXQob2JqKTsKIAkJaTkxNV92bV9wdXQodm0pOwotLSAKMi4zMS4wCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZngg
+bWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
