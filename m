@@ -2,82 +2,77 @@ Return-Path: <SRS0=maCC=IV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EDD5C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 24AE8C433DB
 	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:38:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09D616157F
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:38:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09D616157F
+	by mail.kernel.org (Postfix) with ESMTPS id C410C619B1
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:38:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C410C619B1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A32A6E113;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8566E069;
 	Tue, 23 Mar 2021 12:38:34 +0000 (UTC)
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [IPv6:2607:f8b0:4864:20::72b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF316E874;
- Tue, 23 Mar 2021 09:14:16 +0000 (UTC)
-Received: by mail-qk1-x72b.google.com with SMTP id c3so13587153qkc.5;
- Tue, 23 Mar 2021 02:14:16 -0700 (PDT)
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [IPv6:2607:f8b0:4864:20::730])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3D7E6E81C;
+ Tue, 23 Mar 2021 01:16:25 +0000 (UTC)
+Received: by mail-qk1-x730.google.com with SMTP id o5so12774020qkb.0;
+ Mon, 22 Mar 2021 18:16:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=yKamrg4WQ+8FkyynMWBliZ0t9JpsQat8oBO83DGW1QQ=;
- b=k15rQQYFTnRWn6UkVkfxPOjIFEe2JNn89l2ipW6jz1vPKm1gH0MDxAUp4C/nuJc1y4
- tyWhu1SvPXNHdMdMTukSPNrOhQKZLkseHbidtLwUqnjxDLieaj4iqexwesLvbPbESDvW
- RTZKBQxIzZIshmKqsw1t6BRCDjc5kANvrRX13FX5eBNZ2i12u50LKPa5T5bkyFzW5sLm
- xedVrbyWvwC5dZCk5pX7XdIo6ZX+r77F/cC496THBXcN7oFR5axZ512/ZgthJs9kPXen
- 5cgakFG+Qjhs7hCKhgL8jgfEwcudMRLtMFFsTSukOpbNlSdq4kBNMeIG/oooMhGt9dgC
- 14Pg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=S5pECjMsM/qvstnesb/+ZKBN9a5m4sodJTA9keXe8fs=;
+ b=dzSqflgkinPRl41IH6b6OavC4s0p/5zLninBkx7jvN5x0aJcq94JpIET1747IB/M34
+ /NQ5JHATUU7E2Pl5dV0kMt5gdt+RQRS5LU+f/X7EDMxiVCiFXWAij/EXKpT1w/elqHhD
+ rb4eZFhPkBSBN0bIgG7ZSLW7HYN7BvToY6tZT3n40b4ucj1vYqJCWZHebwuP8H10sCmk
+ GsUeQdhycaM8SPxIDYfV8dBZH+S86dibxCrrTasFH78QMmsxBZl9rLfkZPoOWLAQ8eQJ
+ mC1iozFhXJBE4szBqDdCTGZcdU0VjF8metQOKmbjGoQnHrYGDrl0JhzHfMNLFXszuV44
+ LP7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=yKamrg4WQ+8FkyynMWBliZ0t9JpsQat8oBO83DGW1QQ=;
- b=h9NL4wbV/2J5QvI33eoppQhHlT0ccc2CTHuwTaXaLf5GaAc7oKUoBEwvhMQ4cdxL/k
- IpSjnpiUNZVagPUyUlqx9UimlMpldJLbxKpins2yv87bq1NcyHpDuu4xuMfhy0J0Gr0T
- vJ33vve9sjsRZ9l6fCRyY0BIS3A8y4wk3A2/sexfKQGPOyPk5IhZZviCKjZ4IyVQ3jIa
- AsLTgD2f0RtsSDp5jQnyM+gQI8Bl3ziWOfKdbgEHGBiC8jTO6tM/IYImDLhQBZ2FlQ8n
- Xc0KGyd+Cuot+R03ai6BlwP6lupxJ23dowolK+RCUzIVUSJqWtmgHr6q0sUFREvp82bd
- T96A==
-X-Gm-Message-State: AOAM5339GdtvxOMfdggP+yaC7L+QQG/CtGOCyYCKfksjcj6pIO1xoGLt
- NGyjqfcsCD9WFIEKJMAwxbo=
-X-Google-Smtp-Source: ABdhPJyh+0q5eJDWd+9DOmDi7kVHzpO0V0QZjUYLIszZuhys5Tq3g2ATH+OsE+oQNX+ksfTyjUENvw==
-X-Received: by 2002:a37:a643:: with SMTP id p64mr4178667qke.276.1616490855481; 
- Tue, 23 Mar 2021 02:14:15 -0700 (PDT)
-Received: from ArchLinux ([143.244.44.229])
- by smtp.gmail.com with ESMTPSA id z5sm12793861qkz.2.2021.03.23.02.14.07
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=S5pECjMsM/qvstnesb/+ZKBN9a5m4sodJTA9keXe8fs=;
+ b=DwYaUSm3GwvPxULB5Z6yx8cauHW5JD4ZUPy/pO7Sm0rgWTvNTJMtEWo9VFqc225ZGT
+ nvSMrjy1fx9t2qlj+Xs3mKbqwqsWxWakYqAW9qWi7hR6tFfdyGmToU29YnDo536SV7ap
+ FEMATbdttgXBxDsLzfmwnO3y9wAzkHz+Jkb0JwwgXIjPCTqGOrf9FvCe3GPcfB+Csibc
+ TnxVyPzeinRqm9a49XUgu/7ynCTzpDPR7yab8k+YmEohhl5V0cBJEQymLtDp/FjOptqZ
+ V8acbrgRIBT41XPjhtq511CUJjqPL3qc3iY+ZI8EvJUyod02rCDItpwskBWwYUcxiPzB
+ 71Pw==
+X-Gm-Message-State: AOAM530uSpJB0g0ltjv/YMTL/nZR8vNwRRVXKhBmG8cihvmXsxDxxanM
+ RfleZSyZn7WG3WO3J2xQ0Gk=
+X-Google-Smtp-Source: ABdhPJwZ/rCncMQ46/4RmOQg6AKfgCTO4VHUsa9gsBjtXTcAf+WrZsvRdMlXLSN8z2pGmqgSqMrVpQ==
+X-Received: by 2002:a05:620a:1326:: with SMTP id
+ p6mr3178972qkj.217.1616462184987; 
+ Mon, 22 Mar 2021 18:16:24 -0700 (PDT)
+Received: from localhost.localdomain ([37.19.198.117])
+ by smtp.gmail.com with ESMTPSA id i93sm10383114qtd.48.2021.03.22.18.16.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Mar 2021 02:14:13 -0700 (PDT)
-Date: Tue, 23 Mar 2021 14:43:58 +0530
+ Mon, 22 Mar 2021 18:16:24 -0700 (PDT)
 From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <YFmxVmcW/hIzsP4o@ArchLinux>
-Mail-Followup-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- airlied@linux.ie, daniel@ffwll.ch, imre.deak@intel.com,
- ville.syrjala@linux.intel.com, lucas.demarchi@intel.com,
- matthew.d.roper@intel.com,
- tejaskumarx.surendrakumar.upadhyay@intel.com,
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
+ imre.deak@intel.com, ville.syrjala@linux.intel.com,
+ lucas.demarchi@intel.com, matthew.d.roper@intel.com,
+ tejaskumarx.surendrakumar.upadhyay@intel.com, unixbhaskar@gmail.com,
  aditya.swarup@intel.com, anusha.srivatsa@intel.com,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rdunlap@infradead.org
-References: <20210323011607.182803-1-unixbhaskar@gmail.com>
- <87blba5jzo.fsf@intel.com>
+ linux-kernel@vger.kernel.org
+Date: Tue, 23 Mar 2021 06:46:07 +0530
+Message-Id: <20210323011607.182803-1-unixbhaskar@gmail.com>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
-In-Reply-To: <87blba5jzo.fsf@intel.com>
 X-Mailman-Approved-At: Tue, 23 Mar 2021 12:38:33 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: A typo fix
+Subject: [Intel-gfx] [PATCH] drm/i915: A typo fix
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,87 +85,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, airlied@linux.ie, lucas.demarchi@intel.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rdunlap@infradead.org
-Content-Type: multipart/mixed; boundary="===============1091947242=="
+Cc: rdunlap@infradead.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
---===============1091947242==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ssc5NCDR3r865LSQ"
-Content-Disposition: inline
+s/nothign/nothing/
 
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---ssc5NCDR3r865LSQ
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index f6ad257a260e..14d784a6fae5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -4185,7 +4185,7 @@ static void icl_pll_disable(struct drm_i915_private *dev_priv,
+ 	/*
+ 	 * DVFS pre sequence would be here, but in our driver the cdclk code
+ 	 * paths should already be setting the appropriate voltage, hence we do
+-	 * nothign here.
++	 * nothing here.
+ 	 */
 
-On 10:53 Tue 23 Mar 2021, Jani Nikula wrote:
->On Tue, 23 Mar 2021, Bhaskar Chowdhury <unixbhaskar@gmail.com> wrote:
->> s/nothign/nothing/
->>
->> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
->
->You've sent the same patch before? I've already pushed it.
->
-Apologies and thanks.
-
->BR,
->Jani.
->
->> ---
->>  drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
->> index f6ad257a260e..14d784a6fae5 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
->> @@ -4185,7 +4185,7 @@ static void icl_pll_disable(struct drm_i915_private *dev_priv,
->>  	/*
->>  	 * DVFS pre sequence would be here, but in our driver the cdclk code
->>  	 * paths should already be setting the appropriate voltage, hence we do
->> -	 * nothign here.
->> +	 * nothing here.
->>  	 */
->>
->>  	val = intel_de_read(dev_priv, enable_reg);
->> --
->> 2.31.0
->>
->
->--
->Jani Nikula, Intel Open Source Graphics Center
-
---ssc5NCDR3r865LSQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEnwF+nWawchZUPOuwsjqdtxFLKRUFAmBZsVYACgkQsjqdtxFL
-KRUJpggAiFamaV0R4z6RkkkOUE2bYAPm7eweNYgy2jWuLdI61fbw7FH7AmbBWH+a
-kNgXlnPT6uSmy2jiu9uO3GVguYcxe25APtYd3VVNyRfiCONj1KvD1RNHFR3dG8aY
-cai0XiI0dFA283DCP0LRMdTzHPIPwEfXW47CVbk5tfMINQV70VZKjDPnAxsoa5ch
-gvHo8wo/ZQAb9K+2VeaoTaf2CF6hjf7U/UCV8WI9acO4+AJ6kM79ZchZlLT75q/w
-5gtSUMK704FFFnYWNbsoMJiKXUHqs+2NuqQpTuyU/Z64pwppKJTTDvbJV3RJkYM3
-0Vjb8Zewp05xO/bBwkAzecMr5u8JLw==
-=WIVI
------END PGP SIGNATURE-----
-
---ssc5NCDR3r865LSQ--
-
---===============1091947242==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+ 	val = intel_de_read(dev_priv, enable_reg);
+--
+2.31.0
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1091947242==--
