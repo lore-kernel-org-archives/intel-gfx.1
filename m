@@ -7,33 +7,32 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66249C433E2
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A90CC433E1
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:51:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D154619B6
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:51:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D154619B6
+	by mail.kernel.org (Postfix) with ESMTPS id 5DAEA619B6
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:51:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5DAEA619B6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBBEA6EAB3;
-	Tue, 23 Mar 2021 15:51:16 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB5ED6EA4C
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35CB76EABF;
+	Tue, 23 Mar 2021 15:51:17 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA1B76E96D
  for <intel-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 15:51:13 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Mar 2021 16:50:00 +0100
-Message-Id: <20210323155059.628690-12-maarten.lankhorst@linux.intel.com>
+Date: Tue, 23 Mar 2021 16:49:55 +0100
+Message-Id: <20210323155059.628690-7-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210323155059.628690-1-maarten.lankhorst@linux.intel.com>
 References: <20210323155059.628690-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v9 11/70] drm/i915: Disable userptr pread/pwrite
- support.
+Subject: [Intel-gfx] [PATCH v9 06/70] drm/i915: Add gem object locking to
+ madvise.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,48 +52,28 @@ Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VXNlcnB0ciBzaG91bGQgbm90IG5lZWQgdGhlIGtlcm5lbCBmb3IgYSB1c2Vyc3BhY2UgbWVtY3B5
-LCB1c2Vyc3BhY2UKbmVlZHMgdG8gY2FsbCBtZW1jcHkgZGlyZWN0bHkuCgpTcGVjaWZpY2FsbHks
-IGRpc2FibGUgaTkxNV9nZW1fcHdyaXRlX2lvY3RsKCkgYW5kIGk5MTVfZ2VtX3ByZWFkX2lvY3Rs
-KCkuCgpTaWduZWQtb2ZmLWJ5OiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RA
-bGludXguaW50ZWwuY29tPgpSZXZpZXdlZC1ieTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5o
-ZWxsc3Ryb21AbGludXguaW50ZWwuY29tPgoKLS0gU3RpbGwgbmVlZHMgYW4gYWNrIGZyb20gcmVs
-ZXZhbnQgdXNlcnNwYWNlIHRoYXQgaXQgd29uJ3QgYnJlYWssIGJ1dCBzaG91bGQgYmUgZ29vZC4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fdXNlcnB0ci5jIHwgMjAgKysr
-KysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtLmMgICAgICAg
-ICAgICAgfCAgNSArKysrKwogMiBmaWxlcyBjaGFuZ2VkLCAyNSBpbnNlcnRpb25zKCspCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3VzZXJwdHIuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV91c2VycHRyLmMKaW5kZXggMGY5MDI0YzYy
-YzA2Li41YTE5Njk5YzJkN2UgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9p
-OTE1X2dlbV91c2VycHRyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2Vt
-X3VzZXJwdHIuYwpAQCAtNzAwLDYgKzcwMCwyNCBAQCBpOTE1X2dlbV91c2VycHRyX2RtYWJ1Zl9l
-eHBvcnQoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikKIAlyZXR1cm4gaTkxNV9nZW1f
-dXNlcnB0cl9pbml0X19tbXVfbm90aWZpZXIob2JqLCAwKTsKIH0KIAorc3RhdGljIGludAoraTkx
-NV9nZW1fdXNlcnB0cl9wd3JpdGUoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaiwKKwkJ
-CWNvbnN0IHN0cnVjdCBkcm1faTkxNV9nZW1fcHdyaXRlICphcmdzKQoreworCWRybV9kYmcob2Jq
-LT5iYXNlLmRldiwgInB3cml0ZSB0byB1c2VycHRyIG5vIGxvbmdlciBhbGxvd2VkXG4iKTsKKwor
-CXJldHVybiAtRUlOVkFMOworfQorCitzdGF0aWMgaW50CitpOTE1X2dlbV91c2VycHRyX3ByZWFk
-KHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmosCisJCSAgICAgICBjb25zdCBzdHJ1Y3Qg
-ZHJtX2k5MTVfZ2VtX3ByZWFkICphcmdzKQoreworCWRybV9kYmcob2JqLT5iYXNlLmRldiwgInBy
-ZWFkIGZyb20gdXNlcnB0ciBubyBsb25nZXIgYWxsb3dlZFxuIik7CisKKwlyZXR1cm4gLUVJTlZB
-TDsKK30KKwogc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0X29wcyBpOTE1
-X2dlbV91c2VycHRyX29wcyA9IHsKIAkubmFtZSA9ICJpOTE1X2dlbV9vYmplY3RfdXNlcnB0ciIs
-CiAJLmZsYWdzID0gSTkxNV9HRU1fT0JKRUNUX0lTX1NIUklOS0FCTEUgfApAQCAtNzA4LDYgKzcy
-Niw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdF9vcHMgaTkxNV9n
-ZW1fdXNlcnB0cl9vcHMgPSB7CiAJLmdldF9wYWdlcyA9IGk5MTVfZ2VtX3VzZXJwdHJfZ2V0X3Bh
-Z2VzLAogCS5wdXRfcGFnZXMgPSBpOTE1X2dlbV91c2VycHRyX3B1dF9wYWdlcywKIAkuZG1hYnVm
-X2V4cG9ydCA9IGk5MTVfZ2VtX3VzZXJwdHJfZG1hYnVmX2V4cG9ydCwKKwkucHdyaXRlID0gaTkx
-NV9nZW1fdXNlcnB0cl9wd3JpdGUsCisJLnByZWFkID0gaTkxNV9nZW1fdXNlcnB0cl9wcmVhZCwK
-IAkucmVsZWFzZSA9IGk5MTVfZ2VtX3VzZXJwdHJfcmVsZWFzZSwKIH07CiAKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9p
-OTE1X2dlbS5jCmluZGV4IDI1NDQ0ZDM2MGY3Zi4uZGRlMTJjZTRmOTBiIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2dlbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2k5MTVfZ2VtLmMKQEAgLTQwMyw2ICs0MDMsMTEgQEAgaTkxNV9nZW1fcHJlYWRfaW9jdGwoc3Ry
-dWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKIAl9CiAKIAl0cmFjZV9pOTE1X2dlbV9v
-YmplY3RfcHJlYWQob2JqLCBhcmdzLT5vZmZzZXQsIGFyZ3MtPnNpemUpOworCXJldCA9IC1FTk9E
-RVY7CisJaWYgKG9iai0+b3BzLT5wcmVhZCkKKwkJcmV0ID0gb2JqLT5vcHMtPnByZWFkKG9iaiwg
-YXJncyk7CisJaWYgKHJldCAhPSAtRU5PREVWKQorCQlnb3RvIG91dDsKIAogCXJldCA9IC1FTk9E
-RVY7CiAJaWYgKG9iai0+b3BzLT5wcmVhZCkKLS0gCjIuMzEuMAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRl
-bC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+RG9lc24ndCBuZWVkIHRoZSBmdWxsIHd3IGxvY2ssIG9ubHkgY2hlY2tpbmcgaWYgcGFnZXMgYXJl
+IGJvdW5kLgoKU2lnbmVkLW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hv
+cnN0QGxpbnV4LmludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9t
+YXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4gI2lyYwotLS0KIGRyaXZlcnMvZ3B1L2RybS9p
+OTE1L2k5MTVfZ2VtLmMgfCA4ICsrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25z
+KCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkx
+NV9nZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtLmMKaW5kZXggODA5MTU0Njdl
+MGQ4Li4yNTQ0NGQzNjBmN2YgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
+Z2VtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9nZW0uYwpAQCAtOTU1LDEwICs5
+NTUsMTQgQEAgaTkxNV9nZW1fbWFkdmlzZV9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2
+b2lkICpkYXRhLAogCWlmICghb2JqKQogCQlyZXR1cm4gLUVOT0VOVDsKIAotCWVyciA9IG11dGV4
+X2xvY2tfaW50ZXJydXB0aWJsZSgmb2JqLT5tbS5sb2NrKTsKKwllcnIgPSBpOTE1X2dlbV9vYmpl
+Y3RfbG9ja19pbnRlcnJ1cHRpYmxlKG9iaiwgTlVMTCk7CiAJaWYgKGVycikKIAkJZ290byBvdXQ7
+CiAKKwllcnIgPSBtdXRleF9sb2NrX2ludGVycnVwdGlibGUoJm9iai0+bW0ubG9jayk7CisJaWYg
+KGVycikKKwkJZ290byBvdXRfd3c7CisKIAlpZiAoaTkxNV9nZW1fb2JqZWN0X2hhc19wYWdlcyhv
+YmopICYmCiAJICAgIGk5MTVfZ2VtX29iamVjdF9pc190aWxlZChvYmopICYmCiAJICAgIGk5MTUt
+PnF1aXJrcyAmIFFVSVJLX1BJTl9TV0laWkxFRF9QQUdFUykgewpAQCAtMTAwMyw2ICsxMDA3LDgg
+QEAgaTkxNV9nZW1fbWFkdmlzZV9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpk
+YXRhLAogCWFyZ3MtPnJldGFpbmVkID0gb2JqLT5tbS5tYWR2ICE9IF9fSTkxNV9NQURWX1BVUkdF
+RDsKIAltdXRleF91bmxvY2soJm9iai0+bW0ubG9jayk7CiAKK291dF93dzoKKwlpOTE1X2dlbV9v
+YmplY3RfdW5sb2NrKG9iaik7CiBvdXQ6CiAJaTkxNV9nZW1fb2JqZWN0X3B1dChvYmopOwogCXJl
+dHVybiBlcnI7Ci0tIAoyLjMxLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2ludGVsLWdmeAo=
