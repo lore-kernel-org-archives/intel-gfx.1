@@ -2,40 +2,56 @@ Return-Path: <SRS0=maCC=IV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55A73C433C1
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 09:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3025C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 09:09:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3B0061879
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 09:05:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3B0061879
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 78F31619B2
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 09:09:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78F31619B2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76DFD6E0BC;
-	Tue, 23 Mar 2021 09:05:49 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4C73B6E0BC;
- Tue, 23 Mar 2021 09:05:48 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4685FA363B;
- Tue, 23 Mar 2021 09:05:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67B5E6E86C;
+	Tue, 23 Mar 2021 09:09:56 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA46D6E86C;
+ Tue, 23 Mar 2021 09:09:54 +0000 (UTC)
+IronPort-SDR: c11YDOCoTP1WST6+d4t6QhLnwAJMvQrebGD1daXSR7MIYLsibWOeZFx2iZz84GkG2Pg4tPjnaG
+ cxmoX+f3pMuA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="177564724"
+X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="177564724"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2021 02:09:54 -0700
+IronPort-SDR: LxXfl8eSWOyBuYPQE9YXxvR80ON34n0R1l1BAkL8nElV21ZZrMchSQBN4KLL5MTBegGB27/dJe
+ njDoef8wySlg==
+X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="452066473"
+Received: from fbogue-mobl1.ger.corp.intel.com (HELO [10.213.247.160])
+ ([10.213.247.160])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2021 02:09:53 -0700
+To: Matthew Auld <matthew.william.auld@gmail.com>
+References: <20210318170419.2107512-1-tvrtko.ursulin@linux.intel.com>
+ <20210318170419.2107512-3-tvrtko.ursulin@linux.intel.com>
+ <CAM0jSHMDqo6tJrwSt3V_nbb5h8QYi-co6c3CxCri=q+xDE1CSw@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <51256d88-d643-360a-5a49-25d0a43ebd77@linux.intel.com>
+Date: Tue, 23 Mar 2021 09:09:46 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
-Date: Tue, 23 Mar 2021 09:05:48 -0000
-Message-ID: <161649034828.20051.9927138341523035185@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210323084453.366863-1-daniel.vetter@ffwll.ch>
-In-Reply-To: <20210323084453.366863-1-daniel.vetter@ffwll.ch>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5B1/2=5D_drm/i915=3A_add_gem/gt_TODO?=
+In-Reply-To: <CAM0jSHMDqo6tJrwSt3V_nbb5h8QYi-co6c3CxCri=q+xDE1CSw@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 2/6] drm/i915: Restrict sentinel requests
+ further
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,44 +64,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: Intel Graphics Development <Intel-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
 
-Series: series starting with [1/2] drm/i915: add gem/gt TODO
-URL   : https://patchwork.freedesktop.org/series/88329/
-State : warning
+On 22/03/2021 17:12, Matthew Auld wrote:
+> On Thu, 18 Mar 2021 at 17:04, Tvrtko Ursulin
+> <tvrtko.ursulin@linux.intel.com> wrote:
+>>
+>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>
+>> Disallow sentinel requests follow previous sentinels to make request
+>> cancellation work better when faced with a chain of requests which have
+>> all been marked as in error.
+> 
+> Could you elaborate some more on why this makes request cancellation
+> work better?
 
-== Summary ==
+For cases where we end up with a stream of cancelled requests, it turns 
+of request coalescing for them, so they each to get individually skipped 
+by the execlists_schedule_in (which is called per ELSP port, not per 
+request).
 
-$ dim checkpatch origin/drm-tip
-2b8691372f19 drm/i915: add gem/gt TODO
--:31: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#31: 
-new file mode 100644
+I will improve the commit message.
 
--:71: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+Regards,
 
-total: 0 errors, 2 warnings, 0 checks, 36 lines checked
-e2befe203345 drm/doc: Add RFC section
--:29: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#29: 
-new file mode 100644
+Tvrtko
 
--:34: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
-#34: FILE: Documentation/gpu/rfc.rst:1:
-+===============
-
--:49: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
-
-total: 0 errors, 3 warnings, 0 checks, 23 lines checked
-
-
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+>> index 4c2acb5a6c0a..4b870eca9693 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+>> @@ -896,7 +896,7 @@ static bool can_merge_rq(const struct i915_request *prev,
+>>          if (__i915_request_is_complete(next))
+>>                  return true;
+>>
+>> -       if (unlikely((i915_request_flags(prev) ^ i915_request_flags(next)) &
+>> +       if (unlikely((i915_request_flags(prev) | i915_request_flags(next)) &
+>>                       (BIT(I915_FENCE_FLAG_NOPREEMPT) |
+>>                        BIT(I915_FENCE_FLAG_SENTINEL))))
+>>                  return false;
+>> --
+>> 2.27.0
+>>
+>> _______________________________________________
+>> Intel-gfx mailing list
+>> Intel-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
