@@ -2,38 +2,65 @@ Return-Path: <SRS0=maCC=IV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA3DAC433E3
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:52:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BFF8FC433E3
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:56:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8887761963
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:52:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8887761963
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7B3DA619D1
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 15:56:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B3DA619D1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A218C6EB95;
-	Tue, 23 Mar 2021 15:52:26 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDD336EA28
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 15:51:13 +0000 (UTC)
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Mar 2021 16:49:58 +0100
-Message-Id: <20210323155059.628690-10-maarten.lankhorst@linux.intel.com>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210323155059.628690-1-maarten.lankhorst@linux.intel.com>
-References: <20210323155059.628690-1-maarten.lankhorst@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D14A26EAC7;
+	Tue, 23 Mar 2021 15:56:49 +0000 (UTC)
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [IPv6:2607:f8b0:4864:20::832])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E226E6EAC7;
+ Tue, 23 Mar 2021 15:56:48 +0000 (UTC)
+Received: by mail-qt1-x832.google.com with SMTP id h7so15250178qtx.3;
+ Tue, 23 Mar 2021 08:56:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=IMAXOeMCmHISnBiyYcozhcxjqWzJCMeASWbcLY3tejg=;
+ b=PghWVCulPgPDyWiR3yhOZXaME8CVwLM4neONAGz/JEKwD7HdOlUkr5JWQij/ns82aZ
+ TrBkTlArRYbA3iaStJ40XLz1L78VihgiFGppQknzFn9RD5QVRymzpDNsofNsKsVP0NgJ
+ wjHE3b/OveAdGpygMyg3F9kMAXyfU1ODHYWaeDpsAkaqAZN+RTFYTpKoUrxyr1fnJX2Z
+ jmALKD1ep6hoq/0tDDnb1hLLQ+6cOvWWMutdHFNd+2PcBdXxGQmpAVcR6yJLboijJsm+
+ b6aIoglqtPkPYpsx/j7mi/awBBnukYllABE0H4a8b27ye908BrUqVf0ECBzN1nD6IQKI
+ 3NUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=IMAXOeMCmHISnBiyYcozhcxjqWzJCMeASWbcLY3tejg=;
+ b=Ybdnsef+kbWobkzTye0QjAa8GB6CJpWKchK2TvBGQfOurh93xEgBSqAjP2xWOmNti+
+ xeozkcsK1XNUvR6sRfNnzAL2vACJEfoQfsmzHXX3nOvBx0GqCkLh/11i3/e1v6UaQ4l2
+ afJuM1rqUe7GyF72y6x2QZqu34xmiWd2qg5N09+EBnY9AvNg7cJoY6up2raG1vciFJQp
+ 03IH/Dd9d1hfWMwJ2bbi2GCzGZ9Jjw5abhuSa//Fzwr9FFy5DEcRaHkRq5LTDtxD4yqd
+ Tl7cdw4f0uSMvurC8fKg/UnoN1moKNUEm4S2A8GT2od85Z46AtvDArAKfwEYcNC8hwAR
+ ZuGw==
+X-Gm-Message-State: AOAM532qr0wAWFzrXeGH5a2AW7Z5lYB+hCyMr8iSrxu0tTF9++Jsdr8q
+ lIKG2qWGhbZ2EWCnh/6241sHrJy7G91MQKavoWc=
+X-Google-Smtp-Source: ABdhPJz5rXYxQvF8t1BFosimrPIlU0yugBnGi/VGvMRXFOBaGWQN4uWQAPfKmdE5kQErSMVnJG3W1DN7ULX+JICdFmA=
+X-Received: by 2002:ac8:7dc2:: with SMTP id c2mr4942378qte.341.1616515007984; 
+ Tue, 23 Mar 2021 08:56:47 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v9 09/70] drm/i915: Convert
- i915_gem_object_attach_phys() to ww locking, v2.
+References: <20210318170419.2107512-1-tvrtko.ursulin@linux.intel.com>
+ <20210318170419.2107512-6-tvrtko.ursulin@linux.intel.com>
+In-Reply-To: <20210318170419.2107512-6-tvrtko.ursulin@linux.intel.com>
+From: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Tue, 23 Mar 2021 15:56:21 +0000
+Message-ID: <CAM0jSHOXtwEukFb0ugS8r2_wJFKxb-XHunzvmMFGvvWWp20KwA@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 5/6] drm/i915: Fail too long user
+ submissions by default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,83 +73,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <Intel-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-U2ltcGxlIGFkZGluZyBvZiBpOTE1X2dlbV9vYmplY3RfbG9jaywgd2UgbWF5IHN0YXJ0IHRvIHBh
-c3Mgd3cgdG8KZ2V0X3BhZ2VzKCkgaW4gdGhlIGZ1dHVyZSwgYnV0IHRoYXQgd29uJ3QgYmUgdGhl
-IGNhc2UgaGVyZTsKV2Ugb3ZlcnJpZGUgc2htZW0ncyBnZXRfcGFnZXMoKSBoYW5kbGluZyBieSBj
-YWxsaW5nCmk5MTVfZ2VtX29iamVjdF9nZXRfcGFnZXNfcGh5cygpLCBubyB3dyBpcyBuZWVkZWQu
-CgpDaGFuZ2VzIHNpbmNlIHYxOgotIENhbGwgc2htZW0gcHV0IHBhZ2VzIGRpcmVjdGx5LCB0aGUg
-Y2FsbGJhY2sgd291bGQKICBnbyBkb3duIHRoZSBwaHlzIGZyZWUgcGF0aC4KClNpZ25lZC1vZmYt
-Ynk6IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+
-ClJldmlld2VkLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhlbGxzdHJvbUBsaW51eC5p
-bnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5o
-IHwgIDMgKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fcGh5cy5jICAgfCAx
-MiArKysrKysrKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaG1lbS5j
-ICB8IDE3ICsrKysrKysrKystLS0tLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDIyIGluc2VydGlvbnMo
-KyksIDEwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dl
-bS9pOTE1X2dlbV9vYmplY3QuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9v
-YmplY3QuaAppbmRleCA3NWU4NzM0ZjUwZDIuLmM4ZWIwZGY5MDRmNyAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5oCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmplY3QuaApAQCAtNjksMTAgKzY5LDExIEBAIGludCBp
-OTE1X2dlbV9vYmplY3RfcHJlYWRfcGh5cyhzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2Jq
-LAogCQkJICAgICAgIGNvbnN0IHN0cnVjdCBkcm1faTkxNV9nZW1fcHJlYWQgKmFyZ3MpOwogCiBp
-bnQgaTkxNV9nZW1fb2JqZWN0X2F0dGFjaF9waHlzKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0
-ICpvYmosIGludCBhbGlnbik7Cit2b2lkIGk5MTVfZ2VtX29iamVjdF9wdXRfcGFnZXNfc2htZW0o
-c3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaiwKKwkJCQkgICAgIHN0cnVjdCBzZ190YWJs
-ZSAqcGFnZXMpOwogdm9pZCBpOTE1X2dlbV9vYmplY3RfcHV0X3BhZ2VzX3BoeXMoc3RydWN0IGRy
-bV9pOTE1X2dlbV9vYmplY3QgKm9iaiwKIAkJCQkgICAgc3RydWN0IHNnX3RhYmxlICpwYWdlcyk7
-CiAKLQogdm9pZCBpOTE1X2dlbV9mbHVzaF9mcmVlX29iamVjdHMoc3RydWN0IGRybV9pOTE1X3By
-aXZhdGUgKmk5MTUpOwogCiBzdHJ1Y3Qgc2dfdGFibGUgKgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3BoeXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dl
-bS9pOTE1X2dlbV9waHlzLmMKaW5kZXggZWQyODNlMTY4ZjJmLi4wNmM0ODFmZjc5ZDggMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9waHlzLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3BoeXMuYwpAQCAtMjAxLDcgKzIwMSw3IEBA
-IHN0YXRpYyBpbnQgaTkxNV9nZW1fb2JqZWN0X3NobWVtX3RvX3BoeXMoc3RydWN0IGRybV9pOTE1
-X2dlbV9vYmplY3QgKm9iaikKIAlfX2k5MTVfZ2VtX29iamVjdF9waW5fcGFnZXMob2JqKTsKIAog
-CWlmICghSVNfRVJSX09SX05VTEwocGFnZXMpKQotCQlpOTE1X2dlbV9zaG1lbV9vcHMucHV0X3Bh
-Z2VzKG9iaiwgcGFnZXMpOworCQlpOTE1X2dlbV9vYmplY3RfcHV0X3BhZ2VzX3NobWVtKG9iaiwg
-cGFnZXMpOwogCiAJaTkxNV9nZW1fb2JqZWN0X3JlbGVhc2VfbWVtb3J5X3JlZ2lvbihvYmopOwog
-CXJldHVybiAwOwpAQCAtMjMyLDcgKzIzMiwxMyBAQCBpbnQgaTkxNV9nZW1fb2JqZWN0X2F0dGFj
-aF9waHlzKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmosIGludCBhbGlnbikKIAlpZiAo
-ZXJyKQogCQlyZXR1cm4gZXJyOwogCi0JbXV0ZXhfbG9ja19uZXN0ZWQoJm9iai0+bW0ubG9jaywg
-STkxNV9NTV9HRVRfUEFHRVMpOworCWVyciA9IGk5MTVfZ2VtX29iamVjdF9sb2NrX2ludGVycnVw
-dGlibGUob2JqLCBOVUxMKTsKKwlpZiAoZXJyKQorCQlyZXR1cm4gZXJyOworCisJZXJyID0gbXV0
-ZXhfbG9ja19pbnRlcnJ1cHRpYmxlX25lc3RlZCgmb2JqLT5tbS5sb2NrLCBJOTE1X01NX0dFVF9Q
-QUdFUyk7CisJaWYgKGVycikKKwkJZ290byBlcnJfdW5sb2NrOwogCiAJaWYgKHVubGlrZWx5KCFp
-OTE1X2dlbV9vYmplY3RfaGFzX3N0cnVjdF9wYWdlKG9iaikpKQogCQlnb3RvIG91dDsKQEAgLTI2
-Myw2ICsyNjksOCBAQCBpbnQgaTkxNV9nZW1fb2JqZWN0X2F0dGFjaF9waHlzKHN0cnVjdCBkcm1f
-aTkxNV9nZW1fb2JqZWN0ICpvYmosIGludCBhbGlnbikKIAogb3V0OgogCW11dGV4X3VubG9jaygm
-b2JqLT5tbS5sb2NrKTsKK2Vycl91bmxvY2s6CisJaTkxNV9nZW1fb2JqZWN0X3VubG9jayhvYmop
-OwogCXJldHVybiBlcnI7CiB9CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dl
-bS9pOTE1X2dlbV9zaG1lbS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3No
-bWVtLmMKaW5kZXggYzk4MjBjMTljNWYyLi41OWZiMTZhODIyNzAgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaG1lbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2dlbS9pOTE1X2dlbV9zaG1lbS5jCkBAIC0yOTYsMTggKzI5NiwxMiBAQCBfX2k5MTVf
-Z2VtX29iamVjdF9yZWxlYXNlX3NobWVtKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmos
-CiAJX19zdGFydF9jcHVfd3JpdGUob2JqKTsKIH0KIAotc3RhdGljIHZvaWQKLXNobWVtX3B1dF9w
-YWdlcyhzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqLCBzdHJ1Y3Qgc2dfdGFibGUgKnBh
-Z2VzKQordm9pZCBpOTE1X2dlbV9vYmplY3RfcHV0X3BhZ2VzX3NobWVtKHN0cnVjdCBkcm1faTkx
-NV9nZW1fb2JqZWN0ICpvYmosIHN0cnVjdCBzZ190YWJsZSAqcGFnZXMpCiB7CiAJc3RydWN0IHNn
-dF9pdGVyIHNndF9pdGVyOwogCXN0cnVjdCBwYWdldmVjIHB2ZWM7CiAJc3RydWN0IHBhZ2UgKnBh
-Z2U7CiAKLQlpZiAodW5saWtlbHkoIWk5MTVfZ2VtX29iamVjdF9oYXNfc3RydWN0X3BhZ2Uob2Jq
-KSkpIHsKLQkJaTkxNV9nZW1fb2JqZWN0X3B1dF9wYWdlc19waHlzKG9iaiwgcGFnZXMpOwotCQly
-ZXR1cm47Ci0JfQotCiAJX19pOTE1X2dlbV9vYmplY3RfcmVsZWFzZV9zaG1lbShvYmosIHBhZ2Vz
-LCB0cnVlKTsKIAogCWk5MTVfZ2VtX2d0dF9maW5pc2hfcGFnZXMob2JqLCBwYWdlcyk7CkBAIC0z
-MzYsNiArMzMwLDE1IEBAIHNobWVtX3B1dF9wYWdlcyhzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVj
-dCAqb2JqLCBzdHJ1Y3Qgc2dfdGFibGUgKnBhZ2VzKQogCWtmcmVlKHBhZ2VzKTsKIH0KIAorc3Rh
-dGljIHZvaWQKK3NobWVtX3B1dF9wYWdlcyhzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2Jq
-LCBzdHJ1Y3Qgc2dfdGFibGUgKnBhZ2VzKQoreworCWlmIChsaWtlbHkoaTkxNV9nZW1fb2JqZWN0
-X2hhc19zdHJ1Y3RfcGFnZShvYmopKSkKKwkJaTkxNV9nZW1fb2JqZWN0X3B1dF9wYWdlc19zaG1l
-bShvYmosIHBhZ2VzKTsKKwllbHNlCisJCWk5MTVfZ2VtX29iamVjdF9wdXRfcGFnZXNfcGh5cyhv
-YmosIHBhZ2VzKTsKK30KKwogc3RhdGljIGludAogc2htZW1fcHdyaXRlKHN0cnVjdCBkcm1faTkx
-NV9nZW1fb2JqZWN0ICpvYmosCiAJICAgICBjb25zdCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX3B3cml0
-ZSAqYXJnKQotLSAKMi4zMS4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9p
-bnRlbC1nZngK
+On Thu, 18 Mar 2021 at 17:04, Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
+>
+> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>
+> A new Kconfig option CONFIG_DRM_I915_REQUEST_TIMEOUT is added, defaulting
+> to 20s, and this timeout is applied to all users contexts using the
+> previously added watchdog facility.
+>
+> Result of this is that any user submission will simply fail after this
+> timeout, either causing a reset (for non-preemptable), or incomplete
+> results.
+>
+> This can have an effect that workloads which used to work fine will
+> suddenly start failing. Even workloads comprised of short batches but in
+> long dependency chains can be terminated.
+>
+> And becuase of lack of agreement on usefulness and safety of fence error
+
+   because
+
+> propagation this partial execution can be invisible to userspace even if
+> it is "listening" to returned fence status.
+>
+> Another interaction is with hangcheck where care needs to be taken timeout
+> is not set lower or close to three times the heartbeat interval. Otherwise
+> a hang in any application can cause complete termination of all
+> submissions from unrelated clients. Any users modifying the per engine
+> heartbeat intervals therefore need to be aware of this potential denial of
+> service to avoid inadvertently enabling it.
+>
+> Given all this I am personally not convinced the scheme is a good idea.
+> Intuitively it feels object importers would be better positioned to
+> enforce the time they are willing to wait for something to complete.
+>
+> v2:
+>  * Improved commit message and Kconfig text.
+>  * Pull in some helper code from patch which got dropped.
+>
+> v3:
+>  * Bump timeout to 20s to see if it helps Tigerlake.
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Acked-by: Matthew Auld <matthew.auld@intel.com>
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
