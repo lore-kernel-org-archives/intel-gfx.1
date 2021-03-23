@@ -2,40 +2,40 @@ Return-Path: <SRS0=maCC=IV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7390EC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 21:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22A26C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 21:40:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2310D619A3
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 21:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2310D619A3
+	by mail.kernel.org (Postfix) with ESMTPS id ABDC6619CE
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 21:40:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ABDC6619CE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA3A66E917;
-	Tue, 23 Mar 2021 21:32:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 438A76E182;
+	Tue, 23 Mar 2021 21:40:11 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id BCFED6E917;
- Tue, 23 Mar 2021 21:32:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id A31CF6E17A;
+ Tue, 23 Mar 2021 21:40:09 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B649EA882E;
- Tue, 23 Mar 2021 21:32:56 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 9B9FEA9932;
+ Tue, 23 Mar 2021 21:40:09 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jason Ekstrand" <jason@jlekstrand.net>
-Date: Tue, 23 Mar 2021 21:32:56 -0000
-Message-ID: <161653517671.20053.1842141038550656812@emeril.freedesktop.org>
+To: "Liam Howlett" <liam.howlett@oracle.com>
+Date: Tue, 23 Mar 2021 21:40:09 -0000
+Message-ID: <161653560960.20053.14249645391754073200@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210319223856.2983244-1-jason@jlekstrand.net>
-In-Reply-To: <20210319223856.2983244-1-jason@jlekstrand.net>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?rm/i915=3A_uAPI_clean-ups_part_2_=28rev2=29?=
+References: <20210323134208.3077275-1-Liam.Howlett@Oracle.com>
+In-Reply-To: <20210323134208.3077275-1-Liam.Howlett@Oracle.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_i915=5Fvma=3A_Rename_vma=5Flookup_to_i915=5Fvma=5Flookup?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,23 +57,22 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915: uAPI clean-ups part 2 (rev2)
-URL   : https://patchwork.freedesktop.org/series/88196/
-State : failure
+Series: i915_vma: Rename vma_lookup to i915_vma_lookup
+URL   : https://patchwork.freedesktop.org/series/88362/
+State : warning
 
 == Summary ==
 
-Applying: drm/i915: Drop I915_CONTEXT_PARAM_RINGSIZE
-Applying: drm/i915: Drop I915_CONTEXT_PARAM_NO_ZEROMAP
-Applying: drm/i915: Drop the CONTEXT_CLONE API
-Applying: drm/i915: Implement SINGLE_TIMELINE with a syncobj (v2)
-error: sha1 information is lacking or useless (drivers/gpu/drm/i915/gem/i915_gem_context.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0004 drm/i915: Implement SINGLE_TIMELINE with a syncobj (v2)
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+$ dim checkpatch origin/drm-tip
+45c9457c9a34 i915_vma: Rename vma_lookup to i915_vma_lookup
+-:21: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#21: FILE: drivers/gpu/drm/i915/i915_vma.c:234:
++i915_vma_lookup(struct drm_i915_gem_object *obj,
+ 	   struct i915_address_space *vm,
+
+-:32: ERROR:NO_AUTHOR_SIGN_OFF: Missing Signed-off-by: line by nominal patch author 'Liam Howlett <liam.howlett@oracle.com>'
+
+total: 1 errors, 0 warnings, 1 checks, 16 lines checked
 
 
 _______________________________________________
