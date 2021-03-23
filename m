@@ -2,57 +2,60 @@ Return-Path: <SRS0=maCC=IV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E05D3C433C1
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 09:35:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD8C5C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 09:46:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A1AC261984
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 09:35:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A1AC261984
+	by mail.kernel.org (Postfix) with ESMTPS id 86B8D619BD
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 09:46:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86B8D619BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92A496E873;
-	Tue, 23 Mar 2021 09:35:40 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 961C16E29D;
- Tue, 23 Mar 2021 09:35:38 +0000 (UTC)
-IronPort-SDR: AoXK3TfFqr5muGFvDSzWwfATiKTFC9TAEAOdnCsXU0nee35ta2v3KwJlEZYA/z+Uxsm4fk9U3T
- zYBz5/EV8nlw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="190537369"
-X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="190537369"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 664696E881;
+	Tue, 23 Mar 2021 09:46:06 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE446E87F;
+ Tue, 23 Mar 2021 09:46:05 +0000 (UTC)
+IronPort-SDR: P+zDnckdCp63md+XAGCR1k6Ksd4Lwk8eudoXsx1S3uSN+a1wcWpR+yCKwOpf461udzA1gZvkQ3
+ SsODyWcvsing==
+X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="210518968"
+X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="210518968"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2021 02:35:37 -0700
-IronPort-SDR: v5eOijKw1td8m8aT4eR99p8DYFKLyQWpA1iom0snynDvPd+ScTa0R3a075Ed2U4Z29jQToERPJ
- +WKtbID0ibVw==
-X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="452073477"
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2021 02:46:04 -0700
+IronPort-SDR: kXLRnYqM26EEDbRFgcpAO6CPM7cCXlzgnpW5O0R1D7v6AB0gzESNOUsOOhs4469UY34mu/rLcB
+ 04hC6jQ9464w==
+X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="452076649"
 Received: from fbogue-mobl1.ger.corp.intel.com (HELO [10.213.247.160])
  ([10.213.247.160])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2021 02:35:36 -0700
+ 23 Mar 2021 02:46:03 -0700
 To: Jason Ekstrand <jason@jlekstrand.net>
 References: <20210319223856.2983244-1-jason@jlekstrand.net>
- <20210319223856.2983244-5-jason@jlekstrand.net>
- <b462561b-6340-fdf3-6b1a-e0370bfe090c@linux.intel.com>
- <CAOFGe97y67n4EPb6745QsJdz=ERMn3K-gsLR8Qjmemp92nwMoQ@mail.gmail.com>
+ <20210319223856.2983244-4-jason@jlekstrand.net>
+ <7918db68-835c-b416-6187-1e62892ce5ed@linux.intel.com>
+ <YFilKSbKYd+0HbCn@phenom.ffwll.local>
+ <d83162e2-4b9e-c7e9-5324-6612bb9561d6@linux.intel.com>
+ <CAKMK7uG0GLPu+auqDgMgD7ugvWo3E7W7DL6eALKxmp6hk-aZiA@mail.gmail.com>
+ <fb406aca-1211-e1e5-b6a0-830c26d327ae@linux.intel.com>
+ <CAOFGe96uUHfktEqx6WLxOd_=msO=nKSDYj2eUKNhyruzz=EJag@mail.gmail.com>
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Organization: Intel Corporation UK Plc
-Message-ID: <963d089f-a08a-c3e7-4497-6f7d27b18520@linux.intel.com>
-Date: Tue, 23 Mar 2021 09:35:34 +0000
+Message-ID: <4ff16fca-a4b2-cae9-e052-091d55c31b22@linux.intel.com>
+Date: Tue, 23 Mar 2021 09:46:01 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <CAOFGe97y67n4EPb6745QsJdz=ERMn3K-gsLR8Qjmemp92nwMoQ@mail.gmail.com>
+In-Reply-To: <CAOFGe96uUHfktEqx6WLxOd_=msO=nKSDYj2eUKNhyruzz=EJag@mail.gmail.com>
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 4/4] drm/i915: Implement SINGLE_TIMELINE
- with a syncobj
+Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915: Drop the CONTEXT_CLONE API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,94 +68,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On 22/03/2021 16:10, Jason Ekstrand wrote:
-> On Mon, Mar 22, 2021 at 7:28 AM Tvrtko Ursulin
+
+On 22/03/2021 16:24, Jason Ekstrand wrote:
+> Ugh... timezones.
+> 
+> On Mon, Mar 22, 2021 at 10:31 AM Tvrtko Ursulin
+> <tvrtko.ursulin@linux.intel.com> wrote:
+>>
+>>
+>> On 22/03/2021 14:57, Daniel Vetter wrote:
+>>> On Mon, Mar 22, 2021 at 3:33 PM Tvrtko Ursulin
+>>> <tvrtko.ursulin@linux.intel.com> wrote:
+>>>>
+>>>>
+>>>> On 22/03/2021 14:09, Daniel Vetter wrote:
+>>>>> On Mon, Mar 22, 2021 at 11:22:01AM +0000, Tvrtko Ursulin wrote:
+>>>>>>
+>>>>>> On 19/03/2021 22:38, Jason Ekstrand wrote:
+>>>>>>> This API allows one context to grab bits out of another context upon
+>>>>>>> creation.  It can be used as a short-cut for setparam(getparam()) for
+>>>>>>> things like I915_CONTEXT_PARAM_VM.  However, it's never been used by any
+>>>>>>> real userspace.  It's used by a few IGT tests and that's it.  Since it
+>>>>>>> doesn't add any real value (most of the stuff you can CLONE you can copy
+>>>>>>> in other ways), drop it.
+>>>>>>
+>>>>>> No complaints to remove if it ended up unused outside IGT. Latter is a _big_
+>>>>>> problem though, since it is much more that a few IGT tests. So I really
+>>>>>> think there really needs to be an evaluation and a plan for that (we don't
+>>>>>> want to lose 50% of the coverage over night).
+> 
+> You should look at my IGT patch set.  I'm not deleting any tests
+> except those that explicitly test the clone API.  All the other tests
+> which use cloning to save a few lines when constructing new contexts
+> are updated to not require the cloning API.
+
+I dare not mention the other IGT tree. There will be a plan needed since 
+I fear much more usage will be found there.
 
 [snip]
 
->>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
->>> index 96403130a373d..2c56796f6a71b 100644
->>> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
->>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
->>> @@ -3295,6 +3295,15 @@ i915_gem_do_execbuffer(struct drm_device *dev,
->>>                goto err_vma;
->>>        }
+>>>> Timelines of execution were always exposed. Any "engine" (ring
+>>>> previously) in I915_EXEC_RING_MASK was a single timeline of execution.
+>>>> It is completely the same with engine map engines, which are also
+>>>> different indices into I915_EXEC_RING_MASK space.
+>>>>
+>>>> Userspace was aware of these timelines forever as well. Media was
+>>>> creating multiple contexts to have multiple timelines (so parallelism).
+>>>> Everyone knew that engine-hopping submissions needs to be either
+>>>> implicitly or explicitly synchronised, etc.
 >>>
->>> +     if (eb.gem_context->syncobj) {
->>> +             struct dma_fence *fence;
->>> +
->>> +             fence = drm_syncobj_fence_get(eb.gem_context->syncobj);
+>>> Yup, I think we're saying the same thing here.
+>>>
+>>>> So I really don't see that we have leaked timelines as a concept *now*.
+>>>> What the patch has exposed to userspace is a new way to sync between
+>>>> timelines and nothing more.
+>>>
+>>> We've leaked it as something you can now share across hw context.
 >>
->> Who drops this reference?
+>> Okay so we agree on most things but apparently have different
+>> definitions of what it means to leak internal implementation details.
 > 
-> i915_request_await_dma_fence() below consumes a reference.
+> I said it was a "leak" because, from my git archeology, the best I
+> could find for justification of doing it this way was that we already
+> have a timeline object so why not expose it.  Same for the
+> SINGLE_TIMELINE flag.  Is a "timeline" really an internal concept?
+> No, not really.  It's pretty standard.  But intel_timeline is an
+> internal thing and, while this doesn't give userspace an actual handle
+> to it, it gives it more visibility than needed, IMO.
 
-Not sure, please check on difference wrt input fence handling.
+Cloning of timelines absolutely - I don't see a point for that. But I 
+think there was no intent there. Rather it was just a consequence of 
+striving for symmetry in the uapi.
 
->>> +             err = i915_request_await_dma_fence(eb.request, fence);
->>> +             if (err)
->>> +                     goto err_ext;
->>> +     }
->>> +
->>>        if (in_fence) {
->>>                if (args->flags & I915_EXEC_FENCE_SUBMIT)
->>>                        err = i915_request_await_execution(eb.request,
->>> @@ -3351,6 +3360,12 @@ i915_gem_do_execbuffer(struct drm_device *dev,
->>>                        fput(out_fence->file);
->>>                }
->>>        }
->>> +
->>> +     if (eb.gem_context->syncobj) {
->>> +             drm_syncobj_replace_fence(eb.gem_context->syncobj,
->>> +                                       &eb.request->fence);
->>> +     }
->>> +
->>>        i915_request_put(eb.request);
->>>
->>>    err_vma:
->>>
->>
->> So essentially moving the synchronisation to top level which is extra
->> work, but given limited and questionable usage of the uapi may be
->> acceptable. Need full picture on motivation to understand.
-> 
-> For one thing, the GuC scheduler doesn't natively have a concept of
-> "timelines" which can be shared like this.  To work with the GuC
+But for the single timeline flag itself (so next patch in this series 
+and it's commit message), when looked at within a single GEM context, I 
+still really can't see the argument that it is leaking anything to 
+userspace. Certainly not intel_timeline, which is also not even backend 
+specific.
 
-Confused - neither does execlists. It is handled in common layer in 
-i915. GuC scheduler has the same concept of one hw context is one 
-timeline because that is the hw concept and not backend specific.
-
-> scheduler as currently proposed in DII, they've asked the media driver
-> to stop using this flag in favor of passing a sync file from batch to
-> batch.  If we want to slide GuC scheduling in smoothly, we've got to
-> keep it working.  This means either making timelines a concept there
-> or doing an emulation like this.
-
-Hm not aware and don't see that GuC backend can't or doesn't implement 
-this. Perhaps this would be best discussed once GuC patches are posted.
-
->> Semantics are also not 1:1 since dma fence context will be different.
-> 
-> Could you elaborate?
-
-Exported dma fence context as an "timeline" id will be single with the 
-current patch and multiple contexts with this implementation.
-
-Daniel also raised another difference caused by lack of serialisation 
-due multiple tl->mutex here.
-
-I don't think this is important, it was never part of a contract what 
-happens with racing execbufs, but it is definitely required covering 
-both topics in the commit message.
+We seem to all agree timeline is just context:seqno, which was exposed 
+to userpsace forever. For instance if the flag wasn't called "single 
+timeline" but "implicit sync", "serial context", "ordered engines", 
+whatever, would you still argue it is leaking struct intel_timeline out 
+to userspace?
 
 Regards,
 
