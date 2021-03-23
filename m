@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 263D1C433C1
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 13:38:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 059A0C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 14:07:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BBBD7619B3
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 13:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBBD7619B3
+	by mail.kernel.org (Postfix) with ESMTPS id A5CB96199F
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 14:07:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5CB96199F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB4DA6E89E;
-	Tue, 23 Mar 2021 13:38:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 201F66E8A0;
+	Tue, 23 Mar 2021 14:07:17 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9F696E134;
- Tue, 23 Mar 2021 13:38:17 +0000 (UTC)
-IronPort-SDR: Fsmqrwa0Xy/isqSZcxgg9BQb4H6uj6LcgTeVxNxcmvDmEun/CU0V82aFlbIvGmlvT2E4nid26b
- WCrtIh8f7aLw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="187159386"
-X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="187159386"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 367BE6E8A0;
+ Tue, 23 Mar 2021 14:07:16 +0000 (UTC)
+IronPort-SDR: hp+iLZf4Jb1pGIs0Yo9ZSr5FeIF3euV+XYdvE5nZMxNty3TnTkt/yJS2JVq5/zL/WJGlBwOXgO
+ osND/Gd6lfzw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9931"; a="187164567"
+X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="187164567"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2021 06:38:17 -0700
-IronPort-SDR: Ehj61Lvj6WxrC8ZgMcN0B8segxHvcEf64UuNcAqxJo3EU4Jy/9tEf0HlIl/O7btS2WyGruvcVl
- YlYtDRjEwSKQ==
-X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="414989102"
-Received: from abdulla1-mobl1.gar.corp.intel.com (HELO intel.com)
- ([10.251.23.100])
+ 23 Mar 2021 07:07:15 -0700
+IronPort-SDR: OgCpjYysMewcIG7T/5T0gGkytTxkwKdQzZxfWA+o+XkeIOGiAR9CjOmP4KM7hy9ER20JHM2jeu
+ T502Uf/10h2w==
+X-IronPort-AV: E=Sophos;i="5.81,271,1610438400"; d="scan'208";a="414998948"
+Received: from wjlloyd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.252.53.124])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2021 06:38:16 -0700
-Date: Tue, 23 Mar 2021 09:38:14 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <YFnvRtUNgERZKzNs@intel.com>
-References: <20210323084453.366863-1-daniel.vetter@ffwll.ch>
- <20210323084453.366863-2-daniel.vetter@ffwll.ch>
- <YFng89ujYxcyJQmN@intel.com> <YFnouVsaKs2odAqq@phenom.ffwll.local>
+ 23 Mar 2021 07:06:08 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: lyude@redhat.com, intel-gfx@lists.freedesktop.org
+In-Reply-To: <dfec442a4888c8387a6002b0424415ee5d8be343.camel@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210318170204.513000-1-lyude@redhat.com>
+ <dfec442a4888c8387a6002b0424415ee5d8be343.camel@redhat.com>
+Date: Tue, 23 Mar 2021 16:06:05 +0200
+Message-ID: <87k0py3qya.fsf@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YFnouVsaKs2odAqq@phenom.ffwll.local>
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/doc: Add RFC section
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/dpcd_bl: Don't try vesa interface
+ unless specified by VBT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,99 +60,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Dave Airlie <airlied@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Sean Paul <seanpaul@chromium.org>, Aaron Ma <aaron.ma@canonical.com>,
+ Dave Airlie <airlied@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 23, 2021 at 02:10:17PM +0100, Daniel Vetter wrote:
-> On Tue, Mar 23, 2021 at 08:37:07AM -0400, Rodrigo Vivi wrote:
-> > On Tue, Mar 23, 2021 at 09:44:53AM +0100, Daniel Vetter wrote:
-> > > Motivated by the pre-review process for i915 gem/gt features, but
-> > > probably useful in general for complex stuff.
-> > > 
-> > > Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> > > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> > > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > > Cc: Jason Ekstrand <jason@jlekstrand.net>
-> > > Cc: Dave Airlie <airlied@redhat.com>
-> > > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > > ---
-> > >  Documentation/gpu/index.rst |  1 +
-> > >  Documentation/gpu/rfc.rst   | 16 ++++++++++++++++
-> > >  2 files changed, 17 insertions(+)
-> > >  create mode 100644 Documentation/gpu/rfc.rst
-> > > 
-> > > diff --git a/Documentation/gpu/index.rst b/Documentation/gpu/index.rst
-> > > index c9a51e3bfb5a..df58cb826d68 100644
-> > > --- a/Documentation/gpu/index.rst
-> > > +++ b/Documentation/gpu/index.rst
-> > > @@ -16,6 +16,7 @@ Linux GPU Driver Developer's Guide
-> > >     vga-switcheroo
-> > >     vgaarbiter
-> > >     todo
-> > > +   rfc
-> > 
-> > I understand the motivation here so I didn't commented earlier, but looking now,
-> > I'm wondering that this section will polute the official doc...
-> 
-> We already have this problem between documentation meant for kernel driver
-> developers and documentation meant for userspace developers around uapi
-> and all that. "who is the audience here" is very ill-defined for our
-> current set of docs in Documentation/gpu :-(
-
-you have a point...
-
-another thing that I don't like is the overhead, but otoh it forces us to
-write more docs...
-
-with all the pros and cons understood, let's move on...
-
-Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-
-> 
-> So I agree with you, but I also don't think this will make things worse.
-> -Daniel
-> 
-> > 
-> > >  
-> > >  .. only::  subproject and html
-> > >  
-> > > diff --git a/Documentation/gpu/rfc.rst b/Documentation/gpu/rfc.rst
-> > > new file mode 100644
-> > > index 000000000000..9d0ff2921af8
-> > > --- /dev/null
-> > > +++ b/Documentation/gpu/rfc.rst
-> > > @@ -0,0 +1,16 @@
-> > > +===============
-> > > +GPU RFC Section
-> > > +===============
-> > > +
-> > > +For complex work, especially new uapi, it is often good to nail the high level
-> > > +design issues before getting lost in the code details. This section is meant to
-> > > +host such documentation:
-> > > +
-> > > +* Each RFC should be a section in this file, explaining the goal and main design
-> > > +  considerations.
-> > > +
-> > > +* For uapi structures add a file to this directory with and then pull the
-> > > +  kerneldoc in like with real uapi headers.
-> > > +
-> > > +* Once the code has landed move all the documentation to the right places in
-> > > +  the main core, helper or driver sections.
-> > > -- 
-> > > 2.31.0
-> > > 
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gVGh1LCAxOCBNYXIgMjAyMSwgTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0LmNvbT4gd3JvdGU6
+Cj4gQWN0dWFsbHktTkFLIHRoaXMuIEkganVzdCByZWFsaXplZCBJJ3ZlIGJlZW4gbWlzcmVhZGlu
+ZyB0aGUgYnVnIGFuZCB0aGF0IHRoaXMKPiBkb2Vzbid0IGFjdHVhbGx5IHNlZW0gdG8gYmUgZml4
+ZWQuIFdpbGwgcmVzZW5kIG9uY2UgSSBmaWd1cmUgb3V0IHdoYXQncyBnb2luZyBvbgoKV2VsbCwg
+SSB0aGluayB0aGVyZSBhcmUgYWN0dWFsbHkgbXVsdGlwbGUgaXNzdWVzIG9uIG11bHRpcGxlCm1h
+Y2hpbmVzLiBUaGlzIGZpeGVzIHRoZSBpc3N1ZSBvbiBUaGlua1BhZCBYMSBUaXRhbml1bSBHZW4x
+IFsxXS4KCkkgc3VzcGVjdCByZXZlcnRpbmcgOThlNDk3ZTIwM2E1ICgiZHJtL2k5MTUvZHBjZF9i
+bDogdW5jaGVjayBQV01fUElOX0NBUAp3aGVuIGRldGVjdCBlRFAgYmFja2xpZ2h0IGNhcGFiaWxp
+dGllcyIpIHdvdWxkIHRvby4gQnV0IHRoZW4gdGhhdCB3b3VsZApicmVhayAqb3RoZXIqIG1hY2hp
+bmVzIHRoYXQgY2xhaW0gc3VwcG9ydCBmb3IgKmJvdGgqIGVEUCBQV00gcGluIGFuZApEUENEIGJh
+Y2tsaWdodCBjb250cm9sLCBJIHRoaW5rLgoKSSB0aGluayB0aGVyZSBhcmUgaXNzdWVzIHdpdGgg
+aG93IHdlIHRyeSBzZXR1cCBEUENEIGJhY2tsaWdodCBpZiB0aGUgR09QCmhhcyBzZXQgdXAgUFdN
+IGJhY2tsaWdodC4gRm9yIGV4YW1wbGUsIHdlIGRvbid0IHNldCB0aGUgYmFja2xpZ2h0CmNvbnRy
+b2wgbW9kZSBjb3JyZWN0bHkgdW50aWwgdGhlIG5leHQgZGlzYWJsZS9lbmFibGUgc2VxdWVuY2Uu
+IEhvd2V2ZXIsCkkgdHJpZWQgdG8gZml4IHRoaXMsIGFuZCBJIHRoaW5rIEkgd2FzIGRvaW5nIGFs
+bCB0aGUgcmlnaHQgdGhpbmdzLCBhbmQKRFBDRCByZWFkcyBzZWVtZWQgdG8gY29uZmlybSB0aGlz
+LCB5ZXQgSSB3YXMgbm90IGFibGUgdG8gY29udHJvbApicmlnaHRuZXNzIHVzaW5nIERQQ0QuIEkg
+ZG9uJ3Qga25vdyB3aGF0IGdpdmVzLCBidXQgSSBkbyBrbm93IGVEUCBQV00KcGluIGNvbnRyb2wg
+d29ya3MuCgoKQlIsCkphbmkuCgoKWzFdIGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9k
+cm0vaW50ZWwvLS9pc3N1ZXMvMzE1OAoKCj4KPiBPbiBUaHUsIDIwMjEtMDMtMTggYXQgMTM6MDIg
+LTA0MDAsIEx5dWRlIFBhdWwgd3JvdGU6Cj4+IExvb2tzIGxpa2UgdGhhdCB0aGVyZSBhY3R1YWxs
+eSBhcmUgYW5vdGhlciBzdWJzZXQgb2YgbGFwdG9wcyBvbiB0aGUgbWFya2V0Cj4+IHRoYXQgZG9u
+J3Qgc3VwcG9ydCB0aGUgSW50ZWwgSERSIGJhY2tsaWdodCBpbnRlcmZhY2UsIGJ1dCBkbyBhZHZl
+cnRpc2UKPj4gc3VwcG9ydCBmb3IgdGhlIFZFU0EgRFBDRCBiYWNrbGlnaHQgaW50ZXJmYWNlIGRl
+c3BpdGUgdGhlIGZhY3QgaXQgZG9lc24ndAo+PiBzZWVtIHRvIHdvcmsuCj4+IAo+PiBOb3RlIHRo
+b3VnaCBJJ20gbm90IGVudGlyZWx5IGNsZWFyIG9uIHRoaXMgLSBvbiBvbmUgb2YgdGhlIG1hY2hp
+bmVzIHdoZXJlCj4+IHRoaXMgaXNzdWUgd2FzIG9ic2VydmVkLCBJIGFsc28gbm90aWNlZCB0aGF0
+IHdlIGFwcGVhcmVkIHRvIGJlIHJlamVjdGluZwo+PiB0aGUgVkJUIGRlZmluZWQgYmFja2xpZ2h0
+IGZyZXF1ZW5jeSBpbgo+PiBpbnRlbF9kcF9hdXhfdmVzYV9jYWxjX21heF9iYWNrbGlnaHQoKS4g
+SXQncyBub3RlZCBpbiB0aGlzIGZ1bmN0aW9uIHRoYXQ6Cj4+IAo+PiAvKiBVc2UgaGlnaGVzdCBw
+b3NzaWJsZSB2YWx1ZSBvZiBQbiBmb3IgbW9yZSBncmFudWxhcml0eSBvZiBicmlnaHRuZXNzCj4+
+IMKgKiBhZGp1c3RtZW50IHdoaWxlIHNhdGlmeWluZyB0aGUgY29uZGl0aW9ucyBiZWxvdy4KPj4g
+wqAqIC4uLgo+PiDCoCogLSBGeFAgaXMgd2l0aGluIDI1JSBvZiBkZXNpcmVkIHZhbHVlLgo+PiDC
+oCrCoMKgIE5vdGU6IDI1JSBpcyBhcmJpdHJhcnkgdmFsdWUgYW5kIG1heSBuZWVkIHNvbWUgdHdl
+YWsuCj4+IMKgKi8KPj4gCj4+IFNvIGl0J3MgcG9zc2libGUgdGhhdCB0aGlzIHZhbHVlIG1pZ2h0
+IGp1c3QgbmVlZCB0byBiZSB0d2Vha2VkLCBidXQgZm9yIG5vdwo+PiBsZXQncyBqdXN0IGRpc2Fi
+bGUgdGhlIFZFU0EgYmFja2xpZ2h0IGludGVyZmFjZSB1bmxlc3MgaXQncyBzcGVjaWZpZWQgaW4K
+Pj4gdGhlIFZCVCBqdXN0IHRvIGJlIHNhZmUuIFdlIG1pZ2h0IGJlIGFibGUgdG8gdHJ5IGVuYWJs
+aW5nIHRoaXMgYWdhaW4gYnkKPj4gZGVmYXVsdCBpbiB0aGUgZnV0dXJlLgo+PiAKPj4gRml4ZXM6
+IDIyMjc4MTZlNjQ3YSAoImRybS9pOTE1L2RwOiBBbGxvdyBmb3JjaW5nIHNwZWNpZmljIGludGVy
+ZmFjZXMgdGhyb3VnaAo+PiBlbmFibGVfZHBjZF9iYWNrbGlnaHQiKQo+PiBDYzogSmFuaSBOaWt1
+bGEgPGphbmkubmlrdWxhQGludGVsLmNvbT4KPj4gQ2M6IFJvZHJpZ28gVml2aSA8cm9kcmlnby52
+aXZpQGludGVsLmNvbT4KPj4gQnVnemlsbGE6IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9y
+Zy9kcm0vaW50ZWwvLS9pc3N1ZXMvMzE2OQo+PiBTaWduZWQtb2ZmLWJ5OiBMeXVkZSBQYXVsIDxs
+eXVkZUByZWRoYXQuY29tPgo+PiAtLS0KPj4gwqBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
+L2ludGVsX2RwX2F1eF9iYWNrbGlnaHQuYyB8IDEgLQo+PiDCoDEgZmlsZSBjaGFuZ2VkLCAxIGRl
+bGV0aW9uKC0pCj4+IAo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9kcF9hdXhfYmFja2xpZ2h0LmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX2RwX2F1eF9iYWNrbGlnaHQuYwo+PiBpbmRleCA2NTE4ODQzOTAxMzcuLjRmODMz
+N2M3ZmQyZSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9kcF9hdXhfYmFja2xpZ2h0LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9kcF9hdXhfYmFja2xpZ2h0LmMKPj4gQEAgLTY0Niw3ICs2NDYsNiBAQCBpbnQgaW50
+ZWxfZHBfYXV4X2luaXRfYmFja2xpZ2h0X2Z1bmNzKHN0cnVjdAo+PiBpbnRlbF9jb25uZWN0b3Ig
+KmNvbm5lY3RvcikKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgYnJlYWs7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgY2FzZSBJTlRF
+TF9CQUNLTElHSFRfRElTUExBWV9EREk6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoHRyeV9pbnRlbF9pbnRlcmZhY2UgPSB0cnVlOwo+PiAtwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHRyeV92ZXNhX2ludGVyZmFj
+ZSA9IHRydWU7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoGJyZWFrOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGRlZmF1bHQ6Cj4+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiAt
+RU5PREVWOwoKLS0gCkphbmkgTmlrdWxhLCBJbnRlbCBPcGVuIFNvdXJjZSBHcmFwaGljcyBDZW50
+ZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwt
+Z2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
