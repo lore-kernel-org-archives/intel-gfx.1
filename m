@@ -2,65 +2,79 @@ Return-Path: <SRS0=sv0W=IW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFAE7C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 07:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 057DAC433C1
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 07:23:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 59550619E9
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 07:02:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59550619E9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BC453619F9
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 07:23:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC453619F9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E935E89CAD;
-	Wed, 24 Mar 2021 07:02:22 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89FE589CAD;
- Wed, 24 Mar 2021 07:02:22 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id ce10so31087087ejb.6;
- Wed, 24 Mar 2021 00:02:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4nP2sjxdIv+V7zOJ0GdZvSOpswpNmLx11k7HJ+bvJxk=;
- b=QvAU79pCBO+OQDfpn+xUY5yx++V0Ks5VP6K/O86bTfVDItoT42/06NiMeWV9tiei8W
- PVNx7w4yCT+TJKfioJxmgiMuUGKAp+jRwRBB9NRDpQsGvkdXeOYK09ZXqmp97mWdBv4W
- ZcICkmEpCRWPipZmcULSjDrmSAjPJWWa4Cq5/YTru2MWC1bVvfVaGeHNGwDyOxg/x6+8
- 03RqjoglLfGjh1a3lVfLBNz/cqGrriQbcYYqApkc+zeav6Fr+jpm78Nr4lmWjHg0jRWA
- npRrPT2N9JMPRK18nv71TSlII4zkq5c+CJSheXTRM4w2EHKmWLzUXvkmzhfA4ZQ0DTdb
- 806Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4nP2sjxdIv+V7zOJ0GdZvSOpswpNmLx11k7HJ+bvJxk=;
- b=FsNQw3v+lceccHDa5DvCO/uDUmGhIG5orKNLaaPd8PrKQlTw2nGq69Mbf+jp+H1lTU
- tAIRzJx1E+6v3lpqmKECTJKRiBKXpV7c3BYlR5jUP1yUEvuJaQIVKQEvo7pWMoWjDtmZ
- 38VsXOf9at5mMqmsFJSaQ50wYB8MYiHCcSe392yudHGHHTmmXCKxZdvFQHLbPfKe721L
- XFhaV5DYL30eFEJg1dwGeY8Qb4x/dmVBPePQ6zf/ZfyqezZ7FU1hieWB93ceuyNT4xN7
- RG5jAUBX/95+aU8p3mu7QtPuyyZgDYjFCh84tdX3blonFGLjjvD46i1203FJLGWqNgum
- C8kw==
-X-Gm-Message-State: AOAM530H4LyV440ZMyjhKcsn/76H/VSiBd48L/vYCnNbmBnnmrOvKLFg
- SeusTq1ZB2Sp8dB0S6sluaj1vo7C+AWbdUQBjklsDYxg
-X-Google-Smtp-Source: ABdhPJwokLWdP5xYMSVLfBYxXbdntNqp0f6PT11epkzPIodULwpC23bGh6gmTKucCmzNm6zNQb3CupEPlTmURqzn/no=
-X-Received: by 2002:aa7:c88e:: with SMTP id p14mr1662803eds.119.1616567579852; 
- Tue, 23 Mar 2021 23:32:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5850A6E247;
+	Wed, 24 Mar 2021 07:23:10 +0000 (UTC)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9DDB6E247
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 07:23:09 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12O7JQq5170670;
+ Wed, 24 Mar 2021 07:23:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type :
+ content-transfer-encoding; s=corp-2020-01-29;
+ bh=km1JZi3v+ll3+ZKGjZuiYQOl7G1lXRQoCgTZZTK6p5I=;
+ b=MXhiKpfYAW0k+DKWuk31NvdxLSoWw8QO+W1SjxTn8zkz23w8RHDDFCAxqdbPRnlTsmpK
+ izRIq0KgBCqYJWCTOZCAHpJDSLQfvc04kBERocwvXXtSBVPVJJSnS9n7IlZ17ovcHUVQ
+ NdVanjFwgMSErhJKC94Dyfw7Sobm+zS1cW0sx+fKyCy9yamAhUMyh8txSlLTuflQed5m
+ NCe6N6xIKUosiFtqvZ7HltU68qF8USHliZCM6/rRbNjT5w/GayJyIBO+hVOshAlmAQpK
+ 9vPem9bSBxsvD6Ooy0b5fbJ5E5nMvMmVA6LYht+vx+f+uVJScK69T5f48I/YchUlHQ4N 2A== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2120.oracle.com with ESMTP id 37d90mhmt6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Mar 2021 07:23:04 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12O7KsXW060364;
+ Wed, 24 Mar 2021 07:23:02 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 37dtyyfsd7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Mar 2021 07:23:02 +0000
+Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 12O7N0qk029887;
+ Wed, 24 Mar 2021 07:23:00 GMT
+Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 24 Mar 2021 07:23:00 +0000
+Date: Wed, 24 Mar 2021 10:22:54 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: ville.syrjala@linux.intel.com
+Message-ID: <YFrozlRheXy9ziyK@mwanda>
 MIME-Version: 1.0
-References: <20210323084453.366863-1-daniel.vetter@ffwll.ch>
- <20210323084453.366863-2-daniel.vetter@ffwll.ch>
-In-Reply-To: <20210323084453.366863-2-daniel.vetter@ffwll.ch>
-From: Dave Airlie <airlied@gmail.com>
-Date: Wed, 24 Mar 2021 16:32:48 +1000
-Message-ID: <CAPM=9tyQ5=GWWPKzEYke4ARk0dNGqnZnpZAydXiM0nn0A8JxTQ@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/doc: Add RFC section
+Content-Disposition: inline
+X-Proofpoint-IMR: 1
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9932
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ bulkscore=0 phishscore=0
+ mlxlogscore=999 suspectscore=0 spamscore=0 malwarescore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2103240055
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9932
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ malwarescore=0 mlxscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 mlxlogscore=999 suspectscore=0 clxscore=1015 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2103240055
+Subject: [Intel-gfx] [bug report] drm/i915: Fix enabled_planes bitmask
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,78 +87,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Dave Airlie <airlied@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 23 Mar 2021 at 18:45, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
->
-> Motivated by the pre-review process for i915 gem/gt features, but
-> probably useful in general for complex stuff.
->
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Jason Ekstrand <jason@jlekstrand.net>
-> Cc: Dave Airlie <airlied@redhat.com>
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Hello Ville Syrj=E4l=E4,
 
-Let's give it a try, I do like the future ideas of doing things with
-gitlab issues as well.
+This is a semi-automatic email about new static checker warnings.
 
-Acked-by: Dave Airlie <airlied@redhat.com>
-> ---
->  Documentation/gpu/index.rst |  1 +
->  Documentation/gpu/rfc.rst   | 16 ++++++++++++++++
->  2 files changed, 17 insertions(+)
->  create mode 100644 Documentation/gpu/rfc.rst
->
-> diff --git a/Documentation/gpu/index.rst b/Documentation/gpu/index.rst
-> index c9a51e3bfb5a..df58cb826d68 100644
-> --- a/Documentation/gpu/index.rst
-> +++ b/Documentation/gpu/index.rst
-> @@ -16,6 +16,7 @@ Linux GPU Driver Developer's Guide
->     vga-switcheroo
->     vgaarbiter
->     todo
-> +   rfc
->
->  .. only::  subproject and html
->
-> diff --git a/Documentation/gpu/rfc.rst b/Documentation/gpu/rfc.rst
-> new file mode 100644
-> index 000000000000..9d0ff2921af8
-> --- /dev/null
-> +++ b/Documentation/gpu/rfc.rst
-> @@ -0,0 +1,16 @@
-> +===============
-> +GPU RFC Section
-> +===============
-> +
-> +For complex work, especially new uapi, it is often good to nail the high level
-> +design issues before getting lost in the code details. This section is meant to
-> +host such documentation:
-> +
-> +* Each RFC should be a section in this file, explaining the goal and main design
-> +  considerations.
-> +
-> +* For uapi structures add a file to this directory with and then pull the
-> +  kerneldoc in like with real uapi headers.
-> +
-> +* Once the code has landed move all the documentation to the right places in
-> +  the main core, helper or driver sections.
-> --
-> 2.31.0
->
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+The patch 97bc7ffa1b1e: "drm/i915: Fix enabled_planes bitmask" from
+Mar 5, 2021, leads to the following Smatch complaint:
+
+    drivers/gpu/drm/i915/display/intel_atomic_plane.c:332 intel_plane_atomi=
+c_check_with_state()
+    error: we previously assumed 'fb' could be null (see line 324)
+
+drivers/gpu/drm/i915/display/intel_atomic_plane.c
+   323	=
+
+   324		if (fb)
+                    ^^
+The patch adds a check for NULL
+
+   325			new_crtc_state->enabled_planes |=3D BIT(plane->id);
+   326	=
+
+   327		/* FIXME pre-g4x don't work like this */
+   328		if (new_plane_state->uapi.visible)
+   329			new_crtc_state->active_planes |=3D BIT(plane->id);
+   330	=
+
+   331		if (new_plane_state->uapi.visible &&
+   332		    intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
+                                                        ^^^^^^^^^^^^^^^^^^^=
+^^^^^
+Unchecked deref
+
+   333			new_crtc_state->nv12_planes |=3D BIT(plane->id);
+   334	=
+
+   335          if (new_plane_state->uapi.visible &&
+   336              fb->format->format =3D=3D DRM_FORMAT_C8)
+                    ^^^^^^^^^^
+Same.  These are potentially false positives.  I don't know if
+"uapi.visible" can be true when ctrc is non-NULL and fb is NULL for
+example?  (The point is I read the commit message, but I know pants all
+about DRM.  :P)
+
+   337                  new_crtc_state->c8_planes |=3D BIT(plane->id);
+   338  =
+
+   339          if (new_plane_state->uapi.visible || old_plane_state->uapi.=
+visible)
+   340                  new_crtc_state->update_planes |=3D BIT(plane->id);
+   341  =
+
+   342          new_crtc_state->data_rate[plane->id] =3D
+   343                  intel_plane_data_rate(new_crtc_state, new_plane_sta=
+te);
+   344  =
+
+   345          return intel_plane_atomic_calc_changes(old_crtc_state, new_=
+crtc_state,
+   346                                                 old_plane_state, new=
+_plane_state);
+   347  }
+
+regards,
+dan carpenter
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
