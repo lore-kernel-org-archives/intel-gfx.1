@@ -2,69 +2,62 @@ Return-Path: <SRS0=sv0W=IW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50521C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:28:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE287C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:34:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CDF20619D5
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:28:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDF20619D5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 2D82A61A02
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:34:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D82A61A02
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52B2A6E9C7;
-	Wed, 24 Mar 2021 11:28:16 +0000 (UTC)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0D966E9C6
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 11:28:14 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- b2-20020a7bc2420000b029010be1081172so975623wmj.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 04:28:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=mjhfUs7bAF6j7CMgin31RBf6VYpxm9zePKIqrlkzAFs=;
- b=NuY72QOPXmItkzb07Nabac7vcVupSxriI6Ldb9otuDK4IA1iHkDZ+YOnA65hTw/Och
- ngIeP3e+QkYIFUIPxfcCKzpymxZOU+gAYVq5+YxX0AWcbg8KKL8A6Q/R1rQg9qm3jsbV
- PSzJFegopqj1ghtcXPXFnN9HCvn/z8MYKyF84=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=mjhfUs7bAF6j7CMgin31RBf6VYpxm9zePKIqrlkzAFs=;
- b=WfQo9Fr2QL0hXY8xFp1fHW68J+dTFhN61JkNtCAad2YSmBGZHs45+QE7czNaoSEcTu
- 9EOET85bsaKbjrsdkYRUjaL4CoymfRqKq/UnuNFCI2LVXWprEuEPxZhzb8GUzBqsv0ls
- +BGuUO2+l+j/QGIgj3rE08dt4RdETIeaX8xk1fhV7+seB4+oy0FcsJadFqFL2Dhm5dzo
- 2+RHQBWiIlJBmcdKxfhZogdNLElmxSkU8u2v9zNMCYhoJx+iw8tO1sDjDP5h6vQZn+sy
- OGeKznqWz2FugVtf251/Nk8HEovSM5hxms4eC6nXMIEPY4oDGB2PFsR2lFcqg3eM9wP1
- Y4Bg==
-X-Gm-Message-State: AOAM530r+BYIYOi/S+hMwam0QWB4tu5pcWf9LPqKSXxHRo9QA0c79TfT
- g159uKh94B4tJW5m4KkqgAGrqw==
-X-Google-Smtp-Source: ABdhPJyqwr/hNlD7xar+Xz7f/8+3HPNahzg2bkScbA6pV3gyC6a+nO9M4v/qTCCdwnooNKizyFN86w==
-X-Received: by 2002:a1c:2017:: with SMTP id g23mr2400053wmg.126.1616585293113; 
- Wed, 24 Mar 2021 04:28:13 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id u63sm2085156wmg.24.2021.03.24.04.28.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Mar 2021 04:28:12 -0700 (PDT)
-Date: Wed, 24 Mar 2021 12:28:10 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Message-ID: <YFsiSszLEhOO68QB@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCFAF6E0C1;
+	Wed, 24 Mar 2021 11:34:43 +0000 (UTC)
+Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
+ [213.80.101.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF9346E0C1;
+ Wed, 24 Mar 2021 11:34:42 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 36D8D3F72D;
+ Wed, 24 Mar 2021 12:34:41 +0100 (CET)
+Authentication-Results: ste-pvt-msa1.bahnhof.se; dkim=pass (1024-bit key;
+ unprotected) header.d=shipmail.org header.i=@shipmail.org header.b=WUUGkmdm; 
+ dkim-atps=neutral
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
+ by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Ve40-3OK-85F; Wed, 24 Mar 2021 12:34:39 +0100 (CET)
+Received: by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id AB9783F5E5;
+ Wed, 24 Mar 2021 12:34:37 +0100 (CET)
+Received: from [192.168.0.209] (unknown [192.198.151.43])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id 2EFB43605CC;
+ Wed, 24 Mar 2021 12:34:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1616585676; bh=fGzZpec8XuHsb9/fYc6Izz47d34CZSClQhlvbyPiKqQ=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=WUUGkmdmvN/juOFBXMxv1wQS1w93Lz85h+h+8L8OBKeOpXnDwZThmF/yYYQnkwkQ9
+ 2nWyg3DWUV236WFgRXcgIxJEdcBOGCD8yNjSMqeXNCCsBCMwuBLmjIwUlM1+V06yUx
+ d1iUzRacXjsGKpFWzgs8mbpGOCmWnVjmnXDZ87AI=
+To: Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 References: <20210323155059.628690-1-maarten.lankhorst@linux.intel.com>
  <20210323155059.628690-17-maarten.lankhorst@linux.intel.com>
+ <YFsiSszLEhOO68QB@phenom.ffwll.local>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+Message-ID: <b7545499-bb11-d516-fe38-33f81c9f58aa@shipmail.org>
+Date: Wed, 24 Mar 2021 12:34:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210323155059.628690-17-maarten.lankhorst@linux.intel.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+In-Reply-To: <YFsiSszLEhOO68QB@phenom.ffwll.local>
+Content-Language: en-US
 Subject: Re: [Intel-gfx] [PATCH v9 16/70] drm/i915: Fix userptr so we do not
  have to worry about obj->mm.lock, v7.
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -81,1549 +74,521 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 23, 2021 at 04:50:05PM +0100, Maarten Lankhorst wrote:
-> Instead of doing what we do currently, which will never work with
-> PROVE_LOCKING, do the same as AMD does, and something similar to
-> relocation slowpath. When all locks are dropped, we acquire the
-> pages for pinning. When the locks are taken, we transfer those
-> pages in .get_pages() to the bo. As a final check before installing
-> the fences, we ensure that the mmu notifier was not called; if it is,
-> we return -EAGAIN to userspace to signal it has to start over.
-> =
-
-> Changes since v1:
-> - Unbinding is done in submit_init only. submit_begin() removed.
-> - MMU_NOTFIER -> MMU_NOTIFIER
-> Changes since v2:
-> - Make i915->mm.notifier a spinlock.
-> Changes since v3:
-> - Add WARN_ON if there are any page references left, should have been 0.
-> - Return 0 on success in submit_init(), bug from spinlock conversion.
-> - Release pvec outside of notifier_lock (Thomas).
-> Changes since v4:
-> - Mention why we're clearing eb->[i + 1].vma in the code. (Thomas)
-> - Actually check all invalidations in eb_move_to_gpu. (Thomas)
-> - Do not wait when process is exiting to fix gem_ctx_persistence.userptr.
-> Changes since v5:
-> - Clarify why check on PF_EXITING is (temporarily) required.
-> Changes since v6:
-> - Ensure userptr validity is checked in set_domain through a special path.
-> =
-
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Acked-by: Dave Airlie <airlied@redhat.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_domain.c    |  18 +-
->  .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 101 ++-
->  drivers/gpu/drm/i915/gem/i915_gem_object.h    |  38 +-
->  .../gpu/drm/i915/gem/i915_gem_object_types.h  |  10 +-
->  drivers/gpu/drm/i915/gem/i915_gem_pages.c     |   2 +-
->  drivers/gpu/drm/i915/gem/i915_gem_userptr.c   | 796 ++++++------------
->  drivers/gpu/drm/i915/i915_drv.h               |   9 +-
->  drivers/gpu/drm/i915/i915_gem.c               |   5 +-
->  8 files changed, 395 insertions(+), 584 deletions(-)
-> =
-
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm=
-/i915/gem/i915_gem_domain.c
-> index 2f4980bf742e..76cb9f5c66aa 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-> @@ -468,14 +468,28 @@ i915_gem_set_domain_ioctl(struct drm_device *dev, v=
-oid *data,
->  	if (!obj)
->  		return -ENOENT;
->  =
-
-> +	if (i915_gem_object_is_userptr(obj)) {
-> +		/*
-> +		 * Try to grab userptr pages, iris uses set_domain to check
-> +		 * userptr validity
-> +		 */
-> +		err =3D i915_gem_object_userptr_validate(obj);
-> +		if (!err)
-> +			err =3D i915_gem_object_wait(obj,
-> +						   I915_WAIT_INTERRUPTIBLE |
-> +						   I915_WAIT_PRIORITY |
-> +						   (write_domain ? I915_WAIT_ALL : 0),
-> +						   MAX_SCHEDULE_TIMEOUT);
-> +		goto out;
-> +	}
-> +
->  	/*
->  	 * Proxy objects do not control access to the backing storage, ergo
->  	 * they cannot be used as a means to manipulate the cache domain
->  	 * tracking for that backing storage. The proxy object is always
->  	 * considered to be outside of any cache domain.
->  	 */
-> -	if (i915_gem_object_is_proxy(obj) &&
-> -	    !i915_gem_object_is_userptr(obj)) {
-> +	if (i915_gem_object_is_proxy(obj)) {
->  		err =3D -ENXIO;
->  		goto out;
->  	}
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu=
-/drm/i915/gem/i915_gem_execbuffer.c
-> index 795c68fcc6ed..b5ca9eb53565 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> @@ -53,14 +53,16 @@ enum {
->  /* __EXEC_OBJECT_NO_RESERVE is BIT(31), defined in i915_vma.h */
->  #define __EXEC_OBJECT_HAS_PIN		BIT(30)
->  #define __EXEC_OBJECT_HAS_FENCE		BIT(29)
-> -#define __EXEC_OBJECT_NEEDS_MAP		BIT(28)
-> -#define __EXEC_OBJECT_NEEDS_BIAS	BIT(27)
-> -#define __EXEC_OBJECT_INTERNAL_FLAGS	(~0u << 27) /* all of the above + */
-> +#define __EXEC_OBJECT_USERPTR_INIT	BIT(28)
-> +#define __EXEC_OBJECT_NEEDS_MAP		BIT(27)
-> +#define __EXEC_OBJECT_NEEDS_BIAS	BIT(26)
-> +#define __EXEC_OBJECT_INTERNAL_FLAGS	(~0u << 26) /* all of the above + */
->  #define __EXEC_OBJECT_RESERVED (__EXEC_OBJECT_HAS_PIN | __EXEC_OBJECT_HA=
-S_FENCE)
->  =
-
->  #define __EXEC_HAS_RELOC	BIT(31)
->  #define __EXEC_ENGINE_PINNED	BIT(30)
-> -#define __EXEC_INTERNAL_FLAGS	(~0u << 30)
-> +#define __EXEC_USERPTR_USED	BIT(29)
-> +#define __EXEC_INTERNAL_FLAGS	(~0u << 29)
->  #define UPDATE			PIN_OFFSET_FIXED
->  =
-
->  #define BATCH_OFFSET_BIAS (256*1024)
-> @@ -871,6 +873,26 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
->  		}
->  =
-
->  		eb_add_vma(eb, i, batch, vma);
-> +
-> +		if (i915_gem_object_is_userptr(vma->obj)) {
-> +			err =3D i915_gem_object_userptr_submit_init(vma->obj);
-> +			if (err) {
-> +				if (i + 1 < eb->buffer_count) {
-> +					/*
-> +					 * Execbuffer code expects last vma entry to be NULL,
-> +					 * since we already initialized this entry,
-> +					 * set the next value to NULL or we mess up
-> +					 * cleanup handling.
-> +					 */
-> +					eb->vma[i + 1].vma =3D NULL;
-> +				}
-> +
-> +				return err;
-> +			}
-> +
-> +			eb->vma[i].flags |=3D __EXEC_OBJECT_USERPTR_INIT;
-> +			eb->args->flags |=3D __EXEC_USERPTR_USED;
-> +		}
->  	}
->  =
-
->  	if (unlikely(eb->batch->flags & EXEC_OBJECT_WRITE)) {
-> @@ -972,7 +994,7 @@ eb_get_vma(const struct i915_execbuffer *eb, unsigned=
- long handle)
->  	}
->  }
->  =
-
-> -static void eb_release_vmas(struct i915_execbuffer *eb, bool final)
-> +static void eb_release_vmas(struct i915_execbuffer *eb, bool final, bool=
- release_userptr)
->  {
->  	const unsigned int count =3D eb->buffer_count;
->  	unsigned int i;
-> @@ -986,6 +1008,11 @@ static void eb_release_vmas(struct i915_execbuffer =
-*eb, bool final)
->  =
-
->  		eb_unreserve_vma(ev);
->  =
-
-> +		if (release_userptr && ev->flags & __EXEC_OBJECT_USERPTR_INIT) {
-> +			ev->flags &=3D ~__EXEC_OBJECT_USERPTR_INIT;
-> +			i915_gem_object_userptr_submit_fini(vma->obj);
-> +		}
-> +
->  		if (final)
->  			i915_vma_put(vma);
->  	}
-> @@ -1916,6 +1943,31 @@ static int eb_prefault_relocations(const struct i9=
-15_execbuffer *eb)
->  	return 0;
->  }
->  =
-
-> +static int eb_reinit_userptr(struct i915_execbuffer *eb)
-> +{
-> +	const unsigned int count =3D eb->buffer_count;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (likely(!(eb->args->flags & __EXEC_USERPTR_USED)))
-> +		return 0;
-> +
-> +	for (i =3D 0; i < count; i++) {
-> +		struct eb_vma *ev =3D &eb->vma[i];
-> +
-> +		if (!i915_gem_object_is_userptr(ev->vma->obj))
-> +			continue;
-> +
-> +		ret =3D i915_gem_object_userptr_submit_init(ev->vma->obj);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ev->flags |=3D __EXEC_OBJECT_USERPTR_INIT;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb,
->  					   struct i915_request *rq)
->  {
-> @@ -1930,7 +1982,7 @@ static noinline int eb_relocate_parse_slow(struct i=
-915_execbuffer *eb,
->  	}
->  =
-
->  	/* We may process another execbuffer during the unlock... */
-> -	eb_release_vmas(eb, false);
-> +	eb_release_vmas(eb, false, true);
->  	i915_gem_ww_ctx_fini(&eb->ww);
->  =
-
->  	if (rq) {
-> @@ -1971,10 +2023,8 @@ static noinline int eb_relocate_parse_slow(struct =
-i915_execbuffer *eb,
->  		err =3D 0;
->  	}
->  =
-
-> -#ifdef CONFIG_MMU_NOTIFIER
->  	if (!err)
-> -		flush_workqueue(eb->i915->mm.userptr_wq);
-> -#endif
-> +		err =3D eb_reinit_userptr(eb);
->  =
-
->  err_relock:
->  	i915_gem_ww_ctx_init(&eb->ww, true);
-> @@ -2036,7 +2086,7 @@ static noinline int eb_relocate_parse_slow(struct i=
-915_execbuffer *eb,
->  =
-
->  err:
->  	if (err =3D=3D -EDEADLK) {
-> -		eb_release_vmas(eb, false);
-> +		eb_release_vmas(eb, false, false);
->  		err =3D i915_gem_ww_ctx_backoff(&eb->ww);
->  		if (!err)
->  			goto repeat_validate;
-> @@ -2133,7 +2183,7 @@ static int eb_relocate_parse(struct i915_execbuffer=
- *eb)
->  =
-
->  err:
->  	if (err =3D=3D -EDEADLK) {
-> -		eb_release_vmas(eb, false);
-> +		eb_release_vmas(eb, false, false);
->  		err =3D i915_gem_ww_ctx_backoff(&eb->ww);
->  		if (!err)
->  			goto retry;
-> @@ -2208,6 +2258,30 @@ static int eb_move_to_gpu(struct i915_execbuffer *=
-eb)
->  						      flags | __EXEC_OBJECT_NO_RESERVE);
->  	}
->  =
-
-> +#ifdef CONFIG_MMU_NOTIFIER
-> +	if (!err && (eb->args->flags & __EXEC_USERPTR_USED)) {
-> +		spin_lock(&eb->i915->mm.notifier_lock);
-> +
-> +		/*
-> +		 * count is always at least 1, otherwise __EXEC_USERPTR_USED
-> +		 * could not have been set
-> +		 */
-> +		for (i =3D 0; i < count; i++) {
-> +			struct eb_vma *ev =3D &eb->vma[i];
-> +			struct drm_i915_gem_object *obj =3D ev->vma->obj;
-> +
-> +			if (!i915_gem_object_is_userptr(obj))
-> +				continue;
-> +
-> +			err =3D i915_gem_object_userptr_submit_done(obj);
-> +			if (err)
-> +				break;
-> +		}
-> +
-> +		spin_unlock(&eb->i915->mm.notifier_lock);
-> +	}
-> +#endif
-> +
->  	if (unlikely(err))
->  		goto err_skip;
->  =
-
-> @@ -3352,7 +3426,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
->  =
-
->  	err =3D eb_lookup_vmas(&eb);
->  	if (err) {
-> -		eb_release_vmas(&eb, true);
-> +		eb_release_vmas(&eb, true, true);
->  		goto err_engine;
->  	}
->  =
-
-> @@ -3424,6 +3498,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
->  =
-
->  	trace_i915_request_queue(eb.request, eb.batch_flags);
->  	err =3D eb_submit(&eb, batch);
-> +
->  err_request:
->  	i915_request_get(eb.request);
->  	err =3D eb_request_add(&eb, err);
-> @@ -3444,7 +3519,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
->  	i915_request_put(eb.request);
->  =
-
->  err_vma:
-> -	eb_release_vmas(&eb, true);
-> +	eb_release_vmas(&eb, true, true);
->  	if (eb.trampoline)
->  		i915_vma_unpin(eb.trampoline);
->  	WARN_ON(err =3D=3D -EDEADLK);
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm=
-/i915/gem/i915_gem_object.h
-> index 69509dbd01c7..b5af9c440ac5 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> @@ -59,6 +59,7 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_=
-private *i915,
->  				       const void *data, resource_size_t size);
->  =
-
->  extern const struct drm_i915_gem_object_ops i915_gem_shmem_ops;
-> +
->  void __i915_gem_object_release_shmem(struct drm_i915_gem_object *obj,
->  				     struct sg_table *pages,
->  				     bool needs_clflush);
-> @@ -278,12 +279,6 @@ i915_gem_object_never_mmap(const struct drm_i915_gem=
-_object *obj)
->  	return i915_gem_object_type_has(obj, I915_GEM_OBJECT_NO_MMAP);
->  }
->  =
-
-> -static inline bool
-> -i915_gem_object_needs_async_cancel(const struct drm_i915_gem_object *obj)
-> -{
-> -	return i915_gem_object_type_has(obj, I915_GEM_OBJECT_ASYNC_CANCEL);
-> -}
-> -
->  static inline bool
->  i915_gem_object_is_framebuffer(const struct drm_i915_gem_object *obj)
->  {
-> @@ -573,16 +568,6 @@ void __i915_gem_object_flush_frontbuffer(struct drm_=
-i915_gem_object *obj,
->  void __i915_gem_object_invalidate_frontbuffer(struct drm_i915_gem_object=
- *obj,
->  					      enum fb_op_origin origin);
->  =
-
-> -static inline bool
-> -i915_gem_object_is_userptr(struct drm_i915_gem_object *obj)
-> -{
-> -#ifdef CONFIG_MMU_NOTIFIER
-> -	return obj->userptr.mm;
-> -#else
-> -	return false;
-> -#endif
-> -}
-> -
->  static inline void
->  i915_gem_object_flush_frontbuffer(struct drm_i915_gem_object *obj,
->  				  enum fb_op_origin origin)
-> @@ -603,4 +588,25 @@ int i915_gem_object_read_from_page(struct drm_i915_g=
-em_object *obj, u64 offset,
->  =
-
->  bool i915_gem_object_is_shmem(const struct drm_i915_gem_object *obj);
->  =
-
-> +#ifdef CONFIG_MMU_NOTIFIER
-> +static inline bool
-> +i915_gem_object_is_userptr(struct drm_i915_gem_object *obj)
-> +{
-> +	return obj->userptr.notifier.mm;
-> +}
-> +
-> +int i915_gem_object_userptr_submit_init(struct drm_i915_gem_object *obj);
-> +int i915_gem_object_userptr_submit_done(struct drm_i915_gem_object *obj);
-> +void i915_gem_object_userptr_submit_fini(struct drm_i915_gem_object *obj=
-);
-> +int i915_gem_object_userptr_validate(struct drm_i915_gem_object *obj);
-> +#else
-> +static inline bool i915_gem_object_is_userptr(struct drm_i915_gem_object=
- *obj) { return false; }
-> +
-> +static inline int i915_gem_object_userptr_submit_init(struct drm_i915_ge=
-m_object *obj) { GEM_BUG_ON(1); return -ENODEV; }
-> +static inline int i915_gem_object_userptr_submit_done(struct drm_i915_ge=
-m_object *obj) { GEM_BUG_ON(1); return -ENODEV; }
-> +static inline void i915_gem_object_userptr_submit_fini(struct drm_i915_g=
-em_object *obj) { GEM_BUG_ON(1); }
-> +static inline int i915_gem_object_userptr_validate(struct drm_i915_gem_o=
-bject *obj) { GEM_BUG_ON(1); return -ENODEV; }
-> +
-> +#endif
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/g=
-pu/drm/i915/gem/i915_gem_object_types.h
-> index 414322619781..4c0a34231623 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-> @@ -7,6 +7,8 @@
->  #ifndef __I915_GEM_OBJECT_TYPES_H__
->  #define __I915_GEM_OBJECT_TYPES_H__
->  =
-
-> +#include <linux/mmu_notifier.h>
-> +
->  #include <drm/drm_gem.h>
->  #include <uapi/drm/i915_drm.h>
->  =
-
-> @@ -34,7 +36,6 @@ struct drm_i915_gem_object_ops {
->  #define I915_GEM_OBJECT_IS_SHRINKABLE	BIT(2)
->  #define I915_GEM_OBJECT_IS_PROXY	BIT(3)
->  #define I915_GEM_OBJECT_NO_MMAP		BIT(4)
-> -#define I915_GEM_OBJECT_ASYNC_CANCEL	BIT(5)
->  =
-
->  	/* Interface between the GEM object and its backing storage.
->  	 * get_pages() is called once prior to the use of the associated set
-> @@ -299,10 +300,11 @@ struct drm_i915_gem_object {
->  #ifdef CONFIG_MMU_NOTIFIER
->  		struct i915_gem_userptr {
->  			uintptr_t ptr;
-> +			unsigned long notifier_seq;
->  =
-
-> -			struct i915_mm_struct *mm;
-> -			struct i915_mmu_object *mmu_object;
-> -			struct work_struct *work;
-> +			struct mmu_interval_notifier notifier;
-> +			struct page **pvec;
-> +			int page_ref;
->  		} userptr;
->  #endif
->  =
-
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_pages.c
-> index bf61b88a2113..e7d7650072c5 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> @@ -226,7 +226,7 @@ int __i915_gem_object_put_pages(struct drm_i915_gem_o=
-bject *obj)
->  	 * get_pages backends we should be better able to handle the
->  	 * cancellation of the async task in a more uniform manner.
->  	 */
-> -	if (!pages && !i915_gem_object_needs_async_cancel(obj))
-> +	if (!pages)
->  		pages =3D ERR_PTR(-EINVAL);
->  =
-
->  	if (!IS_ERR(pages))
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/dr=
-m/i915/gem/i915_gem_userptr.c
-> index b466ab2def4d..1e42fbc68697 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-> @@ -2,10 +2,39 @@
->   * SPDX-License-Identifier: MIT
->   *
->   * Copyright =A9 2012-2014 Intel Corporation
-> + *
-> +  * Based on amdgpu_mn, which bears the following notice:
-> + *
-> + * Copyright 2014 Advanced Micro Devices, Inc.
-> + * All Rights Reserved.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the
-> + * "Software"), to deal in the Software without restriction, including
-> + * without limitation the rights to use, copy, modify, merge, publish,
-> + * distribute, sub license, and/or sell copies of the Software, and to
-> + * permit persons to whom the Software is furnished to do so, subject to
-> + * the following conditions:
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDERS, AUTHORS AND/OR ITS SUPPLIERS BE LIABLE FOR ANY=
- CLAIM,
-> + * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> + * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR=
- THE
-> + * USE OR OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + * The above copyright notice and this permission notice (including the
-> + * next paragraph) shall be included in all copies or substantial portio=
-ns
-> + * of the Software.
-> + *
-> + */
-> +/*
-> + * Authors:
-> + *    Christian K=F6nig <christian.koenig@amd.com>
->   */
->  =
-
->  #include <linux/mmu_context.h>
-> -#include <linux/mmu_notifier.h>
->  #include <linux/mempolicy.h>
->  #include <linux/swap.h>
->  #include <linux/sched/mm.h>
-> @@ -15,373 +44,121 @@
->  #include "i915_gem_object.h"
->  #include "i915_scatterlist.h"
->  =
-
-> -#if defined(CONFIG_MMU_NOTIFIER)
-> -
-> -struct i915_mm_struct {
-> -	struct mm_struct *mm;
-> -	struct drm_i915_private *i915;
-> -	struct i915_mmu_notifier *mn;
-> -	struct hlist_node node;
-> -	struct kref kref;
-> -	struct rcu_work work;
-> -};
-> -
-> -#include <linux/interval_tree.h>
-> -
-> -struct i915_mmu_notifier {
-> -	spinlock_t lock;
-> -	struct hlist_node node;
-> -	struct mmu_notifier mn;
-> -	struct rb_root_cached objects;
-> -	struct i915_mm_struct *mm;
-> -};
-> -
-> -struct i915_mmu_object {
-> -	struct i915_mmu_notifier *mn;
-> -	struct drm_i915_gem_object *obj;
-> -	struct interval_tree_node it;
-> -};
-> +#ifdef CONFIG_MMU_NOTIFIER
->  =
-
-> -static void add_object(struct i915_mmu_object *mo)
-> +/**
-> + * i915_gem_userptr_invalidate - callback to notify about mm change
-> + *
-> + * @mni: the range (mm) is about to update
-> + * @range: details on the invalidation
-> + * @cur_seq: Value to pass to mmu_interval_set_seq()
-> + *
-> + * Block for operations on BOs to finish and mark pages as accessed and
-> + * potentially dirty.
-> + */
-> +static bool i915_gem_userptr_invalidate(struct mmu_interval_notifier *mn=
-i,
-> +					const struct mmu_notifier_range *range,
-> +					unsigned long cur_seq)
->  {
-> -	GEM_BUG_ON(!RB_EMPTY_NODE(&mo->it.rb));
-> -	interval_tree_insert(&mo->it, &mo->mn->objects);
-> -}
-> +	struct drm_i915_gem_object *obj =3D container_of(mni, struct drm_i915_g=
-em_object, userptr.notifier);
-> +	struct drm_i915_private *i915 =3D to_i915(obj->base.dev);
-> +	long r;
->  =
-
-> -static void del_object(struct i915_mmu_object *mo)
-> -{
-> -	if (RB_EMPTY_NODE(&mo->it.rb))
-> -		return;
-> +	if (!mmu_notifier_range_blockable(range))
-> +		return false;
->  =
-
-> -	interval_tree_remove(&mo->it, &mo->mn->objects);
-> -	RB_CLEAR_NODE(&mo->it.rb);
-> -}
-> +	spin_lock(&i915->mm.notifier_lock);
->  =
-
-> -static void
-> -__i915_gem_userptr_set_active(struct drm_i915_gem_object *obj, bool valu=
-e)
-> -{
-> -	struct i915_mmu_object *mo =3D obj->userptr.mmu_object;
-> +	mmu_interval_set_seq(mni, cur_seq);
-> +
-> +	spin_unlock(&i915->mm.notifier_lock);
->  =
-
->  	/*
-> -	 * During mm_invalidate_range we need to cancel any userptr that
-> -	 * overlaps the range being invalidated. Doing so requires the
-> -	 * struct_mutex, and that risks recursion. In order to cause
-> -	 * recursion, the user must alias the userptr address space with
-> -	 * a GTT mmapping (possible with a MAP_FIXED) - then when we have
-> -	 * to invalidate that mmaping, mm_invalidate_range is called with
-> -	 * the userptr address *and* the struct_mutex held.  To prevent that
-> -	 * we set a flag under the i915_mmu_notifier spinlock to indicate
-> -	 * whether this object is valid.
-> +	 * We don't wait when the process is exiting. This is valid
-> +	 * because the object will be cleaned up anyway.
-> +	 *
-> +	 * This is also temporarily required as a hack, because we
-> +	 * cannot currently force non-consistent batch buffers to preempt
-> +	 * and reschedule by waiting on it, hanging processes on exit.
->  	 */
-> -	if (!mo)
-> -		return;
-> -
-> -	spin_lock(&mo->mn->lock);
-> -	if (value)
-> -		add_object(mo);
-> -	else
-> -		del_object(mo);
-> -	spin_unlock(&mo->mn->lock);
-> -}
-> -
-> -static int
-> -userptr_mn_invalidate_range_start(struct mmu_notifier *_mn,
-> -				  const struct mmu_notifier_range *range)
-> -{
-> -	struct i915_mmu_notifier *mn =3D
-> -		container_of(_mn, struct i915_mmu_notifier, mn);
-> -	struct interval_tree_node *it;
-> -	unsigned long end;
-> -	int ret =3D 0;
-> -
-> -	if (RB_EMPTY_ROOT(&mn->objects.rb_root))
-> -		return 0;
-> -
-> -	/* interval ranges are inclusive, but invalidate range is exclusive */
-> -	end =3D range->end - 1;
-> -
-> -	spin_lock(&mn->lock);
-> -	it =3D interval_tree_iter_first(&mn->objects, range->start, end);
-> -	while (it) {
-> -		struct drm_i915_gem_object *obj;
-> -
-> -		if (!mmu_notifier_range_blockable(range)) {
-> -			ret =3D -EAGAIN;
-> -			break;
-> -		}
-> -
-> -		/*
-> -		 * The mmu_object is released late when destroying the
-> -		 * GEM object so it is entirely possible to gain a
-> -		 * reference on an object in the process of being freed
-> -		 * since our serialisation is via the spinlock and not
-> -		 * the struct_mutex - and consequently use it after it
-> -		 * is freed and then double free it. To prevent that
-> -		 * use-after-free we only acquire a reference on the
-> -		 * object if it is not in the process of being destroyed.
-> -		 */
-> -		obj =3D container_of(it, struct i915_mmu_object, it)->obj;
-> -		if (!kref_get_unless_zero(&obj->base.refcount)) {
-> -			it =3D interval_tree_iter_next(it, range->start, end);
-> -			continue;
-> -		}
-> -		spin_unlock(&mn->lock);
-> -
-> -		ret =3D i915_gem_object_unbind(obj,
-> -					     I915_GEM_OBJECT_UNBIND_ACTIVE |
-> -					     I915_GEM_OBJECT_UNBIND_BARRIER);
-> -		if (ret =3D=3D 0)
-> -			ret =3D __i915_gem_object_put_pages(obj);
-> -		i915_gem_object_put(obj);
-> -		if (ret)
-> -			return ret;
-> +	if (current->flags & PF_EXITING)
-> +		return true;
->  =
-
-> -		spin_lock(&mn->lock);
-> -
-> -		/*
-> -		 * As we do not (yet) protect the mmu from concurrent insertion
-> -		 * over this range, there is no guarantee that this search will
-> -		 * terminate given a pathologic workload.
-> -		 */
-> -		it =3D interval_tree_iter_first(&mn->objects, range->start, end);
-> -	}
-> -	spin_unlock(&mn->lock);
-> -
-> -	return ret;
-> +	/* we will unbind on next submission, still have userptr pins */
-> +	r =3D dma_resv_wait_timeout_rcu(obj->base.resv, true, false,
-> +				      MAX_SCHEDULE_TIMEOUT);
-> +	if (r <=3D 0)
-> +		drm_err(&i915->drm, "(%ld) failed to wait for idle\n", r);
->  =
-
-> +	return true;
->  }
->  =
-
-> -static const struct mmu_notifier_ops i915_gem_userptr_notifier =3D {
-> -	.invalidate_range_start =3D userptr_mn_invalidate_range_start,
-> +static const struct mmu_interval_notifier_ops i915_gem_userptr_notifier_=
-ops =3D {
-> +	.invalidate =3D i915_gem_userptr_invalidate,
->  };
->  =
-
-> -static struct i915_mmu_notifier *
-> -i915_mmu_notifier_create(struct i915_mm_struct *mm)
-> -{
-> -	struct i915_mmu_notifier *mn;
-> -
-> -	mn =3D kmalloc(sizeof(*mn), GFP_KERNEL);
-> -	if (mn =3D=3D NULL)
-> -		return ERR_PTR(-ENOMEM);
-> -
-> -	spin_lock_init(&mn->lock);
-> -	mn->mn.ops =3D &i915_gem_userptr_notifier;
-> -	mn->objects =3D RB_ROOT_CACHED;
-> -	mn->mm =3D mm;
-> -
-> -	return mn;
-> -}
-> -
-> -static void
-> -i915_gem_userptr_release__mmu_notifier(struct drm_i915_gem_object *obj)
-> -{
-> -	struct i915_mmu_object *mo;
-> -
-> -	mo =3D fetch_and_zero(&obj->userptr.mmu_object);
-> -	if (!mo)
-> -		return;
-> -
-> -	spin_lock(&mo->mn->lock);
-> -	del_object(mo);
-> -	spin_unlock(&mo->mn->lock);
-> -	kfree(mo);
-> -}
-> -
-> -static struct i915_mmu_notifier *
-> -i915_mmu_notifier_find(struct i915_mm_struct *mm)
-> -{
-> -	struct i915_mmu_notifier *mn, *old;
-> -	int err;
-> -
-> -	mn =3D READ_ONCE(mm->mn);
-> -	if (likely(mn))
-> -		return mn;
-> -
-> -	mn =3D i915_mmu_notifier_create(mm);
-> -	if (IS_ERR(mn))
-> -		return mn;
-> -
-> -	err =3D mmu_notifier_register(&mn->mn, mm->mm);
-> -	if (err) {
-> -		kfree(mn);
-> -		return ERR_PTR(err);
-> -	}
-> -
-> -	old =3D cmpxchg(&mm->mn, NULL, mn);
-> -	if (old) {
-> -		mmu_notifier_unregister(&mn->mn, mm->mm);
-> -		kfree(mn);
-> -		mn =3D old;
-> -	}
-> -
-> -	return mn;
-> -}
-> -
->  static int
->  i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj)
->  {
-> -	struct i915_mmu_notifier *mn;
-> -	struct i915_mmu_object *mo;
-> -
-> -	if (GEM_WARN_ON(!obj->userptr.mm))
-> -		return -EINVAL;
-> -
-> -	mn =3D i915_mmu_notifier_find(obj->userptr.mm);
-> -	if (IS_ERR(mn))
-> -		return PTR_ERR(mn);
-> -
-> -	mo =3D kzalloc(sizeof(*mo), GFP_KERNEL);
-> -	if (!mo)
-> -		return -ENOMEM;
-> -
-> -	mo->mn =3D mn;
-> -	mo->obj =3D obj;
-> -	mo->it.start =3D obj->userptr.ptr;
-> -	mo->it.last =3D obj->userptr.ptr + obj->base.size - 1;
-> -	RB_CLEAR_NODE(&mo->it.rb);
-> -
-> -	obj->userptr.mmu_object =3D mo;
-> -	return 0;
-> -}
-> -
-> -static void
-> -i915_mmu_notifier_free(struct i915_mmu_notifier *mn,
-> -		       struct mm_struct *mm)
-> -{
-> -	if (mn =3D=3D NULL)
-> -		return;
-> -
-> -	mmu_notifier_unregister(&mn->mn, mm);
-> -	kfree(mn);
-> -}
-> -
-> -
-> -static struct i915_mm_struct *
-> -__i915_mm_struct_find(struct drm_i915_private *i915, struct mm_struct *r=
-eal)
-> -{
-> -	struct i915_mm_struct *it, *mm =3D NULL;
-> -
-> -	rcu_read_lock();
-> -	hash_for_each_possible_rcu(i915->mm_structs,
-> -				   it, node,
-> -				   (unsigned long)real)
-> -		if (it->mm =3D=3D real && kref_get_unless_zero(&it->kref)) {
-> -			mm =3D it;
-> -			break;
-> -		}
-> -	rcu_read_unlock();
-> -
-> -	return mm;
-> +	return mmu_interval_notifier_insert(&obj->userptr.notifier, current->mm,
-> +					    obj->userptr.ptr, obj->base.size,
-> +					    &i915_gem_userptr_notifier_ops);
->  }
->  =
-
-> -static int
-> -i915_gem_userptr_init__mm_struct(struct drm_i915_gem_object *obj)
-> +static void i915_gem_object_userptr_drop_ref(struct drm_i915_gem_object =
-*obj)
->  {
->  	struct drm_i915_private *i915 =3D to_i915(obj->base.dev);
-> -	struct i915_mm_struct *mm, *new;
-> -	int ret =3D 0;
-> -
-> -	/* During release of the GEM object we hold the struct_mutex. This
-> -	 * precludes us from calling mmput() at that time as that may be
-> -	 * the last reference and so call exit_mmap(). exit_mmap() will
-> -	 * attempt to reap the vma, and if we were holding a GTT mmap
-> -	 * would then call drm_gem_vm_close() and attempt to reacquire
-> -	 * the struct mutex. So in order to avoid that recursion, we have
-> -	 * to defer releasing the mm reference until after we drop the
-> -	 * struct_mutex, i.e. we need to schedule a worker to do the clean
-> -	 * up.
-> -	 */
-> -	mm =3D __i915_mm_struct_find(i915, current->mm);
-> -	if (mm)
-> -		goto out;
-> +	struct page **pvec =3D NULL;
->  =
-
-> -	new =3D kmalloc(sizeof(*mm), GFP_KERNEL);
-> -	if (!new)
-> -		return -ENOMEM;
-> -
-> -	kref_init(&new->kref);
-> -	new->i915 =3D to_i915(obj->base.dev);
-> -	new->mm =3D current->mm;
-> -	new->mn =3D NULL;
-> -
-> -	spin_lock(&i915->mm_lock);
-> -	mm =3D __i915_mm_struct_find(i915, current->mm);
-> -	if (!mm) {
-> -		hash_add_rcu(i915->mm_structs,
-> -			     &new->node,
-> -			     (unsigned long)new->mm);
-> -		mmgrab(current->mm);
-> -		mm =3D new;
-> +	spin_lock(&i915->mm.notifier_lock);
-> +	if (!--obj->userptr.page_ref) {
-> +		pvec =3D obj->userptr.pvec;
-> +		obj->userptr.pvec =3D NULL;
->  	}
-> -	spin_unlock(&i915->mm_lock);
-> -	if (mm !=3D new)
-> -		kfree(new);
-> +	GEM_BUG_ON(obj->userptr.page_ref < 0);
-> +	spin_unlock(&i915->mm.notifier_lock);
->  =
-
-> -out:
-> -	obj->userptr.mm =3D mm;
-> -	return ret;
-> -}
-> -
-> -static void
-> -__i915_mm_struct_free__worker(struct work_struct *work)
-> -{
-> -	struct i915_mm_struct *mm =3D container_of(work, typeof(*mm), work.work=
-);
-> -
-> -	i915_mmu_notifier_free(mm->mn, mm->mm);
-> -	mmdrop(mm->mm);
-> -	kfree(mm);
-> -}
-> -
-> -static void
-> -__i915_mm_struct_free(struct kref *kref)
-> -{
-> -	struct i915_mm_struct *mm =3D container_of(kref, typeof(*mm), kref);
-> -
-> -	spin_lock(&mm->i915->mm_lock);
-> -	hash_del_rcu(&mm->node);
-> -	spin_unlock(&mm->i915->mm_lock);
-> -
-> -	INIT_RCU_WORK(&mm->work, __i915_mm_struct_free__worker);
-> -	queue_rcu_work(system_wq, &mm->work);
-> -}
-> -
-> -static void
-> -i915_gem_userptr_release__mm_struct(struct drm_i915_gem_object *obj)
-> -{
-> -	if (obj->userptr.mm =3D=3D NULL)
-> -		return;
-> +	if (pvec) {
-> +		const unsigned long num_pages =3D obj->base.size >> PAGE_SHIFT;
->  =
-
-> -	kref_put(&obj->userptr.mm->kref, __i915_mm_struct_free);
-> -	obj->userptr.mm =3D NULL;
-> +		unpin_user_pages(pvec, num_pages);
-> +		kfree(pvec);
-
-This one needs to be kvfree apparently, per review from previous round.
-Can you pls do a fixup patch? I'm already merging.
-
-For the other pending review comments and suggestions I think it's better
-if we handle this in a separate patch series to highlight all the
-questions, and ideally with amdgpu folks involved too.
--Daniel
-
-> +	}
->  }
->  =
-
-> -struct get_pages_work {
-> -	struct work_struct work;
-> -	struct drm_i915_gem_object *obj;
-> -	struct task_struct *task;
-> -};
-> -
-> -static struct sg_table *
-> -__i915_gem_userptr_alloc_pages(struct drm_i915_gem_object *obj,
-> -			       struct page **pvec, unsigned long num_pages)
-> +static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
->  {
-> +	struct drm_i915_private *i915 =3D to_i915(obj->base.dev);
-> +	const unsigned long num_pages =3D obj->base.size >> PAGE_SHIFT;
->  	unsigned int max_segment =3D i915_sg_segment_size();
->  	struct sg_table *st;
->  	unsigned int sg_page_sizes;
->  	struct scatterlist *sg;
-> +	struct page **pvec;
->  	int ret;
->  =
-
->  	st =3D kmalloc(sizeof(*st), GFP_KERNEL);
->  	if (!st)
-> -		return ERR_PTR(-ENOMEM);
-> +		return -ENOMEM;
-> +
-> +	spin_lock(&i915->mm.notifier_lock);
-> +	if (GEM_WARN_ON(!obj->userptr.page_ref)) {
-> +		spin_unlock(&i915->mm.notifier_lock);
-> +		ret =3D -EFAULT;
-> +		goto err_free;
-> +	}
-> +
-> +	obj->userptr.page_ref++;
-> +	pvec =3D obj->userptr.pvec;
-> +	spin_unlock(&i915->mm.notifier_lock);
->  =
-
->  alloc_table:
->  	sg =3D __sg_alloc_table_from_pages(st, pvec, num_pages, 0,
->  					 num_pages << PAGE_SHIFT, max_segment,
->  					 NULL, 0, GFP_KERNEL);
->  	if (IS_ERR(sg)) {
-> -		kfree(st);
-> -		return ERR_CAST(sg);
-> +		ret =3D PTR_ERR(sg);
-> +		goto err;
->  	}
->  =
-
->  	ret =3D i915_gem_gtt_prepare_pages(obj, st);
-> @@ -393,203 +170,20 @@ __i915_gem_userptr_alloc_pages(struct drm_i915_gem=
-_object *obj,
->  			goto alloc_table;
->  		}
->  =
-
-> -		kfree(st);
-> -		return ERR_PTR(ret);
-> +		goto err;
->  	}
->  =
-
->  	sg_page_sizes =3D i915_sg_page_sizes(st->sgl);
->  =
-
->  	__i915_gem_object_set_pages(obj, st, sg_page_sizes);
->  =
-
-> -	return st;
-> -}
-> -
-> -static void
-> -__i915_gem_userptr_get_pages_worker(struct work_struct *_work)
-> -{
-> -	struct get_pages_work *work =3D container_of(_work, typeof(*work), work=
-);
-> -	struct drm_i915_gem_object *obj =3D work->obj;
-> -	const unsigned long npages =3D obj->base.size >> PAGE_SHIFT;
-> -	unsigned long pinned;
-> -	struct page **pvec;
-> -	int ret;
-> -
-> -	ret =3D -ENOMEM;
-> -	pinned =3D 0;
-> -
-> -	pvec =3D kvmalloc_array(npages, sizeof(struct page *), GFP_KERNEL);
-> -	if (pvec !=3D NULL) {
-> -		struct mm_struct *mm =3D obj->userptr.mm->mm;
-> -		unsigned int flags =3D 0;
-> -		int locked =3D 0;
-> -
-> -		if (!i915_gem_object_is_readonly(obj))
-> -			flags |=3D FOLL_WRITE;
-> -
-> -		ret =3D -EFAULT;
-> -		if (mmget_not_zero(mm)) {
-> -			while (pinned < npages) {
-> -				if (!locked) {
-> -					mmap_read_lock(mm);
-> -					locked =3D 1;
-> -				}
-> -				ret =3D pin_user_pages_remote
-> -					(mm,
-> -					 obj->userptr.ptr + pinned * PAGE_SIZE,
-> -					 npages - pinned,
-> -					 flags,
-> -					 pvec + pinned, NULL, &locked);
-> -				if (ret < 0)
-> -					break;
-> -
-> -				pinned +=3D ret;
-> -			}
-> -			if (locked)
-> -				mmap_read_unlock(mm);
-> -			mmput(mm);
-> -		}
-> -	}
-> -
-> -	mutex_lock_nested(&obj->mm.lock, I915_MM_GET_PAGES);
-> -	if (obj->userptr.work =3D=3D &work->work) {
-> -		struct sg_table *pages =3D ERR_PTR(ret);
-> -
-> -		if (pinned =3D=3D npages) {
-> -			pages =3D __i915_gem_userptr_alloc_pages(obj, pvec,
-> -							       npages);
-> -			if (!IS_ERR(pages)) {
-> -				pinned =3D 0;
-> -				pages =3D NULL;
-> -			}
-> -		}
-> -
-> -		obj->userptr.work =3D ERR_CAST(pages);
-> -		if (IS_ERR(pages))
-> -			__i915_gem_userptr_set_active(obj, false);
-> -	}
-> -	mutex_unlock(&obj->mm.lock);
-> -
-> -	unpin_user_pages(pvec, pinned);
-> -	kvfree(pvec);
-> -
-> -	i915_gem_object_put(obj);
-> -	put_task_struct(work->task);
-> -	kfree(work);
-> -}
-> -
-> -static struct sg_table *
-> -__i915_gem_userptr_get_pages_schedule(struct drm_i915_gem_object *obj)
-> -{
-> -	struct get_pages_work *work;
-> -
-> -	/* Spawn a worker so that we can acquire the
-> -	 * user pages without holding our mutex. Access
-> -	 * to the user pages requires mmap_lock, and we have
-> -	 * a strict lock ordering of mmap_lock, struct_mutex -
-> -	 * we already hold struct_mutex here and so cannot
-> -	 * call gup without encountering a lock inversion.
-> -	 *
-> -	 * Userspace will keep on repeating the operation
-> -	 * (thanks to EAGAIN) until either we hit the fast
-> -	 * path or the worker completes. If the worker is
-> -	 * cancelled or superseded, the task is still run
-> -	 * but the results ignored. (This leads to
-> -	 * complications that we may have a stray object
-> -	 * refcount that we need to be wary of when
-> -	 * checking for existing objects during creation.)
-> -	 * If the worker encounters an error, it reports
-> -	 * that error back to this function through
-> -	 * obj->userptr.work =3D ERR_PTR.
-> -	 */
-> -	work =3D kmalloc(sizeof(*work), GFP_KERNEL);
-> -	if (work =3D=3D NULL)
-> -		return ERR_PTR(-ENOMEM);
-> -
-> -	obj->userptr.work =3D &work->work;
-> -
-> -	work->obj =3D i915_gem_object_get(obj);
-> -
-> -	work->task =3D current;
-> -	get_task_struct(work->task);
-> -
-> -	INIT_WORK(&work->work, __i915_gem_userptr_get_pages_worker);
-> -	queue_work(to_i915(obj->base.dev)->mm.userptr_wq, &work->work);
-> -
-> -	return ERR_PTR(-EAGAIN);
-> -}
-> -
-> -static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
-> -{
-> -	const unsigned long num_pages =3D obj->base.size >> PAGE_SHIFT;
-> -	struct mm_struct *mm =3D obj->userptr.mm->mm;
-> -	struct page **pvec;
-> -	struct sg_table *pages;
-> -	bool active;
-> -	int pinned;
-> -	unsigned int gup_flags =3D 0;
-> -
-> -	/* If userspace should engineer that these pages are replaced in
-> -	 * the vma between us binding this page into the GTT and completion
-> -	 * of rendering... Their loss. If they change the mapping of their
-> -	 * pages they need to create a new bo to point to the new vma.
-> -	 *
-> -	 * However, that still leaves open the possibility of the vma
-> -	 * being copied upon fork. Which falls under the same userspace
-> -	 * synchronisation issue as a regular bo, except that this time
-> -	 * the process may not be expecting that a particular piece of
-> -	 * memory is tied to the GPU.
-> -	 *
-> -	 * Fortunately, we can hook into the mmu_notifier in order to
-> -	 * discard the page references prior to anything nasty happening
-> -	 * to the vma (discard or cloning) which should prevent the more
-> -	 * egregious cases from causing harm.
-> -	 */
-> -
-> -	if (obj->userptr.work) {
-> -		/* active flag should still be held for the pending work */
-> -		if (IS_ERR(obj->userptr.work))
-> -			return PTR_ERR(obj->userptr.work);
-> -		else
-> -			return -EAGAIN;
-> -	}
-> -
-> -	pvec =3D NULL;
-> -	pinned =3D 0;
-> -
-> -	if (mm =3D=3D current->mm) {
-> -		pvec =3D kvmalloc_array(num_pages, sizeof(struct page *),
-> -				      GFP_KERNEL |
-> -				      __GFP_NORETRY |
-> -				      __GFP_NOWARN);
-> -		if (pvec) {
-> -			/* defer to worker if malloc fails */
-> -			if (!i915_gem_object_is_readonly(obj))
-> -				gup_flags |=3D FOLL_WRITE;
-> -			pinned =3D pin_user_pages_fast_only(obj->userptr.ptr,
-> -							  num_pages, gup_flags,
-> -							  pvec);
-> -		}
-> -	}
-> -
-> -	active =3D false;
-> -	if (pinned < 0) {
-> -		pages =3D ERR_PTR(pinned);
-> -		pinned =3D 0;
-> -	} else if (pinned < num_pages) {
-> -		pages =3D __i915_gem_userptr_get_pages_schedule(obj);
-> -		active =3D pages =3D=3D ERR_PTR(-EAGAIN);
-> -	} else {
-> -		pages =3D __i915_gem_userptr_alloc_pages(obj, pvec, num_pages);
-> -		active =3D !IS_ERR(pages);
-> -	}
-> -	if (active)
-> -		__i915_gem_userptr_set_active(obj, true);
-> -
-> -	if (IS_ERR(pages))
-> -		unpin_user_pages(pvec, pinned);
-> -	kvfree(pvec);
-> +	return 0;
->  =
-
-> -	return PTR_ERR_OR_ZERO(pages);
-> +err:
-> +	i915_gem_object_userptr_drop_ref(obj);
-> +err_free:
-> +	kfree(st);
-> +	return ret;
->  }
->  =
-
->  static void
-> @@ -599,9 +193,6 @@ i915_gem_userptr_put_pages(struct drm_i915_gem_object=
- *obj,
->  	struct sgt_iter sgt_iter;
->  	struct page *page;
->  =
-
-> -	/* Cancel any inflight work and force them to restart their gup */
-> -	obj->userptr.work =3D NULL;
-> -	__i915_gem_userptr_set_active(obj, false);
->  	if (!pages)
->  		return;
->  =
-
-> @@ -641,19 +232,161 @@ i915_gem_userptr_put_pages(struct drm_i915_gem_obj=
-ect *obj,
->  		}
->  =
-
->  		mark_page_accessed(page);
-> -		unpin_user_page(page);
->  	}
->  	obj->mm.dirty =3D false;
->  =
-
->  	sg_free_table(pages);
->  	kfree(pages);
-> +
-> +	i915_gem_object_userptr_drop_ref(obj);
-> +}
-> +
-> +static int i915_gem_object_userptr_unbind(struct drm_i915_gem_object *ob=
-j, bool get_pages)
-> +{
-> +	struct sg_table *pages;
-> +	int err;
-> +
-> +	err =3D i915_gem_object_unbind(obj, I915_GEM_OBJECT_UNBIND_ACTIVE);
-> +	if (err)
-> +		return err;
-> +
-> +	if (GEM_WARN_ON(i915_gem_object_has_pinned_pages(obj)))
-> +		return -EBUSY;
-> +
-> +	mutex_lock_nested(&obj->mm.lock, I915_MM_GET_PAGES);
-> +
-> +	pages =3D __i915_gem_object_unset_pages(obj);
-> +	if (!IS_ERR_OR_NULL(pages))
-> +		i915_gem_userptr_put_pages(obj, pages);
-> +
-> +	if (get_pages)
-> +		err =3D ____i915_gem_object_get_pages(obj);
-> +	mutex_unlock(&obj->mm.lock);
-> +
-> +	return err;
-> +}
-> +
-> +int i915_gem_object_userptr_submit_init(struct drm_i915_gem_object *obj)
-> +{
-> +	struct drm_i915_private *i915 =3D to_i915(obj->base.dev);
-> +	const unsigned long num_pages =3D obj->base.size >> PAGE_SHIFT;
-> +	struct page **pvec;
-> +	unsigned int gup_flags =3D 0;
-> +	unsigned long notifier_seq;
-> +	int pinned, ret;
-> +
-> +	if (obj->userptr.notifier.mm !=3D current->mm)
-> +		return -EFAULT;
-> +
-> +	ret =3D i915_gem_object_lock_interruptible(obj, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Make sure userptr is unbound for next attempt, so we don't use stale=
- pages. */
-> +	ret =3D i915_gem_object_userptr_unbind(obj, false);
-> +	i915_gem_object_unlock(obj);
-> +	if (ret)
-> +		return ret;
-> +
-> +	notifier_seq =3D mmu_interval_read_begin(&obj->userptr.notifier);
-> +
-> +	pvec =3D kvmalloc_array(num_pages, sizeof(struct page *), GFP_KERNEL);
-> +	if (!pvec)
-> +		return -ENOMEM;
-> +
-> +	if (!i915_gem_object_is_readonly(obj))
-> +		gup_flags |=3D FOLL_WRITE;
-> +
-> +	pinned =3D ret =3D 0;
-> +	while (pinned < num_pages) {
-> +		ret =3D pin_user_pages_fast(obj->userptr.ptr + pinned * PAGE_SIZE,
-> +					  num_pages - pinned, gup_flags,
-> +					  &pvec[pinned]);
-> +		if (ret < 0)
-> +			goto out;
-> +
-> +		pinned +=3D ret;
-> +	}
-> +	ret =3D 0;
-> +
-> +	spin_lock(&i915->mm.notifier_lock);
-> +
-> +	if (mmu_interval_read_retry(&obj->userptr.notifier,
-> +		!obj->userptr.page_ref ? notifier_seq :
-> +		obj->userptr.notifier_seq)) {
-> +		ret =3D -EAGAIN;
-> +		goto out_unlock;
-> +	}
-> +
-> +	if (!obj->userptr.page_ref++) {
-> +		obj->userptr.pvec =3D pvec;
-> +		obj->userptr.notifier_seq =3D notifier_seq;
-> +
-> +		pvec =3D NULL;
-> +	}
-> +
-> +out_unlock:
-> +	spin_unlock(&i915->mm.notifier_lock);
-> +
-> +out:
-> +	if (pvec) {
-> +		unpin_user_pages(pvec, pinned);
-> +		kvfree(pvec);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +int i915_gem_object_userptr_submit_done(struct drm_i915_gem_object *obj)
-> +{
-> +	if (mmu_interval_read_retry(&obj->userptr.notifier,
-> +				    obj->userptr.notifier_seq)) {
-> +		/* We collided with the mmu notifier, need to retry */
-> +
-> +		return -EAGAIN;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +void i915_gem_object_userptr_submit_fini(struct drm_i915_gem_object *obj)
-> +{
-> +	i915_gem_object_userptr_drop_ref(obj);
-> +}
-> +
-> +int i915_gem_object_userptr_validate(struct drm_i915_gem_object *obj)
-> +{
-> +	int err;
-> +
-> +	err =3D i915_gem_object_userptr_submit_init(obj);
-> +	if (err)
-> +		return err;
-> +
-> +	err =3D i915_gem_object_lock_interruptible(obj, NULL);
-> +	if (!err) {
-> +		/*
-> +		 * Since we only check validity, not use the pages,
-> +		 * it doesn't matter if we collide with the mmu notifier,
-> +		 * and -EAGAIN handling is not required.
-> +		 */
-> +		err =3D i915_gem_object_pin_pages(obj);
-> +		if (!err)
-> +			i915_gem_object_unpin_pages(obj);
-> +
-> +		i915_gem_object_unlock(obj);
-> +	}
-> +
-> +	i915_gem_object_userptr_submit_fini(obj);
-> +	return err;
->  }
->  =
-
->  static void
->  i915_gem_userptr_release(struct drm_i915_gem_object *obj)
->  {
-> -	i915_gem_userptr_release__mmu_notifier(obj);
-> -	i915_gem_userptr_release__mm_struct(obj);
-> +	GEM_WARN_ON(obj->userptr.page_ref);
-> +
-> +	mmu_interval_notifier_remove(&obj->userptr.notifier);
-> +	obj->userptr.notifier.mm =3D NULL;
->  }
->  =
-
->  static int
-> @@ -686,7 +419,6 @@ static const struct drm_i915_gem_object_ops i915_gem_=
-userptr_ops =3D {
->  	.name =3D "i915_gem_object_userptr",
->  	.flags =3D I915_GEM_OBJECT_IS_SHRINKABLE |
->  		 I915_GEM_OBJECT_NO_MMAP |
-> -		 I915_GEM_OBJECT_ASYNC_CANCEL |
->  		 I915_GEM_OBJECT_IS_PROXY,
->  	.get_pages =3D i915_gem_userptr_get_pages,
->  	.put_pages =3D i915_gem_userptr_put_pages,
-> @@ -793,6 +525,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
->  	i915_gem_object_set_cache_coherency(obj, I915_CACHE_LLC);
->  =
-
->  	obj->userptr.ptr =3D args->user_ptr;
-> +	obj->userptr.notifier_seq =3D ULONG_MAX;
->  	if (args->flags & I915_USERPTR_READ_ONLY)
->  		i915_gem_object_set_readonly(obj);
->  =
-
-> @@ -800,9 +533,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
->  	 * at binding. This means that we need to hook into the mmu_notifier
->  	 * in order to detect if the mmu is destroyed.
->  	 */
-> -	ret =3D i915_gem_userptr_init__mm_struct(obj);
-> -	if (ret =3D=3D 0)
-> -		ret =3D i915_gem_userptr_init__mmu_notifier(obj);
-> +	ret =3D i915_gem_userptr_init__mmu_notifier(obj);
->  	if (ret =3D=3D 0)
->  		ret =3D drm_gem_handle_create(file, &obj->base, &handle);
->  =
-
-> @@ -821,15 +552,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
->  int i915_gem_init_userptr(struct drm_i915_private *dev_priv)
->  {
->  #ifdef CONFIG_MMU_NOTIFIER
-> -	spin_lock_init(&dev_priv->mm_lock);
-> -	hash_init(dev_priv->mm_structs);
-> -
-> -	dev_priv->mm.userptr_wq =3D
-> -		alloc_workqueue("i915-userptr-acquire",
-> -				WQ_HIGHPRI | WQ_UNBOUND,
-> -				0);
-> -	if (!dev_priv->mm.userptr_wq)
-> -		return -ENOMEM;
-> +	spin_lock_init(&dev_priv->mm.notifier_lock);
->  #endif
->  =
-
->  	return 0;
-> @@ -837,7 +560,4 @@ int i915_gem_init_userptr(struct drm_i915_private *de=
-v_priv)
->  =
-
->  void i915_gem_cleanup_userptr(struct drm_i915_private *dev_priv)
->  {
-> -#ifdef CONFIG_MMU_NOTIFIER
-> -	destroy_workqueue(dev_priv->mm.userptr_wq);
-> -#endif
->  }
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_=
-drv.h
-> index d738e2ba07c8..7c16bd283b87 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -558,11 +558,10 @@ struct i915_gem_mm {
->  =
-
->  #ifdef CONFIG_MMU_NOTIFIER
->  	/**
-> -	 * Workqueue to fault in userptr pages, flushed by the execbuf
-> -	 * when required but otherwise left to userspace to try again
-> -	 * on EAGAIN.
-> +	 * notifier_lock for mmu notifiers, memory may not be allocated
-> +	 * while holding this lock.
->  	 */
-> -	struct workqueue_struct *userptr_wq;
-> +	spinlock_t notifier_lock;
->  #endif
->  =
-
->  	/* shrinker accounting, also useful for userland debugging */
-> @@ -936,8 +935,6 @@ struct drm_i915_private {
->  	struct i915_ggtt ggtt; /* VM representing the global address space */
->  =
-
->  	struct i915_gem_mm mm;
-> -	DECLARE_HASHTABLE(mm_structs, 7);
-> -	spinlock_t mm_lock;
->  =
-
->  	/* Kernel Modesetting */
->  =
-
-> diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_=
-gem.c
-> index dde12ce4f90b..3dee4e31fb14 100644
-> --- a/drivers/gpu/drm/i915/i915_gem.c
-> +++ b/drivers/gpu/drm/i915/i915_gem.c
-> @@ -1067,10 +1067,8 @@ int i915_gem_init(struct drm_i915_private *dev_pri=
-v)
->  err_unlock:
->  	i915_gem_drain_workqueue(dev_priv);
->  =
-
-> -	if (ret !=3D -EIO) {
-> +	if (ret !=3D -EIO)
->  		intel_uc_cleanup_firmwares(&dev_priv->gt.uc);
-> -		i915_gem_cleanup_userptr(dev_priv);
-> -	}
->  =
-
->  	if (ret =3D=3D -EIO) {
->  		/*
-> @@ -1127,7 +1125,6 @@ void i915_gem_driver_release(struct drm_i915_privat=
-e *dev_priv)
->  	intel_wa_list_free(&dev_priv->gt_wa_list);
->  =
-
->  	intel_uc_cleanup_firmwares(&dev_priv->gt.uc);
-> -	i915_gem_cleanup_userptr(dev_priv);
->  =
-
->  	i915_gem_drain_freed_objects(dev_priv);
->  =
-
-> -- =
-
-> 2.31.0
-> =
-
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Ck9uIDMvMjQvMjEgMTI6MjggUE0sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4gT24gVHVlLCBNYXIg
+MjMsIDIwMjEgYXQgMDQ6NTA6MDVQTSArMDEwMCwgTWFhcnRlbiBMYW5raG9yc3Qgd3JvdGU6Cj4+
+IEluc3RlYWQgb2YgZG9pbmcgd2hhdCB3ZSBkbyBjdXJyZW50bHksIHdoaWNoIHdpbGwgbmV2ZXIg
+d29yayB3aXRoCj4+IFBST1ZFX0xPQ0tJTkcsIGRvIHRoZSBzYW1lIGFzIEFNRCBkb2VzLCBhbmQg
+c29tZXRoaW5nIHNpbWlsYXIgdG8KPj4gcmVsb2NhdGlvbiBzbG93cGF0aC4gV2hlbiBhbGwgbG9j
+a3MgYXJlIGRyb3BwZWQsIHdlIGFjcXVpcmUgdGhlCj4+IHBhZ2VzIGZvciBwaW5uaW5nLiBXaGVu
+IHRoZSBsb2NrcyBhcmUgdGFrZW4sIHdlIHRyYW5zZmVyIHRob3NlCj4+IHBhZ2VzIGluIC5nZXRf
+cGFnZXMoKSB0byB0aGUgYm8uIEFzIGEgZmluYWwgY2hlY2sgYmVmb3JlIGluc3RhbGxpbmcKPj4g
+dGhlIGZlbmNlcywgd2UgZW5zdXJlIHRoYXQgdGhlIG1tdSBub3RpZmllciB3YXMgbm90IGNhbGxl
+ZDsgaWYgaXQgaXMsCj4+IHdlIHJldHVybiAtRUFHQUlOIHRvIHVzZXJzcGFjZSB0byBzaWduYWwg
+aXQgaGFzIHRvIHN0YXJ0IG92ZXIuCj4+Cj4+IENoYW5nZXMgc2luY2UgdjE6Cj4+IC0gVW5iaW5k
+aW5nIGlzIGRvbmUgaW4gc3VibWl0X2luaXQgb25seS4gc3VibWl0X2JlZ2luKCkgcmVtb3ZlZC4K
+Pj4gLSBNTVVfTk9URklFUiAtPiBNTVVfTk9USUZJRVIKPj4gQ2hhbmdlcyBzaW5jZSB2MjoKPj4g
+LSBNYWtlIGk5MTUtPm1tLm5vdGlmaWVyIGEgc3BpbmxvY2suCj4+IENoYW5nZXMgc2luY2UgdjM6
+Cj4+IC0gQWRkIFdBUk5fT04gaWYgdGhlcmUgYXJlIGFueSBwYWdlIHJlZmVyZW5jZXMgbGVmdCwg
+c2hvdWxkIGhhdmUgYmVlbiAwLgo+PiAtIFJldHVybiAwIG9uIHN1Y2Nlc3MgaW4gc3VibWl0X2lu
+aXQoKSwgYnVnIGZyb20gc3BpbmxvY2sgY29udmVyc2lvbi4KPj4gLSBSZWxlYXNlIHB2ZWMgb3V0
+c2lkZSBvZiBub3RpZmllcl9sb2NrIChUaG9tYXMpLgo+PiBDaGFuZ2VzIHNpbmNlIHY0Ogo+PiAt
+IE1lbnRpb24gd2h5IHdlJ3JlIGNsZWFyaW5nIGViLT5baSArIDFdLnZtYSBpbiB0aGUgY29kZS4g
+KFRob21hcykKPj4gLSBBY3R1YWxseSBjaGVjayBhbGwgaW52YWxpZGF0aW9ucyBpbiBlYl9tb3Zl
+X3RvX2dwdS4gKFRob21hcykKPj4gLSBEbyBub3Qgd2FpdCB3aGVuIHByb2Nlc3MgaXMgZXhpdGlu
+ZyB0byBmaXggZ2VtX2N0eF9wZXJzaXN0ZW5jZS51c2VycHRyLgo+PiBDaGFuZ2VzIHNpbmNlIHY1
+Ogo+PiAtIENsYXJpZnkgd2h5IGNoZWNrIG9uIFBGX0VYSVRJTkcgaXMgKHRlbXBvcmFyaWx5KSBy
+ZXF1aXJlZC4KPj4gQ2hhbmdlcyBzaW5jZSB2NjoKPj4gLSBFbnN1cmUgdXNlcnB0ciB2YWxpZGl0
+eSBpcyBjaGVja2VkIGluIHNldF9kb21haW4gdGhyb3VnaCBhIHNwZWNpYWwgcGF0aC4KPj4KPj4g
+U2lnbmVkLW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4
+LmludGVsLmNvbT4KPj4gQWNrZWQtYnk6IERhdmUgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+
+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9kb21haW4uYyAg
+ICB8ICAxOCArLQo+PiAgIC4uLi9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2V4ZWNidWZmZXIu
+YyAgICB8IDEwMSArKy0KPj4gICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2Jq
+ZWN0LmggICAgfCAgMzggKy0KPj4gICAuLi4vZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmpl
+Y3RfdHlwZXMuaCAgfCAgMTAgKy0KPj4gICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9n
+ZW1fcGFnZXMuYyAgICAgfCAgIDIgKy0KPj4gICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkx
+NV9nZW1fdXNlcnB0ci5jICAgfCA3OTYgKysrKysrLS0tLS0tLS0tLS0tCj4+ICAgZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaTkxNV9kcnYuaCAgICAgICAgICAgICAgIHwgICA5ICstCj4+ICAgZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvaTkxNV9nZW0uYyAgICAgICAgICAgICAgIHwgICA1ICstCj4+ICAgOCBm
+aWxlcyBjaGFuZ2VkLCAzOTUgaW5zZXJ0aW9ucygrKSwgNTg0IGRlbGV0aW9ucygtKQo+Pgo+PiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2RvbWFpbi5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2RvbWFpbi5jCj4+IGluZGV4IDJmNDk4
+MGJmNzQyZS4uNzZjYjlmNWM2NmFhIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9nZW0vaTkxNV9nZW1fZG9tYWluLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2Vt
+L2k5MTVfZ2VtX2RvbWFpbi5jCj4+IEBAIC00NjgsMTQgKzQ2OCwyOCBAQCBpOTE1X2dlbV9zZXRf
+ZG9tYWluX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4+ICAgCWlm
+ICghb2JqKQo+PiAgIAkJcmV0dXJuIC1FTk9FTlQ7Cj4+ICAgCj4+ICsJaWYgKGk5MTVfZ2VtX29i
+amVjdF9pc191c2VycHRyKG9iaikpIHsKPj4gKwkJLyoKPj4gKwkJICogVHJ5IHRvIGdyYWIgdXNl
+cnB0ciBwYWdlcywgaXJpcyB1c2VzIHNldF9kb21haW4gdG8gY2hlY2sKPj4gKwkJICogdXNlcnB0
+ciB2YWxpZGl0eQo+PiArCQkgKi8KPj4gKwkJZXJyID0gaTkxNV9nZW1fb2JqZWN0X3VzZXJwdHJf
+dmFsaWRhdGUob2JqKTsKPj4gKwkJaWYgKCFlcnIpCj4+ICsJCQllcnIgPSBpOTE1X2dlbV9vYmpl
+Y3Rfd2FpdChvYmosCj4+ICsJCQkJCQkgICBJOTE1X1dBSVRfSU5URVJSVVBUSUJMRSB8Cj4+ICsJ
+CQkJCQkgICBJOTE1X1dBSVRfUFJJT1JJVFkgfAo+PiArCQkJCQkJICAgKHdyaXRlX2RvbWFpbiA/
+IEk5MTVfV0FJVF9BTEwgOiAwKSwKPj4gKwkJCQkJCSAgIE1BWF9TQ0hFRFVMRV9USU1FT1VUKTsK
+Pj4gKwkJZ290byBvdXQ7Cj4+ICsJfQo+PiArCj4+ICAgCS8qCj4+ICAgCSAqIFByb3h5IG9iamVj
+dHMgZG8gbm90IGNvbnRyb2wgYWNjZXNzIHRvIHRoZSBiYWNraW5nIHN0b3JhZ2UsIGVyZ28KPj4g
+ICAJICogdGhleSBjYW5ub3QgYmUgdXNlZCBhcyBhIG1lYW5zIHRvIG1hbmlwdWxhdGUgdGhlIGNh
+Y2hlIGRvbWFpbgo+PiAgIAkgKiB0cmFja2luZyBmb3IgdGhhdCBiYWNraW5nIHN0b3JhZ2UuIFRo
+ZSBwcm94eSBvYmplY3QgaXMgYWx3YXlzCj4+ICAgCSAqIGNvbnNpZGVyZWQgdG8gYmUgb3V0c2lk
+ZSBvZiBhbnkgY2FjaGUgZG9tYWluLgo+PiAgIAkgKi8KPj4gLQlpZiAoaTkxNV9nZW1fb2JqZWN0
+X2lzX3Byb3h5KG9iaikgJiYKPj4gLQkgICAgIWk5MTVfZ2VtX29iamVjdF9pc191c2VycHRyKG9i
+aikpIHsKPj4gKwlpZiAoaTkxNV9nZW1fb2JqZWN0X2lzX3Byb3h5KG9iaikpIHsKPj4gICAJCWVy
+ciA9IC1FTlhJTzsKPj4gICAJCWdvdG8gb3V0Owo+PiAgIAl9Cj4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2V4ZWNidWZmZXIuYwo+PiBpbmRleCA3OTVjNjhmY2M2ZWQu
+LmI1Y2E5ZWI1MzU2NSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5
+MTVfZ2VtX2V4ZWNidWZmZXIuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkx
+NV9nZW1fZXhlY2J1ZmZlci5jCj4+IEBAIC01MywxNCArNTMsMTYgQEAgZW51bSB7Cj4+ICAgLyog
+X19FWEVDX09CSkVDVF9OT19SRVNFUlZFIGlzIEJJVCgzMSksIGRlZmluZWQgaW4gaTkxNV92bWEu
+aCAqLwo+PiAgICNkZWZpbmUgX19FWEVDX09CSkVDVF9IQVNfUElOCQlCSVQoMzApCj4+ICAgI2Rl
+ZmluZSBfX0VYRUNfT0JKRUNUX0hBU19GRU5DRQkJQklUKDI5KQo+PiAtI2RlZmluZSBfX0VYRUNf
+T0JKRUNUX05FRURTX01BUAkJQklUKDI4KQo+PiAtI2RlZmluZSBfX0VYRUNfT0JKRUNUX05FRURT
+X0JJQVMJQklUKDI3KQo+PiAtI2RlZmluZSBfX0VYRUNfT0JKRUNUX0lOVEVSTkFMX0ZMQUdTCSh+
+MHUgPDwgMjcpIC8qIGFsbCBvZiB0aGUgYWJvdmUgKyAqLwo+PiArI2RlZmluZSBfX0VYRUNfT0JK
+RUNUX1VTRVJQVFJfSU5JVAlCSVQoMjgpCj4+ICsjZGVmaW5lIF9fRVhFQ19PQkpFQ1RfTkVFRFNf
+TUFQCQlCSVQoMjcpCj4+ICsjZGVmaW5lIF9fRVhFQ19PQkpFQ1RfTkVFRFNfQklBUwlCSVQoMjYp
+Cj4+ICsjZGVmaW5lIF9fRVhFQ19PQkpFQ1RfSU5URVJOQUxfRkxBR1MJKH4wdSA8PCAyNikgLyog
+YWxsIG9mIHRoZSBhYm92ZSArICovCj4+ICAgI2RlZmluZSBfX0VYRUNfT0JKRUNUX1JFU0VSVkVE
+IChfX0VYRUNfT0JKRUNUX0hBU19QSU4gfCBfX0VYRUNfT0JKRUNUX0hBU19GRU5DRSkKPj4gICAK
+Pj4gICAjZGVmaW5lIF9fRVhFQ19IQVNfUkVMT0MJQklUKDMxKQo+PiAgICNkZWZpbmUgX19FWEVD
+X0VOR0lORV9QSU5ORUQJQklUKDMwKQo+PiAtI2RlZmluZSBfX0VYRUNfSU5URVJOQUxfRkxBR1MJ
+KH4wdSA8PCAzMCkKPj4gKyNkZWZpbmUgX19FWEVDX1VTRVJQVFJfVVNFRAlCSVQoMjkpCj4+ICsj
+ZGVmaW5lIF9fRVhFQ19JTlRFUk5BTF9GTEFHUwkofjB1IDw8IDI5KQo+PiAgICNkZWZpbmUgVVBE
+QVRFCQkJUElOX09GRlNFVF9GSVhFRAo+PiAgIAo+PiAgICNkZWZpbmUgQkFUQ0hfT0ZGU0VUX0JJ
+QVMgKDI1NioxMDI0KQo+PiBAQCAtODcxLDYgKzg3MywyNiBAQCBzdGF0aWMgaW50IGViX2xvb2t1
+cF92bWFzKHN0cnVjdCBpOTE1X2V4ZWNidWZmZXIgKmViKQo+PiAgIAkJfQo+PiAgIAo+PiAgIAkJ
+ZWJfYWRkX3ZtYShlYiwgaSwgYmF0Y2gsIHZtYSk7Cj4+ICsKPj4gKwkJaWYgKGk5MTVfZ2VtX29i
+amVjdF9pc191c2VycHRyKHZtYS0+b2JqKSkgewo+PiArCQkJZXJyID0gaTkxNV9nZW1fb2JqZWN0
+X3VzZXJwdHJfc3VibWl0X2luaXQodm1hLT5vYmopOwo+PiArCQkJaWYgKGVycikgewo+PiArCQkJ
+CWlmIChpICsgMSA8IGViLT5idWZmZXJfY291bnQpIHsKPj4gKwkJCQkJLyoKPj4gKwkJCQkJICog
+RXhlY2J1ZmZlciBjb2RlIGV4cGVjdHMgbGFzdCB2bWEgZW50cnkgdG8gYmUgTlVMTCwKPj4gKwkJ
+CQkJICogc2luY2Ugd2UgYWxyZWFkeSBpbml0aWFsaXplZCB0aGlzIGVudHJ5LAo+PiArCQkJCQkg
+KiBzZXQgdGhlIG5leHQgdmFsdWUgdG8gTlVMTCBvciB3ZSBtZXNzIHVwCj4+ICsJCQkJCSAqIGNs
+ZWFudXAgaGFuZGxpbmcuCj4+ICsJCQkJCSAqLwo+PiArCQkJCQllYi0+dm1hW2kgKyAxXS52bWEg
+PSBOVUxMOwo+PiArCQkJCX0KPj4gKwo+PiArCQkJCXJldHVybiBlcnI7Cj4+ICsJCQl9Cj4+ICsK
+Pj4gKwkJCWViLT52bWFbaV0uZmxhZ3MgfD0gX19FWEVDX09CSkVDVF9VU0VSUFRSX0lOSVQ7Cj4+
+ICsJCQllYi0+YXJncy0+ZmxhZ3MgfD0gX19FWEVDX1VTRVJQVFJfVVNFRDsKPj4gKwkJfQo+PiAg
+IAl9Cj4+ICAgCj4+ICAgCWlmICh1bmxpa2VseShlYi0+YmF0Y2gtPmZsYWdzICYgRVhFQ19PQkpF
+Q1RfV1JJVEUpKSB7Cj4+IEBAIC05NzIsNyArOTk0LDcgQEAgZWJfZ2V0X3ZtYShjb25zdCBzdHJ1
+Y3QgaTkxNV9leGVjYnVmZmVyICplYiwgdW5zaWduZWQgbG9uZyBoYW5kbGUpCj4+ICAgCX0KPj4g
+ICB9Cj4+ICAgCj4+IC1zdGF0aWMgdm9pZCBlYl9yZWxlYXNlX3ZtYXMoc3RydWN0IGk5MTVfZXhl
+Y2J1ZmZlciAqZWIsIGJvb2wgZmluYWwpCj4+ICtzdGF0aWMgdm9pZCBlYl9yZWxlYXNlX3ZtYXMo
+c3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsIGJvb2wgZmluYWwsIGJvb2wgcmVsZWFzZV91c2Vy
+cHRyKQo+PiAgIHsKPj4gICAJY29uc3QgdW5zaWduZWQgaW50IGNvdW50ID0gZWItPmJ1ZmZlcl9j
+b3VudDsKPj4gICAJdW5zaWduZWQgaW50IGk7Cj4+IEBAIC05ODYsNiArMTAwOCwxMSBAQCBzdGF0
+aWMgdm9pZCBlYl9yZWxlYXNlX3ZtYXMoc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsIGJvb2wg
+ZmluYWwpCj4+ICAgCj4+ICAgCQllYl91bnJlc2VydmVfdm1hKGV2KTsKPj4gICAKPj4gKwkJaWYg
+KHJlbGVhc2VfdXNlcnB0ciAmJiBldi0+ZmxhZ3MgJiBfX0VYRUNfT0JKRUNUX1VTRVJQVFJfSU5J
+VCkgewo+PiArCQkJZXYtPmZsYWdzICY9IH5fX0VYRUNfT0JKRUNUX1VTRVJQVFJfSU5JVDsKPj4g
+KwkJCWk5MTVfZ2VtX29iamVjdF91c2VycHRyX3N1Ym1pdF9maW5pKHZtYS0+b2JqKTsKPj4gKwkJ
+fQo+PiArCj4+ICAgCQlpZiAoZmluYWwpCj4+ICAgCQkJaTkxNV92bWFfcHV0KHZtYSk7Cj4+ICAg
+CX0KPj4gQEAgLTE5MTYsNiArMTk0MywzMSBAQCBzdGF0aWMgaW50IGViX3ByZWZhdWx0X3JlbG9j
+YXRpb25zKGNvbnN0IHN0cnVjdCBpOTE1X2V4ZWNidWZmZXIgKmViKQo+PiAgIAlyZXR1cm4gMDsK
+Pj4gICB9Cj4+ICAgCj4+ICtzdGF0aWMgaW50IGViX3JlaW5pdF91c2VycHRyKHN0cnVjdCBpOTE1
+X2V4ZWNidWZmZXIgKmViKQo+PiArewo+PiArCWNvbnN0IHVuc2lnbmVkIGludCBjb3VudCA9IGVi
+LT5idWZmZXJfY291bnQ7Cj4+ICsJdW5zaWduZWQgaW50IGk7Cj4+ICsJaW50IHJldDsKPj4gKwo+
+PiArCWlmIChsaWtlbHkoIShlYi0+YXJncy0+ZmxhZ3MgJiBfX0VYRUNfVVNFUlBUUl9VU0VEKSkp
+Cj4+ICsJCXJldHVybiAwOwo+PiArCj4+ICsJZm9yIChpID0gMDsgaSA8IGNvdW50OyBpKyspIHsK
+Pj4gKwkJc3RydWN0IGViX3ZtYSAqZXYgPSAmZWItPnZtYVtpXTsKPj4gKwo+PiArCQlpZiAoIWk5
+MTVfZ2VtX29iamVjdF9pc191c2VycHRyKGV2LT52bWEtPm9iaikpCj4+ICsJCQljb250aW51ZTsK
+Pj4gKwo+PiArCQlyZXQgPSBpOTE1X2dlbV9vYmplY3RfdXNlcnB0cl9zdWJtaXRfaW5pdChldi0+
+dm1hLT5vYmopOwo+PiArCQlpZiAocmV0KQo+PiArCQkJcmV0dXJuIHJldDsKPj4gKwo+PiArCQll
+di0+ZmxhZ3MgfD0gX19FWEVDX09CSkVDVF9VU0VSUFRSX0lOSVQ7Cj4+ICsJfQo+PiArCj4+ICsJ
+cmV0dXJuIDA7Cj4+ICt9Cj4+ICsKPj4gICBzdGF0aWMgbm9pbmxpbmUgaW50IGViX3JlbG9jYXRl
+X3BhcnNlX3Nsb3coc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsCj4+ICAgCQkJCQkgICBzdHJ1
+Y3QgaTkxNV9yZXF1ZXN0ICpycSkKPj4gICB7Cj4+IEBAIC0xOTMwLDcgKzE5ODIsNyBAQCBzdGF0
+aWMgbm9pbmxpbmUgaW50IGViX3JlbG9jYXRlX3BhcnNlX3Nsb3coc3RydWN0IGk5MTVfZXhlY2J1
+ZmZlciAqZWIsCj4+ICAgCX0KPj4gICAKPj4gICAJLyogV2UgbWF5IHByb2Nlc3MgYW5vdGhlciBl
+eGVjYnVmZmVyIGR1cmluZyB0aGUgdW5sb2NrLi4uICovCj4+IC0JZWJfcmVsZWFzZV92bWFzKGVi
+LCBmYWxzZSk7Cj4+ICsJZWJfcmVsZWFzZV92bWFzKGViLCBmYWxzZSwgdHJ1ZSk7Cj4+ICAgCWk5
+MTVfZ2VtX3d3X2N0eF9maW5pKCZlYi0+d3cpOwo+PiAgIAo+PiAgIAlpZiAocnEpIHsKPj4gQEAg
+LTE5NzEsMTAgKzIwMjMsOCBAQCBzdGF0aWMgbm9pbmxpbmUgaW50IGViX3JlbG9jYXRlX3BhcnNl
+X3Nsb3coc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsCj4+ICAgCQllcnIgPSAwOwo+PiAgIAl9
+Cj4+ICAgCj4+IC0jaWZkZWYgQ09ORklHX01NVV9OT1RJRklFUgo+PiAgIAlpZiAoIWVycikKPj4g
+LQkJZmx1c2hfd29ya3F1ZXVlKGViLT5pOTE1LT5tbS51c2VycHRyX3dxKTsKPj4gLSNlbmRpZgo+
+PiArCQllcnIgPSBlYl9yZWluaXRfdXNlcnB0cihlYik7Cj4+ICAgCj4+ICAgZXJyX3JlbG9jazoK
+Pj4gICAJaTkxNV9nZW1fd3dfY3R4X2luaXQoJmViLT53dywgdHJ1ZSk7Cj4+IEBAIC0yMDM2LDcg
+KzIwODYsNyBAQCBzdGF0aWMgbm9pbmxpbmUgaW50IGViX3JlbG9jYXRlX3BhcnNlX3Nsb3coc3Ry
+dWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsCj4+ICAgCj4+ICAgZXJyOgo+PiAgIAlpZiAoZXJyID09
+IC1FREVBRExLKSB7Cj4+IC0JCWViX3JlbGVhc2Vfdm1hcyhlYiwgZmFsc2UpOwo+PiArCQllYl9y
+ZWxlYXNlX3ZtYXMoZWIsIGZhbHNlLCBmYWxzZSk7Cj4+ICAgCQllcnIgPSBpOTE1X2dlbV93d19j
+dHhfYmFja29mZigmZWItPnd3KTsKPj4gICAJCWlmICghZXJyKQo+PiAgIAkJCWdvdG8gcmVwZWF0
+X3ZhbGlkYXRlOwo+PiBAQCAtMjEzMyw3ICsyMTgzLDcgQEAgc3RhdGljIGludCBlYl9yZWxvY2F0
+ZV9wYXJzZShzdHJ1Y3QgaTkxNV9leGVjYnVmZmVyICplYikKPj4gICAKPj4gICBlcnI6Cj4+ICAg
+CWlmIChlcnIgPT0gLUVERUFETEspIHsKPj4gLQkJZWJfcmVsZWFzZV92bWFzKGViLCBmYWxzZSk7
+Cj4+ICsJCWViX3JlbGVhc2Vfdm1hcyhlYiwgZmFsc2UsIGZhbHNlKTsKPj4gICAJCWVyciA9IGk5
+MTVfZ2VtX3d3X2N0eF9iYWNrb2ZmKCZlYi0+d3cpOwo+PiAgIAkJaWYgKCFlcnIpCj4+ICAgCQkJ
+Z290byByZXRyeTsKPj4gQEAgLTIyMDgsNiArMjI1OCwzMCBAQCBzdGF0aWMgaW50IGViX21vdmVf
+dG9fZ3B1KHN0cnVjdCBpOTE1X2V4ZWNidWZmZXIgKmViKQo+PiAgIAkJCQkJCSAgICAgIGZsYWdz
+IHwgX19FWEVDX09CSkVDVF9OT19SRVNFUlZFKTsKPj4gICAJfQo+PiAgIAo+PiArI2lmZGVmIENP
+TkZJR19NTVVfTk9USUZJRVIKPj4gKwlpZiAoIWVyciAmJiAoZWItPmFyZ3MtPmZsYWdzICYgX19F
+WEVDX1VTRVJQVFJfVVNFRCkpIHsKPj4gKwkJc3Bpbl9sb2NrKCZlYi0+aTkxNS0+bW0ubm90aWZp
+ZXJfbG9jayk7Cj4+ICsKPj4gKwkJLyoKPj4gKwkJICogY291bnQgaXMgYWx3YXlzIGF0IGxlYXN0
+IDEsIG90aGVyd2lzZSBfX0VYRUNfVVNFUlBUUl9VU0VECj4+ICsJCSAqIGNvdWxkIG5vdCBoYXZl
+IGJlZW4gc2V0Cj4+ICsJCSAqLwo+PiArCQlmb3IgKGkgPSAwOyBpIDwgY291bnQ7IGkrKykgewo+
+PiArCQkJc3RydWN0IGViX3ZtYSAqZXYgPSAmZWItPnZtYVtpXTsKPj4gKwkJCXN0cnVjdCBkcm1f
+aTkxNV9nZW1fb2JqZWN0ICpvYmogPSBldi0+dm1hLT5vYmo7Cj4+ICsKPj4gKwkJCWlmICghaTkx
+NV9nZW1fb2JqZWN0X2lzX3VzZXJwdHIob2JqKSkKPj4gKwkJCQljb250aW51ZTsKPj4gKwo+PiAr
+CQkJZXJyID0gaTkxNV9nZW1fb2JqZWN0X3VzZXJwdHJfc3VibWl0X2RvbmUob2JqKTsKPj4gKwkJ
+CWlmIChlcnIpCj4+ICsJCQkJYnJlYWs7Cj4+ICsJCX0KPj4gKwo+PiArCQlzcGluX3VubG9jaygm
+ZWItPmk5MTUtPm1tLm5vdGlmaWVyX2xvY2spOwo+PiArCX0KPj4gKyNlbmRpZgo+PiArCj4+ICAg
+CWlmICh1bmxpa2VseShlcnIpKQo+PiAgIAkJZ290byBlcnJfc2tpcDsKPj4gICAKPj4gQEAgLTMz
+NTIsNyArMzQyNiw3IEBAIGk5MTVfZ2VtX2RvX2V4ZWNidWZmZXIoc3RydWN0IGRybV9kZXZpY2Ug
+KmRldiwKPj4gICAKPj4gICAJZXJyID0gZWJfbG9va3VwX3ZtYXMoJmViKTsKPj4gICAJaWYgKGVy
+cikgewo+PiAtCQllYl9yZWxlYXNlX3ZtYXMoJmViLCB0cnVlKTsKPj4gKwkJZWJfcmVsZWFzZV92
+bWFzKCZlYiwgdHJ1ZSwgdHJ1ZSk7Cj4+ICAgCQlnb3RvIGVycl9lbmdpbmU7Cj4+ICAgCX0KPj4g
+ICAKPj4gQEAgLTM0MjQsNiArMzQ5OCw3IEBAIGk5MTVfZ2VtX2RvX2V4ZWNidWZmZXIoc3RydWN0
+IGRybV9kZXZpY2UgKmRldiwKPj4gICAKPj4gICAJdHJhY2VfaTkxNV9yZXF1ZXN0X3F1ZXVlKGVi
+LnJlcXVlc3QsIGViLmJhdGNoX2ZsYWdzKTsKPj4gICAJZXJyID0gZWJfc3VibWl0KCZlYiwgYmF0
+Y2gpOwo+PiArCj4+ICAgZXJyX3JlcXVlc3Q6Cj4+ICAgCWk5MTVfcmVxdWVzdF9nZXQoZWIucmVx
+dWVzdCk7Cj4+ICAgCWVyciA9IGViX3JlcXVlc3RfYWRkKCZlYiwgZXJyKTsKPj4gQEAgLTM0NDQs
+NyArMzUxOSw3IEBAIGk5MTVfZ2VtX2RvX2V4ZWNidWZmZXIoc3RydWN0IGRybV9kZXZpY2UgKmRl
+diwKPj4gICAJaTkxNV9yZXF1ZXN0X3B1dChlYi5yZXF1ZXN0KTsKPj4gICAKPj4gICBlcnJfdm1h
+Ogo+PiAtCWViX3JlbGVhc2Vfdm1hcygmZWIsIHRydWUpOwo+PiArCWViX3JlbGVhc2Vfdm1hcygm
+ZWIsIHRydWUsIHRydWUpOwo+PiAgIAlpZiAoZWIudHJhbXBvbGluZSkKPj4gICAJCWk5MTVfdm1h
+X3VucGluKGViLnRyYW1wb2xpbmUpOwo+PiAgIAlXQVJOX09OKGVyciA9PSAtRURFQURMSyk7Cj4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0Lmgg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmgKPj4gaW5kZXggNjk1
+MDlkYmQwMWM3Li5iNWFmOWM0NDBhYzUgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2dlbS9pOTE1X2dlbV9vYmplY3QuaAo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9n
+ZW0vaTkxNV9nZW1fb2JqZWN0LmgKPj4gQEAgLTU5LDYgKzU5LDcgQEAgaTkxNV9nZW1fb2JqZWN0
+X2NyZWF0ZV9zaG1lbV9mcm9tX2RhdGEoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsCj4+
+ICAgCQkJCSAgICAgICBjb25zdCB2b2lkICpkYXRhLCByZXNvdXJjZV9zaXplX3Qgc2l6ZSk7Cj4+
+ICAgCj4+ICAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0X29wcyBpOTE1
+X2dlbV9zaG1lbV9vcHM7Cj4+ICsKPj4gICB2b2lkIF9faTkxNV9nZW1fb2JqZWN0X3JlbGVhc2Vf
+c2htZW0oc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaiwKPj4gICAJCQkJICAgICBzdHJ1
+Y3Qgc2dfdGFibGUgKnBhZ2VzLAo+PiAgIAkJCQkgICAgIGJvb2wgbmVlZHNfY2xmbHVzaCk7Cj4+
+IEBAIC0yNzgsMTIgKzI3OSw2IEBAIGk5MTVfZ2VtX29iamVjdF9uZXZlcl9tbWFwKGNvbnN0IHN0
+cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmopCj4+ICAgCXJldHVybiBpOTE1X2dlbV9vYmpl
+Y3RfdHlwZV9oYXMob2JqLCBJOTE1X0dFTV9PQkpFQ1RfTk9fTU1BUCk7Cj4+ICAgfQo+PiAgIAo+
+PiAtc3RhdGljIGlubGluZSBib29sCj4+IC1pOTE1X2dlbV9vYmplY3RfbmVlZHNfYXN5bmNfY2Fu
+Y2VsKGNvbnN0IHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmopCj4+IC17Cj4+IC0JcmV0
+dXJuIGk5MTVfZ2VtX29iamVjdF90eXBlX2hhcyhvYmosIEk5MTVfR0VNX09CSkVDVF9BU1lOQ19D
+QU5DRUwpOwo+PiAtfQo+PiAtCj4+ICAgc3RhdGljIGlubGluZSBib29sCj4+ICAgaTkxNV9nZW1f
+b2JqZWN0X2lzX2ZyYW1lYnVmZmVyKGNvbnN0IHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpv
+YmopCj4+ICAgewo+PiBAQCAtNTczLDE2ICs1NjgsNiBAQCB2b2lkIF9faTkxNV9nZW1fb2JqZWN0
+X2ZsdXNoX2Zyb250YnVmZmVyKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmosCj4+ICAg
+dm9pZCBfX2k5MTVfZ2VtX29iamVjdF9pbnZhbGlkYXRlX2Zyb250YnVmZmVyKHN0cnVjdCBkcm1f
+aTkxNV9nZW1fb2JqZWN0ICpvYmosCj4+ICAgCQkJCQkgICAgICBlbnVtIGZiX29wX29yaWdpbiBv
+cmlnaW4pOwo+PiAgIAo+PiAtc3RhdGljIGlubGluZSBib29sCj4+IC1pOTE1X2dlbV9vYmplY3Rf
+aXNfdXNlcnB0cihzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQo+PiAtewo+PiAtI2lm
+ZGVmIENPTkZJR19NTVVfTk9USUZJRVIKPj4gLQlyZXR1cm4gb2JqLT51c2VycHRyLm1tOwo+PiAt
+I2Vsc2UKPj4gLQlyZXR1cm4gZmFsc2U7Cj4+IC0jZW5kaWYKPj4gLX0KPj4gLQo+PiAgIHN0YXRp
+YyBpbmxpbmUgdm9pZAo+PiAgIGk5MTVfZ2VtX29iamVjdF9mbHVzaF9mcm9udGJ1ZmZlcihzdHJ1
+Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqLAo+PiAgIAkJCQkgIGVudW0gZmJfb3Bfb3JpZ2lu
+IG9yaWdpbikKPj4gQEAgLTYwMyw0ICs1ODgsMjUgQEAgaW50IGk5MTVfZ2VtX29iamVjdF9yZWFk
+X2Zyb21fcGFnZShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqLCB1NjQgb2Zmc2V0LAo+
+PiAgIAo+PiAgIGJvb2wgaTkxNV9nZW1fb2JqZWN0X2lzX3NobWVtKGNvbnN0IHN0cnVjdCBkcm1f
+aTkxNV9nZW1fb2JqZWN0ICpvYmopOwo+PiAgIAo+PiArI2lmZGVmIENPTkZJR19NTVVfTk9USUZJ
+RVIKPj4gK3N0YXRpYyBpbmxpbmUgYm9vbAo+PiAraTkxNV9nZW1fb2JqZWN0X2lzX3VzZXJwdHIo
+c3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikKPj4gK3sKPj4gKwlyZXR1cm4gb2JqLT51
+c2VycHRyLm5vdGlmaWVyLm1tOwo+PiArfQo+PiArCj4+ICtpbnQgaTkxNV9nZW1fb2JqZWN0X3Vz
+ZXJwdHJfc3VibWl0X2luaXQoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaik7Cj4+ICtp
+bnQgaTkxNV9nZW1fb2JqZWN0X3VzZXJwdHJfc3VibWl0X2RvbmUoc3RydWN0IGRybV9pOTE1X2dl
+bV9vYmplY3QgKm9iaik7Cj4+ICt2b2lkIGk5MTVfZ2VtX29iamVjdF91c2VycHRyX3N1Ym1pdF9m
+aW5pKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmopOwo+PiAraW50IGk5MTVfZ2VtX29i
+amVjdF91c2VycHRyX3ZhbGlkYXRlKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmopOwo+
+PiArI2Vsc2UKPj4gK3N0YXRpYyBpbmxpbmUgYm9vbCBpOTE1X2dlbV9vYmplY3RfaXNfdXNlcnB0
+cihzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKSB7IHJldHVybiBmYWxzZTsgfQo+PiAr
+Cj4+ICtzdGF0aWMgaW5saW5lIGludCBpOTE1X2dlbV9vYmplY3RfdXNlcnB0cl9zdWJtaXRfaW5p
+dChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKSB7IEdFTV9CVUdfT04oMSk7IHJldHVy
+biAtRU5PREVWOyB9Cj4+ICtzdGF0aWMgaW5saW5lIGludCBpOTE1X2dlbV9vYmplY3RfdXNlcnB0
+cl9zdWJtaXRfZG9uZShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKSB7IEdFTV9CVUdf
+T04oMSk7IHJldHVybiAtRU5PREVWOyB9Cj4+ICtzdGF0aWMgaW5saW5lIHZvaWQgaTkxNV9nZW1f
+b2JqZWN0X3VzZXJwdHJfc3VibWl0X2Zpbmkoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9i
+aikgeyBHRU1fQlVHX09OKDEpOyB9Cj4+ICtzdGF0aWMgaW5saW5lIGludCBpOTE1X2dlbV9vYmpl
+Y3RfdXNlcnB0cl92YWxpZGF0ZShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKSB7IEdF
+TV9CVUdfT04oMSk7IHJldHVybiAtRU5PREVWOyB9Cj4+ICsKPj4gKyNlbmRpZgo+PiArCj4+ICAg
+I2VuZGlmCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1f
+b2JqZWN0X3R5cGVzLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0
+X3R5cGVzLmgKPj4gaW5kZXggNDE0MzIyNjE5NzgxLi40YzBhMzQyMzE2MjMgMTAwNjQ0Cj4+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmplY3RfdHlwZXMuaAo+PiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0X3R5cGVzLmgKPj4g
+QEAgLTcsNiArNyw4IEBACj4+ICAgI2lmbmRlZiBfX0k5MTVfR0VNX09CSkVDVF9UWVBFU19IX18K
+Pj4gICAjZGVmaW5lIF9fSTkxNV9HRU1fT0JKRUNUX1RZUEVTX0hfXwo+PiAgIAo+PiArI2luY2x1
+ZGUgPGxpbnV4L21tdV9ub3RpZmllci5oPgo+PiArCj4+ICAgI2luY2x1ZGUgPGRybS9kcm1fZ2Vt
+Lmg+Cj4+ICAgI2luY2x1ZGUgPHVhcGkvZHJtL2k5MTVfZHJtLmg+Cj4+ICAgCj4+IEBAIC0zNCw3
+ICszNiw2IEBAIHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0X29wcyB7Cj4+ICAgI2RlZmluZSBJ
+OTE1X0dFTV9PQkpFQ1RfSVNfU0hSSU5LQUJMRQlCSVQoMikKPj4gICAjZGVmaW5lIEk5MTVfR0VN
+X09CSkVDVF9JU19QUk9YWQlCSVQoMykKPj4gICAjZGVmaW5lIEk5MTVfR0VNX09CSkVDVF9OT19N
+TUFQCQlCSVQoNCkKPj4gLSNkZWZpbmUgSTkxNV9HRU1fT0JKRUNUX0FTWU5DX0NBTkNFTAlCSVQo
+NSkKPj4gICAKPj4gICAJLyogSW50ZXJmYWNlIGJldHdlZW4gdGhlIEdFTSBvYmplY3QgYW5kIGl0
+cyBiYWNraW5nIHN0b3JhZ2UuCj4+ICAgCSAqIGdldF9wYWdlcygpIGlzIGNhbGxlZCBvbmNlIHBy
+aW9yIHRvIHRoZSB1c2Ugb2YgdGhlIGFzc29jaWF0ZWQgc2V0Cj4+IEBAIC0yOTksMTAgKzMwMCwx
+MSBAQCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCB7Cj4+ICAgI2lmZGVmIENPTkZJR19NTVVf
+Tk9USUZJRVIKPj4gICAJCXN0cnVjdCBpOTE1X2dlbV91c2VycHRyIHsKPj4gICAJCQl1aW50cHRy
+X3QgcHRyOwo+PiArCQkJdW5zaWduZWQgbG9uZyBub3RpZmllcl9zZXE7Cj4+ICAgCj4+IC0JCQlz
+dHJ1Y3QgaTkxNV9tbV9zdHJ1Y3QgKm1tOwo+PiAtCQkJc3RydWN0IGk5MTVfbW11X29iamVjdCAq
+bW11X29iamVjdDsKPj4gLQkJCXN0cnVjdCB3b3JrX3N0cnVjdCAqd29yazsKPj4gKwkJCXN0cnVj
+dCBtbXVfaW50ZXJ2YWxfbm90aWZpZXIgbm90aWZpZXI7Cj4+ICsJCQlzdHJ1Y3QgcGFnZSAqKnB2
+ZWM7Cj4+ICsJCQlpbnQgcGFnZV9yZWY7Cj4+ICAgCQl9IHVzZXJwdHI7Cj4+ICAgI2VuZGlmCj4+
+ICAgCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fcGFn
+ZXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9wYWdlcy5jCj4+IGluZGV4
+IGJmNjFiODhhMjExMy4uZTdkNzY1MDA3MmM1IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9nZW0vaTkxNV9nZW1fcGFnZXMuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9nZW0vaTkxNV9nZW1fcGFnZXMuYwo+PiBAQCAtMjI2LDcgKzIyNiw3IEBAIGludCBfX2k5MTVf
+Z2VtX29iamVjdF9wdXRfcGFnZXMoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikKPj4g
+ICAJICogZ2V0X3BhZ2VzIGJhY2tlbmRzIHdlIHNob3VsZCBiZSBiZXR0ZXIgYWJsZSB0byBoYW5k
+bGUgdGhlCj4+ICAgCSAqIGNhbmNlbGxhdGlvbiBvZiB0aGUgYXN5bmMgdGFzayBpbiBhIG1vcmUg
+dW5pZm9ybSBtYW5uZXIuCj4+ICAgCSAqLwo+PiAtCWlmICghcGFnZXMgJiYgIWk5MTVfZ2VtX29i
+amVjdF9uZWVkc19hc3luY19jYW5jZWwob2JqKSkKPj4gKwlpZiAoIXBhZ2VzKQo+PiAgIAkJcGFn
+ZXMgPSBFUlJfUFRSKC1FSU5WQUwpOwo+PiAgIAo+PiAgIAlpZiAoIUlTX0VSUihwYWdlcykpCj4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fdXNlcnB0ci5j
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3VzZXJwdHIuYwo+PiBpbmRleCBi
+NDY2YWIyZGVmNGQuLjFlNDJmYmM2ODY5NyAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZ2VtL2k5MTVfZ2VtX3VzZXJwdHIuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9nZW0vaTkxNV9nZW1fdXNlcnB0ci5jCj4+IEBAIC0yLDEwICsyLDM5IEBACj4+ICAgICogU1BE
+WC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVAo+PiAgICAqCj4+ICAgICogQ29weXJpZ2h0IMKpIDIw
+MTItMjAxNCBJbnRlbCBDb3Jwb3JhdGlvbgo+PiArICoKPj4gKyAgKiBCYXNlZCBvbiBhbWRncHVf
+bW4sIHdoaWNoIGJlYXJzIHRoZSBmb2xsb3dpbmcgbm90aWNlOgo+PiArICoKPj4gKyAqIENvcHly
+aWdodCAyMDE0IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KPj4gKyAqIEFsbCBSaWdodHMg
+UmVzZXJ2ZWQuCj4+ICsgKgo+PiArICogUGVybWlzc2lvbiBpcyBoZXJlYnkgZ3JhbnRlZCwgZnJl
+ZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJzb24gb2J0YWluaW5nIGEKPj4gKyAqIGNvcHkgb2YgdGhp
+cyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUKPj4gKyAq
+ICJTb2Z0d2FyZSIpLCB0byBkZWFsIGluIHRoZSBTb2Z0d2FyZSB3aXRob3V0IHJlc3RyaWN0aW9u
+LCBpbmNsdWRpbmcKPj4gKyAqIHdpdGhvdXQgbGltaXRhdGlvbiB0aGUgcmlnaHRzIHRvIHVzZSwg
+Y29weSwgbW9kaWZ5LCBtZXJnZSwgcHVibGlzaCwKPj4gKyAqIGRpc3RyaWJ1dGUsIHN1YiBsaWNl
+bnNlLCBhbmQvb3Igc2VsbCBjb3BpZXMgb2YgdGhlIFNvZnR3YXJlLCBhbmQgdG8KPj4gKyAqIHBl
+cm1pdCBwZXJzb25zIHRvIHdob20gdGhlIFNvZnR3YXJlIGlzIGZ1cm5pc2hlZCB0byBkbyBzbywg
+c3ViamVjdCB0bwo+PiArICogdGhlIGZvbGxvd2luZyBjb25kaXRpb25zOgo+PiArICoKPj4gKyAq
+IFRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFO
+WSBLSU5ELCBFWFBSRVNTIE9SCj4+ICsgKiBJTVBMSUVELCBJTkNMVURJTkcgQlVUIE5PVCBMSU1J
+VEVEIFRPIFRIRSBXQVJSQU5USUVTIE9GIE1FUkNIQU5UQUJJTElUWSwKPj4gKyAqIEZJVE5FU1Mg
+Rk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFIEFORCBOT04tSU5GUklOR0VNRU5ULiBJTiBOTyBFVkVO
+VCBTSEFMTAo+PiArICogVEhFIENPUFlSSUdIVCBIT0xERVJTLCBBVVRIT1JTIEFORC9PUiBJVFMg
+U1VQUExJRVJTIEJFIExJQUJMRSBGT1IgQU5ZIENMQUlNLAo+PiArICogREFNQUdFUyBPUiBPVEhF
+UiBMSUFCSUxJVFksIFdIRVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SCj4+
+ICsgKiBPVEhFUldJU0UsIEFSSVNJTkcgRlJPTSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lU
+SCBUSEUgU09GVFdBUkUgT1IgVEhFCj4+ICsgKiBVU0UgT1IgT1RIRVIgREVBTElOR1MgSU4gVEhF
+IFNPRlRXQVJFLgo+PiArICoKPj4gKyAqIFRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFuZCB0
+aGlzIHBlcm1pc3Npb24gbm90aWNlIChpbmNsdWRpbmcgdGhlCj4+ICsgKiBuZXh0IHBhcmFncmFw
+aCkgc2hhbGwgYmUgaW5jbHVkZWQgaW4gYWxsIGNvcGllcyBvciBzdWJzdGFudGlhbCBwb3J0aW9u
+cwo+PiArICogb2YgdGhlIFNvZnR3YXJlLgo+PiArICoKPj4gKyAqLwo+PiArLyoKPj4gKyAqIEF1
+dGhvcnM6Cj4+ICsgKiAgICBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
+b20+Cj4+ICAgICovCj4+ICAgCj4+ICAgI2luY2x1ZGUgPGxpbnV4L21tdV9jb250ZXh0Lmg+Cj4+
+IC0jaW5jbHVkZSA8bGludXgvbW11X25vdGlmaWVyLmg+Cj4+ICAgI2luY2x1ZGUgPGxpbnV4L21l
+bXBvbGljeS5oPgo+PiAgICNpbmNsdWRlIDxsaW51eC9zd2FwLmg+Cj4+ICAgI2luY2x1ZGUgPGxp
+bnV4L3NjaGVkL21tLmg+Cj4+IEBAIC0xNSwzNzMgKzQ0LDEyMSBAQAo+PiAgICNpbmNsdWRlICJp
+OTE1X2dlbV9vYmplY3QuaCIKPj4gICAjaW5jbHVkZSAiaTkxNV9zY2F0dGVybGlzdC5oIgo+PiAg
+IAo+PiAtI2lmIGRlZmluZWQoQ09ORklHX01NVV9OT1RJRklFUikKPj4gLQo+PiAtc3RydWN0IGk5
+MTVfbW1fc3RydWN0IHsKPj4gLQlzdHJ1Y3QgbW1fc3RydWN0ICptbTsKPj4gLQlzdHJ1Y3QgZHJt
+X2k5MTVfcHJpdmF0ZSAqaTkxNTsKPj4gLQlzdHJ1Y3QgaTkxNV9tbXVfbm90aWZpZXIgKm1uOwo+
+PiAtCXN0cnVjdCBobGlzdF9ub2RlIG5vZGU7Cj4+IC0Jc3RydWN0IGtyZWYga3JlZjsKPj4gLQlz
+dHJ1Y3QgcmN1X3dvcmsgd29yazsKPj4gLX07Cj4+IC0KPj4gLSNpbmNsdWRlIDxsaW51eC9pbnRl
+cnZhbF90cmVlLmg+Cj4+IC0KPj4gLXN0cnVjdCBpOTE1X21tdV9ub3RpZmllciB7Cj4+IC0Jc3Bp
+bmxvY2tfdCBsb2NrOwo+PiAtCXN0cnVjdCBobGlzdF9ub2RlIG5vZGU7Cj4+IC0Jc3RydWN0IG1t
+dV9ub3RpZmllciBtbjsKPj4gLQlzdHJ1Y3QgcmJfcm9vdF9jYWNoZWQgb2JqZWN0czsKPj4gLQlz
+dHJ1Y3QgaTkxNV9tbV9zdHJ1Y3QgKm1tOwo+PiAtfTsKPj4gLQo+PiAtc3RydWN0IGk5MTVfbW11
+X29iamVjdCB7Cj4+IC0Jc3RydWN0IGk5MTVfbW11X25vdGlmaWVyICptbjsKPj4gLQlzdHJ1Y3Qg
+ZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqOwo+PiAtCXN0cnVjdCBpbnRlcnZhbF90cmVlX25vZGUg
+aXQ7Cj4+IC19Owo+PiArI2lmZGVmIENPTkZJR19NTVVfTk9USUZJRVIKPj4gICAKPj4gLXN0YXRp
+YyB2b2lkIGFkZF9vYmplY3Qoc3RydWN0IGk5MTVfbW11X29iamVjdCAqbW8pCj4+ICsvKioKPj4g
+KyAqIGk5MTVfZ2VtX3VzZXJwdHJfaW52YWxpZGF0ZSAtIGNhbGxiYWNrIHRvIG5vdGlmeSBhYm91
+dCBtbSBjaGFuZ2UKPj4gKyAqCj4+ICsgKiBAbW5pOiB0aGUgcmFuZ2UgKG1tKSBpcyBhYm91dCB0
+byB1cGRhdGUKPj4gKyAqIEByYW5nZTogZGV0YWlscyBvbiB0aGUgaW52YWxpZGF0aW9uCj4+ICsg
+KiBAY3VyX3NlcTogVmFsdWUgdG8gcGFzcyB0byBtbXVfaW50ZXJ2YWxfc2V0X3NlcSgpCj4+ICsg
+Kgo+PiArICogQmxvY2sgZm9yIG9wZXJhdGlvbnMgb24gQk9zIHRvIGZpbmlzaCBhbmQgbWFyayBw
+YWdlcyBhcyBhY2Nlc3NlZCBhbmQKPj4gKyAqIHBvdGVudGlhbGx5IGRpcnR5Lgo+PiArICovCj4+
+ICtzdGF0aWMgYm9vbCBpOTE1X2dlbV91c2VycHRyX2ludmFsaWRhdGUoc3RydWN0IG1tdV9pbnRl
+cnZhbF9ub3RpZmllciAqbW5pLAo+PiArCQkJCQljb25zdCBzdHJ1Y3QgbW11X25vdGlmaWVyX3Jh
+bmdlICpyYW5nZSwKPj4gKwkJCQkJdW5zaWduZWQgbG9uZyBjdXJfc2VxKQo+PiAgIHsKPj4gLQlH
+RU1fQlVHX09OKCFSQl9FTVBUWV9OT0RFKCZtby0+aXQucmIpKTsKPj4gLQlpbnRlcnZhbF90cmVl
+X2luc2VydCgmbW8tPml0LCAmbW8tPm1uLT5vYmplY3RzKTsKPj4gLX0KPj4gKwlzdHJ1Y3QgZHJt
+X2k5MTVfZ2VtX29iamVjdCAqb2JqID0gY29udGFpbmVyX29mKG1uaSwgc3RydWN0IGRybV9pOTE1
+X2dlbV9vYmplY3QsIHVzZXJwdHIubm90aWZpZXIpOwo+PiArCXN0cnVjdCBkcm1faTkxNV9wcml2
+YXRlICppOTE1ID0gdG9faTkxNShvYmotPmJhc2UuZGV2KTsKPj4gKwlsb25nIHI7Cj4+ICAgCj4+
+IC1zdGF0aWMgdm9pZCBkZWxfb2JqZWN0KHN0cnVjdCBpOTE1X21tdV9vYmplY3QgKm1vKQo+PiAt
+ewo+PiAtCWlmIChSQl9FTVBUWV9OT0RFKCZtby0+aXQucmIpKQo+PiAtCQlyZXR1cm47Cj4+ICsJ
+aWYgKCFtbXVfbm90aWZpZXJfcmFuZ2VfYmxvY2thYmxlKHJhbmdlKSkKPj4gKwkJcmV0dXJuIGZh
+bHNlOwo+PiAgIAo+PiAtCWludGVydmFsX3RyZWVfcmVtb3ZlKCZtby0+aXQsICZtby0+bW4tPm9i
+amVjdHMpOwo+PiAtCVJCX0NMRUFSX05PREUoJm1vLT5pdC5yYik7Cj4+IC19Cj4+ICsJc3Bpbl9s
+b2NrKCZpOTE1LT5tbS5ub3RpZmllcl9sb2NrKTsKPj4gICAKPj4gLXN0YXRpYyB2b2lkCj4+IC1f
+X2k5MTVfZ2VtX3VzZXJwdHJfc2V0X2FjdGl2ZShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAq
+b2JqLCBib29sIHZhbHVlKQo+PiAtewo+PiAtCXN0cnVjdCBpOTE1X21tdV9vYmplY3QgKm1vID0g
+b2JqLT51c2VycHRyLm1tdV9vYmplY3Q7Cj4+ICsJbW11X2ludGVydmFsX3NldF9zZXEobW5pLCBj
+dXJfc2VxKTsKPj4gKwo+PiArCXNwaW5fdW5sb2NrKCZpOTE1LT5tbS5ub3RpZmllcl9sb2NrKTsK
+Pj4gICAKPj4gICAJLyoKPj4gLQkgKiBEdXJpbmcgbW1faW52YWxpZGF0ZV9yYW5nZSB3ZSBuZWVk
+IHRvIGNhbmNlbCBhbnkgdXNlcnB0ciB0aGF0Cj4+IC0JICogb3ZlcmxhcHMgdGhlIHJhbmdlIGJl
+aW5nIGludmFsaWRhdGVkLiBEb2luZyBzbyByZXF1aXJlcyB0aGUKPj4gLQkgKiBzdHJ1Y3RfbXV0
+ZXgsIGFuZCB0aGF0IHJpc2tzIHJlY3Vyc2lvbi4gSW4gb3JkZXIgdG8gY2F1c2UKPj4gLQkgKiBy
+ZWN1cnNpb24sIHRoZSB1c2VyIG11c3QgYWxpYXMgdGhlIHVzZXJwdHIgYWRkcmVzcyBzcGFjZSB3
+aXRoCj4+IC0JICogYSBHVFQgbW1hcHBpbmcgKHBvc3NpYmxlIHdpdGggYSBNQVBfRklYRUQpIC0g
+dGhlbiB3aGVuIHdlIGhhdmUKPj4gLQkgKiB0byBpbnZhbGlkYXRlIHRoYXQgbW1hcGluZywgbW1f
+aW52YWxpZGF0ZV9yYW5nZSBpcyBjYWxsZWQgd2l0aAo+PiAtCSAqIHRoZSB1c2VycHRyIGFkZHJl
+c3MgKmFuZCogdGhlIHN0cnVjdF9tdXRleCBoZWxkLiAgVG8gcHJldmVudCB0aGF0Cj4+IC0JICog
+d2Ugc2V0IGEgZmxhZyB1bmRlciB0aGUgaTkxNV9tbXVfbm90aWZpZXIgc3BpbmxvY2sgdG8gaW5k
+aWNhdGUKPj4gLQkgKiB3aGV0aGVyIHRoaXMgb2JqZWN0IGlzIHZhbGlkLgo+PiArCSAqIFdlIGRv
+bid0IHdhaXQgd2hlbiB0aGUgcHJvY2VzcyBpcyBleGl0aW5nLiBUaGlzIGlzIHZhbGlkCj4+ICsJ
+ICogYmVjYXVzZSB0aGUgb2JqZWN0IHdpbGwgYmUgY2xlYW5lZCB1cCBhbnl3YXkuCj4+ICsJICoK
+Pj4gKwkgKiBUaGlzIGlzIGFsc28gdGVtcG9yYXJpbHkgcmVxdWlyZWQgYXMgYSBoYWNrLCBiZWNh
+dXNlIHdlCj4+ICsJICogY2Fubm90IGN1cnJlbnRseSBmb3JjZSBub24tY29uc2lzdGVudCBiYXRj
+aCBidWZmZXJzIHRvIHByZWVtcHQKPj4gKwkgKiBhbmQgcmVzY2hlZHVsZSBieSB3YWl0aW5nIG9u
+IGl0LCBoYW5naW5nIHByb2Nlc3NlcyBvbiBleGl0Lgo+PiAgIAkgKi8KPj4gLQlpZiAoIW1vKQo+
+PiAtCQlyZXR1cm47Cj4+IC0KPj4gLQlzcGluX2xvY2soJm1vLT5tbi0+bG9jayk7Cj4+IC0JaWYg
+KHZhbHVlKQo+PiAtCQlhZGRfb2JqZWN0KG1vKTsKPj4gLQllbHNlCj4+IC0JCWRlbF9vYmplY3Qo
+bW8pOwo+PiAtCXNwaW5fdW5sb2NrKCZtby0+bW4tPmxvY2spOwo+PiAtfQo+PiAtCj4+IC1zdGF0
+aWMgaW50Cj4+IC11c2VycHRyX21uX2ludmFsaWRhdGVfcmFuZ2Vfc3RhcnQoc3RydWN0IG1tdV9u
+b3RpZmllciAqX21uLAo+PiAtCQkJCSAgY29uc3Qgc3RydWN0IG1tdV9ub3RpZmllcl9yYW5nZSAq
+cmFuZ2UpCj4+IC17Cj4+IC0Jc3RydWN0IGk5MTVfbW11X25vdGlmaWVyICptbiA9Cj4+IC0JCWNv
+bnRhaW5lcl9vZihfbW4sIHN0cnVjdCBpOTE1X21tdV9ub3RpZmllciwgbW4pOwo+PiAtCXN0cnVj
+dCBpbnRlcnZhbF90cmVlX25vZGUgKml0Owo+PiAtCXVuc2lnbmVkIGxvbmcgZW5kOwo+PiAtCWlu
+dCByZXQgPSAwOwo+PiAtCj4+IC0JaWYgKFJCX0VNUFRZX1JPT1QoJm1uLT5vYmplY3RzLnJiX3Jv
+b3QpKQo+PiAtCQlyZXR1cm4gMDsKPj4gLQo+PiAtCS8qIGludGVydmFsIHJhbmdlcyBhcmUgaW5j
+bHVzaXZlLCBidXQgaW52YWxpZGF0ZSByYW5nZSBpcyBleGNsdXNpdmUgKi8KPj4gLQllbmQgPSBy
+YW5nZS0+ZW5kIC0gMTsKPj4gLQo+PiAtCXNwaW5fbG9jaygmbW4tPmxvY2spOwo+PiAtCWl0ID0g
+aW50ZXJ2YWxfdHJlZV9pdGVyX2ZpcnN0KCZtbi0+b2JqZWN0cywgcmFuZ2UtPnN0YXJ0LCBlbmQp
+Owo+PiAtCXdoaWxlIChpdCkgewo+PiAtCQlzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2Jq
+Owo+PiAtCj4+IC0JCWlmICghbW11X25vdGlmaWVyX3JhbmdlX2Jsb2NrYWJsZShyYW5nZSkpIHsK
+Pj4gLQkJCXJldCA9IC1FQUdBSU47Cj4+IC0JCQlicmVhazsKPj4gLQkJfQo+PiAtCj4+IC0JCS8q
+Cj4+IC0JCSAqIFRoZSBtbXVfb2JqZWN0IGlzIHJlbGVhc2VkIGxhdGUgd2hlbiBkZXN0cm95aW5n
+IHRoZQo+PiAtCQkgKiBHRU0gb2JqZWN0IHNvIGl0IGlzIGVudGlyZWx5IHBvc3NpYmxlIHRvIGdh
+aW4gYQo+PiAtCQkgKiByZWZlcmVuY2Ugb24gYW4gb2JqZWN0IGluIHRoZSBwcm9jZXNzIG9mIGJl
+aW5nIGZyZWVkCj4+IC0JCSAqIHNpbmNlIG91ciBzZXJpYWxpc2F0aW9uIGlzIHZpYSB0aGUgc3Bp
+bmxvY2sgYW5kIG5vdAo+PiAtCQkgKiB0aGUgc3RydWN0X211dGV4IC0gYW5kIGNvbnNlcXVlbnRs
+eSB1c2UgaXQgYWZ0ZXIgaXQKPj4gLQkJICogaXMgZnJlZWQgYW5kIHRoZW4gZG91YmxlIGZyZWUg
+aXQuIFRvIHByZXZlbnQgdGhhdAo+PiAtCQkgKiB1c2UtYWZ0ZXItZnJlZSB3ZSBvbmx5IGFjcXVp
+cmUgYSByZWZlcmVuY2Ugb24gdGhlCj4+IC0JCSAqIG9iamVjdCBpZiBpdCBpcyBub3QgaW4gdGhl
+IHByb2Nlc3Mgb2YgYmVpbmcgZGVzdHJveWVkLgo+PiAtCQkgKi8KPj4gLQkJb2JqID0gY29udGFp
+bmVyX29mKGl0LCBzdHJ1Y3QgaTkxNV9tbXVfb2JqZWN0LCBpdCktPm9iajsKPj4gLQkJaWYgKCFr
+cmVmX2dldF91bmxlc3NfemVybygmb2JqLT5iYXNlLnJlZmNvdW50KSkgewo+PiAtCQkJaXQgPSBp
+bnRlcnZhbF90cmVlX2l0ZXJfbmV4dChpdCwgcmFuZ2UtPnN0YXJ0LCBlbmQpOwo+PiAtCQkJY29u
+dGludWU7Cj4+IC0JCX0KPj4gLQkJc3Bpbl91bmxvY2soJm1uLT5sb2NrKTsKPj4gLQo+PiAtCQly
+ZXQgPSBpOTE1X2dlbV9vYmplY3RfdW5iaW5kKG9iaiwKPj4gLQkJCQkJICAgICBJOTE1X0dFTV9P
+QkpFQ1RfVU5CSU5EX0FDVElWRSB8Cj4+IC0JCQkJCSAgICAgSTkxNV9HRU1fT0JKRUNUX1VOQklO
+RF9CQVJSSUVSKTsKPj4gLQkJaWYgKHJldCA9PSAwKQo+PiAtCQkJcmV0ID0gX19pOTE1X2dlbV9v
+YmplY3RfcHV0X3BhZ2VzKG9iaik7Cj4+IC0JCWk5MTVfZ2VtX29iamVjdF9wdXQob2JqKTsKPj4g
+LQkJaWYgKHJldCkKPj4gLQkJCXJldHVybiByZXQ7Cj4+ICsJaWYgKGN1cnJlbnQtPmZsYWdzICYg
+UEZfRVhJVElORykKPj4gKwkJcmV0dXJuIHRydWU7Cj4+ICAgCj4+IC0JCXNwaW5fbG9jaygmbW4t
+PmxvY2spOwo+PiAtCj4+IC0JCS8qCj4+IC0JCSAqIEFzIHdlIGRvIG5vdCAoeWV0KSBwcm90ZWN0
+IHRoZSBtbXUgZnJvbSBjb25jdXJyZW50IGluc2VydGlvbgo+PiAtCQkgKiBvdmVyIHRoaXMgcmFu
+Z2UsIHRoZXJlIGlzIG5vIGd1YXJhbnRlZSB0aGF0IHRoaXMgc2VhcmNoIHdpbGwKPj4gLQkJICog
+dGVybWluYXRlIGdpdmVuIGEgcGF0aG9sb2dpYyB3b3JrbG9hZC4KPj4gLQkJICovCj4+IC0JCWl0
+ID0gaW50ZXJ2YWxfdHJlZV9pdGVyX2ZpcnN0KCZtbi0+b2JqZWN0cywgcmFuZ2UtPnN0YXJ0LCBl
+bmQpOwo+PiAtCX0KPj4gLQlzcGluX3VubG9jaygmbW4tPmxvY2spOwo+PiAtCj4+IC0JcmV0dXJu
+IHJldDsKPj4gKwkvKiB3ZSB3aWxsIHVuYmluZCBvbiBuZXh0IHN1Ym1pc3Npb24sIHN0aWxsIGhh
+dmUgdXNlcnB0ciBwaW5zICovCj4+ICsJciA9IGRtYV9yZXN2X3dhaXRfdGltZW91dF9yY3Uob2Jq
+LT5iYXNlLnJlc3YsIHRydWUsIGZhbHNlLAo+PiArCQkJCSAgICAgIE1BWF9TQ0hFRFVMRV9USU1F
+T1VUKTsKPj4gKwlpZiAociA8PSAwKQo+PiArCQlkcm1fZXJyKCZpOTE1LT5kcm0sICIoJWxkKSBm
+YWlsZWQgdG8gd2FpdCBmb3IgaWRsZVxuIiwgcik7Cj4+ICAgCj4+ICsJcmV0dXJuIHRydWU7Cj4+
+ICAgfQo+PiAgIAo+PiAtc3RhdGljIGNvbnN0IHN0cnVjdCBtbXVfbm90aWZpZXJfb3BzIGk5MTVf
+Z2VtX3VzZXJwdHJfbm90aWZpZXIgPSB7Cj4+IC0JLmludmFsaWRhdGVfcmFuZ2Vfc3RhcnQgPSB1
+c2VycHRyX21uX2ludmFsaWRhdGVfcmFuZ2Vfc3RhcnQsCj4+ICtzdGF0aWMgY29uc3Qgc3RydWN0
+IG1tdV9pbnRlcnZhbF9ub3RpZmllcl9vcHMgaTkxNV9nZW1fdXNlcnB0cl9ub3RpZmllcl9vcHMg
+PSB7Cj4+ICsJLmludmFsaWRhdGUgPSBpOTE1X2dlbV91c2VycHRyX2ludmFsaWRhdGUsCj4+ICAg
+fTsKPj4gICAKPj4gLXN0YXRpYyBzdHJ1Y3QgaTkxNV9tbXVfbm90aWZpZXIgKgo+PiAtaTkxNV9t
+bXVfbm90aWZpZXJfY3JlYXRlKHN0cnVjdCBpOTE1X21tX3N0cnVjdCAqbW0pCj4+IC17Cj4+IC0J
+c3RydWN0IGk5MTVfbW11X25vdGlmaWVyICptbjsKPj4gLQo+PiAtCW1uID0ga21hbGxvYyhzaXpl
+b2YoKm1uKSwgR0ZQX0tFUk5FTCk7Cj4+IC0JaWYgKG1uID09IE5VTEwpCj4+IC0JCXJldHVybiBF
+UlJfUFRSKC1FTk9NRU0pOwo+PiAtCj4+IC0Jc3Bpbl9sb2NrX2luaXQoJm1uLT5sb2NrKTsKPj4g
+LQltbi0+bW4ub3BzID0gJmk5MTVfZ2VtX3VzZXJwdHJfbm90aWZpZXI7Cj4+IC0JbW4tPm9iamVj
+dHMgPSBSQl9ST09UX0NBQ0hFRDsKPj4gLQltbi0+bW0gPSBtbTsKPj4gLQo+PiAtCXJldHVybiBt
+bjsKPj4gLX0KPj4gLQo+PiAtc3RhdGljIHZvaWQKPj4gLWk5MTVfZ2VtX3VzZXJwdHJfcmVsZWFz
+ZV9fbW11X25vdGlmaWVyKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmopCj4+IC17Cj4+
+IC0Jc3RydWN0IGk5MTVfbW11X29iamVjdCAqbW87Cj4+IC0KPj4gLQltbyA9IGZldGNoX2FuZF96
+ZXJvKCZvYmotPnVzZXJwdHIubW11X29iamVjdCk7Cj4+IC0JaWYgKCFtbykKPj4gLQkJcmV0dXJu
+Owo+PiAtCj4+IC0Jc3Bpbl9sb2NrKCZtby0+bW4tPmxvY2spOwo+PiAtCWRlbF9vYmplY3QobW8p
+Owo+PiAtCXNwaW5fdW5sb2NrKCZtby0+bW4tPmxvY2spOwo+PiAtCWtmcmVlKG1vKTsKPj4gLX0K
+Pj4gLQo+PiAtc3RhdGljIHN0cnVjdCBpOTE1X21tdV9ub3RpZmllciAqCj4+IC1pOTE1X21tdV9u
+b3RpZmllcl9maW5kKHN0cnVjdCBpOTE1X21tX3N0cnVjdCAqbW0pCj4+IC17Cj4+IC0Jc3RydWN0
+IGk5MTVfbW11X25vdGlmaWVyICptbiwgKm9sZDsKPj4gLQlpbnQgZXJyOwo+PiAtCj4+IC0JbW4g
+PSBSRUFEX09OQ0UobW0tPm1uKTsKPj4gLQlpZiAobGlrZWx5KG1uKSkKPj4gLQkJcmV0dXJuIG1u
+Owo+PiAtCj4+IC0JbW4gPSBpOTE1X21tdV9ub3RpZmllcl9jcmVhdGUobW0pOwo+PiAtCWlmIChJ
+U19FUlIobW4pKQo+PiAtCQlyZXR1cm4gbW47Cj4+IC0KPj4gLQllcnIgPSBtbXVfbm90aWZpZXJf
+cmVnaXN0ZXIoJm1uLT5tbiwgbW0tPm1tKTsKPj4gLQlpZiAoZXJyKSB7Cj4+IC0JCWtmcmVlKG1u
+KTsKPj4gLQkJcmV0dXJuIEVSUl9QVFIoZXJyKTsKPj4gLQl9Cj4+IC0KPj4gLQlvbGQgPSBjbXB4
+Y2hnKCZtbS0+bW4sIE5VTEwsIG1uKTsKPj4gLQlpZiAob2xkKSB7Cj4+IC0JCW1tdV9ub3RpZmll
+cl91bnJlZ2lzdGVyKCZtbi0+bW4sIG1tLT5tbSk7Cj4+IC0JCWtmcmVlKG1uKTsKPj4gLQkJbW4g
+PSBvbGQ7Cj4+IC0JfQo+PiAtCj4+IC0JcmV0dXJuIG1uOwo+PiAtfQo+PiAtCj4+ICAgc3RhdGlj
+IGludAo+PiAgIGk5MTVfZ2VtX3VzZXJwdHJfaW5pdF9fbW11X25vdGlmaWVyKHN0cnVjdCBkcm1f
+aTkxNV9nZW1fb2JqZWN0ICpvYmopCj4+ICAgewo+PiAtCXN0cnVjdCBpOTE1X21tdV9ub3RpZmll
+ciAqbW47Cj4+IC0Jc3RydWN0IGk5MTVfbW11X29iamVjdCAqbW87Cj4+IC0KPj4gLQlpZiAoR0VN
+X1dBUk5fT04oIW9iai0+dXNlcnB0ci5tbSkpCj4+IC0JCXJldHVybiAtRUlOVkFMOwo+PiAtCj4+
+IC0JbW4gPSBpOTE1X21tdV9ub3RpZmllcl9maW5kKG9iai0+dXNlcnB0ci5tbSk7Cj4+IC0JaWYg
+KElTX0VSUihtbikpCj4+IC0JCXJldHVybiBQVFJfRVJSKG1uKTsKPj4gLQo+PiAtCW1vID0ga3ph
+bGxvYyhzaXplb2YoKm1vKSwgR0ZQX0tFUk5FTCk7Cj4+IC0JaWYgKCFtbykKPj4gLQkJcmV0dXJu
+IC1FTk9NRU07Cj4+IC0KPj4gLQltby0+bW4gPSBtbjsKPj4gLQltby0+b2JqID0gb2JqOwo+PiAt
+CW1vLT5pdC5zdGFydCA9IG9iai0+dXNlcnB0ci5wdHI7Cj4+IC0JbW8tPml0Lmxhc3QgPSBvYmot
+PnVzZXJwdHIucHRyICsgb2JqLT5iYXNlLnNpemUgLSAxOwo+PiAtCVJCX0NMRUFSX05PREUoJm1v
+LT5pdC5yYik7Cj4+IC0KPj4gLQlvYmotPnVzZXJwdHIubW11X29iamVjdCA9IG1vOwo+PiAtCXJl
+dHVybiAwOwo+PiAtfQo+PiAtCj4+IC1zdGF0aWMgdm9pZAo+PiAtaTkxNV9tbXVfbm90aWZpZXJf
+ZnJlZShzdHJ1Y3QgaTkxNV9tbXVfbm90aWZpZXIgKm1uLAo+PiAtCQkgICAgICAgc3RydWN0IG1t
+X3N0cnVjdCAqbW0pCj4+IC17Cj4+IC0JaWYgKG1uID09IE5VTEwpCj4+IC0JCXJldHVybjsKPj4g
+LQo+PiAtCW1tdV9ub3RpZmllcl91bnJlZ2lzdGVyKCZtbi0+bW4sIG1tKTsKPj4gLQlrZnJlZSht
+bik7Cj4+IC19Cj4+IC0KPj4gLQo+PiAtc3RhdGljIHN0cnVjdCBpOTE1X21tX3N0cnVjdCAqCj4+
+IC1fX2k5MTVfbW1fc3RydWN0X2ZpbmQoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsIHN0
+cnVjdCBtbV9zdHJ1Y3QgKnJlYWwpCj4+IC17Cj4+IC0Jc3RydWN0IGk5MTVfbW1fc3RydWN0ICpp
+dCwgKm1tID0gTlVMTDsKPj4gLQo+PiAtCXJjdV9yZWFkX2xvY2soKTsKPj4gLQloYXNoX2Zvcl9l
+YWNoX3Bvc3NpYmxlX3JjdShpOTE1LT5tbV9zdHJ1Y3RzLAo+PiAtCQkJCSAgIGl0LCBub2RlLAo+
+PiAtCQkJCSAgICh1bnNpZ25lZCBsb25nKXJlYWwpCj4+IC0JCWlmIChpdC0+bW0gPT0gcmVhbCAm
+JiBrcmVmX2dldF91bmxlc3NfemVybygmaXQtPmtyZWYpKSB7Cj4+IC0JCQltbSA9IGl0Owo+PiAt
+CQkJYnJlYWs7Cj4+IC0JCX0KPj4gLQlyY3VfcmVhZF91bmxvY2soKTsKPj4gLQo+PiAtCXJldHVy
+biBtbTsKPj4gKwlyZXR1cm4gbW11X2ludGVydmFsX25vdGlmaWVyX2luc2VydCgmb2JqLT51c2Vy
+cHRyLm5vdGlmaWVyLCBjdXJyZW50LT5tbSwKPj4gKwkJCQkJICAgIG9iai0+dXNlcnB0ci5wdHIs
+IG9iai0+YmFzZS5zaXplLAo+PiArCQkJCQkgICAgJmk5MTVfZ2VtX3VzZXJwdHJfbm90aWZpZXJf
+b3BzKTsKPj4gICB9Cj4+ICAgCj4+IC1zdGF0aWMgaW50Cj4+IC1pOTE1X2dlbV91c2VycHRyX2lu
+aXRfX21tX3N0cnVjdChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQo+PiArc3RhdGlj
+IHZvaWQgaTkxNV9nZW1fb2JqZWN0X3VzZXJwdHJfZHJvcF9yZWYoc3RydWN0IGRybV9pOTE1X2dl
+bV9vYmplY3QgKm9iaikKPj4gICB7Cj4+ICAgCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1
+ID0gdG9faTkxNShvYmotPmJhc2UuZGV2KTsKPj4gLQlzdHJ1Y3QgaTkxNV9tbV9zdHJ1Y3QgKm1t
+LCAqbmV3Owo+PiAtCWludCByZXQgPSAwOwo+PiAtCj4+IC0JLyogRHVyaW5nIHJlbGVhc2Ugb2Yg
+dGhlIEdFTSBvYmplY3Qgd2UgaG9sZCB0aGUgc3RydWN0X211dGV4LiBUaGlzCj4+IC0JICogcHJl
+Y2x1ZGVzIHVzIGZyb20gY2FsbGluZyBtbXB1dCgpIGF0IHRoYXQgdGltZSBhcyB0aGF0IG1heSBi
+ZQo+PiAtCSAqIHRoZSBsYXN0IHJlZmVyZW5jZSBhbmQgc28gY2FsbCBleGl0X21tYXAoKS4gZXhp
+dF9tbWFwKCkgd2lsbAo+PiAtCSAqIGF0dGVtcHQgdG8gcmVhcCB0aGUgdm1hLCBhbmQgaWYgd2Ug
+d2VyZSBob2xkaW5nIGEgR1RUIG1tYXAKPj4gLQkgKiB3b3VsZCB0aGVuIGNhbGwgZHJtX2dlbV92
+bV9jbG9zZSgpIGFuZCBhdHRlbXB0IHRvIHJlYWNxdWlyZQo+PiAtCSAqIHRoZSBzdHJ1Y3QgbXV0
+ZXguIFNvIGluIG9yZGVyIHRvIGF2b2lkIHRoYXQgcmVjdXJzaW9uLCB3ZSBoYXZlCj4+IC0JICog
+dG8gZGVmZXIgcmVsZWFzaW5nIHRoZSBtbSByZWZlcmVuY2UgdW50aWwgYWZ0ZXIgd2UgZHJvcCB0
+aGUKPj4gLQkgKiBzdHJ1Y3RfbXV0ZXgsIGkuZS4gd2UgbmVlZCB0byBzY2hlZHVsZSBhIHdvcmtl
+ciB0byBkbyB0aGUgY2xlYW4KPj4gLQkgKiB1cC4KPj4gLQkgKi8KPj4gLQltbSA9IF9faTkxNV9t
+bV9zdHJ1Y3RfZmluZChpOTE1LCBjdXJyZW50LT5tbSk7Cj4+IC0JaWYgKG1tKQo+PiAtCQlnb3Rv
+IG91dDsKPj4gKwlzdHJ1Y3QgcGFnZSAqKnB2ZWMgPSBOVUxMOwo+PiAgIAo+PiAtCW5ldyA9IGtt
+YWxsb2Moc2l6ZW9mKCptbSksIEdGUF9LRVJORUwpOwo+PiAtCWlmICghbmV3KQo+PiAtCQlyZXR1
+cm4gLUVOT01FTTsKPj4gLQo+PiAtCWtyZWZfaW5pdCgmbmV3LT5rcmVmKTsKPj4gLQluZXctPmk5
+MTUgPSB0b19pOTE1KG9iai0+YmFzZS5kZXYpOwo+PiAtCW5ldy0+bW0gPSBjdXJyZW50LT5tbTsK
+Pj4gLQluZXctPm1uID0gTlVMTDsKPj4gLQo+PiAtCXNwaW5fbG9jaygmaTkxNS0+bW1fbG9jayk7
+Cj4+IC0JbW0gPSBfX2k5MTVfbW1fc3RydWN0X2ZpbmQoaTkxNSwgY3VycmVudC0+bW0pOwo+PiAt
+CWlmICghbW0pIHsKPj4gLQkJaGFzaF9hZGRfcmN1KGk5MTUtPm1tX3N0cnVjdHMsCj4+IC0JCQkg
+ICAgICZuZXctPm5vZGUsCj4+IC0JCQkgICAgICh1bnNpZ25lZCBsb25nKW5ldy0+bW0pOwo+PiAt
+CQltbWdyYWIoY3VycmVudC0+bW0pOwo+PiAtCQltbSA9IG5ldzsKPj4gKwlzcGluX2xvY2soJmk5
+MTUtPm1tLm5vdGlmaWVyX2xvY2spOwo+PiArCWlmICghLS1vYmotPnVzZXJwdHIucGFnZV9yZWYp
+IHsKPj4gKwkJcHZlYyA9IG9iai0+dXNlcnB0ci5wdmVjOwo+PiArCQlvYmotPnVzZXJwdHIucHZl
+YyA9IE5VTEw7Cj4+ICAgCX0KPj4gLQlzcGluX3VubG9jaygmaTkxNS0+bW1fbG9jayk7Cj4+IC0J
+aWYgKG1tICE9IG5ldykKPj4gLQkJa2ZyZWUobmV3KTsKPj4gKwlHRU1fQlVHX09OKG9iai0+dXNl
+cnB0ci5wYWdlX3JlZiA8IDApOwo+PiArCXNwaW5fdW5sb2NrKCZpOTE1LT5tbS5ub3RpZmllcl9s
+b2NrKTsKPj4gICAKPj4gLW91dDoKPj4gLQlvYmotPnVzZXJwdHIubW0gPSBtbTsKPj4gLQlyZXR1
+cm4gcmV0Owo+PiAtfQo+PiAtCj4+IC1zdGF0aWMgdm9pZAo+PiAtX19pOTE1X21tX3N0cnVjdF9m
+cmVlX193b3JrZXIoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQo+PiAtewo+PiAtCXN0cnVjdCBp
+OTE1X21tX3N0cnVjdCAqbW0gPSBjb250YWluZXJfb2Yod29yaywgdHlwZW9mKCptbSksIHdvcmsu
+d29yayk7Cj4+IC0KPj4gLQlpOTE1X21tdV9ub3RpZmllcl9mcmVlKG1tLT5tbiwgbW0tPm1tKTsK
+Pj4gLQltbWRyb3AobW0tPm1tKTsKPj4gLQlrZnJlZShtbSk7Cj4+IC19Cj4+IC0KPj4gLXN0YXRp
+YyB2b2lkCj4+IC1fX2k5MTVfbW1fc3RydWN0X2ZyZWUoc3RydWN0IGtyZWYgKmtyZWYpCj4+IC17
+Cj4+IC0Jc3RydWN0IGk5MTVfbW1fc3RydWN0ICptbSA9IGNvbnRhaW5lcl9vZihrcmVmLCB0eXBl
+b2YoKm1tKSwga3JlZik7Cj4+IC0KPj4gLQlzcGluX2xvY2soJm1tLT5pOTE1LT5tbV9sb2NrKTsK
+Pj4gLQloYXNoX2RlbF9yY3UoJm1tLT5ub2RlKTsKPj4gLQlzcGluX3VubG9jaygmbW0tPmk5MTUt
+Pm1tX2xvY2spOwo+PiAtCj4+IC0JSU5JVF9SQ1VfV09SSygmbW0tPndvcmssIF9faTkxNV9tbV9z
+dHJ1Y3RfZnJlZV9fd29ya2VyKTsKPj4gLQlxdWV1ZV9yY3Vfd29yayhzeXN0ZW1fd3EsICZtbS0+
+d29yayk7Cj4+IC19Cj4+IC0KPj4gLXN0YXRpYyB2b2lkCj4+IC1pOTE1X2dlbV91c2VycHRyX3Jl
+bGVhc2VfX21tX3N0cnVjdChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQo+PiAtewo+
+PiAtCWlmIChvYmotPnVzZXJwdHIubW0gPT0gTlVMTCkKPj4gLQkJcmV0dXJuOwo+PiArCWlmIChw
+dmVjKSB7Cj4+ICsJCWNvbnN0IHVuc2lnbmVkIGxvbmcgbnVtX3BhZ2VzID0gb2JqLT5iYXNlLnNp
+emUgPj4gUEFHRV9TSElGVDsKPj4gICAKPj4gLQlrcmVmX3B1dCgmb2JqLT51c2VycHRyLm1tLT5r
+cmVmLCBfX2k5MTVfbW1fc3RydWN0X2ZyZWUpOwo+PiAtCW9iai0+dXNlcnB0ci5tbSA9IE5VTEw7
+Cj4+ICsJCXVucGluX3VzZXJfcGFnZXMocHZlYywgbnVtX3BhZ2VzKTsKPj4gKwkJa2ZyZWUocHZl
+Yyk7Cj4gVGhpcyBvbmUgbmVlZHMgdG8gYmUga3ZmcmVlIGFwcGFyZW50bHksIHBlciByZXZpZXcg
+ZnJvbSBwcmV2aW91cyByb3VuZC4KPiBDYW4geW91IHBscyBkbyBhIGZpeHVwIHBhdGNoPyBJJ20g
+YWxyZWFkeSBtZXJnaW5nLgo+Cj4gRm9yIHRoZSBvdGhlciBwZW5kaW5nIHJldmlldyBjb21tZW50
+cyBhbmQgc3VnZ2VzdGlvbnMgSSB0aGluayBpdCdzIGJldHRlcgo+IGlmIHdlIGhhbmRsZSB0aGlz
+IGluIGEgc2VwYXJhdGUgcGF0Y2ggc2VyaWVzIHRvIGhpZ2hsaWdodCBhbGwgdGhlCj4gcXVlc3Rp
+b25zLCBhbmQgaWRlYWxseSB3aXRoIGFtZGdwdSBmb2xrcyBpbnZvbHZlZCB0b28uCj4gLURhbmll
+bAoKU291bmRzIGZhaXIgZW5vdWdoLAoKU28gd2l0aCB0aGUga2ZyZWUtPmt2ZnJlZSBmaXhlZCwK
+ClJldmlld2VkLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhlbGxzdHJvbUBsaW51eC5p
+bnRlbC5jb20+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4
+Cg==
