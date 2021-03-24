@@ -2,57 +2,48 @@ Return-Path: <SRS0=sv0W=IW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2F39C433C1
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:36:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EF33C433C1
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:47:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B72A1619F2
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:36:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B72A1619F2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id EC9CE619EE
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:47:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC9CE619EE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29A7A6E0C1;
-	Wed, 24 Mar 2021 11:36:14 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B77DF6E0C1;
- Wed, 24 Mar 2021 11:36:12 +0000 (UTC)
-IronPort-SDR: BU/94J9Q3OsjYzr+8htJBjVgseIuYPR0oOi6Z5D7B35qH2WjvCZUT+y0vd7mYm6PUdQbRk6m/s
- ZkzIPJVv+33w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9932"; a="190097116"
-X-IronPort-AV: E=Sophos;i="5.81,274,1610438400"; d="scan'208";a="190097116"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 04:36:12 -0700
-IronPort-SDR: byCswZqrpS2ASRr5Smr/6uP0UvoGD+LNepbN8I46jJueLcNWl0sZh+GeezGw6exwW6cd40XTm1
- mnE29hi4HIKw==
-X-IronPort-AV: E=Sophos;i="5.81,274,1610438400"; d="scan'208";a="514152512"
-Received: from adizdarx-mobl1.ger.corp.intel.com (HELO [10.213.248.133])
- ([10.213.248.133])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 04:36:10 -0700
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20210319223856.2983244-5-jason@jlekstrand.net>
- <20210323175149.3390801-1-jason@jlekstrand.net>
- <6fa4f29f-a98e-b22b-ae0c-7df7e1bf71a7@linux.intel.com>
- <YFsL1ZQ3pkOHXZ9B@phenom.ffwll.local>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <97de980a-8d19-aa0a-0598-628b9c874af2@linux.intel.com>
-Date: Wed, 24 Mar 2021 11:36:09 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979346E1E0;
+	Wed, 24 Mar 2021 11:47:04 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 760FC6E1E0;
+ Wed, 24 Mar 2021 11:47:03 +0000 (UTC)
+IronPort-SDR: S4bhsyZsaMwKFe5moHes0vcUQBEBtondP9ApDZBkt9ddUmGEgG3Q9LUbN0FxYA3mvuQJESUN9K
+ RH+vx34wnnjQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9932"; a="190714444"
+X-IronPort-AV: E=Sophos;i="5.81,274,1610438400"; d="scan'208";a="190714444"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2021 04:47:02 -0700
+IronPort-SDR: 76afI7hrV4Ky4SaAbeVEM7plSN//Lnu1txliq+tf80VUNscKtB2bVqAzyQUaPJlHS+KTU6Xe6p
+ C/YRSqnu4+2Q==
+X-IronPort-AV: E=Sophos;i="5.81,274,1610438400"; d="scan'208";a="442937995"
+Received: from unknown (HELO genxfsim-desktop.iind.intel.com) ([10.223.74.179])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2021 04:47:00 -0700
+From: Anshuman Gupta <anshuman.gupta@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Wed, 24 Mar 2021 17:00:10 +0530
+Message-Id: <20210324113012.7564-1-anshuman.gupta@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <YFsL1ZQ3pkOHXZ9B@phenom.ffwll.local>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Implement SINGLE_TIMELINE with a
- syncobj (v2)
+Subject: [Intel-gfx] [PATCH v2 0/2] HDCP 2.2 DP errata
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,93 +56,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@intel.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+HDCP DP 2.2 errata is part of HDCP DP 2.3 specs
+as well. 
 
-On 24/03/2021 09:52, Daniel Vetter wrote:
-> On Wed, Mar 24, 2021 at 09:28:58AM +0000, Tvrtko Ursulin wrote:
->>
->> On 23/03/2021 17:51, Jason Ekstrand wrote:
->>> This API is entirely unnecessary and I'd love to get rid of it.  If
->>> userspace wants a single timeline across multiple contexts, they can
->>> either use implicit synchronization or a syncobj, both of which existed
->>> at the time this feature landed.  The justification given at the time
->>> was that it would help GL drivers which are inherently single-timeline.
->>> However, neither of our GL drivers actually wanted the feature.  i965
->>> was already in maintenance mode at the time and iris uses syncobj for
->>> everything.
->>>
->>> Unfortunately, as much as I'd love to get rid of it, it is used by the
->>> media driver so we can't do that.  We can, however, do the next-best
->>> thing which is to embed a syncobj in the context and do exactly what
->>> we'd expect from userspace internally.  This isn't an entirely identical
->>> implementation because it's no longer atomic if userspace races with
->>> itself by calling execbuffer2 twice simultaneously from different
->>> threads.  It won't crash in that case; it just doesn't guarantee any
->>> ordering between those two submits.
->>>
->>> Moving SINGLE_TIMELINE to a syncobj emulation has a couple of technical
->>> advantages beyond mere annoyance.  One is that intel_timeline is no
->>> longer an api-visible object and can remain entirely an implementation
->>> detail.  This may be advantageous as we make scheduler changes going
->>> forward.  Second is that, together with deleting the CLONE_CONTEXT API,
->>> we should now have a 1:1 mapping between intel_context and
->>> intel_timeline which may help us reduce locking.
->>
->> Much, much better commit message although I still fail to understand where
->> do you see implementation details leaking out. So for me this is still
->> something I'd like to get to the bottom of.
->>
->> I would also mention the difference regarding fence context change.
->>
->> And in general I would maintain this patch as part of a series which ends up
->> demonstrating the "mays" and "shoulds".
-> 
-> I disagree. The past few years we've merged way too much patches and
-> features without carefully answering the high level questions of
-> - do we really need to solve this problem
-> - and if so, are we really solving this problem in the right place
-> 
-> Now we're quite in a hole, and we're not going to get out of this hole if
-> we keep applying the same standards that got us here. Anything that does
-> not clearly and without reservation the above two questions with "yes"
-> needs to be removed or walled off, just so we can eventually see which
-> complexity we really need, and what is actually superflous.
+Anshuman Gupta (2):
+  drm/i915/hdcp: Add DP HDCP2.2 timeout to read entire msg
+  drm/hdcp: DP HDCP2.2 errata LC_Send_L_Prime=16
 
-I understand your general point but when I apply it to this specific 
-patch, even if it is simple, it is neither removing the uapi or walling 
-it off. So I see it as the usual review standard to ask to see what 
-"mays" and "shoulds" actually get us in concrete terms.
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 45 ++++++++++++++------
+ include/drm/drm_hdcp.h                       |  5 ++-
+ 2 files changed, 36 insertions(+), 14 deletions(-)
 
-I would be able to understand putting the uapi behind the "if gen > 12 
-|| is_discrete EINVAL", or whatever, since it is fair game to deprecate 
-for any new platform or say GuC submission.
+-- 
+2.26.2
 
-Not doing simply that makes me worry there are still misunderstandings 
-on what kind of problems were encountered with regards to 
-intel_timeline, by work item this or work item that, and that there 
-isn't still a confusion about what is the internal timeline object and 
-what is the internal hwsp object. I feel there hasn't been full 
-transparency on these technical issues which is why I think seeing the 
-actual series which is supposed to build on top of this would be helpful.
-
-I even worry that we still have a big disconnect on whether this flag is 
-leaking any internal implementation details out to userspace. If the 
-commit message was reworded without actual agreement that implementation 
-details are not exposed we will continue disagreeing going forward, 
-which is not a good start.
-
-We exchanged so many emails on this but I don't feel we are getting 
-anywhere so I really have no idea - obviously you will steamroll this in 
-regardless so I don't think there is point to argue further.
-
-Regards,
-
-Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
