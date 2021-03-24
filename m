@@ -2,71 +2,78 @@ Return-Path: <SRS0=sv0W=IW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DAB4EC433C1
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:27:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85FD5C433C1
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:58:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C07E619B8
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:27:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C07E619B8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 27387619B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:58:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27387619B4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 268C66EA5C;
-	Wed, 24 Mar 2021 20:27:29 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EE6C6EA5C
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 20:27:28 +0000 (UTC)
-IronPort-SDR: HKQp7EXYrCJbnu1SDPGLdoLOrXAHulQzhnfQhzhNfL8bk7x5RSbiiXIhZMYwIGEmvH5rp49XhC
- MRukvWGPOF8g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="190207545"
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="190207545"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 13:27:28 -0700
-IronPort-SDR: ay3rJ4iDr//ihtKpy8Pxtj8ijcIwEFUnCEvdYfsQbstAT1NVOHMXCm3Tuw7/6JfPWY9AgScB5n
- avGRgd8Vx6fw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="443107277"
-Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
- by FMSMGA003.fm.intel.com with ESMTP; 24 Mar 2021 13:27:28 -0700
-Received: from bgsmsx606.gar.corp.intel.com (10.67.234.8) by
- fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 24 Mar 2021 13:27:27 -0700
-Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
- BGSMSX606.gar.corp.intel.com (10.67.234.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Thu, 25 Mar 2021 01:57:25 +0530
-Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
- BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.2106.013;
- Thu, 25 Mar 2021 01:57:25 +0530
-From: "Shankar, Uma" <uma.shankar@intel.com>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [PATCH v2] drm/i915/audio: set HDA link parameters in driver
-Thread-Index: AQHXIKsE0H15zK2oLkqufzbYUSPVOKqThihA
-Date: Wed, 24 Mar 2021 20:27:25 +0000
-Message-ID: <bdb9e37cf05d401d80a86e4d397649f5@intel.com>
-References: <20210324123725.4170214-1-kai.vehmanen@linux.intel.com>
-In-Reply-To: <20210324123725.4170214-1-kai.vehmanen@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [10.223.10.1]
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C296E1BC;
+	Wed, 24 Mar 2021 20:58:33 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 959276E1BC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 20:58:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1616619511;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type: content-transfer-encoding:content-transfer-encoding;
+ bh=wDpK0jU2adLTMsShi/tRLuaqod6dgo7/ErJCz2+WIZM=;
+ b=bjaN3MK3kdr+WR2p4c8S73du14lcAj1xqH6vvBqYPj1NeiUJ3uKcdG5FsFKE/3exa5ftlR
+ kO5BnM752xV1K2On2agcELbBThapR18P1KOYsRxttDp7HCuh8TJy/jsesMgZEgya9kgVx/
+ 4sv7VUse9C3mo9h4vQq4qiK0MG362uU=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-491-ngHVIGZxO7mwTW45pxLmpw-1; Wed, 24 Mar 2021 16:58:25 -0400
+X-MC-Unique: ngHVIGZxO7mwTW45pxLmpw-1
+Received: by mail-qv1-f70.google.com with SMTP id z5so2196902qvo.16
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 13:58:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:reply-to:to:cc:date
+ :organization:user-agent:mime-version:content-transfer-encoding;
+ bh=wDpK0jU2adLTMsShi/tRLuaqod6dgo7/ErJCz2+WIZM=;
+ b=r6JbhIUuhhMLanDsFKzuGCv8FQ8ysxqjEtiLPcye/Q42V8AOUkTuEY8P5IK2gFAG+T
+ YUwSIgj2w1Kk19IhMn77PpVo0L5+gtwb92+73DnHY9mFcNC+yMwCPOn81q1JbRXa+9Lz
+ vRCTDehwbII69wkJ6cx4ld8uOaL86PxJ+I6sw9o1yDpdqLh8MfvygOAJfYP7NrS5LOxq
+ KeQt6YbXL/tyW4g11I11C/38LKipuxwV6LrNcrbKl1za8TH9+qLKPyCIG8ug7bjHbLE3
+ 08/6ypQkt84bFVF7ZDaDBXCEXLp7/B3zXwhLKkzuFXmh7Ufynm5czkaWd7EcRs6UmYU7
+ BXWQ==
+X-Gm-Message-State: AOAM531rVVN51eIjoGMlOHBYsaFyrq3DY1YCG/6GSIegI0JvuaHgx8AV
+ gLojrxcsB2i9025Fs0zYIwbuTzZzZVwtBBfC2kJLaehOKwX5XvMrUsepr/8bHA+dIDgTxLV6wOM
+ jIr2aRUP4JB+zCxwhCsLPdKUVKtyT
+X-Received: by 2002:ac8:7d43:: with SMTP id h3mr4694727qtb.388.1616619504560; 
+ Wed, 24 Mar 2021 13:58:24 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzSTn2eQ9V18kRB76tQvlRAns2jg79GIZcv1/0glvorj3szTGYTXgIQB6NiHVlNxQ3CLGCDyQ==
+X-Received: by 2002:ac8:7d43:: with SMTP id h3mr4694721qtb.388.1616619504342; 
+ Wed, 24 Mar 2021 13:58:24 -0700 (PDT)
+Received: from Whitewolf.lyude.net
+ (pool-108-49-102-102.bstnma.fios.verizon.net. [108.49.102.102])
+ by smtp.gmail.com with ESMTPSA id l129sm2569003qkd.76.2021.03.24.13.58.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Mar 2021 13:58:23 -0700 (PDT)
+Message-ID: <dab3efecceb3e2ad2dc543a7c09fd9de0d55af2d.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: Aaron Ma <aaron.ma@canonical.com>, Jani Nikula <jani.nikula@intel.com>
+Date: Wed, 24 Mar 2021 16:58:23 -0400
+Organization: Red Hat
+User-Agent: Evolution 3.38.4 (3.38.4-1.fc33)
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/audio: set HDA link parameters
- in driver
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Subject: [Intel-gfx] Regarding the laptop with the BOE panel with ID 2270
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,112 +86,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: lyude@redhat.com
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hey Aaron! A while ago you submitted some patches for a machine that appears to
+have needed the VESA backlight interface in order to control the panel backlight
+on it:
 
+https://patchwork.freedesktop.org/patch/394371/
 
-> -----Original Message-----
-> From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Sent: Wednesday, March 24, 2021 6:07 PM
-> To: intel-gfx@lists.freedesktop.org
-> Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>; Shankar, Uma
-> <uma.shankar@intel.com>
-> Subject: [PATCH v2] drm/i915/audio: set HDA link parameters in driver
-> 
-> Update logic to program AUD_FREQ_CNTRL register based on new guidance.
-> Earlier this register was configured by BIOS and driver discovered the value at init.
-> This is no longer recommended and instead driver should set the values based on the
-> hardware revision.
-> 
-> Add the recommended values for all supported hardware. This change applies for all
-> GEN12+ hardware. For TGL, some special case handling is needed to not break
-> existing systems.
-> 
-> Extend the debug print to also include values of the register as written by BIOS. This
-> can help debug rare cases where BIOS has configured the link settings to incorrect
-> values.
+We're currently dealing with a different laptop where the machine advertises
+VESA backlight support, which we end up defaulting to after failing to probe for
+the Intel backlight interface, but this backlight interface appears to be
+broken:
 
-Pushed to drm-intel-next. Thanks for the patch.
+https://gitlab.freedesktop.org/drm/intel/-/issues/3158
 
-Regards,
-Uma Shankar
+The fix I was hoping to do was to just not attempt probing for the VESA
+backlight interface, but if we did that then it's possible that the backlight
+controls for the machine you submitted your patch for would stop working out of
+the box. However, it occurred to me that we never tried the Intel backlight
+interface on your machine - and if it works there, then we'd likely be able to
+require the VBT to advertise VESA support before using it and fix the machine in
+the gitlab issue I've linked.
 
-> Bspec: 49279
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_audio.c | 30 ++++++++++++++++++----
->  1 file changed, 25 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_audio.c
-> b/drivers/gpu/drm/i915/display/intel_audio.c
-> index 3ea20c857440..9671c8f6e892 100644
-> --- a/drivers/gpu/drm/i915/display/intel_audio.c
-> +++ b/drivers/gpu/drm/i915/display/intel_audio.c
-> @@ -1266,6 +1266,15 @@ static const struct component_ops
-> i915_audio_component_bind_ops = {
->  	.unbind	= i915_audio_component_unbind,
->  };
-> 
-> +#define AUD_FREQ_TMODE_SHIFT	14
-> +#define AUD_FREQ_4T		0
-> +#define AUD_FREQ_8T		(2 << AUD_FREQ_TMODE_SHIFT)
-> +#define AUD_FREQ_PULLCLKS(x)	(((x) & 0x3) << 11)
-> +#define AUD_FREQ_BCLK_96M	BIT(4)
-> +
-> +#define AUD_FREQ_GEN12          (AUD_FREQ_8T | AUD_FREQ_PULLCLKS(0) |
-> AUD_FREQ_BCLK_96M)
-> +#define AUD_FREQ_TGL_BROKEN     (AUD_FREQ_8T | AUD_FREQ_PULLCLKS(2) |
-> AUD_FREQ_BCLK_96M)
-> +
->  /**
->   * i915_audio_component_init - initialize and register the audio component
->   * @dev_priv: i915 device instance
-> @@ -1284,6 +1293,7 @@ static const struct component_ops
-> i915_audio_component_bind_ops = {
->   */
->  static void i915_audio_component_init(struct drm_i915_private *dev_priv)  {
-> +	u32 aud_freq, aud_freq_init;
->  	int ret;
-> 
->  	ret = component_add_typed(dev_priv->drm.dev,
-> @@ -1297,11 +1307,21 @@ static void i915_audio_component_init(struct
-> drm_i915_private *dev_priv)
->  	}
-> 
->  	if (DISPLAY_VER(dev_priv) >= 9) {
-> -		dev_priv->audio_freq_cntrl = intel_de_read(dev_priv,
-> -							   AUD_FREQ_CNTRL);
-> -		drm_dbg_kms(&dev_priv->drm,
-> -			    "init value of AUD_FREQ_CNTRL of 0x%x\n",
-> -			    dev_priv->audio_freq_cntrl);
-> +		aud_freq_init = intel_de_read(dev_priv, AUD_FREQ_CNTRL);
-> +
-> +		if (INTEL_GEN(dev_priv) >= 12)
-> +			aud_freq = AUD_FREQ_GEN12;
-> +		else
-> +			aud_freq = aud_freq_init;
-> +
-> +		/* use BIOS provided value for TGL unless it is a known bad value */
-> +		if (IS_TIGERLAKE(dev_priv) && aud_freq_init !=
-> AUD_FREQ_TGL_BROKEN)
-> +			aud_freq = aud_freq_init;
-> +
-> +		drm_dbg_kms(&dev_priv->drm, "use AUD_FREQ_CNTRL of 0x%x
-> (init value 0x%x)\n",
-> +			    aud_freq, aud_freq_init);
-> +
-> +		dev_priv->audio_freq_cntrl = aud_freq;
->  	}
-> 
->  	dev_priv->audio_component_registered = true;
-> 
-> base-commit: 9d58aa46291d4d696bb1eac3436d3118f7bf2573
-> --
-> 2.29.2
+Do you think you could test this for us? If you build the latest kernel from
+drm-tip, the easiest way should be to boot up with
+"i915.enable_dpcd_backlight=3" and just see if your backlight controls still
+work as expected.
+-- 
+Sincerely,
+   Lyude Paul (she/her)
+   Software Engineer at Red Hat
+   
+Note: I deal with a lot of emails and have a lot of bugs on my plate. If you've
+asked me a question, are waiting for a review/merge on a patch, etc. and I
+haven't responded in a while, please feel free to send me another email to check
+on my status. I don't bite!
 
 _______________________________________________
 Intel-gfx mailing list
