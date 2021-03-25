@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51E55C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA04AC433C1
 	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:07:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 151F061A24
+	by mail.kernel.org (Postfix) with ESMTPS id B69BB619CB
 	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:07:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 151F061A24
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B69BB619CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2C36EE14;
-	Thu, 25 Mar 2021 18:07:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60A346EE30;
+	Thu, 25 Mar 2021 18:07:34 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F51A6EE09
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7AAE6EE13
  for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 18:07:31 +0000 (UTC)
-IronPort-SDR: IF5jFZ44sENtcNyEWqY0ECAytZJrqN/GvVC4pvz393yLqtXfH9QSm5AZeeKiVZ7Nbuip/UDQ2x
- wPVSZLoeec0g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="178112531"
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="178112531"
+IronPort-SDR: o7ct4eUunVjej+XJTe0QxrtSC/LeVjStYTiY8LPtXMYDQ+XhOwgzAE+oFpmgwyeklMvPt+0IIQ
+ V9/ci9B++aGQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="178112536"
+X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="178112536"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 11:07:30 -0700
-IronPort-SDR: NfPwzYlm4X/ceIA7FZOt+R/1loKU7j0JBUUpuJn3QOVJtxpN7EWFuOxF6iFJ9FqQXZ4Uj1K9mL
- TlenyYZq262Q==
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="453176599"
+ 25 Mar 2021 11:07:31 -0700
+IronPort-SDR: Kl0NBzrFwpMahBGQqlWYqoDPK/XNKPh6AOe3JKPqPPNAHwjrkiW1gtVOeeltd8Ktgh2CXDAmTC
+ HNSk4TNvQSCQ==
+X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="453176617"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 11:07:30 -0700
+ 25 Mar 2021 11:07:31 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 25 Mar 2021 11:06:47 -0700
-Message-Id: <20210325180720.401410-18-matthew.d.roper@intel.com>
+Date: Thu, 25 Mar 2021 11:06:51 -0700
+Message-Id: <20210325180720.401410-22-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210325180720.401410-1-matthew.d.roper@intel.com>
 References: <20210325180720.401410-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 17/50] drm/i915/xelpd: Add VRR guardband for
- VRR CTL
+Subject: [Intel-gfx] [PATCH v2 21/50] drm/i915/adl_p: Add dedicated SAGV
+ watermarks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,199 +64,264 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Manasi Navare <manasi.d.navare@intel.com>
+XE_LPD reduces the number of regular watermark latency levels from 8
+to 6 on non-dgfx platforms.  However the hardware also adds a special
+purpose SAGV wateramrk (and an accompanying transition watermark) that
+will be used by the hardware in place of the level 0 values during SAGV
+transitions.
 
-On XE_LPD, VRR CTL register adds a new VRR Guardband bitfield
-replacing the pipeline full and deprecating the pipeline override
-bit.
-
-This patch adds this corresponding bitfield in the register defs,
-crtc state vrr structure and populates this in vrr compute
-config and vrr enable functions. It also adds the corresponding
-HW state readout for this field.
-
-Cc: Aditya Swarup <aditya.swarup@intel.com>
-Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+Bspec: 49325, 49326, 50419
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  |  8 ++-
- .../drm/i915/display/intel_display_types.h    |  2 +-
- drivers/gpu/drm/i915/display/intel_vrr.c      | 56 +++++++++++++------
- drivers/gpu/drm/i915/i915_drv.h               |  3 +
- drivers/gpu/drm/i915/i915_reg.h               |  2 +
- 5 files changed, 51 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 32 +++++++++++
+ drivers/gpu/drm/i915/i915_drv.h              |  2 +
+ drivers/gpu/drm/i915/i915_reg.h              | 59 ++++++++++++++------
+ drivers/gpu/drm/i915/intel_pm.c              | 56 +++++++++++++++++--
+ 4 files changed, 128 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 03d1e0eedaa8..d1b067586c0b 100644
+index d1b067586c0b..d04924d405e5 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -8159,10 +8159,11 @@ static void intel_dump_pipe_config(const struct intel_crtc_state *pipe_config,
- 	    intel_hdmi_infoframe_enable(DP_SDP_VSC))
- 		intel_dump_dp_vsc_sdp(dev_priv, &pipe_config->infoframes.vsc);
+@@ -9275,6 +9275,38 @@ static void verify_wm_state(struct intel_crtc *crtc,
+ 				hw_wm_level->lines);
+ 		}
  
--	drm_dbg_kms(&dev_priv->drm, "vrr: %s, vmin: %d, vmax: %d, pipeline full: %d, flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
-+	drm_dbg_kms(&dev_priv->drm, "vrr: %s, vmin: %d, vmax: %d, pipeline full: %d, guardband: %d flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
- 		    yesno(pipe_config->vrr.enable),
- 		    pipe_config->vrr.vmin, pipe_config->vrr.vmax,
--		    pipe_config->vrr.pipeline_full, pipe_config->vrr.flipline,
-+		    pipe_config->vrr.pipeline_full, pipe_config->vrr.guardband,
-+		    pipe_config->vrr.flipline,
- 		    intel_vrr_vmin_vblank_start(pipe_config),
- 		    intel_vrr_vmax_vblank_start(pipe_config));
- 
-@@ -9168,6 +9169,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	PIPE_CONF_CHECK_I(vrr.vmax);
- 	PIPE_CONF_CHECK_I(vrr.flipline);
- 	PIPE_CONF_CHECK_I(vrr.pipeline_full);
-+	PIPE_CONF_CHECK_I(vrr.guardband);
- 
- #undef PIPE_CONF_CHECK_X
- #undef PIPE_CONF_CHECK_I
-@@ -12628,6 +12630,8 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
- 
- 	i915->framestart_delay = 1; /* 1-4 */
- 
-+	i915->window2_delay = 0; /* No DSB so no window2 delay */
++		hw_wm_level = &hw->wm.planes[plane->id].sagv.wm0;
++		sw_wm_level = &sw_wm->planes[plane->id].sagv.wm0;
 +
- 	intel_mode_config_init(i915);
- 
- 	ret = intel_cdclk_init(i915);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 946e030313a8..7afd7b85a4be 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1178,7 +1178,7 @@ struct intel_crtc_state {
- 	struct {
- 		bool enable;
- 		u8 pipeline_full;
--		u16 flipline, vmin, vmax;
-+		u16 flipline, vmin, vmax, guardband;
- 	} vrr;
- 
- 	/* Stream Splitter for eDP MSO */
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index a9c2b2fd9252..7013163f4978 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -67,7 +67,10 @@ static int intel_vrr_vblank_exit_length(const struct intel_crtc_state *crtc_stat
- 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 
- 	/* The hw imposes the extra scanline before frame start */
--	return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
-+	if (DISPLAY_VER(i915) >= 13)
-+		return crtc_state->vrr.guardband + i915->framestart_delay + 1;
-+	else
-+		return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
- }
- 
- int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_state)
-@@ -85,6 +88,8 @@ void
- intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 			 struct drm_connector_state *conn_state)
- {
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 	struct intel_connector *connector =
- 		to_intel_connector(conn_state->connector);
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-@@ -123,17 +128,26 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	crtc_state->vrr.flipline = crtc_state->vrr.vmin + 1;
- 
- 	/*
--	 * FIXME: s/4/framestart_delay+1/ to get consistent
--	 * earliest/latest points for register latching regardless
--	 * of the framestart_delay used?
--	 *
--	 * FIXME: this really needs the extra scanline to provide consistent
--	 * behaviour for all framestart_delay values. Otherwise with
--	 * framestart_delay==3 we will end up extending the min vblank by
--	 * one extra line.
-+	 * For XE_LPD+, we use guardband and pipeline override
-+	 * is deprecated.
- 	 */
--	crtc_state->vrr.pipeline_full =
--		min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay - 4 - 1);
-+	if (DISPLAY_VER(i915) >= 13)
-+		crtc_state->vrr.guardband =
-+			crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay -
-+			i915->window2_delay;
-+	else
-+		/*
-+		 * FIXME: s/4/framestart_delay+1/ to get consistent
-+		 * earliest/latest points for register latching regardless
-+		 * of the framestart_delay used?
-+		 *
-+		 * FIXME: this really needs the extra scanline to provide consistent
-+		 * behaviour for all framestart_delay values. Otherwise with
-+		 * framestart_delay==3 we will end up extending the min vblank by
-+		 * one extra line.
-+		 */
-+		crtc_state->vrr.pipeline_full =
-+			min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay - 4 - 1);
- 
- 	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
- }
-@@ -148,10 +162,15 @@ void intel_vrr_enable(struct intel_encoder *encoder,
- 	if (!crtc_state->vrr.enable)
- 		return;
- 
--	trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
--		VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
--		VRR_CTL_PIPELINE_FULL(crtc_state->vrr.pipeline_full) |
--		VRR_CTL_PIPELINE_FULL_OVERRIDE;
-+	if (DISPLAY_VER(dev_priv) >= 13)
-+		trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
-+			VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
-+			XELPD_VRR_CTL_VRR_GUARDBAND(crtc_state->vrr.guardband);
-+	else
-+		trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
-+			VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
-+			VRR_CTL_PIPELINE_FULL(crtc_state->vrr.pipeline_full) |
-+			VRR_CTL_PIPELINE_FULL_OVERRIDE;
- 
- 	intel_de_write(dev_priv, TRANS_VRR_VMIN(cpu_transcoder), crtc_state->vrr.vmin - 1);
- 	intel_de_write(dev_priv, TRANS_VRR_VMAX(cpu_transcoder), crtc_state->vrr.vmax - 1);
-@@ -198,8 +217,11 @@ void intel_vrr_get_config(struct intel_crtc *crtc,
- 	if (!crtc_state->vrr.enable)
- 		return;
- 
--	if (trans_vrr_ctl & VRR_CTL_PIPELINE_FULL_OVERRIDE)
--		crtc_state->vrr.pipeline_full = REG_FIELD_GET(VRR_CTL_PIPELINE_FULL_MASK, trans_vrr_ctl);
-+	if (DISPLAY_VER(dev_priv) >= 13)
-+		crtc_state->vrr.guardband = REG_FIELD_GET(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, trans_vrr_ctl);
-+	else
-+		if (trans_vrr_ctl & VRR_CTL_PIPELINE_FULL_OVERRIDE)
-+			crtc_state->vrr.pipeline_full = REG_FIELD_GET(VRR_CTL_PIPELINE_FULL_MASK, trans_vrr_ctl);
- 	if (trans_vrr_ctl & VRR_CTL_FLIP_LINE_EN)
- 		crtc_state->vrr.flipline = intel_de_read(dev_priv, TRANS_VRR_FLIPLINE(cpu_transcoder)) + 1;
- 	crtc_state->vrr.vmax = intel_de_read(dev_priv, TRANS_VRR_VMAX(cpu_transcoder)) + 1;
++		if (HAS_HW_SAGV_WM(dev_priv) &&
++		    !skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
++			drm_err(&dev_priv->drm,
++				"[PLANE:%d:%s] mismatch in SAGV WM (expected e=%d b=%u l=%u, got e=%d b=%u l=%u)\n",
++				plane->base.base.id, plane->base.name,
++				sw_wm_level->enable,
++				sw_wm_level->blocks,
++				sw_wm_level->lines,
++				hw_wm_level->enable,
++				hw_wm_level->blocks,
++				hw_wm_level->lines);
++		}
++
++		hw_wm_level = &hw->wm.planes[plane->id].sagv.trans_wm;
++		sw_wm_level = &sw_wm->planes[plane->id].sagv.trans_wm;
++
++		if (HAS_HW_SAGV_WM(dev_priv) &&
++		    !skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
++			drm_err(&dev_priv->drm,
++				"[PLANE:%d:%s] mismatch in SAGV trans WM (expected e=%d b=%u l=%u, got e=%d b=%u l=%u)\n",
++				plane->base.base.id, plane->base.name,
++				sw_wm_level->enable,
++				sw_wm_level->blocks,
++				sw_wm_level->lines,
++				hw_wm_level->enable,
++				hw_wm_level->blocks,
++				hw_wm_level->lines);
++		}
++
+ 		/* DDB */
+ 		hw_ddb_entry = &hw->ddb_y[plane->id];
+ 		sw_ddb_entry = &new_crtc_state->wm.skl.plane_ddb_y[plane->id];
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index fa596dace490..c78d7d37a754 100644
+index ab1db490bbcf..68e216f5e0bb 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1130,6 +1130,9 @@ struct drm_i915_private {
+@@ -581,6 +581,8 @@ i915_fence_timeout(const struct drm_i915_private *i915)
+ /* Amount of SAGV/QGV points, BSpec precisely defines this */
+ #define I915_NUM_QGV_POINTS 8
  
- 	u8 framestart_delay;
- 
-+	/* Window2 specifies time required to program DSB (Window2) in number of scan lines */
-+	u8 window2_delay;
++#define HAS_HW_SAGV_WM(i915) ((DISPLAY_VER(i915) == 13) && !IS_DGFX(i915))
 +
- 	u8 pch_ssc_use;
- 
- 	/* For i915gm/i945gm vblank irq workaround */
+ struct ddi_vbt_port_info {
+ 	/* Non-NULL if port present. */
+ 	struct intel_bios_encoder_data *devdata;
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 22beacb28920..73ffdbc4e382 100644
+index 73ffdbc4e382..e39c2bbaa490 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4367,6 +4367,8 @@ enum {
- #define   VRR_CTL_PIPELINE_FULL_MASK		REG_GENMASK(10, 3)
- #define   VRR_CTL_PIPELINE_FULL(x)		REG_FIELD_PREP(VRR_CTL_PIPELINE_FULL_MASK, (x))
- #define   VRR_CTL_PIPELINE_FULL_OVERRIDE	REG_BIT(0)
-+#define	  XELPD_VRR_CTL_VRR_GUARDBAND_MASK	REG_GENMASK(15, 0)
-+#define	  XELPD_VRR_CTL_VRR_GUARDBAND(x)	REG_FIELD_PREP(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, (x))
+@@ -6426,16 +6426,28 @@ enum {
+ /* Watermark register definitions for SKL */
+ #define _CUR_WM_A_0		0x70140
+ #define _CUR_WM_B_0		0x71140
++#define _CUR_WM_SAGV_A		0x70158
++#define _CUR_WM_SAGV_B		0x71158
++#define _CUR_WM_SAGV_TRANS_A	0x7015C
++#define _CUR_WM_SAGV_TRANS_B	0x7115C
++#define _CUR_WM_TRANS_A		0x70168
++#define _CUR_WM_TRANS_B		0x71168
+ #define _PLANE_WM_1_A_0		0x70240
+ #define _PLANE_WM_1_B_0		0x71240
+ #define _PLANE_WM_2_A_0		0x70340
+ #define _PLANE_WM_2_B_0		0x71340
+-#define _PLANE_WM_TRANS_1_A_0	0x70268
+-#define _PLANE_WM_TRANS_1_B_0	0x71268
+-#define _PLANE_WM_TRANS_2_A_0	0x70368
+-#define _PLANE_WM_TRANS_2_B_0	0x71368
+-#define _CUR_WM_TRANS_A_0	0x70168
+-#define _CUR_WM_TRANS_B_0	0x71168
++#define _PLANE_WM_SAGV_1_A	0x70258
++#define _PLANE_WM_SAGV_1_B	0x71258
++#define _PLANE_WM_SAGV_2_A	0x70358
++#define _PLANE_WM_SAGV_2_B	0x71358
++#define _PLANE_WM_SAGV_TRANS_1_A	0x7025C
++#define _PLANE_WM_SAGV_TRANS_1_B	0x7125C
++#define _PLANE_WM_SAGV_TRANS_2_A	0x7035C
++#define _PLANE_WM_SAGV_TRANS_2_B	0x7135C
++#define _PLANE_WM_TRANS_1_A	0x70268
++#define _PLANE_WM_TRANS_1_B	0x71268
++#define _PLANE_WM_TRANS_2_A	0x70368
++#define _PLANE_WM_TRANS_2_B	0x71368
+ #define   PLANE_WM_EN		(1 << 31)
+ #define   PLANE_WM_IGNORE_LINES	(1 << 30)
+ #define   PLANE_WM_LINES_MASK	REG_GENMASK(21, 14)
+@@ -6443,19 +6455,32 @@ enum {
  
- #define _TRANS_VRR_VMAX_A		0x60424
- #define _TRANS_VRR_VMAX_B		0x61424
+ #define _CUR_WM_0(pipe) _PIPE(pipe, _CUR_WM_A_0, _CUR_WM_B_0)
+ #define CUR_WM(pipe, level) _MMIO(_CUR_WM_0(pipe) + ((4) * (level)))
+-#define CUR_WM_TRANS(pipe) _MMIO_PIPE(pipe, _CUR_WM_TRANS_A_0, _CUR_WM_TRANS_B_0)
+-
++#define CUR_WM_SAGV(pipe) _MMIO_PIPE(pipe, _CUR_WM_SAGV_A, _CUR_WM_SAGV_B)
++#define CUR_WM_SAGV_TRANS(pipe) _MMIO_PIPE(pipe, _CUR_WM_SAGV_TRANS_A, _CUR_WM_SAGV_TRANS_B)
++#define CUR_WM_TRANS(pipe) _MMIO_PIPE(pipe, _CUR_WM_TRANS_A, _CUR_WM_TRANS_B)
+ #define _PLANE_WM_1(pipe) _PIPE(pipe, _PLANE_WM_1_A_0, _PLANE_WM_1_B_0)
+ #define _PLANE_WM_2(pipe) _PIPE(pipe, _PLANE_WM_2_A_0, _PLANE_WM_2_B_0)
+-#define _PLANE_WM_BASE(pipe, plane)	\
+-			_PLANE(plane, _PLANE_WM_1(pipe), _PLANE_WM_2(pipe))
+-#define PLANE_WM(pipe, plane, level)	\
+-			_MMIO(_PLANE_WM_BASE(pipe, plane) + ((4) * (level)))
+-#define _PLANE_WM_TRANS_1(pipe)	\
+-			_PIPE(pipe, _PLANE_WM_TRANS_1_A_0, _PLANE_WM_TRANS_1_B_0)
+-#define _PLANE_WM_TRANS_2(pipe)	\
+-			_PIPE(pipe, _PLANE_WM_TRANS_2_A_0, _PLANE_WM_TRANS_2_B_0)
+-#define PLANE_WM_TRANS(pipe, plane)	\
++#define _PLANE_WM_BASE(pipe, plane) \
++	_PLANE(plane, _PLANE_WM_1(pipe), _PLANE_WM_2(pipe))
++#define PLANE_WM(pipe, plane, level) \
++	_MMIO(_PLANE_WM_BASE(pipe, plane) + ((4) * (level)))
++#define _PLANE_WM_SAGV_1(pipe) \
++	_PIPE(pipe, _PLANE_WM_SAGV_1_A, _PLANE_WM_SAGV_1_B)
++#define _PLANE_WM_SAGV_2(pipe) \
++	_PIPE(pipe, _PLANE_WM_SAGV_2_A, _PLANE_WM_SAGV_2_B)
++#define PLANE_WM_SAGV(pipe, plane) \
++	_MMIO(_PLANE(plane, _PLANE_WM_SAGV_1(pipe), _PLANE_WM_SAGV_2(pipe)))
++#define _PLANE_WM_SAGV_TRANS_1(pipe) \
++	_PIPE(pipe, _PLANE_WM_SAGV_TRANS_1_A, _PLANE_WM_SAGV_TRANS_1_B)
++#define _PLANE_WM_SAGV_TRANS_2(pipe) \
++	_PIPE(pipe, _PLANE_WM_SAGV_TRANS_2_A, _PLANE_WM_SAGV_TRANS_2_B)
++#define PLANE_WM_SAGV_TRANS(pipe, plane) \
++	_MMIO(_PLANE(plane, _PLANE_WM_SAGV_TRANS_1(pipe), _PLANE_WM_SAGV_TRANS_2(pipe)))
++#define _PLANE_WM_TRANS_1(pipe) \
++	_PIPE(pipe, _PLANE_WM_TRANS_1_A, _PLANE_WM_TRANS_1_B)
++#define _PLANE_WM_TRANS_2(pipe) \
++	_PIPE(pipe, _PLANE_WM_TRANS_2_A, _PLANE_WM_TRANS_2_B)
++#define PLANE_WM_TRANS(pipe, plane) \
+ 	_MMIO(_PLANE(plane, _PLANE_WM_TRANS_1(pipe), _PLANE_WM_TRANS_2(pipe)))
+ 
+ /* define the Watermark register on Ironlake */
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 18ee225016fa..acc6c2b9e6e9 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -2982,7 +2982,9 @@ static void intel_fixup_cur_wm_latency(struct drm_i915_private *dev_priv,
+ int ilk_wm_max_level(const struct drm_i915_private *dev_priv)
+ {
+ 	/* how many WM levels are we expecting */
+-	if (DISPLAY_VER(dev_priv) >= 9)
++	if (HAS_HW_SAGV_WM(dev_priv))
++		return 5;
++	else if (DISPLAY_VER(dev_priv) >= 9)
+ 		return 7;
+ 	else if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv))
+ 		return 4;
+@@ -4010,8 +4012,10 @@ static int intel_compute_sagv_mask(struct intel_atomic_state *state)
+ 		 * latter from the plane commit hooks (especially in the legacy
+ 		 * cursor case)
+ 		 */
+-		pipe_wm->use_sagv_wm = DISPLAY_VER(dev_priv) >= 12 &&
+-				       intel_can_enable_sagv(dev_priv, new_bw_state);
++
++		pipe_wm->use_sagv_wm = !HAS_HW_SAGV_WM(dev_priv) &&
++			DISPLAY_VER(dev_priv) >= 12 &&
++			intel_can_enable_sagv(dev_priv, new_bw_state);
+ 	}
+ 
+ 	if (intel_can_enable_sagv(dev_priv, new_bw_state) !=
+@@ -5633,6 +5637,13 @@ void skl_write_plane_wm(struct intel_plane *plane,
+ 	skl_write_wm_level(dev_priv, PLANE_WM_TRANS(pipe, plane_id),
+ 			   skl_plane_trans_wm(pipe_wm, plane_id));
+ 
++	if (HAS_HW_SAGV_WM(dev_priv)) {
++		skl_write_wm_level(dev_priv, PLANE_WM_SAGV(pipe, plane_id),
++				   &wm->sagv.wm0);
++		skl_write_wm_level(dev_priv, PLANE_WM_SAGV_TRANS(pipe, plane_id),
++				   &wm->sagv.trans_wm);
++	}
++
+ 	if (DISPLAY_VER(dev_priv) >= 11) {
+ 		skl_ddb_entry_write(dev_priv,
+ 				    PLANE_BUF_CFG(pipe, plane_id), ddb_y);
+@@ -5666,6 +5677,15 @@ void skl_write_cursor_wm(struct intel_plane *plane,
+ 	skl_write_wm_level(dev_priv, CUR_WM_TRANS(pipe),
+ 			   skl_plane_trans_wm(pipe_wm, plane_id));
+ 
++	if (HAS_HW_SAGV_WM(dev_priv)) {
++		const struct skl_plane_wm *wm = &pipe_wm->planes[plane_id];
++
++		skl_write_wm_level(dev_priv, CUR_WM_SAGV(pipe),
++				   &wm->sagv.wm0);
++		skl_write_wm_level(dev_priv, CUR_WM_SAGV_TRANS(pipe),
++				   &wm->sagv.trans_wm);
++	}
++
+ 	skl_ddb_entry_write(dev_priv, CUR_BUF_CFG(pipe), ddb);
+ }
+ 
+@@ -6030,6 +6050,15 @@ static bool skl_plane_selected_wm_equals(struct intel_plane *plane,
+ 			return false;
+ 	}
+ 
++	if (HAS_HW_SAGV_WM(i915)) {
++		const struct skl_plane_wm *old_wm = &old_pipe_wm->planes[plane->id];
++		const struct skl_plane_wm *new_wm = &new_pipe_wm->planes[plane->id];
++
++		if (!skl_wm_level_equals(&old_wm->sagv.wm0, &new_wm->sagv.wm0) ||
++		    !skl_wm_level_equals(&old_wm->sagv.trans_wm, &new_wm->sagv.trans_wm))
++			return false;
++	}
++
+ 	return skl_wm_level_equals(skl_plane_trans_wm(old_pipe_wm, plane->id),
+ 				   skl_plane_trans_wm(new_pipe_wm, plane->id));
+ }
+@@ -6248,7 +6277,26 @@ void skl_pipe_wm_get_hw_state(struct intel_crtc *crtc,
+ 
+ 		skl_wm_level_from_reg_val(val, &wm->trans_wm);
+ 
+-		if (DISPLAY_VER(dev_priv) >= 12) {
++
++		if (HAS_HW_SAGV_WM(dev_priv)) {
++			if (plane_id != PLANE_CURSOR)
++				val = intel_uncore_read(&dev_priv->uncore,
++							PLANE_WM_SAGV(pipe, plane_id));
++			else
++				val = intel_uncore_read(&dev_priv->uncore,
++							CUR_WM_SAGV(pipe));
++
++			skl_wm_level_from_reg_val(val, &wm->sagv.wm0);
++
++			if (plane_id != PLANE_CURSOR)
++				val = intel_uncore_read(&dev_priv->uncore,
++							PLANE_WM_SAGV_TRANS(pipe, plane_id));
++			else
++				val = intel_uncore_read(&dev_priv->uncore,
++							CUR_WM_SAGV_TRANS(pipe));
++
++			skl_wm_level_from_reg_val(val, &wm->sagv.trans_wm);
++		} else if (DISPLAY_VER(dev_priv) >= 12) {
+ 			wm->sagv.wm0 = wm->wm[0];
+ 			wm->sagv.trans_wm = wm->trans_wm;
+ 		}
 -- 
 2.25.4
 
