@@ -2,50 +2,49 @@ Return-Path: <SRS0=Bn5a=IX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C1B87C433E2
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E1CDC433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:07:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8AAB9619CB
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:07:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8AAB9619CB
+	by mail.kernel.org (Postfix) with ESMTPS id 0377F61A24
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0377F61A24
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BCC16EE2C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD7B26EE36;
 	Thu, 25 Mar 2021 18:07:34 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F286EDF5
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 18:07:30 +0000 (UTC)
-IronPort-SDR: DPoNlyvPH2jvXh1vIeTjrYFL4mW8aPcU+TZfly1o1rMdIQe2f547DqX1s5n8ceru//3kBC/KRd
- 4ZtOsEZ0kwAQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="276113776"
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="276113776"
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86ACA6EE21
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 18:07:32 +0000 (UTC)
+IronPort-SDR: zFPUCVi/vTDRgK7QupElGZJFxqzK8Rbb8aywwOlapuFngDjQdMmYbjs+syH7CCS8IYif8V8599
+ Gbj3C4YAGuVA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="178112543"
+X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="178112543"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 11:07:29 -0700
-IronPort-SDR: m6yj/8bsd5sw8At7lUc4a2hcG1nFXBfNGmOIQJnr6vVFj6hFv0ongxjPRrvzg46VivfgtyNOAk
- BTtCrS1jkGBw==
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="453176576"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2021 11:07:31 -0700
+IronPort-SDR: XmmoJn1BvH2B/ncoLXNKVgXhZ0Iyycl4YimJ18aglDTn3a55bWHw14slXc8C+/ltzaKwC9yfg0
+ v830wsB3/hTw==
+X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="453176633"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 11:07:29 -0700
+ 25 Mar 2021 11:07:31 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 25 Mar 2021 11:06:43 -0700
-Message-Id: <20210325180720.401410-14-matthew.d.roper@intel.com>
+Date: Thu, 25 Mar 2021 11:06:54 -0700
+Message-Id: <20210325180720.401410-25-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210325180720.401410-1-matthew.d.roper@intel.com>
 References: <20210325180720.401410-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 13/50] drm/i915/xelpd: Support DP1.4
- compression BPPs
+Subject: [Intel-gfx] [PATCH v2 24/50] drm/i915/adl_p: Setup ports/phys
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,105 +63,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 
-Support compression BPPs from bpc to uncompressed BPP -1.
-So far we have 8,10,12 as valid compressed BPPS now the
-support is extended.
+The SoC has 6 DDI ports(DDI A,DDI B and DDI TC1-4.
+The first two are connected to combo phys while
+the rest are connected to TC phys.
 
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Clinton Taylor <clinton.a.taylor@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 32 ++++++++++++++++++-------
- 1 file changed, 24 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d7648a0a7d9d..af2c47e50884 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -107,6 +107,7 @@ bool intel_dp_is_edp(struct intel_dp *intel_dp)
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index d04924d405e5..265518bc197e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -4196,7 +4196,9 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
  
- static void intel_dp_unset_edid(struct intel_dp *intel_dp);
-+static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc);
- 
- /* update sink rates from dpcd */
- static void intel_dp_set_sink_rates(struct intel_dp *intel_dp)
-@@ -492,7 +493,8 @@ small_joiner_ram_size_bits(struct drm_i915_private *i915)
- static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
- 				       u32 link_clock, u32 lane_count,
- 				       u32 mode_clock, u32 mode_hdisplay,
--				       bool bigjoiner)
-+				       bool bigjoiner,
-+				       u32 pipe_bpp)
+ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
  {
- 	u32 bits_per_pixel, max_bpp_small_joiner_ram;
- 	int i;
-@@ -517,6 +519,7 @@ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
- 	drm_dbg_kms(&i915->drm, "Max small joiner bpp: %u\n",
- 		    max_bpp_small_joiner_ram);
+-	if (IS_TIGERLAKE(dev_priv))
++	if (IS_ALDERLAKE_P(dev_priv))
++		return phy >= PHY_F && phy <= PHY_I;
++	else if (IS_TIGERLAKE(dev_priv))
+ 		return phy >= PHY_D && phy <= PHY_I;
+ 	else if (IS_ICELAKE(dev_priv))
+ 		return phy >= PHY_C && phy <= PHY_F;
+@@ -11695,7 +11697,14 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return;
  
-+
- 	/*
- 	 * Greatest allowed DSC BPP = MIN (output BPP from available Link BW
- 	 * check, output bpp from small joiner RAM check)
-@@ -539,12 +542,17 @@ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
- 		return 0;
- 	}
- 
--	/* Find the nearest match in the array of known BPPs from VESA */
--	for (i = 0; i < ARRAY_SIZE(valid_dsc_bpp) - 1; i++) {
--		if (bits_per_pixel < valid_dsc_bpp[i + 1])
--			break;
-+	/* From XE_LPD onwards we support from bpc upto uncompressed bpp-1 BPPs */
-+	if (DISPLAY_VER(i915) >= 13) {
-+		bits_per_pixel = min(bits_per_pixel, pipe_bpp - 1);
-+	} else {
-+		/* Find the nearest match in the array of known BPPs from VESA */
-+		for (i = 0; i < ARRAY_SIZE(valid_dsc_bpp) - 1; i++) {
-+			if (bits_per_pixel < valid_dsc_bpp[i + 1])
-+				break;
-+		}
-+		bits_per_pixel = valid_dsc_bpp[i];
- 	}
--	bits_per_pixel = valid_dsc_bpp[i];
- 
- 	/*
- 	 * Compressed BPP in U6.4 format so multiply by 16, for Gen 11,
-@@ -778,6 +786,12 @@ intel_dp_mode_valid(struct drm_connector *connector,
- 	 */
- 	if (DISPLAY_VER(dev_priv) >= 10 &&
- 	    drm_dp_sink_supports_dsc(intel_dp->dsc_dpcd)) {
-+		/*
-+		 * TBD pass the connector BPC,
-+		 * for now U8_MAX so that max BPC on that platform would be picked
-+		 */
-+		int pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, U8_MAX);
-+
- 		if (intel_dp_is_edp(intel_dp)) {
- 			dsc_max_output_bpp =
- 				drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4;
-@@ -791,7 +805,8 @@ intel_dp_mode_valid(struct drm_connector *connector,
- 							    max_lanes,
- 							    target_clock,
- 							    mode->hdisplay,
--							    bigjoiner) >> 4;
-+							    bigjoiner,
-+							    pipe_bpp) >> 4;
- 			dsc_slice_count =
- 				intel_dp_dsc_get_slice_count(intel_dp,
- 							     target_clock,
-@@ -1276,7 +1291,8 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 						    pipe_config->lane_count,
- 						    adjusted_mode->crtc_clock,
- 						    adjusted_mode->crtc_hdisplay,
--						    pipe_config->bigjoiner);
-+						    pipe_config->bigjoiner,
-+						    pipe_bpp);
- 		dsc_dp_slice_count =
- 			intel_dp_dsc_get_slice_count(intel_dp,
- 						     adjusted_mode->crtc_clock,
+-	if (IS_ALDERLAKE_S(dev_priv)) {
++	if (IS_ALDERLAKE_P(dev_priv)) {
++		intel_ddi_init(dev_priv, PORT_A);
++		intel_ddi_init(dev_priv, PORT_B);
++		intel_ddi_init(dev_priv, PORT_TC1);
++		intel_ddi_init(dev_priv, PORT_TC2);
++		intel_ddi_init(dev_priv, PORT_TC3);
++		intel_ddi_init(dev_priv, PORT_TC4);
++	} else if (IS_ALDERLAKE_S(dev_priv)) {
+ 		intel_ddi_init(dev_priv, PORT_A);
+ 		intel_ddi_init(dev_priv, PORT_TC1);
+ 		intel_ddi_init(dev_priv, PORT_TC2);
 -- 
 2.25.4
 
