@@ -2,48 +2,52 @@ Return-Path: <SRS0=Bn5a=IX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F76EC433E2
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 09:31:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D6F8C433C1
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 09:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3145E61A23
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 09:31:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3145E61A23
+	by mail.kernel.org (Postfix) with ESMTPS id B386861A0E
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 09:33:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B386861A0E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2B476ECF3;
-	Thu, 25 Mar 2021 09:31:40 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59CC26ECEF;
- Thu, 25 Mar 2021 09:31:39 +0000 (UTC)
-IronPort-SDR: 3l0f51qs0XDPsY+1K9C3scD4OFQock50FP4xXz6yIreBxpkyEVb1XcIPbOWqymOt8vASmmS8g5
- gH3pVQ3/5dHQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="187589867"
-X-IronPort-AV: E=Sophos;i="5.81,277,1610438400"; d="scan'208";a="187589867"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 02:31:38 -0700
-IronPort-SDR: ToRGC3ERYCOEycZxNBjbt9PtQk4YFZt8/p6LtspgHDrio6IOySrBdXiF1UH1DNAug6WWM+A2/Z
- ahpjoB0ZDOsw==
-X-IronPort-AV: E=Sophos;i="5.81,277,1610438400"; d="scan'208";a="436396721"
-Received: from ssettalu-mobl1.amr.corp.intel.com (HELO intel.com)
- ([10.209.123.151])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 02:31:36 -0700
-Date: Thu, 25 Mar 2021 05:31:34 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <YFxYdrjqeUtSu+3p@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE5E6EB4E;
+	Thu, 25 Mar 2021 09:33:19 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4EE86EB4E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 09:33:18 +0000 (UTC)
+IronPort-SDR: n/kgUDEyobVUHbhflAtyQNuXdL1H7VMide9AIesakMHKZgsh6kaUbNtxNMlWOpQOpnFnmyn2Dx
+ z/ZvoDkBPceA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="190316442"
+X-IronPort-AV: E=Sophos;i="5.81,277,1610438400"; d="scan'208";a="190316442"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2021 02:33:18 -0700
+IronPort-SDR: nbf3N+j30BJZFQJE/++G1KYgHO/XQs0/iPHjsz8djh3E+P31EMWgTpePua0q47cs3+nrbBpGN2
+ wmQMfWOKVHGQ==
+X-IronPort-AV: E=Sophos;i="5.81,277,1610438400"; d="scan'208";a="514544403"
+Received: from unknown (HELO intel.com) ([10.237.72.91])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2021 02:33:16 -0700
+Date: Thu, 25 Mar 2021 11:35:53 +0200
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20210325093553.GB27205@intel.com>
+References: <20210325004415.17432-1-ville.syrjala@linux.intel.com>
+ <20210325004415.17432-2-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] drm-intel-fixes
+In-Reply-To: <20210325004415.17432-2-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: Stop adding planes to the
+ commit needlessly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,74 +60,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave and Daniel,
+On Thu, Mar 25, 2021 at 02:44:15AM +0200, Ville Syrjala wrote:
+> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> =
 
-with GT fence revocation runtime PM logic targeting 4.12+ stable,
-here goes drm-intel-fixes-2021-03-25-1:
+> The dbuf bandwidth calculations don't need the planes to be
+> added to the state. Each plane's data rate has already been
+> precalculated and stored in the crtc state, and that with
+> the dbuf slice usage for each plane is all the dbuf bandwidth
+> code needs to figure out what the minimum cdclk is.
+> =
 
-- DisplayPort LTTPR fixes around link training and limiting it
-  according to supported spec version. (Imre)
-- Fix enabled_planes bitmask to really represent only logically
-  enabled planes (Ville).
-- Fix DSS CTL registers for ICL DSI transcoders (Jani)
-- Fix the GT fence revocation runtime PM logic. (Imre)
+> What we're trying to do here is make sure each plane recalculates
+> its minimum cdclk (ie. plane->min_cdclk()) on those platforms where
+> the number of active planes affects the result of said calculation.
+> Nothing to do with any dbuf cdclk requirements.
 
-Thanks,
-Rodrigo.
+So does it mean that if we lets say had active plane mask as
+011(planes 0, 1 were active) and new active planes are 101(planes 0, 2
+are active) - we should not add plane 2 to the state?
+Because hamming weight will be obviously same, however I think it would
+be wrong not have plane 2 in the state at all then..
 
-The following changes since commit 0d02ec6b3136c73c09e7859f0d0e4e2c4c07b49b:
+Or will it be added somewhere else?
 
-  Linux 5.12-rc4 (2021-03-21 14:56:43 -0700)
 
-are available in the Git repository at:
+Stan
 
-  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2021-03-=
-25-1
+> =
 
-for you to fetch changes up to 8840e3bd981f128846b01c12d3966d115e8617c9:
+> Not sure if we had stuff in slightly different order or what,
+> but at least in the current scheme this is not necessary.
+> =
 
-  drm/i915: Fix the GT fence revocation runtime PM logic (2021-03-24 09:12:=
-07 -0400)
+> Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 10 ++--------
+>  1 file changed, 2 insertions(+), 8 deletions(-)
+> =
 
-----------------------------------------------------------------
-- DisplayPort LTTPR fixes around link training and limiting it
-  according to supported spec version. (Imre)
-- Fix enabled_planes bitmask to really represent only logically
-  enabled planes (Ville).
-- Fix DSS CTL registers for ICL DSI transcoders (Jani)
-- Fix the GT fence revocation runtime PM logic. (Imre)
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index 17490d29dc13..2300d58ba47f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -9811,7 +9811,7 @@ static bool active_planes_affects_min_cdclk(struct =
+drm_i915_private *dev_priv)
+>  	/* See {hsw,vlv,ivb}_plane_ratio() */
+>  	return IS_BROADWELL(dev_priv) || IS_HASWELL(dev_priv) ||
+>  		IS_CHERRYVIEW(dev_priv) || IS_VALLEYVIEW(dev_priv) ||
+> -		IS_IVYBRIDGE(dev_priv) || (DISPLAY_VER(dev_priv) >=3D 11);
+> +		IS_IVYBRIDGE(dev_priv);
+>  }
+>  =
 
-----------------------------------------------------------------
-Imre Deak (4):
-      drm/i915/ilk-glk: Fix link training on links with LTTPRs
-      drm/i915: Disable LTTPR support when the DPCD rev < 1.4
-      drm/i915: Disable LTTPR support when the LTTPR rev < 1.4
-      drm/i915: Fix the GT fence revocation runtime PM logic
+>  static int intel_crtc_add_bigjoiner_planes(struct intel_atomic_state *st=
+ate,
+> @@ -9898,13 +9898,7 @@ static int intel_atomic_check_planes(struct intel_=
+atomic_state *state)
+>  		old_active_planes =3D old_crtc_state->active_planes & ~BIT(PLANE_CURSO=
+R);
+>  		new_active_planes =3D new_crtc_state->active_planes & ~BIT(PLANE_CURSO=
+R);
+>  =
 
-Jani Nikula (1):
-      drm/i915/dsc: fix DSS CTL register usage for ICL DSI transcoders
+> -		/*
+> -		 * Not only the number of planes, but if the plane configuration had
+> -		 * changed might already mean we need to recompute min CDCLK,
+> -		 * because different planes might consume different amount of Dbuf ban=
+dwidth
+> -		 * according to formula: Bw per plane =3D Pixel rate * bpp * pipe/plan=
+e scale factor
+> -		 */
+> -		if (old_active_planes =3D=3D new_active_planes)
+> +		if (hweight8(old_active_planes) =3D=3D hweight8(new_active_planes))
+>  			continue;
+>  =
 
-Ville Syrj=E4l=E4 (1):
-      drm/i915: Fix enabled_planes bitmask
+>  		ret =3D intel_crtc_add_planes_to_state(state, crtc, new_active_planes);
+> -- =
 
- drivers/gpu/drm/i915/display/intel_atomic_plane.c  |  5 +-
- drivers/gpu/drm/i915/display/intel_dp.c            |  4 +-
- drivers/gpu/drm/i915/display/intel_dp_aux.c        |  7 ++
- .../gpu/drm/i915/display/intel_dp_link_training.c  | 75 +++++++++++++++++-=
-----
- .../gpu/drm/i915/display/intel_dp_link_training.h  |  2 +-
- drivers/gpu/drm/i915/display/intel_vdsc.c          | 10 +--
- drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c       | 13 +++-
- drivers/gpu/drm/i915/intel_runtime_pm.c            | 29 +++++++--
- drivers/gpu/drm/i915/intel_runtime_pm.h            |  5 ++
- 9 files changed, 113 insertions(+), 37 deletions(-)
+> 2.26.2
+> =
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
