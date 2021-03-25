@@ -2,50 +2,58 @@ Return-Path: <SRS0=Bn5a=IX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC87BC433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 13:39:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E791FC433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 14:51:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 964DA61A1E
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 13:39:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 964DA61A1E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9B6A261A02
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 14:51:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B6A261A02
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E17A6ED7C;
-	Thu, 25 Mar 2021 13:39:53 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C99EB6ED72;
- Thu, 25 Mar 2021 13:39:51 +0000 (UTC)
-IronPort-SDR: OFrh5We+oz6872NA+b+DAIPn26ywenzUlFqRarIGIL+9NfyO/jQ5Sm66IRY081A2A57UKbCPY8
- luH3kZNjJRVQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="211061043"
-X-IronPort-AV: E=Sophos;i="5.81,277,1610438400"; d="scan'208";a="211061043"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 06:39:51 -0700
-IronPort-SDR: M6jD/5bc6IX7KBlya9a8mRZ6CjqRAwtvIAhRs1yDwc1Nb7cbYKCoJ1Km68RyI8og40b49ibj/7
- PkmM5ilyZSLQ==
-X-IronPort-AV: E=Sophos;i="5.81,277,1610438400"; d="scan'208";a="416009435"
-Received: from jweber-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.39.244])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 06:39:48 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Anshuman Gupta <anshuman.gupta@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20210324113012.7564-1-anshuman.gupta@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210324113012.7564-1-anshuman.gupta@intel.com>
-Date: Thu, 25 Mar 2021 15:39:45 +0200
-Message-ID: <87im5f2vz2.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35EF16ED99;
+	Thu, 25 Mar 2021 14:51:00 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16A7A6EB4D;
+ Thu, 25 Mar 2021 09:53:32 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 91BB961A27;
+ Thu, 25 Mar 2021 09:53:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616666011;
+ bh=zDIkwCmITSxBLdjnUtP8aWuLpPIn7yP+onOPa2fWtIM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=aw+dq7xqFwszvQn+7YjwXW7/fxugShYPXJjaDJagcTuDAOuB8E9nNiKezq66fA/8m
+ hFuPlB/FQy5OaxdMAZxMHga0tzWzb7PQ6p+xNpG4X8bAN7OAf2G+Qkm0llEzqPMeL1
+ Kid4PdS5VCb6nVOuYhBFHH0Yau0kHvVybsDn9ffxag5/mdTWHzlRYsdW/dxayQNar3
+ KY8Ym1MijDJv/mTgzfTa/iwhfzr2YqelyjbMy1v1O0PJUB5A8eiQqK6LL68YF5Ta8p
+ SByPQKDJncOjrUNNBuwi03nuXQ11JZYKUdMwcj0KubiMCvSEyc/5dYjwzZVUc5ZcXd
+ 6uORErooXgDMw==
+Received: by mail-oi1-f173.google.com with SMTP id x207so1550020oif.1;
+ Thu, 25 Mar 2021 02:53:31 -0700 (PDT)
+X-Gm-Message-State: AOAM5324UY8LT0c0ZKODcBOWid20DkuLTXLYOtoPd8JA0lPkS/T5yle5
+ M+SyVH/gyjDF459C9gLP1B9GM0NUhUPEigsDQgg=
+X-Google-Smtp-Source: ABdhPJyt+33nuIsqD16dqkOAUJq8r6LTgDPW80yQCvhzID/3JW2uxW7CNu42WWpingJPnDTPb6eqRDMwNCcIjLZ5/jc=
+X-Received: by 2002:aca:5945:: with SMTP id n66mr5293345oib.11.1616666010658; 
+ Thu, 25 Mar 2021 02:53:30 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH v2 0/2] HDCP 2.2 DP errata
+References: <20210322160253.4032422-1-arnd@kernel.org>
+ <20210322160253.4032422-12-arnd@kernel.org>
+ <87wntv3bgt.fsf@intel.com>
+In-Reply-To: <87wntv3bgt.fsf@intel.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Thu, 25 Mar 2021 10:53:14 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a0HGiPQ-k6t6roTgeUvVAMMY=fMnGV0+t48yJjz55XFAA@mail.gmail.com>
+Message-ID: <CAK8P3a0HGiPQ-k6t6roTgeUvVAMMY=fMnGV0+t48yJjz55XFAA@mail.gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+X-Mailman-Approved-At: Thu, 25 Mar 2021 14:50:58 +0000
+Subject: Re: [Intel-gfx] [PATCH 11/11] [RFC] drm/i915/dp: fix array overflow
+ warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,35 +66,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@linux.ie>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-scsi <linux-scsi@vger.kernel.org>,
+ the arch/x86 maintainers <x86@kernel.org>,
+ James Smart <james.smart@broadcom.com>, tboot-devel@lists.sourceforge.net,
+ Kalle Valo <kvalo@codeaurora.org>, ath11k@lists.infradead.org,
+ Serge Hallyn <serge@hallyn.com>, "James E.J. Bottomley" <jejb@linux.ibm.com>,
+ Ning Sun <ning.sun@intel.com>, Anders Larsen <al@alarsen.net>,
+ Sean Paul <seanpaul@chromium.org>, Cgroups <cgroups@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Martin Sebor <msebor@gcc.gnu.org>, Networking <netdev@vger.kernel.org>,
+ linux-wireless <linux-wireless@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ LSM List <linux-security-module@vger.kernel.org>, Tejun Heo <tj@kernel.org>,
+ Simon Kelley <simon@thekelleys.org.uk>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 24 Mar 2021, Anshuman Gupta <anshuman.gupta@intel.com> wrote:
-> HDCP DP 2.2 errata is part of HDCP DP 2.3 specs
-> as well. 
+On Thu, Mar 25, 2021 at 9:05 AM Jani Nikula <jani.nikula@linux.intel.com> wrote:
+> > Clearly something is wrong here, but I can't quite figure out what.
+> > Changing the array size to 16 bytes avoids the warning, but is
+> > probably the wrong solution here.
 >
-> Anshuman Gupta (2):
->   drm/i915/hdcp: Add DP HDCP2.2 timeout to read entire msg
->   drm/hdcp: DP HDCP2.2 errata LC_Send_L_Prime=16
+> Ugh. drm_dp_channel_eq_ok() does not actually require more than
+> DP_LINK_STATUS_SIZE - 2 elements in the link_status. It's some other
+> related functions that do, and in most cases it's convenient to read all
+> those DP_LINK_STATUS_SIZE bytes.
 >
->  drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 45 ++++++++++++++------
->  include/drm/drm_hdcp.h                       |  5 ++-
->  2 files changed, 36 insertions(+), 14 deletions(-)
+> However, here the case is slightly different for DP MST, and the change
+> causes reserved DPCD addresses to be read. Not sure it matters, but
+> really I think the problem is what drm_dp_channel_eq_ok() advertizes.
+>
+> I also don't like the array notation with sizes in function parameters
+> in general, because I think it's misleading. Would gcc-11 warn if a
+> function actually accesses the memory out of bounds of the size?
 
-Maarten, Maxime, Thomas -
+Yes, that is the point of the warning. Using an explicit length in an
+array argument type tells gcc that the function will never access
+beyond the end of that bound, and that passing a short array
+is a bug.
 
-Can I get an ack for merging this via drm-intel-next, please?
+I don't know if this /only/ means triggering a warning, or if gcc
+is also able to make optimizations after classifying this as undefined
+behavior that it would not make for an unspecified length.
 
-BR,
-Jani.
+> Anyway. I don't think we're going to get rid of the array notation
+> anytime soon, if ever, no matter how much I dislike it, so I think the
+> right fix would be to at least state the correct required size in
+> drm_dp_channel_eq_ok().
+
+Ok. Just to confirm: Changing the declaration to an unspecified length
+avoids the warnings, as does the patch below:
+
+diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
+index eedbb48815b7..6ebeec3d88a7 100644
+--- a/drivers/gpu/drm/drm_dp_helper.c
++++ b/drivers/gpu/drm/drm_dp_helper.c
+@@ -46,12 +46,12 @@
+  */
+
+ /* Helpers for DP link training */
+-static u8 dp_link_status(const u8 link_status[DP_LINK_STATUS_SIZE], int r)
++static u8 dp_link_status(const u8 link_status[DP_LINK_STATUS_SIZE - 2], int r)
+ {
+        return link_status[r - DP_LANE0_1_STATUS];
+ }
+
+-static u8 dp_get_lane_status(const u8 link_status[DP_LINK_STATUS_SIZE],
++static u8 dp_get_lane_status(const u8 link_status[DP_LINK_STATUS_SIZE - 2],
+                             int lane)
+ {
+        int i = DP_LANE0_1_STATUS + (lane >> 1);
+@@ -61,7 +61,7 @@ static u8 dp_get_lane_status(const u8
+link_status[DP_LINK_STATUS_SIZE],
+        return (l >> s) & 0xf;
+ }
+
+-bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
++bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE - 2],
+                          int lane_count)
+ {
+        u8 lane_align;
+diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+index edffd1dcca3e..160f7fd127b1 100644
+--- a/include/drm/drm_dp_helper.h
++++ b/include/drm/drm_dp_helper.h
+@@ -1456,7 +1456,7 @@ enum drm_dp_phy {
+
+ #define DP_LINK_CONSTANT_N_VALUE 0x8000
+ #define DP_LINK_STATUS_SIZE       6
+-bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
++bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE - 2],
+                          int lane_count);
+ bool drm_dp_clock_recovery_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
+                              int lane_count);
 
 
+This obviously needs a good explanation in the code and the changelog text,
+which I don't have, but if the above is what you had in mind, please take that
+and add Reported-by/Tested-by: Arnd Bergmann <arnd@arndb.de>.
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+       Arnd
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
