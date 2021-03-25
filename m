@@ -2,50 +2,61 @@ Return-Path: <SRS0=Bn5a=IX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,
-	DATE_IN_FUTURE_06_12,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92B4BC433C1
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 09:16:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AAFCC433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 09:17:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3208061879
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 09:16:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3208061879
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3CB1D619D5
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 09:17:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3CB1D619D5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEE596ECDF;
-	Thu, 25 Mar 2021 09:16:35 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54CEB6ECDF
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 09:16:34 +0000 (UTC)
-IronPort-SDR: 2iNN/Kv3bMONCidmOm7KaXcLJt2009Qn6NnsE5P/QNCbgifEcDaqb1TqnQPtDElfiAOEonPYGi
- RSCGHovPcuZQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="252244271"
-X-IronPort-AV: E=Sophos;i="5.81,277,1610438400"; d="scan'208";a="252244271"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 02:16:33 -0700
-IronPort-SDR: NTFIndnYFO+inBmHE2s+rW7KAAK4EHsWZKzk6en68eLnL58eOfu8v5vDvHmWnWdYqfJxzoLUtl
- JWfipT+1Bvow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,277,1610438400"; d="scan'208";a="514538517"
-Received: from cfl-host.sh.intel.com ([10.239.158.118])
- by fmsmga001.fm.intel.com with ESMTP; 25 Mar 2021 02:16:31 -0700
-From: Fred Gao <fred.gao@intel.com>
-To: kvm@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org
-Date: Fri, 26 Mar 2021 01:09:53 +0800
-Message-Id: <20210325170953.24549-1-fred.gao@intel.com>
-X-Mailer: git-send-email 2.24.1.1.gb6d4d82bd5
-In-Reply-To: <20210302130220.9349-1-fred.gao@intel.com>
-References: <20210302130220.9349-1-fred.gao@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2426ECE3;
+	Thu, 25 Mar 2021 09:17:32 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D646E6ECE3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 09:17:30 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ y19-20020a0568301d93b02901b9f88a238eso1265759oti.11
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 02:17:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=uqM5RcWv3gBYUBIUqTALfbCuCfO15MflsU9/Ih/+77U=;
+ b=exMhvdi51JJfL0WwdDY/iGvy93AIqM5lqR30A5hqVqPpEu9JiaEYA9Fc2fjaMTqW9h
+ GJS251BNbfKI9jfrY27TbvMCCZ4UrwhPBHXJEWsZMTTsLsx32HnXFKAqeDbpAwLktHdL
+ nyF+p0gdJN+16JqoOjKga4MTNjQhsKv/VSa1A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=uqM5RcWv3gBYUBIUqTALfbCuCfO15MflsU9/Ih/+77U=;
+ b=Qrh1Svq1du3cQCdBr3cbdCyVGZ+b8uJ22AwpeyvRr1jb/vDf3qBdUyp2Lj5nvxqTxP
+ 6U/qJ77QXnDpSyYJVph7jANlYDNP7yxVga2LRBn5WxRxq7JrIhDI60kq/KbKOM3swf7W
+ Z9wHgLm72E2luXgm+GCyZ/j9Uvp1gvfhItold7hy5g/1RmxDafMaW5KqpEPpCC4Jr4z1
+ KJxB+lRV6X2plOtkv2argZxAo1cWpV1rmzm1WQflbDTxfczJcNgjac6R8dBsoBcHKfar
+ z+eYNGMclZQCPqSbkeu5n6Kpdv9ztPVCJwwm3Gns2qPQVrw1STxPEmlKlhyPZDFoFu4T
+ AlLw==
+X-Gm-Message-State: AOAM530V2Fz62Q0nAsoMY1d70g2nIaDz3x9zHvVybe3GfXGIB1bjAvs5
+ hwQ/FHer6xTI8/5gr1Sltxxi6y9TYBR/A1RpyFs9gg==
+X-Google-Smtp-Source: ABdhPJzxosUobAkCRanfuumhIpmwrz2UKbk/+SKrKxaAeLbZO6W98ypBkOm4iC+skJq/qXE0Kgbbbycfm2nGuw8H68Q=
+X-Received: by 2002:a9d:7b4e:: with SMTP id f14mr6886200oto.281.1616663850211; 
+ Thu, 25 Mar 2021 02:17:30 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5] vfio/pci: Add support for opregion v2.1+
+References: <20210325194807.38ec3c55@canb.auug.org.au>
+In-Reply-To: <20210325194807.38ec3c55@canb.auug.org.au>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 25 Mar 2021 10:17:19 +0100
+Message-ID: <CAKMK7uFq=AN3vUrkFEYi3oinShR3fXE76pNwq-2=6nxw_WtQOw@mail.gmail.com>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Subject: Re: [Intel-gfx] linux-next: please do not base your tree on
+ v5.12-rc1-dontuse
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,110 +69,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Fred Gao <fred.gao@intel.com>, Swee Yee Fonn <swee.yee.fonn@intel.com>
+Cc: Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Before opregion version 2.0 VBT data is stored in opregion mailbox #4,
-but when VBT data exceeds 6KB size and cannot be within mailbox #4
-then from opregion v2.0+, Extended VBT region, next to opregion is
-used to hold the VBT data, so the total size will be opregion size plus
-extended VBT region size.
+On Thu, Mar 25, 2021 at 9:48 AM Stephen Rothwell <sfr@canb.auug.org.au> wrote:
+>
+> Hi all,
+>
+> The latest version of the drm-misc tree consists of just 2 commits on
+> top of Linus' v5.12-rc1-dontuse tag.
 
-Since opregion v2.0 with physical host VBT address would not be
-practically available for end user and guest can not directly access
-host physical address, so it is not supported.
-
-Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
-Signed-off-by: Swee Yee Fonn <swee.yee.fonn@intel.com>
-Signed-off-by: Fred Gao <fred.gao@intel.com>
----
- drivers/vfio/pci/vfio_pci_igd.c | 53 +++++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
-
-diff --git a/drivers/vfio/pci/vfio_pci_igd.c b/drivers/vfio/pci/vfio_pci_igd.c
-index e66dfb0178ed..228df565e9bc 100644
---- a/drivers/vfio/pci/vfio_pci_igd.c
-+++ b/drivers/vfio/pci/vfio_pci_igd.c
-@@ -21,6 +21,10 @@
- #define OPREGION_SIZE		(8 * 1024)
- #define OPREGION_PCI_ADDR	0xfc
- 
-+#define OPREGION_RVDA		0x3ba
-+#define OPREGION_RVDS		0x3c2
-+#define OPREGION_VERSION	0x16
-+
- static size_t vfio_pci_igd_rw(struct vfio_pci_device *vdev, char __user *buf,
- 			      size_t count, loff_t *ppos, bool iswrite)
- {
-@@ -58,6 +62,7 @@ static int vfio_pci_igd_opregion_init(struct vfio_pci_device *vdev)
- 	u32 addr, size;
- 	void *base;
- 	int ret;
-+	u16 version;
- 
- 	ret = pci_read_config_dword(vdev->pdev, OPREGION_PCI_ADDR, &addr);
- 	if (ret)
-@@ -83,6 +88,54 @@ static int vfio_pci_igd_opregion_init(struct vfio_pci_device *vdev)
- 
- 	size *= 1024; /* In KB */
- 
-+	/*
-+	 * Support opregion v2.1+
-+	 * When VBT data exceeds 6KB size and cannot be within mailbox #4, then
-+	 * the Extended VBT region next to opregion is used to hold the VBT data.
-+	 * RVDA (Relative Address of VBT Data from Opregion Base) and RVDS
-+	 * (Raw VBT Data Size) from opregion structure member are used to hold the
-+	 * address from region base and size of VBT data. RVDA/RVDS are not
-+	 * defined before opregion 2.0.
-+	 *
-+	 * opregion 2.1+: RVDA is unsigned, relative offset from
-+	 * opregion base, and should point to the end of opregion.
-+	 * otherwise, exposing to userspace to allow read access to everything between
-+	 * the OpRegion and VBT is not safe.
-+	 * RVDS is defined as size in bytes.
-+	 *
-+	 * opregion 2.0: rvda is the physical VBT address.
-+	 * Since rvda is HPA it cannot be directly used in guest.
-+	 * And it should not be practically available for end user,so it is not supported.
-+	 */
-+	version = le16_to_cpu(*(__le16 *)(base + OPREGION_VERSION));
-+	if (version >= 0x0200) {
-+		u64 rvda;
-+		u32 rvds;
-+
-+		rvda = le64_to_cpu(*(__le64 *)(base + OPREGION_RVDA));
-+		rvds = le32_to_cpu(*(__le32 *)(base + OPREGION_RVDS));
-+		if (rvda && rvds) {
-+			/* no support for opregion v2.0 with physical VBT address */
-+			if (version == 0x0200) {
-+				memunmap(base);
-+				pci_err(vdev->pdev,
-+					"IGD assignment does not support opregion v2.0 with an extended VBT region\n");
-+				return -EINVAL;
-+			}
-+
-+			if (rvda != size) {
-+				memunmap(base);
-+				pci_err(vdev->pdev,
-+					"Extended VBT does not follow opregion on version 0x%04x\n",
-+					version);
-+				return -EINVAL;
-+			}
-+
-+			/* region size for opregion v2.0+: opregion and VBT size. */
-+			size += rvds;
-+		}
-+	}
-+
- 	if (size != OPREGION_SIZE) {
- 		memunmap(base);
- 		base = memremap(addr, size, MEMREMAP_WB);
+Yeah committer pushed patches to the wrong tree, which meant you get
+the wrong tree. We'll fix for tomorrow.
+-Daniel
 -- 
-2.24.1.1.gb6d4d82bd5
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
