@@ -7,44 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36466C433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C9809C433E3
 	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:07:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F0C1461A24
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0C1461A24
+	by mail.kernel.org (Postfix) with ESMTPS id 91EB0619CB
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:07:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91EB0619CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 303596EE28;
-	Thu, 25 Mar 2021 18:07:33 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E44C16EE12
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 18:07:31 +0000 (UTC)
-IronPort-SDR: E7URHRhyZZrrXm4sb6YUIQ2SpAVbYg99+reSzfqO+VNfZ3EMIuzaNd/ocJB8kT+Ij6Vsd78SAl
- OqCjZTCDVCnA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="178112535"
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="178112535"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F8E06EE0F;
+	Thu, 25 Mar 2021 18:07:31 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10DDA6EDDF
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 18:07:29 +0000 (UTC)
+IronPort-SDR: k8siLSSQOY/En3pvnPaOW+JXIUqlFu9wMUnPPjy+Eu2Oj2k0zTqqQ4r80iiNY1P1r9xmRZ8/Zb
+ Cz8qp6yIntbA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="276113773"
+X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="276113773"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 11:07:31 -0700
-IronPort-SDR: x9reKAdbCm3NDVzQ8sPK9lqM/LlqCcnoBHS7B4s9BF/UlyV1l1mLdzYuA04zTQA+HW/2snCkwR
- vxoNt7eXRi5g==
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="453176612"
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2021 11:07:29 -0700
+IronPort-SDR: nkk+OJ5U8cQk+9+IlDMUx57DjyDDdifzguidaAUr0wtpLOIa1F/fqOverRydO8pFv2Wndwbdn0
+ 7IPUBcIHvNjQ==
+X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="453176569"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 11:07:30 -0700
+ 25 Mar 2021 11:07:29 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 25 Mar 2021 11:06:50 -0700
-Message-Id: <20210325180720.401410-21-matthew.d.roper@intel.com>
+Date: Thu, 25 Mar 2021 11:06:42 -0700
+Message-Id: <20210325180720.401410-13-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210325180720.401410-1-matthew.d.roper@intel.com>
 References: <20210325180720.401410-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 20/50] drm/i915/adl_p: Add PCH support
+Subject: [Intel-gfx] [PATCH v2 12/50] drm/i915/display/dsc: Refactor
+ intel_dp_dsc_compute_bpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,90 +64,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Clinton Taylor <Clinton.A.Taylor@intel.com>
+From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 
-Add ADP-P PCH device ID and assign as ADL PCH if found. Previously we
-would assign the DDC pin map based on the PCH, but it can also change
-based on the CPU. From Bspec 20124: "The physical port to pin pair
-mapping are defined in the Bspec per PCH. Mapping can further change
-based on CPU Si used as CPU and PCH can be mixed and matched".
+Move the platform specific max bpc calculation into
+intel_dp_dsc_compute_bpp function
 
-Bspec: 20124
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 2 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c | 2 +-
- drivers/gpu/drm/i915/intel_pch.c          | 6 ++++--
- drivers/gpu/drm/i915/intel_pch.h          | 1 +
- 4 files changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 6847fb5aff4d..3fbcd57118d0 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -1651,7 +1651,7 @@ static u8 map_ddc_pin(struct drm_i915_private *i915, u8 vbt_pin)
- 	const u8 *ddc_pin_map;
- 	int n_entries;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index d81b8d238163..d7648a0a7d9d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1133,10 +1133,18 @@ intel_dp_compute_link_config_fast(struct intel_dp *intel_dp,
+ 	return -EINVAL;
+ }
  
--	if (HAS_PCH_ADP(i915)) {
-+	if (IS_ALDERLAKE_S(i915)) {
- 		ddc_pin_map = adls_ddc_pin_map;
- 		n_entries = ARRAY_SIZE(adls_ddc_pin_map);
- 	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG1) {
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index d69f0a6dc26d..1c5bf35442e8 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2708,7 +2708,7 @@ static u8 intel_hdmi_ddc_pin(struct intel_encoder *encoder)
- 		return ddc_pin;
- 	}
+-static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc)
++static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 max_req_bpc)
+ {
++	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	int i, num_bpc;
+ 	u8 dsc_bpc[3] = {0};
++	u8 dsc_max_bpc;
++
++	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
++	if (DISPLAY_VER(i915) >= 12)
++		dsc_max_bpc = min_t(u8, 12, max_req_bpc);
++	else
++		dsc_max_bpc = min_t(u8, 10, max_req_bpc);
  
--	if (HAS_PCH_ADP(dev_priv))
-+	if (IS_ALDERLAKE_S(dev_priv))
- 		ddc_pin = adls_port_to_ddc_pin(dev_priv, port);
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
- 		ddc_pin = dg1_port_to_ddc_pin(dev_priv, port);
-diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
-index 7476f0e063c6..98a17dd1bda4 100644
---- a/drivers/gpu/drm/i915/intel_pch.c
-+++ b/drivers/gpu/drm/i915/intel_pch.c
-@@ -130,8 +130,10 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
- 		drm_WARN_ON(&dev_priv->drm, !IS_JSL_EHL(dev_priv));
- 		return PCH_JSP;
- 	case INTEL_PCH_ADP_DEVICE_ID_TYPE:
-+	case INTEL_PCH_ADP2_DEVICE_ID_TYPE:
- 		drm_dbg_kms(&dev_priv->drm, "Found Alder Lake PCH\n");
--		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv));
-+		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv) &&
-+			    !IS_ALDERLAKE_P(dev_priv));
- 		return PCH_ADP;
- 	default:
- 		return PCH_NONE;
-@@ -161,7 +163,7 @@ intel_virt_detect_pch(const struct drm_i915_private *dev_priv,
- 	 * make an educated guess as to which PCH is really there.
- 	 */
+ 	num_bpc = drm_dp_dsc_sink_supported_input_bpcs(intel_dp->dsc_dpcd,
+ 						       dsc_bpc);
+@@ -1224,7 +1232,6 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
+-	u8 dsc_max_bpc;
+ 	int pipe_bpp;
+ 	int ret;
  
--	if (IS_ALDERLAKE_S(dev_priv))
-+	if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv))
- 		id = INTEL_PCH_ADP_DEVICE_ID_TYPE;
- 	else if (IS_TIGERLAKE(dev_priv) || IS_ROCKETLAKE(dev_priv))
- 		id = INTEL_PCH_TGP_DEVICE_ID_TYPE;
-diff --git a/drivers/gpu/drm/i915/intel_pch.h b/drivers/gpu/drm/i915/intel_pch.h
-index 7318377503b0..e2f3f30c6445 100644
---- a/drivers/gpu/drm/i915/intel_pch.h
-+++ b/drivers/gpu/drm/i915/intel_pch.h
-@@ -55,6 +55,7 @@ enum intel_pch {
- #define INTEL_PCH_JSP_DEVICE_ID_TYPE		0x4D80
- #define INTEL_PCH_JSP2_DEVICE_ID_TYPE		0x3880
- #define INTEL_PCH_ADP_DEVICE_ID_TYPE		0x7A80
-+#define INTEL_PCH_ADP2_DEVICE_ID_TYPE		0x5180
- #define INTEL_PCH_P2X_DEVICE_ID_TYPE		0x7100
- #define INTEL_PCH_P3X_DEVICE_ID_TYPE		0x7000
- #define INTEL_PCH_QEMU_DEVICE_ID_TYPE		0x2900 /* qemu q35 has 2918 */
+@@ -1234,14 +1241,7 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
+ 		return -EINVAL;
+ 
+-	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
+-	if (DISPLAY_VER(dev_priv) >= 12)
+-		dsc_max_bpc = min_t(u8, 12, conn_state->max_requested_bpc);
+-	else
+-		dsc_max_bpc = min_t(u8, 10,
+-				    conn_state->max_requested_bpc);
+-
+-	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, dsc_max_bpc);
++	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
+ 
+ 	/* Min Input BPC for ICL+ is 8 */
+ 	if (pipe_bpp < 8 * 3) {
 -- 
 2.25.4
 
