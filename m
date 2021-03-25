@@ -2,50 +2,41 @@ Return-Path: <SRS0=Bn5a=IX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B2A9C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:08:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F52DC433C1
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:25:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0B60D61A24
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:08:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B60D61A24
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id C364861A36
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:25:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C364861A36
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0FE56EE35;
-	Thu, 25 Mar 2021 18:08:39 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 968B96EE33
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 18:07:34 +0000 (UTC)
-IronPort-SDR: dcpJX1g9/aiERQYI/xod4Di3ed0RqHxf9UNPTNN4BqpaG+na9rWiEVeNYN6lymCeCpq/mefKH0
- z8Lc3LUPteSQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="178112559"
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="178112559"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 11:07:34 -0700
-IronPort-SDR: CbokcbdFlhfbCzflSbsHN+Vn65KFodsLHrgUqix2SVwemZqpoexIv19OzQxaCFElgo6hDXKIcq
- HhH7YVrNw6TQ==
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="453176695"
-Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 11:07:33 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 25 Mar 2021 11:07:05 -0700
-Message-Id: <20210325180720.401410-36-matthew.d.roper@intel.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20210325180720.401410-1-matthew.d.roper@intel.com>
-References: <20210325180720.401410-1-matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E4C46EE05;
+	Thu, 25 Mar 2021 18:25:29 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 123016EE05;
+ Thu, 25 Mar 2021 18:25:28 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0B3AEA8830;
+ Thu, 25 Mar 2021 18:25:28 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 35/50] drm/i915/adl_p: Tx escape clock with
- DSI
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
+Date: Thu, 25 Mar 2021 18:25:28 -0000
+Message-ID: <161669672804.15546.6761410356563263569@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210324211041.1354941-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20210324211041.1354941-1-daniel.vetter@ffwll.ch>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/2=5D_drm/i915=3A_add_gem/gt_TODO?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,118 +49,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: me@freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mika Kahola <mika.kahola@intel.com>
+== Series Details ==
 
-Today when the DSI controller is paired with the Combo-PHY it
-uses the high-speed (HS) Word clock for its low power (LP)
-transmit PPI communication to the DPHY. The interface signaling
-only changes state at an Escape clock frequency (i.e. its
-effectively running on a virtual Tx Escape clock that is controlled
-by counters w/in the controller), but all the interface flops are
-running off the HS clock.
+Series: series starting with [1/2] drm/i915: add gem/gt TODO
+URL   : https://patchwork.freedesktop.org/series/88413/
+State : warning
 
-This has the following drawbacks:
+== Summary ==
 
- * It is a deviation from the PPI spec which assumes signaling is
-   running on a physical Escape clock
- * The PV timings are over constrained (HS timed to 312.5MHz vs.
-   an Escape clock of 20MHz max)
+$ dim checkpatch origin/drm-tip
+591bc42605c7 drm/i915: add gem/gt TODO
+-:41: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#41: 
+new file mode 100644
 
-This feature is proposing to change the LP Tx communication between
-the controller and the DPHY from a virtual Tx Escape clock to a physical
-clock.
+-:86: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
 
-To do this we need to program two "M" divisors. One for the usual
-DSI_ESC_CLK_DIV and DPHY_ESC_CLK_DIV register and one for MIPIO_DWORD8.
+total: 0 errors, 2 warnings, 0 checks, 41 lines checked
+c20d16dd7b3d drm/doc: Add RFC section
+-:37: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#37: 
+new file mode 100644
 
-For DSI_ESC_CLK_DIV and DPHY_ESC_CLK_DIV registers the "M" is calculated
-as following
+-:42: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#42: FILE: Documentation/gpu/rfc.rst:1:
++===============
 
-Nt = ceil(f_link/160) (theoretical word clock)
-Nact = max[3, Nt + (Nt + 1)%2] (actual word clock)
-M = Nact * 8
+-:58: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
 
-For MIPIO_DWORD8 register, the divisor "M" is calculated as following
+total: 0 errors, 3 warnings, 0 checks, 24 lines checked
 
-M = (Nact - 1)/2
-
-BSpec: 55171
-
-Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c | 21 +++++++++++++++++++--
- drivers/gpu/drm/i915/i915_reg.h        |  6 ++++++
- 2 files changed, 25 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 9282978060b0..661b7f9dd031 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -361,10 +361,19 @@ static void gen11_dsi_program_esc_clk_div(struct intel_encoder *encoder,
- 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
- 	enum port port;
- 	int afe_clk_khz;
--	u32 esc_clk_div_m;
-+	int theo_word_clk, act_word_clk;
-+	u32 esc_clk_div_m, esc_clk_div_m_phy;
- 
- 	afe_clk_khz = afe_clk(encoder, crtc_state);
--	esc_clk_div_m = DIV_ROUND_UP(afe_clk_khz, DSI_MAX_ESC_CLK);
-+
-+	if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv)) {
-+		theo_word_clk = DIV_ROUND_UP(afe_clk_khz, 8 * DSI_MAX_ESC_CLK);
-+		act_word_clk = max(3, theo_word_clk + (theo_word_clk + 1) % 2);
-+		esc_clk_div_m = act_word_clk * 8;
-+		esc_clk_div_m_phy = (act_word_clk - 1)/2;
-+	} else {
-+		esc_clk_div_m = DIV_ROUND_UP(afe_clk_khz, DSI_MAX_ESC_CLK);
-+	}
- 
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		intel_de_write(dev_priv, ICL_DSI_ESC_CLK_DIV(port),
-@@ -377,6 +386,14 @@ static void gen11_dsi_program_esc_clk_div(struct intel_encoder *encoder,
- 			       esc_clk_div_m & ICL_ESC_CLK_DIV_MASK);
- 		intel_de_posting_read(dev_priv, ICL_DPHY_ESC_CLK_DIV(port));
- 	}
-+
-+	if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv)) {
-+		for_each_dsi_port(port, intel_dsi->ports) {
-+			intel_de_write(dev_priv, ADL_MIPIO_DW(port, 8),
-+				       esc_clk_div_m_phy & TX_ESC_CLK_DIV_PHY);
-+			intel_de_posting_read(dev_priv, ADL_MIPIO_DW(port, 8));
-+		}
-+	}
- }
- 
- static void get_dsi_io_power_domains(struct drm_i915_private *dev_priv,
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 8e24be53b63f..f25f68f3b2f4 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -11326,6 +11326,12 @@ enum skl_power_gate {
- #define  ICL_ESC_CLK_DIV_SHIFT			0
- #define DSI_MAX_ESC_CLK			20000		/* in KHz */
- 
-+#define _ADL_MIPIO_REG			0x180
-+#define ADL_MIPIO_DW(port, dw)		_MMIO(_ICL_COMBOPHY(port) + _ADL_MIPIO_REG + 4 * (dw))
-+#define   TX_ESC_CLK_DIV_PHY_SEL	REGBIT(16)
-+#define   TX_ESC_CLK_DIV_PHY_MASK	REG_GENMASK(23, 16)
-+#define   TX_ESC_CLK_DIV_PHY		REG_FIELD_PREP(TX_ESC_CLK_DIV_PHY_MASK, 0x7f)
-+
- #define _DSI_CMD_FRMCTL_0		0x6b034
- #define _DSI_CMD_FRMCTL_1		0x6b834
- #define DSI_CMD_FRMCTL(port)		_MMIO_PORT(port,	\
--- 
-2.25.4
 
 _______________________________________________
 Intel-gfx mailing list
