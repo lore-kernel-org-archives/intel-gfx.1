@@ -2,50 +2,55 @@ Return-Path: <SRS0=Bn5a=IX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D105C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 21:48:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99F9FC433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 21:52:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E72861494
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 21:48:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E72861494
+	by mail.kernel.org (Postfix) with ESMTPS id 3F89F61A1E
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 21:52:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F89F61A1E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1A246EE64;
-	Thu, 25 Mar 2021 21:48:55 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A8286EE68
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 21:48:39 +0000 (UTC)
-IronPort-SDR: 8lk0GVCL2wM67zclCGgN4u3gl1KBDNBEgV+aO6tCuh6g/e0gOHZl9CfxIvZ7W5zZPlGZkxZFMy
- 5/o70ABDfjJA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="171005104"
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="171005104"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 14:48:38 -0700
-IronPort-SDR: gmsdgdWHTj6V+wPy9vPAmIp410+KsgzDfPYSGcaAllkePdWy5tLTH2PJlh32IenPYlL4zHA8EV
- +X1FnUCOJSqA==
-X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="375235733"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2021 14:48:37 -0700
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 25 Mar 2021 23:48:04 +0200
-Message-Id: <20210325214808.2071517-22-imre.deak@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210325214808.2071517-1-imre.deak@intel.com>
-References: <20210325214808.2071517-1-imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B16E26EE4E;
+	Thu, 25 Mar 2021 21:52:19 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE7B46EE4E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Mar 2021 21:52:18 +0000 (UTC)
+IronPort-SDR: Livmz+PXdhvq3z1jvwUqrQtytq3VSDNjYRZ2mRfEDAbA63QxszBKQZncfBo/zHba6ZpzH3WWCc
+ Ia88ZZi6ldEA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="188737087"
+X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="188737087"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2021 14:52:18 -0700
+IronPort-SDR: z4gdVpeDjUiuIdnFpGWENgiJxspOZ3Q2wjXWr78IH9r3MJ4C2vpsmySc5FljcAWwECc4Oo+1oU
+ ab0gxnUDAZOg==
+X-IronPort-AV: E=Sophos;i="5.81,278,1610438400"; d="scan'208";a="514816260"
+Received: from dceraolo-mobl.amr.corp.intel.com (HELO [10.209.79.105])
+ ([10.209.79.105])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2021 14:52:18 -0700
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+References: <20210301193200.1369-1-daniele.ceraolospurio@intel.com>
+ <20210301193200.1369-10-daniele.ceraolospurio@intel.com>
+ <161481136254.25897.3796869467826514906@build.alporthouse.com>
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Message-ID: <51fdec59-b46e-b262-1eeb-a688f207957f@intel.com>
+Date: Thu, 25 Mar 2021 14:52:15 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 21/25] drm/i915/selftest: Unify use of
- intel_remapped_plane_info in igt_vma_rotate_remap()
+In-Reply-To: <161481136254.25897.3796869467826514906@build.alporthouse.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH v2 09/16] drm/i915/pxp: Implement PXP irq
+ handler
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,108 +63,478 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QWx3YXlzIHVzZSB0aGUgbW9kaWZpZWQgY29weSBvZiB0aGUgaW50ZWxfcmVtYXBwZWRfcGxhbmVf
-aW5mbyB2YXJpYWJsZXMuCkFuIHVwY29taW5nIHBhdGNoIHVwZGF0ZXMgdGhlIGRzdF9zdHJpZGUg
-ZmllbGQgaW4gdGhlc2UgY29waWVzIGFmdGVyCndoaWNoIHdlIGNhbid0IHVzZSB0aGUgb3JpZ2lu
-YWwgdmVyc2lvbnMuCgp2MjogSW5pdCB2aWV3IGluIGlndF92bWFfcm90YXRlX3JlbWFwKCkgd2hl
-biBkZWNsYXJpbmcgaXQuIChWaWxsZSkKClNpZ25lZC1vZmYtYnk6IEltcmUgRGVhayA8aW1yZS5k
-ZWFrQGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFs
-YUBsaW51eC5pbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5
-MTVfdm1hLmMgfCA2MyArKysrKysrKysrKystLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDM0
-IGluc2VydGlvbnMoKyksIDI5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L3NlbGZ0ZXN0cy9pOTE1X3ZtYS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvc2Vs
-ZnRlc3RzL2k5MTVfdm1hLmMKaW5kZXggOWRkNjc5OTEwNWU2Ni4uOTVkZDY3MTJhYzkwNSAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfdm1hLmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfdm1hLmMKQEAgLTUxNSwyMiArNTE1
-LDI0IEBAIHN0YXRpYyBpbnQgaWd0X3ZtYV9yb3RhdGVfcmVtYXAodm9pZCAqYXJnKQogCWZvciAo
-dCA9IHR5cGVzOyAqdDsgdCsrKSB7CiAJZm9yIChhID0gcGxhbmVzOyBhLT53aWR0aDsgYSsrKSB7
-CiAJCWZvciAoYiA9IHBsYW5lcyArIEFSUkFZX1NJWkUocGxhbmVzKTsgYi0tICE9IHBsYW5lczsg
-KSB7Ci0JCQlzdHJ1Y3QgaTkxNV9nZ3R0X3ZpZXcgdmlldyA9IHt9OworCQkJc3RydWN0IGk5MTVf
-Z2d0dF92aWV3IHZpZXcgPSB7CisJCQkJLnR5cGUgPSAqdCwKKwkJCQkucmVtYXBwZWQucGxhbmVb
-MF0gPSAqYSwKKwkJCQkucmVtYXBwZWQucGxhbmVbMV0gPSAqYiwKKwkJCX07CisJCQlzdHJ1Y3Qg
-aW50ZWxfcmVtYXBwZWRfcGxhbmVfaW5mbyAqcGxhbmVfaW5mbyA9IHZpZXcucmVtYXBwZWQucGxh
-bmU7CiAJCQl1bnNpZ25lZCBpbnQgbiwgbWF4X29mZnNldDsKIAotCQkJbWF4X29mZnNldCA9IG1h
-eChhLT5zdHJpZGUgKiBhLT5oZWlnaHQsCi0JCQkJCSBiLT5zdHJpZGUgKiBiLT5oZWlnaHQpOwor
-CQkJbWF4X29mZnNldCA9IG1heChwbGFuZV9pbmZvWzBdLnN0cmlkZSAqIHBsYW5lX2luZm9bMF0u
-aGVpZ2h0LAorCQkJCQkgcGxhbmVfaW5mb1sxXS5zdHJpZGUgKiBwbGFuZV9pbmZvWzFdLmhlaWdo
-dCk7CiAJCQlHRU1fQlVHX09OKG1heF9vZmZzZXQgPiBtYXhfcGFnZXMpOwogCQkJbWF4X29mZnNl
-dCA9IG1heF9wYWdlcyAtIG1heF9vZmZzZXQ7CiAKLQkJCXZpZXcudHlwZSA9ICp0OwotCQkJdmll
-dy5yb3RhdGVkLnBsYW5lWzBdID0gKmE7Ci0JCQl2aWV3LnJvdGF0ZWQucGxhbmVbMV0gPSAqYjsK
-LQotCQkJZm9yX2VhY2hfcHJpbWVfbnVtYmVyX2Zyb20odmlldy5yb3RhdGVkLnBsYW5lWzBdLm9m
-ZnNldCwgMCwgbWF4X29mZnNldCkgewotCQkJCWZvcl9lYWNoX3ByaW1lX251bWJlcl9mcm9tKHZp
-ZXcucm90YXRlZC5wbGFuZVsxXS5vZmZzZXQsIDAsIG1heF9vZmZzZXQpIHsKKwkJCWZvcl9lYWNo
-X3ByaW1lX251bWJlcl9mcm9tKHBsYW5lX2luZm9bMF0ub2Zmc2V0LCAwLCBtYXhfb2Zmc2V0KSB7
-CisJCQkJZm9yX2VhY2hfcHJpbWVfbnVtYmVyX2Zyb20ocGxhbmVfaW5mb1sxXS5vZmZzZXQsIDAs
-IG1heF9vZmZzZXQpIHsKIAkJCQkJc3RydWN0IHNjYXR0ZXJsaXN0ICpzZzsKIAkJCQkJc3RydWN0
-IGk5MTVfdm1hICp2bWE7CisJCQkJCXVuc2lnbmVkIGludCBleHBlY3RlZF9wYWdlczsKIAogCQkJ
-CQl2bWEgPSBjaGVja2VkX3ZtYV9pbnN0YW5jZShvYmosIHZtLCAmdmlldyk7CiAJCQkJCWlmIChJ
-U19FUlIodm1hKSkgewpAQCAtNTQ0LDI1ICs1NDYsMjcgQEAgc3RhdGljIGludCBpZ3Rfdm1hX3Jv
-dGF0ZV9yZW1hcCh2b2lkICphcmcpCiAJCQkJCQlnb3RvIG91dF9vYmplY3Q7CiAJCQkJCX0KIAor
-CQkJCQlleHBlY3RlZF9wYWdlcyA9IHJvdGF0ZWRfc2l6ZSgmcGxhbmVfaW5mb1swXSwgJnBsYW5l
-X2luZm9bMV0pOworCiAJCQkJCWlmICh2aWV3LnR5cGUgPT0gSTkxNV9HR1RUX1ZJRVdfUk9UQVRF
-RCAmJgotCQkJCQkgICAgdm1hLT5zaXplICE9IHJvdGF0ZWRfc2l6ZShhLCBiKSAqIFBBR0VfU0la
-RSkgeworCQkJCQkgICAgdm1hLT5zaXplICE9IGV4cGVjdGVkX3BhZ2VzICogUEFHRV9TSVpFKSB7
-CiAJCQkJCQlwcl9lcnIoIlZNQSBpcyB3cm9uZyBzaXplLCBleHBlY3RlZCAlbHUsIGZvdW5kICVs
-bHVcbiIsCi0JCQkJCQkgICAgICAgUEFHRV9TSVpFICogcm90YXRlZF9zaXplKGEsIGIpLCB2bWEt
-PnNpemUpOworCQkJCQkJICAgICAgIFBBR0VfU0laRSAqIGV4cGVjdGVkX3BhZ2VzLCB2bWEtPnNp
-emUpOwogCQkJCQkJZXJyID0gLUVJTlZBTDsKIAkJCQkJCWdvdG8gb3V0X29iamVjdDsKIAkJCQkJ
-fQogCiAJCQkJCWlmICh2aWV3LnR5cGUgPT0gSTkxNV9HR1RUX1ZJRVdfUkVNQVBQRUQgJiYKLQkJ
-CQkJICAgIHZtYS0+c2l6ZSA+IHJvdGF0ZWRfc2l6ZShhLCBiKSAqIFBBR0VfU0laRSkgeworCQkJ
-CQkgICAgdm1hLT5zaXplID4gZXhwZWN0ZWRfcGFnZXMgKiBQQUdFX1NJWkUpIHsKIAkJCQkJCXBy
-X2VycigiVk1BIGlzIHdyb25nIHNpemUsIGV4cGVjdGVkICVsdSwgZm91bmQgJWxsdVxuIiwKLQkJ
-CQkJCSAgICAgICBQQUdFX1NJWkUgKiByb3RhdGVkX3NpemUoYSwgYiksIHZtYS0+c2l6ZSk7CisJ
-CQkJCQkgICAgICAgUEFHRV9TSVpFICogZXhwZWN0ZWRfcGFnZXMsIHZtYS0+c2l6ZSk7CiAJCQkJ
-CQllcnIgPSAtRUlOVkFMOwogCQkJCQkJZ290byBvdXRfb2JqZWN0OwogCQkJCQl9CiAKLQkJCQkJ
-aWYgKHZtYS0+cGFnZXMtPm5lbnRzID4gcm90YXRlZF9zaXplKGEsIGIpKSB7CisJCQkJCWlmICh2
-bWEtPnBhZ2VzLT5uZW50cyA+IGV4cGVjdGVkX3BhZ2VzKSB7CiAJCQkJCQlwcl9lcnIoInNnIHRh
-YmxlIGlzIHdyb25nIHNpemVvLCBleHBlY3RlZCAldSwgZm91bmQgJXUgbmVudHNcbiIsCi0JCQkJ
-CQkgICAgICAgcm90YXRlZF9zaXplKGEsIGIpLCB2bWEtPnBhZ2VzLT5uZW50cyk7CisJCQkJCQkg
-ICAgICAgZXhwZWN0ZWRfcGFnZXMsIHZtYS0+cGFnZXMtPm5lbnRzKTsKIAkJCQkJCWVyciA9IC1F
-SU5WQUw7CiAJCQkJCQlnb3RvIG91dF9vYmplY3Q7CiAJCQkJCX0KQEAgLTU5MCwxNCArNTk0LDE0
-IEBAIHN0YXRpYyBpbnQgaWd0X3ZtYV9yb3RhdGVfcmVtYXAodm9pZCAqYXJnKQogCQkJCQkJCXBy
-X2VycigiSW5jb25zaXN0ZW50ICVzIFZNQSBwYWdlcyBmb3IgcGxhbmUgJWQ6IFsoJWQsICVkLCAl
-ZCwgJWQpLCAoJWQsICVkLCAlZCwgJWQpXVxuIiwKIAkJCQkJCQkgICAgICAgdmlldy50eXBlID09
-IEk5MTVfR0dUVF9WSUVXX1JPVEFURUQgPwogCQkJCQkJCSAgICAgICAicm90YXRlZCIgOiAicmVt
-YXBwZWQiLCBuLAotCQkJCQkJCSAgICAgICB2aWV3LnJvdGF0ZWQucGxhbmVbMF0ud2lkdGgsCi0J
-CQkJCQkJICAgICAgIHZpZXcucm90YXRlZC5wbGFuZVswXS5oZWlnaHQsCi0JCQkJCQkJICAgICAg
-IHZpZXcucm90YXRlZC5wbGFuZVswXS5zdHJpZGUsCi0JCQkJCQkJICAgICAgIHZpZXcucm90YXRl
-ZC5wbGFuZVswXS5vZmZzZXQsCi0JCQkJCQkJICAgICAgIHZpZXcucm90YXRlZC5wbGFuZVsxXS53
-aWR0aCwKLQkJCQkJCQkgICAgICAgdmlldy5yb3RhdGVkLnBsYW5lWzFdLmhlaWdodCwKLQkJCQkJ
-CQkgICAgICAgdmlldy5yb3RhdGVkLnBsYW5lWzFdLnN0cmlkZSwKLQkJCQkJCQkgICAgICAgdmll
-dy5yb3RhdGVkLnBsYW5lWzFdLm9mZnNldCk7CisJCQkJCQkJICAgICAgIHBsYW5lX2luZm9bMF0u
-d2lkdGgsCisJCQkJCQkJICAgICAgIHBsYW5lX2luZm9bMF0uaGVpZ2h0LAorCQkJCQkJCSAgICAg
-ICBwbGFuZV9pbmZvWzBdLnN0cmlkZSwKKwkJCQkJCQkgICAgICAgcGxhbmVfaW5mb1swXS5vZmZz
-ZXQsCisJCQkJCQkJICAgICAgIHBsYW5lX2luZm9bMV0ud2lkdGgsCisJCQkJCQkJICAgICAgIHBs
-YW5lX2luZm9bMV0uaGVpZ2h0LAorCQkJCQkJCSAgICAgICBwbGFuZV9pbmZvWzFdLnN0cmlkZSwK
-KwkJCQkJCQkgICAgICAgcGxhbmVfaW5mb1sxXS5vZmZzZXQpOwogCQkJCQkJCWVyciA9IC1FSU5W
-QUw7CiAJCQkJCQkJZ290byBvdXRfb2JqZWN0OwogCQkJCQkJfQpAQCAtODg3LDYgKzg5MSw3IEBA
-IHN0YXRpYyBpbnQgaWd0X3ZtYV9yZW1hcHBlZF9ndHQodm9pZCAqYXJnKQogCQkJCS50eXBlID0g
-KnQsCiAJCQkJLnJvdGF0ZWQucGxhbmVbMF0gPSAqcCwKIAkJCX07CisJCQlzdHJ1Y3QgaW50ZWxf
-cmVtYXBwZWRfcGxhbmVfaW5mbyAqcGxhbmVfaW5mbyA9IHZpZXcucm90YXRlZC5wbGFuZTsKIAkJ
-CXN0cnVjdCBpOTE1X3ZtYSAqdm1hOwogCQkJdTMyIF9faW9tZW0gKm1hcDsKIAkJCXVuc2lnbmVk
-IGludCB4LCB5OwpAQCAtOTEyLDE1ICs5MTcsMTUgQEAgc3RhdGljIGludCBpZ3Rfdm1hX3JlbWFw
-cGVkX2d0dCh2b2lkICphcmcpCiAJCQkJZ290byBvdXQ7CiAJCQl9CiAKLQkJCWZvciAoeSA9IDAg
-OyB5IDwgcC0+aGVpZ2h0OyB5KyspIHsKLQkJCQlmb3IgKHggPSAwIDsgeCA8IHAtPndpZHRoOyB4
-KyspIHsKKwkJCWZvciAoeSA9IDAgOyB5IDwgcGxhbmVfaW5mb1swXS5oZWlnaHQ7IHkrKykgewor
-CQkJCWZvciAoeCA9IDAgOyB4IDwgcGxhbmVfaW5mb1swXS53aWR0aDsgeCsrKSB7CiAJCQkJCXVu
-c2lnbmVkIGludCBvZmZzZXQ7CiAJCQkJCXUzMiB2YWwgPSB5IDw8IDE2IHwgeDsKIAogCQkJCQlp
-ZiAoKnQgPT0gSTkxNV9HR1RUX1ZJRVdfUk9UQVRFRCkKLQkJCQkJCW9mZnNldCA9ICh4ICogcC0+
-aGVpZ2h0ICsgeSkgKiBQQUdFX1NJWkU7CisJCQkJCQlvZmZzZXQgPSAoeCAqIHBsYW5lX2luZm9b
-MF0uaGVpZ2h0ICsgeSkgKiBQQUdFX1NJWkU7CiAJCQkJCWVsc2UKLQkJCQkJCW9mZnNldCA9ICh5
-ICogcC0+d2lkdGggKyB4KSAqIFBBR0VfU0laRTsKKwkJCQkJCW9mZnNldCA9ICh5ICogcGxhbmVf
-aW5mb1swXS53aWR0aCArIHgpICogUEFHRV9TSVpFOwogCiAJCQkJCWlvd3JpdGUzMih2YWwsICZt
-YXBbb2Zmc2V0IC8gc2l6ZW9mKCptYXApXSk7CiAJCQkJfQpAQCAtOTQzLDggKzk0OCw4IEBAIHN0
-YXRpYyBpbnQgaWd0X3ZtYV9yZW1hcHBlZF9ndHQodm9pZCAqYXJnKQogCQkJCWdvdG8gb3V0Owog
-CQkJfQogCi0JCQlmb3IgKHkgPSAwIDsgeSA8IHAtPmhlaWdodDsgeSsrKSB7Ci0JCQkJZm9yICh4
-ID0gMCA7IHggPCBwLT53aWR0aDsgeCsrKSB7CisJCQlmb3IgKHkgPSAwIDsgeSA8IHBsYW5lX2lu
-Zm9bMF0uaGVpZ2h0OyB5KyspIHsKKwkJCQlmb3IgKHggPSAwIDsgeCA8IHBsYW5lX2luZm9bMF0u
-d2lkdGg7IHgrKykgewogCQkJCQl1bnNpZ25lZCBpbnQgb2Zmc2V0LCBzcmNfaWR4OwogCQkJCQl1
-MzIgZXhwID0geSA8PCAxNiB8IHg7CiAJCQkJCXUzMiB2YWw7Ci0tIAoyLjI1LjEKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5n
-IGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+
+
+On 3/3/2021 2:42 PM, Chris Wilson wrote:
+> Quoting Daniele Ceraolo Spurio (2021-03-01 19:31:53)
+>> From: "Huang, Sean Z" <sean.z.huang@intel.com>
+>>
+>> The HW will generate a teardown interrupt when session termination is
+>> required, which requires i915 to submit a terminating batch. Once the HW
+>> is done with the termination it will generate another interrupt, at
+>> which point it is safe to re-create the session.
+> Why do we do the auto recreation after the teardown interrupt?
+
+Just realized I forgot to reply to this. The current design is for the 
+arb session to always be running when the device is awake.
+We could potentially refcount it via active protected objects, but 
+that'll make the flow more complicated.
+
+Daniele
+
+>
+>> v2: use struct completion instead of bool (Chris)
+>>
+>> Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+>> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+>> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+>> ---
+>>   drivers/gpu/drm/i915/Makefile                |   1 +
+>>   drivers/gpu/drm/i915/gt/intel_gt_irq.c       |   7 +
+>>   drivers/gpu/drm/i915/i915_reg.h              |   1 +
+>>   drivers/gpu/drm/i915/pxp/intel_pxp.c         |  34 +++++
+>>   drivers/gpu/drm/i915/pxp/intel_pxp.h         |  16 ++
+>>   drivers/gpu/drm/i915/pxp/intel_pxp_irq.c     | 151 +++++++++++++++++++
+>>   drivers/gpu/drm/i915/pxp/intel_pxp_irq.h     |  33 ++++
+>>   drivers/gpu/drm/i915/pxp/intel_pxp_session.c |   9 +-
+>>   drivers/gpu/drm/i915/pxp/intel_pxp_session.h |   1 +
+>>   drivers/gpu/drm/i915/pxp/intel_pxp_tee.c     |  10 +-
+>>   drivers/gpu/drm/i915/pxp/intel_pxp_types.h   |   8 +
+>>   11 files changed, 268 insertions(+), 3 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
+>>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
+>>
+>> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+>> index 8b605f326039..5e9bd34dec38 100644
+>> --- a/drivers/gpu/drm/i915/Makefile
+>> +++ b/drivers/gpu/drm/i915/Makefile
+>> @@ -274,6 +274,7 @@ i915-y += i915_perf.o
+>>   i915-$(CONFIG_DRM_I915_PXP) += \
+>>          pxp/intel_pxp.o \
+>>          pxp/intel_pxp_cmd.o \
+>> +       pxp/intel_pxp_irq.o \
+>>          pxp/intel_pxp_session.o \
+>>          pxp/intel_pxp_tee.o
+>>   
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+>> index d29126c458ba..0d3585efe2b8 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+>> @@ -13,6 +13,7 @@
+>>   #include "intel_lrc_reg.h"
+>>   #include "intel_uncore.h"
+>>   #include "intel_rps.h"
+>> +#include "pxp/intel_pxp_irq.h"
+>>   
+>>   static void guc_irq_handler(struct intel_guc *guc, u16 iir)
+>>   {
+>> @@ -64,6 +65,9 @@ gen11_other_irq_handler(struct intel_gt *gt, const u8 instance,
+>>          if (instance == OTHER_GTPM_INSTANCE)
+>>                  return gen11_rps_irq_handler(&gt->rps, iir);
+>>   
+>> +       if (instance == OTHER_KCR_INSTANCE)
+>> +               return intel_pxp_irq_handler(&gt->pxp, iir);
+>> +
+>>          WARN_ONCE(1, "unhandled other interrupt instance=0x%x, iir=0x%x\n",
+>>                    instance, iir);
+>>   }
+>> @@ -190,6 +194,9 @@ void gen11_gt_irq_reset(struct intel_gt *gt)
+>>          intel_uncore_write(uncore, GEN11_GPM_WGBOXPERF_INTR_MASK,  ~0);
+>>          intel_uncore_write(uncore, GEN11_GUC_SG_INTR_ENABLE, 0);
+>>          intel_uncore_write(uncore, GEN11_GUC_SG_INTR_MASK,  ~0);
+>> +
+>> +       intel_uncore_write(uncore, GEN11_CRYPTO_RSVD_INTR_ENABLE, 0);
+>> +       intel_uncore_write(uncore, GEN11_CRYPTO_RSVD_INTR_MASK,  ~0);
+>>   }
+>>   
+>>   void gen11_gt_irq_postinstall(struct intel_gt *gt)
+>> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+>> index e5dd0203991b..97a6d0c638ec 100644
+>> --- a/drivers/gpu/drm/i915/i915_reg.h
+>> +++ b/drivers/gpu/drm/i915/i915_reg.h
+>> @@ -7958,6 +7958,7 @@ enum {
+>>   /* irq instances for OTHER_CLASS */
+>>   #define OTHER_GUC_INSTANCE     0
+>>   #define OTHER_GTPM_INSTANCE    1
+>> +#define OTHER_KCR_INSTANCE     4
+>>   
+>>   #define GEN11_INTR_IDENTITY_REG(x)     _MMIO(0x190060 + ((x) * 4))
+>>   
+>> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+>> index cbec9395bde9..0ca1c2c16972 100644
+>> --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
+>> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+>> @@ -2,7 +2,9 @@
+>>   /*
+>>    * Copyright(c) 2020 Intel Corporation.
+>>    */
+>> +#include <linux/workqueue.h>
+>>   #include "intel_pxp.h"
+>> +#include "intel_pxp_irq.h"
+>>   #include "intel_pxp_tee.h"
+>>   #include "gt/intel_context.h"
+>>   #include "i915_drv.h"
+>> @@ -67,12 +69,23 @@ void intel_pxp_init(struct intel_pxp *pxp)
+>>   
+>>          mutex_init(&pxp->mutex);
+>>   
+>> +       /*
+>> +        * we'll use the completion to check if there is a termination pending,
+>> +        * so we start it as completed and we reinit it when a termination
+>> +        * is triggered.
+>> +        */
+>> +       init_completion(&pxp->termination);
+>> +       complete_all(&pxp->termination);
+>> +
+>>          kcr_pxp_enable(gt);
+>>   
+>>          ret = create_vcs_context(pxp);
+>>          if (ret)
+>>                  goto out_kcr;
+>>   
+>> +       intel_pxp_irq_init(pxp);
+>> +       intel_pxp_irq_enable(pxp);
+>> +
+>>          ret = intel_pxp_tee_component_init(pxp);
+>>          if (ret)
+>>                  goto out_context;
+>> @@ -94,10 +107,31 @@ void intel_pxp_fini(struct intel_pxp *pxp)
+>>          if (!intel_pxp_is_enabled(pxp))
+>>                  return;
+>>   
+>> +       intel_pxp_irq_disable(pxp);
+>> +
+>>          intel_pxp_tee_component_fini(pxp);
+>>   
+>>          destroy_vcs_context(pxp);
+>>   
+>>          kcr_pxp_disable(gt);
+>> +}
+>>   
+>> +int intel_pxp_wait_for_termination_completion(struct intel_pxp *pxp)
+>> +{
+>> +       int ret;
+>> +
+>> +       if (!intel_pxp_is_enabled(pxp))
+>> +               return 0;
+>> +
+>> +       ret = wait_for_completion_timeout(&pxp->termination,
+>> +                                         msecs_to_jiffies(100));
+>> +
+>> +       /* the wait returns 0 on failure */
+>> +       if (ret)
+>> +               ret = 0;
+>> +       else
+>> +               ret = -ETIMEDOUT;
+>> +
+>> +       return ret;
+>>   }
+>> +
+>> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+>> index 3bede9306481..89cf66c9bef3 100644
+>> --- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
+>> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+>> @@ -9,6 +9,15 @@
+>>   #include "gt/intel_gt_types.h"
+>>   #include "intel_pxp_types.h"
+>>   
+>> +#define GEN12_DISPLAY_PXP_STATE_TERMINATED_INTERRUPT BIT(1)
+>> +#define GEN12_DISPLAY_APP_TERMINATED_PER_FW_REQ_INTERRUPT BIT(2)
+>> +#define GEN12_DISPLAY_STATE_RESET_COMPLETE_INTERRUPT BIT(3)
+>> +
+>> +#define GEN12_PXP_INTERRUPTS \
+>> +       (GEN12_DISPLAY_PXP_STATE_TERMINATED_INTERRUPT | \
+>> +        GEN12_DISPLAY_APP_TERMINATED_PER_FW_REQ_INTERRUPT | \
+>> +        GEN12_DISPLAY_STATE_RESET_COMPLETE_INTERRUPT)
+>> +
+>>   static inline struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp)
+>>   {
+>>          return container_of(pxp, struct intel_gt, pxp);
+>> @@ -27,6 +36,8 @@ static inline bool intel_pxp_is_active(const struct intel_pxp *pxp)
+>>   #ifdef CONFIG_DRM_I915_PXP
+>>   void intel_pxp_init(struct intel_pxp *pxp);
+>>   void intel_pxp_fini(struct intel_pxp *pxp);
+>> +
+>> +int intel_pxp_wait_for_termination_completion(struct intel_pxp *pxp);
+>>   #else
+>>   static inline void intel_pxp_init(struct intel_pxp *pxp)
+>>   {
+>> @@ -35,6 +46,11 @@ static inline void intel_pxp_init(struct intel_pxp *pxp)
+>>   static inline void intel_pxp_fini(struct intel_pxp *pxp)
+>>   {
+>>   }
+>> +
+>> +static inline int intel_pxp_wait_for_termination_completion(struct intel_pxp *pxp)
+>> +{
+>> +       return 0;
+>> +}
+>>   #endif
+>>   
+>>   #endif /* __INTEL_PXP_H__ */
+>> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
+>> new file mode 100644
+>> index 000000000000..40115bf0b6bb
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
+>> @@ -0,0 +1,151 @@
+>> +// SPDX-License-Identifier: MIT
+>> +/*
+>> + * Copyright(c) 2020 Intel Corporation.
+>> + */
+>> +#include <linux/workqueue.h>
+>> +#include "intel_pxp.h"
+>> +#include "intel_pxp_irq.h"
+>> +#include "intel_pxp_session.h"
+>> +#include "gt/intel_gt_irq.h"
+>> +#include "i915_irq.h"
+>> +#include "i915_reg.h"
+>> +
+>> +static int pxp_terminate(struct intel_pxp *pxp)
+>> +{
+>> +       int ret = 0;
+>> +
+>> +       mutex_lock(&pxp->mutex);
+>> +
+>> +       pxp->global_state_attacked = true;
+>> +
+>> +       ret = intel_pxp_arb_terminate_session_with_global_terminate(pxp);
+>> +
+>> +       mutex_unlock(&pxp->mutex);
+>> +
+>> +       return ret;
+>> +}
+>> +
+>> +static int pxp_terminate_complete(struct intel_pxp *pxp)
+>> +{
+>> +       int ret = 0;
+>> +
+>> +       mutex_lock(&pxp->mutex);
+>> +
+>> +       if (pxp->global_state_attacked) {
+>> +               pxp->global_state_attacked = false;
+>> +
+>> +               /* Re-create the arb session after teardown handle complete */
+>> +               ret = intel_pxp_create_arb_session(pxp);
+>> +       }
+>> +
+>> +       mutex_unlock(&pxp->mutex);
+>> +
+>> +       complete_all(&pxp->termination);
+>> +
+>> +       return ret;
+>> +}
+>> +
+>> +static void intel_pxp_irq_work(struct work_struct *work)
+>> +{
+>> +       struct intel_pxp *pxp = container_of(work, typeof(*pxp), irq_work);
+>> +       struct intel_gt *gt = pxp_to_gt(pxp);
+>> +       u32 events = 0;
+>> +
+>> +       spin_lock_irq(&gt->irq_lock);
+>> +       events = fetch_and_zero(&pxp->current_events);
+>> +       spin_unlock_irq(&gt->irq_lock);
+>> +
+>> +       if (!events)
+>> +               return;
+>> +
+>> +       if (events & (GEN12_DISPLAY_PXP_STATE_TERMINATED_INTERRUPT |
+>> +                     GEN12_DISPLAY_APP_TERMINATED_PER_FW_REQ_INTERRUPT))
+>> +               pxp_terminate(pxp);
+>> +
+>> +       if (events & GEN12_DISPLAY_STATE_RESET_COMPLETE_INTERRUPT)
+>> +               pxp_terminate_complete(pxp);
+>> +
+>> +       /*
+>> +        * we expect the terminate complete to arrive quickly after emitting
+>> +        * the terminate, so check back on it
+>> +        */
+>> +       if (pxp->irq_enabled)
+>> +               queue_work(system_unbound_wq, &pxp->irq_work);
+>> +}
+>> +
+>> +/**
+>> + * intel_pxp_irq_handler - Handles PXP interrupts.
+>> + * @pxp: pointer to pxp struct
+>> + * @iir: interrupt vector
+>> + */
+>> +void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
+>> +{
+>> +       struct intel_gt *gt = pxp_to_gt(pxp);
+>> +
+>> +       if (GEM_WARN_ON(!intel_pxp_is_enabled(pxp)))
+>> +               return;
+>> +
+>> +       lockdep_assert_held(&gt->irq_lock);
+>> +
+>> +       if (unlikely(!iir))
+>> +               return;
+>> +
+>> +       /* immediately mark PXP as inactive on termination */
+>> +       if (iir & (GEN12_DISPLAY_PXP_STATE_TERMINATED_INTERRUPT |
+>> +                  GEN12_DISPLAY_APP_TERMINATED_PER_FW_REQ_INTERRUPT))
+>> +               intel_pxp_mark_termination_in_progress(pxp);
+>> +
+>> +       pxp->current_events |= iir;
+>> +       queue_work(system_unbound_wq, &pxp->irq_work);
+>> +}
+>> +
+>> +static inline void __pxp_set_interrupts(struct intel_gt *gt, u32 interrupts)
+>> +{
+>> +       struct intel_uncore *uncore = gt->uncore;
+>> +       const u32 mask = interrupts << 16;
+>> +
+>> +       intel_uncore_write(uncore, GEN11_CRYPTO_RSVD_INTR_ENABLE, mask);
+>> +       intel_uncore_write(uncore, GEN11_CRYPTO_RSVD_INTR_MASK,  ~mask);
+>> +}
+>> +
+>> +static inline void pxp_irq_reset(struct intel_gt *gt)
+>> +{
+>> +       spin_lock_irq(&gt->irq_lock);
+>> +       gen11_gt_reset_one_iir(gt, 0, GEN11_KCR);
+>> +       spin_unlock_irq(&gt->irq_lock);
+>> +}
+>> +
+>> +void intel_pxp_irq_init(struct intel_pxp *pxp)
+>> +{
+>> +       INIT_WORK(&pxp->irq_work, intel_pxp_irq_work);
+>> +}
+>> +
+>> +void intel_pxp_irq_enable(struct intel_pxp *pxp)
+>> +{
+>> +       struct intel_gt *gt = pxp_to_gt(pxp);
+>> +
+>> +       spin_lock_irq(&gt->irq_lock);
+>> +       if (!pxp->irq_enabled) {
+>> +               WARN_ON_ONCE(gen11_gt_reset_one_iir(gt, 0, GEN11_KCR));
+>> +               __pxp_set_interrupts(gt, GEN12_PXP_INTERRUPTS);
+>> +               pxp->irq_enabled = true;
+>> +       }
+>> +       spin_unlock_irq(&gt->irq_lock);
+>> +}
+>> +
+>> +void intel_pxp_irq_disable(struct intel_pxp *pxp)
+>> +{
+>> +       struct intel_gt *gt = pxp_to_gt(pxp);
+>> +
+>> +       spin_lock_irq(&gt->irq_lock);
+>> +
+>> +       pxp->irq_enabled = false;
+>> +       __pxp_set_interrupts(gt, 0);
+>> +
+>> +       spin_unlock_irq(&gt->irq_lock);
+>> +       intel_synchronize_irq(gt->i915);
+>> +
+>> +       pxp_irq_reset(gt);
+>> +
+>> +       flush_work(&pxp->irq_work);
+>> +}
+>> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
+>> new file mode 100644
+>> index 000000000000..7a875831636d
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
+>> @@ -0,0 +1,33 @@
+>> +/* SPDX-License-Identifier: MIT */
+>> +/*
+>> + * Copyright(c) 2020, Intel Corporation. All rights reserved.
+>> + */
+>> +
+>> +#ifndef __INTEL_PXP_IRQ_H__
+>> +#define __INTEL_PXP_IRQ_H__
+>> +
+>> +#include <linux/types.h>
+>> +
+>> +struct intel_pxp;
+>> +
+>> +#ifdef CONFIG_DRM_I915_PXP
+>> +void intel_pxp_irq_init(struct intel_pxp *pxp);
+>> +void intel_pxp_irq_enable(struct intel_pxp *pxp);
+>> +void intel_pxp_irq_disable(struct intel_pxp *pxp);
+>> +void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
+>> +#else
+>> +void intel_pxp_irq_init(struct intel_pxp *pxp)
+>> +{
+>> +}
+>> +void intel_pxp_irq_enable(struct intel_pxp *pxp)
+>> +{
+>> +}
+>> +void intel_pxp_irq_disable(struct intel_pxp *pxp)
+>> +{
+>> +}
+>> +static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
+>> +{
+>> +}
+>> +#endif
+>> +
+>> +#endif /* __INTEL_PXP_IRQ_H__ */
+>> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+>> index ddbfac75686a..488006a0cf39 100644
+>> --- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+>> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+>> @@ -99,8 +99,6 @@ int intel_pxp_arb_terminate_session_with_global_terminate(struct intel_pxp *pxp)
+>>   
+>>          lockdep_assert_held(&pxp->mutex);
+>>   
+>> -       pxp->arb_is_in_play = false;
+>> -
+>>          /* terminate the hw sessions */
+>>          ret = intel_pxp_submit_session_termination(pxp, ARB_SESSION);
+>>          if (ret) {
+>> @@ -118,3 +116,10 @@ int intel_pxp_arb_terminate_session_with_global_terminate(struct intel_pxp *pxp)
+>>   
+>>          return ret;
+>>   }
+>> +
+>> +void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp)
+>> +{
+>> +       pxp->arb_is_in_play = false;
+>> +       reinit_completion(&pxp->termination);
+>> +}
+>> +
+>> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+>> index 07c97df7a509..931169f795ab 100644
+>> --- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+>> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+>> @@ -13,5 +13,6 @@ struct intel_pxp;
+>>   bool intel_pxp_arb_session_is_in_play(struct intel_pxp *pxp);
+>>   int intel_pxp_create_arb_session(struct intel_pxp *pxp);
+>>   int intel_pxp_arb_terminate_session_with_global_terminate(struct intel_pxp *pxp);
+>> +void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
+>>   
+>>   #endif /* __INTEL_PXP_SESSION_H__ */
+>> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+>> index fd9a69248dd8..b84f675c588e 100644
+>> --- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+>> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+>> @@ -99,9 +99,17 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+>>          mutex_lock(&pxp->mutex);
+>>   
+>>          /* Create arb session only if tee is ready, during system boot or sleep/resume */
+>> -       if (intel_pxp_arb_session_is_in_play(pxp))
+>> +       if (intel_pxp_arb_session_is_in_play(pxp)) {
+>> +               intel_pxp_mark_termination_in_progress(pxp);
+>>                  ret = intel_pxp_arb_terminate_session_with_global_terminate(pxp);
+>>   
+>> +               if (!ret) {
+>> +                       mutex_unlock(&pxp->mutex);
+>> +                       ret = intel_pxp_wait_for_termination_completion(pxp);
+>> +                       mutex_lock(&pxp->mutex);
+> * shivers
+>
+> This does not give off warm fuzzy feeling about the locking.
+> It's clear why you had to drop the lock to avoid blocking the interrupt
+> bh (the worker), but it's not actually clear that the locking needs to
+> be like that.
+>
+> Oh well, s/if/while/ to cover the lock dropping.
+> -Chris
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
