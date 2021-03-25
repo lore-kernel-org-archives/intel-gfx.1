@@ -2,53 +2,41 @@ Return-Path: <SRS0=Bn5a=IX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD32DC433C1
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:59:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2993C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 19:03:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 86AFC61A2B
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 18:59:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86AFC61A2B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=hiler.eu
+	by mail.kernel.org (Postfix) with ESMTPS id 51BD9619D3
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 19:03:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51BD9619D3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D32E6EE05;
-	Thu, 25 Mar 2021 18:59:47 +0000 (UTC)
-Received: from aibo.runbox.com (aibo.runbox.com [91.220.196.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 060156EE1E;
- Thu, 25 Mar 2021 18:59:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hiler.eu;
- s=selector2; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
- :Message-Id:Date:Subject:Cc:To:From;
- bh=XKEPUcginBRrGqcMEowuAtdUfBN+L4i35Fgl79e0nLU=; b=aYNySqrr+y/atiZsBDHUe4kwMV
- tA5hIM931b40gNYeF23tuaMI3oP0RUYLkMTsTV85jeXXNY2PhywGx+H+r4y3tyQ7+ryzYTmaTOTAU
- QgUNGNpo9kCUTTq597eXrQvXpXYglIGmP4hcPTGwqTiLY8x/QiadcDG6n5oCQuwm4cmlni2ukk1Mf
- ZbQpY4ahI3gD66Lg4V6Z0/pLNfDw4KZTnhGFt8lNa+eGJOz/N64IYzpGqvuBeSsPhaMFF9CBrEh1w
- Yg9EKBn9SfS+4sRVWZrHnvNwtC15lnhSzrs5kdmKxYAms2RltsHhIZJsLNxTv3tATD8VQaZFhpE8I
- FYZ39dLw==;
-Received: from [10.9.9.74] (helo=submission03.runbox)
- by mailtransmit02.runbox with esmtp (Exim 4.86_2)
- (envelope-from <arek@hiler.eu>)
- id 1lPVCm-0007Dp-As; Thu, 25 Mar 2021 19:59:40 +0100
-Received: by submission03.runbox with esmtpsa [Authenticated alias (933559)]
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
- id 1lPVCU-0001QH-U0; Thu, 25 Mar 2021 19:59:22 +0100
-From: Arkadiusz Hiler <arek@hiler.eu>
-To: igt-dev@lists.freedesktop.org
-Date: Thu, 25 Mar 2021 20:59:12 +0200
-Message-Id: <20210325185915.51590-2-arek@hiler.eu>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210325185915.51590-1-arek@hiler.eu>
-References: <20210325185915.51590-1-arek@hiler.eu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C94356EDF5;
+	Thu, 25 Mar 2021 19:03:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E75B06EDFB;
+ Thu, 25 Mar 2021 19:03:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E12A2A9932;
+ Thu, 25 Mar 2021 19:03:03 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 2/5] tests: Build gem_concurrent_all with
- meson
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Date: Thu, 25 Mar 2021 19:03:03 -0000
+Message-ID: <161669898389.15547.4459792748431026125@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210325004415.17432-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20210325004415.17432-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIHNl?=
+ =?utf-8?q?ries_starting_with_=5B1/2=5D_drm/i915=3A_Fix_transposed_argumen?=
+ =?utf-8?q?ts_to_skl=5Fplane=5Fwm=5Flevel=28=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,46 +49,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-...and add it to test-list-full.txt just like we do when building with
-autotools.
+== Series Details ==
 
-Signed-off-by: Arkadiusz Hiler <arek@hiler.eu>
----
- tests/meson.build | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Series: series starting with [1/2] drm/i915: Fix transposed arguments to skl_plane_wm_level()
+URL   : https://patchwork.freedesktop.org/series/88420/
+State : warning
 
-diff --git a/tests/meson.build b/tests/meson.build
-index 54a1a3c7..8e3cd390 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -402,6 +402,19 @@ test_list_target = custom_target('testlist',
- 	      install : true,
- 	      install_dir : libexecdir)
- 
-+test_executables += executable('gem_concurrent_all', 'i915/gem_concurrent_all.c',
-+	   dependencies : test_deps + [ libatomic ],
-+	   install_dir : libexecdir,
-+	   install_rpath : libexecdir_rpathdir,
-+	   install : true)
-+test_list += 'gem_concurrent_all'
-+
-+test_list_full_target = custom_target('testlist-full',
-+	      output : 'test-list-full.txt',
-+	      command : [ gen_testlist, '@OUTPUT@', test_list ],
-+	      install : true,
-+	      install_dir : libexecdir)
-+
- test_script = find_program('igt_command_line.sh')
- foreach prog : test_list
- 	test('testcase check ' + prog, test_script, args : prog)
--- 
-2.31.0
+== Summary ==
+
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/gem/i915_gem_shrinker.c:102: warning: Function parameter or member 'ww' not described in 'i915_gem_shrink'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'jump_whitelist' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'shadow_map' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'batch_map' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
+/home/cidrm/kernel/Documentation/gpu/i915:22: ./drivers/gpu/drm/i915/intel_runtime_pm.c:423: WARNING: Inline strong start-string without end-string.
+
 
 _______________________________________________
 Intel-gfx mailing list
