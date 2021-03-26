@@ -6,46 +6,37 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E2B4C433C1
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 13:31:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56E29C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 13:50:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4214661A18
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 13:31:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4214661A18
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id DD70261A18
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 13:50:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD70261A18
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB736F3DA;
-	Fri, 26 Mar 2021 13:31:25 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 214A56F3D8;
- Fri, 26 Mar 2021 13:31:24 +0000 (UTC)
-IronPort-SDR: PtOjnimDqOWKNuKEDUkN7if51K9oPSaI4tDWL1pk4bolRUIptaHTnLxM9CmjenrfDkh1hgIIRW
- YrswPcOXvvPQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="170522032"
-X-IronPort-AV: E=Sophos;i="5.81,280,1610438400"; d="scan'208";a="170522032"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 06:31:23 -0700
-IronPort-SDR: T0OzkN48/3SWyo7z/SaHQVmt4RqLnbZ7h9rTCjSFVfSKIf1Imezn6FdLiegZ7somNvbdHSy2VI
- n30EOOVG3oyA==
-X-IronPort-AV: E=Sophos;i="5.81,280,1610438400"; d="scan'208";a="416534742"
-Received: from mpaulits-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.55.191])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 06:31:19 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
-In-Reply-To: <YF24MHoOSjpKFEXA@phenom.ffwll.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <YF24MHoOSjpKFEXA@phenom.ffwll.local>
-Date: Fri, 26 Mar 2021 15:31:17 +0200
-Message-ID: <874kgy2g9m.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82D366F3C2;
+	Fri, 26 Mar 2021 13:50:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 896FD6E1F9;
+ Fri, 26 Mar 2021 13:50:36 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B14C4A0003;
+ Fri, 26 Mar 2021 13:50:35 +0000 (UTC)
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PULL] topic/i915-gem-next
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Date: Fri, 26 Mar 2021 13:50:35 -0000
+Message-ID: <161676663572.10686.1832624168717678807@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <cover.1616764798.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1616764798.git.jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_refactor_KBL/TGL/ADLS_stepping_scheme_=28rev3?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +49,127 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 26 Mar 2021, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> The rough plan we discussed somewhat ad-hoc with Jani&Rodrigo (Joonas was
-> out this week, but back next) is that they send out a pull with what's
-> there right now. Then once both this branch here and the -gt-next pull are
-> in drm-next they will backmerge, and the -gt-next tree is open for
-> business again.
+== Series Details ==
 
-I guess worth noting is that drm-intel-gt-next is now rebased on top of
-current drm-next. Since the topic branch is part of drm-tip, I presume
-the conflicts are manageable.
+Series: drm/i915: refactor KBL/TGL/ADLS stepping scheme (rev3)
+URL   : https://patchwork.freedesktop.org/series/87323/
+State : warning
 
-BR,
-Jani.
+== Summary ==
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+$ dim checkpatch origin/drm-tip
+879114240a25 drm/i915: split out stepping info to a new file
+-:124: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#124: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 162 lines checked
+a158a630e648 drm/i915: add new helpers for accessing stepping info
+-:36: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#36: FILE: drivers/gpu/drm/i915/i915_drv.h:1274:
++#define IS_DISPLAY_STEP(__i915, since, until) \
++	(drm_WARN_ON(&(__i915)->drm, INTEL_DISPLAY_STEP(__i915) == STEP_NONE), \
++	 INTEL_DISPLAY_STEP(__i915) >= (since) && INTEL_DISPLAY_STEP(__i915) <= (until))
+
+-:40: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#40: FILE: drivers/gpu/drm/i915/i915_drv.h:1278:
++#define IS_GT_STEP(__i915, since, until) \
++	(drm_WARN_ON(&(__i915)->drm, INTEL_GT_STEP(__i915) == STEP_NONE), \
++	 INTEL_GT_STEP(__i915) >= (since) && INTEL_GT_STEP(__i915) <= (until))
+
+total: 0 errors, 0 warnings, 2 checks, 66 lines checked
+c4a274f64cda drm/i915: switch KBL to the new stepping scheme
+-:114: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#114: FILE: drivers/gpu/drm/i915/i915_drv.h:1469:
++#define IS_KBL_GT_STEP(dev_priv, since, until) \
++	(IS_KABYLAKE(dev_priv) && IS_GT_STEP(dev_priv, since, until))
+
+-:116: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#116: FILE: drivers/gpu/drm/i915/i915_drv.h:1471:
++#define IS_KBL_DISPLAY_STEP(dev_priv, since, until) \
++	(IS_KABYLAKE(dev_priv) && IS_DISPLAY_STEP(dev_priv, since, until))
+
+-:157: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#157: FILE: drivers/gpu/drm/i915/intel_step.c:16:
+ 
++
+
+total: 0 errors, 0 warnings, 3 checks, 198 lines checked
+3dce1f7cf58b drm/i915: switch TGL and ADL to the new stepping scheme
+-:58: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#58: FILE: drivers/gpu/drm/i915/i915_drv.h:1504:
++#define IS_TGL_DISP_STEPPING(__i915, since, until) \
++	(IS_TIGERLAKE(__i915) && \
++	 IS_DISPLAY_STEP(__i915, since, until))
+
+-:66: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#66: FILE: drivers/gpu/drm/i915/i915_drv.h:1508:
++#define IS_TGL_UY_GT_STEPPING(__i915, since, until) \
++	((IS_TGL_U(__i915) || IS_TGL_Y(__i915)) && \
++	 IS_GT_STEP(__i915, since, until))
+
+-:75: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#75: FILE: drivers/gpu/drm/i915/i915_drv.h:1512:
++#define IS_TGL_GT_STEPPING(__i915, since, until) \
++	(IS_TIGERLAKE(__i915) && !(IS_TGL_U(__i915) || IS_TGL_Y(__i915)) && \
++	 IS_GT_STEP(__i915, since, until))
+
+-:89: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#89: FILE: drivers/gpu/drm/i915/i915_drv.h:1529:
++#define IS_ADLS_DISP_STEPPING(__i915, since, until) \
++	(IS_ALDERLAKE_S(__i915) && \
++	 IS_DISPLAY_STEP(__i915, since, until))
+
+-:97: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#97: FILE: drivers/gpu/drm/i915/i915_drv.h:1533:
++#define IS_ADLS_GT_STEPPING(__i915, since, until) \
++	(IS_ALDERLAKE_S(__i915) && \
++	 IS_GT_STEP(__i915, since, until))
+
+total: 0 errors, 0 warnings, 5 checks, 127 lines checked
+a01b77b14b7e drm/i915: rename DISP_STEPPING->DISPLAY_STEP and GT_STEPPING->GT_STEP
+-:117: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#117: FILE: drivers/gpu/drm/i915/i915_drv.h:1504:
++#define IS_TGL_DISPLAY_STEP(__i915, since, until) \
+ 	(IS_TIGERLAKE(__i915) && \
+ 	 IS_DISPLAY_STEP(__i915, since, until))
+
+-:122: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#122: FILE: drivers/gpu/drm/i915/i915_drv.h:1508:
++#define IS_TGL_UY_GT_STEP(__i915, since, until) \
+ 	((IS_TGL_U(__i915) || IS_TGL_Y(__i915)) && \
+ 	 IS_GT_STEP(__i915, since, until))
+
+-:127: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#127: FILE: drivers/gpu/drm/i915/i915_drv.h:1512:
++#define IS_TGL_GT_STEP(__i915, since, until) \
+ 	(IS_TIGERLAKE(__i915) && !(IS_TGL_U(__i915) || IS_TGL_Y(__i915)) && \
+ 	 IS_GT_STEP(__i915, since, until))
+
+-:136: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#136: FILE: drivers/gpu/drm/i915/i915_drv.h:1529:
++#define IS_ADLS_DISPLAY_STEP(__i915, since, until) \
+ 	(IS_ALDERLAKE_S(__i915) && \
+ 	 IS_DISPLAY_STEP(__i915, since, until))
+
+-:141: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#141: FILE: drivers/gpu/drm/i915/i915_drv.h:1533:
++#define IS_ADLS_GT_STEP(__i915, since, until) \
+ 	(IS_ALDERLAKE_S(__i915) && \
+ 	 IS_GT_STEP(__i915, since, until))
+
+total: 0 errors, 0 warnings, 5 checks, 117 lines checked
+cf5108b09da1 drm/i915: rename disp_stepping->display_step and gt_stepping->gt_step
+505e061b09f9 drm/i915: rename i915_rev_steppings->intel_step_info
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
