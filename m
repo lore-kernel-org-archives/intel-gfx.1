@@ -6,37 +6,37 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76F53C433C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 19:38:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5AC1C433C1
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 19:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 318B36196E
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 19:38:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 318B36196E
+	by mail.kernel.org (Postfix) with ESMTPS id 8EAF36192F
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 19:42:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EAF36192F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9CF66E509;
-	Mon, 29 Mar 2021 19:38:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39CF589D49;
+	Mon, 29 Mar 2021 19:42:56 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id BDB066E508;
- Mon, 29 Mar 2021 19:38:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id A79E389D49;
+ Mon, 29 Mar 2021 19:42:54 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B77D9A0019;
- Mon, 29 Mar 2021 19:38:40 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id A0E33A363D;
+ Mon, 29 Mar 2021 19:42:54 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matt Roper" <matthew.d.roper@intel.com>
-Date: Mon, 29 Mar 2021 19:38:40 -0000
-Message-ID: <161704672074.26033.6766735150622434727@emeril.freedesktop.org>
+Date: Mon, 29 Mar 2021 19:42:54 -0000
+Message-ID: <161704697463.26038.5596155022332109019@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210326021718.486622-1-matthew.d.roper@intel.com>
 In-Reply-To: <20210326021718.486622-1-matthew.d.roper@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/display=3A_Eliminate_IS=5FGEN9=5F=7BBC=2CLP=7D_=28?=
- =?utf-8?q?rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/display=3A_Eliminate_IS=5FGEN9=5F=7BBC=2CLP=7D_=28rev2?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,14 +64,14 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-5804ba5dc847 drm/i915/display: Eliminate IS_GEN9_{BC, LP}
--:998: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around '!intel_dsi->dual_link'
-#998: FILE: drivers/gpu/drm/i915/display/vlv_dsi.c:1496:
-+		if ((IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv)) &&
-+		    (!intel_dsi->dual_link)) {
-
-total: 0 errors, 0 warnings, 1 checks, 927 lines checked
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/gem/i915_gem_shrinker.c:102: warning: Function parameter or member 'ww' not described in 'i915_gem_shrink'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'jump_whitelist' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'shadow_map' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'batch_map' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
+/home/cidrm/kernel/Documentation/gpu/i915:22: ./drivers/gpu/drm/i915/intel_runtime_pm.c:423: WARNING: Inline strong start-string without end-string.
 
 
 _______________________________________________
