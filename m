@@ -2,50 +2,51 @@ Return-Path: <SRS0=tdmG=I4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF7DAC433C1
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 08:46:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9771C433C1
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 09:25:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E2B160249
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 08:46:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E2B160249
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=suse.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7E51261989
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 09:25:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E51261989
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12C7B6E87C;
-	Tue, 30 Mar 2021 08:46:56 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 866966E87C;
- Tue, 30 Mar 2021 08:41:38 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1617093697; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=jiLzz+FDg8IDgOr7Ru1IW7IRXYaqlH8yrJkDxBSOd+M=;
- b=SwyQOSqvaO5avOz2XsxkAeyYpWcAxuEpeTup5y2W/3hjoJIa9VL+ySLWFEDXOGMXYYzaNj
- yfuPCkvCrHUDqDn4OiHjX+VW5qEwgFf/bjJtmVzQs0eem+tKxgSvbAVrRlz0EIt6ankmR8
- 9g4gU0a0vUOWreF+dSJDr1Ih1BW0A9I=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F0DDEB1C1;
- Tue, 30 Mar 2021 08:41:36 +0000 (UTC)
-Date: Tue, 30 Mar 2021 10:41:34 +0200
-From: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <YGLkPjSBdgpriC0E@blackbook>
-References: <20210322160253.4032422-1-arnd@kernel.org>
- <20210322160253.4032422-7-arnd@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFC876E887;
+	Tue, 30 Mar 2021 09:25:48 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 699DB6E887
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 09:25:46 +0000 (UTC)
+IronPort-SDR: N36yEY4BoprWiaa8RrRx/l5FNf5Nqk239HESfeFQgqJ08ldw6VHtUo0H2UrKMdFy8QEUBSkPZr
+ vK4qzOvPXpRg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9938"; a="276897253"
+X-IronPort-AV: E=Sophos;i="5.81,290,1610438400"; 
+ d="asc'?scan'208";a="276897253"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2021 02:25:45 -0700
+IronPort-SDR: l+QCd94oY5/e9k1noc0scK7J8fCi0R+JAoZ4CRp5aNvZHvzeuRznn9angGqC2ujepaYDLgGKPn
+ FBCtKVjs1y9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,290,1610438400"; 
+ d="asc'?scan'208";a="445032237"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
+ by fmsmga002.fm.intel.com with ESMTP; 30 Mar 2021 02:25:44 -0700
+Date: Tue, 30 Mar 2021 17:08:28 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Alex Williamson <alex.williamson@redhat.com>
+Message-ID: <20210330090828.GL1551@zhen-hp.sh.intel.com>
+References: <20210302130220.9349-1-fred.gao@intel.com>
+ <20210325170953.24549-1-fred.gao@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20210322160253.4032422-7-arnd@kernel.org>
-X-Mailman-Approved-At: Tue, 30 Mar 2021 08:46:55 +0000
-Subject: Re: [Intel-gfx] [PATCH 06/11] cgroup: fix -Wzero-length-bounds
- warnings
+In-Reply-To: <20210325170953.24549-1-fred.gao@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v5] vfio/pci: Add support for opregion v2.1+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,76 +59,154 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexei Starovoitov <ast@kernel.org>, dri-devel@lists.freedesktop.org,
- Zefan Li <lizefan.x@bytedance.com>, Cong Wang <xiyou.wangcong@gmail.com>,
- Christian Brauner <christian.brauner@ubuntu.com>, Odin Ugedal <odin@uged.al>,
- linux-scsi@vger.kernel.org, x86@kernel.org,
- James Smart <james.smart@broadcom.com>, tboot-devel@lists.sourceforge.net,
- Kalle Valo <kvalo@codeaurora.org>, Andrii Nakryiko <andriin@fb.com>,
- ath11k@lists.infradead.org, Serge Hallyn <serge@hallyn.com>,
- Arnd Bergmann <arnd@arndb.de>, "James E.J. Bottomley" <jejb@linux.ibm.com>,
- Ning Sun <ning.sun@intel.com>, Anders Larsen <al@alarsen.net>,
- Bhaskar Chowdhury <unixbhaskar@gmail.com>, cgroups@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Martin Sebor <msebor@gcc.gnu.org>,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
- Simon Kelley <simon@thekelleys.org.uk>, intel-gfx@lists.freedesktop.org,
- Roman Gushchin <guro@fb.com>
-Content-Type: multipart/mixed; boundary="===============0066986178=="
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, Swee Yee Fonn <swee.yee.fonn@intel.com>,
+ kvm@vger.kernel.org
+Content-Type: multipart/mixed; boundary="===============1475673302=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
---===============0066986178==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Gbn4BprmVLVWv2rO"
+--===============1475673302==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="cGfB/trNgB3WtPHu"
 Content-Disposition: inline
 
 
---Gbn4BprmVLVWv2rO
-Content-Type: text/plain; charset=iso-8859-1
+--cGfB/trNgB3WtPHu
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 22, 2021 at 05:02:44PM +0100, Arnd Bergmann <arnd@kernel.org> w=
-rote:
-> I'm not sure what is expected to happen for such a configuration,
-> presumably these functions are never calls in that case.
-Yes, the functions you patched would only be called from subsystems or
-there should be no way to obtain a struct cgroup_subsys reference
-anyway (hence it's ok to always branch as if ss=3D=3DNULL).
+On 2021.03.26 01:09:53 +0800, Fred Gao wrote:
+> Before opregion version 2.0 VBT data is stored in opregion mailbox #4,
+> but when VBT data exceeds 6KB size and cannot be within mailbox #4
+> then from opregion v2.0+, Extended VBT region, next to opregion is
+> used to hold the VBT data, so the total size will be opregion size plus
+> extended VBT region size.
+>=20
+> Since opregion v2.0 with physical host VBT address would not be
+> practically available for end user and guest can not directly access
+> host physical address, so it is not supported.
+>=20
+> Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
+> Signed-off-by: Swee Yee Fonn <swee.yee.fonn@intel.com>
+> Signed-off-by: Fred Gao <fred.gao@intel.com>
+> ---
 
-I'd prefer a variant that wouldn't compile the affected codepaths when
-there are no subsystems registered, however, I couldn't come up with a
-way how to do it without some preprocessor ugliness.
+Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
 
-Reviewed-by: Michal Koutn=FD <mkoutny@suse.com>
+Hi, Alex, pls let us know if you have other concern to merge this one.
 
---Gbn4BprmVLVWv2rO
+Thanks!
+
+>  drivers/vfio/pci/vfio_pci_igd.c | 53 +++++++++++++++++++++++++++++++++
+>  1 file changed, 53 insertions(+)
+>=20
+> diff --git a/drivers/vfio/pci/vfio_pci_igd.c b/drivers/vfio/pci/vfio_pci_=
+igd.c
+> index e66dfb0178ed..228df565e9bc 100644
+> --- a/drivers/vfio/pci/vfio_pci_igd.c
+> +++ b/drivers/vfio/pci/vfio_pci_igd.c
+> @@ -21,6 +21,10 @@
+>  #define OPREGION_SIZE		(8 * 1024)
+>  #define OPREGION_PCI_ADDR	0xfc
+> =20
+> +#define OPREGION_RVDA		0x3ba
+> +#define OPREGION_RVDS		0x3c2
+> +#define OPREGION_VERSION	0x16
+> +
+>  static size_t vfio_pci_igd_rw(struct vfio_pci_device *vdev, char __user =
+*buf,
+>  			      size_t count, loff_t *ppos, bool iswrite)
+>  {
+> @@ -58,6 +62,7 @@ static int vfio_pci_igd_opregion_init(struct vfio_pci_d=
+evice *vdev)
+>  	u32 addr, size;
+>  	void *base;
+>  	int ret;
+> +	u16 version;
+> =20
+>  	ret =3D pci_read_config_dword(vdev->pdev, OPREGION_PCI_ADDR, &addr);
+>  	if (ret)
+> @@ -83,6 +88,54 @@ static int vfio_pci_igd_opregion_init(struct vfio_pci_=
+device *vdev)
+> =20
+>  	size *=3D 1024; /* In KB */
+> =20
+> +	/*
+> +	 * Support opregion v2.1+
+> +	 * When VBT data exceeds 6KB size and cannot be within mailbox #4, then
+> +	 * the Extended VBT region next to opregion is used to hold the VBT dat=
+a.
+> +	 * RVDA (Relative Address of VBT Data from Opregion Base) and RVDS
+> +	 * (Raw VBT Data Size) from opregion structure member are used to hold =
+the
+> +	 * address from region base and size of VBT data. RVDA/RVDS are not
+> +	 * defined before opregion 2.0.
+> +	 *
+> +	 * opregion 2.1+: RVDA is unsigned, relative offset from
+> +	 * opregion base, and should point to the end of opregion.
+> +	 * otherwise, exposing to userspace to allow read access to everything =
+between
+> +	 * the OpRegion and VBT is not safe.
+> +	 * RVDS is defined as size in bytes.
+> +	 *
+> +	 * opregion 2.0: rvda is the physical VBT address.
+> +	 * Since rvda is HPA it cannot be directly used in guest.
+> +	 * And it should not be practically available for end user,so it is not=
+ supported.
+> +	 */
+> +	version =3D le16_to_cpu(*(__le16 *)(base + OPREGION_VERSION));
+> +	if (version >=3D 0x0200) {
+> +		u64 rvda;
+> +		u32 rvds;
+> +
+> +		rvda =3D le64_to_cpu(*(__le64 *)(base + OPREGION_RVDA));
+> +		rvds =3D le32_to_cpu(*(__le32 *)(base + OPREGION_RVDS));
+> +		if (rvda && rvds) {
+> +			/* no support for opregion v2.0 with physical VBT address */
+> +			if (version =3D=3D 0x0200) {
+> +				memunmap(base);
+> +				pci_err(vdev->pdev,
+> +					"IGD assignment does not support opregion v2.0 with an extended VBT=
+ region\n");
+> +				return -EINVAL;
+> +			}
+> +
+> +			if (rvda !=3D size) {
+> +				memunmap(base);
+> +				pci_err(vdev->pdev,
+> +					"Extended VBT does not follow opregion on version 0x%04x\n",
+> +					version);
+> +				return -EINVAL;
+> +			}
+> +
+> +			/* region size for opregion v2.0+: opregion and VBT size. */
+> +			size +=3D rvds;
+> +		}
+> +	}
+> +
+>  	if (size !=3D OPREGION_SIZE) {
+>  		memunmap(base);
+>  		base =3D memremap(addr, size, MEMREMAP_WB);
+> --=20
+> 2.24.1.1.gb6d4d82bd5
+>=20
+
+--cGfB/trNgB3WtPHu
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEEoQaUCWq8F2Id1tNia1+riC5qSgFAmBi5DcACgkQia1+riC5
-qSjuqxAAkm/zoS+xvdcQUERzkcuVxIruGtTqOse/NCPQQR9aGuJl6iybyjQw7D+r
-63+BYz7+BdP8zDg+NSTO354Yt0vsWFtCvuZBBabO91wCheLRPaZhHnGByJa0fXyM
-SKC2VSvFHKKiFuCG7mG7/WfDQxTGSaUL2jiFXlA5HAV5dKfkia/Jpuf+KtIy5nBR
-g8g4f44M2wW/TCoBzd5Elt5Cpx6fU2aKuJRCRCE04ts4CQy06/lLcc9H0N7bvgHj
-0oxkHbAjXeEnylnni4pfpmJpInUT2kOZuCjSF/WPw2XeLs00AnBnNB3lDP9Pe2qo
-ippcDc3AFqYMqewKnnxDWoTI3lyMTm8r0yzrDdwpb9Zv28bOCAYiwyoIsFV7+kdN
-C7DnhiL6d+UgKIzCqRuTPXnluthvSmHGzeblqF1vOAaWOFif4CcRmUtsR7v3EyZN
-5aiUTGqVtoKr/pcBNnRU1e2w7ulYpq5sbL/8f9HtnKsZ8MZlLdhdcDoSLjOkuohK
-OlQgS6p+2otxwk3xft0CdFPPHAFb5/WM6IyKdewFGuY0fohxczWJCRI92x94cfe9
-p0JSNLl19JjdM8loYpmBRcmlkoBH+MtkdZiR68b5yX5wcXypubmZPZ9o8ZzQqx1j
-ZX1/nhuyDl6KHuGW7gJXx8FhCLd6nPyKYVu4wbay23oLzdL/1sk=
-=nVTO
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYGLqiAAKCRCxBBozTXgY
+Jw4XAJkB32OoMxlYMVx5y6A1F3RW81GUkACeIdlFGwuDP1XG/QeFTVv4ZiDvySc=
+=KHHI
 -----END PGP SIGNATURE-----
 
---Gbn4BprmVLVWv2rO--
+--cGfB/trNgB3WtPHu--
 
---===============0066986178==
+--===============1475673302==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -138,4 +217,4 @@ Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 
---===============0066986178==--
+--===============1475673302==--
