@@ -2,51 +2,67 @@ Return-Path: <SRS0=tUI/=I5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC5B6C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC8F8C433DB
 	for <intel-gfx@archiver.kernel.org>; Wed, 31 Mar 2021 09:18:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A896E619DA
+	by mail.kernel.org (Postfix) with ESMTPS id 704DF619D6
 	for <intel-gfx@archiver.kernel.org>; Wed, 31 Mar 2021 09:18:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A896E619DA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=suse.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 704DF619D6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC73A6EA22;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9D4E6EA20;
 	Wed, 31 Mar 2021 09:18:18 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 846E16E909;
- Tue, 30 Mar 2021 14:44:56 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1617115495; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=llTp9KMmNhLgpFrt/A/4gk0SgpNaUf1ZpYpNvho6oEk=;
- b=iKbol1UC2cYC03I2rvUtoSu92j1pz2tv1L6/9iiw7cxLhRzh90EQvV5vkd5t59I4w79b5z
- //6Ea77uYBp+fXZGWtXmCr26hrFxJVsTlICwAL4byi52zB9FKuPbHVzN1zqRgW2z3Slp3o
- 4tg7hayC693qItZd+Jni902Xu3F2GZQ=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EC1C6B315;
- Tue, 30 Mar 2021 14:44:54 +0000 (UTC)
-Date: Tue, 30 Mar 2021 16:44:52 +0200
-From: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <YGM5ZJlK1V7ex9xR@blackbook>
-References: <20210322160253.4032422-1-arnd@kernel.org>
- <20210322160253.4032422-7-arnd@kernel.org>
- <YGLkPjSBdgpriC0E@blackbook>
- <CAK8P3a3nUCGwPpE+E820DniY8Haz1Xx72pA38P6s5MWsbi0iAQ@mail.gmail.com>
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0851A6E8AD
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 11:19:43 +0000 (UTC)
+Received: by mail-pf1-x42c.google.com with SMTP id h3so11910289pfr.12
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 04:19:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nEiq5VYqidlia0rfaVKXey2aQI1J0UOeUfwbZ7SzFqw=;
+ b=qIay2yJaGw8H+hG15KImlYeu0r6L9MLLcQDEnZF2qFdTW2zSpQ40IXg+/vxlnJQz4o
+ TKzi5YqlKrIHttRWaLvFbdM20gKQ/igZVcwm8SFzdsf0/GzVTOyvvDeB6kqpBolWhn33
+ iI+TCXiaVJhMe/oW7DCLEON36LzdAAwFwyEShryYOFQyky1isZ0YY5RVfN5W3oiAYvwy
+ 8+KnWX/nQwEbJaqACWTSuM18VOAT1ks9X9zr7SchWYDgwTLwBD/knap1CJ7Ca9tlGG8b
+ sFpNlx44sNZxtyb4faahEv9qJLV1qWz1e1po03itPLigsO5ao0DVK7AqSPfVLMue7R6H
+ nwTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nEiq5VYqidlia0rfaVKXey2aQI1J0UOeUfwbZ7SzFqw=;
+ b=ugWZ78cB77bvupgTmQyoGAqp0s4R2BUpmyXKU10b+A1haoRt1oIMoOMxX5XcwiRQZL
+ IR9jn267N0/ttcrzPuLyMWpni0weLkztJlcLHak/GbfEVFhXpRChH05z6dGuoe1o/HUx
+ EaJDe7z9p8kmI/Ew4WkYuGpNCDbi0Zwh+LGHk8sQ4rqQ9gtMaM7hd9JvD5HT2Ctvg9bx
+ iVF8DAfERw9HVOYCWhFX8isr1D4YNmRsTUIFJyXSBjXB7+HqwLwd+CJPw5rFPyIobbGl
+ FOFaCqhRmk6bBPRf7Vl0TzIb6I2uoiO0CZpNGBcnQSQdART69n3z8CyopOqML9/L4zr7
+ ZV4g==
+X-Gm-Message-State: AOAM533o/E6w2exXmUODL3ItvsGATdUH5qHSaEAwmsWSHjhwmA2Kvfzg
+ BP96jy3TaPpWfem7aoPPLArylqJlHxiTudBHDEsjqQ==
+X-Google-Smtp-Source: ABdhPJxq5q/aaT+6jdvgQQdbDwMNlvYfZjAmKD/2J/yR3c6DqBDMvry2T/Awy6EWGZ+THIsQHdyfhPbS801PyKVA3nE=
+X-Received: by 2002:a05:6a00:b54:b029:207:2a04:7b05 with SMTP id
+ p20-20020a056a000b54b02902072a047b05mr29651828pfo.12.1617103182535; Tue, 30
+ Mar 2021 04:19:42 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAK8P3a3nUCGwPpE+E820DniY8Haz1Xx72pA38P6s5MWsbi0iAQ@mail.gmail.com>
+References: <20210326203807.105754-1-lyude@redhat.com>
+ <20210326203807.105754-21-lyude@redhat.com>
+In-Reply-To: <20210326203807.105754-21-lyude@redhat.com>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Tue, 30 Mar 2021 13:19:31 +0200
+Message-ID: <CAG3jFyvEvb=YWopYUmi1bf=fe3ZX7VmtvnnmT5dHcNjLhHvsQg@mail.gmail.com>
+To: Lyude Paul <lyude@redhat.com>
 X-Mailman-Approved-At: Wed, 31 Mar 2021 09:18:15 +0000
-Subject: Re: [Intel-gfx] [PATCH 06/11] cgroup: fix -Wzero-length-bounds
- warnings
+Subject: Re: [Intel-gfx] [PATCH v2 20/20] drm/dp_mst: Convert
+ drm_dp_mst_topology.c to drm_err()/drm_dbg*()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,91 +75,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexei Starovoitov <ast@kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Zefan Li <lizefan.x@bytedance.com>, Cong Wang <xiyou.wangcong@gmail.com>,
- Christian Brauner <christian.brauner@ubuntu.com>, Odin Ugedal <odin@uged.al>,
- linux-scsi <linux-scsi@vger.kernel.org>,
- the arch/x86 maintainers <x86@kernel.org>,
- James Smart <james.smart@broadcom.com>, tboot-devel@lists.sourceforge.net,
- Kalle Valo <kvalo@codeaurora.org>, Andrii Nakryiko <andriin@fb.com>,
- ath11k@lists.infradead.org, Serge Hallyn <serge@hallyn.com>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, Ning Sun <ning.sun@intel.com>,
- Anders Larsen <al@alarsen.net>, Bhaskar Chowdhury <unixbhaskar@gmail.com>,
- Cgroups <cgroups@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Martin Sebor <msebor@gcc.gnu.org>, Networking <netdev@vger.kernel.org>,
- linux-wireless <linux-wireless@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- LSM List <linux-security-module@vger.kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
- Simon Kelley <simon@thekelleys.org.uk>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>, Roman Gushchin <guro@fb.com>
-Content-Type: multipart/mixed; boundary="===============0081850094=="
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hey Lyude,
 
---===============0081850094==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="9pRQkLwCQMovNrXD"
-Content-Disposition: inline
+This patch looks good, but I have one question below. With it
+addressed, feel free to add my r-b.
 
+Reviewed-by: Robert Foss <robert.foss@linaro.org>
 
---9pRQkLwCQMovNrXD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+>
+> -static bool drm_dp_sideband_parse_req(struct drm_dp_sideband_msg_rx *raw,
+> +static bool drm_dp_sideband_parse_req(const struct drm_dp_mst_topology_mgr *mgr,
+> +                                     struct drm_dp_sideband_msg_rx *raw,
+>                                       struct drm_dp_sideband_msg_req_body *msg)
+>  {
+>         memset(msg, 0, sizeof(*msg));
+> @@ -1117,12 +1125,12 @@ static bool drm_dp_sideband_parse_req(struct drm_dp_sideband_msg_rx *raw,
+>
+>         switch (msg->req_type) {
+>         case DP_CONNECTION_STATUS_NOTIFY:
+> -               return drm_dp_sideband_parse_connection_status_notify(raw, msg);
+> +               return drm_dp_sideband_parse_connection_status_notify(mgr, raw, msg);
+>         case DP_RESOURCE_STATUS_NOTIFY:
+> -               return drm_dp_sideband_parse_resource_status_notify(raw, msg);
+> +               return drm_dp_sideband_parse_resource_status_notify(mgr, raw, msg);
+>         default:
+> -               DRM_ERROR("Got unknown request 0x%02x (%s)\n", msg->req_type,
+> -                         drm_dp_mst_req_type_str(msg->req_type));
+> +               drm_err(mgr->dev, "Got unknown request 0x%02x (%s)\n",
+> +                       msg->req_type, drm_dp_mst_req_type_str(msg->req_type));
+>                 return false;
+>         }
+>  }
+>
 
-On Tue, Mar 30, 2021 at 11:00:36AM +0200, Arnd Bergmann <arnd@kernel.org> wrote:
-> Would it be possible to enclose most or all of kernel/cgroup/cgroup.c
-> in an #ifdef CGROUP_SUBSYS_COUNT block?
-Even without any controllers, there can still be named hierarchies (v1)
-or the default hierarchy (v2) (for instance) for process tracking
-purposes. So only parts of kernel/cgroup/cgroup.c could be ifdef'd.
+.. snip ..
 
-Beware that CGROUP_SUBSYS_COUNT is not known at preprocessing stage (you
-could have a macro alternative though).
+> @@ -4118,12 +4121,12 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+>
+>         INIT_LIST_HEAD(&up_req->next);
+>
+> -       drm_dp_sideband_parse_req(&mgr->up_req_recv, &up_req->msg);
+> +       drm_dp_sideband_parse_req(mgr, &mgr->up_req_recv, &up_req->msg);
 
-> I didn't try that myself, but this might be a way to guarantee that
-> there cannot be any callers (it would cause a link error).
-Such a guarantee would be nicer, I agree. I tried a bit but anandoned it
-when I saw macros proliferate (which I found less readable than your
-current variant). But YMMV.
+drm_dp_sideband_parse_req() is only called here, and the function
+arguments could probably stand to have `&mgr->up_req_recv` removed
+(here and in the func. declaration) since the same data structure is
+accessible through the `mgr` pointer inside of
+drm_dp_sideband_parse_req(). I guess this is a matter of taste, so
+feel free to do what you want with this.
 
-Michal
-
---9pRQkLwCQMovNrXD
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEEoQaUCWq8F2Id1tNia1+riC5qSgFAmBjOV4ACgkQia1+riC5
-qSgZNQ/9FFBZs5QQqEUHmbWyF9O2R2bGF8WCBz56zh+F2OZf+/GK7z4OGhkKUlEa
-1lPOUoibt4aZZhWD30RcfB3i3qJ8VqY3wqwnS6W9uN9+sU22sgsx/elCqiua3EnM
-4tGDRcLBfSuktgPo1T0oNvGGbFnFJ0kUenLZ6mVkWlSTzx8kp/B8h4S5LkYmRIov
-fVmHURht22FPiA8wwlUb9LAp8ONF+68t6BtMWNmZbqmJ17qHSnLyQQUiHIHytASt
-xgaQCJU8/nrtv2xPfp66aCQLO12b6OxpjPoRxo1hj9IP5HZPukzNDat/VaWyh0iE
-t9GO85K0PVqcuvJpymes0yRT6RvEwlqEna0T+qbh+qih4S3+xRm/Js5IV5m8KfIc
-wWUve4llNT1jq6zzgn28FkXe9coH7ybpwBaWeAdwEM3Wl9GvXimKwIQqg+3ZDnm4
-CbDVh6scYVu3kFYHVy6ld5+fG2GWEKvNL+9AVH+wsXUb6OXtyOtxD3FWyiVVYBkl
-Q4N0KWETd67BNb2NklxTkeC4hYusuHeFvxa9Ki6K6zbdxDxVwdcTWpWFVkTDs45S
-sEVkmsPU9pLu5vm5o9kBCmr6q1lW6yzudcxBvcvcHXGQnkfcmDCo+C3OEwKzKUeh
-8+BhDV9zMpKBpJfuPiI8UNIt8sI7YeTpjdk14YjWYQTgZCHc7WU=
-=iFNx
------END PGP SIGNATURE-----
-
---9pRQkLwCQMovNrXD--
-
---===============0081850094==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>
+>         if (up_req->msg.req_type != DP_CONNECTION_STATUS_NOTIFY &&
+>             up_req->msg.req_type != DP_RESOURCE_STATUS_NOTIFY) {
+> -               DRM_DEBUG_KMS("Received unknown up req type, ignoring: %x\n",
+> -                             up_req->msg.req_type);
+> +               drm_dbg_kms(mgr->dev, "Received unknown up req type, ignoring: %x\n",
+> +                           up_req->msg.req_type);
+>                 kfree(up_req);
+>                 goto out;
+>         }
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0081850094==--
