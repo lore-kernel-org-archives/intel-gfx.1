@@ -7,62 +7,63 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC8F8C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 31 Mar 2021 09:18:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1323FC433E1
+	for <intel-gfx@archiver.kernel.org>; Wed, 31 Mar 2021 09:18:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 704DF619D6
-	for <intel-gfx@archiver.kernel.org>; Wed, 31 Mar 2021 09:18:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 704DF619D6
+	by mail.kernel.org (Postfix) with ESMTPS id D3CE3619C1
+	for <intel-gfx@archiver.kernel.org>; Wed, 31 Mar 2021 09:18:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3CE3619C1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9D4E6EA20;
-	Wed, 31 Mar 2021 09:18:18 +0000 (UTC)
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [IPv6:2607:f8b0:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0851A6E8AD
- for <intel-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 11:19:43 +0000 (UTC)
-Received: by mail-pf1-x42c.google.com with SMTP id h3so11910289pfr.12
- for <intel-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 04:19:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 346146EA24;
+	Wed, 31 Mar 2021 09:18:19 +0000 (UTC)
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 949736E8A3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 10:43:26 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ ot17-20020a17090b3b51b0290109c9ac3c34so9243147pjb.4
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 03:43:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nEiq5VYqidlia0rfaVKXey2aQI1J0UOeUfwbZ7SzFqw=;
- b=qIay2yJaGw8H+hG15KImlYeu0r6L9MLLcQDEnZF2qFdTW2zSpQ40IXg+/vxlnJQz4o
- TKzi5YqlKrIHttRWaLvFbdM20gKQ/igZVcwm8SFzdsf0/GzVTOyvvDeB6kqpBolWhn33
- iI+TCXiaVJhMe/oW7DCLEON36LzdAAwFwyEShryYOFQyky1isZ0YY5RVfN5W3oiAYvwy
- 8+KnWX/nQwEbJaqACWTSuM18VOAT1ks9X9zr7SchWYDgwTLwBD/knap1CJ7Ca9tlGG8b
- sFpNlx44sNZxtyb4faahEv9qJLV1qWz1e1po03itPLigsO5ao0DVK7AqSPfVLMue7R6H
- nwTg==
+ :cc; bh=inEEvxoI2d27PWTByb00t7709zab101mRTK+HEEURs0=;
+ b=C9+RPFkWx1dnLku0VJzXhT4WCqoHsMPAfkkwl/4KohDQakhhONCUx+woSyEwYjrpXR
+ t1d16MDlzS32+twkwF9bbNrzqgVVnTIfoI0AZogYL4G1S7OgpeJg0emu3T5/HWp5kcJG
+ ++epmYQmqILHMzY2hL2QmPVz7uTVYnSW6ybUpM4NE/4ka6AX9/8CrsJwa6V5+njYVIo+
+ XgbVwDjQ2vtltDtglB4fNijvaQUZc0s53NH8e1EYls6/XbWYbhbOWqh0zjfmI0VBaOGj
+ vhK9ArLDxUL+ZjLu/rXXyDanwAeMXX50oJ08dRer+OEiWgpVZHK0JFYQd9TBlKlb28DY
+ jk6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=nEiq5VYqidlia0rfaVKXey2aQI1J0UOeUfwbZ7SzFqw=;
- b=ugWZ78cB77bvupgTmQyoGAqp0s4R2BUpmyXKU10b+A1haoRt1oIMoOMxX5XcwiRQZL
- IR9jn267N0/ttcrzPuLyMWpni0weLkztJlcLHak/GbfEVFhXpRChH05z6dGuoe1o/HUx
- EaJDe7z9p8kmI/Ew4WkYuGpNCDbi0Zwh+LGHk8sQ4rqQ9gtMaM7hd9JvD5HT2Ctvg9bx
- iVF8DAfERw9HVOYCWhFX8isr1D4YNmRsTUIFJyXSBjXB7+HqwLwd+CJPw5rFPyIobbGl
- FOFaCqhRmk6bBPRf7Vl0TzIb6I2uoiO0CZpNGBcnQSQdART69n3z8CyopOqML9/L4zr7
- ZV4g==
-X-Gm-Message-State: AOAM533o/E6w2exXmUODL3ItvsGATdUH5qHSaEAwmsWSHjhwmA2Kvfzg
- BP96jy3TaPpWfem7aoPPLArylqJlHxiTudBHDEsjqQ==
-X-Google-Smtp-Source: ABdhPJxq5q/aaT+6jdvgQQdbDwMNlvYfZjAmKD/2J/yR3c6DqBDMvry2T/Awy6EWGZ+THIsQHdyfhPbS801PyKVA3nE=
-X-Received: by 2002:a05:6a00:b54:b029:207:2a04:7b05 with SMTP id
- p20-20020a056a000b54b02902072a047b05mr29651828pfo.12.1617103182535; Tue, 30
- Mar 2021 04:19:42 -0700 (PDT)
+ bh=inEEvxoI2d27PWTByb00t7709zab101mRTK+HEEURs0=;
+ b=aiuFdQdGZ1mXzV3XiCgSJUtaXP0iVK4e7c3S8cc09mayDJsc/0PydUGZ5933UG2dsB
+ xPJVsPpXVUmyOyM9kkbWActzyAWJ2wyJw5qLe8yIUVeY5sCrKMFWYUR3hq5U/tzwbby/
+ GH8bH3qWYHzIlA5Zux8WDh7OzWfp1WeYILk+D33kMnrNzXDqg9wA9gxEyFWpmBG7QP3m
+ x1WSux2KIRUGddLM/DA1bHF7BKOax9ls84n9O9G4fMy1vJCAWPU7/ScgYJMIpdAkN4R6
+ Eml6UyHC2ZwzjLpPMwSOSq6pdetC7U3uR78t4FsNYGKML/+hATDS2DhvtzdMKGHvbm2U
+ cwuA==
+X-Gm-Message-State: AOAM533NkgIS/AQWVMOnrT1uaxRg32e7oPhvxtC8dP1JKvXOA6/BFsdy
+ wV/Tlv9mQRUTyR5UsliUv/8mWzy8+avdMfnQdWZIZg==
+X-Google-Smtp-Source: ABdhPJxPMfsifg57CMk+e08YOVt3TzMww6aMvw5ulnMzAx23GI1ES2FVCsm8qjLz2RBA6UgJxREJNfH8cDlZ1xM4T2Y=
+X-Received: by 2002:a17:902:e752:b029:e6:822c:355c with SMTP id
+ p18-20020a170902e752b02900e6822c355cmr32807495plf.69.1617101006157; Tue, 30
+ Mar 2021 03:43:26 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210326203807.105754-1-lyude@redhat.com>
- <20210326203807.105754-21-lyude@redhat.com>
-In-Reply-To: <20210326203807.105754-21-lyude@redhat.com>
+ <20210326203807.105754-8-lyude@redhat.com>
+In-Reply-To: <20210326203807.105754-8-lyude@redhat.com>
 From: Robert Foss <robert.foss@linaro.org>
-Date: Tue, 30 Mar 2021 13:19:31 +0200
-Message-ID: <CAG3jFyvEvb=YWopYUmi1bf=fe3ZX7VmtvnnmT5dHcNjLhHvsQg@mail.gmail.com>
+Date: Tue, 30 Mar 2021 12:43:15 +0200
+Message-ID: <CAG3jFyvK6bk5mF_Jp6w9HpN2rDAPKkdHKbQMRKiW6gGKdR9-Yw@mail.gmail.com>
 To: Lyude Paul <lyude@redhat.com>
 X-Mailman-Approved-At: Wed, 31 Mar 2021 09:18:15 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 20/20] drm/dp_mst: Convert
- drm_dp_mst_topology.c to drm_err()/drm_dbg*()
+Subject: Re: [Intel-gfx] [PATCH v2 07/20] drm/print: Fixup
+ DRM_DEBUG_KMS_RATELIMITED()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,63 +88,75 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Hey Lyude,
 
-This patch looks good, but I have one question below. With it
-addressed, feel free to add my r-b.
+I'm seeing no issues with this patch and the reasoning behind the
+patch is sound to me.
 
 Reviewed-by: Robert Foss <robert.foss@linaro.org>
 
+On Fri, 26 Mar 2021 at 21:39, Lyude Paul <lyude@redhat.com> wrote:
 >
-> -static bool drm_dp_sideband_parse_req(struct drm_dp_sideband_msg_rx *raw,
-> +static bool drm_dp_sideband_parse_req(const struct drm_dp_mst_topology_mgr *mgr,
-> +                                     struct drm_dp_sideband_msg_rx *raw,
->                                       struct drm_dp_sideband_msg_req_body *msg)
->  {
->         memset(msg, 0, sizeof(*msg));
-> @@ -1117,12 +1125,12 @@ static bool drm_dp_sideband_parse_req(struct drm_dp_sideband_msg_rx *raw,
+> Since we're about to move drm_dp_helper.c over to drm_dbg_*(), we'll want
+> to make sure that we can also add ratelimited versions of these macros in
+> order to retain some of the previous debugging output behavior we had.
 >
->         switch (msg->req_type) {
->         case DP_CONNECTION_STATUS_NOTIFY:
-> -               return drm_dp_sideband_parse_connection_status_notify(raw, msg);
-> +               return drm_dp_sideband_parse_connection_status_notify(mgr, raw, msg);
->         case DP_RESOURCE_STATUS_NOTIFY:
-> -               return drm_dp_sideband_parse_resource_status_notify(raw, msg);
-> +               return drm_dp_sideband_parse_resource_status_notify(mgr, raw, msg);
->         default:
-> -               DRM_ERROR("Got unknown request 0x%02x (%s)\n", msg->req_type,
-> -                         drm_dp_mst_req_type_str(msg->req_type));
-> +               drm_err(mgr->dev, "Got unknown request 0x%02x (%s)\n",
-> +                       msg->req_type, drm_dp_mst_req_type_str(msg->req_type));
->                 return false;
->         }
->  }
+> However, as I was preparing to do this I noticed that the current
+> rate limited macros we have are kind of bogus. It looks like when I wrote
+> these, I didn't notice that we'd always be calling __ratelimit() even if
+> the debugging message we'd be printing would normally be filtered out due
+> to the relevant DRM debugging category being disabled.
 >
-
-.. snip ..
-
-> @@ -4118,12 +4121,12 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+> So, let's fix this by making sure to check drm_debug_enabled() in our
+> ratelimited macros before calling __ratelimit(), and start using
+> drm_dev_printk() in order to print debugging messages since that will save
+> us from doing a redundant drm_debug_enabled() check. And while we're at it,
+> let's move the code for this into another macro that we can reuse for
+> defining new ratelimited DRM debug macros more easily.
 >
->         INIT_LIST_HEAD(&up_req->next);
+> v2:
+> * Make sure to use tabs where possible in __DRM_DEFINE_DBG_RATELIMITED()
 >
-> -       drm_dp_sideband_parse_req(&mgr->up_req_recv, &up_req->msg);
-> +       drm_dp_sideband_parse_req(mgr, &mgr->up_req_recv, &up_req->msg);
-
-drm_dp_sideband_parse_req() is only called here, and the function
-arguments could probably stand to have `&mgr->up_req_recv` removed
-(here and in the func. declaration) since the same data structure is
-accessible through the `mgr` pointer inside of
-drm_dp_sideband_parse_req(). I guess this is a matter of taste, so
-feel free to do what you want with this.
-
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: Robert Foss <robert.foss@linaro.org>
+> ---
+>  include/drm/drm_print.h | 20 ++++++++++++--------
+>  1 file changed, 12 insertions(+), 8 deletions(-)
 >
->         if (up_req->msg.req_type != DP_CONNECTION_STATUS_NOTIFY &&
->             up_req->msg.req_type != DP_RESOURCE_STATUS_NOTIFY) {
-> -               DRM_DEBUG_KMS("Received unknown up req type, ignoring: %x\n",
-> -                             up_req->msg.req_type);
-> +               drm_dbg_kms(mgr->dev, "Received unknown up req type, ignoring: %x\n",
-> +                           up_req->msg.req_type);
->                 kfree(up_req);
->                 goto out;
->         }
+> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+> index f32d179e139d..a3c58c941bdc 100644
+> --- a/include/drm/drm_print.h
+> +++ b/include/drm/drm_print.h
+> @@ -524,16 +524,20 @@ void __drm_err(const char *format, ...);
+>  #define DRM_DEBUG_DP(fmt, ...)                                         \
+>         __drm_dbg(DRM_UT_DP, fmt, ## __VA_ARGS__)
+>
+> -
+> -#define DRM_DEBUG_KMS_RATELIMITED(fmt, ...)                            \
+> -({                                                                     \
+> -       static DEFINE_RATELIMIT_STATE(_rs,                              \
+> -                                     DEFAULT_RATELIMIT_INTERVAL,       \
+> -                                     DEFAULT_RATELIMIT_BURST);         \
+> -       if (__ratelimit(&_rs))                                          \
+> -               drm_dev_dbg(NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__);      \
+> +#define __DRM_DEFINE_DBG_RATELIMITED(category, drm, fmt, ...)                                  \
+> +({                                                                                             \
+> +       static DEFINE_RATELIMIT_STATE(rs_, DEFAULT_RATELIMIT_INTERVAL, DEFAULT_RATELIMIT_BURST);\
+> +       const struct drm_device *drm_ = (drm);                                                  \
+> +                                                                                               \
+> +       if (drm_debug_enabled(DRM_UT_ ## category) && __ratelimit(&rs_))                        \
+> +               drm_dev_printk(drm_ ? drm_->dev : NULL, KERN_DEBUG, fmt, ## __VA_ARGS__);       \
+>  })
+>
+> +#define drm_dbg_kms_ratelimited(drm, fmt, ...) \
+> +       __DRM_DEFINE_DBG_RATELIMITED(KMS, drm, fmt, ## __VA_ARGS__)
+> +
+> +#define DRM_DEBUG_KMS_RATELIMITED(fmt, ...) drm_dbg_kms_ratelimited(NULL, fmt, ## __VA_ARGS__)
+> +
+>  /*
+>   * struct drm_device based WARNs
+>   *
+> --
+> 2.30.2
+>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
