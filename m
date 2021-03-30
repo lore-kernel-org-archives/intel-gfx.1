@@ -2,49 +2,41 @@ Return-Path: <SRS0=tdmG=I4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4FBAC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 15:06:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7D84C433C1
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 15:22:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6F3E961957
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 15:06:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F3E961957
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 58E576195C
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 15:22:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58E576195C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18FD16E911;
-	Tue, 30 Mar 2021 15:06:48 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 296DF6E911;
- Tue, 30 Mar 2021 15:06:47 +0000 (UTC)
-IronPort-SDR: HIwQDfO4PgJxMogyN+XT6glkVMEqyMBIwg831PzqfXvieHPs4NZ0w1CU9TSRc/copjzI2KTVww
- Kc+9NXbKYEcQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9939"; a="178917951"
-X-IronPort-AV: E=Sophos;i="5.81,291,1610438400"; d="scan'208";a="178917951"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2021 08:06:46 -0700
-IronPort-SDR: Az5Jhl21qsF8JZHq2yTnBJuI3bdbKig11tfn2KuvtUl9RYz4S7wAxLqlQsy9dSxYBK2JxlHWzH
- I9pD78OHIhIQ==
-X-IronPort-AV: E=Sophos;i="5.81,291,1610438400"; d="scan'208";a="455058076"
-Received: from beautiful-one.ger.corp.intel.com (HELO localhost.localdomain)
- ([10.213.201.202])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2021 08:06:44 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Tue, 30 Mar 2021 16:06:37 +0100
-Message-Id: <20210330150637.2547762-1-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.27.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01C4C6E922;
+	Tue, 30 Mar 2021 15:22:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C89796E922;
+ Tue, 30 Mar 2021 15:22:54 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C1398A363B;
+ Tue, 30 Mar 2021 15:22:54 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/pmu: Do not report 100% RC6 if not
- supported
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Date: Tue, 30 Mar 2021 15:22:54 -0000
+Message-ID: <161711777476.22472.11598199162898388249@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210330150118.1105079-1-imre.deak@intel.com>
+In-Reply-To: <20210330150118.1105079-1-imre.deak@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Fix_docbook_header_for_=5F=5Fintel=5Fruntime=5F?=
+ =?utf-8?b?cG1fZ2V0X2lmX2FjdGl2ZSgp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,47 +49,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eero T Tamminen <eero.t.tamminen@intel.com>,
- dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+== Series Details ==
 
-We use GT parked status to estimate RC6 while not in use, however if RC6
-is not supported to start with that does not work very well and produces a
-false 100% RC6 readout.
+Series: drm/i915: Fix docbook header for __intel_runtime_pm_get_if_active()
+URL   : https://patchwork.freedesktop.org/series/88579/
+State : warning
 
-Fix by not advancing the estimated RC6 counter when feature is not
-supported.
+== Summary ==
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Fixes: 1fe699e30113 ("drm/i915/pmu: Fix sleep under atomic in RC6 readout")
-Reported-by: Eero T Tamminen <eero.t.tamminen@intel.com>
----
- drivers/gpu/drm/i915/i915_pmu.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+$ dim checkpatch origin/drm-tip
+74c8738d1c0b drm/i915: Fix docbook header for __intel_runtime_pm_get_if_active()
+-:9: WARNING:USE_RELATIVE_PATH: use relative pathname instead of absolute in changelog text
+#9: 
+Documentation/gpu/i915:22: /drivers/gpu/drm/i915/intel_runtime_pm.c:423: WARNING: Inline strong start-string without end-string.
 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 41651ac255fa..02fe0d22c470 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -191,7 +191,10 @@ static u64 get_rc6(struct intel_gt *gt)
- 		 * on top of the last known real value, as the approximated RC6
- 		 * counter value.
- 		 */
--		val = ktime_since_raw(pmu->sleep_last);
-+		if (gt->rc6.supported)
-+			val = ktime_since_raw(pmu->sleep_last);
-+		else
-+			val = 0;
- 		val += pmu->sample[__I915_SAMPLE_RC6].cur;
- 	}
- 
--- 
-2.27.0
+total: 0 errors, 1 warnings, 0 checks, 8 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
