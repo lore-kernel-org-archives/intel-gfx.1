@@ -2,52 +2,125 @@ Return-Path: <SRS0=ARrU=JD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FE5AC43461
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 19:41:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6007CC433B4
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 19:41:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BFD71613D0
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 19:41:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BFD71613D0
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+	by mail.kernel.org (Postfix) with ESMTPS id 0C5A961158
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 19:41:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C5A961158
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FBFD6E8A8;
-	Tue,  6 Apr 2021 19:41:33 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 306FC6E0EB
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Apr 2021 13:44:08 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1lTlzt-0004HM-FT; Tue, 06 Apr 2021 15:44:01 +0200
-Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1lTlzo-00033c-7n; Tue, 06 Apr 2021 15:43:56 +0200
-Date: Tue, 6 Apr 2021 15:43:56 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Thierry Reding <thierry.reding@gmail.com>
-Message-ID: <20210406134356.dda74heeshkwdarw@pengutronix.de>
-References: <20210406073036.26857-1-u.kleine-koenig@pengutronix.de>
- <YGxDD4jVZx/H/Zdr@orome.fritz.box>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 928806E8B3;
+	Tue,  6 Apr 2021 19:41:35 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2075.outbound.protection.outlook.com [40.107.92.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8308A6E8A4;
+ Tue,  6 Apr 2021 19:40:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iqDsaY0vBKudrCQc08+bzrZWjBMke6NRg3P7xzAVqMRblb1Yl8TG8OVIZruGqXkrkGXSI1elzeJy8R3Dd0QlSpmPHxZHcDzOH9xFHIYsDBYHNHmLkav8ZKvSGFRmf4ERVpUpg7bbpyAJHv8Y44fltEevAtKzhi8YteYvyZVF45euDQId+Sub7a4bJfbmrCXdS/f0DqFaxsQFQ+wozRTOohA+oUXuvigf2/j9QT4ZQgKetuiMe0ys5UXXPqTa0DGSgysmkKZB43oylPMi5cCHcKKN0paXSaaMTD6l885noeIYO7wsUQSjB1eqkfIrx9lTPoe0MIftChih5t1nJlKEQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qEJ2XEneEfvcX3+MPP5Hc/BeZz23h3q1AYfQ0BQVTkg=;
+ b=bk/E6SI25OG06Ucdua/ZJQXQHg7smnCjCR1lnYtpSZoM/LYiZSDh6S6IjoGAczSJsXWldYtEry++2G7XD9P3FgB1Eo/x1WfHl71WXZYYfhKhogM8DVR7B/n72TKhKp3bt0OdIHqjvfDVmLy2YvoxpaLwFjWod0rxYrcbJV2iYnhbkY6v08t6qZN0E/W6btpT2q7LNwJxKEgIsHeUOdvHlS+rWRDse8zj/OK4NZVG5UhwdFHZ5VfD/xuAntMSPB/XPv3SswBaSLBrtHvEn5YL1i/2asBJTQI5u2dkFgVynKz4VDslZPCWlUh6QVH2xewFGSDHrXxZaor27jSegPuCug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qEJ2XEneEfvcX3+MPP5Hc/BeZz23h3q1AYfQ0BQVTkg=;
+ b=FdTYNnS3yXanQCYQeHQx1lWuXFhzzJp71zKy0UR2HOZG4qPzqSPA2Y0fHyjAFgc55ERzvMuKt1KUr9WDogpY+KmOn6Yk/zzcstdWZ2PEyP2EXF6SXornhRarTH4Tp5j9Y9eNvbeoKdPDarPwORafLtesp7fvXT8GL9KOyDCeDWLoKTixD22SiOKLcSXkYKfZApHcz7Yl3fSEfWyasCYj1a40oQDZ49SHBK/ORVfY5nG+OVnXvSolsWhJt1tjCduJ0nD7DYlkBOVAsLQiKMT2GT3A3QZTF7N3gO0GU88bVGnrMGvMF9VBzThS08KMiHqYp/nyu7jSua9TLvhKm1cdcg==
+Authentication-Results: linux.ie; dkim=none (message not signed)
+ header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB2859.namprd12.prod.outlook.com (2603:10b6:5:15d::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.27; Tue, 6 Apr
+ 2021 19:40:45 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::1c62:7fa3:617b:ab87]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::1c62:7fa3:617b:ab87%6]) with mapi id 15.20.3999.032; Tue, 6 Apr 2021
+ 19:40:45 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Tue,  6 Apr 2021 16:40:38 -0300
+Message-Id: <15-v2-d36939638fc6+d54-vfio2_jgg@nvidia.com>
+In-Reply-To: <0-v2-d36939638fc6+d54-vfio2_jgg@nvidia.com>
+References: 
+X-Originating-IP: [142.162.115.133]
+X-ClientProxiedBy: BLAP220CA0005.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:32c::10) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
 MIME-Version: 1.0
-In-Reply-To: <YGxDD4jVZx/H/Zdr@orome.fritz.box>
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: intel-gfx@lists.freedesktop.org
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (142.162.115.133) by
+ BLAP220CA0005.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4020.16 via Frontend Transport; Tue, 6 Apr 2021 19:40:43 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1lTrZ4-001mXm-DA; Tue, 06 Apr 2021 16:40:42 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 155698ca-fb66-4d42-344b-08d8f933de0d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2859:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB28592C2B4B47561C7D35521AC2769@DM6PR12MB2859.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GtAuAjW7NOecAOytIYv6ONaotyJ8FuRtfLohiQrFV7wQ4l7WLTEXWzWd7kAZ90jytPdUtV8//FFSsvkFfEHwGUKZmsaVfikraxzTiJ7Si0tYcxNy99t03wJkwQ/vM4kQ7TK+O/XuOo4iC/SIrVyuTzMdczkYptXnr/mCqmXup2Xusgts6AUVIfym0sfA5PYVJqM8D3AnvIL4YJmIOYbaulnNwjEd787oyaCIybo2D1UQupbRWuaJpKRjUxO0Lns0S9392bS69HvIAPkTbUuOY+8PijB5ivedrSOqVWpDhTBcQ6dUPIzQ+BA/UC34FwW6gxB2YKnpGgw00ff1mBrDCWDEZ88auWovI7G5gK7B/epEbG9vrvtaGbkXG1bVlaAa2ht7G8BpDlMJ3ssfu7d0gtVwEjmaxvAM9y/3aOYwsHhSEeY2LvJMlYAnZWXkwtziRR+fhKDtZJH9jFE73jqLV5K0Nj2iaoINtHpwAbqkRCaeh6SlQ0eBswluY7hy93ET31dXXyisGBnG1oPEVgEtpxf2J3VGVUUTZHXBE+sc3oEMhaMGdht4djwwLyuyO7LShuaDDXGpgb56/PRhA/hAR3ENV5NJsh93/SpqugEqMi2zKHg5+NoApeMXeFDCZ0zOsdcxsxNKikt4AkkLx+ts579oGtKwpjVpk9ogMTQKK6o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3834.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(346002)(366004)(136003)(396003)(54906003)(86362001)(2616005)(26005)(8936002)(38100700001)(66476007)(426003)(7416002)(66946007)(5660300002)(316002)(36756003)(66556008)(2906002)(6666004)(107886003)(83380400001)(186003)(478600001)(110136005)(4326008)(8676002)(9746002)(9786002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?zuGF5mpZLnbQR8TdOl8FvYu9sXjecrpFXUwENKJeTDiRPEr40ra8s97FQkUn?=
+ =?us-ascii?Q?bWXK/pN22nUT1+FT97QPp9Xo+6U7t3ZUCeweHqk5qXGQsk+9fElWBQ6Z8wcr?=
+ =?us-ascii?Q?yBdGpH+YO80vkRfkXeUE0GY8EerZYIzvTmoPtoZJopy9IQ/YkUpSF34Kl+Iq?=
+ =?us-ascii?Q?DbkHRQRKgcniVmbYHiL8DcJ6/UrLXkiQhagHSneth/3gM+twysQHs2fv43GX?=
+ =?us-ascii?Q?G5f12aRjsZedQm/1Tp7DL4r0DDnSbtLSECug+wtqegacWbCgnsB1hPE5KxNL?=
+ =?us-ascii?Q?OmZnY8Be2FnUDW3LXn1go4BWoMvEGp9RZ/kyBd4QnTFY0eE+JE99opqOZT0/?=
+ =?us-ascii?Q?fefYExp+NW5NMsNZjSYpo5nQr6DWEb5HCuxwE7YIgn4Cze8pHLKE7BaUAs23?=
+ =?us-ascii?Q?fB0OmDQCOt9aimRdPUPsbF0a9nsjaqEhQ+XxFWRmSbg4IquqJyiZArhH68TP?=
+ =?us-ascii?Q?LEwl4rZGU7omxbrXr1wVCOJRYUumMRx+3TLytJYmMZI/H6wMVHEHdTMeu+Nl?=
+ =?us-ascii?Q?PUMjn4AwSYvdj2RFutLhEJwiyKc26wJ8OpXkvdsqDEqzmjwBS/OM0JeG8dTa?=
+ =?us-ascii?Q?GjTavf9LH8tJel27VD1l/LRyAcT+0fbZanJKvsirDNxqBETcdJsHNSmfOQmP?=
+ =?us-ascii?Q?7a8WlppcROx+sYaWHpOV5Bde5qLJTDYzU/mAgfUPEyPXBEQbEs8JcYw+SCqg?=
+ =?us-ascii?Q?xXf0NliuFFNwzMOGui51JgP6XfGnQSB9l0A+c6wNL+3bTbPlZI+MJtgVgRSY?=
+ =?us-ascii?Q?ZsEpTmfG/0+UnDD524IgTWcjC/9xjQ47sqmXnE567thDf1NI88tX1uDfqrQO?=
+ =?us-ascii?Q?S/alfMNLYoDMO9ZvlCpgGxgtOeY2gTcoQRZX+kqM6AJZ74MLf170zqgI38V6?=
+ =?us-ascii?Q?ZPYVNMMGXsdqypLqHe7HRPsB+VADy1chxwaLewO6t5lHjPVZQf9IvO2rh5BN?=
+ =?us-ascii?Q?dD6ahd63sv+vylCEw1JE7pSVGzylsZUJyezJhiL0saJSy7b3/t2AcKJlZWjm?=
+ =?us-ascii?Q?A0IsKu/d4MTqHt0YXxM73iXACJ2N+piLULz5Uu7+P7yPS/m+2bhVh1p1wyot?=
+ =?us-ascii?Q?+8x6HuSDKFp1NQsWZG/rtQPcW46j1LjO+DxPt27H4wyH8h2+R+rqKRf7eUCe?=
+ =?us-ascii?Q?UTxKbPce4x7LBHjRPbVGh9vjPHsWFeh+QDQ4BvirULpRow3HXM5uQ+nVN2CU?=
+ =?us-ascii?Q?Zo/XemvifTwD6NYqOqlhFdG+OFd7e0OFjahGEA2+VYxHv7KCdkqDG6f4fA01?=
+ =?us-ascii?Q?YcLzkFVWb0H49d4RLLtMDYLenV8ZKIFeojsGTmnO8Mr9JaDf5sHzTXNiDcsY?=
+ =?us-ascii?Q?+BcUlaSboevAT5QHjJgwRmn8bcQcFX6AJ6x1PjRGvbAaig=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 155698ca-fb66-4d42-344b-08d8f933de0d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3834.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 19:40:43.9419 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0sE0pHd9nZHTKZ27fDeL8gjRPj1Lguzedet/icAKUsLVEvBoCl9N6sRltRmU1Bp4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2859
 X-Mailman-Approved-At: Tue, 06 Apr 2021 19:41:32 +0000
-Subject: Re: [Intel-gfx] [PATCH] pwm: Rename pwm_get_state() to better
- reflect its semantic
+Subject: [Intel-gfx] [PATCH v2 15/18] vfio/gvt: Make DRM_I915_GVT depend on
+ VFIO_MDEV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,133 +133,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>, linux-doc@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Michael Turquette <mturquette@baylibre.com>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Lee Jones <lee.jones@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Daniel Thompson <daniel.thompson@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
- Fabio Estevam <festevam@gmail.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>, linux-clk@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, linux-input@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-pwm@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, intel-gfx@lists.freedesktop.org,
- Mark Brown <broonie@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Support Opensource <support.opensource@diasemi.com>,
- Stephen Boyd <sboyd@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Content-Type: multipart/mixed; boundary="===============0674904187=="
+Cc: Max Gurtovoy <mgurtovoy@nvidia.com>, "Raj, Ashok" <ashok.raj@intel.com>,
+ Tarun Gupta <targupta@nvidia.com>, Dan Williams <dan.j.williams@intel.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+At some point there may have been some reason for this weird split in this
+driver, but today only the VFIO side is actually implemented.
 
---===============0674904187==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t6hkzfhuwxujjtpy"
-Content-Disposition: inline
+However, it got messed up at some point and mdev code was put in gvt.c and
+is pretending to be "generic" by masquerading as some generic attribute list:
 
+   static MDEV_TYPE_ATTR_RO(description);
 
---t6hkzfhuwxujjtpy
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+But MDEV_TYPE attributes are only usable with mdev_device, nothing else.
 
-Hello Thierry,
+Ideally all of this would be moved to kvmgt.c, but it is entangled with
+the rest of the "generic" code in an odd way. Thus put in a kconfig
+dependency so we don't get randconfig failures when the next patch creates
+a link time dependency related to the use of MDEV_TYPE.
 
-On Tue, Apr 06, 2021 at 01:16:31PM +0200, Thierry Reding wrote:
-> On Tue, Apr 06, 2021 at 09:30:36AM +0200, Uwe Kleine-K=F6nig wrote:
-> > Given that lowlevel drivers usually cannot implement exactly what a
-> > consumer requests with pwm_apply_state() there is some rounding involve=
-d.
-> >=20
-> > pwm_get_state() traditionally returned the setting that was requested m=
-ost
-> > recently by the consumer (opposed to what was actually implemented in
-> > hardware in reply to the last request). To make this semantic obvious
-> > rename the function.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-> > ---
-> >  Documentation/driver-api/pwm.rst           |  6 +++-
-> >  drivers/clk/clk-pwm.c                      |  2 +-
-> >  drivers/gpu/drm/i915/display/intel_panel.c |  4 +--
-> >  drivers/input/misc/da7280.c                |  2 +-
-> >  drivers/input/misc/pwm-beeper.c            |  2 +-
-> >  drivers/input/misc/pwm-vibra.c             |  4 +--
-> >  drivers/pwm/core.c                         |  4 +--
-> >  drivers/pwm/pwm-atmel-hlcdc.c              |  2 +-
-> >  drivers/pwm/pwm-atmel.c                    |  2 +-
-> >  drivers/pwm/pwm-imx27.c                    |  2 +-
-> >  drivers/pwm/pwm-rockchip.c                 |  2 +-
-> >  drivers/pwm/pwm-stm32-lp.c                 |  4 +--
-> >  drivers/pwm/pwm-sun4i.c                    |  2 +-
-> >  drivers/pwm/sysfs.c                        | 18 ++++++------
-> >  drivers/regulator/pwm-regulator.c          |  4 +--
-> >  drivers/video/backlight/pwm_bl.c           | 10 +++----
-> >  include/linux/pwm.h                        | 34 ++++++++++++++--------
-> >  17 files changed, 59 insertions(+), 45 deletions(-)
->=20
-> Honestly, I don't think this is worth the churn. If you think people
-> will easily get confused by this then a better solution might be to more
-> explicitly document the pwm_get_state() function to say exactly what it
-> returns.
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+---
+ drivers/gpu/drm/i915/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-I'm not so optimistic that people become aware of the semantic just
-because there is documentation describing it and I strongly believe that
-a good name for functions is more important than accurate documentation.
-
-If you don't agree, what do you think about the updated wording in
-Documentation/driver-api/pwm.rst?
-
-> But there's no need to make life difficult for everyone by
-> renaming this to something as cumbersome as this.
-
-I don't expect any merge conflicts (and if still a problem occurs
-resolving should be trivial enough). So I obviously don't agree to your
-weighing.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---t6hkzfhuwxujjtpy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmBsZZkACgkQwfwUeK3K
-7AnKfQf8CsJvMKdyRy2ch/MNcEI+IBzOnV6nRAbwkLN/G3pbTRHLCtd8Zg/Iobf1
-P7ADJlOPATvorbWWUoagJrzcsXswh3ctV5aSWs0Ax1GJQ+PxNtz20n+MtsiTq2gZ
-flPfVN0AurTPqh+oGXK+f9C9N0ASjR7i2qjuUoub37yQ/abR5exNOpaM8FEnIbcF
-OHcBHOokDL0GpBDir8M9UyfrsPt8TfVD5fk5hXr7hmBhY/iuGQynYDRMQ11/zkvM
-lqdH7zPujy5oNqA/+6OSE8vbqoyTRoSqFHuyPRirxDrO14Yu2U570iUznQfg2O/t
-3egDaTaqSuaJjxZHzKE4dbx3R/z8wQ==
-=ePEJ
------END PGP SIGNATURE-----
-
---t6hkzfhuwxujjtpy--
-
---===============0674904187==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 1e1cb245fca778..483e9ff8ca1d23 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -101,6 +101,7 @@ config DRM_I915_GVT
+ 	bool "Enable Intel GVT-g graphics virtualization host support"
+ 	depends on DRM_I915
+ 	depends on 64BIT
++	depends on VFIO_MDEV
+ 	default n
+ 	help
+ 	  Choose this option if you want to enable Intel GVT-g graphics
+-- 
+2.31.1
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0674904187==--
