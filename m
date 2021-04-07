@@ -2,87 +2,56 @@ Return-Path: <SRS0=LPwG=JE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06AF6C433B4
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Apr 2021 17:43:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DFE4EC433B4
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Apr 2021 17:50:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B680B6105A
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Apr 2021 17:43:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B680B6105A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9BE7F6124C
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Apr 2021 17:50:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BE7F6124C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49C2088635;
-	Wed,  7 Apr 2021 17:43:23 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C932088635
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Apr 2021 17:43:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1617817400;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WDm5BO11OjtYF4Z6dkPqyPAi5vFLg1rZe0QxwYE4Ojg=;
- b=S9X/TWYHzVTevJ0pZ+WsJ2aZWdPGDhxdKr1n7jVYG7ZG7D7fOzJnEWcM/YiZlr6b5uod9T
- DrRg+BHIU+IB5hnC8RA9Acj62XLY2m/map5DdDsSmZ8fpAAMlXe9HglhBavNI2QCdxAjaM
- 26wXAsoyVNnT0EWHQC777kGvoFaR39s=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-548--vSC4DZQO9uFK1zXgd_0fg-1; Wed, 07 Apr 2021 13:43:18 -0400
-X-MC-Unique: -vSC4DZQO9uFK1zXgd_0fg-1
-Received: by mail-ed1-f71.google.com with SMTP id r6so12498678edh.7
- for <intel-gfx@lists.freedesktop.org>; Wed, 07 Apr 2021 10:43:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 246686E134;
+	Wed,  7 Apr 2021 17:50:40 +0000 (UTC)
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C36716E134
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Apr 2021 17:50:38 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ w21-20020a9d63950000b02901ce7b8c45b4so18883387otk.5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 07 Apr 2021 10:50:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=WDm5BO11OjtYF4Z6dkPqyPAi5vFLg1rZe0QxwYE4Ojg=;
- b=NpejFHz1hVHFXy5PpjoBZ8c+UAEkCnsBLamzMUbYZWa6Zbne4dNvbaqoWoytaQfK/F
- oBHCFLl1btRGDapDR5VGRR/lDGNsT50QBraDesAIw4QxBHsmgk6eKcyhR3hEzdZuTxqm
- OuVCMtm0Ht12Qar1yScyFfVFzSdP02YXcAdUTx/OActYnxfzUhOuTVJ7UQrNmi2INepd
- qD/FkEuuut3ImZVc0akdsaUzKWuWUTI5RvYzuq2jXo00g5Q+TC+PcC8RpPhfosU5/sbv
- jcUtyXLB8/2eq/7gPs6hwYZQcN7MAeXgNKIGkvCXkzvycNzwfZh9vp6qNzIemrIZMTxE
- Q3rQ==
-X-Gm-Message-State: AOAM530c3hAsQLaJrs3CsPH364H6xMtY4kuOVfT7x74qUNeGynPaGqvy
- r2+e5T3sic4TvXUZi1HO4rzW261W1SzIBFAnAVrZp7fUYi3YcgnuJ1pfj4rGMHIGMvnF4SHODQc
- tt81NhtJGFJxyQPJQxhfdQhdvXQwf
-X-Received: by 2002:a17:906:9442:: with SMTP id
- z2mr5299099ejx.79.1617817397361; 
- Wed, 07 Apr 2021 10:43:17 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxLRdUgJLJcMpXYN55ty9o47PhIpcoH+lGsDNmQZn/+sAwiIO4jR7VNCcGiPfmqz7ljbGXp2g==
-X-Received: by 2002:a17:906:9442:: with SMTP id
- z2mr5299069ejx.79.1617817397153; 
- Wed, 07 Apr 2021 10:43:17 -0700 (PDT)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id rk1sm8720536ejb.88.2021.04.07.10.43.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Apr 2021 10:43:16 -0700 (PDT)
-To: "Rafael J. Wysocki" <rafael@kernel.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qdty5jjF0kS1KwBKOuQvO5jA//0hz0U6KtPzoR/QqC0=;
+ b=aN9VDyq//fW+PfwEQGR2xOwU9DLX2odMeGxu+//+YeBriGK5FMj5dnosbkBfSHOH2O
+ mnq8xkpY1s5VMDvOHMsJCJyxzG5f3U9Foq3ZgTyaTTFL/3Edpy9p3dabpGt7b+6ULs/F
+ dzRMdhPgwb3wWG/QALZa7Ai7rQYxVtU0RpSDik8Uqenvmvdj8dc/62Pz0MncmmVvcXk8
+ E8+0OJXyP5WpJfgN7229qJBO/R4z3DNhVAXq+rjgMiYcmA+43vUb3u/hwznB8sflwNso
+ cUpq2Iz2oKR1brTcl1VW9cxJXI5Q8TOgN1/bmn0+r80fSPY3aK9FBMiqJ+QJ6IqsxZ6I
+ rAmQ==
+X-Gm-Message-State: AOAM5339vPmRsJWldrzbhOFn8k/5+pAknJDfU+FHTDX8qXd1YDLSw35q
+ ef7rstdL42LVTR905g7sQJvyBJ3K2gHDVQOP3xQ=
+X-Google-Smtp-Source: ABdhPJwnCImGe3rSYixT+YE7sfW6UlSVvDtUH3js1QA8mRWJZ38+30nMtWs8HCdr+aM8unuUy8A7zowxSyroEI3vg4A=
+X-Received: by 2002:a05:6830:1e03:: with SMTP id
+ s3mr4025696otr.321.1617817838050; 
+ Wed, 07 Apr 2021 10:50:38 -0700 (PDT)
+MIME-Version: 1.0
 References: <20210406211653.182338-1-hdegoede@redhat.com>
  <CAJZ5v0h6=_U+_=G8YL5rA701pTLGfyg4PmBudc3tFRKG=Wxh4A@mail.gmail.com>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <4e796690-0a45-77e9-6b5d-61b3efa4b301@redhat.com>
-Date: Wed, 7 Apr 2021 19:43:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-MIME-Version: 1.0
-In-Reply-To: <CAJZ5v0h6=_U+_=G8YL5rA701pTLGfyg4PmBudc3tFRKG=Wxh4A@mail.gmail.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+ <4e796690-0a45-77e9-6b5d-61b3efa4b301@redhat.com>
+In-Reply-To: <4e796690-0a45-77e9-6b5d-61b3efa4b301@redhat.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Wed, 7 Apr 2021 19:50:27 +0200
+Message-ID: <CAJZ5v0jYUA8GHqYvnkp=Q0fzMKcsXtuZ-RcSS3jc_exKjtsewA@mail.gmail.com>
+To: Hans de Goede <hdegoede@redhat.com>
 Subject: Re: [Intel-gfx] [PATCH 1/2] ACPI: utils: Add
  acpi_reduced_hardware() helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -97,103 +66,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, "Rafael J . Wysocki" <rjw@rjwysocki.net>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, Len Brown <lenb@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "Rafael J . Wysocki" <rjw@rjwysocki.net>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed, Apr 7, 2021 at 7:43 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>
+> Hi,
+>
+> On 4/7/21 7:13 PM, Rafael J. Wysocki wrote:
+> > On Tue, Apr 6, 2021 at 11:17 PM Hans de Goede <hdegoede@redhat.com> wrote:
+> >>
+> >> Add a getter for the acpi_gbl_reduced_hardware variable so that modules
+> >> can check if they are running on an ACPI reduced-hw platform or not.
+> >>
+> >> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> >> ---
+> >>  drivers/acpi/utils.c    | 11 +++++++++++
+> >>  include/acpi/acpi_bus.h |  1 +
+> >>  include/linux/acpi.h    |  5 +++++
+> >>  3 files changed, 17 insertions(+)
+> >>
+> >> diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
+> >> index 682edd913b3b..4cb061d3169a 100644
+> >> --- a/drivers/acpi/utils.c
+> >> +++ b/drivers/acpi/utils.c
+> >> @@ -872,6 +872,17 @@ acpi_dev_get_first_match_dev(const char *hid, const char *uid, s64 hrv)
+> >>  }
+> >>  EXPORT_SYMBOL(acpi_dev_get_first_match_dev);
+> >>
+> >> +/**
+> >> + * acpi_reduced_hardware - Return if this is an ACPI-reduced-hw machine
+> >> + *
+> >> + * Return true when running on an ACPI-reduced-hw machine, false otherwise.
+> >> + */
+> >> +bool acpi_reduced_hardware(void)
+> >> +{
+> >> +       return acpi_gbl_reduced_hardware;
+> >> +}
+> >> +EXPORT_SYMBOL(acpi_reduced_hardware);
+> >
+> > EXPORT_SYMBOL_GPL()?
+>
+> Yes, that was my intention, no idea what happened here.
+>
+> Before I send a v2, do you have any remarks on patch 2/2 (which is actually
+> the more interesting patch) ?
 
-On 4/7/21 7:13 PM, Rafael J. Wysocki wrote:
-> On Tue, Apr 6, 2021 at 11:17 PM Hans de Goede <hdegoede@redhat.com> wrote:
->>
->> Add a getter for the acpi_gbl_reduced_hardware variable so that modules
->> can check if they are running on an ACPI reduced-hw platform or not.
->>
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->> ---
->>  drivers/acpi/utils.c    | 11 +++++++++++
->>  include/acpi/acpi_bus.h |  1 +
->>  include/linux/acpi.h    |  5 +++++
->>  3 files changed, 17 insertions(+)
->>
->> diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
->> index 682edd913b3b..4cb061d3169a 100644
->> --- a/drivers/acpi/utils.c
->> +++ b/drivers/acpi/utils.c
->> @@ -872,6 +872,17 @@ acpi_dev_get_first_match_dev(const char *hid, const char *uid, s64 hrv)
->>  }
->>  EXPORT_SYMBOL(acpi_dev_get_first_match_dev);
->>
->> +/**
->> + * acpi_reduced_hardware - Return if this is an ACPI-reduced-hw machine
->> + *
->> + * Return true when running on an ACPI-reduced-hw machine, false otherwise.
->> + */
->> +bool acpi_reduced_hardware(void)
->> +{
->> +       return acpi_gbl_reduced_hardware;
->> +}
->> +EXPORT_SYMBOL(acpi_reduced_hardware);
-> 
-> EXPORT_SYMBOL_GPL()?
+I thought that basing that check on the ACPICA's global variable may
+be too coarse grained for some cases, but then I've decided to do it
+as is now and we'll see.
 
-Yes, that was my intention, no idea what happened here.
-
-Before I send a v2, do you have any remarks on patch 2/2 (which is actually
-the more interesting patch) ?
-
-Regards,
-
-Hans
-
-
-
-
-
-
-
-> 
->> +
->>  /*
->>   * acpi_backlight= handling, this is done here rather then in video_detect.c
->>   * because __setup cannot be used in modules.
->> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
->> index f28b097c658f..d631cb52283e 100644
->> --- a/include/acpi/acpi_bus.h
->> +++ b/include/acpi/acpi_bus.h
->> @@ -78,6 +78,7 @@ acpi_evaluate_dsm_typed(acpi_handle handle, const guid_t *guid, u64 rev,
->>
->>  bool acpi_dev_found(const char *hid);
->>  bool acpi_dev_present(const char *hid, const char *uid, s64 hrv);
->> +bool acpi_reduced_hardware(void);
->>
->>  #ifdef CONFIG_ACPI
->>
->> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
->> index 3bdcfc4401b7..e2e6db8313c8 100644
->> --- a/include/linux/acpi.h
->> +++ b/include/linux/acpi.h
->> @@ -748,6 +748,11 @@ acpi_dev_get_first_match_dev(const char *hid, const char *uid, s64 hrv)
->>         return NULL;
->>  }
->>
->> +static inline bool acpi_reduced_hardware(void)
->> +{
->> +       return false;
->> +}
->> +
->>  static inline void acpi_dev_put(struct acpi_device *adev) {}
->>
->>  static inline bool is_acpi_node(const struct fwnode_handle *fwnode)
->> --
->> 2.30.2
->>
-> 
-
+No need to resend that one.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
