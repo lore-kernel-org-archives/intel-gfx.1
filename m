@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 051E1C43461
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 00:42:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C059C43460
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 00:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5B3F61130
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 00:42:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5B3F61130
+	by mail.kernel.org (Postfix) with ESMTPS id 1D7E761184
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 00:42:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1D7E761184
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DBE56E9BA;
-	Thu,  8 Apr 2021 00:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC4536E9C0;
+	Thu,  8 Apr 2021 00:42:55 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1146B6E107
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 00:42:11 +0000 (UTC)
-IronPort-SDR: FQTDQ1leMDCqpLes2pwzymyvg71YJhxY6NfdPtXDHcwgMfCpbUStAWj/GAjXHgKeK+IbyjcJKH
- eLX0jWqhex3A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9947"; a="172900158"
-X-IronPort-AV: E=Sophos;i="5.82,204,1613462400"; d="scan'208";a="172900158"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 680296E9C0
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 00:42:54 +0000 (UTC)
+IronPort-SDR: q4aekDAf/AHwG1CrUAwaXg2CC4Pqdni7uoUckO0ryEUdm765u8rejVbjIDgNmSyjmuV3O37aSF
+ h6nIY0QhKAuA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9947"; a="172900197"
+X-IronPort-AV: E=Sophos;i="5.82,205,1613462400"; d="scan'208";a="172900197"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2021 17:42:10 -0700
-IronPort-SDR: Q8ZBSDokzVce6L1bwczY/4ua8jOlHUlpL+HJ/Y7Nrr2sT+Hl9hzuaYOpTwNaXkJ9EUq6NjPTJN
- kjbDPWa0Av/Q==
-X-IronPort-AV: E=Sophos;i="5.82,205,1613462400"; d="scan'208";a="519634233"
+ 07 Apr 2021 17:42:51 -0700
+IronPort-SDR: R0Y6MPDKTv5AHbQz/N41Tut9c/Af+QIzyo65fEirHe/1+buooP0ZYHWZxdIeOsemuRGBK1haPC
+ ek37tF7lCvRA==
+X-IronPort-AV: E=Sophos;i="5.82,205,1613462400"; d="scan'208";a="519634358"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2021 17:42:10 -0700
+ 07 Apr 2021 17:42:31 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  7 Apr 2021 17:41:55 -0700
-Message-Id: <20210408004200.984176-8-lucas.demarchi@intel.com>
+Date: Wed,  7 Apr 2021 17:42:00 -0700
+Message-Id: <20210408004200.984176-13-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210408004200.984176-1-lucas.demarchi@intel.com>
 References: <20210408004200.984176-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/12] drm/i915: eliminate remaining uses of
- intel_device_info->gen
+Subject: [Intel-gfx] [PATCH 12/12] drm/i915: split dgfx features from gen 12
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,128 +62,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace gen with the new graphics_ver value and use GRAPHICS_VER()
-in those places.
+Make them independent so we can use DGFX_FEATURES more generically.
+For future platforms that do not use the GEN nomenclature we will define
+graphics, media and display separately, so we avoid setting graphics_ver
+with the GEN() macro.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 22 +++++++++----------
- drivers/gpu/drm/i915/i915_drv.c               |  2 +-
- drivers/gpu/drm/i915/intel_device_info.c      |  2 +-
- 3 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/i915_pci.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 5964e67c7d36..297143511f99 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -274,7 +274,7 @@ struct i915_execbuffer {
- 		struct drm_mm_node node; /** temporary GTT binding */
- 		unsigned long vaddr; /** Current kmap address */
- 		unsigned long page; /** Currently mapped page index */
--		unsigned int gen; /** Cached value of INTEL_GEN */
-+		unsigned int graphics_ver; /** Cached value of GRAPHICS_VER */
- 		bool use_64bit_reloc : 1;
- 		bool has_llc : 1;
- 		bool has_fence : 1;
-@@ -1049,10 +1049,10 @@ static void reloc_cache_init(struct reloc_cache *cache,
- 	cache->page = -1;
- 	cache->vaddr = 0;
- 	/* Must be a variable in the struct to allow GCC to unroll. */
--	cache->gen = INTEL_GEN(i915);
-+	cache->graphics_ver = GRAPHICS_VER(i915);
- 	cache->has_llc = HAS_LLC(i915);
- 	cache->use_64bit_reloc = HAS_64BIT_RELOC(i915);
--	cache->has_fence = cache->gen < 4;
-+	cache->has_fence = cache->graphics_ver < 4;
- 	cache->needs_unfenced = INTEL_INFO(i915)->unfenced_needs_alignment;
- 	cache->node.flags = 0;
- 	reloc_cache_clear(cache);
-@@ -1402,7 +1402,7 @@ static int __reloc_gpu_alloc(struct i915_execbuffer *eb,
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 1453c1436f31..44e7b94db63d 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -907,8 +907,7 @@ static const struct intel_device_info rkl_info = {
+ 		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0),
+ };
  
- 	err = eb->engine->emit_bb_start(rq,
- 					batch->node.start, PAGE_SIZE,
--					cache->gen > 5 ? 0 : I915_DISPATCH_SECURE);
-+					cache->graphics_ver > 5 ? 0 : I915_DISPATCH_SECURE);
- 	if (err)
- 		goto skip_request;
+-#define GEN12_DGFX_FEATURES \
+-	GEN12_FEATURES, \
++#define DGFX_FEATURES \
+ 	.memory_regions = REGION_SMEM | REGION_LMEM, \
+ 	.has_master_unit_irq = 1, \
+ 	.has_llc = 0, \
+@@ -916,7 +915,8 @@ static const struct intel_device_info rkl_info = {
+ 	.is_dgfx = 1
  
-@@ -1503,14 +1503,14 @@ static int __reloc_entry_gpu(struct i915_execbuffer *eb,
- 			      u64 offset,
- 			      u64 target_addr)
- {
--	const unsigned int gen = eb->reloc_cache.gen;
-+	const unsigned int ver = eb->reloc_cache.graphics_ver;
- 	unsigned int len;
- 	u32 *batch;
- 	u64 addr;
- 
--	if (gen >= 8)
-+	if (ver >= 8)
- 		len = offset & 7 ? 8 : 5;
--	else if (gen >= 4)
-+	else if (ver >= 4)
- 		len = 4;
- 	else
- 		len = 3;
-@@ -1522,7 +1522,7 @@ static int __reloc_entry_gpu(struct i915_execbuffer *eb,
- 		return false;
- 
- 	addr = gen8_canonical_addr(vma->node.start + offset);
--	if (gen >= 8) {
-+	if (ver >= 8) {
- 		if (offset & 7) {
- 			*batch++ = MI_STORE_DWORD_IMM_GEN4;
- 			*batch++ = lower_32_bits(addr);
-@@ -1542,7 +1542,7 @@ static int __reloc_entry_gpu(struct i915_execbuffer *eb,
- 			*batch++ = lower_32_bits(target_addr);
- 			*batch++ = upper_32_bits(target_addr);
- 		}
--	} else if (gen >= 6) {
-+	} else if (ver >= 6) {
- 		*batch++ = MI_STORE_DWORD_IMM_GEN4;
- 		*batch++ = 0;
- 		*batch++ = addr;
-@@ -1552,12 +1552,12 @@ static int __reloc_entry_gpu(struct i915_execbuffer *eb,
- 		*batch++ = 0;
- 		*batch++ = vma_phys_addr(vma, offset);
- 		*batch++ = target_addr;
--	} else if (gen >= 4) {
-+	} else if (ver >= 4) {
- 		*batch++ = MI_STORE_DWORD_IMM_GEN4 | MI_USE_GGTT;
- 		*batch++ = 0;
- 		*batch++ = addr;
- 		*batch++ = target_addr;
--	} else if (gen >= 3 &&
-+	} else if (ver >= 3 &&
- 		   !(IS_I915G(eb->i915) || IS_I915GM(eb->i915))) {
- 		*batch++ = MI_STORE_DWORD_IMM | MI_MEM_VIRTUAL;
- 		*batch++ = addr;
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 8f953a0b7e36..eef94635808d 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -794,7 +794,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 		return PTR_ERR(i915);
- 
- 	/* Disable nuclear pageflip by default on pre-ILK */
--	if (!i915->params.nuclear_pageflip && match_info->gen < 5)
-+	if (!i915->params.nuclear_pageflip && match_info->graphics_ver < 5)
- 		i915->drm.driver_features &= ~DRIVER_ATOMIC;
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index de02207f6ec6..b58bc7bff65e 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -95,7 +95,7 @@ static const char *iommu_name(void)
- void intel_device_info_print_static(const struct intel_device_info *info,
- 				    struct drm_printer *p)
- {
--	drm_printf(p, "gen: %d\n", info->gen);
-+	drm_printf(p, "graphics_ver: %u\n", info->graphics_ver);
- 	drm_printf(p, "gt: %d\n", info->gt);
- 	drm_printf(p, "iommu: %s\n", iommu_name());
- 	drm_printf(p, "memory-regions: %x\n", info->memory_regions);
+ static const struct intel_device_info dg1_info __maybe_unused = {
+-	GEN12_DGFX_FEATURES,
++	GEN12_FEATURES,
++	DGFX_FEATURES,
+ 	PLATFORM(INTEL_DG1),
+ 	.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
+ 	.require_force_probe = 1,
 -- 
 2.31.1
 
