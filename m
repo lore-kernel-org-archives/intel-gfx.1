@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8636FC433ED
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 04:52:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2B66C433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 04:52:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4AAE46113C
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 04:52:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4AAE46113C
+	by mail.kernel.org (Postfix) with ESMTPS id 853C46113C
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 04:52:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 853C46113C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38CBC6E9F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB00A6E9F5;
 	Thu,  8 Apr 2021 04:52:40 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7E526E9F1
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 04:52:38 +0000 (UTC)
-IronPort-SDR: 3vgFlR5CP+HE/sZGDYEL5LUdtqNKpEB3SyOhlFEW6r4VDkaUkDI92r8qYdlIovLmhrGv6DGDkI
- YsDcRwejAGCg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9947"; a="193573092"
-X-IronPort-AV: E=Sophos;i="5.82,205,1613462400"; d="scan'208";a="193573092"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40C606E9F4
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 04:52:39 +0000 (UTC)
+IronPort-SDR: j1bQzN3i0ADVEI7D99AwN8BL/WY+mPmkUaIcP2i5iIwe7zHCqTKGJeGq7ygkr06jm6UCFMWhbq
+ Mj/wVRwq03wg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9947"; a="193573089"
+X-IronPort-AV: E=Sophos;i="5.82,205,1613462400"; d="scan'208";a="193573089"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Apr 2021 21:52:37 -0700
-IronPort-SDR: HVSEKxjq7dNgycC1EBqC2yMUu1LNmVX+Hp9N5fnJTPrBU2XhXyhWkEAcqsCQXk13xrfcRmU7NL
- ZsjfklSVXNdw==
-X-IronPort-AV: E=Sophos;i="5.82,205,1613462400"; d="scan'208";a="422064225"
+IronPort-SDR: mvJ6j8ZeczPR266rt8s8XQNQwQyjaWvGmHRqxjs9h7Jl7sK4/kDVDLGc94xJ3gyOngFKrndplu
+ VxV1o3Hc3dHw==
+X-IronPort-AV: E=Sophos;i="5.82,205,1613462400"; d="scan'208";a="422064219"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Apr 2021 21:52:37 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  7 Apr 2021 21:52:19 -0700
-Message-Id: <20210408045227.985408-5-lucas.demarchi@intel.com>
+Date: Wed,  7 Apr 2021 21:52:17 -0700
+Message-Id: <20210408045227.985408-3-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210408045227.985408-1-lucas.demarchi@intel.com>
 References: <20210408045227.985408-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/12] drm/i915/selftests: replace unused mask
- with simple version
+Subject: [Intel-gfx] [PATCH 02/12] drm/i915: add macros for graphics and
+ media versions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,57 +63,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since its introduction 2 years ago, we never used the mask to span more
-than one gen. Replace gen_mask a single number and start using the new
-GRAPHICS_VER().
+Like it was done in
+commit 01eb15c9165e ("drm/i915: Add DISPLAY_VER() and related macros")
+add the correspondent macros for graphics and media. Going forward we
+will prefer checking the versions for the specific IPs (graphics, media
+and display) rather than grouping everything under a "gen" version.
+
+For consistency and to make the maintenance easier, it'd be preferred
+not to mix the *GEN* macros with the new ones. For older platforms we
+can simply consider that the previous "gen" number will extend to all
+3 IPs. Then we can start replacing its use in the driver. Right now this
+replacement is not done and only the infrastructure is put in place.
+We also leave gen and gen_mask inside struct intel_device_info while
+it's still being used throughout the code.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_workarounds.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h          | 17 ++++++++++++++++-
+ drivers/gpu/drm/i915/i915_pci.c          |  7 ++++++-
+ drivers/gpu/drm/i915/intel_device_info.h |  3 +++
+ 3 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-index 19850489a3fc..64937ec3f2dc 100644
---- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-@@ -927,7 +927,7 @@ static int scrub_whitelisted_registers(struct intel_context *ce)
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 8c62bb2abd31..97cbd019f2e9 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1234,9 +1234,24 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
+ #define RUNTIME_INFO(dev_priv)	(&(dev_priv)->__runtime)
+ #define DRIVER_CAPS(dev_priv)	(&(dev_priv)->caps)
  
- struct regmask {
- 	i915_reg_t reg;
--	unsigned long gen_mask;
+-#define INTEL_GEN(dev_priv)	(INTEL_INFO(dev_priv)->gen)
+ #define INTEL_DEVID(dev_priv)	(RUNTIME_INFO(dev_priv)->device_id)
+ 
++/*
++ * Deprecated: this will be replaced by individual IP checks:
++ * GRAPHICS_VER(), MEDIA_VER and DISPLAY_VER()
++ */
++#define INTEL_GEN(dev_priv)		(INTEL_INFO(dev_priv)->gen)
++
++#define GRAPHICS_VER(i915)		(INTEL_INFO(i915)->graphics_ver)
++#define IS_GRAPHICS_RANGE(i915, from, until) \
++	(GRAPHICS_VER(i915) >= (from) && GRAPHICS_VER(i915) <= (until))
++#define IS_GRAPHICS_VER(i915, v)	(GRAPHICS_VER(i915) == (v))
++
++#define MEDIA_VER(i915)			(INTEL_INFO(i915)->media_ver)
++#define IS_MEDIA_RANGE(i915, from, until) \
++	(MEDIA_VER(i915) >= (from) && MEDIA_VER(i915) <= (until))
++#define IS_MEDIA_VER(i915, v)		(MEDIA_VER(i915) == (v))
++
+ #define DISPLAY_VER(i915)	(INTEL_INFO(i915)->display.ver)
+ #define IS_DISPLAY_RANGE(i915, from, until) \
+ 	(DISPLAY_VER(i915) >= (from) && DISPLAY_VER(i915) <= (until))
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index ce5cbeaf036d..97ab73276334 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -36,7 +36,12 @@
+ #include "i915_selftest.h"
+ 
+ #define PLATFORM(x) .platform = (x)
+-#define GEN(x) .gen = (x), .gen_mask = BIT((x) - 1), .display.ver = (x)
++#define GEN(x) \
++	.gen_mask = BIT((x) - 1), \
++	.gen = (x), \
++	.graphics_ver = (x), \
++	.media_ver = (x), \
++	.display.ver = (x)
+ 
+ #define I845_PIPE_OFFSETS \
+ 	.pipe_offsets = { \
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index b16c75927a12..405883a8cc84 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -162,6 +162,9 @@ enum intel_ppgtt_type {
+ struct intel_device_info {
+ 	u16 gen_mask;
+ 
 +	u8 graphics_ver;
- };
- 
- static bool find_reg(struct drm_i915_private *i915,
-@@ -938,7 +938,7 @@ static bool find_reg(struct drm_i915_private *i915,
- 	u32 offset = i915_mmio_reg_offset(reg);
- 
- 	while (count--) {
--		if (INTEL_INFO(i915)->gen_mask & tbl->gen_mask &&
-+		if (GRAPHICS_VER(i915) == tbl->graphics_ver &&
- 		    i915_mmio_reg_offset(tbl->reg) == offset)
- 			return true;
- 		tbl++;
-@@ -951,8 +951,8 @@ static bool pardon_reg(struct drm_i915_private *i915, i915_reg_t reg)
- {
- 	/* Alas, we must pardon some whitelists. Mistakes already made */
- 	static const struct regmask pardon[] = {
--		{ GEN9_CTX_PREEMPT_REG, INTEL_GEN_MASK(9, 9) },
--		{ GEN8_L3SQCREG4, INTEL_GEN_MASK(9, 9) },
-+		{ GEN9_CTX_PREEMPT_REG, 9 },
-+		{ GEN8_L3SQCREG4, 9 },
- 	};
- 
- 	return find_reg(i915, reg, pardon, ARRAY_SIZE(pardon));
-@@ -974,7 +974,7 @@ static bool writeonly_reg(struct drm_i915_private *i915, i915_reg_t reg)
- {
- 	/* Some registers do not seem to behave and our writes unreadable */
- 	static const struct regmask wo[] = {
--		{ GEN9_SLICE_COMMON_ECO_CHICKEN1, INTEL_GEN_MASK(9, 9) },
-+		{ GEN9_SLICE_COMMON_ECO_CHICKEN1, 9 },
- 	};
- 
- 	return find_reg(i915, reg, wo, ARRAY_SIZE(wo));
++	u8 media_ver;
++
+ 	u8 gen;
+ 	u8 gt; /* GT number, 0 if undefined */
+ 	intel_engine_mask_t platform_engine_mask; /* Engines supported by the HW */
 -- 
 2.31.1
 
