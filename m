@@ -2,53 +2,49 @@ Return-Path: <SRS0=u9zS=JF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EB01C433B4
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 21:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FF5AC433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 21:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 33B25610C9
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 21:38:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33B25610C9
+	by mail.kernel.org (Postfix) with ESMTPS id C97B661007
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 21:39:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C97B661007
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A413E6E3D8;
-	Thu,  8 Apr 2021 21:38:24 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B74A6E3EC
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 21:38:23 +0000 (UTC)
-IronPort-SDR: 9FGztIt1+NDS/YskEm8O2SScKnIAQKcUbKFyliqqCb8SwUGcZsK7RU2BoKf0wW6xMQm4Sgz5Ny
- s+i9e6nQ7C2Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9948"; a="254971750"
-X-IronPort-AV: E=Sophos;i="5.82,207,1613462400"; d="scan'208";a="254971750"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2021 14:38:22 -0700
-IronPort-SDR: Md0SKFF1J6bTq54NgC9DaKUO4WIb0NDLZp3HI4KOJ3NTZeCoxH4NBJm5lfl4VyGL3Wdk96XVhK
- 8elXoniopWtw==
-X-IronPort-AV: E=Sophos;i="5.82,207,1613462400"; d="scan'208";a="458992003"
-Received: from kmkerns-mobl2.amr.corp.intel.com (HELO intel.com)
- ([10.209.131.159])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2021 14:38:21 -0700
-Date: Thu, 8 Apr 2021 17:38:18 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Message-ID: <YG93ylhtDihPh4Qo@intel.com>
-References: <20210328225709.18541-1-daniele.ceraolospurio@intel.com>
- <20210328225709.18541-2-daniele.ceraolospurio@intel.com>
- <44b1a6ba-44fc-4a8d-d35b-c44e59849edf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 292696E3EC;
+	Thu,  8 Apr 2021 21:39:40 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C59376E3EC
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 21:39:38 +0000 (UTC)
+IronPort-SDR: zl/qxJEVEwMmZIp6epUBGDisl5p6Zk0PU4iSjGc8ELbg+MvACVMpHDY5np16stcFjwXoKMhAuN
+ hr69c6Gco30Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9948"; a="193181772"
+X-IronPort-AV: E=Sophos;i="5.82,207,1613462400"; d="scan'208";a="193181772"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2021 14:39:34 -0700
+IronPort-SDR: 9qgKNWv2oCE2bF+OIq/NfAO6UQtQhLW2G8sD5vfyZJHwJaQPG4Xc3IHjD8Dnrk70wGVWVbjthv
+ fGCPYdOWsf0w==
+X-IronPort-AV: E=Sophos;i="5.82,207,1613462400"; d="scan'208";a="520030745"
+Received: from muweizha-mobl.amr.corp.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.254.2.85])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2021 14:39:33 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  8 Apr 2021 14:42:05 -0700
+Message-Id: <20210408214205.327704-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <44b1a6ba-44fc-4a8d-d35b-c44e59849edf@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v3 01/16] drm/i915/pxp: Define PXP component
- interface
+Subject: [Intel-gfx] [PATCH] drm/i915/display: Defeature PSR2 for RKL and
+ ADL-S
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,143 +57,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Vitaly Lubart <vitaly.lubart@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 29, 2021 at 03:55:03PM +0200, Michal Wajdeczko wrote:
-> =
-
-> =
-
-> On 29.03.2021 00:56, Daniele Ceraolo Spurio wrote:
-> > This will be used for communication between the i915 driver and the mei
-> > one. Defining it in a stand-alone patch to avoid circualr dependedencies
-> =
-
-> typos
-> =
-
-> > between the patches modifying the 2 drivers.
-> > =
-
-> > Split out from an original patch from  Huang, Sean Z
-> > =
-
-> > v2: rename the component struct (Rodrigo)
-> > =
-
-> > Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > ---
-> >  include/drm/i915_component.h         |  1 +
-> >  include/drm/i915_pxp_tee_interface.h | 45 ++++++++++++++++++++++++++++
-> >  2 files changed, 46 insertions(+)
-> >  create mode 100644 include/drm/i915_pxp_tee_interface.h
-> > =
-
-> > diff --git a/include/drm/i915_component.h b/include/drm/i915_component.h
-> > index 55c3b123581b..c1e2a43d2d1e 100644
-> > --- a/include/drm/i915_component.h
-> > +++ b/include/drm/i915_component.h
-> > @@ -29,6 +29,7 @@
-> >  enum i915_component_type {
-> >  	I915_COMPONENT_AUDIO =3D 1,
-> >  	I915_COMPONENT_HDCP,
-> > +	I915_COMPONENT_PXP
-> >  };
-> >  =
-
-> >  /* MAX_PORT is the number of port
-> > diff --git a/include/drm/i915_pxp_tee_interface.h b/include/drm/i915_px=
-p_tee_interface.h
-> > new file mode 100644
-> > index 000000000000..09b8389152af
-> > --- /dev/null
-> > +++ b/include/drm/i915_pxp_tee_interface.h
-> > @@ -0,0 +1,45 @@
-> > +/* SPDX-License-Identifier: MIT */
-> > +/*
-> > + * Copyright =A9 2020 Intel Corporation
-> > + *
-> > + * Authors:
-> > + * Vitaly Lubart <vitaly.lubart@intel.com>
-> =
-
-> shouldn't be at least on cc: ?
-
-yeap, good idea...
-let's start cc'ing now...
-
-> =
-
-> > + */
-> > +
-> > +#ifndef _I915_PXP_TEE_INTERFACE_H_
-> > +#define _I915_PXP_TEE_INTERFACE_H_
-> > +
-> > +#include <linux/mutex.h>
-> > +#include <linux/device.h>
-> > +
-> > +/**
-> > + * struct i915_pxp_component_ops - ops for PXP services.
-> > + * @owner: Module providing the ops
-> > + * @send: sends data to PXP
-> > + * @receive: receives data from PXP
-> > + */
-> > +struct i915_pxp_component_ops {
-> > +	/**
-> > +	 * @owner: owner of the module provding the ops
-> =
-
-> typo
-> =
-
-> > +	 */
-> > +	struct module *owner;
-> =
-
-> hmm, usually ops structs have only function pointers, why do we need
-> owner here ? and are you sure is it a right place if still needed ?
-
-it is indeed not used here and for this series it could be removed.
-
-I haven't considered this earlier because this came from TEE directly,
-but for now, let's remove if not used.
-
-> =
-
-> > +
-> > +	int (*send)(struct device *dev, const void *message, size_t size);
-> > +	int (*recv)(struct device *dev, void *buffer, size_t size);
-> > +};
-> > +
-> > +/**
-> > + * struct i915_pxp_component - Used for communication between i915 and=
- TEE
-> > + * drivers for the PXP services
-> > + * @tee_dev: device that provide the PXP service from TEE Bus.
-> > + * @pxp_ops: Ops implemented by TEE driver, used by i915 driver.
-> > + */
-> > +struct i915_pxp_component {
-> > +	struct device *tee_dev;
-> > +	const struct i915_pxp_component_ops *ops;
-> > +
-> > +	/* To protect the above members. */
-> > +	struct mutex mutex;
-> > +};
-> > +
-> > +#endif /* _I915_TEE_PXP_INTERFACE_H_ */
-> > =
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+UFNSMiBpcyBkZWZlYXR1cmVkIGZvciBSS0wgYW5kIEFETC1TLCBubyBpbXBvcnRhbnQgcG93ZXIg
+aW1wYWN0IGFzCnRob3NlIGFyZSBkZXNrdG9wIENQVXMgYW5kIFBTUjIgd2FzIG5vdCBldmVuIGVu
+YWJsZWQgYnkgZGVmYXVsdCB5ZXQKaW4gcGxhdGZvcm1zIHdpdGhvdXQgUFNSMiBIVyB0cmFja2lu
+Zy4KCkhTREVTOiAxNDAxMTc1MDYzMQpIU0RFUzogMTQwMTE3NDEzMjUKQlNwZWM6IDUzMjczCkNj
+OiBDYXogWW9rb3lhbWEgPENhei5Zb2tveWFtYUBpbnRlbC5jb20+CkNjOiBHd2FuLWd5ZW9uZyBN
+dW4gPGd3YW4tZ3llb25nLm11bkBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEpvc8OpIFJvYmVy
+dG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMgfCA2ICsrKysrKwogMSBmaWxlIGNoYW5nZWQsIDYgaW5z
+ZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfcHNyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jCmluZGV4
+IDMyZDNkNTYyNTljMi4uMjYyN2QwYjU1OGYzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
+YXkvaW50ZWxfcHNyLmMKQEAgLTczOSw2ICs3MzksMTIgQEAgc3RhdGljIGJvb2wgaW50ZWxfcHNy
+Ml9jb25maWdfdmFsaWQoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCwKIAkJcmV0dXJuIGZhbHNl
+OwogCX0KIAorCS8qIFdhXzE2MDExMTgxMjUwICovCisJaWYgKElTX1JPQ0tFVExBS0UoZGV2X3By
+aXYpIHx8IElTX0FMREVSTEFLRV9TKGRldl9wcml2KSkgeworCQlkcm1fZGJnX2ttcygmZGV2X3By
+aXYtPmRybSwgIlBTUjIgaXMgZGVmZWF0dXJlZCBmb3IgdGhpcyBwbGF0Zm9ybVxuIik7CisJCXJl
+dHVybiBmYWxzZTsKKwl9CisKIAlpZiAoIXRyYW5zY29kZXJfaGFzX3BzcjIoZGV2X3ByaXYsIGNy
+dGNfc3RhdGUtPmNwdV90cmFuc2NvZGVyKSkgewogCQlkcm1fZGJnX2ttcygmZGV2X3ByaXYtPmRy
+bSwKIAkJCSAgICAiUFNSMiBub3Qgc3VwcG9ydGVkIGluIHRyYW5zY29kZXIgJXNcbiIsCi0tIAoy
+LjMxLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCklu
+dGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
