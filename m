@@ -2,68 +2,51 @@ Return-Path: <SRS0=u9zS=JF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A926C433ED
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 20:13:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CD3AC433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 20:30:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7760E61028
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 20:13:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7760E61028
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id CF21361151
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 20:30:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF21361151
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 134416E1A8;
-	Thu,  8 Apr 2021 20:13:21 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 217DB6E1A8
- for <Intel-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 20:13:20 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id j5so2437569wrn.4
- for <Intel-gfx@lists.freedesktop.org>; Thu, 08 Apr 2021 13:13:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=czqXkT8JAio4ZyjhY5QQQxuOzaM3qv/npATOCbrUa/o=;
- b=B2S4c43el6T8d/MZwicnFmp423Fu5cNN6UHlQfwTuzC+iTJ486YFxUdyCT2bfUdcRa
- 0zkUE1YLUwvRe+xYZI+NyxUGeXdFudUkNgcVWoNR9yTgSpHqMyS6jmQrAM6FFKYQnvYg
- WF3FSPzm96vxfhw2piJkTJ/KkIDNFbG3imTzw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=czqXkT8JAio4ZyjhY5QQQxuOzaM3qv/npATOCbrUa/o=;
- b=UoK6rG50F2og1v1YS+s+q4JYTXS0tXXfv0ta1cmENk8exfZACNSAcukVdheYwFathW
- 3dE7CXGaV1s4dMOxjc9+1eFjzO00pReGU0oVZDRydBM4Cv8xGzxnhJX3yvUHisZFAdTv
- j5tHzDYMjqrx8N3qh7TYFNlvwzDQa467Rv02PRfUjcMXAD9K/cnOuGN0eLIJMfNsNukv
- exWmBUqmQL2mBQkOBhbjbLvZLtTh1F8edAimnk7IRZlUB8CL7H1wUOn7sYcbFeYRikIg
- ZLRp0i53bfF7RDCyHK9yZ9MoG4u2/GmleQv8fdCBqcMwd1DhLYVKxYIgIpYlz5/91XgM
- MmrA==
-X-Gm-Message-State: AOAM53108Fy8EIUfQKRZuh8t7Fi+DM4pSnC1aBNFycEBNlXGuzhEuiZP
- UC1Q+YgfPpAk8Sw1Hk3Y24J57A==
-X-Google-Smtp-Source: ABdhPJwyCHReEQmkLK2cs5vraBK4wM0medwzVf9FyNsu9IjMV7VfCBqevYuy0gYKyrYpNSIZeyWWnQ==
-X-Received: by 2002:adf:cc8d:: with SMTP id p13mr14373120wrj.50.1617912798905; 
- Thu, 08 Apr 2021 13:13:18 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id z66sm479673wmc.4.2021.04.08.13.13.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Apr 2021 13:13:18 -0700 (PDT)
-Date: Thu, 8 Apr 2021 22:13:16 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Petri Latvala <petri.latvala@intel.com>
-Message-ID: <YG9j3HqjZCk71Dmi@phenom.ffwll.local>
-References: <20210401114316.2597715-1-tvrtko.ursulin@linux.intel.com>
- <YGW2pTimwjHEDf3M@platvala-desk.ger.corp.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 205D26E21D;
+	Thu,  8 Apr 2021 20:30:01 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4815D6E21D
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 20:29:59 +0000 (UTC)
+IronPort-SDR: vD4IsFdEhCWTOm0KcXtbtuo+ljgUDQVAKtgXP9cecMP+oe54nyQQnrhDBqBMBIayfVtRvTLkrc
+ GsWpSo6n4Brg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9948"; a="193741504"
+X-IronPort-AV: E=Sophos;i="5.82,207,1613462400"; d="scan'208";a="193741504"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2021 13:29:58 -0700
+IronPort-SDR: LsCqv2ankWiYuDTTZq1zidOaOFGOsxa52qOE3AJv2PJ1zj5oczHFqd41uPHN3vglot+3mVL4Nt
+ q4jywuVDFfOA==
+X-IronPort-AV: E=Sophos;i="5.82,207,1613462400"; d="scan'208";a="520009038"
+Received: from muweizha-mobl.amr.corp.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.254.2.85])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2021 13:29:58 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  8 Apr 2021 13:31:49 -0700
+Message-Id: <20210408203150.237947-2-jose.souza@intel.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210408203150.237947-1-jose.souza@intel.com>
+References: <20210408203150.237947-1-jose.souza@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YGW2pTimwjHEDf3M@platvala-desk.ger.corp.intel.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Intel-gfx] [PATCH i-g-t] gem_watchdog: Fix autotools build
+Subject: [Intel-gfx] [PATCH CI 2/3] drm/i915: Do not set any power wells
+ when there is no display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,61 +59,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org, Intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 01, 2021 at 03:03:49PM +0300, Petri Latvala wrote:
-> On Thu, Apr 01, 2021 at 12:43:16PM +0100, Tvrtko Ursulin wrote:
-> > From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> > 
-> > Correcting a brain malfunction while typing in Makefile.sources.
-> > 
-> > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> 
-> Reviewed-by: Petri Latvala <petri.latvala@intel.com>
-
-Isn't autotools now going away with Arek's series?
--Daniel
-
-> 
-> 
-> > ---
-> >  tests/Makefile.sources | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/tests/Makefile.sources b/tests/Makefile.sources
-> > index e992285fedc5..194df8e27dd0 100644
-> > --- a/tests/Makefile.sources
-> > +++ b/tests/Makefile.sources
-> > @@ -464,7 +464,7 @@ TESTS_progs += gem_wait
-> >  gem_wait_SOURCES = i915/gem_wait.c
-> >  
-> >  TESTS_progs += gem_watchdog
-> > -gem_exec_watchdog_SOURCES = i915/gem_watchdog.c
-> > +gem_watchdog_SOURCES = i915/gem_watchdog.c
-> >  
-> >  TESTS_progs += gem_workarounds
-> >  gem_workarounds_SOURCES = i915/gem_workarounds.c
-> > -- 
-> > 2.27.0
-> > 
-> > _______________________________________________
-> > Intel-gfx mailing list
-> > Intel-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+UG93ZXIgd2VsbHMgYXJlIG9ubHkgcGFydCBvZiBkaXNwbGF5IGJsb2NrIGFuZCBub3QgbmVjZXNz
+YXJ5IHdoZW4KcnVubmluZyBhIGhlYWRsZXNzIGRyaXZlci4KClJldmlld2VkLWJ5OiBSYWRoYWty
+aXNobmEgU3JpcGFkYSA8cmFkaGFrcmlzaG5hLnNyaXBhZGFAaW50ZWwuY29tPgpDYzogTHVjYXMg
+RGUgTWFyY2hpIDxsdWNhcy5kZW1hcmNoaUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEpvc8Op
+IFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBK
+YW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5jIHwgNSArKysrLQogMSBmaWxlIGNoYW5n
+ZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bvd2VyLmMKaW5kZXggOTQxOWFlOGM2MTEx
+Li41MzMxMWI5NzY0ZGMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfZGlzcGxheV9wb3dlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfZGlzcGxheV9wb3dlci5jCkBAIC00Njc0LDcgKzQ2NzQsMTAgQEAgaW50IGludGVsX3Bv
+d2VyX2RvbWFpbnNfaW5pdChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJICog
+VGhlIGVuYWJsaW5nIG9yZGVyIHdpbGwgYmUgZnJvbSBsb3dlciB0byBoaWdoZXIgaW5kZXhlZCB3
+ZWxscywKIAkgKiB0aGUgZGlzYWJsaW5nIG9yZGVyIGlzIHJldmVyc2VkLgogCSAqLwotCWlmIChJ
+U19BTERFUkxBS0VfUyhkZXZfcHJpdikgfHwgSVNfREcxKGRldl9wcml2KSkgeworCWlmICghSEFT
+X0RJU1BMQVkoZGV2X3ByaXYpKSB7CisJCXBvd2VyX2RvbWFpbnMtPnBvd2VyX3dlbGxfY291bnQg
+PSAwOworCQllcnIgPSAwOworCX0gZWxzZSBpZiAoSVNfQUxERVJMQUtFX1MoZGV2X3ByaXYpIHx8
+IElTX0RHMShkZXZfcHJpdikpIHsKIAkJZXJyID0gc2V0X3Bvd2VyX3dlbGxzX21hc2socG93ZXJf
+ZG9tYWlucywgdGdsX3Bvd2VyX3dlbGxzLAogCQkJCQkgICBCSVRfVUxMKFRHTF9ESVNQX1BXX1RD
+X0NPTERfT0ZGKSk7CiAJfSBlbHNlIGlmIChJU19ST0NLRVRMQUtFKGRldl9wcml2KSkgewotLSAK
+Mi4zMS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJ
+bnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
