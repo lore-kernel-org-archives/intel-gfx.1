@@ -2,50 +2,47 @@ Return-Path: <SRS0=u9zS=JF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E674BC43460
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 00:42:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15C19C433ED
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 00:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A474961130
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 00:42:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A474961130
+	by mail.kernel.org (Postfix) with ESMTPS id C688461184
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 00:42:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C688461184
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 863316E9BD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43EE26E9B7;
 	Thu,  8 Apr 2021 00:42:12 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75AD06E107
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D2E76E3D6
  for <intel-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 00:42:10 +0000 (UTC)
-IronPort-SDR: cXTMEzkVyM3dqIYhEiy5gRhYRoqLUCEw48fp1oU7c8BNGuEBfflFLZq2lsW410+lg71a5nTBU0
- /iHlMR9++zEg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9947"; a="172900153"
-X-IronPort-AV: E=Sophos;i="5.82,204,1613462400"; d="scan'208";a="172900153"
+IronPort-SDR: 5vBw166rXXr0ewHE0W4k9TmWtMEfM2utT9W0Mg0oeN94W3Mv3CCnTI+Od55x9EHpweHkhuHRUa
+ VlressYy9rzg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9947"; a="172900151"
+X-IronPort-AV: E=Sophos;i="5.82,204,1613462400"; d="scan'208";a="172900151"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Apr 2021 17:42:09 -0700
-IronPort-SDR: WD+ZRyoQEoBLfWY4qbgYtqqxcMTI2pvYdm5e8FTwkWOsnBIhMumXCL344djvIltlknBg6LIFjE
- y2ir5UjwSjbw==
-X-IronPort-AV: E=Sophos;i="5.82,205,1613462400"; d="scan'208";a="519634211"
+IronPort-SDR: lbUZG4fzb4W//l/aV7BE9XsiLKcVmA3F5EJcBnlnvVmXlsE+B15u6Yt2JpeBgaPn+YVedh0qX1
+ A9RJadYV/RRA==
+X-IronPort-AV: E=Sophos;i="5.82,205,1613462400"; d="scan'208";a="519634205"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Apr 2021 17:42:09 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  7 Apr 2021 17:41:50 -0700
-Message-Id: <20210408004200.984176-3-lucas.demarchi@intel.com>
+Date: Wed,  7 Apr 2021 17:41:48 -0700
+Message-Id: <20210408004200.984176-1-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210408004200.984176-1-lucas.demarchi@intel.com>
-References: <20210408004200.984176-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/12] drm/i915: add macros for graphics and
- media versions
+Subject: [Intel-gfx] [PATCH 00/12] drm/i915: Extend GEN renames to the rest
+ of the driver
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,89 +60,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Like it was done in
-commit 01eb15c9165e ("drm/i915: Add DISPLAY_VER() and related macros")
-add the correspondent macros for graphics and media. Going forward we
-will prefer checking the versions for the specific IPs (graphics, media
-and display) rather than grouping everything under a "gen" version.
+Like was done for the display part that parted ways with INTEL_GEN(),
+replacing with DISPLAY_VER(), do a similar conversion for the rest of
+the driver.
 
-For consistency and to make the maintenance easier, it'd be preferred
-not to mix the *GEN* macros with the new ones. For older platforms we
-can simply consider that the previous "gen" number will extend to all
-3 IPs. Then we can start replacing its use in the driver. Right now this
-replacement is not done and only the infrastructure is put in place.
-We also leave gen and gen_mask inside struct intel_device_info while
-it's still being used throughout the code.
+Lucas De Marchi (12):
+  drm/i915: rename display.version to display.ver
+  drm/i915: add macros for graphics and media versions
+  drm/i915/gt: replace gen use in intel_engine_cs
+  drm/i915/selftests: replace unused mask with simple version
+  drm/i915/selftests: eliminate use of gen_mask
+  drm/i915: finish removal of gen_mask
+  drm/i915: eliminate remaining uses of intel_device_info->gen
+  drm/i915: finish removal of gen from intel_device_info
+  drm/i915: add media and display versions to device_info print
+  drm/i915/display: use DISPLAY_VER() on remaining users
+  drm/i915: replace IS_GEN and friends with IS_GRAPHICS_VER
+  drm/i915: split dgfx features from gen 12
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.h          | 17 ++++++++++++++++-
- drivers/gpu/drm/i915/i915_pci.c          |  7 ++++++-
- drivers/gpu/drm/i915/intel_device_info.h |  3 +++
- 3 files changed, 25 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_audio.c    |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |   6 +-
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  33 +++---
+ .../gpu/drm/i915/gem/i915_gem_object_blt.c    |   8 +-
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |  16 +--
+ drivers/gpu/drm/i915/gem/i915_gem_tiling.c    |  12 +--
+ .../i915/gem/selftests/i915_gem_client_blt.c  |  10 +-
+ .../i915/gem/selftests/i915_gem_coherency.c   |   4 +-
+ .../drm/i915/gem/selftests/i915_gem_context.c |  16 +--
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |  14 +--
+ .../drm/i915/gem/selftests/igt_gem_utils.c    |  10 +-
+ drivers/gpu/drm/i915/gt/debugfs_gt_pm.c       |  38 +++----
+ drivers/gpu/drm/i915/gt/gen2_engine_cs.c      |   2 +-
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |   2 +-
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c          |   2 +-
+ drivers/gpu/drm/i915/gt/intel_context_sseu.c  |   2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  94 +++++++++---------
+ .../drm/i915/gt/intel_execlists_submission.c  |  18 ++--
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          |  18 ++--
+ drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |  34 +++----
+ drivers/gpu/drm/i915/gt/intel_gt.c            |  27 ++---
+ .../gpu/drm/i915/gt/intel_gt_clock_utils.c    |  12 +--
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |   6 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm_irq.c     |  10 +-
+ drivers/gpu/drm/i915/gt/intel_gtt.c           |  14 +--
+ drivers/gpu/drm/i915/gt/intel_llc.c           |   6 +-
+ drivers/gpu/drm/i915/gt/intel_lrc.c           |  46 ++++-----
+ drivers/gpu/drm/i915/gt/intel_mocs.c          |   8 +-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |   6 +-
+ drivers/gpu/drm/i915/gt/intel_rc6.c           |  16 +--
+ drivers/gpu/drm/i915/gt/intel_renderstate.c   |   2 +-
+ drivers/gpu/drm/i915/gt/intel_reset.c         |  12 +--
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |  64 ++++++------
+ drivers/gpu/drm/i915/gt/intel_rps.c           |  60 +++++------
+ drivers/gpu/drm/i915/gt/intel_sseu.c          |  14 +--
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   |  66 ++++++------
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c  |  24 ++---
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   2 +-
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  |   4 +-
+ drivers/gpu/drm/i915/gt/selftest_gt_pm.c      |   8 +-
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |   8 +-
+ drivers/gpu/drm/i915/gt/selftest_llc.c        |   4 +-
+ drivers/gpu/drm/i915/gt/selftest_lrc.c        |   8 +-
+ drivers/gpu/drm/i915/gt/selftest_mocs.c       |   2 +-
+ drivers/gpu/drm/i915/gt/selftest_rc6.c        |   4 +-
+ .../drm/i915/gt/selftest_ring_submission.c    |   6 +-
+ drivers/gpu/drm/i915/gt/selftest_rps.c        |  16 +--
+ drivers/gpu/drm/i915/gt/selftest_timeline.c   |   6 +-
+ .../gpu/drm/i915/gt/selftest_workarounds.c    |  18 ++--
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   4 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |   2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c     |   2 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  10 +-
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c        |   2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   4 +-
+ drivers/gpu/drm/i915/gvt/cmd_parser.c         |   8 +-
+ drivers/gpu/drm/i915/gvt/dmabuf.c             |   2 +-
+ drivers/gpu/drm/i915/gvt/fb_decoder.c         |  10 +-
+ drivers/gpu/drm/i915/gvt/gtt.c                |   4 +-
+ drivers/gpu/drm/i915/gvt/handlers.c           |   6 +-
+ drivers/gpu/drm/i915/gvt/interrupt.c          |   2 +-
+ drivers/gpu/drm/i915/gvt/mmio_context.c       |  10 +-
+ drivers/gpu/drm/i915/gvt/scheduler.c          |   4 +-
+ drivers/gpu/drm/i915/gvt/vgpu.c               |   4 +-
+ drivers/gpu/drm/i915/i915.ko.new              | Bin 0 -> 43517120 bytes
+ drivers/gpu/drm/i915/i915.ko.old              | Bin 0 -> 43517912 bytes
+ drivers/gpu/drm/i915/i915_cmd_parser.c        |  10 +-
+ drivers/gpu/drm/i915/i915_debugfs.c           |  32 +++---
+ drivers/gpu/drm/i915/i915_drv.c               |  24 ++---
+ drivers/gpu/drm/i915/i915_drv.h               |  40 +++++---
+ drivers/gpu/drm/i915/i915_gem.c               |   4 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  80 +++++++--------
+ drivers/gpu/drm/i915/i915_irq.c               |  34 +++----
+ drivers/gpu/drm/i915/i915_pci.c               |  13 ++-
+ drivers/gpu/drm/i915/i915_perf.c              |  44 ++++----
+ drivers/gpu/drm/i915/i915_pmu.c               |   8 +-
+ drivers/gpu/drm/i915/i915_request.c           |   4 +-
+ drivers/gpu/drm/i915/i915_suspend.c           |  16 +--
+ drivers/gpu/drm/i915/i915_sysfs.c             |   2 +-
+ drivers/gpu/drm/i915/i915_vgpu.c              |   2 +-
+ drivers/gpu/drm/i915/intel_device_info.c      |  26 ++---
+ drivers/gpu/drm/i915/intel_device_info.h      |   6 +-
+ drivers/gpu/drm/i915/intel_dram.c             |  14 +--
+ drivers/gpu/drm/i915/intel_pch.c              |  10 +-
+ drivers/gpu/drm/i915/intel_pm.c               |  14 +--
+ drivers/gpu/drm/i915/intel_sideband.c         |   2 +-
+ drivers/gpu/drm/i915/intel_uncore.c           |  34 ++++---
+ drivers/gpu/drm/i915/intel_wopcm.c            |  10 +-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |   4 +-
+ drivers/gpu/drm/i915/selftests/i915_perf.c    |   6 +-
+ drivers/gpu/drm/i915/selftests/i915_request.c |   8 +-
+ drivers/gpu/drm/i915/selftests/igt_spinner.c  |  12 +--
+ drivers/gpu/drm/i915/selftests/intel_uncore.c |  10 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |   2 +-
+ 94 files changed, 692 insertions(+), 673 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/i915.ko.new
+ create mode 100644 drivers/gpu/drm/i915/i915.ko.old
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 8c62bb2abd31..97cbd019f2e9 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1234,9 +1234,24 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
- #define RUNTIME_INFO(dev_priv)	(&(dev_priv)->__runtime)
- #define DRIVER_CAPS(dev_priv)	(&(dev_priv)->caps)
- 
--#define INTEL_GEN(dev_priv)	(INTEL_INFO(dev_priv)->gen)
- #define INTEL_DEVID(dev_priv)	(RUNTIME_INFO(dev_priv)->device_id)
- 
-+/*
-+ * Deprecated: this will be replaced by individual IP checks:
-+ * GRAPHICS_VER(), MEDIA_VER and DISPLAY_VER()
-+ */
-+#define INTEL_GEN(dev_priv)		(INTEL_INFO(dev_priv)->gen)
-+
-+#define GRAPHICS_VER(i915)		(INTEL_INFO(i915)->graphics_ver)
-+#define IS_GRAPHICS_RANGE(i915, from, until) \
-+	(GRAPHICS_VER(i915) >= (from) && GRAPHICS_VER(i915) <= (until))
-+#define IS_GRAPHICS_VER(i915, v)	(GRAPHICS_VER(i915) == (v))
-+
-+#define MEDIA_VER(i915)			(INTEL_INFO(i915)->media_ver)
-+#define IS_MEDIA_RANGE(i915, from, until) \
-+	(MEDIA_VER(i915) >= (from) && MEDIA_VER(i915) <= (until))
-+#define IS_MEDIA_VER(i915, v)		(MEDIA_VER(i915) == (v))
-+
- #define DISPLAY_VER(i915)	(INTEL_INFO(i915)->display.ver)
- #define IS_DISPLAY_RANGE(i915, from, until) \
- 	(DISPLAY_VER(i915) >= (from) && DISPLAY_VER(i915) <= (until))
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index ce5cbeaf036d..97ab73276334 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -36,7 +36,12 @@
- #include "i915_selftest.h"
- 
- #define PLATFORM(x) .platform = (x)
--#define GEN(x) .gen = (x), .gen_mask = BIT((x) - 1), .display.ver = (x)
-+#define GEN(x) \
-+	.gen_mask = BIT((x) - 1), \
-+	.gen = (x), \
-+	.graphics_ver = (x), \
-+	.media_ver = (x), \
-+	.display.ver = (x)
- 
- #define I845_PIPE_OFFSETS \
- 	.pipe_offsets = { \
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index b16c75927a12..405883a8cc84 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -162,6 +162,9 @@ enum intel_ppgtt_type {
- struct intel_device_info {
- 	u16 gen_mask;
- 
-+	u8 graphics_ver;
-+	u8 media_ver;
-+
- 	u8 gen;
- 	u8 gt; /* GT number, 0 if undefined */
- 	intel_engine_mask_t platform_engine_mask; /* Engines supported by the HW */
 -- 
 2.31.1
 
