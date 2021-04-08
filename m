@@ -6,34 +6,34 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FD1EC433B4
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 12:34:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C17CC433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 12:35:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA842610C8
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 12:34:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA842610C8
+	by mail.kernel.org (Postfix) with ESMTPS id C038C610C8
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 12:35:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C038C610C8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F60B6EAC9;
-	Thu,  8 Apr 2021 12:34:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A0976EAC5;
+	Thu,  8 Apr 2021 12:35:10 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 307976EAC5;
- Thu,  8 Apr 2021 12:34:20 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6EB476EAC5;
+ Thu,  8 Apr 2021 12:35:09 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 26BE4A8830;
- Thu,  8 Apr 2021 12:34:20 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 68206A00CC;
+ Thu,  8 Apr 2021 12:35:09 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Janusz Krzysztofik" <janusz.krzysztofik@linux.intel.com>
-Date: Thu, 08 Apr 2021 12:34:20 -0000
-Message-ID: <161788526012.10403.16369751431535548725@emeril.freedesktop.org>
+Date: Thu, 08 Apr 2021 12:35:09 -0000
+Message-ID: <161788530942.10401.5937053793144815341@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210408083009.22860-1-janusz.krzysztofik@linux.intel.com>
-In-Reply-To: <20210408083009.22860-1-janusz.krzysztofik@linux.intel.com>
+References: <20210408083157.23014-1-janusz.krzysztofik@linux.intel.com>
+In-Reply-To: <20210408083157.23014-1-janusz.krzysztofik@linux.intel.com>
 Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
  =?utf-8?q?eries_starting_with_=5BRFC=2C1/2=5D_tests/core=5Fhotunplug=3A_A?=
  =?utf-8?q?dd_perf_health_check?=
@@ -59,7 +59,7 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 == Series Details ==
 
 Series: series starting with [RFC,1/2] tests/core_hotunplug: Add perf health check
-URL   : https://patchwork.freedesktop.org/series/88845/
+URL   : https://patchwork.freedesktop.org/series/88847/
 State : failure
 
 == Summary ==
