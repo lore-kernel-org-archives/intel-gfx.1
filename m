@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79D17C433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A979C43460
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C1DC61207
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C1DC61207
+	by mail.kernel.org (Postfix) with ESMTPS id 1FE0261241
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FE0261241
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8B466E25A;
-	Mon, 12 Apr 2021 09:09:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87A006E250;
+	Mon, 12 Apr 2021 09:09:30 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E94A96E233;
- Mon, 12 Apr 2021 09:09:25 +0000 (UTC)
-IronPort-SDR: qLQQkMUUMKXjDaJCwbNdA80WFz/aE6qcorCR6qRG2R8uHzX7ic0J59xve2xs8LfCsTHlIBc+Lz
- 9HyEQnpqI9bQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9951"; a="193709709"
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="193709709"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D3916E23D;
+ Mon, 12 Apr 2021 09:09:28 +0000 (UTC)
+IronPort-SDR: lCxWojj5FiM7BjN3EOH2sEbaY1n799uOCBQpSENMIfGzH1n2jtD5Xrg2Hb/CHogk2EpKpQrZol
+ FZEh827LgMSA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9951"; a="193709714"
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="193709714"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:25 -0700
-IronPort-SDR: IAL+TeOJ1x5OQ8ad1igb0m19nVp+8++87+sjOzNuuAadfQJvPamMVSfpZkjC+Q9/NVZX9XW22r
- 7q9cn+db1thg==
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423712626"
+ 12 Apr 2021 02:09:28 -0700
+IronPort-SDR: a4i+4YLQL1fjBvSqEFyJBSE003eAch+iYz5SvC8LFKx/XfORxqfYk9dVFtzsPY/T6/V/7fG1vZ
+ EVzM4eiMwsiQ==
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423712645"
 Received: from tarynrox-mobl1.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.252.5.30])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:24 -0700
+ 12 Apr 2021 02:09:27 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Apr 2021 10:05:12 +0100
-Message-Id: <20210412090526.30547-6-matthew.auld@intel.com>
+Date: Mon, 12 Apr 2021 10:05:14 +0100
+Message-Id: <20210412090526.30547-8-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210412090526.30547-1-matthew.auld@intel.com>
 References: <20210412090526.30547-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 05/19] drm/i915/stolen: enforce the
- min_page_size contract
+Subject: [Intel-gfx] [PATCH 07/19] drm/i915/fbdev: Use lmem physical
+ addresses for fb_mmap() on discrete
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,48 +59,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Mohammed Khajapasha <mohammed.khajapasha@intel.com>,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: CQ Tang <cq.tang@intel.com>
+From: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
 
-Since stolen can now be device local-memory underneath, we should try to
-enforce any min_page_size restrictions when allocating pages.
+use local memory io BAR address for fbdev's fb_mmap() operation on
+discrete, fbdev uses the physical address of our framebuffer for its
+fb_mmap() fn.
 
-Signed-off-by: CQ Tang <cq.tang@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 29 +++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index 56dd58bef5ee..f713eabb7671 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -677,7 +677,8 @@ static int _i915_gem_object_stolen_init(struct intel_memory_region *mem,
- 	if (!stolen)
- 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index ccd00e65a5fe..2b37959da747 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -41,6 +41,8 @@
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_fourcc.h>
  
--	ret = i915_gem_stolen_insert_node(i915, stolen, size, 4096);
-+	ret = i915_gem_stolen_insert_node(i915, stolen, size,
-+					  mem->min_page_size);
- 	if (ret)
- 		goto err_free;
++#include "gem/i915_gem_lmem.h"
++
+ #include "i915_drv.h"
+ #include "intel_display_types.h"
+ #include "intel_fbdev.h"
+@@ -178,6 +180,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 	unsigned long flags = 0;
+ 	bool prealloc = false;
+ 	void __iomem *vaddr;
++	struct drm_i915_gem_object *obj;
+ 	int ret;
  
-@@ -817,8 +818,8 @@ i915_gem_object_create_stolen_for_preallocated(struct drm_i915_private *i915,
+ 	if (intel_fb &&
+@@ -232,13 +235,27 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 	info->fbops = &intelfb_ops;
  
- 	/* KISS and expect everything to be page-aligned */
- 	if (GEM_WARN_ON(size == 0) ||
--	    GEM_WARN_ON(!IS_ALIGNED(size, I915_GTT_PAGE_SIZE)) ||
--	    GEM_WARN_ON(!IS_ALIGNED(stolen_offset, I915_GTT_MIN_ALIGNMENT)))
-+	    GEM_WARN_ON(!IS_ALIGNED(size, mem->min_page_size)) ||
-+	    GEM_WARN_ON(!IS_ALIGNED(stolen_offset, mem->min_page_size)))
- 		return ERR_PTR(-EINVAL);
+ 	/* setup aperture base/size for vesafb takeover */
+-	info->apertures->ranges[0].base = ggtt->gmadr.start;
+-	info->apertures->ranges[0].size = ggtt->mappable_end;
++	obj = intel_fb_obj(&intel_fb->base);
++	if (i915_gem_object_is_lmem(obj)) {
++		struct intel_memory_region *mem = obj->mm.region;
++
++		info->apertures->ranges[0].base = mem->io_start;
++		info->apertures->ranges[0].size = mem->total;
++
++		/* Use fbdev's framebuffer from lmem for discrete */
++		info->fix.smem_start =
++			(unsigned long)(mem->io_start +
++					i915_gem_object_get_dma_address(obj, 0));
++		info->fix.smem_len = obj->base.size;
++	} else {
++		info->apertures->ranges[0].base = ggtt->gmadr.start;
++		info->apertures->ranges[0].size = ggtt->mappable_end;
  
- 	stolen = kzalloc(sizeof(*stolen), GFP_KERNEL);
+-	/* Our framebuffer is the entirety of fbdev's system memory */
+-	info->fix.smem_start =
+-		(unsigned long)(ggtt->gmadr.start + vma->node.start);
+-	info->fix.smem_len = vma->node.size;
++		/* Our framebuffer is the entirety of fbdev's system memory */
++		info->fix.smem_start =
++			(unsigned long)(ggtt->gmadr.start + vma->node.start);
++		info->fix.smem_len = vma->node.size;
++	}
+ 
+ 	vaddr = i915_vma_pin_iomap(vma);
+ 	if (IS_ERR(vaddr)) {
 -- 
 2.26.3
 
