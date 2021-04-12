@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B98B1C43460
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79D17C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EF3661207
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EF3661207
+	by mail.kernel.org (Postfix) with ESMTPS id 3C1DC61207
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C1DC61207
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3EF6E239;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8B466E25A;
 	Mon, 12 Apr 2021 09:09:28 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81C3A6E15D;
- Mon, 12 Apr 2021 09:09:27 +0000 (UTC)
-IronPort-SDR: aysdOmSjHrO7a+g9pnx9HE2cdjSflpHr7CnyRM2FsH66ld8lJazjlg/LpZzgP0uG8TlLspaA63
- Ai/5DBvYqw/w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9951"; a="193709710"
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="193709710"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E94A96E233;
+ Mon, 12 Apr 2021 09:09:25 +0000 (UTC)
+IronPort-SDR: qLQQkMUUMKXjDaJCwbNdA80WFz/aE6qcorCR6qRG2R8uHzX7ic0J59xve2xs8LfCsTHlIBc+Lz
+ 9HyEQnpqI9bQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9951"; a="193709709"
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="193709709"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:27 -0700
-IronPort-SDR: 4NC2i1NKZZmRlLGWYeT0uzWe0cwtHh30fRHtt2nZEivaK9IEAFDZlz0MGUHRYnvbAsjZjDacUP
- zIdn6yqgF6yA==
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423712636"
+ 12 Apr 2021 02:09:25 -0700
+IronPort-SDR: IAL+TeOJ1x5OQ8ad1igb0m19nVp+8++87+sjOzNuuAadfQJvPamMVSfpZkjC+Q9/NVZX9XW22r
+ 7q9cn+db1thg==
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423712626"
 Received: from tarynrox-mobl1.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.252.5.30])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:25 -0700
+ 12 Apr 2021 02:09:24 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Apr 2021 10:05:13 +0100
-Message-Id: <20210412090526.30547-7-matthew.auld@intel.com>
+Date: Mon, 12 Apr 2021 10:05:12 +0100
+Message-Id: <20210412090526.30547-6-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210412090526.30547-1-matthew.auld@intel.com>
 References: <20210412090526.30547-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/19] drm/i915/stolen: pass the allocation flags
+Subject: [Intel-gfx] [PATCH 05/19] drm/i915/stolen: enforce the
+ min_page_size contract
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,56 +67,40 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: CQ Tang <cq.tang@intel.com>
 
-Stolen memory is always allocated as physically contiguous pages, mark
-the object flags as such.
+Since stolen can now be device local-memory underneath, we should try to
+enforce any min_page_size restrictions when allocating pages.
 
 Signed-off-by: CQ Tang <cq.tang@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index f713eabb7671..49a2dfcc8ba7 100644
+index 56dd58bef5ee..f713eabb7671 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -633,14 +633,15 @@ static const struct drm_i915_gem_object_ops i915_gem_object_stolen_ops = {
+@@ -677,7 +677,8 @@ static int _i915_gem_object_stolen_init(struct intel_memory_region *mem,
+ 	if (!stolen)
+ 		return -ENOMEM;
  
- static int __i915_gem_object_create_stolen(struct intel_memory_region *mem,
- 					   struct drm_i915_gem_object *obj,
--					   struct drm_mm_node *stolen)
-+					   struct drm_mm_node *stolen,
-+					   unsigned int flags)
- {
- 	static struct lock_class_key lock_class;
- 	unsigned int cache_level;
- 	int err;
- 
- 	drm_gem_private_object_init(&mem->i915->drm, &obj->base, stolen->size);
--	i915_gem_object_init(obj, &i915_gem_object_stolen_ops, &lock_class, 0);
-+	i915_gem_object_init(obj, &i915_gem_object_stolen_ops, &lock_class, flags);
- 
- 	obj->stolen = stolen;
- 	obj->read_domains = I915_GEM_DOMAIN_CPU | I915_GEM_DOMAIN_GTT;
-@@ -682,7 +683,7 @@ static int _i915_gem_object_stolen_init(struct intel_memory_region *mem,
+-	ret = i915_gem_stolen_insert_node(i915, stolen, size, 4096);
++	ret = i915_gem_stolen_insert_node(i915, stolen, size,
++					  mem->min_page_size);
  	if (ret)
  		goto err_free;
  
--	ret = __i915_gem_object_create_stolen(mem, obj, stolen);
-+	ret = __i915_gem_object_create_stolen(mem, obj, stolen, flags);
- 	if (ret)
- 		goto err_remove;
+@@ -817,8 +818,8 @@ i915_gem_object_create_stolen_for_preallocated(struct drm_i915_private *i915,
  
-@@ -840,7 +841,8 @@ i915_gem_object_create_stolen_for_preallocated(struct drm_i915_private *i915,
- 		goto err_stolen;
- 	}
+ 	/* KISS and expect everything to be page-aligned */
+ 	if (GEM_WARN_ON(size == 0) ||
+-	    GEM_WARN_ON(!IS_ALIGNED(size, I915_GTT_PAGE_SIZE)) ||
+-	    GEM_WARN_ON(!IS_ALIGNED(stolen_offset, I915_GTT_MIN_ALIGNMENT)))
++	    GEM_WARN_ON(!IS_ALIGNED(size, mem->min_page_size)) ||
++	    GEM_WARN_ON(!IS_ALIGNED(stolen_offset, mem->min_page_size)))
+ 		return ERR_PTR(-EINVAL);
  
--	ret = __i915_gem_object_create_stolen(mem, obj, stolen);
-+	ret = __i915_gem_object_create_stolen(mem, obj, stolen,
-+					      I915_BO_ALLOC_CONTIGUOUS);
- 	if (ret)
- 		goto err_object_free;
- 
+ 	stolen = kzalloc(sizeof(*stolen), GFP_KERNEL);
 -- 
 2.26.3
 
