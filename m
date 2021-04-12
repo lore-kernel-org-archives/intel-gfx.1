@@ -6,36 +6,46 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3F9DC433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 15:43:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39CF4C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 16:01:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6864361246
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 15:43:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6864361246
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id F07F76124C
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 16:01:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F07F76124C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A69489D79;
-	Mon, 12 Apr 2021 15:43:43 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4D3F989D79;
- Mon, 12 Apr 2021 15:43:41 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 44949A8835;
- Mon, 12 Apr 2021 15:43:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C73AC89C0D;
+	Mon, 12 Apr 2021 16:01:27 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A49789C09;
+ Mon, 12 Apr 2021 16:01:26 +0000 (UTC)
+IronPort-SDR: opfLIVizUSJK/KUPBR+A5TFvJMQYzyS77imWSLKNOn2V8jEYLZgRXctvb1ZchDTabCYLLHrz4I
+ CWtzG03NWR/g==
+X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="181744436"
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="181744436"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2021 09:01:25 -0700
+IronPort-SDR: zVXwyWAGUT6Z9a7xAe6/OLBfTLstdflJZsRdmNg0XR629PxaHdOCbKhgBYLfLYYzZAp8rRzLHy
+ sN9p6s6I7IPA==
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423858660"
+Received: from cyeni-mobl.ger.corp.intel.com (HELO localhost) ([10.252.62.41])
+ by orsmga008-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Apr 2021 09:01:22 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Daniel Vetter <daniel@ffwll.ch>, Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <YHRkixaDBaf5cgkJ@phenom.ffwll.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210412090526.30547-1-matthew.auld@intel.com>
+ <20210412090526.30547-19-matthew.auld@intel.com>
+ <YHRkixaDBaf5cgkJ@phenom.ffwll.local>
+Date: Mon, 12 Apr 2021 19:01:19 +0300
+Message-ID: <87lf9nijao.fsf@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matthew Auld" <matthew.auld@intel.com>
-Date: Mon, 12 Apr 2021 15:43:41 -0000
-Message-ID: <161824222125.8699.3985209155071777355@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210412121802.57131-1-matthew.auld@intel.com>
-In-Reply-To: <20210412121802.57131-1-matthew.auld@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
- =?utf-8?q?m/doc/rfc=3A_i915_DG1_uAPI?=
+Subject: Re: [Intel-gfx] [PATCH 18/19] drm/i915/gtt: map the PD up front
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,33 +58,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Mon, 12 Apr 2021, Daniel Vetter <daniel@ffwll.ch> wrote:
+> And that's some serious wtf. Yes we've done some compile-time type
+> casting automagic between i915_priv and dev in the past, and I think even
+> that was bad taste. But it was justified with that we have these
+> everywhere (especially in the mmio macros), and it would be a terrible
+> flag day.
 
-Series: drm/doc/rfc: i915 DG1 uAPI
-URL   : https://patchwork.freedesktop.org/series/88958/
-State : warning
+FWIW, we had the dev_priv/dev macro trickery for a while to not have
+that flag day conversion, until everything used i915 or &i915->drm. But
+we got rid of it afterwards.
 
-== Summary ==
-
-$ make htmldocs 2>&1 > /dev/null | grep i915
-./drivers/gpu/drm/i915/gem/i915_gem_shrinker.c:102: warning: Function parameter or member 'ww' not described in 'i915_gem_shrink'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'jump_whitelist' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'shadow_map' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'batch_map' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
-        struct drm_i915_gem_memory_class_instance region_param = {
-        struct drm_i915_gem_create_ext_setparam setparam_region = {
-        struct drm_i915_gem_create_ext create_ext = {
+BR,
+Jani.
 
 
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
