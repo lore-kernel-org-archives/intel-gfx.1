@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26E7DC43460
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A88DC43461
 	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:09:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D17C861244
+	by mail.kernel.org (Postfix) with ESMTPS id D178F6120F
 	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:09:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D17C861244
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D178F6120F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5214C6E221;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 283D86E21D;
 	Mon, 12 Apr 2021 08:09:07 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00BAB6E21C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A47D16E1D8
  for <intel-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 08:09:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
  Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
  Content-ID:Content-Description:In-Reply-To;
- bh=OtIPE7LdX+QBKK2tSqSr9/uYg2L3KF1qrgrA2x1fPJU=; b=Wu1I1vXFc6dGqQYFarxc8bK06Z
- Km2Pr+jwqQnttpzYUbE7RzxcmP+jqsL1r4g9+WKNlXWUx6AZhWfGvqlybyVpkz/ezIvV9k9lYtf9O
- W+YPJfUsHf8VfwtRK3kABW9KX2uiytcBvcR/K7XX2/XPWeOUHmJb0tYFs23aUlVZgq8U5UGakAHJt
- Ys9Ao6rc2EtVEme7dy1Vh2i3iPxrEFdBLEArAgjcH3ulGRsrfEAr43PiPB8w8EBlERdGpKdzxUOWa
- 6Ssq6pYqqh+++0luSnKiSkLi6GwsqvySfVv0Lza4l5oi59GGVvBxU5OtdzdInLFNlEOvRtA8csp+d
- CT0XxotA==;
+ bh=di4C6bbSl7iLJMkDo7XO8ZICGg5xRWGqLb1m8Rukv20=; b=YbnF5/GCNEslzNuBs5qK0QChkY
+ 4uR2tlI+pJM2mlI4nY0EYfLtOv2DaYf8ETEJq1eLyxCAxq9TGczM8rCp5BGd+Pp07cRAxuXEjm3MH
+ d511RbZdsZe/RF4L6N3ZM5JcGlgKNmsxldb1Ha6aZQlpgGBPRANGEpj5sE2FBpCGyvwTtpMzZqkAu
+ TtunDAx5SH1+UnF7hGsF/IcAodYOGskfZE8U6c2QauhaJGYKoIil9rdGy+alOdxpfNZvDuVLiCUkw
+ kAxBpkAmmy3G1hS15fLPpSpz9pVJj0TFx1VACeorabu44in+T0zAp4K5PJOEAV7dZYkdWPeoJ/9DV
+ FT+b42rw==;
 Received: from j217100.upc-j.chello.nl ([24.132.217.100]
  helo=noisy.programming.kicks-ass.net)
  by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
- id 1lVrcl-003yd7-5P; Mon, 12 Apr 2021 08:08:49 +0000
+ id 1lVrcl-003yd5-5N; Mon, 12 Apr 2021 08:08:49 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 7DE8230022D;
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 7766E3001FF;
  Mon, 12 Apr 2021 10:08:44 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
- id 347FB25F2152E; Mon, 12 Apr 2021 10:08:44 +0200 (CEST)
-Message-ID: <20210412080611.635125063@infradead.org>
+ id 3F6B025F21531; Mon, 12 Apr 2021 10:08:44 +0200 (CEST)
+Message-ID: <20210412080611.769864829@infradead.org>
 User-Agent: quilt/0.66
-Date: Mon, 12 Apr 2021 10:00:14 +0200
+Date: Mon, 12 Apr 2021 10:00:16 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: akpm@linux-foundation.org
 References: <20210412080012.357146277@infradead.org>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/7] xen/gntdev,
- x86: Remove apply_to_page_range() use from module
+Subject: [Intel-gfx] [PATCH 4/7] mm: Introduce verify_page_range()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,100 +76,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of relying on apply_to_page_range() being available to
-modules, move its use into core kernel code and export it's
-application.
+Introduce and EXPORT a read-only counterpart to apply_to_page_range().
 
-NOTE: ideally we do: use_ptemod = !auto_translate_physmap &&
-gnttab_map_avail_bits and remove this hack.
+It only exposes the PTE value, not a pointer to the pagetables itself
+and is thus quite a bit safer to export. A number of
+apply_to_page_range() users can be converted to this primitive.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- arch/x86/include/asm/xen/page.h |    2 ++
- arch/x86/xen/mmu.c              |   26 ++++++++++++++++++++++++++
- drivers/xen/gntdev.c            |   23 +----------------------
- 3 files changed, 29 insertions(+), 22 deletions(-)
+ include/linux/mm.h |    4 ++++
+ mm/memory.c        |   24 ++++++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
 
---- a/arch/x86/include/asm/xen/page.h
-+++ b/arch/x86/include/asm/xen/page.h
-@@ -370,4 +370,6 @@ static inline unsigned long xen_get_swio
- 	return __get_free_pages(__GFP_NOWARN, order);
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -2876,6 +2876,10 @@ extern int apply_to_page_range(struct mm
+ extern int apply_to_existing_page_range(struct mm_struct *mm,
+ 				   unsigned long address, unsigned long size,
+ 				   pte_fn_t fn, void *data);
++extern int verify_page_range(struct mm_struct *mm,
++			     unsigned long addr, unsigned long size,
++			     int (*fn)(pte_t pte, unsigned long addr, void *data),
++			     void *data);
+ 
+ extern void init_mem_debugging_and_hardening(void);
+ #ifdef CONFIG_PAGE_POISONING
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2559,6 +2559,30 @@ int apply_to_existing_page_range(struct
+ 	return __apply_to_page_range(mm, addr, size, fn, data, false);
  }
  
-+extern void xen_set_grant_as_special(struct vm_area_struct *vma);
++struct vpr_data {
++	int (*fn)(pte_t pte, unsigned long addr, void *data);
++	void *data;
++};
 +
- #endif /* _ASM_X86_XEN_PAGE_H */
---- a/arch/x86/xen/mmu.c
-+++ b/arch/x86/xen/mmu.c
-@@ -51,3 +51,29 @@ int xen_unmap_domain_gfn_range(struct vm
- 	return -EINVAL;
- }
- EXPORT_SYMBOL_GPL(xen_unmap_domain_gfn_range);
-+
-+static int set_grant_ptes_as_special(pte_t *pte, unsigned long addr, void *data)
++static int vpr_fn(pte_t *pte, unsigned long addr, void *data)
 +{
-+	set_pte_at(current->mm, addr, pte, pte_mkspecial(*pte));
-+	return 0;
++	struct vpr_data *vpr = data;
++	return vpr->fn(*pte, addr, vpr->data);
 +}
 +
-+void xen_set_grant_as_special(struct vm_area_struct *vma)
++int verify_page_range(struct mm_struct *mm,
++		      unsigned long addr, unsigned long size,
++		      int (*fn)(pte_t pte, unsigned long addr, void *data),
++		      void *data)
 +{
-+	if (xen_feature(XENFEAT_gnttab_map_avail_bits))
-+		return;
-+
-+	/*
-+	 * If the PTEs were not made special by the grant map
-+	 * hypercall, do so here.
-+	 *
-+	 * This is racy since the mapping is already visible
-+	 * to userspace but userspace should be well-behaved
-+	 * enough to not touch it until the mmap() call
-+	 * returns.
-+	 */
-+	apply_to_page_range(vma->vm_mm, vma->vm_start,
-+			    vma->vm_end - vma->vm_start,
-+			    set_grant_ptes_as_special, NULL);
++	struct vpr_data vpr = {
++		.fn = fn,
++		.data = data,
++	};
++	return apply_to_page_range(mm, addr, size, vpr_fn, &vpr);
 +}
-+EXPORT_SYMBOL_GPL(xen_set_grant_as_special);
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -278,14 +278,6 @@ static int find_grant_ptes(pte_t *pte, u
- 	return 0;
- }
- 
--#ifdef CONFIG_X86
--static int set_grant_ptes_as_special(pte_t *pte, unsigned long addr, void *data)
--{
--	set_pte_at(current->mm, addr, pte, pte_mkspecial(*pte));
--	return 0;
--}
--#endif
--
- int gntdev_map_grant_pages(struct gntdev_grant_map *map)
- {
- 	int i, err = 0;
-@@ -1040,20 +1032,7 @@ static int gntdev_mmap(struct file *flip
- 			goto out_put_map;
- 	} else {
- #ifdef CONFIG_X86
--		/*
--		 * If the PTEs were not made special by the grant map
--		 * hypercall, do so here.
--		 *
--		 * This is racy since the mapping is already visible
--		 * to userspace but userspace should be well-behaved
--		 * enough to not touch it until the mmap() call
--		 * returns.
--		 */
--		if (!xen_feature(XENFEAT_gnttab_map_avail_bits)) {
--			apply_to_page_range(vma->vm_mm, vma->vm_start,
--					    vma->vm_end - vma->vm_start,
--					    set_grant_ptes_as_special, NULL);
--		}
-+		xen_set_grant_as_special(vma);
- #endif
- 	}
- 
++EXPORT_SYMBOL_GPL(verify_page_range);
++
+ /*
+  * handle_pte_fault chooses page fault handler according to an entry which was
+  * read non-atomically.  Before making any commitment, on those architectures
 
 
 _______________________________________________
