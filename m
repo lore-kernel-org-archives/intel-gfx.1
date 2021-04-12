@@ -2,40 +2,40 @@ Return-Path: <SRS0=cAZQ=JJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DA01C43461
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:28:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 090D9C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA5F9611AD
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:28:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA5F9611AD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id A7E1B61381
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:00:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7E1B61381
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95BD36E22F;
-	Mon, 12 Apr 2021 08:28:49 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 120216E22F
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 08:28:48 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 1F3D068C4E; Mon, 12 Apr 2021 10:28:46 +0200 (CEST)
-Date: Mon, 12 Apr 2021 10:28:45 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Peter Zijlstra <peterz@infradead.org>
-Message-ID: <20210412082845.GG4372@lst.de>
-References: <20210412080012.357146277@infradead.org>
- <20210412080611.969415860@infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5247289CA0;
+	Mon, 12 Apr 2021 09:00:17 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 49E4989C99;
+ Mon, 12 Apr 2021 09:00:16 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 418BFA8832;
+ Mon, 12 Apr 2021 09:00:16 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210412080611.969415860@infradead.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH 7/7] mm: Unexport apply_to_page_range()
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Peter Zijlstra" <peterz@infradead.org>
+Date: Mon, 12 Apr 2021 09:00:16 -0000
+Message-ID: <161821801624.8701.512016472387524468@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210412080012.357146277@infradead.org>
+In-Reply-To: <20210412080012.357146277@infradead.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBt?=
+ =?utf-8?b?bTogVW5leHBvcnQgYXBwbHlfdG9fcGFnZV9yYW5nZSgp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,18 +48,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jgross@suse.com, sstabellini@kernel.org, keescook@chromium.org,
- intel-gfx@lists.freedesktop.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- chris@chris-wilson.co.uk, linux-mm@kvack.org, boris.ostrovsky@oracle.com,
- hch@lst.de, akpm@linux-foundation.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Looks good,
+== Series Details ==
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Series: mm: Unexport apply_to_page_range()
+URL   : https://patchwork.freedesktop.org/series/88943/
+State : failure
+
+== Summary ==
+
+CALL    scripts/checksyscalls.sh
+  CALL    scripts/atomic/check-atomics.sh
+  DESCEND  objtool
+  CHK     include/generated/compile.h
+Kernel: arch/x86/boot/bzImage is ready  (#1)
+  MODPOST Module.symvers
+ERROR: modpost: "apply_to_page_range" [drivers/gpu/drm/i915/i915.ko] undefined!
+scripts/Makefile.modpost:132: recipe for target 'Module.symvers' failed
+make[1]: *** [Module.symvers] Error 1
+make[1]: *** Deleting file 'Module.symvers'
+Makefile:1442: recipe for target 'modules' failed
+make: *** [modules] Error 2
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
