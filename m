@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CCBBC433B4
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:10:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07835C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:10:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2AC1B61207
+	by mail.kernel.org (Postfix) with ESMTPS id C3EDE6109E
 	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:10:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AC1B61207
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3EDE6109E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABA496E3DB;
-	Mon, 12 Apr 2021 09:09:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7861A6E3D0;
+	Mon, 12 Apr 2021 09:09:52 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD6456E3DB;
- Mon, 12 Apr 2021 09:09:51 +0000 (UTC)
-IronPort-SDR: 4VT4xgSbsNFH+ucQDEbYYufRjuIThNgKOb98WaRX7DMfq/BipaNqlEcb4EFRf+Kw72dj22kNBR
- 5s97OizhLmPg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9951"; a="193709769"
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="193709769"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31A466E3B7;
+ Mon, 12 Apr 2021 09:09:50 +0000 (UTC)
+IronPort-SDR: r66JqcCBvvyNjtQUNBgQCJsIT7LSKZpQ545djwmdp77rYHjokK5xXQhYZTJ+HUuubrzY0ByVMQ
+ TwjmUtMMMcmQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9951"; a="193709761"
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="193709761"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:51 -0700
-IronPort-SDR: 1YLBnozKa/JDu/DdShPxqSaOv/9VC9IGhH7aiGTjcFXC9shvCFvqMl/mHHnkKc9khC8/rJa9GS
- B/4DLBvfaang==
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423712810"
+ 12 Apr 2021 02:09:48 -0700
+IronPort-SDR: BIP4749M+J0Lg7YCjZKf0z120or4wScet2JZGq0AKagnVn5WULx7Uc1X3Cqwl3V3vYr0hhGIYO
+ 1CUE5s5hOjIg==
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423712803"
 Received: from tarynrox-mobl1.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.252.5.30])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:50 -0700
+ 12 Apr 2021 02:09:46 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Apr 2021 10:05:26 +0100
-Message-Id: <20210412090526.30547-20-matthew.auld@intel.com>
+Date: Mon, 12 Apr 2021 10:05:24 +0100
+Message-Id: <20210412090526.30547-18-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210412090526.30547-1-matthew.auld@intel.com>
 References: <20210412090526.30547-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 19/19] drm/i915/gtt/dgfx: place the PD in LMEM
+Subject: [Intel-gfx] [PATCH 17/19] drm/i915/dg1: Double memory bandwidth
+ available
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,114 +59,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's a requirement that for dgfx we place all the paging structures in
-device local-memory.
-
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c |  5 ++++-
- drivers/gpu/drm/i915/gt/intel_gtt.c  | 27 +++++++++++++++++++++++++--
- drivers/gpu/drm/i915/gt/intel_gtt.h  |  1 +
- 3 files changed, 30 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index f83496836f0f..11fb5df45a0f 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -712,7 +712,10 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
- 	 */
- 	ppgtt->vm.has_read_only = !IS_GEN_RANGE(gt->i915, 11, 12);
- 
--	ppgtt->vm.alloc_pt_dma = alloc_pt_dma;
-+	if (HAS_LMEM(gt->i915))
-+		ppgtt->vm.alloc_pt_dma = alloc_pt_lmem;
-+	else
-+		ppgtt->vm.alloc_pt_dma = alloc_pt_dma;
- 
- 	err = gen8_init_scratch(&ppgtt->vm);
- 	if (err)
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index d386b89e2758..1eeeab45445c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -7,10 +7,23 @@
- 
- #include <linux/fault-inject.h>
- 
-+#include "gem/i915_gem_lmem.h"
- #include "i915_trace.h"
- #include "intel_gt.h"
- #include "intel_gtt.h"
- 
-+struct drm_i915_gem_object *alloc_pt_lmem(struct i915_address_space *vm, int sz)
-+{
-+	struct drm_i915_gem_object *obj;
-+
-+	obj = i915_gem_object_create_lmem(vm->i915, sz, 0);
-+
-+	/* ensure all dma objects have the same reservation class */
-+	if (!IS_ERR(obj))
-+		obj->base.resv = &vm->resv;
-+	return obj;
-+}
-+
- struct drm_i915_gem_object *alloc_pt_dma(struct i915_address_space *vm, int sz)
- {
- 	struct drm_i915_gem_object *obj;
-@@ -27,9 +40,14 @@ struct drm_i915_gem_object *alloc_pt_dma(struct i915_address_space *vm, int sz)
- 
- int map_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
- {
-+	enum i915_map_type type;
- 	void *vaddr;
- 
--	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
-+	type = I915_MAP_WB;
-+	if (i915_gem_object_is_lmem(obj))
-+		type = I915_MAP_WC;
-+
-+	vaddr = i915_gem_object_pin_map_unlocked(obj, type);
- 	if (IS_ERR(vaddr))
- 		return PTR_ERR(vaddr);
- 
-@@ -39,9 +57,14 @@ int map_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
- 
- int map_pt_dma_locked(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
- {
-+	enum i915_map_type type;
- 	void *vaddr;
- 
--	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	type = I915_MAP_WB;
-+	if (i915_gem_object_is_lmem(obj))
-+		type = I915_MAP_WC;
-+
-+	vaddr = i915_gem_object_pin_map(obj, type);
- 	if (IS_ERR(vaddr))
- 		return PTR_ERR(vaddr);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index 40e486704558..44ce27c51631 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -527,6 +527,7 @@ int setup_scratch_page(struct i915_address_space *vm);
- void free_scratch(struct i915_address_space *vm);
- 
- struct drm_i915_gem_object *alloc_pt_dma(struct i915_address_space *vm, int sz);
-+struct drm_i915_gem_object *alloc_pt_lmem(struct i915_address_space *vm, int sz);
- struct i915_page_table *alloc_pt(struct i915_address_space *vm);
- struct i915_page_directory *alloc_pd(struct i915_address_space *vm);
- struct i915_page_directory *__alloc_pd(int npde);
--- 
-2.26.3
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogQ2xpbnQgVGF5bG9yIDxjbGludG9uLmEudGF5bG9yQGludGVsLmNvbT4KClVzZSBNQ0hC
+QVIgR2Vhcl90eXBlIGluZm9ybWF0aW9uIHRvIGNvbXB1dGUgbWVtb3J5IGJhbmR3aWR0aCBhdmFp
+bGFibGUKZHVyaW5nIE1DSEJBUiBjYWxjdWxhdGlvbnMuCgp2MiBieSBKYW5pOgotIHN3aXRjaCB0
+byBpbnRlbF91bmNvcmVfcmVhZC9pbnRlbF91bmNvcmVfd3JpdGUKClRlc3RlZC1ieTogU3dhdGkg
+U2hhcm1hIDxzd2F0aTIuc2hhcm1hQGludGVsLmNvbT4KQ2M6IFN3YXRpIFNoYXJtYSA8c3dhdGky
+LnNoYXJtYUBpbnRlbC5jb20+CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGlu
+dXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBDbGludCBUYXlsb3IgPGNsaW50b24uYS50YXls
+b3JAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50
+ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYncuYyB8IDgg
+KysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2J3LmMgYi9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX2J3LmMKaW5kZXggOTljYWUwZGMwY2EyLi42YzAyYmQ1MmNlNDUg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYncuYworKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2J3LmMKQEAgLTQxLDYgKzQxLDkg
+QEAgc3RydWN0IGludGVsX3Fndl9pbmZvIHsKICNkZWZpbmUgIERHMV9EUkFNX1RfUlBfTUFTSyAo
+MHg3RiA8PCAwKQogI2RlZmluZSAgREcxX0RSQU1fVF9SUF9TSElGVCAwCiAKKyNkZWZpbmUgIElD
+TF9HRUFSX1RZUEVfTUFTSyAoMHgwMSA8PCAxNikKKyNkZWZpbmUgIElDTF9HRUFSX1RZUEVfU0hJ
+RlQgMTYKKwogc3RhdGljIGludCBkZzFfbWNoYmFyX3JlYWRfcWd2X3BvaW50X2luZm8oc3RydWN0
+IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2LAogCQkJCQkgIHN0cnVjdCBpbnRlbF9xZ3ZfcG9p
+bnQgKnNwLAogCQkJCQkgIGludCBwb2ludCkKQEAgLTU1LDYgKzU4LDExIEBAIHN0YXRpYyBpbnQg
+ZGcxX21jaGJhcl9yZWFkX3Fndl9wb2ludF9pbmZvKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpk
+ZXZfcHJpdiwKIAllbHNlCiAJCWRjbGtfcmVmZXJlbmNlID0gODsgLyogOCAqIDE2LjY2NiBNSHog
+PSAxMzMgTUh6ICovCiAJc3AtPmRjbGsgPSBkY2xrX3JhdGlvICogZGNsa19yZWZlcmVuY2U7CisK
+Kwl2YWwgPSBpbnRlbF91bmNvcmVfcmVhZCgmZGV2X3ByaXYtPnVuY29yZSwgU0tMX01DX0JJT1Nf
+REFUQV8wXzBfMF9NQ0hCQVJfUENVKTsKKwlpZiAoKHZhbCAmIElDTF9HRUFSX1RZUEVfTUFTSykg
+Pj4gSUNMX0dFQVJfVFlQRV9TSElGVCkKKwkJc3AtPmRjbGsgKj0gMjsKKwogCWlmIChzcC0+ZGNs
+ayA9PSAwKQogCQlyZXR1cm4gLUVJTlZBTDsKIAotLSAKMi4yNi4zCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
+dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
