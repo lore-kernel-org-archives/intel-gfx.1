@@ -7,46 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 943A4C433B4
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B98B1C43460
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5311B61241
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5311B61241
+	by mail.kernel.org (Postfix) with ESMTPS id 7EF3661207
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:09:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EF3661207
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DF366E08A;
-	Mon, 12 Apr 2021 09:09:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3EF6E239;
+	Mon, 12 Apr 2021 09:09:28 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D79689F5F;
- Mon, 12 Apr 2021 09:09:24 +0000 (UTC)
-IronPort-SDR: OnGC8yS4Ty1C9ccWeJvFMAyBTxEOwJOx8RtfkkOzmhHpfgS+TWWYCZGhImCwYc1XgJ96mOWy8L
- GCW2mG1fyI9A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9951"; a="193709706"
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="193709706"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81C3A6E15D;
+ Mon, 12 Apr 2021 09:09:27 +0000 (UTC)
+IronPort-SDR: aysdOmSjHrO7a+g9pnx9HE2cdjSflpHr7CnyRM2FsH66ld8lJazjlg/LpZzgP0uG8TlLspaA63
+ Ai/5DBvYqw/w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9951"; a="193709710"
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="193709710"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:23 -0700
-IronPort-SDR: 36hYZdT+i+3jvHPkN2beSgrnToU80AUjwE/00tg3yJ7iNnk4X5wSpYmDdVGKFHX8WBm2CO4p1Q
- ofY/0sSst6IA==
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423712612"
+ 12 Apr 2021 02:09:27 -0700
+IronPort-SDR: 4NC2i1NKZZmRlLGWYeT0uzWe0cwtHh30fRHtt2nZEivaK9IEAFDZlz0MGUHRYnvbAsjZjDacUP
+ zIdn6yqgF6yA==
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423712636"
 Received: from tarynrox-mobl1.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.252.5.30])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:22 -0700
+ 12 Apr 2021 02:09:25 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Apr 2021 10:05:11 +0100
-Message-Id: <20210412090526.30547-5-matthew.auld@intel.com>
+Date: Mon, 12 Apr 2021 10:05:13 +0100
+Message-Id: <20210412090526.30547-7-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210412090526.30547-1-matthew.auld@intel.com>
 References: <20210412090526.30547-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/19] drm/i915/stolen: treat stolen local as
- normal local memory
+Subject: [Intel-gfx] [PATCH 06/19] drm/i915/stolen: pass the allocation flags
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,30 +64,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Underneath it's the same stuff, so things like the PTE_LM bits for the
-GTT should just keep working as-is.
+From: CQ Tang <cq.tang@intel.com>
 
+Stolen memory is always allocated as physically contiguous pages, mark
+the object flags as such.
+
+Signed-off-by: CQ Tang <cq.tang@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_lmem.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-index ce1c83c13d05..017db8f71130 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-@@ -19,7 +19,10 @@ const struct drm_i915_gem_object_ops i915_gem_lmem_obj_ops = {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index f713eabb7671..49a2dfcc8ba7 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -633,14 +633,15 @@ static const struct drm_i915_gem_object_ops i915_gem_object_stolen_ops = {
  
- bool i915_gem_object_is_lmem(struct drm_i915_gem_object *obj)
+ static int __i915_gem_object_create_stolen(struct intel_memory_region *mem,
+ 					   struct drm_i915_gem_object *obj,
+-					   struct drm_mm_node *stolen)
++					   struct drm_mm_node *stolen,
++					   unsigned int flags)
  {
--	return obj->ops == &i915_gem_lmem_obj_ops;
-+	struct intel_memory_region *mr = obj->mm.region;
-+
-+	return mr && (mr->type == INTEL_MEMORY_LOCAL ||
-+		      mr->type == INTEL_MEMORY_STOLEN_LOCAL);
- }
+ 	static struct lock_class_key lock_class;
+ 	unsigned int cache_level;
+ 	int err;
  
- struct drm_i915_gem_object *
+ 	drm_gem_private_object_init(&mem->i915->drm, &obj->base, stolen->size);
+-	i915_gem_object_init(obj, &i915_gem_object_stolen_ops, &lock_class, 0);
++	i915_gem_object_init(obj, &i915_gem_object_stolen_ops, &lock_class, flags);
+ 
+ 	obj->stolen = stolen;
+ 	obj->read_domains = I915_GEM_DOMAIN_CPU | I915_GEM_DOMAIN_GTT;
+@@ -682,7 +683,7 @@ static int _i915_gem_object_stolen_init(struct intel_memory_region *mem,
+ 	if (ret)
+ 		goto err_free;
+ 
+-	ret = __i915_gem_object_create_stolen(mem, obj, stolen);
++	ret = __i915_gem_object_create_stolen(mem, obj, stolen, flags);
+ 	if (ret)
+ 		goto err_remove;
+ 
+@@ -840,7 +841,8 @@ i915_gem_object_create_stolen_for_preallocated(struct drm_i915_private *i915,
+ 		goto err_stolen;
+ 	}
+ 
+-	ret = __i915_gem_object_create_stolen(mem, obj, stolen);
++	ret = __i915_gem_object_create_stolen(mem, obj, stolen,
++					      I915_BO_ALLOC_CONTIGUOUS);
+ 	if (ret)
+ 		goto err_object_free;
+ 
 -- 
 2.26.3
 
