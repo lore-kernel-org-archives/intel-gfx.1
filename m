@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6971BC43461
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26A35C43461
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:28:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E26A6120F
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:28:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E26A6120F
+	by mail.kernel.org (Postfix) with ESMTPS id E3F4B611AD
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:28:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3F4B611AD
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF9ED89F35;
-	Mon, 12 Apr 2021 08:28:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 847656E22B;
+	Mon, 12 Apr 2021 08:28:38 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6124C89F35
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 08:28:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D25D46E22B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 08:28:36 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 5820A68C4E; Mon, 12 Apr 2021 10:28:21 +0200 (CEST)
-Date: Mon, 12 Apr 2021 10:28:21 +0200
+ id DDC2768C4E; Mon, 12 Apr 2021 10:28:34 +0200 (CEST)
+Date: Mon, 12 Apr 2021 10:28:34 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Peter Zijlstra <peterz@infradead.org>
-Message-ID: <20210412082821.GE4372@lst.de>
+Message-ID: <20210412082834.GF4372@lst.de>
 References: <20210412080012.357146277@infradead.org>
- <20210412080611.835675015@infradead.org>
+ <20210412080611.902470568@infradead.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210412080611.835675015@infradead.org>
+In-Reply-To: <20210412080611.902470568@infradead.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH 5/7] xen/privcmd: Use verify_page_range()
+Subject: Re: [Intel-gfx] [PATCH 6/7] i915: Convert to verify_page_range()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
