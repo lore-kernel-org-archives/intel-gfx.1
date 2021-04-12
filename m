@@ -2,60 +2,41 @@ Return-Path: <SRS0=cAZQ=JJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A33DC43460
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:09:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F726C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:13:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D42956120B
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:09:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D42956120B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1DFCB61243
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 08:13:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DFCB61243
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23BE46E21C;
-	Mon, 12 Apr 2021 08:09:07 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F28526E215
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 08:09:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
- Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:In-Reply-To;
- bh=TguJ2GPrgAOuTqINpCRxcU7hNVbLhj0fwULRtq3UU1o=; b=tXVKWgzFI9zH3GWTObAPMxRBO7
- qW1DBUMrGFm+8Qwf/5f5kaJgjQbPbuZpcBeMgGrqDamtRBPvw1pTpVr2UJ4wkG7xmDe6Di8Yizw13
- 9GTs5P337jFcp1hh0+0w8DIuS2T1XcA/8X/8jZXO7LbqsXqd+cuSpUUH7XqRWZsrciuqpSa3T6ViU
- VHOH37AwdqrzYt8L/E5mcoFjehXgk/K7L0tv2LZGLuGVe+Usvs4yY8oqKCCGZ2mUiosLBOEzNf0su
- 6HIQYT4g52hXFae7hh3SOYBAdzsTIEwobt/9jEhPDphWTjWsOUGbej5uU3GqxaW17j9jeBURm2Uxm
- 3kRDFgFg==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
- id 1lVrcl-003yd8-5W; Mon, 12 Apr 2021 08:08:49 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 7519D3001E1;
- Mon, 12 Apr 2021 10:08:44 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
- id 3A78625F21530; Mon, 12 Apr 2021 10:08:44 +0200 (CEST)
-Message-ID: <20210412080611.702979288@infradead.org>
-User-Agent: quilt/0.66
-Date: Mon, 12 Apr 2021 10:00:15 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: akpm@linux-foundation.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id 782DD89E86;
+	Mon, 12 Apr 2021 08:13:22 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EBD489E86
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 08:13:21 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 8089C68C4E; Mon, 12 Apr 2021 10:13:17 +0200 (CEST)
+Date: Mon, 12 Apr 2021 10:13:17 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Peter Zijlstra <peterz@infradead.org>
+Message-ID: <20210412081317.GA4372@lst.de>
 References: <20210412080012.357146277@infradead.org>
+ <20210412080611.568192782@infradead.org>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/7] xen/gntdev: Remove apply_to_page_range()
- use from module
+Content-Disposition: inline
+In-Reply-To: <20210412080611.568192782@infradead.org>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+Subject: Re: [Intel-gfx] [PATCH 1/7] mm: Unexport
+ apply_to_existing_page_range()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,128 +50,25 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: jgross@suse.com, sstabellini@kernel.org, keescook@chromium.org,
- peterz@infradead.org, intel-gfx@lists.freedesktop.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, chris@chris-wilson.co.uk, linux-mm@kvack.org,
- boris.ostrovsky@oracle.com, hch@lst.de
+ intel-gfx@lists.freedesktop.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ chris@chris-wilson.co.uk, linux-mm@kvack.org, boris.ostrovsky@oracle.com,
+ hch@lst.de, akpm@linux-foundation.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of relying on apply_to_page_range() being available to
-modules, move its use into core kernel code and export it's
-application.
+On Mon, Apr 12, 2021 at 10:00:13AM +0200, Peter Zijlstra wrote:
+> There are no modular in-tree users, remove the EXPORT.
+> 
+> This is an unsafe function in that it gives direct access to the
+> page-tables.
+> 
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
----
- drivers/xen/gntdev-common.h |    2 ++
- drivers/xen/gntdev.c        |   30 +-----------------------------
- drivers/xen/grant-table.c   |   37 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 40 insertions(+), 29 deletions(-)
+Looks good,
 
---- a/drivers/xen/gntdev-common.h
-+++ b/drivers/xen/gntdev-common.h
-@@ -86,4 +86,6 @@ bool gntdev_test_page_count(unsigned int
- 
- int gntdev_map_grant_pages(struct gntdev_grant_map *map);
- 
-+int gnttab_use_ptemod(struct vm_area_struct *vma, struct gntdev_grant_map *map);
-+
- #endif
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -262,32 +262,6 @@ void gntdev_put_map(struct gntdev_priv *
- 
- /* ------------------------------------------------------------------ */
- 
--static int find_grant_ptes(pte_t *pte, unsigned long addr, void *data)
--{
--	struct gntdev_grant_map *map = data;
--	unsigned int pgnr = (addr - map->vma->vm_start) >> PAGE_SHIFT;
--	int flags = map->flags | GNTMAP_application_map | GNTMAP_contains_pte;
--	u64 pte_maddr;
--
--	BUG_ON(pgnr >= map->count);
--	pte_maddr = arbitrary_virt_to_machine(pte).maddr;
--
--	/*
--	 * Set the PTE as special to force get_user_pages_fast() fall
--	 * back to the slow path.  If this is not supported as part of
--	 * the grant map, it will be done afterwards.
--	 */
--	if (xen_feature(XENFEAT_gnttab_map_avail_bits))
--		flags |= (1 << _GNTMAP_guest_avail0);
--
--	gnttab_set_map_op(&map->map_ops[pgnr], pte_maddr, flags,
--			  map->grants[pgnr].ref,
--			  map->grants[pgnr].domid);
--	gnttab_set_unmap_op(&map->unmap_ops[pgnr], pte_maddr, flags,
--			    INVALID_GRANT_HANDLE);
--	return 0;
--}
--
- int gntdev_map_grant_pages(struct gntdev_grant_map *map)
- {
- 	int i, err = 0;
-@@ -1028,9 +1002,7 @@ static int gntdev_mmap(struct file *flip
- 		mmu_interval_read_begin(&map->notifier);
- 
- 		map->pages_vm_start = vma->vm_start;
--		err = apply_to_page_range(vma->vm_mm, vma->vm_start,
--					  vma->vm_end - vma->vm_start,
--					  find_grant_ptes, map);
-+		err = gnttab_use_ptemod(vma, map);
- 		if (err) {
- 			pr_warn("find_grant_ptes() failure.\n");
- 			goto out_put_map;
---- a/drivers/xen/grant-table.c
-+++ b/drivers/xen/grant-table.c
-@@ -1591,6 +1591,43 @@ int gnttab_init(void)
- }
- EXPORT_SYMBOL_GPL(gnttab_init);
- 
-+#include <xen/gntdev.h>
-+#include "gntdev-common.h"
-+
-+static int find_grant_ptes(pte_t *pte, unsigned long addr, void *data)
-+{
-+	struct gntdev_grant_map *map = data;
-+	unsigned int pgnr = (addr - map->vma->vm_start) >> PAGE_SHIFT;
-+	int flags = map->flags | GNTMAP_application_map | GNTMAP_contains_pte;
-+	u64 pte_maddr;
-+
-+	BUG_ON(pgnr >= map->count);
-+	pte_maddr = arbitrary_virt_to_machine(pte).maddr;
-+
-+	/*
-+	 * Set the PTE as special to force get_user_pages_fast() fall
-+	 * back to the slow path.  If this is not supported as part of
-+	 * the grant map, it will be done afterwards.
-+	 */
-+	if (xen_feature(XENFEAT_gnttab_map_avail_bits))
-+		flags |= (1 << _GNTMAP_guest_avail0);
-+
-+	gnttab_set_map_op(&map->map_ops[pgnr], pte_maddr, flags,
-+			  map->grants[pgnr].ref,
-+			  map->grants[pgnr].domid);
-+	gnttab_set_unmap_op(&map->unmap_ops[pgnr], pte_maddr, flags,
-+			    INVALID_GRANT_HANDLE);
-+	return 0;
-+}
-+
-+int gnttab_use_ptemod(struct vm_area_struct *vma, struct gntdev_grant_map *map)
-+{
-+	return apply_to_page_range(vma->vm_mm, vma->vm_start,
-+				   vma->vm_end - vma->vm_start,
-+				   find_grant_ptes, map);
-+}
-+EXPORT_SYMBOL_GPL(gnttab_use_ptemod);
-+
- static int __gnttab_init(void)
- {
- 	if (!xen_domain())
-
-
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
