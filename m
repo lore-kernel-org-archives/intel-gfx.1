@@ -2,51 +2,61 @@ Return-Path: <SRS0=cAZQ=JJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07835C433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:10:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6285C433B4
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:19:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C3EDE6109E
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:10:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3EDE6109E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0CF3861207
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 09:19:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CF3861207
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7861A6E3D0;
-	Mon, 12 Apr 2021 09:09:52 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31A466E3B7;
- Mon, 12 Apr 2021 09:09:50 +0000 (UTC)
-IronPort-SDR: r66JqcCBvvyNjtQUNBgQCJsIT7LSKZpQ545djwmdp77rYHjokK5xXQhYZTJ+HUuubrzY0ByVMQ
- TwjmUtMMMcmQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9951"; a="193709761"
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="193709761"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:48 -0700
-IronPort-SDR: BIP4749M+J0Lg7YCjZKf0z120or4wScet2JZGq0AKagnVn5WULx7Uc1X3Cqwl3V3vYr0hhGIYO
- 1CUE5s5hOjIg==
-X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="423712803"
-Received: from tarynrox-mobl1.ger.corp.intel.com (HELO
- mwauld-desk1.ger.corp.intel.com) ([10.252.5.30])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 02:09:46 -0700
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Apr 2021 10:05:24 +0100
-Message-Id: <20210412090526.30547-18-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.26.3
-In-Reply-To: <20210412090526.30547-1-matthew.auld@intel.com>
-References: <20210412090526.30547-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CEE36E3BB;
+	Mon, 12 Apr 2021 09:19:04 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FA5D6E3BB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 09:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=LbLEaQQn1m2iX7nE7PPEHGSV/YwnfR4XbHyT4vIPCOo=; b=Y7cOtXpfBCuSpO+OG8inZmByp2
+ uC4BQykiuxpyWwj9PEbqBrYmAomUef+mOvq9II+Bgwq1Wx4i9lqPwFP5iR1rQXCrraYmh+eDlZ4CT
+ 1Zhb2CFA6iX27CPaSKYYah/i6G3/iYOyevF+6LmNHtO4UY+7nqUwnKMHbwY/G3cXZNddMvKSh/rFU
+ fmJXSb7O6QXojSUBpWgdKineQsozxBH+82N4Q5tYFD/qBX8rSSSJWTnaKalsYRWilBjglVWMVfkcR
+ ywqTSgpLtVW5l2+baf/9yWnxmsIXNookZXXlEISRyNz6wkQ0irLAYcD3XvMUXzyeLoGChfhrG4gw4
+ XZdoU4Vg==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+ id 1lVshP-0044xV-Eb; Mon, 12 Apr 2021 09:17:41 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 1D49D300033;
+ Mon, 12 Apr 2021 11:17:36 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id D543020224206; Mon, 12 Apr 2021 11:17:36 +0200 (CEST)
+Date: Mon, 12 Apr 2021 11:17:36 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <YHQQMPvsO5LtuI+/@hirez.programming.kicks-ass.net>
+References: <20210412080012.357146277@infradead.org>
+ <20210412080611.769864829@infradead.org>
+ <20210412082805.GD4372@lst.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 17/19] drm/i915/dg1: Double memory bandwidth
- available
+Content-Disposition: inline
+In-Reply-To: <20210412082805.GD4372@lst.de>
+Subject: Re: [Intel-gfx] [PATCH 4/7] mm: Introduce verify_page_range()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,39 +69,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: jgross@suse.com, sstabellini@kernel.org, keescook@chromium.org,
+ intel-gfx@lists.freedesktop.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ chris@chris-wilson.co.uk, linux-mm@kvack.org, boris.ostrovsky@oracle.com,
+ akpm@linux-foundation.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQ2xpbnQgVGF5bG9yIDxjbGludG9uLmEudGF5bG9yQGludGVsLmNvbT4KClVzZSBNQ0hC
-QVIgR2Vhcl90eXBlIGluZm9ybWF0aW9uIHRvIGNvbXB1dGUgbWVtb3J5IGJhbmR3aWR0aCBhdmFp
-bGFibGUKZHVyaW5nIE1DSEJBUiBjYWxjdWxhdGlvbnMuCgp2MiBieSBKYW5pOgotIHN3aXRjaCB0
-byBpbnRlbF91bmNvcmVfcmVhZC9pbnRlbF91bmNvcmVfd3JpdGUKClRlc3RlZC1ieTogU3dhdGkg
-U2hhcm1hIDxzd2F0aTIuc2hhcm1hQGludGVsLmNvbT4KQ2M6IFN3YXRpIFNoYXJtYSA8c3dhdGky
-LnNoYXJtYUBpbnRlbC5jb20+CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGlu
-dXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBDbGludCBUYXlsb3IgPGNsaW50b24uYS50YXls
-b3JAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50
-ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYncuYyB8IDgg
-KysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2J3LmMgYi9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2J3LmMKaW5kZXggOTljYWUwZGMwY2EyLi42YzAyYmQ1MmNlNDUg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYncuYworKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2J3LmMKQEAgLTQxLDYgKzQxLDkg
-QEAgc3RydWN0IGludGVsX3Fndl9pbmZvIHsKICNkZWZpbmUgIERHMV9EUkFNX1RfUlBfTUFTSyAo
-MHg3RiA8PCAwKQogI2RlZmluZSAgREcxX0RSQU1fVF9SUF9TSElGVCAwCiAKKyNkZWZpbmUgIElD
-TF9HRUFSX1RZUEVfTUFTSyAoMHgwMSA8PCAxNikKKyNkZWZpbmUgIElDTF9HRUFSX1RZUEVfU0hJ
-RlQgMTYKKwogc3RhdGljIGludCBkZzFfbWNoYmFyX3JlYWRfcWd2X3BvaW50X2luZm8oc3RydWN0
-IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2LAogCQkJCQkgIHN0cnVjdCBpbnRlbF9xZ3ZfcG9p
-bnQgKnNwLAogCQkJCQkgIGludCBwb2ludCkKQEAgLTU1LDYgKzU4LDExIEBAIHN0YXRpYyBpbnQg
-ZGcxX21jaGJhcl9yZWFkX3Fndl9wb2ludF9pbmZvKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpk
-ZXZfcHJpdiwKIAllbHNlCiAJCWRjbGtfcmVmZXJlbmNlID0gODsgLyogOCAqIDE2LjY2NiBNSHog
-PSAxMzMgTUh6ICovCiAJc3AtPmRjbGsgPSBkY2xrX3JhdGlvICogZGNsa19yZWZlcmVuY2U7CisK
-Kwl2YWwgPSBpbnRlbF91bmNvcmVfcmVhZCgmZGV2X3ByaXYtPnVuY29yZSwgU0tMX01DX0JJT1Nf
-REFUQV8wXzBfMF9NQ0hCQVJfUENVKTsKKwlpZiAoKHZhbCAmIElDTF9HRUFSX1RZUEVfTUFTSykg
-Pj4gSUNMX0dFQVJfVFlQRV9TSElGVCkKKwkJc3AtPmRjbGsgKj0gMjsKKwogCWlmIChzcC0+ZGNs
-ayA9PSAwKQogCQlyZXR1cm4gLUVJTlZBTDsKIAotLSAKMi4yNi4zCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
-dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+On Mon, Apr 12, 2021 at 10:28:05AM +0200, Christoph Hellwig wrote:
+> On Mon, Apr 12, 2021 at 10:00:16AM +0200, Peter Zijlstra wrote:
+> > +extern int verify_page_range(struct mm_struct *mm,
+> 
+> No need for the extern here.
+
+It's consistent with the rest of the functions there. Also, I personally
+like that extern.
+
+> > +int verify_page_range(struct mm_struct *mm,
+> > +		      unsigned long addr, unsigned long size,
+> > +		      int (*fn)(pte_t pte, unsigned long addr, void *data),
+> > +		      void *data)
+> 
+> A kerneldoc comment would be nice for this function.
+> 
+> Otherwise this looks fine.
+
+Something like so?
+
+/**
+ * verify_page_range() - Scan (and fill) a range of virtual memory and validate PTEs
+ * @mm: mm identifying the virtual memory map
+ * @addr: starting virtual address of the range
+ * @size: size of the range
+ * @fn: function that verifies the PTEs
+ * @data: opaque data passed to @fn
+ *
+ * Scan a region of virtual memory, filling in page tables as necessary and
+ * calling a provided function on each leaf, providing a copy of the
+ * page-table-entry.
+ *
+ * Similar apply_to_page_range(), but does not provide direct access to the
+ * page-tables.
+ *
+ * NOTE! this function does not work correctly vs large pages.
+ *
+ * Return: the first !0 return of the provided function, or 0 on completion.
+ */
+int verify_page_range(struct mm_struct *mm,
+		      unsigned long addr, unsigned long size,
+		      int (*fn)(pte_t pte, unsigned long addr, void *data),
+		      void *data)
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
