@@ -2,122 +2,52 @@ Return-Path: <SRS0=Tqpp=JK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5ECBC433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 09:37:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A17DC433B4
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 09:38:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 688F96121E
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 09:37:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 688F96121E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=synaptics.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0BE0861222
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 09:38:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BE0861222
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 018116E28B;
-	Tue, 13 Apr 2021 09:37:48 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2082.outbound.protection.outlook.com [40.107.237.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D75AC89E38;
- Tue, 13 Apr 2021 09:02:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X/zsr4UNjuZUx9BkRJxX6kQgqJSCI7U2hbY4gUffl+K3HuCKQe48Zqoylvs2JFdxPYuzR5Sdzrk/l+9laGvQiNdGwzPfJMHlRW3SSvKbWUieSsY9TYsOXd0UHaViUX1+CuoqoLoWDHy24wbZASRrk85YRZAWUpVxlO/fVYeCPWloMAX14UvsaPXjJcZME13O3OBaRAwEWI3wPbyXWsUhdAhPhocGxv6i3fK0x8aBlHvMZGe6TiOrckU4EWkXmXdk0G/5CWaQvbNdiI22wqXtCM9St7z3XrKnGgQXr42fJxN/5NsMBRJj0SyaNiUnUKHu1GapjA4YZYiRv3sfCbXjXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+yPWeme+xeeLdq4gXEumrWjRb/rqm6L+B7YFyQrAv7k=;
- b=N6xw2EXt7LgxmpbbFGFvwibhnorrAdVK5mnmpCtVSfkgnaXA7EhzcUpONXrGNR7sD4OtELeKN1FQ1PldqustF3F2STCpud/w+k/3OjWyNQp8CBjIgimYVu6hhgClGZ61IVvKd50IYJdLHp4Z1FiEyQ1leYzV6bLXtomWvLbvmUsmzj3sPAdr3I3bhmpHJWWavls58SLNyzfhJWv25rR3gR/9EDkpVjs9T6dEKW08zFDYprX2mmiZE6Wj/VB2yqDdbd0Qvp6g+IjW0T+tS0NENEqJOwK57M4fO1rqKS/gOlLEoHGqmIitn80Jq7PTWmk+Lk1s2SAYFk4gRb9QOYwTXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synaptics.com; dmarc=pass action=none
- header.from=synaptics.com; dkim=pass header.d=synaptics.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=Synaptics.onmicrosoft.com; s=selector2-Synaptics-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+yPWeme+xeeLdq4gXEumrWjRb/rqm6L+B7YFyQrAv7k=;
- b=k/b/qMOdGUCvboWJjgronG6eOCkKkJxdLQlW/+WW3FsNx7NsVPa95aMxN0sHhF7o4UzcwWPizKtP0Rq1PM2zM/6wbzESky3/L8axhMcJWCFugjXQpBLWXIcImMqVH9R1BJFoRUvKeUNmgGd2MwwSUmdSCmL2N4pB5dvTGQH/rHE=
-Authentication-Results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none
- header.from=synaptics.com;
-Received: from BY5PR03MB5345.namprd03.prod.outlook.com (2603:10b6:a03:219::16)
- by BY5PR03MB5048.namprd03.prod.outlook.com (2603:10b6:a03:1e8::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21; Tue, 13 Apr
- 2021 09:02:51 +0000
-Received: from BY5PR03MB5345.namprd03.prod.outlook.com
- ([fe80::8569:341f:4bc6:5b72]) by BY5PR03MB5345.namprd03.prod.outlook.com
- ([fe80::8569:341f:4bc6:5b72%8]) with mapi id 15.20.4020.022; Tue, 13 Apr 2021
- 09:02:51 +0000
-Date: Tue, 13 Apr 2021 17:02:40 +0800
-From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Chris
- Wilson <chris@chris-wilson.co.uk>, Jon Bloomfield
- <jon.bloomfield@intel.com>
-Message-ID: <20210413170240.0d4ffa38@xhacker.debian>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-X-Originating-IP: [192.147.44.204]
-X-ClientProxiedBy: BYAPR04CA0005.namprd04.prod.outlook.com
- (2603:10b6:a03:40::18) To BY5PR03MB5345.namprd03.prod.outlook.com
- (2603:10b6:a03:219::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8680C6E14F;
+	Tue, 13 Apr 2021 09:38:47 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F11D96E14F
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 09:38:45 +0000 (UTC)
+IronPort-SDR: gR9esQ8OLhqL7o8vx+4GS4djBfcXhc5mUHsse4/j2wDRq0s3QPnV7nj3FJDZ3mDvSxBT1fH6TR
+ EH5FToZihtyA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="279682061"
+X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="279682061"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2021 02:38:45 -0700
+IronPort-SDR: XHq64EUf7108fBRZimVopaMOLvQh3lEuvgxRK3Fpk+VHkOLNDXG2RifPMfnZu9iomSDsKo2Fcj
+ t210fa3llBEw==
+X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="417795019"
+Received: from alinapar-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.249.36.253])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2021 02:38:42 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210413051002.92589-8-lucas.demarchi@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210413051002.92589-1-lucas.demarchi@intel.com>
+ <20210413051002.92589-8-lucas.demarchi@intel.com>
+Date: Tue, 13 Apr 2021 12:38:39 +0300
+Message-ID: <87r1jeh6cg.fsf@intel.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from xhacker.debian (192.147.44.204) by
- BYAPR04CA0005.namprd04.prod.outlook.com (2603:10b6:a03:40::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4020.16 via Frontend Transport; Tue, 13 Apr 2021 09:02:48 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 35b9efab-da46-4724-fbeb-08d8fe5aeab3
-X-MS-TrafficTypeDiagnostic: BY5PR03MB5048:
-X-Microsoft-Antispam-PRVS: <BY5PR03MB5048EF8CF743B456888DA4D7ED4F9@BY5PR03MB5048.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: G1iu8wAJO19rfWIc9wqVC34i4SudX7oyTz3RbV2B3JQeOShBz2mkVQ975yQjoCR2AOwnz6PSRcWOTLVSzihbZR5U4jgM7mCoe1ILJON5H66tHzfoICcZgjI1ERY+Vk8jlXB6XzaYiNC1fk/hy/rOv+ZRhdDpLpDE0IRsfTHLEZz3SIdGadzXLzz8ZReUqavr0G3JryCES8onazg0XSzMbCu+aM0oVifoTbf56QLFI5ldlHZUdn9FO/sFH+MmbvqsF81ehfKBEjdT6IJOA5TiASoB8X0vCmaHlkvzy1XwV15lCkoV5Rwnvw826+JwDVdMA8CHMFO8HPE2RUAwzc9Drk1klRGLunr62X/qRqG57I1b9/l2wokh7jLd0djqnUsQfSxOTBTSUw8uaI6Al4P3BKWomNi2MG59XveaDTGlYjKm00m4DzOsWbQlM9TI/N2878OrfEo1wrubXV2IJxM0TxmtOVSp6L/vlRxxHLf5ujj6fJfSnaJIhWG9PxVh9YlfAOCRVu+6rvLWfoaTrfVBM9lsN2yJM+2IO7Owvoa2YTjs/rAV0r+DwNbiA4tmdKTgKqt3ufjLC93KzCII91OdQJFDDjvFz3pnhIpFwRnaosd+OWwiPSVgXuCsqLNg7YHcxvqUvA6SmbS2wC85QQs4aY/Y9yUIE5GfgAR/4aRV2Qc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR03MB5345.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(39860400002)(376002)(396003)(346002)(136003)(956004)(66556008)(2906002)(52116002)(110136005)(83380400001)(55016002)(316002)(6506007)(186003)(4326008)(7696005)(38350700002)(38100700002)(8936002)(26005)(5660300002)(9686003)(478600001)(8676002)(1076003)(6666004)(66946007)(86362001)(16526019)(7416002)(66476007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?QwGNvOy33PtTW7Nijzp3mWd3LmsjXURgezYEtXJ/3KJ94HUtraXwNUHHvy1G?=
- =?us-ascii?Q?Ttx2Ng6TlhlKek5++09pVhVwtDH47z3xG45qpAREUCdx7LbkvlBOapqXdSzs?=
- =?us-ascii?Q?aCLaFS44RLqlCMaATjeGWxuWXREp/Udg7281zfi6xlj7TXUyhg+/8y8CfrK0?=
- =?us-ascii?Q?9aDLOch9QqXaC6PacPfPLH9dIayXy0hlsa5JJgl5n/7QgMuvGKUxxKSiUPv0?=
- =?us-ascii?Q?gZFqlkz43sC2titGYXx0bISh6qvM0CtTRf22o3VqKNBDGi3OKzoAczm9zUY4?=
- =?us-ascii?Q?5ijsLNzm6KocNlrl6JFBr1sPF2Fbkix18yNvczQaGZLHSKB7wTs7che6YArM?=
- =?us-ascii?Q?MLWqk1y3TwTbFJWm6Ldj2w5KpCOnDsxnDLy6a34hf2X1fwwaTmlskf48aUQP?=
- =?us-ascii?Q?mv6uZd7eKZ9Ff4W6fzpmYL1hcOplOP0tIgZTx0JXfGMTbO+lm3/pNOLNXvN2?=
- =?us-ascii?Q?1TG/crRvjOJ+DAoaPUbqVaCqwR6QqGfvYSl0+2klFahhygeD9Y0QLlC2Gx70?=
- =?us-ascii?Q?uDD9na/wn3hwU7wi1mLGWV8tPeRBbSYs+cS/vp1joC6KSTkH9QXZLPQT3j1a?=
- =?us-ascii?Q?zV2xQh5HLUzSXti4v+FbIN1h5kupGC9UzirSD+48tBZSndE9xe1b4fGY2DKS?=
- =?us-ascii?Q?rOVE4LXoDSjQ4IItc3UEglB8Kc6oQcY6Ok4JlO6u2OPMrDStVCvAERTUAa1i?=
- =?us-ascii?Q?Ik13d6wlppQdeDCh22mWbOauHSBFJXXI8ziRwk0ogTxpjuNnTH31jTHIVxns?=
- =?us-ascii?Q?/8if8ikPFXA1K4sqtPRjtFSG93PeAenr6yH7TeTM6jcF8VWzE5xkasJO99c8?=
- =?us-ascii?Q?5Ood8GMgdkJ5ZsjXCNjG1sHukWPiUhwYUN22UKIL6XIxoDBwiUCH7qpS40qH?=
- =?us-ascii?Q?/9jA526I7XBf1dQ7hVU2+3p1l8BPNaBooAQlkIvG16Hzuh9xHGAaUpxw3vMI?=
- =?us-ascii?Q?KTLjFDTg7PxX44ZWzsoh2mDFozW+hNJNOLPp6/ewZlmuQWibeRwGbR/QRyAQ?=
- =?us-ascii?Q?ZFn/1BLodc8gXmNIDdkfd6KKx3ND1EQuCFzVV3nsHlY3AbA+ERUIidDbAFgK?=
- =?us-ascii?Q?lBo3BLoQ62LDmQr9WvOQECrM5sIyMNiEgCRtHOATabJ8O21HHjYvYL0lyj0k?=
- =?us-ascii?Q?el646MfbMeJYDG0kQzvCI16iCl1QGrP2SwqjYJry4N+BRUyIonXMArCue3T7?=
- =?us-ascii?Q?pjncuTBxxdJtjyOW4ueS0eoZs2FtVtaXdjhT/rzOkuMQOJSfuRupBT09enZ1?=
- =?us-ascii?Q?9mwa9oVuTMcBz5Ad1JQuZ2bj5gIW581GrZ2TK/xzNnSn8U/yKw40Wjdnws/B?=
- =?us-ascii?Q?2+zcPupwR4NOzLBhjXBmMoet?=
-X-OriginatorOrg: synaptics.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35b9efab-da46-4724-fbeb-08d8fe5aeab3
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR03MB5345.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2021 09:02:51.3261 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PldfhMBpt4oFZR3gmxAUYbxHeG3ziJYeUfLcDCWsJw/cObVDQfU/jm6hxE6LP8we/VDQn9KyppCw6Ylt91KAmg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5048
-X-Mailman-Approved-At: Tue, 13 Apr 2021 09:37:47 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: Fix "mitigations" parsing if i915 is
- builtin
+Subject: Re: [Intel-gfx] [PATCH v2 07/12] drm/i915/selftests: eliminate use
+ of gen_mask
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,59 +60,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I met below error during boot with i915 builtin if pass
-"i915.mitigations=off":
-[    0.015589] Booting kernel: `off' invalid for parameter `i915.mitigations'
+On Mon, 12 Apr 2021, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+> Remove the remaining uses of INTEL_GEN_MASK() and the correspondent
+> gen_mask in struct intel_device_info. This will allow the removal of
+> gen_mask later since it's incompatible with the new per-IP versioning
+> scheme.
+>
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> ---
+>  drivers/gpu/drm/i915/intel_uncore.c           | 8 +++++---
+>  drivers/gpu/drm/i915/selftests/intel_uncore.c | 8 +++++---
+>  2 files changed, 10 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+> index 661b50191f2b..ed5abe7be498 100644
+> --- a/drivers/gpu/drm/i915/intel_uncore.c
+> +++ b/drivers/gpu/drm/i915/intel_uncore.c
+> @@ -2008,12 +2008,14 @@ void intel_uncore_fini_mmio(struct intel_uncore *uncore)
+>  static const struct reg_whitelist {
+>  	i915_reg_t offset_ldw;
+>  	i915_reg_t offset_udw;
+> -	u16 gen_mask;
+> +	u8 min_graphics_ver;
+> +	u8 max_graphics_ver;
+>  	u8 size;
+>  } reg_read_whitelist[] = { {
+>  	.offset_ldw = RING_TIMESTAMP(RENDER_RING_BASE),
+>  	.offset_udw = RING_TIMESTAMP_UDW(RENDER_RING_BASE),
+> -	.gen_mask = INTEL_GEN_MASK(4, 12),
+> +	.min_graphics_ver = 4,
+> +	.max_graphics_ver = 12,
+>  	.size = 8
+>  } };
+>  
+> @@ -2038,7 +2040,7 @@ int i915_reg_read_ioctl(struct drm_device *dev,
+>  		GEM_BUG_ON(entry->size > 8);
+>  		GEM_BUG_ON(entry_offset & (entry->size - 1));
+>  
+> -		if (INTEL_INFO(i915)->gen_mask & entry->gen_mask &&
+> +		if (IS_GRAPHICS_VER(i915, entry->min_graphics_ver, entry->max_graphics_ver) &&
+>  		    entry_offset == (reg->offset & -entry->size))
+>  			break;
+>  		entry++;
+> diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+> index 0e4e6be0101d..f76c9bcec735 100644
+> --- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
+> +++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+> @@ -125,17 +125,19 @@ static int live_forcewake_ops(void *arg)
+>  {
+>  	static const struct reg {
+>  		const char *name;
+> +		u8 min_graphics_ver;
+> +		u8 max_graphics_ver;
+>  		unsigned long platforms;
+>  		unsigned int offset;
+>  	} registers[] = {
+>  		{
+>  			"RING_START",
+> -			INTEL_GEN_MASK(6, 7),
+> +			6, 7,
+>  			0x38,
+>  		},
+>  		{
+>  			"RING_MI_MODE",
+> -			INTEL_GEN_MASK(8, BITS_PER_LONG),
+> +			8, U8_MAX,
 
-The reason is slab subsystem isn't ready at that time, so kstrdup()
-returns NULL. Fix this issue by using stack var instead of kstrdup().
+Makes me wonder if we should add VER_MAX. Can be done later if needed.
 
-Fixes: 984cadea032b ("drm/i915: Allow the sysadmin to override security mitigations")
-Signed-off-by: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
----
- drivers/gpu/drm/i915/i915_mitigations.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/i915_mitigations.c b/drivers/gpu/drm/i915/i915_mitigations.c
-index 84f12598d145..7dadf41064e0 100644
---- a/drivers/gpu/drm/i915/i915_mitigations.c
-+++ b/drivers/gpu/drm/i915/i915_mitigations.c
-@@ -29,15 +29,13 @@ bool i915_mitigate_clear_residuals(void)
- static int mitigations_set(const char *val, const struct kernel_param *kp)
- {
- 	unsigned long new = ~0UL;
--	char *str, *sep, *tok;
-+	char str[64], *sep, *tok;
- 	bool first = true;
- 	int err = 0;
- 
- 	BUILD_BUG_ON(ARRAY_SIZE(names) >= BITS_PER_TYPE(mitigations));
- 
--	str = kstrdup(val, GFP_KERNEL);
--	if (!str)
--		return -ENOMEM;
-+	strncpy(str, val, sizeof(str) - 1);
- 
- 	for (sep = str; (tok = strsep(&sep, ","));) {
- 		bool enable = true;
-@@ -86,7 +84,6 @@ static int mitigations_set(const char *val, const struct kernel_param *kp)
- 			break;
- 		}
- 	}
--	kfree(str);
- 	if (err)
- 		return err;
- 
+>  			0x9c,
+>  		}
+>  	};
+> @@ -170,7 +172,7 @@ static int live_forcewake_ops(void *arg)
+>  
+>  	/* We have to pick carefully to get the exact behaviour we need */
+>  	for (r = registers; r->name; r++)
+> -		if (r->platforms & INTEL_INFO(gt->i915)->gen_mask)
+> +		if (IS_GRAPHICS_VER(gt->i915, r->min_graphics_ver, r->max_graphics_ver))
+>  			break;
+>  	if (!r->name) {
+>  		pr_debug("Forcewaked register not known for %s; skipping\n",
+
 -- 
-2.31.0
-
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
