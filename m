@@ -2,68 +2,52 @@ Return-Path: <SRS0=Tqpp=JK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D25E4C433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 09:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 159FCC433B4
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 09:34:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FB7461222
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 09:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8FB7461222
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C8520611F2
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 09:34:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8520611F2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ECED6E28B;
-	Tue, 13 Apr 2021 09:29:05 +0000 (UTC)
-Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com
- [IPv6:2607:f8b0:4864:20::f31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5840C6E28B;
- Tue, 13 Apr 2021 09:29:04 +0000 (UTC)
-Received: by mail-qv1-xf31.google.com with SMTP id dp18so3083859qvb.5;
- Tue, 13 Apr 2021 02:29:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2OlQh71ytZjTCrhMOEMr/W+H76i377Yceg9/bP1LlE0=;
- b=jmi6PPtuqZsyJk6Ja0hkiAX5NTZKc0DHRBW+CWvPRU0xYz3E3Te1IRqmXM6pCU1mY+
- l/MlDlFI3HAc57BUsovG45Puj95SorNaKQyqw+q7Z1wd0m8L2E1M/jaSMyhY5Ka0xQL8
- wtx9gBlbwybo/hAHtnNHL9KY3hKItwRq+hwKv1OyzSUGaamsEbE/4J6jgqXEvdulTQBH
- 6mAujJOWxm0AUQTTrBEvPBzXcWB2z1A1EebLY/+dhuQgpXBzyCFbxbgb5CWMWoR1YVqT
- aDVy7rnY4CC2sPk+0YoGDScekhXb0k3TEE4EwcTVoJwlEJ9+wd9HVjlvjz88F8Bjwpnq
- uDtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2OlQh71ytZjTCrhMOEMr/W+H76i377Yceg9/bP1LlE0=;
- b=jBE1QkgXoDnmEVB2cLq9tp8+R5gb/DxSvB3Z/1nQuT+XYmKhlGok8drT1UQGuY0b3b
- qvZgQA+oKO01omRVAUGW18UbaZve0yqOFRrYT1crhsTV3NYZ/UN69VBSDWTxzpbhvVIZ
- 9nPyLOefGZbrChZFA6f8xC8oNauqC+ejQm1XdNkuQHa+OHwQKWopU9gOKj47U/ZWAIhd
- Vi8Xg4d77SXz9cY6XatHYy5CB8/NU4vducyHN6vpdhqFbyp54Oll7rztS1I7N/3OPOvm
- VYW22szwxYyr8LBny4ywoNkWuQF7lnjNq2PjsSs/KGwkL9WoDjz7vJcYqIDw8Jbh8ht1
- mfnA==
-X-Gm-Message-State: AOAM532QWtXzOAqLCVmhEu4mxh4Lqz+vnirTfdy5OazqOaIs2CqojDsE
- JqbzQUtWmIVyaXgCT0gyUvQukmQMabwq/H9S+es=
-X-Google-Smtp-Source: ABdhPJxj0Pbeuf8XKpQWQMIKficnsB3ukPUknswmKL5REJ5JZbczpmzq7BfFuEtMh0khAkmfU8LBaQ7/u09L3rb3Jaw=
-X-Received: by 2002:a0c:9e6a:: with SMTP id z42mr32903864qve.60.1618306143322; 
- Tue, 13 Apr 2021 02:29:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC6C6E29D;
+	Tue, 13 Apr 2021 09:34:05 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B64A6E29D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 09:34:04 +0000 (UTC)
+IronPort-SDR: f+hO/iawchBAe6wbKC6tiacXJ0CyfMTt9Qz/UopLNgmgrFHB4AVpHZZVqS07ZXoZaNKzgnTcYw
+ fiULTs35VnoA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="255700437"
+X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="255700437"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2021 02:34:04 -0700
+IronPort-SDR: NdKhspCdXIFGgCH7oK2iUnD6nYF23KWzVEWGCcojPAi2opi+CMJFGW/urLv5JQgRAhLlu1Fv/r
+ 3GqUzVs49ozw==
+X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="424178543"
+Received: from alinapar-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.249.36.253])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2021 02:34:00 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210413051002.92589-5-lucas.demarchi@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210413051002.92589-1-lucas.demarchi@intel.com>
+ <20210413051002.92589-5-lucas.demarchi@intel.com>
+Date: Tue, 13 Apr 2021 12:33:57 +0300
+Message-ID: <8735vuil4q.fsf@intel.com>
 MIME-Version: 1.0
-References: <20210412090526.30547-1-matthew.auld@intel.com>
- <20210412090526.30547-19-matthew.auld@intel.com>
- <YHRkixaDBaf5cgkJ@phenom.ffwll.local>
- <CAM0jSHM_1V6OSZhuuaaAMmHi4BTiZ7Hbo99i2b=RzFFBMuYJ_A@mail.gmail.com>
- <CAKMK7uFK5_4cbWeefjvXzfnHXsTh1OCtWSyLHUy5QhiFfwMf1A@mail.gmail.com>
-In-Reply-To: <CAKMK7uFK5_4cbWeefjvXzfnHXsTh1OCtWSyLHUy5QhiFfwMf1A@mail.gmail.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Tue, 13 Apr 2021 10:28:37 +0100
-Message-ID: <CAM0jSHP=xA0taPVVr5Fa5O9rMEv-upr_or_c2QbRO2MhNGEBCw@mail.gmail.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [Intel-gfx] [PATCH 18/19] drm/i915/gtt: map the PD up front
+Subject: Re: [Intel-gfx] [PATCH v2 04/12] drm/i915: add macros for graphics
+ and media versions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,109 +60,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Matthew Auld <matthew.auld@intel.com>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 12 Apr 2021 at 18:01, Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Mon, Apr 12, 2021 at 6:08 PM Matthew Auld
-> <matthew.william.auld@gmail.com> wrote:
-> >
-> > On Mon, 12 Apr 2021 at 16:17, Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Mon, Apr 12, 2021 at 10:05:25AM +0100, Matthew Auld wrote:
-> > > > We need to general our accessor for the page directories and tables from
-> > > > using the simple kmap_atomic to support local memory, and this setup
-> > > > must be done on acquisition of the backing storage prior to entering
-> > > > fence execution contexts. Here we replace the kmap with the object
-> > > > maping code that for simple single page shmemfs object will return a
-> > > > plain kmap, that is then kept for the lifetime of the page directory.
-> > > >
-> > > > v2: (Thomas) Rebase on dma_resv and obj->mm.lock removal.
-> > > >
-> > > > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> > > > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> > >
-> > > So I wanted to understand what px stands for as an abbreviation, and dug
-> > > all the way down to this:
-> > >
-> > > commit 567047be2a7ede082d29f45524c287b87bd75e53
-> > > Author: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-> > > Date:   Thu Jun 25 18:35:12 2015 +0300
-> > >
-> > >     drm/i915/gtt: Use macros to access dma mapped pages
-> > >
-> > > I still have no idea what it means, I guess px = page. But I also
-> > > committed this, so I guess can blame myself :-)
-> > >
-> > > But while digging I've stumbled over this here
-> > >
-> > > commit 6eebfe8a10a62139d681e2f1af1386252742278b
-> > > Author: Chris Wilson <chris@chris-wilson.co.uk>
-> > > Date:   Fri Jul 12 08:58:18 2019 +0100
-> > >
-> > >     drm/i915/gtt: Use shallow dma pages for scratch
-> > >
-> > >
-> > > And that's some serious wtf. Yes we've done some compile-time type
-> > > casting automagic between i915_priv and dev in the past, and I think even
-> > > that was bad taste. But it was justified with that we have these
-> > > everywhere (especially in the mmio macros), and it would be a terrible
-> > > flag day.
-> > >
-> > > But I'm not seeing any need for auto-casting for these pages here, and I'm
-> > > not aware that we're doing this anywhere else in kernel code. There is
-> > > some macro-trickery in lockdep annotations, but that relies on the lockdep
-> > > map having the same struct member name in all lock types, and is not
-> > > exposed to drivers at all.
-> > >
-> > > Am I missing something, or why do we have this compile-time type casting
-> > > stuff going on in i915 page accessors?
-> >
-> > I think 'x' in the px family of macros/functions is meant in the
-> > variable/polymorphic sense, so it can potentially be a pt, pd, etc
-> > underneath. If you look at px_base() for example all it does is fish
-> > out the base GEM object from the structure, using the
-> > known-at-compile-time-type, which then lets us get at the dma address,
-> > vaddr etc.
->
-> Yeah, but that's not how things landed. px predates the magic
-> polymorphism. I think the px just stands for page, or at least
-> originally only stood for page. I'm not sure honestly. It seems to be
-> just used for page directory type of things, but I haven't found that
-> written down anywhere.
->
-> > It does seem pretty magical, but seems ok to me, if it means less typing?
->
-> That's the worst justification. Code is generally write once, read
-> many times. Optimizing for writing at the cost of magic indirection is
-> generally not the right tradeoff in the kernel, where any indirection
-> could hide a major gotcha. In huge userspace applications fancy
-> abstraction and polymorphism is often the right thing to do, but there
-> you also have a real compiler with a real typesystem (generally at
-> least) helping you out. Or it's yolo duct-taping with lots of tests,
-> where the speed at which you can hack up something matters more than
-> being able to read it quickly.
->
-> We're typing C here. It is generally rather verbose, with type casting
-> all done explicitly.
-
-Ok. So should we change this around for this patch? The px_ stuff is
-already quite prevalent it seems, and the px_vaddr() is just one part
-of it? Maybe just add pt_vaddr(), pd_vaddr() etc instead?
-
-> -Daniel
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gTW9uLCAxMiBBcHIgMjAyMSwgTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5kZW1hcmNoaUBpbnRl
+bC5jb20+IHdyb3RlOgo+IExpa2UgaXQgd2FzIGRvbmUgaW4KPiBjb21taXQgMDFlYjE1YzkxNjVl
+ICgiZHJtL2k5MTU6IEFkZCBESVNQTEFZX1ZFUigpIGFuZCByZWxhdGVkIG1hY3JvcyIpCj4gYWRk
+IHRoZSBjb3JyZXNwb25kZW50IG1hY3JvcyBmb3IgZ3JhcGhpY3MgYW5kIG1lZGlhLiBHb2luZyBm
+b3J3YXJkIHdlCj4gd2lsbCBwcmVmZXIgY2hlY2tpbmcgdGhlIHZlcnNpb25zIGZvciB0aGUgc3Bl
+Y2lmaWMgSVBzIChncmFwaGljcywgbWVkaWEKPiBhbmQgZGlzcGxheSkgcmF0aGVyIHRoYW4gZ3Jv
+dXBpbmcgZXZlcnl0aGluZyB1bmRlciBhICJnZW4iIHZlcnNpb24uCj4KPiBGb3IgY29uc2lzdGVu
+Y3kgYW5kIHRvIG1ha2UgdGhlIG1haW50ZW5hbmNlIGVhc2llciwgaXQnZCBiZSBwcmVmZXJyZWQK
+PiBub3QgdG8gbWl4IHRoZSAqR0VOKiBtYWNyb3Mgd2l0aCB0aGUgbmV3IG9uZXMuIEZvciBvbGRl
+ciBwbGF0Zm9ybXMgd2UKPiBjYW4gc2ltcGx5IGNvbnNpZGVyIHRoYXQgdGhlIHByZXZpb3VzICJn
+ZW4iIG51bWJlciB3aWxsIGV4dGVuZCB0byBhbGwKPiAzIElQcy4gVGhlbiB3ZSBjYW4gc3RhcnQg
+cmVwbGFjaW5nIGl0cyB1c2UgaW4gdGhlIGRyaXZlci4gUmlnaHQgbm93IHRoaXMKPiByZXBsYWNl
+bWVudCBpcyBub3QgZG9uZSBhbmQgb25seSB0aGUgaW5mcmFzdHJ1Y3R1cmUgaXMgcHV0IGluIHBs
+YWNlLgo+IFdlIGFsc28gbGVhdmUgZ2VuIGFuZCBnZW5fbWFzayBpbnNpZGUgc3RydWN0IGludGVs
+X2RldmljZV9pbmZvIHdoaWxlCj4gaXQncyBzdGlsbCBiZWluZyB1c2VkIHRocm91Z2hvdXQgdGhl
+IGNvZGUuCj4KPiB2MjogUmVwdXJwb3NlIElTX3tHUkFQSElDUyxNRURJQX1fVkVSKCkgbWFjcm9z
+IHRvIHdvcmsgd2l0aCBhIHJhbmdlCj4KPiBTaWduZWQtb2ZmLWJ5OiBMdWNhcyBEZSBNYXJjaGkg
+PGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4KPiBSZXZpZXdlZC1ieTogSm9zw6kgUm9iZXJ0byBk
+ZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9p
+OTE1L2k5MTVfZHJ2LmggICAgICAgICAgfCAxNSArKysrKysrKysrKysrKy0KPiAgZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaTkxNV9wY2kuYyAgICAgICAgICB8ICA3ICsrKysrKy0KPiAgZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNlX2luZm8uaCB8ICAzICsrKwo+ICAzIGZpbGVzIGNoYW5n
+ZWQsIDIzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
+ZHJ2LmgKPiBpbmRleCA5MDdjNjZlZmI0NjkuLmNiNTllYjBmNmM1YiAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvaTkxNV9kcnYuaAo+IEBAIC0xMjM0LDkgKzEyMzQsMjIgQEAgc3RhdGljIGlubGluZSBzdHJ1
+Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqcGRldl90b19pOTE1KHN0cnVjdCBwY2lfZGV2ICpwZGV2KQo+
+ICAjZGVmaW5lIFJVTlRJTUVfSU5GTyhkZXZfcHJpdikJKCYoZGV2X3ByaXYpLT5fX3J1bnRpbWUp
+Cj4gICNkZWZpbmUgRFJJVkVSX0NBUFMoZGV2X3ByaXYpCSgmKGRldl9wcml2KS0+Y2FwcykKPiAg
+Cj4gLSNkZWZpbmUgSU5URUxfR0VOKGRldl9wcml2KQkoSU5URUxfSU5GTyhkZXZfcHJpdiktPmdl
+bikKPiAgI2RlZmluZSBJTlRFTF9ERVZJRChkZXZfcHJpdikJKFJVTlRJTUVfSU5GTyhkZXZfcHJp
+diktPmRldmljZV9pZCkKPiAgCj4gKy8qCj4gKyAqIERlcHJlY2F0ZWQ6IHRoaXMgd2lsbCBiZSBy
+ZXBsYWNlZCBieSBpbmRpdmlkdWFsIElQIGNoZWNrczoKPiArICogR1JBUEhJQ1NfVkVSKCksIE1F
+RElBX1ZFUiBhbmQgRElTUExBWV9WRVIoKQoKTml0cGljaywgTUVESUFfVkVSKCkgd2l0aCBicmFj
+ZXMuCgpPdGhlcndpc2UsCgpSZXZpZXdlZC1ieTogSmFuaSBOaWt1bGEgPGphbmkubmlrdWxhQGlu
+dGVsLmNvbT4KCgo+ICsgKi8KPiArI2RlZmluZSBJTlRFTF9HRU4oZGV2X3ByaXYpCQkoSU5URUxf
+SU5GTyhkZXZfcHJpdiktPmdlbikKPiArCj4gKyNkZWZpbmUgR1JBUEhJQ1NfVkVSKGk5MTUpCQko
+SU5URUxfSU5GTyhpOTE1KS0+Z3JhcGhpY3NfdmVyKQo+ICsjZGVmaW5lIElTX0dSQVBISUNTX1ZF
+UihpOTE1LCBmcm9tLCB1bnRpbCkgXAo+ICsJKEdSQVBISUNTX1ZFUihpOTE1KSA+PSAoZnJvbSkg
+JiYgR1JBUEhJQ1NfVkVSKGk5MTUpIDw9ICh1bnRpbCkpCj4gKwo+ICsjZGVmaW5lIE1FRElBX1ZF
+UihpOTE1KQkJCShJTlRFTF9JTkZPKGk5MTUpLT5tZWRpYV92ZXIpCj4gKyNkZWZpbmUgSVNfTUVE
+SUFfVkVSKGk5MTUsIGZyb20sIHVudGlsKSBcCj4gKwkoTUVESUFfVkVSKGk5MTUpID49IChmcm9t
+KSAmJiBNRURJQV9WRVIoaTkxNSkgPD0gKHVudGlsKSkKPiArCj4gICNkZWZpbmUgRElTUExBWV9W
+RVIoaTkxNSkJKElOVEVMX0lORk8oaTkxNSktPmRpc3BsYXkudmVyKQo+ICAjZGVmaW5lIElTX0RJ
+U1BMQVlfVkVSKGk5MTUsIGZyb20sIHVudGlsKSBcCj4gIAkoRElTUExBWV9WRVIoaTkxNSkgPj0g
+KGZyb20pICYmIERJU1BMQVlfVkVSKGk5MTUpIDw9ICh1bnRpbCkpCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGNpLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
+X3BjaS5jCj4gaW5kZXggY2U1Y2JlYWYwMzZkLi45N2FiNzMyNzYzMzQgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9wY2kuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2k5MTVfcGNpLmMKPiBAQCAtMzYsNyArMzYsMTIgQEAKPiAgI2luY2x1ZGUgImk5MTVfc2Vs
+ZnRlc3QuaCIKPiAgCj4gICNkZWZpbmUgUExBVEZPUk0oeCkgLnBsYXRmb3JtID0gKHgpCj4gLSNk
+ZWZpbmUgR0VOKHgpIC5nZW4gPSAoeCksIC5nZW5fbWFzayA9IEJJVCgoeCkgLSAxKSwgLmRpc3Bs
+YXkudmVyID0gKHgpCj4gKyNkZWZpbmUgR0VOKHgpIFwKPiArCS5nZW5fbWFzayA9IEJJVCgoeCkg
+LSAxKSwgXAo+ICsJLmdlbiA9ICh4KSwgXAo+ICsJLmdyYXBoaWNzX3ZlciA9ICh4KSwgXAo+ICsJ
+Lm1lZGlhX3ZlciA9ICh4KSwgXAo+ICsJLmRpc3BsYXkudmVyID0gKHgpCj4gIAo+ICAjZGVmaW5l
+IEk4NDVfUElQRV9PRkZTRVRTIFwKPiAgCS5waXBlX29mZnNldHMgPSB7IFwKPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNlX2luZm8uaCBiL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2ludGVsX2RldmljZV9pbmZvLmgKPiBpbmRleCBiMTZjNzU5MjdhMTIuLjQwNTg4
+M2E4Y2M4NCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2Vf
+aW5mby5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNlX2luZm8uaAo+
+IEBAIC0xNjIsNiArMTYyLDkgQEAgZW51bSBpbnRlbF9wcGd0dF90eXBlIHsKPiAgc3RydWN0IGlu
+dGVsX2RldmljZV9pbmZvIHsKPiAgCXUxNiBnZW5fbWFzazsKPiAgCj4gKwl1OCBncmFwaGljc192
+ZXI7Cj4gKwl1OCBtZWRpYV92ZXI7Cj4gKwo+ICAJdTggZ2VuOwo+ICAJdTggZ3Q7IC8qIEdUIG51
+bWJlciwgMCBpZiB1bmRlZmluZWQgKi8KPiAgCWludGVsX2VuZ2luZV9tYXNrX3QgcGxhdGZvcm1f
+ZW5naW5lX21hc2s7IC8qIEVuZ2luZXMgc3VwcG9ydGVkIGJ5IHRoZSBIVyAqLwoKLS0gCkphbmkg
+TmlrdWxhLCBJbnRlbCBPcGVuIFNvdXJjZSBHcmFwaGljcyBDZW50ZXIKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJ
+bnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
