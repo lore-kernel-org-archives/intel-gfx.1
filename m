@@ -5,82 +5,79 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56C93C43462
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 12:11:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F9A7C43470
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 12:11:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1445B6023C
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 12:11:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1445B6023C
+	by mail.kernel.org (Postfix) with ESMTPS id D26926023C
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 12:11:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D26926023C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E48489DEA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E963E89F38;
 	Tue, 13 Apr 2021 12:11:15 +0000 (UTC)
 Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
  [66.111.4.224])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB2089DEA;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E16B89E14;
  Tue, 13 Apr 2021 12:11:13 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id 2500758043B;
- Tue, 13 Apr 2021 08:11:12 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 13 Apr 2021 08:11:12 -0400
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 96B8B58037A;
+ Tue, 13 Apr 2021 08:11:10 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Tue, 13 Apr 2021 08:11:10 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=zstF2kI0HrVH1
- HQPqUiHA1fhN+BOhvPMMfpaIAmuoU0=; b=l5jZl7acAXE10AcUXo5cSwFI1gR+W
- 7kx3F1P9tnsjYuj646ADeDsdv8c6IFu1jw7cKWE52k4R4pPhXkWtsAPWndSz0Itl
- 2svOTmfBHPGBA5lJ7m7XiHVVpMkVu6Hopk/2wcQI6kdfPyKiXyG6aFupR0EoSXA2
- Wb4821LCEnt3EYz0T37mRSNyyYrgCVcqdebXpL6p0Uvq35D5qjihFwjaHdm58WnW
- j5KOujPx4MkTFSiqVWblMXqAcr200W4fgzEdncQiPyj8D1033Pc0BWbqnIbPP2C0
- 3f7OFopB0rsPU4ZjXtbK+CZd1MWfEcz/BZURd7Q6/Ho2XBHoEt474Yg0A==
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=cbuXGXgLaupvjIq688HiNFaXJU
+ 6ajc1vYG74Y5TUPqo=; b=tujpqvXWAeMSn+Iud1rrp39cxnmCwwMYPwb3bM6sfv
+ 37aw84wL+3GvX9CuXK8+m46Xa0Dx4nhumPBFspq/ug8Wq67qpgyCQTLNUHbQq6n5
+ pZ8/6Ue40NZScCZ3Rn9kY70SOaDdWXLfi8abdPtkLGBZ+L7rzrMB16GxMQqrTibm
+ 0AjDcQ5LTahPNYiUS1xplN1HtQ1IwcYso29V+C0p2LDsMMxlxmI7i/kHpedRXpA+
+ AvkobIQfhL4ezySB8D5Vwl5kBDaaeD4bYTUUHp/BsC580g85iOv8d/z6ezQC8SpY
+ 53quJbjdJrjgroNRqe6k5C7hSQL180qPQpMfcE0grBKA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=zstF2kI0HrVH1HQPqUiHA1fhN+BOhvPMMfpaIAmuoU0=; b=OG+9lCST
- xAdJIfUGsfzi3tgVG4lQ3n+zY56sqDUNepavJpD9MAV5bbCDyA8zjWvTeU0U8nzi
- hSW7FTIrl9PHtaf1gdwKx1kIdMfp/M8ycxFDUih1wEuosrfaRGBkPGyrqYyKDI9i
- k09I1re5TkavvUbptNlBM+VdhrbyHBUscledU7GDzQTZrduN9bd2J7pHecUl0/w+
- TqVKZSE/n8EnXwJX5dcMfYSoxAxlVAQ8y+7SscWO+x7jRCsQsM3EPkmLcqNzQwTT
- cA6y9I//gSO5IthzJG6kt2TTr/DRB5KyxmmlhcqoLno4iuUnZcXqRjWT8gZqNDP7
- D4/+EF0gcWStkA==
-X-ME-Sender: <xms:YIp1YJ-TTAs0QWPfsbEt-g7HYfyP2kVpdsZdU8fP6hVWuiwQheM4NQ>
- <xme:YIp1YBiJhNyD6ezBOeEgxvKjCLg_xfJyxzM62vUP2yCsU5LeH4I43-QxlOTl_J7-Z
- L79JWQ2YjmLsn2p-TY>
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=cbuXGXgLaupvjIq68
+ 8HiNFaXJU6ajc1vYG74Y5TUPqo=; b=tvv5NuVq4iFFw/HyUJZtE8AzUUC0EfxAz
+ Sd3z4qSb6TXq5druZhtnmqLVUWcqvkHvPZJA0dGzjyv2kvYVnBrrcZnLyJVK5dVX
+ 9+Q7sVV8fiMvRsHPVkess7E9KEAQmCWKODB4jZmnMaOVA+AvUg2cwGY5p3NsAUtD
+ oWRchrvoKiZ5+bLyYHYzPU/E6vyfKb4MRao8kwqbQpe6gToiSD9Ur0tlb6ZJ92ax
+ HMthUay6g2x0HaW93wh6T05LexrG9B2bsrjoZS+E0jeGA19yU4pw1BfKUZSaN0as
+ qA3R3EeAS2rI9MxPwi2d6hfKEMYlbHEqrjJHnqWBoUfDCmBzTHg8w==
+X-ME-Sender: <xms:W4p1YABo0yVadzZXjLw4BSySjTRDU-qjkjuDEEUHdQRuqgGS6bp2rA>
+ <xme:W4p1YCfJ6FJLy44n7G8l1dammo0XxBqmUb9ltx1xrIF03VadlIbwvK7FGj_ELmAW3
+ PcTh_mlshMY-iMYz6c>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudekledggeelucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephffvufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepvdekleevfeffkeejhfffueelteelfeduieefheduudfggffhhfffheevveeh
- hedvnecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
- frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:YIp1YAFPB3wiWOqb2oNKOHZDHtj1p33sMyGorU5GA-5ZyRx9puSbyA>
- <xmx:YIp1YA_l3YbAQB8jlWAc4CNQIxiFYzWw1wD_N40W2_Iywn6SDQiXcA>
- <xmx:YIp1YHz8goJatFpfcbra7IPMQ9Jf86LFFVixwO2PR7Uij9RZFdiPfw>
- <xmx:YIp1YCpRC22a2jhcrmf0a5IGn0Y71ZKsa9xQ0j_Y3u3B9f_7WkT-hA>
+ cujfgurhephffvufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeforgigihhmvgcu
+ tfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvg
+ hrnhepjeffheduvddvvdelhfegleelfffgieejvdehgfeijedtieeuteejteefueekjeeg
+ necukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrg
+ hrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:W4p1YAel71TL6qfdXAnxyQ7nyjc0NAsrXFNQQmuSFnKhpO8PTagDyA>
+ <xmx:W4p1YOh6bG4ktCX6o1FHHVpR7pI3ZWw9af6oTOx2_k9gkGGXw8AMqQ>
+ <xmx:W4p1YETOewf2IL2MIRMK-tOOZkgKkX1nQmAeaOcuTLxH__McGF6g4A>
+ <xmx:Xop1YHpOybSvxgqLY0oD_aNsO5vuftlYybUhxqY7r2Ex50L2h8kwMQ>
 Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
  [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id B1DF8108005F;
- Tue, 13 Apr 2021 08:11:11 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id EDC6E24005A;
+ Tue, 13 Apr 2021 08:11:06 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
 To: dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
  David Airlie <airlied@linux.ie>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>
-Date: Tue, 13 Apr 2021 14:11:03 +0200
-Message-Id: <20210413121104.375789-4-maxime@cerno.tech>
+Date: Tue, 13 Apr 2021 14:11:00 +0200
+Message-Id: <20210413121104.375789-1-maxime@cerno.tech>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210413121104.375789-1-maxime@cerno.tech>
-References: <20210413121104.375789-1-maxime@cerno.tech>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 4/5] drm/connector: Add a helper to attach
- the colorspace property
+Subject: [Intel-gfx] [PATCH v2 1/5] drm/connector: Create a helper to attach
+ the hdr_output_metadata property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,86 +107,117 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The intel driver uses the same logic to attach the Colorspace property
-in multiple places and we'll need it in vc4 too. Let's move that common
-code in a helper.
+All the drivers that implement HDR output call pretty much the same
+function to initialise the hdr_output_metadata property, and while the
+creation of that property is in a helper, every driver uses the same
+code to attach it.
 
+Provide a helper for it as well
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Jernej Skrabec <jernej.skrabec@siol.net>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
 ---
 
 Changes from v1:
-  - New patch
+  - Rebased on latest drm-misc-next tag
+  - Added the tags
 ---
- drivers/gpu/drm/drm_connector.c               | 20 +++++++++++++++++++
- .../gpu/drm/i915/display/intel_connector.c    |  6 ++----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  3 +--
+ drivers/gpu/drm/drm_connector.c               | 21 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |  3 +--
  include/drm/drm_connector.h                   |  1 +
- 3 files changed, 23 insertions(+), 4 deletions(-)
+ 5 files changed, 25 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 55e39b462a5e..1e22ce718010 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7078,9 +7078,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	if (connector_type == DRM_MODE_CONNECTOR_HDMIA ||
+ 	    connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
+ 	    connector_type == DRM_MODE_CONNECTOR_eDP) {
+-		drm_object_attach_property(
+-			&aconnector->base.base,
+-			dm->ddev->mode_config.hdr_output_metadata_property, 0);
++		drm_connector_attach_hdr_output_metadata_property(&aconnector->base);
+ 
+ 		if (!aconnector->mst_port)
+ 			drm_connector_attach_vrr_capable_property(&aconnector->base);
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index dda4fa9a1a08..f24bbb840dbf 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -2492,8 +2492,7 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+ 	drm_connector_attach_max_bpc_property(connector, 8, 16);
+ 
+ 	if (hdmi->version >= 0x200a && hdmi->plat_data->use_drm_infoframe)
+-		drm_object_attach_property(&connector->base,
+-			connector->dev->mode_config.hdr_output_metadata_property, 0);
++		drm_connector_attach_hdr_output_metadata_property(connector);
+ 
+ 	drm_connector_attach_encoder(connector, hdmi->bridge.encoder);
+ 
 diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index b13021b1b128..6a20b249e533 100644
+index 7631f76e7f34..a4aa2d87af35 100644
 --- a/drivers/gpu/drm/drm_connector.c
 +++ b/drivers/gpu/drm/drm_connector.c
-@@ -2171,6 +2171,26 @@ int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *conn
+@@ -2150,6 +2150,27 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
  }
- EXPORT_SYMBOL(drm_connector_attach_hdr_output_metadata_property);
+ EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
  
 +/**
-+ * drm_connector_attach_colorspace_property - attach "Colorspace" property
++ * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
 + * @connector: connector to attach the property on.
 + *
-+ * This is used to allow the userspace to signal the output colorspace
-+ * to the driver.
++ * This is used to allow the userspace to send HDR Metadata to the
++ * driver.
 + *
 + * Returns:
 + * Zero on success, negative errno on failure.
 + */
-+int drm_connector_attach_colorspace_property(struct drm_connector *connector)
++int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *connector)
 +{
-+	struct drm_property *prop = connector->colorspace_property;
++	struct drm_device *dev = connector->dev;
++	struct drm_property *prop = dev->mode_config.hdr_output_metadata_property;
 +
-+	drm_object_attach_property(&connector->base, prop, DRM_MODE_COLORIMETRY_DEFAULT);
++	drm_object_attach_property(&connector->base, prop, 0);
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL(drm_connector_attach_colorspace_property);
++EXPORT_SYMBOL(drm_connector_attach_hdr_output_metadata_property);
 +
  /**
-  * drm_connector_atomic_hdr_metadata_equal - checks if the hdr metadata changed
-  * @old_state: old connector state to compare
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index d5ceb7bdc14b..9bed1ccecea0 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -282,14 +282,12 @@ void
- intel_attach_hdmi_colorspace_property(struct drm_connector *connector)
- {
- 	if (!drm_mode_create_hdmi_colorspace_property(connector))
--		drm_object_attach_property(&connector->base,
--					   connector->colorspace_property, 0);
-+		drm_connector_attach_colorspace_property(connector);
- }
+  * drm_connector_set_vrr_capable_property - sets the variable refresh rate
+  * capable property for a connector
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 95919d325b0b..f2f1b025e6ba 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2965,8 +2965,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
+ 	drm_connector_attach_content_type_property(connector);
  
- void
- intel_attach_dp_colorspace_property(struct drm_connector *connector)
- {
- 	if (!drm_mode_create_dp_colorspace_property(connector))
+ 	if (INTEL_GEN(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
 -		drm_object_attach_property(&connector->base,
--					   connector->colorspace_property, 0);
-+		drm_connector_attach_colorspace_property(connector);
- }
+-			connector->dev->mode_config.hdr_output_metadata_property, 0);
++		drm_connector_attach_hdr_output_metadata_property(connector);
+ 
+ 	if (!HAS_GMCH(dev_priv))
+ 		drm_connector_attach_max_bpc_property(connector, 8, 12);
 diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 1f51d73ca715..714d1a01c065 100644
+index 1922b278ffad..32172dab8427 100644
 --- a/include/drm/drm_connector.h
 +++ b/include/drm/drm_connector.h
 @@ -1671,6 +1671,7 @@ int drm_connector_attach_scaling_mode_property(struct drm_connector *connector,
  					       u32 scaling_mode_mask);
  int drm_connector_attach_vrr_capable_property(
  		struct drm_connector *connector);
-+int drm_connector_attach_colorspace_property(struct drm_connector *connector);
- int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *connector);
- bool drm_connector_atomic_hdr_metadata_equal(struct drm_connector_state *old_state,
- 					     struct drm_connector_state *new_state);
++int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *connector);
+ int drm_mode_create_aspect_ratio_property(struct drm_device *dev);
+ int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector);
+ int drm_mode_create_dp_colorspace_property(struct drm_connector *connector);
 -- 
 2.30.2
 
