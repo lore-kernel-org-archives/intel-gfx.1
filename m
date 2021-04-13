@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B04ABC433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 05:11:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A0F5C43461
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 05:11:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C8A9613A9
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 05:11:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C8A9613A9
+	by mail.kernel.org (Postfix) with ESMTPS id E8861611CE
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 05:11:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8861611CE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 836736E22F;
-	Tue, 13 Apr 2021 05:10:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 206756E314;
+	Tue, 13 Apr 2021 05:10:57 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7B9A6E1BD
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 089626E140
  for <intel-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 05:10:48 +0000 (UTC)
-IronPort-SDR: N0qHw+dCErxzrIjaQf4YcosUagYKseTnahKkmowQZjNdlGokQKWMSWJaTMtXVsoa997apSBtxD
- sFJ4I9T6mQhQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="194371991"
-X-IronPort-AV: E=Sophos;i="5.82,218,1613462400"; d="scan'208";a="194371991"
+IronPort-SDR: IFhcj4Gn8OKD5CRULGDxTPohwWrLpaK8nrVvKO/zA2a+kxPbpu5l7+/rkZA6R1ospor0BOjGlw
+ 11n0l6uemZ+w==
+X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="194371988"
+X-IronPort-AV: E=Sophos;i="5.82,218,1613462400"; d="scan'208";a="194371988"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Apr 2021 22:10:46 -0700
-IronPort-SDR: oGDwoLLD4tHWEXB8Q8T0s1Sj96Hu0pCPfLDa3sXePtb3POV69B1GbGKLwuqnHysS3BXkLJr1Fu
- 4OZrw9m0AtvQ==
-X-IronPort-AV: E=Sophos;i="5.82,218,1613462400"; d="scan'208";a="460450769"
+IronPort-SDR: YH1ro37fJuBNTGUqgenG+pBnU0olBaX/XBkrBndwNkd3c+V2As98HlvTqNYPROmTGmYkwvKoDm
+ cNFKu5ym3deg==
+X-IronPort-AV: E=Sophos;i="5.82,218,1613462400"; d="scan'208";a="460450760"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2021 22:10:45 -0700
+ 12 Apr 2021 22:10:44 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Apr 2021 22:10:00 -0700
-Message-Id: <20210413051002.92589-11-lucas.demarchi@intel.com>
+Date: Mon, 12 Apr 2021 22:09:57 -0700
+Message-Id: <20210413051002.92589-8-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210413051002.92589-1-lucas.demarchi@intel.com>
 References: <20210413051002.92589-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 10/12] drm/i915: finish removal of gen from
- intel_device_info
+Subject: [Intel-gfx] [PATCH v2 07/12] drm/i915/selftests: eliminate use of
+ gen_mask
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,87 +63,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that it's not being used anymore, finish its removal. Like for
-gen_mask, we replace INTEL_GEN() and IS_GEN()  macros to use the new
-field.
+Remove the remaining uses of INTEL_GEN_MASK() and the correspondent
+gen_mask in struct intel_device_info. This will allow the removal of
+gen_mask later since it's incompatible with the new per-IP versioning
+scheme.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h                  | 10 +++++-----
- drivers/gpu/drm/i915/i915_pci.c                  |  1 -
- drivers/gpu/drm/i915/intel_device_info.h         |  1 -
- drivers/gpu/drm/i915/selftests/mock_gem_device.c |  2 +-
- 4 files changed, 6 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/intel_uncore.c           | 8 +++++---
+ drivers/gpu/drm/i915/selftests/intel_uncore.c | 8 +++++---
+ 2 files changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index b984a340b21f..549ce0ce5bde 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1240,11 +1240,15 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
-  * Deprecated: this will be replaced by individual IP checks:
-  * GRAPHICS_VER(), MEDIA_VER and DISPLAY_VER()
-  */
--#define INTEL_GEN(dev_priv)		(INTEL_INFO(dev_priv)->gen)
-+#define INTEL_GEN(dev_priv)		GRAPHICS_VER(dev_priv)
- /*
-  * Deprecated: use IS_GRAPHICS_VER()
-  */
- #define IS_GEN_RANGE(dev_priv, s, e)	IS_GRAPHICS_VER(dev_priv, (s), (e))
-+/*
-+ * Deprecated: use GRAPHICS_VER()
-+ */
-+#define IS_GEN(dev_priv, n)		(GRAPHICS_VER(dev_priv) == (n))
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index 661b50191f2b..ed5abe7be498 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -2008,12 +2008,14 @@ void intel_uncore_fini_mmio(struct intel_uncore *uncore)
+ static const struct reg_whitelist {
+ 	i915_reg_t offset_ldw;
+ 	i915_reg_t offset_udw;
+-	u16 gen_mask;
++	u8 min_graphics_ver;
++	u8 max_graphics_ver;
+ 	u8 size;
+ } reg_read_whitelist[] = { {
+ 	.offset_ldw = RING_TIMESTAMP(RENDER_RING_BASE),
+ 	.offset_udw = RING_TIMESTAMP_UDW(RENDER_RING_BASE),
+-	.gen_mask = INTEL_GEN_MASK(4, 12),
++	.min_graphics_ver = 4,
++	.max_graphics_ver = 12,
+ 	.size = 8
+ } };
  
- #define GRAPHICS_VER(i915)		(INTEL_INFO(i915)->graphics_ver)
- #define IS_GRAPHICS_VER(i915, from, until) \
-@@ -1261,10 +1265,6 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
- #define REVID_FOREVER		0xff
- #define INTEL_REVID(dev_priv)	(to_pci_dev((dev_priv)->drm.dev)->revision)
+@@ -2038,7 +2040,7 @@ int i915_reg_read_ioctl(struct drm_device *dev,
+ 		GEM_BUG_ON(entry->size > 8);
+ 		GEM_BUG_ON(entry_offset & (entry->size - 1));
  
--#define IS_GEN(dev_priv, n) \
--	(BUILD_BUG_ON_ZERO(!__builtin_constant_p(n)) + \
--	 INTEL_INFO(dev_priv)->gen == (n))
--
- #define HAS_DSB(dev_priv)	(INTEL_INFO(dev_priv)->display.has_dsb)
+-		if (INTEL_INFO(i915)->gen_mask & entry->gen_mask &&
++		if (IS_GRAPHICS_VER(i915, entry->min_graphics_ver, entry->max_graphics_ver) &&
+ 		    entry_offset == (reg->offset & -entry->size))
+ 			break;
+ 		entry++;
+diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+index 0e4e6be0101d..f76c9bcec735 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
++++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+@@ -125,17 +125,19 @@ static int live_forcewake_ops(void *arg)
+ {
+ 	static const struct reg {
+ 		const char *name;
++		u8 min_graphics_ver;
++		u8 max_graphics_ver;
+ 		unsigned long platforms;
+ 		unsigned int offset;
+ 	} registers[] = {
+ 		{
+ 			"RING_START",
+-			INTEL_GEN_MASK(6, 7),
++			6, 7,
+ 			0x38,
+ 		},
+ 		{
+ 			"RING_MI_MODE",
+-			INTEL_GEN_MASK(8, BITS_PER_LONG),
++			8, U8_MAX,
+ 			0x9c,
+ 		}
+ 	};
+@@ -170,7 +172,7 @@ static int live_forcewake_ops(void *arg)
  
- /*
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 3b9cd1af0f28..1453c1436f31 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -37,7 +37,6 @@
- 
- #define PLATFORM(x) .platform = (x)
- #define GEN(x) \
--	.gen = (x), \
- 	.graphics_ver = (x), \
- 	.media_ver = (x), \
- 	.display.ver = (x)
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index b8f7b996f140..8ab4fa6c7fdd 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -163,7 +163,6 @@ struct intel_device_info {
- 	u8 graphics_ver;
- 	u8 media_ver;
- 
--	u8 gen;
- 	u8 gt; /* GT number, 0 if undefined */
- 	intel_engine_mask_t platform_engine_mask; /* Engines supported by the HW */
- 
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index 0188f877cab2..2ffc763fe90d 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -162,7 +162,7 @@ struct drm_i915_private *mock_gem_device(void)
- 	/* Using the global GTT may ask questions about KMS users, so prepare */
- 	drm_mode_config_init(&i915->drm);
- 
--	mkwrite_device_info(i915)->gen = -1;
-+	mkwrite_device_info(i915)->graphics_ver = -1;
- 
- 	mkwrite_device_info(i915)->page_sizes =
- 		I915_GTT_PAGE_SIZE_4K |
+ 	/* We have to pick carefully to get the exact behaviour we need */
+ 	for (r = registers; r->name; r++)
+-		if (r->platforms & INTEL_INFO(gt->i915)->gen_mask)
++		if (IS_GRAPHICS_VER(gt->i915, r->min_graphics_ver, r->max_graphics_ver))
+ 			break;
+ 	if (!r->name) {
+ 		pr_debug("Forcewaked register not known for %s; skipping\n",
 -- 
 2.31.1
 
