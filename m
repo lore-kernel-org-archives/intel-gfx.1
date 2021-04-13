@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F725C43460
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5FFFC43462
 	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 05:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD5BC611CE
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 05:11:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD5BC611CE
+	by mail.kernel.org (Postfix) with ESMTPS id A22C1611CE
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 05:11:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A22C1611CE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9316E214;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC49E6E222;
 	Tue, 13 Apr 2021 05:10:54 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46FEB6E140
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 05:10:48 +0000 (UTC)
-IronPort-SDR: 4Map2n5GU/iUrGaTlyWFQfi+5tmfqS5AX8JR7luM8I1d4dP0/mzsrIvS9c8rkL9PgQvmY+xzMw
- g8d/CM9isZ7Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="194371984"
-X-IronPort-AV: E=Sophos;i="5.82,218,1613462400"; d="scan'208";a="194371984"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F79D6E204
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 05:10:49 +0000 (UTC)
+IronPort-SDR: Y8O+TjfVLyTI33Do9gm8cNyew6srRFwm3FxUPGh3B4S84vm670gzFNuC2HAmvUdxjyWuqjPwgk
+ XvbGzow2Fv+Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="194371990"
+X-IronPort-AV: E=Sophos;i="5.82,218,1613462400"; d="scan'208";a="194371990"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Apr 2021 22:10:46 -0700
-IronPort-SDR: Pa2tM5KzQOfifISbI0SJEJm/P1WT1sSVAher5KDbObgorguKkOR+dKQqK8ekOLG5BtIzW9Cip4
- axuYj1Oyf9jA==
-X-IronPort-AV: E=Sophos;i="5.82,218,1613462400"; d="scan'208";a="460450751"
+IronPort-SDR: 5NrilwaGoXQDaSjpOjkduOB/4R0FAhTpg/tzkbTBOPemAXp3Jx/6ia1QJl1MDEAzXj62HKMB91
+ dV7+w0B0GzLw==
+X-IronPort-AV: E=Sophos;i="5.82,218,1613462400"; d="scan'208";a="460450766"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Apr 2021 22:10:44 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Apr 2021 22:09:54 -0700
-Message-Id: <20210413051002.92589-5-lucas.demarchi@intel.com>
+Date: Mon, 12 Apr 2021 22:09:59 -0700
+Message-Id: <20210413051002.92589-10-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210413051002.92589-1-lucas.demarchi@intel.com>
 References: <20210413051002.92589-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 04/12] drm/i915: add macros for graphics and
- media versions
+Subject: [Intel-gfx] [PATCH v2 09/12] drm/i915: eliminate remaining uses of
+ intel_device_info->gen
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,71 +58,137 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-TGlrZSBpdCB3YXMgZG9uZSBpbgpjb21taXQgMDFlYjE1YzkxNjVlICgiZHJtL2k5MTU6IEFkZCBE
-SVNQTEFZX1ZFUigpIGFuZCByZWxhdGVkIG1hY3JvcyIpCmFkZCB0aGUgY29ycmVzcG9uZGVudCBt
-YWNyb3MgZm9yIGdyYXBoaWNzIGFuZCBtZWRpYS4gR29pbmcgZm9yd2FyZCB3ZQp3aWxsIHByZWZl
-ciBjaGVja2luZyB0aGUgdmVyc2lvbnMgZm9yIHRoZSBzcGVjaWZpYyBJUHMgKGdyYXBoaWNzLCBt
-ZWRpYQphbmQgZGlzcGxheSkgcmF0aGVyIHRoYW4gZ3JvdXBpbmcgZXZlcnl0aGluZyB1bmRlciBh
-ICJnZW4iIHZlcnNpb24uCgpGb3IgY29uc2lzdGVuY3kgYW5kIHRvIG1ha2UgdGhlIG1haW50ZW5h
-bmNlIGVhc2llciwgaXQnZCBiZSBwcmVmZXJyZWQKbm90IHRvIG1peCB0aGUgKkdFTiogbWFjcm9z
-IHdpdGggdGhlIG5ldyBvbmVzLiBGb3Igb2xkZXIgcGxhdGZvcm1zIHdlCmNhbiBzaW1wbHkgY29u
-c2lkZXIgdGhhdCB0aGUgcHJldmlvdXMgImdlbiIgbnVtYmVyIHdpbGwgZXh0ZW5kIHRvIGFsbAoz
-IElQcy4gVGhlbiB3ZSBjYW4gc3RhcnQgcmVwbGFjaW5nIGl0cyB1c2UgaW4gdGhlIGRyaXZlci4g
-UmlnaHQgbm93IHRoaXMKcmVwbGFjZW1lbnQgaXMgbm90IGRvbmUgYW5kIG9ubHkgdGhlIGluZnJh
-c3RydWN0dXJlIGlzIHB1dCBpbiBwbGFjZS4KV2UgYWxzbyBsZWF2ZSBnZW4gYW5kIGdlbl9tYXNr
-IGluc2lkZSBzdHJ1Y3QgaW50ZWxfZGV2aWNlX2luZm8gd2hpbGUKaXQncyBzdGlsbCBiZWluZyB1
-c2VkIHRocm91Z2hvdXQgdGhlIGNvZGUuCgp2MjogUmVwdXJwb3NlIElTX3tHUkFQSElDUyxNRURJ
-QX1fVkVSKCkgbWFjcm9zIHRvIHdvcmsgd2l0aCBhIHJhbmdlCgpTaWduZWQtb2ZmLWJ5OiBMdWNh
-cyBEZSBNYXJjaGkgPGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IEpvc8Op
-IFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L2k5MTVfZHJ2LmggICAgICAgICAgfCAxNSArKysrKysrKysrKysrKy0KIGRyaXZl
-cnMvZ3B1L2RybS9pOTE1L2k5MTVfcGNpLmMgICAgICAgICAgfCAgNyArKysrKystCiBkcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5oIHwgIDMgKysrCiAzIGZpbGVzIGNoYW5n
-ZWQsIDIzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2
-LmgKaW5kZXggOTA3YzY2ZWZiNDY5Li5jYjU5ZWIwZjZjNWIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2k5MTVfZHJ2LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9k
-cnYuaApAQCAtMTIzNCw5ICsxMjM0LDIyIEBAIHN0YXRpYyBpbmxpbmUgc3RydWN0IGRybV9pOTE1
-X3ByaXZhdGUgKnBkZXZfdG9faTkxNShzdHJ1Y3QgcGNpX2RldiAqcGRldikKICNkZWZpbmUgUlVO
-VElNRV9JTkZPKGRldl9wcml2KQkoJihkZXZfcHJpdiktPl9fcnVudGltZSkKICNkZWZpbmUgRFJJ
-VkVSX0NBUFMoZGV2X3ByaXYpCSgmKGRldl9wcml2KS0+Y2FwcykKIAotI2RlZmluZSBJTlRFTF9H
-RU4oZGV2X3ByaXYpCShJTlRFTF9JTkZPKGRldl9wcml2KS0+Z2VuKQogI2RlZmluZSBJTlRFTF9E
-RVZJRChkZXZfcHJpdikJKFJVTlRJTUVfSU5GTyhkZXZfcHJpdiktPmRldmljZV9pZCkKIAorLyoK
-KyAqIERlcHJlY2F0ZWQ6IHRoaXMgd2lsbCBiZSByZXBsYWNlZCBieSBpbmRpdmlkdWFsIElQIGNo
-ZWNrczoKKyAqIEdSQVBISUNTX1ZFUigpLCBNRURJQV9WRVIgYW5kIERJU1BMQVlfVkVSKCkKKyAq
-LworI2RlZmluZSBJTlRFTF9HRU4oZGV2X3ByaXYpCQkoSU5URUxfSU5GTyhkZXZfcHJpdiktPmdl
-bikKKworI2RlZmluZSBHUkFQSElDU19WRVIoaTkxNSkJCShJTlRFTF9JTkZPKGk5MTUpLT5ncmFw
-aGljc192ZXIpCisjZGVmaW5lIElTX0dSQVBISUNTX1ZFUihpOTE1LCBmcm9tLCB1bnRpbCkgXAor
-CShHUkFQSElDU19WRVIoaTkxNSkgPj0gKGZyb20pICYmIEdSQVBISUNTX1ZFUihpOTE1KSA8PSAo
-dW50aWwpKQorCisjZGVmaW5lIE1FRElBX1ZFUihpOTE1KQkJCShJTlRFTF9JTkZPKGk5MTUpLT5t
-ZWRpYV92ZXIpCisjZGVmaW5lIElTX01FRElBX1ZFUihpOTE1LCBmcm9tLCB1bnRpbCkgXAorCShN
-RURJQV9WRVIoaTkxNSkgPj0gKGZyb20pICYmIE1FRElBX1ZFUihpOTE1KSA8PSAodW50aWwpKQor
-CiAjZGVmaW5lIERJU1BMQVlfVkVSKGk5MTUpCShJTlRFTF9JTkZPKGk5MTUpLT5kaXNwbGF5LnZl
-cikKICNkZWZpbmUgSVNfRElTUExBWV9WRVIoaTkxNSwgZnJvbSwgdW50aWwpIFwKIAkoRElTUExB
-WV9WRVIoaTkxNSkgPj0gKGZyb20pICYmIERJU1BMQVlfVkVSKGk5MTUpIDw9ICh1bnRpbCkpCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BjaS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvaTkxNV9wY2kuYwppbmRleCBjZTVjYmVhZjAzNmQuLjk3YWI3MzI3NjMzNCAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9wY2kuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pOTE1X3BjaS5jCkBAIC0zNiw3ICszNiwxMiBAQAogI2luY2x1ZGUgImk5MTVf
-c2VsZnRlc3QuaCIKIAogI2RlZmluZSBQTEFURk9STSh4KSAucGxhdGZvcm0gPSAoeCkKLSNkZWZp
-bmUgR0VOKHgpIC5nZW4gPSAoeCksIC5nZW5fbWFzayA9IEJJVCgoeCkgLSAxKSwgLmRpc3BsYXku
-dmVyID0gKHgpCisjZGVmaW5lIEdFTih4KSBcCisJLmdlbl9tYXNrID0gQklUKCh4KSAtIDEpLCBc
-CisJLmdlbiA9ICh4KSwgXAorCS5ncmFwaGljc192ZXIgPSAoeCksIFwKKwkubWVkaWFfdmVyID0g
-KHgpLCBcCisJLmRpc3BsYXkudmVyID0gKHgpCiAKICNkZWZpbmUgSTg0NV9QSVBFX09GRlNFVFMg
-XAogCS5waXBlX29mZnNldHMgPSB7IFwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2ludGVsX2RldmljZV9pbmZvLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2Vf
-aW5mby5oCmluZGV4IGIxNmM3NTkyN2ExMi4uNDA1ODgzYThjYzg0IDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5oCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2ludGVsX2RldmljZV9pbmZvLmgKQEAgLTE2Miw2ICsxNjIsOSBAQCBlbnVtIGludGVs
-X3BwZ3R0X3R5cGUgewogc3RydWN0IGludGVsX2RldmljZV9pbmZvIHsKIAl1MTYgZ2VuX21hc2s7
-CiAKKwl1OCBncmFwaGljc192ZXI7CisJdTggbWVkaWFfdmVyOworCiAJdTggZ2VuOwogCXU4IGd0
-OyAvKiBHVCBudW1iZXIsIDAgaWYgdW5kZWZpbmVkICovCiAJaW50ZWxfZW5naW5lX21hc2tfdCBw
-bGF0Zm9ybV9lbmdpbmVfbWFzazsgLyogRW5naW5lcyBzdXBwb3J0ZWQgYnkgdGhlIEhXICovCi0t
-IAoyLjMxLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+Replace gen with the new graphics_ver value and use GRAPHICS_VER()
+in those places.
+
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 22 +++++++++----------
+ drivers/gpu/drm/i915/i915_drv.c               |  2 +-
+ drivers/gpu/drm/i915/intel_device_info.c      |  2 +-
+ 3 files changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 5964e67c7d36..297143511f99 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -274,7 +274,7 @@ struct i915_execbuffer {
+ 		struct drm_mm_node node; /** temporary GTT binding */
+ 		unsigned long vaddr; /** Current kmap address */
+ 		unsigned long page; /** Currently mapped page index */
+-		unsigned int gen; /** Cached value of INTEL_GEN */
++		unsigned int graphics_ver; /** Cached value of GRAPHICS_VER */
+ 		bool use_64bit_reloc : 1;
+ 		bool has_llc : 1;
+ 		bool has_fence : 1;
+@@ -1049,10 +1049,10 @@ static void reloc_cache_init(struct reloc_cache *cache,
+ 	cache->page = -1;
+ 	cache->vaddr = 0;
+ 	/* Must be a variable in the struct to allow GCC to unroll. */
+-	cache->gen = INTEL_GEN(i915);
++	cache->graphics_ver = GRAPHICS_VER(i915);
+ 	cache->has_llc = HAS_LLC(i915);
+ 	cache->use_64bit_reloc = HAS_64BIT_RELOC(i915);
+-	cache->has_fence = cache->gen < 4;
++	cache->has_fence = cache->graphics_ver < 4;
+ 	cache->needs_unfenced = INTEL_INFO(i915)->unfenced_needs_alignment;
+ 	cache->node.flags = 0;
+ 	reloc_cache_clear(cache);
+@@ -1402,7 +1402,7 @@ static int __reloc_gpu_alloc(struct i915_execbuffer *eb,
+ 
+ 	err = eb->engine->emit_bb_start(rq,
+ 					batch->node.start, PAGE_SIZE,
+-					cache->gen > 5 ? 0 : I915_DISPATCH_SECURE);
++					cache->graphics_ver > 5 ? 0 : I915_DISPATCH_SECURE);
+ 	if (err)
+ 		goto skip_request;
+ 
+@@ -1503,14 +1503,14 @@ static int __reloc_entry_gpu(struct i915_execbuffer *eb,
+ 			      u64 offset,
+ 			      u64 target_addr)
+ {
+-	const unsigned int gen = eb->reloc_cache.gen;
++	const unsigned int ver = eb->reloc_cache.graphics_ver;
+ 	unsigned int len;
+ 	u32 *batch;
+ 	u64 addr;
+ 
+-	if (gen >= 8)
++	if (ver >= 8)
+ 		len = offset & 7 ? 8 : 5;
+-	else if (gen >= 4)
++	else if (ver >= 4)
+ 		len = 4;
+ 	else
+ 		len = 3;
+@@ -1522,7 +1522,7 @@ static int __reloc_entry_gpu(struct i915_execbuffer *eb,
+ 		return false;
+ 
+ 	addr = gen8_canonical_addr(vma->node.start + offset);
+-	if (gen >= 8) {
++	if (ver >= 8) {
+ 		if (offset & 7) {
+ 			*batch++ = MI_STORE_DWORD_IMM_GEN4;
+ 			*batch++ = lower_32_bits(addr);
+@@ -1542,7 +1542,7 @@ static int __reloc_entry_gpu(struct i915_execbuffer *eb,
+ 			*batch++ = lower_32_bits(target_addr);
+ 			*batch++ = upper_32_bits(target_addr);
+ 		}
+-	} else if (gen >= 6) {
++	} else if (ver >= 6) {
+ 		*batch++ = MI_STORE_DWORD_IMM_GEN4;
+ 		*batch++ = 0;
+ 		*batch++ = addr;
+@@ -1552,12 +1552,12 @@ static int __reloc_entry_gpu(struct i915_execbuffer *eb,
+ 		*batch++ = 0;
+ 		*batch++ = vma_phys_addr(vma, offset);
+ 		*batch++ = target_addr;
+-	} else if (gen >= 4) {
++	} else if (ver >= 4) {
+ 		*batch++ = MI_STORE_DWORD_IMM_GEN4 | MI_USE_GGTT;
+ 		*batch++ = 0;
+ 		*batch++ = addr;
+ 		*batch++ = target_addr;
+-	} else if (gen >= 3 &&
++	} else if (ver >= 3 &&
+ 		   !(IS_I915G(eb->i915) || IS_I915GM(eb->i915))) {
+ 		*batch++ = MI_STORE_DWORD_IMM | MI_MEM_VIRTUAL;
+ 		*batch++ = addr;
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index 825b45cb3543..e477d278ca73 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -794,7 +794,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		return PTR_ERR(i915);
+ 
+ 	/* Disable nuclear pageflip by default on pre-ILK */
+-	if (!i915->params.nuclear_pageflip && match_info->gen < 5)
++	if (!i915->params.nuclear_pageflip && match_info->graphics_ver < 5)
+ 		i915->drm.driver_features &= ~DRIVER_ATOMIC;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index de02207f6ec6..b58bc7bff65e 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -95,7 +95,7 @@ static const char *iommu_name(void)
+ void intel_device_info_print_static(const struct intel_device_info *info,
+ 				    struct drm_printer *p)
+ {
+-	drm_printf(p, "gen: %d\n", info->gen);
++	drm_printf(p, "graphics_ver: %u\n", info->graphics_ver);
+ 	drm_printf(p, "gt: %d\n", info->gt);
+ 	drm_printf(p, "iommu: %s\n", iommu_name());
+ 	drm_printf(p, "memory-regions: %x\n", info->memory_regions);
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
