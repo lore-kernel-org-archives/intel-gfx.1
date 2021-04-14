@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 259ECC433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 03:13:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BF92C433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 03:36:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D79EC613B1
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 03:13:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D79EC613B1
+	by mail.kernel.org (Postfix) with ESMTPS id B02EA613BB
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 03:36:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B02EA613BB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37F1D6E433;
-	Wed, 14 Apr 2021 03:13:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4307B6E43B;
+	Wed, 14 Apr 2021 03:36:06 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8A4296E433;
- Wed, 14 Apr 2021 03:13:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 00D226E43A;
+ Wed, 14 Apr 2021 03:36:05 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 8183CA00CC;
- Wed, 14 Apr 2021 03:13:42 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id E3B60A7E03;
+ Wed, 14 Apr 2021 03:36:05 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Date: Wed, 14 Apr 2021 03:13:42 -0000
-Message-ID: <161837002252.4306.12879637746608490400@emeril.freedesktop.org>
+Date: Wed, 14 Apr 2021 03:36:05 -0000
+Message-ID: <161837136589.4306.1728973750707076512@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210414022309.30898-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20210414022309.30898-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
- =?utf-8?q?m/i915=3A_FBC_cleanups?=
+References: <20210414023946.842-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20210414023946.842-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
+ =?utf-8?q?na=3A_Eliminate_sna=5Fmode=5Fwants=5Ftear=5Ffree=28=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,19 +57,20 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915: FBC cleanups
-URL   : https://patchwork.freedesktop.org/series/89036/
-State : warning
+Series: sna: Eliminate sna_mode_wants_tear_free()
+URL   : https://patchwork.freedesktop.org/series/89038/
+State : failure
 
 == Summary ==
 
-$ make htmldocs 2>&1 > /dev/null | grep i915
-./drivers/gpu/drm/i915/gem/i915_gem_shrinker.c:102: warning: Function parameter or member 'ww' not described in 'i915_gem_shrink'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'jump_whitelist' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'shadow_map' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'batch_map' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
+Applying: sna: Eliminate sna_mode_wants_tear_free()
+error: sha1 information is lacking or useless (src/sna/sna.h).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 sna: Eliminate sna_mode_wants_tear_free()
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
 
 _______________________________________________
