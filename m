@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4AD7C433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ADB5FC43460
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE1786120E
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE1786120E
+	by mail.kernel.org (Postfix) with ESMTPS id 6395F6120E
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6395F6120E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 454BC6E931;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EACE6E930;
 	Wed, 14 Apr 2021 11:51:07 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7C0A6E92E
- for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:51:05 +0000 (UTC)
-IronPort-SDR: 0XTQ26wQrNdnPsSucvUbTIT1fG2FmvAKfMhTiFo3rkOURuySDb/oqaI1t9R7Ot8yyOEThYTbku
- NkEkFQbJFSww==
-X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="174119571"
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="174119571"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9626C6E92C
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:51:03 +0000 (UTC)
+IronPort-SDR: 5D9lG+cQNNqZfEJ1U7utEqHWdSfyGAInjN+CI3BqJLgPB18fQmfPubHSc/dUql7TbwtsPfm6G6
+ 3FW1oQDj0WDw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="174119557"
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="174119557"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:51:05 -0700
-IronPort-SDR: TDNP3FO4Z4lOcNLEUw0puRy2a0eV+/V7MpDIR5UbJX3B6sRG0/9pN6mttLKPL2F9ujCqp/WDg8
- D2xJs6Kw4+Xw==
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965270"
+ 14 Apr 2021 04:51:03 -0700
+IronPort-SDR: kjoUtoHbHE/Eadsg4LX7Fgg3BAe10IMQuHEP+EELplCDeR3p8QJvQu4gEBsZMTpM1n08kiJt+P
+ puBosKpOh05w==
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965258"
 Received: from bdebhal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.205.119])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:51:04 -0700
+ 14 Apr 2021 04:51:02 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Apr 2021 12:50:23 +0100
-Message-Id: <20210414115028.168504-24-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 14 Apr 2021 12:50:21 +0100
+Message-Id: <20210414115028.168504-22-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 References: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 23/28] drm/i915: Use IS_GEN in intel_bios.c
+Subject: [Intel-gfx] [RFC 21/28] drm/i915: Allow render state to be compiled
+ out
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,32 +68,54 @@ From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/intel_bios.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/Makefile                |  8 ++++----
+ drivers/gpu/drm/i915/i915_gem_render_state.c | 10 ++++------
+ 2 files changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_bios.c b/drivers/gpu/drm/i915/intel_bios.c
-index aa4df6548771..15c18d24e4e9 100644
---- a/drivers/gpu/drm/i915/intel_bios.c
-+++ b/drivers/gpu/drm/i915/intel_bios.c
-@@ -391,15 +391,12 @@ parse_sdvo_panel_data(struct drm_i915_private *dev_priv,
- static int intel_bios_ssc_frequency(struct drm_i915_private *dev_priv,
- 				    bool alternate)
- {
--	switch (INTEL_GEN(dev_priv)) {
--	case 2:
-+	if (IS_GEN2(dev_priv))
- 		return alternate ? 66667 : 48000;
--	case 3:
--	case 4:
-+	else if (IS_GEN(dev_priv, 3, 4))
- 		return alternate ? 100000 : 96000;
--	default:
-+	else
- 		return alternate ? 100000 : 120000;
--	}
- }
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index f55cc028b2eb..dd523e037523 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -92,10 +92,10 @@ i915-y += intel_uc.o \
+ 	  intel_huc.o
  
- static void
+ # autogenerated null render state
+-i915-y += intel_renderstate_gen6.o \
+-	  intel_renderstate_gen7.o \
+-	  intel_renderstate_gen8.o \
+-	  intel_renderstate_gen9.o
++i915-$(CONFIG_DRM_I915_GEN6) += intel_renderstate_gen6.o
++i915-$(CONFIG_DRM_I915_GEN7) += intel_renderstate_gen7.o
++i915-$(CONFIG_DRM_I915_GEN8) += intel_renderstate_gen8.o
++i915-$(CONFIG_DRM_I915_GEN9) += intel_renderstate_gen9.o
+ 
+ # modesetting core code
+ i915-y += intel_audio.o \
+diff --git a/drivers/gpu/drm/i915/i915_gem_render_state.c b/drivers/gpu/drm/i915/i915_gem_render_state.c
+index f7fc0df251ac..26f7940049dc 100644
+--- a/drivers/gpu/drm/i915/i915_gem_render_state.c
++++ b/drivers/gpu/drm/i915/i915_gem_render_state.c
+@@ -45,16 +45,14 @@ render_state_get_rodata(const struct intel_engine_cs *engine)
+ 	if (engine->id != RCS)
+ 		return NULL;
+ 
+-	switch (INTEL_GEN(engine->i915)) {
+-	case 6:
++	if (IS_GEN6(engine->i915))
+ 		return &gen6_null_state;
+-	case 7:
++	else if (IS_GEN7(engine->i915))
+ 		return &gen7_null_state;
+-	case 8:
++	else if (IS_GEN8(engine->i915))
+ 		return &gen8_null_state;
+-	case 9:
++	else if (IS_GEN9(engine->i915))
+ 		return &gen9_null_state;
+-	}
+ 
+ 	return NULL;
+ }
 -- 
 2.27.0
 
