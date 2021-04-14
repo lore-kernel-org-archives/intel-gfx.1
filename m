@@ -2,129 +2,72 @@ Return-Path: <SRS0=lQef=JL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D6FBC43462
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:52:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD002C433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 12:14:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 034D760E09
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:52:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 034D760E09
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=synaptics.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5179360FF3
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 12:14:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5179360FF3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38F686E939;
-	Wed, 14 Apr 2021 11:52:50 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2065.outbound.protection.outlook.com [40.107.236.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D31706E44A;
- Wed, 14 Apr 2021 06:17:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=esAIjVuLZimaH9PdWi4dg8kAGI3Xl403zJqbl/Tladozx5QVDr748gNwa5YjTfr4jpEPIK+4MWsWSQF7pyq3UOmf4vJ4vMcNH3NUFGhjeeQYMS8gVDDuC3n6qn97XA0AZpn49erRu5x210xip67KdFtYMAVQFDJKg6FLrF9CKZ/7vZmodY1jveWdwa2zXRZs2nk2Xj4YjI0ucUDfyVMfKR6aQycy2bAxKnX+uD1OVIHF6tviZ/GWtht3wQfb+VHCP38+IUv6EcSppEA6z6u878tsJHD/eyWFKpjqJHkti6jXCjVz8Zf6zfMVc01BUXoLJGZl2mYxU5mAs9a36ExpVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ctm0BCMZoTWHosv2ES4NAqA5h2Q9d4q5DfdJJijMhgU=;
- b=e3apNk2eCwXlPIHm0oqZk98w2Z5uTIo9iaZXBHFL0GtdsdBSL+6n+34VjN+ZQQDYMHppkZUiAeYY28TrRCgnvLHc6vfnxi7JjzxC4XAw2fw73EBy3fnDhOBVSA2lEtShiKLLGBpjKLWhqdvVwwSZwjpLgZdsEEesBRMjBJDBvDkWJS3ZJv55jzWmni+bEMN3gT/WsZqe+YsJMMvWDrOpEO/zjnyPWhNTPFYual+tfRcW64HkBcwQKdEqdF14Wk/XPrYW7F99tB12Kw6fIqzgMRy0Ro7oNh6yjKvZYi1iK0DoGgmuqpJsdUsYRuKDWSoS9dTnIcu8gQXZoJsd3Gnomw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synaptics.com; dmarc=pass action=none
- header.from=synaptics.com; dkim=pass header.d=synaptics.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=Synaptics.onmicrosoft.com; s=selector2-Synaptics-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ctm0BCMZoTWHosv2ES4NAqA5h2Q9d4q5DfdJJijMhgU=;
- b=UBBlsZns/WNTzkDrFc0qd8WZiiqe5roDMXPocACMLrAA/sx01LJ84A0phA953qoxDLETUjr2XMLpCCYlEu2tK44v4NiEnoJ1bNjUhvuK+dgFPz84YvB2RXGTFi4kSnO/VDo/88oB8WuCc0a04dDuc1ALGOKMuN0J8OurcGmCd4U=
-Authentication-Results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none
- header.from=synaptics.com;
-Received: from BY5PR03MB5345.namprd03.prod.outlook.com (2603:10b6:a03:219::16)
- by BYAPR03MB4245.namprd03.prod.outlook.com (2603:10b6:a03:18::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.22; Wed, 14 Apr
- 2021 06:17:01 +0000
-Received: from BY5PR03MB5345.namprd03.prod.outlook.com
- ([fe80::8569:341f:4bc6:5b72]) by BY5PR03MB5345.namprd03.prod.outlook.com
- ([fe80::8569:341f:4bc6:5b72%8]) with mapi id 15.20.4020.022; Wed, 14 Apr 2021
- 06:17:01 +0000
-Date: Wed, 14 Apr 2021 14:16:53 +0800
-From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
-To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Message-ID: <20210414141653.07235214@xhacker.debian>
-In-Reply-To: <YHXN9lqtdvisT8gn@intel.com>
-References: <20210413170240.0d4ffa38@xhacker.debian>
- <YHXN9lqtdvisT8gn@intel.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-X-Originating-IP: [192.147.44.204]
-X-ClientProxiedBy: SJ0PR03CA0321.namprd03.prod.outlook.com
- (2603:10b6:a03:39d::26) To BY5PR03MB5345.namprd03.prod.outlook.com
- (2603:10b6:a03:219::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7852A6E402;
+	Wed, 14 Apr 2021 12:14:33 +0000 (UTC)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E388B6E2B4;
+ Wed, 14 Apr 2021 12:14:31 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id u20so22993642lja.13;
+ Wed, 14 Apr 2021 05:14:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=HAj7oPYY6ZVDD1rHO88cM3eLSuHN4CVgSyI+sBH8YOw=;
+ b=PqwGThBvkn/6xivzo1zHwiXwvxa9kNPu84xcdFA+ryFs4h785yo+SrHheLvitKrcwy
+ p7OPlDC08Fx3Ca+PpcelvT4hxebj0gs8Ye61b7sq1imA3ro+O+eQg47VO8v6XxCDRUx/
+ UHnTHDQfdoVfa0WLpYDYopgfN0kpDSUdesrmPcFryEpvg2Pr6eR6P4cbDFJa0OiBpMri
+ w9c4KCb2O6zzRZCzBiU8fPjMooJ4IIRiOiG9dRc5CFqDvYU297AG1oX6iYshW5SNIkxs
+ COXXCW5WvGdFwcBj/FjucwOw0fKgpVkWIL+YCSxQ1JzwCQ5iZcUf9x6+8V95uOms8MD3
+ 5beA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=HAj7oPYY6ZVDD1rHO88cM3eLSuHN4CVgSyI+sBH8YOw=;
+ b=VsYTx61Uq3dLkbSbOsSnOgBG+rjRm5lCUetz9/T/Y9gc4uQQjCfuRIyD7zVsbAZBVa
+ srXAjWfsA27XEFqpxvuciC9kZvwTXSRNLpqD4sNvohx4Z7JVVL/OWfYN/yMIugLeXCFv
+ 9nNIVlcgRPkwIKHec+lrIIqPNB3e+X0I+kAOpHGSOASqSnZ8tsXfF0V8Thoc67b+Ftd+
+ rYPkpaG8+NWA9vmdRmOc3v50dzS6oZr+of+QzBXUtb5YiitzBZytRyDOsvjFPMJjiaeX
+ PweuA5ZNorkC5KHeJb3o2Vl0xOb7gqVT3mx1zYxk2SkRRsxbbTwFdQlcYYV7TTt3tOyQ
+ w9FQ==
+X-Gm-Message-State: AOAM531GQ4sb5o9PhJKlrxo3Br4Ik8oWUqpfmU351tiv4od/KUzPlYQj
+ upzUs5PKV0AWxCqid6PXewM=
+X-Google-Smtp-Source: ABdhPJy4I2LqXMJcqI4lwSUARCC8BIwjvX6oPKwA0ZOBAKIbVfCCR/k+pejLKvUMzUB1iM3Iw6V8bA==
+X-Received: by 2002:a05:651c:1198:: with SMTP id
+ w24mr13630978ljo.29.1618402470336; 
+ Wed, 14 Apr 2021 05:14:30 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id n25sm103258lfi.234.2021.04.14.05.14.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Apr 2021 05:14:29 -0700 (PDT)
+Date: Wed, 14 Apr 2021 15:14:18 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20210414151418.47031ce1@eldfell>
+In-Reply-To: <20210414090815.453744-1-daniel.vetter@ffwll.ch>
+References: <20210413094904.3736372-12-daniel.vetter@ffwll.ch>
+ <20210414090815.453744-1-daniel.vetter@ffwll.ch>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from xhacker.debian (192.147.44.204) by
- SJ0PR03CA0321.namprd03.prod.outlook.com (2603:10b6:a03:39d::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.16 via Frontend
- Transport; Wed, 14 Apr 2021 06:16:58 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1a270b75-2d0a-4bc4-6494-08d8ff0cea52
-X-MS-TrafficTypeDiagnostic: BYAPR03MB4245:
-X-Microsoft-Antispam-PRVS: <BYAPR03MB424583A73CD734E1A8FA1178ED4E9@BYAPR03MB4245.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:331;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1mziHeXHbKqt0aSLSwuTcGIbUCQ8Ry1hAaDkmtCHV3BWBQ1IkZRHtvF5oUD4fzXBepf63iCEY6dS9GwQjAuPJw6mBXLjiB2AxTtvbY+qlhjy3alBzfdsfIknfU0qHSC5DTCBtN8DxjR0E88T6jqWeccttTOmIK2Lf4dUr00+fVoKazuni84aNRD+fuiobdoYu29SlsRGoX+95NY+uhA4cO8K/hUYcBxtvX3ciqFD+Hy18vauTRqE7WSAcp2W5GqYCk2n4u4ArL6B8kQLW0wMAYs/MaRhsrHvTTbHJoiuzy7o3tqxAx4SYrGqbtLG+xK7iMYzfYN2NaiP/7m5K3TMUDn5O3QfKDnJm2gnHolHKgxl6Z80PAI1GZHY/LyNp6lKtlQxarsHpmSooSuZkMfKxUapBhJSIP9o1NV4NZ672XIhh61UZkPWQI3w+Gr8XZknw8d3xz37l96J301uCFTqyDDC33n2yYYUmaNuphhm2X6NYFwc3dbIz+ScCsv9mIEWOHoi7724xpvzyShwmFjXFDiFHGjh4dJQARbBIJ3jwSe6GWBV9575zdFHSsCd66sCD2Cqdax6SwWuFGjKW6S/ufMp+WQrJvfhVs1qSvrU5h4dlocjLwEmOfIEfjalmnH8Czbx+qu0TknEqVgIo6/nYKE6AfTyo0+69BCUvw5M/6s=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR03MB5345.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(346002)(136003)(39850400004)(376002)(366004)(396003)(956004)(2906002)(38100700002)(186003)(1076003)(38350700002)(66946007)(478600001)(54906003)(6916009)(66574015)(83380400001)(9686003)(16526019)(6666004)(6506007)(26005)(4326008)(66556008)(316002)(7416002)(86362001)(7696005)(52116002)(5660300002)(8676002)(55016002)(66476007)(8936002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SXB1aThadVUxTy9mOVJTUnZiaSttYTRacU1hWnl2b0p1bElTVDV0dXduMWI0?=
- =?utf-8?B?cjZGTElPeUxja24zUHhjUmVOS2lSSkxRZzFrcHVnNDlYRDkxbXd4aFVhNVVE?=
- =?utf-8?B?UFEzaU14dFVmVE9yd2JJeDJQS3h0RVZqOE1vQ1JFby9qVk42Rm5Nd0xKbTBx?=
- =?utf-8?B?MFhVVStUYk5sT0M2cWRhZTBycVpzWnFMS053RnJhMjhudmlWVi9hRDN5ZkNu?=
- =?utf-8?B?VXZlK0pCWmFMVlpPNWxNdi9WcVNydFVDVko2UExIcU85bHJqV2dkekRxSjFx?=
- =?utf-8?B?ODdOVzRkVzMwV3RuVTNoclhJYUsrSys0bmttTTJLL2JBVTdGVkJYa3pZOXgx?=
- =?utf-8?B?SFV5aXhnUUk2RjE1S1BRSklPdXpSNlN1QnB0Zk02ODVac0JPMWdVWHBudlRF?=
- =?utf-8?B?Vll0U3o3REloMTUrL3gwQmEzVlJ6aGU0Y3J2bTl6Yzl3Y0pkLzZBS0NjWm4z?=
- =?utf-8?B?YWlabWN3UzVZTlFrcERpVVBxMXlkZzFUbXlpVlVCMm9LSlh0MExacklDSy95?=
- =?utf-8?B?a2JjYXZFTC9WMmJBYzh4cy9kSFhyM25Pd0FxNGpKNmlLWFJMRlJNYUlQc1Zs?=
- =?utf-8?B?MW5XWUFJQURLZEJSMkhycjU5WXlxdHVUMjRxVldDYmI5a2lSbFVVcjVFaGFQ?=
- =?utf-8?B?U01FdU5YQm5nN3F6QnRQejdXVURaVGNaNFhyR1RhWjNPNlZJMWkzR1NRcFR1?=
- =?utf-8?B?STROMWVhMjJOMnJjL2psc09JeDA2V3JnRG5QaXpaeHV5L1lKQXpNbU4zWGk1?=
- =?utf-8?B?eXRHNEhucERBYUxKeDdtaVFFVXBTWGFZcFNxeExrSlpOeWRZQTQzU1k0cjEv?=
- =?utf-8?B?eDM5cWVUbmpQc05YT0orOEF6OGRnTXdXTzc5LzdyUDFaUmFNSzM0ay9DTDFW?=
- =?utf-8?B?UVgwVVpiQkNRZ3JiOXNZSCsrYWkvQjFvVDcxWG9TdmtIKzBSeFdPUGVkdTFT?=
- =?utf-8?B?TXJIdDZGMkFnNGhmK0ZTS0UzNGUvaklNMW1LNTB3N0ltenFiUzdLdmhiNFZU?=
- =?utf-8?B?VWIzalFXeCtGdTlKQjEzbDhmaWw5TlZ6TjFUQTY3bXdFTW5ObkZjTzFnM2xQ?=
- =?utf-8?B?VUppVXEydmFnQytNSTRDdm9tVVJMWUp1aVJhZ1MvUm0xa0VXWEtGUUJRejNF?=
- =?utf-8?B?L2h2clI5ZHVtbk9SWEVGL3k3WEVHTis3aFBpTFRsZCtUM1JWWGQ1WE9UZ01E?=
- =?utf-8?B?R0NwaVg2UmtDSTNNVFZ4NHdpSTJjUDJpUVowQjQrYUhHNlZ0dXphOUIvazN2?=
- =?utf-8?B?VXpVR0t5b3NGNmJucjlERDc1SXkzbFZUSGE0OFRPbnkvcDlzWWZGaGZXSGx4?=
- =?utf-8?B?dndIcDZXWFBNTjBWQmp0emJHQy9iSjNkYS8wZUhRWjJhUHVSOXBxekZBWU9w?=
- =?utf-8?B?RHlOTTRadXRJYTQ2Mnc0ZEVvVlpwNzIwQ0Z3MzFKeXBhdFlNWExBaVRFbkxG?=
- =?utf-8?B?cEhiTWR1dE5yZ3M5SU5udVBWeDBPMGIyekZrSUpWLy9lQ1Q0Zk44dW81a2hS?=
- =?utf-8?B?cVJtZDE2MWFOVGFEWVBjWXdVc3M5bXUzZWRaRHcxR2dGQXhSQW9rMVo5UUdr?=
- =?utf-8?B?bGF1WE5KMDFKZTFpTWZXN3N5OGwyK0JWY3FCbVkvN1EzWGZieTF5dW9VVU9y?=
- =?utf-8?B?R1lCS05tSTlHQVdUeldEUmY1SnBOWkNUQWw1NkFoZ3FHNkNkcys0YmlqTUhX?=
- =?utf-8?B?dTVhMEkrRnQ5TE5FelllSEtjMksvd3RiTzBBS2g2YXBXK2Z1V1E3K0ZpT0ta?=
- =?utf-8?Q?1ZstA8ixTU+46pXPpQLI9V90XdrnFSaUsQiv2wm?=
-X-OriginatorOrg: synaptics.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a270b75-2d0a-4bc4-6494-08d8ff0cea52
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR03MB5345.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2021 06:17:01.0257 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zgv6/QScLfxv7+cJlLEnIA5YMGSvFRFBgY/QOm+vSbqTlKd6FIdfg6d4+qn8bml/V1ScRisIMwynXNiWtor5OQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4245
-X-Mailman-Approved-At: Wed, 14 Apr 2021 11:52:48 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix "mitigations" parsing if i915
- is builtin
+Subject: Re: [Intel-gfx] [PATCH] drm/modifiers: Enforce consistency between
+ the cap an IN_FORMATS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,60 +80,160 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: David Airlie <airlied@linux.ie>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Maxime Ripard <maxime@cerno.tech>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>
+Content-Type: multipart/mixed; boundary="===============2084490004=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAxMyBBcHIgMjAyMSAxOTo1OTozNCArMDMwMCBWaWxsZSBTeXJqw6Rsw6Qgd3JvdGU6
-CgoKPiAKPiBPbiBUdWUsIEFwciAxMywgMjAyMSBhdCAwNTowMjo0MFBNICswODAwLCBKaXNoZW5n
-IFpoYW5nIHdyb3RlOgo+ID4gSSBtZXQgYmVsb3cgZXJyb3IgZHVyaW5nIGJvb3Qgd2l0aCBpOTE1
-IGJ1aWx0aW4gaWYgcGFzcwo+ID4gImk5MTUubWl0aWdhdGlvbnM9b2ZmIjoKPiA+IFsgICAgMC4w
-MTU1ODldIEJvb3Rpbmcga2VybmVsOiBgb2ZmJyBpbnZhbGlkIGZvciBwYXJhbWV0ZXIgYGk5MTUu
-bWl0aWdhdGlvbnMnCj4gPgo+ID4gVGhlIHJlYXNvbiBpcyBzbGFiIHN1YnN5c3RlbSBpc24ndCBy
-ZWFkeSBhdCB0aGF0IHRpbWUsIHNvIGtzdHJkdXAoKQo+ID4gcmV0dXJucyBOVUxMLiBGaXggdGhp
-cyBpc3N1ZSBieSB1c2luZyBzdGFjayB2YXIgaW5zdGVhZCBvZiBrc3RyZHVwKCkuCj4gPgo+ID4g
-Rml4ZXM6IDk4NGNhZGVhMDMyYiAoImRybS9pOTE1OiBBbGxvdyB0aGUgc3lzYWRtaW4gdG8gb3Zl
-cnJpZGUgc2VjdXJpdHkgbWl0aWdhdGlvbnMiKQo+ID4gU2lnbmVkLW9mZi1ieTogSmlzaGVuZyBa
-aGFuZyA8SmlzaGVuZy5aaGFuZ0BzeW5hcHRpY3MuY29tPgo+ID4gLS0tCj4gPiAgZHJpdmVycy9n
-cHUvZHJtL2k5MTUvaTkxNV9taXRpZ2F0aW9ucy5jIHwgNyArKy0tLS0tCj4gPiAgMSBmaWxlIGNo
-YW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9taXRpZ2F0aW9ucy5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvaTkxNV9taXRpZ2F0aW9ucy5jCj4gPiBpbmRleCA4NGYxMjU5OGQxNDUuLjdkYWRm
-NDEwNjRlMCAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfbWl0aWdh
-dGlvbnMuYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9taXRpZ2F0aW9ucy5j
-Cj4gPiBAQCAtMjksMTUgKzI5LDEzIEBAIGJvb2wgaTkxNV9taXRpZ2F0ZV9jbGVhcl9yZXNpZHVh
-bHModm9pZCkKPiA+ICBzdGF0aWMgaW50IG1pdGlnYXRpb25zX3NldChjb25zdCBjaGFyICp2YWws
-IGNvbnN0IHN0cnVjdCBrZXJuZWxfcGFyYW0gKmtwKQo+ID4gIHsKPiA+ICAgICAgIHVuc2lnbmVk
-IGxvbmcgbmV3ID0gfjBVTDsKPiA+IC0gICAgIGNoYXIgKnN0ciwgKnNlcCwgKnRvazsKPiA+ICsg
-ICAgIGNoYXIgc3RyWzY0XSwgKnNlcCwgKnRvazsKPiA+ICAgICAgIGJvb2wgZmlyc3QgPSB0cnVl
-Owo+ID4gICAgICAgaW50IGVyciA9IDA7Cj4gPgo+ID4gICAgICAgQlVJTERfQlVHX09OKEFSUkFZ
-X1NJWkUobmFtZXMpID49IEJJVFNfUEVSX1RZUEUobWl0aWdhdGlvbnMpKTsKPiA+Cj4gPiAtICAg
-ICBzdHIgPSBrc3RyZHVwKHZhbCwgR0ZQX0tFUk5FTCk7Cj4gPiAtICAgICBpZiAoIXN0cikKPiA+
-IC0gICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07Cj4gPiArICAgICBzdHJuY3B5KHN0ciwgdmFs
-LCBzaXplb2Yoc3RyKSAtIDEpOyAgCj4gCj4gSSBkb24ndCB0aGluayBzdHJuY3B5KCkgZ3VhcmFu
-dGVlcyB0aGF0IHRoZSBzdHJpbmcgaXMgcHJvcGVybHkKPiB0ZXJtaW5hdGVkLgo+IAo+IEFsc28g
-Y29tbWl0IGIxYjZiZWQzYjUwMyAoInVzYjogY29yZTogZml4IHF1aXJrc19wYXJhbV9zZXQoKSB3
-cml0aW5nIHRvCj4gYSBjb25zdCBwb2ludGVyIikgbG9va3MgYnJva2VuIGFzIHdlbGwgZ2l2ZW4g
-eW91ciBmaW5kaW5ncywgYW5kCj4gYXJjaC91bS9kcml2ZXJzL3ZpcnRpb191bWwuYyBzZWVtcyB0
-byBzdWZmZXIgZnJvbSB0aGlzIGFzIHdlbGwuCgp3b3cgdGhhbmsgeW91IHNvIG11Y2guIEkgd2ls
-bCBzZW5kIG91dCBwYXRjaGVzIHRvIGZpeCB0aGVtIGFzIHdlbGwuCgo+IGtlcm5lbC9wYXJhbXMu
-YyBpdHNlbGYgc2VlbXMgdG8gaGF2ZSBzb21lIHNsYWJfaXNfYXZhaWxhYmxlKCkgbWFnaWMKPiBh
-cm91bmQga21hbGxvYygpLgo+IAo+IEkgdXNlZCB0aGUgZm9sbG93aW5nIGNvY2NpIHNuaXBwZXQg
-dG8gZmluZCB0aGVzZToKCk5pY2UgY29jY2kgc2NyaXB0LgoKCj4gQGZpbmRACj4gaWRlbnRpZmll
-ciBPLCBGOwo+IHBvc2l0aW9uIFBTOwo+IEBACj4gc3RydWN0IGtlcm5lbF9wYXJhbV9vcHMgTyA9
-IHsKPiAuLi4sCj4gICAgICAgICAuc2V0ID0gRkBQUwo+ICwuLi4KPiB9Owo+IAo+IEBhbGxvY0AK
-PiBpZGVudGlmaWVyIEFMTE9DID1+ICJeay4qKGFsbG9jfGR1cCkiOwo+IGlkZW50aWZpZXIgZmlu
-ZC5GOwo+IHBvc2l0aW9uIFBBOwo+IEBACj4gRiguLi4pIHsKPiA8Ky4uLgo+IEFMTE9DQFBBKC4u
-LikKPiAuLi4rPiAgCj4gfQo+IAo+IEBzY3JpcHQ6cHl0aG9uIGRlcGVuZHMgb24gYWxsb2NACj4g
-cHMgPDwgZmluZC5QUzsKPiBwYSA8PCBhbGxvYy5QQTsKPiBAQAo+IGNvY2NpbGliLnJlcG9ydC5w
-cmludF9yZXBvcnQocHNbMF0sICJzdHJ1Y3QiKQo+IGNvY2NpbGliLnJlcG9ydC5wcmludF9yZXBv
-cnQocGFbMF0sICJhbGxvYyIpCj4gCj4gVGhhdCBjb3VsZCBvZiBjb3Vyc2UgbWlzcyBhIGJ1bmNo
-IG1vcmUgaWYgdGhleSBhbGxvY2F0ZQo+IHZpYSBzb21lIG90aGVyIGZ1bmN0aW9uIEkgZGlkbid0
-IGNvbnNpZGVyLgo+IAo+IC0tCj4gVmlsbGUgU3lyasOkbMOkCj4gSW50ZWwKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxp
-c3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+--===============2084490004==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/HV0N1M8ikEtSC8hB+jqRRsS"; protocol="application/pgp-signature"
+
+--Sig_/HV0N1M8ikEtSC8hB+jqRRsS
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 14 Apr 2021 11:08:15 +0200
+Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+
+> It's very confusing for userspace to have to deal with inconsistencies
+> here, and some drivers screwed this up a bit. Most just ommitted the
+> format list when they meant to say that only linear modifier is
+> allowed, but some also meant that only implied modifiers are
+> acceptable (because actually none of the planes registered supported
+> modifiers).
+>=20
+> Now that this is all done consistently across all drivers, document
+> the rules and enforce it in the drm core.
+>=20
+> v2:
+> - Make the capability a link (Simon)
+> - Note that all is lost before 5.1.
+>=20
+> Acked-by: Maxime Ripard <maxime@cerno.tech>
+> Cc: Simon Ser <contact@emersion.fr>
+> Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
+> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> ---
+>  drivers/gpu/drm/drm_plane.c   | 18 +++++++++++++++++-
+>  include/drm/drm_mode_config.h |  2 ++
+>  2 files changed, 19 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+> index 0dd43882fe7c..20c7a1665414 100644
+> --- a/drivers/gpu/drm/drm_plane.c
+> +++ b/drivers/gpu/drm/drm_plane.c
+> @@ -128,6 +128,13 @@
+>   *     pairs supported by this plane. The blob is a struct
+>   *     drm_format_modifier_blob. Without this property the plane doesn't
+>   *     support buffers with modifiers. Userspace cannot change this prop=
+erty.
+> + *
+> + *     Note that userspace can check the &DRM_CAP_ADDFB2_MODIFIERS driver
+> + *     capability for general modifier support. If this flag is set then=
+ every
+> + *     plane will have the IN_FORMATS property, even when it only suppor=
+ts
+> + *     DRM_FORMAT_MOD_LINEAR. Before linux kernel release v5.1 there hav=
+e been
+> + *     various bugs in this area with inconsistencies between the capabi=
+lity
+> + *     flag and per-plane properties.
+>   */
+> =20
+>  static unsigned int drm_num_planes(struct drm_device *dev)
+> @@ -277,8 +284,14 @@ static int __drm_universal_plane_init(struct drm_dev=
+ice *dev,
+>  			format_modifier_count++;
+>  	}
+> =20
+> -	if (format_modifier_count)
+> +	/* autoset the cap and check for consistency across all planes */
+> +	if (format_modifier_count) {
+> +		WARN_ON(!config->allow_fb_modifiers &&
+> +			!list_empty(&config->plane_list));
+>  		config->allow_fb_modifiers =3D true;
+> +	} else {
+> +		WARN_ON(config->allow_fb_modifiers);
+> +	}
+> =20
+>  	plane->modifier_count =3D format_modifier_count;
+>  	plane->modifiers =3D kmalloc_array(format_modifier_count,
+> @@ -360,6 +373,9 @@ static int __drm_universal_plane_init(struct drm_devi=
+ce *dev,
+>   * drm_universal_plane_init() to let the DRM managed resource infrastruc=
+ture
+>   * take care of cleanup and deallocation.
+>   *
+> + * Drivers supporting modifiers must set @format_modifiers on all their =
+planes,
+> + * even those that only support DRM_FORMAT_MOD_LINEAR.
+> + *
+>   * Returns:
+>   * Zero on success, error code on failure.
+>   */
+> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> index ab424ddd7665..1ddf7783fdf7 100644
+> --- a/include/drm/drm_mode_config.h
+> +++ b/include/drm/drm_mode_config.h
+> @@ -909,6 +909,8 @@ struct drm_mode_config {
+>  	 * @allow_fb_modifiers:
+>  	 *
+>  	 * Whether the driver supports fb modifiers in the ADDFB2.1 ioctl call.
+> +	 * Note that drivers should not set this directly, it is automatically
+> +	 * set in drm_universal_plane_init().
+>  	 *
+>  	 * IMPORTANT:
+>  	 *
+
+Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+
+
+Thanks,
+pq
+
+--Sig_/HV0N1M8ikEtSC8hB+jqRRsS
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmB23JoACgkQI1/ltBGq
+qqclJg//dj0eoX3qj0VkTjM3GwqFlYyUZc4OoztvYUsFVT5zjmjeaA39NUtGJnny
+cGgCIi6vbWa0ZedQgcZA2Vii7CwHC66EsNscWqW1NSnwQ1cJvkWkkEy1pDrYuO9E
+Jm9wcrRuXvIOrtbn+Ov6UzxFRx5HMT2ew5MHQYlkz5Jl8XGe2WCThypqIluzI2rv
+XuMovCfeaC1/boBjwpYcRIrdeU7V/CvJFwI2zadekXFc8Nb4ZoaSWmysGts1/w33
+8vbDJ2IK+6BaHY85OTmzYVWVz/AHrjBOCQN2fmd9RmAWOOTxEkwf1Tx0AfsiPMvU
+me7fNsjosIKihmTE0p8EnBOJIwfm9k/fRrdbEMW3qfpSMlkghPidWyolfmGxW94A
+2eyEU3r5TgVsVeH0mC9GE6h9F2umVzW9ga2EZsrl3g9nmezSZxPhxxtaOhWXL87g
+G0NzktNvj1BBkHCA7cKyvtg5aSt0nY/Ho101z+MG7tougtjIOXulwbTe/3jVBCEZ
+GvilEKU2GHA58P4jazE7S5hOWbBaGmDx2+hOxtUY5B28e0IzyscjGAql+xE+gQS+
+2SJ+ocwwe1SRiXwTzyVozkojRT2l7O5O1wqapYC0JKvDzUPlntoO2M1x26it/+jJ
+0IQ/eiSQ4tG5S0xiUloCCWqSadnNtr1OerRGse3JMqNP09aLvEg=
+=1Ebx
+-----END PGP SIGNATURE-----
+
+--Sig_/HV0N1M8ikEtSC8hB+jqRRsS--
+
+--===============2084490004==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============2084490004==--
