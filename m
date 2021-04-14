@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35B00C433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E596C433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B913E613C0
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B913E613C0
+	by mail.kernel.org (Postfix) with ESMTPS id C3EA36120E
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3EA36120E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0B06E925;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC3156E92B;
 	Wed, 14 Apr 2021 11:51:03 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1883C6E923
- for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:50:55 +0000 (UTC)
-IronPort-SDR: bhZm6ztEKsGVmGAqV/Nn3HaHy+TvfoUFSO10L0+aIVV1VjpdG7fw8/WT/oq3vQ0adBLQTkfBVO
- x3ESf1rknE1g==
-X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="194732298"
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="194732298"
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76A726E92C
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:51:00 +0000 (UTC)
+IronPort-SDR: x5nPXRrFJz1a3ZTfbbvnWccFgDEckfRWNgNyQEhgrgxpmnlB0IINagkLzhv5nLkbd/HmCPQEzd
+ y0Mf4i+cenfg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="174119549"
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="174119549"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:50:54 -0700
-IronPort-SDR: vIp6MVf4R+3Hl45epxCWKKD8XKqmBHuZAAdlDivYuB/8HDUNkHLLjqwUIFcbm4JEm/Q9WKZsDS
- 0C003UqrH3wA==
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965208"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2021 04:51:00 -0700
+IronPort-SDR: uR92JKyQN1jmwRaOvRXWK9Qq5ttkmuE/pMo3ppjfm/0nRRL1KHdIvtgEB0+uK+qaxGl1341GSR
+ 9x4boaquCwNA==
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965235"
 Received: from bdebhal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.205.119])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:50:53 -0700
+ 14 Apr 2021 04:50:58 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Apr 2021 12:50:13 +0100
-Message-Id: <20210414115028.168504-14-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 14 Apr 2021 12:50:18 +0100
+Message-Id: <20210414115028.168504-19-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 References: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 13/28] drm/i915: Make Gen10 platform support
- optional
+Subject: [Intel-gfx] [RFC 18/28] drm/i915: Use Gen Kconfig items in IS_GEN
+ macro
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,84 +68,57 @@ From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig.platforms | 11 +++++++++++
- drivers/gpu/drm/i915/i915_drv.h        |  6 ++++--
- drivers/gpu/drm/i915/i915_pci.c        |  4 ++++
- 3 files changed, 19 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h | 31 ++++++++++++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig.platforms b/drivers/gpu/drm/i915/Kconfig.platforms
-index 5a7aeebee482..3d4d6deea0de 100644
---- a/drivers/gpu/drm/i915/Kconfig.platforms
-+++ b/drivers/gpu/drm/i915/Kconfig.platforms
-@@ -230,3 +230,14 @@ config DRM_I915_PLATFORM_INTEL_BROXTON
- 	help
- 	  Include support for Intel Coffeelake platforms.
- 
-+config DRM_I915_GEN10
-+	bool
-+
-+config DRM_I915_PLATFORM_INTEL_CANNONLAKE
-+	bool "Intel Cannonlake platform support"
-+	default y
-+	depends on DRM_I915
-+	select DRM_I915_GEN10
-+	help
-+	  Include support for Intel Cannonlake platforms.
-+
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 32b22b379a0c..90a83876b72d 100644
+index 4f140e95207e..0e65e0bc3d09 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -2611,7 +2611,7 @@ intel_info(const struct drm_i915_private *dev_priv)
- #define IS_KABYLAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_KABYLAKE)
- #define IS_GEMINILAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_GEMINILAKE)
- #define IS_COFFEELAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_COFFEELAKE)
--#define IS_CANNONLAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_CANNONLAKE)
-+#define IS_CANNONLAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_CANNONLAKE)
- #define IS_ICELAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_ICELAKE)
- #define IS_MOBILE(dev_priv)	((dev_priv)->info.is_mobile)
- #define IS_HSW_EARLY_SDV(dev_priv) (IS_HASWELL(dev_priv) && \
-@@ -2747,7 +2747,9 @@ intel_info(const struct drm_i915_private *dev_priv)
- #define IS_GEN9(dev_priv) \
- 	(IS_ENABLED(CONFIG_DRM_I915_GEN9) && \
- 	 ((dev_priv)->info.gen_mask & BIT(8)))
--#define IS_GEN10(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(9)))
-+#define IS_GEN10(dev_priv) \
-+	(IS_ENABLED(CONFIG_DRM_I915_GEN10) && \
-+	 ((dev_priv)->info.gen_mask & BIT(9)))
- #define IS_GEN11(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(10)))
+@@ -2557,13 +2557,42 @@ intel_info(const struct drm_i915_private *dev_priv)
+ 		(s) != GEN_FOREVER ? (s) - 1 : 0) \
+ )
  
- #define IS_LP(dev_priv)	(INTEL_INFO(dev_priv)->is_lp)
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 49b0cbfcd76c..4d0d84dec9df 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -629,6 +629,7 @@ static const struct intel_device_info intel_coffeelake_gt3_info = {
- 	.ddb_size = 1024, \
- 	GLK_COLORS
++#define __gen_test_mask(s, e) \
++({ \
++	u16 m__ = (u16)INTEL_GEN_MASK((s), (e)); \
++\
++	m__ &= ~BIT(0); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN2)) \
++		m__ &= ~BIT(1); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN3)) \
++		m__ &= ~BIT(2); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN4)) \
++		m__ &= ~BIT(3); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN5)) \
++		m__ &= ~BIT(4); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN6)) \
++		m__ &= ~BIT(5); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN7)) \
++		m__ &= ~BIT(6); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN8)) \
++		m__ &= ~BIT(7); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN9)) \
++		m__ &= ~BIT(8); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN10)) \
++		m__ &= ~BIT(9); \
++	if (!IS_ENABLED(CONFIG_DRM_I915_GEN11)) \
++		m__ &= ~BIT(10); \
++\
++	m__; \
++})
++
+ /*
+  * Returns true if Gen is in inclusive range [Start, End].
+  *
+  * Use GEN_FOREVER for unbound start and or end.
+  */
+ #define IS_GEN(dev_priv, s, e) \
+-	(!!((dev_priv)->info.gen_mask & INTEL_GEN_MASK((s), (e))))
++	(!!(__gen_test_mask((s), (e)) & (dev_priv)->info.gen_mask))
  
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_CANNONLAKE
- static const struct intel_device_info intel_cannonlake_info = {
- 	GEN10_FEATURES,
- 	.is_alpha_support = 1,
-@@ -636,6 +637,7 @@ static const struct intel_device_info intel_cannonlake_info = {
- 	.gen = 10,
- 	.gt = 2,
- };
-+#endif
- 
- #define GEN11_FEATURES \
- 	GEN10_FEATURES, \
-@@ -759,7 +761,9 @@ static const struct pci_device_id pciidlist[] = {
- 	INTEL_CFL_U_GT2_IDS(&intel_coffeelake_gt2_info),
- 	INTEL_CFL_U_GT3_IDS(&intel_coffeelake_gt3_info),
- #endif
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_CANNONLAKE
- 	INTEL_CNL_IDS(&intel_cannonlake_info),
-+#endif
- 	{0, 0, 0}
- };
- MODULE_DEVICE_TABLE(pci, pciidlist);
+ /*
+  * Return true if revision is in range [since,until] inclusive.
 -- 
 2.27.0
 
