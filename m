@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF254C43470
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 15:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23B30C43461
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 15:11:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9271C60E08
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 15:11:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9271C60E08
+	by mail.kernel.org (Postfix) with ESMTPS id CB87761155
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 15:11:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB87761155
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4BAA6E933;
-	Wed, 14 Apr 2021 15:11:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13BA06E931;
+	Wed, 14 Apr 2021 15:11:15 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E8E66E931
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 15:11:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73EDB6E92E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 15:11:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1618413071;
+ s=mimecast20190719; t=1618413069;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=9FFhvY6ZxnqT5eoC1FAyJyFCzDmRpxf/vMdYaTlRI98=;
- b=FfjoT9rA4BDyAgeofiyw2hF8bUIEcCB5Y34AnqExo1KpPBz1EhGwkMGYX6VFus8Z1STLQ2
- U/zjAiXa3i3vb25AT97zAWEYqzJgXFE3oszZpWCUKdreZ378TPeJG00cQDuR62eBB5Ky5O
- 4v0dnYIF06fRtt8ltKrW5daSXXOf5us=
+ bh=oTEm1YXuZr+fTIidrGX5xV4gZuwXWTzwVM8yjhpC2tQ=;
+ b=OB2KsfTxbxELb3/dbDlXtK1VjZgcJ8xgw2PWNsgPnUh2Q16QhxP6uVReDrR7e1c7/WXINU
+ SHU7Gt+OQHjaS2bhuToCI+kepNhJSDvKjC/aJDJYn5PoAPQ+kbZdiLvpFhz+QdieO55VhV
+ 5aDeI5nAnD5bbJ2zGUtfJzbg8pm/PWg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-351-wE_YVmpjPGiZi1XsKSoLHQ-1; Wed, 14 Apr 2021 11:11:09 -0400
-X-MC-Unique: wE_YVmpjPGiZi1XsKSoLHQ-1
+ us-mta-479-xnBPHUslM66ul3AGCtEokA-1; Wed, 14 Apr 2021 11:11:04 -0400
+X-MC-Unique: xnBPHUslM66ul3AGCtEokA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
  [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D3F781854E26;
- Wed, 14 Apr 2021 15:11:06 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2270087504E;
+ Wed, 14 Apr 2021 15:10:59 +0000 (UTC)
 Received: from x1.localdomain (ovpn-112-168.ams2.redhat.com [10.36.112.168])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 692445D6BA;
- Wed, 14 Apr 2021 15:11:03 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8FEFF5D6A8;
+ Wed, 14 Apr 2021 15:10:55 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -56,14 +56,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, Mark Gross <mgross@linux.intel.com>,
  Andy Shevchenko <andy@infradead.org>
-Date: Wed, 14 Apr 2021 17:10:43 +0200
-Message-Id: <20210414151049.95828-4-hdegoede@redhat.com>
+Date: Wed, 14 Apr 2021 17:10:41 +0200
+Message-Id: <20210414151049.95828-2-hdegoede@redhat.com>
 In-Reply-To: <20210414151049.95828-1-hdegoede@redhat.com>
 References: <20210414151049.95828-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Subject: [Intel-gfx] [PATCH resend 3/9] drm/privacy-screen: Add X86 specific
- arch init code
+Subject: [Intel-gfx] [PATCH resend 1/9] drm/connector: Add support for
+ privacy-screen properties (v4)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,6 +79,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Cc: Marco Trevisan <marco.trevisan@canonical.com>,
  Pekka Paalanen <pekka.paalanen@collabora.com>,
  Sebastien Bacher <seb128@ubuntu.com>,
+ Mario Limonciello <Mario.limonciello@dell.com>,
  intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
  platform-driver-x86@vger.kernel.org, Mark Pearson <markpearson@lenovo.com>,
  Mario Limonciello <mario.limonciello@outlook.com>
@@ -87,150 +88,273 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add X86 specific arch init code, which fills the privacy-screen lookup
-table by checking for various vendor specific ACPI interfaces for
-controlling the privacy-screen.
+From: Rajat Jain <rajatja@google.com>
 
-This initial version only checks for the Lenovo Thinkpad specific ACPI
-methods for privacy-screen control.
+Add support for generic electronic privacy screen properties, that
+can be added by systems that have an integrated EPS.
 
+Changes in v2 (Hans de Goede)
+- Create 2 properties, "privacy-screen sw-state" and
+  "privacy-screen hw-state", to deal with devices where the OS might be
+  locked out of making state changes
+- Write kerneldoc explaining how the 2 properties work together, what
+  happens when changes to the state are made outside of the DRM code's
+  control, etc.
+
+Changes in v3 (Hans de Goede)
+- Some small tweaks to the kerneldoc describing the 2 properties
+
+Changes in v4 (Hans de Goede)
+- Change the "Enabled, locked" and "Disabled, locked" hw-state enum value
+  names to "Enabled-locked" and "Disabled-locked". The xrandr command shows
+  all possible enum values separated by commas in its output, so having a
+  comma in an enum name is not a good idea.
+- Do not add a privacy_screen_hw_state member to drm_connector_state
+  since this property is immutable its value must be directly stored in the
+  obj->properties->values array
+
+Signed-off-by: Rajat Jain <rajatja@google.com>
+Co-authored-by: Hans de Goede <hdegoede@redhat.com>
+Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+Reviewed-by: Mario Limonciello <Mario.limonciello@dell.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/Makefile                 |  5 +-
- drivers/gpu/drm/drm_privacy_screen_x86.c | 82 ++++++++++++++++++++++++
- include/drm/drm_privacy_screen_machine.h |  5 ++
- 3 files changed, 91 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/drm_privacy_screen_x86.c
+ Documentation/gpu/drm-kms.rst     |   2 +
+ drivers/gpu/drm/drm_atomic_uapi.c |   4 ++
+ drivers/gpu/drm/drm_connector.c   | 101 ++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h       |  44 +++++++++++++
+ 4 files changed, 151 insertions(+)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 9a802605249d..75166bd53e00 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -58,11 +58,14 @@ drm_kms_helper-$(CONFIG_DRM_DP_CEC) += drm_dp_cec.o
- obj-$(CONFIG_DRM_KMS_HELPER) += drm_kms_helper.o
- obj-$(CONFIG_DRM_DEBUG_SELFTEST) += selftests/
+diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
+index 87e5023e3f55..36943f2b0c5d 100644
+--- a/Documentation/gpu/drm-kms.rst
++++ b/Documentation/gpu/drm-kms.rst
+@@ -475,6 +475,8 @@ Property Types and Blob Property Support
+ .. kernel-doc:: drivers/gpu/drm/drm_property.c
+    :export:
  
-+drm_privacy_screen_helper-y := drm_privacy_screen.o
-+drm_privacy_screen_helper-$(CONFIG_X86) += drm_privacy_screen_x86.o
-+obj-$(CONFIG_DRM_PRIVACY_SCREEN) += drm_privacy_screen_helper.o
++.. _standard_connector_properties:
 +
- obj-$(CONFIG_DRM)	+= drm.o
- obj-$(CONFIG_DRM_MIPI_DBI) += drm_mipi_dbi.o
- obj-$(CONFIG_DRM_MIPI_DSI) += drm_mipi_dsi.o
- obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
--obj-$(CONFIG_DRM_PRIVACY_SCREEN) += drm_privacy_screen.o
- obj-y			+= arm/
- obj-$(CONFIG_DRM_TTM)	+= ttm/
- obj-$(CONFIG_DRM_SCHED)	+= scheduler/
-diff --git a/drivers/gpu/drm/drm_privacy_screen_x86.c b/drivers/gpu/drm/drm_privacy_screen_x86.c
-new file mode 100644
-index 000000000000..f486d9087819
---- /dev/null
-+++ b/drivers/gpu/drm/drm_privacy_screen_x86.c
-@@ -0,0 +1,82 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright (C) 2020 Red Hat, Inc.
+ Standard Connector Properties
+ -----------------------------
+ 
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 268bb69c2e2f..d5339b683156 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -796,6 +796,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
+ 						   fence_ptr);
+ 	} else if (property == connector->max_bpc_property) {
+ 		state->max_requested_bpc = val;
++	} else if (property == connector->privacy_screen_sw_state_property) {
++		state->privacy_screen_sw_state = val;
+ 	} else if (connector->funcs->atomic_set_property) {
+ 		return connector->funcs->atomic_set_property(connector,
+ 				state, property, val);
+@@ -873,6 +875,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+ 		*val = 0;
+ 	} else if (property == connector->max_bpc_property) {
+ 		*val = state->max_requested_bpc;
++	} else if (property == connector->privacy_screen_sw_state_property) {
++		*val = state->privacy_screen_sw_state;
+ 	} else if (connector->funcs->atomic_get_property) {
+ 		return connector->funcs->atomic_get_property(connector,
+ 				state, property, val);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 7631f76e7f34..ca8a76decd4c 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -1244,6 +1244,46 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+  *	For DVI-I and TVout there is also a matching property "select subconnector"
+  *	allowing to switch between signal types.
+  *	DP subconnector corresponds to a downstream port.
 + *
-+ * Authors:
-+ * Hans de Goede <hdegoede@redhat.com>
++ * privacy-screen sw-state, privacy-screen hw-state:
++ *	These 2 optional properties can be used to query the state of the
++ *	electronic privacy screen that is available on some displays; and in
++ *	some cases also control the state. If a driver implements these
++ *	properties then both properties must be present.
++ *
++ *	"privacy-screen hw-state" is read-only and reflects the actual state
++ *	of the privacy-screen, possible values: "Enabled", "Disabled,
++ *	"Enabled-locked", "Disabled-locked". The locked states indicate
++ *	that the state cannot be changed through the DRM API. E.g. there
++ *	might be devices where the firmware-setup options, or a hardware
++ *	slider-switch, offer always on / off modes.
++ *
++ *	"privacy-screen sw-state" can be set to change the privacy-screen state
++ *	when not locked. In this case the driver must update the hw-state
++ *	property to reflect the new state on completion of the commit of the
++ *	sw-state property. Setting the sw-state property when the hw-state is
++ *	locked must be interpreted by the driver as a request to change the
++ *	state to the set state when the hw-state becomes unlocked. E.g. if
++ *	"privacy-screen hw-state" is "Enabled-locked" and the sw-state
++ *	gets set to "Disabled" followed by the user unlocking the state by
++ *	changing the slider-switch position, then the driver must set the
++ *	state to "Disabled" upon receiving the unlock event.
++ *
++ *	In some cases the privacy-screen's actual state might change outside of
++ *	control of the DRM code. E.g. there might be a firmware handled hotkey
++ *	which toggles the actual state, or the actual state might be changed
++ *	through another userspace API such as writing /proc/acpi/ibm/lcdshadow.
++ *	In this case the driver must update both the hw-state and the sw-state
++ *	to reflect the new value, overwriting any pending state requests in the
++ *	sw-state. Any pending sw-state requests are thus discarded.
++ *
++ *	Note that the ability for the state to change outside of control of
++ *	the DRM master process means that userspace must not cache the value
++ *	of the sw-state. Caching the sw-state value and including it in later
++ *	atomic commits may lead to overriding a state change done through e.g.
++ *	a firmware handled hotkey. Therefor userspace must not include the
++ *	privacy-screen sw-state in an atomic commit unless it wants to change
++ *	its value.
+  */
+ 
+ int drm_connector_create_standard_properties(struct drm_device *dev)
+@@ -2252,6 +2292,67 @@ int drm_connector_set_panel_orientation_with_quirk(
+ }
+ EXPORT_SYMBOL(drm_connector_set_panel_orientation_with_quirk);
+ 
++static const struct drm_prop_enum_list privacy_screen_enum[] = {
++	{ PRIVACY_SCREEN_DISABLED,		"Disabled" },
++	{ PRIVACY_SCREEN_ENABLED,		"Enabled" },
++	{ PRIVACY_SCREEN_DISABLED_LOCKED,	"Disabled-locked" },
++	{ PRIVACY_SCREEN_ENABLED_LOCKED,	"Enabled-locked" },
++};
++
++/**
++ * drm_connector_create_privacy_screen_properties - create the drm connecter's
++ *    privacy-screen properties.
++ * @connector: connector for which to create the privacy-screen properties
++ *
++ * This function creates the "privacy-screen sw-state" and "privacy-screen
++ * hw-state" properties for the connector. They are not attached.
 + */
++void
++drm_connector_create_privacy_screen_properties(struct drm_connector *connector)
++{
++	if (connector->privacy_screen_sw_state_property)
++		return;
 +
-+#include <linux/acpi.h>
-+#include <drm/drm_privacy_screen_machine.h>
++	/* Note sw-state only supports the first 2 values of the enum */
++	connector->privacy_screen_sw_state_property =
++		drm_property_create_enum(connector->dev, DRM_MODE_PROP_ENUM,
++				"privacy-screen sw-state",
++				privacy_screen_enum, 2);
 +
-+static struct drm_privacy_screen_lookup arch_lookup;
++	connector->privacy_screen_hw_state_property =
++		drm_property_create_enum(connector->dev,
++				DRM_MODE_PROP_IMMUTABLE | DRM_MODE_PROP_ENUM,
++				"privacy-screen hw-state",
++				privacy_screen_enum,
++				ARRAY_SIZE(privacy_screen_enum));
++}
++EXPORT_SYMBOL(drm_connector_create_privacy_screen_properties);
 +
-+struct arch_init_data {
-+	struct drm_privacy_screen_lookup lookup;
-+	bool (*detect)(void);
++/**
++ * drm_connector_attach_privacy_screen_properties - attach the drm connecter's
++ *    privacy-screen properties.
++ * @connector: connector on which to attach the privacy-screen properties
++ *
++ * This function attaches the "privacy-screen sw-state" and "privacy-screen
++ * hw-state" properties to the connector. The initial state of both is set
++ * to "Disabled".
++ */
++void
++drm_connector_attach_privacy_screen_properties(struct drm_connector *connector)
++{
++	if (!connector->privacy_screen_sw_state_property)
++		return;
++
++	drm_object_attach_property(&connector->base,
++				   connector->privacy_screen_sw_state_property,
++				   PRIVACY_SCREEN_DISABLED);
++
++	drm_object_attach_property(&connector->base,
++				   connector->privacy_screen_hw_state_property,
++				   PRIVACY_SCREEN_DISABLED);
++}
++EXPORT_SYMBOL(drm_connector_attach_privacy_screen_properties);
++
+ int drm_connector_set_obj_prop(struct drm_mode_object *obj,
+ 				    struct drm_property *property,
+ 				    uint64_t value)
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 1922b278ffad..067bb5b112db 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -320,6 +320,30 @@ struct drm_monitor_range_info {
+ 	u8 max_vfreq;
+ };
+ 
++/**
++ * enum drm_privacy_screen_status - privacy screen status
++ *
++ * This enum is used to track and control the state of the integrated privacy
++ * screen present on some display panels, via the "privacy-screen sw-state"
++ * and "privacy-screen hw-state" properties. Note the _LOCKED enum values
++ * are only valid for the "privacy-screen hw-state" property.
++ *
++ * @PRIVACY_SCREEN_DISABLED:
++ *  The privacy-screen on the panel is disabled
++ * @PRIVACY_SCREEN_ENABLED:
++ *  The privacy-screen on the panel is enabled
++ * @PRIVACY_SCREEN_DISABLED_LOCKED:
++ *  The privacy-screen on the panel is disabled and locked (cannot be changed)
++ * @PRIVACY_SCREEN_ENABLED_LOCKED:
++ *  The privacy-screen on the panel is enabled and locked (cannot be changed)
++ */
++enum drm_privacy_screen_status {
++	PRIVACY_SCREEN_DISABLED = 0,
++	PRIVACY_SCREEN_ENABLED,
++	PRIVACY_SCREEN_DISABLED_LOCKED,
++	PRIVACY_SCREEN_ENABLED_LOCKED,
 +};
 +
-+static acpi_status __init acpi_set_handle(acpi_handle handle, u32 level,
-+					  void *context, void **return_value)
-+{
-+	*(acpi_handle *)return_value = handle;
-+	return AE_CTRL_TERMINATE;
-+}
-+
-+static bool __init detect_thinkpad_privacy_screen(void)
-+{
-+	union acpi_object obj = { .type = ACPI_TYPE_INTEGER };
-+	struct acpi_object_list args = { .count = 1, .pointer = &obj, };
-+	acpi_handle ec_handle = NULL;
-+	unsigned long long output;
-+	acpi_status status;
-+
-+	/* Get embedded-controller handle */
-+	status = acpi_get_devices("PNP0C09", acpi_set_handle, NULL, &ec_handle);
-+	if (ACPI_FAILURE(status) || !ec_handle)
-+		return false;
-+
-+	/* And call the privacy-screen get-status method */
-+	status = acpi_evaluate_integer(ec_handle, "HKEY.GSSS", &args, &output);
-+	if (ACPI_FAILURE(status))
-+		return false;
-+
-+	return (output & 0x10000) ? true : false;
-+}
-+
-+static const struct arch_init_data arch_init_data[] __initconst = {
-+#if IS_ENABLED(CONFIG_THINKPAD_ACPI)
-+	{
-+		.lookup = {
-+			.dev_id = NULL,
-+			.con_id = NULL,
-+			.provider = "thinkpad_acpi",
-+		},
-+		.detect = detect_thinkpad_privacy_screen,
-+	},
-+#endif
-+};
-+
-+void __init drm_privacy_screen_arch_init(void)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(arch_init_data); i++) {
-+		if (!arch_init_data[i].detect())
-+			continue;
-+
-+		pr_info("Found '%s' privacy-screen provider\n",
-+			arch_init_data[i].lookup.provider);
-+
-+		/* Make a copy because arch_init_data is __initconst */
-+		arch_lookup = arch_init_data[i].lookup;
-+		drm_privacy_screen_lookup_add(&arch_lookup);
-+		break;
-+	}
-+}
-+
-+void __exit drm_privacy_screen_arch_exit(void)
-+{
-+	if (arch_lookup.provider)
-+		drm_privacy_screen_lookup_remove(&arch_lookup);
-+}
-diff --git a/include/drm/drm_privacy_screen_machine.h b/include/drm/drm_privacy_screen_machine.h
-index 55f4b4fd8e4e..0d2f2a443e8c 100644
---- a/include/drm/drm_privacy_screen_machine.h
-+++ b/include/drm/drm_privacy_screen_machine.h
-@@ -31,11 +31,16 @@ struct drm_privacy_screen_lookup {
- void drm_privacy_screen_lookup_add(struct drm_privacy_screen_lookup *lookup);
- void drm_privacy_screen_lookup_remove(struct drm_privacy_screen_lookup *lookup);
+ /*
+  * This is a consolidated colorimetry list supported by HDMI and
+  * DP protocol standard. The respective connectors will register
+@@ -781,6 +805,12 @@ struct drm_connector_state {
+ 	 */
+ 	u8 max_bpc;
  
-+#ifdef CONFIG_X86
-+void drm_privacy_screen_arch_init(void);
-+void drm_privacy_screen_arch_exit(void);
-+#else
- static inline void drm_privacy_screen_arch_init(void)
- {
- }
- static inline void drm_privacy_screen_arch_exit(void)
- {
- }
-+#endif
++	/**
++	 * @privacy_screen_sw_state: See :ref:`Standard Connector
++	 * Properties<standard_connector_properties>`
++	 */
++	enum drm_privacy_screen_status privacy_screen_sw_state;
++
+ 	/**
+ 	 * @hdr_output_metadata:
+ 	 * DRM blob property for HDR output metadata
+@@ -1380,6 +1410,18 @@ struct drm_connector {
+ 	 */
+ 	struct drm_property *max_bpc_property;
  
- #endif
++	/**
++	 * @privacy_screen_sw_state_property: Optional atomic property for the
++	 * connector to control the integrated privacy screen.
++	 */
++	struct drm_property *privacy_screen_sw_state_property;
++
++	/**
++	 * @privacy_screen_hw_state_property: Optional atomic property for the
++	 * connector to report the actual integrated privacy screen state.
++	 */
++	struct drm_property *privacy_screen_hw_state_property;
++
+ #define DRM_CONNECTOR_POLL_HPD (1 << 0)
+ #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
+ #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
+@@ -1698,6 +1740,8 @@ int drm_connector_set_panel_orientation_with_quirk(
+ 	int width, int height);
+ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+ 					  int min, int max);
++void drm_connector_create_privacy_screen_properties(struct drm_connector *conn);
++void drm_connector_attach_privacy_screen_properties(struct drm_connector *conn);
+ 
+ /**
+  * struct drm_tile_group - Tile group metadata
 -- 
 2.31.1
 
