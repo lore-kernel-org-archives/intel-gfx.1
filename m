@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 389C7C433ED
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DCDBEC433B4
 	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8151613C0
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8151613C0
+	by mail.kernel.org (Postfix) with ESMTPS id 8A6CF613C0
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8A6CF613C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49B996E924;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D40CE6E923;
 	Wed, 14 Apr 2021 11:50:56 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E296E91D
- for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:50:54 +0000 (UTC)
-IronPort-SDR: W0H+JhcXyvpneLXkb2j+GYinNUSjIuSIONbUaj6KbILOmmC3vAeriFz0SHCuDfzNV6ZlBcwJh/
- tsFHukCV5juw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="194732289"
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="194732289"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12CDA6E923
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:50:56 +0000 (UTC)
+IronPort-SDR: xQrEjx/aTdGuSONNAG3wTqlUdi+kK80DHThN5pCkSqm1/az8fRh9GU7KdbyNI6TatoSujngFrl
+ ORhiTVHTDN0Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="194732300"
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="194732300"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:50:53 -0700
-IronPort-SDR: kyoGkGND/ufoah0wc3J+gnylmeTEQZ7R535zkCSpeYCr1W0SvKQGHzLqJbOUkozBT6J84tCZij
- aWfPpTr0WoUQ==
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965203"
+ 14 Apr 2021 04:50:55 -0700
+IronPort-SDR: cNahLXrSzqgmIduP9GCdguAsidHP1BnDpC/Lv18aUkr4F6j27A2jcyhHIUGSfp2LSXXDSHas8X
+ YQTzC1kH2dbg==
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965213"
 Received: from bdebhal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.205.119])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:50:52 -0700
+ 14 Apr 2021 04:50:54 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Apr 2021 12:50:12 +0100
-Message-Id: <20210414115028.168504-13-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 14 Apr 2021 12:50:14 +0100
+Message-Id: <20210414115028.168504-15-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 References: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 12/28] drm/i915: Make Gen9 platform support
+Subject: [Intel-gfx] [RFC 14/28] drm/i915: Make Gen11 platform support
  optional
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,269 +68,73 @@ From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig.platforms | 44 +++++++++++++++++++++
- drivers/gpu/drm/i915/i915_drv.h        | 53 +++++++++++++++-----------
- drivers/gpu/drm/i915/i915_pci.c        | 22 +++++++++++
- 3 files changed, 96 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/Kconfig.platforms | 11 +++++++++++
+ drivers/gpu/drm/i915/i915_drv.h        |  6 ++++--
+ drivers/gpu/drm/i915/i915_pci.c        |  2 ++
+ 3 files changed, 17 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/Kconfig.platforms b/drivers/gpu/drm/i915/Kconfig.platforms
-index 346d440d049c..5a7aeebee482 100644
+index 3d4d6deea0de..4208222b2aaf 100644
 --- a/drivers/gpu/drm/i915/Kconfig.platforms
 +++ b/drivers/gpu/drm/i915/Kconfig.platforms
-@@ -186,3 +186,47 @@ config DRM_I915_PLATFORM_INTEL_CHERRYVIEW
- 	select DRM_I915_GEN8
+@@ -241,3 +241,14 @@ config DRM_I915_PLATFORM_INTEL_CANNONLAKE
  	help
- 	  Include support for Intel Cherryview platforms.
-+
-+config DRM_I915_GEN9
+ 	  Include support for Intel Cannonlake platforms.
+ 
++config DRM_I915_GEN11
 +	bool
 +
-+config DRM_I915_PLATFORM_INTEL_SKYLAKE
-+	bool "Intel Skylake platform support"
++config DRM_I915_PLATFORM_INTEL_ICELAKE
++	bool "Intel Icelake platform support"
 +	default y
 +	depends on DRM_I915
-+	select DRM_I915_GEN9
++	select DRM_I915_GEN11
 +	help
-+	  Include support for Intel Skylake platforms.
-+
-+config DRM_I915_PLATFORM_INTEL_BROXTON
-+	bool "Intel Broxton platform support"
-+	default y
-+	depends on DRM_I915
-+	select DRM_I915_GEN9
-+	help
-+	  Include support for Intel Broxton platforms.
-+
-+ config DRM_I915_PLATFORM_INTEL_GEMINILAKE
-+	bool "Intel Geminilake platform support"
-+	default y
-+	depends on DRM_I915
-+	select DRM_I915_GEN9
-+	help
-+	  Include support for Intel Geminilake platforms.
-+
-+ config DRM_I915_PLATFORM_INTEL_KABYLAKE
-+	bool "Intel Kabylake platform support"
-+	default y
-+	depends on DRM_I915
-+	select DRM_I915_GEN9
-+	help
-+	  Include support for Intel Kabylake platforms.
-+
-+ config DRM_I915_PLATFORM_INTEL_COFFEELAKE
-+	bool "Intel Coffeelake platform support"
-+	default y
-+	depends on DRM_I915
-+	select DRM_I915_GEN9
-+	help
-+	  Include support for Intel Coffeelake platforms.
++	  Include support for Intel Icelake platforms.
 +
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 6658015c4a9f..32b22b379a0c 100644
+index 90a83876b72d..fa5aa0e3a776 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -2606,11 +2606,11 @@ intel_info(const struct drm_i915_private *dev_priv)
- #define IS_CHERRYVIEW(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_CHERRYVIEW)
- #define IS_HASWELL(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_HASWELL)
- #define IS_BROADWELL(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_BROADWELL)
--#define IS_SKYLAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_SKYLAKE)
--#define IS_BROXTON(dev_priv)	IS_PLATFORM(dev_priv, INTEL_BROXTON)
--#define IS_KABYLAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_KABYLAKE)
--#define IS_GEMINILAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_GEMINILAKE)
--#define IS_COFFEELAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_COFFEELAKE)
-+#define IS_SKYLAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_SKYLAKE)
-+#define IS_BROXTON(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_BROXTON)
-+#define IS_KABYLAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_KABYLAKE)
-+#define IS_GEMINILAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_GEMINILAKE)
-+#define IS_COFFEELAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_COFFEELAKE)
- #define IS_CANNONLAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_CANNONLAKE)
- #define IS_ICELAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_ICELAKE)
+@@ -2612,7 +2612,7 @@ intel_info(const struct drm_i915_private *dev_priv)
+ #define IS_GEMINILAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_GEMINILAKE)
+ #define IS_COFFEELAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_COFFEELAKE)
+ #define IS_CANNONLAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_CANNONLAKE)
+-#define IS_ICELAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_ICELAKE)
++#define IS_ICELAKE(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_ICELAKE)
  #define IS_MOBILE(dev_priv)	((dev_priv)->info.is_mobile)
-@@ -2633,22 +2633,26 @@ intel_info(const struct drm_i915_private *dev_priv)
- #define IS_HSW_ULX(dev_priv)	(IS_HASWELL(dev_priv) && \
- 				 (INTEL_DEVID(dev_priv) == 0x0A0E || \
- 				  INTEL_DEVID(dev_priv) == 0x0A1E))
--#define IS_SKL_ULT(dev_priv)	(INTEL_DEVID(dev_priv) == 0x1906 || \
--				 INTEL_DEVID(dev_priv) == 0x1913 || \
--				 INTEL_DEVID(dev_priv) == 0x1916 || \
--				 INTEL_DEVID(dev_priv) == 0x1921 || \
--				 INTEL_DEVID(dev_priv) == 0x1926)
--#define IS_SKL_ULX(dev_priv)	(INTEL_DEVID(dev_priv) == 0x190E || \
--				 INTEL_DEVID(dev_priv) == 0x1915 || \
--				 INTEL_DEVID(dev_priv) == 0x191E)
--#define IS_KBL_ULT(dev_priv)	(INTEL_DEVID(dev_priv) == 0x5906 || \
--				 INTEL_DEVID(dev_priv) == 0x5913 || \
--				 INTEL_DEVID(dev_priv) == 0x5916 || \
--				 INTEL_DEVID(dev_priv) == 0x5921 || \
--				 INTEL_DEVID(dev_priv) == 0x5926)
--#define IS_KBL_ULX(dev_priv)	(INTEL_DEVID(dev_priv) == 0x590E || \
--				 INTEL_DEVID(dev_priv) == 0x5915 || \
--				 INTEL_DEVID(dev_priv) == 0x591E)
-+#define IS_SKL_ULT(dev_priv)	(IS_SKYLAKE(dev_priv) && \
-+				 (INTEL_DEVID(dev_priv) == 0x1906 || \
-+				  INTEL_DEVID(dev_priv) == 0x1913 || \
-+				  INTEL_DEVID(dev_priv) == 0x1916 || \
-+				  INTEL_DEVID(dev_priv) == 0x1921 || \
-+				  INTEL_DEVID(dev_priv) == 0x1926))
-+#define IS_SKL_ULX(dev_priv)	(IS_SKYLAKE(dev_priv) && \
-+				 (INTEL_DEVID(dev_priv) == 0x190E || \
-+				  INTEL_DEVID(dev_priv) == 0x1915 || \
-+				  INTEL_DEVID(dev_priv) == 0x191E))
-+#define IS_KBL_ULT(dev_priv)	(IS_KABYLAKE(dev_priv) && \
-+				 (INTEL_DEVID(dev_priv) == 0x5906 || \
-+				  INTEL_DEVID(dev_priv) == 0x5913 || \
-+				  INTEL_DEVID(dev_priv) == 0x5916 || \
-+				  INTEL_DEVID(dev_priv) == 0x5921 || \
-+				  INTEL_DEVID(dev_priv) == 0x5926))
-+#define IS_KBL_ULX(dev_priv)	(IS_KABYLAKE(dev_priv) && \
-+				 (INTEL_DEVID(dev_priv) == 0x590E || \
-+				  INTEL_DEVID(dev_priv) == 0x5915 || \
-+				  INTEL_DEVID(dev_priv) == 0x591E))
- #define IS_SKL_GT2(dev_priv)	(IS_SKYLAKE(dev_priv) && \
- 				 (dev_priv)->info.gt == 2)
- #define IS_SKL_GT3(dev_priv)	(IS_SKYLAKE(dev_priv) && \
-@@ -2679,7 +2683,8 @@ intel_info(const struct drm_i915_private *dev_priv)
- #define SKL_REVID_G0		0x6
- #define SKL_REVID_H0		0x7
+ #define IS_HSW_EARLY_SDV(dev_priv) (IS_HASWELL(dev_priv) && \
+ 				    (INTEL_DEVID(dev_priv) & 0xFF00) == 0x0C00)
+@@ -2750,7 +2750,9 @@ intel_info(const struct drm_i915_private *dev_priv)
+ #define IS_GEN10(dev_priv) \
+ 	(IS_ENABLED(CONFIG_DRM_I915_GEN10) && \
+ 	 ((dev_priv)->info.gen_mask & BIT(9)))
+-#define IS_GEN11(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(10)))
++#define IS_GEN11(dev_priv) \
++	(IS_ENABLED(CONFIG_DRM_I915_GEN11) && \
++	 ((dev_priv)->info.gen_mask & BIT(10)))
  
--#define IS_SKL_REVID(p, since, until) (IS_SKYLAKE(p) && IS_REVID(p, since, until))
-+#define IS_SKL_REVID(p, since, until) \
-+	(IS_SKYLAKE(p) && IS_REVID(p, since, until))
- 
- #define BXT_REVID_A0		0x0
- #define BXT_REVID_A1		0x1
-@@ -2739,7 +2744,9 @@ intel_info(const struct drm_i915_private *dev_priv)
- #define IS_GEN8(dev_priv) \
- 	(IS_ENABLED(CONFIG_DRM_I915_GEN8) && \
- 	 ((dev_priv)->info.gen_mask & BIT(7)))
--#define IS_GEN9(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(8)))
-+#define IS_GEN9(dev_priv) \
-+	(IS_ENABLED(CONFIG_DRM_I915_GEN9) && \
-+	 ((dev_priv)->info.gen_mask & BIT(8)))
- #define IS_GEN10(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(9)))
- #define IS_GEN11(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(10)))
- 
+ #define IS_LP(dev_priv)	(INTEL_INFO(dev_priv)->is_lp)
+ #define IS_GEN9_LP(dev_priv)	(IS_GEN9(dev_priv) && IS_LP(dev_priv))
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 4645f3e2eea4..49b0cbfcd76c 100644
+index 4d0d84dec9df..44de0057f19c 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -501,6 +501,7 @@ static const struct intel_device_info intel_cherryview_info = {
- 	.gen = 9, \
- 	.platform = INTEL_SKYLAKE
+@@ -645,12 +645,14 @@ static const struct intel_device_info intel_cannonlake_info = {
+ 	.ddb_size = 2048, \
+ 	.has_csr = 0
  
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_SKYLAKE
- static const struct intel_device_info intel_skylake_gt1_info = {
- 	SKL_PLATFORM,
- 	.gt = 1,
-@@ -510,12 +511,14 @@ static const struct intel_device_info intel_skylake_gt2_info = {
- 	SKL_PLATFORM,
- 	.gt = 2,
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_ICELAKE
+ static const struct intel_device_info intel_icelake_11_info = {
+ 	GEN11_FEATURES,
+ 	.platform = INTEL_ICELAKE,
+ 	.is_alpha_support = 1,
+ 	.has_resource_streamer = 0,
  };
 +#endif
  
- #define SKL_GT3_PLUS_PLATFORM \
- 	SKL_PLATFORM, \
- 	.ring_mask = RENDER_RING | BSD_RING | BLT_RING | VEBOX_RING | BSD2_RING
- 
- 
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_SKYLAKE
- static const struct intel_device_info intel_skylake_gt3_info = {
- 	SKL_GT3_PLUS_PLATFORM,
- 	.gt = 3,
-@@ -525,6 +528,7 @@ static const struct intel_device_info intel_skylake_gt4_info = {
- 	SKL_GT3_PLUS_PLATFORM,
- 	.gt = 4,
- };
-+#endif
- 
- #define GEN9_LP_FEATURES \
- 	.gen = 9, \
-@@ -557,24 +561,29 @@ static const struct intel_device_info intel_skylake_gt4_info = {
- 	IVB_CURSOR_OFFSETS, \
- 	BDW_COLORS
- 
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_BROXTON
- static const struct intel_device_info intel_broxton_info = {
- 	GEN9_LP_FEATURES,
- 	.platform = INTEL_BROXTON,
- 	.ddb_size = 512,
- };
-+#endif
- 
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_GEMINILAKE
- static const struct intel_device_info intel_geminilake_info = {
- 	GEN9_LP_FEATURES,
- 	.platform = INTEL_GEMINILAKE,
- 	.ddb_size = 1024,
- 	GLK_COLORS,
- };
-+#endif
- 
- #define KBL_PLATFORM \
- 	GEN9_FEATURES, \
- 	.gen = 9, \
- 	.platform = INTEL_KABYLAKE
- 
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_KABYLAKE
- static const struct intel_device_info intel_kabylake_gt1_info = {
- 	KBL_PLATFORM,
- 	.gt = 1,
-@@ -590,12 +599,14 @@ static const struct intel_device_info intel_kabylake_gt3_info = {
- 	.gt = 3,
- 	.ring_mask = RENDER_RING | BSD_RING | BLT_RING | VEBOX_RING | BSD2_RING,
- };
-+#endif
- 
- #define CFL_PLATFORM \
- 	GEN9_FEATURES, \
- 	.gen = 9, \
- 	.platform = INTEL_COFFEELAKE
- 
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_COFFEELAKE
- static const struct intel_device_info intel_coffeelake_gt1_info = {
- 	CFL_PLATFORM,
- 	.gt = 1,
-@@ -611,6 +622,7 @@ static const struct intel_device_info intel_coffeelake_gt3_info = {
- 	.gt = 3,
- 	.ring_mask = RENDER_RING | BSD_RING | BLT_RING | VEBOX_RING | BSD2_RING,
- };
-+#endif
- 
- #define GEN10_FEATURES \
- 	GEN9_FEATURES, \
-@@ -721,22 +733,32 @@ static const struct pci_device_id pciidlist[] = {
- #ifdef CONFIG_DRM_I915_PLATFORM_INTEL_CHERRYVIEW
- 	INTEL_CHV_IDS(&intel_cherryview_info),
- #endif
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_SKYLAKE
- 	INTEL_SKL_GT1_IDS(&intel_skylake_gt1_info),
- 	INTEL_SKL_GT2_IDS(&intel_skylake_gt2_info),
- 	INTEL_SKL_GT3_IDS(&intel_skylake_gt3_info),
- 	INTEL_SKL_GT4_IDS(&intel_skylake_gt4_info),
-+#endif
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_BROXTON
- 	INTEL_BXT_IDS(&intel_broxton_info),
-+#endif
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_GEMINILAKE
- 	INTEL_GLK_IDS(&intel_geminilake_info),
-+#endif
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_KABYLAKE
- 	INTEL_KBL_GT1_IDS(&intel_kabylake_gt1_info),
- 	INTEL_KBL_GT2_IDS(&intel_kabylake_gt2_info),
- 	INTEL_KBL_GT3_IDS(&intel_kabylake_gt3_info),
- 	INTEL_KBL_GT4_IDS(&intel_kabylake_gt3_info),
-+#endif
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_COFFEELAKE
- 	INTEL_CFL_S_GT1_IDS(&intel_coffeelake_gt1_info),
- 	INTEL_CFL_S_GT2_IDS(&intel_coffeelake_gt2_info),
- 	INTEL_CFL_H_GT2_IDS(&intel_coffeelake_gt2_info),
- 	INTEL_CFL_U_GT1_IDS(&intel_coffeelake_gt1_info),
- 	INTEL_CFL_U_GT2_IDS(&intel_coffeelake_gt2_info),
- 	INTEL_CFL_U_GT3_IDS(&intel_coffeelake_gt3_info),
-+#endif
- 	INTEL_CNL_IDS(&intel_cannonlake_info),
- 	{0, 0, 0}
- };
+ /*
+  * Make sure any device matches here are from most specific to most
 -- 
 2.27.0
 
