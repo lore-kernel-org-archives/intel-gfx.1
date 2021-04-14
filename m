@@ -2,48 +2,51 @@ Return-Path: <SRS0=lQef=JL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4B0EC433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 891F1C43460
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62AFD6120E
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62AFD6120E
+	by mail.kernel.org (Postfix) with ESMTPS id 30A4E613C0
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 30A4E613C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB8E56E2B4;
-	Wed, 14 Apr 2021 11:50:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 653016E491;
+	Wed, 14 Apr 2021 11:50:44 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46FF76E2B4
- for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:50:42 +0000 (UTC)
-IronPort-SDR: SpD4R4nGhpjcnAD+fF2sjdF+IGVz4YMJch+Xhn5TwXexMu7BIEr3SEmFN470yjxojx/5Lf/fnS
- AosWjkUh0HyQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="194732236"
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="194732236"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31A996E42C
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:50:43 +0000 (UTC)
+IronPort-SDR: pgCizdY4QsAPtbCu20xjzpMEILXHl2nGzyB3RTV1z4oFOygqJSbmZfAgo7TGTpVqBRQw5lIlJU
+ OBcAIzp/KtDw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="194732244"
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="194732244"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:50:41 -0700
-IronPort-SDR: iY81zaTDraF6lioVA3eF/oSlvVqQiiM3h4i2+hLu1AWX7wz7mKgJ3PwHoZHw+/deeUVbmCztID
- xmkCL24XfLsA==
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965083"
+ 14 Apr 2021 04:50:42 -0700
+IronPort-SDR: my01fhsAdvbz8UXBNXY51LFDwzPxDHSj/Orr/Ezg/Oj5q6dfU0RXeIlKxUQVJYAWGvB4GtQOTR
+ klu4hlN5i4NQ==
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965107"
 Received: from bdebhal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.205.119])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:50:39 -0700
+ 14 Apr 2021 04:50:41 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Apr 2021 12:50:00 +0100
-Message-Id: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 14 Apr 2021 12:50:02 +0100
+Message-Id: <20210414115028.168504-3-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
+References: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 00/28] Old platform/gen kconfig options series
+Subject: [Intel-gfx] [RFC 02/28] drm/i915: Make I845G platform support
+ optional
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,8 +59,6 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
@@ -65,120 +66,68 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Triggered by the recent work around INTEL_GEN etc and probably just for
-historical reference since I can't remember if I ever sent it out. So sending
-now but unrebased.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/Kconfig.platforms | 7 +++++++
+ drivers/gpu/drm/i915/i915_drv.h        | 2 +-
+ drivers/gpu/drm/i915/i915_pci.c        | 4 ++++
+ 3 files changed, 12 insertions(+), 1 deletion(-)
 
-This series from early 2018 is the reason why I was converting to mask based
-check everywhere. There was as feature request to enable compiling out parts of
-the driver for embedded deployments. Or inversely, to build for a single
-platform only.
-
-With the mask approach and this series I was able to demonstrate substantial
-savings in binary size. If only I could remember if I was building for Gen9
-only or Gen9+.. But memory says savings around 30-40% were easy to get.
-
-Then the experiment was dropped, don't remember why. I also tried LTO on top of
-this but kernel support for it was immature back then (maybe still is, no idea).
-
-Anyway, sending for historical reference why masks for everything were doubly
-good. I mean they are good for all the range check in my opinion.
-
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-
-Tvrtko Ursulin (28):
-  drm/i915: Make I830 platform support optional
-  drm/i915: Make I845G platform support optional
-  drm/i915: Make I85X platform support optional
-  drm/i915: Make I865G platform support optional
-  drm/i915: Make GEN2 support optional
-  drm/i915: Make Gen3 platforms support optional
-  drm/i915: Make Gen4 platforms support optional
-  drm/i915: Make Ironlake/Gen5 platforms support optional
-  drm/i915: Make Sandybridge/Gen6 platforms support optional
-  drm/i915: Make Gen7/7.5 platform support optional
-  drm/i915: Make Gen8 platform support optional
-  drm/i915: Make Gen9 platform support optional
-  drm/i915: Make Gen10 platform support optional
-  drm/i915: Make Gen11 platform support optional
-  drm/i915: Simplify IS_GEN macros
-  drm/i915: Use INTEL_GEN everywhere
-  drm/i915: Favour IS_GENx
-  drm/i915: Use Gen Kconfig items in IS_GEN macro
-  drm/i915: Replace arithmetic INTEL_GEN checks with the IS_GEN macro
-  drm/i915: Use IS_GEN in execbuffer
-  drm/i915: Allow render state to be compiled out
-  drm/i915: Use IS_GEN in stolen
-  drm/i915: Use IS_GEN in intel_bios.c
-  drm/i915: Use IS_GEN in intel_fb_pitch_limit
-  drm/i915: Use IS_GEN in intel_engine_cs.c
-  drm/i915: Use IS_GEN in intel_guc.c
-  drm/i915: Use IS_GEN in intel_lrc.c
-  drm/i915: Enable dropping small cores when not enabled
-
- drivers/gpu/drm/i915/Kconfig                  |   5 +
- drivers/gpu/drm/i915/Kconfig.platforms        | 261 ++++++++++++++++++
- drivers/gpu/drm/i915/Makefile                 |   8 +-
- drivers/gpu/drm/i915/i915_debugfs.c           |  86 +++---
- drivers/gpu/drm/i915/i915_drv.c               |  16 +-
- drivers/gpu/drm/i915/i915_drv.h               | 187 ++++++++-----
- drivers/gpu/drm/i915/i915_gem.c               |  18 +-
- drivers/gpu/drm/i915/i915_gem_execbuffer.c    |  16 +-
- drivers/gpu/drm/i915/i915_gem_fence_reg.c     |   4 +-
- drivers/gpu/drm/i915/i915_gem_gtt.c           |  30 +-
- drivers/gpu/drm/i915/i915_gem_render_state.c  |  10 +-
- drivers/gpu/drm/i915/i915_gem_request.c       |   2 +-
- drivers/gpu/drm/i915/i915_gem_stolen.c        |  42 ++-
- drivers/gpu/drm/i915/i915_gem_tiling.c        |   8 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         |  40 +--
- drivers/gpu/drm/i915/i915_irq.c               |  58 ++--
- drivers/gpu/drm/i915/i915_pci.c               | 120 +++++++-
- drivers/gpu/drm/i915/i915_perf.c              |   2 +-
- drivers/gpu/drm/i915/i915_pmu.c               |   6 +-
- drivers/gpu/drm/i915/i915_reg.h               |   4 +-
- drivers/gpu/drm/i915/i915_suspend.c           |  12 +-
- drivers/gpu/drm/i915/i915_sysfs.c             |   2 +-
- drivers/gpu/drm/i915/intel_atomic_plane.c     |   2 +-
- drivers/gpu/drm/i915/intel_audio.c            |   2 +-
- drivers/gpu/drm/i915/intel_bios.c             |   9 +-
- drivers/gpu/drm/i915/intel_cdclk.c            |   8 +-
- drivers/gpu/drm/i915/intel_color.c            |   2 +-
- drivers/gpu/drm/i915/intel_crt.c              |   6 +-
- drivers/gpu/drm/i915/intel_ddi.c              |  10 +-
- drivers/gpu/drm/i915/intel_device_info.c      |  18 +-
- drivers/gpu/drm/i915/intel_display.c          | 205 +++++++-------
- drivers/gpu/drm/i915/intel_dp.c               |  28 +-
- drivers/gpu/drm/i915/intel_dpll_mgr.c         |   4 +-
- drivers/gpu/drm/i915/intel_engine_cs.c        | 114 ++++----
- drivers/gpu/drm/i915/intel_fbc.c              |  32 +--
- drivers/gpu/drm/i915/intel_fifo_underrun.c    |   2 +-
- drivers/gpu/drm/i915/intel_guc.c              |  10 +-
- drivers/gpu/drm/i915/intel_hangcheck.c        |   2 +-
- drivers/gpu/drm/i915/intel_hdcp.c             |   2 +-
- drivers/gpu/drm/i915/intel_hdmi.c             |  10 +-
- drivers/gpu/drm/i915/intel_lrc.c              |  35 +--
- drivers/gpu/drm/i915/intel_lvds.c             |  10 +-
- drivers/gpu/drm/i915/intel_mocs.c             |   2 +-
- drivers/gpu/drm/i915/intel_overlay.c          |   2 +-
- drivers/gpu/drm/i915/intel_panel.c            |  10 +-
- drivers/gpu/drm/i915/intel_pipe_crc.c         |   2 +-
- drivers/gpu/drm/i915/intel_pm.c               | 106 +++----
- drivers/gpu/drm/i915/intel_psr.c              |   6 +-
- drivers/gpu/drm/i915/intel_ringbuffer.c       |  34 +--
- drivers/gpu/drm/i915/intel_ringbuffer.h       |   4 +-
- drivers/gpu/drm/i915/intel_sdvo.c             |  14 +-
- drivers/gpu/drm/i915/intel_sprite.c           |  30 +-
- drivers/gpu/drm/i915/intel_tv.c               |   2 +-
- drivers/gpu/drm/i915/intel_uncore.c           |  20 +-
- .../drm/i915/selftests/i915_gem_coherency.c   |   4 +-
- .../gpu/drm/i915/selftests/i915_gem_context.c |   2 +-
- .../gpu/drm/i915/selftests/i915_gem_object.c  |  12 +-
- .../gpu/drm/i915/selftests/intel_hangcheck.c  |   8 +-
- drivers/gpu/drm/i915/selftests/intel_uncore.c |   2 +-
- 59 files changed, 1048 insertions(+), 660 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/Kconfig.platforms
-
+diff --git a/drivers/gpu/drm/i915/Kconfig.platforms b/drivers/gpu/drm/i915/Kconfig.platforms
+index f3949fff21e9..cf06ed3b0727 100644
+--- a/drivers/gpu/drm/i915/Kconfig.platforms
++++ b/drivers/gpu/drm/i915/Kconfig.platforms
+@@ -4,3 +4,10 @@ config DRM_I915_PLATFORM_INTEL_I830
+ 	depends on DRM_I915
+ 	help
+ 	  Include support for Intel i830 platform.
++
++config DRM_I915_PLATFORM_INTEL_I845G
++	bool "Intel i845G platform support"
++	default y
++	depends on DRM_I915
++	help
++	  Include support for Intel i845G platform.
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 6ea33c92ccef..59231e500f78 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -2579,7 +2579,7 @@ intel_info(const struct drm_i915_private *dev_priv)
+ 	(IS_ENABLED(CONFIG_DRM_I915_PLATFORM_##p) && IS_PLATFORM(dev_priv, p))
+ 
+ #define IS_I830(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_I830)
+-#define IS_I845G(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I845G)
++#define IS_I845G(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_I845G)
+ #define IS_I85X(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I85X)
+ #define IS_I865G(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I865G)
+ #define IS_I915G(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I915G)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 81573073dceb..d98c35d2ff9d 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -83,10 +83,12 @@ static const struct intel_device_info intel_i830_info = {
+ };
+ #endif
+ 
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I845G
+ static const struct intel_device_info intel_i845g_info = {
+ 	GEN2_FEATURES,
+ 	.platform = INTEL_I845G,
+ };
++#endif
+ 
+ static const struct intel_device_info intel_i85x_info = {
+ 	GEN2_FEATURES,
+@@ -604,7 +606,9 @@ static const struct pci_device_id pciidlist[] = {
+ #ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I830
+ 	INTEL_I830_IDS(&intel_i830_info),
+ #endif
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I845G
+ 	INTEL_I845G_IDS(&intel_i845g_info),
++#endif
+ 	INTEL_I85X_IDS(&intel_i85x_info),
+ 	INTEL_I865G_IDS(&intel_i865g_info),
+ 	INTEL_I915G_IDS(&intel_i915g_info),
 -- 
 2.27.0
 
