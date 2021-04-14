@@ -7,46 +7,45 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E596C433ED
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 780ECC43460
 	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C3EA36120E
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3EA36120E
+	by mail.kernel.org (Postfix) with ESMTPS id 31448613C4
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:51:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31448613C4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC3156E92B;
-	Wed, 14 Apr 2021 11:51:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 045006E92C;
+	Wed, 14 Apr 2021 11:51:04 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76A726E92C
- for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:51:00 +0000 (UTC)
-IronPort-SDR: x5nPXRrFJz1a3ZTfbbvnWccFgDEckfRWNgNyQEhgrgxpmnlB0IINagkLzhv5nLkbd/HmCPQEzd
- y0Mf4i+cenfg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="174119549"
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="174119549"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96CCF6E925
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:51:02 +0000 (UTC)
+IronPort-SDR: DTuGkQoBv6xIfIhsIqUItFWa8P3ij2d2P2M2+FE0vujB/On+eiCylldFxmFg7W7XZQiPHH1anJ
+ lhPlxETZD7qw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="174119556"
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="174119556"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:51:00 -0700
-IronPort-SDR: uR92JKyQN1jmwRaOvRXWK9Qq5ttkmuE/pMo3ppjfm/0nRRL1KHdIvtgEB0+uK+qaxGl1341GSR
- 9x4boaquCwNA==
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965235"
+ 14 Apr 2021 04:51:02 -0700
+IronPort-SDR: F4rHaBK6Qx1BWCHTZc/r9EwdELTj64dKUWgS5io7ytBY+s2F3zp46sCIPxOkKbI+VmsOvdZhcx
+ vzitjAxNk/GQ==
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965252"
 Received: from bdebhal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.205.119])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:50:58 -0700
+ 14 Apr 2021 04:51:01 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Apr 2021 12:50:18 +0100
-Message-Id: <20210414115028.168504-19-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 14 Apr 2021 12:50:20 +0100
+Message-Id: <20210414115028.168504-21-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 References: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 18/28] drm/i915: Use Gen Kconfig items in IS_GEN
- macro
+Subject: [Intel-gfx] [RFC 20/28] drm/i915: Use IS_GEN in execbuffer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,59 +65,79 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
+Stop caching the gen and use the macros to enable compile time
+optimisation.
+
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_gem_execbuffer.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 4f140e95207e..0e65e0bc3d09 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -2557,13 +2557,42 @@ intel_info(const struct drm_i915_private *dev_priv)
- 		(s) != GEN_FOREVER ? (s) - 1 : 0) \
- )
+diff --git a/drivers/gpu/drm/i915/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/i915_gem_execbuffer.c
+index 22b8ba9c94a2..090b43be3153 100644
+--- a/drivers/gpu/drm/i915/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/i915_gem_execbuffer.c
+@@ -221,7 +221,6 @@ struct i915_execbuffer {
+ 		struct drm_mm_node node; /** temporary GTT binding */
+ 		unsigned long vaddr; /** Current kmap address */
+ 		unsigned long page; /** Currently mapped page index */
+-		unsigned int gen; /** Cached value of INTEL_GEN */
+ 		bool use_64bit_reloc : 1;
+ 		bool has_llc : 1;
+ 		bool has_fence : 1;
+@@ -848,10 +847,9 @@ static void reloc_cache_init(struct reloc_cache *cache,
+ 	cache->page = -1;
+ 	cache->vaddr = 0;
+ 	/* Must be a variable in the struct to allow GCC to unroll. */
+-	cache->gen = INTEL_GEN(i915);
+ 	cache->has_llc = HAS_LLC(i915);
+ 	cache->use_64bit_reloc = HAS_64BIT_RELOC(i915);
+-	cache->has_fence = cache->gen < 4;
++	cache->has_fence = IS_GEN(i915, GEN_FOREVER, 3);
+ 	cache->needs_unfenced = INTEL_INFO(i915)->unfenced_needs_alignment;
+ 	cache->node.allocated = false;
+ 	cache->rq = NULL;
+@@ -1113,7 +1111,8 @@ static int __reloc_gpu_alloc(struct i915_execbuffer *eb,
  
-+#define __gen_test_mask(s, e) \
-+({ \
-+	u16 m__ = (u16)INTEL_GEN_MASK((s), (e)); \
-+\
-+	m__ &= ~BIT(0); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN2)) \
-+		m__ &= ~BIT(1); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN3)) \
-+		m__ &= ~BIT(2); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN4)) \
-+		m__ &= ~BIT(3); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN5)) \
-+		m__ &= ~BIT(4); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN6)) \
-+		m__ &= ~BIT(5); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN7)) \
-+		m__ &= ~BIT(6); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN8)) \
-+		m__ &= ~BIT(7); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN9)) \
-+		m__ &= ~BIT(8); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN10)) \
-+		m__ &= ~BIT(9); \
-+	if (!IS_ENABLED(CONFIG_DRM_I915_GEN11)) \
-+		m__ &= ~BIT(10); \
-+\
-+	m__; \
-+})
-+
- /*
-  * Returns true if Gen is in inclusive range [Start, End].
-  *
-  * Use GEN_FOREVER for unbound start and or end.
-  */
- #define IS_GEN(dev_priv, s, e) \
--	(!!((dev_priv)->info.gen_mask & INTEL_GEN_MASK((s), (e))))
-+	(!!(__gen_test_mask((s), (e)) & (dev_priv)->info.gen_mask))
+ 	err = eb->engine->emit_bb_start(rq,
+ 					batch->node.start, PAGE_SIZE,
+-					cache->gen > 5 ? 0 : I915_DISPATCH_SECURE);
++					IS_GEN(eb->i915, 6, GEN_FOREVER) ?
++					0 : I915_DISPATCH_SECURE);
+ 	if (err)
+ 		goto err_request;
  
- /*
-  * Return true if revision is in range [since,until] inclusive.
+@@ -1192,14 +1191,13 @@ relocate_entry(struct i915_vma *vma,
+ 	if (!eb->reloc_cache.vaddr &&
+ 	    (DBG_FORCE_RELOC == FORCE_GPU_RELOC ||
+ 	     !reservation_object_test_signaled_rcu(vma->resv, true))) {
+-		const unsigned int gen = eb->reloc_cache.gen;
+ 		unsigned int len;
+ 		u32 *batch;
+ 		u64 addr;
+ 
+ 		if (wide)
+ 			len = offset & 7 ? 8 : 5;
+-		else if (gen >= 4)
++		else if (IS_GEN(eb->i915, 4, GEN_FOREVER))
+ 			len = 4;
+ 		else
+ 			len = 3;
+@@ -1229,12 +1227,12 @@ relocate_entry(struct i915_vma *vma,
+ 				*batch++ = lower_32_bits(target_offset);
+ 				*batch++ = upper_32_bits(target_offset);
+ 			}
+-		} else if (gen >= 6) {
++		} else if (IS_GEN(eb->i915, 6, GEN_FOREVER)) {
+ 			*batch++ = MI_STORE_DWORD_IMM_GEN4;
+ 			*batch++ = 0;
+ 			*batch++ = addr;
+ 			*batch++ = target_offset;
+-		} else if (gen >= 4) {
++		} else if (IS_GEN(eb->i915, 4, GEN_FOREVER)) {
+ 			*batch++ = MI_STORE_DWORD_IMM_GEN4 | MI_USE_GGTT;
+ 			*batch++ = 0;
+ 			*batch++ = addr;
 -- 
 2.27.0
 
