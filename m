@@ -2,47 +2,49 @@ Return-Path: <SRS0=lQef=JL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32EF5C433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 15:52:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7DE7C433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 15:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E3EF160238
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 15:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3EF160238
+	by mail.kernel.org (Postfix) with ESMTPS id 69B606120E
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 15:52:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69B606120E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 432096E92F;
-	Wed, 14 Apr 2021 15:52:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBF956E957;
+	Wed, 14 Apr 2021 15:52:21 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EA1A6E92F
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 15:52:18 +0000 (UTC)
-IronPort-SDR: htDegvG1Ml6goooxz/epOKJdSPy/mgx/BQSY1NVmksVEYvqwI/S2PXGi5p3xufyf6EdxGnUu0N
- dj1J+76A+CTA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9954"; a="181791603"
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="181791603"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0879F6E957
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 15:52:19 +0000 (UTC)
+IronPort-SDR: fa9asy7e4S2ioW2d4Prtboo7ClvQzCsys5huSUIYYJn3TSJb/2igMAxAa/vQHYIrlz3LIDI3Af
+ x9VIo9xQO97A==
+X-IronPort-AV: E=McAfee;i="6200,9189,9954"; a="181791648"
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="181791648"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 08:52:12 -0700
-IronPort-SDR: 0pH7jkLlIGfWsQK4eWSYpXilpMyCVENdcDW2sCHU869T7EtJDapnpdHQH1O6hd+e4rA7gpzpIX
- DGQV/9gx2u5A==
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="399226501"
+ 14 Apr 2021 08:52:19 -0700
+IronPort-SDR: ECd6JgB9EnsFO/+ROYbsjtWSYeEUJqzEAgqrqe8GpvFjPmFxslspZuchYuIBzPcCoWSXP7GLTu
+ yCz6Yrcl8Pdg==
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="399226545"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 08:52:11 -0700
+ 14 Apr 2021 08:52:17 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Apr 2021 18:51:57 +0300
-Message-Id: <20210414155208.3161335-1-imre.deak@intel.com>
+Date: Wed, 14 Apr 2021 18:52:01 +0300
+Message-Id: <20210414155208.3161335-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210414155208.3161335-1-imre.deak@intel.com>
+References: <20210414155208.3161335-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/11] drm/i915/adl_p: Add support for Display
- Page Tables
+Subject: [Intel-gfx] [PATCH 04/11] drm/i915/adl_p: ADL_P device info enabling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,50 +57,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QWxkZXIgTGFrZS1QIGFkZHMgYSBuZXcgRGlzcGxheSBQYWdlIFRhYmxlIGhhcmR3YXJlIHN0cnVj
-dHVyZSwgbWFwcGluZwp0aWxlZCBmcmFtZWJ1ZmZlciBwYWdlcyB0byB0aGUgZGlzcGxheSBlbmdp
-bmUsIHJlZHVjaW5nIHRoZSBhZGRyZXNzCnNwYWNlIHJlcXVpcmVkIGluIEdHVFQgZm9yIHRoZXNl
-IGZyYW1lYnVmZmVycy4KClRoaXMgcGF0Y2hzZXQgYWRkcyBzdXBwb3J0IGZvciB0aGlzIHRha2lu
-ZyBhIG1pbmltdW0gc2V0IG9mIGRlcGVuZGVuY3kKcGF0Y2hlcyBmcm9tIHRoZSBBRExfUCBlbmFi
-bGluZyBwYXRjaHNldCBhdApodHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvc2VyaWVz
-Lzg3ODk3LwoKQ2xpbnRvbiBUYXlsb3IgKDIpOgogIGRybS9pOTE1L2FkbF9wOiBBZGQgUENJIERl
-dmljZXMgSURzCiAgZHJtL2k5MTUvYWRsX3A6IEFETF9QIGRldmljZSBpbmZvIGVuYWJsaW5nCgpJ
-bXJlIERlYWsgKDQpOgogIGRybS9pOTE1OiBQYXNzIGludGVsX2ZyYW1lYnVmZmVyIGluc3RhZCBv
-ZiBkcm1fZnJhbWVidWZmZXIgdG8KICAgIGludGVsX2ZpbGxfZmJfaW5mbygpCiAgZHJtL2k5MTUv
-YWRsX3A6IERpc2FibGUgc3VwcG9ydCBmb3IgOTAvMjcwIEZCIHJvdGF0aW9uCiAgZHJtL2k5MTUv
-YWRsX3A6IFJlcXVpcmUgYSBtaW5pbXVtIG9mIDggdGlsZXMgc3RyaWRlIGZvciBEUFQgRkJzCiAg
-ZHJtL2k5MTUvYWRsX3A6IEVuYWJsZSByZW1hcHBpbmcgdG8gcGFkIERQVCBGQiBzdHJpZGVzIHRv
-IFBPVAoKSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSAoMik6CiAgZHJtL2k5MTUveGVscGQ6IEZhbGxi
-YWNrIHRvIHBsYW5lIHN0cmlkZSBsaW1pdGF0aW9ucyB3aGVuIHVzaW5nIERQVAogIGRybS9pOTE1
-L2FkbF9wOiBBZGQgc3RyaWRlIHJlc3RyaWN0aW9uIHdoZW4gdXNpbmcgRFBUCgpKdWhhLVBla2th
-IEhlaWtraWzDpCAoMSk6CiAgZHJtL2k5MTUveGVscGQ6IFN1cHBvcnQgMTI4ayBwbGFuZSBzdHJp
-ZGUKCk1hdHQgUm9wZXIgKDEpOgogIGRybS9pOTE1L3hlbHBkOiBhZGQgWEVfTFBEIGRpc3BsYXkg
-Y2hhcmFjdGVyaXN0aWNzCgpWaWxsZSBTeXJqw6Rsw6QgKDEpOgogIGRybS9pOTE1L3hlbHBkOiBG
-aXJzdCBzdGFiIGF0IERQVCBzdXBwb3J0CgogYXJjaC94ODYva2VybmVsL2Vhcmx5LXF1aXJrcy5j
-ICAgICAgICAgICAgICAgIHwgICAxICsKIC4uLi9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9h
-dG9taWNfcGxhbmUuYyB8ICAgNyArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
-bF9kaXNwbGF5LmMgIHwgMzgxICsrKysrKysrKysrKysrKystLQogZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmggIHwgICAxICsKIC4uLi9kcm0vaTkxNS9kaXNwbGF5
-L2ludGVsX2Rpc3BsYXlfdHlwZXMuaCAgICB8ICAyNSArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9mYi5jICAgICAgIHwgIDkyICsrKy0tCiBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2ZiLmggICAgICAgfCAgIDUgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1
-L2Rpc3BsYXkvaW50ZWxfZmJjLmMgICAgICB8ICAgNiArLQogLi4uL2RybS9pOTE1L2Rpc3BsYXkv
-c2tsX3VuaXZlcnNhbF9wbGFuZS5jICAgIHwgIDY4ICsrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1
-L2d0L2dlbjhfcHBndHQuaCAgICAgICAgICB8ICAgNyArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9n
-dC9pbnRlbF9nZ3R0LmMgICAgICAgICAgfCAgIDcgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0
-L2ludGVsX2d0dC5oICAgICAgICAgICB8ICAgNSArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
-X2Rydi5oICAgICAgICAgICAgICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9w
-Y2kuYyAgICAgICAgICAgICAgIHwgIDIyICsKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVn
-LmggICAgICAgICAgICAgICB8ICAgMiArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZp
-Y2VfaW5mby5jICAgICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNl
-X2luZm8uaCAgICAgIHwgICAxICsKIGluY2x1ZGUvZHJtL2k5MTVfcGNpaWRzLmggICAgICAgICAg
-ICAgICAgICAgICB8ICAyMSArCiAxOCBmaWxlcyBjaGFuZ2VkLCA1NjcgaW5zZXJ0aW9ucygrKSwg
-ODYgZGVsZXRpb25zKC0pCgotLSAKMi4yNy4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9pbnRlbC1nZngK
+From: Clinton Taylor <Clinton.A.Taylor@intel.com>
+
+Add ADL-P to the device_info table and support MACROS.
+
+Bspec: 49185, 55372, 55373
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ arch/x86/kernel/early-quirks.c           |  1 +
+ drivers/gpu/drm/i915/i915_drv.h          |  1 +
+ drivers/gpu/drm/i915/i915_pci.c          | 12 ++++++++++++
+ drivers/gpu/drm/i915/intel_device_info.c |  1 +
+ drivers/gpu/drm/i915/intel_device_info.h |  1 +
+ 5 files changed, 16 insertions(+)
+
+diff --git a/arch/x86/kernel/early-quirks.c b/arch/x86/kernel/early-quirks.c
+index 6edd1e2ee8afa..b553ffe9b9851 100644
+--- a/arch/x86/kernel/early-quirks.c
++++ b/arch/x86/kernel/early-quirks.c
+@@ -552,6 +552,7 @@ static const struct pci_device_id intel_early_ids[] __initconst = {
+ 	INTEL_TGL_12_IDS(&gen11_early_ops),
+ 	INTEL_RKL_IDS(&gen11_early_ops),
+ 	INTEL_ADLS_IDS(&gen11_early_ops),
++	INTEL_ADLP_IDS(&gen11_early_ops),
+ };
+ 
+ struct resource intel_graphics_stolen_res __ro_after_init = DEFINE_RES_MEM(0, 0);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index e20294e9227a4..e5513e19beb5c 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1392,6 +1392,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_ROCKETLAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_ROCKETLAKE)
+ #define IS_DG1(dev_priv)        IS_PLATFORM(dev_priv, INTEL_DG1)
+ #define IS_ALDERLAKE_S(dev_priv) IS_PLATFORM(dev_priv, INTEL_ALDERLAKE_S)
++#define IS_ALDERLAKE_P(dev_priv) IS_PLATFORM(dev_priv, INTEL_ALDERLAKE_P)
+ #define IS_HSW_EARLY_SDV(dev_priv) (IS_HASWELL(dev_priv) && \
+ 				    (INTEL_DEVID(dev_priv) & 0xFF00) == 0x0C00)
+ #define IS_BDW_ULT(dev_priv) \
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 40b58a6dc3193..2384198e41f85 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -949,6 +949,17 @@ static const struct intel_device_info adl_s_info = {
+ 	.ddb_size = 4096,						\
+ 	.num_supported_dbuf_slices = 4
+ 
++static const struct intel_device_info adl_p_info = {
++	GEN12_FEATURES,
++	XE_LPD_FEATURES,
++	PLATFORM(INTEL_ALDERLAKE_P),
++	.require_force_probe = 1,
++	.platform_engine_mask =
++		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
++	.ppgtt_size = 48,
++	.dma_mask_size = 39,
++};
++
+ #undef GEN
+ #undef PLATFORM
+ 
+@@ -1026,6 +1037,7 @@ static const struct pci_device_id pciidlist[] = {
+ 	INTEL_TGL_12_IDS(&tgl_info),
+ 	INTEL_RKL_IDS(&rkl_info),
+ 	INTEL_ADLS_IDS(&adl_s_info),
++	INTEL_ADLP_IDS(&adl_p_info),
+ 	{0, 0, 0}
+ };
+ MODULE_DEVICE_TABLE(pci, pciidlist);
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 6a351a7094174..3b975ce1ff591 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -67,6 +67,7 @@ static const char * const platform_names[] = {
+ 	PLATFORM_NAME(ROCKETLAKE),
+ 	PLATFORM_NAME(DG1),
+ 	PLATFORM_NAME(ALDERLAKE_S),
++	PLATFORM_NAME(ALDERLAKE_P),
+ };
+ #undef PLATFORM_NAME
+ 
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 8ab4fa6c7fdd7..edf68244be2bc 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -87,6 +87,7 @@ enum intel_platform {
+ 	INTEL_ROCKETLAKE,
+ 	INTEL_DG1,
+ 	INTEL_ALDERLAKE_S,
++	INTEL_ALDERLAKE_P,
+ 	INTEL_MAX_PLATFORMS
+ };
+ 
+-- 
+2.27.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
