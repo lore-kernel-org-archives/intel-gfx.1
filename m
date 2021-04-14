@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BCD47C43460
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7223C433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5427A613C0
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5427A613C0
+	by mail.kernel.org (Postfix) with ESMTPS id 7EDAA613C0
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EDAA613C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F2D36E922;
-	Wed, 14 Apr 2021 11:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7F5C6E8BC;
+	Wed, 14 Apr 2021 11:50:53 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4496E8BC
- for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:50:50 +0000 (UTC)
-IronPort-SDR: q/8BNl3G8yH2cXMsH/2us6xv4FRBmbCOHhArWiJtZsh3fiNe7AJeaECCL1hhziO31SZDPXe9T/
- QNiG5pOqB8VQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="194732264"
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="194732264"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AAAC6E8BC
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 11:50:47 +0000 (UTC)
+IronPort-SDR: pFiZ0dMWsPDOIJ73fqVvENZpazkn3dglwcIvxGpc2JKhVbek71dRXBKmw6Eeb+GmjG2CJDU33p
+ ize+ub1nIP6A==
+X-IronPort-AV: E=McAfee;i="6200,9189,9953"; a="194732252"
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="194732252"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:50:50 -0700
-IronPort-SDR: RPv3ujv8ln5bkXiG15CrgIosCHvG73M5WLnt2Zi6lVth3dad8FZeEyMSLmwgsGz65cTjDWkSPy
- 2iTMPaAatOIg==
-X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965176"
+ 14 Apr 2021 04:50:47 -0700
+IronPort-SDR: Dn3UqDSaSC6Rhkxs1FJu9bPXASy5+odDRNFnBtMt2QqxSImAO0c+14qq6UmHpxhFGzvSqBiJOj
+ vnxkSzKjJ8HA==
+X-IronPort-AV: E=Sophos;i="5.82,222,1613462400"; d="scan'208";a="521965158"
 Received: from bdebhal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.205.119])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2021 04:50:49 -0700
+ 14 Apr 2021 04:50:46 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Apr 2021 12:50:09 +0100
-Message-Id: <20210414115028.168504-10-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 14 Apr 2021 12:50:06 +0100
+Message-Id: <20210414115028.168504-7-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 References: <20210414115028.168504-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 09/28] drm/i915: Make Sandybridge/Gen6 platforms
- support optional
+Subject: [Intel-gfx] [RFC 06/28] drm/i915: Make Gen3 platforms support
+ optional
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,95 +68,214 @@ From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig.platforms | 12 ++++++++++++
- drivers/gpu/drm/i915/i915_drv.h        |  4 +++-
- drivers/gpu/drm/i915/i915_pci.c        |  6 ++++++
- 3 files changed, 21 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/Kconfig.platforms | 51 ++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_drv.h        | 22 ++++++-----
+ drivers/gpu/drm/i915/i915_pci.c        | 28 +++++++++++++-
+ 3 files changed, 90 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/Kconfig.platforms b/drivers/gpu/drm/i915/Kconfig.platforms
-index ade0520a1559..1302eb3989be 100644
+index 23a44c8eb07b..1fa09884a290 100644
 --- a/drivers/gpu/drm/i915/Kconfig.platforms
 +++ b/drivers/gpu/drm/i915/Kconfig.platforms
-@@ -129,3 +129,15 @@ config DRM_I915_PLATFORM_INTEL_IRONLAKE
- 	select DRM_I915_GEN5
+@@ -32,3 +32,54 @@ config DRM_I915_PLATFORM_INTEL_I865G
+ 	select DRM_I915_GEN2
  	help
- 	  Include support for Intel Ironlake platforms.
+ 	  Include support for Intel i865G platform.
 +
-+config DRM_I915_GEN6
++config DRM_I915_GEN3
 +	bool
 +
-+config DRM_I915_PLATFORM_INTEL_SANDYBRIDGE
-+	bool "Intel Sandybridge platform support"
++config DRM_I915_PLATFORM_INTEL_I915G
++	bool "Intel i915G platform support"
 +	default y
 +	depends on DRM_I915
-+	select DRM_I915_GEN6
++	select DRM_I915_GEN3
 +	help
-+	  Include support for Intel Sandybridge platforms.
++	  Include support for Intel i915G platform.
 +
++config DRM_I915_PLATFORM_INTEL_I915GM
++	bool "Intel i915GM platform support"
++	default y
++	depends on DRM_I915
++	select DRM_I915_GEN3
++	help
++	  Include support for Intel i915GM platform.
++
++config DRM_I915_PLATFORM_INTEL_I945G
++	bool "Intel i945G platform support"
++	default y
++	depends on DRM_I915
++	select DRM_I915_GEN3
++	help
++	  Include support for Intel i945G platform.
++
++config DRM_I915_PLATFORM_INTEL_I945GM
++	bool "Intel i945GM platform support"
++	default y
++	depends on DRM_I915
++	select DRM_I915_GEN3
++	help
++	  Include support for Intel i945GM platform.
++
++config DRM_I915_PLATFORM_INTEL_G33
++	bool "Intel G33 platform support"
++	default y
++	depends on DRM_I915
++	select DRM_I915_GEN3
++	help
++	  Include support for Intel G33 platform.
++
++config DRM_I915_PLATFORM_INTEL_PINEVIEW
++	bool "Intel Pineview platform support"
++	default y
++	depends on DRM_I915
++	select DRM_I915_GEN3
++	help
++	  Include support for Intel Pineview platform.
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 741c1fff3616..2bb6e88f4f63 100644
+index f718655294ea..949a8bf54d55 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -2729,7 +2729,9 @@ intel_info(const struct drm_i915_private *dev_priv)
- #define IS_GEN5(dev_priv) \
- 	(IS_ENABLED(CONFIG_DRM_I915_GEN5) && \
- 	 ((dev_priv)->info.gen_mask & BIT(4)))
--#define IS_GEN6(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(5)))
-+#define IS_GEN6(dev_priv) \
-+	(IS_ENABLED(CONFIG_DRM_I915_GEN6) && \
-+	 ((dev_priv)->info.gen_mask & BIT(5)))
- #define IS_GEN7(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(6)))
- #define IS_GEN8(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(7)))
- #define IS_GEN9(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(8)))
+@@ -2582,19 +2582,21 @@ intel_info(const struct drm_i915_private *dev_priv)
+ #define IS_I845G(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_I845G)
+ #define IS_I85X(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_I85X)
+ #define IS_I865G(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_I865G)
+-#define IS_I915G(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I915G)
+-#define IS_I915GM(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I915GM)
+-#define IS_I945G(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I945G)
+-#define IS_I945GM(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I945GM)
++#define IS_I915G(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_I915G)
++#define IS_I915GM(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_I915GM)
++#define IS_I945G(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_I945G)
++#define IS_I945GM(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_I945GM)
+ #define IS_I965G(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I965G)
+ #define IS_I965GM(dev_priv)	IS_PLATFORM(dev_priv, INTEL_I965GM)
+ #define IS_G45(dev_priv)	IS_PLATFORM(dev_priv, INTEL_G45)
+ #define IS_GM45(dev_priv)	IS_PLATFORM(dev_priv, INTEL_GM45)
+ #define IS_G4X(dev_priv)	(IS_G45(dev_priv) || IS_GM45(dev_priv))
+-#define IS_PINEVIEW_G(dev_priv)	(INTEL_DEVID(dev_priv) == 0xa001)
+-#define IS_PINEVIEW_M(dev_priv)	(INTEL_DEVID(dev_priv) == 0xa011)
+-#define IS_PINEVIEW(dev_priv)	IS_PLATFORM(dev_priv, INTEL_PINEVIEW)
+-#define IS_G33(dev_priv)	IS_PLATFORM(dev_priv, INTEL_G33)
++#define IS_PINEVIEW_G(dev_priv)	(IS_OPT_PLATFORM(dev_priv, INTEL_PINEVIEW) && \
++				(INTEL_DEVID(dev_priv) == 0xa001))
++#define IS_PINEVIEW_M(dev_priv)	(IS_OPT_PLATFORM(dev_priv, INTEL_PINEVIEW) && \
++				(INTEL_DEVID(dev_priv) == 0xa011))
++#define IS_PINEVIEW(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_PINEVIEW)
++#define IS_G33(dev_priv)	IS_OPT_PLATFORM(dev_priv, INTEL_G33)
+ #define IS_IRONLAKE_M(dev_priv)	(INTEL_DEVID(dev_priv) == 0x0046)
+ #define IS_IVYBRIDGE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_IVYBRIDGE)
+ #define IS_IVB_GT1(dev_priv)	(IS_IVYBRIDGE(dev_priv) && \
+@@ -2717,7 +2719,9 @@ intel_info(const struct drm_i915_private *dev_priv)
+ #define IS_GEN2(dev_priv) \
+ 	(IS_ENABLED(CONFIG_DRM_I915_GEN2) && \
+ 	 ((dev_priv)->info.gen_mask & BIT(1)))
+-#define IS_GEN3(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(2)))
++#define IS_GEN3(dev_priv) \
++	(IS_ENABLED(CONFIG_DRM_I915_GEN3) && \
++	 ((dev_priv)->info.gen_mask & BIT(2)))
+ #define IS_GEN4(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(3)))
+ #define IS_GEN5(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(4)))
+ #define IS_GEN6(dev_priv)	(!!((dev_priv)->info.gen_mask & BIT(5)))
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index dbc580f05678..8a7399787f4b 100644
+index 9f5054c009b6..9b47cba66d3d 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -273,6 +273,7 @@ static const struct intel_device_info intel_ironlake_m_info = {
- 	GEN6_FEATURES, \
- 	.platform = INTEL_SANDYBRIDGE
+@@ -116,6 +116,7 @@ static const struct intel_device_info intel_i865g_info = {
+ 	GEN_DEFAULT_PAGE_SIZES, \
+ 	CURSOR_OFFSETS
  
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_SANDYBRIDGE
- static const struct intel_device_info intel_sandybridge_d_gt1_info = {
- 	SNB_D_PLATFORM,
- 	.gt = 1,
-@@ -282,6 +283,7 @@ static const struct intel_device_info intel_sandybridge_d_gt2_info = {
- 	SNB_D_PLATFORM,
- 	.gt = 2,
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I915G
+ static const struct intel_device_info intel_i915g_info = {
+ 	GEN3_FEATURES,
+ 	.platform = INTEL_I915G, .cursor_needs_physical = 1,
+@@ -123,7 +124,9 @@ static const struct intel_device_info intel_i915g_info = {
+ 	.hws_needs_physical = 1,
+ 	.unfenced_needs_alignment = 1,
  };
 +#endif
  
- #define SNB_M_PLATFORM \
- 	GEN6_FEATURES, \
-@@ -289,6 +291,7 @@ static const struct intel_device_info intel_sandybridge_d_gt2_info = {
- 	.is_mobile = 1
- 
- 
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_SANDYBRIDGE
- static const struct intel_device_info intel_sandybridge_m_gt1_info = {
- 	SNB_M_PLATFORM,
- 	.gt = 1,
-@@ -298,6 +301,7 @@ static const struct intel_device_info intel_sandybridge_m_gt2_info = {
- 	SNB_M_PLATFORM,
- 	.gt = 2,
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I915GM
+ static const struct intel_device_info intel_i915gm_info = {
+ 	GEN3_FEATURES,
+ 	.platform = INTEL_I915GM,
+@@ -135,7 +138,9 @@ static const struct intel_device_info intel_i915gm_info = {
+ 	.hws_needs_physical = 1,
+ 	.unfenced_needs_alignment = 1,
  };
 +#endif
  
- #define GEN7_FEATURES  \
- 	.gen = 7, .num_pipes = 3, \
-@@ -675,10 +679,12 @@ static const struct pci_device_id pciidlist[] = {
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I945G
+ static const struct intel_device_info intel_i945g_info = {
+ 	GEN3_FEATURES,
+ 	.platform = INTEL_I945G,
+@@ -144,7 +149,9 @@ static const struct intel_device_info intel_i945g_info = {
+ 	.hws_needs_physical = 1,
+ 	.unfenced_needs_alignment = 1,
+ };
++#endif
+ 
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I945GM
+ static const struct intel_device_info intel_i945gm_info = {
+ 	GEN3_FEATURES,
+ 	.platform = INTEL_I945GM, .is_mobile = 1,
+@@ -155,20 +162,25 @@ static const struct intel_device_info intel_i945gm_info = {
+ 	.hws_needs_physical = 1,
+ 	.unfenced_needs_alignment = 1,
+ };
++#endif
+ 
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_G33
+ static const struct intel_device_info intel_g33_info = {
+ 	GEN3_FEATURES,
+ 	.platform = INTEL_G33,
+ 	.has_hotplug = 1,
+ 	.has_overlay = 1,
+ };
++#endif
+ 
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_PINEVIEW
+ static const struct intel_device_info intel_pineview_info = {
+ 	GEN3_FEATURES,
+ 	.platform = INTEL_PINEVIEW, .is_mobile = 1,
+ 	.has_hotplug = 1,
+ 	.has_overlay = 1,
+ };
++#endif
+ 
+ #define GEN4_FEATURES \
+ 	.gen = 4, .num_pipes = 2, \
+@@ -619,16 +631,28 @@ static const struct pci_device_id pciidlist[] = {
+ #ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I865G
+ 	INTEL_I865G_IDS(&intel_i865g_info),
+ #endif
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I915G
+ 	INTEL_I915G_IDS(&intel_i915g_info),
++#endif
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I915GM
+ 	INTEL_I915GM_IDS(&intel_i915gm_info),
++#endif
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I945G
+ 	INTEL_I945G_IDS(&intel_i945g_info),
++#endif
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_I945GM
+ 	INTEL_I945GM_IDS(&intel_i945gm_info),
+-	INTEL_I965G_IDS(&intel_i965g_info),
++#endif
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_G33
+ 	INTEL_G33_IDS(&intel_g33_info),
++#endif
++#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_PINEVIEW
++	INTEL_PINEVIEW_IDS(&intel_pineview_info),
++#endif
++	INTEL_I965G_IDS(&intel_i965g_info),
+ 	INTEL_I965GM_IDS(&intel_i965gm_info),
+ 	INTEL_GM45_IDS(&intel_gm45_info),
+ 	INTEL_G45_IDS(&intel_g45_info),
+-	INTEL_PINEVIEW_IDS(&intel_pineview_info),
  	INTEL_IRONLAKE_D_IDS(&intel_ironlake_d_info),
  	INTEL_IRONLAKE_M_IDS(&intel_ironlake_m_info),
- #endif
-+#ifdef CONFIG_DRM_I915_PLATFORM_INTEL_SANDYBRIDGE
  	INTEL_SNB_D_GT1_IDS(&intel_sandybridge_d_gt1_info),
- 	INTEL_SNB_D_GT2_IDS(&intel_sandybridge_d_gt2_info),
- 	INTEL_SNB_M_GT1_IDS(&intel_sandybridge_m_gt1_info),
- 	INTEL_SNB_M_GT2_IDS(&intel_sandybridge_m_gt2_info),
-+#endif
- 	INTEL_IVB_Q_IDS(&intel_ivybridge_q_info), /* must be first IVB */
- 	INTEL_IVB_M_GT1_IDS(&intel_ivybridge_m_gt1_info),
- 	INTEL_IVB_M_GT2_IDS(&intel_ivybridge_m_gt2_info),
 -- 
 2.27.0
 
