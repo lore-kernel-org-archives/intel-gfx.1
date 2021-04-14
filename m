@@ -2,130 +2,99 @@ Return-Path: <SRS0=lQef=JL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4673C43460
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:52:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2CC4C43461
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:52:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6726360C3E
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:52:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6726360C3E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nxp.com
+	by mail.kernel.org (Postfix) with ESMTPS id A54ED60E09
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 11:52:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A54ED60E09
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=windriver.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85BE36E932;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51AE96E86B;
 	Wed, 14 Apr 2021 11:52:49 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2054.outbound.protection.outlook.com [40.107.20.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3AC46E428;
- Wed, 14 Apr 2021 02:26:03 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D1F26E422
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 01:47:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q6/k7/tDdojq1rIWEik0C/NRJHTjJ8x+5RjEW2iEM+ZzWexIgPOtneoTP2yO1xxci+qf0KjrlZqUopill4HzWExN4e5KgnpCuQ9Gs+8f4Z6Mn/XasDvF40BzgVgMyfk3XOZLYUZ8DQFrosNLGLzofRmG4QqUFbLnUFhiuFkpIdZFow19n+mU2n9YJ51qiJPFDz0DeZphqj+xjE/MuKWKDPOBNjsXqrATNuwPHBzVeMbNz1Dce4WN8qoRth7CMLfM+dlT3HIkYqLIUQPcx/xSnrp7n6+ydP7eXhHaytK+P2aAfEm2xERYdIisby/84mX1M2O9hKHhOg85xXYas2oMYQ==
+ b=ezIoDcB85Nbog6+TgJ4AgrAhRTkR1hEyVTtxz3TDoXbjGS3V/iD95kcine7OIQosMz/IeXjLBSXOxWOqhvXlveZhb2QuFR3IqAjE/BBxbpto3QVavhR4vDnTFnpQCg4J0TTT8tC/SQV6ccCo/w/4bnJpiNmM/7WL0oTSqeh7QuErVf4C026s12voJIsRsFzMYj3AThWHf4oukNVErhuePNIh/sAuRAmrVsczP1FsoojVkdWVt4r8k/sp0IDTewCGiadKNNLAvTctrQuGv7CxVMhBThj3UVRjMdPLtNdRBmjoWQtCLDtDx6qIEceq+WXoHTfjiggCgyUfOF08PBm49g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=31Vy1hhOdxQpWirKjy5VdaODRZLAwUiQKKMUBmsdCB8=;
- b=c95s9ID9F+fchzIlYmpzNhDh2Ua7VgGeLoG4qGYr8LLx1cs8aQOnqtswhvywXJ3bkVXR2cFj3ECtYrM1oeRjpF1hecOqv3IF2q4PHKLHqCYYWhAWAQfQvCf41JLXevEPRekGk469VMNstuvIdGs6kqmKlL+auaa8keRmYFyOzPNoGPfHga7nzlLYHS+gOr6Ajxb9Qpw6tzvV0/9PU1K5U6b2s5pktANcAl/fVCv7o2eeRKuYmhNLWeMVpfKYDukARpCO4UHsbM+sjEQlDr4zcHyElVYKlhtkwtgmGzr9vMmnIM0c+iFAFlZBbDFFkMjDtq1o4tKUs6zgz8bXPMEZ7A==
+ bh=Bom6wj1T+7mXVv65yQkm7xi/67iYUyPoexbbC2nF3L8=;
+ b=C7aVcCaAjYFUqvNn8vDSj+praTmlfjCM2tW7Lz0nBxwLMAl+EdoQDlFku9bCPC+aCya9GjzOUHa8CpxZ54N4wQ0VhZpuMfktIELqk8L36EGa294k6vjTv4Kd4Hoo337aUucxkA/nRinikHm/e54sAOHz6sL+liPgKTHk0cb299mLOki8pf/cUBEEGc0ZXx/0izbggNJfTiLZ+IbZKuQi5hFegOKHPJdFemuRkcW95anVMDAYMCk99q3smjtmfcF8EdCNa/FMOAdZdgq2wgAW5c/sL4es8pTwx5Aq75jjPRiX54qIMP388QFzWL3h1ce0IBwdVgBDKECKGo9nqg9mmA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=windriversystems.onmicrosoft.com;
+ s=selector2-windriversystems-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=31Vy1hhOdxQpWirKjy5VdaODRZLAwUiQKKMUBmsdCB8=;
- b=jJDlLuOJKR9lwEIfvunigYm9qcy4A1Q3ZQr0MiHUGqo8EpENdlz3qII33MPS5W2jkhSOUtQ4q86qZnF+7rLkA4FS2jaRGNbw3+9RWmk8s2FDLbxG1wH9MuWN29/obIDKGZtfzyNqnwFsWNuz4dm4ZS/bYtfku7CV4OafGt5KQvc=
-Authentication-Results: pengutronix.de; dkim=none (message not signed)
- header.d=none;pengutronix.de; dmarc=none action=none header.from=nxp.com;
-Received: from VI1PR04MB3983.eurprd04.prod.outlook.com (2603:10a6:803:4c::16)
- by VI1PR04MB6111.eurprd04.prod.outlook.com (2603:10a6:803:f9::13)
+ bh=Bom6wj1T+7mXVv65yQkm7xi/67iYUyPoexbbC2nF3L8=;
+ b=L78F75HNSijbvMFoz0H9EaiAMpfVv8dzpO7y2aQpNYgMiqR9QbFtNgmcvt6V/qArS1Et56hxvLJxqvCjWIbG20GfDHGNiZ7wDC8KFWSireX9BjI86YYo8PJqqfbOo+0R5lYPub9S9oh98WAYg2etlC1h9uU+XiFX4xxGhKRXwy4=
+Authentication-Results: linux.intel.com; dkim=none (message not signed)
+ header.d=none;linux.intel.com; dmarc=none action=none
+ header.from=windriver.com;
+Received: from SN6PR11MB2592.namprd11.prod.outlook.com (2603:10b6:805:57::25)
+ by SN6PR11MB3134.namprd11.prod.outlook.com (2603:10b6:805:d9::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.18; Wed, 14 Apr
- 2021 02:25:59 +0000
-Received: from VI1PR04MB3983.eurprd04.prod.outlook.com
- ([fe80::a5f3:fde9:1d85:5f28]) by VI1PR04MB3983.eurprd04.prod.outlook.com
- ([fe80::a5f3:fde9:1d85:5f28%7]) with mapi id 15.20.4020.022; Wed, 14 Apr 2021
- 02:25:59 +0000
-Message-ID: <9395e1fde2725d4fe01c206d9172b8acd7cdf921.camel@nxp.com>
-From: Liu Ying <victor.liu@nxp.com>
-To: Lucas Stach <l.stach@pengutronix.de>, Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 14 Apr 2021 10:24:22 +0800
-In-Reply-To: <83a41b2e9636cb6a790b23843c6d2628d02c6997.camel@pengutronix.de>
-References: <20210413094904.3736372-1-daniel.vetter@ffwll.ch>
- <20210413094904.3736372-5-daniel.vetter@ffwll.ch>
- <290aef5ed13749d465eb19235aa87a2cef63dd2a.camel@pengutronix.de>
- <YHWk9V/4mu1lGFgD@phenom.ffwll.local>
- <83a41b2e9636cb6a790b23843c6d2628d02c6997.camel@pengutronix.de>
-User-Agent: Evolution 3.36.4-0ubuntu1 
-X-Originating-IP: [119.31.174.66]
-X-ClientProxiedBy: MA1PR01CA0092.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00::32)
- To VI1PR04MB3983.eurprd04.prod.outlook.com
- (2603:10a6:803:4c::16)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.22; Wed, 14 Apr
+ 2021 01:46:57 +0000
+Received: from SN6PR11MB2592.namprd11.prod.outlook.com
+ ([fe80::a135:6ae7:1d9f:b4db]) by SN6PR11MB2592.namprd11.prod.outlook.com
+ ([fe80::a135:6ae7:1d9f:b4db%7]) with mapi id 15.20.4020.022; Wed, 14 Apr 2021
+ 01:46:57 +0000
+From: Jun Miao <jun.miao@windriver.com>
+To: jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com
+Date: Wed, 14 Apr 2021 09:46:31 +0800
+Message-Id: <20210414014632.5255-1-jun.miao@windriver.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [60.247.85.82]
+X-ClientProxiedBy: HK2PR03CA0053.apcprd03.prod.outlook.com
+ (2603:1096:202:17::23) To SN6PR11MB2592.namprd11.prod.outlook.com
+ (2603:10b6:805:57::25)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from blueberry (119.31.174.66) by
- MA1PR01CA0092.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00::32) with Microsoft
+Received: from pek-lpggp3.wrs.com (60.247.85.82) by
+ HK2PR03CA0053.apcprd03.prod.outlook.com (2603:1096:202:17::23) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4020.17 via Frontend Transport; Wed, 14 Apr 2021 02:25:55 +0000
+ 15.20.4042.6 via Frontend Transport; Wed, 14 Apr 2021 01:46:55 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 16bda73a-eebd-4cd0-8c35-08d8feeca43f
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6111:
+X-MS-Office365-Filtering-Correlation-Id: 791ff754-c67c-46b6-b4e4-08d8fee73011
+X-MS-TrafficTypeDiagnostic: SN6PR11MB3134:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR04MB611181E698E5875B6F60FCB3984E9@VI1PR04MB6111.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <SN6PR11MB3134115E9675494A591DB0ED8E4E9@SN6PR11MB3134.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:353;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rluWpriTK1cI+PD2RxQY5cJwIBJXPauCdGmG2eL6zS6taCRYiHqlcxhBji6dP00XxgiPiIYfp2ok2oR7PCvb2/WU5Vr6oAkIaX3HcT1UmIxhiC+WewT5QSwmqf2cDsmFRPME2c0/gwmpv2zunPtAp6g3UzM7BW8wWEXRuqFOui15lbLI9dF4F4N2qUAGe40KnPqcC9vCtFCJPyj5Yc2IJu1XSyOcr0FBt8/ohcYMv/aVfvDVIc7T/K1SOIq6yDZc3H/1zYcGGIOZyfhQjIDo+VOi20yI6iSymQLcgov1KuAE2hLNIAZM19AqVgivMFezxP6AaVYrNwUXzceHaqtIIr9E+H7E8XXloR57M4hj4kgxmp9sDVVK3eqoZpIJyjimkM3NOrQTztgLHXh3CR81Qj15YYUX5jIvGup5DRCxKjlR8f3jKHfI7q+yyf6+T0m+SVH0Ex+BJnY1AiHgZ3PU4IZQNn8Uo1zwMz5PrPUHuwMkvi9ukt1G9qEpQoGX8e8XWQENFm+fDzU9yy2u19QbaZNja7/xH1+ovE2rpy0Q27kAlqj8l59mtLkeufvKnauythcCt6UgTNzIuYPIt/LdLysTpSqozmCMgprhHEY9GLRf8NUq/w1Cx2IwTUsgb4HR9QiDNk55J0RCqUgrloDNYRCQSPQDtZIzHegY42fnr2M=
+X-Microsoft-Antispam-Message-Info: aIb5pORjHckU+B3GAhJwJdLmF0TS+24NnQOHxLjrvDYgl7D/P2A6LzuNOZeV7psNFg9tGPU9pk7s/lte3KdHWKi1Rb+yyuTsN58SOD6fjnuzcxv4Dtw7o1h9uDxuKJHJsYPUtfhjFP/y/d9Mb0YQYu4jHQytENTERskS/fH9askmByphKhol7fdVoH36VVL1SS+EuNTG1AXg79FuD6jHrQsHtBr6sPG3WQ8RcVxH+tJB3SHkRjg0D+7zIPMFedXwQ2SNdIayhX0L+iI14XHEPcf5lZSDOkg/hW1KqM3eR119i0gPLOSNNiTZJknidlghchx4X3eGvWWIHtorhuS9OcPno6dp1nuGmEdCrte3/S+3A1einm4wmbbHcQQ4nuAePEZWwZS14Stt5fdYoe1sHfjBhjUhsvqQqJ5OnBTFsnS3zKydfPXKDZk7JzcZgd58rSG4YFj2EUl/aMZOsQBQys2+PuhFNw+nqQRVcfJ/Z8O5QtWZy3JheX1Rr1K1Z11MMhaHXrelVPmUBpuD80xcmIy0xZZ36sCM0q/jLVy182xrATxRgzR7f9H62twca6eiKpvmE68ijoF8ihwHxUZQ3hHXYP49cAryU/tpdv1Ozz+Dj9d6vS2wYr2dHd8Z5RL/cI4EgNWHJvV5g+XQnnCIGlYHz1fsv1johD3mlHF2t1u+0SafaHKUBN65YOY9n+56gL1HLdMuhQSyFAMvmwCfcjRU5oV4eG+hLHc3zSFEr1I=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB3983.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(136003)(39860400002)(366004)(396003)(8936002)(26005)(66946007)(66476007)(7416002)(36756003)(956004)(86362001)(52116002)(16526019)(478600001)(66556008)(6666004)(186003)(38350700002)(54906003)(83380400001)(38100700002)(2906002)(110136005)(4326008)(6486002)(316002)(6496006)(8676002)(2616005)(5660300002);
+ IPV:NLI; SFV:NSPM; H:SN6PR11MB2592.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39850400004)(366004)(396003)(346002)(136003)(376002)(26005)(186003)(83380400001)(16526019)(5660300002)(52116002)(2616005)(66556008)(66476007)(44832011)(1076003)(316002)(38350700002)(956004)(6666004)(2906002)(478600001)(8936002)(66946007)(6486002)(8676002)(38100700002)(6506007)(36756003)(4744005)(86362001)(6512007)(107886003)(4326008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?bTEvTzhwZkhTNlB6aU1DdjQrcDcrayt0TXcrQ3FMQmM2U1hkMG12aUhSVW5l?=
- =?utf-8?B?dWpwdTZaUTVqMnRrUytDeEMvWVBZcjJ1TFRGQm5iZnZLdmZXQWZuUmY4d092?=
- =?utf-8?B?YkF5cDByVXJOZ0FVclpMODhoSlovazFveEh5MjB6OU95TXZlbU1FVnd4N0hQ?=
- =?utf-8?B?M1A4YTNCTERVRzFXcmUvVnBINHBxQXJaQ2hlK1l0NkExZE95WUh1K1c4REZT?=
- =?utf-8?B?THU1d0ordEtnbDhjeEI3Rmc2cDNZVXZhVkt1cUNYL0hYSVcyTjcxaUVlZHJ4?=
- =?utf-8?B?MXdPSzZKOTlCRG9lV08vbTlhL3NCSkQ5TzN4SGhzOXUxK1Zab2RlOE1lbmdU?=
- =?utf-8?B?TTRyY2VXTkJ6dmFvWlZKNit3WXVNSGVKa0FmcE05b243REtSdUFNYVppMDVj?=
- =?utf-8?B?eHlQOGNsZGZ1ZlJvbVVuR01WaU9RSG1QV0VvRmhsRkZSNXNtMUNuSGhuNHds?=
- =?utf-8?B?aVlTZEk4UjQyR0lrSFdaR01hdEpiV1o0QzlPN0dPZTkyYStQK0FWWXpkRStZ?=
- =?utf-8?B?eWhEZHg0dHZOMUgzeDRrdGxDcFhqakhoR1owdVMvWWptYkV5L2d0eE8xUXdC?=
- =?utf-8?B?M0poUGRLYU9UZlRHWVYwcGNMWkovaFhweVRtZW8xV0pJSFloNGxZTk9mQXIr?=
- =?utf-8?B?YU9QQ01hRkZMeFRteGxCTHJSYXR5K3NnaVdYc0s0S1YwZkt5anRFVXBwTUEy?=
- =?utf-8?B?dFkxT0FGOHVEOHk1TVAyM24zdWxEUi9qVmdJVE1pNWNlZms3elZoZXJIbkJw?=
- =?utf-8?B?S0MvQURhVnAxVElUK212bWZwTVlwN096SVJmVUJKWDVnTjd3MDN5Yzg2aXgx?=
- =?utf-8?B?NGhRVTJuNnFqc3R2cFhVNE83cUxLaGxYRUZBd3gvSWlGaWhwQ09DNXBXc0pQ?=
- =?utf-8?B?bjdKZjZxWjlWUHdoV0dPdktTeFVsUEJ3REQ3YlZ1b2sxeGt0SnBBVUFFdWJa?=
- =?utf-8?B?QTBHazFQSFp3eFRrc3hBRXpUWjFwK0pQTFdVU3NjekYrMFdDY2o4TVFnbFlm?=
- =?utf-8?B?YjQzK3ZxUGNLLytJWnVLZ2VuT01zNVArU1ZlUzJBZ3lDV3dCRFRFQ1pnRzkz?=
- =?utf-8?B?Z0xLbU5scVpkZnR5QzVCdHJMSisvbVdzRWpzUUYwUlJUVy82TUQ1REdjcENh?=
- =?utf-8?B?QmRBVlZkSExYWVdTdnVkeXcvNFpVUGxLbkRFK2NWK0hTaHlnVnpWVlY4OGNi?=
- =?utf-8?B?VFBubGtmeUVGcFRTQ2o0ZEIxVnU0TlpLc1QrUUhuaHBEUEVxQUlqSEJqejNX?=
- =?utf-8?B?UWNqdndkTHBhREF1MmhOdDV3UExoTEtBajc4RldDalhuUC9Dc0R5MzJFRHQ0?=
- =?utf-8?B?NGZ3dFlLOTBVRnZMNzZGdGtNSzdid1Z4RG5GZWlmdk94OXhrWUtUWFpSdnNS?=
- =?utf-8?B?LzFWYnI0cDQ3WkdXQ3JCcStPaGdJY3F0Z1FEOTlMUmpkWEV4SDBSbGFuV3FF?=
- =?utf-8?B?WmF5K21Qa2tZWXd0VXNMRzVCWC81aythZXYvQ2ltck1RbUhvMzFrc3RvRitH?=
- =?utf-8?B?ZnFESDh0ZUQ0V1JBeW91TnNmVE5yK25uVWIvU0poenR1NUtBTmdHTE9sbGJa?=
- =?utf-8?B?OW9yR1B4cmtsMzh2ZGxoRU0xaHhnQ2pEOWNCK3ZrcWJiTDRIRzB0T1JoK2xR?=
- =?utf-8?B?REc2akZ4Smh0SUtyZC9hQlFSdFJqM2FuSTZDSUF0NmdCTkowUG9NZzkxWWNv?=
- =?utf-8?B?RkFnelpUUzVRRHhVTHFNM09FZmFkeFp3VlRRMXkxWjZrdGYvWGJ2Ujg3aE55?=
- =?utf-8?Q?WAsXOgkeqFsFXZ5oeFfvDCDmxDOrOUgkiVkA5rw?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16bda73a-eebd-4cd0-8c35-08d8feeca43f
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB3983.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData: aEWq+UmVPM6sI96fN135D4TnEUXT+blMQhzMKB7tJbDMDscfknGqegvFinqp7KWk5IXz/up4Mt76bRoXAuSfEa+QOMKHwLVikTON2kT6kWjopy8a7cmxPS/9frlDeZlA2QSqbyx0+ZTbtyclZFSnheps7WMw0yfgCSd59Txaopo05gwlpArZJi/18/R9C8BkrhlqISilW+VJ7Q/uwEOWEfsxhuG/I5FZNe3GGaBYGuCHRfQEcNycaWmtRLxFc5r+XX67ix+LiC6ylkzInMNRLLRBku4W3pyVSdANftDfP953lCPITdJ3Dc0llt6I6NRZ9qHBTfCXnQYia6bDymLhyE3kvzD+z9k93FuRz3Gyr+Ao3OuEEK3M4ZmAizqIINn9mKJ/M8sghoEZEbm/CcrgM8JAHAjBfTU5dK8jq8Zca898khuzCeAL++qmFP7m0XY82977AMX/zv94KvK8k3jZD3YvzVg8eiDYiw1mE/nwCarm0DkV5b2CjIe9MS3ylNO1NmkT1CFPIeJAK2KwG/IAbct5ICCawe7kW186vvFSvZCYUZHBho1TDlZra+5NKg8imCD0ApnZVDkqE3k5EROe0F/cj+9LncRkyCQv6elfsqtAAxxlTTJ2YSCMVzLcYDxwD5hCMpVq0T2WAYpS3qdDMhMQn18T7AxzI1iyK/53ikE6yWM8AbPihOl89TfO3QZfm0y/XY5c7MCyvdFk8dVVoMMUiDl/hxQBlmQeIfZxlcHjkk72RJtzduu9vQYPp7Sm
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 791ff754-c67c-46b6-b4e4-08d8fee73011
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR11MB2592.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2021 02:25:59.5849 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2021 01:46:57.3730 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NjllZvDr+0773X7HhOlneV+PGO2SX+zjYQtCcTc/Kr5xKIqhcgqJMg6W7JuuMNB+bzpkG90tIEx8ZJ7mg4ilHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6111
+X-MS-Exchange-CrossTenant-UserPrincipalName: Of87MREWFVv7IO4LiJvux3nIE0QQzAxB6YSOGSiYwfd5eqolVW26T3vOgCAIEbAL7XwYguQ+HIlVnVTqihFBmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB3134
 X-Mailman-Approved-At: Wed, 14 Apr 2021 11:52:48 +0000
-Subject: Re: [Intel-gfx] [PATCH 05/12] drm/imx: Don't set allow_fb_modifiers
- explicitly
+Subject: [Intel-gfx] [PATCH 0/1] drm/i915/gt: Fix a lockdep warnning on RT
+ kernel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,106 +107,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Daniel Vetter <daniel.vetter@intel.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org
+Cc: intel-gfx@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ jun.miao@windriver.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Daniel,
+Hi,all 
+	This lockdep warning is only in the RT kernel.
+	Which is introduced by this path:https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c?h=v5.12-rc7&id=9d5612ca165a58aacc160465532e7998b9aab270
+	Fix it. 
 
-On Tue, 2021-04-13 at 16:14 +0200, Lucas Stach wrote:
-> Am Dienstag, dem 13.04.2021 um 16:04 +0200 schrieb Daniel Vetter:
-> > On Tue, Apr 13, 2021 at 01:47:28PM +0200, Lucas Stach wrote:
-> > > Am Dienstag, dem 13.04.2021 um 11:48 +0200 schrieb Daniel Vetter:
-> > > > Since
-> > > > 
-> > > > commit 890880ddfdbe256083170866e49c87618b706ac7
-> > > > Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-> > > > Date:   Fri Jan 4 09:56:10 2019 +0100
-> > > > 
-> > > >     drm: Auto-set allow_fb_modifiers when given modifiers at plane init
-> > > > 
-> > > > this is done automatically as part of plane init, if drivers set the
-> > > > modifier list correctly. Which is the case here.
-> > > > 
-> > > > This one actually set it twice on top of what drm_plane_init does, so
-> > > > double-redundant!
-> > > 
-> > > That's not true. imx-dcss and imx-drm are two totally separate drivers.
-> > > Maybe we should move imx-drm into its own ipuv3 directory one day to
-> > > make this more clear. Change is still correct, though.
-> > 
-> > Hm I greeped for drm_universal_plane_init and didn't find anythinf for the
-> > imx main driver ... where are planes set up for that? Need to review that
-> > they have the modifiers listed in all cases.
-> 
-> That's in drivers/gpu/drm/imx/ipuv3-plane.c and modifiers are always
-> set on plane init.
-> 
-> Regards,
-> Lucas
-> 
-> > > Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
-> > > 
-> > > > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > > > Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> > > > Cc: Shawn Guo <shawnguo@kernel.org>
-> > > > Cc: Sascha Hauer <s.hauer@pengutronix.de>
-> > > > Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-> > > > Cc: Fabio Estevam <festevam@gmail.com>
-> > > > Cc: NXP Linux Team <linux-imx@nxp.com>
-> > > > Cc: linux-arm-kernel@lists.infradead.org
-> > > > ---
-> > > >  drivers/gpu/drm/imx/dcss/dcss-kms.c | 1 -
-> > > >  drivers/gpu/drm/imx/imx-drm-core.c  | 1 -
+Jun Miao (1):
+  drm/i915/gt: Fix a lockdep warnning on RT kernel
 
-Nit: Since this patch touches two totally separate drivers(imx-dcss and
-imx-drm), it would be good to split it into two patches.
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-Thanks,
-Liu Ying
-
-> > > >  2 files changed, 2 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/imx/dcss/dcss-kms.c b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> > > > index b549ce5e7607..37ae68a7fba5 100644
-> > > > --- a/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> > > > +++ b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> > > > @@ -52,7 +52,6 @@ static void dcss_kms_mode_config_init(struct dcss_kms_dev *kms)
-> > > >  	config->min_height = 1;
-> > > >  	config->max_width = 4096;
-> > > >  	config->max_height = 4096;
-> > > > -	config->allow_fb_modifiers = true;
-> > > >  	config->normalize_zpos = true;
-> > > >  
-> > > > 
-> > > > 
-> > > > 
-> > > >  	config->funcs = &dcss_drm_mode_config_funcs;
-> > > > diff --git a/drivers/gpu/drm/imx/imx-drm-core.c b/drivers/gpu/drm/imx/imx-drm-core.c
-> > > > index 2ded8e4f32d0..8be4edaec958 100644
-> > > > --- a/drivers/gpu/drm/imx/imx-drm-core.c
-> > > > +++ b/drivers/gpu/drm/imx/imx-drm-core.c
-> > > > @@ -209,7 +209,6 @@ static int imx_drm_bind(struct device *dev)
-> > > >  	drm->mode_config.max_height = 4096;
-> > > >  	drm->mode_config.funcs = &imx_drm_mode_config_funcs;
-> > > >  	drm->mode_config.helper_private = &imx_drm_mode_config_helpers;
-> > > > -	drm->mode_config.allow_fb_modifiers = true;
-> > > >  	drm->mode_config.normalize_zpos = true;
-> > > >  
-> > > > 
-> > > > 
-> > > > 
-> > > >  	ret = drmm_mode_config_init(drm);
-> 
-> 
+-- 
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
