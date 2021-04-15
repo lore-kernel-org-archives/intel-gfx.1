@@ -2,48 +2,68 @@ Return-Path: <SRS0=Ww0K=JM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E30BC43460
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 12:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8434FC433ED
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 13:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D4F0611AC
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 12:59:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D4F0611AC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 49905611AC
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 13:25:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 49905611AC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF0A16E507;
-	Thu, 15 Apr 2021 12:59:35 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E76256E504;
- Thu, 15 Apr 2021 12:59:33 +0000 (UTC)
-IronPort-SDR: cjefKX4AOK9ElzSGqvu/zj577Zqhrfd3HIZ38wtqC3mN4ZZbrk6w4nRv2N9V9y+PTeI8rtI5l2
- 4+6QvKnvVcDw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9955"; a="280159586"
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="280159586"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 05:59:15 -0700
-IronPort-SDR: YCqPSg8wcaXFJ3rJLwzRlZkuIHat5TcOyq9TJUbqU7jPqfoEecEMInuDRtT+igrylGRK5OYN23
- hHvwm1a4lB2w==
-X-IronPort-AV: E=Sophos;i="5.82,225,1613462400"; d="scan'208";a="418732658"
-Received: from rkapur-mobl1.amr.corp.intel.com (HELO intel.com)
- ([10.212.63.86])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 05:59:13 -0700
-Date: Thu, 15 Apr 2021 08:59:11 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <YHg4nz/ndzDRmPjd@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B9876EA4E;
+	Thu, 15 Apr 2021 13:25:04 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72E5C6E50C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Apr 2021 13:25:02 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id e7so14328377wrs.11
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Apr 2021 06:25:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=WywktdEbTtzyljlORRM0CB3DNs+MqO2ZnTXlL0mv/o4=;
+ b=fQWYTCh/TbjCAQTokqLEmhTY6UYkMgAtqQgyvIaoO5iJfn/4o83vQ0WPY9Fp5Vvd6P
+ FZxWCUA2GYIyRZT7ZLBFE6m0f0sow1XARVuqGuS/OjaGYRttaQ3M1u0FGHzUd51T3uE4
+ vp1EcF40d4BND1jY2djYa5V8Caf+d+u3NZVko=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=WywktdEbTtzyljlORRM0CB3DNs+MqO2ZnTXlL0mv/o4=;
+ b=T8OPj92T11O2znEt6PXCVlHe6vszupcGlaQDMANmVT+FOaKTiEKPerc5uYsdQubmDg
+ PYYlQnDZm88pAdt+J2G/FX5ebxgFm/VlgmrBT/ywCb6YhKGtMBdmLxicTmhjKSuqoQ20
+ /iBqSi3MHjPI2RbL222g27CV7l0mPkZxc8tJYjYAfuI1+5V50Yng1rW5gdUmfeuv5ebt
+ fdd08bEMlmVqbjEBaNV8P77nX4xNbnqsGoeHN92YtE1zGiu6p4xdVvRMR8HNzsaCh4Lz
+ OJf8DRLdX+9oL7KD0phyFCSaVAbHV11oJ0bVPBOVFvmqJUd5wxrYOLXYvlVlRCATKGd4
+ hlLQ==
+X-Gm-Message-State: AOAM530+eIGnJ/q0byYSaJwLpStGhKSvGw+qJMj03lOvPUhKqkXU388Y
+ 3zwaKO5Xf/sBgyPNOgacMlIVyw==
+X-Google-Smtp-Source: ABdhPJxLMCuct5x6wsG1F35jUQ1IctQaUuhskZi4yoFI2skonqWnPs46xtoE/OTn1mdUJDcitP/2PQ==
+X-Received: by 2002:a5d:590d:: with SMTP id v13mr3464142wrd.85.1618493101165; 
+ Thu, 15 Apr 2021 06:25:01 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id l9sm2643631wmq.2.2021.04.15.06.24.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Apr 2021 06:25:00 -0700 (PDT)
+Date: Thu, 15 Apr 2021 15:24:58 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Message-ID: <YHg+qtZQxitl1m7g@phenom.ffwll.local>
+References: <YHg4nz/ndzDRmPjd@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] drm-intel-fixes
+In-Reply-To: <YHg4nz/ndzDRmPjd@intel.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
+Subject: Re: [Intel-gfx] [PULL] drm-intel-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,62 +76,91 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: dim-tools@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave and Daniel,
+On Thu, Apr 15, 2021 at 08:59:11AM -0400, Rodrigo Vivi wrote:
+> Hi Dave and Daniel,
+> =
 
-Here goes drm-intel-fixes-2021-04-15:
+> Here goes drm-intel-fixes-2021-04-15:
+> =
 
-Display panel & power related fixes:
+> Display panel & power related fixes:
+> =
 
-- Backlight fix (Lyude)
-- Display watermark fix (Ville)
-- VLV panel power fix (Hans)
+> - Backlight fix (Lyude)
+> - Display watermark fix (Ville)
+> - VLV panel power fix (Hans)
+> =
 
-Thanks,
-Rodrigo.
+> Thanks,
+> Rodrigo.
+> =
 
-The following changes since commit d434405aaab7d0ebc516b68a8fc4100922d7f5ef:
+> The following changes since commit d434405aaab7d0ebc516b68a8fc4100922d7f5=
+ef:
+> =
 
-  Linux 5.12-rc7 (2021-04-11 15:16:13 -0700)
+>   Linux 5.12-rc7 (2021-04-11 15:16:13 -0700)
+> =
 
-are available in the Git repository at:
+> are available in the Git repository at:
+> =
 
-  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2021-04-=
-15
+>   git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2021-0=
+4-15
+> =
 
-for you to fetch changes up to aee6f25e9c911323aa89a200e1bb160c1613ed3d:
+> for you to fetch changes up to aee6f25e9c911323aa89a200e1bb160c1613ed3d:
+> =
 
-  drm/i915/display/vlv_dsi: Do not skip panel_pwr_cycle_delay when disablin=
-g the panel (2021-04-12 08:00:33 -0400)
+>   drm/i915/display/vlv_dsi: Do not skip panel_pwr_cycle_delay when disabl=
+ing the panel (2021-04-12 08:00:33 -0400)
 
-----------------------------------------------------------------
-Display panel & power related fixes:
+Applied to drm-fixes, thanks for the pull.
+-Daniel
 
-- Backlight fix (Lyude)
-- Display watermark fix (Ville)
-- VLV panel power fix (Hans)
+> =
 
-----------------------------------------------------------------
-Hans de Goede (1):
-      drm/i915/display/vlv_dsi: Do not skip panel_pwr_cycle_delay when disa=
-bling the panel
+> ----------------------------------------------------------------
+> Display panel & power related fixes:
+> =
 
-Lyude Paul (1):
-      drm/i915/dpcd_bl: Don't try vesa interface unless specified by VBT
+> - Backlight fix (Lyude)
+> - Display watermark fix (Ville)
+> - VLV panel power fix (Hans)
+> =
 
-Ville Syrj=E4l=E4 (1):
-      drm/i915: Don't zero out the Y plane's watermarks
+> ----------------------------------------------------------------
+> Hans de Goede (1):
+>       drm/i915/display/vlv_dsi: Do not skip panel_pwr_cycle_delay when di=
+sabling the panel
+> =
 
- drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 1 -
- drivers/gpu/drm/i915/display/vlv_dsi.c                | 4 ++--
- drivers/gpu/drm/i915/intel_pm.c                       | 4 ++--
- 3 files changed, 4 insertions(+), 5 deletions(-)
+> Lyude Paul (1):
+>       drm/i915/dpcd_bl: Don't try vesa interface unless specified by VBT
+> =
+
+> Ville Syrj=E4l=E4 (1):
+>       drm/i915: Don't zero out the Y plane's watermarks
+> =
+
+>  drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 1 -
+>  drivers/gpu/drm/i915/display/vlv_dsi.c                | 4 ++--
+>  drivers/gpu/drm/i915/intel_pm.c                       | 4 ++--
+>  3 files changed, 4 insertions(+), 5 deletions(-)
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
