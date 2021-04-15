@@ -2,53 +2,51 @@ Return-Path: <SRS0=Ww0K=JM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD435C43460
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 11:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3DE4C433ED
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 12:11:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E0976124B
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 11:35:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E0976124B
+	by mail.kernel.org (Postfix) with ESMTPS id 553FB60FD8
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 12:11:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 553FB60FD8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0215C6EA3D;
-	Thu, 15 Apr 2021 11:35:44 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3E726E1B4;
- Thu, 15 Apr 2021 11:35:42 +0000 (UTC)
-IronPort-SDR: s10c9YrVV4u+eNLhSbprhvf/XkavzCegtVLIvbXfKYNB9cHwCQLkkN0C5zTDB1hUzh7MkIHKeF
- wLVzVfMci0bQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9954"; a="181959210"
-X-IronPort-AV: E=Sophos;i="5.82,223,1613462400"; d="scan'208";a="181959210"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 04:35:38 -0700
-IronPort-SDR: m5DYHwcPxxTzC5HeI5oz9IdVfO2OppR1lOhEtXHeM2GBGpZng+I9icn9WQWLStVAowqlX8NoTU
- 9IJkCX65MurQ==
-X-IronPort-AV: E=Sophos;i="5.82,223,1613462400"; d="scan'208";a="418712572"
-Received: from jkrzyszt-mobl1.ger.corp.intel.com ([10.213.19.111])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2021 04:35:37 -0700
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: igt-dev@lists.freedesktop.org,
- Marcin Bernatowicz <marcin.bernatowicz@linux.intel.com>
-Date: Thu, 15 Apr 2021 13:35:34 +0200
-Message-ID: <4392350.LvFx2qVVIh@jkrzyszt-mobl1.ger.corp.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <8be9557312e7cfb27738766dcfbc498d1e0e10b5.camel@linux.intel.com>
-References: <20210408083157.23014-1-janusz.krzysztofik@linux.intel.com>
- <8be9557312e7cfb27738766dcfbc498d1e0e10b5.camel@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 188376EA4F;
+	Thu, 15 Apr 2021 12:11:15 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88B296E500;
+ Thu, 15 Apr 2021 12:11:13 +0000 (UTC)
+IronPort-SDR: KYYygcB8BJ57jOO2yA4MiXLtcFo7ODU6L6FlMvS03RGbQulgg1hN/CLo+x96heDIPDxMHlCanq
+ 2kQG1APXWCpA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9954"; a="280153584"
+X-IronPort-AV: E=Sophos;i="5.82,223,1613462400"; 
+ d="asc'?scan'208";a="280153584"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2021 05:11:13 -0700
+IronPort-SDR: Ag3JTxydd+BoZMqrZHS2g+vR8Eq1VQToYblJfFy88zEgalskyeHIApqYnrb0n8YNkiQoJLiYqN
+ k+ts2gM3ioIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,223,1613462400"; 
+ d="asc'?scan'208";a="461591472"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
+ by orsmga001.jf.intel.com with ESMTP; 15 Apr 2021 05:11:09 -0700
+Date: Thu, 15 Apr 2021 19:53:17 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Message-ID: <20210415115317.GS1551@zhen-hp.sh.intel.com>
+References: <YHaFQtk/DIVYK1u5@mwanda>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [RFC PATCH 1/2] tests/core_hotunplug: Add perf
- health check
+In-Reply-To: <YHaFQtk/DIVYK1u5@mwanda>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: Fix error code in
+ intel_gvt_init_device()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,26 +59,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: fred gao <fred.gao@intel.com>, David Airlie <airlied@linux.ie>,
+ intel-gfx@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0336194961=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gxZtyb2RhLCAxNCBrd2lldG5pYSAyMDIxIDExOjUwOjEwIENFU1QgTWFyY2luIEJlcm5hdG93
-aWN6IHdyb3RlOgo+IE9uIFRodSwgMjAyMS0wNC0wOCBhdCAxMDozMSArMDIwMCwgSmFudXN6IEty
-enlzenRvZmlrIHdyb3RlOgo+ID4gU29tZXRpbWVzIENJIHJlcG9ydHMgc2tpcHMgb2YgcGVyZiBz
-dWJ0ZXN0cyB3aGVuIHJ1biBzdWJzZXF1ZW50bHkKPiA+IGFmdGVyCj4gPiBjb3JlX2hvdHVucGx1
-Zy4gIFRoYXQgbWF5IGJlIGFuIGluZGljYXRpb24gb2YgaXNzdWVzIHdpdGggcmVzdG9yaW5nCj4g
-PiBkZXZpY2UgcGVyZiBmZWF0dXJlcyBvbiBkcml2ZXIgKGhvdClyZWJpbmQuCj4gPiAKPiA+IERl
-dGVjdCBkZXZpY2UgcGVyZiBzdXBwb3J0IGF0IHRlc3Qgc3RhcnQgYW5kIGNoZWNrIGlmIHN0aWxs
-IGF2YWlsYWJsZQo+ID4gYWZ0ZXIgZHJpdmVyIHJlYmluZC4gIElmIHRoYXQgZmFpbHMsIGEgcG9z
-dC1zdWJ0ZXN0IGRldmljZSByZWNvdmVyeQo+ID4gc3RlcCByZXN0b3JlcyB0aGUgZGV2aWNlIHBl
-cmYgc3VwcG9ydCBzbyBubyBzdWJzZXF1ZW50bHkgZXhlY3V0ZWQKPiA+IHRlc3RzCj4gPiBhcmUg
-YWZmZWN0ZWQuCj4gPiAKPiA+IFNpZ25lZC1vZmYtYnk6IEphbnVzeiBLcnp5c3p0b2ZpayA8amFu
-dXN6LmtyenlzenRvZmlrQGxpbnV4LmludGVsLmNvbQouLi4KPiBMR1RNLAo+IEFja2VkLWJ5OiBN
-YXJjaW4gQmVybmF0b3dpY3ogPG1hcmNpbi5iZXJuYXRvd2ljekBsaW51eC5pbnRlbC5jb20+CgpU
-aGFuayB5b3UgTWFyY2luLCBwdXNoZWQuCgpKYW51c3oKCj4gCj4gCj4gCgoKCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBs
-aXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+
+--===============0336194961==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="UsbkURXZxe2ekgES"
+Content-Disposition: inline
+
+
+--UsbkURXZxe2ekgES
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 2021.04.14 09:01:38 +0300, Dan Carpenter wrote:
+> The intel_gvt_init_vgpu_type_groups() function is only called from
+> intel_gvt_init_device().  If it fails then the intel_gvt_init_device()
+> prints the error code and propagates it back again.  That's a bug
+> because false is zero/success.  The fix is to modify it to return zero
+> or negative error codes and make everything consistent.
+>=20
+> Fixes: c5d71cb31723 ("drm/i915/gvt: Move vGPU type related code into gvt =
+file")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> ---
+
+Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+
+Thanks, Dan! Applied this.
+
+>  drivers/gpu/drm/i915/gvt/gvt.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gvt/gvt.c b/drivers/gpu/drm/i915/gvt/gv=
+t.c
+> index 2ecb8534930b..1deb253ffe80 100644
+> --- a/drivers/gpu/drm/i915/gvt/gvt.c
+> +++ b/drivers/gpu/drm/i915/gvt/gvt.c
+> @@ -126,7 +126,7 @@ static bool intel_get_gvt_attrs(struct attribute_grou=
+p ***intel_vgpu_type_groups
+>  	return true;
+>  }
+> =20
+> -static bool intel_gvt_init_vgpu_type_groups(struct intel_gvt *gvt)
+> +static int intel_gvt_init_vgpu_type_groups(struct intel_gvt *gvt)
+>  {
+>  	int i, j;
+>  	struct intel_vgpu_type *type;
+> @@ -144,7 +144,7 @@ static bool intel_gvt_init_vgpu_type_groups(struct in=
+tel_gvt *gvt)
+>  		gvt_vgpu_type_groups[i] =3D group;
+>  	}
+> =20
+> -	return true;
+> +	return 0;
+> =20
+>  unwind:
+>  	for (j =3D 0; j < i; j++) {
+> @@ -152,7 +152,7 @@ static bool intel_gvt_init_vgpu_type_groups(struct in=
+tel_gvt *gvt)
+>  		kfree(group);
+>  	}
+> =20
+> -	return false;
+> +	return -ENOMEM;
+>  }
+> =20
+>  static void intel_gvt_cleanup_vgpu_type_groups(struct intel_gvt *gvt)
+> @@ -373,7 +373,7 @@ int intel_gvt_init_device(struct drm_i915_private *i9=
+15)
+>  		goto out_clean_thread;
+> =20
+>  	ret =3D intel_gvt_init_vgpu_type_groups(gvt);
+> -	if (ret =3D=3D false) {
+> +	if (ret) {
+>  		gvt_err("failed to init vgpu type groups: %d\n", ret);
+>  		goto out_clean_types;
+>  	}
+> --=20
+> 2.30.2
+>=20
+> _______________________________________________
+> intel-gvt-dev mailing list
+> intel-gvt-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gvt-dev
+
+--UsbkURXZxe2ekgES
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYHgpKAAKCRCxBBozTXgY
+JwjkAKCSaNdnh8Enpt19xF9KII6ijHEjGwCfSf8O9mouYgsENRZKXWdtLHyv7J0=
+=REJl
+-----END PGP SIGNATURE-----
+
+--UsbkURXZxe2ekgES--
+
+--===============0336194961==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0336194961==--
