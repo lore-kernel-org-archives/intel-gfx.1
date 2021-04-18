@@ -2,51 +2,41 @@ Return-Path: <SRS0=zf9v=JP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4723C43460
-	for <intel-gfx@archiver.kernel.org>; Sun, 18 Apr 2021 00:19:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90457C433ED
+	for <intel-gfx@archiver.kernel.org>; Sun, 18 Apr 2021 00:41:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9B53E6113D
-	for <intel-gfx@archiver.kernel.org>; Sun, 18 Apr 2021 00:19:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B53E6113D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2480D6120A
+	for <intel-gfx@archiver.kernel.org>; Sun, 18 Apr 2021 00:41:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2480D6120A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30E8D6E075;
-	Sun, 18 Apr 2021 00:19:14 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAC8F6E059
- for <intel-gfx@lists.freedesktop.org>; Sun, 18 Apr 2021 00:19:09 +0000 (UTC)
-IronPort-SDR: vfq7juREsNGs7F4mLcWWiK66gy45G4VBbXbIQHwfUKINTuOP6Gwcf3xfyX81kZ3MC8eRQBBlZF
- MFZKc7A2m/hg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9957"; a="182687382"
-X-IronPort-AV: E=Sophos;i="5.82,230,1613462400"; d="scan'208";a="182687382"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2021 17:19:09 -0700
-IronPort-SDR: kA6AHlFk8nxDdmWe+kzCSv5ABydVE1AoL2hgLxEYgufjpVx45y6HLrTx4q+rXvuoOtgNMqkOGU
- zRrpnYvjByxA==
-X-IronPort-AV: E=Sophos;i="5.82,230,1613462400"; d="scan'208";a="426049786"
-Received: from xxi2-mobl.amr.corp.intel.com (HELO josouza-mobl2.intel.com)
- ([10.254.36.1])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2021 17:19:08 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Sat, 17 Apr 2021 17:21:23 -0700
-Message-Id: <20210418002126.87882-2-jose.souza@intel.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210418002126.87882-1-jose.souza@intel.com>
-References: <20210418002126.87882-1-jose.souza@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C70D6E059;
+	Sun, 18 Apr 2021 00:41:52 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 706096E04E;
+ Sun, 18 Apr 2021 00:41:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 66DF9A00CC;
+ Sun, 18 Apr 2021 00:41:51 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/5] drm/i915/display: Replace
- intel_psr_enabled() calls by intel_crtc_state check
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
+Date: Sun, 18 Apr 2021 00:41:51 -0000
+Message-ID: <161870651139.9417.2473225760043711553@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210418002126.87882-1-jose.souza@intel.com>
+In-Reply-To: <20210418002126.87882-1-jose.souza@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIHNl?=
+ =?utf-8?q?ries_starting_with_=5B1/5=5D_drm/i915/display=3A_Fill_PSR_state?=
+ =?utf-8?q?_during_hardware_configuration_read_out?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,56 +49,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QWxsIG9mIHRoaXMgcGxhY2VzIGRvbid0IG5lZWQgdG8gaW50ZWxfcHNyX2VuYWJsZWQoKSB0aGF0
-IHdpbGwgbG9jawpwc3IgbXV0ZXgsIGNoZWNrIHN0YXRlIGFuZCB1bmxvY2suCgpJbnN0ZWFkIGl0
-IGNhbiBkaXJlY3RseSBjaGVjayBQU1Igc3RhdGUgaW4gaW50ZWxfY3J0Y19zdGF0ZSwgdGhlIG9u
-bHkKcGxhY2UgdGhhdCB3YXMgbm90IHBvc3NpYmxlIHdhcyBpbnRlbF9yZWFkX2RwX3ZzY19zZHAo
-KSBidXQgc2luY2UKImRybS9pOTE1L2Rpc3BsYXk6IEZpbGwgUFNSIHN0YXRlIGR1cmluZyBoYXJk
-d2FyZSBjb25maWd1cmF0aW9uIHJlYWQKb3V0IiBpdCBpcyBwb3NzaWJsZS4KCkNjOiBHd2FuLWd5
-ZW9uZyBNdW4gPGd3YW4tZ3llb25nLm11bkBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEpvc8Op
-IFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYyB8IDggKysrLS0tLS0KIDEgZmlsZSBjaGFuZ2Vk
-LCAzIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
-cGxheS9pbnRlbF9kcC5jCmluZGV4IDVlZTk1M2FhYTAwYy4uNzJiY2MxMGNhZTRmIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCkBAIC0yODYxLDcgKzI4NjEsNiBAQCB2
-b2lkIGludGVsX2RwX3NldF9pbmZvZnJhbWVzKHN0cnVjdCBpbnRlbF9lbmNvZGVyICplbmNvZGVy
-LAogCQkJICAgICBjb25zdCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9zdGF0ZSAqY29ubl9zdGF0ZSkK
-IHsKIAlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYgPSB0b19pOTE1KGVuY29kZXIt
-PmJhc2UuZGV2KTsKLQlzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwID0gZW5jX3RvX2ludGVsX2Rw
-KGVuY29kZXIpOwogCWk5MTVfcmVnX3QgcmVnID0gSFNXX1RWSURFT19ESVBfQ1RMKGNydGNfc3Rh
-dGUtPmNwdV90cmFuc2NvZGVyKTsKIAl1MzIgZGlwX2VuYWJsZSA9IFZJREVPX0RJUF9FTkFCTEVf
-QVZJX0hTVyB8IFZJREVPX0RJUF9FTkFCTEVfR0NQX0hTVyB8CiAJCQkgVklERU9fRElQX0VOQUJM
-RV9WU19IU1cgfCBWSURFT19ESVBfRU5BQkxFX0dNUF9IU1cgfApAQCAtMjg3MCw3ICsyODY5LDcg
-QEAgdm9pZCBpbnRlbF9kcF9zZXRfaW5mb2ZyYW1lcyhzdHJ1Y3QgaW50ZWxfZW5jb2RlciAqZW5j
-b2RlciwKIAogCS8qIFRPRE86IEFkZCBEU0MgY2FzZSAoRElQX0VOQUJMRV9QUFMpICovCiAJLyog
-V2hlbiBQU1IgaXMgZW5hYmxlZCwgdGhpcyByb3V0aW5lIGRvZXNuJ3QgZGlzYWJsZSBWU0MgRElQ
-ICovCi0JaWYgKGludGVsX3Bzcl9lbmFibGVkKGludGVsX2RwKSkKKwlpZiAoY3J0Y19zdGF0ZS0+
-aGFzX3BzcikKIAkJdmFsICY9IH5kaXBfZW5hYmxlOwogCWVsc2UKIAkJdmFsICY9IH4oZGlwX2Vu
-YWJsZSB8IFZJREVPX0RJUF9FTkFCTEVfVlNDX0hTVyk7CkBAIC0yODg1LDcgKzI4ODQsNyBAQCB2
-b2lkIGludGVsX2RwX3NldF9pbmZvZnJhbWVzKHN0cnVjdCBpbnRlbF9lbmNvZGVyICplbmNvZGVy
-LAogCWludGVsX2RlX3Bvc3RpbmdfcmVhZChkZXZfcHJpdiwgcmVnKTsKIAogCS8qIFdoZW4gUFNS
-IGlzIGVuYWJsZWQsIFZTQyBTRFAgaXMgaGFuZGxlZCBieSBQU1Igcm91dGluZSAqLwotCWlmICgh
-aW50ZWxfcHNyX2VuYWJsZWQoaW50ZWxfZHApKQorCWlmICghY3J0Y19zdGF0ZS0+aGFzX3BzcikK
-IAkJaW50ZWxfd3JpdGVfZHBfc2RwKGVuY29kZXIsIGNydGNfc3RhdGUsIERQX1NEUF9WU0MpOwog
-CiAJaW50ZWxfd3JpdGVfZHBfc2RwKGVuY29kZXIsIGNydGNfc3RhdGUsIEhETUlfUEFDS0VUX1RZ
-UEVfR0FNVVRfTUVUQURBVEEpOwpAQCAtMzAxMiwxNCArMzAxMSwxMyBAQCBzdGF0aWMgdm9pZCBp
-bnRlbF9yZWFkX2RwX3ZzY19zZHAoc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIsCiAJCQkJ
-ICBzdHJ1Y3QgZHJtX2RwX3ZzY19zZHAgKnZzYykKIHsKIAlzdHJ1Y3QgaW50ZWxfZGlnaXRhbF9w
-b3J0ICpkaWdfcG9ydCA9IGVuY190b19kaWdfcG9ydChlbmNvZGVyKTsKLQlzdHJ1Y3QgaW50ZWxf
-ZHAgKmludGVsX2RwID0gZW5jX3RvX2ludGVsX2RwKGVuY29kZXIpOwogCXN0cnVjdCBkcm1faTkx
-NV9wcml2YXRlICpkZXZfcHJpdiA9IHRvX2k5MTUoZW5jb2Rlci0+YmFzZS5kZXYpOwogCXVuc2ln
-bmVkIGludCB0eXBlID0gRFBfU0RQX1ZTQzsKIAlzdHJ1Y3QgZHBfc2RwIHNkcCA9IHt9OwogCWlu
-dCByZXQ7CiAKIAkvKiBXaGVuIFBTUiBpcyBlbmFibGVkLCBWU0MgU0RQIGlzIGhhbmRsZWQgYnkg
-UFNSIHJvdXRpbmUgKi8KLQlpZiAoaW50ZWxfcHNyX2VuYWJsZWQoaW50ZWxfZHApKQorCWlmIChj
-cnRjX3N0YXRlLT5oYXNfcHNyKQogCQlyZXR1cm47CiAKIAlpZiAoKGNydGNfc3RhdGUtPmluZm9m
-cmFtZXMuZW5hYmxlICYKLS0gCjIuMzEuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vaW50ZWwtZ2Z4Cg==
+== Series Details ==
+
+Series: series starting with [1/5] drm/i915/display: Fill PSR state during hardware configuration read out
+URL   : https://patchwork.freedesktop.org/series/89204/
+State : warning
+
+== Summary ==
+
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/gem/i915_gem_shrinker.c:102: warning: Function parameter or member 'ww' not described in 'i915_gem_shrink'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'jump_whitelist' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'shadow_map' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'batch_map' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
