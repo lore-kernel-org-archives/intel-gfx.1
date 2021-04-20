@@ -2,51 +2,49 @@ Return-Path: <SRS0=wM0p=JR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66B98C43460
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Apr 2021 13:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BAB0BC433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Apr 2021 13:43:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09B4561026
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Apr 2021 13:37:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09B4561026
+	by mail.kernel.org (Postfix) with ESMTPS id 56F4C613AF
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Apr 2021 13:43:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56F4C613AF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BF266E827;
-	Tue, 20 Apr 2021 13:37:01 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0B216E827
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Apr 2021 13:36:59 +0000 (UTC)
-IronPort-SDR: WNB3wisdP5LZItJWBCD+suHkU8uM+D0VobgaNuX/OMdXLeHe2n+VLoVXqweR6im8kY2mQOXaev
- pLCI6iidxS6Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9960"; a="193383183"
-X-IronPort-AV: E=Sophos;i="5.82,237,1613462400"; d="scan'208";a="193383183"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2021 06:36:59 -0700
-IronPort-SDR: 4EPiy5HSj8YmsRWxTdDQsasVdpMz4Dpjnkt5L+Kr/RTBq3yZH4qC0gVax+SHyu6QYJA5scZsuD
- +YnJ95wa57OQ==
-X-IronPort-AV: E=Sophos;i="5.82,237,1613462400"; d="scan'208";a="602478874"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 946E5898C7;
+	Tue, 20 Apr 2021 13:43:33 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F24989854;
+ Tue, 20 Apr 2021 13:43:33 +0000 (UTC)
+IronPort-SDR: fgmEL/9XyZ8xyw+XQ5JsW1gaTkRBSYX91MSDbh/Qqo1lKtALW28kzJvMEHx25VxPTXju+RAacr
+ jsdTcn3Rws4w==
+X-IronPort-AV: E=McAfee;i="6200,9189,9960"; a="280834566"
+X-IronPort-AV: E=Sophos;i="5.82,237,1613462400"; d="scan'208";a="280834566"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2021 06:43:24 -0700
+IronPort-SDR: YQmTEgBXZVwNlSyolQrbyInc+Q1kWsAfHjg2dkX5fTJuR25JdW4wnRDPAaEgO/SRlSarIAlf3Q
+ vY+HefTYdYEQ==
+X-IronPort-AV: E=Sophos;i="5.82,237,1613462400"; d="scan'208";a="452492117"
 Received: from jyick-mobl.amr.corp.intel.com (HELO intel.com) ([10.212.57.228])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2021 06:36:58 -0700
-Date: Tue, 20 Apr 2021 09:36:56 -0400
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2021 06:43:23 -0700
+Date: Tue, 20 Apr 2021 09:43:22 -0400
 From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
-	uma.shankar@intel.com
-Message-ID: <YH7Y+JvvU1xTL41B@intel.com>
-References: <20210419191834.7574-1-bhanuprakash.modem@intel.com>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Message-ID: <YH7aeio2Yx3SDvIq@intel.com>
+References: <20210420023312.GL1551@zhen-hp.sh.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210419191834.7574-1-bhanuprakash.modem@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Fix state mismatch in drm
- infoframe
+In-Reply-To: <20210420023312.GL1551@zhen-hp.sh.intel.com>
+Subject: Re: [Intel-gfx] [PULL] gvt-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,77 +57,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, "Yuan,
+ Hang" <hang.yuan@intel.com>, "Lv, Zhiyuan" <zhiyuan.lv@intel.com>,
+ intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 20, 2021 at 12:48:34AM +0530, Bhanuprakash Modem wrote:
-> While reading the SDP infoframe, we are getting filtered with
-> the encoder type INTEL_OUTPUT_DDI which causes the infoframe
-> mismatch. This patch will extend the support to read the SDP
-> infoframes for eDP.
+On Tue, Apr 20, 2021 at 10:33:12AM +0800, Zhenyu Wang wrote:
 > 
-> [1025.606556] i915 0000:00:02.0: [drm] *ERROR* mismatch in drm infoframe
-> [1025.607865] i915 0000:00:02.0: [drm] *ERROR* expected:
-> [1025.607879] i915 0000:00:02.0: HDMI infoframe: Dynamic Range and Mastering, version 1, length 26
-> [1025.607889] i915 0000:00:02.0: length: 26
-> [1025.607898] i915 0000:00:02.0: metadata type: 0
-> [1025.608292] i915 0000:00:02.0: eotf: 2
-> [1025.608302] i915 0000:00:02.0: x[0]: 35400
-> [1025.608312] i915 0000:00:02.0: y[0]: 14599
-> [1025.609115] i915 0000:00:02.0: x[1]: 8500
-> [1025.609947] i915 0000:00:02.0: y[1]: 39850
-> [1025.609959] i915 0000:00:02.0: x[2]: 6550
-> [1025.609970] i915 0000:00:02.0: y[2]: 2300
-> [1025.609980] i915 0000:00:02.0: white point x: 15634
-> [1025.609989] i915 0000:00:02.0: white point y: 16450
-> [1025.610381] i915 0000:00:02.0: max_display_mastering_luminance: 1000
-> [1025.610392] i915 0000:00:02.0: min_display_mastering_luminance: 500
-> [1025.610401] i915 0000:00:02.0: max_cll: 500
-> [1025.610816] i915 0000:00:02.0: max_fall: 1000
-> [1025.612457] i915 0000:00:02.0: [drm] *ERROR* found:
-> [1025.614354] ------------[ cut here ]------------
-> [1025.616244] pipe state doesn't match!
-> [1025.617640] WARNING: CPU: 6 PID: 2114 at drivers/gpu/drm/i915/display/intel_display.c:9332 intel_atomic_commit_tail+0x14d4/0x17c0 [i915]
+> Hi,
 > 
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Signed-off-by: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+> Here's one BDW regression fix for cmd parser rework in 5.12 on recent
+> Windows guest driver update. Sorry to be a bit late, hopefully can
+> still catch up.
 
-I'm sorry, but I haven't seen this review anywhere. What am I missing?
-Where did this happen?
+pulled, thanks!
 
-Whenever sending a patch for the first time, even if it was internally reviewed,
-please use only "Cc:" and ask the internal reviewer to re-check and send the
-response directly.
-
+> 
+> Thanks!
 > ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> The following changes since commit b6a37a93c9ac3900987c79b726d0bb3699d8db4e:
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 5ee953aaa00c..91e67735a45c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -3063,7 +3063,8 @@ void intel_read_dp_sdp(struct intel_encoder *encoder,
->  		       struct intel_crtc_state *crtc_state,
->  		       unsigned int type)
->  {
-> -	if (encoder->type != INTEL_OUTPUT_DDI)
-> +	if (encoder->type != INTEL_OUTPUT_DDI &&
-> +	    encoder->type != INTEL_OUTPUT_EDP)
->  		return;
->  
->  	switch (type) {
-> -- 
-> 2.20.1
+>   drm/i915: Fix invalid access to ACPI _DSM objects (2021-04-07 19:07:44 -0400)
 > 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> are available in the Git repository at:
+> 
+>   https://github.com/intel/gvt-linux tags/gvt-fixes-2021-04-20
+> 
+> for you to fetch changes up to 6b5b2a5bcfe9a250da19bac4ef7cabdc81d154ec:
+> 
+>   drm/i915/gvt: Fix BDW command parser regression (2021-04-16 13:41:41 +0800)
+> 
+> ----------------------------------------------------------------
+> gvt-fixes-2021-04-20
+> 
+> - Fix cmd parser regression on BDW (Zhenyu)
+> 
+> ----------------------------------------------------------------
+> Zhenyu Wang (1):
+>       drm/i915/gvt: Fix BDW command parser regression
+> 
+>  drivers/gpu/drm/i915/gvt/cmd_parser.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
+> 
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
