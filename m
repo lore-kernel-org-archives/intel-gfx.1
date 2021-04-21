@@ -2,55 +2,41 @@ Return-Path: <SRS0=MVSk=JS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A5C2C433ED
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Apr 2021 14:28:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D281C433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Apr 2021 14:28:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A665D61451
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Apr 2021 14:28:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A665D61451
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9EB9F61451
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Apr 2021 14:28:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9EB9F61451
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CCD36E9BB;
-	Wed, 21 Apr 2021 14:28:19 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B0A06E9BB;
- Wed, 21 Apr 2021 14:28:18 +0000 (UTC)
-IronPort-SDR: JdxSMe3ff6iaCmdh1+HVUAFSeFBhDS7IQqGgAV1gjXL8nIjCT7YSIu1Sga9darjw+zmNsT1d68
- Z21mh3SzpO1g==
-X-IronPort-AV: E=McAfee;i="6200,9189,9961"; a="216347199"
-X-IronPort-AV: E=Sophos;i="5.82,240,1613462400"; d="scan'208";a="216347199"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2021 07:28:18 -0700
-IronPort-SDR: DruoMJQepfznXBuM/W5ZgC0T73CuGZYGRTe3f11syn+SdivVq0jvTVvPs5p0wLBgteqkkRhNHy
- dL6+C2BTfVoQ==
-X-IronPort-AV: E=Sophos;i="5.82,240,1613462400"; d="scan'208";a="524311940"
-Received: from crodgers-mobl2.ger.corp.intel.com (HELO [10.213.224.141])
- ([10.213.224.141])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2021 07:28:17 -0700
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20210421104658.304142-1-matthew.auld@intel.com>
- <20210421104658.304142-4-matthew.auld@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <d4993c34-18c7-83f7-f0b5-a34d94af5ea3@linux.intel.com>
-Date: Wed, 21 Apr 2021 15:28:15 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30F376E9C3;
+	Wed, 21 Apr 2021 14:28:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4C42E6E9C5;
+ Wed, 21 Apr 2021 14:28:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 45DE5A0019;
+ Wed, 21 Apr 2021 14:28:24 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20210421104658.304142-4-matthew.auld@intel.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH v2 4/4] drm/i915/stolen: actually mark as
- contiguous
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Auld" <matthew.auld@intel.com>
+Date: Wed, 21 Apr 2021 14:28:24 -0000
+Message-ID: <161901530428.19926.14328273198617280885@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210421104658.304142-1-matthew.auld@intel.com>
+In-Reply-To: <20210421104658.304142-1-matthew.auld@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5Bv2=2C1/4=5D_drm/i915=3A_Create_stol?=
+ =?utf-8?q?en_memory_region_from_local_memory?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,66 +49,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+== Series Details ==
 
-On 21/04/2021 11:46, Matthew Auld wrote:
-> Stolen memory is always allocated as physically contiguous pages, so
-> mark the object flags as such. It looks like the flags were previously
-> just ignored so this had no effect. In the future we might to add the
-> proper plumbing for passing the flags all over the way down from the
-> caller, but for now we don't have a use for that.
-> 
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 12 +++++++++---
->   1 file changed, 9 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> index b43929da8de8..c5b64b2400e8 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> @@ -637,10 +637,17 @@ static int __i915_gem_object_create_stolen(struct intel_memory_region *mem,
->   {
->   	static struct lock_class_key lock_class;
->   	unsigned int cache_level;
-> +	unsigned int flags;
->   	int err;
->   
-> +	/*
-> +	 * Stolen objects are always physically contiguous since we just
-> +	 * allocate one big block underneath using the drm_mm range allocator.
-> +	 */
-> +	flags = I915_BO_ALLOC_CONTIGUOUS;
-> +
->   	drm_gem_private_object_init(&mem->i915->drm, &obj->base, stolen->size);
-> -	i915_gem_object_init(obj, &i915_gem_object_stolen_ops, &lock_class, 0);
-> +	i915_gem_object_init(obj, &i915_gem_object_stolen_ops, &lock_class, flags);
->   
->   	obj->stolen = stolen;
->   	obj->read_domains = I915_GEM_DOMAIN_CPU | I915_GEM_DOMAIN_GTT;
-> @@ -699,8 +706,7 @@ struct drm_i915_gem_object *
->   i915_gem_object_create_stolen(struct drm_i915_private *i915,
->   			      resource_size_t size)
->   {
-> -	return i915_gem_object_create_region(i915->mm.stolen_region,
-> -					     size, I915_BO_ALLOC_CONTIGUOUS);
-> +	return i915_gem_object_create_region(i915->mm.stolen_region, size, 0);
->   }
->   
->   static int init_stolen_smem(struct intel_memory_region *mem)
-> 
+Series: series starting with [v2,1/4] drm/i915: Create stolen memory region from local memory
+URL   : https://patchwork.freedesktop.org/series/89293/
+State : warning
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+== Summary ==
 
-Regards,
+$ dim checkpatch origin/drm-tip
+bb6cb02052af drm/i915: Create stolen memory region from local memory
+-:13: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#13: 
+      as stolen-local or stolen-system based on this value won't work. Split
 
-Tvrtko
+total: 0 errors, 1 warnings, 0 checks, 281 lines checked
+3dc8d4f8d134 drm/i915/stolen: treat stolen local as normal local memory
+3e9bbf037619 drm/i915/stolen: enforce the min_page_size contract
+8615844dae04 drm/i915/stolen: actually mark as contiguous
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
