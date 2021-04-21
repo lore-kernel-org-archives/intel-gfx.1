@@ -2,40 +2,49 @@ Return-Path: <SRS0=MVSk=JS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4310C433ED
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Apr 2021 16:48:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98021C433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Apr 2021 16:48:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4006361456
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Apr 2021 16:48:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4006361456
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 282FD60232
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Apr 2021 16:48:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 282FD60232
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A796D6E941;
-	Wed, 21 Apr 2021 16:48:38 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9FA946E0CF;
- Wed, 21 Apr 2021 16:48:37 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 969A4A8169;
- Wed, 21 Apr 2021 16:48:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A5926E0CF;
+	Wed, 21 Apr 2021 16:48:54 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A5826E0CF
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Apr 2021 16:48:53 +0000 (UTC)
+IronPort-SDR: qQch+M1ukBnS+phykkUri3Rwu5OgEhv7jVB08jxsElVj7+BaJ4N4Z4pR76sUJcJxhV1/w0sIiw
+ vzXZMP3EMsGw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9961"; a="183220693"
+X-IronPort-AV: E=Sophos;i="5.82,240,1613462400"; d="scan'208";a="183220693"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Apr 2021 09:48:52 -0700
+IronPort-SDR: w8mU5+nWV0EBSemnt1x22/7E5DI9sD4X/VZJngW97UBvyJ3XVBSO38eFMG9xc33Rzd0xXoayy6
+ AU9IMhZgZh3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,240,1613462400"; d="scan'208";a="385830107"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga006.jf.intel.com with SMTP; 21 Apr 2021 09:48:50 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 21 Apr 2021 19:48:49 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 21 Apr 2021 19:48:32 +0300
+Message-Id: <20210421164849.12806-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.26.3
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Date: Wed, 21 Apr 2021 16:48:37 -0000
-Message-ID: <161902371758.19929.11328578288824148@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210421153401.13847-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20210421153401.13847-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
- =?utf-8?q?m/i915=3A_Fix_older_platforms?=
+Subject: [Intel-gfx] [PATCH 00/17] drm/i915: DDI buf trans cleaup and fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,31 +57,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: drm/i915: Fix older platforms
-URL   : https://patchwork.freedesktop.org/series/89306/
-State : warning
-
-== Summary ==
-
-$ make htmldocs 2>&1 > /dev/null | grep i915
-./drivers/gpu/drm/i915/gem/i915_gem_shrinker.c:102: warning: Function parameter or member 'ww' not described in 'i915_gem_shrink'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'jump_whitelist' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'shadow_map' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'batch_map' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KClRo
+ZSBEREkgYnVmIHRyYW5zIGZ1bmN0aW9ucyBrZWVwIHR1cm5pbmcgaW50byBiYWQKc3BhZ2hldHRp
+IGV2ZXJ5IHRpbWUgYSBuZXcgcGxhdGZvcm0gZ2V0cyBhZGRlZC4KU3BsaXQgdGhlIHBsYXRmb3Jt
+cyB1cCBwcm9wZXJseSBhbmQgdHVybiB0aGUgd2hvbGUgCnRoaW5nIGludG8gYSB2ZnVuYyB0byBt
+YWtlIGl0IGVhc2llciB0byBtYW5hZ2UKbXVsdGlwbGUgcGxhdGZvcm1zLgoKVmlsbGUgU3lyasOk
+bMOkICgxNyk6CiAgZHJtL2k5MTU6IHMvaW50ZWwvaHN3LyBmb3IgaHN3L2JkZS9za2wgYnVmIHRy
+YW5zCiAgZHJtL2k5MTU6IEludHJvZHVjZSBoc3dfZ2V0X2J1Zl90cmFucygpCiAgZHJtL2k5MTU6
+IFdyYXAgdGhlIHBsYXRmb3JtIHNwZWNpZmljIGJ1ZiB0cmFucyBzdHJ1Y3RzIGludG8gYSB1bmlv
+bgogIGRybS9pOTE1OiBSZW5hbWUgZGtsIHBoeSBidWYgdHJhbnMgdGFibGVzCiAgZHJtL2k5MTU6
+IFdyYXAgdGhlIGJ1ZiB0cmFucyB0YWJsZXMgaW50byBhIHN0cnVjdAogIGRybS9pOTE1OiBJbnRy
+b2R1Y2UgaW50ZWxfZ2V0X2J1Zl90cmFucygpCiAgZHJtL2k5MTU7IFJldHVybiB0aGUgd2hvbGUg
+YnVmX3RyYW5zIHN0cnVjdCBmcm9tIGdldF9idWZfdHJhbnMoKQogIGRybS9pOTE1OiBTdG9yZSB0
+aGUgSERNSSBkZWZhdWx0IGVudHJ5IGluIHRoZSBidWcgdHJhbnMgc3RydWN0CiAgZHJtL2k5MTU6
+IEludHJvZHVjZSBlbmNvZGVyLT5nZXRfYnVmX3RyYW5zKCkKICBkcm0vaTkxNTogQ2xlYW4gdXAg
+aHN3L2Jkdy9za2wva2JsIGJ1ZiB0cmFucyBmdW5jcwogIGRybS9pOTE1OiBJbnRyb2R1Y2Ugcmts
+X2dldF9jb21ib19idWZfdHJhbnMoKQogIGRybS9pOTE1OiBGaXggZGcxIGJ1ZiB0cmFucyB0YWJs
+ZXMKICBkcm0vaTkxNTogRGVkdXBsaWNhdGUgaWNsIERQIEhCUjIgdnMuIGVEUCBIQlIzIHRhYmxl
+CiAgZHJtL2k5MTU6IEZpeCBlaGwgZWRwIGhicjIgdnN3aW5nIHRhYmxlCiAgZHJtL2k5MTU6IENs
+ZWFuIHVwIGpzbC9laGwgYnVmIHRyYW5zIGZ1bmN0aW9ucwogIGRybS9pOTE1OiBOdWtlIGJ1Zl90
+cmFucyBoZG1pIGZ1bmN0aW9ucwogIGRybS9pOTE1OiBBZGQgdGhlIG1pc3NpbmcgYWRscyB2c3dp
+bmcgdGFibGVzCgogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9jcnQuYyAgICAg
+IHwgICAgMyArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jICAgICAg
+fCAgMTYyICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5oICAgICAg
+fCAgICA0ICstCiAuLi4vZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGlfYnVmX3RyYW5zLmMgICAg
+fCAyMzU0ICsrKysrKysrKystLS0tLS0tCiAuLi4vZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGlf
+YnVmX3RyYW5zLmggICAgfCAgIDYzICstCiAuLi4vZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNw
+bGF5X3R5cGVzLmggICAgfCAgICA0ICsKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfZmRpLmMgICAgICB8ICAgIDUgKy0KIDcgZmlsZXMgY2hhbmdlZCwgMTQzMiBpbnNlcnRpb25z
+KCspLCAxMTYzIGRlbGV0aW9ucygtKQoKLS0gCjIuMjYuMwoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
