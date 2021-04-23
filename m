@@ -2,52 +2,42 @@ Return-Path: <SRS0=xpeQ=JU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 247FEC433B4
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 04:12:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3EA5C433ED
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 04:47:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B15B461462
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 04:12:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B15B461462
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 75A1C613A9
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 04:47:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75A1C613A9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3717A6EB3E;
-	Fri, 23 Apr 2021 04:12:42 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 228816EB3B;
- Fri, 23 Apr 2021 04:12:41 +0000 (UTC)
-IronPort-SDR: +2sAoF/3uHiiE+Maa15l0o7RkbgHSTLIxJU3EZgyKoBjqUiUjIkzILuZg5rNkiRZsPN+5fy+V8
- I4DmnfrS1O0Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9962"; a="281342201"
-X-IronPort-AV: E=Sophos;i="5.82,244,1613462400"; 
- d="asc'?scan'208";a="281342201"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2021 21:12:40 -0700
-IronPort-SDR: nrk9t95tZ919uGBWhrlRupDvA67xEP9m+oDuc5Q6fst6eWRn+o8XlB4GQW2/9983TMqV2KZNxI
- wPuZdhh+XM1g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,244,1613462400"; 
- d="asc'?scan'208";a="453469907"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
- by FMSMGA003.fm.intel.com with ESMTP; 22 Apr 2021 21:12:35 -0700
-Date: Fri, 23 Apr 2021 11:54:26 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Message-ID: <20210423035426.GG1551@zhen-hp.sh.intel.com>
-References: <20210422133547.1861063-1-arnd@kernel.org>
- <20210422135810.GG2047089@ziepe.ca>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC9A26E072;
+	Fri, 23 Apr 2021 04:47:13 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 563AE6E072;
+ Fri, 23 Apr 2021 04:47:12 +0000 (UTC)
+Received: from 1-171-214-192.dynamic-ip.hinet.net ([1.171.214.192]
+ helo=localhost) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1lZnic-0002E6-5n; Fri, 23 Apr 2021 04:47:07 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, ville.syrjala@linux.intel.com
+Date: Fri, 23 Apr 2021 12:46:54 +0800
+Message-Id: <20210423044700.247359-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <20210422135810.GG2047089@ziepe.ca>
-Subject: Re: [Intel-gfx] [PATCH] vfio/gvt: fix DRM_I915_GVT dependency on
- VFIO_MDEV
+Subject: [Intel-gfx] [PATCH v2] drm/i915: Invoke BXT _DSM to enable MUX on
+ HP Workstation laptops
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,97 +50,138 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>, Cornelia Huck <cohuck@redhat.com>,
- dri-devel@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>,
- David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-Content-Type: multipart/mixed; boundary="===============0785912604=="
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Takashi Iwai <tiwai@suse.de>, Kai-Heng Feng <kai.heng.feng@canonical.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On HP Fury G7 Workstations, graphics output is re-routed from Intel GFX
+to discrete GFX after S3. This is not desirable, because userspace will
+treat connected display as a new one, losing display settings.
 
---===============0785912604==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="7WMexqIhC8AwFtpM"
-Content-Disposition: inline
+The expected behavior is to let discrete GFX drives all external
+displays.
 
+The platform in question uses ACPI method \_SB.PCI0.HGME to enable MUX.
+The method is inside the BXT _DSM, so add the _DSM and call it
+accordingly.
 
---7WMexqIhC8AwFtpM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I also tested some MUX-less and iGPU only laptops with the BXT _DSM, no
+regression was found.
 
-On 2021.04.22 10:58:10 -0300, Jason Gunthorpe wrote:
-> On Thu, Apr 22, 2021 at 03:35:33PM +0200, Arnd Bergmann wrote:
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >=20
-> > The Kconfig dependency is incomplete since DRM_I915_GVT is a 'bool'
-> > symbol that depends on the 'tristate' VFIO_MDEV. This allows a
-> > configuration with VFIO_MDEV=3Dm, DRM_I915_GVT=3Dy and DRM_I915=3Dy that
-> > causes a link failure:
-> >=20
-> > x86_64-linux-ld: drivers/gpu/drm/i915/gvt/gvt.o: in function `available=
-_instances_show':
-> > gvt.c:(.text+0x67a): undefined reference to `mtype_get_parent_dev'
-> > x86_64-linux-ld: gvt.c:(.text+0x6a5): undefined reference to `mtype_get=
-_type_group_id'
-> > x86_64-linux-ld: drivers/gpu/drm/i915/gvt/gvt.o: in function `descripti=
-on_show':
-> > gvt.c:(.text+0x76e): undefined reference to `mtype_get_parent_dev'
-> > x86_64-linux-ld: gvt.c:(.text+0x799): undefined reference to `mtype_get=
-_type_group_id'
-> >=20
-> > Clarify the dependency by specifically disallowing the broken
-> > configuration. If VFIO_MDEV is built-in, it will work, but if
-> > VFIO_MDEV=3Dm, the i915 driver cannot be built-in here.
-> >=20
-> > Fixes: 07e543f4f9d1 ("vfio/gvt: Make DRM_I915_GVT depend on VFIO_MDEV")
-> > Fixes: 9169cff168ff ("vfio/mdev: Correct the function signatures for th=
-e mdev_type_attributes")
-> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> > ---
-> >  drivers/gpu/drm/i915/Kconfig | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> Oh kconfig stuff like this makes my head hurt, thanks for finding it
->=20
-> I also can't see an alternative to this ugly thing, besides having the
-> i915 guys properly modularize this code someday
->=20
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
->=20
+v2:
+ - Forward declare struct pci_dev.
 
-I don't really want this mess to propagate further. We should move
-mdev related stuff to kvmgt module instead, so not pretend any more to
-possibly use that for other hypervisor..
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3113
+References: https://lore.kernel.org/intel-gfx/1460040732-31417-4-git-send-email-animesh.manna@intel.com/
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ drivers/gpu/drm/i915/display/intel_acpi.c | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_acpi.h |  3 +++
+ drivers/gpu/drm/i915/i915_drv.c           |  5 +++++
+ 3 files changed, 25 insertions(+)
 
-Sorry that I didn't realize this issue when Jason proposed this. Let
-me do the left cleanup.
-
-Thanks
-
---7WMexqIhC8AwFtpM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYIJE6gAKCRCxBBozTXgY
-J6G0AJ9jV+OfoH7vCSMZp4Y4fN0maPlC3gCaAwHGakKPCeQIPyHkDjbi9KCA64o=
-=i7Nt
------END PGP SIGNATURE-----
-
---7WMexqIhC8AwFtpM--
-
---===============0785912604==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm/i915/display/intel_acpi.c
+index 833d0c1be4f1..c7b57c22dce3 100644
+--- a/drivers/gpu/drm/i915/display/intel_acpi.c
++++ b/drivers/gpu/drm/i915/display/intel_acpi.c
+@@ -14,11 +14,16 @@
+ 
+ #define INTEL_DSM_REVISION_ID 1 /* For Calpella anyway... */
+ #define INTEL_DSM_FN_PLATFORM_MUX_INFO 1 /* No args */
++#define INTEL_DSM_FN_PLATFORM_BXT_MUX_INFO 0 /* No args */
+ 
+ static const guid_t intel_dsm_guid =
+ 	GUID_INIT(0x7ed873d3, 0xc2d0, 0x4e4f,
+ 		  0xa8, 0x54, 0x0f, 0x13, 0x17, 0xb0, 0x1c, 0x2c);
+ 
++static const guid_t intel_bxt_dsm_guid =
++	GUID_INIT(0x3e5b41c6, 0xeb1d, 0x4260,
++		  0x9d, 0x15, 0xc7, 0x1f, 0xba, 0xda, 0xe4, 0x14);
++
+ static char *intel_dsm_port_name(u8 id)
+ {
+ 	switch (id) {
+@@ -176,6 +181,18 @@ void intel_unregister_dsm_handler(void)
+ {
+ }
+ 
++void intel_bxt_dsm_detect(struct pci_dev *pdev)
++{
++	acpi_handle dhandle;
++
++	dhandle = ACPI_HANDLE(&pdev->dev);
++	if (!dhandle)
++		return;
++
++	acpi_evaluate_dsm(dhandle, &intel_bxt_dsm_guid, INTEL_DSM_REVISION_ID,
++			  INTEL_DSM_FN_PLATFORM_BXT_MUX_INFO, NULL);
++}
++
+ /*
+  * ACPI Specification, Revision 5.0, Appendix B.3.2 _DOD (Enumerate All Devices
+  * Attached to the Display Adapter).
+diff --git a/drivers/gpu/drm/i915/display/intel_acpi.h b/drivers/gpu/drm/i915/display/intel_acpi.h
+index e8b068661d22..d2d560d63bb3 100644
+--- a/drivers/gpu/drm/i915/display/intel_acpi.h
++++ b/drivers/gpu/drm/i915/display/intel_acpi.h
+@@ -6,15 +6,18 @@
+ #ifndef __INTEL_ACPI_H__
+ #define __INTEL_ACPI_H__
+ 
++struct pci_dev;
+ struct drm_i915_private;
+ 
+ #ifdef CONFIG_ACPI
+ void intel_register_dsm_handler(void);
+ void intel_unregister_dsm_handler(void);
++void intel_bxt_dsm_detect(struct pci_dev *pdev);
+ void intel_acpi_device_id_update(struct drm_i915_private *i915);
+ #else
+ static inline void intel_register_dsm_handler(void) { return; }
+ static inline void intel_unregister_dsm_handler(void) { return; }
++static inline void intel_bxt_dsm_detect(struct pci_dev *pdev) { return; }
+ static inline
+ void intel_acpi_device_id_update(struct drm_i915_private *i915) { return; }
+ #endif /* CONFIG_ACPI */
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index 785dcf20c77b..57b12068aab4 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -853,6 +853,8 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (ret)
+ 		goto out_cleanup_gem;
+ 
++	intel_bxt_dsm_detect(pdev);
++
+ 	i915_driver_register(i915);
+ 
+ 	enable_rpm_wakeref_asserts(&i915->runtime_pm);
+@@ -1215,6 +1217,7 @@ int i915_suspend_switcheroo(struct drm_i915_private *i915, pm_message_t state)
+ static int i915_drm_resume(struct drm_device *dev)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(dev);
++	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
+ 	int ret;
+ 
+ 	disable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
+@@ -1271,6 +1274,8 @@ static int i915_drm_resume(struct drm_device *dev)
+ 
+ 	intel_gvt_resume(dev_priv);
+ 
++	intel_bxt_dsm_detect(pdev);
++
+ 	enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
+ 
+ 	return 0;
+-- 
+2.30.2
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0785912604==--
