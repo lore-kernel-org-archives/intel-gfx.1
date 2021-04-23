@@ -2,40 +2,41 @@ Return-Path: <SRS0=xpeQ=JU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CD34C433ED
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 00:42:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47732C433ED
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 01:05:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E232560FE3
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 00:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E232560FE3
+	by mail.kernel.org (Postfix) with ESMTPS id C8086613FA
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 01:05:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8086613FA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EEC96E04A;
-	Fri, 23 Apr 2021 00:42:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32D446EB19;
+	Fri, 23 Apr 2021 01:05:05 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3F5BB6E042;
- Fri, 23 Apr 2021 00:42:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id F3F666EB18;
+ Fri, 23 Apr 2021 01:05:03 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 35944A0118;
- Fri, 23 Apr 2021 00:42:30 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id CF2F4A0009;
+ Fri, 23 Apr 2021 01:05:03 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Date: Fri, 23 Apr 2021 00:42:30 -0000
-Message-ID: <161913855019.2791.8670348178873812979@emeril.freedesktop.org>
+Date: Fri, 23 Apr 2021 01:05:03 -0000
+Message-ID: <161913990382.2793.10250985971546095271@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210422182957.10022-1-ville.syrjala@linux.intel.com>
 In-Reply-To: <20210422182957.10022-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
- =?utf-8?q?m/i915/fbc=3A_Avoid_GLK+_FBC_corruption_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/fbc=3A_Avoid_GLK+_FBC_corruption_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,29 +51,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1622618787=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+
+--===============1622618787==
+Content-Type: multipart/alternative;
+ boundary="===============3794340232595047228=="
+
+--===============3794340232595047228==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
 Series: drm/i915/fbc: Avoid GLK+ FBC corruption (rev2)
 URL   : https://patchwork.freedesktop.org/series/89379/
-State : warning
+State : success
 
 == Summary ==
 
-$ make htmldocs 2>&1 > /dev/null | grep i915
-./drivers/gpu/drm/i915/gem/i915_gem_shrinker.c:102: warning: Function parameter or member 'ww' not described in 'i915_gem_shrink'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'jump_whitelist' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'shadow_map' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Function parameter or member 'batch_map' not described in 'intel_engine_cmd_parser'
-./drivers/gpu/drm/i915/i915_cmd_parser.c:1420: warning: Excess function parameter 'trampoline' description in 'intel_engine_cmd_parser'
+CI Bug Log - changes from CI_DRM_9998 -> Patchwork_19977
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19977/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19977 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - {fi-hsw-gt1}:       [DMESG-WARN][1] ([i915#3303]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9998/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19977/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#1849]: https://gitlab.freedesktop.org/drm/intel/issues/1849
+  [i915#3180]: https://gitlab.freedesktop.org/drm/intel/issues/3180
+  [i915#3277]: https://gitlab.freedesktop.org/drm/intel/issues/3277
+  [i915#3283]: https://gitlab.freedesktop.org/drm/intel/issues/3283
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): fi-bsw-cyan fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * IGT: IGT_6072 -> IGTPW_5754
+  * Linux: CI_DRM_9998 -> Patchwork_19977
+
+  CI-20190529: 20190529
+  CI_DRM_9998: b60045f9e62eee599257a084e4481bae7fe7ef9f @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGTPW_5754: https://intel-gfx-ci.01.org/tree/drm-tip/IGTPW_5754/index.html
+  IGT_6072: 0a51f49df9f5ca535fc0206a27a6780de6b52320 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19977: 7075a82fab2972f135590cd4318091d0be292827 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+7075a82fab29 drm/i915: Remove redundant DIRTYFB frontbuffer flushes
+4470ff5c03e5 drm/i915/fbc: Don't nuke manually around flips
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19977/index.html
+
+--===============3794340232595047228==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/fbc: Avoid GLK+ FBC corruption (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/89379/">https://patchwork.freedesktop.org/series/89379/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19977/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19977/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9998 -&gt; Patchwork_19977</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19977/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19977 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>{fi-hsw-gt1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9998/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3303">i915#3303</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19977/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): fi-bsw-cyan fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>IGT: IGT_6072 -&gt; IGTPW_5754</li>
+<li>Linux: CI_DRM_9998 -&gt; Patchwork_19977</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9998: b60045f9e62eee599257a084e4481bae7fe7ef9f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGTPW_5754: https://intel-gfx-ci.01.org/tree/drm-tip/IGTPW_5754/index.html<br />
+  IGT_6072: 0a51f49df9f5ca535fc0206a27a6780de6b52320 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19977: 7075a82fab2972f135590cd4318091d0be292827 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>7075a82fab29 drm/i915: Remove redundant DIRTYFB frontbuffer flushes<br />
+4470ff5c03e5 drm/i915/fbc: Don't nuke manually around flips</p>
+
+</body>
+</html>
+
+--===============3794340232595047228==--
+
+--===============1622618787==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1622618787==--
