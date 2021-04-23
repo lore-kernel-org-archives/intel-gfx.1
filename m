@@ -2,69 +2,73 @@ Return-Path: <SRS0=xpeQ=JU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F00AAC433B4
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 22:31:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A4D77C433B4
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 22:31:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C5576101D
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 22:31:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C5576101D
+	by mail.kernel.org (Postfix) with ESMTPS id 64B3F61263
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 22:31:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64B3F61263
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBC66ECA2;
-	Fri, 23 Apr 2021 22:31:38 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 738F86ECA2
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 22:31:37 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id h11so3934773pfn.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 15:31:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3BA6ECA5;
+	Fri, 23 Apr 2021 22:31:41 +0000 (UTC)
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B19C16ECA8
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 22:31:40 +0000 (UTC)
+Received: by mail-pf1-x432.google.com with SMTP id d124so34923628pfa.13
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 15:31:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=5EMEkpkVEstMhYksGq8DQqkutZRbwL7brOaHT20UxUI=;
- b=l3UqTo1VYfe5ZFxMMmHXF2AKrcuDM/Yp/S9g4NpxD4UjhVkUdw7GhAN+Fyqix0S4rn
- RVIiQlpXXT7mVzz1a9wwyxxhdfrdOhtNwolitYQh1j1fXfiPR+tWjfzFqvrzY8CHgTP5
- ON0YVwNRcHv3vyA6cY6zSbIJEr4HSYWV3c7UuMR9d0oHM8orDbQPI/C0+PAhO/7luU87
- 1OPX+o3aWJ1avoTjBrFFH3wT2u+mjL5iVInExrjsHxLomg+lyo7rtgBPskIVHoms2eJ8
- sNEjVwwantVIGICGhUfJ0BIEFf6nEPeUsv/wACoNnHhIuISFpnCnRhp3n4QhUFi6Q2t0
- Q0eA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Pbh/vP/8NW5RrPaCXPebNUNza70vJUSP+Az8d5tHu60=;
+ b=b9d8pt5UX2UEwFbRvx7wgmcnqLsbjEI8wJnGggVeRfM0ei/hE+4KSnEAhifbywHCwh
+ H4/Mz1HKI939LqD+sWnckUmkrl8NSWfILP3jz85Zb55PVGGsZ9P9PT4EWgtnUTMVvWpG
+ 8BZ6y/0Zh3pQQA8hXyMlkFHoBNro39z41vxkUwdqaytFcTMvlWzhzU9yBIWTIdju2cvC
+ rt5+EDDPTxD5JBfovY3D6QwcBmjyQUgSMYPCZNMaT4YhwfZYGpmkANV9QcDGREkb1NFa
+ IexokWxyBkHaG+/VhKAdlUUGnVADjU33RHfRoXL3CRvzRs7PZwfCDt6AxeAz8J92nLlj
+ l7og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=5EMEkpkVEstMhYksGq8DQqkutZRbwL7brOaHT20UxUI=;
- b=igQTQxFcaHvt5jk2ZznCiwpbF7jFqvIsoN/lf6czbP9nZ3XqmsIAk1Ht/CCEPjF3PJ
- LeagAF4QZ5qShm2KfG1AMr0Mms8fLfNuU4jJgUMqVcqeip7Oyte3tWh8n//ggXH9Tazj
- lEXO9qtbLbzRNauOTX1xxXz+wFutQYjgPcb8SBsbdWDjDyoShwfiFCNuV+PvRayyMESR
- 2AbPtyhLh7CoZpLiR1wz404yYYHXAtFHFkG7UkQY/aS7r+4eR29qCBEmxZD5xMhQWzNm
- ykSdN5rTACi8xBju4TnvW9hPFv9WQAuOpRU7T7Vx0jQrbrKggK9XhKSzkPWpFw1RdBl4
- sBpA==
-X-Gm-Message-State: AOAM530X5OuSFiYEYZDP8GhB29M9j0fQLSCUYszLVAlgYFmCYo8LL+jk
- WrshcfTnf6a0sf8fZ7MYHurLLbBZityiFw==
-X-Google-Smtp-Source: ABdhPJxWEAnOlStxXBMwfPa14POP6J5FgKRbsz5jGX/EclehNNRlfZvwxhpQqx2bnJ81B8cixrGAog==
-X-Received: by 2002:a63:3c59:: with SMTP id i25mr5724453pgn.366.1619217096438; 
- Fri, 23 Apr 2021 15:31:36 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Pbh/vP/8NW5RrPaCXPebNUNza70vJUSP+Az8d5tHu60=;
+ b=XmDGh9KPEZ+PNOALI2ZAbqHUuzhxASzWHnCeXkmmYyKJkowjwU8cnVQSRT2QoY3J1F
+ 1sgLOKZgEGB6j8eQ9WI8N+pMPxpSOO+ta+GB3qV3fsIciDnLXC4W5lWKZgI78PslG0s1
+ SiyBnFzhbBrJ9xUAiPh0YxqLpSt4s/GqLQMU2oLS02H7hHHpf3fpTzf/SfPW2TBZO6pj
+ uOlza86vabspfZw3rW4uDc4LKPTJA921E3QoreEP8X8ROwGtsAy0c4wpFJFBr6FXzu6m
+ +wbAP/u7OI3hyYw3SIE6dao40qEZOdL2aO4kRISMQeonJYzdTBq/LjdlVCLXQ/kjSgQD
+ G5WQ==
+X-Gm-Message-State: AOAM533+bH4Uu87cafq681+U1MgDlBx2xp3Ut7jJuy5Dpi1b7k16uxWm
+ 1fvjOUL9PVmbVcAAn13k3t/mw1GAF05HSQ==
+X-Google-Smtp-Source: ABdhPJxdfrnfANj47TgK1ZFsjzTteBhelZSqmKmkmGT0v+z2QhHGfyYEgJscgQVexuknbDTbkuzuKA==
+X-Received: by 2002:a05:6a00:148c:b029:260:ef7c:3843 with SMTP id
+ v12-20020a056a00148cb0290260ef7c3843mr5943344pfu.70.1619217099750; 
+ Fri, 23 Apr 2021 15:31:39 -0700 (PDT)
 Received: from omlet.com ([134.134.139.76])
- by smtp.gmail.com with ESMTPSA id z12sm5523420pfn.195.2021.04.23.15.31.34
+ by smtp.gmail.com with ESMTPSA id z12sm5523420pfn.195.2021.04.23.15.31.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Apr 2021 15:31:35 -0700 (PDT)
+ Fri, 23 Apr 2021 15:31:39 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 23 Apr 2021 17:31:10 -0500
-Message-Id: <20210423223131.879208-1-jason@jlekstrand.net>
+Date: Fri, 23 Apr 2021 17:31:12 -0500
+Message-Id: <20210423223131.879208-3-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210423223131.879208-1-jason@jlekstrand.net>
+References: <20210423223131.879208-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/21] drm/i915/gem: ioctl clean-ups
+Subject: [Intel-gfx] [PATCH 02/21] drm/i915: Drop
+ I915_CONTEXT_PARAM_NO_ZEROMAP
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,154 +86,135 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Overview:
----------
+The idea behind this param is to support OpenCL drivers with relocations
+because OpenCL reserves 0x0 for NULL and, if we placed memory there, it
+would confuse CL kernels.  It was originally sent out as part of a patch
+series including libdrm [1] and Beignet [2] support.  However, the
+libdrm and Beignet patches never landed in their respective upstream
+projects so this API has never been used.  It's never been used in Mesa
+or any other driver, either.
 
-This patch series attempts to clean up some of the IOCTL mess we've created
-over the last few years.  The most egregious bit being context mutability.
-In summary, this series:
+Dropping this API allows us to delete a small bit of code.
 
- 1. Drops two never-used context params: RINGSIZE and NO_ZEROMAP
- 2. Drops the entire CONTEXT_CLONE API
- 3. Implements SINGLE_TIMELINE with a syncobj instead of actually sharing
-    intel_timeline between engines.
- 4. Adds a few sanity restrictions to the balancing/bonding API.
- 5. Implements a proto-ctx mechanism so that the engine set and VM can only
-    be set early on in the lifetime of a context, before anything ever
-    executes on it.  This effectively makes the VM and engine set
-    immutable.
+[1]: https://lists.freedesktop.org/archives/intel-gfx/2015-May/067030.html
+[2]: https://lists.freedesktop.org/archives/intel-gfx/2015-May/067031.html
 
-This series has been tested with IGT as well as the Iris, ANV, and the
-Intel media driver doing an 8K decode (this uses bonding/balancing).  I've
-also done quite a bit of git archeology to ensure that nothing in here will
-break anything that's already shipped at some point in history.  It's
-possible I've missed something, but I've dug quite a bit.
+Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c      | 16 ++--------------
+ .../gpu/drm/i915/gem/i915_gem_context_types.h    |  1 -
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c   |  8 --------
+ include/uapi/drm/i915_drm.h                      |  4 ++++
+ 4 files changed, 6 insertions(+), 23 deletions(-)
 
-
-Details and motivation:
------------------------
-
-In very broad strokes, there's an effort going on right now within Intel to
-try and clean up and simplify i915 anywhere we can.  We obviously don't
-want to break any shipping userspace but, as can be seen by this series,
-there's a lot i915 theoretically supports which userspace doesn't actually
-need.  Some of this, like the two context params used here, were simply
-oversights where we went through the usual API review process and merged
-the i915 bits but the userspace bits never landed for some reason.
-
-Not all are so innocent, however.  For instance, there's an entire context
-cloning API which allows one to create a context with certain parameters
-"cloned" from some other context.  This entire API has never been used by
-any userspace except IGT and there were never patches to any other
-userspace to use it.  It never should have landed.  Also, when we added
-support for setting explicit engine sets and sharing VMs across contexts,
-people decided to do so via SET_CONTEXT_PARAM.  While this allowed them to
-re-use existing API, it did so at the cost of making those states mutable
-which leads to a plethora of potential race conditions.  There were even
-IGT tests merged to cover some of theses:
-
- - gem_vm_create@async-destroy and gem_vm_create@destroy-race which test
-   swapping out the VM on a running context.
-
- - gem_ctx_persistence@replace* which test whether a client can escape a
-   non-persistent context by submitting a hanging batch and then swapping
-   out the engine set before the hang is detected.
-
- - api_intel_bb@bb-with-vm which tests the that intel_bb_assign_vm works
-   properly.  This API is never used by any other IGT test.
-
-There is also an entire deferred flush and set state framework in
-i915_gem_cotnext.c which exists for safely swapping out the VM while there
-is work in-flight on a context.
-
-So, clearly people knew that this API was inherently racy and difficult to
-implement but they landed it anyway.  Why?  The best explanation I've been
-given is because it makes the API more "unified" or "symmetric" for this
-stuff to go through SET_CONTEXT_PARAM.  It's not because any userspace
-actually wants to be able to swap out the VM or the set of engines on a
-running context.  That would be utterly insane.
-
-This patch series cleans up this particular mess by introducing the concept
-of a i915_gem_proto_context data structure which contains context creation
-information.  When you initially call GEM_CONTEXT_CREATE, a proto-context
-in created instead of an actual context.  Then, the first time something is
-done on the context besides SET_CONTEXT_PARAM, an actual context is
-created.  This allows us to keep the old drivers which use
-SET_CONTEXT_PARAM to set up the engine set (see also media) while ensuring
-that, once you have an i915_gem_context, the VM and the engine set are
-immutable state.
-
-Eventually, there are more clean-ups I'd like to do on top of this which
-should make working with contexts inside i915 simpler and safer:
-
- 1. Move the GEM handle -> vma LUT from i915_gem_context into either
-    i915_ppgtt or drm_i915_file_private depending on whether or not the
-    hardware has a full PPGTT.
-
- 2. Move the delayed context destruction code into intel_context or a
-    per-engine wrapper struct rather than i915_gem_context.
-
- 3. Get rid of the separation between context close and context destroy
-
- 4. Get rid of the RCU on i915_gem_context
-
-However, these should probably be done as a separate patch series as this
-one is already starting to get longish, especially if you consider the 89
-IGT patches that go along with it.
-
-Test-with: 20210423214853.876911-1-jason@jlekstrand.net
-
-Jason Ekstrand (21):
-  drm/i915: Drop I915_CONTEXT_PARAM_RINGSIZE
-  drm/i915: Drop I915_CONTEXT_PARAM_NO_ZEROMAP
-  drm/i915/gem: Set the watchdog timeout directly in
-    intel_context_set_gem
-  drm/i915/gem: Return void from context_apply_all
-  drm/i915: Drop the CONTEXT_CLONE API
-  drm/i915: Implement SINGLE_TIMELINE with a syncobj (v3)
-  drm/i915: Drop getparam support for I915_CONTEXT_PARAM_ENGINES
-  drm/i915/gem: Disallow bonding of virtual engines
-  drm/i915/gem: Disallow creating contexts with too many engines
-  drm/i915/request: Remove the hook from await_execution
-  drm/i915: Stop manually RCU banging in reset_stats_ioctl
-  drm/i915/gem: Add a separate validate_priority helper
-  drm/i915/gem: Add an intermediate proto_context struct
-  drm/i915/gem: Return an error ptr from context_lookup
-  drm/i915/gt: Drop i915_address_space::file
-  drm/i915/gem: Delay context creation
-  drm/i915/gem: Don't allow changing the VM on running contexts
-  drm/i915/gem: Don't allow changing the engine set on running contexts
-  drm/i915/selftests: Take a VM in kernel_context()
-  i915/gem/selftests: Assign the VM at context creation in
-    igt_shared_ctx_exec
-  drm/i915/gem: Roll all of context creation together
-
- drivers/gpu/drm/i915/Makefile                 |    1 -
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 2967 +++++++----------
- drivers/gpu/drm/i915/gem/i915_gem_context.h   |    3 +
- .../gpu/drm/i915/gem/i915_gem_context_types.h |   68 +-
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |   31 +-
- .../drm/i915/gem/selftests/i915_gem_context.c |  127 +-
- .../gpu/drm/i915/gem/selftests/mock_context.c |   62 +-
- .../gpu/drm/i915/gem/selftests/mock_context.h |    4 +-
- drivers/gpu/drm/i915/gt/intel_context_param.c |   63 -
- drivers/gpu/drm/i915/gt/intel_context_param.h |    6 +-
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |    7 -
- .../drm/i915/gt/intel_execlists_submission.c  |  100 -
- .../drm/i915/gt/intel_execlists_submission.h  |    4 -
- drivers/gpu/drm/i915/gt/intel_gtt.h           |   10 -
- drivers/gpu/drm/i915/gt/selftest_execlists.c  |  249 +-
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |    2 +-
- drivers/gpu/drm/i915/i915_drv.h               |   23 +-
- drivers/gpu/drm/i915/i915_perf.c              |    4 +-
- drivers/gpu/drm/i915/i915_request.c           |   42 +-
- drivers/gpu/drm/i915/i915_request.h           |    4 +-
- .../drm/i915/selftests/i915_mock_selftests.h  |    1 -
- drivers/gpu/drm/i915/selftests/mock_gtt.c     |    1 -
- include/uapi/drm/i915_drm.h                   |   40 +-
- 23 files changed, 1438 insertions(+), 2381 deletions(-)
- delete mode 100644 drivers/gpu/drm/i915/gt/intel_context_param.c
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index e52b85b8f923d..35bcdeddfbf3f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1922,15 +1922,6 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
+ 	int ret = 0;
+ 
+ 	switch (args->param) {
+-	case I915_CONTEXT_PARAM_NO_ZEROMAP:
+-		if (args->size)
+-			ret = -EINVAL;
+-		else if (args->value)
+-			set_bit(UCONTEXT_NO_ZEROMAP, &ctx->user_flags);
+-		else
+-			clear_bit(UCONTEXT_NO_ZEROMAP, &ctx->user_flags);
+-		break;
+-
+ 	case I915_CONTEXT_PARAM_NO_ERROR_CAPTURE:
+ 		if (args->size)
+ 			ret = -EINVAL;
+@@ -1980,6 +1971,7 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
+ 		ret = set_persistence(ctx, args);
+ 		break;
+ 
++	case I915_CONTEXT_PARAM_NO_ZEROMAP:
+ 	case I915_CONTEXT_PARAM_BAN_PERIOD:
+ 	case I915_CONTEXT_PARAM_RINGSIZE:
+ 	default:
+@@ -2360,11 +2352,6 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
+ 		return -ENOENT;
+ 
+ 	switch (args->param) {
+-	case I915_CONTEXT_PARAM_NO_ZEROMAP:
+-		args->size = 0;
+-		args->value = test_bit(UCONTEXT_NO_ZEROMAP, &ctx->user_flags);
+-		break;
+-
+ 	case I915_CONTEXT_PARAM_GTT_SIZE:
+ 		args->size = 0;
+ 		rcu_read_lock();
+@@ -2412,6 +2399,7 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
+ 		args->value = i915_gem_context_is_persistent(ctx);
+ 		break;
+ 
++	case I915_CONTEXT_PARAM_NO_ZEROMAP:
+ 	case I915_CONTEXT_PARAM_BAN_PERIOD:
+ 	case I915_CONTEXT_PARAM_RINGSIZE:
+ 	default:
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+index 340473aa70de0..5ae71ec936f7c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+@@ -129,7 +129,6 @@ struct i915_gem_context {
+ 	 * @user_flags: small set of booleans controlled by the user
+ 	 */
+ 	unsigned long user_flags;
+-#define UCONTEXT_NO_ZEROMAP		0
+ #define UCONTEXT_NO_ERROR_CAPTURE	1
+ #define UCONTEXT_BANNABLE		2
+ #define UCONTEXT_RECOVERABLE		3
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 297143511f99b..b812f313422a9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -290,7 +290,6 @@ struct i915_execbuffer {
+ 	struct intel_context *reloc_context;
+ 
+ 	u64 invalid_flags; /** Set of execobj.flags that are invalid */
+-	u32 context_flags; /** Set of execobj.flags to insert from the ctx */
+ 
+ 	u64 batch_len; /** Length of batch within object */
+ 	u32 batch_start_offset; /** Location within object of batch */
+@@ -541,9 +540,6 @@ eb_validate_vma(struct i915_execbuffer *eb,
+ 			entry->flags |= EXEC_OBJECT_NEEDS_GTT | __EXEC_OBJECT_NEEDS_MAP;
+ 	}
+ 
+-	if (!(entry->flags & EXEC_OBJECT_PINNED))
+-		entry->flags |= eb->context_flags;
+-
+ 	return 0;
+ }
+ 
+@@ -750,10 +746,6 @@ static int eb_select_context(struct i915_execbuffer *eb)
+ 	if (rcu_access_pointer(ctx->vm))
+ 		eb->invalid_flags |= EXEC_OBJECT_NEEDS_GTT;
+ 
+-	eb->context_flags = 0;
+-	if (test_bit(UCONTEXT_NO_ZEROMAP, &ctx->user_flags))
+-		eb->context_flags |= __EXEC_OBJECT_NEEDS_BIAS;
+-
+ 	return 0;
+ }
+ 
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 6eefbc6dec01f..a0aaa8298f28d 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -1637,6 +1637,10 @@ struct drm_i915_gem_context_param {
+ 	__u32 size;
+ 	__u64 param;
+ #define I915_CONTEXT_PARAM_BAN_PERIOD	0x1
++/* I915_CONTEXT_PARAM_NO_ZEROMAP has been removed.  On the off chance
++ * someone somewhere has attempted to use it, never re-use this context
++ * param number.
++ */
+ #define I915_CONTEXT_PARAM_NO_ZEROMAP	0x2
+ #define I915_CONTEXT_PARAM_GTT_SIZE	0x3
+ #define I915_CONTEXT_PARAM_NO_ERROR_CAPTURE	0x4
 -- 
 2.31.1
 
