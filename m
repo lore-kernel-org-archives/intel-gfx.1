@@ -5,70 +5,71 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA5F4C43460
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 22:32:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10808C43462
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 22:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B49526101D
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 22:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B49526101D
+	by mail.kernel.org (Postfix) with ESMTPS id D126E6101D
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 22:32:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D126E6101D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6898E6ECCD;
-	Fri, 23 Apr 2021 22:32:05 +0000 (UTC)
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 837846ECB9
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 22:31:56 +0000 (UTC)
-Received: by mail-pl1-x62f.google.com with SMTP id 20so21961064pll.7
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 15:31:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2D816ECE2;
+	Fri, 23 Apr 2021 22:32:07 +0000 (UTC)
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B5516ECBD
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 22:31:59 +0000 (UTC)
+Received: by mail-pj1-x1030.google.com with SMTP id
+ m6-20020a17090a8586b02901507e1acf0fso2034728pjn.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 15:31:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=2XTu+H9zB8MIki5UDa2EWwWTVhsNK8xzF67z3mMD0tQ=;
- b=v5zA9mYzuQrLbD/5SZFh2p567kAnbB5h/gnAWSH/SspXNyUP2I7RgC0m1RtwuuCwOJ
- YcIlcsFKWzt40nVCEbwCM3TOWFWCDvKRULCbIPwrx+gop/w8KlDWmcL4Cm49SAAdzp4z
- xrjylxBMnEyBHAiyf3QhwrNdqupO+ilLw8hTA07syxpbIxvV8fpEKjaYRPOK5aT8vgqk
- bn0rmYJ8wMTS0k4Y1Pb+H2ZdM9YkiBh8tX5aE3E2JsTb4lkWI0oGKV0deGKiHtH0scSD
- 0Nixaa+tm6Qtr1rCIg3cptoMJx/QnfbnT5gAzHl3pe9dN+FJXm5i+9dk9q2ETqFATJbX
- 6itw==
+ bh=Qty9IEA3b/LOViVpK67Et3WcWCVH440BhoJSunI7CIU=;
+ b=qm59jeuOyLQdrwTU8fPR6a4KTH1llNYt0WRzJ80TZroLn1hKW5huW25QAHkvcziEYj
+ MOPxpbKrlW2P5nanxEUisJ2FJcrfQGAzPzvJspGX7AD9zwtopBs2TN7j2K9R5Ko/4C8B
+ mxMxUQwlceswJono6K0OmIpflGvGI7ZGjrJKZnOBr1tRj5M9SBcUmXGHaoATDRggB8XJ
+ We2lnZ8C3xKUIAZedsfIArD4tFoqng6Er8e9OPiKKUr98BSzsH/ScEevF/ZDqdNMTPEt
+ cQSW7b1N9klKQQuEP9yscaB6AziNs22Uxs847kZo5cNuGhvpzi0ZcspoW0Ibrzp4hESg
+ bcaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=2XTu+H9zB8MIki5UDa2EWwWTVhsNK8xzF67z3mMD0tQ=;
- b=j6HPU4NzVgwuasHFv5A3S8NNCWrhIioLvhhV8htbT8SOV1P61nuGJJIMAykhePc1t3
- aAbc85ygnII07OP6MhlUwO5wGVRnHCc0Wkmvt3RkRpBDgHnmewj7PKy4vp0hdUDma4xE
- IRcdcxm5dUULnWGvnrRSIKEbFXAkHmJ8GlY2rQCTPdDYOy4S50TQx8kU4RyJBIN++xma
- tV5rH5uKU4dWuINff7Sg/xVXx+vICetVT45cAOFonzquUcdsQDuFPw//eFu9hmYQFIpF
- z8sYZyqsSt8QQ+YJRkOzeqgdVYccikVe1M1WyBNGFtZJ5pRV/xx+QyrSeTeirf4dpv0X
- eidA==
-X-Gm-Message-State: AOAM531R+Pn4HfoMoOWJ+fdSrjYiV2H0ZJ+MCtGwa/aqyqwyp5SSmWPC
- WvJ4VxR7K986IBe63ufmrRi59cSRrt5LPg==
-X-Google-Smtp-Source: ABdhPJy9xhyAnqxobTJj6LSbHbriPb6heFeb6aqoWgkgcxJ4ox2xklDhoEKKfUKQnrSmMc97/YToCQ==
-X-Received: by 2002:a17:90a:1747:: with SMTP id
- 7mr6610522pjm.109.1619217115708; 
- Fri, 23 Apr 2021 15:31:55 -0700 (PDT)
+ bh=Qty9IEA3b/LOViVpK67Et3WcWCVH440BhoJSunI7CIU=;
+ b=DPKjsuZYdHve97gY3HvkeikDDihpti1D4Jyf/5iWkEop6s5WWkQqU3Lm94tlT+kLGg
+ q9KbuIxD55nTgvjbglJVZAlhsZR2tDlFFL50BXOLjh8BuWsg4e1Ph5Fkuu6mne9rJkf9
+ FNkmGAybG7PxLXOpKZ5eAkAZ/psAQY+2TZe7TEuN5oxYCnJmv6CwFh2KfqtTA4np0jxE
+ /3s8I6wM9mysDAHbMJTT9yidmGUhsrG9J7lHGntrp4XB/ED7vTiPA3HwC3klNT6Zc6+b
+ J145/EWHqUkNEhhH0SJrIIxBAHlXcYg7p1gcV5dVx7e48Pgi4ArwOyF+2z3PN5BEwu3B
+ 6dAw==
+X-Gm-Message-State: AOAM532ADD0YJeAxjzHlQVQvfsoW8Sr7JzqpgOYPeIUOdABRdadgK8T/
+ tpHLPLH80VNGJ0OZEI2l5/ehNA/1xO+REA==
+X-Google-Smtp-Source: ABdhPJzy+RPl3sRtzg22NdF0PuBhw3WQ1Ltadn23a+9lJ5jt6AHek/wSSsRNREJLxRQmPA6BU6VvGQ==
+X-Received: by 2002:a17:90b:1a85:: with SMTP id
+ ng5mr6717572pjb.116.1619217118718; 
+ Fri, 23 Apr 2021 15:31:58 -0700 (PDT)
 Received: from omlet.com ([134.134.139.76])
- by smtp.gmail.com with ESMTPSA id z12sm5523420pfn.195.2021.04.23.15.31.54
+ by smtp.gmail.com with ESMTPSA id z12sm5523420pfn.195.2021.04.23.15.31.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Apr 2021 15:31:55 -0700 (PDT)
+ Fri, 23 Apr 2021 15:31:58 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 23 Apr 2021 17:31:22 -0500
-Message-Id: <20210423223131.879208-13-jason@jlekstrand.net>
+Date: Fri, 23 Apr 2021 17:31:24 -0500
+Message-Id: <20210423223131.879208-15-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210423223131.879208-1-jason@jlekstrand.net>
 References: <20210423223131.879208-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/21] drm/i915/gem: Add a separate
- validate_priority helper
+Subject: [Intel-gfx] [PATCH 14/21] drm/i915/gem: Return an error ptr from
+ context_lookup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,73 +87,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+We're about to start doing lazy context creation which means contexts
+get created in i915_gem_context_lookup and we may start having more
+errors than -ENOENT.
+
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 42 +++++++++++++--------
- 1 file changed, 27 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c    | 12 ++++++------
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c |  4 ++--
+ drivers/gpu/drm/i915/i915_drv.h                |  2 +-
+ drivers/gpu/drm/i915/i915_perf.c               |  4 ++--
+ 4 files changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 941fbf78267b4..e5efd22c89ba2 100644
+index 3e883daab93bf..7929d5a8be449 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -169,6 +169,28 @@ lookup_user_engine(struct i915_gem_context *ctx,
- 	return i915_gem_context_get_engine(ctx, idx);
+@@ -2105,8 +2105,8 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
+ 	int ret = 0;
+ 
+ 	ctx = i915_gem_context_lookup(file_priv, args->ctx_id);
+-	if (!ctx)
+-		return -ENOENT;
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
+ 
+ 	switch (args->param) {
+ 	case I915_CONTEXT_PARAM_GTT_SIZE:
+@@ -2174,8 +2174,8 @@ int i915_gem_context_setparam_ioctl(struct drm_device *dev, void *data,
+ 	int ret;
+ 
+ 	ctx = i915_gem_context_lookup(file_priv, args->ctx_id);
+-	if (!ctx)
+-		return -ENOENT;
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
+ 
+ 	ret = ctx_setparam(file_priv, ctx, args);
+ 
+@@ -2194,8 +2194,8 @@ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev,
+ 		return -EINVAL;
+ 
+ 	ctx = i915_gem_context_lookup(file->driver_priv, args->ctx_id);
+-	if (!ctx)
+-		return -ENOENT;
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
+ 
+ 	/*
+ 	 * We opt for unserialised reads here. This may result in tearing
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 7024adcd5cf15..de14b26f3b2d5 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -739,8 +739,8 @@ static int eb_select_context(struct i915_execbuffer *eb)
+ 	struct i915_gem_context *ctx;
+ 
+ 	ctx = i915_gem_context_lookup(eb->file->driver_priv, eb->args->rsvd1);
+-	if (unlikely(!ctx))
+-		return -ENOENT;
++	if (unlikely(IS_ERR(ctx)))
++		return PTR_ERR(ctx);
+ 
+ 	eb->gem_context = ctx;
+ 	if (rcu_access_pointer(ctx->vm))
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 8571c5c1509a7..004ed0e59c999 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1851,7 +1851,7 @@ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
+ 		ctx = NULL;
+ 	rcu_read_unlock();
+ 
+-	return ctx;
++	return ctx ? ctx : ERR_PTR(-ENOENT);
  }
  
-+static int validate_priority(struct drm_i915_private *i915,
-+			     const struct drm_i915_gem_context_param *args)
-+{
-+	s64 priority = args->value;
-+
-+	if (args->size)
-+		return -EINVAL;
-+
-+	if (!(i915->caps.scheduler & I915_SCHEDULER_CAP_PRIORITY))
-+		return -ENODEV;
-+
-+	if (priority > I915_CONTEXT_MAX_USER_PRIORITY ||
-+	    priority < I915_CONTEXT_MIN_USER_PRIORITY)
-+		return -EINVAL;
-+
-+	if (priority > I915_CONTEXT_DEFAULT_PRIORITY &&
-+	    !capable(CAP_SYS_NICE))
-+		return -EPERM;
-+
-+	return 0;
-+}
-+
- static struct i915_address_space *
- context_get_vm_rcu(struct i915_gem_context *ctx)
- {
-@@ -1744,23 +1766,13 @@ static void __apply_priority(struct intel_context *ce, void *arg)
- static int set_priority(struct i915_gem_context *ctx,
- 			const struct drm_i915_gem_context_param *args)
- {
--	s64 priority = args->value;
--
--	if (args->size)
--		return -EINVAL;
--
--	if (!(ctx->i915->caps.scheduler & I915_SCHEDULER_CAP_PRIORITY))
--		return -ENODEV;
--
--	if (priority > I915_CONTEXT_MAX_USER_PRIORITY ||
--	    priority < I915_CONTEXT_MIN_USER_PRIORITY)
--		return -EINVAL;
-+	int err;
+ /* i915_gem_evict.c */
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 85ad62dbabfab..b86ed03f6a705 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -3414,10 +3414,10 @@ i915_perf_open_ioctl_locked(struct i915_perf *perf,
+ 		struct drm_i915_file_private *file_priv = file->driver_priv;
  
--	if (priority > I915_CONTEXT_DEFAULT_PRIORITY &&
--	    !capable(CAP_SYS_NICE))
--		return -EPERM;
-+	err = validate_priority(ctx->i915, args);
-+	if (err)
-+		return err;
- 
--	ctx->sched.priority = priority;
-+	ctx->sched.priority = args->value;
- 	context_apply_all(ctx, __apply_priority, ctx);
- 
- 	return 0;
+ 		specific_ctx = i915_gem_context_lookup(file_priv, ctx_handle);
+-		if (!specific_ctx) {
++		if (IS_ERR(specific_ctx)) {
+ 			DRM_DEBUG("Failed to look up context with ID %u for opening perf stream\n",
+ 				  ctx_handle);
+-			ret = -ENOENT;
++			ret = PTR_ERR(specific_ctx);
+ 			goto err;
+ 		}
+ 	}
 -- 
 2.31.1
 
