@@ -2,42 +2,48 @@ Return-Path: <SRS0=xpeQ=JU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,
+	DATE_IN_FUTURE_06_12,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74FDBC433B4
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 05:39:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C17F4C433ED
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 06:25:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F127E6115B
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 05:39:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F127E6115B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 8218E613BE
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 06:25:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8218E613BE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5820D6EB40;
-	Fri, 23 Apr 2021 05:39:29 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id AE4916EB3F;
- Fri, 23 Apr 2021 05:39:28 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id A3BC4A8169;
- Fri, 23 Apr 2021 05:39:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D896EB41;
+	Fri, 23 Apr 2021 06:25:42 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 197E66EB41
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 06:25:41 +0000 (UTC)
+IronPort-SDR: /KHhYYQvOnUThQVe5/afbdMe5u6UaV+HczzwGZhpy65+zWYDN6fnu95I4upun0ADNpMDSrxxj8
+ YC00FBj5UBog==
+X-IronPort-AV: E=McAfee;i="6200,9189,9962"; a="183153770"
+X-IronPort-AV: E=Sophos;i="5.82,245,1613462400"; d="scan'208";a="183153770"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2021 23:25:39 -0700
+IronPort-SDR: c6/NNgIbJd3pq6aVw9n7l1vTtKNI3iNrWyKlXuoFFCDGQ4574nWWSgXveFAMigGVibRNuagU1L
+ Urt5/VtocG6g==
+X-IronPort-AV: E=Sophos;i="5.82,245,1613462400"; d="scan'208";a="524906959"
+Received: from bhanu-nuclab.iind.intel.com ([10.145.162.173])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2021 23:25:37 -0700
+From: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 23 Apr 2021 19:46:09 +0530
+Message-Id: <20210423141609.28568-1-bhanuprakash.modem@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Kai-Heng Feng" <kai.heng.feng@canonical.com>
-Date: Fri, 23 Apr 2021 05:39:28 -0000
-Message-ID: <161915636863.2791.18091039856139274759@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210423044700.247359-1-kai.heng.feng@canonical.com>
-In-Reply-To: <20210423044700.247359-1-kai.heng.feng@canonical.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Invoke_BXT_=5FDSM_to_enable_MUX_on_HP_Workstation_lapt?=
- =?utf-8?q?ops_=28rev2=29?=
+Subject: [Intel-gfx] [V3] drm/i915/display: Fix state mismatch in drm
+ infoframe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,200 +56,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1043483753=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1043483753==
-Content-Type: multipart/alternative;
- boundary="===============0456688821413328281=="
-
---===============0456688821413328281==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-== Series Details ==
-
-Series: drm/i915: Invoke BXT _DSM to enable MUX on HP Workstation laptops (rev2)
-URL   : https://patchwork.freedesktop.org/series/89374/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10000 -> Patchwork_19978
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19978 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@semaphore:
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][1] ([fdo#109271]) +27 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html
-
-  * igt@amdgpu/amd_cs_nop@sync-fork-compute0:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271]) +9 similar issues
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-kbl-soraka/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html
-
-  * igt@amdgpu/amd_prime@amd-to-i915:
-    - fi-tgl-y:           NOTRUN -> [SKIP][3] ([fdo#109315] / [i915#2575])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-tgl-y/igt@amdgpu/amd_prime@amd-to-i915.html
-
-  * igt@core_hotunplug@unbind-rebind:
-    - fi-bdw-5557u:       NOTRUN -> [WARN][4] ([i915#2283])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html
-
-  * igt@kms_chamelium@dp-crc-fast:
-    - fi-bdw-5557u:       NOTRUN -> [SKIP][5] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#2283]: https://gitlab.freedesktop.org/drm/intel/issues/2283
-  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
-
-
-Participating hosts (41 -> 38)
-------------------------------
-
-  Missing    (3): fi-bdw-samus fi-bsw-cyan fi-apl-guc 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10000 -> Patchwork_19978
-
-  CI-20190529: 20190529
-  CI_DRM_10000: 44407be4a35b68f51c6c64e57eb0cf797b9e2e5d @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6072: 0a51f49df9f5ca535fc0206a27a6780de6b52320 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19978: 5f3807d8462ed91b9b161e83f9cd87e2a445d800 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-5f3807d8462e drm/i915: Invoke BXT _DSM to enable MUX on HP Workstation laptops
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/index.html
-
---===============0456688821413328281==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Invoke BXT _DSM to enable MUX on HP Workstation laptops (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/89374/">https://patchwork.freedesktop.org/series/89374/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10000 -&gt; Patchwork_19978</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19978 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@semaphore:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +27 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@amdgpu/amd_cs_nop@sync-fork-compute0:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-kbl-soraka/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +9 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@amdgpu/amd_prime@amd-to-i915:</p>
-<ul>
-<li>fi-tgl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-tgl-y/igt@amdgpu/amd_prime@amd-to-i915.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2575">i915#2575</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@core_hotunplug@unbind-rebind:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html">WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2283">i915#2283</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@dp-crc-fast:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19978/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (41 -&gt; 38)</h2>
-<p>Missing    (3): fi-bdw-samus fi-bsw-cyan fi-apl-guc </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10000 -&gt; Patchwork_19978</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10000: 44407be4a35b68f51c6c64e57eb0cf797b9e2e5d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6072: 0a51f49df9f5ca535fc0206a27a6780de6b52320 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19978: 5f3807d8462ed91b9b161e83f9cd87e2a445d800 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>5f3807d8462e drm/i915: Invoke BXT _DSM to enable MUX on HP Workstation laptops</p>
-
-</body>
-</html>
-
---===============0456688821413328281==--
-
---===============1043483753==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1043483753==--
+V2hpbGUgcmVhZGluZyB0aGUgU0RQIGluZm9mcmFtZSwgd2UgYXJlIGdldHRpbmcgZmlsdGVyZWQg
+d2l0aAp0aGUgZW5jb2RlciB0eXBlIElOVEVMX09VVFBVVF9EREkgd2hpY2ggY2F1c2VzIHRoZSBp
+bmZvZnJhbWUKbWlzbWF0Y2guIFRoaXMgcGF0Y2ggd2lsbCBkcm9wIGVuY29kZXItPnR5cGUgY2hl
+Y2sgYXMgd2UgY2FuCm1hc2sgaW5kaXZpZHVhbCBpbmZvZnJhbWUgdHlwZS4KClsxMDI1LjYwNjU1
+Nl0gaTkxNSAwMDAwOjAwOjAyLjA6IFtkcm1dICpFUlJPUiogbWlzbWF0Y2ggaW4gZHJtIGluZm9m
+cmFtZQpbMTAyNS42MDc4NjVdIGk5MTUgMDAwMDowMDowMi4wOiBbZHJtXSAqRVJST1IqIGV4cGVj
+dGVkOgpbMTAyNS42MDc4NzldIGk5MTUgMDAwMDowMDowMi4wOiBIRE1JIGluZm9mcmFtZTogRHlu
+YW1pYyBSYW5nZSBhbmQgTWFzdGVyaW5nLCB2ZXJzaW9uIDEsIGxlbmd0aCAyNgpbMTAyNS42MDc4
+ODldIGk5MTUgMDAwMDowMDowMi4wOiBsZW5ndGg6IDI2ClsxMDI1LjYwNzg5OF0gaTkxNSAwMDAw
+OjAwOjAyLjA6IG1ldGFkYXRhIHR5cGU6IDAKWzEwMjUuNjA4MjkyXSBpOTE1IDAwMDA6MDA6MDIu
+MDogZW90ZjogMgpbMTAyNS42MDgzMDJdIGk5MTUgMDAwMDowMDowMi4wOiB4WzBdOiAzNTQwMApb
+MTAyNS42MDgzMTJdIGk5MTUgMDAwMDowMDowMi4wOiB5WzBdOiAxNDU5OQpbMTAyNS42MDkxMTVd
+IGk5MTUgMDAwMDowMDowMi4wOiB4WzFdOiA4NTAwClsxMDI1LjYwOTk0N10gaTkxNSAwMDAwOjAw
+OjAyLjA6IHlbMV06IDM5ODUwClsxMDI1LjYwOTk1OV0gaTkxNSAwMDAwOjAwOjAyLjA6IHhbMl06
+IDY1NTAKWzEwMjUuNjA5OTcwXSBpOTE1IDAwMDA6MDA6MDIuMDogeVsyXTogMjMwMApbMTAyNS42
+MDk5ODBdIGk5MTUgMDAwMDowMDowMi4wOiB3aGl0ZSBwb2ludCB4OiAxNTYzNApbMTAyNS42MDk5
+ODldIGk5MTUgMDAwMDowMDowMi4wOiB3aGl0ZSBwb2ludCB5OiAxNjQ1MApbMTAyNS42MTAzODFd
+IGk5MTUgMDAwMDowMDowMi4wOiBtYXhfZGlzcGxheV9tYXN0ZXJpbmdfbHVtaW5hbmNlOiAxMDAw
+ClsxMDI1LjYxMDM5Ml0gaTkxNSAwMDAwOjAwOjAyLjA6IG1pbl9kaXNwbGF5X21hc3RlcmluZ19s
+dW1pbmFuY2U6IDUwMApbMTAyNS42MTA0MDFdIGk5MTUgMDAwMDowMDowMi4wOiBtYXhfY2xsOiA1
+MDAKWzEwMjUuNjEwODE2XSBpOTE1IDAwMDA6MDA6MDIuMDogbWF4X2ZhbGw6IDEwMDAKWzEwMjUu
+NjEyNDU3XSBpOTE1IDAwMDA6MDA6MDIuMDogW2RybV0gKkVSUk9SKiBmb3VuZDoKWzEwMjUuNjE0
+MzU0XSAtLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0tLS0tLS0KWzEwMjUuNjE2MjQ0XSBw
+aXBlIHN0YXRlIGRvZXNuJ3QgbWF0Y2ghClsxMDI1LjYxNzY0MF0gV0FSTklORzogQ1BVOiA2IFBJ
+RDogMjExNCBhdCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYzo5
+MzMyIGludGVsX2F0b21pY19jb21taXRfdGFpbCsweDE0ZDQvMHgxN2MwIFtpOTE1XQoKVjI6Ciog
+RHJvcCBlbmNvZGVyLT50eXBlIGNoZWNrCgpWMzoKKiBSZW1vdmUgaW50ZXJuYWwgcmV2aWV3cwoK
+Q2M6IFVtYSBTaGFua2FyIDx1bWEuc2hhbmthckBpbnRlbC5jb20+CkNjOiBWaWxsZSBTeXJqw6Rs
+w6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBCaGFudXBy
+YWthc2ggTW9kZW0gPGJoYW51cHJha2FzaC5tb2RlbUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jIHwgMyAtLS0KIDEgZmlsZSBjaGFuZ2VkLCAz
+IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfZHAuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYwppbmRl
+eCA0YWQxMmRkZTU5MzguLjI4MGIwYjVlZTcwZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
+YXkvaW50ZWxfZHAuYwpAQCAtMzAxNCw5ICszMDE0LDYgQEAgdm9pZCBpbnRlbF9yZWFkX2RwX3Nk
+cChzdHJ1Y3QgaW50ZWxfZW5jb2RlciAqZW5jb2RlciwKIAkJICAgICAgIHN0cnVjdCBpbnRlbF9j
+cnRjX3N0YXRlICpjcnRjX3N0YXRlLAogCQkgICAgICAgdW5zaWduZWQgaW50IHR5cGUpCiB7Ci0J
+aWYgKGVuY29kZXItPnR5cGUgIT0gSU5URUxfT1VUUFVUX0RESSkKLQkJcmV0dXJuOwotCiAJc3dp
+dGNoICh0eXBlKSB7CiAJY2FzZSBEUF9TRFBfVlNDOgogCQlpbnRlbF9yZWFkX2RwX3ZzY19zZHAo
+ZW5jb2RlciwgY3J0Y19zdGF0ZSwKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
