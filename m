@@ -2,78 +2,90 @@ Return-Path: <SRS0=xpeQ=JU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 042F8C433ED
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 02:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7746C433ED
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 04:11:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC2D6610E6
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 02:53:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC2D6610E6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 89A7061425
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 04:11:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89A7061425
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 209BF6E069;
-	Fri, 23 Apr 2021 02:53:23 +0000 (UTC)
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 580146E069
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 02:53:21 +0000 (UTC)
-Received: by mail-pf1-x42d.google.com with SMTP id d124so33090381pfa.13
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Apr 2021 19:53:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=40nhsz+kltJTf7tq6pLLkes92lT1dy5Rll207DlKzWM=;
- b=HdsQJQRkixDre+dpQSVR58nl8K7T4MbrI4XmlnSivkYb875qGKmhwngqhS/XX43exh
- bg5Ne9Oub0puKLH8FRaSSn/FCuQxwpgf1ynisAFuTF4Wvjhe+t5iF+WotV6g96hB8Oro
- fWaQA0hAXWZxawu4WTORJsnwcVbFEg+0cCZO8=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6111D6EB3E;
+	Fri, 23 Apr 2021 04:11:16 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8126EB3C
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 04:11:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1619151074;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UEsttLkpBkpq2SJNDxCdn4ntrP1/pMb5ophnX8OcNHQ=;
+ b=I4m4ht41GTILgGVbo4jL7gFu0PQwUzzWk6EOoq5GYj82QAFiMo3Ggs93mjfxVCNY3o1GXZ
+ zgnIuIqlCRjDLv2pz3c2AzT9ApW96HbzfSxWvhMqMryLwW9gr20PGbRMmGjJCzqSrs3X51
+ zqzbxqYPiIzizXMY7owD4Z70V/qUa5E=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-433-DbN6q5-wMsq7U3z0qf3lxA-1; Fri, 23 Apr 2021 00:11:10 -0400
+X-MC-Unique: DbN6q5-wMsq7U3z0qf3lxA-1
+Received: by mail-qt1-f200.google.com with SMTP id
+ z5-20020a05622a0285b02901b943be06b5so8793522qtw.17
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Apr 2021 21:11:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=40nhsz+kltJTf7tq6pLLkes92lT1dy5Rll207DlKzWM=;
- b=bskWV4x8nH8XW1P20pktz3ENlB/FGWjWhi7iYmwdt7XkiWfJ8r2gbMjIDdQuLUs//W
- 7OH3Ciw8LTf6twdKp9+vy5uJg9gYlY/UaTu1rGL5tiwbDoESXN+rlX1M3z2rCYDS4u/M
- vFG/IRHSDdtfTATWxct4uqvZhVuOY4ZuiZVFfL3bmH+MOZrG8vsAAUTJ8BUuj9UAGxSU
- wlcs3l7XllmVqB1ciAYrzJrM24+CkSu0HtzHBmT92vIXY2/lMV/1kaSS0mK3LtZOF8AG
- hOpWgyPIv5L2BsW4GF2qSUI+p2CK0Ht1biUHj9P+iKZHtkVZIEVA15/gvg0VgfVMCkTD
- L9jg==
-X-Gm-Message-State: AOAM530HMOiO1cgJp6XtbEVjhf0JKpebQsqUcC6I0RzndXzV2VY/C4fq
- lf3MjDjOoAyOaLHXUx0OiGahA/qEurcNrQ==
-X-Google-Smtp-Source: ABdhPJyybc9ILHIAjKMlHq+meWiuZSMQKLWP08jwxuyC5DCJMaEXQ5KuR3Kf6BZtKZs1tb++Sl0Eaw==
-X-Received: by 2002:a05:6a00:212b:b029:259:73ac:7217 with SMTP id
- n11-20020a056a00212bb029025973ac7217mr1842975pfj.20.1619146401000; 
- Thu, 22 Apr 2021 19:53:21 -0700 (PDT)
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com.
- [209.85.215.178])
- by smtp.gmail.com with ESMTPSA id h9sm3093540pfv.14.2021.04.22.19.53.20
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Apr 2021 19:53:20 -0700 (PDT)
-Received: by mail-pg1-f178.google.com with SMTP id z16so34230975pga.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Apr 2021 19:53:20 -0700 (PDT)
-X-Received: by 2002:a6b:c913:: with SMTP id z19mr1627785iof.50.1619146389385; 
- Thu, 22 Apr 2021 19:53:09 -0700 (PDT)
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=UEsttLkpBkpq2SJNDxCdn4ntrP1/pMb5ophnX8OcNHQ=;
+ b=d8hr035R5cyr9HD76fKuojL6rCF2tScTk96/AnOafxl4BT7JX/AlIPe2WzLNUM9TI9
+ ipUQPleWyAwxBnRSeJ+OOUiinC5hhGxvuQ+uxFkCFPcSoPNaTPXmahrsJ9IfRsHI1B+J
+ AWUfxUWXsB682j+t7QJkZ7tz5o3e7XzzA00ikc0m/rzpQbKBr1Z9kV2/fjWe/t9OSs8q
+ C/b1OJKuCecXhuHC6siKkZRx41T290Vd8g2ATFCd4UId7ZS27ZEH7jhoWEqiNOQDdskh
+ HgxR0uRuoVFvPRWRELslwDuelds99rKb7EZsIGBD78kOAwgVaRfIf78qYOsoe/xnyrn0
+ aPEg==
+X-Gm-Message-State: AOAM532goNFlu0M6aR18pFzkqL9PcofGR+E9KYpyzfXbpe55Ss8qalJm
+ vmDU2Fj//WMe10nPxb7cC8tm+n+f2aMG4ySddMVyHvWqIdbNEJc0JV6V8HMG0K3HBH1+ipcJ1r9
+ Q2HU39d0jc144mGJ2MGAjHe7MPLeY
+X-Received: by 2002:a05:620a:759:: with SMTP id
+ i25mr2051958qki.193.1619151070442; 
+ Thu, 22 Apr 2021 21:11:10 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJylBePZmlCk3b2HVjreUYqrF7R043bNOhqz9vj7MTklILGEdtzIHic9P0aNqf5EMN/2bwB8Yg==
+X-Received: by 2002:a05:620a:759:: with SMTP id
+ i25mr2051902qki.193.1619151070183; 
+ Thu, 22 Apr 2021 21:11:10 -0700 (PDT)
+Received: from Ruby.lyude.net (pool-108-49-102-102.bstnma.fios.verizon.net.
+ [108.49.102.102])
+ by smtp.gmail.com with ESMTPSA id f22sm3495254qkm.134.2021.04.22.21.11.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Apr 2021 21:11:09 -0700 (PDT)
+Message-ID: <17aa145e4cfa3d8852f7411067c5c37bff771b16.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, 
+ Thierry Reding <thierry.reding@gmail.com>
+Date: Fri, 23 Apr 2021 00:11:06 -0400
+In-Reply-To: <2e211a6623664714af1d180eadcd74aa7ef417db.camel@redhat.com>
+References: <20210419225523.184856-1-lyude@redhat.com>
+ <20210419225523.184856-4-lyude@redhat.com> <YH4PPbY1qqF2NtrN@intel.com>
+ <56a931c9f284ee6a23583eb3dc59de4afaa60e93.camel@redhat.com>
+ <2e211a6623664714af1d180eadcd74aa7ef417db.camel@redhat.com>
+Organization: Red Hat
+User-Agent: Evolution 3.38.4 (3.38.4-1.fc33)
 MIME-Version: 1.0
-References: <20210422081508.3942748-1-tientzu@chromium.org>
- <20210422081508.3942748-17-tientzu@chromium.org>
-In-Reply-To: <20210422081508.3942748-17-tientzu@chromium.org>
-From: Claire Chang <tientzu@chromium.org>
-Date: Fri, 23 Apr 2021 10:52:58 +0800
-X-Gmail-Original-Message-ID: <CALiNf29NzRTRB-0JbCL7=0qF0SAiER_pJ_-SCtVRA7DHCsSpEg@mail.gmail.com>
-Message-ID: <CALiNf29NzRTRB-0JbCL7=0qF0SAiER_pJ_-SCtVRA7DHCsSpEg@mail.gmail.com>
-To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Frank Rowand <frowand.list@gmail.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
- boris.ostrovsky@oracle.com, jgross@suse.com, Christoph Hellwig <hch@lst.de>, 
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Intel-gfx] [PATCH v5 16/16] of: Add plumbing for restricted
- DMA pool
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Subject: Re: [Intel-gfx] [PATCH v3 03/20] drm/dp: Move i2c init to
+ drm_dp_aux_init, add __must_check and fini
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,129 +98,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, mingo@kernel.org, jxgao@google.com,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- xypron.glpk@gmx.de, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- airlied@linux.ie, Robin Murphy <robin.murphy@arm.com>,
- Nicolas Boichat <drinkcat@chromium.org>, bhelgaas@google.com,
- Dan Williams <dan.j.williams@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- nouveau@lists.freedesktop.org, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- Tomasz Figa <tfiga@chromium.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, linuxppc-dev@lists.ozlabs.org,
- bauerman@linux.ibm.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org,
+ Guido =?ISO-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>,
+ Oleg Vasilev <oleg.vasilev@intel.com>, dri-devel@lists.freedesktop.org,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Parshuram Thombare <pthombar@cadence.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Michal Simek <michal.simek@xilinx.com>, amd-gfx@lists.freedesktop.org,
+ Jonathan Hunter <jonathanh@nvidia.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Swapnil Jakhade <sjakhade@cadence.com>,
+ Thierry Reding <treding@nvidia.com>, Harry Wentland <harry.wentland@amd.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Leo Li <sunpeng.li@amd.com>,
+ intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ Joe Perches <joe@perches.com>, Yuti Amonkar <yamonkar@cadence.com>,
+ Mikita Lipski <mikita.lipski@amd.com>,
+ Navid Emamdoost <navid.emamdoost@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Chris Park <Chris.Park@amd.com>,
+ Eryk Brol <eryk.brol@amd.com>, Hyun Kwon <hyun.kwon@xilinx.com>,
+ Robert Foss <robert.foss@linaro.org>, Julia Lawall <Julia.Lawall@inria.fr>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 22, 2021 at 4:17 PM Claire Chang <tientzu@chromium.org> wrote:
->
-> If a device is not behind an IOMMU, we look up the device node and set
-> up the restricted DMA when the restricted-dma-pool is presented.
->
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
-> ---
->  drivers/of/address.c    | 25 +++++++++++++++++++++++++
->  drivers/of/device.c     |  3 +++
->  drivers/of/of_private.h |  5 +++++
->  3 files changed, 33 insertions(+)
->
-> diff --git a/drivers/of/address.c b/drivers/of/address.c
-> index 54f221dde267..fff3adfe4986 100644
-> --- a/drivers/of/address.c
-> +++ b/drivers/of/address.c
-> @@ -8,6 +8,7 @@
->  #include <linux/logic_pio.h>
->  #include <linux/module.h>
->  #include <linux/of_address.h>
-> +#include <linux/of_reserved_mem.h>
->  #include <linux/pci.h>
->  #include <linux/pci_regs.h>
->  #include <linux/sizes.h>
-> @@ -1109,6 +1110,30 @@ bool of_dma_is_coherent(struct device_node *np)
->  }
->  EXPORT_SYMBOL_GPL(of_dma_is_coherent);
->
-> +int of_dma_set_restricted_buffer(struct device *dev)
-> +{
-> +       struct device_node *node;
-> +       int count, i;
-> +
-> +       if (!dev->of_node)
-> +               return 0;
-> +
-> +       count = of_property_count_elems_of_size(dev->of_node, "memory-region",
-> +                                               sizeof(phandle));
-> +       for (i = 0; i < count; i++) {
-> +               node = of_parse_phandle(dev->of_node, "memory-region", i);
-> +               /* There might be multiple memory regions, but only one
-> +                * restriced-dma-pool region is allowed.
-> +                */
-> +               if (of_device_is_compatible(node, "restricted-dma-pool") &&
-> +                   of_device_is_available(node))
-> +                       return of_reserved_mem_device_init_by_idx(
-> +                               dev, dev->of_node, i);
-> +       }
-> +
-> +       return 0;
-> +}
-> +
->  /**
->   * of_mmio_is_nonposted - Check if device uses non-posted MMIO
->   * @np:        device node
-> diff --git a/drivers/of/device.c b/drivers/of/device.c
-> index c5a9473a5fb1..d8d865223e51 100644
-> --- a/drivers/of/device.c
-> +++ b/drivers/of/device.c
-> @@ -165,6 +165,9 @@ int of_dma_configure_id(struct device *dev, struct device_node *np,
->
->         arch_setup_dma_ops(dev, dma_start, size, iommu, coherent);
->
-> +       if (!iommu)
-> +               return of_dma_set_restricted_buffer(dev);
-> +
->         return 0;
->  }
->  EXPORT_SYMBOL_GPL(of_dma_configure_id);
-> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-> index d717efbd637d..e9237f5eff48 100644
-> --- a/drivers/of/of_private.h
-> +++ b/drivers/of/of_private.h
-> @@ -163,12 +163,17 @@ struct bus_dma_region;
->  #if defined(CONFIG_OF_ADDRESS) && defined(CONFIG_HAS_DMA)
->  int of_dma_get_range(struct device_node *np,
->                 const struct bus_dma_region **map);
-> +int of_dma_set_restricted_buffer(struct device *dev);
->  #else
->  static inline int of_dma_get_range(struct device_node *np,
->                 const struct bus_dma_region **map)
->  {
->         return -ENODEV;
->  }
-> +static inline int of_dma_get_restricted_buffer(struct device *dev)
-
-This one should be of_dma_set_restricted_buffer. Sorry for the typo.
-
-> +{
-> +       return -ENODEV;
-> +}
->  #endif
->
->  #endif /* _LINUX_OF_PRIVATE_H */
-> --
-> 2.31.1.368.gbe11c130af-goog
->
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gVGh1LCAyMDIxLTA0LTIyIGF0IDE4OjMzIC0wNDAwLCBMeXVkZSBQYXVsIHdyb3RlOgo+IE9L
+IC0gdGFsa2VkIHdpdGggVmlsbGUgYSBiaXQgb24gdGhpcyBhbmQgZGlkIHNvbWUgb2YgbXkgb3du
+IHJlc2VhcmNoLCBJCj4gYWN0dWFsbHkgdGhpbmsgdGhhdCBtb3ZpbmcgaTJjIHRvIGRybV9kcF9h
+dXhfaW5pdCgpIGlzIHRoZSByaWdodCBkZWNpc2lvbgo+IGZvcgo+IHRoZSB0aW1lIGJlaW5nLiBU
+aGUgcmVhc29uaW5nIGJlaGluZCB0aGlzIGJlaW5nIHRoYXQgYXMgc2hvd24gYnkgbXkgcHJldmlv
+dXMKPiB3b3JrIG9mIGZpeGluZyBkcml2ZXJzIHRoYXQgY2FsbCBkcm1fZHBfYXV4X3JlZ2lzdGVy
+KCkgdG9vIGVhcmx5IC0gaXQgc2VlbXMKPiBsaWtlIHRoZXJlJ3MgYWxyZWFkeSBiZWVuIGRyaXZl
+cnMgdGhhdCBoYXZlIGJlZW4gd29ya2luZyBqdXN0IGZpbmUgd2l0aAo+IHNldHRpbmcgdXAgdGhl
+IGkyYyBkZXZpY2UgYmVmb3JlIERSTSByZWdpc3RyYXRpb24uIAo+IAo+IEluIHRoZSBmdXR1cmUs
+IGl0J2QgcHJvYmFibHkgYmUgYmV0dGVyIGlmIHdlIGNhbiBzcGxpdCB1cCBpMmNfYWRkX2FkYXB0
+ZXIoKQo+IGludG8gYW4gaW5pdCBhbmQgcmVnaXN0ZXIgZnVuY3Rpb24gLSBidXQgd2UnbGwgaGF2
+ZSB0byB0YWxrIHdpdGggdGhlIGkyYwo+IG1haW50YWluZXJzIHRvIHNlZSBpZiB0aGlzIGlzIGFj
+Y2VwdGFibGUgdy8gdGhlbQoKQWN0dWFsbHkgLSBJIHRoaW5rIGFkZGluZyB0aGUgYWJpbGl0eSB0
+byByZWZjb3VudCBkcCBhdXggYWRhcHRlcnMgbWlnaHQgYmUgYQpiZXR0ZXIgc29sdXRpb24gc28g
+SSdtIGdvaW5nIHRvIHRyeSB0aGF0IQoKPiAKPiBPbiBUaHUsIDIwMjEtMDQtMjIgYXQgMTM6MTgg
+LTA0MDAsIEx5dWRlIFBhdWwgd3JvdGU6Cj4gPiBPbiBUdWUsIDIwMjEtMDQtMjAgYXQgMDI6MTYg
+KzAzMDAsIFZpbGxlIFN5cmrDpGzDpCB3cm90ZToKPiA+ID4gCj4gPiA+IFRoZSBpbml0IHZzLiBy
+ZWdpc3RlciBzcGxpdCBpcyBpbnRlbnRpb25hbC4gUmVnaXN0ZXJpbmcgdGhlIHRoaW5nCj4gPiA+
+IGFuZCBhbGxvd2luZyB1c2Vyc3BhY2UgYWNjZXNzIHRvIGl0IGJlZm9yZSB0aGUgcmVzdCBvZiB0
+aGUgZHJpdmVyCj4gPiA+IGlzIHJlYWR5IGlzbid0IHBhcnRpY3VsYXJseSBncmVhdC4gRm9yIGEg
+d2hpbGUgbm93IHdlJ3ZlIHRyaWVkIHRvCj4gPiA+IG1vdmUgdG93YXJkcyBhbiBhcmNoaXRlY3R1
+cmUgd2hlcmUgdGhlIGRyaXZlciBpcyBmdWxseSBpbml0aWFsemllZAo+ID4gPiBiZWZvcmUgYW55
+dGhpbmcgZ2V0cyBleHBvc2VkIHRvIHVzZXJzcGFjZS4KPiA+IAo+ID4gWWVhaC10aGFuayB5b3Ug
+Zm9yIHBvaW50aW5nIHRoaXMgb3V0LiBUaGllcnJ5IC0gZG8geW91IHRoaW5rIHRoZXJlJ3MgYW4K
+PiA+IGFsdGVybmF0ZSBzb2x1dGlvbiB3ZSBjb3VsZCBnbyB3aXRoIGluIFRlZ3JhIHRvIGZpeCB0
+aGUgZ2V0X2RldmljZSgpIGlzc3VlCj4gPiB0aGF0IHdvdWxkbid0IHJlcXVpcmUgdXMgdHJ5aW5n
+IHRvIGV4cG9zZSB0aGUgaTJjIGFkYXB0ZXIgZWFybHk/Cj4gPiAKPiA+ID4gCj4gPiAKPiAKCi0t
+IApDaGVlcnMsCiBMeXVkZSBQYXVsIChzaGUvaGVyKQogU29mdHdhcmUgRW5naW5lZXIgYXQgUmVk
+IEhhdAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50
+ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
