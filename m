@@ -2,75 +2,55 @@ Return-Path: <SRS0=0znn=JX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8B33C433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:37:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EF48C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:42:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 71D5261009
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:37:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71D5261009
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1331E6101C
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:42:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1331E6101C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C01489BF1;
-	Mon, 26 Apr 2021 16:37:44 +0000 (UTC)
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
- [IPv6:2607:f8b0:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3171489CF9
- for <intel-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 16:37:43 +0000 (UTC)
-Received: by mail-pg1-x531.google.com with SMTP id w20so1527975pge.13
- for <intel-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 09:37:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=w+xLIOm1aUR+ojar7SxT7aE31iJaS6lTTL9NFfLTdqs=;
- b=ctSitjX8LR7O2ZMk4lsR8Irz6egx7wTYNYpP5lwZVohPuAIjgk70gq0rLgnAswDS5J
- OwrGL0fnjKjd/25GMaUPOEt1BY6NfF//O6cQPXnTolYLDRghV+Gs0xVvNzh51W3LGUxd
- u8ZH2pOBpUkLUeomCja6RAPBZaNGl3ag01nF0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=w+xLIOm1aUR+ojar7SxT7aE31iJaS6lTTL9NFfLTdqs=;
- b=NV/jPVYhesxs7PVkZEhkCO2Z/JUzUh30D2ZHio3w0COh93FfQ9FX2eC5TEjQFCJn8o
- a52BhXLdeEIO4DbX8XX6WaiFadE6C2PmUj2kn8yPN6PpmkUubwCwcaKS6WcVir2oEcG7
- obsvOO6Jo6nk1km35E5R6PxjJ8nQQsRjWfkmetfcrgJLU6l4RQ7Za7gLqsQIV75/Bw9h
- gxgIOBkeZOl4hNNyaXCWXg5wohxH+ssOUwhXF9AN84U4xQaatqieNPkHjCoP46mjXKH0
- HeHhMBAMm3Oha3Trcr6982RxijvzstyfxKjn0vY5mGjAWM3pcxur4XcBCy2YUopE5k8M
- bEdw==
-X-Gm-Message-State: AOAM530QlNvuIvUrVwk8GzZCy4sAfuNlw4ov5mZ7kqoLOVTsSdHc4UOK
- 65gjC4q2KBXkSooF4Z6zv6GryD1tLR9RPw==
-X-Google-Smtp-Source: ABdhPJwWWyL8/NyZHpi/k0Y6mM/CNRi/NVmlxCEhd/a5BeG9razxINlIqKN3rp5OtisVcX9QqkXwcA==
-X-Received: by 2002:aa7:87d5:0:b029:25a:b5f8:15ab with SMTP id
- i21-20020aa787d50000b029025ab5f815abmr18750317pfo.22.1619455062017; 
- Mon, 26 Apr 2021 09:37:42 -0700 (PDT)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com.
- [209.85.210.177])
- by smtp.gmail.com with ESMTPSA id h20sm200662pfh.192.2021.04.26.09.37.40
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Apr 2021 09:37:41 -0700 (PDT)
-Received: by mail-pf1-f177.google.com with SMTP id w6so24805952pfc.8
- for <intel-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 09:37:40 -0700 (PDT)
-X-Received: by 2002:a5d:8c82:: with SMTP id g2mr15143365ion.34.1619455049397; 
- Mon, 26 Apr 2021 09:37:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2F486E844;
+	Mon, 26 Apr 2021 16:42:25 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EF6B6E084;
+ Mon, 26 Apr 2021 16:42:24 +0000 (UTC)
+IronPort-SDR: KQyRRnYjZtL+QuWNacBpr6YjlUVAl8qffDLr3dbbxu2KJskhRfmCfPAF+jiTVSg0MSRtSsfegM
+ +KWJ4UapFG5g==
+X-IronPort-AV: E=McAfee;i="6200,9189,9966"; a="195919411"
+X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="195919411"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2021 09:42:23 -0700
+IronPort-SDR: 30BwvzU3X47wuIA3iJWIOVTKrl8qQdOWaKItp0G29pZ7KoZmkPsRDeM2hUNcbA43WZwLUCeiC/
+ klX22Mi5YdkQ==
+X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="429457856"
+Received: from rgunnin1-mobl.ger.corp.intel.com (HELO [10.252.12.201])
+ ([10.252.12.201])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2021 09:42:22 -0700
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20210426101821.42147-1-matthew.auld@intel.com>
+ <20210426101821.42147-4-matthew.auld@intel.com>
+ <b3c9bfe6-2e05-67e3-becf-982e9fae4b8e@linux.intel.com>
+From: Matthew Auld <matthew.auld@intel.com>
+Message-ID: <5d1db760-9783-d014-380b-7c57700ced81@intel.com>
+Date: Mon, 26 Apr 2021 17:42:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-References: <20210422081508.3942748-1-tientzu@chromium.org>
- <20210422081508.3942748-6-tientzu@chromium.org>
- <c9abca62-328d-d0d6-a8a6-a67475171f92@arm.com>
-In-Reply-To: <c9abca62-328d-d0d6-a8a6-a67475171f92@arm.com>
-From: Claire Chang <tientzu@chromium.org>
-Date: Tue, 27 Apr 2021 00:37:18 +0800
-X-Gmail-Original-Message-ID: <CALiNf2_tffc65PhLxCr3-+gmVYKGO2HjYiJVkBNa5U5HYdi9pg@mail.gmail.com>
-Message-ID: <CALiNf2_tffc65PhLxCr3-+gmVYKGO2HjYiJVkBNa5U5HYdi9pg@mail.gmail.com>
-To: Steven Price <steven.price@arm.com>
-Subject: Re: [Intel-gfx] [PATCH v5 05/16] swiotlb: Add restricted DMA pool
- initialization
+In-Reply-To: <b3c9bfe6-2e05-67e3-becf-982e9fae4b8e@linux.intel.com>
+Content-Language: en-GB
+Subject: Re: [Intel-gfx] [PATCH 4/7] drm/i915/gtt/dgfx: place the PD in LMEM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,180 +63,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, lkml <linux-kernel@vger.kernel.org>,
- grant.likely@arm.com, paulus@samba.org, Will Deacon <will@kernel.org>,
- mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- xypron.glpk@gmx.de, Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- Jianxiong Gao <jxgao@google.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
- Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Nicolas Boichat <drinkcat@chromium.org>, Bjorn Helgaas <bhelgaas@google.com>,
- boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- chris@chris-wilson.co.uk, nouveau@lists.freedesktop.org,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- Frank Rowand <frowand.list@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, Robin Murphy <robin.murphy@arm.com>,
- bauerman@linux.ibm.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 23, 2021 at 7:34 PM Steven Price <steven.price@arm.com> wrote:
->
-> On 22/04/2021 09:14, Claire Chang wrote:
-> > Add the initialization function to create restricted DMA pools from
-> > matching reserved-memory nodes.
-> >
-> > Signed-off-by: Claire Chang <tientzu@chromium.org>
-> > ---
-> >   include/linux/device.h  |  4 +++
-> >   include/linux/swiotlb.h |  3 +-
-> >   kernel/dma/swiotlb.c    | 80 +++++++++++++++++++++++++++++++++++++++++
-> >   3 files changed, 86 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/include/linux/device.h b/include/linux/device.h
-> > index 38a2071cf776..4987608ea4ff 100644
-> > --- a/include/linux/device.h
-> > +++ b/include/linux/device.h
-> > @@ -416,6 +416,7 @@ struct dev_links_info {
-> >    * @dma_pools:      Dma pools (if dma'ble device).
-> >    * @dma_mem:        Internal for coherent mem override.
-> >    * @cma_area:       Contiguous memory area for dma allocations
-> > + * @dma_io_tlb_mem: Internal for swiotlb io_tlb_mem override.
-> >    * @archdata:       For arch-specific additions.
-> >    * @of_node:        Associated device tree node.
-> >    * @fwnode: Associated device node supplied by platform firmware.
-> > @@ -521,6 +522,9 @@ struct device {
-> >   #ifdef CONFIG_DMA_CMA
-> >       struct cma *cma_area;           /* contiguous memory area for dma
-> >                                          allocations */
-> > +#endif
-> > +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> > +     struct io_tlb_mem *dma_io_tlb_mem;
-> >   #endif
-> >       /* arch specific additions */
-> >       struct dev_archdata     archdata;
-> > diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> > index 216854a5e513..03ad6e3b4056 100644
-> > --- a/include/linux/swiotlb.h
-> > +++ b/include/linux/swiotlb.h
-> > @@ -72,7 +72,8 @@ extern enum swiotlb_force swiotlb_force;
-> >    *          range check to see if the memory was in fact allocated by this
-> >    *          API.
-> >    * @nslabs: The number of IO TLB blocks (in groups of 64) between @start and
-> > - *           @end. This is command line adjustable via setup_io_tlb_npages.
-> > + *           @end. For default swiotlb, this is command line adjustable via
-> > + *           setup_io_tlb_npages.
-> >    * @used:   The number of used IO TLB block.
-> >    * @list:   The free list describing the number of free entries available
-> >    *          from each index.
-> > diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> > index 57a9adb920bf..ffbb8724e06c 100644
-> > --- a/kernel/dma/swiotlb.c
-> > +++ b/kernel/dma/swiotlb.c
-> > @@ -39,6 +39,13 @@
-> >   #ifdef CONFIG_DEBUG_FS
-> >   #include <linux/debugfs.h>
-> >   #endif
-> > +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> > +#include <linux/io.h>
-> > +#include <linux/of.h>
-> > +#include <linux/of_fdt.h>
-> > +#include <linux/of_reserved_mem.h>
-> > +#include <linux/slab.h>
-> > +#endif
-> >
-> >   #include <asm/io.h>
-> >   #include <asm/dma.h>
-> > @@ -681,3 +688,76 @@ static int __init swiotlb_create_default_debugfs(void)
-> >   late_initcall(swiotlb_create_default_debugfs);
-> >
-> >   #endif
-> > +
-> > +#ifdef CONFIG_DMA_RESTRICTED_POOL
-> > +static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
-> > +                                 struct device *dev)
-> > +{
-> > +     struct io_tlb_mem *mem = rmem->priv;
-> > +     unsigned long nslabs = rmem->size >> IO_TLB_SHIFT;
-> > +
-> > +     if (dev->dma_io_tlb_mem)
-> > +             return 0;
-> > +
-> > +     /* Since multiple devices can share the same pool, the private data,
-> > +      * io_tlb_mem struct, will be initialized by the first device attached
-> > +      * to it.
-> > +      */
-> > +     if (!mem) {
-> > +             mem = kzalloc(struct_size(mem, slots, nslabs), GFP_KERNEL);
-> > +             if (!mem)
-> > +                     return -ENOMEM;
-> > +#ifdef CONFIG_ARM
-> > +             if (!PageHighMem(pfn_to_page(PHYS_PFN(rmem->base)))) {
-> > +                     kfree(mem);
-> > +                     return -EINVAL;
-> > +             }
-> > +#endif /* CONFIG_ARM */
-> > +             swiotlb_init_io_tlb_mem(mem, rmem->base, nslabs, false);
-> > +
-> > +             rmem->priv = mem;
-> > +     }
-> > +
-> > +#ifdef CONFIG_DEBUG_FS
-> > +     if (!io_tlb_default_mem->debugfs)
-> > +             io_tlb_default_mem->debugfs =
-> > +                     debugfs_create_dir("swiotlb", NULL);
->
-> At this point it's possible for io_tlb_default_mem to be NULL, leading
-> to a splat.
-
-Thanks for pointing this out.
-
->
-> But even then if it's not and we have the situation where debugfs==NULL
-> then the debugfs_create_dir() here will cause a subsequent attempt in
-> swiotlb_create_debugfs() to fail (directory already exists) leading to
-> mem->debugfs being assigned an error value. I suspect the creation of
-> the debugfs directory needs to be separated from io_tlb_default_mem
-> being set.
-
-debugfs creation should move into the if (!mem) {...} above to avoid
-duplication.
-I think having a separated struct dentry pointer for the default
-debugfs should be enough?
-
-if (!debugfs)
-    debugfs = debugfs_create_dir("swiotlb", NULL);
-swiotlb_create_debugfs(mem, rmem->name, debugfs);
-
->
-> Other than that I gave this series a go with our prototype of Arm's
-> Confidential Computer Architecture[1] - since the majority of the
-> guest's memory is protected from the host the restricted DMA pool allows
-> (only) a small area to be shared with the host.
->
-> After fixing (well hacking round) the above it all seems to be working
-> fine with virtio drivers.
->
-> Thanks,
->
-> Steve
->
-> [1]
-> https://www.arm.com/why-arm/architecture/security-features/arm-confidential-compute-architecture
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gMjYvMDQvMjAyMSAxNjoyMiwgVHZydGtvIFVyc3VsaW4gd3JvdGU6Cj4gCj4gT24gMjYvMDQv
+MjAyMSAxMToxOCwgTWF0dGhldyBBdWxkIHdyb3RlOgo+PiBJdCdzIGEgcmVxdWlyZW1lbnQgdGhh
+dCBmb3IgZGdmeCB3ZSBwbGFjZSBhbGwgdGhlIHBhZ2luZyBzdHJ1Y3R1cmVzIGluCj4+IGRldmlj
+ZSBsb2NhbC1tZW1vcnkuCj4+Cj4+IHYyOiB1c2UgaTkxNV9jb2hlcmVudF9tYXBfdHlwZSgpCj4+
+Cj4+IFNpZ25lZC1vZmYtYnk6IE1hdHRoZXcgQXVsZCA8bWF0dGhldy5hdWxkQGludGVsLmNvbT4K
+Pj4gQ2M6IFR2cnRrbyBVcnN1bGluIDx0dnJ0a28udXJzdWxpbkBsaW51eC5pbnRlbC5jb20+Cj4+
+IC0tLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9nZW44X3BwZ3R0LmMgfMKgIDUgKysr
+Ky0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3R0LmPCoCB8IDIxICsrKysr
+KysrKysrKysrKysrKystLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ndHQu
+aMKgIHzCoCAxICsKPj4gwqAgMyBmaWxlcyBjaGFuZ2VkLCAyNCBpbnNlcnRpb25zKCspLCAzIGRl
+bGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvZ2Vu
+OF9wcGd0dC5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2dlbjhfcHBndHQuYwo+PiBp
+bmRleCBmODM0OTY4MzZmMGYuLjExZmI1ZGY0NWEwZiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZ3QvZ2VuOF9wcGd0dC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2d0L2dlbjhfcHBndHQuYwo+PiBAQCAtNzEyLDcgKzcxMiwxMCBAQCBzdHJ1Y3QgaTkxNV9wcGd0
+dCAqZ2VuOF9wcGd0dF9jcmVhdGUoc3RydWN0IAo+PiBpbnRlbF9ndCAqZ3QpCj4+IMKgwqDCoMKg
+wqDCoCAqLwo+PiDCoMKgwqDCoMKgIHBwZ3R0LT52bS5oYXNfcmVhZF9vbmx5ID0gIUlTX0dFTl9S
+QU5HRShndC0+aTkxNSwgMTEsIDEyKTsKPj4gLcKgwqDCoCBwcGd0dC0+dm0uYWxsb2NfcHRfZG1h
+ID0gYWxsb2NfcHRfZG1hOwo+PiArwqDCoMKgIGlmIChIQVNfTE1FTShndC0+aTkxNSkpCj4+ICvC
+oMKgwqDCoMKgwqDCoCBwcGd0dC0+dm0uYWxsb2NfcHRfZG1hID0gYWxsb2NfcHRfbG1lbTsKPj4g
+K8KgwqDCoCBlbHNlCj4+ICvCoMKgwqDCoMKgwqDCoCBwcGd0dC0+dm0uYWxsb2NfcHRfZG1hID0g
+YWxsb2NfcHRfZG1hOwo+PiDCoMKgwqDCoMKgIGVyciA9IGdlbjhfaW5pdF9zY3JhdGNoKCZwcGd0
+dC0+dm0pOwo+PiDCoMKgwqDCoMKgIGlmIChlcnIpCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9ndC9pbnRlbF9ndHQuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9p
+bnRlbF9ndHQuYwo+PiBpbmRleCBkMzg2Yjg5ZTI3NTguLmJiZTViMDllNTllYyAxMDA2NDQKPj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3R0LmMKPj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3R0LmMKPj4gQEAgLTcsMTAgKzcsMjMgQEAKPj4gwqAg
+I2luY2x1ZGUgPGxpbnV4L2ZhdWx0LWluamVjdC5oPgo+PiArI2luY2x1ZGUgImdlbS9pOTE1X2dl
+bV9sbWVtLmgiCj4+IMKgICNpbmNsdWRlICJpOTE1X3RyYWNlLmgiCj4+IMKgICNpbmNsdWRlICJp
+bnRlbF9ndC5oIgo+PiDCoCAjaW5jbHVkZSAiaW50ZWxfZ3R0LmgiCj4+ICtzdHJ1Y3QgZHJtX2k5
+MTVfZ2VtX29iamVjdCAqYWxsb2NfcHRfbG1lbShzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlIAo+
+PiAqdm0sIGludCBzeikKPj4gK3sKPj4gK8KgwqDCoCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVj
+dCAqb2JqOwo+PiArCj4+ICvCoMKgwqAgb2JqID0gaTkxNV9nZW1fb2JqZWN0X2NyZWF0ZV9sbWVt
+KHZtLT5pOTE1LCBzeiwgMCk7Cj4+ICsKPj4gK8KgwqDCoCAvKiBlbnN1cmUgYWxsIGRtYSBvYmpl
+Y3RzIGhhdmUgdGhlIHNhbWUgcmVzZXJ2YXRpb24gY2xhc3MgKi8KPiAKPiBDbGFzcyBvciBhY3R1
+YWwgb2JqZWN0PyBBbmQgY291bGQgdGhlIGNvbW1lbnQgc2F5IHdoeSB0aGlzIGlzIGltcG9ydGFu
+dD8KCkl0J3MgdGhlIGRtYS1yZXN2IG9iamVjdC4gVGhlIHBhZ2luZyBzdHJ1Y3R1cmVzIGZvciB0
+aGlzIHZtIHNoYXJlIHRoZSAKc2FtZSBkbWEtcmVzdiBvYmplY3QgdW5kZXJuZWF0aCwgd2l0aCB0
+aGUgaWRlYSB0aGF0IG9uZSBvYmplY3RfbG9jaygpIAp3aWxsIGxvY2sgdGhlbSBhbGwgYXQgb25j
+ZS4gSSBjYW4gdHJ5IHRvIGltcHJvdmUgdGhlIGNvbW1lbnQuCgo+IAo+IFJlZ2FyZHMsCj4gCj4g
+VHZydGtvCj4gCj4+ICvCoMKgwqAgaWYgKCFJU19FUlIob2JqKSkKPj4gK8KgwqDCoMKgwqDCoMKg
+IG9iai0+YmFzZS5yZXN2ID0gJnZtLT5yZXN2Owo+PiArwqDCoMKgIHJldHVybiBvYmo7Cj4+ICt9
+Cj4+ICsKPj4gwqAgc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKmFsbG9jX3B0X2RtYShzdHJ1
+Y3QgaTkxNV9hZGRyZXNzX3NwYWNlIAo+PiAqdm0sIGludCBzeikKPj4gwqAgewo+PiDCoMKgwqDC
+oMKgIHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmo7Cj4+IEBAIC0yNyw5ICs0MCwxMSBA
+QCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqYWxsb2NfcHRfZG1hKHN0cnVjdCAKPj4gaTkx
+NV9hZGRyZXNzX3NwYWNlICp2bSwgaW50IHN6KQo+PiDCoCBpbnQgbWFwX3B0X2RtYShzdHJ1Y3Qg
+aTkxNV9hZGRyZXNzX3NwYWNlICp2bSwgc3RydWN0IAo+PiBkcm1faTkxNV9nZW1fb2JqZWN0ICpv
+YmopCj4+IMKgIHsKPj4gK8KgwqDCoCBlbnVtIGk5MTVfbWFwX3R5cGUgdHlwZTsKPj4gwqDCoMKg
+wqDCoCB2b2lkICp2YWRkcjsKPj4gLcKgwqDCoCB2YWRkciA9IGk5MTVfZ2VtX29iamVjdF9waW5f
+bWFwX3VubG9ja2VkKG9iaiwgSTkxNV9NQVBfV0IpOwo+PiArwqDCoMKgIHR5cGUgPSBpOTE1X2Nv
+aGVyZW50X21hcF90eXBlKHZtLT5pOTE1LCBvYmosIHRydWUpOwo+PiArwqDCoMKgIHZhZGRyID0g
+aTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2NrZWQob2JqLCB0eXBlKTsKPj4gwqDCoMKgwqDC
+oCBpZiAoSVNfRVJSKHZhZGRyKSkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBQVFJfRVJS
+KHZhZGRyKTsKPj4gQEAgLTM5LDkgKzU0LDExIEBAIGludCBtYXBfcHRfZG1hKHN0cnVjdCBpOTE1
+X2FkZHJlc3Nfc3BhY2UgKnZtLCAKPj4gc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikK
+Pj4gwqAgaW50IG1hcF9wdF9kbWFfbG9ja2VkKHN0cnVjdCBpOTE1X2FkZHJlc3Nfc3BhY2UgKnZt
+LCBzdHJ1Y3QgCj4+IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikKPj4gwqAgewo+PiArwqDCoMKg
+IGVudW0gaTkxNV9tYXBfdHlwZSB0eXBlOwo+PiDCoMKgwqDCoMKgIHZvaWQgKnZhZGRyOwo+PiAt
+wqDCoMKgIHZhZGRyID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXAob2JqLCBJOTE1X01BUF9XQik7
+Cj4+ICvCoMKgwqAgdHlwZSA9IGk5MTVfY29oZXJlbnRfbWFwX3R5cGUodm0tPmk5MTUsIG9iaiwg
+dHJ1ZSk7Cj4+ICvCoMKgwqAgdmFkZHIgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcChvYmosIHR5
+cGUpOwo+PiDCoMKgwqDCoMKgIGlmIChJU19FUlIodmFkZHIpKQo+PiDCoMKgwqDCoMKgwqDCoMKg
+wqAgcmV0dXJuIFBUUl9FUlIodmFkZHIpOwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZ3QvaW50ZWxfZ3R0LmggCj4+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxf
+Z3R0LmgKPj4gaW5kZXggNDBlNDg2NzA0NTU4Li40NGNlMjdjNTE2MzEgMTAwNjQ0Cj4+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0dC5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2d0L2ludGVsX2d0dC5oCj4+IEBAIC01MjcsNiArNTI3LDcgQEAgaW50IHNldHVw
+X3NjcmF0Y2hfcGFnZShzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlIAo+PiAqdm0pOwo+PiDCoCB2
+b2lkIGZyZWVfc2NyYXRjaChzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlICp2bSk7Cj4+IMKgIHN0
+cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICphbGxvY19wdF9kbWEoc3RydWN0IGk5MTVfYWRkcmVz
+c19zcGFjZSAKPj4gKnZtLCBpbnQgc3opOwo+PiArc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3Qg
+KmFsbG9jX3B0X2xtZW0oc3RydWN0IGk5MTVfYWRkcmVzc19zcGFjZSAKPj4gKnZtLCBpbnQgc3op
+Owo+PiDCoCBzdHJ1Y3QgaTkxNV9wYWdlX3RhYmxlICphbGxvY19wdChzdHJ1Y3QgaTkxNV9hZGRy
+ZXNzX3NwYWNlICp2bSk7Cj4+IMKgIHN0cnVjdCBpOTE1X3BhZ2VfZGlyZWN0b3J5ICphbGxvY19w
+ZChzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlICp2bSk7Cj4+IMKgIHN0cnVjdCBpOTE1X3BhZ2Vf
+ZGlyZWN0b3J5ICpfX2FsbG9jX3BkKGludCBucGRlKTsKPj4KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
