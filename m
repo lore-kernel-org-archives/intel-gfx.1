@@ -2,122 +2,131 @@ Return-Path: <SRS0=nd+/=JY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3F53C433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:41:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF628C43460
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:41:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D07D613BE
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D07D613BE
+	by mail.kernel.org (Postfix) with ESMTPS id 4EBB6610FB
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:41:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4EBB6610FB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BDD26E936;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D94B6E93A;
 	Tue, 27 Apr 2021 09:41:47 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2047.outbound.protection.outlook.com [40.107.244.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB26989E5A;
- Mon, 26 Apr 2021 18:26:28 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2064.outbound.protection.outlook.com [40.107.100.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88DB76E0D9;
+ Mon, 26 Apr 2021 20:00:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dgp+Fa5c8M1zniNpNntvRkBoHl2YPovZkYZUTzbmP1oT9+NOKHC1jgH/+QOI24X/2jmPKov1LN99/vDgrM8nrfCmNSa8tA9SUgNWz/vXEllRJY+i2ogUYOF7wHRqKs/U3C+aaDWpt8rRJYBkzDBQAGhtSERvq3y+XFuNSy30gwa4k6eEXOYgFXf/TxQdO+fbEZhssIQemcbzq19yOpOxdp/URiNRKp1a6Ihr6sszWfmgVEiXK8w17CprwQScHblqUU389YZg276k/ScU0nZF4RFY0BzO7Ka3bAca6PNVv9+5cczBu01uyou4w2dS9AMh09D7eWXflL/1EE3l2/bJ+Q==
+ b=j+ukxqcu7nU3LVgjmkbi9PlwFDALK6x8agUkHlWzXp3BPBb/P5eDHaczlx5AAlmDJ/rHg16o7SBIRxCNIoDI6TS3ZUlWw53luJ5RgrWoCMynClnSjHOFYrbO1Mt4/nQ1sL2mVky9uuticmRS5Ps6xPSUyZVrAea/fmCuth6nwMjw54Ar4nuxfShR63QVw+LqhBym8Dp88jqX9efr+uACnBhfs8dGIXQNita13d61WMycpXaA66m42OMjefIcfLmDRtUaoSjLluLUAxah0xi0GHdMNOuBAhcWCRHvKJ7Ja91sgEhsjQbQm9WcwrNfjm/nuJB1D6tn1mjfJjVmiR4SPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OwBACwtQf8D0tSrEHDM/10Oh3TlQXJ5AFZ2rAahhq6g=;
- b=GWdcAi1qO9w23I0aVjtwY6Mvm7keNPoBxZeBR9hG/g/D5hdGZMhdV2BzkTo0Ly12wcA13zePVTylNIjd2gJPYG78Qi59yaNxnf0hRAlETS5AL1Ml29CzS2NUQCUtGNkvPFnVvwAv2+8+4vNurqCd1++gn3Hq1OcrJ6DMqVk2yOSPNiZ3qWUJRqxOt9M1peSD1uGUMgUGEuNgPu5P2+pRSMrfoImTFO6Wz0KFY74YHActS0WrNEGXeFtLKTUjkZjnl7pfQeo/OcI1Q3yOq+mdbOxyTjQHcKDYLtAXZKyj+wNLu7L+LMZ6+YGNu8wb1IgytES6XjmgR5qXAd24G7b0UA==
+ bh=jtA9wwpcl5JsAiPwSoFC0d2L/Z2niX9OyeZRyPl5MMU=;
+ b=UXVf/ig2+rDcP+p4A57xmHmD0MEP5LsS5jgo23eXhTDO0x9tSLXNptvx8J0vEK6MRLESLItnnMOH52oZhQMFmvNQmvpsXD0a/3NNRjnoaGI6KtOufKQySoMNYmTlLoRoe+yEOon9PAXOdK77Uo1ZSyR6bM0OUlMZtBqIKgzzxT2dkIJ0yTgDhKTAnDAVDhMH8+/q0qv4XkYZkM0hAikXFszXdXMqjDmEd7mqAlAusLw+ko+qWUeKdlu7IVn91D2sSEtrAryDHvNvKkUTWa2J1eqmXSOsuqGuXs2uBsS8QStbU1594cJVb9Zgo6T0p7JNcCPZYIP/UjkRYmIerhF80A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OwBACwtQf8D0tSrEHDM/10Oh3TlQXJ5AFZ2rAahhq6g=;
- b=fGQp72EuNWK6nsWK2PUvuT6Hux0GeHaClIw8uVev44qJfflMGKdc1XsI5LODCucmuR2tKRQgfusaZq0MRuEXHxnuzlasmQ64xmPOMvrfuHjL2OJYhebWYi4zhHSZYyIw4APMlh79zcTEhCEldYCZt4fLaQIAeJSLgjgc4vYDoHuU8EVwvRiJ3k0kVzf/aAUg50euQrYORWzCgZLEC6yYFUxWl6p6pI55cKCgY2qsvxQdi+5Kz2x3bNwVYgdfDdQmUDXj4CU2lkCn2GguERCxgxG5vKoVKH0s/LXXXWFi5krD3Da8kK4bWm4OkG9cw5nUGg1Wzq91Au5RDzFapCZzAg==
-Authentication-Results: infradead.org; dkim=none (message not signed)
- header.d=none;infradead.org; dmarc=none action=none header.from=nvidia.com;
+ bh=jtA9wwpcl5JsAiPwSoFC0d2L/Z2niX9OyeZRyPl5MMU=;
+ b=jlQhxHbmtQRvFq52UaPfBa3oLZvvqrlyB1viVjI2goU8Xg9ZuA/p2e9nxVCtr9jMsdRZid7kZghwwZ8c3ZtU3s8lhOaqZ8VGdhPTvsLhcvUMtWfblcgkuyMU0oWeydvY831KkR/Wop3g6s2mj3n18oES6u3D2BqyRqWJ4xml87lqdJAVFAbcrOmaneb4FhnQi9R5n6XEuU3YXA5LVi1Un499PPKcq2E94VVy2tuJxch3S3ed9v4Bw/VOONJo+10fltW0KlFRcBmMevQVE6h8g+l+ic22Cep7O+SapU6sSs2EBXQ+htC7/7uIoFm9fS8n9yGtxHEKrnqnJa4SlsOuOA==
+Authentication-Results: linux.ie; dkim=none (message not signed)
+ header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
 Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM6PR12MB3404.namprd12.prod.outlook.com (2603:10b6:5:3a::11) with
+ by DM6PR12MB3740.namprd12.prod.outlook.com (2603:10b6:5:1c3::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.23; Mon, 26 Apr
- 2021 18:26:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.24; Mon, 26 Apr
+ 2021 20:00:17 +0000
 Received: from DM6PR12MB3834.namprd12.prod.outlook.com
  ([fe80::1c62:7fa3:617b:ab87]) by DM6PR12MB3834.namprd12.prod.outlook.com
  ([fe80::1c62:7fa3:617b:ab87%6]) with mapi id 15.20.4065.026; Mon, 26 Apr 2021
- 18:26:27 +0000
-Date: Mon, 26 Apr 2021 15:26:25 -0300
+ 20:00:17 +0000
 From: Jason Gunthorpe <jgg@nvidia.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <20210426182625.GY1370958@nvidia.com>
-References: <1-v1-d88406ed308e+418-vfio3_jgg@nvidia.com>
- <d058f9ad-7ce1-c1b3-19cd-5f625ef4c670@infradead.org>
-Content-Disposition: inline
-In-Reply-To: <d058f9ad-7ce1-c1b3-19cd-5f625ef4c670@infradead.org>
+To: David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
+ linux-s390@vger.kernel.org, Halil Pasic <pasic@linux.ibm.com>,
+ Pierre Morel <pmorel@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Mon, 26 Apr 2021 17:00:03 -0300
+Message-Id: <1-v2-7667f42c9bad+935-vfio3_jgg@nvidia.com>
+In-Reply-To: <0-v2-7667f42c9bad+935-vfio3_jgg@nvidia.com>
+References: 
 X-Originating-IP: [47.55.113.94]
-X-ClientProxiedBy: BLAPR03CA0063.namprd03.prod.outlook.com
- (2603:10b6:208:329::8) To DM6PR12MB3834.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN2PR03CA0017.namprd03.prod.outlook.com
+ (2603:10b6:208:23a::22) To DM6PR12MB3834.namprd12.prod.outlook.com
  (2603:10b6:5:14a::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from mlx.ziepe.ca (47.55.113.94) by
- BLAPR03CA0063.namprd03.prod.outlook.com (2603:10b6:208:329::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4065.22 via Frontend Transport; Mon, 26 Apr 2021 18:26:26 +0000
+ MN2PR03CA0017.namprd03.prod.outlook.com (2603:10b6:208:23a::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21 via Frontend
+ Transport; Mon, 26 Apr 2021 20:00:16 +0000
 Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1lb5w9-00DA1r-Kc; Mon, 26 Apr 2021 15:26:25 -0300
+ <jgg@nvidia.com>)	id 1lb7Ox-00DFZ1-Nc; Mon, 26 Apr 2021 17:00:15 -0300
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f2b818ef-6c19-4296-b9cc-08d908e0cdc3
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3404:
+X-MS-Office365-Filtering-Correlation-Id: b17b8c4c-bd39-4092-1806-08d908ede983
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3740:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3404EE40553CA26F0D763FB1C2429@DM6PR12MB3404.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB374005A85DC3EFECE94B3DD4C2429@DM6PR12MB3740.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0kHxFwycYxiOikzBw4WDroBcm3swntun7NgclzNi4ZhPeGW2v6JLJrJphJ/dY7QgMIpYqhhvI/tnIpu7cwzqvolSeKsjLfo9VWtykDJl9zbJWMNCY41ptko3Mb/5OJu8tO0F5eDzb1a/m3poyRlOaei9ZyYVR+WtZQh4ki1x0BeRuYCE35eKEkrouipQf9i7iA/pLPl1ISDpgY2+zxGqKvVz5aY9qa3hwvvzL+faSIcXwvq3kh6JfDoLjGHHQy5IIA/iWwF/mcqE0sntTZGr139rXocJ47aEfphgLnwQOQZ5fs56dB2EMyukcHYQY6kVvvGbEj1M7o9hsSeEIAJ9IYD29lAEX5XnNZ+80qBPWtdIoTtxvn+CWcMI5d7Tk638GlEZmR6POJq5d11171ccEzIU9Ipuijs928k+C+yy1O96WJMCRBwPtt8BHvw6ksj23gpwlVdhHr5ab4XhEMxV89SV9CxPbID8i1JAYn2mJ5JnZa+a/wrhCpT6C9/o+dqb0abzuIE2CVI6AOiTgdJjlEBM0jAnphpaVdBFdYpbFa7z2Vy8ADfP2FSYXtJ9RzXh9SWh+OfB/Cen/tGjxgEJcMkkGKGSfWW612PR/JctGhY=
+X-Microsoft-Antispam-Message-Info: IGsk/G6BFzdQ/d66UubgFTPbSA0Ofp8xyI+upAcv+BiKwlKrCuztEE1H9Cuq7z+8Ad2Wo1hY9KWTPXwnqzSLklCTJdZxEeyTJfg6vxHjFbB6K/1YrS3rMceKN7RX/NV9N3V1XGuU4k2/30UgBMgrppKyxkwhXfb5f58uC2x8bR4K3YYCDiweTryig/aYPRK+I3cE+4+O4y/EOqpGYXa+RoEDnv/b1REJgExaxiiE2EJHNVAbCpLXEbghnNlPRp/W43btTP35vRp8QmvOx9qtMY50efDA8+3JnrIX8/G07qFEgUx3zQmKf39g8+BAEsJl95mg0JMrYgkWpqPN+H4VNoluS23caBSNMiEvcgxLhjCN7HjOVZgZq8+yfcF44pDmPdPMWOzwbUdAEtT1xc/owIiGlDpGrLLJ337O5UmYdZ/V/GpGWNoBfMG4uSzAOWVAKqwKIpQg9ZvTOVDnlBm5JopKuouOaAtrQjHiaZnlELul3REQQmTJyzElKDZBwYOV1uJR4KN75bouCYiSICJjBmM6BpG3LvKUtIzxmYINAkYezV5Z2OUvaLRAnd5V34HDnEOrNwD1IcorMCdvAhapQjxJktfne5sAqYcgOoGz8pN3ee0lcJgKzb1TOMR/4DYPo6an3BCRNZBiDD+BAAOWag6yfDWDgNCYIJs9ymgBz2I=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3834.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(366004)(136003)(396003)(376002)(5660300002)(66556008)(316002)(8676002)(8936002)(7416002)(4326008)(107886003)(66476007)(54906003)(478600001)(38100700002)(36756003)(6916009)(186003)(2616005)(426003)(2906002)(4744005)(33656002)(1076003)(53546011)(66946007)(9746002)(9786002)(86362001)(26005);
+ SFS:(4636009)(366004)(39860400002)(346002)(136003)(396003)(376002)(66476007)(66556008)(9746002)(54906003)(426003)(110136005)(107886003)(186003)(26005)(921005)(6666004)(36756003)(316002)(2906002)(2616005)(478600001)(9786002)(8936002)(83380400001)(38100700002)(86362001)(8676002)(5660300002)(7416002)(4326008)(66946007)(4216001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?XU5yW7jfbdS8/TE7Vye9XZQ1woncEWANZU6lt1tRtw5MSryhqbsx7a6iHeex?=
- =?us-ascii?Q?e/+I/57lApWvRtK0gLAMA/UoKgxXkUOqzMCMbB3J6zfFDIGxKGasniOvmSfH?=
- =?us-ascii?Q?yqL8Hgplgb5c1L+QI8uabCg+Ha/2dtF1UidKEZMnpQPkIczj4mpHa0ADMhAs?=
- =?us-ascii?Q?PaxA1LKWuapZDm/V732zGgzrM3v+oZoqvBhbikUtZVEMXvx/oPu2txuzU9SJ?=
- =?us-ascii?Q?2iogxPtprC3XfIoP/zD0rvbPVSoBMuuchthBw14xOXSuYkYXSgZWjfPTdCJT?=
- =?us-ascii?Q?lKJBZhHsMHD8s/6oQZhuEdwlN3sJ9LNCF0b5w2GRWYYriWENeQNwegvP5IOW?=
- =?us-ascii?Q?MSsyU4phwcDPUt4ilyH/5rDltUY5d+jNjJqQ6LTd9hmW3U2JTOFVKtQ4zx3s?=
- =?us-ascii?Q?KrGfaeG2MoWWcUesU2rQX1fn90k1VXJSy4pgBeM5C31BqfcufwOjy08r43Hm?=
- =?us-ascii?Q?B06Azsrl6GnUYRu3AJ8js87QXuYkt9ZoTVc9BL+Q4+2U0fKe5n+I9PVpn/v5?=
- =?us-ascii?Q?nUc5nmoEOQPYUdk3axExih/A/8Z4BzeEeaof8N9ObQh+k1BRv4/jaM6McWhs?=
- =?us-ascii?Q?eHi66QktT/iPaxsmmD6UEPOX7Joka02lWJh8BK1pubuli+UnWxp7+ULEKvOh?=
- =?us-ascii?Q?1wlOpFLlJrdxeTRzAMnS/G3SBZu46cpGBW16kbB5KugwcNC/HLpk2FfBVEyE?=
- =?us-ascii?Q?9SHMGjwtP1cRK1YNZXCUV79T2lJ8tdt3RTnPx0hCANZqWHChgRCAqvxWRSZC?=
- =?us-ascii?Q?9qTPKxoLvaSiaS1lavIL0YGfgbVOlQfC5prIQfh3iy+QJqGK6CopSLHXaHm0?=
- =?us-ascii?Q?ncliDxTZW4YuJFtNAoIwKF9GYGj/qxubGjYQ5SIpw9sDWLsSazs/yCYBYYh3?=
- =?us-ascii?Q?lC/zfIE77UpqXMLzWgIn60fI6TU0P2ERTjwqoLCKoLP5YpAnD+OOaFtxA8Js?=
- =?us-ascii?Q?PX4uceNdIxJl0MAWRct/awwUNoU7I7G3ntGmawgsjix4xni1NITWDtytPG+9?=
- =?us-ascii?Q?hmcVYJJwZCywfmPVoUrPNOX4bvLR1ckA4X+ChStYTZZ9kiXK4EMVhvftPOFZ?=
- =?us-ascii?Q?wPamoqG8pwt/myGLTX1B1JREq8JA7dVSRhOCsgDhiAGCbb7c/4Gtajgv5wGf?=
- =?us-ascii?Q?RSp1WUap+togqFgwaMELtl7wykSTbQ3i4oi8NTkkOEGSbiLVfQN5mRwGJqkW?=
- =?us-ascii?Q?pP8UvLrO+u7YCdcarLr89VGVRmnugrpj4d9oWWUVHYXDYBUfbuT69T0mSC4z?=
- =?us-ascii?Q?a9cs0qQcAVUF7tiXlWvnrI3KPi4/ILzdhi1myCnBAgW9pdIZF/wrKMyA6ip6?=
- =?us-ascii?Q?3Q2SGZhKmkwetxYzuu3XypyX?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?4668C+mMB/GSGBx2Op/LyjMn0yWxu6ae6SEfv+tyX++o6c6pp5IZZVyh1Yay?=
+ =?us-ascii?Q?ThMSstglxJW+eKHKPiN2mOZWZHNAj/xETqCjDHt2FxdOZ8nfoeKTZgUHoi1V?=
+ =?us-ascii?Q?SJZKBJ+qpsBjr1yquUNLds6Kt/lYaD5hlYGDITtJj60kv4wcJ5EMcIxVPUVE?=
+ =?us-ascii?Q?rXothW/PNIEvtzwmIMK872wKTyRrVPcX/C+0dX5f6vpDK2tnrN4W7wJssTx9?=
+ =?us-ascii?Q?WgRZqdr44ozqAOQAQWuDWdkgkJcKrnA76O4vkUI+s276rm5CYzTt/kfcNtHn?=
+ =?us-ascii?Q?vpezTdQhJA6sJ0UMd2YdpT96Q6/rVt8eYxV3RG8J7Mlzu4XGtYIuu3LHQwPK?=
+ =?us-ascii?Q?EiyEUbF5y1UbZzqxVQpKmBZVBFUIY+iH0SDAoZuXf6B+YXTz35i/ulMmmMA0?=
+ =?us-ascii?Q?0MCtV5ooTvI/MJDFBFfptPB+8cpieLCcWR2bIM19mnuhPuNdmVbiiknYa5dg?=
+ =?us-ascii?Q?tcb/dKunBXQs6j+T4b8q9yzAhTXRrz4vGfUHDPJh8Hh1+860a+ILIqx+2fjx?=
+ =?us-ascii?Q?HoMhtMVBYc/99qmRIAOZyzJxCe5ZGz6hIuSDbi1kDymzEoNkgC677L6Xlv46?=
+ =?us-ascii?Q?4GRvBcCGAAeoOidZNBz6mL2CrPt1eJE4BhxPGucmYyPA1NG/b6WD2qoMjSuE?=
+ =?us-ascii?Q?SVmk9bCMOuv1E/H9yOeeuIgYek1ZMdnN936bdK8wqCsT/rPnChi0vCkljY40?=
+ =?us-ascii?Q?wJ+2s3iMZPW82yYux6oKF3Ai+iIhEwaBmUvwGWim+Fy6FLAGZP4DYe6og7sp?=
+ =?us-ascii?Q?OgxEh03/dpYqImDTSJzHnXRGgKcZZRN4mzp0cUbVaJ868KZM7bDci83H1hge?=
+ =?us-ascii?Q?S9nBJgnt5ePsd2j1ERoTRnNIDCkwi63/pab3Rcg/mVZjhTSeoAGrigpBOfkq?=
+ =?us-ascii?Q?vvwSi8t/vpk9uv/3vglf8wysL2kWV/uHlrGLxtbyuXlY1nQS9rAUPvCRvYmS?=
+ =?us-ascii?Q?WDu0RPLaFInzdWqvB1fj+1yT7tQNXQHZLGlWSdbUvKau1YQB5/ENtSjg4sXo?=
+ =?us-ascii?Q?IFdSFyulfgQXAH3Kt2aXCNDnOp+LTCkMRf8TQuLpADn1XY0Q2/jHJRW0Jjnk?=
+ =?us-ascii?Q?cFoZWvMa0J8e1VQ+bScDf5Hp0KwDCowPL9ylzPMJ3fnoH4NFG2PfrokKOo3A?=
+ =?us-ascii?Q?wNY9RFQBq8E7G253N/aufIHiKHhk/OH/xoR5PYeSUih3wdo81b6jhgk6D+Wi?=
+ =?us-ascii?Q?zkVy0n8I5GiAazJ5qymkiQcaUthRVvbiTWGYpR4m0xD6FESXYofqEuACIeYe?=
+ =?us-ascii?Q?NEMk4SuV0ZLi9r/yE9QyHvKumCoTOTgzXso36xnx6kbJWqxfNHsvRcUrGUc6?=
+ =?us-ascii?Q?5SkJQEIsaQ9VqtO2E0wPZJow?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2b818ef-6c19-4296-b9cc-08d908e0cdc3
+X-MS-Exchange-CrossTenant-Network-Message-Id: b17b8c4c-bd39-4092-1806-08d908ede983
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3834.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2021 18:26:27.0756 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2021 20:00:17.1567 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MDkbfD/OpUGzYzc4ewhhSrlwqv/fAoPt0eNjNCmTkyahG6DklvIyin7E3y1Vrg5W
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3404
+X-MS-Exchange-CrossTenant-UserPrincipalName: /yVSitDYXtdMgF8tlUDHEN2jM1cKvm0Y606CkejsWT49Zi2ZHdOvYsLqtVih7d/t
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3740
 X-Mailman-Approved-At: Tue, 27 Apr 2021 09:41:45 +0000
-Subject: Re: [Intel-gfx] [PATCH 01/12] vfio/mdev: Remove
+Subject: [Intel-gfx] [PATCH v2 01/13] vfio/mdev: Remove
  CONFIG_VFIO_MDEV_DEVICE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,40 +140,225 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Kirti Wankhede <kwankhede@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
- Christoph Hellwig <hch@lst.de>, linux-s390@vger.kernel.org, "Raj,
- Ashok" <ashok.raj@intel.com>, Jonathan Corbet <corbet@lwn.net>,
- Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Tarun Gupta <targupta@nvidia.com>, intel-gfx@lists.freedesktop.org,
- Max Gurtovoy <mgurtovoy@nvidia.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Dan Williams <dan.j.williams@intel.com>,
- Tony Krowiak <akrowiak@linux.ibm.com>, Pierre Morel <pmorel@linux.ibm.com>,
- Cornelia Huck <cohuck@redhat.com>
+Cc: Max Gurtovoy <mgurtovoy@nvidia.com>, "Raj, Ashok" <ashok.raj@intel.com>,
+ Tarun Gupta <targupta@nvidia.com>, Dan Williams <dan.j.williams@intel.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 23, 2021 at 05:08:10PM -0700, Randy Dunlap wrote:
-> On 4/23/21 4:02 PM, Jason Gunthorpe wrote:
-> > @@ -171,7 +171,7 @@ config SAMPLE_VFIO_MDEV_MDPY_FB
-> >  
-> >  config SAMPLE_VFIO_MDEV_MBOCHS
-> >  	tristate "Build VFIO mdpy example mediated device sample code -- loadable modules only"
-> 
-> You can drop the ending of the prompt string.
+For some reason the vfio_mdev shim mdev_driver has its own module and
+kconfig. As the next patch requires access to it from mdev.ko merge the
+two modules together and remove VFIO_MDEV_DEVICE.
 
-Hum, I see this whole sample kconfig file is filled with this '&& m'
-pattern, I wonder if there is a reason?
+A later patch deletes this driver entirely.
 
-I think I will put the '&& m' back, I thought it was some kconfig
-misunderstanding as it is very strange to see a naked '&& M'.
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+---
+ Documentation/s390/vfio-ap.rst   |  1 -
+ arch/s390/Kconfig                |  2 +-
+ drivers/gpu/drm/i915/Kconfig     |  2 +-
+ drivers/vfio/mdev/Kconfig        |  7 -------
+ drivers/vfio/mdev/Makefile       |  3 +--
+ drivers/vfio/mdev/mdev_core.c    | 16 ++++++++++++++--
+ drivers/vfio/mdev/mdev_private.h |  2 ++
+ drivers/vfio/mdev/vfio_mdev.c    | 24 +-----------------------
+ samples/Kconfig                  |  6 +++---
+ 9 files changed, 23 insertions(+), 40 deletions(-)
 
-Thanks
-Jason
+diff --git a/Documentation/s390/vfio-ap.rst b/Documentation/s390/vfio-ap.rst
+index e15436599086b7..f57ae621f33e89 100644
+--- a/Documentation/s390/vfio-ap.rst
++++ b/Documentation/s390/vfio-ap.rst
+@@ -514,7 +514,6 @@ These are the steps:
+    * S390_AP_IOMMU
+    * VFIO
+    * VFIO_MDEV
+-   * VFIO_MDEV_DEVICE
+    * KVM
+ 
+    If using make menuconfig select the following to build the vfio_ap module::
+diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
+index c1ff874e6c2e63..dc7928e37fa409 100644
+--- a/arch/s390/Kconfig
++++ b/arch/s390/Kconfig
+@@ -773,7 +773,7 @@ config VFIO_CCW
+ config VFIO_AP
+ 	def_tristate n
+ 	prompt "VFIO support for AP devices"
+-	depends on S390_AP_IOMMU && VFIO_MDEV_DEVICE && KVM
++	depends on S390_AP_IOMMU && VFIO_MDEV && KVM
+ 	depends on ZCRYPT
+ 	help
+ 		This driver grants access to Adjunct Processor (AP) devices
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 483e9ff8ca1d23..388bc41aa1a75b 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -125,7 +125,7 @@ config DRM_I915_GVT_KVMGT
+ 	tristate "Enable KVM/VFIO support for Intel GVT-g"
+ 	depends on DRM_I915_GVT
+ 	depends on KVM
+-	depends on VFIO_MDEV && VFIO_MDEV_DEVICE
++	depends on VFIO_MDEV
+ 	default n
+ 	help
+ 	  Choose this option if you want to enable KVMGT support for
+diff --git a/drivers/vfio/mdev/Kconfig b/drivers/vfio/mdev/Kconfig
+index 5da27f2100f9bd..763c877a1318bc 100644
+--- a/drivers/vfio/mdev/Kconfig
++++ b/drivers/vfio/mdev/Kconfig
+@@ -9,10 +9,3 @@ config VFIO_MDEV
+ 	  See Documentation/driver-api/vfio-mediated-device.rst for more details.
+ 
+ 	  If you don't know what do here, say N.
+-
+-config VFIO_MDEV_DEVICE
+-	tristate "VFIO driver for Mediated devices"
+-	depends on VFIO && VFIO_MDEV
+-	default n
+-	help
+-	  VFIO based driver for Mediated devices.
+diff --git a/drivers/vfio/mdev/Makefile b/drivers/vfio/mdev/Makefile
+index 101516fdf3753e..ff9ecd80212503 100644
+--- a/drivers/vfio/mdev/Makefile
++++ b/drivers/vfio/mdev/Makefile
+@@ -1,6 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+-mdev-y := mdev_core.o mdev_sysfs.o mdev_driver.o
++mdev-y := mdev_core.o mdev_sysfs.o mdev_driver.o vfio_mdev.o
+ 
+ obj-$(CONFIG_VFIO_MDEV) += mdev.o
+-obj-$(CONFIG_VFIO_MDEV_DEVICE) += vfio_mdev.o
+diff --git a/drivers/vfio/mdev/mdev_core.c b/drivers/vfio/mdev/mdev_core.c
+index 2a85d6fcb7ddd0..ff8c1a84516698 100644
+--- a/drivers/vfio/mdev/mdev_core.c
++++ b/drivers/vfio/mdev/mdev_core.c
+@@ -360,11 +360,24 @@ int mdev_device_remove(struct mdev_device *mdev)
+ 
+ static int __init mdev_init(void)
+ {
+-	return mdev_bus_register();
++	int rc;
++
++	rc = mdev_bus_register();
++	if (rc)
++		return rc;
++	rc = mdev_register_driver(&vfio_mdev_driver);
++	if (rc)
++		goto err_bus;
++	return 0;
++err_bus:
++	mdev_bus_unregister();
++	return rc;
+ }
+ 
+ static void __exit mdev_exit(void)
+ {
++	mdev_unregister_driver(&vfio_mdev_driver);
++
+ 	if (mdev_bus_compat_class)
+ 		class_compat_unregister(mdev_bus_compat_class);
+ 
+@@ -378,4 +391,3 @@ MODULE_VERSION(DRIVER_VERSION);
+ MODULE_LICENSE("GPL v2");
+ MODULE_AUTHOR(DRIVER_AUTHOR);
+ MODULE_DESCRIPTION(DRIVER_DESC);
+-MODULE_SOFTDEP("post: vfio_mdev");
+diff --git a/drivers/vfio/mdev/mdev_private.h b/drivers/vfio/mdev/mdev_private.h
+index a656cfe0346c33..5461b67582289f 100644
+--- a/drivers/vfio/mdev/mdev_private.h
++++ b/drivers/vfio/mdev/mdev_private.h
+@@ -37,6 +37,8 @@ struct mdev_type {
+ #define to_mdev_type(_kobj)		\
+ 	container_of(_kobj, struct mdev_type, kobj)
+ 
++extern struct mdev_driver vfio_mdev_driver;
++
+ int  parent_create_sysfs_files(struct mdev_parent *parent);
+ void parent_remove_sysfs_files(struct mdev_parent *parent);
+ 
+diff --git a/drivers/vfio/mdev/vfio_mdev.c b/drivers/vfio/mdev/vfio_mdev.c
+index 922729071c5a8e..d5b4eede47c1a5 100644
+--- a/drivers/vfio/mdev/vfio_mdev.c
++++ b/drivers/vfio/mdev/vfio_mdev.c
+@@ -17,10 +17,6 @@
+ 
+ #include "mdev_private.h"
+ 
+-#define DRIVER_VERSION  "0.1"
+-#define DRIVER_AUTHOR   "NVIDIA Corporation"
+-#define DRIVER_DESC     "VFIO based driver for Mediated device"
+-
+ static int vfio_mdev_open(struct vfio_device *core_vdev)
+ {
+ 	struct mdev_device *mdev = to_mdev_device(core_vdev->dev);
+@@ -151,7 +147,7 @@ static void vfio_mdev_remove(struct mdev_device *mdev)
+ 	kfree(vdev);
+ }
+ 
+-static struct mdev_driver vfio_mdev_driver = {
++struct mdev_driver vfio_mdev_driver = {
+ 	.driver = {
+ 		.name = "vfio_mdev",
+ 		.owner = THIS_MODULE,
+@@ -160,21 +156,3 @@ static struct mdev_driver vfio_mdev_driver = {
+ 	.probe	= vfio_mdev_probe,
+ 	.remove	= vfio_mdev_remove,
+ };
+-
+-static int __init vfio_mdev_init(void)
+-{
+-	return mdev_register_driver(&vfio_mdev_driver);
+-}
+-
+-static void __exit vfio_mdev_exit(void)
+-{
+-	mdev_unregister_driver(&vfio_mdev_driver);
+-}
+-
+-module_init(vfio_mdev_init)
+-module_exit(vfio_mdev_exit)
+-
+-MODULE_VERSION(DRIVER_VERSION);
+-MODULE_LICENSE("GPL v2");
+-MODULE_AUTHOR(DRIVER_AUTHOR);
+-MODULE_DESCRIPTION(DRIVER_DESC);
+diff --git a/samples/Kconfig b/samples/Kconfig
+index e76cdfc50e257d..5708abcc55c4df 100644
+--- a/samples/Kconfig
++++ b/samples/Kconfig
+@@ -147,14 +147,14 @@ config SAMPLE_UHID
+ 
+ config SAMPLE_VFIO_MDEV_MTTY
+ 	tristate "Build VFIO mtty example mediated device sample code -- loadable modules only"
+-	depends on VFIO_MDEV_DEVICE && m
++	depends on VFIO_MDEV && m
+ 	help
+ 	  Build a virtual tty sample driver for use as a VFIO
+ 	  mediated device
+ 
+ config SAMPLE_VFIO_MDEV_MDPY
+ 	tristate "Build VFIO mdpy example mediated device sample code -- loadable modules only"
+-	depends on VFIO_MDEV_DEVICE && m
++	depends on VFIO_MDEV && m
+ 	help
+ 	  Build a virtual display sample driver for use as a VFIO
+ 	  mediated device.  It is a simple framebuffer and supports
+@@ -171,7 +171,7 @@ config SAMPLE_VFIO_MDEV_MDPY_FB
+ 
+ config SAMPLE_VFIO_MDEV_MBOCHS
+ 	tristate "Build VFIO mdpy example mediated device sample code -- loadable modules only"
+-	depends on VFIO_MDEV_DEVICE && m
++	depends on VFIO_MDEV && m
+ 	select DMA_SHARED_BUFFER
+ 	help
+ 	  Build a virtual display sample driver for use as a VFIO
+-- 
+2.31.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
