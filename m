@@ -2,53 +2,51 @@ Return-Path: <SRS0=0znn=JX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AE8CC43462
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:49:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A43A7C433B4
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 10:20:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09D05610FA
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:49:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09D05610FA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4C48661009
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 10:20:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C48661009
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19A486E7FE;
-	Mon, 26 Apr 2021 09:49:32 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5BA36E1B6;
- Mon, 26 Apr 2021 09:49:30 +0000 (UTC)
-IronPort-SDR: c5wWNzVNrRntY77DLQevHQL9ZBVRTZGOktfYQFcBlkJl9TRa4+ygNxCSRsksJ7B2EwB1X69J7j
- mkvxGtJybD7Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9965"; a="175791712"
-X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="175791712"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2021 02:49:27 -0700
-IronPort-SDR: vs5BZcUq0OtRa5CxalVxssJS7zEAvmUK9TGBLlHoot0gHfr67UYB5QJ1E2qsMDGTSbtouCFgN6
- 1vHMq0P8eCSQ==
-X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="429335773"
-Received: from unknown (HELO localhost) ([10.252.50.197])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2021 02:49:20 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Rajeev Nandan <rajeevny@codeaurora.org>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <1619416756-3533-3-git-send-email-rajeevny@codeaurora.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <1619416756-3533-1-git-send-email-rajeevny@codeaurora.org>
- <1619416756-3533-3-git-send-email-rajeevny@codeaurora.org>
-Date: Mon, 26 Apr 2021 12:49:16 +0300
-Message-ID: <87zgxl5qar.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 287C96E432;
+	Mon, 26 Apr 2021 10:20:29 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45D596E23F;
+ Mon, 26 Apr 2021 10:20:27 +0000 (UTC)
+IronPort-SDR: 7nief8+mGaJff9hpFM3lu1Zf+7ND9NMNyQmTubu3JdaxuQIKLMhmJ9PCGzu/0hWWLFWPWha4bp
+ 5Klexjz60fYw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9965"; a="196370951"
+X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="196370951"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2021 03:20:26 -0700
+IronPort-SDR: HWPOzMt988Qwut30aGLjijqPsqclUkGyVCjyQuGTibOThAvR+XSRbxQFHfghZ/XnZkWsPuKFfH
+ Wo/BNbmvjJLA==
+X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="422613704"
+Received: from rgunnin1-mobl.ger.corp.intel.com (HELO
+ mwauld-desk1.ger.corp.intel.com) ([10.252.12.201])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2021 03:20:25 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 26 Apr 2021 11:18:16 +0100
+Message-Id: <20210426101821.42147-2-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.3
+In-Reply-To: <20210426101821.42147-1-matthew.auld@intel.com>
+References: <20210426101821.42147-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [v3 2/2] backlight: Add DisplayPort aux backlight
- driver
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915: Update the helper to set correct
+ mapping
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,345 +59,215 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mkrishn@codeaurora.org, Rajeev Nandan <rajeevny@codeaurora.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, abhinavk@codeaurora.org, dianders@chromium.org,
- seanpaul@chromium.org, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, kalyan_t@codeaurora.org,
- hoegsberg@chromium.org, "Lankhorst, Maarten" <maarten.lankhorst@intel.com>
+Cc: dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 26 Apr 2021, Rajeev Nandan <rajeevny@codeaurora.org> wrote:
-> Add backlight driver for the panels supporting backlight control
-> using DPCD registers on the DisplayPort aux channel.
+From: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
 
-No, please don't do this.
+Determine the possible coherent map type based on object location,
+and if target has llc or if user requires an always coherent
+mapping.
 
-I wrote you last week in reply to v1 why I thought merging this would
-not be a good idea [1]. Why have you sent two versions since then
-without replying to me, or Cc'ing me or Lyude?
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: CQ Tang <cq.tang@intel.com>
+Suggested-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Signed-off-by: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c    |  2 +-
+ drivers/gpu/drm/i915/gt/intel_lrc.c          |  4 +++-
+ drivers/gpu/drm/i915/gt/intel_ring.c         |  9 ++++++---
+ drivers/gpu/drm/i915/gt/selftest_context.c   |  3 ++-
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c |  4 ++--
+ drivers/gpu/drm/i915/gt/selftest_lrc.c       |  4 +++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c       |  4 +++-
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c       |  4 +++-
+ drivers/gpu/drm/i915/i915_drv.h              | 11 +++++++++--
+ drivers/gpu/drm/i915/selftests/igt_spinner.c |  4 ++--
+ 10 files changed, 34 insertions(+), 15 deletions(-)
 
-I think it's an even worse idea to merge this to
-drivers/video/backlight. With DP AUX backlight you can't pretend it's
-just an independent aux interface for backlight without everything else
-around it. It's not independent of eDP, and exposing it as a direct
-backlight sysfs interface bypasses the encoder.
-
-And it still remains that there is existing DP AUX backlight code in
-use, in the tree, with more features than this, with plans and
-previously submitted patches to lift from one driver to drm core, and
-with patches to add support to another driver.
-
-I don't say this lightly, or very often at all, but,
-
-NAK.
-
-
-BR,
-Jani.
-
-
-[1] https://lore.kernel.org/dri-devel/871rb5bcf9.fsf@intel.com/
-
->
-> Changes in v2:
-> - New (most of the code reused from drm_dp_aux_backlight.c of v1)
->
-> Changes in v3:
-> - Add missing ';' to fix module compilation (kernel test bot)
->
-> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
-> ---
->  drivers/video/backlight/Kconfig            |   7 +
->  drivers/video/backlight/Makefile           |   1 +
->  drivers/video/backlight/dp_aux_backlight.c | 245 +++++++++++++++++++++++++++++
->  3 files changed, 253 insertions(+)
->  create mode 100644 drivers/video/backlight/dp_aux_backlight.c
->
-> diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-> index d83c87b..82c88f0 100644
-> --- a/drivers/video/backlight/Kconfig
-> +++ b/drivers/video/backlight/Kconfig
-> @@ -456,6 +456,13 @@ config BACKLIGHT_LED
->  	  If you have a LCD backlight adjustable by LED class driver, say Y
->  	  to enable this driver.
->  
-> +config BACKLIGHT_DP_AUX
-> +       tristate "DisplayPort aux backlight driver"
-> +       depends on DRM && DRM_KMS_HELPER
-> +       help
-> +         If you have a panel backlight controlled by DPCD registers
-> +         on the DisplayPort aux channel, say Y to enable this driver.
-> +
->  endif # BACKLIGHT_CLASS_DEVICE
->  
->  endmenu
-> diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-> index 685f3f1..ba23c7c 100644
-> --- a/drivers/video/backlight/Makefile
-> +++ b/drivers/video/backlight/Makefile
-> @@ -57,3 +57,4 @@ obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
->  obj-$(CONFIG_BACKLIGHT_ARCXCNN) 	+= arcxcnn_bl.o
->  obj-$(CONFIG_BACKLIGHT_RAVE_SP)		+= rave-sp-backlight.o
->  obj-$(CONFIG_BACKLIGHT_LED)		+= led_bl.o
-> +obj-$(CONFIG_BACKLIGHT_DP_AUX)		+= dp_aux_backlight.o
-> diff --git a/drivers/video/backlight/dp_aux_backlight.c b/drivers/video/backlight/dp_aux_backlight.c
-> new file mode 100644
-> index 00000000..3398383
-> --- /dev/null
-> +++ b/drivers/video/backlight/dp_aux_backlight.c
-> @@ -0,0 +1,245 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Backlight driver to control the brightness over DisplayPort aux channel.
-> + */
-> +
-> +#include <linux/backlight.h>
-> +#include <linux/err.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <drm/drm_dp_helper.h>
-> +
-> +#define DP_AUX_MAX_BRIGHTNESS		0xffff
-> +
-> +/**
-> + * struct dp_aux_backlight - DisplayPort aux backlight data
-> + * @dev: pointer to our device.
-> + * @aux: the DisplayPort aux channel.
-> + * @enable_gpio: the backlight enable gpio.
-> + * @enabled: true if backlight is enabled else false.
-> + */
-> +struct dp_aux_backlight {
-> +	struct device *dev;
-> +	struct drm_dp_aux *aux;
-> +	struct gpio_desc *enable_gpio;
-> +	bool enabled;
-> +};
-> +
-> +static struct drm_dp_aux *i2c_to_aux(struct i2c_adapter *i2c)
-> +{
-> +	return container_of(i2c, struct drm_dp_aux, ddc);
-> +}
-> +
-> +static int dp_aux_backlight_enable(struct dp_aux_backlight *aux_bl)
-> +{
-> +	u8 val = 0;
-> +	int ret;
-> +
-> +	if (aux_bl->enabled)
-> +		return 0;
-> +
-> +	/* Set backlight control mode */
-> +	ret = drm_dp_dpcd_readb(aux_bl->aux, DP_EDP_BACKLIGHT_MODE_SET_REGISTER,
-> +				&val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	val &= ~DP_EDP_BACKLIGHT_CONTROL_MODE_MASK;
-> +	val |= DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD;
-> +	ret = drm_dp_dpcd_writeb(aux_bl->aux, DP_EDP_BACKLIGHT_MODE_SET_REGISTER,
-> +				 val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Enable backlight */
-> +	ret = drm_dp_dpcd_readb(aux_bl->aux, DP_EDP_DISPLAY_CONTROL_REGISTER,
-> +				&val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	val |= DP_EDP_BACKLIGHT_ENABLE;
-> +	ret = drm_dp_dpcd_writeb(aux_bl->aux, DP_EDP_DISPLAY_CONTROL_REGISTER,
-> +				 val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (aux_bl->enable_gpio)
-> +		gpiod_set_value(aux_bl->enable_gpio, 1);
-> +
-> +	aux_bl->enabled = true;
-> +
-> +	return 0;
-> +}
-> +
-> +static int dp_aux_backlight_disable(struct dp_aux_backlight *aux_bl)
-> +{
-> +	u8 val = 0;
-> +	int ret;
-> +
-> +	if (!aux_bl->enabled)
-> +		return 0;
-> +
-> +	if (aux_bl->enable_gpio)
-> +		gpiod_set_value(aux_bl->enable_gpio, 0);
-> +
-> +	ret = drm_dp_dpcd_readb(aux_bl->aux, DP_EDP_DISPLAY_CONTROL_REGISTER,
-> +				&val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	val &= ~DP_EDP_BACKLIGHT_ENABLE;
-> +	ret = drm_dp_dpcd_writeb(aux_bl->aux, DP_EDP_DISPLAY_CONTROL_REGISTER,
-> +				 val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	aux_bl->enabled = false;
-> +
-> +	return 0;
-> +}
-> +
-> +static int dp_aux_backlight_update_status(struct backlight_device *bd)
-> +{
-> +	struct dp_aux_backlight *aux_bl = bl_get_data(bd);
-> +	u16 brightness = backlight_get_brightness(bd);
-> +	u8 val[2] = { 0x0 };
-> +	int ret = 0;
-> +
-> +	if (brightness > 0) {
-> +		val[0] = brightness >> 8;
-> +		val[1] = brightness & 0xff;
-> +		ret = drm_dp_dpcd_write(aux_bl->aux, DP_EDP_BACKLIGHT_BRIGHTNESS_MSB,
-> +					val, sizeof(val));
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		dp_aux_backlight_enable(aux_bl);
-> +	} else {
-> +		dp_aux_backlight_disable(aux_bl);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int dp_aux_backlight_get_brightness(struct backlight_device *bd)
-> +{
-> +	struct dp_aux_backlight *aux_bl = bl_get_data(bd);
-> +	u8 val[2] = { 0x0 };
-> +	int ret = 0;
-> +
-> +	if (backlight_is_blank(bd))
-> +		return 0;
-> +
-> +	ret = drm_dp_dpcd_read(aux_bl->aux, DP_EDP_BACKLIGHT_BRIGHTNESS_MSB,
-> +			       &val, sizeof(val));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return (val[0] << 8 | val[1]);
-> +}
-> +
-> +static const struct backlight_ops aux_bl_ops = {
-> +	.update_status = dp_aux_backlight_update_status,
-> +	.get_brightness = dp_aux_backlight_get_brightness,
-> +};
-> +
-> +
-> +static int dp_aux_backlight_probe(struct platform_device *pdev)
-> +{
-> +	struct dp_aux_backlight *aux_bl;
-> +	struct backlight_device *bd;
-> +	struct backlight_properties bl_props = { 0 };
-> +	struct device_node *np;
-> +	struct i2c_adapter *ddc;
-> +	int ret = 0;
-> +	u32 val;
-> +
-> +	aux_bl = devm_kzalloc(&pdev->dev, sizeof(*aux_bl), GFP_KERNEL);
-> +	if (!aux_bl)
-> +		return -ENOMEM;
-> +
-> +	aux_bl->dev = &pdev->dev;
-> +
-> +	np = of_parse_phandle(pdev->dev.of_node, "ddc-i2c-bus", 0);
-> +	if (!np) {
-> +		dev_err(&pdev->dev, "failed to get aux ddc I2C bus\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	ddc = of_find_i2c_adapter_by_node(np);
-> +	of_node_put(np);
-> +	if (!ddc)
-> +		return -EPROBE_DEFER;
-> +
-> +	aux_bl->aux = i2c_to_aux(ddc);
-> +	dev_dbg(&pdev->dev, "using dp aux %s\n", aux_bl->aux->name);
-> +
-> +	aux_bl->enable_gpio = devm_gpiod_get_optional(&pdev->dev, "enable",
-> +					     GPIOD_OUT_LOW);
-> +	if (IS_ERR(aux_bl->enable_gpio)) {
-> +		ret = PTR_ERR(aux_bl->enable_gpio);
-> +		goto free_ddc;
-> +	}
-> +
-> +	val = DP_AUX_MAX_BRIGHTNESS;
-> +	of_property_read_u32(pdev->dev.of_node, "max-brightness", &val);
-> +	if (val > DP_AUX_MAX_BRIGHTNESS)
-> +		val = DP_AUX_MAX_BRIGHTNESS;
-> +
-> +	bl_props.max_brightness = val;
-> +	bl_props.brightness = val;
-> +	bl_props.type = BACKLIGHT_RAW;
-> +	bd = devm_backlight_device_register(&pdev->dev, dev_name(&pdev->dev),
-> +					    &pdev->dev, aux_bl,
-> +					    &aux_bl_ops, &bl_props);
-> +	if (IS_ERR(bd)) {
-> +		ret = PTR_ERR(bd);
-> +		dev_err(&pdev->dev,
-> +			      "failed to register backlight (%d)\n", ret);
-> +		goto free_ddc;
-> +	}
-> +
-> +	platform_set_drvdata(pdev, bd);
-> +
-> +	return 0;
-> +
-> +free_ddc:
-> +	if (ddc)
-> +		put_device(&ddc->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int dp_aux_backlight_remove(struct platform_device *pdev)
-> +{
-> +	struct backlight_device *bd = platform_get_drvdata(pdev);
-> +	struct dp_aux_backlight *aux_bl = bl_get_data(bd);
-> +	struct i2c_adapter *ddc = &aux_bl->aux->ddc;
-> +
-> +	if (ddc)
-> +		put_device(&ddc->dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id dp_aux_bl_of_match_table[] = {
-> +	{ .compatible = "dp-aux-backlight"},
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, dp_aux_bl_of_match_table);
-> +
-> +static struct platform_driver dp_aux_backlight_driver = {
-> +	.driver = {
-> +		.name = "dp-aux-backlight",
-> +		.of_match_table = dp_aux_bl_of_match_table,
-> +	},
-> +	.probe = dp_aux_backlight_probe,
-> +	.remove = dp_aux_backlight_remove,
-> +
-> +};
-> +module_platform_driver(dp_aux_backlight_driver);
-> +
-> +MODULE_DESCRIPTION("DisplayPort aux backlight driver");
-> +MODULE_LICENSE("GPL v2");
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index 7c9af86fdb1e..47f4397095e5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -23,7 +23,7 @@ static void dbg_poison_ce(struct intel_context *ce)
+ 
+ 	if (ce->state) {
+ 		struct drm_i915_gem_object *obj = ce->state->obj;
+-		int type = i915_coherent_map_type(ce->engine->i915);
++		int type = i915_coherent_map_type(ce->engine->i915, obj, true);
+ 		void *map;
+ 
+ 		if (!i915_gem_object_trylock(obj))
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index e86897cde984..aafe2a4df496 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -903,7 +903,9 @@ lrc_pre_pin(struct intel_context *ce,
+ 	GEM_BUG_ON(!i915_vma_is_pinned(ce->state));
+ 
+ 	*vaddr = i915_gem_object_pin_map(ce->state->obj,
+-					 i915_coherent_map_type(ce->engine->i915) |
++					 i915_coherent_map_type(ce->engine->i915,
++								ce->state->obj,
++								false) |
+ 					 I915_MAP_OVERRIDE);
+ 
+ 	return PTR_ERR_OR_ZERO(*vaddr);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring.c b/drivers/gpu/drm/i915/gt/intel_ring.c
+index aee0a77c77e0..3cf6c7e68108 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring.c
+@@ -53,9 +53,12 @@ int intel_ring_pin(struct intel_ring *ring, struct i915_gem_ww_ctx *ww)
+ 
+ 	if (i915_vma_is_map_and_fenceable(vma))
+ 		addr = (void __force *)i915_vma_pin_iomap(vma);
+-	else
+-		addr = i915_gem_object_pin_map(vma->obj,
+-					       i915_coherent_map_type(vma->vm->i915));
++	else {
++		int type = i915_coherent_map_type(vma->vm->i915, vma->obj, false);
++
++		addr = i915_gem_object_pin_map(vma->obj, type);
++	}
++
+ 	if (IS_ERR(addr)) {
+ 		ret = PTR_ERR(addr);
+ 		goto err_ring;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c b/drivers/gpu/drm/i915/gt/selftest_context.c
+index b9bdd1d23243..26685b927169 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_context.c
++++ b/drivers/gpu/drm/i915/gt/selftest_context.c
+@@ -88,7 +88,8 @@ static int __live_context_size(struct intel_engine_cs *engine)
+ 		goto err;
+ 
+ 	vaddr = i915_gem_object_pin_map_unlocked(ce->state->obj,
+-						 i915_coherent_map_type(engine->i915));
++						 i915_coherent_map_type(engine->i915,
++									ce->state->obj, false));
+ 	if (IS_ERR(vaddr)) {
+ 		err = PTR_ERR(vaddr);
+ 		intel_context_unpin(ce);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 746985971c3a..5b63d4df8c93 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -69,7 +69,7 @@ static int hang_init(struct hang *h, struct intel_gt *gt)
+ 	h->seqno = memset(vaddr, 0xff, PAGE_SIZE);
+ 
+ 	vaddr = i915_gem_object_pin_map_unlocked(h->obj,
+-						 i915_coherent_map_type(gt->i915));
++						 i915_coherent_map_type(gt->i915, h->obj, false));
+ 	if (IS_ERR(vaddr)) {
+ 		err = PTR_ERR(vaddr);
+ 		goto err_unpin_hws;
+@@ -130,7 +130,7 @@ hang_create_request(struct hang *h, struct intel_engine_cs *engine)
+ 		return ERR_CAST(obj);
+ 	}
+ 
+-	vaddr = i915_gem_object_pin_map_unlocked(obj, i915_coherent_map_type(gt->i915));
++	vaddr = i915_gem_object_pin_map_unlocked(obj, i915_coherent_map_type(gt->i915, obj, false));
+ 	if (IS_ERR(vaddr)) {
+ 		i915_gem_object_put(obj);
+ 		i915_vm_put(vm);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+index 85e7df6a5123..d8f6623524e8 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+@@ -1221,7 +1221,9 @@ static int compare_isolation(struct intel_engine_cs *engine,
+ 	}
+ 
+ 	lrc = i915_gem_object_pin_map_unlocked(ce->state->obj,
+-				      i915_coherent_map_type(engine->i915));
++					       i915_coherent_map_type(engine->i915,
++								      ce->state->obj,
++								      false));
+ 	if (IS_ERR(lrc)) {
+ 		err = PTR_ERR(lrc);
+ 		goto err_B1;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index 78305b2ec89d..adae04c47aab 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -682,7 +682,9 @@ int intel_guc_allocate_and_map_vma(struct intel_guc *guc, u32 size,
+ 	if (IS_ERR(vma))
+ 		return PTR_ERR(vma);
+ 
+-	vaddr = i915_gem_object_pin_map_unlocked(vma->obj, I915_MAP_WB);
++	vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
++						 i915_coherent_map_type(guc_to_gt(guc)->i915,
++									vma->obj, true));
+ 	if (IS_ERR(vaddr)) {
+ 		i915_vma_unpin_and_release(&vma, 0);
+ 		return PTR_ERR(vaddr);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+index 2126dd81ac38..56d2144dc6a0 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+@@ -82,7 +82,9 @@ static int intel_huc_rsa_data_create(struct intel_huc *huc)
+ 	if (IS_ERR(vma))
+ 		return PTR_ERR(vma);
+ 
+-	vaddr = i915_gem_object_pin_map_unlocked(vma->obj, I915_MAP_WB);
++	vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
++						 i915_coherent_map_type(gt->i915,
++									vma->obj, true));
+ 	if (IS_ERR(vaddr)) {
+ 		i915_vma_unpin_and_release(&vma, 0);
+ 		return PTR_ERR(vaddr);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 0b44333eb703..336b09f38aad 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -78,6 +78,7 @@
+ #include "gem/i915_gem_context_types.h"
+ #include "gem/i915_gem_shrinker.h"
+ #include "gem/i915_gem_stolen.h"
++#include "gem/i915_gem_lmem.h"
+ 
+ #include "gt/intel_engine.h"
+ #include "gt/intel_gt_types.h"
+@@ -1936,9 +1937,15 @@ static inline int intel_hws_csb_write_index(struct drm_i915_private *i915)
+ }
+ 
+ static inline enum i915_map_type
+-i915_coherent_map_type(struct drm_i915_private *i915)
++i915_coherent_map_type(struct drm_i915_private *i915,
++		       struct drm_i915_gem_object *obj, bool always_coherent)
+ {
+-	return HAS_LLC(i915) ? I915_MAP_WB : I915_MAP_WC;
++	if (i915_gem_object_is_lmem(obj))
++		return I915_MAP_WC;
++	if (HAS_LLC(i915) || always_coherent)
++		return I915_MAP_WB;
++	else
++		return I915_MAP_WC;
+ }
+ 
+ #endif
+diff --git a/drivers/gpu/drm/i915/selftests/igt_spinner.c b/drivers/gpu/drm/i915/selftests/igt_spinner.c
+index cfbbe415b57c..5fe397b7d1d9 100644
+--- a/drivers/gpu/drm/i915/selftests/igt_spinner.c
++++ b/drivers/gpu/drm/i915/selftests/igt_spinner.c
+@@ -94,9 +94,9 @@ int igt_spinner_pin(struct igt_spinner *spin,
+ 	}
+ 
+ 	if (!spin->batch) {
+-		unsigned int mode =
+-			i915_coherent_map_type(spin->gt->i915);
++		unsigned int mode;
+ 
++		mode = i915_coherent_map_type(spin->gt->i915, spin->obj, false);
+ 		vaddr = igt_spinner_pin_obj(ce, ww, spin->obj, mode, &spin->batch_vma);
+ 		if (IS_ERR(vaddr))
+ 			return PTR_ERR(vaddr);
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.26.3
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
