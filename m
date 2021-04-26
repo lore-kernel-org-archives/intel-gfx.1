@@ -2,41 +2,69 @@ Return-Path: <SRS0=0znn=JX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA033C433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 13:59:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A59B5C43460
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 14:02:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4719E611C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 13:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4719E611C1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id F0D916101B
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 14:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0D916101B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AECB6E155;
-	Mon, 26 Apr 2021 13:59:32 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1BF926E155;
- Mon, 26 Apr 2021 13:59:31 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1153AA363D;
- Mon, 26 Apr 2021 13:59:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41ECF88065;
+	Mon, 26 Apr 2021 14:02:19 +0000 (UTC)
+X-Greylist: delayed 471 seconds by postgrey-1.36 at gabe;
+ Mon, 26 Apr 2021 12:52:15 UTC
+Received: from ustc.edu.cn (email6.ustc.edu.cn [IPv6:2001:da8:d800::8])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CAE0E6E077
+ for <intel-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 12:52:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-Id:MIME-Version:Content-Transfer-Encoding; bh=t1M07dmc0X
+ SfEa2oDvK22eZQFb4J04a5FzYvFFyBYrs=; b=cDOcSZndW0THeDUdAI8bhVRHMf
+ Kdyk1JaB4qEvbBRSpEtn55UjvdOczXF54Smz6bWuIAl/fQk052hShSeNOir11kj6
+ pz5905jaJfC7UUgFkyuqoOJk/5CX+LpZIgerJlPpt/+3nk3O6DoTJVZo3I7lmN3Z
+ /1um/6XuIQO5pcBS4=
+Received: from ubuntu.localdomain (unknown [202.38.69.14])
+ by newmailweb.ustc.edu.cn (Coremail) with SMTP id
+ LkAmygB3fER+tYZgC8VKAA--.5358S4; 
+ Mon, 26 Apr 2021 20:43:42 +0800 (CST)
+From: Lv Yunlong <lyl2019@mail.ustc.edu.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
+ chris@chris-wilson.co.uk
+Date: Mon, 26 Apr 2021 05:43:40 -0700
+Message-Id: <20210426124340.4238-1-lyl2019@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>
-Date: Mon, 26 Apr 2021 13:59:31 -0000
-Message-ID: <161944557104.18665.504613634484498295@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210426102351.921874-1-maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20210426102351.921874-1-maarten.lankhorst@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Use_trylock_in_shrinker_for_ggtt_on_bsw_vt-d_an?=
- =?utf-8?q?d_bxt=2C_v2=2E?=
+X-CM-TRANSID: LkAmygB3fER+tYZgC8VKAA--.5358S4
+X-Coremail-Antispam: 1UD129KBjvJXoWrurWkXr48tF1fXr48WFy8Xwb_yoW8Jry5pw
+ 43uFyYvrnYyr12ya13Xa1UZFySy343KrWrGayv9a1v9r13JFy7tr9YyrW8JFyUCr1xJryS
+ qF1xCrWfZFy7JaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+ rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY02Avz4vE14v_Xr1l42xK82IYc2Ij64vIr4
+ 1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+ 67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+ 8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+ wI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
+ AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUhiSQUUUUU=
+X-CM-SenderInfo: ho1ojiyrz6zt1loo32lwfovvfxof0/
+X-Mailman-Approved-At: Mon, 26 Apr 2021 14:02:18 +0000
+Subject: [Intel-gfx] [PATCH] drm/i9i5/gt: Fix a double free in
+ gen8_preallocate_top_level_pdp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,28 +77,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Lv Yunlong <lyl2019@mail.ustc.edu.cn>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Our code analyzer reported a double free bug.
 
-Series: drm/i915: Use trylock in shrinker for ggtt on bsw vt-d and bxt, v2.
-URL   : https://patchwork.freedesktop.org/series/89485/
-State : warning
+In gen8_preallocate_top_level_pdp, pde and pde->pt.base are allocated
+via alloc_pd(vm) with one reference. If pin_pt_dma() failed, pde->pt.base
+is freed by i915_gem_object_put() with a reference dropped. Then free_pd
+calls free_px() defined in intel_ppgtt.c, which calls i915_gem_object_put()
+to put pde->pt.base again.
 
-== Summary ==
+As pde->pt.base is protected by refcount, so the second put will not free
+pde->pt.base actually. But, maybe it is better to remove the first put?
 
-$ dim checkpatch origin/drm-tip
-e50e1e4b326a drm/i915: Use trylock in shrinker for ggtt on bsw vt-d and bxt, v2.
--:16: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#16: 
-<4>[  462.585788] ffffffff826440b0 (cpu_hotplug_lock){++++}-{0:0}, at: stop_machine+0x12/0x30
+Fixes: 82adf901138cc ("drm/i915/gt: Shrink i915_page_directory's slab bucket")
+Signed-off-by: Lv Yunlong <lyl2019@mail.ustc.edu.cn>
+---
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-total: 0 errors, 1 warnings, 0 checks, 119 lines checked
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index 755522ced60d..3ae16945bd43 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -630,7 +630,6 @@ static int gen8_preallocate_top_level_pdp(struct i915_ppgtt *ppgtt)
+ 
+ 		err = pin_pt_dma(vm, pde->pt.base);
+ 		if (err) {
+-			i915_gem_object_put(pde->pt.base);
+ 			free_pd(vm, pde);
+ 			return err;
+ 		}
+-- 
+2.25.1
 
 
 _______________________________________________
