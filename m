@@ -2,68 +2,48 @@ Return-Path: <SRS0=0znn=JX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B013C433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:21:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14197C433B4
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:40:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2800961263
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:21:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2800961263
+	by mail.kernel.org (Postfix) with ESMTPS id 81E6561263
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:40:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81E6561263
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF826E194;
-	Mon, 26 Apr 2021 09:21:14 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 463796E194;
- Mon, 26 Apr 2021 09:21:13 +0000 (UTC)
-IronPort-SDR: lIcAbPAMaGFUI2cexdpCrZAiAkhfBAk98nkaHRgDykMrq9qqMSETeflmoT7BpIjXACTNTx8I4b
- sMV6l2enAu3g==
-X-IronPort-AV: E=McAfee;i="6200,9189,9965"; a="194188331"
-X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="194188331"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2021 02:21:12 -0700
-IronPort-SDR: XApczgaA7qtn7G0vg5iuSgilz5Ke2hjXLwMIEQMfNuedyHRvysQ2yrW8IB/tJnjSHA0hHlnu7y
- yy8fUFCEe17Q==
-X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="429328024"
-Received: from jmwalsh-mobl.amr.corp.intel.com (HELO [10.213.207.212])
- ([10.213.207.212])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2021 02:21:10 -0700
-To: Matthew Auld <matthew.william.auld@gmail.com>
-References: <20210412090526.30547-1-matthew.auld@intel.com>
- <20210412090526.30547-12-matthew.auld@intel.com>
- <7bc2a663-fbc0-6486-341a-7dca980c2440@linux.intel.com>
- <CAM0jSHNhWcscW9txPDyKActTiTWjzhASJb5xC8XPzHeN+Y18QA@mail.gmail.com>
- <9aca524c-3710-dfaa-bfec-aef76aee7b26@linux.intel.com>
- <CAM0jSHN57bwK6f=tH59iAO5R5WpWfZOw56tsjzxVuJf8SkM+vw@mail.gmail.com>
- <ed521b72-4dd0-2b0f-e313-5fc31c37fae1@linux.intel.com>
- <55e16b78-d9ee-a0ad-5877-9901cf74669f@intel.com>
- <5701f034-3da9-55d2-e966-33afb7236b8b@linux.intel.com>
- <0b1b88db-da62-841d-23cd-7902c9a78b77@intel.com>
- <7b108dc9-b03c-2f9c-0d44-cb672daec9ae@linux.intel.com>
- <f0e1ad21-397b-5c32-a368-febfd877f5f3@intel.com>
- <0be7012c-c889-c5c5-6624-2f63b9daf46b@linux.intel.com>
- <CAM0jSHMBTFuO8Th6NDQpGhzr9XtP_zczKSjDiD3Q5onV5MLdYA@mail.gmail.com>
- <CAM0jSHN=08bmcZ+BgmEkZkZu8-1VwzEi_tSgkWv88We5rAm=xw@mail.gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <883dfc43-0fcd-7a3b-5701-d5726eed9992@linux.intel.com>
-Date: Mon, 26 Apr 2021 10:21:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9DEE89F89;
+	Mon, 26 Apr 2021 09:40:18 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3936E0A8;
+ Mon, 26 Apr 2021 09:40:18 +0000 (UTC)
+IronPort-SDR: ZjNqFeTdi6oSNM5ACeECMUtqekxCH17bOAQUotXzCbjBUnaL6ihdlBvkj+CGEBLkXS9YfysFJG
+ CVOwUQK5RS/g==
+X-IronPort-AV: E=McAfee;i="6200,9189,9965"; a="196366799"
+X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="196366799"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2021 02:40:14 -0700
+IronPort-SDR: K8aITuLc2DV5QtAiPjG40V9F3cTE4qY7vkdwuwYO6d3gop3/7iNWnPg1CkPPYTDzz5yhOfiS5A
+ cspfGnIEbNDA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="465054293"
+Received: from debian-skl.sh.intel.com ([10.239.160.37])
+ by orsmga001.jf.intel.com with ESMTP; 26 Apr 2021 02:40:12 -0700
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 26 Apr 2021 17:41:42 +0800
+Message-Id: <20210426094143.4031527-1-zhenyuw@linux.intel.com>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
-In-Reply-To: <CAM0jSHN=08bmcZ+BgmEkZkZu8-1VwzEi_tSgkWv88We5rAm=xw@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 11/19] drm/i915: Update the helper to set
- correct mapping
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/gvt: Move mdev attribute groups
+ into kvmgt module
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,490 +56,404 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Matthew Auld <matthew.auld@intel.com>,
- ML dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Arnd Bergmann <arnd@kernel.org>, intel-gvt-dev@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+As kvmgt module contains all handling for VFIO/mdev, leaving mdev attribute
+groups in gvt module caused dependency issue. Although it was there for possible
+other hypervisor usage, that turns out never to be true. So this moves all mdev
+handling into kvmgt module completely to resolve dependency issue.
 
-On 26/04/2021 09:57, Matthew Auld wrote:
-> On Wed, 21 Apr 2021 at 20:13, Matthew Auld
-> <matthew.william.auld@gmail.com> wrote:
->>
->> On Wed, 21 Apr 2021 at 16:41, Tvrtko Ursulin
->> <tvrtko.ursulin@linux.intel.com> wrote:
->>>
->>>
->>> On 21/04/2021 12:42, Matthew Auld wrote:
->>>> On 19/04/2021 16:01, Tvrtko Ursulin wrote:
->>>>>
->>>>> On 19/04/2021 15:37, Matthew Auld wrote:
->>>>>> On 19/04/2021 15:07, Tvrtko Ursulin wrote:
->>>>>>>
->>>>>>> On 19/04/2021 12:30, Matthew Auld wrote:
->>>>>>>> On 15/04/2021 12:05, Tvrtko Ursulin wrote:
->>>>>>>>>
->>>>>>>>> On 15/04/2021 10:23, Matthew Auld wrote:
->>>>>>>>>> On Thu, 15 Apr 2021 at 09:21, Tvrtko Ursulin
->>>>>>>>>> <tvrtko.ursulin@linux.intel.com> wrote:
->>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>> On 14/04/2021 17:20, Matthew Auld wrote:
->>>>>>>>>>>> On Wed, 14 Apr 2021 at 16:22, Tvrtko Ursulin
->>>>>>>>>>>> <tvrtko.ursulin@linux.intel.com> wrote:
->>>>>>>>>>>>>
->>>>>>>>>>>>>
->>>>>>>>>>>>> On 12/04/2021 10:05, Matthew Auld wrote:
->>>>>>>>>>>>>> From: Venkata Sandeep Dhanalakota
->>>>>>>>>>>>>> <venkata.s.dhanalakota@intel.com>
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Determine the possible coherent map type based on object
->>>>>>>>>>>>>> location,
->>>>>>>>>>>>>> and if target has llc or if user requires an always coherent
->>>>>>>>>>>>>> mapping.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Cc: Matthew Auld <matthew.auld@intel.com>
->>>>>>>>>>>>>> Cc: CQ Tang <cq.tang@intel.com>
->>>>>>>>>>>>>> Suggested-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
->>>>>>>>>>>>>> Signed-off-by: Venkata Sandeep Dhanalakota
->>>>>>>>>>>>>> <venkata.s.dhanalakota@intel.com>
->>>>>>>>>>>>>> ---
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  3 ++-
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/intel_engine_pm.c    |  2 +-
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/intel_lrc.c          |  4 +++-
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/intel_ring.c         |  9 ++++++---
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/selftest_context.c   |  3 ++-
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/selftest_hangcheck.c |  4 ++--
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/selftest_lrc.c       |  4 +++-
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/uc/intel_guc.c       |  4 +++-
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/uc/intel_huc.c       |  4 +++-
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/i915_drv.h              | 11
->>>>>>>>>>>>>> +++++++++--
->>>>>>>>>>>>>>      drivers/gpu/drm/i915/selftests/igt_spinner.c |  4 ++--
->>>>>>>>>>>>>>      11 files changed, 36 insertions(+), 16 deletions(-)
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
->>>>>>>>>>>>>> index efe935f80c1a..b79568d370f5 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
->>>>>>>>>>>>>> @@ -664,7 +664,8 @@ static int init_status_page(struct
->>>>>>>>>>>>>> intel_engine_cs *engine)
->>>>>>>>>>>>>>          if (ret)
->>>>>>>>>>>>>>                  goto err;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> -     vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
->>>>>>>>>>>>>> +     vaddr = i915_gem_object_pin_map(obj,
->>>>>>>>>>>>>> + i915_coherent_map_type(engine->i915, obj, true));
->>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
->>>>>>>>>>>>>>                  ret = PTR_ERR(vaddr);
->>>>>>>>>>>>>>                  goto err_unpin;
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
->>>>>>>>>>>>>> index 7c9af86fdb1e..47f4397095e5 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
->>>>>>>>>>>>>> @@ -23,7 +23,7 @@ static void dbg_poison_ce(struct
->>>>>>>>>>>>>> intel_context *ce)
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>          if (ce->state) {
->>>>>>>>>>>>>>                  struct drm_i915_gem_object *obj =
->>>>>>>>>>>>>> ce->state->obj;
->>>>>>>>>>>>>> -             int type =
->>>>>>>>>>>>>> i915_coherent_map_type(ce->engine->i915);
->>>>>>>>>>>>>> +             int type =
->>>>>>>>>>>>>> i915_coherent_map_type(ce->engine->i915, obj, true);
->>>>>>>>>>>>>>                  void *map;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>                  if (!i915_gem_object_trylock(obj))
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/intel_lrc.c
->>>>>>>>>>>>>> index e86897cde984..aafe2a4df496 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
->>>>>>>>>>>>>> @@ -903,7 +903,9 @@ lrc_pre_pin(struct intel_context *ce,
->>>>>>>>>>>>>>          GEM_BUG_ON(!i915_vma_is_pinned(ce->state));
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>          *vaddr = i915_gem_object_pin_map(ce->state->obj,
->>>>>>>>>>>>>> - i915_coherent_map_type(ce->engine->i915) |
->>>>>>>>>>>>>> + i915_coherent_map_type(ce->engine->i915,
->>>>>>>>>>>>>> + ce->state->obj,
->>>>>>>>>>>>>> + false) |
->>>>>>>>>>>>>>                                           I915_MAP_OVERRIDE);
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>          return PTR_ERR_OR_ZERO(*vaddr);
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_ring.c
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/intel_ring.c
->>>>>>>>>>>>>> index aee0a77c77e0..3cf6c7e68108 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/intel_ring.c
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_ring.c
->>>>>>>>>>>>>> @@ -53,9 +53,12 @@ int intel_ring_pin(struct intel_ring
->>>>>>>>>>>>>> *ring, struct i915_gem_ww_ctx *ww)
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>          if (i915_vma_is_map_and_fenceable(vma))
->>>>>>>>>>>>>>                  addr = (void __force *)i915_vma_pin_iomap(vma);
->>>>>>>>>>>>>> -     else
->>>>>>>>>>>>>> -             addr = i915_gem_object_pin_map(vma->obj,
->>>>>>>>>>>>>> - i915_coherent_map_type(vma->vm->i915));
->>>>>>>>>>>>>> +     else {
->>>>>>>>>>>>>> +             int type =
->>>>>>>>>>>>>> i915_coherent_map_type(vma->vm->i915, vma->obj, false);
->>>>>>>>>>>>>> +
->>>>>>>>>>>>>> +             addr = i915_gem_object_pin_map(vma->obj, type);
->>>>>>>>>>>>>> +     }
->>>>>>>>>>>>>> +
->>>>>>>>>>>>>>          if (IS_ERR(addr)) {
->>>>>>>>>>>>>>                  ret = PTR_ERR(addr);
->>>>>>>>>>>>>>                  goto err_ring;
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/selftest_context.c
->>>>>>>>>>>>>> index b9bdd1d23243..26685b927169 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/selftest_context.c
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/selftest_context.c
->>>>>>>>>>>>>> @@ -88,7 +88,8 @@ static int __live_context_size(struct
->>>>>>>>>>>>>> intel_engine_cs *engine)
->>>>>>>>>>>>>>                  goto err;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>          vaddr = i915_gem_object_pin_map_unlocked(ce->state->obj,
->>>>>>>>>>>>>> - i915_coherent_map_type(engine->i915));
->>>>>>>>>>>>>> + i915_coherent_map_type(engine->i915,
->>>>>>>>>>>>>> + ce->state->obj, false));
->>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
->>>>>>>>>>>>>>                  err = PTR_ERR(vaddr);
->>>>>>>>>>>>>>                  intel_context_unpin(ce);
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
->>>>>>>>>>>>>> index 746985971c3a..5b63d4df8c93 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
->>>>>>>>>>>>>> @@ -69,7 +69,7 @@ static int hang_init(struct hang *h, struct
->>>>>>>>>>>>>> intel_gt *gt)
->>>>>>>>>>>>>>          h->seqno = memset(vaddr, 0xff, PAGE_SIZE);
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>          vaddr = i915_gem_object_pin_map_unlocked(h->obj,
->>>>>>>>>>>>>> - i915_coherent_map_type(gt->i915));
->>>>>>>>>>>>>> + i915_coherent_map_type(gt->i915, h->obj, false));
->>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
->>>>>>>>>>>>>>                  err = PTR_ERR(vaddr);
->>>>>>>>>>>>>>                  goto err_unpin_hws;
->>>>>>>>>>>>>> @@ -130,7 +130,7 @@ hang_create_request(struct hang *h,
->>>>>>>>>>>>>> struct intel_engine_cs *engine)
->>>>>>>>>>>>>>                  return ERR_CAST(obj);
->>>>>>>>>>>>>>          }
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> -     vaddr = i915_gem_object_pin_map_unlocked(obj,
->>>>>>>>>>>>>> i915_coherent_map_type(gt->i915));
->>>>>>>>>>>>>> +     vaddr = i915_gem_object_pin_map_unlocked(obj,
->>>>>>>>>>>>>> i915_coherent_map_type(gt->i915, obj, false));
->>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
->>>>>>>>>>>>>>                  i915_gem_object_put(obj);
->>>>>>>>>>>>>>                  i915_vm_put(vm);
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/selftest_lrc.c
->>>>>>>>>>>>>> index 85e7df6a5123..d8f6623524e8 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
->>>>>>>>>>>>>> @@ -1221,7 +1221,9 @@ static int compare_isolation(struct
->>>>>>>>>>>>>> intel_engine_cs *engine,
->>>>>>>>>>>>>>          }
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>          lrc = i915_gem_object_pin_map_unlocked(ce->state->obj,
->>>>>>>>>>>>>> - i915_coherent_map_type(engine->i915));
->>>>>>>>>>>>>> + i915_coherent_map_type(engine->i915,
->>>>>>>>>>>>>> + ce->state->obj,
->>>>>>>>>>>>>> + false));
->>>>>>>>>>>>>>          if (IS_ERR(lrc)) {
->>>>>>>>>>>>>>                  err = PTR_ERR(lrc);
->>>>>>>>>>>>>>                  goto err_B1;
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
->>>>>>>>>>>>>> index 78305b2ec89d..adae04c47aab 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
->>>>>>>>>>>>>> @@ -682,7 +682,9 @@ int intel_guc_allocate_and_map_vma(struct
->>>>>>>>>>>>>> intel_guc *guc, u32 size,
->>>>>>>>>>>>>>          if (IS_ERR(vma))
->>>>>>>>>>>>>>                  return PTR_ERR(vma);
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> -     vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
->>>>>>>>>>>>>> I915_MAP_WB);
->>>>>>>>>>>>>> +     vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
->>>>>>>>>>>>>> + i915_coherent_map_type(guc_to_gt(guc)->i915,
->>>>>>>>>>>>>> + vma->obj, true));
->>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
->>>>>>>>>>>>>>                  i915_vma_unpin_and_release(&vma, 0);
->>>>>>>>>>>>>>                  return PTR_ERR(vaddr);
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
->>>>>>>>>>>>>> index 2126dd81ac38..56d2144dc6a0 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
->>>>>>>>>>>>>> @@ -82,7 +82,9 @@ static int intel_huc_rsa_data_create(struct
->>>>>>>>>>>>>> intel_huc *huc)
->>>>>>>>>>>>>>          if (IS_ERR(vma))
->>>>>>>>>>>>>>                  return PTR_ERR(vma);
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> -     vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
->>>>>>>>>>>>>> I915_MAP_WB);
->>>>>>>>>>>>>> +     vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
->>>>>>>>>>>>>> + i915_coherent_map_type(gt->i915,
->>>>>>>>>>>>>> + vma->obj, true));
->>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
->>>>>>>>>>>>>>                  i915_vma_unpin_and_release(&vma, 0);
->>>>>>>>>>>>>>                  return PTR_ERR(vaddr);
->>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/i915_drv.h
->>>>>>>>>>>>>> b/drivers/gpu/drm/i915/i915_drv.h
->>>>>>>>>>>>>> index 69e43bf91a15..2abbc06712a4 100644
->>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/i915_drv.h
->>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/i915_drv.h
->>>>>>>>>>>>>> @@ -78,6 +78,7 @@
->>>>>>>>>>>>>>      #include "gem/i915_gem_context_types.h"
->>>>>>>>>>>>>>      #include "gem/i915_gem_shrinker.h"
->>>>>>>>>>>>>>      #include "gem/i915_gem_stolen.h"
->>>>>>>>>>>>>> +#include "gem/i915_gem_lmem.h"
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>      #include "gt/intel_engine.h"
->>>>>>>>>>>>>>      #include "gt/intel_gt_types.h"
->>>>>>>>>>>>>> @@ -1921,9 +1922,15 @@ static inline int
->>>>>>>>>>>>>> intel_hws_csb_write_index(struct drm_i915_private *i915)
->>>>>>>>>>>>>>      }
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>      static inline enum i915_map_type
->>>>>>>>>>>>>> -i915_coherent_map_type(struct drm_i915_private *i915)
->>>>>>>>>>>>>> +i915_coherent_map_type(struct drm_i915_private *i915,
->>>>>>>>>>>>>> +                    struct drm_i915_gem_object *obj, bool
->>>>>>>>>>>>>> always_coherent)
->>>>>>>>>>>>>>      {
->>>>>>>>>>>>>> -     return HAS_LLC(i915) ? I915_MAP_WB : I915_MAP_WC;
->>>>>>>>>>>>>> +     if (i915_gem_object_is_lmem(obj))
->>>>>>>>>>>>>> +             return I915_MAP_WC;
->>>>>>>>>>>>>> +     if (HAS_LLC(i915) || always_coherent)
->>>>>>>>>>>>>> +             return I915_MAP_WB;
->>>>>>>>>>>>>> +     else
->>>>>>>>>>>>>> +             return I915_MAP_WC;
->>>>>>>>>>>>>
->>>>>>>>>>>>> Seems this patch is doing two things.
->>>>>>>>>>>>>
->>>>>>>>>>>>> First it is adding lmem support to this helper by always
->>>>>>>>>>>>> returning WC
->>>>>>>>>>>>> for lmem objects.
->>>>>>>>>>>>>
->>>>>>>>>>>>> Secondly it is introducing an idea of "always coherent" in a
->>>>>>>>>>>>> helper
->>>>>>>>>>>>> called i915_coherent_map_type. Could someone explain what is
->>>>>>>>>>>>> coherent vs
->>>>>>>>>>>>> always coherent?
->>>>>>>>>>>>>
->>>>>>>>>>>>> And also, why is always coherent happy with WB? Sounds counter
->>>>>>>>>>>>> intuitive
->>>>>>>>>>>>> to me.
->>>>>>>>>>>>
->>>>>>>>>>>> All this does is try to keep the existing behaviour intact, whilst
->>>>>>>>>>>> also ensuring that all lmem objects are mapped using only WC, no
->>>>>>>>>>>> matter what. The always_coherent=true thing is for the existing
->>>>>>>>>>>> places
->>>>>>>>>>>> where we sometimes map the object using WB, without first
->>>>>>>>>>>> considering
->>>>>>>>>>>> whether the device has the fast shared LLC vs snooping. Yes, it's
->>>>>>>>>>>> slightly ugly :)
->>>>>>>>>>>
->>>>>>>>>>> Not fully following - if we had to write kerneldoc for
->>>>>>>>>>> always_coherent
->>>>>>>>>>> input argument - what it would say?
->>>>>>>>>>
->>>>>>>>>> @always_coherent - If true we should always try to map the object
->>>>>>>>>> using WB. If false we should only map as WB if the device
->>>>>>>>>> supports the
->>>>>>>>>> fast shared LLC, in the case of snooped devices we will map use WC.
->>>>>>>>>> Note that If the resource is lmem then we will always map as WC,
->>>>>>>>>> regardless of the value of always_coherent, since that's all we
->>>>>>>>>> currently support.
->>>>>>>>>>
->>>>>>>>>> Maybe the naming is poor?
->>>>>>>>>
->>>>>>>>> Maybe just confusing to me, not sure yet.
->>>>>>>>>
->>>>>>>>> So always_coherent is not about how the callers wants to use it,
->>>>>>>>> but about platform knowledge? Or a performance concern for LLC vs
->>>>>>>>> snooping cases? Does WB works (coherently) on snooping platforms?
->>>>>>>>
->>>>>>>> The always_coherent=true is for the existing callers that want WB,
->>>>>>>> regardless of LLC vs snooping.
->>>>>>>>
->>>>>>>> The other callers use the existing i915_coherent_map_type() which
->>>>>>>> only gives out WB for LLC platforms.
->>>>>>>>
->>>>>>>> AFAIK, LLC vs snooping should offer the same in terms of coherency,
->>>>>>>> but in terms of performance the shared LLC is much faster, and so
->>>>>>>> for snooping platforms we choose to not enable WB everywhere.
->>>>>>>>
->>>>>>>> On top of that we now have lmem, but for that we only allow WC.
->>>>>>>> This patch just rolls all of that into one helper, while keeping
->>>>>>>> the existing behaviour unchanged.
->>>>>>>
->>>>>>> Thanks. But I am still struggling with the API. :(
->>>>>>>
->>>>>>> Is the introduction of always_coherent flag in the context of DG1
->>>>>>> required even? AFAICT for lmem objects the flag is ignored so no?
->>>>>>
->>>>>> If we drop the flag/helper thing, then we need something like:
->>>>>>
->>>>>> type = WB;
->>>>>> if (i915_gem_object_is_lmem(obj))
->>>>>>       type = WC;
->>>>>>
->>>>>> vaddr = i915_gem_object_pin_map(obj, type);
->>>>>>
->>>>>> In all the places where we currently do:
->>>>>>
->>>>>> vaddr = i915_gem_object_pin_map(obj, WB);
->>>>>>
->>>>>> Where obj can be lmem, so ctx, ring, guc etc. Is that better or
->>>>>> worse? The existing i915_coherent_map_type() callers should work
->>>>>> as-is, since DG1 is snooped. And this patch just extends that to
->>>>>> cover all cases.
->>>>>>
->>>>>> Perhaps we need a new helper instead? Maybe you have a better idea?
->>>>>
->>>>> Not yet. Would it make sense to put something in kerneldoc about when
->>>>> callers might choose always_coherent true vs false? In terms of
->>>>> expected usage (frequency, simplicity?) and any rules with regards
->>>>> when callers need to worry about flushing/ordering when there are
->>>>> mixed read and writes?
->>>>
->>>> Hmmm, looking at this again, maybe for now we should just go with:
->>>>
->>>> type = WB;
->>>> if (i915_gem_object_is_lmem(obj))
->>>>         type = WC;
->>>>
->>>> vaddr = i915_gem_object_pin_map(obj, type)
->>>>
->>>> Which is way less confusing, plus there are only a handful of places
->>>> where we need this, so doesn't seem too bad?
->>>>
->>>> Alternatively, we could wrap that in something like:
->>>>
->>>> /* Returns WB for system memory, or WC for local memory */
->>>> void *i915_gem_object_pin_map_default(obj);
->>>>
->>>> Thoughts?
->>>
->>> I went and looked at the use sites to try and figure it out.
->>>
->>> First thing, the bool always_coherent story is only relevant when we
->>> decide to place some object in system memory. Otherwise mapping is
->>> always WC so I guess our code needs to handle it anyway. Well, if the
->>> assumption is that we can change the location of the objects and it all
->>> just keeps working? Or that is not the goal?
->>
->> I guess your concern is that mapping as WC has different semantics,
->> and that might somehow break the caller?
->>
->>>
->>> Let see about the users (ignoring selftests):
->>>
->>> 1) lrc_reg_state and ring; always_coherent=false
->>>
->>> Update frequency medium and mostly write from the CPU side.
->>>
->>> They say always_coherent=false - which means they have to handle being
->>> given a WC mapping anyway.
->>>
->>> What is the benefit of ever selecting WB here?
->>>
->>> 2) Engine status page; always_coherent=true
->>>
->>> Frequently read and written from the CPU and GPU so cost of snooping is
->>> therefore fine? Apart from having to be ready to deal with WC anyway.
->>>
->>> 3) dbg_poison_ce; always_coherent=true
->>>
->>> Writes to lrc_reg_state once - meh. Could just as well always ask for WC.
->>>
->>> 4) intel_guc_allocate_and_map_vma; always_coherent=true
->>>
->>> This one has three users:
->>>
->>> a) guc_stage_desc_pool_create stage_desc_pool_vaddr
->>>
->>> This one seems write once at init.
->>>
->>> b) intel_guc_ct_init
->>>
->>> Use for CT communication so similar to CSB on engine status page in
->>> principle. But code also has to deal with WC when object is in lmem.
->>>
->>> c) intel_guc_ads_create
->>>
->>> CPU appears to only write on init and GPU reset.
->>>
->>> 5) intel_huc_rsa_data_create; always_coheret=true
->>>
->>> Called from intel_huc_init so it appears write once from CPU. Not sure
->>> why it would need a coherent mapping if that is correct.
->>>
->>> I think this exercise left me equally confused. Because flushing and
->>> read-write ordering rules are different between WB and WC. And code
->>> which accesses all these mappings either has to know which one is in
->>> use, or does not care. For the latter case we have to be sure about for
->>> every path.
->>
->> Users of pin_map() are generally meant to call flush_map() where
->> appropriate, which should do the right thing for us. For WC it only
->> needs to flush the wcb. For WB it's more complicated since that
->> depends on if the object is considered coherent or not, if it is then
->> we don't need to do anything, otherwise we need to clflush.
->>
->> Also note that we If we just map the buffer as WB, that by itself
->> doesn't magically enable snooping for the pages AFAIK. We still have
->> to tell the GPU that these pages are meant to be coherent, which we
->> always do for LLC platforms I think, since the shared LLC is
->> considered fast, whereas on snooping platforms, we don't enable this
->> by default, and have this as CACHE_NONE instead(see shmem_object_init
->> for example), and incur the cost of additional clflushing.  Doing an
->> explicit i915_gem_object_set_coherency(I915_CACHE_LLC) I think will
->> mark the object as coherent for us. I think there are also some
->> matching GTT bits for caching.
->>
->> Also for DG1 you apparently can't disable snooping, as per what Daniel
->> was saying in another thread.
->>
->>>
->>> The write on init / reset ones are easy enough and it doesn't really
->>> matter for them to use the coherent helper.
->>>
->>> Lrc_reg_state as well I think can be WC with explicit flushing - it has
->>> to on lmem, no?
->>
->> I doubt it has to be, since the GPU still just accesses it through the GTT.
->>
->>>
->>> This leaves the status page (CSB, etc) and GuC CT. Those are frequent
->>> R/W but also code has to be able to handle WC so what is the benefit of
->>> WB? It ends up faster than if it was WC, considering explicit
->>> flushes/barriers are still in there?
->>
->> No idea for GuC, but for the hwsp it's still in system memory, and is
->> WB, even for discrete. Chris measured this to be more performant with
->> our execlists submission path than say just sticking it in lmem, and
->> mapping it as WC.
-> 
-> Ping? How should we proceed with this patch?
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Alex Williamson <alex.williamson@redhat.com>
+Signed-off-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gvt/gvt.c       | 124 +------------------------
+ drivers/gpu/drm/i915/gvt/gvt.h       |   3 -
+ drivers/gpu/drm/i915/gvt/hypercall.h |   2 +-
+ drivers/gpu/drm/i915/gvt/kvmgt.c     | 129 +++++++++++++++++++++++++--
+ drivers/gpu/drm/i915/gvt/mpt.h       |   4 +-
+ 5 files changed, 126 insertions(+), 136 deletions(-)
 
-I just re-freshed my memory on when the write combine buffer gets 
-flushed and realized uncached reads are also an implicit flush. So my 
-complications from earlier reply were purely mine and I think you can 
-proceed with the patch as is.
+diff --git a/drivers/gpu/drm/i915/gvt/gvt.c b/drivers/gpu/drm/i915/gvt/gvt.c
+index e7c2babcee8b..cbac409f6c8a 100644
+--- a/drivers/gpu/drm/i915/gvt/gvt.c
++++ b/drivers/gpu/drm/i915/gvt/gvt.c
+@@ -46,118 +46,6 @@ static const char * const supported_hypervisors[] = {
+ 	[INTEL_GVT_HYPERVISOR_KVM] = "KVM",
+ };
+ 
+-static struct intel_vgpu_type *
+-intel_gvt_find_vgpu_type(struct intel_gvt *gvt, unsigned int type_group_id)
+-{
+-	if (WARN_ON(type_group_id >= gvt->num_types))
+-		return NULL;
+-	return &gvt->types[type_group_id];
+-}
+-
+-static ssize_t available_instances_show(struct mdev_type *mtype,
+-					struct mdev_type_attribute *attr,
+-					char *buf)
+-{
+-	struct intel_vgpu_type *type;
+-	unsigned int num = 0;
+-	void *gvt = kdev_to_i915(mtype_get_parent_dev(mtype))->gvt;
+-
+-	type = intel_gvt_find_vgpu_type(gvt, mtype_get_type_group_id(mtype));
+-	if (!type)
+-		num = 0;
+-	else
+-		num = type->avail_instance;
+-
+-	return sprintf(buf, "%u\n", num);
+-}
+-
+-static ssize_t device_api_show(struct mdev_type *mtype,
+-			       struct mdev_type_attribute *attr, char *buf)
+-{
+-	return sprintf(buf, "%s\n", VFIO_DEVICE_API_PCI_STRING);
+-}
+-
+-static ssize_t description_show(struct mdev_type *mtype,
+-				struct mdev_type_attribute *attr, char *buf)
+-{
+-	struct intel_vgpu_type *type;
+-	void *gvt = kdev_to_i915(mtype_get_parent_dev(mtype))->gvt;
+-
+-	type = intel_gvt_find_vgpu_type(gvt, mtype_get_type_group_id(mtype));
+-	if (!type)
+-		return 0;
+-
+-	return sprintf(buf, "low_gm_size: %dMB\nhigh_gm_size: %dMB\n"
+-		       "fence: %d\nresolution: %s\n"
+-		       "weight: %d\n",
+-		       BYTES_TO_MB(type->low_gm_size),
+-		       BYTES_TO_MB(type->high_gm_size),
+-		       type->fence, vgpu_edid_str(type->resolution),
+-		       type->weight);
+-}
+-
+-static MDEV_TYPE_ATTR_RO(available_instances);
+-static MDEV_TYPE_ATTR_RO(device_api);
+-static MDEV_TYPE_ATTR_RO(description);
+-
+-static struct attribute *gvt_type_attrs[] = {
+-	&mdev_type_attr_available_instances.attr,
+-	&mdev_type_attr_device_api.attr,
+-	&mdev_type_attr_description.attr,
+-	NULL,
+-};
+-
+-static struct attribute_group *gvt_vgpu_type_groups[] = {
+-	[0 ... NR_MAX_INTEL_VGPU_TYPES - 1] = NULL,
+-};
+-
+-static bool intel_get_gvt_attrs(struct attribute_group ***intel_vgpu_type_groups)
+-{
+-	*intel_vgpu_type_groups = gvt_vgpu_type_groups;
+-	return true;
+-}
+-
+-static int intel_gvt_init_vgpu_type_groups(struct intel_gvt *gvt)
+-{
+-	int i, j;
+-	struct intel_vgpu_type *type;
+-	struct attribute_group *group;
+-
+-	for (i = 0; i < gvt->num_types; i++) {
+-		type = &gvt->types[i];
+-
+-		group = kzalloc(sizeof(struct attribute_group), GFP_KERNEL);
+-		if (WARN_ON(!group))
+-			goto unwind;
+-
+-		group->name = type->name;
+-		group->attrs = gvt_type_attrs;
+-		gvt_vgpu_type_groups[i] = group;
+-	}
+-
+-	return 0;
+-
+-unwind:
+-	for (j = 0; j < i; j++) {
+-		group = gvt_vgpu_type_groups[j];
+-		kfree(group);
+-	}
+-
+-	return -ENOMEM;
+-}
+-
+-static void intel_gvt_cleanup_vgpu_type_groups(struct intel_gvt *gvt)
+-{
+-	int i;
+-	struct attribute_group *group;
+-
+-	for (i = 0; i < gvt->num_types; i++) {
+-		group = gvt_vgpu_type_groups[i];
+-		gvt_vgpu_type_groups[i] = NULL;
+-		kfree(group);
+-	}
+-}
+-
+ static const struct intel_gvt_ops intel_gvt_ops = {
+ 	.emulate_cfg_read = intel_vgpu_emulate_cfg_read,
+ 	.emulate_cfg_write = intel_vgpu_emulate_cfg_write,
+@@ -169,8 +57,6 @@ static const struct intel_gvt_ops intel_gvt_ops = {
+ 	.vgpu_reset = intel_gvt_reset_vgpu,
+ 	.vgpu_activate = intel_gvt_activate_vgpu,
+ 	.vgpu_deactivate = intel_gvt_deactivate_vgpu,
+-	.gvt_find_vgpu_type = intel_gvt_find_vgpu_type,
+-	.get_gvt_attrs = intel_get_gvt_attrs,
+ 	.vgpu_query_plane = intel_vgpu_query_plane,
+ 	.vgpu_get_dmabuf = intel_vgpu_get_dmabuf,
+ 	.write_protect_handler = intel_vgpu_page_track_handler,
+@@ -274,7 +160,6 @@ void intel_gvt_clean_device(struct drm_i915_private *i915)
+ 		return;
+ 
+ 	intel_gvt_destroy_idle_vgpu(gvt->idle_vgpu);
+-	intel_gvt_cleanup_vgpu_type_groups(gvt);
+ 	intel_gvt_clean_vgpu_types(gvt);
+ 
+ 	intel_gvt_debugfs_clean(gvt);
+@@ -363,12 +248,6 @@ int intel_gvt_init_device(struct drm_i915_private *i915)
+ 	if (ret)
+ 		goto out_clean_thread;
+ 
+-	ret = intel_gvt_init_vgpu_type_groups(gvt);
+-	if (ret) {
+-		gvt_err("failed to init vgpu type groups: %d\n", ret);
+-		goto out_clean_types;
+-	}
+-
+ 	vgpu = intel_gvt_create_idle_vgpu(gvt);
+ 	if (IS_ERR(vgpu)) {
+ 		ret = PTR_ERR(vgpu);
+@@ -454,7 +333,8 @@ EXPORT_SYMBOL_GPL(intel_gvt_register_hypervisor);
+ void
+ intel_gvt_unregister_hypervisor(void)
+ {
+-	intel_gvt_hypervisor_host_exit(intel_gvt_host.dev);
++	void *gvt = (void *)kdev_to_i915(intel_gvt_host.dev)->gvt;
++	intel_gvt_hypervisor_host_exit(intel_gvt_host.dev, gvt);
+ 	module_put(THIS_MODULE);
+ }
+ EXPORT_SYMBOL_GPL(intel_gvt_unregister_hypervisor);
+diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gvt.h
+index 88ab360fcb31..0c0615602343 100644
+--- a/drivers/gpu/drm/i915/gvt/gvt.h
++++ b/drivers/gpu/drm/i915/gvt/gvt.h
+@@ -574,9 +574,6 @@ struct intel_gvt_ops {
+ 	void (*vgpu_reset)(struct intel_vgpu *);
+ 	void (*vgpu_activate)(struct intel_vgpu *);
+ 	void (*vgpu_deactivate)(struct intel_vgpu *);
+-	struct intel_vgpu_type *(*gvt_find_vgpu_type)(
+-		struct intel_gvt *gvt, unsigned int type_group_id);
+-	bool (*get_gvt_attrs)(struct attribute_group ***intel_vgpu_type_groups);
+ 	int (*vgpu_query_plane)(struct intel_vgpu *vgpu, void *);
+ 	int (*vgpu_get_dmabuf)(struct intel_vgpu *vgpu, unsigned int);
+ 	int (*write_protect_handler)(struct intel_vgpu *, u64, void *,
+diff --git a/drivers/gpu/drm/i915/gvt/hypercall.h b/drivers/gpu/drm/i915/gvt/hypercall.h
+index b79da5124f83..f33e3cbd0439 100644
+--- a/drivers/gpu/drm/i915/gvt/hypercall.h
++++ b/drivers/gpu/drm/i915/gvt/hypercall.h
+@@ -49,7 +49,7 @@ enum hypervisor_type {
+ struct intel_gvt_mpt {
+ 	enum hypervisor_type type;
+ 	int (*host_init)(struct device *dev, void *gvt, const void *ops);
+-	void (*host_exit)(struct device *dev);
++	void (*host_exit)(struct device *dev, void *gvt);
+ 	int (*attach_vgpu)(void *vgpu, unsigned long *handle);
+ 	void (*detach_vgpu)(void *vgpu);
+ 	int (*inject_msi)(unsigned long handle, u32 addr, u16 data);
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index 65ff43cfc0f7..fe0ddd687d44 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -144,6 +144,112 @@ static inline bool handle_valid(unsigned long handle)
+ 	return !!(handle & ~0xff);
+ }
+ 
++static struct intel_vgpu_type *
++intel_gvt_find_vgpu_type(struct intel_gvt *gvt, unsigned int type_group_id)
++{
++	if (WARN_ON(type_group_id >= gvt->num_types))
++		return NULL;
++	return &gvt->types[type_group_id];
++}
++
++static ssize_t available_instances_show(struct mdev_type *mtype,
++					struct mdev_type_attribute *attr,
++					char *buf)
++{
++	struct intel_vgpu_type *type;
++	unsigned int num = 0;
++	void *gvt = kdev_to_i915(mtype_get_parent_dev(mtype))->gvt;
++
++	type = intel_gvt_find_vgpu_type(gvt, mtype_get_type_group_id(mtype));
++	if (!type)
++		num = 0;
++	else
++		num = type->avail_instance;
++
++	return sprintf(buf, "%u\n", num);
++}
++
++static ssize_t device_api_show(struct mdev_type *mtype,
++			       struct mdev_type_attribute *attr, char *buf)
++{
++	return sprintf(buf, "%s\n", VFIO_DEVICE_API_PCI_STRING);
++}
++
++static ssize_t description_show(struct mdev_type *mtype,
++				struct mdev_type_attribute *attr, char *buf)
++{
++	struct intel_vgpu_type *type;
++	void *gvt = kdev_to_i915(mtype_get_parent_dev(mtype))->gvt;
++
++	type = intel_gvt_find_vgpu_type(gvt, mtype_get_type_group_id(mtype));
++	if (!type)
++		return 0;
++
++	return sprintf(buf, "low_gm_size: %dMB\nhigh_gm_size: %dMB\n"
++		       "fence: %d\nresolution: %s\n"
++		       "weight: %d\n",
++		       BYTES_TO_MB(type->low_gm_size),
++		       BYTES_TO_MB(type->high_gm_size),
++		       type->fence, vgpu_edid_str(type->resolution),
++		       type->weight);
++}
++
++static MDEV_TYPE_ATTR_RO(available_instances);
++static MDEV_TYPE_ATTR_RO(device_api);
++static MDEV_TYPE_ATTR_RO(description);
++
++static struct attribute *gvt_type_attrs[] = {
++	&mdev_type_attr_available_instances.attr,
++	&mdev_type_attr_device_api.attr,
++	&mdev_type_attr_description.attr,
++	NULL,
++};
++
++static struct attribute_group *gvt_vgpu_type_groups[] = {
++	[0 ... NR_MAX_INTEL_VGPU_TYPES - 1] = NULL,
++};
++
++static int intel_gvt_init_vgpu_type_groups(struct intel_gvt *gvt)
++{
++	int i, j;
++	struct intel_vgpu_type *type;
++	struct attribute_group *group;
++
++	for (i = 0; i < gvt->num_types; i++) {
++		type = &gvt->types[i];
++
++		group = kzalloc(sizeof(struct attribute_group), GFP_KERNEL);
++		if (WARN_ON(!group))
++			goto unwind;
++
++		group->name = type->name;
++		group->attrs = gvt_type_attrs;
++		gvt_vgpu_type_groups[i] = group;
++	}
++
++	return 0;
++
++unwind:
++	for (j = 0; j < i; j++) {
++		group = gvt_vgpu_type_groups[j];
++		kfree(group);
++	}
++
++	return -ENOMEM;
++}
++
++static void intel_gvt_cleanup_vgpu_type_groups(struct intel_gvt *gvt)
++{
++	int i;
++	struct attribute_group *group;
++
++	for (i = 0; i < gvt->num_types; i++) {
++		group = gvt_vgpu_type_groups[i];
++		gvt_vgpu_type_groups[i] = NULL;
++		kfree(group);
++	}
++}
++
+ static int kvmgt_guest_init(struct mdev_device *mdev);
+ static void intel_vgpu_release_work(struct work_struct *work);
+ static bool kvmgt_guest_exit(struct kvmgt_guest_info *info);
+@@ -700,8 +806,8 @@ static int intel_vgpu_create(struct mdev_device *mdev)
+ 	pdev = mdev_parent_dev(mdev);
+ 	gvt = kdev_to_i915(pdev)->gvt;
+ 
+-	type = intel_gvt_ops->gvt_find_vgpu_type(gvt,
+-						 mdev_get_type_group_id(mdev));
++	type = intel_gvt_find_vgpu_type(gvt,
++					mdev_get_type_group_id(mdev));
+ 	if (!type) {
+ 		ret = -EINVAL;
+ 		goto out;
+@@ -1667,19 +1773,26 @@ static struct mdev_parent_ops intel_vgpu_ops = {
+ 
+ static int kvmgt_host_init(struct device *dev, void *gvt, const void *ops)
+ {
+-	struct attribute_group **kvm_vgpu_type_groups;
++	int ret;
++
++	ret = intel_gvt_init_vgpu_type_groups((struct intel_gvt *)gvt);
++	if (ret)
++		return ret;
+ 
+ 	intel_gvt_ops = ops;
+-	if (!intel_gvt_ops->get_gvt_attrs(&kvm_vgpu_type_groups))
+-		return -EFAULT;
+-	intel_vgpu_ops.supported_type_groups = kvm_vgpu_type_groups;
++	intel_vgpu_ops.supported_type_groups = gvt_vgpu_type_groups;
+ 
+-	return mdev_register_device(dev, &intel_vgpu_ops);
++	ret = mdev_register_device(dev, &intel_vgpu_ops);
++	if (ret)
++		intel_gvt_cleanup_vgpu_type_groups((struct intel_gvt *)gvt);
++
++	return ret;
+ }
+ 
+-static void kvmgt_host_exit(struct device *dev)
++static void kvmgt_host_exit(struct device *dev, void *gvt)
+ {
+ 	mdev_unregister_device(dev);
++	intel_gvt_cleanup_vgpu_type_groups((struct intel_gvt *)gvt);
+ }
+ 
+ static int kvmgt_page_track_add(unsigned long handle, u64 gfn)
+diff --git a/drivers/gpu/drm/i915/gvt/mpt.h b/drivers/gpu/drm/i915/gvt/mpt.h
+index 550a456e936f..e6c5a792a49a 100644
+--- a/drivers/gpu/drm/i915/gvt/mpt.h
++++ b/drivers/gpu/drm/i915/gvt/mpt.h
+@@ -63,13 +63,13 @@ static inline int intel_gvt_hypervisor_host_init(struct device *dev,
+ /**
+  * intel_gvt_hypervisor_host_exit - exit GVT-g host side
+  */
+-static inline void intel_gvt_hypervisor_host_exit(struct device *dev)
++static inline void intel_gvt_hypervisor_host_exit(struct device *dev, void *gvt)
+ {
+ 	/* optional to provide */
+ 	if (!intel_gvt_host.mpt->host_exit)
+ 		return;
+ 
+-	intel_gvt_host.mpt->host_exit(dev);
++	intel_gvt_host.mpt->host_exit(dev, gvt);
+ }
+ 
+ /**
+-- 
+2.31.0
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-Regards,
-
-Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
