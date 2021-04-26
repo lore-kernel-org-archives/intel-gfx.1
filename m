@@ -2,135 +2,68 @@ Return-Path: <SRS0=0znn=JX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86EB9C433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:19:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B013C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E44161073
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:19:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E44161073
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2800961263
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 09:21:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2800961263
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F27E6E18F;
-	Mon, 26 Apr 2021 09:19:15 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFA1B6ECAB;
- Fri, 23 Apr 2021 23:03:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AOMhoy2gq8WtOCOyFJTlsuR7zOUkCCyNSmh8vAM02CvDHeU+Sjsx/h00cShTAlO3AUTwhtCnhRouzZwC7Dr77XsXY9/FsMVPRsEB0LQGgDaKUayjj44qsQlf3GGRhI3TP3irfVD07U3sKu00JCxVbmDdWLaVOoygDSVA23DFOFj2AAh9SAoOISx13FZI5/9bigz/ELFa4WhpYsow46y29I2zBxUm/FQRMuih2xEffE9yEPhB87wK3o3bTfhIBr4/d4Kelha1ernbg9v8xmb0RvnxEOfX1Pb66cvkyKOqqOrWd1zhWNfuBV4mvoBQ0tarAzPMIxHjBWovgzy5Yq03ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z1q3awXFXc0HeSJQj9cfvSiNE3+Z4I+19S3I6rAVhBo=;
- b=kiXXQCWDs5kipyWD/RlfyAR6iLmGiGH0l9ggAdYC5Qiu20r9wGN9MICgVx6Ud7mFOMVSVqTZcqe/4w5s6SyPzQlnVRoWRdGz9NAo9wYJz5rICIlgyDTx1WBlzcaPr4fXfevBwahqIEkdVJumDtvaKTY6yCfZlRydHxzT0xVpjro1c7IpYdiIYCwiz/We2AVS11UhblaW9bHjKGGf1+G1faW24Z40Z9XD82mFm5NaR640awvFj1E7n2Fu/BYGL0yiy2/AsqS55i1OCp31jfCS4T79fzuR3LPBGj26/g+aVRjGpAN5xKpRcM6kUAI8TAzMIlbAiMgUikcso7H6avYleQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z1q3awXFXc0HeSJQj9cfvSiNE3+Z4I+19S3I6rAVhBo=;
- b=rryBE0YBsAknoi2eLHS2ty7caZwCYRGSUZ0JxiTERxbCoFliZp4mGzc0v1p1zMNtcOLZfc1FAN9L93khOgBGC3ckgFsT7blH1UacwSIPCBA8ZxYdh6G19tgtYu0Xp6zmPpaC5Qrug7chj6Q2imG05lMKARpbPMMzZMto92ANEM81fjgxU+PdH/umHqxHCLXw8UhkOG0ZTr4VUS6GSWO+tSyFaiL6NlWvB8AWU48M50WwbXboPfBkU3GQ5yDTi133GjCi+7KgAyrhslT11FA/AkU8nzzSQ+/2e8pDDELqCs/YBYDNCv11Iyg/rPa/ig7nNRbSRj1SD9nGGEBgqDrmdA==
-Authentication-Results: linux.ie; dkim=none (message not signed)
- header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM6PR12MB3513.namprd12.prod.outlook.com (2603:10b6:5:18a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.24; Fri, 23 Apr
- 2021 23:03:12 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::1c62:7fa3:617b:ab87]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::1c62:7fa3:617b:ab87%6]) with mapi id 15.20.4065.023; Fri, 23 Apr 2021
- 23:03:12 +0000
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
- Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Eric Farman <farman@linux.ibm.com>,
- Harald Freudenberger <freude@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
- Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
- linux-s390@vger.kernel.org, Peter Oberparleiter <oberpar@linux.ibm.com>,
- Halil Pasic <pasic@linux.ibm.com>, Pierre Morel <pmorel@linux.ibm.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
-Date: Fri, 23 Apr 2021 20:02:57 -0300
-Message-Id: <0-v1-d88406ed308e+418-vfio3_jgg@nvidia.com>
-X-Originating-IP: [47.55.113.94]
-X-ClientProxiedBy: MN2PR03CA0029.namprd03.prod.outlook.com
- (2603:10b6:208:23a::34) To DM6PR12MB3834.namprd12.prod.outlook.com
- (2603:10b6:5:14a::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF826E194;
+	Mon, 26 Apr 2021 09:21:14 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 463796E194;
+ Mon, 26 Apr 2021 09:21:13 +0000 (UTC)
+IronPort-SDR: lIcAbPAMaGFUI2cexdpCrZAiAkhfBAk98nkaHRgDykMrq9qqMSETeflmoT7BpIjXACTNTx8I4b
+ sMV6l2enAu3g==
+X-IronPort-AV: E=McAfee;i="6200,9189,9965"; a="194188331"
+X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="194188331"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2021 02:21:12 -0700
+IronPort-SDR: XApczgaA7qtn7G0vg5iuSgilz5Ke2hjXLwMIEQMfNuedyHRvysQ2yrW8IB/tJnjSHA0hHlnu7y
+ yy8fUFCEe17Q==
+X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="429328024"
+Received: from jmwalsh-mobl.amr.corp.intel.com (HELO [10.213.207.212])
+ ([10.213.207.212])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2021 02:21:10 -0700
+To: Matthew Auld <matthew.william.auld@gmail.com>
+References: <20210412090526.30547-1-matthew.auld@intel.com>
+ <20210412090526.30547-12-matthew.auld@intel.com>
+ <7bc2a663-fbc0-6486-341a-7dca980c2440@linux.intel.com>
+ <CAM0jSHNhWcscW9txPDyKActTiTWjzhASJb5xC8XPzHeN+Y18QA@mail.gmail.com>
+ <9aca524c-3710-dfaa-bfec-aef76aee7b26@linux.intel.com>
+ <CAM0jSHN57bwK6f=tH59iAO5R5WpWfZOw56tsjzxVuJf8SkM+vw@mail.gmail.com>
+ <ed521b72-4dd0-2b0f-e313-5fc31c37fae1@linux.intel.com>
+ <55e16b78-d9ee-a0ad-5877-9901cf74669f@intel.com>
+ <5701f034-3da9-55d2-e966-33afb7236b8b@linux.intel.com>
+ <0b1b88db-da62-841d-23cd-7902c9a78b77@intel.com>
+ <7b108dc9-b03c-2f9c-0d44-cb672daec9ae@linux.intel.com>
+ <f0e1ad21-397b-5c32-a368-febfd877f5f3@intel.com>
+ <0be7012c-c889-c5c5-6624-2f63b9daf46b@linux.intel.com>
+ <CAM0jSHMBTFuO8Th6NDQpGhzr9XtP_zczKSjDiD3Q5onV5MLdYA@mail.gmail.com>
+ <CAM0jSHN=08bmcZ+BgmEkZkZu8-1VwzEi_tSgkWv88We5rAm=xw@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <883dfc43-0fcd-7a3b-5701-d5726eed9992@linux.intel.com>
+Date: Mon, 26 Apr 2021 10:21:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mlx.ziepe.ca (47.55.113.94) by
- MN2PR03CA0029.namprd03.prod.outlook.com (2603:10b6:208:23a::34) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21 via Frontend
- Transport; Fri, 23 Apr 2021 23:03:11 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1la4pJ-00CHzN-Rw; Fri, 23 Apr 2021 20:03:09 -0300
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9968fa12-eaf0-461e-e4d2-08d906abf773
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3513:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB35130152B4EFCA1617CD329EC2459@DM6PR12MB3513.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ctLpHlofG94OpLseATQrveyh5x4Mb6i6rrsuIhmjnHqO93zX4yo0J/hZX2UXank91gP3xsU2kE9HwlPt7ARHZTitI3tl8QVs6V+vE/OrFPDblr4sZSIaJ5UxL0PdyTaxhEm17g7jQq12qMENgJAIjy+kUlpsixX0z5MQ86TS46d471ZF5n6ix+XxrxHpEBY7geLvT5jOzZpLV16LcjoP4vDjURrL2HHQERNPzoCgRzN8mZ89aLSbX0gc2JJMFjsnjeDbStuo84agXfPgEaH5L4RC7LFJO1ixFap977ARGurMvUBGXBp2UFe96QUN3kPGYYMn1KvffKzKPLplycQwLTOrZV9xwKYdOLTe4xyxGo+HpI/vZjgol4wjQGqvFVg+h5kQtGl7cIgpFJijZ7DM487zkh9gm+t8JBB8fC+o0Q3NJB5ZCSb//ygXru1JQV6dn2YnfCPgtPL/0Wf7sxSdcR/2MviJhtc3PCaa44/YAJtjPmtxoMGDCvVgZBesyWbkNfAyXHi3WR20d5Nu0N/7YxY6KkrNL1Swz/EG/9UAVlJa2RjA4TTS+bXSFKo2NON9Fj5ugF3khD9proc6QsWWBdeBUh9zD++q2ha0P93Bfj75MhERlYC/kTBpyoGExR9+A4dOVz/BE1UkDRDqwp4lEBRK7goQwAfDXFJjWHiQWFPX9oalEuEFEAxOoFWe72w4IrzZlSMnU86/OTEGsPBuIzklgC5oLieJ8hMBjA3owYmZ2+W0TfM1agiXBRQYS33F
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3834.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(39860400002)(366004)(346002)(136003)(36756003)(66556008)(26005)(66476007)(107886003)(426003)(8936002)(966005)(83380400001)(921005)(9786002)(5660300002)(186003)(86362001)(9746002)(54906003)(38100700002)(2616005)(316002)(8676002)(7416002)(2906002)(4326008)(110136005)(66946007)(6666004)(478600001)(4216001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?VXgrX+fgiJs+QUN3+SYC+p8lyHPYCuPDQgQp2ASt/wUcgj9djMx4wgq4vCc1?=
- =?us-ascii?Q?xbsEVCMLaavezmsIgq6VGDX5TRVTJxhGgtem5NZoJtK8cC+EpXs45G906SX2?=
- =?us-ascii?Q?khxDNyMZXH+xoUbvOc0Tz0LKyDiRlz6ZMwXzx/GaFJ772bHFin23qV9D6mFv?=
- =?us-ascii?Q?qZICoGApfgHNW66M8q1QX+Eo/Pu2dwFXLzmFJTAWsX6KWxbctWe4VP9qcsMx?=
- =?us-ascii?Q?HVj0RqugI+2Vzej9RsU80xDmEnriDAvwnwfNQr+Z9Kg4UcoJZAfT0+w6UABb?=
- =?us-ascii?Q?WIXRviNsRkMa404T+zRG9g0uQXrq7sYgdkqMhdEweTo9aw92AN7HFy/P49w9?=
- =?us-ascii?Q?vSK3vcC1R6eoZjm55TaI04HwGmGMRCH3CQvJZxKDYc8n102f306NkZAvm4Ld?=
- =?us-ascii?Q?AnjA6wsgmz/YlYI3+JmmEcbR8ummutJ5f/UTubmi/jNa2OVGhGtmjrFxiAKv?=
- =?us-ascii?Q?x9xnBkEQ9InyJqh0lKGOq/Z+io3ZS63NcTjNVOgh2w8cdLIKuGTatjQwiCFz?=
- =?us-ascii?Q?qZIz26oR+9gUKA8dsx3xMic9BWaxXVMen49HLTMBBiWJJAKWbFMgCifA65RG?=
- =?us-ascii?Q?0lKa/tNv3v9UBpp5f2uTQFgbrj54Oi0gS/aKLUWfx0lGHOhArBFgNhgOrYrV?=
- =?us-ascii?Q?Er5BHL191CDFQnN6MUeNe6vU7S6gE2SrS9+MnjWxYL7jYZ9/OeF1Yel8RDVy?=
- =?us-ascii?Q?LXh2CjB4vKYS+pO7mAKZizIl0sSbiDCLXIQUW6yhYbqVLUFPvWpLFBGtdO7n?=
- =?us-ascii?Q?3WnlCDnNbeqTaPv894RuTq/8tLVqfqY2LrrR9v6LjV/kih6VRMjTWiF/l5pN?=
- =?us-ascii?Q?5wo0k0j9gJdb/GRtKrW/04cVE+G5jCF7eym0vu+UthLFhyzTZrla8gJ+jp3N?=
- =?us-ascii?Q?TAnUunkIjy2Ss6wMZFQeIlOCscz6XlHDJryGuhvVa4yDxL6IoMxUwNJZ7a4y?=
- =?us-ascii?Q?BDu2Lv/Ne9lm/N6QBJ4wNt2ClY0Wczhq8s6FP16vjbThaalYpTqQ54u59X7d?=
- =?us-ascii?Q?kPbmYNnS/CrbMLwnw633TmCcfzs3wtACfZnG1PezawJ27GV3Fa6Fb6y5b4vG?=
- =?us-ascii?Q?5H6EpWM3tdRZHkemrAT3dD9L1768UuD1jRVs79FObPnBLJiZlD6FvQp8iBrQ?=
- =?us-ascii?Q?SRcXwMuuc0aNnBkL5C/JAiwZhzGV2sI1ZPpUohJQrykwtKLSneZhasOWzvwY?=
- =?us-ascii?Q?jLS1WJn0IbNbp4bj4oarjx/PU4ikOtzN8vmLRdgTSQuYEkeVkmFYJ2tn1Hit?=
- =?us-ascii?Q?OSpCiAksf+8jvY1bfdgBqk/m18JRlAKiO3/G9lcoJxNip2aWLS26HOt3LRNl?=
- =?us-ascii?Q?uVifPPzNf+bx+asjJO+oNeoq?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9968fa12-eaf0-461e-e4d2-08d906abf773
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3834.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2021 23:03:11.2646 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: joRzQB4TY1WpZVYmE6KMyo6Q6PIrdd94BtIriL6zAtcQjA/MZG2F0sHPnlrfBRz+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3513
-X-Mailman-Approved-At: Mon, 26 Apr 2021 09:19:07 +0000
-Subject: [Intel-gfx] [PATCH 00/12] Remove vfio_mdev.c,
- mdev_parent_ops and more
+In-Reply-To: <CAM0jSHN=08bmcZ+BgmEkZkZu8-1VwzEi_tSgkWv88We5rAm=xw@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 11/19] drm/i915: Update the helper to set
+ correct mapping
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,109 +76,490 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Max Gurtovoy <mgurtovoy@nvidia.com>, "Raj, Ashok" <ashok.raj@intel.com>,
- Tarun Gupta <targupta@nvidia.com>, Dan Williams <dan.j.williams@intel.com>,
- Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prologue
-========
 
-This is series #3 in part of a larger work that arose from the minor
-remark that the mdev_parent_ops indirection shim is useless and
-complicates things.
+On 26/04/2021 09:57, Matthew Auld wrote:
+> On Wed, 21 Apr 2021 at 20:13, Matthew Auld
+> <matthew.william.auld@gmail.com> wrote:
+>>
+>> On Wed, 21 Apr 2021 at 16:41, Tvrtko Ursulin
+>> <tvrtko.ursulin@linux.intel.com> wrote:
+>>>
+>>>
+>>> On 21/04/2021 12:42, Matthew Auld wrote:
+>>>> On 19/04/2021 16:01, Tvrtko Ursulin wrote:
+>>>>>
+>>>>> On 19/04/2021 15:37, Matthew Auld wrote:
+>>>>>> On 19/04/2021 15:07, Tvrtko Ursulin wrote:
+>>>>>>>
+>>>>>>> On 19/04/2021 12:30, Matthew Auld wrote:
+>>>>>>>> On 15/04/2021 12:05, Tvrtko Ursulin wrote:
+>>>>>>>>>
+>>>>>>>>> On 15/04/2021 10:23, Matthew Auld wrote:
+>>>>>>>>>> On Thu, 15 Apr 2021 at 09:21, Tvrtko Ursulin
+>>>>>>>>>> <tvrtko.ursulin@linux.intel.com> wrote:
+>>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>> On 14/04/2021 17:20, Matthew Auld wrote:
+>>>>>>>>>>>> On Wed, 14 Apr 2021 at 16:22, Tvrtko Ursulin
+>>>>>>>>>>>> <tvrtko.ursulin@linux.intel.com> wrote:
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> On 12/04/2021 10:05, Matthew Auld wrote:
+>>>>>>>>>>>>>> From: Venkata Sandeep Dhanalakota
+>>>>>>>>>>>>>> <venkata.s.dhanalakota@intel.com>
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> Determine the possible coherent map type based on object
+>>>>>>>>>>>>>> location,
+>>>>>>>>>>>>>> and if target has llc or if user requires an always coherent
+>>>>>>>>>>>>>> mapping.
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>>>>>>>>>>>>> Cc: CQ Tang <cq.tang@intel.com>
+>>>>>>>>>>>>>> Suggested-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+>>>>>>>>>>>>>> Signed-off-by: Venkata Sandeep Dhanalakota
+>>>>>>>>>>>>>> <venkata.s.dhanalakota@intel.com>
+>>>>>>>>>>>>>> ---
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  3 ++-
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/intel_engine_pm.c    |  2 +-
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/intel_lrc.c          |  4 +++-
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/intel_ring.c         |  9 ++++++---
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/selftest_context.c   |  3 ++-
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/selftest_hangcheck.c |  4 ++--
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/selftest_lrc.c       |  4 +++-
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/uc/intel_guc.c       |  4 +++-
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/gt/uc/intel_huc.c       |  4 +++-
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/i915_drv.h              | 11
+>>>>>>>>>>>>>> +++++++++--
+>>>>>>>>>>>>>>      drivers/gpu/drm/i915/selftests/igt_spinner.c |  4 ++--
+>>>>>>>>>>>>>>      11 files changed, 36 insertions(+), 16 deletions(-)
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>>>>>>>>>>>>> index efe935f80c1a..b79568d370f5 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>>>>>>>>>>>>> @@ -664,7 +664,8 @@ static int init_status_page(struct
+>>>>>>>>>>>>>> intel_engine_cs *engine)
+>>>>>>>>>>>>>>          if (ret)
+>>>>>>>>>>>>>>                  goto err;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> -     vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
+>>>>>>>>>>>>>> +     vaddr = i915_gem_object_pin_map(obj,
+>>>>>>>>>>>>>> + i915_coherent_map_type(engine->i915, obj, true));
+>>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
+>>>>>>>>>>>>>>                  ret = PTR_ERR(vaddr);
+>>>>>>>>>>>>>>                  goto err_unpin;
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+>>>>>>>>>>>>>> index 7c9af86fdb1e..47f4397095e5 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+>>>>>>>>>>>>>> @@ -23,7 +23,7 @@ static void dbg_poison_ce(struct
+>>>>>>>>>>>>>> intel_context *ce)
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>          if (ce->state) {
+>>>>>>>>>>>>>>                  struct drm_i915_gem_object *obj =
+>>>>>>>>>>>>>> ce->state->obj;
+>>>>>>>>>>>>>> -             int type =
+>>>>>>>>>>>>>> i915_coherent_map_type(ce->engine->i915);
+>>>>>>>>>>>>>> +             int type =
+>>>>>>>>>>>>>> i915_coherent_map_type(ce->engine->i915, obj, true);
+>>>>>>>>>>>>>>                  void *map;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>                  if (!i915_gem_object_trylock(obj))
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/intel_lrc.c
+>>>>>>>>>>>>>> index e86897cde984..aafe2a4df496 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+>>>>>>>>>>>>>> @@ -903,7 +903,9 @@ lrc_pre_pin(struct intel_context *ce,
+>>>>>>>>>>>>>>          GEM_BUG_ON(!i915_vma_is_pinned(ce->state));
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>          *vaddr = i915_gem_object_pin_map(ce->state->obj,
+>>>>>>>>>>>>>> - i915_coherent_map_type(ce->engine->i915) |
+>>>>>>>>>>>>>> + i915_coherent_map_type(ce->engine->i915,
+>>>>>>>>>>>>>> + ce->state->obj,
+>>>>>>>>>>>>>> + false) |
+>>>>>>>>>>>>>>                                           I915_MAP_OVERRIDE);
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>          return PTR_ERR_OR_ZERO(*vaddr);
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_ring.c
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/intel_ring.c
+>>>>>>>>>>>>>> index aee0a77c77e0..3cf6c7e68108 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/intel_ring.c
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_ring.c
+>>>>>>>>>>>>>> @@ -53,9 +53,12 @@ int intel_ring_pin(struct intel_ring
+>>>>>>>>>>>>>> *ring, struct i915_gem_ww_ctx *ww)
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>          if (i915_vma_is_map_and_fenceable(vma))
+>>>>>>>>>>>>>>                  addr = (void __force *)i915_vma_pin_iomap(vma);
+>>>>>>>>>>>>>> -     else
+>>>>>>>>>>>>>> -             addr = i915_gem_object_pin_map(vma->obj,
+>>>>>>>>>>>>>> - i915_coherent_map_type(vma->vm->i915));
+>>>>>>>>>>>>>> +     else {
+>>>>>>>>>>>>>> +             int type =
+>>>>>>>>>>>>>> i915_coherent_map_type(vma->vm->i915, vma->obj, false);
+>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>> +             addr = i915_gem_object_pin_map(vma->obj, type);
+>>>>>>>>>>>>>> +     }
+>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>          if (IS_ERR(addr)) {
+>>>>>>>>>>>>>>                  ret = PTR_ERR(addr);
+>>>>>>>>>>>>>>                  goto err_ring;
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/selftest_context.c
+>>>>>>>>>>>>>> index b9bdd1d23243..26685b927169 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/selftest_context.c
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/selftest_context.c
+>>>>>>>>>>>>>> @@ -88,7 +88,8 @@ static int __live_context_size(struct
+>>>>>>>>>>>>>> intel_engine_cs *engine)
+>>>>>>>>>>>>>>                  goto err;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>          vaddr = i915_gem_object_pin_map_unlocked(ce->state->obj,
+>>>>>>>>>>>>>> - i915_coherent_map_type(engine->i915));
+>>>>>>>>>>>>>> + i915_coherent_map_type(engine->i915,
+>>>>>>>>>>>>>> + ce->state->obj, false));
+>>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
+>>>>>>>>>>>>>>                  err = PTR_ERR(vaddr);
+>>>>>>>>>>>>>>                  intel_context_unpin(ce);
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+>>>>>>>>>>>>>> index 746985971c3a..5b63d4df8c93 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+>>>>>>>>>>>>>> @@ -69,7 +69,7 @@ static int hang_init(struct hang *h, struct
+>>>>>>>>>>>>>> intel_gt *gt)
+>>>>>>>>>>>>>>          h->seqno = memset(vaddr, 0xff, PAGE_SIZE);
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>          vaddr = i915_gem_object_pin_map_unlocked(h->obj,
+>>>>>>>>>>>>>> - i915_coherent_map_type(gt->i915));
+>>>>>>>>>>>>>> + i915_coherent_map_type(gt->i915, h->obj, false));
+>>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
+>>>>>>>>>>>>>>                  err = PTR_ERR(vaddr);
+>>>>>>>>>>>>>>                  goto err_unpin_hws;
+>>>>>>>>>>>>>> @@ -130,7 +130,7 @@ hang_create_request(struct hang *h,
+>>>>>>>>>>>>>> struct intel_engine_cs *engine)
+>>>>>>>>>>>>>>                  return ERR_CAST(obj);
+>>>>>>>>>>>>>>          }
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> -     vaddr = i915_gem_object_pin_map_unlocked(obj,
+>>>>>>>>>>>>>> i915_coherent_map_type(gt->i915));
+>>>>>>>>>>>>>> +     vaddr = i915_gem_object_pin_map_unlocked(obj,
+>>>>>>>>>>>>>> i915_coherent_map_type(gt->i915, obj, false));
+>>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
+>>>>>>>>>>>>>>                  i915_gem_object_put(obj);
+>>>>>>>>>>>>>>                  i915_vm_put(vm);
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+>>>>>>>>>>>>>> index 85e7df6a5123..d8f6623524e8 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+>>>>>>>>>>>>>> @@ -1221,7 +1221,9 @@ static int compare_isolation(struct
+>>>>>>>>>>>>>> intel_engine_cs *engine,
+>>>>>>>>>>>>>>          }
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>          lrc = i915_gem_object_pin_map_unlocked(ce->state->obj,
+>>>>>>>>>>>>>> - i915_coherent_map_type(engine->i915));
+>>>>>>>>>>>>>> + i915_coherent_map_type(engine->i915,
+>>>>>>>>>>>>>> + ce->state->obj,
+>>>>>>>>>>>>>> + false));
+>>>>>>>>>>>>>>          if (IS_ERR(lrc)) {
+>>>>>>>>>>>>>>                  err = PTR_ERR(lrc);
+>>>>>>>>>>>>>>                  goto err_B1;
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+>>>>>>>>>>>>>> index 78305b2ec89d..adae04c47aab 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+>>>>>>>>>>>>>> @@ -682,7 +682,9 @@ int intel_guc_allocate_and_map_vma(struct
+>>>>>>>>>>>>>> intel_guc *guc, u32 size,
+>>>>>>>>>>>>>>          if (IS_ERR(vma))
+>>>>>>>>>>>>>>                  return PTR_ERR(vma);
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> -     vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
+>>>>>>>>>>>>>> I915_MAP_WB);
+>>>>>>>>>>>>>> +     vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
+>>>>>>>>>>>>>> + i915_coherent_map_type(guc_to_gt(guc)->i915,
+>>>>>>>>>>>>>> + vma->obj, true));
+>>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
+>>>>>>>>>>>>>>                  i915_vma_unpin_and_release(&vma, 0);
+>>>>>>>>>>>>>>                  return PTR_ERR(vaddr);
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+>>>>>>>>>>>>>> index 2126dd81ac38..56d2144dc6a0 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+>>>>>>>>>>>>>> @@ -82,7 +82,9 @@ static int intel_huc_rsa_data_create(struct
+>>>>>>>>>>>>>> intel_huc *huc)
+>>>>>>>>>>>>>>          if (IS_ERR(vma))
+>>>>>>>>>>>>>>                  return PTR_ERR(vma);
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> -     vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
+>>>>>>>>>>>>>> I915_MAP_WB);
+>>>>>>>>>>>>>> +     vaddr = i915_gem_object_pin_map_unlocked(vma->obj,
+>>>>>>>>>>>>>> + i915_coherent_map_type(gt->i915,
+>>>>>>>>>>>>>> + vma->obj, true));
+>>>>>>>>>>>>>>          if (IS_ERR(vaddr)) {
+>>>>>>>>>>>>>>                  i915_vma_unpin_and_release(&vma, 0);
+>>>>>>>>>>>>>>                  return PTR_ERR(vaddr);
+>>>>>>>>>>>>>> diff --git a/drivers/gpu/drm/i915/i915_drv.h
+>>>>>>>>>>>>>> b/drivers/gpu/drm/i915/i915_drv.h
+>>>>>>>>>>>>>> index 69e43bf91a15..2abbc06712a4 100644
+>>>>>>>>>>>>>> --- a/drivers/gpu/drm/i915/i915_drv.h
+>>>>>>>>>>>>>> +++ b/drivers/gpu/drm/i915/i915_drv.h
+>>>>>>>>>>>>>> @@ -78,6 +78,7 @@
+>>>>>>>>>>>>>>      #include "gem/i915_gem_context_types.h"
+>>>>>>>>>>>>>>      #include "gem/i915_gem_shrinker.h"
+>>>>>>>>>>>>>>      #include "gem/i915_gem_stolen.h"
+>>>>>>>>>>>>>> +#include "gem/i915_gem_lmem.h"
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>      #include "gt/intel_engine.h"
+>>>>>>>>>>>>>>      #include "gt/intel_gt_types.h"
+>>>>>>>>>>>>>> @@ -1921,9 +1922,15 @@ static inline int
+>>>>>>>>>>>>>> intel_hws_csb_write_index(struct drm_i915_private *i915)
+>>>>>>>>>>>>>>      }
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>      static inline enum i915_map_type
+>>>>>>>>>>>>>> -i915_coherent_map_type(struct drm_i915_private *i915)
+>>>>>>>>>>>>>> +i915_coherent_map_type(struct drm_i915_private *i915,
+>>>>>>>>>>>>>> +                    struct drm_i915_gem_object *obj, bool
+>>>>>>>>>>>>>> always_coherent)
+>>>>>>>>>>>>>>      {
+>>>>>>>>>>>>>> -     return HAS_LLC(i915) ? I915_MAP_WB : I915_MAP_WC;
+>>>>>>>>>>>>>> +     if (i915_gem_object_is_lmem(obj))
+>>>>>>>>>>>>>> +             return I915_MAP_WC;
+>>>>>>>>>>>>>> +     if (HAS_LLC(i915) || always_coherent)
+>>>>>>>>>>>>>> +             return I915_MAP_WB;
+>>>>>>>>>>>>>> +     else
+>>>>>>>>>>>>>> +             return I915_MAP_WC;
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Seems this patch is doing two things.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> First it is adding lmem support to this helper by always
+>>>>>>>>>>>>> returning WC
+>>>>>>>>>>>>> for lmem objects.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Secondly it is introducing an idea of "always coherent" in a
+>>>>>>>>>>>>> helper
+>>>>>>>>>>>>> called i915_coherent_map_type. Could someone explain what is
+>>>>>>>>>>>>> coherent vs
+>>>>>>>>>>>>> always coherent?
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> And also, why is always coherent happy with WB? Sounds counter
+>>>>>>>>>>>>> intuitive
+>>>>>>>>>>>>> to me.
+>>>>>>>>>>>>
+>>>>>>>>>>>> All this does is try to keep the existing behaviour intact, whilst
+>>>>>>>>>>>> also ensuring that all lmem objects are mapped using only WC, no
+>>>>>>>>>>>> matter what. The always_coherent=true thing is for the existing
+>>>>>>>>>>>> places
+>>>>>>>>>>>> where we sometimes map the object using WB, without first
+>>>>>>>>>>>> considering
+>>>>>>>>>>>> whether the device has the fast shared LLC vs snooping. Yes, it's
+>>>>>>>>>>>> slightly ugly :)
+>>>>>>>>>>>
+>>>>>>>>>>> Not fully following - if we had to write kerneldoc for
+>>>>>>>>>>> always_coherent
+>>>>>>>>>>> input argument - what it would say?
+>>>>>>>>>>
+>>>>>>>>>> @always_coherent - If true we should always try to map the object
+>>>>>>>>>> using WB. If false we should only map as WB if the device
+>>>>>>>>>> supports the
+>>>>>>>>>> fast shared LLC, in the case of snooped devices we will map use WC.
+>>>>>>>>>> Note that If the resource is lmem then we will always map as WC,
+>>>>>>>>>> regardless of the value of always_coherent, since that's all we
+>>>>>>>>>> currently support.
+>>>>>>>>>>
+>>>>>>>>>> Maybe the naming is poor?
+>>>>>>>>>
+>>>>>>>>> Maybe just confusing to me, not sure yet.
+>>>>>>>>>
+>>>>>>>>> So always_coherent is not about how the callers wants to use it,
+>>>>>>>>> but about platform knowledge? Or a performance concern for LLC vs
+>>>>>>>>> snooping cases? Does WB works (coherently) on snooping platforms?
+>>>>>>>>
+>>>>>>>> The always_coherent=true is for the existing callers that want WB,
+>>>>>>>> regardless of LLC vs snooping.
+>>>>>>>>
+>>>>>>>> The other callers use the existing i915_coherent_map_type() which
+>>>>>>>> only gives out WB for LLC platforms.
+>>>>>>>>
+>>>>>>>> AFAIK, LLC vs snooping should offer the same in terms of coherency,
+>>>>>>>> but in terms of performance the shared LLC is much faster, and so
+>>>>>>>> for snooping platforms we choose to not enable WB everywhere.
+>>>>>>>>
+>>>>>>>> On top of that we now have lmem, but for that we only allow WC.
+>>>>>>>> This patch just rolls all of that into one helper, while keeping
+>>>>>>>> the existing behaviour unchanged.
+>>>>>>>
+>>>>>>> Thanks. But I am still struggling with the API. :(
+>>>>>>>
+>>>>>>> Is the introduction of always_coherent flag in the context of DG1
+>>>>>>> required even? AFAICT for lmem objects the flag is ignored so no?
+>>>>>>
+>>>>>> If we drop the flag/helper thing, then we need something like:
+>>>>>>
+>>>>>> type = WB;
+>>>>>> if (i915_gem_object_is_lmem(obj))
+>>>>>>       type = WC;
+>>>>>>
+>>>>>> vaddr = i915_gem_object_pin_map(obj, type);
+>>>>>>
+>>>>>> In all the places where we currently do:
+>>>>>>
+>>>>>> vaddr = i915_gem_object_pin_map(obj, WB);
+>>>>>>
+>>>>>> Where obj can be lmem, so ctx, ring, guc etc. Is that better or
+>>>>>> worse? The existing i915_coherent_map_type() callers should work
+>>>>>> as-is, since DG1 is snooped. And this patch just extends that to
+>>>>>> cover all cases.
+>>>>>>
+>>>>>> Perhaps we need a new helper instead? Maybe you have a better idea?
+>>>>>
+>>>>> Not yet. Would it make sense to put something in kerneldoc about when
+>>>>> callers might choose always_coherent true vs false? In terms of
+>>>>> expected usage (frequency, simplicity?) and any rules with regards
+>>>>> when callers need to worry about flushing/ordering when there are
+>>>>> mixed read and writes?
+>>>>
+>>>> Hmmm, looking at this again, maybe for now we should just go with:
+>>>>
+>>>> type = WB;
+>>>> if (i915_gem_object_is_lmem(obj))
+>>>>         type = WC;
+>>>>
+>>>> vaddr = i915_gem_object_pin_map(obj, type)
+>>>>
+>>>> Which is way less confusing, plus there are only a handful of places
+>>>> where we need this, so doesn't seem too bad?
+>>>>
+>>>> Alternatively, we could wrap that in something like:
+>>>>
+>>>> /* Returns WB for system memory, or WC for local memory */
+>>>> void *i915_gem_object_pin_map_default(obj);
+>>>>
+>>>> Thoughts?
+>>>
+>>> I went and looked at the use sites to try and figure it out.
+>>>
+>>> First thing, the bool always_coherent story is only relevant when we
+>>> decide to place some object in system memory. Otherwise mapping is
+>>> always WC so I guess our code needs to handle it anyway. Well, if the
+>>> assumption is that we can change the location of the objects and it all
+>>> just keeps working? Or that is not the goal?
+>>
+>> I guess your concern is that mapping as WC has different semantics,
+>> and that might somehow break the caller?
+>>
+>>>
+>>> Let see about the users (ignoring selftests):
+>>>
+>>> 1) lrc_reg_state and ring; always_coherent=false
+>>>
+>>> Update frequency medium and mostly write from the CPU side.
+>>>
+>>> They say always_coherent=false - which means they have to handle being
+>>> given a WC mapping anyway.
+>>>
+>>> What is the benefit of ever selecting WB here?
+>>>
+>>> 2) Engine status page; always_coherent=true
+>>>
+>>> Frequently read and written from the CPU and GPU so cost of snooping is
+>>> therefore fine? Apart from having to be ready to deal with WC anyway.
+>>>
+>>> 3) dbg_poison_ce; always_coherent=true
+>>>
+>>> Writes to lrc_reg_state once - meh. Could just as well always ask for WC.
+>>>
+>>> 4) intel_guc_allocate_and_map_vma; always_coherent=true
+>>>
+>>> This one has three users:
+>>>
+>>> a) guc_stage_desc_pool_create stage_desc_pool_vaddr
+>>>
+>>> This one seems write once at init.
+>>>
+>>> b) intel_guc_ct_init
+>>>
+>>> Use for CT communication so similar to CSB on engine status page in
+>>> principle. But code also has to deal with WC when object is in lmem.
+>>>
+>>> c) intel_guc_ads_create
+>>>
+>>> CPU appears to only write on init and GPU reset.
+>>>
+>>> 5) intel_huc_rsa_data_create; always_coheret=true
+>>>
+>>> Called from intel_huc_init so it appears write once from CPU. Not sure
+>>> why it would need a coherent mapping if that is correct.
+>>>
+>>> I think this exercise left me equally confused. Because flushing and
+>>> read-write ordering rules are different between WB and WC. And code
+>>> which accesses all these mappings either has to know which one is in
+>>> use, or does not care. For the latter case we have to be sure about for
+>>> every path.
+>>
+>> Users of pin_map() are generally meant to call flush_map() where
+>> appropriate, which should do the right thing for us. For WC it only
+>> needs to flush the wcb. For WB it's more complicated since that
+>> depends on if the object is considered coherent or not, if it is then
+>> we don't need to do anything, otherwise we need to clflush.
+>>
+>> Also note that we If we just map the buffer as WB, that by itself
+>> doesn't magically enable snooping for the pages AFAIK. We still have
+>> to tell the GPU that these pages are meant to be coherent, which we
+>> always do for LLC platforms I think, since the shared LLC is
+>> considered fast, whereas on snooping platforms, we don't enable this
+>> by default, and have this as CACHE_NONE instead(see shmem_object_init
+>> for example), and incur the cost of additional clflushing.  Doing an
+>> explicit i915_gem_object_set_coherency(I915_CACHE_LLC) I think will
+>> mark the object as coherent for us. I think there are also some
+>> matching GTT bits for caching.
+>>
+>> Also for DG1 you apparently can't disable snooping, as per what Daniel
+>> was saying in another thread.
+>>
+>>>
+>>> The write on init / reset ones are easy enough and it doesn't really
+>>> matter for them to use the coherent helper.
+>>>
+>>> Lrc_reg_state as well I think can be WC with explicit flushing - it has
+>>> to on lmem, no?
+>>
+>> I doubt it has to be, since the GPU still just accesses it through the GTT.
+>>
+>>>
+>>> This leaves the status page (CSB, etc) and GuC CT. Those are frequent
+>>> R/W but also code has to be able to handle WC so what is the benefit of
+>>> WB? It ends up faster than if it was WC, considering explicit
+>>> flushes/barriers are still in there?
+>>
+>> No idea for GuC, but for the hwsp it's still in system memory, and is
+>> WB, even for discrete. Chris measured this to be more performant with
+>> our execlists submission path than say just sticking it in lmem, and
+>> mapping it as WC.
+> 
+> Ping? How should we proceed with this patch?
 
-It applies on top of Alex's current tree and requires the prior two
-series.
+I just re-freshed my memory on when the write combine buffer gets 
+flushed and realized uncached reads are also an implicit flush. So my 
+complications from earlier reply were purely mine and I think you can 
+proceed with the patch as is.
 
-This series achieves the removal of vfio_mdev.c. The future patches are all
-focused on leveraging the changes made in the prior series to simplify the
-API and device operation.
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-A preview of the future series's is here:
-  https://github.com/jgunthorpe/linux/pull/3/commits
+Regards,
 
-========
-
-The mdev bus's core part for managing the lifecycle of devices is mostly
-as one would expect for a driver core bus subsystem.
-
-However instead of having a normal 'struct device_driver' and binding the
-actual mdev drivers through the standard driver core mechanisms it open
-codes this with the struct mdev_parent_ops and provides a single driver
-that shims between the VFIO core and the actual device driver.
-
-Make every one of the mdev drivers implement an actual struct mdev_driver
-and directly call vfio_register_group_dev() in the probe() function for
-the mdev.
-
-Squash what is left of the mdev_parent_ops into the mdev_driver and remap
-create(), remove() and mdev_attr_groups to their driver core
-equivalents. Arrange to bind the created mdev_device to the mdev_driver
-that is provided by the end driver.
-
-The actual execution flow doesn't change much, eg what was
-parent_ops->create is now device_driver->probe and it is called at almost
-the exact same time - except under the normal control of the driver core.
-
-This allows deleting the entire mdev_drvdata, and tidying some of the
-sysfs. Many places in the drivers start using container_of()
-
-This cleanly splits the mdev sysfs GUID lifecycle management stuff from
-the vfio_device implementation part, the only VFIO special part of mdev
-that remains is the mdev specific iommu intervention.
-
-Thanks,
-Jason
-
-Jason Gunthorpe (12):
-  vfio/mdev: Remove CONFIG_VFIO_MDEV_DEVICE
-  vfio/mdev: Allow the mdev_parent_ops to specify the device driver to
-    bind
-  vfio/mtty: Convert to use vfio_register_group_dev()
-  vfio/mdpy: Convert to use vfio_register_group_dev()
-  vfio/mbochs: Convert to use vfio_register_group_dev()
-  vfio/ap_ops: Convert to use vfio_register_group_dev()
-  vfio/ccw: Convert to use vfio_register_group_dev()
-  vfio/gvt: Convert to use vfio_register_group_dev()
-  vfio/mdev: Remove mdev_parent_ops dev_attr_groups
-  vfio/mdev: Remove mdev_parent_ops
-  vfio/mdev: Use the driver core to create the 'remove' file
-  vfio/mdev: Remove mdev drvdata
-
- .../driver-api/vfio-mediated-device.rst       |  55 ++---
- Documentation/s390/vfio-ap.rst                |   1 -
- arch/s390/Kconfig                             |   2 +-
- drivers/gpu/drm/i915/Kconfig                  |   2 +-
- drivers/gpu/drm/i915/gvt/kvmgt.c              | 210 +++++++++--------
- drivers/s390/cio/vfio_ccw_drv.c               |  21 +-
- drivers/s390/cio/vfio_ccw_ops.c               | 136 ++++++-----
- drivers/s390/cio/vfio_ccw_private.h           |   5 +
- drivers/s390/crypto/vfio_ap_ops.c             | 138 ++++++-----
- drivers/s390/crypto/vfio_ap_private.h         |   2 +
- drivers/vfio/mdev/Kconfig                     |   7 -
- drivers/vfio/mdev/Makefile                    |   1 -
- drivers/vfio/mdev/mdev_core.c                 |  65 ++++--
- drivers/vfio/mdev/mdev_driver.c               |  10 +-
- drivers/vfio/mdev/mdev_private.h              |   4 +-
- drivers/vfio/mdev/mdev_sysfs.c                |  37 ++-
- drivers/vfio/mdev/vfio_mdev.c                 | 180 ---------------
- drivers/vfio/vfio.c                           |   6 +-
- include/linux/mdev.h                          |  86 +------
- include/linux/vfio.h                          |   4 +
- samples/Kconfig                               |   6 +-
- samples/vfio-mdev/mbochs.c                    | 166 +++++++------
- samples/vfio-mdev/mdpy.c                      | 162 +++++++------
- samples/vfio-mdev/mtty.c                      | 218 +++++++-----------
- 24 files changed, 649 insertions(+), 875 deletions(-)
- delete mode 100644 drivers/vfio/mdev/vfio_mdev.c
-
--- 
-2.31.1
-
+Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
