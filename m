@@ -2,55 +2,75 @@ Return-Path: <SRS0=0znn=JX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EF48C433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:42:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7B90C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:45:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1331E6101C
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:42:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1331E6101C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5D90B6101C
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:45:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D90B6101C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2F486E844;
-	Mon, 26 Apr 2021 16:42:25 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EF6B6E084;
- Mon, 26 Apr 2021 16:42:24 +0000 (UTC)
-IronPort-SDR: KQyRRnYjZtL+QuWNacBpr6YjlUVAl8qffDLr3dbbxu2KJskhRfmCfPAF+jiTVSg0MSRtSsfegM
- +KWJ4UapFG5g==
-X-IronPort-AV: E=McAfee;i="6200,9189,9966"; a="195919411"
-X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="195919411"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2021 09:42:23 -0700
-IronPort-SDR: 30BwvzU3X47wuIA3iJWIOVTKrl8qQdOWaKItp0G29pZ7KoZmkPsRDeM2hUNcbA43WZwLUCeiC/
- klX22Mi5YdkQ==
-X-IronPort-AV: E=Sophos;i="5.82,252,1613462400"; d="scan'208";a="429457856"
-Received: from rgunnin1-mobl.ger.corp.intel.com (HELO [10.252.12.201])
- ([10.252.12.201])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2021 09:42:22 -0700
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20210426101821.42147-1-matthew.auld@intel.com>
- <20210426101821.42147-4-matthew.auld@intel.com>
- <b3c9bfe6-2e05-67e3-becf-982e9fae4b8e@linux.intel.com>
-From: Matthew Auld <matthew.auld@intel.com>
-Message-ID: <5d1db760-9783-d014-380b-7c57700ced81@intel.com>
-Date: Mon, 26 Apr 2021 17:42:19 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C89936E84F;
+	Mon, 26 Apr 2021 16:45:46 +0000 (UTC)
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
+ [IPv6:2607:f8b0:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE1026E84F
+ for <intel-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 16:45:45 +0000 (UTC)
+Received: by mail-pg1-x530.google.com with SMTP id t22so5182103pgu.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 09:45:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=cFKXKq/sKurvSVgvNvGkxgOiMlOZ5bG92GQyZxG6/Ow=;
+ b=hQyrvIvY0OkwlUkO65L/o3TMJboyrA/EOLuUe0Pq7KgqeFtR8O9LJWrjeU2EQISYlu
+ bJHPBsPqEo2jNERM7Qly7inrbryADiFPyU5whSnn5mfATXbgH1UnC4GjWrov7E7itgl/
+ y/vmAUUGiGEmxu0IFynSQLccMWdifgG50rRhw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=cFKXKq/sKurvSVgvNvGkxgOiMlOZ5bG92GQyZxG6/Ow=;
+ b=fKRmxwQym++Q3VcORR2HqqJM1q0QtvUJaySZWSnUO1ds4XW4GghkTNh0o9BrBIUr7a
+ jyfr+Ox3JAii6izThtfMlPO4rQk4J1JLo2uZD0eB/aC0qTSTBJ8QZgsP7lsQ7rIiItio
+ VaIMHf0836XWMkKrxxttHMDB3mKz4vf8JxsgRLminAgoE7Q4r8x+w3gwFQfs3dAUSO23
+ kHxXRHh1pwEmVm/Yhq7OsfFW2gJ7pfSbgn3QXX4d5nFIndL5Ay99/qKnhgR+/RSjEZUM
+ nyvN2s66SbT4m2EpT/rPyNzL8bRgLrXFCHY/ejWq72KHZCHrmnDEmMjbnZlCavdP6mnd
+ OrTQ==
+X-Gm-Message-State: AOAM531zgiBZUu8rdVOBVC/q8KpQHBNOrG0+DIXrp8WJJi3NC1eqQKjM
+ NR+Hl3/HPD9m6Wi376tZLtiqjd3hVuyJLQ==
+X-Google-Smtp-Source: ABdhPJxQP7DIP+TJEdEufOw3Z94L40YGZzxt/60EqkAEvXdA60QR0CmIDk4EAmGaer+IT3tIcwKAWw==
+X-Received: by 2002:aa7:9f02:0:b029:25d:26b2:ecac with SMTP id
+ g2-20020aa79f020000b029025d26b2ecacmr18958004pfr.61.1619455545109; 
+ Mon, 26 Apr 2021 09:45:45 -0700 (PDT)
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com.
+ [209.85.215.177])
+ by smtp.gmail.com with ESMTPSA id u18sm249694pfm.4.2021.04.26.09.45.44
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Apr 2021 09:45:44 -0700 (PDT)
+Received: by mail-pg1-f177.google.com with SMTP id f29so3308691pgm.8
+ for <intel-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 09:45:44 -0700 (PDT)
+X-Received: by 2002:a92:7307:: with SMTP id o7mr14655769ilc.5.1619455077553;
+ Mon, 26 Apr 2021 09:37:57 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <b3c9bfe6-2e05-67e3-becf-982e9fae4b8e@linux.intel.com>
-Content-Language: en-GB
-Subject: Re: [Intel-gfx] [PATCH 4/7] drm/i915/gtt/dgfx: place the PD in LMEM
+References: <20210422081508.3942748-1-tientzu@chromium.org>
+ <20210422081508.3942748-9-tientzu@chromium.org>
+ <1f84aa4c-f966-0986-b5a4-eecbf3b454ec@arm.com>
+In-Reply-To: <1f84aa4c-f966-0986-b5a4-eecbf3b454ec@arm.com>
+From: Claire Chang <tientzu@chromium.org>
+Date: Tue, 27 Apr 2021 00:37:46 +0800
+X-Gmail-Original-Message-ID: <CALiNf29N3U5GZKNN90NzjSeQ0WG4dxyRzU97fJ-r9OuChzLWKA@mail.gmail.com>
+Message-ID: <CALiNf29N3U5GZKNN90NzjSeQ0WG4dxyRzU97fJ-r9OuChzLWKA@mail.gmail.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Subject: Re: [Intel-gfx] [PATCH v5 08/16] swiotlb: Update is_swiotlb_active
+ to add a struct device argument
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,89 +83,168 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
+ peterz@infradead.org, benh@kernel.crashing.org,
+ dri-devel@lists.freedesktop.org, lkml <linux-kernel@vger.kernel.org>,
+ grant.likely@arm.com, paulus@samba.org, Will Deacon <will@kernel.org>,
+ mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
+ sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
+ xypron.glpk@gmx.de, Joerg Roedel <joro@8bytes.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Christoph Hellwig <hch@lst.de>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
+ Jianxiong Gao <jxgao@google.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
+ Dan Williams <dan.j.williams@intel.com>,
+ Nicolas Boichat <drinkcat@chromium.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ boris.ostrovsky@oracle.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
+ chris@chris-wilson.co.uk, nouveau@lists.freedesktop.org,
+ Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Frank Rowand <frowand.list@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, linuxppc-dev@lists.ozlabs.org,
+ bauerman@linux.ibm.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gMjYvMDQvMjAyMSAxNjoyMiwgVHZydGtvIFVyc3VsaW4gd3JvdGU6Cj4gCj4gT24gMjYvMDQv
-MjAyMSAxMToxOCwgTWF0dGhldyBBdWxkIHdyb3RlOgo+PiBJdCdzIGEgcmVxdWlyZW1lbnQgdGhh
-dCBmb3IgZGdmeCB3ZSBwbGFjZSBhbGwgdGhlIHBhZ2luZyBzdHJ1Y3R1cmVzIGluCj4+IGRldmlj
-ZSBsb2NhbC1tZW1vcnkuCj4+Cj4+IHYyOiB1c2UgaTkxNV9jb2hlcmVudF9tYXBfdHlwZSgpCj4+
-Cj4+IFNpZ25lZC1vZmYtYnk6IE1hdHRoZXcgQXVsZCA8bWF0dGhldy5hdWxkQGludGVsLmNvbT4K
-Pj4gQ2M6IFR2cnRrbyBVcnN1bGluIDx0dnJ0a28udXJzdWxpbkBsaW51eC5pbnRlbC5jb20+Cj4+
-IC0tLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9nZW44X3BwZ3R0LmMgfMKgIDUgKysr
-Ky0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3R0LmPCoCB8IDIxICsrKysr
-KysrKysrKysrKysrKystLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ndHQu
-aMKgIHzCoCAxICsKPj4gwqAgMyBmaWxlcyBjaGFuZ2VkLCAyNCBpbnNlcnRpb25zKCspLCAzIGRl
-bGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvZ2Vu
-OF9wcGd0dC5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2dlbjhfcHBndHQuYwo+PiBp
-bmRleCBmODM0OTY4MzZmMGYuLjExZmI1ZGY0NWEwZiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZ3QvZ2VuOF9wcGd0dC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2d0L2dlbjhfcHBndHQuYwo+PiBAQCAtNzEyLDcgKzcxMiwxMCBAQCBzdHJ1Y3QgaTkxNV9wcGd0
-dCAqZ2VuOF9wcGd0dF9jcmVhdGUoc3RydWN0IAo+PiBpbnRlbF9ndCAqZ3QpCj4+IMKgwqDCoMKg
-wqDCoCAqLwo+PiDCoMKgwqDCoMKgIHBwZ3R0LT52bS5oYXNfcmVhZF9vbmx5ID0gIUlTX0dFTl9S
-QU5HRShndC0+aTkxNSwgMTEsIDEyKTsKPj4gLcKgwqDCoCBwcGd0dC0+dm0uYWxsb2NfcHRfZG1h
-ID0gYWxsb2NfcHRfZG1hOwo+PiArwqDCoMKgIGlmIChIQVNfTE1FTShndC0+aTkxNSkpCj4+ICvC
-oMKgwqDCoMKgwqDCoCBwcGd0dC0+dm0uYWxsb2NfcHRfZG1hID0gYWxsb2NfcHRfbG1lbTsKPj4g
-K8KgwqDCoCBlbHNlCj4+ICvCoMKgwqDCoMKgwqDCoCBwcGd0dC0+dm0uYWxsb2NfcHRfZG1hID0g
-YWxsb2NfcHRfZG1hOwo+PiDCoMKgwqDCoMKgIGVyciA9IGdlbjhfaW5pdF9zY3JhdGNoKCZwcGd0
-dC0+dm0pOwo+PiDCoMKgwqDCoMKgIGlmIChlcnIpCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9ndC9pbnRlbF9ndHQuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9p
-bnRlbF9ndHQuYwo+PiBpbmRleCBkMzg2Yjg5ZTI3NTguLmJiZTViMDllNTllYyAxMDA2NDQKPj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3R0LmMKPj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3R0LmMKPj4gQEAgLTcsMTAgKzcsMjMgQEAKPj4gwqAg
-I2luY2x1ZGUgPGxpbnV4L2ZhdWx0LWluamVjdC5oPgo+PiArI2luY2x1ZGUgImdlbS9pOTE1X2dl
-bV9sbWVtLmgiCj4+IMKgICNpbmNsdWRlICJpOTE1X3RyYWNlLmgiCj4+IMKgICNpbmNsdWRlICJp
-bnRlbF9ndC5oIgo+PiDCoCAjaW5jbHVkZSAiaW50ZWxfZ3R0LmgiCj4+ICtzdHJ1Y3QgZHJtX2k5
-MTVfZ2VtX29iamVjdCAqYWxsb2NfcHRfbG1lbShzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlIAo+
-PiAqdm0sIGludCBzeikKPj4gK3sKPj4gK8KgwqDCoCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVj
-dCAqb2JqOwo+PiArCj4+ICvCoMKgwqAgb2JqID0gaTkxNV9nZW1fb2JqZWN0X2NyZWF0ZV9sbWVt
-KHZtLT5pOTE1LCBzeiwgMCk7Cj4+ICsKPj4gK8KgwqDCoCAvKiBlbnN1cmUgYWxsIGRtYSBvYmpl
-Y3RzIGhhdmUgdGhlIHNhbWUgcmVzZXJ2YXRpb24gY2xhc3MgKi8KPiAKPiBDbGFzcyBvciBhY3R1
-YWwgb2JqZWN0PyBBbmQgY291bGQgdGhlIGNvbW1lbnQgc2F5IHdoeSB0aGlzIGlzIGltcG9ydGFu
-dD8KCkl0J3MgdGhlIGRtYS1yZXN2IG9iamVjdC4gVGhlIHBhZ2luZyBzdHJ1Y3R1cmVzIGZvciB0
-aGlzIHZtIHNoYXJlIHRoZSAKc2FtZSBkbWEtcmVzdiBvYmplY3QgdW5kZXJuZWF0aCwgd2l0aCB0
-aGUgaWRlYSB0aGF0IG9uZSBvYmplY3RfbG9jaygpIAp3aWxsIGxvY2sgdGhlbSBhbGwgYXQgb25j
-ZS4gSSBjYW4gdHJ5IHRvIGltcHJvdmUgdGhlIGNvbW1lbnQuCgo+IAo+IFJlZ2FyZHMsCj4gCj4g
-VHZydGtvCj4gCj4+ICvCoMKgwqAgaWYgKCFJU19FUlIob2JqKSkKPj4gK8KgwqDCoMKgwqDCoMKg
-IG9iai0+YmFzZS5yZXN2ID0gJnZtLT5yZXN2Owo+PiArwqDCoMKgIHJldHVybiBvYmo7Cj4+ICt9
-Cj4+ICsKPj4gwqAgc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKmFsbG9jX3B0X2RtYShzdHJ1
-Y3QgaTkxNV9hZGRyZXNzX3NwYWNlIAo+PiAqdm0sIGludCBzeikKPj4gwqAgewo+PiDCoMKgwqDC
-oMKgIHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmo7Cj4+IEBAIC0yNyw5ICs0MCwxMSBA
-QCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqYWxsb2NfcHRfZG1hKHN0cnVjdCAKPj4gaTkx
-NV9hZGRyZXNzX3NwYWNlICp2bSwgaW50IHN6KQo+PiDCoCBpbnQgbWFwX3B0X2RtYShzdHJ1Y3Qg
-aTkxNV9hZGRyZXNzX3NwYWNlICp2bSwgc3RydWN0IAo+PiBkcm1faTkxNV9nZW1fb2JqZWN0ICpv
-YmopCj4+IMKgIHsKPj4gK8KgwqDCoCBlbnVtIGk5MTVfbWFwX3R5cGUgdHlwZTsKPj4gwqDCoMKg
-wqDCoCB2b2lkICp2YWRkcjsKPj4gLcKgwqDCoCB2YWRkciA9IGk5MTVfZ2VtX29iamVjdF9waW5f
-bWFwX3VubG9ja2VkKG9iaiwgSTkxNV9NQVBfV0IpOwo+PiArwqDCoMKgIHR5cGUgPSBpOTE1X2Nv
-aGVyZW50X21hcF90eXBlKHZtLT5pOTE1LCBvYmosIHRydWUpOwo+PiArwqDCoMKgIHZhZGRyID0g
-aTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2NrZWQob2JqLCB0eXBlKTsKPj4gwqDCoMKgwqDC
-oCBpZiAoSVNfRVJSKHZhZGRyKSkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBQVFJfRVJS
-KHZhZGRyKTsKPj4gQEAgLTM5LDkgKzU0LDExIEBAIGludCBtYXBfcHRfZG1hKHN0cnVjdCBpOTE1
-X2FkZHJlc3Nfc3BhY2UgKnZtLCAKPj4gc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikK
-Pj4gwqAgaW50IG1hcF9wdF9kbWFfbG9ja2VkKHN0cnVjdCBpOTE1X2FkZHJlc3Nfc3BhY2UgKnZt
-LCBzdHJ1Y3QgCj4+IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikKPj4gwqAgewo+PiArwqDCoMKg
-IGVudW0gaTkxNV9tYXBfdHlwZSB0eXBlOwo+PiDCoMKgwqDCoMKgIHZvaWQgKnZhZGRyOwo+PiAt
-wqDCoMKgIHZhZGRyID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXAob2JqLCBJOTE1X01BUF9XQik7
-Cj4+ICvCoMKgwqAgdHlwZSA9IGk5MTVfY29oZXJlbnRfbWFwX3R5cGUodm0tPmk5MTUsIG9iaiwg
-dHJ1ZSk7Cj4+ICvCoMKgwqAgdmFkZHIgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcChvYmosIHR5
-cGUpOwo+PiDCoMKgwqDCoMKgIGlmIChJU19FUlIodmFkZHIpKQo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqAgcmV0dXJuIFBUUl9FUlIodmFkZHIpOwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZ3QvaW50ZWxfZ3R0LmggCj4+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxf
-Z3R0LmgKPj4gaW5kZXggNDBlNDg2NzA0NTU4Li40NGNlMjdjNTE2MzEgMTAwNjQ0Cj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0dC5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2d0L2ludGVsX2d0dC5oCj4+IEBAIC01MjcsNiArNTI3LDcgQEAgaW50IHNldHVw
-X3NjcmF0Y2hfcGFnZShzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlIAo+PiAqdm0pOwo+PiDCoCB2
-b2lkIGZyZWVfc2NyYXRjaChzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlICp2bSk7Cj4+IMKgIHN0
-cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICphbGxvY19wdF9kbWEoc3RydWN0IGk5MTVfYWRkcmVz
-c19zcGFjZSAKPj4gKnZtLCBpbnQgc3opOwo+PiArc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3Qg
-KmFsbG9jX3B0X2xtZW0oc3RydWN0IGk5MTVfYWRkcmVzc19zcGFjZSAKPj4gKnZtLCBpbnQgc3op
-Owo+PiDCoCBzdHJ1Y3QgaTkxNV9wYWdlX3RhYmxlICphbGxvY19wdChzdHJ1Y3QgaTkxNV9hZGRy
-ZXNzX3NwYWNlICp2bSk7Cj4+IMKgIHN0cnVjdCBpOTE1X3BhZ2VfZGlyZWN0b3J5ICphbGxvY19w
-ZChzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlICp2bSk7Cj4+IMKgIHN0cnVjdCBpOTE1X3BhZ2Vf
-ZGlyZWN0b3J5ICpfX2FsbG9jX3BkKGludCBucGRlKTsKPj4KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On Fri, Apr 23, 2021 at 9:31 PM Robin Murphy <robin.murphy@arm.com> wrote:
+>
+> On 2021-04-22 09:15, Claire Chang wrote:
+> > Update is_swiotlb_active to add a struct device argument. This will be
+> > useful later to allow for restricted DMA pool.
+> >
+> > Signed-off-by: Claire Chang <tientzu@chromium.org>
+> > ---
+> >   drivers/gpu/drm/i915/gem/i915_gem_internal.c | 2 +-
+> >   drivers/gpu/drm/nouveau/nouveau_ttm.c        | 2 +-
+> >   drivers/pci/xen-pcifront.c                   | 2 +-
+> >   include/linux/swiotlb.h                      | 4 ++--
+> >   kernel/dma/direct.c                          | 2 +-
+> >   kernel/dma/swiotlb.c                         | 4 ++--
+> >   6 files changed, 8 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+> > index ce6b664b10aa..7d48c433446b 100644
+> > --- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+> > @@ -42,7 +42,7 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
+> >
+> >       max_order = MAX_ORDER;
+> >   #ifdef CONFIG_SWIOTLB
+> > -     if (is_swiotlb_active()) {
+> > +     if (is_swiotlb_active(NULL)) {
+> >               unsigned int max_segment;
+> >
+> >               max_segment = swiotlb_max_segment();
+> > diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.c b/drivers/gpu/drm/nouveau/nouveau_ttm.c
+> > index e8b506a6685b..2a2ae6d6cf6d 100644
+> > --- a/drivers/gpu/drm/nouveau/nouveau_ttm.c
+> > +++ b/drivers/gpu/drm/nouveau/nouveau_ttm.c
+> > @@ -321,7 +321,7 @@ nouveau_ttm_init(struct nouveau_drm *drm)
+> >       }
+> >
+> >   #if IS_ENABLED(CONFIG_SWIOTLB) && IS_ENABLED(CONFIG_X86)
+> > -     need_swiotlb = is_swiotlb_active();
+> > +     need_swiotlb = is_swiotlb_active(NULL);
+> >   #endif
+> >
+> >       ret = ttm_device_init(&drm->ttm.bdev, &nouveau_bo_driver, drm->dev->dev,
+> > diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+> > index b7a8f3a1921f..6d548ce53ce7 100644
+> > --- a/drivers/pci/xen-pcifront.c
+> > +++ b/drivers/pci/xen-pcifront.c
+> > @@ -693,7 +693,7 @@ static int pcifront_connect_and_init_dma(struct pcifront_device *pdev)
+> >
+> >       spin_unlock(&pcifront_dev_lock);
+> >
+> > -     if (!err && !is_swiotlb_active()) {
+> > +     if (!err && !is_swiotlb_active(NULL)) {
+> >               err = pci_xen_swiotlb_init_late();
+> >               if (err)
+> >                       dev_err(&pdev->xdev->dev, "Could not setup SWIOTLB!\n");
+> > diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> > index 2a6cca07540b..c530c976d18b 100644
+> > --- a/include/linux/swiotlb.h
+> > +++ b/include/linux/swiotlb.h
+> > @@ -123,7 +123,7 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
+> >   void __init swiotlb_exit(void);
+> >   unsigned int swiotlb_max_segment(void);
+> >   size_t swiotlb_max_mapping_size(struct device *dev);
+> > -bool is_swiotlb_active(void);
+> > +bool is_swiotlb_active(struct device *dev);
+> >   void __init swiotlb_adjust_size(unsigned long size);
+> >   #else
+> >   #define swiotlb_force SWIOTLB_NO_FORCE
+> > @@ -143,7 +143,7 @@ static inline size_t swiotlb_max_mapping_size(struct device *dev)
+> >       return SIZE_MAX;
+> >   }
+> >
+> > -static inline bool is_swiotlb_active(void)
+> > +static inline bool is_swiotlb_active(struct device *dev)
+> >   {
+> >       return false;
+> >   }
+> > diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+> > index 84c9feb5474a..7a88c34d0867 100644
+> > --- a/kernel/dma/direct.c
+> > +++ b/kernel/dma/direct.c
+> > @@ -495,7 +495,7 @@ int dma_direct_supported(struct device *dev, u64 mask)
+> >   size_t dma_direct_max_mapping_size(struct device *dev)
+> >   {
+> >       /* If SWIOTLB is active, use its maximum mapping size */
+> > -     if (is_swiotlb_active() &&
+> > +     if (is_swiotlb_active(dev) &&
+> >           (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE))
+>
+> I wonder if it's worth trying to fold these other conditions into
+> is_swiotlb_active() itself? I'm not entirely sure what matters for Xen,
+> but for the other cases it seems like they probably only care about
+> whether bouncing may occur for their particular device or not (possibly
+> they want to be using dma_max_mapping_size() now anyway - TBH I'm
+> struggling to make sense of what the swiotlb_max_segment business is
+> supposed to mean).
+
+I think leaving those conditions outside of is_swiotlb_active() might
+help avoid confusion with is_dev_swiotlb_force() in patch #9? We need
+is_dev_swiotlb_force() only because the restricted DMA pool supports
+memory allocation, but the default swiotlb doesn't.
+
+>
+> Otherwise, patch #9 will need to touch here as well to make sure that
+> per-device forced bouncing is reflected correctly.
+
+You're right. Otherwise, is_dev_swiotlb_force is needed here.
+
+
+>
+> Robin.
+>
+> >               return swiotlb_max_mapping_size(dev);
+> >       return SIZE_MAX;
+> > diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> > index ffbb8724e06c..1d221343f1c8 100644
+> > --- a/kernel/dma/swiotlb.c
+> > +++ b/kernel/dma/swiotlb.c
+> > @@ -659,9 +659,9 @@ size_t swiotlb_max_mapping_size(struct device *dev)
+> >       return ((size_t)IO_TLB_SIZE) * IO_TLB_SEGSIZE;
+> >   }
+> >
+> > -bool is_swiotlb_active(void)
+> > +bool is_swiotlb_active(struct device *dev)
+> >   {
+> > -     return io_tlb_default_mem != NULL;
+> > +     return get_io_tlb_mem(dev) != NULL;
+> >   }
+> >   EXPORT_SYMBOL_GPL(is_swiotlb_active);
+> >
+> >
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
