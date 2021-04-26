@@ -2,58 +2,81 @@ Return-Path: <SRS0=nd+/=JY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86B20C433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:41:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09907C433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:41:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1D76E613B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:41:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1D76E613B4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 70F9B613B4
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:41:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70F9B613B4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=de.ibm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 831FA6E05F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF9716E90B;
 	Tue, 27 Apr 2021 09:41:45 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2064.outbound.protection.outlook.com [40.107.100.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53AD889FC3;
- Mon, 26 Apr 2021 20:00:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SUPSGBHOdYVqh2TD7jnMzDyt8x0nv6JmI9gJ4FoCQgEdmi/7cj643CWrh0urbJ/iphdRzuHv0WMpg2d4+utHyCpPxZ+qVHnVH6gppy3UABpLD25HTCpXXvEP3jaoDJcN9GsHdBlyhFQIIeOCwwN29MSz+4yCy+/ZIeWUrbsqdgoK+A6Za8I5oqeYJhfaBOXyVHy/hyXB+ZkvGICnGiiQzLgdWLXC30Rr+HwSpDboot3q2VugwvVnKEDVmNDEbRkZO1wDiOv53JtcP+nphKkZWBps9mHC9zY0Cy1nSsiVDX4RKEcSr0KyOEJFLbn6cbbpjsQEfdKd232+SQaq5LopBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=olwDiL66vfekS16MVboSGcToyx/UXCU6SuGuTMItXbo=;
- b=kYXoTvZdalIx+8HqweIkySCb5FCd427KUDg497CuFQz/b8SIiqTDFcIMO2N7VW6oglqoXgFZCGNo8TBN4H/EYhaGR5y4+EqVzfN7RWMt01xey2L+hlHTlDLRdQ3wnfkJqC2yDlLLzxVzPPc5nA45qjm07+VKJhe3ENuBz3SNp8HD1HIbHgVONZQ3o9J0L8wJtkH0GYpGvywM5QIllBft10Y/F6H31XroOCvCfdpXowQsRjIg99KuqkSXw77n+I1MjZ516Y8wXLyyPDkSdlJZDMHhTs5xdWxQ0sQad92+emObwBflUDegGeWKTUX+UTMC/clwPNiSPUNINcHenYuilw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=olwDiL66vfekS16MVboSGcToyx/UXCU6SuGuTMItXbo=;
- b=E+FPbX2LhZjrnGXIPjkUembzk1m792iDQQu9vT3qd+fH6OJWr9FkphGr+iyRcYnKbJPUlQ38Lc1BL2/thnUobQlTP/hIkRJkgcDzNUI3cIiZTafOJAWYO48cPBFIsUD+7lEFnKNJ49+SOTtvBwVwr0qETQvKMPzjdkDXr8LI6gkem50cgA5LzOndVJezq8uQp+J+PVDguAqQMxL/6u10F050s2ueIH9qaAlNRnU8xH4F9xtVliLOP3eqrwbczRgM7w/cWqnvqYdTC/mnlG/FuZgvv7BewJYB66acINHaX1NpAA5YAFVIY/cl0MNm0Gi6Zl7cb0QCMp5OSWDQwHvDeA==
-Authentication-Results: linux.ie; dkim=none (message not signed)
- header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM6PR12MB3740.namprd12.prod.outlook.com (2603:10b6:5:1c3::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.24; Mon, 26 Apr
- 2021 20:00:17 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::1c62:7fa3:617b:ab87]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::1c62:7fa3:617b:ab87%6]) with mapi id 15.20.4065.026; Mon, 26 Apr 2021
- 20:00:17 +0000
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
+X-Greylist: delayed 2904 seconds by postgrey-1.36 at gabe;
+ Mon, 26 Apr 2021 17:31:52 UTC
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90D396E860;
+ Mon, 26 Apr 2021 17:31:52 +0000 (UTC)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 13QGYAW2154981; Mon, 26 Apr 2021 12:43:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=tXwPm6B6mjY/+Gg3PuHhnUHoeht5XBCcQiw63TM4dfk=;
+ b=he2OOAEXUvXtp1C/Ubr/RyWeE1/G1zhdlwJHQN1kxxRupRnn4r4CMFJnsbwujLdFCr61
+ 39pN0SsNuFrrlVoKHm6ll4TrbsIk5LjbfHCtXBNVOOqhgGYLneYuUq54zUHhqN6ovssI
+ LI3INLNcoc3oo3xXP+bKOcp5ri8euR+DQGjxT8JvpKP4zz0RCk6Y6l1+Qi+TyjyKAgTM
+ SavLWuNumfN8Hl94k+EcEjGE9GjS8D7Oodm7fO19smqUmRL/0/ZASN8TFL2vjJmOF8sh
+ +iNYJUpMmgtHfbh9YxGD/Wm5M/kVBPaHATqqgGqpZ6xwkWxQNQnmh+tpATvG1APyKh7f 6g== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3860wqgppy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 26 Apr 2021 12:43:24 -0400
+Received: from m0098420.ppops.net (m0098420.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 13QGYIBj155278;
+ Mon, 26 Apr 2021 12:43:23 -0400
+Received: from ppma06fra.de.ibm.com (48.49.7a9f.ip4.static.sl-reverse.com
+ [159.122.73.72])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3860wqgpp3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 26 Apr 2021 12:43:23 -0400
+Received: from pps.filterd (ppma06fra.de.ibm.com [127.0.0.1])
+ by ppma06fra.de.ibm.com (8.16.0.43/8.16.0.43) with SMTP id 13QGhLkK007911;
+ Mon, 26 Apr 2021 16:43:21 GMT
+Received: from b06cxnps3074.portsmouth.uk.ibm.com
+ (d06relay09.portsmouth.uk.ibm.com [9.149.109.194])
+ by ppma06fra.de.ibm.com with ESMTP id 384akh8grd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 26 Apr 2021 16:43:21 +0000
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+ [9.149.105.59])
+ by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 13QGhHID32833878
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 26 Apr 2021 16:43:17 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 80ABCA4040;
+ Mon, 26 Apr 2021 16:43:17 +0000 (GMT)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 31384A405D;
+ Mon, 26 Apr 2021 16:43:15 +0000 (GMT)
+Received: from oc7455500831.ibm.com (unknown [9.171.9.59])
+ by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Mon, 26 Apr 2021 16:43:15 +0000 (GMT)
+To: Jason Gunthorpe <jgg@nvidia.com>, David Airlie <airlied@linux.ie>,
+ Tony Krowiak <akrowiak@linux.ibm.com>,
  Alex Williamson <alex.williamson@redhat.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
  Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
  Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
  Eric Farman <farman@linux.ibm.com>,
@@ -68,69 +91,29 @@ To: David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Vineeth Vijayan <vneethv@linux.ibm.com>,
  Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
-Date: Mon, 26 Apr 2021 17:00:02 -0300
-Message-Id: <0-v2-7667f42c9bad+935-vfio3_jgg@nvidia.com>
-X-Originating-IP: [47.55.113.94]
-X-ClientProxiedBy: MN2PR20CA0052.namprd20.prod.outlook.com
- (2603:10b6:208:235::21) To DM6PR12MB3834.namprd12.prod.outlook.com
- (2603:10b6:5:14a::12)
+References: <0-v1-d88406ed308e+418-vfio3_jgg@nvidia.com>
+From: Christian Borntraeger <borntraeger@de.ibm.com>
+Message-ID: <5def83bb-599c-27fa-9daa-efa27b5ac1d4@de.ibm.com>
+Date: Mon, 26 Apr 2021 18:43:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mlx.ziepe.ca (47.55.113.94) by
- MN2PR20CA0052.namprd20.prod.outlook.com (2603:10b6:208:235::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.20 via Frontend
- Transport; Mon, 26 Apr 2021 20:00:16 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1lb7Ox-00DFYy-MJ; Mon, 26 Apr 2021 17:00:15 -0300
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e20688d0-e5cf-4c4e-8438-08d908ede987
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3740:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3740A304BFC7E0F85CD45347C2429@DM6PR12MB3740.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8BtlUhugUCgKqMJolQ6Snv6XAQRUwcEltMTpSr7aTcjG2JxvRnLdH9qgDoJEcBWcyoxfExU68vcKJpfhavrMrQ3Hh/NC2N92BIMlZpJ2sLI/4IJqeYOw5spdZlJ4FyLypqfNraF+xZWK1bjqKwtGjPpEVjh2eD3h9HgmT9DX9skOEmdG8QOOVpQfezdqEH4NfBA0p3sNjXAfBXGqoTAZx61HTtubstFiDedXfPMRVofY8vMo12TdnNsnokU26kCcB7FgAR3mcjOQiNyKN1zYJ6QhrC4fcyZ9bdlLqD35OMeihhuesjV4AUCiiEQCVPGbjWY+Zsfk/sYNMH2Q84zZilqifGcTjl38Z4qa5eRepHcE/bSFS1VGd9FT+soDFWLJt5qLlIoFeM7HnVIZrpHx4jDYq4X8eg3k9/DbiKf51TB+RupW3LDP3TDPUfN2OBMokNW60AI54/+i54rNl0VhcQ8TdEJD6rrinfJ7gZ1vBABccm9EHkqYVgf2WutvaKePyTw2n9JKowcyqBcYdGj/3KDKvNF4Sb+4jAlyu1m7oNNl5j9QBz8TyRKXG1nS5bxNPzAZMfst1gwZEz9MqBx5S1cb7VVPMBDXBqxYK6NkAMpdTD3b4DmqkKbBShnLRyMuJ6/eNFictAgTqcpf3bPhspNtf2b5waaOLnMqTQekCa1TY7s2ZZCZAeJp8zpbdtsL5oEjK+viM4phHLsHZ4MwpABQqy8OWHyx8dxqD0ivQAhIABvDJJ8ULRouZw7OgqlH
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3834.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(346002)(136003)(396003)(376002)(66476007)(66556008)(966005)(9746002)(54906003)(426003)(110136005)(107886003)(186003)(26005)(921005)(6666004)(36756003)(316002)(2906002)(2616005)(478600001)(9786002)(8936002)(83380400001)(38100700002)(86362001)(8676002)(5660300002)(7416002)(4326008)(66946007)(4216001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ZKFr44UUWfx1zrXbOHAbVR38gF6pTBagwkJEvKvsBSY3eldD4WAurqvL5oTn?=
- =?us-ascii?Q?4XjydPH+QeANwD8TfXzIyPHYO9GXWtthRarCGumdw+DRa5HsS+lQXA81QHG3?=
- =?us-ascii?Q?A+kClSlP75oilJi8o0yAMnBPzQtwEybAiKu2SlPhvru73r1mWMuqQxOGczct?=
- =?us-ascii?Q?6338CVOoZDfyaxc+BXnUOcpVzTrERUlUeSvkiTCvSJUthOds4MfQq45OhCmI?=
- =?us-ascii?Q?F75LTU55BTNa94fJTMYQFiVkXAy8mzPXDuOVr/L83h6ZqgG3pVakR8YBhpqU?=
- =?us-ascii?Q?HXqJYhlA+LSbN/N1wIHcSbKBIUv5dCzZf11XdptQnVveZOM8xG5RYmu0K/Jx?=
- =?us-ascii?Q?DJaKk5T1oWEWtad273930FySjPc6hvTN/eui5gqeGWTzm0hAWLcMtaKOXpAB?=
- =?us-ascii?Q?2aiZw4ed2sv+p1BoHlvtze86WsumArXJRNxJkJ8YU5W64i9WJXgFKiLRtHo2?=
- =?us-ascii?Q?A0zi68A9+PwggnQXcy0MNQznjkfZxWZegPfTkfpUG73yO8LwBzXN2Yz0Lxo4?=
- =?us-ascii?Q?8hyKwAwcLa3Q2hc+xzPxdpiEVXyveH4X1lEDaFEdx8lTAES1BpL3j1VSAEiN?=
- =?us-ascii?Q?5u/5elhY4tXIgJJ2kR2tloHt69ik88gXxoeoBq+N4dGdjbniWSK6aLI0P4Zo?=
- =?us-ascii?Q?uiC1AXjSaHy+4ODLwcm1SzK2zbBPYwEr/Kr7UXsj56ufOwXFG6jTBvmUFVNI?=
- =?us-ascii?Q?CJEAZV3DqZCZbwX5SNaDPS1CeBWjg24koL7Z1wSft+5XGGSOjlCb+KXESL96?=
- =?us-ascii?Q?Bkp0E0cxndVkxUYsBX0N7WOoasRRYiqPHtGuAxgdK8o7vwHnWMZ1CKP8ZcB1?=
- =?us-ascii?Q?M7Y51H8j2DkIsKuXTSqUUPvP9ioEZyCdkoCbdWhDEPkXnEdaGDOsOnpyRVbR?=
- =?us-ascii?Q?MC2iDjixyyzKoqgdGA77VUjhiIrHaDj9QV80PnK1ervIH0T7NE/aGWeYjL2X?=
- =?us-ascii?Q?9ketyz7omQEQej+UOY6X2WNqB/ORLntBSqsyKNZ6YQRpKA2hw9zsckTeu4P3?=
- =?us-ascii?Q?jow0pcNfbBqCKpZifbh+CKrFf2KpZUO6aLRy1J4C7trWUH/mu8uS5Z3kGJ77?=
- =?us-ascii?Q?T/0EK5hsFMGhxLTik9tHvPvBgadcMKV2LYLQbqV4F/aoqAIiu8rGYnuTIsJw?=
- =?us-ascii?Q?6S20beASToGpKsdyG/hiX3jvvDWcT/M1MFa8MYC9ZgF0Sm6yY8JnOFE0rq6W?=
- =?us-ascii?Q?+vMxrEDNhoAGpBQVEpZGcHECAh3e9gc+46WAAH1zkJ/hDjsDdv15JR5Ha2WV?=
- =?us-ascii?Q?RNwHrMvHTbLw5sVWphQl16MXajMX9hWwOLyH3I4daLgmW/7LPqkCPStjvFLk?=
- =?us-ascii?Q?k1QbuqxDa+U6ymlXqXVhDuoO?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e20688d0-e5cf-4c4e-8438-08d908ede987
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3834.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2021 20:00:17.0848 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IGoPkPY5oZXdWuJY/24/CeMjO6D9Mvs/G9bYCjRjhQTDtII0l8G6IR/oZkPfCwM7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3740
+In-Reply-To: <0-v1-d88406ed308e+418-vfio3_jgg@nvidia.com>
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: wk_LhyhcEW_HuSA6wkGiwMQ4scpotOuq
+X-Proofpoint-ORIG-GUID: V3yTNvs96WUujjSPPXP08OYezaP1rk50
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-04-26_09:2021-04-26,
+ 2021-04-26 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0
+ impostorscore=0 suspectscore=0 bulkscore=0 spamscore=0 adultscore=0
+ lowpriorityscore=0 mlxscore=0 mlxlogscore=999 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104060000 definitions=main-2104260126
 X-Mailman-Approved-At: Tue, 27 Apr 2021 09:41:45 +0000
-Subject: [Intel-gfx] [PATCH v2 00/13] Remove vfio_mdev.c,
+Subject: Re: [Intel-gfx] [PATCH 00/12] Remove vfio_mdev.c,
  mdev_parent_ops and more
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -147,103 +130,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Cc: Max Gurtovoy <mgurtovoy@nvidia.com>, "Raj, Ashok" <ashok.raj@intel.com>,
  Tarun Gupta <targupta@nvidia.com>, Dan Williams <dan.j.williams@intel.com>,
  Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The mdev bus's core part for managing the lifecycle of devices is mostly
-as one would expect for a driver core bus subsystem.
-
-However instead of having a normal 'struct device_driver' and binding the
-actual mdev drivers through the standard driver core mechanisms it open
-codes this with the struct mdev_parent_ops and provides a single driver
-that shims between the VFIO core and the actual device driver.
-
-Make every one of the mdev drivers implement an actual struct mdev_driver
-and directly call vfio_register_group_dev() in the probe() function for
-the mdev.
-
-Squash what is left of the mdev_parent_ops into the mdev_driver and remap
-create(), remove() and mdev_attr_groups to their driver core
-equivalents. Arrange to bind the created mdev_device to the mdev_driver
-that is provided by the end driver.
-
-The actual execution flow doesn't change much, eg what was
-parent_ops->create is now device_driver->probe and it is called at almost
-the exact same time - except under the normal control of the driver core.
-
-This allows deleting the entire mdev_drvdata, and tidying some of the
-sysfs. Many places in the drivers start using container_of()
-
-This cleanly splits the mdev sysfs GUID lifecycle management stuff from
-the vfio_device implementation part, the only VFIO special part of mdev
-that remains is the mdev specific iommu intervention.
-
-v2:
- - Keep && m in samples kconfig
- - Restore accidently squashed removeal of vfio_mdev.c
- - Remove indirections to call bus_register()/bus_unregister()
- - Reflow long doc lines
-v1: https://lore.kernel.org/r/0-v1-d88406ed308e+418-vfio3_jgg@nvidia.com
-
-Jason
-
-Cc: Leon Romanovsky <leonro@nvidia.com>
-Cc: "Raj, Ashok" <ashok.raj@intel.com>
-Cc: Dan Williams <dan.j.williams@intel.com>
-Cc: Max Gurtovoy <mgurtovoy@nvidia.com>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Tarun Gupta <targupta@nvidia.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
 
 
-Jason Gunthorpe (13):
-  vfio/mdev: Remove CONFIG_VFIO_MDEV_DEVICE
-  vfio/mdev: Allow the mdev_parent_ops to specify the device driver to
-    bind
-  vfio/mtty: Convert to use vfio_register_group_dev()
-  vfio/mdpy: Convert to use vfio_register_group_dev()
-  vfio/mbochs: Convert to use vfio_register_group_dev()
-  vfio/ap_ops: Convert to use vfio_register_group_dev()
-  vfio/ccw: Convert to use vfio_register_group_dev()
-  vfio/gvt: Convert to use vfio_register_group_dev()
-  vfio/mdev: Remove vfio_mdev.c
-  vfio/mdev: Remove mdev_parent_ops dev_attr_groups
-  vfio/mdev: Remove mdev_parent_ops
-  vfio/mdev: Use the driver core to create the 'remove' file
-  vfio/mdev: Remove mdev drvdata
+On 24.04.21 01:02, Jason Gunthorpe wrote:
+> Prologue
+> ========
+> 
+> This is series #3 in part of a larger work that arose from the minor
+> remark that the mdev_parent_ops indirection shim is useless and
+> complicates things.
+> 
+> It applies on top of Alex's current tree and requires the prior two
+> series.
 
- .../driver-api/vfio-mediated-device.rst       |  56 ++---
- Documentation/s390/vfio-ap.rst                |   1 -
- arch/s390/Kconfig                             |   2 +-
- drivers/gpu/drm/i915/Kconfig                  |   2 +-
- drivers/gpu/drm/i915/gvt/kvmgt.c              | 210 +++++++++--------
- drivers/s390/cio/vfio_ccw_drv.c               |  21 +-
- drivers/s390/cio/vfio_ccw_ops.c               | 136 ++++++-----
- drivers/s390/cio/vfio_ccw_private.h           |   5 +
- drivers/s390/crypto/vfio_ap_ops.c             | 138 ++++++-----
- drivers/s390/crypto/vfio_ap_private.h         |   2 +
- drivers/vfio/mdev/Kconfig                     |   7 -
- drivers/vfio/mdev/Makefile                    |   1 -
- drivers/vfio/mdev/mdev_core.c                 |  67 ++++--
- drivers/vfio/mdev/mdev_driver.c               |  20 +-
- drivers/vfio/mdev/mdev_private.h              |   4 +-
- drivers/vfio/mdev/mdev_sysfs.c                |  37 ++-
- drivers/vfio/mdev/vfio_mdev.c                 | 180 ---------------
- drivers/vfio/vfio.c                           |   6 +-
- include/linux/mdev.h                          |  86 +------
- include/linux/vfio.h                          |   4 +
- samples/Kconfig                               |   6 +-
- samples/vfio-mdev/mbochs.c                    | 166 +++++++------
- samples/vfio-mdev/mdpy.c                      | 162 +++++++------
- samples/vfio-mdev/mtty.c                      | 218 +++++++-----------
- 24 files changed, 651 insertions(+), 886 deletions(-)
- delete mode 100644 drivers/vfio/mdev/vfio_mdev.c
-
--- 
-2.31.1
-
+Do you have a tree somewhere?
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
