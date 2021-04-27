@@ -6,36 +6,48 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE961C433ED
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 07:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF0D1C433B4
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 07:53:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E25461076
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 07:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E25461076
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 44E58613B0
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 07:53:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44E58613B0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E22F76E904;
-	Tue, 27 Apr 2021 07:19:42 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 841B6894B7;
- Tue, 27 Apr 2021 07:19:42 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 7A237A47E2;
- Tue, 27 Apr 2021 07:19:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAB296E03D;
+	Tue, 27 Apr 2021 07:53:07 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 751066E03D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 07:53:06 +0000 (UTC)
+IronPort-SDR: 0s9pLVhvBLGIv3Fb7DPtfIv7eFZmIK6UrV0RleTt5XQI8TC+Mbpa/CDjiNPYpZXU/OBi0ms5o7
+ 7iwDDbDOUblQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9966"; a="183604723"
+X-IronPort-AV: E=Sophos;i="5.82,254,1613462400"; d="scan'208";a="183604723"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2021 00:51:42 -0700
+IronPort-SDR: k8ex2d8Xt3Zx/ud95OHyT+S6JgYWWcSfgijZKovcPc649uFQ9jzdkupqO0lVa1x49q7/L3yoOe
+ 3cHgJG107OBA==
+X-IronPort-AV: E=Sophos;i="5.82,254,1613462400"; d="scan'208";a="429716565"
+Received: from aalbarra-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.249.41.45])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2021 00:51:41 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, "Souza\,
+ Jose" <jose.souza@intel.com>
+In-Reply-To: <YIdxhuyJ2cqxA+DX@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210426185612.13223-1-ville.syrjala@linux.intel.com>
+ <1eb44e061b1aa1d6bd2b814d5a4e5520b7bf21db.camel@intel.com>
+ <YIdxhuyJ2cqxA+DX@intel.com>
+Date: Tue, 27 Apr 2021 10:51:38 +0300
+Message-ID: <877dko5fn9.fsf@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Stanislav Lisovskiy" <stanislav.lisovskiy@intel.com>
-Date: Tue, 27 Apr 2021 07:19:42 -0000
-Message-ID: <161950798249.17486.13979405364759788236@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210427072131.21044-1-stanislav.lisovskiy@intel.com>
-In-Reply-To: <20210427072131.21044-1-stanislav.lisovskiy@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBJ?=
- =?utf-8?q?mplement_PSF_GV_point_support_=28rev2=29?=
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Stop using crtc->index as the pipe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,32 +60,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: Implement PSF GV point support (rev2)
-URL   : https://patchwork.freedesktop.org/series/89491/
-State : failure
-
-== Summary ==
-
-Applying: Implement PSF GV point support
-error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_bw.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 Implement PSF GV point support
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gVHVlLCAyNyBBcHIgMjAyMSwgVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4
+LmludGVsLmNvbT4gd3JvdGU6Cj4gT24gVHVlLCBBcHIgMjcsIDIwMjEgYXQgMTI6MDc6MjFBTSAr
+MDAwMCwgU291emEsIEpvc2Ugd3JvdGU6Cj4+IE9uIE1vbiwgMjAyMS0wNC0yNiBhdCAyMTo1NiAr
+MDMwMCwgVmlsbGUgU3lyamFsYSB3cm90ZToKPj4gPiBGcm9tOiBWaWxsZSBTeXJqw6Rsw6QgPHZp
+bGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgo+PiA+IAo+PiA+IFRoZSBwaXBlIGNyYyBjb2Rl
+IHNsaXBwZWQgdGhlb3VnaCB0aGUgbmV0IHdoZW4gd2UgdHJpZWQgdG8KPj4gPiBlbGltaW5hdGUg
+YWxsIGNydGMtPmluZGV4PT1waXBlIGFidXNlcy4gUmVtZWR5IHRoYXQuCj4+ID4gCj4+ID4gQW5k
+IHdoaWxlIGF0IGl0IGdldCByaWQgb2YgdGhvc2UgbmFzdHkgaW50ZWxfY3J0Yytkcm1fY3J0Ywo+
+PiA+IHBvaW50ZXIgYWxpYXNlcy4KPj4gCj4+IGludGVsX2NydGMgaXMgYnJvYWRseSB1c2VkLAo+
+Cj4gTm90IGFueW1vcmUuIFdlJ3ZlIGNsZWFuZWQgdXAgYWxtb3N0IGFsbCBvZiBpdC4gTG9va3Mg
+bGlrZSBvbmx5IH40MCBsZWZ0Cj4gdnMuIH42MDAgdGhlIG90aGVyIG5hbWUuIFByb2JhYmx5IGEg
+Z29vZCB0aW1lIHRvIGNsZWFuIHVwIHRoZSByZXN0Cj4gZmluYWxseS4KCkFjay4KCj4KPj4gYWxz
+byB3ZSBoYXZlIHRoZSBzYW1lIGZvciBvdGhlciBzdHJ1Y3RzIGxpa2UgaW50ZWxfY29ubmVjdG9y
+LCBpbiBteSBvcHRpb24gdGhhdCBpcyBiZXR0ZXIgdGhhbiBfY3J0YyB4IGNydGMuCj4KPiBUaGUg
+X2NydGMgaXMgZXhwbGljaXRseSB1Z2x5IHRvIG1ha2Ugc3VyZSBwZW9wbGUgbGVhdmUgaXQgd2Vs
+bAo+IGFsb25lLiBPdGhlcndpc2Ugd2UgY2FuIG5ldmVyIGdldCByaWQgb2YgdGhlc2UgaG9ycmli
+bGUgYWxpYXNpbmcKPiBwb2ludGVycy4gSXQgc2hvdWxkIG9ubHkgbWFrZSBhbiBhcHBlYXJhbmNl
+IGluIGNvcmUvaGVscGVyIHZmdW5jcwo+IGFuZCBzdWNoLiBBdCBzb21lIHBvaW50IEkgd2FzIGV2
+ZW4gcG9uZGVyaW5nIHNvbWUga2luZCBvZiBtYWNybwo+IG1hZ2ljIHRvIGNyZWF0ZSBzZW1pLWF1
+dG9tYXRpYyB3cmFwcGVycyBzbyB0aGF0IHdlIGNvdWxkIGFsd2F5cwo+IGp1c3QgdXNlIHRoZSBp
+bnRlbF8gdHlwZXMgaW4gb3VyIHZmdW5jIGltcGxlbWVudGF0aW9ucy4KPgo+IGludGVsX2NydGMg
+d2UndmUgY2xlYW5lZCB1cCB0aGUgbW9zdCBJIHRoaW5rLCBpbnRlbF9lbmNvZGVyIGEgYml0IGxl
+c3MKPiBwZXJoYXBzLCBhbmQgaW50ZWxfY29ubmVjdG9yIG5vdCByZWFsbHkgYXQgYWxsLiBIZW5j
+ZSB5b3Ugc2VlIGEgbG90IG1vcmUKPiBvZiBpbnRlbF9jb25uZWN0b3IgZmxvYXRpbmcgYXJvdW5k
+LiBXZSBhbHNvIGRvbid0IHVzdWFsbHkgdXNlIHRoZSBpbnRlbF8KPiB0eXBlcyBmb3IgY29ubmVj
+dG9yIHN0YXRlcy4gTWFpbmx5IGJlY2F1c2UgbW9zdCBvZiB0aGUgdGltZSB5b3UgZG9uJ3QKPiBu
+ZWVkIGFueXRpbmcgZnJvbSB0aGVyZS4KCkFjay4KCgpCUiwKSmFuaS4KCgoKLS0gCkphbmkgTmlr
+dWxhLCBJbnRlbCBPcGVuIFNvdXJjZSBHcmFwaGljcyBDZW50ZXIKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRl
+bC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
