@@ -5,64 +5,63 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B5F4C433ED
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFCBCC433B4
 	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9DC4613B2
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9DC4613B2
+	by mail.kernel.org (Postfix) with ESMTPS id 96BF261090
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96BF261090
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B5C66E933;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF486E932;
 	Tue, 27 Apr 2021 09:20:32 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0D146E932
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 09:20:30 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id l2so6356770wrm.9
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 02:20:30 -0700 (PDT)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53C5B6E92C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 09:20:29 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id n84so4196818wma.0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 02:20:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=5/VCtoETMmUzL0vMPqbtcoUDD2y2ltfbzTlgLqC6ZdU=;
- b=j70/j4Q6iKYIxCEI65Y0bUzPGkZaKggFmUgvWzLANdx/wAlWVz5KESFnUo/9nujbKh
- VLP5WnQX348e0Gey0yAOo51JoWFEbWPfgaXyi9p9J6I5/voq6u34z4Oxv3HsLIDFdL7g
- 0nWF5RWbWoYPwCh6yJUMjw/QcUh+2F/NVjfgY=
+ bh=m56BVCqfwfl5q0jPz4hzEYoV7UdZ/KST4hTQZTeuJdk=;
+ b=Z16j2RO/tMcGi97O2Wslzw0bl7bocm0CdNceuYd7FR8sWpRYd7HG8Ip8qfiUZDTvlT
+ HTaHagRZcPEwezykSoz1I9uWSEHmisn2dZaORuS6cS6VxZGe3iTz3jK4Q4TLwFAEhfb/
+ jtCm3FT1ZJ50M7FTWm5j9OQPvDmXnxLTCcXaY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=5/VCtoETMmUzL0vMPqbtcoUDD2y2ltfbzTlgLqC6ZdU=;
- b=eX6GPVyFSyFnKY6Xo6b+eDrlZCe0tdq0TgPt8DKs/Sx0FBavdrfL9kBr4BSk2iqUhZ
- tfUuxDOudsyPmcnnXnDe2LxHXJXIQvD1TDuU3/aEfaoWz1QSJBEQb8q2eUcaHrKXc8uz
- RFEmU2yotWQH+3L/Y3V/94/clGiaxkjhr+Q7p8ODnQi0HmhrBvsWO2qWiC9ZxUxtV0i+
- TP6wDSDg7vo45QaVkuxANWgS1iuFVhiOjWNDhq6hebIY+YIHO3LLPCuN/IM+HENTvlah
- O+tRpI+ZQNTJ2W7DMMoyFFePcqISBuxYwjcU3DQifPNYmtA1PMZdHDvM5JIf4HPZAC5J
- yQQw==
-X-Gm-Message-State: AOAM5308hnA4EYvKspbAr2FRTFmhL4pCftSdfIUJMt3+PBEohJmNrE/7
- aYGx+WU+fASeK3F8HyyC9RbtLQ==
-X-Google-Smtp-Source: ABdhPJwJ9rr2VWEzV2GSpk5dJ+S0Jiuw0XEyEGp+d22nZbMqEXF/DE1cG/lDbVU7T/v0ew7G7SdRhw==
-X-Received: by 2002:a5d:4b12:: with SMTP id v18mr28184586wrq.45.1619515229738; 
- Tue, 27 Apr 2021 02:20:29 -0700 (PDT)
+ bh=m56BVCqfwfl5q0jPz4hzEYoV7UdZ/KST4hTQZTeuJdk=;
+ b=IoaQAx03jWxJF/xTAvPqu4P2cax44GZlWGIxyoRkYBDSfTbg0RdD6CX0d735Bl5Q6m
+ yYXQcsd2cmxv59RZ7J6n4ph6SqREzSDnU0b0zHTQ/8Dq44yQRhNKpfGDQPVuGh8qHR9Y
+ fbak+r1rbHqfk4qlPfLFnaqlN4cw8f2Fvp0+pEOrTPbjgGvhonRfjjOKm6mR04yfM9oP
+ 9BGDk3rBEGS1PQT0trE7TDn2WiP3gy3/+NThpdj+K23MXm+nsuEIyQ+9KraYbxg6WF2a
+ BbJna2N2/nDqO0tSIUpqSDFujOHZRvJYviw2q1BgKwegETUxhmriTOO2X7QTY63GdBtV
+ MKnw==
+X-Gm-Message-State: AOAM530mGg4N1XFfyComSEb/g9QzRIOTZGoa0jKgvHLercZx//oGJaxp
+ 1jnJhZN3q/fn813RIy2CdQfjQg==
+X-Google-Smtp-Source: ABdhPJzbPrCtq40L5ZJcK4JYJvh90uc/ZVxSStrcaxlXHngaxKYQB0bYS5ro9fj1IS+08On3AC6WBg==
+X-Received: by 2002:a7b:c017:: with SMTP id c23mr3191439wmb.175.1619515228054; 
+ Tue, 27 Apr 2021 02:20:28 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id r24sm1939816wmh.8.2021.04.27.02.20.28
+ by smtp.gmail.com with ESMTPSA id r24sm1939816wmh.8.2021.04.27.02.20.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Apr 2021 02:20:29 -0700 (PDT)
+ Tue, 27 Apr 2021 02:20:27 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue, 27 Apr 2021 11:20:17 +0200
-Message-Id: <20210427092018.832258-7-daniel.vetter@ffwll.ch>
+Date: Tue, 27 Apr 2021 11:20:15 +0200
+Message-Id: <20210427092018.832258-5-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210427092018.832258-1-daniel.vetter@ffwll.ch>
 References: <20210427092018.832258-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 7/8] drm/stm: Don't set allow_fb_modifiers
- explicitly
+Subject: [Intel-gfx] [PATCH 5/8] drm/msm/mdp4: Fix modifier support enabling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,57 +74,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
+ stable@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>,
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Emil Velikov <emil.velikov@collabora.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since
+Setting the cap without the modifier list is very confusing to
+userspace. Fix that by listing the ones we support explicitly.
 
-commit 890880ddfdbe256083170866e49c87618b706ac7
-Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-Date:   Fri Jan 4 09:56:10 2019 +0100
+Stable backport so that userspace can rely on this working in a
+reasonable way, i.e. that the cap set implies IN_FORMATS is available.
 
-    drm: Auto-set allow_fb_modifiers when given modifiers at plane init
-
-this is done automatically as part of plane init, if drivers set the
-modifier list correctly. Which is the case here.
-
+Cc: stable@vger.kernel.org
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: Rob Clark <robdclark@chromium.org>
+Cc: Jordan Crouse <jordan@cosmicpenguin.net>
+Cc: Emil Velikov <emil.velikov@collabora.com>
+Cc: Sam Ravnborg <sam@ravnborg.org>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
 ---
- drivers/gpu/drm/stm/ltdc.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c   | 2 --
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c | 8 +++++++-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 65c3c79ad1d5..e99771b947b6 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -1326,8 +1326,6 @@ int ltdc_load(struct drm_device *ddev)
- 		goto err;
- 	}
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index 3d729270bde1..4a5b518288b0 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -88,8 +88,6 @@ static int mdp4_hw_init(struct msm_kms *kms)
+ 	if (mdp4_kms->rev > 1)
+ 		mdp4_write(mdp4_kms, REG_MDP4_RESET_STATUS, 1);
  
--	ddev->mode_config.allow_fb_modifiers = true;
+-	dev->mode_config.allow_fb_modifiers = true;
 -
- 	ret = ltdc_crtc_init(ddev, crtc);
- 	if (ret) {
- 		DRM_ERROR("Failed to init crtc\n");
+ out:
+ 	pm_runtime_put_sync(dev->dev);
+ 
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
+index 9aecca919f24..49bdabea8ed5 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
+@@ -349,6 +349,12 @@ enum mdp4_pipe mdp4_plane_pipe(struct drm_plane *plane)
+ 	return mdp4_plane->pipe;
+ }
+ 
++static const uint64_t supported_format_modifiers[] = {
++	DRM_FORMAT_MOD_SAMSUNG_64_32_TILE,
++	DRM_FORMAT_MOD_LINEAR,
++	DRM_FORMAT_MOD_INVALID
++};
++
+ /* initialize plane */
+ struct drm_plane *mdp4_plane_init(struct drm_device *dev,
+ 		enum mdp4_pipe pipe_id, bool private_plane)
+@@ -377,7 +383,7 @@ struct drm_plane *mdp4_plane_init(struct drm_device *dev,
+ 	type = private_plane ? DRM_PLANE_TYPE_PRIMARY : DRM_PLANE_TYPE_OVERLAY;
+ 	ret = drm_universal_plane_init(dev, plane, 0xff, &mdp4_plane_funcs,
+ 				 mdp4_plane->formats, mdp4_plane->nformats,
+-				 NULL, type, NULL);
++				 supported_format_modifiers, type, NULL);
+ 	if (ret)
+ 		goto fail;
+ 
 -- 
 2.31.0
 
