@@ -7,61 +7,63 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0540C433ED
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04BD0C43460
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 407F461026
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 407F461026
+	by mail.kernel.org (Postfix) with ESMTPS id 9846D61026
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9846D61026
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D70D76E929;
-	Tue, 27 Apr 2021 09:20:27 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2CAE6E927
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 09:20:26 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id l2so6356547wrm.9
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 02:20:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 929CC6E92B;
+	Tue, 27 Apr 2021 09:20:29 +0000 (UTC)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F6C56E92B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 09:20:28 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id
+ p6-20020a05600c3586b029014131bbe5c7so3386145wmq.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 02:20:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=CGUka0sVW6wFNgc+ztoFeb2OUOiG/y4ojkNNplTLBt0=;
- b=lHcSeuO8JXlioU0SoJkhNjeUMSk697hQ5zjRlICZIdlcoCD+gtNxmqtsqVaoejeIqF
- JVkbZ4vwo0H7UnWI6b/SRN11ITJY5qZrNUtNBWPwhSqHZ0aDzFYt65GC1/dJLw4AR9d5
- kPi4sCxP4h02OO5vhQbXsNHkUWX1w1OD5rfsM=
+ bh=ReR+qIwa27lRq+WXnj64eqAh7xIIkZ1ocFvCO3rmgbA=;
+ b=JL+d9Be+1fsOLPsXOKUrRxgZxa39qLYpQ0YrL1WSRQH8EeOSU9TuY5SCxkhZ8bTnvg
+ kADgMit5Tjswacswy/wlSRX+5XV/KC1tpCJx/GM65VHOTIr/90IX9etPOTBp18znldlC
+ cVpPMLJJsEIYJJxXX9Tvk62NITCamUFMsPFZ0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=CGUka0sVW6wFNgc+ztoFeb2OUOiG/y4ojkNNplTLBt0=;
- b=sRQoOJK4I3tq7y5V4tkio2yAZHsw3gywfEQUHT1xSwIKAj1dgvQcu/oabVa6nyyAtQ
- LeYPmCVLpYu/wEn/kOQqQ9sRpP9rZEWBl7QEmWlDucVdMubtLuADatdVLXXkS44xQeRW
- v6N+2nSXCQ/Pzfbqz0GvfhWUqV3S7UR/qpHaXLCIpJfbHin+bCQvlW52TXNuciVsrQsl
- RRG6q2BJ96ojjXD89CP1Pc4lUTVJVY6ppf6/73Df5i/MmIzEDskh6VdB2xV7b7ZIhTF+
- 5cFsXvFjyoWGvkI3GryVNaqI4U2GmjQYTfK32DDg2rNvzdcK+3OEgT6FjXn/4pXvYrZv
- yKTA==
-X-Gm-Message-State: AOAM531Ca3gJuVFlvsBytchkXKaf1/uBJJEy+9j1OdpjcraRA1Grhjcy
- Bih5t0tnhcdZc5HFp5odXWxNvg==
-X-Google-Smtp-Source: ABdhPJzvyNyHijFaOxhyQ5XBzpoVz9wyxCqtYwON0mcdqndBwfa9nQPuaqV5R5FcJKMQq7TH0Bmpog==
-X-Received: by 2002:a5d:444d:: with SMTP id x13mr28571123wrr.406.1619515225336; 
- Tue, 27 Apr 2021 02:20:25 -0700 (PDT)
+ bh=ReR+qIwa27lRq+WXnj64eqAh7xIIkZ1ocFvCO3rmgbA=;
+ b=cz1yuN89/tDEhS/NXcOrWdfDxTzM4Dn7nFsHTdsvBfXfLb0NxaaIh1DSMvk/58KKmi
+ TR8ig9RmoolahMqVf5sCkuYrufkxqSGpoz2pgS+I0TmstT9PF1cUSDbgxjPxpv+3QlE2
+ suN9FrnN690oag2VIIL7PdHu2MxCeDwo6ldXvwO1ig6UhcfhlrNfG5WP1goLpuYzCXAK
+ hDF3ja9TxOrnE1VxVONXMww9yce2/CByGjLjWWaBS3qLimXwFHJVmzaB9gE3caw1ji3Z
+ fyJwpaDpyNj4ATdZ6p2kx5c7TPefuq2YbfwsNAxs1XXStCK1E/eKVfRbU/qwwsR+Qdch
+ Ileg==
+X-Gm-Message-State: AOAM531ok6M9OMoRCcNhp/MNqqVxjHS2olkW4fS2v/bOfD6pZo9t3c72
+ IOHjdod4gp6oBp0lz26zlzucuw==
+X-Google-Smtp-Source: ABdhPJxY1xvtgR31iORQGe6Y6cpHVeXgo9kkirI7wziiPBd6Q7J0bcoSuMCknwVDmZApxntHIbq0lA==
+X-Received: by 2002:a1c:228a:: with SMTP id i132mr7321975wmi.10.1619515227165; 
+ Tue, 27 Apr 2021 02:20:27 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id r24sm1939816wmh.8.2021.04.27.02.20.24
+ by smtp.gmail.com with ESMTPSA id r24sm1939816wmh.8.2021.04.27.02.20.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Apr 2021 02:20:24 -0700 (PDT)
+ Tue, 27 Apr 2021 02:20:26 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue, 27 Apr 2021 11:20:12 +0200
-Message-Id: <20210427092018.832258-2-daniel.vetter@ffwll.ch>
+Date: Tue, 27 Apr 2021 11:20:14 +0200
+Message-Id: <20210427092018.832258-4-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210427092018.832258-1-daniel.vetter@ffwll.ch>
 References: <20210427092018.832258-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/8] drm/arm/malidp: Always list modifiers
+Subject: [Intel-gfx] [PATCH 4/8] drm/msm/dpu1: Don't set allow_fb_modifiers
+ explicitly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,54 +76,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pekka Paalanen <pekka.paalanen@collabora.com>,
+Cc: Rob Clark <robdclark@chromium.org>, Rajendra Nayak <rnayak@codeaurora.org>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- stable@vger.kernel.org, Daniel Vetter <daniel.vetter@intel.com>
+ Tanmay Shah <tanmay@codeaurora.org>, Jordan Crouse <jordan@cosmicpenguin.net>,
+ Eric Anholt <eric@anholt.net>, Qinglang Miao <miaoqinglang@huawei.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Kalyan Thota <kalyant@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Even when all we support is linear, make that explicit. Otherwise the
-uapi is rather confusing.
+Since
 
-Cc: stable@vger.kernel.org
-Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Brian Starkey <brian.starkey@arm.com>
+commit 890880ddfdbe256083170866e49c87618b706ac7
+Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+Date:   Fri Jan 4 09:56:10 2019 +0100
+
+    drm: Auto-set allow_fb_modifiers when given modifiers at plane init
+
+this is done automatically as part of plane init, if drivers set the
+modifier list correctly. Which is the case here.
+
+v2: Rebase.
+
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Rob Clark <robdclark@chromium.org>
+Cc: Kalyan Thota <kalyant@codeaurora.org>
+Cc: Jordan Crouse <jordan@cosmicpenguin.net>
+Cc: Eric Anholt <eric@anholt.net>
+Cc: Tanmay Shah <tanmay@codeaurora.org>
+Cc: Rajendra Nayak <rnayak@codeaurora.org>
+Cc: Jeykumar Sankaran <jsanka@codeaurora.org>
+Cc: Qinglang Miao <miaoqinglang@huawei.com>
 ---
- drivers/gpu/drm/arm/malidp_planes.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/malidp_planes.c b/drivers/gpu/drm/arm/malidp_planes.c
-index ddbba67f0283..8c2ab3d653b7 100644
---- a/drivers/gpu/drm/arm/malidp_planes.c
-+++ b/drivers/gpu/drm/arm/malidp_planes.c
-@@ -927,6 +927,11 @@ static const struct drm_plane_helper_funcs malidp_de_plane_helper_funcs = {
- 	.atomic_disable = malidp_de_plane_disable,
- };
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 88e9cc38c13b..93bc3575bf53 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1020,11 +1020,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 			dpu_kms->catalog->caps->max_mixer_width * 2;
+ 	dev->mode_config.max_height = 4096;
  
-+static const uint64_t linear_only_modifiers[] = {
-+	DRM_FORMAT_MOD_LINEAR,
-+	DRM_FORMAT_MOD_INVALID
-+};
-+
- int malidp_de_planes_init(struct drm_device *drm)
- {
- 	struct malidp_drm *malidp = drm->dev_private;
-@@ -990,8 +995,8 @@ int malidp_de_planes_init(struct drm_device *drm)
- 		 */
- 		ret = drm_universal_plane_init(drm, &plane->base, crtcs,
- 				&malidp_de_plane_funcs, formats, n,
--				(id == DE_SMART) ? NULL : modifiers, plane_type,
--				NULL);
-+				(id == DE_SMART) ? linear_only_modifiers : modifiers,
-+				plane_type, NULL);
- 
- 		if (ret < 0)
- 			goto cleanup;
+-	/*
+-	 * Support format modifiers for compression etc.
+-	 */
+-	dev->mode_config.allow_fb_modifiers = true;
+-
+ 	dev->max_vblank_count = 0xffffffff;
+ 	/* Disable vblank irqs aggressively for power-saving */
+ 	dev->vblank_disable_immediate = true;
 -- 
 2.31.0
 
