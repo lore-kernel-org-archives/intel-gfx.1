@@ -2,41 +2,50 @@ Return-Path: <SRS0=nd+/=JY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC208C433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 21:38:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17DD5C433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 21:49:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 680D1613C5
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 21:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 680D1613C5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id C6682613F1
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 21:49:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6682613F1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFEEA6E9D0;
-	Tue, 27 Apr 2021 21:38:52 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0594A6E9CE;
- Tue, 27 Apr 2021 21:38:52 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F3182A7E03;
- Tue, 27 Apr 2021 21:38:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1712D6E9DE;
+	Tue, 27 Apr 2021 21:49:23 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 926496E9DE
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 21:49:21 +0000 (UTC)
+IronPort-SDR: WRD8MvWpRNVb3hDkomdaUuYgSAVwkixxnJ70zL6YV3XCNeEz+2rqL2jpSO1ohf1YjOiI3DlBLf
+ 1S3OFawAa+tQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9967"; a="183738208"
+X-IronPort-AV: E=Sophos;i="5.82,256,1613462400"; d="scan'208";a="183738208"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2021 14:49:17 -0700
+IronPort-SDR: +Sg7RaDN5/aZlfzfhzmzREHHCI4xtXNpIshH9aS3DseUGMAoDRtqBJQeu+gnAQeFOvosdwqrNc
+ +7Ar7rH6/BVQ==
+X-IronPort-AV: E=Sophos;i="5.82,256,1613462400"; d="scan'208";a="429983710"
+Received: from orsosgc001.ra.intel.com ([10.23.184.150])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2021 14:49:16 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 27 Apr 2021 14:49:13 -0700
+Message-Id: <20210427214913.46956-2-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210427214913.46956-1-umesh.nerlige.ramappa@intel.com>
+References: <20210427214913.46956-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Cornij, Nikola" <nikola.cornij@amd.com>
-Date: Tue, 27 Apr 2021 21:38:51 -0000
-Message-ID: <161955953199.17488.14129697556503081636@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210427212850.35267-1-nikola.cornij@amd.com>
-In-Reply-To: <20210427212850.35267-1-nikola.cornij@amd.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/drm=5Fmst=3A_Use_Extended_Base_Receiver_Capability_DPCD?=
- =?utf-8?q?_space?=
+Subject: [Intel-gfx] [PATCH 1/1] i915/query: Correlate engine and cpu
+ timestamps with better accuracy
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,65 +58,306 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Chris Wilson <chris.p.wilson@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Perf measurements rely on CPU and engine timestamps to correlate
+events of interest across these time domains. Current mechanisms get
+these timestamps separately and the calculated delta between these
+timestamps lack enough accuracy.
 
-Series: drm/drm_mst: Use Extended Base Receiver Capability DPCD space
-URL   : https://patchwork.freedesktop.org/series/89559/
-State : warning
+To improve the accuracy of these time measurements to within a few us,
+add a query that returns the engine and cpu timestamps captured as
+close to each other as possible.
 
-== Summary ==
+v2: (Tvrtko)
+- document clock reference used
+- return cpu timestamp always
+- capture cpu time just before lower dword of cs timestamp
 
-$ dim checkpatch origin/drm-tip
-63120ebc08ec drm/drm_mst: Use Extended Base Receiver Capability DPCD space
--:22: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 2dcab875e763 ("Revert "drm/dp_mst: Retrieve extended DPCD caps for topology manager"")'
-#22: 
-This also reverts the 2dcab875e763 (Revert "drm/dp_mst: Retrieve
+v3: (Chris)
+- use uncore-rpm
+- use __query_cs_timestamp helper
 
--:24: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit ad44c03208e4 ("drm/dp_mst: Retrieve extended DPCD caps for topology manager")'
-#24: 
-original commit ad44c03208e4 (drm/dp_mst: Retrieve extended DPCD caps
+v4: (Lionel)
+- Kernel perf subsytem allows users to specify the clock id to be used
+  in perf_event_open. This clock id is used by the perf subsystem to
+  return the appropriate cpu timestamp in perf events. Similarly, let
+  the user pass the clockid to this query so that cpu timestamp
+  corresponds to the clock id requested.
 
--:67: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
-#67: FILE: drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c:1897:
-+bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, struct dc_link_settings *max_link_enc_cap)
+v5: (Tvrtko)
+- Use normal ktime accessors instead of fast versions
+- Add more uApi documentation
 
--:69: WARNING:BRACES: braces {} are not necessary for single statement blocks
-#69: FILE: drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c:1899:
-+	if (max_link_enc_cap == NULL) {
-+		DC_LOG_ERROR("%s: Could not return max link encoder caps", __func__);
+v6: (Lionel)
+- Move switch out of spinlock
+
+v7: (Chris)
+- cs_timestamp is a misnomer, use cs_cycles instead
+- return the cs cycle frequency as well in the query
+
+v8:
+- Add platform and engine specific checks
+
+v9: (Lionel)
+- Return 2 cpu timestamps in the query - captured before and after the
+  register read
+
+v10: (Chris)
+- Use local_clock() to measure time taken to read lower dword of
+  register and return it to user.
+
+v11: (Jani)
+- IS_GEN deprecated. User GRAPHICS_VER instead.
+
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+---
+ drivers/gpu/drm/i915/i915_query.c | 145 ++++++++++++++++++++++++++++++
+ include/uapi/drm/i915_drm.h       |  48 ++++++++++
+ 2 files changed, 193 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+index fed337ad7b68..2594b93901ac 100644
+--- a/drivers/gpu/drm/i915/i915_query.c
++++ b/drivers/gpu/drm/i915/i915_query.c
+@@ -6,6 +6,8 @@
+ 
+ #include <linux/nospec.h>
+ 
++#include "gt/intel_engine_pm.h"
++#include "gt/intel_engine_user.h"
+ #include "i915_drv.h"
+ #include "i915_perf.h"
+ #include "i915_query.h"
+@@ -90,6 +92,148 @@ static int query_topology_info(struct drm_i915_private *dev_priv,
+ 	return total_length;
+ }
+ 
++typedef u64 (*__ktime_func_t)(void);
++static __ktime_func_t __clock_id_to_func(clockid_t clk_id)
++{
++	/*
++	 * Use logic same as the perf subsystem to allow user to select the
++	 * reference clock id to be used for timestamps.
++	 */
++	switch (clk_id) {
++	case CLOCK_MONOTONIC:
++		return &ktime_get_ns;
++	case CLOCK_MONOTONIC_RAW:
++		return &ktime_get_raw_ns;
++	case CLOCK_REALTIME:
++		return &ktime_get_real_ns;
++	case CLOCK_BOOTTIME:
++		return &ktime_get_boottime_ns;
++	case CLOCK_TAI:
++		return &ktime_get_clocktai_ns;
++	default:
++		return NULL;
 +	}
-
--:69: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!max_link_enc_cap"
-#69: FILE: drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c:1899:
-+	if (max_link_enc_cap == NULL) {
-
--:95: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
-#95: FILE: drivers/gpu/drm/amd/display/dc/dc_link.h:349:
-+bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, struct dc_link_settings *max_link_enc_cap);
-
--:127: WARNING:MINMAX: min() should probably be min_t(int, mgr->dpcd[1], mgr->max_link_rate)
-#127: FILE: drivers/gpu/drm/drm_dp_mst_topology.c:3717:
-+		link_rate = min((int)mgr->dpcd[1], mgr->max_link_rate);
-
--:177: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#177: FILE: drivers/gpu/drm/drm_dp_mst_topology.c:5905:
-+		if ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT) &&
-+		   ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_TYPE_MASK)
-
--:202: CHECK:SPACING: spaces preferred around that '/' (ctx:VxV)
-#202: FILE: drivers/gpu/drm/i915/display/intel_dp_mst.c:963:
-+					   bios_max_link_rate/27000, conn_base_id);
- 					                     ^
-
-total: 2 errors, 4 warnings, 3 checks, 194 lines checked
-
++}
++
++static inline int
++__read_timestamps(struct intel_uncore *uncore,
++		  i915_reg_t lower_reg,
++		  i915_reg_t upper_reg,
++		  u64 *cs_ts,
++		  u64 *cpu_ts,
++		  __ktime_func_t cpu_clock)
++{
++	u32 upper, lower, old_upper, loop = 0;
++
++	upper = intel_uncore_read_fw(uncore, upper_reg);
++	do {
++		cpu_ts[1] = local_clock();
++		cpu_ts[0] = cpu_clock();
++		lower = intel_uncore_read_fw(uncore, lower_reg);
++		cpu_ts[1] = local_clock() - cpu_ts[1];
++		old_upper = upper;
++		upper = intel_uncore_read_fw(uncore, upper_reg);
++	} while (upper != old_upper && loop++ < 2);
++
++	*cs_ts = (u64)upper << 32 | lower;
++
++	return 0;
++}
++
++static int
++__query_cs_cycles(struct intel_engine_cs *engine,
++		  u64 *cs_ts, u64 *cpu_ts,
++		  __ktime_func_t cpu_clock)
++{
++	struct intel_uncore *uncore = engine->uncore;
++	enum forcewake_domains fw_domains;
++	u32 base = engine->mmio_base;
++	intel_wakeref_t wakeref;
++	int ret;
++
++	fw_domains = intel_uncore_forcewake_for_reg(uncore,
++						    RING_TIMESTAMP(base),
++						    FW_REG_READ);
++
++	with_intel_runtime_pm(uncore->rpm, wakeref) {
++		spin_lock_irq(&uncore->lock);
++		intel_uncore_forcewake_get__locked(uncore, fw_domains);
++
++		ret = __read_timestamps(uncore,
++					RING_TIMESTAMP(base),
++					RING_TIMESTAMP_UDW(base),
++					cs_ts,
++					cpu_ts,
++					cpu_clock);
++
++		intel_uncore_forcewake_put__locked(uncore, fw_domains);
++		spin_unlock_irq(&uncore->lock);
++	}
++
++	return ret;
++}
++
++static int
++query_cs_cycles(struct drm_i915_private *i915,
++		struct drm_i915_query_item *query_item)
++{
++	struct drm_i915_query_cs_cycles __user *query_ptr;
++	struct drm_i915_query_cs_cycles query;
++	struct intel_engine_cs *engine;
++	__ktime_func_t cpu_clock;
++	int ret;
++
++	if (GRAPHICS_VER(i915) < 6)
++		return -ENODEV;
++
++	query_ptr = u64_to_user_ptr(query_item->data_ptr);
++	ret = copy_query_item(&query, sizeof(query), sizeof(query), query_item);
++	if (ret != 0)
++		return ret;
++
++	if (query.flags)
++		return -EINVAL;
++
++	if (query.rsvd)
++		return -EINVAL;
++
++	cpu_clock = __clock_id_to_func(query.clockid);
++	if (!cpu_clock)
++		return -EINVAL;
++
++	engine = intel_engine_lookup_user(i915,
++					  query.engine.engine_class,
++					  query.engine.engine_instance);
++	if (!engine)
++		return -EINVAL;
++
++	if (GRAPHICS_VER(i915) == 6 &&
++	    query.engine.engine_class != I915_ENGINE_CLASS_RENDER)
++		return -ENODEV;
++
++	query.cs_frequency = engine->gt->clock_frequency;
++	ret = __query_cs_cycles(engine,
++				&query.cs_cycles,
++				query.cpu_timestamp,
++				cpu_clock);
++	if (ret)
++		return ret;
++
++	if (put_user(query.cs_frequency, &query_ptr->cs_frequency))
++		return -EFAULT;
++
++	if (put_user(query.cpu_timestamp[0], &query_ptr->cpu_timestamp[0]))
++		return -EFAULT;
++
++	if (put_user(query.cpu_timestamp[1], &query_ptr->cpu_timestamp[1]))
++		return -EFAULT;
++
++	if (put_user(query.cs_cycles, &query_ptr->cs_cycles))
++		return -EFAULT;
++
++	return sizeof(query);
++}
++
+ static int
+ query_engine_info(struct drm_i915_private *i915,
+ 		  struct drm_i915_query_item *query_item)
+@@ -424,6 +568,7 @@ static int (* const i915_query_funcs[])(struct drm_i915_private *dev_priv,
+ 	query_topology_info,
+ 	query_engine_info,
+ 	query_perf_config,
++	query_cs_cycles,
+ };
+ 
+ int i915_query_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 6a34243a7646..08b00f1709b5 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2230,6 +2230,10 @@ struct drm_i915_query_item {
+ #define DRM_I915_QUERY_TOPOLOGY_INFO    1
+ #define DRM_I915_QUERY_ENGINE_INFO	2
+ #define DRM_I915_QUERY_PERF_CONFIG      3
++	/**
++	 * Query Command Streamer timestamp register.
++	 */
++#define DRM_I915_QUERY_CS_CYCLES	4
+ /* Must be kept compact -- no holes and well documented */
+ 
+ 	/**
+@@ -2397,6 +2401,50 @@ struct drm_i915_engine_info {
+ 	__u64 rsvd1[4];
+ };
+ 
++/**
++ * struct drm_i915_query_cs_cycles
++ *
++ * The query returns the command streamer cycles and the frequency that can be
++ * used to calculate the command streamer timestamp. In addition the query
++ * returns a set of cpu timestamps that indicate when the command streamer cycle
++ * count was captured.
++ */
++struct drm_i915_query_cs_cycles {
++	/** Engine for which command streamer cycles is queried. */
++	struct i915_engine_class_instance engine;
++
++	/** Must be zero. */
++	__u32 flags;
++
++	/**
++	 * Command streamer cycles as read from the command streamer
++	 * register at 0x358 offset.
++	 */
++	__u64 cs_cycles;
++
++	/** Frequency of the cs cycles in Hz. */
++	__u64 cs_frequency;
++
++	/**
++	 * CPU timestamps in ns. cpu_timestamp[0] is captured before reading the
++	 * cs_cycles register using the reference clockid set by the user.
++	 * cpu_timestamp[1] is the time taken in ns to read the lower dword of
++	 * the cs_cycles register.
++	 */
++	__u64 cpu_timestamp[2];
++
++	/**
++	 * Reference clock id for CPU timestamp. For definition, see
++	 * clock_gettime(2) and perf_event_open(2). Supported clock ids are
++	 * CLOCK_MONOTONIC, CLOCK_MONOTONIC_RAW, CLOCK_REALTIME, CLOCK_BOOTTIME,
++	 * CLOCK_TAI.
++	 */
++	__s32 clockid;
++
++	/** Must be zero. */
++	__u32 rsvd;
++};
++
+ /**
+  * struct drm_i915_query_engine_info
+  *
+-- 
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
