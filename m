@@ -5,63 +5,63 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08CFBC433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3BB9C43460
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 67D3061090
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67D3061090
+	by mail.kernel.org (Postfix) with ESMTPS id 907B1613BC
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:20:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 907B1613BC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F2826E92F;
-	Tue, 27 Apr 2021 09:20:30 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A73C06E92A
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 09:20:27 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id a4so58712859wrr.2
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 02:20:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 191876E935;
+	Tue, 27 Apr 2021 09:20:31 +0000 (UTC)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 418106E933
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 09:20:30 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id d11so852487wrw.8
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 02:20:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=qm2F088UQNMNyW0Vmb8+hr1UPrlvXjrn+pu54h1Ytnc=;
- b=bg/jsUQbIKrdZ9DmiTEtqhQ0MRAaBJpuDSG1nptwgu0H9xLxybOUsWP5W3xfNUWuP4
- jiFoaGuwC02Bs0umcQgS2tzs5k2bAZTIvWmiysrHx2vxEOkAwCI2d2FvoZCM2nZqjOff
- SIQCWMbZisu9i+60VofiJQ36oaBztzniAHf7o=
+ bh=KOCIo0GxcuBFJ7MAFxsDsYBoZyOhVlSKHbo+qwITV5Q=;
+ b=eqYcy5pEgjEbNBPBox4dInLBHfCo5j5j+wLOf5FWeDDHDm35ZfHa+F5PzHefmdBR6Y
+ mQW4c1LZ9C340D8p4VatAiPiLY3FHujh7UGENv0MV6WyIJwZcmvgTMPp/O/XIZZvCLfc
+ tqpPiLk+lTMEF0Qfwn2RGiopa0yyp2/jXUk1s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=qm2F088UQNMNyW0Vmb8+hr1UPrlvXjrn+pu54h1Ytnc=;
- b=CdQvtPsmkNEWmRK9yD9WDGPVKyXW7Mzt83i6YaDjWOFT7QdsBnBCPidOnivbWg0lmG
- W9HPd8crYkLhEt2rlmO4VgXVZ1P6vhsIrsRH6HBhDcDyesGxPSK0Kj8SQM57YnvB8Q9v
- RLiLMrRSvpxrUDMh3RO+l1a8gfPBdOF7tloPqITVE2CPCRPy+rglMSea5fR54Lmnl/ke
- AAgvDfO08PHQqXhGMA03Pmwd9ev28ifvxzILxdDHX/CuwMj3DG8200JukeBCCWozmVK3
- vdw9GwMxCagZcmTKICShHGn4/uJis8LNnNfqqdzeMbqfs7tbdYUeis6hK3XlAGyzifz7
- slCw==
-X-Gm-Message-State: AOAM533qO074YsvDmR1Vg++BQnBLW8gU4fp0c8xZqd/80if7XNVj1BXM
- HcdBsy13TQg/b0+BMYoDS6IIxg==
-X-Google-Smtp-Source: ABdhPJxs1AGSu6rzENrdE0L+jjPD7uX0+z+GMCIuMhi3W/M1AqpxFi26cW4c4dhxGaUCoSdaHH3tng==
-X-Received: by 2002:adf:8046:: with SMTP id 64mr27440671wrk.176.1619515226357; 
- Tue, 27 Apr 2021 02:20:26 -0700 (PDT)
+ bh=KOCIo0GxcuBFJ7MAFxsDsYBoZyOhVlSKHbo+qwITV5Q=;
+ b=NZ1JKt0dV3ZHi8neKK78cK94B5C1gqs6w17kPskP6a2KL5tvieY80hSYJypHLZtewi
+ eL5BRkEnSPacotxmQxxYh0SInW6iShU7LIN1nVse7U4+rYo38tA//RX2GEQNQ0p2bjPZ
+ G7ahOyiXkeiqihP9IVUKnIGq55HNq6Z6nJGwB6EL9DoukL/B2ESjC2GcAF3Nq889I36R
+ t1b6cILyvql9IaAJyKvf06cCtE/HdyG/soqgMUH3PGVwrMTQNzn3wIAHpfGtvIHL28dW
+ 7XReT9iAmyqnOPYeZgqEfN0msfSeZNzn6PlQ6WdouL/SiJSvao5hE53ILlEjyUU7RZuD
+ wpOw==
+X-Gm-Message-State: AOAM5305/3UgfwqXxqvuswDHB/hyxf/5RMiPx1s3QScnUHDUax/BI3om
+ pN/IToiDDjUlYp7L+1x41hsznQ==
+X-Google-Smtp-Source: ABdhPJxBaxOImxswpfiXYoCXOXsQQQFm/5Ib8J6++xeSyqcKN0bxddZpkjc1KLyL1GncdKpYFf7B5A==
+X-Received: by 2002:adf:e60d:: with SMTP id p13mr18428250wrm.326.1619515228862; 
+ Tue, 27 Apr 2021 02:20:28 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id r24sm1939816wmh.8.2021.04.27.02.20.25
+ by smtp.gmail.com with ESMTPSA id r24sm1939816wmh.8.2021.04.27.02.20.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Apr 2021 02:20:25 -0700 (PDT)
+ Tue, 27 Apr 2021 02:20:28 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue, 27 Apr 2021 11:20:13 +0200
-Message-Id: <20210427092018.832258-3-daniel.vetter@ffwll.ch>
+Date: Tue, 27 Apr 2021 11:20:16 +0200
+Message-Id: <20210427092018.832258-6-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210427092018.832258-1-daniel.vetter@ffwll.ch>
 References: <20210427092018.832258-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/8] drm/i915: Don't set allow_fb_modifiers
+Subject: [Intel-gfx] [PATCH 6/8] drm/nouveau: Don't set allow_fb_modifiers
  explicitly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,42 +75,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Dave Airlie <airlied@redhat.com>,
- Daniel Vetter <daniel.vetter@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ stable@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
+ nouveau@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-U2luY2UKCmNvbW1pdCA4OTA4ODBkZGZkYmUyNTYwODMxNzA4NjZlNDljODc2MThiNzA2YWM3CkF1
-dGhvcjogUGF1bCBLb2NpYWxrb3dza2kgPHBhdWwua29jaWFsa293c2tpQGJvb3RsaW4uY29tPgpE
-YXRlOiAgIEZyaSBKYW4gNCAwOTo1NjoxMCAyMDE5ICswMTAwCgogICAgZHJtOiBBdXRvLXNldCBh
-bGxvd19mYl9tb2RpZmllcnMgd2hlbiBnaXZlbiBtb2RpZmllcnMgYXQgcGxhbmUgaW5pdAoKdGhp
-cyBpcyBkb25lIGF1dG9tYXRpY2FsbHkgYXMgcGFydCBvZiBwbGFuZSBpbml0LCBpZiBkcml2ZXJz
-IHNldCB0aGUKbW9kaWZpZXIgbGlzdCBjb3JyZWN0bHkuIFdoaWNoIGlzIHRoZSBjYXNlIGhlcmUu
-CgpTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNvbT4K
-Q2M6ICJWaWxsZSBTeXJqw6Rsw6QiIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KQ2M6
-IE1hbmFzaSBOYXZhcmUgPG1hbmFzaS5kLm5hdmFyZUBpbnRlbC5jb20+CkNjOiBKYW5pIE5pa3Vs
-YSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPgpDYzogIkpvc8OpIFJvYmVydG8gZGUgU291emEiIDxq
-b3NlLnNvdXphQGludGVsLmNvbT4KQ2M6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMtd2lsc29u
-LmNvLnVrPgpDYzogSW1yZSBEZWFrIDxpbXJlLmRlYWtAaW50ZWwuY29tPgpDYzogRGF2ZSBBaXJs
-aWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KQ2M6IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxh
-bmtob3JzdEBsaW51eC5pbnRlbC5jb20+CkNjOiBLYXJ0aGlrIEIgUyA8a2FydGhpay5iLnNAaW50
-ZWwuY29tPgpDYzogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyB8IDIgLS0KIDEgZmls
-ZSBjaGFuZ2VkLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
-eS9pbnRlbF9kaXNwbGF5LmMKaW5kZXggNGJiYzgxZDhkNjQ5Li5kMmM2OTU5MTkwYWIgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCkBAIC0xMTczMSw4
-ICsxMTczMSw2IEBAIHN0YXRpYyB2b2lkIGludGVsX21vZGVfY29uZmlnX2luaXQoc3RydWN0IGRy
-bV9pOTE1X3ByaXZhdGUgKmk5MTUpCiAJbW9kZV9jb25maWctPnByZWZlcnJlZF9kZXB0aCA9IDI0
-OwogCW1vZGVfY29uZmlnLT5wcmVmZXJfc2hhZG93ID0gMTsKIAotCW1vZGVfY29uZmlnLT5hbGxv
-d19mYl9tb2RpZmllcnMgPSB0cnVlOwotCiAJbW9kZV9jb25maWctPmZ1bmNzID0gJmludGVsX21v
-ZGVfZnVuY3M7CiAKIAltb2RlX2NvbmZpZy0+YXN5bmNfcGFnZV9mbGlwID0gaGFzX2FzeW5jX2Zs
-aXBzKGk5MTUpOwotLSAKMi4zMS4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9pbnRlbC1nZngK
+Since
+
+commit 890880ddfdbe256083170866e49c87618b706ac7
+Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+Date:   Fri Jan 4 09:56:10 2019 +0100
+
+    drm: Auto-set allow_fb_modifiers when given modifiers at plane init
+
+this is done automatically as part of plane init, if drivers set the
+modifier list correctly. Which is the case here.
+
+Note that this fixes an inconsistency: We've set the cap everywhere,
+but only nv50+ supports modifiers. Hence cc stable, but not further
+back then the patch from Paul.
+
+Cc: stable@vger.kernel.org # v5.1 +
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Ben Skeggs <bskeggs@redhat.com>
+Cc: nouveau@lists.freedesktop.org
+---
+ drivers/gpu/drm/nouveau/nouveau_display.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+index 14101bd2a0ff..929de41c281f 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.c
++++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+@@ -697,7 +697,6 @@ nouveau_display_create(struct drm_device *dev)
+ 
+ 	dev->mode_config.preferred_depth = 24;
+ 	dev->mode_config.prefer_shadow = 1;
+-	dev->mode_config.allow_fb_modifiers = true;
+ 
+ 	if (drm->client.device.info.chipset < 0x11)
+ 		dev->mode_config.async_page_flip = false;
+-- 
+2.31.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
