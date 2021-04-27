@@ -2,128 +2,69 @@ Return-Path: <SRS0=nd+/=JY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9001BC433ED
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A3754C433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:42:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3BA75610FB
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:42:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3BA75610FB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 45227613BF
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 09:42:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45227613BF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADFB76E199;
-	Tue, 27 Apr 2021 09:41:59 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2050.outbound.protection.outlook.com [40.107.223.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFAF66E878;
- Mon, 26 Apr 2021 20:00:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gPscZ7EQvGneEggQ2HasOkMGjAA0vMPte632soH2cpRIcaVKs1xuKl8kuHOkLIboVRmvN0bLHchekXsHaJV8BLBdgSCWd5FhIqdqosW0Tp+pRKtxLDs18Rt4Vk9+fYcokledVHC4DxOc5CRZubelWIBxCUZK8qQyQ/EYkXnj/LF1/5oPIS8P4Dpixf5utQL3DTk38kcdrGbYJhuMDVNkumYzZstXT36nGnCcqg9/rFncNwB/5h69BlLqbW7LVG7MInISAM4hOva6P/GUxcJpQ9rXwVIOfZYeB/ksNmzh6tZrufjQiUp4goJqlJUHgpviAaI2VVS0e9cSkdex6qIqpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WFfUB8BG8cYSs1EqxrHJrhnYlnU3GiZG0sOZhyhDLqI=;
- b=F3xI0sh/gf3wF09ymw+5VVDj4WI0Cro24nNJCs8jSzF3PvyJR8wNgRXJCFcRujb0pT751hOA6UeiO6q5lGTLix9ds06OSyD3gtcMeh1DnIvcrd81tKZLqI2GGajhtMqWsloj3y+CHWrRhJCxwYzzterI3lTcTOasacX8kX1L34Fd/awF9msH6xJZsrgXf60qkfJFKZgs5S+z64DOsIvs69knFsnq/LGdTl5J31GIPjBl0Y1R9gkEQh7qVP13bc0z8cr+VSRAm0rbblovaY581N5jKAgdRV/hJSuNTBw/2LUaM/TUFWbh8LDI1k/TeOz/9dnIeFqikhRHUPzwoQrS1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WFfUB8BG8cYSs1EqxrHJrhnYlnU3GiZG0sOZhyhDLqI=;
- b=m7t3fvkY+0/7V61ReSRHo1QgCI1RDytIJb0bgik7lLmBqZs3qIT+ChRUhE13LzKoOCxZe4+l5asdEHa/P/BxmqoMy1gQ0fqGVPudK8Lau4zd9fu0tAciy8mFPyAYziYRqtyY/By0O2b0f/IqZXZksAx4baMhlxPF+IK5YBMSRx1ggKfXuewe+x3xG1UDFLZmOlcuNJc1Ejx6u7087hFXmAWO4EotBQ4NGElnMUK/Eieq2pTw8Pilh1OG79PC8CoS8PLtOsUKRtRcevKo9nQtvFEkOk4Za7gGM+sQ5JIzPJevbXk9uVwbp4ZH+yh7wg7fiEWdhoeJfmHRPo0vhBJwtg==
-Authentication-Results: linux.ie; dkim=none (message not signed)
- header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM5PR12MB1659.namprd12.prod.outlook.com (2603:10b6:4:11::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21; Mon, 26 Apr
- 2021 20:00:22 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::1c62:7fa3:617b:ab87]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::1c62:7fa3:617b:ab87%6]) with mapi id 15.20.4065.026; Mon, 26 Apr 2021
- 20:00:22 +0000
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
-Date: Mon, 26 Apr 2021 17:00:10 -0300
-Message-Id: <8-v2-7667f42c9bad+935-vfio3_jgg@nvidia.com>
-In-Reply-To: <0-v2-7667f42c9bad+935-vfio3_jgg@nvidia.com>
-References: 
-X-Originating-IP: [47.55.113.94]
-X-ClientProxiedBy: BLAPR03CA0029.namprd03.prod.outlook.com
- (2603:10b6:208:32b::34) To DM6PR12MB3834.namprd12.prod.outlook.com
- (2603:10b6:5:14a::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6BB26E937;
+	Tue, 27 Apr 2021 09:42:08 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C80996E942
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 09:42:07 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id q9so4597321wrs.6
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 02:42:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=1r/VDP10i2ZfLsR2Yr3ayBxnCP9l1GWzjv2mwNzlT5c=;
+ b=NOJi3P9ZCwJ39VpR6Tdxyv6ply7QjiJdnamkoVYkGNGBmzS2Z5V7F+D67VQtyDj2zX
+ YU2Iz5W00k0HRMV6mBbOLIvFIPlxHB4MBim2dV+EkdC2x4YU59gsROo6oExcHVxp4i/t
+ zRR7Ny6SQr1oA9Qn2IOfnwNVusVtJALJXqhY8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=1r/VDP10i2ZfLsR2Yr3ayBxnCP9l1GWzjv2mwNzlT5c=;
+ b=Dxnmbd4a4J78mDXT6YiBiiVqUHu37FFiO0kYkdZWWoliOLOyUBhTEkE2fm0g074Z8D
+ rICLEE+srQRTXezG2hQMLFoUgtZNf5wkfCxjJGvXKLBqzC+KujPXjMNTv2Sbd7cVGdFC
+ VjM2nQA/F1gyQ9WBL31Yq79EmvSpB2DOAQbCiqRm5Euva9p7BhfiyO7XdYWC2qNTxCwE
+ jYKVVOvBVmhEPmttamdfGy709JUXagi32q7jcTlXTUbm84Wd+K8D5klMcp6KPJXIWJy3
+ keFty4ZgOcdIEfg7S6X/OWmHLSoeaVM+4dYh/w/Wib/dKhCi5nKLiwCLsMter9AbX5nM
+ EO/Q==
+X-Gm-Message-State: AOAM5323bWS21Rhvbu1MxHts2gg/0Soq6e/iJstNidR/K9zVsbYpNyMP
+ qQQR+v0pg4xw3Mr5SKNZHkKKiw==
+X-Google-Smtp-Source: ABdhPJzY11qQ1La35OOYHQEbILgVI7A53FdsmWXrTCTT6HHHTAXV+cKtRa9D5Y5RVea961fAChXZ9g==
+X-Received: by 2002:a5d:628e:: with SMTP id k14mr28369174wru.150.1619516526557; 
+ Tue, 27 Apr 2021 02:42:06 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id q4sm489937wrs.21.2021.04.27.02.42.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Apr 2021 02:42:06 -0700 (PDT)
+Date: Tue, 27 Apr 2021 11:42:04 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Jason Ekstrand <jason@jlekstrand.net>
+Message-ID: <YIfcbKoWY3ZbM4Tj@phenom.ffwll.local>
+References: <20210423223131.879208-1-jason@jlekstrand.net>
+ <20210423223131.879208-4-jason@jlekstrand.net>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mlx.ziepe.ca (47.55.113.94) by
- BLAPR03CA0029.namprd03.prod.outlook.com (2603:10b6:208:32b::34) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.22 via Frontend
- Transport; Mon, 26 Apr 2021 20:00:18 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1lb7Oy-00DFZU-1m; Mon, 26 Apr 2021 17:00:16 -0300
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7298a0ce-64ea-457f-4503-08d908edeaa9
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1659:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1659C7AFC576F99CF6083EF6C2429@DM5PR12MB1659.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WaYFvdvSy3rSl83Qu0hmoNj3U3Dr7afD79LfvF1s38TwjAVxM1hUQ5LQL/rQSPTtJ+uJ+UbdkjYIxLOt9EuytqeJz7Ubipx22et+ee18NL3kFQWXfBN/2sMjZxm764tt/f5mDOxjmWBhyreMcbOEWmrHIKqbyPjQCXVOArQT2HCAHyxbmdCDoL+wci6m/cr82vYr2J8QegdsrVCUjKzR+wXzpxV4uRA9H3pt/KM/ZnUF31iY3VKk/ecHbKHX/vY2aMqyZiwYkSc7Kc4xBgMI1fHhuz3K5dNYssgzQ9KYQKNmfWOmqpqrN3XY0jGwBWmMrN0io8yrF4HPJbyNVQE2209Ixut2Ur/C5P/amhfXdRsJ9CkR+lfjlXqeVMZndB+sUXHRmYsFjuXdnI0QlMDEDQB/yTeYXp3yuODyWwGJllL4ENmYZg2kUbIl2yjcsfRPAThgALf06SQorD33iwl/VWkDdf8oFUpqYFaQlzPBYZb0peI3H/EsB2dxQU2GCjcIg+TXoovYVYs5AgQjPxz9xZkzhjSucmkAi59H6HUERKVoLFntf1c0oHqkHwC2xTqG61nBcxHMLfS3u+RSi3twfJ/F77Q8lQGMCzzr4lhOO3leciueDsixywuMSjxSANe5a300WsEuE8B1SuUOrM3FZDnZc7YPX7YzZNwR6KMz+S4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3834.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(136003)(396003)(366004)(39860400002)(376002)(66946007)(36756003)(66556008)(66476007)(8676002)(2906002)(86362001)(6666004)(7416002)(2616005)(8936002)(478600001)(30864003)(426003)(83380400001)(5660300002)(4326008)(38100700002)(9786002)(107886003)(110136005)(9746002)(186003)(316002)(921005)(54906003)(26005)(4216001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?al8cEkkLw+OL2PwHT2pXTvhnRru9bvzErWrtjaYIW3adZWT63x+FbQBhWPg9?=
- =?us-ascii?Q?RmL6Eks+ys3xRkReibiIQHr+wHRWvMEcPxIuT4GJPfsBL7d0EK1IJnRNWqlA?=
- =?us-ascii?Q?boECKVwgzqJ2q+b4i9e8FCkG+iXM073cUlH3M14anGl9Pdm+PDyT55fT9AYK?=
- =?us-ascii?Q?tFJrRp15S0QzjI5JcwYvHh2MNrgdEX11lvn20ZaWvR1D37iyMctUvme5hs2T?=
- =?us-ascii?Q?zRU+vEKiLr2cVJX95rknrKXXOoIwQKKmU0MN4c+VSeJI5Q7Pdo9u9De6BL3v?=
- =?us-ascii?Q?00RJYTeKbkL2g1iqG2CKQLMqwgJJx6c5qWnkXsLCcym4+DPvR7CuzN3l2EUg?=
- =?us-ascii?Q?/wj/dqXCsNlVX5uTsOilaTamizNK4KR2+NeVp3lxamvd9O+AfljNjmbZpJ9N?=
- =?us-ascii?Q?NjWrKqNZ550RUG4ZG9IoqvpBLJhu1JfjSWFour6xWEv/I1DGWafnOLuiqZnA?=
- =?us-ascii?Q?yiyVW95DBOZOXdmPG6nLtMqc66ywIolfl+saZ+GDhPzneOfPP9etQG+6vSNE?=
- =?us-ascii?Q?sdp523MpZQ07X0ZjKSlDRUyjOZ1z7rkqli68OcHLYUnoDuoB9Ix+AYsHPs3P?=
- =?us-ascii?Q?s5ZIThZBj8e1waiGTnLdffFVmcHDblxIpnyc4TjaefemqpNd+FuI5UewJWnV?=
- =?us-ascii?Q?iV/jzdJ6qunXRF0bJnA+mfqFZVTEJEwLnfbBZ7/FQeDMMpH7LhT0QIqSQNSK?=
- =?us-ascii?Q?yOEe/OJhSUW0U1TtNz2DabpZutM93U1U/rcM6g2VBWD6imr6GWrzDeI0XF3x?=
- =?us-ascii?Q?qhxyuL1q+U2kfxCcKeGDpxTvTiBmOa6PDfa5rUZOKKTvx//UgKrxibClwmHz?=
- =?us-ascii?Q?Z3QhuijODhmGoELeLt3BVXymXHMY6ZKEcXka42qmYlzkoRxhp6M64Ryi5zhd?=
- =?us-ascii?Q?h15GdqjqrcLZjiZ4VW/W5NXwUOgwz+qF3TOzQedINofYIgXyQrcBLvTPO1Ba?=
- =?us-ascii?Q?BvQrUWvI0JFoT+vO//nJhE1qzSTttvvwgYPdWrFNm2QnHekaLUh0u4Kq5LRx?=
- =?us-ascii?Q?JbVJOEki85xZBE8cuS83gmgJw4p+whr8cunVBdDX93/+d/pVZCsylDMZgEo0?=
- =?us-ascii?Q?s2T0lV4nksJxIAf1hZWybguLDPN6hQaOqMH8pthDKdp1rHnXw48vPuQCMPRe?=
- =?us-ascii?Q?qK2rTbXmTz6Y8eaOG+exWDorrcanT22kmVTqOX24T4nUnPYPhc6cX+AX0y8N?=
- =?us-ascii?Q?gd1LnwcMep04P13jkq8M3smjmnxEsg7bDG1yWQyDdsKeB3+c1TNSchMzylc5?=
- =?us-ascii?Q?FijhsN75uqIxuyXpLNi4Hcbk8CL4Gb776oVOrKTVtTNvM2LatDyTaVHlgAuV?=
- =?us-ascii?Q?5Jak4FzNTq2bXYpeUxLXVfZi?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7298a0ce-64ea-457f-4503-08d908edeaa9
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3834.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2021 20:00:18.9367 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ouXLH6qL4YnScKI8q4iJbidVEOtI/BSwDsd++80rKv9AnuuJQB4oy9oTC8AaWHUW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1659
-X-Mailman-Approved-At: Tue, 27 Apr 2021 09:41:45 +0000
-Subject: [Intel-gfx] [PATCH v2 08/13] vfio/gvt: Convert to use
- vfio_register_group_dev()
+Content-Disposition: inline
+In-Reply-To: <20210423223131.879208-4-jason@jlekstrand.net>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
+Subject: Re: [Intel-gfx] [PATCH 03/21] drm/i915/gem: Set the watchdog
+ timeout directly in intel_context_set_gem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,538 +77,149 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Max Gurtovoy <mgurtovoy@nvidia.com>, "Raj, Ashok" <ashok.raj@intel.com>,
- Tarun Gupta <targupta@nvidia.com>, Dan Williams <dan.j.williams@intel.com>,
- Leon Romanovsky <leonro@nvidia.com>, Christoph Hellwig <hch@lst.de>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While there is a confusing mess of pointers and structs in this driver,
-the struct kvmgt_vdev (which in turn is 1:1 with a struct intel_vgpu) is
-what holds the vfio_device. Replace all the drvdata's and weird
-derivations of vgpu and vdev with container_of() or vdev->vgpu.
+On Fri, Apr 23, 2021 at 05:31:13PM -0500, Jason Ekstrand wrote:
+> Instead of handling it like a context param, unconditionally set it when
+> intel_contexts are created.  This doesn't fix anything but does simplify
+> the code a bit.
+> 
+> Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
----
- drivers/gpu/drm/i915/gvt/kvmgt.c | 208 +++++++++++++++++--------------
- 1 file changed, 111 insertions(+), 97 deletions(-)
+So the idea here is that since years we've had a watchdog uapi floating
+about. Aim was for media, so that they could set very tight deadlines for
+their transcodes jobs, so that if you have a corrupt bitstream (especially
+for decoding) you don't hang your desktop unecessarily wrong.
 
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index 6bf176e8426e63..85ef300087e091 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -50,6 +50,7 @@
- #include "gvt.h"
- 
- static const struct intel_gvt_ops *intel_gvt_ops;
-+static const struct vfio_device_ops intel_vgpu_dev_ops;
- 
- /* helper macros copied from vfio-pci */
- #define VFIO_PCI_OFFSET_SHIFT   40
-@@ -109,8 +110,8 @@ struct gvt_dma {
- };
- 
- struct kvmgt_vdev {
-+	struct vfio_device vfio_device;
- 	struct intel_vgpu *vgpu;
--	struct mdev_device *mdev;
- 	struct vfio_region *region;
- 	int num_regions;
- 	struct eventfd_ctx *intx_trigger;
-@@ -130,7 +131,6 @@ struct kvmgt_vdev {
- 	struct kvm *kvm;
- 	struct work_struct release_work;
- 	atomic_t released;
--	struct vfio_device *vfio_device;
- 	struct vfio_group *vfio_group;
- };
- 
-@@ -144,7 +144,7 @@ static inline bool handle_valid(unsigned long handle)
- 	return !!(handle & ~0xff);
- }
- 
--static int kvmgt_guest_init(struct mdev_device *mdev);
-+static int kvmgt_guest_init(struct kvmgt_vdev *vdev);
- static void intel_vgpu_release_work(struct work_struct *work);
- static bool kvmgt_guest_exit(struct kvmgt_guest_info *info);
- 
-@@ -611,12 +611,7 @@ static int kvmgt_get_vfio_device(void *p_vgpu)
- 	struct intel_vgpu *vgpu = (struct intel_vgpu *)p_vgpu;
- 	struct kvmgt_vdev *vdev = kvmgt_vdev(vgpu);
- 
--	vdev->vfio_device = vfio_device_get_from_dev(
--		mdev_dev(vdev->mdev));
--	if (!vdev->vfio_device) {
--		gvt_vgpu_err("failed to get vfio device\n");
--		return -ENODEV;
--	}
-+	vfio_device_get(&vdev->vfio_device);
- 	return 0;
- }
- 
-@@ -683,16 +678,14 @@ static void kvmgt_put_vfio_device(void *vgpu)
- {
- 	struct kvmgt_vdev *vdev = kvmgt_vdev((struct intel_vgpu *)vgpu);
- 
--	if (WARN_ON(!vdev->vfio_device))
--		return;
--
--	vfio_device_put(vdev->vfio_device);
-+	vfio_device_put(&vdev->vfio_device);
- }
- 
--static int intel_vgpu_create(struct mdev_device *mdev)
-+static int intel_vgpu_probe(struct mdev_device *mdev)
- {
- 	struct intel_vgpu *vgpu = NULL;
- 	struct intel_vgpu_type *type;
-+	struct kvmgt_vdev *vdev;
- 	struct device *pdev;
- 	void *gvt;
- 	int ret;
-@@ -702,40 +695,40 @@ static int intel_vgpu_create(struct mdev_device *mdev)
- 
- 	type = intel_gvt_ops->gvt_find_vgpu_type(gvt,
- 						 mdev_get_type_group_id(mdev));
--	if (!type) {
--		ret = -EINVAL;
--		goto out;
--	}
-+	if (!type)
-+		return -EINVAL;
- 
- 	vgpu = intel_gvt_ops->vgpu_create(gvt, type);
- 	if (IS_ERR_OR_NULL(vgpu)) {
--		ret = vgpu == NULL ? -EFAULT : PTR_ERR(vgpu);
- 		gvt_err("failed to create intel vgpu: %d\n", ret);
--		goto out;
-+		return vgpu == NULL ? -EFAULT : PTR_ERR(vgpu);
- 	}
- 
--	INIT_WORK(&kvmgt_vdev(vgpu)->release_work, intel_vgpu_release_work);
-+	vdev = kvmgt_vdev(vgpu);
-+	INIT_WORK(&vdev->release_work, intel_vgpu_release_work);
-+	vfio_init_group_dev(&vdev->vfio_device, &mdev->dev,
-+			    &intel_vgpu_dev_ops);
- 
--	kvmgt_vdev(vgpu)->mdev = mdev;
--	mdev_set_drvdata(mdev, vgpu);
-+	ret = vfio_register_group_dev(&vdev->vfio_device);
-+	if (ret) {
-+		intel_gvt_ops->vgpu_destroy(vgpu);
-+		return ret;
-+	}
-+	dev_set_drvdata(&mdev->dev, vdev);
- 
- 	gvt_dbg_core("intel_vgpu_create succeeded for mdev: %s\n",
- 		     dev_name(mdev_dev(mdev)));
--	ret = 0;
--
--out:
--	return ret;
-+	return 0;
- }
- 
--static int intel_vgpu_remove(struct mdev_device *mdev)
-+static void intel_vgpu_remove(struct mdev_device *mdev)
- {
--	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
--
--	if (handle_valid(vgpu->handle))
--		return -EBUSY;
-+	struct kvmgt_vdev *vdev = dev_get_drvdata(&mdev->dev);
-+	struct intel_vgpu *vgpu = vdev->vgpu;
- 
-+	if (WARN_ON(handle_valid(vgpu->handle)))
-+		return;
- 	intel_gvt_ops->vgpu_destroy(vgpu);
--	return 0;
- }
- 
- static int intel_vgpu_iommu_notifier(struct notifier_block *nb,
-@@ -788,10 +781,11 @@ static int intel_vgpu_group_notifier(struct notifier_block *nb,
- 	return NOTIFY_OK;
- }
- 
--static int intel_vgpu_open(struct mdev_device *mdev)
-+static int intel_vgpu_open(struct vfio_device *vfio_dev)
- {
--	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
--	struct kvmgt_vdev *vdev = kvmgt_vdev(vgpu);
-+	struct kvmgt_vdev *vdev =
-+		container_of(vfio_dev, struct kvmgt_vdev, vfio_device);
-+	struct intel_vgpu *vgpu = vdev->vgpu;
- 	unsigned long events;
- 	int ret;
- 	struct vfio_group *vfio_group;
-@@ -800,7 +794,7 @@ static int intel_vgpu_open(struct mdev_device *mdev)
- 	vdev->group_notifier.notifier_call = intel_vgpu_group_notifier;
- 
- 	events = VFIO_IOMMU_NOTIFY_DMA_UNMAP;
--	ret = vfio_register_notifier(mdev_dev(mdev), VFIO_IOMMU_NOTIFY, &events,
-+	ret = vfio_register_notifier(vfio_dev->dev, VFIO_IOMMU_NOTIFY, &events,
- 				&vdev->iommu_notifier);
- 	if (ret != 0) {
- 		gvt_vgpu_err("vfio_register_notifier for iommu failed: %d\n",
-@@ -809,7 +803,7 @@ static int intel_vgpu_open(struct mdev_device *mdev)
- 	}
- 
- 	events = VFIO_GROUP_NOTIFY_SET_KVM;
--	ret = vfio_register_notifier(mdev_dev(mdev), VFIO_GROUP_NOTIFY, &events,
-+	ret = vfio_register_notifier(vfio_dev->dev, VFIO_GROUP_NOTIFY, &events,
- 				&vdev->group_notifier);
- 	if (ret != 0) {
- 		gvt_vgpu_err("vfio_register_notifier for group failed: %d\n",
-@@ -817,7 +811,7 @@ static int intel_vgpu_open(struct mdev_device *mdev)
- 		goto undo_iommu;
- 	}
- 
--	vfio_group = vfio_group_get_external_user_from_dev(mdev_dev(mdev));
-+	vfio_group = vfio_group_get_external_user_from_dev(vfio_dev->dev);
- 	if (IS_ERR_OR_NULL(vfio_group)) {
- 		ret = !vfio_group ? -EFAULT : PTR_ERR(vfio_group);
- 		gvt_vgpu_err("vfio_group_get_external_user_from_dev failed\n");
-@@ -833,11 +827,11 @@ static int intel_vgpu_open(struct mdev_device *mdev)
- 		goto undo_group;
- 	}
- 
--	ret = kvmgt_guest_init(mdev);
-+	ret = kvmgt_guest_init(vdev);
- 	if (ret)
- 		goto undo_group;
- 
--	intel_gvt_ops->vgpu_activate(vgpu);
-+	intel_gvt_ops->vgpu_activate(vdev->vgpu);
- 
- 	atomic_set(&vdev->released, 0);
- 	return ret;
-@@ -847,11 +841,11 @@ static int intel_vgpu_open(struct mdev_device *mdev)
- 	vdev->vfio_group = NULL;
- 
- undo_register:
--	vfio_unregister_notifier(mdev_dev(mdev), VFIO_GROUP_NOTIFY,
-+	vfio_unregister_notifier(vfio_dev->dev, VFIO_GROUP_NOTIFY,
- 					&vdev->group_notifier);
- 
- undo_iommu:
--	vfio_unregister_notifier(mdev_dev(mdev), VFIO_IOMMU_NOTIFY,
-+	vfio_unregister_notifier(vfio_dev->dev, VFIO_IOMMU_NOTIFY,
- 					&vdev->iommu_notifier);
- out:
- 	return ret;
-@@ -884,12 +878,12 @@ static void __intel_vgpu_release(struct intel_vgpu *vgpu)
- 
- 	intel_gvt_ops->vgpu_release(vgpu);
- 
--	ret = vfio_unregister_notifier(mdev_dev(vdev->mdev), VFIO_IOMMU_NOTIFY,
-+	ret = vfio_unregister_notifier(vdev->vfio_device.dev, VFIO_IOMMU_NOTIFY,
- 					&vdev->iommu_notifier);
- 	drm_WARN(&i915->drm, ret,
- 		 "vfio_unregister_notifier for iommu failed: %d\n", ret);
- 
--	ret = vfio_unregister_notifier(mdev_dev(vdev->mdev), VFIO_GROUP_NOTIFY,
-+	ret = vfio_unregister_notifier(vdev->vfio_device.dev, VFIO_GROUP_NOTIFY,
- 					&vdev->group_notifier);
- 	drm_WARN(&i915->drm, ret,
- 		 "vfio_unregister_notifier for group failed: %d\n", ret);
-@@ -907,11 +901,12 @@ static void __intel_vgpu_release(struct intel_vgpu *vgpu)
- 	vgpu->handle = 0;
- }
- 
--static void intel_vgpu_release(struct mdev_device *mdev)
-+static void intel_vgpu_release(struct vfio_device *vfio_dev)
- {
--	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
-+	struct kvmgt_vdev *vdev =
-+		container_of(vfio_dev, struct kvmgt_vdev, vfio_device);
- 
--	__intel_vgpu_release(vgpu);
-+	__intel_vgpu_release(vdev->vgpu);
- }
- 
- static void intel_vgpu_release_work(struct work_struct *work)
-@@ -997,11 +992,10 @@ static int intel_vgpu_aperture_rw(struct intel_vgpu *vgpu, u64 off,
- 	return 0;
- }
- 
--static ssize_t intel_vgpu_rw(struct mdev_device *mdev, char *buf,
-+static ssize_t intel_vgpu_rw(struct kvmgt_vdev *vdev, char *buf,
- 			size_t count, loff_t *ppos, bool is_write)
- {
--	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
--	struct kvmgt_vdev *vdev = kvmgt_vdev(vgpu);
-+	struct intel_vgpu *vgpu = vdev->vgpu;
- 	unsigned int index = VFIO_PCI_OFFSET_TO_INDEX(*ppos);
- 	u64 pos = *ppos & VFIO_PCI_OFFSET_MASK;
- 	int ret = -EINVAL;
-@@ -1047,9 +1041,9 @@ static ssize_t intel_vgpu_rw(struct mdev_device *mdev, char *buf,
- 	return ret == 0 ? count : ret;
- }
- 
--static bool gtt_entry(struct mdev_device *mdev, loff_t *ppos)
-+static bool gtt_entry(struct kvmgt_vdev *vdev, loff_t *ppos)
- {
--	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
-+	struct intel_vgpu *vgpu = vdev->vgpu;
- 	unsigned int index = VFIO_PCI_OFFSET_TO_INDEX(*ppos);
- 	struct intel_gvt *gvt = vgpu->gvt;
- 	int offset;
-@@ -1066,9 +1060,11 @@ static bool gtt_entry(struct mdev_device *mdev, loff_t *ppos)
- 			true : false;
- }
- 
--static ssize_t intel_vgpu_read(struct mdev_device *mdev, char __user *buf,
-+static ssize_t intel_vgpu_read(struct vfio_device *vfio_dev, char __user *buf,
- 			size_t count, loff_t *ppos)
- {
-+	struct kvmgt_vdev *vdev =
-+		container_of(vfio_dev, struct kvmgt_vdev, vfio_device);
- 	unsigned int done = 0;
- 	int ret;
- 
-@@ -1077,10 +1073,10 @@ static ssize_t intel_vgpu_read(struct mdev_device *mdev, char __user *buf,
- 
- 		/* Only support GGTT entry 8 bytes read */
- 		if (count >= 8 && !(*ppos % 8) &&
--			gtt_entry(mdev, ppos)) {
-+			gtt_entry(vdev, ppos)) {
- 			u64 val;
- 
--			ret = intel_vgpu_rw(mdev, (char *)&val, sizeof(val),
-+			ret = intel_vgpu_rw(vdev, (char *)&val, sizeof(val),
- 					ppos, false);
- 			if (ret <= 0)
- 				goto read_err;
-@@ -1092,7 +1088,7 @@ static ssize_t intel_vgpu_read(struct mdev_device *mdev, char __user *buf,
- 		} else if (count >= 4 && !(*ppos % 4)) {
- 			u32 val;
- 
--			ret = intel_vgpu_rw(mdev, (char *)&val, sizeof(val),
-+			ret = intel_vgpu_rw(vdev, (char *)&val, sizeof(val),
- 					ppos, false);
- 			if (ret <= 0)
- 				goto read_err;
-@@ -1104,7 +1100,7 @@ static ssize_t intel_vgpu_read(struct mdev_device *mdev, char __user *buf,
- 		} else if (count >= 2 && !(*ppos % 2)) {
- 			u16 val;
- 
--			ret = intel_vgpu_rw(mdev, (char *)&val, sizeof(val),
-+			ret = intel_vgpu_rw(vdev, (char *)&val, sizeof(val),
- 					ppos, false);
- 			if (ret <= 0)
- 				goto read_err;
-@@ -1116,7 +1112,7 @@ static ssize_t intel_vgpu_read(struct mdev_device *mdev, char __user *buf,
- 		} else {
- 			u8 val;
- 
--			ret = intel_vgpu_rw(mdev, &val, sizeof(val), ppos,
-+			ret = intel_vgpu_rw(vdev, &val, sizeof(val), ppos,
- 					false);
- 			if (ret <= 0)
- 				goto read_err;
-@@ -1139,10 +1135,12 @@ static ssize_t intel_vgpu_read(struct mdev_device *mdev, char __user *buf,
- 	return -EFAULT;
- }
- 
--static ssize_t intel_vgpu_write(struct mdev_device *mdev,
-+static ssize_t intel_vgpu_write(struct vfio_device *vfio_dev,
- 				const char __user *buf,
- 				size_t count, loff_t *ppos)
- {
-+	struct kvmgt_vdev *vdev =
-+		container_of(vfio_dev, struct kvmgt_vdev, vfio_device);
- 	unsigned int done = 0;
- 	int ret;
- 
-@@ -1151,13 +1149,13 @@ static ssize_t intel_vgpu_write(struct mdev_device *mdev,
- 
- 		/* Only support GGTT entry 8 bytes write */
- 		if (count >= 8 && !(*ppos % 8) &&
--			gtt_entry(mdev, ppos)) {
-+			gtt_entry(vdev, ppos)) {
- 			u64 val;
- 
- 			if (copy_from_user(&val, buf, sizeof(val)))
- 				goto write_err;
- 
--			ret = intel_vgpu_rw(mdev, (char *)&val, sizeof(val),
-+			ret = intel_vgpu_rw(vdev, (char *)&val, sizeof(val),
- 					ppos, true);
- 			if (ret <= 0)
- 				goto write_err;
-@@ -1169,7 +1167,7 @@ static ssize_t intel_vgpu_write(struct mdev_device *mdev,
- 			if (copy_from_user(&val, buf, sizeof(val)))
- 				goto write_err;
- 
--			ret = intel_vgpu_rw(mdev, (char *)&val, sizeof(val),
-+			ret = intel_vgpu_rw(vdev, (char *)&val, sizeof(val),
- 					ppos, true);
- 			if (ret <= 0)
- 				goto write_err;
-@@ -1181,7 +1179,7 @@ static ssize_t intel_vgpu_write(struct mdev_device *mdev,
- 			if (copy_from_user(&val, buf, sizeof(val)))
- 				goto write_err;
- 
--			ret = intel_vgpu_rw(mdev, (char *)&val,
-+			ret = intel_vgpu_rw(vdev, (char *)&val,
- 					sizeof(val), ppos, true);
- 			if (ret <= 0)
- 				goto write_err;
-@@ -1193,7 +1191,7 @@ static ssize_t intel_vgpu_write(struct mdev_device *mdev,
- 			if (copy_from_user(&val, buf, sizeof(val)))
- 				goto write_err;
- 
--			ret = intel_vgpu_rw(mdev, &val, sizeof(val),
-+			ret = intel_vgpu_rw(vdev, &val, sizeof(val),
- 					ppos, true);
- 			if (ret <= 0)
- 				goto write_err;
-@@ -1212,13 +1210,16 @@ static ssize_t intel_vgpu_write(struct mdev_device *mdev,
- 	return -EFAULT;
- }
- 
--static int intel_vgpu_mmap(struct mdev_device *mdev, struct vm_area_struct *vma)
-+static int intel_vgpu_mmap(struct vfio_device *vfio_dev,
-+			   struct vm_area_struct *vma)
- {
-+	struct kvmgt_vdev *vdev =
-+		container_of(vfio_dev, struct kvmgt_vdev, vfio_device);
- 	unsigned int index;
- 	u64 virtaddr;
- 	unsigned long req_size, pgoff, req_start;
- 	pgprot_t pg_prot;
--	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
-+	struct intel_vgpu *vgpu = vdev->vgpu;
- 
- 	index = vma->vm_pgoff >> (VFIO_PCI_OFFSET_SHIFT - PAGE_SHIFT);
- 	if (index >= VFIO_PCI_ROM_REGION_INDEX)
-@@ -1341,11 +1342,12 @@ static int intel_vgpu_set_irqs(struct intel_vgpu *vgpu, u32 flags,
- 	return func(vgpu, index, start, count, flags, data);
- }
- 
--static long intel_vgpu_ioctl(struct mdev_device *mdev, unsigned int cmd,
-+static long intel_vgpu_ioctl(struct vfio_device *vfio_dev, unsigned int cmd,
- 			     unsigned long arg)
- {
--	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
--	struct kvmgt_vdev *vdev = kvmgt_vdev(vgpu);
-+	struct kvmgt_vdev *vdev =
-+		container_of(vfio_dev, struct kvmgt_vdev, vfio_device);
-+	struct intel_vgpu *vgpu = vdev->vgpu;
- 	unsigned long minsz;
- 
- 	gvt_dbg_core("vgpu%d ioctl, cmd: %d\n", vgpu->id, cmd);
-@@ -1624,14 +1626,10 @@ static ssize_t
- vgpu_id_show(struct device *dev, struct device_attribute *attr,
- 	     char *buf)
- {
--	struct mdev_device *mdev = mdev_from_dev(dev);
-+	struct kvmgt_vdev *vdev = dev_get_drvdata(dev);
-+	struct intel_vgpu *vgpu = vdev->vgpu;
- 
--	if (mdev) {
--		struct intel_vgpu *vgpu = (struct intel_vgpu *)
--			mdev_get_drvdata(mdev);
--		return sprintf(buf, "%d\n", vgpu->id);
--	}
--	return sprintf(buf, "\n");
-+	return sprintf(buf, "%d\n", vgpu->id);
- }
- 
- static DEVICE_ATTR_RO(vgpu_id);
-@@ -1651,18 +1649,28 @@ static const struct attribute_group *intel_vgpu_groups[] = {
- 	NULL,
- };
- 
--static struct mdev_parent_ops intel_vgpu_ops = {
--	.mdev_attr_groups       = intel_vgpu_groups,
--	.create			= intel_vgpu_create,
--	.remove			= intel_vgpu_remove,
-+static const struct vfio_device_ops intel_vgpu_dev_ops = {
-+	.open = intel_vgpu_open,
-+	.release = intel_vgpu_release,
-+	.read = intel_vgpu_read,
-+	.write = intel_vgpu_write,
-+	.mmap = intel_vgpu_mmap,
-+	.ioctl = intel_vgpu_ioctl,
-+};
- 
--	.open			= intel_vgpu_open,
--	.release		= intel_vgpu_release,
-+static struct mdev_driver intel_vgpu_mdev_driver = {
-+	.driver = {
-+		.name = "intel_vgpu_mdev",
-+		.owner = THIS_MODULE,
-+		.mod_name = KBUILD_MODNAME,
-+		.dev_groups = intel_vgpu_groups,
-+	},
-+	.probe = intel_vgpu_probe,
-+	.remove	= intel_vgpu_remove,
-+};
- 
--	.read			= intel_vgpu_read,
--	.write			= intel_vgpu_write,
--	.mmap			= intel_vgpu_mmap,
--	.ioctl			= intel_vgpu_ioctl,
-+static struct mdev_parent_ops intel_vgpu_ops = {
-+	.device_driver		= &intel_vgpu_mdev_driver,
- };
- 
- static int kvmgt_host_init(struct device *dev, void *gvt, const void *ops)
-@@ -1806,18 +1814,12 @@ static bool __kvmgt_vgpu_exist(struct intel_vgpu *vgpu, struct kvm *kvm)
- 	return ret;
- }
- 
--static int kvmgt_guest_init(struct mdev_device *mdev)
-+static int kvmgt_guest_init(struct kvmgt_vdev *vdev)
- {
- 	struct kvmgt_guest_info *info;
--	struct intel_vgpu *vgpu;
--	struct kvmgt_vdev *vdev;
-+	struct intel_vgpu *vgpu = vdev->vgpu;
- 	struct kvm *kvm;
- 
--	vgpu = mdev_get_drvdata(mdev);
--	if (handle_valid(vgpu->handle))
--		return -EEXIST;
--
--	vdev = kvmgt_vdev(vgpu);
- 	kvm = vdev->kvm;
- 	if (!kvm || kvm->mm != current->mm) {
- 		gvt_vgpu_err("KVM is required to use Intel vGPU\n");
-@@ -2125,13 +2127,25 @@ static const struct intel_gvt_mpt kvmgt_mpt = {
- 
- static int __init kvmgt_init(void)
- {
--	if (intel_gvt_register_hypervisor(&kvmgt_mpt) < 0)
--		return -ENODEV;
-+	int ret;
-+
-+	ret = mdev_register_driver(&intel_vgpu_mdev_driver);
-+	if (ret)
-+		return ret;
-+
-+	if (intel_gvt_register_hypervisor(&kvmgt_mpt) < 0) {
-+		ret = -ENODEV;
-+		goto err_driver;
-+	}
- 	return 0;
-+err_driver:
-+	mdev_unregister_driver(&intel_vgpu_mdev_driver);
-+	return ret;
- }
- 
- static void __exit kvmgt_exit(void)
- {
-+	mdev_unregister_driver(&intel_vgpu_mdev_driver);
- 	intel_gvt_unregister_hypervisor();
- }
- 
+But it's been stuck in limbo since forever, plus I get how this gets a bit
+in the way of the proto ctx work, so makes sense to remove this prep work
+again.
+
+Maybe include the above in the commit message for a notch more context.
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_context.c   | 43 +++----------------
+>  .../gpu/drm/i915/gem/i915_gem_context_types.h |  4 --
+>  drivers/gpu/drm/i915/gt/intel_context_param.h |  3 +-
+>  3 files changed, 6 insertions(+), 44 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> index 35bcdeddfbf3f..1091cc04a242a 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> @@ -233,7 +233,11 @@ static void intel_context_set_gem(struct intel_context *ce,
+>  	    intel_engine_has_timeslices(ce->engine))
+>  		__set_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
+>  
+> -	intel_context_set_watchdog_us(ce, ctx->watchdog.timeout_us);
+> +	if (IS_ACTIVE(CONFIG_DRM_I915_REQUEST_TIMEOUT) &&
+> +	    ctx->i915->params.request_timeout_ms) {
+> +		unsigned int timeout_ms = ctx->i915->params.request_timeout_ms;
+> +		intel_context_set_watchdog_us(ce, (u64)timeout_ms * 1000);
+> +	}
+>  }
+>  
+>  static void __free_engines(struct i915_gem_engines *e, unsigned int count)
+> @@ -792,41 +796,6 @@ static void __assign_timeline(struct i915_gem_context *ctx,
+>  	context_apply_all(ctx, __apply_timeline, timeline);
+>  }
+>  
+> -static int __apply_watchdog(struct intel_context *ce, void *timeout_us)
+> -{
+> -	return intel_context_set_watchdog_us(ce, (uintptr_t)timeout_us);
+> -}
+> -
+> -static int
+> -__set_watchdog(struct i915_gem_context *ctx, unsigned long timeout_us)
+> -{
+> -	int ret;
+> -
+> -	ret = context_apply_all(ctx, __apply_watchdog,
+> -				(void *)(uintptr_t)timeout_us);
+> -	if (!ret)
+> -		ctx->watchdog.timeout_us = timeout_us;
+> -
+> -	return ret;
+> -}
+> -
+> -static void __set_default_fence_expiry(struct i915_gem_context *ctx)
+> -{
+> -	struct drm_i915_private *i915 = ctx->i915;
+> -	int ret;
+> -
+> -	if (!IS_ACTIVE(CONFIG_DRM_I915_REQUEST_TIMEOUT) ||
+> -	    !i915->params.request_timeout_ms)
+> -		return;
+> -
+> -	/* Default expiry for user fences. */
+> -	ret = __set_watchdog(ctx, i915->params.request_timeout_ms * 1000);
+> -	if (ret)
+> -		drm_notice(&i915->drm,
+> -			   "Failed to configure default fence expiry! (%d)",
+> -			   ret);
+> -}
+> -
+>  static struct i915_gem_context *
+>  i915_gem_create_context(struct drm_i915_private *i915, unsigned int flags)
+>  {
+> @@ -871,8 +840,6 @@ i915_gem_create_context(struct drm_i915_private *i915, unsigned int flags)
+>  		intel_timeline_put(timeline);
+>  	}
+>  
+> -	__set_default_fence_expiry(ctx);
+> -
+>  	trace_i915_context_create(ctx);
+>  
+>  	return ctx;
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+> index 5ae71ec936f7c..676592e27e7d2 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+> @@ -153,10 +153,6 @@ struct i915_gem_context {
+>  	 */
+>  	atomic_t active_count;
+>  
+> -	struct {
+> -		u64 timeout_us;
+> -	} watchdog;
+> -
+>  	/**
+>  	 * @hang_timestamp: The last time(s) this context caused a GPU hang
+>  	 */
+> diff --git a/drivers/gpu/drm/i915/gt/intel_context_param.h b/drivers/gpu/drm/i915/gt/intel_context_param.h
+> index dffedd983693d..0c69cb42d075c 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_context_param.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_context_param.h
+> @@ -10,11 +10,10 @@
+>  
+>  #include "intel_context.h"
+>  
+> -static inline int
+> +static inline void
+>  intel_context_set_watchdog_us(struct intel_context *ce, u64 timeout_us)
+>  {
+>  	ce->watchdog.timeout_us = timeout_us;
+> -	return 0;
+>  }
+>  
+>  #endif /* INTEL_CONTEXT_PARAM_H */
+> -- 
+> 2.31.1
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
 -- 
-2.31.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
