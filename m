@@ -7,35 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 17794C43460
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 11:07:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DEB7FC433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 11:14:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B1F6E613DF
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 11:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1F6E613DF
+	by mail.kernel.org (Postfix) with ESMTPS id 6DD7D613DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 11:14:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6DD7D613DD
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F7446E918;
-	Tue, 27 Apr 2021 11:07:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 219BC6E079;
+	Tue, 27 Apr 2021 11:14:27 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CF016E372;
- Tue, 27 Apr 2021 11:07:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65F966E288;
+ Tue, 27 Apr 2021 11:14:26 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A64D2B175;
- Tue, 27 Apr 2021 11:07:49 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 01EB7B17D;
+ Tue, 27 Apr 2021 11:14:25 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
- matthew.auld@intel.com
-Date: Tue, 27 Apr 2021 13:07:47 +0200
-Message-Id: <20210427110747.2065-1-tzimmermann@suse.de>
+ chris@chris-wilson.co.uk
+Date: Tue, 27 Apr 2021 13:14:19 +0200
+Message-Id: <20210427111421.2386-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210427111421.2386-1-tzimmermann@suse.de>
+References: <20210427111421.2386-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/gem: Remove reference to struct
+Subject: [Intel-gfx] [PATCH v7 2/4] drm/i915: Remove reference to struct
  drm_device.pdev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,48 +51,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Xinyun Liu <xinyun.liu@intel.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-UmVmZXJlbmNlcyB0byBzdHJ1Y3QgZHJtX2RldmljZS5wZGV2IHNob3VsZCBiZSB1c2VkIGFueSBs
-b25nZXIgYXMKdGhlIGZpZWxkIHdpbGwgYmUgbW92ZWQgaW50byB0aGUgc3RydWN0J3MgbGVnYWN5
-IHNlY3Rpb24uIEFkZCBhIGZpeApmb3IgdGhlIHJzcCBjb21taXQuCgpTaWduZWQtb2ZmLWJ5OiBU
-aG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4KRml4ZXM6IGQ1N2Q0YTFkYWY1
-ZSAoImRybS9pOTE1OiBDcmVhdGUgc3RvbGVuIG1lbW9yeSByZWdpb24gZnJvbSBsb2NhbCBtZW1v
-cnkiKQpDYzogQ1EgVGFuZyA8Y3EudGFuZ0BpbnRlbC5jb20+CkNjOiBNYXR0aGV3IEF1bGQgPG1h
-dHRoZXcuYXVsZEBpbnRlbC5jb20+CkNjOiBUdnJ0a28gVXJzdWxpbiA8dHZydGtvLnVyc3VsaW5A
-bGludXguaW50ZWwuY29tPgpDYzogWGlueXVuIExpdSA8eGlueXVuLmxpdUBpbnRlbC5jb20+CkNj
-OiBUdnJ0a28gVXJzdWxpbiA8dHZydGtvLnVyc3VsaW5AaW50ZWwuY29tPgpDYzogSmFuaSBOaWt1
-bGEgPGphbmkubmlrdWxhQGxpbnV4LmludGVsLmNvbT4KQ2M6IEpvb25hcyBMYWh0aW5lbiA8am9v
-bmFzLmxhaHRpbmVuQGxpbnV4LmludGVsLmNvbT4KQ2M6IFJvZHJpZ28gVml2aSA8cm9kcmlnby52
-aXZpQGludGVsLmNvbT4KQ2M6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMtd2lsc29uLmNvLnVr
-PgpDYzogTWlrYSBLdW9wcGFsYSA8bWlrYS5rdW9wcGFsYUBsaW51eC5pbnRlbC5jb20+CkNjOiBE
-YW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGZmd2xsLmNoPgpDYzogTWFhcnRlbiBMYW5raG9y
-c3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT4KQ2M6ICJUaG9tYXMgSGVsbHN0
-csO2bSIgPHRob21hcy5oZWxsc3Ryb21AaW50ZWwuY29tPgpDYzogIkd1c3Rhdm8gQS4gUi4gU2ls
-dmEiIDxndXN0YXZvYXJzQGtlcm5lbC5vcmc+CkNjOiBEYW4gQ2FycGVudGVyIDxkYW4uY2FycGVu
-dGVyQG9yYWNsZS5jb20+CkNjOiBpbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCi0tLQog
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5jIHwgMiArLQogMSBmaWxl
-IGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5jIGIvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5jCmluZGV4IGM1YjY0YjI0MDBlOC4uZTFhMzI2NzJi
-YmU4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fc3RvbGVu
-LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5jCkBAIC03
-NzMsNyArNzczLDcgQEAgc3RydWN0IGludGVsX21lbW9yeV9yZWdpb24gKgogaTkxNV9nZW1fc3Rv
-bGVuX2xtZW1fc2V0dXAoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCiB7CiAJc3RydWN0
-IGludGVsX3VuY29yZSAqdW5jb3JlID0gJmk5MTUtPnVuY29yZTsKLQlzdHJ1Y3QgcGNpX2RldiAq
-cGRldiA9IGk5MTUtPmRybS5wZGV2OworCXN0cnVjdCBwY2lfZGV2ICpwZGV2ID0gdG9fcGNpX2Rl
-dihpOTE1LT5kcm0uZGV2KTsKIAlzdHJ1Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbiAqbWVtOwogCXJl
-c291cmNlX3NpemVfdCBpb19zdGFydDsKIAlyZXNvdXJjZV9zaXplX3QgbG1lbV9zaXplOwotLSAK
-Mi4zMS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJ
-bnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+References to struct drm_device.pdev should be used any longer as
+the field will be moved into the struct's legacy section. Fix a rsp
+comment.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/i915/intel_runtime_pm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.h b/drivers/gpu/drm/i915/intel_runtime_pm.h
+index 1e4ddd11c12b..183ea2b187fe 100644
+--- a/drivers/gpu/drm/i915/intel_runtime_pm.h
++++ b/drivers/gpu/drm/i915/intel_runtime_pm.h
+@@ -49,7 +49,7 @@ enum i915_drm_suspend_mode {
+  */
+ struct intel_runtime_pm {
+ 	atomic_t wakeref_count;
+-	struct device *kdev; /* points to i915->drm.pdev->dev */
++	struct device *kdev; /* points to i915->drm.dev */
+ 	bool available;
+ 	bool suspended;
+ 	bool irqs_enabled;
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
