@@ -2,55 +2,43 @@ Return-Path: <SRS0=ja9S=JZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5F7EC433ED
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:26:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33E8AC433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:28:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A5A061154
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A5A061154
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AF2FF613F7
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:28:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF2FF613F7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=whitecape.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B64E96E153;
-	Wed, 28 Apr 2021 17:26:52 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3F036E29D;
- Wed, 28 Apr 2021 17:26:37 +0000 (UTC)
-IronPort-SDR: rdp3gCOwyzZo5mr66cwIJ83n1vGT40cLtYknIAQIW3YHhvWf+ZdcZGp7OOQ+LGHDnDkR1Itsbs
- /4q1AfYZdkdQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="176284593"
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="176284593"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2021 10:26:24 -0700
-IronPort-SDR: eUUX+fpj6oDHMRQ58OZgwW257cAohL3iEajvB42zFjmFS32iVePf9beB0pmfwJGK+2/1vBKG3A
- YR0k8rmjYYGA==
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="465998353"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2021 10:26:24 -0700
-Date: Wed, 28 Apr 2021 10:18:53 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Jason Ekstrand <jason@jlekstrand.net>
-Message-ID: <20210428171853.GA3260@sdutt-i7>
-References: <20210423223131.879208-1-jason@jlekstrand.net>
- <20210423223131.879208-9-jason@jlekstrand.net>
- <CAOFGe958Y6eq1qcPPS-h8Swca8kMy39Vp-gGv6irXdS_8xje5w@mail.gmail.com>
- <YIk1YEXjvaDN+feW@phenom.ffwll.local>
- <CAOFGe97PUT8Ns0bVhHi6D+21yA3=v0QkhdmmKBm=dCn4CizwiA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4E9C89AB7;
+	Wed, 28 Apr 2021 17:28:10 +0000 (UTC)
+Received: from smtp94.ord1c.emailsrvr.com (smtp94.ord1c.emailsrvr.com
+ [108.166.43.94])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 509AB89B96
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 17:28:05 +0000 (UTC)
+X-Auth-ID: kenneth@whitecape.org
+Received: by smtp28.relay.ord1c.emailsrvr.com (Authenticated sender:
+ kenneth-AT-whitecape.org) with ESMTPSA id A47B740238; 
+ Wed, 28 Apr 2021 13:28:03 -0400 (EDT)
+From: Kenneth Graunke <kenneth@whitecape.org>
+To: intel-gfx@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>
+Date: Wed, 28 Apr 2021 10:28:03 -0700
+Message-ID: <6803385.KsXFIaTQHz@mizzik>
+In-Reply-To: <20210426093901.28937-6-matthew.auld@intel.com>
+References: <20210426093901.28937-1-matthew.auld@intel.com>
+ <20210426093901.28937-6-matthew.auld@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAOFGe97PUT8Ns0bVhHi6D+21yA3=v0QkhdmmKBm=dCn4CizwiA@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 08/21] drm/i915/gem: Disallow bonding of
- virtual engines
+X-Classification-ID: e11d4714-109f-44ce-a4b1-fc7f70a79440-1-1
+Subject: Re: [Intel-gfx] [PATCH 6/9] drm/i915/uapi: implement object
+ placement extension
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,569 +51,173 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org,
+ Daniel Vetter <daniel.vetter@intel.com>
+Content-Type: multipart/mixed; boundary="===============1069964497=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 28, 2021 at 12:18:29PM -0500, Jason Ekstrand wrote:
-> On Wed, Apr 28, 2021 at 5:13 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Tue, Apr 27, 2021 at 08:51:08AM -0500, Jason Ekstrand wrote:
-> > > On Fri, Apr 23, 2021 at 5:31 PM Jason Ekstrand <jason@jlekstrand.net> wrote:
-> > > >
-> > > > This adds a bunch of complexity which the media driver has never
-> > > > actually used.  The media driver does technically bond a balanced engine
-> > > > to another engine but the balanced engine only has one engine in the
-> > > > sibling set.  This doesn't actually result in a virtual engine.
-> > > >
-> > > > Unless some userspace badly wants it, there's no good reason to support
-> > > > this case.  This makes I915_CONTEXT_ENGINES_EXT_BOND a total no-op.  We
-> > > > leave the validation code in place in case we ever decide we want to do
-> > > > something interesting with the bonding information.
-> > > >
-> > > > Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-> > > > ---
-> > > >  drivers/gpu/drm/i915/gem/i915_gem_context.c   |  18 +-
-> > > >  .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |   2 +-
-> > > >  drivers/gpu/drm/i915/gt/intel_engine_types.h  |   7 -
-> > > >  .../drm/i915/gt/intel_execlists_submission.c  | 100 --------
-> > > >  .../drm/i915/gt/intel_execlists_submission.h  |   4 -
-> > > >  drivers/gpu/drm/i915/gt/selftest_execlists.c  | 229 ------------------
-> > > >  6 files changed, 7 insertions(+), 353 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> > > > index e8179918fa306..5f8d0faf783aa 100644
-> > > > --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> > > > +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> > > > @@ -1553,6 +1553,12 @@ set_engines__bond(struct i915_user_extension __user *base, void *data)
-> > > >         }
-> > > >         virtual = set->engines->engines[idx]->engine;
-> > > >
-> > > > +       if (intel_engine_is_virtual(virtual)) {
-> > > > +               drm_dbg(&i915->drm,
-> > > > +                       "Bonding with virtual engines not allowed\n");
-> > > > +               return -EINVAL;
-> > > > +       }
-> > > > +
-> > > >         err = check_user_mbz(&ext->flags);
-> > > >         if (err)
-> > > >                 return err;
-> > > > @@ -1593,18 +1599,6 @@ set_engines__bond(struct i915_user_extension __user *base, void *data)
-> > > >                                 n, ci.engine_class, ci.engine_instance);
-> > > >                         return -EINVAL;
-> > > >                 }
-> > > > -
-> > > > -               /*
-> > > > -                * A non-virtual engine has no siblings to choose between; and
-> > > > -                * a submit fence will always be directed to the one engine.
-> > > > -                */
-> > > > -               if (intel_engine_is_virtual(virtual)) {
-> > > > -                       err = intel_virtual_engine_attach_bond(virtual,
-> > > > -                                                              master,
-> > > > -                                                              bond);
-> > > > -                       if (err)
-> > > > -                               return err;
-> > > > -               }
-> > > >         }
-> > > >
-> > > >         return 0;
-> > > > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> > > > index d640bba6ad9ab..efb2fa3522a42 100644
-> > > > --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> > > > +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> > > > @@ -3474,7 +3474,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
-> > > >                 if (args->flags & I915_EXEC_FENCE_SUBMIT)
-> > > >                         err = i915_request_await_execution(eb.request,
-> > > >                                                            in_fence,
-> > > > -                                                          eb.engine->bond_execute);
-> > > > +                                                          NULL);
-> > > >                 else
-> > > >                         err = i915_request_await_dma_fence(eb.request,
-> > > >                                                            in_fence);
-> > > > diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-> > > > index 883bafc449024..68cfe5080325c 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-> > > > +++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-> > > > @@ -446,13 +446,6 @@ struct intel_engine_cs {
-> > > >          */
-> > > >         void            (*submit_request)(struct i915_request *rq);
-> > > >
-> > > > -       /*
-> > > > -        * Called on signaling of a SUBMIT_FENCE, passing along the signaling
-> > > > -        * request down to the bonded pairs.
-> > > > -        */
-> > > > -       void            (*bond_execute)(struct i915_request *rq,
-> > > > -                                       struct dma_fence *signal);
-> > > > -
-> > > >         /*
-> > > >          * Call when the priority on a request has changed and it and its
-> > > >          * dependencies may need rescheduling. Note the request itself may
-> > > > diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> > > > index de124870af44d..b6e2b59f133b7 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> > > > +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> > > > @@ -181,18 +181,6 @@ struct virtual_engine {
-> > > >                 int prio;
-> > > >         } nodes[I915_NUM_ENGINES];
-> > > >
-> > > > -       /*
-> > > > -        * Keep track of bonded pairs -- restrictions upon on our selection
-> > > > -        * of physical engines any particular request may be submitted to.
-> > > > -        * If we receive a submit-fence from a master engine, we will only
-> > > > -        * use one of sibling_mask physical engines.
-> > > > -        */
-> > > > -       struct ve_bond {
-> > > > -               const struct intel_engine_cs *master;
-> > > > -               intel_engine_mask_t sibling_mask;
-> > > > -       } *bonds;
-> > > > -       unsigned int num_bonds;
-> > > > -
-> > > >         /* And finally, which physical engines this virtual engine maps onto. */
-> > > >         unsigned int num_siblings;
-> > > >         struct intel_engine_cs *siblings[];
-> > > > @@ -3307,7 +3295,6 @@ static void rcu_virtual_context_destroy(struct work_struct *wrk)
-> > > >         intel_breadcrumbs_free(ve->base.breadcrumbs);
-> > > >         intel_engine_free_request_pool(&ve->base);
-> > > >
-> > > > -       kfree(ve->bonds);
-> > > >         kfree(ve);
-> > > >  }
-> > > >
-> > > > @@ -3560,42 +3547,6 @@ static void virtual_submit_request(struct i915_request *rq)
-> > > >         spin_unlock_irqrestore(&ve->base.active.lock, flags);
-> > > >  }
-> > > >
-> > > > -static struct ve_bond *
-> > > > -virtual_find_bond(struct virtual_engine *ve,
-> > > > -                 const struct intel_engine_cs *master)
-> > > > -{
-> > > > -       int i;
-> > > > -
-> > > > -       for (i = 0; i < ve->num_bonds; i++) {
-> > > > -               if (ve->bonds[i].master == master)
-> > > > -                       return &ve->bonds[i];
-> > > > -       }
-> > > > -
-> > > > -       return NULL;
-> > > > -}
-> > > > -
-> > > > -static void
-> > > > -virtual_bond_execute(struct i915_request *rq, struct dma_fence *signal)
-> > > > -{
-> > > > -       struct virtual_engine *ve = to_virtual_engine(rq->engine);
-> > > > -       intel_engine_mask_t allowed, exec;
-> > > > -       struct ve_bond *bond;
-> > > > -
-> > > > -       allowed = ~to_request(signal)->engine->mask;
-> > > > -
-> > > > -       bond = virtual_find_bond(ve, to_request(signal)->engine);
-> > > > -       if (bond)
-> > > > -               allowed &= bond->sibling_mask;
-> > > > -
-> > > > -       /* Restrict the bonded request to run on only the available engines */
-> > > > -       exec = READ_ONCE(rq->execution_mask);
-> > > > -       while (!try_cmpxchg(&rq->execution_mask, &exec, exec & allowed))
-> > > > -               ;
-> > > > -
-> > > > -       /* Prevent the master from being re-run on the bonded engines */
-> > > > -       to_request(signal)->execution_mask &= ~allowed;
-> > >
-> > > I sent a v2 of this patch because it turns out I deleted a bit too
-> > > much code.  This function in particular, has to stay, unfortunately.
-> > > When a batch is submitted with a SUBMIT_FENCE, this is used to push
-> > > the work onto a different engine than than the one it's supposed to
-> > > run in parallel with.  This means we can't dead-code this function or
-> > > the bond_execution function pointer and related stuff.
-> >
-> > Uh that's disappointing, since if I understand your point correctly, the
-> > sibling engines should all be singletons, not load balancing virtual ones.
-> > So there really should not be any need to pick the right one at execution
-> > time.
-> 
-> The media driver itself seems to work fine if I delete all the code.
-> It's just an IGT testcase that blows up.  I'll do more digging to see
-> if I can better isolate why.
-> 
+--===============1069964497==
+Content-Type: multipart/signed; boundary="nextPart3923341.ekzWyWCOrY"; micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-Jumping on here mid-thread. For what is is worth to make execlists work
-with the upcoming parallel submission extension I leveraged some of the
-existing bonding code so I wouldn't be too eager to delete this code
-until that lands.
+--nextPart3923341.ekzWyWCOrY
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
+From: Kenneth Graunke <kenneth@whitecape.org>
+To: intel-gfx@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>
+Cc: CQ Tang <cq.tang@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>, Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>, Jordan Justen <jordan.l.justen@intel.com>, Daniel Vetter <daniel.vetter@intel.com>, Jason Ekstrand <jason@jlekstrand.net>, Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org
+Subject: Re: [PATCH 6/9] drm/i915/uapi: implement object placement extension
+Date: Wed, 28 Apr 2021 10:28:03 -0700
+Message-ID: <6803385.KsXFIaTQHz@mizzik>
+In-Reply-To: <20210426093901.28937-6-matthew.auld@intel.com>
+References: <20210426093901.28937-1-matthew.auld@intel.com> <20210426093901.28937-6-matthew.auld@intel.com>
 
-Matt
-
-> --Jason
+On Monday, April 26, 2021 2:38:58 AM PDT Matthew Auld wrote:
+> Add new extension to support setting an immutable-priority-list of
+> potential placements, at creation time.
 > 
-> > At least my understanding is that we're only limiting the engine set
-> > further, so if both signaller and signalled request can only run on
-> > singletons (which must be distinct, or the bonded parameter validation is
-> > busted) there's really nothing to do here.
-> >
-> > Also this is the locking code that freaks me out about the current bonded
-> > execlist code ...
-> >
-> > Dazzled and confused.
-> > -Daniel
-> >
-> > >
-> > > --Jason
-> > >
-> > >
-> > > > -}
-> > > > -
-> > > >  struct intel_context *
-> > > >  intel_execlists_create_virtual(struct intel_engine_cs **siblings,
-> > > >                                unsigned int count)
-> > > > @@ -3649,7 +3600,6 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
-> > > >
-> > > >         ve->base.schedule = i915_schedule;
-> > > >         ve->base.submit_request = virtual_submit_request;
-> > > > -       ve->base.bond_execute = virtual_bond_execute;
-> > > >
-> > > >         INIT_LIST_HEAD(virtual_queue(ve));
-> > > >         ve->base.execlists.queue_priority_hint = INT_MIN;
-> > > > @@ -3747,59 +3697,9 @@ intel_execlists_clone_virtual(struct intel_engine_cs *src)
-> > > >         if (IS_ERR(dst))
-> > > >                 return dst;
-> > > >
-> > > > -       if (se->num_bonds) {
-> > > > -               struct virtual_engine *de = to_virtual_engine(dst->engine);
-> > > > -
-> > > > -               de->bonds = kmemdup(se->bonds,
-> > > > -                                   sizeof(*se->bonds) * se->num_bonds,
-> > > > -                                   GFP_KERNEL);
-> > > > -               if (!de->bonds) {
-> > > > -                       intel_context_put(dst);
-> > > > -                       return ERR_PTR(-ENOMEM);
-> > > > -               }
-> > > > -
-> > > > -               de->num_bonds = se->num_bonds;
-> > > > -       }
-> > > > -
-> > > >         return dst;
-> > > >  }
-> > > >
-> > > > -int intel_virtual_engine_attach_bond(struct intel_engine_cs *engine,
-> > > > -                                    const struct intel_engine_cs *master,
-> > > > -                                    const struct intel_engine_cs *sibling)
-> > > > -{
-> > > > -       struct virtual_engine *ve = to_virtual_engine(engine);
-> > > > -       struct ve_bond *bond;
-> > > > -       int n;
-> > > > -
-> > > > -       /* Sanity check the sibling is part of the virtual engine */
-> > > > -       for (n = 0; n < ve->num_siblings; n++)
-> > > > -               if (sibling == ve->siblings[n])
-> > > > -                       break;
-> > > > -       if (n == ve->num_siblings)
-> > > > -               return -EINVAL;
-> > > > -
-> > > > -       bond = virtual_find_bond(ve, master);
-> > > > -       if (bond) {
-> > > > -               bond->sibling_mask |= sibling->mask;
-> > > > -               return 0;
-> > > > -       }
-> > > > -
-> > > > -       bond = krealloc(ve->bonds,
-> > > > -                       sizeof(*bond) * (ve->num_bonds + 1),
-> > > > -                       GFP_KERNEL);
-> > > > -       if (!bond)
-> > > > -               return -ENOMEM;
-> > > > -
-> > > > -       bond[ve->num_bonds].master = master;
-> > > > -       bond[ve->num_bonds].sibling_mask = sibling->mask;
-> > > > -
-> > > > -       ve->bonds = bond;
-> > > > -       ve->num_bonds++;
-> > > > -
-> > > > -       return 0;
-> > > > -}
-> > > > -
-> > > >  void intel_execlists_show_requests(struct intel_engine_cs *engine,
-> > > >                                    struct drm_printer *m,
-> > > >                                    void (*show_request)(struct drm_printer *m,
-> > > > diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.h b/drivers/gpu/drm/i915/gt/intel_execlists_submission.h
-> > > > index fd61dae820e9e..80cec37a56ba9 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.h
-> > > > +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.h
-> > > > @@ -39,10 +39,6 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
-> > > >  struct intel_context *
-> > > >  intel_execlists_clone_virtual(struct intel_engine_cs *src);
-> > > >
-> > > > -int intel_virtual_engine_attach_bond(struct intel_engine_cs *engine,
-> > > > -                                    const struct intel_engine_cs *master,
-> > > > -                                    const struct intel_engine_cs *sibling);
-> > > > -
-> > > >  bool
-> > > >  intel_engine_in_execlists_submission_mode(const struct intel_engine_cs *engine);
-> > > >
-> > > > diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-> > > > index 1081cd36a2bd3..f03446d587160 100644
-> > > > --- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-> > > > +++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-> > > > @@ -4311,234 +4311,6 @@ static int live_virtual_preserved(void *arg)
-> > > >         return 0;
-> > > >  }
-> > > >
-> > > > -static int bond_virtual_engine(struct intel_gt *gt,
-> > > > -                              unsigned int class,
-> > > > -                              struct intel_engine_cs **siblings,
-> > > > -                              unsigned int nsibling,
-> > > > -                              unsigned int flags)
-> > > > -#define BOND_SCHEDULE BIT(0)
-> > > > -{
-> > > > -       struct intel_engine_cs *master;
-> > > > -       struct i915_request *rq[16];
-> > > > -       enum intel_engine_id id;
-> > > > -       struct igt_spinner spin;
-> > > > -       unsigned long n;
-> > > > -       int err;
-> > > > -
-> > > > -       /*
-> > > > -        * A set of bonded requests is intended to be run concurrently
-> > > > -        * across a number of engines. We use one request per-engine
-> > > > -        * and a magic fence to schedule each of the bonded requests
-> > > > -        * at the same time. A consequence of our current scheduler is that
-> > > > -        * we only move requests to the HW ready queue when the request
-> > > > -        * becomes ready, that is when all of its prerequisite fences have
-> > > > -        * been signaled. As one of those fences is the master submit fence,
-> > > > -        * there is a delay on all secondary fences as the HW may be
-> > > > -        * currently busy. Equally, as all the requests are independent,
-> > > > -        * they may have other fences that delay individual request
-> > > > -        * submission to HW. Ergo, we do not guarantee that all requests are
-> > > > -        * immediately submitted to HW at the same time, just that if the
-> > > > -        * rules are abided by, they are ready at the same time as the
-> > > > -        * first is submitted. Userspace can embed semaphores in its batch
-> > > > -        * to ensure parallel execution of its phases as it requires.
-> > > > -        * Though naturally it gets requested that perhaps the scheduler should
-> > > > -        * take care of parallel execution, even across preemption events on
-> > > > -        * different HW. (The proper answer is of course "lalalala".)
-> > > > -        *
-> > > > -        * With the submit-fence, we have identified three possible phases
-> > > > -        * of synchronisation depending on the master fence: queued (not
-> > > > -        * ready), executing, and signaled. The first two are quite simple
-> > > > -        * and checked below. However, the signaled master fence handling is
-> > > > -        * contentious. Currently we do not distinguish between a signaled
-> > > > -        * fence and an expired fence, as once signaled it does not convey
-> > > > -        * any information about the previous execution. It may even be freed
-> > > > -        * and hence checking later it may not exist at all. Ergo we currently
-> > > > -        * do not apply the bonding constraint for an already signaled fence,
-> > > > -        * as our expectation is that it should not constrain the secondaries
-> > > > -        * and is outside of the scope of the bonded request API (i.e. all
-> > > > -        * userspace requests are meant to be running in parallel). As
-> > > > -        * it imposes no constraint, and is effectively a no-op, we do not
-> > > > -        * check below as normal execution flows are checked extensively above.
-> > > > -        *
-> > > > -        * XXX Is the degenerate handling of signaled submit fences the
-> > > > -        * expected behaviour for userpace?
-> > > > -        */
-> > > > -
-> > > > -       GEM_BUG_ON(nsibling >= ARRAY_SIZE(rq) - 1);
-> > > > -
-> > > > -       if (igt_spinner_init(&spin, gt))
-> > > > -               return -ENOMEM;
-> > > > -
-> > > > -       err = 0;
-> > > > -       rq[0] = ERR_PTR(-ENOMEM);
-> > > > -       for_each_engine(master, gt, id) {
-> > > > -               struct i915_sw_fence fence = {};
-> > > > -               struct intel_context *ce;
-> > > > -
-> > > > -               if (master->class == class)
-> > > > -                       continue;
-> > > > -
-> > > > -               ce = intel_context_create(master);
-> > > > -               if (IS_ERR(ce)) {
-> > > > -                       err = PTR_ERR(ce);
-> > > > -                       goto out;
-> > > > -               }
-> > > > -
-> > > > -               memset_p((void *)rq, ERR_PTR(-EINVAL), ARRAY_SIZE(rq));
-> > > > -
-> > > > -               rq[0] = igt_spinner_create_request(&spin, ce, MI_NOOP);
-> > > > -               intel_context_put(ce);
-> > > > -               if (IS_ERR(rq[0])) {
-> > > > -                       err = PTR_ERR(rq[0]);
-> > > > -                       goto out;
-> > > > -               }
-> > > > -               i915_request_get(rq[0]);
-> > > > -
-> > > > -               if (flags & BOND_SCHEDULE) {
-> > > > -                       onstack_fence_init(&fence);
-> > > > -                       err = i915_sw_fence_await_sw_fence_gfp(&rq[0]->submit,
-> > > > -                                                              &fence,
-> > > > -                                                              GFP_KERNEL);
-> > > > -               }
-> > > > -
-> > > > -               i915_request_add(rq[0]);
-> > > > -               if (err < 0)
-> > > > -                       goto out;
-> > > > -
-> > > > -               if (!(flags & BOND_SCHEDULE) &&
-> > > > -                   !igt_wait_for_spinner(&spin, rq[0])) {
-> > > > -                       err = -EIO;
-> > > > -                       goto out;
-> > > > -               }
-> > > > -
-> > > > -               for (n = 0; n < nsibling; n++) {
-> > > > -                       struct intel_context *ve;
-> > > > -
-> > > > -                       ve = intel_execlists_create_virtual(siblings, nsibling);
-> > > > -                       if (IS_ERR(ve)) {
-> > > > -                               err = PTR_ERR(ve);
-> > > > -                               onstack_fence_fini(&fence);
-> > > > -                               goto out;
-> > > > -                       }
-> > > > -
-> > > > -                       err = intel_virtual_engine_attach_bond(ve->engine,
-> > > > -                                                              master,
-> > > > -                                                              siblings[n]);
-> > > > -                       if (err) {
-> > > > -                               intel_context_put(ve);
-> > > > -                               onstack_fence_fini(&fence);
-> > > > -                               goto out;
-> > > > -                       }
-> > > > -
-> > > > -                       err = intel_context_pin(ve);
-> > > > -                       intel_context_put(ve);
-> > > > -                       if (err) {
-> > > > -                               onstack_fence_fini(&fence);
-> > > > -                               goto out;
-> > > > -                       }
-> > > > -
-> > > > -                       rq[n + 1] = i915_request_create(ve);
-> > > > -                       intel_context_unpin(ve);
-> > > > -                       if (IS_ERR(rq[n + 1])) {
-> > > > -                               err = PTR_ERR(rq[n + 1]);
-> > > > -                               onstack_fence_fini(&fence);
-> > > > -                               goto out;
-> > > > -                       }
-> > > > -                       i915_request_get(rq[n + 1]);
-> > > > -
-> > > > -                       err = i915_request_await_execution(rq[n + 1],
-> > > > -                                                          &rq[0]->fence,
-> > > > -                                                          ve->engine->bond_execute);
-> > > > -                       i915_request_add(rq[n + 1]);
-> > > > -                       if (err < 0) {
-> > > > -                               onstack_fence_fini(&fence);
-> > > > -                               goto out;
-> > > > -                       }
-> > > > -               }
-> > > > -               onstack_fence_fini(&fence);
-> > > > -               intel_engine_flush_submission(master);
-> > > > -               igt_spinner_end(&spin);
-> > > > -
-> > > > -               if (i915_request_wait(rq[0], 0, HZ / 10) < 0) {
-> > > > -                       pr_err("Master request did not execute (on %s)!\n",
-> > > > -                              rq[0]->engine->name);
-> > > > -                       err = -EIO;
-> > > > -                       goto out;
-> > > > -               }
-> > > > -
-> > > > -               for (n = 0; n < nsibling; n++) {
-> > > > -                       if (i915_request_wait(rq[n + 1], 0,
-> > > > -                                             MAX_SCHEDULE_TIMEOUT) < 0) {
-> > > > -                               err = -EIO;
-> > > > -                               goto out;
-> > > > -                       }
-> > > > -
-> > > > -                       if (rq[n + 1]->engine != siblings[n]) {
-> > > > -                               pr_err("Bonded request did not execute on target engine: expected %s, used %s; master was %s\n",
-> > > > -                                      siblings[n]->name,
-> > > > -                                      rq[n + 1]->engine->name,
-> > > > -                                      rq[0]->engine->name);
-> > > > -                               err = -EINVAL;
-> > > > -                               goto out;
-> > > > -                       }
-> > > > -               }
-> > > > -
-> > > > -               for (n = 0; !IS_ERR(rq[n]); n++)
-> > > > -                       i915_request_put(rq[n]);
-> > > > -               rq[0] = ERR_PTR(-ENOMEM);
-> > > > -       }
-> > > > -
-> > > > -out:
-> > > > -       for (n = 0; !IS_ERR(rq[n]); n++)
-> > > > -               i915_request_put(rq[n]);
-> > > > -       if (igt_flush_test(gt->i915))
-> > > > -               err = -EIO;
-> > > > -
-> > > > -       igt_spinner_fini(&spin);
-> > > > -       return err;
-> > > > -}
-> > > > -
-> > > > -static int live_virtual_bond(void *arg)
-> > > > -{
-> > > > -       static const struct phase {
-> > > > -               const char *name;
-> > > > -               unsigned int flags;
-> > > > -       } phases[] = {
-> > > > -               { "", 0 },
-> > > > -               { "schedule", BOND_SCHEDULE },
-> > > > -               { },
-> > > > -       };
-> > > > -       struct intel_gt *gt = arg;
-> > > > -       struct intel_engine_cs *siblings[MAX_ENGINE_INSTANCE + 1];
-> > > > -       unsigned int class;
-> > > > -       int err;
-> > > > -
-> > > > -       if (intel_uc_uses_guc_submission(&gt->uc))
-> > > > -               return 0;
-> > > > -
-> > > > -       for (class = 0; class <= MAX_ENGINE_CLASS; class++) {
-> > > > -               const struct phase *p;
-> > > > -               int nsibling;
-> > > > -
-> > > > -               nsibling = select_siblings(gt, class, siblings);
-> > > > -               if (nsibling < 2)
-> > > > -                       continue;
-> > > > -
-> > > > -               for (p = phases; p->name; p++) {
-> > > > -                       err = bond_virtual_engine(gt,
-> > > > -                                                 class, siblings, nsibling,
-> > > > -                                                 p->flags);
-> > > > -                       if (err) {
-> > > > -                               pr_err("%s(%s): failed class=%d, nsibling=%d, err=%d\n",
-> > > > -                                      __func__, p->name, class, nsibling, err);
-> > > > -                               return err;
-> > > > -                       }
-> > > > -               }
-> > > > -       }
-> > > > -
-> > > > -       return 0;
-> > > > -}
-> > > > -
-> > > >  static int reset_virtual_engine(struct intel_gt *gt,
-> > > >                                 struct intel_engine_cs **siblings,
-> > > >                                 unsigned int nsibling)
-> > > > @@ -4712,7 +4484,6 @@ int intel_execlists_live_selftests(struct drm_i915_private *i915)
-> > > >                 SUBTEST(live_virtual_mask),
-> > > >                 SUBTEST(live_virtual_preserved),
-> > > >                 SUBTEST(live_virtual_slice),
-> > > > -               SUBTEST(live_virtual_bond),
-> > > >                 SUBTEST(live_virtual_reset),
-> > > >         };
-> > > >
-> > > > --
-> > > > 2.31.1
-> > > >
-> > > _______________________________________________
-> > > dri-devel mailing list
-> > > dri-devel@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> If we use the normal gem_create or gem_create_ext without the
+> extensions/placements then we still get the old behaviour with only
+> placing the object in system memory.
+> 
+> v2(Daniel & Jason):
+>     - Add a bunch of kernel-doc
+>     - Simplify design for placements extension
+> 
+> Testcase: igt/gem_create/create-ext-placement-sanity-check
+> Testcase: igt/gem_create/create-ext-placement-each
+> Testcase: igt/gem_create/create-ext-placement-all
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Signed-off-by: CQ Tang <cq.tang@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> Cc: Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>
+> Cc: Jordan Justen <jordan.l.justen@intel.com>
+> Cc: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Kenneth Graunke <kenneth@whitecape.org>
+> Cc: Jason Ekstrand <jason@jlekstrand.net>
+> Cc: Dave Airlie <airlied@gmail.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: mesa-dev@lists.freedesktop.org
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_create.c    | 215 ++++++++++++++++--
+>  drivers/gpu/drm/i915/gem/i915_gem_object.c    |   3 +
+>  .../gpu/drm/i915/gem/i915_gem_object_types.h  |   6 +
+>  .../drm/i915/gem/selftests/i915_gem_mman.c    |  26 +++
+>  drivers/gpu/drm/i915/intel_memory_region.c    |  16 ++
+>  drivers/gpu/drm/i915/intel_memory_region.h    |   4 +
+>  include/uapi/drm/i915_drm.h                   |  62 +++++
+>  7 files changed, 315 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+> index 90e9eb6601b5..895f1666a8d3 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+> @@ -4,12 +4,47 @@
+>   */
+>  
+>  #include "gem/i915_gem_ioctls.h"
+> +#include "gem/i915_gem_lmem.h"
+>  #include "gem/i915_gem_region.h"
+>  
+>  #include "i915_drv.h"
+>  #include "i915_trace.h"
+>  #include "i915_user_extensions.h"
+>  
+> +static u32 object_max_page_size(struct drm_i915_gem_object *obj)
+> +{
+> +	u32 max_page_size = 0;
+> +	int i;
+> +
+> +	for (i = 0; i < obj->mm.n_placements; i++) {
+> +		struct intel_memory_region *mr = obj->mm.placements[i];
+> +
+> +		GEM_BUG_ON(!is_power_of_2(mr->min_page_size));
+> +		max_page_size = max_t(u32, max_page_size, mr->min_page_size);
+> +	}
+> +
+> +	GEM_BUG_ON(!max_page_size);
+> +	return max_page_size;
+> +}
+> +
+> +static void object_set_placements(struct drm_i915_gem_object *obj,
+> +				  struct intel_memory_region **placements,
+> +				  unsigned int n_placements)
+> +{
+> +	GEM_BUG_ON(!n_placements);
+> +
+> +	if (n_placements == 1) {
+> +		struct intel_memory_region *mr = placements[0];
+> +		struct drm_i915_private *i915 = mr->i915;
+> +
+> +		obj->mm.placements = &i915->mm.regions[mr->id];
+> +		obj->mm.n_placements = 1;
+> +	} else {
+> +		obj->mm.placements = placements;
+> +		obj->mm.n_placements = n_placements;
+> +	}
+> +}
+> +
+
+I found this helper function rather odd looking at first.  In the
+general case, it simply sets fields based on the parameters...but in
+the n == 1 case, it goes and uses something else as the array.
+
+On further inspection, this makes sense: normally, we have an array
+of multiple placements in priority order.  That array is (essentially)
+malloc'd.  But if there's only 1 item, having a malloc'd array of 1
+thing is pretty silly.  We can just point at it directly.  Which means
+the callers can kfree the array, and the object destructor should not.
+
+Maybe a comment saying
+
+   /* 
+    * For the common case of one memory region, skip storing an
+    * allocated array and just point at the region directly.
+    */
+
+would be helpful?
+
+--nextPart3923341.ekzWyWCOrY
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEE6OtbNAgc4e6ibv4ZW1vaBx1JzDgFAmCJmyMACgkQW1vaBx1J
+zDh6vQ//T82IVQ+sBnzPdBGTPBuvs1Bwy4gFkRW7+pebcAIZOA2J3aw41Yyo7qT1
+YwVElEoiO8nTEoDTMLetQx//SSYftdXSU6AvicX1xF+6YKu2P1bu/cU53+Dcfm69
+5qxUQ3Eme0Rw1szuKM0XQoMLhj6jPsSNOu0njrng+R/iVv/A2QJKzE3TiEwUkdzY
+lRTT9tjarGxuw8sx9B36QetwFsxHlkXbbrutxcP6yPO/GBzkXxcIkuAqJCvRX44V
+gBr/IMNA8HG4ZASxCsb/trl32fK9nGOR40buHb71ynrqVljpxsMoDp0/c3VXmLyJ
+6GLNQaF1p49pftW64TmSBxVQJxDxNrC9v71E/BXICSHJw2Fze8mTdUelDU+m43WX
+gbFQQ50xoHIM5mSS3lKZNyadDjRT3PpF8WbAoLKT/d6gWmDo9LIjDPZYgRQXkzHP
+sk6rHuc3TYAMVJJHSOFfYRCHQXNqHnkpYGzmci30l3u6MIwoVylNlXtZwOXIkCKG
+9rvH1lP1GHs1Gq4oq7zi31glejCeIrGiwSMju4QamP4y6Xbu1Ll83jMyPPw/TOHs
+xjYm1GeUH3fLhIl1jCU1U+nmcXmTNrQVP14RDs85eaar+Dim6gX+2uupKH5obdhW
+kX/csN0Vwwls6dpIF/D8HhFPs92nwM9VDvO2XpxOVe+fm5qd97g=
+=nDg0
+-----END PGP SIGNATURE-----
+
+--nextPart3923341.ekzWyWCOrY--
+
+
+
+
+--===============1069964497==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1069964497==--
+
+
+
