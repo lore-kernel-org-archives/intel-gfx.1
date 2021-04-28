@@ -2,43 +2,67 @@ Return-Path: <SRS0=ja9S=JZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D664FC433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:36:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50C80C433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:38:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 637BF61445
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:36:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 637BF61445
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=whitecape.org
+	by mail.kernel.org (Postfix) with ESMTPS id C8D33613C6
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:38:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8D33613C6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86B996EC07;
-	Wed, 28 Apr 2021 17:36:49 +0000 (UTC)
-X-Greylist: delayed 375 seconds by postgrey-1.36 at gabe;
- Wed, 28 Apr 2021 17:36:47 UTC
-Received: from smtp122.iad3b.emailsrvr.com (smtp122.iad3b.emailsrvr.com
- [146.20.161.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE2A26EC07
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 17:36:47 +0000 (UTC)
-X-Auth-ID: kenneth@whitecape.org
-Received: by smtp24.relay.iad3b.emailsrvr.com (Authenticated sender:
- kenneth-AT-whitecape.org) with ESMTPSA id AAE0D401F6; 
- Wed, 28 Apr 2021 13:30:29 -0400 (EDT)
-From: Kenneth Graunke <kenneth@whitecape.org>
-To: intel-gfx@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>
-Date: Wed, 28 Apr 2021 10:30:28 -0700
-Message-ID: <23513095.4OMeIDWhAa@mizzik>
-In-Reply-To: <20210426093901.28937-1-matthew.auld@intel.com>
-References: <20210426093901.28937-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADA796EC11;
+	Wed, 28 Apr 2021 17:38:55 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B19666EC0F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 17:38:52 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id a4so2495856ejk.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 10:38:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7frRkT4g0r513DI5MuFq7Uk/6YaAtshNCuvs4qXooxE=;
+ b=R+2nhzu2rGY8m7SrsZSWxv5DR35RyuXmNq2ZTZYKgKwNNBHLRpx5ZZryUtPEgk18pe
+ Hx+oFHH6JCfqvEsvHTb49tc9dh+2nhqXpNlotWH0bKXrVgh+EZNQX61nUHg5L1FDvaBu
+ 4f5Dcaezd7KPelB1laBlAlv+VLS9Nh6Q1vcWmaHFi8XFUxS+6Uou94Ti+VaCRBug64OM
+ L2o1qt5QaTw1htOwJdia5JUZegzLF5jNDFjPwSiTxE8zn0oU1/U6PT4nFQR2T5fruV6E
+ 55eQir9huCPS+lmXAV4pYxkjtgOoKGcMsMGSgAieUswIKmXM1htDfDmQ3dGMnCTPzwHO
+ lkhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7frRkT4g0r513DI5MuFq7Uk/6YaAtshNCuvs4qXooxE=;
+ b=lDA8HgoohN1I3eYBnD/i758gysnv/j7jmcX89CiZclRpYVuZNiZrQDBjMcdoE5PAvO
+ o83XHmz1HMg/kcXjq4kiVxjcGSilHZRNwrekDGEw8OFI/ZhvFOsdJSsK/08odlxIDdrk
+ V1mB/OVqiook9zy/53dOkNUdPgWJiSFyvDbHD0L9PXu70nB2apevQf5U2+KL+wlUfTgM
+ jX+pM45OOc2orrc+07RMsFVzunHaWHMgflqqB8nNq9Vhi8mPB7GDFsLGjMfDucLJPk48
+ aLGCfk7NhsTxy4yg47PMeqpJ5xV3IJ+RcP60n4v5fZPYBkklsEKFdwz4qFskSs59yWEm
+ SLJw==
+X-Gm-Message-State: AOAM531PJnWC6fp2R60BNDUb8kDoc4pN4VHGpYIawI5uqzbX3chP3i8G
+ qiRfXu0la8AOIh4vh003hTfG5ibo1MhhEmY9uwg/pw==
+X-Google-Smtp-Source: ABdhPJzIzBwAHmGBmQKk1mufQfcj3LMIPT5ok7QffDw3HRlCTNzQSgd8SfmC18gBmDQ1Dm9DA3HCnbzxLQTvuHEE5ek=
+X-Received: by 2002:a17:906:dc90:: with SMTP id
+ cs16mr29972051ejc.210.1619631531246; 
+ Wed, 28 Apr 2021 10:38:51 -0700 (PDT)
 MIME-Version: 1.0
-X-Classification-ID: bf419c33-bc3d-4679-92d2-831103a60b42-1-1
-Subject: Re: [Intel-gfx] [PATCH 1/9] drm/doc/rfc: i915 DG1 uAPI
+References: <20210423223131.879208-1-jason@jlekstrand.net>
+ <20210423223131.879208-6-jason@jlekstrand.net>
+ <YIfePDDB9Xuit1i+@phenom.ffwll.local>
+In-Reply-To: <YIfePDDB9Xuit1i+@phenom.ffwll.local>
+From: Jason Ekstrand <jason@jlekstrand.net>
+Date: Wed, 28 Apr 2021 12:38:40 -0500
+Message-ID: <CAOFGe97tFt3=GTr0kJ7fwRmHVy+N9jUfoQ9HwF+U6fytxbAmNA@mail.gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [Intel-gfx] [PATCH 05/21] drm/i915: Drop the CONTEXT_CLONE API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,131 +75,348 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>,
- Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Dave Airlie <airlied@redhat.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>, mesa-dev@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@intel.com>
-Content-Type: multipart/mixed; boundary="===============2041748233=="
+Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2041748233==
-Content-Type: multipart/signed; boundary="nextPart4801889.86a5JYxHxL"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+On Tue, Apr 27, 2021 at 4:49 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Fri, Apr 23, 2021 at 05:31:15PM -0500, Jason Ekstrand wrote:
+> > This API allows one context to grab bits out of another context upon
+> > creation.  It can be used as a short-cut for setparam(getparam()) for
+> > things like I915_CONTEXT_PARAM_VM.  However, it's never been used by any
+> > real userspace.  It's used by a few IGT tests and that's it.  Since it
+> > doesn't add any real value (most of the stuff you can CLONE you can copy
+> > in other ways), drop it.
+> >
+> > There is one thing that this API allows you to clone which you cannot
+> > clone via getparam/setparam: timelines.  However, timelines are an
+> > implementation detail of i915 and not really something that needs to be
+> > exposed to userspace.  Also, sharing timelines between contexts isn't
+> > obviously useful and supporting it has the potential to complicate i915
+> > internally.  It also doesn't add any functionality that the client can't
+> > get in other ways.  If a client really wants a shared timeline, they can
+> > use a syncobj and set it as an in and out fence on every submit.
+> >
+> > Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+> > Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/gem/i915_gem_context.c | 199 +-------------------
+> >  include/uapi/drm/i915_drm.h                 |  16 +-
+> >  2 files changed, 6 insertions(+), 209 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> > index 8a77855123cec..2c2fefa912805 100644
+> > --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> > @@ -1958,207 +1958,14 @@ static int create_setparam(struct i915_user_extension __user *ext, void *data)
+> >       return ctx_setparam(arg->fpriv, arg->ctx, &local.param);
+> >  }
+> >
+> > -static int clone_engines(struct i915_gem_context *dst,
+> > -                      struct i915_gem_context *src)
+> > +static int invalid_ext(struct i915_user_extension __user *ext, void *data)
+> >  {
+> > -     struct i915_gem_engines *clone, *e;
+> > -     bool user_engines;
+> > -     unsigned long n;
+> > -
+> > -     e = __context_engines_await(src, &user_engines);
+> > -     if (!e)
+> > -             return -ENOENT;
+> > -
+> > -     clone = alloc_engines(e->num_engines);
+> > -     if (!clone)
+> > -             goto err_unlock;
+> > -
+> > -     for (n = 0; n < e->num_engines; n++) {
+> > -             struct intel_engine_cs *engine;
+> > -
+> > -             if (!e->engines[n]) {
+> > -                     clone->engines[n] = NULL;
+> > -                     continue;
+> > -             }
+> > -             engine = e->engines[n]->engine;
+> > -
+> > -             /*
+> > -              * Virtual engines are singletons; they can only exist
+> > -              * inside a single context, because they embed their
+> > -              * HW context... As each virtual context implies a single
+> > -              * timeline (each engine can only dequeue a single request
+> > -              * at any time), it would be surprising for two contexts
+> > -              * to use the same engine. So let's create a copy of
+> > -              * the virtual engine instead.
+> > -              */
+> > -             if (intel_engine_is_virtual(engine))
+> > -                     clone->engines[n] =
+> > -                             intel_execlists_clone_virtual(engine);
+>
+> You forgot to gc this function here ^^
 
---nextPart4801889.86a5JYxHxL
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
-From: Kenneth Graunke <kenneth@whitecape.org>
-To: intel-gfx@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>, Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>, Jon Bloomfield <jon.bloomfield@intel.com>, Jordan Justen <jordan.l.justen@intel.com>, Daniel Vetter <daniel.vetter@intel.com>, Jason Ekstrand <jason@jlekstrand.net>, Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>, Dave Airlie <airlied@redhat.com>
-Subject: Re: [PATCH 1/9] drm/doc/rfc: i915 DG1 uAPI
-Date: Wed, 28 Apr 2021 10:30:28 -0700
-Message-ID: <23513095.4OMeIDWhAa@mizzik>
-In-Reply-To: <20210426093901.28937-1-matthew.auld@intel.com>
-References: <20210426093901.28937-1-matthew.auld@intel.com>
+Done, with pleasure!
 
-On Monday, April 26, 2021 2:38:53 AM PDT Matthew Auld wrote:
-> Add an entry for the new uAPI needed for DG1. Also add the overall
-> upstream plan, including some notes for the TTM conversion.
->=20
-> v2(Daniel):
->   - include the overall upstreaming plan
->   - add a note for mmap, there are differences here for TTM vs i915
->   - bunch of other suggestions from Daniel
-> v3:
->  (Daniel)
->   - add a note for set/get caching stuff
->   - add some more docs for existing query and extensions stuff
->   - add an actual code example for regions query
->   - bunch of other stuff
->  (Jason)
->   - uAPI change(!):
-> 	- try a simpler design with the placements extension
-> 	- rather than have a generic setparam which can cover multiple
-> 	  use cases, have each extension be responsible for one thing
-> 	  only
-> v4:
->  (Daniel)
->   - add some more notes for ttm conversion
->   - bunch of other stuff
->  (Jason)
->   - uAPI change(!):
-> 	- drop all the extra rsvd members for the region_query and
-> 	  region_info, just keep the bare minimum needed for padding
->=20
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>
-> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> Cc: Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>
-> Cc: Jon Bloomfield <jon.bloomfield@intel.com>
-> Cc: Jordan Justen <jordan.l.justen@intel.com>
-> Cc: Daniel Vetter <daniel.vetter@intel.com>
-> Cc: Kenneth Graunke <kenneth@whitecape.org>
-> Cc: Jason Ekstrand <jason@jlekstrand.net>
-> Cc: Dave Airlie <airlied@gmail.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: mesa-dev@lists.freedesktop.org
-> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Acked-by: Dave Airlie <airlied@redhat.com>
-> ---
->  Documentation/gpu/rfc/i915_gem_lmem.h   | 212 ++++++++++++++++++++++++
->  Documentation/gpu/rfc/i915_gem_lmem.rst | 130 +++++++++++++++
->  Documentation/gpu/rfc/index.rst         |   4 +
->  3 files changed, 346 insertions(+)
->  create mode 100644 Documentation/gpu/rfc/i915_gem_lmem.h
->  create mode 100644 Documentation/gpu/rfc/i915_gem_lmem.rst
+> > -             else
+> > -                     clone->engines[n] = intel_context_create(engine);
+> > -             if (IS_ERR_OR_NULL(clone->engines[n])) {
+> > -                     __free_engines(clone, n);
+> > -                     goto err_unlock;
+> > -             }
+> > -
+> > -             intel_context_set_gem(clone->engines[n], dst);
+>
+> Not peeked ahead, but I'm really hoping intel_context_set_gem gets removed
+> eventually too ...
 
-With or without any of my suggestions,
+I've not gotten rid of it yet but it's on my list of things to clean
+up.  The problem is that there are a pile of parameters we want to set
+for user engines which we don't set for internal engines:
 
-Patch 7 is:
+ - VM
+ - priority
+ - hangcheck timeout
+ - gem_context back-pointer (I'd love to drop this one!)
+ - a bunch more when we start shifting more stuff into intel_context
 
-Acked-by: Kenneth Graunke <kenneth@whitecape.org>
+And there are a bunch of places where we create non-user engines.  The
+end result being that we have four ugly options:
 
-The rest of the series (1-6, 8-9) are:
+ 1. Set them after the fact as per intel_context_set_gem
+ 2. Touch all 79 instances of intel_context_create( for each new
+create param we add
+ 3. Add a new struct intel_context_create_args which contains all the
+extra stuff and make NULL mean "use the defaults"
+ 4. Add a new struct i915_gem_engine which is used for client-visible
+engines.  When we switch to an engine-based uAPI, this is probably
+what would be exposed to userspace.
 
-Reviewed-by: Kenneth Graunke <kenneth@whitecape.org>
-
---nextPart4801889.86a5JYxHxL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEE6OtbNAgc4e6ibv4ZW1vaBx1JzDgFAmCJm7QACgkQW1vaBx1J
-zDi3RQ//YbVI4K7jkE3PLo2zIW5cp6UX/uDo1vQUa9Nggd37O96IdYKfzdbeT0Dt
-MNsD45taj57PYvSpAl8hFXHXhlYlz2Lx05LyMw7m3ixENiNzY5Tq5cCFJg1gXYtK
-+DOk58Xgh+WErk464FzQT3h/qb5TKzfFX0pnehla6lxfnUXLGoWwh4jvgyg43oyL
-qnT98ds2gD9/Fi0Y9f+Kec5+cN21rTOtvynmiYxMA9GsFCAUDQ1CKRTKRezilNEA
-ygcDvEV+S0EBIjXbq8lm81lgdtLtPrGgkVqdhvlIQOjU5t2MvWUKdBli439GXokZ
-f+U2a/GxYls4DlbsiMXVeOqPQ6Wy2uIIhtFiY3Y+bQFlwI7+de8qI5aQzVZ6MYsu
-6G49ldHK/F3nigKk2GGFvQFuw/k5HoXdSs5SEWmoptz1iPEPj6UaJFa/ho4RzKGq
-wyawmzTrZilwo+WCwZbtbg2rkydtbFQPDWlt64kiXYX/xR8gDZIL2tV9jZchh1mi
-4eq9E+OESH92NtJimCHZTOXrAJfFOz4ud1n34nIPU3YEG1uvxZlya89ZEOtnPYC7
-nKonqygDsVQgjLdR3maA4YL+I5TSFu3PhxdLXp2/uYI9L3lwo2hqpVD9P6T0gl4/
-KKwA6miu5kjCPXllPJgmOb/ofve7e2PYcLTcFLqKJzvTR6pOV2o=
-=AJfu
------END PGP SIGNATURE-----
-
---nextPart4801889.86a5JYxHxL--
+I'm happy to hear opinions on which of those is the best option. 2. is
+clearly a bad idea.
 
 
+> > -     }
+> > -     clone->num_engines = n;
+> > -     i915_sw_fence_complete(&e->fence);
+> > -
+> > -     /* Serialised by constructor */
+> > -     engines_idle_release(dst, rcu_replace_pointer(dst->engines, clone, 1));
+> > -     if (user_engines)
+> > -             i915_gem_context_set_user_engines(dst);
+> > -     else
+> > -             i915_gem_context_clear_user_engines(dst);
+> > -     return 0;
+> > -
+> > -err_unlock:
+> > -     i915_sw_fence_complete(&e->fence);
+> > -     return -ENOMEM;
+> > -}
+> > -
+> > -static int clone_flags(struct i915_gem_context *dst,
+> > -                    struct i915_gem_context *src)
+> > -{
+> > -     dst->user_flags = src->user_flags;
+> > -     return 0;
+> > -}
+> > -
+> > -static int clone_schedattr(struct i915_gem_context *dst,
+> > -                        struct i915_gem_context *src)
+> > -{
+> > -     dst->sched = src->sched;
+> > -     return 0;
+> > -}
+> > -
+> > -static int clone_sseu(struct i915_gem_context *dst,
+> > -                   struct i915_gem_context *src)
+> > -{
+> > -     struct i915_gem_engines *e = i915_gem_context_lock_engines(src);
+> > -     struct i915_gem_engines *clone;
+> > -     unsigned long n;
+> > -     int err;
+> > -
+> > -     /* no locking required; sole access under constructor*/
+> > -     clone = __context_engines_static(dst);
+> > -     if (e->num_engines != clone->num_engines) {
+> > -             err = -EINVAL;
+> > -             goto unlock;
+> > -     }
+> > -
+> > -     for (n = 0; n < e->num_engines; n++) {
+> > -             struct intel_context *ce = e->engines[n];
+> > -
+> > -             if (clone->engines[n]->engine->class != ce->engine->class) {
+> > -                     /* Must have compatible engine maps! */
+> > -                     err = -EINVAL;
+> > -                     goto unlock;
+> > -             }
+> > -
+> > -             /* serialises with set_sseu */
+> > -             err = intel_context_lock_pinned(ce);
+> > -             if (err)
+> > -                     goto unlock;
+> > -
+> > -             clone->engines[n]->sseu = ce->sseu;
+> > -             intel_context_unlock_pinned(ce);
+> > -     }
+> > -
+> > -     err = 0;
+> > -unlock:
+> > -     i915_gem_context_unlock_engines(src);
+> > -     return err;
+> > -}
+> > -
+> > -static int clone_timeline(struct i915_gem_context *dst,
+> > -                       struct i915_gem_context *src)
+> > -{
+> > -     if (src->timeline)
+> > -             __assign_timeline(dst, src->timeline);
+> > -
+> > -     return 0;
+> > -}
+> > -
+> > -static int clone_vm(struct i915_gem_context *dst,
+> > -                 struct i915_gem_context *src)
+> > -{
+> > -     struct i915_address_space *vm;
+> > -     int err = 0;
+> > -
+> > -     if (!rcu_access_pointer(src->vm))
+> > -             return 0;
+> > -
+> > -     rcu_read_lock();
+> > -     vm = context_get_vm_rcu(src);
+> > -     rcu_read_unlock();
+> > -
+> > -     if (!mutex_lock_interruptible(&dst->mutex)) {
+> > -             __assign_ppgtt(dst, vm);
+> > -             mutex_unlock(&dst->mutex);
+> > -     } else {
+> > -             err = -EINTR;
+> > -     }
+> > -
+> > -     i915_vm_put(vm);
+> > -     return err;
+> > -}
+> > -
+> > -static int create_clone(struct i915_user_extension __user *ext, void *data)
+> > -{
+> > -     static int (* const fn[])(struct i915_gem_context *dst,
+> > -                               struct i915_gem_context *src) = {
+> > -#define MAP(x, y) [ilog2(I915_CONTEXT_CLONE_##x)] = y
+> > -             MAP(ENGINES, clone_engines),
+> > -             MAP(FLAGS, clone_flags),
+> > -             MAP(SCHEDATTR, clone_schedattr),
+> > -             MAP(SSEU, clone_sseu),
+> > -             MAP(TIMELINE, clone_timeline),
+> > -             MAP(VM, clone_vm),
+> > -#undef MAP
+> > -     };
+> > -     struct drm_i915_gem_context_create_ext_clone local;
+> > -     const struct create_ext *arg = data;
+> > -     struct i915_gem_context *dst = arg->ctx;
+> > -     struct i915_gem_context *src;
+> > -     int err, bit;
+> > -
+> > -     if (copy_from_user(&local, ext, sizeof(local)))
+> > -             return -EFAULT;
+> > -
+> > -     BUILD_BUG_ON(GENMASK(BITS_PER_TYPE(local.flags) - 1, ARRAY_SIZE(fn)) !=
+> > -                  I915_CONTEXT_CLONE_UNKNOWN);
+> > -
+> > -     if (local.flags & I915_CONTEXT_CLONE_UNKNOWN)
+> > -             return -EINVAL;
+> > -
+> > -     if (local.rsvd)
+> > -             return -EINVAL;
+> > -
+> > -     rcu_read_lock();
+> > -     src = __i915_gem_context_lookup_rcu(arg->fpriv, local.clone_id);
+> > -     rcu_read_unlock();
+> > -     if (!src)
+> > -             return -ENOENT;
+> > -
+> > -     GEM_BUG_ON(src == dst);
+> > -
+> > -     for (bit = 0; bit < ARRAY_SIZE(fn); bit++) {
+> > -             if (!(local.flags & BIT(bit)))
+> > -                     continue;
+> > -
+> > -             err = fn[bit](dst, src);
+> > -             if (err)
+> > -                     return err;
+> > -     }
+> > -
+> > -     return 0;
+> > +     return -EINVAL;
+> >  }
+> >
+> >  static const i915_user_extension_fn create_extensions[] = {
+> >       [I915_CONTEXT_CREATE_EXT_SETPARAM] = create_setparam,
+> > -     [I915_CONTEXT_CREATE_EXT_CLONE] = create_clone,
+> > +     [I915_CONTEXT_CREATE_EXT_CLONE] = invalid_ext,
+> >  };
+> >
+> >  static bool client_is_banned(struct drm_i915_file_private *file_priv)
+> > diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+> > index a0aaa8298f28d..75a71b6756ed8 100644
+> > --- a/include/uapi/drm/i915_drm.h
+> > +++ b/include/uapi/drm/i915_drm.h
+> > @@ -1887,20 +1887,10 @@ struct drm_i915_gem_context_create_ext_setparam {
+> >       struct drm_i915_gem_context_param param;
+> >  };
+> >
+> > -struct drm_i915_gem_context_create_ext_clone {
+> > +/* This API has been removed.  On the off chance someone somewhere has
+> > + * attempted to use it, never re-use this extension number.
+> > + */
+> >  #define I915_CONTEXT_CREATE_EXT_CLONE 1
+>
+> I think we need to put these somewhere else now, here it's just plain
+> lost. I think in the kerneldoc for
+> drm_i915_gem_context_create_ext_setparam would be best, with the #define
+> right above and in the kerneldoc an enumeration of all the values and what
+> they're for.
+
+I fully agree it's not great.  But I'm not sure create_ext_setparam
+makes sense either.  This is it's own extension that's unrelated to
+ext_setparam.
+
+--Jason
 
 
---===============2041748233==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> I think I'll need to sign up Matt B or you for doing some kerneldoc polish
+> on these so they're all collected together.
+> -Daniel
+>
+> > -     struct i915_user_extension base;
+> > -     __u32 clone_id;
+> > -     __u32 flags;
+> > -#define I915_CONTEXT_CLONE_ENGINES   (1u << 0)
+> > -#define I915_CONTEXT_CLONE_FLAGS     (1u << 1)
+> > -#define I915_CONTEXT_CLONE_SCHEDATTR (1u << 2)
+> > -#define I915_CONTEXT_CLONE_SSEU              (1u << 3)
+> > -#define I915_CONTEXT_CLONE_TIMELINE  (1u << 4)
+> > -#define I915_CONTEXT_CLONE_VM                (1u << 5)
+> > -#define I915_CONTEXT_CLONE_UNKNOWN -(I915_CONTEXT_CLONE_VM << 1)
+> > -     __u64 rsvd;
+> > -};
+> >
+> >  struct drm_i915_gem_context_destroy {
+> >       __u32 ctx_id;
+> > --
+> > 2.31.1
+> >
+> > _______________________________________________
+> > Intel-gfx mailing list
+> > Intel-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============2041748233==--
-
-
-
