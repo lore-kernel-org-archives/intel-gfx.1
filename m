@@ -2,49 +2,62 @@ Return-Path: <SRS0=ja9S=JZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA3EBC433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 21:13:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B1BAC433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 21:18:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7312B61408
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 21:13:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7312B61408
+	by mail.kernel.org (Postfix) with ESMTPS id D7AEF6143A
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 21:18:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7AEF6143A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE1F36EC4B;
-	Wed, 28 Apr 2021 21:13:23 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 425196EC42
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 21:13:02 +0000 (UTC)
-IronPort-SDR: LOktrSDH3CH/censu8PatsFXIYYF24nAfSGNgIsQodJngUFvj9fQOIeMfAEEwGtlBH8X0wpJ+8
- teNA6DL9RVcg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="193665207"
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="193665207"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2021 14:13:01 -0700
-IronPort-SDR: AijcvxTAyMCWAEZYnSHccDnACRoUql9U4y7svFMPsFCmx0TJgi80t72TRaJ1F1uIep6Z8yjYrZ
- GgKB6MOZu71g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="423716011"
-Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
- by fmsmga008.fm.intel.com with ESMTP; 28 Apr 2021 14:13:01 -0700
-From: Anusha Srivatsa <anusha.srivatsa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Apr 2021 14:12:47 -0700
-Message-Id: <20210428211249.11037-2-anusha.srivatsa@intel.com>
-X-Mailer: git-send-email 2.25.0
-In-Reply-To: <20210428211249.11037-1-anusha.srivatsa@intel.com>
-References: <20210428211249.11037-1-anusha.srivatsa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29BDD6EC43;
+	Wed, 28 Apr 2021 21:18:42 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3FD46EC43;
+ Wed, 28 Apr 2021 21:18:40 +0000 (UTC)
+IronPort-SDR: w9XwOP33SP/gNsKmDGlU+xGwXMoKwitzZaQ746Iw8BCiDK21zjM7197lMgDdSxxCM+a/wmKxod
+ FQLrGe6iyxeg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="196413031"
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="196413031"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2021 14:18:39 -0700
+IronPort-SDR: 8AiZQ3gxVnLy1Qwt5H2eP8bjvreUcKNrP5x1qJObPVJQDd2CRqWXD7q0eTtSCMCt8zwnPJdsuz
+ OHtNLaZrXsVA==
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="430511027"
+Received: from janneoja-mobl.ger.corp.intel.com (HELO [10.252.52.73])
+ ([10.252.52.73])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2021 14:18:37 -0700
+To: Jason Ekstrand <jason@jlekstrand.net>
+References: <20210427214913.46956-1-umesh.nerlige.ramappa@intel.com>
+ <20210427214913.46956-2-umesh.nerlige.ramappa@intel.com>
+ <875z064x5h.fsf@intel.com>
+ <CAOFGe94kk9N-MPKMF-T+5BCRiXuY7p1iQRquQx38pRQiqvazWg@mail.gmail.com>
+ <c776bb7d-4d35-1e1d-18f4-020b88fdf805@intel.com>
+ <CAOFGe95MKaqoGeTaFCtatR6YcysOiC2=wcYaoz72dw+KnPRXSQ@mail.gmail.com>
+ <6efdf140-4144-d688-16e0-4089beffce0e@intel.com>
+ <CAOFGe94+qx-DDo=LiBZjY2=vXZsWpPZ-bRD+OdMJkta4VHsTng@mail.gmail.com>
+From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Message-ID: <5f2efded-bb37-3692-e209-27845c20fa42@intel.com>
+Date: Thu, 29 Apr 2021 00:18:35 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915/csr: s/DRM_ERROR/drm_err
+In-Reply-To: <CAOFGe94+qx-DDo=LiBZjY2=vXZsWpPZ-bRD+OdMJkta4VHsTng@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 1/1] i915/query: Correlate engine and cpu
+ timestamps with better accuracy
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,208 +70,413 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Chris Wilson <chris.p.wilson@intel.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use new format of debug messages across intel_csr.
+On 28/04/2021 23:45, Jason Ekstrand wrote:
+> On Wed, Apr 28, 2021 at 3:14 PM Lionel Landwerlin
+> <lionel.g.landwerlin@intel.com> wrote:
+>> On 28/04/2021 22:54, Jason Ekstrand wrote:
+>>> On Wed, Apr 28, 2021 at 2:50 PM Lionel Landwerlin
+>>> <lionel.g.landwerlin@intel.com> wrote:
+>>>> On 28/04/2021 22:24, Jason Ekstrand wrote:
+>>>>
+>>>> On Wed, Apr 28, 2021 at 3:43 AM Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>>>>
+>>>> On Tue, 27 Apr 2021, Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com> wrote:
+>>>>
+>>>> Perf measurements rely on CPU and engine timestamps to correlate
+>>>> events of interest across these time domains. Current mechanisms get
+>>>> these timestamps separately and the calculated delta between these
+>>>> timestamps lack enough accuracy.
+>>>>
+>>>> To improve the accuracy of these time measurements to within a few us,
+>>>> add a query that returns the engine and cpu timestamps captured as
+>>>> close to each other as possible.
+>>>>
+>>>> Cc: dri-devel, Jason and Daniel for review.
+>>>>
+>>>> Thanks!
+>>>>
+>>>> v2: (Tvrtko)
+>>>> - document clock reference used
+>>>> - return cpu timestamp always
+>>>> - capture cpu time just before lower dword of cs timestamp
+>>>>
+>>>> v3: (Chris)
+>>>> - use uncore-rpm
+>>>> - use __query_cs_timestamp helper
+>>>>
+>>>> v4: (Lionel)
+>>>> - Kernel perf subsytem allows users to specify the clock id to be used
+>>>>     in perf_event_open. This clock id is used by the perf subsystem to
+>>>>     return the appropriate cpu timestamp in perf events. Similarly, let
+>>>>     the user pass the clockid to this query so that cpu timestamp
+>>>>     corresponds to the clock id requested.
+>>>>
+>>>> v5: (Tvrtko)
+>>>> - Use normal ktime accessors instead of fast versions
+>>>> - Add more uApi documentation
+>>>>
+>>>> v6: (Lionel)
+>>>> - Move switch out of spinlock
+>>>>
+>>>> v7: (Chris)
+>>>> - cs_timestamp is a misnomer, use cs_cycles instead
+>>>> - return the cs cycle frequency as well in the query
+>>>>
+>>>> v8:
+>>>> - Add platform and engine specific checks
+>>>>
+>>>> v9: (Lionel)
+>>>> - Return 2 cpu timestamps in the query - captured before and after the
+>>>>     register read
+>>>>
+>>>> v10: (Chris)
+>>>> - Use local_clock() to measure time taken to read lower dword of
+>>>>     register and return it to user.
+>>>>
+>>>> v11: (Jani)
+>>>> - IS_GEN deprecated. User GRAPHICS_VER instead.
+>>>>
+>>>> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+>>>> ---
+>>>>    drivers/gpu/drm/i915/i915_query.c | 145 ++++++++++++++++++++++++++++++
+>>>>    include/uapi/drm/i915_drm.h       |  48 ++++++++++
+>>>>    2 files changed, 193 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+>>>> index fed337ad7b68..2594b93901ac 100644
+>>>> --- a/drivers/gpu/drm/i915/i915_query.c
+>>>> +++ b/drivers/gpu/drm/i915/i915_query.c
+>>>> @@ -6,6 +6,8 @@
+>>>>
+>>>>    #include <linux/nospec.h>
+>>>>
+>>>> +#include "gt/intel_engine_pm.h"
+>>>> +#include "gt/intel_engine_user.h"
+>>>>    #include "i915_drv.h"
+>>>>    #include "i915_perf.h"
+>>>>    #include "i915_query.h"
+>>>> @@ -90,6 +92,148 @@ static int query_topology_info(struct drm_i915_private *dev_priv,
+>>>>         return total_length;
+>>>>    }
+>>>>
+>>>> +typedef u64 (*__ktime_func_t)(void);
+>>>> +static __ktime_func_t __clock_id_to_func(clockid_t clk_id)
+>>>> +{
+>>>> +     /*
+>>>> +      * Use logic same as the perf subsystem to allow user to select the
+>>>> +      * reference clock id to be used for timestamps.
+>>>> +      */
+>>>> +     switch (clk_id) {
+>>>> +     case CLOCK_MONOTONIC:
+>>>> +             return &ktime_get_ns;
+>>>> +     case CLOCK_MONOTONIC_RAW:
+>>>> +             return &ktime_get_raw_ns;
+>>>> +     case CLOCK_REALTIME:
+>>>> +             return &ktime_get_real_ns;
+>>>> +     case CLOCK_BOOTTIME:
+>>>> +             return &ktime_get_boottime_ns;
+>>>> +     case CLOCK_TAI:
+>>>> +             return &ktime_get_clocktai_ns;
+>>>> +     default:
+>>>> +             return NULL;
+>>>> +     }
+>>>> +}
+>>>> +
+>>>> +static inline int
+>>>> +__read_timestamps(struct intel_uncore *uncore,
+>>>> +               i915_reg_t lower_reg,
+>>>> +               i915_reg_t upper_reg,
+>>>> +               u64 *cs_ts,
+>>>> +               u64 *cpu_ts,
+>>>> +               __ktime_func_t cpu_clock)
+>>>> +{
+>>>> +     u32 upper, lower, old_upper, loop = 0;
+>>>> +
+>>>> +     upper = intel_uncore_read_fw(uncore, upper_reg);
+>>>> +     do {
+>>>> +             cpu_ts[1] = local_clock();
+>>>> +             cpu_ts[0] = cpu_clock();
+>>>> +             lower = intel_uncore_read_fw(uncore, lower_reg);
+>>>> +             cpu_ts[1] = local_clock() - cpu_ts[1];
+>>>> +             old_upper = upper;
+>>>> +             upper = intel_uncore_read_fw(uncore, upper_reg);
+>>>> +     } while (upper != old_upper && loop++ < 2);
+>>>> +
+>>>> +     *cs_ts = (u64)upper << 32 | lower;
+>>>> +
+>>>> +     return 0;
+>>>> +}
+>>>> +
+>>>> +static int
+>>>> +__query_cs_cycles(struct intel_engine_cs *engine,
+>>>> +               u64 *cs_ts, u64 *cpu_ts,
+>>>> +               __ktime_func_t cpu_clock)
+>>>> +{
+>>>> +     struct intel_uncore *uncore = engine->uncore;
+>>>> +     enum forcewake_domains fw_domains;
+>>>> +     u32 base = engine->mmio_base;
+>>>> +     intel_wakeref_t wakeref;
+>>>> +     int ret;
+>>>> +
+>>>> +     fw_domains = intel_uncore_forcewake_for_reg(uncore,
+>>>> +                                                 RING_TIMESTAMP(base),
+>>>> +                                                 FW_REG_READ);
+>>>> +
+>>>> +     with_intel_runtime_pm(uncore->rpm, wakeref) {
+>>>> +             spin_lock_irq(&uncore->lock);
+>>>> +             intel_uncore_forcewake_get__locked(uncore, fw_domains);
+>>>> +
+>>>> +             ret = __read_timestamps(uncore,
+>>>> +                                     RING_TIMESTAMP(base),
+>>>> +                                     RING_TIMESTAMP_UDW(base),
+>>>> +                                     cs_ts,
+>>>> +                                     cpu_ts,
+>>>> +                                     cpu_clock);
+>>>> +
+>>>> +             intel_uncore_forcewake_put__locked(uncore, fw_domains);
+>>>> +             spin_unlock_irq(&uncore->lock);
+>>>> +     }
+>>>> +
+>>>> +     return ret;
+>>>> +}
+>>>> +
+>>>> +static int
+>>>> +query_cs_cycles(struct drm_i915_private *i915,
+>>>> +             struct drm_i915_query_item *query_item)
+>>>> +{
+>>>> +     struct drm_i915_query_cs_cycles __user *query_ptr;
+>>>> +     struct drm_i915_query_cs_cycles query;
+>>>> +     struct intel_engine_cs *engine;
+>>>> +     __ktime_func_t cpu_clock;
+>>>> +     int ret;
+>>>> +
+>>>> +     if (GRAPHICS_VER(i915) < 6)
+>>>> +             return -ENODEV;
+>>>> +
+>>>> +     query_ptr = u64_to_user_ptr(query_item->data_ptr);
+>>>> +     ret = copy_query_item(&query, sizeof(query), sizeof(query), query_item);
+>>>> +     if (ret != 0)
+>>>> +             return ret;
+>>>> +
+>>>> +     if (query.flags)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (query.rsvd)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     cpu_clock = __clock_id_to_func(query.clockid);
+>>>> +     if (!cpu_clock)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     engine = intel_engine_lookup_user(i915,
+>>>> +                                       query.engine.engine_class,
+>>>> +                                       query.engine.engine_instance);
+>>>> +     if (!engine)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (GRAPHICS_VER(i915) == 6 &&
+>>>> +         query.engine.engine_class != I915_ENGINE_CLASS_RENDER)
+>>>> +             return -ENODEV;
+>>>> +
+>>>> +     query.cs_frequency = engine->gt->clock_frequency;
+>>>> +     ret = __query_cs_cycles(engine,
+>>>> +                             &query.cs_cycles,
+>>>> +                             query.cpu_timestamp,
+>>>> +                             cpu_clock);
+>>>> +     if (ret)
+>>>> +             return ret;
+>>>> +
+>>>> +     if (put_user(query.cs_frequency, &query_ptr->cs_frequency))
+>>>> +             return -EFAULT;
+>>>> +
+>>>> +     if (put_user(query.cpu_timestamp[0], &query_ptr->cpu_timestamp[0]))
+>>>> +             return -EFAULT;
+>>>> +
+>>>> +     if (put_user(query.cpu_timestamp[1], &query_ptr->cpu_timestamp[1]))
+>>>> +             return -EFAULT;
+>>>> +
+>>>> +     if (put_user(query.cs_cycles, &query_ptr->cs_cycles))
+>>>> +             return -EFAULT;
+>>>> +
+>>>> +     return sizeof(query);
+>>>> +}
+>>>> +
+>>>>    static int
+>>>>    query_engine_info(struct drm_i915_private *i915,
+>>>>                   struct drm_i915_query_item *query_item)
+>>>> @@ -424,6 +568,7 @@ static int (* const i915_query_funcs[])(struct drm_i915_private *dev_priv,
+>>>>         query_topology_info,
+>>>>         query_engine_info,
+>>>>         query_perf_config,
+>>>> +     query_cs_cycles,
+>>>>    };
+>>>>
+>>>>    int i915_query_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+>>>> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+>>>> index 6a34243a7646..08b00f1709b5 100644
+>>>> --- a/include/uapi/drm/i915_drm.h
+>>>> +++ b/include/uapi/drm/i915_drm.h
+>>>> @@ -2230,6 +2230,10 @@ struct drm_i915_query_item {
+>>>>    #define DRM_I915_QUERY_TOPOLOGY_INFO    1
+>>>>    #define DRM_I915_QUERY_ENGINE_INFO   2
+>>>>    #define DRM_I915_QUERY_PERF_CONFIG      3
+>>>> +     /**
+>>>> +      * Query Command Streamer timestamp register.
+>>>> +      */
+>>>> +#define DRM_I915_QUERY_CS_CYCLES     4
+>>>>    /* Must be kept compact -- no holes and well documented */
+>>>>
+>>>>         /**
+>>>> @@ -2397,6 +2401,50 @@ struct drm_i915_engine_info {
+>>>>         __u64 rsvd1[4];
+>>>>    };
+>>>>
+>>>> +/**
+>>>> + * struct drm_i915_query_cs_cycles
+>>>> + *
+>>>> + * The query returns the command streamer cycles and the frequency that can be
+>>>> + * used to calculate the command streamer timestamp. In addition the query
+>>>> + * returns a set of cpu timestamps that indicate when the command streamer cycle
+>>>> + * count was captured.
+>>>> + */
+>>>> +struct drm_i915_query_cs_cycles {
+>>>> +     /** Engine for which command streamer cycles is queried. */
+>>>> +     struct i915_engine_class_instance engine;
+>>>>
+>>>> Why is this per-engine?  Do we actually expect it to change between
+>>>> engines?
+>>>>
+>>>>
+>>>> Each engine has its own timestamp register.
+>>>>
+>>>>
+>>>>     If so, we may have a problem because Vulkan expects a
+>>>> unified timestamp domain for all command streamer timestamp queries.
+>>>>
+>>>>
+>>>> I don't think it does : "
+>>>>
+>>>> Timestamps may only be meaningfully compared if they are written by commands submitted to the same queue.
+>>> Yes but vkGetCalibratedTimestampsEXT() doesn't take a queue or even a
+>>> queue family.
+>>
+>> I know, I brought up the issue recently. See khronos issue 2551.
+> I guess this is what I get for not attending the Vulkan SI call
+> anymore.  Small price to pay....
+>
+> So the answer is that we just stop exposing the DEVICE time domain as
+> soon as we start using anything other than RENDER?  Seems a bit rough
+> but should be doable.
+>
+>> You might not like the resolution... I did propose to do a rev2 of the
+>> extension to let the user specify the queue.
+>>
+>> We can still do that in the future.
+> Yeah, I think we'll want to do something if we care about this
+> extension.  One option would be to make it take a queue family.
+> Another would be to expose it as one domain per queue family.
+> Anyway... that's a discussion for another forum.
+>
+>>>     Also, VkPhysicalDeviceLimits::timestampPeriod gives a
+>>> single timestampPeriod for all queues.
+>>
+>> That is fine for us, we should have the same period on all command
+>> streamers.
+> I guess I've got no problem returning the period as part of this
+> query.  ANV should probably assert that it's what it expects, though.
+>
+>> -Lionel
+>>
+>>
+>>>     It's possible that Vulkan
+>>> messed up real bad there but I thought we did a HW survey at the time
+>>> and determined that it was ok.
+>>>
+>>> --Jason
+>>>
+>>>
+>>>> " [1]
+>>>>
+>>>>
+>>>> [1] : https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteTimestamp.html
+>>>>
+>>>>
+>>>> -Lionel
+>>>>
+>>>>
+>>>>
+>>>> --Jason
+>>>>
+>>>>
+>>>> +     /** Must be zero. */
+>>>> +     __u32 flags;
+>>>> +
+>>>> +     /**
+>>>> +      * Command streamer cycles as read from the command streamer
+>>>> +      * register at 0x358 offset.
+>>>> +      */
+>>>> +     __u64 cs_cycles;
+>>>> +
+>>>> +     /** Frequency of the cs cycles in Hz. */
+>>>> +     __u64 cs_frequency;
+>>>> +
+>>>> +     /**
+>>>> +      * CPU timestamps in ns. cpu_timestamp[0] is captured before reading the
+>>>> +      * cs_cycles register using the reference clockid set by the user.
+>>>> +      * cpu_timestamp[1] is the time taken in ns to read the lower dword of
+>>>> +      * the cs_cycles register.
+>>>> +      */
+>>>> +     __u64 cpu_timestamp[2];
+> I think the API would be more clear if we had separate cpu_timestamp
+> and cpu_delta fields or something like that.  That or make
+> cpu_timestamp[1] the end time rather than a delta.  It's weird to have
+> an array where the first entry is absolute and the second entry is a
+> delta.
 
-While at it, change some function definitions which now
-need dev_priv for drm_err and drm_info etc.
 
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Suggested-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
----
- drivers/gpu/drm/i915/display/intel_csr.c | 44 +++++++++++++-----------
- 1 file changed, 23 insertions(+), 21 deletions(-)
+Oh dear... I did not notice that :(
 
-diff --git a/drivers/gpu/drm/i915/display/intel_csr.c b/drivers/gpu/drm/i915/display/intel_csr.c
-index 26a922d34263..bf60c3ffdf5d 100644
---- a/drivers/gpu/drm/i915/display/intel_csr.c
-+++ b/drivers/gpu/drm/i915/display/intel_csr.c
-@@ -392,10 +392,11 @@ static u32 find_dmc_fw_offset(const struct intel_fw_info *fw_info,
- 	return dmc_offset;
- }
- 
--static u32 parse_csr_fw_dmc(struct intel_csr *csr,
-+static u32 parse_csr_fw_dmc(struct drm_i915_private *dev_priv,
- 			    const struct intel_dmc_header_base *dmc_header,
- 			    size_t rem_size)
- {
-+	struct intel_csr *csr = &dev_priv->csr;
- 	unsigned int header_len_bytes, dmc_header_size, payload_size, i;
- 	const u32 *mmioaddr, *mmiodata;
- 	u32 mmio_count, mmio_count_max;
-@@ -440,27 +441,27 @@ static u32 parse_csr_fw_dmc(struct intel_csr *csr,
- 		header_len_bytes = dmc_header->header_len;
- 		dmc_header_size = sizeof(*v1);
- 	} else {
--		DRM_ERROR("Unknown DMC fw header version: %u\n",
-+		drm_err(&dev_priv->drm, "Unknown DMC fw header version: %u\n",
- 			  dmc_header->header_ver);
- 		return 0;
- 	}
- 
- 	if (header_len_bytes != dmc_header_size) {
--		DRM_ERROR("DMC firmware has wrong dmc header length "
-+		drm_err(&dev_priv->drm, "DMC firmware has wrong dmc header length "
- 			  "(%u bytes)\n", header_len_bytes);
- 		return 0;
- 	}
- 
- 	/* Cache the dmc header info. */
- 	if (mmio_count > mmio_count_max) {
--		DRM_ERROR("DMC firmware has wrong mmio count %u\n", mmio_count);
-+		drm_err(&dev_priv->drm, "DMC firmware has wrong mmio count %u\n", mmio_count);
- 		return 0;
- 	}
- 
- 	for (i = 0; i < mmio_count; i++) {
- 		if (mmioaddr[i] < CSR_MMIO_START_RANGE ||
- 		    mmioaddr[i] > CSR_MMIO_END_RANGE) {
--			DRM_ERROR("DMC firmware has wrong mmio address 0x%x\n",
-+			drm_err(&dev_priv->drm, "DMC firmware has wrong mmio address 0x%x\n",
- 				  mmioaddr[i]);
- 			return 0;
- 		}
-@@ -477,14 +478,14 @@ static u32 parse_csr_fw_dmc(struct intel_csr *csr,
- 		goto error_truncated;
- 
- 	if (payload_size > csr->max_fw_size) {
--		DRM_ERROR("DMC FW too big (%u bytes)\n", payload_size);
-+		drm_err(&dev_priv->drm, "DMC FW too big (%u bytes)\n", payload_size);
- 		return 0;
- 	}
- 	csr->dmc_fw_size = dmc_header->fw_size;
- 
- 	csr->dmc_payload = kmalloc(payload_size, GFP_KERNEL);
- 	if (!csr->dmc_payload) {
--		DRM_ERROR("Memory allocation failed for dmc payload\n");
-+		drm_err(&dev_priv->drm, "Memory allocation failed for dmc payload\n");
- 		return 0;
- 	}
- 
-@@ -494,12 +495,12 @@ static u32 parse_csr_fw_dmc(struct intel_csr *csr,
- 	return header_len_bytes + payload_size;
- 
- error_truncated:
--	DRM_ERROR("Truncated DMC firmware, refusing.\n");
-+	drm_err(&dev_priv->drm, "Truncated DMC firmware, refusing.\n");
- 	return 0;
- }
- 
- static u32
--parse_csr_fw_package(struct intel_csr *csr,
-+parse_csr_fw_package(struct drm_i915_private *dev_priv,
- 		     const struct intel_package_header *package_header,
- 		     const struct stepping_info *si,
- 		     size_t rem_size)
-@@ -516,7 +517,7 @@ parse_csr_fw_package(struct intel_csr *csr,
- 	} else if (package_header->header_ver == 2) {
- 		max_entries = PACKAGE_V2_MAX_FW_INFO_ENTRIES;
- 	} else {
--		DRM_ERROR("DMC firmware has unknown header version %u\n",
-+		drm_err(&dev_priv->drm, "DMC firmware has unknown header version %u\n",
- 			  package_header->header_ver);
- 		return 0;
- 	}
-@@ -530,7 +531,7 @@ parse_csr_fw_package(struct intel_csr *csr,
- 		goto error_truncated;
- 
- 	if (package_header->header_len * 4 != package_size) {
--		DRM_ERROR("DMC firmware has wrong package header length "
-+		drm_err(&dev_priv->drm, "DMC firmware has wrong package header length "
- 			  "(%u bytes)\n", package_size);
- 		return 0;
- 	}
-@@ -544,7 +545,7 @@ parse_csr_fw_package(struct intel_csr *csr,
- 	dmc_offset = find_dmc_fw_offset(fw_info, num_entries, si,
- 					package_header->header_ver);
- 	if (dmc_offset == CSR_DEFAULT_FW_OFFSET) {
--		DRM_ERROR("DMC firmware not supported for %c stepping\n",
-+		drm_err(&dev_priv->drm, "DMC firmware not supported for %c stepping\n",
- 			  si->stepping);
- 		return 0;
- 	}
-@@ -553,23 +554,25 @@ parse_csr_fw_package(struct intel_csr *csr,
- 	return package_size + dmc_offset * 4;
- 
- error_truncated:
--	DRM_ERROR("Truncated DMC firmware, refusing.\n");
-+	drm_err(&dev_priv->drm, "Truncated DMC firmware, refusing.\n");
- 	return 0;
- }
- 
- /* Return number of bytes parsed or 0 on error */
--static u32 parse_csr_fw_css(struct intel_csr *csr,
-+static u32 parse_csr_fw_css(struct drm_i915_private *dev_priv,
- 			    struct intel_css_header *css_header,
- 			    size_t rem_size)
- {
-+	struct intel_csr *csr = &dev_priv->csr;
-+
- 	if (rem_size < sizeof(struct intel_css_header)) {
--		DRM_ERROR("Truncated DMC firmware, refusing.\n");
-+		drm_err(&dev_priv->drm, "Truncated DMC firmware, refusing.\n");
- 		return 0;
- 	}
- 
- 	if (sizeof(struct intel_css_header) !=
- 	    (css_header->header_len * 4)) {
--		DRM_ERROR("DMC firmware has wrong CSS header length "
-+		drm_err(&dev_priv->drm, "DMC firmware has wrong CSS header length "
- 			  "(%u bytes)\n",
- 			  (css_header->header_len * 4));
- 		return 0;
-@@ -577,7 +580,7 @@ static u32 parse_csr_fw_css(struct intel_csr *csr,
- 
- 	if (csr->required_version &&
- 	    css_header->version != csr->required_version) {
--		DRM_INFO("Refusing to load DMC firmware v%u.%u,"
-+		drm_info(&dev_priv->drm, "Refusing to load DMC firmware v%u.%u,"
- 			 " please use v%u.%u\n",
- 			 CSR_VERSION_MAJOR(css_header->version),
- 			 CSR_VERSION_MINOR(css_header->version),
-@@ -597,7 +600,6 @@ static void parse_csr_fw(struct drm_i915_private *dev_priv,
- 	struct intel_css_header *css_header;
- 	struct intel_package_header *package_header;
- 	struct intel_dmc_header_base *dmc_header;
--	struct intel_csr *csr = &dev_priv->csr;
- 	const struct stepping_info *si = intel_get_stepping_info(dev_priv);
- 	u32 readcount = 0;
- 	u32 r;
-@@ -607,7 +609,7 @@ static void parse_csr_fw(struct drm_i915_private *dev_priv,
- 
- 	/* Extract CSS Header information */
- 	css_header = (struct intel_css_header *)fw->data;
--	r = parse_csr_fw_css(csr, css_header, fw->size);
-+	r = parse_csr_fw_css(dev_priv, css_header, fw->size);
- 	if (!r)
- 		return;
- 
-@@ -615,7 +617,7 @@ static void parse_csr_fw(struct drm_i915_private *dev_priv,
- 
- 	/* Extract Package Header information */
- 	package_header = (struct intel_package_header *)&fw->data[readcount];
--	r = parse_csr_fw_package(csr, package_header, si, fw->size - readcount);
-+	r = parse_csr_fw_package(dev_priv, package_header, si, fw->size - readcount);
- 	if (!r)
- 		return;
- 
-@@ -623,7 +625,7 @@ static void parse_csr_fw(struct drm_i915_private *dev_priv,
- 
- 	/* Extract dmc_header information */
- 	dmc_header = (struct intel_dmc_header_base *)&fw->data[readcount];
--	parse_csr_fw_dmc(csr, dmc_header, fw->size - readcount);
-+	parse_csr_fw_dmc(dev_priv, dmc_header, fw->size - readcount);
- }
- 
- static void intel_csr_runtime_pm_get(struct drm_i915_private *dev_priv)
--- 
-2.25.0
+I thought that was just a little dance to save local variable...
+
+Agreed, 2 different names or 2 snapshots.
+
+
+-Lionel
+
+
+>
+> --Jason
+>
+>
+>>>> +
+>>>> +     /**
+>>>> +      * Reference clock id for CPU timestamp. For definition, see
+>>>> +      * clock_gettime(2) and perf_event_open(2). Supported clock ids are
+>>>> +      * CLOCK_MONOTONIC, CLOCK_MONOTONIC_RAW, CLOCK_REALTIME, CLOCK_BOOTTIME,
+>>>> +      * CLOCK_TAI.
+>>>> +      */
+>>>> +     __s32 clockid;
+>>>> +
+>>>> +     /** Must be zero. */
+>>>> +     __u32 rsvd;
+>>>> +};
+>>>> +
+>>>>    /**
+>>>>     * struct drm_i915_query_engine_info
+>>>>     *
+>>>>
+>>>> --
+>>>> Jani Nikula, Intel Open Source Graphics Center
+>>>>
+>>>>
 
 _______________________________________________
 Intel-gfx mailing list
