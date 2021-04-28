@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15BACC433ED
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 21:54:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4520AC433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 21:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B87676115B
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 21:53:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B87676115B
+	by mail.kernel.org (Postfix) with ESMTPS id D566D6109E
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 21:54:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D566D6109E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D70676EC5A;
-	Wed, 28 Apr 2021 21:53:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09BBD6EC50;
+	Wed, 28 Apr 2021 21:54:23 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10ACB6EC74
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 21:53:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F12D96EC69
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 21:53:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1619646826;
+ s=mimecast20190719; t=1619646814;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=2Hyp4AGgXcMc49uqhb8vpl0J5tgw16x316sedrJ5yHw=;
- b=R3Phn64NhRax3dJSgqhElDYHReLwfm/Vof/qokh5NDvkEWg78W60kfueBTyMmQ/S41buu1
- 84SzUAgRE+XDgZ6M2Po9DObXI3xs5BwWhTuh0te0VaOVHSQcCP7eP9SAR4RbM6oWfQuVTG
- wxY+3Yh8raMr47x8RkuufSsLtsGL7Vw=
+ bh=anbAqr+B18UJD0ROosbVNOxc6A3+H/xmJXK4QX2H7os=;
+ b=ENgqB7o2crWMsxUut5wTEdw+A7+UHL8WqK5MmBJ0z9ySE7wI+Tyr22EpLTevxnFJDzXQqZ
+ 6mHHrei8DH8Hw+M44gC3i7FQyPr7hy5yv38MUTWhBzb98C8vkOIrictdFrehCCmUqBseDG
+ ZbF9ZD34a4wkJX0dVIlDClJZpOhaEvY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-417-PQ7rYftuOWShqH-8y8LzzQ-1; Wed, 28 Apr 2021 17:53:42 -0400
-X-MC-Unique: PQ7rYftuOWShqH-8y8LzzQ-1
+ us-mta-413-sWPPlIPDOyKVzmT6fltE4A-1; Wed, 28 Apr 2021 17:53:31 -0400
+X-MC-Unique: sWPPlIPDOyKVzmT6fltE4A-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
  [10.5.11.16])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6A2F818BA281;
- Wed, 28 Apr 2021 21:53:40 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 813B3107ACE8;
+ Wed, 28 Apr 2021 21:53:29 +0000 (UTC)
 Received: from x1.localdomain (ovpn-115-166.ams2.redhat.com [10.36.115.166])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B7DA15C1BB;
- Wed, 28 Apr 2021 21:53:37 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C7E4F5C1BB;
+ Wed, 28 Apr 2021 21:53:26 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -57,14 +57,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Guenter Roeck <linux@roeck-us.net>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Date: Wed, 28 Apr 2021 23:52:57 +0200
-Message-Id: <20210428215257.500088-10-hdegoede@redhat.com>
+Date: Wed, 28 Apr 2021 23:52:54 +0200
+Message-Id: <20210428215257.500088-7-hdegoede@redhat.com>
 In-Reply-To: <20210428215257.500088-1-hdegoede@redhat.com>
 References: <20210428215257.500088-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-Subject: [Intel-gfx] [PATCH 9/9] platform/x86/intel_cht_int33fe: Correct
- "displayport" fwnode reference
+Subject: [Intel-gfx] [PATCH 6/9] drm/i915/dp: Add support for out-of-bound
+ hotplug events
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,30 +84,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The Type-C connector on these devices is connected to DP-2 not DP-1,
-so the reference must be to the DD04 child-node of the GPU, rather
-then the DD02 child-node.
+On some Cherry Trail devices, DisplayPort over Type-C is supported through
+a USB-PD microcontroller (e.g. a fusb302) + a mux to switch the superspeed
+datalines between USB-3 and DP (e.g. a pi3usb30532). The kernel in this
+case does the PD/alt-mode negotiation itself, rather then everything being
+handled in firmware.
+
+So the kernel itself picks an alt-mode, tells the Type-C "dongle" to switch
+to DP mode and sets the mux accordingly. In this setup the HPD pin is not
+connected, so the i915 driver needs to respond to a software event and scan
+the DP port for changes manually.
+
+This commit adds support for this. Together with the recent addition of
+DP alt-mode support to the Type-C subsystem this makes DP over Type-C
+work on these devices.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/platform/x86/intel_cht_int33fe_typec.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/platform/x86/intel_cht_int33fe_typec.c b/drivers/platform/x86/intel_cht_int33fe_typec.c
-index b61bad9cc8d2..d59544167430 100644
---- a/drivers/platform/x86/intel_cht_int33fe_typec.c
-+++ b/drivers/platform/x86/intel_cht_int33fe_typec.c
-@@ -168,8 +168,8 @@ static int cht_int33fe_setup_dp(struct cht_int33fe_data *data)
- 		return -ENODEV;
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 64a73b3ced94..1029720cc945 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5846,6 +5846,18 @@ static int intel_dp_connector_atomic_check(struct drm_connector *conn,
+ 	return intel_modeset_synced_crtcs(state, conn);
+ }
  
--	/* Then the DP child device node */
--	data->dp = device_get_named_child_node(&pdev->dev, "DD02");
-+	/* Then the DP-2 child device node */
-+	data->dp = device_get_named_child_node(&pdev->dev, "DD04");
- 	pci_dev_put(pdev);
- 	if (!data->dp)
- 		return -ENODEV;
++static void intel_dp_oob_hotplug_event(struct drm_connector *connector,
++				       struct drm_connector_oob_hotplug_event_data *data)
++{
++	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
++	struct drm_i915_private *i915 = to_i915(connector->dev);
++
++	spin_lock_irq(&i915->irq_lock);
++	i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
++	spin_unlock_irq(&i915->irq_lock);
++	queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
++}
++
+ static const struct drm_connector_funcs intel_dp_connector_funcs = {
+ 	.force = intel_dp_force,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+@@ -5856,6 +5868,7 @@ static const struct drm_connector_funcs intel_dp_connector_funcs = {
+ 	.destroy = intel_connector_destroy,
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+ 	.atomic_duplicate_state = intel_digital_connector_duplicate_state,
++	.oob_hotplug_event = intel_dp_oob_hotplug_event,
+ };
+ 
+ static const struct drm_connector_helper_funcs intel_dp_connector_helper_funcs = {
 -- 
 2.31.1
 
