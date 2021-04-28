@@ -2,70 +2,52 @@ Return-Path: <SRS0=ja9S=JZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28B6EC433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:40:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8263C433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:45:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B658C613DA
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:40:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B658C613DA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3AFAF60C3E
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AFAF60C3E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 637556EC0D;
-	Wed, 28 Apr 2021 17:40:07 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB0706EC0D;
- Wed, 28 Apr 2021 17:40:04 +0000 (UTC)
-IronPort-SDR: VoLuvgQ/S1zlvhb28MBdczDwyh2znOecYskmEg0tuY8sh7F68KzpeUrhwLAV85czZFnE8n5UkE
- a5I5SQ1w3ocw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="193615766"
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="193615766"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2021 10:39:49 -0700
-IronPort-SDR: cbmD8qvKwYuK14f9M6oC+5W9aal5NuUGQP8csKI/D3Bmsa1VeSpjuSaXHj9Qsv6mHJ+sex61PO
- R5pnLQDbmo/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="466004097"
-Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
- by orsmga001.jf.intel.com with ESMTP; 28 Apr 2021 10:39:48 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 28 Apr 2021 10:39:48 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 28 Apr 2021 10:39:47 -0700
-Received: from fmsmsx610.amr.corp.intel.com ([10.18.126.90]) by
- fmsmsx610.amr.corp.intel.com ([10.18.126.90]) with mapi id 15.01.2106.013;
- Wed, 28 Apr 2021 10:39:47 -0700
-From: "Bloomfield, Jon" <jon.bloomfield@intel.com>
-To: "Auld, Matthew" <matthew.auld@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [PATCH 1/9] drm/doc/rfc: i915 DG1 uAPI
-Thread-Index: AQHXOoCGj3ZA5/WOnk606ffbmRXRk6rKNETg
-Date: Wed, 28 Apr 2021 17:39:25 +0000
-Deferred-Delivery: Wed, 28 Apr 2021 17:39:17 +0000
-Message-ID: <d84d525b3f844a5198004b321cdbe4cb@intel.com>
-References: <20210426093901.28937-1-matthew.auld@intel.com>
-In-Reply-To: <20210426093901.28937-1-matthew.auld@intel.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [10.22.254.132]
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6619E6E15C;
+	Wed, 28 Apr 2021 17:45:20 +0000 (UTC)
+X-Greylist: delayed 398 seconds by postgrey-1.36 at gabe;
+ Wed, 28 Apr 2021 17:45:18 UTC
+Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC28D6E15C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 17:45:18 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id BE1A1C800F8;
+ Wed, 28 Apr 2021 19:38:38 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
+ with LMTP id Kd_ISh5iUVqZ; Wed, 28 Apr 2021 19:38:38 +0200 (CEST)
+Received: from wsembach-tuxedo.fritz.box
+ (p200300e37f398600C736Fc0acfe84D15.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f39:8600:c736:fc0a:cfe8:4d15])
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPA id 65199C800F9;
+ Wed, 28 Apr 2021 19:38:38 +0200 (CEST)
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: wse@tuxedocomputers.com, airlied@linux.ie, daniel@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 28 Apr 2021 19:38:07 +0200
+Message-Id: <20210428173807.92518-1-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 1/9] drm/doc/rfc: i915 DG1 uAPI
+Subject: [Intel-gfx] [PATCH] drm/i915/display Try YCbCr420 color when RGB
+ fails
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,65 +60,182 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>,
- =?utf-8?B?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>,
- Dave Airlie <airlied@redhat.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Daniel
- Vetter <daniel.vetter@ffwll.ch>, Kenneth Graunke <kenneth@whitecape.org>,
- "mesa-dev@lists.freedesktop.org" <mesa-dev@lists.freedesktop.org>, "Vetter,
- Daniel" <daniel.vetter@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBdWxkLCBNYXR0aGV3IDxtYXR0
-aGV3LmF1bGRAaW50ZWwuY29tPg0KPiBTZW50OiBNb25kYXksIEFwcmlsIDI2LCAyMDIxIDI6Mzkg
-QU0NCj4gVG86IGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IEpvb25hcyBM
-YWh0aW5lbiA8am9vbmFzLmxhaHRpbmVuQGxpbnV4LmludGVsLmNvbT47IFRob21hcyBIZWxsc3Ry
-w7ZtDQo+IDx0aG9tYXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT47IENlcmFvbG8gU3B1cmlv
-LCBEYW5pZWxlDQo+IDxkYW5pZWxlLmNlcmFvbG9zcHVyaW9AaW50ZWwuY29tPjsgTGlvbmVsIExh
-bmR3ZXJsaW4NCj4gPGxpb25lbC5nLmxhbmR3ZXJsaW5AbGludXguaW50ZWwuY29tPjsgQmxvb21m
-aWVsZCwgSm9uDQo+IDxqb24uYmxvb21maWVsZEBpbnRlbC5jb20+OyBKdXN0ZW4sIEpvcmRhbiBM
-IDxqb3JkYW4ubC5qdXN0ZW5AaW50ZWwuY29tPjsNCj4gVmV0dGVyLCBEYW5pZWwgPGRhbmllbC52
-ZXR0ZXJAaW50ZWwuY29tPjsgS2VubmV0aCBHcmF1bmtlDQo+IDxrZW5uZXRoQHdoaXRlY2FwZS5v
-cmc+OyBKYXNvbiBFa3N0cmFuZCA8amFzb25Aamxla3N0cmFuZC5uZXQ+OyBEYXZlDQo+IEFpcmxp
-ZSA8YWlybGllZEBnbWFpbC5jb20+OyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBt
-ZXNhLQ0KPiBkZXZAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBEYW5pZWwgVmV0dGVyIDxkYW5pZWwu
-dmV0dGVyQGZmd2xsLmNoPjsgRGF2ZQ0KPiBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4NCj4g
-U3ViamVjdDogW1BBVENIIDEvOV0gZHJtL2RvYy9yZmM6IGk5MTUgREcxIHVBUEkNCj4gDQo+IEFk
-ZCBhbiBlbnRyeSBmb3IgdGhlIG5ldyB1QVBJIG5lZWRlZCBmb3IgREcxLiBBbHNvIGFkZCB0aGUg
-b3ZlcmFsbA0KPiB1cHN0cmVhbSBwbGFuLCBpbmNsdWRpbmcgc29tZSBub3RlcyBmb3IgdGhlIFRU
-TSBjb252ZXJzaW9uLg0KPiANCj4gdjIoRGFuaWVsKToNCj4gICAtIGluY2x1ZGUgdGhlIG92ZXJh
-bGwgdXBzdHJlYW1pbmcgcGxhbg0KPiAgIC0gYWRkIGEgbm90ZSBmb3IgbW1hcCwgdGhlcmUgYXJl
-IGRpZmZlcmVuY2VzIGhlcmUgZm9yIFRUTSB2cyBpOTE1DQo+ICAgLSBidW5jaCBvZiBvdGhlciBz
-dWdnZXN0aW9ucyBmcm9tIERhbmllbA0KPiB2MzoNCj4gIChEYW5pZWwpDQo+ICAgLSBhZGQgYSBu
-b3RlIGZvciBzZXQvZ2V0IGNhY2hpbmcgc3R1ZmYNCj4gICAtIGFkZCBzb21lIG1vcmUgZG9jcyBm
-b3IgZXhpc3RpbmcgcXVlcnkgYW5kIGV4dGVuc2lvbnMgc3R1ZmYNCj4gICAtIGFkZCBhbiBhY3R1
-YWwgY29kZSBleGFtcGxlIGZvciByZWdpb25zIHF1ZXJ5DQo+ICAgLSBidW5jaCBvZiBvdGhlciBz
-dHVmZg0KPiAgKEphc29uKQ0KPiAgIC0gdUFQSSBjaGFuZ2UoISk6DQo+IAktIHRyeSBhIHNpbXBs
-ZXIgZGVzaWduIHdpdGggdGhlIHBsYWNlbWVudHMgZXh0ZW5zaW9uDQo+IAktIHJhdGhlciB0aGFu
-IGhhdmUgYSBnZW5lcmljIHNldHBhcmFtIHdoaWNoIGNhbiBjb3ZlciBtdWx0aXBsZQ0KPiAJICB1
-c2UgY2FzZXMsIGhhdmUgZWFjaCBleHRlbnNpb24gYmUgcmVzcG9uc2libGUgZm9yIG9uZSB0aGlu
-Zw0KPiAJICBvbmx5DQo+IHY0Og0KPiAgKERhbmllbCkNCj4gICAtIGFkZCBzb21lIG1vcmUgbm90
-ZXMgZm9yIHR0bSBjb252ZXJzaW9uDQo+ICAgLSBidW5jaCBvZiBvdGhlciBzdHVmZg0KPiAgKEph
-c29uKQ0KPiAgIC0gdUFQSSBjaGFuZ2UoISk6DQo+IAktIGRyb3AgYWxsIHRoZSBleHRyYSByc3Zk
-IG1lbWJlcnMgZm9yIHRoZSByZWdpb25fcXVlcnkgYW5kDQo+IAkgIHJlZ2lvbl9pbmZvLCBqdXN0
-IGtlZXAgdGhlIGJhcmUgbWluaW11bSBuZWVkZWQgZm9yIHBhZGRpbmcNCj4gDQo+IFNpZ25lZC1v
-ZmYtYnk6IE1hdHRoZXcgQXVsZCA8bWF0dGhldy5hdWxkQGludGVsLmNvbT4NCj4gQ2M6IEpvb25h
-cyBMYWh0aW5lbiA8am9vbmFzLmxhaHRpbmVuQGxpbnV4LmludGVsLmNvbT4NCj4gQ2M6IFRob21h
-cyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4NCj4gQ2M6IERh
-bmllbGUgQ2VyYW9sbyBTcHVyaW8gPGRhbmllbGUuY2VyYW9sb3NwdXJpb0BpbnRlbC5jb20+DQo+
-IENjOiBMaW9uZWwgTGFuZHdlcmxpbiA8bGlvbmVsLmcubGFuZHdlcmxpbkBsaW51eC5pbnRlbC5j
-b20+DQo+IENjOiBKb24gQmxvb21maWVsZCA8am9uLmJsb29tZmllbGRAaW50ZWwuY29tPg0KPiBD
-YzogSm9yZGFuIEp1c3RlbiA8am9yZGFuLmwuanVzdGVuQGludGVsLmNvbT4NCj4gQ2M6IERhbmll
-bCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAaW50ZWwuY29tPg0KPiBDYzogS2VubmV0aCBHcmF1bmtl
-IDxrZW5uZXRoQHdoaXRlY2FwZS5vcmc+DQo+IENjOiBKYXNvbiBFa3N0cmFuZCA8amFzb25Aamxl
-a3N0cmFuZC5uZXQ+DQo+IENjOiBEYXZlIEFpcmxpZSA8YWlybGllZEBnbWFpbC5jb20+DQo+IENj
-OiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBtZXNhLWRldkBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcNCj4gQWNrZWQtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJA
-ZmZ3bGwuY2g+DQo+IEFja2VkLWJ5OiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPg0K
-PiAtLS0NCg0KQWNrZWQtYnk6IEpvbiBCbG9vbWZpZWxkIDxqb24uYmxvb21maWVsZEBpbnRlbC5j
-b20+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRl
-bC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+When encoder validation of a display mode fails, retry with less bandwidth
+heavy YCbCr420 color mode, if available. This enables some HDMI 1.4 setups
+to support 4k60Hz output, which previously failed silently.
+
+AMDGPU had nearly the exact same issue. This problem description is
+therefore copied from my commit message of the AMDGPU patch.
+
+On some setups, while the monitor and the gpu support display modes with
+pixel clocks of up to 600MHz, the link encoder might not. This prevents
+YCbCr444 and RGB encoding for 4k60Hz, but YCbCr420 encoding might still be
+possible. However, which color mode is used is decided before the link
+encoder capabilities are checked. This patch fixes the problem by retrying
+to find a display mode with YCbCr420 enforced and using it, if it is
+valid.
+
+I'm not entierly sure if the second
+"if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv))" check in
+intel_hdmi_compute_config(...) after forcing ycbcr420 is necessary. I
+included it to better be safe then sorry.
+
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Cc: <stable@vger.kernel.org>
+---
+
+From c7499210af78e15a2aea2178000958f26e0d43a0 Mon Sep 17 00:00:00 2001
+From: Werner Sembach <wse@tuxedocomputers.com>
+Date: Tue, 30 Mar 2021 15:07:34 +0200
+Subject: [PATCH] Retry using YCbCr420 encoding if clock setup for RGB fails
+
+---
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 78 +++++++++++++++++------
+ 1 file changed, 59 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 95919d325b0b..273685c0e395 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2233,6 +2233,29 @@ hdmi_port_clock_valid(struct intel_hdmi *hdmi,
+ 	return MODE_OK;
+ }
+ 
++static enum drm_mode_status
++intel_hdmi_check_bpc(struct intel_hdmi *hdmi, int clock, bool has_hdmi_sink, struct drm_i915_private *dev_priv)
++{
++	enum drm_mode_status status;
++
++	/* check if we can do 8bpc */
++	status = hdmi_port_clock_valid(hdmi, clock, true, has_hdmi_sink);
++
++	if (has_hdmi_sink) {
++		/* if we can't do 8bpc we may still be able to do 12bpc */
++		if (status != MODE_OK && !HAS_GMCH(dev_priv))
++			status = hdmi_port_clock_valid(hdmi, clock * 3 / 2,
++						       true, has_hdmi_sink);
++
++		/* if we can't do 8,12bpc we may still be able to do 10bpc */
++		if (status != MODE_OK && INTEL_GEN(dev_priv) >= 11)
++			status = hdmi_port_clock_valid(hdmi, clock * 5 / 4,
++						       true, has_hdmi_sink);
++	}
++
++	return status;
++}
++
+ static enum drm_mode_status
+ intel_hdmi_mode_valid(struct drm_connector *connector,
+ 		      struct drm_display_mode *mode)
+@@ -2263,22 +2286,18 @@ intel_hdmi_mode_valid(struct drm_connector *connector,
+ 	if (drm_mode_is_420_only(&connector->display_info, mode))
+ 		clock /= 2;
+ 
+-	/* check if we can do 8bpc */
+-	status = hdmi_port_clock_valid(hdmi, clock, true, has_hdmi_sink);
++	status = intel_hdmi_check_bpc(hdmi, clock, has_hdmi_sink, dev_priv);
+ 
+-	if (has_hdmi_sink) {
+-		/* if we can't do 8bpc we may still be able to do 12bpc */
+-		if (status != MODE_OK && !HAS_GMCH(dev_priv))
+-			status = hdmi_port_clock_valid(hdmi, clock * 3 / 2,
+-						       true, has_hdmi_sink);
++	if (status != MODE_OK) {
++		if (drm_mode_is_420_also(&connector->display_info, mode)) {
++			/* if we can't do full color resolution we may still be able to do reduced color resolution */
++			clock /= 2;
+ 
+-		/* if we can't do 8,12bpc we may still be able to do 10bpc */
+-		if (status != MODE_OK && INTEL_GEN(dev_priv) >= 11)
+-			status = hdmi_port_clock_valid(hdmi, clock * 5 / 4,
+-						       true, has_hdmi_sink);
++			status = intel_hdmi_check_bpc(hdmi, clock, has_hdmi_sink, dev_priv);
++		}
++		if (status != MODE_OK)
++			return status;
+ 	}
+-	if (status != MODE_OK)
+-		return status;
+ 
+ 	return intel_mode_valid_max_plane_size(dev_priv, mode, false);
+ }
+@@ -2361,14 +2380,17 @@ static bool hdmi_deep_color_possible(const struct intel_crtc_state *crtc_state,
+ 
+ static int
+ intel_hdmi_ycbcr420_config(struct intel_crtc_state *crtc_state,
+-			   const struct drm_connector_state *conn_state)
++			   const struct drm_connector_state *conn_state,
++			   const bool force_ycbcr420)
+ {
+ 	struct drm_connector *connector = conn_state->connector;
+ 	struct drm_i915_private *i915 = to_i915(connector->dev);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+ 
+-	if (!drm_mode_is_420_only(&connector->display_info, adjusted_mode))
++	if (!(drm_mode_is_420_only(&connector->display_info, adjusted_mode) ||
++			(force_ycbcr420 &&
++			drm_mode_is_420_also(&connector->display_info, adjusted_mode))))
+ 		return 0;
+ 
+ 	if (!connector->ycbcr_420_allowed) {
+@@ -2507,7 +2529,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+ 	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
+ 	struct drm_connector *connector = conn_state->connector;
+ 	struct drm_scdc *scdc = &connector->display_info.hdmi.scdc;
+-	int ret;
++	int ret, ret_saved;
+ 
+ 	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLSCAN)
+ 		return -EINVAL;
+@@ -2522,7 +2544,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+ 	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLCLK)
+ 		pipe_config->pixel_multiplier = 2;
+ 
+-	ret = intel_hdmi_ycbcr420_config(pipe_config, conn_state);
++	ret = intel_hdmi_ycbcr420_config(pipe_config, conn_state, false);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2536,8 +2558,26 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+ 		intel_hdmi_has_audio(encoder, pipe_config, conn_state);
+ 
+ 	ret = intel_hdmi_compute_clock(encoder, pipe_config);
+-	if (ret)
+-		return ret;
++	if (ret) {
++		ret_saved = ret;
++
++		ret = intel_hdmi_ycbcr420_config(pipe_config, conn_state, true);
++		if (ret)
++			return ret;
++
++		if (pipe_config->output_format != INTEL_OUTPUT_FORMAT_YCBCR420)
++			return ret_saved;
++
++		pipe_config->limited_color_range =
++			intel_hdmi_limited_color_range(pipe_config, conn_state);
++
++		if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv))
++			pipe_config->has_pch_encoder = true;
++
++		ret = intel_hdmi_compute_clock(encoder, pipe_config);
++		if (ret)
++			return ret;
++	}
+ 
+ 	if (conn_state->picture_aspect_ratio)
+ 		adjusted_mode->picture_aspect_ratio =
+-- 
+2.25.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
