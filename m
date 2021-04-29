@@ -5,46 +5,46 @@ X-Spam-Level:
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 563DBC43461
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 08:35:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3ACAC433B4
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 08:41:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EEB7061185
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 08:35:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EEB7061185
+	by mail.kernel.org (Postfix) with ESMTPS id 618CF613ED
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 08:41:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 618CF613ED
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B93886EDBA;
-	Thu, 29 Apr 2021 08:35:47 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAB3B6EDB5;
- Thu, 29 Apr 2021 08:35:44 +0000 (UTC)
-IronPort-SDR: 761ZnhlQJLZLBF0hn/BFAYjVzuD4neTulPTPWWeTnw9meH2QUMsXQ8zXarTBJVtnR3Orkmo2PB
- iJEEMkPUCTfA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="176435774"
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="176435774"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B04CD6EDBD;
+	Thu, 29 Apr 2021 08:41:49 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCF876EDBC;
+ Thu, 29 Apr 2021 08:41:48 +0000 (UTC)
+IronPort-SDR: GReknZF/1aP/S9aFQRqvNQUwsqFxinCxgjwA3S45OE4nyd5Fab/jMLB4gN7sdSZtS7r3ySJur/
+ LYbK6xoSQ2Ig==
+X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="197058912"
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="197058912"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2021 01:35:43 -0700
-IronPort-SDR: 7F8FaQqYJw6p1wDlgx7bsVny6KoYaEoVmKaxMZ3ETAP5QyO9uOLjB+97S9MZiM2PzUrTRmmnTP
- Qf4c9EkK1zZA==
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="423971294"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 01:41:46 -0700
+IronPort-SDR: uMUD0TpNYS68iTP2b/oqD/FuVaaKem7AS2hQ6gv2KmMT+hZVEU+1Hk9n2V8D8EGUqjNOf0K39O
+ VVnh/qr/X16Q==
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="423974335"
 Received: from gwaise-mobl1.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.208.64])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2021 01:35:41 -0700
+ 29 Apr 2021 01:41:38 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 29 Apr 2021 09:35:29 +0100
-Message-Id: <20210429083530.849546-1-tvrtko.ursulin@linux.intel.com>
+To: igt-dev@lists.freedesktop.org
+Date: Thu, 29 Apr 2021 09:41:30 +0100
+Message-Id: <20210429084130.850426-1-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/overlay: Fix active retire
- callback alignment
+Subject: [Intel-gfx] [PATCH i-g-t] tests/i915/gem_workarounds: Prepare for
+ read mask
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,8 +57,7 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
@@ -66,30 +65,68 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-__i915_active_call annotation is required on the retire callback to ensure
-correct function alignment.
+I plan to extend i915 to expose the read mask in i915_wa_registers so
+prepare the IGT for that format change.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Fixes: a21ce8ad12d2 ("drm/i915/overlay: Switch to using i915_active tracking")
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_overlay.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tests/i915/gem_workarounds.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
-index fffbde4256db..428819ba18dd 100644
---- a/drivers/gpu/drm/i915/display/intel_overlay.c
-+++ b/drivers/gpu/drm/i915/display/intel_overlay.c
-@@ -383,7 +383,7 @@ static void intel_overlay_off_tail(struct intel_overlay *overlay)
- 		i830_overlay_clock_gating(dev_priv, true);
- }
+diff --git a/tests/i915/gem_workarounds.c b/tests/i915/gem_workarounds.c
+index 00b475c27ff1..be5c5d83f405 100644
+--- a/tests/i915/gem_workarounds.c
++++ b/tests/i915/gem_workarounds.c
+@@ -47,6 +47,7 @@ struct intel_wa_reg {
+ 	uint32_t addr;
+ 	uint32_t value;
+ 	uint32_t mask;
++	uint32_t read;
+ };
  
--static void
-+__i915_active_call static void
- intel_overlay_last_flip_retire(struct i915_active *active)
- {
- 	struct intel_overlay *overlay =
+ static struct write_only_list {
+@@ -157,8 +158,8 @@ static int workaround_fail_count(int i915, uint32_t ctx)
+ 		if (out[i] == 0)
+ 			out[i] = *(volatile uint32_t *)(igt_global_mmio + wa_regs[i].addr);
+ 
+-		if ((wa_regs[i].value & wa_regs[i].mask) ==
+-		    (out[i] & wa_regs[i].mask)) {
++		if ((wa_regs[i].value & wa_regs[i].read) ==
++		    (out[i] & wa_regs[i].read)) {
+ 			igt_debug("%s\tOK\n", buf);
+ 		} else if (write_only(wa_regs[i].addr)) {
+ 			igt_debug("%s\tIGNORED (w/o)\n", buf);
+@@ -274,7 +275,7 @@ igt_main
+ 		sscanf(str, "Workarounds applied: %d", &num_wa_regs);
+ 		igt_require(num_wa_regs > 0);
+ 
+-		wa_regs = malloc(num_wa_regs * sizeof(*wa_regs));
++		wa_regs = calloc(num_wa_regs, sizeof(*wa_regs));
+ 		igt_assert(wa_regs);
+ 
+ 		i = 0;
+@@ -283,11 +284,19 @@ igt_main
+ 				break;
+ 
+ 			igt_debug("%s", line);
+-			if (sscanf(line, "0x%X: 0x%08X, mask: 0x%08X",
++			if (sscanf(line, "0x%X: 0x%08X, mask: 0x%08X, read: 0x%08X",
+ 				   &wa_regs[i].addr,
+ 				   &wa_regs[i].value,
+-				   &wa_regs[i].mask) == 3)
++				   &wa_regs[i].mask,
++				   &wa_regs[i].read) == 4) {
+ 				i++;
++			} else if (sscanf(line, "0x%X: 0x%08X, mask: 0x%08X",
++				   &wa_regs[i].addr,
++				   &wa_regs[i].value,
++				   &wa_regs[i].mask) == 3) {
++				wa_regs[i].read = wa_regs[i].mask;
++				i++;
++			}
+ 		}
+ 
+ 		igt_assert_lte(i, num_wa_regs);
 -- 
 2.30.2
 
