@@ -5,48 +5,48 @@ X-Spam-Level:
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DC32C433B4
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7161DC43460
 	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 09:13:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 006A26140C
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 09:13:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 006A26140C
+	by mail.kernel.org (Postfix) with ESMTPS id 00A2561441
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 09:13:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00A2561441
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EF026EDC3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3079A6EDBC;
 	Thu, 29 Apr 2021 09:13:09 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3CC06E1A7;
- Thu, 29 Apr 2021 09:13:07 +0000 (UTC)
-IronPort-SDR: Q+Jk6EVnnsbPJoPrtv+K6+2cByLxh4Ph25262/MqQqY9V6PgJUu7tHti+vlpKDd11K2Hs/S5CZ
- 4LjTSv36ibDw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="197011312"
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="197011312"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 799DC88A33;
+ Thu, 29 Apr 2021 09:13:06 +0000 (UTC)
+IronPort-SDR: UVNzwCjH7o7fc0OOxrIExi5fqRFg3/9h5sygE8ujom44+uvAV4s2p6+xWF8U/xG6R5fblZUR48
+ 6NoGrMwbGzFg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="197011308"
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="197011308"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2021 02:13:07 -0700
-IronPort-SDR: mV26fsgb/uE6BmvjbqHYul0hFxA9Cqdwx4kEIDlmaHwsSB/n0kQeNFNHJRmuTVPnfWT+5A991M
- X+9BC8X5Za8w==
-X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="537298816"
+ 29 Apr 2021 02:13:06 -0700
+IronPort-SDR: OaUXyzmJrfMT9cPxg9pGev35Unzf5YvpK/cYBHOFK7QpAEtLJN1eDbX17gounrgcACTeKwAKMB
+ DiO/aaRPieOQ==
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="537298812"
 Received: from gwaise-mobl1.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.208.64])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2021 02:13:06 -0700
+ 29 Apr 2021 02:13:05 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 29 Apr 2021 10:12:53 +0100
-Message-Id: <20210429091254.855248-6-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 29 Apr 2021 10:12:52 +0100
+Message-Id: <20210429091254.855248-5-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210429091254.855248-1-tvrtko.ursulin@linux.intel.com>
 References: <20210429091254.855248-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 5/6] drm/i915/icl: Stop conflating mask and
- readback verify
+Subject: [Intel-gfx] [PATCH 4/6] drm/i915/icl: Use appropriate helper for a
+ masked workaround
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,45 +67,46 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Add a new helper wa_write_no_verify for Wa_1604278689:icl,ehl which is
-a write only register. This allows the mask to correctly reflect what
-bits the workaround writes versus which bits it will verify during read-
-back. In turn this will allow more safety checks to be added in a
-following patch.
+Instead of "open coding" WaEnableFloatBlendOptimization:icl via
+wa_write_clr_set, which should be for non-masked workarounds, add a new
+helper wa_masked_en_no_verify and use it.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 07579bb9b6a7..cd84c2a86787 100644
+index a7abf9ca78ec..07579bb9b6a7 100644
 --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -186,6 +186,12 @@ wa_write(struct i915_wa_list *wal, i915_reg_t reg, u32 set)
- 	wa_write_clr_set(wal, reg, ~0, set);
+@@ -215,6 +215,12 @@ wa_masked_en(struct i915_wa_list *wal, i915_reg_t reg, u32 val)
+ 	wa_masked_add(wal, reg, _MASKED_BIT_ENABLE(val), val);
  }
  
 +static void
-+wa_write_no_verify(struct i915_wa_list *wal, i915_reg_t reg, u32 set)
++wa_masked_en_no_verify(struct i915_wa_list *wal, i915_reg_t reg, u32 val)
 +{
-+	wa_add(wal, reg, ~0, set, 0);
++	wa_masked_add(wal, reg, _MASKED_BIT_ENABLE(val), 0);
 +}
 +
  static void
- wa_write_or(struct i915_wa_list *wal, i915_reg_t reg, u32 set)
+ wa_masked_dis(struct i915_wa_list *wal, i915_reg_t reg, u32 val)
  {
-@@ -616,9 +622,7 @@ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
+@@ -595,10 +601,9 @@ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 			     GEN11_BLEND_EMB_FIX_DISABLE_IN_RCC);
  
- 	/* Wa_1604278689:icl,ehl */
- 	wa_write(wal, IVB_FBC_RT_BASE, 0xFFFFFFFF & ~ILK_FBC_RT_VALID);
--	wa_write_clr_set(wal, IVB_FBC_RT_BASE_UPPER,
--			 0, /* write-only register; skip validation */
--			 0xFFFFFFFF);
-+	wa_write_no_verify(wal, IVB_FBC_RT_BASE_UPPER, 0xFFFFFFFF);
+ 	/* WaEnableFloatBlendOptimization:icl */
+-	wa_write_clr_set(wal,
+-			 GEN10_CACHE_MODE_SS,
+-			 0, /* write-only, so skip validation */
+-			 _MASKED_BIT_ENABLE(FLOAT_BLEND_OPTIMIZATION_ENABLE));
++	wa_masked_en_no_verify(wal,
++			       GEN10_CACHE_MODE_SS,
++			       FLOAT_BLEND_OPTIMIZATION_ENABLE);
  
- 	/* Wa_1406306137:icl,ehl */
- 	wa_masked_en(wal, GEN9_ROW_CHICKEN4, GEN11_DIS_PICK_2ND_EU);
+ 	/* WaDisableGPGPUMidThreadPreemption:icl */
+ 	wa_masked_field_set(wal, GEN8_CS_CHICKEN1,
 -- 
 2.30.2
 
