@@ -2,43 +2,52 @@ Return-Path: <SRS0=0ugA=J2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4FAEC433B4
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 10:51:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1F90C433ED
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 11:12:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7596161409
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 10:51:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7596161409
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 3BF746141E
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 11:12:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3BF746141E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E47856EE18;
-	Thu, 29 Apr 2021 10:51:10 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 495366EE0F;
- Thu, 29 Apr 2021 10:51:06 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D6148B19A;
- Thu, 29 Apr 2021 10:51:04 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
- chris@chris-wilson.co.uk
-Date: Thu, 29 Apr 2021 12:51:00 +0200
-Message-Id: <20210429105101.25667-5-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210429105101.25667-1-tzimmermann@suse.de>
-References: <20210429105101.25667-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3C46EE1C;
+	Thu, 29 Apr 2021 11:12:34 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC5666EE1B;
+ Thu, 29 Apr 2021 11:12:32 +0000 (UTC)
+IronPort-SDR: CwSNUGXQshg674PzO/v0gTwtVrsiE74LiGN4WLON+FmEvQRTWOfDqHg1GzsREFIb6wrLeMrZKM
+ Tq+bHrwCEQIA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="217708455"
+X-IronPort-AV: E=Sophos;i="5.82,259,1613462400"; d="scan'208";a="217708455"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 04:12:32 -0700
+IronPort-SDR: IWyEGbqLxF4U3sr75lwnv0eXlw3/cx6hm1Rllt0CG+02H2Tj2KjMTez+LxX+qiBGzaiaWkFAYX
+ Fx9PZ5yUy1lg==
+X-IronPort-AV: E=Sophos;i="5.82,259,1613462400"; d="scan'208";a="430792663"
+Received: from auchter-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.38.190])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 04:12:29 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>, "Vivi\,
+ Rodrigo" <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+In-Reply-To: <20210429085142.GT1551@zhen-hp.sh.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210429085142.GT1551@zhen-hp.sh.intel.com>
+Date: Thu, 29 Apr 2021 14:12:26 +0300
+Message-ID: <87czud2vl1.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v8 4/5] drm/i915: Don't assign to struct
- drm_device.pdev
+Subject: Re: [Intel-gfx] [PULL] gvt-next-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,56 +60,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>, "Lv, 
+ Zhiyuan" <zhiyuan.lv@intel.com>, "Yuan, Hang" <hang.yuan@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Using struct drm_device.pdev is deprecated. Don't assign it. Users
-should upcast from struct drm_device.dev.
+On Thu, 29 Apr 2021, Zhenyu Wang <zhenyuw@linux.intel.com> wrote:
+> Hi,
+>
+> Here's just another left fix for possible divide error in vgpu
+> display rate calculation by Colin.
 
-v6:
-	* also fix the assignment in selftests in this patch (Chris)
+Thanks, pulled to drm-intel-next-fixes.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.c                  | 1 -
- drivers/gpu/drm/i915/selftests/mock_gem_device.c | 1 -
- 2 files changed, 2 deletions(-)
+> btw, I'll need a backmerge of linus tree or maybe wait till rc1
+> to apply gvt mdev dependency fix from https://patchwork.freedesktop.org/series/89479/
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 785dcf20c77b..db513f93f0f5 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -758,7 +758,6 @@ i915_driver_create(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (IS_ERR(i915))
- 		return i915;
- 
--	i915->drm.pdev = pdev;
- 	pci_set_drvdata(pdev, i915);
- 
- 	/* Device parameters start as a copy of module parameters. */
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index 2ffc763fe90d..cf40004bc92a 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -146,7 +146,6 @@ struct drm_i915_private *mock_gem_device(void)
- 	}
- 
- 	pci_set_drvdata(pdev, i915);
--	i915->drm.pdev = pdev;
- 
- 	dev_pm_domain_set(&pdev->dev, &pm_domain);
- 	pm_runtime_enable(&pdev->dev);
+Note that we can't pull anything from you that has a newer baseline than
+what we have.
+
+BR,
+Jani.
+
+
+>
+> Thanks
+> --
+> The following changes since commit e65a4d378480101f222e8f6978c22e590c1fb7b5:
+>
+>   Merge tag 'gvt-next-fixes-2021-04-21' of https://github.com/intel/gvt-linux into drm-intel-next-fixes (2021-04-21 13:22:30 +0300)
+>
+> are available in the Git repository at:
+>
+>   https://github.com/intel/gvt-linux tags/gvt-next-fixes-2021-04-29
+>
+> for you to fetch changes up to d385c16173f28a18866abf54c764200c276dace0:
+>
+>   drm/i915/gvt: Prevent divided by zero when calculating refresh rate (2021-04-29 17:00:09 +0800)
+>
+> ----------------------------------------------------------------
+> gvt-next-fixes-2021-04-29
+>
+> - Fix possible divide error in vgpu display rate calculation (Colin)
+>
+> ----------------------------------------------------------------
+> Colin Xu (1):
+>       drm/i915/gvt: Prevent divided by zero when calculating refresh rate
+>
+>  drivers/gpu/drm/i915/gvt/handlers.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+
 -- 
-2.31.1
-
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
