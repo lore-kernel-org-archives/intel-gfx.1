@@ -2,77 +2,50 @@ Return-Path: <SRS0=0ugA=J2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 23034C433ED
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 09:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 916F3C433B4
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 09:10:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D9ED61441
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 09:03:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D9ED61441
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
+	by mail.kernel.org (Postfix) with ESMTPS id DE1B961449
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 09:10:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE1B961449
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7215E6E1B2;
-	Thu, 29 Apr 2021 09:03:17 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B08C6E1B2;
- Thu, 29 Apr 2021 09:03:16 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id DC9C6580723;
- Thu, 29 Apr 2021 05:03:13 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 29 Apr 2021 05:03:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:mime-version:content-type; s=
- fm2; bh=L1zO+2WghJ7tccfuc/GcUqzQQOiz4lVwM6uCcotL9Vo=; b=lcnuBmyD
- 9Y3QmK7eaWTn7n0gEnr4k3HW5L62pQunmIbs7Xk3Z/qED5t+TXgQXads2D2mT9aE
- C/t7smx8qemniW+7ULAB0mDBQnv5jBqj3Lm8fOpGhQV/V1pw0UgmuDHa7VECoEQJ
- 4963vdVJe1dGiBRqtEbbjrB1X42Uxs91mAI5Yi9LfOWNlm73EHRVqlu6tEnRCZNb
- /mfAeETq2KS3xX5ZIlGtnjfyB1M2XFXuyqcWyjWkR23wXqJqnO7fqcWNuECeDEhL
- 3mL3dqnaIMNY9kumXEf5QoZ/YTXiQU3IiBS5ptfqYYBtJqEP++LjkItdeuGlJH9R
- sfBzcPhM/L/TqQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=L1zO+2WghJ7tccfuc/GcUqzQQOiz4
- lVwM6uCcotL9Vo=; b=pL92EWbDV84aMAQ+8yGL9eI0YJXSIwx8+HdI6OFgPmush
- oJCDgiZJvPpta2EIx/AIwdRIkNyah1T4y2tbZMaRnJ2ma2AkP3ZBqxW044ukRQBF
- XujBc1M7Tdz3QlSGOBAWeROXqY3OwNg8EMMtUjVSoMSMV03IMvCmkavcxIrDluxN
- Cd6Oq9WwLcBH3zKJCwd4sCnvphW287NDm1L4wROxFKtFrOY5SPNKLB3QQsBZOm7Z
- aZTux3HrzPy7mn1MtdLQ6feN5tMHhU8WAgltVE8odi7bk5cZIclyzy93LhhKgQrS
- pNPhN5WR/cPpwKwETFIipuV6b0/sDzICnGHeCMwcw==
-X-ME-Sender: <xms:T3aKYO2pr8txvaTf5YEST8nLbXkNDZbiH3_2OqQmUteOFaA7KO_WMQ>
- <xme:T3aKYBFk6ACaoF3k5vV1xiGLtm3uxre90KtrDDpjVvojrsKaVEPWVSr0dGDGi__zf
- V4AI-3G38mUzRNX5QI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddvgedgudduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfggtggusehgtderredttddvnecuhfhrohhmpeforgigihhmvgcu
- tfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvg
- hrnhepgeeuvddtheeggeehhfeigeetffeufeelveeggfekveegieevudeljeeugedviefg
- necuffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgnecukfhppeeltddrkeelrd
- eikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
- mhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:T3aKYG455iFt6wnq5VsKR3f8TxOhuv2m2edBJesEIlcqobReT9WeJQ>
- <xmx:T3aKYP2z6uAM4FHyKkUlrsrzlPoEtIbrNnP41_uDiH1c_49qdVmFeg>
- <xmx:T3aKYBG1IzHrVlQYaIPNRE6bEVMLu_ivZmceqZuWoK3gTgF5CQKmPg>
- <xmx:UXaKYHZZbuX8NZLU6fuGS6t4LJ1vlWhU202hytS5WDbRW4NIt04DWg>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Thu, 29 Apr 2021 05:03:10 -0400 (EDT)
-Date: Thu, 29 Apr 2021 11:03:08 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20210429090308.k3fuqvenf6vupfmg@gilmour>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC9E06E1E0;
+	Thu, 29 Apr 2021 09:10:09 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C96A6E1BC;
+ Thu, 29 Apr 2021 09:10:08 +0000 (UTC)
+IronPort-SDR: mikvnmmY5uK/NMnS1Ptz7zWQp6+/8V3llX+y0m1WM/TBIVL2cpQwrh2XTOs/O4TqNRMAVMBWRG
+ oZJsO9gk2g/Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="196517137"
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; 
+ d="asc'?scan'208";a="196517137"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 02:10:08 -0700
+IronPort-SDR: 5CExJuA9et1UQy8sdMxBjOOWRJEemsN9CaKpks1I/9ux4ltCxbTT9wk6qfe7RiOCStPL0BiSBx
+ OzjZQvztDXWg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; 
+ d="asc'?scan'208";a="448360258"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
+ by fmsmga004.fm.intel.com with ESMTP; 29 Apr 2021 02:10:06 -0700
+Date: Thu, 29 Apr 2021 16:51:42 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Message-ID: <20210429085142.GT1551@zhen-hp.sh.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PULL] drm-misc-next-fixes
+Subject: [Intel-gfx] [PULL] gvt-next-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,77 +58,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0107975599=="
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>, "Lv,
+ Zhiyuan" <zhiyuan.lv@intel.com>, "Yuan, Hang" <hang.yuan@intel.com>
+Content-Type: multipart/mixed; boundary="===============0919453617=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
---===============0107975599==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="xm3p6rrwvxpkauem"
+--===============0919453617==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="/7F8UcOhwbEJvS7n"
 Content-Disposition: inline
 
 
---xm3p6rrwvxpkauem
+--/7F8UcOhwbEJvS7n
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-Hi Dave, Daniel,
 
-Here's this week drm-misc-next-fixes PR
+Hi,
 
-Maxime
+Here's just another left fix for possible divide error in vgpu
+display rate calculation by Colin.
 
-drm-misc-next-fixes-2021-04-29:
-Two patches in drm-misc-next-fixes this week, one to fix the error
-handling in TTM when a BO can't be swapped out and one to prevent a
-wrong dereference in efifb.
-The following changes since commit a4394b6d0a273941a75ebe86a86d6416d536ed0f:
+btw, I'll need a backmerge of linus tree or maybe wait till rc1
+to apply gvt mdev dependency fix from https://patchwork.freedesktop.org/series/89479/
 
-  drm/ttm: Don't count pages in SG BOs against pages_limit (2021-04-21 15:35:20 +0200)
+Thanks
+--
+The following changes since commit e65a4d378480101f222e8f6978c22e590c1fb7b5:
+
+  Merge tag 'gvt-next-fixes-2021-04-21' of https://github.com/intel/gvt-linux into drm-intel-next-fixes (2021-04-21 13:22:30 +0300)
 
 are available in the Git repository at:
 
-  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-fixes-2021-04-29
+  https://github.com/intel/gvt-linux tags/gvt-next-fixes-2021-04-29
 
-for you to fetch changes up to 74deef03a44ae77db85dd80e7ef95777a902e0b3:
+for you to fetch changes up to d385c16173f28a18866abf54c764200c276dace0:
 
-  efifb: Check efifb_pci_dev before using it (2021-04-26 17:33:03 -0400)
-
-----------------------------------------------------------------
-Two patches in drm-misc-next-fixes this week, one to fix the error
-handling in TTM when a BO can't be swapped out and one to prevent a
-wrong dereference in efifb.
+  drm/i915/gvt: Prevent divided by zero when calculating refresh rate (2021-04-29 17:00:09 +0800)
 
 ----------------------------------------------------------------
-Kai-Heng Feng (1):
-      efifb: Check efifb_pci_dev before using it
+gvt-next-fixes-2021-04-29
 
-Shiwu Zhang (1):
-      drm/ttm: fix error handling if no BO can be swapped out v4
+- Fix possible divide error in vgpu display rate calculation (Colin)
 
- drivers/gpu/drm/ttm/ttm_device.c    | 2 +-
- drivers/gpu/drm/ttm/ttm_tt.c        | 2 ++
- drivers/gpu/drm/vmwgfx/ttm_memory.c | 2 +-
- drivers/video/fbdev/efifb.c         | 6 ++++--
- 4 files changed, 8 insertions(+), 4 deletions(-)
+----------------------------------------------------------------
+Colin Xu (1):
+      drm/i915/gvt: Prevent divided by zero when calculating refresh rate
 
---xm3p6rrwvxpkauem
+ drivers/gpu/drm/i915/gvt/handlers.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--/7F8UcOhwbEJvS7n
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYIp2TAAKCRDj7w1vZxhR
-xcXeAP4gfyACcp11N6TmZ2t+9mJU9ZdogB1kxBSMaTuzxRwLhgD/f3+Kbx84IxaH
-PfyxzsnaAlqfwRkIeyZTjQS0fK5IfAo=
-=7Kgu
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYIpzmAAKCRCxBBozTXgY
+JzIyAKCNGatkemRZ8aPMUTBhI2QhitNzYwCfchDWUySiSn3sLPXaEV11KH6LtsY=
+=sIsf
 -----END PGP SIGNATURE-----
 
---xm3p6rrwvxpkauem--
+--/7F8UcOhwbEJvS7n--
 
---===============0107975599==
+--===============0919453617==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -166,4 +135,4 @@ Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 
---===============0107975599==--
+--===============0919453617==--
