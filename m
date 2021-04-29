@@ -2,66 +2,53 @@ Return-Path: <SRS0=0ugA=J2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-4.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 972D9C433B4
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 13:21:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39FCFC433B4
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 13:23:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 21FF1613ED
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 13:21:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 21FF1613ED
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BDD2C613CA
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 13:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDD2C613CA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A1A96E21C;
-	Thu, 29 Apr 2021 13:21:48 +0000 (UTC)
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0BFE6E21C
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 13:21:47 +0000 (UTC)
-Received: by mail-qt1-x832.google.com with SMTP id o21so20949259qtp.7
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 06:21:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=36DZtgnAe7hB6cDIW+FqWZIa4FFOXuuesllIq02h3QY=;
- b=vJVKsoPyAHx4lv970KpqJcKceCxCEMHfnb7xmjqABHWKfWT503HsjJN78vtPmboXOP
- Qn0hhq+t8Pwq3oapGyrwBUADz5pO2+zK7cqVDbBFU/cCgb0zjtghEpTaJqNo9t4vy0lf
- 0TTH5xciI80LdwnYZk1R9dp1GNPMyxp1EsWYx49s+CVP6+wjVBMtHh8MJGZf+AeHwJ2+
- UVphDrgwzxzI+H8+bQNgZrtlJ+ilNgLmcbu/o9FI56YuoqP7vzbXN/KS/2a2AIDhYVPa
- xhP2T8RjUkIuJ2nvq0BqOK2+1UD9m9YDKFsYDw8gEL7pKCbHTt49sXmSp85PE9by7fYV
- Nv+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=36DZtgnAe7hB6cDIW+FqWZIa4FFOXuuesllIq02h3QY=;
- b=tZTiz+rnbLeSzUJRa0/Fxv4abk4d/6xirPxuDWB25yk8dFyclk9bWCrVynruhjOs4e
- JyXSQACpFiLO8yfjfBVnGLYcxGazU5eQ0G8lMbPdDVu80q3/A2GE+ncQi8UR6Tg9FWvm
- EtQ4dPzxonXEnY6QzDhKCFW0pP3fkULcmTncU76LREr5o1Tqp4Oge2uxQZyBjo9ca2+y
- ItquMnNWvxS9JcmF3VfMgs2Qp58WQcI9oQe9SadsYAnBSVybktsMblMHxRqVzORKynRR
- T2uFati9oG8KyRDvwOXhIYzs1E0aTiqkUDvQ+tf+t3mOmcmT5LxEzIbEXO2IeP05yjYA
- BpOA==
-X-Gm-Message-State: AOAM5304zWUANNhgWuigX3rjO7/LbaPrCRcAg4kqTefdm9Z3RjV2msMV
- aLY3xW0daRRsba20do/ZaBf32We0xsEaz0sf4WfDU25wg6U=
-X-Google-Smtp-Source: ABdhPJygwYaIgacw8lreo+NrxWx7J51LG9ZHze4195pUMSNXwyYLbCcQQCrH/g6HzdexTEdBx3YsvHtH4hzPN1L2MSY=
-X-Received: by 2002:ac8:7f14:: with SMTP id f20mr30936937qtk.339.1619702506959; 
- Thu, 29 Apr 2021 06:21:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C9C76E250;
+	Thu, 29 Apr 2021 13:23:50 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66ABD6E226;
+ Thu, 29 Apr 2021 13:23:48 +0000 (UTC)
+IronPort-SDR: bMWBWtj+nMfH8djzgs+QjB7WJPrf+cf6gLJ5yAHaTr/slA2bh4j1ZSPCoGmnPfC4jdDK/sJJ6P
+ zquz3WxnbZPQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9969"; a="184134297"
+X-IronPort-AV: E=Sophos;i="5.82,259,1613462400"; d="scan'208";a="184134297"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 06:23:46 -0700
+IronPort-SDR: LO6JGwXxq9VSEOAZp0Aik1oIucAD9YSBXwPMl3etLAzfbj1CO9FFfSTgrPNbbXt67WUKfuajx9
+ UQ4zHNhUOjaQ==
+X-IronPort-AV: E=Sophos;i="5.82,259,1613462400"; d="scan'208";a="458757282"
+Received: from gwaise-mobl1.ger.corp.intel.com (HELO [10.213.208.64])
+ ([10.213.208.64])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 06:23:45 -0700
+To: Petri Latvala <petri.latvala@intel.com>, xorg-announce@lists.x.org
+References: <YIK5ypkeffpqZmOh@platvala-desk.ger.corp.intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <3b0b6cbe-adc5-000d-2bc4-0d73a501a83d@linux.intel.com>
+Date: Thu, 29 Apr 2021 14:23:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-References: <20210429101036.1086461-1-maarten.lankhorst@linux.intel.com>
- <20210429101036.1086461-2-maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20210429101036.1086461-2-maarten.lankhorst@linux.intel.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Thu, 29 Apr 2021 14:21:20 +0100
-Message-ID: <CAM0jSHP9qXd4gXdD+u+8dxQhrnDWqCP-GFJimUO8DSQMc9sVHA@mail.gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH 1/4] drm/i915: Add ww parameter to
- get_pages() callback
+In-Reply-To: <YIK5ypkeffpqZmOh@platvala-desk.ger.corp.intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [igt-dev] [ANNOUNCE] igt-gpu-tools 1.26
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,23 +61,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ xorg@lists.x.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 29 Apr 2021 at 11:10, Maarten Lankhorst
-<maarten.lankhorst@linux.intel.com> wrote:
->
-> We will need this to support eviction with lmem, so
-> explicitly pass ww as a parameter.
->
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-
-Should be Cc: dri-devel
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Ck9uIDIzLzA0LzIwMjEgMTM6MTIsIFBldHJpIExhdHZhbGEgd3JvdGU6Cj4gQSBuZXcgaWd0LWdw
+dS10b29scyByZWxlYXNlIGlzIGF2YWlsYWJsZSB3aXRoIHRoZSBmb2xsb3dpbmcgY2hhbmdlczoK
+PiAKPiAtIEF1dG90b29scyBzdXBwb3J0IGhhcyBiZWVuIGVudGlyZWx5IGRyb3BwZWQgaW4gZmF2
+b3Igb2Ygb25seSBtZXNvbi4gKEFya2FkaXVzeiBIaWxlcikKPiAKPiAtIFRlc3RzIGNhbiBub3cg
+c2lnbmFsIHRoYXQgdGhlIHdob2xlIHRlc3Qgcm91bmQgc2hvdWxkIGJlIGFib3J0ZWQuIChBcmth
+ZGl1c3ogSGlsZXIpCj4gCj4gLSBWYXJpb3VzIHJvYnVzdG5lc3MgaW1wcm92ZW1lbnRzIGZvciBD
+aGFtZWxpdW0gdXNlLiAoQXJrYWRpdXN6IEhpbGVyLAo+ICAgIEt1bmFsIEpvc2hpLCBJbXJlIERl
+YWssIGV0IGFsKQo+IAo+IC0gRGV2aWNlIGZpbHRlcmluZyBpbXByb3ZlbWVudHMgZm9yIG11bHRp
+LWRldmljZSB1c2UuIChBcmthZGl1c3ogSGlsZXIpCj4gCj4gLSBEZXZpY2UgZmlsdGVyaW5nIGZv
+ciB2YXJpb3VzIEludGVsIHRvb2xzIGxpa2UgaW50ZWxfZ3B1X3RvcC4gKEF5YXogQSBTaWRkaXF1
+aSkKPiAKPiAtIE92ZXJoYXVsZWQga2VybmVsIHBhcmFtZXRlciBoYW5kbGluZy4gKEphbmkgTmlr
+dWxhKQo+IAo+IC0gSW50cm9kdWNlZCBhbiBpOTE1IGJhdGNoYnVmZmVyIGZhY2lsaXR5LiAoWmJp
+Z25pZXcgS2VtcGN6ecWEc2tpKQo+IAo+IC0gSW1wcm92ZW1lbnRzIGZvciB0ZXN0aW5nIG5vdXZl
+YXUuIChMeXVkZSBQYXVsKQo+IAo+IC0gTW9yZSByZWFkYWJsZSBhbmQgdXNlZnVsIG91dHB1dCBm
+b3IgbHNncHUgYW5kIG90aGVyIHRvb2xzIHRoYXQgbGlzdAo+ICAgIGRldmljZXMuIChUdnJ0a28g
+VXJzdWxpbikKPiAKPiAtIGludGVsX2dwdV90b3AgY2FuIG5vdyBzaG93IHBlci1jbGllbnQgYnVz
+eW5lc3Mgc3RhdHMuIChUdnJ0a28gVXJzdWxpbikKClNhZGx5IG5vdCwgaTkxNSBzaWRlIGdvdCBr
+aWNrZWQgb3V0LiArRGFuaWVsIGlmIGhlIHdhbnRzIHRvIHJlY29uc2lkZXIgCm9yIG90aGVyd2lz
+ZSB3ZSBoYXZlIHRvIHJlbW92ZSB0aGlzIGNvZGUgYXMgd2VsbC4KClJlZ2FyZHMsCgpUdnJ0a28K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4
+IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
