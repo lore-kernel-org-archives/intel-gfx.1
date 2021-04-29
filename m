@@ -2,67 +2,69 @@ Return-Path: <SRS0=0ugA=J2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40BFDC433ED
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 13:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E471C433B4
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 13:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A7700613CA
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 13:23:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7700613CA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 99E716143B
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 13:27:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99E716143B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E83E6E25A;
-	Thu, 29 Apr 2021 13:23:53 +0000 (UTC)
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D95516E25A
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 13:23:51 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id 8so33336435qkv.8
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 06:23:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fMuf05EbKkiM1fYlTbBaoSQbeyTAsojaouBxLvsi2EA=;
- b=WncPvvBNREcf4vHe7safJKxLVpOGG2/FflD2pWj2jzLxL8nMr8STVepuOPGaUJSgBz
- nkxLMlnMArIvxxTm/aKmv9rP8HC/0ik8PImMfR+FzQ2oiTOFfthJTeircHSa6uiyYv/m
- HG1Xf+IohVH64dDUxqFFGaTAcZKO0+g39qbVdgnQ7zTfUE7z3tz1/OTFPPNmZBTtwKXc
- +LvGRpEFsUN1aMRhHYBlEGYf+1E2bDSRgdmNR6oKNQU/OXHlzl5SuLGbOeeheYFSdfAj
- 1FnKkBQ03cO9hd5R+2bwEtcu3ajGIb5jBfsSNQAvGPzTntv3upie00IY46tHruEn1Lxm
- T4sw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id B42A26E28A;
+	Thu, 29 Apr 2021 13:27:35 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 016206E28A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 13:27:33 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id x5so16680242wrv.13
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 06:27:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=nHqTpn1xdX0FS5YaOTe7fvRBjAOby8HWf6qD8HlB2Wk=;
+ b=YdJcmPIBArsuPOOuivLwreiuHYSm+kGok7f4lj7CLJ6+gKzzc8NnGhZxc6DyJvPeMj
+ xQ0fUevJC62ekAzDz22xcUnR7o0gcWUHVyuqRuJLWCvEXVMd9axt/TYT5qsgZeqYXwT/
+ PWnuO3Xeeio4rUxzc/no1/en57w/RkQTcfQhE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fMuf05EbKkiM1fYlTbBaoSQbeyTAsojaouBxLvsi2EA=;
- b=lc7jeGce9quR/q9J89k3duqM8041mDkg0iaz4qp1YM8L1dhfFaTH4dbYcO0ZZVXcgZ
- JCUPcTZS7qgPRtRwg90kWyXbR39+yoDzdsxnbL4zAWy8Ah0f1kTGNur1MyiqozEDrQlB
- q9L5N2RhGATA5y2LyqcSuIlFmWmB1XvW4gAEFas3gD3wXYT3a0z3K5hc+QFP55d2queH
- Y8BG07lq2SrGvzGFp3r6p58QbzZSl5JnxhEbWHj8xuGa6wn6jmYm9nl9m8nMvN4Gs9J3
- BxHz9cCbINgOWXp/HIHBR2jhF8JjD/HEa9W0fGU4hlLS4Cqk9gpk0FhbTaxO2J+M9exP
- UK0Q==
-X-Gm-Message-State: AOAM531tfRmTmFIpL0Z6bwp/4zEdU6ii+OoL/dmiynEz3D9gBPNlnLdR
- RFVu9SAmnlqe1l61en7ahbnAy2Qn9VcqIXQYVj0DIpNeSBQ=
-X-Google-Smtp-Source: ABdhPJwEFqtqcexFYR6LgHnjB1VWddVrz34AdWqSn7YSUbgBAgdc4bFQAHSIoQwgBvhS8Kox7FMlEgecCRBXLyi30G4=
-X-Received: by 2002:a37:58c5:: with SMTP id
- m188mr33851837qkb.327.1619702631092; 
- Thu, 29 Apr 2021 06:23:51 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=nHqTpn1xdX0FS5YaOTe7fvRBjAOby8HWf6qD8HlB2Wk=;
+ b=kNm6tgiwP/5meJkKaCBkAfzt95VQWTxML/xa7KudY7Gns/JR7xsuup28JO+6RwhvSl
+ sg0nOEqITvgOZX5ov995XDlMLRQc7P4ZVVZDnGc/lknwtugo5SrKI/UmTAubVaJVrTDU
+ A8JmXiDZNzDJw5TJqV2n9neoIzTkOqYG7WK8riwVXd7OqNT4KoIT8zSNQ+hGkKtgJeoF
+ XHECB9OAqg+pIsrXhXjvWr5I6DIoYHsDWpqYDrqFCUlCIEaodxTIN04+7biRevx3ZPZL
+ BkSrQIJDb3rl8QMISOp8nBpWndRu1D7LBjfbyTnLeAswSwADmmTdABLY8iDg5iky8FXW
+ OEHQ==
+X-Gm-Message-State: AOAM531vcFpjiMnXa6U6i5Sol81exGopxoxHhNkW9CID+YPOT6wHv1ll
+ 4UnS7sOFM40ceKOuJT7xJyWQ3Q==
+X-Google-Smtp-Source: ABdhPJyzzKSMduHQ3wI6tZpIBowroSJUQNEpsVMkjxQekOl7XfiCpYme9Wzs9KiLJ0WMjocRmbLM1g==
+X-Received: by 2002:a5d:59af:: with SMTP id p15mr9179272wrr.19.1619702852613; 
+ Thu, 29 Apr 2021 06:27:32 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id q16sm3721061wmj.24.2021.04.29.06.27.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Apr 2021 06:27:32 -0700 (PDT)
+Date: Thu, 29 Apr 2021 15:27:30 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Jason Ekstrand <jason@jlekstrand.net>
+Message-ID: <YIq0QnVG5gn4cOOR@phenom.ffwll.local>
+References: <20210423223131.879208-1-jason@jlekstrand.net>
+ <20210423223131.879208-15-jason@jlekstrand.net>
 MIME-Version: 1.0
-References: <20210429101036.1086461-1-maarten.lankhorst@linux.intel.com>
- <20210429101036.1086461-3-maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20210429101036.1086461-3-maarten.lankhorst@linux.intel.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Thu, 29 Apr 2021 14:23:24 +0100
-Message-ID: <CAM0jSHM1ZKhuHtu-bZnSA=uL-ZLJpocmb0cpgt=rcFZfA1bf7A@mail.gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH 2/4] drm/i915: Add ww context to
- prepare_(read/write)
+Content-Disposition: inline
+In-Reply-To: <20210423223131.879208-15-jason@jlekstrand.net>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
+Subject: Re: [Intel-gfx] [PATCH 14/21] drm/i915/gem: Return an error ptr
+ from context_lookup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,19 +77,133 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 29 Apr 2021 at 11:10, Maarten Lankhorst
-<maarten.lankhorst@linux.intel.com> wrote:
->
-> This will allow us to explicitly pass the ww to pin_pages, when it starts taking it.
->
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+On Fri, Apr 23, 2021 at 05:31:24PM -0500, Jason Ekstrand wrote:
+> We're about to start doing lazy context creation which means contexts
+> get created in i915_gem_context_lookup and we may start having more
+> errors than -ENOENT.
+> 
+> Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_context.c    | 12 ++++++------
+>  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c |  4 ++--
+>  drivers/gpu/drm/i915/i915_drv.h                |  2 +-
+>  drivers/gpu/drm/i915/i915_perf.c               |  4 ++--
+>  4 files changed, 11 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> index 3e883daab93bf..7929d5a8be449 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> @@ -2105,8 +2105,8 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
+>  	int ret = 0;
+>  
+>  	ctx = i915_gem_context_lookup(file_priv, args->ctx_id);
+> -	if (!ctx)
+> -		return -ENOENT;
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+>  
+>  	switch (args->param) {
+>  	case I915_CONTEXT_PARAM_GTT_SIZE:
+> @@ -2174,8 +2174,8 @@ int i915_gem_context_setparam_ioctl(struct drm_device *dev, void *data,
+>  	int ret;
+>  
+>  	ctx = i915_gem_context_lookup(file_priv, args->ctx_id);
+> -	if (!ctx)
+> -		return -ENOENT;
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+>  
+>  	ret = ctx_setparam(file_priv, ctx, args);
+>  
+> @@ -2194,8 +2194,8 @@ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev,
+>  		return -EINVAL;
+>  
+>  	ctx = i915_gem_context_lookup(file->driver_priv, args->ctx_id);
+> -	if (!ctx)
+> -		return -ENOENT;
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+>  
+>  	/*
+>  	 * We opt for unserialised reads here. This may result in tearing
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> index 7024adcd5cf15..de14b26f3b2d5 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> @@ -739,8 +739,8 @@ static int eb_select_context(struct i915_execbuffer *eb)
+>  	struct i915_gem_context *ctx;
+>  
+>  	ctx = i915_gem_context_lookup(eb->file->driver_priv, eb->args->rsvd1);
+> -	if (unlikely(!ctx))
+> -		return -ENOENT;
+> +	if (unlikely(IS_ERR(ctx)))
+> +		return PTR_ERR(ctx);
+>  
+>  	eb->gem_context = ctx;
+>  	if (rcu_access_pointer(ctx->vm))
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index 8571c5c1509a7..004ed0e59c999 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+
+I just realized that I think __i915_gem_context_lookup_rcu doesn't have
+users anymore. Please make sure it's deleted.
+
+> @@ -1851,7 +1851,7 @@ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
+>  		ctx = NULL;
+>  	rcu_read_unlock();
+>  
+> -	return ctx;
+> +	return ctx ? ctx : ERR_PTR(-ENOENT);
+>  }
+>  
+>  /* i915_gem_evict.c */
+> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+> index 85ad62dbabfab..b86ed03f6a705 100644
+> --- a/drivers/gpu/drm/i915/i915_perf.c
+> +++ b/drivers/gpu/drm/i915/i915_perf.c
+> @@ -3414,10 +3414,10 @@ i915_perf_open_ioctl_locked(struct i915_perf *perf,
+>  		struct drm_i915_file_private *file_priv = file->driver_priv;
+>  
+>  		specific_ctx = i915_gem_context_lookup(file_priv, ctx_handle);
+> -		if (!specific_ctx) {
+> +		if (IS_ERR(specific_ctx)) {
+>  			DRM_DEBUG("Failed to look up context with ID %u for opening perf stream\n",
+>  				  ctx_handle);
+> -			ret = -ENOENT;
+> +			ret = PTR_ERR(specific_ctx);
+
+Yeah this looks like a nice place to integrate this.
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+One thing we need to make sure in the next patch or thereabouts is that
+lookup can only return ENOENT or ENOMEM, but never EINVAL. I'll drop some
+bikesheds on that :-)
+-Daniel
+
+>  			goto err;
+>  		}
+>  	}
+> -- 
+> 2.31.1
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
