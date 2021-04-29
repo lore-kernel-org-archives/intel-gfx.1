@@ -2,65 +2,53 @@ Return-Path: <SRS0=0ugA=J2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 917E0C433ED
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 14:56:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48A0DC433ED
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 14:58:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FA99613E1
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 14:56:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2FA99613E1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B8E5561447
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 14:58:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8E5561447
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A575C6EEB9;
-	Thu, 29 Apr 2021 14:56:14 +0000 (UTC)
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [IPv6:2607:f8b0:4864:20::831])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 790816EEB9
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 14:56:13 +0000 (UTC)
-Received: by mail-qt1-x831.google.com with SMTP id l1so9526590qtr.12
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 07:56:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tABIWXiitZdDEHIXHFBW11p/GxUAdJgmgM7XIKT1Mww=;
- b=E3d5a3Q/kzrTyE+a22oBci53BBTu+KGbciQ8VfylNx3c7qCzXY1oO9uRwt/lyTBRSn
- /kaxB8zeX6ym4FAcqJudeTw/jfgAGS+ShWGE+wS2tURWur4fNbcSRfzUAz68BgMxgKwW
- O+teC38j8QaAjWHcmwSrX1Oq9SWtkR3TJjPsb6q6Ga4NLWe7LWGk0y88SDigJ1+C5qtz
- 8ZDOEiMPBeHEKERnKuEdeMoPXJpVCyQUGO+TQreoMYNcqyiD0jueuJpXuEOqS0caaO4t
- PqdZFMEQWXtKIPrTRZ5zjSwOtsPpR01SA3WAcqzqKDozZJiHiMaCBZSQWBjQh5+bV18G
- 6mJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tABIWXiitZdDEHIXHFBW11p/GxUAdJgmgM7XIKT1Mww=;
- b=pkptg+pFjuoHoUS16MrpjECelmXiPgUwOHIZR1KdIBtQ4+aRpklS7i7dyICIteYP7M
- 7DBm8kMX3gsjo2Fzf5M7kAzaSbF859wyYh6dNv+QlNLqID004ZSRXMZt/SUgs8GBshgo
- u+2+UCONYK2+GJ/VMfAvnhKLlvPhGQbhHNglk4xy7zEbrtLg71+JrP2H4giE1oaTrJUE
- KLOtoqXQ1RCyOH8UgWzdb5q6aczS1HsztiSLE/y/OxCxhQTFUyZ93ChZrIYCn0vt4qUL
- 9OGyCm3p0w+Xrq8S6Myv4J8AHxtmgwnhKHKq3GNgDNUKBLXdidl9GH9SLqLixf89cGAC
- OaOg==
-X-Gm-Message-State: AOAM533hd/dASeGeMZlw2nlhnorvSli6e1F0XyE26w/DwpPLkv1E6CCB
- utapPw7+b9AtXsI7YKnu/8gnCGJFRxP8h/fciy03DD2msOw=
-X-Google-Smtp-Source: ABdhPJxcGBctety2D6ChDvasaGyi5QKK6tDJ6Y+nMr9ssxaabyLlJCEeyycCxtwrMqrQ5nmT8d0G0irVHMBLuTLXEzM=
-X-Received: by 2002:a05:622a:1354:: with SMTP id
- w20mr32433358qtk.223.1619708172658; 
- Thu, 29 Apr 2021 07:56:12 -0700 (PDT)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8106EEBD;
+	Thu, 29 Apr 2021 14:58:40 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB936EEBD
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 14:58:38 +0000 (UTC)
+IronPort-SDR: c4Zyzfy6mYG+KiISnUSHhn10szPsHHc9A5s426Cef92/l5hGAOAzCy0AjwaLV2RdDWGOW2KksX
+ 40RM36dyXfgA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9969"; a="197121523"
+X-IronPort-AV: E=Sophos;i="5.82,259,1613462400"; d="scan'208";a="197121523"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 07:58:37 -0700
+IronPort-SDR: zlrP0S8wZOA3HAYgoe8VTwCBvhbjKVB32pMqt4d+FIryf0KViUEpoTzIiMLx2djCqPdIoNvP3s
+ +vVWrwnw+nhw==
+X-IronPort-AV: E=Sophos;i="5.82,259,1613462400"; d="scan'208";a="466377029"
+Received: from baumgarp-mobl.ger.corp.intel.com (HELO [10.252.52.18])
+ ([10.252.52.18])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 07:58:36 -0700
+To: Matthew Auld <matthew.william.auld@gmail.com>
 References: <20210429101036.1086461-1-maarten.lankhorst@linux.intel.com>
  <20210429101036.1086461-4-maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20210429101036.1086461-4-maarten.lankhorst@linux.intel.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Thu, 29 Apr 2021 15:55:46 +0100
-Message-ID: <CAM0jSHOkzkt68w60x8WyqHTyU+456eSt=R=6jnM8gDHUk0=MRg@mail.gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+ <CAM0jSHOkzkt68w60x8WyqHTyU+456eSt=R=6jnM8gDHUk0=MRg@mail.gmail.com>
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Message-ID: <254ce000-719f-9e9a-0e4d-dc04db268ff3@linux.intel.com>
+Date: Thu, 29 Apr 2021 16:58:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
+MIME-Version: 1.0
+In-Reply-To: <CAM0jSHOkzkt68w60x8WyqHTyU+456eSt=R=6jnM8gDHUk0=MRg@mail.gmail.com>
+Content-Language: en-US
 Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915: Pass ww ctx to pin_map, v2.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,39 +68,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 29 Apr 2021 at 11:10, Maarten Lankhorst
-<maarten.lankhorst@linux.intel.com> wrote:
+Op 29-04-2021 om 16:55 schreef Matthew Auld:
+> On Thu, 29 Apr 2021 at 11:10, Maarten Lankhorst
+> <maarten.lankhorst@linux.intel.com> wrote:
+>> This will allow us to explicitly pass the ww to pin_pages,
+>> when it starts taking it.
+>>
+>> This allows us to finally kill off the explicit passing of ww
+>> by retrieving it from the obj.
+>>
+>> Changes since v1:
+>> - Rename 'ret' to ptr, fix error handling of return ptr.
+>>
+>> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> <snip>
 >
-> This will allow us to explicitly pass the ww to pin_pages,
-> when it starts taking it.
->
-> This allows us to finally kill off the explicit passing of ww
-> by retrieving it from the obj.
->
-> Changes since v1:
-> - Rename 'ret' to ptr, fix error handling of return ptr.
->
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> --- a/drivers/gpu/drm/i915/gt/intel_gtt.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
+>> @@ -65,7 +65,7 @@ int map_pt_dma_locked(struct i915_address_space *vm, struct drm_i915_gem_object
+>>         void *vaddr;
+>>
+>>         type = i915_coherent_map_type(vm->i915, obj, true);
+>> -       vaddr = i915_gem_object_pin_map(obj, type);
+>> +       vaddr = i915_gem_object_pin_map(obj, NULL, type);
+> Don't we need to pass the ww here? For all our page-tables this is
+> both our allocate and map for the backing page(lmem or smem), so at
+> least for the locked variant here would it not make sense to pass the
+> ww from the vma_pin() etc, in case we need to evict stuff?
 
-<snip>
 
-> --- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-> @@ -65,7 +65,7 @@ int map_pt_dma_locked(struct i915_address_space *vm, struct drm_i915_gem_object
->         void *vaddr;
->
->         type = i915_coherent_map_type(vm->i915, obj, true);
-> -       vaddr = i915_gem_object_pin_map(obj, type);
-> +       vaddr = i915_gem_object_pin_map(obj, NULL, type);
+Actually yeah, seems to be called from i915_vma_pin_ww, so should pass ww along for sure.. I'll respin.
 
-Don't we need to pass the ww here? For all our page-tables this is
-both our allocate and map for the backing page(lmem or smem), so at
-least for the locked variant here would it not make sense to pass the
-ww from the vma_pin() etc, in case we need to evict stuff?
-
->         if (IS_ERR(vaddr))
->                 return PTR_ERR(vaddr);
->
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
