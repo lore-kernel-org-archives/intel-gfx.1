@@ -5,71 +5,70 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB27FC433B4
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 19:04:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67655C43461
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 19:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DB9A613FF
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 19:04:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DB9A613FF
+	by mail.kernel.org (Postfix) with ESMTPS id 10E646143E
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 19:04:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10E646143E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A96066F45F;
-	Thu, 29 Apr 2021 19:04:01 +0000 (UTC)
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D07B26F465
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 19:03:59 +0000 (UTC)
-Received: by mail-pj1-x102e.google.com with SMTP id
- y22-20020a17090a8b16b0290150ae1a6d2bso437870pjn.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 12:03:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D28F56F467;
+	Thu, 29 Apr 2021 19:04:05 +0000 (UTC)
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
+ [IPv6:2607:f8b0:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F34406F454
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 19:04:02 +0000 (UTC)
+Received: by mail-pf1-x42a.google.com with SMTP id c19so2134514pfv.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 12:04:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=7OEZSj81l6tVKCavFJkWpFNqo57ywrKdv2bvXTYOqD4=;
- b=geLyHJTifCRV+6sJ21DMj2Cy3iUIH8j/KFDNOccfnczLpM+l/6PTx/zgq9ausJ5Yts
- 0ZjgEdyW72fm/IenooNAvrBnUqyai15F72M/kQHq2L1ab8eZh6PTVTADJjtAAiCqqdqV
- 3sAIMl0tJxmrNBiaIWCYO1HrPCEL1x3vUFIRCz4AdgUh6hhVycm9UbMrOsjfx36D1UPM
- u3VNSXLWZbCl2/HHab2cUEx6sBgYE66uAoL2+pJdfTKmmDRf4j5JNLg6tJIsQRx8wlXc
- h9GWMV6Xa+/Egb1yxc6O7GO86q0e51tcd0huAgwh7CtSp4PNqXd6bRI629l/0nvvI6Nm
- Ka2Q==
+ bh=PeKiXip0SnaAWd0ub9QDTbyd3pBX1kbpUpkbNg02HbQ=;
+ b=BOfhjjpwa2f8F9qYIkhggvBBr2Atls0L4omelFuHGSs93zkTzOLlPEEef5nEqjvGxV
+ mz9xFfjyyOkbIoUd+THyqzj+eZur3fL6KoKw50FNPS4HT795BxAIk16p8F1Ufso+RZqi
+ d2d2H0o7r9csLfXtG2J52+wwALHXQODlSMjrIj9l1BHj4GRdfAsMFeUBmMu2Ol+fizwO
+ axmWAa1YfiskTYhXlAbP0XdU67Nj22La3G2QJs2Vtol1vKicJbsEQObJqoBAXUvdc1Zp
+ deULBHeV0aEHDig4Z3ksvzEKU+yTNeh9l1mJcvKWuj2V0vsX/Gw3QKWqAvb75GQc7k9c
+ Pp5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=7OEZSj81l6tVKCavFJkWpFNqo57ywrKdv2bvXTYOqD4=;
- b=bDSJbbj9jIVeQPgQPn1loRf2koCDY+RSr1LU2RdcZ6Op5V+XaUdewhsUNDW8EF9X/i
- tpD5NDTAYcV1NS/ZWHOg6inJYsRRwihIkoIXhlf5C1JyZVNviyzmuZ9TO0/gpl4s312b
- 7G2ohgz7kgXCWEE7FBa+tdqPiT0aWHQOt9P3jgyxKUy18Gxsto+NMdSQfwugKV+tHl6z
- AgqcIkHIMKF4c0Sxy7dBeD5uArfWuGnQ5/+9DGSUFfnhtx4actXxyTP0J4x3qknsoyM3
- m2+e+LHBeexA9AoVoYFwgOmCy/011zleWCq837mASu/4DRB2gPzT930HSatcar5kNafw
- ZtpA==
-X-Gm-Message-State: AOAM530NHMuUp+vAFq+KUaJ0jCM22EtOcNl3UGzBhyFUAB/JIQATPETv
- s9t+GPeapDO3S0hRJHU+X0E9GT9ehNSrnw==
-X-Google-Smtp-Source: ABdhPJzQqBZjxHMem0F70YB6jfWOyWpYFR2Oc06bybgkBxRgtmHkjVNod2sd718XNtTvO+xeL0Z9oA==
-X-Received: by 2002:a17:90a:ea8b:: with SMTP id
- h11mr1336695pjz.186.1619723038712; 
- Thu, 29 Apr 2021 12:03:58 -0700 (PDT)
+ bh=PeKiXip0SnaAWd0ub9QDTbyd3pBX1kbpUpkbNg02HbQ=;
+ b=NbhKi8bkVsxAgGAKThSskxRFuifueVLjAQSCqR/fBBSPWluspYTzmGeM8gbEigjgqQ
+ QT0u5H0NK01ZTj66wayvw3OC2XqiQtGsICuD5PEmN1p244UWUhUEwouY8ouub9ODuqzX
+ ED6LZ2+J1IAAL2W8ouacB2BXe+c9zHqTKmxqSTj/J7d/ia15jKW2DAjkbN7oKlOHKXrY
+ L5X+9HdukJexj6BEpVow7LTwTrJR7/8oQqVQ7epQzOWbYsACLhpDMLeA+Cg9pkvdgjb3
+ 0aCgJa5oJ8WgIQzg5LasNdwt2YfeKO3j7bpzKzyU1vgw+52weiedSz7H7TpqK6AAIuWq
+ l5gw==
+X-Gm-Message-State: AOAM533zj4lczLtK+gvvuKNUCIrGSd2+CdgYGlMdZ7zRuaui4+eoGO8f
+ hK1BHw4UGjJzzZNC6lztbqcy0o1S/VxCGw==
+X-Google-Smtp-Source: ABdhPJwzPdTBPxCzmpWylf5J6wLIj7/2movDU5idBBu1RFBmETZTwzsTDu7eVJ1653Lrrt51V9B6+w==
+X-Received: by 2002:a05:6a00:1642:b029:27f:2cae:eb7e with SMTP id
+ m2-20020a056a001642b029027f2caeeb7emr1140385pfc.39.1619723042043; 
+ Thu, 29 Apr 2021 12:04:02 -0700 (PDT)
 Received: from omlet.lan ([134.134.139.83])
- by smtp.gmail.com with ESMTPSA id b21sm3114405pji.39.2021.04.29.12.03.57
+ by smtp.gmail.com with ESMTPSA id b21sm3114405pji.39.2021.04.29.12.04.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Apr 2021 12:03:58 -0700 (PDT)
+ Thu, 29 Apr 2021 12:04:01 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 29 Apr 2021 14:03:23 -0500
-Message-Id: <20210429190340.1555632-9-jason@jlekstrand.net>
+Date: Thu, 29 Apr 2021 14:03:25 -0500
+Message-Id: <20210429190340.1555632-11-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210429190340.1555632-1-jason@jlekstrand.net>
 References: <20210429190340.1555632-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/25] drm/i915: Drop getparam support for
- I915_CONTEXT_PARAM_ENGINES
+Subject: [Intel-gfx] [PATCH 10/25] drm/i915/gem: Remove engine auto-magic
+ with FENCE_SUBMIT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,129 +81,98 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This has never been used by any userspace except IGT and provides no
-real functionality beyond parroting back parameters userspace passed in
-as part of context creation or via setparam.  If the context is in
-legacy mode (where you use I915_EXEC_RENDER and friends), it returns
-success with zero data so it's not useful for discovering what engines
-are in the context.  It's also not a replacement for the recently
-removed I915_CONTEXT_CLONE_ENGINES because it doesn't return any of the
-balancing or bonding information.
+Even though FENCE_SUBMIT is only documented to wait until the request in
+the in-fence starts instead of waiting until it completes, it has a bit
+more magic than that.  If FENCE_SUBMIT is used to submit something to a
+balanced engine, we would wait to assign engines until the primary
+request was ready to start and then attempt to assign it to a different
+engine than the primary.  There is an IGT test which exercises this by
+submitting a primary batch to a specific VCS and then using FENCE_SUBMIT
+to submit a secondary which can run on any VCS and have i915 figure out
+which VCS to run it on such that they can run in parallel.
+
+However, this functionality has never been used in the real world.  The
+media driver (the only user of FENCE_SUBMIT) always picks exactly two
+physical engines to bond and never asks us to pick which to use.
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 77 +--------------------
- 1 file changed, 1 insertion(+), 76 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c  |  2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h    |  7 -------
+ .../drm/i915/gt/intel_execlists_submission.c    | 17 -----------------
+ 3 files changed, 1 insertion(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 3f99ef5a72f57..92e55441a7621 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1725,78 +1725,6 @@ set_engines(struct i915_gem_context *ctx,
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index d640bba6ad9ab..efb2fa3522a42 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -3474,7 +3474,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 		if (args->flags & I915_EXEC_FENCE_SUBMIT)
+ 			err = i915_request_await_execution(eb.request,
+ 							   in_fence,
+-							   eb.engine->bond_execute);
++							   NULL);
+ 		else
+ 			err = i915_request_await_dma_fence(eb.request,
+ 							   in_fence);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 883bafc449024..68cfe5080325c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -446,13 +446,6 @@ struct intel_engine_cs {
+ 	 */
+ 	void		(*submit_request)(struct i915_request *rq);
+ 
+-	/*
+-	 * Called on signaling of a SUBMIT_FENCE, passing along the signaling
+-	 * request down to the bonded pairs.
+-	 */
+-	void            (*bond_execute)(struct i915_request *rq,
+-					struct dma_fence *signal);
+-
+ 	/*
+ 	 * Call when the priority on a request has changed and it and its
+ 	 * dependencies may need rescheduling. Note the request itself may
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 14378b28169b7..635d6d2494d26 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -3547,22 +3547,6 @@ static void virtual_submit_request(struct i915_request *rq)
+ 	spin_unlock_irqrestore(&ve->base.active.lock, flags);
  }
  
--static int
--get_engines(struct i915_gem_context *ctx,
--	    struct drm_i915_gem_context_param *args)
+-static void
+-virtual_bond_execute(struct i915_request *rq, struct dma_fence *signal)
 -{
--	struct i915_context_param_engines __user *user;
--	struct i915_gem_engines *e;
--	size_t n, count, size;
--	bool user_engines;
--	int err = 0;
+-	intel_engine_mask_t allowed, exec;
 -
--	e = __context_engines_await(ctx, &user_engines);
--	if (!e)
--		return -ENOENT;
+-	allowed = ~to_request(signal)->engine->mask;
 -
--	if (!user_engines) {
--		i915_sw_fence_complete(&e->fence);
--		args->size = 0;
--		return 0;
--	}
+-	/* Restrict the bonded request to run on only the available engines */
+-	exec = READ_ONCE(rq->execution_mask);
+-	while (!try_cmpxchg(&rq->execution_mask, &exec, exec & allowed))
+-		;
 -
--	count = e->num_engines;
--
--	/* Be paranoid in case we have an impedance mismatch */
--	if (!check_struct_size(user, engines, count, &size)) {
--		err = -EINVAL;
--		goto err_free;
--	}
--	if (overflows_type(size, args->size)) {
--		err = -EINVAL;
--		goto err_free;
--	}
--
--	if (!args->size) {
--		args->size = size;
--		goto err_free;
--	}
--
--	if (args->size < size) {
--		err = -EINVAL;
--		goto err_free;
--	}
--
--	user = u64_to_user_ptr(args->value);
--	if (put_user(0, &user->extensions)) {
--		err = -EFAULT;
--		goto err_free;
--	}
--
--	for (n = 0; n < count; n++) {
--		struct i915_engine_class_instance ci = {
--			.engine_class = I915_ENGINE_CLASS_INVALID,
--			.engine_instance = I915_ENGINE_CLASS_INVALID_NONE,
--		};
--
--		if (e->engines[n]) {
--			ci.engine_class = e->engines[n]->engine->uabi_class;
--			ci.engine_instance = e->engines[n]->engine->uabi_instance;
--		}
--
--		if (copy_to_user(&user->engines[n], &ci, sizeof(ci))) {
--			err = -EFAULT;
--			goto err_free;
--		}
--	}
--
--	args->size = size;
--
--err_free:
--	i915_sw_fence_complete(&e->fence);
--	return err;
+-	/* Prevent the master from being re-run on the bonded engines */
+-	to_request(signal)->execution_mask &= ~allowed;
 -}
 -
- static int
- set_persistence(struct i915_gem_context *ctx,
- 		const struct drm_i915_gem_context_param *args)
-@@ -2127,10 +2055,6 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
- 		ret = get_ppgtt(file_priv, ctx, args);
- 		break;
+ struct intel_context *
+ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
+ 			       unsigned int count)
+@@ -3616,7 +3600,6 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
  
--	case I915_CONTEXT_PARAM_ENGINES:
--		ret = get_engines(ctx, args);
--		break;
--
- 	case I915_CONTEXT_PARAM_PERSISTENCE:
- 		args->size = 0;
- 		args->value = i915_gem_context_is_persistent(ctx);
-@@ -2138,6 +2062,7 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
+ 	ve->base.schedule = i915_schedule;
+ 	ve->base.submit_request = virtual_submit_request;
+-	ve->base.bond_execute = virtual_bond_execute;
  
- 	case I915_CONTEXT_PARAM_NO_ZEROMAP:
- 	case I915_CONTEXT_PARAM_BAN_PERIOD:
-+	case I915_CONTEXT_PARAM_ENGINES:
- 	case I915_CONTEXT_PARAM_RINGSIZE:
- 	default:
- 		ret = -EINVAL;
+ 	INIT_LIST_HEAD(virtual_queue(ve));
+ 	ve->base.execlists.queue_priority_hint = INT_MIN;
 -- 
 2.31.1
 
