@@ -2,63 +2,50 @@ Return-Path: <SRS0=IWb8=J3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E77AC433B4
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 22:34:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91DC5C433B4
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 22:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1BD4361209
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 22:34:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BD4361209
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 439E261220
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 22:38:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 439E261220
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3BB36F5FD;
-	Fri, 30 Apr 2021 22:34:52 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007776F5FB
- for <intel-gfx@lists.freedesktop.org>; Fri, 30 Apr 2021 22:34:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1619822091;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hpm0s98PPk+LRziQ39f8+GcKnbjyOFaJ1uQAUz/hEno=;
- b=Ld/CzJbu49TmomHlsXLnn52n+D+nRzviRNKX7h3bbmQeXsWw5w2pzGKUfCi6tU6fmYKe3b
- EtJ3upeoQqsq9T+Wthw7iXXq2EELL9cqut9aGd5FDuBkO9yXwJOkksST3AGPJEGianZDXt
- 7IO+XKjXjy/ny3iU8U/7hPLBPP5b/3c=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-225-qEtSHmXMMH6ql5ukG17RhA-1; Fri, 30 Apr 2021 18:34:47 -0400
-X-MC-Unique: qEtSHmXMMH6ql5ukG17RhA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C3352107ACCA;
- Fri, 30 Apr 2021 22:34:45 +0000 (UTC)
-Received: from Whitewolf.redhat.com (ovpn-112-36.rdu2.redhat.com
- [10.10.112.36])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DF1E85D719;
- Fri, 30 Apr 2021 22:34:44 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Fri, 30 Apr 2021 18:34:28 -0400
-Message-Id: <20210430223428.10514-2-lyude@redhat.com>
-In-Reply-To: <20210430223428.10514-1-lyude@redhat.com>
-References: <20210430223428.10514-1-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 955816F5FF;
+	Fri, 30 Apr 2021 22:38:17 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98E156F600
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Apr 2021 22:38:16 +0000 (UTC)
+IronPort-SDR: +7AweclAww/MlNvlVLjzsONurtEqNRl1LPzzVPT8R26X1wHIQ1t72L22K50isOo73v+VUNgIMb
+ 7OGQcq+9TQvg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9970"; a="176869089"
+X-IronPort-AV: E=Sophos;i="5.82,264,1613462400"; d="scan'208";a="176869089"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2021 15:38:16 -0700
+IronPort-SDR: O8TIwpAbwP5aS/PmgRp8kYc3NQgpr3Rh1VQCNc7RNDbLQQcnLPsNyb9Lv8Ztm7s51p3oL0/dOP
+ cRo8jsorAd+w==
+X-IronPort-AV: E=Sophos;i="5.82,264,1613462400"; d="scan'208";a="426619825"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2021 15:38:15 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 30 Apr 2021 15:38:05 -0700
+Message-Id: <20210430223808.1078010-2-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210430223808.1078010-1-lucas.demarchi@intel.com>
+References: <20210430223808.1078010-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Subject: [Intel-gfx] [PATCH 2/2] drm/dp: Drop open-coded drm_dp_is_branch()
- in drm_dp_read_downstream_info()
+Subject: [Intel-gfx] [CI 1/4] drm/i915/display: move vbt check to
+ intel_ddi_init()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,39 +58,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Noticed this while fixing another issue in drm_dp_read_downstream_info(),
-the open coded DP_DOWNSTREAMPORT_PRESENT check here just duplicates what we
-already do in drm_dp_is_branch(), so just get rid of it.
+Since commit 45c0673aac97 ("drm/i915/bios: start using the
+intel_bios_encoder_data directly") we lookup the devdata for each port
+in intel_ddi_init() and just return if the port is not present in VBT
+(or if we didn't create a fake devdata for it if VBT is not available).
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
+So in intel_display.c we don't have to check
+intel_bios_is_port_present(), just rely on the check in
+intel_ddi_init().
+
+v2: Rebase on commit 45c0673aac97 ("drm/i915/bios: start using the
+intel_bios_encoder_data directly") re-using that check in intel_ddi_init()
+instead of adding a new one.
+
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_dp_helper.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index 27c8c5bdf7d9..0f84df8798ab 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -677,9 +677,7 @@ int drm_dp_read_downstream_info(struct drm_dp_aux *aux,
- 	memset(downstream_ports, 0, DP_MAX_DOWNSTREAM_PORTS);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 6280ba7f4c17..705f32b2f832 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -10868,13 +10868,13 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+ 		intel_ddi_init(dev_priv, PORT_C);
+ 		intel_ddi_init(dev_priv, PORT_D);
+ 		intel_ddi_init(dev_priv, PORT_E);
++
+ 		/*
+-		 * On some ICL SKUs port F is not present. No strap bits for
+-		 * this, so rely on VBT.
+-		 * Work around broken VBTs on SKUs known to have no port F.
++		 * On some ICL SKUs port F is not present, but broken VBTs mark
++		 * the port as present. Only try to initialize port F for the
++		 * SKUs that may actually have it.
+ 		 */
+-		if (IS_ICL_WITH_PORT_F(dev_priv) &&
+-		    intel_bios_is_port_present(dev_priv, PORT_F))
++		if (IS_ICL_WITH_PORT_F(dev_priv))
+ 			intel_ddi_init(dev_priv, PORT_F);
  
- 	/* No downstream info to read */
--	if (!drm_dp_is_branch(dpcd) ||
--	    dpcd[DP_DPCD_REV] < DP_DPCD_REV_10 ||
--	    !(dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT))
-+	if (!drm_dp_is_branch(dpcd) || dpcd[DP_DPCD_REV] < DP_DPCD_REV_10)
- 		return 0;
+ 		icl_dsi_init(dev_priv);
+@@ -10928,10 +10928,8 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+ 		/*
+ 		 * On SKL we don't have a way to detect DDI-E so we rely on VBT.
+ 		 */
+-		if (DISPLAY_VER(dev_priv) == 9 &&
+-		    intel_bios_is_port_present(dev_priv, PORT_E))
++		if (DISPLAY_VER(dev_priv) == 9)
+ 			intel_ddi_init(dev_priv, PORT_E);
+-
+ 	} else if (HAS_PCH_SPLIT(dev_priv)) {
+ 		int found;
  
- 	/* Some branches advertise having 0 downstream ports, despite also advertising they have a
 -- 
-2.30.2
+2.31.1
 
 _______________________________________________
 Intel-gfx mailing list
