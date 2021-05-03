@@ -2,52 +2,78 @@ Return-Path: <SRS0=qSOt=J7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 68BA6C433B4
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 May 2021 12:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B847FC433ED
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 May 2021 12:36:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 07BA7613B4
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 May 2021 12:35:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 07BA7613B4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 60443613B3
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 May 2021 12:36:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60443613B3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9722E6EAD3;
-	Tue,  4 May 2021 12:35:47 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6AC26EACF;
- Tue,  4 May 2021 12:35:42 +0000 (UTC)
-IronPort-SDR: 1cHvsZMwiTI/zp2Wt4DatYVYcIYagAMvVw9UGxR1jnjexdlSMOMT6AtxPSJ9IFDJ8pIUmKnPvn
- pdxh9EHKKeQw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9973"; a="195915481"
-X-IronPort-AV: E=Sophos;i="5.82,272,1613462400"; d="scan'208";a="195915481"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2021 05:35:42 -0700
-IronPort-SDR: 1FfkBRm6f9K0LlK4JDWmSpcfsxqRrbMA8zMapArW8NbdututzeTklJl8nQcAhDL7fI7ffwu/Ng
- oeF9fSCF3y0A==
-X-IronPort-AV: E=Sophos;i="5.82,272,1613462400"; d="scan'208";a="433262916"
-Received: from radwanib-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.52.203])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2021 05:35:40 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20210504102742.7005-1-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210504102742.7005-1-ville.syrjala@linux.intel.com>
-Date: Tue, 04 May 2021 15:35:37 +0300
-Message-ID: <87wnsey8va.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F24B16EAD5;
+	Tue,  4 May 2021 12:36:12 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB8F26E0B9
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 May 2021 12:01:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1620043252;
+ bh=kZd8UB1xLhgmFhEX97MG0G9oK15rLkk2XzqLmuYHMos=;
+ h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=T4/9Ms+BXp/QpjGBOPOf46cMndZWsy8wONGdOAsX1PAexaMvula9qbW/CKda8RFXd
+ cWddygI/7mPjpzC0AOqpVt6DU3UEx14cpYA5sU1CQiSHo9kKN3aUUNWi7zlpHAIBjE
+ Nt7yghUWj3XzIIEnOTfryDykE42URvXAqQkNftmY=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from hos.fritz.box ([91.48.118.51]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1Mg6dy-1l4lzu0nvC-00hd9m; Mon, 03
+ May 2021 14:00:52 +0200
+Received: from afrie by hos.fritz.box with local (Exim 4.92)
+ (envelope-from <afrie@gmx.net>)
+ id 1ldXFr-0004nb-7z; Mon, 03 May 2021 14:00:51 +0200
+Date: Mon, 3 May 2021 14:00:51 +0200
+From: Andreas Friedrich <afrie@gmx.net>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Message-ID: <20210503120050.GA16864@hos.afrie.home.de>
+References: <20210429181450.GA25385@hos.afrie.home.de>
+ <20210429235828.GZ1551@zhen-hp.sh.intel.com>
+ <161977150734.8550.2371200514024347460@jlahtine-mobl.ger.corp.intel.com>
+ <20210430103635.GA16501@hos.afrie.home.de>
+ <162002960518.3526.10925040263559391423@jlahtine-mobl.ger.corp.intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH] drm: Use drm_mode_is_420_only() instead of
- open coding it
+Content-Disposition: inline
+In-Reply-To: <162002960518.3526.10925040263559391423@jlahtine-mobl.ger.corp.intel.com>
+X-Provags-ID: V03:K1:7QsUPNDQ/5zFylU3pFLgATHMSHJTADU+U2anLuSCGk2W3Wg9PHz
+ euopGouLWC2QhCDkLIvHduE9SA4ne/bgB2ol80z13Xv9jqNnt2o9q7Eij+5spaCBFWST2x+
+ 2giaAISSZi+9AgHSEyF+ImDBfLAHkonUHJz5KL+Cb++aKxpZYWeIjw4rrynXcLHkdW4BmTk
+ yOZrhKuVG1hGdfVxKDstw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:nJ773fekpiw=:thbj3ZRdZZV3aziq/zbo2/
+ +LaViddDr5+8uGpwcNd3ZM6kWXNBOryIb1tcmDmjitPdcjGXBuf3mRlpzCgCUVDA+cGM6PETL
+ NsSQ4XHjblf9W5lSHAD3A4zTrNB9ATx6esbexRlVDkhFqfmbdznMEpoUI9Z84Dc4Ob0doaMWR
+ uRjqHPF/iRAX3vXxVEXYsfgdKm/vcW7DFSLDr31etx6oP4qWrWqcVx+/x/Tmfb2AtUed84+7i
+ X7B96bZXh3kpLy2kDNB7QvTYqOWMBM5dP+yOxk6b2ZV+YfCbCZNrAZ5qbyVI6FrXUb3LTk0Dd
+ Tgaf729QUJyntp3Y3dA2XL4ndTgknwhtEyTDm/nKh50ZCIUI0ohSXCIyShBj7LItO6ohHXHFi
+ tlBSAdbLuQVimd2YyXNYp4mgXmcrXBm3kyVGzygTKoyQo11CYngQm2r+yTnwmpxYsqyvfgDl/
+ kwz6DrcWBNCurgpJ72I+1cozLG4Hy0OkAAQSNlFukU4J32y/57T2LNSEggcdkAlUjDlQadCgh
+ DYs+DveDn20M+OxiS3W4FEtFeZSamws/UnDetBVdsvMQVC4X/cHI0wPPO77eej4v3eledT0oi
+ 4AX7M17+iVov8tgU+zwRoeUfz1jpyMvM/i2091BXQNIqxewy9X7M7N0TkAJcEH2CBeNdmnGIc
+ /92Imh880+anPSHOJ352JQfYwZ3QoS5byKx87yXrFcVPgaERigRAWX4XFM88lMq2y9xz+i/ud
+ YBOuG4HEbtZkU29d3ZS+vt0Elhk74eAMtGjYnw4GPqDgS9J0yE2GKZeVgA8GZmkbl2E7cLG2h
+ dIX7Gei0lBEcZH8uKl68pYYfEKdQkj2XVze1qvqMWsUssGlteuEupjN8BzA3R2acgfuLckoRD
+ lE7PIvkmh8aGAgi137bqeGO8QKukYgptrdUw0sskFes0whUDluFyzcnZDoTFBaM9NQshnPr6k
+ D5Q1Q/wEV5vaAylyiEh+cv3v7XHRp5TF7hzjEDceqzsVTp2Ws/w3DG/25bKcaRXjRU/hBDxle
+ DLxa2jj0VcoLfFU1mH4BQkPoEKSmADoCoS7p866vQf4+gcWkdCikt5c3O1s8I9vNDc1LlaMTV
+ T1Gu7iF6AT/LZF+EwRWHzDGMQqTns23ew9xXZUXF6DWGW6en8sbYAKBUuDh93PlnsFL9lfLYY
+ QfvSEP8rIXpiO+AW/yAtS9uwTysiyVEKepP0WcZvyU/NvmOOdXU8xQXWXNw/OH+wWolNs=
+X-Mailman-Approved-At: Tue, 04 May 2021 12:36:11 +0000
+Subject: Re: [Intel-gfx] REGRESSION with 5.12: Suspend not working on
+ Toshiba notebook
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,37 +86,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Werner Sembach <wse@tuxedocomputers.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAwNCBNYXkgMjAyMSwgVmlsbGUgU3lyamFsYSA8dmlsbGUuc3lyamFsYUBsaW51eC5p
-bnRlbC5jb20+IHdyb3RlOgo+IEZyb206IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBs
-aW51eC5pbnRlbC5jb20+Cj4KPiBSZXBsYWNlIHRoZSBvcGVuIGNvZGVkIGRybV9tb2RlX2lzXzQy
-MF9vbmx5KCkgd2l0aCB0aGUgcmVhbCB0aGluZy4KPgo+IE5vIGZ1bmN0aW9uYWwgY2hhbmdlcy4K
-Pgo+IENjOiBXZXJuZXIgU2VtYmFjaCA8d3NlQHR1eGVkb2NvbXB1dGVycy5jb20+Cj4gU2lnbmVk
-LW9mZi1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4K
-ClJldmlld2VkLWJ5OiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPgoKPiAtLS0K
-PiAgZHJpdmVycy9ncHUvZHJtL2RybV9tb2Rlcy5jIHwgMTMgKysrKy0tLS0tLS0tLQo+ICAxIGZp
-bGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fbW9kZXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fbW9k
-ZXMuYwo+IGluZGV4IDMzYTkzZmEyNGViMS4uMTJmY2JiN2NlMTc5IDEwMDY0NAo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9kcm1fbW9kZXMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fbW9k
-ZXMuYwo+IEBAIC0xMTc2LDE2ICsxMTc2LDExIEBAIGVudW0gZHJtX21vZGVfc3RhdHVzCj4gIGRy
-bV9tb2RlX3ZhbGlkYXRlX3ljYmNyNDIwKGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICpt
-b2RlLAo+ICAJCQkgICBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ICB7Cj4gLQl1
-OCB2aWMgPSBkcm1fbWF0Y2hfY2VhX21vZGUobW9kZSk7Cj4gLQllbnVtIGRybV9tb2RlX3N0YXR1
-cyBzdGF0dXMgPSBNT0RFX09LOwo+IC0Jc3RydWN0IGRybV9oZG1pX2luZm8gKmhkbWkgPSAmY29u
-bmVjdG9yLT5kaXNwbGF5X2luZm8uaGRtaTsKPiAtCj4gLQlpZiAodGVzdF9iaXQodmljLCBoZG1p
-LT55NDIwX3ZkYl9tb2RlcykpIHsKPiAtCQlpZiAoIWNvbm5lY3Rvci0+eWNiY3JfNDIwX2FsbG93
-ZWQpCj4gLQkJCXN0YXR1cyA9IE1PREVfTk9fNDIwOwo+IC0JfQo+ICsJaWYgKCFjb25uZWN0b3It
-PnljYmNyXzQyMF9hbGxvd2VkICYmCj4gKwkgICAgZHJtX21vZGVfaXNfNDIwX29ubHkoJmNvbm5l
-Y3Rvci0+ZGlzcGxheV9pbmZvLCBtb2RlKSkKPiArCQlyZXR1cm4gTU9ERV9OT180MjA7Cj4gIAo+
-IC0JcmV0dXJuIHN0YXR1czsKPiArCXJldHVybiBNT0RFX09LOwo+ICB9Cj4gIEVYUE9SVF9TWU1C
-T0woZHJtX21vZGVfdmFsaWRhdGVfeWNiY3I0MjApOwoKLS0gCkphbmkgTmlrdWxhLCBJbnRlbCBP
-cGVuIFNvdXJjZSBHcmFwaGljcyBDZW50ZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vaW50ZWwtZ2Z4Cg==
+On Mon, May 03, 2021 at 11:13:25AM +0300, Joonas Lahtinen wrote:
+
+Hello Joonas,
+...
+> It's very possible that it can be i915 bug. What you can try is to
+> blacklist i915 module and operate the system with SSH and see if the
+> latest kernel still freezes?
+This is a good idea. I have disabled i915 in my kernel configuration:
+  grep I915 .config
+  # CONFIG_DRM_I915 is not set
+This time the suspend works fine! So I think it is definitely an i915
+DRM bug.
+>
+> Also, please try drm-tip kernel and see if it fixed there.
+I have tried:
+  uname -r
+  5.12.0-rc8+
+but no changes. The system freezes after the first try.
+...
+> Please do file a bug on the issue tracker as requested:
+>
+> https://gitlab.freedesktop.org/drm/intel/issues/
+Done.
+
+Best regards
+Andreas Friedrich
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
