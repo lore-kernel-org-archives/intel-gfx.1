@@ -2,76 +2,92 @@ Return-Path: <SRS0=mvB2=J6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDB96C433B4
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 14:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B516C43460
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 14:35:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 86EC061139
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 14:26:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86EC061139
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 40118611AD
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 14:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40118611AD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06FEE6E209;
-	Mon,  3 May 2021 14:26:44 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8501C6E209
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 May 2021 14:26:42 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id i3so6531553edt.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 03 May 2021 07:26:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=zcCx/5/6vazffrIbIw/WSYw/f7a7zzgeW6G8Sj4pGM0=;
- b=raQ8I9NeNgMDgAJEJ6ngIiHXb7K8vw3zZCLM/qsMvvdlQiU88RRAk6d3AExAgzLLk5
- 38Rw8Ja2h2F5hd2edqnY/0FS8pOFqyI/ZjTtDq1CPwJOymTXk8BVAIA8MVHkcineJsiK
- ipTuk9izmjZwcJ+R6/IKKFNvRWEyM1O/c5w3QY5J24CP1p7V59YeS2EpeUwmcVx61SAW
- PmIWLKI6ghlTtoAubXhty+FgCYbzkyFmJ2682gXnf65UT0Uqbn7OXR8p52RRHrlTvA3z
- EmabRHB4SBLH+5cpPXxfgvQ027kLJIY4ReqtlOp4smgifWHi4GeZTYExlrmeOyIowtgm
- duvQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 813296E209;
+	Mon,  3 May 2021 14:35:36 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 385816E1B3
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 May 2021 14:35:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1620052534;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=k5l9mji1oYztNVl+ToG36ApOd6oMuk+iglNseyqhqhM=;
+ b=Ce+aS45lJzWrm+EDQV2lz3AqV/WSj7JxpQyRtJa3j6PClukJQ6STPnrX9wkNDiFGO5haxi
+ H6RcK4GVcXvGgPlpNb8PQa6Do/9bxmRIE343FH9JguCPmG7o6QxxExZKbveb8A5so4UJh6
+ /pMSdPUL7UvtCtC2TZjGqduhfsNu2mc=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-598-6x5hilxOMR60STj3MuT19w-1; Mon, 03 May 2021 10:35:32 -0400
+X-MC-Unique: 6x5hilxOMR60STj3MuT19w-1
+Received: by mail-ed1-f69.google.com with SMTP id
+ c15-20020a056402100fb029038518e5afc5so4667540edu.18
+ for <intel-gfx@lists.freedesktop.org>; Mon, 03 May 2021 07:35:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=zcCx/5/6vazffrIbIw/WSYw/f7a7zzgeW6G8Sj4pGM0=;
- b=oeReRNzPTOmJ6K/wfM40k/emiNtCR1tqUOQESHLSJ3myLajGgUo2Obod/cs350GNdP
- Bk+Z9ahfhs+vR19Krh7rFvjzMMG9GV71IT0ZHqeMeSnjeP0d9JKI0tcePK018PlCu5OP
- KNARLG10Zxy60jhTl2Yl4PzZhuUOQ+XpKT7P9RChRJZaXVlBX35KDrvOkAC0rNFf9fS5
- xdSelj2HUFLNxCAjhiVV2ERAd66/c2MfyhPWAxwx/uF90GmfKvdG0gn0oW+dQlys8lLM
- b8Bu/9LxhMx5yJNp86nIHMyKiqX0KylL6YNpPdAwDnklTJT6EhisI8Inw7aENmX8rosn
- QlEQ==
-X-Gm-Message-State: AOAM531TKl3HKQfYUmbrmJZQjexxsFbfLEzHq9Z/9nZ9JbhpuXCFuJqp
- 7NywBg0RXsryCmZvCtiZIwhW6hEme58HHue4
-X-Google-Smtp-Source: ABdhPJzIED6KgQ67LwiZd8rdW6y/pLe4sIaBgrN4HeLtDK1L6rOP/3XccOBdQgAS4072/PV2p/fPQA==
-X-Received: by 2002:a05:6402:309c:: with SMTP id
- de28mr20004057edb.191.1620052000998; 
- Mon, 03 May 2021 07:26:40 -0700 (PDT)
-Received: from [0.0.0.0] ([134.134.137.77])
- by smtp.googlemail.com with ESMTPSA id
- dk13sm12909363edb.34.2021.05.03.07.26.39
+ bh=k5l9mji1oYztNVl+ToG36ApOd6oMuk+iglNseyqhqhM=;
+ b=U1lws0A7cYEI+sTcbDraactcSiBX+dljnY3DI4nanT21TxZMhy548mqJb5frrqg/KY
+ ih3tp6NvCqt0YpxgUUL6dF4F/2umVunNSrj0RBgNjcvjRuFUxgkhYkAnJ6yR3ErFi1At
+ fu0TFgnNnaCKAfF5bv97PZtqPNQWQDI9PF7whS5AhxXjunLF6Q9eIAsZ7Ihl/jqOBMVW
+ 62/xwwt06pbxcZZ1AGf9aZqGW2KYhajwbq5YgdHQSEcSBV9AGKqX+Bd0geD9YTjsSQ1N
+ 2yCu5pdCNnAtTtHmwK562gF68ubCj2x2Pkguk1cnIpsiIv07hEtqvhyjKuALuvQ6llO+
+ B1EA==
+X-Gm-Message-State: AOAM5318KT6eul+51MJUuIhqI4T0wIkK3MA2kH4UhOdtXScfdDGSAIdR
+ B+7u3niyd3KXdxYoZCWwyfCe/4rxS8OlKc3IHlnrZlbSun9oFPKUsgesxL0Yi+jOpp8BKPJ7S3k
+ j+jnoTRcX3QsDv6aM38MMJ2QqXAK2
+X-Received: by 2002:a17:906:6a93:: with SMTP id
+ p19mr17291186ejr.319.1620052530821; 
+ Mon, 03 May 2021 07:35:30 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzUvT+qkq3EqqF/+Zg6Vh+R8TnTUOqUDXXPQpBdiWawf3Ow/BHIM9//4R5/6uwXK5914Y8riw==
+X-Received: by 2002:a17:906:6a93:: with SMTP id
+ p19mr17291172ejr.319.1620052530649; 
+ Mon, 03 May 2021 07:35:30 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id q25sm12499548edt.51.2021.05.03.07.35.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 May 2021 07:26:40 -0700 (PDT)
-To: Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20210501002853.4132009-1-imre.deak@intel.com>
-From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Message-ID: <714a6c54-cf33-a7fb-1483-70ca1ae0720d@gmail.com>
-Date: Mon, 3 May 2021 17:26:34 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon, 03 May 2021 07:35:30 -0700 (PDT)
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Imre Deak <imre.deak@intel.com>
+References: <20210428215257.500088-1-hdegoede@redhat.com>
+ <20210428215257.500088-5-hdegoede@redhat.com>
+ <YI+tlE35i+6F/WUO@kuha.fi.intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <00e380b2-0376-0ddb-9b0e-342779b7fc06@redhat.com>
+Date: Mon, 3 May 2021 16:35:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210501002853.4132009-1-imre.deak@intel.com>
+In-Reply-To: <YI+tlE35i+6F/WUO@kuha.fi.intel.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/tgl+: Add the missing MC
- CCS/XYUV8888 format support
+Subject: Re: [Intel-gfx] [PATCH 4/9] drm/connector: Add support for
+ out-of-band hotplug notification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,40 +100,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: juhapekka.heikkila@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ platform-driver-x86@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+Hi,
 
-On 1.5.2021 3.28, Imre Deak wrote:
-> Make sure that the XYUV8888 format is handled correctly when it's used
-> with a MC_CCS modifier framebuffer. Besides this format not working, the
-> driver will also return an incorrect error value when trying to use it,
-> indicating that the second color plane in the framebuffer is set
-> unexpectedly.
+On 5/3/21 10:00 AM, Heikki Krogerus wrote:
+> Hi Hans,
 > 
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
-> ---
->   drivers/gpu/drm/i915/display/intel_display.c | 3 +++
->   1 file changed, 3 insertions(+)
+> On Wed, Apr 28, 2021 at 11:52:52PM +0200, Hans de Goede wrote:
+>> +/**
+>> + * struct drm_connector_oob_hotplug_event_data: OOB hotplug event data
+>> + *
+>> + * Contains data about out-of-band hotplug events, signalled through
+>> + * drm_connector_oob_hotplug_event().
+>> + */
+>> +struct drm_connector_oob_hotplug_event_data {
+>> +	/**
+>> +	 * @connected: New connected status for the connector.
+>> +	 */
+>> +	bool connected;
+>> +	/**
+>> +	 * @dp_lanes: Number of available displayport lanes, 0 if unknown.
+>> +	 */
+>> +	int dp_lanes;
+>> +	/**
+>> +	 * @orientation: Connector orientation.
+>> +	 */
+>> +	enum typec_orientation orientation;
+>> +};
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 6280ba7f4c172..13ed9055918fe 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -1263,6 +1263,9 @@ static const struct drm_format_info gen12_ccs_formats[] = {
->   	{ .format = DRM_FORMAT_VYUY, .num_planes = 2,
->   	  .char_per_block = { 2, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
->   	  .hsub = 2, .vsub = 1, .is_yuv = true },
-> +	{ .format = DRM_FORMAT_XYUV8888, .num_planes = 2,
-> +	  .char_per_block = { 4, 1 }, .block_w = { 1, 2 }, .block_h = { 1, 1 },
-> +	  .hsub = 1, .vsub = 1, .is_yuv = true },
->   	{ .format = DRM_FORMAT_NV12, .num_planes = 4,
->   	  .char_per_block = { 1, 2, 1, 1 }, .block_w = { 1, 1, 4, 4 }, .block_h = { 1, 1, 1, 1 },
->   	  .hsub = 2, .vsub = 2, .is_yuv = true },
+> I don't think the orientation is relevant. It will always be "normal"
+> from DP PoW after muxing, no?
+
+That is what I thought to, but during the discussion of my previous attempt
+at this one of the i915 devs mentioned that in some cases the muxes manage
+to swap the lane order when the connector upside-down and at least the
+Intel GPUs can correct for this on the GPU side, so they asked for this
+info to be included.
+
+> I'm also not sure those deatils are enough in the long run. Based on
+> what I've understood from our graphics team guys, for example knowing
+> if multi-function is preferred may be important in some cases.
+
+The current data being passed is just intended as a starting point,
+this is purely a kernel internal API so we can easily add more
+data to the struct. As I mentioned in the cover-letter the current
+oob_hotplug handler which the i915 patch adds to the i915 driver does
+not actually do anything with the data.  ATM it is purely there to
+demonstrate that the ability to pass relevant data is there now
+(which was an issue with the previous attempt). I believe the current
+code is fine as a PoC of "pass event data" once GPU drivers actually
+start doing something with the data we can extend or outright replace
+it without issues.
+
+> +Imre.
+> 
+> All of that, and more, is already available in the Configuration VDO
+> Status VDO that the we have negotiated with the DP partner. Both those
+> VDOs are part of struct typec_displayport_data. I think we should
+> simply supply that structure to the DRM code instead of picking those
+> details out of it...
+
+I'm not sure I like the idea of passing the raw VDO, but if the
+DRM folks think that would be useful we can certainly add it.
+
+Regards,
+
+Hans
+
+
+> 
+>>  /**
+>>   * struct drm_tv_connector_state - TV connector related states
+>>   * @subconnector: selected subconnector
+>> @@ -1110,6 +1132,15 @@ struct drm_connector_funcs {
+>>  	 */
+>>  	void (*atomic_print_state)(struct drm_printer *p,
+>>  				   const struct drm_connector_state *state);
+>> +
+>> +	/**
+>> +	 * @oob_hotplug_event:
+>> +	 *
+>> +	 * This will get called when a hotplug-event for a drm-connector
+>> +	 * has been received from a source outside the display driver / device.
+>> +	 */
+>> +	void (*oob_hotplug_event)(struct drm_connector *connector,
+>> +				  struct drm_connector_oob_hotplug_event_data *data);
+> 
+> So I would not try to generalise this like that. This callback should
+> be USB Type-C DP altmode specific:
+> 
+> 	void (*oob_hotplug_event)(struct drm_connector *connector,
+>                                   struct typec_displayport_data *data);
+> 
+> Or like this if the orientation can really be reversed after muxing:
+> 
+> 	void (*oob_hotplug_event)(struct drm_connector *connector,
+> 				  struct typec_altmode *altmode,
+>                                   struct typec_displayport_data *data);
+> 
+> You can now check the orientation separately with
+> typec_altmode_get_orientation() if necessary.
+> 
+> 
+> thanks,
 > 
 
 _______________________________________________
