@@ -2,83 +2,49 @@ Return-Path: <SRS0=mvB2=J6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AB73C433B4
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:01:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 16867C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:11:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C941860230
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:01:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C941860230
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=kroah.com
+	by mail.kernel.org (Postfix) with ESMTPS id 964E661132
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:11:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 964E661132
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 488826E14B;
-	Mon,  3 May 2021 17:01:26 +0000 (UTC)
-X-Greylist: delayed 456 seconds by postgrey-1.36 at gabe;
- Mon, 03 May 2021 17:01:25 UTC
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 870766E14B
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 May 2021 17:01:25 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id B2F67580552;
- Mon,  3 May 2021 12:53:46 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Mon, 03 May 2021 12:53:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:content-transfer-encoding:in-reply-to; s=fm3; bh=M
- sqyRimXY3XqCOEklJF7m9X85ugMYqBbaG8HDHYoI44=; b=gBqu4QfUbh04ILRSn
- 3yCeS87M1JDw2hIzK4kEHDRC8KtcVA0m1Se9c1mRHCbeIEcUx0xdGatUzInAw3h3
- XCtsqSOZ4CKGyc6VUZMTydPFITS/KjZbCgLCEaqArGhCBAw0KvmnU1V8igGtabV8
- t6x1uWW609qnbxCKcc5maXyJ0s1M5PeAvacRO9UEvydUXLB4kUCHZ4k/RBz4y1fe
- DpxPWVKyyADiERUd5VX1kX2798DdzZlm46KKzSMXxCHidWrUkFssWeYeiwprfyYF
- NXQDuT83IakUhcq/RtoZP7Pr86wZWMpldRljczQS1WyCrfapdcEIE9eBW1GtciHb
- KM/Kw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=MsqyRimXY3XqCOEklJF7m9X85ugMYqBbaG8HDHYoI
- 44=; b=aiKqP5zwxStOyvmTf96V84t7QaEoyMP63zFgbFuoRY1u32LQVpoqkCvSJ
- sQb8oU/0JVL05lLi6Szx/0BN83Yen/AgdlQe9LjOFT77ZW4E0YSuVCqruHaVJoVu
- OpMy5YtS7mQLr3heRMa+l+h2GBr5TQ4nkSwOWChEl/vDD+FBdzoqcX2E6BfMmAcm
- OTh8op4cBxCb8bzOsWgo72dLSuR3PAJf731oNexmXzmE4RcQNWqN/64EyQ6UVoA0
- hNvIZTMuv21iWHOSQR5+Wb5OYjoGuPleiDWR5RuxUkIUSgau1siOWoNXxOdld2DO
- nL+nmerySJQ35QYDTCuX4Wl3TD0Og==
-X-ME-Sender: <xms:mSqQYFfe53HHBwkwYiatYFvxVo3V4GsxE4SjulTfkGVx14OYv9tSAQ>
- <xme:mSqQYDPxpYMrsDQKz4Bs6Bdjn1YbRfihFR0DLJ0b_xG8JZSUj5LvXat4NUZLgReeC
- hbZIkuhj3l5Zg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdefgedguddtlecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpefirhgv
- ghcumffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpedvff
- fgueeiuefhheevheetgfehvdefgeekfeevueejfeeftdetudetiefhheffvdenucffohhm
- rghinhepkhgvrhhnvghlrdhorhhgnecukfhppeekfedrkeeirdejgedrieegnecuvehluh
- hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhho
- rghhrdgtohhm
-X-ME-Proxy: <xmx:mSqQYOjcv7B7N5B6pp3hvzCsUJQPv0P79PhhLqbNUQh3J8aXqWw7aA>
- <xmx:mSqQYO_q7LxFV8Ii6XPuPr2Ck0KZ3k1q4yZPrq5zeONoTj1QryI2mw>
- <xmx:mSqQYBuGil4ogjAp1gTbCuz5SdQzLPSt_Asfz_xz3wCQHG3Uwjw48g>
- <xmx:miqQYHKlXgOmY--MMFOxU-8xt2xFkpaaSHwK9_C1T_ouvPtIxxl6ZQ>
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- by mail.messagingengine.com (Postfix) with ESMTPA;
- Mon,  3 May 2021 12:53:45 -0400 (EDT)
-Date: Mon, 3 May 2021 18:53:43 +0200
-From: Greg KH <greg@kroah.com>
-To: Imre Deak <imre.deak@intel.com>
-Message-ID: <YJAql6Vstj7wY5Wg@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE3C76E3F2;
+	Mon,  3 May 2021 17:11:00 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDC76E3F2
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 May 2021 17:11:00 +0000 (UTC)
+IronPort-SDR: UwDHvuwIsTBYShmGVMUwgG0dqTfwb+cQhdO+e/nU0i3SFIHH1rmWpeZyJO7cPWzkYW5BclpjEv
+ x7LO6qrz36Hg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9973"; a="218585285"
+X-IronPort-AV: E=Sophos;i="5.82,270,1613462400"; d="scan'208";a="218585285"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2021 10:10:44 -0700
+IronPort-SDR: Y15+UH0xaptjRshlfWgFjPSrOaBx6o6rnFL0BOe6Rbkt92AMPEP5bZ1Mh49uGhfl6X7BRDg5Wb
+ dno2OF5b+FTQ==
+X-IronPort-AV: E=Sophos;i="5.82,270,1613462400"; d="scan'208";a="468140585"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2021 10:10:42 -0700
+Date: Mon, 3 May 2021 20:10:38 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20210503171038.GF4190280@ideak-desk.fi.intel.com>
 References: <20210503164001.GE4190280@ideak-desk.fi.intel.com>
+ <YJAql6Vstj7wY5Wg@kroah.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210503164001.GE4190280@ideak-desk.fi.intel.com>
+In-Reply-To: <YJAql6Vstj7wY5Wg@kroah.com>
 Subject: Re: [Intel-gfx] drm/i915: v5.11 stable backport request
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,26 +66,31 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 03, 2021 at 07:40:01PM +0300, Imre Deak wrote:
-> Stable team, please backport the upstream commits
+On Mon, May 03, 2021 at 06:53:43PM +0200, Greg KH wrote:
+> On Mon, May 03, 2021 at 07:40:01PM +0300, Imre Deak wrote:
+> > Stable team, please backport the upstream commits
+> > =
+
+> > 7962893ecb85 ("drm/i915: Disable runtime power management during shutdo=
+wn")
+> > =
+
+> > to the v5.11 stable kernel, they fix a system shutdown failure.
+> > =
+
+> > References: https://lore.kernel.org/intel-gfx/042237f49ed1fd719126a3407=
+d7c909e49addbea.camel@gmx.net
+> > Reported-and-tested-by: Mario H=FCttel <mario.huettel@gmx.net>
 > =
 
-> 7962893ecb85 ("drm/i915: Disable runtime power management during shutdown=
-")
+> You also need this in 5.12.y, right?
+
+Yes missed that, thanks for catching it.
+
+> thanks,
 > =
 
-> to the v5.11 stable kernel, they fix a system shutdown failure.
-> =
-
-> References: https://lore.kernel.org/intel-gfx/042237f49ed1fd719126a3407d7=
-c909e49addbea.camel@gmx.net
-> Reported-and-tested-by: Mario H=FCttel <mario.huettel@gmx.net>
-
-You also need this in 5.12.y, right?
-
-thanks,
-
-greg k-h
+> greg k-h
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
