@@ -7,68 +7,68 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B97BC43462
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 15:58:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F06FC433B4
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 15:59:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D87A561164
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 15:58:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D87A561164
+	by mail.kernel.org (Postfix) with ESMTPS id 28EB361185
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 15:59:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28EB361185
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87DEB6E913;
-	Mon,  3 May 2021 15:58:38 +0000 (UTC)
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 534456E911
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 May 2021 15:58:36 +0000 (UTC)
-Received: by mail-pl1-x632.google.com with SMTP id e2so3057470plh.8
- for <intel-gfx@lists.freedesktop.org>; Mon, 03 May 2021 08:58:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3289A6E91D;
+	Mon,  3 May 2021 15:58:41 +0000 (UTC)
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54B4A6E912
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 May 2021 15:58:39 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id h7so3071357plt.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 03 May 2021 08:58:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=SNhQlTn2vOnjlGILYeL8E6besT3flDuix5Oa0DDKdXI=;
- b=oy5SG4bNJibMHXk1EPB0aI1+WOEp8627ozqtsuXCPP9K8cYSS60zQpkdaC7B/bagFH
- BlpKak0YkmNsaAy8lkOhJbXBFU7T8GUyfl4nBChoh2GSLjHSji+a3xSmgZuKwYhQCR3H
- l4tp5FHP4xChCP56ngoPbwOJ2jiheO6OElf3QZ2hET0YyaLky3ucDbAJGVSh9Rcbcaxc
- 4QvOwKEimeU35Hvig9Dy9mXp+KMhhWz+gGLfPGWF07AeucCB/2kYSnrk9zazeS+UC63l
- ClgUgegvxn1BO+u9RMxYmpnxOCyrrcTnFcrPXRAY5NcFIJn04Kzjv/7+nBd0HJ4PqPmO
- rwfA==
+ bh=dj8ATrkLDKFJ5d9l+0wwim1gFsFJ9J3GyHYy87xeWak=;
+ b=F8TwtdGS6T61N65u4INUx7+XSTns761E7Hse3cjQO2cag0g+cxzieZVy3VTlvT5948
+ GU9tIftvMLwujgJ1PtJQ46dfujcQQP2ty1LYsU+HxPQi1XfTusVJwtZl/T/68rztS5CJ
+ sCKshP6QmkQpLXo2Rr8aTKce1tqqsYbKWN5k4tD/jJwl5DB6KFqz9+NgS3Sq4rjmiCvz
+ ZO9eEh16LvhSwRtsvYjAko3IsQt7F4rsyd413aXmmXFmesOXspWH69gemnYLez5aNRtL
+ 80xhzBWoVndtTUpjLQOFZgSF9orNS35RFQNvZIbeVd9kRCB+pRtWQWfv1JNBSvX2bH1G
+ lSkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=SNhQlTn2vOnjlGILYeL8E6besT3flDuix5Oa0DDKdXI=;
- b=gV46fCCWwk7diz0x81vAxUhescvzm2eX/utX/8W0VnV2Jr0iBo6IOaPSscrbfxCC4D
- N9cI8KPkreOMEtORLiZTyrsOTjhDt58AH+iRttXKn9w7JXlZkIQ3Js44HKx2wxi94AEh
- PbiyNOy/myxlRaUyfMea0sBimdCA+Ua3ZYuoH8uHUOayupyDN0DJd4Q/smAVSYiDMglV
- TNCdbaVrjSKeb5uMqoRLw/yjzdyOLCt1uELkBayJbH+xN1NMzdfyXJBC+a//I50kiuxT
- AoD+3fYnwERbDsXPYeqc/RKNLv3q7vC3lHYPRU1ywTLh0q7s89/MbZQVsnv2IVQ6dOIJ
- WgDA==
-X-Gm-Message-State: AOAM5311/9ZrECugctZEMbCxSj7QwBECQCMs7WEssgQAYhWQgxAmo2lw
- OkpFAbA4TI1WrTMAiWFpXq1tDLiSZyDVuA==
-X-Google-Smtp-Source: ABdhPJyQ08vETFAPqCf/GrYMCbA5i6wK+SMKgRM8jdq8lKkcmrV+Jw9bO04uMN5tDLBw1Eueqj5dYw==
-X-Received: by 2002:a17:902:8bc3:b029:e9:9639:be21 with SMTP id
- r3-20020a1709028bc3b02900e99639be21mr20938370plo.59.1620057515342; 
- Mon, 03 May 2021 08:58:35 -0700 (PDT)
+ bh=dj8ATrkLDKFJ5d9l+0wwim1gFsFJ9J3GyHYy87xeWak=;
+ b=n/73Z7JaD3bWDNKkh4N/wnLkiLv5J0abJdtd1SzVCrA/k2JQ+H0uPAPvg6bqkcV+m5
+ gZ4yqG021hM16o1Tkwu5kOj+Xl0p2dPZtC4Q944RtMcwPxTcXehY27R16k7Y95xsB03l
+ TB9ucguln7tMrcXuHPATY6i+V4pb41hEuhrE9wM7va0OGqxwMDzlgPEzd8Cc/dJRPlZo
+ xJTjETPraULVszVGiWu2blQXXzXSYHJYoVVxIR25bn62/4oKMC43JOaUhEgJtzBvzrHG
+ PKNrHCGEjBRBww3ohQg6huTabiOBSG4ciXILsWYC/TL/kGNDXw8qSJL23bm5GU9DWM5+
+ mCnw==
+X-Gm-Message-State: AOAM531JoilPyzjcfx+eFSkLp59Tnc2wYTMGhys9992GbMxWWfRkRKIr
+ i0TxLr4yXjrKBqDIelIB0ABGGCrdTk2rwg==
+X-Google-Smtp-Source: ABdhPJxSTk1yBUn/GhdZP+ibV1+JvUsTOSIIKW92Y60CSDiheiM4wUmKF6tDz5o24nvR59t/JszUTA==
+X-Received: by 2002:a17:902:e353:b029:ed:866b:7624 with SMTP id
+ p19-20020a170902e353b02900ed866b7624mr21581594plc.25.1620057518457; 
+ Mon, 03 May 2021 08:58:38 -0700 (PDT)
 Received: from omlet.com (jfdmzpr05-ext.jf.intel.com. [134.134.139.74])
- by smtp.gmail.com with ESMTPSA id gf21sm9783296pjb.20.2021.05.03.08.58.33
+ by smtp.gmail.com with ESMTPSA id gf21sm9783296pjb.20.2021.05.03.08.58.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 May 2021 08:58:34 -0700 (PDT)
+ Mon, 03 May 2021 08:58:37 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon,  3 May 2021 10:57:45 -0500
-Message-Id: <20210503155748.1961781-25-jason@jlekstrand.net>
+Date: Mon,  3 May 2021 10:57:47 -0500
+Message-Id: <20210503155748.1961781-27-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210503155748.1961781-1-jason@jlekstrand.net>
 References: <20210503155748.1961781-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 24/27] drm/i915/gem: Don't allow changing the
- engine set on running contexts
+Subject: [Intel-gfx] [PATCH 26/27] i915/gem/selftests: Assign the VM at
+ context creation in igt_shared_ctx_exec
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,333 +86,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+We want to delete __assign_ppgtt and, generally, stop setting the VM
+after context creation.  This is the one place I could find in the
+selftests where we set a VM after the fact.
+
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 304 --------------------
- 1 file changed, 304 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index ad6e98d8a4fbd..6e5828fe1a792 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1823,306 +1823,6 @@ static int set_sseu(struct i915_gem_context *ctx,
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index 76029d7143f6c..76dd5cfe11b3c 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -813,16 +813,12 @@ static int igt_shared_ctx_exec(void *arg)
+ 			struct i915_gem_context *ctx;
+ 			struct intel_context *ce;
  
--struct set_engines {
--	struct i915_gem_context *ctx;
--	struct i915_gem_engines *engines;
--};
--
--static int
--set_engines__load_balance(struct i915_user_extension __user *base, void *data)
--{
--	struct i915_context_engines_load_balance __user *ext =
--		container_of_user(base, typeof(*ext), base);
--	const struct set_engines *set = data;
--	struct drm_i915_private *i915 = set->ctx->i915;
--	struct intel_engine_cs *stack[16];
--	struct intel_engine_cs **siblings;
--	struct intel_context *ce;
--	struct intel_sseu null_sseu = {};
--	u16 num_siblings, idx;
--	unsigned int n;
--	int err;
--
--	if (!HAS_EXECLISTS(i915))
--		return -ENODEV;
--
--	if (intel_uc_uses_guc_submission(&i915->gt.uc))
--		return -ENODEV; /* not implement yet */
--
--	if (get_user(idx, &ext->engine_index))
--		return -EFAULT;
--
--	if (idx >= set->engines->num_engines) {
--		drm_dbg(&i915->drm, "Invalid placement value, %d >= %d\n",
--			idx, set->engines->num_engines);
--		return -EINVAL;
--	}
--
--	idx = array_index_nospec(idx, set->engines->num_engines);
--	if (set->engines->engines[idx]) {
--		drm_dbg(&i915->drm,
--			"Invalid placement[%d], already occupied\n", idx);
--		return -EEXIST;
--	}
--
--	if (get_user(num_siblings, &ext->num_siblings))
--		return -EFAULT;
--
--	err = check_user_mbz(&ext->flags);
--	if (err)
--		return err;
--
--	err = check_user_mbz(&ext->mbz64);
--	if (err)
--		return err;
--
--	siblings = stack;
--	if (num_siblings > ARRAY_SIZE(stack)) {
--		siblings = kmalloc_array(num_siblings,
--					 sizeof(*siblings),
--					 GFP_KERNEL);
--		if (!siblings)
--			return -ENOMEM;
--	}
--
--	for (n = 0; n < num_siblings; n++) {
--		struct i915_engine_class_instance ci;
--
--		if (copy_from_user(&ci, &ext->engines[n], sizeof(ci))) {
--			err = -EFAULT;
--			goto out_siblings;
--		}
--
--		siblings[n] = intel_engine_lookup_user(i915,
--						       ci.engine_class,
--						       ci.engine_instance);
--		if (!siblings[n]) {
--			drm_dbg(&i915->drm,
--				"Invalid sibling[%d]: { class:%d, inst:%d }\n",
--				n, ci.engine_class, ci.engine_instance);
--			err = -EINVAL;
--			goto out_siblings;
--		}
--	}
--
--	ce = intel_execlists_create_virtual(siblings, n);
--	if (IS_ERR(ce)) {
--		err = PTR_ERR(ce);
--		goto out_siblings;
--	}
--
--	intel_context_set_gem(ce, set->ctx, null_sseu);
--
--	if (cmpxchg(&set->engines->engines[idx], NULL, ce)) {
--		intel_context_put(ce);
--		err = -EEXIST;
--		goto out_siblings;
--	}
--
--out_siblings:
--	if (siblings != stack)
--		kfree(siblings);
--
--	return err;
--}
--
--static int
--set_engines__bond(struct i915_user_extension __user *base, void *data)
--{
--	struct i915_context_engines_bond __user *ext =
--		container_of_user(base, typeof(*ext), base);
--	const struct set_engines *set = data;
--	struct drm_i915_private *i915 = set->ctx->i915;
--	struct i915_engine_class_instance ci;
--	struct intel_engine_cs *virtual;
--	struct intel_engine_cs *master;
--	u16 idx, num_bonds;
--	int err, n;
--
--	if (get_user(idx, &ext->virtual_index))
--		return -EFAULT;
--
--	if (idx >= set->engines->num_engines) {
--		drm_dbg(&i915->drm,
--			"Invalid index for virtual engine: %d >= %d\n",
--			idx, set->engines->num_engines);
--		return -EINVAL;
--	}
--
--	idx = array_index_nospec(idx, set->engines->num_engines);
--	if (!set->engines->engines[idx]) {
--		drm_dbg(&i915->drm, "Invalid engine at %d\n", idx);
--		return -EINVAL;
--	}
--	virtual = set->engines->engines[idx]->engine;
--
--	if (intel_engine_is_virtual(virtual)) {
--		drm_dbg(&i915->drm,
--			"Bonding with virtual engines not allowed\n");
--		return -EINVAL;
--	}
--
--	err = check_user_mbz(&ext->flags);
--	if (err)
--		return err;
--
--	for (n = 0; n < ARRAY_SIZE(ext->mbz64); n++) {
--		err = check_user_mbz(&ext->mbz64[n]);
--		if (err)
--			return err;
--	}
--
--	if (copy_from_user(&ci, &ext->master, sizeof(ci)))
--		return -EFAULT;
--
--	master = intel_engine_lookup_user(i915,
--					  ci.engine_class, ci.engine_instance);
--	if (!master) {
--		drm_dbg(&i915->drm,
--			"Unrecognised master engine: { class:%u, instance:%u }\n",
--			ci.engine_class, ci.engine_instance);
--		return -EINVAL;
--	}
--
--	if (get_user(num_bonds, &ext->num_bonds))
--		return -EFAULT;
--
--	for (n = 0; n < num_bonds; n++) {
--		struct intel_engine_cs *bond;
--
--		if (copy_from_user(&ci, &ext->engines[n], sizeof(ci)))
--			return -EFAULT;
--
--		bond = intel_engine_lookup_user(i915,
--						ci.engine_class,
--						ci.engine_instance);
--		if (!bond) {
--			drm_dbg(&i915->drm,
--				"Unrecognised engine[%d] for bonding: { class:%d, instance: %d }\n",
--				n, ci.engine_class, ci.engine_instance);
--			return -EINVAL;
--		}
--	}
--
--	return 0;
--}
--
--static const i915_user_extension_fn set_engines__extensions[] = {
--	[I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE] = set_engines__load_balance,
--	[I915_CONTEXT_ENGINES_EXT_BOND] = set_engines__bond,
--};
--
--static int
--set_engines(struct i915_gem_context *ctx,
--	    const struct drm_i915_gem_context_param *args)
--{
--	struct drm_i915_private *i915 = ctx->i915;
--	struct i915_context_param_engines __user *user =
--		u64_to_user_ptr(args->value);
--	struct intel_sseu null_sseu = {};
--	struct set_engines set = { .ctx = ctx };
--	unsigned int num_engines, n;
--	u64 extensions;
--	int err;
--
--	if (!args->size) { /* switch back to legacy user_ring_map */
--		if (!i915_gem_context_user_engines(ctx))
--			return 0;
--
--		set.engines = default_engines(ctx, null_sseu);
--		if (IS_ERR(set.engines))
--			return PTR_ERR(set.engines);
--
--		goto replace;
--	}
--
--	BUILD_BUG_ON(!IS_ALIGNED(sizeof(*user), sizeof(*user->engines)));
--	if (args->size < sizeof(*user) ||
--	    !IS_ALIGNED(args->size, sizeof(*user->engines))) {
--		drm_dbg(&i915->drm, "Invalid size for engine array: %d\n",
--			args->size);
--		return -EINVAL;
--	}
--
--	num_engines = (args->size - sizeof(*user)) / sizeof(*user->engines);
--	/* RING_MASK has no shift so we can use it directly here */
--	if (num_engines > I915_EXEC_RING_MASK + 1)
--		return -EINVAL;
--
--	set.engines = alloc_engines(num_engines);
--	if (!set.engines)
--		return -ENOMEM;
--
--	for (n = 0; n < num_engines; n++) {
--		struct i915_engine_class_instance ci;
--		struct intel_engine_cs *engine;
--		struct intel_context *ce;
--
--		if (copy_from_user(&ci, &user->engines[n], sizeof(ci))) {
--			__free_engines(set.engines, n);
--			return -EFAULT;
--		}
--
--		if (ci.engine_class == (u16)I915_ENGINE_CLASS_INVALID &&
--		    ci.engine_instance == (u16)I915_ENGINE_CLASS_INVALID_NONE) {
--			set.engines->engines[n] = NULL;
--			continue;
--		}
--
--		engine = intel_engine_lookup_user(ctx->i915,
--						  ci.engine_class,
--						  ci.engine_instance);
--		if (!engine) {
--			drm_dbg(&i915->drm,
--				"Invalid engine[%d]: { class:%d, instance:%d }\n",
--				n, ci.engine_class, ci.engine_instance);
--			__free_engines(set.engines, n);
--			return -ENOENT;
--		}
--
--		ce = intel_context_create(engine);
--		if (IS_ERR(ce)) {
--			__free_engines(set.engines, n);
--			return PTR_ERR(ce);
--		}
--
--		intel_context_set_gem(ce, ctx, null_sseu);
--
--		set.engines->engines[n] = ce;
--	}
--	set.engines->num_engines = num_engines;
--
--	err = -EFAULT;
--	if (!get_user(extensions, &user->extensions))
--		err = i915_user_extensions(u64_to_user_ptr(extensions),
--					   set_engines__extensions,
--					   ARRAY_SIZE(set_engines__extensions),
--					   &set);
--	if (err) {
--		free_engines(set.engines);
--		return err;
--	}
--
--replace:
--	mutex_lock(&ctx->engines_mutex);
--	if (i915_gem_context_is_closed(ctx)) {
--		mutex_unlock(&ctx->engines_mutex);
--		free_engines(set.engines);
--		return -ENOENT;
--	}
--	if (args->size)
--		i915_gem_context_set_user_engines(ctx);
--	else
--		i915_gem_context_clear_user_engines(ctx);
--	set.engines = rcu_replace_pointer(ctx->engines, set.engines, 1);
--	mutex_unlock(&ctx->engines_mutex);
--
--	/* Keep track of old engine sets for kill_context() */
--	engines_idle_release(ctx, set.engines);
--
--	return 0;
--}
--
- static int
- set_persistence(struct i915_gem_context *ctx,
- 		const struct drm_i915_gem_context_param *args)
-@@ -2205,10 +1905,6 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
- 		ret = set_sseu(ctx, args);
- 		break;
+-			ctx = kernel_context(i915, NULL);
++			ctx = kernel_context(i915, ctx_vm(parent));
+ 			if (IS_ERR(ctx)) {
+ 				err = PTR_ERR(ctx);
+ 				goto out_test;
+ 			}
  
--	case I915_CONTEXT_PARAM_ENGINES:
--		ret = set_engines(ctx, args);
--		break;
+-			mutex_lock(&ctx->mutex);
+-			__assign_ppgtt(ctx, ctx_vm(parent));
+-			mutex_unlock(&ctx->mutex);
 -
- 	case I915_CONTEXT_PARAM_PERSISTENCE:
- 		ret = set_persistence(ctx, args);
- 		break;
+ 			ce = i915_gem_context_get_engine(ctx, engine->legacy_idx);
+ 			GEM_BUG_ON(IS_ERR(ce));
+ 
 -- 
 2.31.1
 
