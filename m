@@ -2,52 +2,59 @@ Return-Path: <SRS0=mvB2=J6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D262C43603
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 18:22:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89624C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 18:29:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA8406105A
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 18:22:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA8406105A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2F6EE610FC
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 May 2021 18:29:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F6EE610FC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 199206E9F9;
-	Mon,  3 May 2021 18:21:59 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28D1489B01;
- Mon,  3 May 2021 18:21:55 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id CEFAFC800D4;
- Mon,  3 May 2021 20:21:53 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id uZQGOFwRhbT2; Mon,  3 May 2021 20:21:53 +0200 (CEST)
-Received: from wsembach-tuxedo.fritz.box
- (p200300E37f3986001A8B79e0b24CB29D.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f39:8600:1a8b:79e0:b24c:b29d])
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 8079AC800D0;
- Mon,  3 May 2021 20:21:53 +0200 (CEST)
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: wse@tuxedocomputers.com, ville.syrjala@linux.intel.com, airlied@linux.ie,
- daniel@ffwll.ch, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon,  3 May 2021 20:21:45 +0200
-Message-Id: <20210503182148.851790-2-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210503182148.851790-1-wse@tuxedocomputers.com>
-References: <20210503182148.851790-1-wse@tuxedocomputers.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 860626E8F0;
+	Mon,  3 May 2021 18:29:24 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7516E8F0;
+ Mon,  3 May 2021 18:29:23 +0000 (UTC)
+IronPort-SDR: iU6VAZlf99gtZ17LMptMZ6dd7wH7OpSybvUquPUbec/6puaS0OTt2CmaExPwDvbRilh4fDZtjJ
+ NziVKjHhSQbg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9973"; a="197865501"
+X-IronPort-AV: E=Sophos;i="5.82,270,1613462400"; d="scan'208";a="197865501"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2021 11:29:19 -0700
+IronPort-SDR: w4sprYtaZTbT8FEZ+lnmmBvzGtxmtqNVhd/TBi0Fz1s5PINrPPOoNkw2X6HsqcjPbMjljMRrXc
+ D26roez9UeAA==
+X-IronPort-AV: E=Sophos;i="5.82,270,1613462400"; d="scan'208";a="530654273"
+Received: from orsosgc001.ra.intel.com ([10.23.184.150])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2021 11:29:18 -0700
+Date: Mon, 3 May 2021 11:29:14 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: Jason Ekstrand <jason@jlekstrand.net>
+Message-ID: <20210503182914.GB50683@orsosgc001.ra.intel.com>
+References: <20210429003410.69754-1-umesh.nerlige.ramappa@intel.com>
+ <20210429003410.69754-2-umesh.nerlige.ramappa@intel.com>
+ <CAOFGe95O_Q09p4c5Sru0_5E-tBG3DFGm+f-uX-_YHx-UHLOBUA@mail.gmail.com>
+ <20210430222609.GC38093@orsosgc001.ra.intel.com>
+ <87czubbco1.wl-ashutosh.dixit@intel.com>
+ <179255a3b48.2817.c6988b7ea6112e3e892765a0d4287e0c@jlekstrand.net>
+ <20210501021959.GA50683@orsosgc001.ra.intel.com>
+ <878s4zayqh.wl-ashutosh.dixit@intel.com>
+ <179288a4d58.2817.c6988b7ea6112e3e892765a0d4287e0c@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/4] New function to avoid duplicate code in
- upcomming commits
+Content-Disposition: inline
+In-Reply-To: <179288a4d58.2817.c6988b7ea6112e3e892765a0d4287e0c@jlekstrand.net>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Subject: Re: [Intel-gfx] [PATCH 1/1] i915/query: Correlate engine and cpu
+ timestamps with better accuracy
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,89 +67,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Moves some checks that later will be performed 2 times to an own fuction. This
-avoids duplicate code later on.
-
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
----
-
-From 1c529783eb2ec02099d1ed2ab9257b008cb6f040 Mon Sep 17 00:00:00 2001
-From: Werner Sembach <wse@tuxedocomputers.com>
-Date: Mon, 3 May 2021 14:35:39 +0200
-Subject: [PATCH 1/4] New function to avoid duplicate code in upcomming commits
-
----
- drivers/gpu/drm/i915/display/intel_hdmi.c | 41 ++++++++++++++---------
- 1 file changed, 26 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 46de56af33db..576d3d910d06 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -1861,6 +1861,31 @@ static int intel_hdmi_port_clock(int clock, int bpc)
- 	return clock * bpc / 8;
- }
- 
-+static enum drm_mode_status
-+intel_hdmi_mode_clock_valid(struct intel_hdmi *hdmi, int clock, bool has_hdmi_sink)
-+{
-+	struct drm_device *dev = intel_hdmi_to_dev(hdmi);
-+	struct drm_i915_private *dev_priv = to_i915(dev);
-+	enum drm_mode_status status;
-+
-+	/* check if we can do 8bpc */
-+	status = hdmi_port_clock_valid(hdmi, clock, true, has_hdmi_sink);
-+
-+	if (has_hdmi_sink) {
-+		/* if we can't do 8bpc we may still be able to do 12bpc */
-+		if (status != MODE_OK && !HAS_GMCH(dev_priv))
-+			status = hdmi_port_clock_valid(hdmi, clock * 3 / 2,
-+						       true, has_hdmi_sink);
-+
-+		/* if we can't do 8,12bpc we may still be able to do 10bpc */
-+		if (status != MODE_OK && INTEL_GEN(dev_priv) >= 11)
-+			status = hdmi_port_clock_valid(hdmi, clock * 5 / 4,
-+						       true, has_hdmi_sink);
-+	}
-+
-+	return status;
-+}
-+
- static enum drm_mode_status
- intel_hdmi_mode_valid(struct drm_connector *connector,
- 		      struct drm_display_mode *mode)
-@@ -1891,21 +1916,7 @@ intel_hdmi_mode_valid(struct drm_connector *connector,
- 	if (drm_mode_is_420_only(&connector->display_info, mode))
- 		clock /= 2;
- 
--	/* check if we can do 8bpc */
--	status = hdmi_port_clock_valid(hdmi, intel_hdmi_port_clock(clock, 8),
--				       true, has_hdmi_sink);
--
--	if (has_hdmi_sink) {
--		/* if we can't do 8bpc we may still be able to do 12bpc */
--		if (status != MODE_OK && !HAS_GMCH(dev_priv))
--			status = hdmi_port_clock_valid(hdmi, intel_hdmi_port_clock(clock, 12),
--						       true, has_hdmi_sink);
--
--		/* if we can't do 8,12bpc we may still be able to do 10bpc */
--		if (status != MODE_OK && DISPLAY_VER(dev_priv) >= 11)
--			status = hdmi_port_clock_valid(hdmi, intel_hdmi_port_clock(clock, 10),
--						       true, has_hdmi_sink);
--	}
-+	status = intel_hdmi_mode_clock_valid(hdmi, clock, has_hdmi_sink);
- 	if (status != MODE_OK)
- 		return status;
- 
--- 
-2.25.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gU2F0LCBNYXkgMDEsIDIwMjEgYXQgMTA6Mjc6MDNBTSAtMDUwMCwgSmFzb24gRWtzdHJhbmQg
+d3JvdGU6Cj4gICBPbiBBcHJpbCAzMCwgMjAyMSAyMzowMTo0NCAiRGl4aXQsIEFzaHV0b3NoIiA8
+YXNodXRvc2guZGl4aXRAaW50ZWwuY29tPgo+ICAgd3JvdGU6Cj4KPiAgICAgT24gRnJpLCAzMCBB
+cHIgMjAyMSAxOToxOTo1OSAtMDcwMCwgVW1lc2ggTmVybGlnZSBSYW1hcHBhIHdyb3RlOgo+Cj4g
+ICAgICAgT24gRnJpLCBBcHIgMzAsIDIwMjEgYXQgMDc6MzU6NDFQTSAtMDUwMCwgSmFzb24gRWtz
+dHJhbmQgd3JvdGU6Cj4KPiAgICAgICAgIE9uIEFwcmlsIDMwLCAyMDIxIDE4OjAwOjU4ICJEaXhp
+dCwgQXNodXRvc2giCj4gICAgICAgICA8YXNodXRvc2guZGl4aXRAaW50ZWwuY29tPgo+ICAgICAg
+ICAgd3JvdGU6Cj4gICAgICAgICBPbiBGcmksIDMwIEFwciAyMDIxIDE1OjI2OjA5IC0wNzAwLCBV
+bWVzaCBOZXJsaWdlIFJhbWFwcGEgd3JvdGU6Cj4gICAgICAgICBMb29rcyBsaWtlIHRoZSBlbmdp
+bmUgY2FuIGJlIGRyb3BwZWQgc2luY2UgYWxsIHRpbWVzdGFtcHMgYXJlIGluCj4gICAgICAgICBz
+eW5jLgo+ICAgICAgICAgSQo+ICAgICAgICAganVzdCBoYXZlIG9uZSBtb3JlIHF1ZXN0aW9uIGhl
+cmUuIFRoZSB0aW1lc3RhbXAgaXRzZWxmIGlzIDM2IGJpdHMuCj4gICAgICAgICDCoFNob3VsZAo+
+ICAgICAgICAgdGhlIHVhcGkgYWxzbyByZXBvcnQgdGhlIHRpbWVzdGFtcCB3aWR0aCB0byB0aGUg
+dXNlciBPUiBzaG91bGQgSQo+ICAgICAgICAganVzdAo+ICAgICAgICAgcmV0dXJuIHRoZSBsb3dl
+ciAzMiBiaXRzIG9mIHRoZSB0aW1lc3RhbXA/Cj4gICAgICAgICBZZWFoLCBJIHRoaW5rIHJlcG9y
+dGluZyB0aGUgdGltZXN0YW1wIHdpZHRoIGlzIGEgZ29vZCBpZGVhIHNpbmNlCj4gICAgICAgICB3
+ZSdyZQo+ICAgICAgICAgcmVwb3J0aW5nIHRoZSBwZXJpb2QvZnJlcXVlbmN5IGhlcmUuCj4KPiAg
+ICAgICBBY3R1YWxseSwgSSBmb3Jnb3QgdGhhdCB3ZSBhcmUgaGFuZGxpbmcgdGhlIG92ZXJmbG93
+IGJlZm9yZSByZXR1cm5pbmcKPiAgICAgICB0aGUKPiAgICAgICBjc19jeWNsZXMgdG8gdGhlIHVz
+ZXIgYW5kIG92ZXJmbG93IGhhbmRsaW5nIHdhcyB0aGUgb25seSByZWFzb24gSQo+ICAgICAgIHRo
+b3VnaHQKPiAgICAgICB1c2VyIHNob3VsZCBrbm93IHRoZSB3aWR0aC4gV291bGQgeW91IHN0aWwg
+cmVjb21tZW5kIHJldHVybmluZyB0aGUKPiAgICAgICB3aWR0aCBpbgo+ICAgICAgIHRoZSB1YXBp
+Pwo+Cj4gICAgIFRoZSB3aWR0aCBpcyBuZWVkZWQgZm9yIHVzZXJzcGFjZSB0byBmaWd1cmUgb3V0
+IGlmIG92ZXJmbG93IGhhcyBvY2N1cmVkCj4gICAgIGJldHdlZW4gdHdvIHN1Y2Nlc3NpdmUgcXVl
+cnkgY2FsbHMuIEkgZG9uJ3QgdGhpbmsgSSBzZWUgdGhpcyBoYXBwZW5pbmcKPiAgICAgaW4KPiAg
+ICAgdGhlIGNvZGUuCj4KPiAgIFJpZ2h0Li4uIFdlIChVTURzKSBjdXJyZW50bHkganVzdCBoYXJk
+LWNvZGUgaXQgdG8gMzYgYml0cyBiZWNhdXNlIHRoYXQncwo+ICAgd2hhdCB3ZSd2ZSBoYWQgb24g
+YWxsIHBsYXRmb3JtcyBzaW5jZSBjbG9zZSBlbm91Z2ggdG8gZm9yZXZlci4gV2UgYmFrZSBpbgo+
+ICAgdGhlIGZyZXF1ZW5jeSBiYXNlZCBvbiBQQ0kgSUQuIFJldHVybmluZyB0aGUgbnVtYmVyIG9m
+IGJpdHMsIGxpa2UgSSBzYWlkLAo+ICAgZ29lcyBuaWNlbHkgd2l0aCB0aGUgZnJlcXVlbmN5LiBJ
+dCdzIG5vdCBuZWNlc3NhcnksIGFzc3VtaW5nIHN1ZmZpY2llbnRseQo+ICAgc21hcnQgdXNlcnNw
+YWNlIChuZWl0aGVyIGlzIGZyZXF1ZW5jeSksIGJ1dCBpdCBzZWVtcyB0byBnbyB3aXRoIGl0LiBJ
+Cj4gICBndWVzcyBJIGRvbid0IGNhcmUgbXVjaCBlaXRoZXIgd2F5Lgo+ICAgQ29taW5nIGJhY2sg
+dG8gdGhlIG11bHRpLXRpbGUgaXNzdWUgd2UgZGlzY3Vzc2VkIGludGVybmFsbHksIEkgdGhpbmsg
+dGhhdAo+ICAgaXMgc29tZXRoaW5nIHdlIHNob3VsZCBjYXJlIGFib3V0LiBTaW5jZSB0aGlzIHdv
+cmtzIGJ5IHJlYWRpbmcgdGhlCj4gICB0aW1lc3RhbXAgcmVnaXN0ZXIgb24gYW4gZW5naW5lLCBJ
+IHRoaW5rIGxlYXZpbmcgdGhlIGVuZ2luZSBzcGVjaWZpZXIgaW4KPiAgIHRoZXJlIGlzIGZpbmUu
+IFVzZXJzcGFjZSBzaG91bGQga25vdyB0aGF0IHRoZXJlJ3MgYWN0dWFsbHkgb25seSBvbmUgY2xv
+Y2sKPiAgIGFuZCBqdXN0IHF1ZXJ5IG9uZSBvZiB0aGVtIChwcm9iYWJseSBSQ1MpLiBGb3IgY3Jh
+enkgbXVsdGktZGV2aWNlIGNhc2VzLAo+ICAgd2UnbGwgZWl0aGVyIHF1ZXJ5IHBlciBsb2dpY2Fs
+IGRldmljZSAocmVhZCB0aWxlKSBvciB3ZSdsbCBoYXZlIHRvIG1ha2UKPiAgIHRoZW0gbG9vayBs
+aWtlIGEgc2luZ2xlIGRldmljZSBhbmQgc3luYyB0aGUgdGltZXN0YW1wcyBzb21laG93IGluIHRo
+ZSBVTUQKPiAgIGJ5IGNhcnJ5aW5nIGFyb3VuZCBhbiBvZmZzZXQgZmFjdG9yLgo+ICAgQXMgaXMs
+IHRoaXMgcGF0Y2ggaXMKPiAgIFJldmlld2VkLWJ5OiBKYXNvbiBFa3N0cmFuZCA8amFzb25Aamxl
+a3N0cmFuZC5uZXQ+CgpUaGFua3MsIEkgd2lsbCBhZGQgdGhlIHdpZHRoIGhlcmUgYW5kIHBvc3Qg
+dGhlIGZpbmFsIHZlcnNpb24uCgpSZWdhcmRzLApVbWVzaAoKCj4gICBJIHN0aWxsIG5lZWQgdG8g
+cmV2aWV3IHRoZSBBTlYgcGF0Y2ggYmVmb3JlIHdlIGNhbiBsYW5kIHRoaXMgdGhvdWdoLgo+ICAg
+LS1KYXNvbgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJ
+bnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
