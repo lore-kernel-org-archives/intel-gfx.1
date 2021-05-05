@@ -6,41 +6,41 @@ X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74836C43617
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 May 2021 17:15:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A41D5C433B4
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 May 2021 17:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9EA3F613F1
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 May 2021 17:15:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9EA3F613F1
+	by mail.kernel.org (Postfix) with ESMTPS id 36B3E608FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 May 2021 17:24:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36B3E608FE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68A246EC35;
-	Wed,  5 May 2021 17:15:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 827656EC27;
+	Wed,  5 May 2021 17:24:09 +0000 (UTC)
 Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 712376E4CB;
- Wed,  5 May 2021 17:14:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25EB6EC27;
+ Wed,  5 May 2021 17:24:07 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 271C3C800B3;
- Wed,  5 May 2021 19:14:58 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id 9D425C800B3;
+ Wed,  5 May 2021 19:24:06 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id krvTZfqJ2lyK; Wed,  5 May 2021 19:14:58 +0200 (CEST)
+ with LMTP id DYNzcYye3W-t; Wed,  5 May 2021 19:24:06 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
- (p200300e37F39860005A4018A54F094b9.dip0.t-ipconnect.de
+ (p200300E37f39860005A4018A54f094b9.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:8600:5a4:18a:54f0:94b9])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id C70C7C800A8;
- Wed,  5 May 2021 19:14:57 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTPA id 574F6C800A8;
+ Wed,  5 May 2021 19:24:06 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: wse@tuxedocomputers.com, ville.syrjala@linux.intel.com, airlied@linux.ie,
  daniel@ffwll.ch, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed,  5 May 2021 19:14:50 +0200
-Message-Id: <20210505171453.1403560-1-wse@tuxedocomputers.com>
+Date: Wed,  5 May 2021 19:23:58 +0200
+Message-Id: <20210505172401.1453178-1-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH 0/3] drm/i915/display Try YCbCr420 color when
@@ -77,8 +77,7 @@ encoder capabilities are checked. This patch fixes the problem by retrying
 to find a display mode with YCbCr420 enforced and using it, if it is
 valid.
 
-This patchset is revision 4. After getting clarification on questions ask
-on the mailing list.
+This patchset is revision 5. Only change to 4 is a small whitespace error fix.
 
 
 _______________________________________________
