@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D92D7C43470
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D359C43462
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E41761001
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E41761001
+	by mail.kernel.org (Postfix) with ESMTPS id E69CB61001
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E69CB61001
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF296EDEA;
-	Thu,  6 May 2021 18:57:37 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E56F6ED13;
- Thu,  6 May 2021 18:57:13 +0000 (UTC)
-IronPort-SDR: jB5AnINX24e8+LDyUw94SmbcZ6hI04oYEhAjre9nwUeVAza8YoSSzdonwGEdiv14JffdjEYGvG
- HhKRWRRpHZTw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531016"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531016"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C4B56EDF0;
+	Thu,  6 May 2021 18:57:38 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8B136ECFB;
+ Thu,  6 May 2021 18:57:12 +0000 (UTC)
+IronPort-SDR: XSk6Kzw77tnUV4jaaZtvSWLURRm49yXSfW6/rHCs2tiSVQlV7/aBlOLZVdxgO2z/frtdiSEYpS
+ wJHQlIqo/C+g==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195435"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195435"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:12 -0700
-IronPort-SDR: fGkG1MCsNHnDaXIjXSp+v6VARKuILkWjmfBnHIEloPU1htI+YTAGAGZ+T7MezDs1QbiCX2cTMc
- FtK2wOgrROYA==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583510"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:10 -0700
+IronPort-SDR: BJGzx4fIWZ/u9DY8mvP0fuOfwcrDvErk3hpqf+UZXegX/Uf6nT6b5BL3nu/xjNPbXWkkRm1jxz
+ cEjknuHw8dLw==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583411"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:11 -0700
+ 06 May 2021 11:57:08 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:14:03 -0700
-Message-Id: <20210506191451.77768-50-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:32 -0700
+Message-Id: <20210506191451.77768-19-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 49/97] drm/i915/guc: Disable engine barriers
- with GuC during unpin
+Subject: [Intel-gfx] [RFC PATCH 18/97] drm/i915/guc: Don't receive all G2H
+ messages in irq handler
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,91 +65,178 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Disable engine barriers for unpinning with GuC. This feature isn't
-needed with the GuC as it disables context scheduling before unpinning
-which guarantees the HW will not reference the context. Hence it is
-not necessary to defer unpinning until a kernel context request
-completes on each engine in the context engine mask.
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-Cc: John Harrison <john.c.harrison@intel.com>
+In irq handler try to receive just single G2H message, let other
+messages to be received from tasklet.
+
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c    |  2 +-
- drivers/gpu/drm/i915/gt/intel_context.h    |  1 +
- drivers/gpu/drm/i915/gt/selftest_context.c | 10 ++++++++++
- drivers/gpu/drm/i915/i915_active.c         |  3 +++
- 4 files changed, 15 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 67 ++++++++++++++++-------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  3 +
+ 2 files changed, 50 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 1499b8aace2a..7f97753ab164 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -80,7 +80,7 @@ static int intel_context_active_acquire(struct intel_context *ce)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index cb58fa7f970c..d630ec32decf 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -81,6 +81,7 @@ enum { CTB_SEND = 0, CTB_RECV = 1 };
  
- 	__i915_active_acquire(&ce->active);
+ enum { CTB_OWNER_HOST = 0 };
  
--	if (intel_context_is_barrier(ce))
-+	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine))
- 		return 0;
++static void ct_receive_tasklet_func(unsigned long data);
+ static void ct_incoming_request_worker_func(struct work_struct *w);
  
- 	/* Preallocate tracking nodes */
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
-index 92ecbab8c1cd..9b211ca5ecc7 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context.h
-@@ -16,6 +16,7 @@
- #include "intel_engine_types.h"
- #include "intel_ring_types.h"
- #include "intel_timeline_types.h"
-+#include "uc/intel_guc_submission.h"
+ /**
+@@ -95,6 +96,7 @@ void intel_guc_ct_init_early(struct intel_guc_ct *ct)
+ 	INIT_LIST_HEAD(&ct->requests.pending);
+ 	INIT_LIST_HEAD(&ct->requests.incoming);
+ 	INIT_WORK(&ct->requests.worker, ct_incoming_request_worker_func);
++	tasklet_init(&ct->receive_tasklet, ct_receive_tasklet_func, (unsigned long)ct);
+ }
  
- #define CE_TRACE(ce, fmt, ...) do {					\
- 	const struct intel_context *ce__ = (ce);			\
-diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c b/drivers/gpu/drm/i915/gt/selftest_context.c
-index 26685b927169..fa7b99a671dd 100644
---- a/drivers/gpu/drm/i915/gt/selftest_context.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_context.c
-@@ -209,7 +209,13 @@ static int __live_active_context(struct intel_engine_cs *engine)
- 	 * This test makes sure that the context is kept alive until a
- 	 * subsequent idle-barrier (emitted when the engine wakeref hits 0
- 	 * with no more outstanding requests).
-+	 *
-+	 * In GuC submission mode we don't use idle barriers and we instead
-+	 * get a message from the GuC to signal that it is safe to unpin the
-+	 * context from memory.
- 	 */
-+	if (intel_engine_uses_guc(engine))
-+		return 0;
+ static inline const char *guc_ct_buffer_type_to_str(u32 type)
+@@ -244,6 +246,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
+ {
+ 	GEM_BUG_ON(ct->enabled);
  
- 	if (intel_engine_pm_is_awake(engine)) {
- 		pr_err("%s is awake before starting %s!\n",
-@@ -357,7 +363,11 @@ static int __live_remote_context(struct intel_engine_cs *engine)
- 	 * on the context image remotely (intel_context_prepare_remote_request),
- 	 * which inserts foreign fences into intel_context.active, does not
- 	 * clobber the idle-barrier.
-+	 *
-+	 * In GuC submission mode we don't use idle barriers.
- 	 */
-+	if (intel_engine_uses_guc(engine))
-+		return 0;
++	tasklet_kill(&ct->receive_tasklet);
+ 	i915_vma_unpin_and_release(&ct->vma, I915_VMA_RELEASE_MAP);
+ 	memset(ct, 0, sizeof(*ct));
+ }
+@@ -629,7 +632,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
+ 	CT_DEBUG(ct, "received %*ph\n", 4 * len, data);
  
- 	if (intel_engine_pm_is_awake(engine)) {
- 		pr_err("%s is awake before starting %s!\n",
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index b1aa1c482c32..9a264898bb91 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -968,6 +968,9 @@ void i915_active_acquire_barrier(struct i915_active *ref)
+ 	desc->head = head * 4;
+-	return 0;
++	return available - len;
  
- 	GEM_BUG_ON(i915_active_is_idle(ref));
+ corrupted:
+ 	CT_ERROR(ct, "Corrupted descriptor addr=%#x head=%u tail=%u size=%u\n",
+@@ -665,10 +668,10 @@ static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
+ 	u32 status;
+ 	u32 datalen;
+ 	struct ct_request *req;
++	unsigned long flags;
+ 	bool found = false;
  
-+	if (llist_empty(&ref->preallocated_barriers))
+ 	GEM_BUG_ON(!ct_header_is_response(header));
+-	GEM_BUG_ON(!in_irq());
+ 
+ 	/* Response payload shall at least include fence and status */
+ 	if (unlikely(len < 2)) {
+@@ -688,7 +691,7 @@ static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
+ 
+ 	CT_DEBUG(ct, "response fence %u status %#x\n", fence, status);
+ 
+-	spin_lock(&ct->requests.lock);
++	spin_lock_irqsave(&ct->requests.lock, flags);
+ 	list_for_each_entry(req, &ct->requests.pending, link) {
+ 		if (unlikely(fence != req->fence)) {
+ 			CT_DEBUG(ct, "request %u awaits response\n",
+@@ -707,7 +710,7 @@ static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
+ 		found = true;
+ 		break;
+ 	}
+-	spin_unlock(&ct->requests.lock);
++	spin_unlock_irqrestore(&ct->requests.lock, flags);
+ 
+ 	if (!found)
+ 		CT_ERROR(ct, "Unsolicited response %*ph\n", msgsize, msg);
+@@ -821,31 +824,55 @@ static int ct_handle_request(struct intel_guc_ct *ct, const u32 *msg)
+ 	return 0;
+ }
+ 
++static int ct_receive(struct intel_guc_ct *ct)
++{
++	u32 msg[GUC_CT_MSG_LEN_MASK + 1]; /* one extra dw for the header */
++	unsigned long flags;
++	int ret;
++
++	spin_lock_irqsave(&ct->ctbs.recv.lock, flags);
++	ret = ct_read(ct, msg);
++	spin_unlock_irqrestore(&ct->ctbs.recv.lock, flags);
++	if (ret < 0)
++		return ret;
++
++	if (ct_header_is_response(msg[0]))
++		ct_handle_response(ct, msg);
++	else
++		ct_handle_request(ct, msg);
++
++	return ret;
++}
++
++static void ct_try_receive_message(struct intel_guc_ct *ct)
++{
++	int ret;
++
++	if (GEM_WARN_ON(!ct->enabled))
 +		return;
 +
- 	/*
- 	 * Transfer the list of preallocated barriers into the
- 	 * i915_active rbtree, but only as proto-nodes. They will be
++	ret = ct_receive(ct);
++	if (ret > 0)
++		tasklet_hi_schedule(&ct->receive_tasklet);
++}
++
++static void ct_receive_tasklet_func(unsigned long data)
++{
++	struct intel_guc_ct *ct = (struct intel_guc_ct *)data;
++
++	ct_try_receive_message(ct);
++}
++
+ /*
+  * When we're communicating with the GuC over CT, GuC uses events
+  * to notify us about new messages being posted on the RECV buffer.
+  */
+ void intel_guc_ct_event_handler(struct intel_guc_ct *ct)
+ {
+-	u32 msg[GUC_CT_MSG_LEN_MASK + 1]; /* one extra dw for the header */
+-	unsigned long flags;
+-	int err = 0;
+-
+ 	if (unlikely(!ct->enabled)) {
+ 		WARN(1, "Unexpected GuC event received while CT disabled!\n");
+ 		return;
+ 	}
+ 
+-	do {
+-		spin_lock_irqsave(&ct->ctbs.recv.lock, flags);
+-		err = ct_read(ct, msg);
+-		spin_unlock_irqrestore(&ct->ctbs.recv.lock, flags);
+-		if (err)
+-			break;
+-
+-		if (ct_header_is_response(msg[0]))
+-			err = ct_handle_response(ct, msg);
+-		else
+-			err = ct_handle_request(ct, msg);
+-	} while (!err);
++	ct_try_receive_message(ct);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index bc52dc479a14..cb222f202301 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -6,6 +6,7 @@
+ #ifndef _INTEL_GUC_CT_H_
+ #define _INTEL_GUC_CT_H_
+ 
++#include <linux/interrupt.h>
+ #include <linux/spinlock.h>
+ #include <linux/workqueue.h>
+ 
+@@ -55,6 +56,8 @@ struct intel_guc_ct {
+ 		struct intel_guc_ct_buffer recv;
+ 	} ctbs;
+ 
++	struct tasklet_struct receive_tasklet;
++
+ 	struct {
+ 		u32 last_fence; /* last fence used to send request */
+ 
 -- 
 2.28.0
 
