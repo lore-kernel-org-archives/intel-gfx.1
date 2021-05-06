@@ -5,48 +5,48 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BB89C433B4
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33ED3C43460
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CB89561164
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB89561164
+	by mail.kernel.org (Postfix) with ESMTPS id EA63161001
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA63161001
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88C5F6ECEE;
-	Thu,  6 May 2021 18:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8FBE6EDB2;
+	Thu,  6 May 2021 18:57:15 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC0136ECE4;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AEF46ECE1;
  Thu,  6 May 2021 18:57:10 +0000 (UTC)
-IronPort-SDR: B5SIad+3KYCzB6EWsCcsJ8tRaaeZ8meA7Pf31z2ORvK7O+xISpznzG5uVYxt6QDZ/RZgtnVdk0
- /jGqN/0jJkLw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196530987"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196530987"
+IronPort-SDR: Ly+pfsvJSrPyWiqFF8xlIi6ppRkxiJLkvXyHNGuL7U/YAWtnb9Bv3PFccPnlQ1eqMmkL3oMwah
+ njC4oYcT4ZTg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196530985"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196530985"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 May 2021 11:57:10 -0700
-IronPort-SDR: 7Ve8uUnN+3tX2VgmmJgSGgrL7n9vNfbLLApBuXvHF/C/5vLIS//VoB2YLk4xWMX5/aY6NRdUkm
- 40acVsU1u1WA==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583381"
+IronPort-SDR: aqEQw3HpN94mNVskVChQyWMxeaN1TossXEpSrRiJREegK0WeRmgp3iqyH/7W/U6gV5B0/jwFUT
+ x4L9qlzy8TFQ==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583372"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 May 2021 11:57:08 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:13:23 -0700
-Message-Id: <20210506191451.77768-10-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:20 -0700
+Message-Id: <20210506191451.77768-7-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 09/97] drm/i915/guc: Stop using fence/status
- from CTB descriptor
+Subject: [Intel-gfx] [RFC PATCH 06/97] drm/i915/guc: enable only the user
+ interrupt when using GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,155 +65,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Stop using fence/status from CTB descriptor as future GuC ABI will
-no longer support replies over CTB descriptor.
+In GuC submission mode the CS is owned by the GuC FW, so all CS status
+interrupts are handled by it. We only need the user interrupt as that
+signals request completion.
 
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Since we're now starting the engines directly in GuC submission mode
+when selected, we can stop switching back and forth between the
+execlists and the GuC programming and select directly the correct
+interrupt mask.
+
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: John Harrison <john.c.harrison@intel.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- .../gt/uc/abi/guc_communication_ctb_abi.h     |  4 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 72 ++-----------------
- 2 files changed, 6 insertions(+), 70 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        | 18 ++++++-----
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 31 -------------------
+ 2 files changed, 11 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-index ebd8c3e0e4bb..d38935f47ecf 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-@@ -71,8 +71,8 @@ struct guc_ct_buffer_desc {
- 	u32 head;		/* offset updated by GuC*/
- 	u32 tail;		/* offset updated by owner */
- 	u32 is_in_error;	/* error indicator */
--	u32 fence;		/* fence updated by GuC */
--	u32 status;		/* status updated by GuC */
-+	u32 reserved1;
-+	u32 reserved2;
- 	u32 owner;		/* id of the channel owner */
- 	u32 owner_sub_id;	/* owner-defined field for extra tracking */
- 	u32 reserved[5];
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 25618649048f..4cc8c0b71699 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -90,13 +90,6 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc,
- 	desc->owner = CTB_OWNER_HOST;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+index d29126c458ba..f88c10366e58 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+@@ -194,14 +194,18 @@ void gen11_gt_irq_reset(struct intel_gt *gt)
+ 
+ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ {
+-	const u32 irqs =
+-		GT_CS_MASTER_ERROR_INTERRUPT |
+-		GT_RENDER_USER_INTERRUPT |
+-		GT_CONTEXT_SWITCH_INTERRUPT |
+-		GT_WAIT_SEMAPHORE_INTERRUPT;
+ 	struct intel_uncore *uncore = gt->uncore;
+-	const u32 dmask = irqs << 16 | irqs;
+-	const u32 smask = irqs << 16;
++	u32 irqs = GT_RENDER_USER_INTERRUPT;
++	u32 dmask;
++	u32 smask;
++
++	if (!intel_uc_wants_guc_submission(&gt->uc))
++		irqs |= GT_CS_MASTER_ERROR_INTERRUPT |
++			GT_CONTEXT_SWITCH_INTERRUPT |
++			GT_WAIT_SEMAPHORE_INTERRUPT;
++
++	dmask = irqs << 16 | irqs;
++	smask = irqs << 16;
+ 
+ 	BUILD_BUG_ON(irqs & 0xffff0000);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 335719f17490..38cda5d599a6 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -432,32 +432,6 @@ void intel_guc_submission_fini(struct intel_guc *guc)
+ 	}
  }
  
--static void guc_ct_buffer_desc_reset(struct guc_ct_buffer_desc *desc)
+-static void guc_interrupts_capture(struct intel_gt *gt)
 -{
--	desc->head = 0;
--	desc->tail = 0;
--	desc->is_in_error = 0;
+-	struct intel_uncore *uncore = gt->uncore;
+-	u32 irqs = GT_CONTEXT_SWITCH_INTERRUPT;
+-	u32 dmask = irqs << 16 | irqs;
+-
+-	GEM_BUG_ON(INTEL_GEN(gt->i915) < 11);
+-
+-	/* Don't handle the ctx switch interrupt in GuC submission mode */
+-	intel_uncore_rmw(uncore, GEN11_RENDER_COPY_INTR_ENABLE, dmask, 0);
+-	intel_uncore_rmw(uncore, GEN11_VCS_VECS_INTR_ENABLE, dmask, 0);
 -}
 -
- static int guc_action_register_ct_buffer(struct intel_guc *guc,
- 					 u32 desc_addr,
- 					 u32 type)
-@@ -315,8 +308,7 @@ static u32 ct_get_next_fence(struct intel_guc_ct *ct)
- static int ct_write(struct intel_guc_ct *ct,
- 		    const u32 *action,
- 		    u32 len /* in dwords */,
--		    u32 fence,
--		    bool want_response)
-+		    u32 fence)
+-static void guc_interrupts_release(struct intel_gt *gt)
+-{
+-	struct intel_uncore *uncore = gt->uncore;
+-	u32 irqs = GT_CONTEXT_SWITCH_INTERRUPT;
+-	u32 dmask = irqs << 16 | irqs;
+-
+-	GEM_BUG_ON(INTEL_GEN(gt->i915) < 11);
+-
+-	/* Handle ctx switch interrupts again */
+-	intel_uncore_rmw(uncore, GEN11_RENDER_COPY_INTR_ENABLE, 0, dmask);
+-	intel_uncore_rmw(uncore, GEN11_VCS_VECS_INTR_ENABLE, 0, dmask);
+-}
+-
+ static int guc_context_alloc(struct intel_context *ce)
  {
- 	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_SEND];
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
-@@ -360,8 +352,7 @@ static int ct_write(struct intel_guc_ct *ct,
- 	 * DW2+: action data
- 	 */
- 	header = (len << GUC_CT_MSG_LEN_SHIFT) |
--		 (GUC_CT_MSG_WRITE_FENCE_TO_DESC) |
--		 (want_response ? GUC_CT_MSG_SEND_STATUS : 0) |
-+		 GUC_CT_MSG_SEND_STATUS |
- 		 (action[0] << GUC_CT_MSG_ACTION_SHIFT);
- 
- 	CT_DEBUG(ct, "writing %*ph %*ph %*ph\n",
-@@ -390,56 +381,6 @@ static int ct_write(struct intel_guc_ct *ct,
- 	return -EPIPE;
+ 	return lrc_alloc(ce, ce->engine);
+@@ -722,9 +696,6 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
+ void intel_guc_submission_enable(struct intel_guc *guc)
+ {
+ 	guc_stage_desc_init(guc);
+-
+-	/* Take over from manual control of ELSP (execlists) */
+-	guc_interrupts_capture(guc_to_gt(guc));
  }
  
--/**
-- * wait_for_ctb_desc_update - Wait for the CT buffer descriptor update.
-- * @desc:	buffer descriptor
-- * @fence:	response fence
-- * @status:	placeholder for status
-- *
-- * Guc will update CT buffer descriptor with new fence and status
-- * after processing the command identified by the fence. Wait for
-- * specified fence and then read from the descriptor status of the
-- * command.
-- *
-- * Return:
-- * *	0 response received (status is valid)
-- * *	-ETIMEDOUT no response within hardcoded timeout
-- * *	-EPROTO no response, CT buffer is in error
-- */
--static int wait_for_ctb_desc_update(struct guc_ct_buffer_desc *desc,
--				    u32 fence,
--				    u32 *status)
--{
--	int err;
--
--	/*
--	 * Fast commands should complete in less than 10us, so sample quickly
--	 * up to that length of time, then switch to a slower sleep-wait loop.
--	 * No GuC command should ever take longer than 10ms.
--	 */
--#define done (READ_ONCE(desc->fence) == fence)
--	err = wait_for_us(done, 10);
--	if (err)
--		err = wait_for(done, 10);
--#undef done
--
--	if (unlikely(err)) {
--		DRM_ERROR("CT: fence %u failed; reported fence=%u\n",
--			  fence, desc->fence);
--
--		if (WARN_ON(desc->is_in_error)) {
--			/* Something went wrong with the messaging, try to reset
--			 * the buffer and hope for the best
--			 */
--			guc_ct_buffer_desc_reset(desc);
--			err = -EPROTO;
--		}
--	}
--
--	*status = desc->status;
--	return err;
--}
--
- /**
-  * wait_for_ct_request_update - Wait for CT request state update.
-  * @req:	pointer to pending request
-@@ -483,8 +424,6 @@ static int ct_send(struct intel_guc_ct *ct,
- 		   u32 response_buf_size,
- 		   u32 *status)
- {
--	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_SEND];
--	struct guc_ct_buffer_desc *desc = ctb->desc;
- 	struct ct_request request;
- 	unsigned long flags;
- 	u32 fence;
-@@ -505,16 +444,13 @@ static int ct_send(struct intel_guc_ct *ct,
- 	list_add_tail(&request.link, &ct->requests.pending);
- 	spin_unlock_irqrestore(&ct->requests.lock, flags);
+ void intel_guc_submission_disable(struct intel_guc *guc)
+@@ -735,8 +706,6 @@ void intel_guc_submission_disable(struct intel_guc *guc)
  
--	err = ct_write(ct, action, len, fence, !!response_buf);
-+	err = ct_write(ct, action, len, fence);
- 	if (unlikely(err))
- 		goto unlink;
+ 	/* Note: By the time we're here, GuC may have already been reset */
  
- 	intel_guc_notify(ct_to_guc(ct));
- 
--	if (response_buf)
--		err = wait_for_ct_request_update(&request, status);
--	else
--		err = wait_for_ctb_desc_update(desc, fence, status);
-+	err = wait_for_ct_request_update(&request, status);
- 	if (unlikely(err))
- 		goto unlink;
+-	guc_interrupts_release(gt);
+-
+ 	guc_stage_desc_fini(guc);
+ }
  
 -- 
 2.28.0
