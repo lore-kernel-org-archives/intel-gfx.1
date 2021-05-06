@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C0D7AC43600
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BD5BC43603
 	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7584561001
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7584561001
+	by mail.kernel.org (Postfix) with ESMTPS id D2FA061001
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D2FA061001
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E31196EDEE;
-	Thu,  6 May 2021 18:57:39 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB9856ECFF;
- Thu,  6 May 2021 18:57:12 +0000 (UTC)
-IronPort-SDR: KCErmGyasI6GzCoppf2QqvjxVVHs4lXhWX+KD5/Mc99XJfMbfScqyAW6Q0O2MWai05WOwqERgR
- K1IOs4uuPihA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195437"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195437"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97B8C6ECEB;
+	Thu,  6 May 2021 18:57:40 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCCD6ED14;
+ Thu,  6 May 2021 18:57:13 +0000 (UTC)
+IronPort-SDR: iH6zIqIwyvqNCIR40PFcu7PPryheynF7vqOZUD7F5N9CWWdY/K4nPpXEAsUdn9MeZzf5Bzn6Jg
+ CnOuxuCH8ndg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531015"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531015"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:11 -0700
-IronPort-SDR: QkkVAFtWfRXG6xf7y6LfmQe21yF6enVYNi1iOK5Oq3yJzXQOjWisbbA0e8x9sv2ovO9u+vl84C
- k5/DdbvbEPLA==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583418"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:12 -0700
+IronPort-SDR: 9xklbKi5tFlLEmeWQM+zNQg8j9Yq8VNT+cRvZh5uRJS5kFaWTEZCW6RvatoVk74YnyT/UTxZlV
+ c3J/5vzyWkNg==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583507"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:09 -0700
+ 06 May 2021 11:57:11 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:13:34 -0700
-Message-Id: <20210506191451.77768-21-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:14:02 -0700
+Message-Id: <20210506191451.77768-49-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 20/97] drm/i915/guc: Introduce unified HXG
- messages
+Subject: [Intel-gfx] [RFC PATCH 48/97] drm/i915/guc: Defer context unpin
+ until scheduling is disabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,240 +60,344 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: jason.ekstrand@intel.com, daniel.vetter@intel.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTWljaGFsIFdhamRlY3prbyA8bWljaGFsLndhamRlY3prb0BpbnRlbC5jb20+CgpOZXcg
-R3VDIGZpcm13YXJlIHdpbGwgdW5pZnkgZm9ybWF0IG9mIE1NSU8gYW5kIENUQiBIMkcgbWVzc2Fn
-ZXMuCkludHJvZHVjZSB0aGVpciBkZWZpbml0aW9ucyBub3cgdG8gYWxsb3cgZ3JhZHVhbCB0cmFu
-c2l0aW9uIG9mCm91ciBjb2RlIHRvIG1hdGNoIG5ldyBjaGFuZ2VzLgoKU2lnbmVkLW9mZi1ieTog
-TWljaGFsIFdhamRlY3prbyA8bWljaGFsLndhamRlY3prb0BpbnRlbC5jb20+ClNpZ25lZC1vZmYt
-Ynk6IE1hdHRoZXcgQnJvc3QgPG1hdHRoZXcuYnJvc3RAaW50ZWwuY29tPgpDYzogTWljaGHFgiBX
-aW5pYXJza2kgPG1pY2hhbC53aW5pYXJza2lAaW50ZWwuY29tPgotLS0KIC4uLi9ncHUvZHJtL2k5
-MTUvZ3QvdWMvYWJpL2d1Y19tZXNzYWdlc19hYmkuaCB8IDIyNiArKysrKysrKysrKysrKysrKysK
-IDEgZmlsZSBjaGFuZ2VkLCAyMjYgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L3VjL2FiaS9ndWNfbWVzc2FnZXNfYWJpLmggYi9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9ndC91Yy9hYmkvZ3VjX21lc3NhZ2VzX2FiaS5oCmluZGV4IDc3NWUyMWYzMDU4Yy4u
-MWMyNjQ4MTlhYTAzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9hYmkv
-Z3VjX21lc3NhZ2VzX2FiaS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2FiaS9n
-dWNfbWVzc2FnZXNfYWJpLmgKQEAgLTYsNiArNiwyMzIgQEAKICNpZm5kZWYgX0FCSV9HVUNfTUVT
-U0FHRVNfQUJJX0gKICNkZWZpbmUgX0FCSV9HVUNfTUVTU0FHRVNfQUJJX0gKIAorLyoqCisgKiBE
-T0M6IEhYRyBNZXNzYWdlCisgKgorICogQWxsIG1lc3NhZ2VzIGV4Y2hhbmdlZCB3aXRoIEd1QyBh
-cmUgZGVmaW5lZCB1c2luZyAzMiBiaXQgZHdvcmRzLgorICogRmlyc3QgZHdvcmQgaXMgdHJlYXRl
-ZCBhcyBhIG1lc3NhZ2UgaGVhZGVyLiBSZW1haW5pbmcgZHdvcmRzIGFyZSBvcHRpb25hbC4KKyAq
-CisgKiAuLiBfSFhHIE1lc3NhZ2U6CisgKgorICogICstLS0rLS0tLS0tLSstLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqICB8
-ICAgfCBCaXRzICB8IERlc2NyaXB0aW9uICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICB8CisgKiAgKz09PSs9PT09PT09Kz09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09KworICogIHwgICB8ICAg
-ICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHwKKyAqICB8IDAgfCAgICAzMSB8ICoqT1JJR0lOKiogLSBvcmlnaW5hdG9yIG9m
-IHRoZSBtZXNzYWdlICAgICAgICAgICAgICAgICAgICAgICB8CisgKiAgfCAgIHwgICAgICAgfCAg
-IC0gX2BHVUNfSFhHX09SSUdJTl9IT1NUYCA9IDAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgfAorICogIHwgICB8ICAgICAgIHwgICAtIF9gR1VDX0hYR19PUklHSU5fR1VDYCA9IDEgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKKyAqICB8ICAgfCAgICAgICB8ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cisg
-KiAgfCAgICstLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tKworICogIHwgICB8IDMwOjI4IHwgKipUWVBFKiogLSBtZXNz
-YWdlIHR5cGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKKyAqICB8ICAg
-fCAgICAgICB8ICAgLSBfYEdVQ19IWEdfVFlQRV9SRVFVRVNUYCA9IDAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB8CisgKiAgfCAgIHwgICAgICAgfCAgIC0gX2BHVUNfSFhHX1RZUEVfRVZF
-TlRgID0gMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAorICogIHwgICB8ICAgICAg
-IHwgICAtIF9gR1VDX0hYR19UWVBFX05PX1JFU1BPTlNFX0JVU1lgID0gMyAgICAgICAgICAgICAg
-ICAgICAgIHwKKyAqICB8ICAgfCAgICAgICB8ICAgLSBfYEdVQ19IWEdfVFlQRV9OT19SRVNQT05T
-RV9SRVRSWWAgPSA1ICAgICAgICAgICAgICAgICAgICB8CisgKiAgfCAgIHwgICAgICAgfCAgIC0g
-X2BHVUNfSFhHX1RZUEVfUkVTUE9OU0VfRkFJTFVSRWAgPSA2ICAgICAgICAgICAgICAgICAgICAg
-fAorICogIHwgICB8ICAgICAgIHwgICAtIF9gR1VDX0hYR19UWVBFX1JFU1BPTlNFX1NVQ0NFU1Ng
-ID0gNyAgICAgICAgICAgICAgICAgICAgIHwKKyAqICB8ICAgKy0tLS0tLS0rLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCisgKiAg
-fCAgIHwgIDI3OjAgfCAqKkFVWCoqIC0gYXV4aWxpYXJ5IGRhdGEgKGRlcGVuZHMgVFlQRSkgICAg
-ICAgICAgICAgICAgICAgICAgfAorICogICstLS0rLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqICB8IDEgfCAg
-MzE6MCB8IG9wdGlvbmFsIHBheWxvYWQgKGRlcGVuZHMgb24gVFlQRSkgICAgICAgICAgICAgICAg
-ICAgICAgICAgICB8CisgKiAgKy0tLSstLS0tLS0tKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAorICogIHwuLi58ICAgICAgIHwg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHwKKyAqICArLS0tKy0tLS0tLS0rICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CisgKiAgfCBuIHwgIDMxOjAgfCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAor
-ICogICstLS0rLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqLworCisjZGVmaW5lIEdVQ19IWEdfTVNHX01JTl9M
-RU4JCQkxdQorI2RlZmluZSBHVUNfSFhHX01TR18wX09SSUdJTgkJCSgweDEgPDwgMzEpCisjZGVm
-aW5lICAgR1VDX0hYR19PUklHSU5fSE9TVAkJCTB1CisjZGVmaW5lICAgR1VDX0hYR19PUklHSU5f
-R1VDCQkJMXUKKyNkZWZpbmUgR1VDX0hYR19NU0dfMF9UWVBFCQkJKDB4NyA8PCAyOCkKKyNkZWZp
-bmUgICBHVUNfSFhHX1RZUEVfUkVRVUVTVAkJCTB1CisjZGVmaW5lICAgR1VDX0hYR19UWVBFX0VW
-RU5UCQkJMXUKKyNkZWZpbmUgICBHVUNfSFhHX1RZUEVfTk9fUkVTUE9OU0VfQlVTWQkJM3UKKyNk
-ZWZpbmUgICBHVUNfSFhHX1RZUEVfTk9fUkVTUE9OU0VfUkVUUlkJNXUKKyNkZWZpbmUgICBHVUNf
-SFhHX1RZUEVfUkVTUE9OU0VfRkFJTFVSRQkJNnUKKyNkZWZpbmUgICBHVUNfSFhHX1RZUEVfUkVT
-UE9OU0VfU1VDQ0VTUwkJN3UKKyNkZWZpbmUgR1VDX0hYR19NU0dfMF9BVVgJCQkoMHhmZmZmZmZm
-IDw8IDApCisKKy8qKgorICogRE9DOiBIWEcgUmVxdWVzdAorICoKKyAqIFRoZSBgSFhHIFJlcXVl
-c3RgXyBtZXNzYWdlIHNob3VsZCBiZSB1c2VkIHRvIGluaXRpYXRlIHN5bmNocm9ub3VzIGFjdGl2
-aXR5CisgKiBmb3Igd2hpY2ggY29uZmlybWF0aW9uIG9yIHJldHVybiBkYXRhIGlzIGV4cGVjdGVk
-LgorICoKKyAqIFRoZSByZWNpcGllbnQgb2YgdGhpcyBtZXNzYWdlIHNoYWxsIHVzZSBgSFhHIFJl
-c3BvbnNlYF8sIGBIWEcgRmFpbHVyZWBfCisgKiBvciBgSFhHIFJldHJ5YF8gbWVzc2FnZSBhcyBh
-IGRlZmluaXRlIHJlcGx5LCBhbmQgbWF5IHVzZSBgSFhHIEJ1c3lgXworICogbWVzc2FnZSBhcyBh
-IGludGVybWVkaWF0ZSByZXBseS4KKyAqCisgKiBGb3JtYXQgb2YgQERBVEEwIGFuZCBhbGwgQERB
-VEFuIGZpZWxkcyBkZXBlbmRzIG9uIHRoZSBAQUNUSU9OIGNvZGUuCisgKgorICogX0hYRyBSZXF1
-ZXN0OgorICoKKyAqICArLS0tKy0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCisgKiAgfCAgIHwgQml0cyAgfCBEZXNj
-cmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-fAorICogICs9PT0rPT09PT09PSs9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PSsKKyAqICB8IDAgfCAgICAzMSB8IE9SSUdJTiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CisgKiAg
-fCAgICstLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tKworICogIHwgICB8IDMwOjI4IHwgVFlQRSA9IEdVQ19IWEdfVFlQ
-RV9SRVFVRVNUXyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKKyAqICB8ICAgKy0t
-LS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0rCisgKiAgfCAgIHwgMjc6MTYgfCAqKkRBVEEwKiogLSByZXF1ZXN0IGRhdGEg
-KGRlcGVuZHMgb24gQUNUSU9OKSAgICAgICAgICAgICAgICAgfAorICogIHwgICArLS0tLS0tLSst
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLSsKKyAqICB8ICAgfCAgMTU6MCB8ICoqQUNUSU9OKiogLSByZXF1ZXN0ZWQgYWN0aW9uIGNv
-ZGUgICAgICAgICAgICAgICAgICAgICAgICAgICB8CisgKiAgKy0tLSstLS0tLS0tKy0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwor
-ICogIHwgMSB8ICAzMTowIHwgKipEQVRBMSoqIC0gb3B0aW9uYWwgZGF0YSAoZGVwZW5kcyBvbiBB
-Q1RJT04pICAgICAgICAgICAgICAgIHwKKyAqICArLS0tKy0tLS0tLS0rLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCisgKiAgfC4u
-LnwgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgfAorICogICstLS0rLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqICB8IG4gfCAgMzE6
-MCB8ICoqREFUQW4qKiAtIG9wdGlvbmFsIGRhdGEgKGRlcGVuZHMgb24gQUNUSU9OKSAgICAgICAg
-ICAgICAgICB8CisgKiAgKy0tLSstLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKworICovCisKKyNkZWZpbmUgR1VDX0hY
-R19SRVFVRVNUX01TR19NSU5fTEVOCQlHVUNfSFhHX01TR19NSU5fTEVOCisjZGVmaW5lIEdVQ19I
-WEdfUkVRVUVTVF9NU0dfMF9EQVRBMAkJKDB4ZmZmIDw8IDE2KQorI2RlZmluZSBHVUNfSFhHX1JF
-UVVFU1RfTVNHXzBfQUNUSU9OCQkoMHhmZmZmIDw8IDApCisjZGVmaW5lIEdVQ19IWEdfUkVRVUVT
-VF9NU0dfbl9EQVRBbgkJKDB4ZmZmZmZmZmYgPDwgMCkKKworLyoqCisgKiBET0M6IEhYRyBFdmVu
-dAorICoKKyAqIFRoZSBgSFhHIEV2ZW50YF8gbWVzc2FnZSBzaG91bGQgYmUgdXNlZCB0byBpbml0
-aWF0ZSBhc3luY2hyb25vdXMgYWN0aXZpdHkKKyAqIHRoYXQgZG9lcyBub3QgaW52b2x2ZXMgaW1t
-ZWRpYXRlIGNvbmZpcm1hdGlvbiBub3IgZGF0YS4KKyAqCisgKiBGb3JtYXQgb2YgQERBVEEwIGFu
-ZCBhbGwgQERBVEFuIGZpZWxkcyBkZXBlbmRzIG9uIHRoZSBAQUNUSU9OIGNvZGUuCisgKgorICog
-Li4gX0hYRyBFdmVudDoKKyAqCisgKiAgKy0tLSstLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKworICogIHwgICB8IEJp
-dHMgIHwgRGVzY3JpcHRpb24gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHwKKyAqICArPT09Kz09PT09PT0rPT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0rCisgKiAgfCAwIHwgICAgMzEgfCBP
-UklHSU4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgfAorICogIHwgICArLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqICB8ICAgfCAzMDoyOCB8IFRZUEUgPSBH
-VUNfSFhHX1RZUEVfRVZFTlRfICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cisg
-KiAgfCAgICstLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tKworICogIHwgICB8IDI3OjE2IHwgKipEQVRBMCoqIC0gZXZl
-bnQgZGF0YSAoZGVwZW5kcyBvbiBBQ1RJT04pICAgICAgICAgICAgICAgICAgIHwKKyAqICB8ICAg
-Ky0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0rCisgKiAgfCAgIHwgIDE1OjAgfCAqKkFDVElPTioqIC0gZXZlbnQgYWN0
-aW9uIGNvZGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAorICogICstLS0rLS0tLS0t
-LSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLSsKKyAqICB8IDEgfCAgMzE6MCB8ICoqREFUQTEqKiAtIG9wdGlvbmFsIGV2ZW50IGRh
-dGEgKGRlcGVuZHMgb24gQUNUSU9OKSAgICAgICAgICB8CisgKiAgKy0tLSstLS0tLS0tKy0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-KworICogIHwuLi58ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHwKKyAqICArLS0tKy0tLS0tLS0rLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCisgKiAg
-fCBuIHwgIDMxOjAgfCAqKkRBVEFuKiogLSBvcHRpb25hbCBldmVudCAgZGF0YSAoZGVwZW5kcyBv
-biBBQ1RJT04pICAgICAgICAgfAorICogICstLS0rLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqLworCisjZGVm
-aW5lIEdVQ19IWEdfRVZFTlRfTVNHX01JTl9MRU4JCUdVQ19IWEdfTVNHX01JTl9MRU4KKyNkZWZp
-bmUgR1VDX0hYR19FVkVOVF9NU0dfMF9EQVRBMAkJKDB4ZmZmIDw8IDE2KQorI2RlZmluZSBHVUNf
-SFhHX0VWRU5UX01TR18wX0FDVElPTgkJKDB4ZmZmZiA8PCAwKQorI2RlZmluZSBHVUNfSFhHX0VW
-RU5UX01TR19uX0RBVEFuCQkoMHhmZmZmZmZmZiA8PCAwKQorCisvKioKKyAqIERPQzogSFhHIEJ1
-c3kKKyAqCisgKiBUaGUgYEhYRyBCdXN5YF8gbWVzc2FnZSBtYXkgYmUgdXNlZCB0byBhY2tub3ds
-ZWRnZSByZWNlcHRpb24gb2YgdGhlIGBIWEcgUmVxdWVzdGBfCisgKiBtZXNzYWdlIGlmIHRoZSBy
-ZWNpcGllbnQgZXhwZWN0cyB0aGF0IGl0IHByb2Nlc3Npbmcgd2lsbCBiZSBsb25nZXIgdGhhbiBk
-ZWZhdWx0CisgKiB0aW1lb3V0LgorICoKKyAqIFRoZSBAQ09VTlRFUiBmaWVsZCBtYXkgYmUgdXNl
-ZCBhcyBhIHByb2dyZXNzIGluZGljYXRvci4KKyAqCisgKiAuLiBfSFhHIEJ1c3k6CisgKgorICog
-ICstLS0rLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqICB8ICAgfCBCaXRzICB8IERlc2NyaXB0aW9uICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CisgKiAgKz09PSs9
-PT09PT09Kz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09KworICogIHwgMCB8ICAgIDMxIHwgT1JJR0lOICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKKyAqICB8ICAgKy0tLS0tLS0r
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0rCisgKiAgfCAgIHwgMzA6MjggfCBUWVBFID0gR1VDX0hYR19UWVBFX05PX1JFU1BPTlNF
-X0JVU1lfICAgICAgICAgICAgICAgICAgICAgICAgfAorICogIHwgICArLS0tLS0tLSstLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsK
-KyAqICB8ICAgfCAgMjc6MCB8ICoqQ09VTlRFUioqIC0gcHJvZ3Jlc3MgaW5kaWNhdG9yICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICB8CisgKiAgKy0tLSstLS0tLS0tKy0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKworICovCisK
-KyNkZWZpbmUgR1VDX0hYR19CVVNZX01TR19MRU4JCQlHVUNfSFhHX01TR19NSU5fTEVOCisjZGVm
-aW5lIEdVQ19IWEdfQlVTWV9NU0dfMF9DT1VOVEVSCQlHVUNfSFhHX01TR18wX0FVWAorCisvKioK
-KyAqIERPQzogSFhHIFJldHJ5CisgKgorICogVGhlIGBIWEcgUmV0cnlgXyBtZXNzYWdlIHNob3Vs
-ZCBiZSB1c2VkIGJ5IHJlY2lwaWVudCB0byBpbmRpY2F0ZSB0aGF0IHRoZQorICogYEhYRyBSZXF1
-ZXN0YF8gbWVzc2FnZSB3YXMgZHJvcHBlZCBhbmQgaXQgc2hvdWxkIGJlIHJlc2VudCBhZ2Fpbi4K
-KyAqCisgKiBUaGUgQFJFQVNPTiBmaWVsZCBtYXkgYmUgdXNlZCB0byBwcm92aWRlIGFkZGl0aW9u
-YWwgaW5mb3JtYXRpb24uCisgKgorICogLi4gX0hYRyBSZXRyeToKKyAqCisgKiAgKy0tLSstLS0t
-LS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tKworICogIHwgICB8IEJpdHMgIHwgRGVzY3JpcHRpb24gICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKKyAqICArPT09Kz09PT09PT0rPT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT0rCisgKiAgfCAwIHwgICAgMzEgfCBPUklHSU4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgfAorICogIHwgICArLS0tLS0tLSstLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAq
-ICB8ICAgfCAzMDoyOCB8IFRZUEUgPSBHVUNfSFhHX1RZUEVfTk9fUkVTUE9OU0VfUkVUUllfICAg
-ICAgICAgICAgICAgICAgICAgICB8CisgKiAgfCAgICstLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKworICogIHwgICB8
-ICAyNzowIHwgKipSRUFTT04qKiAtIHJlYXNvbiBmb3IgcmV0cnkgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHwKKyAqICB8ICAgfCAgICAgICB8ICAtIF9gR1VDX0hYR19SRVRSWV9SRUFT
-T05fVU5TUEVDSUZJRURgID0gMCAgICAgICAgICAgICAgICAgICB8CisgKiAgKy0tLSstLS0tLS0t
-Ky0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tKworICovCisKKyNkZWZpbmUgR1VDX0hYR19SRVRSWV9NU0dfTEVOCQkJR1VDX0hYR19N
-U0dfTUlOX0xFTgorI2RlZmluZSBHVUNfSFhHX1JFVFJZX01TR18wX1JFQVNPTgkJR1VDX0hYR19N
-U0dfMF9BVVgKKyNkZWZpbmUgICBHVUNfSFhHX1JFVFJZX1JFQVNPTl9VTlNQRUNJRklFRAkwdQor
-CisvKioKKyAqIERPQzogSFhHIEZhaWx1cmUKKyAqCisgKiBUaGUgYEhYRyBGYWlsdXJlYF8gbWVz
-c2FnZSBzaGFsbCBiZSB1c2VkIGFzIGEgcmVwbHkgdG8gdGhlIGBIWEcgUmVxdWVzdGBfCisgKiBt
-ZXNzYWdlIHRoYXQgY291bGQgbm90IGJlIHByb2Nlc3NlZCBkdWUgdG8gYW4gZXJyb3IuCisgKgor
-ICogLi4gX0hYRyBGYWlsdXJlOgorICoKKyAqICArLS0tKy0tLS0tLS0rLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCisgKiAgfCAg
-IHwgQml0cyAgfCBEZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgfAorICogICs9PT0rPT09PT09PSs9PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSsKKyAqICB8IDAgfCAgICAz
-MSB8IE9SSUdJTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICB8CisgKiAgfCAgICstLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKworICogIHwgICB8IDMwOjI4IHwgVFlQ
-RSA9IEdVQ19IWEdfVFlQRV9SRVNQT05TRV9GQUlMVVJFXyAgICAgICAgICAgICAgICAgICAgICAg
-IHwKKyAqICB8ICAgKy0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCisgKiAgfCAgIHwgMjc6MTYgfCAqKkhJTlQqKiAt
-IGFkZGl0aW9uYWwgZXJyb3IgaGludCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAorICog
-IHwgICArLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqICB8ICAgfCAgMTU6MCB8ICoqRVJST1IqKiAtIGVycm9y
-L3Jlc3VsdCBjb2RlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CisgKiAgKy0tLSst
-LS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tKworICovCisKKyNkZWZpbmUgR1VDX0hYR19GQUlMVVJFX01TR19MRU4JCQlH
-VUNfSFhHX01TR19NSU5fTEVOCisjZGVmaW5lIEdVQ19IWEdfRkFJTFVSRV9NU0dfMF9ISU5UCQko
-MHhmZmYgPDwgMTYpCisjZGVmaW5lIEdVQ19IWEdfRkFJTFVSRV9NU0dfMF9FUlJPUgkJKDB4ZmZm
-ZiA8PCAwKQorCisvKioKKyAqIERPQzogSFhHIFJlc3BvbnNlCisgKgorICogVGhlIGBIWEcgUmVz
-cG9uc2VgXyBtZXNzYWdlIFNIQUxMIGJlIHVzZWQgYXMgYSByZXBseSB0byB0aGUgYEhYRyBSZXF1
-ZXN0YF8KKyAqIG1lc3NhZ2UgdGhhdCB3YXMgc3VjY2Vzc2Z1bGx5IHByb2Nlc3NlZCB3aXRob3V0
-IGFuIGVycm9yLgorICoKKyAqIC4uIF9IWEcgUmVzcG9uc2U6CisgKgorICogICstLS0rLS0tLS0t
-LSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLSsKKyAqICB8ICAgfCBCaXRzICB8IERlc2NyaXB0aW9uICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CisgKiAgKz09PSs9PT09PT09Kz09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-KworICogIHwgMCB8ICAgIDMxIHwgT1JJR0lOICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHwKKyAqICB8ICAgKy0tLS0tLS0rLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCisgKiAg
-fCAgIHwgMzA6MjggfCBUWVBFID0gR1VDX0hYR19UWVBFX1JFU1BPTlNFX1NVQ0NFU1NfICAgICAg
-ICAgICAgICAgICAgICAgICAgfAorICogIHwgICArLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqICB8ICAgfCAg
-Mjc6MCB8ICoqREFUQTAqKiAtIGRhdGEgKGRlcGVuZHMgb24gQUNUSU9OIGZyb20gYEhYRyBSZXF1
-ZXN0YF8pICAgICB8CisgKiAgKy0tLSstLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKworICogIHwgMSB8ICAzMTowIHwg
-KipEQVRBMSoqIC0gZGF0YSAoZGVwZW5kcyBvbiBBQ1RJT04gZnJvbSBgSFhHIFJlcXVlc3RgXykg
-ICAgIHwKKyAqICArLS0tKy0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCisgKiAgfC4uLnwgICAgICAgfCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAor
-ICogICstLS0rLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKKyAqICB8IG4gfCAgMzE6MCB8ICoqREFUQW4qKiAtIGRh
-dGEgKGRlcGVuZHMgb24gQUNUSU9OIGZyb20gYEhYRyBSZXF1ZXN0YF8pICAgICB8CisgKiAgKy0t
-LSstLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tKworICovCisKKyNkZWZpbmUgR1VDX0hYR19SRVNQT05TRV9NU0dfTUlO
-X0xFTgkJR1VDX0hYR19NU0dfTUlOX0xFTgorI2RlZmluZSBHVUNfSFhHX1JFU1BPTlNFX01TR18w
-X0RBVEEwCQlHVUNfSFhHX01TR18wX0FVWAorI2RlZmluZSBHVUNfSFhHX1JFU1BPTlNFX01TR19u
-X0RBVEFuCQkoMHhmZmZmZmZmZiA8PCAwKQorCisvKiBkZXByZWNhdGVkICovCiAjZGVmaW5lIElO
-VEVMX0dVQ19NU0dfVFlQRV9TSElGVAkyOAogI2RlZmluZSBJTlRFTF9HVUNfTVNHX1RZUEVfTUFT
-SwkJKDB4RiA8PCBJTlRFTF9HVUNfTVNHX1RZUEVfU0hJRlQpCiAjZGVmaW5lIElOVEVMX0dVQ19N
-U0dfREFUQV9TSElGVAkxNgotLSAKMi4yOC4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9pbnRlbC1nZngK
+With GuC scheduling, it isn't safe to unpin a context while scheduling
+is enabled for that context as the GuC may touch some of the pinned
+state (e.g. LRC). To ensure scheduling isn't enabled when an unpin is
+done, a call back is added to intel_context_unpin when pin count == 1
+to disable scheduling for that context. When the response CTB is
+received it is safe to do the final unpin.
+
+Future patches may add a heuristic / delay to schedule the disable
+call back to avoid thrashing on schedule enable / disable.
+
+Cc: John Harrison <john.c.harrison@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_context.c       |   4 +-
+ drivers/gpu/drm/i915/gt/intel_context.h       |  21 ++-
+ drivers/gpu/drm/i915/gt/intel_context_types.h |   2 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   6 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 145 +++++++++++++++++-
+ 6 files changed, 176 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index f750c826e19d..1499b8aace2a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -306,9 +306,9 @@ int __intel_context_do_pin(struct intel_context *ce)
+ 	return err;
+ }
+ 
+-void intel_context_unpin(struct intel_context *ce)
++void __intel_context_do_unpin(struct intel_context *ce, int sub)
+ {
+-	if (!atomic_dec_and_test(&ce->pin_count))
++	if (!atomic_sub_and_test(sub, &ce->pin_count))
+ 		return;
+ 
+ 	CE_TRACE(ce, "unpin\n");
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
+index f83a73a2b39f..92ecbab8c1cd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.h
++++ b/drivers/gpu/drm/i915/gt/intel_context.h
+@@ -113,7 +113,26 @@ static inline void __intel_context_pin(struct intel_context *ce)
+ 	atomic_inc(&ce->pin_count);
+ }
+ 
+-void intel_context_unpin(struct intel_context *ce);
++void __intel_context_do_unpin(struct intel_context *ce, int sub);
++
++static inline void intel_context_sched_disable_unpin(struct intel_context *ce)
++{
++	__intel_context_do_unpin(ce, 2);
++}
++
++static inline void intel_context_unpin(struct intel_context *ce)
++{
++	if (!ce->ops->sched_disable) {
++		__intel_context_do_unpin(ce, 1);
++	} else {
++		while (!atomic_add_unless(&ce->pin_count, -1, 1)) {
++			if (atomic_cmpxchg(&ce->pin_count, 1, 2) == 1) {
++				ce->ops->sched_disable(ce);
++				break;
++			}
++		}
++	}
++}
+ 
+ void intel_context_enter_engine(struct intel_context *ce);
+ void intel_context_exit_engine(struct intel_context *ce);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index beafe55a9101..e7af6a2368f8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -43,6 +43,8 @@ struct intel_context_ops {
+ 	void (*enter)(struct intel_context *ce);
+ 	void (*exit)(struct intel_context *ce);
+ 
++	void (*sched_disable)(struct intel_context *ce);
++
+ 	void (*reset)(struct intel_context *ce);
+ 	void (*destroy)(struct kref *kref);
+ };
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 85ff32bfd074..55f02dd1598d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -237,6 +237,8 @@ int intel_guc_reset_engine(struct intel_guc *guc,
+ 
+ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
+ 					  const u32 *msg, u32 len);
++int intel_guc_sched_done_process_msg(struct intel_guc *guc,
++				     const u32 *msg, u32 len);
+ 
+ void intel_guc_load_status(struct intel_guc *guc, struct drm_printer *p);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 51c5efdf543a..8e48bf260eab 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -900,6 +900,12 @@ static int ct_process_request(struct intel_guc_ct *ct, struct ct_incoming_msg *r
+ 			CT_ERROR(ct, "deregister context failed %x %*ph\n",
+ 				  action, 4 * len, payload);
+ 		break;
++	case INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE:
++		ret = intel_guc_sched_done_process_msg(guc, payload, len);
++		if (unlikely(ret))
++			CT_ERROR(ct, "schedule context failed %x %*ph\n",
++				  action, 4 * len, payload);
++		break;
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index b4c439025a5f..2afc49caf462 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -69,6 +69,7 @@
+  * context, to be executing simultaneously.
+  */
+ #define SCHED_STATE_NO_LOCK_ENABLED			BIT(0)
++#define SCHED_STATE_NO_LOCK_PENDING_ENABLE		BIT(1)
+ static inline bool context_enabled(struct intel_context *ce)
+ {
+ 	return (atomic_read(&ce->guc_sched_state_no_lock) &
+@@ -86,6 +87,24 @@ static inline void clr_context_enabled(struct intel_context *ce)
+ 		   &ce->guc_sched_state_no_lock);
+ }
+ 
++static inline bool context_pending_enable(struct intel_context *ce)
++{
++	return (atomic_read(&ce->guc_sched_state_no_lock) &
++		SCHED_STATE_NO_LOCK_PENDING_ENABLE);
++}
++
++static inline void set_context_pending_enable(struct intel_context *ce)
++{
++	atomic_or(SCHED_STATE_NO_LOCK_PENDING_ENABLE,
++		  &ce->guc_sched_state_no_lock);
++}
++
++static inline void clr_context_pending_enable(struct intel_context *ce)
++{
++	atomic_and((u32)~SCHED_STATE_NO_LOCK_PENDING_ENABLE,
++		   &ce->guc_sched_state_no_lock);
++}
++
+ /*
+  * Below is a set of functions which control the GuC scheduling state which
+  * require a lock, aside from the special case where the functions are called
+@@ -94,6 +113,7 @@ static inline void clr_context_enabled(struct intel_context *ce)
+  */
+ #define SCHED_STATE_WAIT_FOR_DEREGISTER_TO_REGISTER	BIT(0)
+ #define SCHED_STATE_DESTROYED				BIT(1)
++#define SCHED_STATE_PENDING_DISABLE			BIT(2)
+ static inline void init_sched_state(struct intel_context *ce)
+ {
+ 	/* Only should be called from guc_lrc_desc_pin() */
+@@ -138,6 +158,24 @@ set_context_destroyed(struct intel_context *ce)
+ 	ce->guc_state.sched_state |= SCHED_STATE_DESTROYED;
+ }
+ 
++static inline bool context_pending_disable(struct intel_context *ce)
++{
++	return (ce->guc_state.sched_state & SCHED_STATE_PENDING_DISABLE);
++}
++
++static inline void set_context_pending_disable(struct intel_context *ce)
++{
++	lockdep_assert_held(&ce->guc_state.lock);
++	ce->guc_state.sched_state |= SCHED_STATE_PENDING_DISABLE;
++}
++
++static inline void clr_context_pending_disable(struct intel_context *ce)
++{
++	lockdep_assert_held(&ce->guc_state.lock);
++	ce->guc_state.sched_state =
++		(ce->guc_state.sched_state & ~SCHED_STATE_PENDING_DISABLE);
++}
++
+ static inline bool context_guc_id_invalid(struct intel_context *ce)
+ {
+ 	return (ce->guc_id == GUC_INVALID_LRC_ID);
+@@ -230,6 +268,8 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ 		action[len++] = INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_SET;
+ 		action[len++] = ce->guc_id;
+ 		action[len++] = GUC_CONTEXT_ENABLE;
++		set_context_pending_enable(ce);
++		intel_context_get(ce);
+ 	} else {
+ 		action[len++] = INTEL_GUC_ACTION_SCHED_CONTEXT;
+ 		action[len++] = ce->guc_id;
+@@ -237,8 +277,12 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ 
+ 	err = intel_guc_send_nb(guc, action, len);
+ 
+-	if (!enabled && !err)
++	if (!enabled && !err) {
+ 		set_context_enabled(ce);
++	} else if (!enabled) {
++		clr_context_pending_enable(ce);
++		intel_context_put(ce);
++	}
+ 
+ 	return err;
+ }
+@@ -834,6 +878,60 @@ static void guc_context_post_unpin(struct intel_context *ce)
+ 	lrc_post_unpin(ce);
+ }
+ 
++static void __guc_context_sched_disable(struct intel_guc *guc,
++					struct intel_context *ce,
++					u16 guc_id)
++{
++	u32 action[] = {
++		INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_SET,
++		guc_id,	/* ce->guc_id not stable */
++		GUC_CONTEXT_DISABLE
++	};
++
++	GEM_BUG_ON(guc_id == GUC_INVALID_LRC_ID);
++
++	intel_context_get(ce);
++
++	intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), true);
++}
++
++static u16 prep_context_pending_disable(struct intel_context *ce)
++{
++	set_context_pending_disable(ce);
++	clr_context_enabled(ce);
++
++	return ce->guc_id;
++}
++
++static void guc_context_sched_disable(struct intel_context *ce)
++{
++	struct intel_guc *guc = ce_to_guc(ce);
++	struct intel_runtime_pm *runtime_pm = &ce->engine->gt->i915->runtime_pm;
++	unsigned long flags;
++	u16 guc_id;
++	intel_wakeref_t wakeref;
++
++	if (context_guc_id_invalid(ce) ||
++	    !lrc_desc_registered(guc, ce->guc_id)) {
++		clr_context_enabled(ce);
++		goto unpin;
++	}
++
++	if (!context_enabled(ce))
++		goto unpin;
++
++	spin_lock_irqsave(&ce->guc_state.lock, flags);
++	guc_id = prep_context_pending_disable(ce);
++	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++
++	with_intel_runtime_pm(runtime_pm, wakeref)
++		__guc_context_sched_disable(guc, ce, guc_id);
++
++	return;
++unpin:
++	intel_context_sched_disable_unpin(ce);
++}
++
+ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
+ {
+ 	struct intel_engine_cs *engine = ce->engine;
+@@ -842,6 +940,7 @@ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
+ 
+ 	GEM_BUG_ON(!lrc_desc_registered(guc, ce->guc_id));
+ 	GEM_BUG_ON(ce != __get_context(guc, ce->guc_id));
++	GEM_BUG_ON(context_enabled(ce));
+ 
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 	set_context_destroyed(ce);
+@@ -923,6 +1022,8 @@ static const struct intel_context_ops guc_context_ops = {
+ 	.enter = intel_context_enter_engine,
+ 	.exit = intel_context_exit_engine,
+ 
++	.sched_disable = guc_context_sched_disable,
++
+ 	.reset = lrc_reset,
+ 	.destroy = guc_context_destroy,
+ };
+@@ -1356,3 +1457,45 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
+ 
+ 	return 0;
+ }
++
++int intel_guc_sched_done_process_msg(struct intel_guc *guc,
++				     const u32 *msg,
++				     u32 len)
++{
++	struct intel_context *ce;
++	unsigned long flags;
++	u32 desc_idx = msg[0];
++
++	if (unlikely(len < 2)) {
++		drm_dbg(&guc_to_gt(guc)->i915->drm, "Invalid length %u", len);
++		return -EPROTO;
++	}
++
++	ce = g2h_context_lookup(guc, desc_idx);
++	if (unlikely(!ce))
++		return -EPROTO;
++
++	if (unlikely(context_destroyed(ce) ||
++		     (!context_pending_enable(ce) &&
++		     !context_pending_disable(ce)))) {
++		drm_dbg(&guc_to_gt(guc)->i915->drm,
++			"Bad context sched_state 0x%x, 0x%x, desc_idx %u",
++			atomic_read(&ce->guc_sched_state_no_lock),
++			ce->guc_state.sched_state, desc_idx);
++		return -EPROTO;
++	}
++
++	if (context_pending_enable(ce)) {
++		clr_context_pending_enable(ce);
++	} else if (context_pending_disable(ce)) {
++		intel_context_sched_disable_unpin(ce);
++
++		spin_lock_irqsave(&ce->guc_state.lock, flags);
++		clr_context_pending_disable(ce);
++		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++	}
++
++	intel_context_put(ce);
++
++	return 0;
++}
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
