@@ -2,51 +2,71 @@ Return-Path: <SRS0=MDkJ=KB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DED7EC433ED
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46CC7C433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:09:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 99BE961001
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:01:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99BE961001
+	by mail.kernel.org (Postfix) with ESMTPS id D43F8613B5
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:09:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D43F8613B5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC9586EE30;
-	Thu,  6 May 2021 18:58:05 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50FD16EDAC;
- Thu,  6 May 2021 18:57:15 +0000 (UTC)
-IronPort-SDR: txXZ9p44vCTjk7N5Qt5QSXJLjOzvAQvWmhsFW5xcTtqDMqs/coX6QufCFsnzFAd+Lh4C1Yj+Gx
- gjyltSCO+J/A==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="219439493"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="219439493"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:14 -0700
-IronPort-SDR: i0UPM06gb9MAfB2LMDyAD3godethxTQ7Ifbq6IRtRKzAeKRKBGi0FJG5MGG7p/ruH45Bna2bra
- 5bPLQUrhAH6w==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583642"
-Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:13 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:14:40 -0700
-Message-Id: <20210506191451.77768-87-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
-References: <20210506191451.77768-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79F496ED23;
+	Thu,  6 May 2021 19:09:50 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40DA86ED23
+ for <intel-gfx@lists.freedesktop.org>; Thu,  6 May 2021 19:09:49 +0000 (UTC)
+IronPort-SDR: R4L2UN000BnYJ1ELtikJa1qd+rc7Y560I5DQDIP0b9NYUPTxaVHBRHhXxcpZHXDnNVAEVlbA76
+ Hnn5Q7mRTGqg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="178794591"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="178794591"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 12:09:48 -0700
+IronPort-SDR: R8Zs2Yx00FXg7vZW01h5Tkel4+V52e2Q1O8OLQdtB1DUxNI1nGYoXoWb81Gx4qVVIUXbwdmDGo
+ DLdHEI8M/5cg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="622575055"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmsmga005.fm.intel.com with ESMTP; 06 May 2021 12:09:48 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Thu, 6 May 2021 12:09:48 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Thu, 6 May 2021 12:09:47 -0700
+Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
+ ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2106.013;
+ Thu, 6 May 2021 12:09:47 -0700
+From: "Souza, Jose" <jose.souza@intel.com>
+To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "Deak, Imre" <imre.deak@intel.com>
+Thread-Topic: [PATCH v2 01/10] drm/i915/xelpd: add XE_LPD display
+ characteristics
+Thread-Index: AQHXQpOaA3dYuVpI1ECWCKayi5wRdqrXR8sA
+Date: Thu, 6 May 2021 19:09:47 +0000
+Message-ID: <3e9fcc4cddc87eafc731badb805e1076af43ddc9.camel@intel.com>
+References: <20210506161930.309688-1-imre.deak@intel.com>
+ <20210506161930.309688-2-imre.deak@intel.com>
+In-Reply-To: <20210506161930.309688-2-imre.deak@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.1.200.100]
+Content-ID: <AB4C2DAE00794241B41ED292AA2F1821@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 86/97] drm/i915/guc: Add golden context to
- GuC ADS
+Subject: Re: [Intel-gfx] [PATCH v2 01/10] drm/i915/xelpd: add XE_LPD display
+ characteristics
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,419 +79,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jason.ekstrand@intel.com, daniel.vetter@intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
-
-The media watchdog mechanism involves GuC doing a silent reset and
-continue of the hung context. This requires the i915 driver provide a
-golden context to GuC in the ADS.
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt.c         |   2 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.c     |   5 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h     |   2 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 213 ++++++++++++++++++---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h |   1 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.c      |   5 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.h      |   1 +
- 7 files changed, 199 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 1742a8561f69..0e4a5c4c883f 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -641,6 +641,8 @@ int intel_gt_init(struct intel_gt *gt)
- 	if (err)
- 		goto err_gt;
- 
-+	intel_uc_init_late(&gt->uc);
-+
- 	err = i915_inject_probe_error(gt->i915, -EIO);
- 	if (err)
- 		goto err_gt;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index f3240037fb7c..918802712460 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -192,6 +192,11 @@ void intel_guc_init_early(struct intel_guc *guc)
- 	}
- }
- 
-+void intel_guc_init_late(struct intel_guc *guc)
-+{
-+	intel_guc_ads_init_late(guc);
-+}
-+
- static u32 guc_ctl_debug_flags(struct intel_guc *guc)
- {
- 	u32 level = intel_guc_log_get_level(&guc->log);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 904f3a941832..96849a256be8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -66,6 +66,7 @@ struct intel_guc {
- 	struct i915_vma *ads_vma;
- 	struct __guc_ads_blob *ads_blob;
- 	u32 ads_regset_size;
-+	u32 ads_golden_ctxt_size;
- 
- 	struct i915_vma *lrc_desc_pool;
- 	void *lrc_desc_pool_vaddr;
-@@ -183,6 +184,7 @@ static inline u32 intel_guc_ggtt_offset(struct intel_guc *guc,
- }
- 
- void intel_guc_init_early(struct intel_guc *guc);
-+void intel_guc_init_late(struct intel_guc *guc);
- void intel_guc_init_send_regs(struct intel_guc *guc);
- void intel_guc_write_params(struct intel_guc *guc);
- int intel_guc_init(struct intel_guc *guc);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index bc2745f73a06..299aa580d90a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -7,6 +7,7 @@
- 
- #include "gt/intel_gt.h"
- #include "gt/intel_lrc.h"
-+#include "gt/shmem_utils.h"
- #include "intel_guc_ads.h"
- #include "intel_guc_fwif.h"
- #include "intel_uc.h"
-@@ -35,6 +36,10 @@
-  *      +---------------------------------------+ <== dynamic
-  *      | padding                               |
-  *      +---------------------------------------+ <== 4K aligned
-+ *      | golden contexts                       |
-+ *      +---------------------------------------+
-+ *      | padding                               |
-+ *      +---------------------------------------+ <== 4K aligned
-  *      | private data                          |
-  *      +---------------------------------------+
-  *      | padding                               |
-@@ -55,6 +60,11 @@ static u32 guc_ads_regset_size(struct intel_guc *guc)
- 	return guc->ads_regset_size;
- }
- 
-+static u32 guc_ads_golden_ctxt_size(struct intel_guc *guc)
-+{
-+	return PAGE_ALIGN(guc->ads_golden_ctxt_size);
-+}
-+
- static u32 guc_ads_private_data_size(struct intel_guc *guc)
- {
- 	return PAGE_ALIGN(guc->fw.private_data_size);
-@@ -65,12 +75,23 @@ static u32 guc_ads_regset_offset(struct intel_guc *guc)
- 	return offsetof(struct __guc_ads_blob, regset);
- }
- 
--static u32 guc_ads_private_data_offset(struct intel_guc *guc)
-+static u32 guc_ads_golden_ctxt_offset(struct intel_guc *guc)
- {
- 	u32 offset;
- 
- 	offset = guc_ads_regset_offset(guc) +
- 		 guc_ads_regset_size(guc);
-+
-+	return PAGE_ALIGN(offset);
-+}
-+
-+static u32 guc_ads_private_data_offset(struct intel_guc *guc)
-+{
-+	u32 offset;
-+
-+	offset = guc_ads_golden_ctxt_offset(guc) +
-+		 guc_ads_golden_ctxt_size(guc);
-+
- 	return PAGE_ALIGN(offset);
- }
- 
-@@ -321,53 +342,163 @@ static void guc_mmio_reg_state_init(struct intel_guc *guc,
- 	GEM_BUG_ON(temp_set.size);
- }
- 
--/*
-- * The first 80 dwords of the register state context, containing the
-- * execlists and ppgtt registers.
-- */
--#define LR_HW_CONTEXT_SIZE	(80 * sizeof(u32))
-+static void fill_engine_enable_masks(struct intel_gt *gt,
-+				     struct guc_gt_system_info *info)
-+{
-+	info->engine_enabled_masks[GUC_RENDER_CLASS] = 1;
-+	info->engine_enabled_masks[GUC_BLITTER_CLASS] = 1;
-+	info->engine_enabled_masks[GUC_VIDEO_CLASS] = VDBOX_MASK(gt);
-+	info->engine_enabled_masks[GUC_VIDEOENHANCE_CLASS] = VEBOX_MASK(gt);
-+}
- 
--static void __guc_ads_init(struct intel_guc *guc)
-+/* Skip execlist and PPGTT registers */
-+#define LR_HW_CONTEXT_SIZE      (80 * sizeof(u32))
-+#define SKIP_SIZE               (LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SIZE)
-+
-+static int guc_prep_golden_context(struct intel_guc *guc,
-+				   struct __guc_ads_blob *blob)
- {
- 	struct intel_gt *gt = guc_to_gt(guc);
--	struct drm_i915_private *i915 = gt->i915;
-+	u32 addr_ggtt, offset;
-+	u32 total_size = 0, alloc_size, real_size;
-+	u8 engine_class, guc_class;
-+	struct guc_gt_system_info *info, local_info;
-+
-+	/*
-+	 * Reserve the memory for the golden contexts and point GuC at it but
-+	 * leave it empty for now. The context data will be filled in later
-+	 * once there is something available to put there.
-+	 *
-+	 * Note that the HWSP and ring context are not included.
-+	 *
-+	 * Note also that the storage must be pinned in the GGTT, so that the
-+	 * address won't change after GuC has been told where to find it. The
-+	 * GuC will also validate that the LRC base + size fall within the
-+	 * allowed GGTT range.
-+	 */
-+	if (blob) {
-+		offset = guc_ads_golden_ctxt_offset(guc);
-+		addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
-+		info = &blob->system_info;
-+	} else {
-+		memset(&local_info, 0, sizeof(local_info));
-+		info = &local_info;
-+		fill_engine_enable_masks(gt, info);
-+	}
-+
-+	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
-+		if (engine_class == OTHER_CLASS)
-+			continue;
-+
-+		guc_class = engine_class_to_guc_class(engine_class);
-+
-+		if (!info->engine_enabled_masks[guc_class])
-+			continue;
-+
-+		real_size = intel_engine_context_size(gt, engine_class);
-+		alloc_size = PAGE_ALIGN(real_size);
-+		total_size += alloc_size;
-+
-+		if (!blob)
-+			continue;
-+
-+		blob->ads.eng_state_size[guc_class] = real_size;
-+		blob->ads.golden_context_lrca[guc_class] = addr_ggtt;
-+		addr_ggtt += alloc_size;
-+	}
-+
-+	if (!blob)
-+		return total_size;
-+
-+	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
-+	return total_size;
-+}
-+
-+static struct intel_engine_cs *find_engine_state(struct intel_gt *gt, u8 engine_class)
-+{
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+
-+	for_each_engine(engine, gt, id) {
-+		if (engine->class != engine_class)
-+			continue;
-+
-+		if (!engine->default_state)
-+			continue;
-+
-+		return engine;
-+	}
-+
-+	return NULL;
-+}
-+
-+static void guc_init_golden_context(struct intel_guc *guc)
-+{
- 	struct __guc_ads_blob *blob = guc->ads_blob;
--	const u32 skipped_size = LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SIZE;
--	u32 base;
-+	struct intel_engine_cs *engine;
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	u32 addr_ggtt, offset;
-+	u32 total_size = 0, alloc_size, real_size;
- 	u8 engine_class, guc_class;
-+	u8 *ptr;
- 
--	/* GuC scheduling policies */
--	guc_policies_init(guc, &blob->policies);
-+	if (!intel_uc_uses_guc_submission(&gt->uc))
-+		return;
-+
-+	GEM_BUG_ON(!blob);
- 
- 	/*
--	 * GuC expects a per-engine-class context image and size
--	 * (minus hwsp and ring context). The context image will be
--	 * used to reinitialize engines after a reset. It must exist
--	 * and be pinned in the GGTT, so that the address won't change after
--	 * we have told GuC where to find it. The context size will be used
--	 * to validate that the LRC base + size fall within allowed GGTT.
-+	 * Go back and fill in the golden context data now that it is
-+	 * available.
- 	 */
-+	offset = guc_ads_golden_ctxt_offset(guc);
-+	addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
-+	ptr = ((u8 *) blob) + offset;
-+
- 	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
- 		if (engine_class == OTHER_CLASS)
- 			continue;
- 
- 		guc_class = engine_class_to_guc_class(engine_class);
- 
--		/*
--		 * TODO: Set context pointer to default state to allow
--		 * GuC to re-init guilty contexts after internal reset.
--		 */
--		blob->ads.golden_context_lrca[guc_class] = 0;
--		blob->ads.eng_state_size[guc_class] =
--			intel_engine_context_size(gt, engine_class) -
--			skipped_size;
-+		if (!blob->system_info.engine_enabled_masks[guc_class])
-+			continue;
-+
-+		real_size = intel_engine_context_size(gt, engine_class);
-+		alloc_size = PAGE_ALIGN(real_size);
-+		total_size += alloc_size;
-+
-+		engine = find_engine_state(gt, engine_class);
-+		if (!engine) {
-+			drm_err(&gt->i915->drm, "No engine state recorded for class %d!\n", engine_class);
-+			blob->ads.eng_state_size[guc_class] = 0;
-+			blob->ads.golden_context_lrca[guc_class] = 0;
-+			continue;
-+		}
-+
-+		GEM_BUG_ON(blob->ads.eng_state_size[guc_class] != real_size);
-+		GEM_BUG_ON(blob->ads.golden_context_lrca[guc_class] != addr_ggtt);
-+		addr_ggtt += alloc_size;
-+
-+		shmem_read(engine->default_state, SKIP_SIZE, ptr + SKIP_SIZE, real_size);
-+		ptr += alloc_size;
- 	}
- 
-+	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
-+}
-+
-+static void __guc_ads_init(struct intel_guc *guc)
-+{
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	struct drm_i915_private *i915 = gt->i915;
-+	struct __guc_ads_blob *blob = guc->ads_blob;
-+	u32 base;
-+
-+	/* GuC scheduling policies */
-+	guc_policies_init(guc, &blob->policies);
-+
- 	/* System info */
--	blob->system_info.engine_enabled_masks[GUC_RENDER_CLASS] = 1;
--	blob->system_info.engine_enabled_masks[GUC_BLITTER_CLASS] = 1;
--	blob->system_info.engine_enabled_masks[GUC_VIDEO_CLASS] = VDBOX_MASK(gt);
--	blob->system_info.engine_enabled_masks[GUC_VIDEOENHANCE_CLASS] = VEBOX_MASK(gt);
-+	fill_engine_enable_masks(gt, &blob->system_info);
- 
- 	blob->system_info.generic_gt_sysinfo[GUC_GENERIC_GT_SYSINFO_SLICE_ENABLED] =
- 		hweight8(gt->info.sseu.slice_mask);
-@@ -382,6 +513,9 @@ static void __guc_ads_init(struct intel_guc *guc)
- 			 GEN12_DOORBELLS_PER_SQIDI) + 1;
- 	}
- 
-+	/* Golden contexts for re-initialising after a watchdog reset */
-+	guc_prep_golden_context(guc, blob);
-+
- 	guc_mapping_table_init(guc_to_gt(guc), &blob->system_info);
- 
- 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
-@@ -423,6 +557,13 @@ int intel_guc_ads_create(struct intel_guc *guc)
- 		return ret;
- 	guc->ads_regset_size = ret;
- 
-+	/* Likewise the golden contexts: */
-+	ret = guc_prep_golden_context(guc, NULL);
-+	if (ret < 0)
-+		return ret;
-+	guc->ads_golden_ctxt_size = ret;
-+
-+	/* Now the total size can be determined: */
- 	size = guc_ads_blob_size(guc);
- 
- 	ret = intel_guc_allocate_and_map_vma(guc, size, &guc->ads_vma,
-@@ -435,6 +576,18 @@ int intel_guc_ads_create(struct intel_guc *guc)
- 	return 0;
- }
- 
-+void intel_guc_ads_init_late(struct intel_guc *guc)
-+{
-+	/*
-+	 * The golden context setup requires the saved engine state from
-+	 * __engines_record_defaults(). However, that requires engines to be
-+	 * operational which means the ADS must already have been configured.
-+	 * Fortunately, the golden context state is not needed until a hang
-+	 * occurs, so it can be filled in during this late init phase.
-+	 */
-+	guc_init_golden_context(guc);
-+}
-+
- void intel_guc_ads_destroy(struct intel_guc *guc)
- {
- 	i915_vma_unpin_and_release(&guc->ads_vma, I915_VMA_RELEASE_MAP);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
-index 0fdcb3583601..dac0dc32da34 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
-@@ -11,6 +11,7 @@ struct drm_printer;
- 
- int intel_guc_ads_create(struct intel_guc *guc);
- void intel_guc_ads_destroy(struct intel_guc *guc);
-+void intel_guc_ads_init_late(struct intel_guc *guc);
- void intel_guc_ads_reset(struct intel_guc *guc);
- void intel_guc_log_policy_info(struct intel_guc *guc, struct drm_printer *p);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 8c681fc49638..4a79db4a739f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -120,6 +120,11 @@ void intel_uc_init_early(struct intel_uc *uc)
- 		uc->ops = &uc_ops_off;
- }
- 
-+void intel_uc_init_late(struct intel_uc *uc)
-+{
-+	intel_guc_init_late(&uc->guc);
-+}
-+
- void intel_uc_driver_late_release(struct intel_uc *uc)
- {
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-index 91315e3f1c58..e2da2b6e76e1 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-@@ -35,6 +35,7 @@ struct intel_uc {
- };
- 
- void intel_uc_init_early(struct intel_uc *uc);
-+void intel_uc_init_late(struct intel_uc *uc);
- void intel_uc_driver_late_release(struct intel_uc *uc);
- void intel_uc_driver_remove(struct intel_uc *uc);
- void intel_uc_init_mmio(struct intel_uc *uc);
--- 
-2.28.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gVGh1LCAyMDIxLTA1LTA2IGF0IDE5OjE5ICswMzAwLCBJbXJlIERlYWsgd3JvdGU6DQo+IEZy
+b206IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5yb3BlckBpbnRlbC5jb20+DQo+IA0KPiBMZXQncyBz
+dGFydCBwcmVwYXJpbmcgZm9yIHVwY29taW5nIHBsYXRmb3JtcyB0aGF0IHdpbGwgdXNlIGFuIFhF
+X0xQRA0KPiBkZXNpZ24uDQo+IA0KPiB2MjoNCj4gIC0gVXNlIHRoZSBub3ctcHJlZmVycmVkICJY
+RV9MUEQiIHRlcm0gdG8gcmVmZXIgdG8gdGhpcyBkZXNpZ24NCj4gIC0gVXRpbGl6ZSBESVNQTEFZ
+X1ZFUigpIHJhdGhlciB0aGFuIGEgZmVhdHVyZSBmbGFnDQo+ICAtIERyb3AgdW51c2VkIG1idXNf
+c2l6ZSBmaWVsZCAoTHVjYXMpDQo+IHYzOg0KPiAgLSBBZGp1c3QgZm9yIGRidWYue3NpemUsc2xp
+Y2VfbWFza30gKFZpbGxlKQ0KPiANCg0KUmV2aWV3ZWQtYnk6IEpvc8OpIFJvYmVydG8gZGUgU291
+emEgPGpvc2Uuc291emFAaW50ZWwuY29tPg0KDQo+IFNpZ25lZC1vZmYtYnk6IE1hdHQgUm9wZXIg
+PG1hdHRoZXcuZC5yb3BlckBpbnRlbC5jb20+DQo+IFJldmlld2VkLWJ5OiBKb3PDqSBSb2JlcnRv
+IGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4gKHYyKQ0KPiBTaWduZWQtb2ZmLWJ5OiBJ
+bXJlIERlYWsgPGltcmUuZGVha0BpbnRlbC5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bvd2VyLmggfCAgMiArKw0KPiAgZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaTkxNV9wY2kuYyAgICAgICAgICAgICAgICAgICAgfCAxMCArKysrKysrKysr
+DQo+ICAyIGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfcG93ZXIuaCBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5oDQo+IGluZGV4
+IGYzY2E1ZDVjOTc3ODEuLmFjZjQ3MjUyZDllNzUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5oDQo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5oDQo+IEBAIC0zODAsNiAr
+MzgwLDggQEAgaW50ZWxfZGlzcGxheV9wb3dlcl9wdXRfYWxsX2luX3NldChzdHJ1Y3QgZHJtX2k5
+MTVfcHJpdmF0ZSAqaTkxNSwNCj4gIGVudW0gZGJ1Zl9zbGljZSB7DQo+ICAJREJVRl9TMSwNCj4g
+IAlEQlVGX1MyLA0KPiArCURCVUZfUzMsDQo+ICsJREJVRl9TNCwNCj4gIAlJOTE1X01BWF9EQlVG
+X1NMSUNFUw0KPiAgfTsNCj4gIA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aTkxNV9wY2kuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGNpLmMNCj4gaW5kZXggYzY3
+OGUwNjYzZDgwOC4uMDBlMTVmZTAwZjRmMCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvaTkxNV9wY2kuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BjaS5j
+DQo+IEBAIC05MzksNiArOTM5LDE2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaW50ZWxfZGV2aWNl
+X2luZm8gYWRsX3NfaW5mbyA9IHsNCj4gIAkuZG1hX21hc2tfc2l6ZSA9IDQ2LA0KPiAgfTsNCj4g
+IA0KPiArI2RlZmluZSBYRV9MUERfRkVBVFVSRVMgXA0KPiArCS5kaXNwbGF5LnZlciA9IDEzLAkJ
+CQkJCVwNCj4gKwkuZGlzcGxheS5oYXNfcHNyX2h3X3RyYWNraW5nID0gMCwJCQkJXA0KPiArCS5h
+Ym94X21hc2sgPSBHRU5NQVNLKDEsIDApLAkJCQkJXA0KPiArCS5waXBlX21hc2sgPSBCSVQoUElQ
+RV9BKSB8IEJJVChQSVBFX0IpIHwgQklUKFBJUEVfQykgfCBCSVQoUElQRV9EKSwgXA0KPiArCS5j
+cHVfdHJhbnNjb2Rlcl9tYXNrID0gQklUKFRSQU5TQ09ERVJfQSkgfCBCSVQoVFJBTlNDT0RFUl9C
+KSB8CVwNCj4gKwkJQklUKFRSQU5TQ09ERVJfQykgfCBCSVQoVFJBTlNDT0RFUl9EKSwJCQlcDQo+
+ICsJLmRidWYuc2l6ZSA9IDQwOTYsCQkJCQkJXA0KPiArCS5kYnVmLnNsaWNlX21hc2sgPSBCSVQo
+REJVRl9TMSkgfCBCSVQoREJVRl9TMikgfCBCSVQoREJVRl9TMykgfCBCSVQoREJVRl9TNCkNCj4g
+Kw0KPiAgI3VuZGVmIEdFTg0KPiAgI3VuZGVmIFBMQVRGT1JNDQo+ICANCg0KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlz
+dApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
