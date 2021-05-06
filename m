@@ -2,41 +2,51 @@ Return-Path: <SRS0=MDkJ=KB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F3609C433B4
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:03:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6796C433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:13:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 865E16109E
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:03:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 865E16109E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 47580610D2
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:13:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47580610D2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09C176ECC0;
-	Thu,  6 May 2021 17:03:31 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id C59536ECC0;
- Thu,  6 May 2021 17:03:29 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id BDC0BA0BCB;
- Thu,  6 May 2021 17:03:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A42186ECCD;
+	Thu,  6 May 2021 17:13:06 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 880E06ECCB;
+ Thu,  6 May 2021 17:13:05 +0000 (UTC)
+IronPort-SDR: LJyUS3l+jNzBRZt3USXr1zJsGWpqGg2gzfvtHzcxkcGn+uIlQN4/BFGMsQTYLzs7b5mlSMdD5D
+ HPzHv8Qgaqpg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="195412171"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="195412171"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 10:13:05 -0700
+IronPort-SDR: p1rw+IaA7P6Eg6GNmiG2bem6/JOWdWJ8RvHn7k9nFeg8m7Oxk0iW8nQ8I6ljxr1pHjtMSgMNiR
+ v7CWDD35XyLA==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="622533965"
+Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 10:13:04 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Date: Thu,  6 May 2021 10:30:48 -0700
+Message-Id: <20210506173049.72503-5-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20210506173049.72503-1-matthew.brost@intel.com>
+References: <20210506173049.72503-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Imre Deak" <imre.deak@intel.com>
-Date: Thu, 06 May 2021 17:03:29 -0000
-Message-ID: <162032060977.15691.7886974549144665505@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210506161930.309688-1-imre.deak@intel.com>
-In-Reply-To: <20210506161930.309688-1-imre.deak@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915/adl=5Fp=3A_Add_support_for_Display_Page_Tables_=28rev2=29?=
+Subject: [Intel-gfx] [RFC PATCH 4/5] drm/i915: Introduce 'set parallel
+ submit' extension
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,230 +59,175 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0675647767=="
+Cc: carl.zhang@intel.com, jason.ekstrand@intel.com, daniel.vetter@intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0675647767==
-Content-Type: multipart/alternative;
- boundary="===============8025141874257449752=="
+i915_drm.h updates for 'set parallel submit' extension.
 
---===============8025141874257449752==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Tony Ye <tony.ye@intel.com>
+CC: Carl Zhang <carl.zhang@intel.com>
+Cc: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Jason Ekstrand <jason@jlekstrand.net>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ include/uapi/drm/i915_drm.h | 126 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 126 insertions(+)
 
-== Series Details ==
-
-Series: drm/i915/adl_p: Add support for Display Page Tables (rev2)
-URL   : https://patchwork.freedesktop.org/series/89078/
-State : failure
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10053 -> Patchwork_20077
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_20077 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_20077, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/index.html
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_20077:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@kms_chamelium@common-hpd-after-suspend:
-    - fi-kbl-7500u:       [PASS][1] -> [FAIL][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10053/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20077 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_prime@amd-to-i915:
-    - fi-tgl-y:           NOTRUN -> [SKIP][3] ([fdo#109315] / [i915#2575])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/fi-tgl-y/igt@amdgpu/amd_prime@amd-to-i915.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-snb-2600:        [PASS][4] -> [INCOMPLETE][5] ([i915#2782])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10053/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
-  [i915#1849]: https://gitlab.freedesktop.org/drm/intel/issues/1849
-  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
-  [i915#2782]: https://gitlab.freedesktop.org/drm/intel/issues/2782
-  [i915#3180]: https://gitlab.freedesktop.org/drm/intel/issues/3180
-  [i915#3277]: https://gitlab.freedesktop.org/drm/intel/issues/3277
-  [i915#3283]: https://gitlab.freedesktop.org/drm/intel/issues/3283
-
-
-Participating hosts (44 -> 40)
-------------------------------
-
-  Missing    (4): fi-ctg-p8600 fi-ilk-m540 fi-bdw-samus fi-hsw-4200u 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10053 -> Patchwork_20077
-
-  CI-20190529: 20190529
-  CI_DRM_10053: 3e000bbf311ad04f734843e1ba6396b28ba44399 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6080: 1c450c3d4df19cf1087b8ccff3b62cb51addacae @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_20077: e83dba92cd47bd2b5841fc8e7f66bbd7d376e7bd @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-e83dba92cd47 drm/i915/adl_p: Enable remapping to pad DPT FB strides to POT
-6cc7df9cf93e drm/i915/adl_p: Require a minimum of 8 tiles stride for DPT FBs
-f86259ff5f81 drm/i915/adl_p: Disable support for 90/270 FB rotation
-c55b96cff231 drm/i915/adl_p: Add stride restriction when using DPT
-c14a9051e424 drm/i915/xelpd: Support 128k plane stride
-c248682ab7f3 drm/i915/xelpd: Fallback to plane stride limitations when using DPT
-9c9b86ac6d1f drm/i915/xelpd: First stab at DPT support
-a35b4326f650 drm/i915/adl_p: ADL_P device info enabling
-a319d966c549 drm/i915/adl_p: Add PCI Devices IDs
-ff3b7dc8f685 drm/i915/xelpd: add XE_LPD display characteristics
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/index.html
-
---===============8025141874257449752==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/adl_p: Add support for Display Page Tables (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/89078/">https://patchwork.freedesktop.org/series/89078/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10053 -&gt; Patchwork_20077</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_20077 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_20077, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_20077:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@kms_chamelium@common-hpd-after-suspend:<ul>
-<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10053/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html">FAIL</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20077 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_prime@amd-to-i915:</p>
-<ul>
-<li>fi-tgl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/fi-tgl-y/igt@amdgpu/amd_prime@amd-to-i915.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2575">i915#2575</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10053/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20077/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2782">i915#2782</a>)</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (44 -&gt; 40)</h2>
-<p>Missing    (4): fi-ctg-p8600 fi-ilk-m540 fi-bdw-samus fi-hsw-4200u </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10053 -&gt; Patchwork_20077</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10053: 3e000bbf311ad04f734843e1ba6396b28ba44399 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6080: 1c450c3d4df19cf1087b8ccff3b62cb51addacae @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_20077: e83dba92cd47bd2b5841fc8e7f66bbd7d376e7bd @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>e83dba92cd47 drm/i915/adl_p: Enable remapping to pad DPT FB strides to POT<br />
-6cc7df9cf93e drm/i915/adl_p: Require a minimum of 8 tiles stride for DPT FBs<br />
-f86259ff5f81 drm/i915/adl_p: Disable support for 90/270 FB rotation<br />
-c55b96cff231 drm/i915/adl_p: Add stride restriction when using DPT<br />
-c14a9051e424 drm/i915/xelpd: Support 128k plane stride<br />
-c248682ab7f3 drm/i915/xelpd: Fallback to plane stride limitations when using DPT<br />
-9c9b86ac6d1f drm/i915/xelpd: First stab at DPT support<br />
-a35b4326f650 drm/i915/adl_p: ADL_P device info enabling<br />
-a319d966c549 drm/i915/adl_p: Add PCI Devices IDs<br />
-ff3b7dc8f685 drm/i915/xelpd: add XE_LPD display characteristics</p>
-
-</body>
-</html>
-
---===============8025141874257449752==--
-
---===============0675647767==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 26d2e135aa31..0175b12b33b8 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -1712,6 +1712,7 @@ struct drm_i915_gem_context_param {
+  * Extensions:
+  *   i915_context_engines_load_balance (I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE)
+  *   i915_context_engines_bond (I915_CONTEXT_ENGINES_EXT_BOND)
++ *   i915_context_engines_parallel_submit (I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT)
+  */
+ #define I915_CONTEXT_PARAM_ENGINES	0xa
+ 
+@@ -1894,9 +1895,134 @@ struct i915_context_param_engines {
+ 	__u64 extensions; /* linked chain of extension blocks, 0 terminates */
+ #define I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE 0 /* see i915_context_engines_load_balance */
+ #define I915_CONTEXT_ENGINES_EXT_BOND 1 /* see i915_context_engines_bond */
++#define I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT 2 /* see i915_context_engines_parallel_submit */
+ 	struct i915_engine_class_instance engines[0];
+ } __attribute__((packed));
+ 
++/*
++ * i915_context_engines_parallel_submit:
++ *
++ * Setup a gem context to allow multiple BBs to be submitted in a single execbuf
++ * IOCTL. Those BBs will then be scheduled to run on the GPU in parallel.
++ *
++ * All hardware contexts in the engine set are configured for parallel
++ * submission (i.e. once this gem context is configured for parallel submission,
++ * all the hardware contexts, regardless if a BB is available on each individual
++ * context, will be submitted to the GPU in parallel). A user can submit BBs to
++ * subset of the hardware contexts, in a single execbuf IOCTL, but it is not
++ * recommended as it may reserve physical engines with nothing to run on them.
++ * Highly recommended to configure the gem context with N hardware contexts then
++ * always submit N BBs in a single IOCTL.
++ *
++ * Their are two currently defined ways to control the placement of the
++ * hardware contexts on physical engines: default behavior (no flags) and
++ * I915_PARALLEL_IMPLICT_BONDS (a flag). More flags may be added the in the
++ * future as new hardware / use cases arise. Details of how to use this
++ * interface below above the flags.
++ *
++ * Returns -EINVAL if hardware context placement configuration invalid or if the
++ * placement configuration isn't supported on the platform / submission
++ * interface.
++ * Returns -ENODEV if extension isn't supported on the platform / submission
++ * inteface.
++ */
++struct i915_context_engines_parallel_submit {
++	struct i915_user_extension base;
++
++/*
++ * Default placement behvavior (currently unsupported):
++ *
++ * Rather than restricting parallel submission to a single class with a
++ * logically contiguous placement (I915_PARALLEL_IMPLICT_BONDS), add a mode that
++ * enables parallel submission across multiple engine classes. In this case each
++ * context's logical engine mask indicates where that context can placed. It is
++ * implied in this mode that all contexts have mutual exclusive placement (e.g.
++ * if one context is running CS0 no other contexts can run on CS0).
++ *
++ * Example 1 pseudo code:
++ * CSX[Y] = engine class X, logical instance Y
++ * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
++ * set_engines(INVALID, INVALID)
++ * set_load_balance(engine_index=0, num_siblings=2, engines=CS0[0],CS0[1])
++ * set_load_balance(engine_index=1, num_siblings=2, engines=CS1[0],CS1[1])
++ * set_parallel()
++ *
++ * Results in the following valid placements:
++ * CS0[0], CS1[0]
++ * CS0[0], CS1[1]
++ * CS0[1], CS1[0]
++ * CS0[1], CS1[1]
++ *
++ * Example 2 pseudo code:
++ * CS[X] = generic engine of same class, logical instance X
++ * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
++ * set_engines(INVALID, INVALID)
++ * set_load_balance(engine_index=0, num_siblings=3, engines=CS[0],CS[1],CS[2])
++ * set_load_balance(engine_index=1, num_siblings=3, engines=CS[0],CS[1],CS[2])
++ * set_parallel()
++ *
++ * Results in the following valid placements:
++ * CS[0], CS[1]
++ * CS[0], CS[2]
++ * CS[1], CS[0]
++ * CS[1], CS[2]
++ * CS[2], CS[0]
++ * CS[2], CS[1]
++ *
++ * This enables a use case where all engines are created equally, we don't care
++ * where they are scheduled, we just want a certain number of resources, for
++ * those resources to be scheduled in parallel, and possibly across multiple
++ * engine classes.
++ */
++
++/*
++ * I915_PARALLEL_IMPLICT_BONDS - Create implict bonds between each context.
++ * Each context must have the same number sibling and bonds are implictly create
++ * of the siblings.
++ *
++ * All of the below examples are in logical space.
++ *
++ * Example 1 pseudo code:
++ * CS[X] = generic engine of same class, logical instance X
++ * set_engines(CS[0], CS[1])
++ * set_parallel(flags=I915_PARALLEL_IMPLICT_BONDS)
++ *
++ * Results in the following valid placements:
++ * CS[0], CS[1]
++ *
++ * Example 2 pseudo code:
++ * CS[X] = generic engine of same class, logical instance X
++ * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
++ * set_engines(INVALID, INVALID)
++ * set_load_balance(engine_index=0, num_siblings=2, engines=CS[0],CS[2])
++ * set_load_balance(engine_index=1, num_siblings=2, engines=CS[1],CS[3])
++ * set_parallel(flags=I915_PARALLEL_IMPLICT_BONDS)
++ *
++ * Results in the following valid placements:
++ * CS[0], CS[1]
++ * CS[2], CS[3]
++ *
++ * This enables a use case where all engines are not equal and certain placement
++ * rules are required (i.e. split-frame requires all contexts to be placed in a
++ * logically contiguous order on the VCS engines on gen11+ platforms). This use
++ * case (logically contiguous placement, within a single engine class) is
++ * supported when using GuC submission. Execlist mode could support all possible
++ * bonding configurations but currently doesn't support this extension.
++ */
++#define I915_PARALLEL_IMPLICT_BONDS		(1<<0)
++/*
++ * Do not allow BBs to be preempted mid BB rather insert coordinated preemption
++ * points on all hardware contexts between each set of BBs. An example use case
++ * of this feature is split-frame on gen11+ hardware. When using this feature a
++ * BB must be submitted on each hardware context in the parallel gem context.
++ * The execbuf2 IOCTL enforces the user adheres to policy.
++ */
++#define I915_PARALLEL_NO_PREEMPT_MID_BATCH	(1<<1)
++#define I915_PARALLEL_UNKNOWN_FLAGS  (-(I915_PARALLEL_NO_PREEMPT_MID_BATCH << 1))
++	__u64 flags; /* all undefined flags must be zero */
++	__u64 mbz64[4]; /* reserved for future use; must be zero */
++} __attribute__ ((packed));
++
+ #define I915_DEFINE_CONTEXT_PARAM_ENGINES(name__, N__) struct { \
+ 	__u64 extensions; \
+ 	struct i915_engine_class_instance engines[N__]; \
+-- 
+2.28.0
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0675647767==--
