@@ -5,48 +5,47 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AD8CC43600
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08866C43462
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA70B610D2
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA70B610D2
+	by mail.kernel.org (Postfix) with ESMTPS id BFB7F610D2
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BFB7F610D2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0282A6EDC3;
-	Thu,  6 May 2021 18:57:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EF9F6ED65;
+	Thu,  6 May 2021 18:57:27 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C8826ED06;
- Thu,  6 May 2021 18:57:13 +0000 (UTC)
-IronPort-SDR: VE2WcL2acwM0MwJqLdnecrJpzcUjt11pkAPbXrn6hvAD+y5SOmJjsYCYaelZeR9Rz+LFxQwfvq
- 73B9x4uEsGeQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531007"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531007"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 904BC6ECF5;
+ Thu,  6 May 2021 18:57:12 +0000 (UTC)
+IronPort-SDR: 52KBJFWAHDGqGUqcOgkH/eaG1NjcPhne7J2U1R07ev7XcQ6eaznNJyZHJprue+KMeGwo10g5CJ
+ LMm0NO2M5d5Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196530999"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196530999"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:12 -0700
-IronPort-SDR: jNfQ+lix+OmSqmQXTZFvHTIb+BstXea6NbwCUCQ4VZxgZp0ctz9BsndFReEaD6KR9G/tHNxDVO
- 9N6vea34es2w==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583478"
+ 06 May 2021 11:57:11 -0700
+IronPort-SDR: wCFBQNPXXKj0ZFasEB0ZDQqPuqyZGPpVig/VCQusoyMqYbz4IozhGeOrYa9SYSuD0qOJOFJ0LD
+ +CEUewVU9Q3A==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583445"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:10 -0700
+ 06 May 2021 11:57:09 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:13:53 -0700
-Message-Id: <20210506191451.77768-40-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:42 -0700
+Message-Id: <20210506191451.77768-29-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 39/97] drm/i915/guc: Increase size of CTB
- buffers
+Subject: [Intel-gfx] [RFC PATCH 28/97] drm/i915/guc: Kill guc_clients.ct_pool
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,49 +64,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of non-blocking CTBs more than one CTB can be in
-flight at a time. Increasing the size of the CTBs should reduce how
-often software hits the case where no space is available in the CTB
-buffer.
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-Cc: John Harrison <john.c.harrison@intel.com>
+CTB pool is now maintained internally by the GuC as part of its
+"private data". No need to allocate separate buffer and pass it
+to GuC as yet another ADS.
+
+GuC: 57.0.0
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 12 ------------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 12 +-----------
+ 2 files changed, 1 insertion(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 77dfbc94dcc3..d6895d29ed2d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -63,11 +63,16 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
-  *      +--------+-----------------------------------------------+------+
-  *
-  * Size of each `CT Buffer`_ must be multiple of 4K.
-- * As we don't expect too many messages, for now use minimum sizes.
-+ * We don't expect too many messages in flight at any time, unless we are
-+ * using the GuC submission. In that case each request requires a minimum
-+ * 16 bytes which gives us a maximum 256 queue'd requests. Hopefully this
-+ * enough space to avoid backpressure on the driver. We increase the size
-+ * of the receive buffer (relative to the send) to ensure a G2H response
-+ * CTB has a landing spot.
-  */
- #define CTB_DESC_SIZE		ALIGN(sizeof(struct guc_ct_buffer_desc), SZ_2K)
- #define CTB_H2G_BUFFER_SIZE	(SZ_4K)
--#define CTB_G2H_BUFFER_SIZE	(SZ_4K)
-+#define CTB_G2H_BUFFER_SIZE	(4 * CTB_H2G_BUFFER_SIZE)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index 648e1767b17a..775f00d706fa 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -25,8 +25,6 @@
+  *      +---------------------------------------+
+  *      | guc_clients_info                      |
+  *      +---------------------------------------+
+- *      | guc_ct_pool_entry[size]               |
+- *      +---------------------------------------+
+  *      | padding                               |
+  *      +---------------------------------------+ <== 4K aligned
+  *      | private data                          |
+@@ -39,7 +37,6 @@ struct __guc_ads_blob {
+ 	struct guc_policies policies;
+ 	struct guc_gt_system_info system_info;
+ 	struct guc_clients_info clients_info;
+-	struct guc_ct_pool_entry ct_pool[GUC_CT_POOL_SIZE];
+ } __packed;
  
- #define MAX_US_STALL_CTB	1000000
+ static u32 guc_ads_private_data_size(struct intel_guc *guc)
+@@ -67,11 +64,6 @@ static void guc_policies_init(struct guc_policies *policies)
+ 	policies->is_valid = 1;
+ }
  
-@@ -753,7 +758,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 	/* beware of buffer wrap case */
- 	if (unlikely(available < 0))
- 		available += size;
--	CT_DEBUG(ct, "available %d (%u:%u)\n", available, head, tail);
-+	CT_DEBUG(ct, "available %d (%u:%u:%u)\n", available, head, tail, size);
- 	GEM_BUG_ON(available < 0);
+-static void guc_ct_pool_entries_init(struct guc_ct_pool_entry *pool, u32 num)
+-{
+-	memset(pool, 0, num * sizeof(*pool));
+-}
+-
+ static void guc_mapping_table_init(struct intel_gt *gt,
+ 				   struct guc_gt_system_info *system_info)
+ {
+@@ -157,11 +149,7 @@ static void __guc_ads_init(struct intel_guc *guc)
+ 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
  
- 	header = cmds[head];
+ 	/* Clients info  */
+-	guc_ct_pool_entries_init(blob->ct_pool, ARRAY_SIZE(blob->ct_pool));
+-
+ 	blob->clients_info.clients_num = 1;
+-	blob->clients_info.ct_pool_addr = base + ptr_offset(blob, ct_pool);
+-	blob->clients_info.ct_pool_count = ARRAY_SIZE(blob->ct_pool);
+ 
+ 	/* ADS */
+ 	blob->ads.scheduler_policies = base + ptr_offset(blob, policies);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 95db4a7d3f4d..301b173a26bc 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -269,19 +269,9 @@ struct guc_gt_system_info {
+ } __packed;
+ 
+ /* Clients info */
+-struct guc_ct_pool_entry {
+-	struct guc_ct_buffer_desc desc;
+-	u32 reserved[7];
+-} __packed;
+-
+-#define GUC_CT_POOL_SIZE	2
+-
+ struct guc_clients_info {
+ 	u32 clients_num;
+-	u32 reserved0[13];
+-	u32 ct_pool_addr;
+-	u32 ct_pool_count;
+-	u32 reserved[4];
++	u32 reserved[19];
+ } __packed;
+ 
+ /* GuC Additional Data Struct */
 -- 
 2.28.0
 
