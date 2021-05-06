@@ -2,51 +2,51 @@ Return-Path: <SRS0=MDkJ=KB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE963C433B4
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA2DBC433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72CE5610D2
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72CE5610D2
+	by mail.kernel.org (Postfix) with ESMTPS id 7C26D610D2
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C26D610D2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B5E46EE19;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60F6C6EE1A;
 	Thu,  6 May 2021 18:57:56 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D82136ED1B;
- Thu,  6 May 2021 18:57:13 +0000 (UTC)
-IronPort-SDR: GFsWqkhVz0n0QXcQsyqHzG8srKWvpePKFB5bSC5XOV2zGjQWBY/wRxq8QiLWO6lKBEhknnlunZ
- CcXj5BNo1Ktw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195453"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195453"
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B3A66EDA4;
+ Thu,  6 May 2021 18:57:15 +0000 (UTC)
+IronPort-SDR: kcMAE7qBlzMHs4L8nQm430Zdf6ArnmmeyIs8ChmbRCUxFZkA+5rLrhAx6qcfG7fbKQRexYCQ40
+ lZcbT/4GqMBQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="219439491"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="219439491"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:12 -0700
-IronPort-SDR: VYv8aA7v6op1DKKUTNmYQkBEHyr1mHVDLgEFgOfuQyO36O5VFAXksVZE1tXSGXqxmqlBHK4Xdy
- magef56F232g==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583533"
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:13 -0700
+IronPort-SDR: I1ml6rHNluPhwrOKLLF5WFeOL1bXkGmQi6fS3NeTFqgDk8W0rTSLpcVKXgC/x+If2BgPEDZpkE
+ VBrgvd5LKllw==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583617"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:11 -0700
+ 06 May 2021 11:57:12 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:14:10 -0700
-Message-Id: <20210506191451.77768-57-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:14:32 -0700
+Message-Id: <20210506191451.77768-79-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 56/97] drm/i915/guc: Update GuC debugfs to
- support new GuC
+Subject: [Intel-gfx] [RFC PATCH 78/97] drm/i915/guc: Include scheduling
+ policies in the debugfs state dump
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,212 +65,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Update GuC debugfs to support the new GuC structures.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Added the scheduling policy parameters to the 'guc_info' debugfs state
+dump.
+
+Signed-off-by: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 22 ++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  3 ++
- .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    | 23 +++++++-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 52 +++++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.h |  4 ++
- drivers/gpu/drm/i915/i915_debugfs.c           |  1 +
- 6 files changed, 104 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c     | 13 +++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h     |  2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c |  2 ++
+ 3 files changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index cf701056fa14..b3194d753b13 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -1131,3 +1131,25 @@ void intel_guc_ct_event_handler(struct intel_guc_ct *ct)
- 
- 	ct_try_receive_message(ct);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index bb20513f40f6..bc2745f73a06 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -95,6 +95,19 @@ static void guc_policies_init(struct intel_guc *guc, struct guc_policies *polici
+ 	policies->is_valid = 1;
  }
-+
-+void intel_guc_log_ct_info(struct intel_guc_ct *ct,
-+			   struct drm_printer *p)
-+{
-+	if (!ct->enabled) {
-+		drm_puts(p, "CT disabled\n");
-+		return;
-+	}
-+
-+	drm_printf(p, "H2G Space: %u\n",
-+		   atomic_read(&ct->ctbs.send.space) * 4);
-+	drm_printf(p, "Head: %u\n",
-+		   ct->ctbs.send.desc->head);
-+	drm_printf(p, "Tail: %u\n",
-+		   ct->ctbs.send.desc->tail);
-+	drm_printf(p, "G2H Space: %u\n",
-+		   atomic_read(&ct->ctbs.recv.space) * 4);
-+	drm_printf(p, "Head: %u\n",
-+		   ct->ctbs.recv.desc->head);
-+	drm_printf(p, "Tail: %u\n",
-+		   ct->ctbs.recv.desc->tail);
-+}
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index ab1b79ab960b..f62eb06b32fc 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -16,6 +16,7 @@
  
- struct i915_vma;
++void intel_guc_log_policy_info(struct intel_guc *guc, struct drm_printer *dp)
++{
++	struct __guc_ads_blob *blob = guc->ads_blob;
++
++	if (unlikely(!blob))
++		return;
++
++	drm_printf(dp, "Global scheduling policies:\n");
++	drm_printf(dp, "  DPC promote time   = %u\n", blob->policies.dpc_promote_time);
++	drm_printf(dp, "  Max num work items = %u\n", blob->policies.max_num_work_items);
++	drm_printf(dp, "  Flags              = %u\n", blob->policies.global_flags);
++}
++
+ static int guc_action_policies_update(struct intel_guc *guc, u32 policy_offset)
+ {
+ 	u32 action[] = {
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
+index b00d3ae1113a..0fdcb3583601 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
+@@ -7,9 +7,11 @@
+ #define _INTEL_GUC_ADS_H_
+ 
  struct intel_guc;
 +struct drm_printer;
  
- /**
-  * DOC: Command Transport (CT).
-@@ -106,4 +107,6 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
- 		      u32 *response_buf, u32 response_buf_size, u32 flags);
- void intel_guc_ct_event_handler(struct intel_guc_ct *ct);
+ int intel_guc_ads_create(struct intel_guc *guc);
+ void intel_guc_ads_destroy(struct intel_guc *guc);
+ void intel_guc_ads_reset(struct intel_guc *guc);
++void intel_guc_log_policy_info(struct intel_guc *guc, struct drm_printer *p);
  
-+void intel_guc_log_ct_info(struct intel_guc_ct *ct, struct drm_printer *p);
-+
- #endif /* _INTEL_GUC_CT_H_ */
+ #endif
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
-index fe7cb7b29a1e..62b9ce0fafaa 100644
+index 62b9ce0fafaa..9a03ff56e654 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
-@@ -9,6 +9,8 @@
- #include "intel_guc.h"
+@@ -10,6 +10,7 @@
  #include "intel_guc_debugfs.h"
  #include "intel_guc_log_debugfs.h"
-+#include "gt/uc/intel_guc_ct.h"
-+#include "gt/uc/intel_guc_submission.h"
+ #include "gt/uc/intel_guc_ct.h"
++#include "gt/uc/intel_guc_ads.h"
+ #include "gt/uc/intel_guc_submission.h"
  
  static int guc_info_show(struct seq_file *m, void *data)
- {
-@@ -22,16 +24,35 @@ static int guc_info_show(struct seq_file *m, void *data)
- 	drm_puts(&p, "\n");
- 	intel_guc_log_info(&guc->log, &p);
+@@ -29,6 +30,7 @@ static int guc_info_show(struct seq_file *m, void *data)
  
--	/* Add more as required ... */
-+	if (!intel_guc_submission_is_used(guc))
-+		return 0;
-+
-+	intel_guc_log_ct_info(&guc->ct, &p);
-+	intel_guc_log_submission_info(guc, &p);
+ 	intel_guc_log_ct_info(&guc->ct, &p);
+ 	intel_guc_log_submission_info(guc, &p);
++	intel_guc_log_policy_info(guc, &p);
  
  	return 0;
  }
- DEFINE_GT_DEBUGFS_ATTRIBUTE(guc_info);
- 
-+static int guc_registered_contexts_show(struct seq_file *m, void *data)
-+{
-+	struct intel_guc *guc = m->private;
-+	struct drm_printer p = drm_seq_file_printer(m);
-+
-+	if (!intel_guc_submission_is_used(guc))
-+		return -ENODEV;
-+
-+	intel_guc_log_context_info(guc, &p);
-+
-+	return 0;
-+}
-+DEFINE_GT_DEBUGFS_ATTRIBUTE(guc_registered_contexts);
-+
- void intel_guc_debugfs_register(struct intel_guc *guc, struct dentry *root)
- {
- 	static const struct debugfs_gt_file files[] = {
- 		{ "guc_info", &guc_info_fops, NULL },
-+		{ "guc_registered_contexts", &guc_registered_contexts_fops, NULL },
- 	};
- 
- 	if (!intel_guc_is_supported(guc))
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 0ff7dd6d337d..c7a8968f22c5 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1607,3 +1607,55 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 
- 	return 0;
- }
-+
-+void intel_guc_log_submission_info(struct intel_guc *guc,
-+				   struct drm_printer *p)
-+{
-+	struct i915_sched_engine *sched_engine = guc->sched_engine;
-+	struct rb_node *rb;
-+	unsigned long flags;
-+
-+	drm_printf(p, "GuC Number Outstanding Submission G2H: %u\n",
-+		   atomic_read(&guc->outstanding_submission_g2h));
-+	drm_printf(p, "GuC tasklet count: %u\n\n",
-+		   atomic_read(&sched_engine->tasklet.count));
-+
-+	spin_lock_irqsave(&sched_engine->lock, flags);
-+	drm_printf(p, "Requests in GuC submit tasklet:\n");
-+	for (rb = rb_first_cached(&sched_engine->queue); rb; rb = rb_next(rb)) {
-+		struct i915_priolist *pl = to_priolist(rb);
-+		struct i915_request *rq;
-+
-+		priolist_for_each_request(rq, pl)
-+			drm_printf(p, "guc_id=%u, seqno=%llu\n",
-+				   rq->context->guc_id,
-+				   rq->fence.seqno);
-+	}
-+	spin_unlock_irqrestore(&sched_engine->lock, flags);
-+	drm_printf(p, "\n");
-+}
-+
-+void intel_guc_log_context_info(struct intel_guc *guc,
-+				struct drm_printer *p)
-+{
-+	struct intel_context *ce;
-+	unsigned long index;
-+
-+	xa_for_each(&guc->context_lookup, index, ce) {
-+		drm_printf(p, "GuC lrc descriptor %u:\n", ce->guc_id);
-+		drm_printf(p, "\tHW Context Desc: 0x%08x\n", ce->lrc.lrca);
-+		drm_printf(p, "\t\tLRC Head: Internal %u, Memory %u\n",
-+			   ce->ring->head,
-+			   ce->lrc_reg_state[CTX_RING_HEAD]);
-+		drm_printf(p, "\t\tLRC Tail: Internal %u, Memory %u\n",
-+			   ce->ring->tail,
-+			   ce->lrc_reg_state[CTX_RING_TAIL]);
-+		drm_printf(p, "\t\tContext Pin Count: %u\n",
-+			   atomic_read(&ce->pin_count));
-+		drm_printf(p, "\t\tGuC ID Ref Count: %u\n",
-+			   atomic_read(&ce->guc_id_ref));
-+		drm_printf(p, "\t\tSchedule State: 0x%x, 0x%x\n\n",
-+			   ce->guc_state.sched_state,
-+			   atomic_read(&ce->guc_sched_state_no_lock));
-+	}
-+}
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-index 3f7005018939..6453e2bfa151 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-@@ -10,6 +10,7 @@
- 
- #include "intel_guc.h"
- 
-+struct drm_printer;
- struct intel_engine_cs;
- 
- void intel_guc_submission_init_early(struct intel_guc *guc);
-@@ -20,6 +21,9 @@ void intel_guc_submission_fini(struct intel_guc *guc);
- int intel_guc_preempt_work_create(struct intel_guc *guc);
- void intel_guc_preempt_work_destroy(struct intel_guc *guc);
- int intel_guc_submission_setup(struct intel_engine_cs *engine);
-+void intel_guc_log_submission_info(struct intel_guc *guc,
-+				   struct drm_printer *p);
-+void intel_guc_log_context_info(struct intel_guc *guc, struct drm_printer *p);
- 
- static inline bool intel_guc_submission_is_supported(struct intel_guc *guc)
- {
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index bb29838d1cd7..d540dd8029d0 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -50,6 +50,7 @@
- #include "i915_trace.h"
- #include "intel_pm.h"
- #include "intel_sideband.h"
-+#include "gt/intel_lrc_reg.h"
- 
- static inline struct drm_i915_private *node_to_i915(struct drm_info_node *node)
- {
 -- 
 2.28.0
 
