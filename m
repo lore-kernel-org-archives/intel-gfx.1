@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E887C433ED
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3E34C43460
 	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:13:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B47E5610A7
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B47E5610A7
+	by mail.kernel.org (Postfix) with ESMTPS id 67766610A7
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:13:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67766610A7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9F796ECD3;
-	Thu,  6 May 2021 17:13:06 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D8016ECC0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFC746ECD9;
+	Thu,  6 May 2021 17:13:07 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE8D06ECC0;
  Thu,  6 May 2021 17:13:05 +0000 (UTC)
-IronPort-SDR: tYz/VKA9WzgJ18uDlji6aPHZEpxykK1NhwSqPq441DthbcpQ4HF0UJ0VXPPWxKFg+ZhVXm+VnD
- MVQ7M7V3Wbaw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="195412170"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="195412170"
+IronPort-SDR: pjNtO04uiHJy0daqWTyXXb+llSkJaEEU5cyygNL3C/jQEZ2gilvxfChsAk/LKGVyV7NAAo/PTR
+ u3i8pVNOri7Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198613099"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198613099"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 May 2021 10:13:04 -0700
-IronPort-SDR: z7JpaDVcoGNB5A+uOO4QG2MF3O7SdvTz8iUkg3RpX0HkTkFC1KV6mbae7DuXKgbb1ifM6HAHCM
- r5PtINmmfbvQ==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="622533960"
+IronPort-SDR: 3Ud4ju2uzQxiazIXh40LP959sdaEPnA2fvD3oYMo75YZ79fxVtPedrXRwFk+BCbhDjayPBWNCi
+ jL7elafD0efA==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="622533944"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 10:13:04 -0700
+ 06 May 2021 10:13:03 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 10:30:47 -0700
-Message-Id: <20210506173049.72503-4-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 10:30:44 -0700
+Message-Id: <20210506173049.72503-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210506173049.72503-1-matthew.brost@intel.com>
-References: <20210506173049.72503-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 3/5] drm/i915: Expose logical engine
- instance to user
+Subject: [Intel-gfx] [RFC PATCH 0/5] GuC submission / DRM scheduler
+ integration plan + new uAPI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,48 +63,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Expose logical engine instance to user via query engine info IOCTL. This
-is required for split-frame workloads as these need to be placed on
-engines in a logically contiguous order. The logical mapping can change
-based on fusing. Rather than having user have knowledge of the fusing we
-simply just expose the logical mapping with the existing query engine
-info IOCTL.
+Subject and patches say it all.
 
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Tony Ye <tony.ye@intel.com>
-CC: Carl Zhang <carl.zhang@intel.com>
-Cc: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Jason Ekstrand <jason@jlekstrand.net>
+Initial post of GuC submission patches, detailed in patch 1, coming
+shortly.
+
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- include/uapi/drm/i915_drm.h | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 9f331ad629f5..26d2e135aa31 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -2396,14 +2396,19 @@ struct drm_i915_engine_info {
- 
- 	/** @flags: Engine flags. */
- 	__u64 flags;
-+#define I915_ENGINE_INFO_HAS_LOGICAL_INSTANCE		(1 << 0)
- 
- 	/** @capabilities: Capabilities of this engine. */
- 	__u64 capabilities;
- #define I915_VIDEO_CLASS_CAPABILITY_HEVC		(1 << 0)
- #define I915_VIDEO_AND_ENHANCE_CLASS_CAPABILITY_SFC	(1 << 1)
- 
-+	/** Logical engine instance */
-+	__u16 logical_instance;
-+
- 	/** @rsvd1: Reserved fields. */
--	__u64 rsvd1[4];
-+	__u16 rsvd1[3];
-+	__u64 rsvd2[3];
- };
- 
- /**
+Matthew Brost (5):
+  drm/doc/rfc: i915 GuC submission / DRM scheduler integration plan
+  drm/doc/rfc: i915 new parallel submission uAPI plan
+  drm/i915: Expose logical engine instance to user
+  drm/i915: Introduce 'set parallel submit' extension
+  drm/i915: Update execbuf IOCTL to accept N BBs
+
+ Documentation/gpu/rfc/i915_scheduler.rst | 122 ++++++++++++++++++
+ Documentation/gpu/rfc/index.rst          |   4 +
+ include/uapi/drm/i915_drm.h              | 154 ++++++++++++++++++++++-
+ 3 files changed, 278 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/gpu/rfc/i915_scheduler.rst
+
 -- 
 2.28.0
 
