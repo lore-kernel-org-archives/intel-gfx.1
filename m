@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0DB6C43461
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84A9AC43470
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A924A61289
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A924A61289
+	by mail.kernel.org (Postfix) with ESMTPS id 514AF61001
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 514AF61001
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4C616ED94;
-	Thu,  6 May 2021 18:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2A46EDBA;
+	Thu,  6 May 2021 18:57:19 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87DA56ECE2;
- Thu,  6 May 2021 18:57:11 +0000 (UTC)
-IronPort-SDR: pCFP7Q7lKIJeqoR7DcI8RUXOfhhPp07X4+wwzs73sh9inrWIRVS8g3V/R9kQ4aGIJJ9CqN4cbh
- YKr9tPfYY4rw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196530989"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196530989"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FF886ECF4;
+ Thu,  6 May 2021 18:57:12 +0000 (UTC)
+IronPort-SDR: cIDDBQb1R/fcAqfcMuh8eApnOU2t0Ukks8qWWoe31+O8G7BqQHCrSDrssPUxFiqhv0BTnVEZ2u
+ 16kHnYHRDVNw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196530998"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196530998"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:10 -0700
-IronPort-SDR: UqxrCEAqlclmZx6K2+ND/BalOt77e8405THOqb0znIx2MfEM6Zc/lc4r+52HelAUepwLAzSzqw
- pWOSHOrEJgWw==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583391"
+ 06 May 2021 11:57:11 -0700
+IronPort-SDR: 0Vkn6YlN3WYdLdrblb3tLSmBwLhon2d5fCpJrIF7xdbr6vdvLVWOe4D9KAXR0ECXCJrfs+n/dU
+ KLDv1jule29Q==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583436"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:08 -0700
+ 06 May 2021 11:57:09 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:13:27 -0700
-Message-Id: <20210506191451.77768-14-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:40 -0700
+Message-Id: <20210506191451.77768-27-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 13/97] drm/i915/guc: Replace CTB array with
- explicit members
+Subject: [Intel-gfx] [RFC PATCH 26/97] drm/i915/guc: New definition of the
+ CTB registration action
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,144 +67,300 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-Upcoming GuC firmware will always require just two CTBs and we
-also plan to configure them with different sizes, so definining
-them as array is no longer suitable.
+Definition of the CTB registration action has changed.
+Add some ABI documentation and implement required changes.
 
+GuC: 57.0.0
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 46 ++++++++++++-----------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  7 +++-
- 2 files changed, 30 insertions(+), 23 deletions(-)
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  | 107 ++++++++++++++++++
+ .../gt/uc/abi/guc_communication_ctb_abi.h     |   4 -
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  76 ++++++++-----
+ 3 files changed, 152 insertions(+), 35 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+index 90efef8a73e4..6cb0d3eb9b72 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+@@ -6,6 +6,113 @@
+ #ifndef _ABI_GUC_ACTIONS_ABI_H
+ #define _ABI_GUC_ACTIONS_ABI_H
+ 
++/**
++ * DOC: HOST2GUC_REGISTER_CTB
++ *
++ * This message is used as part of the `CTB based communication`_ setup.
++ *
++ * This message must be sent as `MMIO H2G Message`_.
++ *
++ *  +---+-------+--------------------------------------------------------------+
++ *  |   | Bits  | Description                                                  |
++ *  +===+=======+==============================================================+
++ *  | 0 |    31 | ORIGIN = GUC_HXG_ORIGIN_HOST_                                |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   | 30:28 | TYPE = GUC_HXG_TYPE_REQUEST_                                 |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   | 27:16 | DATA0 = MBZ                                                  |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   |  15:0 | ACTION = _`GUC_ACTION_HOST2GUC_REGISTER_CTB` = 0x5200        |
++ *  +---+-------+--------------------------------------------------------------+
++ *  | 1 | 31:12 | RESERVED = MBZ                                               |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   |  11:8 | **TYPE** - type for the CT buffer                            |
++ *  |   |       |                                                              |
++ *  |   |       |   - _`GUC_CTB_TYPE_HOST2GUC` = 0                             |
++ *  |   |       |   - _`GUC_CTB_TYPE_GUC2HOST` = 1                             |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   |   7:0 | **SIZE** - size of the `CT Buffer`_ in 4K units minus 1      |
++ *  +---+-------+--------------------------------------------------------------+
++ *  | 2 |  31:0 | **DESC_ADDR** - GGTT address of the `CT Descriptor`_         |
++ *  +---+-------+--------------------------------------------------------------+
++ *  | 3 |  31:0 | **BUFF_ADDF** - GGTT address of the `CT Buffer`_             |
++ *  +---+-------+--------------------------------------------------------------+
++*
++ *  +---+-------+--------------------------------------------------------------+
++ *  |   | Bits  | Description                                                  |
++ *  +===+=======+==============================================================+
++ *  | 0 |    31 | ORIGIN = GUC_HXG_ORIGIN_GUC_                                 |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   | 30:28 | TYPE = GUC_HXG_TYPE_RESPONSE_SUCCESS_                        |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   |  27:0 | DATA0 = MBZ                                                  |
++ *  +---+-------+--------------------------------------------------------------+
++ */
++#define GUC_ACTION_HOST2GUC_REGISTER_CTB		0x4505 // FIXME 0x5200
++
++#define HOST2GUC_REGISTER_CTB_REQUEST_MSG_LEN		(GUC_HXG_REQUEST_MSG_MIN_LEN + 3u)
++#define HOST2GUC_REGISTER_CTB_REQUEST_MSG_0_MBZ		GUC_HXG_REQUEST_MSG_0_DATA0
++#define HOST2GUC_REGISTER_CTB_REQUEST_MSG_1_MBZ		(0xfffff << 12)
++#define HOST2GUC_REGISTER_CTB_REQUEST_MSG_1_TYPE	(0xf << 8)
++#define   GUC_CTB_TYPE_HOST2GUC				0u
++#define   GUC_CTB_TYPE_GUC2HOST				1u
++#define HOST2GUC_REGISTER_CTB_REQUEST_MSG_1_SIZE	(0xff << 0)
++#define HOST2GUC_REGISTER_CTB_REQUEST_MSG_2_DESC_ADDR	GUC_HXG_REQUEST_MSG_n_DATAn
++#define HOST2GUC_REGISTER_CTB_REQUEST_MSG_3_BUFF_ADDR	GUC_HXG_REQUEST_MSG_n_DATAn
++
++#define HOST2GUC_REGISTER_CTB_RESPONSE_MSG_LEN		GUC_HXG_RESPONSE_MSG_MIN_LEN
++#define HOST2GUC_REGISTER_CTB_RESPONSE_MSG_0_MBZ	GUC_HXG_RESPONSE_MSG_0_DATA0
++
++/**
++ * DOC: HOST2GUC_DEREGISTER_CTB
++ *
++ * This message is used as part of the `CTB based communication`_ teardown.
++ *
++ * This message must be sent as `MMIO H2G Message`_.
++ *
++ *  +---+-------+--------------------------------------------------------------+
++ *  |   | Bits  | Description                                                  |
++ *  +===+=======+==============================================================+
++ *  | 0 |    31 | ORIGIN = GUC_HXG_ORIGIN_HOST_                                |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   | 30:28 | TYPE = GUC_HXG_TYPE_REQUEST_                                 |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   | 27:16 | DATA0 = MBZ                                                  |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   |  15:0 | ACTION = _`GUC_ACTION_HOST2GUC_DEREGISTER_CTB` = 0x5201      |
++ *  +---+-------+--------------------------------------------------------------+
++ *  | 1 | 31:12 | RESERVED = MBZ                                               |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   |  11:8 | **TYPE** - type of the CT buffer                             |
++ *  |   |       |                                                              |
++ *  |   |       | see _`GUC_ACTION_HOST2GUC_REGISTER_CTB`                      |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   |   7:0 | RESERVED = MBZ                                               |
++ *  +---+-------+--------------------------------------------------------------+
++*
++ *  +---+-------+--------------------------------------------------------------+
++ *  |   | Bits  | Description                                                  |
++ *  +===+=======+==============================================================+
++ *  | 0 |    31 | ORIGIN = GUC_HXG_ORIGIN_GUC_                                 |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   | 30:28 | TYPE = GUC_HXG_TYPE_RESPONSE_SUCCESS_                        |
++ *  |   +-------+--------------------------------------------------------------+
++ *  |   |  27:0 | DATA0 = MBZ                                                  |
++ *  +---+-------+--------------------------------------------------------------+
++ */
++#define GUC_ACTION_HOST2GUC_DEREGISTER_CTB		0x4506 // FIXME 0x5201
++
++#define HOST2GUC_DEREGISTER_CTB_REQUEST_MSG_LEN		(GUC_HXG_REQUEST_MSG_MIN_LEN + 1u)
++#define HOST2GUC_DEREGISTER_CTB_REQUEST_MSG_0_MBZ	GUC_HXG_REQUEST_MSG_0_DATA0
++#define HOST2GUC_DEREGISTER_CTB_REQUEST_MSG_1_MBZ	(0xfffff << 12)
++#define HOST2GUC_DEREGISTER_CTB_REQUEST_MSG_1_TYPE	(0xf << 8)
++#define HOST2GUC_DEREGISTER_CTB_REQUEST_MSG_1_MBZ2	(0xff << 0)
++
++#define HOST2GUC_DEREGISTER_CTB_RESPONSE_MSG_LEN	GUC_HXG_RESPONSE_MSG_MIN_LEN
++#define HOST2GUC_DEREGISTER_CTB_RESPONSE_MSG_0_MBZ	GUC_HXG_RESPONSE_MSG_0_DATA0
++
++/* legacy definitions */
++
+ enum intel_guc_action {
+ 	INTEL_GUC_ACTION_DEFAULT = 0x0,
+ 	INTEL_GUC_ACTION_REQUEST_PREEMPTION = 0x2,
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
+index c2a069a78e01..127b256a662c 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
+@@ -112,10 +112,6 @@ static_assert(sizeof(struct guc_ct_buffer_desc) == 64);
+  * - **flags**, holds various bits to control message handling
+  */
+ 
+-/* Type of command transport buffer */
+-#define INTEL_GUC_CT_BUFFER_TYPE_SEND	0x0u
+-#define INTEL_GUC_CT_BUFFER_TYPE_RECV	0x1u
+-
+ /*
+  * Definition of the command transport message header (DW0)
+  *
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index fbd6bd20f588..c54a29176862 100644
+index 282df9706912..e25b49a45107 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -168,10 +168,10 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
- 	struct intel_guc *guc = ct_to_guc(ct);
- 	struct guc_ct_buffer_desc *desc;
- 	u32 blob_size;
-+	u32 cmds_size;
- 	void *blob;
- 	u32 *cmds;
- 	int err;
--	int i;
- 
- 	GEM_BUG_ON(ct->vma);
- 
-@@ -207,15 +207,23 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
- 
- 	CT_DEBUG(ct, "base=%#x size=%u\n", intel_guc_ggtt_offset(guc, ct->vma), blob_size);
- 
--	/* store pointers to desc and cmds */
--	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
--		GEM_BUG_ON((i !=  CTB_SEND) && (i != CTB_RECV));
-+	/* store pointers to desc and cmds for send ctb */
-+	desc = blob;
-+	cmds = blob + PAGE_SIZE / 2;
-+	cmds_size = PAGE_SIZE / 4;
-+	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "send",
-+		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
- 
--		desc = blob + PAGE_SIZE / 4 * i;
--		cmds = blob + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
-+	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size);
- 
--		guc_ct_buffer_init(&ct->ctbs[i], desc, cmds, PAGE_SIZE / 4);
--	}
-+	/* store pointers to desc and cmds for recv ctb */
-+	desc = blob + PAGE_SIZE / 4;
-+	cmds = blob + PAGE_SIZE / 4 + PAGE_SIZE / 2;
-+	cmds_size = PAGE_SIZE / 4;
-+	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "recv",
-+		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
-+
-+	guc_ct_buffer_init(&ct->ctbs.recv, desc, cmds, cmds_size);
- 
- 	return 0;
+@@ -103,9 +103,9 @@ void intel_guc_ct_init_early(struct intel_guc_ct *ct)
+ static inline const char *guc_ct_buffer_type_to_str(u32 type)
+ {
+ 	switch (type) {
+-	case INTEL_GUC_CT_BUFFER_TYPE_SEND:
++	case GUC_CTB_TYPE_HOST2GUC:
+ 		return "SEND";
+-	case INTEL_GUC_CT_BUFFER_TYPE_RECV:
++	case GUC_CTB_TYPE_GUC2HOST:
+ 		return "RECV";
+ 	default:
+ 		return "<invalid>";
+@@ -136,25 +136,33 @@ static void guc_ct_buffer_init(struct intel_guc_ct_buffer *ctb,
+ 	guc_ct_buffer_reset(ctb);
  }
-@@ -246,7 +254,6 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- 	u32 base, cmds;
+ 
+-static int guc_action_register_ct_buffer(struct intel_guc *guc,
+-					 u32 desc_addr,
+-					 u32 type)
++static int guc_action_register_ct_buffer(struct intel_guc *guc, u32 type,
++					 u32 desc_addr, u32 buff_addr, u32 size)
+ {
+-	u32 action[] = {
+-		INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER,
+-		desc_addr,
+-		sizeof(struct guc_ct_buffer_desc),
+-		type
++	u32 request[HOST2GUC_REGISTER_CTB_REQUEST_MSG_LEN] = {
++		FIELD_PREP(GUC_HXG_MSG_0_ORIGIN, GUC_HXG_ORIGIN_HOST) |
++		FIELD_PREP(GUC_HXG_MSG_0_TYPE, GUC_HXG_TYPE_REQUEST) |
++		FIELD_PREP(GUC_HXG_REQUEST_MSG_0_ACTION, GUC_ACTION_HOST2GUC_REGISTER_CTB),
++		FIELD_PREP(HOST2GUC_REGISTER_CTB_REQUEST_MSG_1_SIZE, size / SZ_4K - 1) |
++		FIELD_PREP(HOST2GUC_REGISTER_CTB_REQUEST_MSG_1_TYPE, type),
++		FIELD_PREP(HOST2GUC_REGISTER_CTB_REQUEST_MSG_2_DESC_ADDR, desc_addr),
++		FIELD_PREP(HOST2GUC_REGISTER_CTB_REQUEST_MSG_3_BUFF_ADDR, buff_addr),
+ 	};
+ 
+-	/* Can't use generic send(), CT registration must go over MMIO */
+-	return intel_guc_send_mmio(guc, action, ARRAY_SIZE(action), NULL, 0);
++	GEM_BUG_ON(type != GUC_CTB_TYPE_HOST2GUC && type != GUC_CTB_TYPE_GUC2HOST);
++	GEM_BUG_ON(size % SZ_4K);
++
++	/* CT registration must go over MMIO */
++	return intel_guc_send_mmio(guc, request, ARRAY_SIZE(request), NULL, 0);
+ }
+ 
+-static int ct_register_buffer(struct intel_guc_ct *ct, u32 desc_addr, u32 type)
++static int ct_register_buffer(struct intel_guc_ct *ct, u32 type,
++			      u32 desc_addr, u32 buff_addr, u32 size)
+ {
+-	int err = guc_action_register_ct_buffer(ct_to_guc(ct), desc_addr, type);
++	int err;
+ 
++	err = guc_action_register_ct_buffer(ct_to_guc(ct), type,
++					    desc_addr, buff_addr, size);
+ 	if (unlikely(err))
+ 		CT_ERROR(ct, "Failed to register %s buffer (err=%d)\n",
+ 			 guc_ct_buffer_type_to_str(type), err);
+@@ -163,14 +171,17 @@ static int ct_register_buffer(struct intel_guc_ct *ct, u32 desc_addr, u32 type)
+ 
+ static int guc_action_deregister_ct_buffer(struct intel_guc *guc, u32 type)
+ {
+-	u32 action[] = {
+-		INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER,
+-		CTB_OWNER_HOST,
+-		type
++	u32 request[HOST2GUC_DEREGISTER_CTB_REQUEST_MSG_LEN] = {
++		FIELD_PREP(GUC_HXG_MSG_0_ORIGIN, GUC_HXG_ORIGIN_HOST) |
++		FIELD_PREP(GUC_HXG_MSG_0_TYPE, GUC_HXG_TYPE_REQUEST) |
++		FIELD_PREP(GUC_HXG_REQUEST_MSG_0_ACTION, GUC_ACTION_HOST2GUC_DEREGISTER_CTB),
++		FIELD_PREP(HOST2GUC_DEREGISTER_CTB_REQUEST_MSG_1_TYPE, type),
+ 	};
+ 
+-	/* Can't use generic send(), CT deregistration must go over MMIO */
+-	return intel_guc_send_mmio(guc, action, ARRAY_SIZE(action), NULL, 0);
++	GEM_BUG_ON(type != GUC_CTB_TYPE_HOST2GUC && type != GUC_CTB_TYPE_GUC2HOST);
++
++	/* CT deregistration must go over MMIO */
++	return intel_guc_send_mmio(guc, request, ARRAY_SIZE(request), NULL, 0);
+ }
+ 
+ static int ct_deregister_buffer(struct intel_guc_ct *ct, u32 type)
+@@ -258,7 +269,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
+ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ {
+ 	struct intel_guc *guc = ct_to_guc(ct);
+-	u32 base, cmds;
++	u32 base, desc, cmds;
  	void *blob;
  	int err;
--	int i;
  
- 	GEM_BUG_ON(ct->enabled);
- 
-@@ -257,28 +264,25 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- 
- 	/* blob should start with send descriptor */
- 	blob = __px_vaddr(ct->vma->obj);
--	GEM_BUG_ON(blob != ct->ctbs[CTB_SEND].desc);
-+	GEM_BUG_ON(blob != ct->ctbs.send.desc);
+@@ -274,23 +285,26 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 	GEM_BUG_ON(blob != ct->ctbs.send.desc);
  
  	/* (re)initialize descriptors */
--	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
--		GEM_BUG_ON((i != CTB_SEND) && (i != CTB_RECV));
-+	cmds = base + ptrdiff(ct->ctbs.send.cmds, blob);
-+	guc_ct_buffer_reset(&ct->ctbs.send, cmds);
- 
--		cmds = base + ptrdiff(ct->ctbs[i].cmds, blob);
--		CT_DEBUG(ct, "%d: cmds addr=%#x\n", i, cmds);
+-	cmds = base + ptrdiff(ct->ctbs.send.cmds, blob);
+ 	guc_ct_buffer_reset(&ct->ctbs.send);
 -
--		guc_ct_buffer_reset(&ct->ctbs[i], cmds);
--	}
-+	cmds = base + ptrdiff(ct->ctbs.recv.cmds, blob);
-+	guc_ct_buffer_reset(&ct->ctbs.recv, cmds);
+-	cmds = base + ptrdiff(ct->ctbs.recv.cmds, blob);
+ 	guc_ct_buffer_reset(&ct->ctbs.recv);
  
  	/*
  	 * Register both CT buffers starting with RECV buffer.
  	 * Descriptors are in first half of the blob.
  	 */
--	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_RECV].desc, blob),
-+	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.recv.desc, blob),
- 				 INTEL_GUC_CT_BUFFER_TYPE_RECV);
+-	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.recv.desc, blob),
+-				 INTEL_GUC_CT_BUFFER_TYPE_RECV);
++	desc = base + ptrdiff(ct->ctbs.recv.desc, blob);
++	cmds = base + ptrdiff(ct->ctbs.recv.cmds, blob);
++	err = ct_register_buffer(ct, GUC_CTB_TYPE_GUC2HOST,
++				 desc, cmds, ct->ctbs.recv.size * 4);
++
  	if (unlikely(err))
  		goto err_out;
  
--	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_SEND].desc, blob),
-+	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.send.desc, blob),
- 				 INTEL_GUC_CT_BUFFER_TYPE_SEND);
+-	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.send.desc, blob),
+-				 INTEL_GUC_CT_BUFFER_TYPE_SEND);
++	desc = base + ptrdiff(ct->ctbs.send.desc, blob);
++	cmds = base + ptrdiff(ct->ctbs.send.cmds, blob);
++	err = ct_register_buffer(ct, GUC_CTB_TYPE_HOST2GUC,
++				 desc, cmds, ct->ctbs.send.size * 4);
++
  	if (unlikely(err))
  		goto err_deregister;
-@@ -341,7 +345,7 @@ static int ct_write(struct intel_guc_ct *ct,
- 		    u32 len /* in dwords */,
- 		    u32 fence)
- {
--	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_SEND];
-+	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
- 	u32 head = desc->head;
- 	u32 tail = desc->tail;
-@@ -557,7 +561,7 @@ static inline bool ct_header_is_response(u32 header)
  
- static int ct_read(struct intel_guc_ct *ct, u32 *data)
- {
--	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_RECV];
-+	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
- 	u32 head = desc->head;
- 	u32 tail = desc->tail;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index 4009e2dd0de4..fc9486779e87 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -47,8 +47,11 @@ struct intel_guc_ct {
- 	struct i915_vma *vma;
- 	bool enabled;
+@@ -299,7 +313,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 	return 0;
  
--	/* buffers for sending(0) and receiving(1) commands */
--	struct intel_guc_ct_buffer ctbs[2];
-+	/* buffers for sending and receiving commands */
-+	struct {
-+		struct intel_guc_ct_buffer send;
-+		struct intel_guc_ct_buffer recv;
-+	} ctbs;
+ err_deregister:
+-	ct_deregister_buffer(ct, INTEL_GUC_CT_BUFFER_TYPE_RECV);
++	ct_deregister_buffer(ct, GUC_CTB_TYPE_GUC2HOST);
+ err_out:
+ 	CT_PROBE_ERROR(ct, "Failed to enable CTB (%pe)\n", ERR_PTR(err));
+ 	return err;
+@@ -318,8 +332,8 @@ void intel_guc_ct_disable(struct intel_guc_ct *ct)
+ 	ct->enabled = false;
  
- 	struct {
- 		u32 last_fence; /* last fence used to send request */
+ 	if (intel_guc_is_fw_running(guc)) {
+-		ct_deregister_buffer(ct, INTEL_GUC_CT_BUFFER_TYPE_SEND);
+-		ct_deregister_buffer(ct, INTEL_GUC_CT_BUFFER_TYPE_RECV);
++		ct_deregister_buffer(ct, GUC_CTB_TYPE_HOST2GUC);
++		ct_deregister_buffer(ct, GUC_CTB_TYPE_GUC2HOST);
+ 	}
+ }
+ 
 -- 
 2.28.0
 
