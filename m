@@ -2,51 +2,51 @@ Return-Path: <SRS0=MDkJ=KB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 234B2C43460
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8421AC433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C5B2D610D2
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5B2D610D2
+	by mail.kernel.org (Postfix) with ESMTPS id 41A5161001
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41A5161001
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2DE06EDEC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC62D6ED84;
 	Thu,  6 May 2021 18:57:43 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7977B6ED12;
- Thu,  6 May 2021 18:57:13 +0000 (UTC)
-IronPort-SDR: gtuGl1/+8LP3IK36DdTRJlGDO+OlQzuxDhSvsOSUBwobLeQcYlt0VWlFEtek6/cGdrr6yBkR3A
- rZ3simZj1VDQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195448"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195448"
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 408136EDAB;
+ Thu,  6 May 2021 18:57:15 +0000 (UTC)
+IronPort-SDR: /WMwd+sS/pwt3tv8IYb/AuvQgEAnasw/zfaVT5/cgsZt8bPhLvOwMB5vfZ+QH1RnCgOToKVZKl
+ hBad0JkdejRA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531040"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531040"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:12 -0700
-IronPort-SDR: N/HErizDbEjWYoOWv+0Ab/q2Qz4A9pJeyfKVuxnZx6brGziO/bGKzXSC5y1ZBEBHJc9cBOBpYn
- QxJs53rNI90w==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583496"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:14 -0700
+IronPort-SDR: 5ERkbM0Xg7LlPGMPtCwpYdkBJXJa1/DRLkbS8kBzAzIL+E6TeiPcZUoLFMYrB9eBbNeLF5X3aB
+ Q1oq4RS3cgqw==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583667"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:10 -0700
+ 06 May 2021 11:57:14 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:13:59 -0700
-Message-Id: <20210506191451.77768-46-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:14:47 -0700
+Message-Id: <20210506191451.77768-94-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 45/97] drm/i915/guc: Add bypass tasklet
- submission path to GuC
+Subject: [Intel-gfx] [RFC PATCH 93/97] drm/i915/guc: Take engine PM when a
+ context is pinned with GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,84 +65,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add bypass tasklet submission path to GuC. The tasklet is only used if H2G
-channel has backpresure.
+Taking a PM reference to prevent intel_gt_wait_for_idle from short
+circuiting while a scheduling of user context could be enabled.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 37 +++++++++++++++----
- 1 file changed, 29 insertions(+), 8 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 36 +++++++++++++++++--
+ 1 file changed, 33 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 0955a8b00ee8..2fd83562c1d1 100644
+index 25c77084c3a0..dd4baaad679f 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -171,6 +171,12 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 	return err;
- }
+@@ -2026,7 +2026,12 @@ static int guc_context_pre_pin(struct intel_context *ce,
  
-+static inline void guc_set_lrc_tail(struct i915_request *rq)
-+{
-+	rq->context->lrc_reg_state[CTX_RING_TAIL] =
-+		intel_ring_set_tail(rq->ring, rq->tail);
-+}
-+
- static inline int rq_prio(const struct i915_request *rq)
+ static int guc_context_pin(struct intel_context *ce, void *vaddr)
  {
- 	return rq->sched.attr.priority;
-@@ -214,8 +220,7 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
- 	}
- done:
- 	if (submit) {
--		last->context->lrc_reg_state[CTX_RING_TAIL] =
--			intel_ring_set_tail(last->ring, last->tail);
-+		guc_set_lrc_tail(last);
- resubmit:
- 		/*
- 		 * We only check for -EBUSY here even though it is possible for
-@@ -499,20 +504,36 @@ static inline void queue_request(struct i915_sched_engine *sched_engine,
- 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+-	return __guc_context_pin(ce, ce->engine, vaddr);
++	int ret = __guc_context_pin(ce, ce->engine, vaddr);
++
++	if (likely(!ret && !intel_context_is_barrier(ce)))
++		intel_engine_pm_get(ce->engine);
++
++	return ret;
  }
  
-+static int guc_bypass_tasklet_submit(struct intel_guc *guc,
-+				     struct i915_request *rq)
-+{
-+	int ret;
+ static void guc_context_unpin(struct intel_context *ce)
+@@ -2037,6 +2042,9 @@ static void guc_context_unpin(struct intel_context *ce)
+ 
+ 	unpin_guc_id(guc, ce, true);
+ 	lrc_unpin(ce);
 +
-+	__i915_request_submit(rq);
++	if (likely(!intel_context_is_barrier(ce)))
++		intel_engine_pm_put(ce->engine);
+ }
+ 
+ static void guc_context_post_unpin(struct intel_context *ce)
+@@ -2922,8 +2930,30 @@ static int guc_virtual_context_pre_pin(struct intel_context *ce,
+ static int guc_virtual_context_pin(struct intel_context *ce, void *vaddr)
+ {
+ 	struct intel_engine_cs *engine = guc_virtual_get_sibling(ce->engine, 0);
++	int ret = __guc_context_pin(ce, engine, vaddr);
++	intel_engine_mask_t tmp, mask = ce->engine->mask;
 +
-+	trace_i915_request_in(rq, 0);
-+
-+	guc_set_lrc_tail(rq);
-+	ret = guc_add_request(guc, rq);
-+	if (ret == -EBUSY)
-+		guc->stalled_request = rq;
++	if (likely(!ret))
++		for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
++			intel_engine_pm_get(engine);
 +
 +	return ret;
 +}
 +
- static void guc_submit_request(struct i915_request *rq)
- {
- 	struct i915_sched_engine *sched_engine = rq->engine->sched_engine;
-+	struct intel_guc *guc = &rq->engine->gt->uc.guc;
- 	unsigned long flags;
++static void guc_virtual_context_unpin(struct intel_context *ce)
++{
++	intel_engine_mask_t tmp, mask = ce->engine->mask;
++	struct intel_engine_cs *engine;
++	struct intel_guc *guc = ce_to_guc(ce);
  
- 	/* Will be called from irq-context when using foreign fences. */
- 	spin_lock_irqsave(&sched_engine->lock, flags);
- 
--	queue_request(sched_engine, rq, rq_prio(rq));
--
--	GEM_BUG_ON(i915_sched_engine_is_empty(sched_engine));
--	GEM_BUG_ON(list_empty(&rq->sched.link));
--
--	i915_sched_engine_hi_kick(sched_engine);
-+	if (guc->stalled_request || !i915_sched_engine_is_empty(sched_engine))
-+		queue_request(sched_engine, rq, rq_prio(rq));
-+	else if (guc_bypass_tasklet_submit(guc, rq) == -EBUSY)
-+		i915_sched_engine_hi_kick(sched_engine);
- 
- 	spin_unlock_irqrestore(&sched_engine->lock, flags);
+-	return __guc_context_pin(ce, engine, vaddr);
++	GEM_BUG_ON(context_enabled(ce));
++	GEM_BUG_ON(intel_context_is_barrier(ce));
++
++	unpin_guc_id(guc, ce, true);
++	lrc_unpin(ce);
++
++	for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
++		intel_engine_pm_put(engine);
  }
+ 
+ static void guc_virtual_context_enter(struct intel_context *ce)
+@@ -2972,7 +3002,7 @@ static const struct intel_context_ops virtual_guc_context_ops = {
+ 
+ 	.pre_pin = guc_virtual_context_pre_pin,
+ 	.pin = guc_virtual_context_pin,
+-	.unpin = guc_context_unpin,
++	.unpin = guc_virtual_context_unpin,
+ 	.post_unpin = guc_context_post_unpin,
+ 
+ 	.ban = guc_context_ban,
 -- 
 2.28.0
 
