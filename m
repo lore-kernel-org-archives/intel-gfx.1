@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08866C43462
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A6BBC433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BFB7F610D2
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BFB7F610D2
+	by mail.kernel.org (Postfix) with ESMTPS id 4F0946121F
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F0946121F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EF9F6ED65;
-	Thu,  6 May 2021 18:57:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B47E86EDC1;
+	Thu,  6 May 2021 18:57:28 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 904BC6ECF5;
- Thu,  6 May 2021 18:57:12 +0000 (UTC)
-IronPort-SDR: 52KBJFWAHDGqGUqcOgkH/eaG1NjcPhne7J2U1R07ev7XcQ6eaznNJyZHJprue+KMeGwo10g5CJ
- LMm0NO2M5d5Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196530999"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196530999"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FCB06ED0D;
+ Thu,  6 May 2021 18:57:13 +0000 (UTC)
+IronPort-SDR: sRxvZtyxAkvLpCYjVuuoJVNlKg/CeAzpYQocj6v1sffbYLtYknPqPe0OoN8Z8EPnAQXpQkZT27
+ GvQYppgsC/ZQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531011"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531011"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:11 -0700
-IronPort-SDR: wCFBQNPXXKj0ZFasEB0ZDQqPuqyZGPpVig/VCQusoyMqYbz4IozhGeOrYa9SYSuD0qOJOFJ0LD
- +CEUewVU9Q3A==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583445"
+ 06 May 2021 11:57:12 -0700
+IronPort-SDR: axxjpDIU1z9a35IStfWVVcHRqgdbMHDwljOqjviqmnG0X5DAcEiPQtsVXzDwFUnsfHq3uwaxlQ
+ 1eEM3aeXQhqQ==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583491"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:09 -0700
+ 06 May 2021 11:57:10 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:13:42 -0700
-Message-Id: <20210506191451.77768-29-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:57 -0700
+Message-Id: <20210506191451.77768-44-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 28/97] drm/i915/guc: Kill guc_clients.ct_pool
+Subject: [Intel-gfx] [RFC PATCH 43/97] drm/i915/guc: Add lrc descriptor
+ context lookup array
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,92 +65,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Add lrc descriptor context lookup array which can resolve the
+intel_context from the lrc descriptor index. In addition to lookup, it
+can determine in the lrc descriptor context is currently registered with
+the GuC by checking if an entry for a descriptor index is present.
+Future patches in the series will make use of this array.
 
-CTB pool is now maintained internally by the GuC as part of its
-"private data". No need to allocate separate buffer and pass it
-to GuC as yet another ADS.
-
-GuC: 57.0.0
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 12 ------------
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 12 +-----------
- 2 files changed, 1 insertion(+), 23 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  5 +++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 32 +++++++++++++++++--
+ 2 files changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 648e1767b17a..775f00d706fa 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -25,8 +25,6 @@
-  *      +---------------------------------------+
-  *      | guc_clients_info                      |
-  *      +---------------------------------------+
-- *      | guc_ct_pool_entry[size]               |
-- *      +---------------------------------------+
-  *      | padding                               |
-  *      +---------------------------------------+ <== 4K aligned
-  *      | private data                          |
-@@ -39,7 +37,6 @@ struct __guc_ads_blob {
- 	struct guc_policies policies;
- 	struct guc_gt_system_info system_info;
- 	struct guc_clients_info clients_info;
--	struct guc_ct_pool_entry ct_pool[GUC_CT_POOL_SIZE];
- } __packed;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index d84f37afb9d8..2eb6c497e43c 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -6,6 +6,8 @@
+ #ifndef _INTEL_GUC_H_
+ #define _INTEL_GUC_H_
  
- static u32 guc_ads_private_data_size(struct intel_guc *guc)
-@@ -67,11 +64,6 @@ static void guc_policies_init(struct guc_policies *policies)
- 	policies->is_valid = 1;
++#include "linux/xarray.h"
++
+ #include "intel_uncore.h"
+ #include "intel_guc_fw.h"
+ #include "intel_guc_fwif.h"
+@@ -47,6 +49,9 @@ struct intel_guc {
+ 	struct i915_vma *lrc_desc_pool;
+ 	void *lrc_desc_pool_vaddr;
+ 
++	/* guc_id to intel_context lookup */
++	struct xarray context_lookup;
++
+ 	/* Control params for fw initialization */
+ 	u32 params[GUC_CTL_MAX_DWORDS];
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 6acc1ef34f92..c2b6d27404b7 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -65,8 +65,6 @@ static inline struct i915_priolist *to_priolist(struct rb_node *rb)
+ 	return rb_entry(rb, struct i915_priolist, node);
  }
  
--static void guc_ct_pool_entries_init(struct guc_ct_pool_entry *pool, u32 num)
--{
--	memset(pool, 0, num * sizeof(*pool));
--}
--
- static void guc_mapping_table_init(struct intel_gt *gt,
- 				   struct guc_gt_system_info *system_info)
+-/* Future patches will use this function */
+-__attribute__ ((unused))
+ static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
  {
-@@ -157,11 +149,7 @@ static void __guc_ads_init(struct intel_guc *guc)
- 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
+ 	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
+@@ -76,6 +74,15 @@ static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
+ 	return &base[index];
+ }
  
- 	/* Clients info  */
--	guc_ct_pool_entries_init(blob->ct_pool, ARRAY_SIZE(blob->ct_pool));
--
- 	blob->clients_info.clients_num = 1;
--	blob->clients_info.ct_pool_addr = base + ptr_offset(blob, ct_pool);
--	blob->clients_info.ct_pool_count = ARRAY_SIZE(blob->ct_pool);
++static inline struct intel_context *__get_context(struct intel_guc *guc, u32 id)
++{
++	struct intel_context *ce = xa_load(&guc->context_lookup, id);
++
++	GEM_BUG_ON(id >= GUC_MAX_LRC_DESCRIPTORS);
++
++	return ce;
++}
++
+ static int guc_lrc_desc_pool_create(struct intel_guc *guc)
+ {
+ 	u32 size;
+@@ -96,6 +103,25 @@ static void guc_lrc_desc_pool_destroy(struct intel_guc *guc)
+ 	i915_vma_unpin_and_release(&guc->lrc_desc_pool, I915_VMA_RELEASE_MAP);
+ }
  
- 	/* ADS */
- 	blob->ads.scheduler_policies = base + ptr_offset(blob, policies);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index 95db4a7d3f4d..301b173a26bc 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -269,19 +269,9 @@ struct guc_gt_system_info {
- } __packed;
++static inline void reset_lrc_desc(struct intel_guc *guc, u32 id)
++{
++	struct guc_lrc_desc *desc = __get_lrc_desc(guc, id);
++
++	memset(desc, 0, sizeof(*desc));
++	xa_erase_irq(&guc->context_lookup, id);
++}
++
++static inline bool lrc_desc_registered(struct intel_guc *guc, u32 id)
++{
++	return __get_context(guc, id);
++}
++
++static inline void set_lrc_desc_registered(struct intel_guc *guc, u32 id,
++					   struct intel_context *ce)
++{
++	xa_store_irq(&guc->context_lookup, id, ce, GFP_ATOMIC);
++}
++
+ static void guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ {
+ 	/* Leaving stub as this function will be used in future patches */
+@@ -404,6 +430,8 @@ int intel_guc_submission_init(struct intel_guc *guc)
+ 	 */
+ 	GEM_BUG_ON(!guc->lrc_desc_pool);
  
- /* Clients info */
--struct guc_ct_pool_entry {
--	struct guc_ct_buffer_desc desc;
--	u32 reserved[7];
--} __packed;
--
--#define GUC_CT_POOL_SIZE	2
--
- struct guc_clients_info {
- 	u32 clients_num;
--	u32 reserved0[13];
--	u32 ct_pool_addr;
--	u32 ct_pool_count;
--	u32 reserved[4];
-+	u32 reserved[19];
- } __packed;
++	xa_init_flags(&guc->context_lookup, XA_FLAGS_LOCK_IRQ);
++
+ 	return 0;
+ }
  
- /* GuC Additional Data Struct */
 -- 
 2.28.0
 
