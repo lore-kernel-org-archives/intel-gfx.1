@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6796C433B4
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:13:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D542C43460
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:13:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 47580610D2
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:13:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47580610D2
+	by mail.kernel.org (Postfix) with ESMTPS id 527A060FF3
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 527A060FF3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A42186ECCD;
-	Thu,  6 May 2021 17:13:06 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 880E06ECCB;
- Thu,  6 May 2021 17:13:05 +0000 (UTC)
-IronPort-SDR: LJyUS3l+jNzBRZt3USXr1zJsGWpqGg2gzfvtHzcxkcGn+uIlQN4/BFGMsQTYLzs7b5mlSMdD5D
- HPzHv8Qgaqpg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="195412171"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="195412171"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 595D56ECD7;
+	Thu,  6 May 2021 17:13:07 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE776ECC0;
+ Thu,  6 May 2021 17:13:06 +0000 (UTC)
+IronPort-SDR: ATD1KuMwL9Mebz0fGuPtxc7g0MSnsBQjrkrWwEQxr2Gv/Ghd1HKobkUHY7DI2bbbrdTPi792fQ
+ bszcD4hUIZbA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198613103"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198613103"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 10:13:05 -0700
-IronPort-SDR: p1rw+IaA7P6Eg6GNmiG2bem6/JOWdWJ8RvHn7k9nFeg8m7Oxk0iW8nQ8I6ljxr1pHjtMSgMNiR
- v7CWDD35XyLA==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="622533965"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 10:13:04 -0700
+IronPort-SDR: 9rfXXkPDbQq7RU0fixbnkqVwzWDyAIfQFPb7JVHKksFrdIL3Fpx8L4DSerMGZFhhcYATqzItYo
+ Tdg/p5+a1EOg==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="622533950"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 10:13:04 -0700
+ 06 May 2021 10:13:03 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 10:30:48 -0700
-Message-Id: <20210506173049.72503-5-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 10:30:45 -0700
+Message-Id: <20210506173049.72503-2-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506173049.72503-1-matthew.brost@intel.com>
 References: <20210506173049.72503-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 4/5] drm/i915: Introduce 'set parallel
- submit' extension
+Subject: [Intel-gfx] [RFC PATCH 1/5] drm/doc/rfc: i915 GuC submission / DRM
+ scheduler integration plan
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,165 +65,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i915_drm.h updates for 'set parallel submit' extension.
+Add entry for i915 GuC submission / DRM scheduler integration plan.
+Follow up patch with details of new parallel submission uAPI to come.
 
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Tony Ye <tony.ye@intel.com>
-CC: Carl Zhang <carl.zhang@intel.com>
+Cc: Jon Bloomfield <jon.bloomfield@intel.com>
+Cc: Jason Ekstrand <jason@jlekstrand.net>
+Cc: Dave Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Jason Ekstrand <jason@jlekstrand.net>
+Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- include/uapi/drm/i915_drm.h | 126 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 126 insertions(+)
+ Documentation/gpu/rfc/i915_scheduler.rst | 70 ++++++++++++++++++++++++
+ Documentation/gpu/rfc/index.rst          |  4 ++
+ 2 files changed, 74 insertions(+)
+ create mode 100644 Documentation/gpu/rfc/i915_scheduler.rst
 
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 26d2e135aa31..0175b12b33b8 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1712,6 +1712,7 @@ struct drm_i915_gem_context_param {
-  * Extensions:
-  *   i915_context_engines_load_balance (I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE)
-  *   i915_context_engines_bond (I915_CONTEXT_ENGINES_EXT_BOND)
-+ *   i915_context_engines_parallel_submit (I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT)
-  */
- #define I915_CONTEXT_PARAM_ENGINES	0xa
+diff --git a/Documentation/gpu/rfc/i915_scheduler.rst b/Documentation/gpu/rfc/i915_scheduler.rst
+new file mode 100644
+index 000000000000..fa6780a11c86
+--- /dev/null
++++ b/Documentation/gpu/rfc/i915_scheduler.rst
+@@ -0,0 +1,70 @@
++=========================================
++I915 GuC Submission/DRM Scheduler Section
++=========================================
++
++Upstream plan
++=============
++For upstream the overall plan for landing GuC submission and integrating the
++i915 with the DRM scheduler is:
++
++* Merge basic GuC submission
++	* Basic submission support for all gen11+ platforms
++	* Not enabled by default on any current platforms but can be enabled via
++	  modparam enable_guc
++	* Lots of rework will need to be done to integrate with DRM scheduler so
++	  no need to nit pick everything in the code, it just should be
++	  functional and not regress execlists
++	* Update IGTs / selftests as needed to work with GuC submission
++	* Enable CI on supported platforms for a baseline
++	* Rework / get CI heathly for GuC submission in place as needed
++* Merge new parallel submission uAPI
++	* Bonding uAPI completely incompatible with GuC submission
++	* New uAPI adds I915_CONTEXT_ENGINES_EXT_PARALLEL context setup step
++	  which configures contexts N wide
++	* After I915_CONTEXT_ENGINES_EXT_PARALLEL a user can submit N batches to
++	  a context in a single execbuf IOCTL and the batches run on the GPU in
++	  paralllel
++	* Initially only for GuC submission but execlists can be supported if
++	  needed
++* Convert the i915 to use the DRM scheduler
++	* GuC submission backend fully integrated with DRM scheduler
++		* All request queues removed from backend (e.g. all backpressure
++		  handled in DRM scheduler)
++		* Resets / cancels hook in DRM scheduler
++		* Watchdog hooks into DRM scheduler
++		* Lots of complexity of the GuC backend can be pulled out once
++		  integrated with DRM scheduler (e.g. state machine gets
++		  simplier, locking gets simplier, etc...)
++	* Execlist backend will do the minimum required to hook in the DRM
++	  scheduler so it can live next to the fully integrated GuC backend
++		* Legacy interface
++		* Features like timeslicing / preemption / virtual engines would
++		  be difficult to integrate with the DRM scheduler and these
++		  features are not required for GuC submission as the GuC does
++		  these things for us
++		* ROI low on fully integrating into DRM scheduler
++		* Fully integrating would add lots of complexity to DRM
++		  scheduler
++	* Port i915 priority inheritance / boosting feature in DRM scheduler
++	* Remove in-order completion assumptions from DRM scheduler
++	* Pull out i915 priority levels and use DRM priority levels
++	* Optimize DRM scheduler as needed
++
++New uAPI for basic GuC submission
++=================================
++No major changes are required to the uAPI for basic GuC submission. The only
++change is a new scheduler attribute: I915_SCHEDULER_CAP_STATIC_PRIORITY_MAP.
++This attribute indicates the 2k i915 user priority levels are statically mapped
++into 3 levels as follows:
++
++* -1k to -1 Low priority
++* 0 Medium priority
++* 1 to 1k High priority
++
++This is needed because the GuC only has 4 priority bands. The highest priority
++band is reserved with the kernel. This aligns with the DRM scheduler priority
++levels too.
++
++New parallel submission uAPI
++============================
++Details to come in a following patch.
+diff --git a/Documentation/gpu/rfc/index.rst b/Documentation/gpu/rfc/index.rst
+index a8621f7dab8b..018a8bf317a6 100644
+--- a/Documentation/gpu/rfc/index.rst
++++ b/Documentation/gpu/rfc/index.rst
+@@ -15,3 +15,7 @@ host such documentation:
  
-@@ -1894,9 +1895,134 @@ struct i915_context_param_engines {
- 	__u64 extensions; /* linked chain of extension blocks, 0 terminates */
- #define I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE 0 /* see i915_context_engines_load_balance */
- #define I915_CONTEXT_ENGINES_EXT_BOND 1 /* see i915_context_engines_bond */
-+#define I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT 2 /* see i915_context_engines_parallel_submit */
- 	struct i915_engine_class_instance engines[0];
- } __attribute__((packed));
- 
-+/*
-+ * i915_context_engines_parallel_submit:
-+ *
-+ * Setup a gem context to allow multiple BBs to be submitted in a single execbuf
-+ * IOCTL. Those BBs will then be scheduled to run on the GPU in parallel.
-+ *
-+ * All hardware contexts in the engine set are configured for parallel
-+ * submission (i.e. once this gem context is configured for parallel submission,
-+ * all the hardware contexts, regardless if a BB is available on each individual
-+ * context, will be submitted to the GPU in parallel). A user can submit BBs to
-+ * subset of the hardware contexts, in a single execbuf IOCTL, but it is not
-+ * recommended as it may reserve physical engines with nothing to run on them.
-+ * Highly recommended to configure the gem context with N hardware contexts then
-+ * always submit N BBs in a single IOCTL.
-+ *
-+ * Their are two currently defined ways to control the placement of the
-+ * hardware contexts on physical engines: default behavior (no flags) and
-+ * I915_PARALLEL_IMPLICT_BONDS (a flag). More flags may be added the in the
-+ * future as new hardware / use cases arise. Details of how to use this
-+ * interface below above the flags.
-+ *
-+ * Returns -EINVAL if hardware context placement configuration invalid or if the
-+ * placement configuration isn't supported on the platform / submission
-+ * interface.
-+ * Returns -ENODEV if extension isn't supported on the platform / submission
-+ * inteface.
-+ */
-+struct i915_context_engines_parallel_submit {
-+	struct i915_user_extension base;
+ * Once the code has landed move all the documentation to the right places in
+   the main core, helper or driver sections.
 +
-+/*
-+ * Default placement behvavior (currently unsupported):
-+ *
-+ * Rather than restricting parallel submission to a single class with a
-+ * logically contiguous placement (I915_PARALLEL_IMPLICT_BONDS), add a mode that
-+ * enables parallel submission across multiple engine classes. In this case each
-+ * context's logical engine mask indicates where that context can placed. It is
-+ * implied in this mode that all contexts have mutual exclusive placement (e.g.
-+ * if one context is running CS0 no other contexts can run on CS0).
-+ *
-+ * Example 1 pseudo code:
-+ * CSX[Y] = engine class X, logical instance Y
-+ * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-+ * set_engines(INVALID, INVALID)
-+ * set_load_balance(engine_index=0, num_siblings=2, engines=CS0[0],CS0[1])
-+ * set_load_balance(engine_index=1, num_siblings=2, engines=CS1[0],CS1[1])
-+ * set_parallel()
-+ *
-+ * Results in the following valid placements:
-+ * CS0[0], CS1[0]
-+ * CS0[0], CS1[1]
-+ * CS0[1], CS1[0]
-+ * CS0[1], CS1[1]
-+ *
-+ * Example 2 pseudo code:
-+ * CS[X] = generic engine of same class, logical instance X
-+ * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-+ * set_engines(INVALID, INVALID)
-+ * set_load_balance(engine_index=0, num_siblings=3, engines=CS[0],CS[1],CS[2])
-+ * set_load_balance(engine_index=1, num_siblings=3, engines=CS[0],CS[1],CS[2])
-+ * set_parallel()
-+ *
-+ * Results in the following valid placements:
-+ * CS[0], CS[1]
-+ * CS[0], CS[2]
-+ * CS[1], CS[0]
-+ * CS[1], CS[2]
-+ * CS[2], CS[0]
-+ * CS[2], CS[1]
-+ *
-+ * This enables a use case where all engines are created equally, we don't care
-+ * where they are scheduled, we just want a certain number of resources, for
-+ * those resources to be scheduled in parallel, and possibly across multiple
-+ * engine classes.
-+ */
++.. toctree::
 +
-+/*
-+ * I915_PARALLEL_IMPLICT_BONDS - Create implict bonds between each context.
-+ * Each context must have the same number sibling and bonds are implictly create
-+ * of the siblings.
-+ *
-+ * All of the below examples are in logical space.
-+ *
-+ * Example 1 pseudo code:
-+ * CS[X] = generic engine of same class, logical instance X
-+ * set_engines(CS[0], CS[1])
-+ * set_parallel(flags=I915_PARALLEL_IMPLICT_BONDS)
-+ *
-+ * Results in the following valid placements:
-+ * CS[0], CS[1]
-+ *
-+ * Example 2 pseudo code:
-+ * CS[X] = generic engine of same class, logical instance X
-+ * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-+ * set_engines(INVALID, INVALID)
-+ * set_load_balance(engine_index=0, num_siblings=2, engines=CS[0],CS[2])
-+ * set_load_balance(engine_index=1, num_siblings=2, engines=CS[1],CS[3])
-+ * set_parallel(flags=I915_PARALLEL_IMPLICT_BONDS)
-+ *
-+ * Results in the following valid placements:
-+ * CS[0], CS[1]
-+ * CS[2], CS[3]
-+ *
-+ * This enables a use case where all engines are not equal and certain placement
-+ * rules are required (i.e. split-frame requires all contexts to be placed in a
-+ * logically contiguous order on the VCS engines on gen11+ platforms). This use
-+ * case (logically contiguous placement, within a single engine class) is
-+ * supported when using GuC submission. Execlist mode could support all possible
-+ * bonding configurations but currently doesn't support this extension.
-+ */
-+#define I915_PARALLEL_IMPLICT_BONDS		(1<<0)
-+/*
-+ * Do not allow BBs to be preempted mid BB rather insert coordinated preemption
-+ * points on all hardware contexts between each set of BBs. An example use case
-+ * of this feature is split-frame on gen11+ hardware. When using this feature a
-+ * BB must be submitted on each hardware context in the parallel gem context.
-+ * The execbuf2 IOCTL enforces the user adheres to policy.
-+ */
-+#define I915_PARALLEL_NO_PREEMPT_MID_BATCH	(1<<1)
-+#define I915_PARALLEL_UNKNOWN_FLAGS  (-(I915_PARALLEL_NO_PREEMPT_MID_BATCH << 1))
-+	__u64 flags; /* all undefined flags must be zero */
-+	__u64 mbz64[4]; /* reserved for future use; must be zero */
-+} __attribute__ ((packed));
-+
- #define I915_DEFINE_CONTEXT_PARAM_ENGINES(name__, N__) struct { \
- 	__u64 extensions; \
- 	struct i915_engine_class_instance engines[N__]; \
++    i915_scheduler.rst
 -- 
 2.28.0
 
