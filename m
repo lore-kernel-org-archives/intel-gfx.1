@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8537EC43461
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CD81C433ED
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CA5661164
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CA5661164
+	by mail.kernel.org (Postfix) with ESMTPS id 074D3610D2
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 074D3610D2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70F066EE08;
-	Thu,  6 May 2021 18:57:50 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA4346ECFE;
- Thu,  6 May 2021 18:57:12 +0000 (UTC)
-IronPort-SDR: VwJ5vyUhXuxA6F+EXZZs5BCqxte9/eHkyLkKcEcp+qPFYBWXLm6nP4888vBWVSCnhmqQsp64oT
- BEevCq2T9TaQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531004"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531004"
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC14C6EE11;
+	Thu,  6 May 2021 18:57:54 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73F166ED11;
+ Thu,  6 May 2021 18:57:13 +0000 (UTC)
+IronPort-SDR: BdMw+KO9qts1edYEstv+1C7nIhfcTDK0DsYi0WiAsZJaNnEHu48p/RcQ6DyFBFXzVyQqqtL6oF
+ t3A63bWNzV2w==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195446"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195446"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:11 -0700
-IronPort-SDR: 3mVkr/XqKzL+f69WEGxPp7szt/eeU1+gNKHhCs2BCzMRuJ457Tba/9DTcrZZGoe48t11azTrrq
- j8txlvMdifHw==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583464"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:12 -0700
+IronPort-SDR: IzF4uIFZcUpwJHoVU+4rclBWu9F0lu2ByZ/LCSpN38y8LK4cyC6dd07oBqPwMjp8i4jYT362s2
+ /XrqzrquiZGg==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583482"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 May 2021 11:57:10 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:13:49 -0700
-Message-Id: <20210506191451.77768-36-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:54 -0700
+Message-Id: <20210506191451.77768-41-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 35/97] drm/i915/guc: Improve error message
- for unsolicited CT response
+Subject: [Intel-gfx] [RFC PATCH 40/97] drm/i915/guc: Module load failure
+ test for CT buffer creation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +65,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Improve the error message when a unsolicited CT response is received by
-printing fence that couldn't be found, the last fence, and all requests
-with a response outstanding.
+From: John Harrison <John.C.Harrison@Intel.com>
 
+Add several module failure load inject points in the CT buffer creation
+code path.
+
+Signed-off-by: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 217ab3ebd1af..a76603537fa8 100644
+index d6895d29ed2d..586e6efc3558 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -703,12 +703,16 @@ static int ct_handle_response(struct intel_guc_ct *ct, struct ct_incoming_msg *r
- 		found = true;
- 		break;
- 	}
--	spin_unlock_irqrestore(&ct->requests.lock, flags);
--
- 	if (!found) {
- 		CT_ERROR(ct, "Unsolicited response (fence %u)\n", fence);
--		return -ENOKEY;
-+		CT_ERROR(ct, "Could not find fence=%u, last_fence=%u\n", fence,
-+			 ct->requests.last_fence);
-+		list_for_each_entry(req, &ct->requests.pending, link)
-+			CT_ERROR(ct, "request %u awaits response\n",
-+				 req->fence);
-+		err = -ENOKEY;
- 	}
-+	spin_unlock_irqrestore(&ct->requests.lock, flags);
+@@ -177,6 +177,10 @@ static int ct_register_buffer(struct intel_guc_ct *ct, u32 type,
+ {
+ 	int err;
  
++	err = i915_inject_probe_error(guc_to_gt(ct_to_guc(ct))->i915, -ENXIO);
++	if (unlikely(err))
++		return err;
++
+ 	err = guc_action_register_ct_buffer(ct_to_guc(ct), type,
+ 					    desc_addr, buff_addr, size);
  	if (unlikely(err))
- 		return err;
+@@ -228,6 +232,10 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+ 	u32 *cmds;
+ 	int err;
+ 
++	err = i915_inject_probe_error(guc_to_gt(guc)->i915, -ENXIO);
++	if (err)
++		return err;
++
+ 	GEM_BUG_ON(ct->vma);
+ 
+ 	blob_size = 2 * CTB_DESC_SIZE + CTB_H2G_BUFFER_SIZE + CTB_G2H_BUFFER_SIZE;
 -- 
 2.28.0
 
