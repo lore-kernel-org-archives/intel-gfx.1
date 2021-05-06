@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7384C43462
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90E41C433ED
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A7C761001
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A7C761001
+	by mail.kernel.org (Postfix) with ESMTPS id 64A3961001
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64A3961001
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3EB16ED24;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF8B46EDC7;
 	Thu,  6 May 2021 18:57:30 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34ACE6ED65;
- Thu,  6 May 2021 18:57:14 +0000 (UTC)
-IronPort-SDR: 1xWv6ZULHGqeSSig408NRd6EBkSdW0L8gNGnGFrTkuflV1d4E2luqu3ogKMnwbwEUtxmwiyfGj
- Tlf83zp0RXlA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195458"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195458"
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C7876ECE4;
+ Thu,  6 May 2021 18:57:12 +0000 (UTC)
+IronPort-SDR: XPAjdNYZTEAPi+pefceHV5zMizI/XKQgvi3nEzxodbzDw3jGjtEUfTKueznM7AucE0yXAu8XQa
+ YuvU7H3nAQ9Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531000"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531000"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:13 -0700
-IronPort-SDR: ENkPGOu5YVT8ucse92tKYePSuQFTSku0c65JpL0kNi7f81ZVlrhR2SP2pM2kh/B60sT3yU3kjn
- +aDke3DbA4DA==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583578"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:11 -0700
+IronPort-SDR: f6l5GwenJGkxYyQfXxMy441nxkrKQjGsflkKfjAiSBFQHhPqO3cxMhBKz5UykjOOG+/QJuZ74B
+ IUv4qfUwbYow==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583447"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:12 -0700
+ 06 May 2021 11:57:09 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:14:22 -0700
-Message-Id: <20210506191451.77768-69-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:43 -0700
+Message-Id: <20210506191451.77768-30-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 68/97] drm/i915/guc: Handle context reset
- notification
+Subject: [Intel-gfx] [RFC PATCH 29/97] drm/i915/guc: Update firmware to
+ v60.1.2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,125 +65,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-GuC will issue a reset on detecting an engine hang and will notify
-the driver via a G2H message. The driver will service the notification
-by resetting the guilty context to a simple state or banning it
-completely.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  6 ++++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 35 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_trace.h             | 10 ++++++
- 4 files changed, 53 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 25 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 277b4496a20e..a2abe1c422e3 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -263,6 +263,8 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 					  const u32 *msg, u32 len);
- int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 				     const u32 *msg, u32 len);
-+int intel_guc_context_reset_process_msg(struct intel_guc *guc,
-+					const u32 *msg, u32 len);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index df647c9a8d56..81f5fad84906 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -48,19 +48,18 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+  * firmware as TGL.
+  */
+ #define INTEL_UC_FIRMWARE_DEFS(fw_def, guc_def, huc_def) \
+-	fw_def(ALDERLAKE_S, 0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
+-	fw_def(ROCKETLAKE,  0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
+-	fw_def(TIGERLAKE,   0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
+-	fw_def(JASPERLAKE,  0, guc_def(ehl, 49, 0, 1), huc_def(ehl,  9, 0, 0)) \
+-	fw_def(ELKHARTLAKE, 0, guc_def(ehl, 49, 0, 1), huc_def(ehl,  9, 0, 0)) \
+-	fw_def(ICELAKE,     0, guc_def(icl, 49, 0, 1), huc_def(icl,  9, 0, 0)) \
+-	fw_def(COMETLAKE,   5, guc_def(cml, 49, 0, 1), huc_def(cml,  4, 0, 0)) \
+-	fw_def(COMETLAKE,   0, guc_def(kbl, 49, 0, 1), huc_def(kbl,  4, 0, 0)) \
+-	fw_def(COFFEELAKE,  0, guc_def(kbl, 49, 0, 1), huc_def(kbl,  4, 0, 0)) \
+-	fw_def(GEMINILAKE,  0, guc_def(glk, 49, 0, 1), huc_def(glk,  4, 0, 0)) \
+-	fw_def(KABYLAKE,    0, guc_def(kbl, 49, 0, 1), huc_def(kbl,  4, 0, 0)) \
+-	fw_def(BROXTON,     0, guc_def(bxt, 49, 0, 1), huc_def(bxt,  2, 0, 0)) \
+-	fw_def(SKYLAKE,     0, guc_def(skl, 49, 0, 1), huc_def(skl,  2, 0, 0))
++	fw_def(ALDERLAKE_S, 0, guc_def(tgl, 60, 1, 2), huc_def(tgl,  7, 5, 0)) \
++	fw_def(ROCKETLAKE,  0, guc_def(tgl, 60, 1, 2), huc_def(tgl,  7, 5, 0)) \
++	fw_def(TIGERLAKE,   0, guc_def(tgl, 60, 1, 2), huc_def(tgl,  7, 5, 0)) \
++	fw_def(JASPERLAKE,  0, guc_def(ehl, 60, 1, 2), huc_def(ehl,  9, 0, 0)) \
++	fw_def(ELKHARTLAKE, 0, guc_def(ehl, 60, 1, 2), huc_def(ehl,  9, 0, 0)) \
++	fw_def(ICELAKE,     0, guc_def(icl, 60, 1, 2), huc_def(icl,  9, 0, 0)) \
++	fw_def(COMETLAKE,   5, guc_def(cml, 60, 1, 2), huc_def(cml,  4, 0, 0)) \
++	fw_def(COFFEELAKE,  0, guc_def(kbl, 60, 1, 2), huc_def(kbl,  4, 0, 0)) \
++	fw_def(GEMINILAKE,  0, guc_def(glk, 60, 1, 2), huc_def(glk,  4, 0, 0)) \
++	fw_def(KABYLAKE,    0, guc_def(kbl, 60, 1, 2), huc_def(kbl,  4, 0, 0)) \
++	fw_def(BROXTON,     0, guc_def(bxt, 60, 1, 2), huc_def(bxt,  2, 0, 0)) \
++	fw_def(SKYLAKE,     0, guc_def(skl, 60, 1, 2), huc_def(skl,  2, 0, 0))
  
- void intel_guc_submission_reset_prepare(struct intel_guc *guc);
- void intel_guc_submission_reset(struct intel_guc *guc, bool stalled);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index b3194d753b13..9c84b2ba63a8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -941,6 +941,12 @@ static int ct_process_request(struct intel_guc_ct *ct, struct ct_incoming_msg *r
- 			CT_ERROR(ct, "schedule context failed %x %*ph\n",
- 				  action, 4 * len, payload);
- 		break;
-+	case INTEL_GUC_ACTION_CONTEXT_RESET_NOTIFICATION:
-+		ret = intel_guc_context_reset_process_msg(guc, payload, len);
-+		if (unlikely(ret))
-+			CT_ERROR(ct, "context reset notification failed %x %*ph\n",
-+				  action, 4 * len, payload);
-+		break;
- 	default:
- 		ret = -EOPNOTSUPP;
- 		break;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 2c3791fc24b7..940017495731 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2192,6 +2192,41 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 	return 0;
- }
- 
-+static void guc_context_replay(struct intel_context *ce)
-+{
-+	struct i915_sched_engine *sched_engine = ce->engine->sched_engine;
-+
-+	__guc_reset_context(ce, true);
-+	i915_sched_engine_hi_kick(sched_engine);
-+}
-+
-+static void guc_handle_context_reset(struct intel_guc *guc,
-+				     struct intel_context *ce)
-+{
-+	trace_intel_context_reset(ce);
-+	guc_context_replay(ce);
-+}
-+
-+int intel_guc_context_reset_process_msg(struct intel_guc *guc,
-+					const u32 *msg, u32 len)
-+{
-+	struct intel_context *ce;
-+	int desc_idx = msg[0];
-+
-+	if (unlikely(len != 1)) {
-+		drm_dbg(&guc_to_gt(guc)->i915->drm, "Invalid length %u", len);
-+		return -EPROTO;
-+	}
-+
-+	ce = g2h_context_lookup(guc, desc_idx);
-+	if (unlikely(!ce))
-+		return -EPROTO;
-+
-+	guc_handle_context_reset(guc, ce);
-+
-+	return 0;
-+}
-+
- void intel_guc_log_submission_info(struct intel_guc *guc,
- 				   struct drm_printer *p)
- {
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index 97c2e83984ed..c095c4d39456 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -929,6 +929,11 @@ DECLARE_EVENT_CLASS(intel_context,
- 		      __entry->guc_sched_state_no_lock)
- );
- 
-+DEFINE_EVENT(intel_context, intel_context_reset,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
- DEFINE_EVENT(intel_context, intel_context_register,
- 	     TP_PROTO(struct intel_context *ce),
- 	     TP_ARGS(ce)
-@@ -1026,6 +1031,11 @@ trace_i915_request_out(struct i915_request *rq)
- {
- }
- 
-+static inline void
-+trace_intel_context_reset(struct intel_context *ce)
-+{
-+}
-+
- static inline void
- trace_intel_context_register(struct intel_context *ce)
- {
+ #define __MAKE_UC_FW_PATH(prefix_, name_, major_, minor_, patch_) \
+ 	"i915/" \
 -- 
 2.28.0
 
