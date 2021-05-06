@@ -2,51 +2,41 @@ Return-Path: <SRS0=MDkJ=KB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DATE_IN_PAST_06_12,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CD7AC433B4
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 07:39:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C094C433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 08:21:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3333611CB
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 07:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3333611CB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id EFA1261157
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 08:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EFA1261157
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9096E51B;
-	Thu,  6 May 2021 07:39:49 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E82A46E51B
- for <intel-gfx@lists.freedesktop.org>; Thu,  6 May 2021 07:39:47 +0000 (UTC)
-IronPort-SDR: vVaLnP7K8IhMinxLcZuZ3085xpbOYo3Qw+o49cyQorRBOkhGDni8lEvd3HOmPE2QpB6lh7vUAn
- kQpWerXm6O/w==
-X-IronPort-AV: E=McAfee;i="6200,9189,9975"; a="185866334"
-X-IronPort-AV: E=Sophos;i="5.82,276,1613462400"; d="scan'208";a="185866334"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 00:39:47 -0700
-IronPort-SDR: 0hKtYl64musL1IWiHvGXjASp6wks6+92jUJXGy2hgu1dexjwo2wMa9IJntcxQvkdr/cp9qLqsr
- /ntgaJ9j4mJw==
-X-IronPort-AV: E=Sophos;i="5.82,276,1613462400"; d="scan'208";a="532444511"
-Received: from unknown (HELO Nischal-desktop.iind.intel.com) ([10.223.74.174])
- by fmsmga001-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 May 2021 00:39:44 -0700
-From: Nischal Varide <nischal.varide@intel.com>
-To: intel-gfx@lists.freedesktop.org, nischal.varide@intel.com,
- uma.shankar@intel.com, anshuman.gupta@intel.com
-Date: Thu,  6 May 2021 06:17:19 +0530
-Message-Id: <20210506004719.4121-2-nischal.varide@intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210506004719.4121-1-nischal.varide@intel.com>
-References: <20210506004719.4121-1-nischal.varide@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66AA66EC73;
+	Thu,  6 May 2021 08:21:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6270E6E084;
+ Thu,  6 May 2021 08:21:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 59D4BA41FB;
+ Thu,  6 May 2021 08:21:23 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 1/1] drm/i915/display: Expose HDMI properties to
- userspace
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Date: Thu, 06 May 2021 08:21:23 -0000
+Message-ID: <162028928333.15690.14944100998082793911@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210506073836.14848-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20210506073836.14848-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Reorder_skl+_scaler_vs=2E_plane_updates?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,203 +49,184 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0812058044=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Right now the HDMI properties like vendor and product ids are hardcoded
-in the function "intel_hdmi_compute_spd_infoframe()".
+--===============0812058044==
+Content-Type: multipart/alternative;
+ boundary="===============6767237214274905334=="
 
-ret = hdmi_spd_infoframe_init(frame, "Intel", "Integrated gfx").
+--===============6767237214274905334==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-This patch enables the possibility of setting vendor and product fields
-of the Infoframe structure in the userspace, instead of hardcoding in
-the kernel.
+== Series Details ==
 
-The changes has been Tested by an IGT testcase , which will be floated
-in few hours
+Series: drm/i915: Reorder skl+ scaler vs. plane updates
+URL   : https://patchwork.freedesktop.org/series/89832/
+State : success
 
-Signed-off-by: Nischal Varide <nischal.varide@intel.com>
----
- drivers/gpu/drm/i915/display/intel_atomic.c   | 14 +++++++++++++
- .../gpu/drm/i915/display/intel_connector.c    | 20 +++++++++++++++++++
- .../gpu/drm/i915/display/intel_connector.h    |  1 +
- .../drm/i915/display/intel_display_types.h    |  5 +++++
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 14 ++++++++++++-
- drivers/gpu/drm/i915/display/intel_hdmi.h     |  5 +++++
- drivers/gpu/drm/i915/i915_drv.h               |  1 +
- 7 files changed, 59 insertions(+), 1 deletion(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-index 45feaaddab26..4d38eeb9dd33 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-@@ -65,6 +65,9 @@ int intel_digital_connector_atomic_get_property(struct drm_connector *connector,
- 		*val = intel_conn_state->force_audio;
- 	else if (property == dev_priv->broadcast_rgb_property)
- 		*val = intel_conn_state->broadcast_rgb;
-+	else if (property ==  dev_priv->hdmi_vendor_product_property)
-+		*val = (intel_conn_state->hdmi_vendor_product_blob)
-+			? (intel_conn_state->hdmi_vendor_product_blob->base.id) : 0;
- 	else {
- 		drm_dbg_atomic(&dev_priv->drm,
- 			       "Unknown property [PROP:%d:%s]\n",
-@@ -93,6 +96,7 @@ int intel_digital_connector_atomic_set_property(struct drm_connector *connector,
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct intel_digital_connector_state *intel_conn_state =
- 		to_intel_digital_connector_state(state);
-+	struct drm_property_blob *new_blob = NULL;
- 
- 	if (property == dev_priv->force_audio_property) {
- 		intel_conn_state->force_audio = val;
-@@ -104,6 +108,16 @@ int intel_digital_connector_atomic_set_property(struct drm_connector *connector,
- 		return 0;
- 	}
- 
-+	if (property ==  dev_priv->hdmi_vendor_product_property) {
-+		new_blob = drm_property_lookup_blob(dev, val);
-+		if (new_blob == NULL)
-+			return -EINVAL;
-+		if (drm_property_replace_blob
-+			(&intel_conn_state->hdmi_vendor_product_blob, new_blob)) {
-+			drm_property_blob_put(new_blob);
-+			return 0;
-+		}
-+	}
- 	drm_dbg_atomic(&dev_priv->drm, "Unknown property [PROP:%d:%s]\n",
- 		       property->base.id, property->name);
- 	return -EINVAL;
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index d5ceb7bdc14b..175c6242c5ee 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -269,6 +269,26 @@ intel_attach_broadcast_rgb_property(struct drm_connector *connector)
- 	drm_object_attach_property(&connector->base, prop, 0);
- }
- 
-+void
-+intel_attach_hdmi_vendor_product_property(struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_i915_private *dev_priv = to_i915(dev);
-+	struct drm_property *prop;
-+
-+	prop = dev_priv->hdmi_vendor_product_property;
-+	if (prop == NULL) {
-+		prop = drm_property_create(dev, DRM_MODE_PROP_BLOB |
-+			DRM_MODE_PROP_ATOMIC, "hdmi_vendor_product", 0);
-+		if (prop == NULL)
-+			return;
-+
-+		dev_priv->hdmi_vendor_product_property = prop;
-+	}
-+
-+	drm_object_attach_property(&connector->base, prop, 0);
-+}
-+
- void
- intel_attach_aspect_ratio_property(struct drm_connector *connector)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.h b/drivers/gpu/drm/i915/display/intel_connector.h
-index 661a37a3c6d8..9e16e098f53a 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.h
-+++ b/drivers/gpu/drm/i915/display/intel_connector.h
-@@ -27,6 +27,7 @@ enum pipe intel_connector_get_pipe(struct intel_connector *connector);
- int intel_connector_update_modes(struct drm_connector *connector,
- 				 struct edid *edid);
- int intel_ddc_get_modes(struct drm_connector *c, struct i2c_adapter *adapter);
-+void intel_attach_hdmi_vendor_product_property(struct drm_connector *connector);
- void intel_attach_force_audio_property(struct drm_connector *connector);
- void intel_attach_broadcast_rgb_property(struct drm_connector *connector);
- void intel_attach_aspect_ratio_property(struct drm_connector *connector);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 6d8cdaa36748..d29f54163044 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -549,6 +549,11 @@ struct intel_digital_connector_state {
- 
- 	enum hdmi_force_audio force_audio;
- 	int broadcast_rgb;
-+	/*
-+	 * hdmi_infoframe metadata
-+	 * DRM blob with hdmi vendor and product info
-+	 */
-+	struct drm_property_blob *hdmi_vendor_product_blob;
- };
- 
- #define to_intel_digital_connector_state(x) container_of(x, struct intel_digital_connector_state, base)
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 28e297296160..6f416c4a20b6 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -762,6 +762,9 @@ intel_hdmi_compute_spd_infoframe(struct intel_encoder *encoder,
- {
- 	struct hdmi_spd_infoframe *frame = &crtc_state->infoframes.spd.spd;
- 	int ret;
-+	struct hdmi_vendor_product_info *hdmi_vp_info;
-+	struct intel_digital_connector_state *intel_conn_state =
-+		to_intel_digital_connector_state(conn_state);
- 
- 	if (!crtc_state->has_infoframe)
- 		return true;
-@@ -769,7 +772,15 @@ intel_hdmi_compute_spd_infoframe(struct intel_encoder *encoder,
- 	crtc_state->infoframes.enable |=
- 		intel_hdmi_infoframe_enable(HDMI_INFOFRAME_TYPE_SPD);
- 
--	ret = hdmi_spd_infoframe_init(frame, "Intel", "Integrated gfx");
-+	if (!intel_conn_state->hdmi_vendor_product_blob)
-+		ret = hdmi_spd_infoframe_init(frame, "intel", "Integrated gfx");
-+	else {
-+		if (intel_conn_state->hdmi_vendor_product_blob->data) {
-+			hdmi_vp_info = intel_conn_state->hdmi_vendor_product_blob->data;
-+			ret = hdmi_spd_infoframe_init(frame, hdmi_vp_info->vendor,
-+				hdmi_vp_info->product);
-+		}
-+	}
- 	if (drm_WARN_ON(encoder->base.dev, ret))
- 		return false;
- 
-@@ -2456,6 +2467,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
- 	intel_attach_force_audio_property(connector);
- 	intel_attach_broadcast_rgb_property(connector);
- 	intel_attach_aspect_ratio_property(connector);
-+	intel_attach_hdmi_vendor_product_property(connector);
- 
- 	intel_attach_hdmi_colorspace_property(connector);
- 	drm_connector_attach_content_type_property(connector);
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index b43a180d007e..5be7179389d1 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -23,6 +23,11 @@ struct drm_connector_state;
- union hdmi_infoframe;
- enum port;
- 
-+/*Vendor Id and Product Id for the Hdmi property exported to Userspace*/
-+struct hdmi_vendor_product_info {
-+	char vendor[30];
-+	char product[30];
-+};
- void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
- 			       struct intel_connector *intel_connector);
- int intel_hdmi_compute_config(struct intel_encoder *encoder,
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 3cfa6effbb5f..9e3373c0f1eb 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1014,6 +1014,7 @@ struct drm_i915_private {
- 
- 	struct drm_property *broadcast_rgb_property;
- 	struct drm_property *force_audio_property;
-+	struct drm_property *hdmi_vendor_product_property;
- 
- 	/* hda/i915 audio component */
- 	struct i915_audio_component *audio_component;
--- 
-2.29.2
+CI Bug Log - changes from CI_DRM_10050 -> Patchwork_20075
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20075 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@query-info:
+    - fi-bsw-kefka:       NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/fi-bsw-kefka/igt@amdgpu/amd_basic@query-info.html
+
+  * igt@runner@aborted:
+    - fi-bdw-5557u:       NOTRUN -> [FAIL][2] ([i915#1602] / [i915#2029])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/fi-bdw-5557u/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-bsw-kefka:       [INCOMPLETE][3] ([i915#2782]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10050/fi-bsw-kefka/igt@i915_selftest@live@hangcheck.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/fi-bsw-kefka/igt@i915_selftest@live@hangcheck.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
+  [i915#2029]: https://gitlab.freedesktop.org/drm/intel/issues/2029
+  [i915#2782]: https://gitlab.freedesktop.org/drm/intel/issues/2782
+
+
+Participating hosts (44 -> 40)
+------------------------------
+
+  Missing    (4): fi-ctg-p8600 fi-ilk-m540 fi-bdw-samus fi-hsw-4200u 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10050 -> Patchwork_20075
+
+  CI-20190529: 20190529
+  CI_DRM_10050: ae46d9d790a148ab7b293cad67c770c0221e2c83 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6079: c77c1e9d716481aa44d713e8c91873aa679547ac @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_20075: a8e76ce4a42265c7e933c9dcab1ca0a51d6a60e5 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+a8e76ce4a422 drm/i915: Reorder skl+ scaler vs. plane updates
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/index.html
+
+--===============6767237214274905334==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Reorder skl+ scaler vs. plane updates</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/89832/">https://patchwork.freedesktop.org/series/89832/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10050 -&gt; Patchwork_20075</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20075 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@query-info:</p>
+<ul>
+<li>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/fi-bsw-kefka/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2029">i915#2029</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10050/fi-bsw-kefka/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2782">i915#2782</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20075/fi-bsw-kefka/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (44 -&gt; 40)</h2>
+<p>Missing    (4): fi-ctg-p8600 fi-ilk-m540 fi-bdw-samus fi-hsw-4200u </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10050 -&gt; Patchwork_20075</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10050: ae46d9d790a148ab7b293cad67c770c0221e2c83 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6079: c77c1e9d716481aa44d713e8c91873aa679547ac @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_20075: a8e76ce4a42265c7e933c9dcab1ca0a51d6a60e5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>a8e76ce4a422 drm/i915: Reorder skl+ scaler vs. plane updates</p>
+
+</body>
+</html>
+
+--===============6767237214274905334==--
+
+--===============0812058044==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0812058044==--
