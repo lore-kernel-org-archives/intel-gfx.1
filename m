@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9077EC433B4
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D111C433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A18D61001
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A18D61001
+	by mail.kernel.org (Postfix) with ESMTPS id D0BDF61001
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0BDF61001
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C88F06EDD3;
-	Thu,  6 May 2021 18:57:22 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A24876ED15;
- Thu,  6 May 2021 18:57:13 +0000 (UTC)
-IronPort-SDR: EsznPblXaGHV5/V28p3eI8wC1Hx2qlL2ZOieGPokN30CLLuXHyvjwPa1DfKE7ycCcjiorXQbs9
- U5X+kTh2v0mw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195449"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195449"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76F316EDBF;
+	Thu,  6 May 2021 18:57:23 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BCFB6ECF3;
+ Thu,  6 May 2021 18:57:12 +0000 (UTC)
+IronPort-SDR: GDWTpXZjWovWPaOAsENuRUdu7z81TeCaiHNSKXZoeu85tyZLS/mNJAU48ftM54STMevq0eROBF
+ mL+qVFPN+DSQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196530997"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196530997"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:12 -0700
-IronPort-SDR: +UMuYnz1xnDTCn3c0oXhZOnHkHK8vpbQ9wyvJXG4nP4hSvW/YcE3UcUcxAF5RtBQa4iyj621k+
- DLxzwLttEIsw==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583504"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:11 -0700
+IronPort-SDR: MBTLtq5kg03PS+Yi9VjAllAXTX9hxxDm2uAz8naRsTa6MS7N90dmZcOsD+xJuegOgX1b/1YBPs
+ lHD8svxYCQSg==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583431"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:11 -0700
+ 06 May 2021 11:57:09 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:14:01 -0700
-Message-Id: <20210506191451.77768-48-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:38 -0700
+Message-Id: <20210506191451.77768-25-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 47/97] drm/i915/guc: Insert fence on context
- when deregistering
+Subject: [Intel-gfx] [RFC PATCH 24/97] drm/i915/guc: Add flag for mark
+ broken CTB
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,168 +60,63 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: jason.ekstrand@intel.com, daniel.vetter@intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sometime during context pinning a context with the same guc_id is
-registered with the GuC. In this a case deregister must be before before
-the context can be registered. A fence is inserted on all requests while
-the deregister is in flight. Once the G2H is received indicating the
-deregistration is complete the context is registered and the fence is
-released.
-
-Cc: John Harrison <john.c.harrison@intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_context.c       |  1 +
- drivers/gpu/drm/i915/gt/intel_context_types.h |  5 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 51 ++++++++++++++++++-
- drivers/gpu/drm/i915/i915_request.h           |  8 +++
- 4 files changed, 63 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 2b68af16222c..f750c826e19d 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -384,6 +384,7 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
- 	mutex_init(&ce->pin_mutex);
- 
- 	spin_lock_init(&ce->guc_state.lock);
-+	INIT_LIST_HEAD(&ce->guc_state.fences);
- 
- 	ce->guc_id = GUC_INVALID_LRC_ID;
- 	INIT_LIST_HEAD(&ce->guc_id_link);
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index ce7c69b34cd1..beafe55a9101 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -146,6 +146,11 @@ struct intel_context {
- 		 * submission
- 		 */
- 		u8 sched_state;
-+		/*
-+		 * fences: maintains of list of requests that have a submit
-+		 * fence related to GuC submission
-+		 */
-+		struct list_head fences;
- 	} guc_state;
- 
- 	/* GuC scheduling state that does not require a lock. */
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index eada9ffc1a54..b4c439025a5f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -927,6 +927,30 @@ static const struct intel_context_ops guc_context_ops = {
- 	.destroy = guc_context_destroy,
- };
- 
-+static void __guc_signal_context_fence(struct intel_context *ce)
-+{
-+	struct i915_request *rq;
-+
-+	lockdep_assert_held(&ce->guc_state.lock);
-+
-+	list_for_each_entry(rq, &ce->guc_state.fences, guc_fence_link)
-+		i915_sw_fence_complete(&rq->submit);
-+
-+	INIT_LIST_HEAD(&ce->guc_state.fences);
-+}
-+
-+static void guc_signal_context_fence(struct intel_context *ce)
-+{
-+	unsigned long flags;
-+
-+	GEM_BUG_ON(!context_wait_for_deregister_to_register(ce));
-+
-+	spin_lock_irqsave(&ce->guc_state.lock, flags);
-+	clr_context_wait_for_deregister_to_register(ce);
-+	__guc_signal_context_fence(ce);
-+	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-+}
-+
- static bool context_needs_register(struct intel_context *ce, bool new_guc_id)
- {
- 	return new_guc_id || test_bit(CONTEXT_LRCA_DIRTY, &ce->flags) ||
-@@ -937,6 +961,7 @@ static int guc_request_alloc(struct i915_request *rq)
- {
- 	struct intel_context *ce = rq->context;
- 	struct intel_guc *guc = ce_to_guc(ce);
-+	unsigned long flags;
- 	int ret;
- 
- 	GEM_BUG_ON(!intel_context_is_pinned(rq->context));
-@@ -981,7 +1006,7 @@ static int guc_request_alloc(struct i915_request *rq)
- 	 * increment (in pin_guc_id) is needed to seal a race with unpin_guc_id.
- 	 */
- 	if (atomic_add_unless(&ce->guc_id_ref, 1, 0))
--		return 0;
-+		goto out;
- 
- 	ret = pin_guc_id(guc, ce);	/* returns 1 if new guc_id assigned */
- 	if (unlikely(ret < 0))
-@@ -998,6 +1023,28 @@ static int guc_request_alloc(struct i915_request *rq)
- 
- 	clear_bit(CONTEXT_LRCA_DIRTY, &ce->flags);
- 
-+out:
-+	/*
-+	 * We block all requests on this context if a G2H is pending for a
-+	 * context deregistration as the GuC will fail a context registration
-+	 * while this G2H is pending. Once a G2H returns, the fence is released
-+	 * that is blocking these requests (see guc_signal_context_fence).
-+	 *
-+	 * We can safely check the below field outside of the lock as it isn't
-+	 * possible for this field to transition from being clear to set but
-+	 * converse is possible, hence the need for the check within the lock.
-+	 */
-+	if (likely(!context_wait_for_deregister_to_register(ce)))
-+		return 0;
-+
-+	spin_lock_irqsave(&ce->guc_state.lock, flags);
-+	if (context_wait_for_deregister_to_register(ce)) {
-+		i915_sw_fence_await(&rq->submit);
-+
-+		list_add_tail(&rq->guc_fence_link, &ce->guc_state.fences);
-+	}
-+	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-+
- 	return 0;
- }
- 
-@@ -1299,7 +1346,7 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 		 */
- 		with_intel_runtime_pm(runtime_pm, wakeref)
- 			register_context(ce);
--		clr_context_wait_for_deregister_to_register(ce);
-+		guc_signal_context_fence(ce);
- 		intel_context_put(ce);
- 	} else if (context_destroyed(ce)) {
- 		/* Context has been destroyed */
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 239964bec1fa..f870cd75a001 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -285,6 +285,14 @@ struct i915_request {
- 		struct hrtimer timer;
- 	} watchdog;
- 
-+	/*
-+	 * Requests may need to be stalled when using GuC submission waiting for
-+	 * certain GuC operations to complete. If that is the case, stalled
-+	 * requests are added to a per context list of stalled requests. The
-+	 * below list_head is the link in that list.
-+	 */
-+	struct list_head guc_fence_link;
-+
- 	I915_SELFTEST_DECLARE(struct {
- 		struct list_head link;
- 		unsigned long delay;
--- 
-2.28.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogTWljaGFsIFdhamRlY3prbyA8bWljaGFsLndhamRlY3prb0BpbnRlbC5jb20+CgpPbmNl
+IENUQiBkZXNjcmlwdG9yIGlzIGZvdW5kIGluIGVycm9yIHN0YXRlLCBlaXRoZXIgc2V0IGJ5IEd1
+QwpvciB1cywgdGhlcmUgaXMgbm8gbmVlZCBjb250aW51ZSBjaGVja2luZyBkZXNjcmlwdG9yIGFu
+eSBtb3JlLAp3ZSBjYW4gcmVseSBvbiBvdXIgaW50ZXJuYWwgZmxhZy4KClNpZ25lZC1vZmYtYnk6
+IE1pY2hhbCBXYWpkZWN6a28gPG1pY2hhbC53YWpkZWN6a29AaW50ZWwuY29tPgpTaWduZWQtb2Zm
+LWJ5OiBNYXR0aGV3IEJyb3N0IDxtYXR0aGV3LmJyb3N0QGludGVsLmNvbT4KQ2M6IFBpb3RyIFBp
+w7Nya293c2tpIDxwaW90ci5waW9ya293c2tpQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
+cm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfY3QuYyB8IDEzICsrKysrKysrKysrLS0KIGRyaXZlcnMv
+Z3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19jdC5oIHwgIDIgKysKIDIgZmlsZXMgY2hhbmdl
+ZCwgMTMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfY3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2d0L3VjL2ludGVsX2d1Y19jdC5jCmluZGV4IDFhZmRlYWM2ODNiNS4uMTc4ZjczYWIyYzk2IDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfY3QuYworKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfY3QuYwpAQCAtMTIzLDYgKzEy
+Myw3IEBAIHN0YXRpYyB2b2lkIGd1Y19jdF9idWZmZXJfZGVzY19pbml0KHN0cnVjdCBndWNfY3Rf
+YnVmZmVyX2Rlc2MgKmRlc2MsCiAKIHN0YXRpYyB2b2lkIGd1Y19jdF9idWZmZXJfcmVzZXQoc3Ry
+dWN0IGludGVsX2d1Y19jdF9idWZmZXIgKmN0YiwgdTMyIGNtZHNfYWRkcikKIHsKKwljdGItPmJy
+b2tlbiA9IGZhbHNlOwogCWd1Y19jdF9idWZmZXJfZGVzY19pbml0KGN0Yi0+ZGVzYywgY21kc19h
+ZGRyLCBjdGItPnNpemUpOwogfQogCkBAIC0zNjUsOSArMzY2LDEyIEBAIHN0YXRpYyBpbnQgY3Rf
+d3JpdGUoc3RydWN0IGludGVsX2d1Y19jdCAqY3QsCiAJdTMyICpjbWRzID0gY3RiLT5jbWRzOwog
+CXVuc2lnbmVkIGludCBpOwogCi0JaWYgKHVubGlrZWx5KGRlc2MtPmlzX2luX2Vycm9yKSkKKwlp
+ZiAodW5saWtlbHkoY3RiLT5icm9rZW4pKQogCQlyZXR1cm4gLUVQSVBFOwogCisJaWYgKHVubGlr
+ZWx5KGRlc2MtPmlzX2luX2Vycm9yKSkKKwkJZ290byBjb3JydXB0ZWQ7CisKIAlpZiAodW5saWtl
+bHkoIUlTX0FMSUdORUQoaGVhZCB8IHRhaWwsIDQpIHx8CiAJCSAgICAgKHRhaWwgfCBoZWFkKSA+
+PSBzaXplKSkKIAkJZ290byBjb3JydXB0ZWQ7CkBAIC00MjMsNiArNDI3LDcgQEAgc3RhdGljIGlu
+dCBjdF93cml0ZShzdHJ1Y3QgaW50ZWxfZ3VjX2N0ICpjdCwKIAlDVF9FUlJPUihjdCwgIkNvcnJ1
+cHRlZCBkZXNjcmlwdG9yIGFkZHI9JSN4IGhlYWQ9JXUgdGFpbD0ldSBzaXplPSV1XG4iLAogCQkg
+ZGVzYy0+YWRkciwgZGVzYy0+aGVhZCwgZGVzYy0+dGFpbCwgZGVzYy0+c2l6ZSk7CiAJZGVzYy0+
+aXNfaW5fZXJyb3IgPSAxOworCWN0Yi0+YnJva2VuID0gdHJ1ZTsKIAlyZXR1cm4gLUVQSVBFOwog
+fQogCkBAIC02MDgsOSArNjEzLDEyIEBAIHN0YXRpYyBpbnQgY3RfcmVhZChzdHJ1Y3QgaW50ZWxf
+Z3VjX2N0ICpjdCwgc3RydWN0IGN0X2luY29taW5nX21zZyAqKm1zZykKIAl1bnNpZ25lZCBpbnQg
+aTsKIAl1MzIgaGVhZGVyOwogCi0JaWYgKHVubGlrZWx5KGRlc2MtPmlzX2luX2Vycm9yKSkKKwlp
+ZiAodW5saWtlbHkoY3RiLT5icm9rZW4pKQogCQlyZXR1cm4gLUVQSVBFOwogCisJaWYgKHVubGlr
+ZWx5KGRlc2MtPmlzX2luX2Vycm9yKSkKKwkJZ290byBjb3JydXB0ZWQ7CisKIAlpZiAodW5saWtl
+bHkoIUlTX0FMSUdORUQoaGVhZCB8IHRhaWwsIDQpIHx8CiAJCSAgICAgKHRhaWwgfCBoZWFkKSA+
+PSBzaXplKSkKIAkJZ290byBjb3JydXB0ZWQ7CkBAIC02NzQsNiArNjgyLDcgQEAgc3RhdGljIGlu
+dCBjdF9yZWFkKHN0cnVjdCBpbnRlbF9ndWNfY3QgKmN0LCBzdHJ1Y3QgY3RfaW5jb21pbmdfbXNn
+ICoqbXNnKQogCUNUX0VSUk9SKGN0LCAiQ29ycnVwdGVkIGRlc2NyaXB0b3IgYWRkcj0lI3ggaGVh
+ZD0ldSB0YWlsPSV1IHNpemU9JXVcbiIsCiAJCSBkZXNjLT5hZGRyLCBkZXNjLT5oZWFkLCBkZXNj
+LT50YWlsLCBkZXNjLT5zaXplKTsKIAlkZXNjLT5pc19pbl9lcnJvciA9IDE7CisJY3RiLT5icm9r
+ZW4gPSB0cnVlOwogCXJldHVybiAtRVBJUEU7CiB9CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19jdC5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qv
+dWMvaW50ZWxfZ3VjX2N0LmgKaW5kZXggY2IyMjJmMjAyMzAxLi43ZDNjZDM3NWQ2YTcgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19jdC5oCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19jdC5oCkBAIC0zMiwxMiArMzIsMTQg
+QEAgc3RydWN0IGludGVsX2d1YzsKICAqIEBkZXNjOiBwb2ludGVyIHRvIHRoZSBidWZmZXIgZGVz
+Y3JpcHRvcgogICogQGNtZHM6IHBvaW50ZXIgdG8gdGhlIGNvbW1hbmRzIGJ1ZmZlcgogICogQHNp
+emU6IHNpemUgb2YgdGhlIGNvbW1hbmRzIGJ1ZmZlcgorICogQGJyb2tlbjogZmxhZyB0byBpbmRp
+Y2F0ZSBpZiBkZXNjcmlwdG9yIGRhdGEgaXMgYnJva2VuCiAgKi8KIHN0cnVjdCBpbnRlbF9ndWNf
+Y3RfYnVmZmVyIHsKIAlzcGlubG9ja190IGxvY2s7CiAJc3RydWN0IGd1Y19jdF9idWZmZXJfZGVz
+YyAqZGVzYzsKIAl1MzIgKmNtZHM7CiAJdTMyIHNpemU7CisJYm9vbCBicm9rZW47CiB9OwogCiAK
+LS0gCjIuMjguMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4
+Cg==
