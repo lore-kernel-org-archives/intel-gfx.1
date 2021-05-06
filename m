@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C794C43616
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 234B2C43460
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 47E1761001
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47E1761001
+	by mail.kernel.org (Postfix) with ESMTPS id C5B2D610D2
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5B2D610D2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB3136ED1B;
-	Thu,  6 May 2021 18:57:42 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC65D6ECFC;
- Thu,  6 May 2021 18:57:12 +0000 (UTC)
-IronPort-SDR: DrxqRibbXyvus1ViPLrbeM/ii8g6J3U1i/iryLhdaL+5fxxmBkeMEy0j2vB66QKp4t0AsnnWwp
- eHesQ9oSGgsQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531003"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531003"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2DE06EDEC;
+	Thu,  6 May 2021 18:57:43 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7977B6ED12;
+ Thu,  6 May 2021 18:57:13 +0000 (UTC)
+IronPort-SDR: gtuGl1/+8LP3IK36DdTRJlGDO+OlQzuxDhSvsOSUBwobLeQcYlt0VWlFEtek6/cGdrr6yBkR3A
+ rZ3simZj1VDQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195448"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195448"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:11 -0700
-IronPort-SDR: Y/TAttr2CLrDdWti6Ly4lnr7+xRRobRVMUi5S1HHAUvmNr5Uqk20Z9emXan1iOA7+V7S/GXIdJ
- /WsnNpo5PGhw==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583458"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:12 -0700
+IronPort-SDR: N/HErizDbEjWYoOWv+0Ab/q2Qz4A9pJeyfKVuxnZx6brGziO/bGKzXSC5y1ZBEBHJc9cBOBpYn
+ QxJs53rNI90w==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583496"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:09 -0700
+ 06 May 2021 11:57:10 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:13:47 -0700
-Message-Id: <20210506191451.77768-34-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:59 -0700
+Message-Id: <20210506191451.77768-46-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 33/97] drm/i915: Engine relative MMIO
+Subject: [Intel-gfx] [RFC PATCH 45/97] drm/i915/guc: Add bypass tasklet
+ submission path to GuC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,178 +65,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+Add bypass tasklet submission path to GuC. The tasklet is only used if H2G
+channel has backpresure.
 
-With virtual engines, it is no longer possible to know which specific
-physical engine a given request will be executed on at the time that
-request is generated. This means that the request itself must be engine
-agnostic - any direct register writes must be relative to the engine
-and not absolute addresses.
-
-The LRI command has support for engine relative addressing. However,
-the mechanism is not transparent to the driver. The scheme for Gen11
-(MI_LRI_ADD_CS_MMIO_START) requires the LRI address to have no
-absolute engine base component. The hardware then adds on the correct
-engine offset at execution time.
-
-Due to the non-trivial and differing schemes on different hardware, it
-is not possible to simply update the code that creates the LRI
-commands to set a remap flag and let the hardware get on with it.
-Instead, this patch adds function wrappers for generating the LRI
-command itself and then for constructing the correct address to use
-with the LRI.
-
-Bspec: 45606
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
-CC: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-CC: Chris P Wilson <chris.p.wilson@intel.com>
-CC: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c  |  7 +++---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 25 ++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_engine_types.h |  3 +++
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |  5 ++++
- drivers/gpu/drm/i915/i915_perf.c             |  6 +++++
- 5 files changed, 43 insertions(+), 3 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 37 +++++++++++++++----
+ 1 file changed, 29 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 188dee13e017..993faa213b41 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1211,7 +1211,7 @@ static int emit_ppgtt_update(struct i915_request *rq, void *data)
- {
- 	struct i915_address_space *vm = rq->context->vm;
- 	struct intel_engine_cs *engine = rq->engine;
--	u32 base = engine->mmio_base;
-+	u32 base = engine->lri_mmio_base;
- 	u32 *cs;
- 	int i;
- 
-@@ -1223,7 +1223,7 @@ static int emit_ppgtt_update(struct i915_request *rq, void *data)
- 		if (IS_ERR(cs))
- 			return PTR_ERR(cs);
- 
--		*cs++ = MI_LOAD_REGISTER_IMM(2);
-+		*cs++ = MI_LOAD_REGISTER_IMM(2) | engine->lri_cmd_mode;
- 
- 		*cs++ = i915_mmio_reg_offset(GEN8_RING_PDP_UDW(base, 0));
- 		*cs++ = upper_32_bits(pd_daddr);
-@@ -1245,7 +1245,8 @@ static int emit_ppgtt_update(struct i915_request *rq, void *data)
- 		if (IS_ERR(cs))
- 			return PTR_ERR(cs);
- 
--		*cs++ = MI_LOAD_REGISTER_IMM(2 * GEN8_3LVL_PDPES) | MI_LRI_FORCE_POSTED;
-+		*cs++ = MI_LOAD_REGISTER_IMM(2 * GEN8_3LVL_PDPES) |
-+			MI_LRI_FORCE_POSTED | engine->lri_cmd_mode;
- 		for (i = GEN8_3LVL_PDPES; i--; ) {
- 			const dma_addr_t pd_daddr = i915_page_dir_dma_addr(ppgtt, i);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index ec82a7ec0c8d..c88b792c1ab5 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -16,6 +16,7 @@
- #include "intel_engine_pm.h"
- #include "intel_engine_user.h"
- #include "intel_execlists_submission.h"
-+#include "intel_gpu_commands.h"
- #include "intel_gt.h"
- #include "intel_gt_requests.h"
- #include "intel_gt_pm.h"
-@@ -223,6 +224,28 @@ static u32 __engine_mmio_base(struct drm_i915_private *i915,
- 	return bases[i].base;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 0955a8b00ee8..2fd83562c1d1 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -171,6 +171,12 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ 	return err;
  }
  
-+static bool i915_engine_has_relative_lri(const struct intel_engine_cs *engine)
++static inline void guc_set_lrc_tail(struct i915_request *rq)
 +{
-+	if (INTEL_GEN(engine->i915) < 11)
-+		return false;
-+
-+	if (engine->class == COPY_ENGINE_CLASS)
-+		return false;
-+
-+	return true;
++	rq->context->lrc_reg_state[CTX_RING_TAIL] =
++		intel_ring_set_tail(rq->ring, rq->tail);
 +}
 +
-+static void lri_init(struct intel_engine_cs *engine)
-+{
-+	if (i915_engine_has_relative_lri(engine)) {
-+		engine->lri_cmd_mode = MI_LRI_LRM_CS_MMIO;
-+		engine->lri_mmio_base = 0;
-+	} else {
-+		engine->lri_cmd_mode = 0;
-+		engine->lri_mmio_base = engine->mmio_base;
-+	}
-+}
-+
- static void __sprint_engine_name(struct intel_engine_cs *engine)
+ static inline int rq_prio(const struct i915_request *rq)
  {
- 	/*
-@@ -327,6 +350,8 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
- 	if (engine->context_size)
- 		DRIVER_CAPS(i915)->has_logical_contexts = true;
+ 	return rq->sched.attr.priority;
+@@ -214,8 +220,7 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
+ 	}
+ done:
+ 	if (submit) {
+-		last->context->lrc_reg_state[CTX_RING_TAIL] =
+-			intel_ring_set_tail(last->ring, last->tail);
++		guc_set_lrc_tail(last);
+ resubmit:
+ 		/*
+ 		 * We only check for -EBUSY here even though it is possible for
+@@ -499,20 +504,36 @@ static inline void queue_request(struct i915_sched_engine *sched_engine,
+ 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+ }
  
-+	lri_init(engine);
++static int guc_bypass_tasklet_submit(struct intel_guc *guc,
++				     struct i915_request *rq)
++{
++	int ret;
 +
- 	ewma__engine_latency_init(&engine->latency);
- 	seqcount_init(&engine->stats.lock);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 93aa22680db0..86302e6d86b2 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -281,6 +281,9 @@ struct intel_engine_cs {
- 	u32 context_size;
- 	u32 mmio_base;
- 
-+	u32 lri_mmio_base;
-+	u32 lri_cmd_mode;
++	__i915_request_submit(rq);
 +
- 	/*
- 	 * Some w/a require forcewake to be held (which prevents RC6) while
- 	 * a particular engine is active. If so, we set fw_domain to which
-diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-index 14e2ffb6c0e5..887d59897bc2 100644
---- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-@@ -134,6 +134,11 @@
-  *   simply ignores the register load under certain conditions.
-  * - One can actually load arbitrary many arbitrary registers: Simply issue x
-  *   address/value pairs. Don't overdue it, though, x <= 2^4 must hold!
-+ * - Newer hardware supports engine relative addressing but older hardware does
-+ *   not. This is required for hw engine load balancing. Hence the MI_LRI
-+ *   instruction itself is prefixed with '__' and should only be used on
-+ *   legacy hardware code paths. Generic code must always use the MI_LRI
-+ *   and i915_get_lri_reg() helper functions instead.
-  */
- #define MI_LOAD_REGISTER_IMM(x)	MI_INSTR(0x22, 2*(x)-1)
- /* Gen11+. addr = base + (ctx_restore ? offset & GENMASK(12,2) : offset) */
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 66f1f25119b5..b9cc3f0a616f 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -2118,6 +2118,11 @@ gen8_update_reg_state_unlocked(const struct intel_context *ce,
- 	u32 *reg_state = ce->lrc_reg_state;
- 	int i;
- 
-+	/*
-+	 * NB: The LRI instruction is generated by the hardware.
-+	 * Should we read it in and assert that the offset flag is set?
-+	 */
++	trace_i915_request_in(rq, 0);
 +
- 	reg_state[ctx_oactxctrl + 1] =
- 		(stream->period_exponent << GEN8_OA_TIMER_PERIOD_SHIFT) |
- 		(stream->periodic ? GEN8_OA_TIMER_ENABLE : 0) |
-@@ -2174,6 +2179,7 @@ gen8_load_flex(struct i915_request *rq,
++	guc_set_lrc_tail(rq);
++	ret = guc_add_request(guc, rq);
++	if (ret == -EBUSY)
++		guc->stalled_request = rq;
++
++	return ret;
++}
++
+ static void guc_submit_request(struct i915_request *rq)
+ {
+ 	struct i915_sched_engine *sched_engine = rq->engine->sched_engine;
++	struct intel_guc *guc = &rq->engine->gt->uc.guc;
+ 	unsigned long flags;
  
- 	*cs++ = MI_LOAD_REGISTER_IMM(count);
- 	do {
-+		/* FIXME: Is this table LRI remap/offset friendly? */
- 		*cs++ = i915_mmio_reg_offset(flex->reg);
- 		*cs++ = flex->value;
- 	} while (flex++, --count);
+ 	/* Will be called from irq-context when using foreign fences. */
+ 	spin_lock_irqsave(&sched_engine->lock, flags);
+ 
+-	queue_request(sched_engine, rq, rq_prio(rq));
+-
+-	GEM_BUG_ON(i915_sched_engine_is_empty(sched_engine));
+-	GEM_BUG_ON(list_empty(&rq->sched.link));
+-
+-	i915_sched_engine_hi_kick(sched_engine);
++	if (guc->stalled_request || !i915_sched_engine_is_empty(sched_engine))
++		queue_request(sched_engine, rq, rq_prio(rq));
++	else if (guc_bypass_tasklet_submit(guc, rq) == -EBUSY)
++		i915_sched_engine_hi_kick(sched_engine);
+ 
+ 	spin_unlock_irqrestore(&sched_engine->lock, flags);
+ }
 -- 
 2.28.0
 
