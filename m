@@ -7,46 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93B26C43460
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E3A8C43470
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62788610D2
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62788610D2
+	by mail.kernel.org (Postfix) with ESMTPS id 12BC3610D2
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:59:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12BC3610D2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D7266EDE8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DE506EDE7;
 	Thu,  6 May 2021 18:57:36 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5BD46ED17;
- Thu,  6 May 2021 18:57:13 +0000 (UTC)
-IronPort-SDR: 6BCnYqciG3q8VpUWDqfKf9Cm3+kN/QK7FSjsr9dpLkNRfaBKaKnuzYbymlGHX7D5av7YYvt7mp
- iuxFE1Tt4wZA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531019"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531019"
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D3E36ED6B;
+ Thu,  6 May 2021 18:57:14 +0000 (UTC)
+IronPort-SDR: SpiAFhGknGkQfoqHISGhm96JRDu9nc0oDOv7cfGjKasLbQ9qj6RsEeSdnoc7rsnNdD3xVTkKpx
+ 6LGAt58XIRPQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195460"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195460"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:12 -0700
-IronPort-SDR: q5pqtJt5TOWDWIivJgkIGKr+R/VQ6UiFq4QCxRhMfhff5lViIe54zQu+wegRQ2ohy30ymwMK3C
- haMUXGLvzFZQ==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583523"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:13 -0700
+IronPort-SDR: 3MVq5y6v+sjFlnTr0MvMUBwetNDfycGue/9T8vQ3KntdiiEQICSh1AtBZRT2cbg1D1w9zrL/jJ
+ /A5ifSfPEWcQ==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583596"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:11 -0700
+ 06 May 2021 11:57:12 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:14:07 -0700
-Message-Id: <20210506191451.77768-54-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:14:27 -0700
+Message-Id: <20210506191451.77768-74-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 53/97] drm/i915/guc: Disable semaphores when
- using GuC scheduling
+Subject: [Intel-gfx] [RFC PATCH 73/97] drm/i915/guc: Enable GuC engine reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +64,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Disable semaphores when using GuC scheduling as semaphores are broken in
-the current GuC firmware.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Cc: John Harrison <john.c.harrison@intel.com>
+Clear the 'disable resets' flag to allow GuC to reset hung contexts
+(detected via pre-emption timeout).
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 993faa213b41..d30260ffe2a7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -230,7 +230,8 @@ static void intel_context_set_gem(struct intel_context *ce,
- 		ce->timeline = intel_timeline_get(ctx->timeline);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index cd65ff42657d..179ab658d2b5 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -84,8 +84,7 @@ static void guc_policies_init(struct guc_policies *policies)
+ {
+ 	policies->dpc_promote_time = GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US;
+ 	policies->max_num_work_items = GLOBAL_POLICY_MAX_NUM_WI;
+-	/* Disable automatic resets as not yet supported. */
+-	policies->global_flags = GLOBAL_POLICY_DISABLE_ENGINE_RESET;
++	policies->global_flags = 0;
+ 	policies->is_valid = 1;
+ }
  
- 	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
--	    intel_engine_has_timeslices(ce->engine))
-+	    intel_engine_has_timeslices(ce->engine) &&
-+	    intel_engine_has_semaphores(ce->engine))
- 		__set_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
- 
- 	intel_context_set_watchdog_us(ce, ctx->watchdog.timeout_us);
-@@ -1939,7 +1940,8 @@ static int __apply_priority(struct intel_context *ce, void *arg)
- 	if (!intel_engine_has_timeslices(ce->engine))
- 		return 0;
- 
--	if (ctx->sched.priority >= I915_PRIORITY_NORMAL)
-+	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
-+	    intel_engine_has_semaphores(ce->engine))
- 		intel_context_set_use_semaphores(ce);
- 	else
- 		intel_context_clear_use_semaphores(ce);
 -- 
 2.28.0
 
