@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF897C43461
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE785C433B4
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:01:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 767F961164
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:01:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 767F961164
+	by mail.kernel.org (Postfix) with ESMTPS id 8C50F610D2
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C50F610D2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD936EE34;
-	Thu,  6 May 2021 18:58:01 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACAD6EDAD;
- Thu,  6 May 2021 18:57:15 +0000 (UTC)
-IronPort-SDR: mt8y43erbZzhc19fABmE6StkLsSl3a8mhDqbVCblqHaQVGBJ67FS8/GyaHeRxx2p7/13MZYQOY
- SZxLEAm9YUcw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531041"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531041"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 309B36EE28;
+	Thu,  6 May 2021 18:58:03 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6243A6ED83;
+ Thu,  6 May 2021 18:57:14 +0000 (UTC)
+IronPort-SDR: nrL1u7iIB6bfAW7uir+72m5JEaaSi6UOhw5sMnYzDs/gsaxhTasFRMHuvXDk3cUIRCjeWM3cCp
+ aWupDUhqEbbg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195461"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195461"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:14 -0700
-IronPort-SDR: Mb1HRBx7lclpO6mLHvsOKHuIu7os/19XxAwhm1lXVeedyeBYcmPyJRc4h0GJ39eN5nvLSqRpGI
- c027ou/tWQEA==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583679"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 11:57:13 -0700
+IronPort-SDR: YNP9Or8geQ8w4UZqP/xGTRFGl8hkPpLcTBzbFk3XKaJ3Njy3Gu76uyKZBQgDNk0XtkpAKbLOHd
+ 9Uu6AepORC9A==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583606"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:14 -0700
+ 06 May 2021 11:57:12 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:14:50 -0700
-Message-Id: <20210506191451.77768-97-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:14:30 -0700
+Message-Id: <20210506191451.77768-77-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 96/97] drm/i915/guc: Update GuC documentation
+Subject: [Intel-gfx] [RFC PATCH 76/97] drm/i915/guc: Hook GuC scheduling
+ policies up
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,135 +65,157 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 99 ++++++++++++++-----
- 1 file changed, 77 insertions(+), 22 deletions(-)
+From: John Harrison <John.C.Harrison@Intel.com>
 
+Use the official driver default scheduling policies for configuring
+the GuC scheduler rather than a bunch of hardcoded values.
+
+Signed-off-by: John Harrison <john.c.harrison@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Jose Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    | 44 ++++++++++++++++++-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 11 +++--
+ 4 files changed, 53 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index bba53e3b39b9..16cc8453b01c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -461,6 +461,7 @@ struct intel_engine_cs {
+ #define I915_ENGINE_IS_VIRTUAL       BIT(5)
+ #define I915_ENGINE_HAS_RELATIVE_MMIO BIT(6)
+ #define I915_ENGINE_REQUIRES_CMD_PARSER BIT(7)
++#define I915_ENGINE_WANT_FORCED_PREEMPTION BIT(8)
+ 	unsigned int flags;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 10b48b9f7603..266358d04bfc 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -271,6 +271,8 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
+ 
+ void intel_guc_find_hung_context(struct intel_engine_cs *engine);
+ 
++int intel_guc_global_policies_update(struct intel_guc *guc);
++
+ void intel_guc_submission_reset_prepare(struct intel_guc *guc);
+ void intel_guc_submission_reset(struct intel_guc *guc, bool stalled);
+ void intel_guc_submission_reset_finish(struct intel_guc *guc);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index 179ab658d2b5..b37473bc8fff 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -80,14 +80,54 @@ static u32 guc_ads_blob_size(struct intel_guc *guc)
+ 	       guc_ads_private_data_size(guc);
+ }
+ 
+-static void guc_policies_init(struct guc_policies *policies)
++static void guc_policies_init(struct intel_guc *guc, struct guc_policies *policies)
+ {
++	struct intel_gt *gt = guc_to_gt(guc);
++	struct drm_i915_private *i915 = gt->i915;
++
+ 	policies->dpc_promote_time = GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US;
+ 	policies->max_num_work_items = GLOBAL_POLICY_MAX_NUM_WI;
++
+ 	policies->global_flags = 0;
++	if (i915->params.reset < 2)
++		policies->global_flags |= GLOBAL_POLICY_DISABLE_ENGINE_RESET;
++
+ 	policies->is_valid = 1;
+ }
+ 
++static int guc_action_policies_update(struct intel_guc *guc, u32 policy_offset)
++{
++	u32 action[] = {
++		INTEL_GUC_ACTION_GLOBAL_SCHED_POLICY_CHANGE,
++		policy_offset
++	};
++
++	return intel_guc_send(guc, action, ARRAY_SIZE(action));
++}
++
++int intel_guc_global_policies_update(struct intel_guc *guc)
++{
++	struct __guc_ads_blob *blob = guc->ads_blob;
++	struct intel_gt *gt = guc_to_gt(guc);
++	intel_wakeref_t wakeref;
++	int ret;
++
++	if (!blob)
++		return -ENOTSUPP;
++
++	GEM_BUG_ON(!blob->ads.scheduler_policies);
++
++	guc_policies_init(guc, &blob->policies);
++
++	if (!intel_guc_is_ready(guc))
++		return 0;
++
++	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref)
++		ret = guc_action_policies_update(guc, blob->ads.scheduler_policies);
++
++	return ret;
++}
++
+ static void guc_mapping_table_init(struct intel_gt *gt,
+ 				   struct guc_gt_system_info *system_info)
+ {
+@@ -284,7 +324,7 @@ static void __guc_ads_init(struct intel_guc *guc)
+ 	u8 engine_class, guc_class;
+ 
+ 	/* GuC scheduling policies */
+-	guc_policies_init(&blob->policies);
++	guc_policies_init(guc, &blob->policies);
+ 
+ 	/*
+ 	 * GuC expects a per-engine-class context image and size
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 337ddc0dab6b..594a99ea4f5c 100644
+index ad3d2326a81d..a9fb31370c61 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -29,21 +29,6 @@
- /**
-  * DOC: GuC-based command submission
-  *
-- * IMPORTANT NOTE: GuC submission is currently not supported in i915. The GuC
-- * firmware is moving to an updated submission interface and we plan to
-- * turn submission back on when that lands. The below documentation (and related
-- * code) matches the old submission model and will be updated as part of the
-- * upgrade to the new flow.
-- *
-- * GuC stage descriptor:
-- * During initialization, the driver allocates a static pool of 1024 such
-- * descriptors, and shares them with the GuC. Currently, we only use one
-- * descriptor. This stage descriptor lets the GuC know about the workqueue and
-- * process descriptor. Theoretically, it also lets the GuC know about our HW
-- * contexts (context ID, etc...), but we actually employ a kind of submission
-- * where the GuC uses the LRCA sent via the work item instead. This is called
-- * a "proxy" submission.
-- *
-  * The Scratch registers:
-  * There are 16 MMIO-based registers start from 0xC180. The kernel driver writes
-  * a value to the action register (SOFT_SCRATCH_0) along with any data. It then
-@@ -52,13 +37,45 @@
-  * processes the request. The kernel driver polls waiting for this update and
-  * then proceeds.
-  *
-- * Work Items:
-- * There are several types of work items that the host may place into a
-- * workqueue, each with its own requirements and limitations. Currently only
-- * WQ_TYPE_INORDER is needed to support legacy submission via GuC, which
-- * represents in-order queue. The kernel driver packs ring tail pointer and an
-- * ELSP context descriptor dword into Work Item.
-- * See gse_add_request()
-+ * Command Transport buffers (CTBs):
-+ * Covered in detail in other sections but CTBs (host-to-guc, H2G, guc-to-host
-+ * G2H) are how the i915 controls submissions.
-+ *
-+ * Context registration:
-+ * Before a context can be submitted it must be registered with the GuC via a
-+ * H2G. A unique guc_id associated with each context. The context is either
-+ * registered at request creation time (no flow control) or at submission time
-+ * (flow control). It will stay registered until the context is destroyed or a
-+ * flow control condition is met (e.g. pressure on guc_ids).
-+ *
-+ * Context submission:
-+ * The i915 updates the LRC tail value in memory. Either a schedule enable H2G
-+ * or context submit H2G is used to submit a context.
-+ *
-+ * Context unpin:
-+ * To unpin a context a H2G is used to disable scheduling and when the
-+ * corresponding G2H returns indicating the scheduling disable operation has
-+ * completed it is safe to unpin the context. While a disable is in flight it
-+ * isn't safe to resubmit the context so a fence is used to stall all future
-+ * requests until the G2H is returned.
-+ *
-+ * Context deregistration:
-+ * Before a context can be destroyed or we steal its guc_id we must deregister
-+ * the context with the GuC via H2G. If stealing the guc_id it isn't safe to
-+ * submit anything to this guc_id until the deregister completes so a fence is
-+ * used to stall all requests associated with this guc_ids until the
-+ * corresponding G2H returns indicating the guc_id has been deregistered.
-+ *
-+ * guc_ids:
-+ * Unique number associated with private GuC context data passed in during
-+ * context registration / submission / deregistration. 64k available. Simple ida
-+ * is used for allocation.
-+ *
-+ * Stealing guc_ids:
-+ * If no guc_ids are available they can be stolen from another context at
-+ * request creation time if that context is unpinned. If nothing can be found at
-+ * request creation time, flow control is triggered (serializing all submission
-+ * until flow control exits) and guc_ids are stolden at submission time.
-  *
-  * GuC flow control state machine:
-  * The tasklet, workqueue (retire_worker), and the G2H handlers together more or
-@@ -79,6 +96,44 @@
-  * STALL_MOVE_LRC_TAIL		Tasklet will try to move LRC tail
-  * STALL_ADD_REQUEST		Tasklet will try to add the request (submit
-  *				context)
-+ *
-+ * Locking:
-+ * In the GuC submission code we have 4 basic spin locks which protect
-+ * everything. Details about each below.
-+ *
-+ * gse->sched_engine->lock
-+ * This is the submission lock for all contexts that share a GuC submit engine
-+ * (gse), thus only 1 context which share a gse can be submitting at a time.
-+ *
-+ * guc->contexts_lock
-+ * Protects guc_id allocation. Global lock i.e. Only 1 context that uses GuC
-+ * submission can hold this at a time.
-+ *
-+ * ce->guc_state.lock
-+ * Protects everything under ce->guc_state. Ensures that a context is in the
-+ * correct state before issuing a H2G. e.g. We don't issue a schedule disable
-+ * on disabled context (bad idea), we don't issue schedule enable when a
-+ * schedule disable is inflight, etc... Lock individual to each context.
-+ *
-+ * ce->guc_active.lock
-+ * Protects everything under ce->guc_active which is the current requests
-+ * inflight on the context / priority management. Lock individual to each
-+ * context.
-+ *
-+ * Lock ordering rules:
-+ * ce->guc_state.lock -> gse->sched_engine->lock -> ce->guc_active.lock
-+ * gse->sched_engine->lock -> guc->contexts_lock
-+ *
-+ * Reset races:
-+ * When a GPU full reset is triggered it is assumed that some G2H responses to
-+ * a H2G can be lost as the GuC is likely toast. Losing these G2H can prove to
-+ * fatal as we do certain operations upon receiving a G2H (e.g. destroy
-+ * contexts, release guc_ids, etc...). Luckly when this occurs we can scrub
-+ * context state and cleanup appropriately, however this is quite racey. To
-+ * avoid races the rules are check for submission being disabled (i.e. check for
-+ * mid reset) with the appropriate lock being held. If submission is disabled
-+ * don't send the H2G. The reset code must disable submission and flush all
-+ * locks before scrubbing for missing G2H.
-  */
+@@ -872,6 +872,7 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
+ 	GEM_WARN_ON(atomic_read(&guc->outstanding_submission_g2h));
+ 	atomic_set(&guc->outstanding_submission_g2h, 0);
  
- static struct intel_context *
++	intel_guc_global_policies_update(guc);
+ 	enable_submission(guc);
+ 	intel_gt_unpark_heartbeats(guc_to_gt(guc));
+ }
+@@ -1160,8 +1161,12 @@ static void guc_context_policy_init(struct intel_engine_cs *engine,
+ {
+ 	desc->policy_flags = 0;
+ 
+-	desc->execution_quantum = CONTEXT_POLICY_DEFAULT_EXECUTION_QUANTUM_US;
+-	desc->preemption_timeout = CONTEXT_POLICY_DEFAULT_PREEMPTION_TIME_US;
++	if (engine->flags & I915_ENGINE_WANT_FORCED_PREEMPTION)
++		desc->policy_flags |= CONTEXT_POLICY_FLAG_PREEMPT_TO_IDLE;
++
++	/* NB: For both of these, zero means disabled. */
++	desc->execution_quantum = engine->props.timeslice_duration_ms * 1000;
++	desc->preemption_timeout = engine->props.preempt_timeout_ms * 1000;
+ }
+ 
+ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+@@ -1942,13 +1947,13 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
+ 	engine->set_default_submission = guc_set_default_submission;
+ 
+ 	engine->flags |= I915_ENGINE_HAS_PREEMPTION;
++	engine->flags |= I915_ENGINE_HAS_TIMESLICES;
+ 
+ 	/*
+ 	 * TODO: GuC supports timeslicing and semaphores as well, but they're
+ 	 * handled by the firmware so some minor tweaks are required before
+ 	 * enabling.
+ 	 *
+-	 * engine->flags |= I915_ENGINE_HAS_TIMESLICES;
+ 	 * engine->flags |= I915_ENGINE_HAS_SEMAPHORES;
+ 	 */
+ 
 -- 
 2.28.0
 
