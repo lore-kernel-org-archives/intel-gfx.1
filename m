@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FED1C433B4
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2144C43460
 	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED85761164
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED85761164
+	by mail.kernel.org (Postfix) with ESMTPS id 6F11B610D2
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F11B610D2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA96E6EDF8;
-	Thu,  6 May 2021 18:57:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB256EDF6;
+	Thu,  6 May 2021 18:57:48 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F3C26ED7E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B91386ED9A;
  Thu,  6 May 2021 18:57:14 +0000 (UTC)
-IronPort-SDR: Mw/hC02Mp19argcVxMhZQVhgdI5waXXzVQXjvGVJp/Xej2U6rzlly91vuJ3+glBsAgyygS4JUP
- ZEJHr89Er1Qw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531031"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531031"
+IronPort-SDR: dQu4igPR+iNUxHEupKqP1K14YsVYiC+cS7zjfkhS1wwugov7ot8P5bKozbsKqvfhEgWa7odcAW
+ uHkkG4ods1OQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531035"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531035"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:13 -0700
-IronPort-SDR: xNTvB/5+RIyiZYKwPa1C1Uf/EFEKfhskqTXaTBZs4T2f8HZeomW3dRX5YbTlFmRR+F7VX6LVxT
- 7wtKnDTOOAaQ==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583599"
+ 06 May 2021 11:57:14 -0700
+IronPort-SDR: xYWqi4r7fI0g4/ta3LUB/r1WRYH/vHsFoEezY2MW6qHUaHhUliadpMhYFiMFdt4utqF3VdbYvn
+ IdVXyrqJ/cdA==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583632"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:12 -0700
+ 06 May 2021 11:57:13 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:14:28 -0700
-Message-Id: <20210506191451.77768-75-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:14:38 -0700
+Message-Id: <20210506191451.77768-85-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 74/97] drm/i915/guc: Capture error state on
- context reset
+Subject: [Intel-gfx] [RFC PATCH 84/97] drm/i915/guc: Don't allow requests
+ not ready to consume all guc_ids
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,267 +65,191 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We receive notification of an engine reset from GuC at its
-completion. Meaning GuC has potentially cleared any HW state
-we may have been interested in capturing. GuC resumes scheduling
-on the engine post-reset, as the resets are meant to be transparent,
-further muddling our error state.
-
-There is ongoing work to define an API for a GuC debug state dump. The
-suggestion for now is to manually disable FW initiated resets in cases
-where debug state is needed.
+Add a heuristic which checks if over half of the available guc_ids are
+currently consumed by requests not ready to be submitted. If this
+heuristic is true at request creation time (normal guc_id allocation
+location) force all submissions + guc_ids allocations to tasklet.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       | 20 +++++++++++
- drivers/gpu/drm/i915/gt/intel_context.h       |  3 ++
- drivers/gpu/drm/i915/gt/intel_engine.h        | 21 ++++++++++-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 11 ++++--
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |  2 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 35 +++++++++----------
- drivers/gpu/drm/i915/i915_gpu_error.c         | 25 ++++++++++---
- 7 files changed, 91 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  3 ++
+ drivers/gpu/drm/i915/gt/intel_reset.c         |  9 ++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  1 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 53 +++++++++++++++++--
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.h |  2 +
+ 5 files changed, 65 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 2f01437056a8..3fe7794b2bfd 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -514,6 +514,26 @@ struct i915_request *intel_context_create_request(struct intel_context *ce)
- 	return rq;
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index a25ea8fe2029..998f3839411a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -186,6 +186,9 @@ struct intel_context {
+ 	/* GuC lrc descriptor reference count */
+ 	atomic_t guc_id_ref;
  
-+struct i915_request *intel_context_find_active_request(struct intel_context *ce)
-+{
-+	struct i915_request *rq, *active = NULL;
-+	unsigned long flags;
-+
-+	GEM_BUG_ON(!intel_engine_uses_guc(ce->engine));
-+
-+	spin_lock_irqsave(&ce->guc_active.lock, flags);
-+	list_for_each_entry_reverse(rq, &ce->guc_active.requests,
-+				    sched.link) {
-+		if (i915_request_completed(rq))
-+			break;
-+
-+		active = rq;
-+	}
-+	spin_unlock_irqrestore(&ce->guc_active.lock, flags);
-+
-+	return active;
-+}
-+
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftest_context.c"
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
-index 9b211ca5ecc7..d2b499ed8a05 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context.h
-@@ -195,6 +195,9 @@ int intel_context_prepare_remote_request(struct intel_context *ce,
- 
- struct i915_request *intel_context_create_request(struct intel_context *ce);
- 
-+struct i915_request *
-+intel_context_find_active_request(struct intel_context *ce);
-+
- static inline struct intel_ring *__intel_context_ring_size(u64 sz)
- {
- 	return u64_to_ptr(struct intel_ring, sz);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 3321d0917a99..bb94963a9fa2 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -242,7 +242,7 @@ ktime_t intel_engine_get_busy_time(struct intel_engine_cs *engine,
- 				   ktime_t *now);
- 
- struct i915_request *
--intel_engine_find_active_request(struct intel_engine_cs *engine);
-+intel_engine_execlist_find_hung_request(struct intel_engine_cs *engine);
- 
- u32 intel_engine_context_size(struct intel_gt *gt, u8 class);
- 
-@@ -316,4 +316,23 @@ intel_engine_get_sibling(struct intel_engine_cs *engine, unsigned int sibling)
- 	return engine->cops->get_sibling(engine, sibling);
- }
- 
-+static inline void
-+intel_engine_set_hung_context(struct intel_engine_cs *engine,
-+			      struct intel_context *ce)
-+{
-+	engine->hung_ce = ce;
-+}
-+
-+static inline void
-+intel_engine_clear_hung_context(struct intel_engine_cs *engine)
-+{
-+	intel_engine_set_hung_context(engine, NULL);
-+}
-+
-+static inline struct intel_context *
-+intel_engine_get_hung_context(struct intel_engine_cs *engine)
-+{
-+	return engine->hung_ce;
-+}
-+
- #endif /* _INTEL_RINGBUFFER_H_ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 10300db1c9a6..ad3987289f09 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1727,7 +1727,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- 	drm_printf(m, "\tRequests:\n");
- 
- 	spin_lock_irqsave(&engine->sched_engine->lock, flags);
--	rq = intel_engine_find_active_request(engine);
-+	rq = intel_engine_execlist_find_hung_request(engine);
- 	if (rq) {
- 		struct intel_timeline *tl = get_timeline(rq);
- 
-@@ -1838,10 +1838,17 @@ static bool match_ring(struct i915_request *rq)
- }
- 
- struct i915_request *
--intel_engine_find_active_request(struct intel_engine_cs *engine)
-+intel_engine_execlist_find_hung_request(struct intel_engine_cs *engine)
- {
- 	struct i915_request *request, *active = NULL;
- 
-+	/*
-+	 * This search does not work in GuC submission mode. However, the GuC
-+	 * will report the hanging context directly to the driver itself. So
-+	 * the driver should never get here when in GuC mode.
-+	 */
-+	GEM_BUG_ON(intel_uc_uses_guc_submission(&engine->gt->uc));
++	/* GuC number of requests not ready */
++	atomic_t guc_num_rq_not_ready;
 +
  	/*
- 	 * We are called by the error capture, reset and to dump engine
- 	 * state at random points in time. In particular, note that neither is
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index b84562b2708b..bba53e3b39b9 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -304,6 +304,8 @@ struct intel_engine_cs {
- 	/* keep a request in reserve for a [pm] barrier under oom */
- 	struct i915_request *request_pool;
+ 	 * GuC ID link - in list when unpinned but guc_id still valid in GuC
+ 	 */
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index 4347cc2dcea0..be25e39f0dd8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -22,6 +22,7 @@
+ #include "intel_reset.h"
  
-+	struct intel_context *hung_ce;
+ #include "uc/intel_guc.h"
++#include "uc/intel_guc_submission.h"
+ 
+ #define RESET_MAX_RETRIES 3
+ 
+@@ -776,6 +777,14 @@ static void nop_submit_request(struct i915_request *request)
+ {
+ 	RQ_TRACE(request, "-EIO\n");
+ 
++	/*
++	 * XXX: Kinda ugly to check for GuC submission here but this function is
++	 * going away once we switch to the DRM scheduler so we can live with
++	 * this for now.
++	 */
++	if (intel_engine_uses_guc(request->engine))
++		intel_guc_decr_num_rq_not_ready(request->context);
 +
- 	struct llist_head barrier_tasks;
+ 	request = i915_request_mark_eio(request);
+ 	if (request) {
+ 		i915_request_submit(request);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index bd477209839b..26a0225f45e9 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -76,6 +76,7 @@ struct intel_guc {
+ 	struct ida guc_ids;
+ 	u32 num_guc_ids;
+ 	u32 max_guc_ids;
++	atomic_t num_guc_ids_not_ready;
+ 	struct list_head guc_id_list_no_ref;
+ 	struct list_head guc_id_list_unpinned;
  
- 	struct intel_context *kernel_context; /* pinned */
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 22f17a055b21..6b3b74e50b31 100644
+index 037a7ee4971b..aa5e608deed5 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -726,24 +726,6 @@ __unwind_incomplete_requests(struct intel_context *ce)
- 	spin_unlock_irqrestore(&sched_engine->lock, flags);
+@@ -1323,6 +1323,41 @@ static inline void queue_request(struct i915_sched_engine *sched_engine,
+ 		kick_tasklet(&rq->engine->gt->uc.guc);
  }
  
--static struct i915_request *context_find_active_request(struct intel_context *ce)
--{
--	struct i915_request *rq, *active = NULL;
--	unsigned long flags;
--
--	spin_lock_irqsave(&ce->guc_active.lock, flags);
--	list_for_each_entry_reverse(rq, &ce->guc_active.requests,
--				    sched.link) {
--		if (i915_request_completed(rq))
--			break;
--
--		active = rq;
--	}
--	spin_unlock_irqrestore(&ce->guc_active.lock, flags);
--
--	return active;
--}
--
- static void __guc_reset_context(struct intel_context *ce, bool stalled)
- {
- 	struct i915_request *rq;
-@@ -757,7 +739,7 @@ static void __guc_reset_context(struct intel_context *ce, bool stalled)
- 	 */
- 	clr_context_enabled(ce);
- 
--	rq = context_find_active_request(ce);
-+	rq = intel_context_find_active_request(ce);
- 	if (!rq) {
- 		head = ce->ring->tail;
- 		stalled = false;
-@@ -2192,6 +2174,20 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 	return 0;
- }
- 
-+static void capture_error_state(struct intel_guc *guc,
-+				struct intel_context *ce)
++/* Macro to tweak heuristic, using a simple over 50% not ready for now */
++#define TOO_MANY_GUC_IDS_NOT_READY(avail, consumed) \
++	(consumed > avail / 2)
++static bool too_many_guc_ids_not_ready(struct intel_guc *guc,
++				       struct intel_context *ce)
 +{
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	struct drm_i915_private *i915 = gt->i915;
-+	struct intel_engine_cs *engine = __context_to_physical_engine(ce);
-+	intel_wakeref_t wakeref;
++	u32 available_guc_ids, guc_ids_consumed;
 +
-+	intel_engine_set_hung_context(engine, ce);
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
-+		i915_capture_error_state(gt, engine->mask);
-+	atomic_inc(&i915->gpu_error.reset_engine_count[engine->uabi_class]);
++	available_guc_ids = guc->num_guc_ids;
++	guc_ids_consumed = atomic_read(&guc->num_guc_ids_not_ready);
++
++	if (TOO_MANY_GUC_IDS_NOT_READY(available_guc_ids, guc_ids_consumed)) {
++		set_and_update_guc_ids_exhausted(guc);
++		return true;
++	}
++
++	return false;
 +}
 +
- static void guc_context_replay(struct intel_context *ce)
++static void incr_num_rq_not_ready(struct intel_context *ce)
++{
++	struct intel_guc *guc = ce_to_guc(ce);
++
++	if (!atomic_fetch_add(1, &ce->guc_num_rq_not_ready))
++		atomic_inc(&guc->num_guc_ids_not_ready);
++}
++
++void intel_guc_decr_num_rq_not_ready(struct intel_context *ce)
++{
++	struct intel_guc *guc = ce_to_guc(ce);
++
++	if (atomic_fetch_add(-1, &ce->guc_num_rq_not_ready) == 1)
++		atomic_dec(&guc->num_guc_ids_not_ready);
++}
++
+ static bool need_tasklet(struct intel_guc *guc, struct intel_context *ce)
  {
- 	struct i915_sched_engine *sched_engine = ce->engine->sched_engine;
-@@ -2204,6 +2200,7 @@ static void guc_handle_context_reset(struct intel_guc *guc,
- 				     struct intel_context *ce)
- {
- 	trace_intel_context_reset(ce);
-+	capture_error_state(guc, ce);
- 	guc_context_replay(ce);
+ 	struct i915_sched_engine * const sched_engine =
+@@ -1369,6 +1404,8 @@ static void guc_submit_request(struct i915_request *rq)
+ 		kick_tasklet(guc);
+ 
+ 	spin_unlock_irqrestore(&sched_engine->lock, flags);
++
++	intel_guc_decr_num_rq_not_ready(rq->context);
  }
  
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 3352f56bcf63..825bdfe44225 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1435,20 +1435,37 @@ capture_engine(struct intel_engine_cs *engine,
- {
- 	struct intel_engine_capture_vma *capture = NULL;
- 	struct intel_engine_coredump *ee;
--	struct i915_request *rq;
-+	struct intel_context *ce;
-+	struct i915_request *rq = NULL;
- 	unsigned long flags;
+ #define GUC_ID_START	64	/* First 64 guc_ids reserved */
+@@ -2240,10 +2277,13 @@ static int guc_request_alloc(struct i915_request *rq)
+ 	GEM_BUG_ON(!intel_context_is_pinned(rq->context));
  
- 	ee = intel_engine_coredump_alloc(engine, GFP_KERNEL);
- 	if (!ee)
- 		return NULL;
- 
--	spin_lock_irqsave(&engine->sched_engine->lock, flags);
--	rq = intel_engine_find_active_request(engine);
-+	ce = intel_engine_get_hung_context(engine);
-+	if (ce) {
-+		intel_engine_clear_hung_context(engine);
-+		rq = intel_context_find_active_request(ce);
-+		if (!rq || !i915_request_started(rq))
-+			goto no_request_capture;
-+	} else {
-+		/*
-+		 * Getting here with GuC enabled means it is a forced error capture
-+		 * with no actual hang. So, no need to attempt the execlist search.
-+		 */
-+		if (!intel_uc_uses_guc_submission(&engine->gt->uc)) {
-+			spin_lock_irqsave(&engine->sched_engine->lock, flags);
-+			rq = intel_engine_execlist_find_hung_request(engine);
-+			spin_unlock_irqrestore(&engine->sched_engine->lock,
-+					       flags);
-+		}
-+	}
- 	if (rq)
- 		capture = intel_engine_coredump_add_request(ee, rq,
- 							    ATOMIC_MAYFAIL);
--	spin_unlock_irqrestore(&engine->sched_engine->lock, flags);
- 	if (!capture) {
-+no_request_capture:
- 		kfree(ee);
- 		return NULL;
+ 	/*
+-	 * guc_ids are exhausted, don't allocate one here, defer to submission
+-	 * in the tasklet.
++	 * guc_ids are exhausted or a heuristic is met indicating too many
++	 * guc_ids are waiting on requests with submission dependencies (not
++	 * ready to submit). Don't allocate one here, defer to submission in the
++	 * tasklet.
+ 	 */
+-	if (test_and_update_guc_ids_exhausted(guc)) {
++	if (test_and_update_guc_ids_exhausted(guc) ||
++	    too_many_guc_ids_not_ready(guc, ce)) {
+ 		set_bit(I915_FENCE_FLAG_GUC_ID_NOT_PINNED, &rq->fence.flags);
+ 		goto out;
  	}
+@@ -2299,6 +2339,7 @@ static int guc_request_alloc(struct i915_request *rq)
+ 		 */
+ 		set_bit(I915_FENCE_FLAG_GUC_ID_NOT_PINNED, &rq->fence.flags);
+ 		set_and_update_guc_ids_exhausted(guc);
++		incr_num_rq_not_ready(ce);
+ 
+ 		return 0;
+ 	} else if (unlikely(ret < 0)) {
+@@ -2321,6 +2362,8 @@ static int guc_request_alloc(struct i915_request *rq)
+ 	clear_bit(CONTEXT_LRCA_DIRTY, &ce->flags);
+ 
+ out:
++	incr_num_rq_not_ready(ce);
++
+ 	/*
+ 	 * We block all requests on this context if a G2H is pending for a
+ 	 * schedule disable or context deregistration as the GuC will fail a
+@@ -3088,6 +3131,8 @@ void intel_guc_log_submission_info(struct intel_guc *guc,
+ 	drm_printf(p, "GuC submit flags: 0x%04lx\n", guc->flags);
+ 	drm_printf(p, "GuC total number request without guc_id: %d\n",
+ 		   guc->total_num_rq_with_no_guc_id);
++	drm_printf(p, "GuC Number GuC IDs not ready: %d\n",
++		   atomic_read(&guc->num_guc_ids_not_ready));
+ 	drm_printf(p, "GuC stall reason: %d\n", guc->submission_stall_reason);
+ 	drm_printf(p, "GuC stalled request: %s\n",
+ 		   yesno(guc->stalled_rq));
+@@ -3127,6 +3172,8 @@ void intel_guc_log_context_info(struct intel_guc *guc,
+ 			   atomic_read(&ce->pin_count));
+ 		drm_printf(p, "\t\tGuC ID Ref Count: %u\n",
+ 			   atomic_read(&ce->guc_id_ref));
++		drm_printf(p, "\t\tNumber Requests Not Ready: %u\n",
++			   atomic_read(&ce->guc_num_rq_not_ready));
+ 		drm_printf(p, "\t\tSchedule State: 0x%x, 0x%x\n\n",
+ 			   ce->guc_state.sched_state,
+ 			   atomic_read(&ce->guc_sched_state_no_lock));
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
+index a2a3fad72be1..60c8b9aaad6e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
+@@ -51,4 +51,6 @@ static inline bool intel_guc_submission_is_used(struct intel_guc *guc)
+ 	return intel_guc_is_used(guc) && intel_guc_submission_is_wanted(guc);
+ }
+ 
++void intel_guc_decr_num_rq_not_ready(struct intel_context *ce);
++
+ #endif
 -- 
 2.28.0
 
