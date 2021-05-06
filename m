@@ -2,40 +2,55 @@ Return-Path: <SRS0=MDkJ=KB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 349C7C43470
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:27:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 97050C4361A
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:33:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CAC8861003
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:27:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CAC8861003
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 302F16121F
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 17:33:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 302F16121F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DFC06ECD7;
-	Thu,  6 May 2021 17:27:41 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5016A6ECD7;
- Thu,  6 May 2021 17:27:40 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 488ADA00E6;
- Thu,  6 May 2021 17:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BCCE6ECD7;
+	Thu,  6 May 2021 17:33:58 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 764256ECD3;
+ Thu,  6 May 2021 17:33:57 +0000 (UTC)
+IronPort-SDR: rIRgB0gv3+Dt6IBC3NnQf85Y5j0fkgH80YE5eel69uunylk1lccX1wHgVyXM3O6dLP9yEPkQaR
+ XMbSJIX4L0Ow==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198176502"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198176502"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 10:33:56 -0700
+IronPort-SDR: tgPWbbwUbAnnBDk5DujqGt1ruOtdLSgGIJIiPMjUS1hvjtnitWBhT5tvbVwpx5QiRqXo13tEgo
+ dvKfDlneh6Ew==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="434481005"
+Received: from tchrzano-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.42.214])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2021 10:33:53 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Werner Sembach <wse@tuxedocomputers.com>, ville.syrjala@linux.intel.com,
+ airlied@linux.ie, daniel@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <3796a7b9-8035-38ea-1c3d-b1ffe89aa19e@tuxedocomputers.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210505172401.1453178-1-wse@tuxedocomputers.com>
+ <20210505172401.1453178-2-wse@tuxedocomputers.com> <87v97ww4e5.fsf@intel.com>
+ <3796a7b9-8035-38ea-1c3d-b1ffe89aa19e@tuxedocomputers.com>
+Date: Thu, 06 May 2021 20:33:51 +0300
+Message-ID: <87fsyzwyv4.fsf@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matthew Brost" <matthew.brost@intel.com>
-Date: Thu, 06 May 2021 17:27:40 -0000
-Message-ID: <162032206026.15690.16595347807544401556@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210506173049.72503-1-matthew.brost@intel.com>
-In-Reply-To: <20210506173049.72503-1-matthew.brost@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBH?=
- =?utf-8?q?uC_submission_/_DRM_scheduler_integration_plan_+_new_uAPI?=
+Subject: Re: [Intel-gfx] [PATCH 1/3] New function to avoid duplicate code in
+ upcomming commits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,35 +63,118 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Thu, 06 May 2021, Werner Sembach <wse@tuxedocomputers.com> wrote:
+> Am 06.05.21 um 12:19 schrieb Jani Nikula:
+>> On Wed, 05 May 2021, Werner Sembach <wse@tuxedocomputers.com> wrote:
+>>> Moves some checks that later will be performed 2 times to an own fuction. This
+>>> avoids duplicate code later on.
+>>>
+>>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>>> ---
+>>>
+>>> From 42a4a3a7d9ea9948b4071f406e7fcae23bfa0bdf Mon Sep 17 00:00:00 2001
+>>> From: Werner Sembach <wse@tuxedocomputers.com>
+>>> Date: Mon, 3 May 2021 14:35:39 +0200
+>>> Subject: [PATCH 1/3] New function to avoid duplicate code in upcomming commits
+>> What are you using to generate and send the patches? This looks like
+>> unnecessary cruft, and our CI fails to apply and test the changes.
+>>
+>> BR,
+>> Jani.
+> I'm using git send-email with --compose and --annotate. The From, Date, and Subject lines are automatically generated by it and I then add the commit message above.
 
-Series: GuC submission / DRM scheduler integration plan + new uAPI
-URL   : https://patchwork.freedesktop.org/series/89840/
-State : failure
+I'm not sure I understand correctly. You should write the commit
+messages in your git commits when you commit them. When you do 'git
+commit'. You shouldn't have to annotate any of the patches while
+sending, except to perhaps add a cover letter with --compose.
 
-== Summary ==
+BR,
+Jani.
 
-Applying: drm/doc/rfc: i915 GuC submission / DRM scheduler integration plan
-Using index info to reconstruct a base tree...
-M	Documentation/gpu/rfc/index.rst
-Falling back to patching base and 3-way merge...
-Auto-merging Documentation/gpu/rfc/index.rst
-CONFLICT (content): Merge conflict in Documentation/gpu/rfc/index.rst
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/doc/rfc: i915 GuC submission / DRM scheduler integration plan
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+>
+> After reading https://www.kernel.org/doc/html/v5.12/process/submitting-patches.html#the-canonical-patch-format I thought the format was:
+>
+> <commit message for upstream and signed of lines>
+> ---
+> <additional comments only for mailing list/stuff that gets ignored by the tools>
+> ---
+> <the patch>
+>
+> With the middle part being optional. (I only tested with "git apply" which worked fine with the format)
+>
+> I will resend the patches without the middle part, and the drm/i915/display in all subject lines.
+>
+>>
+>>> ---
+>>>  drivers/gpu/drm/i915/display/intel_hdmi.c | 41 ++++++++++++++---------
+>>>  1 file changed, 26 insertions(+), 15 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+>>> index 46de56af33db..576d3d910d06 100644
+>>> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+>>> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+>>> @@ -1861,6 +1861,31 @@ static int intel_hdmi_port_clock(int clock, int bpc)
+>>>  	return clock * bpc / 8;
+>>>  }
+>>>  
+>>> +static enum drm_mode_status
+>>> +intel_hdmi_mode_clock_valid(struct intel_hdmi *hdmi, int clock, bool has_hdmi_sink)
+>>> +{
+>>> +	struct drm_device *dev = intel_hdmi_to_dev(hdmi);
+>>> +	struct drm_i915_private *dev_priv = to_i915(dev);
+>>> +	enum drm_mode_status status;
+>>> +
+>>> +	/* check if we can do 8bpc */
+>>> +	status = hdmi_port_clock_valid(hdmi, clock, true, has_hdmi_sink);
+>>> +
+>>> +	if (has_hdmi_sink) {
+>>> +		/* if we can't do 8bpc we may still be able to do 12bpc */
+>>> +		if (status != MODE_OK && !HAS_GMCH(dev_priv))
+>>> +			status = hdmi_port_clock_valid(hdmi, clock * 3 / 2,
+>>> +						       true, has_hdmi_sink);
+>>> +
+>>> +		/* if we can't do 8,12bpc we may still be able to do 10bpc */
+>>> +		if (status != MODE_OK && INTEL_GEN(dev_priv) >= 11)
+>>> +			status = hdmi_port_clock_valid(hdmi, clock * 5 / 4,
+>>> +						       true, has_hdmi_sink);
+>>> +	}
+>>> +
+>>> +	return status;
+>>> +}
+>>> +
+>>>  static enum drm_mode_status
+>>>  intel_hdmi_mode_valid(struct drm_connector *connector,
+>>>  		      struct drm_display_mode *mode)
+>>> @@ -1891,21 +1916,7 @@ intel_hdmi_mode_valid(struct drm_connector *connector,
+>>>  	if (drm_mode_is_420_only(&connector->display_info, mode))
+>>>  		clock /= 2;
+>>>  
+>>> -	/* check if we can do 8bpc */
+>>> -	status = hdmi_port_clock_valid(hdmi, intel_hdmi_port_clock(clock, 8),
+>>> -				       true, has_hdmi_sink);
+>>> -
+>>> -	if (has_hdmi_sink) {
+>>> -		/* if we can't do 8bpc we may still be able to do 12bpc */
+>>> -		if (status != MODE_OK && !HAS_GMCH(dev_priv))
+>>> -			status = hdmi_port_clock_valid(hdmi, intel_hdmi_port_clock(clock, 12),
+>>> -						       true, has_hdmi_sink);
+>>> -
+>>> -		/* if we can't do 8,12bpc we may still be able to do 10bpc */
+>>> -		if (status != MODE_OK && DISPLAY_VER(dev_priv) >= 11)
+>>> -			status = hdmi_port_clock_valid(hdmi, intel_hdmi_port_clock(clock, 10),
+>>> -						       true, has_hdmi_sink);
+>>> -	}
+>>> +	status = intel_hdmi_mode_clock_valid(hdmi, clock, has_hdmi_sink);
+>>>  	if (status != MODE_OK)
+>>>  		return status;
 
-
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
