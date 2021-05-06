@@ -5,48 +5,48 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C513EC43460
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F7ECC43461
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 73DD0610D2
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73DD0610D2
+	by mail.kernel.org (Postfix) with ESMTPS id 0B347610D2
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 18:58:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B347610D2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8766ED06;
-	Thu,  6 May 2021 18:57:27 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED1B86ED01;
- Thu,  6 May 2021 18:57:12 +0000 (UTC)
-IronPort-SDR: Sba7eQkfiYlAtMDlQLRom8s+YxnOFzXQS+ul+zLa7AQodwhXLBiTUeZPV9gdHLcK1oMsAbKaTC
- +gNVEo2CkyQQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531005"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531005"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D5876ED15;
+	Thu,  6 May 2021 18:57:26 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2426B6ED05;
+ Thu,  6 May 2021 18:57:13 +0000 (UTC)
+IronPort-SDR: Dn7+fghrPzA104SV4vYHmDAMpY9OwfNLCsRDzJVDH1gF3Q97pJ3okX6Rzhz4Zhh5U0iyL5etAw
+ wL+gSlPHLlXQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198195441"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="198195441"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 May 2021 11:57:11 -0700
-IronPort-SDR: /P++zdotpVXdXo5XYFvo1JgXtKkZ/0p9Cx8Aat9gUOrlfAuaBItKN2oeJaISxngq8fCl5UfWkY
- XuOi1ij/2zEA==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583466"
+IronPort-SDR: RZJDVtU5qFgvvTC7JjxoyzDmBTtVCM8LxuDdrqXBdWIofZY0cnKLuaGS5X9y0Az792zbwsJagK
+ 6T07RV08fiMQ==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583434"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:10 -0700
+ 06 May 2021 11:57:09 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:13:48 -0700
-Message-Id: <20210506191451.77768-35-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:39 -0700
+Message-Id: <20210506191451.77768-26-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 34/97] drm/i915/guc: Use guc_class instead
- of engine_class in fw interface
+Subject: [Intel-gfx] [RFC PATCH 25/97] drm/i915/guc: New definition of the
+ CTB descriptor
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,163 +65,278 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-GuC has its own defines for the engine classes. They're currently
-mapping 1:1 to the defines used by the driver, but there is no guarantee
-this will continue in the future. Given that we've been caught off-guard
-in the past by similar divergences, we can prepare for the changes by
-introducing helper functions to convert from engine class to GuC class and
-back again.
+Definition of the CTB descriptor has changed, leaving only
+minimal shared fields like HEAD/TAIL/STATUS.
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Both HEAD and TAIL are now in dwords.
+
+Add some ABI documentation and implement required changes.
+
+GuC: 57.0.0
+GuC: 60.0.0
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c   |  6 +++--
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 20 +++++++++-------
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 26 +++++++++++++++++++++
- 3 files changed, 42 insertions(+), 10 deletions(-)
+ .../gt/uc/abi/guc_communication_ctb_abi.h     | 70 ++++++++++++++-----
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 70 +++++++++----------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  2 +-
+ 3 files changed, 85 insertions(+), 57 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index c88b792c1ab5..7866ff0c2673 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -289,6 +289,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
- 	const struct engine_info *info = &intel_engines[id];
- 	struct drm_i915_private *i915 = gt->i915;
- 	struct intel_engine_cs *engine;
-+	u8 guc_class;
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
+index d38935f47ecf..c2a069a78e01 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
+@@ -7,6 +7,58 @@
+ #define _ABI_GUC_COMMUNICATION_CTB_ABI_H
  
- 	BUILD_BUG_ON(MAX_ENGINE_CLASS >= BIT(GEN11_ENGINE_CLASS_WIDTH));
- 	BUILD_BUG_ON(MAX_ENGINE_INSTANCE >= BIT(GEN11_ENGINE_INSTANCE_WIDTH));
-@@ -317,9 +318,10 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
- 	engine->i915 = i915;
- 	engine->gt = gt;
- 	engine->uncore = gt->uncore;
--	engine->mmio_base = __engine_mmio_base(i915, info->mmio_bases);
- 	engine->hw_id = info->hw_id;
--	engine->guc_id = MAKE_GUC_ID(info->class, info->instance);
-+	guc_class = engine_class_to_guc_class(info->class);
-+	engine->guc_id = MAKE_GUC_ID(guc_class, info->instance);
-+	engine->mmio_base = __engine_mmio_base(i915, info->mmio_bases);
- 
- 	engine->irq_handler = nop_irq_handler;
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 775f00d706fa..ecd18531b40a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -6,6 +6,7 @@
- #include "gt/intel_gt.h"
- #include "gt/intel_lrc.h"
- #include "intel_guc_ads.h"
-+#include "intel_guc_fwif.h"
- #include "intel_uc.h"
- #include "i915_drv.h"
- 
-@@ -78,7 +79,7 @@ static void guc_mapping_table_init(struct intel_gt *gt,
- 				GUC_MAX_INSTANCES_PER_CLASS;
- 
- 	for_each_engine(engine, gt, id) {
--		u8 guc_class = engine->class;
-+		u8 guc_class = engine_class_to_guc_class(engine->class);
- 
- 		system_info->mapping_table[guc_class][engine->instance] =
- 			engine->instance;
-@@ -98,7 +99,7 @@ static void __guc_ads_init(struct intel_guc *guc)
- 	struct __guc_ads_blob *blob = guc->ads_blob;
- 	const u32 skipped_size = LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SIZE;
- 	u32 base;
--	u8 engine_class;
-+	u8 engine_class, guc_class;
- 
- 	/* GuC scheduling policies */
- 	guc_policies_init(&blob->policies);
-@@ -114,22 +115,25 @@ static void __guc_ads_init(struct intel_guc *guc)
- 	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
- 		if (engine_class == OTHER_CLASS)
- 			continue;
+ #include <linux/types.h>
++#include <linux/build_bug.h>
 +
-+		guc_class = engine_class_to_guc_class(engine_class);
++#include "guc_messages_abi.h"
 +
- 		/*
- 		 * TODO: Set context pointer to default state to allow
- 		 * GuC to re-init guilty contexts after internal reset.
- 		 */
--		blob->ads.golden_context_lrca[engine_class] = 0;
--		blob->ads.eng_state_size[engine_class] =
-+		blob->ads.golden_context_lrca[guc_class] = 0;
-+		blob->ads.eng_state_size[guc_class] =
- 			intel_engine_context_size(guc_to_gt(guc),
- 						  engine_class) -
- 			skipped_size;
++/**
++ * DOC: CT Buffer
++ *
++ * TBD
++ */
++
++/**
++ * DOC: CTB Descriptor
++ *
++ *  +---+-------+--------------------------------------------------------------+
++ *  |   | Bits  | Description                                                  |
++ *  +===+=======+==============================================================+
++ *  | 0 |  31:0 | **HEAD** - offset (in dwords) to the last dword that was     |
++ *  |   |       | read from the `CT Buffer`_.                                  |
++ *  |   |       | It can only be updated by the receiver.                      |
++ *  +---+-------+--------------------------------------------------------------+
++ *  | 1 |  31:0 | **TAIL** - offset (in dwords) to the last dword that was     |
++ *  |   |       | written to the `CT Buffer`_.                                 |
++ *  |   |       | It can only be updated by the sender.                        |
++ *  +---+-------+--------------------------------------------------------------+
++ *  | 2 |  31:0 | **STATUS** - status of the CTB                               |
++ *  |   |       |                                                              |
++ *  |   |       |   - _`GUC_CTB_STATUS_NO_ERROR` = 0 (normal operation)        |
++ *  |   |       |   - _`GUC_CTB_STATUS_OVERFLOW` = 1 (head/tail too large)     |
++ *  |   |       |   - _`GUC_CTB_STATUS_UNDERFLOW` = 2 (truncated message)      |
++ *  |   |       |   - _`GUC_CTB_STATUS_MISMATCH` = 4 (head/tail modified)      |
++ *  |   |       |   - _`GUC_CTB_STATUS_NO_BACKCHANNEL` = 8                     |
++ *  |   |       |   - _`GUC_CTB_STATUS_MALFORMED_MSG` = 16                     |
++ *  +---+-------+--------------------------------------------------------------+
++ *  |...|       | RESERVED = MBZ                                               |
++ *  +---+-------+--------------------------------------------------------------+
++ *  | 15|  31:0 | RESERVED = MBZ                                               |
++ *  +---+-------+--------------------------------------------------------------+
++ */
++
++struct guc_ct_buffer_desc {
++	u32 head;
++	u32 tail;
++	u32 status;
++#define GUC_CTB_STATUS_NO_ERROR				0
++#define GUC_CTB_STATUS_OVERFLOW				(1 << 0)
++#define GUC_CTB_STATUS_UNDERFLOW			(1 << 1)
++#define GUC_CTB_STATUS_MISMATCH				(1 << 2)
++#define GUC_CTB_STATUS_NO_BACKCHANNEL			(1 << 3)
++#define GUC_CTB_STATUS_MALFORMED_MSG			(1 << 4)
++	u32 reserved[13];
++} __packed;
++static_assert(sizeof(struct guc_ct_buffer_desc) == 64);
+ 
+ /**
+  * DOC: CTB based communication
+@@ -60,24 +112,6 @@
+  * - **flags**, holds various bits to control message handling
+  */
+ 
+-/*
+- * Describes single command transport buffer.
+- * Used by both guc-master and clients.
+- */
+-struct guc_ct_buffer_desc {
+-	u32 addr;		/* gfx address */
+-	u64 host_private;	/* host private data */
+-	u32 size;		/* size in bytes */
+-	u32 head;		/* offset updated by GuC*/
+-	u32 tail;		/* offset updated by owner */
+-	u32 is_in_error;	/* error indicator */
+-	u32 reserved1;
+-	u32 reserved2;
+-	u32 owner;		/* id of the channel owner */
+-	u32 owner_sub_id;	/* owner-defined field for extra tracking */
+-	u32 reserved[5];
+-} __packed;
+-
+ /* Type of command transport buffer */
+ #define INTEL_GUC_CT_BUFFER_TYPE_SEND	0x0u
+ #define INTEL_GUC_CT_BUFFER_TYPE_RECV	0x1u
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 178f73ab2c96..282df9706912 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -112,32 +112,28 @@ static inline const char *guc_ct_buffer_type_to_str(u32 type)
+ 	}
+ }
+ 
+-static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc,
+-				    u32 cmds_addr, u32 size)
++static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc)
+ {
+ 	memset(desc, 0, sizeof(*desc));
+-	desc->addr = cmds_addr;
+-	desc->size = size;
+-	desc->owner = CTB_OWNER_HOST;
+ }
+ 
+-static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb, u32 cmds_addr)
++static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb)
+ {
+ 	ctb->broken = false;
+-	guc_ct_buffer_desc_init(ctb->desc, cmds_addr, ctb->size);
++	guc_ct_buffer_desc_init(ctb->desc);
+ }
+ 
+ static void guc_ct_buffer_init(struct intel_guc_ct_buffer *ctb,
+ 			       struct guc_ct_buffer_desc *desc,
+-			       u32 *cmds, u32 size)
++			       u32 *cmds, u32 size_in_bytes)
+ {
+-	GEM_BUG_ON(size % 4);
++	GEM_BUG_ON(size_in_bytes % 4);
+ 
+ 	ctb->desc = desc;
+ 	ctb->cmds = cmds;
+-	ctb->size = size;
++	ctb->size = size_in_bytes / 4;
+ 
+-	guc_ct_buffer_reset(ctb, 0);
++	guc_ct_buffer_reset(ctb);
+ }
+ 
+ static int guc_action_register_ct_buffer(struct intel_guc *guc,
+@@ -279,10 +275,10 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 
+ 	/* (re)initialize descriptors */
+ 	cmds = base + ptrdiff(ct->ctbs.send.cmds, blob);
+-	guc_ct_buffer_reset(&ct->ctbs.send, cmds);
++	guc_ct_buffer_reset(&ct->ctbs.send);
+ 
+ 	cmds = base + ptrdiff(ct->ctbs.recv.cmds, blob);
+-	guc_ct_buffer_reset(&ct->ctbs.recv, cmds);
++	guc_ct_buffer_reset(&ct->ctbs.recv);
+ 
+ 	/*
+ 	 * Register both CT buffers starting with RECV buffer.
+@@ -369,17 +365,15 @@ static int ct_write(struct intel_guc_ct *ct,
+ 	if (unlikely(ctb->broken))
+ 		return -EPIPE;
+ 
+-	if (unlikely(desc->is_in_error))
++	if (unlikely(desc->status))
+ 		goto corrupted;
+ 
+-	if (unlikely(!IS_ALIGNED(head | tail, 4) ||
+-		     (tail | head) >= size))
++	if (unlikely((tail | head) >= size)) {
++		CT_ERROR(ct, "Invalid offsets head=%u tail=%u (size=%u)\n",
++			 head, tail, size);
++		desc->status |= GUC_CTB_STATUS_OVERFLOW;
+ 		goto corrupted;
+-
+-	/* later calculations will be done in dwords */
+-	head /= 4;
+-	tail /= 4;
+-	size /= 4;
++	}
+ 
+ 	/*
+ 	 * tail == head condition indicates empty. GuC FW does not support
+@@ -419,14 +413,14 @@ static int ct_write(struct intel_guc_ct *ct,
+ 	}
+ 	GEM_BUG_ON(tail > size);
+ 
+-	/* now update desc tail (back in bytes) */
+-	desc->tail = tail * 4;
++	/* now update descriptor */
++	WRITE_ONCE(desc->tail, tail);
++
+ 	return 0;
+ 
+ corrupted:
+-	CT_ERROR(ct, "Corrupted descriptor addr=%#x head=%u tail=%u size=%u\n",
+-		 desc->addr, desc->head, desc->tail, desc->size);
+-	desc->is_in_error = 1;
++	CT_ERROR(ct, "Corrupted descriptor head=%u tail=%u status=%#x\n",
++		 desc->head, desc->tail, desc->status);
+ 	ctb->broken = true;
+ 	return -EPIPE;
+ }
+@@ -616,17 +610,15 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
+ 	if (unlikely(ctb->broken))
+ 		return -EPIPE;
+ 
+-	if (unlikely(desc->is_in_error))
++	if (unlikely(desc->status))
+ 		goto corrupted;
+ 
+-	if (unlikely(!IS_ALIGNED(head | tail, 4) ||
+-		     (tail | head) >= size))
++	if (unlikely((tail | head) >= size)) {
++		CT_ERROR(ct, "Invalid offsets head=%u tail=%u (size=%u)\n",
++			 head, tail, size);
++		desc->status |= GUC_CTB_STATUS_OVERFLOW;
+ 		goto corrupted;
+-
+-	/* later calculations will be done in dwords */
+-	head /= 4;
+-	tail /= 4;
+-	size /= 4;
++	}
+ 
+ 	/* tail == head condition indicates empty */
+ 	available = tail - head;
+@@ -653,6 +645,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
+ 			      size - head : available - 1), &cmds[head],
+ 			 4 * (head + available - 1 > size ?
+ 			      available - 1 - size + head : 0), &cmds[0]);
++		desc->status |= GUC_CTB_STATUS_UNDERFLOW;
+ 		goto corrupted;
  	}
  
- 	/* System info */
--	blob->system_info.engine_enabled_masks[RENDER_CLASS] = 1;
--	blob->system_info.engine_enabled_masks[COPY_ENGINE_CLASS] = 1;
--	blob->system_info.engine_enabled_masks[VIDEO_DECODE_CLASS] = VDBOX_MASK(gt);
--	blob->system_info.engine_enabled_masks[VIDEO_ENHANCEMENT_CLASS] = VEBOX_MASK(gt);
-+	blob->system_info.engine_enabled_masks[GUC_RENDER_CLASS] = 1;
-+	blob->system_info.engine_enabled_masks[GUC_BLITTER_CLASS] = 1;
-+	blob->system_info.engine_enabled_masks[GUC_VIDEO_CLASS] = VDBOX_MASK(gt);
-+	blob->system_info.engine_enabled_masks[GUC_VIDEOENHANCE_CLASS] = VEBOX_MASK(gt);
+@@ -675,13 +668,14 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
+ 	}
+ 	CT_DEBUG(ct, "received %*ph\n", 4 * len, (*msg)->msg);
  
- 	blob->system_info.generic_gt_sysinfo[GUC_GENERIC_GT_SYSINFO_SLICE_ENABLED] =
- 		hweight8(gt->info.sseu.slice_mask);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index 301b173a26bc..558cfe168cb7 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -15,6 +15,7 @@
- #include "abi/guc_communication_mmio_abi.h"
- #include "abi/guc_communication_ctb_abi.h"
- #include "abi/guc_messages_abi.h"
-+#include "gt/intel_engine_types.h"
- 
- #define GUC_CLIENT_PRIORITY_KMD_HIGH	0
- #define GUC_CLIENT_PRIORITY_HIGH	1
-@@ -32,6 +33,12 @@
- #define GUC_VIDEO_ENGINE2		4
- #define GUC_MAX_ENGINES_NUM		(GUC_VIDEO_ENGINE2 + 1)
- 
-+#define GUC_RENDER_CLASS		0
-+#define GUC_VIDEO_CLASS			1
-+#define GUC_VIDEOENHANCE_CLASS		2
-+#define GUC_BLITTER_CLASS		3
-+#define GUC_RESERVED_CLASS		4
-+#define GUC_LAST_ENGINE_CLASS		GUC_RESERVED_CLASS
- #define GUC_MAX_ENGINE_CLASSES		16
- #define GUC_MAX_INSTANCES_PER_CLASS	32
- 
-@@ -129,6 +136,25 @@
- #define GUC_ID_TO_ENGINE_INSTANCE(guc_id) \
- 	(((guc_id) & GUC_ENGINE_INSTANCE_MASK) >> GUC_ENGINE_INSTANCE_SHIFT)
- 
-+static inline u8 engine_class_to_guc_class(u8 class)
-+{
-+	BUILD_BUG_ON(GUC_RENDER_CLASS != RENDER_CLASS);
-+	BUILD_BUG_ON(GUC_BLITTER_CLASS != COPY_ENGINE_CLASS);
-+	BUILD_BUG_ON(GUC_VIDEO_CLASS != VIDEO_DECODE_CLASS);
-+	BUILD_BUG_ON(GUC_VIDEOENHANCE_CLASS != VIDEO_ENHANCEMENT_CLASS);
-+	GEM_BUG_ON(class > MAX_ENGINE_CLASS || class == OTHER_CLASS);
+-	desc->head = head * 4;
++	/* now update descriptor */
++	WRITE_ONCE(desc->head, head);
 +
-+	return class;
-+}
-+
-+static inline u8 guc_class_to_engine_class(u8 guc_class)
-+{
-+	GEM_BUG_ON(guc_class > GUC_LAST_ENGINE_CLASS);
-+	GEM_BUG_ON(guc_class == GUC_RESERVED_CLASS);
-+
-+	return guc_class;
-+}
-+
- /* Work item for submitting workloads into work queue of GuC. */
- struct guc_wq_item {
- 	u32 header;
+ 	return available - len;
+ 
+ corrupted:
+-	CT_ERROR(ct, "Corrupted descriptor addr=%#x head=%u tail=%u size=%u\n",
+-		 desc->addr, desc->head, desc->tail, desc->size);
+-	desc->is_in_error = 1;
++	CT_ERROR(ct, "Corrupted descriptor head=%u tail=%u status=%#x\n",
++		 desc->head, desc->tail, desc->status);
+ 	ctb->broken = true;
+ 	return -EPIPE;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index 7d3cd375d6a7..905202caaad3 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -31,7 +31,7 @@ struct intel_guc;
+  * @lock: protects access to the commands buffer and buffer descriptor
+  * @desc: pointer to the buffer descriptor
+  * @cmds: pointer to the commands buffer
+- * @size: size of the commands buffer
++ * @size: size of the commands buffer in dwords
+  * @broken: flag to indicate if descriptor data is broken
+  */
+ struct intel_guc_ct_buffer {
 -- 
 2.28.0
 
