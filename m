@@ -2,51 +2,51 @@ Return-Path: <SRS0=MDkJ=KB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EBA8C43460
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8537EC43461
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6B39561001
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B39561001
+	by mail.kernel.org (Postfix) with ESMTPS id 4CA5661164
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 May 2021 19:00:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CA5661164
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5D016EE12;
-	Thu,  6 May 2021 18:57:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70F066EE08;
+	Thu,  6 May 2021 18:57:50 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEA06ED91;
- Thu,  6 May 2021 18:57:14 +0000 (UTC)
-IronPort-SDR: RyMTUi3OhxPitwZ7kvVUV7w5QOes5/al5DzqWw/mMRVkzB4o/7SGo9NZebOlzdbAk8P8kLehc3
- +Bd+287wFA3Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531034"
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531034"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA4346ECFE;
+ Thu,  6 May 2021 18:57:12 +0000 (UTC)
+IronPort-SDR: VwJ5vyUhXuxA6F+EXZZs5BCqxte9/eHkyLkKcEcp+qPFYBWXLm6nP4888vBWVSCnhmqQsp64oT
+ BEevCq2T9TaQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="196531004"
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="196531004"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:14 -0700
-IronPort-SDR: 5d7IR3DP1c/0qa976KHE7pl4TU8Guc3HvxzAUbt4b8TYvcqIBQlG/degsURZczo4AuI10I/oXs
- Ko//+8Lm73lg==
-X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583624"
+ 06 May 2021 11:57:11 -0700
+IronPort-SDR: 3mVkr/XqKzL+f69WEGxPp7szt/eeU1+gNKHhCs2BCzMRuJ457Tba/9DTcrZZGoe48t11azTrrq
+ j8txlvMdifHw==
+X-IronPort-AV: E=Sophos;i="5.82,278,1613462400"; d="scan'208";a="469583464"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2021 11:57:13 -0700
+ 06 May 2021 11:57:10 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  6 May 2021 12:14:35 -0700
-Message-Id: <20210506191451.77768-82-matthew.brost@intel.com>
+Date: Thu,  6 May 2021 12:13:49 -0700
+Message-Id: <20210506191451.77768-36-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210506191451.77768-1-matthew.brost@intel.com>
 References: <20210506191451.77768-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 81/97] drm/i915/guc: Allow flexible number
- of context ids
+Subject: [Intel-gfx] [RFC PATCH 35/97] drm/i915/guc: Improve error message
+ for unsolicited CT response
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,105 +65,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Number of available GuC contexts ids might be limited.
-Stop refering in code to macro and use variable instead.
+Improve the error message when a unsolicited CT response is received by
+printing fence that couldn't be found, the last fence, and all requests
+with a response outstanding.
 
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h           |  2 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c    | 16 +++++++++-------
- 2 files changed, 11 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 306d6857d683..9b1a89530844 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -53,6 +53,8 @@ struct intel_guc {
- 	 */
- 	spinlock_t contexts_lock;
- 	struct ida guc_ids;
-+	u32 num_guc_ids;
-+	u32 max_guc_ids;
- 	struct list_head guc_id_list;
- 
- 	bool submission_selected;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index a20d7205895a..8f40e534bc81 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -228,7 +228,7 @@ static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
- {
- 	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
- 
--	GEM_BUG_ON(index >= GUC_MAX_LRC_DESCRIPTORS);
-+	GEM_BUG_ON(index >= guc->max_guc_ids);
- 
- 	return &base[index];
- }
-@@ -237,7 +237,7 @@ static inline struct intel_context *__get_context(struct intel_guc *guc, u32 id)
- {
- 	struct intel_context *ce = xa_load(&guc->context_lookup, id);
- 
--	GEM_BUG_ON(id >= GUC_MAX_LRC_DESCRIPTORS);
-+	GEM_BUG_ON(id >= guc->max_guc_ids);
- 
- 	return ce;
- }
-@@ -247,8 +247,7 @@ static int guc_lrc_desc_pool_create(struct intel_guc *guc)
- 	u32 size;
- 	int ret;
- 
--	size = PAGE_ALIGN(sizeof(struct guc_lrc_desc) *
--			  GUC_MAX_LRC_DESCRIPTORS);
-+	size = PAGE_ALIGN(sizeof(struct guc_lrc_desc) * guc->max_guc_ids);
- 	ret = intel_guc_allocate_and_map_vma(guc, size, &guc->lrc_desc_pool,
- 					     (void **)&guc->lrc_desc_pool_vaddr);
- 	if (ret)
-@@ -1008,7 +1007,7 @@ static void guc_submit_request(struct i915_request *rq)
- static int new_guc_id(struct intel_guc *guc)
- {
- 	return ida_simple_get(&guc->guc_ids, GUC_ID_START,
--			      GUC_MAX_LRC_DESCRIPTORS, GFP_KERNEL |
-+			      guc->num_guc_ids, GFP_KERNEL |
- 			      __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
- }
- 
-@@ -2142,6 +2141,8 @@ static bool __guc_submission_selected(struct intel_guc *guc)
- 
- void intel_guc_submission_init_early(struct intel_guc *guc)
- {
-+	guc->max_guc_ids = GUC_MAX_LRC_DESCRIPTORS;
-+	guc->num_guc_ids = GUC_MAX_LRC_DESCRIPTORS;
- 	guc->submission_selected = __guc_submission_selected(guc);
- }
- 
-@@ -2150,7 +2151,7 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
- {
- 	struct intel_context *ce;
- 
--	if (unlikely(desc_idx >= GUC_MAX_LRC_DESCRIPTORS)) {
-+	if (unlikely(desc_idx >= guc->max_guc_ids)) {
- 		drm_dbg(&guc_to_gt(guc)->i915->drm,
- 			"Invalid desc_idx %u", desc_idx);
- 		return NULL;
-@@ -2451,6 +2452,8 @@ void intel_guc_log_submission_info(struct intel_guc *guc,
- 
- 	drm_printf(p, "GuC Number Outstanding Submission G2H: %u\n",
- 		   atomic_read(&guc->outstanding_submission_g2h));
-+	drm_printf(p, "GuC Number GuC IDs: %u\n", guc->num_guc_ids);
-+	drm_printf(p, "GuC Max GuC IDs: %u\n", guc->max_guc_ids);
- 	drm_printf(p, "GuC tasklet count: %u\n\n",
- 		   atomic_read(&sched_engine->tasklet.count));
- 
-@@ -2474,7 +2477,6 @@ void intel_guc_log_context_info(struct intel_guc *guc,
- {
- 	struct intel_context *ce;
- 	unsigned long index;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 217ab3ebd1af..a76603537fa8 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -703,12 +703,16 @@ static int ct_handle_response(struct intel_guc_ct *ct, struct ct_incoming_msg *r
+ 		found = true;
+ 		break;
+ 	}
+-	spin_unlock_irqrestore(&ct->requests.lock, flags);
 -
- 	xa_for_each(&guc->context_lookup, index, ce) {
- 		drm_printf(p, "GuC lrc descriptor %u:\n", ce->guc_id);
- 		drm_printf(p, "\tHW Context Desc: 0x%08x\n", ce->lrc.lrca);
+ 	if (!found) {
+ 		CT_ERROR(ct, "Unsolicited response (fence %u)\n", fence);
+-		return -ENOKEY;
++		CT_ERROR(ct, "Could not find fence=%u, last_fence=%u\n", fence,
++			 ct->requests.last_fence);
++		list_for_each_entry(req, &ct->requests.pending, link)
++			CT_ERROR(ct, "request %u awaits response\n",
++				 req->fence);
++		err = -ENOKEY;
+ 	}
++	spin_unlock_irqrestore(&ct->requests.lock, flags);
+ 
+ 	if (unlikely(err))
+ 		return err;
 -- 
 2.28.0
 
