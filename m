@@ -2,49 +2,49 @@ Return-Path: <SRS0=w1eM=KC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BFB0C433ED
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 08:49:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CEE5C433ED
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 09:12:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A57361132
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 08:49:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A57361132
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A2F946144A
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 09:12:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2F946144A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FD966EDED;
-	Fri,  7 May 2021 08:49:35 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 465286EDEA;
- Fri,  7 May 2021 08:49:33 +0000 (UTC)
-IronPort-SDR: GACUjahMa1FHb89oBD8zewhsUAwR7spZo6xayG59gRRXjb5m6rol8b0mRAZKco6ul31CkXPY3H
- 2THnVpHRbq7w==
-X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="198767028"
-X-IronPort-AV: E=Sophos;i="5.82,280,1613462400"; d="scan'208";a="198767028"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2021 01:49:31 -0700
-IronPort-SDR: YrHIC+GDXF8wiSWGl9HzmgYvmEsOk+Qagn2L6OdBdb6TGeJU17Yz5XL4hgK4jAJD6N/fWem4bJ
- IYa/ebjAjuIw==
-X-IronPort-AV: E=Sophos;i="5.82,280,1613462400"; d="scan'208";a="465319513"
-Received: from ddselkir-mobl2.amr.corp.intel.com (HELO tursulin-mobl2.home)
- ([10.213.244.245])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2021 01:49:30 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Fri,  7 May 2021 09:49:26 +0100
-Message-Id: <20210507084926.2423003-1-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id E489A6EDFA;
+	Fri,  7 May 2021 09:12:48 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 917C96EDFA
+ for <intel-gfx@lists.freedesktop.org>; Fri,  7 May 2021 09:12:47 +0000 (UTC)
+IronPort-SDR: igiZIiGNpxtKr5jfMO3vxmawdmxs58bp/ZcCveT8BU+bwfs3tZP3Ua+QUYQ7GKdkCdEHvXyoy0
+ JRrJ+WidtbhA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9976"; a="262629108"
+X-IronPort-AV: E=Sophos;i="5.82,280,1613462400"; d="scan'208";a="262629108"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2021 02:12:46 -0700
+IronPort-SDR: hdctU7gnHzM8nS8x/Gf+qZ+ICIrWDK9H9PU8xgdb3du/E1xbkNBDcA0hwVInYlJe6kL+2nerAq
+ EmgItrohfZzg==
+X-IronPort-AV: E=Sophos;i="5.82,280,1613462400"; d="scan'208";a="540279340"
+Received: from flydon-mobl2.ger.corp.intel.com (HELO
+ mwauld-desk1.ger.corp.intel.com) ([10.252.20.229])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2021 02:12:45 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  7 May 2021 10:12:10 +0100
+Message-Id: <20210507091210.371132-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.3
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI] drm/i915: Drop duplicate
- WaDisable4x2SubspanOptimization:hsw
+Subject: [Intel-gfx] [PATCH] drm/i915/display: relax 2big checking around
+ initial fb
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,41 +57,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Daniel Vetter <daniel.vetter@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-Same workaround was listed two times - once under the Gen7 block and once
-under the Haswell section.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 5a03a76bb9e2..62cb9ee5bfc3 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1859,9 +1859,6 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 			      CACHE_MODE_0_GEN7,
- 			      /* enable HiZ Raw Stall Optimization */
- 			      HIZ_RAW_STALL_OPT_DISABLE);
--
--		/* WaDisable4x2SubspanOptimization:hsw */
--		wa_masked_en(wal, CACHE_MODE_1, PIXEL_SUBSPAN_COLLECT_OPT_DISABLE);
- 	}
- 
- 	if (IS_VALLEYVIEW(i915)) {
--- 
-2.30.2
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+CgpUaGUga2VybmVs
+IHByZWZlcnMgZW5hYmxpbmcgZmJjIG92ZXIgdGhlIGluaXRpYWwgZmIsIHNpbmNlIHRoaXMgbGVh
+ZHMgdG8KYWN0dWFsIHJ1bnRpbWUgcG93ZXIgc2F2aW5ncywgc28gaWYgdGhlIGluaXRpYWwgZmIg
+aXMgZGVlbWVkIHRvbyBiaWcKdXNpbmcgc29tZSBoZXVyaXN0aWMsIHRoZW4gd2Ugc2ltcGx5IHNr
+aXAgYWxsb2NhdGluZyBzdG9sZW4gZm9yIGl0LgpIb3dldmVyIGlmIHRoZSBrZXJuZWwgaXMgbm90
+IGNvbmZpZ3VyZWQgd2l0aCBmYmNvbiB0aGVuIGl0IHNob3VsZCBiZQpwb3NzaWJsZSB0byByZWxh
+eCB0aGlzLCBzaW5jZSB1bmxpa2Ugd2l0aCBmYmNvbiB0aGUgZGlzcGxheSBzZXJ2ZXIKc2hvdWxk
+bid0IHByZXNlcnZlIGl0IHdoZW4gbGF0ZXIgcmVwbGFjaW5nIGl0LCBhbmQgc28gd2Ugc2hvdWxk
+IGJlIGFibGUKdG8gcmUtdXNlIHRoZSBzdG9sZW4gbWVtb3J5IGZvciBmYmMgYW5kIGZyaWVuZHMu
+IFRoaXMgcGF0Y2ggaXMgcmVwb3J0ZWQKdG8gZml4IHNvbWUgZmxpY2tlciBzZWVuIGR1cmluZyBi
+b290IHNwbGFzaCBvbiBzb21lIGRldmljZXMuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpcyBXaWxzb24g
+PGNocmlzQGNocmlzLXdpbHNvbi5jby51az4KU2lnbmVkLW9mZi1ieTogTWF0dGhldyBBdWxkIDxt
+YXR0aGV3LmF1bGRAaW50ZWwuY29tPgpDYzogTGVlIFNoYXduIEMgPHNoYXduLmMubGVlQGludGVs
+LmNvbT4KQ2M6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+
+CkNjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNvbT4KLS0tCiBkcml2ZXJz
+L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyB8IDIgKy0KIDEgZmlsZSBjaGFu
+Z2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMKaW5kZXggZWMyZDNmYTYwMDAzLi4wZWUxZjAyMTNm
+ZDkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxh
+eS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCkBA
+IC0xNDU1LDcgKzE0NTUsNyBAQCBpbml0aWFsX3BsYW5lX3ZtYShzdHJ1Y3QgZHJtX2k5MTVfcHJp
+dmF0ZSAqaTkxNSwKIAkgKiBpbXBvcnRhbnQgYW5kIHdlIHNob3VsZCBwcm9iYWJseSB1c2UgdGhh
+dCBzcGFjZSB3aXRoIEZCQyBvciBvdGhlcgogCSAqIGZlYXR1cmVzLgogCSAqLwotCWlmIChzaXpl
+ICogMiA+IGk5MTUtPnN0b2xlbl91c2FibGVfc2l6ZSkKKwlpZiAoSVNfRU5BQkxFRChGUkFNRUJV
+RkZFUl9DT05TT0xFKSAmJiBzaXplICogMiA+IGk5MTUtPnN0b2xlbl91c2FibGVfc2l6ZSkKIAkJ
+cmV0dXJuIE5VTEw7CiAKIAlvYmogPSBpOTE1X2dlbV9vYmplY3RfY3JlYXRlX3N0b2xlbl9mb3Jf
+cHJlYWxsb2NhdGVkKGk5MTUsIGJhc2UsIHNpemUpOwotLSAKMi4yNi4zCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0
+CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
