@@ -2,56 +2,43 @@ Return-Path: <SRS0=w1eM=KC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C1B5C433B4
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 17:56:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F0A0C433ED
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 18:03:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 167CA60FD8
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 17:56:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 167CA60FD8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id E3032610D2
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 18:03:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3032610D2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CA0C6E158;
-	Fri,  7 May 2021 17:56:40 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F0DA6E0EF;
- Fri,  7 May 2021 17:56:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
- Subject:Sender:Reply-To:Content-ID:Content-Description;
- bh=CBcWZHqzaGgz7lsbjdL7nRqUtTSFr2Wq5t9BDXCRpfE=; b=DNoyHoiYuAGlKKpvGmvu1VsqtI
- wNZiM3SfXAiE0xS4pvYR0CjZr3OE2COsF8LL9QfPdeVw8PbKPMdQBUBKQ0CaP/lo0dEAsTlq+1teb
- gBGqQueY5FfJCzsRxrKb2eQfX6llI2Ok55eKpyjqKxYdMh4Y/G/HuiUEFJ5Cbu6nEBM2QNtubr5/H
- qo3pynSZ/LT6cOmBNnCZK6RZ/vi6oDoJQ1Pfx/JrGOEwoemOC53Jv+mekzs0PSto/jnJ0XwEmSj5w
- BvHIukLNPLe9bIz/aAeaLMOmJwg68EGNIS/H/CsXjetTOKmn6MAfB9YaIih8P5mBLdNH58gdovPTo
- eQYHe0KA==;
-Received: from [2601:1c0:6280:3f0::7376]
- by bombadil.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
- id 1lf4iK-0073Xx-I5; Fri, 07 May 2021 17:56:36 +0000
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Werner Sembach <wse@tuxedocomputers.com>
-References: <20210506172325.1995964-1-wse@tuxedocomputers.com>
- <20210507084903.28877-1-wse@tuxedocomputers.com>
- <20210507084903.28877-3-wse@tuxedocomputers.com> <YJV+Xr59xyK2yLXT@intel.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <0d88cd48-a91f-bf0a-e298-a9d66bf0562b@infradead.org>
-Date: Fri, 7 May 2021 10:56:34 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 538D76E249;
+	Fri,  7 May 2021 18:03:14 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 35D6A6E0EF;
+ Fri,  7 May 2021 18:03:13 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 28395A47E2;
+ Fri,  7 May 2021 18:03:13 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <YJV+Xr59xyK2yLXT@intel.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH v6 2/3] drm/i915/display: Restructure output
- format computation for better expandability
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nikola Cornij" <nikola.cornij@amd.com>
+Date: Fri, 07 May 2021 18:03:13 -0000
+Message-ID: <162041059313.10707.8299044179820597644@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210503172109.22877-1-nikola.cornij@amd.com>
+In-Reply-To: <20210503172109.22877-1-nikola.cornij@amd.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5Bv1=2C1/1=5D_drm/dp=5Fmst=3A_Use_kHz_as_lin?=
+ =?utf-8?q?k_rate_units_when_settig_source_max_link_caps_at_init_=28rev2?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,51 +51,182 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1683378542=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gNS83LzIxIDEwOjUyIEFNLCBWaWxsZSBTeXJqw6Rsw6Qgd3JvdGU6Cj4gT24gRnJpLCBNYXkg
-MDcsIDIwMjEgYXQgMTA6NDk6MDJBTSArMDIwMCwgV2VybmVyIFNlbWJhY2ggd3JvdGU6Cj4+IENv
-dXBsZXMgdGhlIGRlY2lzc2lvbiBiZXR3ZWVuIFJHQiBhbmQgWUNiQ3I0MjAgbW9kZSBhbmQgdGhl
-IGNoZWNrIGlmIHRoZQo+PiBwb3J0IGNsb2NrIGNhbiBhcmNoaXZlIHRoZSByZXF1aXJlZCBmcmVx
-dWVuY3kuIE90aGVyIGNoZWNrcyBhbmQKPj4gY29uZmlndXJhdGlvbiBzdGVwcyB0aGF0IHdoZXJl
-IHByZXZpb3VzbHkgZG9uZSBpbiBiZXR3ZWVuIGNhbiBhbHNvIGJlIGRvbmUKPj4gYmVmb3JlIG9y
-IGFmdGVyLgo+Pgo+PiBUaGlzIGFsbG93cyBmb3IgYXJlIGNsZWFuZXIgaW1wbGVtZW50YXRpb24g
-b2YgcmV0cnlpbmcgZGlmZmVyZW50IGNvbG9yCj4+IGVuY29kaW5ncy4KPj4KPj4gQSBzbGlnaHQg
-Y2hhbmdlIGluIGJlaGF2aW91ciBvY2N1cnMgd2l0aCB0aGlzIHBhdGNoOiBJZiBZQ2JDcjQyMCBp
-cyBub3QKPj4gYWxsb3dlZCBidXQgZGlzcGxheSBpcyBZQ2JDcjQyMCBvbmx5IGl0IG5vIGxvbmdl
-ciBmYWlscywgYnV0IGp1c3QgcHJpbnRzCj4+IGFuIGVycm9yIGFuZCB0cmllcyB0byBmYWxsYmFj
-ayBvbiBSR0IuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFdlcm5lciBTZW1iYWNoIDx3c2VAdHV4ZWRv
-Y29tcHV0ZXJzLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
-dGVsX2hkbWkuYyB8IDY1ICsrKysrKysrKysrKy0tLS0tLS0tLS0tCj4+ICAxIGZpbGUgY2hhbmdl
-ZCwgMzQgaW5zZXJ0aW9ucygrKSwgMzEgZGVsZXRpb25zKC0pCj4+Cgo+IAo+IFdlIGNhbid0IGxl
-dCB0aGUgdXNlciBzcGFtIGRtZXNnIHdpdGggZXJyb3JzIGZyZWVseS4gU28gdGhpcyBuZWVkcwo+
-IHRvIGJlIGEgZHJtX2RiZ19rbXMoKS4gQWxzbyBhIGJpdCBsb25nLCBzbyBnb2luZyB0byBhbm5v
-eWluZ2x5IHdyYXAKPiBhbHdheXMuIENvdWxkIG1heWJlIHNob3J0ZW4gYSBiaXQgdG8gc29tZXRo
-aW5nIGxpa2U6Cj4gIllDYkNyIDQ6MjowIG1vZGUgYnV0IFlDYkNyIDQ6MjowIG91dHB1dCBub3Qg
-cG9zc2libGUuIEZhbGxpbmcgYmFjayB0byBSR0IuIgo+IAo+IFdpdGggdGhhdCBzb3J0ZWQsIGFu
-ZCB0aGUgaW50ZWxfaGRtaV9wb3J0X2Nsb2NrKCkgc3R1ZmYgcmVzdG9yZWQsCj4gSSBiZWxpZXZl
-IHRoaXMgc2VyaWVzIGlzIGdvb2QgdG8gZ28uCj4gCj4gSSB0aGluayB5b3UgY29uZnVzZWQgb3Vy
-IENJIGJ5IHJlcGx5aW5nIHRvIHRoZSBvbGQgcGF0Y2ggd2l0aCBhIHdob2xlCj4gbmV3IHNlcmll
-cy4gSXQgY2FuIGdlbmVyYWxseSBkZWFsIHdpdGggYSB3aG9sZSBuZXcgc2VyaWVzIGFzIGEgbmV3
-Cj4gdGhyZWFkIG9yIHJlcGxpZXMgdG8gaW5kaXZpZHVhbCBwYXRjaGVzIHdpdGggdXBkYXRlZCB2
-ZXJzaW9ucyBvZgo+IGV4YWN0bHkgdGhhdCBwYXRjaCwgYnV0IG5vdCBmdWxsIHNlcmllcyBhcyBh
-IHJlcGx5IHRvIGEgcGF0Y2guCj4gU28gSSBzdWdnZXN0IGp1c3QgcG9zdGluZyB0aGUgZmluYWwg
-dmVyc2lvbnMgYXMgYSBuZXcgc2VyaWVzLiBUaGFua3MuCj4gCgpZZWFoLCB3ZSB0cnkgdG8gc2F5
-ICJkb24ndCBkbyB0aGF0LCIgYnV0IG1heWJlIHdlIG5lZWQgdG8gc2F5IHRoYXQgbW9yZQpzdHJv
-bmdseS4gU2VlIERvY3VtZW50YXRpb24vcHJvY2Vzcy9zdWJtaXR0aW5nLXBhdGNoZXMucnN0OgoK
-PDw8Ckhvd2V2ZXIsIGZvciBhIG11bHRpLXBhdGNoIHNlcmllcywgaXQgaXMgZ2VuZXJhbGx5CmJl
-c3QgdG8gYXZvaWQgdXNpbmcgSW4tUmVwbHktVG86IHRvIGxpbmsgdG8gb2xkZXIgdmVyc2lvbnMg
-b2YgdGhlCnNlcmllcy4gIFRoaXMgd2F5IG11bHRpcGxlIHZlcnNpb25zIG9mIHRoZSBwYXRjaCBk
-b24ndCBiZWNvbWUgYW4KdW5tYW5hZ2VhYmxlIGZvcmVzdCBvZiByZWZlcmVuY2VzIGluIGVtYWls
-IGNsaWVudHMuICBJZiBhIGxpbmsgaXMKaGVscGZ1bCwgeW91IGNhbiB1c2UgdGhlIGh0dHBzOi8v
-bGttbC5rZXJuZWwub3JnLyByZWRpcmVjdG9yIChlLmcuLCBpbgp0aGUgY292ZXIgZW1haWwgdGV4
-dCkgdG8gbGluayB0byBhbiBlYXJsaWVyIHZlcnNpb24gb2YgdGhlIHBhdGNoIHNlcmllcy4KPj4+
-CgoKLS0gCn5SYW5keQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwt
-Z2Z4Cg==
+--===============1683378542==
+Content-Type: multipart/alternative;
+ boundary="===============6277635713406755818=="
+
+--===============6277635713406755818==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: series starting with [v1,1/1] drm/dp_mst: Use kHz as link rate units when settig source max link caps at init (rev2)
+URL   : https://patchwork.freedesktop.org/series/89753/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10059 -> Patchwork_20087
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20087/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20087 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_prime@amd-to-i915:
+    - fi-tgl-y:           NOTRUN -> [SKIP][1] ([fdo#109315] / [i915#2575]) +1 similar issue
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20087/fi-tgl-y/igt@amdgpu/amd_prime@amd-to-i915.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-snb-2600:        [PASS][2] -> [INCOMPLETE][3] ([i915#2782])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10059/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20087/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [i915#1222]: https://gitlab.freedesktop.org/drm/intel/issues/1222
+  [i915#151]: https://gitlab.freedesktop.org/drm/intel/issues/151
+  [i915#2283]: https://gitlab.freedesktop.org/drm/intel/issues/2283
+  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
+  [i915#2782]: https://gitlab.freedesktop.org/drm/intel/issues/2782
+  [i915#3013]: https://gitlab.freedesktop.org/drm/intel/issues/3013
+  [i915#3015]: https://gitlab.freedesktop.org/drm/intel/issues/3015
+  [i915#3277]: https://gitlab.freedesktop.org/drm/intel/issues/3277
+  [i915#3283]: https://gitlab.freedesktop.org/drm/intel/issues/3283
+
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): fi-ilk-m540 fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10059 -> Patchwork_20087
+
+  CI-20190529: 20190529
+  CI_DRM_10059: ab8441df864de9d5d06bf6dd405e4b42576a0999 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6081: fdff4bba7abf9cb7c8ea21abf14e36d344ebb8c1 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_20087: bc995082bc940b35e280a1bcf1e6ad15f458693c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+bc995082bc94 drm/dp_mst: Use kHz as link rate units when settig source max link caps at init
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20087/index.html
+
+--===============6277635713406755818==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [v1,1/1] drm/dp_mst: Use kHz as link rate units when settig source max link caps at init (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/89753/">https://patchwork.freedesktop.org/series/89753/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20087/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20087/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10059 -&gt; Patchwork_20087</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20087/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20087 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_prime@amd-to-i915:</p>
+<ul>
+<li>fi-tgl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20087/fi-tgl-y/igt@amdgpu/amd_prime@amd-to-i915.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2575">i915#2575</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10059/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20087/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2782">i915#2782</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): fi-ilk-m540 fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10059 -&gt; Patchwork_20087</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10059: ab8441df864de9d5d06bf6dd405e4b42576a0999 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6081: fdff4bba7abf9cb7c8ea21abf14e36d344ebb8c1 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_20087: bc995082bc940b35e280a1bcf1e6ad15f458693c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>bc995082bc94 drm/dp_mst: Use kHz as link rate units when settig source max link caps at init</p>
+
+</body>
+</html>
+
+--===============6277635713406755818==--
+
+--===============1683378542==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1683378542==--
