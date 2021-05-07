@@ -2,78 +2,53 @@ Return-Path: <SRS0=w1eM=KC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A9DEC433ED
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 18:27:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31D6AC433B4
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 18:27:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D0D561436
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 18:27:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D0D561436
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C58D9600D1
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 May 2021 18:27:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C58D9600D1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 283226E055;
-	Fri,  7 May 2021 18:27:03 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 638F96EE40;
- Fri,  7 May 2021 14:58:41 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id g14so10589333edy.6;
- Fri, 07 May 2021 07:58:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=CJHBifJjuAiUBB1fcY/7U2kOYy2ASja8+o2PqKZoRWE=;
- b=XNEPPEBhgMHMMsT4kse0qA8u5ggbNQ9EE3NN4Lfs+z6ha71Hchom0V+YsQgDt3374B
- UhX9hZXqoUY1i+Jmd3ueYBBXaJSi9jQMQonYfGwYp6ED3fCShZobGpP6aljtWvs9vbe2
- /7L1fJjh56JN1EbxZY01WGSjDx5pLk0cvVsbGiWkKpgDaV4fMQSuJ2cEI2g0MGwD15sM
- QZ99gEFOcCd9ypUYjXH4aJGHfKaomx0lni4YIi19FpQOvS3n9p6TV66hPzoSSzBBbA2Y
- 7fJkLl8Qi9nlhU+iJLDveOHDabm38b4F0KGc0VGjVVrXANFmRZe4U6j/c07reOFgJ6Hy
- Y6tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=CJHBifJjuAiUBB1fcY/7U2kOYy2ASja8+o2PqKZoRWE=;
- b=HyNla4LJcLzImZWcA8/eA/eQ8GpFcd1RQxBc38UAVuDpLBzpNc2mSS9gk8p0FTqPTR
- N8+z5yAvSYMkLPCmFweO4kya7I1l9PxMcwL3xQV3FTs9l63YZW050rcxor6mpg3y6z84
- 2dB5Fx0EgiUWpQ88OOvmL8VmKqwIU15zDfEGOz/DPN2Z1i5sAM1Og6HxA7Ii50Sm5S4J
- jkGCLvtTx79agBbex7sOZyaKypmVR3urunBaxI8mRNTn8pp+rCwk3Zk6sZ7CTDIDddbF
- FQ0IXoL+3kN+ifJY46aD88xJy9+0DUZ5J4lMBkOF1gdSu9v+/qCfl72ucr6sUJsS2TF8
- f46Q==
-X-Gm-Message-State: AOAM530kN0sRok83ekQnP/W9OHsOVuVMsyWo/bBjbIN2GYXZuuAw28pp
- tg/LhEObCRM+A9LPDSbsuSq3NMim8QBwyw==
-X-Google-Smtp-Source: ABdhPJwKTBoHHEGsXmBsKTt/zAlEpVBQULdCoEKocsz8PQ3XbcWNFsWC2MfypygtKruT+f+OYBtAdQ==
-X-Received: by 2002:a05:6402:798:: with SMTP id
- d24mr11757288edy.275.1620399520090; 
- Fri, 07 May 2021 07:58:40 -0700 (PDT)
-Received: from jernej-laptop.localnet (cpe-86-58-17-133.cable.triera.net.
- [86.58.17.133])
- by smtp.gmail.com with ESMTPSA id cf10sm4308872edb.21.2021.05.07.07.58.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 May 2021 07:58:39 -0700 (PDT)
-From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
- David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>,
- Maxime Ripard <maxime@cerno.tech>
-Date: Fri, 07 May 2021 16:58:38 +0200
-Message-ID: <3819038.KMkRtCgjlg@jernej-laptop>
-In-Reply-To: <20210430094451.2145002-5-maxime@cerno.tech>
-References: <20210430094451.2145002-5-maxime@cerno.tech>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 040816E235;
+	Fri,  7 May 2021 18:27:05 +0000 (UTC)
+Received: from mail-m176238.qiye.163.com (mail-m176238.qiye.163.com
+ [59.111.176.238])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 270716EDC7;
+ Fri,  7 May 2021 07:35:41 +0000 (UTC)
+Received: from vivo.com (localhost [127.0.0.1])
+ by mail-m176238.qiye.163.com (Hmail) with ESMTP id 45985F60165;
+ Fri,  7 May 2021 15:35:06 +0800 (CST)
+Message-ID: <AL2APQB8DsrABpe7MxMMyqq4.3.1620372906272.Hmail.bernard@vivo.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
+X-Originating-IP: 36.152.145.181
+In-Reply-To: <YIxBfNnwA/7nEenj@phenom.ffwll.local>
 MIME-Version: 1.0
+Received: from bernard@vivo.com( [36.152.145.181) ] by ajax-webmail (
+ [127.0.0.1] ) ; Fri, 7 May 2021 15:35:06 +0800 (GMT+08:00)
+From: Bernard <bernard@vivo.com>
+Date: Fri, 7 May 2021 15:35:06 +0800 (GMT+08:00)
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
+ oVCBIfWUFZGUodGVZCTkxIHUgYSExLTk5VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
+ hKQ1VLWQY+
+X-HM-Sender-Digest: e1kJHlYWEh9ZQU1ISU1MTk9MSk5NN1dZDB4ZWUEPCQ4eV1kSHx4VD1lB
+ WUc6N0k6Kyo5Qz8ICTo5Cx5MNgM2NgIKCk9VSFVKTUlLSExJQktNTkNKVTMWGhIXVRkeCRUaCR87
+ DRINFFUYFBZFWVdZEgtZQVlITVVKTklVSk9OVUpDSllXWQgBWUFDTkhMNwY+
+X-HM-Tid: 0a7945c06134d9b0kuws45985f60165
 X-Mailman-Approved-At: Fri, 07 May 2021 18:27:02 +0000
-Subject: Re: [Intel-gfx] [v3,
- 5/5] drm/vc4: hdmi: Signal the proper colorimetry info in the
- infoframe
+Subject: Re: [Intel-gfx] 
+ =?utf-8?q?=5BPATCH=5D_drm/i915=3A_Use_might=5Falloc?=
+ =?utf-8?b?KCk=?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,43 +61,136 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Dom Cobley <dom@raspberrypi.com>,
- Tim Gover <tim.gover@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, Leo Li <sunpeng.li@amd.com>,
- Robert Foss <robert.foss@linaro.org>, intel-gfx@lists.freedesktop.org,
- Neil Armstrong <narmstrong@baylibre.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Andrzej Hajda <a.hajda@samsung.com>, Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Alex Deucher <alexander.deucher@amd.com>, Phil Elwell <phil@raspberrypi.com>
+Cc: kbuild-all@lists.01.org, David Airlie <airlied@linux.ie>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi!
 
-Dne petek, 30. april 2021 ob 11:44:51 CEST je Maxime Ripard napisal(a):
-> Our driver while supporting HDR didn't send the proper colorimetry info
-> in the AVI infoframe.
-> 
-> Let's add the property needed so that the userspace can let us know what
-> the colorspace is supposed to be.
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> ---
-> 
-> Changes from v2:
->   - Rebased on current drm-misc-next
-> 
-> Changes from v1:
->   - New patch
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: 2021-05-01 01:42:20
+To:  kernel test robot <lkp@intel.com>
+Cc:  Bernard Zhao <bernard@vivo.com>,Jani Nikula <jani.nikula@linux.intel.com>,Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,Rodrigo Vivi <rodrigo.vivi@intel.com>,David Airlie <airlied@linux.ie>,Daniel Vetter <daniel@ffwll.ch>,intel-gfx@lists.freedesktop.org,dri-devel@lists.freedesktop.org,linux-kernel@vger.kernel.org,kbuild-all@lists.01.org
+Subject: Re: [PATCH] drm/i915: Use might_alloc()>On Fri, Apr 30, 2021 at 12:31:27AM +0800, kernel test robot wrote:
+>> Hi Bernard,
+>> 
+>> Thank you for the patch! Yet something to improve:
+>> 
+>> [auto build test ERROR on drm-intel/for-linux-next]
+>> [also build test ERROR on v5.12 next-20210429]
+>> [If your patch is applied to the wrong git tree, kindly drop us a note.
+>> And when submitting patch, we suggest to use '--base' as documented in
+>> https://git-scm.com/docs/git-format-patch]
+>> 
+>> url:    https://github.com/0day-ci/linux/commits/Bernard-Zhao/drm-i915-Use-might_alloc/20210429-104516
+>> base:   git://anongit.freedesktop.org/drm-intel for-linux-next
+>> config: x86_64-rhel-8.3-kselftests (attached as .config)
+>> compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
+>> reproduce (this is a W=1 build):
+>>         # https://github.com/0day-ci/linux/commit/9fbd0c1741ce06241105d753ff3432ab55f3e94a
+>>         git remote add linux-review https://github.com/0day-ci/linux
+>>         git fetch --no-tags linux-review Bernard-Zhao/drm-i915-Use-might_alloc/20210429-104516
+>>         git checkout 9fbd0c1741ce06241105d753ff3432ab55f3e94a
+>>         # save the attached .config to linux build tree
+>>         make W=1 W=1 ARCH=x86_64 
+>> 
+>> If you fix the issue, kindly add following tag as appropriate
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> 
+>> All errors (new ones prefixed by >>):
+>> 
+>>    drivers/gpu/drm/i915/i915_sw_fence.c: In function '__i915_sw_fence_await_sw_fence':
+>> >> drivers/gpu/drm/i915/i915_sw_fence.c:344:2: error: implicit declaration of function 'might_alloc'; did you mean 'might_lock'? [-Werror=implicit-function-declaration]
+>>      344 |  might_alloc(gfp);
+>>          |  ^~~~~~~~~~~
+>>          |  might_lock
+>>    cc1: some warnings being treated as errors
+>
+>I think you're missing an include or something. The other patch you've
+>done seems good, I queued that up in drm-intel-gt-next for 5.14.
+>
+>Thanks, Daniel
 
-Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Hi
+It looks like I did not include the header file <linux/sched/mm.h>
+I will resubmit one patch, thanks!
+BR//Bernard
 
-Best regards,
-Jernej
+>> 
+>> 
+>> vim +344 drivers/gpu/drm/i915/i915_sw_fence.c
+>> 
+>>    335	
+>>    336	static int __i915_sw_fence_await_sw_fence(struct i915_sw_fence *fence,
+>>    337						  struct i915_sw_fence *signaler,
+>>    338						  wait_queue_entry_t *wq, gfp_t gfp)
+>>    339	{
+>>    340		unsigned int pending;
+>>    341		unsigned long flags;
+>>    342	
+>>    343		debug_fence_assert(fence);
+>>  > 344		might_alloc(gfp);
+>>    345	
+>>    346		if (i915_sw_fence_done(signaler)) {
+>>    347			i915_sw_fence_set_error_once(fence, signaler->error);
+>>    348			return 0;
+>>    349		}
+>>    350	
+>>    351		debug_fence_assert(signaler);
+>>    352	
+>>    353		/* The dependency graph must be acyclic. */
+>>    354		if (unlikely(i915_sw_fence_check_if_after(fence, signaler)))
+>>    355			return -EINVAL;
+>>    356	
+>>    357		pending = I915_SW_FENCE_FLAG_FENCE;
+>>    358		if (!wq) {
+>>    359			wq = kmalloc(sizeof(*wq), gfp);
+>>    360			if (!wq) {
+>>    361				if (!gfpflags_allow_blocking(gfp))
+>>    362					return -ENOMEM;
+>>    363	
+>>    364				i915_sw_fence_wait(signaler);
+>>    365				i915_sw_fence_set_error_once(fence, signaler->error);
+>>    366				return 0;
+>>    367			}
+>>    368	
+>>    369			pending |= I915_SW_FENCE_FLAG_ALLOC;
+>>    370		}
+>>    371	
+>>    372		INIT_LIST_HEAD(&wq->entry);
+>>    373		wq->flags = pending;
+>>    374		wq->func = i915_sw_fence_wake;
+>>    375		wq->private = fence;
+>>    376	
+>>    377		i915_sw_fence_await(fence);
+>>    378	
+>>    379		spin_lock_irqsave(&signaler->wait.lock, flags);
+>>    380		if (likely(!i915_sw_fence_done(signaler))) {
+>>    381			__add_wait_queue_entry_tail(&signaler->wait, wq);
+>>    382			pending = 1;
+>>    383		} else {
+>>    384			i915_sw_fence_wake(wq, 0, signaler->error, NULL);
+>>    385			pending = 0;
+>>    386		}
+>>    387		spin_unlock_irqrestore(&signaler->wait.lock, flags);
+>>    388	
+>>    389		return pending;
+>>    390	}
+>>    391	
+>> 
+>> ---
+>> 0-DAY CI Kernel Test Service, Intel Corporation
+>> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+>
+>
+>
+>-- 
+>Daniel Vetter
+>Software Engineer, Intel Corporation
+>http://blog.ffwll.ch
 
 
 _______________________________________________
