@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71817C43462
-	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23B1AC433B4
+	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:29:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F05B610A2
+	by mail.kernel.org (Postfix) with ESMTPS id DE914610A2
 	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:29:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F05B610A2
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE914610A2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 474056E839;
-	Sat,  8 May 2021 02:28:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A10E6EEB4;
+	Sat,  8 May 2021 02:28:36 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19E976E82B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6BBB6E82C
  for <intel-gfx@lists.freedesktop.org>; Sat,  8 May 2021 02:28:32 +0000 (UTC)
-IronPort-SDR: en16i21BOwhnLw+1Ilsg1BE5sD8JofrIxknQHNLy5EO/qfEBNDlG2l6qwTJSnp+/M1C0e6qRZi
- v/8CXdn5UXvg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9977"; a="284317026"
-X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="284317026"
+IronPort-SDR: SvJp5k7G7fIJS+Sk9kitHqrhc2ziH9m8jw7d2ccKbK8oQ336YNVpJnIhZWs7HN4PWLAKATMP9R
+ 8beJa9s3mkHA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9977"; a="284317033"
+X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="284317033"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 May 2021 19:28:30 -0700
-IronPort-SDR: LEGtTjC6huyksZId0nXpzC74rkUsiLcxT2cwl/0HkzI+nuJql9ud8fyvgAGwHd6zv9MCgHSzZ9
- vMsTF7J8yxeA==
-X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="533910148"
+IronPort-SDR: nDg1WyzumJO1JNvdCM3OcPcEyq/kG3pMSieykPqfXCZ2GJphC8PhL0MOnMg1722YlgLmDRONJv
+ USVk2J/laxUQ==
+X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="533910169"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 May 2021 19:28:29 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  7 May 2021 19:28:08 -0700
-Message-Id: <20210508022820.780227-37-matthew.d.roper@intel.com>
+Date: Fri,  7 May 2021 19:28:11 -0700
+Message-Id: <20210508022820.780227-40-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210508022820.780227-1-matthew.d.roper@intel.com>
 References: <20210508022820.780227-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 36/48] drm/i915/adl_p: Enable/disable loadgen
- sharing
+Subject: [Intel-gfx] [PATCH v3 39/48] drm/i915/bigjoiner: Mode validation
+ with uncompressed pipe joiner
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,53 +63,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mika Kahola <mika.kahola@intel.com>
+From: Animesh Manna <animesh.manna@intel.com>
 
-Disable loadgen sharing for DP link rate 1.62 GHz and HDMI 5.94 GHz.
-For all other modes, we can enable loadgen sharing feature.
+No need for checking dsc flag for uncompressed pipe joiner mode
+validation.
 
-BSpec: 55359
-
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 8 ++++++++
- drivers/gpu/drm/i915/i915_reg.h          | 1 +
- 2 files changed, 9 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index bbfa5bcd4c63..6889be6b9e81 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -1470,6 +1470,14 @@ tgl_dkl_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
- 		val = intel_de_read(dev_priv, DKL_TX_DPCNTL2(tc_port));
- 		val &= ~DKL_TX_DP20BITMODE;
- 		intel_de_write(dev_priv, DKL_TX_DPCNTL2(tc_port), val);
-+
-+		if ((intel_crtc_has_dp_encoder(crtc_state) &&
-+		    crtc_state->port_clock == 162000) ||
-+		    (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI) &&
-+		    crtc_state->port_clock == 594000))
-+			val |= DKL_TX_LOADGEN_SHARING_PMD_DISABLE;
-+		else
-+			val &= ~DKL_TX_LOADGEN_SHARING_PMD_DISABLE;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index b9b8a0b9889a..92d4c5ab32d7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -819,8 +819,11 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 		dsc = dsc_max_output_bpp && dsc_slice_count;
  	}
- }
  
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 9a52711e3920..3afbea20bdd3 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -10893,6 +10893,7 @@ enum skl_power_gate {
- 						     _DKL_TX_DPCNTL1)
+-	/* big joiner configuration needs DSC */
+-	if (bigjoiner && !dsc)
++	/*
++	 * Big joiner configuration needs DSC for TGL which is not true for
++	 * XE_LPD where uncompressed joiner is supported.
++	 */
++	if (DISPLAY_VER(dev_priv) < 13 && bigjoiner && !dsc)
+ 		return MODE_CLOCK_HIGH;
  
- #define _DKL_TX_DPCNTL2				0x2C8
-+#define  DKL_TX_LOADGEN_SHARING_PMD_DISABLE            REG_BIT(12)
- #define  DKL_TX_DP20BITMODE				(1 << 2)
- #define DKL_TX_DPCNTL2(tc_port) _MMIO(_PORT(tc_port, \
- 						     _DKL_PHY1_BASE, \
+ 	if (mode_rate > max_rate && !dsc)
 -- 
 2.25.4
 
