@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5652C43460
-	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:29:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D45DC433B4
+	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:29:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9CC0261029
-	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:29:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CC0261029
+	by mail.kernel.org (Postfix) with ESMTPS id 5152961029
+	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:29:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5152961029
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C17BC6F383;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA9E6EF31;
 	Sat,  8 May 2021 02:28:38 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10E616E82D
- for <intel-gfx@lists.freedesktop.org>; Sat,  8 May 2021 02:28:32 +0000 (UTC)
-IronPort-SDR: iUW/6Hx589ZcaKw1B1nUf3MakfFFp6sLs8+Qr8rCK7se5DAuTQkJ1ulYQg7b7VfhOhyv1AO1BO
- H663x6QdBisQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9977"; a="284317024"
-X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="284317024"
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 314E06E82A
+ for <intel-gfx@lists.freedesktop.org>; Sat,  8 May 2021 02:28:31 +0000 (UTC)
+IronPort-SDR: h7NqsRDqtidWhs42yR53G68TZavgUyXTrcxRiL5VLJkvNz/TlPya4KyBWYQ0FkzsY8WAabOn9C
+ sSlHf1ExwFOA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9977"; a="262790146"
+X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="262790146"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2021 19:28:30 -0700
-IronPort-SDR: 3IGQZaS8TO622pRW4y2hbSpwCsbC88XntPr3IpH8ZPlQRtnV8cty22DE0QokidQPwwMNCtPPcR
- POMbPJKgx6ZA==
-X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="533910139"
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2021 19:28:29 -0700
+IronPort-SDR: 5wpKxzxxw2YTfrPchnAY5M18kCELbnu7IjUZyzDmZglNIen+TH2O4g4zRnGevSIMvCq7ZZpJHq
+ /IKpSlhY903w==
+X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="533910080"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2021 19:28:29 -0700
+ 07 May 2021 19:28:28 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  7 May 2021 19:28:06 -0700
-Message-Id: <20210508022820.780227-35-matthew.d.roper@intel.com>
+Date: Fri,  7 May 2021 19:27:46 -0700
+Message-Id: <20210508022820.780227-15-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210508022820.780227-1-matthew.d.roper@intel.com>
 References: <20210508022820.780227-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 34/48] drm/i915/display: Introduce new
- intel_psr_pause/resume function
+Subject: [Intel-gfx] [PATCH v3 14/48] drm/i915/xelpd: Add VRR guardband for
+ VRR CTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,118 +58,211 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogR3dhbi1neWVvbmcgTXVuIDxnd2FuLWd5ZW9uZy5tdW5AaW50ZWwuY29tPgoKVGhpcyBp
-bnRyb2R1Y2VzIHRoZSBmb2xsb3dpbmcgZnVuY3Rpb24gdGhhdCBjYW4gZW5hYmxlIGFuZCBkaXNh
-YmxlIHBzcgp3aXRob3V0IGludGVsX2NydGNfc3RhdGUvZHJtX2Nvbm5lY3Rvcl9zdGF0ZSB3aGVu
-IGludGVsX3BzciBpcyBhbHJlYWR5CmVuYWJsZWQgd2l0aCBjdXJyZW50IGludGVsX2NydGNfc3Rh
-dGUgYW5kIGRybV9jb25uZWN0b3Jfc3RhdGUgaW5mb3JtYXRpb24uCgotIGludGVsX3Bzcl9wYXVz
-ZSgpOiBQYXVzZSBjdXJyZW50IFBTUi4gaXQgZGVhY3RpdmF0ZXMgY3VycmVudCBwc3Igc3RhdGUu
-Ci0gaW50ZWxfcHNyX3Jlc3VtZSgpOiBSZXN1bWUgcGF1c2VkIFBTUiB3aXRob3V0IGludGVsX2Ny
-dGNfc3RhdGUgYW5kCiAgICAgICAgICAgICAgICAgICAgICBkcm1fY29ubmVjdG9yX3N0YXRlLiBJ
-dCBhY3RpdmF0ZXMgcGF1c2VkIHBzciBzdGF0ZS4KCkNjOiBKb3PDqSBSb2JlcnRvIGRlIFNvdXph
-IDxqb3NlLnNvdXphQGludGVsLmNvbT4KQ2M6IFN0YW5pc2xhdiBMaXNvdnNraXkgPHN0YW5pc2xh
-di5saXNvdnNraXlAaW50ZWwuY29tPgpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxh
-QGxpbnV4LmludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogR3dhbi1neWVvbmcgTXVuIDxnd2FuLWd5
-ZW9uZy5tdW5AaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQu
-cm9wZXJAaW50ZWwuY29tPgotLS0KIC4uLi9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlf
-dHlwZXMuaCAgICB8ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNy
-LmMgICAgICB8IDkzICsrKysrKysrKysrKysrKystLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
-c3BsYXkvaW50ZWxfcHNyLmggICAgICB8ICAyICsKIDMgZmlsZXMgY2hhbmdlZCwgODIgaW5zZXJ0
-aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
-aXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaAppbmRleCBiOGQxZjcwMmQ4MDguLmVlN2NiZGQ3
-ZGI4NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNw
-bGF5X3R5cGVzLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNw
-bGF5X3R5cGVzLmgKQEAgLTE0ODIsNiArMTQ4Miw3IEBAIHN0cnVjdCBpbnRlbF9wc3IgewogCWJv
-b2wgc2lua19zdXBwb3J0OwogCWJvb2wgc291cmNlX3N1cHBvcnQ7CiAJYm9vbCBlbmFibGVkOwor
-CWJvb2wgcGF1c2VkOwogCWVudW0gcGlwZSBwaXBlOwogCWVudW0gdHJhbnNjb2RlciB0cmFuc2Nv
-ZGVyOwogCWJvb2wgYWN0aXZlOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
-cGxheS9pbnRlbF9wc3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNy
-LmMKaW5kZXggNTk5YzZiMTA4OWU1Li5lZWZkMDcxMmU0N2MgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF9wc3IuYwpAQCAtMTAxNSwzNCArMTAxNSwyMyBAQCBzdGF0aWMgYm9v
-bCBwc3JfaW50ZXJydXB0X2Vycm9yX2NoZWNrKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCiAJ
-cmV0dXJuIHRydWU7CiB9CiAKLXN0YXRpYyB2b2lkIGludGVsX3Bzcl9lbmFibGVfbG9ja2VkKHN0
-cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAsCi0JCQkJICAgIGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRj
-X3N0YXRlICpjcnRjX3N0YXRlLAotCQkJCSAgICBjb25zdCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9z
-dGF0ZSAqY29ubl9zdGF0ZSkKK3N0YXRpYyB2b2lkIF9pbnRlbF9wc3JfZW5hYmxlX2xvY2tlZChz
-dHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwLAorCQkJCSAgICAgY29uc3Qgc3RydWN0IGludGVsX2Ny
-dGNfc3RhdGUgKmNydGNfc3RhdGUpCiB7CiAJc3RydWN0IGludGVsX2RpZ2l0YWxfcG9ydCAqZGln
-X3BvcnQgPSBkcF90b19kaWdfcG9ydChpbnRlbF9kcCk7CiAJc3RydWN0IGRybV9pOTE1X3ByaXZh
-dGUgKmRldl9wcml2ID0gZHBfdG9faTkxNShpbnRlbF9kcCk7CiAJc3RydWN0IGludGVsX2VuY29k
-ZXIgKmVuY29kZXIgPSAmZGlnX3BvcnQtPmJhc2U7Ci0JdTMyIHZhbDsKIAogCWRybV9XQVJOX09O
-KCZkZXZfcHJpdi0+ZHJtLCBpbnRlbF9kcC0+cHNyLmVuYWJsZWQpOwogCi0JaW50ZWxfZHAtPnBz
-ci5wc3IyX2VuYWJsZWQgPSBjcnRjX3N0YXRlLT5oYXNfcHNyMjsKIAlpbnRlbF9kcC0+cHNyLmJ1
-c3lfZnJvbnRidWZmZXJfYml0cyA9IDA7Ci0JaW50ZWxfZHAtPnBzci5waXBlID0gdG9faW50ZWxf
-Y3J0YyhjcnRjX3N0YXRlLT51YXBpLmNydGMpLT5waXBlOwotCWludGVsX2RwLT5wc3IudHJhbnNj
-b2RlciA9IGNydGNfc3RhdGUtPmNwdV90cmFuc2NvZGVyOwotCS8qIERDNS9EQzYgcmVxdWlyZXMg
-YXQgbGVhc3QgNiBpZGxlIGZyYW1lcyAqLwotCXZhbCA9IHVzZWNzX3RvX2ppZmZpZXMoaW50ZWxf
-Z2V0X2ZyYW1lX3RpbWVfdXMoY3J0Y19zdGF0ZSkgKiA2KTsKLQlpbnRlbF9kcC0+cHNyLmRjM2Nv
-X2V4aXRfZGVsYXkgPSB2YWw7Ci0JaW50ZWxfZHAtPnBzci5kYzNjb19leGl0bGluZSA9IGNydGNf
-c3RhdGUtPmRjM2NvX2V4aXRsaW5lOwotCWludGVsX2RwLT5wc3IucHNyMl9zZWxfZmV0Y2hfZW5h
-YmxlZCA9IGNydGNfc3RhdGUtPmVuYWJsZV9wc3IyX3NlbF9mZXRjaDsKIAogCWlmICghcHNyX2lu
-dGVycnVwdF9lcnJvcl9jaGVjayhpbnRlbF9kcCkpCiAJCXJldHVybjsKIAogCWRybV9kYmdfa21z
-KCZkZXZfcHJpdi0+ZHJtLCAiRW5hYmxpbmcgUFNSJXNcbiIsCiAJCSAgICBpbnRlbF9kcC0+cHNy
-LnBzcjJfZW5hYmxlZCA/ICIyIiA6ICIxIik7Ci0JaW50ZWxfZHBfY29tcHV0ZV9wc3JfdnNjX3Nk
-cChpbnRlbF9kcCwgY3J0Y19zdGF0ZSwgY29ubl9zdGF0ZSwKLQkJCQkgICAgICZpbnRlbF9kcC0+
-cHNyLnZzYyk7CisKIAlpbnRlbF93cml0ZV9kcF92c2Nfc2RwKGVuY29kZXIsIGNydGNfc3RhdGUs
-ICZpbnRlbF9kcC0+cHNyLnZzYyk7CiAJaW50ZWxfcHNyX2VuYWJsZV9zaW5rKGludGVsX2RwKTsK
-IAlpbnRlbF9wc3JfZW5hYmxlX3NvdXJjZShpbnRlbF9kcCk7CkBAIC0xMDUxLDYgKzEwNDAsMjgg
-QEAgc3RhdGljIHZvaWQgaW50ZWxfcHNyX2VuYWJsZV9sb2NrZWQoc3RydWN0IGludGVsX2RwICpp
-bnRlbF9kcCwKIAlpbnRlbF9wc3JfYWN0aXZhdGUoaW50ZWxfZHApOwogfQogCitzdGF0aWMgdm9p
-ZCBpbnRlbF9wc3JfZW5hYmxlX2xvY2tlZChzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwLAorCQkJ
-CSAgICBjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKKwkJCQkgICAg
-Y29uc3Qgc3RydWN0IGRybV9jb25uZWN0b3Jfc3RhdGUgKmNvbm5fc3RhdGUpCit7CisJdTMyIHZh
-bDsKKworCWludGVsX2RwLT5wc3IucHNyMl9lbmFibGVkID0gY3J0Y19zdGF0ZS0+aGFzX3BzcjI7
-CisJaW50ZWxfZHAtPnBzci5waXBlID0gdG9faW50ZWxfY3J0YyhjcnRjX3N0YXRlLT51YXBpLmNy
-dGMpLT5waXBlOworCWludGVsX2RwLT5wc3IudHJhbnNjb2RlciA9IGNydGNfc3RhdGUtPmNwdV90
-cmFuc2NvZGVyOworCS8qIERDNS9EQzYgcmVxdWlyZXMgYXQgbGVhc3QgNiBpZGxlIGZyYW1lcyAq
-LworCXZhbCA9IHVzZWNzX3RvX2ppZmZpZXMoaW50ZWxfZ2V0X2ZyYW1lX3RpbWVfdXMoY3J0Y19z
-dGF0ZSkgKiA2KTsKKwlpbnRlbF9kcC0+cHNyLmRjM2NvX2V4aXRfZGVsYXkgPSB2YWw7CisJaW50
-ZWxfZHAtPnBzci5wc3IyX3NlbF9mZXRjaF9lbmFibGVkID0gY3J0Y19zdGF0ZS0+ZW5hYmxlX3Bz
-cjJfc2VsX2ZldGNoOworCWludGVsX2RwLT5wc3IuZGMzY29fZXhpdGxpbmUgPSBjcnRjX3N0YXRl
-LT5kYzNjb19leGl0bGluZTsKKwlpbnRlbF9kcC0+cHNyLnBhdXNlZCA9IGZhbHNlOworCisJaW50
-ZWxfZHBfY29tcHV0ZV9wc3JfdnNjX3NkcChpbnRlbF9kcCwgY3J0Y19zdGF0ZSwgY29ubl9zdGF0
-ZSwKKwkJCQkgICAgICZpbnRlbF9kcC0+cHNyLnZzYyk7CisKKwlfaW50ZWxfcHNyX2VuYWJsZV9s
-b2NrZWQoaW50ZWxfZHAsIGNydGNfc3RhdGUpOworfQorCiAvKioKICAqIGludGVsX3Bzcl9lbmFi
-bGUgLSBFbmFibGUgUFNSCiAgKiBAaW50ZWxfZHA6IEludGVsIERQCkBAIC0xMTg4LDYgKzExOTks
-NjAgQEAgdm9pZCBpbnRlbF9wc3JfZGlzYWJsZShzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwLAog
-CWNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmaW50ZWxfZHAtPnBzci5kYzNjb193b3JrKTsKIH0K
-IAorLyoqCisgKiBpbnRlbF9wc3JfcGF1c2UgLSBQYXVzZSBQU1IKKyAqIEBpbnRlbF9kcDogSW50
-ZWwgRFAKKyAqCisgKiBUaGlzIGZ1bmN0aW9uIG5lZWQgdG8gYmUgY2FsbGVkIGFmdGVyIGVuYWJs
-aW5nIHBzci4KKyAqLwordm9pZCBpbnRlbF9wc3JfcGF1c2Uoc3RydWN0IGludGVsX2RwICppbnRl
-bF9kcCkKK3sKKwlzdHJ1Y3QgaW50ZWxfcHNyICpwc3IgPSAmaW50ZWxfZHAtPnBzcjsKKworCWlm
-ICghQ0FOX1BTUihpbnRlbF9kcCkpCisJCXJldHVybjsKKworCW11dGV4X2xvY2soJnBzci0+bG9j
-ayk7CisKKwlpZiAoIXBzci0+YWN0aXZlKSB7CisJCW11dGV4X3VubG9jaygmcHNyLT5sb2NrKTsK
-KwkJcmV0dXJuOworCX0KKworCWludGVsX3Bzcl9leGl0KGludGVsX2RwKTsKKwlwc3ItPnBhdXNl
-ZCA9IHRydWU7CisKKwltdXRleF91bmxvY2soJnBzci0+bG9jayk7CisKKwljYW5jZWxfd29ya19z
-eW5jKCZwc3ItPndvcmspOworCWNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmcHNyLT5kYzNjb193
-b3JrKTsKK30KKworLyoqCisgKiBpbnRlbF9wc3JfcmVzdW1lIC0gUmVzdW1lIFBTUgorICogQGlu
-dGVsX2RwOiBJbnRlbCBEUAorICoKKyAqIFRoaXMgZnVuY3Rpb24gbmVlZCB0byBiZSBjYWxsZWQg
-YWZ0ZXIgcGF1c2luZyBwc3IuCisgKi8KK3ZvaWQgaW50ZWxfcHNyX3Jlc3VtZShzdHJ1Y3QgaW50
-ZWxfZHAgKmludGVsX2RwKQoreworCXN0cnVjdCBpbnRlbF9wc3IgKnBzciA9ICZpbnRlbF9kcC0+
-cHNyOworCisJaWYgKCFDQU5fUFNSKGludGVsX2RwKSkKKwkJcmV0dXJuOworCisJbXV0ZXhfbG9j
-aygmcHNyLT5sb2NrKTsKKworCWlmICghcHNyLT5wYXVzZWQpCisJCWdvdG8gdW5sb2NrOworCisJ
-cHNyLT5wYXVzZWQgPSBmYWxzZTsKKwlpbnRlbF9wc3JfYWN0aXZhdGUoaW50ZWxfZHApOworCit1
-bmxvY2s6CisJbXV0ZXhfdW5sb2NrKCZwc3ItPmxvY2spOworfQorCiBzdGF0aWMgdm9pZCBwc3Jf
-Zm9yY2VfaHdfdHJhY2tpbmdfZXhpdChzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwKQogewogCXN0
-cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiA9IGRwX3RvX2k5MTUoaW50ZWxfZHApOwpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuaCBiL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmgKaW5kZXggMDQ5MWE0OWZmZDUw
-Li44Y2M1ZTc4ZmIxZDIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfcHNyLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3Iu
-aApAQCAtNDgsNSArNDgsNyBAQCB2b2lkIGludGVsX3BzcjJfcHJvZ3JhbV9wbGFuZV9zZWxfZmV0
-Y2goc3RydWN0IGludGVsX3BsYW5lICpwbGFuZSwKIAkJCQkJY29uc3Qgc3RydWN0IGludGVsX2Ny
-dGNfc3RhdGUgKmNydGNfc3RhdGUsCiAJCQkJCWNvbnN0IHN0cnVjdCBpbnRlbF9wbGFuZV9zdGF0
-ZSAqcGxhbmVfc3RhdGUsCiAJCQkJCWludCBjb2xvcl9wbGFuZSk7Cit2b2lkIGludGVsX3Bzcl9w
-YXVzZShzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwKTsKK3ZvaWQgaW50ZWxfcHNyX3Jlc3VtZShz
-dHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwKTsKIAogI2VuZGlmIC8qIF9fSU5URUxfUFNSX0hfXyAq
-LwotLSAKMi4yNS40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1n
-ZngK
+From: Manasi Navare <manasi.d.navare@intel.com>
+
+On XE_LPD, VRR CTL register adds a new VRR Guardband bitfield
+replacing the pipeline full and deprecating the pipeline override
+bit.
+
+This patch adds this corresponding bitfield in the register defs,
+crtc state vrr structure and populates this in vrr compute
+config and vrr enable functions. It also adds the corresponding
+HW state readout for this field.
+
+Cc: Aditya Swarup <aditya.swarup@intel.com>
+Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c  |  8 ++-
+ .../drm/i915/display/intel_display_types.h    |  2 +-
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 58 +++++++++++++------
+ drivers/gpu/drm/i915/i915_drv.h               |  3 +
+ drivers/gpu/drm/i915/i915_reg.h               |  2 +
+ 5 files changed, 53 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 4aad98913d62..494849963af5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7625,10 +7625,11 @@ static void intel_dump_pipe_config(const struct intel_crtc_state *pipe_config,
+ 	    intel_hdmi_infoframe_enable(DP_SDP_VSC))
+ 		intel_dump_dp_vsc_sdp(dev_priv, &pipe_config->infoframes.vsc);
+ 
+-	drm_dbg_kms(&dev_priv->drm, "vrr: %s, vmin: %d, vmax: %d, pipeline full: %d, flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
++	drm_dbg_kms(&dev_priv->drm, "vrr: %s, vmin: %d, vmax: %d, pipeline full: %d, guardband: %d flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
+ 		    yesno(pipe_config->vrr.enable),
+ 		    pipe_config->vrr.vmin, pipe_config->vrr.vmax,
+-		    pipe_config->vrr.pipeline_full, pipe_config->vrr.flipline,
++		    pipe_config->vrr.pipeline_full, pipe_config->vrr.guardband,
++		    pipe_config->vrr.flipline,
+ 		    intel_vrr_vmin_vblank_start(pipe_config),
+ 		    intel_vrr_vmax_vblank_start(pipe_config));
+ 
+@@ -8634,6 +8635,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	PIPE_CONF_CHECK_I(vrr.vmax);
+ 	PIPE_CONF_CHECK_I(vrr.flipline);
+ 	PIPE_CONF_CHECK_I(vrr.pipeline_full);
++	PIPE_CONF_CHECK_I(vrr.guardband);
+ 
+ #undef PIPE_CONF_CHECK_X
+ #undef PIPE_CONF_CHECK_I
+@@ -12181,6 +12183,8 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
+ 
+ 	i915->framestart_delay = 1; /* 1-4 */
+ 
++	i915->window2_delay = 0; /* No DSB so no window2 delay */
++
+ 	intel_mode_config_init(i915);
+ 
+ 	ret = intel_cdclk_init(i915);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 9c0adfc60c6f..9e9f768e2d7f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1202,7 +1202,7 @@ struct intel_crtc_state {
+ 	struct {
+ 		bool enable;
+ 		u8 pipeline_full;
+-		u16 flipline, vmin, vmax;
++		u16 flipline, vmin, vmax, guardband;
+ 	} vrr;
+ 
+ 	/* Stream Splitter for eDP MSO */
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 046210ae1de0..c335b1dbafcf 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -68,7 +68,10 @@ static int intel_vrr_vblank_exit_length(const struct intel_crtc_state *crtc_stat
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 
+ 	/* The hw imposes the extra scanline before frame start */
+-	return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
++	if (DISPLAY_VER(i915) >= 13)
++		return crtc_state->vrr.guardband + i915->framestart_delay + 1;
++	else
++		return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
+ }
+ 
+ int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_state)
+@@ -86,6 +89,8 @@ void
+ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 			 struct drm_connector_state *conn_state)
+ {
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	struct intel_connector *connector =
+ 		to_intel_connector(conn_state->connector);
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+@@ -124,17 +129,26 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	crtc_state->vrr.flipline = crtc_state->vrr.vmin + 1;
+ 
+ 	/*
+-	 * FIXME: s/4/framestart_delay+1/ to get consistent
+-	 * earliest/latest points for register latching regardless
+-	 * of the framestart_delay used?
+-	 *
+-	 * FIXME: this really needs the extra scanline to provide consistent
+-	 * behaviour for all framestart_delay values. Otherwise with
+-	 * framestart_delay==3 we will end up extending the min vblank by
+-	 * one extra line.
++	 * For XE_LPD+, we use guardband and pipeline override
++	 * is deprecated.
+ 	 */
+-	crtc_state->vrr.pipeline_full =
+-		min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay - 4 - 1);
++	if (DISPLAY_VER(i915) >= 13)
++		crtc_state->vrr.guardband =
++			crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay -
++			i915->window2_delay;
++	else
++		/*
++		 * FIXME: s/4/framestart_delay+1/ to get consistent
++		 * earliest/latest points for register latching regardless
++		 * of the framestart_delay used?
++		 *
++		 * FIXME: this really needs the extra scanline to provide consistent
++		 * behaviour for all framestart_delay values. Otherwise with
++		 * framestart_delay==3 we will end up extending the min vblank by
++		 * one extra line.
++		 */
++		crtc_state->vrr.pipeline_full =
++			min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay - 4 - 1);
+ 
+ 	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
+ }
+@@ -149,10 +163,15 @@ void intel_vrr_enable(struct intel_encoder *encoder,
+ 	if (!crtc_state->vrr.enable)
+ 		return;
+ 
+-	trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
+-		VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
+-		VRR_CTL_PIPELINE_FULL(crtc_state->vrr.pipeline_full) |
+-		VRR_CTL_PIPELINE_FULL_OVERRIDE;
++	if (DISPLAY_VER(dev_priv) >= 13)
++		trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
++			VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
++			XELPD_VRR_CTL_VRR_GUARDBAND(crtc_state->vrr.guardband);
++	else
++		trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
++			VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
++			VRR_CTL_PIPELINE_FULL(crtc_state->vrr.pipeline_full) |
++			VRR_CTL_PIPELINE_FULL_OVERRIDE;
+ 
+ 	intel_de_write(dev_priv, TRANS_VRR_VMIN(cpu_transcoder), crtc_state->vrr.vmin - 1);
+ 	intel_de_write(dev_priv, TRANS_VRR_VMAX(cpu_transcoder), crtc_state->vrr.vmax - 1);
+@@ -199,8 +218,13 @@ void intel_vrr_get_config(struct intel_crtc *crtc,
+ 	if (!crtc_state->vrr.enable)
+ 		return;
+ 
+-	if (trans_vrr_ctl & VRR_CTL_PIPELINE_FULL_OVERRIDE)
+-		crtc_state->vrr.pipeline_full = REG_FIELD_GET(VRR_CTL_PIPELINE_FULL_MASK, trans_vrr_ctl);
++	if (DISPLAY_VER(dev_priv) >= 13)
++		crtc_state->vrr.guardband =
++			REG_FIELD_GET(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, trans_vrr_ctl);
++	else
++		if (trans_vrr_ctl & VRR_CTL_PIPELINE_FULL_OVERRIDE)
++			crtc_state->vrr.pipeline_full =
++				REG_FIELD_GET(VRR_CTL_PIPELINE_FULL_MASK, trans_vrr_ctl);
+ 	if (trans_vrr_ctl & VRR_CTL_FLIP_LINE_EN)
+ 		crtc_state->vrr.flipline = intel_de_read(dev_priv, TRANS_VRR_FLIPLINE(cpu_transcoder)) + 1;
+ 	crtc_state->vrr.vmax = intel_de_read(dev_priv, TRANS_VRR_VMAX(cpu_transcoder)) + 1;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 128198e8b4d0..0d4f8771f596 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1139,6 +1139,9 @@ struct drm_i915_private {
+ 
+ 	u8 framestart_delay;
+ 
++	/* Window2 specifies time required to program DSB (Window2) in number of scan lines */
++	u8 window2_delay;
++
+ 	u8 pch_ssc_use;
+ 
+ 	/* For i915gm/i945gm vblank irq workaround */
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 13ea2cd9b3b5..9bbbcdbd3c38 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4373,6 +4373,8 @@ enum {
+ #define   VRR_CTL_PIPELINE_FULL_MASK		REG_GENMASK(10, 3)
+ #define   VRR_CTL_PIPELINE_FULL(x)		REG_FIELD_PREP(VRR_CTL_PIPELINE_FULL_MASK, (x))
+ #define   VRR_CTL_PIPELINE_FULL_OVERRIDE	REG_BIT(0)
++#define	  XELPD_VRR_CTL_VRR_GUARDBAND_MASK	REG_GENMASK(15, 0)
++#define	  XELPD_VRR_CTL_VRR_GUARDBAND(x)	REG_FIELD_PREP(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, (x))
+ 
+ #define _TRANS_VRR_VMAX_A		0x60424
+ #define _TRANS_VRR_VMAX_B		0x61424
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
