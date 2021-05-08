@@ -1,69 +1,74 @@
 Return-Path: <SRS0=pmG3=KF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21596C43462
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 09:41:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B3CFC43461
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 09:41:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC49861430
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 09:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC49861430
+	by mail.kernel.org (Postfix) with ESMTPS id BBD8E61430
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 09:41:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBD8E61430
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0695B6E44B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09F686E44F;
 	Mon, 10 May 2021 09:41:17 +0000 (UTC)
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 704186E40C
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 May 2021 08:08:09 +0000 (UTC)
-Received: by mail-pj1-x1032.google.com with SMTP id
- z6-20020a17090a1706b0290155e8a752d8so9588058pjd.4
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 May 2021 01:08:09 -0700 (PDT)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 741F389E57;
+ Sat,  8 May 2021 19:33:43 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id
+ t2-20020a17090a0242b0290155433387beso6409586pje.1; 
+ Sat, 08 May 2021 12:33:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=glmtgRRpU/XT+ujN2f3FN1QucV1c1uNnkCmDAYvBkXM=;
- b=FNmlLurQ8dPS7mban12adHfODt1ZDqxWuwt93q1nE4wOiJenXFjthH0KnWTHoKiN8I
- 852BNDGNGf9wdVx0A4imjcReZHbFvU237Yt/GPMm2og6MCuFhGF7BUxoed9ftFi1Lp0y
- mdl9rbL3dteexeANDLBst8jOwJgtF36x41OOTppw/OnDxyfRaJuknEKUbk4cKgeIUjhS
- a/yCYLR9qW3qsav0TieAt2Amd4N0nGvEB/lGqyBIROBA8/myYg+uwfscm5xUQhp5n9A4
- kjHDbUP1utHN9IZ/0d2tW+l01wVSC8v+s73R5AMeP5ozgqgxfRzx5/ZRkyEoq97TZzwl
- L0Bw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=d/khha5gcYxKTZWPmu0C7r4Hm8Jar/yv7FF0/xWX35k=;
+ b=uI91Yh9jX1UMCjFADa3Spki/qYd86s1jH1IXJeVXg0xDdfHIWNmw/OWsWKnzYTbxU6
+ j7shvhqLZUS6QMOe5UTBxuNvgg52URS+foOlMw5v4q7j+4uC1YfvIdaPkAMOPIbq87pX
+ VPLwr1HFXJTC5tRm1kca4bHOVoBZu0j4c80N5IiQrJCPSH4Zhw8lht58vlchvoRMi5py
+ hFCcfGGPMyZ7/QTwFcKCnBLhYgfUOZeBMTT2iCrF8MQKnoD6mgmG4t6xE5lhmFTkRdcq
+ OboaVhSKMROSi8nuBGRapLrhNmg4df3JgEep4lKG7TbwSWbwd5t6uzp4Myst7bce+8xQ
+ qW3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=glmtgRRpU/XT+ujN2f3FN1QucV1c1uNnkCmDAYvBkXM=;
- b=Q3CwSClR1qItHxqHBnz892knLBfzKeAQbGdXIBJnn9DobBXWj4CNTOTIDWHfJ3rMkF
- k6ODEmYhPwqu8Li97AIrVoEUZhL6fdnSQOT7Ts8bKksXEBTTn5b0j8YxD6f2cVjXnjiX
- ugHCe5ihtXeGiDaxel6dIHo1jfz1JaWtXKfdLEQWFEQa5x7lZqbIYOPIWAdoM7kAnpBy
- LaKBD17mHZAh3xsKIZpiGSqVo9IoqIXgVFcDH4fzxCegvOaeFW22s0o9ustfFPXjabDx
- 5FFgN+Qi1LEh73iN8Zsf39QRWsIb9qXY2hrTnTv82+hgmh+r3M519f2xVebMeS03AG3j
- Ylzg==
-X-Gm-Message-State: AOAM530TyYHYLnbJs87Cqak94xOD1D8LCaA1A/PcZyF9MAFVAwrU2Ukq
- 2kzs5RVexgOrmQhxd8tRsuNOy4rw18ZToefqlWs=
-X-Google-Smtp-Source: ABdhPJzRtb0V5wKeJ0uSIKL7xE0nTxEbt4G/1A1C35CqPUSDKera5dDz/kGnd+R/FOhNah0WN7CZZbdQ72tljXU95A4=
-X-Received: by 2002:a17:90a:17e7:: with SMTP id
- q94mr25488177pja.117.1620634088965; 
- Mon, 10 May 2021 01:08:08 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=d/khha5gcYxKTZWPmu0C7r4Hm8Jar/yv7FF0/xWX35k=;
+ b=f/NU0y86OHLYExsFBa6pA54Y3dcH2frW1SX5X+VU/RqebcRqlRZ/L4nnyQDwWEmkeO
+ P2WlJoszrQsN1W4YvCluHYU1LuBmV60LSvO5ejt/UJMajin7uizPO5UdBeUEtfSl3sHx
+ CHP5vjlFD602eTOwLBMU7RxCbX3P+uqPL1PCH73iOvsUv+WqRlXNAspCFwEpSNasmTj6
+ bcm9pp23xqUkV0TuHrYNZ77YhLzOSFjHOO+rD5enXvUAil8hu3yGpsD9vNraBkpsxFzD
+ NuUaLJX3nbuLKnJUFKjFA2UV7TJWoTiq4Zg/YZKUXjq+OXqb/Y1Mxmu8AL44IkfcSxWN
+ e60Q==
+X-Gm-Message-State: AOAM531DVGCGyTyStX4D4VZ5GFI1B7u1gdhWHGHXycFzXIL7yRTA629J
+ 47HcUSBkcST2+3Rp3rwxocY=
+X-Google-Smtp-Source: ABdhPJyKdz0WlRg+E/80oP8OGNuEsW15TK5hHRQeI76SL3SHeka1FSYJ0wzNqPjZLkqR8w7Y6MwI/Q==
+X-Received: by 2002:a17:902:6841:b029:ee:e239:18bf with SMTP id
+ f1-20020a1709026841b02900eee23918bfmr16802089pln.56.1620502422986; 
+ Sat, 08 May 2021 12:33:42 -0700 (PDT)
+Received: from localhost.localdomain ([104.200.131.246])
+ by smtp.gmail.com with ESMTPSA id b2sm15333631pji.28.2021.05.08.12.33.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 May 2021 12:33:42 -0700 (PDT)
+From: youling257 <youling257@gmail.com>
+To: hch@lst.de
+Date: Sun,  9 May 2021 03:33:29 +0800
+Message-Id: <20210508193329.28394-1-youling257@gmail.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210326055505.1424432-5-hch@lst.de>
+References: <20210326055505.1424432-5-hch@lst.de>
 MIME-Version: 1.0
-References: <20210107182026.24848-1-ville.syrjala@linux.intel.com>
- <X/yY3Tvk8gq+Eg8W@intel.com>
-In-Reply-To: <X/yY3Tvk8gq+Eg8W@intel.com>
-From: Emanuele Panigati <ilpanich@gmail.com>
-Date: Mon, 10 May 2021 10:07:33 +0200
-Message-ID: <CABpPkAEVbSUwoBqXDaKpckbfkq4-z=MWNC27JYOLki3FhN0PyA@mail.gmail.com>
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 X-Mailman-Approved-At: Mon, 10 May 2021 09:41:14 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915: Try to use fast+narrow link
- on eDP again and fall back to the old max strategy on failure
+Subject: Re: [Intel-gfx] [PATCH 4/4] i915: fix remap_io_sg to verify the
+ pgprot
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,124 +81,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matteo Iervasi <matteoiervasi@gmail.com>,
- Jani Nikula <jani.nikula@intel.com>, Albert Astals Cid <aacid@kde.org>,
- intel-gfx@lists.freedesktop.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
-Content-Type: multipart/mixed; boundary="===============1602716052=="
+Cc: peterz@infradead.org, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, chris@chris-wilson.co.uk, linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org, akpm@linux-foundation.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1602716052==
-Content-Type: multipart/alternative; boundary="0000000000002f0fa005c1f5470c"
+This patch cause "x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x064a2000-0x064a2fff], got write-back" problem.
+my 2GB ram Bay trail z3735f tablet runing on android-x86, "i915: fix remap_io_sg to verify the pgprot" cause this problem.
 
---0000000000002f0fa005c1f5470c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+05-09 02:59:25.099     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x0640a000-0x0640dfff], got write-back
+05-09 02:59:25.106  1440  1440 W hwc-gl-worker: EGL_ANDROID_native_fence_sync extension not supported
+05-09 02:59:25.111     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x064a2000-0x064a2fff], got write-back
+05-09 02:59:25.118     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x06400000-0x06404fff], got write-back
+05-09 02:59:25.125     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x06405000-0x06408fff], got write-back
+05-09 02:59:25.148  1440  1440 W hwc-gl-worker: EGL_ANDROID_native_fence_sync extension not supported
+05-09 02:59:25.158     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x06542000-0x06542fff], got write-back
+05-09 02:59:25.165     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x06499000-0x0649dfff], got write-back
+05-09 02:59:25.171     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x0649e000-0x064a1fff], got write-back
+05-09 02:59:25.177  1440  1440 W hwc-gl-worker: EGL_ANDROID_native_fence_sync extension not supported
+05-09 02:59:25.183     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x065fa000-0x065fafff], got write-back
+05-09 02:59:25.192     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x06539000-0x0653dfff], got write-back
+05-09 02:59:25.199     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x0653e000-0x06541fff], got write-back
+05-09 02:59:25.204  1440  1440 W hwc-gl-worker: EGL_ANDROID_native_fence_sync extension not supported
+05-09 02:59:25.212     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x066a2000-0x066a2fff], got write-back
+05-09 02:59:25.218     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x065f1000-0x065f5fff], got write-back
+05-09 02:59:25.226     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x065f6000-0x065f9fff], got write-back
 
-Hi,
-  on my Dell XPS 15 9570 laptop I might have a regression with Arch Linux
-(kernel 5.12.2-arch1-1: during boot the laptop monitor goes black while
-external monitors still works...
 
-
-Panich
-
-
-Il giorno lun 11 gen 2021 alle ore 19:28 Ville Syrj=C3=A4l=C3=A4 <
-ville.syrjala@linux.intel.com> ha scritto:
-
-> On Thu, Jan 07, 2021 at 08:20:25PM +0200, Ville Syrjala wrote:
-> > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> >
-> > Some new eDP panels don't like to operate at the max parameters, and
-> > instead we need to go for an optimal confiugration. That unfortunately
-> > doesn't work with older eDP panels which are generally only guaranteed
-> > to work at the max parameters.
-> >
-> > To solve these two conflicting requirements let's start with the optima=
-l
-> > setup, and if that fails we start again with the max parameters. The
-> > downside is probably an extra modeset when we switch strategies but
-> > I don't see a good way to avoid that.
-> >
-> > For a bit of history we first tried to go for the fast+narrow in
-> > commit 7769db588384 ("drm/i915/dp: optimize eDP 1.4+ link config
-> > fast and narrow"). but that had to be reverted due to regression
-> > on older panels in commit f11cb1c19ad0 ("drm/i915/dp: revert back
-> > to max link rate and lane count on eDP"). So now we try to get
-> > the best of both worlds by using both strategies.
->
-> Pushed. Fingers crossed for no regressions...
->
-> --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
->
-
---0000000000002f0fa005c1f5470c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Hi,</div><div dir=3D"ltr">=C2=A0 on my De=
-ll XPS 15 9570 laptop I might have a regression with Arch Linux (kernel 5.1=
-2.2-arch1-1: during boot the laptop monitor goes black while external monit=
-ors still works...<br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_si=
-gnature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><br><div><br><=
-/div><div>Panich</div></div></div></div><br></div><br><div class=3D"gmail_q=
-uote"><div dir=3D"ltr" class=3D"gmail_attr">Il giorno lun 11 gen 2021 alle =
-ore 19:28 Ville Syrj=C3=A4l=C3=A4 &lt;<a href=3D"mailto:ville.syrjala@linux=
-.intel.com">ville.syrjala@linux.intel.com</a>&gt; ha scritto:<br></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">On Thu, Jan 07, 2021 at 08:20=
-:25PM +0200, Ville Syrjala wrote:<br>
-&gt; From: Ville Syrj=C3=A4l=C3=A4 &lt;<a href=3D"mailto:ville.syrjala@linu=
-x.intel.com" target=3D"_blank">ville.syrjala@linux.intel.com</a>&gt;<br>
-&gt; <br>
-&gt; Some new eDP panels don&#39;t like to operate at the max parameters, a=
-nd<br>
-&gt; instead we need to go for an optimal confiugration. That unfortunately=
-<br>
-&gt; doesn&#39;t work with older eDP panels which are generally only guaran=
-teed<br>
-&gt; to work at the max parameters.<br>
-&gt; <br>
-&gt; To solve these two conflicting requirements let&#39;s start with the o=
-ptimal<br>
-&gt; setup, and if that fails we start again with the max parameters. The<b=
-r>
-&gt; downside is probably an extra modeset when we switch strategies but<br=
->
-&gt; I don&#39;t see a good way to avoid that.<br>
-&gt; <br>
-&gt; For a bit of history we first tried to go for the fast+narrow in<br>
-&gt; commit 7769db588384 (&quot;drm/i915/dp: optimize eDP 1.4+ link config<=
-br>
-&gt; fast and narrow&quot;). but that had to be reverted due to regression<=
-br>
-&gt; on older panels in commit f11cb1c19ad0 (&quot;drm/i915/dp: revert back=
-<br>
-&gt; to max link rate and lane count on eDP&quot;). So now we try to get<br=
->
-&gt; the best of both worlds by using both strategies.<br>
-<br>
-Pushed. Fingers crossed for no regressions...<br>
-<br>
--- <br>
-Ville Syrj=C3=A4l=C3=A4<br>
-Intel<br>
-</blockquote></div></div>
-
---0000000000002f0fa005c1f5470c--
-
---===============1602716052==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+05-09 02:59:27.101     0     0 W x86/PAT : BootAnimation:1665 map pfn RAM range req write-combining for [mem 0x08a76000-0x08a76fff], got write-back
+05-09 02:59:27.225     0     0 W x86/PAT : BootAnimation:1665 map pfn RAM range req write-combining for [mem 0x08a77000-0x08a7afff], got write-back
+05-09 02:59:27.242     0     0 W x86/PAT : BootAnimation:1665 map pfn RAM range req write-combining for [mem 0x08bd0000-0x08bd0fff], got write-back
+05-09 02:59:27.254     0     0 W x86/PAT : BootAnimation:1665 map pfn RAM range req write-combining for [mem 0x08bd1000-0x08bf0fff], got write-back
+05-09 02:59:27.310  1440  1440 E drm-fb  : Failed to get handle from prime fd: 25
+05-09 02:59:27.322     0     0 W x86/PAT : BootAnimation:1665 map pfn RAM range req write-combining for [mem 0x080d5000-0x080d9fff], got write-back
+05-09 02:59:27.322     0     0 W x86/PAT : BootAnimation:1665 map pfn RAM range req write-combining for [mem 0x080da000-0x080ddfff], got write-back
+05-09 02:59:27.338     0     0 W x86/PAT : BootAnimation:1665 map pfn RAM range req write-combining for [mem 0x1b830000-0x1b83ffff], got write-back
+05-09 02:59:27.338     0     0 W x86/PAT : BootAnimation:1665 map pfn RAM range req write-combining for [mem 0x1b76a000-0x1b76efff], got write-back
+05-09 02:59:27.344     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x07e87000-0x07e8bfff], got write-back
+05-09 02:59:27.349     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x07e8c000-0x07e90fff], got write-back
+05-09 02:59:27.347  1440  1440 E drm-fb  : Failed to get handle from prime fd: 25
+05-09 02:59:27.361     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x1c123000-0x1c126fff], got write-back
+05-09 02:59:27.361     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x1c127000-0x1c12afff], got write-back
+05-09 02:59:27.362     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x1c12f000-0x1c13efff], got write-back
+05-09 02:59:27.362     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x1c12b000-0x1c12efff], got write-back
+05-09 02:59:27.364  1440  1440 E drm-fb  : Failed to get handle from prime fd: 25
+05-09 02:59:27.377     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x1c140000-0x1c144fff], got write-back
+05-09 02:59:27.377     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x1c145000-0x1c148fff], got write-back
+05-09 02:59:27.378     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x1c14b000-0x1c14ffff], got write-back
+05-09 02:59:27.379     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x1c151000-0x1c155fff], got write-back
+05-09 02:59:27.377  1440  1440 E drm-fb  : Failed to get handle from prime fd: 25
+05-09 02:59:27.393     0     0 W x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x1c157000-0x1c15bfff], got write-back
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1602716052==--
