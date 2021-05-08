@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39E9BC433B4
-	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:28:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 191B9C43461
+	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:28:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05A84610A2
+	by mail.kernel.org (Postfix) with ESMTPS id D612861029
 	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:28:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05A84610A2
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D612861029
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11DCD6EEB2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C493C6EEB8;
 	Sat,  8 May 2021 02:28:36 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17FDF6E82F
- for <intel-gfx@lists.freedesktop.org>; Sat,  8 May 2021 02:28:31 +0000 (UTC)
-IronPort-SDR: mavGAtNkxXebxdDsFENVcr/HmqYW2wI2jr2ufpZfKdy2DMXI3+4F2ixcHOwzi39oN1LrebdyUn
- 39iPZXblHdCg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9977"; a="262790143"
-X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="262790143"
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D0466E829
+ for <intel-gfx@lists.freedesktop.org>; Sat,  8 May 2021 02:28:32 +0000 (UTC)
+IronPort-SDR: uG7YLRYJabVFi09k3+/lnMZs1XfeS4SefMoJdTvcO79e7AbHNccs7ywhH6xsp0t5FdIpaHuz/x
+ GQlmbr7MTrqg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9977"; a="284317028"
+X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="284317028"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2021 19:28:29 -0700
-IronPort-SDR: fZz+zu4nWUQUI5m9gAZPZEy4/pCMQo+l6V+ssQeDXFbwUctPPYop/MvYuTuoT52YROac2hRgJz
- 1AkwFjNeVsWQ==
-X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="533910074"
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2021 19:28:30 -0700
+IronPort-SDR: ikKF9YtYv1NAfqKQyk51oY7fBGdLO81BKk6H4TqShCssBnSph3Z2S81g4dRv1ivoBbH4F7X1Xy
+ 32aVNiVcHJlA==
+X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="533910155"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2021 19:28:28 -0700
+ 07 May 2021 19:28:29 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  7 May 2021 19:27:49 -0700
-Message-Id: <20210508022820.780227-18-matthew.d.roper@intel.com>
+Date: Fri,  7 May 2021 19:28:10 -0700
+Message-Id: <20210508022820.780227-39-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210508022820.780227-1-matthew.d.roper@intel.com>
 References: <20210508022820.780227-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 17/48] drm/i915/adl_p: Add dedicated SAGV
- watermarks
+Subject: [Intel-gfx] [PATCH v3 38/48] drm/i915/adl_p: Program DP/HDMI link
+ rate to DDI_BUF_CTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,271 +58,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-XE_LPD reduces the number of regular watermark latency levels from 8
-to 6 on non-dgfx platforms.  However the hardware also adds a special
-purpose SAGV wateramrk (and an accompanying transition watermark) that
-will be used by the hardware in place of the level 0 values during SAGV
-transitions.
-
-Bspec: 49325, 49326, 50419
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 32 +++++++++++
- drivers/gpu/drm/i915/i915_drv.h              |  2 +
- drivers/gpu/drm/i915/i915_reg.h              | 59 ++++++++++++++------
- drivers/gpu/drm/i915/intel_pm.c              | 54 ++++++++++++++++--
- 4 files changed, 126 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 494849963af5..330d6440a80e 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -8741,6 +8741,38 @@ static void verify_wm_state(struct intel_crtc *crtc,
- 				hw_wm_level->lines);
- 		}
- 
-+		hw_wm_level = &hw->wm.planes[plane->id].sagv.wm0;
-+		sw_wm_level = &sw_wm->planes[plane->id].sagv.wm0;
-+
-+		if (HAS_HW_SAGV_WM(dev_priv) &&
-+		    !skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
-+			drm_err(&dev_priv->drm,
-+				"[PLANE:%d:%s] mismatch in SAGV WM (expected e=%d b=%u l=%u, got e=%d b=%u l=%u)\n",
-+				plane->base.base.id, plane->base.name,
-+				sw_wm_level->enable,
-+				sw_wm_level->blocks,
-+				sw_wm_level->lines,
-+				hw_wm_level->enable,
-+				hw_wm_level->blocks,
-+				hw_wm_level->lines);
-+		}
-+
-+		hw_wm_level = &hw->wm.planes[plane->id].sagv.trans_wm;
-+		sw_wm_level = &sw_wm->planes[plane->id].sagv.trans_wm;
-+
-+		if (HAS_HW_SAGV_WM(dev_priv) &&
-+		    !skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
-+			drm_err(&dev_priv->drm,
-+				"[PLANE:%d:%s] mismatch in SAGV trans WM (expected e=%d b=%u l=%u, got e=%d b=%u l=%u)\n",
-+				plane->base.base.id, plane->base.name,
-+				sw_wm_level->enable,
-+				sw_wm_level->blocks,
-+				sw_wm_level->lines,
-+				hw_wm_level->enable,
-+				hw_wm_level->blocks,
-+				hw_wm_level->lines);
-+		}
-+
- 		/* DDB */
- 		hw_ddb_entry = &hw->ddb_y[plane->id];
- 		sw_ddb_entry = &new_crtc_state->wm.skl.plane_ddb_y[plane->id];
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 0d4f8771f596..3fe514c5de32 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -590,6 +590,8 @@ i915_fence_timeout(const struct drm_i915_private *i915)
- /* Amount of SAGV/QGV points, BSpec precisely defines this */
- #define I915_NUM_QGV_POINTS 8
- 
-+#define HAS_HW_SAGV_WM(i915) (DISPLAY_VER(i915) >= 13 && !IS_DGFX(i915))
-+
- struct ddi_vbt_port_info {
- 	/* Non-NULL if port present. */
- 	struct intel_bios_encoder_data *devdata;
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 9bbbcdbd3c38..55924462a9a1 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -6432,16 +6432,28 @@ enum {
- /* Watermark register definitions for SKL */
- #define _CUR_WM_A_0		0x70140
- #define _CUR_WM_B_0		0x71140
-+#define _CUR_WM_SAGV_A		0x70158
-+#define _CUR_WM_SAGV_B		0x71158
-+#define _CUR_WM_SAGV_TRANS_A	0x7015C
-+#define _CUR_WM_SAGV_TRANS_B	0x7115C
-+#define _CUR_WM_TRANS_A		0x70168
-+#define _CUR_WM_TRANS_B		0x71168
- #define _PLANE_WM_1_A_0		0x70240
- #define _PLANE_WM_1_B_0		0x71240
- #define _PLANE_WM_2_A_0		0x70340
- #define _PLANE_WM_2_B_0		0x71340
--#define _PLANE_WM_TRANS_1_A_0	0x70268
--#define _PLANE_WM_TRANS_1_B_0	0x71268
--#define _PLANE_WM_TRANS_2_A_0	0x70368
--#define _PLANE_WM_TRANS_2_B_0	0x71368
--#define _CUR_WM_TRANS_A_0	0x70168
--#define _CUR_WM_TRANS_B_0	0x71168
-+#define _PLANE_WM_SAGV_1_A	0x70258
-+#define _PLANE_WM_SAGV_1_B	0x71258
-+#define _PLANE_WM_SAGV_2_A	0x70358
-+#define _PLANE_WM_SAGV_2_B	0x71358
-+#define _PLANE_WM_SAGV_TRANS_1_A	0x7025C
-+#define _PLANE_WM_SAGV_TRANS_1_B	0x7125C
-+#define _PLANE_WM_SAGV_TRANS_2_A	0x7035C
-+#define _PLANE_WM_SAGV_TRANS_2_B	0x7135C
-+#define _PLANE_WM_TRANS_1_A	0x70268
-+#define _PLANE_WM_TRANS_1_B	0x71268
-+#define _PLANE_WM_TRANS_2_A	0x70368
-+#define _PLANE_WM_TRANS_2_B	0x71368
- #define   PLANE_WM_EN		(1 << 31)
- #define   PLANE_WM_IGNORE_LINES	(1 << 30)
- #define   PLANE_WM_LINES_MASK	REG_GENMASK(21, 14)
-@@ -6449,19 +6461,32 @@ enum {
- 
- #define _CUR_WM_0(pipe) _PIPE(pipe, _CUR_WM_A_0, _CUR_WM_B_0)
- #define CUR_WM(pipe, level) _MMIO(_CUR_WM_0(pipe) + ((4) * (level)))
--#define CUR_WM_TRANS(pipe) _MMIO_PIPE(pipe, _CUR_WM_TRANS_A_0, _CUR_WM_TRANS_B_0)
--
-+#define CUR_WM_SAGV(pipe) _MMIO_PIPE(pipe, _CUR_WM_SAGV_A, _CUR_WM_SAGV_B)
-+#define CUR_WM_SAGV_TRANS(pipe) _MMIO_PIPE(pipe, _CUR_WM_SAGV_TRANS_A, _CUR_WM_SAGV_TRANS_B)
-+#define CUR_WM_TRANS(pipe) _MMIO_PIPE(pipe, _CUR_WM_TRANS_A, _CUR_WM_TRANS_B)
- #define _PLANE_WM_1(pipe) _PIPE(pipe, _PLANE_WM_1_A_0, _PLANE_WM_1_B_0)
- #define _PLANE_WM_2(pipe) _PIPE(pipe, _PLANE_WM_2_A_0, _PLANE_WM_2_B_0)
--#define _PLANE_WM_BASE(pipe, plane)	\
--			_PLANE(plane, _PLANE_WM_1(pipe), _PLANE_WM_2(pipe))
--#define PLANE_WM(pipe, plane, level)	\
--			_MMIO(_PLANE_WM_BASE(pipe, plane) + ((4) * (level)))
--#define _PLANE_WM_TRANS_1(pipe)	\
--			_PIPE(pipe, _PLANE_WM_TRANS_1_A_0, _PLANE_WM_TRANS_1_B_0)
--#define _PLANE_WM_TRANS_2(pipe)	\
--			_PIPE(pipe, _PLANE_WM_TRANS_2_A_0, _PLANE_WM_TRANS_2_B_0)
--#define PLANE_WM_TRANS(pipe, plane)	\
-+#define _PLANE_WM_BASE(pipe, plane) \
-+	_PLANE(plane, _PLANE_WM_1(pipe), _PLANE_WM_2(pipe))
-+#define PLANE_WM(pipe, plane, level) \
-+	_MMIO(_PLANE_WM_BASE(pipe, plane) + ((4) * (level)))
-+#define _PLANE_WM_SAGV_1(pipe) \
-+	_PIPE(pipe, _PLANE_WM_SAGV_1_A, _PLANE_WM_SAGV_1_B)
-+#define _PLANE_WM_SAGV_2(pipe) \
-+	_PIPE(pipe, _PLANE_WM_SAGV_2_A, _PLANE_WM_SAGV_2_B)
-+#define PLANE_WM_SAGV(pipe, plane) \
-+	_MMIO(_PLANE(plane, _PLANE_WM_SAGV_1(pipe), _PLANE_WM_SAGV_2(pipe)))
-+#define _PLANE_WM_SAGV_TRANS_1(pipe) \
-+	_PIPE(pipe, _PLANE_WM_SAGV_TRANS_1_A, _PLANE_WM_SAGV_TRANS_1_B)
-+#define _PLANE_WM_SAGV_TRANS_2(pipe) \
-+	_PIPE(pipe, _PLANE_WM_SAGV_TRANS_2_A, _PLANE_WM_SAGV_TRANS_2_B)
-+#define PLANE_WM_SAGV_TRANS(pipe, plane) \
-+	_MMIO(_PLANE(plane, _PLANE_WM_SAGV_TRANS_1(pipe), _PLANE_WM_SAGV_TRANS_2(pipe)))
-+#define _PLANE_WM_TRANS_1(pipe) \
-+	_PIPE(pipe, _PLANE_WM_TRANS_1_A, _PLANE_WM_TRANS_1_B)
-+#define _PLANE_WM_TRANS_2(pipe) \
-+	_PIPE(pipe, _PLANE_WM_TRANS_2_A, _PLANE_WM_TRANS_2_B)
-+#define PLANE_WM_TRANS(pipe, plane) \
- 	_MMIO(_PLANE(plane, _PLANE_WM_TRANS_1(pipe), _PLANE_WM_TRANS_2(pipe)))
- 
- /* define the Watermark register on Ironlake */
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index ef2d1fa60f04..cac073f6f024 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -2983,7 +2983,9 @@ static void intel_fixup_cur_wm_latency(struct drm_i915_private *dev_priv,
- int ilk_wm_max_level(const struct drm_i915_private *dev_priv)
- {
- 	/* how many WM levels are we expecting */
--	if (DISPLAY_VER(dev_priv) >= 9)
-+	if (HAS_HW_SAGV_WM(dev_priv))
-+		return 5;
-+	else if (DISPLAY_VER(dev_priv) >= 9)
- 		return 7;
- 	else if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv))
- 		return 4;
-@@ -4011,8 +4013,9 @@ static int intel_compute_sagv_mask(struct intel_atomic_state *state)
- 		 * latter from the plane commit hooks (especially in the legacy
- 		 * cursor case)
- 		 */
--		pipe_wm->use_sagv_wm = DISPLAY_VER(dev_priv) >= 12 &&
--				       intel_can_enable_sagv(dev_priv, new_bw_state);
-+		pipe_wm->use_sagv_wm = !HAS_HW_SAGV_WM(dev_priv) &&
-+			DISPLAY_VER(dev_priv) >= 12 &&
-+			intel_can_enable_sagv(dev_priv, new_bw_state);
- 	}
- 
- 	if (intel_can_enable_sagv(dev_priv, new_bw_state) !=
-@@ -5619,6 +5622,13 @@ void skl_write_plane_wm(struct intel_plane *plane,
- 	skl_write_wm_level(dev_priv, PLANE_WM_TRANS(pipe, plane_id),
- 			   skl_plane_trans_wm(pipe_wm, plane_id));
- 
-+	if (HAS_HW_SAGV_WM(dev_priv)) {
-+		skl_write_wm_level(dev_priv, PLANE_WM_SAGV(pipe, plane_id),
-+				   &wm->sagv.wm0);
-+		skl_write_wm_level(dev_priv, PLANE_WM_SAGV_TRANS(pipe, plane_id),
-+				   &wm->sagv.trans_wm);
-+	}
-+
- 	if (DISPLAY_VER(dev_priv) >= 11) {
- 		skl_ddb_entry_write(dev_priv,
- 				    PLANE_BUF_CFG(pipe, plane_id), ddb_y);
-@@ -5652,6 +5662,15 @@ void skl_write_cursor_wm(struct intel_plane *plane,
- 	skl_write_wm_level(dev_priv, CUR_WM_TRANS(pipe),
- 			   skl_plane_trans_wm(pipe_wm, plane_id));
- 
-+	if (HAS_HW_SAGV_WM(dev_priv)) {
-+		const struct skl_plane_wm *wm = &pipe_wm->planes[plane_id];
-+
-+		skl_write_wm_level(dev_priv, CUR_WM_SAGV(pipe),
-+				   &wm->sagv.wm0);
-+		skl_write_wm_level(dev_priv, CUR_WM_SAGV_TRANS(pipe),
-+				   &wm->sagv.trans_wm);
-+	}
-+
- 	skl_ddb_entry_write(dev_priv, CUR_BUF_CFG(pipe), ddb);
- }
- 
-@@ -6016,6 +6035,15 @@ static bool skl_plane_selected_wm_equals(struct intel_plane *plane,
- 			return false;
- 	}
- 
-+	if (HAS_HW_SAGV_WM(i915)) {
-+		const struct skl_plane_wm *old_wm = &old_pipe_wm->planes[plane->id];
-+		const struct skl_plane_wm *new_wm = &new_pipe_wm->planes[plane->id];
-+
-+		if (!skl_wm_level_equals(&old_wm->sagv.wm0, &new_wm->sagv.wm0) ||
-+		    !skl_wm_level_equals(&old_wm->sagv.trans_wm, &new_wm->sagv.trans_wm))
-+			return false;
-+	}
-+
- 	return skl_wm_level_equals(skl_plane_trans_wm(old_pipe_wm, plane->id),
- 				   skl_plane_trans_wm(new_pipe_wm, plane->id));
- }
-@@ -6234,7 +6262,25 @@ void skl_pipe_wm_get_hw_state(struct intel_crtc *crtc,
- 
- 		skl_wm_level_from_reg_val(val, &wm->trans_wm);
- 
--		if (DISPLAY_VER(dev_priv) >= 12) {
-+		if (HAS_HW_SAGV_WM(dev_priv)) {
-+			if (plane_id != PLANE_CURSOR)
-+				val = intel_uncore_read(&dev_priv->uncore,
-+							PLANE_WM_SAGV(pipe, plane_id));
-+			else
-+				val = intel_uncore_read(&dev_priv->uncore,
-+							CUR_WM_SAGV(pipe));
-+
-+			skl_wm_level_from_reg_val(val, &wm->sagv.wm0);
-+
-+			if (plane_id != PLANE_CURSOR)
-+				val = intel_uncore_read(&dev_priv->uncore,
-+							PLANE_WM_SAGV_TRANS(pipe, plane_id));
-+			else
-+				val = intel_uncore_read(&dev_priv->uncore,
-+							CUR_WM_SAGV_TRANS(pipe));
-+
-+			skl_wm_level_from_reg_val(val, &wm->sagv.trans_wm);
-+		} else if (DISPLAY_VER(dev_priv) >= 12) {
- 			wm->sagv.wm0 = wm->wm[0];
- 			wm->sagv.trans_wm = wm->trans_wm;
- 		}
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogSW1yZSBEZWFrIDxpbXJlLmRlYWtAaW50ZWwuY29tPgoKT24gQURMX1AgYmVzaWRlcyBw
+cm9ncmFtbWluZyB0aGUgUExMIGFjY29yZGluZ2x5IHRoZSBEUC9IRE1JIGxpbmsgcmF0ZQpzaG91
+bGQgYmUgYWxzbyBwcm9ncmFtbWVkIHRvIHRoZSBERElfQlVGX0NUTCByZWdpc3RlciwgZG8gdGhh
+dC4KCkNjOiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4KU2ln
+bmVkLW9mZi1ieTogSW1yZSBEZWFrIDxpbXJlLmRlYWtAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5
+OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGRpLmMgfCAzNiArKysrKysrKysrKysrKysrKysrKysr
+LS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmggICAgICAgICAgfCAgMSArCiAyIGZp
+bGVzIGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGRpLmMKaW5kZXggNjg4OWJlNmI5ZTgxLi5jODAyOGIy
+YjU1MTUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGRp
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYwpAQCAtMjQ5
+LDYgKzI0OSwzMSBAQCBzdGF0aWMgdTMyIGljbF9wbGxfdG9fZGRpX2Nsa19zZWwoc3RydWN0IGlu
+dGVsX2VuY29kZXIgKmVuY29kZXIsCiAJfQogfQogCitzdGF0aWMgdTMyIGRkaV9idWZfcGh5X2xp
+bmtfcmF0ZShpbnQgcG9ydF9jbG9jaykKK3sKKwlzd2l0Y2ggKHBvcnRfY2xvY2spIHsKKwljYXNl
+IDE2MjAwMDoKKwkJcmV0dXJuIERESV9CVUZfUEhZX0xJTktfUkFURSgwKTsKKwljYXNlIDIxNjAw
+MDoKKwkJcmV0dXJuIERESV9CVUZfUEhZX0xJTktfUkFURSg0KTsKKwljYXNlIDI0MzAwMDoKKwkJ
+cmV0dXJuIERESV9CVUZfUEhZX0xJTktfUkFURSg1KTsKKwljYXNlIDI3MDAwMDoKKwkJcmV0dXJu
+IERESV9CVUZfUEhZX0xJTktfUkFURSgxKTsKKwljYXNlIDMyNDAwMDoKKwkJcmV0dXJuIERESV9C
+VUZfUEhZX0xJTktfUkFURSg2KTsKKwljYXNlIDQzMjAwMDoKKwkJcmV0dXJuIERESV9CVUZfUEhZ
+X0xJTktfUkFURSg3KTsKKwljYXNlIDU0MDAwMDoKKwkJcmV0dXJuIERESV9CVUZfUEhZX0xJTktf
+UkFURSgyKTsKKwljYXNlIDgxMDAwMDoKKwkJcmV0dXJuIERESV9CVUZfUEhZX0xJTktfUkFURSgz
+KTsKKwlkZWZhdWx0OgorCQlNSVNTSU5HX0NBU0UocG9ydF9jbG9jayk7CisJCXJldHVybiBERElf
+QlVGX1BIWV9MSU5LX1JBVEUoMCk7CisJfQorfQorCiBzdGF0aWMgdm9pZCBpbnRlbF9kZGlfaW5p
+dF9kcF9idWZfcmVnKHN0cnVjdCBpbnRlbF9lbmNvZGVyICplbmNvZGVyLAogCQkJCSAgICAgIGNv
+bnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlKQogewpAQCAtMjYxLDkgKzI4
+NiwxMSBAQCBzdGF0aWMgdm9pZCBpbnRlbF9kZGlfaW5pdF9kcF9idWZfcmVnKHN0cnVjdCBpbnRl
+bF9lbmNvZGVyICplbmNvZGVyLAogCQlERElfQlVGX0NUTF9FTkFCTEUgfCBERElfQlVGX1RSQU5T
+X1NFTEVDVCgwKTsKIAlpbnRlbF9kcC0+RFAgfD0gRERJX1BPUlRfV0lEVEgoY3J0Y19zdGF0ZS0+
+bGFuZV9jb3VudCk7CiAKLQlpZiAoSVNfQUxERVJMQUtFX1AoaTkxNSkgJiYKLQkgICAgaW50ZWxf
+cGh5X2lzX3RjKGk5MTUsIHBoeSkgJiYgZGlnX3BvcnQtPnRjX21vZGUgIT0gVENfUE9SVF9UQlRf
+QUxUKQotCQlpbnRlbF9kcC0+RFAgfD0gRERJX0JVRl9DVExfVENfUEhZX09XTkVSU0hJUDsKKwlp
+ZiAoSVNfQUxERVJMQUtFX1AoaTkxNSkgJiYgaW50ZWxfcGh5X2lzX3RjKGk5MTUsIHBoeSkpIHsK
+KwkJaW50ZWxfZHAtPkRQIHw9IGRkaV9idWZfcGh5X2xpbmtfcmF0ZShjcnRjX3N0YXRlLT5wb3J0
+X2Nsb2NrKTsKKwkJaWYgKGRpZ19wb3J0LT50Y19tb2RlICE9IFRDX1BPUlRfVEJUX0FMVCkKKwkJ
+CWludGVsX2RwLT5EUCB8PSBERElfQlVGX0NUTF9UQ19QSFlfT1dORVJTSElQOworCX0KIH0KIAog
+c3RhdGljIGludCBpY2xfY2FsY190YnRfcGxsX2xpbmsoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUg
+KmRldl9wcml2LApAQCAtMzE2OCw2ICszMTk1LDkgQEAgc3RhdGljIHZvaWQgaW50ZWxfZW5hYmxl
+X2RkaV9oZG1pKHN0cnVjdCBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLAogCS8qIEluIEhETUkv
+RFZJIG1vZGUsIHRoZSBwb3J0IHdpZHRoLCBhbmQgc3dpbmcvZW1waGFzaXMgdmFsdWVzCiAJICog
+YXJlIGlnbm9yZWQgc28gbm90aGluZyBzcGVjaWFsIG5lZWRzIHRvIGJlIGRvbmUgYmVzaWRlcwog
+CSAqIGVuYWJsaW5nIHRoZSBwb3J0LgorCSAqCisJICogT24gQURMX1AgdGhlIFBIWSBsaW5rIHJh
+dGUgYW5kIGxhbmUgY291bnQgbXVzdCBiZSBwcm9ncmFtbWVkIGJ1dAorCSAqIHRoZXNlIGFyZSBi
+b3RoIDAgZm9yIEhETUkuCiAJICovCiAJaW50ZWxfZGVfd3JpdGUoZGV2X3ByaXYsIERESV9CVUZf
+Q1RMKHBvcnQpLAogCQkgICAgICAgZGlnX3BvcnQtPnNhdmVkX3BvcnRfYml0cyB8IERESV9CVUZf
+Q1RMX0VOQUJMRSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5o
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaAppbmRleCBlOWQ0YmExZGNjMDQuLmY3
+Y2YzYWI4ZGI2NSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaAor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oCkBAIC0xMDE4MCw2ICsxMDE4MCw3
+IEBAIGVudW0gc2tsX3Bvd2VyX2dhdGUgewogI2RlZmluZSAgRERJX0JVRl9DVExfRU5BQkxFCQkJ
+KDEgPDwgMzEpCiAjZGVmaW5lICBERElfQlVGX1RSQU5TX1NFTEVDVChuKQkoKG4pIDw8IDI0KQog
+I2RlZmluZSAgRERJX0JVRl9FTVBfTUFTSwkJCSgweGYgPDwgMjQpCisjZGVmaW5lICBERElfQlVG
+X1BIWV9MSU5LX1JBVEUocikJCSgocikgPDwgMjApCiAjZGVmaW5lICBERElfQlVGX1BPUlRfUkVW
+RVJTQUwJCQkoMSA8PCAxNikKICNkZWZpbmUgIERESV9CVUZfSVNfSURMRQkJCSgxIDw8IDcpCiAj
+ZGVmaW5lICBERElfQlVGX0NUTF9UQ19QSFlfT1dORVJTSElQCQlSRUdfQklUKDYpCi0tIAoyLjI1
+LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVs
+LWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
