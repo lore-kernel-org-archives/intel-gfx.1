@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F275C433ED
-	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:28:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4FA9C433B4
+	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:28:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03426610A2
-	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:28:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03426610A2
+	by mail.kernel.org (Postfix) with ESMTPS id 995FE610A2
+	for <intel-gfx@archiver.kernel.org>; Sat,  8 May 2021 02:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 995FE610A2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D52B6E830;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B4CB6E83C;
 	Sat,  8 May 2021 02:28:33 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBD796E82A
- for <intel-gfx@lists.freedesktop.org>; Sat,  8 May 2021 02:28:30 +0000 (UTC)
-IronPort-SDR: EdyKA3lF6/apg9vIQBSK9Gvo/tL0LtrdEjuu80O8tb5FNYEPjO0LXbjZf32d8Md8C/CCD1Qnlu
- wiBiOuq/LPpw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9977"; a="262790145"
-X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="262790145"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AA426E82E
+ for <intel-gfx@lists.freedesktop.org>; Sat,  8 May 2021 02:28:31 +0000 (UTC)
+IronPort-SDR: QHm/GPGGf3CDNj/fuKuha3vLjRJPkrz6pHAXnyhnbfoAhq7CRxRH+MRdETQa19zUX2YkqYrcbw
+ jJIqFsrUEcDw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9977"; a="262790149"
+X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="262790149"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 May 2021 19:28:29 -0700
-IronPort-SDR: DrZ05CgfHHOoBsTeQfOXVsy0LCDbJTh805NCcNZ2X59ERb4O7jq2R5qrrthsIstE3iBvr6uT6J
- xdUpSnJqtPWg==
-X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="533910066"
+IronPort-SDR: NlqWYtOv/ijdPjPKnbPC5AIYtAdXR2NBRbQ/joEPQT3miWVeRNEmpgDvEKeBgQJVME+WjI2kMU
+ AC8z5Ue9qvbw==
+X-IronPort-AV: E=Sophos;i="5.82,282,1613462400"; d="scan'208";a="533910093"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 May 2021 19:28:28 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  7 May 2021 19:27:44 -0700
-Message-Id: <20210508022820.780227-13-matthew.d.roper@intel.com>
+Date: Fri,  7 May 2021 19:27:53 -0700
+Message-Id: <20210508022820.780227-22-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210508022820.780227-1-matthew.d.roper@intel.com>
 References: <20210508022820.780227-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 12/48] drm/i915/xelpd: Calculate VDSC RC
- parameters
+Subject: [Intel-gfx] [PATCH v3 21/48] drm/i915/display/tc: Rename safe_mode
+ functions ownership
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,179 +58,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juha-Pekka Heikkil <juha-pekka.heikkila@intel.com>,
- Mohammed Khajapasha <mohammed.khajapasha@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
-
-Add methods to calculate rc parameters for all bpps, against the fixed
-arrays that we already have for 8,10,12 valid o/p bpps, to cover RGB 444
-formats.  Our hw doesn't support YUV compression yet.  The calculations
-used here are from VESA C model for DSC 1.1
-
-v2:
- - Checkpatch fixes
-
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Cc: Juha-Pekka Heikkil <juha-pekka.heikkila@intel.com>
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Signed-off-by: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/display/intel_vdsc.c | 97 ++++++++++++++++++++---
- 1 file changed, 87 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index adcd6752f919..1ac378a9904e 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -5,7 +5,7 @@
-  * Author: Gaurav K Singh <gaurav.k.singh@intel.com>
-  *         Manasi Navare <manasi.d.navare@intel.com>
-  */
--
-+#include <linux/limits.h>
- #include "i915_drv.h"
- #include "intel_de.h"
- #include "intel_display_types.h"
-@@ -373,12 +373,74 @@ static bool is_pipe_dsc(const struct intel_crtc_state *crtc_state)
- 	return true;
- }
- 
-+static void
-+calculate_rc_params(struct rc_parameters *rc,
-+		    struct drm_dsc_config *vdsc_cfg)
-+{
-+	int bpc = vdsc_cfg->bits_per_component;
-+	int bpp = vdsc_cfg->bits_per_pixel >> 4;
-+	int ofs_und6[] = { 0, -2, -2, -4, -6, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12 };
-+	int ofs_und8[] = { 2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12 };
-+	int ofs_und12[] = { 2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12 };
-+	int ofs_und15[] = { 10, 8, 6, 4, 2, 0, -2, -4, -6, -8, -10, -10, -12, -12, -12 };
-+	int qp_bpc_modifier = (bpc - 8) * 2;
-+	u32 res, buf_i;
-+
-+	if (vdsc_cfg->slice_height >= 8)
-+		rc->first_line_bpg_offset =
-+			12 + DIV_ROUND_UP((9 * min(34, vdsc_cfg->slice_height - 8)), 100);
-+	else
-+		rc->first_line_bpg_offset = 2 * (vdsc_cfg->slice_height - 1);
-+
-+	/* Our hw supports only 444 modes as of today */
-+	if (bpp >= 12)
-+		rc->initial_offset = 2048;
-+	else if (bpp >= 10)
-+		rc->initial_offset = 5632 - DIV_ROUND_UP(((bpp - 10) * 3584), 2);
-+	else if (bpp >= 8)
-+		rc->initial_offset = 6144 - DIV_ROUND_UP(((bpp - 8) * 512), 2);
-+	else
-+		rc->initial_offset = 6144;
-+
-+	/* initial_xmit_delay = rc_model_size/2/compression_bpp */
-+	rc->initial_xmit_delay = DIV_ROUND_UP(DSC_RC_MODEL_SIZE_CONST, 2 * bpp);
-+
-+	rc->flatness_min_qp = 3 + qp_bpc_modifier;
-+	rc->flatness_max_qp = 12 + qp_bpc_modifier;
-+
-+	rc->rc_quant_incr_limit0 = 11 + qp_bpc_modifier;
-+	rc->rc_quant_incr_limit1 = 11 + qp_bpc_modifier;
-+
-+	for (buf_i = 0; buf_i < DSC_NUM_BUF_RANGES; buf_i++) {
-+		/* Calculate range_bgp_offset */
-+		if (bpp <= 6) {
-+			rc->rc_range_params[buf_i].range_bpg_offset = ofs_und6[buf_i];
-+		} else if (bpp <= 8) {
-+			res = DIV_ROUND_UP(((bpp - 6) * (ofs_und8[buf_i] - ofs_und6[buf_i])), 2);
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und6[buf_i] + res;
-+		} else if (bpp <= 12) {
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und8[buf_i];
-+		} else if (bpp <= 15) {
-+			res = DIV_ROUND_UP(((bpp - 12) * (ofs_und15[buf_i] - ofs_und12[buf_i])), 3);
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und12[buf_i] + res;
-+		} else {
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und15[buf_i];
-+		}
-+	}
-+}
-+
- int intel_dsc_compute_params(struct intel_encoder *encoder,
- 			     struct intel_crtc_state *pipe_config)
- {
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	struct drm_dsc_config *vdsc_cfg = &pipe_config->dsc.config;
- 	u16 compressed_bpp = pipe_config->dsc.compressed_bpp;
- 	const struct rc_parameters *rc_params;
-+	struct rc_parameters *rc = NULL;
- 	u8 i = 0;
- 
- 	vdsc_cfg->pic_width = pipe_config->hw.adjusted_mode.crtc_hdisplay;
-@@ -413,9 +475,24 @@ int intel_dsc_compute_params(struct intel_encoder *encoder,
- 		vdsc_cfg->rc_buf_thresh[13] = 0x7D;
- 	}
- 
--	rc_params = get_rc_params(compressed_bpp, vdsc_cfg->bits_per_component);
--	if (!rc_params)
--		return -EINVAL;
-+	/*
-+	 * From XE_LPD onwards we supports compression bpps in steps of 1
-+	 * upto uncompressed bpp-1, hence add calculations for all the rc
-+	 * parameters
-+	 */
-+	if (DISPLAY_VER(dev_priv) >= 13) {
-+		rc = kmalloc(sizeof(*rc), GFP_KERNEL);
-+		if (!rc)
-+			return -ENOMEM;
-+
-+		calculate_rc_params(rc, vdsc_cfg);
-+		rc_params = rc;
-+	} else {
-+		rc_params = get_rc_params(compressed_bpp,
-+					  vdsc_cfg->bits_per_component);
-+		if (!rc_params)
-+			return -EINVAL;
-+	}
- 
- 	vdsc_cfg->first_line_bpg_offset = rc_params->first_line_bpg_offset;
- 	vdsc_cfg->initial_xmit_delay = rc_params->initial_xmit_delay;
-@@ -441,20 +518,20 @@ int intel_dsc_compute_params(struct intel_encoder *encoder,
- 
- 	/*
- 	 * BitsPerComponent value determines mux_word_size:
--	 * When BitsPerComponent is 12bpc, muxWordSize will be equal to 64 bits
--	 * When BitsPerComponent is 8 or 10bpc, muxWordSize will be equal to
--	 * 48 bits
-+	 * When BitsPerComponent is less than or 10bpc, muxWordSize will be equal to
-+	 * 48 bits otherwise 64
- 	 */
--	if (vdsc_cfg->bits_per_component == 8 ||
--	    vdsc_cfg->bits_per_component == 10)
-+	if (vdsc_cfg->bits_per_component <= 10)
- 		vdsc_cfg->mux_word_size = DSC_MUX_WORD_SIZE_8_10_BPC;
--	else if (vdsc_cfg->bits_per_component == 12)
-+	else
- 		vdsc_cfg->mux_word_size = DSC_MUX_WORD_SIZE_12_BPC;
- 
- 	/* InitialScaleValue is a 6 bit value with 3 fractional bits (U3.3) */
- 	vdsc_cfg->initial_scale_value = (vdsc_cfg->rc_model_size << 3) /
- 		(vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset);
- 
-+	kfree(rc);
-+
- 	return 0;
- }
- 
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+CgpXaGVu
+IERQX1BIWV9NT0RFX1NUQVRVU19OT1RfU0FGRSBpcyBzZXQsIGl0IG1lYW5zIHRoYXQgZGlzcGxh
+eQpoYXMgdGhlIGNvbnRyb2wgb3ZlciB0aGUgVEMgcGh5LgpUaGUgIm5vdCBzYWZlIiBuYW1pbmcg
+aXMgY29uZnVzaW5nIHVzaW5nIG93bmVyc2hpcCBtYWtlIGl0IGVhc2llcgp0byByZWFkIGFsc28g
+ZnV0dXJlIHBsYXRmb3JtcyB3aWxsIGhhdmUgYSBuZXcgcmVnaXN0ZXIgdGhhdCBkb2VzIHRoZQpz
+YW1lIGpvYiBhcyBEUF9QSFlfTU9ERV9TVEFUVVNfTk9UX1NBRkUgYnV0IHdpdGggdGhlIG9ud2Vy
+c2hpcCBuYW1lLgoKQlNwZWM6IDQ5Mjk0CkNjOiBJbXJlIERlYWsgPGltcmUuZGVha0BpbnRlbC5j
+b20+ClNpZ25lZC1vZmYtYnk6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50
+ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBDbGludG9uIFRheWxvciA8Q2xpbnRvbi5BLlRheWxvckBp
+bnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5yb3BlckBpbnRl
+bC5jb20+ClJldmlld2VkLWJ5OiBJbXJlIERlYWsgPGltcmUuZGVha0BpbnRlbC5jb20+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF90Yy5jIHwgMzUgKysrKysrKysrKysr
+LS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDE4IGRlbGV0
+aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
+dGMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdGMuYwppbmRleCA1OWRl
+NmNhNDM2ZGIuLmQyZDUyNDMyOTUwOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+ZGlzcGxheS9pbnRlbF90Yy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfdGMuYwpAQCAtMjU2LDggKzI1Niw4IEBAIHN0YXRpYyBib29sIGljbF90Y19waHlfc3RhdHVz
+X2NvbXBsZXRlKHN0cnVjdCBpbnRlbF9kaWdpdGFsX3BvcnQgKmRpZ19wb3J0KQogCXJldHVybiB2
+YWwgJiBEUF9QSFlfTU9ERV9TVEFUVVNfQ09NUExFVEVEKGRpZ19wb3J0LT50Y19waHlfZmlhX2lk
+eCk7CiB9CiAKLXN0YXRpYyBib29sIGljbF90Y19waHlfc2V0X3NhZmVfbW9kZShzdHJ1Y3QgaW50
+ZWxfZGlnaXRhbF9wb3J0ICpkaWdfcG9ydCwKLQkJCQkgICAgIGJvb2wgZW5hYmxlKQorc3RhdGlj
+IGJvb2wgaWNsX3RjX3BoeV90YWtlX293bmVyc2hpcChzdHJ1Y3QgaW50ZWxfZGlnaXRhbF9wb3J0
+ICpkaWdfcG9ydCwKKwkJCQkgICAgICBib29sIHRha2UpCiB7CiAJc3RydWN0IGRybV9pOTE1X3By
+aXZhdGUgKmk5MTUgPSB0b19pOTE1KGRpZ19wb3J0LT5iYXNlLmJhc2UuZGV2KTsKIAlzdHJ1Y3Qg
+aW50ZWxfdW5jb3JlICp1bmNvcmUgPSAmaTkxNS0+dW5jb3JlOwpAQCAtMjY3LDIwICsyNjcsMjAg
+QEAgc3RhdGljIGJvb2wgaWNsX3RjX3BoeV9zZXRfc2FmZV9tb2RlKHN0cnVjdCBpbnRlbF9kaWdp
+dGFsX3BvcnQgKmRpZ19wb3J0LAogCQkJCVBPUlRfVFhfREZMRVhEUENTU1MoZGlnX3BvcnQtPnRj
+X3BoeV9maWEpKTsKIAlpZiAodmFsID09IDB4ZmZmZmZmZmYpIHsKIAkJZHJtX2RiZ19rbXMoJmk5
+MTUtPmRybSwKLQkJCSAgICAiUG9ydCAlczogUEhZIGluIFRDQ09MRCwgY2FuJ3QgJXMgc2FmZS1t
+b2RlXG4iLAotCQkJICAgIGRpZ19wb3J0LT50Y19wb3J0X25hbWUsIGVuYWJsZWRpc2FibGUoZW5h
+YmxlKSk7CisJCQkgICAgIlBvcnQgJXM6IFBIWSBpbiBUQ0NPTEQsIGNhbid0ICVzIG93bmVyc2hp
+cFxuIiwKKwkJCSAgICBkaWdfcG9ydC0+dGNfcG9ydF9uYW1lLCB0YWtlID8gInRha2UiIDogInJl
+bGVhc2UiKTsKIAogCQlyZXR1cm4gZmFsc2U7CiAJfQogCiAJdmFsICY9IH5EUF9QSFlfTU9ERV9T
+VEFUVVNfTk9UX1NBRkUoZGlnX3BvcnQtPnRjX3BoeV9maWFfaWR4KTsKLQlpZiAoIWVuYWJsZSkK
+KwlpZiAodGFrZSkKIAkJdmFsIHw9IERQX1BIWV9NT0RFX1NUQVRVU19OT1RfU0FGRShkaWdfcG9y
+dC0+dGNfcGh5X2ZpYV9pZHgpOwogCiAJaW50ZWxfdW5jb3JlX3dyaXRlKHVuY29yZSwKIAkJCSAg
+IFBPUlRfVFhfREZMRVhEUENTU1MoZGlnX3BvcnQtPnRjX3BoeV9maWEpLCB2YWwpOwogCi0JaWYg
+KGVuYWJsZSAmJiB3YWl0X2ZvcighaWNsX3RjX3BoeV9zdGF0dXNfY29tcGxldGUoZGlnX3BvcnQp
+LCAxMCkpCisJaWYgKCF0YWtlICYmIHdhaXRfZm9yKCFpY2xfdGNfcGh5X3N0YXR1c19jb21wbGV0
+ZShkaWdfcG9ydCksIDEwKSkKIAkJZHJtX2RiZ19rbXMoJmk5MTUtPmRybSwKIAkJCSAgICAiUG9y
+dCAlczogUEhZIGNvbXBsZXRlIGNsZWFyIHRpbWVkIG91dFxuIiwKIAkJCSAgICBkaWdfcG9ydC0+
+dGNfcG9ydF9uYW1lKTsKQEAgLTI4OCw3ICsyODgsNyBAQCBzdGF0aWMgYm9vbCBpY2xfdGNfcGh5
+X3NldF9zYWZlX21vZGUoc3RydWN0IGludGVsX2RpZ2l0YWxfcG9ydCAqZGlnX3BvcnQsCiAJcmV0
+dXJuIHRydWU7CiB9CiAKLXN0YXRpYyBib29sIGljbF90Y19waHlfaXNfaW5fc2FmZV9tb2RlKHN0
+cnVjdCBpbnRlbF9kaWdpdGFsX3BvcnQgKmRpZ19wb3J0KQorc3RhdGljIGJvb2wgaWNsX3RjX3Bo
+eV9pc19vd25lZChzdHJ1Y3QgaW50ZWxfZGlnaXRhbF9wb3J0ICpkaWdfcG9ydCkKIHsKIAlzdHJ1
+Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IHRvX2k5MTUoZGlnX3BvcnQtPmJhc2UuYmFzZS5k
+ZXYpOwogCXN0cnVjdCBpbnRlbF91bmNvcmUgKnVuY29yZSA9ICZpOTE1LT51bmNvcmU7CkBAIC0z
+MDMsNyArMzAzLDcgQEAgc3RhdGljIGJvb2wgaWNsX3RjX3BoeV9pc19pbl9zYWZlX21vZGUoc3Ry
+dWN0IGludGVsX2RpZ2l0YWxfcG9ydCAqZGlnX3BvcnQpCiAJCXJldHVybiB0cnVlOwogCX0KIAot
+CXJldHVybiAhKHZhbCAmIERQX1BIWV9NT0RFX1NUQVRVU19OT1RfU0FGRShkaWdfcG9ydC0+dGNf
+cGh5X2ZpYV9pZHgpKTsKKwlyZXR1cm4gdmFsICYgRFBfUEhZX01PREVfU1RBVFVTX05PVF9TQUZF
+KGRpZ19wb3J0LT50Y19waHlfZmlhX2lkeCk7CiB9CiAKIC8qCkBAIC0zMjksNyArMzI5LDcgQEAg
+c3RhdGljIHZvaWQgaWNsX3RjX3BoeV9jb25uZWN0KHN0cnVjdCBpbnRlbF9kaWdpdGFsX3BvcnQg
+KmRpZ19wb3J0LAogCQlnb3RvIG91dF9zZXRfdGJ0X2FsdF9tb2RlOwogCX0KIAotCWlmICghaWNs
+X3RjX3BoeV9zZXRfc2FmZV9tb2RlKGRpZ19wb3J0LCBmYWxzZSkgJiYKKwlpZiAoIWljbF90Y19w
+aHlfdGFrZV9vd25lcnNoaXAoZGlnX3BvcnQsIHRydWUpICYmCiAJICAgICFkcm1fV0FSTl9PTigm
+aTkxNS0+ZHJtLCBkaWdfcG9ydC0+dGNfbGVnYWN5X3BvcnQpKQogCQlnb3RvIG91dF9zZXRfdGJ0
+X2FsdF9tb2RlOwogCkBAIC0zNDgsNyArMzQ4LDcgQEAgc3RhdGljIHZvaWQgaWNsX3RjX3BoeV9j
+b25uZWN0KHN0cnVjdCBpbnRlbF9kaWdpdGFsX3BvcnQgKmRpZ19wb3J0LAogCWlmICghKHRjX3Bv
+cnRfbGl2ZV9zdGF0dXNfbWFzayhkaWdfcG9ydCkgJiBCSVQoVENfUE9SVF9EUF9BTFQpKSkgewog
+CQlkcm1fZGJnX2ttcygmaTkxNS0+ZHJtLCAiUG9ydCAlczogUEhZIHN1ZGRlbiBkaXNjb25uZWN0
+XG4iLAogCQkJICAgIGRpZ19wb3J0LT50Y19wb3J0X25hbWUpOwotCQlnb3RvIG91dF9zZXRfc2Fm
+ZV9tb2RlOworCQlnb3RvIG91dF9yZWxlYXNlX3BoeTsKIAl9CiAKIAlpZiAobWF4X2xhbmVzIDwg
+cmVxdWlyZWRfbGFuZXMpIHsKQEAgLTM1NiwxNSArMzU2LDE1IEBAIHN0YXRpYyB2b2lkIGljbF90
+Y19waHlfY29ubmVjdChzdHJ1Y3QgaW50ZWxfZGlnaXRhbF9wb3J0ICpkaWdfcG9ydCwKIAkJCSAg
+ICAiUG9ydCAlczogUEhZIG1heCBsYW5lcyAlZCA8IHJlcXVpcmVkIGxhbmVzICVkXG4iLAogCQkJ
+ICAgIGRpZ19wb3J0LT50Y19wb3J0X25hbWUsCiAJCQkgICAgbWF4X2xhbmVzLCByZXF1aXJlZF9s
+YW5lcyk7Ci0JCWdvdG8gb3V0X3NldF9zYWZlX21vZGU7CisJCWdvdG8gb3V0X3JlbGVhc2VfcGh5
+OwogCX0KIAogCWRpZ19wb3J0LT50Y19tb2RlID0gVENfUE9SVF9EUF9BTFQ7CiAKIAlyZXR1cm47
+CiAKLW91dF9zZXRfc2FmZV9tb2RlOgotCWljbF90Y19waHlfc2V0X3NhZmVfbW9kZShkaWdfcG9y
+dCwgdHJ1ZSk7CitvdXRfcmVsZWFzZV9waHk6CisJaWNsX3RjX3BoeV90YWtlX293bmVyc2hpcChk
+aWdfcG9ydCwgZmFsc2UpOwogb3V0X3NldF90YnRfYWx0X21vZGU6CiAJZGlnX3BvcnQtPnRjX21v
+ZGUgPSBUQ19QT1JUX1RCVF9BTFQ7CiB9CkBAIC0zODAsNyArMzgwLDcgQEAgc3RhdGljIHZvaWQg
+aWNsX3RjX3BoeV9kaXNjb25uZWN0KHN0cnVjdCBpbnRlbF9kaWdpdGFsX3BvcnQgKmRpZ19wb3J0
+KQogCQkvKiBOb3RoaW5nIHRvIGRvLCB3ZSBuZXZlciBkaXNjb25uZWN0IGZyb20gbGVnYWN5IG1v
+ZGUgKi8KIAkJYnJlYWs7CiAJY2FzZSBUQ19QT1JUX0RQX0FMVDoKLQkJaWNsX3RjX3BoeV9zZXRf
+c2FmZV9tb2RlKGRpZ19wb3J0LCB0cnVlKTsKKwkJaWNsX3RjX3BoeV90YWtlX293bmVyc2hpcChk
+aWdfcG9ydCwgZmFsc2UpOwogCQlkaWdfcG9ydC0+dGNfbW9kZSA9IFRDX1BPUlRfVEJUX0FMVDsK
+IAkJYnJlYWs7CiAJY2FzZSBUQ19QT1JUX1RCVF9BTFQ6CkBAIC00MDEsOCArNDAxLDggQEAgc3Rh
+dGljIGJvb2wgaWNsX3RjX3BoeV9pc19jb25uZWN0ZWQoc3RydWN0IGludGVsX2RpZ2l0YWxfcG9y
+dCAqZGlnX3BvcnQpCiAJCXJldHVybiBkaWdfcG9ydC0+dGNfbW9kZSA9PSBUQ19QT1JUX1RCVF9B
+TFQ7CiAJfQogCi0JaWYgKGljbF90Y19waHlfaXNfaW5fc2FmZV9tb2RlKGRpZ19wb3J0KSkgewot
+CQlkcm1fZGJnX2ttcygmaTkxNS0+ZHJtLCAiUG9ydCAlczogUEhZIHN0aWxsIGluIHNhZmUgbW9k
+ZVxuIiwKKwlpZiAoIWljbF90Y19waHlfaXNfb3duZWQoZGlnX3BvcnQpKSB7CisJCWRybV9kYmdf
+a21zKCZpOTE1LT5kcm0sICJQb3J0ICVzOiBQSFkgbm90IG93bmVkXG4iLAogCQkJICAgIGRpZ19w
+b3J0LT50Y19wb3J0X25hbWUpOwogCiAJCXJldHVybiBmYWxzZTsKQEAgLTQxNywxMCArNDE3LDkg
+QEAgaW50ZWxfdGNfcG9ydF9nZXRfY3VycmVudF9tb2RlKHN0cnVjdCBpbnRlbF9kaWdpdGFsX3Bv
+cnQgKmRpZ19wb3J0KQogewogCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1ID0gdG9faTkx
+NShkaWdfcG9ydC0+YmFzZS5iYXNlLmRldik7CiAJdTMyIGxpdmVfc3RhdHVzX21hc2sgPSB0Y19w
+b3J0X2xpdmVfc3RhdHVzX21hc2soZGlnX3BvcnQpOwotCWJvb2wgaW5fc2FmZV9tb2RlID0gaWNs
+X3RjX3BoeV9pc19pbl9zYWZlX21vZGUoZGlnX3BvcnQpOwogCWVudW0gdGNfcG9ydF9tb2RlIG1v
+ZGU7CiAKLQlpZiAoaW5fc2FmZV9tb2RlIHx8CisJaWYgKCFpY2xfdGNfcGh5X2lzX293bmVkKGRp
+Z19wb3J0KSB8fAogCSAgICBkcm1fV0FSTl9PTigmaTkxNS0+ZHJtLCAhaWNsX3RjX3BoeV9zdGF0
+dXNfY29tcGxldGUoZGlnX3BvcnQpKSkKIAkJcmV0dXJuIFRDX1BPUlRfVEJUX0FMVDsKIAotLSAK
+Mi4yNS40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJ
+bnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
