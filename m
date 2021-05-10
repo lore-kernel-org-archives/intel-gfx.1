@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2ECBFC433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 14:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F04BC433B4
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 14:59:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 649B361421
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 14:58:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 649B361421
+	by mail.kernel.org (Postfix) with ESMTPS id BBE0D610A0
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 14:59:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBE0D610A0
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D682088284;
-	Mon, 10 May 2021 14:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56B8889861;
+	Mon, 10 May 2021 14:59:04 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A9A488284;
- Mon, 10 May 2021 14:58:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C476689861;
+ Mon, 10 May 2021 14:59:02 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 7F6AC67373; Mon, 10 May 2021 16:58:23 +0200 (CEST)
-Date: Mon, 10 May 2021 16:58:23 +0200
+ id 621D667373; Mon, 10 May 2021 16:59:00 +0200 (CEST)
+Date: Mon, 10 May 2021 16:59:00 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210510145823.GA28066@lst.de>
+Message-ID: <20210510145900.GB28066@lst.de>
 References: <20210510095026.3477496-1-tientzu@chromium.org>
- <20210510095026.3477496-2-tientzu@chromium.org>
+ <20210510095026.3477496-3-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210510095026.3477496-2-tientzu@chromium.org>
+In-Reply-To: <20210510095026.3477496-3-tientzu@chromium.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v6 01/15] swiotlb: Refactor swiotlb init
- functions
+Subject: Re: [Intel-gfx] [PATCH v6 02/15] swiotlb: Refactor
+ swiotlb_create_debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
