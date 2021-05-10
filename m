@@ -2,40 +2,55 @@ Return-Path: <SRS0=pmG3=KF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76BF5C43460
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 08:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06BB7C433B4
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 09:14:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 310AC6144E
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 08:58:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 310AC6144E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 8D45761285
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 09:14:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D45761285
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B535C89D81;
-	Mon, 10 May 2021 08:58:28 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF9DE89D81;
- Mon, 10 May 2021 08:58:27 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 5AF7367373; Mon, 10 May 2021 10:58:23 +0200 (CEST)
-Date: Mon, 10 May 2021 10:58:23 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: youling257 <youling257@gmail.com>
-Message-ID: <20210510085823.GA1466@lst.de>
-References: <20210326055505.1424432-5-hch@lst.de>
- <20210508193329.28394-1-youling257@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F30689F97;
+	Mon, 10 May 2021 09:14:52 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE4F89EBD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 May 2021 09:14:50 +0000 (UTC)
+IronPort-SDR: P5ZgcFAxDzkDCfZL82pthn3GiZRbE6eE/BO0AR/fdOJFmQm8Zw9/w30lYqB8pfrgPA1d4rtbrZ
+ F/3apUbrzN7Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9979"; a="178737425"
+X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; d="scan'208";a="178737425"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2021 02:14:49 -0700
+IronPort-SDR: zql81OlQuQXstO1FU3Fyoj+R+ElaQeZmSyiwpz3BQEt/3E+3wquNu3abJsQ4hBbWn41VLDEz6v
+ cNm871HCSjEg==
+X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; d="scan'208";a="536313389"
+Received: from agriffin-mobl1.ger.corp.intel.com (HELO [10.213.193.195])
+ ([10.213.193.195])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2021 02:14:48 -0700
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20210507144251.376538-1-janusz.krzysztofik@linux.intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <2abba1b7-ac7b-a983-39af-87b1b86b765a@linux.intel.com>
+Date: Mon, 10 May 2021 10:14:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210508193329.28394-1-youling257@gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH 4/4] i915: fix remap_io_sg to verify the
- pgprot
+In-Reply-To: <20210507144251.376538-1-janusz.krzysztofik@linux.intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Do release kernel context if
+ breadcrumb measure fails
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,24 +63,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: peterz@infradead.org, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, linux-mm@kvack.org, akpm@linux-foundation.org,
- hch@lst.de
-Content-Type: text/plain; charset="us-ascii"
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, May 09, 2021 at 03:33:29AM +0800, youling257 wrote:
-> This patch cause "x86/PAT : surfaceflinger:1440 map pfn RAM range req write-combining for [mem 0x064a2000-0x064a2fff], got write-back" problem.
-> my 2GB ram Bay trail z3735f tablet runing on android-x86, "i915: fix remap_io_sg to verify the pgprot" cause this problem.
 
-So this is the memtype verification added by the patch, meaning that the
-old code did in fact not call into track_pfn_remap with the right flags.
+On 07/05/2021 15:42, Janusz Krzysztofik wrote:
+> Commit fb5970da1b42 ("drm/i915/gt: Use the kernel_context to measure the
+> breadcrumb size") reordered some operations inside engine_init_common()
+> and added an error unwind path to that function.  In that path, a
+> reference to a kernel context candidate supposed to be released on error
+> was put, but the context, pinned when created, was not unpinned first.
+> Fix it by replacing intel_context_put() with destroy_pinned_context()
+> introduced later by commit b436a5f8b6c8 ("drm/i915/gt: Track all timelines
+> created using the HWSP").
+> 
+> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> ---
+>   drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> index 6dbdbde00f14..eba2da9679a5 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> @@ -898,7 +898,7 @@ static int engine_init_common(struct intel_engine_cs *engine)
+>   	return 0;
+>   
+>   err_context:
+> -	intel_context_put(ce);
+> +	destroy_pinned_context(ce);
+>   	return ret;
+>   }
+>   
+> 
 
-Can the i915 maintainers take a look at making sure the page permissions
-here make sense?
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Found by some test or code inspection?
+
+Regards,
+
+Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
