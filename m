@@ -2,41 +2,52 @@ Return-Path: <SRS0=pmG3=KF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97759C433B4
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 10:31:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E47FC433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 10:31:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F5E661963
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 10:31:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F5E661963
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id EED936196C
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 May 2021 10:31:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EED936196C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A52B06E059;
-	Mon, 10 May 2021 10:31:18 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 658356E059;
- Mon, 10 May 2021 10:31:17 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 5CD73A0019;
- Mon, 10 May 2021 10:31:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 676D86E0D5;
+	Mon, 10 May 2021 10:31:53 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0044289B03;
+ Mon, 10 May 2021 10:28:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9332B6191D;
+ Mon, 10 May 2021 10:28:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1620642492;
+ bh=l5qEtyehlyXvv/SDET45/vq79ol14S8NVaAHOXDTcyE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=C0s4/sCpLX8dUqr3yiQfShgVZSZ03jRS5yubk3BbNc0DnvOxVkJYOhXHu3TADVXvh
+ 43Ozg2Yx/tqKfgLdOrlELynryWvELECKvrtAed5SFABpvTGMgWe70ZKh8I8iZ1Loe5
+ VXU39W3GA8N6OTEvmQAczKGWqKIyvCigQITV2G7gucuhPm9Ub08oJWv9Fs3fHuir72
+ n/rR9khB+/2vMWBJItqiGJnJX7OkNXqzmn2FJxzQIa/8bsmoekWYO/vkZapKATKa4x
+ jSmjJqZq2dlUWJhHEnN5FFZYEFS4Akt5WF3yjpYMDD0I72RvRHjuo4OjjMGKEJkKB8
+ alViREAP/T09Q==
+Received: by mail.kernel.org with local (Exim 4.94.2)
+ (envelope-from <mchehab@kernel.org>)
+ id 1lg38z-000UY0-9h; Mon, 10 May 2021 12:28:09 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Date: Mon, 10 May 2021 12:26:56 +0200
+Message-Id: <36bc1118467da645a57515743c9f6c1cd86abe8c.1620641727.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <cover.1620641727.git.mchehab+huawei@kernel.org>
+References: <cover.1620641727.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Paul Zimmerman" <pauldzim@gmail.com>
-Date: Mon, 10 May 2021 10:31:17 -0000
-Message-ID: <162064267735.9575.629472333443156583@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210509044330.4655-1-pauldzim@gmail.com>
-In-Reply-To: <20210509044330.4655-1-pauldzim@gmail.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBS?=
- =?utf-8?q?evert_=22drm/i915=3A_Try_to_use_fast+narrow_link_on_eDP_again_a?=
- =?utf-8?q?nd_fall_back_to_the_old_max_strategy_on_failure=22?=
+X-Mailman-Approved-At: Mon, 10 May 2021 10:31:52 +0000
+Subject: [Intel-gfx] [PATCH 44/53] docs: gpu: avoid using UTF-8 chars
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,38 +60,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ David Airlie <airlied@linux.ie>,
+ "James \(Qian\) Wang" <james.qian.wang@arm.com>,
+ Maxime Ripard <mripard@kernel.org>, Mali DP Maintainers <malidp@foss.arm.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: Revert "drm/i915: Try to use fast+narrow link on eDP again and fall back to the old max strategy on failure"
-URL   : https://patchwork.freedesktop.org/series/89941/
-State : failure
-
-== Summary ==
-
-Applying: Revert "drm/i915: Try to use fast+narrow link on eDP again and fall back to the old max strategy on failure"
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/display/intel_display_types.h
-M	drivers/gpu/drm/i915/display/intel_dp.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/display/intel_dp.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_dp.c
-Auto-merging drivers/gpu/drm/i915/display/intel_display_types.h
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 Revert "drm/i915: Try to use fast+narrow link on eDP again and fall back to the old max strategy on failure"
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+V2hpbGUgVVRGLTggY2hhcmFjdGVycyBjYW4gYmUgdXNlZCBhdCB0aGUgTGludXggZG9jdW1lbnRh
+dGlvbiwKdGhlIGJlc3QgaXMgdG8gdXNlIHRoZW0gb25seSB3aGVuIEFTQ0lJIGRvZXNuJ3Qgb2Zm
+ZXIgYSBnb29kIHJlcGxhY2VtZW50LgpTbywgcmVwbGFjZSB0aGUgb2NjdXJlbmNlcyBvZiB0aGUg
+Zm9sbG93aW5nIFVURi04IGNoYXJhY3RlcnM6CgoJLSBVKzIwMTkgKCfigJknKTogUklHSFQgU0lO
+R0xFIFFVT1RBVElPTiBNQVJLCgpTaWduZWQtb2ZmLWJ5OiBNYXVybyBDYXJ2YWxobyBDaGVoYWIg
+PG1jaGVoYWIraHVhd2VpQGtlcm5lbC5vcmc+Ci0tLQogRG9jdW1lbnRhdGlvbi9ncHUvaTkxNS5y
+c3QgICAgICAgfCAyICstCiBEb2N1bWVudGF0aW9uL2dwdS9rb21lZGEta21zLnJzdCB8IDIgKy0K
+IDIgZmlsZXMgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL0RvY3VtZW50YXRpb24vZ3B1L2k5MTUucnN0IGIvRG9jdW1lbnRhdGlvbi9ncHUvaTkx
+NS5yc3QKaW5kZXggNDg2YzcyMGYzODkwLi4yY2JmNTQ0NjBiNDggMTAwNjQ0Ci0tLSBhL0RvY3Vt
+ZW50YXRpb24vZ3B1L2k5MTUucnN0CisrKyBiL0RvY3VtZW50YXRpb24vZ3B1L2k5MTUucnN0CkBA
+IC0zNjEsNyArMzYxLDcgQEAgTG9ja2luZyBHdWlkZWxpbmVzCiAJICByZWFsIGJhZC4KIAogIy4g
+RG8gbm90IG5lc3QgZGlmZmVyZW50IGxydS9tZW1vcnkgbWFuYWdlciBsb2NrcyB3aXRoaW4gZWFj
+aCBvdGhlci4KLSAgIFRha2UgdGhlbSBpbiB0dXJuIHRvIHVwZGF0ZSBtZW1vcnkgYWxsb2NhdGlv
+bnMsIHJlbHlpbmcgb24gdGhlIG9iamVjdOKAmXMKKyAgIFRha2UgdGhlbSBpbiB0dXJuIHRvIHVw
+ZGF0ZSBtZW1vcnkgYWxsb2NhdGlvbnMsIHJlbHlpbmcgb24gdGhlIG9iamVjdCdzCiAgICBkbWFf
+cmVzdiB3d19tdXRleCB0byBzZXJpYWxpemUgYWdhaW5zdCBvdGhlciBvcGVyYXRpb25zLgogCiAj
+LiBUaGUgc3VnZ2VzdGlvbiBmb3IgbHJ1L21lbW9yeSBtYW5hZ2VycyBsb2NrcyBpcyB0aGF0IHRo
+ZXkgYXJlIHNtYWxsCmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2dwdS9rb21lZGEta21zLnJz
+dCBiL0RvY3VtZW50YXRpb24vZ3B1L2tvbWVkYS1rbXMucnN0CmluZGV4IGViNjkzYzg1N2UyZC4u
+YzIwNjc2NzhlOTJjIDEwMDY0NAotLS0gYS9Eb2N1bWVudGF0aW9uL2dwdS9rb21lZGEta21zLnJz
+dAorKysgYi9Eb2N1bWVudGF0aW9uL2dwdS9rb21lZGEta21zLnJzdApAQCAtMzI0LDcgKzMyNCw3
+IEBAIHRoZSBjb250cm9sLWFiaWxpdGVzIG9mIGRldmljZS4KIAogV2UgaGF2ZSAma29tZWRhX2Rl
+diwgJmtvbWVkYV9waXBlbGluZSwgJmtvbWVkYV9jb21wb25lbnQuIE5vdyBmaWxsIGRldmljZXMg
+d2l0aAogcGlwZWxpbmVzLiBTaW5jZSBrb21lZGEgaXMgbm90IGZvciBENzEgb25seSBidXQgYWxz
+byBpbnRlbmRlZCBmb3IgbGF0ZXIgcHJvZHVjdHMsCi1vZiBjb3Vyc2Ugd2XigJlkIGJldHRlciBz
+aGFyZSBhcyBtdWNoIGFzIHBvc3NpYmxlIGJldHdlZW4gZGlmZmVyZW50IHByb2R1Y3RzLiBUbwor
+b2YgY291cnNlIHdlJ2QgYmV0dGVyIHNoYXJlIGFzIG11Y2ggYXMgcG9zc2libGUgYmV0d2VlbiBk
+aWZmZXJlbnQgcHJvZHVjdHMuIFRvCiBhY2hpZXZlIHRoaXMsIHNwbGl0IHRoZSBrb21lZGEgZGV2
+aWNlIGludG8gdHdvIGxheWVyczogQ09SRSBhbmQgQ0hJUC4KIAogLSAgIENPUkU6IGZvciBjb21t
+b24gZmVhdHVyZXMgYW5kIGNhcGFiaWxpdGllcyBoYW5kbGluZy4KLS0gCjIuMzAuMgoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxp
+bmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
