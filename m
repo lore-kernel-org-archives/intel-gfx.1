@@ -2,50 +2,40 @@ Return-Path: <SRS0=kkqM=KG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA5B7C433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 08:32:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 62130C433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 08:34:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7CCE261184
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 08:32:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CCE261184
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E165461184
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 08:34:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E165461184
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76F166E9FB;
-	Tue, 11 May 2021 08:32:23 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B09CA6E9FB;
- Tue, 11 May 2021 08:32:22 +0000 (UTC)
-IronPort-SDR: zlzrQYh7lHgdYF7gpbHcWcEEs0P9PJfgQLDn/q4Cj/QmW5mAv+bnuDgSqe7Q+f6sB6L3BfSnYh
- xNnuLk3Tx1Yg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9980"; a="179651136"
-X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="179651136"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2021 01:32:21 -0700
-IronPort-SDR: w+iIbNQnjIB14dxuwNOmIJ33exvw/vVkF1kPPMYxqsy7e9n8/4APwne3krV9+DUzQ8qhKd7Tzo
- U2/8n4bc8wfw==
-X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="471058871"
-Received: from dartyukh-mobl2.ger.corp.intel.com (HELO
- zkempczy-mobl2.ger.corp.intel.com) ([10.213.3.239])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2021 01:32:00 -0700
-From: =?UTF-8?q?Zbigniew=20Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Tue, 11 May 2021 10:31:39 +0200
-Message-Id: <20210511083139.54002-1-zbigniew.kempczynski@intel.com>
-X-Mailer: git-send-email 2.26.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34BE36E9FC;
+	Tue, 11 May 2021 08:34:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2D8776E9FB;
+ Tue, 11 May 2021 08:34:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 26358A0169;
+ Tue, 11 May 2021 08:34:03 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915: Add relocation exceptions for two
- other platforms
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Zhenyu Wang" <zhenyuw@linux.intel.com>
+Date: Tue, 11 May 2021 08:34:03 -0000
+Message-ID: <162072204315.32034.10392081863599332429@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210511083332.1740601-1-zhenyuw@linux.intel.com>
+In-Reply-To: <20210511083332.1740601-1-zhenyuw@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBG?=
+ =?utf-8?q?ix_I915=5FGVT_dependency?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,39 +48,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-V2UgaGF2ZSBlc3RhYmxpc2hlZCBwcmV2aW91c2x5IHdlIHN0b3AgdXNpbmcgcmVsb2NhdGlvbnMg
-c3RhcnRpbmcKZnJvbSBnZW4xMiBwbGF0Zm9ybXMgd2l0aCBUaWdlcmxha2UgYXMgYW4gZXhjZXB0
-aW9uLiBVbmZvcnR1bmF0ZWx5CndlIG5lZWQgZXh0ZW5kIHRyYW5zaXRpb24gcGVyaW9kIGFuZCBz
-dXBwb3J0IHJlbG9jYXRpb25zIGZvciB0d28Kb3RoZXIgaWdmeCBwbGF0Zm9ybXMgLSBSb2NrZXRs
-YWtlIGFuZCBBbGRlcmxha2UuCgpTaWduZWQtb2ZmLWJ5OiBaYmlnbmlldyBLZW1wY3p5xYRza2kg
-PHpiaWduaWV3LmtlbXBjenluc2tpQGludGVsLmNvbT4KQ2M6IERhdmUgQWlybGllIDxhaXJsaWVk
-QHJlZGhhdC5jb20+CkNjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNvbT4K
-Q2M6IEphc29uIEVrc3RyYW5kIDxqYXNvbkBqbGVrc3RyYW5kLm5ldD4KLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5jIHwgMTAgKysrKysrKy0tLQogMSBm
-aWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2V4ZWNidWZmZXIuYwppbmRleCAyOTcxNDM1MTFm
-OTkuLmY4MGRhMWQ2ZDliMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5
-MTVfZ2VtX2V4ZWNidWZmZXIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9n
-ZW1fZXhlY2J1ZmZlci5jCkBAIC00OTYsMTEgKzQ5NiwxNSBAQCBlYl92YWxpZGF0ZV92bWEoc3Ry
-dWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsCiAJCXN0cnVjdCBkcm1faTkxNV9nZW1fZXhlY19vYmpl
-Y3QyICplbnRyeSwKIAkJc3RydWN0IGk5MTVfdm1hICp2bWEpCiB7Ci0JLyogUmVsb2NhdGlvbnMg
-YXJlIGRpc2FsbG93ZWQgZm9yIGFsbCBwbGF0Zm9ybXMgYWZ0ZXIgVEdMLUxQLiAgVGhpcwotCSAq
-IGFsc28gY292ZXJzIGFsbCBwbGF0Zm9ybXMgd2l0aCBsb2NhbCBtZW1vcnkuCisJLyoKKwkgKiBS
-ZWxvY2F0aW9ucyBhcmUgZGlzYWxsb3dlZCBzdGFydGluZyBmcm9tIGdlbjEyIHdpdGggc29tZSBl
-eGNlcHRpb25zCisJICogLSBUR0wvUktML0FETC4KIAkgKi8KIAlpZiAoZW50cnktPnJlbG9jYXRp
-b25fY291bnQgJiYKLQkgICAgSU5URUxfR0VOKGViLT5pOTE1KSA+PSAxMiAmJiAhSVNfVElHRVJM
-QUtFKGViLT5pOTE1KSkKKwkgICAgSU5URUxfR0VOKGViLT5pOTE1KSA+PSAxMiAmJiAhKElTX1RJ
-R0VSTEFLRShlYi0+aTkxNSkgfHwKKwkJCQkJICAgSVNfUk9DS0VUTEFLRShlYi0+aTkxNSkgfHwK
-KwkJCQkJICAgSVNfQUxERVJMQUtFX1MoZWItPmk5MTUpIHx8CisJCQkJCSAgIElTX0FMREVSTEFL
-RV9QKGViLT5pOTE1KSkpCiAJCXJldHVybiAtRUlOVkFMOwogCiAJaWYgKHVubGlrZWx5KGVudHJ5
-LT5mbGFncyAmIGViLT5pbnZhbGlkX2ZsYWdzKSkKLS0gCjIuMjYuMAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJ
-bnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+== Series Details ==
+
+Series: Fix I915_GVT dependency
+URL   : https://patchwork.freedesktop.org/series/89996/
+State : failure
+
+== Summary ==
+
+Applying: drm/i915/gvt: Move mdev attribute groups into kvmgt module
+error: sha1 information is lacking or useless (drivers/gpu/drm/i915/gvt/gvt.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/i915/gvt: Move mdev attribute groups into kvmgt module
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
