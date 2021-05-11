@@ -2,53 +2,75 @@ Return-Path: <SRS0=kkqM=KG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F82DC433ED
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 16:38:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31C53C433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 16:42:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 32BCA613BE
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 16:38:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32BCA613BE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A13C261182
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 16:42:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A13C261182
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF9596EA7B;
-	Tue, 11 May 2021 16:38:42 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3135A6EA77;
- Tue, 11 May 2021 16:38:41 +0000 (UTC)
-IronPort-SDR: /XEDCa+wo9sC5QDkoJjNbS9Q8T++13T5+ypvIh2tHWVWgB226C2ezBS037Ho4URROsGFKK7I+X
- /W6CM0uW4GGQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9981"; a="220450286"
-X-IronPort-AV: E=Sophos;i="5.82,291,1613462400"; d="scan'208";a="220450286"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2021 09:38:36 -0700
-IronPort-SDR: wel69u0HPrBWaxWOfvDLKn8R7TiRyS44Jo5PG3rY89Nve2xeLL8iGGsbEIbTSnAdvKVAQwKwRL
- P+v06AGhPvGA==
-X-IronPort-AV: E=Sophos;i="5.82,291,1613462400"; d="scan'208";a="392365181"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2021 09:38:36 -0700
-Date: Tue, 11 May 2021 09:31:17 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <20210511163116.GA28103@sdutt-i7>
-References: <20210506191451.77768-1-matthew.brost@intel.com>
- <20210506191451.77768-50-matthew.brost@intel.com>
- <YJqk0pcx4JruoyXz@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7553F6E5B2;
+	Tue, 11 May 2021 16:42:41 +0000 (UTC)
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6386EA7B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 May 2021 16:42:40 +0000 (UTC)
+Received: by mail-pj1-x102a.google.com with SMTP id
+ bo23-20020a17090b0917b029015cb1f2fd59so93929pjb.2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 May 2021 09:42:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=I574vs+oxpmw2RaQkdeqT3TmVa8C0vE6HCQzgLmVaEk=;
+ b=EO4zcKQD13cnMpJi5k5sqZg36m/uhjFrv+x7tUEK/JnHkDgZTOULzljGCah93D1FN5
+ SwmaT+lt9As201TL9V65C0BiJShCnGyDe8UgjgY5Jm1YBpkuQxrN8+e9OJjS8RpeP4ih
+ 4tasAkIoShr42ndvrMVih2QtviIwqYbb0WQHQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=I574vs+oxpmw2RaQkdeqT3TmVa8C0vE6HCQzgLmVaEk=;
+ b=R9F3ZgQGNLiiAM3CBF6l0KxudL485lcJw5g9nTewSilhmPbyzA97Q6lXF0eTXiU4Hi
+ D9rupF9OJWp4He2uS+FmfPAueyZeBSTyzjYOXu6E3kbfcplDhPyAQmqKv8Xd1/MdWHfX
+ QutojBUl3hjilVoCi/w8kg7q91hoiNHRaLhRjB2kWFWaTFZhZWEet1ElvnOqR57o8J+S
+ 0+7pW4sW8PpxeLaE4XfxFMfQFgovPCFgnmyooagSsblgLf9C6W20B3Ov7qmr8BAbDs7a
+ ozemi3C65uMBdofPb3dKc/VLLLglHcpbAPcH7NvG/IPjcp5V7mP0kyCnChw0NOWOCjkd
+ NudA==
+X-Gm-Message-State: AOAM5304ywORK7AHkxc56SHpaOvri1qqwXYluUlVmptczVwVY+goZpaV
+ Hzd6QPeR1BJwAgoaWRD+c3UMzd1D18bjeg==
+X-Google-Smtp-Source: ABdhPJyxYtDJ2sz2EfakASbiQOvJK2M3lRRmEo9BoPYrTeJBuuUAvCGTTw++wc6PD0fI1078idMAcQ==
+X-Received: by 2002:a17:90a:7306:: with SMTP id
+ m6mr6045854pjk.217.1620751359718; 
+ Tue, 11 May 2021 09:42:39 -0700 (PDT)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com.
+ [209.85.210.172])
+ by smtp.gmail.com with ESMTPSA id g1sm13714415pgi.64.2021.05.11.09.42.38
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 May 2021 09:42:39 -0700 (PDT)
+Received: by mail-pf1-f172.google.com with SMTP id b21so9386508pft.10
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 May 2021 09:42:38 -0700 (PDT)
+X-Received: by 2002:a92:6804:: with SMTP id d4mr27241366ilc.5.1620751346868;
+ Tue, 11 May 2021 09:42:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YJqk0pcx4JruoyXz@phenom.ffwll.local>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [RFC PATCH 49/97] drm/i915/guc: Disable engine
- barriers with GuC during unpin
+References: <20210510095026.3477496-1-tientzu@chromium.org>
+ <20210510095026.3477496-9-tientzu@chromium.org>
+ <20210510150516.GE28066@lst.de>
+In-Reply-To: <20210510150516.GE28066@lst.de>
+From: Claire Chang <tientzu@chromium.org>
+Date: Wed, 12 May 2021 00:42:15 +0800
+X-Gmail-Original-Message-ID: <CALiNf2-x8Gw0TPLdeRnfPmUTeuK9dsLbDXN4hPnc08y21uuUXQ@mail.gmail.com>
+Message-ID: <CALiNf2-x8Gw0TPLdeRnfPmUTeuK9dsLbDXN4hPnc08y21uuUXQ@mail.gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [Intel-gfx] [PATCH v6 08/15] swiotlb: Bounce data from/to
+ restricted DMA pool if available
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,126 +83,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jason.ekstrand@intel.com, daniel.vetter@intel.com
+Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
+ peterz@infradead.org, benh@kernel.crashing.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
+ mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
+ sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
+ mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
+ Jianxiong Gao <jxgao@google.com>, Will Deacon <will@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
+ Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
+ Rob Herring <robh+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ boris.ostrovsky@oracle.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
+ Nicolas Boichat <drinkcat@chromium.org>, nouveau@lists.freedesktop.org,
+ Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ lkml <linux-kernel@vger.kernel.org>, Tomasz Figa <tfiga@chromium.org>,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
+ Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 11, 2021 at 05:37:54PM +0200, Daniel Vetter wrote:
-> On Thu, May 06, 2021 at 12:14:03PM -0700, Matthew Brost wrote:
-> > Disable engine barriers for unpinning with GuC. This feature isn't
-> > needed with the GuC as it disables context scheduling before unpinning
-> > which guarantees the HW will not reference the context. Hence it is
-> > not necessary to defer unpinning until a kernel context request
-> > completes on each engine in the context engine mask.
-> > 
-> > Cc: John Harrison <john.c.harrison@intel.com>
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> 
-> Instead of these ifs in the code, can we push this barrier business down
-> into backends?
-> 
-
-Not a bad idea. This is an example of what I think of implict behavior of the
-backend creeping into the higher levels.
-
-> Not in this series, but as one of the things to sort out as part of the
-> conversion to drm/scheduler.
-
-Agree. After basic GuC submission gets merged maybe we go through the code and
-remove all the implict backend assumptions.
-
-Matt
-
-> -Daniel
-> 
-> > ---
-> >  drivers/gpu/drm/i915/gt/intel_context.c    |  2 +-
-> >  drivers/gpu/drm/i915/gt/intel_context.h    |  1 +
-> >  drivers/gpu/drm/i915/gt/selftest_context.c | 10 ++++++++++
-> >  drivers/gpu/drm/i915/i915_active.c         |  3 +++
-> >  4 files changed, 15 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-> > index 1499b8aace2a..7f97753ab164 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_context.c
-> > +++ b/drivers/gpu/drm/i915/gt/intel_context.c
-> > @@ -80,7 +80,7 @@ static int intel_context_active_acquire(struct intel_context *ce)
-> >  
-> >  	__i915_active_acquire(&ce->active);
-> >  
-> > -	if (intel_context_is_barrier(ce))
-> > +	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine))
-> >  		return 0;
-> >  
-> >  	/* Preallocate tracking nodes */
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
-> > index 92ecbab8c1cd..9b211ca5ecc7 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_context.h
-> > +++ b/drivers/gpu/drm/i915/gt/intel_context.h
-> > @@ -16,6 +16,7 @@
-> >  #include "intel_engine_types.h"
-> >  #include "intel_ring_types.h"
-> >  #include "intel_timeline_types.h"
-> > +#include "uc/intel_guc_submission.h"
-> >  
-> >  #define CE_TRACE(ce, fmt, ...) do {					\
-> >  	const struct intel_context *ce__ = (ce);			\
-> > diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c b/drivers/gpu/drm/i915/gt/selftest_context.c
-> > index 26685b927169..fa7b99a671dd 100644
-> > --- a/drivers/gpu/drm/i915/gt/selftest_context.c
-> > +++ b/drivers/gpu/drm/i915/gt/selftest_context.c
-> > @@ -209,7 +209,13 @@ static int __live_active_context(struct intel_engine_cs *engine)
-> >  	 * This test makes sure that the context is kept alive until a
-> >  	 * subsequent idle-barrier (emitted when the engine wakeref hits 0
-> >  	 * with no more outstanding requests).
-> > +	 *
-> > +	 * In GuC submission mode we don't use idle barriers and we instead
-> > +	 * get a message from the GuC to signal that it is safe to unpin the
-> > +	 * context from memory.
-> >  	 */
-> > +	if (intel_engine_uses_guc(engine))
-> > +		return 0;
-> >  
-> >  	if (intel_engine_pm_is_awake(engine)) {
-> >  		pr_err("%s is awake before starting %s!\n",
-> > @@ -357,7 +363,11 @@ static int __live_remote_context(struct intel_engine_cs *engine)
-> >  	 * on the context image remotely (intel_context_prepare_remote_request),
-> >  	 * which inserts foreign fences into intel_context.active, does not
-> >  	 * clobber the idle-barrier.
-> > +	 *
-> > +	 * In GuC submission mode we don't use idle barriers.
-> >  	 */
-> > +	if (intel_engine_uses_guc(engine))
-> > +		return 0;
-> >  
-> >  	if (intel_engine_pm_is_awake(engine)) {
-> >  		pr_err("%s is awake before starting %s!\n",
-> > diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-> > index b1aa1c482c32..9a264898bb91 100644
-> > --- a/drivers/gpu/drm/i915/i915_active.c
-> > +++ b/drivers/gpu/drm/i915/i915_active.c
-> > @@ -968,6 +968,9 @@ void i915_active_acquire_barrier(struct i915_active *ref)
-> >  
-> >  	GEM_BUG_ON(i915_active_is_idle(ref));
-> >  
-> > +	if (llist_empty(&ref->preallocated_barriers))
-> > +		return;
+On Mon, May 10, 2021 at 11:05 PM Christoph Hellwig <hch@lst.de> wrote:
+>
+> > +static inline bool is_dev_swiotlb_force(struct device *dev)
+> > +{
+> > +#ifdef CONFIG_DMA_RESTRICTED_POOL
+> > +     if (dev->dma_io_tlb_mem)
+> > +             return true;
+> > +#endif /* CONFIG_DMA_RESTRICTED_POOL */
+> > +     return false;
+> > +}
 > > +
-> >  	/*
-> >  	 * Transfer the list of preallocated barriers into the
-> >  	 * i915_active rbtree, but only as proto-nodes. They will be
-> > -- 
-> > 2.28.0
-> > 
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+>
+> >       /* If SWIOTLB is active, use its maximum mapping size */
+> >       if (is_swiotlb_active(dev) &&
+> > -         (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE))
+> > +         (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE ||
+> > +          is_dev_swiotlb_force(dev)))
+>
+> This is a mess.  I think the right way is to have an always_bounce flag
+> in the io_tlb_mem structure instead.  Then the global swiotlb_force can
+> go away and be replace with this and the fact that having no
+> io_tlb_mem structure at all means forced no buffering (after a little
+> refactoring).
+
+Will do in the next version.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
