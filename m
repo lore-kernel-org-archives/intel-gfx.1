@@ -2,80 +2,50 @@ Return-Path: <SRS0=kkqM=KG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D76CBC433ED
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 12:10:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D74ACC433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 12:18:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 837D56190A
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 12:10:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 837D56190A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7769861480
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 May 2021 12:18:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7769861480
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AFD66EA34;
-	Tue, 11 May 2021 12:10:03 +0000 (UTC)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C62336E170;
- Mon, 10 May 2021 14:33:50 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id m9so16893776wrx.3;
- Mon, 10 May 2021 07:33:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=iXsxoOt9fS3DXvxCyyFOaJfbPkU6WlTqA1MG4BgEpJA=;
- b=jIc4OS4UG1e9Htue39hs2SdJXCmPLn+MTostxG/pw06sXYt4cF0beJY8cOPd4XkNvN
- wMkWqq4rS4nqVWqmlHYwknDCThc4F5oj3a10x6AGXMwZ0Kkxjgx6mU53ky5S6gct5IOF
- gb8YE/CdqFeQhJSfkuXg75IoXDsEW/QKbfnCDm8DSyF/6zHxA2in236S9Jv233h02Cag
- nY/zUkluYzDhxrfM75C6Qnf/beBRBG9DBN2uslTW/jB8AmOrnU4strwuRTlIYCmTiED9
- Adakd2gy/AYmhY6PfiGery2Nb+BVYLJb2xN6RqR96XQSpLkoAkrrTIc1zJH3tzspThUx
- eDlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=iXsxoOt9fS3DXvxCyyFOaJfbPkU6WlTqA1MG4BgEpJA=;
- b=XtM2UORAwkRxZTuOFrtbMhcsYCVOl6DUl9j1/CkGWcFsS8NPe379sXOwylqsWN+4QD
- bZdNykSYa0Zz1zATeheIE8L+INPP5kX+ZMQnazetixD6z5EY2dB5yHeDfjJCxVrMzUuS
- Wo1DJPPzRtYGp58D9jWhEdIM/tyyi6rXKz6ysibXYAhYQAOUAhPI6SU7ZY0D71XPd7Ly
- kfQP0nPl7VyTJMuIxMnagm+xG8sM75nEEKEaakKjL3rClF8f41+PGzW+A9jkmglFrWeW
- eXUowyhD3PqWDlCIY8eL7C3AguS5fQX5dVX3ecPiiEvcgDqeUiag8R2tmNFfc/OBUxYn
- UV/g==
-X-Gm-Message-State: AOAM5319qBfZzZSI13QHngM8sG15Si2AJW1eErtbL5plKqGRRfBtX+LI
- /P4LVLyjeBWHJsWmxszWsnsMx+uUZs/fjQ==
-X-Google-Smtp-Source: ABdhPJze1q8t3iuv5DjzOv0RveTjqSpEwnprh+IG3St78u9eWCZrU93KSEZYLbobgkyZLBZ/m0bYBQ==
-X-Received: by 2002:adf:e98c:: with SMTP id h12mr30469476wrm.314.1620657229579; 
- Mon, 10 May 2021 07:33:49 -0700 (PDT)
-Received: from [192.168.1.122]
- (cpc159425-cmbg20-2-0-cust403.5-4.cable.virginm.net. [86.7.189.148])
- by smtp.gmail.com with ESMTPSA id h9sm20117820wmb.35.2021.05.10.07.33.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 May 2021 07:33:48 -0700 (PDT)
-To: Matthew Wilcox <willy@infradead.org>
-References: <cover.1620641727.git.mchehab+huawei@kernel.org>
- <2ae366fdff4bd5910a2270823e8da70521c859af.camel@infradead.org>
- <20210510135518.305cc03d@coco.lan>
- <df6b4567-030c-a480-c5a6-fe579830e8c0@gmail.com>
- <YJk8LMFViV7Z3Uu7@casper.infradead.org>
-From: Edward Cree <ecree.xilinx@gmail.com>
-Message-ID: <ed65025c-1087-9672-7451-6d28e7ab8f92@gmail.com>
-Date: Mon, 10 May 2021 15:33:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2DD56EA24;
+	Tue, 11 May 2021 12:18:01 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46DF36EA24
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 May 2021 12:18:00 +0000 (UTC)
+IronPort-SDR: S8F6Kd/xg2zAiEYUf/eBRS7JYt6iIWE/sFiyVsgYmwc4483XlEOkwSugdKmkEpgTkvUZTIlPzs
+ be91Fy31SR0Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9980"; a="186560025"
+X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="186560025"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2021 05:17:58 -0700
+IronPort-SDR: ParfDox14Pq8M2ZrwBntxkT/4pPYEfKIic8ZfK7eDlPRyG/A/hDcv1/CIPTxjS3+0vlC0eQyaz
+ 7wJXCWMLNLxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,290,1613462400"; d="scan'208";a="468882592"
+Received: from linux-akn.iind.intel.com ([10.223.34.148])
+ by fmsmga002.fm.intel.com with ESMTP; 11 May 2021 05:17:57 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 11 May 2021 17:39:30 +0530
+Message-Id: <20210511120930.12218-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210505073235.27934-1-ankit.k.nautiyal@intel.com>
+References: <20210505073235.27934-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <YJk8LMFViV7Z3Uu7@casper.infradead.org>
-Content-Language: en-GB
-X-Mailman-Approved-At: Tue, 11 May 2021 12:09:59 +0000
-Subject: Re: [Intel-gfx] [PATCH 00/53] Get rid of UTF-8 chars that can be
- mapped as ASCII
+Subject: [Intel-gfx] [PATCH v3] drm/i915: Use correct downstream caps for
+ check Src-Ctl mode for PCON
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,57 +58,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-fpga@vger.kernel.org,
- dri-devel@lists.freedesktop.org, keyrings@vger.kernel.org,
- linux-riscv@lists.infradead.org, Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
- linux-acpi@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-input@vger.kernel.org, linux-ext4@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-sgx@vger.kernel.org,
- coresight@lists.linaro.org, rcu@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-rdma@vger.kernel.org, linux-integrity@vger.kernel.org,
- David Woodhouse <dwmw2@infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 10/05/2021 14:59, Matthew Wilcox wrote:
-> Most of these
-> UTF-8 characters come from latex conversions and really aren't
-> necessary (and are being used incorrectly).
-I fully agree with fixing those.
-The cover-letter, however, gave the impression that that was not the
- main purpose of this series; just, perhaps, a happy side-effect.
+Fix the typo in DPCD caps used for checking SRC CTL mode of
+HDMI2.1 PCON
 
-> You seem quite knowedgeable about the various differences.  Perhaps
-> you'd be willing to write a document for Documentation/doc-guide/
-> that provides guidance for when to use which kinds of horizontal
-> line?I have Opinions about the proper usage of punctuation, but I also know
- that other people have differing opinions.  For instance, I place
- spaces around an em dash, which is nonstandard according to most
- style guides.  Really this is an individual enough thing that I'm not
- sure we could have a "kernel style guide" that would be more useful
- than general-purpose guidance like the page you linked.
-Moreover, such a guide could make non-native speakers needlessly self-
- conscious about their writing and discourage them from contributing
- documentation at all.  I'm not advocating here for trying to push
- kernel developers towards an eats-shoots-and-leaves level of
- linguistic pedantry; rather, I merely think that existing correct
- usages should be left intact (and therefore, excising incorrect usage
- should only be attempted by someone with both the expertise and time
- to check each case).
+v2: Corrected Fixes tag (Jani Nikula).
+v3: Rebased.
 
-But if you really want such a doc I wouldn't mind contributing to it.
+Fixes: 04b6603d13be ("drm/i915/display: Configure HDMI2.1 Pcon for FRL only if Src-Ctl mode is available")
 
--ed
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: "Ville Syrj_l_" <ville.syrjala@linux.intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Sean Paul <seanpaul@chromium.org>
+
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 9a8dfdf15530..072d3edf9197 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2113,7 +2113,7 @@ void intel_dp_check_frl_training(struct intel_dp *intel_dp)
+ 	 * -PCON supports SRC_CTL_MODE (VESA DP2.0-HDMI2.1 PCON Spec Draft-1 Sec-7)
+ 	 * -sink is HDMI2.1
+ 	 */
+-	if (!(intel_dp->dpcd[2] & DP_PCON_SOURCE_CTL_MODE) ||
++	if (!(intel_dp->downstream_ports[2] & DP_PCON_SOURCE_CTL_MODE) ||
+ 	    !intel_dp_is_hdmi_2_1_sink(intel_dp) ||
+ 	    intel_dp->frl.is_trained)
+ 		return;
+-- 
+2.29.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
