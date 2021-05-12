@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6395EC433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 04:22:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A36FC433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 04:22:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05BFF611BD
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 04:22:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05BFF611BD
+	by mail.kernel.org (Postfix) with ESMTPS id E38A8600D4
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 04:22:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E38A8600D4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB1216EB48;
-	Wed, 12 May 2021 04:22:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2446A6EB49;
+	Wed, 12 May 2021 04:22:01 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE666E040
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41E106E02D
  for <intel-gfx@lists.freedesktop.org>; Wed, 12 May 2021 04:21:54 +0000 (UTC)
-IronPort-SDR: KMuzw7aDWZMfMifsE+iPP84+xiNcGo8akq2wiop6g2ObXyjQ1RJF4yeolCYQzqiIsuX3lcQjaW
- FY+PnZfI7Y7A==
-X-IronPort-AV: E=McAfee;i="6200,9189,9981"; a="260869174"
-X-IronPort-AV: E=Sophos;i="5.82,292,1613462400"; d="scan'208";a="260869174"
+IronPort-SDR: qqf2LmaAbNrEokqz+ODLvxWnfOp16PHdcQZMqpwqyz8voSAEodckFUB4mrg+DwP2v7XsbDniPm
+ 5BrXSIDFbjww==
+X-IronPort-AV: E=McAfee;i="6200,9189,9981"; a="260869172"
+X-IronPort-AV: E=Sophos;i="5.82,292,1613462400"; d="scan'208";a="260869172"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2021 21:21:53 -0700
-IronPort-SDR: webN9rWDHmzgsT9B0UGA2aYoMf6mnxtuwp+WDhjjFwnplYHyWfL4Xm4PqvtjaoinnU8CdHIvr1
- ZVwJbgfujnYQ==
-X-IronPort-AV: E=Sophos;i="5.82,292,1613462400"; d="scan'208";a="409096207"
+ 11 May 2021 21:21:52 -0700
+IronPort-SDR: aoeTXkn1RnqglZsp2L8u4u3ssg7uInjIjKQB9Y8Q7/pHHeR6fRQXcBWSpPh3tu/uub47kVhgp9
+ XWSPbW/VE47w==
+X-IronPort-AV: E=Sophos;i="5.82,292,1613462400"; d="scan'208";a="409096201"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2021 21:21:53 -0700
+ 11 May 2021 21:21:52 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 11 May 2021 21:21:44 -0700
-Message-Id: <20210512042144.2089071-8-matthew.d.roper@intel.com>
+Date: Tue, 11 May 2021 21:21:42 -0700
+Message-Id: <20210512042144.2089071-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210512042144.2089071-1-matthew.d.roper@intel.com>
 References: <20210512042144.2089071-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 7/7] drm/i915/perf: Enable OA formats for ADL_P
+Subject: [Intel-gfx] [CI 5/7] drm/i915/xelpd: Add Wa_14011503030
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,40 +57,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-
-Enable relevant OA formats for ADL_P.
-
-Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
----
- drivers/gpu/drm/i915/i915_perf.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 85ad62dbabfa..de8ebc34af0f 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -4318,6 +4318,7 @@ static void oa_init_supported_formats(struct i915_perf *perf)
- 	case INTEL_ROCKETLAKE:
- 	case INTEL_DG1:
- 	case INTEL_ALDERLAKE_S:
-+	case INTEL_ALDERLAKE_P:
- 		oa_format_add(perf, I915_OA_FORMAT_A12);
- 		oa_format_add(perf, I915_OA_FORMAT_A12_B8_C8);
- 		oa_format_add(perf, I915_OA_FORMAT_A32u40_A4u32_B8_C8);
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Q2M6IEFkaXR5YSBTd2FydXAgPGFkaXR5YS5zd2FydXBAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5
+OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwuY29tPgpSZXZpZXdlZC1ieTogSm9z
+w6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bvd2VyLmMgfCA0ICsrKysKIGRyaXZl
+cnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmggICAgICAgICAgICAgICAgICAgIHwgMiArKwogMiBm
+aWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfcG93ZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5jCmluZGV4IGVjNTU2MTY4MTFhMi4uNTRj
+NmQ2NTAxMWVlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2Rpc3BsYXlfcG93ZXIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2Rpc3BsYXlfcG93ZXIuYwpAQCAtNTg3Miw2ICs1ODcyLDEwIEBAIHN0YXRpYyB2b2lkIGljbF9k
+aXNwbGF5X2NvcmVfaW5pdChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCiAJCSAg
+ICAgIERDUFJfTUFTS19MUE1PREUgfCBEQ1BSX01BU0tfTUFYTEFURU5DWV9NRU1VUF9DTFI7CiAJ
+CWludGVsX3VuY29yZV9ybXcoJmRldl9wcml2LT51bmNvcmUsIEdFTjExX0NISUNLRU5fRENQUl8y
+LCAwLCB2YWwpOwogCX0KKworCS8qIFdhXzE0MDExNTAzMDMwOnhlbHBkICovCisJaWYgKERJU1BM
+QVlfVkVSKGRldl9wcml2KSA+PSAxMykKKwkJaW50ZWxfZGVfd3JpdGUoZGV2X3ByaXYsIFhFTFBE
+X0RJU1BMQVlfRVJSX0ZBVEFMX01BU0ssIH4wKTsKIH0KIAogc3RhdGljIHZvaWQgaWNsX2Rpc3Bs
+YXlfY29yZV91bmluaXQoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KQpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaCBiL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2k5MTVfcmVnLmgKaW5kZXggOThkZWEyNjc3MDY4Li44NzFkODM5ZGZjYjggMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmgKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvaTkxNV9yZWcuaApAQCAtNzc5MSw2ICs3NzkxLDggQEAgZW51bSB7CiAjZGVmaW5lICBH
+RU44X0dUX0JDU19JUlEJCSgxIDw8IDEpCiAjZGVmaW5lICBHRU44X0dUX1JDU19JUlEJCSgxIDw8
+IDApCiAKKyNkZWZpbmUgWEVMUERfRElTUExBWV9FUlJfRkFUQUxfTUFTSwlfTU1JTygweDQ0MjFj
+KQorCiAjZGVmaW5lIEdFTjhfR1RfSVNSKHdoaWNoKSBfTU1JTygweDQ0MzAwICsgKDB4MTAgKiAo
+d2hpY2gpKSkKICNkZWZpbmUgR0VOOF9HVF9JTVIod2hpY2gpIF9NTUlPKDB4NDQzMDQgKyAoMHgx
+MCAqICh3aGljaCkpKQogI2RlZmluZSBHRU44X0dUX0lJUih3aGljaCkgX01NSU8oMHg0NDMwOCAr
+ICgweDEwICogKHdoaWNoKSkpCi0tIAoyLjI1LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2ludGVsLWdmeAo=
