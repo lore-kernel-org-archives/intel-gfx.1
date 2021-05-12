@@ -2,52 +2,53 @@ Return-Path: <SRS0=b0kO=KH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CBDD4C433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:31:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B89CC433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:38:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 43F35613CA
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:31:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 43F35613CA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8C01061396
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 13:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C01061396
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B38E76EBFD;
-	Wed, 12 May 2021 13:31:42 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79A0C6EBFB
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 May 2021 13:31:41 +0000 (UTC)
-IronPort-SDR: dmNFNr2/d+23Th9XO72/Gg20cNeBRjy9Naql9Tvyj2CbPgN5fkKTsN9qfFVx5AwLi2HU8DWIdv
- /yVTHB2BvGLQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9981"; a="196609445"
-X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="196609445"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2021 06:31:05 -0700
-IronPort-SDR: auYaQuumImTvhB8LNnGNZLnPcNPGb6hWJKg2gMD0Ecar9eQ1VkB/a42wbJXRQLMNBUFRwbJZPW
- jruGwdgEyv9A==
-X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="430745575"
+	by gabe.freedesktop.org (Postfix) with ESMTP id C251A6E07B;
+	Wed, 12 May 2021 13:38:21 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EE206E07B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 May 2021 13:38:20 +0000 (UTC)
+IronPort-SDR: DI3s7I/6IfR88kbIouS+IWH/RURz0I5WRm27lTh8YJCk7DpFxWcDVwGHG0qZEYgzkYUbilKG3g
+ QCz4pYB2fFaw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9981"; a="179298399"
+X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="179298399"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2021 06:38:20 -0700
+IronPort-SDR: kR9yAseMbMGHGsb6GnHe6Ba4YYoaVujSwPawX9XSa7HzFQdzPcD6ujTV8vaZqkyKMbaA50u7ja
+ TKIvgBGQgWJw==
+X-IronPort-AV: E=Sophos;i="5.82,293,1613462400"; d="scan'208";a="622478820"
 Received: from olovaszi-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.33.202])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2021 06:31:03 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 May 2021 16:30:45 +0300
-Message-Id: <e2a46a93f37580b4e8243f6563c4533eaeceae32.1620825897.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <cover.1620825897.git.jani.nikula@intel.com>
-References: <cover.1620825897.git.jani.nikula@intel.com>
-MIME-Version: 1.0
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2021 06:38:18 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Anusha Srivatsa <anusha.srivatsa@intel.com>,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210511231757.14873-6-anusha.srivatsa@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915/backlight: mass rename functions
- to have intel_backlight_ prefix
+References: <20210511231757.14873-1-anusha.srivatsa@intel.com>
+ <20210511231757.14873-6-anusha.srivatsa@intel.com>
+Date: Wed, 12 May 2021 16:38:15 +0300
+Message-ID: <87tun8t6m0.fsf@intel.com>
+MIME-Version: 1.0
+Subject: Re: [Intel-gfx] [PATCH 5/5] drm/i915/dmc: s/intel_csr.c/intel_dmc.c
+ and s/intel_csr.h/intel_dmc.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,707 +61,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Follow the usual naming conventions. As a drive-by cleanup, also pass
-intel_connector instead of drm_connector to intel_backlight_setup(). No
-functional changes.
-
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/g4x_dp.c         |  2 +-
- drivers/gpu/drm/i915/display/icl_dsi.c        |  8 +-
- .../gpu/drm/i915/display/intel_backlight.c    | 94 +++++++++----------
- .../gpu/drm/i915/display/intel_backlight.h    | 37 ++++----
- drivers/gpu/drm/i915/display/intel_ddi.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  6 +-
- .../drm/i915/display/intel_dp_aux_backlight.c | 10 +-
- drivers/gpu/drm/i915/display/intel_lvds.c     | 10 +-
- drivers/gpu/drm/i915/display/intel_opregion.c |  2 +-
- drivers/gpu/drm/i915/display/intel_panel.c    |  4 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c        |  8 +-
- 11 files changed, 91 insertions(+), 92 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
-index 29c0eca647e3..9577f6843f79 100644
---- a/drivers/gpu/drm/i915/display/g4x_dp.c
-+++ b/drivers/gpu/drm/i915/display/g4x_dp.c
-@@ -1334,7 +1334,7 @@ bool g4x_dp_init(struct drm_i915_private *dev_priv,
- 	intel_encoder->get_config = intel_dp_get_config;
- 	intel_encoder->sync_state = intel_dp_sync_state;
- 	intel_encoder->initial_fastset_check = intel_dp_initial_fastset_check;
--	intel_encoder->update_pipe = intel_panel_update_backlight;
-+	intel_encoder->update_pipe = intel_backlight_update;
- 	intel_encoder->suspend = intel_dp_encoder_suspend;
- 	intel_encoder->shutdown = intel_dp_encoder_shutdown;
- 	if (IS_CHERRYVIEW(dev_priv)) {
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 586f292a883a..da1b00859f3b 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1250,7 +1250,7 @@ static void gen11_dsi_enable(struct intel_atomic_state *state,
- 	gen11_dsi_enable_transcoder(encoder);
- 
- 	/* step7: enable backlight */
--	intel_panel_enable_backlight(crtc_state, conn_state);
-+	intel_backlight_enable(crtc_state, conn_state);
- 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_BACKLIGHT_ON);
- 
- 	intel_crtc_vblank_on(crtc_state);
-@@ -1402,7 +1402,7 @@ static void gen11_dsi_disable(struct intel_atomic_state *state,
- 
- 	/* step1: turn off backlight */
- 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_BACKLIGHT_OFF);
--	intel_panel_disable_backlight(old_conn_state);
-+	intel_backlight_disable(old_conn_state);
- 
- 	/* step2d,e: disable transcoder and wait */
- 	gen11_dsi_disable_transcoder(encoder);
-@@ -1950,7 +1950,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 	encoder->post_disable = gen11_dsi_post_disable;
- 	encoder->port = port;
- 	encoder->get_config = gen11_dsi_get_config;
--	encoder->update_pipe = intel_panel_update_backlight;
-+	encoder->update_pipe = intel_backlight_update;
- 	encoder->compute_config = gen11_dsi_compute_config;
- 	encoder->get_hw_state = gen11_dsi_get_hw_state;
- 	encoder->initial_fastset_check = gen11_dsi_initial_fastset_check;
-@@ -1984,7 +1984,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 	}
- 
- 	intel_panel_init(&intel_connector->panel, fixed_mode, NULL);
--	intel_panel_setup_backlight(connector, INVALID_PIPE);
-+	intel_backlight_setup(intel_connector, INVALID_PIPE);
- 
- 	if (dev_priv->vbt.dsi.config->dual_link)
- 		intel_dsi->ports = BIT(PORT_A) | BIT(PORT_B);
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index 4b0086ee4851..9523411cddd8 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -72,7 +72,7 @@ static u32 scale_hw_to_user(struct intel_connector *connector,
- 		     0, user_max);
- }
- 
--u32 intel_panel_invert_pwm_level(struct intel_connector *connector, u32 val)
-+u32 intel_backlight_invert_pwm_level(struct intel_connector *connector, u32 val)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_panel *panel = &connector->panel;
-@@ -90,7 +90,7 @@ u32 intel_panel_invert_pwm_level(struct intel_connector *connector, u32 val)
- 	return val;
- }
- 
--void intel_panel_set_pwm_level(const struct drm_connector_state *conn_state, u32 val)
-+void intel_backlight_set_pwm_level(const struct drm_connector_state *conn_state, u32 val)
- {
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-@@ -100,7 +100,7 @@ void intel_panel_set_pwm_level(const struct drm_connector_state *conn_state, u32
- 	panel->backlight.pwm_funcs->set(conn_state, val);
- }
- 
--u32 intel_panel_backlight_level_to_pwm(struct intel_connector *connector, u32 val)
-+u32 intel_backlight_level_to_pwm(struct intel_connector *connector, u32 val)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_panel *panel = &connector->panel;
-@@ -111,10 +111,10 @@ u32 intel_panel_backlight_level_to_pwm(struct intel_connector *connector, u32 va
- 	val = scale(val, panel->backlight.min, panel->backlight.max,
- 		    panel->backlight.pwm_level_min, panel->backlight.pwm_level_max);
- 
--	return intel_panel_invert_pwm_level(connector, val);
-+	return intel_backlight_invert_pwm_level(connector, val);
- }
- 
--u32 intel_panel_backlight_level_from_pwm(struct intel_connector *connector, u32 val)
-+u32 intel_backlight_level_from_pwm(struct intel_connector *connector, u32 val)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_panel *panel = &connector->panel;
-@@ -283,8 +283,8 @@ intel_panel_actually_set_backlight(const struct drm_connector_state *conn_state,
- /* set backlight brightness to level in range [0..max], assuming hw min is
-  * respected.
-  */
--void intel_panel_set_backlight_acpi(const struct drm_connector_state *conn_state,
--				    u32 user_level, u32 user_max)
-+void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
-+			      u32 user_level, u32 user_max)
- {
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-@@ -325,7 +325,7 @@ static void lpt_disable_backlight(const struct drm_connector_state *old_conn_sta
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	u32 tmp;
- 
--	intel_panel_set_pwm_level(old_conn_state, level);
-+	intel_backlight_set_pwm_level(old_conn_state, level);
- 
- 	/*
- 	 * Although we don't support or enable CPU PWM with LPT/SPT based
-@@ -353,7 +353,7 @@ static void pch_disable_backlight(const struct drm_connector_state *old_conn_sta
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	u32 tmp;
- 
--	intel_panel_set_pwm_level(old_conn_state, val);
-+	intel_backlight_set_pwm_level(old_conn_state, val);
- 
- 	tmp = intel_de_read(dev_priv, BLC_PWM_CPU_CTL2);
- 	intel_de_write(dev_priv, BLC_PWM_CPU_CTL2, tmp & ~BLM_PWM_ENABLE);
-@@ -364,7 +364,7 @@ static void pch_disable_backlight(const struct drm_connector_state *old_conn_sta
- 
- static void i9xx_disable_backlight(const struct drm_connector_state *old_conn_state, u32 val)
- {
--	intel_panel_set_pwm_level(old_conn_state, val);
-+	intel_backlight_set_pwm_level(old_conn_state, val);
- }
- 
- static void i965_disable_backlight(const struct drm_connector_state *old_conn_state, u32 val)
-@@ -372,7 +372,7 @@ static void i965_disable_backlight(const struct drm_connector_state *old_conn_st
- 	struct drm_i915_private *dev_priv = to_i915(old_conn_state->connector->dev);
- 	u32 tmp;
- 
--	intel_panel_set_pwm_level(old_conn_state, val);
-+	intel_backlight_set_pwm_level(old_conn_state, val);
- 
- 	tmp = intel_de_read(dev_priv, BLC_PWM_CTL2);
- 	intel_de_write(dev_priv, BLC_PWM_CTL2, tmp & ~BLM_PWM_ENABLE);
-@@ -385,7 +385,7 @@ static void vlv_disable_backlight(const struct drm_connector_state *old_conn_sta
- 	enum pipe pipe = to_intel_crtc(old_conn_state->crtc)->pipe;
- 	u32 tmp;
- 
--	intel_panel_set_pwm_level(old_conn_state, val);
-+	intel_backlight_set_pwm_level(old_conn_state, val);
- 
- 	tmp = intel_de_read(dev_priv, VLV_BLC_PWM_CTL2(pipe));
- 	intel_de_write(dev_priv, VLV_BLC_PWM_CTL2(pipe),
-@@ -399,7 +399,7 @@ static void bxt_disable_backlight(const struct drm_connector_state *old_conn_sta
- 	struct intel_panel *panel = &connector->panel;
- 	u32 tmp;
- 
--	intel_panel_set_pwm_level(old_conn_state, val);
-+	intel_backlight_set_pwm_level(old_conn_state, val);
- 
- 	tmp = intel_de_read(dev_priv,
- 			    BXT_BLC_PWM_CTL(panel->backlight.controller));
-@@ -420,7 +420,7 @@ static void cnp_disable_backlight(const struct drm_connector_state *old_conn_sta
- 	struct intel_panel *panel = &connector->panel;
- 	u32 tmp;
- 
--	intel_panel_set_pwm_level(old_conn_state, val);
-+	intel_backlight_set_pwm_level(old_conn_state, val);
- 
- 	tmp = intel_de_read(dev_priv,
- 			    BXT_BLC_PWM_CTL(panel->backlight.controller));
-@@ -437,7 +437,7 @@ static void ext_pwm_disable_backlight(const struct drm_connector_state *old_conn
- 	pwm_apply_state(panel->backlight.pwm, &panel->backlight.pwm_state);
- }
- 
--void intel_panel_disable_backlight(const struct drm_connector_state *old_conn_state)
-+void intel_backlight_disable(const struct drm_connector_state *old_conn_state)
- {
- 	struct intel_connector *connector = to_intel_connector(old_conn_state->connector);
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-@@ -516,7 +516,7 @@ static void lpt_enable_backlight(const struct intel_crtc_state *crtc_state,
- 		       pch_ctl1 | BLM_PCH_PWM_ENABLE);
- 
- 	/* This won't stick until the above enable. */
--	intel_panel_set_pwm_level(conn_state, level);
-+	intel_backlight_set_pwm_level(conn_state, level);
- }
- 
- static void pch_enable_backlight(const struct intel_crtc_state *crtc_state,
-@@ -551,7 +551,7 @@ static void pch_enable_backlight(const struct intel_crtc_state *crtc_state,
- 	intel_de_write(dev_priv, BLC_PWM_CPU_CTL2, cpu_ctl2 | BLM_PWM_ENABLE);
- 
- 	/* This won't stick until the above enable. */
--	intel_panel_set_pwm_level(conn_state, level);
-+	intel_backlight_set_pwm_level(conn_state, level);
- 
- 	pch_ctl2 = panel->backlight.pwm_level_max << 16;
- 	intel_de_write(dev_priv, BLC_PWM_PCH_CTL2, pch_ctl2);
-@@ -594,7 +594,7 @@ static void i9xx_enable_backlight(const struct intel_crtc_state *crtc_state,
- 	intel_de_posting_read(dev_priv, BLC_PWM_CTL);
- 
- 	/* XXX: combine this into above write? */
--	intel_panel_set_pwm_level(conn_state, level);
-+	intel_backlight_set_pwm_level(conn_state, level);
- 
- 	/*
- 	 * Needed to enable backlight on some 855gm models. BLC_HIST_CTL is
-@@ -637,7 +637,7 @@ static void i965_enable_backlight(const struct intel_crtc_state *crtc_state,
- 	intel_de_posting_read(dev_priv, BLC_PWM_CTL2);
- 	intel_de_write(dev_priv, BLC_PWM_CTL2, ctl2 | BLM_PWM_ENABLE);
- 
--	intel_panel_set_pwm_level(conn_state, level);
-+	intel_backlight_set_pwm_level(conn_state, level);
- }
- 
- static void vlv_enable_backlight(const struct intel_crtc_state *crtc_state,
-@@ -660,7 +660,7 @@ static void vlv_enable_backlight(const struct intel_crtc_state *crtc_state,
- 	intel_de_write(dev_priv, VLV_BLC_PWM_CTL(pipe), ctl);
- 
- 	/* XXX: combine this into above write? */
--	intel_panel_set_pwm_level(conn_state, level);
-+	intel_backlight_set_pwm_level(conn_state, level);
- 
- 	ctl2 = 0;
- 	if (panel->backlight.active_low_pwm)
-@@ -711,7 +711,7 @@ static void bxt_enable_backlight(const struct intel_crtc_state *crtc_state,
- 		       BXT_BLC_PWM_FREQ(panel->backlight.controller),
- 		       panel->backlight.pwm_level_max);
- 
--	intel_panel_set_pwm_level(conn_state, level);
-+	intel_backlight_set_pwm_level(conn_state, level);
- 
- 	pwm_ctl = 0;
- 	if (panel->backlight.active_low_pwm)
-@@ -747,7 +747,7 @@ static void cnp_enable_backlight(const struct intel_crtc_state *crtc_state,
- 		       BXT_BLC_PWM_FREQ(panel->backlight.controller),
- 		       panel->backlight.pwm_level_max);
- 
--	intel_panel_set_pwm_level(conn_state, level);
-+	intel_backlight_set_pwm_level(conn_state, level);
- 
- 	pwm_ctl = 0;
- 	if (panel->backlight.active_low_pwm)
-@@ -772,8 +772,8 @@ static void ext_pwm_enable_backlight(const struct intel_crtc_state *crtc_state,
- 	pwm_apply_state(panel->backlight.pwm, &panel->backlight.pwm_state);
- }
- 
--static void __intel_panel_enable_backlight(const struct intel_crtc_state *crtc_state,
--					   const struct drm_connector_state *conn_state)
-+static void __intel_backlight_enable(const struct intel_crtc_state *crtc_state,
-+				     const struct drm_connector_state *conn_state)
- {
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct intel_panel *panel = &connector->panel;
-@@ -795,8 +795,8 @@ static void __intel_panel_enable_backlight(const struct intel_crtc_state *crtc_s
- 		panel->backlight.device->props.power = FB_BLANK_UNBLANK;
- }
- 
--void intel_panel_enable_backlight(const struct intel_crtc_state *crtc_state,
--				  const struct drm_connector_state *conn_state)
-+void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
-+			    const struct drm_connector_state *conn_state)
- {
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-@@ -810,7 +810,7 @@ void intel_panel_enable_backlight(const struct intel_crtc_state *crtc_state,
- 
- 	mutex_lock(&dev_priv->backlight_lock);
- 
--	__intel_panel_enable_backlight(crtc_state, conn_state);
-+	__intel_backlight_enable(crtc_state, conn_state);
- 
- 	mutex_unlock(&dev_priv->backlight_lock);
- }
-@@ -1335,7 +1335,7 @@ static int i9xx_setup_backlight(struct intel_connector *connector, enum pipe unu
- 	panel->backlight.pwm_level_min = get_backlight_min_vbt(connector);
- 
- 	val = i9xx_get_backlight(connector, unused);
--	val = intel_panel_invert_pwm_level(connector, val);
-+	val = intel_backlight_invert_pwm_level(connector, val);
- 	val = clamp(val, panel->backlight.pwm_level_min, panel->backlight.pwm_level_max);
- 
- 	panel->backlight.pwm_enabled = val != 0;
-@@ -1504,7 +1504,7 @@ static int ext_pwm_setup_backlight(struct intel_connector *connector,
- 
- 		level = pwm_get_relative_duty_cycle(&panel->backlight.pwm_state,
- 						    100);
--		level = intel_panel_invert_pwm_level(connector, level);
-+		level = intel_backlight_invert_pwm_level(connector, level);
- 		panel->backlight.pwm_enabled = true;
- 
- 		drm_dbg_kms(&dev_priv->drm, "PWM already enabled at freq %ld, VBT freq %d, level %d\n",
-@@ -1527,14 +1527,14 @@ static void intel_pwm_set_backlight(const struct drm_connector_state *conn_state
- 	struct intel_panel *panel = &connector->panel;
- 
- 	panel->backlight.pwm_funcs->set(conn_state,
--				       intel_panel_invert_pwm_level(connector, level));
-+					intel_backlight_invert_pwm_level(connector, level));
- }
- 
- static u32 intel_pwm_get_backlight(struct intel_connector *connector, enum pipe pipe)
- {
- 	struct intel_panel *panel = &connector->panel;
- 
--	return intel_panel_invert_pwm_level(connector,
-+	return intel_backlight_invert_pwm_level(connector,
- 					    panel->backlight.pwm_funcs->get(connector, pipe));
- }
- 
-@@ -1545,7 +1545,7 @@ static void intel_pwm_enable_backlight(const struct intel_crtc_state *crtc_state
- 	struct intel_panel *panel = &connector->panel;
- 
- 	panel->backlight.pwm_funcs->enable(crtc_state, conn_state,
--					   intel_panel_invert_pwm_level(connector, level));
-+					   intel_backlight_invert_pwm_level(connector, level));
- }
- 
- static void intel_pwm_disable_backlight(const struct drm_connector_state *conn_state, u32 level)
-@@ -1554,7 +1554,7 @@ static void intel_pwm_disable_backlight(const struct drm_connector_state *conn_s
- 	struct intel_panel *panel = &connector->panel;
- 
- 	panel->backlight.pwm_funcs->disable(conn_state,
--					    intel_panel_invert_pwm_level(connector, level));
-+					    intel_backlight_invert_pwm_level(connector, level));
- }
- 
- static int intel_pwm_setup_backlight(struct intel_connector *connector, enum pipe pipe)
-@@ -1573,10 +1573,10 @@ static int intel_pwm_setup_backlight(struct intel_connector *connector, enum pip
- 	return 0;
- }
- 
--void intel_panel_update_backlight(struct intel_atomic_state *state,
--				  struct intel_encoder *encoder,
--				  const struct intel_crtc_state *crtc_state,
--				  const struct drm_connector_state *conn_state)
-+void intel_backlight_update(struct intel_atomic_state *state,
-+			    struct intel_encoder *encoder,
-+			    const struct intel_crtc_state *crtc_state,
-+			    const struct drm_connector_state *conn_state)
- {
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-@@ -1587,16 +1587,15 @@ void intel_panel_update_backlight(struct intel_atomic_state *state,
- 
- 	mutex_lock(&dev_priv->backlight_lock);
- 	if (!panel->backlight.enabled)
--		__intel_panel_enable_backlight(crtc_state, conn_state);
-+		__intel_backlight_enable(crtc_state, conn_state);
- 
- 	mutex_unlock(&dev_priv->backlight_lock);
- }
- 
--int intel_panel_setup_backlight(struct drm_connector *connector, enum pipe pipe)
-+int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
- {
--	struct drm_i915_private *dev_priv = to_i915(connector->dev);
--	struct intel_connector *intel_connector = to_intel_connector(connector);
--	struct intel_panel *panel = &intel_connector->panel;
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-+	struct intel_panel *panel = &connector->panel;
- 	int ret;
- 
- 	if (!dev_priv->vbt.backlight.present) {
-@@ -1616,13 +1615,13 @@ int intel_panel_setup_backlight(struct drm_connector *connector, enum pipe pipe)
- 
- 	/* set level and max in panel struct */
- 	mutex_lock(&dev_priv->backlight_lock);
--	ret = panel->backlight.funcs->setup(intel_connector, pipe);
-+	ret = panel->backlight.funcs->setup(connector, pipe);
- 	mutex_unlock(&dev_priv->backlight_lock);
- 
- 	if (ret) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "failed to setup backlight for connector %s\n",
--			    connector->name);
-+			    connector->base.name);
- 		return ret;
- 	}
- 
-@@ -1630,14 +1629,14 @@ int intel_panel_setup_backlight(struct drm_connector *connector, enum pipe pipe)
- 
- 	drm_dbg_kms(&dev_priv->drm,
- 		    "Connector %s backlight initialized, %s, brightness %u/%u\n",
--		    connector->name,
-+		    connector->base.name,
- 		    enableddisabled(panel->backlight.enabled),
- 		    panel->backlight.level, panel->backlight.max);
- 
- 	return 0;
- }
- 
--void intel_panel_destroy_backlight(struct intel_panel *panel)
-+void intel_backlight_destroy(struct intel_panel *panel)
- {
- 	/* dispose of the pwm */
- 	if (panel->backlight.pwm)
-@@ -1735,8 +1734,7 @@ static const struct intel_panel_bl_funcs pwm_bl_funcs = {
- };
- 
- /* Set up chip specific backlight functions */
--void
--intel_panel_init_backlight_funcs(struct intel_panel *panel)
-+void intel_backlight_init_funcs(struct intel_panel *panel)
- {
- 	struct intel_connector *connector =
- 		container_of(panel, struct intel_connector, panel);
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.h b/drivers/gpu/drm/i915/display/intel_backlight.h
-index 282020cb47d5..339643f63897 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.h
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.h
-@@ -8,7 +8,6 @@
- 
- #include <linux/types.h>
- 
--struct drm_connector;
- struct drm_connector_state;
- struct intel_atomic_state;
- struct intel_connector;
-@@ -17,23 +16,25 @@ struct intel_encoder;
- struct intel_panel;
- enum pipe;
- 
--void intel_panel_init_backlight_funcs(struct intel_panel *panel);
--void intel_panel_destroy_backlight(struct intel_panel *panel);
--void intel_panel_set_backlight_acpi(const struct drm_connector_state *conn_state,
--				    u32 level, u32 max);
--int intel_panel_setup_backlight(struct drm_connector *connector,
--				enum pipe pipe);
--void intel_panel_enable_backlight(const struct intel_crtc_state *crtc_state,
--				  const struct drm_connector_state *conn_state);
--void intel_panel_update_backlight(struct intel_atomic_state *state,
--				  struct intel_encoder *encoder,
--				  const struct intel_crtc_state *crtc_state,
--				  const struct drm_connector_state *conn_state);
--void intel_panel_disable_backlight(const struct drm_connector_state *old_conn_state);
--void intel_panel_set_pwm_level(const struct drm_connector_state *conn_state, u32 level);
--u32 intel_panel_invert_pwm_level(struct intel_connector *connector, u32 level);
--u32 intel_panel_backlight_level_to_pwm(struct intel_connector *connector, u32 level);
--u32 intel_panel_backlight_level_from_pwm(struct intel_connector *connector, u32 val);
-+void intel_backlight_init_funcs(struct intel_panel *panel);
-+int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe);
-+void intel_backlight_destroy(struct intel_panel *panel);
-+
-+void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
-+			    const struct drm_connector_state *conn_state);
-+void intel_backlight_update(struct intel_atomic_state *state,
-+			    struct intel_encoder *encoder,
-+			    const struct intel_crtc_state *crtc_state,
-+			    const struct drm_connector_state *conn_state);
-+void intel_backlight_disable(const struct drm_connector_state *old_conn_state);
-+
-+void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
-+			      u32 level, u32 max);
-+void intel_backlight_set_pwm_level(const struct drm_connector_state *conn_state,
-+				   u32 level);
-+u32 intel_backlight_invert_pwm_level(struct intel_connector *connector, u32 level);
-+u32 intel_backlight_level_to_pwm(struct intel_connector *connector, u32 level);
-+u32 intel_backlight_level_from_pwm(struct intel_connector *connector, u32 val);
- 
- #if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
- int intel_backlight_device_register(struct intel_connector *connector);
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index e9638291ac32..c6de868079a8 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3256,7 +3256,7 @@ static void intel_ddi_update_pipe_dp(struct intel_atomic_state *state,
- 	intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
- 	intel_edp_drrs_update(intel_dp, crtc_state);
- 
--	intel_panel_update_backlight(state, encoder, crtc_state, conn_state);
-+	intel_backlight_update(state, encoder, crtc_state, conn_state);
- }
- 
- void intel_ddi_update_pipe(struct intel_atomic_state *state,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 936eb41e9363..efb7a249393c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1766,7 +1766,7 @@ void intel_edp_backlight_on(const struct intel_crtc_state *crtc_state,
- 
- 	drm_dbg_kms(&i915->drm, "\n");
- 
--	intel_panel_enable_backlight(crtc_state, conn_state);
-+	intel_backlight_enable(crtc_state, conn_state);
- 	intel_pps_backlight_on(intel_dp);
- }
- 
-@@ -1782,7 +1782,7 @@ void intel_edp_backlight_off(const struct drm_connector_state *old_conn_state)
- 	drm_dbg_kms(&i915->drm, "\n");
- 
- 	intel_pps_backlight_off(intel_dp);
--	intel_panel_disable_backlight(old_conn_state);
-+	intel_backlight_disable(old_conn_state);
- }
- 
- static bool downstream_hpd_needs_d0(struct intel_dp *intel_dp)
-@@ -5218,7 +5218,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 
- 	intel_panel_init(&intel_connector->panel, fixed_mode, downclock_mode);
- 	intel_connector->panel.backlight.power = intel_pps_backlight_power;
--	intel_panel_setup_backlight(connector, pipe);
-+	intel_backlight_setup(intel_connector, pipe);
- 
- 	if (fixed_mode) {
- 		drm_connector_set_panel_orientation_with_quirk(connector,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 4aa48b42583e..e25a8b244c4d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -146,7 +146,7 @@ intel_dp_aux_hdr_get_backlight(struct intel_connector *connector, enum pipe pipe
- 		if (!panel->backlight.edp.intel.sdr_uses_aux) {
- 			u32 pwm_level = panel->backlight.pwm_funcs->get(connector, pipe);
- 
--			return intel_panel_backlight_level_from_pwm(connector, pwm_level);
-+			return intel_backlight_level_from_pwm(connector, pwm_level);
- 		}
- 
- 		/* Assume 100% brightness if backlight controls aren't enabled yet */
-@@ -185,9 +185,9 @@ intel_dp_aux_hdr_set_backlight(const struct drm_connector_state *conn_state, u32
- 	if (panel->backlight.edp.intel.sdr_uses_aux) {
- 		intel_dp_aux_hdr_set_aux_backlight(conn_state, level);
- 	} else {
--		const u32 pwm_level = intel_panel_backlight_level_to_pwm(connector, level);
-+		const u32 pwm_level = intel_backlight_level_to_pwm(connector, level);
- 
--		intel_panel_set_pwm_level(conn_state, pwm_level);
-+		intel_backlight_set_pwm_level(conn_state, pwm_level);
- 	}
- }
- 
-@@ -213,7 +213,7 @@ intel_dp_aux_hdr_enable_backlight(const struct intel_crtc_state *crtc_state,
- 		ctrl |= INTEL_EDP_HDR_TCON_BRIGHTNESS_AUX_ENABLE;
- 		intel_dp_aux_hdr_set_aux_backlight(conn_state, level);
- 	} else {
--		u32 pwm_level = intel_panel_backlight_level_to_pwm(connector, level);
-+		u32 pwm_level = intel_backlight_level_to_pwm(connector, level);
- 
- 		panel->backlight.pwm_funcs->enable(crtc_state, conn_state, pwm_level);
- 
-@@ -236,7 +236,7 @@ intel_dp_aux_hdr_disable_backlight(const struct drm_connector_state *conn_state,
- 		return;
- 
- 	/* Note we want the actual pwm_level to be 0, regardless of pwm_min */
--	panel->backlight.pwm_funcs->disable(conn_state, intel_panel_invert_pwm_level(connector, 0));
-+	panel->backlight.pwm_funcs->disable(conn_state, intel_backlight_invert_pwm_level(connector, 0));
- }
- 
- static int
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 6d68ac79b231..0f7b1a6d09d4 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -324,7 +324,7 @@ static void intel_enable_lvds(struct intel_atomic_state *state,
- 		drm_err(&dev_priv->drm,
- 			"timed out waiting for panel to power on\n");
- 
--	intel_panel_enable_backlight(pipe_config, conn_state);
-+	intel_backlight_enable(pipe_config, conn_state);
- }
- 
- static void intel_disable_lvds(struct intel_atomic_state *state,
-@@ -352,7 +352,7 @@ static void gmch_disable_lvds(struct intel_atomic_state *state,
- 			      const struct drm_connector_state *old_conn_state)
- 
- {
--	intel_panel_disable_backlight(old_conn_state);
-+	intel_backlight_disable(old_conn_state);
- 
- 	intel_disable_lvds(state, encoder, old_crtc_state, old_conn_state);
- }
-@@ -362,7 +362,7 @@ static void pch_disable_lvds(struct intel_atomic_state *state,
- 			     const struct intel_crtc_state *old_crtc_state,
- 			     const struct drm_connector_state *old_conn_state)
- {
--	intel_panel_disable_backlight(old_conn_state);
-+	intel_backlight_disable(old_conn_state);
- }
- 
- static void pch_post_disable_lvds(struct intel_atomic_state *state,
-@@ -907,7 +907,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	}
- 	intel_encoder->get_hw_state = intel_lvds_get_hw_state;
- 	intel_encoder->get_config = intel_lvds_get_config;
--	intel_encoder->update_pipe = intel_panel_update_backlight;
-+	intel_encoder->update_pipe = intel_backlight_update;
- 	intel_encoder->shutdown = intel_lvds_shutdown;
- 	intel_connector->get_hw_state = intel_connector_get_hw_state;
- 
-@@ -1000,7 +1000,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	mutex_unlock(&dev->mode_config.mutex);
- 
- 	intel_panel_init(&intel_connector->panel, fixed_mode, downclock_mode);
--	intel_panel_setup_backlight(connector, INVALID_PIPE);
-+	intel_backlight_setup(intel_connector, INVALID_PIPE);
- 
- 	lvds_encoder->is_dual_link = compute_is_dual_link_lvds(lvds_encoder);
- 	drm_dbg_kms(&dev_priv->drm, "detected %s-link lvds configuration\n",
-diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
-index 2b445f5ced15..0b9861d4392e 100644
---- a/drivers/gpu/drm/i915/display/intel_opregion.c
-+++ b/drivers/gpu/drm/i915/display/intel_opregion.c
-@@ -449,7 +449,7 @@ static u32 asle_set_backlight(struct drm_i915_private *dev_priv, u32 bclp)
- 		    bclp);
- 	drm_connector_list_iter_begin(dev, &conn_iter);
- 	for_each_intel_connector_iter(connector, &conn_iter)
--		intel_panel_set_backlight_acpi(connector->base.state, bclp, 255);
-+		intel_backlight_set_acpi(connector->base.state, bclp, 255);
- 	drm_connector_list_iter_end(&conn_iter);
- 	asle->cblv = DIV_ROUND_UP(bclp * 100, 255) | ASLE_CBLV_VALID;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index ad54767440c1..611e32421353 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -467,7 +467,7 @@ int intel_panel_init(struct intel_panel *panel,
- 		     struct drm_display_mode *fixed_mode,
- 		     struct drm_display_mode *downclock_mode)
- {
--	intel_panel_init_backlight_funcs(panel);
-+	intel_backlight_init_funcs(panel);
- 
- 	panel->fixed_mode = fixed_mode;
- 	panel->downclock_mode = downclock_mode;
-@@ -480,7 +480,7 @@ void intel_panel_fini(struct intel_panel *panel)
- 	struct intel_connector *intel_connector =
- 		container_of(panel, struct intel_connector, panel);
- 
--	intel_panel_destroy_backlight(panel);
-+	intel_backlight_destroy(panel);
- 
- 	if (panel->fixed_mode)
- 		drm_mode_destroy(intel_connector->base.dev, panel->fixed_mode);
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index f0156a714a72..af50115fd272 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -885,7 +885,7 @@ static void intel_dsi_pre_enable(struct intel_atomic_state *state,
- 		intel_dsi_port_enable(encoder, pipe_config);
- 	}
- 
--	intel_panel_enable_backlight(pipe_config, conn_state);
-+	intel_backlight_enable(pipe_config, conn_state);
- 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_BACKLIGHT_ON);
- }
- 
-@@ -915,7 +915,7 @@ static void intel_dsi_disable(struct intel_atomic_state *state,
- 	drm_dbg_kms(&i915->drm, "\n");
- 
- 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_BACKLIGHT_OFF);
--	intel_panel_disable_backlight(old_conn_state);
-+	intel_backlight_disable(old_conn_state);
- 
- 	/*
- 	 * According to the spec we should send SHUTDOWN before
-@@ -1878,7 +1878,7 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
- 	intel_encoder->post_disable = intel_dsi_post_disable;
- 	intel_encoder->get_hw_state = intel_dsi_get_hw_state;
- 	intel_encoder->get_config = intel_dsi_get_config;
--	intel_encoder->update_pipe = intel_panel_update_backlight;
-+	intel_encoder->update_pipe = intel_backlight_update;
- 	intel_encoder->shutdown = intel_dsi_shutdown;
- 
- 	intel_connector->get_hw_state = intel_connector_get_hw_state;
-@@ -1966,7 +1966,7 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
- 	}
- 
- 	intel_panel_init(&intel_connector->panel, fixed_mode, NULL);
--	intel_panel_setup_backlight(connector, INVALID_PIPE);
-+	intel_backlight_setup(intel_connector, INVALID_PIPE);
- 
- 	vlv_dsi_add_properties(intel_connector);
- 
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gVHVlLCAxMSBNYXkgMjAyMSwgQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3JpdmF0c2FAaW50
+ZWwuY29tPiB3cm90ZToKPiBGaW5hbGx5LCByZW5hbWUgdGhlIGhlYWRlciBhbmQgc291cmNlIGZp
+bGUgZnJvbSBjc3IgdG8gZG1jLgo+Cj4gQ2M6IEphbmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBsaW51
+eC5pbnRlbC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3Jp
+dmF0c2FAaW50ZWwuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1
+L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jICAgICAgICAgICAgICB8IDIgKy0KPiAgZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X2RlYnVnZnMuYyAgICAgIHwgMiArLQo+
+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfcG93ZXIuYyAgICAg
+ICAgfCAyICstCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkve2ludGVsX2Nzci5jID0+
+IGludGVsX2RtYy5jfSB8IDIgKy0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS97aW50
+ZWxfY3NyLmggPT4gaW50ZWxfZG1jLmh9IHwgNiArKystLS0KPiAgZHJpdmVycy9ncHUvZHJtL2k5
+MTUvaTkxNV9kcnYuYyAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJz
+L2dwdS9kcm0vaTkxNS9pOTE1X2dwdV9lcnJvci5jICAgICAgICAgICAgICAgICAgICAgfCAyICst
+Cj4gIDggZmlsZXMgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCj4g
+IHJlbmFtZSBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L3tpbnRlbF9jc3IuYyA9PiBpbnRl
+bF9kbWMuY30gKDk5JSkKPiAgcmVuYW1lIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkve2lu
+dGVsX2Nzci5oID0+IGludGVsX2RtYy5ofSAoODglKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9pOTE1L01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUKPiBp
+bmRleCBkMGQ5MzZkOTEzN2IuLmYxMDk5YjZiZmVkNSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9NYWtlZmlsZQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2VmaWxl
+Cj4gQEAgLTIwMSw3ICsyMDEsNyBAQCBpOTE1LXkgKz0gXAo+ICAJZGlzcGxheS9pbnRlbF9jb21i
+b19waHkubyBcCj4gIAlkaXNwbGF5L2ludGVsX2Nvbm5lY3Rvci5vIFwKPiAgCWRpc3BsYXkvaW50
+ZWxfY3J0Yy5vIFwKPiAtCWRpc3BsYXkvaW50ZWxfY3NyLm8gXAo+ICsJZGlzcGxheS9pbnRlbF9k
+bWMubyBcCgpOaXRwaWNrLCBwbGVhc2Uga2VlcCB0aGUgZmlsZSBsaXN0cyBhbmQgI2luY2x1ZGUg
+bGlzdHMgc29ydGVkLgoKQlIsCkphbmkuCgo+ICAJZGlzcGxheS9pbnRlbF9jdXJzb3IubyBcCj4g
+IAlkaXNwbGF5L2ludGVsX2Rpc3BsYXkubyBcCj4gIAlkaXNwbGF5L2ludGVsX2Rpc3BsYXlfcG93
+ZXIubyBcCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
+ZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMK
+PiBpbmRleCA0ZWZiNWQyODcxMmMuLmI0ZGI3NzBkN2M3NCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCj4gQEAgLTc5LDcgKzc5LDcgQEAKPiAg
+I2luY2x1ZGUgImludGVsX2NkY2xrLmgiCj4gICNpbmNsdWRlICJpbnRlbF9jb2xvci5oIgo+ICAj
+aW5jbHVkZSAiaW50ZWxfY3J0Yy5oIgo+IC0jaW5jbHVkZSAiaW50ZWxfY3NyLmgiCj4gKyNpbmNs
+dWRlICJpbnRlbF9kbWMuaCIKPiAgI2luY2x1ZGUgImludGVsX2RlLmgiCj4gICNpbmNsdWRlICJp
+bnRlbF9kaXNwbGF5X3R5cGVzLmgiCj4gICNpbmNsdWRlICJpbnRlbF9kcF9saW5rX3RyYWluaW5n
+LmgiCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlz
+cGxheV9kZWJ1Z2ZzLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3Bs
+YXlfZGVidWdmcy5jCj4gaW5kZXggNWVkODk5NmVhY2I0Li4wNTM3YTFmNmJmYmIgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X2RlYnVnZnMu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9kZWJ1
+Z2ZzLmMKPiBAQCAtNyw3ICs3LDcgQEAKPiAgI2luY2x1ZGUgPGRybS9kcm1fZm91cmNjLmg+Cj4g
+IAo+ICAjaW5jbHVkZSAiaTkxNV9kZWJ1Z2ZzLmgiCj4gLSNpbmNsdWRlICJpbnRlbF9jc3IuaCIK
+PiArI2luY2x1ZGUgImludGVsX2RtYy5oIgo+ICAjaW5jbHVkZSAiaW50ZWxfZGlzcGxheV9kZWJ1
+Z2ZzLmgiCj4gICNpbmNsdWRlICJpbnRlbF9kaXNwbGF5X3Bvd2VyLmgiCj4gICNpbmNsdWRlICJp
+bnRlbF9kZS5oIgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2Rpc3BsYXlfcG93ZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
+ZGlzcGxheV9wb3dlci5jCj4gaW5kZXggNzJmNmUxZWE3MTFhLi4xYWNhY2JhMjczNWYgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bvd2Vy
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfcG93
+ZXIuYwo+IEBAIC05LDcgKzksNyBAQAo+ICAjaW5jbHVkZSAiaTkxNV9pcnEuaCIKPiAgI2luY2x1
+ZGUgImludGVsX2NkY2xrLmgiCj4gICNpbmNsdWRlICJpbnRlbF9jb21ib19waHkuaCIKPiAtI2lu
+Y2x1ZGUgImludGVsX2Nzci5oIgo+ICsjaW5jbHVkZSAiaW50ZWxfZG1jLmgiCj4gICNpbmNsdWRl
+ICJpbnRlbF9kaXNwbGF5X3Bvd2VyLmgiCj4gICNpbmNsdWRlICJpbnRlbF9kZS5oIgo+ICAjaW5j
+bHVkZSAiaW50ZWxfZGlzcGxheV90eXBlcy5oIgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9kaXNwbGF5L2ludGVsX2Nzci5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9kbWMuYwo+IHNpbWlsYXJpdHkgaW5kZXggOTklCj4gcmVuYW1lIGZyb20gZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9jc3IuYwo+IHJlbmFtZSB0byBkcml2ZXJzL2dw
+dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RtYy5jCj4gaW5kZXggMmQ4YjZmMmZlZDdmLi43ZTQz
+OGU0YTZmMmIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9jc3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZG1jLmMK
+PiBAQCAtMjYsNyArMjYsNyBAQAo+ICAKPiAgI2luY2x1ZGUgImk5MTVfZHJ2LmgiCj4gICNpbmNs
+dWRlICJpOTE1X3JlZy5oIgo+IC0jaW5jbHVkZSAiaW50ZWxfY3NyLmgiCj4gKyNpbmNsdWRlICJp
+bnRlbF9kbWMuaCIKPiAgI2luY2x1ZGUgImludGVsX2RlLmgiCj4gIAo+ICAvKioKPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9jc3IuaCBiL2RyaXZlcnMv
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZG1jLmgKPiBzaW1pbGFyaXR5IGluZGV4IDg4JQo+
+IHJlbmFtZSBmcm9tIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3NyLmgKPiBy
+ZW5hbWUgdG8gZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kbWMuaAo+IGluZGV4
+IGZjNDk2MGI5MTY4Ni4uNTdkZDk5ZGEwY2VkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3NyLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2RtYy5oCj4gQEAgLTMsOCArMyw4IEBACj4gICAqIENvcHlyaWdodCDCqSAy
+MDE5IEludGVsIENvcnBvcmF0aW9uCj4gICAqLwo+ICAKPiAtI2lmbmRlZiBfX0lOVEVMX0NTUl9I
+X18KPiAtI2RlZmluZSBfX0lOVEVMX0NTUl9IX18KPiArI2lmbmRlZiBfX0lOVEVMX0RNQ19IX18K
+PiArI2RlZmluZSBfX0lOVEVMX0RNQ19IX18KPiAgCj4gIHN0cnVjdCBkcm1faTkxNV9wcml2YXRl
+Owo+ICAKPiBAQCAtMTgsNCArMTgsNCBAQCB2b2lkIGludGVsX2RtY191Y29kZV9maW5pKHN0cnVj
+dCBkcm1faTkxNV9wcml2YXRlICppOTE1KTsKPiAgdm9pZCBpbnRlbF9kbWNfdWNvZGVfc3VzcGVu
+ZChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSk7Cj4gIHZvaWQgaW50ZWxfZG1jX3Vjb2Rl
+X3Jlc3VtZShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSk7Cj4gIAo+IC0jZW5kaWYgLyog
+X19JTlRFTF9DU1JfSF9fICovCj4gKyNlbmRpZiAvKiBfX0lOVEVMX0RNQ19IX18gKi8KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2k5MTVfZHJ2LmMKPiBpbmRleCBmMmE5NTgzZGZlY2MuLjJmMDZiYjdiM2VkMiAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuYwo+IEBAIC00OSw3ICs0OSw3IEBACj4gICNpbmNsdWRl
+ICJkaXNwbGF5L2ludGVsX2FjcGkuaCIKPiAgI2luY2x1ZGUgImRpc3BsYXkvaW50ZWxfYncuaCIK
+PiAgI2luY2x1ZGUgImRpc3BsYXkvaW50ZWxfY2RjbGsuaCIKPiAtI2luY2x1ZGUgImRpc3BsYXkv
+aW50ZWxfY3NyLmgiCj4gKyNpbmNsdWRlICJkaXNwbGF5L2ludGVsX2RtYy5oIgo+ICAjaW5jbHVk
+ZSAiZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmgiCj4gICNpbmNsdWRlICJkaXNwbGF5L2lu
+dGVsX2RwLmgiCj4gICNpbmNsdWRlICJkaXNwbGF5L2ludGVsX2ZiZGV2LmgiCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ3B1X2Vycm9yLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9pOTE1X2dwdV9lcnJvci5jCj4gaW5kZXggMGFmNWFiYzQ4MDkzLi5kZjhkZDIyNjU1
+YWIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9ncHVfZXJyb3IuYwo+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ3B1X2Vycm9yLmMKPiBAQCAtMzYsNyAr
+MzYsNyBAQAo+ICAKPiAgI2luY2x1ZGUgPGRybS9kcm1fcHJpbnQuaD4KPiAgCj4gLSNpbmNsdWRl
+ICJkaXNwbGF5L2ludGVsX2Nzci5oIgo+ICsjaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9kbWMuaCIK
+PiAgI2luY2x1ZGUgImRpc3BsYXkvaW50ZWxfb3ZlcmxheS5oIgo+ICAKPiAgI2luY2x1ZGUgImdl
+bS9pOTE1X2dlbV9jb250ZXh0LmgiCgotLSAKSmFuaSBOaWt1bGEsIEludGVsIE9wZW4gU291cmNl
+IEdyYXBoaWNzIENlbnRlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRl
+bC1nZngK
