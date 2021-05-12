@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40A10C433ED
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 04:22:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 559DCC43461
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 04:22:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05D27600D4
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 04:22:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05D27600D4
+	by mail.kernel.org (Postfix) with ESMTPS id 1BB3E611BD
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 May 2021 04:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BB3E611BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E76FF6EB47;
-	Wed, 12 May 2021 04:21:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A3366E0C2;
+	Wed, 12 May 2021 04:21:59 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF5FE6E02D
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 May 2021 04:21:53 +0000 (UTC)
-IronPort-SDR: +UdnQdOlsYk/XopyCWD76tNvkLjNIrZ0V0XLh/ezKuInZbztEcicQC4C8mxZ3WiJkoY2IRZC7b
- XLVO/0cSjF7w==
-X-IronPort-AV: E=McAfee;i="6200,9189,9981"; a="260869169"
-X-IronPort-AV: E=Sophos;i="5.82,292,1613462400"; d="scan'208";a="260869169"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59E566E0C2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 May 2021 04:21:54 +0000 (UTC)
+IronPort-SDR: y+6wYgfsNPZrFkvloWZRtxPEPLfLvv5inrFeD5XsDRsQrKv3D+gbPxIebcyIQLH347KUeRddHW
+ BnZCCmt+6wNg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9981"; a="260869173"
+X-IronPort-AV: E=Sophos;i="5.82,292,1613462400"; d="scan'208";a="260869173"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2021 21:21:52 -0700
-IronPort-SDR: nNQzplQk+BfloMc1KCrTrGDp0YHmkU+im2932DJuwjNpJ+OZ3yHKajuu9iS4rCppwnQsUx/RnF
- jjer6RpAEleQ==
-X-IronPort-AV: E=Sophos;i="5.82,292,1613462400"; d="scan'208";a="409096190"
+ 11 May 2021 21:21:53 -0700
+IronPort-SDR: EJuIR3rB5VXEUU6ggZk2427CPFqazgwCaoBO2XoN5ypdJEm6cOx3TjRthJ14M4D6yRa5hXR05G
+ fkHm3uq/B2eg==
+X-IronPort-AV: E=Sophos;i="5.82,292,1613462400"; d="scan'208";a="409096205"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 May 2021 21:21:52 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 11 May 2021 21:21:39 -0700
-Message-Id: <20210512042144.2089071-3-matthew.d.roper@intel.com>
+Date: Tue, 11 May 2021 21:21:43 -0700
+Message-Id: <20210512042144.2089071-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210512042144.2089071-1-matthew.d.roper@intel.com>
 References: <20210512042144.2089071-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 2/7] drm/i915/xelpd: Define plane capabilities
+Subject: [Intel-gfx] [CI 6/7] drm/i915/adl_p: Add PCH support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,81 +62,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-XE_LPD's plane support is identical to RKL and ADL-S --- 5 universal + 1
-cursor with NV12 UV support on planes 1-3 and NV12 Y support on planes
-4-5.
+From: Clinton Taylor <Clinton.A.Taylor@intel.com>
 
-v2:
- - Drop the extra 90/270 rotation check in skl_plane_check_fb(); the DRM
-   property code will already prevent userspace from passing us values
-   that weren't advertised.  (Lucas)
+Add ADP-P PCH device ID and assign as ADL PCH if found. Previously we
+would assign the DDC pin map based on the PCH, but it can also change
+based on the CPU. From Bspec 20124: "The physical port to pin pair
+mapping are defined in the Bspec per PCH. Mapping can further change
+based on CPU Si used as CPU and PCH can be mixed and matched".
 
-Bspec: 53657
-Bspec: 49251
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Bspec: 20124
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 11 +++++++----
- drivers/gpu/drm/i915/i915_irq.c                    |  2 +-
- drivers/gpu/drm/i915/intel_device_info.c           |  2 +-
- 3 files changed, 9 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 2 +-
+ drivers/gpu/drm/i915/intel_pch.c          | 6 ++++--
+ drivers/gpu/drm/i915/intel_pch.h          | 1 +
+ 4 files changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 8588b70a8241..d51a22d4b28a 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -268,7 +268,7 @@ int skl_format_to_fourcc(int format, bool rgb_order, bool alpha)
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index a783c5a40934..9785dfc2de0b 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -1651,7 +1651,7 @@ static u8 map_ddc_pin(struct drm_i915_private *i915, u8 vbt_pin)
+ 	const u8 *ddc_pin_map;
+ 	int n_entries;
  
- static u8 icl_nv12_y_plane_mask(struct drm_i915_private *i915)
- {
--	if (HAS_D12_PLANE_MINIMIZATION(i915))
-+	if (DISPLAY_VER(i915) >= 13 || HAS_D12_PLANE_MINIMIZATION(i915))
- 		return BIT(PLANE_SPRITE2) | BIT(PLANE_SPRITE3);
- 	else
- 		return BIT(PLANE_SPRITE4) | BIT(PLANE_SPRITE5);
-@@ -2094,9 +2094,12 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
- 	if (ret)
- 		goto fail;
+-	if (HAS_PCH_ADP(i915)) {
++	if (IS_ALDERLAKE_S(i915)) {
+ 		ddc_pin_map = adls_ddc_pin_map;
+ 		n_entries = ARRAY_SIZE(adls_ddc_pin_map);
+ 	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG1) {
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index e9b646f81af0..4a1b2d863b0c 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2746,7 +2746,7 @@ static u8 intel_hdmi_ddc_pin(struct intel_encoder *encoder)
+ 		return ddc_pin;
+ 	}
  
--	supported_rotations =
--		DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
--		DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
-+	if (DISPLAY_VER(dev_priv) >= 13)
-+		supported_rotations = DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180;
-+	else
-+		supported_rotations =
-+			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
-+			DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
+-	if (HAS_PCH_ADP(dev_priv))
++	if (IS_ALDERLAKE_S(dev_priv))
+ 		ddc_pin = adls_port_to_ddc_pin(dev_priv, port);
+ 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
+ 		ddc_pin = dg1_port_to_ddc_pin(dev_priv, port);
+diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
+index 7476f0e063c6..98a17dd1bda4 100644
+--- a/drivers/gpu/drm/i915/intel_pch.c
++++ b/drivers/gpu/drm/i915/intel_pch.c
+@@ -130,8 +130,10 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 		drm_WARN_ON(&dev_priv->drm, !IS_JSL_EHL(dev_priv));
+ 		return PCH_JSP;
+ 	case INTEL_PCH_ADP_DEVICE_ID_TYPE:
++	case INTEL_PCH_ADP2_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found Alder Lake PCH\n");
+-		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv));
++		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv) &&
++			    !IS_ALDERLAKE_P(dev_priv));
+ 		return PCH_ADP;
+ 	default:
+ 		return PCH_NONE;
+@@ -161,7 +163,7 @@ intel_virt_detect_pch(const struct drm_i915_private *dev_priv,
+ 	 * make an educated guess as to which PCH is really there.
+ 	 */
  
- 	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
- 		supported_rotations |= DRM_MODE_REFLECT_X;
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 26a5474bb145..d4611c643446 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -2309,7 +2309,7 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
- 
- static u32 gen8_de_pipe_fault_mask(struct drm_i915_private *dev_priv)
- {
--	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 13 || HAS_D12_PLANE_MINIMIZATION(dev_priv))
- 		return RKL_DE_PIPE_IRQ_FAULT_ERRORS;
- 	else if (DISPLAY_VER(dev_priv) >= 11)
- 		return GEN11_DE_PIPE_IRQ_FAULT_ERRORS;
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 3b975ce1ff59..8cb58a238c68 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -268,7 +268,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
- 
- 	BUILD_BUG_ON(BITS_PER_TYPE(intel_engine_mask_t) < I915_NUM_ENGINES);
- 
--	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 13 || HAS_D12_PLANE_MINIMIZATION(dev_priv))
- 		for_each_pipe(dev_priv, pipe)
- 			runtime->num_sprites[pipe] = 4;
- 	else if (INTEL_GEN(dev_priv) >= 11)
+-	if (IS_ALDERLAKE_S(dev_priv))
++	if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv))
+ 		id = INTEL_PCH_ADP_DEVICE_ID_TYPE;
+ 	else if (IS_TIGERLAKE(dev_priv) || IS_ROCKETLAKE(dev_priv))
+ 		id = INTEL_PCH_TGP_DEVICE_ID_TYPE;
+diff --git a/drivers/gpu/drm/i915/intel_pch.h b/drivers/gpu/drm/i915/intel_pch.h
+index 7318377503b0..e2f3f30c6445 100644
+--- a/drivers/gpu/drm/i915/intel_pch.h
++++ b/drivers/gpu/drm/i915/intel_pch.h
+@@ -55,6 +55,7 @@ enum intel_pch {
+ #define INTEL_PCH_JSP_DEVICE_ID_TYPE		0x4D80
+ #define INTEL_PCH_JSP2_DEVICE_ID_TYPE		0x3880
+ #define INTEL_PCH_ADP_DEVICE_ID_TYPE		0x7A80
++#define INTEL_PCH_ADP2_DEVICE_ID_TYPE		0x5180
+ #define INTEL_PCH_P2X_DEVICE_ID_TYPE		0x7100
+ #define INTEL_PCH_P3X_DEVICE_ID_TYPE		0x7000
+ #define INTEL_PCH_QEMU_DEVICE_ID_TYPE		0x2900 /* qemu q35 has 2918 */
 -- 
 2.25.4
 
