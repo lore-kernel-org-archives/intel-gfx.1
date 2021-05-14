@@ -2,50 +2,50 @@ Return-Path: <SRS0=QorL=KJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 63504C433B4
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 15:37:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67A21C43460
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 15:37:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2AE48613DF
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 15:37:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AE48613DF
+	by mail.kernel.org (Postfix) with ESMTPS id 2D4C46141E
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 15:37:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D4C46141E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B934F6F386;
-	Fri, 14 May 2021 15:37:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5F246EF2E;
+	Fri, 14 May 2021 15:37:22 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 962FB6EF2E
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 May 2021 15:37:19 +0000 (UTC)
-IronPort-SDR: TICTzkEiwbSZM9w+5KNhSpCIynw3Ln3gDAl/McwsLa9ZwC0nPkwxj1DcTwZxhk4Qak6Pg3NfF4
- M4K6Leua6s1Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9984"; a="200243917"
-X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="200243917"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B66456F380
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 May 2021 15:37:21 +0000 (UTC)
+IronPort-SDR: RVoPxQtLHbNzplo6LHvw7Rr0d92HPMqP0IqFJkFn7kDE2IKjINRrjYJC0oPLxYGZLtorNQ0RnT
+ vwtz07v2pNxw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9984"; a="200243931"
+X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="200243931"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2021 08:37:18 -0700
-IronPort-SDR: n0ShYN2vjeLPMdLDCkg6QwRPMTVXvrfnbmndopXhIId1e07K9wn0hVqU2aDtq6Nye2PkV5Xdl8
- r4CRNmhEVoyA==
-X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="610796549"
+ 14 May 2021 08:37:19 -0700
+IronPort-SDR: jydWymtXrrte+EPlYdmT3piTq4qh8GpOqM9N9vwa08PskodsWjDT5KZvLJhmzhfNc9nNps1nr9
+ 4syHjHL/nIcw==
+X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="610796588"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2021 08:37:17 -0700
+ 14 May 2021 08:37:19 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 May 2021 08:36:55 -0700
-Message-Id: <20210514153711.2359617-4-matthew.d.roper@intel.com>
+Date: Fri, 14 May 2021 08:37:07 -0700
+Message-Id: <20210514153711.2359617-16-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210514153711.2359617-1-matthew.d.roper@intel.com>
 References: <20210514153711.2359617-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 03/19] drm/i915/display/dsc: Refactor
- intel_dp_dsc_compute_bpp
+Subject: [Intel-gfx] [CI 15/19] drm/i915/bigjoiner: atomic commit changes
+ for uncompressed joiner
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,67 +63,149 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+From: Animesh Manna <animesh.manna@intel.com>
 
-Move the platform specific max bpc calculation into
-intel_dp_dsc_compute_bpp function
+Respective bit for master or slave to be set for uncompressed
+bigjoiner in dss_ctl1 register.
 
 Cc: Manasi Navare <manasi.d.navare@intel.com>
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c |  6 +++
+ drivers/gpu/drm/i915/display/intel_vdsc.c    | 40 +++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_vdsc.h    |  2 +
+ drivers/gpu/drm/i915/i915_reg.h              |  2 +
+ 4 files changed, 49 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 861409bc210d..d283c420af3f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1097,10 +1097,18 @@ intel_dp_compute_link_config_wide(struct intel_dp *intel_dp,
- 	return -EINVAL;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index b5fd721137d3..422b59ebf6dc 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3411,6 +3411,7 @@ static void icl_ddi_bigjoiner_pre_enable(struct intel_atomic_state *state,
+ 					 const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *master = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *dev_priv = to_i915(master->base.dev);
+ 	struct intel_crtc_state *master_crtc_state;
+ 	struct drm_connector_state *conn_state;
+ 	struct drm_connector *conn;
+@@ -3444,6 +3445,9 @@ static void icl_ddi_bigjoiner_pre_enable(struct intel_atomic_state *state,
+ 		/* and DSC on slave */
+ 		intel_dsc_enable(NULL, crtc_state);
+ 	}
++
++	if (DISPLAY_VER(dev_priv) >= 13)
++		intel_uncompressed_joiner_enable(crtc_state);
  }
  
--static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc)
-+static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 max_req_bpc)
- {
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	int i, num_bpc;
- 	u8 dsc_bpc[3] = {0};
-+	u8 dsc_max_bpc;
+ static void hsw_crtc_enable(struct intel_atomic_state *state,
+@@ -6250,6 +6254,8 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
+ 	}
+ 
+ 	intel_dsc_get_config(pipe_config);
++	if (DISPLAY_VER(dev_priv) >= 13 && !pipe_config->dsc.compression_enable)
++		intel_uncompressed_joiner_get_config(pipe_config);
+ 
+ 	if (!active) {
+ 		/* bigjoiner slave doesn't enable transcoder */
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index adcd6752f919..efc3184d8315 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -1021,6 +1021,22 @@ static i915_reg_t dss_ctl2_reg(const struct intel_crtc_state *crtc_state)
+ 	return is_pipe_dsc(crtc_state) ? ICL_PIPE_DSS_CTL2(pipe) : DSS_CTL2;
+ }
+ 
++void intel_uncompressed_joiner_enable(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	u32 dss_ctl1_val = 0;
 +
-+	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
-+	if (DISPLAY_VER(i915) >= 12)
-+		dsc_max_bpc = min_t(u8, 12, max_req_bpc);
-+	else
-+		dsc_max_bpc = min_t(u8, 10, max_req_bpc);
++	if (crtc_state->bigjoiner && !crtc_state->dsc.compression_enable) {
++		if (crtc_state->bigjoiner_slave)
++			dss_ctl1_val |= UNCOMPRESSED_JOINER_SLAVE;
++		else
++			dss_ctl1_val |= UNCOMPRESSED_JOINER_MASTER;
++
++		intel_de_write(dev_priv, dss_ctl1_reg(crtc_state), dss_ctl1_val);
++	}
++}
++
+ void intel_dsc_enable(struct intel_encoder *encoder,
+ 		      const struct intel_crtc_state *crtc_state)
+ {
+@@ -1060,13 +1076,35 @@ void intel_dsc_disable(const struct intel_crtc_state *old_crtc_state)
+ 	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
  
- 	num_bpc = drm_dp_dsc_sink_supported_input_bpcs(intel_dp->dsc_dpcd,
- 						       dsc_bpc);
-@@ -1188,7 +1196,6 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
- 	const struct drm_display_mode *adjusted_mode =
- 		&pipe_config->hw.adjusted_mode;
--	u8 dsc_max_bpc;
- 	int pipe_bpp;
- 	int ret;
+-	if (!old_crtc_state->dsc.compression_enable)
++	if (!(old_crtc_state->dsc.compression_enable &&
++	      old_crtc_state->bigjoiner))
+ 		return;
  
-@@ -1198,14 +1205,7 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
- 		return -EINVAL;
+ 	intel_de_write(dev_priv, dss_ctl1_reg(old_crtc_state), 0);
+ 	intel_de_write(dev_priv, dss_ctl2_reg(old_crtc_state), 0);
+ }
  
--	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
--	if (DISPLAY_VER(dev_priv) >= 12)
--		dsc_max_bpc = min_t(u8, 12, conn_state->max_requested_bpc);
--	else
--		dsc_max_bpc = min_t(u8, 10,
--				    conn_state->max_requested_bpc);
--
--	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, dsc_max_bpc);
-+	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
++void intel_uncompressed_joiner_get_config(struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	u32 dss_ctl1;
++
++	dss_ctl1 = intel_de_read(dev_priv, dss_ctl1_reg(crtc_state));
++	if (dss_ctl1 & UNCOMPRESSED_JOINER_MASTER) {
++		crtc_state->bigjoiner = true;
++		if (!WARN_ON(INTEL_NUM_PIPES(dev_priv) == crtc->pipe + 1))
++			crtc_state->bigjoiner_linked_crtc =
++				intel_get_crtc_for_pipe(dev_priv, crtc->pipe + 1);
++	} else if (dss_ctl1 & UNCOMPRESSED_JOINER_SLAVE) {
++		crtc_state->bigjoiner = true;
++		crtc_state->bigjoiner_slave = true;
++		if (!WARN_ON(crtc->pipe == PIPE_A))
++			crtc_state->bigjoiner_linked_crtc =
++				intel_get_crtc_for_pipe(dev_priv, crtc->pipe - 1);
++	}
++}
++
+ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.h b/drivers/gpu/drm/i915/display/intel_vdsc.h
+index 65d301c23580..fe4d45561253 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.h
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.h
+@@ -12,11 +12,13 @@ struct intel_encoder;
+ struct intel_crtc_state;
  
- 	/* Min Input BPC for ICL+ is 8 */
- 	if (pipe_bpp < 8 * 3) {
+ bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state);
++void intel_uncompressed_joiner_enable(const struct intel_crtc_state *crtc_state);
+ void intel_dsc_enable(struct intel_encoder *encoder,
+ 		      const struct intel_crtc_state *crtc_state);
+ void intel_dsc_disable(const struct intel_crtc_state *crtc_state);
+ int intel_dsc_compute_params(struct intel_encoder *encoder,
+ 			     struct intel_crtc_state *pipe_config);
++void intel_uncompressed_joiner_get_config(struct intel_crtc_state *crtc_state);
+ void intel_dsc_get_config(struct intel_crtc_state *crtc_state);
+ enum intel_display_power_domain
+ intel_dsc_power_domain(const struct intel_crtc_state *crtc_state);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 31bc413dbba1..dd6e0bae9573 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -11493,6 +11493,8 @@ enum skl_power_gate {
+ #define  SPLITTER_CONFIGURATION_MASK		REG_GENMASK(26, 25)
+ #define  SPLITTER_CONFIGURATION_2_SEGMENT	REG_FIELD_PREP(SPLITTER_CONFIGURATION_MASK, 0)
+ #define  SPLITTER_CONFIGURATION_4_SEGMENT	REG_FIELD_PREP(SPLITTER_CONFIGURATION_MASK, 1)
++#define  UNCOMPRESSED_JOINER_MASTER		(1 << 21)
++#define  UNCOMPRESSED_JOINER_SLAVE		(1 << 20)
+ 
+ #define _ICL_PIPE_DSS_CTL2_PB			0x78204
+ #define _ICL_PIPE_DSS_CTL2_PC			0x78404
 -- 
 2.25.4
 
