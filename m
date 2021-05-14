@@ -2,48 +2,50 @@ Return-Path: <SRS0=QorL=KJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5FA1C433B4
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 15:37:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28EE1C433ED
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 15:37:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8EC54613DF
+	by mail.kernel.org (Postfix) with ESMTPS id E30EA613DF
 	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 15:37:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EC54613DF
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E30EA613DF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD7A6F38C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B65B6F37F;
 	Fri, 14 May 2021 15:37:34 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B6516F381
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 May 2021 15:37:21 +0000 (UTC)
-IronPort-SDR: cFeBgEcELxwTyNUGnh4OLIbPzpzoBe3J9Gt/ScHufQ/6g5bYYfxVpeDJ5OQlH1JwZ1TD+sjzuX
- TlTC7r3QVBoA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9984"; a="200243923"
-X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="200243923"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F2766F385
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 May 2021 15:37:20 +0000 (UTC)
+IronPort-SDR: uRRsVM/Fzor7EM9RgQGRo+5iqkQ8lOKwfTlHD7z3e+QL87GY+G87PgmP6+030pwTNPOjQmHNY9
+ ChzGF2vI9DtQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9984"; a="200243930"
+X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="200243930"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2021 08:37:18 -0700
-IronPort-SDR: 0Jsu/xA1QzAzupZ3C8BTNcc0FF/noyw+NLBpU6NAHayStc1GKR4pMWW2LO67uH+wV9RGYoTmrI
- /dMv9GVXPt8A==
-X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="610796570"
+ 14 May 2021 08:37:19 -0700
+IronPort-SDR: vkyrzY/bzZcSYwEV7+/kR8kT67DiktrwJJ2DeqLC4HAgQJ0igswFmX2DT2vNQ+Syv6iJdq6R3j
+ gAbqmXVileDA==
+X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="610796585"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2021 08:37:17 -0700
+ 14 May 2021 08:37:19 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 May 2021 08:36:52 -0700
-Message-Id: <20210514153711.2359617-1-matthew.d.roper@intel.com>
+Date: Fri, 14 May 2021 08:37:06 -0700
+Message-Id: <20210514153711.2359617-15-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20210514153711.2359617-1-matthew.d.roper@intel.com>
+References: <20210514153711.2359617-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 00/19] Another batch of reviewed XeLPD / ADL-P
- patches
+Subject: [Intel-gfx] [CI 14/19] drm/i915/bigjoiner: Avoid dsc_compute_config
+ for uncompressed bigjoiner
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,50 +58,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QW5pbWVzaCBNYW5uYSAoMyk6CiAgZHJtL2k5MTUvYmlnam9pbmVyOiBNb2RlIHZhbGlkYXRpb24g
-d2l0aCB1bmNvbXByZXNzZWQgcGlwZSBqb2luZXIKICBkcm0vaTkxNS9iaWdqb2luZXI6IEF2b2lk
-IGRzY19jb21wdXRlX2NvbmZpZyBmb3IgdW5jb21wcmVzc2VkCiAgICBiaWdqb2luZXIKICBkcm0v
-aTkxNS9iaWdqb2luZXI6IGF0b21pYyBjb21taXQgY2hhbmdlcyBmb3IgdW5jb21wcmVzc2VkIGpv
-aW5lcgoKQW51c2hhIFNyaXZhdHNhICgxKToKICBkcm0vaTkxNS9hZGxfcDogQWRkIGNkY2xrIHN1
-cHBvcnQgZm9yIEFETC1QCgpKb3PDqSBSb2JlcnRvIGRlIFNvdXphICg3KToKICBkcm0vaTkxNS94
-ZWxwZDogUHJvdmlkZSBwb3J0L3BoeSBtYXBwaW5nIGZvciB2YnQKICBkcm0vaTkxNS9kaXNwbGF5
-L3RjOiBSZW5hbWUgc2FmZV9tb2RlIGZ1bmN0aW9ucyBvd25lcnNoaXAKICBkcm0vaTkxNS9hZGxf
-cDogRW5hYmxlIG1vZHVsYXIgZmlhCiAgZHJtL2k5MTUvYWRsX3A6IEFkZCBJUHMgc3RlcHBpbmcg
-bWFwcGluZwogIGRybS9pOTE1L2FkbF9wOiBJbXBsZW1lbnQgV2FfMjIwMTEwOTE2OTQKICBkcm0v
-aTkxNS9kaXNwbGF5L2FkbF9wOiBJbXBsZW1lbnQgV2FfMjIwMTEzMjAzMTYKICBkcm0vaTkxNS9h
-ZGxfcDogRGlzYWJsZSBDQ1Mgb24gYS1zdGVwIChXYV8yMjAxMTE4NjA1NykKCk1hdHQgUm9wZXIg
-KDMpOgogIGRybS9pOTE1L3hlbHBkOiBIYW5kbGUgbmV3IGxvY2F0aW9uIG9mIG91dHB1dHMgRCBh
-bmQgRQogIGRybS9pOTE1L3hlbHBkOiBJbmNyZWFzZSBtYXhpbXVtIHdhdGVybWFyayBsaW5lcyB0
-byAyNTUKICBkcm0vaTkxNS9hZGxfcDogRXh0ZW5kIFBMQU5FX1dNIGJpdHMgZm9yIGJsb2NrcyAm
-IGxpbmVzCgpNaWthIEthaG9sYSAoMSk6CiAgZHJtL2k5MTUvYWRsX3A6IEVuYWJsZS9kaXNhYmxl
-IGxvYWRnZW4gc2hhcmluZwoKVmFuZGl0YSBLdWxrYXJuaSAoMyk6CiAgZHJtL2k5MTUvZGlzcGxh
-eS9kc2M6IFJlZmFjdG9yIGludGVsX2RwX2RzY19jb21wdXRlX2JwcAogIGRybS9pOTE1L3hlbHBk
-OiBTdXBwb3J0IERQMS40IGNvbXByZXNzaW9uIEJQUHMKICBkcm0vaTkxNTogR2V0IHNsaWNlIGhl
-aWdodCBiZWZvcmUgY29tcHV0aW5nIHJjIHBhcmFtcwoKVmlsbGUgU3lyasOkbMOkICgxKToKICBk
-cm0vaTkxNTogTW92ZSBpbnRlbF9tb2Rlc2V0X2FsbF9waXBlcygpCgogZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZGlzcGxheS9pbnRlbF9iaW9zLmMgICAgIHwgNDYgKysrKysrKy0tCiBkcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NkY2xrLmMgICAgfCA5OCArKysrKysrKystLS0tLS0t
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jICAgICAgfCA0OCAr
-KysrKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jICB8
-IDUwICsrKysrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxh
-eS5oICB8ICA5ICsrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMgICAg
-ICAgfCA3NSArKysrKysrKystLS0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
-bF9kcF9hdXguYyAgIHwgMTQgKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X3RjLmMgICAgICAgfCAzOSArKysrLS0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF92ZHNjLmMgICAgIHwgNDAgKysrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
-YXkvaW50ZWxfdmRzYy5oICAgICB8ICAyICsKIC4uLi9kcm0vaTkxNS9kaXNwbGF5L3NrbF91bml2
-ZXJzYWxfcGxhbmUuYyAgICB8IDIwICsrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2
-LmggICAgICAgICAgICAgICB8ICA4ICsrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BjaS5j
-ICAgICAgICAgICAgICAgfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oICAg
-ICAgICAgICAgICAgfCAxMSArKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BtLmMgICAg
-ICAgICAgICAgICB8IDI3ICsrKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9zdGVwLmMg
-ICAgICAgICAgICAgfCAxMiArKy0KIDE2IGZpbGVzIGNoYW5nZWQsIDM3MSBpbnNlcnRpb25zKCsp
-LCAxMjkgZGVsZXRpb25zKC0pCgotLSAKMi4yNS40CgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9pbnRlbC1nZngK
+From: Animesh Manna <animesh.manna@intel.com>
+
+For uncompressed big joiner DSC engine will not be used so will avoid
+compute config of DSC.
+
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 75f4c56757e3..16cdec9a4aa3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1371,9 +1371,13 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 	 */
+ 	ret = intel_dp_compute_link_config_wide(intel_dp, pipe_config, &limits);
+ 
+-	/* enable compression if the mode doesn't fit available BW */
++	/*
++	 * Pipe joiner needs compression upto display12 due to BW limitation. DG2
++	 * onwards pipe joiner can be enabled without compression.
++	 */
+ 	drm_dbg_kms(&i915->drm, "Force DSC en = %d\n", intel_dp->force_dsc_en);
+-	if (ret || intel_dp->force_dsc_en || pipe_config->bigjoiner) {
++	if (ret || intel_dp->force_dsc_en || (DISPLAY_VER(i915) < 13 &&
++					      pipe_config->bigjoiner)) {
+ 		ret = intel_dp_dsc_compute_config(intel_dp, pipe_config,
+ 						  conn_state, &limits);
+ 		if (ret < 0)
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
