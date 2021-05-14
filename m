@@ -2,63 +2,63 @@ Return-Path: <SRS0=QorL=KJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACE7DC433ED
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 18:15:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F070FC43460
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 18:15:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7B169613C9
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 18:15:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B169613C9
+	by mail.kernel.org (Postfix) with ESMTPS id B9AC0613C9
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 18:15:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9AC0613C9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 632416F3F2;
-	Fri, 14 May 2021 18:15:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C6416F3F4;
+	Fri, 14 May 2021 18:15:49 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA876F3EB
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 May 2021 18:15:42 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C57A26F3F3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 May 2021 18:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1621016141;
+ s=mimecast20190719; t=1621016146;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BRIpi+u5w7+IcMV4egi4y2reGA+g2xOvrb+SvyeAtf8=;
- b=QJ9UHdNN2g7bEoXLNvtNvJbKpk3qujliVb2g7Xgh8O9aIuGra1d8g3e2j+AWv5VC+1gRmD
- lW+BRHe+ErXXYDPj7QCVsZTIeUPZAFBowDJETJ6dWqiLRcYfgG99sYZNRcco4+tjOhLT3y
- va94YYVI2HDBegeuDY83j/R7DjXkIVw=
+ bh=wgIOeWWeBEGw8FvntL4UYtsS5CjDmaYe8A67QE4J7Zg=;
+ b=aCwdjLGGlOJxkSipTg6Xm33P0d9DZqNSmYAP7onwK7nrFXspfHxkYDSD4vcUVYEPZrSYeP
+ RSqbM/DNhUjl/S18kA2yGQKb/53diuFPsRqt4Nou85xU8LBC2GiK57OmG7wcN0v7MvL5z/
+ 20AGv26PKz9+zwzYnRpjnj4ZXh85I9I=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-183-ru5N9jJENUOkHfs770PuDw-1; Fri, 14 May 2021 14:15:36 -0400
-X-MC-Unique: ru5N9jJENUOkHfs770PuDw-1
+ us-mta-360-qQ5PDoeOMbOyIzJuviJ-yg-1; Fri, 14 May 2021 14:15:44 -0400
+X-MC-Unique: qQ5PDoeOMbOyIzJuviJ-yg-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
  [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EB671107ACC7;
- Fri, 14 May 2021 18:15:33 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D7FEA801106;
+ Fri, 14 May 2021 18:15:42 +0000 (UTC)
 Received: from Whitewolf.redhat.com (ovpn-118-140.rdu2.redhat.com
  [10.10.118.140])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 252731971B;
- Fri, 14 May 2021 18:15:26 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 820301A868;
+ Fri, 14 May 2021 18:15:41 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  nouveau@lists.freedesktop.org
-Date: Fri, 14 May 2021 14:14:55 -0400
-Message-Id: <20210514181504.565252-2-lyude@redhat.com>
+Date: Fri, 14 May 2021 14:14:57 -0400
+Message-Id: <20210514181504.565252-4-lyude@redhat.com>
 In-Reply-To: <20210514181504.565252-1-lyude@redhat.com>
 References: <20210514181504.565252-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Subject: [Intel-gfx] [PATCH v6 1/9] drm/i915/dpcd_bl: Remove redundant AUX
- backlight frequency calculations
+Subject: [Intel-gfx] [PATCH v6 3/9] drm/i915/dpcd_bl: Cleanup
+ intel_dp_aux_vesa_enable_backlight() a bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,153 +72,67 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rajeev Nandan <rajeevny@codeaurora.org>, greg.depoire@gmail.com,
- David Airlie <airlied@linux.ie>, Lucas De Marchi <lucas.demarchi@intel.com>,
- open list <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- Sean Paul <seanpaul@chromium.org>, Dave Airlie <airlied@redhat.com>
+ open list <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ Sean Paul <seanpaul@chromium.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Noticed this while moving all of the VESA backlight code in i915 over to
-DRM helpers: it would appear that we calculate the frequency value we want
-to write to DP_EDP_BACKLIGHT_FREQ_SET twice even though this value never
-actually changes during runtime. So, let's simplify things by just caching
-this value in intel_panel.backlight, and re-writing it as-needed.
+Get rid of the extraneous switch case in here, and just open code
+edp_backlight_mode as we only ever use it once.
 
-Changes since v1:
-* Wrap panel->backlight.edp.vesa.pwm_freq_pre_divider in
-  DP_EDP_BACKLIGHT_FREQ_AUX_SET_CAP check - Jani
+v4:
+* Check that backlight mode is DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD, not
+  DP_EDP_BACKLIGHT_CONTROL_MODE_MASK - imirkin
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Dave Airlie <airlied@gmail.com>
-Cc: greg.depoire@gmail.com
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- .../drm/i915/display/intel_display_types.h    |  1 +
- .../drm/i915/display/intel_dp_aux_backlight.c | 65 ++++++-------------
- 2 files changed, 20 insertions(+), 46 deletions(-)
+ .../gpu/drm/i915/display/intel_dp_aux_backlight.c | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 9c0adfc60c6f..7054a37363fb 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -311,6 +311,7 @@ struct intel_panel {
- 		union {
- 			struct {
- 				u8 pwmgen_bit_count;
-+				u8 pwm_freq_pre_divider;
- 			} vesa;
- 			struct {
- 				bool sdr_uses_aux;
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 8e9ac9ba1d38..68bfe50ada59 100644
+index 1dbe38282ebe..1ab82933afb5 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -373,50 +373,6 @@ intel_dp_aux_vesa_set_backlight(const struct drm_connector_state *conn_state,
- 	}
- }
+@@ -382,7 +382,7 @@ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	struct intel_panel *panel = &connector->panel;
+-	u8 dpcd_buf, new_dpcd_buf, edp_backlight_mode;
++	u8 dpcd_buf, new_dpcd_buf;
+ 	u8 pwmgen_bit_count = panel->backlight.edp.vesa.pwmgen_bit_count;
  
--/*
-- * Set PWM Frequency divider to match desired frequency in vbt.
-- * The PWM Frequency is calculated as 27Mhz / (F x P).
-- * - Where F = PWM Frequency Pre-Divider value programmed by field 7:0 of the
-- *             EDP_BACKLIGHT_FREQ_SET register (DPCD Address 00728h)
-- * - Where P = 2^Pn, where Pn is the value programmed by field 4:0 of the
-- *             EDP_PWMGEN_BIT_COUNT register (DPCD Address 00724h)
-- */
--static bool intel_dp_aux_vesa_set_pwm_freq(struct intel_connector *connector)
--{
--	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
--	struct intel_dp *intel_dp = intel_attached_dp(connector);
--	const u8 pn = connector->panel.backlight.edp.vesa.pwmgen_bit_count;
--	int freq, fxp, f, fxp_actual, fxp_min, fxp_max;
--
--	freq = dev_priv->vbt.backlight.pwm_freq_hz;
--	if (!freq) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "Use panel default backlight frequency\n");
--		return false;
--	}
--
--	fxp = DIV_ROUND_CLOSEST(KHz(DP_EDP_BACKLIGHT_FREQ_BASE_KHZ), freq);
--	f = clamp(DIV_ROUND_CLOSEST(fxp, 1 << pn), 1, 255);
--	fxp_actual = f << pn;
--
--	/* Ensure frequency is within 25% of desired value */
--	fxp_min = DIV_ROUND_CLOSEST(fxp * 3, 4);
--	fxp_max = DIV_ROUND_CLOSEST(fxp * 5, 4);
--
--	if (fxp_min > fxp_actual || fxp_actual > fxp_max) {
--		drm_dbg_kms(&dev_priv->drm, "Actual frequency out of range\n");
--		return false;
--	}
--
--	if (drm_dp_dpcd_writeb(&intel_dp->aux,
--			       DP_EDP_BACKLIGHT_FREQ_SET, (u8) f) < 0) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "Failed to write aux backlight freq\n");
--		return false;
--	}
--	return true;
--}
--
- static void
- intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
- 				   const struct drm_connector_state *conn_state, u32 level)
-@@ -459,9 +415,13 @@ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
- 		break;
+ 	if (drm_dp_dpcd_readb(&intel_dp->aux,
+@@ -393,12 +393,8 @@ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
  	}
  
--	if (intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_FREQ_AUX_SET_CAP)
--		if (intel_dp_aux_vesa_set_pwm_freq(connector))
-+	if (panel->backlight.edp.vesa.pwm_freq_pre_divider) {
-+		if (drm_dp_dpcd_writeb(&intel_dp->aux, DP_EDP_BACKLIGHT_FREQ_SET,
-+				       panel->backlight.edp.vesa.pwm_freq_pre_divider) == 1)
- 			new_dpcd_buf |= DP_EDP_BACKLIGHT_FREQ_AUX_SET_ENABLE;
-+		else
-+			drm_dbg_kms(&i915->drm, "Failed to write aux backlight frequency\n");
-+	}
+ 	new_dpcd_buf = dpcd_buf;
+-	edp_backlight_mode = dpcd_buf & DP_EDP_BACKLIGHT_CONTROL_MODE_MASK;
  
- 	if (new_dpcd_buf != dpcd_buf) {
- 		if (drm_dp_dpcd_writeb(&intel_dp->aux,
-@@ -482,6 +442,14 @@ static void intel_dp_aux_vesa_disable_backlight(const struct drm_connector_state
- 				  false);
- }
+-	switch (edp_backlight_mode) {
+-	case DP_EDP_BACKLIGHT_CONTROL_MODE_PWM:
+-	case DP_EDP_BACKLIGHT_CONTROL_MODE_PRESET:
+-	case DP_EDP_BACKLIGHT_CONTROL_MODE_PRODUCT:
++	if ((dpcd_buf & DP_EDP_BACKLIGHT_CONTROL_MODE_MASK) != DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD) {
+ 		new_dpcd_buf &= ~DP_EDP_BACKLIGHT_CONTROL_MODE_MASK;
+ 		new_dpcd_buf |= DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD;
  
-+/*
-+ * Compute PWM frequency divider value based off the frequency provided to us by the vbt.
-+ * The PWM Frequency is calculated as 27Mhz / (F x P).
-+ * - Where F = PWM Frequency Pre-Divider value programmed by field 7:0 of the
-+ *             EDP_BACKLIGHT_FREQ_SET register (DPCD Address 00728h)
-+ * - Where P = 2^Pn, where Pn is the value programmed by field 4:0 of the
-+ *             EDP_PWMGEN_BIT_COUNT register (DPCD Address 00724h)
-+ */
- static u32 intel_dp_aux_vesa_calc_max_backlight(struct intel_connector *connector)
- {
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-@@ -533,8 +501,10 @@ static u32 intel_dp_aux_vesa_calc_max_backlight(struct intel_connector *connecto
- 	pn_min &= DP_EDP_PWMGEN_BIT_COUNT_MASK;
- 	pn_max &= DP_EDP_PWMGEN_BIT_COUNT_MASK;
- 
-+	/* Ensure frequency is within 25% of desired value */
- 	fxp_min = DIV_ROUND_CLOSEST(fxp * 3, 4);
- 	fxp_max = DIV_ROUND_CLOSEST(fxp * 5, 4);
-+
- 	if (fxp_min < (1 << pn_min) || (255 << pn_max) < fxp_max) {
- 		drm_dbg_kms(&i915->drm,
- 			    "VBT defined backlight frequency out of range\n");
-@@ -555,7 +525,10 @@ static u32 intel_dp_aux_vesa_calc_max_backlight(struct intel_connector *connecto
- 			    "Failed to write aux pwmgen bit count\n");
- 		return max_backlight;
+@@ -406,13 +402,6 @@ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
+ 				       pwmgen_bit_count) != 1)
+ 			drm_dbg_kms(&i915->drm,
+ 				    "Failed to write aux pwmgen bit count\n");
+-
+-		break;
+-
+-	/* Do nothing when it is already DPCD mode */
+-	case DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD:
+-	default:
+-		break;
  	}
-+
- 	panel->backlight.edp.vesa.pwmgen_bit_count = pn;
-+	if (intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_FREQ_AUX_SET_CAP)
-+		panel->backlight.edp.vesa.pwm_freq_pre_divider = f;
  
- 	max_backlight = (1 << pn) - 1;
- 
+ 	if (panel->backlight.edp.vesa.pwm_freq_pre_divider) {
 -- 
 2.31.1
 
