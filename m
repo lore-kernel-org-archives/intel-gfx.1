@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F2A4C433B4
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 12:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92AFFC433ED
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 12:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C552C61404
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 12:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C552C61404
+	by mail.kernel.org (Postfix) with ESMTPS id 5B3D56145D
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 May 2021 12:58:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B3D56145D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 799396EE6C;
-	Fri, 14 May 2021 12:58:18 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49AE76EE6B
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 May 2021 12:58:17 +0000 (UTC)
-IronPort-SDR: j2AG4UexQgNbySZb5F/MlMws8YAS6fKMom+iHQfrCgKmOJ0VwnH4OZ71vOLcFb7E1bdBV7snsN
- YS656BaC0VgQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9983"; a="261409813"
-X-IronPort-AV: E=Sophos;i="5.82,299,1613462400"; d="scan'208";a="261409813"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2021 05:58:06 -0700
-IronPort-SDR: iEy9w7RTOIOWe2rSIz2VCvVMMOYhh6NIxupsKtuywYqbAWfbm124Dqn9ADN0RedOU5eG8rFYKe
- O+tOxevtAr2g==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01F3F6EE6B;
+	Fri, 14 May 2021 12:58:25 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67D816EE6B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 May 2021 12:58:23 +0000 (UTC)
+IronPort-SDR: zXCkPk0fFnu1gpzhAph+n4wuJtsMy695TRBP1VkLdbvY/MP7u5FiD090G2jgBZ0TG/SdVRS/Ik
+ Hynq1EmvQQ0A==
+X-IronPort-AV: E=McAfee;i="6200,9189,9983"; a="200222458"
+X-IronPort-AV: E=Sophos;i="5.82,299,1613462400"; d="scan'208";a="200222458"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 May 2021 05:58:19 -0700
+IronPort-SDR: +IF5kHUzR7OEBaQrDP/JStJ9bnrpIQ3I/C2E+tvOJN8NCCAcNiiXht0d5TPPyvh7y46qfSqV4Z
+ 4duMzizWy1fQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,299,1613462400"; d="scan'208";a="393626105"
+X-IronPort-AV: E=Sophos;i="5.82,299,1613462400"; d="scan'208";a="438024046"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga006.jf.intel.com with SMTP; 14 May 2021 05:58:03 -0700
+ by orsmga008.jf.intel.com with SMTP; 14 May 2021 05:58:15 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 14 May 2021 15:58:02 +0300
+ Fri, 14 May 2021 15:58:15 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 May 2021 15:57:41 +0300
-Message-Id: <20210514125751.17075-5-ville.syrjala@linux.intel.com>
+Date: Fri, 14 May 2021 15:57:45 +0300
+Message-Id: <20210514125751.17075-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210514125751.17075-1-ville.syrjala@linux.intel.com>
 References: <20210514125751.17075-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/14] drm/i915: Apply WaUse32BppForSRWM to elk
- as well as ctg
+Subject: [Intel-gfx] [PATCH 08/14] drm/i915: Simplify up g4x watermark
+ sanitation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,31 +65,40 @@ Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KClRo
-ZSB3L2EgZGF0YWJhc2UgbGlzdHMgdGhpcyBmb3IgYm90aCBjdGcgYW5kIGVsay4gU28gbGV0J3Mg
-YXBwbHkgaXQgdG8KZWxrIGFzIHdlbGwuIEFuZCBhZGQgdGhlIHcvYSBuYW1lLgoKU2lnbmVkLW9m
-Zi1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wbS5jIHwgMTIgKysrKy0tLS0tLS0tCiAxIGZp
-bGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BtLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9p
-bnRlbF9wbS5jCmluZGV4IDhhMDhhN2MwZTcxZi4uNjYxYmM2ZmRmMzhjIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2ludGVsX3BtLmMKQEAgLTExNTIsMTcgKzExNTIsMTMgQEAgc3RhdGljIHUxNiBnNHhfY29tcHV0
-ZV93bShjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKIAljcHAgPSBw
-bGFuZV9zdGF0ZS0+aHcuZmItPmZvcm1hdC0+Y3BwWzBdOwogCiAJLyoKLQkgKiBOb3QgMTAwJSBz
-dXJlIHdoaWNoIHdheSBFTEsgc2hvdWxkIGdvIGhlcmUgYXMgdGhlCi0JICogc3BlYyBvbmx5IHNh
-eXMgQ0wvQ1RHIHNob3VsZCBhc3N1bWUgMzJicHAgYW5kIEJXCi0JICogZG9lc24ndCBuZWVkIHRv
-LiBCdXQgYXMgdGhlc2UgdGhpbmdzIGZvbGxvd2VkIHRoZQotCSAqIG1vYmlsZSB2cy4gZGVza3Rv
-cCBsaW5lcyBvbiBnZW4zIGFzIHdlbGwsIGxldCdzCi0JICogYXNzdW1lIEVMSyBkb2Vzbid0IG5l
-ZWQgdGhpcy4KKwkgKiBXYVVzZTMyQnBwRm9yU1JXTTpjdGcsZWxrCiAJICoKLQkgKiBUaGUgc3Bl
-YyBhbHNvIGZhaWxzIHRvIGxpc3Qgc3VjaCBhIHJlc3RyaWN0aW9uIGZvcgotCSAqIHRoZSBIUExM
-IHdhdGVybWFyaywgd2hpY2ggc2VlbXMgYSBsaXR0bGUgc3RyYW5nZS4KKwkgKiBUaGUgc3BlYyBm
-YWlscyB0byBsaXN0IHRoaXMgcmVzdHJpY3Rpb24gZm9yIHRoZQorCSAqIEhQTEwgd2F0ZXJtYXJr
-LCB3aGljaCBzZWVtcyBhIGxpdHRsZSBzdHJhbmdlLgogCSAqIExldCdzIHVzZSAzMmJwcCBmb3Ig
-dGhlIEhQTEwgd2F0ZXJtYXJrIGFzIHdlbGwuCiAJICovCi0JaWYgKElTX0dNNDUoZGV2X3ByaXYp
-ICYmIHBsYW5lLT5pZCA9PSBQTEFORV9QUklNQVJZICYmCisJaWYgKHBsYW5lLT5pZCA9PSBQTEFO
-RV9QUklNQVJZICYmCiAJICAgIGxldmVsICE9IEc0WF9XTV9MRVZFTF9OT1JNQUwpCiAJCWNwcCA9
-IG1heChjcHAsIDR1KTsKIAotLSAKMi4yNi4zCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9pbnRlbC1nZngK
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCldl
+IGNhbiBzaW1wbGlmeSB0aGUgZzR4IHdhdGVybWFyayBzYW5pdGF0aW9uIGJ5IHJldXNpbmcgdGhl
+CnNlY29uZCBoYWxmIG9mIGc0eF9jb21wdXRlX3BpcGVfd20oKSB0byBjb252ZXJ0IHRoZSBzYW5p
+dGl6ZWQKcmF3IHdhdGVybWFya3MgaW50byB0aGUgcHJvcGVyIGZvcm0gdG8gYmUgdXNlZCBhcyB0
+aGUKb3B0aW1hbC9pbnRlcm1lZGlhdGUgd2F0ZXJtYXJrcy4KClNpZ25lZC1vZmYtYnk6IFZpbGxl
+IFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+Ci0tLQogZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaW50ZWxfcG0uYyB8IDIxICsrKysrKystLS0tLS0tLS0tLS0tLQogMSBmaWxl
+IGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2lu
+dGVsX3BtLmMKaW5kZXggMTE1Y2JmNGNkMTBmLi5iMmViYzVmZjAwMDcgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aW50ZWxfcG0uYwpAQCAtNjU1MiwzNyArNjU1MiwzMCBAQCB2b2lkIGc0eF93bV9zYW5pdGl6ZShz
+dHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJCQl0b19pbnRlbF9jcnRjX3N0YXRl
+KGNydGMtPmJhc2Uuc3RhdGUpOwogCQlzdHJ1Y3QgaW50ZWxfcGxhbmVfc3RhdGUgKnBsYW5lX3N0
+YXRlID0KIAkJCXRvX2ludGVsX3BsYW5lX3N0YXRlKHBsYW5lLT5iYXNlLnN0YXRlKTsKLQkJc3Ry
+dWN0IGc0eF93bV9zdGF0ZSAqd21fc3RhdGUgPSAmY3J0Y19zdGF0ZS0+d20uZzR4Lm9wdGltYWw7
+CiAJCWVudW0gcGxhbmVfaWQgcGxhbmVfaWQgPSBwbGFuZS0+aWQ7Ci0JCWludCBsZXZlbDsKKwkJ
+aW50IGxldmVsLCBudW1fbGV2ZWxzID0gaW50ZWxfd21fbnVtX2xldmVscyhkZXZfcHJpdik7CiAK
+IAkJaWYgKHBsYW5lX3N0YXRlLT51YXBpLnZpc2libGUpCiAJCQljb250aW51ZTsKIAotCQlmb3Ig
+KGxldmVsID0gMDsgbGV2ZWwgPCAzOyBsZXZlbCsrKSB7CisJCWZvciAobGV2ZWwgPSAwOyBsZXZl
+bCA8IG51bV9sZXZlbHM7IGxldmVsKyspIHsKIAkJCXN0cnVjdCBnNHhfcGlwZV93bSAqcmF3ID0K
+IAkJCQkmY3J0Y19zdGF0ZS0+d20uZzR4LnJhd1tsZXZlbF07CiAKIAkJCXJhdy0+cGxhbmVbcGxh
+bmVfaWRdID0gMDsKLQkJCXdtX3N0YXRlLT53bS5wbGFuZVtwbGFuZV9pZF0gPSAwOwotCQl9CiAK
+LQkJaWYgKHBsYW5lX2lkID09IFBMQU5FX1BSSU1BUlkpIHsKLQkJCWZvciAobGV2ZWwgPSAwOyBs
+ZXZlbCA8IDM7IGxldmVsKyspIHsKLQkJCQlzdHJ1Y3QgZzR4X3BpcGVfd20gKnJhdyA9Ci0JCQkJ
+CSZjcnRjX3N0YXRlLT53bS5nNHgucmF3W2xldmVsXTsKKwkJCWlmIChwbGFuZV9pZCA9PSBQTEFO
+RV9QUklNQVJZKQogCQkJCXJhdy0+ZmJjID0gMDsKLQkJCX0KLQotCQkJd21fc3RhdGUtPnNyLmZi
+YyA9IDA7Ci0JCQl3bV9zdGF0ZS0+aHBsbC5mYmMgPSAwOwotCQkJd21fc3RhdGUtPmZiY19lbiA9
+IGZhbHNlOwogCQl9CiAJfQogCiAJZm9yX2VhY2hfaW50ZWxfY3J0YygmZGV2X3ByaXYtPmRybSwg
+Y3J0YykgewogCQlzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSA9CiAJCQl0b19p
+bnRlbF9jcnRjX3N0YXRlKGNydGMtPmJhc2Uuc3RhdGUpOworCQlpbnQgcmV0OworCisJCXJldCA9
+IF9nNHhfY29tcHV0ZV9waXBlX3dtKGNydGNfc3RhdGUpOworCQlkcm1fV0FSTl9PTigmZGV2X3By
+aXYtPmRybSwgcmV0KTsKIAogCQljcnRjX3N0YXRlLT53bS5nNHguaW50ZXJtZWRpYXRlID0KIAkJ
+CWNydGNfc3RhdGUtPndtLmc0eC5vcHRpbWFsOwotLSAKMi4yNi4zCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
+dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
