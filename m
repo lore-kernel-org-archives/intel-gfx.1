@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DC07C43460
-	for <intel-gfx@archiver.kernel.org>; Sat, 15 May 2021 03:11:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34F52C433ED
+	for <intel-gfx@archiver.kernel.org>; Sat, 15 May 2021 03:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 581DF61177
+	by mail.kernel.org (Postfix) with ESMTPS id 0616561428
 	for <intel-gfx@archiver.kernel.org>; Sat, 15 May 2021 03:11:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 581DF61177
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0616561428
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8CEE6F4EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E66726F4ED;
 	Sat, 15 May 2021 03:10:48 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 556806F4D3
- for <intel-gfx@lists.freedesktop.org>; Sat, 15 May 2021 03:10:44 +0000 (UTC)
-IronPort-SDR: j0KLt8SJ7VBgFI1xFi9vjotlT28WW2AYoQ4edrYVONPyC8RXXShdabip74yeaN3W6F9tEit5UO
- tCjNq+SlduRw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9984"; a="187383719"
-X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="187383719"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3D5B6F4D0
+ for <intel-gfx@lists.freedesktop.org>; Sat, 15 May 2021 03:10:42 +0000 (UTC)
+IronPort-SDR: As16NZpr8O2EAHP7AOoZd7USiUrHnv/UR4ovBZSkTQKEmQfe3CV/PpxO6eIhr2VfLqhlC68yA0
+ FKPv0YJrkwPQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9984"; a="187383697"
+X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="187383697"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2021 20:10:44 -0700
-IronPort-SDR: IsK4k3jfMDri9ajg2ZcbXP5ZHW0nhd+FvYKjFbcdbkda2N3sPN9QKh0f0V00NdI6ilEwaMUllN
- lRlioB+35IJw==
-X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="392901229"
+ 14 May 2021 20:10:41 -0700
+IronPort-SDR: vEZCYvurET9pTG3xVmLJuK4v3xO4e69RLC3+WMMUORgwJh8mN1J4zLaVrTzMKfYBxPnV73MUFO
+ MvOCpcKAuUOQ==
+X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="392901179"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2021 20:10:43 -0700
+ 14 May 2021 20:10:41 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 May 2021 20:10:35 -0700
-Message-Id: <20210515031035.2561658-24-matthew.d.roper@intel.com>
+Date: Fri, 14 May 2021 20:10:19 -0700
+Message-Id: <20210515031035.2561658-8-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210515031035.2561658-1-matthew.d.roper@intel.com>
 References: <20210515031035.2561658-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 23/23] drm/i915/adl_p: Update memory
- bandwidth parameters
+Subject: [Intel-gfx] [PATCH v4 07/23] drm/i915/adl_p: Setup ports/phys
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,30 +57,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3JpdmF0c2FAaW50ZWwuY29tPgoKQURMX1Ag
-aGFzIHNhbWUgbWVtb3J5IGNoYXJhY3RlcmlzdGljcyBhcyBBRExfUyBwbGF0Zm9ybS4KCkJzcGVj
-OiA2NDYzMQoKQ2M6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29t
-PgpDYzogQ2xpbnQgVGF5bG9yIDxjbGludG9uLmEudGF5bG9yQGludGVsLmNvbT4KU2lnbmVkLW9m
-Zi1ieTogQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3JpdmF0c2FAaW50ZWwuY29tPgpTaWduZWQt
-b2ZmLWJ5OiBDbGludG9uIFRheWxvciA8Q2xpbnRvbi5BLlRheWxvckBpbnRlbC5jb20+ClNpZ25l
-ZC1vZmYtYnk6IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5yb3BlckBpbnRlbC5jb20+Ci0tLQogZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9idy5jIHwgMiArLQogMSBmaWxlIGNoYW5n
-ZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9idy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
-cGxheS9pbnRlbF9idy5jCmluZGV4IGEzNTQzNTA4M2I2MC4uM2ExYmE1MjI2NmE3IDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2J3LmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9idy5jCkBAIC0yNjcsNyArMjY3LDcgQEAgdm9p
-ZCBpbnRlbF9id19pbml0X2h3KHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdikKIAlp
-ZiAoIUhBU19ESVNQTEFZKGRldl9wcml2KSkKIAkJcmV0dXJuOwogCi0JaWYgKElTX0FMREVSTEFL
-RV9TKGRldl9wcml2KSkKKwlpZiAoSVNfQUxERVJMQUtFX1MoZGV2X3ByaXYpIHx8IElTX0FMREVS
-TEFLRV9QKGRldl9wcml2KSkKIAkJaWNsX2dldF9id19pbmZvKGRldl9wcml2LCAmYWRsc19zYV9p
-bmZvKTsKIAllbHNlIGlmIChJU19ST0NLRVRMQUtFKGRldl9wcml2KSkKIAkJaWNsX2dldF9id19p
-bmZvKGRldl9wcml2LCAmcmtsX3NhX2luZm8pOwotLSAKMi4yNS40CgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
-dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+
+The SoC has 6 DDI ports(DDI A,DDI B and DDI TC1-4.
+The first two are connected to combo phys while
+the rest are connected to TC phys.
+
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Clinton Taylor <clinton.a.taylor@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 2c2c5676dc30..f7b25a723f87 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3675,7 +3675,9 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
+ 
+ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
+ {
+-	if (IS_TIGERLAKE(dev_priv))
++	if (IS_ALDERLAKE_P(dev_priv))
++		return phy >= PHY_F && phy <= PHY_I;
++	else if (IS_TIGERLAKE(dev_priv))
+ 		return phy >= PHY_D && phy <= PHY_I;
+ 	else if (IS_ICELAKE(dev_priv))
+ 		return phy >= PHY_C && phy <= PHY_F;
+@@ -11253,7 +11255,14 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return;
+ 
+-	if (IS_ALDERLAKE_S(dev_priv)) {
++	if (IS_ALDERLAKE_P(dev_priv)) {
++		intel_ddi_init(dev_priv, PORT_A);
++		intel_ddi_init(dev_priv, PORT_B);
++		intel_ddi_init(dev_priv, PORT_TC1);
++		intel_ddi_init(dev_priv, PORT_TC2);
++		intel_ddi_init(dev_priv, PORT_TC3);
++		intel_ddi_init(dev_priv, PORT_TC4);
++	} else if (IS_ALDERLAKE_S(dev_priv)) {
+ 		intel_ddi_init(dev_priv, PORT_A);
+ 		intel_ddi_init(dev_priv, PORT_TC1);
+ 		intel_ddi_init(dev_priv, PORT_TC2);
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
