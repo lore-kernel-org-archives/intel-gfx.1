@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29A6DC433B4
-	for <intel-gfx@archiver.kernel.org>; Sat, 15 May 2021 03:10:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85C3AC433ED
+	for <intel-gfx@archiver.kernel.org>; Sat, 15 May 2021 03:10:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DFEE76144A
-	for <intel-gfx@archiver.kernel.org>; Sat, 15 May 2021 03:10:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFEE76144A
+	by mail.kernel.org (Postfix) with ESMTPS id 49B3D6144A
+	for <intel-gfx@archiver.kernel.org>; Sat, 15 May 2021 03:10:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 49B3D6144A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B6976F4D9;
-	Sat, 15 May 2021 03:10:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B4FA6F4D7;
+	Sat, 15 May 2021 03:10:47 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95FE36F4D0
- for <intel-gfx@lists.freedesktop.org>; Sat, 15 May 2021 03:10:41 +0000 (UTC)
-IronPort-SDR: Z09RL5OtS7eoKK4aHUP9+82LTfYCw50kb8uEIwKXriTladbySCZFzZXKzIWR3TlmhrH33seC29
- 2jDZ1wFfDxQw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9984"; a="187383692"
-X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="187383692"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B39B6F4D2
+ for <intel-gfx@lists.freedesktop.org>; Sat, 15 May 2021 03:10:42 +0000 (UTC)
+IronPort-SDR: IcdyV2OqofWjuubaoQKqZa1K/oXqbfRN1m8gvnufBZxD8MXaX93M9oMn1G4UODvX+68RSMeuNO
+ Y2fq0xwh7JJA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9984"; a="187383694"
+X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="187383694"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2021 20:10:40 -0700
-IronPort-SDR: 8IwYqV5tQ8qXLtbS8SZiFy48u80Oq4GnDF3+kNx40I2Z81Bnjc32JZ3pWS2qgqsJ1lOoR9qfgW
- lQMXdQDC6S2A==
-X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="392901165"
+ 14 May 2021 20:10:41 -0700
+IronPort-SDR: 1bkdUgz3o9+s2ujReoediiYq7BwbVXVxiejbuhLWsltGA6cU53Ks4DAAYTylxJ7sim/UnkD13x
+ 1F1NRLw4kHgg==
+X-IronPort-AV: E=Sophos;i="5.82,300,1613462400"; d="scan'208";a="392901172"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2021 20:10:40 -0700
+ 14 May 2021 20:10:41 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 May 2021 20:10:15 -0700
-Message-Id: <20210515031035.2561658-4-matthew.d.roper@intel.com>
+Date: Fri, 14 May 2021 20:10:17 -0700
+Message-Id: <20210515031035.2561658-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210515031035.2561658-1-matthew.d.roper@intel.com>
 References: <20210515031035.2561658-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 03/23] drm/i915/xelpd: Calculate VDSC RC
- parameters
+Subject: [Intel-gfx] [PATCH v4 05/23] drm/i915/xelpd: Add VRR guardband for
+ VRR CTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,175 +58,207 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juha-Pekka Heikkil <juha-pekka.heikkila@intel.com>,
- Mohammed Khajapasha <mohammed.khajapasha@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+From: Manasi Navare <manasi.d.navare@intel.com>
 
-Add methods to calculate rc parameters for all bpps, against the fixed
-arrays that we already have for 8,10,12 valid o/p bpps, to cover RGB 444
-formats.  Our hw doesn't support YUV compression yet.  The calculations
-used here are from VESA C model for DSC 1.1
+On XE_LPD, VRR CTL register adds a new VRR Guardband bitfield
+replacing the pipeline full and deprecating the pipeline override
+bit.
 
-v2:
- - Checkpatch fixes
+This patch adds this corresponding bitfield in the register defs,
+crtc state vrr structure and populates this in vrr compute
+config and vrr enable functions. It also adds the corresponding
+HW state readout for this field.
 
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Cc: Juha-Pekka Heikkil <juha-pekka.heikkila@intel.com>
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Signed-off-by: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
+Cc: Aditya Swarup <aditya.swarup@intel.com>
+Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 97 ++++++++++++++++++++---
- 1 file changed, 87 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c  |  8 ++-
+ .../drm/i915/display/intel_display_types.h    |  2 +-
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 58 +++++++++++++------
+ drivers/gpu/drm/i915/i915_drv.h               |  3 +
+ drivers/gpu/drm/i915/i915_reg.h               |  2 +
+ 5 files changed, 53 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index efc3184d8315..02e86d2be395 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -5,7 +5,7 @@
-  * Author: Gaurav K Singh <gaurav.k.singh@intel.com>
-  *         Manasi Navare <manasi.d.navare@intel.com>
-  */
--
-+#include <linux/limits.h>
- #include "i915_drv.h"
- #include "intel_de.h"
- #include "intel_display_types.h"
-@@ -373,12 +373,74 @@ static bool is_pipe_dsc(const struct intel_crtc_state *crtc_state)
- 	return true;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 422b59ebf6dc..ce44f18340ee 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7631,10 +7631,11 @@ static void intel_dump_pipe_config(const struct intel_crtc_state *pipe_config,
+ 	    intel_hdmi_infoframe_enable(DP_SDP_VSC))
+ 		intel_dump_dp_vsc_sdp(dev_priv, &pipe_config->infoframes.vsc);
+ 
+-	drm_dbg_kms(&dev_priv->drm, "vrr: %s, vmin: %d, vmax: %d, pipeline full: %d, flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
++	drm_dbg_kms(&dev_priv->drm, "vrr: %s, vmin: %d, vmax: %d, pipeline full: %d, guardband: %d flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
+ 		    yesno(pipe_config->vrr.enable),
+ 		    pipe_config->vrr.vmin, pipe_config->vrr.vmax,
+-		    pipe_config->vrr.pipeline_full, pipe_config->vrr.flipline,
++		    pipe_config->vrr.pipeline_full, pipe_config->vrr.guardband,
++		    pipe_config->vrr.flipline,
+ 		    intel_vrr_vmin_vblank_start(pipe_config),
+ 		    intel_vrr_vmax_vblank_start(pipe_config));
+ 
+@@ -8640,6 +8641,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	PIPE_CONF_CHECK_I(vrr.vmax);
+ 	PIPE_CONF_CHECK_I(vrr.flipline);
+ 	PIPE_CONF_CHECK_I(vrr.pipeline_full);
++	PIPE_CONF_CHECK_I(vrr.guardband);
+ 
+ 	PIPE_CONF_CHECK_BOOL(has_psr);
+ 	PIPE_CONF_CHECK_BOOL(has_psr2);
+@@ -12200,6 +12202,8 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
+ 
+ 	i915->framestart_delay = 1; /* 1-4 */
+ 
++	i915->window2_delay = 0; /* No DSB so no window2 delay */
++
+ 	intel_mode_config_init(i915);
+ 
+ 	ret = intel_cdclk_init(i915);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 9c0adfc60c6f..9e9f768e2d7f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1202,7 +1202,7 @@ struct intel_crtc_state {
+ 	struct {
+ 		bool enable;
+ 		u8 pipeline_full;
+-		u16 flipline, vmin, vmax;
++		u16 flipline, vmin, vmax, guardband;
+ 	} vrr;
+ 
+ 	/* Stream Splitter for eDP MSO */
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 046210ae1de0..c335b1dbafcf 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -68,7 +68,10 @@ static int intel_vrr_vblank_exit_length(const struct intel_crtc_state *crtc_stat
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 
+ 	/* The hw imposes the extra scanline before frame start */
+-	return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
++	if (DISPLAY_VER(i915) >= 13)
++		return crtc_state->vrr.guardband + i915->framestart_delay + 1;
++	else
++		return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
  }
  
-+static void
-+calculate_rc_params(struct rc_parameters *rc,
-+		    struct drm_dsc_config *vdsc_cfg)
-+{
-+	int bpc = vdsc_cfg->bits_per_component;
-+	int bpp = vdsc_cfg->bits_per_pixel >> 4;
-+	int ofs_und6[] = { 0, -2, -2, -4, -6, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12 };
-+	int ofs_und8[] = { 2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12 };
-+	int ofs_und12[] = { 2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12 };
-+	int ofs_und15[] = { 10, 8, 6, 4, 2, 0, -2, -4, -6, -8, -10, -10, -12, -12, -12 };
-+	int qp_bpc_modifier = (bpc - 8) * 2;
-+	u32 res, buf_i;
-+
-+	if (vdsc_cfg->slice_height >= 8)
-+		rc->first_line_bpg_offset =
-+			12 + DIV_ROUND_UP((9 * min(34, vdsc_cfg->slice_height - 8)), 100);
-+	else
-+		rc->first_line_bpg_offset = 2 * (vdsc_cfg->slice_height - 1);
-+
-+	/* Our hw supports only 444 modes as of today */
-+	if (bpp >= 12)
-+		rc->initial_offset = 2048;
-+	else if (bpp >= 10)
-+		rc->initial_offset = 5632 - DIV_ROUND_UP(((bpp - 10) * 3584), 2);
-+	else if (bpp >= 8)
-+		rc->initial_offset = 6144 - DIV_ROUND_UP(((bpp - 8) * 512), 2);
-+	else
-+		rc->initial_offset = 6144;
-+
-+	/* initial_xmit_delay = rc_model_size/2/compression_bpp */
-+	rc->initial_xmit_delay = DIV_ROUND_UP(DSC_RC_MODEL_SIZE_CONST, 2 * bpp);
-+
-+	rc->flatness_min_qp = 3 + qp_bpc_modifier;
-+	rc->flatness_max_qp = 12 + qp_bpc_modifier;
-+
-+	rc->rc_quant_incr_limit0 = 11 + qp_bpc_modifier;
-+	rc->rc_quant_incr_limit1 = 11 + qp_bpc_modifier;
-+
-+	for (buf_i = 0; buf_i < DSC_NUM_BUF_RANGES; buf_i++) {
-+		/* Calculate range_bgp_offset */
-+		if (bpp <= 6) {
-+			rc->rc_range_params[buf_i].range_bpg_offset = ofs_und6[buf_i];
-+		} else if (bpp <= 8) {
-+			res = DIV_ROUND_UP(((bpp - 6) * (ofs_und8[buf_i] - ofs_und6[buf_i])), 2);
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und6[buf_i] + res;
-+		} else if (bpp <= 12) {
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und8[buf_i];
-+		} else if (bpp <= 15) {
-+			res = DIV_ROUND_UP(((bpp - 12) * (ofs_und15[buf_i] - ofs_und12[buf_i])), 3);
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und12[buf_i] + res;
-+		} else {
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und15[buf_i];
-+		}
-+	}
-+}
-+
- int intel_dsc_compute_params(struct intel_encoder *encoder,
- 			     struct intel_crtc_state *pipe_config)
+ int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_state)
+@@ -86,6 +89,8 @@ void
+ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 			 struct drm_connector_state *conn_state)
  {
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	struct drm_dsc_config *vdsc_cfg = &pipe_config->dsc.config;
- 	u16 compressed_bpp = pipe_config->dsc.compressed_bpp;
- 	const struct rc_parameters *rc_params;
-+	struct rc_parameters *rc = NULL;
- 	u8 i = 0;
- 
- 	vdsc_cfg->pic_width = pipe_config->hw.adjusted_mode.crtc_hdisplay;
-@@ -413,9 +475,24 @@ int intel_dsc_compute_params(struct intel_encoder *encoder,
- 		vdsc_cfg->rc_buf_thresh[13] = 0x7D;
- 	}
- 
--	rc_params = get_rc_params(compressed_bpp, vdsc_cfg->bits_per_component);
--	if (!rc_params)
--		return -EINVAL;
-+	/*
-+	 * From XE_LPD onwards we supports compression bpps in steps of 1
-+	 * upto uncompressed bpp-1, hence add calculations for all the rc
-+	 * parameters
-+	 */
-+	if (DISPLAY_VER(dev_priv) >= 13) {
-+		rc = kmalloc(sizeof(*rc), GFP_KERNEL);
-+		if (!rc)
-+			return -ENOMEM;
-+
-+		calculate_rc_params(rc, vdsc_cfg);
-+		rc_params = rc;
-+	} else {
-+		rc_params = get_rc_params(compressed_bpp,
-+					  vdsc_cfg->bits_per_component);
-+		if (!rc_params)
-+			return -EINVAL;
-+	}
- 
- 	vdsc_cfg->first_line_bpg_offset = rc_params->first_line_bpg_offset;
- 	vdsc_cfg->initial_xmit_delay = rc_params->initial_xmit_delay;
-@@ -441,20 +518,20 @@ int intel_dsc_compute_params(struct intel_encoder *encoder,
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	struct intel_connector *connector =
+ 		to_intel_connector(conn_state->connector);
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+@@ -124,17 +129,26 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	crtc_state->vrr.flipline = crtc_state->vrr.vmin + 1;
  
  	/*
- 	 * BitsPerComponent value determines mux_word_size:
--	 * When BitsPerComponent is 12bpc, muxWordSize will be equal to 64 bits
--	 * When BitsPerComponent is 8 or 10bpc, muxWordSize will be equal to
--	 * 48 bits
-+	 * When BitsPerComponent is less than or 10bpc, muxWordSize will be equal to
-+	 * 48 bits otherwise 64
+-	 * FIXME: s/4/framestart_delay+1/ to get consistent
+-	 * earliest/latest points for register latching regardless
+-	 * of the framestart_delay used?
+-	 *
+-	 * FIXME: this really needs the extra scanline to provide consistent
+-	 * behaviour for all framestart_delay values. Otherwise with
+-	 * framestart_delay==3 we will end up extending the min vblank by
+-	 * one extra line.
++	 * For XE_LPD+, we use guardband and pipeline override
++	 * is deprecated.
  	 */
--	if (vdsc_cfg->bits_per_component == 8 ||
--	    vdsc_cfg->bits_per_component == 10)
-+	if (vdsc_cfg->bits_per_component <= 10)
- 		vdsc_cfg->mux_word_size = DSC_MUX_WORD_SIZE_8_10_BPC;
--	else if (vdsc_cfg->bits_per_component == 12)
+-	crtc_state->vrr.pipeline_full =
+-		min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay - 4 - 1);
++	if (DISPLAY_VER(i915) >= 13)
++		crtc_state->vrr.guardband =
++			crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay -
++			i915->window2_delay;
 +	else
- 		vdsc_cfg->mux_word_size = DSC_MUX_WORD_SIZE_12_BPC;
++		/*
++		 * FIXME: s/4/framestart_delay+1/ to get consistent
++		 * earliest/latest points for register latching regardless
++		 * of the framestart_delay used?
++		 *
++		 * FIXME: this really needs the extra scanline to provide consistent
++		 * behaviour for all framestart_delay values. Otherwise with
++		 * framestart_delay==3 we will end up extending the min vblank by
++		 * one extra line.
++		 */
++		crtc_state->vrr.pipeline_full =
++			min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay - 4 - 1);
  
- 	/* InitialScaleValue is a 6 bit value with 3 fractional bits (U3.3) */
- 	vdsc_cfg->initial_scale_value = (vdsc_cfg->rc_model_size << 3) /
- 		(vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset);
- 
-+	kfree(rc);
-+
- 	return 0;
+ 	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
  }
+@@ -149,10 +163,15 @@ void intel_vrr_enable(struct intel_encoder *encoder,
+ 	if (!crtc_state->vrr.enable)
+ 		return;
  
+-	trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
+-		VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
+-		VRR_CTL_PIPELINE_FULL(crtc_state->vrr.pipeline_full) |
+-		VRR_CTL_PIPELINE_FULL_OVERRIDE;
++	if (DISPLAY_VER(dev_priv) >= 13)
++		trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
++			VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
++			XELPD_VRR_CTL_VRR_GUARDBAND(crtc_state->vrr.guardband);
++	else
++		trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
++			VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
++			VRR_CTL_PIPELINE_FULL(crtc_state->vrr.pipeline_full) |
++			VRR_CTL_PIPELINE_FULL_OVERRIDE;
+ 
+ 	intel_de_write(dev_priv, TRANS_VRR_VMIN(cpu_transcoder), crtc_state->vrr.vmin - 1);
+ 	intel_de_write(dev_priv, TRANS_VRR_VMAX(cpu_transcoder), crtc_state->vrr.vmax - 1);
+@@ -199,8 +218,13 @@ void intel_vrr_get_config(struct intel_crtc *crtc,
+ 	if (!crtc_state->vrr.enable)
+ 		return;
+ 
+-	if (trans_vrr_ctl & VRR_CTL_PIPELINE_FULL_OVERRIDE)
+-		crtc_state->vrr.pipeline_full = REG_FIELD_GET(VRR_CTL_PIPELINE_FULL_MASK, trans_vrr_ctl);
++	if (DISPLAY_VER(dev_priv) >= 13)
++		crtc_state->vrr.guardband =
++			REG_FIELD_GET(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, trans_vrr_ctl);
++	else
++		if (trans_vrr_ctl & VRR_CTL_PIPELINE_FULL_OVERRIDE)
++			crtc_state->vrr.pipeline_full =
++				REG_FIELD_GET(VRR_CTL_PIPELINE_FULL_MASK, trans_vrr_ctl);
+ 	if (trans_vrr_ctl & VRR_CTL_FLIP_LINE_EN)
+ 		crtc_state->vrr.flipline = intel_de_read(dev_priv, TRANS_VRR_FLIPLINE(cpu_transcoder)) + 1;
+ 	crtc_state->vrr.vmax = intel_de_read(dev_priv, TRANS_VRR_VMAX(cpu_transcoder)) + 1;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 39b5e019c1a5..6eb6c6acd81e 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1139,6 +1139,9 @@ struct drm_i915_private {
+ 
+ 	u8 framestart_delay;
+ 
++	/* Window2 specifies time required to program DSB (Window2) in number of scan lines */
++	u8 window2_delay;
++
+ 	u8 pch_ssc_use;
+ 
+ 	/* For i915gm/i945gm vblank irq workaround */
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 506a5aa0646b..dbb75cd087d3 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4376,6 +4376,8 @@ enum {
+ #define   VRR_CTL_PIPELINE_FULL_MASK		REG_GENMASK(10, 3)
+ #define   VRR_CTL_PIPELINE_FULL(x)		REG_FIELD_PREP(VRR_CTL_PIPELINE_FULL_MASK, (x))
+ #define   VRR_CTL_PIPELINE_FULL_OVERRIDE	REG_BIT(0)
++#define	  XELPD_VRR_CTL_VRR_GUARDBAND_MASK	REG_GENMASK(15, 0)
++#define	  XELPD_VRR_CTL_VRR_GUARDBAND(x)	REG_FIELD_PREP(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, (x))
+ 
+ #define _TRANS_VRR_VMAX_A		0x60424
+ #define _TRANS_VRR_VMAX_B		0x61424
 -- 
 2.25.4
 
