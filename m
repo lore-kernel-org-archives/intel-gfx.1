@@ -2,53 +2,52 @@ Return-Path: <SRS0=7o8F=KM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C560FC433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 11:57:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C59A6C433B4
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 11:57:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 77348611BF
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 11:57:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77348611BF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 6AB4A61241
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 11:57:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AB4A61241
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2D26E932;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCB026E933;
 	Mon, 17 May 2021 11:57:03 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42BDC6EE8F;
- Fri, 14 May 2021 14:18:39 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9C73C61408;
- Fri, 14 May 2021 14:18:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1621001918;
- bh=c7dfcDSUedN/VQoQv/XM8fRZG2HhOOW57vq4i3XI37w=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=OQ+w8jq41p/pK8QPzt383K43rnWDvG9IebEZzoZj7WKu0EgpEM3a4OB9pZnDV5/lC
- MxVWpkmQpp2inFtKTGn6bM1fAR+gA+04aBXFsHrR34k+VM9wQUFTEenWCHNxw8mV5S
- Rr3kzMIGVT+KJ8CgQJfj5jt0KJvZQg0gfBfD7ImGjDrz6TXEWqjpD0nn1NC8t6bBSV
- Y2m7PBzQCXheFvsYF9jZqx3chr66nJXcElBiHfvACPcxjY0VNJoiSeft4M6sPjRp9i
- /15Ta8qfh6z3LjSIBpnNeZl0hFKEsFjvWWGKfF/qxDT0jcgdTLCyifuXI2D1S1QhIL
- whK9i7cORQs2g==
-Date: Fri, 14 May 2021 16:18:25 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Edward Cree <ecree.xilinx@gmail.com>
-Message-ID: <20210514161825.4e4c0d3e@coco.lan>
-In-Reply-To: <8b8bc929-2f07-049d-f24c-cb1f1d85bbaa@gmail.com>
-References: <cover.1620823573.git.mchehab+huawei@kernel.org>
- <d2fed242fbe200706b8d23a53512f0311d900297.camel@infradead.org>
- <20210514102118.1b71bec3@coco.lan>
- <61c286b7afd6c4acf71418feee4eecca2e6c80c8.camel@infradead.org>
- <8b8bc929-2f07-049d-f24c-cb1f1d85bbaa@gmail.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84DD56E862
+ for <intel-gfx@lists.freedesktop.org>; Sun, 16 May 2021 19:49:52 +0000 (UTC)
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>) id 1liMlq-0005K0-TH
+ for intel-gfx@lists.freedesktop.org; Sun, 16 May 2021 21:49:50 +0200
+Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>) id 1liMlq-0006qT-Jy
+ for intel-gfx@lists.freedesktop.org; Sun, 16 May 2021 21:49:50 +0200
+Date: Sun, 16 May 2021 21:49:50 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: intel-gfx@lists.freedesktop.org
+Message-ID: <20210516194950.ohebcbuhslrwfyow@pengutronix.de>
+References: <20210514100142.1182997-1-u.kleine-koenig@pengutronix.de>
+ <162102397951.21338.1442528312690170422@emeril.freedesktop.org>
 MIME-Version: 1.0
+In-Reply-To: <162102397951.21338.1442528312690170422@emeril.freedesktop.org>
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: intel-gfx@lists.freedesktop.org
 X-Mailman-Approved-At: Mon, 17 May 2021 11:57:02 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 00/40] Use ASCII subset instead of UTF-8
- alternate symbols
+Subject: Re: [Intel-gfx] 
+ =?utf-8?b?4pyXIEZpLkNJLklHVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?=3A_Only_select_I2C=5FALGOBIT_for_drivers_that_actually_need_it?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,44 +60,123 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- keyrings@vger.kernel.org, linux-sgx@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, linux-rdma@vger.kernel.org,
- linux-acpi@vger.kernel.org, Mali DP Maintainers <malidp@foss.arm.com>,
- linux-input@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-ext4@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- coresight@lists.linaro.org, rcu@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-integrity@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1900906738=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RW0gRnJpLCAxNCBNYXkgMjAyMSAxMjowODozNiArMDEwMApFZHdhcmQgQ3JlZSA8ZWNyZWUueGls
-aW54QGdtYWlsLmNvbT4gZXNjcmV2ZXU6Cgo+IEZvciBhbnlvbmUgd2hvIGRvZXNuJ3Qga25vdyBh
-Ym91dCBpdDogWCBoYXMgdGhpcyB3b25kZXJmdWwgdGhpbmcgY2FsbGVkCj4gIHRoZSBDb21wb3Nl
-IGtleVsxXS4gIEZvciBpbnN0YW5jZSwgdHlwZSDijoQtLS0gdG8gZ2V0IOKAlCwgb3Ig4o6EPCIg
-Zm9yIOKAnC4KPiBNdWNoIG1vcmUgbW5lbW9uaWMgdGhhbiBVbmljb2RlIGNvZGVwb2ludHM7IGFu
-ZCB5b3UgY2FuIGV4dGVuZCBpdCB3aXRoCj4gIHVzZXItZGVmaW5lZCBzZXF1ZW5jZXMgaW4geW91
-ciB+Ly5YQ29tcG9zZSBmaWxlLgoKR29vZCB0aXAuIEkgaGF2ZW4ndCB1c2UgY29tcG9zaXRlIGZv
-ciB5ZWFycywgYXMgVVMtaW50bCB3aXRoIGRlYWQga2V5cyBpcwplbm91Z2ggZm9yIDk5Ljk5OSUg
-b2YgbXkgbmVlZHMuIAoKQnR3LCBhdCBsZWFzdCBvbiBGZWRvcmEgd2l0aCBNYXRlLCBDb21wb3Np
-dGUgaXMgZGlzYWJsZWQgYnkgZGVmYXVsdC4gSXQgaGFzCnRvIGJlIGVuYWJsZWQgZmlyc3QgdXNp
-bmcgdGhlIHNhbWUgdG9vbCB0aGF0IGFsbG93cyBjaGFuZ2luZyB0aGUgS2V5Ym9hcmQKbGF5b3V0
-WzFdLgoKWWV0LCB0eXBpbmcgYW4gRU4gREFTSCBmb3IgZXhhbXBsZSwgd291bGQgYmUgIjxjb21w
-b3NpdGU+LS0uIiwgd2l0aCBpcyA0CmtleXN0cm9rZXMgaW5zdGVhZCBvZiBqdXN0IHR3byAoJy0t
-JykuIEl0IG1lYW5zIHR3aWNlIHRoZSBlZmZvcnQgOy0pCgpbMV0gS0RFLCBHTm9tZSwgTWF0ZSwg
-Li4uIGhhdmUgZGlmZmVyZW50IHdheXMgdG8gZW5hYmxlIGl0IGFuZCB0byAKICAgIHNlbGVjdCB3
-aGF0IGtleSB3b3VsZCBiZSBjb25zaWRlcmVkIDxjb21wb3NpdGU+OgoKCWh0dHBzOi8vZHJ5LnNh
-aWxpbmdpc3N1ZXMuY29tL3VzLWludGVybmF0aW9uYWwta2V5Ym9hcmQtbGF5b3V0Lmh0bWwKCWh0
-dHBzOi8vaGVscC51YnVudHUuY29tL2NvbW11bml0eS9Db21wb3NlS2V5CgpUaGFua3MsCk1hdXJv
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdm
-eCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+
+--===============1900906738==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="22rvc6y25nw5234m"
+Content-Disposition: inline
+
+
+--22rvc6y25nw5234m
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+On Fri, May 14, 2021 at 08:26:19PM -0000, Patchwork wrote:
+> =3D=3D Series Details =3D=3D
+>=20
+> Series: drm: Only select I2C_ALGOBIT for drivers that actually need it
+> URL   : https://patchwork.freedesktop.org/series/90163/
+> State : failure
+>=20
+> =3D=3D Summary =3D=3D
+>=20
+> CI Bug Log - changes from CI_DRM_10082_full -> Patchwork_20125_full
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+>=20
+> Summary
+> -------
+>=20
+>   **FAILURE**
+>=20
+>   Serious unknown changes coming with Patchwork_20125_full absolutely nee=
+d to be
+>   verified manually.
+>  =20
+>   If you think the reported changes have nothing to do with the changes
+>   introduced in Patchwork_20125_full, please notify your bug team to allo=
+w them
+>   to document this new failure mode, which will reduce false positives in=
+ CI.
+>=20
+>  =20
+>=20
+> Possible new issues
+> -------------------
+>=20
+>   Here are the unknown changes that may have been introduced in Patchwork=
+_20125_full:
+>=20
+> ### IGT changes ###
+>=20
+> #### Possible regressions ####
+>=20
+>   * igt@gem_exec_gttfill@all:
+>     - shard-apl:          NOTRUN -> [FAIL][1]
+>    [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20125/shard-ap=
+l6/igt@gem_exec_gttfill@all.html
+>=20
+>   * igt@gem_mmap_gtt@cpuset-basic-small-copy-xy:
+>     - shard-snb:          NOTRUN -> [INCOMPLETE][2]
+>    [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20125/shard-sn=
+b2/igt@gem_mmap_gtt@cpuset-basic-small-copy-xy.html
+>=20
+>   * igt@kms_draw_crc@draw-method-xrgb8888-blt-untiled:
+>     - shard-skl:          NOTRUN -> [FAIL][3]
+>    [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20125/shard-sk=
+l7/igt@kms_draw_crc@draw-method-xrgb8888-blt-untiled.html
+>=20
+>   * igt@kms_plane_cursor@pipe-a-overlay-size-256:
+>     - shard-snb:          NOTRUN -> [FAIL][4] +1 similar issue
+>    [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20125/shard-sn=
+b2/igt@kms_plane_cursor@pipe-a-overlay-size-256.html
+
+I have problems understanding this mail, but I assume that my patch is
+not the problem here as these are all runtime errors if I'm not
+mistaken. If my patch has a problem it should result in a build failure
+instead. Am I missing something?
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--22rvc6y25nw5234m
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmChd1oACgkQwfwUeK3K
+7An1WQf/e8K3F6HYE5AdO3008YJcJQHFRBki1YHhoFGy2OpwcjKawV3CGRvnbF2S
+MZ7NtukaaJWResirgxkSlM0eTu+pxF7E64cPfkWCMAsWSSys0MX6bnl+zAzg6o8u
+PWYnQUmZTLevM4GPRw22nDCP4/0KLMFrZYSMC6Q4kyuGbSd6z74H8FWZNKeF35g9
+nm+gMKug0zGUyjnW4cSdM6htz5fqmQzlhCcRYyxae9lJdKPdraLZlJ0Hmw0T9yHC
+e3NbpZqLTkb5G0oI0K5WoxHuEKdUkpnNOBufZpqR2SLXFSG8XbUGPiOhynKzyNey
+p5O3iAR9RRHg/Rw6vkT0hT36Gza4YA==
+=NI/N
+-----END PGP SIGNATURE-----
+
+--22rvc6y25nw5234m--
+
+--===============1900906738==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1900906738==--
