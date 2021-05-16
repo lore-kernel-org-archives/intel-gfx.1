@@ -2,72 +2,43 @@ Return-Path: <SRS0=T8ep=KL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78279C433ED
-	for <intel-gfx@archiver.kernel.org>; Sun, 16 May 2021 17:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1AD4C433ED
+	for <intel-gfx@archiver.kernel.org>; Sun, 16 May 2021 18:59:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2B2A56113C
-	for <intel-gfx@archiver.kernel.org>; Sun, 16 May 2021 17:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B2A56113C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3FB336115C
+	for <intel-gfx@archiver.kernel.org>; Sun, 16 May 2021 18:59:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FB336115C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90FE06E82A;
-	Sun, 16 May 2021 17:14:43 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF1336E15F;
- Sun, 16 May 2021 17:14:41 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- f75-20020a1c1f4e0000b0290171001e7329so2242161wmf.1; 
- Sun, 16 May 2021 10:14:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Yyj+hGPOXvlG9agMuR9BE8l+uPdhGMcekWIUcWb7KfI=;
- b=dexWcb8Am0IfXI7swyTOIVu2/vZdNGtkqQXtDyt4B372OUB2SIqLeyoA2dHcnffz7P
- k5R9f0M277/NlnbfgWeK4XEIh7bi5EBgfUyacH/NYicTFEMyFgLvwkJjU6hfm8QbSzEB
- 0ABA9NtJd5dfv2Jb60Drggw2jnKyBDa3AlqqaHdNaRVTCRjtu3IHZZbWoi79MllcurZA
- SUuouw3BmkNXQqSSBcYbzbFEDtG6mgNbegCSGqjc2NNG5r60uEJ0zf4gAp8gt+0Z9SGa
- WWXBLJRHmIcjAemMtCx3FY9MgI6xJeOb1u+rY9enk0MNd4waaezFuUZLlDX6Qu4uEzJD
- M7TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Yyj+hGPOXvlG9agMuR9BE8l+uPdhGMcekWIUcWb7KfI=;
- b=PqTqbscgCYJTJuWQuzBiYF/qMUKlNB12l3gUB6FWSQDE/Lh3xSlQbQlxU7IoMfRi4l
- 73C7palNCwIy3l3fB37XPTPchayILavoAuJCdXiI5LbXlzJgki/hTHqXFGz/naEGgSac
- KEOI8yaXdmZ1O+rzgFp8jSItnAqVTPAShnsVlfsMtw83hY5ywtTh3S8vjLMnaSTonMfN
- Hpnf84qJiMJBao7PPToXMHKIijfe1wDT1laby0UKGmzBVwmLFSHC24sCtPCVKrVHg004
- PUVYIK88kGn3biPhpe+1+qNSKiidhs+9dODuKlCz5wAXu5jlnvmfSEg1tDWWkMf7/1vW
- KZIg==
-X-Gm-Message-State: AOAM530Vs+KhT0FWukeRbNTkeJevMznrjPiAB5Y1tcv+VSEiDbSotuoW
- Fi9qyUUSgsteIZjDknwa2SU=
-X-Google-Smtp-Source: ABdhPJzTzCNYcRjoHzq4JKJIcpimEj4+rpQsbWjdexdbzLuKBGP/HzWj2e96GXJPRvFbbk94yB+0Hw==
-X-Received: by 2002:a7b:c182:: with SMTP id y2mr5676976wmi.125.1621185280708; 
- Sun, 16 May 2021 10:14:40 -0700 (PDT)
-Received: from arch-x1c3.. (cpc92308-cmbg19-2-0-cust99.5-4.cable.virginm.net.
- [82.24.248.100])
- by smtp.gmail.com with ESMTPSA id j14sm14052555wmj.19.2021.05.16.10.14.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 May 2021 10:14:40 -0700 (PDT)
-From: Emil Velikov <emil.l.velikov@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Date: Sun, 16 May 2021 18:14:32 +0100
-Message-Id: <20210516171432.1734268-1-emil.l.velikov@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3D536E169;
+	Sun, 16 May 2021 18:59:43 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23BFF6E847;
+ Sun, 16 May 2021 18:59:43 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3B241B22C;
+ Sun, 16 May 2021 18:59:41 +0000 (UTC)
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+ daniel@ffwll.ch, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, bskeggs@redhat.com
+Date: Sun, 16 May 2021 20:59:37 +0200
+Message-Id: <20210516185937.5644-4-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210516185937.5644-1-tzimmermann@suse.de>
+References: <20210516185937.5644-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915: only disable default vga device
+Subject: [Intel-gfx] [PATCH 3/3] drm: Don't include drm_legacy.h in
+ drm_lease.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,43 +51,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, kernel@collabora.com,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVml2ZWsgRGFzIE1vaGFwYXRyYSA8dml2ZWtAY29sbGFib3JhLmNvbT4KClRoaXMgcGF0
-Y2ggaXMgdG8gZG8gd2l0aCBzZWFtbGVzcyBoYW5kb3ZlciwgZWcgd2hlbiB0aGUgc2VxdWVuY2Ug
-aXMKYm9vdGxvYWRlciDihpIgcGx5bW91dGgg4oaSIGRlc2t0b3AuCgpJdCBzd2l0Y2hlcyB0aGUg
-dmdhIGFyYml0ZXIgZnJvbSB0aGUgIm90aGVyIiBHUFUgdG8gdGhlIGRlZmF1bHQgb25lCihpbnRl
-bCBpbiB0aGlzIGNhc2UpLCBzbyB0aGUgZHJpdmVyIGNhbiBpc3N1ZSBzb21lIGlvKCkuCgpTaWdu
-ZWQtb2ZmLWJ5OiBWaXZlayBEYXMgTW9oYXBhdHJhIDx2aXZla0Bjb2xsYWJvcmEuY29tPgpTaWdu
-ZWQtb2ZmLWJ5OiBFbWlsIFZlbGlrb3YgPGVtaWwudmVsaWtvdkBjb2xsYWJvcmEuY29tPgotLS0K
-R3JlZXRpbmdzIGFsbCwKClRoaXMgcGF0Y2ggaGFzIGJlZW4gZG93bnN0cmVhbSBmb3IgYSB3aGls
-ZSBub3cgeWV0IGl0IHNlZW1zIHBlcmZlY3RseQpyZWFzb25hYmxlIHRoaW5nIHRvIGhhdmUgaW4g
-dGhlIExpbnV4IGtlcm5lbC4KCmh0dHBzOi8vZ2l0aHViLmNvbS9WYWx2ZVNvZnR3YXJlL3N0ZWFt
-b3Nfa2VybmVsL2NvbW1pdC81NDMxYjViMTk5OWMzZDNiNWVmZWU4MTdmYjMzNzNmYmJkNDczMDYz
-CgoKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdmdhLmMgfCAxNCArKysrKysr
-Ky0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3ZnYS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF92Z2EuYwppbmRleCBiZTMzMzY5OWM1
-MTUuLjRmMDdiNWFkNWZhMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
-eS9pbnRlbF92Z2EuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zn
-YS5jCkBAIC0zMCwxMiArMzAsMTQgQEAgdm9pZCBpbnRlbF92Z2FfZGlzYWJsZShzdHJ1Y3QgZHJt
-X2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJdTggc3IxOwogCiAJLyogV2FFbmFibGVWR0FBY2Nl
-c3NUaHJvdWdoSU9Qb3J0OmN0ZyxlbGssaWxrLHNuYixpdmIsdmx2LGhzdyAqLwotCXZnYV9nZXRf
-dW5pbnRlcnJ1cHRpYmxlKHBkZXYsIFZHQV9SU1JDX0xFR0FDWV9JTyk7Ci0Jb3V0YihTUjAxLCBW
-R0FfU1JfSU5ERVgpOwotCXNyMSA9IGluYihWR0FfU1JfREFUQSk7Ci0Jb3V0YihzcjEgfCAxIDw8
-IDUsIFZHQV9TUl9EQVRBKTsKLQl2Z2FfcHV0KHBkZXYsIFZHQV9SU1JDX0xFR0FDWV9JTyk7Ci0J
-dWRlbGF5KDMwMCk7CisJaWYgKHBkZXYgPT0gdmdhX2RlZmF1bHRfZGV2aWNlKCkpIHsKKwkJdmdh
-X2dldF91bmludGVycnVwdGlibGUocGRldiwgVkdBX1JTUkNfTEVHQUNZX0lPKTsKKwkJb3V0YihT
-UjAxLCBWR0FfU1JfSU5ERVgpOworCQlzcjEgPSBpbmIoVkdBX1NSX0RBVEEpOworCQlvdXRiKHNy
-MSB8IDEgPDwgNSwgVkdBX1NSX0RBVEEpOworCQl2Z2FfcHV0KHBkZXYsIFZHQV9SU1JDX0xFR0FD
-WV9JTyk7CisJCXVkZWxheSgzMDApOworCX0KIAogCWludGVsX2RlX3dyaXRlKGRldl9wcml2LCB2
-Z2FfcmVnLCBWR0FfRElTUF9ESVNBQkxFKTsKIAlpbnRlbF9kZV9wb3N0aW5nX3JlYWQoZGV2X3By
-aXYsIHZnYV9yZWcpOwotLSAKMi4yNy4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9pbnRlbC1nZngK
+DRM leases do not use DRM legacy code. Remove the rsp include
+statement.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/drm_lease.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
+index da4f085fc09e..00fb433bcef1 100644
+--- a/drivers/gpu/drm/drm_lease.c
++++ b/drivers/gpu/drm/drm_lease.c
+@@ -14,7 +14,6 @@
+ 
+ #include "drm_crtc_internal.h"
+ #include "drm_internal.h"
+-#include "drm_legacy.h"
+ 
+ #define drm_for_each_lessee(lessee, lessor) \
+ 	list_for_each_entry((lessee), &(lessor)->lessees, lessee_list)
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
