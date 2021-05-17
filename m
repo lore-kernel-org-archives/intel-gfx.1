@@ -2,43 +2,50 @@ Return-Path: <SRS0=7o8F=KM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA298C43460
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 14:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48E80C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 14:54:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1994461D21
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 14:43:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1994461D21
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=depni.sinp.msu.ru
+	by mail.kernel.org (Postfix) with ESMTPS id 06EFF60E0C
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 14:54:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06EFF60E0C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5B8A6E9B4;
-	Mon, 17 May 2021 14:43:08 +0000 (UTC)
-Received: from depni-mx.sinp.msu.ru (depni-mx.sinp.msu.ru [213.131.7.21])
- by gabe.freedesktop.org (Postfix) with ESMTP id 60CCD6E071;
- Mon, 17 May 2021 13:09:44 +0000 (UTC)
-Received: from spider (ip-95-220-118-46.bb.netbynet.ru [95.220.118.46])
- by depni-mx.sinp.msu.ru (Postfix) with ESMTPSA id 540D61BF45A;
- Mon, 17 May 2021 16:10:41 +0300 (MSK)
-From: Serge Belyshev <belyshev@depni.sinp.msu.ru>
-To: Christoph Hellwig <hch@lst.de>
-References: <20210326055505.1424432-1-hch@lst.de>
- <20210326055505.1424432-5-hch@lst.de>
- <87pmxqiry6.fsf@depni.sinp.msu.ru> <20210517123716.GD15150@lst.de>
-Date: Mon, 17 May 2021 16:09:42 +0300
-In-Reply-To: <20210517123716.GD15150@lst.de> (Christoph Hellwig's message of
- "Mon, 17 May 2021 14:37:16 +0200")
-Message-ID: <87lf8dik15.fsf@depni.sinp.msu.ru>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.0.50 (gnu/linux)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 749D06E9BC;
+	Mon, 17 May 2021 14:54:06 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E78D36E9C2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 May 2021 14:54:04 +0000 (UTC)
+IronPort-SDR: Pfo2Wv+PUnMJx1MoP1lNNNja3gIV0HQDvpAQ6ihSi+G/Fdv7ciCjRw/0KKum1GV7+SOwirHzwu
+ NCjZBxSz5i+Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9987"; a="264397262"
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="264397262"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2021 07:54:04 -0700
+IronPort-SDR: 9Xxbf2S2I0413o5QC/2BhEO2Tv9DMTM1YJ0emMU81hPPjveLBcBoe2E5kigu5adM/QfA2m9qQR
+ pfZbenWqH+BQ==
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="472437728"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2021 07:54:02 -0700
+Date: Mon, 17 May 2021 17:53:59 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: Jose Souza <jose.souza@intel.com>
+Message-ID: <20210517145359.GA1367033@ideak-desk.fi.intel.com>
+References: <20210515031035.2561658-1-matthew.d.roper@intel.com>
+ <20210515031035.2561658-9-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 17 May 2021 14:43:06 +0000
-Subject: Re: [Intel-gfx] [PATCH 4/4] i915: fix remap_io_sg to verify the
- pgprot
+Content-Disposition: inline
+In-Reply-To: <20210515031035.2561658-9-matthew.d.roper@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v4 08/23] drm/i915/adl_p: Handle TC cold
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,22 +58,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Peter Zijlstra <peterz@infradead.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, Andrew Morton <akpm@linux-foundation.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Christoph Hellwig <hch@lst.de> writes:
+On Fri, May 14, 2021 at 08:10:20PM -0700, Matt Roper wrote:
+> From: Jos=E9 Roberto de Souza <jose.souza@intel.com>
+> =
 
-> As an ad-hoc experiment:  can you replace the call to remap_pfn_range
-> with remap_pfn_range_notrack (and export it if you build i915 modular)
-> in remap_io_sg and see if that makes any difference?
+> On ADL-P TC cold is exited and blocked when legacy aux is powered,
+> that is exacly the same of what ICL need for static TC ports.
+> =
 
-That worked, thanks -- no artifacts seen.
+> TODO: When a TBT hub or monitor is connected it will cause TBT and
+> legacy aux to be powered at the same time, hopefully this will not
+> cause any issues but if it do, some rework will be needed.
+> =
+
+> v2:
+>  - skip icl_tc_port_assert_ref_held() warn on, adl-p uses aux to
+>    block TC cold
+> =
+
+> BSpec: 55480
+> Cc: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Jos=E9 Roberto de Souza <jose.souza@intel.com>
+> Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display_power.c | 3 ++-
+>  drivers/gpu/drm/i915/display/intel_tc.c            | 2 +-
+>  2 files changed, 3 insertions(+), 2 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers=
+/gpu/drm/i915/display/intel_display_power.c
+> index 54c6d65011ee..29d2f1d0cffd 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -551,7 +551,8 @@ static void icl_tc_port_assert_ref_held(struct drm_i9=
+15_private *dev_priv,
+>  	if (drm_WARN_ON(&dev_priv->drm, !dig_port))
+>  		return;
+>  =
+
+> -	if (DISPLAY_VER(dev_priv) =3D=3D 11 && dig_port->tc_legacy_port)
+> +	if (IS_ALDERLAKE_P(dev_priv) ||
+
+A TC port reference is held whenever enabling the port's AUX power
+domain (so whenever blocking TC-cold for instance), so this shouldn't be
+needed.
+
+OTOH, the !aux_powered check in intel_tc_port_reset_mode() needs this
+exception, since there TC-cold must be blocked and so AUX will be
+enabled as opposed to other platforms.
+
+Also, in icl_tc_phy_aux_power_well_enable() we need to avoid the power
+well enabling timeout error message, since it won't get enabled unless
+something is actually plugged to the TC connector.
+
+> +	    (DISPLAY_VER(dev_priv) =3D=3D 11 && dig_port->tc_legacy_port))
+>  		return;
+>  =
+
+>  	drm_WARN_ON(&dev_priv->drm, !intel_tc_port_ref_held(dig_port));
+> diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i9=
+15/display/intel_tc.c
+> index e325463acddd..1b108dea5fed 100644
+> --- a/drivers/gpu/drm/i915/display/intel_tc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_tc.c
+> @@ -28,7 +28,7 @@ tc_cold_get_power_domain(struct intel_digital_port *dig=
+_port)
+>  {
+>  	struct drm_i915_private *i915 =3D to_i915(dig_port->base.base.dev);
+>  =
+
+> -	if (DISPLAY_VER(i915) =3D=3D 11)
+> +	if (IS_ALDERLAKE_P(i915) || DISPLAY_VER(i915) =3D=3D 11)
+>  		return intel_legacy_aux_to_power_domain(dig_port->aux_ch);
+>  	else
+>  		return POWER_DOMAIN_TC_COLD_OFF;
+> -- =
+
+> 2.25.4
+> =
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
