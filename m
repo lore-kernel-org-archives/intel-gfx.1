@@ -2,40 +2,48 @@ Return-Path: <SRS0=7o8F=KM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B43C8C433ED
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 20:12:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D757C433ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 20:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6D5D461002
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 20:12:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D5D461002
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 370586109F
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 20:18:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 370586109F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBA686EA80;
-	Mon, 17 May 2021 20:12:51 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 61CD76EA80;
- Mon, 17 May 2021 20:12:50 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 59C17A00CC;
- Mon, 17 May 2021 20:12:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C9746EA8E;
+	Mon, 17 May 2021 20:18:10 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3EB96EAA4
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 May 2021 20:18:08 +0000 (UTC)
+IronPort-SDR: uGqLmPh1A7YfiJMIjIytCj48PPR7L7MrxXtqxE7rJ4bhXx8Usr/tDwXQaUCWZr4+dGtKSjqJ6h
+ AEBFp3aM3hJA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9987"; a="200605054"
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="200605054"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2021 13:18:07 -0700
+IronPort-SDR: rU7S+h4RCR5c+Y5OLeCmMFga+dTfMl87qtFCXwpZV1SFU66NSgvaraju9bVj/StYQ8cFKcNzdu
+ 7cX9CXjH/xQQ==
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="541456554"
+Received: from luo1-mobl.ccr.corp.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.254.1.90])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2021 13:18:06 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 17 May 2021 13:21:17 -0700
+Message-Id: <20210517202117.179303-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Anusha Srivatsa" <anusha.srivatsa@intel.com>
-Date: Mon, 17 May 2021 20:12:50 -0000
-Message-ID: <162128237033.27267.13841558638568187382@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210517195015.27983-1-anusha.srivatsa@intel.com>
-In-Reply-To: <20210517195015.27983-1-anusha.srivatsa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIFJl?=
- =?utf-8?q?name_all_CSR_references_to_DMC_=28rev3=29?=
+Subject: [Intel-gfx] [PATCH CI] drm/i915: Initialize err in remap_io_sg()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,27 +56,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Christoph Hellwig <hch@lst.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: Rename all CSR references to DMC (rev3)
-URL   : https://patchwork.freedesktop.org/series/90043/
-State : warning
-
-== Summary ==
-
-$ make htmldocs 2>&1 > /dev/null | grep i915
-./drivers/gpu/drm/i915/display/intel_dmc.c:1: warning: 'DMC Firmware Support' not found
-/home/cidrm/kernel/Documentation/gpu/i915.rst:540: WARNING: Unknown target name: "csr firmware support for dmc".
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SWYgdGhlIGRvIHdoaWxlIGxvb3AgYnJlYWtzIGluICdpZiAoIXNnX2RtYV9sZW4oc2dsKSknIGlu
+IHRoZSBmaXJzdAppdGVyYXRpb24sIGVyciBpcyB1bmluaXRpYWxpemVkIGNhdXNpbmcgYSB3cm9u
+ZyBjYWxsIHRvIHphcF92bWFfcHRlcygpLgoKQnV0IHRoYXQgaXMgaW1wb3NzaWJsZSB0byBoYXBw
+ZW4gYXMgYSBzY2F0dGVybGlzdCBtdXN0IGhhdmUgYXQgbGVhc3QKb25lIHZhbGlkIHNlZ21lbnQu
+CkFueXdheXMgdG8gYXZvaWQgbW9yZSByZXBvcnRzIGZyb20gc3RhdGljIGNoZWNrZXJzIGluaXRp
+YWxpemluZyByZXQKaGVyZS4KCkZpeGVzOiBiMTJkNjkxZWE1ZTAgKCJpOTE1OiBmaXggcmVtYXBf
+aW9fc2cgdG8gdmVyaWZ5IHRoZSBwZ3Byb3QiKQpSZXZpZXdlZC1ieTogQ2hyaXN0b3BoIEhlbGx3
+aWcgPGhjaEBsc3QuZGU+CkNjOiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4KU2lnbmVk
+LW9mZi1ieTogSmFtZXMgQXVzbXVzIDxqYW1lcy5hdXNtdXNAaW50ZWwuY29tPgpTaWduZWQtb2Zm
+LWJ5OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4KLS0tCiBk
+cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X21tLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9pOTE1X21tLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X21tLmMKaW5kZXggNGM4
+Y2QwOGM2NzJkLi4yNTU3NmZhNzNmZjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2k5MTVfbW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X21tLmMKQEAgLTQ3LDcg
+KzQ3LDcgQEAgaW50IHJlbWFwX2lvX3NnKHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hLAogCQlz
+dHJ1Y3Qgc2NhdHRlcmxpc3QgKnNnbCwgcmVzb3VyY2Vfc2l6ZV90IGlvYmFzZSkKIHsKIAl1bnNp
+Z25lZCBsb25nIHBmbiwgbGVuLCByZW1hcHBlZCA9IDA7Ci0JaW50IGVycjsKKwlpbnQgZXJyID0g
+MDsKIAogCS8qIFdlIHJlbHkgb24gcHJldmFsaWRhdGlvbiBvZiB0aGUgaW8tbWFwcGluZyB0byBz
+a2lwIHRyYWNrX3BmbigpLiAqLwogCUdFTV9CVUdfT04oKHZtYS0+dm1fZmxhZ3MgJiBFWFBFQ1RF
+RF9GTEFHUykgIT0gRVhQRUNURURfRkxBR1MpOwotLSAKMi4zMS4xCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
+dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
