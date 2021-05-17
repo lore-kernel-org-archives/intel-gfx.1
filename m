@@ -2,72 +2,51 @@ Return-Path: <SRS0=7o8F=KM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37218C433B4
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 11:57:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E5C70C433B4
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 11:57:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F02E5611BF
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 11:57:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F02E5611BF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B267B6101E
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 May 2021 11:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B267B6101E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E0B76E938;
-	Mon, 17 May 2021 11:57:12 +0000 (UTC)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0F28916A
- for <intel-gfx@lists.freedesktop.org>; Sat, 15 May 2021 10:40:17 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- z19-20020a7bc7d30000b029017521c1fb75so377285wmk.0
- for <intel-gfx@lists.freedesktop.org>; Sat, 15 May 2021 03:40:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:subject:from:to:date:in-reply-to:user-agent:mime-version
- :content-transfer-encoding;
- bh=LiqtW1rxKd2wxF0v91301x2oCEy45/UYqTUyOCprkA8=;
- b=PZHjFLuOyy+uhuSSHCXi+h5f1pelSIZNs5QdGw3Cs7gyKcEnz1Rw/eSrHXYbDz1JR6
- IsuqWAmP4mzMuwPWhNaVZbf2tNCXpcXdvHXMsRLCnTXKquE7ix+tAYORdDrPyKpJK/ww
- 0BSGd/GZYHww+YobuoHKBrVXaRxDgS4czrYNbufnf8tfM67ylyk0vr9QIzM2sfsMgYp4
- zPJQJR2QBg4KUyKq1BTxKchmjkA9oOTVTdnBoiTq2q4A8o8MHciuhOVuYFPacUhlMVSr
- 1GWliGUGuE+TPPOApgQvRzaGKnghqJOhlVmuzGdL/tUfBOpZvyhptTu4iqTa1E1OdcHu
- WWng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
- :user-agent:mime-version:content-transfer-encoding;
- bh=LiqtW1rxKd2wxF0v91301x2oCEy45/UYqTUyOCprkA8=;
- b=TMW8gNRmoDUXFbQ36us53nuElI8L3L8nV/JNZt1jo3EIlc7DAdlerYUePcUL/v5nd3
- wTZPyelnDgMdWbAFw+dD1iDTDuOjA2Uw3MSCwm9omu2hEOr2dBSZeU0qCkJhTTsVJwSh
- rfi0oFWbRjR1F9XHFXnA/fmEb6xjAOQnUSJ0uoKq/pPNIzl5kqXKgNvBRRliJEyBW7UR
- NIULnPw7aLyocOHhXp55F+Xf35bQBZ8Ioc5on74u9HnuRLNgnqtTRCkaIbmXZXeDgOFI
- 20TdqMKsu5v+cmrMl+YUJJzvvEQC/r5yvsOzSs8CUhWICxwMGmEWfa/Wy2E5i/+opoNS
- WUwQ==
-X-Gm-Message-State: AOAM532A2iBdnb7ngNCevKCcTiBCsZltMtiK1WGAdQyNe2UhgS4AhRAP
- DPcBWMIHLOcMnVnftS/3npY5q6Q9Fpo=
-X-Google-Smtp-Source: ABdhPJwYqtRho6iU7Ga9M0vzwpY5z8sYnSTQuIU8zl8thKTJKH+95AFgWXq7OOIPoAIG48mfJJ9sww==
-X-Received: by 2002:a7b:c8cb:: with SMTP id f11mr13928943wml.163.1621075216106; 
- Sat, 15 May 2021 03:40:16 -0700 (PDT)
-Received: from ?IPv6:2a01:e0a:4ed:6210:bc33:ae04:4495:a2f6?
- ([2a01:e0a:4ed:6210:bc33:ae04:4495:a2f6])
- by smtp.gmail.com with ESMTPSA id u16sm7799446wmj.27.2021.05.15.03.40.15
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 15 May 2021 03:40:15 -0700 (PDT)
-Message-ID: <c889265cfdbeb9374ed98b8defed59ef81bc0159.camel@gmail.com>
-From: Maxime Schmitt <maxime.schmitt91@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Sat, 15 May 2021 12:40:14 +0200
-In-Reply-To: <6cf2f14a-6a16-5ea3-d307-004faad4cc79@linux.intel.com>
-User-Agent: Evolution 3.38.4 (3.38.4-1.fc33) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35D406E934;
+	Mon, 17 May 2021 11:57:41 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 582586E934;
+ Mon, 17 May 2021 11:57:39 +0000 (UTC)
+IronPort-SDR: 6KmR06e9VtKwRNvGNC+7+mCFPXoxeHne2wo3KooAhD3D9A2Cd3lFjbIcP0qgDmxWjuFcQSahFy
+ QIO3rCdccDrA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9986"; a="221481048"
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="221481048"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2021 04:57:39 -0700
+IronPort-SDR: Ccz1Aj7ikNeLmgjEPGoCWj0SfInqjrHlDOETui7epcm3q3B6RmMKhQEdg37TtRlycWozTfI3AW
+ wHLlPAWdUW5Q==
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="472375881"
+Received: from sudhirk1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.50.192])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2021 04:57:36 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210412090526.30547-15-matthew.auld@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210412090526.30547-1-matthew.auld@intel.com>
+ <20210412090526.30547-15-matthew.auld@intel.com>
+Date: Mon, 17 May 2021 14:57:33 +0300
+Message-ID: <87im3hh8sy.fsf@intel.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 17 May 2021 11:57:02 +0000
-Subject: Re: [Intel-gfx] [PATCH 0/7] Per client engine busyness
+Subject: Re: [Intel-gfx] [PATCH 14/19] drm/i915/oprom: Basic sanitization
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,34 +59,389 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Mon, 12 Apr 2021, Matthew Auld <matthew.auld@intel.com> wrote:
+> From: Anshuman Gupta <anshuman.gupta@intel.com>
+>
+> Sanitize OPROM header, CPD signature and OPROM PCI version.
+> OPROM_HEADER, EXPANSION_ROM_HEADER and OPROM_MEU_BLOB structures
+> and PCI struct offsets are provided by GSC counterparts.
+> These are yet to be Documented in B.Spec.
+> After successful sanitization, extract VBT from opregion
+> image.
 
-Nice to see something like this being worked on.
+So I don't understand what the point is with two consecutive patches
+where the latter rewrites a lot of the former. 
 
-I wrote a top-like tool some time back (nvtop).
-I targeted NVIDIA, because it was the GPU I had at the time. Also,
-their driver provides a nice library to retrieve the information from
-(NVML).
-
-Seeing this thread I think it would be nice to support more vendors now
-that the information is available.
-
-I took a look at the DRM documentation, but I am only finding the in-
-kernel functions and not what is being exposed to user space. Maybe I
-am searching at the wrong place.
-Is there some documentation, from the user space point of view, on the
-way to discover the GPUs and the metrics that are exposed?
-
-Regards,
-Maxime
+BR,
+Jani.
 
 
+>
+> v2:
+> - Used macro for OPROM header magic 0xaa55 [Rodrigo]
+> - Added a OPROM layout. [Uma]
+> - Extract opregion from OPROM package and then extract
+>   VBT from opregion to have backward compatibility with
+>   older IFWI.
+>
+> v3:
+> - Moved opreg stuff to intel_opregion.{c,h}. [Uma]
+> - Memory leak and intel_oprom_verify_signature return
+>   value fixes. [Uma]
+>
+> v4:
+>  - Fix return code storage for oprom_image_parse_helper (Matt)
+>
+> v5 by Jani:
+> - switch to intel_uncore_read/intel_uncore_write
+>
+> v6 by Khajapasha:
+> - Rename intel_oprom_verify_signature() to
+>   intel_spi_get_oprom_opreg() [Jani, Nikula]
+> - Use u32 data type for opregion size [Jani, Nikula]
+>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_bios.c     |  47 +++--
+>  drivers/gpu/drm/i915/display/intel_opregion.c | 169 ++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_opregion.h |  38 +++-
+>  3 files changed, 227 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+> index f9dc651f1652..59eec8333723 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bios.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> @@ -2240,37 +2240,36 @@ bool intel_bios_is_valid_vbt(const void *buf, size_t size)
+>  
+>  static struct vbt_header *spi_oprom_get_vbt(struct drm_i915_private *i915)
+>  {
+> -	u32 count, data, found, store = 0;
+> -	u32 static_region, oprom_offset;
+> -	u32 oprom_size = 0x200000;
+> +	u32 count, found, opreg_size;
+> +	u32 *vbt, *oprom_opreg = NULL;
+>  	u16 vbt_size;
+> -	u32 *vbt;
+> +	u8 *parse_ptr;
+>  
+> -	static_region = intel_uncore_read(&i915->uncore, SPI_STATIC_REGIONS);
+> -	static_region &= OPTIONROM_SPI_REGIONID_MASK;
+> -	intel_uncore_write(&i915->uncore, PRIMARY_SPI_REGIONID, static_region);
+> -
+> -	oprom_offset = intel_uncore_read(&i915->uncore, OROM_OFFSET);
+> -	oprom_offset &= OROM_OFFSET_MASK;
+> +	if (intel_spi_get_oprom_opreg(i915, &oprom_opreg, &opreg_size)) {
+> +		drm_err(&i915->drm, "oprom signature verification failed\n");
+> +		goto err_not_found;
+> +	}
+>  
+> -	for (count = 0; count < oprom_size; count += 4) {
+> -		intel_uncore_write(&i915->uncore, PRIMARY_SPI_ADDRESS, oprom_offset + count);
+> -		data = intel_uncore_read(&i915->uncore, PRIMARY_SPI_TRIGGER);
+> +	if (!oprom_opreg) {
+> +		drm_err(&i915->drm, "opregion not found\n");
+> +		goto err_not_found;
+> +	}
+>  
+> -		if (data == *((const u32 *)"$VBT")) {
+> -			found = oprom_offset + count;
+> +	for (count = 0; count < opreg_size; count += 4) {
+> +		if (oprom_opreg[count / 4] == *((const u32 *)"$VBT")) {
+> +			found = count;
+>  			break;
+>  		}
+>  	}
+>  
+> -	if (count >= oprom_size)
+> +	if (count >= opreg_size) {
+> +		drm_err(&i915->drm, "VBT not found in opregion\n");
+>  		goto err_not_found;
+> +	}
+>  
+>  	/* Get VBT size and allocate space for the VBT */
+> -	intel_uncore_write(&i915->uncore, PRIMARY_SPI_ADDRESS, found +
+> -		   offsetof(struct vbt_header, vbt_size));
+> -	vbt_size = intel_uncore_read(&i915->uncore, PRIMARY_SPI_TRIGGER);
+> -	vbt_size &= 0xffff;
+> +	parse_ptr = (u8 *)oprom_opreg + found;
+> +	vbt_size = ((struct vbt_header *)parse_ptr)->vbt_size;
+>  
+>  	vbt = kzalloc(vbt_size, GFP_KERNEL);
+>  	if (!vbt) {
+> @@ -2279,16 +2278,12 @@ static struct vbt_header *spi_oprom_get_vbt(struct drm_i915_private *i915)
+>  		goto err_not_found;
+>  	}
+>  
+> -	for (count = 0; count < vbt_size; count += 4) {
+> -		intel_uncore_write(&i915->uncore, PRIMARY_SPI_ADDRESS, found + count);
+> -		data = intel_uncore_read(&i915->uncore, PRIMARY_SPI_TRIGGER);
+> -		*(vbt + store++) = data;
+> -	}
+> -
+> +	memcpy(vbt, parse_ptr, vbt_size);
+>  	if (!intel_bios_is_valid_vbt(vbt, vbt_size))
+>  		goto err_free_vbt;
+>  
+>  	DRM_DEBUG_KMS("Found valid VBT in SPI flash\n");
+> +	kfree(oprom_opreg);
+>  
+>  	return (struct vbt_header *)vbt;
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
+> index dfd724e506b5..e9ccd8265a1f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_opregion.c
+> +++ b/drivers/gpu/drm/i915/display/intel_opregion.c
+> @@ -983,6 +983,175 @@ int intel_opregion_setup(struct drm_i915_private *dev_priv)
+>  	return err;
+>  }
+>  
+> +static int oprom_image_parse_helper(u8 *parse_ptr, u8 *last_img, u8 *code_type,
+> +				    struct drm_i915_private *i915)
+> +{
+> +	u8 size_512_bytes;
+> +
+> +	if (((union oprom_header *)parse_ptr)->signature != OPROM_IMAGE_MAGIC) {
+> +		drm_err(&i915->drm, "Wrong OPROM header signature.\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	size_512_bytes = parse_ptr[((struct expansion_rom_header *)parse_ptr)->pcistructoffset + PCI_IMAGE_LENGTH_OFFSET];
+> +	*code_type = parse_ptr[((struct expansion_rom_header *)parse_ptr)->pcistructoffset + PCI_CODE_TYPE_OFFSET];
+> +	*last_img = parse_ptr[((struct expansion_rom_header *)parse_ptr)->pcistructoffset + PCI_LAST_IMAGE_INDICATOR_OFFSET];
+> +
+> +	return size_512_bytes;
+> +}
+> +
+> +static void spi_read_oprom_helper(size_t len, u32 offset, u32 *buf,
+> +				  struct drm_i915_private *dev_priv)
+> +{
+> +	u32 count, data;
+> +
+> +	for (count = 0; count < len; count += 4) {
+> +		intel_uncore_write(&dev_priv->uncore, PRIMARY_SPI_ADDRESS, offset + count);
+> +		data = intel_uncore_read(&dev_priv->uncore, PRIMARY_SPI_TRIGGER);
+> +		buf[count / 4] = data;
+> +	}
+> +}
+> +
+> +/**
+> + *	+        DASH+G OPROM IMAGE LAYOUT           +
+> + *	+--------+-------+---------------------------+
+> + *	| Offset | Value |   ROM Header Fields       +-----> Image 1 (CSS)
+> + *	+--------------------------------------------+
+> + *	|    0h  |  55h  |   ROM Signature Byte1     |
+> + *	|    1h  |  AAh  |   ROM Signature Byte2     |
+> + *	|    2h  |  xx   |        Reserved           |
+> + *	|  18+19h|  xx   |  Ptr to PCI DataStructure |
+> + *	+----------------+---------------------------+
+> + *	|           PCI Data Structure               |
+> + *	+--------------------------------------------+
+> + *	|    .       .             .                 |
+> + *	|    .       .             .                 |
+> + *	|    10  +  xx   +     Image Length          |
+> + *	|    14  +  xx   +     Code Type             |
+> + *	|    15  +  xx   +  Last Image Indicator     |
+> + *	|    .       .             .                 |
+> + *	+--------------------------------------------+
+> + *	|               MEU BLOB                     |
+> + *	+--------------------------------------------+
+> + *	|              CPD Header                    |
+> + *	|              CPD Entry                     |
+> + *	|              Reserved                      |
+> + *	|           SignedDataPart1                  |
+> + *	|              PublicKey                     |
+> + *	|            RSA Signature                   |
+> + *	|           SignedDataPart2                  |
+> + *	|            IFWI Metadata                   |
+> + *	+--------+-------+---------------------------+
+> + *	|    .   |   .   |         .                 |
+> + *	|    .   |   .   |         .                 |
+> + *	+--------------------------------------------+
+> + *	| Offset | Value |   ROM Header Fields       +-----> Image 2 (Config Data) (Offset: 0x800)
+> + *	+--------------------------------------------+
+> + *	|    0h  |  55h  |   ROM Signature Byte1     |
+> + *	|    1h  |  AAh  |   ROM Signature Byte2     |
+> + *	|    2h  |  xx   |        Reserved           |
+> + *	|  18+19h|  xx   |  Ptr to PCI DataStructure |
+> + *	+----------------+---------------------------+
+> + *	|           PCI Data Structure               |
+> + *	+--------------------------------------------+
+> + *	|    .       .             .                 |
+> + *	|    .       .             .                 |
+> + *	|    10  +  xx   +     Image Length          |
+> + *	|    14  +  xx   +      Code Type            |
+> + *	|    15  +  xx   +   Last Image Indicator    |
+> + *	|    .       .             .                 |
+> + *	|    1A  +  3C   + Ptr to Opregion Signature |
+> + *	|    .       .             .                 |
+> + *	|    .       .             .                 |
+> + *	|   83Ch + IntelGraphicsMem                  | <---+ Opregion Signature
+> + *	+--------+-----------------------------------+
+> + *
+> + * intel_spi_get_oprom_opreg() get OPROM image.
+> + * @i915: pointer to i915 device.
+> + * @opreg: pointer to opregion buffer output.
+> + * @opreg_size: pointer to opregion size output.
+> + */
+> +int
+> +intel_spi_get_oprom_opreg(struct drm_i915_private *i915, u32 **opreg,
+> +			  u32 *opreg_size)
+> +{
+> +	u8 img_sig[sizeof(OPREGION_SIGNATURE)];
+> +	u8 code_type, last_img;
+> +	u32 static_region, offset, img_len;
+> +	u32 *oprom_img, *oprom_img_hdr;
+> +	u16 opreg_base;
+> +	u8 *parse_ptr;
+> +	int img_size;
+> +	int ret = -EINVAL;
+> +
+> +	/* initialize SPI to read the OPROM */
+> +	static_region = intel_uncore_read(&i915->uncore, SPI_STATIC_REGIONS);
+> +	static_region &= OPTIONROM_SPI_REGIONID_MASK;
+> +	intel_uncore_write(&i915->uncore, PRIMARY_SPI_REGIONID, static_region);
+> +	/* read OPROM offset in SPI flash */
+> +	offset = intel_uncore_read(&i915->uncore, OROM_OFFSET);
+> +	offset &= OROM_OFFSET_MASK;
+> +
+> +	oprom_img_hdr = kzalloc(OPROM_INITIAL_READ_SIZE, GFP_KERNEL);
+> +	if (!oprom_img_hdr)
+> +		return -ENOMEM;
+> +
+> +	do {
+> +		spi_read_oprom_helper(OPROM_INITIAL_READ_SIZE, offset,
+> +				      oprom_img_hdr, i915);
+> +		img_size = oprom_image_parse_helper((u8 *)oprom_img_hdr, &last_img,
+> +						    &code_type, i915);
+> +		if (img_size <= 0) {
+> +			ret = -EINVAL;
+> +			goto err_free_hdr;
+> +		}
+> +
+> +		img_len = img_size * OPROM_BYTE_BOUNDARY;
+> +		oprom_img = kzalloc(img_len, GFP_KERNEL);
+> +		if (!oprom_img) {
+> +			ret = -ENOMEM;
+> +			goto err_free_hdr;
+> +		}
+> +
+> +		spi_read_oprom_helper(img_len, offset, oprom_img, i915);
+> +		parse_ptr = (u8 *)oprom_img;
+> +		offset = offset + img_len;
+> +
+> +		/* opregion base offset */
+> +		opreg_base = ((struct expansion_rom_header *)parse_ptr)->opregion_base;
+> +		/* CPD or opreg signature is present at opregion_base offset */
+> +		memcpy(img_sig, parse_ptr + opreg_base, sizeof(OPREGION_SIGNATURE));
+> +
+> +		if (!memcmp(img_sig, OPREGION_SIGNATURE, sizeof(OPREGION_SIGNATURE) - 1)) {
+> +			*opreg = oprom_img;
+> +			*opreg_size = img_len;
+> +			drm_dbg_kms(&i915->drm, "Found opregion image\n");
+> +			ret = 0;
+> +			break;
+> +		} else if (!memcmp(img_sig, CPD_SIGNATURE, NUM_CPD_BYTES)) {
+> +			if (code_type != OPROM_CSS_CODE_TYPE) {
+> +				drm_err(&i915->drm, "Invalid OPROM\n");
+> +				ret = -EINVAL;
+> +				goto err_free_img;
+> +			}
+> +			drm_dbg_kms(&i915->drm, "Found CSS image\n");
+> +			/* proceed here onwards for signature authentication */
+> +			kfree(oprom_img);
+> +			continue;
+> +		}
+> +
+> +	} while (last_img != LAST_IMG_INDICATOR);
+> +
+> +	return ret;
+> +
+> +err_free_img:
+> +	kfree(oprom_img);
+> +err_free_hdr:
+> +	kfree(oprom_img_hdr);
+> +
+> +	return ret;
+> +}
+> +
+>  static int intel_use_opregion_panel_type_callback(const struct dmi_system_id *id)
+>  {
+>  	DRM_INFO("Using panel type from OpRegion on %s\n", id->ident);
+> diff --git a/drivers/gpu/drm/i915/display/intel_opregion.h b/drivers/gpu/drm/i915/display/intel_opregion.h
+> index 4aa68ffbd30e..de53dde10dd9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_opregion.h
+> +++ b/drivers/gpu/drm/i915/display/intel_opregion.h
+> @@ -54,6 +54,34 @@ struct intel_opregion {
+>  
+>  #define OPREGION_SIZE            (8 * 1024)
+>  
+> +#define CPD_SIGNATURE "$CPD"                  /* CPD Signature */
+> +#define NUM_CPD_BYTES 4
+> +#define PCI_IMAGE_LENGTH_OFFSET 0x10
+> +#define PCI_CODE_TYPE_OFFSET 0x14
+> +#define PCI_LAST_IMAGE_INDICATOR_OFFSET 0x15
+> +#define LAST_IMG_INDICATOR 0x80
+> +#define OPROM_IMAGE_MAGIC 0xAA55       /* Little Endian */
+> +#define OPROM_CSS_CODE_TYPE 0xF0
+> +#define OPROM_BYTE_BOUNDARY 512        /* OPROM image sizes are indicated in 512 byte boundaries */
+> +#define OPROM_INITIAL_READ_SIZE 60     /* Read 60 bytes to compute the Img Len from PCI structure */
+> +
+> +union oprom_header {
+> +	u32 data;
+> +	struct {
+> +		u16 signature;  /* Offset[0x0]: Header 0x55 0xAA */
+> +		u8 sizein512bytes;
+> +		u8 reserved;
+> +	};
+> +};
+> +
+> +struct expansion_rom_header {
+> +	union oprom_header header;      /* Offset[0x0]: Oprom Header */
+> +	u16 vbiospostoffset;    /* Offset[0x4]: pointer to VBIOS entry point */
+> +	u8 resvd[0x12];
+> +	u16 pcistructoffset;    /* Offset[0x18]: Contains pointer PCI Data Structure */
+> +	u16 opregion_base;      /* Offset[0x1A]: Offset to Opregion Base start */
+> +};
+> +
+>  #ifdef CONFIG_ACPI
+>  
+>  int intel_opregion_setup(struct drm_i915_private *dev_priv);
+> @@ -72,6 +100,9 @@ int intel_opregion_notify_adapter(struct drm_i915_private *dev_priv,
+>  				  pci_power_t state);
+>  int intel_opregion_get_panel_type(struct drm_i915_private *dev_priv);
+>  
+> +int intel_spi_get_oprom_opreg(struct drm_i915_private *i915, u32 **opreg,
+> +			      u32 *opreg_size);
+> +
+>  #else /* CONFIG_ACPI*/
+>  
+>  static inline int intel_opregion_setup(struct drm_i915_private *dev_priv)
+> @@ -117,6 +148,11 @@ static inline int intel_opregion_get_panel_type(struct drm_i915_private *dev)
+>  	return -ENODEV;
+>  }
+>  
+> -#endif /* CONFIG_ACPI */
+> +static int intel_spi_get_oprom_opreg(struct drm_i915_private *i915, u32 **opreg,
+> +				     u32 *opreg_size)
+> +{
+> +	return 0;
+> +}
+>  
+> +#endif /* CONFIG_ACPI */
+>  #endif
 
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
