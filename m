@@ -7,42 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F115C43461
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 19:53:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91544C433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 19:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1B406124C
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 19:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1B406124C
+	by mail.kernel.org (Postfix) with ESMTPS id 5B7546124C
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 19:53:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B7546124C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C366EC79;
-	Tue, 18 May 2021 19:53:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C8B188F9F;
+	Tue, 18 May 2021 19:53:14 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC12B6EC79
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 484FF6EC79
  for <intel-gfx@lists.freedesktop.org>; Tue, 18 May 2021 19:53:11 +0000 (UTC)
-IronPort-SDR: XSQEW3h33twofI24KPZXHkP3emNWO/D2Gg698kYVzd7vv9tAJZVXGypfzfSIvY8+YesO+tBpUe
- y1Tx6knbkJkg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="197715532"
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="197715532"
+IronPort-SDR: kEAIFyf2TB609UgdaGG57+AckLwU49TEdirsTrOozDVpOrQuoD56kTgCVZr1pjPWKxxnD9EF3+
+ mc7XLebMuiMw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="197715531"
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="197715531"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 May 2021 12:53:10 -0700
-IronPort-SDR: EM7qUP+NYUT5NltQST0/Wff+u+Nvs/Ltzn+tWNjqUmQZMPMLY47r5qHc8LTnzraBvPCJWvH71B
- zGkwzbc+yQTg==
+IronPort-SDR: 4bxBsdlmrd/FNOZQqWeTHzPKqqLG6ywnq+HpT1w8gkyQKqj+Cx06JlFbjjsaMeVr+1CX9sXkLH
+ 3j4X/e8unVWw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="394989484"
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="394989486"
 Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
  by orsmga006.jf.intel.com with ESMTP; 18 May 2021 12:53:09 -0700
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 May 2021 12:53:04 -0700
-Message-Id: <20210518195309.4917-1-anusha.srivatsa@intel.com>
+Date: Tue, 18 May 2021 12:53:06 -0700
+Message-Id: <20210518195309.4917-3-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20210518195309.4917-1-anusha.srivatsa@intel.com>
+References: <20210518195309.4917-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 0/5]  Rename all CSR references to DMC
+Subject: [Intel-gfx] [CI 2/5] drm/i915/dmc: s/HAS_CSR/HAS_DMC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,45 +62,159 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently in our driver we use both CSR and DMC interchangeably.
-Even though the spec mentions both, we do not follow that convention
-in the driver.
+No functional change.
 
-Renaming all references of CSR to just be DMC. This hopefully makes
-the driver of this part a litlle less confusing.
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_csr.c             | 12 ++++++------
+ drivers/gpu/drm/i915/display/intel_display_debugfs.c |  2 +-
+ drivers/gpu/drm/i915/i915_drv.h                      |  2 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c                |  2 +-
+ drivers/gpu/drm/i915/i915_pci.c                      |  4 ++--
+ drivers/gpu/drm/i915/intel_device_info.c             |  2 +-
+ drivers/gpu/drm/i915/intel_device_info.h             |  2 +-
+ 7 files changed, 13 insertions(+), 13 deletions(-)
 
-Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
-
-Acked-by: Jani Nikula <jani.nikula@linux.intel.com>
-
-Anusha Srivatsa (5):
-  drm/i915/dmc: s/intel_csr/intel_dmc
-  drm/i915/dmc: s/HAS_CSR/HAS_DMC
-  drm/i915/dmc: Rename macro names containing csr
-  drm/i915/dmc: Rename functions names having "csr"
-  drm/i915/dmc: s/intel_csr.c/intel_dmc.c and s/intel_csr.h/intel_dmc.h
-
- Documentation/gpu/i915.rst                    |  10 +-
- drivers/gpu/drm/i915/Makefile                 |   2 +-
- drivers/gpu/drm/i915/display/intel_csr.h      |  21 --
- drivers/gpu/drm/i915/display/intel_display.c  |  16 +-
- .../drm/i915/display/intel_display_debugfs.c  |  30 +-
- .../drm/i915/display/intel_display_power.c    |  82 ++---
- .../i915/display/{intel_csr.c => intel_dmc.c} | 333 +++++++++---------
- drivers/gpu/drm/i915/display/intel_dmc.h      |  21 ++
- drivers/gpu/drm/i915/display/intel_psr.c      |   2 +-
- drivers/gpu/drm/i915/i915_drv.c               |   8 +-
- drivers/gpu/drm/i915/i915_drv.h               |   6 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         |  12 +-
- drivers/gpu/drm/i915/i915_pci.c               |   4 +-
- drivers/gpu/drm/i915/i915_reg.h               |  28 +-
- drivers/gpu/drm/i915/intel_device_info.c      |   2 +-
- drivers/gpu/drm/i915/intel_device_info.h      |   2 +-
- 16 files changed, 289 insertions(+), 290 deletions(-)
- delete mode 100644 drivers/gpu/drm/i915/display/intel_csr.h
- rename drivers/gpu/drm/i915/display/{intel_csr.c => intel_dmc.c} (66%)
- create mode 100644 drivers/gpu/drm/i915/display/intel_dmc.h
-
+diff --git a/drivers/gpu/drm/i915/display/intel_csr.c b/drivers/gpu/drm/i915/display/intel_csr.c
+index a22339ebdffd..5ed286dc6720 100644
+--- a/drivers/gpu/drm/i915/display/intel_csr.c
++++ b/drivers/gpu/drm/i915/display/intel_csr.c
+@@ -315,9 +315,9 @@ void intel_csr_load_program(struct drm_i915_private *dev_priv)
+ 	u32 *payload = dev_priv->dmc.dmc_payload;
+ 	u32 i, fw_size;
+ 
+-	if (!HAS_CSR(dev_priv)) {
++	if (!HAS_DMC(dev_priv)) {
+ 		drm_err(&dev_priv->drm,
+-			"No CSR support available for this platform\n");
++			"No DMC support available for this platform\n");
+ 		return;
+ 	}
+ 
+@@ -686,7 +686,7 @@ void intel_csr_ucode_init(struct drm_i915_private *dev_priv)
+ 
+ 	INIT_WORK(&dev_priv->dmc.work, csr_load_work_fn);
+ 
+-	if (!HAS_CSR(dev_priv))
++	if (!HAS_DMC(dev_priv))
+ 		return;
+ 
+ 	/*
+@@ -776,7 +776,7 @@ void intel_csr_ucode_init(struct drm_i915_private *dev_priv)
+  */
+ void intel_csr_ucode_suspend(struct drm_i915_private *dev_priv)
+ {
+-	if (!HAS_CSR(dev_priv))
++	if (!HAS_DMC(dev_priv))
+ 		return;
+ 
+ 	flush_work(&dev_priv->dmc.work);
+@@ -795,7 +795,7 @@ void intel_csr_ucode_suspend(struct drm_i915_private *dev_priv)
+  */
+ void intel_csr_ucode_resume(struct drm_i915_private *dev_priv)
+ {
+-	if (!HAS_CSR(dev_priv))
++	if (!HAS_DMC(dev_priv))
+ 		return;
+ 
+ 	/*
+@@ -815,7 +815,7 @@ void intel_csr_ucode_resume(struct drm_i915_private *dev_priv)
+  */
+ void intel_csr_ucode_fini(struct drm_i915_private *dev_priv)
+ {
+-	if (!HAS_CSR(dev_priv))
++	if (!HAS_DMC(dev_priv))
+ 		return;
+ 
+ 	intel_csr_ucode_suspend(dev_priv);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index a875f3c9b358..6cd7f8c1724f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -535,7 +535,7 @@ static int i915_dmc_info(struct seq_file *m, void *unused)
+ 	struct intel_dmc *dmc;
+ 	i915_reg_t dc5_reg, dc6_reg = {};
+ 
+-	if (!HAS_CSR(dev_priv))
++	if (!HAS_DMC(dev_priv))
+ 		return -ENODEV;
+ 
+ 	dmc = &dev_priv->dmc;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 3c9f6bbb5dd7..469783003309 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1662,7 +1662,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 
+ #define HAS_RPS(dev_priv)	(INTEL_INFO(dev_priv)->has_rps)
+ 
+-#define HAS_CSR(dev_priv)	(INTEL_INFO(dev_priv)->display.has_csr)
++#define HAS_DMC(dev_priv)	(INTEL_INFO(dev_priv)->display.has_dmc)
+ 
+ #define HAS_MSO(i915)		(INTEL_GEN(i915) >= 12)
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 03d1221de13b..06828ff90ccf 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -788,7 +788,7 @@ static void __err_print_to_sgl(struct drm_i915_error_state_buf *m,
+ 
+ 	err_printf(m, "IOMMU enabled?: %d\n", error->iommu);
+ 
+-	if (HAS_CSR(m->i915)) {
++	if (HAS_DMC(m->i915)) {
+ 		struct intel_dmc *dmc = &m->i915->dmc;
+ 
+ 		err_printf(m, "DMC loaded: %s\n",
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 574881c0e339..97c98f4fb265 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -643,7 +643,7 @@ static const struct intel_device_info chv_info = {
+ 	GEN8_FEATURES, \
+ 	GEN(9), \
+ 	GEN9_DEFAULT_PAGE_SIZES, \
+-	.display.has_csr = 1, \
++	.display.has_dmc = 1, \
+ 	.has_gt_uc = 1, \
+ 	.display.has_hdcp = 1, \
+ 	.display.has_ipc = 1, \
+@@ -698,7 +698,7 @@ static const struct intel_device_info skl_gt4_info = {
+ 	.display.has_psr = 1, \
+ 	.display.has_psr_hw_tracking = 1, \
+ 	.has_runtime_pm = 1, \
+-	.display.has_csr = 1, \
++	.display.has_dmc = 1, \
+ 	.has_rc6 = 1, \
+ 	.has_rps = true, \
+ 	.display.has_dp_mst = 1, \
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 8cb58a238c68..e16599b67b83 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -353,7 +353,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
+ 			info->display.has_fbc = 0;
+ 
+ 		if (INTEL_GEN(dev_priv) >= 11 && (dfsm & ICL_DFSM_DMC_DISABLE))
+-			info->display.has_csr = 0;
++			info->display.has_dmc = 0;
+ 
+ 		if (INTEL_GEN(dev_priv) >= 10 &&
+ 		    (dfsm & CNL_DFSM_DISPLAY_DSC_DISABLE))
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index e98b36959736..1390fad5ec06 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -141,7 +141,7 @@ enum intel_ppgtt_type {
+ #define DEV_INFO_DISPLAY_FOR_EACH_FLAG(func) \
+ 	/* Keep in alphabetical order */ \
+ 	func(cursor_needs_physical); \
+-	func(has_csr); \
++	func(has_dmc); \
+ 	func(has_ddi); \
+ 	func(has_dp_mst); \
+ 	func(has_dsb); \
 -- 
 2.25.0
 
