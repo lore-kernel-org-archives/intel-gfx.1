@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DBD5C433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 08:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F09F7C433B4
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 08:28:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 196DF610E9
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 08:28:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 196DF610E9
+	by mail.kernel.org (Postfix) with ESMTPS id BEAE9611BD
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 08:28:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEAE9611BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6BF96EACB;
-	Tue, 18 May 2021 08:28:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39BCB884D4;
+	Tue, 18 May 2021 08:28:15 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B31E6EAD0;
- Tue, 18 May 2021 08:28:02 +0000 (UTC)
-IronPort-SDR: y+9s6mM3I2pg0+IVD0x8qDFZVsoYlI1PC1HM/VJ3zuO3O/BekQVhCyBIPixqUvOjzNNR5G4ziO
- +UWDRj4pBa8w==
-X-IronPort-AV: E=McAfee;i="6200,9189,9987"; a="197572752"
-X-IronPort-AV: E=Sophos;i="5.82,309,1613462400"; d="scan'208";a="197572752"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A76926EAD4;
+ Tue, 18 May 2021 08:28:09 +0000 (UTC)
+IronPort-SDR: PM6RYaRGd+3kLHoiHp0JkvfNmgx+nvmu379fZrUlVcPqgQaww2V4vKzGDX/+HzetSY1yyRmut+
+ 8e5y995zpSqw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9987"; a="197572795"
+X-IronPort-AV: E=Sophos;i="5.82,309,1613462400"; d="scan'208";a="197572795"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 01:28:01 -0700
-IronPort-SDR: PGtJGSW+ryNfDCOqxBwzF9/K0cJGktMp0svDuN0FaB8rT8o+R874x3JN6Z46xqrIYCKydi6II7
- iSUsSHP+aA/A==
-X-IronPort-AV: E=Sophos;i="5.82,309,1613462400"; d="scan'208";a="611892397"
+ 18 May 2021 01:28:09 -0700
+IronPort-SDR: JZs1a3gubOHpXLxj42Avuk/K8216PGldhhjXsr0DNbcaJrG55LLQy4/e09Any8GnnWwmCV7+Wp
+ 9T0wr3p2FvYw==
+X-IronPort-AV: E=Sophos;i="5.82,309,1613462400"; d="scan'208";a="611892412"
 Received: from cmutgix-mobl.gar.corp.intel.com (HELO thellst-mobl1.intel.com)
  ([10.249.254.195])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 01:27:49 -0700
+ 18 May 2021 01:27:54 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 18 May 2021 10:26:59 +0200
-Message-Id: <20210518082701.997251-14-thomas.hellstrom@linux.intel.com>
+Date: Tue, 18 May 2021 10:27:01 +0200
+Message-Id: <20210518082701.997251-16-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210518082701.997251-1-thomas.hellstrom@linux.intel.com>
 References: <20210518082701.997251-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 13/15] drm/ttm: Add BO and offset arguments
- for vm_access and vm_fault ttm handlers.
+Subject: [Intel-gfx] [PATCH v2 15/15] drm/i915/ttm: Add io sgt caching to
+ i915_ttm_io_mem_pfn
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,302 +67,160 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
-This allows other drivers that may not setup the vma in the same way
-to use the ttm bo helpers.
-
-Also clarify the documentation a bit, especially related to VM_FAULT_RETRY.
+Instead of walking the sg table manually, use our caching helpers
+to do the sgt caching. To prevent lifetime issues of ttm_bo vs
+i915_gem_object, we will use a separate member, instead of re-using
+the dma page member.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  4 +-
- drivers/gpu/drm/nouveau/nouveau_ttm.c      |  4 +-
- drivers/gpu/drm/radeon/radeon_ttm.c        |  4 +-
- drivers/gpu/drm/ttm/ttm_bo_vm.c            | 84 +++++++++++++---------
- drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c |  8 ++-
- include/drm/ttm/ttm_bo_api.h               |  9 ++-
- 6 files changed, 75 insertions(+), 38 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  6 +--
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  1 +
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     |  3 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 46 ++++++++++---------
+ 4 files changed, 30 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index d5a9d7a88315..89dafe14f828 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1919,7 +1919,9 @@ static vm_fault_t amdgpu_ttm_fault(struct vm_fault *vmf)
- 	if (ret)
- 		goto unlock;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index a3ad8cf4eefd..ff59e6c640e6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -342,14 +342,14 @@ struct scatterlist *
+ __i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+ 			 struct i915_gem_object_page_iter *iter,
+ 			 unsigned int n,
+-			 unsigned int *offset, bool allow_alloc);
++			 unsigned int *offset, bool allow_alloc, bool dma);
  
--	ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
-+	ret = ttm_bo_vm_fault_reserved(bo, vmf,
-+				       drm_vma_node_start(&bo->base.vma_node),
-+				       vmf->vma->vm_page_prot,
- 				       TTM_BO_VM_NUM_PREFAULT, 1);
- 	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
- 		return ret;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.c b/drivers/gpu/drm/nouveau/nouveau_ttm.c
-index b81ae90b8449..555fb6d8be8b 100644
---- a/drivers/gpu/drm/nouveau/nouveau_ttm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_ttm.c
-@@ -144,7 +144,9 @@ static vm_fault_t nouveau_ttm_fault(struct vm_fault *vmf)
- 
- 	nouveau_bo_del_io_reserve_lru(bo);
- 	prot = vm_get_page_prot(vma->vm_flags);
--	ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT, 1);
-+	ret = ttm_bo_vm_fault_reserved(bo, vmf,
-+				       drm_vma_node_start(&bo->base.vma_node),
-+				       prot, TTM_BO_VM_NUM_PREFAULT, 1);
- 	nouveau_bo_add_io_reserve_lru(bo);
- 	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
- 		return ret;
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index 3361d11769a2..ba48a2acdef0 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -816,7 +816,9 @@ static vm_fault_t radeon_ttm_fault(struct vm_fault *vmf)
- 	if (ret)
- 		goto unlock_resv;
- 
--	ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
-+	ret = ttm_bo_vm_fault_reserved(bo, vmf,
-+				       drm_vma_node_start(&bo->base.vma_node),
-+				       vmf->vma->vm_page_prot,
- 				       TTM_BO_VM_NUM_PREFAULT, 1);
- 	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
- 		goto unlock_mclk;
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index b31b18058965..ed00ccf1376e 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -42,7 +42,7 @@
- #include <linux/mem_encrypt.h>
- 
- static vm_fault_t ttm_bo_vm_fault_idle(struct ttm_buffer_object *bo,
--				struct vm_fault *vmf)
-+				       struct vm_fault *vmf)
+ static inline struct scatterlist *
+ i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+ 		       unsigned int n,
+ 		       unsigned int *offset, bool allow_alloc)
  {
- 	vm_fault_t ret = 0;
- 	int err = 0;
-@@ -122,7 +122,8 @@ static unsigned long ttm_bo_io_mem_pfn(struct ttm_buffer_object *bo,
-  * Return:
-  *    0 on success and the bo was reserved.
-  *    VM_FAULT_RETRY if blocking wait.
-- *    VM_FAULT_NOPAGE if blocking wait and retrying was not allowed.
-+ *    VM_FAULT_NOPAGE if blocking wait and retrying was not allowed, or wait interrupted.
-+ *    VM_FAULT_SIGBUS if wait on bo->moving failed for reason other than a signal.
-  */
- vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
- 			     struct vm_fault *vmf)
-@@ -254,7 +255,9 @@ static vm_fault_t ttm_bo_vm_insert_huge(struct vm_fault *vmf,
- 
- /**
-  * ttm_bo_vm_fault_reserved - TTM fault helper
-+ * @bo: The buffer object
-  * @vmf: The struct vm_fault given as argument to the fault callback
-+ * @mmap_base: The base of the mmap, to which the @vmf fault is relative to.
-  * @prot: The page protection to be used for this memory area.
-  * @num_prefault: Maximum number of prefault pages. The caller may want to
-  * specify this based on madvice settings and the size of the GPU object
-@@ -265,19 +268,28 @@ static vm_fault_t ttm_bo_vm_insert_huge(struct vm_fault *vmf,
-  * memory backing the buffer object, and then returns a return code
-  * instructing the caller to retry the page access.
-  *
-+ * This function ensures any pipelined wait is finished.
-+ *
-+ * WARNING:
-+ * On VM_FAULT_RETRY, the bo will be unlocked by this function when
-+ * #FAULT_FLAG_RETRY_NOWAIT is not set inside @vmf->flags. In this
-+ * case, the caller should not unlock the @bo.
-+ *
-  * Return:
-- *   VM_FAULT_NOPAGE on success or pending signal
-+ *   0 on success.
-+ *   VM_FAULT_NOPAGE on pending signal
-  *   VM_FAULT_SIGBUS on unspecified error
-  *   VM_FAULT_OOM on out-of-memory
-- *   VM_FAULT_RETRY if retryable wait
-+ *   VM_FAULT_RETRY if retryable wait, see WARNING above.
-  */
--vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
-+vm_fault_t ttm_bo_vm_fault_reserved(struct ttm_buffer_object *bo,
-+				    struct vm_fault *vmf,
-+				    unsigned long mmap_base,
- 				    pgprot_t prot,
- 				    pgoff_t num_prefault,
- 				    pgoff_t fault_page_size)
- {
- 	struct vm_area_struct *vma = vmf->vma;
--	struct ttm_buffer_object *bo = vma->vm_private_data;
- 	struct ttm_device *bdev = bo->bdev;
- 	unsigned long page_offset;
- 	unsigned long page_last;
-@@ -286,15 +298,11 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
- 	struct page *page;
- 	int err;
- 	pgoff_t i;
--	vm_fault_t ret = VM_FAULT_NOPAGE;
-+	vm_fault_t ret;
- 	unsigned long address = vmf->address;
- 
--	/*
--	 * Wait for buffer data in transit, due to a pipelined
--	 * move.
--	 */
- 	ret = ttm_bo_vm_fault_idle(bo, vmf);
--	if (unlikely(ret != 0))
-+	if (ret)
- 		return ret;
- 
- 	err = ttm_mem_io_reserve(bdev, &bo->mem);
-@@ -302,9 +310,8 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
- 		return VM_FAULT_SIGBUS;
- 
- 	page_offset = ((address - vma->vm_start) >> PAGE_SHIFT) +
--		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
--	page_last = vma_pages(vma) + vma->vm_pgoff -
--		drm_vma_node_start(&bo->base.vma_node);
-+		vma->vm_pgoff - mmap_base;
-+	page_last = vma_pages(vma) + vma->vm_pgoff - mmap_base;
- 
- 	if (unlikely(page_offset >= bo->mem.num_pages))
- 		return VM_FAULT_SIGBUS;
-@@ -344,8 +351,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
- 			} else if (unlikely(!page)) {
- 				break;
- 			}
--			page->index = drm_vma_node_start(&bo->base.vma_node) +
--				page_offset;
-+			page->index = mmap_base + page_offset;
- 			pfn = page_to_pfn(page);
- 		}
- 
-@@ -392,7 +398,10 @@ vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
- 		return ret;
- 
- 	prot = vma->vm_page_prot;
--	ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT, 1);
-+	ret = ttm_bo_vm_fault_reserved(bo, vmf,
-+				       drm_vma_node_start(&bo->base.vma_node),
-+				       prot, TTM_BO_VM_NUM_PREFAULT, 1);
-+
- 	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
- 		return ret;
- 
-@@ -460,22 +469,16 @@ static int ttm_bo_vm_access_kmap(struct ttm_buffer_object *bo,
- 	return len;
+-	return __i915_gem_object_get_sg(obj, &obj->mm.get_page, n, offset, allow_alloc);
++	return __i915_gem_object_get_sg(obj, &obj->mm.get_page, n, offset, allow_alloc, false);
  }
  
--int ttm_bo_vm_access(struct vm_area_struct *vma, unsigned long addr,
--		     void *buf, int len, int write)
-+int ttm_bo_vm_access_reserved(struct ttm_buffer_object *bo,
-+			      struct vm_area_struct *vma,
-+			      unsigned long offset,
-+			      void *buf, int len, int write)
+ static inline struct scatterlist *
+@@ -357,7 +357,7 @@ i915_gem_object_get_sg_dma(struct drm_i915_gem_object *obj,
+ 			   unsigned int n,
+ 			   unsigned int *offset, bool allow_alloc)
  {
--	struct ttm_buffer_object *bo = vma->vm_private_data;
--	unsigned long offset = (addr) - vma->vm_start +
--		((vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node))
--		 << PAGE_SHIFT);
- 	int ret;
+-	return __i915_gem_object_get_sg(obj, &obj->mm.get_dma_page, n, offset, allow_alloc);
++	return __i915_gem_object_get_sg(obj, &obj->mm.get_dma_page, n, offset, allow_alloc, true);
+ }
  
- 	if (len < 1 || (offset + len) >> PAGE_SHIFT > bo->mem.num_pages)
- 		return -EIO;
+ struct page *
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 31d828e91cf4..828310802b9f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -324,6 +324,7 @@ struct drm_i915_gem_object {
  
--	ret = ttm_bo_reserve(bo, true, false, NULL);
--	if (ret)
--		return ret;
+ 	struct {
+ 		struct sg_table *cached_io_st;
++		struct i915_gem_object_page_iter get_io_page;
+ 	} ttm;
+ 
+ 	/** Record of address bit 17 of each page at last unbind. */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 62ee2185a41b..577352b4f2f6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -465,9 +465,8 @@ __i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+ 			 struct i915_gem_object_page_iter *iter,
+ 			 unsigned int n,
+ 			 unsigned int *offset,
+-			 bool allow_alloc)
++			 bool allow_alloc, bool dma)
+ {
+-	const bool dma = iter == &obj->mm.get_dma_page;
+ 	struct scatterlist *sg;
+ 	unsigned int idx, count;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index fe9ac50b2470..1eaefb89e859 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -167,11 +167,20 @@ static int i915_ttm_move_notify(struct ttm_buffer_object *bo)
+ 
+ static void i915_ttm_free_cached_io_st(struct drm_i915_gem_object *obj)
+ {
+-	if (obj->ttm.cached_io_st) {
+-		sg_free_table(obj->ttm.cached_io_st);
+-		kfree(obj->ttm.cached_io_st);
+-		obj->ttm.cached_io_st = NULL;
+-	}
++	struct radix_tree_iter iter;
++	void __rcu **slot;
++
++	if (!obj->ttm.cached_io_st)
++		return;
++
++	rcu_read_lock();
++	radix_tree_for_each_slot(slot, &obj->ttm.get_io_page.radix, &iter, 0)
++		radix_tree_delete(&obj->ttm.get_io_page.radix, iter.index);
++	rcu_read_unlock();
++
++	sg_free_table(obj->ttm.cached_io_st);
++	kfree(obj->ttm.cached_io_st);
++	obj->ttm.cached_io_st = NULL;
+ }
+ 
+ static void i915_ttm_purge(struct drm_i915_gem_object *obj)
+@@ -340,8 +349,11 @@ static int i915_ttm_move(struct ttm_buffer_object *bo, bool evict,
+ 	i915_ttm_move_memcpy(bo, new_mem, new_iter, old_iter);
+ 	i915_ttm_free_cached_io_st(obj);
+ 
+-	if (!new_man->use_tt)
++	if (!new_man->use_tt) {
+ 		obj->ttm.cached_io_st = new_st;
++		obj->ttm.get_io_page.sg_pos = new_st->sgl;
++		obj->ttm.get_io_page.sg_idx = 0;
++	}
+ 
+ 	return 0;
+ }
+@@ -362,26 +374,15 @@ static unsigned long i915_ttm_io_mem_pfn(struct ttm_buffer_object *bo,
+ 					 unsigned long page_offset)
+ {
+ 	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
+-	struct sg_table *sgt = obj->ttm.cached_io_st;
++	unsigned long base = obj->mm.region->iomap.base - obj->mm.region->region.start;
+ 	struct scatterlist *sg;
+-	unsigned int i;
++	unsigned int ofs;
+ 
+ 	GEM_WARN_ON(bo->ttm);
+ 
+-	for_each_sgtable_dma_sg(sgt, sg, i) {
+-		unsigned long sg_max = sg->length >> PAGE_SHIFT;
++	sg = __i915_gem_object_get_sg(obj, &obj->ttm.get_io_page, page_offset, &ofs, true, true);
+ 
+-		if (page_offset < sg_max) {
+-			unsigned long base =
+-				obj->mm.region->iomap.base - obj->mm.region->region.start;
 -
- 	switch (bo->mem.mem_type) {
- 	case TTM_PL_SYSTEM:
- 		if (unlikely(bo->ttm->page_flags & TTM_PAGE_FLAG_SWAPPED)) {
-@@ -485,16 +488,33 @@ int ttm_bo_vm_access(struct vm_area_struct *vma, unsigned long addr,
- 		}
- 		fallthrough;
- 	case TTM_PL_TT:
--		ret = ttm_bo_vm_access_kmap(bo, offset, buf, len, write);
--		break;
-+		return ttm_bo_vm_access_kmap(bo, offset, buf, len, write);
- 	default:
- 		if (bo->bdev->funcs->access_memory)
--			ret = bo->bdev->funcs->access_memory(
-+			return bo->bdev->funcs->access_memory(
- 				bo, offset, buf, len, write);
- 		else
--			ret = -EIO;
-+			return -EIO;
- 	}
+-			return ((base + sg_dma_address(sg)) >> PAGE_SHIFT) + page_offset;
+-		}
+-
+-		page_offset -= sg_max;
+-	}
+-	GEM_BUG_ON(1);
+-	return 0;
++	return ((base + sg_dma_address(sg)) >> PAGE_SHIFT) + ofs;
+ }
  
-+	return ret;
-+}
-+EXPORT_SYMBOL(ttm_bo_vm_access_reserved);
+ struct ttm_device_funcs i915_ttm_bo_driver = {
+@@ -613,6 +614,9 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 	obj->read_domains = I915_GEM_DOMAIN_WC | I915_GEM_DOMAIN_GTT;
+ 	i915_gem_object_set_cache_coherency(obj, I915_CACHE_NONE);
+ 
++	INIT_RADIX_TREE(&obj->ttm.get_io_page.radix, GFP_KERNEL | __GFP_NOWARN);
++	mutex_init(&obj->ttm.get_io_page.lock);
 +
-+int ttm_bo_vm_access(struct vm_area_struct *vma, unsigned long addr,
-+		     void *buf, int len, int write)
-+{
-+	struct ttm_buffer_object *bo = vma->vm_private_data;
-+	unsigned long offset = (addr) - vma->vm_start +
-+		((vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node))
-+		 << PAGE_SHIFT);
-+	int ret;
-+
-+	ret = ttm_bo_reserve(bo, true, false, NULL);
-+	if (ret)
-+		return ret;
-+
-+	ret = ttm_bo_vm_access_reserved(bo, vma, offset, buf, len, write);
- 	ttm_bo_unreserve(bo);
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
-index 45c9c6a7f1d6..56ecace0cf5c 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
-@@ -477,7 +477,9 @@ vm_fault_t vmw_bo_vm_fault(struct vm_fault *vmf)
- 	else
- 		prot = vm_get_page_prot(vma->vm_flags);
- 
--	ret = ttm_bo_vm_fault_reserved(vmf, prot, num_prefault, 1);
-+	ret = ttm_bo_vm_fault_reserved(bo, vmf,
-+				       drm_vma_node_start(&bo->base.vma_node),
-+				       prot, num_prefault, 1);
- 	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
- 		return ret;
- 
-@@ -546,7 +548,9 @@ vm_fault_t vmw_bo_vm_huge_fault(struct vm_fault *vmf,
- 		prot = vm_get_page_prot(vma->vm_flags);
- 	}
- 
--	ret = ttm_bo_vm_fault_reserved(vmf, prot, 1, fault_page_size);
-+	ret = ttm_bo_vm_fault_reserved(bo, vmf,
-+				       drm_vma_node_start(&bo->base.vma_node),
-+				       prot, 1, fault_page_size);
- 	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
- 		return ret;
- 
-diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
-index 639521880c29..434f91f1fdbf 100644
---- a/include/drm/ttm/ttm_bo_api.h
-+++ b/include/drm/ttm/ttm_bo_api.h
-@@ -605,7 +605,9 @@ int ttm_mem_evict_first(struct ttm_device *bdev,
- vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
- 			     struct vm_fault *vmf);
- 
--vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
-+vm_fault_t ttm_bo_vm_fault_reserved(struct ttm_buffer_object *bo,
-+				    struct vm_fault *vmf,
-+				    unsigned long mmap_base,
- 				    pgprot_t prot,
- 				    pgoff_t num_prefault,
- 				    pgoff_t fault_page_size);
-@@ -616,6 +618,11 @@ void ttm_bo_vm_open(struct vm_area_struct *vma);
- 
- void ttm_bo_vm_close(struct vm_area_struct *vma);
- 
-+int ttm_bo_vm_access_reserved(struct ttm_buffer_object *bo,
-+			      struct vm_area_struct *vma,
-+			      unsigned long offset,
-+			      void *buf, int len, int write);
-+
- int ttm_bo_vm_access(struct vm_area_struct *vma, unsigned long addr,
- 		     void *buf, int len, int write);
- bool ttm_bo_delayed_delete(struct ttm_device *bdev, bool remove_all);
+ 	ret = ttm_bo_init(&i915->bdev, i915_gem_to_ttm(obj), size,
+ 			  ttm_bo_type_kernel, &i915_sys_placement, alignment,
+ 			  true, NULL, NULL, i915_ttm_bo_destroy);
 -- 
 2.31.1
 
