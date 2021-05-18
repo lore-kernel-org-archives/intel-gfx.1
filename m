@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E34ADC433ED
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:22:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5E12C433B4
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:23:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 824EE610CD
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:22:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 824EE610CD
+	by mail.kernel.org (Postfix) with ESMTPS id 837B8610CD
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:23:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 837B8610CD
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F059F6EB80;
-	Tue, 18 May 2021 13:22:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FB136EB71;
+	Tue, 18 May 2021 13:23:38 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C7DB6EB70;
- Tue, 18 May 2021 13:22:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7748D6EB71;
+ Tue, 18 May 2021 13:23:36 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 5293768B05; Tue, 18 May 2021 15:21:57 +0200 (CEST)
-Date: Tue, 18 May 2021 15:21:56 +0200
+ id 2D56267373; Tue, 18 May 2021 15:23:34 +0200 (CEST)
+Date: Tue, 18 May 2021 15:23:33 +0200
 From: Christoph Hellwig <hch@lst.de>
-To: Matthew Auld <matthew.william.auld@gmail.com>
-Message-ID: <20210518132155.GB2617@lst.de>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <20210518132333.GC2617@lst.de>
 References: <20210326055505.1424432-1-hch@lst.de>
  <20210326055505.1424432-5-hch@lst.de> <87pmxqiry6.fsf@depni.sinp.msu.ru>
  <20210517123716.GD15150@lst.de> <87lf8dik15.fsf@depni.sinp.msu.ru>
  <20210517131137.GA19451@lst.de>
- <CAM0jSHPy68kMi8NnpAO7ESVW0Ct=dhZ0kYHJO7APy-GBsNp2fQ@mail.gmail.com>
+ <976fb38a-7780-6ca6-d602-a5f02c0938c9@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAM0jSHPy68kMi8NnpAO7ESVW0Ct=dhZ0kYHJO7APy-GBsNp2fQ@mail.gmail.com>
+In-Reply-To: <976fb38a-7780-6ca6-d602-a5f02c0938c9@linux.intel.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 Subject: Re: [Intel-gfx] [PATCH 4/4] i915: fix remap_io_sg to verify the
  pgprot
@@ -53,38 +53,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Serge Belyshev <belyshev@depni.sinp.msu.ru>,
  Peter Zijlstra <peterz@infradead.org>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Chris Wilson <chris@chris-wilson.co.uk>, linux-mm@kvack.org,
  Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 17, 2021 at 06:06:44PM +0100, Matthew Auld wrote:
-> > Looks like it is caused by the validation failure then.  Which means the
-> > existing code is doing something wrong in its choice of the page
-> > protection bit.  I really need help from the i915 maintainers here..
-> 
-> AFAIK there are two users of remap_io_sg, the first is our shmem
-> objects(see i915_gem_shmem.c), and for these we support UC, WC, and WB
-> mmap modes for userspace. The other user is device local-memory
-> objects(VRAM), and for this one we have an actual io_mapping which is
-> allocated as WC, and IIRC this should only be mapped as WC for the
-> mmap mode, but normal userspace can't hit this path yet.
+On Mon, May 17, 2021 at 11:46:35PM +0200, Thomas Hellstr=F6m wrote:
+> Apart from the caching aliasing Mattew brought up, doesn't the =
 
-The only caller in current mainline is vm_fault_cpu in i915_gem_mman.c.
-Is that device local?
+> remap_pfn_range_xxx() family require the mmap_sem held in write mode sinc=
+e =
 
-> What do we need to do here? It sounds like shmem backed objects are
-> allocated as WB for the pages underneath, but i915 allows mapping them
-> as UC/WC which trips up this track_pfn thing?
+> it modifies the vma structure? remap_io_sg() is called from the fault =
 
-To me the warnings looks like system memory is mapped with the wrong
-permissions, yes.  If you want to map it as UC/WC the right set_memory_*
-needs to be used on the kernel mapping as well to ensure that the
-attributes don't conflict.
+> handler with the mmap_sem held in read mode only.
+
+Only for vma->vm_flags, and remap_sg already asserts all the interesting
+flags are set, although it does not assert VM_IO.
+
+We could move the assignment out of remap_pfn_range_notrack and
+into remap_pfn_range and just assert that the proper flags are set,
+though.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
