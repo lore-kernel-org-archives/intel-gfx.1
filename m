@@ -2,49 +2,59 @@ Return-Path: <SRS0=F/h7=KN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4784C433ED
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:24:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C3F6C433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:24:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8B9416008E
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:24:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B9416008E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 465D56008E
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:24:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 465D56008E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07B286EB72;
-	Tue, 18 May 2021 13:24:36 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65F446EB74
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 May 2021 13:24:34 +0000 (UTC)
-IronPort-SDR: oNn+exTVQN2ptXY5DdHCnTMLEMfzLVPZL0blZprsyvEH1NAw1U3Gu4oXbckMTlkXYTVd7MO0hb
- ftnS5lGdcOaQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9987"; a="180987328"
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="180987328"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 06:24:33 -0700
-IronPort-SDR: veD5TZ/ho1Jb9q8ej1mFD8wWz97sIFjlvLDuVZKcx26tz2TuboL4vfYm7VIe1MtMm3nV6eXu/V
- Yibudvc1gDBg==
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="439434363"
-Received: from lmrad-mobl.ger.corp.intel.com (HELO localhost) ([10.252.52.115])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 06:24:31 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 May 2021 16:24:26 +0300
-Message-Id: <20210518132426.7567-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D583C6EB74;
+	Tue, 18 May 2021 13:24:44 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 207B76EB74;
+ Tue, 18 May 2021 13:24:44 +0000 (UTC)
+IronPort-SDR: l9L8HyYcfXqcKFiM+WC0PPdG4uTRKuk1DjrL1aqM5f08CJxVgUsg1om9HdpAsE11m88nR3VcTh
+ 14UMHGeU7COw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9987"; a="221762465"
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="221762465"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2021 06:24:43 -0700
+IronPort-SDR: I4ShFmhOtID88i2QJjYDQtsk8NyXzU3dxjxKCBX2W6i3Um2GLDRYi0d/Qb5lFnpK8lmxE32Ahg
+ tMLhjrctxF4A==
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="438662178"
+Received: from cmutgix-mobl.gar.corp.intel.com (HELO [10.249.254.195])
+ ([10.249.254.195])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2021 06:24:42 -0700
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20210518082701.997251-1-thomas.hellstrom@linux.intel.com>
+ <20210518082701.997251-9-thomas.hellstrom@linux.intel.com>
+ <6149ee00-fa4a-3757-117a-8d622eb42070@amd.com>
+ <45054121-954d-f20c-52b5-f375db7096e0@linux.intel.com>
+ <d547a037-2aa8-76a8-375c-5da580fab631@amd.com>
+ <400de9b7-f385-0581-ebb5-e07247d4c996@linux.intel.com>
+ <b8e062c5-6b63-09c5-e98a-be9bf4813c61@amd.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <0eb87fe5-439d-5077-cf19-015966bc3f5f@linux.intel.com>
+Date: Tue, 18 May 2021 15:24:40 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Subject: [Intel-gfx] [PATCH] drm/i915/plane: add intel_plane_helper_add()
- helper
+In-Reply-To: <b8e062c5-6b63-09c5-e98a-be9bf4813c61@amd.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH v2 08/15] drm/i915/ttm Add a generic TTM
+ memcpy move for page-based iomem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,118 +67,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a small helper to keep intel_plane_helper_funcs static.
-
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/i9xx_plane.c          | 2 +-
- drivers/gpu/drm/i915/display/intel_atomic_plane.c  | 7 ++++++-
- drivers/gpu/drm/i915/display/intel_atomic_plane.h  | 3 +--
- drivers/gpu/drm/i915/display/intel_cursor.c        | 2 +-
- drivers/gpu/drm/i915/display/intel_sprite.c        | 2 +-
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 2 +-
- 6 files changed, 11 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
-index 9643c45a2209..b1439ba78f67 100644
---- a/drivers/gpu/drm/i915/display/i9xx_plane.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
-@@ -912,7 +912,7 @@ intel_primary_plane_create(struct drm_i915_private *dev_priv, enum pipe pipe)
- 	zpos = 0;
- 	drm_plane_create_zpos_immutable_property(&plane->base, zpos);
- 
--	drm_plane_helper_add(&plane->base, &intel_plane_helper_funcs);
-+	intel_plane_helper_add(plane);
- 
- 	return plane;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index 36f52a1d7552..47234d898549 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -601,7 +601,12 @@ int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
- 	return 0;
- }
- 
--const struct drm_plane_helper_funcs intel_plane_helper_funcs = {
-+static const struct drm_plane_helper_funcs intel_plane_helper_funcs = {
- 	.prepare_fb = intel_prepare_plane_fb,
- 	.cleanup_fb = intel_cleanup_plane_fb,
- };
-+
-+void intel_plane_helper_add(struct intel_plane *plane)
-+{
-+	drm_plane_helper_add(&plane->base, &intel_plane_helper_funcs);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.h b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-index dc4d05e75e1c..62e5a2a77fd4 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-@@ -17,8 +17,6 @@ struct intel_crtc_state;
- struct intel_plane;
- struct intel_plane_state;
- 
--extern const struct drm_plane_helper_funcs intel_plane_helper_funcs;
--
- unsigned int intel_adjusted_rate(const struct drm_rect *src,
- 				 const struct drm_rect *dst,
- 				 unsigned int rate);
-@@ -65,5 +63,6 @@ int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
- 				      bool can_position);
- void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
- 			       struct intel_plane_state *plane_state);
-+void intel_plane_helper_add(struct intel_plane *plane);
- 
- #endif /* __INTEL_ATOMIC_PLANE_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 2ab389b38694..08fa844e1342 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -797,7 +797,7 @@ intel_cursor_plane_create(struct drm_i915_private *dev_priv,
- 	if (DISPLAY_VER(dev_priv) >= 12)
- 		drm_plane_enable_fb_damage_clips(&cursor->base);
- 
--	drm_plane_helper_add(&cursor->base, &intel_plane_helper_funcs);
-+	intel_plane_helper_add(cursor);
- 
- 	return cursor;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index 4ae9a7455b23..08116f41da26 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -1856,7 +1856,7 @@ intel_sprite_plane_create(struct drm_i915_private *dev_priv,
- 	zpos = sprite + 1;
- 	drm_plane_create_zpos_immutable_property(&plane->base, zpos);
- 
--	drm_plane_helper_add(&plane->base, &intel_plane_helper_funcs);
-+	intel_plane_helper_add(plane);
- 
- 	return plane;
- 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 59e032f3687a..e9ad050c8a06 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -2152,7 +2152,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
- 						BIT(DRM_SCALING_FILTER_DEFAULT) |
- 						BIT(DRM_SCALING_FILTER_NEAREST_NEIGHBOR));
- 
--	drm_plane_helper_add(&plane->base, &intel_plane_helper_funcs);
-+	intel_plane_helper_add(plane);
- 
- 	return plane;
- 
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Ck9uIDUvMTgvMjEgMzowOCBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAxOC4wNS4y
+MSB1bSAxNDo1MiBzY2hyaWViIFRob21hcyBIZWxsc3Ryw7ZtOgo+Pgo+PiBPbiA1LzE4LzIxIDI6
+MDkgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+PiBBbSAxOC4wNS4yMSB1bSAxNDowNCBz
+Y2hyaWViIFRob21hcyBIZWxsc3Ryw7ZtOgo+Pj4+Cj4+Pj4gT24gNS8xOC8yMSAxOjU1IFBNLCBD
+aHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+Pgo+Pj4+Pgo+Pj4+PiBBbSAxOC4wNS4yMSB1bSAx
+MDoyNiBzY2hyaWViIFRob21hcyBIZWxsc3Ryw7ZtOgo+Pj4+Pj4gVGhlIGludGVybmFsIHR0bV9i
+b191dGlsIG1lbWNweSB1c2VzIHZtYXAgZnVuY3Rpb25hbGl0eSwgYW5kIAo+Pj4+Pj4gd2hpbGUg
+aXQKPj4+Pj4+IHByb2JhYmx5IG1pZ2h0IGJlIHBvc3NpYmxlIHRvIHVzZSBpdCBmb3IgY29weWlu
+ZyBpbi0gYW5kIG91dCBvZgo+Pj4+Pj4gc2dsaXN0IHJlcHJlc2VudGVkIGlvIG1lbW9yeSwgdXNp
+bmcgaW9fbWVtX3Jlc2VydmUoKSAvIGlvX21lbV9mcmVlKCkKPj4+Pj4+IGNhbGxiYWNrcywgdGhh
+dCB3b3VsZCBjYXVzZSBwcm9ibGVtcyB3aXRoIGZhdWx0KCkuCj4+Pj4+PiBJbnN0ZWFkLCBpbXBs
+ZW1lbnQgYSBtZXRob2QgbWFwcGluZyBwYWdlLWJ5LXBhZ2UgdXNpbmcga21hcF9sb2NhbCgpCj4+
+Pj4+PiBzZW1hbnRpY3MuIEFzIGFuIGFkZGl0aW9uYWwgYmVuZWZpdCB3ZSB0aGVuIGF2b2lkIHRo
+ZSBvY2Nhc2lvbmFsIAo+Pj4+Pj4gZ2xvYmFsCj4+Pj4+PiBUTEIgZmx1c2hlcyBvZiB2bWFwKCkg
+YW5kIGNvbnN1bWluZyB2bWFwIHNwYWNlLCBlbGltaW5hdGlvbiBvZiBhIAo+Pj4+Pj4gY3JpdGlj
+YWwKPj4+Pj4+IHBvaW50IG9mIGZhaWx1cmUgYW5kIHdpdGggYSBzbGlnaHQgY2hhbmdlIG9mIHNl
+bWFudGljcyB3ZSBjb3VsZCAKPj4+Pj4+IGFsc28gcHVzaAo+Pj4+Pj4gdGhlIG1lbWNweSBvdXQg
+YXN5bmMgZm9yIHRlc3RpbmcgYW5kIGFzeW5jIGRyaXZlciBkZXZlbHBtZW50IAo+Pj4+Pj4gcHVy
+cG9zZXMuCj4+Pj4+PiBQdXNoaW5nIG91dCBhc3luYyBjYW4gYmUgZG9uZSBzaW5jZSB0aGVyZSBp
+cyBubyBtZW1vcnkgYWxsb2NhdGlvbiAKPj4+Pj4+IGdvaW5nIG9uCj4+Pj4+PiB0aGF0IGNvdWxk
+IHZpb2xhdGUgdGhlIGRtYV9mZW5jZSBsb2NrZGVwIHJ1bGVzLgo+Pj4+Pj4KPj4+Pj4+IEZvciBj
+b3BpZXMgZnJvbSBpb21lbSwgdXNlIHRoZSBXQyBwcmVmZXRjaGluZyBtZW1jcHkgdmFyaWFudCBm
+b3IKPj4+Pj4+IGFkZGl0aW9uYWwgc3BlZWQuCj4+Pj4+Pgo+Pj4+Pj4gTm90ZSB0aGF0IGRyaXZl
+cnMgdGhhdCBkb24ndCB3YW50IHRvIHVzZSBzdHJ1Y3QgaW9fbWFwcGluZyBidXQgCj4+Pj4+PiBy
+ZWxpZXMgb24KPj4+Pj4+IG1lbXJlbWFwIGZ1bmN0aW9uYWxpdHksIGFuZCB0aGF0IGRvbid0IHdh
+bnQgdG8gdXNlIHNjYXR0ZXJsaXN0cyBmb3IKPj4+Pj4+IFZSQU0gbWF5IHdlbGwgZGVmaW5lIHNw
+ZWNpYWxpemVkIChob3BlZnVsbHkgcmV1c2FibGUpIGl0ZXJhdG9ycyAKPj4+Pj4+IGZvciB0aGVp
+cgo+Pj4+Pj4gcGFydGljdWxhciBlbnZpcm9ubWVudC4KPj4+Pj4KPj4+Pj4gSW4gZ2VuZXJhbCB5
+ZXMgcGxlYXNlIHNpbmNlIEkgaGF2ZSB0aGF0IGFzIFRPRE8gZm9yIFRUTSBmb3IgYSB2ZXJ5IAo+
+Pj4+PiBsb25nIHRpbWUuCj4+Pj4+Cj4+Pj4+IEJ1dCBJIHdvdWxkIHByZWZlciB0byBmaXggdGhl
+IGltcGxlbWVudGF0aW9uIGluIFRUTSBpbnN0ZWFkIGFuZCAKPj4+Pj4gZ2l2ZSBpdCBwcm9wZXIg
+Y3Vyc29yIGhhbmRsaW5nLgo+Pj4+Pgo+Pj4+PiBBbWRncHUgaXMgYWxzbyB1c2luZyBwYWdlIGJh
+c2VkIGlvbWVtIGFuZCB3ZSBhcmUgaGF2aW5nIHNpbWlsYXIgCj4+Pj4+IHdvcmthcm91bmRzIGlu
+IHBsYWNlIHRoZXJlIGFzIHdlbGwuCj4+Pj4+Cj4+Pj4+IEkgdGhpbmsgaXQgbWFrZXMgc2Vuc2Ug
+dG8gdW5pZnkgdGhpcyBpbnNpZGUgVFRNIGFuZCByZW1vdmUgdGhlIG9sZCAKPj4+Pj4gbWVtY3B5
+IHV0aWwgZnVuY3Rpb24gd2hlbiBkb25lLgo+Pj4+Pgo+Pj4+PiBSZWdhcmRzLAo+Pj4+PiBDaHJp
+c3RpYW4uCj4+Pj4KPj4+PiBDaHJpc3RpYW4sCj4+Pj4KPj4+PiBJIHdhcyB0aGlua2luZyB3aGVu
+IHdlIHJlcGxhY2UgdGhlIGJvLm1lbSB3aXRoIGEgcG9pbnRlciAoYW5kIAo+Pj4+IHBlcmhhcHMg
+aGF2ZSBhIGRyaXZlciBjYWxsYmFjayB0byBhbGxvY2F0ZSB0aGUgYm8tPm1lbSwKPj4+PiB3ZSBj
+b3VsZCBwZXJoYXBzIGVtYmVkIGEgc3RydWN0IHR0bV9rbWFwX2l0ZXIgYW5kIHVzZSBpdCBmb3Ig
+YWxsIAo+Pj4+IG1hcHBpbmcgaW4gb25lIHdheSBvciBhbm90aGVyKS4gVGhhdCB3b3VsZCBtZWFu
+IHBlcmhhcHMgbGFuZCB0aGlzIAo+Pj4+IGlzIGk5MTUgbm93IGFuZCBzb3J0IG91dCB0aGUgdW5p
+ZmljYXRpb24gb25jZSB0aGUgc3RydWN0IAo+Pj4+IHR0bV9yZXNvdXJjZSwgc3RydWN0IHR0bV9i
+dWZmZXJfb2JqZWN0IHNlcGFyYXRpb24gaGFzIGxhbmRlZD8KPj4+Cj4+PiBUaGF0IHN0dWZmIGlz
+IHJlYWR5LCByZXZpZXdlZCBhbmQgSSdtIGp1c3Qgd2FpdGluZyBmb3Igc29tZSBhbWRncHUgCj4+
+PiBjaGFuZ2VzIHRvIGxhbmQgaW4gZHJtLW1pc2MtbmV4dCB0byBwdXNoIGl0Lgo+Pj4KPj4+IEJ1
+dCB5ZXMgaW4gZ2VuZXJhbCBhbiBpdGVyYXRvciBmb3IgdGhlIHJlc291cmNlIG9iamVjdCBzb3Vu
+ZHMgbGlrZSAKPj4+IHRoZSByaWdodCBwbGFuIHRvIG1lIGFzIHdlbGwuCj4+Pgo+Pj4gQ2hyaXN0
+aWFuLgo+Pgo+PiBPSywgc28gdGhlbiBhcmUgeW91IE9LIHdpdGggbGFuZGluZyB0aGlzIGluIGk5
+MTUgZm9yIG5vdz8gVGhhdCB3b3VsZCAKPj4gYWxzbyBvZmMgbWVhbiB0aGUgZXhwb3J0IHlvdSBO
+QUsnZCBidXQgc3RyaWN0bHkgZm9yIHRoaXMgbWVtY3B5IHVzZSAKPj4gdW50aWwgd2UgbWVyZ2Ug
+aXQgd2l0aCBUVE0/Cj4KPiBXZWxsIHlvdSBjYW4gb2YgY291cnNlIHByb3RvdHlwZSB0aGF0IGlu
+IGk5MTUsIGJ1dCBJIHJlYWxseSBkb24ndCB3YW50IAo+IHRvIGV4cG9ydCB0aGUgVFQgZnVuY3Rp
+b25zIHVwc3RyZWFtLgoKSSB1bmRlcnN0YW5kLCBJIG9uY2UgaGFkIHRoZSBzYW1lIHRob3VnaHRz
+IHRyeWluZyB0byBhdm9pZCB0aGF0IGFzIGZhciAKYXMgcG9zc2libGUsIHNvIHRoaXMgZnVuY3Rp
+b24gd2FzIGFjdHVhbGx5IHRoZW4gYWRkZWQgdG8gdGhlIHR0bV9ibyAKaW50ZXJmYWNlLCAoaGVu
+Y2UgdGhlIGF3a3dhcmQgbmFtaW5nKSBhcyBhIGhlbHBlciBmb3IgZHJpdmVycyAKaW1wbGVtZW50
+aW5nIG1vdmUoKSwgZXNzZW50aWFsbHkgYSB2ZXJ5IHNwZWNpYWwgY2FzZSBvZiAKdHRtX2JvX21v
+dmVfYWNjZWxfY2xlYW51cCgpLCBidXQgYW55d2F5LCBzZWUgYmVsb3c6Cgo+Cj4gQ2FuIHdlIGNs
+ZWFubHkgbW92ZSB0aGF0IGZ1bmN0aW9uYWxpdHkgaW50byBUVE0gaW5zdGVhZD8KCkknbGwgdGFr
+ZSBhIGxvb2sgYXQgdGhhdCwgYnV0IEkgdGhpbmsgd2UnZCBpbml0aWFsbHkgYmUgaGF2aW5nIGl0
+ZXJhdG9ycyAKbWltaWNpbmcgdGhlIGN1cnJlbnQgbW92ZV9tZW1jcHkoKSBmb3IgdGhlCmxpbmVh
+ciBpb21lbSAhV0MgY2FzZXMsIGhvcGUgdGhhdCdzIE9LLgoKL1Rob21hcwoKCj4KPiBDaHJpc3Rp
+YW4uCj4KPj4KPj4KPj4gL1Rob21hcwo+Pgo+Pj4KPj4+Pgo+Pj4+IC9UaG9tYXMKPj4+Pgo+Pj4+
+Cj4+Pgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCklu
+dGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
