@@ -6,36 +6,37 @@ X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5E12C433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:23:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F776C43460
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:24:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 837B8610CD
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:23:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 837B8610CD
+	by mail.kernel.org (Postfix) with ESMTPS id EE8DA6113C
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 13:24:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE8DA6113C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FB136EB71;
-	Tue, 18 May 2021 13:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F2C26EB73;
+	Tue, 18 May 2021 13:24:33 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7748D6EB71;
- Tue, 18 May 2021 13:23:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2422B6EB72;
+ Tue, 18 May 2021 13:24:31 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 2D56267373; Tue, 18 May 2021 15:23:34 +0200 (CEST)
-Date: Tue, 18 May 2021 15:23:33 +0200
+ id 3DA4567373; Tue, 18 May 2021 15:24:29 +0200 (CEST)
+Date: Tue, 18 May 2021 15:24:28 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Message-ID: <20210518132333.GC2617@lst.de>
+Message-ID: <20210518132428.GD2617@lst.de>
 References: <20210326055505.1424432-1-hch@lst.de>
  <20210326055505.1424432-5-hch@lst.de> <87pmxqiry6.fsf@depni.sinp.msu.ru>
  <20210517123716.GD15150@lst.de> <87lf8dik15.fsf@depni.sinp.msu.ru>
  <20210517131137.GA19451@lst.de>
  <976fb38a-7780-6ca6-d602-a5f02c0938c9@linux.intel.com>
+ <6adf9658-25b7-16ef-4b88-fa3911d06b74@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <976fb38a-7780-6ca6-d602-a5f02c0938c9@linux.intel.com>
+In-Reply-To: <6adf9658-25b7-16ef-4b88-fa3911d06b74@linux.intel.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 Subject: Re: [Intel-gfx] [PATCH 4/4] i915: fix remap_io_sg to verify the
  pgprot
@@ -61,22 +62,20 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 17, 2021 at 11:46:35PM +0200, Thomas Hellstr=F6m wrote:
-> Apart from the caching aliasing Mattew brought up, doesn't the =
+On Tue, May 18, 2021 at 08:46:44AM +0200, Thomas Hellstr=F6m wrote:
+> And worse, if we prefault a user-space buffer object map using =
 
-> remap_pfn_range_xxx() family require the mmap_sem held in write mode sinc=
-e =
+> remap_io_sg() and then zap some ptes using madvise(), the next time those =
 
-> it modifies the vma structure? remap_io_sg() is called from the fault =
+> ptes are accessed, we'd trigger a new call to remap_io_sg() which would n=
+ow =
 
-> handler with the mmap_sem held in read mode only.
+> find already populated ptes. While the old code looks to just silently =
 
-Only for vma->vm_flags, and remap_sg already asserts all the interesting
-flags are set, although it does not assert VM_IO.
+> overwrite those, it looks like the new code would BUG in remap_pte_range(=
+)?
 
-We could move the assignment out of remap_pfn_range_notrack and
-into remap_pfn_range and just assert that the proper flags are set,
-though.
+How can you zap the PTEs using madvise?
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
