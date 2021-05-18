@@ -2,79 +2,78 @@ Return-Path: <SRS0=F/h7=KN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C629C433B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 06:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 934ABC433B4
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 07:02:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E96A561007
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 06:58:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E96A561007
+	by mail.kernel.org (Postfix) with ESMTPS id 56745611BD
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 07:02:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56745611BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8788789FF9;
-	Tue, 18 May 2021 06:58:34 +0000 (UTC)
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [IPv6:2607:f8b0:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96AEB89FF9
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 May 2021 06:58:33 +0000 (UTC)
-Received: by mail-pf1-x42c.google.com with SMTP id x188so6707385pfd.7
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 May 2021 23:58:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADC636E819;
+	Tue, 18 May 2021 07:02:48 +0000 (UTC)
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
+ [IPv6:2607:f8b0:4864:20::d33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BA336E819
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 May 2021 07:02:47 +0000 (UTC)
+Received: by mail-io1-xd33.google.com with SMTP id r4so7679725iol.6
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 May 2021 00:02:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=okFGSzwxy3Xl1EDwrbsZ6bJWGdPaUEKxSezi4/SE71A=;
- b=KvboTWH6SCfdQ7LLxm6vH9xhTNNbPkylAhr3iqPQWH1QNODKOLIbMt/OYjboWMwVvr
- +KD/UQeQoUETk6OK7TCWS0Utmt5EvBfWbA4IzzRRuwJkDy5Qi3ICeWOTChp1Py6zaNQt
- fa1WHS9ymuIo1ivMcIga1N5vVpkmfX46UnGI0=
+ :cc; bh=XgyF0OvHzw8KTyadFBcEzsCamkUD+/ukWzei3hnGvkc=;
+ b=VO0BvOlWIIiGkUdtOb1VSOWiBrk2KLMr0fiDCPwaBrvrf/j2/7hCX1JlEDcxzMqFmv
+ 42I6m34flwgfsu+jKFLERtm6bjzporQ7M0BTCF240tpdoJChz4PcESq3XpYvN81Vfxez
+ ZW4CMor3EwZRISv4nvwP/XJ/8ZZ+MrGyZniYE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=okFGSzwxy3Xl1EDwrbsZ6bJWGdPaUEKxSezi4/SE71A=;
- b=mys1mvipOseWVObAKk4y6oyC2guJMfJN3SXLlLmZtxzaSepGGAdg+xAPtgCiayC3Kw
- SK3Ozv9gZcgELaolkbbZFx9ReFN3FjBQTETzU4zuCMfyo2QKbxk3BgUeMmeZqSCiEI0R
- HppKhNa4SiQBPAcYylUl8m8oGhFkIff3EMGWJyPDIvB+VoO3rg/xq8woWPt837HHc4ds
- 3U5bQJ6drdpmxFq2DxphOn2BLBl0CnIRJfglUGEuGiSD1MoIJaiDdwz36TF/wvZd2OgT
- nDBRaruAQIYYASm0XVb2wJtFwHi2Yxs8F+LXP037e4Gio9ajpROlRuTHrrrakw0FCCII
- 7oHA==
-X-Gm-Message-State: AOAM531HowOXDFvxY9gCG4xFbe3Gm1NUkiWOzXZFLyMgOSuyg46259jU
- Lc96CFbzIC4oDO1ZJKXSopr5dX5ujA5A9g==
-X-Google-Smtp-Source: ABdhPJywsN/CBKDTYRYWvC1eaRBg6aBwXsXJ1Ku88duWmMVXnG2r/L55edxYXRIBJYjRyvL1vumQlg==
-X-Received: by 2002:aa7:8c4d:0:b029:2de:708c:ac4f with SMTP id
- e13-20020aa78c4d0000b02902de708cac4fmr1270572pfd.51.1621321113079; 
- Mon, 17 May 2021 23:58:33 -0700 (PDT)
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com.
- [209.85.215.176])
- by smtp.gmail.com with ESMTPSA id mj7sm1172414pjb.47.2021.05.17.23.58.32
+ bh=XgyF0OvHzw8KTyadFBcEzsCamkUD+/ukWzei3hnGvkc=;
+ b=dKYu76Klw1HXqeLdAaA4ejcgFvym64zCCCrBYoxc7MSCLr9ZGTPhSKGhYy8pnowwwR
+ LagmWukt+G9uVm1b3egqWJunAgTFHpteTv5F4+9S3iUoSDg/sAVFTxXAImdGVQXoJBAQ
+ o+zKGCSc+U7RlcMjzwDf7U5GwwjVYyh0BNHp5cBDSve0OxcGMjwdzdQuIz+QEAz73mFq
+ /sgZJZfLQNVlPSt276a6P+ieRn1n61vp07JPJWEG8W3HgTQTPrmWc4UX2hJwlVLcd5di
+ PjlcdK6OqQN++qrJwhUeYgyV26XlAo5N6qRBi0vUdP2ldNS6QGrkws5tuyKheEyGcXLg
+ 9slA==
+X-Gm-Message-State: AOAM5318umvhq7EBGL4KLZljVeoCVomC2zLQyx16X9lbwEd9CGNfe1ny
+ hd5MWazenEk4LnEmMDpWuVmvzB1l2w/dGQ==
+X-Google-Smtp-Source: ABdhPJz0/jbVE99GOz98+uh0rcN7HMJNKpspAEvqbs/b054bmHYzsdcqTrbg7OkNPMpKFAUzxWiG6w==
+X-Received: by 2002:a05:6638:1650:: with SMTP id
+ a16mr3977998jat.23.1621321366296; 
+ Tue, 18 May 2021 00:02:46 -0700 (PDT)
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com.
+ [209.85.166.52])
+ by smtp.gmail.com with ESMTPSA id t8sm10286205ilj.56.2021.05.18.00.02.45
  for <intel-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 May 2021 23:58:32 -0700 (PDT)
-Received: by mail-pg1-f176.google.com with SMTP id m124so6319394pgm.13
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 May 2021 23:58:32 -0700 (PDT)
-X-Received: by 2002:a05:6e02:1a4d:: with SMTP id
- u13mr3011800ilv.64.1621320723564; 
- Mon, 17 May 2021 23:52:03 -0700 (PDT)
+ Tue, 18 May 2021 00:02:46 -0700 (PDT)
+Received: by mail-io1-f52.google.com with SMTP id k16so8376991ios.10
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 May 2021 00:02:45 -0700 (PDT)
+X-Received: by 2002:a05:6638:10e4:: with SMTP id
+ g4mr3960623jae.90.1621320877050; 
+ Mon, 17 May 2021 23:54:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210518064215.2856977-1-tientzu@chromium.org>
- <20210518064215.2856977-6-tientzu@chromium.org>
-In-Reply-To: <20210518064215.2856977-6-tientzu@chromium.org>
+References: <20210510095026.3477496-1-tientzu@chromium.org>
+In-Reply-To: <20210510095026.3477496-1-tientzu@chromium.org>
 From: Claire Chang <tientzu@chromium.org>
-Date: Tue, 18 May 2021 14:51:52 +0800
-X-Gmail-Original-Message-ID: <CALiNf28ke3c91Y7xaHUgvJePKXqYA7UmsYJV9yaeZc3-4Lzs8Q@mail.gmail.com>
-Message-ID: <CALiNf28ke3c91Y7xaHUgvJePKXqYA7UmsYJV9yaeZc3-4Lzs8Q@mail.gmail.com>
+Date: Tue, 18 May 2021 14:54:26 +0800
+X-Gmail-Original-Message-ID: <CALiNf2-LhQqAX3kJSETOxG4ipu9Nhs97yYiGm0XZKG7vBQ_hNQ@mail.gmail.com>
+Message-ID: <CALiNf2-LhQqAX3kJSETOxG4ipu9Nhs97yYiGm0XZKG7vBQ_hNQ@mail.gmail.com>
 To: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
  Joerg Roedel <joro@8bytes.org>, 
  Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
  jgross@suse.com, 
  Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Intel-gfx] [PATCH v7 05/15] swiotlb: Add a new get_io_tlb_mem
- getter
+Subject: Re: [Intel-gfx] [PATCH v6 00/15] Restricted DMA
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,8 +101,9 @@ Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
  Nicolas Boichat <drinkcat@chromium.org>, Bjorn Helgaas <bhelgaas@google.com>,
  Dan Williams <dan.j.williams@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- lkml <linux-kernel@vger.kernel.org>, Tomasz Figa <tfiga@chromium.org>,
+ nouveau@lists.freedesktop.org, Greg KH <gregkh@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
+ Tomasz Figa <tfiga@chromium.org>,
  "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
  Jim Quinlan <james.quinlan@broadcom.com>, linuxppc-dev@lists.ozlabs.org,
  bauerman@linux.ibm.com
@@ -112,10 +112,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Still keep this function because directly using dev->dma_io_tlb_mem
-will cause issues for memory allocation for existing devices. The pool
-can't support atomic coherent allocation so we need to distinguish the
-per device pool and the default pool in swiotlb_alloc.
+v7: https://lore.kernel.org/patchwork/cover/1431031/
+
+On Mon, May 10, 2021 at 5:50 PM Claire Chang <tientzu@chromium.org> wrote:
+>
+> From: Claire Chang <tientzu@google.com>
+>
+> This series implements mitigations for lack of DMA access control on
+> systems without an IOMMU, which could result in the DMA accessing the
+> system memory at unexpected times and/or unexpected addresses, possibly
+> leading to data leakage or corruption.
+>
+> For example, we plan to use the PCI-e bus for Wi-Fi and that PCI-e bus is
+> not behind an IOMMU. As PCI-e, by design, gives the device full access to
+> system memory, a vulnerability in the Wi-Fi firmware could easily escalate
+> to a full system exploit (remote wifi exploits: [1a], [1b] that shows a
+> full chain of exploits; [2], [3]).
+>
+> To mitigate the security concerns, we introduce restricted DMA. Restricted
+> DMA utilizes the existing swiotlb to bounce streaming DMA in and out of a
+> specially allocated region and does memory allocation from the same region.
+> The feature on its own provides a basic level of protection against the DMA
+> overwriting buffer contents at unexpected times. However, to protect
+> against general data leakage and system memory corruption, the system needs
+> to provide a way to restrict the DMA to a predefined memory region (this is
+> usually done at firmware level, e.g. MPU in ATF on some ARM platforms [4]).
+>
+> [1a] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_4.html
+> [1b] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_11.html
+> [2] https://blade.tencent.com/en/advisories/qualpwn/
+> [3] https://www.bleepingcomputer.com/news/security/vulnerabilities-found-in-highly-popular-firmware-for-wifi-chips/
+> [4] https://github.com/ARM-software/arm-trusted-firmware/blob/master/plat/mediatek/mt8183/drivers/emi_mpu/emi_mpu.c#L132
+>
+> v6:
+> Address the comments in v5
+>
+> v5:
+> Rebase on latest linux-next
+> https://lore.kernel.org/patchwork/cover/1416899/
+>
+> v4:
+> - Fix spinlock bad magic
+> - Use rmem->name for debugfs entry
+> - Address the comments in v3
+> https://lore.kernel.org/patchwork/cover/1378113/
+>
+> v3:
+> Using only one reserved memory region for both streaming DMA and memory
+> allocation.
+> https://lore.kernel.org/patchwork/cover/1360992/
+>
+> v2:
+> Building on top of swiotlb.
+> https://lore.kernel.org/patchwork/cover/1280705/
+>
+> v1:
+> Using dma_map_ops.
+> https://lore.kernel.org/patchwork/cover/1271660/
+> *** BLURB HERE ***
+>
+> Claire Chang (15):
+>   swiotlb: Refactor swiotlb init functions
+>   swiotlb: Refactor swiotlb_create_debugfs
+>   swiotlb: Add DMA_RESTRICTED_POOL
+>   swiotlb: Add restricted DMA pool initialization
+>   swiotlb: Add a new get_io_tlb_mem getter
+>   swiotlb: Update is_swiotlb_buffer to add a struct device argument
+>   swiotlb: Update is_swiotlb_active to add a struct device argument
+>   swiotlb: Bounce data from/to restricted DMA pool if available
+>   swiotlb: Move alloc_size to find_slots
+>   swiotlb: Refactor swiotlb_tbl_unmap_single
+>   dma-direct: Add a new wrapper __dma_direct_free_pages()
+>   swiotlb: Add restricted DMA alloc/free support.
+>   dma-direct: Allocate memory from restricted DMA pool if available
+>   dt-bindings: of: Add restricted DMA pool
+>   of: Add plumbing for restricted DMA pool
+>
+>  .../reserved-memory/reserved-memory.txt       |  27 ++
+>  drivers/gpu/drm/i915/gem/i915_gem_internal.c  |   2 +-
+>  drivers/gpu/drm/nouveau/nouveau_ttm.c         |   2 +-
+>  drivers/iommu/dma-iommu.c                     |  12 +-
+>  drivers/of/address.c                          |  25 ++
+>  drivers/of/device.c                           |   3 +
+>  drivers/of/of_private.h                       |   5 +
+>  drivers/pci/xen-pcifront.c                    |   2 +-
+>  drivers/xen/swiotlb-xen.c                     |   2 +-
+>  include/linux/device.h                        |   4 +
+>  include/linux/swiotlb.h                       |  41 ++-
+>  kernel/dma/Kconfig                            |  14 +
+>  kernel/dma/direct.c                           |  63 +++--
+>  kernel/dma/direct.h                           |   9 +-
+>  kernel/dma/swiotlb.c                          | 242 +++++++++++++-----
+>  15 files changed, 356 insertions(+), 97 deletions(-)
+>
+> --
+> 2.31.1.607.g51e8a6a459-goog
+>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
