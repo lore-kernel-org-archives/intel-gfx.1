@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 963F6C433ED
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 19:53:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0DD1C43460
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 19:53:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F19F6124C
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 19:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F19F6124C
+	by mail.kernel.org (Postfix) with ESMTPS id 6954161209
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 19:53:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6954161209
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCE026EC77;
-	Tue, 18 May 2021 19:53:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A7126EC7C;
+	Tue, 18 May 2021 19:53:13 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 047BC6EC77
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 May 2021 19:53:10 +0000 (UTC)
-IronPort-SDR: tq00JEe8WBMY2Sjy+SUkqhZgHV/AYZDLeGvGzuQDb6OsqyNIIdzPbRPxJivo/zwq0pOpyBSOZz
- IyrUMvhx6z5Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="197715530"
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="197715530"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4856EC7A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 May 2021 19:53:11 +0000 (UTC)
+IronPort-SDR: aXdoUOWXoPeatCD7OlmDM+9pv8gpntLcucHkJplSDo8UjejVCQsSDVW911NeoWqAG1njwFY7yx
+ 4XuYkS+9ovOA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="197715528"
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="197715528"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 May 2021 12:53:09 -0700
-IronPort-SDR: GT9JZuaerAIuI74zoqZ/ElouyGhPyfGQ89p3Jd2zPCXvo6ZcwzFqJ3/U45WKTyKb60u6y+6toQ
- d5ydzuGFfeKw==
+IronPort-SDR: 3BZ0usez796Na1aP67a62vFpHXicJlX4vvnYKb6nxB5bQwnvpsmYbTMkQSpMwba5ebJSz07WYK
+ WBT7GBzJ0opg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="394989489"
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="394989487"
 Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
  by orsmga006.jf.intel.com with ESMTP; 18 May 2021 12:53:09 -0700
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 May 2021 12:53:09 -0700
-Message-Id: <20210518195309.4917-6-anusha.srivatsa@intel.com>
+Date: Tue, 18 May 2021 12:53:07 -0700
+Message-Id: <20210518195309.4917-4-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20210518195309.4917-1-anusha.srivatsa@intel.com>
 References: <20210518195309.4917-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 5/5] drm/i915/dmc: s/intel_csr.c/intel_dmc.c and
- s/intel_csr.h/intel_dmc.h
+Subject: [Intel-gfx] [CI 3/5] drm/i915/dmc: Rename macro names containing csr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,124 +57,439 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RmluYWxseSwgcmVuYW1lIHRoZSBoZWFkZXIgYW5kIHNvdXJjZSBmaWxlIGZyb20gY3NyIHRvIGRt
-Yy4KCnYyOiBBZGQgZmlsZSByZW5hbWUgaW4gRG9jdW1lbnRhdGlvbi4KLSBQbGFjZSBoZWFkZXJz
-IGluIG9yZGVycy4gKEphbmkpCgpDYzogSmFuaSBOaWt1bGEgPGphbmkubmlrdWxhQGxpbnV4Lmlu
-dGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3JpdmF0c2FA
-aW50ZWwuY29tPgotLS0KIERvY3VtZW50YXRpb24vZ3B1L2k5MTUucnN0ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB8IDEwICsrKysrLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2Vm
-aWxlICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X2RlYnVnZnMuYyAgIHwgIDIgKy0KIGRyaXZl
-cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5jICAgICB8ICAyICst
-CiAuLi4vZ3B1L2RybS9pOTE1L2Rpc3BsYXkve2ludGVsX2Nzci5jID0+IGludGVsX2RtYy5jfSAg
-fCAgNCArKy0tCiAuLi4vZ3B1L2RybS9pOTE1L2Rpc3BsYXkve2ludGVsX2Nzci5oID0+IGludGVs
-X2RtYy5ofSAgfCAgNiArKystLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmMgICAg
-ICAgICAgICAgICAgICAgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2dw
-dV9lcnJvci5jICAgICAgICAgICAgICAgICAgfCAgMiArLQogOSBmaWxlcyBjaGFuZ2VkLCAxNiBp
-bnNlcnRpb25zKCspLCAxNiBkZWxldGlvbnMoLSkKIHJlbmFtZSBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L3tpbnRlbF9jc3IuYyA9PiBpbnRlbF9kbWMuY30gKDk5JSkKIHJlbmFtZSBkcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L3tpbnRlbF9jc3IuaCA9PiBpbnRlbF9kbWMuaH0gKDg4
-JSkKCmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2dwdS9pOTE1LnJzdCBiL0RvY3VtZW50YXRp
-b24vZ3B1L2k5MTUucnN0CmluZGV4IDQ4NmM3MjBmMzg5MC4uMzA4YmIyODNmNDY4IDEwMDY0NAot
-LS0gYS9Eb2N1bWVudGF0aW9uL2dwdS9pOTE1LnJzdAorKysgYi9Eb2N1bWVudGF0aW9uL2dwdS9p
-OTE1LnJzdApAQCAtMjEwLDEzICsyMTAsMTMgQEAgRFBJTwogLi4ga2VybmVsLWRvYzo6IGRyaXZl
-cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBpb19waHkuYwogICAgOmRvYzogRFBJTwog
-Ci1DU1IgZmlybXdhcmUgc3VwcG9ydCBmb3IgRE1DCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tCitETUMgRmlybXdhcmUgU3VwcG9ydAorLS0tLS0tLS0tLS0tLS0tLS0tLS0KIAotLi4ga2Vy
-bmVsLWRvYzo6IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3NyLmMKLSAgIDpk
-b2M6IGNzciBzdXBwb3J0IGZvciBkbWMKKy4uIGtlcm5lbC1kb2M6OiBkcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2RtYy5jCisgICA6ZG9jOiBETUMgRmlybXdhcmUgU3VwcG9ydAog
-Ci0uLiBrZXJuZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9jc3Iu
-YworLi4ga2VybmVsLWRvYzo6IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZG1j
-LmMKICAgIDppbnRlcm5hbDoKIAogVmlkZW8gQklPUyBUYWJsZSAoVkJUKQpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtl
-ZmlsZQppbmRleCBkMGQ5MzZkOTEzN2IuLjJkYTViYWU4ZmEwMyAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZp
-bGUKQEAgLTIwMSwxMCArMjAxLDEwIEBAIGk5MTUteSArPSBcCiAJZGlzcGxheS9pbnRlbF9jb21i
-b19waHkubyBcCiAJZGlzcGxheS9pbnRlbF9jb25uZWN0b3IubyBcCiAJZGlzcGxheS9pbnRlbF9j
-cnRjLm8gXAotCWRpc3BsYXkvaW50ZWxfY3NyLm8gXAogCWRpc3BsYXkvaW50ZWxfY3Vyc29yLm8g
-XAogCWRpc3BsYXkvaW50ZWxfZGlzcGxheS5vIFwKIAlkaXNwbGF5L2ludGVsX2Rpc3BsYXlfcG93
-ZXIubyBcCisJZGlzcGxheS9pbnRlbF9kbWMubyBcCiAJZGlzcGxheS9pbnRlbF9kcGlvX3BoeS5v
-IFwKIAlkaXNwbGF5L2ludGVsX2RwbGwubyBcCiAJZGlzcGxheS9pbnRlbF9kcGxsX21nci5vIFwK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMKaW5kZXggMzlj
-OWM0OWIzNzhiLi5kOThhMzE0YmI5NzQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
-YXkvaW50ZWxfZGlzcGxheS5jCkBAIC03OSw5ICs3OSw5IEBACiAjaW5jbHVkZSAiaW50ZWxfY2Rj
-bGsuaCIKICNpbmNsdWRlICJpbnRlbF9jb2xvci5oIgogI2luY2x1ZGUgImludGVsX2NydGMuaCIK
-LSNpbmNsdWRlICJpbnRlbF9jc3IuaCIKICNpbmNsdWRlICJpbnRlbF9kZS5oIgogI2luY2x1ZGUg
-ImludGVsX2Rpc3BsYXlfdHlwZXMuaCIKKyNpbmNsdWRlICJpbnRlbF9kbWMuaCIKICNpbmNsdWRl
-ICJpbnRlbF9kcF9saW5rX3RyYWluaW5nLmgiCiAjaW5jbHVkZSAiaW50ZWxfZmJjLmgiCiAjaW5j
-bHVkZSAiaW50ZWxfZmRpLmgiCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
-bGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
-eS9pbnRlbF9kaXNwbGF5X2RlYnVnZnMuYwppbmRleCBlNDNhYmRmMGUzZDkuLjk0ZTVjYmQ4NmU3
-NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5
-X2RlYnVnZnMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3Bs
-YXlfZGVidWdmcy5jCkBAIC03LDExICs3LDExIEBACiAjaW5jbHVkZSA8ZHJtL2RybV9mb3VyY2Mu
-aD4KIAogI2luY2x1ZGUgImk5MTVfZGVidWdmcy5oIgotI2luY2x1ZGUgImludGVsX2Nzci5oIgog
-I2luY2x1ZGUgImludGVsX2Rpc3BsYXlfZGVidWdmcy5oIgogI2luY2x1ZGUgImludGVsX2Rpc3Bs
-YXlfcG93ZXIuaCIKICNpbmNsdWRlICJpbnRlbF9kZS5oIgogI2luY2x1ZGUgImludGVsX2Rpc3Bs
-YXlfdHlwZXMuaCIKKyNpbmNsdWRlICJpbnRlbF9kbWMuaCIKICNpbmNsdWRlICJpbnRlbF9kcC5o
-IgogI2luY2x1ZGUgImludGVsX2ZiYy5oIgogI2luY2x1ZGUgImludGVsX2hkY3AuaCIKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5j
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bvd2VyLmMKaW5k
-ZXggY2JiYTQxZDNlNmNmLi5lOGZjYzNkMDJkMDEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5jCkBAIC05LDEwICs5LDEwIEBACiAj
-aW5jbHVkZSAiaTkxNV9pcnEuaCIKICNpbmNsdWRlICJpbnRlbF9jZGNsay5oIgogI2luY2x1ZGUg
-ImludGVsX2NvbWJvX3BoeS5oIgotI2luY2x1ZGUgImludGVsX2Nzci5oIgogI2luY2x1ZGUgImlu
-dGVsX2Rpc3BsYXlfcG93ZXIuaCIKICNpbmNsdWRlICJpbnRlbF9kZS5oIgogI2luY2x1ZGUgImlu
-dGVsX2Rpc3BsYXlfdHlwZXMuaCIKKyNpbmNsdWRlICJpbnRlbF9kbWMuaCIKICNpbmNsdWRlICJp
-bnRlbF9kcGlvX3BoeS5oIgogI2luY2x1ZGUgImludGVsX2hvdHBsdWcuaCIKICNpbmNsdWRlICJp
-bnRlbF9wbS5oIgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
-bF9jc3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZG1jLmMKc2ltaWxh
-cml0eSBpbmRleCA5OSUKcmVuYW1lIGZyb20gZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9jc3IuYwpyZW5hbWUgdG8gZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9k
-bWMuYwppbmRleCBhZTFkZmFmYWZmOWEuLjU2MDU3NGRkOTI5YSAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9jc3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2RtYy5jCkBAIC0yNiwxMSArMjYsMTEgQEAKIAogI2luY2x1ZGUg
-Imk5MTVfZHJ2LmgiCiAjaW5jbHVkZSAiaTkxNV9yZWcuaCIKLSNpbmNsdWRlICJpbnRlbF9jc3Iu
-aCIKICNpbmNsdWRlICJpbnRlbF9kZS5oIgorI2luY2x1ZGUgImludGVsX2RtYy5oIgogCiAvKioK
-LSAqIERPQzogRE1DIGZpcm13YXJlIHN1cHBvcnQKKyAqIERPQzogRE1DIEZpcm13YXJlIFN1cHBv
-cnQKICAqCiAgKiBGcm9tIGdlbjkgb253YXJkcyB3ZSBoYXZlIG5ld2x5IGFkZGVkIERNQyAoRGlz
-cGxheSBtaWNyb2NvbnRyb2xsZXIpIGluIGRpc3BsYXkKICAqIGVuZ2luZSB0byBzYXZlIGFuZCBy
-ZXN0b3JlIHRoZSBzdGF0ZSBvZiBkaXNwbGF5IGVuZ2luZSB3aGVuIGl0IGVudGVyIGludG8KZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3NyLmggYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RtYy5oCnNpbWlsYXJpdHkgaW5kZXggODgl
-CnJlbmFtZSBmcm9tIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3NyLmgKcmVu
-YW1lIHRvIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZG1jLmgKaW5kZXggZmM0
-OTYwYjkxNjg2Li41N2RkOTlkYTBjZWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2Rpc3BsYXkvaW50ZWxfY3NyLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9kbWMuaApAQCAtMyw4ICszLDggQEAKICAqIENvcHlyaWdodCDCqSAyMDE5IEludGVsIENv
-cnBvcmF0aW9uCiAgKi8KIAotI2lmbmRlZiBfX0lOVEVMX0NTUl9IX18KLSNkZWZpbmUgX19JTlRF
-TF9DU1JfSF9fCisjaWZuZGVmIF9fSU5URUxfRE1DX0hfXworI2RlZmluZSBfX0lOVEVMX0RNQ19I
-X18KIAogc3RydWN0IGRybV9pOTE1X3ByaXZhdGU7CiAKQEAgLTE4LDQgKzE4LDQgQEAgdm9pZCBp
-bnRlbF9kbWNfdWNvZGVfZmluaShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSk7CiB2b2lk
-IGludGVsX2RtY191Y29kZV9zdXNwZW5kKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1KTsK
-IHZvaWQgaW50ZWxfZG1jX3Vjb2RlX3Jlc3VtZShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkx
-NSk7CiAKLSNlbmRpZiAvKiBfX0lOVEVMX0NTUl9IX18gKi8KKyNlbmRpZiAvKiBfX0lOVEVMX0RN
-Q19IX18gKi8KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmMgYi9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5jCmluZGV4IGYyYTk1ODNkZmVjYy4uMmYwNmJi
-N2IzZWQyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmMKQEAgLTQ5LDcgKzQ5LDcgQEAKICNpbmNs
-dWRlICJkaXNwbGF5L2ludGVsX2FjcGkuaCIKICNpbmNsdWRlICJkaXNwbGF5L2ludGVsX2J3Lmgi
-CiAjaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9jZGNsay5oIgotI2luY2x1ZGUgImRpc3BsYXkvaW50
-ZWxfY3NyLmgiCisjaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9kbWMuaCIKICNpbmNsdWRlICJkaXNw
-bGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaCIKICNpbmNsdWRlICJkaXNwbGF5L2ludGVsX2RwLmgi
-CiAjaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9mYmRldi5oIgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvaTkxNV9ncHVfZXJyb3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
-Z3B1X2Vycm9yLmMKaW5kZXggZWRkMTA4ZDQxMzE4Li44Yjk2NGUzNTVjYjUgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ3B1X2Vycm9yLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvaTkxNV9ncHVfZXJyb3IuYwpAQCAtMzYsNyArMzYsNyBAQAogCiAjaW5jbHVkZSA8
-ZHJtL2RybV9wcmludC5oPgogCi0jaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9jc3IuaCIKKyNpbmNs
-dWRlICJkaXNwbGF5L2ludGVsX2RtYy5oIgogI2luY2x1ZGUgImRpc3BsYXkvaW50ZWxfb3Zlcmxh
-eS5oIgogCiAjaW5jbHVkZSAiZ2VtL2k5MTVfZ2VtX2NvbnRleHQuaCIKLS0gCjIuMjUuMAoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1h
-aWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+Rename all occurences of CSR_* with DMC_*
+
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_csr.c      | 167 +++++++++---------
+ drivers/gpu/drm/i915/display/intel_csr.h      |   6 +-
+ .../drm/i915/display/intel_display_debugfs.c  |  16 +-
+ .../drm/i915/display/intel_display_power.c    |  14 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |   4 +-
+ drivers/gpu/drm/i915/i915_reg.h               |  28 +--
+ 6 files changed, 117 insertions(+), 118 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_csr.c b/drivers/gpu/drm/i915/display/intel_csr.c
+index 5ed286dc6720..f2124796ce77 100644
+--- a/drivers/gpu/drm/i915/display/intel_csr.c
++++ b/drivers/gpu/drm/i915/display/intel_csr.c
+@@ -30,10 +30,9 @@
+ #include "intel_de.h"
+ 
+ /**
+- * DOC: csr support for dmc
++ * DOC: DMC firmware support
+  *
+- * Display Context Save and Restore (CSR) firmware support added from gen9
+- * onwards to drive newly added DMC (Display microcontroller) in display
++ * From gen9 onwards we have newly added DMC (Display microcontroller) in display
+  * engine to save and restore the state of display engine when it enter into
+  * low-power state and comes back to normal.
+  */
+@@ -44,55 +43,55 @@
+ 	__stringify(major) "_"		 \
+ 	__stringify(minor) ".bin"
+ 
+-#define GEN12_CSR_MAX_FW_SIZE		ICL_CSR_MAX_FW_SIZE
++#define GEN12_DMC_MAX_FW_SIZE		ICL_DMC_MAX_FW_SIZE
+ 
+-#define ADLS_CSR_PATH			DMC_PATH(adls, 2, 01)
+-#define ADLS_CSR_VERSION_REQUIRED	CSR_VERSION(2, 1)
+-MODULE_FIRMWARE(ADLS_CSR_PATH);
++#define ADLS_DMC_PATH			DMC_PATH(adls, 2, 01)
++#define ADLS_DMC_VERSION_REQUIRED	DMC_VERSION(2, 1)
++MODULE_FIRMWARE(ADLS_DMC_PATH);
+ 
+-#define DG1_CSR_PATH			DMC_PATH(dg1, 2, 02)
+-#define DG1_CSR_VERSION_REQUIRED	CSR_VERSION(2, 2)
+-MODULE_FIRMWARE(DG1_CSR_PATH);
++#define DG1_DMC_PATH			DMC_PATH(dg1, 2, 02)
++#define DG1_DMC_VERSION_REQUIRED	DMC_VERSION(2, 2)
++MODULE_FIRMWARE(DG1_DMC_PATH);
+ 
+-#define RKL_CSR_PATH			DMC_PATH(rkl, 2, 02)
+-#define RKL_CSR_VERSION_REQUIRED	CSR_VERSION(2, 2)
+-MODULE_FIRMWARE(RKL_CSR_PATH);
++#define RKL_DMC_PATH			DMC_PATH(rkl, 2, 02)
++#define RKL_DMC_VERSION_REQUIRED	DMC_VERSION(2, 2)
++MODULE_FIRMWARE(RKL_DMC_PATH);
+ 
+-#define TGL_CSR_PATH			DMC_PATH(tgl, 2, 08)
+-#define TGL_CSR_VERSION_REQUIRED	CSR_VERSION(2, 8)
+-MODULE_FIRMWARE(TGL_CSR_PATH);
++#define TGL_DMC_PATH			DMC_PATH(tgl, 2, 08)
++#define TGL_DMC_VERSION_REQUIRED	DMC_VERSION(2, 8)
++MODULE_FIRMWARE(TGL_DMC_PATH);
+ 
+-#define ICL_CSR_PATH			DMC_PATH(icl, 1, 09)
+-#define ICL_CSR_VERSION_REQUIRED	CSR_VERSION(1, 9)
+-#define ICL_CSR_MAX_FW_SIZE		0x6000
+-MODULE_FIRMWARE(ICL_CSR_PATH);
++#define ICL_DMC_PATH			DMC_PATH(icl, 1, 09)
++#define ICL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 9)
++#define ICL_DMC_MAX_FW_SIZE		0x6000
++MODULE_FIRMWARE(ICL_DMC_PATH);
+ 
+-#define CNL_CSR_PATH			DMC_PATH(cnl, 1, 07)
+-#define CNL_CSR_VERSION_REQUIRED	CSR_VERSION(1, 7)
+-#define CNL_CSR_MAX_FW_SIZE		GLK_CSR_MAX_FW_SIZE
+-MODULE_FIRMWARE(CNL_CSR_PATH);
++#define CNL_DMC_PATH			DMC_PATH(cnl, 1, 07)
++#define CNL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 7)
++#define CNL_DMC_MAX_FW_SIZE		GLK_DMC_MAX_FW_SIZE
++MODULE_FIRMWARE(CNL_DMC_PATH);
+ 
+-#define GLK_CSR_PATH			DMC_PATH(glk, 1, 04)
+-#define GLK_CSR_VERSION_REQUIRED	CSR_VERSION(1, 4)
+-#define GLK_CSR_MAX_FW_SIZE		0x4000
+-MODULE_FIRMWARE(GLK_CSR_PATH);
++#define GLK_DMC_PATH			DMC_PATH(glk, 1, 04)
++#define GLK_DMC_VERSION_REQUIRED	DMC_VERSION(1, 4)
++#define GLK_DMC_MAX_FW_SIZE		0x4000
++MODULE_FIRMWARE(GLK_DMC_PATH);
+ 
+-#define KBL_CSR_PATH			DMC_PATH(kbl, 1, 04)
+-#define KBL_CSR_VERSION_REQUIRED	CSR_VERSION(1, 4)
+-#define KBL_CSR_MAX_FW_SIZE		BXT_CSR_MAX_FW_SIZE
+-MODULE_FIRMWARE(KBL_CSR_PATH);
++#define KBL_DMC_PATH			DMC_PATH(kbl, 1, 04)
++#define KBL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 4)
++#define KBL_DMC_MAX_FW_SIZE		BXT_DMC_MAX_FW_SIZE
++MODULE_FIRMWARE(KBL_DMC_PATH);
+ 
+-#define SKL_CSR_PATH			DMC_PATH(skl, 1, 27)
+-#define SKL_CSR_VERSION_REQUIRED	CSR_VERSION(1, 27)
+-#define SKL_CSR_MAX_FW_SIZE		BXT_CSR_MAX_FW_SIZE
+-MODULE_FIRMWARE(SKL_CSR_PATH);
++#define SKL_DMC_PATH			DMC_PATH(skl, 1, 27)
++#define SKL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 27)
++#define SKL_DMC_MAX_FW_SIZE		BXT_DMC_MAX_FW_SIZE
++MODULE_FIRMWARE(SKL_DMC_PATH);
+ 
+-#define BXT_CSR_PATH			DMC_PATH(bxt, 1, 07)
+-#define BXT_CSR_VERSION_REQUIRED	CSR_VERSION(1, 7)
+-#define BXT_CSR_MAX_FW_SIZE		0x3000
+-MODULE_FIRMWARE(BXT_CSR_PATH);
++#define BXT_DMC_PATH			DMC_PATH(bxt, 1, 07)
++#define BXT_DMC_VERSION_REQUIRED	DMC_VERSION(1, 7)
++#define BXT_DMC_MAX_FW_SIZE		0x3000
++MODULE_FIRMWARE(BXT_DMC_PATH);
+ 
+-#define CSR_DEFAULT_FW_OFFSET		0xFFFFFFFF
++#define DMC_DEFAULT_FW_OFFSET		0xFFFFFFFF
+ #define PACKAGE_MAX_FW_INFO_ENTRIES	20
+ #define PACKAGE_V2_MAX_FW_INFO_ENTRIES	32
+ #define DMC_V1_MAX_MMIO_COUNT		8
+@@ -333,7 +332,7 @@ void intel_csr_load_program(struct drm_i915_private *dev_priv)
+ 	preempt_disable();
+ 
+ 	for (i = 0; i < fw_size; i++)
+-		intel_uncore_write_fw(&dev_priv->uncore, CSR_PROGRAM(i),
++		intel_uncore_write_fw(&dev_priv->uncore, DMC_PROGRAM(i),
+ 				      payload[i]);
+ 
+ 	preempt_enable();
+@@ -357,7 +356,7 @@ static u32 find_dmc_fw_offset(const struct intel_fw_info *fw_info,
+ 			      const struct stepping_info *si,
+ 			      u8 package_ver)
+ {
+-	u32 dmc_offset = CSR_DEFAULT_FW_OFFSET;
++	u32 dmc_offset = DMC_DEFAULT_FW_OFFSET;
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < num_entries; i++) {
+@@ -458,8 +457,8 @@ static u32 parse_csr_fw_dmc(struct intel_dmc *dmc,
+ 	}
+ 
+ 	for (i = 0; i < mmio_count; i++) {
+-		if (mmioaddr[i] < CSR_MMIO_START_RANGE ||
+-		    mmioaddr[i] > CSR_MMIO_END_RANGE) {
++		if (mmioaddr[i] < DMC_MMIO_START_RANGE ||
++		    mmioaddr[i] > DMC_MMIO_END_RANGE) {
+ 			DRM_ERROR("DMC firmware has wrong mmio address 0x%x\n",
+ 				  mmioaddr[i]);
+ 			return 0;
+@@ -543,7 +542,7 @@ parse_csr_fw_package(struct intel_dmc *dmc,
+ 		((u8 *)package_header + sizeof(*package_header));
+ 	dmc_offset = find_dmc_fw_offset(fw_info, num_entries, si,
+ 					package_header->header_ver);
+-	if (dmc_offset == CSR_DEFAULT_FW_OFFSET) {
++	if (dmc_offset == DMC_DEFAULT_FW_OFFSET) {
+ 		DRM_ERROR("DMC firmware not supported for %c stepping\n",
+ 			  si->stepping);
+ 		return 0;
+@@ -579,10 +578,10 @@ static u32 parse_csr_fw_css(struct intel_dmc *dmc,
+ 	    css_header->version != dmc->required_version) {
+ 		DRM_INFO("Refusing to load DMC firmware v%u.%u,"
+ 			 " please use v%u.%u\n",
+-			 CSR_VERSION_MAJOR(css_header->version),
+-			 CSR_VERSION_MINOR(css_header->version),
+-			 CSR_VERSION_MAJOR(dmc->required_version),
+-			 CSR_VERSION_MINOR(dmc->required_version));
++			 DMC_VERSION_MAJOR(css_header->version),
++			 DMC_VERSION_MINOR(css_header->version),
++			 DMC_VERSION_MAJOR(dmc->required_version),
++			 DMC_VERSION_MINOR(dmc->required_version));
+ 		return 0;
+ 	}
+ 
+@@ -659,8 +658,8 @@ static void csr_load_work_fn(struct work_struct *work)
+ 
+ 		drm_info(&dev_priv->drm,
+ 			 "Finished loading DMC firmware %s (v%u.%u)\n",
+-			 dev_priv->dmc.fw_path, CSR_VERSION_MAJOR(dmc->version),
+-			 CSR_VERSION_MINOR(dmc->version));
++			 dev_priv->dmc.fw_path, DMC_VERSION_MAJOR(dmc->version),
++			 DMC_VERSION_MINOR(dmc->version));
+ 	} else {
+ 		drm_notice(&dev_priv->drm,
+ 			   "Failed to load DMC firmware %s."
+@@ -690,57 +689,57 @@ void intel_csr_ucode_init(struct drm_i915_private *dev_priv)
+ 		return;
+ 
+ 	/*
+-	 * Obtain a runtime pm reference, until CSR is loaded, to avoid entering
++	 * Obtain a runtime pm reference, until DMC is loaded, to avoid entering
+ 	 * runtime-suspend.
+ 	 *
+ 	 * On error, we return with the rpm wakeref held to prevent runtime
+-	 * suspend as runtime suspend *requires* a working CSR for whatever
++	 * suspend as runtime suspend *requires* a working DMC for whatever
+ 	 * reason.
+ 	 */
+ 	intel_csr_runtime_pm_get(dev_priv);
+ 
+ 	if (IS_ALDERLAKE_S(dev_priv)) {
+-		dmc->fw_path = ADLS_CSR_PATH;
+-		dmc->required_version = ADLS_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
++		dmc->fw_path = ADLS_DMC_PATH;
++		dmc->required_version = ADLS_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
+ 	} else if (IS_DG1(dev_priv)) {
+-		dmc->fw_path = DG1_CSR_PATH;
+-		dmc->required_version = DG1_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
++		dmc->fw_path = DG1_DMC_PATH;
++		dmc->required_version = DG1_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
+ 	} else if (IS_ROCKETLAKE(dev_priv)) {
+-		dmc->fw_path = RKL_CSR_PATH;
+-		dmc->required_version = RKL_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
++		dmc->fw_path = RKL_DMC_PATH;
++		dmc->required_version = RKL_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
+ 	} else if (DISPLAY_VER(dev_priv) >= 12) {
+-		dmc->fw_path = TGL_CSR_PATH;
+-		dmc->required_version = TGL_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
++		dmc->fw_path = TGL_DMC_PATH;
++		dmc->required_version = TGL_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
+ 	} else if (DISPLAY_VER(dev_priv) == 11) {
+-		dmc->fw_path = ICL_CSR_PATH;
+-		dmc->required_version = ICL_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = ICL_CSR_MAX_FW_SIZE;
++		dmc->fw_path = ICL_DMC_PATH;
++		dmc->required_version = ICL_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = ICL_DMC_MAX_FW_SIZE;
+ 	} else if (IS_CANNONLAKE(dev_priv)) {
+-		dmc->fw_path = CNL_CSR_PATH;
+-		dmc->required_version = CNL_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = CNL_CSR_MAX_FW_SIZE;
++		dmc->fw_path = CNL_DMC_PATH;
++		dmc->required_version = CNL_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = CNL_DMC_MAX_FW_SIZE;
+ 	} else if (IS_GEMINILAKE(dev_priv)) {
+-		dmc->fw_path = GLK_CSR_PATH;
+-		dmc->required_version = GLK_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = GLK_CSR_MAX_FW_SIZE;
++		dmc->fw_path = GLK_DMC_PATH;
++		dmc->required_version = GLK_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = GLK_DMC_MAX_FW_SIZE;
+ 	} else if (IS_KABYLAKE(dev_priv) ||
+ 		   IS_COFFEELAKE(dev_priv) ||
+ 		   IS_COMETLAKE(dev_priv)) {
+-		dmc->fw_path = KBL_CSR_PATH;
+-		dmc->required_version = KBL_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = KBL_CSR_MAX_FW_SIZE;
++		dmc->fw_path = KBL_DMC_PATH;
++		dmc->required_version = KBL_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = KBL_DMC_MAX_FW_SIZE;
+ 	} else if (IS_SKYLAKE(dev_priv)) {
+-		dmc->fw_path = SKL_CSR_PATH;
+-		dmc->required_version = SKL_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = SKL_CSR_MAX_FW_SIZE;
++		dmc->fw_path = SKL_DMC_PATH;
++		dmc->required_version = SKL_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = SKL_DMC_MAX_FW_SIZE;
+ 	} else if (IS_BROXTON(dev_priv)) {
+-		dmc->fw_path = BXT_CSR_PATH;
+-		dmc->required_version = BXT_CSR_VERSION_REQUIRED;
+-		dmc->max_fw_size = BXT_CSR_MAX_FW_SIZE;
++		dmc->fw_path = BXT_DMC_PATH;
++		dmc->required_version = BXT_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = BXT_DMC_MAX_FW_SIZE;
+ 	}
+ 
+ 	if (dev_priv->params.dmc_firmware_path) {
+diff --git a/drivers/gpu/drm/i915/display/intel_csr.h b/drivers/gpu/drm/i915/display/intel_csr.h
+index 03c64f8af7ab..984e9fb250f8 100644
+--- a/drivers/gpu/drm/i915/display/intel_csr.h
++++ b/drivers/gpu/drm/i915/display/intel_csr.h
+@@ -8,9 +8,9 @@
+ 
+ struct drm_i915_private;
+ 
+-#define CSR_VERSION(major, minor)	((major) << 16 | (minor))
+-#define CSR_VERSION_MAJOR(version)	((version) >> 16)
+-#define CSR_VERSION_MINOR(version)	((version) & 0xffff)
++#define DMC_VERSION(major, minor)	((major) << 16 | (minor))
++#define DMC_VERSION_MAJOR(version)	((version) >> 16)
++#define DMC_VERSION_MINOR(version)	((version) & 0xffff)
+ 
+ void intel_csr_ucode_init(struct drm_i915_private *i915);
+ void intel_csr_load_program(struct drm_i915_private *i915);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 6cd7f8c1724f..e43abdf0e3d9 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -548,8 +548,8 @@ static int i915_dmc_info(struct seq_file *m, void *unused)
+ 	if (!dmc->dmc_payload)
+ 		goto out;
+ 
+-	seq_printf(m, "version: %d.%d\n", CSR_VERSION_MAJOR(dmc->version),
+-		   CSR_VERSION_MINOR(dmc->version));
++	seq_printf(m, "version: %d.%d\n", DMC_VERSION_MAJOR(dmc->version),
++		   DMC_VERSION_MINOR(dmc->version));
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 12) {
+ 		if (IS_DGFX(dev_priv)) {
+@@ -568,10 +568,10 @@ static int i915_dmc_info(struct seq_file *m, void *unused)
+ 		seq_printf(m, "DC3CO count: %d\n",
+ 			   intel_de_read(dev_priv, DMC_DEBUG3));
+ 	} else {
+-		dc5_reg = IS_BROXTON(dev_priv) ? BXT_CSR_DC3_DC5_COUNT :
+-						 SKL_CSR_DC3_DC5_COUNT;
++		dc5_reg = IS_BROXTON(dev_priv) ? BXT_DMC_DC3_DC5_COUNT :
++						 SKL_DMC_DC3_DC5_COUNT;
+ 		if (!IS_GEMINILAKE(dev_priv) && !IS_BROXTON(dev_priv))
+-			dc6_reg = SKL_CSR_DC5_DC6_COUNT;
++			dc6_reg = SKL_DMC_DC5_DC6_COUNT;
+ 	}
+ 
+ 	seq_printf(m, "DC3 -> DC5 count: %d\n",
+@@ -582,10 +582,10 @@ static int i915_dmc_info(struct seq_file *m, void *unused)
+ 
+ out:
+ 	seq_printf(m, "program base: 0x%08x\n",
+-		   intel_de_read(dev_priv, CSR_PROGRAM(0)));
++		   intel_de_read(dev_priv, DMC_PROGRAM(0)));
+ 	seq_printf(m, "ssp base: 0x%08x\n",
+-		   intel_de_read(dev_priv, CSR_SSP_BASE));
+-	seq_printf(m, "htp: 0x%08x\n", intel_de_read(dev_priv, CSR_HTP_SKL));
++		   intel_de_read(dev_priv, DMC_SSP_BASE));
++	seq_printf(m, "htp: 0x%08x\n", intel_de_read(dev_priv, DMC_HTP_SKL));
+ 
+ 	intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 0a05d0f90f28..de58abdd838b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -961,12 +961,12 @@ static void bxt_disable_dc9(struct drm_i915_private *dev_priv)
+ static void assert_csr_loaded(struct drm_i915_private *dev_priv)
+ {
+ 	drm_WARN_ONCE(&dev_priv->drm,
+-		      !intel_de_read(dev_priv, CSR_PROGRAM(0)),
+-		      "CSR program storage start is NULL\n");
+-	drm_WARN_ONCE(&dev_priv->drm, !intel_de_read(dev_priv, CSR_SSP_BASE),
+-		      "CSR SSP Base Not fine\n");
+-	drm_WARN_ONCE(&dev_priv->drm, !intel_de_read(dev_priv, CSR_HTP_SKL),
+-		      "CSR HTP Not fine\n");
++		      !intel_de_read(dev_priv, DMC_PROGRAM(0)),
++		      "DMC program storage start is NULL\n");
++	drm_WARN_ONCE(&dev_priv->drm, !intel_de_read(dev_priv, DMC_SSP_BASE),
++		      "DMC SSP Base Not fine\n");
++	drm_WARN_ONCE(&dev_priv->drm, !intel_de_read(dev_priv, DMC_HTP_SKL),
++		      "DMC HTP Not fine\n");
+ }
+ 
+ static struct i915_power_well *
+@@ -6218,7 +6218,7 @@ void intel_power_domains_suspend(struct drm_i915_private *i915,
+ 	/*
+ 	 * In case of suspend-to-idle (aka S0ix) on a DMC platform without DC9
+ 	 * support don't manually deinit the power domains. This also means the
+-	 * CSR/DMC firmware will stay active, it will power down any HW
++	 * DMC firmware will stay active, it will power down any HW
+ 	 * resources as required and also enable deeper system power states
+ 	 * that would be blocked if the firmware was inactive.
+ 	 */
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 06828ff90ccf..edd108d41318 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -794,8 +794,8 @@ static void __err_print_to_sgl(struct drm_i915_error_state_buf *m,
+ 		err_printf(m, "DMC loaded: %s\n",
+ 			   yesno(dmc->dmc_payload));
+ 		err_printf(m, "DMC fw version: %d.%d\n",
+-			   CSR_VERSION_MAJOR(dmc->version),
+-			   CSR_VERSION_MINOR(dmc->version));
++			   DMC_VERSION_MAJOR(dmc->version),
++			   DMC_VERSION_MINOR(dmc->version));
+ 	}
+ 
+ 	err_printf(m, "RPM wakelock: %s\n", yesno(error->wakelock));
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 089b5a59bed3..73a33ffc0559 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7686,20 +7686,20 @@ enum {
+ #define  GAMMA_MODE_MODE_SPLIT	(3 << 0) /* ivb-bdw */
+ #define  GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED	(3 << 0) /* icl + */
+ 
+-/* DMC/CSR */
+-#define CSR_PROGRAM(i)		_MMIO(0x80000 + (i) * 4)
+-#define CSR_SSP_BASE_ADDR_GEN9	0x00002FC0
+-#define CSR_HTP_ADDR_SKL	0x00500034
+-#define CSR_SSP_BASE		_MMIO(0x8F074)
+-#define CSR_HTP_SKL		_MMIO(0x8F004)
+-#define CSR_LAST_WRITE		_MMIO(0x8F034)
+-#define CSR_LAST_WRITE_VALUE	0xc003b400
+-/* MMIO address range for CSR program (0x80000 - 0x82FFF) */
+-#define CSR_MMIO_START_RANGE	0x80000
+-#define CSR_MMIO_END_RANGE	0x8FFFF
+-#define SKL_CSR_DC3_DC5_COUNT	_MMIO(0x80030)
+-#define SKL_CSR_DC5_DC6_COUNT	_MMIO(0x8002C)
+-#define BXT_CSR_DC3_DC5_COUNT	_MMIO(0x80038)
++/* DMC */
++#define DMC_PROGRAM(i)		_MMIO(0x80000 + (i) * 4)
++#define DMC_SSP_BASE_ADDR_GEN9	0x00002FC0
++#define DMC_HTP_ADDR_SKL	0x00500034
++#define DMC_SSP_BASE		_MMIO(0x8F074)
++#define DMC_HTP_SKL		_MMIO(0x8F004)
++#define DMC_LAST_WRITE		_MMIO(0x8F034)
++#define DMC_LAST_WRITE_VALUE	0xc003b400
++/* MMIO address range for DMC program (0x80000 - 0x82FFF) */
++#define DMC_MMIO_START_RANGE	0x80000
++#define DMC_MMIO_END_RANGE	0x8FFFF
++#define SKL_DMC_DC3_DC5_COUNT	_MMIO(0x80030)
++#define SKL_DMC_DC5_DC6_COUNT	_MMIO(0x8002C)
++#define BXT_DMC_DC3_DC5_COUNT	_MMIO(0x80038)
+ #define TGL_DMC_DEBUG_DC5_COUNT	_MMIO(0x101084)
+ #define TGL_DMC_DEBUG_DC6_COUNT	_MMIO(0x101088)
+ #define DG1_DMC_DEBUG_DC5_COUNT	_MMIO(0x134154)
+-- 
+2.25.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
