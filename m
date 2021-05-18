@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D5B9C433ED
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 08:28:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FA5BC433ED
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 08:28:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CF6FC610E9
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 08:28:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF6FC610E9
+	by mail.kernel.org (Postfix) with ESMTPS id 4AF67610E9
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 May 2021 08:28:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4AF67610E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 434336EAC7;
-	Tue, 18 May 2021 08:28:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD636EAD0;
+	Tue, 18 May 2021 08:28:06 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B33A56EACB;
- Tue, 18 May 2021 08:28:00 +0000 (UTC)
-IronPort-SDR: 8Yjoct0Hssu/bqYn/Zejp5666uwHtpo6ri8hCkvzCAIdT8nxFllyblZl/dR2PWFx0kVivfuI4F
- 2cos2tHdcKTQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9987"; a="197572737"
-X-IronPort-AV: E=Sophos;i="5.82,309,1613462400"; d="scan'208";a="197572737"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66BDA6EACB;
+ Tue, 18 May 2021 08:28:04 +0000 (UTC)
+IronPort-SDR: AaVz2JTM6qtoj143COMw4bnX8GnGmOxMsnB6/dWoyaPPtdBXqlfSXsJecXAYV/PcwFuJGRijC6
+ 5960qaDEbJUw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9987"; a="197572762"
+X-IronPort-AV: E=Sophos;i="5.82,309,1613462400"; d="scan'208";a="197572762"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 01:28:00 -0700
-IronPort-SDR: 8o7Txr3zFsUtAkfLcRpvi8B6g4mEjqW5fj0yWINQZfOM8v76ozesdfGGfbJwFJh8ZGqxNjHOuV
- FWkwIgH7BYHA==
-X-IronPort-AV: E=Sophos;i="5.82,309,1613462400"; d="scan'208";a="611892383"
+ 18 May 2021 01:28:03 -0700
+IronPort-SDR: yeBkCkrM0OXl4PtVfz7Da+e7ZYGNMXKpUPIHGYctVW717CltpyXhIjdu7pQqoUKB2b1HEIOa3+
+ S5rik7uSG7eQ==
+X-IronPort-AV: E=Sophos;i="5.82,309,1613462400"; d="scan'208";a="611892403"
 Received: from cmutgix-mobl.gar.corp.intel.com (HELO thellst-mobl1.intel.com)
  ([10.249.254.195])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 01:27:47 -0700
+ 18 May 2021 01:27:51 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 18 May 2021 10:26:57 +0200
-Message-Id: <20210518082701.997251-12-thomas.hellstrom@linux.intel.com>
+Date: Tue, 18 May 2021 10:27:00 +0200
+Message-Id: <20210518082701.997251-15-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210518082701.997251-1-thomas.hellstrom@linux.intel.com>
 References: <20210518082701.997251-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 11/15] drm/i915/lmem: Verify checks for lmem
- residency
+Subject: [Intel-gfx] [PATCH v2 14/15] drm/i915: Use ttm mmap handling for
+ ttm bo's.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,100 +60,256 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-U2luY2Ugb2JqZWN0cyBjYW4gYmUgbWlncmF0ZWQgb3IgZXZpY3RlZCB3aGVuIG5vdCBwaW5uZWQg
-b3IgbG9ja2VkLAp1cGRhdGUgdGhlIGNoZWNrcyBmb3IgbG1lbSByZXNpZGVuY3kgb3IgZnV0dXJl
-IHJlc2lkZW5jeSBzbyB0aGF0CnRoZSB2YWx1ZSByZXR1cm5lZCBpcyBub3QgaW1tZWRpYXRlbHkg
-c3RhbGUuCgpTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhlbGxzdHJv
-bUBsaW51eC5pbnRlbC5jb20+Ci0tLQp2MjogU2ltcGxpZnkgaTkxNV9nZW1fb2JqZWN0X21pZ3Jh
-dGFibGUoKSAoUmVwb3J0ZWQgYnkgTWF0dGV3IEF1bGQpCi0tLQogZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUv
-Z2VtL2k5MTVfZ2VtX2xtZW0uYyAgICAgfCA0MiArKysrKysrKysrKysrKysrKysrLQogZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5jICAgfCAxOCArKysrKysrKysKIGRy
-aXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmplY3QuaCAgIHwgIDQgKysKIDQgZmls
-ZXMgY2hhbmdlZCwgNjQgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCmluZGV4IGRlMWYxM2QyMDNiNS4u
-Yjk1ZGVmMmQ1YWYzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
-dGVsX2Rpc3BsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rp
-c3BsYXkuYwpAQCAtMTE2MTUsNyArMTE2MTUsNyBAQCBpbnRlbF91c2VyX2ZyYW1lYnVmZmVyX2Ny
-ZWF0ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCiAJLyogb2JqZWN0IGlzIGJhY2tlZCB3aXRo
-IExNRU0gZm9yIGRpc2NyZXRlICovCiAJaTkxNSA9IHRvX2k5MTUob2JqLT5iYXNlLmRldik7Ci0J
-aWYgKEhBU19MTUVNKGk5MTUpICYmICFpOTE1X2dlbV9vYmplY3RfaXNfbG1lbShvYmopKSB7CisJ
-aWYgKEhBU19MTUVNKGk5MTUpICYmICFpOTE1X2dlbV9vYmplY3RfdmFsaWRhdGVzX3RvX2xtZW0o
-b2JqKSkgewogCQkvKiBvYmplY3QgaXMgInJlbW90ZSIsIG5vdCBpbiBsb2NhbCBtZW1vcnkgKi8K
-IAkJaTkxNV9nZW1fb2JqZWN0X3B1dChvYmopOwogCQlyZXR1cm4gRVJSX1BUUigtRVJFTU9URSk7
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fbG1lbS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2xtZW0uYwppbmRleCAyYjhjZDE1ZGUx
-ZDkuLmQ1MzlkZmZhMTU1NCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5
-MTVfZ2VtX2xtZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fbG1l
-bS5jCkBAIC0yMywxMCArMjMsNTAgQEAgaTkxNV9nZW1fb2JqZWN0X2xtZW1faW9fbWFwKHN0cnVj
-dCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmosCiAJcmV0dXJuIGlvX21hcHBpbmdfbWFwX3djKCZv
-YmotPm1tLnJlZ2lvbi0+aW9tYXAsIG9mZnNldCwgc2l6ZSk7CiB9CiAKKy8qKgorICogaTkxNV9n
-ZW1fb2JqZWN0X3ZhbGlkYXRlc190b19sbWVtIC0gV2hldGhlciB0aGUgb2JqZWN0IGlzIHJlc2lk
-ZW50IGluCisgKiBsbWVtIHdoZW4gcGFnZXMgYXJlIHByZXNlbnQuCisgKiBAb2JqOiBUaGUgb2Jq
-ZWN0IHRvIGNoZWNrLgorICoKKyAqIE1pZ3JhdGFibGUgb2JqZWN0cyByZXNpZGVuY3kgbWF5IGNo
-YW5nZSBmcm9tIHVuZGVyIHVzIGlmIHRoZSBvYmplY3QgaXMKKyAqIG5vdCBwaW5uZWQgb3IgbG9j
-a2VkLiBUaGlzIGZ1bmN0aW9uIGlzIGludGVuZGVkIHRvIGJlIHVzZWQgdG8gY2hlY2sgd2hldGhl
-cgorICogdGhlIG9iamVjdCBjYW4gb25seSByZXNpZGUgaW4gbG1lbSB3aGVuIHBhZ2VzIGFyZSBw
-cmVzZW50LgorICoKKyAqIFJldHVybjogV2hldGhlciB0aGUgb2JqZWN0IGlzIGFsd2F5cyByZXNp
-ZGVudCBpbiBsbWVtIHdoZW4gcGFnZXMgYXJlCisgKiBwcmVzZW50LgorICovCitib29sIGk5MTVf
-Z2VtX29iamVjdF92YWxpZGF0ZXNfdG9fbG1lbShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAq
-b2JqKQoreworCXN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptciA9IFJFQURfT05DRShvYmot
-Pm1tLnJlZ2lvbik7CisKKwlyZXR1cm4gIWk5MTVfZ2VtX29iamVjdF9taWdyYXRhYmxlKG9iaikg
-JiYKKwkJbXIgJiYgKG1yLT50eXBlID09IElOVEVMX01FTU9SWV9MT0NBTCB8fAorCQkgICAgICAg
-bXItPnR5cGUgPT0gSU5URUxfTUVNT1JZX1NUT0xFTl9MT0NBTCk7Cit9CisKKy8qKgorICogaTkx
-NV9nZW1fb2JqZWN0X2lzX2xtZW0gLSBXaGV0aGVyIHRoZSBvYmplY3QgaXMgcmVzaWRlbnQgaW4K
-KyAqIGxtZW0KKyAqIEBvYmo6IFRoZSBvYmplY3QgdG8gY2hlY2suCisgKgorICogRXZlbiBpZiBh
-biBvYmplY3QgaXMgYWxsb3dlZCB0byBtaWdyYXRlIGFuZCBjaGFuZ2UgbWVtb3J5IHJlZ2lvbiwK
-KyAqIHRoaXMgZnVuY3Rpb24gY2hlY2tzIHdoZXRoZXIgaXQgd2lsbCBhbHdheXMgYmUgcHJlc2Vu
-dCBpbiBsbWVtIHdoZW4KKyAqIHZhbGlkICpvciogaWYgdGhhdCdzIG5vdCB0aGUgY2FzZSwgd2hl
-dGhlciBpdCdzIGN1cnJlbnRseSByZXNpZGVudCBpbiBsbWVtLgorICogRm9yIG1pZ3JhdGFibGUg
-YW5kIGV2aWN0YWJsZSBvYmplY3RzLCB0aGUgbGF0dGVyIG9ubHkgbWFrZXMgc2Vuc2Ugd2hlbgor
-ICogdGhlIG9iamVjdCBpcyBsb2NrZWQuCisgKgorICogUmV0dXJuOiBXaGV0aGVyIHRoZSBvYmpl
-Y3QgbWlncmF0YWJsZSBidXQgcmVzaWRlbnQgaW4gbG1lbSwgb3Igbm90CisgKiBtaWdyYXRhYmxl
-IGFuZCB3aWxsIGJlIHByZXNlbnQgaW4gbG1lbSB3aGVuIHZhbGlkLgorICovCiBib29sIGk5MTVf
-Z2VtX29iamVjdF9pc19sbWVtKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmopCiB7Ci0J
-c3RydWN0IGludGVsX21lbW9yeV9yZWdpb24gKm1yID0gb2JqLT5tbS5yZWdpb247CisJc3RydWN0
-IGludGVsX21lbW9yeV9yZWdpb24gKm1yID0gUkVBRF9PTkNFKG9iai0+bW0ucmVnaW9uKTsKIAor
-I2lmZGVmIENPTkZJR19MT0NLREVQCisJaWYgKGk5MTVfZ2VtX29iamVjdF9taWdyYXRhYmxlKG9i
-aikgJiYKKwkgICAgaTkxNV9nZW1fb2JqZWN0X2V2aWN0YWJsZShvYmopKQorCQlhc3NlcnRfb2Jq
-ZWN0X2hlbGQob2JqKTsKKyNlbmRpZgogCXJldHVybiBtciAmJiAobXItPnR5cGUgPT0gSU5URUxf
-TUVNT1JZX0xPQ0FMIHx8CiAJCSAgICAgIG1yLT50eXBlID09IElOVEVMX01FTU9SWV9TVE9MRU5f
-TE9DQUwpOwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2Vt
-X29iamVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5jCmlu
-ZGV4IDg1ODA5OTYxMDdjZS4uODQ4NGQ4OTQwNTMxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-Z2VtL2k5MTVfZ2VtX29iamVjdC5jCkBAIC00NTcsNiArNDU3LDI0IEBAIGJvb2wgaTkxNV9nZW1f
-b2JqZWN0X2V2aWN0YWJsZShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQogCXJldHVy
-biBwaW5fY291bnQgPT0gMDsKIH0KIAorLyoqCisgKiBpOTE1X2dlbV9vYmplY3RfbWlncmF0YWJs
-ZSAtIFdoZXRoZXIgdGhlIG9iamVjdCBpcyBtaWdyYXRhYmxlIG91dCBvZiB0aGUKKyAqIGN1cnJl
-bnQgcmVnaW9uLgorICogQG9iajogUG9pbnRlciB0byB0aGUgb2JqZWN0LgorICoKKyAqIFJldHVy
-bjogV2hldGhlciB0aGUgb2JqZWN0IGlzIGFsbG93ZWQgdG8gYmUgcmVzaWRlbnQgaW4gb3RoZXIK
-KyAqIHJlZ2lvbnMgdGhhbiB0aGUgY3VycmVudCB3aGlsZSBwYWdlcyBhcmUgcHJlc2VudC4KKyAq
-LworYm9vbCBpOTE1X2dlbV9vYmplY3RfbWlncmF0YWJsZShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29i
-amVjdCAqb2JqKQoreworCXN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptciA9IFJFQURfT05D
-RShvYmotPm1tLnJlZ2lvbik7CisKKwlpZiAoIW1yKQorCQlyZXR1cm4gZmFsc2U7CisKKwlyZXR1
-cm4gb2JqLT5tbS5uX3BsYWNlbWVudHMgPiAxOworfQorCiB2b2lkIGk5MTVfZ2VtX2luaXRfX29i
-amVjdHMoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCiB7CiAJSU5JVF9XT1JLKCZpOTE1
-LT5tbS5mcmVlX3dvcmssIF9faTkxNV9nZW1fZnJlZV93b3JrKTsKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmplY3QuaCBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2dlbS9pOTE1X2dlbV9vYmplY3QuaAppbmRleCBhZTU5MzBlMzA3ZDUuLmEzYWQ4Y2Y0ZWVm
-ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5o
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmplY3QuaApAQCAtNTk2
-LDYgKzU5NiwxMCBAQCB2b2lkIF9faTkxNV9nZW1fZnJlZV9vYmplY3Qoc3RydWN0IGRybV9pOTE1
-X2dlbV9vYmplY3QgKm9iaik7CiAKIGJvb2wgaTkxNV9nZW1fb2JqZWN0X2V2aWN0YWJsZShzdHJ1
-Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKTsKIAorYm9vbCBpOTE1X2dlbV9vYmplY3RfbWln
-cmF0YWJsZShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKTsKKworYm9vbCBpOTE1X2dl
-bV9vYmplY3RfdmFsaWRhdGVzX3RvX2xtZW0oc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9i
-aik7CisKICNpZmRlZiBDT05GSUdfTU1VX05PVElGSUVSCiBzdGF0aWMgaW5saW5lIGJvb2wKIGk5
-MTVfZ2VtX29iamVjdF9pc191c2VycHRyKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmop
-Ci0tIAoyLjMxLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdm
-eAo=
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+
+Use the ttm handlers for servicing page faults, and vm_access.
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  17 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.h      |   2 +
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |   1 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 105 +++++++++++++++++-
+ 4 files changed, 118 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index 65db290efd16..2bf89349dde9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -19,6 +19,7 @@
+ #include "i915_gem_mman.h"
+ #include "i915_trace.h"
+ #include "i915_user_extensions.h"
++#include "i915_gem_ttm.h"
+ #include "i915_vma.h"
+ 
+ static inline bool
+@@ -789,7 +790,7 @@ i915_gem_mmap_offset_ioctl(struct drm_device *dev, void *data,
+ 	return __assign_mmap_offset(file, args->handle, type, &args->offset);
+ }
+ 
+-static void vm_open(struct vm_area_struct *vma)
++void i915_gem_mmap_vm_open(struct vm_area_struct *vma)
+ {
+ 	struct i915_mmap_offset *mmo = vma->vm_private_data;
+ 	struct drm_i915_gem_object *obj = mmo->obj;
+@@ -798,7 +799,7 @@ static void vm_open(struct vm_area_struct *vma)
+ 	i915_gem_object_get(obj);
+ }
+ 
+-static void vm_close(struct vm_area_struct *vma)
++void i915_gem_mmap_vm_close(struct vm_area_struct *vma)
+ {
+ 	struct i915_mmap_offset *mmo = vma->vm_private_data;
+ 	struct drm_i915_gem_object *obj = mmo->obj;
+@@ -810,15 +811,15 @@ static void vm_close(struct vm_area_struct *vma)
+ static const struct vm_operations_struct vm_ops_gtt = {
+ 	.fault = vm_fault_gtt,
+ 	.access = vm_access,
+-	.open = vm_open,
+-	.close = vm_close,
++	.open = i915_gem_mmap_vm_open,
++	.close = i915_gem_mmap_vm_close,
+ };
+ 
+ static const struct vm_operations_struct vm_ops_cpu = {
+ 	.fault = vm_fault_cpu,
+ 	.access = vm_access,
+-	.open = vm_open,
+-	.close = vm_close,
++	.open = i915_gem_mmap_vm_open,
++	.close = i915_gem_mmap_vm_close,
+ };
+ 
+ static int singleton_release(struct inode *inode, struct file *file)
+@@ -953,6 +954,10 @@ int i915_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+ 	}
+ 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+ 
++	/* override ops per-object if desired */
++	if (obj->ops->mmap_ops)
++		vma->vm_ops = obj->ops->mmap_ops;
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.h b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
+index efee9e0d2508..e5bd02a6db12 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
+@@ -28,5 +28,7 @@ void __i915_gem_object_release_mmap_gtt(struct drm_i915_gem_object *obj);
+ void i915_gem_object_release_mmap_gtt(struct drm_i915_gem_object *obj);
+ 
+ void i915_gem_object_release_mmap_offset(struct drm_i915_gem_object *obj);
++void i915_gem_mmap_vm_open(struct vm_area_struct *vma);
++void i915_gem_mmap_vm_close(struct vm_area_struct *vma);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index b350765e1935..31d828e91cf4 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -79,6 +79,7 @@ struct drm_i915_gem_object_ops {
+ 	void (*delayed_free)(struct drm_i915_gem_object *obj);
+ 	void (*release)(struct drm_i915_gem_object *obj);
+ 
++	const struct vm_operations_struct *mmap_ops;
+ 	const char *name; /* friendly name for debug, e.g. lockdep classes */
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index 790f5ec45c4d..fe9ac50b2470 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -14,6 +14,7 @@
+ #include "gem/i915_gem_region.h"
+ #include "gem/i915_gem_ttm.h"
+ #include "gem/i915_gem_ttm_bo_util.h"
++#include "gem/i915_gem_mman.h"
+ 
+ #define I915_PL_LMEM0 TTM_PL_PRIV
+ #define I915_PL_SYSTEM TTM_PL_SYSTEM
+@@ -345,6 +346,44 @@ static int i915_ttm_move(struct ttm_buffer_object *bo, bool evict,
+ 	return 0;
+ }
+ 
++static int i915_ttm_io_mem_reserve(struct ttm_device *bdev, struct ttm_resource *mem)
++{
++	if (mem->mem_type < I915_PL_LMEM0)
++		return 0;
++
++	/* We may need to revisit this later, but this allows all caching to be used in mmap */
++	mem->bus.caching = ttm_cached;
++	mem->bus.is_iomem = true;
++
++	return 0;
++}
++
++static unsigned long i915_ttm_io_mem_pfn(struct ttm_buffer_object *bo,
++					 unsigned long page_offset)
++{
++	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
++	struct sg_table *sgt = obj->ttm.cached_io_st;
++	struct scatterlist *sg;
++	unsigned int i;
++
++	GEM_WARN_ON(bo->ttm);
++
++	for_each_sgtable_dma_sg(sgt, sg, i) {
++		unsigned long sg_max = sg->length >> PAGE_SHIFT;
++
++		if (page_offset < sg_max) {
++			unsigned long base =
++				obj->mm.region->iomap.base - obj->mm.region->region.start;
++
++			return ((base + sg_dma_address(sg)) >> PAGE_SHIFT) + page_offset;
++		}
++
++		page_offset -= sg_max;
++	}
++	GEM_BUG_ON(1);
++	return 0;
++}
++
+ struct ttm_device_funcs i915_ttm_bo_driver = {
+ 	.ttm_tt_create = i915_ttm_tt_create,
+ 	.ttm_tt_unpopulate = i915_ttm_tt_unpopulate,
+@@ -355,6 +394,8 @@ struct ttm_device_funcs i915_ttm_bo_driver = {
+ 	.verify_access = NULL,
+ 	.swap_notify = i915_ttm_swap_notify,
+ 	.delete_mem_notify = i915_ttm_delete_mem_notify,
++	.io_mem_reserve = i915_ttm_io_mem_reserve,
++	.io_mem_pfn = i915_ttm_io_mem_pfn,
+ };
+ 
+ static int i915_ttm_get_pages(struct drm_i915_gem_object *obj)
+@@ -454,7 +495,68 @@ static void i915_ttm_delayed_free(struct drm_i915_gem_object *obj)
+ 	ttm_bo_put(i915_gem_to_ttm(obj));
+ }
+ 
+-static const struct drm_i915_gem_object_ops i915_gem_ttm_obj_ops = {
++static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
++{
++	struct vm_area_struct *area = vmf->vma;
++	struct i915_mmap_offset *mmo = area->vm_private_data;
++	struct drm_i915_gem_object *obj = mmo->obj;
++	vm_fault_t ret;
++
++	/* Sanity check that we allow writing into this object */
++	if (unlikely(i915_gem_object_is_readonly(obj) &&
++		     area->vm_flags & VM_WRITE))
++		return VM_FAULT_SIGBUS;
++
++	ret = ttm_bo_vm_reserve(i915_gem_to_ttm(obj), vmf);
++	if (ret)
++		return ret;
++
++	ret = ttm_bo_vm_fault_reserved(i915_gem_to_ttm(obj), vmf,
++				       drm_vma_node_start(&mmo->vma_node),
++				       vmf->vma->vm_page_prot,
++				       TTM_BO_VM_NUM_PREFAULT, 1);
++	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
++		return ret;
++
++	dma_resv_unlock(obj->base.resv);
++
++	return ret;
++}
++
++static int
++vm_access_ttm(struct vm_area_struct *area, unsigned long addr,
++	  void *buf, int len, int write)
++{
++	struct i915_mmap_offset *mmo = area->vm_private_data;
++	struct drm_i915_gem_object *obj = mmo->obj;
++	int err = 0;
++
++	if (i915_gem_object_is_readonly(obj) && write)
++		return -EACCES;
++
++	addr -= area->vm_start;
++	if (addr >= obj->base.size)
++		return -EINVAL;
++
++	err = i915_gem_object_lock_interruptible(obj, NULL);
++	if (err)
++		return err;
++
++	len = ttm_bo_vm_access_reserved(i915_gem_to_ttm(obj), area,
++					addr, buf, len, write);
++	i915_gem_object_unlock(obj);
++
++	return len;
++}
++
++static const struct vm_operations_struct vm_ops_ttm = {
++	.fault = vm_fault_ttm,
++	.access = vm_access_ttm,
++	.open = i915_gem_mmap_vm_open,
++	.close = i915_gem_mmap_vm_close,
++};
++
++const struct drm_i915_gem_object_ops i915_gem_ttm_obj_ops = {
+ 	.name = "i915_gem_object_ttm",
+ 	.flags = I915_GEM_OBJECT_HAS_IOMEM,
+ 
+@@ -463,6 +565,7 @@ static const struct drm_i915_gem_object_ops i915_gem_ttm_obj_ops = {
+ 	.truncate = i915_ttm_purge,
+ 	.adjust_lru = i915_ttm_adjust_lru,
+ 	.delayed_free = i915_ttm_delayed_free,
++	.mmap_ops = &vm_ops_ttm,
+ };
+ 
+ void i915_ttm_bo_destroy(struct ttm_buffer_object *bo)
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
