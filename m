@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BF13C43460
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 14:54:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D90D1C43461
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 14:54:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41A3661040
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 14:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41A3661040
+	by mail.kernel.org (Postfix) with ESMTPS id A22D961040
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 14:54:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A22D961040
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C8A76EDEB;
-	Wed, 19 May 2021 14:53:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D42796EDED;
+	Wed, 19 May 2021 14:54:04 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03CFE6EDE6;
- Wed, 19 May 2021 14:53:57 +0000 (UTC)
-IronPort-SDR: PcMUoR1W7Njq+KEWNPTQuwp/lo82mSJT0GRVxLmlfG7BeZ+qm6a00iPXdVnMnO2gwvOQ8eSzks
- VmQ3C0VDDkEw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="188401196"
-X-IronPort-AV: E=Sophos;i="5.82,313,1613462400"; d="scan'208";a="188401196"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF0F76EDEC;
+ Wed, 19 May 2021 14:54:02 +0000 (UTC)
+IronPort-SDR: TEJHpRyPcQStQJ5+hbh7S8CT3I5dFKV7r5lP88fMxKwKyS+zGYXszz2NRp1RKt6sMlmi/niHW7
+ LHxZsjA/NPCg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="188401211"
+X-IronPort-AV: E=Sophos;i="5.82,313,1613462400"; d="scan'208";a="188401211"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2021 07:53:57 -0700
-IronPort-SDR: FKdabz+9KQvI6NzhIzKcYFKbgrnimwtEVmQ6FI2GGSn5QhJSnqZSvklsKXHaK/88T2NR3mTSVY
- jM0MWF6nwC1g==
-X-IronPort-AV: E=Sophos;i="5.82,313,1613462400"; d="scan'208";a="473527427"
+ 19 May 2021 07:54:02 -0700
+IronPort-SDR: 3XVy/oTK44SNmw0L6Mo+DEEQiJClTW7PFDnaYsoLe8pPOyuLXaUQkbBpwN9czRYxbBcPo8GfkF
+ VAylGDgkMJJw==
+X-IronPort-AV: E=Sophos;i="5.82,313,1613462400"; d="scan'208";a="473527449"
 Received: from ajwalton-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.22.65])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2021 07:53:55 -0700
+ 19 May 2021 07:54:00 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Wed, 19 May 2021 15:53:32 +0100
-Message-Id: <20210519145337.255167-5-matthew.auld@intel.com>
+Date: Wed, 19 May 2021 15:53:34 +0100
+Message-Id: <20210519145337.255167-7-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210519145337.255167-1-matthew.auld@intel.com>
 References: <20210519145337.255167-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 4/9] tests/gem_gpgpu_fill: Convert from
- simple to standard igt_main
+Subject: [Intel-gfx] [PATCH i-g-t 6/9] tests/i915/gem_gpgpu_fill: Use memory
+ region interface
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,42 +61,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: thomas.hellstrom@linux.intel.com,
  Dominik Grzegorzek <dominik.grzegorzek@intel.com>,
- intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Zbigniew=20Kempczy=C5=84ski?= <zbigniew.kempczynski@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ intel-gfx@lists.freedesktop.org, Andrzej Turko <andrzej.turko@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogRG9taW5payBHcnplZ29yemVrIDxkb21pbmlrLmdyemVnb3J6ZWtAaW50ZWwuY29tPgoK
-QXMgd2UgbmVlZCB0byBhZGQgbmV3IHRlc3QgdmFyaWFudHMsIGNvbnZlcnQgdGhlIGNvZGUgdG8g
-c3RhbmRhcmQKaWd0X21haW4gZm9ybWF0IHNvIHRob3NlIHZhcmlhbnRzIGNhbiBiZSBlYXNpbHkg
-YWNjb21tb2RhdGVkLgoKU2lnbmVkLW9mZi1ieTogSmFudXN6IEtyenlzenRvZmlrIDxqYW51c3ou
-a3J6eXN6dG9maWtAbGludXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBaYmlnbmlldyBLZW1w
-Y3p5xYRza2kgPHpiaWduaWV3LmtlbXBjenluc2tpQGxpbnV4LmludGVsLmNvbT4KU2lnbmVkLW9m
-Zi1ieTogTWF0dGhldyBBdWxkIDxtYXR0aGV3LmF1bGRAaW50ZWwuY29tPgotLS0KIHRlc3RzL2k5
-MTUvZ2VtX2dwZ3B1X2ZpbGwuYyB8IDI1ICsrKysrKysrKysrKysrKystLS0tLS0tLS0KIDEgZmls
-ZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L3Rlc3RzL2k5MTUvZ2VtX2dwZ3B1X2ZpbGwuYyBiL3Rlc3RzL2k5MTUvZ2VtX2dwZ3B1X2ZpbGwu
-YwppbmRleCBjNjA1NjI5Zi4uNWIxMWZiMzUgMTAwNjQ0Ci0tLSBhL3Rlc3RzL2k5MTUvZ2VtX2dw
-Z3B1X2ZpbGwuYworKysgYi90ZXN0cy9pOTE1L2dlbV9ncGdwdV9maWxsLmMKQEAgLTEyMywyMCAr
-MTIzLDI3IEBAIHN0YXRpYyB2b2lkIGdwZ3B1X2ZpbGwoZGF0YV90ICpkYXRhLCBpZ3RfZmlsbGZ1
-bmNfdCBmaWxsKQogCiAJbXVubWFwKHB0ciwgYnVmLT5zdXJmYWNlWzBdLnNpemUpOwogfQotCi1p
-Z3Rfc2ltcGxlX21haW4KK2lndF9tYWluCiB7CiAJZGF0YV90IGRhdGEgPSB7MCwgfTsKIAlpZ3Rf
-ZmlsbGZ1bmNfdCBmaWxsX2ZuID0gTlVMTDsKIAotCWRhdGEuZHJtX2ZkID0gZHJtX29wZW5fZHJp
-dmVyX3JlbmRlcihEUklWRVJfSU5URUwpOwotCWRhdGEuZGV2aWQgPSBpbnRlbF9nZXRfZHJtX2Rl
-dmlkKGRhdGEuZHJtX2ZkKTsKLQlpZ3RfcmVxdWlyZV9nZW0oZGF0YS5kcm1fZmQpOwotCWRhdGEu
-Ym9wcyA9IGJ1Zl9vcHNfY3JlYXRlKGRhdGEuZHJtX2ZkKTsKKwlpZ3RfZml4dHVyZSB7CisJCWRh
-dGEuZHJtX2ZkID0gZHJtX29wZW5fZHJpdmVyX3JlbmRlcihEUklWRVJfSU5URUwpOworCQlkYXRh
-LmRldmlkID0gaW50ZWxfZ2V0X2RybV9kZXZpZChkYXRhLmRybV9mZCk7CisJCWlndF9yZXF1aXJl
-X2dlbShkYXRhLmRybV9mZCk7CisJCWRhdGEuYm9wcyA9IGJ1Zl9vcHNfY3JlYXRlKGRhdGEuZHJt
-X2ZkKTsKKworCQlmaWxsX2ZuID0gaWd0X2dldF9ncGdwdV9maWxsZnVuYyhkYXRhLmRldmlkKTsK
-KworCQlpZ3RfcmVxdWlyZV9mKGZpbGxfZm4sICJubyBncGdwdS1maWxsIGZ1bmN0aW9uXG4iKTsK
-IAotCWZpbGxfZm4gPSBpZ3RfZ2V0X2dwZ3B1X2ZpbGxmdW5jKGRhdGEuZGV2aWQpOworCX0KIAot
-CWlndF9yZXF1aXJlX2YoZmlsbF9mbiwgIm5vIGdwZ3B1LWZpbGwgZnVuY3Rpb25cbiIpOworCWln
-dF9zdWJ0ZXN0KCJiYXNpYyIpCisJCWdwZ3B1X2ZpbGwoJmRhdGEsIGZpbGxfZm4pOwogCi0JZ3Bn
-cHVfZmlsbCgmZGF0YSwgZmlsbF9mbik7CisJaWd0X2ZpeHR1cmUgeworCQlidWZfb3BzX2Rlc3Ry
-b3koZGF0YS5ib3BzKTsKKwl9CiB9Ci0tIAoyLjI2LjMKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+From: Andrzej Turko <andrzej.turko@linux.intel.com>
+
+Converted the test gem_gpgpu_fill to use memory region uapi.
+
+Signed-off-by: Andrzej Turko <andrzej.turko@linux.intel.com>
+Cc: Zbigniew Kempczynski <zbigniew.kempczynski@intel.com>
+Cc: Dominik Grzegorzek <dominik.grzegorzek@intel.com>
+Cc: Petri Latvala <petri.latvala@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+---
+ tests/i915/gem_gpgpu_fill.c | 42 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 34 insertions(+), 8 deletions(-)
+
+diff --git a/tests/i915/gem_gpgpu_fill.c b/tests/i915/gem_gpgpu_fill.c
+index 5b11fb35..1fcd42e2 100644
+--- a/tests/i915/gem_gpgpu_fill.c
++++ b/tests/i915/gem_gpgpu_fill.c
+@@ -45,13 +45,14 @@
+ #include "drm.h"
+ #include "i915/gem.h"
+ #include "igt.h"
++#include "igt_collection.h"
+ #include "intel_bufops.h"
++#include "i915/intel_memory_region.h"
+ 
+ #define WIDTH 64
+ #define HEIGHT 64
+ #define STRIDE (WIDTH)
+ #define SIZE (HEIGHT*STRIDE)
+-
+ #define COLOR_C4	0xc4
+ #define COLOR_4C	0x4c
+ 
+@@ -62,10 +63,11 @@ typedef struct {
+ } data_t;
+ 
+ static struct intel_buf *
+-create_buf(data_t *data, int width, int height, uint8_t color)
++create_buf(data_t *data, int width, int height, uint8_t color, uint32_t region)
+ {
+ 	struct intel_buf *buf;
+ 	uint8_t *ptr;
++	uint32_t handle;
+ 	int i;
+ 
+ 	buf = calloc(1, sizeof(*buf));
+@@ -75,8 +77,10 @@ create_buf(data_t *data, int width, int height, uint8_t color)
+ 	 * Legacy code uses 32 bpp after buffer creation.
+ 	 * Let's do the same due to keep shader intact.
+ 	 */
+-	intel_buf_init(data->bops, buf, width/4, height, 32, 0,
+-		       I915_TILING_NONE, 0);
++	handle = gem_create_in_memory_regions(data->drm_fd, SIZE, region);
++	intel_buf_init_using_handle(data->bops, handle, buf,
++				    width/4, height, 32, 0,
++				    I915_TILING_NONE, 0);
+ 
+ 	ptr = gem_mmap__cpu_coherent(data->drm_fd, buf->handle, 0,
+ 				     buf->surface[0].size, PROT_WRITE);
+@@ -99,15 +103,16 @@ static void buf_check(uint8_t *ptr, int x, int y, uint8_t color)
+ 		     color, val, x, y);
+ }
+ 
+-static void gpgpu_fill(data_t *data, igt_fillfunc_t fill)
++static void gpgpu_fill(data_t *data, igt_fillfunc_t fill, uint32_t region)
+ {
+ 	struct intel_buf *buf;
+ 	uint8_t *ptr;
+ 	int i, j;
+ 
+-	buf = create_buf(data, WIDTH, HEIGHT, COLOR_C4);
++	buf = create_buf(data, WIDTH, HEIGHT, COLOR_C4, region);
+ 	ptr = gem_mmap__device_coherent(data->drm_fd, buf->handle, 0,
+ 					buf->surface[0].size, PROT_READ);
++
+ 	for (i = 0; i < WIDTH; i++)
+ 		for (j = 0; j < HEIGHT; j++)
+ 			buf_check(ptr, i, j, COLOR_C4);
+@@ -123,10 +128,13 @@ static void gpgpu_fill(data_t *data, igt_fillfunc_t fill)
+ 
+ 	munmap(ptr, buf->surface[0].size);
+ }
++
+ igt_main
+ {
+ 	data_t data = {0, };
+ 	igt_fillfunc_t fill_fn = NULL;
++	struct drm_i915_query_memory_regions *region_info;
++	struct igt_collection *region_set;
+ 
+ 	igt_fixture {
+ 		data.drm_fd = drm_open_driver_render(DRIVER_INTEL);
+@@ -138,12 +146,30 @@ igt_main
+ 
+ 		igt_require_f(fill_fn, "no gpgpu-fill function\n");
+ 
++		region_info = gem_get_query_memory_regions(data.drm_fd);
++		igt_assert(region_info);
++
++		region_set = get_memory_region_set(region_info,
++						   I915_SYSTEM_MEMORY);
+ 	}
+ 
+-	igt_subtest("basic")
+-		gpgpu_fill(&data, fill_fn);
++	igt_subtest_with_dynamic("basic") {
++		struct igt_collection *region;
++
++		for_each_combination(region, 1, region_set) {
++			char *name = memregion_dynamic_subtest_name(region);
++			uint32_t id = igt_collection_get_value(region, 0);
++
++			igt_dynamic(name)
++				gpgpu_fill(&data, fill_fn, id);
++
++			free(name);
++		}
++	}
+ 
+ 	igt_fixture {
++		igt_collection_destroy(region_set);
++		free(region_info);
+ 		buf_ops_destroy(data.bops);
+ 	}
+ }
+-- 
+2.26.3
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
