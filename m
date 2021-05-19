@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65FABC433ED
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0E0AC433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1EB4061006
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1EB4061006
+	by mail.kernel.org (Postfix) with ESMTPS id 7B9FE61360
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B9FE61360
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EA4E6E14B;
-	Wed, 19 May 2021 00:07:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67BF56E131;
+	Wed, 19 May 2021 00:06:59 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CEBD6E134
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 189766E14D
  for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 00:06:55 +0000 (UTC)
-IronPort-SDR: d0If0qxsEpD5VmV/Ekh7CXLJ7gNAj6VEFKZb10zklo6E4XYnu5z3Q1DGUbkmep+mONwidZMw3p
- TqehpE3liKEw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="264768418"
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="264768418"
+IronPort-SDR: 11zpMC9K1E0+4RFwRwQqAtpLrFD/dwfnDfJ5OFQxpjJvinDh+zCSyG8NwN5ZShvhAxr9gnM7wh
+ rVFn21e6OOjg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="264768414"
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="264768414"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 May 2021 17:06:52 -0700
-IronPort-SDR: FPHT3bOrd4TNRT9seNNkg66UlOBHzaJxVLqTdOGVJYXBfw7tENS+nXgvLNWZJk51EL+ogKCVet
- upZV53pZKuYg==
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="473214792"
+IronPort-SDR: piiDszH1EyEUZxyWEWRuxih8XvoWebzC+fx1gusA6Cn3iyQOPkhlnIYyEFmEXfUZ60IsMRCQOt
+ 9T61U9GMm4LQ==
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="473214783"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 May 2021 17:06:51 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 May 2021 17:06:25 -0700
-Message-Id: <20210519000625.3184321-18-lucas.demarchi@intel.com>
+Date: Tue, 18 May 2021 17:06:21 -0700
+Message-Id: <20210519000625.3184321-14-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210519000625.3184321-1-lucas.demarchi@intel.com>
 References: <20210519000625.3184321-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 17/17] drm/i915/adl_p: Update memory bandwidth
- parameters
+Subject: [Intel-gfx] [CI 13/17] drm/i915/adl_p: Define and use ADL-P
+ specific DP translation tables
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,32 +58,148 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3JpdmF0c2FAaW50ZWwuY29tPgoKQURMX1Ag
-aGFzIHNhbWUgbWVtb3J5IGNoYXJhY3RlcmlzdGljcyBhcyBBRExfUyBwbGF0Zm9ybS4KCkJzcGVj
-OiA2NDYzMQoKQ2M6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29t
-PgpDYzogQ2xpbnQgVGF5bG9yIDxjbGludG9uLmEudGF5bG9yQGludGVsLmNvbT4KU2lnbmVkLW9m
-Zi1ieTogQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3JpdmF0c2FAaW50ZWwuY29tPgpTaWduZWQt
-b2ZmLWJ5OiBDbGludG9uIFRheWxvciA8Q2xpbnRvbi5BLlRheWxvckBpbnRlbC5jb20+ClNpZ25l
-ZC1vZmYtYnk6IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5yb3BlckBpbnRlbC5jb20+ClJldmlld2Vk
-LWJ5OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4KU2lnbmVk
-LW9mZi1ieTogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5kZW1hcmNoaUBpbnRlbC5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9idy5jIHwgMiArLQogMSBmaWxlIGNo
-YW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9idy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9idy5jCmluZGV4IGEzNTQzNTA4M2I2MC4uM2ExYmE1MjI2NmE3IDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2J3LmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9idy5jCkBAIC0yNjcsNyArMjY3LDcgQEAg
-dm9pZCBpbnRlbF9id19pbml0X2h3KHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdikK
-IAlpZiAoIUhBU19ESVNQTEFZKGRldl9wcml2KSkKIAkJcmV0dXJuOwogCi0JaWYgKElTX0FMREVS
-TEFLRV9TKGRldl9wcml2KSkKKwlpZiAoSVNfQUxERVJMQUtFX1MoZGV2X3ByaXYpIHx8IElTX0FM
-REVSTEFLRV9QKGRldl9wcml2KSkKIAkJaWNsX2dldF9id19pbmZvKGRldl9wcml2LCAmYWRsc19z
-YV9pbmZvKTsKIAllbHNlIGlmIChJU19ST0NLRVRMQUtFKGRldl9wcml2KSkKIAkJaWNsX2dldF9i
-d19pbmZvKGRldl9wcml2LCAmcmtsX3NhX2luZm8pOwotLSAKMi4zMS4xCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0
-CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+From: Mika Kahola <mika.kahola@intel.com>
+
+Define and use DP voltage swing and pre-emphasis translation tables
+for ADL-P.
+
+v2:
+ - Update according to recent bspec updates; there are now separate
+   tables for RBR/HBR and HBR2/HBR3.  (Anusha)
+
+BSpec: 54956
+Cc: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Clint Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  7 ++-
+ .../drm/i915/display/intel_ddi_buf_trans.c    | 53 +++++++++++++++++++
+ .../drm/i915/display/intel_ddi_buf_trans.h    |  4 ++
+ 3 files changed, 63 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 38a4f251b9c9..e0adb14ecd0d 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -985,6 +985,8 @@ static u8 intel_ddi_dp_voltage_max(struct intel_dp *intel_dp,
+ 	if (DISPLAY_VER(dev_priv) >= 12) {
+ 		if (intel_phy_is_combo(dev_priv, phy))
+ 			tgl_get_combo_buf_trans(encoder, crtc_state, &n_entries);
++		else if (IS_ALDERLAKE_P(dev_priv))
++			adlp_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
+ 		else
+ 			tgl_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
+ 	} else if (DISPLAY_VER(dev_priv) == 11) {
+@@ -1431,7 +1433,10 @@ tgl_dkl_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
+ 	if (enc_to_dig_port(encoder)->tc_mode == TC_PORT_TBT_ALT)
+ 		return;
+ 
+-	ddi_translations = tgl_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
++	if (IS_ALDERLAKE_P(dev_priv))
++		ddi_translations = adlp_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
++	else
++		ddi_translations = tgl_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
+ 
+ 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !ddi_translations))
+ 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
+index 7bcdd5c12028..ce5d5d13b7c1 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
+@@ -735,6 +735,34 @@ static const struct cnl_ddi_buf_trans rkl_combo_phy_ddi_translations_dp_hbr2_hbr
+ 	{ 0x6, 0x7F, 0x3F, 0x00, 0x00 },	/* 900   900      0.0   */
+ };
+ 
++static const struct tgl_dkl_phy_ddi_buf_trans adlp_dkl_phy_dp_ddi_trans_hbr[] = {
++				/* VS	pre-emp	Non-trans mV	Pre-emph dB */
++	{ 0x7, 0x0, 0x01 },	/* 0	0	400mV		0 dB */
++	{ 0x5, 0x0, 0x06 },	/* 0	1	400mV		3.5 dB */
++	{ 0x2, 0x0, 0x0B },	/* 0	2	400mV		6 dB */
++	{ 0x0, 0x0, 0x17 },	/* 0	3	400mV		9.5 dB */
++	{ 0x5, 0x0, 0x00 },	/* 1	0	600mV		0 dB */
++	{ 0x2, 0x0, 0x08 },	/* 1	1	600mV		3.5 dB */
++	{ 0x0, 0x0, 0x14 },	/* 1	2	600mV		6 dB */
++	{ 0x2, 0x0, 0x00 },	/* 2	0	800mV		0 dB */
++	{ 0x0, 0x0, 0x0B },	/* 2	1	800mV		3.5 dB */
++	{ 0x0, 0x0, 0x00 },	/* 3	0	1200mV		0 dB */
++};
++
++static const struct tgl_dkl_phy_ddi_buf_trans adlp_dkl_phy_dp_ddi_trans_hbr2_hbr3[] = {
++				/* VS	pre-emp	Non-trans mV	Pre-emph dB */
++	{ 0x7, 0x0, 0x00 },	/* 0	0	400mV		0 dB */
++	{ 0x5, 0x0, 0x04 },	/* 0	1	400mV		3.5 dB */
++	{ 0x2, 0x0, 0x0A },	/* 0	2	400mV		6 dB */
++	{ 0x0, 0x0, 0x18 },	/* 0	3	400mV		9.5 dB */
++	{ 0x5, 0x0, 0x00 },	/* 1	0	600mV		0 dB */
++	{ 0x2, 0x0, 0x06 },	/* 1	1	600mV		3.5 dB */
++	{ 0x0, 0x0, 0x14 },	/* 1	2	600mV		6 dB */
++	{ 0x2, 0x0, 0x00 },	/* 2	0	800mV		0 dB */
++	{ 0x0, 0x0, 0x09 },	/* 2	1	800mV		3.5 dB */
++	{ 0x0, 0x0, 0x00 },	/* 3	0	1200mV		0 dB */
++};
++
+ bool is_hobl_buf_trans(const struct cnl_ddi_buf_trans *table)
+ {
+ 	return table == tgl_combo_phy_ddi_translations_edp_hbr2_hobl;
+@@ -1348,6 +1376,31 @@ tgl_get_dkl_buf_trans(struct intel_encoder *encoder,
+ 		return tgl_get_dkl_buf_trans_dp(encoder, crtc_state, n_entries);
+ }
+ 
++static const struct tgl_dkl_phy_ddi_buf_trans *
++adlp_get_dkl_buf_trans_dp(struct intel_encoder *encoder,
++			  const struct intel_crtc_state *crtc_state,
++			  int *n_entries)
++{
++	if (crtc_state->port_clock > 270000) {
++		*n_entries = ARRAY_SIZE(adlp_dkl_phy_dp_ddi_trans_hbr2_hbr3);
++		return adlp_dkl_phy_dp_ddi_trans_hbr;
++	}
++
++	*n_entries = ARRAY_SIZE(adlp_dkl_phy_dp_ddi_trans_hbr);
++	return adlp_dkl_phy_dp_ddi_trans_hbr;
++}
++
++const struct tgl_dkl_phy_ddi_buf_trans *
++adlp_get_dkl_buf_trans(struct intel_encoder *encoder,
++		       const struct intel_crtc_state *crtc_state,
++		       int *n_entries)
++{
++	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
++		return tgl_get_dkl_buf_trans_hdmi(encoder, crtc_state, n_entries);
++	else
++		return adlp_get_dkl_buf_trans_dp(encoder, crtc_state, n_entries);
++}
++
+ int intel_ddi_hdmi_num_entries(struct intel_encoder *encoder,
+ 			       const struct intel_crtc_state *crtc_state,
+ 			       int *default_entry)
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
+index f8f0ef87e977..4c2efab38642 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
++++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
+@@ -67,6 +67,10 @@ bxt_get_buf_trans(struct intel_encoder *encoder,
+ 		  const struct intel_crtc_state *crtc_state,
+ 		  int *n_entries);
+ 
++const struct tgl_dkl_phy_ddi_buf_trans *
++adlp_get_dkl_buf_trans(struct intel_encoder *encoder,
++		       const struct intel_crtc_state *crtc_state,
++		       int *n_entries);
+ const struct cnl_ddi_buf_trans *
+ tgl_get_combo_buf_trans(struct intel_encoder *encoder,
+ 			const struct intel_crtc_state *crtc_state,
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
