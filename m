@@ -2,49 +2,49 @@ Return-Path: <SRS0=AXNP=KO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 444E9C433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10B0FC43461
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD8FD60FF3
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD8FD60FF3
+	by mail.kernel.org (Postfix) with ESMTPS id CDCA860FF3
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDCA860FF3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD22C6E141;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DEB96E117;
 	Wed, 19 May 2021 00:06:59 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D71F6E14F
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 00:06:55 +0000 (UTC)
-IronPort-SDR: EG6rDoCkVNuI1fvi59eYZsfpY9/0fTXt63/PbTvAPId2MWhWfoKFdKZiZgrgE5l96DQs6FX9V6
- HoT3vFBcu2Uw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="264768417"
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="264768417"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 973B56E131
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 00:06:54 +0000 (UTC)
+IronPort-SDR: 5K8Jz0BPT4QL0SnaUMj2TsCogS/ll/10T7Dufe5dE2FamAdVTH+HZHZn9O9CGtEm+Ra/n64hzq
+ qUTmnRTBY+hQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="264768411"
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="264768411"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 17:06:52 -0700
-IronPort-SDR: gs3rJnZbD6Ms1wS4Hd0hDYcpSi7Vvy+Gc1i1gYG2u7TztJn8AKK8xEOZoJOZ7trE03ov8S5Ep7
- 1nP3hhwfW0Qw==
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="473214790"
+ 18 May 2021 17:06:51 -0700
+IronPort-SDR: HOYCt2BuBxExyvCiXHuYmR1YsQgayDK400z5a9xGIeLYInOGVEKwt9FNX2FnGtGLpOk3gmj754
+ 7z4FaliN8MJA==
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="473214773"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 May 2021 17:06:51 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 May 2021 17:06:24 -0700
-Message-Id: <20210519000625.3184321-17-lucas.demarchi@intel.com>
+Date: Tue, 18 May 2021 17:06:18 -0700
+Message-Id: <20210519000625.3184321-11-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210519000625.3184321-1-lucas.demarchi@intel.com>
 References: <20210519000625.3184321-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 16/17] drm/i915/adlp: Add PIPE_MISC2 programming
+Subject: [Intel-gfx] [CI 10/17] drm/i915/adl_p: Tx escape clock with DSI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,63 +57,121 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3JpdmF0c2FAaW50ZWwuY29tPgoKV2hlbiBz
-Y2FsZXJzIGFyZSBlbmFibGVkLCB3ZSBuZWVkIHRvIHByb2dyYW0gdW5kZXJydW4KYnViYmxlIGNv
-dW50ZXIgdG8gMHg1MCB0byBhdm9pZCBTb2Z0IFBpcGUgQSB1bmRlcnJ1bnMuCk1ha2Ugc3VyZSBv
-dGhlciBiaXRzIGRvbnQgZ2V0IG92ZXJ3cml0dGVuLgoKQ2M6IE1hdHQgUm9wZXIgPG1hdHRoZXcu
-ZC5yb3BlckBpbnRlbC5jb20+CkNjOiBDbGludCBUYXlsb3IgPGNsaW50b24uYS50YXlsb3JAaW50
-ZWwuY29tPgpDYzogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+
-ClNpZ25lZC1vZmYtYnk6IEFudXNoYSBTcml2YXRzYSA8YW51c2hhLnNyaXZhdHNhQGludGVsLmNv
-bT4KU2lnbmVkLW9mZi1ieTogQ2xpbnRvbiBUYXlsb3IgPENsaW50b24uQS5UYXlsb3JAaW50ZWwu
-Y29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwuY29t
-PgpSZXZpZXdlZC1ieTogQ2xpbnQgVGF5bG9yIDxDbGludG9uLkEuVGF5bG9yQGludGVsLmNvbT4K
-U2lnbmVkLW9mZi1ieTogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5kZW1hcmNoaUBpbnRlbC5jb20+
-Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMgfCAyMSAr
-KysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaCAgICAg
-ICAgICAgICAgfCAgNyArKysrKysrCiAyIGZpbGVzIGNoYW5nZWQsIDI4IGluc2VydGlvbnMoKykK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXku
-YyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCmluZGV4IGFk
-YzAwMTM1MWFkMy4uODdhMzE1OGMwNDJhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
-bGF5L2ludGVsX2Rpc3BsYXkuYwpAQCAtNTcxNiw4ICs1NzE2LDEyIEBAIHN0YXRpYyB2b2lkIGhz
-d19zZXRfcGlwZWNvbmYoY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUp
-CiBzdGF0aWMgdm9pZCBiZHdfc2V0X3BpcGVtaXNjKGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0
-YXRlICpjcnRjX3N0YXRlKQogewogCXN0cnVjdCBpbnRlbF9jcnRjICpjcnRjID0gdG9faW50ZWxf
-Y3J0YyhjcnRjX3N0YXRlLT51YXBpLmNydGMpOworCWNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3Nj
-YWxlcl9zdGF0ZSAqc2NhbGVyX3N0YXRlID0KKwkJJmNydGNfc3RhdGUtPnNjYWxlcl9zdGF0ZTsK
-KwogCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiA9IHRvX2k5MTUoY3J0Yy0+YmFz
-ZS5kZXYpOwogCXUzMiB2YWwgPSAwOworCWludCBpOwogCiAJc3dpdGNoIChjcnRjX3N0YXRlLT5w
-aXBlX2JwcCkgewogCWNhc2UgMTg6CkBAIC01NzU2LDYgKzU3NjAsMjMgQEAgc3RhdGljIHZvaWQg
-YmR3X3NldF9waXBlbWlzYyhjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0
-ZSkKIAlpZiAoRElTUExBWV9WRVIoZGV2X3ByaXYpID49IDEyKQogCQl2YWwgfD0gUElQRU1JU0Nf
-UElYRUxfUk9VTkRJTkdfVFJVTkM7CiAKKwlpZiAoSVNfQUxERVJMQUtFX1AoZGV2X3ByaXYpKSB7
-CisJCWJvb2wgc2NhbGVyX2luX3VzZSA9IGZhbHNlOworCisJCWZvciAoaSA9IDA7IGkgPCBjcnRj
-LT5udW1fc2NhbGVyczsgaSsrKSB7CisJCQlpZiAoIXNjYWxlcl9zdGF0ZS0+c2NhbGVyc1tpXS5p
-bl91c2UpCisJCQkJY29udGludWU7CisKKwkJCXNjYWxlcl9pbl91c2UgPSB0cnVlOworCQkJYnJl
-YWs7CisJCX0KKworCQlpbnRlbF9kZV9ybXcoZGV2X3ByaXYsIFBJUEVfTUlTQzIoY3J0Yy0+cGlw
-ZSksCisJCQkgICAgIFBJUEVfTUlTQzJfVU5ERVJSVU5fQlVCQkxFX0NPVU5URVJfTUFTSywKKwkJ
-CSAgICAgc2NhbGVyX2luX3VzZSA/IFBJUEVfTUlTQzJfQlVCQkxFX0NPVU5URVJfU0NBTEVSX0VO
-IDoKKwkJCSAgICAgUElQRV9NSVNDMl9CVUJCTEVfQ09VTlRFUl9TQ0FMRVJfRElTKTsKKwl9CisK
-IAlpbnRlbF9kZV93cml0ZShkZXZfcHJpdiwgUElQRU1JU0MoY3J0Yy0+cGlwZSksIHZhbCk7CiB9
-CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmggYi9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oCmluZGV4IDJlNGY0MjBhMGM5YS4uMWQ4OTJiMGYzMDY3
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmgKQEAgLTYxNjEsNiArNjE2MSwxMyBAQCBlbnVtIHsK
-ICNkZWZpbmUgICBQSVBFTUlTQ19ESVRIRVJfVFlQRV9TUAkoMCA8PCAyKQogI2RlZmluZSBQSVBF
-TUlTQyhwaXBlKQkJCV9NTUlPX1BJUEUyKHBpcGUsIF9QSVBFX01JU0NfQSkKIAorI2RlZmluZSBf
-UElQRV9NSVNDMl9BCQkJCQkweDcwMDJDCisjZGVmaW5lIF9QSVBFX01JU0MyX0IJCQkJCTB4NzEw
-MkMKKyNkZWZpbmUgICBQSVBFX01JU0MyX0JVQkJMRV9DT1VOVEVSX1NDQUxFUl9FTgkJKDB4NTAg
-PDwgMjQpCisjZGVmaW5lICAgUElQRV9NSVNDMl9CVUJCTEVfQ09VTlRFUl9TQ0FMRVJfRElTCQko
-MHgxNCA8PCAyNCkKKyNkZWZpbmUgICBQSVBFX01JU0MyX1VOREVSUlVOX0JVQkJMRV9DT1VOVEVS
-X01BU0sJKDB4ZmYgPDwgMjQpCisjZGVmaW5lIFBJUEVfTUlTQzIocGlwZSkJCQkJCV9NTUlPX1BJ
-UEUyKHBpcGUsIF9QSVBFX01JU0MyX0EpCisKIC8qIFNreWxha2UrIHBpcGUgYm90dG9tIChiYWNr
-Z3JvdW5kKSBjb2xvciAqLwogI2RlZmluZSBfU0tMX0JPVFRPTV9DT0xPUl9BCQkweDcwMDM0CiAj
-ZGVmaW5lICAgU0tMX0JPVFRPTV9DT0xPUl9HQU1NQV9FTkFCTEUJKDEgPDwgMzEpCi0tIAoyLjMx
-LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVs
-LWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+From: Mika Kahola <mika.kahola@intel.com>
+
+Today when the DSI controller is paired with the Combo-PHY it
+uses the high-speed (HS) Word clock for its low power (LP)
+transmit PPI communication to the DPHY. The interface signaling
+only changes state at an Escape clock frequency (i.e. its
+effectively running on a virtual Tx Escape clock that is controlled
+by counters w/in the controller), but all the interface flops are
+running off the HS clock.
+
+This has the following drawbacks:
+
+ * It is a deviation from the PPI spec which assumes signaling is
+   running on a physical Escape clock
+ * The PV timings are over constrained (HS timed to 312.5MHz vs.
+   an Escape clock of 20MHz max)
+
+This feature is proposing to change the LP Tx communication between
+the controller and the DPHY from a virtual Tx Escape clock to a physical
+clock.
+
+To do this we need to program two "M" divisors. One for the usual
+DSI_ESC_CLK_DIV and DPHY_ESC_CLK_DIV register and one for MIPIO_DWORD8.
+
+For DSI_ESC_CLK_DIV and DPHY_ESC_CLK_DIV registers the "M" is calculated
+as following
+
+Nt = ceil(f_link/160) (theoretical word clock)
+Nact = max[3, Nt + (Nt + 1)%2] (actual word clock)
+M = Nact * 8
+
+For MIPIO_DWORD8 register, the divisor "M" is calculated as following
+
+M = (Nact - 1)/2
+
+BSpec: 55171
+
+Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/display/icl_dsi.c | 21 +++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_reg.h        |  6 ++++++
+ 2 files changed, 25 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index ce544e20f35c..16812488c5dd 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -363,10 +363,19 @@ static void gen11_dsi_program_esc_clk_div(struct intel_encoder *encoder,
+ 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
+ 	enum port port;
+ 	int afe_clk_khz;
+-	u32 esc_clk_div_m;
++	int theo_word_clk, act_word_clk;
++	u32 esc_clk_div_m, esc_clk_div_m_phy;
+ 
+ 	afe_clk_khz = afe_clk(encoder, crtc_state);
+-	esc_clk_div_m = DIV_ROUND_UP(afe_clk_khz, DSI_MAX_ESC_CLK);
++
++	if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv)) {
++		theo_word_clk = DIV_ROUND_UP(afe_clk_khz, 8 * DSI_MAX_ESC_CLK);
++		act_word_clk = max(3, theo_word_clk + (theo_word_clk + 1) % 2);
++		esc_clk_div_m = act_word_clk * 8;
++		esc_clk_div_m_phy = (act_word_clk - 1) / 2;
++	} else {
++		esc_clk_div_m = DIV_ROUND_UP(afe_clk_khz, DSI_MAX_ESC_CLK);
++	}
+ 
+ 	for_each_dsi_port(port, intel_dsi->ports) {
+ 		intel_de_write(dev_priv, ICL_DSI_ESC_CLK_DIV(port),
+@@ -379,6 +388,14 @@ static void gen11_dsi_program_esc_clk_div(struct intel_encoder *encoder,
+ 			       esc_clk_div_m & ICL_ESC_CLK_DIV_MASK);
+ 		intel_de_posting_read(dev_priv, ICL_DPHY_ESC_CLK_DIV(port));
+ 	}
++
++	if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv)) {
++		for_each_dsi_port(port, intel_dsi->ports) {
++			intel_de_write(dev_priv, ADL_MIPIO_DW(port, 8),
++				       esc_clk_div_m_phy & TX_ESC_CLK_DIV_PHY);
++			intel_de_posting_read(dev_priv, ADL_MIPIO_DW(port, 8));
++		}
++	}
+ }
+ 
+ static void get_dsi_io_power_domains(struct drm_i915_private *dev_priv,
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 3e567ee6285e..242c3a3c116c 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -11325,6 +11325,12 @@ enum skl_power_gate {
+ #define  ICL_ESC_CLK_DIV_SHIFT			0
+ #define DSI_MAX_ESC_CLK			20000		/* in KHz */
+ 
++#define _ADL_MIPIO_REG			0x180
++#define ADL_MIPIO_DW(port, dw)		_MMIO(_ICL_COMBOPHY(port) + _ADL_MIPIO_REG + 4 * (dw))
++#define   TX_ESC_CLK_DIV_PHY_SEL	REGBIT(16)
++#define   TX_ESC_CLK_DIV_PHY_MASK	REG_GENMASK(23, 16)
++#define   TX_ESC_CLK_DIV_PHY		REG_FIELD_PREP(TX_ESC_CLK_DIV_PHY_MASK, 0x7f)
++
+ #define _DSI_CMD_FRMCTL_0		0x6b034
+ #define _DSI_CMD_FRMCTL_1		0x6b834
+ #define DSI_CMD_FRMCTL(port)		_MMIO_PORT(port,	\
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
