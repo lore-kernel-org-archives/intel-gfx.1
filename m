@@ -2,75 +2,81 @@ Return-Path: <SRS0=AXNP=KO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BB40C433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 19:01:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD4C6C433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 19:03:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 363DD6109F
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 19:01:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 363DD6109F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
+	by mail.kernel.org (Postfix) with ESMTPS id 88DF36108D
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 19:03:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88DF36108D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76A3E6EE5B;
-	Wed, 19 May 2021 19:01:12 +0000 (UTC)
-Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
- [IPv6:2607:f8b0:4864:20::c31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2F36EE5C
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 19:01:11 +0000 (UTC)
-Received: by mail-oo1-xc31.google.com with SMTP id
- s1-20020a4ac1010000b02901cfd9170ce2so3229995oop.12
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 12:01:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:date:message-id:in-reply-to:references:user-agent
- :subject:mime-version;
- bh=U5hrAgd6HR1r8bgElc1ZgpeRNU/+O9T+k5xQsxqUdl8=;
- b=pVLO3pO6yZG3uL6Ui0n3ZcMa3fCMZQdf+sX5n+AmjlauqBoP/W5UXIys3Nvz/A6kPp
- ZDTZhRt2h1nWsI4HV2f51cjolQIchSyZi6IX6k4MfTNLQ081Tcc3GNnrsgieowgEEEvv
- T3W5ZFKQBpPNwC1HqKW/QEX8QrkUJAtzu+zDcjfMR4F18zfobyY/1/El7wde6oIUFUD9
- XzRJ4NQHETlb6g0Q63he/X2+odfPziuaeP1r2gX1gHeyt9RenPHVC1vt8T19R3UL1nog
- /oXJJoGSXSkLySFLTa4pEwSWQ0ukcO8ZDPk+FLbzkFbnGG8hfJEThWi7gr986d9WlMgQ
- 9Fwg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 299206EE5F;
+	Wed, 19 May 2021 19:03:25 +0000 (UTC)
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27BF06E176;
+ Wed, 19 May 2021 18:59:58 +0000 (UTC)
+Received: by mail-pf1-x432.google.com with SMTP id f22so2186572pfn.0;
+ Wed, 19 May 2021 11:59:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=M073CmbM6OvFOLG+SWp0SNpXEbUxhFfHxxoda72NgXE=;
+ b=Ekc2ScXY1SHvF4H29yTRhgjiTSWV6Cyne34MQrajkIT3p2pu6mu773Qlyr0kpC2NNU
+ P+GJiyNV1K2vRtkjtAhIgI9VHVYmFkAxziAc3YITYD5dCFwhGNrQytvT7wWGVjrLLVt/
+ Z+eGZOsPbQoTabmseviirRgNiL7jb93KoBbw+F8LkLIJVv78TKzBCCrYFTn6M7Wbv/bo
+ 0UQmBpP3G5FMrLaiP4lB4mvY0KeluMFddI6VD1W8D7dp8q/8Zp42g/wrvlGw3mxI6q03
+ 5p/katWWYvUn05FJWNltsTeqIMenps29TVH4Onz8E4y1A5fSnj1TT7Ka2b9bvOBYDjcG
+ zYkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:date:message-id:in-reply-to
- :references:user-agent:subject:mime-version;
- bh=U5hrAgd6HR1r8bgElc1ZgpeRNU/+O9T+k5xQsxqUdl8=;
- b=ljbawco2zdsZp2OOJwYo7iLqmhHrogBimwkRRJ54VLxsmOKqcEhHtr+hopQZhS+07d
- 4qUZb3cqgrRUDQFeYsxi8WASQJz0UWeVrrAoqnhidh0jnAXpELeTUQRDjtXX2rh7xY9l
- OQKsYH96OjpH5cDpQpzhl1HIB00ptmwTPSDzT6GeYz5LpTnw5fP7/nLnGQ0QwUM2FYj9
- leddpvqNwLpkNeeScnjauhyXsrSREXVHyUD28r6GZYKUNyCmLLm+roASqULhw93Mijmu
- ijblEhuHnFfoCsABuhrEznD9QPovIP4MqiSytC1hTadC/ocNM7LwUcX0s00F/GdZUgDl
- F9yA==
-X-Gm-Message-State: AOAM531R1Ho+Va3XcUSP1HFlRS2Z1f5AhC6z6EpjboYwK93T9UqK7ubC
- ws3HIsoqfJAyUVOcmPfpGsvvBQ==
-X-Google-Smtp-Source: ABdhPJywTJWJWxEX86AdpMQPvXjaFJRCsnDVqfu6eb4R07oOiK8ZGS7C/FWFNbX07llhq8josA4UZg==
-X-Received: by 2002:a4a:c88f:: with SMTP id t15mr657518ooq.84.1621450870405;
- Wed, 19 May 2021 12:01:10 -0700 (PDT)
-Received: from [100.68.235.67] ([209.107.186.38])
- by smtp.gmail.com with ESMTPSA id c32sm111200otu.13.2021.05.19.12.01.08
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 19 May 2021 12:01:09 -0700 (PDT)
-From: Jason Ekstrand <jason@jlekstrand.net>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed, 19 May 2021 14:01:07 -0500
-Message-ID: <1798600adb0.2817.c6988b7ea6112e3e892765a0d4287e0c@jlekstrand.net>
-In-Reply-To: <CAKMK7uFAXBU6Ot8xJkrXBVppnWi058pEyMjNOAChtepgcCKsrw@mail.gmail.com>
-References: <20210519074323.665872-2-daniel.vetter@ffwll.ch>
- <20210519101523.688398-1-daniel.vetter@ffwll.ch>
- <CAOFGe968OKdHu9BL0hU6KWM3J5Fc6popg4GJ5kEDd-3bf4HjJw@mail.gmail.com>
- <CAKMK7uFAXBU6Ot8xJkrXBVppnWi058pEyMjNOAChtepgcCKsrw@mail.gmail.com>
-User-Agent: AquaMail/1.29.1-1808 (build: 102900007)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=M073CmbM6OvFOLG+SWp0SNpXEbUxhFfHxxoda72NgXE=;
+ b=bzdCx59vaTi1rDScBSr2fueSsHBTwbdarqxySqMLvuV0/I1hyrnoSdmhfLZCpKR7Jq
+ ccplnlIbbPfXo6F1nmkFpK42VyCTarC0GJN3Pm141cQRFQoQ9g+rAB8TPaHpljNZ39Ow
+ nPUoJ1lvR3GwpVFprg0Ai8N9Q3FMeKgCqISWcbeXUGxXoHGo1SwbqO2z/yP8+nXtNlEs
+ 2f0nJnwiUszsosl8g7SKThu3s3k74FkyLvmfhs7SD28OLvJy/OtchnZKnn2yeQV8Ybjl
+ gIQ4KXRNNm8eENaS+x8mfqn+c3ZzJPqfNcai25GLAsncWuLoACObQgn7h03myssDLl6S
+ RIxg==
+X-Gm-Message-State: AOAM531Gnh69q/XM2+1Rm/z6qagAHob2udoYk8WDVqt52sngufJpgS3s
+ YACC+YgwgCIMoJfa4LcWyOs=
+X-Google-Smtp-Source: ABdhPJyp0yRJO2tDNgGd4CfLo9HXihdjW7DvkJwzlUWA3fY93WK5PBHIJbH2WL1TmMBXCaStbeZwNQ==
+X-Received: by 2002:a65:48c2:: with SMTP id o2mr575344pgs.376.1621450797716;
+ Wed, 19 May 2021 11:59:57 -0700 (PDT)
+Received: from [10.230.29.202] ([192.19.223.252])
+ by smtp.gmail.com with ESMTPSA id 63sm140020pfz.26.2021.05.19.11.59.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 May 2021 11:59:57 -0700 (PDT)
+To: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
+ jgross@suse.com, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+References: <20210518064215.2856977-1-tientzu@chromium.org>
+ <20210518064215.2856977-12-tientzu@chromium.org>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Message-ID: <8c274da9-db90-cb42-c9b2-815ee0c6fca3@gmail.com>
+Date: Wed, 19 May 2021 11:59:50 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.10.2
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH] Revert "drm/i915: Propagate errors on
- awaiting already signaled fences"
+In-Reply-To: <20210518064215.2856977-12-tientzu@chromium.org>
+Content-Language: en-US
+X-Mailman-Approved-At: Wed, 19 May 2021 19:03:24 +0000
+Subject: Re: [Intel-gfx] [PATCH v7 11/15] dma-direct: Add a new wrapper
+ __dma_direct_free_pages()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,326 +89,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- stable <stable@vger.kernel.org>, Jason Ekstrand <jason.ekstrand@intel.com>,
- DRI Development <dri-devel@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0983603666=="
+Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
+ peterz@infradead.org, benh@kernel.crashing.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ grant.likely@arm.com, paulus@samba.org, mingo@kernel.org, jxgao@google.com,
+ sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
+ xypron.glpk@gmx.de, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
+ airlied@linux.ie, Robin Murphy <robin.murphy@arm.com>,
+ Nicolas Boichat <drinkcat@chromium.org>, bhelgaas@google.com,
+ Dan Williams <dan.j.williams@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ lkml <linux-kernel@vger.kernel.org>, tfiga@chromium.org,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, linuxppc-dev@lists.ozlabs.org,
+ bauerman@linux.ibm.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============0983603666==
-Content-Type: multipart/alternative; boundary="1798600c2d62f9a2817109ae8f"
-
-This is a multi-part message in MIME format.
---1798600c2d62f9a2817109ae8f
-Content-Type: text/plain; format=flowed; charset="us-ascii"
-Content-Transfer-Encoding: 8bit
-
-On May 19, 2021 12:16:15 Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-
-> On Wed, May 19, 2021 at 5:06 PM Jason Ekstrand <jason@jlekstrand.net> wrote:
->>
->> Once we no longer rely on error propagation, I think there's a lot we
->> can rip out.
->
-> I honestly did not find that much ... what did you uncover?
-
-When I was digging through this earlier today, I think I convinced myself 
-that the cmdparser is the only user of the entire fence error architecture. 
-I may have missed something, though.
-
---Jason
-
->
-> -Daniel
->
->>
->> --Jason
->>
->> On Wed, May 19, 2021 at 5:15 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
->>>
->>> From: Jason Ekstrand <jason@jlekstrand.net>
->>>
->>> This reverts commit 9e31c1fe45d555a948ff66f1f0e3fe1f83ca63f7.  Ever
->>> since that commit, we've been having issues where a hang in one client
->>> can propagate to another.  In particular, a hang in an app can propagate
->>> to the X server which causes the whole desktop to lock up.
->>>
->>> Error propagation along fences sound like a good idea, but as your bug
->>> shows, surprising consequences, since propagating errors across security
->>> boundaries is not a good thing.
->>>
->>> What we do have is track the hangs on the ctx, and report information to
->>> userspace using RESET_STATS. That's how arb_robustness works. Also, if my
->>> understanding is still correct, the EIO from execbuf is when your context
->>> is banned (because not recoverable or too many hangs). And in all these
->>> cases it's up to userspace to figure out what is all impacted and should
->>> be reported to the application, that's not on the kernel to guess and
->>> automatically propagate.
->>>
->>> What's more, we're also building more features on top of ctx error
->>> reporting with RESET_STATS ioctl: Encrypted buffers use the same, and the
->>> userspace fence wait also relies on that mechanism. So it is the path
->>> going forward for reporting gpu hangs and resets to userspace.
->>>
->>> So all together that's why I think we should just bury this idea again as
->>> not quite the direction we want to go to, hence why I think the revert is
->>> the right option here.Signed-off-by: Jason Ekstrand <jason.ekstrand@intel.com>
->>>
->>> v2: Augment commit message. Also restore Jason's sob that I
->>> accidentally lost.
->>>
->>> Signed-off-by: Jason Ekstrand <jason.ekstrand@intel.com> (v1)
->>> Reported-by: Marcin Slusarz <marcin.slusarz@intel.com>
->>> Cc: <stable@vger.kernel.org> # v5.6+
->>> Cc: Jason Ekstrand <jason.ekstrand@intel.com>
->>> Cc: Marcin Slusarz <marcin.slusarz@intel.com>
->>> Cc: Jon Bloomfield <jon.bloomfield@intel.com>
->>> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3080
->>> Fixes: 9e31c1fe45d5 ("drm/i915: Propagate errors on awaiting already 
->>> signaled fences")
->>> Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->>> ---
->>> drivers/gpu/drm/i915/i915_request.c | 8 ++------
->>> 1 file changed, 2 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/i915_request.c 
->>> b/drivers/gpu/drm/i915/i915_request.c
->>> index 970d8f4986bb..b796197c0772 100644
->>> --- a/drivers/gpu/drm/i915/i915_request.c
->>> +++ b/drivers/gpu/drm/i915/i915_request.c
->>> @@ -1426,10 +1426,8 @@ i915_request_await_execution(struct i915_request *rq,
->>>
->>>  do {
->>>          fence = *child++;
->>> -               if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
->>> -                       i915_sw_fence_set_error_once(&rq->submit, 
->>> fence->error);
->>> +               if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->>>                  continue;
->>> -               }
->>>
->>>          if (fence->context == rq->fence.context)
->>>                  continue;
->>> @@ -1527,10 +1525,8 @@ i915_request_await_dma_fence(struct i915_request 
->>> *rq, struct dma_fence *fence)
->>>
->>>  do {
->>>          fence = *child++;
->>> -               if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
->>> -                       i915_sw_fence_set_error_once(&rq->submit, 
->>> fence->error);
->>> +               if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->>>                  continue;
->>> -               }
->>>
->>>          /*
->>>           * Requests on the same timeline are explicitly ordered, along
->>> --
->>> 2.31.0
->
->
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
 
 
---1798600c2d62f9a2817109ae8f
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 5/17/2021 11:42 PM, Claire Chang wrote:
+> Add a new wrapper __dma_direct_free_pages() that will be useful later
+> for swiotlb_free().
+> 
+> Signed-off-by: Claire Chang <tientzu@chromium.org>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.=
-w3.org/TR/html4/loose.dtd">
-<html>
-<body>
-<div dir=3D"auto">
-<div dir=3D"auto"><span style=3D"font-size: 12pt;">On May 19, 2021 12:16:15=
- Daniel Vetter &lt;daniel.vetter@ffwll.ch&gt; wrote:</span></div><div id=3D=
-"aqm-original" style=3D"color: black;">
-<div><br></div>
-<blockquote type=3D"cite" class=3D"gmail_quote" style=3D"margin: 0 0 0 0.75=
-ex; border-left: 1px solid #808080; padding-left: 0.75ex;">
-<div dir=3D"auto">On Wed, May 19, 2021 at 5:06 PM Jason Ekstrand &lt;jason@=
-jlekstrand.net&gt; wrote:</div>
-<blockquote type=3D"cite" class=3D"gmail_quote" style=3D"margin: 0 0 0 0.75=
-ex; border-left: 1px solid #0099CC; padding-left: 0.75ex;">
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">Once we no longer rely on error propagation, I think ther=
-e's a lot we</div>
-<div dir=3D"auto">can rip out.</div>
-</blockquote>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">I honestly did not find that much ... what did you uncove=
-r?</div></blockquote></div><div dir=3D"auto"><br></div><div dir=3D"auto">Wh=
-en I was digging through this earlier today, I think I convinced myself tha=
-t the cmdparser is the only user of the entire fence error architecture. I =
-may have missed something, though.</div><div dir=3D"auto"><br></div><div di=
-r=3D"auto">--Jason</div><div dir=3D"auto"><br></div><div id=3D"aqm-original=
-" style=3D"color: black;" dir=3D"auto"><blockquote type=3D"cite" class=3D"g=
-mail_quote" style=3D"margin: 0 0 0 0.75ex; border-left: 1px solid #808080; =
-padding-left: 0.75ex;"><div dir=3D"auto"></div>
-<div dir=3D"auto">-Daniel</div>
-<div dir=3D"auto"><br></div>
-<blockquote type=3D"cite" class=3D"gmail_quote" style=3D"margin: 0 0 0 0.75=
-ex; border-left: 1px solid #0099CC; padding-left: 0.75ex;">
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">--Jason</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">On Wed, May 19, 2021 at 5:15 AM Daniel Vetter &lt;daniel.=
-vetter@ffwll.ch&gt; wrote:</div>
-<blockquote type=3D"cite" class=3D"gmail_quote" style=3D"margin: 0 0 0 0.75=
-ex; border-left: 1px solid #9933CC; padding-left: 0.75ex;">
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">From: Jason Ekstrand &lt;jason@jlekstrand.net&gt;</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">This reverts commit 9e31c1fe45d555a948ff66f1f0e3fe1f83ca6=
-3f7. &nbsp;Ever</div>
-<div dir=3D"auto">since that commit, we've been having issues where a hang =
-in one client</div>
-<div dir=3D"auto">can propagate to another. &nbsp;In particular, a hang in =
-an app can propagate</div>
-<div dir=3D"auto">to the X server which causes the whole desktop to lock up=
-.</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">Error propagation along fences sound like a good idea, bu=
-t as your bug</div>
-<div dir=3D"auto">shows, surprising consequences, since propagating errors =
-across security</div>
-<div dir=3D"auto">boundaries is not a good thing.</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">What we do have is track the hangs on the ctx, and report=
- information to</div>
-<div dir=3D"auto">userspace using RESET_STATS. That's how arb_robustness wo=
-rks. Also, if my</div>
-<div dir=3D"auto">understanding is still correct, the EIO from execbuf is w=
-hen your context</div>
-<div dir=3D"auto">is banned (because not recoverable or too many hangs). An=
-d in all these</div>
-<div dir=3D"auto">cases it's up to userspace to figure out what is all impa=
-cted and should</div>
-<div dir=3D"auto">be reported to the application, that's not on the kernel =
-to guess and</div>
-<div dir=3D"auto">automatically propagate.</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">What's more, we're also building more features on top of =
-ctx error</div>
-<div dir=3D"auto">reporting with RESET_STATS ioctl: Encrypted buffers use t=
-he same, and the</div>
-<div dir=3D"auto">userspace fence wait also relies on that mechanism. So it=
- is the path</div>
-<div dir=3D"auto">going forward for reporting gpu hangs and resets to users=
-pace.</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">So all together that's why I think we should just bury th=
-is idea again as</div>
-<div dir=3D"auto">not quite the direction we want to go to, hence why I thi=
-nk the revert is</div>
-<div dir=3D"auto">the right option here.Signed-off-by: Jason Ekstrand &lt;j=
-ason.ekstrand@intel.com&gt;</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">v2: Augment commit message. Also restore Jason's sob that=
- I</div>
-<div dir=3D"auto">accidentally lost.</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">Signed-off-by: Jason Ekstrand &lt;jason.ekstrand@intel.co=
-m&gt; (v1)</div>
-<div dir=3D"auto">Reported-by: Marcin Slusarz &lt;marcin.slusarz@intel.com&=
-gt;</div>
-<div dir=3D"auto">Cc: &lt;stable@vger.kernel.org&gt; # v5.6+</div>
-<div dir=3D"auto">Cc: Jason Ekstrand &lt;jason.ekstrand@intel.com&gt;</div>
-<div dir=3D"auto">Cc: Marcin Slusarz &lt;marcin.slusarz@intel.com&gt;</div>
-<div dir=3D"auto">Cc: Jon Bloomfield &lt;jon.bloomfield@intel.com&gt;</div>
-<div dir=3D"auto">Closes: https://gitlab.freedesktop.org/drm/intel/-/issues=
-/3080</div>
-<div dir=3D"auto">Fixes: 9e31c1fe45d5 ("drm/i915: Propagate errors on await=
-ing already signaled fences")</div>
-<div dir=3D"auto">Signed-off-by: Daniel Vetter &lt;daniel.vetter@ffwll.ch&g=
-t;</div>
-<div dir=3D"auto">---</div>
-<div dir=3D"auto">drivers/gpu/drm/i915/i915_request.c | 8 ++------</div>
-<div dir=3D"auto">1 file changed, 2 insertions(+), 6 deletions(-)</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">diff --git a/drivers/gpu/drm/i915/i915_request.c b/driver=
-s/gpu/drm/i915/i915_request.c</div>
-<div dir=3D"auto">index 970d8f4986bb..b796197c0772 100644</div>
-<div dir=3D"auto">--- a/drivers/gpu/drm/i915/i915_request.c</div>
-<div dir=3D"auto">+++ b/drivers/gpu/drm/i915/i915_request.c</div>
-<div dir=3D"auto">@@ -1426,10 +1426,8 @@ i915_request_await_execution(struc=
-t i915_request *rq,</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">&nbsp; do {</div>
-<div dir=3D"auto">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fence =3D *child++;</d=
-iv>
-<div dir=3D"auto">- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (te=
-st_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &amp;fence-&gt;flags)) {</div>
-<div dir=3D"auto">- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; i915_sw_fence_set_error_once(&amp;rq-&gt;submit, fenc=
-e-&gt;error);</div>
-<div dir=3D"auto">+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (te=
-st_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &amp;fence-&gt;flags))</div>
-<div dir=3D"auto">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; continue;</div>
-<div dir=3D"auto">- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</div=
->
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (fence-&gt;context =
-=3D=3D rq-&gt;fence.context)</div>
-<div dir=3D"auto">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; continue;</div>
-<div dir=3D"auto">@@ -1527,10 +1525,8 @@ i915_request_await_dma_fence(struc=
-t i915_request *rq, struct dma_fence *fence)</div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">&nbsp; do {</div>
-<div dir=3D"auto">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fence =3D *child++;</d=
-iv>
-<div dir=3D"auto">- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (te=
-st_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &amp;fence-&gt;flags)) {</div>
-<div dir=3D"auto">- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; i915_sw_fence_set_error_once(&amp;rq-&gt;submit, fenc=
-e-&gt;error);</div>
-<div dir=3D"auto">+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (te=
-st_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &amp;fence-&gt;flags))</div>
-<div dir=3D"auto">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; continue;</div>
-<div dir=3D"auto">- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</div=
->
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /*</div>
-<div dir=3D"auto">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* Requests on th=
-e same timeline are explicitly ordered, along</div>
-<div dir=3D"auto">--</div>
-<div dir=3D"auto">2.31.0</div>
-<div dir=3D"auto"><br></div>
-</blockquote>
-</blockquote>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto"><br></div>
-<div dir=3D"auto">--&nbsp;</div>
-<div dir=3D"auto">Daniel Vetter</div>
-<div dir=3D"auto">Software Engineer, Intel Corporation</div>
-<div dir=3D"auto">http://blog.ffwll.ch</div>
-</blockquote>
-</div><div dir=3D"auto"><br></div>
-</div></body>
-</html>
-
---1798600c2d62f9a2817109ae8f--
-
-
---===============0983603666==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Reviewed-by: Florian Fainelli <f.fainelli@gmail.com>
+-- 
+Florian
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0983603666==--
-
