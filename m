@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0E0AC433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB24EC433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7B9FE61360
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B9FE61360
+	by mail.kernel.org (Postfix) with ESMTPS id B75D061360
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 00:07:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B75D061360
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67BF56E131;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67BB16E11A;
 	Wed, 19 May 2021 00:06:59 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 189766E14D
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 00:06:55 +0000 (UTC)
-IronPort-SDR: 11zpMC9K1E0+4RFwRwQqAtpLrFD/dwfnDfJ5OFQxpjJvinDh+zCSyG8NwN5ZShvhAxr9gnM7wh
- rVFn21e6OOjg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="264768414"
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="264768414"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ABB66E11A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 00:06:53 +0000 (UTC)
+IronPort-SDR: OzLpWe2uJqEAW/3850bBDzxVsr8ZFhALg4yFzBmsYfW6cwa458Uqm5S2ECEwpzrK8UaT8/QygH
+ byae3a2B6msw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="264768403"
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="264768403"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2021 17:06:52 -0700
-IronPort-SDR: piiDszH1EyEUZxyWEWRuxih8XvoWebzC+fx1gusA6Cn3iyQOPkhlnIYyEFmEXfUZ60IsMRCQOt
- 9T61U9GMm4LQ==
-X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="473214783"
+ 18 May 2021 17:06:51 -0700
+IronPort-SDR: 8Dv72i0Oc5kIRX4h2T5FWAdZsj31gb0jyYUzY3Q991HR6tv0IYyW5KIpyRpxAPXudXGFhFy9Kz
+ uPnKakuUXrUQ==
+X-IronPort-AV: E=Sophos;i="5.82,310,1613462400"; d="scan'208";a="473214751"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 May 2021 17:06:51 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 May 2021 17:06:21 -0700
-Message-Id: <20210519000625.3184321-14-lucas.demarchi@intel.com>
+Date: Tue, 18 May 2021 17:06:11 -0700
+Message-Id: <20210519000625.3184321-4-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210519000625.3184321-1-lucas.demarchi@intel.com>
 References: <20210519000625.3184321-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 13/17] drm/i915/adl_p: Define and use ADL-P
- specific DP translation tables
+Subject: [Intel-gfx] [CI 03/17] drm/i915/adl_p: Add dedicated SAGV watermarks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,139 +62,266 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mika Kahola <mika.kahola@intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-Define and use DP voltage swing and pre-emphasis translation tables
-for ADL-P.
+XE_LPD reduces the number of regular watermark latency levels from 8
+to 6 on non-dgfx platforms.  However the hardware also adds a special
+purpose SAGV wateramrk (and an accompanying transition watermark) that
+will be used by the hardware in place of the level 0 values during SAGV
+transitions.
 
-v2:
- - Update according to recent bspec updates; there are now separate
-   tables for RBR/HBR and HBR2/HBR3.  (Anusha)
-
-BSpec: 54956
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Bspec: 49325, 49326, 50419
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Clint Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c      |  7 ++-
- .../drm/i915/display/intel_ddi_buf_trans.c    | 53 +++++++++++++++++++
- .../drm/i915/display/intel_ddi_buf_trans.h    |  4 ++
- 3 files changed, 63 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 32 +++++++++++
+ drivers/gpu/drm/i915/i915_drv.h              |  2 +
+ drivers/gpu/drm/i915/i915_reg.h              | 59 ++++++++++++++------
+ drivers/gpu/drm/i915/intel_pm.c              | 54 ++++++++++++++++--
+ 4 files changed, 126 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 38a4f251b9c9..e0adb14ecd0d 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -985,6 +985,8 @@ static u8 intel_ddi_dp_voltage_max(struct intel_dp *intel_dp,
- 	if (DISPLAY_VER(dev_priv) >= 12) {
- 		if (intel_phy_is_combo(dev_priv, phy))
- 			tgl_get_combo_buf_trans(encoder, crtc_state, &n_entries);
-+		else if (IS_ALDERLAKE_P(dev_priv))
-+			adlp_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
- 		else
- 			tgl_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
- 	} else if (DISPLAY_VER(dev_priv) == 11) {
-@@ -1431,7 +1433,10 @@ tgl_dkl_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
- 	if (enc_to_dig_port(encoder)->tc_mode == TC_PORT_TBT_ALT)
- 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 422b59ebf6dc..47251b2bc8a4 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -8750,6 +8750,38 @@ static void verify_wm_state(struct intel_crtc *crtc,
+ 				hw_wm_level->lines);
+ 		}
  
--	ddi_translations = tgl_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
-+	if (IS_ALDERLAKE_P(dev_priv))
-+		ddi_translations = adlp_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
-+	else
-+		ddi_translations = tgl_get_dkl_buf_trans(encoder, crtc_state, &n_entries);
- 
- 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !ddi_translations))
- 		return;
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-index 7bcdd5c12028..ce5d5d13b7c1 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-@@ -735,6 +735,34 @@ static const struct cnl_ddi_buf_trans rkl_combo_phy_ddi_translations_dp_hbr2_hbr
- 	{ 0x6, 0x7F, 0x3F, 0x00, 0x00 },	/* 900   900      0.0   */
- };
- 
-+static const struct tgl_dkl_phy_ddi_buf_trans adlp_dkl_phy_dp_ddi_trans_hbr[] = {
-+				/* VS	pre-emp	Non-trans mV	Pre-emph dB */
-+	{ 0x7, 0x0, 0x01 },	/* 0	0	400mV		0 dB */
-+	{ 0x5, 0x0, 0x06 },	/* 0	1	400mV		3.5 dB */
-+	{ 0x2, 0x0, 0x0B },	/* 0	2	400mV		6 dB */
-+	{ 0x0, 0x0, 0x17 },	/* 0	3	400mV		9.5 dB */
-+	{ 0x5, 0x0, 0x00 },	/* 1	0	600mV		0 dB */
-+	{ 0x2, 0x0, 0x08 },	/* 1	1	600mV		3.5 dB */
-+	{ 0x0, 0x0, 0x14 },	/* 1	2	600mV		6 dB */
-+	{ 0x2, 0x0, 0x00 },	/* 2	0	800mV		0 dB */
-+	{ 0x0, 0x0, 0x0B },	/* 2	1	800mV		3.5 dB */
-+	{ 0x0, 0x0, 0x00 },	/* 3	0	1200mV		0 dB */
-+};
++		hw_wm_level = &hw->wm.planes[plane->id].sagv.wm0;
++		sw_wm_level = &sw_wm->planes[plane->id].sagv.wm0;
 +
-+static const struct tgl_dkl_phy_ddi_buf_trans adlp_dkl_phy_dp_ddi_trans_hbr2_hbr3[] = {
-+				/* VS	pre-emp	Non-trans mV	Pre-emph dB */
-+	{ 0x7, 0x0, 0x00 },	/* 0	0	400mV		0 dB */
-+	{ 0x5, 0x0, 0x04 },	/* 0	1	400mV		3.5 dB */
-+	{ 0x2, 0x0, 0x0A },	/* 0	2	400mV		6 dB */
-+	{ 0x0, 0x0, 0x18 },	/* 0	3	400mV		9.5 dB */
-+	{ 0x5, 0x0, 0x00 },	/* 1	0	600mV		0 dB */
-+	{ 0x2, 0x0, 0x06 },	/* 1	1	600mV		3.5 dB */
-+	{ 0x0, 0x0, 0x14 },	/* 1	2	600mV		6 dB */
-+	{ 0x2, 0x0, 0x00 },	/* 2	0	800mV		0 dB */
-+	{ 0x0, 0x0, 0x09 },	/* 2	1	800mV		3.5 dB */
-+	{ 0x0, 0x0, 0x00 },	/* 3	0	1200mV		0 dB */
-+};
++		if (HAS_HW_SAGV_WM(dev_priv) &&
++		    !skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
++			drm_err(&dev_priv->drm,
++				"[PLANE:%d:%s] mismatch in SAGV WM (expected e=%d b=%u l=%u, got e=%d b=%u l=%u)\n",
++				plane->base.base.id, plane->base.name,
++				sw_wm_level->enable,
++				sw_wm_level->blocks,
++				sw_wm_level->lines,
++				hw_wm_level->enable,
++				hw_wm_level->blocks,
++				hw_wm_level->lines);
++		}
 +
- bool is_hobl_buf_trans(const struct cnl_ddi_buf_trans *table)
++		hw_wm_level = &hw->wm.planes[plane->id].sagv.trans_wm;
++		sw_wm_level = &sw_wm->planes[plane->id].sagv.trans_wm;
++
++		if (HAS_HW_SAGV_WM(dev_priv) &&
++		    !skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
++			drm_err(&dev_priv->drm,
++				"[PLANE:%d:%s] mismatch in SAGV trans WM (expected e=%d b=%u l=%u, got e=%d b=%u l=%u)\n",
++				plane->base.base.id, plane->base.name,
++				sw_wm_level->enable,
++				sw_wm_level->blocks,
++				sw_wm_level->lines,
++				hw_wm_level->enable,
++				hw_wm_level->blocks,
++				hw_wm_level->lines);
++		}
++
+ 		/* DDB */
+ 		hw_ddb_entry = &hw->ddb_y[plane->id];
+ 		sw_ddb_entry = &new_crtc_state->wm.skl.plane_ddb_y[plane->id];
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 9aee6a045590..702841e3f899 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -589,6 +589,8 @@ i915_fence_timeout(const struct drm_i915_private *i915)
+ /* Amount of SAGV/QGV points, BSpec precisely defines this */
+ #define I915_NUM_QGV_POINTS 8
+ 
++#define HAS_HW_SAGV_WM(i915) (DISPLAY_VER(i915) >= 13 && !IS_DGFX(i915))
++
+ struct ddi_vbt_port_info {
+ 	/* Non-NULL if port present. */
+ 	struct intel_bios_encoder_data *devdata;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 089b5a59bed3..2e5826860b40 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -6426,16 +6426,28 @@ enum {
+ /* Watermark register definitions for SKL */
+ #define _CUR_WM_A_0		0x70140
+ #define _CUR_WM_B_0		0x71140
++#define _CUR_WM_SAGV_A		0x70158
++#define _CUR_WM_SAGV_B		0x71158
++#define _CUR_WM_SAGV_TRANS_A	0x7015C
++#define _CUR_WM_SAGV_TRANS_B	0x7115C
++#define _CUR_WM_TRANS_A		0x70168
++#define _CUR_WM_TRANS_B		0x71168
+ #define _PLANE_WM_1_A_0		0x70240
+ #define _PLANE_WM_1_B_0		0x71240
+ #define _PLANE_WM_2_A_0		0x70340
+ #define _PLANE_WM_2_B_0		0x71340
+-#define _PLANE_WM_TRANS_1_A_0	0x70268
+-#define _PLANE_WM_TRANS_1_B_0	0x71268
+-#define _PLANE_WM_TRANS_2_A_0	0x70368
+-#define _PLANE_WM_TRANS_2_B_0	0x71368
+-#define _CUR_WM_TRANS_A_0	0x70168
+-#define _CUR_WM_TRANS_B_0	0x71168
++#define _PLANE_WM_SAGV_1_A	0x70258
++#define _PLANE_WM_SAGV_1_B	0x71258
++#define _PLANE_WM_SAGV_2_A	0x70358
++#define _PLANE_WM_SAGV_2_B	0x71358
++#define _PLANE_WM_SAGV_TRANS_1_A	0x7025C
++#define _PLANE_WM_SAGV_TRANS_1_B	0x7125C
++#define _PLANE_WM_SAGV_TRANS_2_A	0x7035C
++#define _PLANE_WM_SAGV_TRANS_2_B	0x7135C
++#define _PLANE_WM_TRANS_1_A	0x70268
++#define _PLANE_WM_TRANS_1_B	0x71268
++#define _PLANE_WM_TRANS_2_A	0x70368
++#define _PLANE_WM_TRANS_2_B	0x71368
+ #define   PLANE_WM_EN		(1 << 31)
+ #define   PLANE_WM_IGNORE_LINES	(1 << 30)
+ #define   PLANE_WM_LINES_MASK	REG_GENMASK(26, 14)
+@@ -6443,19 +6455,32 @@ enum {
+ 
+ #define _CUR_WM_0(pipe) _PIPE(pipe, _CUR_WM_A_0, _CUR_WM_B_0)
+ #define CUR_WM(pipe, level) _MMIO(_CUR_WM_0(pipe) + ((4) * (level)))
+-#define CUR_WM_TRANS(pipe) _MMIO_PIPE(pipe, _CUR_WM_TRANS_A_0, _CUR_WM_TRANS_B_0)
+-
++#define CUR_WM_SAGV(pipe) _MMIO_PIPE(pipe, _CUR_WM_SAGV_A, _CUR_WM_SAGV_B)
++#define CUR_WM_SAGV_TRANS(pipe) _MMIO_PIPE(pipe, _CUR_WM_SAGV_TRANS_A, _CUR_WM_SAGV_TRANS_B)
++#define CUR_WM_TRANS(pipe) _MMIO_PIPE(pipe, _CUR_WM_TRANS_A, _CUR_WM_TRANS_B)
+ #define _PLANE_WM_1(pipe) _PIPE(pipe, _PLANE_WM_1_A_0, _PLANE_WM_1_B_0)
+ #define _PLANE_WM_2(pipe) _PIPE(pipe, _PLANE_WM_2_A_0, _PLANE_WM_2_B_0)
+-#define _PLANE_WM_BASE(pipe, plane)	\
+-			_PLANE(plane, _PLANE_WM_1(pipe), _PLANE_WM_2(pipe))
+-#define PLANE_WM(pipe, plane, level)	\
+-			_MMIO(_PLANE_WM_BASE(pipe, plane) + ((4) * (level)))
+-#define _PLANE_WM_TRANS_1(pipe)	\
+-			_PIPE(pipe, _PLANE_WM_TRANS_1_A_0, _PLANE_WM_TRANS_1_B_0)
+-#define _PLANE_WM_TRANS_2(pipe)	\
+-			_PIPE(pipe, _PLANE_WM_TRANS_2_A_0, _PLANE_WM_TRANS_2_B_0)
+-#define PLANE_WM_TRANS(pipe, plane)	\
++#define _PLANE_WM_BASE(pipe, plane) \
++	_PLANE(plane, _PLANE_WM_1(pipe), _PLANE_WM_2(pipe))
++#define PLANE_WM(pipe, plane, level) \
++	_MMIO(_PLANE_WM_BASE(pipe, plane) + ((4) * (level)))
++#define _PLANE_WM_SAGV_1(pipe) \
++	_PIPE(pipe, _PLANE_WM_SAGV_1_A, _PLANE_WM_SAGV_1_B)
++#define _PLANE_WM_SAGV_2(pipe) \
++	_PIPE(pipe, _PLANE_WM_SAGV_2_A, _PLANE_WM_SAGV_2_B)
++#define PLANE_WM_SAGV(pipe, plane) \
++	_MMIO(_PLANE(plane, _PLANE_WM_SAGV_1(pipe), _PLANE_WM_SAGV_2(pipe)))
++#define _PLANE_WM_SAGV_TRANS_1(pipe) \
++	_PIPE(pipe, _PLANE_WM_SAGV_TRANS_1_A, _PLANE_WM_SAGV_TRANS_1_B)
++#define _PLANE_WM_SAGV_TRANS_2(pipe) \
++	_PIPE(pipe, _PLANE_WM_SAGV_TRANS_2_A, _PLANE_WM_SAGV_TRANS_2_B)
++#define PLANE_WM_SAGV_TRANS(pipe, plane) \
++	_MMIO(_PLANE(plane, _PLANE_WM_SAGV_TRANS_1(pipe), _PLANE_WM_SAGV_TRANS_2(pipe)))
++#define _PLANE_WM_TRANS_1(pipe) \
++	_PIPE(pipe, _PLANE_WM_TRANS_1_A, _PLANE_WM_TRANS_1_B)
++#define _PLANE_WM_TRANS_2(pipe) \
++	_PIPE(pipe, _PLANE_WM_TRANS_2_A, _PLANE_WM_TRANS_2_B)
++#define PLANE_WM_TRANS(pipe, plane) \
+ 	_MMIO(_PLANE(plane, _PLANE_WM_TRANS_1(pipe), _PLANE_WM_TRANS_2(pipe)))
+ 
+ /* define the Watermark register on Ironlake */
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 15d9a64e7b4c..95fda20d5547 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -2983,7 +2983,9 @@ static void intel_fixup_cur_wm_latency(struct drm_i915_private *dev_priv,
+ int ilk_wm_max_level(const struct drm_i915_private *dev_priv)
  {
- 	return table == tgl_combo_phy_ddi_translations_edp_hbr2_hobl;
-@@ -1348,6 +1376,31 @@ tgl_get_dkl_buf_trans(struct intel_encoder *encoder,
- 		return tgl_get_dkl_buf_trans_dp(encoder, crtc_state, n_entries);
- }
+ 	/* how many WM levels are we expecting */
+-	if (DISPLAY_VER(dev_priv) >= 9)
++	if (HAS_HW_SAGV_WM(dev_priv))
++		return 5;
++	else if (DISPLAY_VER(dev_priv) >= 9)
+ 		return 7;
+ 	else if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv))
+ 		return 4;
+@@ -4011,8 +4013,9 @@ static int intel_compute_sagv_mask(struct intel_atomic_state *state)
+ 		 * latter from the plane commit hooks (especially in the legacy
+ 		 * cursor case)
+ 		 */
+-		pipe_wm->use_sagv_wm = DISPLAY_VER(dev_priv) >= 12 &&
+-				       intel_can_enable_sagv(dev_priv, new_bw_state);
++		pipe_wm->use_sagv_wm = !HAS_HW_SAGV_WM(dev_priv) &&
++			DISPLAY_VER(dev_priv) >= 12 &&
++			intel_can_enable_sagv(dev_priv, new_bw_state);
+ 	}
  
-+static const struct tgl_dkl_phy_ddi_buf_trans *
-+adlp_get_dkl_buf_trans_dp(struct intel_encoder *encoder,
-+			  const struct intel_crtc_state *crtc_state,
-+			  int *n_entries)
-+{
-+	if (crtc_state->port_clock > 270000) {
-+		*n_entries = ARRAY_SIZE(adlp_dkl_phy_dp_ddi_trans_hbr2_hbr3);
-+		return adlp_dkl_phy_dp_ddi_trans_hbr;
+ 	if (intel_can_enable_sagv(dev_priv, new_bw_state) !=
+@@ -5619,6 +5622,13 @@ void skl_write_plane_wm(struct intel_plane *plane,
+ 	skl_write_wm_level(dev_priv, PLANE_WM_TRANS(pipe, plane_id),
+ 			   skl_plane_trans_wm(pipe_wm, plane_id));
+ 
++	if (HAS_HW_SAGV_WM(dev_priv)) {
++		skl_write_wm_level(dev_priv, PLANE_WM_SAGV(pipe, plane_id),
++				   &wm->sagv.wm0);
++		skl_write_wm_level(dev_priv, PLANE_WM_SAGV_TRANS(pipe, plane_id),
++				   &wm->sagv.trans_wm);
 +	}
 +
-+	*n_entries = ARRAY_SIZE(adlp_dkl_phy_dp_ddi_trans_hbr);
-+	return adlp_dkl_phy_dp_ddi_trans_hbr;
-+}
-+
-+const struct tgl_dkl_phy_ddi_buf_trans *
-+adlp_get_dkl_buf_trans(struct intel_encoder *encoder,
-+		       const struct intel_crtc_state *crtc_state,
-+		       int *n_entries)
-+{
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
-+		return tgl_get_dkl_buf_trans_hdmi(encoder, crtc_state, n_entries);
-+	else
-+		return adlp_get_dkl_buf_trans_dp(encoder, crtc_state, n_entries);
-+}
-+
- int intel_ddi_hdmi_num_entries(struct intel_encoder *encoder,
- 			       const struct intel_crtc_state *crtc_state,
- 			       int *default_entry)
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
-index f8f0ef87e977..4c2efab38642 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
-+++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
-@@ -67,6 +67,10 @@ bxt_get_buf_trans(struct intel_encoder *encoder,
- 		  const struct intel_crtc_state *crtc_state,
- 		  int *n_entries);
+ 	if (DISPLAY_VER(dev_priv) >= 11) {
+ 		skl_ddb_entry_write(dev_priv,
+ 				    PLANE_BUF_CFG(pipe, plane_id), ddb_y);
+@@ -5652,6 +5662,15 @@ void skl_write_cursor_wm(struct intel_plane *plane,
+ 	skl_write_wm_level(dev_priv, CUR_WM_TRANS(pipe),
+ 			   skl_plane_trans_wm(pipe_wm, plane_id));
  
-+const struct tgl_dkl_phy_ddi_buf_trans *
-+adlp_get_dkl_buf_trans(struct intel_encoder *encoder,
-+		       const struct intel_crtc_state *crtc_state,
-+		       int *n_entries);
- const struct cnl_ddi_buf_trans *
- tgl_get_combo_buf_trans(struct intel_encoder *encoder,
- 			const struct intel_crtc_state *crtc_state,
++	if (HAS_HW_SAGV_WM(dev_priv)) {
++		const struct skl_plane_wm *wm = &pipe_wm->planes[plane_id];
++
++		skl_write_wm_level(dev_priv, CUR_WM_SAGV(pipe),
++				   &wm->sagv.wm0);
++		skl_write_wm_level(dev_priv, CUR_WM_SAGV_TRANS(pipe),
++				   &wm->sagv.trans_wm);
++	}
++
+ 	skl_ddb_entry_write(dev_priv, CUR_BUF_CFG(pipe), ddb);
+ }
+ 
+@@ -6016,6 +6035,15 @@ static bool skl_plane_selected_wm_equals(struct intel_plane *plane,
+ 			return false;
+ 	}
+ 
++	if (HAS_HW_SAGV_WM(i915)) {
++		const struct skl_plane_wm *old_wm = &old_pipe_wm->planes[plane->id];
++		const struct skl_plane_wm *new_wm = &new_pipe_wm->planes[plane->id];
++
++		if (!skl_wm_level_equals(&old_wm->sagv.wm0, &new_wm->sagv.wm0) ||
++		    !skl_wm_level_equals(&old_wm->sagv.trans_wm, &new_wm->sagv.trans_wm))
++			return false;
++	}
++
+ 	return skl_wm_level_equals(skl_plane_trans_wm(old_pipe_wm, plane->id),
+ 				   skl_plane_trans_wm(new_pipe_wm, plane->id));
+ }
+@@ -6234,7 +6262,25 @@ void skl_pipe_wm_get_hw_state(struct intel_crtc *crtc,
+ 
+ 		skl_wm_level_from_reg_val(val, &wm->trans_wm);
+ 
+-		if (DISPLAY_VER(dev_priv) >= 12) {
++		if (HAS_HW_SAGV_WM(dev_priv)) {
++			if (plane_id != PLANE_CURSOR)
++				val = intel_uncore_read(&dev_priv->uncore,
++							PLANE_WM_SAGV(pipe, plane_id));
++			else
++				val = intel_uncore_read(&dev_priv->uncore,
++							CUR_WM_SAGV(pipe));
++
++			skl_wm_level_from_reg_val(val, &wm->sagv.wm0);
++
++			if (plane_id != PLANE_CURSOR)
++				val = intel_uncore_read(&dev_priv->uncore,
++							PLANE_WM_SAGV_TRANS(pipe, plane_id));
++			else
++				val = intel_uncore_read(&dev_priv->uncore,
++							CUR_WM_SAGV_TRANS(pipe));
++
++			skl_wm_level_from_reg_val(val, &wm->sagv.trans_wm);
++		} else if (DISPLAY_VER(dev_priv) >= 12) {
+ 			wm->sagv.wm0 = wm->wm[0];
+ 			wm->sagv.trans_wm = wm->trans_wm;
+ 		}
 -- 
 2.31.1
 
