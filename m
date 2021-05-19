@@ -8,56 +8,57 @@ X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F2F1C433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 19:43:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 807DAC433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 19:43:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A93F6108C
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 19:43:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A93F6108C
+	by mail.kernel.org (Postfix) with ESMTPS id 1DD956108C
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 19:43:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DD956108C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 758896EE73;
-	Wed, 19 May 2021 19:43:11 +0000 (UTC)
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 739716EE5C;
- Wed, 19 May 2021 19:18:20 +0000 (UTC)
-Received: by mail-pg1-x534.google.com with SMTP id 6so10147371pgk.5;
- Wed, 19 May 2021 12:18:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0A86EE78;
+	Wed, 19 May 2021 19:43:12 +0000 (UTC)
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B40C6EE6D;
+ Wed, 19 May 2021 19:20:07 +0000 (UTC)
+Received: by mail-pf1-x432.google.com with SMTP id b13so6846634pfv.4;
+ Wed, 19 May 2021 12:20:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=qkzCD1nWkBURpBrpJXY23W3vLoZSck6AY/wcT/olSRk=;
- b=Jr32Uvht2cSrNILgfPTD5ViC6pT8b+8Rv+juxOSQTQwrJ1CAD0MBJHubcHjyOKsUbI
- JfDjb6IlvhZ8t3+ym7sOQ4a9U6dHEsOXxzesVMPv6UDrlo59kYq82tWRbs9w2uqU+yYo
- 8oA/biTXJEGtIK7ZUbiBmZQYbJzsutIezjLCjW+be0py6uPVuz9vfS/rc828YcCt+zVs
- WRnXVlWSjrk7BMwlJdqMQwTvyoJQltUeu2a7CMQB207kX6rGqLkbNNdIKCNuEPYfxlj8
- c8CbGpi6xXQEr0VSmTVe/i1v9YaB96qj2/4NW8B/lTGCTjbb7h0/a34Yz4Z5jXjVRuz+
- oRyg==
+ bh=uMIDYXiQCge+lCPg7jWJZVlhfPYt5aTIXixKF3xFdtw=;
+ b=Yg91ASxZAaNzg/r8+0Ydre6wM45Ae3A1iPokHrBnYytUGLfpFnHdf3IFz8HESX0/2+
+ g821YtdozGCEBqe5IWPqRoORjgSuvSUsnUJvkFHQmi1Z8EyDysdL0ajJwNlL5xiTuXsv
+ wFEKThjSNrz9xGLrgbp/gM/UJUw8aKgxniG4Yn3LJ2CAh4MiM/s09DXVGVwgC1M7Lc1O
+ mqFqDRB1Z5q6tLXZhXMkex5oVmrXUvI0/xcrkwhwr72xMCAoZJcgyVejktim5H+sPgp9
+ TLPqhl56m5cKFfFNduokObt8ZVxO6KXBoFBtUzi8i8SumVh20RnjYnxygdSMJ5gi3qzx
+ uvlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=qkzCD1nWkBURpBrpJXY23W3vLoZSck6AY/wcT/olSRk=;
- b=Ijk0k9IsnGt0bng3qwpqQC+P1uTBnQ9ft9ec5zDUYFsm3tLjM2mZx0Ayxm0vD4m1On
- SiQT13u9yr/VTxU0JlMOYYTqvdtUmtSuKCYsgdgccuHksOkRjHD84r7i0h+Wg9RrSNaF
- 7vLDc29ybAq9AX/8kJGwNlO6fnBrlnFhoC5fMvFMen16mswyJGbwcIN7PQ56UFHVg2j6
- 4H0ca3O2uU2nAzWA7VDNwGAXlc3VpAB808cGfobeR5plDVeXE5uvH8nipUUF3DaqHLVp
- L9zZXFasP4IBgXbm+7BLDmu1AGAKg2J7wbRQxI8CJj+EGoYYMlvZ37tUEbapfEoGrFQo
- woLQ==
-X-Gm-Message-State: AOAM532sWpoJIbKJhMKLMqAouOVHWvRz73P5NiOZDsuAvUw17ekZAVt/
- tt0ysZa0H28aHka71ZJeZUA=
-X-Google-Smtp-Source: ABdhPJyun5zEd3qUDcE/GtFSWzJiED1dVWEJkkT2Lvnwoihmboc879WuDVAjjHLr8vtaHKK8YVFCpg==
-X-Received: by 2002:a65:4286:: with SMTP id j6mr636207pgp.261.1621451900054;
- Wed, 19 May 2021 12:18:20 -0700 (PDT)
+ bh=uMIDYXiQCge+lCPg7jWJZVlhfPYt5aTIXixKF3xFdtw=;
+ b=RwBDG4e3y3fEhk7iG5rAKp5LtVFqisMs8ZIND4vIdjRwzik1PyBozXeHV/9zcJ9eCz
+ gyzn3PbQYJ1Gv5nWUMuIiIf28/vHwynXiQEendFXEQf68AoY9GTHtIHHauZptzoI1Z1v
+ /9wosJHk4xCWIwoIaSU2JK1C6MGPOgLoWMajMy6ZR00Qx4sZnf5cHY4mn7GGLVVVEb5+
+ KlUeaQ0RRptW7pSZEtp/CZrdcSDgYhgLrK1eZeH7xG6HcZPwGdbpUWbZDQaC4wyNbrXE
+ 5ATdR51X6sm40/Kj6uTIZlUwncD3eyuIZs+w/oD/74L/5vLqnxsg4fGpW/NMZqF3rqSf
+ 8JRw==
+X-Gm-Message-State: AOAM531dyeL+HyF2Ci+Nl1mwMvXGCTPZomKuU2Zs9OowuSgqGwSJQ0Xc
+ xli/V1ooe+6rgrcLXrw9PE4=
+X-Google-Smtp-Source: ABdhPJylNyq7yX8wc3qiI92uMNP4dk54r6bNs8/LZR+DzeCwuyO2pJ1p5Agdk04xE/qvY5oPdEYXRQ==
+X-Received: by 2002:aa7:90d4:0:b029:28e:b912:acf with SMTP id
+ k20-20020aa790d40000b029028eb9120acfmr661343pfk.43.1621452007052; 
+ Wed, 19 May 2021 12:20:07 -0700 (PDT)
 Received: from [10.230.29.202] ([192.19.223.252])
- by smtp.gmail.com with ESMTPSA id d131sm147671pfd.176.2021.05.19.12.18.15
+ by smtp.gmail.com with ESMTPSA id m5sm109361pgl.75.2021.05.19.12.20.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 May 2021 12:18:19 -0700 (PDT)
+ Wed, 19 May 2021 12:20:06 -0700 (PDT)
 To: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
  mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
  Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
@@ -65,18 +66,18 @@ To: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
  jgross@suse.com, Christoph Hellwig <hch@lst.de>,
  Marek Szyprowski <m.szyprowski@samsung.com>
 References: <20210518064215.2856977-1-tientzu@chromium.org>
- <20210518064215.2856977-6-tientzu@chromium.org>
+ <20210518064215.2856977-8-tientzu@chromium.org>
 From: Florian Fainelli <f.fainelli@gmail.com>
-Message-ID: <52714d95-3562-97fc-0dee-761adfc364cb@gmail.com>
-Date: Wed, 19 May 2021 12:18:13 -0700
+Message-ID: <6cae5ffa-f31b-ba08-c2cf-4a3dd76afb3b@gmail.com>
+Date: Wed, 19 May 2021 12:20:00 -0700
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Firefox/78.0 Thunderbird/78.10.2
 MIME-Version: 1.0
-In-Reply-To: <20210518064215.2856977-6-tientzu@chromium.org>
+In-Reply-To: <20210518064215.2856977-8-tientzu@chromium.org>
 Content-Language: en-US
 X-Mailman-Approved-At: Wed, 19 May 2021 19:43:10 +0000
-Subject: Re: [Intel-gfx] [PATCH v7 05/15] swiotlb: Add a new get_io_tlb_mem
- getter
+Subject: Re: [Intel-gfx] [PATCH v7 07/15] swiotlb: Update is_swiotlb_active
+ to add a struct device argument
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,8 +117,8 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
 On 5/17/2021 11:42 PM, Claire Chang wrote:
-> Add a new getter, get_io_tlb_mem, to help select the io_tlb_mem struct.
-> The restricted DMA pool is preferred if available.
+> Update is_swiotlb_active to add a struct device argument. This will be
+> useful later to allow for restricted DMA pool.
 > 
 > Signed-off-by: Claire Chang <tientzu@chromium.org>
 
