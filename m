@@ -2,54 +2,53 @@ Return-Path: <SRS0=AXNP=KO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5953FC433ED
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B787C433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:49:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1706860FF2
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:40:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1706860FF2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D56FC611AD
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D56FC611AD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56A506E249;
-	Wed, 19 May 2021 08:40:38 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 009596E19C;
- Wed, 19 May 2021 08:40:36 +0000 (UTC)
-IronPort-SDR: aZYDvOuuBZHcspxgE/ve8EuwhN7l9eV6ckYK2i85czRwi8iRPtJ4KFh8nvFxsoShHheX/qFi+y
- Hloke28pWYvQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="197833152"
-X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; 
- d="asc'?scan'208";a="197833152"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2021 01:40:36 -0700
-IronPort-SDR: MrY+2h+hx37IZuK0QZzf3fgPh/EwjpJGvVRy80M9V3FlmN9mBTrade7HXKASObdfWqYjnWyHla
- YemORb5h6hSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; 
- d="asc'?scan'208";a="627534596"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
- by fmsmga006.fm.intel.com with ESMTP; 19 May 2021 01:40:33 -0700
-Date: Wed, 19 May 2021 16:21:23 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <20210519082123.GI4589@zhen-hp.sh.intel.com>
-References: <20210518161705.3697143-1-gregkh@linuxfoundation.org>
- <YKPrRW+zBC8Wmjgz@kroah.com>
- <20210519080313.GH4589@zhen-hp.sh.intel.com>
- <YKTM1tQ7SMPnYgiV@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68A236E40D;
+	Wed, 19 May 2021 08:49:02 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F2906E40D;
+ Wed, 19 May 2021 08:49:01 +0000 (UTC)
+IronPort-SDR: 4fjdvE/pFKqWWyCGKV4kzZrM9OVIdoUcd8JLh2xjQIRMIS71rjiEGrFg2zUPlycXU+F63Sd1vY
+ qlip9Y8ybLBA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="188054284"
+X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; d="scan'208";a="188054284"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2021 01:48:59 -0700
+IronPort-SDR: 5kHrgnyIaWhFfd5CAqJx47a8b89iC82IQKMMFQ7sZxpurF66V9Q3RUeefx+Pz45AgPDdZEEPt+
+ ruImxi8yCNjQ==
+X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; d="scan'208";a="394337219"
+Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.68.154])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2021 01:48:58 -0700
+Received: from platvala by thrakatuluk with local (Exim 4.94)
+ (envelope-from <petri.latvala@intel.com>)
+ id 1ljHuQ-0005ux-RC; Wed, 19 May 2021 11:50:30 +0300
+Date: Wed, 19 May 2021 11:50:30 +0300
+From: Petri Latvala <petri.latvala@intel.com>
+To: Matthew Auld <matthew.william.auld@gmail.com>
+Message-ID: <YKTRVpuWOT/gsHdh@platvala-desk.ger.corp.intel.com>
+References: <20210511165117.428062-1-matthew.auld@intel.com>
+ <CAM0jSHO6RD=w2TDAxRsr9=Hqabj=U4kya_bwEcC_MKw0t+hncA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <YKTM1tQ7SMPnYgiV@kroah.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: remove local storage of
- debugfs file
+Content-Disposition: inline
+In-Reply-To: <CAM0jSHO6RD=w2TDAxRsr9=Hqabj=U4kya_bwEcC_MKw0t+hncA@mail.gmail.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [igt-dev] [PATCH i-g-t 00/12] DG1/LMEM uAPI basics
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,95 +61,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0368171479=="
+Cc: igt-dev@lists.freedesktop.org,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Wed, May 19, 2021 at 09:13:37AM +0100, Matthew Auld wrote:
+> On Tue, 11 May 2021 at 17:52, Matthew Auld <matthew.auld@intel.com> wrote:
+> >
+> > Just the really basic stuff, which unlocks adding more interesting testcases
+> > later, like gem_lmem_swapping.
+> >
+> > On the kernel side we landed the uAPI bits[1] behind CONFIG_BROKEN, which is
+> > already enabled in CI builds, so it should be possible to get some more BAT
+> > testing(outside of just the selftests) on DG1 to the point where we can start to
+> > exercise the LMEM paths with the new bits of uAPI.
+> >
+> > [1] https://patchwork.freedesktop.org/series/89648/
+> 
+> Petri, any thoughts on this series? As an initial step we just need
+> some way to start exercising the new bits of uAPI, and from that we
+> can add more interesting test cases.
 
---===============0368171479==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="q6mBvMCt6oafMx9a"
-Content-Disposition: inline
+This series is in a confused state. First there's the addition of
+local definitions and ioctl tokens, then they are replaced with the
+proper stuff...
 
+When this was starting to get developed the idea was to avoid icky
+cases that break _testing_. Not tests, testing. Remember when engine
+discovery was being developed and we had cases where for_each_engine
+loop didn't progress, causing stuff like
 
---q6mBvMCt6oafMx9a
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+for_each_engine(...)
+ igt_subtest(...)
 
-On 2021.05.19 10:31:18 +0200, Greg Kroah-Hartman wrote:
-> On Wed, May 19, 2021 at 04:03:13PM +0800, Zhenyu Wang wrote:
-> > On 2021.05.18 18:28:53 +0200, Greg Kroah-Hartman wrote:
-> > > On Tue, May 18, 2021 at 06:17:05PM +0200, Greg Kroah-Hartman wrote:
-> > > > There is no need to keep the dentry around for the debugfs kvmgt ca=
-che
-> > > > file, as we can just look it up when we want to remove it later on.
-> > > > Simplify the structure by removing the dentry and relying on debugfs
-> > > > to find the dentry to remove when we want to.
-> > > >=20
-> > > > By doing this change, we remove the last in-kernel user that was st=
-oring
-> > > > the result of debugfs_create_long(), so that api can be cleaned up.
-> > > >=20
-> > > > Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
-> > > > Cc: Zhi Wang <zhi.a.wang@intel.com>
-> > > > Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> > > > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> > > > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > > > Cc: David Airlie <airlied@linux.ie>
-> > > > Cc: Daniel Vetter <daniel@ffwll.ch>
-> > > > Cc: intel-gvt-dev@lists.freedesktop.org
-> > > > Cc: intel-gfx@lists.freedesktop.org
-> > > > Cc: dri-devel@lists.freedesktop.org
-> > > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > > > ---
-> > > >  drivers/gpu/drm/i915/gvt/kvmgt.c | 11 +++++------
-> > > >  1 file changed, 5 insertions(+), 6 deletions(-)
-> > >=20
-> > > Note, I can take this through my debugfs tree if wanted, that way I c=
-an
-> > > clean up the debugfs_create_long() api at the same time.  Otherwise i=
-t's
-> > > fine, I can wait until next -rc1 for that to happen.
-> > >=20
-> >=20
-> > It's fine with me to go through debugfs tree. Just double check that re=
-cent
-> > kvmgt change would not cause conflict with this as well.
->=20
-> How can I check that?  I'll be glad to take this through my tree, we can
-> handle the merge issues later for 5.14-rc1 :)
->=20
+to never enter a subtest?
 
-Current kvmgt change in merge queue is just https://patchwork.freedesktop.o=
-rg/patch/433536/?series=3D89995&rev=3D2
-It applies fine with debugfs change.
+Pushing for stubbing memory regions ultimately wanted to avoid cases
+where for_each_combination(memregions) breaks test enumeration.
+
+It all boils down to: Can that break? Can we have cases where the
+query gives garbage? Can it give two million smem regions? Can it give
+0 regions, or -1 regions? And what happens then?
+
+Is it just gem_create_ext that's hiding behind CONFIG_BROKEN or also
+the querying?
 
 
---q6mBvMCt6oafMx9a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYKTKfgAKCRCxBBozTXgY
-J2A8AJ47qrLT92YbMGpq+0Oh7RBcZmKNaQCghT4HV9a6e0VBuuJd0a9WrealPM0=
-=OD41
------END PGP SIGNATURE-----
-
---q6mBvMCt6oafMx9a--
-
---===============0368171479==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Petri Latvala
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0368171479==--
