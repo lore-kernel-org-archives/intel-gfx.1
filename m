@@ -2,52 +2,68 @@ Return-Path: <SRS0=AXNP=KO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1C2DC433ED
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 07:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74EDAC433B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 07:43:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 552AB61355
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 07:05:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 552AB61355
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id DCF3561364
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 07:43:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCF3561364
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDC4A6EBD0;
-	Wed, 19 May 2021 07:05:52 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43A386EBD0
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 07:05:49 +0000 (UTC)
-IronPort-SDR: U7i7ZrGHmAeG3tAY1SowjClTQyAPKJE0Hwy5IV9nV9mWsDT2tV+s76US8Bu55TeZurPTxEHgGN
- Alm5dizZDfwA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="181185963"
-X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; d="scan'208";a="181185963"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2021 00:05:45 -0700
-IronPort-SDR: 3bWI5PK/JY5RrYLNrnNLixw6AVmLrli6bc7an8ZVLpq0RT+WWgGsPafJaFXZGp3ebG+I15Rbkc
- 5lxr3k5hVM0w==
-X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; d="scan'208";a="395173326"
-Received: from unknown (HELO intel.com) ([10.223.74.179])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2021 00:05:41 -0700
-Date: Wed, 19 May 2021 12:19:59 +0530
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Message-ID: <20210519064958.GA8620@intel.com>
-References: <20210515031035.2561658-1-matthew.d.roper@intel.com>
- <20210515031035.2561658-17-matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A5686E0FB;
+	Wed, 19 May 2021 07:43:34 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D15AD6E56D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 07:43:32 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id q5so12883809wrs.4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 May 2021 00:43:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=XREiNZvCt6m1Dz1Oz10kerKOA32xyw0gcDqrFl0Jar4=;
+ b=YhbZIvlwlURfAY2JJWuFzVGxB9Q6qk/356Juc+n9uPixFDUJtEab9cjJ4rMEoq7RPu
+ YkLCt0La26xbLf/28C/O6O7EXaUiroCs0qN+IIU8fHVXvNQ2ejJdrrm/wpaBWUAvoYw6
+ ZwDR3gFKoVWA56fRO/9uoZhA4GaqqLwpsm/t0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=XREiNZvCt6m1Dz1Oz10kerKOA32xyw0gcDqrFl0Jar4=;
+ b=T1QYh6zV1wf/UpQN5IkWEPt1Hokslzfl7P2mg3ORURNza8aEeY2HziXL4gEU7Txxg0
+ hraYlmT5OuhyUpxEFLzP2XiFY45Dgf9/yIpVFhK0uP5ZVewatL28bBU5C8mLNaifP+pN
+ ns1iVPAmcGlyoPBCzfczg/CuJ9P5gp0LQaBQJzOKXb60/jttxNxPlZLDmlYJ6XT+pe/W
+ xMV2khVKVeWQIsFkB2fn6pUoaho/t5gxBmk/skHC7BVtmeprkrLxqGALRJDZGuu3G7DM
+ TuobSZjipjp89dRQgEjojxyhBtOFrjQyGQ9At91/UU18qtegXFDsjpjI1H2BIr1M8NnB
+ tyDw==
+X-Gm-Message-State: AOAM533MBTDEz9BVUYUSeTn7vWaalB5254+xdg7/mEUdMDEcZ8vs824G
+ NvS007WIoeK/7NDg6dathMu4xg==
+X-Google-Smtp-Source: ABdhPJz8JhBGQu/oYkUVZ03JmiiNYW+/5RKbEJ8XJyjhgFE0mMNWQ6MBSBe4JIXo63fHTQldZkVr8w==
+X-Received: by 2002:a5d:4a4f:: with SMTP id v15mr12954340wrs.154.1621410211567; 
+ Wed, 19 May 2021 00:43:31 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id h13sm21189986wml.26.2021.05.19.00.43.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 May 2021 00:43:31 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Date: Wed, 19 May 2021 09:43:23 +0200
+Message-Id: <20210519074323.665872-2-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210519074323.665872-1-daniel.vetter@ffwll.ch>
+References: <20210519074323.665872-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210515031035.2561658-17-matthew.d.roper@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH v4 16/23] drm/i915/display: Remove a
- redundant function argument from intel_psr_enable_source()
+Subject: [Intel-gfx] [PATCH 2/2] Revert "drm/i915: Propagate errors on
+ awaiting already signaled fences"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,50 +76,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, stable@vger.kernel.org,
+ Jason Ekstrand <jason.ekstrand@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMS0wNS0xNSBhdCAwODo0MDoyOCArMDUzMCwgTWF0dCBSb3BlciB3cm90ZToKPiBGcm9t
-OiBHd2FuLWd5ZW9uZyBNdW4gPGd3YW4tZ3llb25nLm11bkBpbnRlbC5jb20+Cj4gCj4gSXQgcmVt
-b3ZlcyBpbnRlbF9jcnRjX3N0YXRlIGZyb20gZnVuY3Rpb24gYXJndW1lbnQgb2YKPiBpbnRlbF9w
-c3JfZW5hYmxlX3NvdXJjZSgpIGluIG9yZGVyIHRvIHVzZSBpbnRlbF9wc3JfZW5hYmxlX3NvdXJj
-ZSgpCj4gd2l0aG91dCBpbnRlbF9jcnRjX3N0YXRlIG9uIG90aGVyIHBzciBpbnRlcm5hbCBmdW5j
-dGlvbnMuCj4gQW5kIHdlIGNhbiBnZXQgY3B1X3RyYW5jb2RlciBmcm9tIGludGVsX3BzciwgdGhl
-cmVmb3JlIHdlIGRvbid0IG5lZWQgdG8KPiBwYXNzIGludGVsX2NydGNfc3RhdGUgdG8gdGhpcyBm
-dW5jdGlvbi4KPiAKPiBDYzogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRl
-bC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogR3dhbi1neWVvbmcgTXVuIDxnd2FuLWd5ZW9uZy5tdW5A
-aW50ZWwuY29tPgo+IFNpZ25lZC1vZmYtYnk6IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5yb3BlckBp
-bnRlbC5jb20+ClJldmlld2VkLWJ5OiBBbnNodW1hbiBHdXB0YSA8YW5zaHVtYW4uZ3VwdGFAaW50
-ZWwuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5j
-IHwgNyArKystLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDQgZGVsZXRp
-b25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
-ZWxfcHNyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jCj4gaW5k
-ZXggNWJhZmQwZGU2YWQ5Li5jYzg1MDgzZGNkMjggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2Rpc3BsYXkvaW50ZWxfcHNyLmMKPiBAQCAtOTY5LDExICs5NjksMTAgQEAgc3RhdGljIHZvaWQg
-aW50ZWxfcHNyX2FjdGl2YXRlKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCj4gIAlpbnRlbF9k
-cC0+cHNyLmFjdGl2ZSA9IHRydWU7Cj4gIH0KPiAgCj4gLXN0YXRpYyB2b2lkIGludGVsX3Bzcl9l
-bmFibGVfc291cmNlKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAsCj4gLQkJCQkgICAgY29uc3Qg
-c3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpCj4gK3N0YXRpYyB2b2lkIGludGVs
-X3Bzcl9lbmFibGVfc291cmNlKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCj4gIHsKPiAgCXN0
-cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiA9IGRwX3RvX2k5MTUoaW50ZWxfZHApOwo+
-IC0JZW51bSB0cmFuc2NvZGVyIGNwdV90cmFuc2NvZGVyID0gY3J0Y19zdGF0ZS0+Y3B1X3RyYW5z
-Y29kZXI7Cj4gKwllbnVtIHRyYW5zY29kZXIgY3B1X3RyYW5zY29kZXIgPSBpbnRlbF9kcC0+cHNy
-LnRyYW5zY29kZXI7Cj4gIAl1MzIgbWFzazsKPiAgCj4gIAkvKiBPbmx5IEhTVyBhbmQgQkRXIGhh
-dmUgUFNSIEFVWCByZWdpc3RlcnMgdGhhdCBuZWVkIHRvIGJlIHNldHVwLiBTS0wrCj4gQEAgLTEw
-ODAsNyArMTA3OSw3IEBAIHN0YXRpYyB2b2lkIGludGVsX3Bzcl9lbmFibGVfbG9ja2VkKHN0cnVj
-dCBpbnRlbF9kcCAqaW50ZWxfZHAsCj4gIAkJCQkgICAgICZpbnRlbF9kcC0+cHNyLnZzYyk7Cj4g
-IAlpbnRlbF93cml0ZV9kcF92c2Nfc2RwKGVuY29kZXIsIGNydGNfc3RhdGUsICZpbnRlbF9kcC0+
-cHNyLnZzYyk7Cj4gIAlpbnRlbF9wc3JfZW5hYmxlX3NpbmsoaW50ZWxfZHApOwo+IC0JaW50ZWxf
-cHNyX2VuYWJsZV9zb3VyY2UoaW50ZWxfZHAsIGNydGNfc3RhdGUpOwo+ICsJaW50ZWxfcHNyX2Vu
-YWJsZV9zb3VyY2UoaW50ZWxfZHApOwo+ICAJaW50ZWxfZHAtPnBzci5lbmFibGVkID0gdHJ1ZTsK
-PiAgCj4gIAlpbnRlbF9wc3JfYWN0aXZhdGUoaW50ZWxfZHApOwo+IC0tIAo+IDIuMjUuNAo+IAo+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gSW50ZWwt
-Z2Z4IG1haWxpbmcgbGlzdAo+IEludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeApfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFp
-bGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+From: Jason Ekstrand <jason@jlekstrand.net>
+
+This reverts commit 9e31c1fe45d555a948ff66f1f0e3fe1f83ca63f7.  Ever
+since that commit, we've been having issues where a hang in one client
+can propagate to another.  In particular, a hang in an app can propagate
+to the X server which causes the whole desktop to lock up.
+
+Signed-off-by: Jason Ekstrand <jason.ekstrand@intel.com>
+Reported-by: Marcin Slusarz <marcin.slusarz@intel.com>
+Cc: <stable@vger.kernel.org> # v5.6+
+Cc: Jason Ekstrand <jason.ekstrand@intel.com>
+Cc: Marcin Slusarz <marcin.slusarz@intel.com>
+Cc: Jon Bloomfield <jon.bloomfield@intel.com>
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3080
+Fixes: 9e31c1fe45d5 ("drm/i915: Propagate errors on awaiting already signaled fences")
+Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+---
+ drivers/gpu/drm/i915/i915_request.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 970d8f4986bb..b796197c0772 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -1426,10 +1426,8 @@ i915_request_await_execution(struct i915_request *rq,
+ 
+ 	do {
+ 		fence = *child++;
+-		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
+-			i915_sw_fence_set_error_once(&rq->submit, fence->error);
++		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+ 			continue;
+-		}
+ 
+ 		if (fence->context == rq->fence.context)
+ 			continue;
+@@ -1527,10 +1525,8 @@ i915_request_await_dma_fence(struct i915_request *rq, struct dma_fence *fence)
+ 
+ 	do {
+ 		fence = *child++;
+-		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
+-			i915_sw_fence_set_error_once(&rq->submit, fence->error);
++		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+ 			continue;
+-		}
+ 
+ 		/*
+ 		 * Requests on the same timeline are explicitly ordered, along
+-- 
+2.31.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
