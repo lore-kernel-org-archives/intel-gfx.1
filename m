@@ -2,50 +2,52 @@ Return-Path: <SRS0=AXNP=KO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-21.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D120C433B4
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:49:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71A16C433ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 152966135F
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:49:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 152966135F
+	by mail.kernel.org (Postfix) with ESMTPS id 293A661355
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 May 2021 08:50:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 293A661355
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74DD76ECEC;
-	Wed, 19 May 2021 08:49:50 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F3686ECE8;
- Wed, 19 May 2021 08:49:48 +0000 (UTC)
-IronPort-SDR: 02m4kXmbJFW8i6Na++34LZgcNR6X4PCr396g2rKxXYJSt/uJPdHb7dM70Mno4uVvA6n7M/WRo9
- KQ3jZuFE7/PA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="264842315"
-X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; d="scan'208";a="264842315"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2021 01:49:47 -0700
-IronPort-SDR: A3ZuhPoIvJIIdAoaTqts9TxeYrNEf8KE5EMeiILZ3gJCoV+i9djmJYQoUZoL+LRZoPm1PmY9Iq
- JTjcnVdLXZpg==
-X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; d="scan'208";a="473401082"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E80F6ECEB;
+	Wed, 19 May 2021 08:50:55 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCB2E6ECE9;
+ Wed, 19 May 2021 08:50:53 +0000 (UTC)
+IronPort-SDR: nPS++wt2IOVfB/6xPICkUQMy21yvGViFFzZeNf/dKAYNggd1+5D0eAMqhQ+ViCw62K9PZO3Mfv
+ UfX5beWdej4w==
+X-IronPort-AV: E=McAfee;i="6200,9189,9988"; a="180528352"
+X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; d="scan'208";a="180528352"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2021 01:50:53 -0700
+IronPort-SDR: 4N6wef4i9zfnejH1AY4vLZX2fASVcpZMjuGdiC09xd2S4ssW4Iv46NwnaUveBaHU/YkV6g4LHL
+ LuNTjwOQ6Uuw==
+X-IronPort-AV: E=Sophos;i="5.82,312,1613462400"; d="scan'208";a="439879254"
 Received: from akrolak-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.37.74])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2021 01:49:44 -0700
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2021 01:50:49 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: dim-tools@lists.freedesktop.org
-Date: Wed, 19 May 2021 11:49:32 +0300
-Message-Id: <20210519084932.8666-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
+To: Zhenyu Wang <zhenyuw@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, "Vivi\,
+ Rodrigo" <rodrigo.vivi@intel.com>
+In-Reply-To: <20210519074912.GG4589@zhen-hp.sh.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Subject: [Intel-gfx] [drm-rerere PATCH] nightly.conf: drop amd branches from
- drm-tip
+References: <20210519074912.GG4589@zhen-hp.sh.intel.com>
+Date: Wed, 19 May 2021 11:50:46 +0300
+Message-ID: <87lf8bds49.fsf@intel.com>
+MIME-Version: 1.0
+Subject: Re: [Intel-gfx] [PULL] gvt-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,48 +60,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, Daniel Vetter <daniel.vetter@ffwll.ch>,
-	intel-gfx@lists.freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	dri-devel@lists.freedesktop.org,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>, "Lv, 
+ Zhiyuan" <zhiyuan.lv@intel.com>, "Yuan, Hang" <hang.yuan@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-V2UndmUgaGFkIGEgc3RhbGUgcmVwbyBmb3IgYW1kIGluIGRybS10aXAgc2luY2UgYXJvdW5kIHY0
-LjE1IGkuZS4gZm9yCm1vcmUgdGhhbiB0aHJlZSB5ZWFycy4gTm9ib2R5IHNlZW1zIHRvIG5vdGlj
-ZSBvciBjYXJlLiBEcm9wIHRoZSBhbWQKYnJhbmNoZXMgZnJvbSBkcm0tdGlwLgoKSGF2aW5nIHRo
-ZSBjdXJyZW50IGFtZCBicmFuY2hlcyBpbiBkcm0tdGlwIHdvdWxkIGJlIG5pY2UgdG8gaGF2ZSwg
-aWYKb25seSB0byBoYXZlIGEgY29tbW9uIGRybSBpbnRlZ3JhdGlvbiB0cmVlLiBIb3dldmVyLCBt
-YWludGFpbmluZyB0aGF0CmhhcyBhIGNvc3QgZHVlIHRvIHRoZSBpbmV2aXRhYmxlIGNvbmZsaWN0
-cy4gV2UgY2FuIGFkZCB0aGUgYnJhbmNoZXMgYmFjawppZiBhbmQgd2hlbiB0aGVyZSdzIGludGVy
-ZXN0IGluIHNoYXJpbmcgdGhlIGJ1cmRlbi4KCkNjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+CkNjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
-ZC5jb20+CkNjOiBQYW4sIFhpbmh1aSA8WGluaHVpLlBhbkBhbWQuY29tPgpDYzogRGFuaWVsIFZl
-dHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KU2lnbmVkLW9mZi1ieTogSmFuaSBOaWt1bGEg
-PGphbmkubmlrdWxhQGludGVsLmNvbT4KLS0tCiBuaWdodGx5LmNvbmYgfCA5IC0tLS0tLS0tLQog
-MSBmaWxlIGNoYW5nZWQsIDkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbmlnaHRseS5jb25m
-IGIvbmlnaHRseS5jb25mCmluZGV4IDkyMTE1NTBlZjc1Yy4uMzVmYjFkOWJhNjAwIDEwMDY0NAot
-LS0gYS9uaWdodGx5LmNvbmYKKysrIGIvbmlnaHRseS5jb25mCkBAIC00MCwxMiArNDAsNiBAQCBn
-aXQ6Ly9hbm9uZ2l0LmZyZWVkZXNrdG9wLm9yZy9kcm0tbWlzYwogaHR0cHM6Ly9hbm9uZ2l0LmZy
-ZWVkZXNrdG9wLm9yZy9naXQvZHJtL2RybS1taXNjCiBodHRwczovL2Fub25naXQuZnJlZWRlc2t0
-b3Aub3JnL2dpdC9kcm0vZHJtLW1pc2MuZ2l0CiAiCi1kcm1fdGlwX3JlcG9zW2RybS1hbWRdPSIK
-LXNzaDovL2dpdC5mcmVlZGVza3RvcC5vcmcvZ2l0L2RybS9kcm0tYW1kCi1naXQ6Ly9hbm9uZ2l0
-LmZyZWVkZXNrdG9wLm9yZy9kcm0vZHJtLWFtZAotaHR0cHM6Ly9hbm9uZ2l0LmZyZWVkZXNrdG9w
-Lm9yZy9naXQvZHJtL2RybS1hbWQKLWh0dHBzOi8vYW5vbmdpdC5mcmVlZGVza3RvcC5vcmcvZ2l0
-L2RybS9kcm0tYW1kLmdpdAotIgogZHJtX3RpcF9yZXBvc1tkcm1dPSIKIHNzaDovL2dpdC5mcmVl
-ZGVza3RvcC5vcmcvZ2l0L2RybS9kcm0KIGdpdDovL2Fub25naXQuZnJlZWRlc2t0b3Aub3JnL2Ry
-bS9kcm0KQEAgLTc2LDE3ICs3MCwxNCBAQCBkcm1fdGlwX2NvbmZpZz0oCiAJImRybQkJCWRybS1m
-aXhlcyIKIAkiZHJtLW1pc2MJCWRybS1taXNjLWZpeGVzIgogCSJkcm0taW50ZWwJCWRybS1pbnRl
-bC1maXhlcyIKLQkiZHJtLWFtZAkJZHJtLWFtZC1maXhlcyIKIAogCSJkcm0JCQlkcm0tbmV4dCIK
-IAkiZHJtLW1pc2MJCWRybS1taXNjLW5leHQtZml4ZXMiCiAJImRybS1pbnRlbAkJZHJtLWludGVs
-LW5leHQtZml4ZXMiCi0JImRybS1hbWQJCWRybS1hbWQtbmV4dC1maXhlcyIKIAogCSJkcm0tbWlz
-YwkJZHJtLW1pc2MtbmV4dCIKIAkiZHJtLWludGVsCQlkcm0taW50ZWwtbmV4dCIKIAkiZHJtLWlu
-dGVsCQlkcm0taW50ZWwtZ3QtbmV4dCIKLQkiZHJtLWFtZAkJZHJtLWFtZC1uZXh0IgogCiAJInNv
-dW5kLXVwc3RyZWFtCQlmb3ItbGludXMiCiAJInNvdW5kLXVwc3RyZWFtCQlmb3ItbmV4dCIKLS0g
-CjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On Wed, 19 May 2021, Zhenyu Wang <zhenyuw@linux.intel.com> wrote:
+> Hi,
+>
+> This is to fix GVT config workaround introduced during -rc1 via
+> vfio/mdev change, which exposed dependency issue explicitly that
+> made current GVT config nasty. So this is to fix dependency issue
+> and get back original config sanity.
+
+Pulled to drm-intel-fixes, thanks.
+
+BR,
+Jani.
+
+>
+> Thanks
+> --
+> The following changes since commit e4527420ed087f99c6aa2ac22c6d3458c7dc1a94:
+>
+>   drm/i915: Use correct downstream caps for check Src-Ctl mode for PCON (2021-05-12 20:53:08 +0300)
+>
+> are available in the Git repository at:
+>
+>   https://github.com/intel/gvt-linux tags/gvt-fixes-2021-05-19
+>
+> for you to fetch changes up to 145e06b58f8625becc61792a0554726314297a85:
+>
+>   drm/i915/gvt: Move mdev attribute groups into kvmgt module (2021-05-17 16:37:09 +0800)
+>
+> ----------------------------------------------------------------
+> gvt-fixes-2021-05-19
+>
+> - Fix workaround in -rc1 for GVT config (Zhenyu)
+>
+> ----------------------------------------------------------------
+> Zhenyu Wang (1):
+>       drm/i915/gvt: Move mdev attribute groups into kvmgt module
+>
+>  drivers/gpu/drm/i915/Kconfig         |   1 -
+>  drivers/gpu/drm/i915/gvt/gvt.c       | 124 +----------------------------------
+>  drivers/gpu/drm/i915/gvt/gvt.h       |   3 -
+>  drivers/gpu/drm/i915/gvt/hypercall.h |   2 +-
+>  drivers/gpu/drm/i915/gvt/kvmgt.c     | 122 +++++++++++++++++++++++++++++++---
+>  drivers/gpu/drm/i915/gvt/mpt.h       |   4 +-
+>  6 files changed, 118 insertions(+), 138 deletions(-)
+>
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
