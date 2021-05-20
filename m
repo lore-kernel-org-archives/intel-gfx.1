@@ -2,65 +2,77 @@ Return-Path: <SRS0=a6yN=KP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	PDS_TONAME_EQ_TOLOCAL_SHORT,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4FF6C433ED
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 14:07:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67F81C433B4
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 14:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8DA07610A2
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 14:07:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8DA07610A2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B8FA461057
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 14:08:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8FA461057
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 644766E3FC;
-	Thu, 20 May 2021 14:07:46 +0000 (UTC)
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A54FA6E332;
- Thu, 20 May 2021 14:07:44 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id v8so16270656qkv.1;
- Thu, 20 May 2021 07:07:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ytwyc2rd26HegdNA2IyeEVfQs5d/jjcm5L5OfWQMEn8=;
- b=T8mYpGc7SpzWbitRRqvnct/KPb7fwyDo84beqMY2effwHKpU2cjarPNyiA02jO5VoA
- 139l0kQAHbeccNh3SOk+rgPDpMorLAyEn4ObCZelupUnP/rx/fYxeIGBzFTq9RHhULdS
- z22j+LJMF43YkDGXDa7gQ3aKZjbR5jSU/qHy6g+HrsFp0oD1ikHg5RFvX/1PSpKekopT
- LZEV22ndA9u8oCChTH1x7kwUizgvvdQvXQBTdftOsUn3wmjbv7onWA5SjI+2NvSyUUFn
- BH3qfs444NuuZuZsISXvY4qQ0kkkfnlHY+8aYefPcu7obkitnoS5sE3sCc8ILe1kNwSH
- ORnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ytwyc2rd26HegdNA2IyeEVfQs5d/jjcm5L5OfWQMEn8=;
- b=hMlJDVSM9W+p6kC945SWaD8wD1K78BfvY+EVYOQMCBUviiPWAupxnHBQrhR76qHccK
- 3lTneSIecTTVllcPSj1twNayK1VazlHXA2mHTzc5SfPFnpnTy4qU30QfRj+I1g/I70pb
- m3hnYKF2LA0f53rmF3WcN06DtiBk0fTK0R4bwATX9Blc1//kUKerB2Uyk56IPgqQI+Ee
- JDPMej9JpX/cTsVJlJwzwrgME0447mVgbTN1u8td5u57Tb+BqMXHcIZAv6xLkOzELFIq
- F0e2JsYGeKRLhSxpmiTqqZAA6QZAh9Z7r0QX4/f+Jq3T/yskkK+93WOsmtVLdbbZug2W
- YCsg==
-X-Gm-Message-State: AOAM531PgZ0wyZ0PhonlasTWIAoOrl0Z/jgQApXChSnRLUWbXsDE48Q5
- /vTdEcBcP+AOgQuSww9r2N1GWErjyt5sfZ8OuqE=
-X-Google-Smtp-Source: ABdhPJyGvUjwwyny1TE05MUhwqeqp/dZ1srNSNit/9c9Y/6m22v8UX9ydbry0qV9MnfmZL6mkbhqxRCfmHfDONgfHbo=
-X-Received: by 2002:a05:620a:14b9:: with SMTP id
- x25mr2960889qkj.460.1621519663865; 
- Thu, 20 May 2021 07:07:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B13689C29;
+	Thu, 20 May 2021 14:08:30 +0000 (UTC)
+Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
+ [64.147.123.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3723C892CD;
+ Thu, 20 May 2021 14:08:17 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.west.internal (Postfix) with ESMTP id 69187166C;
+ Thu, 20 May 2021 10:08:13 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Thu, 20 May 2021 10:08:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:mime-version:content-type; s=
+ fm2; bh=OpO40UksSZoji3rH/L54K4WYXZ1844OgNyT8sXrC4n0=; b=Q0tCrslh
+ I0g+yjaLdLNljY1I6AJ3KSZbPZRvoAMxyWF6zQ+Id97LMz37l0nFx0YG+0Ss3XJo
+ bb3JLFMJEhSkyrwvuJR4o5FlM5pPPXCzVfj6PEfJgsQvLIGrkM7jKapSj2hnZodd
+ rNUppCYM0DTP5m6tmoICoTqFpHKWFaulzTDXNbewZDu52+wML1u+vLLMjPbI0HY0
+ 2FCtWuNd+gcutOqGjr19Cn6C8VvJA636aqfkXbwSP9saz6JyXj4mZm6fAau+nI80
+ A5BicwWIoqZe3UhlnWdZlevfbd5zKBQQD/DtyvbZrySzv/pqk3hR/7QhEwe7C0Kx
+ sSLWGiteyD3y4w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=OpO40UksSZoji3rH/L54K4WYXZ184
+ 4OgNyT8sXrC4n0=; b=AA+7uJ/KE+fFQ7oqgBbCsqcsJM4VmkQKPxleh0IYkU+Hr
+ uEu5QRCZyUXRNnu1VGBy45k4Wmz4gIki8em0EecHH/MjtJ+eKYVfJ2ED4qPX/RXb
+ tsfUHmHBVDRRbRg29KN4VgBS51dDiQ56w56fa/ob+T7P3O94hVP370em/8JqpGk6
+ wPjPMXz5IfTcAro2++HBOXRLlx/l3jR68kK+KdklKBxKUJmVA1TlPKJFGFOMKuUl
+ XdWnxcoK4DsUVytbYkIaO2kz5rsUyqI0cOCJxDcHz3fl7JHOevIRg7amq9kg9hgD
+ ilZ9asberVPpXHNkf3OLK1kiM/5bZZlI2zOSskTjA==
+X-ME-Sender: <xms:TG2mYKKSp584SjLstLZZTCqwu5ON76087np1bZVk2GBVGTFGdyiX8A>
+ <xme:TG2mYCIXZXmf958Fd7Q5Ty5L_7gNqGsSwKxuvIPOo0lRpi5pGr_Zvg_VJe7aaTGQM
+ nLMEwTKxBKa_ryir2M>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejuddgjeefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfggtggusehgtderredttddunecuhfhrohhmpeforgigihhmvgcu
+ tfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvg
+ hrnhephfehtefggeekteffueeileekfeegteetfffggfekleehkeffvedvgedtieetvddu
+ necuffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgnecukfhppeeltddrkeelrd
+ eikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+ mhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:TG2mYKu9i0l2qcPgLUxl-B_Xsyc17kzWkodVBNRcvjSGVimwTsX8Aw>
+ <xmx:TG2mYPbPbkWXjGVaYEYqgSzB1o5LmsC4JRwPOUEb-G-H-2OpCkLN1A>
+ <xmx:TG2mYBZUEWaGf31EZ6hVvTWzUkyxEt0KOwRlC7gzN57B02AWYmFquA>
+ <xmx:TW2mYPNmIQ2S7umFcl8cBQJEUuMk2prN4pOCCJqvv2I5ChZw5kmChDslcsM>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76]) by mail.messagingengine.com (Postfix) with ESMTPA;
+ Thu, 20 May 2021 10:08:11 -0400 (EDT)
+Date: Thu, 20 May 2021 16:08:08 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20210520140808.ds6bk6i3oarmiea6@gilmour>
 MIME-Version: 1.0
-References: <20210520080646.24132-1-samirweng1979@163.com>
-In-Reply-To: <20210520080646.24132-1-samirweng1979@163.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Thu, 20 May 2021 15:07:17 +0100
-Message-ID: <CAM0jSHO1K_qrnPMAvoGst=_dRF7BjzSumLH8pVd-3k9Ejk_44w@mail.gmail.com>
-To: samirweng1979 <samirweng1979@163.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: fix typo issue
+Subject: [Intel-gfx] [PULL] drm-misc-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,27 +85,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sudeep.holla@arm.com, wengjianfeng <wengjianfeng@yulong.com>,
- David Airlie <airlied@linux.ie>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- kernel list <linux-kernel@vger.kernel.org>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- ML dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0938126020=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 20 May 2021 at 09:23, samirweng1979 <samirweng1979@163.com> wrote:
->
-> From: wengjianfeng <wengjianfeng@yulong.com>
->
-> change 'freqency' to 'frequency'.
->
-> Signed-off-by: wengjianfeng <wengjianfeng@yulong.com>
 
-Pushed to intel-gt-next. Thanks.
+--===============0938126020==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ovnn7ghb3p5wi3dq"
+Content-Disposition: inline
+
+
+--ovnn7ghb3p5wi3dq
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi Dave, Daniel,
+
+Here's this week fix for drm-misc-fixes
+
+Maxime
+
+drm-misc-fixes-2021-05-20:
+Just a single fix for a dma-buf related WARN
+The following changes since commit c55b44c9386f3ee1b08752638559f19deaf6040d:
+
+  Merge drm/drm-fixes into drm-misc-fixes (2021-05-11 13:35:52 +0200)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2021-05-20
+
+for you to fetch changes up to 7e008b02557ccece4d2c31fb0eaf6243cbc87121:
+
+  dma-buf: fix unintended pin/unpin warnings (2021-05-20 14:02:27 +0200)
+
+----------------------------------------------------------------
+Just a single fix for a dma-buf related WARN
+
+----------------------------------------------------------------
+Christian K=F6nig (1):
+      dma-buf: fix unintended pin/unpin warnings
+
+ drivers/dma-buf/dma-buf.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+--ovnn7ghb3p5wi3dq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYKZtSAAKCRDj7w1vZxhR
+xf4SAQCx79e+ltPXx2cZRUkg5wBmW0nCuT+264I4mACRujy7agEAsijEGuP6rJfw
+2GFDZRwNXE5JG0MmJkh5FiALRpFP8ww=
+=Q8mm
+-----END PGP SIGNATURE-----
+
+--ovnn7ghb3p5wi3dq--
+
+--===============0938126020==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0938126020==--
