@@ -2,159 +2,51 @@ Return-Path: <SRS0=a6yN=KP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9917EC433B4
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 15:13:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 782FFC43460
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 15:13:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 58D1C6109F
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 15:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58D1C6109F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2696661073
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 15:13:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2696661073
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09B7389568;
-	Thu, 20 May 2021 15:13:17 +0000 (UTC)
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF1446F486;
- Thu, 20 May 2021 15:13:13 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 14KF4LkH007728;
- Thu, 20 May 2021 15:13:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : content-type : in-reply-to :
- mime-version; s=corp-2020-01-29;
- bh=0xYnAIkgh1BwKAYG8Oc0wkWW+OYh3L3q+iC5Y2chTMc=;
- b=OiG/tAlG3jMxr8AB1GMIGTYu2VsY8WzSp//lL8uB20Ui5braFpsgAV+1juYb4qzr2vq+
- YMF5DCyu1LvBZnQwPgvKJ2QS5/uPQAlmxfo3jDa2tumKNnXoFv//UoNWjEeFmv6W6fvw
- rew3ylRyOLMriHIu89o508KE6Js8u6Y05mG6y92StocLJGQBceiI0XUmXO7Fixtyo/KA
- Uf2ziRMpc2oetbppt3nvpwT/fpH/Zaq6V7Y/HPTuIqCZBVHQWb3/dLRqj+kKwIVcvi8l
- +oo25//UA+XS9K8XaoytO9VuIs7H1Sn6xOADiHMRzddO3hfJuLWt1t6yh8oSTwyafEOh 1Q== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2130.oracle.com with ESMTP id 38j3tbn4ma-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 20 May 2021 15:13:05 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 14KF6ZUB045317;
- Thu, 20 May 2021 15:13:04 GMT
-Received: from nam04-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam08lp2048.outbound.protection.outlook.com [104.47.74.48])
- by userp3030.oracle.com with ESMTP id 38megmm6fc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 20 May 2021 15:13:04 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ER6wx1EeSXza1MTKq+gHljXzOKA0t6vmol1oMx85Ri311tR9TVsxnFW/dFHE8KG7CN7FskKRSLy1jV694Wc6M64XUnlZqOLnaWYHWv4l6pp3tZ9IRFtODd2/armmvNNxgBifHr4PJoh1//XKrbN5O9ZWK1TgrQEKjD/NmYDrcN9rhJQ6cTjFPIkst6vLmuuedgpB4RRFQFmK/L1CNJj6xC/eOL+ui3L2Tv39eQKEsuI6uK2g+K2UCkg8n3e4Cti9n6737kTQoALyPLgDrWbuJ3COpHYMX+i/SHFWWEcFLNGrW2WOVJOSFYhXitDH6ZfME+XEKiSVFZ6bYMnhXUS39Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0xYnAIkgh1BwKAYG8Oc0wkWW+OYh3L3q+iC5Y2chTMc=;
- b=Mpfb+V13PKF+QW4J7wZwbFy3MXbQlj7uPBd+ju9jEC7xOIXl+NanrtI+VLFGhdQQzOzHmC07gRoBcOmtdWE8d32/OzvLi+2MNkG1LYWDsejA6NgBFODsr6nHzff0fMJFqi3aMj10A0YUFC7/qoyhIAsQC3jFrIi+rINoerM0d9IdgTC+eAV6pM/Q/EJI8apJnyQyU+HrbGHYBkUK1zP5PgAnyKrBUieS81xzXBc3oLJ2Jb0Nbp4eX+mxA7h9X0vkoWwm3aKB23J0VnTNMaHRJeG6E7fkJSATdjLW3WnCXDZT1YnNONpROreqDjAlFl/8UfYzWV4A4riChBbWTwQQgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0xYnAIkgh1BwKAYG8Oc0wkWW+OYh3L3q+iC5Y2chTMc=;
- b=bbEMMJaN9irCu239mSdxcPv5ysHGWwA29reFg0gmjRQvOEOWABhssd3c046l+lOXnSzAW3ZqV6wtJZlYYMTW3ri5Bpd4kh33A2hOIUcS0vNAe3ydUpAHoIUZUzimAZJb72vhWnRoHIcFgPUaU0KqqiH9A33wBYa0dqiWnmjvA2E=
-Authentication-Results: lst.de; dkim=none (message not signed)
- header.d=none;lst.de; dmarc=none action=none header.from=oracle.com;
-Received: from BYAPR10MB2999.namprd10.prod.outlook.com (2603:10b6:a03:85::27)
- by BYAPR10MB2854.namprd10.prod.outlook.com (2603:10b6:a03:82::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Thu, 20 May
- 2021 15:13:01 +0000
-Received: from BYAPR10MB2999.namprd10.prod.outlook.com
- ([fe80::8111:d8f1:c262:808d]) by BYAPR10MB2999.namprd10.prod.outlook.com
- ([fe80::8111:d8f1:c262:808d%6]) with mapi id 15.20.4129.033; Thu, 20 May 2021
- 15:13:01 +0000
-Date: Thu, 20 May 2021 11:12:58 -0400
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <YKZ8eqnSnaso3aoe@0xbeefdead.lan>
-References: <20210510152525.GA30093@lst.de>
-Content-Disposition: inline
-In-Reply-To: <20210510152525.GA30093@lst.de>
-X-Originating-IP: [130.44.160.152]
-X-ClientProxiedBy: BL1PR13CA0083.namprd13.prod.outlook.com
- (2603:10b6:208:2b8::28) To BYAPR10MB2999.namprd10.prod.outlook.com
- (2603:10b6:a03:85::27)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D07389F77;
+	Thu, 20 May 2021 15:13:19 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DCE5898EE;
+ Thu, 20 May 2021 15:13:17 +0000 (UTC)
+IronPort-SDR: w5tIM/SHsm3Vw22eMAXOPUOtDQkXaS6vhgWDcoHVacLUUdA4MMwA0R6dr2jwd1EclQ98xLy8SF
+ 6WUxkakUlfUw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9989"; a="265162791"
+X-IronPort-AV: E=Sophos;i="5.82,313,1613462400"; d="scan'208";a="265162791"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2021 08:13:14 -0700
+IronPort-SDR: m+wno9nG1k+TaAx+wFs4eWVWPyfHkU4FxUJAcLdVVLVI6vUdngHGMpbl6vAEpyWkFDP+h/LVrf
+ AQ+KF9y5T9/w==
+X-IronPort-AV: E=Sophos;i="5.82,313,1613462400"; d="scan'208";a="543619258"
+Received: from fgrogers-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
+ ([10.213.241.97])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2021 08:13:13 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Thu, 20 May 2021 16:12:51 +0100
+Message-Id: <20210520151254.959958-5-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210520151254.959958-1-tvrtko.ursulin@linux.intel.com>
+References: <20210520151254.959958-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from 0xbeefdead.lan (130.44.160.152) by
- BL1PR13CA0083.namprd13.prod.outlook.com (2603:10b6:208:2b8::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.14 via Frontend
- Transport; Thu, 20 May 2021 15:13:00 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2bec2e65-0c50-42fe-f105-08d91ba1c279
-X-MS-TrafficTypeDiagnostic: BYAPR10MB2854:
-X-Microsoft-Antispam-PRVS: <BYAPR10MB28549774B0967373476D1BF3892A9@BYAPR10MB2854.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MZ7qyA9WNa07lZ/k4PiGEstI83cNnt/fXrp68X85bEw8atA3mnaFUuPlj641O03PQXJVaMMCmUjuwd8vz9PMvw0BBTHeQmy6reOHiAFRi3GxjwOU0E2vxBY/0L7ju+BAGGi+iXUldUMzdSmOzPzpPeim0GlHf7rr3Yb4+S7xH/aAcakbJIBfaiplrSZIocar+6Q8YBVdWNkxLx6cPpZBG5N/BN4vt3adCaI9sbXGUlLjhG51XxBrxLLL8M5Gjz3hYRJWlD2AKSn0gv8Id7oYpk83/mBKYrItBEmbS1CCrAFiSl01NUDTlw4x1gFrlFnLByU1tIsMgFJdZdQf2h8JXIBTbiklYi3WoadGYfveyrZFA0C5ZlJSk2cRcUQMXKgM7jEhXMYU3hbxjWml3hAKwg20qEEXAXOPMHcAOsspcSlybFVJrivHNcwfq+qztr4ptOLA8Qez1l6G84mulIrhAVbgGDYClVJ9W6Prj/h4cu8G+Lnhkgsg597Y2Us81olrULvxLAUuoKm02iFDZEaL2xfTMVjoxDlGo5baWCQGEkfomJ0aIA8XjSwA3BFfnYmWY+PPEgoenFdFd9zACVWgvX9iBBEsSPMxmytp9NSnD2o5A/NoYLDnKXOezGHATqo0l3e82dbXhicKkLuZ7Lp9XQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR10MB2999.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(396003)(136003)(366004)(346002)(39860400002)(376002)(66946007)(66476007)(66556008)(7116003)(52116002)(38350700002)(8676002)(6506007)(36756003)(6916009)(478600001)(7696005)(38100700002)(86362001)(2906002)(55016002)(26005)(9686003)(8886007)(4326008)(54906003)(5660300002)(956004)(8936002)(83380400001)(16526019)(186003)(316002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?PWwOblGWJzn/N0HB7aeOhosDlb9WUZH6L6VVwFh6rMnvDwXBHwtlmcCKiUOn?=
- =?us-ascii?Q?7N51wqbBfmONiZf3Yr6OxVR9PBTfeGVsBJIlhhVkfVefBha4vpEMk9DYHzrr?=
- =?us-ascii?Q?qfcaSUkGVtEFZ5aJ647F4MU0UzLSQsk7Y8H9tUFbgfsEol2TXlRhrQKesuwA?=
- =?us-ascii?Q?o3umwuoPVFkylf8x/sUggRlvU9qzqTwibwzaXKZ9YuU8WM6qLss55d4KGdwb?=
- =?us-ascii?Q?jyOUr+o1BoaDbXTOQiIRQx0kMWFQUAwOZzW3Y86rXl5VoM7UZB/zGCk7jBVK?=
- =?us-ascii?Q?QqF8IcsmySuSHNGD5ElS7dy1tPCCwFqr9uZd2GLCSaVapwlL02bv2BG7ua3S?=
- =?us-ascii?Q?PvSaJAw0XWantQnURdLux9+YqOgIdVTEwwBLxBT+HUHSdp47EZEm0GuXUkth?=
- =?us-ascii?Q?O4vFe9tfIphHsc6BOulN5Kip9ywyjWDrDEtKZIUCizhjXLt4UEwGJ3zBqo9S?=
- =?us-ascii?Q?eZkzq5eqtu06gw9J5KBvvZ0TxfPMvSycN35DJv1KvLjsfN9/mhsN7BvyyRFN?=
- =?us-ascii?Q?3L2L1GZKFGf0aos/WVqas0+sodiDTReTiZzrQR/64jesh/Yv0BpIWTvQ7nH4?=
- =?us-ascii?Q?+f9L3S4yhLenp8KOD4DVAU5W4qfm6grdn4XPnaQuaPBvBXInY+dSQ/o1LBxk?=
- =?us-ascii?Q?7QB5ocxOJpG4kRanmWlilcD7f/f5QfOBAM9p0Ar2uVIx73U9Vffkg2tZYaJV?=
- =?us-ascii?Q?+WZyojftE13r9C5OHmPOBEU5KZGQUY4euzm9P5PNnXm9odM6IRhU4+a0Ujjo?=
- =?us-ascii?Q?aqqdkxNNXa5za8SkZZiOJLMsZqZJPPq7hyjzy1h11MEGcvR28M2bBQ/rE/J3?=
- =?us-ascii?Q?N5roQx1aGRG4p9RosUsGTeFKrWg/i8PnxsOakDVIqIeplx7EEFXGAFQLRwZ2?=
- =?us-ascii?Q?ZAa4yn0VheSLAYw8kiP6d3m0cgsbyI4jJY0hzJV0GS9SwG4CbB/rOOcAD20J?=
- =?us-ascii?Q?1vcoh6kx2wH2G5afGxSyDbfcg33xq7WKV16/p3WRHhmlotbzPDVUOW4530aT?=
- =?us-ascii?Q?621xCLz8pDs3n7XBa3B7J7dzWPGmUC/94Ctc9ZzVlwB2ecZgwFJYtsfMJc6N?=
- =?us-ascii?Q?WxyBnGV4ugXiMwyd9bnLQlkSt1fjLGqibyB3iyXA3AA3v6vfvAw5Qn2Mk1t1?=
- =?us-ascii?Q?1+tBKknbAaV6jLeqV4dCCTSJpEYg5EFMD4vGijeNxKigWo3sqHQtoywlx70+?=
- =?us-ascii?Q?QbKBGuC9vJ+fU/hpdBCdcayH9LbYpvBmg3j73/+/lD/mf3KfXv1F3YVQDW6S?=
- =?us-ascii?Q?IVr/9cpiMi7DmHyQEfTl7u9fSktY0Bvfbnrz8IPESBpCQRqV/MlGT+wj1Xt1?=
- =?us-ascii?Q?8T69yxuWv696VTCpzSm7eYAg?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bec2e65-0c50-42fe-f105-08d91ba1c279
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB2999.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2021 15:13:01.8560 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KHFzwvEHBiZFymr+F+jt0Zk2jdRVjXxu3AQepinPQTXI6HGe7wYEv/ztIoAiS1a+MohB7D1DJSuBkIPYMm/yVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB2854
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9989
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=949
- phishscore=0
- adultscore=0 malwarescore=0 bulkscore=0 mlxscore=0 spamscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2105200103
-X-Proofpoint-ORIG-GUID: 20DwqjZ89jcJ-n0SnR2-YZPFd6wo8Yaa
-X-Proofpoint-GUID: 20DwqjZ89jcJ-n0SnR2-YZPFd6wo8Yaa
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9989
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 malwarescore=0
- spamscore=0 priorityscore=1501 suspectscore=0 mlxlogscore=999 mlxscore=0
- impostorscore=0 adultscore=0 clxscore=1011 phishscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2105200103
-Subject: Re: [Intel-gfx] i915 and swiotlb_max_segment
+Subject: [Intel-gfx] [RFC 4/7] drm/i915: Track runtime spent in closed and
+ unreachable GEM contexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,47 +59,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux-foundation.org
+Cc: Chris Wilson <chris@chris-wilson.co.uk>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 10, 2021 at 05:25:25PM +0200, Christoph Hellwig wrote:
-> Hi all,
-> 
-> swiotlb_max_segment is a rather strange "API" export by swiotlb.c,
-> and i915 is the only (remaining) user.
-> 
-> swiotlb_max_segment returns 0 if swiotlb is not in use, 1 if
-> SWIOTLB_FORCE is set or swiotlb-zen is set, and the swiotlb segment
-> size when swiotlb is otherwise enabled.
-> 
-> i915 then uses it to:
-> 
->  a) decided on the max order in i915_gem_object_get_pages_internal
->  b) decide on a max segment size in i915_sg_segment_size
-> 
-> for a) it really seems i915 should switch to dma_alloc_noncoherent
-> or dma_alloc_noncontigous ASAP instead of using alloc_page and
-> streaming DMA mappings.  Any chance I could trick one of the i915
-> maintaines into doing just that given that the callchain is not
-> exactly trivial?
-> 
-> For b) I'm not sure swiotlb and i915 really agree on the meaning
-> of the value.  swiotlb_set_max_segment basically returns the entire
-> size of the swiotlb buffer, while i915 seems to use it to limit
-> the size each scatterlist entry.  It seems like dma_max_mapping_size
-> might be the best value to use here.
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Yes. The background behind that was SWIOTLB would fail because well, the
-size of the sg was too large. And some way to limit it to max size
-was needed - the dma_max_mapping_size "should" be just fine.
+As contexts are abandoned we want to remember how much GPU time they used
+(per class) so later we can used it for smarter purposes.
 
-> 
-> Once that is fixed I'd like to kill off swiotlb_max_segment as it is
-> a horribly confusing API.
+As GEM contexts are closed we want to have the DRM client remember how
+much GPU time they used (per class) so later we can used it for smarter
+purposes.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 24 +++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_drm_client.h      |  7 ++++++
+ 2 files changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 5ea42d5b0b1a..b8d8366a2cce 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -262,23 +262,43 @@ static void free_engines_rcu(struct rcu_head *rcu)
+ 	free_engines(engines);
+ }
+ 
++static void accumulate_runtime(struct i915_drm_client *client,
++			       struct i915_gem_engines *engines)
++{
++	struct i915_gem_engines_iter it;
++	struct intel_context *ce;
++
++	if (!client)
++		return;
++
++	/* Transfer accumulated runtime to the parent GEM context. */
++	for_each_gem_engine(ce, engines, it) {
++		unsigned int class = ce->engine->uabi_class;
++
++		GEM_BUG_ON(class >= ARRAY_SIZE(client->past_runtime));
++		atomic64_add(intel_context_get_total_runtime_ns(ce),
++			     &client->past_runtime[class]);
++	}
++}
++
+ static int __i915_sw_fence_call
+ engines_notify(struct i915_sw_fence *fence, enum i915_sw_fence_notify state)
+ {
+ 	struct i915_gem_engines *engines =
+ 		container_of(fence, typeof(*engines), fence);
++	struct i915_gem_context *ctx = engines->ctx;
+ 
+ 	switch (state) {
+ 	case FENCE_COMPLETE:
+ 		if (!list_empty(&engines->link)) {
+-			struct i915_gem_context *ctx = engines->ctx;
+ 			unsigned long flags;
+ 
+ 			spin_lock_irqsave(&ctx->stale.lock, flags);
+ 			list_del(&engines->link);
+ 			spin_unlock_irqrestore(&ctx->stale.lock, flags);
+ 		}
+-		i915_gem_context_put(engines->ctx);
++		accumulate_runtime(ctx->client, engines);
++		i915_gem_context_put(ctx);
+ 		break;
+ 
+ 	case FENCE_FREE:
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index 6d55f77a08f1..db82180f5859 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -13,6 +13,8 @@
+ #include <linux/sched.h>
+ #include <linux/xarray.h>
+ 
++#include "gt/intel_engine_types.h"
++
+ struct drm_i915_private;
+ 
+ struct i915_drm_clients {
+@@ -41,6 +43,11 @@ struct i915_drm_client {
+ 	bool closed;
+ 
+ 	struct i915_drm_clients *clients;
++
++	/**
++	 * @past_runtime: Accumulation of pphwsp runtimes from closed contexts.
++	 */
++	atomic64_t past_runtime[MAX_ENGINE_CLASS + 1];
+ };
+ 
+ void i915_drm_clients_init(struct i915_drm_clients *clients,
+-- 
+2.30.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
