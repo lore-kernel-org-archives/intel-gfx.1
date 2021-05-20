@@ -2,42 +2,41 @@ Return-Path: <SRS0=a6yN=KP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DAD1C433B4
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 06:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C88EFC433B4
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 07:08:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D89FC6100A
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 06:58:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D89FC6100A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3F9F760BD3
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 May 2021 07:08:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F9F760BD3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57C776EEB7;
-	Thu, 20 May 2021 06:58:47 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 692286EEB5;
- Thu, 20 May 2021 06:58:46 +0000 (UTC)
-Received: from 36-229-229-74.dynamic-ip.hinet.net ([36.229.229.74]
- helo=localhost) by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <kai.heng.feng@canonical.com>)
- id 1ljcdi-0003qu-An; Thu, 20 May 2021 06:58:39 +0000
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, ville.syrjala@linux.intel.com
-Date: Thu, 20 May 2021 14:58:20 +0800
-Message-Id: <20210520065832.614245-1-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A74716EEB6;
+	Thu, 20 May 2021 07:08:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 00F186EEB6;
+ Thu, 20 May 2021 07:08:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id EDAA8A363D;
+ Thu, 20 May 2021 07:08:02 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4] drm/i915: Invoke another _DSM to enable MUX
- on HP Workstation laptops
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Kai-Heng Feng" <kai.heng.feng@canonical.com>
+Date: Thu, 20 May 2021 07:08:02 -0000
+Message-ID: <162149448294.11680.9313403867403069304@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210520065832.614245-1-kai.heng.feng@canonical.com>
+In-Reply-To: <20210520065832.614245-1-kai.heng.feng@canonical.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Invoke_another_=5FDSM_to_enable_MUX_on_HP_Works?=
+ =?utf-8?q?tation_laptops_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,125 +49,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Takashi Iwai <tiwai@suse.de>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On HP Fury G7 Workstations, graphics output is re-routed from Intel GFX
-to discrete GFX after S3. This is not desirable, because userspace will
-treat connected display as a new one, losing display settings.
+== Series Details ==
 
-The expected behavior is to let discrete GFX drives all external
-displays.
+Series: drm/i915: Invoke another _DSM to enable MUX on HP Workstation laptops (rev2)
+URL   : https://patchwork.freedesktop.org/series/89503/
+State : warning
 
-The platform in question uses ACPI method \_SB.PCI0.HGME to enable MUX.
-The method is inside the another _DSM, so add the _DSM and call it
-accordingly.
+== Summary ==
 
-I also tested some MUX-less and iGPU only laptops with that _DSM, no
-regression was found.
-
-v4:
- - Rebase.
- - Change the DSM name to avoid confusion.
- - Move the function call to intel_opregion.
-
-v3:
- - Remove BXT from names.
- - Change the parameter type.
- - Fold the function into intel_modeset_init_hw().
-
-v2:
- - Forward declare struct pci_dev.
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3113
+$ dim checkpatch origin/drm-tip
+dcae1309b1dc drm/i915: Invoke another _DSM to enable MUX on HP Workstation laptops
+-:35: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#35: 
 References: https://lore.kernel.org/intel-gfx/1460040732-31417-4-git-send-email-animesh.manna@intel.com/
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- drivers/gpu/drm/i915/display/intel_acpi.c     | 19 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_acpi.h     |  3 +++
- drivers/gpu/drm/i915/display/intel_opregion.c |  3 +++
- 3 files changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm/i915/display/intel_acpi.c
-index 833d0c1be4f1..7cfe91fc05f2 100644
---- a/drivers/gpu/drm/i915/display/intel_acpi.c
-+++ b/drivers/gpu/drm/i915/display/intel_acpi.c
-@@ -19,6 +19,12 @@ static const guid_t intel_dsm_guid =
- 	GUID_INIT(0x7ed873d3, 0xc2d0, 0x4e4f,
- 		  0xa8, 0x54, 0x0f, 0x13, 0x17, 0xb0, 0x1c, 0x2c);
- 
-+#define INTEL_DSM_FN_GET_BIOS_DATA_FUNCS_SUPPORTED 0 /* No args */
-+
-+static const guid_t intel_dsm_guid2 =
-+	GUID_INIT(0x3e5b41c6, 0xeb1d, 0x4260,
-+		  0x9d, 0x15, 0xc7, 0x1f, 0xba, 0xda, 0xe4, 0x14);
-+
- static char *intel_dsm_port_name(u8 id)
- {
- 	switch (id) {
-@@ -176,6 +182,19 @@ void intel_unregister_dsm_handler(void)
- {
- }
- 
-+void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915)
-+{
-+	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-+	acpi_handle dhandle;
-+
-+	dhandle = ACPI_HANDLE(&pdev->dev);
-+	if (!dhandle)
-+		return;
-+
-+	acpi_evaluate_dsm(dhandle, &intel_dsm_guid2, INTEL_DSM_REVISION_ID,
-+			  INTEL_DSM_FN_GET_BIOS_DATA_FUNCS_SUPPORTED, NULL);
-+}
-+
- /*
-  * ACPI Specification, Revision 5.0, Appendix B.3.2 _DOD (Enumerate All Devices
-  * Attached to the Display Adapter).
-diff --git a/drivers/gpu/drm/i915/display/intel_acpi.h b/drivers/gpu/drm/i915/display/intel_acpi.h
-index e8b068661d22..9f197401c313 100644
---- a/drivers/gpu/drm/i915/display/intel_acpi.h
-+++ b/drivers/gpu/drm/i915/display/intel_acpi.h
-@@ -11,11 +11,14 @@ struct drm_i915_private;
- #ifdef CONFIG_ACPI
- void intel_register_dsm_handler(void);
- void intel_unregister_dsm_handler(void);
-+void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915);
- void intel_acpi_device_id_update(struct drm_i915_private *i915);
- #else
- static inline void intel_register_dsm_handler(void) { return; }
- static inline void intel_unregister_dsm_handler(void) { return; }
- static inline
-+void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915) { return; }
-+static inline
- void intel_acpi_device_id_update(struct drm_i915_private *i915) { return; }
- #endif /* CONFIG_ACPI */
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
-index dfd724e506b5..3855fba70980 100644
---- a/drivers/gpu/drm/i915/display/intel_opregion.c
-+++ b/drivers/gpu/drm/i915/display/intel_opregion.c
-@@ -1078,6 +1078,9 @@ void intel_opregion_resume(struct drm_i915_private *i915)
- 		opregion->asle->ardy = ASLE_ARDY_READY;
- 	}
- 
-+	/* Some platforms abuse the _DSM to enable MUX */
-+	intel_dsm_get_bios_data_funcs_supported(i915);
-+
- 	intel_opregion_notify_adapter(i915, PCI_D0);
- }
- 
--- 
-2.31.1
+total: 0 errors, 1 warnings, 0 checks, 54 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
