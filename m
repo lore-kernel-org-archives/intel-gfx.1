@@ -2,145 +2,82 @@ Return-Path: <SRS0=c41V=KQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0112C47076
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 18:26:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C663C4707A
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 18:26:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5ED5D613E2
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 18:26:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5ED5D613E2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=epam.com
+	by mail.kernel.org (Postfix) with ESMTPS id C4BD3613E3
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 18:26:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4BD3613E3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 385026F8AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6F9D6F8B1;
 	Fri, 21 May 2021 18:26:11 +0000 (UTC)
-X-Greylist: delayed 3400 seconds by postgrey-1.36 at gabe;
- Fri, 21 May 2021 15:10:51 UTC
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5D86E5AB;
- Fri, 21 May 2021 15:10:51 +0000 (UTC)
-Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 14LED83G001232; Fri, 21 May 2021 14:13:16 GMT
-Received: from eur05-vi1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2171.outbound.protection.outlook.com [104.47.17.171])
- by mx0a-0039f301.pphosted.com with ESMTP id 38pe3j81pv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 21 May 2021 14:13:16 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VuaJK0qIzgGtwhSXrqdlIPHi6juChTrYWypjuY77a9e5JkkVJ4DCpTojre6SN/GQicwNaVwIagfRoyisPfvRaribK1U1VJcIBZbrDGF+xW6HVHID8AaatI00LQpZrA+02vZ0W4oPW9y7wFncRX//BPDUDsFB3zSjccx0Qz5HBMvH7tTnbPs+wn6KyXGNr9AJsnSr8b8iuIqIkEIZqFPg0hTuy/eXTzhB+p9mxLwJbhJQe2T17bFEbLT7nCMIkimJ1uDG4Gu72jGpqqHAcZaZPqDh8NgcRc7Ix9qJNW03HR2J0kSKE6ID8gbty0EQ9FGS61JH5TP1eyFJxxQJ98dZ3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=synphXwSrLm3nRPt+NsSMiX7qe0j9811C0H3uUFQWJc=;
- b=SZMk1h7K8B0hg54pNeWeCea0/CXrOZLHpAT1nudo+cMjA+UA98G+PqXRIc24xNTTROGKfuCs934AJf/1l9NQBmgU2aSTdT6Yy+BNetxk7BhfnLzIZQYXGCQt/qwLgmfsz+sB7UnGyT9luKc2SonZpYGucbO6qTmdn0KxKVTAEws5KrzwkLktvS0GRbCNLogHNXgDsxtS4ij2i0NIr+FYGNk/ABx/LAfeqqWbZx8vrbye73FsvdJfZxK6jgfCrrlbhggPpGdVQEWjh2pL2TYBsER1JCufwGbEMi+N6HU4wMaWEbgGGZLjHKDSIQlXwmrcBgvdR5l54cHk7uSs2TVSAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=synphXwSrLm3nRPt+NsSMiX7qe0j9811C0H3uUFQWJc=;
- b=nbWDGCP0Hn0kqaztMmur09A9hQrDbhQuH0svSqUg8zNNuvSsshQbThNVJjOmjcApv6nUeX5mr+20amGK7BCT3YjQ9Jigikj/afbFS5JwrW41OMqzfyU5i5dIYi5X0/Z8pccdAQbcnpE3U9MhAGrvzziUaUwpQ7lI0htWIJvFBPaGbYu0aJZG9iLGkIvLxntoPv+CH7nmFprFTkvx6EKtzKghVS8l4Wt5ZVU1IFVWINWdVjXu7Y/THEk6km9gdOJ6Di1ERUNDDECNi3ZajD9IUxf4gLWVkpXcvGTL6J4E/dminsi+FVIdDyqJD7Eo4PH3mEyWZs/0fCSM9A+QDBhtmA==
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB5699.eurprd03.prod.outlook.com (2603:10a6:208:173::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26; Fri, 21 May
- 2021 14:13:13 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::3541:4069:60ca:de3d]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::3541:4069:60ca:de3d%6]) with mapi id 15.20.4129.035; Fri, 21 May 2021
- 14:13:13 +0000
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, DRI Development
- <dri-devel@lists.freedesktop.org>
-Thread-Topic: [PATCH 11/11] drm/tiny: drm_gem_simple_display_pipe_prepare_fb
- is the default
-Thread-Index: AQHXTiEf04OO3eCHAEO/U1ulzURrU6rt+psA
-Date: Fri, 21 May 2021 14:13:13 +0000
-Message-ID: <5c75b291-0b47-92de-e90d-2842b0e5f996@epam.com>
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D096E50E;
+ Fri, 21 May 2021 18:08:08 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id u21so31694016ejo.13;
+ Fri, 21 May 2021 11:08:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=c4sxkXq0hSnbuKanuNWzIU4L193Mti8XvH1mHdvMK7Q=;
+ b=bCyVjPryc5TmKTitR0jVcY39JoRb7sP0qgPfRWLRBDXxsvtu/Fa2YPzkzHaOfMj/kf
+ j/uUJiOxAIz7qT5HZWZyB3mELi1k6/RP8BOtuCpLW2xenAIZdd4SbMgH1cSmS6HY6mQe
+ oX+K6QyJQZhKf0il0fPIRI5pIRicOzvX7X4jmWa31ZDADYKBaqdTySfFGNhtD4w9copm
+ qgypnqaCpTN6vVPjyZS8V7ep7Lxb2sKORVFH5PvGy7BBFxgy9VWklDqQr2dPFR9e0iZh
+ c243oHRrdDZiHEPOxBn1W23N5Qk1SAUsW7YqdBpUCpmS74CPn52GULRkfZbHdvYgMPVq
+ sCBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=c4sxkXq0hSnbuKanuNWzIU4L193Mti8XvH1mHdvMK7Q=;
+ b=NCDxokreU061xBXyQTVoi26AIk8vJHJ31j0nEvs6a+yyrdm09N9rEVH9G8mHtAco/X
+ g+gifq5MHqIEpFwvgN3uHEg2JhM8Mrt+c0IwIRiyXy/DpvLqAKC+eA4czOP1lrbHaO7N
+ rYtoO9lWbfyvWkvrxijMHw/hBA5iUF3E2ed/LAm1w+CNdP0Ou7/qmvy78oDyZOwGhNEZ
+ DBznatNiOzMetyPm6FPpnkmLkjrZIPF89OUc2Afv1YZgmvUIJ2r3E/cFkDyEuoQtooTS
+ 6+HsKPkRIg1H4fdAL/QPs4JTPx5WGN+B3lY3D4fSVC0zek3QFNJJu7IJk2FuXvSo5SC2
+ rWWw==
+X-Gm-Message-State: AOAM530q+fEzdazvWJqy/hzqomq80kx/pmgB1nEsfs+3LbJuRj/rCIk0
+ Z+kWfJ+XJa1M2Ui34R3s8VE=
+X-Google-Smtp-Source: ABdhPJw0mnGs+FTRgEO15fPaN8uOT9yRBc2vOL7A3CMc3y5I9FJODYjlDunANc/h9IkPveTUZs7b8g==
+X-Received: by 2002:a17:906:11d3:: with SMTP id
+ o19mr11511488eja.387.1621620487273; 
+ Fri, 21 May 2021 11:08:07 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:8496:ee5:88c2:a2c4?
+ ([2a02:908:1252:fb60:8496:ee5:88c2:a2c4])
+ by smtp.gmail.com with ESMTPSA id n8sm3922455ejl.0.2021.05.21.11.08.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 May 2021 11:08:06 -0700 (PDT)
+To: Daniel Vetter <daniel@ffwll.ch>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 References: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
- <20210521090959.1663703-11-daniel.vetter@ffwll.ch>
-In-Reply-To: <20210521090959.1663703-11-daniel.vetter@ffwll.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: ffwll.ch; dkim=none (message not signed)
- header.d=none;ffwll.ch; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [185.199.97.5]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0bdf988e-a91a-452c-3aeb-08d91c62925a
-x-ms-traffictypediagnostic: AM0PR03MB5699:
-x-microsoft-antispam-prvs: <AM0PR03MB56997BA8B412A973FBE143CCE7299@AM0PR03MB5699.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:962;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: tmGi7CkLNA9HCBt4RJY63mpvC6/lOFd4BzM8h4P0cCkTjo3/w+OEeK7i1Sc1cy7I23DPvgbKPuhKgyXEPQIxoiqz5WL+6byDV8REM0kFONDtd1x7JTA7IFH2s9Wb8fJ3Ld3p6JCsIUPnY4xCaK1ZMw35mUxEog90d6jV9063RjqSsLrfZE5C9+FIpwtK23lz3PJQyVEj12eo7CEEweG/d5OCIJXJHYk97BhjPnVgWA+N0WWYqNCpzRa6dRx6dzKYfRgCUPyuik3YdGRMrXgrV59fAdO+cQfPQiRm/Ai+FYroGE2YJA5EQjYljxkkNPdJoNKIcjzo/Vu2c+rJ2Vz5GOYYTxatC4WeD1dRWA5F2F35dAm6RVuY/RFgqBF76Af/QjnP5f3PRzfYBCfyWA8yTKsN6jRkxnNYou06NjWWQMCenh8W10qT6Gmz4NqmpMj+cxO5G3B1G+lx2YTeNsIGBxSQP4E7SWWTcjIXA5rRMXzrJtTOKT6sXhEIuNctx0Oz2R0z4CSVqWWDBjlhskyymN8qNCTr7De/Npryqb/ZiwCvCfdEdsrE6gfhN8S4ujqd/4jzToHjcNxhMJgxieTbgOl8K57u892un5M7H/slHEG8QwgNh1iOjnLZgya7p1FoYmglyy6KMpT9+Q6IVRkvEiaD8lNsDeNjIJGjuZutSNs=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR03MB6324.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(396003)(136003)(376002)(39860400002)(2906002)(2616005)(478600001)(122000001)(66446008)(6512007)(66556008)(66946007)(38100700002)(91956017)(6486002)(76116006)(4326008)(66476007)(54906003)(86362001)(316002)(64756008)(110136005)(8936002)(7416002)(53546011)(5660300002)(8676002)(186003)(31686004)(558084003)(31696002)(83380400001)(36756003)(26005)(71200400001)(6506007)(45980500001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?b1ZnVDNYN0w1ZVdWUzMzcU4wWjlCOTI5Uzh5QSt5L1NtMXp6QTdOMSszcnlN?=
- =?utf-8?B?cGJPWmo2SktKdE1BdkRHaUY4Z1JqVFUwZTVjbiswWnFrTmtCMlg4TGl0VG9B?=
- =?utf-8?B?YlI5U2IweXlFRmxCcTZjdExYd3lOL0FYeDcyV0hXZlBKK3NVSThmNkRBUnls?=
- =?utf-8?B?My9iMEZNS1lBNkFwWTdkMlJmRHBaeWFwZituSXRZV0tJaFJ1U1Y3Z2xxckQ0?=
- =?utf-8?B?K1pTWW1zcFlMdWdzWVVKNkF3NHJDMWNiZXdnQ3hWazBtd200LzJZZk5XS1F2?=
- =?utf-8?B?SWtic1EwV1JaVGdBRGJHOEJUcjhlOGNrVm8zVk1JTFdiYmhVK3NNZ3FQdDZJ?=
- =?utf-8?B?bkZ2REp2bnFuajM3Mnh3THQ4NTlyTytwRG9rYVlpekI5bVBMMHNsaG5zQzA4?=
- =?utf-8?B?YmtIZTBoMENuMkRkUXJ1UXpQV0c5bWkrdGx0NUZMNzFQZWRDTDluUXdudzBH?=
- =?utf-8?B?Zm0wb1dTTUZZTExYeGJveUNPVEtjaERzZGFZQ3ZJenlkc0VRL29rUm5YMXFs?=
- =?utf-8?B?ZDRqeStiaTMxZzJsYm90VlF6NXUvY3kyYllLa2Ezb3R4eVArU00rTCtXUyt5?=
- =?utf-8?B?ejVJbGFXdmRBRjBGbWpmb2FrcmRwbWhldmNIbER6QXNXVWdlaGZtUHg5VXRC?=
- =?utf-8?B?MkR2VVV5RkRJejE5cVl0c3JRSmVqODRBSFBEN2kyandFV0FvVzJ6UkNsdVRs?=
- =?utf-8?B?M3FpdlFOSDRiRFQ4VUVKYWhmWlB2QzhGZnpJQXBsWEgxWUoxU09kY3hLRGNm?=
- =?utf-8?B?SHFkMlJQYmxKTUdmcnpQTFdjemJUYXRuQStVUFRtVER3S1lXeWx0emc2WlpG?=
- =?utf-8?B?Yjl2eG9LNHJnby9vQlN0aWZBQXZDc2trclpEVWJKc1hnc2ZCWXhjV3k4ZE16?=
- =?utf-8?B?cDZqdk56VE9Dd2dWODhZbzVUL0hFUkRSMnR0S3ZaTG9sUk1sNzNzY0R6WjNE?=
- =?utf-8?B?RGZPN05iSENrZGpyYUh1MVFWdkxmNTFRaXJvMTI2N015dlUvQk9DbkV4NEpo?=
- =?utf-8?B?eGtFQzl1SUdraUtQc0Yrem5ncVh1bEdWK0xXOFN5dFVaUDdoODlFVERESWZh?=
- =?utf-8?B?T01YcHgvUEFrTXd3amUwWE5LQ0NmTkt2WEttczUyL0tuVnl2N1V5QzJDVVhC?=
- =?utf-8?B?ZjU4dzVaSHBuYktneTRMYmVTMVFrcjdXR3dwdjEzbjVzZ2Y0WFVCaVhBaUVl?=
- =?utf-8?B?Ym1RM0djUXFzR0NoR0R3WmxCZVFBZEMxZEhDcHQ1THhScmdhMDB0SlhQcjFU?=
- =?utf-8?B?YUhrZVdsODBmRjZRaWdxT1JZdExIanZmM0l4UWxuUW5RUEViMUxWeFBKelJD?=
- =?utf-8?B?aEhPNXdNZW5oYmd4SzhQSlZiaUFjVFlCa0pRaFdmcDhVdWRRSU5scEllVHNC?=
- =?utf-8?B?Z2cwK2dsMGJHT1E1V1JUdC9zZ2liQWlEYXc1N1IrV1d1OHRPSmtZREM4VE9u?=
- =?utf-8?B?azUzekt6VzVhb0FHMnloeWd5a1FDWGpOc0ozVjVOaytGZkF0QlQ5R3QrdHNl?=
- =?utf-8?B?VGpLMzdOWnpBU2JaWCtYYlZiODVTMSs0aHIwaFFrQzl1U2duUXZjYVJ1Tzhv?=
- =?utf-8?B?SEVRaHN2cE5hM1pWZTZtMFA5MTgyUVVWUzRxU2pteEkwR1JHSExNcTJCQlYr?=
- =?utf-8?B?R2J2d2I3M1FWN2JOeHgrZzhGRXcxSTBSZmw0U2p2YXRpaC9uczJEWWNxSEZi?=
- =?utf-8?B?YmMvM2Z2U0xSSDRZYXZYQ054YWdKdVczSC9tV1dsZERtcGJEVXlYQmkxRXJP?=
- =?utf-8?Q?TtT8xnEMcdgbr+0D6CQgES5ADMtm35SHuiNf+sY?=
-x-ms-exchange-transport-forked: True
-Content-ID: <C5B75DA063347C46B779C8F812FBED80@eurprd03.prod.outlook.com>
+ <CAP+8YyEhRwgz2hCri3K7Kv1OusVa_LGEuKZqQEx5jv+NiDKZrA@mail.gmail.com>
+ <YKfFqrlLrikGMn4K@phenom.ffwll.local>
+ <CAP+8YyG0o58dQt_tvnJ2ESbeqo02xxvFdifpMwnhz2VYNk8HUw@mail.gmail.com>
+ <YKfOymXrB7O4cYVb@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <31467363-e936-879b-8b0d-5a2a92644221@gmail.com>
+Date: Fri, 21 May 2021 20:08:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bdf988e-a91a-452c-3aeb-08d91c62925a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2021 14:13:13.6987 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cEywJNdU8get7rLb9Yld0YaovUvaWTjG/DVX9Yzk4y0wjgYviEhHRz2i16qk5xKJ80NR93HtaD8Fu7Vp44rUPfHpuMxogbkWjjBRKQRZZd2jj3XUFN9kpMCKGXpwIG25
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB5699
-X-Proofpoint-GUID: HF7xGuFoEAPBAFQk1W4RxRM9bpA7WEMd
-X-Proofpoint-ORIG-GUID: HF7xGuFoEAPBAFQk1W4RxRM9bpA7WEMd
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 mlxscore=0
- mlxlogscore=955 adultscore=0 phishscore=0 suspectscore=0 bulkscore=0
- malwarescore=0 clxscore=1011 impostorscore=0 priorityscore=1501
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2105210080
+In-Reply-To: <YKfOymXrB7O4cYVb@phenom.ffwll.local>
+Content-Language: en-US
 X-Mailman-Approved-At: Fri, 21 May 2021 18:26:10 +0000
-Subject: Re: [Intel-gfx] [PATCH 11/11] drm/tiny:
- drm_gem_simple_display_pipe_prepare_fb is the default
+Subject: Re: [Intel-gfx] [Mesa-dev] [PATCH 01/11] drm/amdgpu: Comply with
+ implicit fencing rules
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,32 +90,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- David Lechner <david@lechnology.com>, Emma Anholt <emma@anholt.net>,
- Andrew Jeffery <andrew@aj.id.au>,
+Cc: Rob Clark <robdclark@chromium.org>, Daniel Stone <daniels@collabora.com>,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>,
- =?utf-8?B?Tm9yYWxmIFRyw7hubmVz?= <noralf@tronnes.org>,
- Joel Stanley <joel@jms.id.au>, Thomas Zimmermann <tzimmermann@suse.de>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Kevin Wang <kevin1.wang@amd.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ "Kristian H . Kristensen" <hoegsberg@google.com>,
+ Chen Li <chenli@uniontech.com>, mesa-dev <mesa-dev@lists.freedesktop.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  Daniel Vetter <daniel.vetter@intel.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, Linus Walleij <linus.walleij@linaro.org>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>
-Content-Type: text/plain; charset="us-ascii"
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Dennis Li <Dennis.Li@amd.com>, Deepak R Varma <mh12gx2825@gmail.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 5/21/21 12:09 PM, Daniel Vetter wrote:
-> Goes through all the drivers and deletes the default hook since it's
-> the default now.
+Am 21.05.21 um 17:16 schrieb Daniel Vetter:
+> On Fri, May 21, 2021 at 05:00:46PM +0200, Bas Nieuwenhuizen wrote:
+>> On Fri, May 21, 2021 at 4:37 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+>>> On Fri, May 21, 2021 at 11:46:23AM +0200, Bas Nieuwenhuizen wrote:
+>>>> On Fri, May 21, 2021 at 11:10 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++--
+>>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>>> index 88a24a0b5691..cc8426e1e8a8 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>>> @@ -617,8 +617,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+>>>>>          amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+>>>>>                  struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
+>>>>>
+>>>>> -               /* Make sure we use the exclusive slot for shared BOs */
+>>>>> -               if (bo->prime_shared_count)
+>>>>> +               /* Make sure we use the exclusive slot for all potentially shared BOs */
+>>>>> +               if (!(bo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID))
+>>>>>                          e->tv.num_shared = 0;
+>>>> I think it also makes sense to skip this with
+>>>> AMDGPU_GEM_CREATE_EXPLICIT_SYNC? It can be shared but I don't think
+>>>> anyone expects implicit sync to happen with those.
+>>> Ah yes, I missed this entirely. So the "no implicit flag" is already
+>>> there, and the _only_ thing that's missing really is a way to fish out the
+>>> implicit fences, and set them.
+>>>
+>>> https://lore.kernel.org/dri-devel/20210520190007.534046-1-jason@jlekstrand.net/
+>>>
+>>> So I think all that's really needed in radv is not setting
+>>> RADEON_FLAG_IMPLICIT_SYNC for winsys buffers when Jason's dma-buf ioctl
+>>> are present (means you need to do some import/export and keep the fd
+>>> around for winsys buffers, but shouldn't be too bad), and then control the
+>>> implicit fences entirely explicitly like vk expects.
+>> That is the part I'm less sure about. This is a BO wide flag so we are
+>> also disabling implicit sync in the compositor. If the compositor does
+>> only do read stuff that is ok, as the inserted exclusive fence will
+>> work for that. But as I learned recently the app provided buffer may
+>> end up being written to by the X server which open a whole can of
+>> potential problems if implicit sync gets disabled between Xserver
+>> operations on the app provided buffer. Hence setting that on the WSI
+>> buffer is a whole new can of potential problems and hence I've said a
+>> submission based flag would be preferred.
+>>
+>> I can certainly try it out though.
+> Hm yeah that's the wrong flag. We need a flag on the drm_file which the
+> explicit userspace sets. And which is valid only for itself.
 >
-> Signed-off-by: Daniel Vetter<daniel.vetter@intel.com>
-Acked-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> There's a nice flags field when creating a ctx, but it's not validated and
+> there's already a comment that we have to filter out garbage priority, so
+> that's not use. I'll whip up something entirely untested just as a draft.
+
+We could provide an IOCTL for the BO to change the flag.
+
+But could we first figure out the semantics we want to use here?
+
+Cause I'm pretty sure we don't actually need those changes at all and as 
+said before I'm certainly NAKing things which break existing use cases.
+
+Regards,
+Christian.
+
+> -Daniel
+>
+>
+>
+>>> Are you bored enough to type this up for radv? I'll give Jason's kernel
+>>> stuff another review meanwhile.
+>>> -Daniel
+>>>
+>>>>>                  e->bo_va = amdgpu_vm_bo_find(vm, bo);
+>>>>>          }
+>>>>> --
+>>>>> 2.31.0
+>>>>>
+>>> --
+>>> Daniel Vetter
+>>> Software Engineer, Intel Corporation
+>>> http://blog.ffwll.ch
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
