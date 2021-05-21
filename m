@@ -2,45 +2,68 @@ Return-Path: <SRS0=c41V=KQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1D29C433B4
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 12:49:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D7D8C433B4
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 12:54:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 557E5613D8
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 12:49:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 557E5613D8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=sntech.de
+	by mail.kernel.org (Postfix) with ESMTPS id DEBE961353
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 12:54:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEBE961353
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A22C86E133;
-	Fri, 21 May 2021 12:49:21 +0000 (UTC)
-X-Greylist: delayed 1729 seconds by postgrey-1.36 at gabe;
- Fri, 21 May 2021 12:49:20 UTC
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 719126E133;
- Fri, 21 May 2021 12:49:20 +0000 (UTC)
-Received: from ip5f5aa64a.dynamic.kabel-deutschland.de ([95.90.166.74]
- helo=diego.localnet)
- by gloria.sntech.de with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <heiko@sntech.de>)
- id 1lk48b-0006Ky-N0; Fri, 21 May 2021 14:20:21 +0200
-From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-To: DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Fri, 21 May 2021 14:20:19 +0200
-Message-ID: <3534824.Icojqenx9y@diego>
-In-Reply-To: <20210521090959.1663703-6-daniel.vetter@ffwll.ch>
-References: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
- <20210521090959.1663703-6-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71DD26E4FB;
+	Fri, 21 May 2021 12:54:17 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3EBB6E4E8
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 May 2021 12:54:15 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id j14so19234331wrq.5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 May 2021 05:54:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=FJZtfLgsMzPpeEGC1nWMm7W+KSm1MH2DLYlMQ7WHt1A=;
+ b=sFGpdh1dbpP8JSKR1U5AOEieSm0E4tGRK55RIlKzhpUYYD3nZXIvDR2brLKqPzRu0u
+ zIyVfraBuh1c5fIsX1HMBxFUVwKD2R3qnFutX1JtHyW0NlRGTH0uvf832I4g8nhP0T/a
+ mwwiDfknsZS7vuFFEi2KwIiHPPS1XkXKy3DnGSkiBlVJybTzdOZFR5fgrpIqzn5vP+UJ
+ /kAfrcH2cZLJ8QhLo3Wg5w2a8TqB6b28BhglC7vyL8r099YlZraIJYospyDMT/v3U0MH
+ u/USku+abTJL2De2pHeCfruVuOdK4CBydA07Cv6yLoBnuDbtwx0km2WGWDWNiPW8kci0
+ fl9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=FJZtfLgsMzPpeEGC1nWMm7W+KSm1MH2DLYlMQ7WHt1A=;
+ b=WgQAduN5WGT6xvdJ+ag44eE10exyrwRSIxYbV7QfZ6jCnWJOurp06iznUWjq4LBnjb
+ u+7wRR0bNUNHz8RlV8fg0NnqZ7Tzv5kVXo1nLBhNTTzYGBTk3MWB8YMlY8V4/Yj2+sel
+ W2g/zVohVR/oXbHZwYt2zyCVZdCr3k1Oezj+rFgEzCSpPdkpDUhlMNo2x/IrMeAhOwwa
+ repqpMRV5VLULGm2EkVusl4KjYpOw51Bll1Hbesy7Rr0dQG//gDTFabYgp7vIp6i2YYa
+ QhOlVN1iiXLDB7pQHgVtm38GfUBXHpTDeYQZz+p+SXfri8fU0ietUE6amrGSku27dy+n
+ JfEA==
+X-Gm-Message-State: AOAM530IW/qGKe24Yri0keyNMUskQqV3wmKieI+iObEGdqW6uUEQd0Ej
+ oK/tmmIZ+/HU05xWFMM+AhOoszijX3WmvXeI7Gml9w==
+X-Google-Smtp-Source: ABdhPJwl27bN4Oz12Tnt6vIx/LxywSl8190UB/7R09nMwblbNvh85dxGlpNGkieI1QeXVqDFLBux5vHjGvOpKZOK43M=
+X-Received: by 2002:a5d:570c:: with SMTP id a12mr9289625wrv.354.1621601654629; 
+ Fri, 21 May 2021 05:54:14 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 06/11] drm/<driver>:
- drm_gem_plane_helper_prepare_fb is now the default
+References: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
+ <20210521090959.1663703-4-daniel.vetter@ffwll.ch>
+ <CAPj87rMBVRamT+VAVUaUnq3C1KFVqzABi99RKs=1_vyb4YWDnQ@mail.gmail.com>
+ <d1ef10e8-b774-06e5-92ab-047c58e1ea41@amd.com>
+In-Reply-To: <d1ef10e8-b774-06e5-92ab-047c58e1ea41@amd.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Fri, 21 May 2021 13:54:03 +0100
+Message-ID: <CAPj87rOzV1mC=Nv2zfsYXrD4ARV7cmmJmkUCSwRSw1Ksy0k-aA@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH 04/11] drm/panfrost: Fix
+ implicit sync
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,94 +76,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>,
+Cc: Tomeu Vizoso <tomeu.vizoso@collabora.com>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Stefan Agner <stefan@agner.ch>, linux-mips@vger.kernel.org,
- Paul Cercueil <paul@crapouillou.net>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Marek Vasut <marex@denx.de>, Kevin Hilman <khilman@baylibre.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
- Chen-Yu Tsai <wens@csie.org>, NXP Linux Team <linux-imx@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tomi Valkeinen <tomba@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Sandy Huang <hjc@rock-chips.com>, linux-sunxi@lists.linux.dev,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Steven Price <steven.price@arm.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am Freitag, 21. Mai 2021, 11:09:54 CEST schrieb Daniel Vetter:
-> No need to set it explicitly.
-> =
-
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> Cc: Lucas Stach <l.stach@pengutronix.de>
-> Cc: Shawn Guo <shawnguo@kernel.org>
-> Cc: Sascha Hauer <s.hauer@pengutronix.de>
-> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: NXP Linux Team <linux-imx@nxp.com>
-> Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> Cc: Paul Cercueil <paul@crapouillou.net>
-> Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-> Cc: Matthias Brugger <matthias.bgg@gmail.com>
-> Cc: Neil Armstrong <narmstrong@baylibre.com>
-> Cc: Kevin Hilman <khilman@baylibre.com>
-> Cc: Jerome Brunet <jbrunet@baylibre.com>
-> Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-> Cc: Marek Vasut <marex@denx.de>
-> Cc: Stefan Agner <stefan@agner.ch>
-> Cc: Sandy Huang <hjc@rock-chips.com>
-> Cc: "Heiko St=FCbner" <heiko@sntech.de>
-> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-> Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-> Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Chen-Yu Tsai <wens@csie.org>
-> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Cc: Jyri Sarha <jyri.sarha@iki.fi>
-> Cc: Tomi Valkeinen <tomba@kernel.org>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-mips@vger.kernel.org
-> Cc: linux-mediatek@lists.infradead.org
-> Cc: linux-amlogic@lists.infradead.org
-> Cc: linux-rockchip@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-sunxi@lists.linux.dev
-> ---
->  drivers/gpu/drm/imx/dcss/dcss-plane.c       | 1 -
->  drivers/gpu/drm/imx/ipuv3-plane.c           | 1 -
->  drivers/gpu/drm/ingenic/ingenic-drm-drv.c   | 1 -
->  drivers/gpu/drm/ingenic/ingenic-ipu.c       | 1 -
->  drivers/gpu/drm/mediatek/mtk_drm_plane.c    | 1 -
->  drivers/gpu/drm/meson/meson_overlay.c       | 1 -
->  drivers/gpu/drm/meson/meson_plane.c         | 1 -
->  drivers/gpu/drm/mxsfb/mxsfb_kms.c           | 2 --
->  drivers/gpu/drm/rockchip/rockchip_drm_vop.c | 1 -
-
-For Rockchip
-Acked-by: Heiko Stuebner <heiko@sntech.de>
-
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gRnJpLCAyMSBNYXkgMjAyMSBhdCAxMzoyOCwgQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
+LmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPiBBbSAyMS4wNS4yMSB1bSAxNDoyMiBzY2hyaWViIERh
+bmllbCBTdG9uZToKPiA+IFllYWgsIHRoZSAnc2Vjb25kLWdlbmVyYXRpb24gVmFsaGFsbCcgR1BV
+cyBjb21pbmcgbGF0ZXIgdGhpcyB5ZWFyIC8KPiA+IGVhcmx5IG5leHQgeWVhciBhcmUgc3RhcnRp
+bmcgdG8gZ2V0IHByZXR0eSB3ZWlyZC4gRmlybXdhcmUtbWVkaWF0ZWQKPiA+IGpvYiBzY2hlZHVs
+aW5nIG91dCBvZiBtdWx0aXBsZSBxdWV1ZXMsIHVzZXJzcGFjZSBoYXZpbmcgZGlyZWN0IGFjY2Vz
+cwo+ID4gdG8gdGhlIHF1ZXVlcyBhbmQgY2FuIGRvIGludGVyLXF1ZXVlIHN5bmNocm9uaXNhdGlv
+biAoYXQgbGVhc3QgSSB0aGluawo+ID4gc28pLCBldGMuIEZvciBib251cyBwb2ludHMsIHN5bmNo
+cm9uaXNhdGlvbiBpcyBiYXNlZCBvbiAkYWRkciA9ICR2YWwKPiA+IHRvIHNpZ25hbCBhbmQgJGFk
+ZHIgPT0gJHZhbCB0byB3YWl0LCB3aXRoIGEgc2VwYXJhdGUgZmVuY2UgcHJpbWl0aXZlCj4gPiBh
+cyB3ZWxsLgo+Cj4gV2VsbCB0aGF0IHNvdW5kcyBmYW1pbGlhciA6KQoKSSBsYXVnaGVkIHdoZW4g
+SSBmaXJzdCBzYXcgaXQsIGJlY2F1c2UgaXQgd2FzIGJldHRlciB0aGFuIGNyeWluZyBJIGd1ZXNz
+LgoKSWYgeW91J3JlIGN1cmlvdXMsIHRoZSBpbnRlcmZhY2UgZGVmaW5pdGlvbnMgYXJlIGluIHRo
+ZSBjc2YvIGRpcmVjdG9yeQppbiB0aGUgJ0JpZnJvc3Qga2VybmVsIGRyaXZlcicgcjMwcDAgZG93
+bmxvYWQgeW91IGNhbiBnZXQgZnJvbSB0aGUgQXJtCmRldmVsb3BlciBzaXRlLiBVbmZvcnR1bmF0
+ZWx5IHRoZSBleGFjdCBzZW1hbnRpY3MgYXJlbid0IGNvbXBsZXRlbHkKY2xlYXIuCgo+ID4gT2J2
+aW91c2x5IEFybSBzaG91bGQgYmUgcGFydCBvZiB0aGlzIGNvbnZlcnNhdGlvbiBoZXJlLCBidXQg
+SSBndWVzcwo+ID4gd2UnbGwgaGF2ZSB0byB3YWl0IGZvciBhIHdoaWxlIHlldCB0byBzZWUgaG93
+IGV2ZXJ5dGhpbmcncyBzaGFrZW4gb3V0Cj4gPiB3aXRoIHRoaXMgbmV3IGdlbiwgYW5kIGhvcGUg
+dGhhdCB3aGF0ZXZlcidzIGJlZW4gZGVzaWduZWQgdXBzdHJlYW0gaW4KPiA+IHRoZSBtZWFudGlt
+ZSBpcyBhY3R1YWxseSB2YWd1ZWx5IGNvbXBhdGlibGUgLi4uCj4KPiBZZWFoLCBnb2luZyB0byBr
+ZWVwIHlvdSBpbiBDQyB3aGVuIHdlIHN0YXJ0IHRvIGNvZGUgYW5kIHJldmlldyB1c2VyIGZlbmNl
+cy4KCkF3ZXNvbWUsIHRoYW5rcyBDaHJpc3RpYW4uIEFwcHJlY2lhdGUgaXQuIDopCgpDaGVlcnMs
+CkRhbmllbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJ
+bnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
