@@ -2,126 +2,56 @@ Return-Path: <SRS0=c41V=KQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DF79C433B4
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 11:55:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D0D1C433ED
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 11:55:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 122496100C
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 11:55:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 122496100C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 033006100C
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 11:55:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 033006100C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 193A16F61A;
-	Fri, 21 May 2021 11:55:14 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2081.outbound.protection.outlook.com [40.107.220.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1536F4D5;
- Thu, 20 May 2021 16:26:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CbG8knMlEArQXfBrkhzttfTUSCLi96V6mNKpgRjMlPm5jYHQwQyi4zYqtGdiNpPvwdoPuMLv1FMj10b32j/+xE4EEheVKQoZeN1N5pZ9kUnCLRSZyjIRmSYYyJl8/uYJ/9zdVlabeL07Bsoy1mvWiU1oh1QcJNhEqwkCGUehUdMKod1TRNZDv0slZKKneKH6/s0iHjKX3Nh/Va37eZqrToFFyTrVzPj686AWMi3wHiuaOruDSpLHKnz0Ct8dsVMMnrysW2hTuWMvylhLxzRLH6SBk9yU4TdRzUhcgDo58Nb8kAEJZ+gSaGGbHCTCwwQVXA0lsHnr2qWOU00RRYyIFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=usUZ6ajGb4EYJ2FJB6X6ZyX67bN6NYsl1ZOMX1EOCiw=;
- b=IWUQ0mMOduIL5Vg04y/nI2qGJhLk3iped51DScsTieEwI7VVxUGrewb2jPYxRNl62uNUbN18kYmkTOjGK0NgJnpgKjZnVFr9C/Azp55cqAAHdt/o4ZrgXVmgs274yrG+MJ+X7WlgHGlgTQbaFL6VlZYJfcPAVPJ956XorxQZDFuqZk3nz5cd/wnWkkEjYJxkUv3C+3QRMUg90tmEOdmeLMfmG8FHNB13bQ+x+X8Mo9lswdJxV41Rdjnb02KTc4W90UnvFnl8G247NRvg+CUeo99BWUURlMnHxz81lCCXUKZ3VY3A5ieFP6m1ISG8AUFEmy7FwUsOuEwvM/qjnIQxtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=usUZ6ajGb4EYJ2FJB6X6ZyX67bN6NYsl1ZOMX1EOCiw=;
- b=rfpjWGDS4cftNv5ZE+kPyWJoFQouTDa4IUCcfj7Xwc6FDjjB0m/2oxme9hiG8vhCLvg5+KOgd7CypQQ8qFj8hwvcVDREM0m28RSQRjgbQaxxPT7ETCGHELQ7uFE/dWVl8bbyb40HQOHR3OlDXNY9KHXT+qVMcBkZertZxcltYrI=
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BYAPR12MB3062.namprd12.prod.outlook.com (2603:10b6:a03:aa::29)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Thu, 20 May
- 2021 16:26:34 +0000
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616]) by BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616%7]) with mapi id 15.20.4129.034; Thu, 20 May 2021
- 16:26:33 +0000
-From: "Nieto, David M" <David.Nieto@amd.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- "Intel-gfx@lists.freedesktop.org" <Intel-gfx@lists.freedesktop.org>
-Thread-Topic: [RFC 7/7] drm/i915: Expose client engine utilisation via fdinfo
-Thread-Index: AQHXTYq24cZbvGtlAk2r4smwWWBDBarsi5Al
-Date: Thu, 20 May 2021 16:26:33 +0000
-Message-ID: <BYAPR12MB28401B22CACDC249926C0A19F42A9@BYAPR12MB2840.namprd12.prod.outlook.com>
-References: <20210520151254.959958-1-tvrtko.ursulin@linux.intel.com>,
- <20210520151254.959958-8-tvrtko.ursulin@linux.intel.com>
-In-Reply-To: <20210520151254.959958-8-tvrtko.ursulin@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-05-20T16:26:33.130Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD-Official
- Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-authentication-results: linux.intel.com; dkim=none (message not signed)
- header.d=none;linux.intel.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.53.104]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7984c1a4-6b93-4b97-f56d-08d91bac0866
-x-ms-traffictypediagnostic: BYAPR12MB3062:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB30626EB01C7F2B3A9E0791AEF42A9@BYAPR12MB3062.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:655;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: E58VmZj20wi5Hq33JJNnG33vj6oUuONqNOtCDHQOE57OK+498aVscgXjgPuT3xoWtzbuWM2mwYUstPqP92nHQOWQkehvUiXNPEjh86XKvuXyGI0Q72RuQlSoLFiOxOmDJ9eFPDLt817Xygk7uXbYTKYXsVY7P+uOUjXo3/2BNpnC9g+kv+FGGoSEtrciLGqTxbiDPTDiPH7qRJb2dZyMtOGdFwDREAUd64bqiRXo8F3YSsOJkXJPuyOkIC4BL2ZnwGtGoqQHrD0B+4PBmgIJyRWB0AWLiW+pt5EEsKI3a0R9f3hNDyBmx0mxq1BpRyrSW40LAoEO0kgq4GeFCYXz8GJaVYg3fyuWLlrHf++22CyZ9E0jxyJcxQZjmjZRmdT0sZFt2z8PXG/SbbUS8kiIJAj1LXqvbx4HTvE1k84vxSeCOtn4R0Hr0u1r4S4fsXfHd8Mv1C84G5c1syVr2R69gYD0Zo1FybtKedpNxgZ4lnXvyEp0NJJ0FkqtPyqeBP2OhS1c8Jk+bPq1RKtTDuCqRSjUmJGMmE9wCVNOBM8XMNF4cleEulVRyK8zq3yl1iuzuUUizkbESlLXrDoMm7cO3k+fjYQW6X5uJc9vfZ2/BNI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(39860400002)(346002)(136003)(366004)(38100700002)(19627405001)(66574015)(5660300002)(66476007)(66946007)(66446008)(52536014)(122000001)(64756008)(83380400001)(76116006)(66556008)(110136005)(316002)(478600001)(2906002)(86362001)(8936002)(8676002)(4326008)(6506007)(33656002)(26005)(71200400001)(54906003)(55016002)(53546011)(186003)(7696005)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?dQO4PN+Ow/vwV1JTHHq9jbI+Y/fBLtx82RpkKYHeLTc1Ra92vBpEXgU0Sw?=
- =?iso-8859-1?Q?5sgjJLm0xfKQkAW44FtXNeIheQKlLXHkDFI3yDYDUM/58SxP2YdZ+iFdv3?=
- =?iso-8859-1?Q?74pa27qKZ40TgtGOEVQcbl09a/EnRZ7Ku8EZcAFDJBUlTpAZolIK2MSuQI?=
- =?iso-8859-1?Q?NF2Qd0REoXi4VB+C6DVwZUIxGkUCiWeWkDYDicSnZ4zMPrerSt2rlewyXB?=
- =?iso-8859-1?Q?ebZbHyKKh5SrtIjqjLHZCuhs5+wET3E+SV25vN3dV7IC/uKbeJho4Oo1Lv?=
- =?iso-8859-1?Q?1AXyU8cF45mXMTRDtslsdc9OJKYbi4cOYMKh44K+zmSvdI0CFjzS4w1xBu?=
- =?iso-8859-1?Q?Wo+u7rYI3FXmAd242gBC685WUO4mk7jTjxvuoguJvG94N7Plz3aRZOTsr8?=
- =?iso-8859-1?Q?AfXPyvL0BSRX1izzRMf2QKwMixudGQAHRqQI3udLCefajbw1wSDXHqLMoY?=
- =?iso-8859-1?Q?bGpoBGv9jO/lwTmV2YYKD44UBKHHsXfpnmA+T744PR1K4WlGFuJaTs55Nm?=
- =?iso-8859-1?Q?/f3WDyxi9HFMU4HG+BnEhZAdQHhLJfb0etcR2RUG5tjQyFyp9DWXmhWhaN?=
- =?iso-8859-1?Q?VxlckT3yjlIOGDM64TVo8+RWncN9fDfsPI00tfgXTi/Dod4CdRNZLCRQIN?=
- =?iso-8859-1?Q?+LfDzDtPjyTPgsMUa6YZZbxv3IgukHhgB5lihqSWRMteE6waBpy9KmUq6J?=
- =?iso-8859-1?Q?5Z9/jnPXzxVaPIXGsM6NC1Bk7CD63s+GSemfdza+5FvDTLBbvj4hah5dI+?=
- =?iso-8859-1?Q?yJ1qHjU+mOg4Wcvan/07j3lD1qBl5TCcG7IRqV/qq4RhSAIUAmNNCVdQHz?=
- =?iso-8859-1?Q?QdjEUeqD9W0QyphypNWjLrDym3afl30iiaebNy5UpWgjnKR0BB0enUJ2O4?=
- =?iso-8859-1?Q?XzbRBV9YGC6sg4e9btrwsPKghjxP7jszo/gP/8z7rlQtFG9YMmvF2Jy0ga?=
- =?iso-8859-1?Q?aNdO5ae9JiRYhzTrCwSRbW3FFDXesQ+0FB6TKLN9LMzYfD1g3lgAD4k7OI?=
- =?iso-8859-1?Q?gA3yiZM6uB5TnWqPuPpeP0uAPrjF/8SbXpsUtYiAnh4vBx+4jYFiFwcRHr?=
- =?iso-8859-1?Q?xLTD2euMI6Ad0LpcI1tSurIpJK+t9wDHkKxGjC5R80UoPorGzNwNekL1Jq?=
- =?iso-8859-1?Q?qQ/Ned+2C60pB85rEhLv0vlmOOct2irNL0hpBtocUq6NjLJom71GIIfHM8?=
- =?iso-8859-1?Q?nm003x5Hep9FgI1rfuBqurZriRxbGOZLdsdyn2NWi4UyISGHpTau98D7lk?=
- =?iso-8859-1?Q?VjDqxBR0xMxrOgv7bx+M0Aq8LxwKOicT+9j0gP8RbDxswst+jUbgGpFFwu?=
- =?iso-8859-1?Q?l7iJfZoH+RJBvKzrDJtbLgTNPH84nwozYAR4Y+unrYeuMs7azRn8Y8b1Kb?=
- =?iso-8859-1?Q?QeeELHFjWE?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA6446E17B;
+	Fri, 21 May 2021 11:55:08 +0000 (UTC)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B831892DE;
+ Fri, 21 May 2021 09:33:16 +0000 (UTC)
+Received: from dggems702-chm.china.huawei.com (unknown [172.30.72.58])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FmhDc07LvzmXQq;
+ Fri, 21 May 2021 17:30:56 +0800 (CST)
+Received: from dggeme759-chm.china.huawei.com (10.3.19.105) by
+ dggems702-chm.china.huawei.com (10.3.19.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Fri, 21 May 2021 17:33:13 +0800
+Received: from [127.0.0.1] (10.40.188.144) by dggeme759-chm.china.huawei.com
+ (10.3.19.105) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Fri, 21
+ May 2021 17:33:13 +0800
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, DRI Development
+ <dri-devel@lists.freedesktop.org>
+References: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
+ <20210521090959.1663703-8-daniel.vetter@ffwll.ch>
+From: "tiantao (H)" <tiantao6@huawei.com>
+Message-ID: <5898097e-021f-0850-92ca-3c42cc28d525@huawei.com>
+Date: Fri, 21 May 2021 17:33:12 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7984c1a4-6b93-4b97-f56d-08d91bac0866
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2021 16:26:33.7406 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: X8foRC6n7JMhGHgJDZCUsrypqudaMTWiMYjvDRlP5Cf0G6KS59bR8pX+5N5tY7IG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3062
+In-Reply-To: <20210521090959.1663703-8-daniel.vetter@ffwll.ch>
+X-Originating-IP: [10.40.188.144]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggeme759-chm.china.huawei.com (10.3.19.105)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Fri, 21 May 2021 11:55:08 +0000
-Subject: Re: [Intel-gfx] [RFC 7/7] drm/i915: Expose client engine
- utilisation via fdinfo
+Subject: Re: [Intel-gfx] [PATCH 08/11] drm/vram-helpers: Create
+ DRM_GEM_VRAM_PLANE_HELPER_FUNCS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,561 +64,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1580139559=="
+Cc: David Airlie <airlied@linux.ie>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maxime Ripard <mripard@kernel.org>, "tiantao \(H\)" <tiantao6@hisilicon.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Dave Airlie <airlied@redhat.com>, Daniel
+ Vetter <daniel.vetter@intel.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="gbk"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1580139559==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB28401B22CACDC249926C0A19F42A9BYAPR12MB2840namp_"
-
---_000_BYAPR12MB28401B22CACDC249926C0A19F42A9BYAPR12MB2840namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only]
-
-i would like to add a unit marker for the stats that we monitor in the fd, =
-as we discussed currently we are displaying the usage percentage, because w=
-e wanted to to provide single query percentages, but this may evolve with t=
-ime.
-
-May I suggest to add two new fields
-
-drm-stat-interval: <64 bit> ns
-drm-stat-timestamp: <64 bit> ns
-
-If interval is set, engine utilization is calculated by doing <perc render>=
- =3D 100*<drm_engine_render>/<drm_stat_interval>
-if interval is not set, two reads are needed : <perc render> =3D 100*<drm_e=
-ngine_render1 - drm_engine_render0> / <drm-stat-timestamp1 - drm-stat-times=
-tamp0>
-
-
-Regards,
-
-David
-
-
-________________________________
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Sent: Thursday, May 20, 2021 8:12 AM
-To: Intel-gfx@lists.freedesktop.org <Intel-gfx@lists.freedesktop.org>
-Cc: dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; Tvrt=
-ko Ursulin <tvrtko.ursulin@intel.com>; Nieto, David M <David.Nieto@amd.com>=
-; Koenig, Christian <Christian.Koenig@amd.com>; Daniel Vetter <daniel@ffwll=
-.ch>
-Subject: [RFC 7/7] drm/i915: Expose client engine utilisation via fdinfo
-
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-Similar to AMD commit
-874442541133 ("drm/amdgpu: Add show_fdinfo() interface"), using the
-infrastructure added in previous patches, we add basic client info
-and GPU engine utilisation for i915.
-
-Example of the output:
-
-  pos:    0
-  flags:  0100002
-  mnt_id: 21
-  drm-driver: i915
-  drm-pdev:   0000:00:02.0
-  drm-client-id:      7
-  drm-engine-render:  9288864723 ns
-  drm-engine-copy:    2035071108 ns
-  drm-engine-video:   0 ns
-  drm-engine-video-enhance:   0 ns
-
-DRM related fields are appropriately prefixed for easy parsing and
-separation from generic fdinfo fields.
-
-Idea is for some fields to become either fully or partially standardised
-in order to enable writting of generic top-like tools.
-
-Initial proposal for fully standardised common fields:
-
- drm-driver: <str>
- drm-pdev: <aaaa:bb.cc.d>
-
-Optional fully standardised:
-
- drm-client-id: <uint>
-
-Optional partially standardised:
-
- engine-<str>: <u64> ns
- memory-<str>: <u64> KiB
-
-Once agreed the format would need to go to some README or kerneldoc in
-DRM core.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: David M Nieto <David.Nieto@amd.com>
-Cc: Christian K=F6nig <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
----
- drivers/gpu/drm/i915/i915_drm_client.c | 68 ++++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_drm_client.h |  4 ++
- drivers/gpu/drm/i915/i915_drv.c        |  3 ++
- 3 files changed, 75 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/=
-i915_drm_client.c
-index 1e5db7753276..5e9cfba1116b 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.c
-+++ b/drivers/gpu/drm/i915/i915_drm_client.c
-@@ -9,6 +9,11 @@
-
- #include <drm/drm_print.h>
-
-+#include <uapi/drm/i915_drm.h>
-+
-+#include "gem/i915_gem_context.h"
-+#include "gt/intel_engine_user.h"
-+
- #include "i915_drm_client.h"
- #include "i915_drv.h"
- #include "i915_gem.h"
-@@ -168,3 +173,66 @@ void i915_drm_clients_fini(struct i915_drm_clients *cl=
-ients)
-
-         xa_destroy(&clients->xarray);
- }
-+
-+#ifdef CONFIG_PROC_FS
-+static const char * const uabi_class_names[] =3D {
-+       [I915_ENGINE_CLASS_RENDER] =3D "render",
-+       [I915_ENGINE_CLASS_COPY] =3D "copy",
-+       [I915_ENGINE_CLASS_VIDEO] =3D "video",
-+       [I915_ENGINE_CLASS_VIDEO_ENHANCE] =3D "video-enhance",
-+};
-+
-+static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)
-+{
-+       struct i915_gem_engines_iter it;
-+       struct intel_context *ce;
-+       u64 total =3D 0;
-+
-+       for_each_gem_engine(ce, rcu_dereference(ctx->engines), it) {
-+               if (ce->engine->uabi_class !=3D class)
-+                       continue;
-+
-+               total +=3D intel_context_get_total_runtime_ns(ce);
-+       }
-+
-+       return total;
-+}
-+
-+static void
-+show_client_class(struct seq_file *m,
-+                 struct i915_drm_client *client,
-+                 unsigned int class)
-+{
-+       const struct list_head *list =3D &client->ctx_list;
-+       u64 total =3D atomic64_read(&client->past_runtime[class]);
-+       struct i915_gem_context *ctx;
-+
-+       rcu_read_lock();
-+       list_for_each_entry_rcu(ctx, list, client_link)
-+               total +=3D busy_add(ctx, class);
-+       rcu_read_unlock();
-+
-+       return seq_printf(m, "drm-engine-%s:\t%llu ns\n",
-+                         uabi_class_names[class], total);
-+}
-+
-+void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)
-+{
-+       struct drm_file *file =3D f->private_data;
-+       struct drm_i915_file_private *file_priv =3D file->driver_priv;
-+       struct drm_i915_private *i915 =3D file_priv->dev_priv;
-+       struct i915_drm_client *client =3D file_priv->client;
-+       struct pci_dev *pdev =3D to_pci_dev(i915->drm.dev);
-+       unsigned int i;
-+
-+       seq_printf(m, "drm-driver:\ti915\n");
-+       seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n",
-+                  pci_domain_nr(pdev->bus), pdev->bus->number,
-+                  PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
-+
-+       seq_printf(m, "drm-client-id:\t%u\n", client->id);
-+
-+       for (i =3D 0; i < ARRAY_SIZE(uabi_class_names); i++)
-+               show_client_class(m, client, i);
-+}
-+#endif
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/=
-i915_drm_client.h
-index b2b69d6985e4..9885002433a0 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.h
-+++ b/drivers/gpu/drm/i915/i915_drm_client.h
-@@ -98,6 +98,10 @@ i915_drm_client_pid(const struct i915_drm_client *client=
-)
-         return __i915_drm_client_name(client)->pid;
- }
-
-+#ifdef CONFIG_PROC_FS
-+void i915_drm_client_fdinfo(struct seq_file *m, struct file *f);
-+#endif
-+
- void i915_drm_clients_fini(struct i915_drm_clients *clients);
-
- #endif /* !__I915_DRM_CLIENT_H__ */
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_dr=
-v.c
-index 33eb7b52b58b..6b63fe4b3c26 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -1694,6 +1694,9 @@ static const struct file_operations i915_driver_fops =
-=3D {
-         .read =3D drm_read,
-         .compat_ioctl =3D i915_ioc32_compat_ioctl,
-         .llseek =3D noop_llseek,
-+#ifdef CONFIG_PROC_FS
-+       .show_fdinfo =3D i915_drm_client_fdinfo,
-+#endif
- };
-
- static int
---
-2.30.2
-
-
---_000_BYAPR12MB28401B22CACDC249926C0A19F42A9BYAPR12MB2840namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-i would like to add a unit marker for the stats that we monitor in the fd, =
-as we discussed currently we are displaying the usage percentage, because w=
-e wanted to to provide single query percentages, but this may evolve with t=
-ime.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-May I suggest to add two new fields</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-drm-stat-interval: &lt;64 bit&gt; ns</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-drm-stat-timestamp: &lt;64 bit&gt; ns</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-If interval is set, engine utilization is calculated by doing &lt;perc rend=
-er&gt; =3D 100*&lt;drm_engine_render&gt;/&lt;drm_stat_interval&gt;&nbsp;</d=
-iv>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-if interval is not set, two reads are needed : &lt;perc render&gt; =3D 100*=
-&lt;drm_engine_render1 - drm_engine_render0&gt; / &lt;drm-stat-timestamp1 -=
- drm-stat-timestamp0&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-David</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Tvrtko Ursulin &lt;tv=
-rtko.ursulin@linux.intel.com&gt;<br>
-<b>Sent:</b> Thursday, May 20, 2021 8:12 AM<br>
-<b>To:</b> Intel-gfx@lists.freedesktop.org &lt;Intel-gfx@lists.freedesktop.=
-org&gt;<br>
-<b>Cc:</b> dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.=
-org&gt;; Tvrtko Ursulin &lt;tvrtko.ursulin@intel.com&gt;; Nieto, David M &l=
-t;David.Nieto@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&g=
-t;; Daniel Vetter &lt;daniel@ffwll.ch&gt;<br>
-<b>Subject:</b> [RFC 7/7] drm/i915: Expose client engine utilisation via fd=
-info</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Tvrtko Ursulin &lt;tvrtko.ursulin@intel.com&=
-gt;<br>
-<br>
-Similar to AMD commit<br>
-874442541133 (&quot;drm/amdgpu: Add show_fdinfo() interface&quot;), using t=
-he<br>
-infrastructure added in previous patches, we add basic client info<br>
-and GPU engine utilisation for i915.<br>
-<br>
-Example of the output:<br>
-<br>
-&nbsp; pos:&nbsp;&nbsp;&nbsp; 0<br>
-&nbsp; flags:&nbsp; 0100002<br>
-&nbsp; mnt_id: 21<br>
-&nbsp; drm-driver: i915<br>
-&nbsp; drm-pdev:&nbsp;&nbsp; 0000:00:02.0<br>
-&nbsp; drm-client-id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7<br>
-&nbsp; drm-engine-render:&nbsp; 9288864723 ns<br>
-&nbsp; drm-engine-copy:&nbsp;&nbsp;&nbsp; 2035071108 ns<br>
-&nbsp; drm-engine-video:&nbsp;&nbsp; 0 ns<br>
-&nbsp; drm-engine-video-enhance:&nbsp;&nbsp; 0 ns<br>
-<br>
-DRM related fields are appropriately prefixed for easy parsing and<br>
-separation from generic fdinfo fields.<br>
-<br>
-Idea is for some fields to become either fully or partially standardised<br=
->
-in order to enable writting of generic top-like tools.<br>
-<br>
-Initial proposal for fully standardised common fields:<br>
-<br>
-&nbsp;drm-driver: &lt;str&gt;<br>
-&nbsp;drm-pdev: &lt;aaaa:bb.cc.d&gt;<br>
-<br>
-Optional fully standardised:<br>
-<br>
-&nbsp;drm-client-id: &lt;uint&gt;<br>
-<br>
-Optional partially standardised:<br>
-<br>
-&nbsp;engine-&lt;str&gt;: &lt;u64&gt; ns<br>
-&nbsp;memory-&lt;str&gt;: &lt;u64&gt; KiB<br>
-<br>
-Once agreed the format would need to go to some README or kerneldoc in<br>
-DRM core.<br>
-<br>
-Signed-off-by: Tvrtko Ursulin &lt;tvrtko.ursulin@intel.com&gt;<br>
-Cc: David M Nieto &lt;David.Nieto@amd.com&gt;<br>
-Cc: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
-Cc: Daniel Vetter &lt;daniel@ffwll.ch&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/i915/i915_drm_client.c | 68 +++++++++++++++++++++++++=
-+<br>
-&nbsp;drivers/gpu/drm/i915/i915_drm_client.h |&nbsp; 4 ++<br>
-&nbsp;drivers/gpu/drm/i915/i915_drv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; |&nbsp; 3 ++<br>
-&nbsp;3 files changed, 75 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/=
-i915_drm_client.c<br>
-index 1e5db7753276..5e9cfba1116b 100644<br>
---- a/drivers/gpu/drm/i915/i915_drm_client.c<br>
-+++ b/drivers/gpu/drm/i915/i915_drm_client.c<br>
-@@ -9,6 +9,11 @@<br>
-&nbsp;<br>
-&nbsp;#include &lt;drm/drm_print.h&gt;<br>
-&nbsp;<br>
-+#include &lt;uapi/drm/i915_drm.h&gt;<br>
-+<br>
-+#include &quot;gem/i915_gem_context.h&quot;<br>
-+#include &quot;gt/intel_engine_user.h&quot;<br>
-+<br>
-&nbsp;#include &quot;i915_drm_client.h&quot;<br>
-&nbsp;#include &quot;i915_drv.h&quot;<br>
-&nbsp;#include &quot;i915_gem.h&quot;<br>
-@@ -168,3 +173,66 @@ void i915_drm_clients_fini(struct i915_drm_clients *cl=
-ients)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xa_destroy(&amp;clients-&g=
-t;xarray);<br>
-&nbsp;}<br>
-+<br>
-+#ifdef CONFIG_PROC_FS<br>
-+static const char * const uabi_class_names[] =3D {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [I915_ENGINE_CLASS_RENDER] =3D &quot;=
-render&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [I915_ENGINE_CLASS_COPY] =3D &quot;co=
-py&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [I915_ENGINE_CLASS_VIDEO] =3D &quot;v=
-ideo&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [I915_ENGINE_CLASS_VIDEO_ENHANCE] =3D=
- &quot;video-enhance&quot;,<br>
-+};<br>
-+<br>
-+static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct i915_gem_engines_iter it;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct intel_context *ce;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 total =3D 0;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for_each_gem_engine(ce, rcu_dereferen=
-ce(ctx-&gt;engines), it) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ce-&gt;engine-&gt;uabi_class !=3D class)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; total +=3D intel_context_get_total_runtime_ns(ce);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return total;<br>
-+}<br>
-+<br>
-+static void<br>
-+show_client_class(struct seq_file *m,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; struct i915_drm_client *client,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; unsigned int class)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct list_head *list =3D &amp=
-;client-&gt;ctx_list;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 total =3D atomic64_read(&amp;clie=
-nt-&gt;past_runtime[class]);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct i915_gem_context *ctx;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rcu_read_lock();<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry_rcu(ctx, list, cl=
-ient_link)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; total +=3D busy_add(ctx, class);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rcu_read_unlock();<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return seq_printf(m, &quot;drm-engine=
--%s:\t%llu ns\n&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uabi=
-_class_names[class], total);<br>
-+}<br>
-+<br>
-+void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_file *file =3D f-&gt;priva=
-te_data;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_i915_file_private *file_pr=
-iv =3D file-&gt;driver_priv;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_i915_private *i915 =3D fil=
-e_priv-&gt;dev_priv;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct i915_drm_client *client =3D fi=
-le_priv-&gt;client;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pci_dev *pdev =3D to_pci_dev(i=
-915-&gt;drm.dev);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int i;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;drm-driver:\ti915=
-\n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;drm-pdev:\t%04x:%=
-02x:%02x.%d\n&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_domain_nr(pdev-&gt;bus), pdev-&gt;bus-&gt;=
-number,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; PCI_SLOT(pdev-&gt;devfn), PCI_FUNC(pdev-&gt;de=
-vfn));<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;drm-client-id:\t%=
-u\n&quot;, client-&gt;id);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; ARRAY_SIZE(uabi_=
-class_names); i++)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; show_client_class(m, client, i);<br>
-+}<br>
-+#endif<br>
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/=
-i915_drm_client.h<br>
-index b2b69d6985e4..9885002433a0 100644<br>
---- a/drivers/gpu/drm/i915/i915_drm_client.h<br>
-+++ b/drivers/gpu/drm/i915/i915_drm_client.h<br>
-@@ -98,6 +98,10 @@ i915_drm_client_pid(const struct i915_drm_client *client=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return __i915_drm_client_n=
-ame(client)-&gt;pid;<br>
-&nbsp;}<br>
-&nbsp;<br>
-+#ifdef CONFIG_PROC_FS<br>
-+void i915_drm_client_fdinfo(struct seq_file *m, struct file *f);<br>
-+#endif<br>
-+<br>
-&nbsp;void i915_drm_clients_fini(struct i915_drm_clients *clients);<br>
-&nbsp;<br>
-&nbsp;#endif /* !__I915_DRM_CLIENT_H__ */<br>
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_dr=
-v.c<br>
-index 33eb7b52b58b..6b63fe4b3c26 100644<br>
---- a/drivers/gpu/drm/i915/i915_drv.c<br>
-+++ b/drivers/gpu/drm/i915/i915_drv.c<br>
-@@ -1694,6 +1694,9 @@ static const struct file_operations i915_driver_fops =
-=3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read =3D drm_read,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .compat_ioctl =3D i915_ioc=
-32_compat_ioctl,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .llseek =3D noop_llseek,<b=
-r>
-+#ifdef CONFIG_PROC_FS<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .show_fdinfo =3D i915_drm_client_fdin=
-fo,<br>
-+#endif<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;static int<br>
--- <br>
-2.30.2<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BYAPR12MB28401B22CACDC249926C0A19F42A9BYAPR12MB2840namp_--
-
---===============1580139559==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1580139559==--
+CtTaIDIwMjEvNS8yMSAxNzowOSwgRGFuaWVsIFZldHRlciDQtLXAOgo+IExpa2Ugd2UgaGF2ZSBm
+b3IgdGhlIHNoYWRvdyBoZWxwZXJzIHRvbywgYW5kIHJvbGwgaXQgb3V0IHRvIGRyaXZlcnMuCj4K
+PiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNvbT4K
+PiBDYzogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KPiBDYzogVGhvbWFzIFppbW1l
+cm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+Cj4gQ2M6IEhhbnMgZGUgR29lZGUgPGhkZWdvZWRl
+QHJlZGhhdC5jb20+Cj4gQ2M6IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBs
+aW51eC5pbnRlbC5jb20+Cj4gQ2M6IE1heGltZSBSaXBhcmQgPG1yaXBhcmRAa2VybmVsLm9yZz4K
+PiBDYzogRGF2aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPgo+IENjOiBEYW5pZWwgVmV0dGVy
+IDxkYW5pZWxAZmZ3bGwuY2g+Cj4gQ2M6IFRpYW4gVGFvIDx0aWFudGFvNkBoaXNpbGljb24uY29t
+Pgo+IENjOiBMYXVyZW50IFBpbmNoYXJ0IDxsYXVyZW50LnBpbmNoYXJ0QGlkZWFzb25ib2FyZC5j
+b20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYXN0L2FzdF9tb2RlLmMgICAgICAgICAgICAg
+ICAgIHwgIDMgKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vaGlzaWxpY29uL2hpYm1jL2hpYm1jX2Ry
+bV9kZS5jIHwgIDMgKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vdmJveHZpZGVvL3Zib3hfbW9kZS5j
+ICAgICAgICAgIHwgIDMgKy0tCj4gICBpbmNsdWRlL2RybS9kcm1fZ2VtX3ZyYW1faGVscGVyLmgg
+ICAgICAgICAgICAgIHwgMTIgKysrKysrKysrKysrCj4gICA0IGZpbGVzIGNoYW5nZWQsIDE1IGlu
+c2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FzdC9hc3RfbW9kZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfbW9kZS5jCj4gaW5k
+ZXggMzZkOTU3NWFhMjdiLi4yMDU1N2QyYzJmYWUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FzdC9hc3RfbW9kZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfbW9kZS5j
+Cj4gQEAgLTYxMiw4ICs2MTIsNyBAQCBhc3RfcHJpbWFyeV9wbGFuZV9oZWxwZXJfYXRvbWljX2Rp
+c2FibGUoc3RydWN0IGRybV9wbGFuZSAqcGxhbmUsCj4gICB9Cj4gICAKPiAgIHN0YXRpYyBjb25z
+dCBzdHJ1Y3QgZHJtX3BsYW5lX2hlbHBlcl9mdW5jcyBhc3RfcHJpbWFyeV9wbGFuZV9oZWxwZXJf
+ZnVuY3MgPSB7Cj4gLQkucHJlcGFyZV9mYiA9IGRybV9nZW1fdnJhbV9wbGFuZV9oZWxwZXJfcHJl
+cGFyZV9mYiwKPiAtCS5jbGVhbnVwX2ZiID0gZHJtX2dlbV92cmFtX3BsYW5lX2hlbHBlcl9jbGVh
+bnVwX2ZiLAo+ICsJRFJNX0dFTV9WUkFNX1BMQU5FX0hFTFBFUl9GVU5DUywKPiAgIAkuYXRvbWlj
+X2NoZWNrID0gYXN0X3ByaW1hcnlfcGxhbmVfaGVscGVyX2F0b21pY19jaGVjaywKPiAgIAkuYXRv
+bWljX3VwZGF0ZSA9IGFzdF9wcmltYXJ5X3BsYW5lX2hlbHBlcl9hdG9taWNfdXBkYXRlLAo+ICAg
+CS5hdG9taWNfZGlzYWJsZSA9IGFzdF9wcmltYXJ5X3BsYW5lX2hlbHBlcl9hdG9taWNfZGlzYWJs
+ZSwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2hpc2lsaWNvbi9oaWJtYy9oaWJtY19k
+cm1fZGUuYyBiL2RyaXZlcnMvZ3B1L2RybS9oaXNpbGljb24vaGlibWMvaGlibWNfZHJtX2RlLmMK
+PiBpbmRleCAyOWI4MzMyYjJiY2EuLmNjZjgwZTM2OWI0YiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vaGlzaWxpY29uL2hpYm1jL2hpYm1jX2RybV9kZS5jCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2hpc2lsaWNvbi9oaWJtYy9oaWJtY19kcm1fZGUuYwo+IEBAIC0xNTgsOCArMTU4LDcg
+QEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fcGxhbmVfZnVuY3MgaGlibWNfcGxhbmVfZnVuY3Mg
+PSB7Cj4gICB9Owo+ICAgCj4gICBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9wbGFuZV9oZWxwZXJf
+ZnVuY3MgaGlibWNfcGxhbmVfaGVscGVyX2Z1bmNzID0gewo+IC0JLnByZXBhcmVfZmIJPSBkcm1f
+Z2VtX3ZyYW1fcGxhbmVfaGVscGVyX3ByZXBhcmVfZmIsCj4gLQkuY2xlYW51cF9mYgk9IGRybV9n
+ZW1fdnJhbV9wbGFuZV9oZWxwZXJfY2xlYW51cF9mYiwKPiArCURSTV9HRU1fVlJBTV9QTEFORV9I
+RUxQRVJfRlVOQ1MsCj4gICAJLmF0b21pY19jaGVjayA9IGhpYm1jX3BsYW5lX2F0b21pY19jaGVj
+aywKPiAgIAkuYXRvbWljX3VwZGF0ZSA9IGhpYm1jX3BsYW5lX2F0b21pY191cGRhdGUsCj4gICB9
+OwpSZXZpZXdlZC1ieTogVGlhbiBUYW8gPHRpYW50YW82QGhpc2lsaWNvbi5jb20+Cj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS92Ym94dmlkZW8vdmJveF9tb2RlLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vdmJveHZpZGVvL3Zib3hfbW9kZS5jCj4gaW5kZXggOTY0MzgxZDU1ZmMxLi45NzJjODNi
+NzIwYWEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3Zib3h2aWRlby92Ym94X21vZGUu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS92Ym94dmlkZW8vdmJveF9tb2RlLmMKPiBAQCAtNDg4
+LDggKzQ4OCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX3BsYW5lX2hlbHBlcl9mdW5jcyB2
+Ym94X3ByaW1hcnlfaGVscGVyX2Z1bmNzID0gewo+ICAgCS5hdG9taWNfY2hlY2sgPSB2Ym94X3By
+aW1hcnlfYXRvbWljX2NoZWNrLAo+ICAgCS5hdG9taWNfdXBkYXRlID0gdmJveF9wcmltYXJ5X2F0
+b21pY191cGRhdGUsCj4gICAJLmF0b21pY19kaXNhYmxlID0gdmJveF9wcmltYXJ5X2F0b21pY19k
+aXNhYmxlLAo+IC0JLnByZXBhcmVfZmIJPSBkcm1fZ2VtX3ZyYW1fcGxhbmVfaGVscGVyX3ByZXBh
+cmVfZmIsCj4gLQkuY2xlYW51cF9mYgk9IGRybV9nZW1fdnJhbV9wbGFuZV9oZWxwZXJfY2xlYW51
+cF9mYiwKPiArCURSTV9HRU1fVlJBTV9QTEFORV9IRUxQRVJfRlVOQ1MsCj4gICB9Owo+ICAgCj4g
+ICBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9wbGFuZV9mdW5jcyB2Ym94X3ByaW1hcnlfcGxhbmVf
+ZnVuY3MgPSB7Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2RybV9nZW1fdnJhbV9oZWxwZXIu
+aCBiL2luY2x1ZGUvZHJtL2RybV9nZW1fdnJhbV9oZWxwZXIuaAo+IGluZGV4IDI3ZWQ3ZTkyNDNi
+OS4uZjQ4ZDE4MWM4MjRiIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvZHJtL2RybV9nZW1fdnJhbV9o
+ZWxwZXIuaAo+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9nZW1fdnJhbV9oZWxwZXIuaAo+IEBAIC0x
+MjQsNiArMTI0LDE4IEBAIHZvaWQKPiAgIGRybV9nZW1fdnJhbV9wbGFuZV9oZWxwZXJfY2xlYW51
+cF9mYihzdHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwKPiAgIAkJCQkgICAgIHN0cnVjdCBkcm1fcGxh
+bmVfc3RhdGUgKm9sZF9zdGF0ZSk7Cj4gICAKPiArLyoqCj4gKyAqIERSTV9HRU1fVlJBTV9QTEFO
+RV9IRUxQRVJfRlVOQ1MgLQo+ICsgKglJbml0aWFsaXplcyBzdHJ1Y3QgZHJtX3BsYW5lX2hlbHBl
+cl9mdW5jcyBmb3IgVlJBTSBoYW5kbGluZwo+ICsgKgo+ICsgKiBEcml2ZXJzIG1heSB1c2UgR0VN
+IEJPcyBhcyBWUkFNIGhlbHBlcnMgZm9yIHRoZSBmcmFtZWJ1ZmZlciBtZW1vcnkuIFRoaXMKPiAr
+ICogbWFjcm8gaW5pdGlhbGl6ZXMgc3RydWN0IGRybV9wbGFuZV9oZWxwZXJfZnVuY3MgdG8gdXNl
+IHRoZSByZXNwZWN0aXZlIGhlbHBlcgo+ICsgKiBmdW5jdGlvbnMuCj4gKyAqLwo+ICsjZGVmaW5l
+IERSTV9HRU1fVlJBTV9QTEFORV9IRUxQRVJfRlVOQ1MgXAo+ICsJLnByZXBhcmVfZmIgPSBkcm1f
+Z2VtX3ZyYW1fcGxhbmVfaGVscGVyX3ByZXBhcmVfZmIsIFwKPiArCS5jbGVhbnVwX2ZiID0gZHJt
+X2dlbV92cmFtX3BsYW5lX2hlbHBlcl9jbGVhbnVwX2ZiCj4gKwo+ICAgLyoKPiAgICAqIEhlbHBl
+cnMgZm9yIHN0cnVjdCBkcm1fc2ltcGxlX2Rpc3BsYXlfcGlwZV9mdW5jcwo+ICAgICovCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFp
+bGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
