@@ -2,77 +2,53 @@ Return-Path: <SRS0=c41V=KQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 137DBC433ED
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 11:30:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25756C433ED
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 11:41:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C04B6613DA
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 11:30:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C04B6613DA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id D13B8613DD
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 11:41:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D13B8613DD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F13E6F619;
-	Fri, 21 May 2021 11:30:08 +0000 (UTC)
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5071F6F619;
- Fri, 21 May 2021 11:30:06 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- z19-20020a7bc7d30000b029017521c1fb75so7213858wmk.0; 
- Fri, 21 May 2021 04:30:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=WVCcRp42np3ehFvmyRSbrGhPdGWBOP9y4II+fscXkNw=;
- b=JhmGGigt8nfmF9e2KoSdDWRgoYAiPZBmXCHSzTq45xOfT+MqrRX5B+UJV+35h77vKC
- NqTdRkEMnViw5qfJVK12SluVycPjcokKZy4d9I8lckDXBmeEbk6bm2pIicOCyLaTXctT
- 22EvKCMTwRkOT6AF24wmNTIu0HTM2VuG18EnStp3zIetV7lI2MKHmbBW9TdMC2nvRl1z
- 3xAiRhjb+mGGwAS1ae5P7sTMc8U2WQUa4y1QIQFkbMi7JQokOkjETuglpmf6/TOfr9Px
- lpu0jpkxml/QjZH3v4lG3uA/TU313Q74dN75P8+9p6ki8ySr/TsomzJSK3tHB9JjqIgE
- r6+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=WVCcRp42np3ehFvmyRSbrGhPdGWBOP9y4II+fscXkNw=;
- b=hFvZcy7kpVUV3cb8UyDbliCdjT5LBUk+TwDgi8brseKX9nO0f/moaHT193ySS5arAR
- 77Lcu8RRC8K5Y1koCRIBYukFg1rdJoBo/fBaKMl3M9Q425a5SyJT6qgpgTf6xMKBg8RP
- pZGZ560cn1J1ksJgFVGBe60WS/x2m3lGOaMDZIMQ1OtwFDFM7N5Qkzpf/1JDDMT4HXRV
- S79iogRBlccewBdRDOELCEinmhTWNAtm32Hxkxz37IYFW0ci7lbGOl6CEYs+fEnqiAfE
- cW5FieR1ZBx3h3SPIBvTtbwq7kHrLalDqgoskktd3vX6Kf5ALzcbiNLICXyhW24Gj9i/
- qtlg==
-X-Gm-Message-State: AOAM532u2G2QVX9XOKmG9thpivLJGmCWpivekF2sXZCzjxfFTEHOW+2Z
- sriYrZ+LF3B6i75HW0HrtDWXKSYJ+kL7IdqR
-X-Google-Smtp-Source: ABdhPJw4OPmI/1ALdRFYGzJ+Jw2NQJ4acS0lgEDxWEUzFnGQvniamMPjRgRnc96ffMAKBwsvIM2H+w==
-X-Received: by 2002:a1c:402:: with SMTP id 2mr8278373wme.7.1621596604822;
- Fri, 21 May 2021 04:30:04 -0700 (PDT)
-Received: from [0.0.0.0] (jfdmzpr04-ext.jf.intel.com. [134.134.137.73])
- by smtp.googlemail.com with ESMTPSA id r5sm6663246wmh.23.2021.05.21.04.30.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 May 2021 04:30:04 -0700 (PDT)
-To: Vidya Srinivas <vidya.srinivas@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- igt-dev@lists.freedesktop.org
-References: <1621570131-23943-1-git-send-email-vidya.srinivas@intel.com>
-From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Message-ID: <f0926681-ea44-b2d2-fe8d-a443728d01c2@gmail.com>
-Date: Fri, 21 May 2021 14:29:56 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E2CE6E0F7;
+	Fri, 21 May 2021 11:41:11 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00BBA6E0F7;
+ Fri, 21 May 2021 11:41:09 +0000 (UTC)
+IronPort-SDR: fa56FqsCZBuYh3hY7oZ+jP/ZE1GWLaxvmxwHEW4n9Aflma4vmjw9cz8elv7VOyIO8gozoF3vRx
+ amaiooAF0FDw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9990"; a="188591880"
+X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="188591880"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2021 04:41:08 -0700
+IronPort-SDR: YIK2n34v8umkm+IAPpDeACOESV7W80LamTXMNDhNBVyAxH8Z1juHU5Snnwo+BCpD7gVo7QOa8D
+ jojbaFIOwKRg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="544043738"
+Received: from kuha.fi.intel.com ([10.237.72.162])
+ by fmsmga001.fm.intel.com with SMTP; 21 May 2021 04:41:03 -0700
+Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
+ Fri, 21 May 2021 14:41:03 +0300
+Date: Fri, 21 May 2021 14:41:03 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <YKecT6x9hOoBkyf2@kuha.fi.intel.com>
+References: <20210505162415.531876-1-hdegoede@redhat.com>
+ <YJosrajgV9zem5lr@kuha.fi.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <1621570131-23943-1-git-send-email-vidya.srinivas@intel.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [igt-dev] [PATCH i-g-t] tests/kms_big_fb: Wait for
- vblank before collecting CRC
+Content-Disposition: inline
+In-Reply-To: <YJosrajgV9zem5lr@kuha.fi.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 0/8] drm + usb-type-c: Add support for
+ out-of-band hotplug notification (v3)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,67 +61,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: juhapekka.heikkila@gmail.com
-Cc: Charlton.Lin@intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ platform-driver-x86@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Vidya,
-
-on which machines this would help? I see there's many vblanks already 
-being waited. There's igt_display_commit2 which probably will block and 
-even if it didn't there's igt_pipe_crc_collect_crc(..) where crc 
-calculation is started after flip and then get one crc before disabling 
-crc counting again.
-
-/Juha-Pekka
-
-On 21.5.2021 7.08, Vidya Srinivas wrote:
-> Without wait for vblank, CRC mismatch is seen
-> between big and small CRC on few systems
+On Tue, May 11, 2021 at 10:05:26AM +0300, Heikki Krogerus wrote:
+> On Wed, May 05, 2021 at 06:24:07PM +0200, Hans de Goede wrote:
+> > Hi All,
+> > 
+> > Here is v3 of my patchset making DP over Type-C work on devices where the
+> > Type-C controller does not drive the HPD pin on the GPU, but instead
+> > we need to forward HPD events from the Type-C controller to the DRM driver.
 > 
-> Change-Id: I3bec931aa901130997e693ac1cacf389e2a8100f
-> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
-> ---
->   tests/kms_big_fb.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tests/kms_big_fb.c b/tests/kms_big_fb.c
-> index b2027b6b9d1b..7d78ff829d41 100644
-> --- a/tests/kms_big_fb.c
-> +++ b/tests/kms_big_fb.c
-> @@ -254,6 +254,7 @@ static void unset_lut(data_t *data)
->   static bool test_plane(data_t *data)
->   {
->   	igt_plane_t *plane = data->plane;
-> +	igt_display_t *display = &data->display;
->   	struct igt_fb *small_fb = &data->small_fb;
->   	struct igt_fb *big_fb = &data->big_fb;
->   	int w = data->big_fb_width - small_fb->width;
-> @@ -337,16 +338,17 @@ static bool test_plane(data_t *data)
->   		igt_display_commit2(&data->display, data->display.is_atomic ?
->   				    COMMIT_ATOMIC : COMMIT_UNIVERSAL);
->   
-> -
-> +		igt_wait_for_vblank(data->drm_fd, display->pipes[data->pipe].crtc_offset);
->   		igt_pipe_crc_collect_crc(data->pipe_crc, &small_crc);
->   
->   		igt_plane_set_fb(plane, big_fb);
->   		igt_fb_set_position(big_fb, plane, x, y);
->   		igt_fb_set_size(big_fb, plane, small_fb->width, small_fb->height);
-> +
->   		igt_plane_set_size(plane, data->width, data->height);
->   		igt_display_commit2(&data->display, data->display.is_atomic ?
->   				    COMMIT_ATOMIC : COMMIT_UNIVERSAL);
-> -
-> +		igt_wait_for_vblank(data->drm_fd, display->pipes[data->pipe].crtc_offset);
->   		igt_pipe_crc_collect_crc(data->pipe_crc, &big_crc);
->   
->   		igt_plane_set_fb(plane, NULL);
-> 
+> These look good to me. I can also test these next week if needed. I'll
+> give my Tested-by tag after that if these haven't been taken by
+> anybody by that.
 
+It's almost weird to see console output from the Type-C connector on
+my good old GPD printed to an actual display :-)
+
+At least in my tests, the DP alt mode driver now calls
+drm_connector_oob_hotplug_event() only when it should. This is pretty cool!
+FWIW:
+
+Tested-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
+
+thanks,
+
+-- 
+heikki
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
