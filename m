@@ -2,74 +2,61 @@ Return-Path: <SRS0=c41V=KQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CA22C4707C
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 18:26:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20A0DC4707A
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 18:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 52224613E1
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 18:26:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 52224613E1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9FE8F613E2
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 18:26:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9FE8F613E2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tronnes.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 586436F8B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDE16F8AE;
 	Fri, 21 May 2021 18:26:11 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12E286EE27;
- Fri, 21 May 2021 15:53:21 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id 62so10370708wmb.3;
- Fri, 21 May 2021 08:53:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=kdAs0Ep5+2K53fiSGhNfrLNzj7MMY3EgOQjni9Umht8=;
- b=IhYlOGhD14MnNUDN3/gcfgDBq/BNMorjLEdyQeq1zzib97z1tEhGiiXaphyov0B6rm
- Fnug5G0nwmDNTjmkdcXodXq9U/gz3ibsum4pzrkpfI9FmltJSw2CUcxsWX7jGXwwmyCj
- 6vxc3W7raymKSRp3BSh9pxV9ixt7fhYnirv/L00YJBgVdZZYogPdXKuTSkEFfH1IrFRZ
- Da9BK8RCuQqZjWtJt4Z9PY1PYT/d4yv4t/as1y1Bzr1dc6M55Y5AjpEufmJ68LUqwnaN
- r/4pWcKNmcNKigTm4vX1D6oC/E3gRqOexUh1NDZr0Zq9RS8nw5b/KoUs/ymofl20nPkJ
- EdEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=kdAs0Ep5+2K53fiSGhNfrLNzj7MMY3EgOQjni9Umht8=;
- b=elsjR8Ok+U9QbKXb0X69lUdWL5XBPllezUgZrWmfXdT12M2wuiQqryB4l7h7WHu8xJ
- qqavOhfz3IjrGDrbzjM+FZwpYO9lMDhRZAG5v8FQ7z2jSP7REcoXgR1cEpGjCoanYBA6
- ckzqszkTVtp3ZjojNDhrsthLfiU4fT7CkaXutu70TIJpyJHUh84wkjvPU9BqEVSoNugc
- k+VMqYorNGUHjtuN9ciAqu4PjzjswjhyTBziKF1tqMGDYjjc7nnKwUAHZtfWCdPCFjcn
- CnQUdOTiw3aKtjmAHyJEAExK4FTfNVXGHRA4D2E5yKyjezAmES0doPkYpvnyGnd8+Ris
- /jJA==
-X-Gm-Message-State: AOAM531Khg8OebcGxfBFjny3kCYuygqr2C2m7wIkjelvJekmpY53+7Oc
- H47F6YQomE/r/vAZDba/lp438QAZNEaF/A==
-X-Google-Smtp-Source: ABdhPJxTn/ueWgal7rvRO3A3ECHpC111Q7o7SxwZUm6zNTqM9YK/SolsENlCqq1BAUxDrXnfxploOg==
-X-Received: by 2002:a1c:5443:: with SMTP id p3mr9425116wmi.101.1621612399794; 
- Fri, 21 May 2021 08:53:19 -0700 (PDT)
-Received: from jernej-laptop.localnet (cpe-86-58-17-133.cable.triera.net.
- [86.58.17.133])
- by smtp.gmail.com with ESMTPSA id o129sm13051356wmo.22.2021.05.21.08.53.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 May 2021 08:53:19 -0700 (PDT)
-From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Fri, 21 May 2021 17:53:16 +0200
-Message-ID: <1940958.iMR1v07LRx@jernej-laptop>
-In-Reply-To: <20210521090959.1663703-6-daniel.vetter@ffwll.ch>
+X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
+ Fri, 21 May 2021 14:15:39 UTC
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D422D6F881
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 May 2021 14:15:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202012;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=mzxTAoQKZErI0PSlV6Tx+3ILAHO7jFNRjBMhpv39Rlg=; b=bILOGlhtsDznJmhl3TFXvnvplE
+ Ixe5T9HBrMiDZAMMx686k9FpKn1MoqOli+IjA8R8W5lHgPq/6V5gQAy0cvXVppCuGncYVYXrfJ1iA
+ mDTQj4RQ0x2cVmKxxqif50mnzTNJd1YW5eYwJwKp0Ls9DwseAh9+YEu/yXcVzyi/ZHKjxENmXmIsj
+ jJua4+BnHtIVIU6l/fRg8ZFtLHYf2pkbwZwOlWiMbiYsR03CkDUc5iDBh+KZW/j2/rKY1cGCxELJy
+ qUoNtLvmohAEWOPP9E7yLiBxq7gf6X4HjlOOtsTm5+Jf46IQdc8hXtE1zPrKNoHY/NCKNzIbW8tjL
+ fJseoIJg==;
+Received: from [2a01:799:95f:4600:cca0:57ac:c55d:a485] (port=50828)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1lk5q6-0005ru-3Q; Fri, 21 May 2021 16:09:22 +0200
+To: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ DRI Development <dri-devel@lists.freedesktop.org>
 References: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
- <20210521090959.1663703-6-daniel.vetter@ffwll.ch>
+ <20210521090959.1663703-11-daniel.vetter@ffwll.ch>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+Message-ID: <0b2b3fd7-7740-4c4e-78a5-142a6e9892ea@tronnes.org>
+Date: Fri, 21 May 2021 16:09:13 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
+In-Reply-To: <20210521090959.1663703-11-daniel.vetter@ffwll.ch>
 X-Mailman-Approved-At: Fri, 21 May 2021 18:26:10 +0000
-Subject: Re: [Intel-gfx] [PATCH 06/11] drm/<driver>:
- drm_gem_plane_helper_prepare_fb is now the default
+Subject: Re: [Intel-gfx] [PATCH 11/11] drm/tiny:
+ drm_gem_simple_display_pipe_prepare_fb is the default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,87 +69,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Stefan Agner <stefan@agner.ch>, linux-mips@vger.kernel.org,
- Paul Cercueil <paul@crapouillou.net>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Marek Vasut <marex@denx.de>, Kevin Hilman <khilman@baylibre.com>,
- linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+Cc: linux-arm-kernel@lists.infradead.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ David Lechner <david@lechnology.com>, Emma Anholt <emma@anholt.net>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Andrew Jeffery <andrew@aj.id.au>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tomi Valkeinen <tomba@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Sandy Huang <hjc@rock-chips.com>, linux-sunxi@lists.linux.dev,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ Maxime Ripard <mripard@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Thomas Zimmermann <tzimmermann@suse.de>, xen-devel@lists.xenproject.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Linus Walleij <linus.walleij@linaro.org>,
+ linux-aspeed@lists.ozlabs.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Dne petek, 21. maj 2021 ob 11:09:54 CEST je Daniel Vetter napisal(a):
-> No need to set it explicitly.
-> =
-
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> Cc: Lucas Stach <l.stach@pengutronix.de>
-> Cc: Shawn Guo <shawnguo@kernel.org>
-> Cc: Sascha Hauer <s.hauer@pengutronix.de>
-> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: NXP Linux Team <linux-imx@nxp.com>
-> Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> Cc: Paul Cercueil <paul@crapouillou.net>
-> Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-> Cc: Matthias Brugger <matthias.bgg@gmail.com>
-> Cc: Neil Armstrong <narmstrong@baylibre.com>
-> Cc: Kevin Hilman <khilman@baylibre.com>
-> Cc: Jerome Brunet <jbrunet@baylibre.com>
-> Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-> Cc: Marek Vasut <marex@denx.de>
-> Cc: Stefan Agner <stefan@agner.ch>
-> Cc: Sandy Huang <hjc@rock-chips.com>
-> Cc: "Heiko St=FCbner" <heiko@sntech.de>
-> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-> Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-> Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Chen-Yu Tsai <wens@csie.org>
-> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Cc: Jyri Sarha <jyri.sarha@iki.fi>
-> Cc: Tomi Valkeinen <tomba@kernel.org>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-mips@vger.kernel.org
-> Cc: linux-mediatek@lists.infradead.org
-> Cc: linux-amlogic@lists.infradead.org
-> Cc: linux-rockchip@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-sunxi@lists.linux.dev
-
-For sun4i:
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-
-Best regards,
-Jernej
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+CgpEZW4gMjEuMDUuMjAyMSAxMS4wOSwgc2tyZXYgRGFuaWVsIFZldHRlcjoKPiBHb2VzIHRocm91
+Z2ggYWxsIHRoZSBkcml2ZXJzIGFuZCBkZWxldGVzIHRoZSBkZWZhdWx0IGhvb2sgc2luY2UgaXQn
+cwo+IHRoZSBkZWZhdWx0IG5vdy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVyIDxk
+YW5pZWwudmV0dGVyQGludGVsLmNvbT4KCkFja2VkLWJ5OiBOb3JhbGYgVHLDuG5uZXMgPG5vcmFs
+ZkB0cm9ubmVzLm9yZz4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwt
+Z2Z4Cg==
