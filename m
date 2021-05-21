@@ -2,67 +2,42 @@ Return-Path: <SRS0=c41V=KQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01EA4C43460
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 09:10:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0DD7C433B4
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 09:18:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C43C3613AC
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 09:10:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C43C3613AC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 6BBD5613BB
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 09:18:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6BBD5613BB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C366F604;
-	Fri, 21 May 2021 09:10:34 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9924F6F5F2
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 May 2021 09:10:13 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id 62so9686038wmb.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 May 2021 02:10:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=tjLxHP9MRkvoQ1DS1KFKpemlH7rDi6kA4aqwWK4QoRM=;
- b=DlyIQrqFPqMf2bhLp8SFYBuIB8wo8en9IhviksjOCcNo2qhucRevKI+YrpetCIrdFS
- SWxaC+rxQfdxs9NHAnCBSly80bDD/8NKqnhVkeAn2N4xCZ/DRuZiYqyvzBO1GyH1mjpd
- sZPDOTAdEzHwfObiBIr0f7iyduNm0mN6FdMB0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=tjLxHP9MRkvoQ1DS1KFKpemlH7rDi6kA4aqwWK4QoRM=;
- b=lpRnY3fZuf0o8IXpCfEnZXN43TzwJ4gXD1GOhT0etF30c/hHegVrUnTBYYHrDvIP0Q
- boKn5Bkv+Q8LynYlfACQPVgWT/hU0P3nDX+jM4t2mZvb8OPDjE3Sf2dFP2Wmmz0r9taP
- fLVAGkOPTlHLZb3+EhPfCU2sxkuqPQiPTLedx+gi26S4mxIqh6z3MetmoRgONCk9lI33
- NOeM1WmgNkkkXWswfgT4oBge4w0drpqBL+SEwzo+EAfgS7KNqPVpDPbilHqnIJ+66+Ao
- rVOpZeGni70DE7mQa40x75JXAdmQa7sCaiyMbWfpe9WolFAyUjECTtqzuA7AnZciYT5c
- Rz9w==
-X-Gm-Message-State: AOAM532KprdoTLjP0pSXweYEYZdFQV3PwTSKhQDCSIOWPVfsnzUhnYaS
- 2ovIGJbv5EaDZT6L/ItNgeEfEg==
-X-Google-Smtp-Source: ABdhPJyyVD/5cCB6pXlCMZq+DsMv0QZoHc8PXZc/ynxOQKw4d/sMHW9S1XroDojy3NR1n4b1PGjlTg==
-X-Received: by 2002:a1c:4e11:: with SMTP id g17mr8258417wmh.185.1621588212304; 
- Fri, 21 May 2021 02:10:12 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id y2sm13589457wmq.45.2021.05.21.02.10.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 May 2021 02:10:11 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri, 21 May 2021 11:09:56 +0200
-Message-Id: <20210521090959.1663703-8-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
-References: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B13816F5F6;
+	Fri, 21 May 2021 09:18:35 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6B7F76F5F6;
+ Fri, 21 May 2021 09:18:34 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 6448DA00CC;
+ Fri, 21 May 2021 09:18:34 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/11] drm/vram-helpers: Create
- DRM_GEM_VRAM_PLANE_HELPER_FUNCS
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
+Date: Fri, 21 May 2021 09:18:34 -0000
+Message-ID: <162158871438.6035.6439065238586054289@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B01/11=5D_drm/amdgpu=3A_Comply_with_?=
+ =?utf-8?q?implicit_fencing_rules?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,103 +50,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>, Tian Tao <tiantao6@hisilicon.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>, Dave Airlie <airlied@redhat.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Like we have for the shadow helpers too, and roll it out to drivers.
+== Series Details ==
 
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Hans de Goede <hdegoede@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Tian Tao <tiantao6@hisilicon.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
----
- drivers/gpu/drm/ast/ast_mode.c                 |  3 +--
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c |  3 +--
- drivers/gpu/drm/vboxvideo/vbox_mode.c          |  3 +--
- include/drm/drm_gem_vram_helper.h              | 12 ++++++++++++
- 4 files changed, 15 insertions(+), 6 deletions(-)
+Series: series starting with [01/11] drm/amdgpu: Comply with implicit fencing rules
+URL   : https://patchwork.freedesktop.org/series/90401/
+State : warning
 
-diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_mode.c
-index 36d9575aa27b..20557d2c2fae 100644
---- a/drivers/gpu/drm/ast/ast_mode.c
-+++ b/drivers/gpu/drm/ast/ast_mode.c
-@@ -612,8 +612,7 @@ ast_primary_plane_helper_atomic_disable(struct drm_plane *plane,
- }
- 
- static const struct drm_plane_helper_funcs ast_primary_plane_helper_funcs = {
--	.prepare_fb = drm_gem_vram_plane_helper_prepare_fb,
--	.cleanup_fb = drm_gem_vram_plane_helper_cleanup_fb,
-+	DRM_GEM_VRAM_PLANE_HELPER_FUNCS,
- 	.atomic_check = ast_primary_plane_helper_atomic_check,
- 	.atomic_update = ast_primary_plane_helper_atomic_update,
- 	.atomic_disable = ast_primary_plane_helper_atomic_disable,
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-index 29b8332b2bca..ccf80e369b4b 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-@@ -158,8 +158,7 @@ static const struct drm_plane_funcs hibmc_plane_funcs = {
- };
- 
- static const struct drm_plane_helper_funcs hibmc_plane_helper_funcs = {
--	.prepare_fb	= drm_gem_vram_plane_helper_prepare_fb,
--	.cleanup_fb	= drm_gem_vram_plane_helper_cleanup_fb,
-+	DRM_GEM_VRAM_PLANE_HELPER_FUNCS,
- 	.atomic_check = hibmc_plane_atomic_check,
- 	.atomic_update = hibmc_plane_atomic_update,
- };
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_mode.c b/drivers/gpu/drm/vboxvideo/vbox_mode.c
-index 964381d55fc1..972c83b720aa 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_mode.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_mode.c
-@@ -488,8 +488,7 @@ static const struct drm_plane_helper_funcs vbox_primary_helper_funcs = {
- 	.atomic_check = vbox_primary_atomic_check,
- 	.atomic_update = vbox_primary_atomic_update,
- 	.atomic_disable = vbox_primary_atomic_disable,
--	.prepare_fb	= drm_gem_vram_plane_helper_prepare_fb,
--	.cleanup_fb	= drm_gem_vram_plane_helper_cleanup_fb,
-+	DRM_GEM_VRAM_PLANE_HELPER_FUNCS,
- };
- 
- static const struct drm_plane_funcs vbox_primary_plane_funcs = {
-diff --git a/include/drm/drm_gem_vram_helper.h b/include/drm/drm_gem_vram_helper.h
-index 27ed7e9243b9..f48d181c824b 100644
---- a/include/drm/drm_gem_vram_helper.h
-+++ b/include/drm/drm_gem_vram_helper.h
-@@ -124,6 +124,18 @@ void
- drm_gem_vram_plane_helper_cleanup_fb(struct drm_plane *plane,
- 				     struct drm_plane_state *old_state);
- 
-+/**
-+ * DRM_GEM_VRAM_PLANE_HELPER_FUNCS -
-+ *	Initializes struct drm_plane_helper_funcs for VRAM handling
-+ *
-+ * Drivers may use GEM BOs as VRAM helpers for the framebuffer memory. This
-+ * macro initializes struct drm_plane_helper_funcs to use the respective helper
-+ * functions.
-+ */
-+#define DRM_GEM_VRAM_PLANE_HELPER_FUNCS \
-+	.prepare_fb = drm_gem_vram_plane_helper_prepare_fb, \
-+	.cleanup_fb = drm_gem_vram_plane_helper_cleanup_fb
-+
- /*
-  * Helpers for struct drm_simple_display_pipe_funcs
-  */
--- 
-2.31.0
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+6771ddb74407 drm/amdgpu: Comply with implicit fencing rules
+-:15: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#15: 
+https://dri.freedesktop.org/docs/drm/driver-api/dma-buf.html#reservation-objects
+
+-:140: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 049aca4363d8 ("drm/amdgpu: fix using shared fence for exported BOs v2")'
+#140: 
+commit 049aca4363d8af87cab8d53de5401602db3b9999
+
+-:155: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 9b495a588799 ("dma-buf: add poll support, v3")'
+#155: 
+	commit 9b495a5887994a6d74d5c261d012083a92b94738
+
+-:183: WARNING:REPEATED_WORD: Possible repeated word: 'to'
+#183: 
+  writes, and a per-bo flag to to skip implicit fencing in the CS
+
+-:200: WARNING:TYPO_SPELLING: 'wont' may be misspelled - perhaps 'won't'?
+#200: 
+  wont notice the perf impact. I think we can ignore LTS distros who
+  ^^^^
+
+-:250: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 2 errors, 4 warnings, 0 checks, 10 lines checked
+624f38550c70 drm/panfrost: Remove sched_lock
+-:83: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 51 lines checked
+2edd25e5fe08 drm/panfrost: Use xarray and helpers for depedency tracking
+-:242: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 192 lines checked
+953b17b9a69e drm/panfrost: Fix implicit sync
+-:49: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 11 lines checked
+611ea094f310 drm/atomic-helper: make drm_gem_plane_helper_prepare_fb the default
+-:87: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 44 lines checked
+b88bbf562ada drm/<driver>: drm_gem_plane_helper_prepare_fb is now the default
+-:223: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 104 lines checked
+c6de563ba9b7 drm/armada: Remove prepare/cleanup_fb hooks
+-:88: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 57 lines checked
+808bc32c760a drm/vram-helpers: Create DRM_GEM_VRAM_PLANE_HELPER_FUNCS
+-:83: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 45 lines checked
+bdd282fc50b5 drm/omap: Follow implicit fencing in prepare_fb
+-:32: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 15 lines checked
+f13bd70bbd81 drm/simple-helper: drm_gem_simple_display_pipe_prepare_fb as default
+-:71: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 37 lines checked
+8e1fe156d455 drm/tiny: drm_gem_simple_display_pipe_prepare_fb is the default
+-:199: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 98 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
