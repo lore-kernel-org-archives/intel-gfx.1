@@ -2,57 +2,74 @@ Return-Path: <SRS0=c41V=KQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D062C47078
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 16:28:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26CC5C47078
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 16:32:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C53BE613AF
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 16:28:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C53BE613AF
+	by mail.kernel.org (Postfix) with ESMTPS id DDBA1611ED
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 May 2021 16:32:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDBA1611ED
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C28E56F596;
-	Fri, 21 May 2021 16:28:10 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A5156F596;
- Fri, 21 May 2021 16:28:09 +0000 (UTC)
-IronPort-SDR: wY/uoPdTN+FM4wS/blvlQbl8uW3Sv2xnAEKmlpgSZMgVixuyFY8uKXhKIXOWzNd1qT50nbF2qt
- qDpZ1TVwXvzg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9991"; a="199578983"
-X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="199578983"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2021 09:28:08 -0700
-IronPort-SDR: 10cd9HAvKgCkFheFimOlvOf/GDVGLTveUr7DrdJcIt91pk5USsUrpVQrQQYSzpkVbhd35aDkJx
- RY8yzP5xGj3A==
-X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="475792196"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2021 09:28:08 -0700
-Date: Fri, 21 May 2021 09:20:57 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <20210521162057.GB22003@sdutt-i7>
-References: <20210518235830.133834-1-matthew.brost@intel.com>
- <20210518235830.133834-3-matthew.brost@intel.com>
- <YKTyDNyVgmR3z1H5@phenom.ffwll.local>
- <20210519171157.GA5202@sdutt-i7>
- <CAKMK7uG1qCcpwBFaUf06daY6gnxmNbNcZbBX+Yxb64qZkBMF8g@mail.gmail.com>
- <20210520151059.GA3416@sdutt-i7>
- <YKa8O449UWDyS5JJ@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C8316F891;
+	Fri, 21 May 2021 16:32:21 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20FA96F891
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 May 2021 16:32:19 +0000 (UTC)
+IronPort-SDR: GYAIiXNEmNUUrzCXyUJAccfmy701nweXfAbLQ4eNo9lL+pp3OGqZ+9E8znkq2/ysvqb5Ysv5UM
+ 1iCnaHlUO4PA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9991"; a="188647807"
+X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="188647807"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2021 09:31:57 -0700
+IronPort-SDR: kwfcw/fCDnyV41R/Th8JEjPHa2w9ZFMyd2sFcho+ObEReRPQkCNj4qdFSDxm3uur7pdP5OgB1b
+ kI9FrJWpTXew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="628727874"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga006.fm.intel.com with ESMTP; 21 May 2021 09:31:56 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Fri, 21 May 2021 09:31:56 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Fri, 21 May 2021 09:31:55 -0700
+Received: from fmsmsx610.amr.corp.intel.com ([10.18.126.90]) by
+ fmsmsx610.amr.corp.intel.com ([10.18.126.90]) with mapi id 15.01.2242.008;
+ Fri, 21 May 2021 09:31:55 -0700
+From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, "De Marchi, Lucas"
+ <lucas.demarchi@intel.com>
+Thread-Topic: [Intel-gfx] [CI 3/5] drm/i915/dmc: Rename macro names containing
+ csr
+Thread-Index: AQHXTC2rMgzR6P04F0ypF3JlLb0uBarqwTYAgANGOYCAAB3J0A==
+Date: Fri, 21 May 2021 16:31:55 +0000
+Message-ID: <751c067199774871b8bdb3fc46880b13@intel.com>
+References: <20210518213444.11420-1-anusha.srivatsa@intel.com>
+ <20210518213444.11420-4-anusha.srivatsa@intel.com>
+ <20210519054502.5ofnqztgy3crmopv@ldmartin-desk2> <8735ugediy.fsf@intel.com>
+In-Reply-To: <8735ugediy.fsf@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.132]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YKa8O449UWDyS5JJ@phenom.ffwll.local>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [RFC 2/2] drm/doc/rfc: i915 new parallel submission
- uAPI plan
+Subject: Re: [Intel-gfx] [CI 3/5] drm/i915/dmc: Rename macro names
+ containing csr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,426 +82,531 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jason Ekstrand <jason.ekstrand@intel.com>,
- Mesa Dev <mesa-dev@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>, karl@freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 20, 2021 at 09:44:59PM +0200, Daniel Vetter wrote:
-> On Thu, May 20, 2021 at 08:10:59AM -0700, Matthew Brost wrote:
-> > On Thu, May 20, 2021 at 11:54:25AM +0200, Daniel Vetter wrote:
-> > > On Wed, May 19, 2021 at 7:19 PM Matthew Brost <matthew.brost@intel.com> wrote:
-> > > >
-> > > > On Wed, May 19, 2021 at 01:10:04PM +0200, Daniel Vetter wrote:
-> > > > > On Tue, May 18, 2021 at 04:58:30PM -0700, Matthew Brost wrote:
-> > > > > > Add entry fpr i915 new parallel submission uAPI plan.
-> > > > > >
-> > > > > > v2:
-> > > > > >  (Daniel Vetter):
-> > > > > >   - Expand logical order explaination
-> > > > > >   - Add dummy header
-> > > > > >   - Only allow N BBs in execbuf IOCTL
-> > > > > >   - Configure parallel submission per slot not per gem context
-> > > > > >
-> > > > > > Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> > > > > > Cc: Tony Ye <tony.ye@intel.com>
-> > > > > > CC: Carl Zhang <carl.zhang@intel.com>
-> > > > > > Cc: Daniel Vetter <daniel.vetter@intel.com>
-> > > > > > Cc: Jason Ekstrand <jason@jlekstrand.net>
-> > > > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > > > > ---
-> > > > > >  Documentation/gpu/rfc/i915_parallel_execbuf.h | 144 ++++++++++++++++++
-> > > > > >  Documentation/gpu/rfc/i915_scheduler.rst      |  53 ++++++-
-> > > > > >  2 files changed, 196 insertions(+), 1 deletion(-)
-> > > > > >  create mode 100644 Documentation/gpu/rfc/i915_parallel_execbuf.h
-> > > > > >
-> > > > > > diff --git a/Documentation/gpu/rfc/i915_parallel_execbuf.h b/Documentation/gpu/rfc/i915_parallel_execbuf.h
-> > > > > > new file mode 100644
-> > > > > > index 000000000000..8c64b983ccad
-> > > > > > --- /dev/null
-> > > > > > +++ b/Documentation/gpu/rfc/i915_parallel_execbuf.h
-> > > > > > @@ -0,0 +1,144 @@
-> > > > > > +#define I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT 2 /* see i915_context_engines_parallel_submit */
-> > > > > > +
-> > > > > > +/*
-> > > > > > + * i915_context_engines_parallel_submit:
-> > > > > > + *
-> > > > > > + * Setup a slot to allow multiple BBs to be submitted in a single execbuf IOCTL.
-> > > > > > + * Those BBs will then be scheduled to run on the GPU in parallel. Multiple
-> > > > > > + * hardware contexts are created internally in the i915 run these BBs. Once a
-> > > > > > + * slot is configured for N BBs only N BBs can be submitted in each execbuf
-> > > > > > + * IOCTL and this is implict behavior (e.g. the user doesn't tell the execbuf
-> > > > > > + * IOCTL there are N BBs, the execbuf IOCTL know how many BBs there are based on
-> > > > > > + * the slots configuration).
-> > > > > > + *
-> > > > > > + * Their are two currently defined ways to control the placement of the
-> > > > > > + * hardware contexts on physical engines: default behavior (no flags) and
-> > > > > > + * I915_PARALLEL_IMPLICT_BONDS (a flag). More flags may be added the in the
-> > > > > > + * future as new hardware / use cases arise. Details of how to use this
-> > > > > > + * interface below above the flags.
-> > > > > > + *
-> > > > > > + * Returns -EINVAL if hardware context placement configuration invalid or if the
-> > > > > > + * placement configuration isn't supported on the platform / submission
-> > > > > > + * interface.
-> > > > > > + * Returns -ENODEV if extension isn't supported on the platform / submission
-> > > > > > + * inteface.
-> > > > > > + */
-> > > > > > +struct i915_context_engines_parallel_submit {
-> > > > > > +   struct i915_user_extension base;
-> > > > > > +
-> > > > > > +   __u16 engine_index;     /* slot for parallel engine */
-> > > > > > +   __u16 width;            /* number of contexts per parallel engine */
-> > > > > > +   __u16 num_siblings;     /* number of siblings per context */
-> > > > > > +   __u16 mbz16;
-> > > > >
-> > > > > Ok the big picture looks reasonable now, the flags still confuse me.
-> > > > >
-> > > >
-> > > > Yea, it is a bit confusing.
-> > > >
-> > > > > > +/*
-> > > > > > + * Default placement behvavior (currently unsupported):
-> > > > > > + *
-> > > > > > + * Rather than restricting parallel submission to a single class with a
-> > > > > > + * logically contiguous placement (I915_PARALLEL_IMPLICT_BONDS), add a mode that
-> > > > > > + * enables parallel submission across multiple engine classes. In this case each
-> > > > > > + * context's logical engine mask indicates where that context can placed. It is
-> > > > > > + * implied in this mode that all contexts have mutual exclusive placement (e.g.
-> > > > > > + * if one context is running CS0 no other contexts can run on CS0).
-> > > > > > + *
-> > > > > > + * Example 1 pseudo code:
-> > > > > > + * CSX[Y] = engine class X, logical instance Y
-> > > > > > + * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-> > > > > > + * set_engines(INVALID)
-> > > > > > + * set_parallel(engine_index=0, width=2, num_siblings=2,
-> > > > > > + *         engines=CS0[0],CS0[1],CS1[0],CS1[1])
-> > > > > > + *
-> > > > > > + * Results in the following valid placements:
-> > > > > > + * CS0[0], CS1[0]
-> > > > > > + * CS0[0], CS1[1]
-> > > > > > + * CS0[1], CS1[0]
-> > > > > > + * CS0[1], CS1[1]
-> > > > > > + *
-> > > > > > + * This can also be though of as 2 virtual engines:
-> > > > > > + * VE[0] = CS0[0], CS0[1]
-> > > > > > + * VE[1] = CS1[0], CS1[1]
-> > > > > > + *
-> > > > > > + * Example 2 pseudo code:
-> > > > > > + * CS[X] = generic engine of same class, logical instance X
-> > > > > > + * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-> > > > > > + * set_engines(INVALID)
-> > > > > > + * set_parallel(engine_index=0, width=2, num_siblings=3,
-> > > > > > + *         engines=CS[0],CS[1],CS[2],CS[0],CS[1],CS[2])
-> > > > > > + *
-> > > > > > + * Results in the following valid placements:
-> > > > > > + * CS[0], CS[1]
-> > > > > > + * CS[0], CS[2]
-> > > > > > + * CS[1], CS[0]
-> > > > > > + * CS[1], CS[2]
-> > > > > > + * CS[2], CS[0]
-> > > > > > + * CS[2], CS[1]
-> > > > > > + *
-> > > > > > + *
-> > > > > > + * This can also be though of as 2 virtual engines:
-> > > > > > + * VE[0] = CS[0], CS[1], CS[2]
-> > > > > > + * VE[1] = CS[0], CS[1], CS[2]
-> > > > > > +
-> > > > > > + * This enables a use case where all engines are created equally, we don't care
-> > > > > > + * where they are scheduled, we just want a certain number of resources, for
-> > > > > > + * those resources to be scheduled in parallel, and possibly across multiple
-> > > > > > + * engine classes.
-> > > > > > + */
-> > > > >
-> > > > > So I don't really get what this does compared to setting the flag below.
-> > > > > Is this just about running the batchbuffers the wrong way round, i.e. if
-> > > > > you have (simplest case)
-> > > > >
-> > > > > width=2, num_sibglings=1, engines=CS[0], CS[1]
-> > > > >
-> > > > > Then both
-> > > > > CS[0], CS[1]
-> > > > > and
-> > > > > CS[1], CS[0]
-> > > > > are possible options for running 2 batches? Iow, the backend is allowed to
-> > > > > run the batchbuffers the wrong way round, which gains us nothing, since we
-> > > > > assume the batches take equally long and engines interchangeable. There is
-> > > > > no scheduling scenario where this additional flexibility can help.
-> > > > >
-> > > > > Also we don't have flags to select the only available and then specify an
-> > > > > entire pipe dream about what the non-flag mode does, without an
-> > > > > implementation. What is this about?
-> > > > >
-> > > > > If it's just "because bonded allowed this" then I think we should just
-> > > > > unceremonously ditch this. Bummer for the nice kerenldoc you wrote, but
-> > > > > welp.
-> > > > >
-> > > >
-> > > > High level the flags came out of internal discussions how this interface
-> > > > should look. The default placement behavior is theoretically possible
-> > > > with execlists but has no use cases. The GuC supports / current use
-> > > > cases are a subset of what is possible with I915_PARALLEL_IMPLICT_BONDS.
-> > > >
-> > > > Argued about for months and this is where we landed. At the end of the
-> > > > day I think we needed to show that this interface supports more
-> > > > placement rules than what the GuC supports / current use cases to future
-> > > > proof this interface.
-> > > >
-> > > > For what is it worth it seems kinda backwards that we landed on the
-> > > > default behavior not being supported in our current stack / HW.
-> > > 
-> > > Yeah I think that should be inverted, doesn't make sense.
-> > > 
-> > > What I still don't get (and I've read Tvrtko's reply with the example)
-> > > is what exactly is the difference between implicit and not implicit
-> > > mode? Can you do a single example where the only difference is whether
-> > > this flag is set, and then explain with that what are the actual
-> > > differences in scheduling options that the backend is allowed to pick
-> > > for the set of N patches?
-> > > 
-> > > I'm feeling a bit dense, but I'm really not seeing what's even going on here :-(
-> > > 
-> > > > > > +
-> > > > > > +/*
-> > > > > > + * I915_PARALLEL_IMPLICT_BONDS - Create implict bonds between each context.
-> > > > > > + * Each context must have the same number sibling and bonds are implictly create
-> > > > > > + * of the siblings.
-> > > > > > + *
-> > > > > > + * All of the below examples are in logical space.
-> > > > > > + *
-> > > > > > + * Example 1 pseudo code:
-> > > > > > + * CS[X] = generic engine of same class, logical instance X
-> > > > > > + * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-> > > > > > + * set_engines(INVALID)
-> > > > > > + * set_parallel(engine_index=0, width=2, num_siblings=1,
-> > > > > > + *         engines=CS[0],CS[1], flags=I915_PARALLEL_IMPLICT_BONDS)
-> > > > > > + *
-> > > > > > + * Results in the following valid placements:
-> > > > > > + * CS[0], CS[1]
-> > > > > > + *
-> > > > > > + * Example 2 pseudo code:
-> > > > > > + * CS[X] = generic engine of same class, logical instance X
-> > > > > > + * INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-> > > > > > + * set_engines(INVALID)
-> > > > > > + * set_parallel(engine_index=0, width=2, num_siblings=2,
-> > > > > > + *         engines=CS[0],CS[2],CS[1],CS[3], flags=I915_PARALLEL_IMPLICT_BONDS)
-> > > > > > + *
-> > > > > > + * Results in the following valid placements:
-> > > > > > + * CS[0], CS[1]
-> > > > > > + * CS[2], CS[3]
-> > > > > > + *
-> > > > > > + * This can also be though of as 2 virtual engines:
-> > > > > > + * VE[0] = CS[0], CS[2]
-> > > > > > + * VE[1] = CS[1], CS[3]
-> > > > > > + *
-> > > > > > + * This enables a use case where all engines are not equal and certain placement
-> > > > > > + * rules are required (i.e. split-frame requires all contexts to be placed in a
-> > > > > > + * logically contiguous order on the VCS engines on gen11+ platforms). This use
-> > > > > > + * case (logically contiguous placement, within a single engine class) is
-> > > > > > + * supported when using GuC submission. Execlist mode could support all possible
-> > > > > > + * bonding configurations but currently doesn't support this extension.
-> > > > > > + */
-> > > > > > +#define I915_PARALLEL_IMPLICT_BONDS                        (1<<0)
-> > > > >
-> > > > > Does this map to intel_context_set_nopreempt(), so we could implement it
-> > > > > also in execlist?
-> > > > >
-> > > >
-> > > > intel_context_set_nopreempt is preempt is part of how this would be
-> > > > implemented for execlists. For GuC submission there is a algorithm
-> > > > between the i915 and GuC that inserts same preemption points between
-> > > > each set of N batches. I believe the rules are if context 1 can
-> > > > preempted the rest of the contexts (2 - N) can safely be preempted. A go
-> > > > / join algorithm, implemented with semaphores, around the batches
-> > > > makes sure the i915 adheres to these rules.
-> > > >
-> > > > > Also is this just an artifact of the implementation, or is this somehow
-> > > > > required functionality for userspace, i.e. the workload fails if e.g. GuC
-> > > > > decides to preempt all LRC of a parallel virtual engine? Of course just
-> > > > > preempting one is a bit a bug (but execlist I think happily does that).
-> > > > >
-> > > >
-> > > > I think it is part of the implementation / HW limitations. Basically if
-> > > > N batches are running in parallel if one of the batches gets preempted
-> > > > it can hang all the other batches even if it gets restarted. Again the
-> > > > idea behind this is only preempt any of these contexts between each set
-> > > > of N batches. The GuC has no concept of batches only contexts hence the
-> > > > aforementioned algorithm to insert same preemption points between each
-> > > > set of batches.
-> > > 
-> > > Well backend preempting one but not the other is a bug. I don't think
-> > > we need to talk about bugs :-)
-> > >
-> > 
-> > I think it is more that backend can't preempt each context atomically as these
-> > are running on independent engines. Let say the backend tries to preempt 2
-> > engines at the same time and only 1 responds, now we are broken with certain
-> > batches. With the algorithm implmented between the i915 and the Guc the GuC will
-> > try to preempt the first context if that works, all the other contexts can be
-> > preempted.
-> 
-> Ah right, we might have a workload with long non-preemptible sections, but
-> I guess the MI_SEMAPHORE_WAIT can always preempt. So if GuC just tries on
-> one of these, it will result in tears.
-> 
-> > > Now wrt a preempt mode in context creation, I think that makes sense.
-> > > I'm just wondering whether this is correct here in the parallel
-> > > submission (and why), or is it just an implementation artifact
-> > > (current backends are buggy if we'd allow them to preempt) or what's
-> > > going on.
-> > >
-> > > If this is just a case of "this is how current backends work,
-> > > userspace doesn't actually care whether we allow preempt or not" then
-> > > I think we should just document the behavior and that's it. Adding
-> > > uapi for an option for which there's not even an implementation isn't
-> > > great.
-> > > 
-> > 
-> > I don't think it is a case of 'this is how current backends work...', I think
-> > user space knows if it is ok for 1 of the batches to preempted and not the
-> > others without breaking the batches.
-> 
-> Yeah this makes more sense as an explanation: Currently the backend (guc
-> or execlist) figure out whether something can be preempted by just trying.
-> Since we're dealing with N contexts that's a suboptimal approach, and we
-> need a flag that indicates whether it's worth it or not.
-> 
-> So makes sense to me to have this. I guess userspace does actually need
-> both modes for now, depending upon what it's doing?
-> -Daniel
 
-I agree that is makes sense to have - an explict flag saying it isn't safe to
-preempt one of the N batches by itself or letting the driver do whatever it
-wants regarding preemption. The current use case is it can't preempt a single
-batch but it may change going forward. Lastly, there is overhead to non-preempt
-mid batch feature so being able to turn it off seems reasonable to me.
 
-Matt
+> -----Original Message-----
+> From: Jani Nikula <jani.nikula@linux.intel.com>
+> Sent: Friday, May 21, 2021 12:45 AM
+> To: De Marchi, Lucas <lucas.demarchi@intel.com>; Srivatsa, Anusha
+> <anusha.srivatsa@intel.com>
+> Cc: intel-gfx@lists.freedesktop.org
+> Subject: Re: [Intel-gfx] [CI 3/5] drm/i915/dmc: Rename macro names
+> containing csr
+> 
+> On Tue, 18 May 2021, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+> > On Tue, May 18, 2021 at 02:34:42PM -0700, Anusha Srivatsa wrote:
+> >>Rename all occurences of CSR_* with DMC_*
+> >>
+> >>Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> >>Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+> >
+> >
+> > Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> 
+> We failed to take GVT into account, and apparently neither CI or Anusha has
+> CONFIG_DRM_I915_GVT=y. They use the register definitions, and this broke
+> the build.
+> 
+> Anusha, please enable the config, and fix the fallout. Cc: the patch to GVT
+> folks for ack.
+On it.
 
+Anusha
 > 
-> > 
-> > Matt
-> > 
-> > > But if we can actually choose, and userspace wants to, then I'm all
-> > > fine with this. And we can always move this to a more generic place if
-> > > other engines need preempt control later on too.
-> > > 
-> > > Cheers, Daniel
-> > > 
-> > > 
-> > > > Matt
-> > > >
-> > > > > Cheers, Daniel
-> > > > >
-> > > > > > +/*
-> > > > > > + * Do not allow BBs to be preempted mid BB rather insert coordinated preemption
-> > > > > > + * points on all hardware contexts between each set of BBs. An example use case
-> > > > > > + * of this feature is split-frame on gen11+ hardware. When using this feature a
-> > > > > > + * BB must be submitted on each hardware context in the parallel gem context.
-> > > > > > + * The execbuf2 IOCTL enforces the user adheres to policy.
-> > > > > > + */
-> > > > > > +#define I915_PARALLEL_NO_PREEMPT_MID_BATCH         (1<<1)
-> > > > > > +#define __I915_PARALLEL_UNKNOWN_FLAGS      (-(I915_PARALLEL_NO_PREEMPT_MID_BATCH << 1))
-> > > > > > +   __u64 flags;            /* all undefined flags must be zero */
-> > > > > > +   __u64 mbz64[3];         /* reserved for future use; must be zero */
-> > > > > > +
-> > > > > > +   /*
-> > > > > > +    * width (i) * num_siblings (j) in length
-> > > > > > +    * index = j + i * num_siblings
-> > > > > > +    */
-> > > > > > +   struct i915_engine_class_instance engines[0];
-> > > > > > +} __attribute__ ((packed));
-> > > > > > +
-> > > > > > diff --git a/Documentation/gpu/rfc/i915_scheduler.rst b/Documentation/gpu/rfc/i915_scheduler.rst
-> > > > > > index 7faa46cde088..64c539486ee4 100644
-> > > > > > --- a/Documentation/gpu/rfc/i915_scheduler.rst
-> > > > > > +++ b/Documentation/gpu/rfc/i915_scheduler.rst
-> > > > > > @@ -82,4 +82,55 @@ https://spec.oneapi.com/level-zero/latest/core/api.html#ze-command-queue-priorit
-> > > > > >
-> > > > > >  New parallel submission uAPI
-> > > > > >  ============================
-> > > > > > -Details to come in a following patch.
-> > > > > > +The existing bonding uAPI is completely broken with GuC submission because
-> > > > > > +whether a submission is a single context submit or parallel submit isn't known
-> > > > > > +until execbuf time activated via the I915_SUBMIT_FENCE. To submit multiple
-> > > > > > +contexts in parallel with the GuC the context must be explictly registered with
-> > > > > > +N contexts and all N contexts must be submitted in a single command to the GuC.
-> > > > > > +These interfaces doesn't support dynamically changing between N contexts as the
-> > > > > > +bonding uAPI does. Hence the need for a new parallel submission interface. Also
-> > > > > > +the legacy bonding uAPI is quite confusing and not intuitive at all.
-> > > > > > +
-> > > > > > +The new parallel submission uAPI consists of 3 parts:
-> > > > > > +
-> > > > > > +* Export engines logical mapping
-> > > > > > +* A 'set_parallel' extension to configure contexts for parallel
-> > > > > > +  submission
-> > > > > > +* Extend execbuf2 IOCTL to support submitting N BBs in a single IOCTL
-> > > > > > +
-> > > > > > +Export engines logical mapping
-> > > > > > +------------------------------
-> > > > > > +Certain use cases require BBs to be placed on engine instances in logical order
-> > > > > > +(e.g. split-frame on gen11+). The logical mapping of engine instances can change
-> > > > > > +based on fusing. Rather than making UMDs be aware of fusing, simply expose the
-> > > > > > +logical mapping with the existing query engine info IOCTL. Also the GuC
-> > > > > > +submission interface currently only supports submitting multiple contexts to
-> > > > > > +engines in logical order which is a new requirement compared to execlists.
-> > > > > > +Lastly, all current platforms have at most 2 instances and the logical order is
-> > > > > > +the same a uABI order. This will change on platforms with more than 2 instances.
-> > > > > > +
-> > > > > > +A single bit will be added to drm_i915_engine_info.flags indicating that the
-> > > > > > +logical instance has been returned and a new field,
-> > > > > > +drm_i915_engine_info.logical_instance, returns the logical instance.
-> > > > > > +
-> > > > > > +A 'set_parallel' extension to configure contexts for parallel submission
-> > > > > > +------------------------------------------------------------------------
-> > > > > > +The 'set_parallel' extension configures a slot for parallel submission of N BBs.
-> > > > > > +It is setup step that should be called before using any of the contexts. See
-> > > > > > +I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE or I915_CONTEXT_ENGINES_EXT_BOND for
-> > > > > > +similar existing examples. Once a slot is configured for parallel submission the
-> > > > > > +execbuf2 IOCTL can be called submiting N BBs in a single IOCTL. Initially only
-> > > > > > +support GuC submission. Execlist support can be added later if needed.
-> > > > > > +
-> > > > > > +Add I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT and
-> > > > > > +i915_context_engines_parallel_submit to the uAPI to implement this extension.
-> > > > > > +
-> > > > > > +Extend execbuf2 IOCTL to support submitting N BBs in a single IOCTL
-> > > > > > +-------------------------------------------------------------------
-> > > > > > +Contexts that have been configured with the 'set_parallel' extension are allowed
-> > > > > > +to submit N BBs in a single execbuf2 IOCTL. The BBs are either the last N
-> > > > > > +objects in the drm_i915_gem_exec_object2 list or the first N if
-> > > > > > +I915_EXEC_BATCH_FIRST is set. The number of BBs is implict based on the slot
-> > > > > > +submitted and how it has been configured by 'set_parallel' or other extensions.
-> > > > > > +No uAPI changes in the execbuf IOCTL but worth mentioning the new behavior of
-> > > > > > +the IOCTL.
-> > > > > > --
-> > > > > > 2.28.0
-> > > > > >
-> > > > > > _______________________________________________
-> > > > > > Intel-gfx mailing list
-> > > > > > Intel-gfx@lists.freedesktop.org
-> > > > > > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-> > > > >
-> > > > > --
-> > > > > Daniel Vetter
-> > > > > Software Engineer, Intel Corporation
-> > > > > http://blog.ffwll.ch
-> > > 
-> > > 
-> > > 
-> > > --
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > http://blog.ffwll.ch
 > 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> Thanks,
+> Jani.
+> 
+> 
+> 
+> >
+> > Lucas De Marchi
+> >
+> >>---
+> >> drivers/gpu/drm/i915/display/intel_csr.c      | 167 +++++++++---------
+> >> drivers/gpu/drm/i915/display/intel_csr.h      |   6 +-
+> >> .../drm/i915/display/intel_display_debugfs.c  |  16 +-
+> >> .../drm/i915/display/intel_display_power.c    |  14 +-
+> >> drivers/gpu/drm/i915/i915_gpu_error.c         |   4 +-
+> >> drivers/gpu/drm/i915/i915_reg.h               |  28 +--
+> >> 6 files changed, 117 insertions(+), 118 deletions(-)
+> >>
+> >>diff --git a/drivers/gpu/drm/i915/display/intel_csr.c
+> >>b/drivers/gpu/drm/i915/display/intel_csr.c
+> >>index 5ed286dc6720..f2124796ce77 100644
+> >>--- a/drivers/gpu/drm/i915/display/intel_csr.c
+> >>+++ b/drivers/gpu/drm/i915/display/intel_csr.c
+> >>@@ -30,10 +30,9 @@
+> >> #include "intel_de.h"
+> >>
+> >> /**
+> >>- * DOC: csr support for dmc
+> >>+ * DOC: DMC firmware support
+> >>  *
+> >>- * Display Context Save and Restore (CSR) firmware support added from
+> >>gen9
+> >>- * onwards to drive newly added DMC (Display microcontroller) in
+> >>display
+> >>+ * From gen9 onwards we have newly added DMC (Display
+> >>+ microcontroller) in display
+> >>  * engine to save and restore the state of display engine when it
+> >>enter into
+> >>  * low-power state and comes back to normal.
+> >>  */
+> >>@@ -44,55 +43,55 @@
+> >> 	__stringify(major) "_"		 \
+> >> 	__stringify(minor) ".bin"
+> >>
+> >>-#define GEN12_CSR_MAX_FW_SIZE		ICL_CSR_MAX_FW_SIZE
+> >>+#define GEN12_DMC_MAX_FW_SIZE
+> 	ICL_DMC_MAX_FW_SIZE
+> >>
+> >>-#define ADLS_CSR_PATH			DMC_PATH(adls, 2, 01)
+> >>-#define ADLS_CSR_VERSION_REQUIRED	CSR_VERSION(2, 1)
+> >>-MODULE_FIRMWARE(ADLS_CSR_PATH);
+> >>+#define ADLS_DMC_PATH			DMC_PATH(adls, 2, 01)
+> >>+#define ADLS_DMC_VERSION_REQUIRED	DMC_VERSION(2, 1)
+> >>+MODULE_FIRMWARE(ADLS_DMC_PATH);
+> >>
+> >>-#define DG1_CSR_PATH			DMC_PATH(dg1, 2, 02)
+> >>-#define DG1_CSR_VERSION_REQUIRED	CSR_VERSION(2, 2)
+> >>-MODULE_FIRMWARE(DG1_CSR_PATH);
+> >>+#define DG1_DMC_PATH			DMC_PATH(dg1, 2, 02)
+> >>+#define DG1_DMC_VERSION_REQUIRED	DMC_VERSION(2, 2)
+> >>+MODULE_FIRMWARE(DG1_DMC_PATH);
+> >>
+> >>-#define RKL_CSR_PATH			DMC_PATH(rkl, 2, 02)
+> >>-#define RKL_CSR_VERSION_REQUIRED	CSR_VERSION(2, 2)
+> >>-MODULE_FIRMWARE(RKL_CSR_PATH);
+> >>+#define RKL_DMC_PATH			DMC_PATH(rkl, 2, 02)
+> >>+#define RKL_DMC_VERSION_REQUIRED	DMC_VERSION(2, 2)
+> >>+MODULE_FIRMWARE(RKL_DMC_PATH);
+> >>
+> >>-#define TGL_CSR_PATH			DMC_PATH(tgl, 2, 08)
+> >>-#define TGL_CSR_VERSION_REQUIRED	CSR_VERSION(2, 8)
+> >>-MODULE_FIRMWARE(TGL_CSR_PATH);
+> >>+#define TGL_DMC_PATH			DMC_PATH(tgl, 2, 08)
+> >>+#define TGL_DMC_VERSION_REQUIRED	DMC_VERSION(2, 8)
+> >>+MODULE_FIRMWARE(TGL_DMC_PATH);
+> >>
+> >>-#define ICL_CSR_PATH			DMC_PATH(icl, 1, 09)
+> >>-#define ICL_CSR_VERSION_REQUIRED	CSR_VERSION(1, 9)
+> >>-#define ICL_CSR_MAX_FW_SIZE		0x6000
+> >>-MODULE_FIRMWARE(ICL_CSR_PATH);
+> >>+#define ICL_DMC_PATH			DMC_PATH(icl, 1, 09)
+> >>+#define ICL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 9)
+> >>+#define ICL_DMC_MAX_FW_SIZE		0x6000
+> >>+MODULE_FIRMWARE(ICL_DMC_PATH);
+> >>
+> >>-#define CNL_CSR_PATH			DMC_PATH(cnl, 1, 07)
+> >>-#define CNL_CSR_VERSION_REQUIRED	CSR_VERSION(1, 7)
+> >>-#define CNL_CSR_MAX_FW_SIZE		GLK_CSR_MAX_FW_SIZE
+> >>-MODULE_FIRMWARE(CNL_CSR_PATH);
+> >>+#define CNL_DMC_PATH			DMC_PATH(cnl, 1, 07)
+> >>+#define CNL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 7)
+> >>+#define CNL_DMC_MAX_FW_SIZE		GLK_DMC_MAX_FW_SIZE
+> >>+MODULE_FIRMWARE(CNL_DMC_PATH);
+> >>
+> >>-#define GLK_CSR_PATH			DMC_PATH(glk, 1, 04)
+> >>-#define GLK_CSR_VERSION_REQUIRED	CSR_VERSION(1, 4)
+> >>-#define GLK_CSR_MAX_FW_SIZE		0x4000
+> >>-MODULE_FIRMWARE(GLK_CSR_PATH);
+> >>+#define GLK_DMC_PATH			DMC_PATH(glk, 1, 04)
+> >>+#define GLK_DMC_VERSION_REQUIRED	DMC_VERSION(1, 4)
+> >>+#define GLK_DMC_MAX_FW_SIZE		0x4000
+> >>+MODULE_FIRMWARE(GLK_DMC_PATH);
+> >>
+> >>-#define KBL_CSR_PATH			DMC_PATH(kbl, 1, 04)
+> >>-#define KBL_CSR_VERSION_REQUIRED	CSR_VERSION(1, 4)
+> >>-#define KBL_CSR_MAX_FW_SIZE		BXT_CSR_MAX_FW_SIZE
+> >>-MODULE_FIRMWARE(KBL_CSR_PATH);
+> >>+#define KBL_DMC_PATH			DMC_PATH(kbl, 1, 04)
+> >>+#define KBL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 4)
+> >>+#define KBL_DMC_MAX_FW_SIZE		BXT_DMC_MAX_FW_SIZE
+> >>+MODULE_FIRMWARE(KBL_DMC_PATH);
+> >>
+> >>-#define SKL_CSR_PATH			DMC_PATH(skl, 1, 27)
+> >>-#define SKL_CSR_VERSION_REQUIRED	CSR_VERSION(1, 27)
+> >>-#define SKL_CSR_MAX_FW_SIZE		BXT_CSR_MAX_FW_SIZE
+> >>-MODULE_FIRMWARE(SKL_CSR_PATH);
+> >>+#define SKL_DMC_PATH			DMC_PATH(skl, 1, 27)
+> >>+#define SKL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 27)
+> >>+#define SKL_DMC_MAX_FW_SIZE		BXT_DMC_MAX_FW_SIZE
+> >>+MODULE_FIRMWARE(SKL_DMC_PATH);
+> >>
+> >>-#define BXT_CSR_PATH			DMC_PATH(bxt, 1, 07)
+> >>-#define BXT_CSR_VERSION_REQUIRED	CSR_VERSION(1, 7)
+> >>-#define BXT_CSR_MAX_FW_SIZE		0x3000
+> >>-MODULE_FIRMWARE(BXT_CSR_PATH);
+> >>+#define BXT_DMC_PATH			DMC_PATH(bxt, 1, 07)
+> >>+#define BXT_DMC_VERSION_REQUIRED	DMC_VERSION(1, 7)
+> >>+#define BXT_DMC_MAX_FW_SIZE		0x3000
+> >>+MODULE_FIRMWARE(BXT_DMC_PATH);
+> >>
+> >>-#define CSR_DEFAULT_FW_OFFSET		0xFFFFFFFF
+> >>+#define DMC_DEFAULT_FW_OFFSET		0xFFFFFFFF
+> >> #define PACKAGE_MAX_FW_INFO_ENTRIES	20
+> >> #define PACKAGE_V2_MAX_FW_INFO_ENTRIES	32
+> >> #define DMC_V1_MAX_MMIO_COUNT		8
+> >>@@ -333,7 +332,7 @@ void intel_csr_load_program(struct
+> drm_i915_private *dev_priv)
+> >> 	preempt_disable();
+> >>
+> >> 	for (i = 0; i < fw_size; i++)
+> >>-		intel_uncore_write_fw(&dev_priv->uncore,
+> CSR_PROGRAM(i),
+> >>+		intel_uncore_write_fw(&dev_priv->uncore,
+> DMC_PROGRAM(i),
+> >> 				      payload[i]);
+> >>
+> >> 	preempt_enable();
+> >>@@ -357,7 +356,7 @@ static u32 find_dmc_fw_offset(const struct
+> intel_fw_info *fw_info,
+> >> 			      const struct stepping_info *si,
+> >> 			      u8 package_ver)
+> >> {
+> >>-	u32 dmc_offset = CSR_DEFAULT_FW_OFFSET;
+> >>+	u32 dmc_offset = DMC_DEFAULT_FW_OFFSET;
+> >> 	unsigned int i;
+> >>
+> >> 	for (i = 0; i < num_entries; i++) {
+> >>@@ -458,8 +457,8 @@ static u32 parse_csr_fw_dmc(struct intel_dmc
+> *dmc,
+> >> 	}
+> >>
+> >> 	for (i = 0; i < mmio_count; i++) {
+> >>-		if (mmioaddr[i] < CSR_MMIO_START_RANGE ||
+> >>-		    mmioaddr[i] > CSR_MMIO_END_RANGE) {
+> >>+		if (mmioaddr[i] < DMC_MMIO_START_RANGE ||
+> >>+		    mmioaddr[i] > DMC_MMIO_END_RANGE) {
+> >> 			DRM_ERROR("DMC firmware has wrong mmio
+> address 0x%x\n",
+> >> 				  mmioaddr[i]);
+> >> 			return 0;
+> >>@@ -543,7 +542,7 @@ parse_csr_fw_package(struct intel_dmc *dmc,
+> >> 		((u8 *)package_header + sizeof(*package_header));
+> >> 	dmc_offset = find_dmc_fw_offset(fw_info, num_entries, si,
+> >> 					package_header->header_ver);
+> >>-	if (dmc_offset == CSR_DEFAULT_FW_OFFSET) {
+> >>+	if (dmc_offset == DMC_DEFAULT_FW_OFFSET) {
+> >> 		DRM_ERROR("DMC firmware not supported for %c
+> stepping\n",
+> >> 			  si->stepping);
+> >> 		return 0;
+> >>@@ -579,10 +578,10 @@ static u32 parse_csr_fw_css(struct intel_dmc
+> *dmc,
+> >> 	    css_header->version != dmc->required_version) {
+> >> 		DRM_INFO("Refusing to load DMC firmware v%u.%u,"
+> >> 			 " please use v%u.%u\n",
+> >>-			 CSR_VERSION_MAJOR(css_header->version),
+> >>-			 CSR_VERSION_MINOR(css_header->version),
+> >>-			 CSR_VERSION_MAJOR(dmc->required_version),
+> >>-			 CSR_VERSION_MINOR(dmc->required_version));
+> >>+			 DMC_VERSION_MAJOR(css_header->version),
+> >>+			 DMC_VERSION_MINOR(css_header->version),
+> >>+			 DMC_VERSION_MAJOR(dmc->required_version),
+> >>+			 DMC_VERSION_MINOR(dmc->required_version));
+> >> 		return 0;
+> >> 	}
+> >>
+> >>@@ -659,8 +658,8 @@ static void csr_load_work_fn(struct work_struct
+> >>*work)
+> >>
+> >> 		drm_info(&dev_priv->drm,
+> >> 			 "Finished loading DMC firmware %s (v%u.%u)\n",
+> >>-			 dev_priv->dmc.fw_path,
+> CSR_VERSION_MAJOR(dmc->version),
+> >>-			 CSR_VERSION_MINOR(dmc->version));
+> >>+			 dev_priv->dmc.fw_path,
+> DMC_VERSION_MAJOR(dmc->version),
+> >>+			 DMC_VERSION_MINOR(dmc->version));
+> >> 	} else {
+> >> 		drm_notice(&dev_priv->drm,
+> >> 			   "Failed to load DMC firmware %s."
+> >>@@ -690,57 +689,57 @@ void intel_csr_ucode_init(struct
+> drm_i915_private *dev_priv)
+> >> 		return;
+> >>
+> >> 	/*
+> >>-	 * Obtain a runtime pm reference, until CSR is loaded, to avoid
+> entering
+> >>+	 * Obtain a runtime pm reference, until DMC is loaded, to avoid
+> >>+entering
+> >> 	 * runtime-suspend.
+> >> 	 *
+> >> 	 * On error, we return with the rpm wakeref held to prevent runtime
+> >>-	 * suspend as runtime suspend *requires* a working CSR for
+> whatever
+> >>+	 * suspend as runtime suspend *requires* a working DMC for
+> whatever
+> >> 	 * reason.
+> >> 	 */
+> >> 	intel_csr_runtime_pm_get(dev_priv);
+> >>
+> >> 	if (IS_ALDERLAKE_S(dev_priv)) {
+> >>-		dmc->fw_path = ADLS_CSR_PATH;
+> >>-		dmc->required_version = ADLS_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = ADLS_DMC_PATH;
+> >>+		dmc->required_version = ADLS_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
+> >> 	} else if (IS_DG1(dev_priv)) {
+> >>-		dmc->fw_path = DG1_CSR_PATH;
+> >>-		dmc->required_version = DG1_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = DG1_DMC_PATH;
+> >>+		dmc->required_version = DG1_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
+> >> 	} else if (IS_ROCKETLAKE(dev_priv)) {
+> >>-		dmc->fw_path = RKL_CSR_PATH;
+> >>-		dmc->required_version = RKL_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = RKL_DMC_PATH;
+> >>+		dmc->required_version = RKL_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
+> >> 	} else if (DISPLAY_VER(dev_priv) >= 12) {
+> >>-		dmc->fw_path = TGL_CSR_PATH;
+> >>-		dmc->required_version = TGL_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = TGL_DMC_PATH;
+> >>+		dmc->required_version = TGL_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
+> >> 	} else if (DISPLAY_VER(dev_priv) == 11) {
+> >>-		dmc->fw_path = ICL_CSR_PATH;
+> >>-		dmc->required_version = ICL_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = ICL_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = ICL_DMC_PATH;
+> >>+		dmc->required_version = ICL_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = ICL_DMC_MAX_FW_SIZE;
+> >> 	} else if (IS_CANNONLAKE(dev_priv)) {
+> >>-		dmc->fw_path = CNL_CSR_PATH;
+> >>-		dmc->required_version = CNL_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = CNL_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = CNL_DMC_PATH;
+> >>+		dmc->required_version = CNL_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = CNL_DMC_MAX_FW_SIZE;
+> >> 	} else if (IS_GEMINILAKE(dev_priv)) {
+> >>-		dmc->fw_path = GLK_CSR_PATH;
+> >>-		dmc->required_version = GLK_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = GLK_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = GLK_DMC_PATH;
+> >>+		dmc->required_version = GLK_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = GLK_DMC_MAX_FW_SIZE;
+> >> 	} else if (IS_KABYLAKE(dev_priv) ||
+> >> 		   IS_COFFEELAKE(dev_priv) ||
+> >> 		   IS_COMETLAKE(dev_priv)) {
+> >>-		dmc->fw_path = KBL_CSR_PATH;
+> >>-		dmc->required_version = KBL_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = KBL_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = KBL_DMC_PATH;
+> >>+		dmc->required_version = KBL_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = KBL_DMC_MAX_FW_SIZE;
+> >> 	} else if (IS_SKYLAKE(dev_priv)) {
+> >>-		dmc->fw_path = SKL_CSR_PATH;
+> >>-		dmc->required_version = SKL_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = SKL_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = SKL_DMC_PATH;
+> >>+		dmc->required_version = SKL_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = SKL_DMC_MAX_FW_SIZE;
+> >> 	} else if (IS_BROXTON(dev_priv)) {
+> >>-		dmc->fw_path = BXT_CSR_PATH;
+> >>-		dmc->required_version = BXT_CSR_VERSION_REQUIRED;
+> >>-		dmc->max_fw_size = BXT_CSR_MAX_FW_SIZE;
+> >>+		dmc->fw_path = BXT_DMC_PATH;
+> >>+		dmc->required_version = BXT_DMC_VERSION_REQUIRED;
+> >>+		dmc->max_fw_size = BXT_DMC_MAX_FW_SIZE;
+> >> 	}
+> >>
+> >> 	if (dev_priv->params.dmc_firmware_path) { diff --git
+> >>a/drivers/gpu/drm/i915/display/intel_csr.h
+> >>b/drivers/gpu/drm/i915/display/intel_csr.h
+> >>index 03c64f8af7ab..984e9fb250f8 100644
+> >>--- a/drivers/gpu/drm/i915/display/intel_csr.h
+> >>+++ b/drivers/gpu/drm/i915/display/intel_csr.h
+> >>@@ -8,9 +8,9 @@
+> >>
+> >> struct drm_i915_private;
+> >>
+> >>-#define CSR_VERSION(major, minor)	((major) << 16 | (minor))
+> >>-#define CSR_VERSION_MAJOR(version)	((version) >> 16)
+> >>-#define CSR_VERSION_MINOR(version)	((version) & 0xffff)
+> >>+#define DMC_VERSION(major, minor)	((major) << 16 | (minor))
+> >>+#define DMC_VERSION_MAJOR(version)	((version) >> 16)
+> >>+#define DMC_VERSION_MINOR(version)	((version) & 0xffff)
+> >>
+> >> void intel_csr_ucode_init(struct drm_i915_private *i915);  void
+> >>intel_csr_load_program(struct drm_i915_private *i915); diff --git
+> >>a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> >>b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> >>index 6cd7f8c1724f..e43abdf0e3d9 100644
+> >>--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> >>+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> >>@@ -548,8 +548,8 @@ static int i915_dmc_info(struct seq_file *m, void
+> *unused)
+> >> 	if (!dmc->dmc_payload)
+> >> 		goto out;
+> >>
+> >>-	seq_printf(m, "version: %d.%d\n", CSR_VERSION_MAJOR(dmc-
+> >version),
+> >>-		   CSR_VERSION_MINOR(dmc->version));
+> >>+	seq_printf(m, "version: %d.%d\n", DMC_VERSION_MAJOR(dmc-
+> >version),
+> >>+		   DMC_VERSION_MINOR(dmc->version));
+> >>
+> >> 	if (DISPLAY_VER(dev_priv) >= 12) {
+> >> 		if (IS_DGFX(dev_priv)) {
+> >>@@ -568,10 +568,10 @@ static int i915_dmc_info(struct seq_file *m, void
+> *unused)
+> >> 		seq_printf(m, "DC3CO count: %d\n",
+> >> 			   intel_de_read(dev_priv, DMC_DEBUG3));
+> >> 	} else {
+> >>-		dc5_reg = IS_BROXTON(dev_priv) ?
+> BXT_CSR_DC3_DC5_COUNT :
+> >>-						 SKL_CSR_DC3_DC5_COUNT;
+> >>+		dc5_reg = IS_BROXTON(dev_priv) ?
+> BXT_DMC_DC3_DC5_COUNT :
+> >>+						 SKL_DMC_DC3_DC5_COUNT;
+> >> 		if (!IS_GEMINILAKE(dev_priv) && !IS_BROXTON(dev_priv))
+> >>-			dc6_reg = SKL_CSR_DC5_DC6_COUNT;
+> >>+			dc6_reg = SKL_DMC_DC5_DC6_COUNT;
+> >> 	}
+> >>
+> >> 	seq_printf(m, "DC3 -> DC5 count: %d\n", @@ -582,10 +582,10 @@
+> static
+> >>int i915_dmc_info(struct seq_file *m, void *unused)
+> >>
+> >> out:
+> >> 	seq_printf(m, "program base: 0x%08x\n",
+> >>-		   intel_de_read(dev_priv, CSR_PROGRAM(0)));
+> >>+		   intel_de_read(dev_priv, DMC_PROGRAM(0)));
+> >> 	seq_printf(m, "ssp base: 0x%08x\n",
+> >>-		   intel_de_read(dev_priv, CSR_SSP_BASE));
+> >>-	seq_printf(m, "htp: 0x%08x\n", intel_de_read(dev_priv,
+> CSR_HTP_SKL));
+> >>+		   intel_de_read(dev_priv, DMC_SSP_BASE));
+> >>+	seq_printf(m, "htp: 0x%08x\n", intel_de_read(dev_priv,
+> >>+DMC_HTP_SKL));
+> >>
+> >> 	intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
+> >>
+> >>diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c
+> >>b/drivers/gpu/drm/i915/display/intel_display_power.c
+> >>index 0a05d0f90f28..de58abdd838b 100644
+> >>--- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> >>+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> >>@@ -961,12 +961,12 @@ static void bxt_disable_dc9(struct
+> >>drm_i915_private *dev_priv)  static void assert_csr_loaded(struct
+> >>drm_i915_private *dev_priv)  {
+> >> 	drm_WARN_ONCE(&dev_priv->drm,
+> >>-		      !intel_de_read(dev_priv, CSR_PROGRAM(0)),
+> >>-		      "CSR program storage start is NULL\n");
+> >>-	drm_WARN_ONCE(&dev_priv->drm, !intel_de_read(dev_priv,
+> CSR_SSP_BASE),
+> >>-		      "CSR SSP Base Not fine\n");
+> >>-	drm_WARN_ONCE(&dev_priv->drm, !intel_de_read(dev_priv,
+> CSR_HTP_SKL),
+> >>-		      "CSR HTP Not fine\n");
+> >>+		      !intel_de_read(dev_priv, DMC_PROGRAM(0)),
+> >>+		      "DMC program storage start is NULL\n");
+> >>+	drm_WARN_ONCE(&dev_priv->drm, !intel_de_read(dev_priv,
+> DMC_SSP_BASE),
+> >>+		      "DMC SSP Base Not fine\n");
+> >>+	drm_WARN_ONCE(&dev_priv->drm, !intel_de_read(dev_priv,
+> DMC_HTP_SKL),
+> >>+		      "DMC HTP Not fine\n");
+> >> }
+> >>
+> >> static struct i915_power_well *
+> >>@@ -6218,7 +6218,7 @@ void intel_power_domains_suspend(struct
+> drm_i915_private *i915,
+> >> 	/*
+> >> 	 * In case of suspend-to-idle (aka S0ix) on a DMC platform without
+> DC9
+> >> 	 * support don't manually deinit the power domains. This also means
+> the
+> >>-	 * CSR/DMC firmware will stay active, it will power down any HW
+> >>+	 * DMC firmware will stay active, it will power down any HW
+> >> 	 * resources as required and also enable deeper system power states
+> >> 	 * that would be blocked if the firmware was inactive.
+> >> 	 */
+> >>diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c
+> >>b/drivers/gpu/drm/i915/i915_gpu_error.c
+> >>index 06828ff90ccf..edd108d41318 100644
+> >>--- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> >>+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> >>@@ -794,8 +794,8 @@ static void __err_print_to_sgl(struct
+> drm_i915_error_state_buf *m,
+> >> 		err_printf(m, "DMC loaded: %s\n",
+> >> 			   yesno(dmc->dmc_payload));
+> >> 		err_printf(m, "DMC fw version: %d.%d\n",
+> >>-			   CSR_VERSION_MAJOR(dmc->version),
+> >>-			   CSR_VERSION_MINOR(dmc->version));
+> >>+			   DMC_VERSION_MAJOR(dmc->version),
+> >>+			   DMC_VERSION_MINOR(dmc->version));
+> >> 	}
+> >>
+> >> 	err_printf(m, "RPM wakelock: %s\n", yesno(error->wakelock)); diff
+> >>--git a/drivers/gpu/drm/i915/i915_reg.h
+> >>b/drivers/gpu/drm/i915/i915_reg.h index 089b5a59bed3..73a33ffc0559
+> >>100644
+> >>--- a/drivers/gpu/drm/i915/i915_reg.h
+> >>+++ b/drivers/gpu/drm/i915/i915_reg.h
+> >>@@ -7686,20 +7686,20 @@ enum {
+> >> #define  GAMMA_MODE_MODE_SPLIT	(3 << 0) /* ivb-bdw */
+> >> #define  GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED	(3 <<
+> 0) /* icl + */
+> >>
+> >>-/* DMC/CSR */
+> >>-#define CSR_PROGRAM(i)		_MMIO(0x80000 + (i) * 4)
+> >>-#define CSR_SSP_BASE_ADDR_GEN9	0x00002FC0
+> >>-#define CSR_HTP_ADDR_SKL	0x00500034
+> >>-#define CSR_SSP_BASE		_MMIO(0x8F074)
+> >>-#define CSR_HTP_SKL		_MMIO(0x8F004)
+> >>-#define CSR_LAST_WRITE		_MMIO(0x8F034)
+> >>-#define CSR_LAST_WRITE_VALUE	0xc003b400
+> >>-/* MMIO address range for CSR program (0x80000 - 0x82FFF) */
+> >>-#define CSR_MMIO_START_RANGE	0x80000
+> >>-#define CSR_MMIO_END_RANGE	0x8FFFF
+> >>-#define SKL_CSR_DC3_DC5_COUNT	_MMIO(0x80030)
+> >>-#define SKL_CSR_DC5_DC6_COUNT	_MMIO(0x8002C)
+> >>-#define BXT_CSR_DC3_DC5_COUNT	_MMIO(0x80038)
+> >>+/* DMC */
+> >>+#define DMC_PROGRAM(i)		_MMIO(0x80000 + (i) * 4)
+> >>+#define DMC_SSP_BASE_ADDR_GEN9	0x00002FC0
+> >>+#define DMC_HTP_ADDR_SKL	0x00500034
+> >>+#define DMC_SSP_BASE		_MMIO(0x8F074)
+> >>+#define DMC_HTP_SKL		_MMIO(0x8F004)
+> >>+#define DMC_LAST_WRITE		_MMIO(0x8F034)
+> >>+#define DMC_LAST_WRITE_VALUE	0xc003b400
+> >>+/* MMIO address range for DMC program (0x80000 - 0x82FFF) */
+> >>+#define DMC_MMIO_START_RANGE	0x80000
+> >>+#define DMC_MMIO_END_RANGE	0x8FFFF
+> >>+#define SKL_DMC_DC3_DC5_COUNT	_MMIO(0x80030)
+> >>+#define SKL_DMC_DC5_DC6_COUNT	_MMIO(0x8002C)
+> >>+#define BXT_DMC_DC3_DC5_COUNT	_MMIO(0x80038)
+> >> #define TGL_DMC_DEBUG_DC5_COUNT	_MMIO(0x101084)
+> >> #define TGL_DMC_DEBUG_DC6_COUNT	_MMIO(0x101088)
+> >> #define DG1_DMC_DEBUG_DC5_COUNT	_MMIO(0x134154)
+> >>--
+> >>2.25.0
+> >>
+> >>_______________________________________________
+> >>Intel-gfx mailing list
+> >>Intel-gfx@lists.freedesktop.org
+> >>https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> > _______________________________________________
+> > Intel-gfx mailing list
+> > Intel-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> 
+> --
+> Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
