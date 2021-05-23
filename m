@@ -2,42 +2,69 @@ Return-Path: <SRS0=+tRi=KT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E0E6C2B9F7
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 12:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E23CC04FF3
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 12:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E145613AD
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 12:05:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E145613AD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fifi.org
+	by mail.kernel.org (Postfix) with ESMTPS id 3CCFC613AD
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 12:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3CCFC613AD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=googlemail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F25186E284;
-	Mon, 24 May 2021 12:05:10 +0000 (UTC)
-X-Greylist: delayed 584 seconds by postgrey-1.36 at gabe;
- Sun, 23 May 2021 19:57:39 UTC
-Received: from granite.fifsource.com (granite.fifsource.com [173.255.216.206])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3D406E1D8
- for <intel-gfx@lists.freedesktop.org>; Sun, 23 May 2021 19:57:19 +0000 (UTC)
-Received: from ceramic.fifi.org (107-142-44-66.lightspeed.sntcca.sbcglobal.net
- [107.142.44.66]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- by granite.fifsource.com (Postfix) with ESMTPSA id B05734060;
- Sun, 23 May 2021 12:47:34 -0700 (PDT)
-Message-ID: <4d84b06ee9e8dad88ff101de5e7b78b9b09cfee3.camel@fifi.org>
-From: Philippe Troin <phil@fifi.org>
-To: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Date: Sun, 23 May 2021 12:47:34 -0700
-User-Agent: Evolution 3.38.4 (3.38.4-1.fc33) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFC296E243;
+	Mon, 24 May 2021 12:05:08 +0000 (UTC)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C32AB89CE1;
+ Sun, 23 May 2021 12:17:14 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id w12so20900300edx.1;
+ Sun, 23 May 2021 05:17:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=3tzEvnJ635tC2Suexfcwo2/SMYwrMnTRuJbRrXUefrg=;
+ b=qLzt2Q8zgmZbiflD5+5P7ElMN2z5A5uPW8NRXtteO4uyLUUDRrn2IKkRaMvKWKF65W
+ 1cfWZUBsHQFj1InumAA50YINqUE+1gGMQa6vawhc32wnMK1JPFqy+ZWs+yK3N/lhIrZB
+ tFzU7CEWgebc10cYE5ViNhI9KqJ0BhAzNgASIXHqW9Pvbic5Mbf7n+1hTPPnGTy2gyoF
+ KIpNNID+LMnrZr9hOeF1GqZZFlAGZkUq4n5yICVxd5jeKSPa46Y9ikqlIlB9JT7xuTyE
+ P+9+6vpZcRqQG7UUVVCq9WhiE6nWh3BKUbJrAhmJbHLt2xZ+1Xri6sMQDKQymr2NNUCG
+ TF9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=3tzEvnJ635tC2Suexfcwo2/SMYwrMnTRuJbRrXUefrg=;
+ b=NmBjio2xysvIBbgKJ6KEKIRD1sQ7pZnYG/AytKMJiLaBjFzu84IDXBIL8POTVQi7Wc
+ f7dU5VuwwzC7HaLqCfuxyT57x9cPhTRkQsEK2Cx3uvYiRN9L+aNKqReBBROyiy+S/WYZ
+ c+tZokRlqPsqPiGhHvMFKR3Z/EgprAOxvn83PgnNZCNYWBZYcnKKXr59mCK+C6wcI21W
+ N7Jjp7X5/zR664sB7dHvxY7JCJw/ul9Tu/vA1ASIF2S8doHR+rl70y0obE87Fah6FGMt
+ PMGmU8Ea0NG6tsb0d7+z4K41fyW/KhieSCpbDwgIHV8J6G2BS7QpM15vEvy99DC3Jcr3
+ F8aA==
+X-Gm-Message-State: AOAM531D/M11FsE+Ecrrmjm/SOShl1zPqg/gPsRG2FeV1b6DJZapmHP+
+ gtYH8sdxhR5Kw4mvxi+xCf0UyebpS88QbOz3Z5o=
+X-Google-Smtp-Source: ABdhPJwPxmA4JArahzruRum264WKfGGbHUJh6bex9S7VrYwga+yKcdKWZft9UnfQIVsWH4AZBM7E8wWiBet0Lx5Pf5o=
+X-Received: by 2002:a50:fb17:: with SMTP id d23mr19981613edq.338.1621772233437; 
+ Sun, 23 May 2021 05:17:13 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210521090959.1663703-1-daniel.vetter@ffwll.ch>
+ <20210521090959.1663703-6-daniel.vetter@ffwll.ch>
+In-Reply-To: <20210521090959.1663703-6-daniel.vetter@ffwll.ch>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 23 May 2021 14:17:02 +0200
+Message-ID: <CAFBinCDXgjevHr9wRn8gQ8pJhiSpZb5A7ChhQqk17yK8Tooa3Q@mail.gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
 X-Mailman-Approved-At: Mon, 24 May 2021 12:05:07 +0000
-Subject: [Intel-gfx] Bug: 5.12.5 - list_add double add at
- __i915_gem_object_make_shrinkable+0xa6/0xe0
+Subject: Re: [Intel-gfx] [PATCH 06/11] drm/<driver>:
+ drm_gem_plane_helper_prepare_fb is now the default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,344 +77,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Stefan Agner <stefan@agner.ch>, linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Daniel Vetter <daniel.vetter@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Marek Vasut <marex@denx.de>, Kevin Hilman <khilman@baylibre.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
+ Chen-Yu Tsai <wens@csie.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tomi Valkeinen <tomba@kernel.org>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Sandy Huang <hjc@rock-chips.com>, linux-sunxi@lists.linux.dev,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Lucas Stach <l.stach@pengutronix.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Found the following bug on a FUJITSU LIFEBOOK S6520.
-
-The kernel crash happens when selecting a user from the gdm login
-screen right after boot.
-The same hardware has no problems with 5.11.21.
-
-OOPS:
-   list_add double add: new=ffff8e785604c620, prev=ffff8e785604c620, next=ffff8e784d105b38.
-   ------------[ cut here ]------------
-   kernel BUG at lib/list_debug.c:29!
-   invalid opcode: 0000 [#1] SMP PTI
-   CPU: 0 PID: 1498 Comm: gnome-shell Not tainted 5.12.5-200.fc33.x86_64 #1
-   Hardware name: FUJITSU LIFEBOOK S6520/FJNB1E6, BIOS Version 1.31  09/09/2009
-   RIP: 0010:__list_add_valid.cold+0x26/0x3f
-   Code: d8 77 a6 ff 4c 89 c1 48 c7 c7 10 52 41 b8 e8 7f 2c fe ff 0f 0b 48 89 f2 4c 89 c1 48 89 fe 48 c7 c7 c0 52 41 b8 e8 68 2c fe ff <0f> 0b 48 89 d1 4c 89 c6 4c 89 ca 48 c7 c7 68 52 41 b8 e8 51 2c fe
-   RSP: 0018:ffffb84100ebfcf8 EFLAGS: 00010082
-   RAX: 0000000000000058 RBX: ffff8e785604c340 RCX: 0000000000000000
-   RDX: ffff8e787bc26720 RSI: ffff8e787bc185c0 RDI: ffff8e787bc185c0
-   RBP: ffff8e784d105b38 R08: 0000000000000000 R09: ffffb84100ebfb30
-   R10: ffffb84100ebfb28 R11: ffffffffb8b45f28 R12: ffff8e784d100000
-   R13: 0000000000000246 R14: ffff8e784d105b20 R15: ffff8e785604c620
-   FS:  00007fa65ebf6d40(0000) GS:ffff8e787bc00000(0000) knlGS:0000000000000000
-   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-   CR2: 00007fa638311a10 CR3: 00000001162d0000 CR4: 00000000000006f0
-   Call Trace:
-    __i915_gem_object_make_shrinkable+0xa6/0xe0 [i915]
-    i915_gem_object_set_tiling+0x4fe/0x530 [i915]
-    ? i915_gem_object_make_unshrinkable+0x75/0xd0 [i915]
-    i915_gem_set_tiling_ioctl+0x148/0x230 [i915]
-    ? i915_gem_object_set_tiling+0x530/0x530 [i915]
-    drm_ioctl_kernel+0x86/0xd0 [drm]
-    drm_ioctl+0x20f/0x3a0 [drm]
-    ? i915_gem_object_set_tiling+0x530/0x530 [i915]
-    ? handle_mm_fault+0xd5/0x2b0
-    __x64_sys_ioctl+0x83/0xb0
-    do_syscall_64+0x33/0x40
-    entry_SYSCALL_64_after_hwframe+0x44/0xae
-   RIP: 0033:0x7fa662d8ff7b
-   Code: 89 d8 49 8d 3c 1c 48 f7 d8 4c 39 e0 77 b5 e8 1c ff ff ff 85 c0 78 ba 4c 89 e0 5b 5d 41 5c c3 f3 0f 1e fa b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d cd be 0c 00 f7 d8 64 89 01 48
-   RSP: 002b:00007ffd4273adf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-   RAX: ffffffffffffffda RBX: 000055db91ae4d70 RCX: 00007fa662d8ff7b
-   RDX: 00007ffd4273ae00 RSI: 00000000c0106461 RDI: 000000000000000b
-   RBP: 0000000000000000 R08: 000055db8de78400 R09: 0000000000000000
-   R10: 00007ffd42740080 R11: 0000000000000246 R12: 0000000000000000
-   R13: 000055db8de782e0 R14: 00000000c0106461 R15: 00007ffd4273ae00
-   Modules linked in: ccm xt_recent ip6t_REJECT nf_reject_ipv6 ip6t_rpfilter ipt_REJECT nf_reject_ipv4 xt_conntrack nft_counter nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip6_tables nft_compat ip_set nf_tables nfnetlink bnep snd_hda_codec_hdmi snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio snd_hda_intel snd_intel_dspcfg snd_intel_sdw_acpi snd_hda_codec snd_hda_core snd_hwdep snd_seq_dummy iwldvm snd_seq_oss snd_seq_midi_event mac80211 iTCO_wdt intel_pmc_bxt iTCO_vendor_support ppdev uvcvideo libarc4 iwlwifi snd_pcm_oss videobuf2_vmalloc coretemp videobuf2_memops snd_mixer_oss kvm_intel videobuf2_v4l2 btusb kvm snd_seq videobuf2_common btrtl irqbypass btbcm btintel bluetooth snd_seq_device cfg80211 snd_pcm ecdh_generic i2c_i801 ecc joydev pcspkr i2c_smbus snd_timer rfkill lpc_ich snd soundcore parport_pc parport tpm_infineon fujitsu_laptop sparse_keymap acpi_cpufreq binfmt_misc ip_tables xfs dm_crypt trusted i915 i2c_algo_bit drm_kms_helper cec
-    drm sdhci_pci cqhci sdhci firewire_ohci mmc_core firewire_core serio_raw sky2 yenta_socket crc_itu_t video videodev mc fuse
-   ---[ end trace 397aeb714833de66 ]---
-   RIP: 0010:__list_add_valid.cold+0x26/0x3f
-   Code: d8 77 a6 ff 4c 89 c1 48 c7 c7 10 52 41 b8 e8 7f 2c fe ff 0f 0b 48 89 f2 4c 89 c1 48 89 fe 48 c7 c7 c0 52 41 b8 e8 68 2c fe ff <0f> 0b 48 89 d1 4c 89 c6 4c 89 ca 48 c7 c7 68 52 41 b8 e8 51 2c fe
-   RSP: 0018:ffffb84100ebfcf8 EFLAGS: 00010082
-   RAX: 0000000000000058 RBX: ffff8e785604c340 RCX: 0000000000000000
-   RDX: ffff8e787bc26720 RSI: ffff8e787bc185c0 RDI: ffff8e787bc185c0
-   RBP: ffff8e784d105b38 R08: 0000000000000000 R09: ffffb84100ebfb30
-   R10: ffffb84100ebfb28 R11: ffffffffb8b45f28 R12: ffff8e784d100000
-   R13: 0000000000000246 R14: ffff8e784d105b20 R15: ffff8e785604c620
-   FS:  00007fa65ebf6d40(0000) GS:ffff8e787bc00000(0000) knlGS:0000000000000000
-   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-   CR2: 00007fa638311a10 CR3: 00000001162d0000 CR4: 00000000000006f0
-
-lspci -vv:
-   00:00.0 Host bridge: Intel Corporation Mobile 4 Series Chipset Memory Controller Hub (rev 07)
-   	Subsystem: Fujitsu Limited. Device 144e
-   	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort+ >SERR- <PERR- INTx-
-   	Latency: 0
-   	Capabilities: <access denied>
-   
-   00:02.0 VGA compatible controller: Intel Corporation Mobile 4 Series Chipset Integrated Graphics Controller (rev 07) (prog-if 00 [VGA controller])
-   	Subsystem: Fujitsu Limited. Device 1450
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin A routed to IRQ 16
-   	Region 0: Memory at f0000000 (64-bit, non-prefetchable) [size=4M]
-   	Region 2: Memory at d0000000 (64-bit, prefetchable) [size=256M]
-   	Region 4: I/O ports at 1800 [size=8]
-   	Expansion ROM at 000c0000 [virtual] [disabled] [size=128K]
-   	Capabilities: <access denied>
-   	Kernel driver in use: i915
-   	Kernel modules: i915
-   
-   00:02.1 Display controller: Intel Corporation Mobile 4 Series Chipset Integrated Graphics Controller (rev 07)
-   	Subsystem: Fujitsu Limited. Device 1450
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Region 0: Memory at f0400000 (64-bit, non-prefetchable) [size=1M]
-   	Capabilities: <access denied>
-   
-   00:1a.0 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #4 (rev 03) (prog-if 00 [UHCI])
-   	Subsystem: Fujitsu Limited. Device 1472
-   	Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin A routed to IRQ 16
-   	Region 4: I/O ports at 1820 [size=32]
-   	Capabilities: <access denied>
-   	Kernel driver in use: uhci_hcd
-   
-   00:1a.1 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #5 (rev 03) (prog-if 00 [UHCI])
-   	Subsystem: Fujitsu Limited. Device 1472
-   	Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin B routed to IRQ 17
-   	Region 4: I/O ports at 1840 [size=32]
-   	Capabilities: <access denied>
-   	Kernel driver in use: uhci_hcd
-   
-   00:1a.2 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #6 (rev 03) (prog-if 00 [UHCI])
-   	Subsystem: Fujitsu Limited. Device 1472
-   	Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin C routed to IRQ 18
-   	Region 4: I/O ports at 1860 [size=32]
-   	Capabilities: <access denied>
-   	Kernel driver in use: uhci_hcd
-   
-   00:1a.7 USB controller: Intel Corporation 82801I (ICH9 Family) USB2 EHCI Controller #2 (rev 03) (prog-if 20 [EHCI])
-   	Subsystem: Fujitsu Limited. Device 1473
-   	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin C routed to IRQ 18
-   	Region 0: Memory at f0a04800 (32-bit, non-prefetchable) [size=1K]
-   	Capabilities: <access denied>
-   	Kernel driver in use: ehci-pci
-   
-   00:1b.0 Audio device: Intel Corporation 82801I (ICH9 Family) HD Audio Controller (rev 03)
-   	Subsystem: Fujitsu Limited. Device 1475
-   	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx+
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0, Cache Line Size: 64 bytes
-   	Interrupt: pin A routed to IRQ 28
-   	Region 0: Memory at f0a00000 (64-bit, non-prefetchable) [size=16K]
-   	Capabilities: <access denied>
-   	Kernel driver in use: snd_hda_intel
-   	Kernel modules: snd_hda_intel
-   
-   00:1c.0 PCI bridge: Intel Corporation 82801I (ICH9 Family) PCI Express Port 1 (rev 03) (prog-if 00 [Normal decode])
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx+
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0, Cache Line Size: 64 bytes
-   	Interrupt: pin A routed to IRQ 24
-   	Bus: primary=00, secondary=08, subordinate=0f, sec-latency=0
-   	I/O behind bridge: 00002000-00002fff [size=4K]
-   	Memory behind bridge: f0500000-f05fffff [size=1M]
-   	Prefetchable memory behind bridge: 00000000c0000000-00000000c01fffff [size=2M]
-   	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort+ <SERR- <PERR-
-   	BridgeCtl: Parity- SERR+ NoISA+ VGA- VGA16- MAbort- >Reset- FastB2B-
-   		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
-   	Capabilities: <access denied>
-   	Kernel driver in use: pcieport
-   
-   00:1c.2 PCI bridge: Intel Corporation 82801I (ICH9 Family) PCI Express Port 3 (rev 03) (prog-if 00 [Normal decode])
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx+
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0, Cache Line Size: 64 bytes
-   	Interrupt: pin C routed to IRQ 25
-   	Bus: primary=00, secondary=18, subordinate=1f, sec-latency=0
-   	I/O behind bridge: 00003000-00003fff [size=4K]
-   	Memory behind bridge: f0600000-f06fffff [size=1M]
-   	Prefetchable memory behind bridge: 00000000c0200000-00000000c03fffff [size=2M]
-   	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort+ <SERR- <PERR-
-   	BridgeCtl: Parity- SERR+ NoISA+ VGA- VGA16- MAbort- >Reset- FastB2B-
-   		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
-   	Capabilities: <access denied>
-   	Kernel driver in use: pcieport
-   
-   00:1d.0 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #1 (rev 03) (prog-if 00 [UHCI])
-   	Subsystem: Fujitsu Limited. Device 1472
-   	Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin A routed to IRQ 23
-   	Region 4: I/O ports at 1880 [size=32]
-   	Capabilities: <access denied>
-   	Kernel driver in use: uhci_hcd
-   
-   00:1d.1 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #2 (rev 03) (prog-if 00 [UHCI])
-   	Subsystem: Fujitsu Limited. Device 1472
-   	Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin B routed to IRQ 19
-   	Region 4: I/O ports at 18a0 [size=32]
-   	Capabilities: <access denied>
-   	Kernel driver in use: uhci_hcd
-   
-   00:1d.2 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #3 (rev 03) (prog-if 00 [UHCI])
-   	Subsystem: Fujitsu Limited. Device 1472
-   	Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin C routed to IRQ 18
-   	Region 4: I/O ports at 18c0 [size=32]
-   	Capabilities: <access denied>
-   	Kernel driver in use: uhci_hcd
-   
-   00:1d.7 USB controller: Intel Corporation 82801I (ICH9 Family) USB2 EHCI Controller #1 (rev 03) (prog-if 20 [EHCI])
-   	Subsystem: Fujitsu Limited. Device 1473
-   	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin A routed to IRQ 23
-   	Region 0: Memory at f0a04c00 (32-bit, non-prefetchable) [size=1K]
-   	Capabilities: <access denied>
-   	Kernel driver in use: ehci-pci
-   
-   00:1e.0 PCI bridge: Intel Corporation 82801 Mobile PCI Bridge (rev 93) (prog-if 01 [Subtractive decode])
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Bus: primary=00, secondary=38, subordinate=39, sec-latency=32
-   	I/O behind bridge: 00004000-00004fff [size=4K]
-   	Memory behind bridge: f0700000-f07fffff [size=1M]
-   	Prefetchable memory behind bridge: [disabled]
-   	Secondary status: 66MHz- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort+ <SERR- <PERR+
-   	BridgeCtl: Parity- SERR+ NoISA+ VGA- VGA16- MAbort- >Reset- FastB2B-
-   		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
-   	Capabilities: <access denied>
-   
-   00:1f.0 ISA bridge: Intel Corporation ICH9M LPC Interface Controller (rev 03)
-   	Subsystem: Fujitsu Limited. Device 146b
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Capabilities: <access denied>
-   	Kernel driver in use: lpc_ich
-   	Kernel modules: lpc_ich
-   
-   00:1f.2 SATA controller: Intel Corporation 82801IBM/IEM (ICH9M/ICH9M-E) 4 port SATA Controller [AHCI mode] (rev 03) (prog-if 01 [AHCI 1.0])
-   	Subsystem: Fujitsu Limited. Device 146d
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
-   	Status: Cap+ 66MHz+ UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0
-   	Interrupt: pin B routed to IRQ 26
-   	Region 0: I/O ports at 1818 [size=8]
-   	Region 1: I/O ports at 180c [size=4]
-   	Region 2: I/O ports at 1810 [size=8]
-   	Region 3: I/O ports at 1808 [size=4]
-   	Region 4: I/O ports at 18e0 [size=32]
-   	Region 5: Memory at f0a04000 (32-bit, non-prefetchable) [size=2K]
-   	Capabilities: <access denied>
-   	Kernel driver in use: ahci
-   
-   00:1f.3 SMBus: Intel Corporation 82801I (ICH9 Family) SMBus Controller (rev 03)
-   	Subsystem: Fujitsu Limited. Device 1470
-   	Control: I/O+ Mem+ BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap- 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Interrupt: pin C routed to IRQ 19
-   	Region 0: Memory at c0400000 (64-bit, non-prefetchable) [size=256]
-   	Region 4: I/O ports at 1c00 [size=32]
-   	Kernel driver in use: i801_smbus
-   	Kernel modules: i2c_i801
-   
-   08:00.0 Ethernet controller: Marvell Technology Group Ltd. 88E8055 PCI-E Gigabit Ethernet Controller (rev 14)
-   	Subsystem: Fujitsu Limited. Device 14ab
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0, Cache Line Size: 64 bytes
-   	Interrupt: pin A routed to IRQ 16
-   	Region 0: Memory at f0500000 (64-bit, non-prefetchable) [size=16K]
-   	Region 2: I/O ports at 2000 [size=256]
-   	Expansion ROM at f0520000 [virtual] [disabled] [size=128K]
-   	Capabilities: <access denied>
-   	Kernel driver in use: sky2
-   	Kernel modules: sky2
-   
-   18:00.0 Network controller: Intel Corporation Ultimate N WiFi Link 5300
-   	Subsystem: Intel Corporation Device 1101
-   	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx+
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 0, Cache Line Size: 64 bytes
-   	Interrupt: pin A routed to IRQ 27
-   	Region 0: Memory at f0600000 (64-bit, non-prefetchable) [size=8K]
-   	Capabilities: <access denied>
-   	Kernel driver in use: iwlwifi
-   	Kernel modules: iwlwifi
-   
-   38:03.0 CardBus bridge: O2 Micro, Inc. OZ711SP1 Memory CardBus Controller (rev 01)
-   	Subsystem: Fujitsu Limited. Device 143d
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping+ SERR- FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=slow >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 168
-   	Interrupt: pin A routed to IRQ 17
-   	Region 0: Memory at c4000000 (32-bit, non-prefetchable) [size=4K]
-   	Bus: primary=38, secondary=39, subordinate=39, sec-latency=176
-   	Memory window 0: c8000000-cbffffff (prefetchable)
-   	Memory window 1: cc000000-cfffffff
-   	I/O window 0: 00004000-000040ff
-   	I/O window 1: 00004400-000044ff
-   	BridgeCtl: Parity- SERR- ISA- VGA- MAbort- >Reset+ 16bInt+ PostWrite+
-   	16-bit legacy interface ports at 0001
-   	Capabilities: <access denied>
-   	Kernel driver in use: yenta_cardbus
-   	Kernel modules: yenta_socket
-   
-   38:03.2 SD Host controller: O2 Micro, Inc. Integrated MMC/SD Controller (rev 02) (prog-if 01)
-   	Subsystem: Fujitsu Limited. Device 143d
-   	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=slow >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Latency: 32, Cache Line Size: 64 bytes
-   	Interrupt: pin A routed to IRQ 17
-   	Region 0: Memory at f0700000 (32-bit, non-prefetchable) [size=256]
-   	Capabilities: <access denied>
-   	Kernel driver in use: sdhci-pci
-   	Kernel modules: sdhci_pci
-   
-   38:03.3 Mass storage controller: O2 Micro, Inc. Integrated MS/xD Controller (rev 01)
-   	Subsystem: Fujitsu Limited. Device 143d
-   	Control: I/O- Mem+ BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=slow >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-   	Interrupt: pin A routed to IRQ 11
-   	Region 0: Memory at f0701000 (32-bit, non-prefetchable) [size=4K]
-   	Capabilities: <access denied>
-   
-   38:03.4 FireWire (IEEE 1394): O2 Micro, Inc. Firewire (IEEE 1394) (rev 02) (prog-if 10 [OHCI])
-   	Subsystem: Fujitsu Limited. Device 143e
-   	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV+ VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
-   	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx+
-   	Latency: 32, Cache Line Size: 64 bytes
-   	Interrupt: pin A routed to IRQ 17
-   	Region 0: Memory at f0702000 (32-bit, non-prefetchable) [size=4K]
-   	Region 1: Memory at f0700800 (32-bit, non-prefetchable) [size=2K]
-   	Capabilities: <access denied>
-   	Kernel driver in use: firewire_ohci
-   	Kernel modules: firewire_ohci
-   
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gRnJpLCBNYXkgMjEsIDIwMjEgYXQgMTE6MTAgQU0gRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZl
+dHRlckBmZndsbC5jaD4gd3JvdGU6Cj4KPiBObyBuZWVkIHRvIHNldCBpdCBleHBsaWNpdGx5Lgo+
+Cj4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBpbnRlbC5jb20+
+Cj4gQ2M6IExhdXJlbnRpdSBQYWxjdSA8bGF1cmVudGl1LnBhbGN1QG9zcy5ueHAuY29tPgo+IENj
+OiBMdWNhcyBTdGFjaCA8bC5zdGFjaEBwZW5ndXRyb25peC5kZT4KPiBDYzogU2hhd24gR3VvIDxz
+aGF3bmd1b0BrZXJuZWwub3JnPgo+IENjOiBTYXNjaGEgSGF1ZXIgPHMuaGF1ZXJAcGVuZ3V0cm9u
+aXguZGU+Cj4gQ2M6IFBlbmd1dHJvbml4IEtlcm5lbCBUZWFtIDxrZXJuZWxAcGVuZ3V0cm9uaXgu
+ZGU+Cj4gQ2M6IEZhYmlvIEVzdGV2YW0gPGZlc3RldmFtQGdtYWlsLmNvbT4KPiBDYzogTlhQIExp
+bnV4IFRlYW0gPGxpbnV4LWlteEBueHAuY29tPgo+IENjOiBQaGlsaXBwIFphYmVsIDxwLnphYmVs
+QHBlbmd1dHJvbml4LmRlPgo+IENjOiBQYXVsIENlcmN1ZWlsIDxwYXVsQGNyYXBvdWlsbG91Lm5l
+dD4KPiBDYzogQ2h1bi1LdWFuZyBIdSA8Y2h1bmt1YW5nLmh1QGtlcm5lbC5vcmc+Cj4gQ2M6IE1h
+dHRoaWFzIEJydWdnZXIgPG1hdHRoaWFzLmJnZ0BnbWFpbC5jb20+Cj4gQ2M6IE5laWwgQXJtc3Ry
+b25nIDxuYXJtc3Ryb25nQGJheWxpYnJlLmNvbT4KPiBDYzogS2V2aW4gSGlsbWFuIDxraGlsbWFu
+QGJheWxpYnJlLmNvbT4KPiBDYzogSmVyb21lIEJydW5ldCA8amJydW5ldEBiYXlsaWJyZS5jb20+
+Cj4gQ2M6IE1hcnRpbiBCbHVtZW5zdGluZ2wgPG1hcnRpbi5ibHVtZW5zdGluZ2xAZ29vZ2xlbWFp
+bC5jb20+Cj4gQ2M6IE1hcmVrIFZhc3V0IDxtYXJleEBkZW54LmRlPgo+IENjOiBTdGVmYW4gQWdu
+ZXIgPHN0ZWZhbkBhZ25lci5jaD4KPiBDYzogU2FuZHkgSHVhbmcgPGhqY0Byb2NrLWNoaXBzLmNv
+bT4KPiBDYzogIkhlaWtvIFN0w7xibmVyIiA8aGVpa29Ac250ZWNoLmRlPgo+IENjOiBZYW5uaWNr
+IEZlcnRyZSA8eWFubmljay5mZXJ0cmVAZm9zcy5zdC5jb20+Cj4gQ2M6IFBoaWxpcHBlIENvcm51
+IDxwaGlsaXBwZS5jb3JudUBmb3NzLnN0LmNvbT4KPiBDYzogQmVuamFtaW4gR2FpZ25hcmQgPGJl
+bmphbWluLmdhaWduYXJkQGxpbmFyby5vcmc+Cj4gQ2M6IE1heGltZSBDb3F1ZWxpbiA8bWNvcXVl
+bGluLnN0bTMyQGdtYWlsLmNvbT4KPiBDYzogQWxleGFuZHJlIFRvcmd1ZSA8YWxleGFuZHJlLnRv
+cmd1ZUBmb3NzLnN0LmNvbT4KPiBDYzogTWF4aW1lIFJpcGFyZCA8bXJpcGFyZEBrZXJuZWwub3Jn
+Pgo+IENjOiBDaGVuLVl1IFRzYWkgPHdlbnNAY3NpZS5vcmc+Cj4gQ2M6IEplcm5laiBTa3JhYmVj
+IDxqZXJuZWouc2tyYWJlY0BnbWFpbC5jb20+Cj4gQ2M6IEp5cmkgU2FyaGEgPGp5cmkuc2FyaGFA
+aWtpLmZpPgo+IENjOiBUb21pIFZhbGtlaW5lbiA8dG9tYmFAa2VybmVsLm9yZz4KPiBDYzogbGlu
+dXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4gQ2M6IGxpbnV4LW1pcHNAdmdlci5r
+ZXJuZWwub3JnCj4gQ2M6IGxpbnV4LW1lZGlhdGVrQGxpc3RzLmluZnJhZGVhZC5vcmcKPiBDYzog
+bGludXgtYW1sb2dpY0BsaXN0cy5pbmZyYWRlYWQub3JnCj4gQ2M6IGxpbnV4LXJvY2tjaGlwQGxp
+c3RzLmluZnJhZGVhZC5vcmcKPiBDYzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQo+IENjOiBsaW51eC1zdW54aUBsaXN0cy5saW51eC5kZXYKPiAtLS0KPiAgZHJpdmVy
+cy9ncHUvZHJtL2lteC9kY3NzL2Rjc3MtcGxhbmUuYyAgICAgICB8IDEgLQo+ICBkcml2ZXJzL2dw
+dS9kcm0vaW14L2lwdXYzLXBsYW5lLmMgICAgICAgICAgIHwgMSAtCj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9pbmdlbmljL2luZ2VuaWMtZHJtLWRydi5jICAgfCAxIC0KPiAgZHJpdmVycy9ncHUvZHJtL2lu
+Z2VuaWMvaW5nZW5pYy1pcHUuYyAgICAgICB8IDEgLQo+ICBkcml2ZXJzL2dwdS9kcm0vbWVkaWF0
+ZWsvbXRrX2RybV9wbGFuZS5jICAgIHwgMSAtCj4gIGRyaXZlcnMvZ3B1L2RybS9tZXNvbi9tZXNv
+bl9vdmVybGF5LmMgICAgICAgfCAxIC0KPiAgZHJpdmVycy9ncHUvZHJtL21lc29uL21lc29uX3Bs
+YW5lLmMgICAgICAgICB8IDEgLQpGb3IgZHJpdmVycy9ncHUvZHJtL21lc29uLyo6CkFja2VkLWJ5
+OiBNYXJ0aW4gQmx1bWVuc3RpbmdsIDxtYXJ0aW4uYmx1bWVuc3RpbmdsQGdvb2dsZW1haWwuY29t
+PgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1n
+ZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
