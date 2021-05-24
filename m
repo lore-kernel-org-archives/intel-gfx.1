@@ -2,71 +2,73 @@ Return-Path: <SRS0=+tRi=KT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02B10C2B9F8
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 16:47:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F35E8C04FF3
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 16:47:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F4127613F6
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 16:47:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F4127613F6
+	by mail.kernel.org (Postfix) with ESMTPS id 36617613F6
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 16:47:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36617613F6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=astier.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D9096E8CF;
-	Mon, 24 May 2021 16:47:52 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 808B56E8D2
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 16:47:50 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id z17so29220146wrq.7
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 09:47:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90BC96E8D5;
+	Mon, 24 May 2021 16:47:54 +0000 (UTC)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C8E26E8D4
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 16:47:53 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ u5-20020a7bc0450000b02901480e40338bso264487wmc.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 09:47:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=astier-eu.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=di505kkRqDSik9WYJX+bh+gzE7K7u5Z12HF0qqOqyv4=;
- b=f5LwgmU9uBz5xIBg2EmWqUfyu8LTeLGDrXaf1Srkf/XVZ8hqbaFF5KazU6lNy6Vb0M
- ueO3d9fSwojEQAOAULyb3RquXh6TqWpTo31Hzsu+Ch/bmAgsfo5L2YzbRihDmOfYfzxF
- OBqu9RHKFvxWFyidrVrx5MD6FkSGcgIVumn4KSLLsrIiaKMQ95fWRWTOyfB27TCvXgJE
- 1opq1nB8noa6SXdI9Qls2vyVacH1cqOLk0zAzMH0AJkJtlgdfMSFX1kXdK4UeBCwrFLf
- V7RkVHxlZL7n1bWmSaQemUfO9TZm83CwLjNrfwwjgSCsW9vMvakCeiss/A9Ap/t7hGZR
- UvFw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=q5LsshN/w/EqtVlYdH8CJ7303gxJoUC0MUKp67S3Rw4=;
+ b=iFGf6zvLx7Wm86r70xf7tvo4wfqJ81GcbHImsEfOKd8ThuKUtFK2MuK+MKcdyoZYLB
+ 8yzeZeFYoOVEFt7hDVcaY0QwHVuP8mvtFBs+8l4ICs7lOwhipIjmA3EYhafZyaTjnitV
+ 57ikrIAFvICuaRPDzGKiS+RTyg0nCeN0dROIdbK65cdvD95pvKYVEIhaiQZ8A3fdkFiJ
+ 7D/l0yhGreo45tDS+S21pFOcOv7c3WYObDWSuiAq69NJex7HPsjwsgoeHWjzu3bisqPC
+ cFcsaFQg62i+eIP5W1XHecorBxua8dO0gPtlTkZmr6lPU8GJrzuu0de5o+X9vRFwgujs
+ 3VGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=di505kkRqDSik9WYJX+bh+gzE7K7u5Z12HF0qqOqyv4=;
- b=VAC2zPkkl7/4hxp2RiuB0XaSaHUjzeWyHT6dM9c0E3ie8S3qg2Buj1HZMyk+Z45m+e
- 9Vqy+/azwJ8+BOBzYHkU/ozvAvkk9H5PWmfTY2uVgloWICn8lffRnFbA8YPgKEKT1Bsa
- gfl0mLo1pp6ewjo9E/Fpz1MxwpFf27WwYJrffOoRni48fCpiIlbGgH1jFqmtlvvbf+Xx
- BXAwmgRLOaqQ9W/rhIvVmFyD8Ry3zDDj3Irg9IelG+4durLrxJQwJp1BAnzExKsAAA+/
- 5IDy0H3NSXfsyTW0jVdia9zq00MBLmys5I4CQFqHiWaLXS4yaU1dGdR1CodF1LgMSq5t
- kzHA==
-X-Gm-Message-State: AOAM533U4HnOoGiWXAQZb0N9SgMaEQv2K75ssSIpkyqky+r57ylB1Bqh
- ysXYsezfabQ28FSri3R5tGHyUQReKP1SQw==
-X-Google-Smtp-Source: ABdhPJxDLcvlzd9XfyituJ0FHQibKJpPthdqryNaGFsrkmN9pI2/+OCMphq2zYUscS53yiYJXAnmcA==
-X-Received: by 2002:a05:6000:c2:: with SMTP id
- q2mr23575392wrx.288.1621874868769; 
- Mon, 24 May 2021 09:47:48 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=q5LsshN/w/EqtVlYdH8CJ7303gxJoUC0MUKp67S3Rw4=;
+ b=Edf/qbdr+c6qcIvlHmYqv0owh6Gm7SSbXn9odg7soVqfyJdl0GFsItiBKCDbWbLDR0
+ 1JDvgMyhkA8uOZyQQTUwCENnfjuTnndhsfjxDmEtprVIzZsDjVi+1KKWilPxxGjWjar9
+ qTENRTl5KP3EwDSkJX7bsfohtQLISUQ86e/b5O2w+At3vXYzjWESXi+hs4fyFDI9WExX
+ o7CufqVjWZbNzR9zgk2Q3MnuvVHrG7ng65lQVKtFMUZVTrc6q/ZIp7dTz4hb7bW3Skv1
+ NKt5bEfIsHd0/tm3a4U4u1oxzSV9M1xC9hARy3h0R8Q8cUZGgiNhlkPtU+UWB2WUJdZ3
+ r8hA==
+X-Gm-Message-State: AOAM530/asmDYhFS09Q7n+99gZ3gTsv9sDSeyP6/XOxJKtbquermilCh
+ kJXbrJOEjYmwsbwFPaBle0HgYRxMAfY8AA==
+X-Google-Smtp-Source: ABdhPJxjdBMeRIGOWaA7Niea7ZuRC1ReYE+sftPeyd7t8T1co+5i5R/r8hHOJuSKccpoIXTfWXx4gw==
+X-Received: by 2002:a7b:c0da:: with SMTP id s26mr20971wmh.83.1621874871648;
+ Mon, 24 May 2021 09:47:51 -0700 (PDT)
 Received: from localhost.localdomain ([2a01:e0a:806:8950:61f0:1b3d:bc7a:1d60])
  by smtp.gmail.com with ESMTPSA id
- b10sm15226358wrr.27.2021.05.24.09.47.47
+ b10sm15226358wrr.27.2021.05.24.09.47.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 May 2021 09:47:48 -0700 (PDT)
+ Mon, 24 May 2021 09:47:51 -0700 (PDT)
 From: Anisse Astier <anisse@astier.eu>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon, 24 May 2021 18:47:16 +0200
-Message-Id: <20210524164719.6588-1-anisse@astier.eu>
+Date: Mon, 24 May 2021 18:47:19 +0200
+Message-Id: <20210524164719.6588-4-anisse@astier.eu>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210524164719.6588-1-anisse@astier.eu>
+References: <20210524164719.6588-1-anisse@astier.eu>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/3] GPD Win Max display fixes
+Subject: [Intel-gfx] [PATCH 3/3] drm: Add orientation quirk for GPD Win Max
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,38 +87,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch series is for making the GPD Win Max display usable with
-Linux.
+Panel is 800x1280, but mounted on a laptop form factor, sideways.
 
-The GPD Win Max is a small laptop, and its eDP panel does not send an
-EDID over DPCD; the EDID is instead available in the intel opregion, in
-mailbox #5 [1]
+Signed-off-by: Anisse Astier <anisse@astier.eu>
+---
+ drivers/gpu/drm/drm_panel_orientation_quirks.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-The first two patches are based on Jani's patch series [2] adding
-support for the opregion, with minimal changes. I've change authorship
-for the first, but we can revert it.
-
-The third patch is just to fix the orientation of the panel. For some
-reason it does not work at boot when an external display is plugged, but
-I doubt this is specific to this hardware.
-
-
-[1]: https://gitlab.freedesktop.org/drm/intel/-/issues/3454
-[2]: https://patchwork.kernel.org/project/intel-gfx/patch/20200828061941.17051-1-jani.nikula@intel.com/
-
-Anisse Astier (2):
-  drm/i915/opregion: add support for mailbox #5 EDID
-  drm: Add orientation quirk for GPD Win Max
-
-Jani Nikula (1):
-  drm/i915/dp: use opregion mailbox #5 EDID for eDP, if available
-
- .../gpu/drm/drm_panel_orientation_quirks.c    |  6 ++
- drivers/gpu/drm/i915/display/intel_dp.c       |  3 +
- drivers/gpu/drm/i915/display/intel_opregion.c | 69 ++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_opregion.h |  8 +++
- 4 files changed, 85 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/gpu/drm/drm_panel_orientation_quirks.c b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+index f6bdec7fa925..3c3f4ed89173 100644
+--- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
++++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+@@ -148,6 +148,12 @@ static const struct dmi_system_id orientation_data[] = {
+ 		  DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MicroPC"),
+ 		},
+ 		.driver_data = (void *)&lcd720x1280_rightside_up,
++	}, {	/* GPD Win Max */
++		.matches = {
++		  DMI_EXACT_MATCH(DMI_SYS_VENDOR, "GPD"),
++		  DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "G1619-01"),
++		},
++		.driver_data = (void *)&lcd800x1280_rightside_up,
+ 	}, {	/*
+ 		 * GPD Pocket, note that the the DMI data is less generic then
+ 		 * it seems, devices with a board-vendor of "AMI Corporation"
 -- 
 2.31.1
 
