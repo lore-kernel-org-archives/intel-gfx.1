@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 462D9C47084
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 19:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F3F8C2B9F7
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 19:30:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 191E2613F6
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 19:30:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 191E2613F6
+	by mail.kernel.org (Postfix) with ESMTPS id 22F6F61401
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 19:30:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22F6F61401
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF6B96E920;
-	Mon, 24 May 2021 19:30:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1084B6E595;
+	Mon, 24 May 2021 19:30:35 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7185F6E5A5
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 19:30:33 +0000 (UTC)
-IronPort-SDR: 3jjRWO2cn+jU0PGmmitGhig1Ou2h2ZOQvnt+hKr8NbDiVVQNIS9KyHEQw64puUCnt7UnkoWZa/
- SUQfE+V6wuog==
-X-IronPort-AV: E=McAfee;i="6200,9189,9994"; a="200115200"
-X-IronPort-AV: E=Sophos;i="5.82,325,1613462400"; d="scan'208";a="200115200"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7256E595
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 19:30:34 +0000 (UTC)
+IronPort-SDR: QA9h6gXN8I5xUsdH90WDFn23iAn0ANERy4Rfvc6Ulmgp1dtB6H7oE4apdKN9q/bI6BqH8qRSdC
+ hIZF+98lVFqA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9994"; a="200115207"
+X-IronPort-AV: E=Sophos;i="5.82,325,1613462400"; d="scan'208";a="200115207"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2021 12:30:32 -0700
-IronPort-SDR: a0P3gLbqI0wND4+sqQ1aq3uJkQAvjSL0r8wN1SaEytJYx2tkAs7+ObA54GXEkrK9AEqlEANU4b
- bqFbML0zrM+A==
+ 24 May 2021 12:30:33 -0700
+IronPort-SDR: COnP4PZkMvP79Wd4QRhejMx7gU61/DdpK0G6xWufMiboWPhLgB5EqAgEa0CT5sMK5D1b12nKrG
+ mmoDIznLQUkg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,325,1613462400"; d="scan'208";a="632749092"
+X-IronPort-AV: E=Sophos;i="5.82,325,1613462400"; d="scan'208";a="632749103"
 Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
- by fmsmga005.fm.intel.com with ESMTP; 24 May 2021 12:30:32 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 24 May 2021 12:30:33 -0700
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 24 May 2021 12:30:26 -0700
-Message-Id: <20210524193032.3015-2-anusha.srivatsa@intel.com>
+Date: Mon, 24 May 2021 12:30:29 -0700
+Message-Id: <20210524193032.3015-5-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20210524193032.3015-1-anusha.srivatsa@intel.com>
 References: <20210524193032.3015-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/7] drm/i915/dmc: s/DRM_ERROR/drm_err
+Subject: [Intel-gfx] [PATCH 4/7] drm/i915/dmc: Introduce DMC_FW_MAIN
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,176 +62,176 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use new format of debug messages across intel_csr.
+This is a prep patch for Pipe DMC plugging.
 
-While at it, change some function definitions which now
-need dev_priv for drm_err and drm_info etc.
+Add dmc_info struct in intel_dmc to have all common fields
+shared between all DMC's in the package.
+Add DMC_FW_MAIN(dmc_id 0) to refer to the blob.
 
-v2: use container_of() (Jani)
-v3: Indentation fixes. (Jani)
-
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Suggested-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dmc.c | 48 +++++++++++++-----------
- 1 file changed, 26 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dmc.c | 44 +++++++++++-------------
+ drivers/gpu/drm/i915/display/intel_dmc.h | 20 ++++++++---
+ 2 files changed, 35 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index 560574dd929a..5887453ff302 100644
+index f9a0f194f9cf..16bfbca6c1ed 100644
 --- a/drivers/gpu/drm/i915/display/intel_dmc.c
 +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -395,6 +395,7 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
- 			       const struct intel_dmc_header_base *dmc_header,
+@@ -239,7 +239,7 @@ struct stepping_info {
+ 
+ bool intel_dmc_has_payload(struct drm_i915_private *i915)
+ {
+-	return i915->dmc.dmc_payload;
++	return i915->dmc.dmc_info[DMC_FW_MAIN].payload;
+ }
+ 
+ static const struct stepping_info skl_stepping_info[] = {
+@@ -316,7 +316,8 @@ static void gen9_set_dc_state_debugmask(struct drm_i915_private *dev_priv)
+  */
+ void intel_dmc_load_program(struct drm_i915_private *dev_priv)
+ {
+-	u32 *payload = dev_priv->dmc.dmc_payload;
++	struct intel_dmc *dmc = &dev_priv->dmc;
++	struct dmc_fw_info *dmc_info = &dmc->dmc_info[DMC_FW_MAIN];
+ 	u32 i, fw_size;
+ 
+ 	if (!HAS_DMC(dev_priv)) {
+@@ -325,26 +326,26 @@ void intel_dmc_load_program(struct drm_i915_private *dev_priv)
+ 		return;
+ 	}
+ 
+-	if (!intel_dmc_has_payload(dev_priv)) {
++	if (!dev_priv->dmc.dmc_info[DMC_FW_MAIN].payload) {
+ 		drm_err(&dev_priv->drm,
+ 			"Tried to program CSR with empty payload\n");
+ 		return;
+ 	}
+ 
+-	fw_size = dev_priv->dmc.dmc_fw_size;
++	fw_size = dmc_info->dmc_fw_size;
+ 	assert_rpm_wakelock_held(&dev_priv->runtime_pm);
+ 
+ 	preempt_disable();
+ 
+ 	for (i = 0; i < fw_size; i++)
+ 		intel_uncore_write_fw(&dev_priv->uncore, DMC_PROGRAM(i),
+-				      payload[i]);
++				      dmc_info->payload[i]);
+ 
+ 	preempt_enable();
+ 
+-	for (i = 0; i < dev_priv->dmc.mmio_count; i++) {
+-		intel_de_write(dev_priv, dev_priv->dmc.mmioaddr[i],
+-			       dev_priv->dmc.mmiodata[i]);
++	for (i = 0; i < dmc_info->mmio_count; i++) {
++		intel_de_write(dev_priv, dmc_info->mmioaddr[i],
++			       dmc_info->mmiodata[i]);
+ 	}
+ 
+ 	dev_priv->dmc.dc_state = 0;
+@@ -401,13 +402,14 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
  			       size_t rem_size)
  {
-+	struct drm_i915_private *i915 = container_of(dmc, typeof(*i915), dmc);
+ 	struct drm_i915_private *i915 = container_of(dmc, typeof(*i915), dmc);
++	struct dmc_fw_info *dmc_info = &dmc->dmc_info[DMC_FW_MAIN];
  	unsigned int header_len_bytes, dmc_header_size, payload_size, i;
  	const u32 *mmioaddr, *mmiodata;
  	u32 mmio_count, mmio_count_max;
-@@ -439,28 +440,28 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
- 		header_len_bytes = dmc_header->header_len;
- 		dmc_header_size = sizeof(*v1);
- 	} else {
--		DRM_ERROR("Unknown DMC fw header version: %u\n",
--			  dmc_header->header_ver);
-+		drm_err(&i915->drm, "Unknown DMC fw header version: %u\n",
-+			dmc_header->header_ver);
- 		return 0;
- 	}
+ 	u8 *payload;
  
- 	if (header_len_bytes != dmc_header_size) {
--		DRM_ERROR("DMC firmware has wrong dmc header length "
--			  "(%u bytes)\n", header_len_bytes);
-+		drm_err(&i915->drm, "DMC firmware has wrong dmc header length "
-+			"(%u bytes)\n", header_len_bytes);
- 		return 0;
- 	}
+-	BUILD_BUG_ON(ARRAY_SIZE(dmc->mmioaddr) < DMC_V3_MAX_MMIO_COUNT ||
+-		     ARRAY_SIZE(dmc->mmioaddr) < DMC_V1_MAX_MMIO_COUNT);
++	BUILD_BUG_ON(ARRAY_SIZE(dmc_info->mmioaddr) < DMC_V3_MAX_MMIO_COUNT ||
++		     ARRAY_SIZE(dmc_info->mmioaddr) < DMC_V1_MAX_MMIO_COUNT);
  
- 	/* Cache the dmc header info. */
- 	if (mmio_count > mmio_count_max) {
--		DRM_ERROR("DMC firmware has wrong mmio count %u\n", mmio_count);
-+		drm_err(&i915->drm, "DMC firmware has wrong mmio count %u\n", mmio_count);
- 		return 0;
+ 	/*
+ 	 * Check if we can access common fields, we will checkc again below
+@@ -463,16 +465,10 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
  	}
  
  	for (i = 0; i < mmio_count; i++) {
- 		if (mmioaddr[i] < DMC_MMIO_START_RANGE ||
- 		    mmioaddr[i] > DMC_MMIO_END_RANGE) {
--			DRM_ERROR("DMC firmware has wrong mmio address 0x%x\n",
--				  mmioaddr[i]);
-+			drm_err(&i915->drm, "DMC firmware has wrong mmio address 0x%x\n",
-+				mmioaddr[i]);
- 			return 0;
- 		}
- 		dmc->mmioaddr[i] = _MMIO(mmioaddr[i]);
-@@ -476,14 +477,14 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
- 		goto error_truncated;
+-		if (mmioaddr[i] < DMC_MMIO_START_RANGE ||
+-		    mmioaddr[i] > DMC_MMIO_END_RANGE) {
+-			drm_err(&i915->drm, "DMC firmware has wrong mmio address 0x%x\n",
+-				mmioaddr[i]);
+-			return 0;
+-		}
+-		dmc->mmioaddr[i] = _MMIO(mmioaddr[i]);
+-		dmc->mmiodata[i] = mmiodata[i];
++		dmc_info->mmioaddr[i] = _MMIO(mmioaddr[i]);
++		dmc_info->mmiodata[i] = mmiodata[i];
+ 	}
+-	dmc->mmio_count = mmio_count;
++	dmc_info->mmio_count = mmio_count;
  
- 	if (payload_size > dmc->max_fw_size) {
--		DRM_ERROR("DMC FW too big (%u bytes)\n", payload_size);
-+		drm_err(&i915->drm, "DMC FW too big (%u bytes)\n", payload_size);
+ 	rem_size -= header_len_bytes;
+ 
+@@ -485,16 +481,16 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 		drm_err(&i915->drm, "DMC FW too big (%u bytes)\n", payload_size);
  		return 0;
  	}
- 	dmc->dmc_fw_size = dmc_header->fw_size;
+-	dmc->dmc_fw_size = dmc_header->fw_size;
++	dmc_info->dmc_fw_size = dmc_header->fw_size;
  
- 	dmc->dmc_payload = kmalloc(payload_size, GFP_KERNEL);
- 	if (!dmc->dmc_payload) {
--		DRM_ERROR("Memory allocation failed for dmc payload\n");
-+		drm_err(&i915->drm, "Memory allocation failed for dmc payload\n");
+-	dmc->dmc_payload = kmalloc(payload_size, GFP_KERNEL);
+-	if (!dmc->dmc_payload) {
++	dmc_info->payload = kmalloc(payload_size, GFP_KERNEL);
++	if (!dmc_info->payload) {
+ 		drm_err(&i915->drm, "Memory allocation failed for dmc payload\n");
  		return 0;
  	}
  
-@@ -493,7 +494,7 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 	payload = (u8 *)(dmc_header) + header_len_bytes;
+-	memcpy(dmc->dmc_payload, payload, payload_size);
++	memcpy(dmc_info->payload, payload, payload_size);
+ 
  	return header_len_bytes + payload_size;
  
- error_truncated:
--	DRM_ERROR("Truncated DMC firmware, refusing.\n");
-+	drm_err(&i915->drm, "Truncated DMC firmware, refusing.\n");
- 	return 0;
+@@ -829,5 +825,5 @@ void intel_dmc_ucode_fini(struct drm_i915_private *dev_priv)
+ 	intel_dmc_ucode_suspend(dev_priv);
+ 	drm_WARN_ON(&dev_priv->drm, dev_priv->dmc.wakeref);
+ 
+-	kfree(dev_priv->dmc.dmc_payload);
++	kfree(dev_priv->dmc.dmc_info[DMC_FW_MAIN].payload);
  }
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.h b/drivers/gpu/drm/i915/display/intel_dmc.h
+index 4c22f567b61b..b747cc9bf6a7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.h
++++ b/drivers/gpu/drm/i915/display/intel_dmc.h
+@@ -16,17 +16,27 @@ struct drm_i915_private;
+ #define DMC_VERSION_MAJOR(version)	((version) >> 16)
+ #define DMC_VERSION_MINOR(version)	((version) & 0xffff)
  
-@@ -503,6 +504,7 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
- 		     const struct stepping_info *si,
- 		     size_t rem_size)
- {
-+	struct drm_i915_private *i915 = container_of(dmc, typeof(*i915), dmc);
- 	u32 package_size = sizeof(struct intel_package_header);
- 	u32 num_entries, max_entries, dmc_offset;
- 	const struct intel_fw_info *fw_info;
-@@ -515,8 +517,8 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
- 	} else if (package_header->header_ver == 2) {
- 		max_entries = PACKAGE_V2_MAX_FW_INFO_ENTRIES;
- 	} else {
--		DRM_ERROR("DMC firmware has unknown header version %u\n",
--			  package_header->header_ver);
-+		drm_err(&i915->drm, "DMC firmware has unknown header version %u\n",
-+			package_header->header_ver);
- 		return 0;
- 	}
- 
-@@ -529,8 +531,8 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
- 		goto error_truncated;
- 
- 	if (package_header->header_len * 4 != package_size) {
--		DRM_ERROR("DMC firmware has wrong package header length "
--			  "(%u bytes)\n", package_size);
-+		drm_err(&i915->drm, "DMC firmware has wrong package header length "
-+			"(%u bytes)\n", package_size);
- 		return 0;
- 	}
- 
-@@ -543,8 +545,8 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
- 	dmc_offset = find_dmc_fw_offset(fw_info, num_entries, si,
- 					package_header->header_ver);
- 	if (dmc_offset == DMC_DEFAULT_FW_OFFSET) {
--		DRM_ERROR("DMC firmware not supported for %c stepping\n",
--			  si->stepping);
-+		drm_err(&i915->drm, "DMC firmware not supported for %c stepping\n",
-+			si->stepping);
- 		return 0;
- 	}
- 
-@@ -552,7 +554,7 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
- 	return package_size + dmc_offset * 4;
- 
- error_truncated:
--	DRM_ERROR("Truncated DMC firmware, refusing.\n");
-+	drm_err(&i915->drm, "Truncated DMC firmware, refusing.\n");
- 	return 0;
- }
- 
-@@ -561,22 +563,24 @@ static u32 parse_dmc_fw_css(struct intel_dmc *dmc,
- 			    struct intel_css_header *css_header,
- 			    size_t rem_size)
- {
-+	struct drm_i915_private *i915 = container_of(dmc, typeof(*i915), dmc);
++enum {
++	DMC_FW_MAIN = 0,
++	DMC_FW_MAX
++};
 +
- 	if (rem_size < sizeof(struct intel_css_header)) {
--		DRM_ERROR("Truncated DMC firmware, refusing.\n");
-+		drm_err(&i915->drm, "Truncated DMC firmware, refusing.\n");
- 		return 0;
- 	}
- 
- 	if (sizeof(struct intel_css_header) !=
- 	    (css_header->header_len * 4)) {
--		DRM_ERROR("DMC firmware has wrong CSS header length "
--			  "(%u bytes)\n",
--			  (css_header->header_len * 4));
-+		drm_err(&i915->drm, "DMC firmware has wrong CSS header length "
-+			"(%u bytes)\n",
-+			(css_header->header_len * 4));
- 		return 0;
- 	}
- 
- 	if (dmc->required_version &&
- 	    css_header->version != dmc->required_version) {
--		DRM_INFO("Refusing to load DMC firmware v%u.%u,"
-+		drm_info(&i915->drm, "Refusing to load DMC firmware v%u.%u,"
- 			 " please use v%u.%u\n",
- 			 DMC_VERSION_MAJOR(css_header->version),
- 			 DMC_VERSION_MINOR(css_header->version),
+ struct intel_dmc {
+ 	struct work_struct work;
+ 	const char *fw_path;
+ 	u32 required_version;
+ 	u32 max_fw_size; /* bytes */
+-	u32 *dmc_payload;
+-	u32 dmc_fw_size; /* dwords */
+ 	u32 version;
+-	u32 mmio_count;
+-	i915_reg_t mmioaddr[20];
+-	u32 mmiodata[20];
++	struct dmc_fw_info {
++		u32 mmio_count;
++		i915_reg_t mmioaddr[20];
++		u32 mmiodata[20];
++		u32 dmc_offset;
++		u32 start_mmioaddr;
++		u32 dmc_fw_size; /*dwords */
++		u32 *payload;
++	} dmc_info[DMC_FW_MAX];
++
+ 	u32 dc_state;
+ 	u32 target_dc_state;
+ 	u32 allowed_dc_mask;
 -- 
 2.25.0
 
