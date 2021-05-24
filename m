@@ -2,53 +2,41 @@ Return-Path: <SRS0=+tRi=KT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1813DC04FF3
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:42:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87730C04FF3
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB62A613EC
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:42:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB62A613EC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4946761411
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 18:43:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4946761411
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7FF36E20F;
-	Mon, 24 May 2021 18:42:32 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34AB96E20F;
- Mon, 24 May 2021 18:42:30 +0000 (UTC)
-IronPort-SDR: yGx7o3DIfD7BtdBPGjBUIDgmHenP2l0uBN7CwKIzf8aXO8lXlzAUf51Qm6wCFXSGBejJLCSEp2
- oTGL0fJscbxg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9993"; a="181642161"
-X-IronPort-AV: E=Sophos;i="5.82,325,1613462400"; d="scan'208";a="181642161"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2021 11:42:29 -0700
-IronPort-SDR: Cfwfb6MckxxK6VbAdTaqY/BwFmH6U8VeBVk8oK2FpXbu9ku8PA55TgdUunkumiWdNRkS/lLwbG
- +8Xtup6e87Hw==
-X-IronPort-AV: E=Sophos;i="5.82,325,1613462400"; d="scan'208";a="546464763"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2021 11:42:29 -0700
-Date: Mon, 24 May 2021 11:35:20 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Message-ID: <20210524183518.GA12293@sdutt-i7>
-References: <20210506191451.77768-1-matthew.brost@intel.com>
- <20210506191451.77768-38-matthew.brost@intel.com>
- <7e7ca64d-e5d7-7fd8-b446-7167341c0c92@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8F906E903;
+	Mon, 24 May 2021 18:43:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3586C6E903;
+ Mon, 24 May 2021 18:43:50 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 2E7A1A47DB;
+ Mon, 24 May 2021 18:43:50 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7e7ca64d-e5d7-7fd8-b446-7167341c0c92@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [RFC PATCH 37/97] drm/i915/guc: Add stall timer to
- non blocking CTB send function
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Date: Mon, 24 May 2021 18:43:50 -0000
+Message-ID: <162188183018.10902.7843519725942907911@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210524172703.2113058-1-imre.deak@intel.com>
+In-Reply-To: <20210524172703.2113058-1-imre.deak@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/3=5D_drm/i915/adlp=3A_Require_DPT?=
+ =?utf-8?q?_FB_CCS_color_planes_to_be_2MB_aligned?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,175 +49,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jason.ekstrand@intel.com, daniel.vetter@intel.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 24, 2021 at 02:58:12PM +0200, Michal Wajdeczko wrote:
-> 
-> 
-> On 06.05.2021 21:13, Matthew Brost wrote:
-> > Implement a stall timer which fails H2G CTBs once a period of time
-> > with no forward progress is reached to prevent deadlock.
-> > 
-> > Also update to ct_write to return -EDEADLK rather than -EPIPE on a
-> > corrupted descriptor.
-> 
-> broken descriptor is really separate issue compared to no progress from
-> GuC side, I would really like to keep old error code
->
+== Series Details ==
 
-I know you do as you have brought it up several times. Again to the rest
-of the stack these two things mean the exact same thing.
- 
-> note that broken CTB descriptor is unrecoverable error, while on other
-> hand, in theory, we could recover from temporary non-moving CTB
-> 
+Series: series starting with [1/3] drm/i915/adlp: Require DPT FB CCS color planes to be 2MB aligned
+URL   : https://patchwork.freedesktop.org/series/90484/
+State : warning
 
-Yea but we don't, in both cases we disable submission which in turn
-triggers a full GPU reset.
+== Summary ==
 
-> > 
-> > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-> > Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 48 +++++++++++++++++++++--
-> >  1 file changed, 45 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > index af7314d45a78..4eab319d61be 100644
-> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > @@ -69,6 +69,8 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
-> >  #define CTB_H2G_BUFFER_SIZE	(SZ_4K)
-> >  #define CTB_G2H_BUFFER_SIZE	(SZ_4K)
-> >  
-> > +#define MAX_US_STALL_CTB	1000000
-> 
-> nit: maybe we should make it a CONFIG value ?
-> 
+$ dim checkpatch origin/drm-tip
+67ae62f3578a drm/i915/adlp: Require DPT FB CCS color planes to be 2MB aligned
+ab61802fef7d drm/i915/adlp: Fix GEM VM asserts for DPT VMs
+-:27: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'vm' - possible side-effects?
+#27: FILE: drivers/gpu/drm/i915/gt/intel_gtt.h:362:
++#define i915_is_ggtt_or_dpt(vm) (i915_is_ggtt(vm) || i915_is_dpt(vm))
 
-Sure.
+total: 0 errors, 0 warnings, 1 checks, 31 lines checked
+5e4ab79a1296 drm/i915/debugfs: Print remap info for DPT VMAs as well
+-:28: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (8, 15)
+#28: FILE: drivers/gpu/drm/i915/i915_debugfs.c:129:
++	if (i915_vma_is_ggtt(vma))
++	       return "ggtt";
 
-> > +
-> >  struct ct_request {
-> >  	struct list_head link;
-> >  	u32 fence;
-> > @@ -315,6 +317,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
-> >  
-> >  	ct->requests.last_fence = 1;
-> >  	ct->enabled = true;
-> > +	ct->stall_time = KTIME_MAX;
-> >  
-> >  	return 0;
-> >  
-> > @@ -378,7 +381,7 @@ static int ct_write(struct intel_guc_ct *ct,
-> >  	unsigned int i;
-> >  
-> >  	if (unlikely(ctb->broken))
-> > -		return -EPIPE;
-> > +		return -EDEADLK;
-> >  
-> >  	if (unlikely(desc->status))
-> >  		goto corrupted;
-> > @@ -449,7 +452,7 @@ static int ct_write(struct intel_guc_ct *ct,
-> >  	CT_ERROR(ct, "Corrupted descriptor head=%u tail=%u status=%#x\n",
-> >  		 desc->head, desc->tail, desc->status);
-> >  	ctb->broken = true;
-> > -	return -EPIPE;
-> > +	return -EDEADLK;
-> >  }
-> >  
-> >  /**
-> > @@ -494,6 +497,17 @@ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
-> >  	return err;
-> >  }
-> >  
-> > +static inline bool ct_deadlocked(struct intel_guc_ct *ct)
-> > +{
-> > +	bool ret = ktime_us_delta(ktime_get(), ct->stall_time) >
-> > +		MAX_US_STALL_CTB;
-> > +
-> > +	if (unlikely(ret))
-> > +		CT_ERROR(ct, "CT deadlocked\n");
-> > +
-> > +	return ret;
-> > +}
-> > +
-> >  static inline bool ctb_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
-> >  {
-> >  	struct guc_ct_buffer_desc *desc = ctb->desc;
-> > @@ -505,6 +519,26 @@ static inline bool ctb_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
-> >  	return space >= len_dw;
-> >  }
-> >  
-> > +static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
-> > +{
-> > +	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
-> > +
-> > +	lockdep_assert_held(&ct->ctbs.send.lock);
-> > +
-> > +	if (unlikely(!ctb_has_room(ctb, len_dw))) {
-> > +		if (ct->stall_time == KTIME_MAX)
-> > +			ct->stall_time = ktime_get();
-> > +
-> > +		if (unlikely(ct_deadlocked(ct)))
-> > +			return -EDEADLK;
-> > +		else
-> > +			return -EBUSY;
-> > +	}
-> > +
-> > +	ct->stall_time = KTIME_MAX;
-> > +	return 0;
-> > +}
-> > +
-> >  static int ct_send_nb(struct intel_guc_ct *ct,
-> >  		      const u32 *action,
-> >  		      u32 len,
-> > @@ -517,7 +551,7 @@ static int ct_send_nb(struct intel_guc_ct *ct,
-> >  
-> >  	spin_lock_irqsave(&ctb->lock, spin_flags);
-> >  
-> > -	ret = ctb_has_room(ctb, len + 1);
-> > +	ret = has_room_nb(ct, len + 1);
-> >  	if (unlikely(ret))
-> >  		goto out;
-> >  
-> > @@ -561,11 +595,19 @@ static int ct_send(struct intel_guc_ct *ct,
-> >  retry:
-> >  	spin_lock_irqsave(&ct->ctbs.send.lock, flags);
-> >  	if (unlikely(!ctb_has_room(ctb, len + 1))) {
-> > +		if (ct->stall_time == KTIME_MAX)
-> > +			ct->stall_time = ktime_get();
-> >  		spin_unlock_irqrestore(&ct->ctbs.send.lock, flags);
-> > +
-> > +		if (unlikely(ct_deadlocked(ct)))
-> > +			return -EDEADLK;
-> > +
-> 
-> likely, instead of duplicating code, you can reuse has_room_nb here
->
+-:29: WARNING:TABSTOP: Statements should start on a tabstop
+#29: FILE: drivers/gpu/drm/i915/i915_debugfs.c:130:
++	       return "ggtt";
 
-In this patch yes, in the following patch no as this check changes
-between non-blockig and blocking once we introduce G2H credits. I'd
-rather just leave it as is than churning on the patches.
+total: 0 errors, 2 warnings, 0 checks, 42 lines checked
 
-Matt 
- 
-> >  		cond_resched();
-> >  		goto retry;
-> >  	}
-> >  
-> > +	ct->stall_time = KTIME_MAX;
-> > +
-> >  	fence = ct_get_next_fence(ct);
-> >  	request.fence = fence;
-> >  	request.status = 0;
-> > 
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
