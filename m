@@ -2,53 +2,46 @@ Return-Path: <SRS0=+tRi=KT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D0A36C2B9F7
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 12:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29EB4C04FF3
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 12:05:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 98ECB61370
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 12:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98ECB61370
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8763D613AD
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 May 2021 12:05:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8763D613AD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=sina.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC46A6E241;
-	Mon, 24 May 2021 12:00:35 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 114DD6E241;
- Mon, 24 May 2021 12:00:32 +0000 (UTC)
-IronPort-SDR: WdCgc2l6/0u2Gly1mfd1ko33QvUrmu+Olnyi9LIxvMuv3jOVIMS8g1L5WE4KbH7AEL7MRMAIsP
- reiDKZXCYD7A==
-X-IronPort-AV: E=McAfee;i="6200,9189,9993"; a="223070025"
-X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="223070025"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2021 05:00:32 -0700
-IronPort-SDR: DmVkewsTc8dFClVYojFAJXpmArmJaA3AtFzd9tiyoFt0F1U75giPzrozdamwBvm1F6aX3cj4oZ
- CcwzVx8BybIg==
-X-IronPort-AV: E=Sophos;i="5.82,319,1613462400"; d="scan'208";a="475838436"
-Received: from jaherrex-mobl2.amr.corp.intel.com (HELO localhost)
- ([10.252.50.169])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2021 05:00:29 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Deucher\, Alexander" <Alexander.Deucher@amd.com>,
- "dim-tools\@lists.freedesktop.org" <dim-tools@lists.freedesktop.org>
-In-Reply-To: <MN2PR12MB44884924C665EE6EDF3E17A2F72B9@MN2PR12MB4488.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210519084932.8666-1-jani.nikula@intel.com>
- <MN2PR12MB44884924C665EE6EDF3E17A2F72B9@MN2PR12MB4488.namprd12.prod.outlook.com>
-Date: Mon, 24 May 2021 15:00:26 +0300
-Message-ID: <87h7iscpet.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 673A76E29D;
+	Mon, 24 May 2021 12:05:11 +0000 (UTC)
+X-Greylist: delayed 323 seconds by postgrey-1.36 at gabe;
+ Mon, 24 May 2021 07:57:02 UTC
+Received: from mail3-166.sinamail.sina.com.cn (mail3-166.sinamail.sina.com.cn
+ [202.108.3.166])
+ by gabe.freedesktop.org (Postfix) with SMTP id C66DE6E134
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 07:56:53 +0000 (UTC)
+Received: from unknown (HELO localhost.localdomain)([221.199.207.226])
+ by sina.com (172.16.97.23) with ESMTP
+ id 60AB5AFE0000514A; Mon, 24 May 2021 15:51:28 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+X-SMAIL-MID: 31657854919588
+From: Hillf Danton <hdanton@sina.com>
+To: Philippe Troin <phil@fifi.org>
+Date: Mon, 24 May 2021 15:51:21 +0800
+Message-Id: <20210524075121.1949-1-hdanton@sina.com>
+In-Reply-To: <4d84b06ee9e8dad88ff101de5e7b78b9b09cfee3.camel@fifi.org>
+References: <4d84b06ee9e8dad88ff101de5e7b78b9b09cfee3.camel@fifi.org>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [drm-rerere PATCH] nightly.conf: drop amd branches
- from drm-tip
+X-Mailman-Approved-At: Mon, 24 May 2021 12:05:07 +0000
+Subject: Re: [Intel-gfx] Bug: 5.12.5 - list_add double add at
+ __i915_gem_object_make_shrinkable+0xa6/0xe0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,93 +54,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, "Koenig, 
- Christian" <Christian.Koenig@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAxOSBNYXkgMjAyMSwgIkRldWNoZXIsIEFsZXhhbmRlciIgPEFsZXhhbmRlci5EZXVj
-aGVyQGFtZC5jb20+IHdyb3RlOgo+IFtBTUQgUHVibGljIFVzZV0KPgo+PiAtLS0tLU9yaWdpbmFs
-IE1lc3NhZ2UtLS0tLQo+PiBGcm9tOiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29t
-Pgo+PiBTZW50OiBXZWRuZXNkYXksIE1heSAxOSwgMjAyMSA0OjUwIEFNCj4+IFRvOiBkaW0tdG9v
-bHNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IENjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnOyBpbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOwo+PiBqYW5pLm5pa3VsYUBp
-bnRlbC5jb207IERldWNoZXIsIEFsZXhhbmRlcgo+PiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNv
-bT47IEtvZW5pZywgQ2hyaXN0aWFuCj4+IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBQYW47
-IFBhbiwgWGluaHVpIDxYaW5odWkuUGFuQGFtZC5jb20+Owo+PiBEYW5pZWwgVmV0dGVyIDxkYW5p
-ZWwudmV0dGVyQGZmd2xsLmNoPgo+PiBTdWJqZWN0OiBbZHJtLXJlcmVyZSBQQVRDSF0gbmlnaHRs
-eS5jb25mOiBkcm9wIGFtZCBicmFuY2hlcyBmcm9tIGRybS10aXAKPj4gCj4+IFdlJ3ZlIGhhZCBh
-IHN0YWxlIHJlcG8gZm9yIGFtZCBpbiBkcm0tdGlwIHNpbmNlIGFyb3VuZCB2NC4xNSBpLmUuIGZv
-ciBtb3JlCj4+IHRoYW4gdGhyZWUgeWVhcnMuIE5vYm9keSBzZWVtcyB0byBub3RpY2Ugb3IgY2Fy
-ZS4gRHJvcCB0aGUgYW1kIGJyYW5jaGVzCj4+IGZyb20gZHJtLXRpcC4KPj4gCj4+IEhhdmluZyB0
-aGUgY3VycmVudCBhbWQgYnJhbmNoZXMgaW4gZHJtLXRpcCB3b3VsZCBiZSBuaWNlIHRvIGhhdmUs
-IGlmIG9ubHkgdG8KPj4gaGF2ZSBhIGNvbW1vbiBkcm0gaW50ZWdyYXRpb24gdHJlZS4gSG93ZXZl
-ciwgbWFpbnRhaW5pbmcgdGhhdCBoYXMgYSBjb3N0Cj4+IGR1ZSB0byB0aGUgaW5ldml0YWJsZSBj
-b25mbGljdHMuIFdlIGNhbiBhZGQgdGhlIGJyYW5jaGVzIGJhY2sgaWYgYW5kIHdoZW4KPj4gdGhl
-cmUncyBpbnRlcmVzdCBpbiBzaGFyaW5nIHRoZSBidXJkZW4uCj4+IAo+PiBDYzogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+PiBDYzogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+PiBDYzogUGFuLCBYaW5odWkgPFhpbmh1aS5QYW5A
-YW1kLmNvbT4KPj4gQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+Cj4+
-IFNpZ25lZC1vZmYtYnk6IEphbmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBpbnRlbC5jb20+Cj4KPiBS
-ZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKVGhh
-bmtzLCBwdXNoZWQgb3V0IGFuZCByZWJ1aWx0IGRybS10aXAuCgpCUiwKSmFuaS4KCgo+Cj4+IC0t
-LQo+PiAgbmlnaHRseS5jb25mIHwgOSAtLS0tLS0tLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCA5IGRl
-bGV0aW9ucygtKQo+PiAKPj4gZGlmZiAtLWdpdCBhL25pZ2h0bHkuY29uZiBiL25pZ2h0bHkuY29u
-ZiBpbmRleCA5MjExNTUwZWY3NWMuLjM1ZmIxZDliYTYwMAo+PiAxMDA2NDQKPj4gLS0tIGEvbmln
-aHRseS5jb25mCj4+ICsrKyBiL25pZ2h0bHkuY29uZgo+PiBAQCAtNDAsMTIgKzQwLDYgQEAgZ2l0
-Oi8vYW5vbmdpdC5mcmVlZGVza3RvcC5vcmcvZHJtLW1pc2MKPj4gCj4+IGh0dHBzOi8vbmFtMTEu
-c2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmFubwo+
-PiBuZ2l0LmZyZWVkZXNrdG9wLm9yZyUyRmdpdCUyRmRybSUyRmRybS0KPj4gbWlzYyZhbXA7ZGF0
-YT0wNCU3QzAxJTdDYWxleGFuZGVyLmRldWNoZXIlNDBhbWQuY29tJTdDNTkwMzg5NmNmCj4+IDJl
-NjQyYWZiMDU0MDhkOTFhYTMwZjZkJTdDM2RkODk2MWZlNDg4NGU2MDhlMTFhODJkOTk0ZTE4M2Ql
-N0MwJTcKPj4gQzAlN0M2Mzc1NzAxMDk5MDY5MjY4MDUlN0NVbmtub3duJTdDVFdGcGJHWnNiM2Q4
-ZXlKV0lqb2lNQzR3Cj4+IExqQXdNREFpTENKUUlqb2lWMmx1TXpJaUxDSkJUaUk2SWsxaGFXd2lM
-Q0pYVkNJNk1uMCUzRCU3QzEwMDAmYW0KPj4gcDtzZGF0YT1lc3BOJTJCb0lYOVNqTGgyUHklMkZr
-cWxWc2kwcDlSdSUyRmV0Mk0xMVhXcUo1ZVVRJTNEJmEKPj4gbXA7cmVzZXJ2ZWQ9MAo+PiAKPj4g
-aHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBz
-JTNBJTJGJTJGYW5vCj4+IG5naXQuZnJlZWRlc2t0b3Aub3JnJTJGZ2l0JTJGZHJtJTJGZHJtLQo+
-PiBtaXNjLmdpdCZhbXA7ZGF0YT0wNCU3QzAxJTdDYWxleGFuZGVyLmRldWNoZXIlNDBhbWQuY29t
-JTdDNTkwMzg5Cj4+IDZjZjJlNjQyYWZiMDU0MDhkOTFhYTMwZjZkJTdDM2RkODk2MWZlNDg4NGU2
-MDhlMTFhODJkOTk0ZTE4M2QlN0MwCj4+ICU3QzAlN0M2Mzc1NzAxMDk5MDY5MjY4MDUlN0NVbmtu
-b3duJTdDVFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQwo+PiA0d0xqQXdNREFpTENKUUlqb2lWMmx1TXpJ
-aUxDSkJUaUk2SWsxaGFXd2lMQ0pYVkNJNk1uMCUzRCU3QzEwMDAmCj4+IGFtcDtzZGF0YT1FNWN3
-UkgwUHI5SmtJZklNTmtOempsTG41aE42azBpbnhCa2slMkJ3aGQxbGslM0QmYW1wO3IKPj4gZXNl
-cnZlZD0wCj4+ICAiCj4+IC1kcm1fdGlwX3JlcG9zW2RybS1hbWRdPSIKPj4gLXNzaDovL2dpdC5m
-cmVlZGVza3RvcC5vcmcvZ2l0L2RybS9kcm0tYW1kCj4+IC1naXQ6Ly9hbm9uZ2l0LmZyZWVkZXNr
-dG9wLm9yZy9kcm0vZHJtLWFtZAo+PiAtCj4+IGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3Rl
-Y3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmFubwo+PiBuZ2l0LmZyZWVkZXNr
-dG9wLm9yZyUyRmdpdCUyRmRybSUyRmRybS0KPj4gYW1kJmFtcDtkYXRhPTA0JTdDMDElN0NhbGV4
-YW5kZXIuZGV1Y2hlciU0MGFtZC5jb20lN0M1OTAzODk2Y2YKPj4gMmU2NDJhZmIwNTQwOGQ5MWFh
-MzBmNmQlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlNwo+PiBDMCU3QzYz
-NzU3MDEwOTkwNjkyNjgwNSU3Q1Vua25vd24lN0NUV0ZwYkdac2IzZDhleUpXSWpvaU1DNHcKPj4g
-TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3aUxDSlhWQ0k2TW4wJTNEJTdD
-MTAwMCZhbQo+PiBwO3NkYXRhPTFrUWU0dDg5Q3lBTnFSaE5VcFEyUlAzTmR6N0Ezc2RkJTJGaVda
-N0ZtS0hNNCUzRCZhCj4+IG1wO3Jlc2VydmVkPTAKPj4gLQo+PiBodHRwczovL25hbTExLnNhZmVs
-aW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZhbm8KPj4gbmdp
-dC5mcmVlZGVza3RvcC5vcmclMkZnaXQlMkZkcm0lMkZkcm0tCj4+IGFtZC5naXQmYW1wO2RhdGE9
-MDQlN0MwMSU3Q2FsZXhhbmRlci5kZXVjaGVyJTQwYW1kLmNvbSU3QzU5MDM4OQo+PiA2Y2YyZTY0
-MmFmYjA1NDA4ZDkxYWEzMGY2ZCU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdD
-MAo+PiAlN0MwJTdDNjM3NTcwMTA5OTA2OTI2ODA1JTdDVW5rbm93biU3Q1RXRnBiR1pzYjNkOGV5
-SldJam9pTUMKPj4gNHdMakF3TURBaUxDSlFJam9pVjJsdU16SWlMQ0pCVGlJNklrMWhhV3dpTENK
-WFZDSTZNbjAlM0QlN0MxMDAwJgo+PiBhbXA7c2RhdGE9dlZxTVdNYmRKRkhKVzhqMDl0bjFtN0l0
-R1NMMFJtZmVEYkpaRldvWUJmNCUzRCZhbQo+PiBwO3Jlc2VydmVkPTAKPj4gLSIKPj4gIGRybV90
-aXBfcmVwb3NbZHJtXT0iCj4+ICBzc2g6Ly9naXQuZnJlZWRlc2t0b3Aub3JnL2dpdC9kcm0vZHJt
-Cj4+ICBnaXQ6Ly9hbm9uZ2l0LmZyZWVkZXNrdG9wLm9yZy9kcm0vZHJtCj4+IEBAIC03NiwxNyAr
-NzAsMTQgQEAgZHJtX3RpcF9jb25maWc9KAo+PiAgCSJkcm0JCQlkcm0tZml4ZXMiCj4+ICAJImRy
-bS1taXNjCQlkcm0tbWlzYy1maXhlcyIKPj4gIAkiZHJtLWludGVsCQlkcm0taW50ZWwtZml4ZXMi
-Cj4+IC0JImRybS1hbWQJCWRybS1hbWQtZml4ZXMiCj4+IAo+PiAgCSJkcm0JCQlkcm0tbmV4dCIK
-Pj4gIAkiZHJtLW1pc2MJCWRybS1taXNjLW5leHQtZml4ZXMiCj4+ICAJImRybS1pbnRlbAkJZHJt
-LWludGVsLW5leHQtZml4ZXMiCj4+IC0JImRybS1hbWQJCWRybS1hbWQtbmV4dC1maXhlcyIKPj4g
-Cj4+ICAJImRybS1taXNjCQlkcm0tbWlzYy1uZXh0Igo+PiAgCSJkcm0taW50ZWwJCWRybS1pbnRl
-bC1uZXh0Igo+PiAgCSJkcm0taW50ZWwJCWRybS1pbnRlbC1ndC1uZXh0Igo+PiAtCSJkcm0tYW1k
-CQlkcm0tYW1kLW5leHQiCj4+IAo+PiAgCSJzb3VuZC11cHN0cmVhbQkJZm9yLWxpbnVzIgo+PiAg
-CSJzb3VuZC11cHN0cmVhbQkJZm9yLW5leHQiCj4+IC0tCj4+IDIuMjAuMQoKLS0gCkphbmkgTmlr
-dWxhLCBJbnRlbCBPcGVuIFNvdXJjZSBHcmFwaGljcyBDZW50ZXIKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRl
-bC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On Sun, 23 May 2021 12:47:34 -0700 Philippe Troin wrote:
+> Found the following bug on a FUJITSU LIFEBOOK S6520.
+> 
+> The kernel crash happens when selecting a user from the gdm login
+> screen right after boot.
+> The same hardware has no problems with 5.11.21.
+> 
+> OOPS:
+>    list_add double add: new=ffff8e785604c620, prev=ffff8e785604c620, next=ffff8e784d105b38.
+>    ------------[ cut here ]------------
+>    kernel BUG at lib/list_debug.c:29!
+>    invalid opcode: 0000 [#1] SMP PTI
+>    CPU: 0 PID: 1498 Comm: gnome-shell Not tainted 5.12.5-200.fc33.x86_64 #1
+>    Hardware name: FUJITSU LIFEBOOK S6520/FJNB1E6, BIOS Version 1.31  09/09/2009
+>    RIP: 0010:__list_add_valid.cold+0x26/0x3f
+>    Code: d8 77 a6 ff 4c 89 c1 48 c7 c7 10 52 41 b8 e8 7f 2c fe ff 0f 0b 48 89 f2 4c 89 c1 48 89 fe 48 c7 c7 c0 52 41 b8 e8 68 2c fe ff <0f> 0b 48 89 d1 4c 89 c6 4c 89 ca 48 c7 c7 68 52 41 b8 e8 51 2c fe
+>    RSP: 0018:ffffb84100ebfcf8 EFLAGS: 00010082
+>    RAX: 0000000000000058 RBX: ffff8e785604c340 RCX: 0000000000000000
+>    RDX: ffff8e787bc26720 RSI: ffff8e787bc185c0 RDI: ffff8e787bc185c0
+>    RBP: ffff8e784d105b38 R08: 0000000000000000 R09: ffffb84100ebfb30
+>    R10: ffffb84100ebfb28 R11: ffffffffb8b45f28 R12: ffff8e784d100000
+>    R13: 0000000000000246 R14: ffff8e784d105b20 R15: ffff8e785604c620
+>    FS:  00007fa65ebf6d40(0000) GS:ffff8e787bc00000(0000) knlGS:0000000000000000
+>    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>    CR2: 00007fa638311a10 CR3: 00000001162d0000 CR4: 00000000000006f0
+>    Call Trace:
+>     __i915_gem_object_make_shrinkable+0xa6/0xe0 [i915]
+>     i915_gem_object_set_tiling+0x4fe/0x530 [i915]
+>     ? i915_gem_object_make_unshrinkable+0x75/0xd0 [i915]
+>     i915_gem_set_tiling_ioctl+0x148/0x230 [i915]
+>     ? i915_gem_object_set_tiling+0x530/0x530 [i915]
+>     drm_ioctl_kernel+0x86/0xd0 [drm]
+>     drm_ioctl+0x20f/0x3a0 [drm]
+>     ? i915_gem_object_set_tiling+0x530/0x530 [i915]
+>     ? handle_mm_fault+0xd5/0x2b0
+>     __x64_sys_ioctl+0x83/0xb0
+>     do_syscall_64+0x33/0x40
+>     entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+Update shrink_pin under lock to cut chance for races. 
+If it is a cure then atomic_t will be dropped.
+
++++ x/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+@@ -435,6 +435,7 @@ void i915_gem_object_make_unshrinkable(s
+ {
+ 	struct drm_i915_private *i915 = obj_to_i915(obj);
+ 	unsigned long flags;
++	int pin;
+ 
+ 	/*
+ 	 * We can only be called while the pages are pinned or when
+@@ -442,12 +443,10 @@ void i915_gem_object_make_unshrinkable(s
+ 	 * from a single caller under controlled conditions; and on release
+ 	 * only one caller may release us. Neither the two may cross.
+ 	 */
+-	if (atomic_add_unless(&obj->mm.shrink_pin, 1, 0))
+-		return;
+-
+ 	spin_lock_irqsave(&i915->mm.obj_lock, flags);
+-	if (!atomic_fetch_inc(&obj->mm.shrink_pin) &&
+-	    !list_empty(&obj->mm.link)) {
++	pin = atomic_read(&obj->mm.shrink_pin);
++	atomic_inc(&obj->mm.shrink_pin);
++	if (!pin && !list_empty(&obj->mm.link)) {
+ 		list_del_init(&obj->mm.link);
+ 		i915->mm.shrink_count--;
+ 		i915->mm.shrink_memory -= obj->base.size;
+@@ -460,23 +459,23 @@ static void __i915_gem_object_make_shrin
+ {
+ 	struct drm_i915_private *i915 = obj_to_i915(obj);
+ 	unsigned long flags;
++	int pin;
+ 
+ 	GEM_BUG_ON(!i915_gem_object_has_pages(obj));
+ 	if (!i915_gem_object_is_shrinkable(obj))
+ 		return;
+ 
+-	if (atomic_add_unless(&obj->mm.shrink_pin, -1, 1))
+-		return;
+-
+ 	spin_lock_irqsave(&i915->mm.obj_lock, flags);
+ 	GEM_BUG_ON(!kref_read(&obj->base.refcount));
+-	if (atomic_dec_and_test(&obj->mm.shrink_pin)) {
++
++	pin = atomic_read(&obj->mm.shrink_pin);
++	atomic_dec(&obj->mm.shrink_pin);
++	if (pin == 1) {
+ 		GEM_BUG_ON(!list_empty(&obj->mm.link));
+ 
+ 		list_add_tail(&obj->mm.link, head);
+ 		i915->mm.shrink_count++;
+ 		i915->mm.shrink_memory += obj->base.size;
+-
+ 	}
+ 	spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
+ }
+--
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
