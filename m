@@ -2,61 +2,41 @@ Return-Path: <SRS0=ggpC=KU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AE05C47084
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 06:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A400C2B9F8
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 06:42:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D9F74610FC
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 06:31:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9F74610FC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E4E0361408
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 06:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4E0361408
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDB126E9BF;
-	Tue, 25 May 2021 06:31:31 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9525A89A08
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 May 2021 06:28:32 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id i13so34750570edb.9
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 23:28:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=yv12wol5Ba6FtYut/OKd0eOpjpRenjHrTVyjO7KqZY8=;
- b=dB3jERSX0mVU4ijvtBd/hJPxepwtac97GSuOpPRzCLgBtRod1PL9g14FV5ckrvu+sL
- g0rbMZrTO3GEaC/sw5qbvwfLD9dc7GN9onqrmY+BHl6U7ZchLbVna4+BIO2ddqnSrgbO
- R1fzVfpKcdfQ1hCHsjDNb+GEP/4btdYTFw8H2BF2HXFvJoOEHC9BetqGO8prMIaTvcTj
- OmiZ7XxVm9DCKngHSBtvxvWR/XvhiterZJvDxSkHqFUoXvtJVdlWr/K+N2U9sxuDMxt3
- Zm0sMCzKVxW0+GegKIiJooRrKJi25czwpoQKm4WGJ01CPa57dz00MgX12ZDJCe60De/0
- cubw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=yv12wol5Ba6FtYut/OKd0eOpjpRenjHrTVyjO7KqZY8=;
- b=ME0Mt2SjTW9ilfjjRt+DsAAK68uKq8IjeTFWsukU1aypHghv4xE13ggq3HIZZHUuCF
- 9rZBXHi0EdGQFTJGNk6suUa9sJeEsfS5P0iLiwlsJAjD/p3iNlj8gGiBLMtLqb4QgX69
- mhDNeMZP0JSMPOVBYnni6l1wJQKk+Q09TVez4sRW+HVj/6HEjEOcNy0yA7ejUhs/OAOg
- hLXC/tK/+LY4mSXkSdg/MNeY2eQc2E5ihTyk7jhutPo+cVUVgUIHBoiAGjLM3JWMch1m
- d+t58u/CMwVYD+55l2XMMokLM5S5Pra/aEG96qXmJsbNI/fnD+KDsY/ZBWTAA0PXK5KQ
- D2Tg==
-X-Gm-Message-State: AOAM532Qbpiw1JDVeZNYzfKXZNxJkKYQnQXoZ+pVduA+RuTHaNn9vsHe
- lg7/9n7rKCefqge/EhQ+TCqsDkgAKuptXnS+8jmdIS6eU6M=
-X-Google-Smtp-Source: ABdhPJwqBfUGvqlFWYcKWFMSEw8x77C5C+0ECdkdwjt8Ix5d3Yahbbo2LSq6oPALNAOdEfralxfuQ8qbhLBGSZvCUxU=
-X-Received: by 2002:a05:6402:8c7:: with SMTP id
- d7mr13079850edz.298.1621924110937; 
- Mon, 24 May 2021 23:28:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F78F6E9AA;
+	Tue, 25 May 2021 06:42:32 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id F382F6E9AA;
+ Tue, 25 May 2021 06:42:13 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id DC74EA73C7;
+ Tue, 25 May 2021 06:42:13 +0000 (UTC)
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Tue, 25 May 2021 16:28:20 +1000
-Message-ID: <CAPM=9ty556wmf6cvtNLPOYUTNXiPc-vhAXF4w=LT+DBpMf-1+Q@mail.gmail.com>
-To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Subject: [Intel-gfx] regression on fedora 5.12 on Lenovo T400
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniele Ceraolo Spurio" <daniele.ceraolospurio@intel.com>
+Date: Tue, 25 May 2021 06:42:13 -0000
+Message-ID: <162192493387.1317.18362302337403239018@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210525054803.7387-1-daniele.ceraolospurio@intel.com>
+In-Reply-To: <20210525054803.7387-1-daniele.ceraolospurio@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Introduce_Intel_PXP?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,84 +49,232 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1139903956=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-https://bugzilla.redhat.com/show_bug.cgi?id=1964252
+--===============1139903956==
+Content-Type: multipart/alternative;
+ boundary="===============1935023602726682996=="
 
-dmesg below.
-Feel free to point me at any fixes already in flight.
+--===============1935023602726682996==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Dave.
+== Series Details ==
 
-[  140.302041] list_add double add: new=ffff9ed109790fe0,
-prev=ffff9ed109790fe0, next=ffff9ed109465b38.
-[  140.302076] ------------[ cut here ]------------
-[  140.302078] kernel BUG at lib/list_debug.c:29!
-[  140.302091] invalid opcode: 0000 [#1] SMP PTI
-[  140.302097] CPU: 1 PID: 1712 Comm: Xorg Kdump: loaded Tainted: G
-      I       5.12.5-300.fc34.x86_64 #1
-[  140.302103] Hardware name: LENOVO 6475H82/6475H82, BIOS 7UET91WW
-(3.21 ) 12/06/2010
-[  140.302106] RIP: 0010:__list_add_valid.cold+0x26/0x3f
-[  140.302117] Code: ee c1 a6 ff 4c 89 c1 48 c7 c7 f8 4d 41 9b e8 12
-2c fe ff 0f 0b 48 89 f2 4c 89 c1 48 89 fe 48 c7 c7 a8 4e 41 9b e8 fb
-2b fe ff <0f> 0b 48 89 d1 4c 89 c6 4c 89 ca 48 c7 c7 50 4e 41 9b e8 e4
-2b fe
-[  140.302122] RSP: 0018:ffffad63c0cbfcf8 EFLAGS: 00010082
-[  140.302127] RAX: 0000000000000058 RBX: ffff9ed109790d00 RCX: 0000000000000000
-[  140.302131] RDX: ffff9ed137ca6720 RSI: ffff9ed137c985c0 RDI: ffff9ed137c985c0
-[  140.302135] RBP: ffff9ed109465b38 R08: 0000000000000000 R09: ffffad63c0cbfb30
-[  140.302139] R10: ffffad63c0cbfb28 R11: ffffffff9bb45f28 R12: ffff9ed109460000
-[  140.302142] R13: 0000000000000246 R14: ffff9ed109465b20 R15: ffff9ed109790fe0
-[  140.302146] FS:  00007f0edf882a80(0000) GS:ffff9ed137c80000(0000)
-knlGS:0000000000000000
-[  140.302151] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  140.302155] CR2: 00007f0ed7ba2001 CR3: 000000011ff34000 CR4: 00000000000406e0
-[  140.302159] Call Trace:
-[  140.302166]  __i915_gem_object_make_shrinkable+0xa5/0xe0 [i915]
-[  140.302330]  i915_gem_object_set_tiling+0x4fe/0x530 [i915]
-[  140.302473]  i915_gem_set_tiling_ioctl+0x112/0x250 [i915]
-[  140.302613]  ? i915_gem_object_set_tiling+0x530/0x530 [i915]
-[  140.302755]  drm_ioctl_kernel+0x86/0xd0 [drm]
-[  140.302819]  drm_ioctl+0x20f/0x3c0 [drm]
-[  140.302870]  ? i915_gem_object_set_tiling+0x530/0x530 [i915]
-[  140.303013]  __x64_sys_ioctl+0x82/0xb0
-[  140.303020]  do_syscall_64+0x33/0x40
-[  140.303026]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[  140.303033] RIP: 0033:0x7f0ee01070ab
-[  140.303038] Code: ff ff ff 85 c0 79 9b 49 c7 c4 ff ff ff ff 5b 5d
-4c 89 e0 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa b8 10 00 00
-00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 95 bd 0c 00 f7 d8 64 89
-01 48
-[  140.303043] RSP: 002b:00007ffc7bf48ff8 EFLAGS: 00000246 ORIG_RAX:
-0000000000000010
-[  140.303048] RAX: ffffffffffffffda RBX: 000055c6591c78d0 RCX: 00007f0ee01070ab
-[  140.303052] RDX: 00007ffc7bf49010 RSI: 00000000c0106461 RDI: 0000000000000011
-[  140.303056] RBP: 00007ffc7bf49060 R08: 000055c6583b39e0 R09: 0000000000000000
-[  140.303059] R10: 00007f0ee01d3a00 R11: 0000000000000246 R12: 0000000000000000
-[  140.303063] R13: 000055c6583b38c0 R14: 00000000c0106461 R15: 00007ffc7bf49010
-[  140.303069] Modules linked in: xt_CHECKSUM xt_MASQUERADE
-xt_conntrack ipt_REJECT nf_nat_tftp nf_conntrack_tftp bridge stp llc
-nft_objref nf_conntrack_netbios_ns nf_conntrack_broadcast nft_fib_inet
-nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4
-nf_reject_ipv6 nft_reject nft_ct nft_chain_nat ip6table_nat
-ip6table_mangle ip6table_raw ip6table_security iptable_nat nf_nat
-nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 iptable_mangle iptable_raw
-iptable_security ip_set nf_tables nfnetlink ip6table_filter ip6_tables
-iptable_filter sunrpc coretemp kvm_intel iTCO_wdt kvm intel_pmc_bxt
-mei_wdt iTCO_vendor_support snd_hda_codec_conexant
-snd_hda_codec_generic snd_hda_intel snd_intel_dspcfg
-snd_intel_sdw_acpi irqbypass snd_hda_codec joydev snd_hda_core
-snd_hwdep pcspkr wmi_bmof snd_seq i2c_i801 i2c_smbus thinkpad_acpi
-snd_seq_device snd_pcm platform_profile snd_timer ledtrig_audio snd
-rfkill soundcore mei_me mei lpc_ich zram ip_tables i915 i2c_algo_bit
-drm_kms_helper cec e1000e
-[  140.303171]  firewire_ohci serio_raw firewire_core drm yenta_socket
-crc_itu_t wmi video fuse
+Series: drm/i915: Introduce Intel PXP
+URL   : https://patchwork.freedesktop.org/series/90503/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10128 -> Patchwork_20185
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20185/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20185 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-bwr-2160:        [PASS][1] -> [FAIL][2] ([i915#3194])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10128/fi-bwr-2160/igt@core_hotunplug@unbind-rebind.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20185/fi-bwr-2160/igt@core_hotunplug@unbind-rebind.html
+
+  
+#### Warnings ####
+
+  * igt@runner@aborted:
+    - fi-kbl-r:           [FAIL][3] ([i915#1436] / [i915#2426] / [i915#3363]) -> [FAIL][4] ([i915#1436] / [i915#3363])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10128/fi-kbl-r/igt@runner@aborted.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20185/fi-kbl-r/igt@runner@aborted.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
+  [i915#1222]: https://gitlab.freedesktop.org/drm/intel/issues/1222
+  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2283]: https://gitlab.freedesktop.org/drm/intel/issues/2283
+  [i915#2426]: https://gitlab.freedesktop.org/drm/intel/issues/2426
+  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
+  [i915#2932]: https://gitlab.freedesktop.org/drm/intel/issues/2932
+  [i915#2966]: https://gitlab.freedesktop.org/drm/intel/issues/2966
+  [i915#3004]: https://gitlab.freedesktop.org/drm/intel/issues/3004
+  [i915#3005]: https://gitlab.freedesktop.org/drm/intel/issues/3005
+  [i915#3011]: https://gitlab.freedesktop.org/drm/intel/issues/3011
+  [i915#3012]: https://gitlab.freedesktop.org/drm/intel/issues/3012
+  [i915#3013]: https://gitlab.freedesktop.org/drm/intel/issues/3013
+  [i915#3014]: https://gitlab.freedesktop.org/drm/intel/issues/3014
+  [i915#3015]: https://gitlab.freedesktop.org/drm/intel/issues/3015
+  [i915#3194]: https://gitlab.freedesktop.org/drm/intel/issues/3194
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3363]: https://gitlab.freedesktop.org/drm/intel/issues/3363
+  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
+
+
+Participating hosts (34 -> 23)
+------------------------------
+
+  Additional (2): fi-ehl-2 fi-hsw-gt1 
+  Missing    (13): fi-kbl-7567u fi-cml-u2 fi-glk-dsi fi-icl-u2 fi-cfl-8700k fi-bsw-cyan fi-kbl-7500u fi-cfl-guc fi-hsw-4770 fi-kbl-guc fi-cfl-8109u fi-bdw-samus fi-snb-2600 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10128 -> Patchwork_20185
+
+  CI-20190529: 20190529
+  CI_DRM_10128: a65996afe32761b9eef973bf230a566f38ac3340 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6092: d87087c321da07035d4f96d98c34e451b3ccb809 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_20185: 35fe0920dc18e54461ab2f0dbd7b609e673c3ec5 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+35fe0920dc18 drm/i915/pxp: enable PXP for integrated Gen12
+987b3307a598 drm/i915/pxp: black pixels on pxp disabled
+45bde6c5331e drm/i915/pxp: Add plane decryption support
+6385a5aed210 drm/i915/pxp: User interface for Protected buffer
+bec1d65ea26a drm/i915/pxp: Enable PXP power management
+a3dfaa44f65f drm/i915/pxp: start the arb session on demand
+33fe09ce5d32 drm/i915/pxp: interface for marking contexts as using protected content
+4b5b3318d941 drm/i915/pxp: Implement PXP irq handler
+cb24d6a2574a drm/i915/pxp: Implement arb session teardown
+7161fc685bdf drm/i915/pxp: Create the arbitrary session after boot
+d9c097841a73 drm/i915/pxp: set KCR reg init
+6bd0c1203dc5 drm/i915/pxp: Implement funcs to create the TEE channel
+8a76c2a85287 drm/i915/pxp: allocate a vcs context for pxp usage
+2b998e8ec953 drm/i915/gt: Export the pinned context constructor and destructor
+2dc2268deb12 drm/i915/pxp: define PXP device flag and kconfig
+85662cad4815 mei: pxp: export pavp client to me client bus
+ef325598b78f drm/i915/pxp: Define PXP component interface
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20185/index.html
+
+--===============1935023602726682996==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Introduce Intel PXP</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/90503/">https://patchwork.freedesktop.org/series/90503/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20185/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20185/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10128 -&gt; Patchwork_20185</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20185/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20185 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@core_hotunplug@unbind-rebind:<ul>
+<li>fi-bwr-2160:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10128/fi-bwr-2160/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20185/fi-bwr-2160/igt@core_hotunplug@unbind-rebind.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3194">i915#3194</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@runner@aborted:<ul>
+<li>fi-kbl-r:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10128/fi-kbl-r/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20185/fi-kbl-r/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (34 -&gt; 23)</h2>
+<p>Additional (2): fi-ehl-2 fi-hsw-gt1 <br />
+  Missing    (13): fi-kbl-7567u fi-cml-u2 fi-glk-dsi fi-icl-u2 fi-cfl-8700k fi-bsw-cyan fi-kbl-7500u fi-cfl-guc fi-hsw-4770 fi-kbl-guc fi-cfl-8109u fi-bdw-samus fi-snb-2600 </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10128 -&gt; Patchwork_20185</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10128: a65996afe32761b9eef973bf230a566f38ac3340 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6092: d87087c321da07035d4f96d98c34e451b3ccb809 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_20185: 35fe0920dc18e54461ab2f0dbd7b609e673c3ec5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>35fe0920dc18 drm/i915/pxp: enable PXP for integrated Gen12<br />
+987b3307a598 drm/i915/pxp: black pixels on pxp disabled<br />
+45bde6c5331e drm/i915/pxp: Add plane decryption support<br />
+6385a5aed210 drm/i915/pxp: User interface for Protected buffer<br />
+bec1d65ea26a drm/i915/pxp: Enable PXP power management<br />
+a3dfaa44f65f drm/i915/pxp: start the arb session on demand<br />
+33fe09ce5d32 drm/i915/pxp: interface for marking contexts as using protected content<br />
+4b5b3318d941 drm/i915/pxp: Implement PXP irq handler<br />
+cb24d6a2574a drm/i915/pxp: Implement arb session teardown<br />
+7161fc685bdf drm/i915/pxp: Create the arbitrary session after boot<br />
+d9c097841a73 drm/i915/pxp: set KCR reg init<br />
+6bd0c1203dc5 drm/i915/pxp: Implement funcs to create the TEE channel<br />
+8a76c2a85287 drm/i915/pxp: allocate a vcs context for pxp usage<br />
+2b998e8ec953 drm/i915/gt: Export the pinned context constructor and destructor<br />
+2dc2268deb12 drm/i915/pxp: define PXP device flag and kconfig<br />
+85662cad4815 mei: pxp: export pavp client to me client bus<br />
+ef325598b78f drm/i915/pxp: Define PXP component interface</p>
+
+</body>
+</html>
+
+--===============1935023602726682996==--
+
+--===============1139903956==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1139903956==--
