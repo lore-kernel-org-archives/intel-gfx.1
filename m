@@ -2,52 +2,57 @@ Return-Path: <SRS0=ggpC=KU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 829B5C2B9F8
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 18:22:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC63AC2B9F8
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 18:26:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3BC4061404
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 18:22:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3BC4061404
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 388ED6108D
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 18:26:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 388ED6108D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tronnes.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7D166E418;
-	Tue, 25 May 2021 18:22:22 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53A7E6E418;
- Tue, 25 May 2021 18:22:21 +0000 (UTC)
-IronPort-SDR: oGFPsDIOzcTSQLk8+LiuB2nzj6ELL6HpVtYLmpbJSEOV5fOivcoKOE92eum1wiRclK7C3Dm5Cq
- 5TthwOKNRp6Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="181906505"
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="181906505"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 11:22:19 -0700
-IronPort-SDR: 5YuhxAa+ssXlvUOEH09soHVBikozcJbcdBojHAU+faJBkvSc9Yg4NnbvHLVBnj8uBrYMAPZ9jK
- 8hRphO+jG2TA==
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="479434464"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 11:22:18 -0700
-Date: Tue, 25 May 2021 11:15:11 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Message-ID: <20210525181510.GA23878@sdutt-i7>
-References: <20210506191451.77768-1-matthew.brost@intel.com>
- <20210506191451.77768-19-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD7EB6EA9C;
+	Tue, 25 May 2021 18:26:02 +0000 (UTC)
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBD7789FA5;
+ Tue, 25 May 2021 17:48:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202012;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:Subject:References:Cc:To:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zmoLsFOrzQDEdiV5XVjjW7fW8PfWEsE+4/phaTnnNd4=; b=XF5ttKXYKr1qN7YE0Frd4A+b3i
+ efyuHSAnRS6oyytUeN0cM+PV1Rbrvb1PVxK165Z2Dyf48pucFlicJMryShYcnXZ6PWWhGYjwf5h45
+ zsQQvpAs2XP0WOvbIhuuCY+A2T3KVPGpKYMPhdZEcYdunZlOF4cYkqY2aiFCUSQq57OTAU12jsHVK
+ 6UIdLmlKTK6liXp+tNiASQEJ05ZAGwzzO+FkySlqQZjlWWeBQeoL28BsyJXRdPS0+txcPsbZ47YIf
+ KX5p4Z5J2MjwKDPbKaZoITp1B4P0pSAJ/iQ01wm/AwMBL2cwfApNBwXkLm2XCR/qnro8KsS0oH55J
+ 8dAcOdWQ==;
+Received: from [2a01:799:95f:4600:cca0:57ac:c55d:a485] (port=64708)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1llbA9-0003uA-GQ; Tue, 25 May 2021 19:48:17 +0200
+To: daniel.vetter@ffwll.ch
+References: <20210521090959.1663703-10-daniel.vetter@ffwll.ch>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+Message-ID: <9d855dc6-5825-4666-6d70-e5f3f880c592@tronnes.org>
+Date: Tue, 25 May 2021 19:48:12 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210506191451.77768-19-matthew.brost@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [RFC PATCH 18/97] drm/i915/guc: Don't receive all
- G2H messages in irq handler
+In-Reply-To: <20210521090959.1663703-10-daniel.vetter@ffwll.ch>
+X-Mailman-Approved-At: Tue, 25 May 2021 18:26:02 +0000
+Subject: Re: [Intel-gfx] [PATCH 10/11] drm/simple-helper:
+ drm_gem_simple_display_pipe_prepare_fb as default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,202 +65,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jason.ekstrand@intel.com, daniel.vetter@intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: airlied@linux.ie, daniel.vetter@intel.com, intel-gfx@lists.freedesktop.org,
+ tzimmermann@suse.de, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 06, 2021 at 12:13:32PM -0700, Matthew Brost wrote:
-> From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> 
-> In irq handler try to receive just single G2H message, let other
-> messages to be received from tasklet.
-> 
-> Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 67 ++++++++++++++++-------
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  3 +
->  2 files changed, 50 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> index cb58fa7f970c..d630ec32decf 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> @@ -81,6 +81,7 @@ enum { CTB_SEND = 0, CTB_RECV = 1 };
->  
->  enum { CTB_OWNER_HOST = 0 };
->  
-> +static void ct_receive_tasklet_func(unsigned long data);
->  static void ct_incoming_request_worker_func(struct work_struct *w);
->  
->  /**
-> @@ -95,6 +96,7 @@ void intel_guc_ct_init_early(struct intel_guc_ct *ct)
->  	INIT_LIST_HEAD(&ct->requests.pending);
->  	INIT_LIST_HEAD(&ct->requests.incoming);
->  	INIT_WORK(&ct->requests.worker, ct_incoming_request_worker_func);
-> +	tasklet_init(&ct->receive_tasklet, ct_receive_tasklet_func, (unsigned long)ct);
-
-This function is deprecated. tasklet_setup should be used.
-I can fix this up when I post the CTB patches.
-
->  }
->  
->  static inline const char *guc_ct_buffer_type_to_str(u32 type)
-> @@ -244,6 +246,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
->  {
->  	GEM_BUG_ON(ct->enabled);
->  
-> +	tasklet_kill(&ct->receive_tasklet);
->  	i915_vma_unpin_and_release(&ct->vma, I915_VMA_RELEASE_MAP);
->  	memset(ct, 0, sizeof(*ct));
->  }
-> @@ -629,7 +632,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
->  	CT_DEBUG(ct, "received %*ph\n", 4 * len, data);
->  
->  	desc->head = head * 4;
-> -	return 0;
-> +	return available - len;
->  
->  corrupted:
->  	CT_ERROR(ct, "Corrupted descriptor addr=%#x head=%u tail=%u size=%u\n",
-> @@ -665,10 +668,10 @@ static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
->  	u32 status;
->  	u32 datalen;
->  	struct ct_request *req;
-> +	unsigned long flags;
->  	bool found = false;
->  
->  	GEM_BUG_ON(!ct_header_is_response(header));
-> -	GEM_BUG_ON(!in_irq());
->  
->  	/* Response payload shall at least include fence and status */
->  	if (unlikely(len < 2)) {
-> @@ -688,7 +691,7 @@ static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
->  
->  	CT_DEBUG(ct, "response fence %u status %#x\n", fence, status);
->  
-> -	spin_lock(&ct->requests.lock);
-> +	spin_lock_irqsave(&ct->requests.lock, flags);
->  	list_for_each_entry(req, &ct->requests.pending, link) {
->  		if (unlikely(fence != req->fence)) {
->  			CT_DEBUG(ct, "request %u awaits response\n",
-> @@ -707,7 +710,7 @@ static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
->  		found = true;
->  		break;
->  	}
-> -	spin_unlock(&ct->requests.lock);
-> +	spin_unlock_irqrestore(&ct->requests.lock, flags);
->  
->  	if (!found)
->  		CT_ERROR(ct, "Unsolicited response %*ph\n", msgsize, msg);
-> @@ -821,31 +824,55 @@ static int ct_handle_request(struct intel_guc_ct *ct, const u32 *msg)
->  	return 0;
->  }
->  
-> +static int ct_receive(struct intel_guc_ct *ct)
-> +{
-> +	u32 msg[GUC_CT_MSG_LEN_MASK + 1]; /* one extra dw for the header */
-> +	unsigned long flags;
-> +	int ret;
-> +
-> +	spin_lock_irqsave(&ct->ctbs.recv.lock, flags);
-> +	ret = ct_read(ct, msg);
-> +	spin_unlock_irqrestore(&ct->ctbs.recv.lock, flags);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (ct_header_is_response(msg[0]))
-> +		ct_handle_response(ct, msg);
-> +	else
-> +		ct_handle_request(ct, msg);
-> +
-> +	return ret;
-> +}
-> +
-> +static void ct_try_receive_message(struct intel_guc_ct *ct)
-> +{
-> +	int ret;
-> +
-> +	if (GEM_WARN_ON(!ct->enabled))
-> +		return;
-> +
-> +	ret = ct_receive(ct);
-> +	if (ret > 0)
-> +		tasklet_hi_schedule(&ct->receive_tasklet);
-> +}
-> +
-> +static void ct_receive_tasklet_func(unsigned long data)
-> +{
-
-As mentioned above tasklet_init is deprecated. The callback now accepts
-the tasklet structure and ct can be looked up via container_of macro.
-
-Everything else looks good.
-
-With that and changing to the new tasklet API:
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-
-> +	struct intel_guc_ct *ct = (struct intel_guc_ct *)data;
-> +
-> +	ct_try_receive_message(ct);
-> +}
-> +
->  /*
->   * When we're communicating with the GuC over CT, GuC uses events
->   * to notify us about new messages being posted on the RECV buffer.
->   */
->  void intel_guc_ct_event_handler(struct intel_guc_ct *ct)
->  {
-> -	u32 msg[GUC_CT_MSG_LEN_MASK + 1]; /* one extra dw for the header */
-> -	unsigned long flags;
-> -	int err = 0;
-> -
->  	if (unlikely(!ct->enabled)) {
->  		WARN(1, "Unexpected GuC event received while CT disabled!\n");
->  		return;
->  	}
->  
-> -	do {
-> -		spin_lock_irqsave(&ct->ctbs.recv.lock, flags);
-> -		err = ct_read(ct, msg);
-> -		spin_unlock_irqrestore(&ct->ctbs.recv.lock, flags);
-> -		if (err)
-> -			break;
-> -
-> -		if (ct_header_is_response(msg[0]))
-> -			err = ct_handle_response(ct, msg);
-> -		else
-> -			err = ct_handle_request(ct, msg);
-> -	} while (!err);
-> +	ct_try_receive_message(ct);
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> index bc52dc479a14..cb222f202301 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> @@ -6,6 +6,7 @@
->  #ifndef _INTEL_GUC_CT_H_
->  #define _INTEL_GUC_CT_H_
->  
-> +#include <linux/interrupt.h>
->  #include <linux/spinlock.h>
->  #include <linux/workqueue.h>
->  
-> @@ -55,6 +56,8 @@ struct intel_guc_ct {
->  		struct intel_guc_ct_buffer recv;
->  	} ctbs;
->  
-> +	struct tasklet_struct receive_tasklet;
-> +
->  	struct {
->  		u32 last_fence; /* last fence used to send request */
->  
-> -- 
-> 2.28.0
-> 
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+PiBJdCdzIHRlZGlvdXMgdG8gcmV2aWV3IHRoaXMgYWxsIHRoZSB0aW1lLCBhbmQgbXkgYXVkaXQg
+c2hvd2VkIHRoYXQKPiBhcmNwZ3UgYWN0dWFsbHkgZm9yZ290IHRvIHNldCB0aGlzLgo+Cj4gTWFr
+ZSB0aGlzIHRoZSBkZWZhdWx0IGFuZCBzdG9wIHdvcnJ5aW5nLgo+Cj4gQWdhaW4gSSBzcHJpbmts
+ZWQgV0FSTl9PTl9PTkNFIG9uIHRvcCB0byBtYWtlIHN1cmUgd2UgZG9uJ3QgaGF2ZQo+IHN0cmFu
+Z2UgY29tYmluYXRpb25zIG9mIGhvb2tzOiBjbGVhbnVwX2ZiIHdpdGhvdXQgcHJlcGFyZV9mYiBk
+b2Vzbid0Cj4gbWFrZSBzZW5zZSwgYW5kIHNpbmNlIHNpbXBsZXIgZHJpdmVycyBhcmUgYWxsIG5l
+dyB0aGV5IGJldHRlciBiZSBHRU0KPiBiYXNlZCBkcml2ZXJzLgo+Cj4gU2lnbmVkLW9mZi1ieTog
+RGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBpbnRlbC5jb20+Cj4gQ2M6IE1hYXJ0ZW4gTGFu
+a2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+Cj4gQ2M6IE1heGltZSBS
+aXBhcmQgPG1yaXBhcmRAa2VybmVsLm9yZz4KPiBDYzogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1t
+ZXJtYW5uQHN1c2UuZGU+Cj4gQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KPiBD
+YzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9k
+cm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmMgfCAxMiArKysrKysrKysrLS0KPiAgaW5jbHVkZS9k
+cm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmggICAgIHwgIDcgKysrKystLQo+ICAyIGZpbGVzIGNo
+YW5nZWQsIDE1IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5jCmIvZHJpdmVycy9ncHUvZHJt
+L2RybV9zaW1wbGVfa21zX2hlbHBlci5jCj4gaW5kZXggMGIwOTVhMzEzYzQ0Li4xYTk3NTcxZDk3
+ZDkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5j
+Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5jCj4gQEAgLTks
+NiArOSw4IEBACj4gICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pYy5oPgo+ICAjaW5jbHVkZSA8ZHJt
+L2RybV9hdG9taWNfaGVscGVyLmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2JyaWRnZS5oPgo+ICsj
+aW5jbHVkZSA8ZHJtL2RybV9kcnYuaD4KPiArI2luY2x1ZGUgPGRybS9kcm1fZ2VtX2F0b21pY19o
+ZWxwZXIuaD4KPiAgI2luY2x1ZGUgPGRybS9kcm1fbWFuYWdlZC5oPgo+ICAjaW5jbHVkZSA8ZHJt
+L2RybV9wbGFuZV9oZWxwZXIuaD4KPiAgI2luY2x1ZGUgPGRybS9kcm1fcHJvYmVfaGVscGVyLmg+
+Cj4gQEAgLTIyNSw4ICsyMjcsMTQgQEAgc3RhdGljIGludCBkcm1fc2ltcGxlX2ttc19wbGFuZV9w
+cmVwYXJlX2ZiKHN0cnVjdApkcm1fcGxhbmUgKnBsYW5lLAo+ICAJc3RydWN0IGRybV9zaW1wbGVf
+ZGlzcGxheV9waXBlICpwaXBlOwo+Cj4gIAlwaXBlID0gY29udGFpbmVyX29mKHBsYW5lLCBzdHJ1
+Y3QgZHJtX3NpbXBsZV9kaXNwbGF5X3BpcGUsIHBsYW5lKTsKPiAtCWlmICghcGlwZS0+ZnVuY3Mg
+fHwgIXBpcGUtPmZ1bmNzLT5wcmVwYXJlX2ZiKQo+IC0JCXJldHVybiAwOwo+ICsJaWYgKCFwaXBl
+LT5mdW5jcyB8fCAhcGlwZS0+ZnVuY3MtPnByZXBhcmVfZmIpIHsKPiArCQlpZiAoV0FSTl9PTl9P
+TkNFKGRybV9jb3JlX2NoZWNrX2ZlYXR1cmUocGxhbmUtPmRldiwgRFJJVkVSX0dFTSkpKQoKU2hv
+dWxkbid0IHRoaXMgY2hlY2sgYmUgaW52ZXJ0ZWQ/IExvb2tzIGxpa2UgaXQgd2FybnMgb24gR0VN
+IGRyaXZlcnMuCgpXaXRoIHRoYXQgY29uc2lkZXJlZDoKCkFja2VkLWJ5OiBOb3JhbGYgVHLDuG5u
+ZXMgPG5vcmFsZkB0cm9ubmVzLm9yZz4KCkhvcGVmdWxseSB0aGlzIHJlcGx5IHdpbGwgdGhyZWFk
+IGNvcnJlY3RseSwgSSBoYWQgdG8gcmVwbHkgZnJvbSBsb3JlIChJCndhc24ndCBjYydlZCkgYW5k
+IEkgZG9uJ3Qga25vdyBpZiBUaHVuZGVyYmlyZCBzZXRzIEluLVJlcGx5LVRvLiBJJ20gbm90CnN1
+YnNjcmliZWQgdG8gZHJpLWRldmVsIGFueW1vcmUgc2luY2UgSSdtIHdpbmRpbmcgZG93biBteSBM
+aW51eCB3b3JrIGFuZApkcmktZGV2ZWwgaXMgc3VjaCBhIGhpZ2ggdm9sdW1lIGxpc3QuCgpOb3Jh
+bGYKCj4gKwkJCXJldHVybiAwOwo+ICsKPiArCQlXQVJOX09OX09OQ0UocGlwZS0+ZnVuY3MgJiYg
+cGlwZS0+ZnVuY3MtPmNsZWFudXBfZmIpOwo+ICsKPiArCQlyZXR1cm4gZHJtX2dlbV9zaW1wbGVf
+ZGlzcGxheV9waXBlX3ByZXBhcmVfZmIocGlwZSwgc3RhdGUpOwo+ICsJfQo+Cj4gIAlyZXR1cm4g
+cGlwZS0+ZnVuY3MtPnByZXBhcmVfZmIocGlwZSwgc3RhdGUpOwo+ICB9Cl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QK
+SW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
