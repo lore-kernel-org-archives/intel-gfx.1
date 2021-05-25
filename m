@@ -2,57 +2,52 @@ Return-Path: <SRS0=ggpC=KU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC63AC2B9F8
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 18:26:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6A58C2B9F8
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 18:32:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 388ED6108D
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 18:26:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 388ED6108D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tronnes.org
+	by mail.kernel.org (Postfix) with ESMTPS id 62DC76140F
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 18:32:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62DC76140F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD7EB6EA9C;
-	Tue, 25 May 2021 18:26:02 +0000 (UTC)
-Received: from smtp.domeneshop.no (smtp.domeneshop.no
- [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBD7789FA5;
- Tue, 25 May 2021 17:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
- ; s=ds202012;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:Subject:References:Cc:To:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zmoLsFOrzQDEdiV5XVjjW7fW8PfWEsE+4/phaTnnNd4=; b=XF5ttKXYKr1qN7YE0Frd4A+b3i
- efyuHSAnRS6oyytUeN0cM+PV1Rbrvb1PVxK165Z2Dyf48pucFlicJMryShYcnXZ6PWWhGYjwf5h45
- zsQQvpAs2XP0WOvbIhuuCY+A2T3KVPGpKYMPhdZEcYdunZlOF4cYkqY2aiFCUSQq57OTAU12jsHVK
- 6UIdLmlKTK6liXp+tNiASQEJ05ZAGwzzO+FkySlqQZjlWWeBQeoL28BsyJXRdPS0+txcPsbZ47YIf
- KX5p4Z5J2MjwKDPbKaZoITp1B4P0pSAJ/iQ01wm/AwMBL2cwfApNBwXkLm2XCR/qnro8KsS0oH55J
- 8dAcOdWQ==;
-Received: from [2a01:799:95f:4600:cca0:57ac:c55d:a485] (port=64708)
- by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1llbA9-0003uA-GQ; Tue, 25 May 2021 19:48:17 +0200
-To: daniel.vetter@ffwll.ch
-References: <20210521090959.1663703-10-daniel.vetter@ffwll.ch>
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-Message-ID: <9d855dc6-5825-4666-6d70-e5f3f880c592@tronnes.org>
-Date: Tue, 25 May 2021 19:48:12 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0F3E6EAA0;
+	Tue, 25 May 2021 18:32:17 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B8FD6EAA0;
+ Tue, 25 May 2021 18:32:16 +0000 (UTC)
+IronPort-SDR: 6WrGsm33ee/LjDvMB1OeqZRFHy9iyk/R0OGh3OvGCXOf7lmocA7MqJyz2bUjPN3Ur3lIKIHj8p
+ ff2/EEIPn9Ig==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="199214093"
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="199214093"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 May 2021 11:32:13 -0700
+IronPort-SDR: 4kuWneIXsdHtkzAektilCTB+Vv0p6l0MTHsHq+j09yLafOsb3WE3AEfmrGe/2mSJdGHQAo+NXj
+ KtFz/l2E2f2Q==
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="546878989"
+Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 May 2021 11:32:13 -0700
+Date: Tue, 25 May 2021 11:25:06 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-ID: <20210525182505.GA25419@sdutt-i7>
+References: <20210506191451.77768-1-matthew.brost@intel.com>
+ <20210506191451.77768-20-matthew.brost@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20210521090959.1663703-10-daniel.vetter@ffwll.ch>
-X-Mailman-Approved-At: Tue, 25 May 2021 18:26:02 +0000
-Subject: Re: [Intel-gfx] [PATCH 10/11] drm/simple-helper:
- drm_gem_simple_display_pipe_prepare_fb as default
+Content-Disposition: inline
+In-Reply-To: <20210506191451.77768-20-matthew.brost@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [RFC PATCH 19/97] drm/i915/guc: Always copy CT
+ message to new allocation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,55 +60,426 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, daniel.vetter@intel.com, intel-gfx@lists.freedesktop.org,
- tzimmermann@suse.de, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: jason.ekstrand@intel.com, daniel.vetter@intel.com
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PiBJdCdzIHRlZGlvdXMgdG8gcmV2aWV3IHRoaXMgYWxsIHRoZSB0aW1lLCBhbmQgbXkgYXVkaXQg
-c2hvd2VkIHRoYXQKPiBhcmNwZ3UgYWN0dWFsbHkgZm9yZ290IHRvIHNldCB0aGlzLgo+Cj4gTWFr
-ZSB0aGlzIHRoZSBkZWZhdWx0IGFuZCBzdG9wIHdvcnJ5aW5nLgo+Cj4gQWdhaW4gSSBzcHJpbmts
-ZWQgV0FSTl9PTl9PTkNFIG9uIHRvcCB0byBtYWtlIHN1cmUgd2UgZG9uJ3QgaGF2ZQo+IHN0cmFu
-Z2UgY29tYmluYXRpb25zIG9mIGhvb2tzOiBjbGVhbnVwX2ZiIHdpdGhvdXQgcHJlcGFyZV9mYiBk
-b2Vzbid0Cj4gbWFrZSBzZW5zZSwgYW5kIHNpbmNlIHNpbXBsZXIgZHJpdmVycyBhcmUgYWxsIG5l
-dyB0aGV5IGJldHRlciBiZSBHRU0KPiBiYXNlZCBkcml2ZXJzLgo+Cj4gU2lnbmVkLW9mZi1ieTog
-RGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBpbnRlbC5jb20+Cj4gQ2M6IE1hYXJ0ZW4gTGFu
-a2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+Cj4gQ2M6IE1heGltZSBS
-aXBhcmQgPG1yaXBhcmRAa2VybmVsLm9yZz4KPiBDYzogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1t
-ZXJtYW5uQHN1c2UuZGU+Cj4gQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KPiBD
-YzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9k
-cm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmMgfCAxMiArKysrKysrKysrLS0KPiAgaW5jbHVkZS9k
-cm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmggICAgIHwgIDcgKysrKystLQo+ICAyIGZpbGVzIGNo
-YW5nZWQsIDE1IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5jCmIvZHJpdmVycy9ncHUvZHJt
-L2RybV9zaW1wbGVfa21zX2hlbHBlci5jCj4gaW5kZXggMGIwOTVhMzEzYzQ0Li4xYTk3NTcxZDk3
-ZDkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5j
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5jCj4gQEAgLTks
-NiArOSw4IEBACj4gICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pYy5oPgo+ICAjaW5jbHVkZSA8ZHJt
-L2RybV9hdG9taWNfaGVscGVyLmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2JyaWRnZS5oPgo+ICsj
-aW5jbHVkZSA8ZHJtL2RybV9kcnYuaD4KPiArI2luY2x1ZGUgPGRybS9kcm1fZ2VtX2F0b21pY19o
-ZWxwZXIuaD4KPiAgI2luY2x1ZGUgPGRybS9kcm1fbWFuYWdlZC5oPgo+ICAjaW5jbHVkZSA8ZHJt
-L2RybV9wbGFuZV9oZWxwZXIuaD4KPiAgI2luY2x1ZGUgPGRybS9kcm1fcHJvYmVfaGVscGVyLmg+
-Cj4gQEAgLTIyNSw4ICsyMjcsMTQgQEAgc3RhdGljIGludCBkcm1fc2ltcGxlX2ttc19wbGFuZV9w
-cmVwYXJlX2ZiKHN0cnVjdApkcm1fcGxhbmUgKnBsYW5lLAo+ICAJc3RydWN0IGRybV9zaW1wbGVf
-ZGlzcGxheV9waXBlICpwaXBlOwo+Cj4gIAlwaXBlID0gY29udGFpbmVyX29mKHBsYW5lLCBzdHJ1
-Y3QgZHJtX3NpbXBsZV9kaXNwbGF5X3BpcGUsIHBsYW5lKTsKPiAtCWlmICghcGlwZS0+ZnVuY3Mg
-fHwgIXBpcGUtPmZ1bmNzLT5wcmVwYXJlX2ZiKQo+IC0JCXJldHVybiAwOwo+ICsJaWYgKCFwaXBl
-LT5mdW5jcyB8fCAhcGlwZS0+ZnVuY3MtPnByZXBhcmVfZmIpIHsKPiArCQlpZiAoV0FSTl9PTl9P
-TkNFKGRybV9jb3JlX2NoZWNrX2ZlYXR1cmUocGxhbmUtPmRldiwgRFJJVkVSX0dFTSkpKQoKU2hv
-dWxkbid0IHRoaXMgY2hlY2sgYmUgaW52ZXJ0ZWQ/IExvb2tzIGxpa2UgaXQgd2FybnMgb24gR0VN
-IGRyaXZlcnMuCgpXaXRoIHRoYXQgY29uc2lkZXJlZDoKCkFja2VkLWJ5OiBOb3JhbGYgVHLDuG5u
-ZXMgPG5vcmFsZkB0cm9ubmVzLm9yZz4KCkhvcGVmdWxseSB0aGlzIHJlcGx5IHdpbGwgdGhyZWFk
-IGNvcnJlY3RseSwgSSBoYWQgdG8gcmVwbHkgZnJvbSBsb3JlIChJCndhc24ndCBjYydlZCkgYW5k
-IEkgZG9uJ3Qga25vdyBpZiBUaHVuZGVyYmlyZCBzZXRzIEluLVJlcGx5LVRvLiBJJ20gbm90CnN1
-YnNjcmliZWQgdG8gZHJpLWRldmVsIGFueW1vcmUgc2luY2UgSSdtIHdpbmRpbmcgZG93biBteSBM
-aW51eCB3b3JrIGFuZApkcmktZGV2ZWwgaXMgc3VjaCBhIGhpZ2ggdm9sdW1lIGxpc3QuCgpOb3Jh
-bGYKCj4gKwkJCXJldHVybiAwOwo+ICsKPiArCQlXQVJOX09OX09OQ0UocGlwZS0+ZnVuY3MgJiYg
-cGlwZS0+ZnVuY3MtPmNsZWFudXBfZmIpOwo+ICsKPiArCQlyZXR1cm4gZHJtX2dlbV9zaW1wbGVf
-ZGlzcGxheV9waXBlX3ByZXBhcmVfZmIocGlwZSwgc3RhdGUpOwo+ICsJfQo+Cj4gIAlyZXR1cm4g
-cGlwZS0+ZnVuY3MtPnByZXBhcmVfZmIocGlwZSwgc3RhdGUpOwo+ICB9Cl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QK
-SW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+On Thu, May 06, 2021 at 12:13:33PM -0700, Matthew Brost wrote:
+> From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+> =
+
+> Since most of future CT traffic will be based on G2H requests,
+> instead of copying incoming CT message to static buffer and then
+> create new allocation for such request, always copy incoming CT
+> message to new allocation. Also by doing it while reading CT
+> header, we can safely fallback if that atomic allocation fails.
+> =
+
+> Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Cc: Piotr Pi=F3rkowski <piotr.piorkowski@intel.com>
+
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+
+> ---
+>  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 180 ++++++++++++++--------
+>  1 file changed, 120 insertions(+), 60 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/=
+i915/gt/uc/intel_guc_ct.c
+> index d630ec32decf..a174978c6a27 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> @@ -72,8 +72,9 @@ struct ct_request {
+>  	u32 *response_buf;
+>  };
+>  =
+
+> -struct ct_incoming_request {
+> +struct ct_incoming_msg {
+>  	struct list_head link;
+> +	u32 size;
+>  	u32 msg[];
+>  };
+>  =
+
+> @@ -575,7 +576,26 @@ static inline bool ct_header_is_response(u32 header)
+>  	return !!(header & GUC_CT_MSG_IS_RESPONSE);
+>  }
+>  =
+
+> -static int ct_read(struct intel_guc_ct *ct, u32 *data)
+> +static struct ct_incoming_msg *ct_alloc_msg(u32 num_dwords)
+> +{
+> +	struct ct_incoming_msg *msg;
+> +
+> +	msg =3D kmalloc(sizeof(*msg) + sizeof(u32) * num_dwords, GFP_ATOMIC);
+> +	if (msg)
+> +		msg->size =3D num_dwords;
+> +	return msg;
+> +}
+> +
+> +static void ct_free_msg(struct ct_incoming_msg *msg)
+> +{
+> +	kfree(msg);
+> +}
+> +
+> +/*
+> + * Return: number available remaining dwords to read (0 if empty)
+> + *         or a negative error code on failure
+> + */
+> +static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
+>  {
+>  	struct intel_guc_ct_buffer *ctb =3D &ct->ctbs.recv;
+>  	struct guc_ct_buffer_desc *desc =3D ctb->desc;
+> @@ -586,6 +606,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
+>  	s32 available;
+>  	unsigned int len;
+>  	unsigned int i;
+> +	u32 header;
+>  =
+
+>  	if (unlikely(desc->is_in_error))
+>  		return -EPIPE;
+> @@ -601,8 +622,10 @@ static int ct_read(struct intel_guc_ct *ct, u32 *dat=
+a)
+>  =
+
+>  	/* tail =3D=3D head condition indicates empty */
+>  	available =3D tail - head;
+> -	if (unlikely(available =3D=3D 0))
+> -		return -ENODATA;
+> +	if (unlikely(available =3D=3D 0)) {
+> +		*msg =3D NULL;
+> +		return 0;
+> +	}
+>  =
+
+>  	/* beware of buffer wrap case */
+>  	if (unlikely(available < 0))
+> @@ -610,14 +633,14 @@ static int ct_read(struct intel_guc_ct *ct, u32 *da=
+ta)
+>  	CT_DEBUG(ct, "available %d (%u:%u)\n", available, head, tail);
+>  	GEM_BUG_ON(available < 0);
+>  =
+
+> -	data[0] =3D cmds[head];
+> +	header =3D cmds[head];
+>  	head =3D (head + 1) % size;
+>  =
+
+>  	/* message len with header */
+> -	len =3D ct_header_get_len(data[0]) + 1;
+> +	len =3D ct_header_get_len(header) + 1;
+>  	if (unlikely(len > (u32)available)) {
+>  		CT_ERROR(ct, "Incomplete message %*ph %*ph %*ph\n",
+> -			 4, data,
+> +			 4, &header,
+>  			 4 * (head + available - 1 > size ?
+>  			      size - head : available - 1), &cmds[head],
+>  			 4 * (head + available - 1 > size ?
+> @@ -625,11 +648,24 @@ static int ct_read(struct intel_guc_ct *ct, u32 *da=
+ta)
+>  		goto corrupted;
+>  	}
+>  =
+
+> +	*msg =3D ct_alloc_msg(len);
+> +	if (!*msg) {
+> +		CT_ERROR(ct, "No memory for message %*ph %*ph %*ph\n",
+> +			 4, &header,
+> +			 4 * (head + available - 1 > size ?
+> +			      size - head : available - 1), &cmds[head],
+> +			 4 * (head + available - 1 > size ?
+> +			      available - 1 - size + head : 0), &cmds[0]);
+> +		return available;
+> +	}
+> +
+> +	(*msg)->msg[0] =3D header;
+> +
+>  	for (i =3D 1; i < len; i++) {
+> -		data[i] =3D cmds[head];
+> +		(*msg)->msg[i] =3D cmds[head];
+>  		head =3D (head + 1) % size;
+>  	}
+> -	CT_DEBUG(ct, "received %*ph\n", 4 * len, data);
+> +	CT_DEBUG(ct, "received %*ph\n", 4 * len, (*msg)->msg);
+>  =
+
+>  	desc->head =3D head * 4;
+>  	return available - len;
+> @@ -659,33 +695,33 @@ static int ct_read(struct intel_guc_ct *ct, u32 *da=
+ta)
+>   *                   ^-----------------------len-----------------------^
+>   */
+>  =
+
+> -static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
+> +static int ct_handle_response(struct intel_guc_ct *ct, struct ct_incomin=
+g_msg *response)
+>  {
+> -	u32 header =3D msg[0];
+> +	u32 header =3D response->msg[0];
+>  	u32 len =3D ct_header_get_len(header);
+> -	u32 msgsize =3D (len + 1) * sizeof(u32); /* msg size in bytes w/header =
+*/
+>  	u32 fence;
+>  	u32 status;
+>  	u32 datalen;
+>  	struct ct_request *req;
+>  	unsigned long flags;
+>  	bool found =3D false;
+> +	int err =3D 0;
+>  =
+
+>  	GEM_BUG_ON(!ct_header_is_response(header));
+>  =
+
+>  	/* Response payload shall at least include fence and status */
+>  	if (unlikely(len < 2)) {
+> -		CT_ERROR(ct, "Corrupted response %*ph\n", msgsize, msg);
+> +		CT_ERROR(ct, "Corrupted response (len %u)\n", len);
+>  		return -EPROTO;
+>  	}
+>  =
+
+> -	fence =3D msg[1];
+> -	status =3D msg[2];
+> +	fence =3D response->msg[1];
+> +	status =3D response->msg[2];
+>  	datalen =3D len - 2;
+>  =
+
+>  	/* Format of the status follows RESPONSE message */
+>  	if (unlikely(!INTEL_GUC_MSG_IS_RESPONSE(status))) {
+> -		CT_ERROR(ct, "Corrupted response %*ph\n", msgsize, msg);
+> +		CT_ERROR(ct, "Corrupted response (status %#x)\n", status);
+>  		return -EPROTO;
+>  	}
+>  =
+
+> @@ -699,12 +735,13 @@ static int ct_handle_response(struct intel_guc_ct *=
+ct, const u32 *msg)
+>  			continue;
+>  		}
+>  		if (unlikely(datalen > req->response_len)) {
+> -			CT_ERROR(ct, "Response for %u is too long %*ph\n",
+> -				 req->fence, msgsize, msg);
+> -			datalen =3D 0;
+> +			CT_ERROR(ct, "Response %u too long (datalen %u > %u)\n",
+> +				 req->fence, datalen, req->response_len);
+> +			datalen =3D min(datalen, req->response_len);
+> +			err =3D -EMSGSIZE;
+>  		}
+>  		if (datalen)
+> -			memcpy(req->response_buf, msg + 3, 4 * datalen);
+> +			memcpy(req->response_buf, response->msg + 3, 4 * datalen);
+>  		req->response_len =3D datalen;
+>  		WRITE_ONCE(req->status, status);
+>  		found =3D true;
+> @@ -712,45 +749,61 @@ static int ct_handle_response(struct intel_guc_ct *=
+ct, const u32 *msg)
+>  	}
+>  	spin_unlock_irqrestore(&ct->requests.lock, flags);
+>  =
+
+> -	if (!found)
+> -		CT_ERROR(ct, "Unsolicited response %*ph\n", msgsize, msg);
+> +	if (!found) {
+> +		CT_ERROR(ct, "Unsolicited response (fence %u)\n", fence);
+> +		return -ENOKEY;
+> +	}
+> +
+> +	if (unlikely(err))
+> +		return err;
+> +
+> +	ct_free_msg(response);
+>  	return 0;
+>  }
+>  =
+
+> -static void ct_process_request(struct intel_guc_ct *ct,
+> -			       u32 action, u32 len, const u32 *payload)
+> +static int ct_process_request(struct intel_guc_ct *ct, struct ct_incomin=
+g_msg *request)
+>  {
+>  	struct intel_guc *guc =3D ct_to_guc(ct);
+> +	u32 header, action, len;
+> +	const u32 *payload;
+>  	int ret;
+>  =
+
+> +	header =3D request->msg[0];
+> +	payload =3D &request->msg[1];
+> +	action =3D ct_header_get_action(header);
+> +	len =3D ct_header_get_len(header);
+> +
+>  	CT_DEBUG(ct, "request %x %*ph\n", action, 4 * len, payload);
+>  =
+
+>  	switch (action) {
+>  	case INTEL_GUC_ACTION_DEFAULT:
+>  		ret =3D intel_guc_to_host_process_recv_msg(guc, payload, len);
+> -		if (unlikely(ret))
+> -			goto fail_unexpected;
+>  		break;
+> -
+>  	default:
+> -fail_unexpected:
+> -		CT_ERROR(ct, "Unexpected request %x %*ph\n",
+> -			 action, 4 * len, payload);
+> +		ret =3D -EOPNOTSUPP;
+>  		break;
+>  	}
+> +
+> +	if (unlikely(ret)) {
+> +		CT_ERROR(ct, "Failed to process request %04x (%pe)\n",
+> +			 action, ERR_PTR(ret));
+> +		return ret;
+> +	}
+> +
+> +	ct_free_msg(request);
+> +	return 0;
+>  }
+>  =
+
+>  static bool ct_process_incoming_requests(struct intel_guc_ct *ct)
+>  {
+>  	unsigned long flags;
+> -	struct ct_incoming_request *request;
+> -	u32 header;
+> -	u32 *payload;
+> +	struct ct_incoming_msg *request;
+>  	bool done;
+> +	int err;
+>  =
+
+>  	spin_lock_irqsave(&ct->requests.lock, flags);
+>  	request =3D list_first_entry_or_null(&ct->requests.incoming,
+> -					   struct ct_incoming_request, link);
+> +					   struct ct_incoming_msg, link);
+>  	if (request)
+>  		list_del(&request->link);
+>  	done =3D !!list_empty(&ct->requests.incoming);
+> @@ -759,14 +812,13 @@ static bool ct_process_incoming_requests(struct int=
+el_guc_ct *ct)
+>  	if (!request)
+>  		return true;
+>  =
+
+> -	header =3D request->msg[0];
+> -	payload =3D &request->msg[1];
+> -	ct_process_request(ct,
+> -			   ct_header_get_action(header),
+> -			   ct_header_get_len(header),
+> -			   payload);
+> +	err =3D ct_process_request(ct, request);
+> +	if (unlikely(err)) {
+> +		CT_ERROR(ct, "Failed to process CT message (%pe) %*ph\n",
+> +			 ERR_PTR(err), 4 * request->size, request->msg);
+> +		ct_free_msg(request);
+> +	}
+>  =
+
+> -	kfree(request);
+>  	return done;
+>  }
+>  =
+
+> @@ -799,22 +851,11 @@ static void ct_incoming_request_worker_func(struct =
+work_struct *w)
+>   *                   ^-----------------------len-----------------------^
+>   */
+>  =
+
+> -static int ct_handle_request(struct intel_guc_ct *ct, const u32 *msg)
+> +static int ct_handle_request(struct intel_guc_ct *ct, struct ct_incoming=
+_msg *request)
+>  {
+> -	u32 header =3D msg[0];
+> -	u32 len =3D ct_header_get_len(header);
+> -	u32 msgsize =3D (len + 1) * sizeof(u32); /* msg size in bytes w/header =
+*/
+> -	struct ct_incoming_request *request;
+>  	unsigned long flags;
+>  =
+
+> -	GEM_BUG_ON(ct_header_is_response(header));
+> -
+> -	request =3D kmalloc(sizeof(*request) + msgsize, GFP_ATOMIC);
+> -	if (unlikely(!request)) {
+> -		CT_ERROR(ct, "Dropping request %*ph\n", msgsize, msg);
+> -		return 0; /* XXX: -ENOMEM ? */
+> -	}
+> -	memcpy(request->msg, msg, msgsize);
+> +	GEM_BUG_ON(ct_header_is_response(request->msg[0]));
+>  =
+
+>  	spin_lock_irqsave(&ct->requests.lock, flags);
+>  	list_add_tail(&request->link, &ct->requests.incoming);
+> @@ -824,22 +865,41 @@ static int ct_handle_request(struct intel_guc_ct *c=
+t, const u32 *msg)
+>  	return 0;
+>  }
+>  =
+
+> +static void ct_handle_msg(struct intel_guc_ct *ct, struct ct_incoming_ms=
+g *msg)
+> +{
+> +	u32 header =3D msg->msg[0];
+> +	int err;
+> +
+> +	if (ct_header_is_response(header))
+> +		err =3D ct_handle_response(ct, msg);
+> +	else
+> +		err =3D ct_handle_request(ct, msg);
+> +
+> +	if (unlikely(err)) {
+> +		CT_ERROR(ct, "Failed to process CT message (%pe) %*ph\n",
+> +			 ERR_PTR(err), 4 * msg->size, msg->msg);
+> +		ct_free_msg(msg);
+> +	}
+> +}
+> +
+> +/*
+> + * Return: number available remaining dwords to read (0 if empty)
+> + *         or a negative error code on failure
+> + */
+>  static int ct_receive(struct intel_guc_ct *ct)
+>  {
+> -	u32 msg[GUC_CT_MSG_LEN_MASK + 1]; /* one extra dw for the header */
+> +	struct ct_incoming_msg *msg =3D NULL;
+>  	unsigned long flags;
+>  	int ret;
+>  =
+
+>  	spin_lock_irqsave(&ct->ctbs.recv.lock, flags);
+> -	ret =3D ct_read(ct, msg);
+> +	ret =3D ct_read(ct, &msg);
+>  	spin_unlock_irqrestore(&ct->ctbs.recv.lock, flags);
+>  	if (ret < 0)
+>  		return ret;
+>  =
+
+> -	if (ct_header_is_response(msg[0]))
+> -		ct_handle_response(ct, msg);
+> -	else
+> -		ct_handle_request(ct, msg);
+> +	if (msg)
+> +		ct_handle_msg(ct, msg);
+>  =
+
+>  	return ret;
+>  }
+> -- =
+
+> 2.28.0
+> =
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
