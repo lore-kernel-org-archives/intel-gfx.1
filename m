@@ -2,76 +2,52 @@ Return-Path: <SRS0=ggpC=KU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39DBFC2B9F7
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 03:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74662C2B9F8
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 03:22:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F41A56109F
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 03:15:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F41A56109F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 31B5C613D6
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 03:22:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31B5C613D6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAEA86E3DB;
-	Tue, 25 May 2021 03:15:34 +0000 (UTC)
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [IPv6:2607:f8b0:4864:20::72f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D1EA6E364
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 May 2021 03:15:05 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id o27so29100841qkj.9
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 20:15:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UUICKcc/sKdAjzKNgq2l5eqYx+k5eTShYrWAkwN1nE8=;
- b=TELw0+2UEzjgBQgY3N9cHf7cvJQg4x1GF5jHbOj/Xhbu2EVYn5hJJdXJJYpk6Mpk8G
- l2k+90bOTlHqSiuws+ej9C6F14blJi9bSItZInf5oUYtu07o9RuIUrgGf8YFYR9loGpy
- S0ow3K1ouDjzn61e3PW37PZcm998eK6VcTTFc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UUICKcc/sKdAjzKNgq2l5eqYx+k5eTShYrWAkwN1nE8=;
- b=H9eMFYuz8I4aoGpa+liQdDBK2bQBWVZ3++TEuLnrYChdu0AgRGlow7z3xNyfknspAB
- c/t2+wH/PKxJTtq2pI1M1+g0gRh6XQRhz772gKmTJLY7qML3Ah/i0KyaiAV2+BAbKmZy
- GipWVkTXN20NBgDx32H+Zl9aD0f9nlHZUsQMhSE0YMX9WqlHdWKyJBojWJGZT3ObC+7L
- GYnfVA/fKtVu3dRfLZzlgZwsi9nvqhnVpGVe91CDJmbGL6T3Bbb0TpOGtzJYXFXFKK2t
- RTWq0WuFvsWb48fEVq8l693Vmw+TER9kTpapWCoMplx+SqtsyqhpXA3sbJiE2clQFNER
- m+6Q==
-X-Gm-Message-State: AOAM532XYtjuGdiabM1PS3UiINWBIusvk4GqlYXBgTY9PFeYzdYNhaAT
- JETs1/ICkebTv6IYTW+ENCy/82R/AFIZRA==
-X-Google-Smtp-Source: ABdhPJxd8US8InezAcrMVk1bKcx0jIaF6WC+dgmEDXkzQxeozmbBRUsiRyucCYoUuPRHMy00bu8KYw==
-X-Received: by 2002:a05:620a:5a7:: with SMTP id
- q7mr32837015qkq.326.1621912504450; 
- Mon, 24 May 2021 20:15:04 -0700 (PDT)
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com.
- [209.85.222.179])
- by smtp.gmail.com with ESMTPSA id 20sm12712035qks.64.2021.05.24.20.15.04
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 May 2021 20:15:04 -0700 (PDT)
-Received: by mail-qk1-f179.google.com with SMTP id j189so8303471qkf.2
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 May 2021 20:15:04 -0700 (PDT)
-X-Received: by 2002:a05:6638:22b4:: with SMTP id
- z20mr26846805jas.128.1621912112776; 
- Mon, 24 May 2021 20:08:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 637D66E5D5;
+	Tue, 25 May 2021 03:22:28 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65FF46E826;
+ Tue, 25 May 2021 03:22:12 +0000 (UTC)
+IronPort-SDR: C7VQaJJqYegToK/Kksy7Bn3RDvn3mww8CJ/buizl/60UymOMf3PYVBW0iL2apaG2CDc5517YNz
+ iV4U4qnWT2Zw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9994"; a="223251236"
+X-IronPort-AV: E=Sophos;i="5.82,327,1613462400"; d="scan'208";a="223251236"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2021 20:22:11 -0700
+IronPort-SDR: q9M7nVit/s5hHtBQKZmTywC49naJJYAuPHMgODNblrJigk/yFFXhFcpDRNXTT3p/mp84pIKrN8
+ klJdq/sjgz6w==
+X-IronPort-AV: E=Sophos;i="5.82,327,1613462400"; d="scan'208";a="413851999"
+Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2021 20:22:11 -0700
+Date: Mon, 24 May 2021 20:15:03 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-ID: <20210525031503.GA12227@sdutt-i7>
+References: <20210506191451.77768-1-matthew.brost@intel.com>
+ <20210506191451.77768-14-matthew.brost@intel.com>
 MIME-Version: 1.0
-References: <20210518064215.2856977-1-tientzu@chromium.org>
- <20210518064215.2856977-5-tientzu@chromium.org>
- <CALiNf2_AWsnGqCnh02ZAGt+B-Ypzs1=-iOG2owm4GZHz2JAc4A@mail.gmail.com>
- <YKvLDlnns3TWEZ5l@0xbeefdead.lan>
-In-Reply-To: <YKvLDlnns3TWEZ5l@0xbeefdead.lan>
-From: Claire Chang <tientzu@chromium.org>
-Date: Tue, 25 May 2021 11:08:21 +0800
-X-Gmail-Original-Message-ID: <CALiNf2-M-CQdQaHiFTMfOkON6PEd0Yu_TvaCXKx9vXJ-7o5ffg@mail.gmail.com>
-Message-ID: <CALiNf2-M-CQdQaHiFTMfOkON6PEd0Yu_TvaCXKx9vXJ-7o5ffg@mail.gmail.com>
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Subject: Re: [Intel-gfx] [PATCH v7 04/15] swiotlb: Add restricted DMA pool
- initialization
+Content-Disposition: inline
+In-Reply-To: <20210506191451.77768-14-matthew.brost@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [RFC PATCH 13/97] drm/i915/guc: Replace CTB array
+ with explicit members
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,70 +60,159 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
- mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- Jianxiong Gao <jxgao@google.com>, Will Deacon <will@kernel.org>,
- airlied@linux.ie, Dan Williams <dan.j.williams@intel.com>,
- linuxppc-dev@lists.ozlabs.org, Rob Herring <robh+dt@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- Tomasz Figa <tfiga@chromium.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
- Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
+Cc: jason.ekstrand@intel.com, daniel.vetter@intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 24, 2021 at 11:49 PM Konrad Rzeszutek Wilk
-<konrad.wilk@oracle.com> wrote:
->
-> On Tue, May 18, 2021 at 02:48:35PM +0800, Claire Chang wrote:
-> > I didn't move this to a separate file because I feel it might be
-> > confusing for swiotlb_alloc/free (and need more functions to be
-> > non-static).
-> > Maybe instead of moving to a separate file, we can try to come up with
-> > a better naming?
->
-> I think you are referring to:
->
-> rmem_swiotlb_setup
->
-> ?
+On Thu, May 06, 2021 at 12:13:27PM -0700, Matthew Brost wrote:
+> From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+> 
+> Upcoming GuC firmware will always require just two CTBs and we
+> also plan to configure them with different sizes, so definining
+> them as array is no longer suitable.
+> 
+> Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
-Yes, and the following swiotlb_alloc/free.
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
->
-> Which is ARM specific and inside the generic code?
->
-> <sigh>
->
-> Christopher wants to unify it in all the code so there is one single
-> source, but the "you seperate arch code out from generic" saying
-> makes me want to move it out.
->
-> I agree that if you move it out from generic to arch-specific we have to
-> expose more of the swiotlb functions, which will undo's Christopher
-> cleanup code.
->
-> How about this - lets leave it as is now, and when there are more
-> use-cases we can revisit it and then if need to move the code?
->
-Ok! Sounds good!
+> ---
+>  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 46 ++++++++++++-----------
+>  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  7 +++-
+>  2 files changed, 30 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> index fbd6bd20f588..c54a29176862 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> @@ -168,10 +168,10 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+>  	struct intel_guc *guc = ct_to_guc(ct);
+>  	struct guc_ct_buffer_desc *desc;
+>  	u32 blob_size;
+> +	u32 cmds_size;
+>  	void *blob;
+>  	u32 *cmds;
+>  	int err;
+> -	int i;
+>  
+>  	GEM_BUG_ON(ct->vma);
+>  
+> @@ -207,15 +207,23 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+>  
+>  	CT_DEBUG(ct, "base=%#x size=%u\n", intel_guc_ggtt_offset(guc, ct->vma), blob_size);
+>  
+> -	/* store pointers to desc and cmds */
+> -	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
+> -		GEM_BUG_ON((i !=  CTB_SEND) && (i != CTB_RECV));
+> +	/* store pointers to desc and cmds for send ctb */
+> +	desc = blob;
+> +	cmds = blob + PAGE_SIZE / 2;
+> +	cmds_size = PAGE_SIZE / 4;
+> +	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "send",
+> +		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
+>  
+> -		desc = blob + PAGE_SIZE / 4 * i;
+> -		cmds = blob + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
+> +	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size);
+>  
+> -		guc_ct_buffer_init(&ct->ctbs[i], desc, cmds, PAGE_SIZE / 4);
+> -	}
+> +	/* store pointers to desc and cmds for recv ctb */
+> +	desc = blob + PAGE_SIZE / 4;
+> +	cmds = blob + PAGE_SIZE / 4 + PAGE_SIZE / 2;
+> +	cmds_size = PAGE_SIZE / 4;
+> +	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "recv",
+> +		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
+> +
+> +	guc_ct_buffer_init(&ct->ctbs.recv, desc, cmds, cmds_size);
+>  
+>  	return 0;
+>  }
+> @@ -246,7 +254,6 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+>  	u32 base, cmds;
+>  	void *blob;
+>  	int err;
+> -	int i;
+>  
+>  	GEM_BUG_ON(ct->enabled);
+>  
+> @@ -257,28 +264,25 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+>  
+>  	/* blob should start with send descriptor */
+>  	blob = __px_vaddr(ct->vma->obj);
+> -	GEM_BUG_ON(blob != ct->ctbs[CTB_SEND].desc);
+> +	GEM_BUG_ON(blob != ct->ctbs.send.desc);
+>  
+>  	/* (re)initialize descriptors */
+> -	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
+> -		GEM_BUG_ON((i != CTB_SEND) && (i != CTB_RECV));
+> +	cmds = base + ptrdiff(ct->ctbs.send.cmds, blob);
+> +	guc_ct_buffer_reset(&ct->ctbs.send, cmds);
+>  
+> -		cmds = base + ptrdiff(ct->ctbs[i].cmds, blob);
+> -		CT_DEBUG(ct, "%d: cmds addr=%#x\n", i, cmds);
+> -
+> -		guc_ct_buffer_reset(&ct->ctbs[i], cmds);
+> -	}
+> +	cmds = base + ptrdiff(ct->ctbs.recv.cmds, blob);
+> +	guc_ct_buffer_reset(&ct->ctbs.recv, cmds);
+>  
+>  	/*
+>  	 * Register both CT buffers starting with RECV buffer.
+>  	 * Descriptors are in first half of the blob.
+>  	 */
+> -	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_RECV].desc, blob),
+> +	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.recv.desc, blob),
+>  				 INTEL_GUC_CT_BUFFER_TYPE_RECV);
+>  	if (unlikely(err))
+>  		goto err_out;
+>  
+> -	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_SEND].desc, blob),
+> +	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.send.desc, blob),
+>  				 INTEL_GUC_CT_BUFFER_TYPE_SEND);
+>  	if (unlikely(err))
+>  		goto err_deregister;
+> @@ -341,7 +345,7 @@ static int ct_write(struct intel_guc_ct *ct,
+>  		    u32 len /* in dwords */,
+>  		    u32 fence)
+>  {
+> -	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_SEND];
+> +	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+>  	struct guc_ct_buffer_desc *desc = ctb->desc;
+>  	u32 head = desc->head;
+>  	u32 tail = desc->tail;
+> @@ -557,7 +561,7 @@ static inline bool ct_header_is_response(u32 header)
+>  
+>  static int ct_read(struct intel_guc_ct *ct, u32 *data)
+>  {
+> -	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_RECV];
+> +	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
+>  	struct guc_ct_buffer_desc *desc = ctb->desc;
+>  	u32 head = desc->head;
+>  	u32 tail = desc->tail;
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+> index 4009e2dd0de4..fc9486779e87 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+> @@ -47,8 +47,11 @@ struct intel_guc_ct {
+>  	struct i915_vma *vma;
+>  	bool enabled;
+>  
+> -	/* buffers for sending(0) and receiving(1) commands */
+> -	struct intel_guc_ct_buffer ctbs[2];
+> +	/* buffers for sending and receiving commands */
+> +	struct {
+> +		struct intel_guc_ct_buffer send;
+> +		struct intel_guc_ct_buffer recv;
+> +	} ctbs;
+>  
+>  	struct {
+>  		u32 last_fence; /* last fence used to send request */
+> -- 
+> 2.28.0
+> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
