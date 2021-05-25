@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 91D2FC47087
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20B73C4708A
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5BF5E6140E
+	by mail.kernel.org (Postfix) with ESMTPS id DE3AD6140E
 	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5BF5E6140E
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE3AD6140E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B8AD6EB1A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9D1E6EB14;
 	Tue, 25 May 2021 20:58:04 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 081FE6EADD;
- Tue, 25 May 2021 20:57:54 +0000 (UTC)
-IronPort-SDR: Vi9W/9wRrfgjgZ9MiKEQTMDnUaDMAqe3VvFi0bU5/PbmOD6QRduBCSIdqyva91GImgIc6IKAa2
- yM6ZyS7uA7BA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="202318069"
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="202318069"
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E527A6EAE2;
+ Tue, 25 May 2021 20:57:56 +0000 (UTC)
+IronPort-SDR: f0Sl5AfbifPqbte0yMnl16Cpr63ZfYufUrCJlUJ+LGm4zJWIexdy75kAznOTTTPepRe1s/f2W0
+ neVhu6pZTbtg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="202338142"
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="202338142"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 13:57:53 -0700
-IronPort-SDR: uxhuGewLdkgVe8LH6oXJY0gL64L8sPaUWU7Z6Axvqv7pOs3irbRqSPlKlL0yt4brfdOBZIgzZP
- U+dbPWpcMI9A==
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="443603543"
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 May 2021 13:57:55 -0700
+IronPort-SDR: uNzcCRviQDvPU8JmMo5PZFgcZmkn3CyM8FGvd+3btuxZ9zF2kZZa4dlTn3cmJ7xvcf9XwSP8a5
+ t0OONnI8h9vw==
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="443603571"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 13:57:53 -0700
+ 25 May 2021 13:57:55 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 14:15:32 -0700
-Message-Id: <20210525211541.87696-9-matthew.brost@intel.com>
+Date: Tue, 25 May 2021 14:15:40 -0700
+Message-Id: <20210525211541.87696-17-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210525211541.87696-1-matthew.brost@intel.com>
 References: <20210525211541.87696-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/17] drm/i915/guc: Only rely on own CTB size
+Subject: [Intel-gfx] [PATCH 16/17] drm/i915/guc: Don't receive all G2H
+ messages in irq handler
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,174 +66,176 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-In upcoming GuC firmware, CTB size will be removed from the CTB
-descriptor so we must keep it locally for any calculations.
-
-While around, improve some debug messages and helpers.
+In irq handler try to receive just single G2H message, let other
+messages to be received from tasklet.
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 55 +++++++++++++++++------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  2 +
- 2 files changed, 43 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 67 ++++++++++++++++-------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  3 +
+ 2 files changed, 50 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 4cc8c0b71699..dbece569fbe4 100644
+index 3b36757ebfd3..fdfc5f36ad2f 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -90,6 +90,24 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc,
- 	desc->owner = CTB_OWNER_HOST;
+@@ -81,6 +81,7 @@ enum { CTB_SEND = 0, CTB_RECV = 1 };
+ 
+ enum { CTB_OWNER_HOST = 0 };
+ 
++static void ct_receive_tasklet_func(struct tasklet_struct *t);
+ static void ct_incoming_request_worker_func(struct work_struct *w);
+ 
+ /**
+@@ -95,6 +96,7 @@ void intel_guc_ct_init_early(struct intel_guc_ct *ct)
+ 	INIT_LIST_HEAD(&ct->requests.pending);
+ 	INIT_LIST_HEAD(&ct->requests.incoming);
+ 	INIT_WORK(&ct->requests.worker, ct_incoming_request_worker_func);
++	tasklet_setup(&ct->receive_tasklet, ct_receive_tasklet_func);
  }
  
-+static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb, u32 cmds_addr)
-+{
-+	guc_ct_buffer_desc_init(ctb->desc, cmds_addr, ctb->size);
-+}
-+
-+static void guc_ct_buffer_init(struct intel_guc_ct_buffer *ctb,
-+			       struct guc_ct_buffer_desc *desc,
-+			       u32 *cmds, u32 size)
-+{
-+	GEM_BUG_ON(size % 4);
-+
-+	ctb->desc = desc;
-+	ctb->cmds = cmds;
-+	ctb->size = size;
-+
-+	guc_ct_buffer_reset(ctb, 0);
-+}
-+
- static int guc_action_register_ct_buffer(struct intel_guc *guc,
- 					 u32 desc_addr,
- 					 u32 type)
-@@ -148,7 +166,10 @@ static int ct_deregister_buffer(struct intel_guc_ct *ct, u32 type)
- int intel_guc_ct_init(struct intel_guc_ct *ct)
+ static inline const char *guc_ct_buffer_type_to_str(u32 type)
+@@ -244,6 +246,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
  {
- 	struct intel_guc *guc = ct_to_guc(ct);
-+	struct guc_ct_buffer_desc *desc;
-+	u32 blob_size;
- 	void *blob;
-+	u32 *cmds;
- 	int err;
- 	int i;
+ 	GEM_BUG_ON(ct->enabled);
  
-@@ -176,19 +197,24 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
- 	 * other code will need updating as well.
- 	 */
++	tasklet_kill(&ct->receive_tasklet);
+ 	i915_vma_unpin_and_release(&ct->vma, I915_VMA_RELEASE_MAP);
+ 	memset(ct, 0, sizeof(*ct));
+ }
+@@ -644,7 +647,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
+ 	CT_DEBUG(ct, "received %*ph\n", 4 * len, data);
  
--	err = intel_guc_allocate_and_map_vma(guc, PAGE_SIZE, &ct->vma, &blob);
-+	blob_size = PAGE_SIZE;
-+	err = intel_guc_allocate_and_map_vma(guc, blob_size, &ct->vma, &blob);
- 	if (unlikely(err)) {
--		CT_ERROR(ct, "Failed to allocate CT channel (err=%d)\n", err);
-+		CT_PROBE_ERROR(ct, "Failed to allocate %u for CTB data (%pe)\n",
-+			       blob_size, ERR_PTR(err));
- 		return err;
+ 	desc->head = head * 4;
+-	return 0;
++	return available - len;
+ 
+ corrupted:
+ 	CT_ERROR(ct, "Corrupted descriptor addr=%#x head=%u tail=%u size=%u\n",
+@@ -680,10 +683,10 @@ static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
+ 	u32 status;
+ 	u32 datalen;
+ 	struct ct_request *req;
++	unsigned long flags;
+ 	bool found = false;
+ 
+ 	GEM_BUG_ON(!ct_header_is_response(header));
+-	GEM_BUG_ON(!in_irq());
+ 
+ 	/* Response payload shall at least include fence and status */
+ 	if (unlikely(len < 2)) {
+@@ -703,7 +706,7 @@ static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
+ 
+ 	CT_DEBUG(ct, "response fence %u status %#x\n", fence, status);
+ 
+-	spin_lock(&ct->requests.lock);
++	spin_lock_irqsave(&ct->requests.lock, flags);
+ 	list_for_each_entry(req, &ct->requests.pending, link) {
+ 		if (unlikely(fence != req->fence)) {
+ 			CT_DEBUG(ct, "request %u awaits response\n",
+@@ -722,7 +725,7 @@ static int ct_handle_response(struct intel_guc_ct *ct, const u32 *msg)
+ 		found = true;
+ 		break;
  	}
+-	spin_unlock(&ct->requests.lock);
++	spin_unlock_irqrestore(&ct->requests.lock, flags);
  
--	CT_DEBUG(ct, "vma base=%#x\n", intel_guc_ggtt_offset(guc, ct->vma));
-+	CT_DEBUG(ct, "base=%#x size=%u\n", intel_guc_ggtt_offset(guc, ct->vma), blob_size);
- 
- 	/* store pointers to desc and cmds */
- 	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
- 		GEM_BUG_ON((i !=  CTB_SEND) && (i != CTB_RECV));
--		ct->ctbs[i].desc = blob + PAGE_SIZE/4 * i;
--		ct->ctbs[i].cmds = blob + PAGE_SIZE/4 * i + PAGE_SIZE/2;
-+
-+		desc = blob + PAGE_SIZE / 4 * i;
-+		cmds = blob + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
-+
-+		guc_ct_buffer_init(&ct->ctbs[i], desc, cmds, PAGE_SIZE / 4);
- 	}
- 
+ 	if (!found)
+ 		CT_ERROR(ct, "Unsolicited response %*ph\n", msgsize, msg);
+@@ -836,31 +839,55 @@ static int ct_handle_request(struct intel_guc_ct *ct, const u32 *msg)
  	return 0;
-@@ -217,7 +243,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
- int intel_guc_ct_enable(struct intel_guc_ct *ct)
- {
- 	struct intel_guc *guc = ct_to_guc(ct);
--	u32 base, cmds, size;
-+	u32 base, cmds;
- 	int err;
- 	int i;
- 
-@@ -232,10 +258,11 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- 	 */
- 	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
- 		GEM_BUG_ON((i != CTB_SEND) && (i != CTB_RECV));
-+
- 		cmds = base + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
--		size = PAGE_SIZE / 4;
--		CT_DEBUG(ct, "%d: addr=%#x size=%u\n", i, cmds, size);
--		guc_ct_buffer_desc_init(ct->ctbs[i].desc, cmds, size);
-+		CT_DEBUG(ct, "%d: cmds addr=%#x\n", i, cmds);
-+
-+		guc_ct_buffer_reset(&ct->ctbs[i], cmds);
- 	}
- 
- 	/*
-@@ -259,7 +286,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- err_deregister:
- 	ct_deregister_buffer(ct, INTEL_GUC_CT_BUFFER_TYPE_RECV);
- err_out:
--	CT_PROBE_ERROR(ct, "Failed to open channel (err=%d)\n", err);
-+	CT_PROBE_ERROR(ct, "Failed to enable CTB (%pe)\n", ERR_PTR(err));
- 	return err;
  }
  
-@@ -314,7 +341,7 @@ static int ct_write(struct intel_guc_ct *ct,
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
- 	u32 head = desc->head;
- 	u32 tail = desc->tail;
--	u32 size = desc->size;
-+	u32 size = ctb->size;
- 	u32 used;
- 	u32 header;
- 	u32 *cmds = ctb->cmds;
-@@ -323,7 +350,7 @@ static int ct_write(struct intel_guc_ct *ct,
- 	if (unlikely(desc->is_in_error))
- 		return -EPIPE;
++static int ct_receive(struct intel_guc_ct *ct)
++{
++	u32 msg[GUC_CT_MSG_LEN_MASK + 1]; /* one extra dw for the header */
++	unsigned long flags;
++	int ret;
++
++	spin_lock_irqsave(&ct->ctbs.recv.lock, flags);
++	ret = ct_read(ct, msg);
++	spin_unlock_irqrestore(&ct->ctbs.recv.lock, flags);
++	if (ret < 0)
++		return ret;
++
++	if (ct_header_is_response(msg[0]))
++		ct_handle_response(ct, msg);
++	else
++		ct_handle_request(ct, msg);
++
++	return ret;
++}
++
++static void ct_try_receive_message(struct intel_guc_ct *ct)
++{
++	int ret;
++
++	if (GEM_WARN_ON(!ct->enabled))
++		return;
++
++	ret = ct_receive(ct);
++	if (ret > 0)
++		tasklet_hi_schedule(&ct->receive_tasklet);
++}
++
++static void ct_receive_tasklet_func(struct tasklet_struct *t)
++{
++	struct intel_guc_ct *ct = from_tasklet(ct, t, receive_tasklet);
++
++	ct_try_receive_message(ct);
++}
++
+ /*
+  * When we're communicating with the GuC over CT, GuC uses events
+  * to notify us about new messages being posted on the RECV buffer.
+  */
+ void intel_guc_ct_event_handler(struct intel_guc_ct *ct)
+ {
+-	u32 msg[GUC_CT_MSG_LEN_MASK + 1]; /* one extra dw for the header */
+-	unsigned long flags;
+-	int err = 0;
+-
+ 	if (unlikely(!ct->enabled)) {
+ 		WARN(1, "Unexpected GuC event received while CT disabled!\n");
+ 		return;
+ 	}
  
--	if (unlikely(!IS_ALIGNED(head | tail | size, 4) ||
-+	if (unlikely(!IS_ALIGNED(head | tail, 4) ||
- 		     (tail | head) >= size))
- 		goto corrupted;
- 
-@@ -530,7 +557,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
- 	u32 head = desc->head;
- 	u32 tail = desc->tail;
--	u32 size = desc->size;
-+	u32 size = ctb->size;
- 	u32 *cmds = ctb->cmds;
- 	s32 available;
- 	unsigned int len;
-@@ -539,7 +566,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
- 	if (unlikely(desc->is_in_error))
- 		return -EPIPE;
- 
--	if (unlikely(!IS_ALIGNED(head | tail | size, 4) ||
-+	if (unlikely(!IS_ALIGNED(head | tail, 4) ||
- 		     (tail | head) >= size))
- 		goto corrupted;
- 
+-	do {
+-		spin_lock_irqsave(&ct->ctbs.recv.lock, flags);
+-		err = ct_read(ct, msg);
+-		spin_unlock_irqrestore(&ct->ctbs.recv.lock, flags);
+-		if (err)
+-			break;
+-
+-		if (ct_header_is_response(msg[0]))
+-			err = ct_handle_response(ct, msg);
+-		else
+-			err = ct_handle_request(ct, msg);
+-	} while (!err);
++	ct_try_receive_message(ct);
+ }
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index 494a51a5200f..4009e2dd0de4 100644
+index bc52dc479a14..cb222f202301 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -29,10 +29,12 @@ struct intel_guc;
-  *
-  * @desc: pointer to the buffer descriptor
-  * @cmds: pointer to the commands buffer
-+ * @size: size of the commands buffer
-  */
- struct intel_guc_ct_buffer {
- 	struct guc_ct_buffer_desc *desc;
- 	u32 *cmds;
-+	u32 size;
- };
+@@ -6,6 +6,7 @@
+ #ifndef _INTEL_GUC_CT_H_
+ #define _INTEL_GUC_CT_H_
  
++#include <linux/interrupt.h>
+ #include <linux/spinlock.h>
+ #include <linux/workqueue.h>
+ 
+@@ -55,6 +56,8 @@ struct intel_guc_ct {
+ 		struct intel_guc_ct_buffer recv;
+ 	} ctbs;
+ 
++	struct tasklet_struct receive_tasklet;
++
+ 	struct {
+ 		u32 last_fence; /* last fence used to send request */
  
 -- 
 2.28.0
