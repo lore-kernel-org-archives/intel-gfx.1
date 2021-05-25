@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BDB98C47086
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 21:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B4FEC4707F
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 21:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 727216140F
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 21:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 727216140F
+	by mail.kernel.org (Postfix) with ESMTPS id 9C0AB6140E
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 21:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C0AB6140E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12FCC6EB26;
-	Tue, 25 May 2021 21:10:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AEFC6EB27;
+	Tue, 25 May 2021 21:11:56 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8777C6EB23;
- Tue, 25 May 2021 21:10:20 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 55C626EB27;
+ Tue, 25 May 2021 21:11:54 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 7768FA73C9;
- Tue, 25 May 2021 21:10:20 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 49940A73C9;
+ Tue, 25 May 2021 21:11:54 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matthew Brost" <matthew.brost@intel.com>
-Date: Tue, 25 May 2021 21:10:20 -0000
-Message-ID: <162197702046.1319.14361343561465180199@emeril.freedesktop.org>
+Date: Tue, 25 May 2021 21:11:54 -0000
+Message-ID: <162197711429.1318.2941315969189362456@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210525211541.87696-1-matthew.brost@intel.com>
 In-Reply-To: <20210525211541.87696-1-matthew.brost@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Non-interface_changing_GuC_CTBs_updates?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Non-interface_changing_GuC_CTBs_updates?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,60 +63,62 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-232417d031b9 drm/i915/guc: skip disabling CTBs before sanitizing the GuC
-341c70656750 drm/i915/guc: use probe_error log for CT enablement failure
--:57: WARNING:TRAILING_SEMICOLON: macros should not use a trailing semicolon
-#57: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:38:
-+#define CT_PROBE_ERROR(_ct, _fmt, ...) \
-+	i915_probe_error(ct_to_i915(ct), "CT: " _fmt, ##__VA_ARGS__);
-
-total: 0 errors, 1 warnings, 0 checks, 72 lines checked
-b6b4993218ab drm/i915/guc: enable only the user interrupt when using GuC submission
-7bc25d889ff7 drm/i915/guc: Remove sample_forcewake h2g action
--:11: WARNING:BAD_SIGN_OFF: Use a single space after Cc:
-#11: 
-Cc:  Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-
-total: 0 errors, 1 warnings, 0 checks, 55 lines checked
-a02cb3e825d6 drm/i915/guc: Keep strict GuC ABI definitions
--:18: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#18: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 476 lines checked
-776f36a2bce0 drm/i915/guc: Stop using fence/status from CTB descriptor
-877a8bd1e6bd drm/i915: Promote ptrdiff() to i915_utils.h
-62559d3051cf drm/i915/guc: Only rely on own CTB size
-51f154fa0b01 drm/i915/guc: Don't repeat CTB layout calculations
-23f84eb2bb28 drm/i915/guc: Replace CTB array with explicit members
-ef402f00ed93 drm/i915/guc: Update sizes of CTB buffers
-fcdee0ecb586 drm/i915/guc: Relax CTB response timeout
--:7: WARNING:TYPO_SPELLING: 'procesing' may be misspelled - perhaps 'processing'?
-#7: 
-parallel to the GuC for procesing, so we shouldn't assume any more
-                        ^^^^^^^^^
-
-total: 0 errors, 1 warnings, 0 checks, 35 lines checked
-c48c38ded661 drm/i915/guc: Start protecting access to CTB descriptors
--:87: CHECK:UNCOMMENTED_DEFINITION: spinlock_t definition without comment
-#87: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h:36:
-+	spinlock_t lock;
-
-total: 0 errors, 0 warnings, 1 checks, 61 lines checked
-7d0c670b963f drm/i915/guc: Ensure H2G buffer updates visible before tail update
--:23: ERROR:OPEN_BRACE: open brace '{' following function definitions go on the next line
-#23: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:331:
-+static void write_barrier(struct intel_guc_ct *ct) {
-
--:31: WARNING:MEMORY_BARRIER: memory barrier without comment
-#31: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:339:
-+		wmb();
-
-total: 1 errors, 1 warnings, 0 checks, 30 lines checked
-29bcbe2dea0e drm/i915/guc: Stop using mutex while sending CTB messages
-5e9855bcaa3f drm/i915/guc: Don't receive all G2H messages in irq handler
-b4f470d880ca drm/i915/guc: Always copy CT message to new allocation
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/display/intel_display.c:1887:21:    expected struct i915_vma *[assigned] vma
++drivers/gpu/drm/i915/display/intel_display.c:1887:21:    got void [noderef] __iomem *[assigned] iomem
++drivers/gpu/drm/i915/display/intel_display.c:1887:21: warning: incorrect type in assignment (different address spaces)
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_reset.c:1328:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
++drivers/gpu/drm/i915/gt/intel_ring_submission.c:1207:24: warning: Using plain integer as NULL pointer
++drivers/gpu/drm/i915/i915_perf.c:1434:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/i915_perf.c:1488:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/intel_wakeref.c:137:19: warning: context imbalance in 'wakeref_auto_timeout' - unexpected unlock
++drivers/gpu/drm/i915/selftests/i915_syncmap.c:80:54: warning: dubious: x | !y
++./include/asm-generic/bitops/find.h:112:45: warning: shift count is negative (-262080)
++./include/asm-generic/bitops/find.h:32:31: warning: shift count is negative (-262080)
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
 
 
 _______________________________________________
