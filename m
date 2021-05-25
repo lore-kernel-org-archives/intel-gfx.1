@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A15DC4707F
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:57:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A60FBC4707F
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C4D8A6140E
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:57:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4D8A6140E
+	by mail.kernel.org (Postfix) with ESMTPS id 5CCB46140E
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CCB46140E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58B376E441;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9B5F6EADA;
 	Tue, 25 May 2021 20:57:54 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7B066E43B;
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D26D96E441;
  Tue, 25 May 2021 20:57:53 +0000 (UTC)
-IronPort-SDR: E4wQTuev25/DFjKou47sZWXwcweWlFfHeTa2xZBgWcZE8Vnq94tqg3czw0M2e9Fvy+Jwq+Sv/x
- AwPcoC5MT5lg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="266195937"
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="266195937"
+IronPort-SDR: PzJmUa0X+i7S3SWGzDq4zYluk96TWjtmzPuUcWbGTurPInKgB/3iuWr4rHRCqQ9qYapUMmkZiN
+ iuAKtYyKR5aw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="202318057"
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="202318057"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 May 2021 13:57:52 -0700
-IronPort-SDR: jR791WHivchwm9doP5BWZO1rAK68QfekrHO2eGEz1pyvl6QmBrDOB6iDH57IOXn6iolG6XbIJm
- fNh1pJwFbBWQ==
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="443603517"
+IronPort-SDR: gEkkrpngaiCa5+3kxjbLhKixPZoy72n3XhyFowHW/qtPL2Bz3+l1GpwTwbiwUJ5Mjecx3HBRpk
+ HrSvRzImALxA==
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="443603528"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 May 2021 13:57:52 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 14:15:26 -0700
-Message-Id: <20210525211541.87696-3-matthew.brost@intel.com>
+Date: Tue, 25 May 2021 14:15:28 -0700
+Message-Id: <20210525211541.87696-5-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210525211541.87696-1-matthew.brost@intel.com>
 References: <20210525211541.87696-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/17] drm/i915/guc: use probe_error log for CT
- enablement failure
+Subject: [Intel-gfx] [PATCH 04/17] drm/i915/guc: Remove sample_forcewake h2g
+ action
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,102 +64,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-We have a couple of failure injection points in the CT enablement path,
-so we need to use i915_probe_error() to select the appropriate log level.
-A new macro (CT_PROBE_ERROR) has been added to the set of CT logging
-macros to be used in this scenario and upcoming ones.
+This action is no-op in the GuC side for a few versions already
+and it is getting entirely removed soon, in an upcoming version.
 
-While adding the new macros, fix the underlying logging mechanics used
-by the existing ones (DRM_DEV_* -> drm_*) and move the inlines to
-before they're used inside the macros.
+Time to remove before we face communication issues.
 
+Cc:  Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Acked-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 48 ++++++++++++-----------
- 1 file changed, 25 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c      | 16 ----------------
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h      |  1 -
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h |  4 ----
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c       |  4 ----
+ 4 files changed, 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index fa9e048cc65f..25618649048f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -7,14 +7,36 @@
- #include "intel_guc_ct.h"
- #include "gt/intel_gt.h"
- 
-+static inline struct intel_guc *ct_to_guc(struct intel_guc_ct *ct)
-+{
-+	return container_of(ct, struct intel_guc, ct);
-+}
-+
-+static inline struct intel_gt *ct_to_gt(struct intel_guc_ct *ct)
-+{
-+	return guc_to_gt(ct_to_guc(ct));
-+}
-+
-+static inline struct drm_i915_private *ct_to_i915(struct intel_guc_ct *ct)
-+{
-+	return ct_to_gt(ct)->i915;
-+}
-+
-+static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
-+{
-+	return &ct_to_i915(ct)->drm;
-+}
-+
- #define CT_ERROR(_ct, _fmt, ...) \
--	DRM_DEV_ERROR(ct_to_dev(_ct), "CT: " _fmt, ##__VA_ARGS__)
-+	drm_err(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
- #ifdef CONFIG_DRM_I915_DEBUG_GUC
- #define CT_DEBUG(_ct, _fmt, ...) \
--	DRM_DEV_DEBUG_DRIVER(ct_to_dev(_ct), "CT: " _fmt, ##__VA_ARGS__)
-+	drm_dbg(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
- #else
- #define CT_DEBUG(...)	do { } while (0)
- #endif
-+#define CT_PROBE_ERROR(_ct, _fmt, ...) \
-+	i915_probe_error(ct_to_i915(ct), "CT: " _fmt, ##__VA_ARGS__);
- 
- struct ct_request {
- 	struct list_head link;
-@@ -47,26 +69,6 @@ void intel_guc_ct_init_early(struct intel_guc_ct *ct)
- 	INIT_WORK(&ct->requests.worker, ct_incoming_request_worker_func);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index adae04c47aab..ab2c8fe8cdfa 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -469,22 +469,6 @@ int intel_guc_to_host_process_recv_msg(struct intel_guc *guc,
+ 	return 0;
  }
  
--static inline struct intel_guc *ct_to_guc(struct intel_guc_ct *ct)
+-int intel_guc_sample_forcewake(struct intel_guc *guc)
 -{
--	return container_of(ct, struct intel_guc, ct);
+-	struct drm_i915_private *dev_priv = guc_to_gt(guc)->i915;
+-	u32 action[2];
+-
+-	action[0] = INTEL_GUC_ACTION_SAMPLE_FORCEWAKE;
+-	/* WaRsDisableCoarsePowerGating:skl,cnl */
+-	if (!HAS_RC6(dev_priv) || NEEDS_WaRsDisableCoarsePowerGating(dev_priv))
+-		action[1] = 0;
+-	else
+-		/* bit 0 and 1 are for Render and Media domain separately */
+-		action[1] = GUC_FORCEWAKE_RENDER | GUC_FORCEWAKE_MEDIA;
+-
+-	return intel_guc_send(guc, action, ARRAY_SIZE(action));
 -}
 -
--static inline struct intel_gt *ct_to_gt(struct intel_guc_ct *ct)
--{
--	return guc_to_gt(ct_to_guc(ct));
--}
+ /**
+  * intel_guc_auth_huc() - Send action to GuC to authenticate HuC ucode
+  * @guc: intel_guc structure
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index bc2ba7d0626c..c20f3839de12 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -128,7 +128,6 @@ int intel_guc_send_mmio(struct intel_guc *guc, const u32 *action, u32 len,
+ 			u32 *response_buf, u32 response_buf_size);
+ int intel_guc_to_host_process_recv_msg(struct intel_guc *guc,
+ 				       const u32 *payload, u32 len);
+-int intel_guc_sample_forcewake(struct intel_guc *guc);
+ int intel_guc_auth_huc(struct intel_guc *guc, u32 rsa_offset);
+ int intel_guc_suspend(struct intel_guc *guc);
+ int intel_guc_resume(struct intel_guc *guc);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 79c560d9c0b6..0f9afcde1d0b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -302,9 +302,6 @@ struct guc_ct_buffer_desc {
+ #define GUC_CT_MSG_ACTION_SHIFT			16
+ #define GUC_CT_MSG_ACTION_MASK			0xFFFF
+ 
+-#define GUC_FORCEWAKE_RENDER	(1 << 0)
+-#define GUC_FORCEWAKE_MEDIA	(1 << 1)
 -
--static inline struct drm_i915_private *ct_to_i915(struct intel_guc_ct *ct)
--{
--	return ct_to_gt(ct)->i915;
--}
+ #define GUC_POWER_UNSPECIFIED	0
+ #define GUC_POWER_D0		1
+ #define GUC_POWER_D1		2
+@@ -558,7 +555,6 @@ enum intel_guc_action {
+ 	INTEL_GUC_ACTION_ENTER_S_STATE = 0x501,
+ 	INTEL_GUC_ACTION_EXIT_S_STATE = 0x502,
+ 	INTEL_GUC_ACTION_SLPC_REQUEST = 0x3003,
+-	INTEL_GUC_ACTION_SAMPLE_FORCEWAKE = 0x3005,
+ 	INTEL_GUC_ACTION_AUTHENTICATE_HUC = 0x4000,
+ 	INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
+ 	INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 892c1315ce49..ab0789d66e06 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -502,10 +502,6 @@ static int __uc_init_hw(struct intel_uc *uc)
+ 
+ 	intel_huc_auth(huc);
+ 
+-	ret = intel_guc_sample_forcewake(guc);
+-	if (ret)
+-		goto err_log_capture;
 -
--static inline struct device *ct_to_dev(struct intel_guc_ct *ct)
--{
--	return ct_to_i915(ct)->drm.dev;
--}
--
- static inline const char *guc_ct_buffer_type_to_str(u32 type)
- {
- 	switch (type) {
-@@ -264,7 +266,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- err_deregister:
- 	ct_deregister_buffer(ct, INTEL_GUC_CT_BUFFER_TYPE_RECV);
- err_out:
--	CT_ERROR(ct, "Failed to open open CT channel (err=%d)\n", err);
-+	CT_PROBE_ERROR(ct, "Failed to open channel (err=%d)\n", err);
- 	return err;
- }
+ 	if (intel_uc_uses_guc_submission(uc))
+ 		intel_guc_submission_enable(guc);
  
 -- 
 2.28.0
