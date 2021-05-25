@@ -2,51 +2,40 @@ Return-Path: <SRS0=ggpC=KU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82AF8C4707F
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BDB98C47086
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 21:10:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4ED636140F
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4ED636140F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 727216140F
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 21:10:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 727216140F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 924756EB1D;
-	Tue, 25 May 2021 20:58:08 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4BB6EB07;
- Tue, 25 May 2021 20:57:57 +0000 (UTC)
-IronPort-SDR: THJ6HNRzYFgCg2kkVqYKlCYbg3QIRPw4sUM0TbkKOfVUBNLenlQzOaBI6CvhsHRxs/vSttaktZ
- ACPbxXGqtgKA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="287876025"
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="287876025"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 13:57:55 -0700
-IronPort-SDR: 8yT2tjoqKEzwr65h3fl3dlHFaKNiLdE3kWxxVpAQlsp8vHjtvX5u7Iv5Mzem8vQL6SMvTmeVJi
- dwVoJmaPqHIg==
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="443603563"
-Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 13:57:55 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 14:15:38 -0700
-Message-Id: <20210525211541.87696-15-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210525211541.87696-1-matthew.brost@intel.com>
-References: <20210525211541.87696-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12FCC6EB26;
+	Tue, 25 May 2021 21:10:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8777C6EB23;
+ Tue, 25 May 2021 21:10:20 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7768FA73C9;
+ Tue, 25 May 2021 21:10:20 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 14/17] drm/i915/guc: Ensure H2G buffer updates
- visible before tail update
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Date: Tue, 25 May 2021 21:10:20 -0000
+Message-ID: <162197702046.1319.14361343561465180199@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210525211541.87696-1-matthew.brost@intel.com>
+In-Reply-To: <20210525211541.87696-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Non-interface_changing_GuC_CTBs_updates?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,60 +48,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ensure H2G buffer updates are visible before descriptor tail updates by
-inserting a barrier between the H2G buffer update and the tail. The
-barrier is simple wmb() for SMEM and is register write for LMEM. This is
-needed if more than 1 H2G can be inflight at once.
+== Series Details ==
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+Series: Non-interface changing GuC CTBs updates
+URL   : https://patchwork.freedesktop.org/series/90552/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index e44f06fbf87a..732a8ffa52dc 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -328,6 +328,18 @@ static u32 ct_get_next_fence(struct intel_guc_ct *ct)
- 	return ++ct->requests.last_fence;
- }
- 
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+232417d031b9 drm/i915/guc: skip disabling CTBs before sanitizing the GuC
+341c70656750 drm/i915/guc: use probe_error log for CT enablement failure
+-:57: WARNING:TRAILING_SEMICOLON: macros should not use a trailing semicolon
+#57: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:38:
++#define CT_PROBE_ERROR(_ct, _fmt, ...) \
++	i915_probe_error(ct_to_i915(ct), "CT: " _fmt, ##__VA_ARGS__);
+
+total: 0 errors, 1 warnings, 0 checks, 72 lines checked
+b6b4993218ab drm/i915/guc: enable only the user interrupt when using GuC submission
+7bc25d889ff7 drm/i915/guc: Remove sample_forcewake h2g action
+-:11: WARNING:BAD_SIGN_OFF: Use a single space after Cc:
+#11: 
+Cc:  Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+
+total: 0 errors, 1 warnings, 0 checks, 55 lines checked
+a02cb3e825d6 drm/i915/guc: Keep strict GuC ABI definitions
+-:18: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#18: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 476 lines checked
+776f36a2bce0 drm/i915/guc: Stop using fence/status from CTB descriptor
+877a8bd1e6bd drm/i915: Promote ptrdiff() to i915_utils.h
+62559d3051cf drm/i915/guc: Only rely on own CTB size
+51f154fa0b01 drm/i915/guc: Don't repeat CTB layout calculations
+23f84eb2bb28 drm/i915/guc: Replace CTB array with explicit members
+ef402f00ed93 drm/i915/guc: Update sizes of CTB buffers
+fcdee0ecb586 drm/i915/guc: Relax CTB response timeout
+-:7: WARNING:TYPO_SPELLING: 'procesing' may be misspelled - perhaps 'processing'?
+#7: 
+parallel to the GuC for procesing, so we shouldn't assume any more
+                        ^^^^^^^^^
+
+total: 0 errors, 1 warnings, 0 checks, 35 lines checked
+c48c38ded661 drm/i915/guc: Start protecting access to CTB descriptors
+-:87: CHECK:UNCOMMENTED_DEFINITION: spinlock_t definition without comment
+#87: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h:36:
++	spinlock_t lock;
+
+total: 0 errors, 0 warnings, 1 checks, 61 lines checked
+7d0c670b963f drm/i915/guc: Ensure H2G buffer updates visible before tail update
+-:23: ERROR:OPEN_BRACE: open brace '{' following function definitions go on the next line
+#23: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:331:
 +static void write_barrier(struct intel_guc_ct *ct) {
-+	struct intel_guc *guc = ct_to_guc(ct);
-+	struct intel_gt *gt = guc_to_gt(guc);
-+
-+	if (i915_gem_object_is_lmem(guc->ct.vma->obj)) {
-+		GEM_BUG_ON(guc->send_regs.fw_domains);
-+		intel_uncore_write_fw(gt->uncore, GEN11_SOFT_SCRATCH(0), 0);
-+	} else {
+
+-:31: WARNING:MEMORY_BARRIER: memory barrier without comment
+#31: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:339:
 +		wmb();
-+	}
-+}
-+
- /**
-  * DOC: CTB Host to GuC request
-  *
-@@ -411,6 +423,12 @@ static int ct_write(struct intel_guc_ct *ct,
- 	}
- 	GEM_BUG_ON(tail > size);
- 
-+	/*
-+	 * make sure H2G buffer update and LRC tail update (if this triggering a
-+	 * submission) are visible before updating the descriptor tail
-+	 */
-+	write_barrier(ct);
-+
- 	/* now update desc tail (back in bytes) */
- 	desc->tail = tail * 4;
- 	return 0;
--- 
-2.28.0
+
+total: 1 errors, 1 warnings, 0 checks, 30 lines checked
+29bcbe2dea0e drm/i915/guc: Stop using mutex while sending CTB messages
+5e9855bcaa3f drm/i915/guc: Don't receive all G2H messages in irq handler
+b4f470d880ca drm/i915/guc: Always copy CT message to new allocation
+
 
 _______________________________________________
 Intel-gfx mailing list
