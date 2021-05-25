@@ -2,50 +2,59 @@ Return-Path: <SRS0=ggpC=KU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 875DDC2B9F8
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 12:02:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D52D8C4707F
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 12:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EEEF861378
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 12:02:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EEEF861378
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=hisilicon.com
+	by mail.kernel.org (Postfix) with ESMTPS id 991E36142C
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 12:48:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 991E36142C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 944116E9FF;
-	Tue, 25 May 2021 12:02:09 +0000 (UTC)
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5E156E116;
- Tue, 25 May 2021 07:30:08 +0000 (UTC)
-Received: from dggems703-chm.china.huawei.com (unknown [172.30.72.59])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4Fq5J0523qz1BRcj;
- Tue, 25 May 2021 15:27:12 +0800 (CST)
-Received: from dggpeml500023.china.huawei.com (7.185.36.114) by
- dggems703-chm.china.huawei.com (10.3.19.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Tue, 25 May 2021 15:30:01 +0800
-Received: from localhost.localdomain (10.69.192.56) by
- dggpeml500023.china.huawei.com (7.185.36.114) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Tue, 25 May 2021 15:30:00 +0800
-From: Shaokun Zhang <zhangshaokun@hisilicon.com>
-To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 15:29:53 +0800
-Message-ID: <1621927793-44545-1-git-send-email-zhangshaokun@hisilicon.com>
-X-Mailer: git-send-email 2.7.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE5096EA09;
+	Tue, 25 May 2021 12:48:08 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEDBF6EA0D;
+ Tue, 25 May 2021 12:48:06 +0000 (UTC)
+IronPort-SDR: pbxjgGhXCnilHI6i4HjT7OSvWBA2GqnqToF7WKVuUHmtlQD6DfgpgD2wHdE9+FIE9eDogg2B15
+ ymxT4ChOCZ1A==
+X-IronPort-AV: E=McAfee;i="6200,9189,9994"; a="202200230"
+X-IronPort-AV: E=Sophos;i="5.82,328,1613462400"; d="scan'208";a="202200230"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 May 2021 05:48:05 -0700
+IronPort-SDR: juwQjZypk14yYBIgpK4HG5lOiKD96FHqUrfPHfTuuXhpzZAu99UVe7tJI3MwFqkIAypjcb3LuB
+ mpeZhE/kP+3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,328,1613462400"; d="scan'208";a="630208555"
+Received: from irvmail001.ir.intel.com ([10.43.11.63])
+ by fmsmga006.fm.intel.com with ESMTP; 25 May 2021 05:48:03 -0700
+Received: from [10.249.148.145] (mwajdecz-MOBL.ger.corp.intel.com
+ [10.249.148.145])
+ by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
+ 14PCm2Ss015276; Tue, 25 May 2021 13:48:02 +0100
+To: Matthew Brost <matthew.brost@intel.com>, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+References: <20210506191451.77768-1-matthew.brost@intel.com>
+ <20210506191451.77768-12-matthew.brost@intel.com>
+ <20210525024712.GA8004@sdutt-i7>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Message-ID: <7638745c-1db4-e042-2c98-1b9538a96254@intel.com>
+Date: Tue, 25 May 2021 14:48:01 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-X-Originating-IP: [10.69.192.56]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- dggpeml500023.china.huawei.com (7.185.36.114)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Tue, 25 May 2021 12:02:08 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: Remove the repeated declaration
+In-Reply-To: <20210525024712.GA8004@sdutt-i7>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [RFC PATCH 11/97] drm/i915/guc: Only rely on own
+ CTB size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,39 +67,223 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Shaokun Zhang <zhangshaokun@hisilicon.com>
+Cc: jason.ekstrand@intel.com, daniel.vetter@intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Function 'intel_dbuf_init' is declared twice, remove the
-repeated declaration.
 
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Shaokun Zhang <zhangshaokun@hisilicon.com>
----
- drivers/gpu/drm/i915/intel_pm.h | 2 --
- 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.h b/drivers/gpu/drm/i915/intel_pm.h
-index 669c8d505677..63938e45fc79 100644
---- a/drivers/gpu/drm/i915/intel_pm.h
-+++ b/drivers/gpu/drm/i915/intel_pm.h
-@@ -83,8 +83,6 @@ struct intel_dbuf_state {
- 	u8 active_pipes;
- };
- 
--int intel_dbuf_init(struct drm_i915_private *dev_priv);
--
- struct intel_dbuf_state *
- intel_atomic_get_dbuf_state(struct intel_atomic_state *state);
- 
--- 
-2.7.4
+On 25.05.2021 04:47, Matthew Brost wrote:
+> On Thu, May 06, 2021 at 12:13:25PM -0700, Matthew Brost wrote:
+>> From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+>>
+>> In upcoming GuC firmware, CTB size will be removed from the CTB
+>> descriptor so we must keep it locally for any calculations.
+>>
+>> While around, improve some debug messages and helpers.
+>>
+> 
+> desc->size is still used in the patch and really shouldn't be per this
 
+goal of this patch was to start using local ctb->size for any
+calculations, not to drop it completely, as at this point (GuC 49)
+desc->size is still part of the CTB protocol
+
+> comment but a patch later in the series drops it. Seeing as this patch
+> and that patch are going to squashed into a single patch upgrading the
+> GuC firmware I think that is ok.
+
+no need to squash this patch
+
+in fact all CTB patches up to and including 20/97 ("drm/i915/guc:
+Introduce unified HXG messages") are compatible with current GuC 49.0.1
+and IMHO *should* be merged separately
+
+only patches from 21/97 ("drm/i915/guc: Update MMIO based
+communication") to 29/97 ("drm/i915/guc: Update firmware to v60.1.2")
+must be squashed during merge, as this is were communication protocol is
+changing (from GuC 49 to GuC 60) and we may break existing functionality
+(HuC authentication)
+
+Michal
+
+> 
+> With that:
+> Reviewed-by: Matthew Brost <matthew.brost@intel.com> 
+> 
+>> Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 55 +++++++++++++++++------
+>>  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  2 +
+>>  2 files changed, 43 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+>> index 4cc8c0b71699..dbece569fbe4 100644
+>> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+>> @@ -90,6 +90,24 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc,
+>>  	desc->owner = CTB_OWNER_HOST;
+>>  }
+>>  
+>> +static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb, u32 cmds_addr)
+>> +{
+>> +	guc_ct_buffer_desc_init(ctb->desc, cmds_addr, ctb->size);
+>> +}
+>> +
+>> +static void guc_ct_buffer_init(struct intel_guc_ct_buffer *ctb,
+>> +			       struct guc_ct_buffer_desc *desc,
+>> +			       u32 *cmds, u32 size)
+>> +{
+>> +	GEM_BUG_ON(size % 4);
+>> +
+>> +	ctb->desc = desc;
+>> +	ctb->cmds = cmds;
+>> +	ctb->size = size;
+>> +
+>> +	guc_ct_buffer_reset(ctb, 0);
+>> +}
+>> +
+>>  static int guc_action_register_ct_buffer(struct intel_guc *guc,
+>>  					 u32 desc_addr,
+>>  					 u32 type)
+>> @@ -148,7 +166,10 @@ static int ct_deregister_buffer(struct intel_guc_ct *ct, u32 type)
+>>  int intel_guc_ct_init(struct intel_guc_ct *ct)
+>>  {
+>>  	struct intel_guc *guc = ct_to_guc(ct);
+>> +	struct guc_ct_buffer_desc *desc;
+>> +	u32 blob_size;
+>>  	void *blob;
+>> +	u32 *cmds;
+>>  	int err;
+>>  	int i;
+>>  
+>> @@ -176,19 +197,24 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+>>  	 * other code will need updating as well.
+>>  	 */
+>>  
+>> -	err = intel_guc_allocate_and_map_vma(guc, PAGE_SIZE, &ct->vma, &blob);
+>> +	blob_size = PAGE_SIZE;
+>> +	err = intel_guc_allocate_and_map_vma(guc, blob_size, &ct->vma, &blob);
+>>  	if (unlikely(err)) {
+>> -		CT_ERROR(ct, "Failed to allocate CT channel (err=%d)\n", err);
+>> +		CT_PROBE_ERROR(ct, "Failed to allocate %u for CTB data (%pe)\n",
+>> +			       blob_size, ERR_PTR(err));
+>>  		return err;
+>>  	}
+>>  
+>> -	CT_DEBUG(ct, "vma base=%#x\n", intel_guc_ggtt_offset(guc, ct->vma));
+>> +	CT_DEBUG(ct, "base=%#x size=%u\n", intel_guc_ggtt_offset(guc, ct->vma), blob_size);
+>>  
+>>  	/* store pointers to desc and cmds */
+>>  	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
+>>  		GEM_BUG_ON((i !=  CTB_SEND) && (i != CTB_RECV));
+>> -		ct->ctbs[i].desc = blob + PAGE_SIZE/4 * i;
+>> -		ct->ctbs[i].cmds = blob + PAGE_SIZE/4 * i + PAGE_SIZE/2;
+>> +
+>> +		desc = blob + PAGE_SIZE / 4 * i;
+>> +		cmds = blob + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
+>> +
+>> +		guc_ct_buffer_init(&ct->ctbs[i], desc, cmds, PAGE_SIZE / 4);
+>>  	}
+>>  
+>>  	return 0;
+>> @@ -217,7 +243,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
+>>  int intel_guc_ct_enable(struct intel_guc_ct *ct)
+>>  {
+>>  	struct intel_guc *guc = ct_to_guc(ct);
+>> -	u32 base, cmds, size;
+>> +	u32 base, cmds;
+>>  	int err;
+>>  	int i;
+>>  
+>> @@ -232,10 +258,11 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+>>  	 */
+>>  	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
+>>  		GEM_BUG_ON((i != CTB_SEND) && (i != CTB_RECV));
+>> +
+>>  		cmds = base + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
+>> -		size = PAGE_SIZE / 4;
+>> -		CT_DEBUG(ct, "%d: addr=%#x size=%u\n", i, cmds, size);
+>> -		guc_ct_buffer_desc_init(ct->ctbs[i].desc, cmds, size);
+>> +		CT_DEBUG(ct, "%d: cmds addr=%#x\n", i, cmds);
+>> +
+>> +		guc_ct_buffer_reset(&ct->ctbs[i], cmds);
+>>  	}
+>>  
+>>  	/*
+>> @@ -259,7 +286,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+>>  err_deregister:
+>>  	ct_deregister_buffer(ct, INTEL_GUC_CT_BUFFER_TYPE_RECV);
+>>  err_out:
+>> -	CT_PROBE_ERROR(ct, "Failed to open channel (err=%d)\n", err);
+>> +	CT_PROBE_ERROR(ct, "Failed to enable CTB (%pe)\n", ERR_PTR(err));
+>>  	return err;
+>>  }
+>>  
+>> @@ -314,7 +341,7 @@ static int ct_write(struct intel_guc_ct *ct,
+>>  	struct guc_ct_buffer_desc *desc = ctb->desc;
+>>  	u32 head = desc->head;
+>>  	u32 tail = desc->tail;
+>> -	u32 size = desc->size;
+>> +	u32 size = ctb->size;
+>>  	u32 used;
+>>  	u32 header;
+>>  	u32 *cmds = ctb->cmds;
+>> @@ -323,7 +350,7 @@ static int ct_write(struct intel_guc_ct *ct,
+>>  	if (unlikely(desc->is_in_error))
+>>  		return -EPIPE;
+>>  
+>> -	if (unlikely(!IS_ALIGNED(head | tail | size, 4) ||
+>> +	if (unlikely(!IS_ALIGNED(head | tail, 4) ||
+>>  		     (tail | head) >= size))
+>>  		goto corrupted;
+>>  
+>> @@ -530,7 +557,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
+>>  	struct guc_ct_buffer_desc *desc = ctb->desc;
+>>  	u32 head = desc->head;
+>>  	u32 tail = desc->tail;
+>> -	u32 size = desc->size;
+>> +	u32 size = ctb->size;
+>>  	u32 *cmds = ctb->cmds;
+>>  	s32 available;
+>>  	unsigned int len;
+>> @@ -539,7 +566,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
+>>  	if (unlikely(desc->is_in_error))
+>>  		return -EPIPE;
+>>  
+>> -	if (unlikely(!IS_ALIGNED(head | tail | size, 4) ||
+>> +	if (unlikely(!IS_ALIGNED(head | tail, 4) ||
+>>  		     (tail | head) >= size))
+>>  		goto corrupted;
+>>  
+>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+>> index 494a51a5200f..4009e2dd0de4 100644
+>> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+>> @@ -29,10 +29,12 @@ struct intel_guc;
+>>   *
+>>   * @desc: pointer to the buffer descriptor
+>>   * @cmds: pointer to the commands buffer
+>> + * @size: size of the commands buffer
+>>   */
+>>  struct intel_guc_ct_buffer {
+>>  	struct guc_ct_buffer_desc *desc;
+>>  	u32 *cmds;
+>> +	u32 size;
+>>  };
+>>  
+>>  
+>> -- 
+>> 2.28.0
+>>
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
