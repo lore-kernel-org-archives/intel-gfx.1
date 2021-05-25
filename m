@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1604C47086
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A4E62C47087
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C4F86140E
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C4F86140E
+	by mail.kernel.org (Postfix) with ESMTPS id 71F6C6140F
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71F6C6140F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6967A6EADC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8C236EADE;
 	Tue, 25 May 2021 20:57:56 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A93256E43D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2982A6EAE2;
  Tue, 25 May 2021 20:57:54 +0000 (UTC)
-IronPort-SDR: 1MoCRN2plotypoE1PhZdZsntDcfTu/bY41eQQLBcbEaOW9uAu+kfd1+tgP5tfYRnLnp3uWyKR+
- UGL1dSdeF7CQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="202318068"
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="202318068"
+IronPort-SDR: bpl59QisylXCHnU1L542WqPH7qjrOJVZ59m/YeNAuWzLsEIv9yZcpZx6i/Ir7mlTnhpI0F5rbC
+ x/TShQo5CNZQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="202318070"
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="202318070"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 13:57:53 -0700
-IronPort-SDR: eMKLz0dIU4/UDMS72czOkUpUhIXBtTyjhchMBxiSlz3W8kaDH06syszCkNT2AYnKrJw7WshtxY
- xKYxdyFYdeGA==
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="443603537"
+ 25 May 2021 13:57:54 -0700
+IronPort-SDR: azmVl98nEsJdmCmvduR/PZ4LeM69eWnStSkgsmP1e0qa8+Ema8jwB+2SwSm8B9z16C6TIfShAB
+ VhDuqxaLvwlg==
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="443603545"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 May 2021 13:57:53 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 14:15:31 -0700
-Message-Id: <20210525211541.87696-8-matthew.brost@intel.com>
+Date: Tue, 25 May 2021 14:15:33 -0700
+Message-Id: <20210525211541.87696-10-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210525211541.87696-1-matthew.brost@intel.com>
 References: <20210525211541.87696-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/17] drm/i915: Promote ptrdiff() to
- i915_utils.h
+Subject: [Intel-gfx] [PATCH 09/17] drm/i915/guc: Don't repeat CTB layout
+ calculations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,48 +66,66 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-Generic helpers should be placed in i915_utils.h.
+We can retrieve offsets to cmds buffers and descriptor from
+actual pointers that we already keep locally.
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/i915_utils.h | 5 +++++
- drivers/gpu/drm/i915/i915_vma.h   | 5 -----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index f02f52ab5070..5259edacde38 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -201,6 +201,11 @@ __check_struct_size(size_t base, size_t arr, size_t count, size_t *size)
- 	__T;								\
- })
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index dbece569fbe4..fbd6bd20f588 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -244,6 +244,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ {
+ 	struct intel_guc *guc = ct_to_guc(ct);
+ 	u32 base, cmds;
++	void *blob;
+ 	int err;
+ 	int i;
  
-+static __always_inline ptrdiff_t ptrdiff(const void *a, const void *b)
-+{
-+	return a - b;
-+}
+@@ -251,15 +252,18 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 
+ 	/* vma should be already allocated and map'ed */
+ 	GEM_BUG_ON(!ct->vma);
++	GEM_BUG_ON(!i915_gem_object_has_pinned_pages(ct->vma->obj));
+ 	base = intel_guc_ggtt_offset(guc, ct->vma);
+ 
+-	/* (re)initialize descriptors
+-	 * cmds buffers are in the second half of the blob page
+-	 */
++	/* blob should start with send descriptor */
++	blob = __px_vaddr(ct->vma->obj);
++	GEM_BUG_ON(blob != ct->ctbs[CTB_SEND].desc);
 +
- /*
-  * container_of_user: Extract the superclass from a pointer to a member.
-  *
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index dc6926d89626..eca452a9851f 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -151,11 +151,6 @@ static inline void i915_vma_put(struct i915_vma *vma)
- 	i915_gem_object_put(vma->obj);
- }
++	/* (re)initialize descriptors */
+ 	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
+ 		GEM_BUG_ON((i != CTB_SEND) && (i != CTB_RECV));
  
--static __always_inline ptrdiff_t ptrdiff(const void *a, const void *b)
--{
--	return a - b;
--}
--
- static inline long
- i915_vma_compare(struct i915_vma *vma,
- 		 struct i915_address_space *vm,
+-		cmds = base + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
++		cmds = base + ptrdiff(ct->ctbs[i].cmds, blob);
+ 		CT_DEBUG(ct, "%d: cmds addr=%#x\n", i, cmds);
+ 
+ 		guc_ct_buffer_reset(&ct->ctbs[i], cmds);
+@@ -269,12 +273,12 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 	 * Register both CT buffers starting with RECV buffer.
+ 	 * Descriptors are in first half of the blob.
+ 	 */
+-	err = ct_register_buffer(ct, base + PAGE_SIZE / 4 * CTB_RECV,
++	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_RECV].desc, blob),
+ 				 INTEL_GUC_CT_BUFFER_TYPE_RECV);
+ 	if (unlikely(err))
+ 		goto err_out;
+ 
+-	err = ct_register_buffer(ct, base + PAGE_SIZE / 4 * CTB_SEND,
++	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_SEND].desc, blob),
+ 				 INTEL_GUC_CT_BUFFER_TYPE_SEND);
+ 	if (unlikely(err))
+ 		goto err_deregister;
 -- 
 2.28.0
 
