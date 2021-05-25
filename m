@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D2D9C47086
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07E86C4707F
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1751A6140E
+	by mail.kernel.org (Postfix) with ESMTPS id CA4376140F
 	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 20:58:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1751A6140E
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA4376140F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33FC96EB09;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF1966EB03;
 	Tue, 25 May 2021 20:57:57 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73E0B6EAD7;
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D3276EADE;
  Tue, 25 May 2021 20:57:54 +0000 (UTC)
-IronPort-SDR: bYxmRVpR9q+tFKd4h004FgKAUjG54Gvup0ywlMQVV1NvRnS7Z0kboLajbsFAfn0mNmGBKBWK8h
- LCKH9hGmeBTg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="202318065"
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="202318065"
+IronPort-SDR: +OPDQ4XIITttFjCNJbPAQgUT8rjEbGu5cPCDybx5lOuX9iagEZ59ybsLx9HT6xaGQHjNNjuuU6
+ x0Xa7Gzj7aeg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="181941925"
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="181941925"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 13:57:53 -0700
-IronPort-SDR: o4X8GVAN4hcRJFtnHuNh40Kg2nqXWMKYOQK5RCeWHR/1ZkU5rZapusSnASqkTwukarUrT9AFHO
- 7XKpG8uvWPIA==
-X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="443603535"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 May 2021 13:57:54 -0700
+IronPort-SDR: wZT9xqktsVz0pbLqQsbKHI51n001oZ8yakl9+EN0z+IuHicSnmyB9OLypFArS/O7ydwSFF84QE
+ KEWdEnHyR2lw==
+X-IronPort-AV: E=Sophos;i="5.82,329,1613462400"; d="scan'208";a="443603549"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 13:57:53 -0700
+ 25 May 2021 13:57:54 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 14:15:30 -0700
-Message-Id: <20210525211541.87696-7-matthew.brost@intel.com>
+Date: Tue, 25 May 2021 14:15:34 -0700
+Message-Id: <20210525211541.87696-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210525211541.87696-1-matthew.brost@intel.com>
 References: <20210525211541.87696-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/17] drm/i915/guc: Stop using fence/status
- from CTB descriptor
+Subject: [Intel-gfx] [PATCH 10/17] drm/i915/guc: Replace CTB array with
+ explicit members
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,155 +66,145 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-Stop using fence/status from CTB descriptor as future GuC ABI will
-no longer support replies over CTB descriptor.
+Upcoming GuC firmware will always require just two CTBs and we
+also plan to configure them with different sizes, so definining
+them as array is no longer suitable.
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gt/uc/abi/guc_communication_ctb_abi.h     |  4 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 72 ++-----------------
- 2 files changed, 6 insertions(+), 70 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 46 ++++++++++++-----------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  7 +++-
+ 2 files changed, 30 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-index ebd8c3e0e4bb..d38935f47ecf 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-@@ -71,8 +71,8 @@ struct guc_ct_buffer_desc {
- 	u32 head;		/* offset updated by GuC*/
- 	u32 tail;		/* offset updated by owner */
- 	u32 is_in_error;	/* error indicator */
--	u32 fence;		/* fence updated by GuC */
--	u32 status;		/* status updated by GuC */
-+	u32 reserved1;
-+	u32 reserved2;
- 	u32 owner;		/* id of the channel owner */
- 	u32 owner_sub_id;	/* owner-defined field for extra tracking */
- 	u32 reserved[5];
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 25618649048f..4cc8c0b71699 100644
+index fbd6bd20f588..c54a29176862 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -90,13 +90,6 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc,
- 	desc->owner = CTB_OWNER_HOST;
- }
+@@ -168,10 +168,10 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+ 	struct intel_guc *guc = ct_to_guc(ct);
+ 	struct guc_ct_buffer_desc *desc;
+ 	u32 blob_size;
++	u32 cmds_size;
+ 	void *blob;
+ 	u32 *cmds;
+ 	int err;
+-	int i;
  
--static void guc_ct_buffer_desc_reset(struct guc_ct_buffer_desc *desc)
--{
--	desc->head = 0;
--	desc->tail = 0;
--	desc->is_in_error = 0;
--}
--
- static int guc_action_register_ct_buffer(struct intel_guc *guc,
- 					 u32 desc_addr,
- 					 u32 type)
-@@ -315,8 +308,7 @@ static u32 ct_get_next_fence(struct intel_guc_ct *ct)
- static int ct_write(struct intel_guc_ct *ct,
- 		    const u32 *action,
- 		    u32 len /* in dwords */,
--		    u32 fence,
--		    bool want_response)
-+		    u32 fence)
- {
- 	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_SEND];
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
-@@ -360,8 +352,7 @@ static int ct_write(struct intel_guc_ct *ct,
- 	 * DW2+: action data
- 	 */
- 	header = (len << GUC_CT_MSG_LEN_SHIFT) |
--		 (GUC_CT_MSG_WRITE_FENCE_TO_DESC) |
--		 (want_response ? GUC_CT_MSG_SEND_STATUS : 0) |
-+		 GUC_CT_MSG_SEND_STATUS |
- 		 (action[0] << GUC_CT_MSG_ACTION_SHIFT);
+ 	GEM_BUG_ON(ct->vma);
  
- 	CT_DEBUG(ct, "writing %*ph %*ph %*ph\n",
-@@ -390,56 +381,6 @@ static int ct_write(struct intel_guc_ct *ct,
- 	return -EPIPE;
- }
+@@ -207,15 +207,23 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
  
--/**
-- * wait_for_ctb_desc_update - Wait for the CT buffer descriptor update.
-- * @desc:	buffer descriptor
-- * @fence:	response fence
-- * @status:	placeholder for status
-- *
-- * Guc will update CT buffer descriptor with new fence and status
-- * after processing the command identified by the fence. Wait for
-- * specified fence and then read from the descriptor status of the
-- * command.
-- *
-- * Return:
-- * *	0 response received (status is valid)
-- * *	-ETIMEDOUT no response within hardcoded timeout
-- * *	-EPROTO no response, CT buffer is in error
-- */
--static int wait_for_ctb_desc_update(struct guc_ct_buffer_desc *desc,
--				    u32 fence,
--				    u32 *status)
--{
--	int err;
--
--	/*
--	 * Fast commands should complete in less than 10us, so sample quickly
--	 * up to that length of time, then switch to a slower sleep-wait loop.
--	 * No GuC command should ever take longer than 10ms.
--	 */
--#define done (READ_ONCE(desc->fence) == fence)
--	err = wait_for_us(done, 10);
--	if (err)
--		err = wait_for(done, 10);
--#undef done
--
--	if (unlikely(err)) {
--		DRM_ERROR("CT: fence %u failed; reported fence=%u\n",
--			  fence, desc->fence);
--
--		if (WARN_ON(desc->is_in_error)) {
--			/* Something went wrong with the messaging, try to reset
--			 * the buffer and hope for the best
--			 */
--			guc_ct_buffer_desc_reset(desc);
--			err = -EPROTO;
--		}
+ 	CT_DEBUG(ct, "base=%#x size=%u\n", intel_guc_ggtt_offset(guc, ct->vma), blob_size);
+ 
+-	/* store pointers to desc and cmds */
+-	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
+-		GEM_BUG_ON((i !=  CTB_SEND) && (i != CTB_RECV));
++	/* store pointers to desc and cmds for send ctb */
++	desc = blob;
++	cmds = blob + PAGE_SIZE / 2;
++	cmds_size = PAGE_SIZE / 4;
++	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "send",
++		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
+ 
+-		desc = blob + PAGE_SIZE / 4 * i;
+-		cmds = blob + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
++	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size);
+ 
+-		guc_ct_buffer_init(&ct->ctbs[i], desc, cmds, PAGE_SIZE / 4);
 -	}
++	/* store pointers to desc and cmds for recv ctb */
++	desc = blob + PAGE_SIZE / 4;
++	cmds = blob + PAGE_SIZE / 4 + PAGE_SIZE / 2;
++	cmds_size = PAGE_SIZE / 4;
++	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "recv",
++		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
++
++	guc_ct_buffer_init(&ct->ctbs.recv, desc, cmds, cmds_size);
+ 
+ 	return 0;
+ }
+@@ -246,7 +254,6 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 	u32 base, cmds;
+ 	void *blob;
+ 	int err;
+-	int i;
+ 
+ 	GEM_BUG_ON(ct->enabled);
+ 
+@@ -257,28 +264,25 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 
+ 	/* blob should start with send descriptor */
+ 	blob = __px_vaddr(ct->vma->obj);
+-	GEM_BUG_ON(blob != ct->ctbs[CTB_SEND].desc);
++	GEM_BUG_ON(blob != ct->ctbs.send.desc);
+ 
+ 	/* (re)initialize descriptors */
+-	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
+-		GEM_BUG_ON((i != CTB_SEND) && (i != CTB_RECV));
++	cmds = base + ptrdiff(ct->ctbs.send.cmds, blob);
++	guc_ct_buffer_reset(&ct->ctbs.send, cmds);
+ 
+-		cmds = base + ptrdiff(ct->ctbs[i].cmds, blob);
+-		CT_DEBUG(ct, "%d: cmds addr=%#x\n", i, cmds);
 -
--	*status = desc->status;
--	return err;
--}
--
- /**
-  * wait_for_ct_request_update - Wait for CT request state update.
-  * @req:	pointer to pending request
-@@ -483,8 +424,6 @@ static int ct_send(struct intel_guc_ct *ct,
- 		   u32 response_buf_size,
- 		   u32 *status)
+-		guc_ct_buffer_reset(&ct->ctbs[i], cmds);
+-	}
++	cmds = base + ptrdiff(ct->ctbs.recv.cmds, blob);
++	guc_ct_buffer_reset(&ct->ctbs.recv, cmds);
+ 
+ 	/*
+ 	 * Register both CT buffers starting with RECV buffer.
+ 	 * Descriptors are in first half of the blob.
+ 	 */
+-	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_RECV].desc, blob),
++	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.recv.desc, blob),
+ 				 INTEL_GUC_CT_BUFFER_TYPE_RECV);
+ 	if (unlikely(err))
+ 		goto err_out;
+ 
+-	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_SEND].desc, blob),
++	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.send.desc, blob),
+ 				 INTEL_GUC_CT_BUFFER_TYPE_SEND);
+ 	if (unlikely(err))
+ 		goto err_deregister;
+@@ -341,7 +345,7 @@ static int ct_write(struct intel_guc_ct *ct,
+ 		    u32 len /* in dwords */,
+ 		    u32 fence)
  {
 -	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_SEND];
--	struct guc_ct_buffer_desc *desc = ctb->desc;
- 	struct ct_request request;
- 	unsigned long flags;
- 	u32 fence;
-@@ -505,16 +444,13 @@ static int ct_send(struct intel_guc_ct *ct,
- 	list_add_tail(&request.link, &ct->requests.pending);
- 	spin_unlock_irqrestore(&ct->requests.lock, flags);
++	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+ 	struct guc_ct_buffer_desc *desc = ctb->desc;
+ 	u32 head = desc->head;
+ 	u32 tail = desc->tail;
+@@ -557,7 +561,7 @@ static inline bool ct_header_is_response(u32 header)
  
--	err = ct_write(ct, action, len, fence, !!response_buf);
-+	err = ct_write(ct, action, len, fence);
- 	if (unlikely(err))
- 		goto unlink;
+ static int ct_read(struct intel_guc_ct *ct, u32 *data)
+ {
+-	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_RECV];
++	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
+ 	struct guc_ct_buffer_desc *desc = ctb->desc;
+ 	u32 head = desc->head;
+ 	u32 tail = desc->tail;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index 4009e2dd0de4..fc9486779e87 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -47,8 +47,11 @@ struct intel_guc_ct {
+ 	struct i915_vma *vma;
+ 	bool enabled;
  
- 	intel_guc_notify(ct_to_guc(ct));
+-	/* buffers for sending(0) and receiving(1) commands */
+-	struct intel_guc_ct_buffer ctbs[2];
++	/* buffers for sending and receiving commands */
++	struct {
++		struct intel_guc_ct_buffer send;
++		struct intel_guc_ct_buffer recv;
++	} ctbs;
  
--	if (response_buf)
--		err = wait_for_ct_request_update(&request, status);
--	else
--		err = wait_for_ctb_desc_update(desc, fence, status);
-+	err = wait_for_ct_request_update(&request, status);
- 	if (unlikely(err))
- 		goto unlink;
- 
+ 	struct {
+ 		u32 last_fence; /* last fence used to send request */
 -- 
 2.28.0
 
