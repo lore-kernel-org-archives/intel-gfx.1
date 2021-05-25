@@ -5,47 +5,47 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7945C2B9F8
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 05:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87C07C2B9F8
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 05:48:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8CADE6140E
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 05:48:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8CADE6140E
+	by mail.kernel.org (Postfix) with ESMTPS id 501256140E
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 May 2021 05:48:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 501256140E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95B0989133;
-	Tue, 25 May 2021 05:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9196A89176;
+	Tue, 25 May 2021 05:48:24 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41A806E138;
- Tue, 25 May 2021 05:48:14 +0000 (UTC)
-IronPort-SDR: BeHyeeBpWH05RlC1/I7J7hlt7KF6CsAp3J6o18ocJJMjqlF8KzX8ImcLGugt/UxRW6d4WSaPGf
- KoZ2QTlSf/LA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9994"; a="266005370"
-X-IronPort-AV: E=Sophos;i="5.82,327,1613462400"; d="scan'208";a="266005370"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2D7388EE3;
+ Tue, 25 May 2021 05:48:18 +0000 (UTC)
+IronPort-SDR: 56ZreM454PmBLnBuENSTmP8PeYJU2zcxpp9Ls5FXjoKuD6B+DwIKzP/nAfp4gkrbM/06h6hvDS
+ v7j94AL4wbWQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9994"; a="266005389"
+X-IronPort-AV: E=Sophos;i="5.82,327,1613462400"; d="scan'208";a="266005389"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2021 22:48:14 -0700
-IronPort-SDR: vpobYGZgZrYdE49tWHz2Q6ogfntjbE67YDC/aBQHHT7+DiSoXNxyrBnHkFq0hDDOgNmVxzWtfM
- 5wr3LXYgBOxg==
-X-IronPort-AV: E=Sophos;i="5.82,327,1613462400"; d="scan'208";a="397231648"
+ 24 May 2021 22:48:18 -0700
+IronPort-SDR: YFJ7pIub+GahiEpEc1XrzDc/ddLwdPxHUGtoWqJ6SMQs01Yl5bioZAHD2bmvZRgfkoMq/M+QZN
+ 9FWBcepuiFGg==
+X-IronPort-AV: E=Sophos;i="5.82,327,1613462400"; d="scan'208";a="397231670"
 Received: from dceraolo-linux.fm.intel.com ([10.1.27.145])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2021 22:48:13 -0700
+ 24 May 2021 22:48:18 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 24 May 2021 22:47:47 -0700
-Message-Id: <20210525054803.7387-2-daniele.ceraolospurio@intel.com>
+Date: Mon, 24 May 2021 22:47:50 -0700
+Message-Id: <20210525054803.7387-5-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210525054803.7387-1-daniele.ceraolospurio@intel.com>
 References: <20210525054803.7387-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 01/17] drm/i915/pxp: Define PXP component
- interface
+Subject: [Intel-gfx] [PATCH v4 04/17] drm/i915/gt: Export the pinned context
+ constructor and destructor
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,54 +58,134 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhpcyB3aWxsIGJlIHVzZWQgZm9yIGNvbW11bmljYXRpb24gYmV0d2VlbiB0aGUgaTkxNSBkcml2
-ZXIgYW5kIHRoZSBtZWkKb25lLiBEZWZpbmluZyBpdCBpbiBhIHN0YW5kLWFsb25lIHBhdGNoIHRv
-IGF2b2lkIGNpcmN1YWxyIGRlcGVuZGVkZW5jaWVzCmJldHdlZW4gdGhlIHBhdGNoZXMgbW9kaWZ5
-aW5nIHRoZSAyIGRyaXZlcnMuCgpTcGxpdCBvdXQgZnJvbSBhbiBvcmlnaW5hbCBwYXRjaCBmcm9t
-ICBIdWFuZywgU2VhbiBaCgp2MjogcmVuYW1lIHRoZSBjb21wb25lbnQgc3RydWN0IChSb2RyaWdv
-KQoKU2lnbmVkLW9mZi1ieTogRGFuaWVsZSBDZXJhb2xvIFNwdXJpbyA8ZGFuaWVsZS5jZXJhb2xv
-c3B1cmlvQGludGVsLmNvbT4KQ2M6IFJvZHJpZ28gVml2aSA8cm9kcmlnby52aXZpQGludGVsLmNv
-bT4KUmV2aWV3ZWQtYnk6IFJvZHJpZ28gVml2aSA8cm9kcmlnby52aXZpQGludGVsLmNvbT4KLS0t
-CiBpbmNsdWRlL2RybS9pOTE1X2NvbXBvbmVudC5oICAgICAgICAgfCAgMSArCiBpbmNsdWRlL2Ry
-bS9pOTE1X3B4cF90ZWVfaW50ZXJmYWNlLmggfCA0NSArKysrKysrKysrKysrKysrKysrKysrKysr
-KysrCiAyIGZpbGVzIGNoYW5nZWQsIDQ2IGluc2VydGlvbnMoKykKIGNyZWF0ZSBtb2RlIDEwMDY0
-NCBpbmNsdWRlL2RybS9pOTE1X3B4cF90ZWVfaW50ZXJmYWNlLmgKCmRpZmYgLS1naXQgYS9pbmNs
-dWRlL2RybS9pOTE1X2NvbXBvbmVudC5oIGIvaW5jbHVkZS9kcm0vaTkxNV9jb21wb25lbnQuaApp
-bmRleCA1NWMzYjEyMzU4MWIuLmMxZTJhNDNkMmQxZSAxMDA2NDQKLS0tIGEvaW5jbHVkZS9kcm0v
-aTkxNV9jb21wb25lbnQuaAorKysgYi9pbmNsdWRlL2RybS9pOTE1X2NvbXBvbmVudC5oCkBAIC0y
-OSw2ICsyOSw3IEBACiBlbnVtIGk5MTVfY29tcG9uZW50X3R5cGUgewogCUk5MTVfQ09NUE9ORU5U
-X0FVRElPID0gMSwKIAlJOTE1X0NPTVBPTkVOVF9IRENQLAorCUk5MTVfQ09NUE9ORU5UX1BYUAog
-fTsKIAogLyogTUFYX1BPUlQgaXMgdGhlIG51bWJlciBvZiBwb3J0CmRpZmYgLS1naXQgYS9pbmNs
-dWRlL2RybS9pOTE1X3B4cF90ZWVfaW50ZXJmYWNlLmggYi9pbmNsdWRlL2RybS9pOTE1X3B4cF90
-ZWVfaW50ZXJmYWNlLmgKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwMDAwLi4w
-OWI4Mzg5MTUyYWYKLS0tIC9kZXYvbnVsbAorKysgYi9pbmNsdWRlL2RybS9pOTE1X3B4cF90ZWVf
-aW50ZXJmYWNlLmgKQEAgLTAsMCArMSw0NSBAQAorLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6
-IE1JVCAqLworLyoKKyAqIENvcHlyaWdodCDCqSAyMDIwIEludGVsIENvcnBvcmF0aW9uCisgKgor
-ICogQXV0aG9yczoKKyAqIFZpdGFseSBMdWJhcnQgPHZpdGFseS5sdWJhcnRAaW50ZWwuY29tPgor
-ICovCisKKyNpZm5kZWYgX0k5MTVfUFhQX1RFRV9JTlRFUkZBQ0VfSF8KKyNkZWZpbmUgX0k5MTVf
-UFhQX1RFRV9JTlRFUkZBQ0VfSF8KKworI2luY2x1ZGUgPGxpbnV4L211dGV4Lmg+CisjaW5jbHVk
-ZSA8bGludXgvZGV2aWNlLmg+CisKKy8qKgorICogc3RydWN0IGk5MTVfcHhwX2NvbXBvbmVudF9v
-cHMgLSBvcHMgZm9yIFBYUCBzZXJ2aWNlcy4KKyAqIEBvd25lcjogTW9kdWxlIHByb3ZpZGluZyB0
-aGUgb3BzCisgKiBAc2VuZDogc2VuZHMgZGF0YSB0byBQWFAKKyAqIEByZWNlaXZlOiByZWNlaXZl
-cyBkYXRhIGZyb20gUFhQCisgKi8KK3N0cnVjdCBpOTE1X3B4cF9jb21wb25lbnRfb3BzIHsKKwkv
-KioKKwkgKiBAb3duZXI6IG93bmVyIG9mIHRoZSBtb2R1bGUgcHJvdmRpbmcgdGhlIG9wcworCSAq
-LworCXN0cnVjdCBtb2R1bGUgKm93bmVyOworCisJaW50ICgqc2VuZCkoc3RydWN0IGRldmljZSAq
-ZGV2LCBjb25zdCB2b2lkICptZXNzYWdlLCBzaXplX3Qgc2l6ZSk7CisJaW50ICgqcmVjdikoc3Ry
-dWN0IGRldmljZSAqZGV2LCB2b2lkICpidWZmZXIsIHNpemVfdCBzaXplKTsKK307CisKKy8qKgor
-ICogc3RydWN0IGk5MTVfcHhwX2NvbXBvbmVudCAtIFVzZWQgZm9yIGNvbW11bmljYXRpb24gYmV0
-d2VlbiBpOTE1IGFuZCBURUUKKyAqIGRyaXZlcnMgZm9yIHRoZSBQWFAgc2VydmljZXMKKyAqIEB0
-ZWVfZGV2OiBkZXZpY2UgdGhhdCBwcm92aWRlIHRoZSBQWFAgc2VydmljZSBmcm9tIFRFRSBCdXMu
-CisgKiBAcHhwX29wczogT3BzIGltcGxlbWVudGVkIGJ5IFRFRSBkcml2ZXIsIHVzZWQgYnkgaTkx
-NSBkcml2ZXIuCisgKi8KK3N0cnVjdCBpOTE1X3B4cF9jb21wb25lbnQgeworCXN0cnVjdCBkZXZp
-Y2UgKnRlZV9kZXY7CisJY29uc3Qgc3RydWN0IGk5MTVfcHhwX2NvbXBvbmVudF9vcHMgKm9wczsK
-KworCS8qIFRvIHByb3RlY3QgdGhlIGFib3ZlIG1lbWJlcnMuICovCisJc3RydWN0IG11dGV4IG11
-dGV4OworfTsKKworI2VuZGlmIC8qIF9JOTE1X1RFRV9QWFBfSU5URVJGQUNFX0hfICovCi0tIAoy
-LjI5LjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCklu
-dGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+From: Chris Wilson <chris@chris-wilson.co.uk>
+
+Allow internal clients to create a pinned context.
+
+v2 (Daniele): export destructor as well, allow optional usage of custom
+vm for maximum flexibility.
+
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine.h    | 10 ++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 29 +++++++++++++++--------
+ 2 files changed, 29 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 47ee8578e511..a64d28aba257 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -18,7 +18,9 @@
+ #include "intel_workarounds.h"
+ 
+ struct drm_printer;
++struct intel_context;
+ struct intel_gt;
++struct lock_class_key;
+ 
+ /* Early gen2 devices have a cacheline of just 32 bytes, using 64 is overkill,
+  * but keeps the logic simple. Indeed, the whole purpose of this macro is just
+@@ -255,6 +257,14 @@ struct i915_request *
+ intel_engine_find_active_request(struct intel_engine_cs *engine);
+ 
+ u32 intel_engine_context_size(struct intel_gt *gt, u8 class);
++struct intel_context *
++intel_engine_create_pinned_context(struct intel_engine_cs *engine,
++				   struct i915_address_space *vm,
++				   unsigned int ring_size,
++				   unsigned int hwsp,
++				   struct lock_class_key *key,
++				   const char *name);
++void intel_engine_destroy_pinned_context(struct intel_context *ce);
+ 
+ void intel_engine_init_active(struct intel_engine_cs *engine,
+ 			      unsigned int subclass);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index eba2da9679a5..8cbf11497e8e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -801,11 +801,13 @@ intel_engine_init_active(struct intel_engine_cs *engine, unsigned int subclass)
+ #endif
+ }
+ 
+-static struct intel_context *
+-create_pinned_context(struct intel_engine_cs *engine,
+-		      unsigned int hwsp,
+-		      struct lock_class_key *key,
+-		      const char *name)
++struct intel_context *
++intel_engine_create_pinned_context(struct intel_engine_cs *engine,
++				   struct i915_address_space *vm,
++				   unsigned int ring_size,
++				   unsigned int hwsp,
++				   struct lock_class_key *key,
++				   const char *name)
+ {
+ 	struct intel_context *ce;
+ 	int err;
+@@ -816,6 +818,12 @@ create_pinned_context(struct intel_engine_cs *engine,
+ 
+ 	__set_bit(CONTEXT_BARRIER_BIT, &ce->flags);
+ 	ce->timeline = page_pack_bits(NULL, hwsp);
++	ce->ring = __intel_context_ring_size(ring_size);
++
++	if (vm) {
++		i915_vm_put(ce->vm);
++		ce->vm = i915_vm_get(vm);
++	}
+ 
+ 	err = intel_context_pin(ce); /* perma-pin so it is always available */
+ 	if (err) {
+@@ -834,7 +842,7 @@ create_pinned_context(struct intel_engine_cs *engine,
+ 	return ce;
+ }
+ 
+-static void destroy_pinned_context(struct intel_context *ce)
++void intel_engine_destroy_pinned_context(struct intel_context *ce)
+ {
+ 	struct intel_engine_cs *engine = ce->engine;
+ 	struct i915_vma *hwsp = engine->status_page.vma;
+@@ -854,8 +862,9 @@ create_kernel_context(struct intel_engine_cs *engine)
+ {
+ 	static struct lock_class_key kernel;
+ 
+-	return create_pinned_context(engine, I915_GEM_HWS_SEQNO_ADDR,
+-				     &kernel, "kernel_context");
++	return intel_engine_create_pinned_context(engine, NULL, SZ_4K,
++						  I915_GEM_HWS_SEQNO_ADDR,
++						  &kernel, "kernel_context");
+ }
+ 
+ /**
+@@ -898,7 +907,7 @@ static int engine_init_common(struct intel_engine_cs *engine)
+ 	return 0;
+ 
+ err_context:
+-	destroy_pinned_context(ce);
++	intel_engine_destroy_pinned_context(ce);
+ 	return ret;
+ }
+ 
+@@ -956,7 +965,7 @@ void intel_engine_cleanup_common(struct intel_engine_cs *engine)
+ 		fput(engine->default_state);
+ 
+ 	if (engine->kernel_context)
+-		destroy_pinned_context(engine->kernel_context);
++		intel_engine_destroy_pinned_context(engine->kernel_context);
+ 
+ 	GEM_BUG_ON(!llist_empty(&engine->barrier_tasks));
+ 	cleanup_status_page(engine);
+-- 
+2.29.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
