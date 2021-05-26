@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_NONE,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CF1B1C47089
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:03:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D71FC47088
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:03:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92481613DC
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:03:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92481613DC
+	by mail.kernel.org (Postfix) with ESMTPS id E8E21613DC
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:03:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8E21613DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 817226EDDE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E82FE6EDE1;
 	Wed, 26 May 2021 22:03:01 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7976EDD7
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 May 2021 22:02:59 +0000 (UTC)
-IronPort-SDR: 54/ehFeni3RychNRuoLs+E68YeN9MPpIb7DJ2J6Nkgton98qDP9RSoSnOOSy/GB6p3Rldmobx9
- s2Xq4VvL+JBQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223784512"
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223784512"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BA0C6EDD7
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 May 2021 22:02:58 +0000 (UTC)
+IronPort-SDR: L72zKol5aVNsPxXEUi5AtkKFpIBAHUsYyNWNKFiV/oXj9k6Ko/lzEjuvZCgJ7FokbrdLf6lDAd
+ momNLPfGFvIw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223784508"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223784508"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 15:02:59 -0700
-IronPort-SDR: H/xmYqLlVF5dmk8ttDn1WuIvzwR0UO1bKO7aJh825H+S/XGay3rj5eZdoWjgMled9guhPbuE9k
- YU8Vqm6BbtaQ==
+ 26 May 2021 15:02:58 -0700
+IronPort-SDR: I+2fpe1Gv4XN42DUgHCjSYDHes0Dq/7mQhxRf+pYS0aBhPGZJ4xUv9Lj6FJsSkkkjJxIkOjiw9
+ fzqajPfGzTsw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="477154549"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="477154532"
 Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
- by orsmga001.jf.intel.com with ESMTP; 26 May 2021 15:02:59 -0700
+ by orsmga001.jf.intel.com with ESMTP; 26 May 2021 15:02:58 -0700
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 May 2021 15:02:56 -0700
-Message-Id: <20210526220256.4097-4-anusha.srivatsa@intel.com>
+Date: Wed, 26 May 2021 15:02:54 -0700
+Message-Id: <20210526220256.4097-2-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20210526220256.4097-1-anusha.srivatsa@intel.com>
 References: <20210526220256.4097-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 3/3] drm/i915/dmc: Move struct intel_dmc to
- intel_dmc.h
+Subject: [Intel-gfx] [CI 1/3] drm/i915/dmc: s/DRM_ERROR/drm_err
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,58 +58,187 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-TW92ZSBzdHJ1Y3QgaW50ZWxfZG1jIGZyb20gaTkxNV9kcnYuaCB0byBpbnRlbF9kbWMuaC4KCnYy
-OiBBZGQgaW5jbHVkZXMgYWxvbmcgd2l0aCBtb3ZpbmcgdGhlIHN0cnVjdC4KClJldmlld2VkLWJ5
-OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4KUmV2aWV3ZWQt
-Ynk6IEx1Y2FzIERlIE1hcmNoaSA8bHVjYXMuZGVtYXJjaGlAaW50ZWwuY29tPgpTaWduZWQtb2Zm
-LWJ5OiBBbnVzaGEgU3JpdmF0c2EgPGFudXNoYS5zcml2YXRzYUBpbnRlbC5jb20+Ci0tLQogZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kbWMuaCB8IDIxICsrKysrKysrKysrKysr
-KysrKysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCAgICAgICAgICB8IDE4ICst
-LS0tLS0tLS0tLS0tLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCspLCAxNyBk
-ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
-dGVsX2RtYy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kbWMuaAppbmRl
-eCA2NDgxNmY0YTcxYjYuLjRjMjJmNTY3YjYxYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZGlzcGxheS9pbnRlbF9kbWMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
-bGF5L2ludGVsX2RtYy5oCkBAIC02LDEyICs2LDMzIEBACiAjaWZuZGVmIF9fSU5URUxfRE1DX0hf
-XwogI2RlZmluZSBfX0lOVEVMX0RNQ19IX18KIAorI2luY2x1ZGUgImk5MTVfcmVnLmgiCisjaW5j
-bHVkZSAiaW50ZWxfd2FrZXJlZi5oIgorI2luY2x1ZGUgPGxpbnV4L3dvcmtxdWV1ZS5oPgorCiBz
-dHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZTsKIAogI2RlZmluZSBETUNfVkVSU0lPTihtYWpvciwgbWlu
-b3IpCSgobWFqb3IpIDw8IDE2IHwgKG1pbm9yKSkKICNkZWZpbmUgRE1DX1ZFUlNJT05fTUFKT1Io
-dmVyc2lvbikJKCh2ZXJzaW9uKSA+PiAxNikKICNkZWZpbmUgRE1DX1ZFUlNJT05fTUlOT1IodmVy
-c2lvbikJKCh2ZXJzaW9uKSAmIDB4ZmZmZikKIAorc3RydWN0IGludGVsX2RtYyB7CisJc3RydWN0
-IHdvcmtfc3RydWN0IHdvcms7CisJY29uc3QgY2hhciAqZndfcGF0aDsKKwl1MzIgcmVxdWlyZWRf
-dmVyc2lvbjsKKwl1MzIgbWF4X2Z3X3NpemU7IC8qIGJ5dGVzICovCisJdTMyICpkbWNfcGF5bG9h
-ZDsKKwl1MzIgZG1jX2Z3X3NpemU7IC8qIGR3b3JkcyAqLworCXUzMiB2ZXJzaW9uOworCXUzMiBt
-bWlvX2NvdW50OworCWk5MTVfcmVnX3QgbW1pb2FkZHJbMjBdOworCXUzMiBtbWlvZGF0YVsyMF07
-CisJdTMyIGRjX3N0YXRlOworCXUzMiB0YXJnZXRfZGNfc3RhdGU7CisJdTMyIGFsbG93ZWRfZGNf
-bWFzazsKKwlpbnRlbF93YWtlcmVmX3Qgd2FrZXJlZjsKK307CisKIHZvaWQgaW50ZWxfZG1jX3Vj
-b2RlX2luaXQoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpOwogdm9pZCBpbnRlbF9kbWNf
-bG9hZF9wcm9ncmFtKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1KTsKIHZvaWQgaW50ZWxf
-ZG1jX3Vjb2RlX2Zpbmkoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpOwpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2k5MTVfZHJ2LmgKaW5kZXggMGY2ZDI3ZGE2OWFjLi4wYzYzMDFiMjhjMzcgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvaTkxNV9kcnYuaApAQCAtNjcsNiArNjcsNyBAQAogI2luY2x1ZGUgImRpc3BsYXkvaW50ZWxf
-Ymlvcy5oIgogI2luY2x1ZGUgImRpc3BsYXkvaW50ZWxfZGlzcGxheS5oIgogI2luY2x1ZGUgImRp
-c3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5oIgorI2luY2x1ZGUgImRpc3BsYXkvaW50ZWxfZG1j
-LmgiCiAjaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9kcGxsX21nci5oIgogI2luY2x1ZGUgImRpc3Bs
-YXkvaW50ZWxfZHNiLmgiCiAjaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9mcm9udGJ1ZmZlci5oIgpA
-QCAtMzI4LDIzICszMjksNiBAQCBzdHJ1Y3QgZHJtX2k5MTVfZGlzcGxheV9mdW5jcyB7CiAJdm9p
-ZCAoKnJlYWRfbHV0cykoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpOwogfTsK
-IAotc3RydWN0IGludGVsX2RtYyB7Ci0Jc3RydWN0IHdvcmtfc3RydWN0IHdvcms7Ci0JY29uc3Qg
-Y2hhciAqZndfcGF0aDsKLQl1MzIgcmVxdWlyZWRfdmVyc2lvbjsKLQl1MzIgbWF4X2Z3X3NpemU7
-IC8qIGJ5dGVzICovCi0JdTMyICpkbWNfcGF5bG9hZDsKLQl1MzIgZG1jX2Z3X3NpemU7IC8qIGR3
-b3JkcyAqLwotCXUzMiB2ZXJzaW9uOwotCXUzMiBtbWlvX2NvdW50OwotCWk5MTVfcmVnX3QgbW1p
-b2FkZHJbMjBdOwotCXUzMiBtbWlvZGF0YVsyMF07Ci0JdTMyIGRjX3N0YXRlOwotCXUzMiB0YXJn
-ZXRfZGNfc3RhdGU7Ci0JdTMyIGFsbG93ZWRfZGNfbWFzazsKLQlpbnRlbF93YWtlcmVmX3Qgd2Fr
-ZXJlZjsKLX07Ci0KIGVudW0gaTkxNV9jYWNoZV9sZXZlbCB7CiAJSTkxNV9DQUNIRV9OT05FID0g
-MCwKIAlJOTE1X0NBQ0hFX0xMQywgLyogYWxzbyB1c2VkIGZvciBzbm9vcGFibGUgbWVtb3J5IG9u
-IG5vbi1MTEMgKi8KLS0gCjIuMjUuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vaW50ZWwtZ2Z4Cg==
+Use new format of debug messages across intel_csr.
+
+While at it, change some function definitions which now
+need dev_priv for drm_err and drm_info etc.
+
+v2: use container_of() (Jani)
+v3: Indentation fixes. (Jani)
+
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Suggested-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dmc.c | 50 ++++++++++++------------
+ 1 file changed, 26 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index 560574dd929a..5e9c0b509034 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -395,6 +395,7 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 			       const struct intel_dmc_header_base *dmc_header,
+ 			       size_t rem_size)
+ {
++	struct drm_i915_private *i915 = container_of(dmc, typeof(*i915), dmc);
+ 	unsigned int header_len_bytes, dmc_header_size, payload_size, i;
+ 	const u32 *mmioaddr, *mmiodata;
+ 	u32 mmio_count, mmio_count_max;
+@@ -439,28 +440,28 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 		header_len_bytes = dmc_header->header_len;
+ 		dmc_header_size = sizeof(*v1);
+ 	} else {
+-		DRM_ERROR("Unknown DMC fw header version: %u\n",
+-			  dmc_header->header_ver);
++		drm_err(&i915->drm, "Unknown DMC fw header version: %u\n",
++			dmc_header->header_ver);
+ 		return 0;
+ 	}
+ 
+ 	if (header_len_bytes != dmc_header_size) {
+-		DRM_ERROR("DMC firmware has wrong dmc header length "
+-			  "(%u bytes)\n", header_len_bytes);
++		drm_err(&i915->drm, "DMC firmware has wrong dmc header length "
++			"(%u bytes)\n", header_len_bytes);
+ 		return 0;
+ 	}
+ 
+ 	/* Cache the dmc header info. */
+ 	if (mmio_count > mmio_count_max) {
+-		DRM_ERROR("DMC firmware has wrong mmio count %u\n", mmio_count);
++		drm_err(&i915->drm, "DMC firmware has wrong mmio count %u\n", mmio_count);
+ 		return 0;
+ 	}
+ 
+ 	for (i = 0; i < mmio_count; i++) {
+ 		if (mmioaddr[i] < DMC_MMIO_START_RANGE ||
+ 		    mmioaddr[i] > DMC_MMIO_END_RANGE) {
+-			DRM_ERROR("DMC firmware has wrong mmio address 0x%x\n",
+-				  mmioaddr[i]);
++			drm_err(&i915->drm, "DMC firmware has wrong mmio address 0x%x\n",
++				mmioaddr[i]);
+ 			return 0;
+ 		}
+ 		dmc->mmioaddr[i] = _MMIO(mmioaddr[i]);
+@@ -476,16 +477,14 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 		goto error_truncated;
+ 
+ 	if (payload_size > dmc->max_fw_size) {
+-		DRM_ERROR("DMC FW too big (%u bytes)\n", payload_size);
++		drm_err(&i915->drm, "DMC FW too big (%u bytes)\n", payload_size);
+ 		return 0;
+ 	}
+ 	dmc->dmc_fw_size = dmc_header->fw_size;
+ 
+ 	dmc->dmc_payload = kmalloc(payload_size, GFP_KERNEL);
+-	if (!dmc->dmc_payload) {
+-		DRM_ERROR("Memory allocation failed for dmc payload\n");
++	if (!dmc->dmc_payload)
+ 		return 0;
+-	}
+ 
+ 	payload = (u8 *)(dmc_header) + header_len_bytes;
+ 	memcpy(dmc->dmc_payload, payload, payload_size);
+@@ -493,7 +492,7 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 	return header_len_bytes + payload_size;
+ 
+ error_truncated:
+-	DRM_ERROR("Truncated DMC firmware, refusing.\n");
++	drm_err(&i915->drm, "Truncated DMC firmware, refusing.\n");
+ 	return 0;
+ }
+ 
+@@ -503,6 +502,7 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
+ 		     const struct stepping_info *si,
+ 		     size_t rem_size)
+ {
++	struct drm_i915_private *i915 = container_of(dmc, typeof(*i915), dmc);
+ 	u32 package_size = sizeof(struct intel_package_header);
+ 	u32 num_entries, max_entries, dmc_offset;
+ 	const struct intel_fw_info *fw_info;
+@@ -515,8 +515,8 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
+ 	} else if (package_header->header_ver == 2) {
+ 		max_entries = PACKAGE_V2_MAX_FW_INFO_ENTRIES;
+ 	} else {
+-		DRM_ERROR("DMC firmware has unknown header version %u\n",
+-			  package_header->header_ver);
++		drm_err(&i915->drm, "DMC firmware has unknown header version %u\n",
++			package_header->header_ver);
+ 		return 0;
+ 	}
+ 
+@@ -529,8 +529,8 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
+ 		goto error_truncated;
+ 
+ 	if (package_header->header_len * 4 != package_size) {
+-		DRM_ERROR("DMC firmware has wrong package header length "
+-			  "(%u bytes)\n", package_size);
++		drm_err(&i915->drm, "DMC firmware has wrong package header length "
++			"(%u bytes)\n", package_size);
+ 		return 0;
+ 	}
+ 
+@@ -543,8 +543,8 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
+ 	dmc_offset = find_dmc_fw_offset(fw_info, num_entries, si,
+ 					package_header->header_ver);
+ 	if (dmc_offset == DMC_DEFAULT_FW_OFFSET) {
+-		DRM_ERROR("DMC firmware not supported for %c stepping\n",
+-			  si->stepping);
++		drm_err(&i915->drm, "DMC firmware not supported for %c stepping\n",
++			si->stepping);
+ 		return 0;
+ 	}
+ 
+@@ -552,7 +552,7 @@ parse_dmc_fw_package(struct intel_dmc *dmc,
+ 	return package_size + dmc_offset * 4;
+ 
+ error_truncated:
+-	DRM_ERROR("Truncated DMC firmware, refusing.\n");
++	drm_err(&i915->drm, "Truncated DMC firmware, refusing.\n");
+ 	return 0;
+ }
+ 
+@@ -561,22 +561,24 @@ static u32 parse_dmc_fw_css(struct intel_dmc *dmc,
+ 			    struct intel_css_header *css_header,
+ 			    size_t rem_size)
+ {
++	struct drm_i915_private *i915 = container_of(dmc, typeof(*i915), dmc);
++
+ 	if (rem_size < sizeof(struct intel_css_header)) {
+-		DRM_ERROR("Truncated DMC firmware, refusing.\n");
++		drm_err(&i915->drm, "Truncated DMC firmware, refusing.\n");
+ 		return 0;
+ 	}
+ 
+ 	if (sizeof(struct intel_css_header) !=
+ 	    (css_header->header_len * 4)) {
+-		DRM_ERROR("DMC firmware has wrong CSS header length "
+-			  "(%u bytes)\n",
+-			  (css_header->header_len * 4));
++		drm_err(&i915->drm, "DMC firmware has wrong CSS header length "
++			"(%u bytes)\n",
++			(css_header->header_len * 4));
+ 		return 0;
+ 	}
+ 
+ 	if (dmc->required_version &&
+ 	    css_header->version != dmc->required_version) {
+-		DRM_INFO("Refusing to load DMC firmware v%u.%u,"
++		drm_info(&i915->drm, "Refusing to load DMC firmware v%u.%u,"
+ 			 " please use v%u.%u\n",
+ 			 DMC_VERSION_MAJOR(css_header->version),
+ 			 DMC_VERSION_MINOR(css_header->version),
+-- 
+2.25.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
