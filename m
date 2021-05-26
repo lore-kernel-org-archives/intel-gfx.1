@@ -6,48 +6,44 @@ X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E783C47080
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96D6FC47092
 	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 095146138C
+	by mail.kernel.org (Postfix) with ESMTPS id 664AE61287
 	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 095146138C
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 664AE61287
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D01B6EA53;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C4D86EA54;
 	Tue,  1 Jun 2021 12:51:40 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E8006E8BD;
- Thu, 27 May 2021 12:53:39 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B984D6109F;
- Thu, 27 May 2021 12:53:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7D726E0E3;
+ Wed, 26 May 2021 15:53:32 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 063E7611CD;
+ Wed, 26 May 2021 15:53:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622120018;
- bh=mnHenbEzMbQdhDrGu816+dyeKu927RlHNDgNBf8bfNk=;
+ s=k20201202; t=1622044412;
+ bh=OnL/4Jq+LKq6vWvDBS0xA9CvVYxTMOTBjml/zh+3Ar0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T2Q+xyFZywvya0fPBfvK4sRdbR/bde8Rq8P4FN21AACPVaQSQsdEc0x2+0v5r+abP
- 3/8E7TEJSHcMhmUgcHo1bhdAA9AfzEMLppzT6/0P8DePbBmTljtDkX4NEtYRaHLEM1
- Gnn3YP4aa748IT6RrSs7VU9Pqy8c4Xvink86bWS+UgwCuEehm3hOhTqBJaoQ8WPXJq
- ulYWtbHvYOw84jAR1SH3F2sv+RGThyTfyzG8N3saQSkF5BsBVg+8LW53nliUGD6EFQ
- 5/RBGn2iLBX38fmxUgOxq5fMNgVhtClQMCVzqiJ/tPC3LfS/b2F3cV49KGjPHavT/f
- X+zziZDTtPkzw==
-Date: Thu, 27 May 2021 13:53:28 +0100
+ b=B4UuFsxu1r3HigmEjVwQF/otX4DrMd38lSSUyIbdumWlwAz4mqWFVwTfX3tV+cLTK
+ ezumxJCPuSoiNTejbR/1l7Q+EyQuGnIdMF026YW9wZDBrp0Etki3m3VqLD3t52Z+ML
+ aIGQuwBPRYJXDmtAfPisyQiC2L9qX6xiRg823CR+7DK1ZJFKUWOyliFfy6nu3kEBra
+ 72iE6bgTyqyaVJ438e+wldUwZTA5bJjB+laj7DX9kULouD8NbVtF/6oVvQWdjQCza8
+ vTg4CtjTc7cs0vgmNuLf7hWhlxI/bnFdiE1zs5zIETRjnoBXmZKSOwwvGM2DpAYygJ
+ B11ILWs8v9zvg==
+Date: Wed, 26 May 2021 16:53:21 +0100
 From: Will Deacon <will@kernel.org>
 To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210527125328.GA22352@willie-the-truck>
+Message-ID: <20210526155321.GA19633@willie-the-truck>
 References: <20210518064215.2856977-1-tientzu@chromium.org>
  <20210518064215.2856977-15-tientzu@chromium.org>
  <20210526121322.GA19313@willie-the-truck>
- <20210526155321.GA19633@willie-the-truck>
- <CALiNf2_sVXnb97++yWusB5PWz8Pzfn9bCKZc6z3tY4bx6-nW8w@mail.gmail.com>
- <20210527113456.GA22019@willie-the-truck>
- <CALiNf2_Qk5DmZSJO+jv=m5V-VFtmL9j0v66UY6qKmM-2pr3tRQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CALiNf2_Qk5DmZSJO+jv=m5V-VFtmL9j0v66UY6qKmM-2pr3tRQ@mail.gmail.com>
+In-Reply-To: <20210526121322.GA19313@willie-the-truck>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Tue, 01 Jun 2021 12:51:14 +0000
 Subject: Re: [Intel-gfx] [PATCH v7 14/15] dt-bindings: of: Add restricted
@@ -64,82 +60,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Quinlan <james.quinlan@broadcom.com>, heikki.krogerus@linux.intel.com,
- linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
- benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
- Frank Rowand <frowand.list@gmail.com>, Christoph Hellwig <hch@lst.de>,
- Jianxiong Gao <jxgao@google.com>, sstabellini@kernel.org,
- Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, mingo@kernel.org,
+Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
+ peterz@infradead.org, benh@kernel.crashing.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
+ mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
+ sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
+ mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Christoph Hellwig <hch@lst.de>,
  Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
  linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, matthew.auld@intel.com,
- Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
- jgross@suse.com, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- intel-gfx@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- boris.ostrovsky@oracle.com, airlied@linux.ie,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- lkml <linux-kernel@vger.kernel.org>,
+ Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
+ jxgao@google.com, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ airlied@linux.ie, Dan Williams <dan.j.williams@intel.com>,
+ linuxppc-dev@lists.ozlabs.org, Rob Herring <robh+dt@kernel.org>,
+ bhelgaas@google.com, boris.ostrovsky@oracle.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
+ Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
+ tfiga@chromium.org,
  "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- xypron.glpk@gmx.de, linuxppc-dev@lists.ozlabs.org, bauerman@linux.ibm.com
+ Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
+ Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 27, 2021 at 08:48:59PM +0800, Claire Chang wrote:
-> On Thu, May 27, 2021 at 7:35 PM Will Deacon <will@kernel.org> wrote:
-> >
-> > On Thu, May 27, 2021 at 07:29:20PM +0800, Claire Chang wrote:
-> > > On Wed, May 26, 2021 at 11:53 PM Will Deacon <will@kernel.org> wrote:
-> > > >
-> > > > On Wed, May 26, 2021 at 01:13:22PM +0100, Will Deacon wrote:
-> > > > > On Tue, May 18, 2021 at 02:42:14PM +0800, Claire Chang wrote:
-> > > > > > @@ -138,4 +160,9 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
-> > > > > >             memory-region = <&multimedia_reserved>;
-> > > > > >             /* ... */
-> > > > > >     };
-> > > > > > +
-> > > > > > +   pcie_device: pcie_device@0,0 {
-> > > > > > +           memory-region = <&restricted_dma_mem_reserved>;
-> > > > > > +           /* ... */
-> > > > > > +   };
-> > > > >
-> > > > > I still don't understand how this works for individual PCIe devices -- how
-> > > > > is dev->of_node set to point at the node you have above?
-> > > > >
-> > > > > I tried adding the memory-region to the host controller instead, and then
-> > > > > I see it crop up in dmesg:
-> > > > >
-> > > > >   | pci-host-generic 40000000.pci: assigned reserved memory node restricted_dma_mem_reserved
-> > > > >
-> > > > > but none of the actual PCI devices end up with 'dma_io_tlb_mem' set, and
-> > > > > so the restricted DMA area is not used. In fact, swiotlb isn't used at all.
-> > > > >
-> > > > > What am I missing to make this work with PCIe devices?
-> > > >
-> > > > Aha, looks like we're just missing the logic to inherit the DMA
-> > > > configuration. The diff below gets things working for me.
-> > >
-> > > I guess what was missing is the reg property in the pcie_device node.
-> > > Will update the example dts.
-> >
-> > Thanks. I still think something like my diff makes sense, if you wouldn't mind including
-> > it, as it allows restricted DMA to be used for situations where the PCIe
-> > topology is not static.
-> >
-> > Perhaps we should prefer dev->of_node if it exists, but then use the node
-> > of the host bridge's parent node otherwise?
+On Wed, May 26, 2021 at 01:13:22PM +0100, Will Deacon wrote:
+> On Tue, May 18, 2021 at 02:42:14PM +0800, Claire Chang wrote:
+> > @@ -138,4 +160,9 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
+> >  		memory-region = <&multimedia_reserved>;
+> >  		/* ... */
+> >  	};
+> > +
+> > +	pcie_device: pcie_device@0,0 {
+> > +		memory-region = <&restricted_dma_mem_reserved>;
+> > +		/* ... */
+> > +	};
 > 
-> Sure. Let me add in the next version.
+> I still don't understand how this works for individual PCIe devices -- how
+> is dev->of_node set to point at the node you have above?
+> 
+> I tried adding the memory-region to the host controller instead, and then
+> I see it crop up in dmesg:
+> 
+>   | pci-host-generic 40000000.pci: assigned reserved memory node restricted_dma_mem_reserved
+> 
+> but none of the actual PCI devices end up with 'dma_io_tlb_mem' set, and
+> so the restricted DMA area is not used. In fact, swiotlb isn't used at all.
+> 
+> What am I missing to make this work with PCIe devices?
 
-Brill, thanks! I'll take it for a spin once it lands on the list.
+Aha, looks like we're just missing the logic to inherit the DMA
+configuration. The diff below gets things working for me.
 
 Will
+
+--->8
+
+diff --git a/drivers/of/address.c b/drivers/of/address.c
+index c562a9ff5f0b..bf499fdd6e93 100644
+--- a/drivers/of/address.c
++++ b/drivers/of/address.c
+@@ -1113,25 +1113,25 @@ bool of_dma_is_coherent(struct device_node *np)
+ }
+ EXPORT_SYMBOL_GPL(of_dma_is_coherent);
+ 
+-int of_dma_set_restricted_buffer(struct device *dev)
++int of_dma_set_restricted_buffer(struct device *dev, struct device_node *np)
+ {
+-	struct device_node *node;
+ 	int count, i;
+ 
+-	if (!dev->of_node)
++	if (!np)
+ 		return 0;
+ 
+-	count = of_property_count_elems_of_size(dev->of_node, "memory-region",
++	count = of_property_count_elems_of_size(np, "memory-region",
+ 						sizeof(phandle));
+ 	for (i = 0; i < count; i++) {
+-		node = of_parse_phandle(dev->of_node, "memory-region", i);
++		struct device_node *node;
++
++		node = of_parse_phandle(np, "memory-region", i);
+ 		/* There might be multiple memory regions, but only one
+-		 * restriced-dma-pool region is allowed.
++		 * restricted-dma-pool region is allowed.
+ 		 */
+ 		if (of_device_is_compatible(node, "restricted-dma-pool") &&
+ 		    of_device_is_available(node))
+-			return of_reserved_mem_device_init_by_idx(
+-				dev, dev->of_node, i);
++			return of_reserved_mem_device_init_by_idx(dev, np, i);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/of/device.c b/drivers/of/device.c
+index d8d865223e51..2defdca418ec 100644
+--- a/drivers/of/device.c
++++ b/drivers/of/device.c
+@@ -166,7 +166,7 @@ int of_dma_configure_id(struct device *dev, struct device_node *np,
+ 	arch_setup_dma_ops(dev, dma_start, size, iommu, coherent);
+ 
+ 	if (!iommu)
+-		return of_dma_set_restricted_buffer(dev);
++		return of_dma_set_restricted_buffer(dev, np);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
+index 9fc874548528..8fde97565d11 100644
+--- a/drivers/of/of_private.h
++++ b/drivers/of/of_private.h
+@@ -163,14 +163,15 @@ struct bus_dma_region;
+ #if defined(CONFIG_OF_ADDRESS) && defined(CONFIG_HAS_DMA)
+ int of_dma_get_range(struct device_node *np,
+ 		const struct bus_dma_region **map);
+-int of_dma_set_restricted_buffer(struct device *dev);
++int of_dma_set_restricted_buffer(struct device *dev, struct device_node *np);
+ #else
+ static inline int of_dma_get_range(struct device_node *np,
+ 		const struct bus_dma_region **map)
+ {
+ 	return -ENODEV;
+ }
+-static inline int of_dma_set_restricted_buffer(struct device *dev)
++static inline int of_dma_set_restricted_buffer(struct device *dev,
++					       struct device_node *np)
+ {
+ 	return -ENODEV;
+ }
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
