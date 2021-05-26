@@ -7,45 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE8FDC4708A
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91BE6C2B9F7
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BBA05613C9
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBA05613C9
+	by mail.kernel.org (Postfix) with ESMTPS id 5D9ED613C9
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D9ED613C9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 123DD6EC01;
-	Wed, 26 May 2021 06:24:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E35B86EC00;
+	Wed, 26 May 2021 06:24:54 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 968C66E48D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D97946EB7E;
  Wed, 26 May 2021 06:24:50 +0000 (UTC)
-IronPort-SDR: L28FcFG/w+z5Uy9An4bs1NlQ4+DYaWmiNFlGPH/+R0xy98qXrIoN9yFpWqbxkPbjGB65Cqgznw
- xGBSLvdIsqow==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033744"
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033744"
+IronPort-SDR: cSouGid5ZfThiGtzNi6kiiT174jwR6O+JWwFJNpe1KTyE9eiPnFNh0k9+8NYky/+Z4W5DGy2rx
+ USmxkSoFc1Nw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033740"
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033740"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 May 2021 23:24:49 -0700
-IronPort-SDR: 5gnzvpbzYjmkr6gJQdk0W5kUBcEKZPzG6ebxPxOJy2ps3NWzJpHedMCKY394pW5+4XVBU5bDXY
- ynszSvBGsgpg==
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376823"
+IronPort-SDR: pvx9JURigEYHKxkIsXUxDiQzVEcl7HzW8yCcFMBJqII3nD6kquQiTTYJ12J92tNT09PG5cEio2
+ FeyyWyd/C7ow==
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376813"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:49 -0700
+ 25 May 2021 23:24:47 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 23:42:31 -0700
-Message-Id: <20210526064237.77853-13-matthew.brost@intel.com>
+Date: Tue, 25 May 2021 23:42:19 -0700
+Message-Id: <20210526064237.77853-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210526064237.77853-1-matthew.brost@intel.com>
-References: <20210526064237.77853-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/18] drm/i915/guc: Update sizes of CTB buffers
+Subject: [Intel-gfx] [PATCH 00/18] Non-interface changing GuC CTBs updates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,110 +61,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+As discussed in [1] we are breaking that large series into a several
+smaller ones. This series is the non-interface changing part of step #2
+- it makes all the changes needed before updating the GuC firwmare to a
+new version without breaking any old interfaces.
 
-Future GuC will require CTB buffers sizes to be multiple of 4K.
-Make these changes now as this shouldn't impact us too much.
+A follow on series will be squashed into a single patch that updates the
+GuC firmware + the required interface changes.
 
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Patch number #13 needs an Ack from Michal Wajdeczko.
+Patch number #6, #15 need reviews.
+
+v2: Fix some checkpatch warnings, add patch number #6 to address CI
+failure [2] in first rev 
+
+[1] https://patchwork.freedesktop.org/series/89844/
+[2] https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20192/shard-tglb3/igt@gem_eio@in-flight-suspend.html
+
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Cc: John Harrison <john.c.harrison@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 60 ++++++++++++-----------
- 1 file changed, 32 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 6864819b75a9..916c2b80c841 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -38,6 +38,32 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
- #define CT_PROBE_ERROR(_ct, _fmt, ...) \
- 	i915_probe_error(ct_to_i915(ct), "CT: " _fmt, ##__VA_ARGS__)
- 
-+/**
-+ * DOC: CTB Blob
-+ *
-+ * We allocate single blob to hold both CTB descriptors and buffers:
-+ *
-+ *      +--------+-----------------------------------------------+------+
-+ *      | offset | contents                                      | size |
-+ *      +========+===============================================+======+
-+ *      | 0x0000 | H2G `CTB Descriptor`_ (send)                  |      |
-+ *      +--------+-----------------------------------------------+  4K  |
-+ *      | 0x0800 | G2H `CTB Descriptor`_ (recv)                  |      |
-+ *      +--------+-----------------------------------------------+------+
-+ *      | 0x1000 | H2G `CT Buffer`_ (send)                       | n*4K |
-+ *      |        |                                               |      |
-+ *      +--------+-----------------------------------------------+------+
-+ *      | 0x1000 | G2H `CT Buffer`_ (recv)                       | m*4K |
-+ *      | + n*4K |                                               |      |
-+ *      +--------+-----------------------------------------------+------+
-+ *
-+ * Size of each `CT Buffer`_ must be multiple of 4K.
-+ * As we don't expect too many messages, for now use minimum sizes.
-+ */
-+#define CTB_DESC_SIZE		ALIGN(sizeof(struct guc_ct_buffer_desc), SZ_2K)
-+#define CTB_H2G_BUFFER_SIZE	(SZ_4K)
-+#define CTB_G2H_BUFFER_SIZE	(SZ_4K)
-+
- struct ct_request {
- 	struct list_head link;
- 	u32 fence;
-@@ -175,29 +201,7 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
- 
- 	GEM_BUG_ON(ct->vma);
- 
--	/* We allocate 1 page to hold both descriptors and both buffers.
--	 *       ___________.....................
--	 *      |desc (SEND)|                   :
--	 *      |___________|                   PAGE/4
--	 *      :___________....................:
--	 *      |desc (RECV)|                   :
--	 *      |___________|                   PAGE/4
--	 *      :_______________________________:
--	 *      |cmds (SEND)                    |
--	 *      |                               PAGE/4
--	 *      |_______________________________|
--	 *      |cmds (RECV)                    |
--	 *      |                               PAGE/4
--	 *      |_______________________________|
--	 *
--	 * Each message can use a maximum of 32 dwords and we don't expect to
--	 * have more than 1 in flight at any time, so we have enough space.
--	 * Some logic further ahead will rely on the fact that there is only 1
--	 * page and that it is always mapped, so if the size is changed the
--	 * other code will need updating as well.
--	 */
--
--	blob_size = PAGE_SIZE;
-+	blob_size = 2 * CTB_DESC_SIZE + CTB_H2G_BUFFER_SIZE + CTB_G2H_BUFFER_SIZE;
- 	err = intel_guc_allocate_and_map_vma(guc, blob_size, &ct->vma, &blob);
- 	if (unlikely(err)) {
- 		CT_PROBE_ERROR(ct, "Failed to allocate %u for CTB data (%pe)\n",
-@@ -209,17 +213,17 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
- 
- 	/* store pointers to desc and cmds for send ctb */
- 	desc = blob;
--	cmds = blob + PAGE_SIZE / 2;
--	cmds_size = PAGE_SIZE / 4;
-+	cmds = blob + 2 * CTB_DESC_SIZE;
-+	cmds_size = CTB_H2G_BUFFER_SIZE;
- 	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "send",
- 		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
- 
- 	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size);
- 
- 	/* store pointers to desc and cmds for recv ctb */
--	desc = blob + PAGE_SIZE / 4;
--	cmds = blob + PAGE_SIZE / 4 + PAGE_SIZE / 2;
--	cmds_size = PAGE_SIZE / 4;
-+	desc = blob + CTB_DESC_SIZE;
-+	cmds = blob + 2 * CTB_DESC_SIZE + CTB_H2G_BUFFER_SIZE;
-+	cmds_size = CTB_G2H_BUFFER_SIZE;
- 	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "recv",
- 		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
- 
+Daniele Ceraolo Spurio (3):
+  drm/i915/guc: skip disabling CTBs before sanitizing the GuC
+  drm/i915/guc: use probe_error log for CT enablement failure
+  drm/i915/guc: enable only the user interrupt when using GuC submission
+
+Matthew Brost (2):
+  drm/i915/guc: Drop guc->interrupts.enabled
+  drm/i915/guc: Ensure H2G buffer updates visible before tail update
+
+Michal Wajdeczko (12):
+  drm/i915/guc: Keep strict GuC ABI definitions
+  drm/i915/guc: Stop using fence/status from CTB descriptor
+  drm/i915: Promote ptrdiff() to i915_utils.h
+  drm/i915/guc: Only rely on own CTB size
+  drm/i915/guc: Don't repeat CTB layout calculations
+  drm/i915/guc: Replace CTB array with explicit members
+  drm/i915/guc: Update sizes of CTB buffers
+  drm/i915/guc: Relax CTB response timeout
+  drm/i915/guc: Start protecting access to CTB descriptors
+  drm/i915/guc: Stop using mutex while sending CTB messages
+  drm/i915/guc: Don't receive all G2H messages in irq handler
+  drm/i915/guc: Always copy CT message to new allocation
+
+Rodrigo Vivi (1):
+  drm/i915/guc: Remove sample_forcewake h2g action
+
+ drivers/gpu/drm/i915/Kconfig.profile          |   9 +
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  18 +-
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |  51 ++
+ .../gt/uc/abi/guc_communication_ctb_abi.h     | 106 ++++
+ .../gt/uc/abi/guc_communication_mmio_abi.h    |  52 ++
+ .../gpu/drm/i915/gt/uc/abi/guc_errors_abi.h   |  14 +
+ .../gpu/drm/i915/gt/uc/abi/guc_messages_abi.h |  21 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  43 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 -
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 527 ++++++++++--------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  14 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   | 207 +------
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  31 --
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  10 -
+ drivers/gpu/drm/i915/i915_utils.h             |   5 +
+ drivers/gpu/drm/i915/i915_vma.h               |   5 -
+ 16 files changed, 605 insertions(+), 510 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/abi/guc_messages_abi.h
+
 -- 
 2.28.0
 
