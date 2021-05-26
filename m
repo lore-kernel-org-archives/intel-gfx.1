@@ -2,49 +2,46 @@ Return-Path: <SRS0=zXYq=KV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86637C47082
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A587DC47082
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:09:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3902D613CA
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:09:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3902D613CA
+	by mail.kernel.org (Postfix) with ESMTPS id 61BF1613CA
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:09:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61BF1613CA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D97F26E9E8;
-	Wed, 26 May 2021 22:09:09 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D18F6E9E8
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 May 2021 22:09:08 +0000 (UTC)
-IronPort-SDR: HRb/E+i6Yhsxdh7Bjo58Xg8t2qZHN4VdYRewCMxayD8yUf2f+Bdi7J3VxYlO+XnjTxzEw40QxD
- M5GYDC/1mCKw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="266484647"
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="266484647"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 084E46E8A9;
+	Wed, 26 May 2021 22:09:16 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AE4D6E8A9
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 May 2021 22:09:15 +0000 (UTC)
+IronPort-SDR: EF6oeL+toeI2Y8ePuLw0PtC6IIPZ78pQmVJ1lMK3mPJR2LqYN3NU0XiEToKKzVvh7bkjVrNMLG
+ Pf5hcGNxyVKw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="202600417"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="202600417"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 15:08:59 -0700
-IronPort-SDR: Nf0ynn4pXcfiliFErVlyhqsxAvnITcW1AYbH5GeRDFxDOpoS53LvJVlWTEotoSV9wHV+BnnQh/
- sbJ78Qoqoj8Q==
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2021 15:08:54 -0700
+IronPort-SDR: 6RFSfFPQe+A7SFwoz426Abg5Md1nk4h2XtlUoH12AE8keBr85vVjPXKlXfhoqIp5ZSoNJmdzJE
+ qYPPW1bDa5bQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="633689158"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="633689119"
 Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
- by fmsmga005.fm.intel.com with ESMTP; 26 May 2021 15:08:59 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 26 May 2021 15:08:54 -0700
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 May 2021 15:08:53 -0700
-Message-Id: <20210526220853.4550-8-anusha.srivatsa@intel.com>
+Date: Wed, 26 May 2021 15:08:46 -0700
+Message-Id: <20210526220853.4550-1-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.0
-In-Reply-To: <20210526220853.4550-1-anusha.srivatsa@intel.com>
-References: <20210526220853.4550-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 7/7] drm/i915/adl_p: Load DMC
+Subject: [Intel-gfx] [PATCH 0/7] Pipe DMC Support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,50 +54,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Load DMC v2.06 on ADLP. The release notes mention that
-this version enables few power savings features.
+This series is rebased on top of the new
+"Resend More DMC cleanup" series:
+https://patchwork.freedesktop.org/series/90635/
 
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Clint Taylor <clinton.a.taylor@intel.com>
-Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dmc.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Anusha Srivatsa (7):
+  drm/i915/dmc: s/DRM_ERROR/drm_err
+  drm/i915/dmc: Add intel_dmc_has_payload() helper
+  drm/i915/dmc: Move struct intel_dmc to intel_dmc.h
+  drm/i915/dmc: Introduce DMC_FW_MAIN
+  xdrm/i915/xelpd: Pipe A DMC plugging
+  drm/i915/adl_p: Pipe B DMC Support
+  drm/i915/adl_p: Load DMC
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index a111537f2ba8..79856dbec162 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -45,6 +45,10 @@
- 
- #define GEN12_DMC_MAX_FW_SIZE		ICL_DMC_MAX_FW_SIZE
- 
-+#define ADLP_DMC_PATH			"i915/adlp_dmc_ver2_10.bin"
-+#define ADLP_DMC_VERSION_REQUIRED	DMC_VERSION(2, 10)
-+MODULE_FIRMWARE(ADLP_DMC_PATH);
-+
- #define ADLS_DMC_PATH			DMC_PATH(adls, 2, 01)
- #define ADLS_DMC_VERSION_REQUIRED	DMC_VERSION(2, 1)
- MODULE_FIRMWARE(ADLS_DMC_PATH);
-@@ -720,7 +724,11 @@ void intel_dmc_ucode_init(struct drm_i915_private *dev_priv)
- 	 */
- 	intel_dmc_runtime_pm_get(dev_priv);
- 
--	if (IS_ALDERLAKE_S(dev_priv)) {
-+	if (IS_ALDERLAKE_P(dev_priv)) {
-+		dmc->fw_path = ADLP_DMC_PATH;
-+		dmc->required_version = ADLP_DMC_VERSION_REQUIRED;
-+		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
-+	} else if (IS_ALDERLAKE_S(dev_priv)) {
- 		dmc->fw_path = ADLS_DMC_PATH;
- 		dmc->required_version = ADLS_DMC_VERSION_REQUIRED;
- 		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
+ .../drm/i915/display/intel_display_debugfs.c  |  10 +-
+ .../drm/i915/display/intel_display_power.c    |  21 +-
+ drivers/gpu/drm/i915/display/intel_dmc.c      | 212 ++++++++++--------
+ drivers/gpu/drm/i915/display/intel_dmc.h      |  35 +++
+ drivers/gpu/drm/i915/i915_drv.h               |  18 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |   2 +-
+ drivers/gpu/drm/i915/i915_reg.h               |   2 +-
+ 7 files changed, 177 insertions(+), 123 deletions(-)
+
 -- 
 2.25.0
 
