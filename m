@@ -2,53 +2,69 @@ Return-Path: <SRS0=zXYq=KV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9B7CC47082
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:38:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 263D6C47082
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D6206108D
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D6206108D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E471461184
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:47:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E471461184
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B5FA6EDBE;
-	Wed, 26 May 2021 14:38:04 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22EE36EDA3;
- Wed, 26 May 2021 14:38:01 +0000 (UTC)
-IronPort-SDR: KWNmkJ1CM7Zmg8P2Lkwxr4o2gruB2eJVXF0B/1Uytb5VdX3IjDFxCvuInPuaUN6MmpjUg0EVln
- tM8dZw3sCDdw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="189857485"
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="189857485"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:38:01 -0700
-IronPort-SDR: 71E0ovy/GqX7eJCY2VdooB68HT3FQCbFmfiezQn9gjK2jtrNXaw6/RwMPiy8Fj/uxvgwxaMGQf
- HYwe7MJMOKBA==
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="476968841"
-Received: from astiegle-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.54.167])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:37:58 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Intel-gfx@lists.freedesktop.org
-In-Reply-To: <20210526141946.2347085-1-tvrtko.ursulin@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210526100006.2205062-1-tvrtko.ursulin@linux.intel.com>
- <20210526141946.2347085-1-tvrtko.ursulin@linux.intel.com>
-Date: Wed, 26 May 2021 17:37:54 +0300
-Message-ID: <87fsy9blx9.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 685A26EDAA;
+	Wed, 26 May 2021 14:47:45 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2254F6EDAC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 May 2021 14:47:45 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id f18so2853508ejq.10
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 May 2021 07:47:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=GYJiXj0ddj83L8aXFRzvFTEUKUN+B1Z6lPzHOBdtjm8=;
+ b=Gx64LBbNwLBBdNiZ+bV5ywxpe6PBhcnCmmLq6MfAhsshgRyRWJE5MRYUBD5wRb0JpZ
+ UC7BcdcJ+RPyjVBYsxNTC5eMH0TT1w28arbEApo3LjX7M+QGZsx+bDbm5oM7dqZHUsqG
+ mFWL+ok9mjGR7pU6V9Tz4M1U+OhydAVesTOWg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=GYJiXj0ddj83L8aXFRzvFTEUKUN+B1Z6lPzHOBdtjm8=;
+ b=r9HL1jQ7repQu/dSgI+Re1lm/ioeX7KBK6mz1bMp1EmrjS+WudGqAoh+V+5D4hIZPi
+ XE+hBgPn0cjOF6dsRav2ziBRCb9kRrjpA7j/hFvl4lFpboB3gjNJjgGEUjl/SCTotQrl
+ rHHpG85eC1OT3NKlE7xmrQ41XGdHvewJxdEnigAzDGZiZCsFGv1R63CI8WETHFbtLL/n
+ Rs8eGk5/udWtwHrlv1jdlSs86RU4QkLlJjvei8Du086HjF6wlzNLU/1dj9kjsJcC/Mjy
+ mmqJLPODJqGQ094D7vVtF7s2NMzBNlMEWisHw2vAavWFYQtktTVEXuGxJ+jmuxPcmJKp
+ IlIg==
+X-Gm-Message-State: AOAM533DNLpFidrgow1OL3TsG8OFPAV99b69wc+bzHFH6kKCVqb5z3cy
+ AVXMamyTbWT8Cs2Tkrn9YqoQqvC4vvtDyQ==
+X-Google-Smtp-Source: ABdhPJwhr9w2Wi5BavMfFaZH9Z7O4mPTaJqpkodpz6jWKldNLB91UPiGnLBjED8qH1gNlBDtBj432w==
+X-Received: by 2002:a17:906:c212:: with SMTP id
+ d18mr14780658ejz.291.1622040463738; 
+ Wed, 26 May 2021 07:47:43 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id fb19sm10466212ejc.10.2021.05.26.07.47.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 May 2021 07:47:43 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>
+Date: Wed, 26 May 2021 16:47:36 +0200
+Message-Id: <20210526144736.3277595-3-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210526144736.3277595-1-daniel.vetter@ffwll.ch>
+References: <20210526144736.3277595-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/params: Align visibility of
- device level and global modparams
+Subject: [Intel-gfx] [PATCH 3/3] drm/shmem-helper: Align to page size in
+ dumb_create
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,56 +77,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAyNiBNYXkgMjAyMSwgVHZydGtvIFVyc3VsaW4gPHR2cnRrby51cnN1bGluQGxpbnV4
-LmludGVsLmNvbT4gd3JvdGU6Cj4gRnJvbTogVHZydGtvIFVyc3VsaW4gPHR2cnRrby51cnN1bGlu
-QGludGVsLmNvbT4KPgo+IFdlIGhhdmUgYSBmZXcgbW9kcGFyYW1zIHdoaWNoIGdldCBjb25kaXRp
-b25hbHkgZXhwb3NlZCBiYXNlZCBvbiBhIEtjb25maWcKPiBvcHRpb25zIGFuZCBpbiBtb3N0IGNh
-c2VzIHRoaXMgYWxzbyBtZWFucyBwb3J0aW9ucyBvZiB0aGUgZHJpdmVyCj4gaW1wbGVtZW50aW5n
-IHRoZSByZXNwZWN0aXZlIGZlYXR1cmUgYXJlIGFsc28gbGVmdCBvdXQuCj4KPiBBbGlnbiB0aGUg
-dmlzaWJpbGl0eSBvZiBkZXZpY2UgbGV2ZWwgYW5kIGdsb2JhbCBtb2RwYXJhbXMgdG8gbWFrZSB0
-aGVtCj4gY29uc2lzdGVudCBpbiB0aGlzIHJlc3BlY3QuCj4KPiB2MjoKPiAgKiBGaXggbWlzcGxh
-Y2VkIHBhcmVudGhlc2VzLgo+Cj4gU2lnbmVkLW9mZi1ieTogVHZydGtvIFVyc3VsaW4gPHR2cnRr
-by51cnN1bGluQGludGVsLmNvbT4KPiBDYzogSmFuaSBOaWt1bGEgPGphbmkubmlrdWxhQGludGVs
-LmNvbT4KPiBDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNv
-bT4KClJldmlld2VkLWJ5OiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPgoKSSdk
-IGhhcHBpbHkgYWNjZXB0IHBhdGNoZXMgcmVtb3Zpbmcgc29tZSBvZiB0aGUgbW9kdWxlIHBhcmFt
-cywgYW5kIGp1c3QKbGVhdmluZyB0aGUgZGVidWdmcyBkZXZpY2UgcGFyYW1zIGluIHBsYWNlLiA7
-KQoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9wYXJhbXMuaCB8IDggKysrKy0t
-LS0KPiAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPgo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BhcmFtcy5oIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvaTkxNV9wYXJhbXMuaAo+IGluZGV4IDE0Y2Q2NGNjNjFkMC4uNGExMTRh
-NWFkMDAwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGFyYW1zLmgK
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BhcmFtcy5oCj4gQEAgLTcxLDE4ICs3
-MSwxOCBAQCBzdHJ1Y3QgZHJtX3ByaW50ZXI7Cj4gIAlwYXJhbShpbnQsIGZhc3Rib290LCAtMSwg
-MDYwMCkgXAo+ICAJcGFyYW0oaW50LCBlbmFibGVfZHBjZF9iYWNrbGlnaHQsIC0xLCAwNjAwKSBc
-Cj4gIAlwYXJhbShjaGFyICosIGZvcmNlX3Byb2JlLCBDT05GSUdfRFJNX0k5MTVfRk9SQ0VfUFJP
-QkUsIDA0MDApIFwKPiAtCXBhcmFtKHVuc2lnbmVkIGxvbmcsIGZha2VfbG1lbV9zdGFydCwgMCwg
-MDQwMCkgXAo+IC0JcGFyYW0odW5zaWduZWQgaW50LCByZXF1ZXN0X3RpbWVvdXRfbXMsIENPTkZJ
-R19EUk1fSTkxNV9SRVFVRVNUX1RJTUVPVVQsIDA2MDApIFwKPiArCXBhcmFtKHVuc2lnbmVkIGxv
-bmcsIGZha2VfbG1lbV9zdGFydCwgMCwgSVNfRU5BQkxFRChDT05GSUdfRFJNX0k5MTVfVU5TVEFC
-TEVfRkFLRV9MTUVNKSA/IDA0MDAgOiAwKSBcCj4gKwlwYXJhbSh1bnNpZ25lZCBpbnQsIHJlcXVl
-c3RfdGltZW91dF9tcywgQ09ORklHX0RSTV9JOTE1X1JFUVVFU1RfVElNRU9VVCwgQ09ORklHX0RS
-TV9JOTE1X1JFUVVFU1RfVElNRU9VVCA/IDA2MDAgOiAwKSBcCj4gIAkvKiBsZWF2ZSBib29scyBh
-dCB0aGUgZW5kIHRvIG5vdCBjcmVhdGUgaG9sZXMgKi8gXAo+ICAJcGFyYW0oYm9vbCwgZW5hYmxl
-X2hhbmdjaGVjaywgdHJ1ZSwgMDYwMCkgXAo+ICAJcGFyYW0oYm9vbCwgbG9hZF9kZXRlY3RfdGVz
-dCwgZmFsc2UsIDA2MDApIFwKPiAgCXBhcmFtKGJvb2wsIGZvcmNlX3Jlc2V0X21vZGVzZXRfdGVz
-dCwgZmFsc2UsIDA2MDApIFwKPiAtCXBhcmFtKGJvb2wsIGVycm9yX2NhcHR1cmUsIHRydWUsIDA2
-MDApIFwKPiArCXBhcmFtKGJvb2wsIGVycm9yX2NhcHR1cmUsIHRydWUsIElTX0VOQUJMRUQoQ09O
-RklHX0RSTV9JOTE1X0NBUFRVUkVfRVJST1IpID8gMDYwMCA6IDApIFwKPiAgCXBhcmFtKGJvb2ws
-IGRpc2FibGVfZGlzcGxheSwgZmFsc2UsIDA0MDApIFwKPiAgCXBhcmFtKGJvb2wsIHZlcmJvc2Vf
-c3RhdGVfY2hlY2tzLCB0cnVlLCAwKSBcCj4gIAlwYXJhbShib29sLCBudWNsZWFyX3BhZ2VmbGlw
-LCBmYWxzZSwgMDQwMCkgXAo+ICAJcGFyYW0oYm9vbCwgZW5hYmxlX2RwX21zdCwgdHJ1ZSwgMDYw
-MCkgXAo+IC0JcGFyYW0oYm9vbCwgZW5hYmxlX2d2dCwgZmFsc2UsIDA0MDApCj4gKwlwYXJhbShi
-b29sLCBlbmFibGVfZ3Z0LCBmYWxzZSwgSVNfRU5BQkxFRChDT05GSUdfRFJNX0k5MTVfR1ZUKSA/
-IDA0MDAgOiAwKQo+ICAKPiAgI2RlZmluZSBNRU1CRVIoVCwgbWVtYmVyLCAuLi4pIFQgbWVtYmVy
-Owo+ICBzdHJ1Y3QgaTkxNV9wYXJhbXMgewoKLS0gCkphbmkgTmlrdWxhLCBJbnRlbCBPcGVuIFNv
-dXJjZSBHcmFwaGljcyBDZW50ZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-aW50ZWwtZ2Z4Cg==
+shmem helpers seem a bit sloppy here by automatically rounding up when
+actually creating the buffer, which results in under-reporting of what
+we actually have. Caught by igt/vgem_basic tests.
+
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+---
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 6d625cee7a6a..d5e6d4568f99 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -505,13 +505,13 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 
+ 	if (!args->pitch || !args->size) {
+ 		args->pitch = min_pitch;
+-		args->size = args->pitch * args->height;
++		args->size = PAGE_ALIGN(args->pitch * args->height);
+ 	} else {
+ 		/* ensure sane minimum values */
+ 		if (args->pitch < min_pitch)
+ 			args->pitch = min_pitch;
+ 		if (args->size < args->pitch * args->height)
+-			args->size = args->pitch * args->height;
++			args->size = PAGE_ALIGN(args->pitch * args->height);
+ 	}
+ 
+ 	shmem = drm_gem_shmem_create_with_handle(file, dev, args->size, &args->handle);
+-- 
+2.31.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
