@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87CE9C2B9F7
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D83AC2B9F7
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C9E3613C0
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C9E3613C0
+	by mail.kernel.org (Postfix) with ESMTPS id 1A644613C9
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A644613C9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2D06EBA0;
-	Wed, 26 May 2021 06:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F5096EC04;
+	Wed, 26 May 2021 06:24:55 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F40506E48D;
- Wed, 26 May 2021 06:24:49 +0000 (UTC)
-IronPort-SDR: HbvTuvBa2zahZbHqMfme1HpUBpwwxnz21ltf1+XWkAH4moECtGt/VURzPyGlyTs0uX/rePBI+g
- 3iwxfrK/uYAA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033731"
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033731"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8236C6EBAA;
+ Wed, 26 May 2021 06:24:51 +0000 (UTC)
+IronPort-SDR: P9Vyatcjp7yxw3msN0kOSrNDuwzo/dH1MGwT88BExWIiaOGK2TAs0zn83QaOsxJw6wxCY2jQmc
+ dyOfAW4OHwfg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033747"
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033747"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:48 -0700
-IronPort-SDR: Wus9Qgn4oyg0VIfcmTLD+xJLyhknYiXBQOzDjQ4f50CLLnh3p5n3iokmi79E2OsjrbMxnMofY5
- gJHX0T4z6zXA==
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376791"
+ 25 May 2021 23:24:49 -0700
+IronPort-SDR: r/TDXWmV4A3uiPmu4SBGH9dLYh9txOMhXdwEbKUSvJAsfyzu2tV5aPEQE0TauBP9n3zRQ3dytg
+ sQwZB+BnyCgA==
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376832"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:48 -0700
+ 25 May 2021 23:24:49 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 23:42:22 -0700
-Message-Id: <20210526064237.77853-4-matthew.brost@intel.com>
+Date: Tue, 25 May 2021 23:42:33 -0700
+Message-Id: <20210526064237.77853-15-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210526064237.77853-1-matthew.brost@intel.com>
 References: <20210526064237.77853-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 03/18] drm/i915/guc: enable only the user
- interrupt when using GuC submission
+Subject: [Intel-gfx] [PATCH 14/18] drm/i915/guc: Start protecting access to
+ CTB descriptors
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,113 +64,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-In GuC submission mode the CS is owned by the GuC FW, so all CS status
-interrupts are handled by it. We only need the user interrupt as that
-signals request completion.
+We want to stop using guc.send_mutex while sending CTB messages
+so we have to start protecting access to CTB send descriptor.
 
-Since we're now starting the engines directly in GuC submission mode
-when selected, we can stop switching back and forth between the
-execlists and the GuC programming and select directly the correct
-interrupt mask.
+For completeness protect also CTB receive descriptor.
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Add spinlock to struct intel_guc_ct_buffer and start using it.
+
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Cc: John Harrison <john.c.harrison@intel.com>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_irq.c        | 18 ++++++-----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 31 -------------------
- 2 files changed, 11 insertions(+), 38 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 14 ++++++++++++--
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  2 ++
+ 2 files changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-index d29126c458ba..f88c10366e58 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-@@ -194,14 +194,18 @@ void gen11_gt_irq_reset(struct intel_gt *gt)
- 
- void gen11_gt_irq_postinstall(struct intel_gt *gt)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 5b0dece7a7cd..fb875d257536 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -89,6 +89,8 @@ static void ct_incoming_request_worker_func(struct work_struct *w);
+  */
+ void intel_guc_ct_init_early(struct intel_guc_ct *ct)
  {
--	const u32 irqs =
--		GT_CS_MASTER_ERROR_INTERRUPT |
--		GT_RENDER_USER_INTERRUPT |
--		GT_CONTEXT_SWITCH_INTERRUPT |
--		GT_WAIT_SEMAPHORE_INTERRUPT;
- 	struct intel_uncore *uncore = gt->uncore;
--	const u32 dmask = irqs << 16 | irqs;
--	const u32 smask = irqs << 16;
-+	u32 irqs = GT_RENDER_USER_INTERRUPT;
-+	u32 dmask;
-+	u32 smask;
-+
-+	if (!intel_uc_wants_guc_submission(&gt->uc))
-+		irqs |= GT_CS_MASTER_ERROR_INTERRUPT |
-+			GT_CONTEXT_SWITCH_INTERRUPT |
-+			GT_WAIT_SEMAPHORE_INTERRUPT;
-+
-+	dmask = irqs << 16 | irqs;
-+	smask = irqs << 16;
++	spin_lock_init(&ct->ctbs.send.lock);
++	spin_lock_init(&ct->ctbs.recv.lock);
+ 	spin_lock_init(&ct->requests.lock);
+ 	INIT_LIST_HEAD(&ct->requests.pending);
+ 	INIT_LIST_HEAD(&ct->requests.incoming);
+@@ -476,17 +478,22 @@ static int ct_send(struct intel_guc_ct *ct,
+ 	GEM_BUG_ON(len & ~GUC_CT_MSG_LEN_MASK);
+ 	GEM_BUG_ON(!response_buf && response_buf_size);
  
- 	BUILD_BUG_ON(irqs & 0xffff0000);
++	spin_lock_irqsave(&ct->ctbs.send.lock, flags);
++
+ 	fence = ct_get_next_fence(ct);
+ 	request.fence = fence;
+ 	request.status = 0;
+ 	request.response_len = response_buf_size;
+ 	request.response_buf = response_buf;
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 335719f17490..38cda5d599a6 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -432,32 +432,6 @@ void intel_guc_submission_fini(struct intel_guc *guc)
+-	spin_lock_irqsave(&ct->requests.lock, flags);
++	spin_lock(&ct->requests.lock);
+ 	list_add_tail(&request.link, &ct->requests.pending);
+-	spin_unlock_irqrestore(&ct->requests.lock, flags);
++	spin_unlock(&ct->requests.lock);
+ 
+ 	err = ct_write(ct, action, len, fence);
++
++	spin_unlock_irqrestore(&ct->ctbs.send.lock, flags);
++
+ 	if (unlikely(err))
+ 		goto unlink;
+ 
+@@ -822,6 +829,7 @@ static int ct_handle_request(struct intel_guc_ct *ct, const u32 *msg)
+ void intel_guc_ct_event_handler(struct intel_guc_ct *ct)
+ {
+ 	u32 msg[GUC_CT_MSG_LEN_MASK + 1]; /* one extra dw for the header */
++	unsigned long flags;
+ 	int err = 0;
+ 
+ 	if (unlikely(!ct->enabled)) {
+@@ -830,7 +838,9 @@ void intel_guc_ct_event_handler(struct intel_guc_ct *ct)
  	}
- }
  
--static void guc_interrupts_capture(struct intel_gt *gt)
--{
--	struct intel_uncore *uncore = gt->uncore;
--	u32 irqs = GT_CONTEXT_SWITCH_INTERRUPT;
--	u32 dmask = irqs << 16 | irqs;
--
--	GEM_BUG_ON(INTEL_GEN(gt->i915) < 11);
--
--	/* Don't handle the ctx switch interrupt in GuC submission mode */
--	intel_uncore_rmw(uncore, GEN11_RENDER_COPY_INTR_ENABLE, dmask, 0);
--	intel_uncore_rmw(uncore, GEN11_VCS_VECS_INTR_ENABLE, dmask, 0);
--}
--
--static void guc_interrupts_release(struct intel_gt *gt)
--{
--	struct intel_uncore *uncore = gt->uncore;
--	u32 irqs = GT_CONTEXT_SWITCH_INTERRUPT;
--	u32 dmask = irqs << 16 | irqs;
--
--	GEM_BUG_ON(INTEL_GEN(gt->i915) < 11);
--
--	/* Handle ctx switch interrupts again */
--	intel_uncore_rmw(uncore, GEN11_RENDER_COPY_INTR_ENABLE, 0, dmask);
--	intel_uncore_rmw(uncore, GEN11_VCS_VECS_INTR_ENABLE, 0, dmask);
--}
--
- static int guc_context_alloc(struct intel_context *ce)
- {
- 	return lrc_alloc(ce, ce->engine);
-@@ -722,9 +696,6 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
- void intel_guc_submission_enable(struct intel_guc *guc)
- {
- 	guc_stage_desc_init(guc);
--
--	/* Take over from manual control of ELSP (execlists) */
--	guc_interrupts_capture(guc_to_gt(guc));
- }
+ 	do {
++		spin_lock_irqsave(&ct->ctbs.recv.lock, flags);
+ 		err = ct_read(ct, msg);
++		spin_unlock_irqrestore(&ct->ctbs.recv.lock, flags);
+ 		if (err)
+ 			break;
  
- void intel_guc_submission_disable(struct intel_guc *guc)
-@@ -735,8 +706,6 @@ void intel_guc_submission_disable(struct intel_guc *guc)
- 
- 	/* Note: By the time we're here, GuC may have already been reset */
- 
--	guc_interrupts_release(gt);
--
- 	guc_stage_desc_fini(guc);
- }
- 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index fc9486779e87..bc52dc479a14 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -27,11 +27,13 @@ struct intel_guc;
+  * record (command transport buffer descriptor) and the actual buffer which
+  * holds the commands.
+  *
++ * @lock: protects access to the commands buffer and buffer descriptor
+  * @desc: pointer to the buffer descriptor
+  * @cmds: pointer to the commands buffer
+  * @size: size of the commands buffer
+  */
+ struct intel_guc_ct_buffer {
++	spinlock_t lock;
+ 	struct guc_ct_buffer_desc *desc;
+ 	u32 *cmds;
+ 	u32 size;
 -- 
 2.28.0
 
