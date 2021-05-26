@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37B4BC4708D
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8483C4708C
 	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:15:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 061C660FD8
+	by mail.kernel.org (Postfix) with ESMTPS id A636061026
 	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:15:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 061C660FD8
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A636061026
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C96F6ED24;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C1346ED7C;
 	Wed, 26 May 2021 14:15:42 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08A726ED26;
- Wed, 26 May 2021 14:15:36 +0000 (UTC)
-IronPort-SDR: GDUF1OkIfbVMQ2I/DxORd+pcsO3b3P1ygLX+hKxABHrUnXO0AeHXHu/AoTSD6ou3nEgvK+ZKV5
- GslRUJtyvYHg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223660603"
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223660603"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E34CA6ED24;
+ Wed, 26 May 2021 14:15:39 +0000 (UTC)
+IronPort-SDR: zpb1Pn0qt7YJfmDrjaruVgxHOsqMFMUDnv/oQBr1wmeuyNbzSJMveAAwu/F75+Tu1n0QPp+BcF
+ eHr0AFADm4HA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223660660"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223660660"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:15:13 -0700
-IronPort-SDR: QK5pqXKCM3q6ZNbFnAUlyKvD44gOmYyoVYPYfpVshc+5zKmYA08QySQszR7KOs5PHpaqGAqspJ
- aW8V/Lbs1Uiw==
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="547206325"
+ 26 May 2021 07:15:21 -0700
+IronPort-SDR: Ztoq+FPS0EJtYKtUNXclkCJKRXubtn3d0hUDx1/5piivjpiiHnweFk8R94zPltXHtPtg/tCiVJ
+ 9qjiRLY3Daig==
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="547206445"
 Received: from wardmich-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.209.181])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:15:12 -0700
+ 26 May 2021 07:15:20 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 26 May 2021 15:14:50 +0100
-Message-Id: <20210526141456.2334192-7-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 26 May 2021 15:14:54 +0100
+Message-Id: <20210526141456.2334192-11-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210526141456.2334192-1-tvrtko.ursulin@linux.intel.com>
 References: <20210526141456.2334192-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/12] drm/i915/selftests: Use a coherent map to
- setup scratch batch buffers
+Subject: [Intel-gfx] [PATCH 10/12] drm/i915/selftests: Replace an unbounded
+ set-domain wait with a timeout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,61 +68,36 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Chris Wilson <chris@chris-wilson.co.uk>
 
-Instead of manipulating the object's cache domain, just use the device
-coherent map to write the batch buffer.
+After the memory-region test completes, it flushes the test by calling
+set-to-cpu-domain. Use the igt_flush_test as it includes a timeout,
+recovery and reports and error for miscreant tests.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- .../drm/i915/gem/selftests/i915_gem_context.c    | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/selftests/intel_memory_region.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-index ce70d0a3afb2..3d8d5f242e34 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-@@ -1622,7 +1622,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
- 		if (err)
- 			goto out_vm;
- 
--		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
-+		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 		if (IS_ERR(cmd)) {
- 			err = PTR_ERR(cmd);
- 			goto out;
-@@ -1658,7 +1658,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
- 		if (err)
- 			goto out_vm;
- 
--		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
-+		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 		if (IS_ERR(cmd)) {
- 			err = PTR_ERR(cmd);
- 			goto out;
-@@ -1707,15 +1707,17 @@ static int read_from_scratch(struct i915_gem_context *ctx,
- 
- 	i915_vma_unpin(vma);
- 
-+	i915_request_get(rq);
- 	i915_request_add(rq);
+diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+index f85fd8cbfbf5..7a3f71e83140 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
++++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+@@ -826,11 +826,10 @@ static int igt_lmem_write_cpu(void *arg)
+ 	if (err)
+ 		goto out_unpin;
  
 -	i915_gem_object_lock(obj, NULL);
--	err = i915_gem_object_set_to_cpu_domain(obj, false);
+-	err = i915_gem_object_set_to_wc_domain(obj, true);
 -	i915_gem_object_unlock(obj);
 -	if (err)
-+	if (i915_request_wait(rq, 0, HZ / 5) < 0) {
-+		i915_request_put(rq);
-+		err = -ETIME;
- 		goto out_vm;
++	if (igt_flush_test(engine->i915)) {
++		err = -EIO;
+ 		goto out_unpin;
 +	}
-+	i915_request_put(rq);
  
--	cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
-+	cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 	if (IS_ERR(cmd)) {
- 		err = PTR_ERR(cmd);
- 		goto out_vm;
+ 	count = ARRAY_SIZE(bytes);
+ 	order = i915_random_order(count * count, &prng);
 -- 
 2.30.2
 
