@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99C64C4708A
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23D50C47088
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 64882613D3
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:16:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64882613D3
+	by mail.kernel.org (Postfix) with ESMTPS id E0FE760FD8
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:16:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E0FE760FD8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE88E6ED8F;
-	Wed, 26 May 2021 14:15:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 299076ED91;
+	Wed, 26 May 2021 14:15:49 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4526A6ED74;
- Wed, 26 May 2021 14:15:40 +0000 (UTC)
-IronPort-SDR: StluCb+EMcEoVFYod2JLAVhdL6u7eu79aSYvjEMscxIQeAVVyGz75rUoo8HWlDOK6ej/VNv7+0
- N4bitXdLDifg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223660666"
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223660666"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B42736ED34;
+ Wed, 26 May 2021 14:15:38 +0000 (UTC)
+IronPort-SDR: 0QMqgINTT/1qM3CTiM2tnaJOxaE1qJD3vbO4GitMPwCtklkR91BV5hHyq6ZOKSWrD0DibD3A54
+ gRVvPwQQYs7w==
+X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223660634"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223660634"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:15:23 -0700
-IronPort-SDR: WhY2rwh71IMvB8AzD8ZwUIVqKNac3qIBNmivhC/i/ju0nlhk/LTCTHV/dB28QRJFOJ/2u2AoDI
- KNvidS28YxWg==
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="547206464"
+ 26 May 2021 07:15:18 -0700
+IronPort-SDR: pzsEiLRPFQ645ohBVUQAFiHAsuf45wdADXz5z/9wVzdwZYtOnAOMaZezOB9HnDgqGFV9xUZUg2
+ zGmO/MXzIXtA==
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="547206392"
 Received: from wardmich-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.209.181])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:15:21 -0700
+ 26 May 2021 07:15:16 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 26 May 2021 15:14:55 +0100
-Message-Id: <20210526141456.2334192-12-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 26 May 2021 15:14:52 +0100
+Message-Id: <20210526141456.2334192-9-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210526141456.2334192-1-tvrtko.ursulin@linux.intel.com>
 References: <20210526141456.2334192-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 11/12] drm/i915/selftests: Remove redundant
- set-to-gtt-domain before batch submission
+Subject: [Intel-gfx] [PATCH 08/12] drm/i915/selftests: Remove redundant
+ set-to-gtt-domain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,29 +68,71 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Chris Wilson <chris@chris-wilson.co.uk>
 
-In construction the rpcs_query batch we know that it is device coherent
-and ready for execution, the set-to-gtt-domain here is redudant.
+Since the vma's backing store is flushed upon first creation, remove the
+manual calls to set-to-gtt-domain.
+
+v2 (Tvrtko):
+ * Rebase.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com> # v1
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 2 --
- 1 file changed, 2 deletions(-)
+ .../gpu/drm/i915/gem/selftests/i915_gem_mman.c   | 16 ----------------
+ drivers/gpu/drm/i915/selftests/i915_vma.c        |  6 ------
+ 2 files changed, 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-index 3d8d5f242e34..eed5be597eee 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-@@ -954,8 +954,6 @@ emit_rpcs_query(struct drm_i915_gem_object *obj,
- 	err = i915_gem_object_lock(obj, &ww);
- 	if (!err)
- 		err = i915_gem_object_lock(rpcs, &ww);
--	if (!err)
--		err = i915_gem_object_set_to_gtt_domain(obj, false);
- 	if (!err)
- 		err = i915_vma_pin_ww(vma, &ww, 0, 0, PIN_USER);
- 	if (err)
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 05a3b29f545e..886e2446e081 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -104,14 +104,6 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+ 	GEM_BUG_ON(i915_gem_object_get_tiling(obj) != tile->tiling);
+ 	GEM_BUG_ON(i915_gem_object_get_stride(obj) != tile->stride);
+ 
+-	i915_gem_object_lock(obj, NULL);
+-	err = i915_gem_object_set_to_gtt_domain(obj, true);
+-	i915_gem_object_unlock(obj);
+-	if (err) {
+-		pr_err("Failed to flush to GTT write domain; err=%d\n", err);
+-		return err;
+-	}
+-
+ 	page = i915_prandom_u32_max_state(npages, prng);
+ 	view = compute_partial_view(obj, page, MIN_CHUNK_PAGES);
+ 
+@@ -189,14 +181,6 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+ 	GEM_BUG_ON(i915_gem_object_get_tiling(obj) != tile->tiling);
+ 	GEM_BUG_ON(i915_gem_object_get_stride(obj) != tile->stride);
+ 
+-	i915_gem_object_lock(obj, NULL);
+-	err = i915_gem_object_set_to_gtt_domain(obj, true);
+-	i915_gem_object_unlock(obj);
+-	if (err) {
+-		pr_err("Failed to flush to GTT write domain; err=%d\n", err);
+-		return err;
+-	}
+-
+ 	for_each_prime_number_from(page, 1, npages) {
+ 		struct i915_ggtt_view view =
+ 			compute_partial_view(obj, page, MIN_CHUNK_PAGES);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
+index dd0607254a95..24a806801883 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_vma.c
++++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
+@@ -987,12 +987,6 @@ static int igt_vma_remapped_gtt(void *arg)
+ 			u32 __iomem *map;
+ 			unsigned int x, y;
+ 
+-			i915_gem_object_lock(obj, NULL);
+-			err = i915_gem_object_set_to_gtt_domain(obj, true);
+-			i915_gem_object_unlock(obj);
+-			if (err)
+-				goto out;
+-
+ 			if (!plane_info[0].dst_stride)
+ 				plane_info[0].dst_stride = *t == I915_GGTT_VIEW_ROTATED ?
+ 								 p->height : p->width;
 -- 
 2.30.2
 
