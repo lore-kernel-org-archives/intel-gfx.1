@@ -2,46 +2,50 @@ Return-Path: <SRS0=zXYq=KV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49ED5C47088
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:03:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43F32C47082
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:03:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E21FD613B0
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:02:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E21FD613B0
+	by mail.kernel.org (Postfix) with ESMTPS id D5CFB613DC
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 22:03:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5CFB613DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC576EB92;
-	Wed, 26 May 2021 22:02:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 039CD6EDD7;
+	Wed, 26 May 2021 22:03:01 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F4C86EB92
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E23266EB92
  for <intel-gfx@lists.freedesktop.org>; Wed, 26 May 2021 22:02:58 +0000 (UTC)
-IronPort-SDR: a2NxWtpz2ArgAO8eA3w8i7RhzXcoGzBBO0kEyQ6GDRc+lMJ1b37ib+TK1F7I25xc4Ht/82vP9x
- 1Rr6yQlTGPLA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223784506"
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223784506"
+IronPort-SDR: T9gAaUW0uxp+xLsb2j1Qz5uxuMxAAgZFTa1MxLqMF65yA252xK6hrrrBBBAENSjjag8bsE4dk3
+ W2LnTmFiVKaA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223784511"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223784511"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 15:02:57 -0700
-IronPort-SDR: DMfuwyB165Vxc4dhL5tPqXZbkrNRMe0CSocELt9K3gKu/dDZyM85lJ2TTYisKWq8ZlyKCUqJ+Q
- TL6amLKaStZA==
+ 26 May 2021 15:02:58 -0700
+IronPort-SDR: ytQtNvZH6yRzcpL/1R5q2Xt1vjcafBBnZF4mH5g0JIGlYkImOBxjD5PodeUVWvkLR61SrdDvI/
+ neUEs4sdURZg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="477154527"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="477154541"
 Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
- by orsmga001.jf.intel.com with ESMTP; 26 May 2021 15:02:57 -0700
+ by orsmga001.jf.intel.com with ESMTP; 26 May 2021 15:02:58 -0700
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 May 2021 15:02:53 -0700
-Message-Id: <20210526220256.4097-1-anusha.srivatsa@intel.com>
+Date: Wed, 26 May 2021 15:02:55 -0700
+Message-Id: <20210526220256.4097-3-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20210526220256.4097-1-anusha.srivatsa@intel.com>
+References: <20210526220256.4097-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 0/3] Resend More DMC cleanup
+Subject: [Intel-gfx] [CI 2/3] drm/i915/dmc: Add intel_dmc_has_payload()
+ helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,31 +58,199 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v2: Add struct intel_dmc to intel_dmc.h in a separate
-patch
+We check for dmc_payload being there at various points in the driver.
+Replace it with the helper.
 
-v3: Minor code shuffling and indentation fixes
+v2: rebased.
+v3: Move intel_dmc to intel_dmc.h in another patch (Lucas)
+v4: Remove headers not needed from intel_dmc.h
 
-v4: Checkpatch fixes.
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ .../gpu/drm/i915/display/intel_display_debugfs.c |  4 ++--
+ .../gpu/drm/i915/display/intel_display_power.c   | 16 ++++++++--------
+ drivers/gpu/drm/i915/display/intel_dmc.c         | 13 +++++++++----
+ drivers/gpu/drm/i915/display/intel_dmc.h         |  1 +
+ drivers/gpu/drm/i915/i915_gpu_error.c            |  2 +-
+ 5 files changed, 21 insertions(+), 15 deletions(-)
 
-Anusha Srivatsa (3):
-  drm/i915/dmc: s/DRM_ERROR/drm_err
-  drm/i915/dmc: Add intel_dmc_has_payload() helper
-  drm/i915/dmc: Move struct intel_dmc to intel_dmc.h
-
- .../drm/i915/display/intel_display_debugfs.c  |  4 +-
- .../drm/i915/display/intel_display_power.c    | 16 ++---
- drivers/gpu/drm/i915/display/intel_dmc.c      | 63 ++++++++++---------
- drivers/gpu/drm/i915/display/intel_dmc.h      | 22 +++++++
- drivers/gpu/drm/i915/i915_drv.h               | 18 +-----
- drivers/gpu/drm/i915/i915_gpu_error.c         |  2 +-
- 6 files changed, 69 insertions(+), 56 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 94e5cbd86e77..88bb05d5c483 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -542,10 +542,10 @@ static int i915_dmc_info(struct seq_file *m, void *unused)
+ 
+ 	wakeref = intel_runtime_pm_get(&dev_priv->runtime_pm);
+ 
+-	seq_printf(m, "fw loaded: %s\n", yesno(dmc->dmc_payload));
++	seq_printf(m, "fw loaded: %s\n", yesno(intel_dmc_has_payload(dev_priv)));
+ 	seq_printf(m, "path: %s\n", dmc->fw_path);
+ 
+-	if (!dmc->dmc_payload)
++	if (!intel_dmc_has_payload(dev_priv))
+ 		goto out;
+ 
+ 	seq_printf(m, "version: %d.%d\n", DMC_VERSION_MAJOR(dmc->version),
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 2f7d1664c473..3ca8112eead5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -1218,7 +1218,7 @@ static void gen9_dc_off_power_well_enable(struct drm_i915_private *dev_priv,
+ static void gen9_dc_off_power_well_disable(struct drm_i915_private *dev_priv,
+ 					   struct i915_power_well *power_well)
+ {
+-	if (!dev_priv->dmc.dmc_payload)
++	if (!intel_dmc_has_payload(dev_priv))
+ 		return;
+ 
+ 	switch (dev_priv->dmc.target_dc_state) {
+@@ -5577,7 +5577,7 @@ static void skl_display_core_init(struct drm_i915_private *dev_priv,
+ 
+ 	gen9_dbuf_enable(dev_priv);
+ 
+-	if (resume && dev_priv->dmc.dmc_payload)
++	if (resume && intel_dmc_has_payload(dev_priv))
+ 		intel_dmc_load_program(dev_priv);
+ }
+ 
+@@ -5644,7 +5644,7 @@ static void bxt_display_core_init(struct drm_i915_private *dev_priv, bool resume
+ 
+ 	gen9_dbuf_enable(dev_priv);
+ 
+-	if (resume && dev_priv->dmc.dmc_payload)
++	if (resume && intel_dmc_has_payload(dev_priv))
+ 		intel_dmc_load_program(dev_priv);
+ }
+ 
+@@ -5710,7 +5710,7 @@ static void cnl_display_core_init(struct drm_i915_private *dev_priv, bool resume
+ 	/* 6. Enable DBUF */
+ 	gen9_dbuf_enable(dev_priv);
+ 
+-	if (resume && dev_priv->dmc.dmc_payload)
++	if (resume && intel_dmc_has_payload(dev_priv))
+ 		intel_dmc_load_program(dev_priv);
+ }
+ 
+@@ -5867,7 +5867,7 @@ static void icl_display_core_init(struct drm_i915_private *dev_priv,
+ 	if (DISPLAY_VER(dev_priv) >= 12)
+ 		tgl_bw_buddy_init(dev_priv);
+ 
+-	if (resume && dev_priv->dmc.dmc_payload)
++	if (resume && intel_dmc_has_payload(dev_priv))
+ 		intel_dmc_load_program(dev_priv);
+ 
+ 	/* Wa_14011508470 */
+@@ -6228,7 +6228,7 @@ void intel_power_domains_suspend(struct drm_i915_private *i915,
+ 	 */
+ 	if (!(i915->dmc.allowed_dc_mask & DC_STATE_EN_DC9) &&
+ 	    suspend_mode == I915_DRM_SUSPEND_IDLE &&
+-	    i915->dmc.dmc_payload) {
++	    intel_dmc_has_payload(i915)) {
+ 		intel_display_power_flush_work(i915);
+ 		intel_power_domains_verify_state(i915);
+ 		return;
+@@ -6418,7 +6418,7 @@ void intel_display_power_resume(struct drm_i915_private *i915)
+ 	if (DISPLAY_VER(i915) >= 11) {
+ 		bxt_disable_dc9(i915);
+ 		icl_display_core_init(i915, true);
+-		if (i915->dmc.dmc_payload) {
++		if (intel_dmc_has_payload(i915)) {
+ 			if (i915->dmc.allowed_dc_mask &
+ 			    DC_STATE_EN_UPTO_DC6)
+ 				skl_enable_dc6(i915);
+@@ -6429,7 +6429,7 @@ void intel_display_power_resume(struct drm_i915_private *i915)
+ 	} else if (IS_GEMINILAKE(i915) || IS_BROXTON(i915)) {
+ 		bxt_disable_dc9(i915);
+ 		bxt_display_core_init(i915, true);
+-		if (i915->dmc.dmc_payload &&
++		if (intel_dmc_has_payload(i915) &&
+ 		    (i915->dmc.allowed_dc_mask & DC_STATE_EN_UPTO_DC5))
+ 			gen9_enable_dc5(i915);
+ 	} else if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index 5e9c0b509034..97308da28059 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -237,6 +237,11 @@ struct stepping_info {
+ 	char substepping;
+ };
+ 
++bool intel_dmc_has_payload(struct drm_i915_private *i915)
++{
++	return i915->dmc.dmc_payload;
++}
++
+ static const struct stepping_info skl_stepping_info[] = {
+ 	{'A', '0'}, {'B', '0'}, {'C', '0'},
+ 	{'D', '0'}, {'E', '0'}, {'F', '0'},
+@@ -320,7 +325,7 @@ void intel_dmc_load_program(struct drm_i915_private *dev_priv)
+ 		return;
+ 	}
+ 
+-	if (!dev_priv->dmc.dmc_payload) {
++	if (!intel_dmc_has_payload(dev_priv)) {
+ 		drm_err(&dev_priv->drm,
+ 			"Tried to program CSR with empty payload\n");
+ 		return;
+@@ -654,7 +659,7 @@ static void dmc_load_work_fn(struct work_struct *work)
+ 	request_firmware(&fw, dev_priv->dmc.fw_path, dev_priv->drm.dev);
+ 	parse_dmc_fw(dev_priv, fw);
+ 
+-	if (dev_priv->dmc.dmc_payload) {
++	if (intel_dmc_has_payload(dev_priv)) {
+ 		intel_dmc_load_program(dev_priv);
+ 		intel_dmc_runtime_pm_put(dev_priv);
+ 
+@@ -783,7 +788,7 @@ void intel_dmc_ucode_suspend(struct drm_i915_private *dev_priv)
+ 	flush_work(&dev_priv->dmc.work);
+ 
+ 	/* Drop the reference held in case DMC isn't loaded. */
+-	if (!dev_priv->dmc.dmc_payload)
++	if (!intel_dmc_has_payload(dev_priv))
+ 		intel_dmc_runtime_pm_put(dev_priv);
+ }
+ 
+@@ -803,7 +808,7 @@ void intel_dmc_ucode_resume(struct drm_i915_private *dev_priv)
+ 	 * Reacquire the reference to keep RPM disabled in case DMC isn't
+ 	 * loaded.
+ 	 */
+-	if (!dev_priv->dmc.dmc_payload)
++	if (!intel_dmc_has_payload(dev_priv))
+ 		intel_dmc_runtime_pm_get(dev_priv);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.h b/drivers/gpu/drm/i915/display/intel_dmc.h
+index 57dd99da0ced..64816f4a71b6 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.h
++++ b/drivers/gpu/drm/i915/display/intel_dmc.h
+@@ -17,5 +17,6 @@ void intel_dmc_load_program(struct drm_i915_private *i915);
+ void intel_dmc_ucode_fini(struct drm_i915_private *i915);
+ void intel_dmc_ucode_suspend(struct drm_i915_private *i915);
+ void intel_dmc_ucode_resume(struct drm_i915_private *i915);
++bool intel_dmc_has_payload(struct drm_i915_private *i915);
+ 
+ #endif /* __INTEL_DMC_H__ */
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 8b964e355cb5..833d3e8b7631 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -792,7 +792,7 @@ static void __err_print_to_sgl(struct drm_i915_error_state_buf *m,
+ 		struct intel_dmc *dmc = &m->i915->dmc;
+ 
+ 		err_printf(m, "DMC loaded: %s\n",
+-			   yesno(dmc->dmc_payload));
++			   yesno(intel_dmc_has_payload(m->i915) != 0));
+ 		err_printf(m, "DMC fw version: %d.%d\n",
+ 			   DMC_VERSION_MAJOR(dmc->version),
+ 			   DMC_VERSION_MINOR(dmc->version));
 -- 
 2.25.0
 
