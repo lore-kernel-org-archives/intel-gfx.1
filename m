@@ -2,51 +2,40 @@ Return-Path: <SRS0=zXYq=KV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48A54C47082
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89F2DC2B9F7
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:42:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1772B613C9
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1772B613C9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 03CA3613C3
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:42:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03CA3613C3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E1996EBB5;
-	Wed, 26 May 2021 06:25:07 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB1466EBAC;
- Wed, 26 May 2021 06:24:51 +0000 (UTC)
-IronPort-SDR: czX0jGAxeebsTxSMMu7xZiN2rilLR6tiGTGArTyuUvl+0IvOZSUqwDgp/KnjyVjf07fBLapFfw
- l39TYdkGtu1g==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033749"
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033749"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:50 -0700
-IronPort-SDR: hevj83R/UB8ap6UtSN8FolnHPZjwOmogjuxz40voMiPueP3bcXEg7Nlb2QjmWsNj0iXIEZt7DZ
- nD6gTzOOXLVg==
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376839"
-Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:49 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 23:42:35 -0700
-Message-Id: <20210526064237.77853-17-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210526064237.77853-1-matthew.brost@intel.com>
-References: <20210526064237.77853-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB2A6EC17;
+	Wed, 26 May 2021 06:42:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DA69F6EC14;
+ Wed, 26 May 2021 06:42:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D30B7A00CC;
+ Wed, 26 May 2021 06:42:04 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 16/18] drm/i915/guc: Stop using mutex while
- sending CTB messages
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Date: Wed, 26 May 2021 06:42:04 -0000
+Message-ID: <162201132483.13404.1421856447925207863@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210526064237.77853-1-matthew.brost@intel.com>
+In-Reply-To: <20210526064237.77853-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Non-interface_changing_GuC_CTBs_updates_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,55 +48,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+== Series Details ==
 
-We are no longer using descriptor to hold G2H replies and we are
-protecting access to the descriptor and command buffer by the
-separate spinlock, so we can stop using mutex.
+Series: Non-interface changing GuC CTBs updates (rev2)
+URL   : https://patchwork.freedesktop.org/series/90552/
+State : warning
 
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 4 ----
- 1 file changed, 4 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 42063e1c355d..b183c70cdd5c 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -552,7 +552,6 @@ static int ct_send(struct intel_guc_ct *ct,
- int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
- 		      u32 *response_buf, u32 response_buf_size)
- {
--	struct intel_guc *guc = ct_to_guc(ct);
- 	u32 status = ~0; /* undefined */
- 	int ret;
- 
-@@ -561,8 +560,6 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
- 		return -ENODEV;
- 	}
- 
--	mutex_lock(&guc->send_mutex);
--
- 	ret = ct_send(ct, action, len, response_buf, response_buf_size, &status);
- 	if (unlikely(ret < 0)) {
- 		CT_ERROR(ct, "Sending action %#x failed (err=%d status=%#X)\n",
-@@ -572,7 +569,6 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
- 			 action[0], ret, ret);
- 	}
- 
--	mutex_unlock(&guc->send_mutex);
- 	return ret;
- }
- 
--- 
-2.28.0
+$ dim checkpatch origin/drm-tip
+6b6bffd59ced drm/i915/guc: skip disabling CTBs before sanitizing the GuC
+3f9bbaddbf9d drm/i915/guc: use probe_error log for CT enablement failure
+866285dad8d0 drm/i915/guc: enable only the user interrupt when using GuC submission
+eafc57f85f6f drm/i915/guc: Remove sample_forcewake h2g action
+cb62a7f50e3b drm/i915/guc: Keep strict GuC ABI definitions
+-:18: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#18: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 476 lines checked
+28e9b20a7873 drm/i915/guc: Drop guc->interrupts.enabled
+190975af8c9f drm/i915/guc: Stop using fence/status from CTB descriptor
+15a068ac5b1e drm/i915: Promote ptrdiff() to i915_utils.h
+e3a6d58106c2 drm/i915/guc: Only rely on own CTB size
+aaa8781a008e drm/i915/guc: Don't repeat CTB layout calculations
+b065023c038e drm/i915/guc: Replace CTB array with explicit members
+9f1ec21626ae drm/i915/guc: Update sizes of CTB buffers
+7a0e05be601b drm/i915/guc: Relax CTB response timeout
+11573d2c3987 drm/i915/guc: Start protecting access to CTB descriptors
+-:87: CHECK:UNCOMMENTED_DEFINITION: spinlock_t definition without comment
+#87: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h:36:
++	spinlock_t lock;
+
+total: 0 errors, 0 warnings, 1 checks, 61 lines checked
+f32e4faa422e drm/i915/guc: Ensure H2G buffer updates visible before tail update
+-:23: ERROR:OPEN_BRACE: open brace '{' following function definitions go on the next line
+#23: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:331:
++static void write_barrier(struct intel_guc_ct *ct) {
+
+-:31: WARNING:MEMORY_BARRIER: memory barrier without comment
+#31: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:339:
++		wmb();
+
+total: 1 errors, 1 warnings, 0 checks, 30 lines checked
+6feab437948e drm/i915/guc: Stop using mutex while sending CTB messages
+a44bbeef3e75 drm/i915/guc: Don't receive all G2H messages in irq handler
+41650b9fd9e5 drm/i915/guc: Always copy CT message to new allocation
+
 
 _______________________________________________
 Intel-gfx mailing list
