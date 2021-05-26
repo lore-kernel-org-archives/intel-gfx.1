@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 137B5C47082
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 17:45:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71112C47089
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 18:05:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BB3A4613CA
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 17:45:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BB3A4613CA
+	by mail.kernel.org (Postfix) with ESMTPS id 3B7B26113D
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 18:05:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3B7B26113D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566546E512;
-	Wed, 26 May 2021 17:45:18 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ACBB6E512;
- Wed, 26 May 2021 17:45:16 +0000 (UTC)
-IronPort-SDR: 0ivP7lhiMMAmLSM1eLUNF2l8aegAhMBUISPvhOuBNd+ZHObQpbAypaMvCZ2SQwscCgjNVBhf+a
- m7QmSIzPrSnA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="189647237"
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="189647237"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 10:45:15 -0700
-IronPort-SDR: PNN2p3ohkc4Y8x5jHx7m9SuC75tf161wUaQVsY63qQAwIui7IZSeTGz+UeZdUXgDWtNTWihmXg
- 7uzkPGYrAU9Q==
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="414548847"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E4036E53E;
+	Wed, 26 May 2021 18:05:54 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 797BC6E51C;
+ Wed, 26 May 2021 18:05:52 +0000 (UTC)
+IronPort-SDR: rkc23gQWa0H3rXN3iKRi3caI5HocMWanXYAAFp53UAzHTge8+rg73RDYOAV9IpyXM89z67LIKx
+ 1lbB4p8kNfeg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="182177957"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="182177957"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2021 11:05:27 -0700
+IronPort-SDR: GRkPA4TUFL+VXuQ0Oqm/fIXpJyZEX1tF0a0/95h6mv2xdJBmc+sMXJhtJT3dkd7On0LP0eHplK
+ 3CUJfE1vay7w==
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="444193679"
 Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 10:45:14 -0700
-Date: Wed, 26 May 2021 10:38:08 -0700
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2021 11:05:24 -0700
+Date: Wed, 26 May 2021 10:58:18 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Message-ID: <20210526173808.GA31459@sdutt-i7>
+Message-ID: <20210526175818.GB31459@sdutt-i7>
 References: <20210526064237.77853-1-matthew.brost@intel.com>
- <20210526064237.77853-14-matthew.brost@intel.com>
- <cef31e1d-7502-78ae-84bd-60daaca01732@intel.com>
+ <20210526064237.77853-16-matthew.brost@intel.com>
+ <3d18d63d-8359-5ce0-0320-104436d57198@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cef31e1d-7502-78ae-84bd-60daaca01732@intel.com>
+In-Reply-To: <3d18d63d-8359-5ce0-0320-104436d57198@intel.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 13/18] drm/i915/guc: Relax CTB response
- timeout
+Subject: Re: [Intel-gfx] [PATCH 15/18] drm/i915/guc: Ensure H2G buffer
+ updates visible before tail update
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,92 +67,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 26, 2021 at 02:25:26PM +0200, Michal Wajdeczko wrote:
+On Wed, May 26, 2021 at 02:36:18PM +0200, Michal Wajdeczko wrote:
 > 
 > 
 > On 26.05.2021 08:42, Matthew Brost wrote:
-> > From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+> > Ensure H2G buffer updates are visible before descriptor tail updates by
+> > inserting a barrier between the H2G buffer update and the tail. The
+> > barrier is simple wmb() for SMEM and is register write for LMEM. This is
+> > needed if more than 1 H2G can be inflight at once.
 > > 
-> > In upcoming patch we will allow more CTB requests to be sent in
-> > parallel to the GuC for processing, so we shouldn't assume any more
-> > that GuC will always reply without 10ms.
-> > 
-> > Use bigger value from CONFIG_DRM_I915_GUC_CTB_TIMEOUT instead.
-> > 
-> > v2: Add CONFIG_DRM_I915_GUC_CTB_TIMEOUT config option
-> > 
-> > Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+> > Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
 > > ---
-> >  drivers/gpu/drm/i915/Kconfig.profile      | 9 +++++++++
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 5 ++++-
-> >  2 files changed, 13 insertions(+), 1 deletion(-)
+> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 18 ++++++++++++++++++
+> >  1 file changed, 18 insertions(+)
 > > 
-> > diff --git a/drivers/gpu/drm/i915/Kconfig.profile b/drivers/gpu/drm/i915/Kconfig.profile
-> > index 39328567c200..68ac707755d2 100644
-> > --- a/drivers/gpu/drm/i915/Kconfig.profile
-> > +++ b/drivers/gpu/drm/i915/Kconfig.profile
-> > @@ -38,6 +38,15 @@ config DRM_I915_USERFAULT_AUTOSUSPEND
-> >  	  May be 0 to disable the extra delay and solely use the device level
-> >  	  runtime pm autosuspend delay tunable.
-> >  
-> > +config DRM_I915_GUC_CTB_TIMEOUT
-> > +	int "How long to wait for the GuC to make forward progress on CTBs (ms)"
-> 
-> maybe worth to provide here explicit allowed range:
-> 
-> 	range 10 60000
-> 
-> and then we can skip runtime adjustment for minimum 10ms timeout
-
-Didn't know this option, done.
-
-> 
-> > +	default 1500 # milliseconds
-> > +	help
-> > +	  Configures the default timeout waiting for GuC the to make forward
-> > +	  progress on CTBs. e.g. Waiting for a response to requeset.
-> 
-> typo
->
-
-Fixed.
-
-Matt
-
-> > +
-> > +	  A minimum value of 10 ms is allowed.
-> > +
-> >  config DRM_I915_HEARTBEAT_INTERVAL
-> >  	int "Interval between heartbeat pulses (ms)"
-> >  	default 2500 # milliseconds
 > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > index 916c2b80c841..5b0dece7a7cd 100644
+> > index fb875d257536..42063e1c355d 100644
 > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > @@ -436,6 +436,7 @@ static int ct_write(struct intel_guc_ct *ct,
-> >   */
-> >  static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
-> >  {
-> > +	long timeout;
-> >  	int err;
+> > @@ -328,6 +328,18 @@ static u32 ct_get_next_fence(struct intel_guc_ct *ct)
+> >  	return ++ct->requests.last_fence;
+> >  }
 > >  
-> >  	/*
-> > @@ -443,10 +444,12 @@ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
-> >  	 * up to that length of time, then switch to a slower sleep-wait loop.
-> >  	 * No GuC command should ever take longer than 10ms.
-> >  	 */
-> > +	timeout = max(10, CONFIG_DRM_I915_GUC_CTB_TIMEOUT);
+> > +static void write_barrier(struct intel_guc_ct *ct) {
+> > +	struct intel_guc *guc = ct_to_guc(ct);
+> > +	struct intel_gt *gt = guc_to_gt(guc);
 > > +
-> >  #define done INTEL_GUC_MSG_IS_RESPONSE(READ_ONCE(req->status))
-> >  	err = wait_for_us(done, 10);
-> >  	if (err)
-> > -		err = wait_for(done, 10);
-> > +		err = wait_for(done, timeout);
-> >  #undef done
+> > +	if (i915_gem_object_is_lmem(guc->ct.vma->obj)) {
+> > +		GEM_BUG_ON(guc->send_regs.fw_domains);
+> > +		intel_uncore_write_fw(gt->uncore, GEN11_SOFT_SCRATCH(0), 0);
+> 
+> hmm, as this is one of the GuC scratch registers used for H2G MMIO
+> communication, writing 0 there might be interpreted by the GuC as new
+> request with action=0 and might results in extra processing/logging on
+> GuC side, and, since from here we don't protect access to this register
+> by send_mutex, we can corrupt other MMIO message being prepared from
+> different thread, ... can't we use other register ?
+>
+
+Hmm, this code has been internal for a long time and we haven't seen an
+issues. MMIOs are always attempted to be processed each interrupt and
+then CTBs are processed next. A value a 0 in scratch0 results in no MMIOs
+being processed as a value of 0 is a reserved action which translates to
+a NOP.
+
+Also in the current i915 once CTBs are enabled MMIOs are never used.
+That being said, I think once we transition to the new interface +
+enable suspend on a VF MMIOs might be used. 
+
+With that I purpose that we merge this as is with a comment saying if we
+ever mix CTBs and MMIOs we need to find another MMIO register. I don't
+changing this now is worth delaying upstreaming this and also any change
+we make now will make us lose confidence in code that has been
+thoroughly tested.
+
+Matt
+ 
+> > +	} else {
+> > +		wmb();
+> > +	}
+> > +}
+> > +
+> >  /**
+> >   * DOC: CTB Host to GuC request
+> >   *
+> > @@ -411,6 +423,12 @@ static int ct_write(struct intel_guc_ct *ct,
+> >  	}
+> >  	GEM_BUG_ON(tail > size);
 > >  
-> >  	if (unlikely(err))
+> > +	/*
+> > +	 * make sure H2G buffer update and LRC tail update (if this triggering a
+> > +	 * submission) are visible before updating the descriptor tail
+> > +	 */
+> > +	write_barrier(ct);
+> > +
+> >  	/* now update desc tail (back in bytes) */
+> >  	desc->tail = tail * 4;
+> >  	return 0;
 > > 
 _______________________________________________
 Intel-gfx mailing list
