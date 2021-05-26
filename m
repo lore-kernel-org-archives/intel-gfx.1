@@ -2,41 +2,66 @@ Return-Path: <SRS0=zXYq=KV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B067CC47082
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 23:30:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05ECBC47082
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 23:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5487A61001
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 23:30:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5487A61001
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id C65336108B
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 23:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C65336108B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D26D66E8A0;
-	Wed, 26 May 2021 23:30:51 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id D30546E8A0;
- Wed, 26 May 2021 23:30:50 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id CB5B9A47E2;
- Wed, 26 May 2021 23:30:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 553D86E88B;
+	Wed, 26 May 2021 23:58:06 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC176E88B;
+ Wed, 26 May 2021 23:58:05 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id k14so5198955eji.2;
+ Wed, 26 May 2021 16:58:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Vw//m7Ix7E5DeRfJ+ysGKNt9weNBoFc1XN8VRnt8JTA=;
+ b=uaQ4UQjhVXPlAIrU1lJoHQbgWwtpE+aLsqZs/mC2eXrWyr7Iy1ggEf/Dg4zIiPWPSj
+ 8R7PIzzFLlMO53rSbbmvQ0O01w+CygGexQ4Pco+1E9R1K1WSBHg/hMr9cxGRUs1sKYbX
+ HhQH3H14kzui81qiWhLCuJ6eJ54YNgr7eI50muCD3WNw+XYTz9D3urnecGfLWPWn6Lev
+ MyAShi81eOvQ1f1H2jaFQ5SGlSNymu418HOQ6dJIQuuaPe913Kp1dm7V3mU0qqTVp8O2
+ rEwAMTx7G8EkegurtAfDHoQ+jJ9ZpqWur2wEsY3ZOBUyV4ebFkgptKFe8AIGo0NBW9KF
+ Uohg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Vw//m7Ix7E5DeRfJ+ysGKNt9weNBoFc1XN8VRnt8JTA=;
+ b=NdPPkVhF2Nlm5/ZXO7nGCZK1l9MmIKPLPcX96KckYmbDha/qqBiGBj4BEO+aMdPkws
+ 2kAkSiX2dQ6atOr+JnN253ebPqrjYe526WchJtP/sURIStXcFh4m3BIv9/MK3deF2T0s
+ O49vqIK/cQAGAOt+e+hCbOLPuMFppQpFIRDo/Z0Ks75P16YOxaRw5aqSzvd7lvt/cnSN
+ YL7z70npr/sd2iXPjtgMAtE9c3GC0pMGAPNkligPWaRjmBTBMdlb4C6Z4rUKkkIN9G0s
+ jFQ1bZ1N0fCRcl5tWpeH9JNOuvnnKChZ2KvKhK2iGZC1c6VlFoR9TIHdNC2jGR9WObXG
+ QyOg==
+X-Gm-Message-State: AOAM531bzoHQ82Lx9R2U986UdwG60vnb19u2ELdgp0lnrjj42Ah61pTO
+ kS3EcMFUZw2vb71fmmuoRWHAIuE6FhZuCmLIZ6Q=
+X-Google-Smtp-Source: ABdhPJwR7+XBtCr7mkeHm/mOlfQ8MXGu/pcFbVuLPBG7JM1JFo1IdpCcrgRwd7WiFurKWAUkrGB8xASlFEufvFhQaRs=
+X-Received: by 2002:a17:906:9258:: with SMTP id
+ c24mr820470ejx.101.1622073483915; 
+ Wed, 26 May 2021 16:58:03 -0700 (PDT)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Date: Wed, 26 May 2021 23:30:50 -0000
-Message-ID: <162207185080.13405.5968202974921432752@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210526173600.27708-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20210526173600.27708-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5B1/2=5D_drm/i915/adl=5Fp=3A_Disable_?=
- =?utf-8?q?FIFO_underrun_recovery?=
+References: <20210526163730.3423181-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20210526163730.3423181-1-daniel.vetter@ffwll.ch>
+From: Dave Airlie <airlied@gmail.com>
+Date: Thu, 27 May 2021 09:57:52 +1000
+Message-ID: <CAPM=9tymmx=_1ukqG5x_EOQGHBo6wYNoD8KfuV+6AHBwd_XNBw@mail.gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Disable gpu relocations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,32 +74,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, Dave Airlie <airlied@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: series starting with [1/2] drm/i915/adl_p: Disable FIFO underrun recovery
-URL   : https://patchwork.freedesktop.org/series/90623/
-State : warning
-
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-ef764ff14f5d drm/i915/adl_p: Disable FIFO underrun recovery
-b3b08f413c07 drm/i915/adl_p: Implement Wa_22012358565
--:121: WARNING:LONG_LINE_COMMENT: line length of 104 exceeds 100 columns
-#121: FILE: drivers/gpu/drm/i915/i915_reg.h:7071:
-+#define   PLANE_CTL_ARB_SLOTS(x)		REG_FIELD_PREP(PLANE_CTL_ARB_SLOTS_MASK, (x)) /* icl+ */
-
-total: 0 errors, 1 warnings, 0 checks, 86 lines checked
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gVGh1LCAyNyBNYXkgMjAyMSBhdCAwMjozNywgRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRl
+ckBmZndsbC5jaD4gd3JvdGU6Cj4KPiBNZWRpYSB1c2Vyc3BhY2Ugd2FzIHRoZSBsYXN0IHVzZXJz
+cGFjZSB0byBzdGlsbCB1c2UgdGhlbSwgYW5kIHRoZXkKPiBjb252ZXJ0ZWQgbm93IHRvbzoKPgo+
+IGh0dHBzOi8vZ2l0aHViLmNvbS9pbnRlbC9tZWRpYS1kcml2ZXIvY29tbWl0LzE0NDAyMGMzNzc3
+MDA4Mzk3NGJlZGY1OTkwMmI3MGI4ZjQ0NGM3OTkKPgo+IFRoaXMgbWVhbnMgbm8gcmVhc29uIGFu
+eW1vcmUgdG8gbWFrZSByZWxvY2F0aW9ucyBmYXN0ZXIgdGhhbiB0aGV5J3ZlCj4gYmVlbiBmb3Ig
+dGhlIGZpcnN0IDkgeWVhcnMgb2YgZ2VtLiBUaGlzIGNvZGUgd2FzIGFkZGVkIGluCj4KPiBjb21t
+aXQgN2RkNGY2NzI5ZjkyNDNiZDcwNDZjNmYwNGMxMDdhNDU2YmRhMzhlYgo+IEF1dGhvcjogQ2hy
+aXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Cj4gRGF0ZTogICBGcmkgSnVuIDE2
+IDE1OjA1OjI0IDIwMTcgKzAxMDAKPgo+ICAgICBkcm0vaTkxNTogQXN5bmMgR1BVIHJlbG9jYXRp
+b24gcHJvY2Vzc2luZwo+Cj4gRnVydGhlcm1vcmUgdGhlcmUncyBwcmV0dHkgc3Ryb25nIGluZGlj
+YXRpb25zIGl0J3MgYnVnZ3ksIHNpbmNlIHRoZQo+IGNvZGUgdG8gdXNlIGl0IGJ5IGRlZmF1bHQg
+YXMgdGhlIG9ubHkgb3B0aW9uIGhhZCB0byBiZSByZXZlcnRlZDoKPgo+IGNvbW1pdCBhZDVkOTVl
+NGQ1Mzg3MzdlZDNmYTI1NDkzNzc3ZGVjZjI2NGEzMDExCj4gQXV0aG9yOiBEYXZlIEFpcmxpZSA8
+YWlybGllZEByZWRoYXQuY29tPgo+IERhdGU6ICAgVHVlIFNlcCA4IDE1OjQxOjE3IDIwMjAgKzEw
+MDAKPgo+ICAgICBSZXZlcnQgImRybS9pOTE1L2dlbTogQXN5bmMgR1BVIHJlbG9jYXRpb25zIG9u
+bHkiCj4KPiBUaGlzIGNvZGUganVzdCBkaXNhYmxlcyBncHUgcmVsb2NhdGlvbnMsIGxlYXZpbmcg
+dGhlIGdhcmJhZ2UKPiBjb2xsZWN0aW9uIGZvciBsYXRlciBwYXRjaGVzIGFuZCBtb3JlIGltcG9y
+dGFudGx5LCBtdWNoIGxlc3MgY29uZnVzaW5nCj4gZGlmZi4gQWxzbyBnaXZlbiBob3cgbXVjaCBo
+ZWFkYWNoZXMgdGhpcyBjb2RlIGhhcyBjYXVzZWQgaW4gdGhlIHBhc3QsCj4gbGV0dGluZyB0aGlz
+IHNvYWsgZm9yIGEgYml0IHNlZW1zIGp1c3RpZmllZC4KPgo+IENjOiBKb24gQmxvb21maWVsZCA8
+am9uLmJsb29tZmllbGRAaW50ZWwuY29tPgo+IFNpZ25lZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIg
+PGRhbmllbC52ZXR0ZXJAaW50ZWwuY29tPgo+IENjOiBDaHJpcyBXaWxzb24gPGNocmlzQGNocmlz
+LXdpbHNvbi5jby51az4KPiBDYzogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0
+QGxpbnV4LmludGVsLmNvbT4KPiBDYzogSm9vbmFzIExhaHRpbmVuIDxqb29uYXMubGFodGluZW5A
+bGludXguaW50ZWwuY29tPgo+IENjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGZmd2xs
+LmNoPgo+IENjOiAiVGhvbWFzIEhlbGxzdHLDtm0iIDx0aG9tYXMuaGVsbHN0cm9tQGxpbnV4Lmlu
+dGVsLmNvbT4KPiBDYzogTWF0dGhldyBBdWxkIDxtYXR0aGV3LmF1bGRAaW50ZWwuY29tPgo+IENj
+OiBMaW9uZWwgTGFuZHdlcmxpbiA8bGlvbmVsLmcubGFuZHdlcmxpbkBpbnRlbC5jb20+Cj4gQ2M6
+IERhdmUgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+CgpBY2tlZC1ieTogRGF2ZSBBaXJsaWUg
+PGFpcmxpZWRAcmVkaGF0LmNvbT4KClRoYW5rcyBmb3IgbWFraW5nIHRoaXMgaGFwcGVuLCBob3Bl
+IHRoZSBzb2Z0cGluIHdvcmxkIGlzIGEgaGFwcGllciBmdXR1cmUuCgpEYXZlLgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBs
+aXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
