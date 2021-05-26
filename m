@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DD31C47082
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:15:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2887AC4708F
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3EC8D60FD8
+	by mail.kernel.org (Postfix) with ESMTPS id E827D60FD8
 	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:15:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3EC8D60FD8
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E827D60FD8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CC786ED7D;
-	Wed, 26 May 2021 14:15:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9226ED82;
+	Wed, 26 May 2021 14:15:43 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D1B66ED24;
- Wed, 26 May 2021 14:15:39 +0000 (UTC)
-IronPort-SDR: jyvPV4P17xf4QrNSGzxd4VikZkmCjxPiyT61hZI/tPxcHHwLH3iJRgmS4QGFt1HwOtKBtbZLvR
- wvTyxDgvpqGg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223660645"
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223660645"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 656DF6ED24;
+ Wed, 26 May 2021 14:15:38 +0000 (UTC)
+IronPort-SDR: /pBJElmuUX04OQre/yHl3z4mOMXE3NIrZCwAHWC2WN4uq3OCZ/aGCE2qy+x6gTYO4noDs+E8Oz
+ SO8BmHKg2/Og==
+X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223660628"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223660628"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:15:19 -0700
-IronPort-SDR: wHKZMBD5249cYVXQLlB70dgZHXaVSIUL6GMMrutZu7/AmpwQDHUkaQiXrJ9aB2NiHaLbeuOeEI
- c1rvxAau2fhA==
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="547206418"
+ 26 May 2021 07:15:16 -0700
+IronPort-SDR: djN+giu43WqGj+O7TDw3exOtalzXlFENY6qFYNIqKysL890ifNUAdp+yIpdzhrpx+4B45LYYkT
+ Iurr4GJ/jcZQ==
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="547206370"
 Received: from wardmich-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.209.181])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:15:18 -0700
+ 26 May 2021 07:15:13 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 26 May 2021 15:14:53 +0100
-Message-Id: <20210526141456.2334192-10-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 26 May 2021 15:14:51 +0100
+Message-Id: <20210526141456.2334192-8-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210526141456.2334192-1-tvrtko.ursulin@linux.intel.com>
 References: <20210526141456.2334192-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/12] drm/i915/selftests: Replace unbound
- set-domain waits with explicit timeouts
+Subject: [Intel-gfx] [PATCH 07/12] drm/i915/selftests: Replace the unbounded
+ set-domain with an explicit wait
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,193 +68,70 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Chris Wilson <chris@chris-wilson.co.uk>
 
-Let's prefer to use explicit request tracking and bounded timeouts in
-our selftests.
-
-v2 (Tvrtko):
- * Rebase.
+After running client_blt, we flush the object by changing its domain.
+This causes us to wait forever instead of an bounded wait suitable for
+the selftest timeout. So do an explicit wait with a suitable timeout --
+which in turn means we have to limit the size of the object/blit to run
+within reason.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com> # v1
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- .../gpu/drm/i915/gt/selftest_workarounds.c    | 107 +++++++-----------
- 1 file changed, 40 insertions(+), 67 deletions(-)
+ .../i915/gem/selftests/i915_gem_client_blt.c  | 26 ++++++++++++++-----
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-index 64937ec3f2dc..72553a56b225 100644
---- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-@@ -93,56 +93,27 @@ reference_lists_fini(struct intel_gt *gt, struct wa_lists *lists)
- 	intel_wa_list_free(&lists->gt_wa_list);
- }
- 
--static struct drm_i915_gem_object *
--read_nonprivs(struct intel_context *ce)
-+static struct i915_request *
-+read_nonprivs(struct intel_context *ce, struct i915_vma *result)
- {
- 	struct intel_engine_cs *engine = ce->engine;
- 	const u32 base = engine->mmio_base;
--	struct drm_i915_gem_object *result;
- 	struct i915_request *rq;
--	struct i915_vma *vma;
- 	u32 srm, *cs;
- 	int err;
- 	int i;
- 
--	result = i915_gem_object_create_internal(engine->i915, PAGE_SIZE);
--	if (IS_ERR(result))
--		return result;
--
--	i915_gem_object_set_cache_coherency(result, I915_CACHE_LLC);
--
--	cs = i915_gem_object_pin_map_unlocked(result, I915_MAP_WB);
--	if (IS_ERR(cs)) {
--		err = PTR_ERR(cs);
--		goto err_obj;
--	}
--	memset(cs, 0xc5, PAGE_SIZE);
--	i915_gem_object_flush_map(result);
--	i915_gem_object_unpin_map(result);
--
--	vma = i915_vma_instance(result, &engine->gt->ggtt->vm, NULL);
--	if (IS_ERR(vma)) {
--		err = PTR_ERR(vma);
--		goto err_obj;
--	}
--
--	err = i915_vma_pin(vma, 0, 0, PIN_GLOBAL);
--	if (err)
--		goto err_obj;
--
- 	rq = intel_context_create_request(ce);
--	if (IS_ERR(rq)) {
--		err = PTR_ERR(rq);
--		goto err_pin;
--	}
-+	if (IS_ERR(rq))
-+		return rq;
- 
--	i915_vma_lock(vma);
--	err = i915_request_await_object(rq, vma->obj, true);
-+	i915_vma_lock(result);
-+	err = i915_request_await_object(rq, result->obj, true);
- 	if (err == 0)
--		err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
--	i915_vma_unlock(vma);
-+		err = i915_vma_move_to_active(result, rq, EXEC_OBJECT_WRITE);
-+	i915_vma_unlock(result);
- 	if (err)
--		goto err_req;
-+		goto err_rq;
- 
- 	srm = MI_STORE_REGISTER_MEM | MI_SRM_LRM_GLOBAL_GTT;
- 	if (INTEL_GEN(engine->i915) >= 8)
-@@ -151,28 +122,24 @@ read_nonprivs(struct intel_context *ce)
- 	cs = intel_ring_begin(rq, 4 * RING_MAX_NONPRIV_SLOTS);
- 	if (IS_ERR(cs)) {
- 		err = PTR_ERR(cs);
--		goto err_req;
-+		goto err_rq;
- 	}
- 
- 	for (i = 0; i < RING_MAX_NONPRIV_SLOTS; i++) {
- 		*cs++ = srm;
- 		*cs++ = i915_mmio_reg_offset(RING_FORCE_TO_NONPRIV(base, i));
--		*cs++ = i915_ggtt_offset(vma) + sizeof(u32) * i;
-+		*cs++ = i915_ggtt_offset(result) + sizeof(u32) * i;
- 		*cs++ = 0;
- 	}
- 	intel_ring_advance(rq, cs);
- 
-+	i915_request_get(rq);
- 	i915_request_add(rq);
--	i915_vma_unpin(vma);
- 
--	return result;
-+	return rq;
- 
--err_req:
-+err_rq:
- 	i915_request_add(rq);
--err_pin:
--	i915_vma_unpin(vma);
--err_obj:
--	i915_gem_object_put(result);
- 	return ERR_PTR(err);
- }
- 
-@@ -203,32 +170,36 @@ print_results(const struct intel_engine_cs *engine, const u32 *results)
- static int check_whitelist(struct intel_context *ce)
- {
- 	struct intel_engine_cs *engine = ce->engine;
--	struct drm_i915_gem_object *results;
--	struct intel_wedge_me wedge;
-+	struct i915_vma *result;
-+	struct i915_request *rq;
-+	int err = 0;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
+index d36873885cc1..baec7bd1fa53 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
+@@ -23,12 +23,19 @@ static int __igt_client_fill(struct intel_engine_cs *engine)
+ 	I915_RND_STATE(prng);
+ 	IGT_TIMEOUT(end);
  	u32 *vaddr;
--	int err;
- 	int i;
++	u64 limit;
+ 	int err = 0;
  
--	results = read_nonprivs(ce);
--	if (IS_ERR(results))
--		return PTR_ERR(results);
--
--	err = 0;
--	i915_gem_object_lock(results, NULL);
--	intel_wedge_on_timeout(&wedge, engine->gt, HZ / 5) /* safety net! */
--		err = i915_gem_object_set_to_cpu_domain(results, false);
--
--	if (intel_gt_is_wedged(engine->gt))
--		err = -EIO;
--	if (err)
--		goto out_put;
-+	result = __vm_create_scratch_for_read(&engine->gt->ggtt->vm, PAGE_SIZE);
-+	if (IS_ERR(result))
-+		return PTR_ERR(result);
- 
--	vaddr = i915_gem_object_pin_map(results, I915_MAP_WB);
-+	vaddr = i915_gem_object_pin_map(result->obj, I915_MAP_WB);
- 	if (IS_ERR(vaddr)) {
- 		err = PTR_ERR(vaddr);
- 		goto out_put;
- 	}
- 
-+	memset(vaddr, 0xc5, PAGE_SIZE);
-+	i915_gem_object_flush_map(result->obj);
++	/* Try to keep the blits within the timeout */
++	limit = min_t(u64, ce->vm->total >> 4,
++		      jiffies_to_msecs(i915_selftest.timeout_jiffies) * SZ_2M);
++	if (!limit)
++		limit = SZ_4K;
 +
-+	rq = read_nonprivs(ce, result);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_map;
-+	}
-+
-+	if (i915_request_wait(rq, 0, HZ / 5) < 0) {
-+		err = -EIO;
-+		goto out_rq;
-+	}
-+
- 	for (i = 0; i < RING_MAX_NONPRIV_SLOTS; i++) {
- 		u32 expected = get_whitelist_reg(engine, i);
- 		u32 actual = vaddr[i];
-@@ -243,10 +214,12 @@ static int check_whitelist(struct intel_context *ce)
- 		}
- 	}
+ 	intel_engine_pm_get(engine);
+ 	do {
+ 		const u32 max_block_size = S16_MAX * PAGE_SIZE;
+-		u32 sz = min_t(u64, ce->vm->total >> 4, prandom_u32_state(&prng));
++		u32 sz = min_t(u64, limit, prandom_u32_state(&prng));
+ 		u32 phys_sz = sz % (max_block_size + 1);
+ 		u32 val = prandom_u32_state(&prng);
+ 		u32 i;
+@@ -73,13 +80,20 @@ static int __igt_client_fill(struct intel_engine_cs *engine)
+ 		if (err)
+ 			goto err_unpin;
  
--	i915_gem_object_unpin_map(results);
-+out_rq:
-+	i915_request_put(rq);
-+out_map:
-+	i915_gem_object_unpin_map(result->obj);
- out_put:
--	i915_gem_object_unlock(results);
--	i915_gem_object_put(results);
-+	i915_vma_put(result);
- 	return err;
- }
+-		i915_gem_object_lock(obj, NULL);
+-		err = i915_gem_object_set_to_cpu_domain(obj, false);
+-		i915_gem_object_unlock(obj);
+-		if (err)
++		err = i915_gem_object_wait(obj,
++					   I915_WAIT_INTERRUPTIBLE,
++					   2 * i915_selftest.timeout_jiffies);
++		if (err) {
++			pr_err("%s fill %zxB timed out\n",
++			       engine->name, obj->base.size);
+ 			goto err_unpin;
++		}
  
+-		for (i = 0; i < huge_gem_object_phys_size(obj) / sizeof(u32); ++i) {
++		for (i = 0;
++		     i < huge_gem_object_phys_size(obj) / sizeof(u32);
++		     i += 17) {
++			if (!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ))
++				clflush(&vaddr[i]);
+ 			if (vaddr[i] != val) {
+ 				pr_err("vaddr[%u]=%x, expected=%x\n", i,
+ 				       vaddr[i], val);
 -- 
 2.30.2
 
