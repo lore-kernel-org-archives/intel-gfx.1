@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D63FFC47089
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A4A59C47088
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5336613C0
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5336613C0
+	by mail.kernel.org (Postfix) with ESMTPS id 704C2613C9
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 704C2613C9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6461F6EC03;
-	Wed, 26 May 2021 06:24:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 618776EC0E;
+	Wed, 26 May 2021 06:24:56 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4E5B6EB9C;
- Wed, 26 May 2021 06:24:50 +0000 (UTC)
-IronPort-SDR: Ed/29atyhox9ClPl8IRkKHMcEFyHy5z2FoIAdIIF7l/kCURLu3HY8kBEYQ/SScfS7KC/U3YUcT
- tJuIwPsQG5Zg==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033738"
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033738"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F67D6EB9F;
+ Wed, 26 May 2021 06:24:51 +0000 (UTC)
+IronPort-SDR: 9SoGorega7sHB6+767q6RDFIafi5CNU6sZo1F0VvKTyij0+OVvOkfYpcDsxyqnuauqKnPwIT+a
+ ZZK4sBS+dU1Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033746"
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033746"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:48 -0700
-IronPort-SDR: gKktzzVV7lvoFEAgEzA+wLlqxVhR9GOdeDOAPTlQpbswY98K2SNElytD6QCTElyqQgxcgYQA7g
- xpf9hEnh/cWw==
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376807"
+ 25 May 2021 23:24:49 -0700
+IronPort-SDR: BHOPfJLqSr3G5h2sChZ7o6DNPrG1fXraTOeYhwHJUzqGXKqQ5HmMonTWnw0CHNE6+aE3vdhigc
+ 4aEry8GuSPbA==
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376827"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:48 -0700
+ 25 May 2021 23:24:49 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 23:42:27 -0700
-Message-Id: <20210526064237.77853-9-matthew.brost@intel.com>
+Date: Tue, 25 May 2021 23:42:32 -0700
+Message-Id: <20210526064237.77853-14-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210526064237.77853-1-matthew.brost@intel.com>
 References: <20210526064237.77853-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/18] drm/i915: Promote ptrdiff() to
- i915_utils.h
+Subject: [Intel-gfx] [PATCH 13/18] drm/i915/guc: Relax CTB response timeout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,48 +65,68 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-Generic helpers should be placed in i915_utils.h.
+In upcoming patch we will allow more CTB requests to be sent in
+parallel to the GuC for processing, so we shouldn't assume any more
+that GuC will always reply without 10ms.
+
+Use bigger value from CONFIG_DRM_I915_GUC_CTB_TIMEOUT instead.
+
+v2: Add CONFIG_DRM_I915_GUC_CTB_TIMEOUT config option
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/i915_utils.h | 5 +++++
- drivers/gpu/drm/i915/i915_vma.h   | 5 -----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/Kconfig.profile      | 9 +++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 5 ++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index f02f52ab5070..5259edacde38 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -201,6 +201,11 @@ __check_struct_size(size_t base, size_t arr, size_t count, size_t *size)
- 	__T;								\
- })
+diff --git a/drivers/gpu/drm/i915/Kconfig.profile b/drivers/gpu/drm/i915/Kconfig.profile
+index 39328567c200..68ac707755d2 100644
+--- a/drivers/gpu/drm/i915/Kconfig.profile
++++ b/drivers/gpu/drm/i915/Kconfig.profile
+@@ -38,6 +38,15 @@ config DRM_I915_USERFAULT_AUTOSUSPEND
+ 	  May be 0 to disable the extra delay and solely use the device level
+ 	  runtime pm autosuspend delay tunable.
  
-+static __always_inline ptrdiff_t ptrdiff(const void *a, const void *b)
-+{
-+	return a - b;
-+}
++config DRM_I915_GUC_CTB_TIMEOUT
++	int "How long to wait for the GuC to make forward progress on CTBs (ms)"
++	default 1500 # milliseconds
++	help
++	  Configures the default timeout waiting for GuC the to make forward
++	  progress on CTBs. e.g. Waiting for a response to requeset.
 +
- /*
-  * container_of_user: Extract the superclass from a pointer to a member.
-  *
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index dc6926d89626..eca452a9851f 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -151,11 +151,6 @@ static inline void i915_vma_put(struct i915_vma *vma)
- 	i915_gem_object_put(vma->obj);
- }
++	  A minimum value of 10 ms is allowed.
++
+ config DRM_I915_HEARTBEAT_INTERVAL
+ 	int "Interval between heartbeat pulses (ms)"
+ 	default 2500 # milliseconds
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 916c2b80c841..5b0dece7a7cd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -436,6 +436,7 @@ static int ct_write(struct intel_guc_ct *ct,
+  */
+ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
+ {
++	long timeout;
+ 	int err;
  
--static __always_inline ptrdiff_t ptrdiff(const void *a, const void *b)
--{
--	return a - b;
--}
--
- static inline long
- i915_vma_compare(struct i915_vma *vma,
- 		 struct i915_address_space *vm,
+ 	/*
+@@ -443,10 +444,12 @@ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
+ 	 * up to that length of time, then switch to a slower sleep-wait loop.
+ 	 * No GuC command should ever take longer than 10ms.
+ 	 */
++	timeout = max(10, CONFIG_DRM_I915_GUC_CTB_TIMEOUT);
++
+ #define done INTEL_GUC_MSG_IS_RESPONSE(READ_ONCE(req->status))
+ 	err = wait_for_us(done, 10);
+ 	if (err)
+-		err = wait_for(done, 10);
++		err = wait_for(done, timeout);
+ #undef done
+ 
+ 	if (unlikely(err))
 -- 
 2.28.0
 
