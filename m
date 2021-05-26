@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 087EAC47089
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9183BC2B9F7
 	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CE468613C0
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE468613C0
+	by mail.kernel.org (Postfix) with ESMTPS id 60376613C0
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60376613C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4310F6EC0A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB326EC0F;
 	Wed, 26 May 2021 06:24:56 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3FDE6EB7D;
- Wed, 26 May 2021 06:24:50 +0000 (UTC)
-IronPort-SDR: vEa8szrZPjVpuKzMp+Xi+gSj4cwccMuI7tE2O2zxxWkBayafAChWoEFiASS7zTPEjeYTSGr2Wr
- jLT55vEx/Nkw==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033739"
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033739"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4079B6EB7D;
+ Wed, 26 May 2021 06:24:51 +0000 (UTC)
+IronPort-SDR: Ok+oYDg478UTeE7kQS/HwtD/qc27MTa4M0cxjd9upJCcow/9PyqZaCbxFpLxn9HSPoOC+cfHIC
+ ulTEsCpd4ShQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033743"
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033743"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 May 2021 23:24:49 -0700
-IronPort-SDR: +Wlb4ejvaOCE1axaXsEz6/BgTBdYbSGrnR9GEl+Y+yal67uiK8GIwev+bJ0tP9qzSSHunbSSu8
- mVS0sA7Zvk1w==
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376811"
+IronPort-SDR: hp0i8RrKDRD/KfXVnukHbjR4qWG9Waoj8NXAsmLEbt6vThbIIdkMU1JMpQYSwOua0o3ZGCpglP
+ uam1TVye4qmg==
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376820"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:48 -0700
+ 25 May 2021 23:24:49 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 23:42:28 -0700
-Message-Id: <20210526064237.77853-10-matthew.brost@intel.com>
+Date: Tue, 25 May 2021 23:42:30 -0700
+Message-Id: <20210526064237.77853-12-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210526064237.77853-1-matthew.brost@intel.com>
 References: <20210526064237.77853-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/18] drm/i915/guc: Only rely on own CTB size
+Subject: [Intel-gfx] [PATCH 11/18] drm/i915/guc: Replace CTB array with
+ explicit members
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,175 +66,145 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-In upcoming GuC firmware, CTB size will be removed from the CTB
-descriptor so we must keep it locally for any calculations.
-
-While around, improve some debug messages and helpers.
+Upcoming GuC firmware will always require just two CTBs and we
+also plan to configure them with different sizes, so definining
+them as array is no longer suitable.
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 55 +++++++++++++++++------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  2 +
- 2 files changed, 43 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 46 ++++++++++++-----------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  7 +++-
+ 2 files changed, 30 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index d08fa9879921..079e1a160894 100644
+index 34c582105860..6864819b75a9 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -90,6 +90,24 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc,
- 	desc->owner = CTB_OWNER_HOST;
- }
- 
-+static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb, u32 cmds_addr)
-+{
-+	guc_ct_buffer_desc_init(ctb->desc, cmds_addr, ctb->size);
-+}
-+
-+static void guc_ct_buffer_init(struct intel_guc_ct_buffer *ctb,
-+			       struct guc_ct_buffer_desc *desc,
-+			       u32 *cmds, u32 size)
-+{
-+	GEM_BUG_ON(size % 4);
-+
-+	ctb->desc = desc;
-+	ctb->cmds = cmds;
-+	ctb->size = size;
-+
-+	guc_ct_buffer_reset(ctb, 0);
-+}
-+
- static int guc_action_register_ct_buffer(struct intel_guc *guc,
- 					 u32 desc_addr,
- 					 u32 type)
-@@ -148,7 +166,10 @@ static int ct_deregister_buffer(struct intel_guc_ct *ct, u32 type)
- int intel_guc_ct_init(struct intel_guc_ct *ct)
- {
+@@ -168,10 +168,10 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
  	struct intel_guc *guc = ct_to_guc(ct);
-+	struct guc_ct_buffer_desc *desc;
-+	u32 blob_size;
+ 	struct guc_ct_buffer_desc *desc;
+ 	u32 blob_size;
++	u32 cmds_size;
  	void *blob;
-+	u32 *cmds;
+ 	u32 *cmds;
  	int err;
- 	int i;
+-	int i;
  
-@@ -176,19 +197,24 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
- 	 * other code will need updating as well.
- 	 */
+ 	GEM_BUG_ON(ct->vma);
  
--	err = intel_guc_allocate_and_map_vma(guc, PAGE_SIZE, &ct->vma, &blob);
-+	blob_size = PAGE_SIZE;
-+	err = intel_guc_allocate_and_map_vma(guc, blob_size, &ct->vma, &blob);
- 	if (unlikely(err)) {
--		CT_ERROR(ct, "Failed to allocate CT channel (err=%d)\n", err);
-+		CT_PROBE_ERROR(ct, "Failed to allocate %u for CTB data (%pe)\n",
-+			       blob_size, ERR_PTR(err));
- 		return err;
- 	}
+@@ -207,15 +207,23 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
  
--	CT_DEBUG(ct, "vma base=%#x\n", intel_guc_ggtt_offset(guc, ct->vma));
-+	CT_DEBUG(ct, "base=%#x size=%u\n", intel_guc_ggtt_offset(guc, ct->vma), blob_size);
+ 	CT_DEBUG(ct, "base=%#x size=%u\n", intel_guc_ggtt_offset(guc, ct->vma), blob_size);
  
- 	/* store pointers to desc and cmds */
- 	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
- 		GEM_BUG_ON((i !=  CTB_SEND) && (i != CTB_RECV));
--		ct->ctbs[i].desc = blob + PAGE_SIZE/4 * i;
--		ct->ctbs[i].cmds = blob + PAGE_SIZE/4 * i + PAGE_SIZE/2;
+-	/* store pointers to desc and cmds */
+-	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
+-		GEM_BUG_ON((i !=  CTB_SEND) && (i != CTB_RECV));
++	/* store pointers to desc and cmds for send ctb */
++	desc = blob;
++	cmds = blob + PAGE_SIZE / 2;
++	cmds_size = PAGE_SIZE / 4;
++	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "send",
++		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
+ 
+-		desc = blob + PAGE_SIZE / 4 * i;
+-		cmds = blob + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
++	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size);
+ 
+-		guc_ct_buffer_init(&ct->ctbs[i], desc, cmds, PAGE_SIZE / 4);
+-	}
++	/* store pointers to desc and cmds for recv ctb */
++	desc = blob + PAGE_SIZE / 4;
++	cmds = blob + PAGE_SIZE / 4 + PAGE_SIZE / 2;
++	cmds_size = PAGE_SIZE / 4;
++	CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "recv",
++		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
 +
-+		desc = blob + PAGE_SIZE / 4 * i;
-+		cmds = blob + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
-+
-+		guc_ct_buffer_init(&ct->ctbs[i], desc, cmds, PAGE_SIZE / 4);
- 	}
++	guc_ct_buffer_init(&ct->ctbs.recv, desc, cmds, cmds_size);
  
  	return 0;
-@@ -217,7 +243,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
- int intel_guc_ct_enable(struct intel_guc_ct *ct)
- {
- 	struct intel_guc *guc = ct_to_guc(ct);
--	u32 base, cmds, size;
-+	u32 base, cmds;
+ }
+@@ -246,7 +254,6 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 	u32 base, cmds;
+ 	void *blob;
  	int err;
- 	int i;
+-	int i;
  
-@@ -232,10 +258,11 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- 	 */
- 	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
- 		GEM_BUG_ON((i != CTB_SEND) && (i != CTB_RECV));
-+
- 		cmds = base + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
--		size = PAGE_SIZE / 4;
--		CT_DEBUG(ct, "%d: addr=%#x size=%u\n", i, cmds, size);
--		guc_ct_buffer_desc_init(ct->ctbs[i].desc, cmds, size);
-+		CT_DEBUG(ct, "%d: cmds addr=%#x\n", i, cmds);
-+
-+		guc_ct_buffer_reset(&ct->ctbs[i], cmds);
- 	}
+ 	GEM_BUG_ON(ct->enabled);
+ 
+@@ -257,28 +264,25 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 
+ 	/* blob should start with send descriptor */
+ 	blob = __px_vaddr(ct->vma->obj);
+-	GEM_BUG_ON(blob != ct->ctbs[CTB_SEND].desc);
++	GEM_BUG_ON(blob != ct->ctbs.send.desc);
+ 
+ 	/* (re)initialize descriptors */
+-	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
+-		GEM_BUG_ON((i != CTB_SEND) && (i != CTB_RECV));
++	cmds = base + ptrdiff(ct->ctbs.send.cmds, blob);
++	guc_ct_buffer_reset(&ct->ctbs.send, cmds);
+ 
+-		cmds = base + ptrdiff(ct->ctbs[i].cmds, blob);
+-		CT_DEBUG(ct, "%d: cmds addr=%#x\n", i, cmds);
+-
+-		guc_ct_buffer_reset(&ct->ctbs[i], cmds);
+-	}
++	cmds = base + ptrdiff(ct->ctbs.recv.cmds, blob);
++	guc_ct_buffer_reset(&ct->ctbs.recv, cmds);
  
  	/*
-@@ -259,7 +286,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- err_deregister:
- 	ct_deregister_buffer(ct, INTEL_GUC_CT_BUFFER_TYPE_RECV);
- err_out:
--	CT_PROBE_ERROR(ct, "Failed to open channel (err=%d)\n", err);
-+	CT_PROBE_ERROR(ct, "Failed to enable CTB (%pe)\n", ERR_PTR(err));
- 	return err;
- }
+ 	 * Register both CT buffers starting with RECV buffer.
+ 	 * Descriptors are in first half of the blob.
+ 	 */
+-	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_RECV].desc, blob),
++	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.recv.desc, blob),
+ 				 INTEL_GUC_CT_BUFFER_TYPE_RECV);
+ 	if (unlikely(err))
+ 		goto err_out;
  
-@@ -314,7 +341,7 @@ static int ct_write(struct intel_guc_ct *ct,
+-	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_SEND].desc, blob),
++	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.send.desc, blob),
+ 				 INTEL_GUC_CT_BUFFER_TYPE_SEND);
+ 	if (unlikely(err))
+ 		goto err_deregister;
+@@ -341,7 +345,7 @@ static int ct_write(struct intel_guc_ct *ct,
+ 		    u32 len /* in dwords */,
+ 		    u32 fence)
+ {
+-	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_SEND];
++	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
  	struct guc_ct_buffer_desc *desc = ctb->desc;
  	u32 head = desc->head;
  	u32 tail = desc->tail;
--	u32 size = desc->size;
-+	u32 size = ctb->size;
- 	u32 used;
- 	u32 header;
- 	u32 *cmds = ctb->cmds;
-@@ -323,7 +350,7 @@ static int ct_write(struct intel_guc_ct *ct,
- 	if (unlikely(desc->is_in_error))
- 		return -EPIPE;
+@@ -557,7 +561,7 @@ static inline bool ct_header_is_response(u32 header)
  
--	if (unlikely(!IS_ALIGNED(head | tail | size, 4) ||
-+	if (unlikely(!IS_ALIGNED(head | tail, 4) ||
- 		     (tail | head) >= size))
- 		goto corrupted;
- 
-@@ -530,7 +557,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
+ static int ct_read(struct intel_guc_ct *ct, u32 *data)
+ {
+-	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_RECV];
++	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
  	struct guc_ct_buffer_desc *desc = ctb->desc;
  	u32 head = desc->head;
  	u32 tail = desc->tail;
--	u32 size = desc->size;
-+	u32 size = ctb->size;
- 	u32 *cmds = ctb->cmds;
- 	s32 available;
- 	unsigned int len;
-@@ -539,7 +566,7 @@ static int ct_read(struct intel_guc_ct *ct, u32 *data)
- 	if (unlikely(desc->is_in_error))
- 		return -EPIPE;
- 
--	if (unlikely(!IS_ALIGNED(head | tail | size, 4) ||
-+	if (unlikely(!IS_ALIGNED(head | tail, 4) ||
- 		     (tail | head) >= size))
- 		goto corrupted;
- 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index 494a51a5200f..4009e2dd0de4 100644
+index 4009e2dd0de4..fc9486779e87 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -29,10 +29,12 @@ struct intel_guc;
-  *
-  * @desc: pointer to the buffer descriptor
-  * @cmds: pointer to the commands buffer
-+ * @size: size of the commands buffer
-  */
- struct intel_guc_ct_buffer {
- 	struct guc_ct_buffer_desc *desc;
- 	u32 *cmds;
-+	u32 size;
- };
+@@ -47,8 +47,11 @@ struct intel_guc_ct {
+ 	struct i915_vma *vma;
+ 	bool enabled;
  
+-	/* buffers for sending(0) and receiving(1) commands */
+-	struct intel_guc_ct_buffer ctbs[2];
++	/* buffers for sending and receiving commands */
++	struct {
++		struct intel_guc_ct_buffer send;
++		struct intel_guc_ct_buffer recv;
++	} ctbs;
  
+ 	struct {
+ 		u32 last_fence; /* last fence used to send request */
 -- 
 2.28.0
 
