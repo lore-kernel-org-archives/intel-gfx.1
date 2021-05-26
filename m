@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2887AC4708F
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:15:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99C64C4708A
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E827D60FD8
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:15:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E827D60FD8
+	by mail.kernel.org (Postfix) with ESMTPS id 64882613D3
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 14:16:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64882613D3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9226ED82;
-	Wed, 26 May 2021 14:15:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE88E6ED8F;
+	Wed, 26 May 2021 14:15:47 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 656DF6ED24;
- Wed, 26 May 2021 14:15:38 +0000 (UTC)
-IronPort-SDR: /pBJElmuUX04OQre/yHl3z4mOMXE3NIrZCwAHWC2WN4uq3OCZ/aGCE2qy+x6gTYO4noDs+E8Oz
- SO8BmHKg2/Og==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223660628"
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223660628"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4526A6ED74;
+ Wed, 26 May 2021 14:15:40 +0000 (UTC)
+IronPort-SDR: StluCb+EMcEoVFYod2JLAVhdL6u7eu79aSYvjEMscxIQeAVVyGz75rUoo8HWlDOK6ej/VNv7+0
+ N4bitXdLDifg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="223660666"
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="223660666"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:15:16 -0700
-IronPort-SDR: djN+giu43WqGj+O7TDw3exOtalzXlFENY6qFYNIqKysL890ifNUAdp+yIpdzhrpx+4B45LYYkT
- Iurr4GJ/jcZQ==
-X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="547206370"
+ 26 May 2021 07:15:23 -0700
+IronPort-SDR: WhY2rwh71IMvB8AzD8ZwUIVqKNac3qIBNmivhC/i/ju0nlhk/LTCTHV/dB28QRJFOJ/2u2AoDI
+ KNvidS28YxWg==
+X-IronPort-AV: E=Sophos;i="5.82,331,1613462400"; d="scan'208";a="547206464"
 Received: from wardmich-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.209.181])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2021 07:15:13 -0700
+ 26 May 2021 07:15:21 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 26 May 2021 15:14:51 +0100
-Message-Id: <20210526141456.2334192-8-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 26 May 2021 15:14:55 +0100
+Message-Id: <20210526141456.2334192-12-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210526141456.2334192-1-tvrtko.ursulin@linux.intel.com>
 References: <20210526141456.2334192-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/12] drm/i915/selftests: Replace the unbounded
- set-domain with an explicit wait
+Subject: [Intel-gfx] [PATCH 11/12] drm/i915/selftests: Remove redundant
+ set-to-gtt-domain before batch submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,70 +68,29 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Chris Wilson <chris@chris-wilson.co.uk>
 
-After running client_blt, we flush the object by changing its domain.
-This causes us to wait forever instead of an bounded wait suitable for
-the selftest timeout. So do an explicit wait with a suitable timeout --
-which in turn means we have to limit the size of the object/blit to run
-within reason.
+In construction the rpcs_query batch we know that it is device coherent
+and ready for execution, the set-to-gtt-domain here is redudant.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- .../i915/gem/selftests/i915_gem_client_blt.c  | 26 ++++++++++++++-----
- 1 file changed, 20 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-index d36873885cc1..baec7bd1fa53 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-@@ -23,12 +23,19 @@ static int __igt_client_fill(struct intel_engine_cs *engine)
- 	I915_RND_STATE(prng);
- 	IGT_TIMEOUT(end);
- 	u32 *vaddr;
-+	u64 limit;
- 	int err = 0;
- 
-+	/* Try to keep the blits within the timeout */
-+	limit = min_t(u64, ce->vm->total >> 4,
-+		      jiffies_to_msecs(i915_selftest.timeout_jiffies) * SZ_2M);
-+	if (!limit)
-+		limit = SZ_4K;
-+
- 	intel_engine_pm_get(engine);
- 	do {
- 		const u32 max_block_size = S16_MAX * PAGE_SIZE;
--		u32 sz = min_t(u64, ce->vm->total >> 4, prandom_u32_state(&prng));
-+		u32 sz = min_t(u64, limit, prandom_u32_state(&prng));
- 		u32 phys_sz = sz % (max_block_size + 1);
- 		u32 val = prandom_u32_state(&prng);
- 		u32 i;
-@@ -73,13 +80,20 @@ static int __igt_client_fill(struct intel_engine_cs *engine)
- 		if (err)
- 			goto err_unpin;
- 
--		i915_gem_object_lock(obj, NULL);
--		err = i915_gem_object_set_to_cpu_domain(obj, false);
--		i915_gem_object_unlock(obj);
--		if (err)
-+		err = i915_gem_object_wait(obj,
-+					   I915_WAIT_INTERRUPTIBLE,
-+					   2 * i915_selftest.timeout_jiffies);
-+		if (err) {
-+			pr_err("%s fill %zxB timed out\n",
-+			       engine->name, obj->base.size);
- 			goto err_unpin;
-+		}
- 
--		for (i = 0; i < huge_gem_object_phys_size(obj) / sizeof(u32); ++i) {
-+		for (i = 0;
-+		     i < huge_gem_object_phys_size(obj) / sizeof(u32);
-+		     i += 17) {
-+			if (!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ))
-+				clflush(&vaddr[i]);
- 			if (vaddr[i] != val) {
- 				pr_err("vaddr[%u]=%x, expected=%x\n", i,
- 				       vaddr[i], val);
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index 3d8d5f242e34..eed5be597eee 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -954,8 +954,6 @@ emit_rpcs_query(struct drm_i915_gem_object *obj,
+ 	err = i915_gem_object_lock(obj, &ww);
+ 	if (!err)
+ 		err = i915_gem_object_lock(rpcs, &ww);
+-	if (!err)
+-		err = i915_gem_object_set_to_gtt_domain(obj, false);
+ 	if (!err)
+ 		err = i915_vma_pin_ww(vma, &ww, 0, 0, PIN_USER);
+ 	if (err)
 -- 
 2.30.2
 
