@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73CBDC47082
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 163B2C47089
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C631613D3
+	by mail.kernel.org (Postfix) with ESMTPS id D24F6613D3
 	for <intel-gfx@archiver.kernel.org>; Wed, 26 May 2021 06:25:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C631613D3
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D24F6613D3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD25B6EBAC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 892D16EBFF;
 	Wed, 26 May 2021 06:24:54 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 222656E0BE;
- Wed, 26 May 2021 06:24:50 +0000 (UTC)
-IronPort-SDR: hPHhdY3YKAU5TlkWfvcGCNArnmII4qVk5eCyE86HkPr1Nm+mrsXcBgNeqIlmSZyHTwD6YKGFkh
- DKTD2qJKNOBA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033736"
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033736"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 502D46EBA3;
+ Wed, 26 May 2021 06:24:51 +0000 (UTC)
+IronPort-SDR: KUcK+h+pppbMlfzdnkoE2DjXRRLmoHZLgeBHnTtvOuAsa41Xk+vJwT3wQ0c958n6/51ekeP5mi
+ 3DITJuDHdsSA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9995"; a="182033727"
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="182033727"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:48 -0700
-IronPort-SDR: wCGQhvwImU3eSsPIyFzlFGYLEnUm16Cavyh4QnZe+zc4I6SU3IojfKqyv+DYn86yK4quTMujR8
- xx4OfiS2CyAw==
-X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376799"
+ 25 May 2021 23:24:47 -0700
+IronPort-SDR: UkMHENBuAOL2gUOyzaFFMzmBGhZa3ggPxUR2GMD4SsCitKcyL1RwJDOuyomJb1NnCUYb13om+m
+ JhMXC7FIx93Q==
+X-IronPort-AV: E=Sophos;i="5.82,330,1613462400"; d="scan'208";a="633376785"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2021 23:24:48 -0700
+ 25 May 2021 23:24:47 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 25 May 2021 23:42:25 -0700
-Message-Id: <20210526064237.77853-7-matthew.brost@intel.com>
+Date: Tue, 25 May 2021 23:42:20 -0700
+Message-Id: <20210526064237.77853-2-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210526064237.77853-1-matthew.brost@intel.com>
 References: <20210526064237.77853-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/18] drm/i915/guc: Drop guc->interrupts.enabled
+Subject: [Intel-gfx] [PATCH 01/18] drm/i915/guc: skip disabling CTBs before
+ sanitizing the GuC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,95 +64,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop the variable guc->interrupts.enabled as this variable is just
-leading to bugs creeping into the code.
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-e.g. A full GPU reset disables the GuC interrupts but forgot to clear
-guc->interrupts.enabled, guc->interrupts.enabled being true suppresses
-interrupts from getting re-enabled and now we are broken.
+If we're about to sanitize the GuC, something might have going wrong
+beforehand, so we should avoid trying to talk to it. Even if GuC is
+still running fine, the sanitize will reset its internal state and clear
+the CTB registration, so there is still no need to explicitly do so.
 
-It is harmless to enable interrupt while already enabled so let's just
-delete this variable to avoid bugs like this going forward.
-
+References: https://gitlab.freedesktop.org/drm/intel/-/issues/2469
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.c | 27 +++++++++-----------------
- drivers/gpu/drm/i915/gt/uc/intel_guc.h |  1 -
- 2 files changed, 9 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index ab2c8fe8cdfa..18da9ed15728 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -96,12 +96,9 @@ static void gen9_enable_guc_interrupts(struct intel_guc *guc)
- 	assert_rpm_wakelock_held(&gt->i915->runtime_pm);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 6abb8f2dc33d..892c1315ce49 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -504,7 +504,7 @@ static int __uc_init_hw(struct intel_uc *uc)
  
- 	spin_lock_irq(&gt->irq_lock);
--	if (!guc->interrupts.enabled) {
--		WARN_ON_ONCE(intel_uncore_read(gt->uncore, GEN8_GT_IIR(2)) &
--			     gt->pm_guc_events);
--		guc->interrupts.enabled = true;
--		gen6_gt_pm_enable_irq(gt, gt->pm_guc_events);
--	}
-+	WARN_ON_ONCE(intel_uncore_read(gt->uncore, GEN8_GT_IIR(2)) &
-+		     gt->pm_guc_events);
-+	gen6_gt_pm_enable_irq(gt, gt->pm_guc_events);
- 	spin_unlock_irq(&gt->irq_lock);
- }
+ 	ret = intel_guc_sample_forcewake(guc);
+ 	if (ret)
+-		goto err_communication;
++		goto err_log_capture;
  
-@@ -112,7 +109,6 @@ static void gen9_disable_guc_interrupts(struct intel_guc *guc)
- 	assert_rpm_wakelock_held(&gt->i915->runtime_pm);
+ 	if (intel_uc_uses_guc_submission(uc))
+ 		intel_guc_submission_enable(guc);
+@@ -529,8 +529,6 @@ static int __uc_init_hw(struct intel_uc *uc)
+ 	/*
+ 	 * We've failed to load the firmware :(
+ 	 */
+-err_communication:
+-	guc_disable_communication(guc);
+ err_log_capture:
+ 	__uc_capture_load_err_log(uc);
+ err_out:
+@@ -558,9 +556,6 @@ static void __uc_fini_hw(struct intel_uc *uc)
+ 	if (intel_uc_uses_guc_submission(uc))
+ 		intel_guc_submission_disable(guc);
  
- 	spin_lock_irq(&gt->irq_lock);
--	guc->interrupts.enabled = false;
- 
- 	gen6_gt_pm_disable_irq(gt, gt->pm_guc_events);
- 
-@@ -134,18 +130,14 @@ static void gen11_reset_guc_interrupts(struct intel_guc *guc)
- static void gen11_enable_guc_interrupts(struct intel_guc *guc)
- {
- 	struct intel_gt *gt = guc_to_gt(guc);
-+	u32 events = REG_FIELD_PREP(ENGINE1_MASK, GUC_INTR_GUC2HOST);
- 
- 	spin_lock_irq(&gt->irq_lock);
--	if (!guc->interrupts.enabled) {
--		u32 events = REG_FIELD_PREP(ENGINE1_MASK, GUC_INTR_GUC2HOST);
+-	if (guc_communication_enabled(guc))
+-		guc_disable_communication(guc);
 -
--		WARN_ON_ONCE(gen11_gt_reset_one_iir(gt, 0, GEN11_GUC));
--		intel_uncore_write(gt->uncore,
--				   GEN11_GUC_SG_INTR_ENABLE, events);
--		intel_uncore_write(gt->uncore,
--				   GEN11_GUC_SG_INTR_MASK, ~events);
--		guc->interrupts.enabled = true;
--	}
-+	WARN_ON_ONCE(gen11_gt_reset_one_iir(gt, 0, GEN11_GUC));
-+	intel_uncore_write(gt->uncore,
-+			   GEN11_GUC_SG_INTR_ENABLE, events);
-+	intel_uncore_write(gt->uncore,
-+			   GEN11_GUC_SG_INTR_MASK, ~events);
- 	spin_unlock_irq(&gt->irq_lock);
+ 	__uc_sanitize(uc);
  }
  
-@@ -154,7 +146,6 @@ static void gen11_disable_guc_interrupts(struct intel_guc *guc)
- 	struct intel_gt *gt = guc_to_gt(guc);
+@@ -577,7 +572,6 @@ void intel_uc_reset_prepare(struct intel_uc *uc)
+ 	if (!intel_guc_is_ready(guc))
+ 		return;
  
- 	spin_lock_irq(&gt->irq_lock);
--	guc->interrupts.enabled = false;
+-	guc_disable_communication(guc);
+ 	__uc_sanitize(uc);
+ }
  
- 	intel_uncore_write(gt->uncore, GEN11_GUC_SG_INTR_MASK, ~0);
- 	intel_uncore_write(gt->uncore, GEN11_GUC_SG_INTR_ENABLE, 0);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index c20f3839de12..4abc59f6f3cd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -33,7 +33,6 @@ struct intel_guc {
- 	unsigned int msg_enabled_mask;
- 
- 	struct {
--		bool enabled;
- 		void (*reset)(struct intel_guc *guc);
- 		void (*enable)(struct intel_guc *guc);
- 		void (*disable)(struct intel_guc *guc);
 -- 
 2.28.0
 
