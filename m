@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BA57C47089
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 13:28:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64E2AC47089
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 13:30:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E7D976128B
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 13:28:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7D976128B
+	by mail.kernel.org (Postfix) with ESMTPS id 28D2561059
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 13:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28D2561059
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 742D96F3A2;
-	Thu, 27 May 2021 13:28:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C83AD6F3A4;
+	Thu, 27 May 2021 13:30:52 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8898C6F3A2;
- Thu, 27 May 2021 13:28:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0A316F3A3;
+ Thu, 27 May 2021 13:30:51 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 290AE68AFE; Thu, 27 May 2021 15:28:23 +0200 (CEST)
-Date: Thu, 27 May 2021 15:28:22 +0200
+ id DA26F68AFE; Thu, 27 May 2021 15:30:46 +0200 (CEST)
+Date: Thu, 27 May 2021 15:30:46 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210527132822.GE26160@lst.de>
+Message-ID: <20210527133046.GF26160@lst.de>
 References: <20210518064215.2856977-1-tientzu@chromium.org>
- <20210518064215.2856977-8-tientzu@chromium.org>
+ <20210518064215.2856977-14-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210518064215.2856977-8-tientzu@chromium.org>
+In-Reply-To: <20210518064215.2856977-14-tientzu@chromium.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v7 07/15] swiotlb: Update is_swiotlb_active
- to add a struct device argument
+Subject: Re: [Intel-gfx] [PATCH v7 13/15] dma-direct: Allocate memory from
+ restricted DMA pool if available
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,13 +78,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> +	if (is_swiotlb_active(NULL)) {
+> +#ifdef CONFIG_DMA_RESTRICTED_POOL
+> +	if (swiotlb_free(dev, page, size))
+> +		return;
+> +#endif
 
-Passing a NULL argument to this doesn't make sense.  They all should have
-a struct device at hand, you'll just need to dig for it.
+Please avoid the ifdefs by either stubbing out the function to be a no-op
+or by using IS_ENABLED.
 
-And this function should be about to go away anyway, but until then we
-need to do this properly.
+> +#ifdef CONFIG_DMA_RESTRICTED_POOL
+> +	page = swiotlb_alloc(dev, size);
+> +	if (page && !dma_coherent_ok(dev, page_to_phys(page), size)) {
+> +		__dma_direct_free_pages(dev, page, size);
+> +		page = NULL;
+> +	}
+> +#endif
+
+Same here, for the stub it would just return NULL.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
