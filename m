@@ -2,53 +2,76 @@ Return-Path: <SRS0=HRyj=KW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C8D3C4707F
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 15:05:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 074D0C47089
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 15:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF20B6128D
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 15:05:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF20B6128D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B6098613AA
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 15:10:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6098613AA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 258B86F3FE;
-	Thu, 27 May 2021 15:05:14 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 959E46F3FA;
- Thu, 27 May 2021 15:05:12 +0000 (UTC)
-IronPort-SDR: ruK5SZTlAJbtuWWruQFoxuFuIlqGer/0i9JSeTl5xc+s5HfMgdve8rhlZKjFg5RSCnnk4G06S8
- y1lSr0Hnk3YA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9996"; a="183090380"
-X-IronPort-AV: E=Sophos;i="5.82,334,1613462400"; d="scan'208";a="183090380"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2021 08:05:11 -0700
-IronPort-SDR: rX0iP5n4vxkD8U6eoadxTbMGWSM0uO0cFv5k4VCfkp7Khj0slTX2ncW5ygf082L6L2HNdxSPmA
- XaZgVOXPsylQ==
-X-IronPort-AV: E=Sophos;i="5.82,334,1613462400"; d="scan'208";a="414942024"
-Received: from ibanaga-mobl.ger.corp.intel.com ([10.249.254.58])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2021 08:05:08 -0700
-Message-ID: <e594a1d45b22e92e052d1070beadc5928e5c0ba1.camel@linux.intel.com>
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Date: Thu, 27 May 2021 17:05:06 +0200
-In-Reply-To: <8b3382726763050334a6cb214f7ba560eebf8f28.camel@linux.intel.com>
-References: <20210527141923.1962350-1-thomas.hellstrom@linux.intel.com>
- <883eab20-4326-d14a-2eb0-5e95f174a0d9@amd.com>
- <8b3382726763050334a6cb214f7ba560eebf8f28.camel@linux.intel.com>
-User-Agent: Evolution 3.38.4 (3.38.4-1.fc33) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4903F6F405;
+	Thu, 27 May 2021 15:10:04 +0000 (UTC)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E49446F404;
+ Thu, 27 May 2021 15:10:02 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id x8so212940wrq.9;
+ Thu, 27 May 2021 08:10:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=rqZxGKKVCz3uQqmwjK5GTpFMpol1Epc61Ub7cNHLCUU=;
+ b=PFsB9fjbU921D82ImY9Gh3+qSmRkfCFYG4BmU2Pc8PbHwjq1roHu4ix7ZuHWcp3F2d
+ r7ZukF9fHMsrqn9iIpLGLMn0W9Oorb4JN5pmeF6qwpLfVdivYYcFNUu7SFNxN+XPLi6w
+ WqAKHlHyg2GJ4K3ST+NJKetsmCm0JxCd5Wtt45mGXpX8zBVT35pWMUXVEEsg7l/lG70K
+ EIzs3zpUe4ltQvdwmZSX20oBJw5i8fH6QgCZ5ip/9SIrMeBmOHmStCVBIHbjXWJgxgpI
+ FlcOdp9Wa9n4XZ/g3GQhkPEvo8NK1oXup1s8+Zs8p+h1W8lo9/DNQD4GMbM7+uaSmjIW
+ gY5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=rqZxGKKVCz3uQqmwjK5GTpFMpol1Epc61Ub7cNHLCUU=;
+ b=n9vys8Jfv3JWtGr42bwnx0YNN6TnW95ElYwcWp10ViODGnXcdYUOfwITGBf2UkSIpd
+ 7uzaomlVnbJq+kimzqb+yhuHMOJgleGE3tDvn+AO/vmlN6NyrBd8CWRGC3QlvbHBnN/J
+ crXCFkZyoBRGwlMOyuiEszb2+PnPHmT/urGdG5VKSsKVYqPw003w20TNu3CvWZrvFckZ
+ MQ/KpHLOeq2ObYMCFLzZAkpXFyZsK3h4hU6Tj8+l7K1ZOcFpI36XIGq6uloObQXT/CVH
+ zHq5qAefJvwVfy8soA4qn3j1gxRR+1/QukyGpG/bYZ0sPdTUuhif4760pnRGmgo2c66+
+ IZgg==
+X-Gm-Message-State: AOAM532w+ln4pjhpP00duJlK1JZyAcxEWFFdYKgyCojNdVP7dDSm8tjd
+ qOb2Bro810n3y/sq56nV1QGKo4peSGCch4o0
+X-Google-Smtp-Source: ABdhPJw9JV9jYVWSBFF3XkjdHdBeprOzMU0lqeRUo0Iqkcw4JHegGmO9gnUoEp5TGZLbhx/MT7pZZg==
+X-Received: by 2002:adf:e3c6:: with SMTP id k6mr3927868wrm.236.1622128201312; 
+ Thu, 27 May 2021 08:10:01 -0700 (PDT)
+Received: from [0.0.0.0] (jfdmzpr04-ext.jf.intel.com. [134.134.137.73])
+ by smtp.googlemail.com with ESMTPSA id z19sm3201893wmk.8.2021.05.27.08.09.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 May 2021 08:10:00 -0700 (PDT)
+To: Vidya Srinivas <vidya.srinivas@intel.com>,
+ intel-gfx@lists.freedesktop.org, igt-dev@lists.freedesktop.org
+References: <1621570131-23943-1-git-send-email-vidya.srinivas@intel.com>
+ <20210527143128.25366-1-vidya.srinivas@intel.com>
+From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+Message-ID: <2960bd68-52c5-9129-5acb-4473007b84a6@gmail.com>
+Date: Thu, 27 May 2021 18:09:53 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [RFC PATCH] drm/ttm: Fix swapping dereferences of
- freed memory
+In-Reply-To: <20210527143128.25366-1-vidya.srinivas@intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [igt-dev] [PATCH 4/4] [RFC] tests/kms_big_fb: Wait
+ for vblank before collecting CRC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,59 +84,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: juhapekka.heikkila@gmail.com
+Cc: charlton.lin@intel.com
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCAyMDIxLTA1LTI3IGF0IDE3OjAxICswMjAwLCBUaG9tYXMgSGVsbHN0csO2bSB3cm90
-ZToKPiBPbiBUaHUsIDIwMjEtMDUtMjcgYXQgMTY6NTQgKzAyMDAsIENocmlzdGlhbiBLw7ZuaWcg
-d3JvdGU6Cj4gPiBBbSAyNy4wNS4yMSB1bSAxNjoxOSBzY2hyaWViIFRob21hcyBIZWxsc3Ryw7Zt
-Ogo+ID4gPiBUaGUgc3dhcHBpbmcgY29kZSB3YXMgZGVyZWZlcmVuY2UgYm8tPnR0bSBwb2ludGVy
-cyB3aXRob3V0IGhhdmluZwo+ID4gPiB0aGUKPiA+ID4gZG1hLXJlc3YgbG9jayBoZWxkLiBBbHNv
-IGl0IG1pZ2h0IHRyeSB0byBzd2FwIG91dCB1bnBvcHVsYXRlZAo+ID4gPiBib3MuCj4gPiA+IAo+
-ID4gPiBGaXggdGhpcyBieSBtb3ZpbmcgdGhlIGJvLT50dG0gZGVyZWZlcmVuY2UgdW50aWwgd2Ug
-aGF2ZSB0aGUKPiA+ID4gcmVzZXJ2YXRpb24KPiA+ID4gbG9jay4gQ2hlY2sgdGhhdCB0aGUgdHRt
-X3R0IGlzIHBvcHVsYXRlZCBhZnRlciB0aGUgc3dhcF9ub3RpZnkKPiA+ID4gY2FsbGJhY2suCj4g
-PiA+IAo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgSGVsbHN0csO2bQo+ID4gPiA8dGhvbWFz
-LmhlbGxzdHJvbUBsaW51eC5pbnRlbC5jb20+Cj4gPiA+IC0tLQo+ID4gPiDCoCBkcml2ZXJzL2dw
-dS9kcm0vdHRtL3R0bV9iby5jwqDCoMKgwqAgfCAxNiArKysrKysrKysrKysrKystCj4gPiA+IMKg
-IGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2RldmljZS5jIHzCoCA4ICsrKy0tLS0tCj4gPiA+IMKg
-IDIgZmlsZXMgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPiA+ID4g
-Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4gPiA+IGIv
-ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+ID4gPiBpbmRleCA5ZjUzNTA2YTgyZmMuLjg2
-MjEzZDM3NjU3YiAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8u
-Ywo+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4gPiA+IEBAIC0xMTYz
-LDYgKzExNjMsMTYgQEAgaW50IHR0bV9ib19zd2Fwb3V0KHN0cnVjdAo+ID4gPiB0dG1fYnVmZmVy
-X29iamVjdAo+ID4gPiAqYm8sIHN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCAqY3R4LAo+ID4gPiDC
-oMKgwqDCoMKgwqDCoMKgaWYgKCF0dG1fYm9fZXZpY3Rfc3dhcG91dF9hbGxvd2FibGUoYm8sIGN0
-eCwgJnBsYWNlLAo+ID4gPiAmbG9ja2VkLCBOVUxMKSkKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqByZXR1cm4gLUVCVVNZOwo+ID4gPiDCoCAKPiA+ID4gK8KgwqDCoMKgwqDC
-oMKgZG1hX3Jlc3ZfYXNzZXJ0X2hlbGQoYm8tPmJhc2UucmVzdik7Cj4gPiA+ICsKPiA+ID4gK8Kg
-wqDCoMKgwqDCoMKgaWYgKCFiby0+dHRtIHx8Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoCBi
-by0+dHRtLT5wYWdlX2ZsYWdzICYgVFRNX1BBR0VfRkxBR19TRyB8fAo+ID4gPiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgYm8tPnR0bS0+cGFnZV9mbGFncyAmIFRUTV9QQUdFX0ZMQUdfU1dBUFBFRCkg
-ewo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgaWYgKGxvY2tlZCkKPiA+ID4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBkbWFfcmVzdl91
-bmxvY2soYm8tPmJhc2UucmVzdik7Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqByZXR1cm4gLUVCVVNZOwo+ID4gPiArwqDCoMKgwqDCoMKgwqB9Cj4gPiA+ICsKPiA+ID4gwqDC
-oMKgwqDCoMKgwqDCoGlmICghdHRtX2JvX2dldF91bmxlc3NfemVybyhibykpIHsKPiA+ID4gwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAobG9ja2VkKQo+ID4gPiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBkbWFfcmVzdl91bmxvY2soYm8t
-PmJhc2UucmVzdik7Cj4gPiA+IEBAIC0xMjE1LDcgKzEyMjUsOCBAQCBpbnQgdHRtX2JvX3N3YXBv
-dXQoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0Cj4gPiA+ICpibywgc3RydWN0IHR0bV9vcGVyYXRp
-b25fY3R4ICpjdHgsCj4gPiA+IMKgwqDCoMKgwqDCoMKgwqBpZiAoYm8tPmJkZXYtPmZ1bmNzLT5z
-d2FwX25vdGlmeSkKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBiby0+YmRl
-di0+ZnVuY3MtPnN3YXBfbm90aWZ5KGJvKTsKPiA+ID4gwqAgCj4gPiA+IC3CoMKgwqDCoMKgwqDC
-oHJldCA9IHR0bV90dF9zd2Fwb3V0KGJvLT5iZGV2LCBiby0+dHRtLCBnZnBfZmxhZ3MpOwo+ID4g
-PiArwqDCoMKgwqDCoMKgwqBpZiAodHRtX3R0X2lzX3BvcHVsYXRlZChiby0+dHRtKSkKPiA+ID4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldCA9IHR0bV90dF9zd2Fwb3V0KGJvLT5i
-ZGV2LCBiby0+dHRtLAo+ID4gPiBnZnBfZmxhZ3MpOwo+ID4gCj4gPiBFeGFjdGx5IHRoYXQgaXMg
-d2hhdCBJIHdvbid0IHJlY29tbWVuZC4gV2Ugd291bGQgdHJ5IHRvIHN3YXAgb3V0Cj4gPiB0aGUg
-Cj4gPiBzYW1lIEJPIG92ZXIgYW5kIG92ZXIgYWdhaW4gd2l0aCB0aGF0Lgo+IAo+IEJ1dCB3ZSB3
-b3VsZG4ndCBzaW5jZSB0aGUgQk8gaXMgdGFrZW4gb2ZmIHRoZSBMUlUgYW5kIG5ldmVyIHJlLWFk
-ZGVkLAo+IAo+IApJbiBmYWN0LCB3ZSdkIHByb2JhYmx5IG1pZ2h0IHdhbnQgdG8gdGFrZSB0aGUg
-IWJvLT50dG0gYm9zIG9mZiB0aGUgTFJVCmFzIHdlbGwuLgoKL1Rob21hcwoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlz
-dApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On 27.5.2021 17.31, Vidya Srinivas wrote:
+> Without wait for vblank, CRC mismatch is seen
+> between big and small CRC on some intel Gen11 platforms.
+> 
+> Change-Id: I3bec931aa901130997e693ac1cacf389e2a8100f
+> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
+> ---
+>   tests/kms_big_fb.c | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tests/kms_big_fb.c b/tests/kms_big_fb.c
+> index b2027b6b9d1b..da682593429b 100644
+> --- a/tests/kms_big_fb.c
+> +++ b/tests/kms_big_fb.c
+> @@ -254,6 +254,7 @@ static void unset_lut(data_t *data)
+>   static bool test_plane(data_t *data)
+>   {
+>   	igt_plane_t *plane = data->plane;
+> +	igt_display_t *display = &data->display;
+>   	struct igt_fb *small_fb = &data->small_fb;
+>   	struct igt_fb *big_fb = &data->big_fb;
+>   	int w = data->big_fb_width - small_fb->width;
+> @@ -269,6 +270,7 @@ static bool test_plane(data_t *data)
+>   		{ w / 3, h * 3 / 4, },
+>   		{ w, h, },
+>   	};
+> +	bool check_platform_intel = is_i915_device(data->drm_fd);
+
+You will not need to do this. This test start with
+
+drm_open_driver_master(DRIVER_INTEL)
+
+hence will always be only on intel device.
+
+>   
+>   	if (!igt_plane_has_format_mod(plane, data->format, data->modifier))
+>   		return false;
+> @@ -336,17 +338,19 @@ static bool test_plane(data_t *data)
+>   
+>   		igt_display_commit2(&data->display, data->display.is_atomic ?
+>   				    COMMIT_ATOMIC : COMMIT_UNIVERSAL);
+> -
+> -
+> +		if (check_platform_intel)
+> +			igt_wait_for_vblank(data->drm_fd, display->pipes[data->pipe].crtc_offset);
+
+Above this line there's flip to different framebuffer and below this 
+line there's restart of crc collection before get any crc. If there's 
+need to wait a vblank at this place to get matching crcs the actual bug 
+is somewhere else.
+
+>   		igt_pipe_crc_collect_crc(data->pipe_crc, &small_crc);
+>   
+>   		igt_plane_set_fb(plane, big_fb);
+>   		igt_fb_set_position(big_fb, plane, x, y);
+>   		igt_fb_set_size(big_fb, plane, small_fb->width, small_fb->height);
+> +
+>   		igt_plane_set_size(plane, data->width, data->height);
+>   		igt_display_commit2(&data->display, data->display.is_atomic ?
+>   				    COMMIT_ATOMIC : COMMIT_UNIVERSAL);
+> -
+> +		if (check_platform_intel)
+> +			igt_wait_for_vblank(data->drm_fd, display->pipes[data->pipe].crtc_offset);
+
+Here it's the same story as above.
+
+>   		igt_pipe_crc_collect_crc(data->pipe_crc, &big_crc);
+>   
+>   		igt_plane_set_fb(plane, NULL);
+> 
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
