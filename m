@@ -7,68 +7,69 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4704C4708D
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 16:28:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E76BC4708B
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 16:28:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91B0261003
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 16:28:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91B0261003
+	by mail.kernel.org (Postfix) with ESMTPS id 09A0B61003
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 16:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09A0B61003
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35DBB6F472;
-	Thu, 27 May 2021 16:27:44 +0000 (UTC)
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C804C6F451
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 May 2021 16:27:22 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id
- lx17-20020a17090b4b11b029015f3b32b8dbso2755335pjb.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 May 2021 09:27:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B36EA6F47F;
+	Thu, 27 May 2021 16:27:45 +0000 (UTC)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2986F467
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 May 2021 16:27:35 +0000 (UTC)
+Received: by mail-pj1-x1036.google.com with SMTP id
+ mp9-20020a17090b1909b029015fd1e3ad5aso2689113pjb.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 May 2021 09:27:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=EPrV16RaPmALH4oatSSI5SAl4kh8PAG4UQRi2PA7exU=;
- b=ceK0QtC+UVwJ/ljEpdTvt1h1L92LWD+aFLzgPzv2/YQKyatbWZjqCoC4LWLJdEtGxS
- Mt4dVEEEFWqn1CGLMwri0N7jskPw2XQQcjFzi3PwvOKMCyWCwYDmxGRPC1xG62fNKECB
- tfgvwtq0bp3dj/GsUJiUIOm4C6a7tlFbFuB+ETgG+wk3P3pruyhhUKedQ4Xb6ODXoidi
- BwkjAMkQbLtcGQ+oBJo0ip9pofvP4yi3XI8msP9Gnx3/dQDSHGbdHwggJcZGH523DaGn
- j7g8YA4a++f/2zkzdp28tHakqN9+HjM5V/Iin0t7mEdTKYNAGZoRhlf5ImkVKUsU17ga
- KdUg==
+ bh=l7emU7YPiOIIBjsZBoqO5K5SQSJvYhl57EeV7evCNAk=;
+ b=iAfzJIn2daAmhImpfo1zpNtR/SCV/SuuyuLs2TYsFmV8ipHkGPRl5rChGgcLvenp4j
+ kgmSrbME0GqYUmnn32Qt8Iolkk6bXh8x0m2aAvyuRX7wPpOBlhCQoJT2Tx7UYH+Or9xy
+ Mmr8NcjjxIG4f12VQ0zw8z8f4TtdCikCxqr0MpvVRPFQf4WB9RvHtrdDgIbP7IrOH+Np
+ iR9bSWaCAmq3D8kWpXWP/Jrz2xHRDdNYZDaedvLqUcRUQMLl77SGGrHSAVNifnqANBHg
+ Fx/zHD7y62H1rFmL7pSRCHxIH51+Axdg+A8IsCzoOEtFO76/G+FNdWtLedwlgD2H0DIj
+ jO1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=EPrV16RaPmALH4oatSSI5SAl4kh8PAG4UQRi2PA7exU=;
- b=TElVrpGcmTz4C7vrwvzyIVot/ZAyT3rPss55btrWScHroDrldBe6UCevsbsLaSDrq7
- Vi52QRMTn0LiN0X87ODd+gKvfwyzyuUP1YK0A9s0KeR9xVqINdhHkQEQ/G3rqaKCNl/b
- d9v9GfoivtyAV1cYynhbmKwejNKYwxnUFXgGQDRuOiUUJ/mIs4hv2BXhUBzZG9I0PEVS
- ggGM88zwak/+3vjQWou5ywiY4GlVVecaxytbiMsKgkQpJIXQ6FQWeqRhWDHYSHKdkzCO
- +3z6w/7fA6rj723pIy0q7abOOG++0jlPP+REdQFe2bafGUgmo3RRwhN2a64LA4Y9np8y
- FTpQ==
-X-Gm-Message-State: AOAM531YOFLk3lf9JPC8atO9M5BsycTrx+GYN4IqwdAcum01WTQkfB/0
- Vg7LO9vHWpKnhEtWxe1xVKzk0gdFQ1+wmA==
-X-Google-Smtp-Source: ABdhPJxHZwk49PfkeHb5QZjFhkX5zXmH+dj5exzymzr+eCuggCKBw/S+JsJlI/L2eSh1SzFzxc/LvQ==
-X-Received: by 2002:a17:902:c94a:b029:f4:ad23:7e59 with SMTP id
- i10-20020a170902c94ab02900f4ad237e59mr3793882pla.73.1622132842075; 
- Thu, 27 May 2021 09:27:22 -0700 (PDT)
+ bh=l7emU7YPiOIIBjsZBoqO5K5SQSJvYhl57EeV7evCNAk=;
+ b=EiynmFL3FRVNDOfIMcsR4YhjvOlhpF7vPno7RRzkbfKT6CD0h+kkZc854fW39xje0H
+ Ow993zKHPXuMlHY0tbzRIIcCUWd0NJYxVjcsazxHTCnEO5AWP/IL29R9Izqk9gTv7OWm
+ UbxeLQEpVLjZqoWlVSx4aUOHcP0h89/xB6h5pjFxLuHZLksm2t5dLvBdon8S0Y3U4Xd4
+ ywR92Q/834v22FcWnz4AKV0rY+314NNUebQSq2hSvT5O5u9CexoqZ8iYTkesMb0HjjjR
+ xNUx4rHcYImKduJfMF+HcrVGvDMRV8RXZGa1xpJTgYvswxWsiCPUynxgihB2Qktv1vf4
+ sucA==
+X-Gm-Message-State: AOAM533eMdvPEq+xAdaOHCE2HOQjT3lUBn+ury2hn4tGMSIuj6f3s7Ng
+ Y6xeXJuPZ7Q+rhDWLgfG5XyiPixb31XMAg==
+X-Google-Smtp-Source: ABdhPJwHXEfNBJwvCDtoLH9p1oNiADVhEjL5WeD+JVs2Pzr24m5m+h3+6rvVqOQSyQcfAK6xd57fBQ==
+X-Received: by 2002:a17:90a:f98c:: with SMTP id
+ cq12mr10298747pjb.235.1622132854561; 
+ Thu, 27 May 2021 09:27:34 -0700 (PDT)
 Received: from omlet.com ([134.134.139.83])
- by smtp.gmail.com with ESMTPSA id h9sm2298711pja.42.2021.05.27.09.27.20
+ by smtp.gmail.com with ESMTPSA id h9sm2298711pja.42.2021.05.27.09.27.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 May 2021 09:27:21 -0700 (PDT)
+ Thu, 27 May 2021 09:27:34 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 27 May 2021 11:26:40 -0500
-Message-Id: <20210527162650.1182544-20-jason@jlekstrand.net>
+Date: Thu, 27 May 2021 11:26:49 -0500
+Message-Id: <20210527162650.1182544-29-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210527162650.1182544-1-jason@jlekstrand.net>
 References: <20210527162650.1182544-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 19/29] drm/i915: Add an i915_gem_vm_lookup helper
+Subject: [Intel-gfx] [PATCH 28/29] i915/gem/selftests: Assign the VM at
+ context creation in igt_shared_ctx_exec
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,58 +87,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is the VM equivalent of i915_gem_context_lookup.  It's only used
-once in this patch but future patches will need to duplicate this lookup
-code so it's better to have it in a helper.
+We want to delete __assign_ppgtt and, generally, stop setting the VM
+after context creation.  This is the one place I could find in the
+selftests where we set a VM after the fact.
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c |  6 +-----
- drivers/gpu/drm/i915/i915_drv.h             | 14 ++++++++++++++
- 2 files changed, 15 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index d247fb223aac7..12a148ba421b6 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1346,11 +1346,7 @@ static int set_ppgtt(struct drm_i915_file_private *file_priv,
- 	if (upper_32_bits(args->value))
- 		return -ENOENT;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index aee5642818824..01f7615eb3a8a 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -813,16 +813,12 @@ static int igt_shared_ctx_exec(void *arg)
+ 			struct i915_gem_context *ctx;
+ 			struct intel_context *ce;
  
--	rcu_read_lock();
--	vm = xa_load(&file_priv->vm_xa, args->value);
--	if (vm && !kref_get_unless_zero(&vm->ref))
--		vm = NULL;
--	rcu_read_unlock();
-+	vm = i915_gem_vm_lookup(file_priv, args->value);
- 	if (!vm)
- 		return -ENOENT;
+-			ctx = kernel_context(i915, NULL);
++			ctx = kernel_context(i915, ctx_vm(parent));
+ 			if (IS_ERR(ctx)) {
+ 				err = PTR_ERR(ctx);
+ 				goto out_test;
+ 			}
  
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 48316d273af66..fee2342219da1 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1871,6 +1871,20 @@ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
- 	return ctx;
- }
+-			mutex_lock(&ctx->mutex);
+-			__assign_ppgtt(ctx, ctx_vm(parent));
+-			mutex_unlock(&ctx->mutex);
+-
+ 			ce = i915_gem_context_get_engine(ctx, engine->legacy_idx);
+ 			GEM_BUG_ON(IS_ERR(ce));
  
-+static inline struct i915_address_space *
-+i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id)
-+{
-+	struct i915_address_space *vm;
-+
-+	rcu_read_lock();
-+	vm = xa_load(&file_priv->vm_xa, id);
-+	if (vm && !kref_get_unless_zero(&vm->ref))
-+		vm = NULL;
-+	rcu_read_unlock();
-+
-+	return vm;
-+}
-+
- /* i915_gem_evict.c */
- int __must_check i915_gem_evict_something(struct i915_address_space *vm,
- 					  u64 min_size, u64 alignment,
 -- 
 2.31.1
 
