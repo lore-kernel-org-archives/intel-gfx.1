@@ -2,72 +2,74 @@ Return-Path: <SRS0=HRyj=KW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92BF8C4708A
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 16:27:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D23E5C4708D
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 16:27:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6241761003
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 16:27:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6241761003
+	by mail.kernel.org (Postfix) with ESMTPS id 9E05161003
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 May 2021 16:27:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E05161003
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5C9F6F44E;
-	Thu, 27 May 2021 16:27:20 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A89C6F44F
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 May 2021 16:27:19 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id d16so952929pfn.12
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 May 2021 09:27:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C4976F46E;
+	Thu, 27 May 2021 16:27:41 +0000 (UTC)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 643F46F44D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 May 2021 16:27:21 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id q6so790269pjj.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 May 2021 09:27:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=9hXw5bNQZx1VaEnYs7Xpe7hVo6m5SYdwxnrKA6SfkfM=;
- b=etj7l5GIIIc5UjsBkIktlkQMnP38W6qVTqS/C7PV7a+VizX0yulD3RSs3slaj044+c
- HNmM+GeqTRS6rwd1N58b7GguHJoC/mUW0CKYtVLKURszAVA1sVT2I9i9zsJVCmC1R52N
- bE78VSh0/lzz4Exm6LiP2qk573BD7KmT86cyWdqIUJlaVJokePUl6+SwAfY+L87z+iid
- QWuCF/O1U7tmqZ3FQ7mIpOdTJfpx+ieECLaVHVeERf9HZ1f4gdEX1YzLi+e2pIL5rsO9
- 4UyQ/wybTAt7NA81rfsSpqLvOESs1BCsAVDbbPnrdwqzJdiLLngBfumPgMWGBVVjuY9F
- 26Kw==
+ bh=ig4tTf4HLDsUWjsCzZJ0pfFPK3kv7lRTTBbZwJxTYT0=;
+ b=dTYRKWZyvUt0K5UpqgVCJJ5b3oPd/LKNVpnHkPq+o27u9BsEpZ7uDBS3r1H7VN3GQY
+ vtDEjoxM0MPOGe3SAfwcgoOdtVGjLMKr2ap2MeiP3yxkI9nJNpLtvBeZx+d8lQKferSR
+ HwiWMr83gAXrhC7m5dIAJKwj1UHVrfXDO4fb9JAfp9a8EGtaFsrsPOBR/lSDCEj50A82
+ ZBwe9GvyJJZhb7fc7TY6PL7MnjTQ9hXkYoG/jogRSKJZVmhKVWT2aqd3Dsi6QsBvVbuG
+ amUJbWWQsKNxtyGjLV2ModTsYZIdEduMT7JdxAaGji9yl8uiwwZnaNiG8y/xppTyR3Qs
+ aMxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=9hXw5bNQZx1VaEnYs7Xpe7hVo6m5SYdwxnrKA6SfkfM=;
- b=bnSnYkfJYUem+47+KS2VOGilf3EwXre3mC/DhPDPUUJhcy0SFF0H/O4LNKNOW4kO45
- PEHrzuzv2Xo1zyvP9nepOuEDLDQv44HqKNynjyWStFSuuVzJlRFliCBdMf35UkBPYjx6
- fo0AVrLAJP5ANDnfZvEm4w91DaBXGsj/2ubXnXJ61HDm2IG1EbrC6ZrnoDvU5T2WIzlq
- tisE5lxmKYchTUk/kLlefWyhUkJ0LsLMlbZvioLq1BwcJ0MPmKbtgX0SjJDxOjbytJPV
- LZb6OuZvQxTkq1Q+CbATUvnp/vwbB3VMW8SCt4Ctto1N3kAtaIskPKxf65U1wOrFGLEV
- 9ctg==
-X-Gm-Message-State: AOAM5334iSsHEUP1oR2zcze4/Oc4Nwn4DHmSJX8wFqqR+txw0llt5Kwu
- P+4xa58sc/QBsXNvpDq6dojlJV/ZnOoFPw==
-X-Google-Smtp-Source: ABdhPJyeqx8nAlXbA/PeRcNtNDZFhtIz1lA5CGDjezpJc5oyExJRvHsbd9zpuZbhSgmvRj/1afmkcg==
-X-Received: by 2002:a65:624b:: with SMTP id q11mr4397907pgv.375.1622132838197; 
- Thu, 27 May 2021 09:27:18 -0700 (PDT)
+ bh=ig4tTf4HLDsUWjsCzZJ0pfFPK3kv7lRTTBbZwJxTYT0=;
+ b=LQlcxtiEDu4d0c6ZpP7wyAiE5L1s+kqKxuEXCSthDoaecw+6x+nnOh5qjgndjk+yWk
+ A8VZkOXwSUudnZYcq4xQIKKYrmHLNVhNEb1RWKKwtJ8mXWnymTDwY8e6gnzB88kzXqRw
+ fGmyHY1FW73YHSF3rgm40dKHki6fWd0a42tPEon1uq5e6okrk1DSXV2pg+JCFWXaoIGi
+ Se+aO/uPeDCBZ9DM8E0vYFdI4ENl2s/SF4rpLxQp+5HPtR02O8LkoWVRIYHDRTuzB8zP
+ 8/6XHyj+JENBlL0HoeYCZPz2MTk4TWOt4pgVZsTDFd6fGt1Y34dWFvFpPzMHb0bGHPsF
+ uUEw==
+X-Gm-Message-State: AOAM532boFDtnPm0wURdLdS9FQXB9zLXJPMkqG4fbolbsZiiwiSALdKd
+ DBJMMMye/RuRqNPyi1HHFXBSQkpsEBIU4A==
+X-Google-Smtp-Source: ABdhPJyggqMQsCFRKCs+ia4Rb5Z3f7hzLr7RsbEf+KE5fk/r3u62i5lo+QkDram1PmY068Evr35vDQ==
+X-Received: by 2002:a17:90b:8c5:: with SMTP id
+ ds5mr4714570pjb.127.1622132840714; 
+ Thu, 27 May 2021 09:27:20 -0700 (PDT)
 Received: from omlet.com ([134.134.139.83])
- by smtp.gmail.com with ESMTPSA id h9sm2298711pja.42.2021.05.27.09.27.17
+ by smtp.gmail.com with ESMTPSA id h9sm2298711pja.42.2021.05.27.09.27.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 May 2021 09:27:17 -0700 (PDT)
+ Thu, 27 May 2021 09:27:20 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 27 May 2021 11:26:37 -0500
-Message-Id: <20210527162650.1182544-17-jason@jlekstrand.net>
+Date: Thu, 27 May 2021 11:26:39 -0500
+Message-Id: <20210527162650.1182544-19-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210527162650.1182544-1-jason@jlekstrand.net>
 References: <20210527162650.1182544-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 16/29] drm/i915/gem: Add an intermediate
- proto_context struct
+Subject: [Intel-gfx] [PATCH 18/29] drm/i915/gem: Optionally set SSEU in
+ intel_context_set_gem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,324 +87,185 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The current context uAPI allows for two methods of setting context
-parameters: SET_CONTEXT_PARAM and CONTEXT_CREATE_EXT_SETPARAM.  The
-former is allowed to be called at any time while the later happens as
-part of GEM_CONTEXT_CREATE.  Currently, everything settable via one is
-settable via the other.  While some params are fairly simple and setting
-them on a live context is harmless such the context priority, others are
-far trickier such as the VM or the set of engines.  In order to swap out
-the VM, for instance, we have to delay until all current in-flight work
-is complete, swap in the new VM, and then continue.  This leads to a
-plethora of potential race conditions we'd really rather avoid.
-
-Unfortunately, both methods of setting the VM and engine set are in
-active use today so we can't simply disallow setting the VM or engine
-set vial SET_CONTEXT_PARAM.  In order to work around this wart, this
-commit adds a proto-context struct which contains all the context create
-parameters.
+For now this is a no-op because everyone passes in a null SSEU but it
+lets us get some of the error handling and selftest refactoring plumbed
+through.
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 145 ++++++++++++++----
- .../gpu/drm/i915/gem/i915_gem_context_types.h |  22 +++
- .../gpu/drm/i915/gem/selftests/mock_context.c |  16 +-
- 3 files changed, 153 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 41 +++++++++++++++----
+ .../gpu/drm/i915/gem/selftests/mock_context.c |  6 ++-
+ 2 files changed, 36 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index fc471243aa769..10bff488444b6 100644
+index f8f3f514b4265..d247fb223aac7 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -191,6 +191,97 @@ static int validate_priority(struct drm_i915_private *i915,
- 	return 0;
+@@ -320,9 +320,12 @@ context_get_vm_rcu(struct i915_gem_context *ctx)
+ 	} while (1);
  }
  
-+static void proto_context_close(struct i915_gem_proto_context *pc)
-+{
-+	if (pc->vm)
-+		i915_vm_put(pc->vm);
-+	kfree(pc);
-+}
-+
-+static int proto_context_set_persistence(struct drm_i915_private *i915,
-+					 struct i915_gem_proto_context *pc,
-+					 bool persist)
-+{
-+	if (persist) {
-+		/*
-+		 * Only contexts that are short-lived [that will expire or be
-+		 * reset] are allowed to survive past termination. We require
-+		 * hangcheck to ensure that the persistent requests are healthy.
-+		 */
-+		if (!i915->params.enable_hangcheck)
-+			return -EINVAL;
-+
-+		__set_bit(UCONTEXT_PERSISTENCE, &pc->user_flags);
-+	} else {
-+		/* To cancel a context we use "preempt-to-idle" */
-+		if (!(i915->caps.scheduler & I915_SCHEDULER_CAP_PREEMPTION))
-+			return -ENODEV;
-+
-+		/*
-+		 * If the cancel fails, we then need to reset, cleanly!
-+		 *
-+		 * If the per-engine reset fails, all hope is lost! We resort
-+		 * to a full GPU reset in that unlikely case, but realistically
-+		 * if the engine could not reset, the full reset does not fare
-+		 * much better. The damage has been done.
-+		 *
-+		 * However, if we cannot reset an engine by itself, we cannot
-+		 * cleanup a hanging persistent context without causing
-+		 * colateral damage, and we should not pretend we can by
-+		 * exposing the interface.
-+		 */
-+		if (!intel_has_reset_engine(&i915->gt))
-+			return -ENODEV;
-+
-+		__clear_bit(UCONTEXT_PERSISTENCE, &pc->user_flags);
-+	}
-+
-+	return 0;
-+}
-+
-+static struct i915_gem_proto_context *
-+proto_context_create(struct drm_i915_private *i915, unsigned int flags)
-+{
-+	struct i915_gem_proto_context *pc, *err;
-+
-+	pc = kzalloc(sizeof(*pc), GFP_KERNEL);
-+	if (!pc)
-+		return ERR_PTR(-ENOMEM);
-+
-+	if (HAS_FULL_PPGTT(i915)) {
-+		struct i915_ppgtt *ppgtt;
-+
-+		ppgtt = i915_ppgtt_create(&i915->gt);
-+		if (IS_ERR(ppgtt)) {
-+			drm_dbg(&i915->drm, "PPGTT setup failed (%ld)\n",
-+				PTR_ERR(ppgtt));
-+			err = ERR_CAST(ppgtt);
-+			goto proto_close;
-+		}
-+		pc->vm = &ppgtt->vm;
-+	}
-+
-+	pc->user_flags = 0;
-+	__set_bit(UCONTEXT_BANNABLE, &pc->user_flags);
-+	__set_bit(UCONTEXT_RECOVERABLE, &pc->user_flags);
-+	proto_context_set_persistence(i915, pc, true);
-+	pc->sched.priority = I915_PRIORITY_NORMAL;
-+
-+	if (flags & I915_CONTEXT_CREATE_FLAGS_SINGLE_TIMELINE) {
-+		if (!HAS_EXECLISTS(i915)) {
-+			err = ERR_PTR(-EINVAL);
-+			goto proto_close;
-+		}
-+		pc->single_timeline = true;
-+	}
-+
-+	return pc;
-+
-+proto_close:
-+	proto_context_close(pc);
-+	return err;
-+}
-+
- static struct i915_address_space *
- context_get_vm_rcu(struct i915_gem_context *ctx)
+-static void intel_context_set_gem(struct intel_context *ce,
+-				  struct i915_gem_context *ctx)
++static int intel_context_set_gem(struct intel_context *ce,
++				 struct i915_gem_context *ctx,
++				 struct intel_sseu sseu)
  {
-@@ -660,7 +751,8 @@ static int __context_set_persistence(struct i915_gem_context *ctx, bool state)
++	int ret = 0;
++
+ 	GEM_BUG_ON(rcu_access_pointer(ce->gem_context));
+ 	RCU_INIT_POINTER(ce->gem_context, ctx);
+ 
+@@ -349,6 +352,12 @@ static void intel_context_set_gem(struct intel_context *ce,
+ 
+ 		intel_context_set_watchdog_us(ce, (u64)timeout_ms * 1000);
+ 	}
++
++	/* A valid SSEU has no zero fields */
++	if (sseu.slice_mask && !WARN_ON(ce->engine->class != RENDER_CLASS))
++		ret = intel_context_reconfigure_sseu(ce, sseu);
++
++	return ret;
  }
  
- static struct i915_gem_context *
--__create_context(struct drm_i915_private *i915)
-+__create_context(struct drm_i915_private *i915,
-+		 const struct i915_gem_proto_context *pc)
+ static void __free_engines(struct i915_gem_engines *e, unsigned int count)
+@@ -416,7 +425,8 @@ static struct i915_gem_engines *alloc_engines(unsigned int count)
+ 	return e;
+ }
+ 
+-static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx)
++static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx,
++						struct intel_sseu rcs_sseu)
+ {
+ 	const struct intel_gt *gt = &ctx->i915->gt;
+ 	struct intel_engine_cs *engine;
+@@ -429,6 +439,8 @@ static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx)
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		struct intel_context *ce;
++		struct intel_sseu sseu = {};
++		int ret;
+ 
+ 		if (engine->legacy_idx == INVALID_ENGINE)
+ 			continue;
+@@ -442,10 +454,18 @@ static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx)
+ 			goto free_engines;
+ 		}
+ 
+-		intel_context_set_gem(ce, ctx);
+-
+ 		e->engines[engine->legacy_idx] = ce;
+ 		e->num_engines = max(e->num_engines, engine->legacy_idx + 1);
++
++		if (engine->class == RENDER_CLASS)
++			sseu = rcs_sseu;
++
++		ret = intel_context_set_gem(ce, ctx, sseu);
++		if (ret) {
++			err = ERR_PTR(ret);
++			goto free_engines;
++		}
++
+ 	}
+ 
+ 	return e;
+@@ -759,6 +779,7 @@ __create_context(struct drm_i915_private *i915,
  {
  	struct i915_gem_context *ctx;
  	struct i915_gem_engines *e;
-@@ -673,7 +765,7 @@ __create_context(struct drm_i915_private *i915)
- 
- 	kref_init(&ctx->ref);
- 	ctx->i915 = i915;
--	ctx->sched.priority = I915_PRIORITY_NORMAL;
-+	ctx->sched = pc->sched;
- 	mutex_init(&ctx->mutex);
- 	INIT_LIST_HEAD(&ctx->link);
- 
-@@ -696,9 +788,7 @@ __create_context(struct drm_i915_private *i915)
- 	 * is no remap info, it will be a NOP. */
- 	ctx->remap_slice = ALL_L3_SLICES(i915);
- 
--	i915_gem_context_set_bannable(ctx);
--	i915_gem_context_set_recoverable(ctx);
--	__context_set_persistence(ctx, true /* cgroup hook? */);
-+	ctx->user_flags = pc->user_flags;
- 
- 	for (i = 0; i < ARRAY_SIZE(ctx->hang_timestamp); i++)
- 		ctx->hang_timestamp[i] = jiffies - CONTEXT_FAST_HANG_JIFFIES;
-@@ -786,38 +876,23 @@ static void __assign_ppgtt(struct i915_gem_context *ctx,
- }
- 
- static struct i915_gem_context *
--i915_gem_create_context(struct drm_i915_private *i915, unsigned int flags)
-+i915_gem_create_context(struct drm_i915_private *i915,
-+			const struct i915_gem_proto_context *pc)
- {
- 	struct i915_gem_context *ctx;
- 	int ret;
- 
--	if (flags & I915_CONTEXT_CREATE_FLAGS_SINGLE_TIMELINE &&
--	    !HAS_EXECLISTS(i915))
--		return ERR_PTR(-EINVAL);
--
--	ctx = __create_context(i915);
-+	ctx = __create_context(i915, pc);
- 	if (IS_ERR(ctx))
- 		return ctx;
- 
--	if (HAS_FULL_PPGTT(i915)) {
--		struct i915_ppgtt *ppgtt;
--
--		ppgtt = i915_ppgtt_create(&i915->gt);
--		if (IS_ERR(ppgtt)) {
--			drm_dbg(&i915->drm, "PPGTT setup failed (%ld)\n",
--				PTR_ERR(ppgtt));
--			context_close(ctx);
--			return ERR_CAST(ppgtt);
--		}
--
-+	if (pc->vm) {
- 		mutex_lock(&ctx->mutex);
--		__assign_ppgtt(ctx, &ppgtt->vm);
-+		__assign_ppgtt(ctx, pc->vm);
- 		mutex_unlock(&ctx->mutex);
--
--		i915_vm_put(&ppgtt->vm);
- 	}
- 
--	if (flags & I915_CONTEXT_CREATE_FLAGS_SINGLE_TIMELINE) {
-+	if (pc->single_timeline) {
- 		ret = drm_syncobj_create(&ctx->syncobj,
- 					 DRM_SYNCOBJ_CREATE_SIGNALED,
- 					 NULL);
-@@ -883,6 +958,7 @@ int i915_gem_context_open(struct drm_i915_private *i915,
- 			  struct drm_file *file)
- {
- 	struct drm_i915_file_private *file_priv = file->driver_priv;
-+	struct i915_gem_proto_context *pc;
- 	struct i915_gem_context *ctx;
++	struct intel_sseu null_sseu = {};
  	int err;
- 	u32 id;
-@@ -892,7 +968,14 @@ int i915_gem_context_open(struct drm_i915_private *i915,
- 	/* 0 reserved for invalid/unassigned ppgtt */
- 	xa_init_flags(&file_priv->vm_xa, XA_FLAGS_ALLOC1);
+ 	int i;
  
--	ctx = i915_gem_create_context(i915, 0);
-+	pc = proto_context_create(i915, 0);
-+	if (IS_ERR(pc)) {
-+		err = PTR_ERR(pc);
-+		goto err;
-+	}
-+
-+	ctx = i915_gem_create_context(i915, pc);
-+	proto_context_close(pc);
- 	if (IS_ERR(ctx)) {
- 		err = PTR_ERR(ctx);
- 		goto err;
-@@ -1884,6 +1967,7 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
- {
- 	struct drm_i915_private *i915 = to_i915(dev);
- 	struct drm_i915_gem_context_create_ext *args = data;
-+	struct i915_gem_proto_context *pc;
- 	struct create_ext ext_data;
- 	int ret;
- 	u32 id;
-@@ -1906,7 +1990,12 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
- 		return -EIO;
+@@ -776,7 +797,7 @@ __create_context(struct drm_i915_private *i915,
+ 	INIT_LIST_HEAD(&ctx->stale.engines);
+ 
+ 	mutex_init(&ctx->engines_mutex);
+-	e = default_engines(ctx);
++	e = default_engines(ctx, null_sseu);
+ 	if (IS_ERR(e)) {
+ 		err = PTR_ERR(e);
+ 		goto err_free;
+@@ -1543,6 +1564,7 @@ set_engines__load_balance(struct i915_user_extension __user *base, void *data)
+ 	struct intel_engine_cs *stack[16];
+ 	struct intel_engine_cs **siblings;
+ 	struct intel_context *ce;
++	struct intel_sseu null_sseu = {};
+ 	u16 num_siblings, idx;
+ 	unsigned int n;
+ 	int err;
+@@ -1615,7 +1637,7 @@ set_engines__load_balance(struct i915_user_extension __user *base, void *data)
+ 		goto out_siblings;
  	}
  
--	ext_data.ctx = i915_gem_create_context(i915, args->flags);
-+	pc = proto_context_create(i915, args->flags);
-+	if (IS_ERR(pc))
-+		return PTR_ERR(pc);
-+
-+	ext_data.ctx = i915_gem_create_context(i915, pc);
-+	proto_context_close(pc);
- 	if (IS_ERR(ext_data.ctx))
- 		return PTR_ERR(ext_data.ctx);
+-	intel_context_set_gem(ce, set->ctx);
++	intel_context_set_gem(ce, set->ctx, null_sseu);
  
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index 5f0673a2129f9..0bf337b6d89ac 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -66,6 +66,28 @@ struct i915_gem_engines_iter {
- 	const struct i915_gem_engines *engines;
- };
+ 	if (cmpxchg(&set->engines->engines[idx], NULL, ce)) {
+ 		intel_context_put(ce);
+@@ -1723,6 +1745,7 @@ set_engines(struct i915_gem_context *ctx,
+ 	struct drm_i915_private *i915 = ctx->i915;
+ 	struct i915_context_param_engines __user *user =
+ 		u64_to_user_ptr(args->value);
++	struct intel_sseu null_sseu = {};
+ 	struct set_engines set = { .ctx = ctx };
+ 	unsigned int num_engines, n;
+ 	u64 extensions;
+@@ -1732,7 +1755,7 @@ set_engines(struct i915_gem_context *ctx,
+ 		if (!i915_gem_context_user_engines(ctx))
+ 			return 0;
  
-+/**
-+ * struct i915_gem_proto_context - prototype context
-+ *
-+ * The struct i915_gem_proto_context represents the creation parameters for
-+ * an i915_gem_context.  This is used to gather parameters provided either
-+ * through creation flags or via SET_CONTEXT_PARAM so that, when we create
-+ * the final i915_gem_context, those parameters can be immutable.
-+ */
-+struct i915_gem_proto_context {
-+	/** @vm: See i915_gem_context::vm */
-+	struct i915_address_space *vm;
-+
-+	/** @user_flags: See i915_gem_context::user_flags */
-+	unsigned long user_flags;
-+
-+	/** @sched: See i915_gem_context::sched */
-+	struct i915_sched_attr sched;
-+
-+	/** @single_timeline: See See i915_gem_context::syncobj */
-+	bool single_timeline;
-+};
-+
- /**
-  * struct i915_gem_context - client state
-  *
+-		set.engines = default_engines(ctx);
++		set.engines = default_engines(ctx, null_sseu);
+ 		if (IS_ERR(set.engines))
+ 			return PTR_ERR(set.engines);
+ 
+@@ -1789,7 +1812,7 @@ set_engines(struct i915_gem_context *ctx,
+ 			return PTR_ERR(ce);
+ 		}
+ 
+-		intel_context_set_gem(ce, ctx);
++		intel_context_set_gem(ce, ctx, null_sseu);
+ 
+ 		set.engines->engines[n] = ce;
+ 	}
 diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_context.c b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-index 51b5a3421b400..e0f512ef7f3c6 100644
+index e0f512ef7f3c6..cbeefd060e97b 100644
 --- a/drivers/gpu/drm/i915/gem/selftests/mock_context.c
 +++ b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-@@ -80,11 +80,17 @@ void mock_init_contexts(struct drm_i915_private *i915)
- struct i915_gem_context *
- live_context(struct drm_i915_private *i915, struct file *file)
- {
-+	struct i915_gem_proto_context *pc;
- 	struct i915_gem_context *ctx;
- 	int err;
- 	u32 id;
- 
--	ctx = i915_gem_create_context(i915, 0);
-+	pc = proto_context_create(i915, 0);
-+	if (IS_ERR(pc))
-+		return ERR_CAST(pc);
-+
-+	ctx = i915_gem_create_context(i915, pc);
-+	proto_context_close(pc);
- 	if (IS_ERR(ctx))
- 		return ctx;
- 
-@@ -142,8 +148,14 @@ struct i915_gem_context *
- kernel_context(struct drm_i915_private *i915)
+@@ -14,6 +14,7 @@ mock_context(struct drm_i915_private *i915,
  {
  	struct i915_gem_context *ctx;
-+	struct i915_gem_proto_context *pc;
-+
-+	pc = proto_context_create(i915, 0);
-+	if (IS_ERR(pc))
-+		return ERR_CAST(pc);
+ 	struct i915_gem_engines *e;
++	struct intel_sseu null_sseu = {};
  
--	ctx = i915_gem_create_context(i915, 0);
-+	ctx = i915_gem_create_context(i915, pc);
-+	proto_context_close(pc);
- 	if (IS_ERR(ctx))
- 		return ctx;
+ 	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
+ 	if (!ctx)
+@@ -31,7 +32,7 @@ mock_context(struct drm_i915_private *i915,
+ 	i915_gem_context_set_persistence(ctx);
+ 
+ 	mutex_init(&ctx->engines_mutex);
+-	e = default_engines(ctx);
++	e = default_engines(ctx, null_sseu);
+ 	if (IS_ERR(e))
+ 		goto err_free;
+ 	RCU_INIT_POINTER(ctx->engines, e);
+@@ -112,6 +113,7 @@ live_context_for_engine(struct intel_engine_cs *engine, struct file *file)
+ {
+ 	struct i915_gem_engines *engines;
+ 	struct i915_gem_context *ctx;
++	struct intel_sseu null_sseu = {};
+ 	struct intel_context *ce;
+ 
+ 	engines = alloc_engines(1);
+@@ -130,7 +132,7 @@ live_context_for_engine(struct intel_engine_cs *engine, struct file *file)
+ 		return ERR_CAST(ce);
+ 	}
+ 
+-	intel_context_set_gem(ce, ctx);
++	intel_context_set_gem(ce, ctx, null_sseu);
+ 	engines->engines[0] = ce;
+ 	engines->num_engines = 1;
  
 -- 
 2.31.1
