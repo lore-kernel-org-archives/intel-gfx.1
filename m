@@ -2,45 +2,61 @@ Return-Path: <SRS0=8ese=K3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08E2AC4708F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC91AC47092
 	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B1716135D
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B1716135D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fifi.org
+	by mail.kernel.org (Postfix) with ESMTPS id 448006135D
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 448006135D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 813EC6EA4E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B99486EA50;
 	Tue,  1 Jun 2021 12:51:15 +0000 (UTC)
-Received: from granite.fifsource.com (granite.fifsource.com [173.255.216.206])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BE876E0AF
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 May 2021 18:21:47 +0000 (UTC)
-Received: from ceramic.fifi.org (107-142-44-66.lightspeed.sntcca.sbcglobal.net
- [107.142.44.66]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- by granite.fifsource.com (Postfix) with ESMTPSA id A5D9C4060;
- Mon, 31 May 2021 11:21:46 -0700 (PDT)
-Message-ID: <24bfdd74524752b21922350e4a3650ff446175da.camel@fifi.org>
-From: Philippe Troin <phil@fifi.org>
-To: Matthew Auld <matthew.william.auld@gmail.com>, Hillf Danton
- <hdanton@sina.com>
-Date: Mon, 31 May 2021 11:21:46 -0700
-In-Reply-To: <CAM0jSHOWwgPRWkSN22r6T_rkiVcdhYwN34vkzp0q_icgDqT52Q@mail.gmail.com>
-References: <4d84b06ee9e8dad88ff101de5e7b78b9b09cfee3.camel@fifi.org>
- <20210524075121.1949-1-hdanton@sina.com>
- <CAM0jSHOWwgPRWkSN22r6T_rkiVcdhYwN34vkzp0q_icgDqT52Q@mail.gmail.com>
-User-Agent: Evolution 3.38.4 (3.38.4-1.fc33) 
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D48306E29D;
+ Fri, 28 May 2021 09:36:47 +0000 (UTC)
+Received: from dggeml711-chm.china.huawei.com (unknown [172.30.72.54])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Frzwm4fBvz1BFYK;
+ Fri, 28 May 2021 17:32:08 +0800 (CST)
+Received: from dggpemm500006.china.huawei.com (7.185.36.236) by
+ dggeml711-chm.china.huawei.com (10.3.17.122) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Fri, 28 May 2021 17:36:44 +0800
+Received: from [127.0.0.1] (10.174.177.72) by dggpemm500006.china.huawei.com
+ (7.185.36.236) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Fri, 28 May
+ 2021 17:36:44 +0800
+To: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, intel-gfx
+ <intel-gfx@lists.freedesktop.org>, dri-devel
+ <dri-devel@lists.freedesktop.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>
+References: <20210527090421.9172-1-thunder.leizhen@huawei.com>
+ <87sg28a3xg.fsf@intel.com>
+From: "Leizhen (ThunderTown)" <thunder.leizhen@huawei.com>
+Message-ID: <86f64463-87df-9e62-a5ea-f411fcb54c19@huawei.com>
+Date: Fri, 28 May 2021 17:36:43 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
+In-Reply-To: <87sg28a3xg.fsf@intel.com>
+Content-Language: en-US
+X-Originating-IP: [10.174.177.72]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggpemm500006.china.huawei.com (7.185.36.236)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 01 Jun 2021 12:51:14 +0000
-Subject: Re: [Intel-gfx] Bug: 5.12.5 - list_add double add at
- __i915_gem_object_make_shrinkable+0xa6/0xe0
+Subject: Re: [Intel-gfx] [PATCH 1/1] drm/i915/hdcp: Simplify code in
+ intel_hdcp_auth_downstream()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,36 +69,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- kernel list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2021-05-24 at 14:38 +0100, Matthew Auld wrote:
-> On Mon, 24 May 2021 at 13:05, Hillf Danton <hdanton@sina.com> wrote:
-> > 
-> > On Sun, 23 May 2021 12:47:34 -0700 Philippe Troin wrote:
-> > > Found the following bug on a FUJITSU LIFEBOOK S6520.
-> > > 
-> > > The kernel crash happens when selecting a user from the gdm login
-> > > screen right after boot.
-> > > The same hardware has no problems with 5.11.21.
+
+
+On 2021/5/27 18:04, Jani Nikula wrote:
+> On Thu, 27 May 2021, Zhen Lei <thunder.leizhen@huawei.com> wrote:
+>> If intel_hdcp_validate_v_prime() has been successful within the allowed
+>> number of tries, we can directly call drm_dbg_kms() and "goto out" without
+>> jumping out of the loop and repeatedly judging whether the operation is
+>> successful. This can help us reduce an unnecessary if judgment. And it's
+>> a little clearer to read.
 > 
-> The trace looks similar to something that was fixed in 8777d17b68dc
-> ("drm/i915/gem: Pin the L-shape quirked object as unshrinkable") which
-> should now be in drm-tip. Could you try that? Otherwise could you
-> please file a new bug report at
-> https://gitlab.freedesktop.org/drm/intel/?
+> Generally I think the "happy day scenario" should be at the topmost
+> indentation level and not buried in the ifs with a goto exit.
 
-I verified that drm-tip is working as of
-d6d3a2a996af7a82e567e96a19410ac9d7246794.
-This issue was tracked in the Fedora bugzilla at
-https://bugzilla.redhat.com/show_bug.cgi?id=1963782
+for (xxx) {
+   if (a == b)
+       return found;
+}
 
-Thanks.
-Phil.
+At least this way of writing is common.
+
+
+> 
+> BR,
+> Jani.
+> 
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_hdcp.c | 24 ++++++++++-------------
+>>  1 file changed, 10 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+>> index d8570e14fe60..c32a854eda66 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+>> @@ -663,13 +663,13 @@ int intel_hdcp_auth_downstream(struct intel_connector *connector)
+>>  
+>>  	ret = shim->read_ksv_fifo(dig_port, num_downstream, ksv_fifo);
+>>  	if (ret)
+>> -		goto err;
+>> +		goto out;
+>>  
+>>  	if (drm_hdcp_check_ksvs_revoked(&dev_priv->drm, ksv_fifo,
+>>  					num_downstream) > 0) {
+>>  		drm_err(&dev_priv->drm, "Revoked Ksv(s) in ksv_fifo\n");
+>>  		ret = -EPERM;
+>> -		goto err;
+>> +		goto out;
+>>  	}
+>>  
+>>  	/*
+>> @@ -680,20 +680,16 @@ int intel_hdcp_auth_downstream(struct intel_connector *connector)
+>>  		ret = intel_hdcp_validate_v_prime(connector, shim,
+>>  						  ksv_fifo, num_downstream,
+>>  						  bstatus);
+>> -		if (!ret)
+>> -			break;
+>> -	}
+>> -
+>> -	if (i == tries) {
+>> -		drm_dbg_kms(&dev_priv->drm,
+>> -			    "V Prime validation failed.(%d)\n", ret);
+>> -		goto err;
+>> +		if (!ret) {
+>> +			drm_dbg_kms(&dev_priv->drm,
+>> +				    "HDCP is enabled (%d downstream devices)\n",
+>> +				    num_downstream);
+>> +			goto out;
+>> +		}
+>>  	}
+>>  
+>> -	drm_dbg_kms(&dev_priv->drm, "HDCP is enabled (%d downstream devices)\n",
+>> -		    num_downstream);
+>> -	ret = 0;
+>> -err:
+>> +	drm_dbg_kms(&dev_priv->drm, "V Prime validation failed.(%d)\n", ret);
+>> +out:
+>>  	kfree(ksv_fifo);
+>>  	return ret;
+>>  }
+> 
 
 _______________________________________________
 Intel-gfx mailing list
