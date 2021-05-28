@@ -2,54 +2,57 @@ Return-Path: <SRS0=8ese=K3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3163C47080
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 548C0C4708F
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6773D6135D
+	by mail.kernel.org (Postfix) with ESMTPS id EEF4661028
 	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6773D6135D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EEF4661028
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0892C6EA49;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 401D06EA4A;
 	Tue,  1 Jun 2021 12:51:15 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B343C6E03D;
- Thu, 27 May 2021 11:35:07 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2886A6113B;
- Thu, 27 May 2021 11:35:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622115307;
- bh=awWFyuDtGzTSFYuKnqnAwD8I2u8LvxPLkIedgwXpacY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=p4bPfFCD5PrcmECQ/JmYfkoIQvGIdlvd3Xmt5WsLHiji5zjF5hUpY/7jV/AEVHJHW
- CB6f9oBS2X3aNGgQ3+WcdNwOGV1gPRmBycO/zJJUoapgziqu+7IL5STMx1dAhYz3+T
- 0bM7UEMZILv76zqCaWO+pWXqjNmfb4VQ6CH4Qz9dn7I0OepvY2P5/VxhAaiFsn1JPd
- ce1hSAg7oNQpoYW+JbRsJjBqIARt3uf0TgyQ8bjr7saHdzXTBfM/jxaDHBHbhfTQ4Z
- nDFzJaE8tdL5MVg6406RffF7r/1Of9XzA/MNxWJkmUtb6zscbeJZBFAuG32Qt3uWbG
- DCkceG/OoqRLg==
-Date: Thu, 27 May 2021 12:34:57 +0100
-From: Will Deacon <will@kernel.org>
-To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210527113456.GA22019@willie-the-truck>
-References: <20210518064215.2856977-1-tientzu@chromium.org>
- <20210518064215.2856977-15-tientzu@chromium.org>
- <20210526121322.GA19313@willie-the-truck>
- <20210526155321.GA19633@willie-the-truck>
- <CALiNf2_sVXnb97++yWusB5PWz8Pzfn9bCKZc6z3tY4bx6-nW8w@mail.gmail.com>
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 095C36F56D;
+ Fri, 28 May 2021 03:45:25 +0000 (UTC)
+Received: from dggeml763-chm.china.huawei.com (unknown [172.30.72.55])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Frr9Z2C6TzYq3C;
+ Fri, 28 May 2021 11:42:42 +0800 (CST)
+Received: from dggpemm500006.china.huawei.com (7.185.36.236) by
+ dggeml763-chm.china.huawei.com (10.1.199.173) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Fri, 28 May 2021 11:45:22 +0800
+Received: from thunder-town.china.huawei.com (10.174.177.72) by
+ dggpemm500006.china.huawei.com (7.185.36.236) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Fri, 28 May 2021 11:45:22 +0800
+From: Zhen Lei <thunder.leizhen@huawei.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "Tvrtko
+ Ursulin" <tvrtko.ursulin@intel.com>, intel-gfx
+ <intel-gfx@lists.freedesktop.org>, dri-devel
+ <dri-devel@lists.freedesktop.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>
+Date: Fri, 28 May 2021 11:45:18 +0800
+Message-ID: <20210528034518.9284-1-thunder.leizhen@huawei.com>
+X-Mailer: git-send-email 2.26.0.windows.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CALiNf2_sVXnb97++yWusB5PWz8Pzfn9bCKZc6z3tY4bx6-nW8w@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Originating-IP: [10.174.177.72]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ dggpemm500006.china.huawei.com (7.185.36.236)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 01 Jun 2021 12:51:14 +0000
-Subject: Re: [Intel-gfx] [PATCH v7 14/15] dt-bindings: of: Add restricted
- DMA pool
+Subject: [Intel-gfx] [PATCH 1/1] drm/i915/selftests: Fix error return code
+ in live_parallel_switch()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,75 +65,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Quinlan <james.quinlan@broadcom.com>, heikki.krogerus@linux.intel.com,
- linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
- benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
- Frank Rowand <frowand.list@gmail.com>, Christoph Hellwig <hch@lst.de>,
- Jianxiong Gao <jxgao@google.com>, sstabellini@kernel.org,
- Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, mingo@kernel.org,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, matthew.auld@intel.com,
- Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
- jgross@suse.com, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- intel-gfx@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- boris.ostrovsky@oracle.com, airlied@linux.ie,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- xypron.glpk@gmx.de, linuxppc-dev@lists.ozlabs.org, bauerman@linux.ibm.com
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 27, 2021 at 07:29:20PM +0800, Claire Chang wrote:
-> On Wed, May 26, 2021 at 11:53 PM Will Deacon <will@kernel.org> wrote:
-> >
-> > On Wed, May 26, 2021 at 01:13:22PM +0100, Will Deacon wrote:
-> > > On Tue, May 18, 2021 at 02:42:14PM +0800, Claire Chang wrote:
-> > > > @@ -138,4 +160,9 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
-> > > >             memory-region = <&multimedia_reserved>;
-> > > >             /* ... */
-> > > >     };
-> > > > +
-> > > > +   pcie_device: pcie_device@0,0 {
-> > > > +           memory-region = <&restricted_dma_mem_reserved>;
-> > > > +           /* ... */
-> > > > +   };
-> > >
-> > > I still don't understand how this works for individual PCIe devices -- how
-> > > is dev->of_node set to point at the node you have above?
-> > >
-> > > I tried adding the memory-region to the host controller instead, and then
-> > > I see it crop up in dmesg:
-> > >
-> > >   | pci-host-generic 40000000.pci: assigned reserved memory node restricted_dma_mem_reserved
-> > >
-> > > but none of the actual PCI devices end up with 'dma_io_tlb_mem' set, and
-> > > so the restricted DMA area is not used. In fact, swiotlb isn't used at all.
-> > >
-> > > What am I missing to make this work with PCIe devices?
-> >
-> > Aha, looks like we're just missing the logic to inherit the DMA
-> > configuration. The diff below gets things working for me.
-> 
-> I guess what was missing is the reg property in the pcie_device node.
-> Will update the example dts.
+The error code returned from intel_context_create() should be propagated
+instead of 0, as done elsewhere in this function.
 
-Thanks. I still think something like my diff makes sense, if you wouldn't mind including
-it, as it allows restricted DMA to be used for situations where the PCIe
-topology is not static.
+Fixes: 50d16d44cce4 ("drm/i915/selftests: Exercise context switching in parallel")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+---
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Perhaps we should prefer dev->of_node if it exists, but then use the node
-of the host bridge's parent node otherwise?
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index 5fef592390cb..7db9e31da385 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -338,8 +338,10 @@ static int live_parallel_switch(void *arg)
+ 				continue;
+ 
+ 			ce = intel_context_create(data[m].ce[0]->engine);
+-			if (IS_ERR(ce))
++			if (IS_ERR(ce)) {
++				err = PTR_ERR(ce);
+ 				goto out;
++			}
+ 
+ 			err = intel_context_pin(ce);
+ 			if (err) {
+-- 
+2.25.1
 
-Will
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
