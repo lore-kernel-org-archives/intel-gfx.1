@@ -2,41 +2,48 @@ Return-Path: <SRS0=VbzJ=K2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA935C47082
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 May 2021 15:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5880EC47082
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 May 2021 15:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9CC9660FE4
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 May 2021 15:12:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CC9660FE4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 19E406124C
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 May 2021 15:35:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19E406124C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4996E919;
-	Mon, 31 May 2021 15:12:12 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2E00E6E919;
- Mon, 31 May 2021 15:12:10 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 056ABA47DB;
- Mon, 31 May 2021 15:12:10 +0000 (UTC)
-MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>
-Date: Mon, 31 May 2021 15:12:10 -0000
-Message-ID: <162247393001.27952.8639987990036168134@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210531140945.305041-1-maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20210531140945.305041-1-maarten.lankhorst@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Only_set_bind=5Fasync=5Fflags_when_concurrent_a?=
- =?utf-8?q?ccess_wa_is_not_active=2C_v2=2E?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id A01A06E3D0;
+	Mon, 31 May 2021 15:34:59 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEE9E6E16D;
+ Mon, 31 May 2021 15:34:57 +0000 (UTC)
+IronPort-SDR: Mee8uMYd0SIsEzHGomiuwVi6QbDFyTNAp/6hUEI6KCWGNMrU+/Uy6wg4/b8c4UmS9RyuGiIEX5
+ GnK67qi76AXw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="203379700"
+X-IronPort-AV: E=Sophos;i="5.83,237,1616482800"; d="scan'208";a="203379700"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2021 08:34:55 -0700
+IronPort-SDR: 0SYI2k+9Gd/csZB/OeXScxq+fBz7ADrXvKV+UMHis8tWNq/NxV2o9t+ulf100QVIIDwx3jO860
+ PehPEkAV8ang==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,237,1616482800"; d="scan'208";a="473947874"
+Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
+ by FMSMGA003.fm.intel.com with ESMTP; 31 May 2021 08:34:53 -0700
+From: Lee Shawn C <shawn.c.lee@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	igt-dev@lists.freedesktop.org
+Date: Mon, 31 May 2021 23:39:22 +0800
+Message-Id: <20210531153922.4683-1-shawn.c.lee@intel.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [Intel-gfx] [PATCH i-g-t] tests/kms_dp_dsc: Avoid SIGSEGV when
+ release DRM connector.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,29 +56,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: markyacoub@chromium.org, charlton.lin@intel.com
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Got SIGSEGV fault while running kms_dp_dsc test but did not
+connect DP DSC capable monitor on eDP/DP port. This test daemon
+should "SKIP" test without any problem. We found kms_dp_dsc
+can't get proper drmModeConnector and caused this SIGSEGV fault
+when release it. Make sure drmModeConnector is available before
+free it can avoid this issue.
 
-Series: drm/i915: Only set bind_async_flags when concurrent access wa is not active, v2.
-URL   : https://patchwork.freedesktop.org/series/90795/
-State : warning
+Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
+---
+ tests/kms_dp_dsc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-498a33865b2e drm/i915: Only set bind_async_flags when concurrent access wa is not active, v2.
--:59: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
-#59: FILE: drivers/gpu/drm/i915/i915_vma.c:439:
-+		vma->ops->bind_vma(vma->vm, work ? &work->stash : NULL, vma, cache_level, bind_flags);
-
-total: 0 errors, 1 warnings, 0 checks, 36 lines checked
-
+diff --git a/tests/kms_dp_dsc.c b/tests/kms_dp_dsc.c
+index 2446fd82bba3..ea7c9f4f72ce 100644
+--- a/tests/kms_dp_dsc.c
++++ b/tests/kms_dp_dsc.c
+@@ -262,7 +262,7 @@ igt_main
+ 	data_t data = {};
+ 	igt_output_t *output;
+ 	drmModeRes *res;
+-	drmModeConnector *connector;
++	drmModeConnector *connector = NULL;
+ 	int i, test_conn_cnt, test_cnt;
+ 	int tests[] = {DRM_MODE_CONNECTOR_eDP, DRM_MODE_CONNECTOR_DisplayPort};
+ 
+@@ -311,7 +311,8 @@ igt_main
+ 	}
+ 
+ 	igt_fixture {
+-		drmModeFreeConnector(connector);
++		if (connector)
++			drmModeFreeConnector(connector);
+ 		drmModeFreeResources(res);
+ 		close(data.debugfs_fd);
+ 		close(data.drm_fd);
+-- 
+2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
