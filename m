@@ -2,51 +2,62 @@ Return-Path: <SRS0=8ese=K3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38373C47093
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CB86C4708F
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 04B9661370
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 04B9661370
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E3E856136E
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:09:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3E856136E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE7AD6E9DA;
-	Tue,  1 Jun 2021 10:06:05 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1638C6E9DE;
- Tue,  1 Jun 2021 10:06:03 +0000 (UTC)
-IronPort-SDR: 3bGnSxKDRG8wRYpbL8Gr57YHiDcLRpB6BscGK4tPCsx64GSAOt6P0m4r2PobgWixVr1vSAcBJD
- pE69eoZjK3zA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="183197776"
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="183197776"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 03:06:01 -0700
-IronPort-SDR: nAMCoBFdy5aRuUvxZGNXIUYlF7/TEDzuXVuVdXHIkhqzlAbPQPRmcwM2u0+Ej9pCok3rF6az2v
- GHHo6Gw2vBVA==
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="399245279"
-Received: from linux-desktop.iind.intel.com ([10.223.34.178])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 03:05:59 -0700
-From: Uma Shankar <uma.shankar@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Tue,  1 Jun 2021 16:11:35 +0530
-Message-Id: <20210601104135.29020-10-uma.shankar@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210601104135.29020-1-uma.shankar@intel.com>
-References: <20210601104135.29020-1-uma.shankar@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E8A6E9D7;
+	Tue,  1 Jun 2021 10:09:52 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C9196E9C3;
+ Tue,  1 Jun 2021 10:09:51 +0000 (UTC)
+IronPort-SDR: 6n1oTNcSjcecyITXibtqEfuPCCAc67PK6tvtmYx9DzaZXACcVqgunWBafPhtf3lItSkvvFD5xn
+ ScV8VpChS56Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="203321350"
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="203321350"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2021 03:09:50 -0700
+IronPort-SDR: B+4luL5ESXs3Zfwqg/yUCLxCMSfaSUsrL8VzPkg0jmQbvJc42PHJwVCU0YKgox3I3CjMIbrCbV
+ 22yxIsvFfbLQ==
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="416426252"
+Received: from deancarp-mobl.ger.corp.intel.com (HELO [10.213.232.28])
+ ([10.213.232.28])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2021 03:09:49 -0700
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <20210525135508.244659-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+ <20210525135508.244659-2-tejaskumarx.surendrakumar.upadhyay@intel.com>
+ <b9ae1daa-6add-1c67-58b4-16491f2e1431@linux.intel.com>
+ <YK0OHJcSwWY1mm7v@phenom.ffwll.local>
+ <8cf2c5f4-87a3-ce6b-150c-65fa054586a4@linux.intel.com>
+ <YK9wrCayUwSDzMWG@phenom.ffwll.local>
+ <59d2eee9-35c1-01fc-c226-50ad98aadb99@linux.intel.com>
+ <YK90LkRrMXTC/hF3@phenom.ffwll.local>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <e96668b6-47a0-f426-51a8-d9824afd8887@linux.intel.com>
+Date: Tue, 1 Jun 2021 11:09:47 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 9/9] drm/i915/xelpd: Enable XE_LPD Gamma Lut
- readout
+In-Reply-To: <YK90LkRrMXTC/hF3@phenom.ffwll.local>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 1/1] Let userspace know if they can trust
+ timeslicing by including it as part of the
+ I915_PARAM_HAS_SCHEDULER::I915_SCHEDULER_CAP_TIMESLICING
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,136 +70,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: intel-gfx@lists.freedesktop.org,
+ DRI Development <dri-devel@lists.freedesktop.org>, mahesh.meena@intel.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable support for Logarithmic gamma readout for XE_LPD.
 
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/intel_color.c | 72 ++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h            |  6 ++
- 2 files changed, 78 insertions(+)
+On 27/05/2021 11:27, Daniel Vetter wrote:
+> On Thu, May 27, 2021 at 11:22:16AM +0100, Tvrtko Ursulin wrote:
+>>
+>> On 27/05/2021 11:13, Daniel Vetter wrote:
+>>> On Wed, May 26, 2021 at 11:20:13AM +0100, Tvrtko Ursulin wrote:
+>>>>
+>>>> On 25/05/2021 15:47, Daniel Vetter wrote:
+>>>>> On Tue, May 25, 2021 at 03:19:47PM +0100, Tvrtko Ursulin wrote:
+>>>>>>
+>>>>>> + dri-devel as per process
+>>>>>>
+>>>>>> On 25/05/2021 14:55, Tejas Upadhyay wrote:
+>>>>>>> v2: Only declare timeslicing if we can safely preempt userspace.
+>>>>>>
+>>>>>> Commit message got butchered up somehow so you'll need to fix that at some
+>>>>>> point.
+>>>>>>
+>>>>>> Regards,
+>>>>>>
+>>>>>> Tvrtko
+>>>>>>
+>>>>>>> Fixes: 8ee36e048c98 ("drm/i915/execlists: Minimalistic timeslicing")
+>>>>>>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+>>>>>>> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>>>>>> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>>>>>> ---
+>>>>>>>      drivers/gpu/drm/i915/gt/intel_engine_user.c | 1 +
+>>>>>>>      include/uapi/drm/i915_drm.h                 | 1 +
+>>>>>>>      2 files changed, 2 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+>>>>>>> index 3cca7ea2d6ea..12d165566ed2 100644
+>>>>>>> --- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
+>>>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+>>>>>>> @@ -98,6 +98,7 @@ static void set_scheduler_caps(struct drm_i915_private *i915)
+>>>>>>>      		MAP(HAS_PREEMPTION, PREEMPTION),
+>>>>>>>      		MAP(HAS_SEMAPHORES, SEMAPHORES),
+>>>>>>>      		MAP(SUPPORTS_STATS, ENGINE_BUSY_STATS),
+>>>>>>> +		MAP(TIMESLICE_BIT, TIMESLICING),
+>>>>>>>      #undef MAP
+>>>>>>>      	};
+>>>>>>>      	struct intel_engine_cs *engine;
+>>>>>>> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+>>>>>>> index c2c7759b7d2e..af2212d6113c 100644
+>>>>>>> --- a/include/uapi/drm/i915_drm.h
+>>>>>>> +++ b/include/uapi/drm/i915_drm.h
+>>>>>>> @@ -572,6 +572,7 @@ typedef struct drm_i915_irq_wait {
+>>>>>>>      #define   I915_SCHEDULER_CAP_PREEMPTION	(1ul << 2)
+>>>>>>>      #define   I915_SCHEDULER_CAP_SEMAPHORES	(1ul << 3)
+>>>>>>>      #define   I915_SCHEDULER_CAP_ENGINE_BUSY_STATS	(1ul << 4)
+>>>>>>> +#define   I915_SCHEDULER_CAP_TIMESLICING	(1ul << 5)
+>>>>>
+>>>>> Since this is uapi I think we should at least have some nice kerneldoc
+>>>>> that explains what exactly this is, what for (link to userspace) and all
+>>>>> that. Ideally also minimally filing in the gaps in our uapi docs for stuff
+>>>>> this references.
+>>>>
+>>>> IIUC there is no userspace apart from IGT needing it not to fail scheduling
+>>>> tests on ADL.
+>>>>
+>>>> Current tests use "has preemption + has semaphores" as a proxy to answer the
+>>>> "does the kernel support timeslicing" question. This stops working with the
+>>>> Guc backend because GuC decided not to support semaphores (for reasons yet
+>>>> unknown, see other thread), so explicit "has timeslicing" flag is needed in
+>>>> order for tests to know that GuC is supposed to support timeslicing, even if
+>>>> it doesn't use semaphores for inter-ring synchronisation.
+>>>
+>>> Since this if for igt only: Cant we do just extend the check in igt with
+>>> an || GEN >= 12? I really hope that our future hw will continue to support
+>>> timeslicing ...
+>>
+>> Not the gen 12 check, but possible I think. Explicit feature test would be better, but if definitely not allowed then along the lines of:
+>>
+>> has_timeslicing =
+>> 	(has_preemption && has_semaphores) || uses_guc_submission;
+> 
+> That works too. Otoh what exactly is the "uses guc submission" flag and
+> why do we have that? I've seen media use it as a stand-in for "does the
+> kernel want bonded or parallel ctx?". Maybe another thing to check.
+> 
+> Another option, if you really think the feature flag is the best approach
+> (because future hw will drop timeslicing for some reason), then debugfs is
+> the place of igt-only api.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index a8b771f22880..1238fe05b358 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -486,6 +486,17 @@ static void icl_lut_multi_seg_pack(struct drm_color_lut *entry, u32 ldw, u32 udw
- 				    REG_FIELD_GET(PAL_PREC_MULTI_SEG_BLUE_LDW_MASK, ldw);
- }
- 
-+static void d13_lut_logarithmic_pack(struct drm_color_lut *entry,
-+				     u32 ldw, u32 udw)
-+{
-+	entry->red = REG_FIELD_GET(PAL_PREC_LOGARITHMIC_RED_UDW_MASK, udw) << 6 |
-+				   REG_FIELD_GET(PAL_PREC_LOGARITHMIC_RED_LDW_MASK, ldw);
-+	entry->green = REG_FIELD_GET(PAL_PREC_LOGARITHMIC_GREEN_UDW_MASK, udw) << 6 |
-+				     REG_FIELD_GET(PAL_PREC_LOGARITHMIC_GREEN_LDW_MASK, ldw);
-+	entry->blue = REG_FIELD_GET(PAL_PREC_LOGARITHMIC_BLUE_UDW_MASK, udw) << 6 |
-+				    REG_FIELD_GET(PAL_PREC_LOGARITHMIC_BLUE_LDW_MASK, ldw);
-+}
-+
- static void i9xx_color_commit(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-@@ -2434,6 +2445,66 @@ static void d13_load_luts(const struct intel_crtc_state *crtc_state)
- 	intel_dsb_commit(crtc_state);
- }
- 
-+static struct drm_property_blob *
-+d13_read_lut_logarithmic(struct intel_crtc *crtc)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	int i, lut_size = INTEL_INFO(dev_priv)->color.gamma_lut_size;
-+	enum pipe pipe = crtc->pipe;
-+	struct drm_property_blob *blob;
-+	struct drm_color_lut *lut;
-+	u32 gamma_max_val = 0xFFFF;
-+
-+	blob = drm_property_create_blob(&dev_priv->drm,
-+					sizeof(struct drm_color_lut) * lut_size,
-+					NULL);
-+	if (IS_ERR(blob))
-+		return NULL;
-+
-+	lut = blob->data;
-+
-+	intel_de_write(dev_priv, PREC_PAL_INDEX(pipe),
-+		       PAL_PREC_AUTO_INCREMENT);
-+
-+	for (i = 0; i < lut_size - 3; i++) {
-+		u32 ldw = intel_de_read(dev_priv, PREC_PAL_DATA(pipe));
-+		u32 udw = intel_de_read(dev_priv, PREC_PAL_DATA(pipe));
-+
-+		d13_lut_logarithmic_pack(&lut[i], ldw, udw);
-+	}
-+
-+	/* All the extended ranges are now limited to last value of 1.0 */
-+	while (i < lut_size) {
-+		lut[i].red = gamma_max_val;
-+		lut[i].green = gamma_max_val;
-+		lut[i].blue = gamma_max_val;
-+		i++;
-+	};
-+
-+	intel_de_write(dev_priv, PREC_PAL_INDEX(pipe), 0);
-+
-+	return blob;
-+}
-+
-+static void d13_read_luts(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+
-+	if ((crtc_state->gamma_mode & POST_CSC_GAMMA_ENABLE) == 0)
-+		return;
-+
-+	switch (crtc_state->gamma_mode & GAMMA_MODE_MODE_MASK) {
-+	case GAMMA_MODE_MODE_8BIT:
-+		crtc_state->hw.gamma_lut = ilk_read_lut_8(crtc);
-+		break;
-+	case GAMMA_MODE_MODE_12BIT_LOGARITHMIC:
-+		crtc_state->hw.gamma_lut = d13_read_lut_logarithmic(crtc);
-+		break;
-+	default:
-+		crtc_state->hw.gamma_lut = bdw_read_lut_10(crtc, PAL_PREC_INDEX_VALUE(0));
-+	}
-+}
-+
- void intel_color_init(struct intel_crtc *crtc)
- {
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-@@ -2488,6 +2559,7 @@ void intel_color_init(struct intel_crtc *crtc)
- 
- 		if (DISPLAY_VER(dev_priv) >= 13) {
- 			dev_priv->display.load_luts = d13_load_luts;
-+			dev_priv->display.read_luts = d13_read_luts;
- 		} else if (DISPLAY_VER(dev_priv) >= 11) {
- 			dev_priv->display.load_luts = icl_load_luts;
- 			dev_priv->display.read_luts = icl_read_luts;
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 957f97edf035..dc10b5e2ff3c 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7750,6 +7750,12 @@ enum {
- #define  GAMMA_MODE_MODE_SPLIT	(3 << 0) /* ivb-bdw */
- #define  GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED	(3 << 0) /* icl + */
- #define  GAMMA_MODE_MODE_12BIT_LOGARITHMIC	(3 << 0) /* D13+ + */
-+#define  PAL_PREC_LOGARITHMIC_RED_LDW_MASK	REG_GENMASK(29, 24)
-+#define  PAL_PREC_LOGARITHMIC_RED_UDW_MASK	REG_GENMASK(29, 20)
-+#define  PAL_PREC_LOGARITHMIC_GREEN_LDW_MASK	REG_GENMASK(19, 14)
-+#define  PAL_PREC_LOGARITHMIC_GREEN_UDW_MASK	REG_GENMASK(19, 10)
-+#define  PAL_PREC_LOGARITHMIC_BLUE_LDW_MASK	REG_GENMASK(9, 4)
-+#define  PAL_PREC_LOGARITHMIC_BLUE_UDW_MASK	REG_GENMASK(9, 0)
- 
- /* DMC */
- #define DMC_PROGRAM(i)		_MMIO(0x80000 + (i) * 4)
--- 
-2.26.2
+Maybe check and potentially remove all I915_SCHEDULER_CAP_.. flags. It 
+could be another easy pickings with a lot of IGT work type endeavour.
 
+Regards,
+
+Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
