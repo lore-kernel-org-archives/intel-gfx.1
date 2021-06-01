@@ -2,50 +2,48 @@ Return-Path: <SRS0=8ese=K3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF022C47093
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E74DC47080
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 77B7F61370
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77B7F61370
+	by mail.kernel.org (Postfix) with ESMTPS id 296396136E
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 296396136E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94CFE6E9D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFB836E9D2;
 	Tue,  1 Jun 2021 10:06:01 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8699C6E10C;
- Tue,  1 Jun 2021 10:05:57 +0000 (UTC)
-IronPort-SDR: 489OmspNXUE3zW91DZO/M7pD+jgdyzpL9IBlWTSlRqUnpPQBnvTQhTf9gfo2ff4LQpUUXJrI2Z
- KqgaHX8kZgxw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="183197717"
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="183197717"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D27A76E10C;
+ Tue,  1 Jun 2021 10:05:58 +0000 (UTC)
+IronPort-SDR: c/vbje3Fx/CEwGvFw60OHDJ5UYCVa08ELqEiQBNM+dZ4NyX/ZV2sR+vI+JpMrFs9sl4biWUD73
+ qlgx4rykXsLw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="183197715"
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="183197715"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 03:05:45 -0700
-IronPort-SDR: PtDIQbeqtu0bSVmnBKiKN0F+wDHhYIv/eBAn7D7IHjwgaG/OfBI426FaE5K9vL055kuTiRpAvz
- HpmIheEvGYTw==
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="399245154"
+ 01 Jun 2021 03:05:44 -0700
+IronPort-SDR: l42+PHjSaC1K4ps+/dH7HHDocTMwtzxbw07I2bUR2qCVhgeM6rugvH6aC9YzWEuBXD597Ynjqm
+ k6W7dczNhIpQ==
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="399245118"
 Received: from linux-desktop.iind.intel.com ([10.223.34.178])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 03:05:41 -0700
+ 01 Jun 2021 03:05:35 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue,  1 Jun 2021 16:11:27 +0530
-Message-Id: <20210601104135.29020-2-uma.shankar@intel.com>
+Date: Tue,  1 Jun 2021 16:11:26 +0530
+Message-Id: <20210601104135.29020-1-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210601104135.29020-1-uma.shankar@intel.com>
-References: <20210601104135.29020-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/9] drm: Add gamma mode property
+Subject: [Intel-gfx] [PATCH 0/9] Enhance pipe color support for multi
+ segmented luts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,244 +61,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a gamma mode property to enable various kind of
-gamma modes supported by platforms like: Interpolated, Split,
-Multi Segmented, Logarithmic etc. Userspace can get this property
-and should be able to get the platform capabilities wrt various
-gamma modes possible and the possible ranges.
+Modern hardwares have multi segmented lut approach to prioritize
+the darker regions of the spectrum. This series introduces a new
+UAPI to define the lut ranges supported by the respective hardware.
 
-It can select one of the modes exposed as blob_id as an
-enum and set the respective mode.
+This also enables Pipe Color Management Support for Intel's XE_LPD hw.
+Enable Support for Pipe Degamma with the increased lut samples
+supported by hardware. This also adds support for newly introduced
+Logarithmic Gamma for XE_LPD. Also added the gamma readout support.
 
-It can then create the LUT and send it to driver using
-already available GAMMA_LUT property as blob.
+The Logarithmic gamma implementation on XE_LPD is non linear and adds 25
+segments with non linear lut samples in each segment. The expectation
+is userspace will create the luts as per this distribution and pass
+the final samples to driver to be programmed in hardware.
 
-Note: This is based on design by Ville and is being carried forward
-based on his original idea.
++-----+------------------------------+
+| x   |  2 pow x segment|No of Entries
+|     |  0              | 1          |
+| 0   |  1              | 1          |
+| 1   |  2              | 2          |
+| 2   |  4              | 2          |
+| 3   |  8              | 2          |
+| 4   |  16             | 2          |
+| 5   |  32             | 4          |
+| 6   |  64             | 4          |
+| 7   |  128            | 4          |
+| 8   |  256            | 8          |
+| 9   |  512            | 8          |
+| 10  |  1024           | 8          |
+| 11  |  2048           | 16         |
+| 12  |  4096           | 16         |
+| 13  |  8192           | 16         |
+| 14  |  16384          | 32         |
+| 15  |  32768          | 32         |
+| 16  |  65536          | 64         |
+| 17  |  131072         | 64         |
+| 18  |  262144         | 64         |
+| 19  |  524288         | 32         |
+| 20  |  1048576        | 32         |
+| 21  |  2097152        | 32         |
+| 22  |  4194304        | 32         |
+| 23  |  8388608        | 32         |
+| 24  |  16777216       | 1          |
+|     | Total Entries   | 511        |
+ -----+-----------------+------------+
 
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/drm_atomic_uapi.c |  5 +++
- drivers/gpu/drm/drm_color_mgmt.c  | 75 +++++++++++++++++++++++++++++++
- include/drm/drm_color_mgmt.h      |  8 ++++
- include/drm/drm_crtc.h            | 14 ++++++
- include/uapi/drm/drm_mode.h       | 43 ++++++++++++++++++
- 5 files changed, 145 insertions(+)
+Credits: Special mention and credits to Ville Syrjala for coming up
+with a design for this feature and inputs. This series is based on
+his original design.
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 438e9585b225..a5470a0ebbe6 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -471,6 +471,9 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
- 					&replaced);
- 		state->color_mgmt_changed |= replaced;
- 		return ret;
-+	} else if (property == crtc->gamma_mode_property) {
-+		state->gamma_mode = val;
-+		state->color_mgmt_changed |= true;
- 	} else if (property == config->prop_out_fence_ptr) {
- 		s32 __user *fence_ptr = u64_to_user_ptr(val);
- 
-@@ -510,6 +513,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
- 		*val = (state->mode_blob) ? state->mode_blob->base.id : 0;
- 	else if (property == config->prop_vrr_enabled)
- 		*val = state->vrr_enabled;
-+	else if (property == crtc->gamma_mode_property)
-+		*val = state->gamma_mode;
- 	else if (property == config->degamma_lut_property)
- 		*val = (state->degamma_lut) ? state->degamma_lut->base.id : 0;
- 	else if (property == config->ctm_property)
-diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-index bb14f488c8f6..766d0fd14daa 100644
---- a/drivers/gpu/drm/drm_color_mgmt.c
-+++ b/drivers/gpu/drm/drm_color_mgmt.c
-@@ -187,6 +187,81 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
- }
- EXPORT_SYMBOL(drm_crtc_enable_color_mgmt);
- 
-+void drm_crtc_attach_gamma_mode_property(struct drm_crtc *crtc)
-+{
-+	if (!crtc->gamma_mode_property)
-+		return;
-+
-+	drm_object_attach_property(&crtc->base,
-+				   crtc->gamma_mode_property, 0);
-+}
-+EXPORT_SYMBOL(drm_crtc_attach_gamma_mode_property);
-+
-+int drm_color_create_gamma_mode_property(struct drm_crtc *crtc,
-+					 int num_values)
-+{
-+	struct drm_property *prop;
-+
-+	prop = drm_property_create(crtc->dev,
-+				   DRM_MODE_PROP_ENUM,
-+				   "GAMMA_MODE", num_values);
-+	if (!prop)
-+		return -ENOMEM;
-+
-+	crtc->gamma_mode_property = prop;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_color_create_gamma_mode_property);
-+
-+int drm_color_add_gamma_mode_range(struct drm_crtc *crtc,
-+				   const char *name,
-+				   const struct drm_color_lut_range *ranges,
-+				   size_t length)
-+{
-+	struct drm_property_blob *blob;
-+	struct drm_property *prop;
-+	int num_ranges = length / sizeof(ranges[0]);
-+	int i, ret, num_types_0;
-+
-+	prop = crtc->gamma_mode_property;
-+	if (!prop)
-+		return -EINVAL;
-+
-+	if (length == 0 && name)
-+		return drm_property_add_enum(prop, 0, name);
-+
-+	if (WARN_ON(length == 0 || length % sizeof(ranges[0]) != 0))
-+		return -EINVAL;
-+
-+	num_types_0 = hweight8(ranges[0].flags & (DRM_MODE_LUT_GAMMA |
-+			       DRM_MODE_LUT_DEGAMMA));
-+	if (num_types_0 == 0)
-+		return -EINVAL;
-+
-+	for (i = 1; i < num_ranges; i++) {
-+		int num_types = hweight8(ranges[i].flags & (DRM_MODE_LUT_GAMMA |
-+					 DRM_MODE_LUT_DEGAMMA));
-+
-+		/* either all ranges have DEGAMMA|GAMMA or none have it */
-+		if (num_types_0 != num_types)
-+			return -EINVAL;
-+	}
-+
-+	blob = drm_property_create_blob(crtc->dev, length, ranges);
-+	if (IS_ERR(blob))
-+		return PTR_ERR(blob);
-+
-+	ret = drm_property_add_enum(prop, blob->base.id, name);
-+	if (ret) {
-+		drm_property_blob_put(blob);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_color_add_gamma_mode_range);
-+
- /**
-  * drm_mode_crtc_set_gamma_size - set the gamma table size
-  * @crtc: CRTC to set the gamma table size for
-diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-index 81c298488b0c..db68f42f6d12 100644
---- a/include/drm/drm_color_mgmt.h
-+++ b/include/drm/drm_color_mgmt.h
-@@ -74,6 +74,14 @@ static inline int drm_color_lut_size(const struct drm_property_blob *blob)
- 	return blob->length / sizeof(struct drm_color_lut);
- }
- 
-+int drm_color_create_gamma_mode_property(struct drm_crtc *crtc,
-+					 int num_values);
-+void drm_crtc_attach_gamma_mode_property(struct drm_crtc *crtc);
-+int drm_color_add_gamma_mode_range(struct drm_crtc *crtc,
-+				   const char *name,
-+				   const struct drm_color_lut_range *ranges,
-+				   size_t length);
-+
- enum drm_color_encoding {
- 	DRM_COLOR_YCBCR_BT601,
- 	DRM_COLOR_YCBCR_BT709,
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index 13eeba2a750a..b1eead03ebe8 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -262,6 +262,13 @@ struct drm_crtc_state {
- 	 */
- 	struct drm_property_blob *mode_blob;
- 
-+	/**
-+	 * @gamma_mode: This is a blob_id and exposes the platform capabilities
-+	 * wrt to various gamma modes and the respective lut ranges. This also
-+	 * helps user select a gamma mode amongst the supported ones.
-+	 */
-+	u32 gamma_mode;
-+
- 	/**
- 	 * @degamma_lut:
- 	 *
-@@ -1096,6 +1103,13 @@ struct drm_crtc {
- 	 */
- 	struct drm_property *scaling_filter_property;
- 
-+	/**
-+	 * @gamma_mode_property: Optional CRTC property to enumerate and
-+	 * select the mode of the crtc gamma/degmama LUTs. This also exposes
-+	 * the lut ranges of the various supported gamma modes to userspace.
-+	 */
-+	struct drm_property *gamma_mode_property;
-+
- 	/**
- 	 * @state:
- 	 *
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index 9b6722d45f36..d7758d351936 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -819,6 +819,49 @@ struct hdr_output_metadata {
- 	};
- };
- 
-+/*
-+ * DRM_MODE_LUT_GAMMA|DRM_MODE_LUT_DEGAMMA is legal and means the LUT
-+ * can be used for either purpose, but not simultaneously. To expose
-+ * modes that support gamma and degamma simultaneously the gamma mode
-+ * must declare distinct DRM_MODE_LUT_GAMMA and DRM_MODE_LUT_DEGAMMA
-+ * ranges.
-+ */
-+/* LUT is for gamma (after CTM) */
-+#define DRM_MODE_LUT_GAMMA BIT(0)
-+/* LUT is for degamma (before CTM) */
-+#define DRM_MODE_LUT_DEGAMMA BIT(1)
-+/* linearly interpolate between the points */
-+#define DRM_MODE_LUT_INTERPOLATE BIT(2)
-+/*
-+ * the last value of the previous range is the
-+ * first value of the current range.
-+ */
-+#define DRM_MODE_LUT_REUSE_LAST BIT(3)
-+/* the curve must be non-decreasing */
-+#define DRM_MODE_LUT_NON_DECREASING BIT(4)
-+/* the curve is reflected across origin for negative inputs */
-+#define DRM_MODE_LUT_REFLECT_NEGATIVE BIT(5)
-+/* the same curve (red) is used for blue and green channels as well */
-+#define DRM_MODE_LUT_SINGLE_CHANNEL BIT(6)
-+
-+struct drm_color_lut_range {
-+	/* DRM_MODE_LUT_* */
-+	__u32 flags;
-+	/* number of points on the curve */
-+	__u16 count;
-+	/* input/output bits per component */
-+	__u8 input_bpc, output_bpc;
-+	/* input start/end values */
-+	__s32 start, end;
-+	/* output min/max values */
-+	__s32 min, max;
-+};
-+
-+enum lut_type {
-+	LUT_TYPE_DEGAMMA = 0,
-+	LUT_TYPE_GAMMA = 1,
-+};
-+
- #define DRM_MODE_PAGE_FLIP_EVENT 0x01
- #define DRM_MODE_PAGE_FLIP_ASYNC 0x02
- #define DRM_MODE_PAGE_FLIP_TARGET_ABSOLUTE 0x4
+Note: Userspace support for this new UAPI will be done on Chrome and
+plan is to get this supported on mutter as well. We will notify the
+list once we have that ready for review.
+
+Uma Shankar (9):
+  drm: Add gamma mode property
+  drm/i915/xelpd: Define color lut range structure
+  drm/i915/xelpd: Add support for Logarithmic gamma mode
+  drm/i915/xelpd: Attach gamma mode property
+  drm: Add Client Cap for advance gamma mode
+  drm/i915/xelpd: logarithmic gamma enabled only with advance gamma mode
+  drm/i915/xelpd: Enable Pipe Degamma
+  drm/i915/xelpd: Add Pipe Color Lut caps to platform config
+  drm/i915/xelpd: Enable XE_LPD Gamma Lut readout
+
+ drivers/gpu/drm/drm_atomic_uapi.c          |   8 +
+ drivers/gpu/drm/drm_color_mgmt.c           |  75 ++++
+ drivers/gpu/drm/drm_ioctl.c                |   5 +
+ drivers/gpu/drm/i915/display/intel_color.c | 454 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_pci.c            |   3 +-
+ drivers/gpu/drm/i915/i915_reg.h            |   7 +
+ include/drm/drm_atomic.h                   |   1 +
+ include/drm/drm_color_mgmt.h               |   8 +
+ include/drm/drm_crtc.h                     |  25 ++
+ include/drm/drm_file.h                     |   8 +
+ include/uapi/drm/drm.h                     |   8 +
+ include/uapi/drm/drm_mode.h                |  43 ++
+ 12 files changed, 630 insertions(+), 15 deletions(-)
+
 -- 
 2.26.2
 
