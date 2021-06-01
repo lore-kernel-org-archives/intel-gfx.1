@@ -2,50 +2,51 @@ Return-Path: <SRS0=8ese=K3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA49DC47080
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38373C47093
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7717B6136E
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7717B6136E
+	by mail.kernel.org (Postfix) with ESMTPS id 04B9661370
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 04B9661370
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6A46E9DC;
-	Tue,  1 Jun 2021 10:06:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE7AD6E9DA;
+	Tue,  1 Jun 2021 10:06:05 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FC116E145;
- Tue,  1 Jun 2021 10:05:59 +0000 (UTC)
-IronPort-SDR: 5V1DZD4/79WrE0U+qZPU/pD2aQPuMXjB6986f4fnUr9vfehJ/iB2y54o3v6B/8E+yM7Gh2w84g
- HfjTxtlq2IPg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="183197744"
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="183197744"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1638C6E9DE;
+ Tue,  1 Jun 2021 10:06:03 +0000 (UTC)
+IronPort-SDR: 3bGnSxKDRG8wRYpbL8Gr57YHiDcLRpB6BscGK4tPCsx64GSAOt6P0m4r2PobgWixVr1vSAcBJD
+ pE69eoZjK3zA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="183197776"
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="183197776"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 03:05:52 -0700
-IronPort-SDR: wbEzqGlcbpVKa76dE9z4+w5pw/SjahScsbqaoAnNSI0sRFMXPF9d7jiRom/J2TNrXLMHwll+3d
- EgZf+HZHdFMA==
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="399245238"
+ 01 Jun 2021 03:06:01 -0700
+IronPort-SDR: nAMCoBFdy5aRuUvxZGNXIUYlF7/TEDzuXVuVdXHIkhqzlAbPQPRmcwM2u0+Ej9pCok3rF6az2v
+ GHHo6Gw2vBVA==
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="399245279"
 Received: from linux-desktop.iind.intel.com ([10.223.34.178])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 03:05:50 -0700
+ 01 Jun 2021 03:05:59 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue,  1 Jun 2021 16:11:31 +0530
-Message-Id: <20210601104135.29020-6-uma.shankar@intel.com>
+Date: Tue,  1 Jun 2021 16:11:35 +0530
+Message-Id: <20210601104135.29020-10-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210601104135.29020-1-uma.shankar@intel.com>
 References: <20210601104135.29020-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 5/9] drm: Add Client Cap for advance gamma mode
+Subject: [Intel-gfx] [PATCH 9/9] drm/i915/xelpd: Enable XE_LPD Gamma Lut
+ readout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,137 +64,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Introduced a client cap for advance cap mode capability. Userspace
-should set this to get to be able to use the new gamma_mode property.
-
-If this is not set, driver will work in legacy mode.
-
-Note: This is suggested by Ville and based on his idea, the new
-gamma mode handling is designed.
+Enable support for Logarithmic gamma readout for XE_LPD.
 
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c | 3 +++
- drivers/gpu/drm/drm_ioctl.c       | 5 +++++
- include/drm/drm_atomic.h          | 1 +
- include/drm/drm_crtc.h            | 8 ++++++++
- include/drm/drm_file.h            | 8 ++++++++
- include/uapi/drm/drm.h            | 8 ++++++++
- 6 files changed, 33 insertions(+)
+ drivers/gpu/drm/i915/display/intel_color.c | 72 ++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_reg.h            |  6 ++
+ 2 files changed, 78 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index a5470a0ebbe6..7ee35bc14455 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1036,6 +1036,8 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 			break;
- 		}
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index a8b771f22880..1238fe05b358 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -486,6 +486,17 @@ static void icl_lut_multi_seg_pack(struct drm_color_lut *entry, u32 ldw, u32 udw
+ 				    REG_FIELD_GET(PAL_PREC_MULTI_SEG_BLUE_LDW_MASK, ldw);
+ }
  
-+		crtc_state->advance_gamma_mode_active =
-+					state->advance_gamma_mode_active;
- 		ret = drm_atomic_crtc_set_property(crtc,
- 				crtc_state, prop, prop_value);
- 		break;
-@@ -1372,6 +1374,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
- 	state->acquire_ctx = &ctx;
- 	state->allow_modeset = !!(arg->flags & DRM_MODE_ATOMIC_ALLOW_MODESET);
-+	state->advance_gamma_mode_active = file_priv->advance_gamma_mode_active;
++static void d13_lut_logarithmic_pack(struct drm_color_lut *entry,
++				     u32 ldw, u32 udw)
++{
++	entry->red = REG_FIELD_GET(PAL_PREC_LOGARITHMIC_RED_UDW_MASK, udw) << 6 |
++				   REG_FIELD_GET(PAL_PREC_LOGARITHMIC_RED_LDW_MASK, ldw);
++	entry->green = REG_FIELD_GET(PAL_PREC_LOGARITHMIC_GREEN_UDW_MASK, udw) << 6 |
++				     REG_FIELD_GET(PAL_PREC_LOGARITHMIC_GREEN_LDW_MASK, ldw);
++	entry->blue = REG_FIELD_GET(PAL_PREC_LOGARITHMIC_BLUE_UDW_MASK, udw) << 6 |
++				    REG_FIELD_GET(PAL_PREC_LOGARITHMIC_BLUE_LDW_MASK, ldw);
++}
++
+ static void i9xx_color_commit(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+@@ -2434,6 +2445,66 @@ static void d13_load_luts(const struct intel_crtc_state *crtc_state)
+ 	intel_dsb_commit(crtc_state);
+ }
  
- retry:
- 	copied_objs = 0;
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 53d314103a37..d51f72213882 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -361,6 +361,11 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
- 			return -EINVAL;
- 		file_priv->writeback_connectors = req->value;
- 		break;
-+	case DRM_CLIENT_CAP_ADVANCE_GAMMA_MODES:
-+		if (req->value > 1)
-+			return -EINVAL;
-+		file_priv->advance_gamma_mode_active = req->value;
++static struct drm_property_blob *
++d13_read_lut_logarithmic(struct intel_crtc *crtc)
++{
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	int i, lut_size = INTEL_INFO(dev_priv)->color.gamma_lut_size;
++	enum pipe pipe = crtc->pipe;
++	struct drm_property_blob *blob;
++	struct drm_color_lut *lut;
++	u32 gamma_max_val = 0xFFFF;
++
++	blob = drm_property_create_blob(&dev_priv->drm,
++					sizeof(struct drm_color_lut) * lut_size,
++					NULL);
++	if (IS_ERR(blob))
++		return NULL;
++
++	lut = blob->data;
++
++	intel_de_write(dev_priv, PREC_PAL_INDEX(pipe),
++		       PAL_PREC_AUTO_INCREMENT);
++
++	for (i = 0; i < lut_size - 3; i++) {
++		u32 ldw = intel_de_read(dev_priv, PREC_PAL_DATA(pipe));
++		u32 udw = intel_de_read(dev_priv, PREC_PAL_DATA(pipe));
++
++		d13_lut_logarithmic_pack(&lut[i], ldw, udw);
++	}
++
++	/* All the extended ranges are now limited to last value of 1.0 */
++	while (i < lut_size) {
++		lut[i].red = gamma_max_val;
++		lut[i].green = gamma_max_val;
++		lut[i].blue = gamma_max_val;
++		i++;
++	};
++
++	intel_de_write(dev_priv, PREC_PAL_INDEX(pipe), 0);
++
++	return blob;
++}
++
++static void d13_read_luts(struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++
++	if ((crtc_state->gamma_mode & POST_CSC_GAMMA_ENABLE) == 0)
++		return;
++
++	switch (crtc_state->gamma_mode & GAMMA_MODE_MODE_MASK) {
++	case GAMMA_MODE_MODE_8BIT:
++		crtc_state->hw.gamma_lut = ilk_read_lut_8(crtc);
 +		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index ac5a28eff2c8..5a398a249c80 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -379,6 +379,7 @@ struct drm_atomic_state {
- 	 * states.
- 	 */
- 	bool duplicated : 1;
-+	bool advance_gamma_mode_active : 1;
- 	struct __drm_planes_state *planes;
- 	struct __drm_crtcs_state *crtcs;
- 	int num_connector;
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index 5a594f134a81..f4339fbad086 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -170,6 +170,11 @@ struct drm_crtc_state {
- 	 */
- 	bool color_mgmt_changed : 1;
- 
-+	/**
-+	 * This is to indicate advance gamma mode support
-+	 */
-+	bool advance_gamma_mode_active : 1;
++	case GAMMA_MODE_MODE_12BIT_LOGARITHMIC:
++		crtc_state->hw.gamma_lut = d13_read_lut_logarithmic(crtc);
++		break;
++	default:
++		crtc_state->hw.gamma_lut = bdw_read_lut_10(crtc, PAL_PREC_INDEX_VALUE(0));
++	}
++}
 +
- 	/**
- 	 * @no_vblank:
- 	 *
-@@ -1036,6 +1041,9 @@ struct drm_crtc {
- 	 */
- 	bool enabled;
+ void intel_color_init(struct intel_crtc *crtc)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+@@ -2488,6 +2559,7 @@ void intel_color_init(struct intel_crtc *crtc)
  
-+	/** To handle advance gamma mode support */
-+	bool advance_gamma_mode_active : 1;
-+
- 	/**
- 	 * @mode:
- 	 *
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index b81b3bfb08c8..4af3e1a2a158 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -201,6 +201,14 @@ struct drm_file {
- 	 */
- 	bool writeback_connectors;
+ 		if (DISPLAY_VER(dev_priv) >= 13) {
+ 			dev_priv->display.load_luts = d13_load_luts;
++			dev_priv->display.read_luts = d13_read_luts;
+ 		} else if (DISPLAY_VER(dev_priv) >= 11) {
+ 			dev_priv->display.load_luts = icl_load_luts;
+ 			dev_priv->display.read_luts = icl_read_luts;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 957f97edf035..dc10b5e2ff3c 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7750,6 +7750,12 @@ enum {
+ #define  GAMMA_MODE_MODE_SPLIT	(3 << 0) /* ivb-bdw */
+ #define  GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED	(3 << 0) /* icl + */
+ #define  GAMMA_MODE_MODE_12BIT_LOGARITHMIC	(3 << 0) /* D13+ + */
++#define  PAL_PREC_LOGARITHMIC_RED_LDW_MASK	REG_GENMASK(29, 24)
++#define  PAL_PREC_LOGARITHMIC_RED_UDW_MASK	REG_GENMASK(29, 20)
++#define  PAL_PREC_LOGARITHMIC_GREEN_LDW_MASK	REG_GENMASK(19, 14)
++#define  PAL_PREC_LOGARITHMIC_GREEN_UDW_MASK	REG_GENMASK(19, 10)
++#define  PAL_PREC_LOGARITHMIC_BLUE_LDW_MASK	REG_GENMASK(9, 4)
++#define  PAL_PREC_LOGARITHMIC_BLUE_UDW_MASK	REG_GENMASK(9, 0)
  
-+	/**
-+	 * This is to enable advance gamma modes using
-+	 * gamma_mode property
-+	 *
-+	 * True if client understands advance gamma
-+	 */
-+	bool advance_gamma_mode_active : 1;
-+
- 	/**
- 	 * @was_master:
- 	 *
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index 67b94bc3c885..661efdf0c969 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -816,6 +816,14 @@ struct drm_get_cap {
-  */
- #define DRM_CLIENT_CAP_WRITEBACK_CONNECTORS	5
- 
-+/**
-+ * Add support for advance gamma mode UAPI
-+ * If set to 1, DRM will enable advance gamma mode
-+ * UAPI to process the gamma mode based on extended
-+ * range and segments.
-+ */
-+#define DRM_CLIENT_CAP_ADVANCE_GAMMA_MODES     6
-+
- /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
- struct drm_set_client_cap {
- 	__u64 capability;
+ /* DMC */
+ #define DMC_PROGRAM(i)		_MMIO(0x80000 + (i) * 4)
 -- 
 2.26.2
 
