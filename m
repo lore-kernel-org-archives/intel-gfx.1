@@ -2,51 +2,51 @@ Return-Path: <SRS0=8ese=K3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A0E4C47092
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D21D4C47080
 	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:16:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66A896139A
+	by mail.kernel.org (Postfix) with ESMTPS id A55876139A
 	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66A896139A
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A55876139A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C729D6EA0B;
-	Tue,  1 Jun 2021 10:16:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE27F6EA0D;
+	Tue,  1 Jun 2021 10:16:41 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61FF36EA06;
- Tue,  1 Jun 2021 10:16:37 +0000 (UTC)
-IronPort-SDR: NvO9uQR5mwC6INqbkEHOPBjH2mpsw4gQlglcF/qbEPbmuo47hoeBCX8WaEDDDkXuHQXwPLsAyl
- fBDvJhrHtNtA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="203550052"
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="203550052"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 831766EA08;
+ Tue,  1 Jun 2021 10:16:39 +0000 (UTC)
+IronPort-SDR: 25YwmkxKAlTc9MdPc9NSQe31EBJ80ecDcu9z/hPyIFNJ/Q7MaHWeO/rS+q336O72fV3F9fM8ZA
+ QMIn2aMAfrmg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="203550060"
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="203550060"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 03:16:37 -0700
-IronPort-SDR: pr9z4WMQPXXzwLiVn+rVpvws1wSVMn01E0ttL3BFIYn4AG904ojQwbJ7D4Lt5446PI0sIeMaj2
- 4bfHYRugCTZw==
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="482431397"
+ 01 Jun 2021 03:16:39 -0700
+IronPort-SDR: 8PQDJpI9wHE5Ho1IKuZeoZDNf0VIwLVwW7c7e5XTn72WvshH8JvEcpvZgEYqsFMO5unuRDKEcx
+ Mzkcn5F/nnBw==
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="482431408"
 Received: from linux-desktop.iind.intel.com ([10.223.34.178])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 03:16:35 -0700
+ 01 Jun 2021 03:16:37 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue,  1 Jun 2021 16:22:15 +0530
-Message-Id: <20210601105218.29185-19-uma.shankar@intel.com>
+Date: Tue,  1 Jun 2021 16:22:16 +0530
+Message-Id: <20210601105218.29185-20-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210601105218.29185-1-uma.shankar@intel.com>
 References: <20210601105218.29185-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 18/21] drm/i915/xelpd: Define and Initialize
- Plane Gamma Lut range
+Subject: [Intel-gfx] [PATCH 19/21] drm/i915/xelpd: Add register definitions
+ for Plane Gamma
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,164 +64,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Define the structure with XE_LPD gamma lut ranges. HDR and SDR planes
-have different capabilities, implemented respective structure for
-the HDR planes. Degamma and GAMMA has same Lut caps for SDR planes,
-extended the same.
-
-Initialize the mode range caps as well.
+Add macros to define Plane Gamma registers
 
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-Signed-off-by: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 112 ++++++++++++++++++---
- 1 file changed, 99 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/i915_reg.h | 73 +++++++++++++++++++++++++++++++++
+ 1 file changed, 73 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 8b4f653b213d..7f091dd0bb19 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -2248,7 +2248,7 @@ static const struct drm_color_lut_range d13_degamma_hdr[] = {
- };
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index a8e35357aea0..2ebc92104f64 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -11398,6 +11398,79 @@ enum skl_power_gate {
+ 		_MMIO_PLANE_GAMC(plane, i, _PLANE_PRE_CSC_GAMC_DATA_1(pipe), \
+ 		_PLANE_PRE_CSC_GAMC_DATA_2(pipe))
  
-  /* FIXME input bpc? */
--static const struct drm_color_lut_range d13_degamma_sdr[] = {
-+static const struct drm_color_lut_range d13_gamma_degamma_sdr[] = {
- 	/* segment 1 */
- 	{
- 		.flags = (DRM_MODE_LUT_GAMMA |
-@@ -2298,6 +2298,63 @@ static const struct drm_color_lut_range d13_degamma_sdr[] = {
- 	},
- };
- 
-+ /* FIXME input bpc? */
-+static const struct drm_color_lut_range d13_gamma_hdr[] = {
-+	/*
-+	 * ToDo: Add Segment 1
-+	 * There is an optional fine segment added with 9 lut values
-+	 * Will be added later
-+	 */
++/* Display13 Plane Gamma Reg */
++#define _PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_1_A	0x70160
++#define _PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_1_B	0x71160
++#define _PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_2_A	0x70260
++#define _PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_2_B	0x71260
++#define _PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_1(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_1_A, \
++							_PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_1_B)
++#define _PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_2(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_2_A, \
++							_PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_2_B)
++#define PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_1(pipe), \
++		_PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH_2(pipe))
 +
-+	/* segment 2 */
-+	{
-+		.flags = (DRM_MODE_LUT_GAMMA |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 32,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = 0, .end = (1 << 24) - 1,
-+		.min = 0, .max = (1 << 24) - 1,
-+	},
-+	/* segment 3 */
-+	{
-+		.flags = (DRM_MODE_LUT_GAMMA |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_REUSE_LAST |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 1,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = (1 << 24) - 1, .end = 1 << 24,
-+		.min = 0, .max = 1 << 24,
-+	},
-+	/* Segment 4 */
-+	{
-+		.flags = (DRM_MODE_LUT_GAMMA |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_REUSE_LAST |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 1,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = 1 << 24, .end = 3 << 24,
-+		.min = 0, .max = (3 << 24),
-+	},
-+	/* Segment 5 */
-+	{
-+		.flags = (DRM_MODE_LUT_GAMMA |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_REUSE_LAST |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 1,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = 3 << 24, .end = 7 << 24,
-+		.min = 0, .max = (7 << 24),
-+	},
-+};
++#define _PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_1_A	0x70164
++#define _PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_1_B	0x71164
++#define _PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_2_A	0x70264
++#define _PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_2_B	0x71264
++#define _PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_1(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_1_A, \
++							_PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_1_B)
++#define _PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_2(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_2_A, \
++							_PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_2_B)
++#define PLANE_POST_CSC_GAMC_SEG0_DATA_ENH(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_1(pipe), \
++		_PLANE_POST_CSC_GAMC_SEG0_DATA_ENH_2(pipe))
 +
- static void d13_program_plane_degamma_lut(const struct drm_plane_state *state,
- 					  struct drm_color_lut_ext *degamma_lut,
- 					  u32 offset)
-@@ -2407,26 +2464,55 @@ int intel_plane_color_init(struct drm_plane *plane)
- 		ret = drm_plane_color_add_gamma_degamma_mode_range(plane, "no degamma",
- 								   NULL, 0,
- 								   LUT_TYPE_DEGAMMA);
--		if (icl_is_hdr_plane(dev_priv, to_intel_plane(plane)->id))
-+		if (ret)
-+			return ret;
++#define _PLANE_POST_CSC_GAMC_INDEX_ENH_1_A	0x701d8
++#define _PLANE_POST_CSC_GAMC_INDEX_ENH_1_B	0x711d8
++#define _PLANE_POST_CSC_GAMC_INDEX_ENH_2_A	0x702d8
++#define _PLANE_POST_CSC_GAMC_INDEX_ENH_2_B	0x712d8
++#define _PLANE_POST_CSC_GAMC_INDEX_ENH_1(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_INDEX_ENH_1_A, \
++						_PLANE_POST_CSC_GAMC_INDEX_ENH_1_B)
++#define _PLANE_POST_CSC_GAMC_INDEX_ENH_2(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_INDEX_ENH_2_A, \
++						_PLANE_POST_CSC_GAMC_INDEX_ENH_2_B)
++#define PLANE_POST_CSC_GAMC_INDEX_ENH(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_POST_CSC_GAMC_INDEX_ENH_1(pipe), \
++		_PLANE_POST_CSC_GAMC_INDEX_ENH_2(pipe))
 +
-+		ret = drm_plane_color_add_gamma_degamma_mode_range(plane, "no gamma",
-+								   NULL, 0,
-+								   LUT_TYPE_GAMMA);
-+		if (ret)
-+			return ret;
++#define _PLANE_POST_CSC_GAMC_DATA_ENH_1_A	0x701dc
++#define _PLANE_POST_CSC_GAMC_DATA_ENH_1_B	0x711dc
++#define _PLANE_POST_CSC_GAMC_DATA_ENH_2_A	0x702dc
++#define _PLANE_POST_CSC_GAMC_DATA_ENH_2_B	0x712dc
++#define _PLANE_POST_CSC_GAMC_DATA_ENH_1(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_DATA_ENH_1_A, \
++						_PLANE_POST_CSC_GAMC_DATA_ENH_1_B)
++#define _PLANE_POST_CSC_GAMC_DATA_ENH_2(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_DATA_ENH_2_A, \
++						_PLANE_POST_CSC_GAMC_DATA_ENH_2_B)
++#define PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_POST_CSC_GAMC_DATA_ENH_1(pipe), \
++		_PLANE_POST_CSC_GAMC_DATA_ENH_2(pipe))
 +
-+		if (icl_is_hdr_plane(dev_priv, to_intel_plane(plane)->id)) {
- 			ret = drm_plane_color_add_gamma_degamma_mode_range(plane, "plane degamma",
- 									   d13_degamma_hdr,
- 									   sizeof(d13_degamma_hdr),
- 									   LUT_TYPE_DEGAMMA);
--		else
--			ret = drm_plane_color_add_gamma_degamma_mode_range(plane,
--									   "plane degamma",
--									   d13_degamma_sdr,
--									   sizeof(d13_degamma_sdr),
-+			if (ret)
-+				return ret;
++#define _PLANE_POST_CSC_GAMC_INDEX_1_A	0x704d8
++#define _PLANE_POST_CSC_GAMC_INDEX_1_B	0x714d8
++#define _PLANE_POST_CSC_GAMC_INDEX_2_A	0x705d8
++#define _PLANE_POST_CSC_GAMC_INDEX_2_B	0x715d8
++#define _PLANE_POST_CSC_GAMC_INDEX_1(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_INDEX_1_A, \
++						_PLANE_POST_CSC_GAMC_INDEX_1_B)
++#define _PLANE_POST_CSC_GAMC_INDEX_2(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_INDEX_2_A, \
++						_PLANE_POST_CSC_GAMC_INDEX_2_B)
++#define PLANE_POST_CSC_GAMC_INDEX(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_POST_CSC_GAMC_INDEX_1(pipe), \
++		_PLANE_POST_CSC_GAMC_INDEX_2(pipe))
 +
-+			ret = drm_plane_color_add_gamma_degamma_mode_range(plane, "plane gamma",
-+									   d13_gamma_hdr,
-+									   sizeof(d13_gamma_hdr),
-+									   LUT_TYPE_GAMMA);
-+			if (ret)
-+				return ret;
-+		} else {
-+			ret = drm_plane_color_add_gamma_degamma_mode_range(plane, "plane degamma",
-+									   d13_gamma_degamma_sdr,
-+									   sizeof(d13_gamma_degamma_sdr),
- 									   LUT_TYPE_DEGAMMA);
-+			if (ret)
-+				return ret;
++#define _PLANE_POST_CSC_GAMC_DATA_1_A	0x704dc
++#define _PLANE_POST_CSC_GAMC_DATA_1_B	0x714dc
++#define _PLANE_POST_CSC_GAMC_DATA_2_A	0x705dc
++#define _PLANE_POST_CSC_GAMC_DATA_2_B	0x715dc
++#define _PLANE_POST_CSC_GAMC_DATA_1(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_DATA_1_A, \
++						_PLANE_POST_CSC_GAMC_DATA_1_B)
++#define _PLANE_POST_CSC_GAMC_DATA_2(pipe)	_PIPE(pipe, _PLANE_POST_CSC_GAMC_DATA_2_A, \
++						_PLANE_POST_CSC_GAMC_DATA_2_B)
++#define PLANE_POST_CSC_GAMC_DATA(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_POST_CSC_GAMC_DATA_1(pipe), \
++		_PLANE_POST_CSC_GAMC_DATA_2(pipe))
 +
-+			ret = drm_plane_color_add_gamma_degamma_mode_range(plane, "plane gamma",
-+									   d13_gamma_degamma_sdr,
-+									   sizeof(d13_gamma_degamma_sdr),
-+									   LUT_TYPE_GAMMA);
-+			if (ret)
-+				return ret;
-+		}
-+	}
- 
--		dev_priv->display.load_plane_luts = d13_plane_load_luts;
--		dev_priv->display.load_plane_csc_matrix = icl_load_plane_csc_matrix;
-+	dev_priv->display.load_plane_luts = d13_plane_load_luts;
-+	dev_priv->display.load_plane_csc_matrix = icl_load_plane_csc_matrix;
- 
--		drm_plane_attach_degamma_properties(plane);
-+	drm_plane_attach_degamma_properties(plane);
- 
--		if (icl_is_hdr_plane(dev_priv, to_intel_plane(plane)->id))
--			drm_plane_attach_ctm_property(plane);
--	}
-+	if (icl_is_hdr_plane(dev_priv, to_intel_plane(plane)->id))
-+		drm_plane_attach_ctm_property(plane);
-+
-+	drm_plane_attach_gamma_properties(plane);
- 
- 	return ret;
- }
+ /* pipe CSC & degamma/gamma LUTs on CHV */
+ #define _CGM_PIPE_A_CSC_COEFF01	(VLV_DISPLAY_BASE + 0x67900)
+ #define _CGM_PIPE_A_CSC_COEFF23	(VLV_DISPLAY_BASE + 0x67904)
 -- 
 2.26.2
 
