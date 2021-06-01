@@ -2,58 +2,41 @@ Return-Path: <SRS0=8ese=K3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C9B3C47080
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE14DC4708F
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 13:15:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DBAB261028
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 12:51:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DBAB261028
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=huawei.com
+	by mail.kernel.org (Postfix) with ESMTPS id A6D3B613B1
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 13:15:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6D3B613B1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75DDF6EA5A;
-	Tue,  1 Jun 2021 12:51:53 +0000 (UTC)
-X-Greylist: delayed 1016 seconds by postgrey-1.36 at gabe;
- Thu, 27 May 2021 09:21:52 UTC
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 990156EE4F
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 May 2021 09:21:52 +0000 (UTC)
-Received: from dggeml711-chm.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4FrMJj4VvKzYn5K;
- Thu, 27 May 2021 17:02:13 +0800 (CST)
-Received: from dggpemm500006.china.huawei.com (7.185.36.236) by
- dggeml711-chm.china.huawei.com (10.3.17.122) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Thu, 27 May 2021 17:04:53 +0800
-Received: from thunder-town.china.huawei.com (10.174.177.72) by
- dggpemm500006.china.huawei.com (7.185.36.236) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Thu, 27 May 2021 17:04:52 +0800
-From: Zhen Lei <thunder.leizhen@huawei.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, intel-gfx
- <intel-gfx@lists.freedesktop.org>, dri-devel
- <dri-devel@lists.freedesktop.org>, linux-kernel
- <linux-kernel@vger.kernel.org>
-Date: Thu, 27 May 2021 17:04:21 +0800
-Message-ID: <20210527090421.9172-1-thunder.leizhen@huawei.com>
-X-Mailer: git-send-email 2.26.0.windows.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 370966E8BD;
+	Tue,  1 Jun 2021 13:15:10 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EBE576E7F5;
+ Tue,  1 Jun 2021 13:15:08 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D8F8AA47E8;
+ Tue,  1 Jun 2021 13:15:08 +0000 (UTC)
 MIME-Version: 1.0
-X-Originating-IP: [10.174.177.72]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- dggpemm500006.china.huawei.com (7.185.36.236)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Tue, 01 Jun 2021 12:51:14 +0000
-Subject: [Intel-gfx] [PATCH 1/1] drm/i915/hdcp: Simplify code in
- intel_hdcp_auth_downstream()
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Uma Shankar" <uma.shankar@intel.com>
+Date: Tue, 01 Jun 2021 13:15:08 -0000
+Message-ID: <162255330885.19252.18041269496224469279@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210601104135.29020-1-uma.shankar@intel.com>
+In-Reply-To: <20210601104135.29020-1-uma.shankar@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRW5o?=
+ =?utf-8?q?ance_pipe_color_support_for_multi_segmented_luts?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,79 +49,237 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zhen Lei <thunder.leizhen@huawei.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1562301797=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If intel_hdcp_validate_v_prime() has been successful within the allowed
-number of tries, we can directly call drm_dbg_kms() and "goto out" without
-jumping out of the loop and repeatedly judging whether the operation is
-successful. This can help us reduce an unnecessary if judgment. And it's
-a little clearer to read.
+--===============1562301797==
+Content-Type: multipart/alternative;
+ boundary="===============4013329046313670825=="
 
-No functional change.
+--===============4013329046313670825==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
----
- drivers/gpu/drm/i915/display/intel_hdcp.c | 24 ++++++++++-------------
- 1 file changed, 10 insertions(+), 14 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index d8570e14fe60..c32a854eda66 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -663,13 +663,13 @@ int intel_hdcp_auth_downstream(struct intel_connector *connector)
- 
- 	ret = shim->read_ksv_fifo(dig_port, num_downstream, ksv_fifo);
- 	if (ret)
--		goto err;
-+		goto out;
- 
- 	if (drm_hdcp_check_ksvs_revoked(&dev_priv->drm, ksv_fifo,
- 					num_downstream) > 0) {
- 		drm_err(&dev_priv->drm, "Revoked Ksv(s) in ksv_fifo\n");
- 		ret = -EPERM;
--		goto err;
-+		goto out;
- 	}
- 
- 	/*
-@@ -680,20 +680,16 @@ int intel_hdcp_auth_downstream(struct intel_connector *connector)
- 		ret = intel_hdcp_validate_v_prime(connector, shim,
- 						  ksv_fifo, num_downstream,
- 						  bstatus);
--		if (!ret)
--			break;
--	}
--
--	if (i == tries) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "V Prime validation failed.(%d)\n", ret);
--		goto err;
-+		if (!ret) {
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "HDCP is enabled (%d downstream devices)\n",
-+				    num_downstream);
-+			goto out;
-+		}
- 	}
- 
--	drm_dbg_kms(&dev_priv->drm, "HDCP is enabled (%d downstream devices)\n",
--		    num_downstream);
--	ret = 0;
--err:
-+	drm_dbg_kms(&dev_priv->drm, "V Prime validation failed.(%d)\n", ret);
-+out:
- 	kfree(ksv_fifo);
- 	return ret;
- }
--- 
-2.25.1
+Series: Enhance pipe color support for multi segmented luts
+URL   : https://patchwork.freedesktop.org/series/90821/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10154 -> Patchwork_20248
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20248 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - {fi-hsw-gt1}:       [DMESG-WARN][1] ([i915#3303]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html
+
+  * igt@kms_chamelium@dp-crc-fast:
+    - fi-kbl-7500u:       [FAIL][3] ([i915#1372]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
+
+  
+#### Warnings ####
+
+  * igt@runner@aborted:
+    - fi-cfl-8700k:       [FAIL][5] ([i915#3363]) -> [FAIL][6] ([i915#2426] / [i915#3363])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-cfl-8700k/igt@runner@aborted.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-cfl-8700k/igt@runner@aborted.html
+    - fi-glk-dsi:         [FAIL][7] ([i915#2426] / [i915#3363] / [k.org#202321]) -> [FAIL][8] ([i915#3363] / [k.org#202321])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-glk-dsi/igt@runner@aborted.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-glk-dsi/igt@runner@aborted.html
+    - fi-kbl-soraka:      [FAIL][9] ([i915#1436] / [i915#3363]) -> [FAIL][10] ([i915#1436] / [i915#2426] / [i915#3363])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-kbl-soraka/igt@runner@aborted.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-kbl-soraka/igt@runner@aborted.html
+    - fi-kbl-guc:         [FAIL][11] ([i915#1436] / [i915#2426] / [i915#3363]) -> [FAIL][12] ([i915#1436] / [i915#3363])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-kbl-guc/igt@runner@aborted.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-kbl-guc/igt@runner@aborted.html
+    - fi-cfl-guc:         [FAIL][13] ([i915#2426] / [i915#3363]) -> [FAIL][14] ([i915#3363])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-cfl-guc/igt@runner@aborted.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-cfl-guc/igt@runner@aborted.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#1372]: https://gitlab.freedesktop.org/drm/intel/issues/1372
+  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
+  [i915#2426]: https://gitlab.freedesktop.org/drm/intel/issues/2426
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+  [i915#3363]: https://gitlab.freedesktop.org/drm/intel/issues/3363
+  [k.org#202321]: https://bugzilla.kernel.org/show_bug.cgi?id=202321
+
+
+Participating hosts (47 -> 42)
+------------------------------
+
+  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10154 -> Patchwork_20248
+
+  CI-20190529: 20190529
+  CI_DRM_10154: 810010ed3d29e0500d452a90010a88a0879f2b45 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6097: f823d8ec14b34a6dd2c0804c684b07b0a50f7bb7 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_20248: 69e66620a121b94c53f9b381c048c32f45eb4fe2 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+69e66620a121 drm/i915/xelpd: Enable XE_LPD Gamma Lut readout
+6a09b3df0e61 drm/i915/xelpd: Add Pipe Color Lut caps to platform config
+185822ca6347 drm/i915/xelpd: Enable Pipe Degamma
+0a9c33e8f72b drm/i915/xelpd: logarithmic gamma enabled only with advance gamma mode
+7709e4e8ae04 drm: Add Client Cap for advance gamma mode
+0db66299eaaf drm/i915/xelpd: Attach gamma mode property
+0abd23286aa0 drm/i915/xelpd: Add support for Logarithmic gamma mode
+fbd5ad2e2de9 drm/i915/xelpd: Define color lut range structure
+cbbd9a9e8e24 drm: Add gamma mode property
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/index.html
+
+--===============4013329046313670825==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Enhance pipe color support for multi segmented luts</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/90821/">https://patchwork.freedesktop.org/series/90821/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10154 -&gt; Patchwork_20248</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20248 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>{fi-hsw-gt1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3303">i915#3303</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-hsw-gt1/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-crc-fast:</p>
+<ul>
+<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1372">i915#1372</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>
+<p>fi-cfl-8700k:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-cfl-8700k/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-cfl-8700k/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>)</p>
+</li>
+<li>
+<p>fi-glk-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-glk-dsi/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a> / <a href="https://bugzilla.kernel.org/show_bug.cgi?id=202321">k.org#202321</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-glk-dsi/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a> / <a href="https://bugzilla.kernel.org/show_bug.cgi?id=202321">k.org#202321</a>)</p>
+</li>
+<li>
+<p>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-kbl-soraka/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-kbl-soraka/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>)</p>
+</li>
+<li>
+<p>fi-kbl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-kbl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-kbl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>)</p>
+</li>
+<li>
+<p>fi-cfl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10154/fi-cfl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20248/fi-cfl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (47 -&gt; 42)</h2>
+<p>Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10154 -&gt; Patchwork_20248</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10154: 810010ed3d29e0500d452a90010a88a0879f2b45 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6097: f823d8ec14b34a6dd2c0804c684b07b0a50f7bb7 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_20248: 69e66620a121b94c53f9b381c048c32f45eb4fe2 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>69e66620a121 drm/i915/xelpd: Enable XE_LPD Gamma Lut readout<br />
+6a09b3df0e61 drm/i915/xelpd: Add Pipe Color Lut caps to platform config<br />
+185822ca6347 drm/i915/xelpd: Enable Pipe Degamma<br />
+0a9c33e8f72b drm/i915/xelpd: logarithmic gamma enabled only with advance gamma mode<br />
+7709e4e8ae04 drm: Add Client Cap for advance gamma mode<br />
+0db66299eaaf drm/i915/xelpd: Attach gamma mode property<br />
+0abd23286aa0 drm/i915/xelpd: Add support for Logarithmic gamma mode<br />
+fbd5ad2e2de9 drm/i915/xelpd: Define color lut range structure<br />
+cbbd9a9e8e24 drm: Add gamma mode property</p>
+
+</body>
+</html>
+
+--===============4013329046313670825==--
+
+--===============1562301797==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1562301797==--
