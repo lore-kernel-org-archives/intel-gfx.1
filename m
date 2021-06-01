@@ -2,48 +2,51 @@ Return-Path: <SRS0=8ese=K3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03EEBC4708F
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 09:53:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 018BBC47080
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:06:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 988F8613AB
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 09:53:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 988F8613AB
+	by mail.kernel.org (Postfix) with ESMTPS id A6F706136E
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Jun 2021 10:05:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6F706136E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D3636E9C1;
-	Tue,  1 Jun 2021 09:53:24 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF2136E4F9
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Jun 2021 09:53:22 +0000 (UTC)
-IronPort-SDR: U2+zjvksg8Dd2qAU7w64/w9z2lp0sWf7fJ3nzW8N8yiTUs6DW80YkMaCb0YXezlMHAcFIEIKaX
- IhJ62nNnrgqg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="190868622"
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="190868622"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 02:53:22 -0700
-IronPort-SDR: F8VpZ9If9Au0GiJFzN+yTIFXfke9+kEuuhrHLRcjGiFERS+d9u5pl54hIFC3Xi/52C/1A5dliM
- fd7qLY0vrRpw==
-X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="482422445"
-Received: from unknown (HELO helsinki.fi.intel.com) ([10.237.66.162])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 02:53:20 -0700
-From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Jun 2021 12:53:15 +0300
-Message-Id: <20210601095316.2427464-1-gwan-gyeong.mun@intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D83F6E9C2;
+	Tue,  1 Jun 2021 10:05:59 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D43E06E145;
+ Tue,  1 Jun 2021 10:05:58 +0000 (UTC)
+IronPort-SDR: 9kBQMoGWMvy9ggOCZtgGvcPYZ3IM0obFd6D+5VbfKXNipwemN1YSkCMEGPDYRT5vFz8lTiSrkh
+ vrU01RSeME2w==
+X-IronPort-AV: E=McAfee;i="6200,9189,10001"; a="183197732"
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="183197732"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2021 03:05:48 -0700
+IronPort-SDR: 6PQU+PwHFltX5JTeJFj8EnZ+RfdOQfL4+MC7GRVEfYcp7WdHzGPjI9bGc9/ORtzCRy0NqBbcsk
+ BE3t59QdLVcQ==
+X-IronPort-AV: E=Sophos;i="5.83,239,1616482800"; d="scan'208";a="399245213"
+Received: from linux-desktop.iind.intel.com ([10.223.34.178])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2021 03:05:46 -0700
+From: Uma Shankar <uma.shankar@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Tue,  1 Jun 2021 16:11:29 +0530
+Message-Id: <20210601104135.29020-4-uma.shankar@intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210601104135.29020-1-uma.shankar@intel.com>
+References: <20210601104135.29020-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2] drm/i915/display: Introduce new
- intel_psr_pause/resume function
+Subject: [Intel-gfx] [PATCH 3/9] drm/i915/xelpd: Add support for Logarithmic
+ gamma mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,102 +59,217 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhpcyBpbnRyb2R1Y2VzIHRoZSBmb2xsb3dpbmcgZnVuY3Rpb24gdGhhdCBjYW4gZXhpdCBhbmQg
-YWN0aXZhdGUgYSBwc3IKc291cmNlIHdoZW4gaW50ZWxfcHNyIGlzIGFscmVhZHkgZW5hYmxlZC4K
-Ci0gaW50ZWxfcHNyX3BhdXNlKCk6IFBhdXNlIGN1cnJlbnQgUFNSLiBJdCBkZWFjdGl2YXRlcyBj
-dXJyZW50IHBzciBzdGF0ZS4KLSBpbnRlbF9wc3JfcmVzdW1lKCk6IFJlc3VtZSBwYXVzZWQgUFNS
-LiBJdCBhY3RpdmF0ZXMgcGF1c2VkIHBzciBzdGF0ZS4KCnYyOiBBZGRyZXNzIEpvc2UncyByZXZp
-ZXcgY29tbWVudC4KICAtIFJlbW92ZSB1bm5lZWRlZCBjaGFuZ2VzIGFyb3VuZCB0aGUgaW50ZWxf
-cHNyX2VuYWJsZSgpLgogIC0gQWRkIGludGVsX3Bzcl9wb3N0X2V4aXQoKSB3aGljaCBwcm9jZXNz
-ZXMgd2FpdGluZyB1bnRpbCBQU1IgaXMgaWRsZQogICAgYW5kIFdBIGZvciBTZWxlY3RpdmVGZXRj
-aC4KCkNjOiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4KQ2M6
-IFN0YW5pc2xhdiBMaXNvdnNraXkgPHN0YW5pc2xhdi5saXNvdnNraXlAaW50ZWwuY29tPgpDYzog
-VmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KU2lnbmVkLW9m
-Zi1ieTogR3dhbi1neWVvbmcgTXVuIDxnd2FuLWd5ZW9uZy5tdW5AaW50ZWwuY29tPgpTaWduZWQt
-b2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwuY29tPgotLS0KIC4uLi9k
-cm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaCAgICB8ICAxICsKIGRyaXZlcnMv
-Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMgICAgICB8IDg0ICsrKysrKysrKysrKysr
-KystLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmggICAgICB8ICAy
-ICsKIDMgZmlsZXMgY2hhbmdlZCwgNzYgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5
-cGVzLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMu
-aAppbmRleCBiOGQxZjcwMmQ4MDguLmVlN2NiZGQ3ZGI4NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmgKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmgKQEAgLTE0ODIsNiArMTQ4
-Miw3IEBAIHN0cnVjdCBpbnRlbF9wc3IgewogCWJvb2wgc2lua19zdXBwb3J0OwogCWJvb2wgc291
-cmNlX3N1cHBvcnQ7CiAJYm9vbCBlbmFibGVkOworCWJvb2wgcGF1c2VkOwogCWVudW0gcGlwZSBw
-aXBlOwogCWVudW0gdHJhbnNjb2RlciB0cmFuc2NvZGVyOwogCWJvb2wgYWN0aXZlOwpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMKaW5kZXggMDAwZTFmZmU4YzA1Li40ZmY3
-MWU1MjljZDMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
-cHNyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYwpAQCAt
-MTExMyw2ICsxMTEzLDcgQEAgc3RhdGljIHZvaWQgaW50ZWxfcHNyX2VuYWJsZV9sb2NrZWQoc3Ry
-dWN0IGludGVsX2RwICppbnRlbF9kcCwKIAlpbnRlbF9wc3JfZW5hYmxlX3NpbmsoaW50ZWxfZHAp
-OwogCWludGVsX3Bzcl9lbmFibGVfc291cmNlKGludGVsX2RwKTsKIAlpbnRlbF9kcC0+cHNyLmVu
-YWJsZWQgPSB0cnVlOworCWludGVsX2RwLT5wc3IucGF1c2VkID0gZmFsc2U7CiAKIAlpbnRlbF9w
-c3JfYWN0aXZhdGUoaW50ZWxfZHApOwogfQpAQCAtMTE4MiwyMiArMTE4MywxMiBAQCBzdGF0aWMg
-dm9pZCBpbnRlbF9wc3JfZXhpdChzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwKQogCWludGVsX2Rw
-LT5wc3IuYWN0aXZlID0gZmFsc2U7CiB9CiAKLXN0YXRpYyB2b2lkIGludGVsX3Bzcl9kaXNhYmxl
-X2xvY2tlZChzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwKQorc3RhdGljIHZvaWQgaW50ZWxfcHNy
-X3Bvc3RfZXhpdChzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwKQogewogCXN0cnVjdCBkcm1faTkx
-NV9wcml2YXRlICpkZXZfcHJpdiA9IGRwX3RvX2k5MTUoaW50ZWxfZHApOwogCWk5MTVfcmVnX3Qg
-cHNyX3N0YXR1czsKIAl1MzIgcHNyX3N0YXR1c19tYXNrOwogCi0JbG9ja2RlcF9hc3NlcnRfaGVs
-ZCgmaW50ZWxfZHAtPnBzci5sb2NrKTsKLQotCWlmICghaW50ZWxfZHAtPnBzci5lbmFibGVkKQot
-CQlyZXR1cm47Ci0KLQlkcm1fZGJnX2ttcygmZGV2X3ByaXYtPmRybSwgIkRpc2FibGluZyBQU1Il
-c1xuIiwKLQkJICAgIGludGVsX2RwLT5wc3IucHNyMl9lbmFibGVkID8gIjIiIDogIjEiKTsKLQot
-CWludGVsX3Bzcl9leGl0KGludGVsX2RwKTsKLQogCWlmIChpbnRlbF9kcC0+cHNyLnBzcjJfZW5h
-YmxlZCkgewogCQlwc3Jfc3RhdHVzID0gRURQX1BTUjJfU1RBVFVTKGludGVsX2RwLT5wc3IudHJh
-bnNjb2Rlcik7CiAJCXBzcl9zdGF0dXNfbWFzayA9IEVEUF9QU1IyX1NUQVRVU19TVEFURV9NQVNL
-OwpAQCAtMTIxNyw2ICsxMjA4LDIyIEBAIHN0YXRpYyB2b2lkIGludGVsX3Bzcl9kaXNhYmxlX2xv
-Y2tlZChzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwKQogCSAgICAgSVNfUktMX1JFVklEKGRldl9w
-cml2LCBSS0xfUkVWSURfQTAsIFJLTF9SRVZJRF9BMCkpKQogCQlpbnRlbF9kZV9ybXcoZGV2X3By
-aXYsIENISUNLRU5fUEFSMV8xLAogCQkJICAgICBESVNfUkFNX0JZUEFTU19QU1IyX01BTl9UUkFD
-SywgMCk7Cit9CisKK3N0YXRpYyB2b2lkIGludGVsX3Bzcl9kaXNhYmxlX2xvY2tlZChzdHJ1Y3Qg
-aW50ZWxfZHAgKmludGVsX2RwKQoreworCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJp
-diA9IGRwX3RvX2k5MTUoaW50ZWxfZHApOworCisJbG9ja2RlcF9hc3NlcnRfaGVsZCgmaW50ZWxf
-ZHAtPnBzci5sb2NrKTsKKworCWlmICghaW50ZWxfZHAtPnBzci5lbmFibGVkKQorCQlyZXR1cm47
-CisKKwlkcm1fZGJnX2ttcygmZGV2X3ByaXYtPmRybSwgIkRpc2FibGluZyBQU1Ilc1xuIiwKKwkJ
-ICAgIGludGVsX2RwLT5wc3IucHNyMl9lbmFibGVkID8gIjIiIDogIjEiKTsKKworCWludGVsX3Bz
-cl9leGl0KGludGVsX2RwKTsKKwlpbnRlbF9wc3JfcG9zdF9leGl0KGludGVsX2RwKTsKIAogCS8q
-IERpc2FibGUgUFNSIG9uIFNpbmsgKi8KIAlkcm1fZHBfZHBjZF93cml0ZWIoJmludGVsX2RwLT5h
-dXgsIERQX1BTUl9FTl9DRkcsIDApOwpAQCAtMTI1NCw2ICsxMjYxLDYxIEBAIHZvaWQgaW50ZWxf
-cHNyX2Rpc2FibGUoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCwKIAljYW5jZWxfZGVsYXllZF93
-b3JrX3N5bmMoJmludGVsX2RwLT5wc3IuZGMzY29fd29yayk7CiB9CiAKKy8qKgorICogaW50ZWxf
-cHNyX3BhdXNlIC0gUGF1c2UgUFNSCisgKiBAaW50ZWxfZHA6IEludGVsIERQCisgKgorICogVGhp
-cyBmdW5jdGlvbiBuZWVkIHRvIGJlIGNhbGxlZCBhZnRlciBlbmFibGluZyBwc3IuCisgKi8KK3Zv
-aWQgaW50ZWxfcHNyX3BhdXNlKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCit7CisJc3RydWN0
-IGludGVsX3BzciAqcHNyID0gJmludGVsX2RwLT5wc3I7CisKKwlpZiAoIUNBTl9QU1IoaW50ZWxf
-ZHApKQorCQlyZXR1cm47CisKKwltdXRleF9sb2NrKCZwc3ItPmxvY2spOworCisJaWYgKCFwc3It
-PmFjdGl2ZSkgeworCQltdXRleF91bmxvY2soJnBzci0+bG9jayk7CisJCXJldHVybjsKKwl9CisK
-KwlpbnRlbF9wc3JfZXhpdChpbnRlbF9kcCk7CisJaW50ZWxfcHNyX3Bvc3RfZXhpdChpbnRlbF9k
-cCk7CisJcHNyLT5wYXVzZWQgPSB0cnVlOworCisJbXV0ZXhfdW5sb2NrKCZwc3ItPmxvY2spOwor
-CisJY2FuY2VsX3dvcmtfc3luYygmcHNyLT53b3JrKTsKKwljYW5jZWxfZGVsYXllZF93b3JrX3N5
-bmMoJnBzci0+ZGMzY29fd29yayk7Cit9CisKKy8qKgorICogaW50ZWxfcHNyX3Jlc3VtZSAtIFJl
-c3VtZSBQU1IKKyAqIEBpbnRlbF9kcDogSW50ZWwgRFAKKyAqCisgKiBUaGlzIGZ1bmN0aW9uIG5l
-ZWQgdG8gYmUgY2FsbGVkIGFmdGVyIHBhdXNpbmcgcHNyLgorICovCit2b2lkIGludGVsX3Bzcl9y
-ZXN1bWUoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCkKK3sKKwlzdHJ1Y3QgaW50ZWxfcHNyICpw
-c3IgPSAmaW50ZWxfZHAtPnBzcjsKKworCWlmICghQ0FOX1BTUihpbnRlbF9kcCkpCisJCXJldHVy
-bjsKKworCW11dGV4X2xvY2soJnBzci0+bG9jayk7CisKKwlpZiAoIXBzci0+cGF1c2VkKQorCQln
-b3RvIHVubG9jazsKKworCXBzci0+cGF1c2VkID0gZmFsc2U7CisJaW50ZWxfcHNyX2FjdGl2YXRl
-KGludGVsX2RwKTsKKwordW5sb2NrOgorCW11dGV4X3VubG9jaygmcHNyLT5sb2NrKTsKK30KKwog
-c3RhdGljIHZvaWQgcHNyX2ZvcmNlX2h3X3RyYWNraW5nX2V4aXQoc3RydWN0IGludGVsX2RwICpp
-bnRlbF9kcCkKIHsKIAlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYgPSBkcF90b19p
-OTE1KGludGVsX2RwKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfcHNyLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5oCmlu
-ZGV4IGUzZGI4NWU5N2Y0Yy4uNjQxNTIxYjEwMWM4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
-c3BsYXkvaW50ZWxfcHNyLmgKQEAgLTUxLDUgKzUxLDcgQEAgdm9pZCBpbnRlbF9wc3IyX3Byb2dy
-YW1fcGxhbmVfc2VsX2ZldGNoKHN0cnVjdCBpbnRlbF9wbGFuZSAqcGxhbmUsCiAJCQkJCWNvbnN0
-IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlLAogCQkJCQljb25zdCBzdHJ1Y3Qg
-aW50ZWxfcGxhbmVfc3RhdGUgKnBsYW5lX3N0YXRlLAogCQkJCQlpbnQgY29sb3JfcGxhbmUpOwor
-dm9pZCBpbnRlbF9wc3JfcGF1c2Uoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCk7Cit2b2lkIGlu
-dGVsX3Bzcl9yZXN1bWUoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCk7CiAKICNlbmRpZiAvKiBf
-X0lOVEVMX1BTUl9IX18gKi8KLS0gCjIuMzEuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+XE_LPD hardware introduced a new gamma mode i.e, Logarithmic
+gamma mode. Added support for the same.
+
+Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_color.c | 111 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_reg.h            |   1 +
+ include/drm/drm_crtc.h                     |   3 +
+ 3 files changed, 110 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 0b59d8a89761..12cacd3aeead 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -75,6 +75,21 @@
+ 
+ #define ILK_CSC_POSTOFF_LIMITED_RANGE (16 * (1 << 12) / 255)
+ 
++#define GAMMA_MODE_LEGACY_PALETTE_8BIT		BIT(0)
++#define GAMMA_MODE_PRECISION_PALETTE_10BIT	BIT(1)
++#define GAMMA_MODE_INTERPOLATED_12BIT		BIT(2)
++#define GAMMA_MODE_MULTI_SEGMENTED_12BIT	BIT(3)
++#define GAMMA_MODE_SPLIT_12BIT			BIT(4)
++#define GAMMA_MODE_LOGARITHMIC_12BIT		BIT(5) /* D13+ */
++
++#define INTEL_GAMMA_MODE_MASK (\
++		GAMMA_MODE_LEGACY_PALETTE_8BIT | \
++		GAMMA_MODE_PRECISION_PALETTE_10BIT | \
++		GAMMA_MODE_INTERPOLATED_12BIT | \
++		GAMMA_MODE_MULTI_SEGMENTED_12BIT | \
++		GAMMA_MODE_SPLIT_12BIT \
++		GAMMA_MODE_LOGARITHMIC_12BIT)
++
+ /* Nop pre/post offsets */
+ static const u16 ilk_csc_off_zero[3] = {};
+ 
+@@ -929,12 +944,20 @@ icl_load_gcmax(const struct intel_crtc_state *crtc_state,
+ 	       const struct drm_color_lut *color)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
+ 	enum pipe pipe = crtc->pipe;
+ 
+-	/* FIXME LUT entries are 16 bit only, so we can prog 0xFFFF max */
+-	intel_dsb_reg_write(crtc_state, PREC_PAL_GC_MAX(pipe, 0), color->red);
+-	intel_dsb_reg_write(crtc_state, PREC_PAL_GC_MAX(pipe, 1), color->green);
+-	intel_dsb_reg_write(crtc_state, PREC_PAL_GC_MAX(pipe, 2), color->blue);
++	if (DISPLAY_VER(i915) >= 13) {
++		/* MAx val from UAPI is 16bit only, so setting fixed for GC max */
++		intel_dsb_reg_write(crtc_state, PREC_PAL_GC_MAX(pipe, 0), 1 << 16);
++		intel_dsb_reg_write(crtc_state, PREC_PAL_GC_MAX(pipe, 1), 1 << 16);
++		intel_dsb_reg_write(crtc_state, PREC_PAL_GC_MAX(pipe, 2), 1 << 16);
++	} else {
++		/* FIXME LUT entries are 16 bit only, so we can prog 0xFFFF max */
++		intel_dsb_reg_write(crtc_state, PREC_PAL_GC_MAX(pipe, 0), color->red);
++		intel_dsb_reg_write(crtc_state, PREC_PAL_GC_MAX(pipe, 1), color->green);
++		intel_dsb_reg_write(crtc_state, PREC_PAL_GC_MAX(pipe, 2), color->blue);
++	}
+ }
+ 
+ static void
+@@ -1585,6 +1608,9 @@ static u32 icl_gamma_mode(const struct intel_crtc_state *crtc_state)
+ 	if (!crtc_state->hw.gamma_lut ||
+ 	    crtc_state_is_legacy_gamma(crtc_state))
+ 		gamma_mode |= GAMMA_MODE_MODE_8BIT;
++	else if (crtc_state->uapi.gamma_mode_type ==
++		 GAMMA_MODE_LOGARITHMIC_12BIT)
++		gamma_mode |= GAMMA_MODE_MODE_12BIT_LOGARITHMIC;
+ 	else
+ 		gamma_mode |= GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED;
+ 
+@@ -1607,12 +1633,33 @@ static u32 icl_csc_mode(const struct intel_crtc_state *crtc_state)
+ 
+ static int icl_color_check(struct intel_crtc_state *crtc_state)
+ {
++	struct drm_device *dev = crtc_state->uapi.crtc->dev;
++	struct drm_i915_private *dev_priv = to_i915(dev);
++	struct drm_property *property = crtc_state->uapi.crtc->gamma_mode_property;
++	struct drm_property_enum *prop_enum;
++	u32 index = 0;
+ 	int ret;
+ 
+ 	ret = check_luts(crtc_state);
+ 	if (ret)
+ 		return ret;
+ 
++	if (DISPLAY_VER(dev_priv) >= 13) {
++		list_for_each_entry(prop_enum, &property->enum_list, head) {
++			if (prop_enum->value == crtc_state->uapi.gamma_mode) {
++				if (!strcmp(prop_enum->name,
++					    "logarithmic gamma")) {
++					crtc_state->uapi.gamma_mode_type =
++						GAMMA_MODE_LOGARITHMIC_12BIT;
++					drm_dbg_kms(dev,
++						    "logarithmic gamma enabled\n");
++				}
++				break;
++			}
++			index++;
++		}
++	}
++
+ 	crtc_state->gamma_mode = icl_gamma_mode(crtc_state);
+ 
+ 	crtc_state->csc_mode = icl_csc_mode(crtc_state);
+@@ -2325,6 +2372,58 @@ static const struct drm_color_lut_range d13_logarithmic_gamma[] = {
+ 	},
+ };
+ 
++static void
++d13_program_logarithmic_gamma_lut(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	const struct drm_property_blob *blob = crtc_state->hw.gamma_lut;
++	const u32 lut_size = INTEL_INFO(dev_priv)->color.gamma_lut_size;
++	const struct drm_color_lut *lut;
++	enum pipe pipe = crtc->pipe;
++	u32 i;
++
++	if (!blob || !blob->data)
++		return;
++
++	lut = blob->data;
++	intel_dsb_reg_write(crtc_state, PREC_PAL_INDEX(pipe),
++			    PAL_PREC_AUTO_INCREMENT);
++
++	for (i = 0; i < lut_size - 3; i++) {
++		intel_dsb_indexed_reg_write(crtc_state, PREC_PAL_DATA(pipe),
++					    ilk_lut_12p4_ldw(&lut[i]));
++		intel_dsb_indexed_reg_write(crtc_state, PREC_PAL_DATA(pipe),
++					    ilk_lut_12p4_udw(&lut[i]));
++	}
++
++	icl_load_gcmax(crtc_state, &lut[i]);
++	ivb_load_lut_ext_max(crtc_state);
++}
++
++static void d13_load_luts(const struct intel_crtc_state *crtc_state)
++{
++	const struct drm_property_blob *gamma_lut = crtc_state->hw.gamma_lut;
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++
++	if (crtc_state->hw.degamma_lut)
++		glk_load_degamma_lut(crtc_state);
++
++	switch (crtc_state->gamma_mode & GAMMA_MODE_MODE_MASK) {
++	case GAMMA_MODE_MODE_8BIT:
++		ilk_load_lut_8(crtc, gamma_lut);
++		break;
++	case GAMMA_MODE_MODE_12BIT_LOGARITHMIC:
++		d13_program_logarithmic_gamma_lut(crtc_state);
++		break;
++	default:
++		bdw_load_lut_10(crtc, gamma_lut, PAL_PREC_INDEX_VALUE(0));
++		ivb_load_lut_ext_max(crtc_state);
++	}
++
++	intel_dsb_commit(crtc_state);
++}
++
+ void intel_color_init(struct intel_crtc *crtc)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+@@ -2376,7 +2475,9 @@ void intel_color_init(struct intel_crtc *crtc)
+ 		else
+ 			dev_priv->display.color_commit = ilk_color_commit;
+ 
+-		if (DISPLAY_VER(dev_priv) >= 11) {
++		if (DISPLAY_VER(dev_priv) >= 13) {
++			dev_priv->display.load_luts = d13_load_luts;
++		} else if (DISPLAY_VER(dev_priv) >= 11) {
+ 			dev_priv->display.load_luts = icl_load_luts;
+ 			dev_priv->display.read_luts = icl_read_luts;
+ 		} else if (DISPLAY_VER(dev_priv) == 10) {
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 24307c49085f..957f97edf035 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7749,6 +7749,7 @@ enum {
+ #define  GAMMA_MODE_MODE_12BIT	(2 << 0)
+ #define  GAMMA_MODE_MODE_SPLIT	(3 << 0) /* ivb-bdw */
+ #define  GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED	(3 << 0) /* icl + */
++#define  GAMMA_MODE_MODE_12BIT_LOGARITHMIC	(3 << 0) /* D13+ + */
+ 
+ /* DMC */
+ #define DMC_PROGRAM(i)		_MMIO(0x80000 + (i) * 4)
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index b1eead03ebe8..5a594f134a81 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -269,6 +269,9 @@ struct drm_crtc_state {
+ 	 */
+ 	u32 gamma_mode;
+ 
++	/** Gamma mode type programmed on the pipe */
++	u32 gamma_mode_type;
++
+ 	/**
+ 	 * @degamma_lut:
+ 	 *
+-- 
+2.26.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
