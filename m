@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C6D2EC4708F
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:07:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF2FFC47083
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:09:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 935636191C
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:07:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 935636191C
+	by mail.kernel.org (Postfix) with ESMTPS id 9047861921
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 16:09:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9047861921
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DFAA6ECF0;
-	Wed,  2 Jun 2021 16:07:26 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A32466ECEF;
- Wed,  2 Jun 2021 16:07:24 +0000 (UTC)
-IronPort-SDR: aG/xi5b+MNXsolbKicqITZW+mR+kbdtlhxJ4uFzu16FFE/PdWFBQTiHoVzWGzM1NCEsnPPxDID
- 7zAIOtuGYIcA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10003"; a="203819625"
-X-IronPort-AV: E=Sophos;i="5.83,242,1616482800"; d="scan'208";a="203819625"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2021 09:06:51 -0700
-IronPort-SDR: Pw0Yqiy7+8kviRIX6TWr7kwboE7af7wGO/CvHqMO8wZ9ZNpnRgH2Q87jNnMNxSLRDCpZOmNgi0
- AkMHomJ6IXUw==
-X-IronPort-AV: E=Sophos;i="5.83,242,1616482800"; d="scan'208";a="479768448"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12E726ECF1;
+	Wed,  2 Jun 2021 16:09:27 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F30426E3FC;
+ Wed,  2 Jun 2021 16:09:24 +0000 (UTC)
+IronPort-SDR: lznA1ioPd+hQGRsgJh9oUwqxu2UvknaqW/6zqoYHqiJm+iz187MytkLeOCWsw6LjcHYi+54To3
+ 2vnokgYyG2nw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10003"; a="225116422"
+X-IronPort-AV: E=Sophos;i="5.83,242,1616482800"; d="scan'208";a="225116422"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2021 09:08:56 -0700
+IronPort-SDR: Bt7/Rb15fo7yBonzu8grqvvuCNjNmQ+xH34qynFdv0zD3+ULHvGFSk/0qQapjK4hnjqI50ASYD
+ nbC1e9spOwUg==
+X-IronPort-AV: E=Sophos;i="5.83,242,1616482800"; d="scan'208";a="635914259"
 Received: from mlubyani-mobl2.amr.corp.intel.com (HELO intel.com)
  ([10.254.3.13])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2021 09:06:49 -0700
-Date: Wed, 2 Jun 2021 12:06:47 -0400
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2021 09:08:55 -0700
+Date: Wed, 2 Jun 2021 12:08:54 -0400
 From: Rodrigo Vivi <rodrigo.vivi@intel.com>
 To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Message-ID: <YLesl8fFCn8TU8eC@intel.com>
+Message-ID: <YLetFkSlL9SnYh2u@intel.com>
 References: <20210525054803.7387-1-daniele.ceraolospurio@intel.com>
  <20210525054803.7387-11-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
@@ -398,6 +398,11 @@ On Mon, May 24, 2021 at 10:47:56PM -0700, Daniele Ceraolo Spurio wrote:
 > +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
 > @@ -0,0 +1,32 @@
 > +/* SPDX-License-Identifier: MIT */
+
+oh, forgot this:
+
+// SPDX-License-Identifier: MIT
+
 > +/*
 > + * Copyright(c) 2020, Intel Corporation. All rights reserved.
 > + */
@@ -581,18 +586,6 @@ On Mon, May 24, 2021 at 10:47:56PM -0700, Daniele Ceraolo Spurio wrote:
 > +	 * session when required.
 > +	 */
 > +	bool global_state_attacked;
-
-it is good that we highlight this case here, but I believe the usage of this
-variable goes beyond this case, hence it deserves a more generic and not
-so strong name.
-
-But no hard feelings, the logic of the flow is great.
-
-
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-
-
-
 > +
 > +	bool irq_enabled;
 > +	struct completion termination;
