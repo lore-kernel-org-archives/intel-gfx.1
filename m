@@ -2,52 +2,71 @@ Return-Path: <SRS0=VOyE=K4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A0A4C47083
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 09:20:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11A41C4708F
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 09:28:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F4AD613D3
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 09:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F4AD613D3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id CCFD3613AE
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jun 2021 09:28:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCFD3613AE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D37F66EC19;
-	Wed,  2 Jun 2021 09:20:42 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 983676EC19
- for <intel-gfx@lists.freedesktop.org>; Wed,  2 Jun 2021 09:20:41 +0000 (UTC)
-IronPort-SDR: v42YNeRGN88TE2YzVE1bD9cseMGa0tQ+hMYfUYarLwhKgsmsP4qcpla+d7QXp0EdnnPyfeQ92i
- C+M+cZSpZDHA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10002"; a="289372990"
-X-IronPort-AV: E=Sophos;i="5.83,241,1616482800"; d="scan'208";a="289372990"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2021 02:20:41 -0700
-IronPort-SDR: vwwC/Iw+sAV29GS/ml+10cSyd6E6Pm1i7j5KDWa9ihmywpnBQKADDOupwJ3TdljiPuc2C3c584
- 4Hke8Nri2YDg==
-X-IronPort-AV: E=Sophos;i="5.83,241,1616482800"; d="scan'208";a="550061574"
-Received: from unknown (HELO intel.com) ([10.223.74.179])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2021 02:20:40 -0700
-Date: Wed, 2 Jun 2021 14:35:28 +0530
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: Imre Deak <imre.deak@intel.com>
-Message-ID: <20210602090527.GF8620@intel.com>
-References: <20210526143729.2563672-1-imre.deak@intel.com>
- <20210526143729.2563672-2-imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60D1F6E342;
+	Wed,  2 Jun 2021 09:28:56 +0000 (UTC)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 711C86E342;
+ Wed,  2 Jun 2021 09:28:55 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id e11so1701507ljn.13;
+ Wed, 02 Jun 2021 02:28:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=M194TrS8bcD9yZ374WYAbnYqYQmXXMUwq5hbG1LKbbI=;
+ b=Cvubv3hrkV8pnrF9fd8fgRIgKXsMg4xWaazZ4KFAAgKQfXV+tvAtchazY/+vLWNTC4
+ y1o/FhcNkoA7KGjcDJ43VhXA3n+pSNKMStzEZLnj14umhcBfui0bQqf2PYRM5geb29H/
+ b1aQMmvFl7Z+sMFwItV8v8To213ci1d9MmqJsWDIz+jfQkwmYXBy0e0yhmO5mzgmsUum
+ 8fi9YCLS11jQXLYugoJiOxpK/I4BwI9PqexyEuAdCs46weA+2+dbfyWdv5sWMLsVyRAR
+ M4yiHBSp9WOFNIOiKtj3A6JeJxvT2KPW/MMUeYRMKYHUWiOPEa+fAznZvD04/WdArbDx
+ TQIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=M194TrS8bcD9yZ374WYAbnYqYQmXXMUwq5hbG1LKbbI=;
+ b=Me8pKPd3vXgt9ozC1jWktKceactKtN63Wb1R0t2TNodaekmBPSgyldscaQUaJdA0rP
+ LU4+BCtqDlNgrqvF/jfpoL73n3bxKOWRj6e+cCC5rIQwnj90hWddJr2IqXEwyHShFIR+
+ Cx9jF/ahtf+RvImv5grF5rMB65xdWEupyid10U8a0p0Q7g0JFQGrpDfrw9YNJbveSdtU
+ kJxIBwql1fwVuZ7/gZ90oRG//fT9Oh5Z/dH8zNQSRnxPES9HHjV8MmhpEEzAvznb8yU2
+ SXgGhWi1UnAP7WZrgqwe1jUTSnr1MHXSuOxW/HBgA97TbPnJsGBUkYMPB+SzkW/5712o
+ PkYQ==
+X-Gm-Message-State: AOAM532/Cd7J/9HECFdwMMdbE7GCHfCIhFo1pvg327LhRY3U/fQzxqZy
+ odNX+Sa0K01tcGSQhriOKbw=
+X-Google-Smtp-Source: ABdhPJxI1iDKl354xhC/C/tCOy4/GoJ2BxK6BrPrYklMca2vRk4pecvpEAQbUcJDYmGxdFm/WHxkfQ==
+X-Received: by 2002:a05:651c:151:: with SMTP id
+ c17mr2434843ljd.314.1622626133888; 
+ Wed, 02 Jun 2021 02:28:53 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id u4sm2134895lfl.100.2021.06.02.02.28.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Jun 2021 02:28:53 -0700 (PDT)
+Date: Wed, 2 Jun 2021 12:28:50 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Uma Shankar <uma.shankar@intel.com>
+Message-ID: <20210602122850.29412a29@eldfell>
+In-Reply-To: <20210601105218.29185-1-uma.shankar@intel.com>
+References: <20210601105218.29185-1-uma.shankar@intel.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210526143729.2563672-2-imre.deak@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915: Fix incorrect assert about
- pending power domain async-put work
+Subject: Re: [Intel-gfx] [PATCH 00/21] Add Support for Plane Color Lut and
+ CSC features
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,64 +79,211 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ dri-devel@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0730644370=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-05-26 at 20:07:28 +0530, Imre Deak wrote:
-> It's possible that an already dequeued put_async_work() will release the
-> reference (*) that was put asynchronously after the dequeue happened.
-> This leaves an async-put work pending, without any reference to release.
-> A subsequent async-put may trigger the
-> 
-> drm_WARN_ON(!queue_delayed_work(&power_domains->async_put_work));
-> 
-> warn due to async_put_work() still pending. To avoid the warn, cancel
-> the pending async_put_work() when releasing the reference at (*) above.
-Not able to visulize the race here between __intel_display_power_put_async
-and intel_display_power_put_async_work() considering both are protected by
-power_domains->lock.
-queue_delayed_work_on() documentation says following about return value.
-"Return: %false if @work was already on a queue, %true otherwise."
-AFAIU from the doc, queue_delayed_work will return false only when
-work was in queue after dequeued put_async_work() it should return true ?
+--===============0730644370==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/31hJ5jTLg3OyoeedSz07hM."; protocol="application/pgp-signature"
+
+--Sig_/31hJ5jTLg3OyoeedSz07hM.
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Tue,  1 Jun 2021 16:21:57 +0530
+Uma Shankar <uma.shankar@intel.com> wrote:
+
+> This is how a typical display color hardware pipeline looks like:
+>  +-------------------------------------------+
+>  |                RAM                        |
+>  |  +------+    +---------+    +---------+   |
+>  |  | FB 1 |    |  FB 2   |    | FB N    |   |
+>  |  +------+    +---------+    +---------+   |
+>  +-------------------------------------------+
+>        |  Plane Color Hardware Block |
+>  +--------------------------------------------+
+>  | +---v-----+   +---v-------+   +---v------+ |
+>  | | Plane A |   | Plane B   |   | Plane N  | |
+>  | | DeGamma |   | Degamma   |   | Degamma  | |
+>  | +---+-----+   +---+-------+   +---+------+ |
+>  |     |             |               |        |
+>  | +---v-----+   +---v-------+   +---v------+ |
+>  | |Plane A  |   | Plane B   |   | Plane N  | |
+>  | |CSC/CTM  |   | CSC/CTM   |   | CSC/CTM  | |
+>  | +---+-----+   +----+------+   +----+-----+ |
+>  |     |              |               |       |
+>  | +---v-----+   +----v------+   +----v-----+ |
+>  | | Plane A |   | Plane B   |   | Plane N  | |
+>  | | Gamma   |   | Gamma     |   | Gamma    | |
+>  | +---+-----+   +----+------+   +----+-----+ |
+>  |     |              |               |       |
+>  +--------------------------------------------+
+> +------v--------------v---------------v-------|
+> ||                                           ||
+> ||           Pipe Blender                    ||
+> +--------------------+------------------------+
+> |                    |                        |
+> |        +-----------v----------+             |
+> |        |  Pipe DeGamma        |             |
+> |        |                      |             |
+> |        +-----------+----------+             |
+> |                    |            Pipe Color  |
+> |        +-----------v----------+ Hardware    |
+> |        |  Pipe CSC/CTM        |             |
+> |        |                      |             |
+> |        +-----------+----------+             |
+> |                    |                        |
+> |        +-----------v----------+             |
+> |        |  Pipe Gamma          |             |
+> |        |                      |             |
+> |        +-----------+----------+             |
+> |                    |                        |
+> +---------------------------------------------+
+>                      |
+>                      v
+>                Pipe Output
+
+Hi,
+
+this is an excellent picture. I have long been wanting schematics like
+that in the DRM UAPI documentation. Another note on that:
+https://lists.freedesktop.org/archives/dri-devel/2021-May/307310.html
+
+But the schematic for DRM UAPI documentation needs to be written in
+terms of the abstract KMS pipeline with property names spelled out,
+like in what Ville sketched in that email.
+
+> This patch series adds properties for plane color features. It adds
+> properties for degamma used to linearize data and CSC used for gamut
+> conversion. It also includes Gamma support used to again non-linearize
+> data as per panel supported color space. These can be utilize by user
+> space to convert planes from one format to another, one color space to
+> another etc.
+
+This is very much welcome!
+
+There is also the thread:
+https://lists.freedesktop.org/archives/dri-devel/2021-May/306726.html
+
+Everything mentioned will interact with each other by changing what the
+abstract KMS pixel pipeline does. I think you and Harry should probably
+look at each others' suggestions and see how to fit them all into a
+single abstract KMS pipeline.
+
+People are adding new pieces into KMS left and right, and I fear we
+lose sight of how everything will actually work together when all KMS
+properties are supposed to be generic and potentially present
+simultaneously. This is why I would very much like to have that *whole*
+abstract KMS pipeline documented with *everything*. Otherwise it is
+coming really hard fast to figure out how generic userspace should use
+all these KMS properties together.
+
+Or if there cannot be a single abstract KMS pipeline, then sure, have
+multiple, as long as they are documented and how userspace will know
+which pipeline it is dealing with, and what things are mutually
+exclusive so we can avoid writing userspace code for combinations that
+will never exist.
+
+
 Thanks,
-Anshuman Gupta.
-> 
-> Fixes: https://gitlab.freedesktop.org/drm/intel/-/issues/3421
-> Fixes: https://gitlab.freedesktop.org/drm/intel/-/issues/2289
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display_power.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> index 2f7d1664c4738..a95bbf23e6b7c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> @@ -2263,6 +2263,12 @@ intel_display_power_put_async_work(struct work_struct *work)
->  			fetch_and_zero(&power_domains->async_put_domains[1]);
->  		queue_async_put_domains_work(power_domains,
->  					     fetch_and_zero(&new_work_wakeref));
-> +	} else {
-> +		/*
-> +		 * Cancel the work that got queued after this one got dequeued,
-> +		 * since here we released the corresponding async-put reference.
-> +		 */
-> +		cancel_delayed_work(&power_domains->async_put_work);
->  	}
->  
->  out_verify:
-> -- 
-> 2.27.0
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+pq
+
+> Userspace can take smart blending decisions and utilize these hardware
+> supported plane color features to get accurate color profile. The same
+> can help in consistent color quality from source to panel taking
+> advantage of advanced color features in hardware.
+>=20
+> These patches add the property interfaces and enable helper functions.
+> This series adds Intel's XE_LPD hw specific plane gamma feature. We
+> can build up and add other platform/hardware specific implementation
+> on top of this series.
+>=20
+> Credits: Special mention and credits to Ville Syrjala for coming up
+> with a design for this feature and inputs. This series is based on
+> his original design and idea.
+>=20
+> Note: Userspace support for this new UAPI will be done on Chrome. We
+> will notify the list once we have that ready for review.
+>=20
+> ToDo: State readout for this feature will be added next.
+>=20
+> Uma Shankar (21):
+>   drm: Add Enhanced Gamma and color lut range attributes
+>   drm: Add Plane Degamma Mode property
+>   drm: Add Plane Degamma Lut property
+>   drm/i915/xelpd: Define Degamma Lut range struct for HDR planes
+>   drm/i915/xelpd: Add register definitions for Plane Degamma
+>   drm/i915/xelpd: Enable plane color features
+>   drm/i915/xelpd: Add color capabilities of SDR planes
+>   drm/i915/xelpd: Program Plane Degamma Registers
+>   drm/i915/xelpd: Add plane color check to glk_plane_color_ctl
+>   drm/i915/xelpd: Initialize plane color features
+>   drm/i915/xelpd: Load plane color luts from atomic flip
+>   drm: Add Plane CTM property
+>   drm: Add helper to attach Plane ctm property
+>   drm/i915/xelpd: Define Plane CSC Registers
+>   drm/i915/xelpd: Enable Plane CSC
+>   drm: Add Plane Gamma Mode property
+>   drm: Add Plane Gamma Lut property
+>   drm/i915/xelpd: Define and Initialize Plane Gamma Lut range
+>   drm/i915/xelpd: Add register definitions for Plane Gamma
+>   drm/i915/xelpd: Program Plane Gamma Registers
+>   drm/i915/xelpd: Enable plane gamma
+>=20
+>  Documentation/gpu/drm-kms.rst                 |  90 +++
+>  drivers/gpu/drm/drm_atomic.c                  |   1 +
+>  drivers/gpu/drm/drm_atomic_state_helper.c     |  12 +
+>  drivers/gpu/drm/drm_atomic_uapi.c             |  38 ++
+>  drivers/gpu/drm/drm_color_mgmt.c              | 177 +++++-
+>  .../gpu/drm/i915/display/intel_atomic_plane.c |   6 +
+>  .../gpu/drm/i915/display/intel_atomic_plane.h |   2 +
+>  drivers/gpu/drm/i915/display/intel_color.c    | 513 ++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_color.h    |   2 +
+>  .../drm/i915/display/skl_universal_plane.c    |  15 +-
+>  drivers/gpu/drm/i915/i915_drv.h               |   3 +
+>  drivers/gpu/drm/i915/i915_reg.h               | 176 +++++-
+>  include/drm/drm_mode_object.h                 |   2 +-
+>  include/drm/drm_plane.h                       |  81 +++
+>  include/uapi/drm/drm_mode.h                   |  58 ++
+>  15 files changed, 1170 insertions(+), 6 deletions(-)
+>=20
+
+
+--Sig_/31hJ5jTLg3OyoeedSz07hM.
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmC3T1IACgkQI1/ltBGq
+qqfCvA//bbl5B3LEsCaWaE3Zy7KrzTIBY3dND2M6tt2soXtzv1p14YEB8ei6kGjm
+S4vc06P5qYCRj3dlj6nWW9gAAl8IKVFu20a0zUfBwZts4eOT3/wqFzeI0LTJTANg
+VEdFK1eFJAntDb15VYky6CrNaVKS8VzwbNonSaptWg2U64FWFFNhdKKoipdH2Pqv
+GbncerDI4QxCyZ9Y9h21cdR6OyAHm2Ih55I/7CXquthQvbCHudDl3WLLj7Q2dKD5
+m6mISCON7RrELzFrKJpIm+dz2l2O9AAMzBRZ62kPx86iAHD+GYE4wQif6+l8pMSF
+T6DtDK2F4aCrshSthcVhehq28TSeKj1O1lY6zu5r+iCk9fi6epuUvGD5Dk8KKqlV
+6ZVXIhgcogNikjoZ/TRs8fOjO9XubT/H+uzqmofC8Z007A+PB2DoGG7qzXM+FHuY
+AvSkUov1+HYP5Jo5HyOnAyFCU7aeStfAZp104dEJY0NVQwCyftCdQIguhLd9gv8t
+K9snvCf2aSzC55wrRl5qxSdKFk01KEfvKClFOkE9vMgS0LkU8cKYOIdFHmrupnNC
+cGU4DejMI9XPCF4nyVmwM0QcSTU6pUk4AbTJjdANwx8z0SW0cCRlJrm90YyYJOXl
+lf6zx303Mldaq2uG28dV4W+sT0R9iFMUoyezQq0Rv1tntEHZET4=
+=iZ+4
+-----END PGP SIGNATURE-----
+
+--Sig_/31hJ5jTLg3OyoeedSz07hM.--
+
+--===============0730644370==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0730644370==--
