@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A3449C47098
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 04:59:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 323DDC47096
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 04:59:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 75E8F613F0
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 04:59:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75E8F613F0
+	by mail.kernel.org (Postfix) with ESMTPS id 06876613EE
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 04:59:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06876613EE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 948176F3F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F6316F3F1;
 	Thu,  3 Jun 2021 04:58:52 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 990B46F3A8;
- Thu,  3 Jun 2021 04:58:43 +0000 (UTC)
-IronPort-SDR: SUrhw4upkXDqUSzFjBGRwrrxOUmyXdv/1mytkoSiE8129TYcvHDqDc4JnyeqqvFE4S16sRN8RT
- g/CJW0973Yxw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10003"; a="203956516"
-X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="203956516"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C636F3CE;
+ Thu,  3 Jun 2021 04:58:44 +0000 (UTC)
+IronPort-SDR: a/FTKHQS5NKl2wC8HwoyQJuQfC9xsCgpMoiR/WtEaZyUJVYKOXas5u/7AqFXQkOjvYc7XS0moB
+ 53RWYkDg5BzQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10003"; a="203956526"
+X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="203956526"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Jun 2021 21:58:41 -0700
-IronPort-SDR: v7Qnfi99mzGxB7j5BxA6eO/ci8Q5mNK7Ui3pIrO2omNHAmHYy1CMYpV2iGao25uItReZMLpIkT
- nvKI1fBsccng==
-X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="480020010"
+IronPort-SDR: AbYO5MnyHAcHXS3/JZmqOLjm9ehOZig6J5sdC4IEOm9m0ZjS10xhfbcp2qmppFsoYiAGQBera+
+ 4WN8B89H3FAA==
+X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="480020042"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2021 21:58:40 -0700
+ 02 Jun 2021 21:58:41 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Wed,  2 Jun 2021 22:16:18 -0700
-Message-Id: <20210603051630.2635-9-matthew.brost@intel.com>
+Date: Wed,  2 Jun 2021 22:16:29 -0700
+Message-Id: <20210603051630.2635-20-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210603051630.2635-1-matthew.brost@intel.com>
 References: <20210603051630.2635-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/20] drm/i915: Promote ptrdiff() to
- i915_utils.h
+Subject: [Intel-gfx] [PATCH 19/20] drm/i915/guc: Early initialization of GuC
+ send registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,48 +67,59 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-Generic helpers should be placed in i915_utils.h.
+Base offset and count of the GuC scratch registers, used for
+sending MMIO messages to GuC, can be initialized earlier with
+other GuC members that also depends on platform.
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/i915_utils.h | 5 +++++
- drivers/gpu/drm/i915/i915_vma.h   | 5 -----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index f02f52ab5070..5259edacde38 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -201,6 +201,11 @@ __check_struct_size(size_t base, size_t arr, size_t count, size_t *size)
- 	__T;								\
- })
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index 18da9ed15728..fcfa4fd93841 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -60,15 +60,8 @@ void intel_guc_init_send_regs(struct intel_guc *guc)
+ 	enum forcewake_domains fw_domains = 0;
+ 	unsigned int i;
  
-+static __always_inline ptrdiff_t ptrdiff(const void *a, const void *b)
-+{
-+	return a - b;
-+}
+-	if (INTEL_GEN(gt->i915) >= 11) {
+-		guc->send_regs.base =
+-				i915_mmio_reg_offset(GEN11_SOFT_SCRATCH(0));
+-		guc->send_regs.count = GEN11_SOFT_SCRATCH_COUNT;
+-	} else {
+-		guc->send_regs.base = i915_mmio_reg_offset(SOFT_SCRATCH(0));
+-		guc->send_regs.count = GUC_MAX_MMIO_MSG_LEN;
+-		BUILD_BUG_ON(GUC_MAX_MMIO_MSG_LEN > SOFT_SCRATCH_COUNT);
+-	}
++	GEM_BUG_ON(!guc->send_regs.base);
++	GEM_BUG_ON(!guc->send_regs.count);
+ 
+ 	for (i = 0; i < guc->send_regs.count; i++) {
+ 		fw_domains |= intel_uncore_forcewake_for_reg(gt->uncore,
+@@ -172,11 +165,18 @@ void intel_guc_init_early(struct intel_guc *guc)
+ 		guc->interrupts.reset = gen11_reset_guc_interrupts;
+ 		guc->interrupts.enable = gen11_enable_guc_interrupts;
+ 		guc->interrupts.disable = gen11_disable_guc_interrupts;
++		guc->send_regs.base =
++			i915_mmio_reg_offset(GEN11_SOFT_SCRATCH(0));
++		guc->send_regs.count = GEN11_SOFT_SCRATCH_COUNT;
 +
- /*
-  * container_of_user: Extract the superclass from a pointer to a member.
-  *
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index dc6926d89626..eca452a9851f 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -151,11 +151,6 @@ static inline void i915_vma_put(struct i915_vma *vma)
- 	i915_gem_object_put(vma->obj);
+ 	} else {
+ 		guc->notify_reg = GUC_SEND_INTERRUPT;
+ 		guc->interrupts.reset = gen9_reset_guc_interrupts;
+ 		guc->interrupts.enable = gen9_enable_guc_interrupts;
+ 		guc->interrupts.disable = gen9_disable_guc_interrupts;
++		guc->send_regs.base = i915_mmio_reg_offset(SOFT_SCRATCH(0));
++		guc->send_regs.count = GUC_MAX_MMIO_MSG_LEN;
++		BUILD_BUG_ON(GUC_MAX_MMIO_MSG_LEN > SOFT_SCRATCH_COUNT);
+ 	}
  }
  
--static __always_inline ptrdiff_t ptrdiff(const void *a, const void *b)
--{
--	return a - b;
--}
--
- static inline long
- i915_vma_compare(struct i915_vma *vma,
- 		 struct i915_address_space *vm,
 -- 
 2.28.0
 
