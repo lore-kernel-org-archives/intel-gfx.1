@@ -2,63 +2,52 @@ Return-Path: <SRS0=IdPq=K5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F259C47097
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 09:49:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31F04C47096
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 09:59:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 01FB2613F1
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 09:49:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01FB2613F1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 01903613EE
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 09:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01903613EE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19F076EE0D;
-	Thu,  3 Jun 2021 09:49:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B05D66E10D;
+	Thu,  3 Jun 2021 09:59:13 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 405A26E581;
- Thu,  3 Jun 2021 09:49:52 +0000 (UTC)
-IronPort-SDR: BaRTBNXxpScgJZdHpQ2Q+MPQK+TW2DgSIOMabgXURket3F25p97vyUAw/vNp6HvmraVKJONX8e
- mDBw0+0pi7Vw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10003"; a="225305085"
-X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="225305085"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A1046E10D
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 09:59:11 +0000 (UTC)
+IronPort-SDR: HUD+Izzo0BO1FeOvj+mUGP5cOnoTCan8DKLJHxyUVw7iNM5HYk/q5vRCG+Ajl3ASJOn8hBk+1m
+ LEaWiFSWO8Nw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10003"; a="225306319"
+X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="225306319"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 02:49:50 -0700
-IronPort-SDR: rEbLyRV8vfWmDKl7smaeTD47WyTX8yNp+Q7CfXZ+3MPmHttLzJqQeHb0PUMuu9BySXLOsYelRH
- q4QFRBcsMA0w==
-X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="483408878"
-Received: from aburk3x-mobl2.ger.corp.intel.com (HELO [10.213.243.139])
- ([10.213.243.139])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 02:49:48 -0700
-To: Daniel Vetter <daniel@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>
-References: <20210506191451.77768-1-matthew.brost@intel.com>
- <de3965d8-d997-5685-0399-646d8823a27f@linux.intel.com>
- <20210525164504.GA9971@sdutt-i7>
- <d76ab0ec-4f0c-19ed-adaa-ed227af63c0e@linux.intel.com>
- <CAKMK7uHT2mPTyX9QiTBFP2Lt28vV3JcJLPAx_hMdTtyLJ=DZ2g@mail.gmail.com>
- <20210603034100.GA7593@sdutt-i7>
- <CAKMK7uF-SjHPBG6qyt0yc2fA35zy2=r-Ls_QtTtKPdKdBm=J4w@mail.gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <ad653a25-daa3-7e31-c838-465c71c2c697@linux.intel.com>
-Date: Thu, 3 Jun 2021 10:49:46 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ 03 Jun 2021 02:59:10 -0700
+IronPort-SDR: oCUO58rKRfJz6LB1YwBs9Z0YcWm1keKsdyzHBpJaeVVzgnh+5OL+QghpVSe1Hj9ublo5+C2V7k
+ aOg4N2gep9Pw==
+X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="480160197"
+Received: from unknown (HELO intel.com) ([10.223.74.179])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2021 02:59:08 -0700
+Date: Thu, 3 Jun 2021 15:13:58 +0530
+From: Anshuman Gupta <anshuman.gupta@intel.com>
+To: Imre Deak <imre.deak@intel.com>
+Message-ID: <20210603094357.GG8620@intel.com>
+References: <20210526143729.2563672-1-imre.deak@intel.com>
+ <20210526143729.2563672-3-imre.deak@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <CAKMK7uF-SjHPBG6qyt0yc2fA35zy2=r-Ls_QtTtKPdKdBm=J4w@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [RFC PATCH 00/97] Basic GuC submission support in
- the i915
+Content-Disposition: inline
+In-Reply-To: <20210526143729.2563672-3-imre.deak@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/adlp: Fix AUX power well ->
+ PHY mapping
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,144 +60,135 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jason Ekstrand <jason.ekstrand@intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 03/06/2021 05:47, Daniel Vetter wrote:
-> On Thu, Jun 3, 2021 at 5:48 AM Matthew Brost <matthew.brost@intel.com> wrote:
->>
->> On Wed, Jun 02, 2021 at 08:57:02PM +0200, Daniel Vetter wrote:
->>> On Wed, Jun 2, 2021 at 5:27 PM Tvrtko Ursulin
->>> <tvrtko.ursulin@linux.intel.com> wrote:
->>>> On 25/05/2021 17:45, Matthew Brost wrote:
->>>>> On Tue, May 25, 2021 at 11:32:26AM +0100, Tvrtko Ursulin wrote:
->>>>>>    * Context pinning code with it's magical two adds, subtract and cmpxchg is
->>>>>> dodgy as well.
->>>>>
->>>>> Daniele tried to remove this and it proved quite difficult + created
->>>>> even more races in the backend code. This was prior to the pre-pin and
->>>>> post-unpin code which makes this even more difficult to fix as I believe
->>>>> these functions would need to be removed first. Not saying we can't
->>>>> revisit this someday but I personally really like it - it is a clever
->>>>> way to avoid reentering the pin / unpin code while asynchronous things
->>>>> are happening rather than some complex locking scheme. Lastly, this code
->>>>> has proved incredibly stable as I don't think we've had to fix a single
->>>>> thing in this area since we've been using this code internally.
->>>>
->>>> Pretty much same as above. The code like:
->>>>
->>>> static inline void __intel_context_unpin(struct intel_context *ce)
->>>> {
->>>>          if (!ce->ops->sched_disable) {
->>>>                  __intel_context_do_unpin(ce, 1);
->>>>          } else {
->>>>                  while (!atomic_add_unless(&ce->pin_count, -1, 1)) {
->>>>                          if (atomic_cmpxchg(&ce->pin_count, 1, 2) == 1) {
->>>>                                  ce->ops->sched_disable(ce);
->>>>                                  break;
->>>>                          }
->>>>                  }
->>>>          }
->>>> }
->>>>
->>>> That's pretty much impenetrable for me and the only thing I can think of
->>>> here is **ALARM** must be broken! See what others think..
->>
->> Yea, probably should add a comment:
->>
->> /*
->>   * If the context has the sched_disable function, it isn't safe to unpin
->>   * until this function completes. This function is allowed to complete
->>   * asynchronously too. To avoid this function from being entered twice
->>   * and move ownership of the unpin to this function's completion, adjust
->>   * the pin count to 2 before it is entered. When this function completes
->>   * the context can call intel_context_sched_unpin which decrements the
->>   * pin count by 2 potentially resulting in an unpin.
->>   *
->>   * A while loop is needed to ensure the atomicity of the pin count. e.g.
->>   * The below if / else statement has a race:
->>   *
->>   * if (atomic_cmpxchg(&ce->pin_count, 1, 2) == 1)
->>   *      ce->ops->sched_disable(ce);
->>   * else
->>   *      atomic_dec(ce, 1);
->>   *
->>   * Two threads could simultaneously fail the if clause resulting in the
->>   * pin_count going to 0 with scheduling enabled + the context pinned.
->>   */
->>
->>>
->>> pin_count is a hand-rolled mutex, except not actually a real one, and
->>> it's absolutely hiliarous in it's various incarnations (there's one
->>> each on i915_vm, vma, obj and probably a few more).
->>>
->>> Not the worst one I've seen by far in the code we've merged already.
->>> Minimally this needs a comment here and in the struct next to
->>> @pin_count to explain where all this is abused, which would already
->>> make it better than most of the in-tree ones.
->>>
->>> As part of the ttm conversion we have a plan to sunset the "pin_count
->>> as a lock" stuff, depending how bad that goes we might need to split
->>> up the task for each struct that has such a pin_count.
->>>
->>
->> Didn't know that with the TTM rework this value might go away. If that
->> is truely the direction I don't see the point in reworking this now. It
->> 100% works and with a comment I think it can be understood what it is
->> doing.
+On 2021-05-26 at 20:07:29 +0530, Imre Deak wrote:
+> On ADL_P the power well->PHY mapping doesn't follow the mapping on previous
+> platforms, fix this up.
 > 
-> Well not go away, but things will change. Currently the various
-> ->pin_count sprinkled all over the place have essentially two uses
-> - pinning stuff long term (scanout, ctxs, anything that stays pinned
-> after the ioctl is done essentially)
-> - short-term lock-like construct
+> While at it remove the redundant dev_priv param from
+> icl_tc_phy_aux_ch().
+Looks good to me.
+Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
 > 
-> There's going to be two changes:
-> - The short-term pins will be replaced by dma_resv_lock/unlock pairs
-> - the locking rules for long-term pins will change, because we'll
-> require that you must hold dma_resv_lock for unpinning. So no more
-> atomic_t, also no more races for final unpins vs cleanup work
+> Signed-off-by: Imre Deak <imre.deak@intel.com>
+> ---
+>  .../drm/i915/display/intel_display_power.c    | 34 ++++++++++---------
+>  1 file changed, 18 insertions(+), 16 deletions(-)
 > 
-> Also now that you've explained the why for this dance, especially the
-> async part: Since the new unpin will hold dma_resv_lock, we can
-> create&attach dma_fence for tracking async completion which then the
-> next operation can wait on.
-
-Yes, async would be an improvement in principle, because...
-
-> The awkward state we have right now is that there's a lot of places
-> where we require the unpin to be done locklessly with these atomic
-> tricks, so there's going to be quite some surgery involved all over
-> the code.
-
-... I think the main problem with how impenetrable, both this and the 
-guc context state machine in general are, stem from the fact that the 
-design is not right.
-
-For instance we have intel_context which is one thing to i915, but with 
-the GuC adaptations the guc state machine handling has been shoved 
-inside it. That makes it complex and destroys the separation of duties.
-
-Instead intel_context should remain the common layer and handling of GuC 
-firmware needs should go in a layer under it. Whether it would subclass, 
-or use a different pattern I can't tell right now. But if it was clearly 
-separated then the state machine handling would have it's place away 
-from the common code.
-
-In 2019 I did push to at least prefix the guc specific fields with guc, 
-as minimum, but I don't think they, and accompanying code, really should 
-be present in backend agnostic intel_context.
-
-Regards,
-
-Tvrtko
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+> index a95bbf23e6b7c..7ddd63114b36b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -291,8 +291,7 @@ static void hsw_power_well_pre_disable(struct drm_i915_private *dev_priv,
+>  #define ICL_TBT_AUX_PW_TO_CH(pw_idx)	\
+>  	((pw_idx) - ICL_PW_CTL_IDX_AUX_TBT1 + AUX_CH_C)
+>  
+> -static enum aux_ch icl_tc_phy_aux_ch(struct drm_i915_private *dev_priv,
+> -				     struct i915_power_well *power_well)
+> +static enum aux_ch icl_aux_pw_to_ch(const struct i915_power_well *power_well)
+>  {
+>  	int pw_idx = power_well->desc->hsw.idx;
+>  
+> @@ -327,6 +326,15 @@ aux_ch_to_digital_port(struct drm_i915_private *dev_priv,
+>  	return dig_port;
+>  }
+>  
+> +static enum phy icl_aux_pw_to_phy(struct drm_i915_private *i915,
+> +				  const struct i915_power_well *power_well)
+> +{
+> +	enum aux_ch aux_ch = icl_aux_pw_to_ch(power_well);
+> +	struct intel_digital_port *dig_port = aux_ch_to_digital_port(i915, aux_ch);
+> +
+> +	return intel_port_to_phy(i915, dig_port->base.port);
+> +}
+> +
+>  static void hsw_wait_for_power_well_enable(struct drm_i915_private *dev_priv,
+>  					   struct i915_power_well *power_well,
+>  					   bool timeout_expected)
+> @@ -468,15 +476,13 @@ static void hsw_power_well_disable(struct drm_i915_private *dev_priv,
+>  	hsw_wait_for_power_well_disable(dev_priv, power_well);
+>  }
+>  
+> -#define ICL_AUX_PW_TO_PHY(pw_idx)	((pw_idx) - ICL_PW_CTL_IDX_AUX_A)
+> -
+>  static void
+>  icl_combo_phy_aux_power_well_enable(struct drm_i915_private *dev_priv,
+>  				    struct i915_power_well *power_well)
+>  {
+>  	const struct i915_power_well_regs *regs = power_well->desc->hsw.regs;
+>  	int pw_idx = power_well->desc->hsw.idx;
+> -	enum phy phy = ICL_AUX_PW_TO_PHY(pw_idx);
+> +	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
+>  	u32 val;
+>  
+>  	drm_WARN_ON(&dev_priv->drm, !IS_ICELAKE(dev_priv));
+> @@ -508,7 +514,7 @@ icl_combo_phy_aux_power_well_disable(struct drm_i915_private *dev_priv,
+>  {
+>  	const struct i915_power_well_regs *regs = power_well->desc->hsw.regs;
+>  	int pw_idx = power_well->desc->hsw.idx;
+> -	enum phy phy = ICL_AUX_PW_TO_PHY(pw_idx);
+> +	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
+>  	u32 val;
+>  
+>  	drm_WARN_ON(&dev_priv->drm, !IS_ICELAKE(dev_priv));
+> @@ -595,7 +601,7 @@ static void
+>  icl_tc_phy_aux_power_well_enable(struct drm_i915_private *dev_priv,
+>  				 struct i915_power_well *power_well)
+>  {
+> -	enum aux_ch aux_ch = icl_tc_phy_aux_ch(dev_priv, power_well);
+> +	enum aux_ch aux_ch = icl_aux_pw_to_ch(power_well);
+>  	struct intel_digital_port *dig_port = aux_ch_to_digital_port(dev_priv, aux_ch);
+>  	const struct i915_power_well_regs *regs = power_well->desc->hsw.regs;
+>  	bool is_tbt = power_well->desc->hsw.is_tc_tbt;
+> @@ -643,7 +649,7 @@ static void
+>  icl_tc_phy_aux_power_well_disable(struct drm_i915_private *dev_priv,
+>  				  struct i915_power_well *power_well)
+>  {
+> -	enum aux_ch aux_ch = icl_tc_phy_aux_ch(dev_priv, power_well);
+> +	enum aux_ch aux_ch = icl_aux_pw_to_ch(power_well);
+>  	struct intel_digital_port *dig_port = aux_ch_to_digital_port(dev_priv, aux_ch);
+>  
+>  	icl_tc_port_assert_ref_held(dev_priv, power_well, dig_port);
+> @@ -655,11 +661,9 @@ static void
+>  icl_aux_power_well_enable(struct drm_i915_private *dev_priv,
+>  			  struct i915_power_well *power_well)
+>  {
+> -	int pw_idx = power_well->desc->hsw.idx;
+> -	enum phy phy = ICL_AUX_PW_TO_PHY(pw_idx);  /* non-TBT only */
+> -	bool is_tbt = power_well->desc->hsw.is_tc_tbt;
+> +	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
+>  
+> -	if (is_tbt || intel_phy_is_tc(dev_priv, phy))
+> +	if (intel_phy_is_tc(dev_priv, phy))
+>  		return icl_tc_phy_aux_power_well_enable(dev_priv, power_well);
+>  	else if (IS_ICELAKE(dev_priv))
+>  		return icl_combo_phy_aux_power_well_enable(dev_priv,
+> @@ -672,11 +676,9 @@ static void
+>  icl_aux_power_well_disable(struct drm_i915_private *dev_priv,
+>  			   struct i915_power_well *power_well)
+>  {
+> -	int pw_idx = power_well->desc->hsw.idx;
+> -	enum phy phy = ICL_AUX_PW_TO_PHY(pw_idx);  /* non-TBT only */
+> -	bool is_tbt = power_well->desc->hsw.is_tc_tbt;
+> +	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
+>  
+> -	if (is_tbt || intel_phy_is_tc(dev_priv, phy))
+> +	if (intel_phy_is_tc(dev_priv, phy))
+>  		return icl_tc_phy_aux_power_well_disable(dev_priv, power_well);
+>  	else if (IS_ICELAKE(dev_priv))
+>  		return icl_combo_phy_aux_power_well_disable(dev_priv,
+> -- 
+> 2.27.0
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
