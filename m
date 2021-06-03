@@ -2,69 +2,48 @@ Return-Path: <SRS0=IdPq=K5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44586C47096
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46DD8C47096
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:45:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 159F5611C9
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:37:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 159F5611C9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 0838F613F8
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:45:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0838F613F8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC40A6E7EF;
-	Thu,  3 Jun 2021 21:37:30 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBB916E7EF
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 21:37:28 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id z8so7228455wrp.12
- for <intel-gfx@lists.freedesktop.org>; Thu, 03 Jun 2021 14:37:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=vJlzoUdOSruMuooum0zqXCZ4vqzkUw0aK8eJrAulkto=;
- b=lcZ2xo0j8jOvqoN8F/g5zwG4s0F4Iyd7VdHE2jP89DVX3q0UytGGl+gtoXjS9Zl+UK
- V0ZX8gjGYtxMPKACi85+My0tVn3HAq2KC56hLkpNvbtSc6PBAESGolwHOCwsN7pvWohI
- 0hH7Pm8VXDjKW+PN/1LQfrxMZWJnCf4YHEki4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=vJlzoUdOSruMuooum0zqXCZ4vqzkUw0aK8eJrAulkto=;
- b=FhksfugLpJG9/zsoqevAmmdBbZ89/Ad8tJkPKiKj3LkZsSD9PyTUro8f5qyGdvEZbv
- PzeBOg4bcK5evJwqsT+7REgRjIuFhVRjnldY+zrNMf+Lru8oqaRiZjXeJaLy6lOpAXLV
- DmEcxztOjLCjCCRwBEjJfyISAScdelLyM6klKZ0o5joUH2dNl2BmMvXuLfWdL0AI01tO
- feZ5SLAOJJT3cjYqbiLw/l8HA1h6zcqMeXS8oc7pvOrJIbksDRxF7hVuVU351rWZ2fxG
- RSB6u9p2BjTsOqNppyiwLy+CF2LCGvJt+a14ObU9m+MH9PrQIp7HEht9fy188nWLGygP
- r9pg==
-X-Gm-Message-State: AOAM531y+p17zVpwGdFhbT+/CAG8NXwscrZcDJO3e/x4NBj79rKUaupn
- iA9todIwU0QoVbGKzvAFiBA6/A==
-X-Google-Smtp-Source: ABdhPJwVJyQyTvA53Kd7kmmWDRjnXuaD0lFeKdHw9vSEwaTiOiP9SeBHMrkl/M5xM1cDNyN31pJNtQ==
-X-Received: by 2002:a5d:6a02:: with SMTP id m2mr480175wru.77.1622756247363;
- Thu, 03 Jun 2021 14:37:27 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id u2sm4380801wrn.38.2021.06.03.14.37.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Jun 2021 14:37:26 -0700 (PDT)
-Date: Thu, 3 Jun 2021 23:37:25 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: kernel test robot <lkp@intel.com>
-Message-ID: <YLlLlTdvaTGrNmzV@phenom.ffwll.local>
-References: <20210603051630.2635-12-matthew.brost@intel.com>
- <202106031503.lHkI3iTz-lkp@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A259E6E7FE;
+	Thu,  3 Jun 2021 21:45:38 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8ACFE6E7FE
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 21:45:37 +0000 (UTC)
+IronPort-SDR: SocyqpBnXCCgL/sacEOT3Aw7Fu8+YkLFV+d7B2/lX51C6FixlE5XG3CrWA/rO2u//+kZKfQ38C
+ aQRpuH+2KA7w==
+X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="225469760"
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="225469760"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2021 14:45:31 -0700
+IronPort-SDR: Y8y8aPoCOEJo01cYYIr1zLh0NRLTqj2rNRSf8RkgIt1fRvgjpvApWPZbxBMAiXuqAba+mVd9f6
+ qtRBBxPTu1YQ==
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="550322201"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 03 Jun 2021 14:45:30 -0700
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  3 Jun 2021 14:53:38 -0700
+Message-Id: <20210603215338.13804-1-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <202106031503.lHkI3iTz-lkp@intel.com>
-X-Operating-System: Linux phenom 5.10.32scarlett+ 
-Subject: Re: [Intel-gfx] [PATCH 11/20] drm/i915/guc: Replace CTB array with
- explicit members
+Subject: [Intel-gfx] [PATCH] drm/i915: Initialize the mbus_offset to fix
+ Klockwork issue
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,209 +56,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@intel.com, intel-gfx@lists.freedesktop.org,
- kbuild-all@lists.01.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 03, 2021 at 03:25:29PM +0800, kernel test robot wrote:
-> Hi Matthew,
-> 
-> Thank you for the patch! Yet something to improve:
-> 
-> [auto build test ERROR on drm-tip/drm-tip]
-> [also build test ERROR on drm-exynos/exynos-drm-next tegra-drm/drm/tegra/for-next v5.13-rc4 next-20210602]
-> [cannot apply to drm-intel/for-linux-next drm/drm-next]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch]
-> 
-> url:    https://github.com/0day-ci/linux/commits/Matthew-Brost/GuC-CTBs-changes-a-few-misc-patches/20210603-130102
-> base:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
-> config: i386-randconfig-a015-20210603 (attached as .config)
-> compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
-> reproduce (this is a W=1 build):
->         # https://github.com/0day-ci/linux/commit/7672d3ecddcd8af3a2a856facac49ca93d4bdf9e
->         git remote add linux-review https://github.com/0day-ci/linux
->         git fetch --no-tags linux-review Matthew-Brost/GuC-CTBs-changes-a-few-misc-patches/20210603-130102
->         git checkout 7672d3ecddcd8af3a2a856facac49ca93d4bdf9e
->         # save the attached .config to linux build tree
->         make W=1 ARCH=i386 
-> 
-> If you fix the issue, kindly add following tag as appropriate
-> Reported-by: kernel test robot <lkp@intel.com>
-> 
-> All errors (new ones prefixed by >>):
-> 
->    In file included from include/drm/drm_mm.h:49,
->                     from include/drm/drm_vma_manager.h:26,
->                     from include/drm/drm_gem.h:40,
->                     from drivers/gpu/drm/i915/i915_drv.h:54,
->                     from drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:6:
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c: In function 'intel_guc_ct_init':
-> >> drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:34:26: error: format '%lx' expects argument of type 'long unsigned int', but argument 5 has type 'ptrdiff_t' {aka 'int'} [-Werror=format=]
->       34 |  drm_dbg(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
->          |                          ^~~~~~
->    ......
->      215 |    ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
->          |    ~~~~~~~~~~~~~~~~~~~    
->          |    |
->          |    ptrdiff_t {aka int}
->    include/drm/drm_print.h:448:56: note: in definition of macro 'drm_dbg'
->      448 |  drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
->          |                                                        ^~~
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:214:2: note: in expansion of macro 'CT_DEBUG'
->      214 |  CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "send",
->          |  ^~~~~~~~
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:214:27: note: format string is defined here
->      214 |  CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "send",
->          |                        ~~~^
->          |                           |
->          |                           long unsigned int
-
-32bit ptrdiff vs 64bit printk modifier. You need something else here.
-
-I've stuffed all the previous patches into drm-intel-gt-next. If you
-resend with just this one fixed here I'll continue tomorrow (--in-reply-to
-resend I mean).
-
-Thanks, Daniel
-
->          |                        %#x
->    In file included from include/drm/drm_mm.h:49,
->                     from include/drm/drm_vma_manager.h:26,
->                     from include/drm/drm_gem.h:40,
->                     from drivers/gpu/drm/i915/i915_drv.h:54,
->                     from drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:6:
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:34:26: error: format '%lx' expects argument of type 'long unsigned int', but argument 6 has type 'ptrdiff_t' {aka 'int'} [-Werror=format=]
->       34 |  drm_dbg(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
->          |                          ^~~~~~
->    ......
->      215 |    ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
->          |                         ~~~~~~~~~~~~~~~~~~~
->          |                         |
->          |                         ptrdiff_t {aka int}
->    include/drm/drm_print.h:448:56: note: in definition of macro 'drm_dbg'
->      448 |  drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
->          |                                                        ^~~
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:214:2: note: in expansion of macro 'CT_DEBUG'
->      214 |  CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "send",
->          |  ^~~~~~~~
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:214:37: note: format string is defined here
->      214 |  CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "send",
->          |                                  ~~~^
->          |                                     |
->          |                                     long unsigned int
->          |                                  %#x
->    In file included from include/drm/drm_mm.h:49,
->                     from include/drm/drm_vma_manager.h:26,
->                     from include/drm/drm_gem.h:40,
->                     from drivers/gpu/drm/i915/i915_drv.h:54,
->                     from drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:6:
-> >> drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:34:26: error: format '%lx' expects argument of type 'long unsigned int', but argument 5 has type 'ptrdiff_t' {aka 'int'} [-Werror=format=]
->       34 |  drm_dbg(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
->          |                          ^~~~~~
->    ......
->      224 |    ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
->          |    ~~~~~~~~~~~~~~~~~~~    
->          |    |
->          |    ptrdiff_t {aka int}
->    include/drm/drm_print.h:448:56: note: in definition of macro 'drm_dbg'
->      448 |  drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
->          |                                                        ^~~
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:223:2: note: in expansion of macro 'CT_DEBUG'
->      223 |  CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "recv",
->          |  ^~~~~~~~
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:223:27: note: format string is defined here
->      223 |  CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "recv",
->          |                        ~~~^
->          |                           |
->          |                           long unsigned int
->          |                        %#x
->    In file included from include/drm/drm_mm.h:49,
->                     from include/drm/drm_vma_manager.h:26,
->                     from include/drm/drm_gem.h:40,
->                     from drivers/gpu/drm/i915/i915_drv.h:54,
->                     from drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:6:
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:34:26: error: format '%lx' expects argument of type 'long unsigned int', but argument 6 has type 'ptrdiff_t' {aka 'int'} [-Werror=format=]
->       34 |  drm_dbg(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
->          |                          ^~~~~~
->    ......
->      224 |    ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
->          |                         ~~~~~~~~~~~~~~~~~~~
->          |                         |
->          |                         ptrdiff_t {aka int}
->    include/drm/drm_print.h:448:56: note: in definition of macro 'drm_dbg'
->      448 |  drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
->          |                                                        ^~~
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:223:2: note: in expansion of macro 'CT_DEBUG'
->      223 |  CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "recv",
->          |  ^~~~~~~~
->    drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:223:37: note: format string is defined here
->      223 |  CT_DEBUG(ct, "%s desc %#lx cmds %#lx size %u\n", "recv",
->          |                                  ~~~^
->          |                                     |
->          |                                     long unsigned int
->          |                                  %#x
->    cc1: all warnings being treated as errors
-> 
-> 
-> vim +34 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> 
-> f8a58d639dd95b drivers/gpu/drm/i915/intel_guc_ct.c       Michal Wajdeczko       2017-05-26  @6  #include "i915_drv.h"
-> f8a58d639dd95b drivers/gpu/drm/i915/intel_guc_ct.c       Michal Wajdeczko       2017-05-26   7  #include "intel_guc_ct.h"
-> 18c8832523c850 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Michal Wajdeczko       2020-01-11   8  #include "gt/intel_gt.h"
-> f8a58d639dd95b drivers/gpu/drm/i915/intel_guc_ct.c       Michal Wajdeczko       2017-05-26   9  
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  10  static inline struct intel_guc *ct_to_guc(struct intel_guc_ct *ct)
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  11  {
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  12  	return container_of(ct, struct intel_guc, ct);
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  13  }
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  14  
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  15  static inline struct intel_gt *ct_to_gt(struct intel_guc_ct *ct)
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  16  {
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  17  	return guc_to_gt(ct_to_guc(ct));
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  18  }
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  19  
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  20  static inline struct drm_i915_private *ct_to_i915(struct intel_guc_ct *ct)
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  21  {
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  22  	return ct_to_gt(ct)->i915;
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  23  }
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  24  
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  25  static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  26  {
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  27  	return &ct_to_i915(ct)->drm;
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  28  }
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  29  
-> 18c8832523c850 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Michal Wajdeczko       2020-01-11  30  #define CT_ERROR(_ct, _fmt, ...) \
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  31  	drm_err(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
-> 0a015ff9730c16 drivers/gpu/drm/i915/intel_guc_ct.c       Michal Wajdeczko       2018-03-26  32  #ifdef CONFIG_DRM_I915_DEBUG_GUC
-> 77b20896d57e91 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Michal Wajdeczko       2020-01-17  33  #define CT_DEBUG(_ct, _fmt, ...) \
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02 @34  	drm_dbg(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
-> 0a015ff9730c16 drivers/gpu/drm/i915/intel_guc_ct.c       Michal Wajdeczko       2018-03-26  35  #else
-> 77b20896d57e91 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Michal Wajdeczko       2020-01-17  36  #define CT_DEBUG(...)	do { } while (0)
-> 0a015ff9730c16 drivers/gpu/drm/i915/intel_guc_ct.c       Michal Wajdeczko       2018-03-26  37  #endif
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  38  #define CT_PROBE_ERROR(_ct, _fmt, ...) \
-> a4c78275ba7e01 drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c Daniele Ceraolo Spurio 2021-06-02  39  	i915_probe_error(ct_to_i915(ct), "CT: " _fmt, ##__VA_ARGS__)
-> 0a015ff9730c16 drivers/gpu/drm/i915/intel_guc_ct.c       Michal Wajdeczko       2018-03-26  40  
-> 
-> ---
-> 0-DAY CI Kernel Test Service, Intel Corporation
-> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
-
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+U3RhdGljIGFuYWx5c2lzIGlkZW50aWZpZWQgYW4gaXNzdWUgaW4gc2tsX2NydGNfYWxsb2NhdGVf
+ZGRiIHdoZXJlCm1idXNfb2Zmc2V0IG1heSBiZSB1c2VkIHVuaW5pdGlhbGl6ZWQuClRoaXMgcGF0
+Y2ggZml4ZXMgaXQuCgpGaXhlczogODM1YzE3NmNiMWM0ICgiZHJtL2k5MTU6IEludHJvZHVjZSBN
+QlVTIHJlbGF0aXZlIGRidWYgb2Zmc2V0cyIpCkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5
+cmphbGFAbGludXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYW5hc2kgTmF2YXJlIDxtYW5h
+c2kuZC5uYXZhcmVAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3Bt
+LmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkK
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wbS5jIGIvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaW50ZWxfcG0uYwppbmRleCAwMGYzZGVhZDIwYWQuLmEzODViOGI3NDE0ZiAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcG0uYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9pbnRlbF9wbS5jCkBAIC00MTYzLDcgKzQxNjMsNyBAQCBza2xfY3J0Y19h
+bGxvY2F0ZV9kZGIoc3RydWN0IGludGVsX2F0b21pY19zdGF0ZSAqc3RhdGUsIHN0cnVjdCBpbnRl
+bF9jcnRjICpjcnRjKQogCXN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlOwogCXN0
+cnVjdCBza2xfZGRiX2VudHJ5IGRkYl9zbGljZXM7CiAJZW51bSBwaXBlIHBpcGUgPSBjcnRjLT5w
+aXBlOwotCXVuc2lnbmVkIGludCBtYnVzX29mZnNldDsKKwl1bnNpZ25lZCBpbnQgbWJ1c19vZmZz
+ZXQgPSAwOwogCXUzMiBkZGJfcmFuZ2Vfc2l6ZTsKIAl1MzIgZGJ1Zl9zbGljZV9tYXNrOwogCXUz
+MiBzdGFydCwgZW5kOwotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9pbnRlbC1nZngK
