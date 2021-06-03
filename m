@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A1B5C47082
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91A0EC47098
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 082DF613EA
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:09:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 082DF613EA
+	by mail.kernel.org (Postfix) with ESMTPS id 5AEF8613E7
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:09:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AEF8613E7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E005C6EEAE;
-	Thu,  3 Jun 2021 21:09:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 544196EEAF;
+	Thu,  3 Jun 2021 21:09:42 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45DFA6EADD;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FBDA6EE92;
  Thu,  3 Jun 2021 21:09:38 +0000 (UTC)
-IronPort-SDR: 2QNgCsBLr67IKt7tegt2MglIXtwLAouai9FY3yqQ2H7PtgPJz4HwApBIZEZxcFpd95B7b6mpkL
- 0zy7gKamGZog==
-X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="203966020"
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="203966020"
+IronPort-SDR: KfT46rm8qD4x2IH+nNU5SHO18Xg95iihU6n3pj/6DqePGSMyfDEEQXfC/S7r3PFkeqBRAfzJAZ
+ LnQZgWgMTWcA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="203966010"
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="203966010"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 14:09:36 -0700
-IronPort-SDR: 8chWxHHc11zIZsKeCm1j5+GVR6z+54k2B8WGXxnrIK7o/JpnpBduIAEq7exsLCejGWUwW+dMot
- SejOJPXocFww==
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="448015291"
+ 03 Jun 2021 14:09:35 -0700
+IronPort-SDR: e+EuLT9OU9QVgXl1XNHTxEgP2YVkLPWm5jAlSnVJ55JmvsJ52HXdQq7szK1WIXuHOa0F0LuaQk
+ wqhaOam+xOlw==
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="448015268"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 14:09:35 -0700
+ 03 Jun 2021 14:09:34 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  3 Jun 2021 14:27:22 -0700
-Message-Id: <20210603212722.59719-10-matthew.brost@intel.com>
+Date: Thu,  3 Jun 2021 14:27:16 -0700
+Message-Id: <20210603212722.59719-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210603212722.59719-1-matthew.brost@intel.com>
 References: <20210603212722.59719-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 9/9] drm/i915/doc: Add kernel doc for
- i915_sched_engine
+Subject: [Intel-gfx] [PATCH 3/9] drm/i915: Add
+ i915_sched_engine_reset_on_empty function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,100 +65,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Rather than touching schedule state in the generic PM code, reset the
+priolist allocation when empty in the submission code. Add a wrapper
+function to do this and update the backends to call it in the correct
+place.
+
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- Documentation/gpu/i915.rst                  |  6 ++++
- drivers/gpu/drm/i915/i915_scheduler_types.h | 37 ++++++++++++++++++---
- 2 files changed, 38 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c            | 2 --
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c    | 2 ++
+ drivers/gpu/drm/i915/i915_scheduler.h                | 7 +++++++
+ 4 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index 42ce0196930a..8f4f5471a05b 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -425,6 +425,12 @@ User Batchbuffer Execution
- .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-    :doc: User command execution
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index b6a00dd72808..1f07ac4e0672 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -280,8 +280,6 @@ static int __engine_park(struct intel_wakeref *wf)
+ 	if (engine->park)
+ 		engine->park(engine);
  
-+Scheduling
-+----------
-+.. kernel-doc:: drivers/gpu/drm/i915/i915_scheduler_types.h
-+   :functions: i915_sched_engine
-+
-+
- Logical Rings, Logical Ring Contexts and Execlists
- --------------------------------------------------
- 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index 9d79514450de..e3da7517853f 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -91,7 +91,21 @@ struct i915_dependency {
- 				&(rq__)->sched.signalers_list, \
- 				signal_link)
- 
-+/**
-+ * sturct i915_sched_engine - scheduler engine
-+ *
-+ * A schedule engine represents a submission queue with different priority
-+ * bands. It contains all the common state (relative to the backend) to queue,
-+ * track, and submit a request.
-+ *
-+ * This object at the moment is quite i915 specific but will transition into a
-+ * container for the drm_gpu_scheduler plus a few other variables once the i915
-+ * is integrated with the DRM scheduler.
-+ */
- struct i915_sched_engine {
-+	/**
-+	 * @ref: reference count of schedule engine object
-+	 */
- 	struct kref ref;
- 
- 	/**
-@@ -100,11 +114,18 @@ struct i915_sched_engine {
+-	engine->sched_engine->no_priolist = false;
+-
+ 	/* While gt calls i915_vma_parked(), we have to break the lock cycle */
+ 	intel_gt_pm_put_async(engine->gt);
+ 	return 0;
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 2326a73af6d3..609753b5401a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1553,6 +1553,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 * interrupt for secondary ports).
  	 */
- 	spinlock_t lock;
+ 	sched_engine->queue_priority_hint = queue_prio(sched_engine);
++	i915_sched_engine_reset_on_empty(sched_engine);
+ 	spin_unlock(&engine->active.lock);
  
-+	/**
-+	 * @requests: list of requests inflight on this schedule engine
-+	 */
- 	struct list_head requests;
--	struct list_head hold; /* ready requests, but on hold */
+ 	/*
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 5d00f2e3c1de..f4a6fbfaf82e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -263,6 +263,8 @@ static void guc_submission_tasklet(struct tasklet_struct *t)
  
- 	/**
--	 * @tasklet: softirq tasklet for bottom handler
-+	 * @hold: list of requests on hold.
-+	 */
-+	struct list_head hold;
+ 	__guc_dequeue(engine);
+ 
++	i915_sched_engine_reset_on_empty(engine->sched_engine);
 +
-+	/**
-+	 * @tasklet: softirq tasklet for submission
- 	 */
- 	struct tasklet_struct tasklet;
+ 	spin_unlock_irqrestore(&engine->active.lock, flags);
+ }
  
-@@ -137,14 +158,20 @@ struct i915_sched_engine {
- 	 */
- 	bool no_priolist;
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
+index 5bec7b3b8456..713c38c99de9 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.h
++++ b/drivers/gpu/drm/i915/i915_scheduler.h
+@@ -72,6 +72,13 @@ i915_sched_engine_is_empty(struct i915_sched_engine *sched_engine)
+ 	return RB_EMPTY_ROOT(&sched_engine->queue.rb_root);
+ }
  
--	/* Back pointer to engine */
-+	/**
-+	 * @engine: back pointer to engine
-+	 */
- 	struct intel_engine_cs *engine;
- 
--	/* Kick backend */
-+	/**
-+	 * @kick_backed: kick back after a request's priority has changed
-+	 */
- 	void	(*kick_backend)(const struct i915_request *rq,
- 				int prio);
- 
--	/*
-+	/**
-+	 * @schedule: schedule function to adjust priority of request
-+	 *
- 	 * Call when the priority on a request has changed and it and its
- 	 * dependencies may need rescheduling. Note the request itself may
- 	 * not be ready to run!
++static inline void
++i915_sched_engine_reset_on_empty(struct i915_sched_engine *sched_engine)
++{
++	if (i915_sched_engine_is_empty(sched_engine))
++		sched_engine->no_priolist = false;
++}
++
+ void i915_request_show_with_schedule(struct drm_printer *m,
+ 				     const struct i915_request *rq,
+ 				     const char *prefix,
 -- 
 2.28.0
 
