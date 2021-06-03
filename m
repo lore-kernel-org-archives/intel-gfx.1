@@ -2,67 +2,50 @@ Return-Path: <SRS0=IdPq=K5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EBFDC47082
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 16:41:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAFCEC47096
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 16:55:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D20B8610A8
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 16:41:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D20B8610A8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 700FD613F1
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 16:55:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 700FD613F1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D206F4F9;
-	Thu,  3 Jun 2021 16:41:26 +0000 (UTC)
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D0496F4CA
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 16:41:23 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id y7so1888138wrh.7
- for <intel-gfx@lists.freedesktop.org>; Thu, 03 Jun 2021 09:41:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=pnUIa0sFyDkR/8t0TailNKYrmyNBbS9VS6vHPr+XJFM=;
- b=Aa7AZGtw63BnkaMzv6wcrRiI+/ZHWYm+GBIdIGkUYQ0xUnIlkN9wjTywEz4cVTRhqV
- Jadm7zaJVtCW7YAUHtMJeZIjVyzVO0zs7KxB/cDeBF9QvU79ks1AjFFcBLaA7hOS+6wu
- 7LijeKsrhygvieIIb6URYzDI+TbdMychlzrAg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=pnUIa0sFyDkR/8t0TailNKYrmyNBbS9VS6vHPr+XJFM=;
- b=H1sVwU4/KWBqm2/iJsN2Q8VyaP25AUG+l4+qpIkwok/vt40pQlM+54jmgbJtfoZI4b
- 5ZCknlm1k4u/ZhDYYaAQX1wJNe+a772xWmq7sKCW5sDOlYw2/ybTO6+QkIUD3Fx1aGbK
- dtRKRuCXygTYDKxNt1VzcPQK27ROzVXbCV9L26RKd9VDlxnIAeULqZelo4Jlk+WU2S3c
- RP8mUndZiLJ5LfU8sKh65b98dG/2rfoGvkl0DgV8Q9YTHtOr6rHvsPEgC/ThVj/zEaRK
- sp12ZCQ+I4ksTUwSsHH3KAgomD4lmxw3cX36GaM4xWiOWQK5Eq5LMErCfXFDnfKhmTnV
- 59GQ==
-X-Gm-Message-State: AOAM531yZC4h8yKkRZsvaeNigV+bfycnj5tlyrj5Zr+9iZsMzu07zxe+
- gHjc2Yhi1SePnQip404SatyyTM4fLwyZtQ==
-X-Google-Smtp-Source: ABdhPJx2EW93bSROSlwL/SPbtZuKGb5rUHHCkWPYvtz96a8qSRqJB48oEvTXkZHA8oMhCV/36GSEuQ==
-X-Received: by 2002:adf:ea4c:: with SMTP id j12mr856222wrn.64.1622738481941;
- Thu, 03 Jun 2021 09:41:21 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s28sm4992683wra.54.2021.06.03.09.41.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Jun 2021 09:41:21 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Date: Thu,  3 Jun 2021 18:41:12 +0200
-Message-Id: <20210603164113.1433476-4-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210603164113.1433476-1-daniel.vetter@ffwll.ch>
-References: <20210603164113.1433476-1-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF5916F4D6;
+	Thu,  3 Jun 2021 16:55:06 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 053AF6E85E;
+ Thu,  3 Jun 2021 16:55:04 +0000 (UTC)
+IronPort-SDR: DkWxaDOs7pbFu+SR6FZf7YbvEhLoIBPGwSfHl5c9OqFPxIJvXItq/4t47jf4jjxjoUiDzNW0NK
+ G3cMPQdhY4Yw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="184464193"
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="184464193"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2021 09:54:51 -0700
+IronPort-SDR: /T2WvcZVHXHgk78TnYj/fAhcCUU9UTVAHzzOsgSPglpjfgFKCPUOdsdVn6s57sGSflvokPRwGh
+ RoeIXHGDgUvQ==
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="400643672"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2021 09:54:50 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  3 Jun 2021 09:54:23 -0700
+Message-Id: <20210603165428.3625495-3-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210603165428.3625495-1-lucas.demarchi@intel.com>
+References: <20210603165428.3625495-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 3/4] drm/shmem-helper: Align to page size in
- dumb_create
+Subject: [Intel-gfx] [PATCH v3 2/7] drm/i915/gt: Add remaining conversions
+ to GRAPHICS_VER
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,53 +58,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Maxime Ripard <mripard@kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>
+Cc: dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-shmem helpers seem a bit sloppy here by automatically rounding up when
-actually creating the buffer, which results in under-reporting of what
-we actually have. Caught by igt/vgem_basic tests.
+For some reason coccinelle misses a few cases in gt with calls to
+INTEL_GEN()/IS_GEN(). Do a manual conversion for those.
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/drm_gem_shmem_helper.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/debugfs_gt_pm.c      | 2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h | 4 ++--
+ drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c | 6 +++---
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 11edd54f0580..296ab1b7c07f 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -505,13 +505,13 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+diff --git a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
+index 0389bceebd06..4270b5a34a83 100644
+--- a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
++++ b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
+@@ -230,7 +230,7 @@ static int drpc_show(struct seq_file *m, void *unused)
+ 	with_intel_runtime_pm(gt->uncore->rpm, wakeref) {
+ 		if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
+ 			err = vlv_drpc(m);
+-		else if (INTEL_GEN(i915) >= 6)
++		else if (GRAPHICS_VER(i915) >= 6)
+ 			err = gen6_drpc(m);
+ 		else
+ 			err = ilk_drpc(m);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 9ef349cd5cea..e113f93b3274 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -606,10 +606,10 @@ intel_engine_has_relative_mmio(const struct intel_engine_cs * const engine)
+ }
  
- 	if (!args->pitch || !args->size) {
- 		args->pitch = min_pitch;
--		args->size = args->pitch * args->height;
-+		args->size = PAGE_ALIGN(args->pitch * args->height);
- 	} else {
- 		/* ensure sane minimum values */
- 		if (args->pitch < min_pitch)
- 			args->pitch = min_pitch;
- 		if (args->size < args->pitch * args->height)
--			args->size = args->pitch * args->height;
-+			args->size = PAGE_ALIGN(args->pitch * args->height);
+ #define instdone_has_slice(dev_priv___, sseu___, slice___) \
+-	((IS_GEN(dev_priv___, 7) ? 1 : ((sseu___)->slice_mask)) & BIT(slice___))
++	((GRAPHICS_VER(dev_priv___) == 7 ? 1 : ((sseu___)->slice_mask)) & BIT(slice___))
+ 
+ #define instdone_has_subslice(dev_priv__, sseu__, slice__, subslice__) \
+-	(IS_GEN(dev_priv__, 7) ? (1 & BIT(subslice__)) : \
++	(GRAPHICS_VER(dev_priv__) == 7 ? (1 & BIT(subslice__)) : \
+ 	 intel_sseu_has_subslice(sseu__, 0, subslice__))
+ 
+ #define for_each_instdone_slice_subslice(dev_priv_, sseu_, slice_, subslice_) \
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
+index 51780282d872..714fe8495775 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
+@@ -248,7 +248,7 @@ int intel_sseu_status(struct seq_file *m, struct intel_gt *gt)
+ 	struct sseu_dev_info sseu;
+ 	intel_wakeref_t wakeref;
+ 
+-	if (INTEL_GEN(i915) < 8)
++	if (GRAPHICS_VER(i915) < 8)
+ 		return -ENODEV;
+ 
+ 	seq_puts(m, "SSEU Device Info\n");
+@@ -265,9 +265,9 @@ int intel_sseu_status(struct seq_file *m, struct intel_gt *gt)
+ 			cherryview_sseu_device_status(gt, &sseu);
+ 		else if (IS_BROADWELL(i915))
+ 			bdw_sseu_device_status(gt, &sseu);
+-		else if (IS_GEN(i915, 9))
++		else if (GRAPHICS_VER(i915) == 9)
+ 			gen9_sseu_device_status(gt, &sseu);
+-		else if (INTEL_GEN(i915) >= 10)
++		else if (GRAPHICS_VER(i915) >= 10)
+ 			gen10_sseu_device_status(gt, &sseu);
  	}
  
- 	shmem = drm_gem_shmem_create_with_handle(file, dev, args->size, &args->handle);
 -- 
-2.31.0
+2.31.1
 
 _______________________________________________
 Intel-gfx mailing list
