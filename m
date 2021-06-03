@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0A48C47096
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 23:32:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43822C47096
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 23:38:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A4A9613FA
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 23:32:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A4A9613FA
+	by mail.kernel.org (Postfix) with ESMTPS id 00D0D613EC
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 23:37:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00D0D613EC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD3E6E808;
-	Thu,  3 Jun 2021 23:32:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C02F6EA6B;
+	Thu,  3 Jun 2021 23:37:59 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 866F26F543;
- Thu,  3 Jun 2021 23:32:43 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 23D456EA6B;
+ Thu,  3 Jun 2021 23:37:58 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 7D3F2A47E8;
- Thu,  3 Jun 2021 23:32:43 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 12536A41FB;
+ Thu,  3 Jun 2021 23:37:58 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matthew Brost" <matthew.brost@intel.com>
-Date: Thu, 03 Jun 2021 23:32:43 -0000
-Message-ID: <162276316348.8034.17329330275447993995@emeril.freedesktop.org>
+Date: Thu, 03 Jun 2021 23:37:58 -0000
+Message-ID: <162276347804.8033.12287870698807617875@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210603212722.59719-1-matthew.brost@intel.com>
 In-Reply-To: <20210603212722.59719-1-matthew.brost@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Introduce_i915=5Fsched=5Fengine_object_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIElu?=
+ =?utf-8?q?troduce_i915=5Fsched=5Fengine_object_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,24 +63,9 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-8225af1a908b drm/i915: Move priolist to new i915_sched_engine object
--:17: WARNING:REPEATED_WORD: Possible repeated word: 'the'
-#17: 
-This patch starts the aforementioned transition by moving the the
-
-total: 0 errors, 1 warnings, 0 checks, 682 lines checked
-ce8653e69398 drm/i915: Add i915_sched_engine_is_empty function
-148a2142a7c3 drm/i915: Add i915_sched_engine_reset_on_empty function
-e7485728abe3 drm/i915: Move active tracking to i915_sched_engine
-f6110f5321ac drm/i915: Move engine->schedule to i915_sched_engine
-6e59cded3265 drm/i915: Add kick_backend function to i915_sched_engine
-b0932841cafb drm/i915: Update i915_scheduler to operate on i915_sched_engine
-ec126054a0f5 drm/i915: Move submission tasklet to i915_sched_engine
-378f81235475 drm/i915/doc: Add kernel doc for i915_sched_engine
--:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
-
-total: 0 errors, 1 warnings, 0 checks, 76 lines checked
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/i915_scheduler_types.h:105: warning: cannot understand function prototype: 'struct i915_sched_engine '
+./drivers/gpu/drm/i915/i915_scheduler_types.h:1: warning: 'i915_sched_engine' not found
 
 
 _______________________________________________
