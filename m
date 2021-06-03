@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CFA6C47096
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:09:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A1B5C47082
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:09:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 59DA5613E7
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:09:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59DA5613E7
+	by mail.kernel.org (Postfix) with ESMTPS id 082DF613EA
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 21:09:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 082DF613EA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B96896EEAD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E005C6EEAE;
 	Thu,  3 Jun 2021 21:09:40 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A4FC6EE92;
- Thu,  3 Jun 2021 21:09:37 +0000 (UTC)
-IronPort-SDR: I5TpSY1SAHZc9xVhON6fgkfXImp1XUS6r4pIysp066PHjTmtoPfD8HeZ78xl9Dgb81Zw0Kljpp
- 7SmIdvQALdaQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="203966015"
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="203966015"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45DFA6EADD;
+ Thu,  3 Jun 2021 21:09:38 +0000 (UTC)
+IronPort-SDR: 2QNgCsBLr67IKt7tegt2MglIXtwLAouai9FY3yqQ2H7PtgPJz4HwApBIZEZxcFpd95B7b6mpkL
+ 0zy7gKamGZog==
+X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="203966020"
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="203966020"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 14:09:35 -0700
-IronPort-SDR: Vtd6ECw1Wb6sdbo+Nkk5tDCXLAKOmAKk6fpOkKnx9v6oxrxaYFAWBI8u8Ls1yrhAry+VX3TYlA
- kFWmv8N/DwTg==
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="448015279"
+ 03 Jun 2021 14:09:36 -0700
+IronPort-SDR: 8chWxHHc11zIZsKeCm1j5+GVR6z+54k2B8WGXxnrIK7o/JpnpBduIAEq7exsLCejGWUwW+dMot
+ SejOJPXocFww==
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="448015291"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  03 Jun 2021 14:09:35 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  3 Jun 2021 14:27:19 -0700
-Message-Id: <20210603212722.59719-7-matthew.brost@intel.com>
+Date: Thu,  3 Jun 2021 14:27:22 -0700
+Message-Id: <20210603212722.59719-10-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210603212722.59719-1-matthew.brost@intel.com>
 References: <20210603212722.59719-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 6/9] drm/i915: Add kick_backend function to
+Subject: [Intel-gfx] [PATCH 9/9] drm/i915/doc: Add kernel doc for
  i915_sched_engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,185 +65,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather than touching execlist specific structures in the generic
-scheduling code, add a callback function in the backend.
-
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 52 ++++++++++++++++
- drivers/gpu/drm/i915/i915_scheduler.c         | 62 +------------------
- drivers/gpu/drm/i915/i915_scheduler_types.h   |  4 ++
- 3 files changed, 58 insertions(+), 60 deletions(-)
+ Documentation/gpu/i915.rst                  |  6 ++++
+ drivers/gpu/drm/i915/i915_scheduler_types.h | 37 ++++++++++++++++++---
+ 2 files changed, 38 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 23fd03815ad0..3fac17103837 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3116,10 +3116,61 @@ static bool can_preempt(struct intel_engine_cs *engine)
- 	return engine->class != RENDER_CLASS;
- }
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index 42ce0196930a..8f4f5471a05b 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -425,6 +425,12 @@ User Batchbuffer Execution
+ .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+    :doc: User command execution
  
-+static void kick_execlists(const struct i915_request *rq, int prio)
-+{
-+	struct intel_engine_cs *engine = rq->engine;
-+	struct i915_sched_engine *sched_engine = engine->sched_engine;
-+	const struct i915_request *inflight;
++Scheduling
++----------
++.. kernel-doc:: drivers/gpu/drm/i915/i915_scheduler_types.h
++   :functions: i915_sched_engine
 +
-+	/*
-+	 * We only need to kick the tasklet once for the high priority
-+	 * new context we add into the queue.
-+	 */
-+	if (prio <= sched_engine->queue_priority_hint)
-+		return;
 +
-+	rcu_read_lock();
-+
-+	/* Nothing currently active? We're overdue for a submission! */
-+	inflight = execlists_active(&engine->execlists);
-+	if (!inflight)
-+		goto unlock;
-+
-+	/*
-+	 * If we are already the currently executing context, don't
-+	 * bother evaluating if we should preempt ourselves.
-+	 */
-+	if (inflight->context == rq->context)
-+		goto unlock;
-+
-+	ENGINE_TRACE(engine,
-+		     "bumping queue-priority-hint:%d for rq:%llx:%lld, inflight:%llx:%lld prio %d\n",
-+		     prio,
-+		     rq->fence.context, rq->fence.seqno,
-+		     inflight->fence.context, inflight->fence.seqno,
-+		     inflight->sched.attr.priority);
-+
-+	sched_engine->queue_priority_hint = prio;
-+
-+	/*
-+	 * Allow preemption of low -> normal -> high, but we do
-+	 * not allow low priority tasks to preempt other low priority
-+	 * tasks under the impression that latency for low priority
-+	 * tasks does not matter (as much as background throughput),
-+	 * so kiss.
-+	 */
-+	if (prio >= max(I915_PRIORITY_NORMAL, rq_prio(inflight)))
-+		tasklet_hi_schedule(&engine->execlists.tasklet);
-+
-+unlock:
-+	rcu_read_unlock();
-+}
-+
- static void execlists_set_default_submission(struct intel_engine_cs *engine)
- {
- 	engine->submit_request = execlists_submit_request;
- 	engine->sched_engine->schedule = i915_schedule;
-+	engine->sched_engine->kick_backend = kick_execlists;
- 	engine->execlists.tasklet.callback = execlists_submission_tasklet;
- }
+ Logical Rings, Logical Ring Contexts and Execlists
+ --------------------------------------------------
  
-@@ -3702,6 +3753,7 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
- 	ve->base.request_alloc = execlists_request_alloc;
- 
- 	ve->base.sched_engine->schedule = i915_schedule;
-+	ve->base.sched_engine->kick_backend = kick_execlists;
- 	ve->base.submit_request = virtual_submit_request;
- 	ve->base.bond_execute = virtual_bond_execute;
- 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 4bc6969f6a97..035b88f2e4aa 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -157,65 +157,6 @@ sched_lock_engine(const struct i915_sched_node *node,
- 	return locked;
- }
- 
--static inline int rq_prio(const struct i915_request *rq)
--{
--	return rq->sched.attr.priority;
--}
--
--static inline bool need_preempt(int prio, int active)
--{
--	/*
--	 * Allow preemption of low -> normal -> high, but we do
--	 * not allow low priority tasks to preempt other low priority
--	 * tasks under the impression that latency for low priority
--	 * tasks does not matter (as much as background throughput),
--	 * so kiss.
--	 */
--	return prio >= max(I915_PRIORITY_NORMAL, active);
--}
--
--static void kick_submission(struct intel_engine_cs *engine,
--			    const struct i915_request *rq,
--			    int prio)
--{
--	const struct i915_request *inflight;
--
--	/*
--	 * We only need to kick the tasklet once for the high priority
--	 * new context we add into the queue.
--	 */
--	if (prio <= engine->sched_engine->queue_priority_hint)
--		return;
--
--	rcu_read_lock();
--
--	/* Nothing currently active? We're overdue for a submission! */
--	inflight = execlists_active(&engine->execlists);
--	if (!inflight)
--		goto unlock;
--
--	/*
--	 * If we are already the currently executing context, don't
--	 * bother evaluating if we should preempt ourselves.
--	 */
--	if (inflight->context == rq->context)
--		goto unlock;
--
--	ENGINE_TRACE(engine,
--		     "bumping queue-priority-hint:%d for rq:%llx:%lld, inflight:%llx:%lld prio %d\n",
--		     prio,
--		     rq->fence.context, rq->fence.seqno,
--		     inflight->fence.context, inflight->fence.seqno,
--		     inflight->sched.attr.priority);
--
--	engine->sched_engine->queue_priority_hint = prio;
--	if (need_preempt(prio, rq_prio(inflight)))
--		tasklet_hi_schedule(&engine->execlists.tasklet);
--
--unlock:
--	rcu_read_unlock();
--}
--
- static void __i915_schedule(struct i915_sched_node *node,
- 			    const struct i915_sched_attr *attr)
- {
-@@ -335,7 +276,8 @@ static void __i915_schedule(struct i915_sched_node *node,
- 		}
- 
- 		/* Defer (tasklet) submission until after all of our updates. */
--		kick_submission(engine, node_to_request(node), prio);
-+		if (engine->sched_engine->kick_backend)
-+			engine->sched_engine->kick_backend(node_to_request(node), prio);
- 	}
- 
- 	spin_unlock(&engine->sched_engine->lock);
 diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index 3f462f8b06f2..8b3af536e6cf 100644
+index 9d79514450de..e3da7517853f 100644
 --- a/drivers/gpu/drm/i915/i915_scheduler_types.h
 +++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -132,6 +132,10 @@ struct i915_sched_engine {
+@@ -91,7 +91,21 @@ struct i915_dependency {
+ 				&(rq__)->sched.signalers_list, \
+ 				signal_link)
+ 
++/**
++ * sturct i915_sched_engine - scheduler engine
++ *
++ * A schedule engine represents a submission queue with different priority
++ * bands. It contains all the common state (relative to the backend) to queue,
++ * track, and submit a request.
++ *
++ * This object at the moment is quite i915 specific but will transition into a
++ * container for the drm_gpu_scheduler plus a few other variables once the i915
++ * is integrated with the DRM scheduler.
++ */
+ struct i915_sched_engine {
++	/**
++	 * @ref: reference count of schedule engine object
++	 */
+ 	struct kref ref;
+ 
+ 	/**
+@@ -100,11 +114,18 @@ struct i915_sched_engine {
+ 	 */
+ 	spinlock_t lock;
+ 
++	/**
++	 * @requests: list of requests inflight on this schedule engine
++	 */
+ 	struct list_head requests;
+-	struct list_head hold; /* ready requests, but on hold */
+ 
+ 	/**
+-	 * @tasklet: softirq tasklet for bottom handler
++	 * @hold: list of requests on hold.
++	 */
++	struct list_head hold;
++
++	/**
++	 * @tasklet: softirq tasklet for submission
+ 	 */
+ 	struct tasklet_struct tasklet;
+ 
+@@ -137,14 +158,20 @@ struct i915_sched_engine {
  	 */
  	bool no_priolist;
  
-+	/* Kick backend */
-+	void	(*kick_backend)(const struct i915_request *rq,
-+				int prio);
-+
- 	/*
+-	/* Back pointer to engine */
++	/**
++	 * @engine: back pointer to engine
++	 */
+ 	struct intel_engine_cs *engine;
+ 
+-	/* Kick backend */
++	/**
++	 * @kick_backed: kick back after a request's priority has changed
++	 */
+ 	void	(*kick_backend)(const struct i915_request *rq,
+ 				int prio);
+ 
+-	/*
++	/**
++	 * @schedule: schedule function to adjust priority of request
++	 *
  	 * Call when the priority on a request has changed and it and its
  	 * dependencies may need rescheduling. Note the request itself may
+ 	 * not be ready to run!
 -- 
 2.28.0
 
