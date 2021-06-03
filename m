@@ -2,50 +2,40 @@ Return-Path: <SRS0=IdPq=K5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57783C47096
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 22:46:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0A48C47096
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 23:32:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 249CB613FF
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 22:46:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 249CB613FF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9A4A9613FA
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 23:32:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A4A9613FA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 518086F541;
-	Thu,  3 Jun 2021 22:46:22 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBDB96E110;
- Thu,  3 Jun 2021 22:46:20 +0000 (UTC)
-IronPort-SDR: Sfr3SFstAfGiDnvxbWvvjneEpPlEZARgRMBmyiPTh60DWdTQSzWLAz9/C0ocQS6tL/u6oLKx0T
- RTwM9nIWBU4g==
-X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="191280005"
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="191280005"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 15:46:17 -0700
-IronPort-SDR: Eh+Fv++PXllqd3gakBt+csvv5opEtRLIHUN9v+gFg5nGwjTQJNKQf6qcwIZLKVyNqTXQ2bRVmo
- KSfhh/Yuig6w==
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="468130295"
-Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 15:46:16 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <daniel.vetter@intel.com>
-Date: Thu,  3 Jun 2021 16:04:07 -0700
-Message-Id: <20210603230408.54856-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <YLlLlTdvaTGrNmzV@phenom.ffwll.local>
-References: <YLlLlTdvaTGrNmzV@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD3E6E808;
+	Thu,  3 Jun 2021 23:32:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 866F26F543;
+ Thu,  3 Jun 2021 23:32:43 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7D3F2A47E8;
+ Thu,  3 Jun 2021 23:32:43 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v3 PATCH 1/2] drm/i915/guc: Replace CTB array with
- explicit members
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Date: Thu, 03 Jun 2021 23:32:43 -0000
+Message-ID: <162276316348.8034.17329330275447993995@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210603212722.59719-1-matthew.brost@intel.com>
+In-Reply-To: <20210603212722.59719-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Introduce_i915=5Fsched=5Fengine_object_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,159 +48,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+== Series Details ==
 
-Upcoming GuC firmware will always require just two CTBs and we
-also plan to configure them with different sizes, so definining
-them as array is no longer suitable.
+Series: Introduce i915_sched_engine object (rev2)
+URL   : https://patchwork.freedesktop.org/series/90630/
+State : warning
 
-v2: Use %p for ptrdiff print
-v3: Use %tx for ptrdiff print
+== Summary ==
 
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 46 ++++++++++++-----------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  7 +++-
- 2 files changed, 30 insertions(+), 23 deletions(-)
+$ dim checkpatch origin/drm-tip
+8225af1a908b drm/i915: Move priolist to new i915_sched_engine object
+-:17: WARNING:REPEATED_WORD: Possible repeated word: 'the'
+#17: 
+This patch starts the aforementioned transition by moving the the
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 34c582105860..ec795d7c3a7d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -168,10 +168,10 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
- 	struct intel_guc *guc = ct_to_guc(ct);
- 	struct guc_ct_buffer_desc *desc;
- 	u32 blob_size;
-+	u32 cmds_size;
- 	void *blob;
- 	u32 *cmds;
- 	int err;
--	int i;
- 
- 	GEM_BUG_ON(ct->vma);
- 
-@@ -207,15 +207,23 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
- 
- 	CT_DEBUG(ct, "base=%#x size=%u\n", intel_guc_ggtt_offset(guc, ct->vma), blob_size);
- 
--	/* store pointers to desc and cmds */
--	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
--		GEM_BUG_ON((i !=  CTB_SEND) && (i != CTB_RECV));
-+	/* store pointers to desc and cmds for send ctb */
-+	desc = blob;
-+	cmds = blob + PAGE_SIZE / 2;
-+	cmds_size = PAGE_SIZE / 4;
-+	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u\n", "send",
-+		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
- 
--		desc = blob + PAGE_SIZE / 4 * i;
--		cmds = blob + PAGE_SIZE / 4 * i + PAGE_SIZE / 2;
-+	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size);
- 
--		guc_ct_buffer_init(&ct->ctbs[i], desc, cmds, PAGE_SIZE / 4);
--	}
-+	/* store pointers to desc and cmds for recv ctb */
-+	desc = blob + PAGE_SIZE / 4;
-+	cmds = blob + PAGE_SIZE / 4 + PAGE_SIZE / 2;
-+	cmds_size = PAGE_SIZE / 4;
-+	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u\n", "recv",
-+		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
-+
-+	guc_ct_buffer_init(&ct->ctbs.recv, desc, cmds, cmds_size);
- 
- 	return 0;
- }
-@@ -246,7 +254,6 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- 	u32 base, cmds;
- 	void *blob;
- 	int err;
--	int i;
- 
- 	GEM_BUG_ON(ct->enabled);
- 
-@@ -257,28 +264,25 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- 
- 	/* blob should start with send descriptor */
- 	blob = __px_vaddr(ct->vma->obj);
--	GEM_BUG_ON(blob != ct->ctbs[CTB_SEND].desc);
-+	GEM_BUG_ON(blob != ct->ctbs.send.desc);
- 
- 	/* (re)initialize descriptors */
--	for (i = 0; i < ARRAY_SIZE(ct->ctbs); i++) {
--		GEM_BUG_ON((i != CTB_SEND) && (i != CTB_RECV));
-+	cmds = base + ptrdiff(ct->ctbs.send.cmds, blob);
-+	guc_ct_buffer_reset(&ct->ctbs.send, cmds);
- 
--		cmds = base + ptrdiff(ct->ctbs[i].cmds, blob);
--		CT_DEBUG(ct, "%d: cmds addr=%#x\n", i, cmds);
--
--		guc_ct_buffer_reset(&ct->ctbs[i], cmds);
--	}
-+	cmds = base + ptrdiff(ct->ctbs.recv.cmds, blob);
-+	guc_ct_buffer_reset(&ct->ctbs.recv, cmds);
- 
- 	/*
- 	 * Register both CT buffers starting with RECV buffer.
- 	 * Descriptors are in first half of the blob.
- 	 */
--	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_RECV].desc, blob),
-+	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.recv.desc, blob),
- 				 INTEL_GUC_CT_BUFFER_TYPE_RECV);
- 	if (unlikely(err))
- 		goto err_out;
- 
--	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs[CTB_SEND].desc, blob),
-+	err = ct_register_buffer(ct, base + ptrdiff(ct->ctbs.send.desc, blob),
- 				 INTEL_GUC_CT_BUFFER_TYPE_SEND);
- 	if (unlikely(err))
- 		goto err_deregister;
-@@ -341,7 +345,7 @@ static int ct_write(struct intel_guc_ct *ct,
- 		    u32 len /* in dwords */,
- 		    u32 fence)
- {
--	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_SEND];
-+	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
- 	u32 head = desc->head;
- 	u32 tail = desc->tail;
-@@ -557,7 +561,7 @@ static inline bool ct_header_is_response(u32 header)
- 
- static int ct_read(struct intel_guc_ct *ct, u32 *data)
- {
--	struct intel_guc_ct_buffer *ctb = &ct->ctbs[CTB_RECV];
-+	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
- 	u32 head = desc->head;
- 	u32 tail = desc->tail;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index 4009e2dd0de4..fc9486779e87 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -47,8 +47,11 @@ struct intel_guc_ct {
- 	struct i915_vma *vma;
- 	bool enabled;
- 
--	/* buffers for sending(0) and receiving(1) commands */
--	struct intel_guc_ct_buffer ctbs[2];
-+	/* buffers for sending and receiving commands */
-+	struct {
-+		struct intel_guc_ct_buffer send;
-+		struct intel_guc_ct_buffer recv;
-+	} ctbs;
- 
- 	struct {
- 		u32 last_fence; /* last fence used to send request */
--- 
-2.28.0
+total: 0 errors, 1 warnings, 0 checks, 682 lines checked
+ce8653e69398 drm/i915: Add i915_sched_engine_is_empty function
+148a2142a7c3 drm/i915: Add i915_sched_engine_reset_on_empty function
+e7485728abe3 drm/i915: Move active tracking to i915_sched_engine
+f6110f5321ac drm/i915: Move engine->schedule to i915_sched_engine
+6e59cded3265 drm/i915: Add kick_backend function to i915_sched_engine
+b0932841cafb drm/i915: Update i915_scheduler to operate on i915_sched_engine
+ec126054a0f5 drm/i915: Move submission tasklet to i915_sched_engine
+378f81235475 drm/i915/doc: Add kernel doc for i915_sched_engine
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 76 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
