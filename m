@@ -2,55 +2,58 @@ Return-Path: <SRS0=IdPq=K5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F156C47082
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 09:41:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D84FC47097
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 09:45:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 20305608FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 09:41:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20305608FE
+	by mail.kernel.org (Postfix) with ESMTPS id 4E162613DE
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 09:45:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E162613DE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A31686E0CD;
-	Thu,  3 Jun 2021 09:41:36 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36D616E0E6
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 09:41:35 +0000 (UTC)
-IronPort-SDR: Enpx2h+z4SQc62He8uk4nZUl2sfdOM2mjLDE8SrXOlRxHv/a//FJ6u1wwPtNMOkAvT3QUuNAle
- lGg5/OrKsSNw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10003"; a="225304081"
-X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="225304081"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 02:41:33 -0700
-IronPort-SDR: 5mVHmQQRSjBCHJjcrgiUF22lUHB4EBh01bk5RAC0gZ/cPdglhTv6p+/8dd7g5O8hCgQBMJTZJJ
- KbFZWg/ZNz1Q==
-X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="480156559"
-Received: from sleader-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.54.200])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 02:41:27 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Kulkarni\, Vandita" <vandita.kulkarni@intel.com>, "Saarinen\,
- Jani" <jani.saarinen@intel.com>,
- "intel-gfx\@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-In-Reply-To: <1e70025aa4e04a5396721ad4e7609340@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210603065356.15435-1-vandita.kulkarni@intel.com>
- <eedaa66fa17944aeb96aa353c58db2e9@intel.com>
- <1e70025aa4e04a5396721ad4e7609340@intel.com>
-Date: Thu, 03 Jun 2021 12:41:23 +0300
-Message-ID: <87czt3p9oc.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A2D36E0EB;
+	Thu,  3 Jun 2021 09:45:06 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDE56E0EB;
+ Thu,  3 Jun 2021 09:45:05 +0000 (UTC)
+IronPort-SDR: kVub9A2X9AdEVQ6MKkyczbuL+KzRx0Ha70cqsiVTjApIAZbT+2+SQ0byP8RrURAm0Ed1BX1KOC
+ ITy/OsIuc45g==
+X-IronPort-AV: E=McAfee;i="6200,9189,10003"; a="183688912"
+X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="183688912"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2021 02:45:00 -0700
+IronPort-SDR: +MLnEqQ22aneiTIVDwrWYYE9rRGCn6xWyzCf/fHC7/iDWyK2xNeG8CELTZJsn3Ve3SUZdn5bD+
+ lsN9WK6yBm+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,244,1616482800"; d="scan'208";a="447790162"
+Received: from irvmail001.ir.intel.com ([10.43.11.63])
+ by fmsmga008.fm.intel.com with ESMTP; 03 Jun 2021 02:44:57 -0700
+Received: from [10.249.138.11] (mwajdecz-MOBL.ger.corp.intel.com
+ [10.249.138.11])
+ by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
+ 1539ivWw004939; Thu, 3 Jun 2021 10:44:57 +0100
+To: Matthew Brost <matthew.brost@intel.com>, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+References: <20210603051630.2635-1-matthew.brost@intel.com>
+ <20210603051630.2635-16-matthew.brost@intel.com>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Message-ID: <454067aa-cb2b-541d-21a7-84706a2d93a6@intel.com>
+Date: Thu, 3 Jun 2021 11:44:57 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/dsc: Remove redundant checks in
- DSC disable
+In-Reply-To: <20210603051630.2635-16-matthew.brost@intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 15/20] drm/i915/guc: Ensure H2G buffer
+ updates visible before tail update
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,56 +66,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: daniel.vetter@intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCAwMyBKdW4gMjAyMSwgIkt1bGthcm5pLCBWYW5kaXRhIiA8dmFuZGl0YS5rdWxrYXJu
-aUBpbnRlbC5jb20+IHdyb3RlOgo+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+PiBGcm9t
-OiBTYWFyaW5lbiwgSmFuaSA8amFuaS5zYWFyaW5lbkBpbnRlbC5jb20+Cj4+IFNlbnQ6IFRodXJz
-ZGF5LCBKdW5lIDMsIDIwMjEgMTowNyBQTQo+PiBUbzogS3Vsa2FybmksIFZhbmRpdGEgPHZhbmRp
-dGEua3Vsa2FybmlAaW50ZWwuY29tPjsgaW50ZWwtCj4+IGdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPj4gQ2M6IE5pa3VsYSwgSmFuaSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPgo+PiBTdWJqZWN0
-OiBSRTogW0ludGVsLWdmeF0gW1BBVENIXSBkcm0vaTkxNS9kc2M6IFJlbW92ZSByZWR1bmRhbnQg
-Y2hlY2tzIGluCj4+IERTQyBkaXNhYmxlCj4+IAo+PiBIaSwKPj4gPiAtLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQo+PiA+IEZyb206IEludGVsLWdmeCA8aW50ZWwtZ2Z4LWJvdW5jZXNAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YKPj4gPiBWYW5kaXRhIEt1bGthcm5pCj4+ID4g
-U2VudDogdG9yc3RhaSAzLiBrZXPDpGt1dXRhIDIwMjEgOS41NAo+PiA+IFRvOiBpbnRlbC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+ID4gQ2M6IE5pa3VsYSwgSmFuaSA8amFuaS5uaWt1bGFA
-aW50ZWwuY29tPgo+PiA+IFN1YmplY3Q6IFtJbnRlbC1nZnhdIFtQQVRDSF0gZHJtL2k5MTUvZHNj
-OiBSZW1vdmUgcmVkdW5kYW50IGNoZWNrcyBpbgo+PiA+IERTQyBkaXNhYmxlCj4+ID4KPj4gPiBU
-aGVyZSBjYW4gYmUgYSBjaGFuY2UgdGhhdCBwcmUgb3MgaGFzIGVuYWJsZWQgRFNDIGFuZCBkcml2
-ZXIncyBjb21wdXRlCj4+ID4gY29uZmlnIHdvdWxkIG5vdCBuZWVkIGRzYyB0byBiZSBlbmFibGVk
-LCBpbiBzdWNoIGNhc2UgaWYgd2UgY2hlY2sgb24KPj4gPiBjb21wdXRlIGNvbmZpZydzIGNvbXBy
-ZXNzaW9uIHN0YXRlIHRvIGRpc2FibGUsIHdlIG1pZ2h0IGVuZCB1cCBpbiBzdGF0ZQo+PiBtaXNt
-YXRjaC4KPj4gCj4+IEkgYXNzdW1lIHRoaXMgZml4ZXMgcmVhbCBnaXRsYWIgaXNzdWUgdG9vPwo+
-IE9rYXksIHdpbGwgYWRkIHRoZSB0YWcgCj4gQ2xvc2VzOiBodHRwczovL2dpdGxhYi5mcmVlZGVz
-a3RvcC5vcmcvZHJtL2ludGVsLy0vaXNzdWVzLzM1MzcKClNlZSBodHRwczovL2xvcmUua2VybmVs
-Lm9yZy9yLzg3ZnN4enA5cXguZnNmQGludGVsLmNvbQoKVGhlIHByb2JsZW0gaXMgd2l0aCAtPmJp
-Z2pvaW5lciwgbm90IHRoZSBlbnRpcmUgc3RhdGVtZW50LgoKCkJSLApKYW5pLgoKPgo+IFRoYW5r
-cywKPiBWYW5kaXRhCj4+IAo+PiA+Cj4+ID4gU2lnbmVkLW9mZi1ieTogVmFuZGl0YSBLdWxrYXJu
-aSA8dmFuZGl0YS5rdWxrYXJuaUBpbnRlbC5jb20+Cj4+ID4gLS0tCj4+ID4gIGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdmRzYy5jIHwgNCAtLS0tCj4+ID4gIDEgZmlsZSBjaGFu
-Z2VkLCA0IGRlbGV0aW9ucygtKQo+PiA+Cj4+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfdmRzYy5jCj4+ID4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
-aXNwbGF5L2ludGVsX3Zkc2MuYwo+PiA+IGluZGV4IDE5Y2Q5NTMxYzExNS4uYjA1YTk2MDExZDkz
-IDEwMDY0NAo+PiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdmRz
-Yy5jCj4+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF92ZHNjLmMK
-Pj4gPiBAQCAtMTE2MSwxMCArMTE2MSw2IEBAIHZvaWQgaW50ZWxfZHNjX2Rpc2FibGUoY29uc3Qg
-c3RydWN0Cj4+ID4gaW50ZWxfY3J0Y19zdGF0ZQo+PiA+ICpvbGRfY3J0Y19zdGF0ZSkKPj4gPiAg
-CXN0cnVjdCBpbnRlbF9jcnRjICpjcnRjID0gdG9faW50ZWxfY3J0YyhvbGRfY3J0Y19zdGF0ZS0+
-dWFwaS5jcnRjKTsKPj4gPiAgCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiA9IHRv
-X2k5MTUoY3J0Yy0+YmFzZS5kZXYpOwo+PiA+Cj4+ID4gLQlpZiAoIShvbGRfY3J0Y19zdGF0ZS0+
-ZHNjLmNvbXByZXNzaW9uX2VuYWJsZSAmJgo+PiA+IC0JICAgICAgb2xkX2NydGNfc3RhdGUtPmJp
-Z2pvaW5lcikpCj4+ID4gLQkJcmV0dXJuOwo+PiA+IC0KPj4gPiAgCWludGVsX2RlX3dyaXRlKGRl
-dl9wcml2LCBkc3NfY3RsMV9yZWcob2xkX2NydGNfc3RhdGUpLCAwKTsKPj4gPiAgCWludGVsX2Rl
-X3dyaXRlKGRldl9wcml2LCBkc3NfY3RsMl9yZWcob2xkX2NydGNfc3RhdGUpLCAwKTsgIH0KPj4g
-PiAtLQo+PiA+IDIuMjEuMC41LmdhZWI1ODJhCj4+ID4KPj4gPiBfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiA+IEludGVsLWdmeCBtYWlsaW5nIGxpc3QK
-Pj4gPiBJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+ID4gaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngKCi0tIApKYW5pIE5pa3Vs
-YSwgSW50ZWwgT3BlbiBTb3VyY2UgR3JhcGhpY3MgQ2VudGVyCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+
+
+On 03.06.2021 07:16, Matthew Brost wrote:
+> Ensure H2G buffer updates are visible before descriptor tail updates by
+> inserting a barrier between the H2G buffer update and the tail. The
+> barrier is simple wmb() for SMEM and is register write for LMEM. This is
+> needed if more than 1 H2G can be inflight at once.
+> 
+> If this barrier is not inserted it is possible the descriptor tail
+> update is scene by the GuC before H2G buffer update which results in the
+> GuC reading a corrupt H2G value. This can bring down the H2G channel
+> among other bad things.
+> 
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+> Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 28 +++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> index 80976fe40fbf..31f83956bfc3 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> @@ -328,6 +328,28 @@ static u32 ct_get_next_fence(struct intel_guc_ct *ct)
+>  	return ++ct->requests.last_fence;
+>  }
+>  
+> +static void write_barrier(struct intel_guc_ct *ct)
+> +{
+> +	struct intel_guc *guc = ct_to_guc(ct);
+> +	struct intel_gt *gt = guc_to_gt(guc);
+> +
+> +	if (i915_gem_object_is_lmem(guc->ct.vma->obj)) {
+> +		GEM_BUG_ON(guc->send_regs.fw_domains);
+> +		/*
+> +		 * This register is used by the i915 and GuC for MMIO based
+> +		 * communication. Once we are in this code CTBs are the only
+> +		 * method the i915 uses to communicate with the GuC so it is
+> +		 * safe to write to this register (a value of 0 is NOP for MMIO
+> +		 * communication). If we ever start mixing CTBs and MMIOs a new
+> +		 * register will have to be chosen.
+> +		 */
+> +		intel_uncore_write_fw(gt->uncore, GEN11_SOFT_SCRATCH(0), 0);
+
+can't we at least start with SOFT_SCRATCH register that is not used for
+GuC MMIO based communication on Gen12 LMEM platforms? see [1]
+
+I really don't feel comfortable that we are touching a register that
+elsewhere is protected with the mutex. And mixing CTBs and MMIO is not
+far away.
+
+Michal
+
+[1]
+https://lore.kernel.org/intel-gfx/51b9bd05-7d6f-29f1-de0f-3a14bade6c9c@intel.com/
+
+> +	} else {
+> +		/* wmb() sufficient for a barrier if in smem */
+> +		wmb();
+> +	}
+> +}
+> +
+>  /**
+>   * DOC: CTB Host to GuC request
+>   *
+> @@ -411,6 +433,12 @@ static int ct_write(struct intel_guc_ct *ct,
+>  	}
+>  	GEM_BUG_ON(tail > size);
+>  
+> +	/*
+> +	 * make sure H2G buffer update and LRC tail update (if this triggering a
+> +	 * submission) are visible before updating the descriptor tail
+> +	 */
+> +	write_barrier(ct);
+> +
+>  	/* now update desc tail (back in bytes) */
+>  	desc->tail = tail * 4;
+>  	return 0;
+> 
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
