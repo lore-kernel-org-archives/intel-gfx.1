@@ -2,49 +2,67 @@ Return-Path: <SRS0=IdPq=K5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F472C47096
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 15:04:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F223C47096
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 15:20:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7A946023D
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 15:04:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7A946023D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B48C361208
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 15:20:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B48C361208
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D1E6F4AA;
-	Thu,  3 Jun 2021 15:04:58 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E50F6F495;
- Thu,  3 Jun 2021 15:04:57 +0000 (UTC)
-IronPort-SDR: +5ey6h70h/LmAw8cufAnxktT5KsOSP0bT4bAomOhQFK7fScYOgQu7MXmAqEISazbnXSUlTIrYT
- WErWwigJ2Gww==
-X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="202206301"
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="202206301"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 08:04:55 -0700
-IronPort-SDR: iCTG6/1J/mH1/TYxwPuRds/7KFZ1xYZHG4iC1FeAAuIbsxTOrre2C6rETfv+Im+k/7X7ZdwE0J
- IRp+dt+J4erA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="417408677"
-Received: from vsrini4-xps-8920.iind.intel.com (HELO localhost.localdomain)
- ([10.223.163.28])
- by orsmga002.jf.intel.com with ESMTP; 03 Jun 2021 08:04:52 -0700
-From: Vidya Srinivas <vidya.srinivas@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	igt-dev@lists.freedesktop.org
-Date: Thu,  3 Jun 2021 20:25:41 +0530
-Message-Id: <1622732141-13561-1-git-send-email-vidya.srinivas@intel.com>
-X-Mailer: git-send-email 2.7.4
-Subject: [Intel-gfx] [PATCH i-g-t] tests/kms_color: Remove gamma code from
- degamma tests
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F4FF6E0D5;
+	Thu,  3 Jun 2021 15:20:54 +0000 (UTC)
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5586E0EC
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 15:20:52 +0000 (UTC)
+Received: by mail-yb1-xb36.google.com with SMTP id x6so9309260ybl.9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 03 Jun 2021 08:20:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=+ayR+oC2ZCFKyXSE4/7tCBP1MfALSswdduEpz8GZerc=;
+ b=NElpKBptFZbTDMXan23Mnqj0BrbJdvPhV8W+DQXUML46ULiH1SstwZbM1mimNlFfgw
+ Pvr6NaGNgze5HdZIRCkUei5uHloYe+Cwmj33zMfJfOcQMvpJAuDnl7tJPTjCag2G2olS
+ GdE/IBmnjMURsSLZdX031SJmEzJ8OB1oXrxVEt3aybm0MEdEpsBdGaonO7WGOK5e89bR
+ mYMShUCAQ6lth31cXqBH5sSEGLfGcmbn15kwVd0Rm9sSCwC4QrtdMV8AWvENcEINiFpc
+ XmgY8enECpHT8+bcrpeh2QeklKHCp5QGA+ja2xIRJrD3uUJE/OR6T5BuYBoZJnyn0mI7
+ NFgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=+ayR+oC2ZCFKyXSE4/7tCBP1MfALSswdduEpz8GZerc=;
+ b=QwbCGmfElh9jIZ3VYoGCEHXwmR6yMop5IbS9iv7egY6yI8qYRMlIbRzVfzF2PV99Dn
+ 1MC92SQA5DBSrVrq4Hx8WhzxT1K6QEVSmqkVbaAqOn706l7KhtsFLlXkvcTavLjbgFoU
+ 0ZKks+8Jxlzk8LDpRv9uadzg7Dl9UBYV3YTzuqRPuF5gyxYG85dR9NxQwpv5HFuEOitA
+ BvfTyCwlEgjbiSFqM0uawCkKogVoGBs7Vh896t7PXpyV+o21qT1CwlH5hPAAQPhC3Acb
+ BxuTzo5U8C7TQleEFdimvHwKSfeTO0BqDseQx0pnCK86sFhpt5IGVrwnXIgkYcPRHces
+ A1Rg==
+X-Gm-Message-State: AOAM532EEgZIo1VT/9LbHMk44C9VpN3App0R+esPmibg8VxfuakrbO+U
+ +Zoy/ud00zQ9wlNwjSRWLREqBsh5m/Sr3tbhrYFYEQ==
+X-Google-Smtp-Source: ABdhPJz1uxXV2HvKlEryO48j6H9WVHqK2SCo6XIyvkynEWGc3K+9WFLqTJMcFkrA2sDOASxkCOMj6WE9Tu0Dox76OyY=
+X-Received: by 2002:a25:cd85:: with SMTP id d127mr687297ybf.432.1622733651962; 
+ Thu, 03 Jun 2021 08:20:51 -0700 (PDT)
+MIME-Version: 1.0
+References: <20210602164149.391653-1-jason@jlekstrand.net>
+ <20210602164149.391653-2-jason@jlekstrand.net>
+ <YLiRYMZQjTwLzkbM@phenom.ffwll.local>
+In-Reply-To: <YLiRYMZQjTwLzkbM@phenom.ffwll.local>
+From: Jason Ekstrand <jason@jlekstrand.net>
+Date: Thu, 3 Jun 2021 10:20:40 -0500
+Message-ID: <CAOFGe94CzTkL9mfBfCjL339+T30mNVFtufzS5gzv1NHXvfOCiA@mail.gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [Intel-gfx] [PATCH 1/5] drm/i915: Revert "drm/i915/gem:
+ Asynchronous cmdparser"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,96 +75,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, charlton.lin@intel.com
-MIME-Version: 1.0
+Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CRC should be collected without degamma transformation
-and after drawing gradient with degamma LUT.
-This patch removes things which are not related to degamma
-and makes it similar to pipe gamma test.
+On Thu, Jun 3, 2021 at 3:22 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Wed, Jun 02, 2021 at 11:41:45AM -0500, Jason Ekstrand wrote:
+> > This reverts 686c7c35abc2 ("drm/i915/gem: Asynchronous cmdparser").  The
+> > justification for this commit in the git history was a vague comment
+> > about getting it out from under the struct_mutex.  While this may
+> > improve perf for some workloads on Gen7 platforms where we rely on the
+> > command parser for features such as indirect rendering, no numbers were
+> > provided to prove such an improvement.  It claims to closed two
+> > gitlab/bugzilla issues but with no explanation whatsoever as to why or
+> > what bug it's fixing.
+> >
+> > Meanwhile, by moving command parsing off to an async callback, it leaves
+> > us with a problem of what to do on error.  When things were synchronous,
+> > EXECBUFFER2 would fail with an error code if parsing failed.  When
+> > moving it to async, we needed another way to handle that error and the
+> > solution employed was to set an error on the dma_fence and then trust
+> > that said error gets propagated to the client eventually.  Moving back
+> > to synchronous will help us untangle the fence error propagation mess.
+> >
+> > This also reverts most of 0edbb9ba1bfe ("drm/i915: Move cmd parser
+> > pinning to execbuffer") which is a refactor of some of our allocation
+> > paths for asynchronous parsing.  Now that everything is synchronous, we
+> > don't need it.
+> >
+> > Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Reviewed-by: Jon Bloomfield <jon.bloomfield@intel.com>
+>
+> This needs the same Cc: stable and Fixes: lines as the dma_fence error
+> propagation revert. Otherwise the cmd parser breaks, which isn't great.
 
-Change-Id: I37f957b3a95dfe95119f0f0941f20c10471f437c
-Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
----
- tests/kms_color.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
-
-diff --git a/tests/kms_color.c b/tests/kms_color.c
-index 3a42532a5c27..2c9821cdecce 100644
---- a/tests/kms_color.c
-+++ b/tests/kms_color.c
-@@ -31,8 +31,7 @@ static void test_pipe_degamma(data_t *data,
- {
- 	igt_output_t *output;
- 	igt_display_t *display = &data->display;
--	gamma_lut_t *degamma_linear, *degamma_full;
--	gamma_lut_t *gamma_linear;
-+	gamma_lut_t *degamma_full;
- 	color_t red_green_blue[] = {
- 		{ 1.0, 0.0, 0.0 },
- 		{ 0.0, 1.0, 0.0 },
-@@ -42,11 +41,8 @@ static void test_pipe_degamma(data_t *data,
- 	igt_require(igt_pipe_obj_has_prop(primary->pipe, IGT_CRTC_DEGAMMA_LUT));
- 	igt_require(igt_pipe_obj_has_prop(primary->pipe, IGT_CRTC_GAMMA_LUT));
- 
--	degamma_linear = generate_table(data->degamma_lut_size, 1.0);
- 	degamma_full = generate_table_max(data->degamma_lut_size);
- 
--	gamma_linear = generate_table(data->gamma_lut_size, 1.0);
--
- 	for_each_valid_output_on_pipe(&data->display, primary->pipe->pipe, output) {
- 		drmModeModeInfo *mode;
- 		struct igt_fb fb_modeset, fb;
-@@ -75,8 +71,7 @@ static void test_pipe_degamma(data_t *data,
- 
- 		igt_plane_set_fb(primary, &fb_modeset);
- 		disable_ctm(primary->pipe);
--		disable_degamma(primary->pipe);
--		set_gamma(data, primary->pipe, gamma_linear);
-+		set_degamma(data, primary->pipe, degamma_full);
- 		igt_display_commit(&data->display);
- 
- 		/* Draw solid colors with no degamma transformation. */
-@@ -92,7 +87,6 @@ static void test_pipe_degamma(data_t *data,
- 		 */
- 		paint_gradient_rectangles(data, mode, red_green_blue, &fb);
- 		igt_plane_set_fb(primary, &fb);
--		set_degamma(data, primary->pipe, degamma_full);
- 		igt_display_commit(&data->display);
- 		igt_wait_for_vblank(data->drm_fd,
- 				display->pipes[primary->pipe->pipe].crtc_offset);
-@@ -105,13 +99,13 @@ static void test_pipe_degamma(data_t *data,
- 
- 		igt_plane_set_fb(primary, NULL);
- 		igt_output_set_pipe(output, PIPE_NONE);
-+		igt_display_commit2(&data->display, data->display.is_atomic ?
-+							COMMIT_ATOMIC : COMMIT_LEGACY);
- 		igt_remove_fb(data->drm_fd, &fb);
- 		igt_remove_fb(data->drm_fd, &fb_modeset);
- 	}
- 
--	free_lut(degamma_linear);
- 	free_lut(degamma_full);
--	free_lut(gamma_linear);
- }
- 
- /*
-@@ -191,6 +185,8 @@ static void test_pipe_gamma(data_t *data,
- 
- 		igt_plane_set_fb(primary, NULL);
- 		igt_output_set_pipe(output, PIPE_NONE);
-+		igt_display_commit2(&data->display, data->display.is_atomic ?
-+							COMMIT_ATOMIC : COMMIT_LEGACY);
- 		igt_remove_fb(data->drm_fd, &fb);
- 		igt_remove_fb(data->drm_fd, &fb_modeset);
- 	}
--- 
-2.7.4
-
+Done.  I may have to create multiple versions of this patch for Greg
+but I can do that.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
