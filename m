@@ -2,53 +2,50 @@ Return-Path: <SRS0=IdPq=K5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E4DCC47082
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 22:28:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4A36C47096
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 22:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC88761402
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 22:28:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC88761402
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8904C61404
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 22:46:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8904C61404
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6095F6F539;
-	Thu,  3 Jun 2021 22:28:02 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 247EC6F539
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 22:28:01 +0000 (UTC)
-IronPort-SDR: ZwZ2Gx+Fe99Qmg+ZNwDQ1MeiXjN13bmS5R1y9mNDZ+9jz3uQ+ealHihehl60cnwdrQnDJvohG4
- DXHu8ot/O6dQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="265334683"
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="265334683"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 15:27:59 -0700
-IronPort-SDR: g4mEwTJchozxTK3BufONWwZxHasiZDS7zRNzMLjOu3DAVN3uLM4RC8gUlB+W98pXsxe6+zEHbq
- ADrJWsToAA5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="480401132"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga001.jf.intel.com with SMTP; 03 Jun 2021 15:27:57 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 04 Jun 2021 01:27:56 +0300
-Date: Fri, 4 Jun 2021 01:27:56 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Manasi Navare <manasi.d.navare@intel.com>
-Message-ID: <YLlXbF2RYvoxclIO@intel.com>
-References: <20210603215338.13804-1-manasi.d.navare@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ECDC6E110;
+	Thu,  3 Jun 2021 22:46:21 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88AEB6E106;
+ Thu,  3 Jun 2021 22:46:20 +0000 (UTC)
+IronPort-SDR: 1CX1zpR+VDgbQeffP0Tyq0/qYC8ZRdOe7WY0eWCqrb7bvig+ZyVTJT5LjnfBcgBgX6nyOpIg62
+ HqBjkQxZNO0A==
+X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="191280004"
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="191280004"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2021 15:46:17 -0700
+IronPort-SDR: zeBUY6PSvjRfLIkS1piibYsMQJGbrovJxs5LH+PjaQFwxQY9OYEqIvLxnPsfBGJUvE6NpWvcr5
+ hWQXD7cupxMQ==
+X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="468130291"
+Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2021 15:46:16 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <daniel.vetter@intel.com>
+Date: Thu,  3 Jun 2021 16:04:08 -0700
+Message-Id: <20210603230408.54856-2-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20210603230408.54856-1-matthew.brost@intel.com>
+References: <YLlLlTdvaTGrNmzV@phenom.ffwll.local>
+ <20210603230408.54856-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210603215338.13804-1-manasi.d.navare@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Initialize the mbus_offset to fix
- Klockwork issue
+Subject: [Intel-gfx] [v3 PATCH 2/2] drm/i915/guc: Update sizes of CTB buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +58,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 03, 2021 at 02:53:38PM -0700, Manasi Navare wrote:
-> Static analysis identified an issue in skl_crtc_allocate_ddb where
-> mbus_offset may be used uninitialized.
-> This patch fixes it.
-> =
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-> Fixes: 835c176cb1c4 ("drm/i915: Introduce MBUS relative dbuf offsets")
-> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+Future GuC will require CTB buffers sizes to be multiple of 4K.
+Make these changes now as this shouldn't impact us too much.
 
-Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: John Harrison <john.c.harrison@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 60 ++++++++++++-----------
+ 1 file changed, 32 insertions(+), 28 deletions(-)
 
-> ---
->  drivers/gpu/drm/i915/intel_pm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> =
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index ec795d7c3a7d..8d1173032431 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -38,6 +38,32 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
+ #define CT_PROBE_ERROR(_ct, _fmt, ...) \
+ 	i915_probe_error(ct_to_i915(ct), "CT: " _fmt, ##__VA_ARGS__)
+ 
++/**
++ * DOC: CTB Blob
++ *
++ * We allocate single blob to hold both CTB descriptors and buffers:
++ *
++ *      +--------+-----------------------------------------------+------+
++ *      | offset | contents                                      | size |
++ *      +========+===============================================+======+
++ *      | 0x0000 | H2G `CTB Descriptor`_ (send)                  |      |
++ *      +--------+-----------------------------------------------+  4K  |
++ *      | 0x0800 | G2H `CTB Descriptor`_ (recv)                  |      |
++ *      +--------+-----------------------------------------------+------+
++ *      | 0x1000 | H2G `CT Buffer`_ (send)                       | n*4K |
++ *      |        |                                               |      |
++ *      +--------+-----------------------------------------------+------+
++ *      | 0x1000 | G2H `CT Buffer`_ (recv)                       | m*4K |
++ *      | + n*4K |                                               |      |
++ *      +--------+-----------------------------------------------+------+
++ *
++ * Size of each `CT Buffer`_ must be multiple of 4K.
++ * As we don't expect too many messages, for now use minimum sizes.
++ */
++#define CTB_DESC_SIZE		ALIGN(sizeof(struct guc_ct_buffer_desc), SZ_2K)
++#define CTB_H2G_BUFFER_SIZE	(SZ_4K)
++#define CTB_G2H_BUFFER_SIZE	(SZ_4K)
++
+ struct ct_request {
+ 	struct list_head link;
+ 	u32 fence;
+@@ -175,29 +201,7 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+ 
+ 	GEM_BUG_ON(ct->vma);
+ 
+-	/* We allocate 1 page to hold both descriptors and both buffers.
+-	 *       ___________.....................
+-	 *      |desc (SEND)|                   :
+-	 *      |___________|                   PAGE/4
+-	 *      :___________....................:
+-	 *      |desc (RECV)|                   :
+-	 *      |___________|                   PAGE/4
+-	 *      :_______________________________:
+-	 *      |cmds (SEND)                    |
+-	 *      |                               PAGE/4
+-	 *      |_______________________________|
+-	 *      |cmds (RECV)                    |
+-	 *      |                               PAGE/4
+-	 *      |_______________________________|
+-	 *
+-	 * Each message can use a maximum of 32 dwords and we don't expect to
+-	 * have more than 1 in flight at any time, so we have enough space.
+-	 * Some logic further ahead will rely on the fact that there is only 1
+-	 * page and that it is always mapped, so if the size is changed the
+-	 * other code will need updating as well.
+-	 */
+-
+-	blob_size = PAGE_SIZE;
++	blob_size = 2 * CTB_DESC_SIZE + CTB_H2G_BUFFER_SIZE + CTB_G2H_BUFFER_SIZE;
+ 	err = intel_guc_allocate_and_map_vma(guc, blob_size, &ct->vma, &blob);
+ 	if (unlikely(err)) {
+ 		CT_PROBE_ERROR(ct, "Failed to allocate %u for CTB data (%pe)\n",
+@@ -209,17 +213,17 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+ 
+ 	/* store pointers to desc and cmds for send ctb */
+ 	desc = blob;
+-	cmds = blob + PAGE_SIZE / 2;
+-	cmds_size = PAGE_SIZE / 4;
++	cmds = blob + 2 * CTB_DESC_SIZE;
++	cmds_size = CTB_H2G_BUFFER_SIZE;
+ 	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u\n", "send",
+ 		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
+ 
+ 	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size);
+ 
+ 	/* store pointers to desc and cmds for recv ctb */
+-	desc = blob + PAGE_SIZE / 4;
+-	cmds = blob + PAGE_SIZE / 4 + PAGE_SIZE / 2;
+-	cmds_size = PAGE_SIZE / 4;
++	desc = blob + CTB_DESC_SIZE;
++	cmds = blob + 2 * CTB_DESC_SIZE + CTB_H2G_BUFFER_SIZE;
++	cmds_size = CTB_G2H_BUFFER_SIZE;
+ 	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u\n", "recv",
+ 		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
+ 
+-- 
+2.28.0
 
-> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel=
-_pm.c
-> index 00f3dead20ad..a385b8b7414f 100644
-> --- a/drivers/gpu/drm/i915/intel_pm.c
-> +++ b/drivers/gpu/drm/i915/intel_pm.c
-> @@ -4163,7 +4163,7 @@ skl_crtc_allocate_ddb(struct intel_atomic_state *st=
-ate, struct intel_crtc *crtc)
->  	struct intel_crtc_state *crtc_state;
->  	struct skl_ddb_entry ddb_slices;
->  	enum pipe pipe =3D crtc->pipe;
-> -	unsigned int mbus_offset;
-> +	unsigned int mbus_offset =3D 0;
->  	u32 ddb_range_size;
->  	u32 dbuf_slice_mask;
->  	u32 start, end;
-> -- =
-
-> 2.19.1
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
