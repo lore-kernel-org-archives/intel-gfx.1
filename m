@@ -2,66 +2,67 @@ Return-Path: <SRS0=IdPq=K5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E04AC47096
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 16:41:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E42A7C47097
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 16:41:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED607613EE
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 16:41:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED607613EE
+	by mail.kernel.org (Postfix) with ESMTPS id B26EA613EE
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Jun 2021 16:41:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B26EA613EE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9864A6F4C9;
-	Thu,  3 Jun 2021 16:41:21 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E3BA6F4CE
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 16:41:20 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- n17-20020a7bc5d10000b0290169edfadac9so6299961wmk.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 03 Jun 2021 09:41:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B4AF6F4D1;
+	Thu,  3 Jun 2021 16:41:23 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC946F4D5
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Jun 2021 16:41:22 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id a11so4636824wrt.13
+ for <intel-gfx@lists.freedesktop.org>; Thu, 03 Jun 2021 09:41:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BeI89bNtD5EIyZ9oMFlEV442FRTO0La9ggC5dH+EVBE=;
- b=Cpoy+ms/loMCtJzbBjJVwF5ljtXkoLPaC7j/nMrxXdDTbneqPQ8GbPK2EkiKD8jV8V
- 6W05dEUlVZ+fnNBdXk35bOFiQNY7XhhVNZksjWYAKAaAatG7xHfKoGHhauC3ZIY56VR5
- AYDeTcbqaJPGlNpBwmOx75b+phoYVYwmeDt4o=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=K1coG7h5qOcyX3TFCJmN3+NrXWbu3EM0vaiSUmJb+cQ=;
+ b=iT0TkCUe47sCYoE0R8lPsgerUgl+UUr8wId2z+ti4HG9GCip9541EPKb+DYZXwdg7M
+ yFE4I+jGnVLH28vPT5cSOkRlg2MvionTyBDlfewv2zcX0OJi2/N5/GnUYFq+NnAmbJgG
+ Nicjf8q12LROCfcKQV/JhlyG9ylGEcu+qBZtM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BeI89bNtD5EIyZ9oMFlEV442FRTO0La9ggC5dH+EVBE=;
- b=VFcYqlhXzK2Hay4QSmcEBobUbJ2y/IDNb2EWXtUmeoCn92SYueHlHUUR2E7nmRnX22
- kN2Qo+PHz9j2Xja5Dk0xdl8W9sg99vpTXuAibjnrVVkjPV3UVqwcMdBXX3Vz3wPM6HMb
- sxKyzEDQo2QoFBqpQtvekfXr1yU7q1iF02kzVcO2+EhE6Eyk53n6HfNB1tTx9EtsX2mV
- R83IOeQ+D6RpMOrWoAe+HQ10xWm6wPMhnZMJ7nYvSY/PxlVeP3/FyGssLwJ4NvOEZun3
- OaestrltD0Rvqmt9YeRi3XFDes+oHF8fLZj3osuLrRZg87ckru9rw+YquAitDPw0xnqM
- 92BQ==
-X-Gm-Message-State: AOAM532TlAR0IGI7mZcrKcF/xL1YE5+yJgljPYuiAxrqbomj/qShDJAC
- fzOOBCS7lY1NHbJKhy9+wL+VtFHS5BhFJg==
-X-Google-Smtp-Source: ABdhPJyVvQgTL5xLbyyUBde5dbZLBnYAI2C6e7Nv3zPT+L1qOcQMa9EeI2x4Tt2Wuq3ifNNFiHa/8w==
-X-Received: by 2002:a05:600c:4a09:: with SMTP id
- c9mr10935291wmp.162.1622738478945; 
- Thu, 03 Jun 2021 09:41:18 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=K1coG7h5qOcyX3TFCJmN3+NrXWbu3EM0vaiSUmJb+cQ=;
+ b=gWfuudJd819Gvw+/2RRxyZEJFfhEu8Mk8ih+tPPUquLblFyhjO1nzR8IkoC5dIPqY6
+ kQUWSTMp132eij4Yc7+A3dnZFQX+R3gpIWmv7WprAB8Ow3fEQ6FJ+NmOLdBTrEvnSUJv
+ d4ZmO92WtiC0jllU7/xpTS9sz4k+yyNgQ+S/Ad9GbzE6cEI3ozAwxCt/9JLebcLsgWKU
+ nIeeoJtjIxWT4Ht5s3XjLcr96sRXM047DZPWy6jJtzJba850D99jEz9XrtfMO1o2Hh0W
+ mzHBFyQ/8bGbDL3nebjmwANyge8OdUQOuN0RX3ewxvFb6Slfdi+b3n4kMXetaoy9hQXm
+ EM8A==
+X-Gm-Message-State: AOAM531kIepB7WGrUJ+e0dd8GurC5rSTATugxg8luNy8EANKa0Q3D9Ds
+ Hv+jD09Hbz3o9cva2WnCog6FyV3FDVfT0w==
+X-Google-Smtp-Source: ABdhPJyccpt0vxIl1cj19XwIonfd0dSd4WRLufAv3yBr1mSisrtAHv/xNrVbvdPNmZp6sIgOiarvIg==
+X-Received: by 2002:a5d:6187:: with SMTP id j7mr801909wru.107.1622738480977;
+ Thu, 03 Jun 2021 09:41:20 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s28sm4992683wra.54.2021.06.03.09.41.18
+ by smtp.gmail.com with ESMTPSA id s28sm4992683wra.54.2021.06.03.09.41.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Jun 2021 09:41:18 -0700 (PDT)
+ Thu, 03 Jun 2021 09:41:20 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Date: Thu,  3 Jun 2021 18:41:09 +0200
-Message-Id: <20210603164113.1433476-1-daniel.vetter@ffwll.ch>
+Date: Thu,  3 Jun 2021 18:41:11 +0200
+Message-Id: <20210603164113.1433476-3-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210603164113.1433476-1-daniel.vetter@ffwll.ch>
+References: <20210603164113.1433476-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 0/4] shmem helpers for vgem
+Subject: [Intel-gfx] [PATCH v3 2/4] drm/shmem-helper: Switch to
+ vmf_insert_pfn
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,38 +75,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+We want to stop gup, which isn't the case if we use vmf_insert_page
+and VM_MIXEDMAP, because that does not set pte_special.
 
-Another small iteration, lost another patch, so another full resend.
+v2: With this shmem gem helpers now definitely need CONFIG_MMU (0day)
 
-Thomas Zimmermann pointed out how to get at drm_gem_shmem_funcs without
-getting at drm_gem_shmem_funcs directly.
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+---
+ drivers/gpu/drm/Kconfig                | 2 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Test-with: 20210527140732.5762-1-daniel.vetter@ffwll.ch
-
-Cheers, Daniel
-
-
-
-Daniel Vetter (4):
-  dma-buf: Require VM_PFNMAP vma for mmap
-  drm/shmem-helper: Switch to vmf_insert_pfn
-  drm/shmem-helper: Align to page size in dumb_create
-  drm/vgem: use shmem helpers
-
- drivers/dma-buf/dma-buf.c              |  15 +-
- drivers/gpu/drm/Kconfig                |   3 +-
- drivers/gpu/drm/drm_gem_shmem_helper.c |   8 +-
- drivers/gpu/drm/vgem/vgem_drv.c        | 342 +------------------------
- 4 files changed, 32 insertions(+), 336 deletions(-)
-
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 56a55a6e6239..9c21527b791f 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -206,7 +206,7 @@ config DRM_KMS_CMA_HELPER
+ 
+ config DRM_GEM_SHMEM_HELPER
+ 	bool
+-	depends on DRM
++	depends on DRM && MMU
+ 	help
+ 	  Choose this if you need the GEM shmem helper functions
+ 
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 6d625cee7a6a..11edd54f0580 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -542,7 +542,7 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
+ 	} else {
+ 		page = shmem->pages[page_offset];
+ 
+-		ret = vmf_insert_page(vma, vmf->address, page);
++		ret = vmf_insert_pfn(vma, vmf->address, page_to_pfn(page));
+ 	}
+ 
+ 	mutex_unlock(&shmem->pages_lock);
+@@ -612,7 +612,7 @@ int drm_gem_shmem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
+ 		return ret;
+ 	}
+ 
+-	vma->vm_flags |= VM_MIXEDMAP | VM_DONTEXPAND;
++	vma->vm_flags |= VM_PFNMAP | VM_DONTEXPAND;
+ 	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+ 	if (shmem->map_wc)
+ 		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
 -- 
 2.31.0
 
