@@ -2,86 +2,57 @@ Return-Path: <SRS0=TObv=K6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8C56C4743D
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 16:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6A07C4743C
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:13:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C65A613E3
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 16:57:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C65A613E3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=chasen.name
+	by mail.kernel.org (Postfix) with ESMTPS id 744DB613F9
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 17:13:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 744DB613F9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3254E6F628;
-	Fri,  4 Jun 2021 16:57:50 +0000 (UTC)
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64FD76F62C
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 16:57:49 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 329CB16C1;
- Fri,  4 Jun 2021 12:57:47 -0400 (EDT)
-Received: from imap22 ([10.202.2.72])
- by compute1.internal (MEProxy); Fri, 04 Jun 2021 12:57:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chasen.name; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type:content-transfer-encoding; s=fm2; bh=zOFZj
- /bj/Kiw1bpvtDuFgr5dY0VCmCDROfuHL9Mc6Uo=; b=X/McmW2Bfv9gYi8WyLOVn
- 9d1ggTBWXdWjH9eRvMyY2VBwfyVRFzPN6V4KoAMlg9nAMTs36+7wzI3rY0GAAL1s
- lbbONX+XxRccVjjdzJIcw9VHRhZyVrG683oBxRsPV8BbA0n4af5VlXdv/YnCfN+V
- 7cneUqiL+kj2aYshcOTbIRPVgUEqHdjT/wezZsmwOnlBr/YTTUBLBo8e91KkSKhQ
- lH8ngSc9XhemfXa7rxNE0PfSSlMXT1oJ0EP7y9PUxTg2UhC/dRnc3sxU6T8V7LWf
- CIexdH8AQCqDtedDE4ezhGItWQNmDa3eoo0M+wrKrNy9Eu7oAo6CCKMS7M0hqpMV
- A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=zOFZj/bj/Kiw1bpvtDuFgr5dY0VCmCDROfuHL9Mc6
- Uo=; b=WR43XjMnj19fhf6hFKlyq1aWOHE4efzOgEYLjZyLFL1mwj7N0rFm5zwkc
- 7eUMmCTWCwNAsJv/EsAHrI/qQMKiE/RODrWpI16Q7BFQMKh/kYso4De3kkH9bQrE
- SGJZMwxcVKCqXQDDsXIKCu8YnYcIu27Ez0403abhCMH6DeZiM3NI4KNf9wb2S1qt
- Jd2Vr7QyckIDKM8r9L2DszcoFVr4/B/wmlrYRQHvoV69HTY6o04t4BRumLmhor3n
- DopNBb6YVhUGsCzYfWPPcLTsmTSQvwuFWyeWJnSIE+LmOTCrsjgIMy3ryogqd2aV
- jCZviYoc+WwCibUktKUf9r73bbOpg==
-X-ME-Sender: <xms:iVu6YJ-0ip-VZzqZorkCozz-NXi9xFb567MwCmaKLEpTSs6gBHKLrQ>
- <xme:iVu6YNvd3zjfvNVwCleIqYAcij26wya8f68TFR0X3RtcdNoWX8VB3IHIilvc-PZHB
- lvzp2foVXhK4d7-vxM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtuddguddtjecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefofgggkfgjfhffhffvufgtgfesthhqredtreerjeenucfhrhhomhepfdet
- uggrmhcuvehhrghsvghnfdcuoegruggrmhestghhrghsvghnrdhnrghmvgeqnecuggftrf
- grthhtvghrnhepgfdtfefhjeefudelteeivefgtdekgfettdegudefkedufeekveehteeh
- lefhteeunecuffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgpdhgihhthhhusg
- drtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
- pegruggrmhestghhrghsvghnrdhnrghmvg
-X-ME-Proxy: <xmx:ilu6YHCQ6L_rl4f--hPfdHAEiU7Z7zgxPW5kGsFAYE3yZRsmeT5GaA>
- <xmx:ilu6YNeL7TNNfccBJXipRWeeo2tKvA31-Zill7IpLF2-aV5n5epuDg>
- <xmx:ilu6YON4PyB33_vldeOlEJaKh7uIScXPo1RreUpD31ndI993tC7cFQ>
- <xmx:ilu6YLryZy1a8E3imGBiweIaljNoJctOfBbWRaVo5BBRb7-Uzg7t9g>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id D133762C0064; Fri,  4 Jun 2021 12:57:45 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-519-g27a961944e-fm-20210531.001-g27a96194
-Mime-Version: 1.0
-Message-Id: <8697eab6-ed7c-45b3-8055-53beff47f844@beta.fastmail.com>
-In-Reply-To: <a3768e4a-976b-49f1-b47b-c088ea232d33@www.fastmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2244D6F61E;
+	Fri,  4 Jun 2021 17:13:37 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D3206E255
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 17:13:34 +0000 (UTC)
+IronPort-SDR: o7QMArgBk2XTh2k6LUp3J8MQ3xdh4HfuPRHiPj8xZ3LOXMrhF5X1FHZEYgMAbAZ5wMGAyK6TP2
+ biroIX9nNlBg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10005"; a="184703650"
+X-IronPort-AV: E=Sophos;i="5.83,248,1616482800"; d="scan'208";a="184703650"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2021 10:13:33 -0700
+IronPort-SDR: a36I8k+cNcgQQcCpL1P56COhnDWETZNpOKM94sIlwvNp4wBOAwMb5nbZzuRy6otImalrCHKy2l
+ 1Rz3YuHPnuLw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,248,1616482800"; d="scan'208";a="401021385"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga006.jf.intel.com with SMTP; 04 Jun 2021 10:13:29 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 04 Jun 2021 20:13:28 +0300
+Date: Fri, 4 Jun 2021 20:13:28 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Adam Chasen <adam@chasen.name>
+Message-ID: <YLpfOOiLnckvZe8A@intel.com>
 References: <904b8186-4d49-4292-bc6e-04726c571138@beta.fastmail.com>
  <YJw0ysSSWXEEBtU+@intel.com>
  <2b087694-6698-4970-9baa-b408e9ab1641@beta.fastmail.com>
  <275c025e-4366-4347-aeb5-c002b5ac00f3@beta.fastmail.com>
  <YLTvfj+WfKMv8qid@intel.com>
  <a3768e4a-976b-49f1-b47b-c088ea232d33@www.fastmail.com>
-Date: Fri, 04 Jun 2021 12:57:25 -0400
-From: "Adam Chasen" <adam@chasen.name>
-To: =?UTF-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+ <8697eab6-ed7c-45b3-8055-53beff47f844@beta.fastmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <8697eab6-ed7c-45b3-8055-53beff47f844@beta.fastmail.com>
+X-Patchwork-Hint: comment
 Subject: Re: [Intel-gfx] Tracing a "drm_mode_prune_invalid"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,245 +67,502 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhhbmtzIGZvciBzdGF5aW5nIHdpdGggbWUhIFN0aWxsIGhvcGluZyBJIGNhbiBnZXQgYmFjayB0
-byB1c2luZyBLTVMvV2F5bGFuZCBjb21iaW5hdGlvbiB3aXRoIG15IHNldHVwLgoKSSB1bmRlcnN0
-YW5kIHRoZSBjdXJyZW50IHJlY29tbWVuZGF0aW9uIGlzIHRvIHB1c2ggdGhlIG1vZGUgc2V0dGlu
-ZyB0byB0aGUgd2F5bGFuZCBjb21wb3NpdG9yIHBlciBWaWxsZSBoZXJlOiBodHRwczovL2dpdGxh
-Yi5mcmVlZGVza3RvcC5vcmcvZHJtL2ludGVsLy0vaXNzdWVzLzM5MyNub3RlXzMzNzYxNgoKQWxh
-cywgSSBhbSB1c2luZyBNdXR0ZXIgKHNpbWlsYXIgdG8gaXNzdWUgIzM5Mykgd2hpY2ggKGhpc3Rv
-cmljYWxseSkgZG9lc24ndCBzdXBwb3J0IG1vZGUgc2V0dGluZyAoeWV0PykuCgpUaGVyZSBpcyBt
-ZW50aW9uIG9mIGRybV9kcF9kb3duc3RyZWFtX21heF9jbG9jaygpIGluIGFuIGk5MTUgY29tbWVu
-dCwgd2hpY2ggbG9va3MgbGlrZSBjb3VsZCBiZSBhIHJlZmVyZW5jZSB0byBkcm1fZHBfZG93bnN0
-cmVhbV9tYXhfdG1kc19jbG9jaygpLiAKCkl0IHNlZW1zIHRoZXJlIGlzIGEgaGFyZCBjb2RlZCAx
-NjVNSHogbWF4IGZvciBEUF9EV05fU1RSTV9QT1JUX1RZUEVfVE1EUyBvciAobm90ZSB0aGUgY29t
-bWVudCBpbiB0aGUgYmVsb3cgY29kZSk6CgoJY2FzZSBEUF9EU19QT1JUX1RZUEVfRFZJOgoJCWlm
-ICgoZHBjZFtEUF9ET1dOU1RSRUFNUE9SVF9QUkVTRU5UXSAmIERQX0RFVEFJTEVEX0NBUF9JTkZP
-X0FWQUlMQUJMRSkgPT0gMCkKCQkJcmV0dXJuIDE2NTAwMDsKCQkvKiBGSVhNRSB3aGF0IHRvIGRv
-IGFib3V0IERWSSBkdWFsIGxpbms/ICovCgkJcmV0dXJuIHBvcnRfY2FwWzFdICogMjUwMDsKClN0
-aWxsIHdvbmRlcmluZyBhYm91dCB0aGUgIm9uZSBieXRlIiBmb3JtYXQgaXMgZm9yIGNvbmZpZ3Vy
-YXRpb24sIGJ1dCBJIHByZXN1bWUgaXQgaXMgc2V0dGluZyBEUF9ERVRBSUxFRF9DQVBfSU5GT19B
-VkFJTEFCTEUgdG8gMCB3aGljaCB0cmlnZ2VycyB0aGlzLgoKSXMgdGhlcmUgYSByZWNvbW1lbmRl
-ZCBhcHByb2FjaCB0byBzZXR0aW5nIHRoZSBwb3J0IHRvIHN1cHBvcnQgRHVhbC1MaW5rIGJhc2Vk
-IG9uIEVESUQgcmVzcG9uc2UgKG9yIGlzIGl0IHRvbyBsYXRlIGJ5IHRoZSB0aW1lIHdlIGdldCAg
-dGhlIEVESUQpPwoKSXMgdGhlcmUgYSByZWNvbW1lbmRlZCBhcHByb2FjaCBmb3IgYSAiZGlzYWJs
-ZSBmaWx0ZXIiLCBvciAibWFudWFsIG1vZGVzZXQiPyBUaGVyZSBhcmUgb3RoZXJzIHdobyBzZWVt
-IGludGVyZXN0ZWQgaW4gb3ZlcnJpZGluZyB0aGUgZmlsdGVyaW5nIGxvZ2ljIChlLmcuICJkbyB3
-aGF0IEkgc2F5IGV2ZW4gdGhvdWdoIGl0IGlzbid0IGNsZWFyIGl0IHdpbGwgd29yayIpLiBodHRw
-czovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2ludGVsLy0vaXNzdWVzLzM5MyNub3RlXzgy
-OTE0MgoKLUFkYW0KCi0tIFJlbGF0ZWQgLS0KCkkgZm91bmQgdGhlc2UgZm9sbG93aW5nIGEgdGhy
-ZWFkIG9uIHRoZSAxNjVNSHogY2xvY2sgbGltaXQgaW4gdGhlIGNvbnRleHQgb2YgRFAgZHVhbCBt
-b2RlIEhETUkgZG9uZ2xlcyB3aXRoIGEgcGF0Y2ggZXhwZXJpbWVudGluZyB3aXRoIHR1cm5pbmcg
-b2ZmIHRoZSBsaW1pdDogaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/
-aWQ9MTEyMDE4I2MyIChub3cgaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9pbnRl
-bC8tL2lzc3Vlcy81MTEpIFRoZXJlIGlzIGV2ZW4gYSBoYWNrIGZvciB3aGF0IGFwcGVhcnMgdG8g
-YmUgYSBzaW1pbGFyIGxpbWl0YXRpb24KKHVzaW5nIER1YWwgbW9kZSBEUCk6IGh0dHBzOi8vZ2l0
-aHViLmNvbS9oYW5zbWkvZmFrZS1kcC1kdWFsLW1vZGUKClJlc2VhcmNoaW5nIGFuc3dlcnMgZm9y
-IHByZXZpb3VzIHF1ZXN0aW9uczogCgoib25lIGJ5dGUiIGNhcDoKLyoKICogMHg4MC0weDhmIGRl
-c2NyaWJlIGRvd25zdHJlYW0gcG9ydCBjYXBhYmlsaXRpZXMsIGJ1dCB0aGVyZSBhcmUgdHdvIGxh
-eW91dHMKICogYmFzZWQgb24gd2hldGhlciBEUF9ERVRBSUxFRF9DQVBfSU5GT19BVkFJTEFCTEUg
-d2FzIHNldC4gIElmIGl0IHdhcyBub3QsCiAqIGVhY2ggcG9ydCdzIGRlc2NyaXB0b3IgaXMgb25l
-IGJ5dGUgd2lkZS4gIElmIGl0IHdhcyBzZXQsIGVhY2ggcG9ydCdzIGlzCiAqIGZvdXIgYnl0ZXMg
-d2lkZSwgc3RhcnRpbmcgd2l0aCB0aGUgb25lIGJ5dGUgZnJvbSB0aGUgYmFzZSBpbmZvLiAgQXMg
-b2YKICogRFAgaW50ZXJvcCB2MS4xYSBvbmx5IFZHQSBkZWZpbmVzIGFkZGl0aW9uYWwgZGV0YWls
-LgogKi8KCkFuZCBmcm9tIGEgY29tbWl0OgoqIEZpeHVwIGxvZ2ljIGZvciBjYWxjdWxhdGluZyB0
-aGUgZG93bnN0cmVhbSBwb3J0IGxlbmd0aCB0byBhY2NvdW50IGZvcgogIHRoZSBmYWN0IHRoYXQg
-ZG93bnN0cmVhbSBwb3J0IGNhcHMgY2FuIGJlIGVpdGhlciAxIGJ5dGUgb3IgNCBieXRlcwogIGxv
-bmcuIFdlIGNhbiBhY3R1YWxseSBza2lwIGZpeGluZyB0aGUgbWF4X2Nsb2NrL21heF9icGMgaGVs
-cGVycyBoZXJlCiAgc2luY2UgdGhleSBhbGwgY2hlY2sgZm9yIERQX0RFVEFJTEVEX0NBUF9JTkZP
-X0FWQUlMQUJMRSBhbnl3YXkuCgpEUENEID0gRGlzcGxheVBvcnQgQ29uZmlndXJhdGlvbiBEYXRh
-CkRGUCBhcHBlYXJzIHRvIGJlIGEgc3RydWN0dXJlIHRvIGhvbGQgY29uZmlndXJhdGlvbiBkYXRh
-IGFzIHBhcnQgb2YgaW50ZWxfYXR0YWNoZWRfZHAoY29ubmVjdG9yKToKCS8qIERvd25zdHJlYW0g
-ZmFjaW5nIHBvcnQgY2FwcyAqLwoJc3RydWN0IHsKCQlpbnQgbWluX3RtZHNfY2xvY2ssIG1heF90
-bWRzX2Nsb2NrOwoJCWludCBtYXhfZG90Y2xvY2s7CgkJdTggbWF4X2JwYzsKCQlib29sIHljYmNy
-XzQ0NF90b180MjA7Cgl9IGRmcDsKCk9uIE1vbiwgTWF5IDMxLCAyMDIxLCBhdCAxMDoyOCBBTSwg
-QWRhbSBDaGFzZW4gd3JvdGU6Cj4gVmlsbGUsCj4gVGhhbmtzIGZvciB0aGUgYWRkaXRpb25hbCBk
-ZXRhaWwhCj4gCj4gSSBsb29rZWQgdXAgSFBEIGFuZCB1bmRlcnN0YW5kIGl0IGlzIGhvdCBwbHVn
-IGRldGVjdGlvbiwgYnV0IEkgZGlkbid0IAo+IGZpbmQgbXVjaCBmb3IgIm9uZSBieXRlIGNhcHMg
-Zm9ybWF0Ii4gSSBhc3N1bWUgdGhpcyBpcyBzaG9ydCBoYW5kIGZvciAKPiAiY2FwYWJpbGl0eSBm
-b3JtYXQiLgo+IAo+IElzIHRoZSAib25lIGJ5dGUiIGZvcm1hdCBhIGxpbWl0YXRpb24gZnJvbSB0
-aGUgbW9uaXRvciwgdGhlIGRvbmdsZSwgdGhlIAo+IG1vdGhlcmJvYXJkLCBvciB0aGUgY2hpcHNl
-dD8KPiAKPiBXaGF0IGFyZSBzb21lIGV4YW1wbGVzIG9mIG90aGVyICJjYXBhYmlsaXR5IGZvcm1h
-dHMiPwo+IAo+IElzIHRoZXJlIGEgcmVjb21tZW5kZWQgYXBwcm9hY2ggdG8gc2V0dGluZyB0aGUg
-cG9ydCB0byBzdXBwb3J0IAo+IER1YWwtTGluayBiYXNlZCBvbiBFRElEIHJlc3BvbnNlIChvciBp
-cyBpdCB0b28gbGF0ZSBieSB0aGUgdGltZSB3ZSBnZXQgCj4gdGhlIEVESUQpPwo+IAo+IElmIHRo
-ZXJlIGlzIG5vIG9idmlvdXMgYXV0b21hdGljIHNvbHV0aW9uLCBkbyB5b3UgaGF2ZSBhbiBleGFt
-cGxlIG9mIGEgCj4gIm1hbnVhbCBvdmVycmlkZSIgKGkuZS4gbW9kdWxlIGFyZ3VtZW50KSBmb3Ig
-YW5vdGhlciBzaXR1YXRpb24gSSBjYW4gCj4gdXNlIGFzIGEgZ3VpZGU/Cj4gCj4gU3RpbGwgY3Vy
-aW91cyB3aGF0IERQQ0QgREZQIHN0YW5kcyBmb3IuCj4gCj4gVGhhbmtzLAo+IEFkYW0KPiAKPiBP
-biBNb24sIE1heSAzMSwgMjAyMSwgYXQgMTA6MTUgQU0sIFZpbGxlIFN5cmrDpGzDpCB3cm90ZToK
-PiA+IE9uIEZyaSwgTWF5IDI4LCAyMDIxIGF0IDAyOjE1OjQ2UE0gLTA0MDAsIEFkYW0gQ2hhc2Vu
-IHdyb3RlOgo+ID4gPiBBbnkgZnVydGhlciBhZHZpY2Ugb24gdHJhY2luZyB3aGF0IGlzIHRyaWdn
-ZXJpbmcgd2hhdCBhcHBlYXJzIHRvIGJlIHRoZSBsaW1pdGF0aW9uIG9mIHRoZSBjbG9jaz8gTXkg
-Z3Vlc3MgaXMgaXQgaXMgaW1wb3NpbmcgYSBEVkkgU2luZ2xlLUxpbmsgc3BlZWQgKDE2NTAwMCkg
-bGltaXRhdGlvbiBvbiB0aGUgZHVhbC1saW5rIERWSSBhZGFwdGVyLgo+ID4gPiAKPiA+ID4gPiBU
-TURTIGNsb2NrIDI1MDAwLTE2NTAwMAo+ID4gPiAKPiA+ID4gSSBhbSBhYmxlIHRvIG92ZXJyaWRl
-IGluIHhvcmcgd2l0aCB4cmFuZHIgdG8gMjY4NTAwCj4gPiA+IAo+ID4gPiBQZXIgVmlsbGUncyBy
-ZXF1ZXN0Ogo+ID4gPiBEUENEIERGUDogMGEKPiA+ID4gCj4gPiA+IFdoYXQgaXMgdGhlIERQQ0Qg
-REZQPwo+ID4gCj4gPiBJdCBpbmRpY2F0ZXMgdGhlIHBvcnQgaXMgRFZJIHdpdGggSFBEIGNhcGFi
-aWxpdHkuIEJ1dCB1bmZvcnR1bmF0ZWx5IGl0J3MKPiA+IHVzaW5nIHRoZSBvbmUgYnl0ZSBjYXBz
-IGZvcm1hdCB3aGljaCBkb2Vzbid0IGxldCB1cyBkaWZmZXJlbnRpYXRlCj4gPiBiZXR3ZWVuIHNp
-bmdsZSBsaW5rIGFuZCBkdWFsIGxpbmsgRFZJLiBTbyB3ZSB0YWtlIHRoZSBtb3JlIGNhdXRpb3Vz
-Cj4gPiBhcHBvcmFjaCBhbmQgYXNzdW1lIGl0J3Mgc2luZ2xlIGxpbmsuCj4gPiAKPiA+ID4gCj4g
-PiA+IFRoYW5rcywKPiA+ID4gQWRhbQo+ID4gPiAKPiA+ID4gT24gV2VkLCBNYXkgMTIsIDIwMjEs
-IGF0IDU6MDcgUE0sIEFkYW0gQ2hhc2VuIHdyb3RlOgo+ID4gPiA+IFZpbGxlLAo+ID4gPiA+IERQ
-Q0QgREZQOiAwYQo+ID4gPiA+IAo+ID4gPiA+IFdoYXQgaXMgdGhlIERQQ0QgREZQPwo+ID4gPiA+
-IAo+ID4gPiA+IEFkZGl0aW9uYWwgaW5mbywgdGhpcyBpcyB0aGUgZmlyc3QgdGltZSB0aGVyZSBo
-YXMgYmVlbiBhbiBpc3N1ZSB3aXRoIAo+ID4gPiA+IHRoaXMgYWRhcHRlciBub3Qgd29ya2luZyAo
-aS5lLiBpdCBtdXN0IGhhdmUgYmVlbiBvcGVyYXRpbmcgYWJvdmUgCj4gPiA+ID4gMTY1TUh6KSwg
-YnV0IGl0IGlzIHBvc3NpYmxlIG90aGVyIGRyaXZlcnMgaGF2ZSAiaWdub3JlZCIgdGhpbmdzIGFu
-ZCAKPiA+ID4gPiBqdXN0IGZvbGxvd2VkIHRoZSBFRElELgo+ID4gPiA+IAo+ID4gPiA+IFRoYW5r
-cyEKPiA+ID4gPiBBZGFtCj4gPiA+ID4gCj4gPiA+ID4ga2VybmVsOiBbZHJtOmRybV9oZWxwZXJf
-cHJvYmVfc2luZ2xlX2Nvbm5lY3Rvcl9tb2RlcyBbZHJtX2ttc19oZWxwZXJdXSAKPiA+ID4gPiBb
-Q09OTkVDVE9SOjk1OkRQLTFdIAo+ID4gPiA+IGtlcm5lbDogaTkxNSAwMDAwOjAwOjAyLjA6IFtk
-cm06aW50ZWxfZHBfZGV0ZWN0IFtpOTE1XV0gCj4gPiA+ID4gW0NPTk5FQ1RPUjo5NTpEUC0xXQo+
-ID4gPiA+IGtlcm5lbDogW2RybTpkcm1fZHBfcmVhZF9kcGNkX2NhcHMgW2RybV9rbXNfaGVscGVy
-XV0gQVVYIEMvRERJIEMvUEhZIEM6IAo+ID4gPiA+IERQQ0Q6IDExIDBhIDg0IDAxIDAwIDA1IDAw
-IDgxIDAwIDAwIDAwIDAwIDAwIDAwIDAwCj4gPiA+ID4ga2VybmVsOiBbZHJtOmRybV9kcF9yZWFk
-X2Rlc2MgW2RybV9rbXNfaGVscGVyXV0gQVVYIEMvRERJIEMvUEhZIEM6IERQIAo+ID4gPiA+IGJy
-YW5jaDogT1VJIDAwLTgwLWUxIGRldi1JRCBtMkRWSWEgSFctcmV2IDAuMSBTVy1yZXYgMi4wIHF1
-aXJrcyAweDAwMDAKPiA+ID4gPiBrZXJuZWw6IFtkcm06ZHJtX2RwX3JlYWRfZG93bnN0cmVhbV9p
-bmZvIFtkcm1fa21zX2hlbHBlcl1dIEFVWCBDL0RESSAKPiA+ID4gPiBDL1BIWSBDOiBEUENEIERG
-UDogMGEKPiA+ID4gPiBrZXJuZWw6IGk5MTUgMDAwMDowMDowMi4wOiBbZHJtOmludGVsX2RwX2Rl
-dGVjdCBbaTkxNV1dIFtFTkNPREVSOjk0OkRESSAKPiA+ID4gPiBDL1BIWSBDXSBNU1Qgc3VwcG9y
-dDogcG9ydDogeWVzLCBzaW5rOiBubywgbW9kcGFyYW06IHllcwo+ID4gPiA+IGtlcm5lbDogaTkx
-NSAwMDAwOjAwOjAyLjA6IFtkcm06aW50ZWxfZHBfcHJpbnRfcmF0ZXMgW2k5MTVdXSBzb3VyY2Ug
-Cj4gPiA+ID4gcmF0ZXM6IDE2MjAwMCwgMjE2MDAwLCAyNzAwMDAsIDMyNDAwMCwgNDMyMDAwLCA1
-NDAwMDAKPiA+ID4gPiBrZXJuZWw6IGk5MTUgMDAwMDowMDowMi4wOiBbZHJtOmludGVsX2RwX3By
-aW50X3JhdGVzIFtpOTE1XV0gc2luayAKPiA+ID4gPiByYXRlczogMTYyMDAwLCAyNzAwMDAKPiA+
-ID4gPiBrZXJuZWw6IGk5MTUgMDAwMDowMDowMi4wOiBbZHJtOmludGVsX2RwX3ByaW50X3JhdGVz
-IFtpOTE1XV0gY29tbW9uIAo+ID4gPiA+IHJhdGVzOiAxNjIwMDAsIDI3MDAwMAo+ID4gPiA+IGtl
-cm5lbDogW2RybTpkcm1fZHBfaTJjX2RvX21zZyBbZHJtX2ttc19oZWxwZXJdXSBBVVggQy9EREkg
-Qy9QSFkgQzogCj4gPiA+ID4gbmF0aXZlIGRlZmVyCj4gPiA+ID4ga2VybmVsOiBbZHJtOmRybV9k
-cF9pMmNfZG9fbXNnIFtkcm1fa21zX2hlbHBlcl1dIEFVWCBDL0RESSBDL1BIWSBDOiAKPiA+ID4g
-PiBuYXRpdmUgZGVmZXIKPiA+ID4gPiBrZXJuZWw6IFtkcm06ZHJtX2RwX2kyY19kb19tc2cgW2Ry
-bV9rbXNfaGVscGVyXV0gQVVYIEMvRERJIEMvUEhZIEM6IAo+ID4gPiA+IG5hdGl2ZSBkZWZlcgo+
-ID4gPiA+IGtlcm5lbDogW2RybTpkcm1fZHBfaTJjX2RvX21zZyBbZHJtX2ttc19oZWxwZXJdXSBB
-VVggQy9EREkgQy9QSFkgQzogCj4gPiA+ID4gbmF0aXZlIGRlZmVyCj4gPiA+ID4ga2VybmVsOiBp
-OTE1IDAwMDA6MDA6MDIuMDogW2RybTppbnRlbF9kcF9zZXRfZWRpZCBbaTkxNV1dIAo+ID4gPiA+
-IFtDT05ORUNUT1I6OTU6RFAtMV0gREZQIG1heCBicGMgOCwgbWF4IGRvdGNsb2NrIDAsIFRNRFMg
-Y2xvY2sgCj4gPiA+ID4gMjUwMDAtMTY1MDAwCj4gPiA+ID4ga2VybmVsOiBpOTE1IDAwMDA6MDA6
-MDIuMDogW2RybTppbnRlbF9kcF9zZXRfZWRpZCBbaTkxNV1dIAo+ID4gPiA+IFtDT05ORUNUT1I6
-OTU6RFAtMV0gWUNiQ3IgNDoyOjAgYWxsb3dlZD8gbm8sIFlDYkNyIDQ6NDo0LT40OjI6MCAKPiA+
-ID4gPiBjb252ZXJzaW9uPyBubyAKPiA+ID4gPiBrZXJuZWw6IFtkcm06ZHJtX2RwX2dldF9lZGlk
-X3F1aXJrcyBbZHJtX2ttc19oZWxwZXJdXSBEUCBzaW5rOiBFRElEIG1mZyAKPiA+ID4gPiAyMi1m
-MCBwcm9kLUlEIDkwLTI2IHF1aXJrczogMHgwMDAwCj4gPiA+ID4ga2VybmVsOiBbZHJtOmRybV9h
-ZGRfZWRpZF9tb2RlcyBbZHJtXV0gRUxEOiBubyBDRUEgRXh0ZW5zaW9uIGZvdW5kCj4gPiA+ID4g
-a2VybmVsOiBbZHJtOmRybV9hZGRfZGlzcGxheV9pbmZvIFtkcm1dXSBTdXBwb3J0ZWQgTW9uaXRv
-ciBSZWZyZXNoIHJhdGUgCj4gPiA+ID4gcmFuZ2UgaXMgMCBIeiAtIDAgSHoKPiA+ID4gPiBrZXJu
-ZWw6IFtkcm06ZHJtX2FkZF9kaXNwbGF5X2luZm8gW2RybV1dIG5vbl9kZXNrdG9wIHNldCB0byAw
-Cj4gPiA+ID4ga2VybmVsOiBbZHJtOmRybV9tb2RlX2RlYnVnX3ByaW50bW9kZWxpbmUgW2RybV1d
-IE1vZGVsaW5lICIyNTYweDE2MDAiOiAKPiA+ID4gPiA2MCAyNjgwMDAgMjU2MCAyNjA4IDI2NDAg
-MjcyMCAxNjAwIDE2MDMgMTYwOSAxNjQ2IDB4NDggMHg5Cj4gPiA+ID4ga2VybmVsOiBbZHJtOmRy
-bV9tb2RlX3BydW5lX2ludmFsaWQgW2RybV1dIE5vdCB1c2luZyAyNTYweDE2MDAgbW9kZTogCj4g
-PiA+ID4gQ0xPQ0tfSElHSAo+ID4gPiA+IGtlcm5lbDogW2RybTpkcm1faGVscGVyX3Byb2JlX3Np
-bmdsZV9jb25uZWN0b3JfbW9kZXMgW2RybV9rbXNfaGVscGVyXV0gCj4gPiA+ID4gW0NPTk5FQ1RP
-Ujo5NTpEUC0xXSBwcm9iZWQgbW9kZXMgOgo+ID4gPiA+IGtlcm5lbDogW2RybTpkcm1fbW9kZV9k
-ZWJ1Z19wcmludG1vZGVsaW5lIFtkcm1dXSBNb2RlbGluZSAiMTI4MHg4MDAiOiAKPiA+ID4gPiA2
-MCA3MTAwMCAxMjgwIDEzMjggMTM2MCAxNDQwIDgwMCA4MDMgODA5IDgyMyAweDQwIDB4OQo+ID4g
-PiA+IAo+ID4gPiA+ICMgZm9yIGF1eCBpbiAvZGV2L2RybV9kcF9hdXgqIDsgZG8gZGQgaWY9JGF1
-eCBicz0xIGNvdW50PTE2IAo+ID4gPiA+IHNraXA9JCgoMHg4MCkpIDI+L2Rldi9udWxsIHwgaGV4
-ZHVtcCAtQyA7IGRvbmUKPiA+ID4gPiAwMDAwMDAwMCAgMGEgMDAgMDAgMDAgMDAgMDAgMDAgMDAg
-IDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwICAKPiA+ID4gPiB8Li4uLi4uLi4uLi4uLi4uLnwKPiA+
-ID4gPiAwMDAwMDAxMAo+ID4gPiA+IDAwMDAwMDAwICAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAg
-MDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgIAo+ID4gPiA+IHwuLi4uLi4uLi4uLi4uLi4ufAo+ID4g
-PiA+IDAwMDAwMDEwCj4gPiA+ID4gCj4gPiA+ID4gIyBmb3IgYXV4IGluIC9kZXYvZHJtX2RwX2F1
-eCogOyBkbyBkZCBpZj0kYXV4IGJzPTEgMj4vZGV2L251bGwgfCAKPiA+ID4gPiBoZXhkdW1wIC1D
-IDsgZG9uZQo+ID4gPiA+IDAwMDAwMDAwICAxMSAwYSA4NCAwMSAwMCAwNSAwMCA4MSAgMDAgMDAg
-MDAgMDAgMDAgMDAgMDAgMDAgIAo+ID4gPiA+IHwuLi4uLi4uLi4uLi4uLi4ufAo+ID4gPiA+IDAw
-MDAwMDEwICAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAg
-IAo+ID4gPiA+IHwuLi4uLi4uLi4uLi4uLi4ufAo+ID4gPiA+ICoKPiA+ID4gPiAwMDAwMDA4MCAg
-MGEgMDAgMDAgMDAgMDAgMDAgMDAgMDAgIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwICAKPiA+ID4g
-PiB8Li4uLi4uLi4uLi4uLi4uLnwKPiA+ID4gPiAwMDAwMDA5MCAgMDAgMDAgMDAgMDAgMDAgMDAg
-MDAgMDAgIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwICAKPiA+ID4gPiB8Li4uLi4uLi4uLi4uLi4u
-LnwKPiA+ID4gPiAqCj4gPiA+ID4gMDAwMDAxMDAgIDBhIDg0IDAwIDA4IDA4IDA4IDA4IDAwICAw
-MSAwMCAwMCAwMCAwMCAwMCAwMCAwMCAgCj4gPiA+ID4gfC4uLi4uLi4uLi4uLi4uLi58Cj4gPiA+
-ID4gMDAwMDAxMTAgIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwICAwMCAwMCAwMCAwMCAwMCAwMCAw
-MCAwMCAgCj4gPiA+ID4gfC4uLi4uLi4uLi4uLi4uLi58Cj4gPiA+ID4gKgo+ID4gPiA+IDAwMDAw
-MjAwICAwMSAwMCA3NyA3NyA4MSAwMCA0NCA0NCAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgIAo+
-ID4gPiA+IHwuLnd3Li5ERC4uLi4uLi4ufAo+ID4gPiA+IDAwMDAwMjEwICAwMCA4MCAwMCA4MCAw
-MCA4MCAwMCA4MCAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgIAo+ID4gPiA+IHwuLi4uLi4uLi4u
-Li4uLi4ufAo+ID4gPiA+IDAwMDAwMjIwICAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAgMDAgMDAg
-MDAgMDAgMDAgMDAgMDAgMDAgIAo+ID4gPiA+IHwuLi4uLi4uLi4uLi4uLi4ufAo+ID4gPiA+ICoK
-PiA+ID4gPiAwMDAwMDI0MCAgMDAgMDAgMDAgMDAgMDAgMDAgMjAgMDAgIDAwIDAwIDAwIDAwIDAw
-IDAwIDAwIDAwICB8Li4uLi4uIAo+ID4gPiA+IC4uLi4uLi4uLnwKPiA+ID4gPiAwMDAwMDI1MCAg
-MDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwICAKPiA+ID4g
-PiB8Li4uLi4uLi4uLi4uLi4uLnwKPiA+ID4gPiAqCj4gPiA+ID4gMDAwMDAzMDAgIDAwIDAwIDAw
-IDAwIDAwIDAwIDAwIDAwICAwMCAwMCAwMCAwMCAwMCAwMCAwMCA4MCAgCj4gPiA+ID4gfC4uLi4u
-Li4uLi4uLi4uLi58Cj4gPiA+ID4gMDAwMDAzMTAgIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwICAw
-MCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAgCj4gPiA+ID4gfC4uLi4uLi4uLi4uLi4uLi58Cj4gPiA+
-ID4gKgo+ID4gPiA+IDAwMDAwNDAwICA0NyA1MyA1MyAwMCAwMCAwMSAwMSAwMCAgMDEgMDAgMDAg
-OTAgMDIgMDAgMDAgOTAgIAo+ID4gPiA+IHxHU1MuLi4uLi4uLi4uLi4ufAo+ID4gPiA+IDAwMDAw
-NDEwICAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgIAo+
-ID4gPiA+IHwuLi4uLi4uLi4uLi4uLi4ufAo+ID4gPiA+ICoKPiA+ID4gPiAwMDAwMDUwMCAgMDAg
-ODAgZTEgNmQgMzIgNDQgNTYgNDkgIDYxIDAxIDAyIDAwIDAwIGNmIDAwIDAwICAKPiA+ID4gPiB8
-Li4ubTJEVklhLi4uLi4uLnwKPiA+ID4gPiAwMDAwMDUxMCAgMDAgMDAgMDAgMDAgMDAgMDAgMDAg
-MDAgIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwICAKPiA+ID4gPiB8Li4uLi4uLi4uLi4uLi4uLnwK
-PiA+ID4gPiAqCj4gPiA+ID4gMDAwMDA2MDAgIDAxIDAwIDAwIDAwIDAwIDAwIDAwIDAwICAwMCAw
-MCAwMCAwMCAwMCAwMCAwMCAwMCAgCj4gPiA+ID4gfC4uLi4uLi4uLi4uLi4uLi58Cj4gPiA+ID4g
-MDAwMDA2MTAgIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwICAwMCAwMCAwMCAwMCAwMCAwMCAwMCAw
-MCAgCj4gPiA+ID4gfC4uLi4uLi4uLi4uLi4uLi58Cj4gPiA+ID4gKgo+ID4gPiA+IAo+ID4gPiA+
-IE9uIFdlZCwgTWF5IDEyLCAyMDIxLCBhdCA0OjA0IFBNLCBWaWxsZSBTeXJqw6Rsw6Qgd3JvdGU6
-Cj4gPiA+ID4gPiBPbiBXZWQsIE1heSAxMiwgMjAyMSBhdCAxMjozMToxNFBNIC0wNDAwLCBBZGFt
-IENoYXNlbiB3cm90ZToKPiA+ID4gPiA+ID4gSG9waW5nIEkgY2FuIChoZWxwKSBjcmFmdCBhIHBh
-dGNoIHRvIGFkZHJlc3Mgd2hhdCBhcHBlYXJzIHRvIGJlIGFuIGlzc3VlIHdpdGggb3ZlcmFnZ3Jl
-c3NpdmUgbW9kZSBwcnVuaW5nLiBJIGFtIGhhdmluZyB0cm91YmxlIHdpdGggcmVqZWN0aW9uIG9m
-IGEgRHVhbC1EVkkgY29tcGF0aWJsZSBtb2RlIG91dCBvZiB0aGUgRGlzcGxheVBvcnQgIHNwZWNp
-ZmljIHRvIGk5MTUgaW4gRmVkb3JhIDMzLiBJdCBzZWVtcyB0aGF0IGRybV9tb2RlX3ZhbGlkYXRl
-X3BpcGVsaW5lIGlzIHRoZSB3YWxsIEkgaGl0IHdoZW4gZGlnZ2luZyBmb3Igd2h5IHRoaXMgbW9k
-ZSBpcyBwcnVuZWQuIFJlcXVlc3RpbmcgYWRkaXRpb25hbCB0cm91Ymxlc2hvb3RpbmcgZ3VpZGFu
-Y2UuCj4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBgYGAKPiA+ID4gPiA+ID4ga2VybmVsOiBbZHJt
-OmRybV9tb2RlX2RlYnVnX3ByaW50bW9kZWxpbmUgW2RybV1dIE1vZGVsaW5lICIyNTYweDE2MDAi
-OiA2MCAyNjgwMDAgMjU2MCAyNjA4IDI2NDAgMjcyMCAxNjAwIDE2MDMgMTYwOSAxNjQ2IDB4NDgg
-MHg5Cj4gPiA+ID4gPiA+IGtlcm5lbDogW2RybTpkcm1fbW9kZV9wcnVuZV9pbnZhbGlkIFtkcm1d
-XSBOb3QgdXNpbmcgMjU2MHgxNjAwIG1vZGU6IENMT0NLX0hJR0gKPiA+ID4gPiA+ID4gYGBgCj4g
-PiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBUaGlzIGlzIGFuIEhQIExQMzA2NSBEdWFsLURWSSBtb25p
-dG9yIGNvbm5lY3RlZCB2aWEgRGlzcGxheVBvcnQgd2l0aCBhIEJpekxpbmsgImFjdGl2ZSIgYWRh
-cHRlciAocmVjb21tZW5kZWQgYnkgSFAgYW5kIERFTEwgZm9yIHRoZWlyIER1YWwtRFZJIG1vbml0
-b3JzKS4KPiA+ID4gPiA+ID4gCj4gPiA+ID4gPiA+IFRoZSBhZGFwdGVyIGFwcGVhcnMgdG8gYmUg
-InRyYW5zcGFyZW50IiB0byB0aGUgc3lzdGVtICh1bmxpa2Ugc29tZSBhZGFwdGVycyByZXBvcnRp
-bmcgc2ltaWxhciBpc3N1ZXMpLiBJMkMgcHJvYmVzIGFuZCBFRElEcyBhbGwgYXBwZWFyIHRvIGJl
-IGRpcmVjdCBmcm9tIHRoZSBtb25pdG9yLiBUaG91Z2gsIHRoZXJlIGlzIGEgbWVudGlvbiBvZiBh
-IG0yRFZJYSAiYnJhbmNoIGRldmljZSIgaW4gdGhlIGBpOTE1X2Rpc3BsYXlfaW5mb2Agb3V0cHV0
-Lgo+ID4gPiA+ID4gPiAKPiA+ID4gPiA+ID4gVGhlIHBydW5lZCBtb2RlIHdvcmtzIHdpdGggWC1P
-cmcgd2l0aCBtYW51YWxseSBzZXR0aW5nIHRoZSBtb2RlIHZpYSBgeHJhbmRyYCBvbiBYb3JnICht
-eSBjdXJyZW50IGZhbGxiYWNrIHNldHVwKTogCj4gPiA+ID4gPiA+IGB4cmFuZHIgLS1uZXdtb2Rl
-ICIyNTYweDE2MDBSIiAyNjguNTAgMjU2MCAyNjA4IDI2NDAgMjcyMCAxNjAwIDE2MDMgMTYwOSAx
-NjQ2ICtoc3luYyAtdnN5bmNgCj4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBNeSBzZXR1cCBpcyBh
-IGJpdCBkaWZmZXJlbnQgdGhhbiBzb21lIG9sZGVyIHJlcG9ydGVkICJkdWFsIG1vZGUiIGlzc3Vl
-cyAoaS5lLiBwYXNzaXZlIGFkYXB0ZXJzKSwgc28gSSBkbyBub3QgYmVsaWV2ZSBpdCBpcyB0aGUg
-ImZhdWx0eSBkdWFsIG1vZGUgZGV0ZWN0aW9uIiAoaS5lLiBodHRwczovL2dpdGh1Yi5jb20vaGFu
-c21pL2Zha2UtZHAtZHVhbC1tb2RlKS4gSSB3YXMgdGhpbmtpbmcgaXQgY291bGQgYmUgcmVsYXRl
-ZCBieSBzb21lICJzdGF0ZSIgb2YgdGhlIHBvcnQgZGV0ZWN0aW9uIGxpbWl0aW5nIG91dHB1dCB0
-byAxNjVNSHogY2xvY2suCj4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBUaGFua3MsCj4gPiA+ID4g
-PiA+IEFkYW0KPiA+ID4gPiA+ID4gCj4gPiA+ID4gPiA+IHdpdGggYGVjaG8gMHg2ID4gL3N5cy9t
-b2R1bGUvZHJtL3BhcmFtZXRlcnMvZGVidWdgCj4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBgYGAK
-PiA+ID4gPiA+ID4ga2VybmVsOiBbZHJtOmRybV9hZGRfZGlzcGxheV9pbmZvIFtkcm1dXSBTdXBw
-b3J0ZWQgTW9uaXRvciBSZWZyZXNoIHJhdGUgcmFuZ2UgaXMgMCBIeiAtIDAgSHoKPiA+ID4gPiA+
-ID4ga2VybmVsOiBbZHJtOmRybV9hZGRfZGlzcGxheV9pbmZvIFtkcm1dXSBub25fZGVza3RvcCBz
-ZXQgdG8gMAo+ID4gPiA+ID4gPiBrZXJuZWw6IGk5MTUgMDAwMDowMDowMi4wOiBbZHJtOmludGVs
-X2RwX3NldF9lZGlkIFtpOTE1XV0gW0NPTk5FQ1RPUjo5NTpEUC0xXSBERlAgbWF4IGJwYyA4LCBt
-YXggZG90Y2xvY2sgMCwgVE1EUyBjbG9jayAyNTAwMC0xNjUwMDAKPiA+ID4gPiA+IAo+ID4gPiA+
-ID4gVGhhdCBvbmUgc2VlbXMgdG8gYmUgc2F5aW5nIHRoYXQgaXQncyB0aGUgYWRhcHRlciBpdHNl
-bGYgdGhhdCdzCj4gPiA+ID4gPiB0ZWxsaW5nIHVzIGl0IGNhbid0IGhhbmRsZSA+MTY1TUh6LiBX
-aGF0IGRvZXMgdGhlICJEUENEIERGUDogLi4uIiBsaW5lIHNheT8KPiA+ID4gPiA+IAo+ID4gPiA+
-ID4gQWx0ZXJuYXRpdmVseSB5b3UgY2FuIGRvIHNvbWV0aGluZyBsaWtlCj4gPiA+ID4gPiAgZm9y
-IGF1eCBpbiAvZGV2L2RybV9kcF9hdXgqIDsgZG8gZGQgaWY9JGF1eCBicz0xIGNvdW50PTE2IAo+
-ID4gPiA+ID4gc2tpcD0kKCgweDgwKSkgMj4vZGV2L251bGwgfCBoZXhkdW1wIC1DIDsgZG9uZQo+
-ID4gPiA+ID4gdG8gZ2V0IHRoZSByYXcgZHVtcC4uCj4gPiA+ID4gPiAKPiA+ID4gPiA+IC0tIAo+
-ID4gPiA+ID4gVmlsbGUgU3lyasOkbMOkCj4gPiA+ID4gPiBJbnRlbAo+ID4gPiA+ID4gCj4gPiA+
-ID4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiA+ID4g
-PiBJbnRlbC1nZnggbWFpbGluZyBsaXN0Cj4gPiA+ID4gSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwo+ID4gPiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vaW50ZWwtZ2Z4Cj4gPiA+ID4gCj4gPiAKPiA+IC0tIAo+ID4gVmlsbGUgU3lyasOkbMOk
-Cj4gPiBJbnRlbAo+ID4gCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KPiBJbnRlbC1nZnggbWFpbGluZyBsaXN0Cj4gSW50ZWwtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vaW50ZWwtZ2Z4Cj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVs
-LWdmeAo=
+On Fri, Jun 04, 2021 at 12:57:25PM -0400, Adam Chasen wrote:
+> Thanks for staying with me! Still hoping I can get back to using KMS/Wayl=
+and combination with my setup.
+> =
+
+> I understand the current recommendation is to push the mode setting to th=
+e wayland compositor per Ville here: https://gitlab.freedesktop.org/drm/int=
+el/-/issues/393#note_337616
+> =
+
+> Alas, I am using Mutter (similar to issue #393) which (historically) does=
+n't support mode setting (yet?).
+> =
+
+> There is mention of drm_dp_downstream_max_clock() in an i915 comment, whi=
+ch looks like could be a reference to drm_dp_downstream_max_tmds_clock(). =
+
+> =
+
+> It seems there is a hard coded 165MHz max for DP_DWN_STRM_PORT_TYPE_TMDS =
+or (note the comment in the below code):
+> =
+
+> 	case DP_DS_PORT_TYPE_DVI:
+> 		if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DETAILED_CAP_INFO_AVAILABLE) =
+=3D=3D 0)
+> 			return 165000;
+> 		/* FIXME what to do about DVI dual link? */
+> 		return port_cap[1] * 2500;
+> =
+
+> Still wondering about the "one byte" format is for configuration, but I p=
+resume it is setting DP_DETAILED_CAP_INFO_AVAILABLE to 0 which triggers thi=
+s.
+> =
+
+> Is there a recommended approach to setting the port to support Dual-Link =
+based on EDID response (or is it too late by the time we get  the EDID)?
+
+EDID can't help us since it would only tell us whether the display
+supports dual-link or not. The dongle may still be single link only.
+
+> =
+
+> Is there a recommended approach for a "disable filter", or "manual modese=
+t"? There are others who seem interested in overriding the filtering logic =
+(e.g. "do what I say even though it isn't clear it will work"). https://git=
+lab.freedesktop.org/drm/intel/-/issues/393#note_829142
+
+Userspace is free to force any it wants. But I guess mutter+wayland
+doesn't support that for some reason.
+
+I've occasionally pondered about adding some kind of connector property
+for this, but not sure wht it should look like. And it would still
+require userspace support to set it. Another idea would be to extend the
+video=3D cmdline with some kind of knob that lets you override these
+limits. But again it's a bit hard to come up with a decent solution since
+there are various different clock limits involved (TMDS clock for HDMI
+vs. link rate for DP, dotclock for everyting). And just saying "ignore
+all limits" is not a very flexible solution since there may be some
+limit you do want to enforce, just not as low as what we would
+auto-detect.
+
+> =
+
+> -Adam
+> =
+
+> -- Related --
+> =
+
+> I found these following a thread on the 165MHz clock limit in the context=
+ of DP dual mode HDMI dongles with a patch experimenting with turning off t=
+he limit: https://bugs.freedesktop.org/show_bug.cgi?id=3D112018#c2 (now htt=
+ps://gitlab.freedesktop.org/drm/intel/-/issues/511) There is even a hack fo=
+r what appears to be a similar limitation
+> (using Dual mode DP): https://github.com/hansmi/fake-dp-dual-mode
+> =
+
+> Researching answers for previous questions: =
+
+> =
+
+> "one byte" cap:
+> /*
+>  * 0x80-0x8f describe downstream port capabilities, but there are two lay=
+outs
+>  * based on whether DP_DETAILED_CAP_INFO_AVAILABLE was set.  If it was no=
+t,
+>  * each port's descriptor is one byte wide.  If it was set, each port's is
+>  * four bytes wide, starting with the one byte from the base info.  As of
+>  * DP interop v1.1a only VGA defines additional detail.
+>  */
+> =
+
+> And from a commit:
+> * Fixup logic for calculating the downstream port length to account for
+>   the fact that downstream port caps can be either 1 byte or 4 bytes
+>   long. We can actually skip fixing the max_clock/max_bpc helpers here
+>   since they all check for DP_DETAILED_CAP_INFO_AVAILABLE anyway.
+> =
+
+> DPCD =3D DisplayPort Configuration Data
+> DFP appears to be a structure to hold configuration data as part of intel=
+_attached_dp(connector):
+> 	/* Downstream facing port caps */
+> 	struct {
+> 		int min_tmds_clock, max_tmds_clock;
+> 		int max_dotclock;
+> 		u8 max_bpc;
+> 		bool ycbcr_444_to_420;
+> 	} dfp;
+> =
+
+> On Mon, May 31, 2021, at 10:28 AM, Adam Chasen wrote:
+> > Ville,
+> > Thanks for the additional detail!
+> > =
+
+> > I looked up HPD and understand it is hot plug detection, but I didn't =
+
+> > find much for "one byte caps format". I assume this is short hand for =
+
+> > "capability format".
+> > =
+
+> > Is the "one byte" format a limitation from the monitor, the dongle, the =
+
+> > motherboard, or the chipset?
+> > =
+
+> > What are some examples of other "capability formats"?
+> > =
+
+> > Is there a recommended approach to setting the port to support =
+
+> > Dual-Link based on EDID response (or is it too late by the time we get =
+
+> > the EDID)?
+> > =
+
+> > If there is no obvious automatic solution, do you have an example of a =
+
+> > "manual override" (i.e. module argument) for another situation I can =
+
+> > use as a guide?
+> > =
+
+> > Still curious what DPCD DFP stands for.
+> > =
+
+> > Thanks,
+> > Adam
+> > =
+
+> > On Mon, May 31, 2021, at 10:15 AM, Ville Syrj=E4l=E4 wrote:
+> > > On Fri, May 28, 2021 at 02:15:46PM -0400, Adam Chasen wrote:
+> > > > Any further advice on tracing what is triggering what appears to be=
+ the limitation of the clock? My guess is it is imposing a DVI Single-Link =
+speed (165000) limitation on the dual-link DVI adapter.
+> > > > =
+
+> > > > > TMDS clock 25000-165000
+> > > > =
+
+> > > > I am able to override in xorg with xrandr to 268500
+> > > > =
+
+> > > > Per Ville's request:
+> > > > DPCD DFP: 0a
+> > > > =
+
+> > > > What is the DPCD DFP?
+> > > =
+
+> > > It indicates the port is DVI with HPD capability. But unfortunately i=
+t's
+> > > using the one byte caps format which doesn't let us differentiate
+> > > between single link and dual link DVI. So we take the more cautious
+> > > apporach and assume it's single link.
+> > > =
+
+> > > > =
+
+> > > > Thanks,
+> > > > Adam
+> > > > =
+
+> > > > On Wed, May 12, 2021, at 5:07 PM, Adam Chasen wrote:
+> > > > > Ville,
+> > > > > DPCD DFP: 0a
+> > > > > =
+
+> > > > > What is the DPCD DFP?
+> > > > > =
+
+> > > > > Additional info, this is the first time there has been an issue w=
+ith =
+
+> > > > > this adapter not working (i.e. it must have been operating above =
+
+> > > > > 165MHz), but it is possible other drivers have "ignored" things a=
+nd =
+
+> > > > > just followed the EDID.
+> > > > > =
+
+> > > > > Thanks!
+> > > > > Adam
+> > > > > =
+
+> > > > > kernel: [drm:drm_helper_probe_single_connector_modes [drm_kms_hel=
+per]] =
+
+> > > > > [CONNECTOR:95:DP-1] =
+
+> > > > > kernel: i915 0000:00:02.0: [drm:intel_dp_detect [i915]] =
+
+> > > > > [CONNECTOR:95:DP-1]
+> > > > > kernel: [drm:drm_dp_read_dpcd_caps [drm_kms_helper]] AUX C/DDI C/=
+PHY C: =
+
+> > > > > DPCD: 11 0a 84 01 00 05 00 81 00 00 00 00 00 00 00
+> > > > > kernel: [drm:drm_dp_read_desc [drm_kms_helper]] AUX C/DDI C/PHY C=
+: DP =
+
+> > > > > branch: OUI 00-80-e1 dev-ID m2DVIa HW-rev 0.1 SW-rev 2.0 quirks 0=
+x0000
+> > > > > kernel: [drm:drm_dp_read_downstream_info [drm_kms_helper]] AUX C/=
+DDI =
+
+> > > > > C/PHY C: DPCD DFP: 0a
+> > > > > kernel: i915 0000:00:02.0: [drm:intel_dp_detect [i915]] [ENCODER:=
+94:DDI =
+
+> > > > > C/PHY C] MST support: port: yes, sink: no, modparam: yes
+> > > > > kernel: i915 0000:00:02.0: [drm:intel_dp_print_rates [i915]] sour=
+ce =
+
+> > > > > rates: 162000, 216000, 270000, 324000, 432000, 540000
+> > > > > kernel: i915 0000:00:02.0: [drm:intel_dp_print_rates [i915]] sink =
+
+> > > > > rates: 162000, 270000
+> > > > > kernel: i915 0000:00:02.0: [drm:intel_dp_print_rates [i915]] comm=
+on =
+
+> > > > > rates: 162000, 270000
+> > > > > kernel: [drm:drm_dp_i2c_do_msg [drm_kms_helper]] AUX C/DDI C/PHY =
+C: =
+
+> > > > > native defer
+> > > > > kernel: [drm:drm_dp_i2c_do_msg [drm_kms_helper]] AUX C/DDI C/PHY =
+C: =
+
+> > > > > native defer
+> > > > > kernel: [drm:drm_dp_i2c_do_msg [drm_kms_helper]] AUX C/DDI C/PHY =
+C: =
+
+> > > > > native defer
+> > > > > kernel: [drm:drm_dp_i2c_do_msg [drm_kms_helper]] AUX C/DDI C/PHY =
+C: =
+
+> > > > > native defer
+> > > > > kernel: i915 0000:00:02.0: [drm:intel_dp_set_edid [i915]] =
+
+> > > > > [CONNECTOR:95:DP-1] DFP max bpc 8, max dotclock 0, TMDS clock =
+
+> > > > > 25000-165000
+> > > > > kernel: i915 0000:00:02.0: [drm:intel_dp_set_edid [i915]] =
+
+> > > > > [CONNECTOR:95:DP-1] YCbCr 4:2:0 allowed? no, YCbCr 4:4:4->4:2:0 =
+
+> > > > > conversion? no =
+
+> > > > > kernel: [drm:drm_dp_get_edid_quirks [drm_kms_helper]] DP sink: ED=
+ID mfg =
+
+> > > > > 22-f0 prod-ID 90-26 quirks: 0x0000
+> > > > > kernel: [drm:drm_add_edid_modes [drm]] ELD: no CEA Extension found
+> > > > > kernel: [drm:drm_add_display_info [drm]] Supported Monitor Refres=
+h rate =
+
+> > > > > range is 0 Hz - 0 Hz
+> > > > > kernel: [drm:drm_add_display_info [drm]] non_desktop set to 0
+> > > > > kernel: [drm:drm_mode_debug_printmodeline [drm]] Modeline "2560x1=
+600": =
+
+> > > > > 60 268000 2560 2608 2640 2720 1600 1603 1609 1646 0x48 0x9
+> > > > > kernel: [drm:drm_mode_prune_invalid [drm]] Not using 2560x1600 mo=
+de: =
+
+> > > > > CLOCK_HIGH
+> > > > > kernel: [drm:drm_helper_probe_single_connector_modes [drm_kms_hel=
+per]] =
+
+> > > > > [CONNECTOR:95:DP-1] probed modes :
+> > > > > kernel: [drm:drm_mode_debug_printmodeline [drm]] Modeline "1280x8=
+00": =
+
+> > > > > 60 71000 1280 1328 1360 1440 800 803 809 823 0x40 0x9
+> > > > > =
+
+> > > > > # for aux in /dev/drm_dp_aux* ; do dd if=3D$aux bs=3D1 count=3D16 =
+
+> > > > > skip=3D$((0x80)) 2>/dev/null | hexdump -C ; done
+> > > > > 00000000  0a 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > 00000010
+> > > > > 00000000  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > 00000010
+> > > > > =
+
+> > > > > # for aux in /dev/drm_dp_aux* ; do dd if=3D$aux bs=3D1 2>/dev/nul=
+l | =
+
+> > > > > hexdump -C ; done
+> > > > > 00000000  11 0a 84 01 00 05 00 81  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > 00000010  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > *
+> > > > > 00000080  0a 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > 00000090  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > *
+> > > > > 00000100  0a 84 00 08 08 08 08 00  01 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > 00000110  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > *
+> > > > > 00000200  01 00 77 77 81 00 44 44  00 00 00 00 00 00 00 00  =
+
+> > > > > |..ww..DD........|
+> > > > > 00000210  00 80 00 80 00 80 00 80  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > 00000220  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > *
+> > > > > 00000240  00 00 00 00 00 00 20 00  00 00 00 00 00 00 00 00  |....=
+.. =
+
+> > > > > .........|
+> > > > > 00000250  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > *
+> > > > > 00000300  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 80  =
+
+> > > > > |................|
+> > > > > 00000310  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > *
+> > > > > 00000400  47 53 53 00 00 01 01 00  01 00 00 90 02 00 00 90  =
+
+> > > > > |GSS.............|
+> > > > > 00000410  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > *
+> > > > > 00000500  00 80 e1 6d 32 44 56 49  61 01 02 00 00 cf 00 00  =
+
+> > > > > |...m2DVIa.......|
+> > > > > 00000510  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > *
+> > > > > 00000600  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > 00000610  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  =
+
+> > > > > |................|
+> > > > > *
+> > > > > =
+
+> > > > > On Wed, May 12, 2021, at 4:04 PM, Ville Syrj=E4l=E4 wrote:
+> > > > > > On Wed, May 12, 2021 at 12:31:14PM -0400, Adam Chasen wrote:
+> > > > > > > Hoping I can (help) craft a patch to address what appears to =
+be an issue with overaggressive mode pruning. I am having trouble with reje=
+ction of a Dual-DVI compatible mode out of the DisplayPort  specific to i91=
+5 in Fedora 33. It seems that drm_mode_validate_pipeline is the wall I hit =
+when digging for why this mode is pruned. Requesting additional troubleshoo=
+ting guidance.
+> > > > > > > =
+
+> > > > > > > ```
+> > > > > > > kernel: [drm:drm_mode_debug_printmodeline [drm]] Modeline "25=
+60x1600": 60 268000 2560 2608 2640 2720 1600 1603 1609 1646 0x48 0x9
+> > > > > > > kernel: [drm:drm_mode_prune_invalid [drm]] Not using 2560x160=
+0 mode: CLOCK_HIGH
+> > > > > > > ```
+> > > > > > > =
+
+> > > > > > > This is an HP LP3065 Dual-DVI monitor connected via DisplayPo=
+rt with a BizLink "active" adapter (recommended by HP and DELL for their Du=
+al-DVI monitors).
+> > > > > > > =
+
+> > > > > > > The adapter appears to be "transparent" to the system (unlike=
+ some adapters reporting similar issues). I2C probes and EDIDs all appear t=
+o be direct from the monitor. Though, there is a mention of a m2DVIa "branc=
+h device" in the `i915_display_info` output.
+> > > > > > > =
+
+> > > > > > > The pruned mode works with X-Org with manually setting the mo=
+de via `xrandr` on Xorg (my current fallback setup): =
+
+> > > > > > > `xrandr --newmode "2560x1600R" 268.50 2560 2608 2640 2720 160=
+0 1603 1609 1646 +hsync -vsync`
+> > > > > > > =
+
+> > > > > > > My setup is a bit different than some older reported "dual mo=
+de" issues (i.e. passive adapters), so I do not believe it is the "faulty d=
+ual mode detection" (i.e. https://github.com/hansmi/fake-dp-dual-mode). I w=
+as thinking it could be related by some "state" of the port detection limit=
+ing output to 165MHz clock.
+> > > > > > > =
+
+> > > > > > > Thanks,
+> > > > > > > Adam
+> > > > > > > =
+
+> > > > > > > with `echo 0x6 > /sys/module/drm/parameters/debug`
+> > > > > > > =
+
+> > > > > > > ```
+> > > > > > > kernel: [drm:drm_add_display_info [drm]] Supported Monitor Re=
+fresh rate range is 0 Hz - 0 Hz
+> > > > > > > kernel: [drm:drm_add_display_info [drm]] non_desktop set to 0
+> > > > > > > kernel: i915 0000:00:02.0: [drm:intel_dp_set_edid [i915]] [CO=
+NNECTOR:95:DP-1] DFP max bpc 8, max dotclock 0, TMDS clock 25000-165000
+> > > > > > =
+
+> > > > > > That one seems to be saying that it's the adapter itself that's
+> > > > > > telling us it can't handle >165MHz. What does the "DPCD DFP: ..=
+." line say?
+> > > > > > =
+
+> > > > > > Alternatively you can do something like
+> > > > > >  for aux in /dev/drm_dp_aux* ; do dd if=3D$aux bs=3D1 count=3D1=
+6 =
+
+> > > > > > skip=3D$((0x80)) 2>/dev/null | hexdump -C ; done
+> > > > > > to get the raw dump..
+> > > > > > =
+
+> > > > > > -- =
+
+> > > > > > Ville Syrj=E4l=E4
+> > > > > > Intel
+> > > > > > =
+
+> > > > > _______________________________________________
+> > > > > Intel-gfx mailing list
+> > > > > Intel-gfx@lists.freedesktop.org
+> > > > > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> > > > > =
+
+> > > =
+
+> > > -- =
+
+> > > Ville Syrj=E4l=E4
+> > > Intel
+> > > =
+
+> > _______________________________________________
+> > Intel-gfx mailing list
+> > Intel-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> > =
+
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
