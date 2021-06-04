@@ -7,56 +7,57 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 815CDC4743C
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 18:48:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B883C4743D
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 18:50:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 349F6613FA
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 18:48:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 349F6613FA
+	by mail.kernel.org (Postfix) with ESMTPS id EC4BC613FA
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 18:50:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC4BC613FA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE9CA6F8A1;
-	Fri,  4 Jun 2021 18:48:50 +0000 (UTC)
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 755466F8A3
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 18:48:50 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id o8so12872370ljp.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 04 Jun 2021 11:48:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62A4A6F8A3;
+	Fri,  4 Jun 2021 18:50:26 +0000 (UTC)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAAB26E252
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Jun 2021 18:50:24 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id f30so15568160lfj.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 04 Jun 2021 11:50:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=psSmk0BzjlqtGu46X2F1KUx2Y4cHBhast9CZ7Rf61SE=;
- b=OrEoW7z5gB8gLvNO4liPws6SteXGWAo4I4AD/q6Lnj8gSnhuXDE/ofO1qTu6zkrLN+
- 9METgNVgIEMjWhuTJWOOJSDZaNNFcd8ZZv7FDs3oji26Xqy/0yQvjLbDNH/LT9kXl1p0
- 6qwBDFUCa4tCwTdxmEe+heWTCA88pOx1+5V3M=
+ :cc; bh=nEXgvCMo9WTLs7kL4lbNpIEMBy8O7bBVKP07NstWIdE=;
+ b=NyLEzNt7BL2X11T3iKfMhln+6pptqlTdqOLycNBV6YdJXkyk0tepxRNo3gseLvFYtL
+ soan/fxIj58QZ4vIQcSo3LpSXTAb3EglfbvC4lRFf8oUk5UmFRhjaFxYMDyiuZ85aZpl
+ cb+QkVTinmlOOnE1HRSWzx78r74pr4/KKHCEg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=psSmk0BzjlqtGu46X2F1KUx2Y4cHBhast9CZ7Rf61SE=;
- b=eLaDGBrNT5oNigORQmkQc/Mv1eKU6jP7XcYLedG3K5ZF4q+elFjVHuW0tp8Uu5/ZGm
- A6mV0iQngipTzknOvbBBRSM4U2b8H/QgY2Q3jZRrF0vnozn0wuRm6OUVt8rkSMDbsiaA
- VfWyKJSBaa7cIDKUOYTECPqR7ic3vbxEoX2UX+uscpc3ZKsQTk93OZTkxsVS1IBllmaW
- IZFbjQIlRUyTBHpqmTSwtNkiqgmO/3lLXwKSncjRAGTXvRVkr7x2T0wL+oBZycIWWUsQ
- RCzAdrYM4Boas1oW26vk7xpLIbomAyBj9E8voY8+kZ3+iTwrk+zLraOgIoXUWYScWPio
- v2zw==
-X-Gm-Message-State: AOAM531/qPjbGXRTxiu0NsO1Z3AQTEz4Lj2JZVH52mbhrcVB6Ddj1TbK
- ebpcJJVeVYD9ejXrgtHpAA7N7ohx5c1ZHRLKudskXw==
-X-Google-Smtp-Source: ABdhPJysm5xFkcIMW13SQPY+BlUF575dm2S569XIdTDsZ3x28jksUFYebjBnGbLr8BUeEFh+0rnbm5gH3hxmMWmdOro=
-X-Received: by 2002:a2e:8108:: with SMTP id d8mr4400846ljg.239.1622832528938; 
- Fri, 04 Jun 2021 11:48:48 -0700 (PDT)
+ bh=nEXgvCMo9WTLs7kL4lbNpIEMBy8O7bBVKP07NstWIdE=;
+ b=fALJCh21TBrOBen1uDQ1NQ3E25YUh/bV1t1iN0u+0AFsCEdWv9/C5P4pTNXwMKCO7Q
+ 4XsVFRo8lEoyL/u7KH8mgNapnikwn2Spen+P0Qktg4WulCsgFRmxL5aSEVU8t9sLHElb
+ s3bb+pUQQGWWcGfsNXBTguFwG8kkeWassE8RWArXkknsPFdzqWICc1zochlQvpIkiL2d
+ HW1kucVYHfbaYIkvOZYpTtGYnCJ/Et7e6P4p8FKNn2bxOttwClr4QaiS+VCz4ft7GmkB
+ XjaG+ixT+oMOg+dyApxpPCQDZFlpYZ6CPXe0x6dfKGkXMoZ5qTq/g4dtYruuwZhA+8Gn
+ voEg==
+X-Gm-Message-State: AOAM533M6hYpxdm8nsGp6ZYgUAfRqH9qf2bKSMW+cAmy73bC43A5n/sx
+ GRF2pi/sJB1nc+ht3lLKsRTHhFqfrI1WBC5Zfks3kw==
+X-Google-Smtp-Source: ABdhPJxCNq90RfhzVP7zMGBR/feNJjARhD4J2yd4l523Y3uKab7HDg0+6m+cp2YuSdpJXBzWJAvAh+Gm1ZdXy6rBH6E=
+X-Received: by 2002:a05:6512:3c86:: with SMTP id
+ h6mr3685896lfv.366.1622832623247; 
+ Fri, 04 Jun 2021 11:50:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210531153922.4683-1-shawn.c.lee@intel.com>
-In-Reply-To: <20210531153922.4683-1-shawn.c.lee@intel.com>
+References: <1622176025-12499-1-git-send-email-vidya.srinivas@intel.com>
+In-Reply-To: <1622176025-12499-1-git-send-email-vidya.srinivas@intel.com>
 From: Mark Yacoub <markyacoub@chromium.org>
-Date: Fri, 4 Jun 2021 14:48:38 -0400
-Message-ID: <CAJUqKUo+ZK_rVCxHfuGD+xQN6DbJUz-qM4n6jD5co0WuFk1Nhg@mail.gmail.com>
-To: Lee Shawn C <shawn.c.lee@intel.com>
-Subject: Re: [Intel-gfx] [PATCH i-g-t] tests/kms_dp_dsc: Avoid SIGSEGV when
- release DRM connector.
+Date: Fri, 4 Jun 2021 14:50:12 -0400
+Message-ID: <CAJUqKUpEJZXGLcktaS8Jaaf-N0pPpjKP0Fi4UjmBx+Zs_DrvdQ@mail.gmail.com>
+To: Vidya Srinivas <vidya.srinivas@intel.com>
+Subject: Re: [Intel-gfx] [PATCH i-g-t] [RFC] tests/kms_big_fb: Wait for
+ vblank before collecting CRC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,47 +77,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 31, 2021 at 11:34 AM Lee Shawn C <shawn.c.lee@intel.com> wrote:
+On Fri, May 28, 2021 at 12:36 AM Vidya Srinivas
+<vidya.srinivas@intel.com> wrote:
 >
-> Got SIGSEGV fault while running kms_dp_dsc test but did not
-> connect DP DSC capable monitor on eDP/DP port. This test daemon
-> should "SKIP" test without any problem. We found kms_dp_dsc
-> can't get proper drmModeConnector and caused this SIGSEGV fault
-> when release it. Make sure drmModeConnector is available before
-> free it can avoid this issue.
+> Without wait for vblank, CRC mismatch is seen
+> between big and small CRC on few Gen11 systems.
 >
-Tested on ChromeOS on TGL (Delbin) and JSL (Drawlat).
+Tested on ChromeOS on JSL (Drawlat).
 Tested-by: Mark Yacoub <markyacoub@chromium.org>
-> Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
+> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
 > ---
->  tests/kms_dp_dsc.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  tests/kms_big_fb.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 >
-> diff --git a/tests/kms_dp_dsc.c b/tests/kms_dp_dsc.c
-> index 2446fd82bba3..ea7c9f4f72ce 100644
-> --- a/tests/kms_dp_dsc.c
-> +++ b/tests/kms_dp_dsc.c
-> @@ -262,7 +262,7 @@ igt_main
->         data_t data = {};
->         igt_output_t *output;
->         drmModeRes *res;
-> -       drmModeConnector *connector;
-> +       drmModeConnector *connector = NULL;
->         int i, test_conn_cnt, test_cnt;
->         int tests[] = {DRM_MODE_CONNECTOR_eDP, DRM_MODE_CONNECTOR_DisplayPort};
+> diff --git a/tests/kms_big_fb.c b/tests/kms_big_fb.c
+> index b35727a09bd0..f90363c3beb2 100644
+> --- a/tests/kms_big_fb.c
+> +++ b/tests/kms_big_fb.c
+> @@ -254,6 +254,7 @@ static void unset_lut(data_t *data)
+>  static bool test_plane(data_t *data)
+>  {
+>         igt_plane_t *plane = data->plane;
+> +       igt_display_t *display = &data->display;
+>         struct igt_fb *small_fb = &data->small_fb;
+>         struct igt_fb *big_fb = &data->big_fb;
+>         int w = data->big_fb_width - small_fb->width;
+> @@ -337,16 +338,17 @@ static bool test_plane(data_t *data)
+>                 igt_display_commit2(&data->display, data->display.is_atomic ?
+>                                     COMMIT_ATOMIC : COMMIT_UNIVERSAL);
 >
-> @@ -311,7 +311,8 @@ igt_main
->         }
+> -
+> +               igt_wait_for_vblank(data->drm_fd, display->pipes[data->pipe].crtc_offset);
+>                 igt_pipe_crc_collect_crc(data->pipe_crc, &small_crc);
 >
->         igt_fixture {
-> -               drmModeFreeConnector(connector);
-> +               if (connector)
-> +                       drmModeFreeConnector(connector);
->                 drmModeFreeResources(res);
->                 close(data.debugfs_fd);
->                 close(data.drm_fd);
+>                 igt_plane_set_fb(plane, big_fb);
+>                 igt_fb_set_position(big_fb, plane, x, y);
+>                 igt_fb_set_size(big_fb, plane, small_fb->width, small_fb->height);
+> +
+>                 igt_plane_set_size(plane, data->width, data->height);
+>                 igt_display_commit2(&data->display, data->display.is_atomic ?
+>                                     COMMIT_ATOMIC : COMMIT_UNIVERSAL);
+> -
+> +               igt_wait_for_vblank(data->drm_fd, display->pipes[data->pipe].crtc_offset);
+>                 igt_pipe_crc_collect_crc(data->pipe_crc, &big_crc);
+>
+>                 igt_plane_set_fb(plane, NULL);
 > --
-> 2.17.1
+> 2.7.4
 >
 _______________________________________________
 Intel-gfx mailing list
