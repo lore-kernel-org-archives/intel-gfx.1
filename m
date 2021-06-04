@@ -2,53 +2,54 @@ Return-Path: <SRS0=TObv=K6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D9E8C47082
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 02:10:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 142C3C47082
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 02:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC9D961402
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 02:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC9D961402
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D0EF261407
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Jun 2021 02:33:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0EF261407
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 699E16F55F;
-	Fri,  4 Jun 2021 02:10:06 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0968B6F55C;
- Fri,  4 Jun 2021 02:10:04 +0000 (UTC)
-IronPort-SDR: lnUEQR/Ek3Kc1pW95CF0m6SFEX0cxKdB6/vyYRf0oaVwkYdQ2ot+nXsCZf0rr+h3wHlZk/geAA
- cwsWl2rBOB9Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,10004"; a="191312453"
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="191312453"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 19:09:58 -0700
-IronPort-SDR: 6e/3RGUIr5TDMkDiZmZ00VFMNp/s12BKDZ7F7mjrlS1h5pZOm/sa43tCW8Ax8oSgkV1tVpWxYP
- vL3xAiZIVUew==
-X-IronPort-AV: E=Sophos;i="5.83,246,1616482800"; d="scan'208";a="475294456"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2021 19:09:57 -0700
-Date: Thu, 3 Jun 2021 19:02:57 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <20210604020257.GA7149@sdutt-i7>
-References: <20210603051630.2635-1-matthew.brost@intel.com>
- <20210603051630.2635-9-matthew.brost@intel.com>
- <YLlLIG9sBjouIJE2@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAD6D6F569;
+	Fri,  4 Jun 2021 02:33:16 +0000 (UTC)
+Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8175E6F565;
+ Fri,  4 Jun 2021 02:33:15 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4Fx6J66Q5gz9s24;
+ Fri,  4 Jun 2021 12:33:10 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=canb.auug.org.au;
+ s=201702; t=1622773993;
+ bh=PI/M/29Ock5JHzx2zr66W++GeZ/U0IKD0LbQp0JwrXU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=tS0GnyhRUyMX7YkKooRxu4MD0k2C8Yr8GOOdkrrI7lN0UR9zA6HVu5xEI6BZVDhpz
+ kiqH0osXpGTdPRvMW6rSnt6iYlOnteYDzU7r95vLwHb2prnU3RTRkHfx94GotArtH1
+ Po/+4445iECQnlLUdewS2OQrgt/NnwoszzAeTQy5IlZf1ttyPye/UQXJ0uHMUxBPzM
+ V8cObkW5OGbK8AjRLeBl19uhcfwYRafbKTqJawH2Rm1VS/aMUHT3aGeZSfS9jaV9K5
+ SoOIXMpD3WRR51Mtme4a+hJmJVBFTSQda8dsWLwD3/6IYv3Wmn0yVRN6lGIQe9+qrl
+ fvsUb+R6DI8qg==
+Date: Fri, 4 Jun 2021 12:33:09 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
+ <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>,
+ Dave Airlie <airlied@linux.ie>
+Message-ID: <20210604123309.2e5b546a@canb.auug.org.au>
+In-Reply-To: <20210603124847.19a6dacf@canb.auug.org.au>
+References: <20210603124847.19a6dacf@canb.auug.org.au>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YLlLIG9sBjouIJE2@phenom.ffwll.local>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 08/20] drm/i915: Promote ptrdiff() to
- i915_utils.h
+Subject: Re: [Intel-gfx] linux-next: manual merge of the amdgpu tree with
+ the drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,82 +62,207 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Nirmoy Das <nirmoy.das@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============1188856506=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 03, 2021 at 11:35:28PM +0200, Daniel Vetter wrote:
-> On Wed, Jun 02, 2021 at 10:16:18PM -0700, Matthew Brost wrote:
-> > From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> > 
-> > Generic helpers should be placed in i915_utils.h.
-> 
-> Random rant, but we're _way_ too happy to just stuff random things into
-> i915_utils.h without trying to properly upstream it.
-> 
-> For thinks like this the general dumping ground would be kernel.h, there's
-> a few pointer helpers there already. Follow up patch maybe nice.
-> -Daniel
-> 
+--===============1188856506==
+Content-Type: multipart/signed; boundary="Sig_/yECzrtYfgiiWPQ5yqoFW6qz";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-Sure. I've added this to a list of follow ups so this comment doesn't
-get lost.
+--Sig_/yECzrtYfgiiWPQ5yqoFW6qz
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Matt
+Hi all,
 
-> > 
-> > Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/i915_utils.h | 5 +++++
-> >  drivers/gpu/drm/i915/i915_vma.h   | 5 -----
-> >  2 files changed, 5 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-> > index f02f52ab5070..5259edacde38 100644
-> > --- a/drivers/gpu/drm/i915/i915_utils.h
-> > +++ b/drivers/gpu/drm/i915/i915_utils.h
-> > @@ -201,6 +201,11 @@ __check_struct_size(size_t base, size_t arr, size_t count, size_t *size)
-> >  	__T;								\
-> >  })
-> >  
-> > +static __always_inline ptrdiff_t ptrdiff(const void *a, const void *b)
-> > +{
-> > +	return a - b;
-> > +}
-> > +
-> >  /*
-> >   * container_of_user: Extract the superclass from a pointer to a member.
-> >   *
-> > diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-> > index dc6926d89626..eca452a9851f 100644
-> > --- a/drivers/gpu/drm/i915/i915_vma.h
-> > +++ b/drivers/gpu/drm/i915/i915_vma.h
-> > @@ -151,11 +151,6 @@ static inline void i915_vma_put(struct i915_vma *vma)
-> >  	i915_gem_object_put(vma->obj);
-> >  }
-> >  
-> > -static __always_inline ptrdiff_t ptrdiff(const void *a, const void *b)
-> > -{
-> > -	return a - b;
-> > -}
-> > -
-> >  static inline long
-> >  i915_vma_compare(struct i915_vma *vma,
-> >  		 struct i915_address_space *vm,
-> > -- 
-> > 2.28.0
-> > 
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+On Thu, 3 Jun 2021 12:48:47 +1000 Stephen Rothwell <sfr@canb.auug.org.au> w=
+rote:
+>
+> Today's linux-next merge of the amdgpu tree got conflicts in:
+>=20
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>=20
+> between commit:
+>=20
+>   d3116756a710 ("drm/ttm: rename bo->mem and make it a pointer")
+>=20
+> from the drm-misc tree and commits:
+>=20
+>   b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible SG BOs")
+>   2a675640bc2d ("drm/amdgpu: move shadow bo validation to VM code")
+>   59276f056fb7 ("drm/amdgpu: switch to amdgpu_bo_vm for vm code")
+>   19a1d9350be6 ("drm/amdgpu: flush gart changes after all BO recovery")
+>=20
+> from the amdgpu tree.
+>=20
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+>=20
+> --=20
+> Cheers,
+> Stephen Rothwell
+>=20
+> diff --cc drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 663aa7d2e2ea,86259435803e..000000000000
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@@ -459,10 -479,11 +461,11 @@@ static int amdgpu_bo_move(struct ttm_bu
+>   {
+>   	struct amdgpu_device *adev;
+>   	struct amdgpu_bo *abo;
+>  -	struct ttm_resource *old_mem =3D &bo->mem;
+>  +	struct ttm_resource *old_mem =3D bo->resource;
+>   	int r;
+>  =20
+> - 	if (new_mem->mem_type =3D=3D TTM_PL_TT) {
+> + 	if (new_mem->mem_type =3D=3D TTM_PL_TT ||
+> + 	    new_mem->mem_type =3D=3D AMDGPU_PL_PREEMPT) {
+>   		r =3D amdgpu_ttm_backend_bind(bo->bdev, bo->ttm, new_mem);
+>   		if (r)
+>   			return r;
+> @@@ -989,8 -1012,9 +995,9 @@@ int amdgpu_ttm_alloc_gart(struct ttm_bu
+>   			return r;
+>   		}
+>  =20
+> + 		amdgpu_gart_invalidate_tlb(adev);
+>  -		ttm_resource_free(bo, &bo->mem);
+>  -		bo->mem =3D tmp;
+>  +		ttm_resource_free(bo, bo->resource);
+>  +		ttm_bo_assign_mem(bo, &tmp);
+>   	}
+>  =20
+>   	return 0;
+> @@@ -1348,7 -1373,16 +1356,16 @@@ static bool amdgpu_ttm_bo_eviction_valu
+>   		}
+>   	}
+>  =20
+>  -	switch (bo->mem.mem_type) {
+>  +	switch (bo->resource->mem_type) {
+> + 	case AMDGPU_PL_PREEMPT:
+> + 		/* Preemptible BOs don't own system resources managed by the
+> + 		 * driver (pages, VRAM, GART space). They point to resources
+> + 		 * owned by someone else (e.g. pageable memory in user mode
+> + 		 * or a DMABuf). They are used in a preemptible context so we
+> + 		 * can guarantee no deadlocks and good QoS in case of MMU
+> + 		 * notifiers or DMABuf move notifiers from the resource owner.
+> + 		 */
+> + 		return false;
+>   	case TTM_PL_TT:
+>   		if (amdgpu_bo_is_amdgpu_bo(bo) &&
+>   		    amdgpu_bo_encrypted(ttm_to_amdgpu_bo(bo)))
+> @@@ -1767,8 -1809,13 +1791,9 @@@ void amdgpu_ttm_fini(struct amdgpu_devi
+>   	amdgpu_bo_free_kernel(&adev->mman.discovery_memory, NULL, NULL);
+>   	amdgpu_ttm_fw_reserve_vram_fini(adev);
+>  =20
+>  -	if (adev->mman.aper_base_kaddr)
+>  -		iounmap(adev->mman.aper_base_kaddr);
+>  -	adev->mman.aper_base_kaddr =3D NULL;
+>  -
+>   	amdgpu_vram_mgr_fini(adev);
+>   	amdgpu_gtt_mgr_fini(adev);
+> + 	amdgpu_preempt_mgr_fini(adev);
+>   	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_GDS);
+>   	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_GWS);
+>   	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_OA);
+> @@@ -1919,7 -2010,12 +1944,12 @@@ int amdgpu_fill_buffer(struct amdgpu_b
+>   		return -EINVAL;
+>   	}
+>  =20
+>  -	if (bo->tbo.mem.mem_type =3D=3D AMDGPU_PL_PREEMPT) {
+> ++	if (bo->tbo.resource->mem_type =3D=3D AMDGPU_PL_PREEMPT) {
+> + 		DRM_ERROR("Trying to clear preemptible memory.\n");
+> + 		return -EINVAL;
+> + 	}
+> +=20
+>  -	if (bo->tbo.mem.mem_type =3D=3D TTM_PL_TT) {
+>  +	if (bo->tbo.resource->mem_type =3D=3D TTM_PL_TT) {
+>   		r =3D amdgpu_ttm_alloc_gart(&bo->tbo);
+>   		if (r)
+>   			return r;
+> diff --cc drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index bcfd4a8d0288,1923f035713a..000000000000
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@@ -657,11 -657,10 +658,11 @@@ void amdgpu_vm_move_to_lru_tail(struct=20
+>   		if (!bo->parent)
+>   			continue;
+>  =20
+>  -		ttm_bo_move_to_lru_tail(&bo->tbo, &bo->tbo.mem,
+>  +		ttm_bo_move_to_lru_tail(&bo->tbo, bo->tbo.resource,
+>   					&vm->lru_bulk_move);
+> - 		if (bo->shadow)
+> - 			ttm_bo_move_to_lru_tail(&bo->shadow->tbo,
+> + 		if (shadow)
+>  -			ttm_bo_move_to_lru_tail(&shadow->tbo, &shadow->tbo.mem,
+> ++			ttm_bo_move_to_lru_tail(&shadow->tbo,
+>  +						shadow->tbo.resource,
+>   						&vm->lru_bulk_move);
+>   	}
+>   	spin_unlock(&adev->mman.bdev.lru_lock);
+> @@@ -1818,11 -1853,12 +1859,12 @@@ int amdgpu_vm_bo_update(struct amdgpu_d
+>   			struct drm_gem_object *gobj =3D dma_buf->priv;
+>   			struct amdgpu_bo *abo =3D gem_to_amdgpu_bo(gobj);
+>  =20
+>  -			if (abo->tbo.mem.mem_type =3D=3D TTM_PL_VRAM)
+>  +			if (abo->tbo.resource->mem_type =3D=3D TTM_PL_VRAM)
+>   				bo =3D gem_to_amdgpu_bo(gobj);
+>   		}
+>  -		mem =3D &bo->tbo.mem;
+>  +		mem =3D bo->tbo.resource;
+> - 		if (mem->mem_type =3D=3D TTM_PL_TT)
+> + 		if (mem->mem_type =3D=3D TTM_PL_TT ||
+> + 		    mem->mem_type =3D=3D AMDGPU_PL_PREEMPT)
+>   			pages_addr =3D bo->tbo.ttm->dma_address;
+>   	}
+>  =20
+
+This is now a conflict between the drm-misc tree and the drm tree.
+
+(I fixed up the resolution above)
+
+--=20
+Cheers,
+Stephen Rothwell
+
+--Sig_/yECzrtYfgiiWPQ5yqoFW6qz
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmC5kOUACgkQAVBC80lX
+0GwEiAf/VGcAUYUYLioC3aoowvJpGA8nk3tWS96lNH3jMLTFMMSBkypojeycWOSN
+Mo2EWWOMmr2YQFQ1mq7QHBZINzPo65Kji3y5s3dqMAtMSQtZW05c/D78nHJvmjf1
+IBG/JFS/XQRkl33n8eQaekSSRvc0Fz+vLaBQCWcMVE9dTnZ5vGcZC/S2V32cpTj1
+x5WizJeAN9gJyg7v98tPETlYQSTtQ1vioepYpzvGrxSe4g4AxXs1Wv1kuu+kIc1i
+9IVAfKb9n+FBfaW+Obyw1hrLSQ4bpp/ejI76uNNdqGI6EcGCEUm3VphwJ+HE26gu
+5zGWLzlPJWpMoDM1qGc9pIIMnkTEgQ==
+=dudl
+-----END PGP SIGNATURE-----
+
+--Sig_/yECzrtYfgiiWPQ5yqoFW6qz--
+
+--===============1188856506==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1188856506==--
