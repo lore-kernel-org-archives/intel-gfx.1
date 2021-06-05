@@ -2,128 +2,50 @@ Return-Path: <SRS0=Fk00=K7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA20AC4743E
-	for <intel-gfx@archiver.kernel.org>; Sat,  5 Jun 2021 11:14:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DF4DC4743D
+	for <intel-gfx@archiver.kernel.org>; Sat,  5 Jun 2021 15:54:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8EFCF61354
-	for <intel-gfx@archiver.kernel.org>; Sat,  5 Jun 2021 11:14:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EFCF61354
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3A78C613F3
+	for <intel-gfx@archiver.kernel.org>; Sat,  5 Jun 2021 15:54:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A78C613F3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20A826E0ED;
-	Sat,  5 Jun 2021 11:14:28 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5C566E0ED;
- Sat,  5 Jun 2021 11:14:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QENxU6Z/6//IGzHDS8zcNvPUxJlaZvIacdYOVAwDpT86+EtU1la0YFaFtBFuNk9VCifMB/VXgqChdezL+Eo6WC5ep/3CsGlCbQIT1NJj592e6VN01PeC3v1krl10VPiFrsS2+46afAsm/Thcsg9DXiFOBMHD54OrAPC1C0baKSfEtxdl/Nd6BiRBycybGtOCUPMLJ4KYMIPhDk0EYqWP7pTiXC+G8Ce2K2gh/S0HbVwV52wJpFAd2Ic3ZVAa2I5ngG0tBYuc+kIPssWKXiMJG+N/3+PDw9DfmRW2IAr6mNm12c2DgNAmqEHvLBmEEU3NHSg6OrymUtx7M8X+q+RZRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RushpzilxKiUFAHqMI7sS+3JqbdEpyLgmPn8t5NcSmg=;
- b=T9DhvroETkxRPkXqjVxHnxmPx8/CTO/gY+YrQvwgv5+KSfNuBqtRJhbwzf4z7dm3i8wIrFdAwSBm/cemlf0J99K2kVblnEdOBgQw1/P/vIlCx0Zs//DAFBL1EdD/JZV4ZyiKmBJRaVoh7E5hhTqjd8fUAAmmx2rIYn3sCmRAThawedGoOdz+wVfvusL64AV5NH5/jFlX02COCNzsQyBfquAM4nLu7fmfiZPYmpEm75AXMKQNZP3+xwf1b3H+H5u4gBLApXNmcj0PEXFtI0JYnhtn3YN7f2c3IgdK/3kKwvAPwN5z3v+LOPq8Ld23DmKR00NZiJlIxoAamrXsZuiW1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RushpzilxKiUFAHqMI7sS+3JqbdEpyLgmPn8t5NcSmg=;
- b=X6qNHPjnnyNlZQtbFYz/WzC1PignF5FhzkBaygPQD88udGOPT4dFB2ciJsrLz39fmQXg4kJnHucZIpt1F59JrOFXnd+NGBtkOsHWPFh1unueCTBfcDqemV+Z+UJ1ILHxTqorCDRrN5XQmBCZAGKmAR/8OUbawN4G7ZiRwvxdNj4=
-Authentication-Results: lists.linaro.org; dkim=none (message not signed)
- header.d=none;lists.linaro.org; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB2449.namprd12.prod.outlook.com (2603:10b6:207:40::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Sat, 5 Jun
- 2021 11:14:17 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6d4d:4674:1cf6:8d34]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6d4d:4674:1cf6:8d34%6]) with mapi id 15.20.4195.024; Sat, 5 Jun 2021
- 11:14:17 +0000
-To: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
-References: <20210605002007.4153933-1-lucas.demarchi@intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <282ab16b-b498-959d-97b8-a68222c6c14d@amd.com>
-Date: Sat, 5 Jun 2021 13:14:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <20210605002007.4153933-1-lucas.demarchi@intel.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:8946:fd9b:10c9:6ef0]
-X-ClientProxiedBy: PR3P189CA0050.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:102:53::25) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8E6A6E40C;
+	Sat,  5 Jun 2021 15:54:20 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AEBA6E167;
+ Sat,  5 Jun 2021 15:54:18 +0000 (UTC)
+IronPort-SDR: nJTTgVOwBvNK1thBW4r95dkRWvfxG43EtxGvFBqLk8vqwJeq5lCH7V+F9o8U0BOzTClNHgLo9Y
+ a6ZI9ShtMs6w==
+X-IronPort-AV: E=McAfee;i="6200,9189,10006"; a="202586560"
+X-IronPort-AV: E=Sophos;i="5.83,251,1616482800"; d="scan'208";a="202586560"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2021 08:54:15 -0700
+IronPort-SDR: 5TrE+E7aKwkXjFtp9I/rw23SKjuWEpYiyF86+GIif3ELVCjJzqjOsYBqYhQSiMpI8mjcTkkNv9
+ oWDYAQcSYlGw==
+X-IronPort-AV: E=Sophos;i="5.83,251,1616482800"; d="scan'208";a="636855079"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2021 08:54:15 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Sat,  5 Jun 2021 08:53:54 -0700
+Message-Id: <20210605155356.4183026-4-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210605155356.4183026-1-lucas.demarchi@intel.com>
+References: <20210605155356.4183026-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:8946:fd9b:10c9:6ef0]
- (2a02:908:1252:fb60:8946:fd9b:10c9:6ef0) by
- PR3P189CA0050.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:53::25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4195.15 via Frontend Transport; Sat, 5 Jun 2021 11:14:15 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f430d5e4-bb5f-4e13-de5d-08d928130eae
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2449:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB2449BB34094E8FD956FFC5BC833A9@BL0PR12MB2449.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RG3BsjI4bGTKgXxJtAd3aALNJZU/ObHCsrKfLbF++iyE6OyZKCHc8xrFV34hyRL62ihA77YYMrXIa3Ng4ab3WGWr3Y0Hw0u7ZVUBRMFcZzaPW9NC+Ej6hQkcL2W3yqDc9SFniREeNj0YDxkgGea4EkrJfmxqRAZCFgddeBNn0x7j7BJmifdF0nnyxdDRx+PC/9gqbkY9LiG1HjuMeESX3L6r5EMnS+u2LgvcQgeDGTZo2KfZEcPcmARiLB8LtgR35ZHpYgIZRYJddlxEr6Q9LmQRX+B4fd+w76OHypBzNiOlpIWib+w1N7sJBdEPB5Yia4zMvJM4rtKTFYvqkPwWNGAe8SoWjwCbWn/0vnvCw9RtcRAHvh4G9DcWquXe8wuMxOJO2smVMOnxMNf2JTdwITiL3M4QNwo0C81GXlLOAv5ewSXDbLXj8kRa3cRtQu5luAxinuPTVg1zTVhvDNxhfk3VXCXA/1GSyDvjrPvbYYriGMidpn9Isqn9LQd5yKtVfEX8iq2x94WcGb1aG3VFfFQS4j5mZBiJtmBlNmhVV8xV1cHrv3QB6rcPh6r/O2rYkAdzH29VU0cKhy3x2nB0WRqJN+K6lCJtzoSzArlDt4ymJ94QOL3HfxfrpJVmbU7PAEIqOpGMitf+PgoRNgw/kqdh9S6YEhGRGGY47aoCjKZ0XKZ4DJzDnmaVjFPHrDT6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(346002)(376002)(396003)(136003)(31696002)(186003)(31686004)(478600001)(6666004)(316002)(86362001)(38100700002)(36756003)(54906003)(2616005)(66946007)(4326008)(8676002)(2906002)(5660300002)(16526019)(66556008)(66476007)(6486002)(8936002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?TTNPR0NoWm95WWYyMjNpeThFVmVwcmhsbXI3dmRMYkxIb2tlWkdzMXZXQTdK?=
- =?utf-8?B?TTFYbkRuTmZNdmgzY0E1cDhUNHdpRndWUlBkZ2FualIzUUgxMzVvZ2FhYURh?=
- =?utf-8?B?c3FKeW1CRHBjclptclBBSFRVUTgxOGJGR0g0Rml3dE90RUdpMzIxMDFGT2pp?=
- =?utf-8?B?SVNuWGM3bGNiWW5VRHNEWm1mY2xQYzM5L01IQ3lZTksxanFTaEJ2amJReEkz?=
- =?utf-8?B?NW1URSs5akhVNFBBS0tLK1lOYnB1WWxST1ZnQW1ReWxLTFlNNlpkcGwrcE9D?=
- =?utf-8?B?cXRkWm9sOExtSWhiV0FjVWhVNHJVTy9ERjdGWUdyMXp4RUtZemtmc3pDV0Jx?=
- =?utf-8?B?Q3huUEpJOUFleStzUjRoOTgwRXJDMEY1U3Z0K0sxVFdoWjFFaUJKaHFvc3RQ?=
- =?utf-8?B?NHlqNlZ3aEFBZzVxYTlzc1YyVldpQ3FHdW81OXJwdzN3RWNCczZRSkpiRDV6?=
- =?utf-8?B?MnJTOFE2UStIampkcEVRdVY4NGtMRlNvdjJyekZQTTE1RmVTRlNTOGxCS2dv?=
- =?utf-8?B?OWhYck1qdUNiZWpRMHpRTTFOQko5d2pkamFYdmRudmJOd3lMOTJzREdlbERI?=
- =?utf-8?B?MUJVeWVzclk4OWpoVUJTamtKVC9PODhGcHBiRmRHTGNaSk1EWDJTeUMra3pk?=
- =?utf-8?B?K2pCaUlBM3FpeTJVY1BoOWhqbXVrYkJmZHZGMitKa3VwdlJNakVLdVFVTFY0?=
- =?utf-8?B?RTlyNkFmUlljTzU5Y0tPRjFvL2VlcGwrSTFGMWhZMmpjUldBcyt3bmhBRjVr?=
- =?utf-8?B?NXpVeFNDV3lDK1l5ZVFsTmZnRmVFdjJOU0VLNlBYbmlsTlc5RDhYaTMrSlk4?=
- =?utf-8?B?TkdiREx4UlRFWXUyRDFQSlZMV2QvYlZIYTdrYzczYk5iSENNUE1Jc0p3Q1Jk?=
- =?utf-8?B?UFJya2VwbGVuSDgxTWlNRUVnWnRsSGQ4cTZCNDdIZTUrZmJNYkFiN0E5a2I1?=
- =?utf-8?B?SlBkYlZrV3ZzMENmZlNoeDRRbEh3clBHTUtZS3BDQi9pWXlrdGN0NDRxejdh?=
- =?utf-8?B?UEF3VHhJZW9mdnhwUElCd2dEaU9PNDFmR2Y1ODl4QlNGdnh3ak9ubHUvNVFM?=
- =?utf-8?B?RUhHb0tjb0RYR2dkcmVQYWR3cUtQUk5MVVliQ1hhb2FFSy92a3NBeHI2SHZP?=
- =?utf-8?B?K2xDT1NKa0p5UnBvNUpCMHdWblNTTjdIUGQwTysvNVpJYUYvRnVESGFJdHFs?=
- =?utf-8?B?YzhZNW5BRnRpOXFuL3dPODk5ck9iTS9QdjFwOFBoaXk5QzAvT1F6TDA5aVUr?=
- =?utf-8?B?QysyOGdzU0tPNkpVbGpXdlZIODE5ZXYza0l1Z3dmNUlBdm9JbkhQZmtSZEFi?=
- =?utf-8?B?S0M0Ui81QzkvUGxuTjYwRlV5YmtSS281WERDY1lhSjRUWCtyYVR5M3V0OWsv?=
- =?utf-8?B?dHdyM0FZaG8ya1RRZGhjcG1uZ3pTUk1FUnVaazZDYVZCTjEyWFF5Z1ZtRE1X?=
- =?utf-8?B?L0ttU0llUXRoMlpManVoSXBsUHcxeEdPRlNGRW1SMWV2eWx2NW9lbXNqRWpv?=
- =?utf-8?B?TTJWWit5MkEyWHJpbUdWMzZtT3N3YVhUMURhTlZ1WWhhUklHNFJhbTdWMjZl?=
- =?utf-8?B?aXorZENPb3Z0SGNPY01CQnBOeFYyT3loMzVqMkZQSDRWOGxmTjcvTXNROUtv?=
- =?utf-8?B?MkdOSHUra1FzVjZ0YzRsMGQ1RERNQjY0UTg2U2JxUzRTUHVsdmdvUnZWMWFX?=
- =?utf-8?B?M1p0eWVVcEhYRXJHSURlSWpxSnlRaHhNVnlMamtub2o2c3dQc0RjQ09DaVJI?=
- =?utf-8?B?UUIzUDFGQ3lESEFqb0xwbXVjZXRuWXpRUURDYTFReWRTK0h0U2tnYWFlY2g5?=
- =?utf-8?B?ekNIcEkwQ1gwbHBTcm5FWFNNajJMSUhPNUR0b1NCZFBpcUQweEFOWE5jOWw1?=
- =?utf-8?Q?nzuD7bRiZbCna?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f430d5e4-bb5f-4e13-de5d-08d928130eae
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2021 11:14:16.7605 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gGq5mAsQY7cICrAFbYkA/nBlRBiNwKacO2RId9wdUyV29VKXkxq1Q0zPht91R5XX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2449
-Subject: Re: [Intel-gfx] [PATCH] dma-buf: fix build due to missing export
+Subject: [Intel-gfx] [PATCH v4 3/5] drm/i915/gem: replace IS_GEN and friends
+ with GRAPHICS_VER
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,48 +58,571 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linaro-mm-sig@lists.linaro.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhhdCB3YXMgYW4gYWxyZWFkeSBrbm93biBpc3N1ZSBhbmQgSSd2ZSBqdXN0IHB1c2hlZCBhIHBh
-dGNoIHRvIGZpeCBpdC4KCkNocmlzdGlhbi4KCkFtIDA1LjA2LjIxIHVtIDAyOjIwIHNjaHJpZWIg
-THVjYXMgRGUgTWFyY2hpOgo+IENvbW1pdCAwYzZiNTIyYWJjMmEgKCJkbWEtYnVmOiBjbGVhbnVw
-IGRtYS1yZXN2IHNoYXJlZCBmZW5jZSBkZWJ1Z2dpbmcgYSBiaXQgdjIiKQo+IHR1cm5lZCBkbWFf
-cmVzdl9yZXNldF9zaGFyZWRfbWF4KCkgaW50byBhIGZ1bmN0aW9uIHdoZW4KPiBDT05GSUdfREVC
-VUdfTVVURVhFUyBpcyBzZXQsIGJ1dCBmb3Jnb3QgdG8gZXhwb3J0IGl0LiBUaGF0IHJlc3VsdGVk
-IGluIGEKPiBicm9rZW4gYnVpbGQ6Cj4KPiAJRVJST1I6IG1vZHBvc3Q6ICJkbWFfcmVzdl9yZXNl
-dF9zaGFyZWRfbWF4IiBbZHJpdmVycy9ncHUvZHJtL3ZnZW0vdmdlbS5rb10gdW5kZWZpbmVkIQo+
-IAlFUlJPUjogbW9kcG9zdDogImRtYV9yZXN2X3Jlc2V0X3NoYXJlZF9tYXgiIFtkcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pOTE1LmtvXSB1bmRlZmluZWQhCj4gCUVSUk9SOiBtb2Rwb3N0OiAiZG1hX3Jl
-c3ZfcmVzZXRfc2hhcmVkX21heCIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5r
-b10gdW5kZWZpbmVkIQo+IAlFUlJPUjogbW9kcG9zdDogImRtYV9yZXN2X3Jlc2V0X3NoYXJlZF9t
-YXgiIFtkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bS5rb10gdW5kZWZpbmVkIQo+IAlFUlJPUjogbW9k
-cG9zdDogImRtYV9yZXN2X3Jlc2V0X3NoYXJlZF9tYXgiIFtkcml2ZXJzL2dwdS9kcm0vZHJtLmtv
-XSB1bmRlZmluZWQhCj4gCUVSUk9SOiBtb2Rwb3N0OiAiZG1hX3Jlc3ZfcmVzZXRfc2hhcmVkX21h
-eCIgW2RyaXZlcnMvZ3B1L2RybS9kcm1fdnJhbV9oZWxwZXIua29dIHVuZGVmaW5lZCEKPiAJbWFr
-ZVsxXTogKioqIFtzY3JpcHRzL01ha2VmaWxlLm1vZHBvc3Q6MTUwOiBtb2R1bGVzLW9ubHkuc3lt
-dmVyc10gRXJyb3IgMQo+Cj4gRml4ZXM6IDBjNmI1MjJhYmMyYSAoImRtYS1idWY6IGNsZWFudXAg
-ZG1hLXJlc3Ygc2hhcmVkIGZlbmNlIGRlYnVnZ2luZyBhIGJpdCB2MiIpCj4gQ2M6IENocmlzdGlh
-biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBDYzogRGFuaWVsIFZldHRlciA8
-ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KPiBDYzogU3VtaXQgU2Vtd2FsIDxzdW1pdC5zZW13YWxA
-bGluYXJvLm9yZz4KPiBDYzogIkNocmlzdGlhbiBLw7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFt
-ZC5jb20+Cj4gQ2M6IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZwo+IENjOiBkcmktZGV2ZWxA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IGxpbmFyby1tbS1zaWdAbGlzdHMubGluYXJvLm9y
-Zwo+IFNpZ25lZC1vZmYtYnk6IEx1Y2FzIERlIE1hcmNoaSA8bHVjYXMuZGVtYXJjaGlAaW50ZWwu
-Y29tPgo+IC0tLQo+ICAgZHJpdmVycy9kbWEtYnVmL2RtYS1yZXN2LmMgfCAxICsKPiAgIDEgZmls
-ZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZG1hLWJ1
-Zi9kbWEtcmVzdi5jIGIvZHJpdmVycy9kbWEtYnVmL2RtYS1yZXN2LmMKPiBpbmRleCAzOTY0ZGY0
-Mzg1MDUuLjYxMzJiYTYzMTk5MSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2RtYS1idWYvZG1hLXJl
-c3YuYwo+ICsrKyBiL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtcmVzdi5jCj4gQEAgLTIyNiw2ICsyMjYs
-NyBAQCB2b2lkIGRtYV9yZXN2X3Jlc2V0X3NoYXJlZF9tYXgoc3RydWN0IGRtYV9yZXN2ICpvYmop
-Cj4gICAJCWZlbmNlLT5zaGFyZWRfbWF4ID0gZmVuY2UtPnNoYXJlZF9jb3VudDsKPiAgIAl9Cj4g
-ICB9Cj4gK0VYUE9SVF9TWU1CT0woZG1hX3Jlc3ZfcmVzZXRfc2hhcmVkX21heCk7Cj4gICAjZW5k
-aWYKPiAgIAo+ICAgLyoqCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRl
-bC1nZngK
+This was done by the following semantic patch:
+
+	@@ expression i915; @@
+	- INTEL_GEN(i915)
+	+ GRAPHICS_VER(i915)
+
+	@@ expression i915; expression E; @@
+	- INTEL_GEN(i915) >= E
+	+ GRAPHICS_VER(i915) >= E
+
+	@@ expression dev_priv; expression E; @@
+	- !IS_GEN(dev_priv, E)
+	+ GRAPHICS_VER(dev_priv) != E
+
+	@@ expression dev_priv; expression E; @@
+	- IS_GEN(dev_priv, E)
+	+ GRAPHICS_VER(dev_priv) == E
+
+	@@
+	expression dev_priv;
+	expression from, until;
+	@@
+	- IS_GEN_RANGE(dev_priv, from, until)
+	+ IS_GRAPHICS_VER(dev_priv, from, until)
+
+	@def@
+	expression E;
+	identifier id =~ "^gen$";
+	@@
+	- id = GRAPHICS_VER(E)
+	+ ver = GRAPHICS_VER(E)
+
+	@@
+	identifier def.id;
+	@@
+	- id
+	+ ver
+
+It also takes care of renaming the variable we assign to GRAPHICS_VER()
+so to use "ver" rather than "gen".
+
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c      |  6 +++---
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c   | 10 +++++-----
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c         |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object_blt.c   |  8 ++++----
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c       | 16 ++++++++--------
+ drivers/gpu/drm/i915/gem/i915_gem_tiling.c       | 12 ++++++------
+ .../drm/i915/gem/selftests/i915_gem_client_blt.c | 10 +++++-----
+ .../drm/i915/gem/selftests/i915_gem_coherency.c  |  4 ++--
+ .../drm/i915/gem/selftests/i915_gem_context.c    | 16 ++++++++--------
+ .../gpu/drm/i915/gem/selftests/i915_gem_mman.c   | 14 +++++++-------
+ .../gpu/drm/i915/gem/selftests/igt_gem_utils.c   | 10 +++++-----
+ 11 files changed, 54 insertions(+), 54 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 188dee13e017..7720b8c22c81 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1190,7 +1190,7 @@ static void set_ppgtt_barrier(void *data)
+ {
+ 	struct i915_address_space *old = data;
+ 
+-	if (INTEL_GEN(old->i915) < 8)
++	if (GRAPHICS_VER(old->i915) < 8)
+ 		gen6_ppgtt_unpin_all(i915_vm_to_ppgtt(old));
+ 
+ 	i915_vm_close(old);
+@@ -1436,7 +1436,7 @@ i915_gem_user_to_context_sseu(struct intel_gt *gt,
+ 	context->max_eus_per_subslice = user->max_eus_per_subslice;
+ 
+ 	/* Part specific restrictions. */
+-	if (IS_GEN(i915, 11)) {
++	if (GRAPHICS_VER(i915) == 11) {
+ 		unsigned int hw_s = hweight8(device->slice_mask);
+ 		unsigned int hw_ss_per_s = hweight8(device->subslice_mask[0]);
+ 		unsigned int req_s = hweight8(context->slice_mask);
+@@ -1503,7 +1503,7 @@ static int set_sseu(struct i915_gem_context *ctx,
+ 	if (args->size < sizeof(user_sseu))
+ 		return -EINVAL;
+ 
+-	if (!IS_GEN(i915, 11))
++	if (GRAPHICS_VER(i915) != 11)
+ 		return -ENODEV;
+ 
+ 	if (copy_from_user(&user_sseu, u64_to_user_ptr(args->value),
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 297143511f99..24c0582e46fb 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -500,7 +500,7 @@ eb_validate_vma(struct i915_execbuffer *eb,
+ 	 * also covers all platforms with local memory.
+ 	 */
+ 	if (entry->relocation_count &&
+-	    INTEL_GEN(eb->i915) >= 12 && !IS_TIGERLAKE(eb->i915))
++	    GRAPHICS_VER(eb->i915) >= 12 && !IS_TIGERLAKE(eb->i915))
+ 		return -EINVAL;
+ 
+ 	if (unlikely(entry->flags & eb->invalid_flags))
+@@ -1439,7 +1439,7 @@ static int __reloc_gpu_alloc(struct i915_execbuffer *eb,
+ 
+ static bool reloc_can_use_engine(const struct intel_engine_cs *engine)
+ {
+-	return engine->class != VIDEO_DECODE_CLASS || !IS_GEN(engine->i915, 6);
++	return engine->class != VIDEO_DECODE_CLASS || GRAPHICS_VER(engine->i915) != 6;
+ }
+ 
+ static u32 *reloc_gpu(struct i915_execbuffer *eb,
+@@ -1671,7 +1671,7 @@ eb_relocate_entry(struct i915_execbuffer *eb,
+ 		 * batchbuffers.
+ 		 */
+ 		if (reloc->write_domain == I915_GEM_DOMAIN_INSTRUCTION &&
+-		    IS_GEN(eb->i915, 6)) {
++		    GRAPHICS_VER(eb->i915) == 6) {
+ 			err = i915_vma_bind(target->vma,
+ 					    target->vma->obj->cache_level,
+ 					    PIN_GLOBAL, NULL);
+@@ -2332,7 +2332,7 @@ static int i915_reset_gen7_sol_offsets(struct i915_request *rq)
+ 	u32 *cs;
+ 	int i;
+ 
+-	if (!IS_GEN(rq->engine->i915, 7) || rq->engine->id != RCS0) {
++	if (GRAPHICS_VER(rq->engine->i915) != 7 || rq->engine->id != RCS0) {
+ 		drm_dbg(&rq->engine->i915->drm, "sol reset is gen7/rcs only\n");
+ 		return -EINVAL;
+ 	}
+@@ -3375,7 +3375,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 
+ 	eb.batch_flags = 0;
+ 	if (args->flags & I915_EXEC_SECURE) {
+-		if (INTEL_GEN(i915) >= 11)
++		if (GRAPHICS_VER(i915) >= 11)
+ 			return -ENODEV;
+ 
+ 		/* Return -EPERM to trigger fallback code on old binaries. */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index 65db290efd16..ee0bf8811388 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -64,7 +64,7 @@ i915_gem_mmap_ioctl(struct drm_device *dev, void *data,
+ 	/* mmap ioctl is disallowed for all platforms after TGL-LP.  This also
+ 	 * covers all platforms with local memory.
+ 	 */
+-	if (INTEL_GEN(i915) >= 12 && !IS_TIGERLAKE(i915))
++	if (GRAPHICS_VER(i915) >= 12 && !IS_TIGERLAKE(i915))
+ 		return -EOPNOTSUPP;
+ 
+ 	if (args->flags & ~(I915_MMAP_WC))
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
+index df8e8c18c6c9..3e28c68fda3e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
+@@ -72,7 +72,7 @@ struct i915_vma *intel_emit_vma_fill_blt(struct intel_context *ce,
+ 
+ 		GEM_BUG_ON(size >> PAGE_SHIFT > S16_MAX);
+ 
+-		if (INTEL_GEN(i915) >= 8) {
++		if (GRAPHICS_VER(i915) >= 8) {
+ 			*cmd++ = XY_COLOR_BLT_CMD | BLT_WRITE_RGBA | (7 - 2);
+ 			*cmd++ = BLT_DEPTH_32 | BLT_ROP_COLOR_COPY | PAGE_SIZE;
+ 			*cmd++ = 0;
+@@ -232,7 +232,7 @@ static bool wa_1209644611_applies(struct drm_i915_private *i915, u32 size)
+ {
+ 	u32 height = size >> PAGE_SHIFT;
+ 
+-	if (!IS_GEN(i915, 11))
++	if (GRAPHICS_VER(i915) != 11)
+ 		return false;
+ 
+ 	return height % 4 == 3 && height <= 8;
+@@ -297,7 +297,7 @@ struct i915_vma *intel_emit_vma_copy_blt(struct intel_context *ce,
+ 		size = min_t(u64, rem, block_size);
+ 		GEM_BUG_ON(size >> PAGE_SHIFT > S16_MAX);
+ 
+-		if (INTEL_GEN(i915) >= 9 &&
++		if (GRAPHICS_VER(i915) >= 9 &&
+ 		    !wa_1209644611_applies(i915, size)) {
+ 			*cmd++ = GEN9_XY_FAST_COPY_BLT_CMD | (10 - 2);
+ 			*cmd++ = BLT_DEPTH_32 | PAGE_SIZE;
+@@ -309,7 +309,7 @@ struct i915_vma *intel_emit_vma_copy_blt(struct intel_context *ce,
+ 			*cmd++ = PAGE_SIZE;
+ 			*cmd++ = lower_32_bits(src_offset);
+ 			*cmd++ = upper_32_bits(src_offset);
+-		} else if (INTEL_GEN(i915) >= 8) {
++		} else if (GRAPHICS_VER(i915) >= 8) {
+ 			*cmd++ = XY_SRC_COPY_BLT_CMD | BLT_WRITE_RGBA | (10 - 2);
+ 			*cmd++ = BLT_DEPTH_32 | BLT_ROP_SRC_COPY | PAGE_SIZE;
+ 			*cmd++ = 0;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index 092d7a21de82..b0c3a7dc60d1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -38,7 +38,7 @@ int i915_gem_stolen_insert_node_in_range(struct drm_i915_private *i915,
+ 		return -ENODEV;
+ 
+ 	/* WaSkipStolenMemoryFirstPage:bdw+ */
+-	if (INTEL_GEN(i915) >= 8 && start < 4096)
++	if (GRAPHICS_VER(i915) >= 8 && start < 4096)
+ 		start = 4096;
+ 
+ 	mutex_lock(&i915->mm.stolen_lock);
+@@ -84,14 +84,14 @@ static int i915_adjust_stolen(struct drm_i915_private *i915,
+ 	 */
+ 
+ 	/* Make sure we don't clobber the GTT if it's within stolen memory */
+-	if (INTEL_GEN(i915) <= 4 &&
++	if (GRAPHICS_VER(i915) <= 4 &&
+ 	    !IS_G33(i915) && !IS_PINEVIEW(i915) && !IS_G4X(i915)) {
+ 		struct resource stolen[2] = {*dsm, *dsm};
+ 		struct resource ggtt_res;
+ 		resource_size_t ggtt_start;
+ 
+ 		ggtt_start = intel_uncore_read(uncore, PGTBL_CTL);
+-		if (IS_GEN(i915, 4))
++		if (GRAPHICS_VER(i915) == 4)
+ 			ggtt_start = (ggtt_start & PGTBL_ADDRESS_LO_MASK) |
+ 				     (ggtt_start & PGTBL_ADDRESS_HI_MASK) << 28;
+ 		else
+@@ -156,7 +156,7 @@ static int i915_adjust_stolen(struct drm_i915_private *i915,
+ 		 * GEN3 firmware likes to smash pci bridges into the stolen
+ 		 * range. Apparently this works.
+ 		 */
+-		if (!r && !IS_GEN(i915, 3)) {
++		if (!r && GRAPHICS_VER(i915) != 3) {
+ 			drm_err(&i915->drm,
+ 				"conflict detected with stolen region: %pR\n",
+ 				dsm);
+@@ -197,7 +197,7 @@ static void g4x_get_stolen_reserved(struct drm_i915_private *i915,
+ 	 * Whether ILK really reuses the ELK register for this is unclear.
+ 	 * Let's see if we catch anyone with this supposedly enabled on ILK.
+ 	 */
+-	drm_WARN(&i915->drm, IS_GEN(i915, 5),
++	drm_WARN(&i915->drm, GRAPHICS_VER(i915) == 5,
+ 		 "ILK stolen reserved found? 0x%08x\n",
+ 		 reg_val);
+ 
+@@ -399,7 +399,7 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
+ 		return 0;
+ 	}
+ 
+-	if (intel_vtd_active() && INTEL_GEN(i915) < 8) {
++	if (intel_vtd_active() && GRAPHICS_VER(i915) < 8) {
+ 		drm_notice(&i915->drm,
+ 			   "%s, disabling use of stolen memory\n",
+ 			   "DMAR active");
+@@ -421,7 +421,7 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
+ 	reserved_base = stolen_top;
+ 	reserved_size = 0;
+ 
+-	switch (INTEL_GEN(i915)) {
++	switch (GRAPHICS_VER(i915)) {
+ 	case 2:
+ 	case 3:
+ 		break;
+@@ -456,7 +456,7 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
+ 						&reserved_base, &reserved_size);
+ 		break;
+ 	default:
+-		MISSING_CASE(INTEL_GEN(i915));
++		MISSING_CASE(GRAPHICS_VER(i915));
+ 		fallthrough;
+ 	case 11:
+ 	case 12:
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
+index 9e8945013090..ef4d0f7dc118 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
+@@ -62,14 +62,14 @@ u32 i915_gem_fence_size(struct drm_i915_private *i915,
+ 
+ 	GEM_BUG_ON(!stride);
+ 
+-	if (INTEL_GEN(i915) >= 4) {
++	if (GRAPHICS_VER(i915) >= 4) {
+ 		stride *= i915_gem_tile_height(tiling);
+ 		GEM_BUG_ON(!IS_ALIGNED(stride, I965_FENCE_PAGE));
+ 		return roundup(size, stride);
+ 	}
+ 
+ 	/* Previous chips need a power-of-two fence region when tiling */
+-	if (IS_GEN(i915, 3))
++	if (GRAPHICS_VER(i915) == 3)
+ 		ggtt_size = 1024*1024;
+ 	else
+ 		ggtt_size = 512*1024;
+@@ -102,7 +102,7 @@ u32 i915_gem_fence_alignment(struct drm_i915_private *i915, u32 size,
+ 	if (tiling == I915_TILING_NONE)
+ 		return I915_GTT_MIN_ALIGNMENT;
+ 
+-	if (INTEL_GEN(i915) >= 4)
++	if (GRAPHICS_VER(i915) >= 4)
+ 		return I965_FENCE_PAGE;
+ 
+ 	/*
+@@ -130,10 +130,10 @@ i915_tiling_ok(struct drm_i915_gem_object *obj,
+ 	/* check maximum stride & object size */
+ 	/* i965+ stores the end address of the gtt mapping in the fence
+ 	 * reg, so dont bother to check the size */
+-	if (INTEL_GEN(i915) >= 7) {
++	if (GRAPHICS_VER(i915) >= 7) {
+ 		if (stride / 128 > GEN7_FENCE_MAX_PITCH_VAL)
+ 			return false;
+-	} else if (INTEL_GEN(i915) >= 4) {
++	} else if (GRAPHICS_VER(i915) >= 4) {
+ 		if (stride / 128 > I965_FENCE_MAX_PITCH_VAL)
+ 			return false;
+ 	} else {
+@@ -144,7 +144,7 @@ i915_tiling_ok(struct drm_i915_gem_object *obj,
+ 			return false;
+ 	}
+ 
+-	if (IS_GEN(i915, 2) ||
++	if (GRAPHICS_VER(i915) == 2 ||
+ 	    (tiling == I915_TILING_Y && HAS_128_BYTE_Y_TILING(i915)))
+ 		tile_width = 128;
+ 	else
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
+index d36873885cc1..176e6b22f87f 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
+@@ -152,8 +152,8 @@ static int prepare_blit(const struct tiled_blits *t,
+ 			struct blit_buffer *src,
+ 			struct drm_i915_gem_object *batch)
+ {
+-	const int gen = INTEL_GEN(to_i915(batch->base.dev));
+-	bool use_64b_reloc = gen >= 8;
++	const int ver = GRAPHICS_VER(to_i915(batch->base.dev));
++	bool use_64b_reloc = ver >= 8;
+ 	u32 src_pitch, dst_pitch;
+ 	u32 cmd, *cs;
+ 
+@@ -171,7 +171,7 @@ static int prepare_blit(const struct tiled_blits *t,
+ 	*cs++ = cmd;
+ 
+ 	cmd = MI_FLUSH_DW;
+-	if (gen >= 8)
++	if (ver >= 8)
+ 		cmd++;
+ 	*cs++ = cmd;
+ 	*cs++ = 0;
+@@ -179,7 +179,7 @@ static int prepare_blit(const struct tiled_blits *t,
+ 	*cs++ = 0;
+ 
+ 	cmd = XY_SRC_COPY_BLT_CMD | BLT_WRITE_RGBA | (8 - 2);
+-	if (gen >= 8)
++	if (ver >= 8)
+ 		cmd += 2;
+ 
+ 	src_pitch = t->width * 4;
+@@ -666,7 +666,7 @@ static int igt_client_tiled_blits(void *arg)
+ 	int inst = 0;
+ 
+ 	/* Test requires explicit BLT tiling controls */
+-	if (INTEL_GEN(i915) < 4)
++	if (GRAPHICS_VER(i915) < 4)
+ 		return 0;
+ 
+ 	if (bad_swizzling(i915)) /* Requires sane (sub-page) swizzling */
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
+index e937b6629019..13b088cc787e 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
+@@ -221,12 +221,12 @@ static int gpu_set(struct context *ctx, unsigned long offset, u32 v)
+ 		goto out_rq;
+ 	}
+ 
+-	if (INTEL_GEN(ctx->engine->i915) >= 8) {
++	if (GRAPHICS_VER(ctx->engine->i915) >= 8) {
+ 		*cs++ = MI_STORE_DWORD_IMM_GEN4 | 1 << 22;
+ 		*cs++ = lower_32_bits(i915_ggtt_offset(vma) + offset);
+ 		*cs++ = upper_32_bits(i915_ggtt_offset(vma) + offset);
+ 		*cs++ = v;
+-	} else if (INTEL_GEN(ctx->engine->i915) >= 4) {
++	} else if (GRAPHICS_VER(ctx->engine->i915) >= 4) {
+ 		*cs++ = MI_STORE_DWORD_IMM_GEN4 | MI_USE_GGTT;
+ 		*cs++ = 0;
+ 		*cs++ = i915_ggtt_offset(vma) + offset;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index ce70d0a3afb2..dbcfa28a9d91 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -897,7 +897,7 @@ static int rpcs_query_batch(struct drm_i915_gem_object *rpcs, struct i915_vma *v
+ {
+ 	u32 *cmd;
+ 
+-	GEM_BUG_ON(INTEL_GEN(vma->vm->i915) < 8);
++	GEM_BUG_ON(GRAPHICS_VER(vma->vm->i915) < 8);
+ 
+ 	cmd = i915_gem_object_pin_map(rpcs, I915_MAP_WB);
+ 	if (IS_ERR(cmd))
+@@ -932,7 +932,7 @@ emit_rpcs_query(struct drm_i915_gem_object *obj,
+ 
+ 	GEM_BUG_ON(!intel_engine_can_store_dword(ce->engine));
+ 
+-	if (INTEL_GEN(i915) < 8)
++	if (GRAPHICS_VER(i915) < 8)
+ 		return -EINVAL;
+ 
+ 	vma = i915_vma_instance(obj, ce->vm, NULL);
+@@ -1100,7 +1100,7 @@ __read_slice_count(struct intel_context *ce,
+ 		return ret;
+ 	}
+ 
+-	if (INTEL_GEN(ce->engine->i915) >= 11) {
++	if (GRAPHICS_VER(ce->engine->i915) >= 11) {
+ 		s_mask = GEN11_RPCS_S_CNT_MASK;
+ 		s_shift = GEN11_RPCS_S_CNT_SHIFT;
+ 	} else {
+@@ -1229,7 +1229,7 @@ __igt_ctx_sseu(struct drm_i915_private *i915,
+ 	int inst = 0;
+ 	int ret = 0;
+ 
+-	if (INTEL_GEN(i915) < 9)
++	if (GRAPHICS_VER(i915) < 9)
+ 		return 0;
+ 
+ 	if (flags & TEST_RESET)
+@@ -1518,7 +1518,7 @@ static int write_to_scratch(struct i915_gem_context *ctx,
+ 	}
+ 
+ 	*cmd++ = MI_STORE_DWORD_IMM_GEN4;
+-	if (INTEL_GEN(i915) >= 8) {
++	if (GRAPHICS_VER(i915) >= 8) {
+ 		*cmd++ = lower_32_bits(offset);
+ 		*cmd++ = upper_32_bits(offset);
+ 	} else {
+@@ -1608,7 +1608,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
+ 	if (IS_ERR(obj))
+ 		return PTR_ERR(obj);
+ 
+-	if (INTEL_GEN(i915) >= 8) {
++	if (GRAPHICS_VER(i915) >= 8) {
+ 		const u32 GPR0 = engine->mmio_base + 0x600;
+ 
+ 		vm = i915_gem_context_get_vm_rcu(ctx);
+@@ -1776,7 +1776,7 @@ static int igt_vm_isolation(void *arg)
+ 	u32 expected;
+ 	int err;
+ 
+-	if (INTEL_GEN(i915) < 7)
++	if (GRAPHICS_VER(i915) < 7)
+ 		return 0;
+ 
+ 	/*
+@@ -1830,7 +1830,7 @@ static int igt_vm_isolation(void *arg)
+ 			continue;
+ 
+ 		/* Not all engines have their own GPR! */
+-		if (INTEL_GEN(i915) < 8 && engine->class != RENDER_CLASS)
++		if (GRAPHICS_VER(i915) < 8 && engine->class != RENDER_CLASS)
+ 			continue;
+ 
+ 		while (!__igt_timeout(end_time, NULL)) {
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 05a3b29f545e..3a30955285d6 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -273,7 +273,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+ static unsigned int
+ setup_tile_size(struct tile *tile, struct drm_i915_private *i915)
+ {
+-	if (INTEL_GEN(i915) <= 2) {
++	if (GRAPHICS_VER(i915) <= 2) {
+ 		tile->height = 16;
+ 		tile->width = 128;
+ 		tile->size = 11;
+@@ -288,9 +288,9 @@ setup_tile_size(struct tile *tile, struct drm_i915_private *i915)
+ 		tile->size = 12;
+ 	}
+ 
+-	if (INTEL_GEN(i915) < 4)
++	if (GRAPHICS_VER(i915) < 4)
+ 		return 8192 / tile->width;
+-	else if (INTEL_GEN(i915) < 7)
++	else if (GRAPHICS_VER(i915) < 7)
+ 		return 128 * I965_FENCE_MAX_PITCH_VAL / tile->width;
+ 	else
+ 		return 128 * GEN7_FENCE_MAX_PITCH_VAL / tile->width;
+@@ -386,7 +386,7 @@ static int igt_partial_tiling(void *arg)
+ 			if (err)
+ 				goto out_unlock;
+ 
+-			if (pitch > 2 && INTEL_GEN(i915) >= 4) {
++			if (pitch > 2 && GRAPHICS_VER(i915) >= 4) {
+ 				tile.stride = tile.width * (pitch - 1);
+ 				err = check_partial_mappings(obj, &tile, end);
+ 				if (err == -EINTR)
+@@ -395,7 +395,7 @@ static int igt_partial_tiling(void *arg)
+ 					goto out_unlock;
+ 			}
+ 
+-			if (pitch < max_pitch && INTEL_GEN(i915) >= 4) {
++			if (pitch < max_pitch && GRAPHICS_VER(i915) >= 4) {
+ 				tile.stride = tile.width * (pitch + 1);
+ 				err = check_partial_mappings(obj, &tile, end);
+ 				if (err == -EINTR)
+@@ -405,7 +405,7 @@ static int igt_partial_tiling(void *arg)
+ 			}
+ 		}
+ 
+-		if (INTEL_GEN(i915) >= 4) {
++		if (GRAPHICS_VER(i915) >= 4) {
+ 			for_each_prime_number(pitch, max_pitch) {
+ 				tile.stride = tile.width * pitch;
+ 				err = check_partial_mappings(obj, &tile, end);
+@@ -501,7 +501,7 @@ static int igt_smoke_tiling(void *arg)
+ 			tile.stride =
+ 				i915_prandom_u32_max_state(max_pitch, &prng);
+ 			tile.stride = (1 + tile.stride) * tile.width;
+-			if (INTEL_GEN(i915) < 4)
++			if (GRAPHICS_VER(i915) < 4)
+ 				tile.stride = rounddown_pow_of_two(tile.stride);
+ 		}
+ 
+diff --git a/drivers/gpu/drm/i915/gem/selftests/igt_gem_utils.c b/drivers/gpu/drm/i915/gem/selftests/igt_gem_utils.c
+index 0b092c62bb34..b35c1219c852 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/igt_gem_utils.c
++++ b/drivers/gpu/drm/i915/gem/selftests/igt_gem_utils.c
+@@ -44,7 +44,7 @@ igt_emit_store_dw(struct i915_vma *vma,
+ 		  u32 val)
+ {
+ 	struct drm_i915_gem_object *obj;
+-	const int gen = INTEL_GEN(vma->vm->i915);
++	const int ver = GRAPHICS_VER(vma->vm->i915);
+ 	unsigned long n, size;
+ 	u32 *cmd;
+ 	int err;
+@@ -65,14 +65,14 @@ igt_emit_store_dw(struct i915_vma *vma,
+ 	offset += vma->node.start;
+ 
+ 	for (n = 0; n < count; n++) {
+-		if (gen >= 8) {
++		if (ver >= 8) {
+ 			*cmd++ = MI_STORE_DWORD_IMM_GEN4;
+ 			*cmd++ = lower_32_bits(offset);
+ 			*cmd++ = upper_32_bits(offset);
+ 			*cmd++ = val;
+-		} else if (gen >= 4) {
++		} else if (ver >= 4) {
+ 			*cmd++ = MI_STORE_DWORD_IMM_GEN4 |
+-				(gen < 6 ? MI_USE_GGTT : 0);
++				(ver < 6 ? MI_USE_GGTT : 0);
+ 			*cmd++ = 0;
+ 			*cmd++ = offset;
+ 			*cmd++ = val;
+@@ -146,7 +146,7 @@ int igt_gpu_fill_dw(struct intel_context *ce,
+ 		goto skip_request;
+ 
+ 	flags = 0;
+-	if (INTEL_GEN(ce->vm->i915) <= 5)
++	if (GRAPHICS_VER(ce->vm->i915) <= 5)
+ 		flags |= I915_DISPATCH_SECURE;
+ 
+ 	err = rq->engine->emit_bb_start(rq,
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
