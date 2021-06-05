@@ -2,53 +2,59 @@ Return-Path: <SRS0=wI8T=LB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E51EC47082
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 11:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC225C47082
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 11:24:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 340436101A
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 11:19:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 340436101A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 54E6F61078
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 11:24:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 54E6F61078
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1F616E3C4;
-	Mon,  7 Jun 2021 11:19:50 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A28A36E3C4
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 11:19:48 +0000 (UTC)
-IronPort-SDR: MhocuHzEkqsQvC9IBqJdwpOupD50OFvTiuiF00DTah8QOfg0JHVXSf5xLshv1dBggI6h0Te0DU
- 5etHQpidIZZg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10007"; a="265757686"
-X-IronPort-AV: E=Sophos;i="5.83,254,1616482800"; d="scan'208";a="265757686"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 04:19:48 -0700
-IronPort-SDR: IBbVdmaskRexLDkGgfeuYNmG+FVotisx6EME1CM/zWeZiDosEGgDsazMRLN9lLNkNyttyS5FOm
- GN2pPIOJ1nlQ==
-X-IronPort-AV: E=Sophos;i="5.83,254,1616482800"; d="scan'208";a="401648256"
-Received: from unknown (HELO [10.237.72.166]) ([10.237.72.166])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 04:19:46 -0700
-To: =?UTF-8?Q?Jos=c3=a9_Roberto_de_Souza?= <jose.souza@intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20210514232247.144542-1-jose.souza@intel.com>
-From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Message-ID: <ca2b23cf-c8e1-4ce2-8102-311eac2a280c@intel.com>
-Date: Mon, 7 Jun 2021 14:19:35 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBFB36E8AB;
+	Mon,  7 Jun 2021 11:24:51 +0000 (UTC)
+X-Greylist: delayed 523 seconds by postgrey-1.36 at gabe;
+ Sat, 05 Jun 2021 03:31:02 UTC
+Received: from mail-m121144.qiye.163.com (mail-m121144.qiye.163.com
+ [115.236.121.144])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90E476E44D
+ for <intel-gfx@lists.freedesktop.org>; Sat,  5 Jun 2021 03:31:02 +0000 (UTC)
+Received: from Wanjb.localdomain (unknown [36.152.145.182])
+ by mail-m121144.qiye.163.com (Hmail) with ESMTPA id D2C4CAC00AC;
+ Sat,  5 Jun 2021 11:22:16 +0800 (CST)
+From: Wan Jiabing <wanjiabing@vivo.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
+ Imre Deak <imre.deak@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Anusha Srivatsa <anusha.srivatsa@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Sat,  5 Jun 2021 11:22:07 +0800
+Message-Id: <20210605032209.16111-1-wanjiabing@vivo.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20210514232247.144542-1-jose.souza@intel.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH v2 1/4] drm/i915/display: Fix fastsets
- involving PSR
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
+ oVCBIfWUFZQ0NIHVZKSEMdSUNITk4ZQ09VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
+ hKQ1VLWQY+
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6PRQ6TBw6Lj8JIwlOOEspHz0q
+ KhMwCglVSlVKTUlJQ01ISEhMTkNMVTMWGhIXVQwaFRESGhkSFRw7DRINFFUYFBZFWVdZEgtZQVlI
+ TVVKTklVSk9OVUpDSVlXWQgBWUFJQ0xLNwY+
+X-HM-Tid: 0a79da315725b039kuuud2c4cac00ac
+X-Mailman-Approved-At: Mon, 07 Jun 2021 11:24:51 +0000
+Subject: [Intel-gfx] [PATCH] drm/i915/display: remove duplicated argument
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,56 +67,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Wan Jiabing <wanjiabing@vivo.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-UmV2aWV3ZWQtYnk6IEd3YW4tZ3llb25nIE11biA8Z3dhbi1neWVvbmcubXVuQGludGVsLmNvbT4K
-Ck9uIDUvMTUvMjEgMjoyMiBBTSwgSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSB3cm90ZToKPiBDb21t
-aXQgNzhiNzcyZTFhMDFmICgiZHJtL2k5MTUvZGlzcGxheTogRmlsbCBQU1Igc3RhdGUgZHVyaW5n
-IGhhcmR3YXJlCj4gY29uZmlndXJhdGlvbiByZWFkIG91dCIpIGlzIG5vdCBhbGxvd2luZyBmYXN0
-c2V0cyB0byBoYXBwZW4gd2hlbiBQU1IKPiBzdGF0ZXMgY2hhbmdlcyBidXQgUFNSIGlzIGEgZmVh
-dHVyZSB0aGF0IGNhbiBiZSBlbmFibGVkIGFuZCBkaXNhYmxlZAo+IGR1cmluZyBmYXN0c2V0cy4K
-PiAKPiBTbyBoZXJlIG1vdmluZyB0aGUgUFNSIHBpcGUgY29uZiBjaGVja3MgdG8gYSBibG9jayB0
-aGF0IGlzIG9ubHkKPiBleGVjdXRlZCB3aGVuIGNoZWNraW5nIGlmIEhXIHN0YXRlIG1hdGNoZXMg
-d2l0aCByZXF1ZXN0ZWQgc3RhdGUsIG5vdAo+IGR1cmluZyB0aGUgcGhhc2Ugd2hlcmUgaXQgY2hl
-Y2tzIGlmIGZhc3RzZXQgaXMgcG9zc2libGUgb3Igbm90Lgo+IAo+IFRoZXJlIHN0aWxsIGEgc3Rh
-dGUgbWlzbWF0Y2ggbm90IGFsbG93aW5nIGZhc3RzZXRzIGJldHdlZW4gc3RhdGVzCj4gdHVybmlu
-ZyBvZmYgb3Igb24gUFNSIGJlY2F1c2Ugb2YgY3J0Y19zdGF0ZS0+aW5mb2ZyYW1lcy5lbmFibGUK
-PiBCSVQoRFBfU0RQX1ZTQykgYnV0IGF0IGxlYXN0IGZvciBub3cgaXQgd2lsbCBhbGxvdyBhIGZh
-c3RzZXQgYmV0d2Vlbgo+IFBTUjEgPC0+IFBTUjIsIHRoYXQgaXMgYSBjYXNlIGhlYXZpbGx5IHVz
-ZWQgYnkgQ0kgZHVlIHRvIHBpcGUgQ1JDIG5vdAo+IHdvcmsgd2l0aCBQU1IyLCBidXQgdGhlIHJl
-bWFuaW5nIGlzc3VlIHdpbGwgYmUgZml4ZWQgaW4gYSBmdXR1cmUgcGF0Y2guCj4gCj4gQ2M6IEd3
-YW4tZ3llb25nIE11biA8Z3dhbi1neWVvbmcubXVuQGludGVsLmNvbT4KPiBDYzogUmFkaGFrcmlz
-aG5hIFNyaXBhZGEgPHJhZGhha3Jpc2huYS5zcmlwYWRhQGludGVsLmNvbT4KPiBSZXBvcnRlZC1i
-eTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KPiBGaXhl
-czogNzhiNzcyZTFhMDFmICgiZHJtL2k5MTUvZGlzcGxheTogRmlsbCBQU1Igc3RhdGUgZHVyaW5n
-IGhhcmR3YXJlIGNvbmZpZ3VyYXRpb24gcmVhZCBvdXQiKQo+IFNpZ25lZC1vZmYtYnk6IEpvc8Op
-IFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgo+IC0tLQo+ICAgZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMgfCAxMCArKysrKy0tLS0tCj4g
-ICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+IAo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCj4gaW5kZXggMGMy
-YjE5NDAwNmY4Li41MWY0OTkyNzFjYzggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
-aXNwbGF5L2ludGVsX2Rpc3BsYXkuYwo+IEBAIC04NTQ4LDYgKzg1NDgsMTEgQEAgaW50ZWxfcGlw
-ZV9jb25maWdfY29tcGFyZShjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3VycmVudF9j
-b25maWcsCj4gICAJCWJwX2dhbW1hID0gaW50ZWxfY29sb3JfZ2V0X2dhbW1hX2JpdF9wcmVjaXNp
-b24ocGlwZV9jb25maWcpOwo+ICAgCQlpZiAoYnBfZ2FtbWEpCj4gICAJCQlQSVBFX0NPTkZfQ0hF
-Q0tfQ09MT1JfTFVUKGdhbW1hX21vZGUsIGh3LmdhbW1hX2x1dCwgYnBfZ2FtbWEpOwo+ICsKPiAr
-CQlQSVBFX0NPTkZfQ0hFQ0tfQk9PTChoYXNfcHNyKTsKPiArCQlQSVBFX0NPTkZfQ0hFQ0tfQk9P
-TChoYXNfcHNyMik7Cj4gKwkJUElQRV9DT05GX0NIRUNLX0JPT0woZW5hYmxlX3BzcjJfc2VsX2Zl
-dGNoKTsKPiArCQlQSVBFX0NPTkZfQ0hFQ0tfSShkYzNjb19leGl0bGluZSk7Cj4gICAJfQo+ICAg
-Cj4gICAJUElQRV9DT05GX0NIRUNLX0JPT0woZG91YmxlX3dpZGUpOwo+IEBAIC04NjMxLDExICs4
-NjM2LDYgQEAgaW50ZWxfcGlwZV9jb25maWdfY29tcGFyZShjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0
-Y19zdGF0ZSAqY3VycmVudF9jb25maWcsCj4gICAJUElQRV9DT05GX0NIRUNLX0kodnJyLmZsaXBs
-aW5lKTsKPiAgIAlQSVBFX0NPTkZfQ0hFQ0tfSSh2cnIucGlwZWxpbmVfZnVsbCk7Cj4gICAKPiAt
-CVBJUEVfQ09ORl9DSEVDS19CT09MKGhhc19wc3IpOwo+IC0JUElQRV9DT05GX0NIRUNLX0JPT0wo
-aGFzX3BzcjIpOwo+IC0JUElQRV9DT05GX0NIRUNLX0JPT0woZW5hYmxlX3BzcjJfc2VsX2ZldGNo
-KTsKPiAtCVBJUEVfQ09ORl9DSEVDS19JKGRjM2NvX2V4aXRsaW5lKTsKPiAtCj4gICAjdW5kZWYg
-UElQRV9DT05GX0NIRUNLX1gKPiAgICN1bmRlZiBQSVBFX0NPTkZfQ0hFQ0tfSQo+ICAgI3VuZGVm
-IFBJUEVfQ09ORl9DSEVDS19CT09MCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2ludGVsLWdmeAo=
+Fix the following coccicheck warning:
+
+./drivers/gpu/drm/i915/display/intel_display_power.c:3081:1-28:
+ duplicated argument to & or |
+
+This commit fixes duplicate argument. It might be a typo.
+But what I can do is to remove it now.
+
+Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_power.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 3e1f6ec61514..4298ae684d7d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -3078,7 +3078,6 @@ intel_display_power_put_mask_in_set(struct drm_i915_private *i915,
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D_XELPD) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_E_XELPD) |	\
+-	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC1) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC2) |	\
+ 	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC3) |	\
+-- 
+2.20.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
