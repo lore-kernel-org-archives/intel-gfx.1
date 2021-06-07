@@ -2,40 +2,58 @@ Return-Path: <SRS0=wI8T=LB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B029C47094
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CAFE7C47082
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:38:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D6EC661090
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:34:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6EC661090
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 963476109F
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:38:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 963476109F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B4706E971;
-	Mon,  7 Jun 2021 17:34:59 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 494636E973;
- Mon,  7 Jun 2021 17:34:56 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 45978AA01E;
- Mon,  7 Jun 2021 17:34:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B7BB6E978;
+	Mon,  7 Jun 2021 17:38:05 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A3266E977;
+ Mon,  7 Jun 2021 17:38:03 +0000 (UTC)
+IronPort-SDR: ttP+qBXwP7+z0FAANIZGJAGb0er1L9Nr7Z1aqxQ8Ub/c4uM071cz1MztMX0unKa/F8QffYGHjF
+ X4IYBPNlsCeg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="201650105"
+X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="201650105"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2021 10:37:59 -0700
+IronPort-SDR: VvVfLcvZLbbRzWa64kfVZfvW2tjKa/iU8ytxSjwGz++c6PLw3xNTuHTMpOBHyhCiqSKsGD4wFc
+ 1JjPFayG4m2A==
+X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="484857057"
+Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2021 10:37:59 -0700
+Date: Mon, 7 Jun 2021 10:31:02 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20210607173101.GA11968@sdutt-i7>
+References: <20210506191451.77768-1-matthew.brost@intel.com>
+ <20210506191451.77768-37-matthew.brost@intel.com>
+ <375b4de4-168f-9c4c-dbb8-f42fd6303628@linux.intel.com>
+ <20210525172121.GE14724@sdutt-i7>
+ <0f26f76f-e066-fb23-a7b2-784bb8ee771d@linux.intel.com>
+ <20210526181053.GA3435@sdutt-i7>
+ <53613c13-1cab-b9bd-3922-0389600773ee@linux.intel.com>
+ <20210527143514.GA24720@sdutt-i7>
+ <828fe399-5319-78a9-c6e3-c0c027e08e9c@linux.intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Tejas Upadhyay" <tejaskumarx.surendrakumar.upadhyay@intel.com>
-Date: Mon, 07 Jun 2021 17:34:56 -0000
-Message-ID: <162308729628.2773.15342214491392611245@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210607141216.391305-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-In-Reply-To: <20210607141216.391305-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiB3YXJuaW5nIGZvciB4?=
- =?utf-8?q?86/gpu=3A_add_JasperLake_to_gen11_early_quirks_=28rev2=29?=
+Content-Disposition: inline
+In-Reply-To: <828fe399-5319-78a9-c6e3-c0c027e08e9c@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [RFC PATCH 36/97] drm/i915/guc: Add non blocking
+ CTB send function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,37 +66,174 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: jason.ekstrand@intel.com, daniel.vetter@intel.com,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Thu, May 27, 2021 at 04:11:50PM +0100, Tvrtko Ursulin wrote:
+> 
+> On 27/05/2021 15:35, Matthew Brost wrote:
+> > On Thu, May 27, 2021 at 11:02:24AM +0100, Tvrtko Ursulin wrote:
+> > > 
+> > > On 26/05/2021 19:10, Matthew Brost wrote:
+> > > 
+> > > [snip]
+> > > 
+> > > > > > > > +static int ct_send_nb(struct intel_guc_ct *ct,
+> > > > > > > > +		      const u32 *action,
+> > > > > > > > +		      u32 len,
+> > > > > > > > +		      u32 flags)
+> > > > > > > > +{
+> > > > > > > > +	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+> > > > > > > > +	unsigned long spin_flags;
+> > > > > > > > +	u32 fence;
+> > > > > > > > +	int ret;
+> > > > > > > > +
+> > > > > > > > +	spin_lock_irqsave(&ctb->lock, spin_flags);
+> > > > > > > > +
+> > > > > > > > +	ret = ctb_has_room(ctb, len + 1);
+> > > > > > > > +	if (unlikely(ret))
+> > > > > > > > +		goto out;
+> > > > > > > > +
+> > > > > > > > +	fence = ct_get_next_fence(ct);
+> > > > > > > > +	ret = ct_write(ct, action, len, fence, flags);
+> > > > > > > > +	if (unlikely(ret))
+> > > > > > > > +		goto out;
+> > > > > > > > +
+> > > > > > > > +	intel_guc_notify(ct_to_guc(ct));
+> > > > > > > > +
+> > > > > > > > +out:
+> > > > > > > > +	spin_unlock_irqrestore(&ctb->lock, spin_flags);
+> > > > > > > > +
+> > > > > > > > +	return ret;
+> > > > > > > > +}
+> > > > > > > > +
+> > > > > > > >      static int ct_send(struct intel_guc_ct *ct,
+> > > > > > > >      		   const u32 *action,
+> > > > > > > >      		   u32 len,
+> > > > > > > > @@ -473,6 +541,7 @@ static int ct_send(struct intel_guc_ct *ct,
+> > > > > > > >      		   u32 response_buf_size,
+> > > > > > > >      		   u32 *status)
+> > > > > > > >      {
+> > > > > > > > +	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+> > > > > > > >      	struct ct_request request;
+> > > > > > > >      	unsigned long flags;
+> > > > > > > >      	u32 fence;
+> > > > > > > > @@ -482,8 +551,20 @@ static int ct_send(struct intel_guc_ct *ct,
+> > > > > > > >      	GEM_BUG_ON(!len);
+> > > > > > > >      	GEM_BUG_ON(len & ~GUC_CT_MSG_LEN_MASK);
+> > > > > > > >      	GEM_BUG_ON(!response_buf && response_buf_size);
+> > > > > > > > +	might_sleep();
+> > > > > > > 
+> > > > > > > Sleep is just cond_resched below or there is more?
+> > > > > > > 
+> > > > > > 
+> > > > > > Yes, the cond_resched.
+> > > > > > 
+> > > > > > > > +	/*
+> > > > > > > > +	 * We use a lazy spin wait loop here as we believe that if the CT
+> > > > > > > > +	 * buffers are sized correctly the flow control condition should be
+> > > > > > > > +	 * rare.
+> > > > > > > > +	 */
+> > > > > > > > +retry:
+> > > > > > > >      	spin_lock_irqsave(&ct->ctbs.send.lock, flags);
+> > > > > > > > +	if (unlikely(!ctb_has_room(ctb, len + 1))) {
+> > > > > > > > +		spin_unlock_irqrestore(&ct->ctbs.send.lock, flags);
+> > > > > > > > +		cond_resched();
+> > > > > > > > +		goto retry;
+> > > > > > > > +	}
+> > > > > > > 
+> > > > > > > If this patch is about adding a non-blocking send function, and below we can
+> > > > > > > see that it creates a fork:
+> > > > > > > 
+> > > > > > > intel_guc_ct_send:
+> > > > > > > ...
+> > > > > > > 	if (flags & INTEL_GUC_SEND_NB)
+> > > > > > > 		return ct_send_nb(ct, action, len, flags);
+> > > > > > > 
+> > > > > > >     	ret = ct_send(ct, action, len, response_buf, response_buf_size, &status);
+> > > > > > > 
+> > > > > > > Then why is there a change in ct_send here, which is not the new
+> > > > > > > non-blocking path?
+> > > > > > > 
+> > > > > > 
+> > > > > > There is not a change to ct_send(), just to intel_guc_ct_send.
+> > > > > 
+> > > > > I was doing by the diff which says:
+> > > > > 
+> > > > >    static int ct_send(struct intel_guc_ct *ct,
+> > > > >    		   const u32 *action,
+> > > > >    		   u32 len,
+> > > > > @@ -473,6 +541,7 @@ static int ct_send(struct intel_guc_ct *ct,
+> > > > >    		   u32 response_buf_size,
+> > > > >    		   u32 *status)
+> > > > >    {
+> > > > > +	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+> > > > >    	struct ct_request request;
+> > > > >    	unsigned long flags;
+> > > > >    	u32 fence;
+> > > > > @@ -482,8 +551,20 @@ static int ct_send(struct intel_guc_ct *ct,
+> > > > >    	GEM_BUG_ON(!len);
+> > > > >    	GEM_BUG_ON(len & ~GUC_CT_MSG_LEN_MASK);
+> > > > >    	GEM_BUG_ON(!response_buf && response_buf_size);
+> > > > > +	might_sleep();
+> > > > > +	/*
+> > > > > +	 * We use a lazy spin wait loop here as we believe that if the CT
+> > > > > +	 * buffers are sized correctly the flow control condition should be
+> > > > > +	 * rare.
+> > > > > +	 */
+> > > > > +retry:
+> > > > >    	spin_lock_irqsave(&ct->ctbs.send.lock, flags);
+> > > > > +	if (unlikely(!ctb_has_room(ctb, len + 1))) {
+> > > > > +		spin_unlock_irqrestore(&ct->ctbs.send.lock, flags);
+> > > > > +		cond_resched();
+> > > > > +		goto retry;
+> > > > > +	}
+> > > > > 
+> > > > > So it looks like a change to ct_send to me. Is that wrong?
+> > > 
+> > > What about this part - is the patch changing the blocking ct_send or not,
+> > > and if it is why?
+> > > 
+> > 
+> > Yes, ct_send() changes. Sorry for the confusion.
+> > 
+> > This function needs to be updated to account for the H2G space and
+> > backoff if no space is available.
+> 
+> Since this one is the sleeping path, it probably can and needs to be smarter
+> than having a cond_resched busy loop added. Like sleep and get woken up when
+> there is space. Otherwise it can degenerate to busy looping via contention
+> with the non-blocking path.
+> 
 
-Series: x86/gpu: add JasperLake to gen11 early quirks (rev2)
-URL   : https://patchwork.freedesktop.org/series/91082/
-State : warning
+That screams over enginerring a simple problem to me. If the CT channel
+is full we are really in trouble anyways - i.e. the performance is going
+to terrible as we overwhelmed the GuC with traffic. That being said,
+IGTs can do this but that really isn't a real world use case. For the
+real world, this buffer is large enough that it won't ever be full hence
+the comment + lazy spin loop.
 
-== Summary ==
+Next, it isn't like we get an interrupt or something when space
+becomes available so how would we wake this thread? Could we come up
+with a convoluted scheme where we insert ops that generated an interrupt
+at regular intervals, probably? Would it be super complicated, totally
+unnecessary, and gain use nothing - absolutely.
 
-CALL    scripts/checksyscalls.sh
-  CALL    scripts/atomic/check-atomics.sh
-  CHK     include/generated/compile.h
-Kernel: arch/x86/boot/bzImage is ready  (#1)
-  MODPOST modules-only.symvers
-ERROR: modpost: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-ERROR: modpost: "__divdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-scripts/Makefile.modpost:150: recipe for target 'modules-only.symvers' failed
-make[1]: *** [modules-only.symvers] Error 1
-make[1]: *** Deleting file 'modules-only.symvers'
-Makefile:1759: recipe for target 'modules' failed
-make: *** [modules] Error 2
+Lastly, blocking CTBs really shouldn't ever be used. Certainly the
+submission code doesn't use these. I think SRIOV might, but those can
+probably be reworked too to use non-blocking. At some point we might
+want to scrub the driver and just delete the blocking path.
 
-== Logs ==
+Matt
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20297/build_32bit.log
+> Regards,
+
+> 
+> Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
