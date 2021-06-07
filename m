@@ -7,45 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD9FDC47095
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 14:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7A2BC47094
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 14:21:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C71861130
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 14:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C71861130
+	by mail.kernel.org (Postfix) with ESMTPS id B0C7960FEA
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 14:21:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0C7960FEA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C31976E8DF;
-	Mon,  7 Jun 2021 14:19:23 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B00616E8DF
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 14:19:20 +0000 (UTC)
-IronPort-SDR: /UCNG1edVCePhEgfiG0gcQr4iGssjsO1UqL6R4V75ar2h+5SZVListaw/42ds52yPtg/Iq8MaW
- q+9wNiO+M97A==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="204598619"
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="204598619"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 07:19:20 -0700
-IronPort-SDR: KzDkDyVJ/iLH9LKeBDLpqyTRouQj7L3Yuh2odr0v5OjrShrodAKEL2uuN5nGped/xhxciYbitV
- OEBiPW4pBKWQ==
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="447497886"
-Received: from unknown (HELO helsinki.fi.intel.com) ([10.237.72.166])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 07:19:18 -0700
-From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  7 Jun 2021 17:19:10 +0300
-Message-Id: <20210607141910.450996-2-gwan-gyeong.mun@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49F566E8E1;
+	Mon,  7 Jun 2021 14:21:33 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E806E8E1
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 14:21:31 +0000 (UTC)
+IronPort-SDR: F+6I6TlnSXk7fQLx57CPM6vxRIgre+NfbPKqu0ivTTTN2o3afXBpE9NaGLWNGFBbCG7NOPmImw
+ Aw04RZ3UePJA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="184999914"
+X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="184999914"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2021 07:21:29 -0700
+IronPort-SDR: NmYoNkimBiei+r4083534GEFvKXdRoyDZ7s6x5DfwLVgIjmmdhFPgjH9T9pkKNt4wwBc4ETBtG
+ OHdXbH5RMP0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="476223411"
+Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
+ by FMSMGA003.fm.intel.com with ESMTP; 07 Jun 2021 07:21:27 -0700
+From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	mahesh.meena@intel.com
+Date: Mon,  7 Jun 2021 19:42:16 +0530
+Message-Id: <20210607141216.391305-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210607141910.450996-1-gwan-gyeong.mun@intel.com>
-References: <20210607141910.450996-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 2/2] drm/i915: Disable PSR around cdclk
- changes
+Subject: [Intel-gfx] [PATCH V2] x86/gpu: add JasperLake to gen11 early quirks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,43 +56,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCkFV
-WCBsb2dpYyBpcyBvZnRlbiBjbG9ja2VkIGZyb20gY2RjbGsuIERpc2FibGUgUFNSIHRvIG1ha2Ug
-c3VyZQp0aGVyZSBhcmUgbm8gaHcgaW5pdGlhdGVkIEFVWCB0cmFuc2FjdGlvbnMgaW4gZmxpZ2h0
-IHdoaWxlIHdlCmNoYW5nZSB0aGUgY2RjbGsgZnJlcXVlbmN5LgoKQ2M6IE1pa2EgS2Fob2xhIDxt
-aWthLmthaG9sYUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IFZpbGxlIFN5cmrDpGzDpCA8dmls
-bGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEd3YW4tZ3llb25nIE11
-biA8Z3dhbi1neWVvbmcubXVuQGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IE1pa2EgS2Fob2xhIDxt
-aWthLmthaG9sYUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9jZGNsay5jIHwgMTMgKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDEzIGluc2Vy
-dGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X2NkY2xrLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NkY2xrLmMKaW5k
-ZXggNDY1NmE2ZWRjM2JlLi42MThhOWUxZTJiMGMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfY2RjbGsuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
-aXNwbGF5L2ludGVsX2NkY2xrLmMKQEAgLTI4LDYgKzI4LDcgQEAKICNpbmNsdWRlICJpbnRlbF9j
-ZGNsay5oIgogI2luY2x1ZGUgImludGVsX2RlLmgiCiAjaW5jbHVkZSAiaW50ZWxfZGlzcGxheV90
-eXBlcy5oIgorI2luY2x1ZGUgImludGVsX3Bzci5oIgogI2luY2x1ZGUgImludGVsX3NpZGViYW5k
-LmgiCiAKIC8qKgpAQCAtMTkwOCw2ICsxOTA5LDEyIEBAIHN0YXRpYyB2b2lkIGludGVsX3NldF9j
-ZGNsayhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCiAKIAlpbnRlbF9kdW1wX2Nk
-Y2xrX2NvbmZpZyhjZGNsa19jb25maWcsICJDaGFuZ2luZyBDRENMSyB0byIpOwogCisJZm9yX2Vh
-Y2hfaW50ZWxfZW5jb2Rlcl93aXRoX3BzcigmZGV2X3ByaXYtPmRybSwgZW5jb2RlcikgeworCQlz
-dHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwID0gZW5jX3RvX2ludGVsX2RwKGVuY29kZXIpOworCisJ
-CWludGVsX3Bzcl9wYXVzZShpbnRlbF9kcCk7CisJfQorCiAJLyoKIAkgKiBMb2NrIGF1eC9nbWJ1
-cyB3aGlsZSB3ZSBjaGFuZ2UgY2RjbGsgaW4gY2FzZSB0aG9zZQogCSAqIGZ1bmN0aW9ucyB1c2Ug
-Y2RjbGsuIE5vdCBhbGwgcGxhdGZvcm1zL3BvcnRzIGRvLApAQCAtMTkzMCw2ICsxOTM3LDEyIEBA
-IHN0YXRpYyB2b2lkIGludGVsX3NldF9jZGNsayhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2
-X3ByaXYsCiAJfQogCW11dGV4X3VubG9jaygmZGV2X3ByaXYtPmdtYnVzX211dGV4KTsKIAorCWZv
-cl9lYWNoX2ludGVsX2VuY29kZXJfd2l0aF9wc3IoJmRldl9wcml2LT5kcm0sIGVuY29kZXIpIHsK
-KwkJc3RydWN0IGludGVsX2RwICppbnRlbF9kcCA9IGVuY190b19pbnRlbF9kcChlbmNvZGVyKTsK
-KworCQlpbnRlbF9wc3JfcmVzdW1lKGludGVsX2RwKTsKKwl9CisKIAlpZiAoZHJtX1dBUk4oJmRl
-dl9wcml2LT5kcm0sCiAJCSAgICAgaW50ZWxfY2RjbGtfY2hhbmdlZCgmZGV2X3ByaXYtPmNkY2xr
-Lmh3LCBjZGNsa19jb25maWcpLAogCQkgICAgICJjZGNsayBzdGF0ZSBkb2Vzbid0IG1hdGNoIVxu
-IikpIHsKLS0gCjIuMzEuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50
-ZWwtZ2Z4Cg==
+Let's reserve JSL stolen memory for graphics.
+
+JasperLake is a gen11 platform which is compatible with
+ICL/EHL changes.
+
+V1:
+    - Added Cc: x86@kernel.org
+
+Cc: x86@kernel.org
+Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+---
+ arch/x86/kernel/early-quirks.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/x86/kernel/early-quirks.c b/arch/x86/kernel/early-quirks.c
+index b553ffe9b985..38837dad46e6 100644
+--- a/arch/x86/kernel/early-quirks.c
++++ b/arch/x86/kernel/early-quirks.c
+@@ -549,6 +549,7 @@ static const struct pci_device_id intel_early_ids[] __initconst = {
+ 	INTEL_CNL_IDS(&gen9_early_ops),
+ 	INTEL_ICL_11_IDS(&gen11_early_ops),
+ 	INTEL_EHL_IDS(&gen11_early_ops),
++	INTEL_JSL_IDS(&gen11_early_ops),
+ 	INTEL_TGL_12_IDS(&gen11_early_ops),
+ 	INTEL_RKL_IDS(&gen11_early_ops),
+ 	INTEL_ADLS_IDS(&gen11_early_ops),
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
