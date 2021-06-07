@@ -2,54 +2,40 @@ Return-Path: <SRS0=wI8T=LB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28E57C47082
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 19:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 467F7C47082
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 20:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E20A5610E7
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 19:42:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E20A5610E7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D28CD6108C
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 20:08:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D28CD6108C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5986E9E9;
-	Mon,  7 Jun 2021 19:42:47 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72C366E9EA;
- Mon,  7 Jun 2021 19:42:45 +0000 (UTC)
-IronPort-SDR: gHSJP5hLuh/qZra85vAtC00fw/VaxMplwStl0PKKBhBY7Kv0mJmWaiJ436fXTwaljhxd5NP9Bu
- enhOojS4RE3w==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="204719789"
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="204719789"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 12:42:43 -0700
-IronPort-SDR: efYcvkrT8rc1LEJ4iyXvZY3JZXqtPzgINKPbnS2KPl3BkAomQeSBVg7hJU0nl3S+pTXHMBiXaW
- y7HB2zSDjKgQ==
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="447608768"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 12:42:42 -0700
-Date: Mon, 7 Jun 2021 12:35:46 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Message-ID: <20210607193546.GA27623@sdutt-i7>
-References: <20210607180356.165785-1-matthew.brost@intel.com>
- <20210607180356.165785-10-matthew.brost@intel.com>
- <20210607174550.GA14577@sdutt-i7>
- <46b24580-493d-7bee-09af-5996b886c6d4@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7287B6E9F9;
+	Mon,  7 Jun 2021 20:08:47 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5C2CC6E0D8;
+ Mon,  7 Jun 2021 20:08:46 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 551BFA9A43;
+ Mon,  7 Jun 2021 20:08:46 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <46b24580-493d-7bee-09af-5996b886c6d4@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 09/13] drm/i915/doc: Include GuC ABI
- documentation
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Auld" <matthew.auld@intel.com>
+Date: Mon, 07 Jun 2021 20:08:46 -0000
+Message-ID: <162309652634.2772.6416317750547026074@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210607182210.99036-1-matthew.auld@intel.com>
+In-Reply-To: <20210607182210.99036-1-matthew.auld@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBB?=
+ =?utf-8?q?dd_back_the_buddy_allocator?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,107 +48,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 07, 2021 at 09:38:58PM +0200, Michal Wajdeczko wrote:
-> =
+== Series Details ==
 
-> =
+Series: Add back the buddy allocator
+URL   : https://patchwork.freedesktop.org/series/91110/
+State : failure
 
-> On 07.06.2021 19:45, Matthew Brost wrote:
-> > On Mon, Jun 07, 2021 at 11:03:51AM -0700, Matthew Brost wrote:
-> >> From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> >>
-> >> GuC ABI documentation is now ready to be included in i915.rst
-> >>
-> >> Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> >> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> >> Cc: Piotr Pi=F3rkowski <piotr.piorkowski@intel.com>
-> > =
+== Summary ==
 
-> > Michal - I noticed while putting this series together that there is
-> > kernel doc in intel_guc_ct.* but this isn't inclued in i915.rst. Do you
-> > think we should add the those here or in a new section (e.g. GuC CTBs)?
-> > =
+Applying: drm/i915/ttm: add ttm_buddy_man
+Applying: drm/i915/ttm: add i915_sg_from_buddy_resource
+Applying: drm/i915/ttm: Calculate the object placement at get_pages time
+error: sha1 information is lacking or useless (drivers/gpu/drm/i915/gem/i915_gem_ttm.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0003 drm/i915/ttm: Calculate the object placement at get_pages time
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-> > Let me know what you think and I can fix this up before this gets
-> > merged.
-> =
-
-> What's in intel_guc_ct.* is implementation detail, that should be placed
-> in separate section, while this patch adds pure ABI definitions that
-> deserve its own dedicated section.
-> =
-
-
-Sounds good. Will fix that in the next rev.
-
-> Btw, this patch does not need to be squashed with others, as it is about
-> updating .rst only and is not breaking anything. Same for patch 1/13
-> that introduces new definitions in new .h file.
-> =
-
-
-Agree. What I said in the cover letter isn't 100% correct as some of
-patches probably don't have to be squashed. Next rev I'll go through
-patch by patch and figure that part out.
-
-Matt
-
-> Michal
-> =
-
-> > =
-
-> > With that, for this patch:
-> > =
-
-> > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-> > =
-
-> >> ---
-> >>  Documentation/gpu/i915.rst | 8 ++++++++
-> >>  1 file changed, 8 insertions(+)
-> >>
-> >> diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-> >> index 42ce0196930a..c7846b1d9293 100644
-> >> --- a/Documentation/gpu/i915.rst
-> >> +++ b/Documentation/gpu/i915.rst
-> >> @@ -518,6 +518,14 @@ GuC-based command submission
-> >>  .. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> >>     :doc: GuC-based command submission
-> >>  =
-
-> >> +GuC ABI
-> >> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >> +
-> >> +.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_messages_abi.h
-> >> +.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio=
-_abi.h
-> >> +.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_=
-abi.h
-> >> +.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-> >> +
-> >>  HuC
-> >>  ---
-> >>  .. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_huc.c
-> >> -- =
-
-> >> 2.28.0
-> >>
-> >> _______________________________________________
-> >> Intel-gfx mailing list
-> >> Intel-gfx@lists.freedesktop.org
-> >> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-> > _______________________________________________
-> > Intel-gfx mailing list
-> > Intel-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-> > =
 
 _______________________________________________
 Intel-gfx mailing list
