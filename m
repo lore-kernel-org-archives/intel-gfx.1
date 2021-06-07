@@ -2,51 +2,40 @@ Return-Path: <SRS0=wI8T=LB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C2C6BC47082
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 18:05:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D0D7C47082
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 18:05:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 742FD60233
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 18:05:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 742FD60233
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AB40B60233
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 18:05:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB40B60233
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEA1A6E851;
-	Mon,  7 Jun 2021 18:04:58 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 468136E0A0;
- Mon,  7 Jun 2021 18:04:57 +0000 (UTC)
-IronPort-SDR: 8w7LPqm4q2QZ0VYmPgOfB4BYUGts0YpuL8DN8mRfVJM8KfuwpflybjsyeObMw06LpQg4+hEgHv
- EY+GpthkkXZQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="202815097"
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="202815097"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 11:04:56 -0700
-IronPort-SDR: 0gTyP2Nepbqmq2OO4YgypaDj+xWhBN6TyPQ0w3FqyBV0eZvWFPoGZlsEjlHVOECeFlh34a56LH
- uUr35wLXvxvw==
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="481626474"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 11:04:55 -0700
-Date: Mon, 7 Jun 2021 10:57:57 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Message-ID: <20210607175755.GB14577@sdutt-i7>
-References: <20210607180356.165785-1-matthew.brost@intel.com>
- <20210607180356.165785-11-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49EFA6E97D;
+	Mon,  7 Jun 2021 18:05:16 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4349C6E97D;
+ Mon,  7 Jun 2021 18:05:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 3AFD7A0019;
+ Mon,  7 Jun 2021 18:05:15 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210607180356.165785-11-matthew.brost@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 10/13] drm/i915/guc: Kill guc_clients.ct_pool
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Date: Mon, 07 Jun 2021 18:05:15 -0000
+Message-ID: <162308911523.2774.15342805397277452008@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210607180356.165785-1-matthew.brost@intel.com>
+In-Reply-To: <20210607180356.165785-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Update_firmware_to_v62=2E0=2E0?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,102 +48,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 07, 2021 at 11:03:52AM -0700, Matthew Brost wrote:
-> From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> 
-> CTB pool is now maintained internally by the GuC as part of its
-> "private data". No need to allocate separate buffer and pass it
-> to GuC as yet another ADS.
-> 
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com> #v4
-> Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+== Series Details ==
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Series: Update firmware to v62.0.0
+URL   : https://patchwork.freedesktop.org/series/91106/
+State : warning
 
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 12 ------------
->  drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 12 +-----------
->  2 files changed, 1 insertion(+), 23 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> index 4fcbe4b921f9..6e26fe04ce92 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> @@ -26,8 +26,6 @@
->   *      +---------------------------------------+
->   *      | guc_clients_info                      |
->   *      +---------------------------------------+
-> - *      | guc_ct_pool_entry[size]               |
-> - *      +---------------------------------------+
->   *      | padding                               |
->   *      +---------------------------------------+ <== 4K aligned
->   *      | private data                          |
-> @@ -40,7 +38,6 @@ struct __guc_ads_blob {
->  	struct guc_policies policies;
->  	struct guc_gt_system_info system_info;
->  	struct guc_clients_info clients_info;
-> -	struct guc_ct_pool_entry ct_pool[GUC_CT_POOL_SIZE];
->  } __packed;
->  
->  static u32 guc_ads_private_data_size(struct intel_guc *guc)
-> @@ -68,11 +65,6 @@ static void guc_policies_init(struct guc_policies *policies)
->  	policies->is_valid = 1;
->  }
->  
-> -static void guc_ct_pool_entries_init(struct guc_ct_pool_entry *pool, u32 num)
-> -{
-> -	memset(pool, 0, num * sizeof(*pool));
-> -}
-> -
->  static void guc_mapping_table_init(struct intel_gt *gt,
->  				   struct guc_gt_system_info *system_info)
->  {
-> @@ -161,11 +153,7 @@ static void __guc_ads_init(struct intel_guc *guc)
->  	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
->  
->  	/* Clients info  */
-> -	guc_ct_pool_entries_init(blob->ct_pool, ARRAY_SIZE(blob->ct_pool));
-> -
->  	blob->clients_info.clients_num = 1;
-> -	blob->clients_info.ct_pool_addr = base + ptr_offset(blob, ct_pool);
-> -	blob->clients_info.ct_pool_count = ARRAY_SIZE(blob->ct_pool);
->  
->  	/* ADS */
->  	blob->ads.scheduler_policies = base + ptr_offset(blob, policies);
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> index 251c3836bd2c..2266444d074f 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> @@ -295,19 +295,9 @@ struct guc_gt_system_info {
->  } __packed;
->  
->  /* Clients info */
-> -struct guc_ct_pool_entry {
-> -	struct guc_ct_buffer_desc desc;
-> -	u32 reserved[7];
-> -} __packed;
-> -
-> -#define GUC_CT_POOL_SIZE	2
-> -
->  struct guc_clients_info {
->  	u32 clients_num;
-> -	u32 reserved0[13];
-> -	u32 ct_pool_addr;
-> -	u32 ct_pool_count;
-> -	u32 reserved[4];
-> +	u32 reserved[19];
->  } __packed;
->  
->  /* GuC Additional Data Struct */
-> -- 
-> 2.28.0
-> 
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+5735522498b2 drm/i915/guc: Introduce unified HXG messages
+067ec8d0b970 drm/i915/guc: Update MMIO based communication
+c3c36fc8703e drm/i915/guc: Update CTB response status definition
+4239eebfa25e drm/i915/guc: Support per context scheduling policies
+fed4d47fabb2 drm/i915/guc: Add flag for mark broken CTB
+98f39fdfdab9 drm/i915/guc: New definition of the CTB descriptor
+f8e5520d648c drm/i915/guc: New definition of the CTB registration action
+-:55: WARNING:BLOCK_COMMENT_STYLE: Block comments should align the * on each line
+#55: FILE: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h:40:
++ *  +---+-------+--------------------------------------------------------------+
++*
+
+-:56: WARNING:BLOCK_COMMENT_STYLE: Block comments should align the * on each line
+#56: FILE: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h:41:
++*
++ *  +---+-------+--------------------------------------------------------------+
+
+-:75: CHECK:CAMELCASE: Avoid CamelCase: <GUC_HXG_REQUEST_MSG_n_DATAn>
+#75: FILE: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h:60:
++#define HOST2GUC_REGISTER_CTB_REQUEST_MSG_2_DESC_ADDR	GUC_HXG_REQUEST_MSG_n_DATAn
+
+-:107: WARNING:BLOCK_COMMENT_STYLE: Block comments should align the * on each line
+#107: FILE: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h:92:
++ *  +---+-------+--------------------------------------------------------------+
++*
+
+-:108: WARNING:BLOCK_COMMENT_STYLE: Block comments should align the * on each line
+#108: FILE: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h:93:
++*
++ *  +---+-------+--------------------------------------------------------------+
+
+total: 0 errors, 4 warnings, 1 checks, 261 lines checked
+fe305e722d41 drm/i915/guc: New CTB based communication
+4143260c8c99 drm/i915/doc: Include GuC ABI documentation
+65b657159e48 drm/i915/guc: Kill guc_clients.ct_pool
+1fcb4faa9a92 drm/i915/guc: Kill ads.client_info
+14d7602095b1 drm/i915/guc: Unified GuC log
+1998c178877b drm/i915/guc: Update firmware to v62.0.0
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 32 lines checked
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
