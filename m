@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EBE9C4743F
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:46:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C216AC48BD1
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:46:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F571610A1
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:46:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F571610A1
+	by mail.kernel.org (Postfix) with ESMTPS id 95B2B610A8
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 17:46:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95B2B610A8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39DAF6E98A;
-	Mon,  7 Jun 2021 17:46:11 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E25D26E987;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48B636E992;
+	Mon,  7 Jun 2021 17:46:12 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7E3C6E984;
  Mon,  7 Jun 2021 17:46:06 +0000 (UTC)
-IronPort-SDR: +iJrzYrgdllTuB/CmggI7/sW3ql2hY5s7ItoDF8KCZ4QfOgg0cOkS1TbiLnNnmDw9M4FzYoaDf
- v0zJ3ajdOTZQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="265824463"
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="265824463"
+IronPort-SDR: v1/CEoJwrpbVEJc2Q18JBxt1Io5QWhvS7uO9/2lF1Bl8qwcRAqSKoPCoN5+5Hao4EcvkAz62NI
+ VqY3yatucNYw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="204695165"
+X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="204695165"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 10:46:05 -0700
-IronPort-SDR: tZ86k7y3ms/8c41SJNRyJzxjLk2cBedIZ6idncYZzcrpSZcxkgIavvuUG2ZmSjGqrNfqOAPGuq
- pDS8t0EaSMCg==
-X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="551970182"
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2021 10:46:04 -0700
+IronPort-SDR: /00dWf3qityGc9f3bTa/IfrXxrnhLIuhf+3+ssbGYPUVy0ZuGhKYefYRV8+RvQEYZgTNnzG17Q
+ +WPSRLBSyLkQ==
+X-IronPort-AV: E=Sophos;i="5.83,255,1616482800"; d="scan'208";a="551970148"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 10:46:05 -0700
+ 07 Jun 2021 10:46:04 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Mon,  7 Jun 2021 11:03:52 -0700
-Message-Id: <20210607180356.165785-11-matthew.brost@intel.com>
+Date: Mon,  7 Jun 2021 11:03:42 -0700
+Message-Id: <20210607180356.165785-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210607180356.165785-1-matthew.brost@intel.com>
-References: <20210607180356.165785-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 10/13] drm/i915/guc: Kill guc_clients.ct_pool
+Subject: [Intel-gfx] [PATCH 00/13] Update firmware to v62.0.0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,90 +61,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+As part of enabling GuC submission [1] we need to update to the latest
+and greatest firmware. This series does that. This is a destructive
+change. e.g. Without all the patches in this series it will break the
+i915 driver. As such, after we review all of these patches they will
+squashed into a single patch for merging.
 
-CTB pool is now maintained internally by the GuC as part of its
-"private data". No need to allocate separate buffer and pass it
-to GuC as yet another ADS.
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com> #v4
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 12 ------------
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 12 +-----------
- 2 files changed, 1 insertion(+), 23 deletions(-)
+[1] https://patchwork.freedesktop.org/series/89844/
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 4fcbe4b921f9..6e26fe04ce92 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -26,8 +26,6 @@
-  *      +---------------------------------------+
-  *      | guc_clients_info                      |
-  *      +---------------------------------------+
-- *      | guc_ct_pool_entry[size]               |
-- *      +---------------------------------------+
-  *      | padding                               |
-  *      +---------------------------------------+ <== 4K aligned
-  *      | private data                          |
-@@ -40,7 +38,6 @@ struct __guc_ads_blob {
- 	struct guc_policies policies;
- 	struct guc_gt_system_info system_info;
- 	struct guc_clients_info clients_info;
--	struct guc_ct_pool_entry ct_pool[GUC_CT_POOL_SIZE];
- } __packed;
- 
- static u32 guc_ads_private_data_size(struct intel_guc *guc)
-@@ -68,11 +65,6 @@ static void guc_policies_init(struct guc_policies *policies)
- 	policies->is_valid = 1;
- }
- 
--static void guc_ct_pool_entries_init(struct guc_ct_pool_entry *pool, u32 num)
--{
--	memset(pool, 0, num * sizeof(*pool));
--}
--
- static void guc_mapping_table_init(struct intel_gt *gt,
- 				   struct guc_gt_system_info *system_info)
- {
-@@ -161,11 +153,7 @@ static void __guc_ads_init(struct intel_guc *guc)
- 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
- 
- 	/* Clients info  */
--	guc_ct_pool_entries_init(blob->ct_pool, ARRAY_SIZE(blob->ct_pool));
--
- 	blob->clients_info.clients_num = 1;
--	blob->clients_info.ct_pool_addr = base + ptr_offset(blob, ct_pool);
--	blob->clients_info.ct_pool_count = ARRAY_SIZE(blob->ct_pool);
- 
- 	/* ADS */
- 	blob->ads.scheduler_policies = base + ptr_offset(blob, policies);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index 251c3836bd2c..2266444d074f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -295,19 +295,9 @@ struct guc_gt_system_info {
- } __packed;
- 
- /* Clients info */
--struct guc_ct_pool_entry {
--	struct guc_ct_buffer_desc desc;
--	u32 reserved[7];
--} __packed;
--
--#define GUC_CT_POOL_SIZE	2
--
- struct guc_clients_info {
- 	u32 clients_num;
--	u32 reserved0[13];
--	u32 ct_pool_addr;
--	u32 ct_pool_count;
--	u32 reserved[4];
-+	u32 reserved[19];
- } __packed;
- 
- /* GuC Additional Data Struct */
+John Harrison (3):
+  drm/i915/guc: Support per context scheduling policies
+  drm/i915/guc: Unified GuC log
+  drm/i915/guc: Update firmware to v62.0.0
+
+Michal Wajdeczko (10):
+  drm/i915/guc: Introduce unified HXG messages
+  drm/i915/guc: Update MMIO based communication
+  drm/i915/guc: Update CTB response status definition
+  drm/i915/guc: Add flag for mark broken CTB
+  drm/i915/guc: New definition of the CTB descriptor
+  drm/i915/guc: New definition of the CTB registration action
+  drm/i915/guc: New CTB based communication
+  drm/i915/doc: Include GuC ABI documentation
+  drm/i915/guc: Kill guc_clients.ct_pool
+  drm/i915/guc: Kill ads.client_info
+
+ Documentation/gpu/i915.rst                    |   8 +
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  | 107 ++++++
+ .../gt/uc/abi/guc_communication_ctb_abi.h     | 130 +++++--
+ .../gt/uc/abi/guc_communication_mmio_abi.h    |  63 ++--
+ .../gpu/drm/i915/gt/uc/abi/guc_messages_abi.h | 213 +++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 107 ++++--
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  45 +--
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 355 +++++++++---------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |   6 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  75 +---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |  29 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |   6 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      |  26 +-
+ 13 files changed, 750 insertions(+), 420 deletions(-)
+
 -- 
 2.28.0
 
