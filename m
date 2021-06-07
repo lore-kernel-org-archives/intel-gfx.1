@@ -2,71 +2,47 @@ Return-Path: <SRS0=wI8T=LB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33DBEC47082
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 11:00:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F8EBC47082
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 11:11:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E2ECD610A2
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 11:00:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2ECD610A2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3519B61107
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jun 2021 11:11:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3519B61107
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C8F6E039;
-	Mon,  7 Jun 2021 11:00:46 +0000 (UTC)
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4613F6E039;
- Mon,  7 Jun 2021 11:00:45 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id x14so7233485ljp.7;
- Mon, 07 Jun 2021 04:00:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=eIAkgrlqc9qscnVJm7cjOJVMQ5CB0CWJDb7eNKJ+UDQ=;
- b=AZWNmAarFjYBGLx/JILtRQ0wKVhcn0DGBRgQskVt6hzWw8cy3sEieyfbbFlaqkJW6Q
- LINQpMZ8v/yRATnziRmtX4TSgD1WPJE5udjm0GWB8SB4qYM7M76RBfN1DVahKmBwtw0A
- jEmbSREj+XFgYpVIJoYqWs5Z7JeEE10NU9GvfQ2FVL23dEmy3FctrMn5aV1pkclr/oPv
- z6/1DPMr+Y+xwYLVGMLOdbyCuY0jB8Mwzpvyfbtl8A9pWAf7srbpIdkrbVYCIdV4pkmi
- GFjUNoUcPlQfvtN1D8aAWwOZNPNd1IOtAX9lg2BLA2jUcP77BWvPCfmJiHHHy74Oyb8b
- O+sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=eIAkgrlqc9qscnVJm7cjOJVMQ5CB0CWJDb7eNKJ+UDQ=;
- b=NSeUmYa1L+yBVZLhzuj6jyzIVLYfNUwFt08vNokYssQzzgfnH2mvz1zWMyaox3LgXS
- 05L0jR9j9Q0B6UDg3SnzecIf0i3Xw7NYnXVENR+HzWRjJonzweN8cZn/u0ArRUwUt5IA
- kvHsv63vgEHyC27K8Nq9q8D59Y8+y+jk5eYCruo6et5jjlvaVB1Svm1ud2UVaQukJfm0
- EsqPTx/BkQBAnqzaUwiWGv0KQ3cntxyReWgq26IYdXa6V8yFCK5C+pkoWSx60JuSe9XZ
- X3idMv4ovOohlo4JW3Q9PKIzJygO0LCPLSZZv8HkhJTqTETlyJfE1FkHCDcjX3GaWccx
- +LWQ==
-X-Gm-Message-State: AOAM531uoP6biIVzwrVZ3O+yhE6v8bi1K/NUzx6vJg44yJ8r8S36mY2F
- /cRjT8cO0Dh02w0BlY+b+Ow=
-X-Google-Smtp-Source: ABdhPJx2W6LcLyIIe0/rrwaFuO66QnrqOybu4wc1aeDByEguLNnSKQAiuEWW2pGfuD0sZ1fDKoYB4g==
-X-Received: by 2002:a2e:b890:: with SMTP id r16mr14137842ljp.300.1623063643538; 
- Mon, 07 Jun 2021 04:00:43 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id w4sm1807163ljo.1.2021.06.07.04.00.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Jun 2021 04:00:43 -0700 (PDT)
-Date: Mon, 7 Jun 2021 14:00:31 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Message-ID: <20210607140031.3f70cc4e@eldfell>
-In-Reply-To: <2154f1d1-2c86-ede7-4b23-acab93e3eb00@amd.com>
-References: <20210601105218.29185-1-uma.shankar@intel.com>
- <20210601105218.29185-3-uma.shankar@intel.com>
- <2154f1d1-2c86-ede7-4b23-acab93e3eb00@amd.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3EA06E34B;
+	Mon,  7 Jun 2021 11:11:20 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEE696E34B
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Jun 2021 11:11:19 +0000 (UTC)
+IronPort-SDR: CJRwa0Zuf8EHgYr0IVqZeR9m93skgXGPJsIAuHNKRHWw/tOVg76Q11IF3RfrK0nP0M2/J0PIxt
+ A5SknJtyLetA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10007"; a="184971564"
+X-IronPort-AV: E=Sophos;i="5.83,254,1616482800"; d="scan'208";a="184971564"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2021 04:11:18 -0700
+IronPort-SDR: wg+tIge6aXFoF7AVGiNT1HphQvkc/KaeofNfD/YJmFm57aFAU2BQE5Vpn/evS44od06UI9E3BN
+ fSiLqcrFBO3A==
+X-IronPort-AV: E=Sophos;i="5.83,254,1616482800"; d="scan'208";a="401646642"
+Received: from vandita-desktop.iind.intel.com ([10.223.74.52])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 07 Jun 2021 04:11:16 -0700
+From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  7 Jun 2021 16:23:42 +0530
+Message-Id: <20210607105342.13155-1-vandita.kulkarni@intel.com>
+X-Mailer: git-send-email 2.21.0.5.gaeb582a
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 02/21] drm: Add Plane Degamma Mode property
+Subject: [Intel-gfx] [v2] drm/i915/dsc: Fix bigjoiner check in dsc_disable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,242 +55,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Sebastian Wick <sebastian@sebastianwick.net>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-Content-Type: multipart/mixed; boundary="===============0034042505=="
+Cc: jani.nikula@intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0034042505==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/UDaTTfq2ubvo/aAp1ib/nK2"; protocol="application/pgp-signature"
+This change takes care of resetting the dss_ctl registers
+in case of dsc_disable, bigjoiner disable and also
+uncompressed joiner disable.
 
---Sig_/UDaTTfq2ubvo/aAp1ib/nK2
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+v2: Fix formatting
 
-On Fri, 4 Jun 2021 14:24:28 -0400
-Harry Wentland <harry.wentland@amd.com> wrote:
+Suggested-by: Jani Nikula <jani.nikula@intel.com>
+Fixes: d961eb20adb6 (drm/i915/bigjoiner: atomic commit changes for uncompressed joiner)
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3537
+Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-> On 2021-06-01 6:51 a.m., Uma Shankar wrote:
-> > Add Plane Degamma Mode as an enum property. Create a helper
-> > function for all plane color management features.
-> >=20
-> > This is an enum property with values as blob_id's and exposes
-> > the various gamma modes supported and the lut ranges. Getting
-> > the blob id in userspace, user can get the mode supported and
-> > also the range of gamma mode supported with number of lut
-> > coefficients. It can then set one of the modes using this
-> > enum property.
-> >=20
-> > Lut values will be sent through separate GAMMA_LUT blob property.
-> >=20
-> > Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-> > ---
-> >  Documentation/gpu/drm-kms.rst             | 90 ++++++++++++++++++++++
-> >  drivers/gpu/drm/drm_atomic.c              |  1 +
-> >  drivers/gpu/drm/drm_atomic_state_helper.c |  2 +
-> >  drivers/gpu/drm/drm_atomic_uapi.c         |  4 +
-> >  drivers/gpu/drm/drm_color_mgmt.c          | 93 ++++++++++++++++++++++-
-> >  include/drm/drm_mode_object.h             |  2 +-
-> >  include/drm/drm_plane.h                   | 23 ++++++
-> >  7 files changed, 212 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.=
-rst
-> > index 87e5023e3f55..752be545e7d7 100644
-> > --- a/Documentation/gpu/drm-kms.rst
-> > +++ b/Documentation/gpu/drm-kms.rst
-> > @@ -514,9 +514,99 @@ Damage Tracking Properties
-> >  Color Management Properties
-> >  ---------------------------
-> > =20
-> > +Below is how a typical hardware pipeline for color
-> > +will look like:
-> > +
-> > +.. kernel-render:: DOT
-> > +   :alt: Display Color Pipeline
-> > +   :caption: Display Color Pipeline Overview
-> > +
-> > +   digraph "KMS" {
-> > +      node [shape=3Dbox]
-> > +
-> > +      subgraph cluster_static {
-> > +          style=3Ddashed
-> > +          label=3D"Display Color Hardware Blocks"
-> > +
-> > +          node [bgcolor=3Dgrey style=3Dfilled]
-> > +          "Plane Degamma A" -> "Plane CSC/CTM A"
-> > +          "Plane CSC/CTM A" -> "Plane Gamma A"
-> > +          "Pipe Blender" [color=3Dlightblue,style=3Dfilled, width=3D5.=
-25, height=3D0.75];
-> > +          "Plane Gamma A" -> "Pipe Blender"
-> > +	  "Pipe Blender" -> "Pipe DeGamma"
-> > +          "Pipe DeGamma" -> "Pipe CSC/CTM"
-> > +          "Pipe CSC/CTM" -> "Pipe Gamma"
-> > +          "Pipe Gamma" -> "Pipe Output"
-> > +      }
-> > + =20
->=20
-> It might be worthwhile to also highlight the YCbCr coefficient matrix in =
-the pipeline,
-> between the FB and Plane degamma, i.e.
->   YCbCr coefficients > plane degamma > csc > ...
->=20
-> One problem with this view is that not all HW will support all (or any) o=
-f these
-> CM blocks on all planes. For example, on AMD HW cursors are very differen=
-t from
-> other planes and don't really have full CM support.
->=20
-> > +      subgraph cluster_static {
-> > +          style=3Ddashed
-> > +
-> > +          node [shape=3Dbox]
-> > +          "Plane Degamma B" -> "Plane CSC/CTM B"
-> > +          "Plane CSC/CTM B" -> "Plane Gamma B"
-> > +          "Plane Gamma B" -> "Pipe Blender"
-> > +      }
-> > +
-> > +      subgraph cluster_static {
-> > +          style=3Ddashed
-> > +
-> > +          node [shape=3Dbox]
-> > +          "Plane Degamma C" -> "Plane CSC/CTM C"
-> > +          "Plane CSC/CTM C" -> "Plane Gamma C"
-> > +          "Plane Gamma C" -> "Pipe Blender"
-> > +      }
-> > +
-> > +      subgraph cluster_fb {
-> > +          style=3Ddashed
-> > +          label=3D"RAM"
-> > +
-> > +          node [shape=3Dbox width=3D1.7 height=3D0.2]
-> > +
-> > +          "FB 1" -> "Plane Degamma A"
-> > +          "FB 2" -> "Plane Degamma B"
-> > +          "FB 3" -> "Plane Degamma C"
-> > +      }
-> > +   }
-> > +
-> > +In real world usecases,
-> > +
-> > +1. Plane Degamma can be used to linearize a non linear gamma
-> > +encoded framebuffer. This is needed to do any linear math like
-> > +color space conversion. For ex, linearize frames encoded in SRGB
-> > +or by HDR curve.
-> > +
-> > +2. Later Plane CTM block can convert the content to some different
-> > +colorspace. For ex, SRGB to BT2020 etc.
-> > +
-> > +3. Plane Gamma block can be used later to re-apply the non-linear
-> > +curve. This can also be used to apply Tone Mapping for HDR usecases.
-> > + =20
->=20
-> This would mean you're blending in gamma space which is likely not what
-> most compositors expect. There are numerous articles that describe why
-> blending in gamma space is problematic, such as [1]
->=20
-> [1] https://ninedegreesbelow.com/photography/linear-gamma-blur-normal-ble=
-nd.html
->=20
-> To blend in linear space this should be configured to do
->=20
->   Plane Degamma > Plane CTM > CRTC Gamma
->=20
-> I think it would also be good if we moved away from calling this gamma. I=
-t's
-> really only gamma for legacy SDR scenarios. For HDR cases I would never e=
-xpect
-> these to use gamma and even though the sRGB transfer function is based on=
- gamma
-> functions it's complicated [2].
->=20
-> [2] https://en.wikipedia.org/wiki/SRGB
->=20
-> A better way to describe these would be as "transfer function" and "inver=
-se
-> transfer function." The space at various stages could then be described a=
-s linear
-> or non-linear, specifically PQ, HLG, sRGB, BT709, or using another transf=
-er
-> function.
-
-Hi,
-
-incidentally, I, Sebastian and Vitaly are discussing on what to call
-these pieces in Weston:
-https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/582#note_947=
-292
-
-They might not even be the transfer functions but just some curves,
-e.g. optimized to keep a 3D LUT small without sacrificing precision.
-
-
-Thanks,
-pq
-
-> > +All the layers or framebuffers need to be converted to same color
-> > +space and format before blending. The plane color hardware blocks
-> > +can help with this. Once the Data is blended, similar color processing
-> > +can be done on blended output using pipe color hardware blocks.
-> > +
-> > +DRM Properties have been created to define and expose all these
-> > +hardware blocks to userspace. A userspace application (compositor
-> > +or any color app) can use these interfaces and define policies to
-> > +efficiently use the display hardware for such color operations.
-> > +
-> > +Pipe Color Management Properties
-> > +---------------------------------
-> > +
-> >  .. kernel-doc:: drivers/gpu/drm/drm_color_mgmt.c
-> >     :doc: overview
-> > =20
-> > +Plane Color Management Properties
-> > +---------------------------------
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/drm_color_mgmt.c
-> > +   :doc: Plane Color Properties
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/drm_color_mgmt.c
-> > +   :doc: export
-> > +
-> >  Tile Group Property
-> >  -------------------
-
---Sig_/UDaTTfq2ubvo/aAp1ib/nK2
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmC9/E8ACgkQI1/ltBGq
-qqd3vQ//UIYknHZNRLABlWUYNTRAdbhMWTTNxxyjv9tCCXTnJDKcZqL6mPIZkbgh
-8Ud+AxY6XXJehlos+avtyuEYXl6/5NXpPhzEl97QSsmIKf2i3Us3/FK+iX7i8ebC
-4hmD4y6VA7NE0Zt6IFz468wfiko6dpFMfzTfoj+e1FAn0otEnoxCgGqMSKkRTYMD
-cc92uECRZHsEhk9HIzngrHCipg4/ga3Wsyfu12WIK9+/qTTfSXw67dpOgU5CRL1I
-Hl/Xq038Sm3MAHiAX56VhJBlwMis/MqjiEpNn+GZV0wvLpWUwN2iJwSPx1lkP/qY
-811x098Tf3cOaVwlr35u+OeoAtniXE8rQW8iBaxirNy9uvJ8mxjMnLSy8Gby5u0I
-PTExfW31QGmnAyZhBg5gpm17HoSpRZ75Fk2re8h9fGca4x6anpbISeDL/PVm0Osm
-KEK4r3b72mkisqfLPqvMTad7UN+Q4msFCwYIpqZRU85+8JZKiGh7FH9OgZI/eIla
-EDJoQqGx7eH6QI6Vnv+lekaj5XSVrV9UE6DIYN6GVpbJ686E1N5eVF8nGGY/6rjL
-2P9NhaKDg6GvGP32SgVPo5sfWmvlMr/jiEqi7xqFJuKv925P6pi0i/ALk7Krd0Ba
-mX5uBPE/9fXdtjQUXCFdIGG14zSv4JYGs7CtXuk7IgBX0TEaSdo=
-=DnyA
------END PGP SIGNATURE-----
-
---Sig_/UDaTTfq2ubvo/aAp1ib/nK2--
-
---===============0034042505==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 19cd9531c115..b9828852a68f 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -1161,12 +1161,12 @@ void intel_dsc_disable(const struct intel_crtc_state *old_crtc_state)
+ 	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 
+-	if (!(old_crtc_state->dsc.compression_enable &&
+-	      old_crtc_state->bigjoiner))
+-		return;
+-
+-	intel_de_write(dev_priv, dss_ctl1_reg(old_crtc_state), 0);
+-	intel_de_write(dev_priv, dss_ctl2_reg(old_crtc_state), 0);
++	/* Disable only if either of them is enabled */
++	if (old_crtc_state->dsc.compression_enable ||
++	    old_crtc_state->dsc.compression_enable) {
++		intel_de_write(dev_priv, dss_ctl1_reg(old_crtc_state), 0);
++		intel_de_write(dev_priv, dss_ctl2_reg(old_crtc_state), 0);
++	}
+ }
+ 
+ void intel_uncompressed_joiner_get_config(struct intel_crtc_state *crtc_state)
+-- 
+2.21.0.5.gaeb582a
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0034042505==--
