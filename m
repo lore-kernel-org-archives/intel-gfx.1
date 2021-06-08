@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E293FC4743F
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 19:00:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D2B4C48BCD
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 19:00:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B62906136D
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 19:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B62906136D
+	by mail.kernel.org (Postfix) with ESMTPS id 590EF6136D
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 19:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 590EF6136D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BA916EC3F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80D936EC41;
 	Tue,  8 Jun 2021 19:00:21 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5B06E0AD;
- Tue,  8 Jun 2021 19:00:17 +0000 (UTC)
-IronPort-SDR: J71AfCzpaxkKRhCbqyDufP9JXcMYl3C6mq41UflNKGVcUJO1SwZJkjl5uuxkio4M5IyzqrrUcV
- mwtP6ROnr0JQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10009"; a="266067582"
-X-IronPort-AV: E=Sophos;i="5.83,259,1616482800"; d="scan'208";a="266067582"
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 279CC6EC2B;
+ Tue,  8 Jun 2021 19:00:19 +0000 (UTC)
+IronPort-SDR: SycJhcxZNoh/NrgjdMhlgvUGknBdTk6GLIR9rRwN479Y9l+KcGiuYMREM1P8uVwdLmdmRfaYXs
+ nT88Q77uCTAQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10009"; a="201893715"
+X-IronPort-AV: E=Sophos;i="5.83,259,1616482800"; d="scan'208";a="201893715"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2021 12:00:05 -0700
-IronPort-SDR: 6mKoaJ6yiH2+b7x9m6cAWYGr0Il/GuLunEbZc1cLyFh6h4j7Mgy54oOzNyA2d1WHRnfZySbfsO
- 2uSRSs0ccH5w==
-X-IronPort-AV: E=Sophos;i="5.83,259,1616482800"; d="scan'208";a="485391325"
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2021 12:00:06 -0700
+IronPort-SDR: nPtZfWselqnscXaPTIPv8HyYSCKa1Mh0QcoyOiaYXMZRLX91FdqVGSNnnZDhLqBcxjFfbPwrVk
+ IlHV/LJ6t1Pg==
+X-IronPort-AV: E=Sophos;i="5.83,259,1616482800"; d="scan'208";a="485391344"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2021 12:00:05 -0700
+ 08 Jun 2021 12:00:06 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue,  8 Jun 2021 12:17:49 -0700
-Message-Id: <20210608191754.127059-4-matthew.brost@intel.com>
+Date: Tue,  8 Jun 2021 12:17:52 -0700
+Message-Id: <20210608191754.127059-7-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210608191754.127059-1-matthew.brost@intel.com>
 References: <20210608191754.127059-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/8] drm/i915: Reset sched_engine.no_priolist
- immediately after dequeue
+Subject: [Intel-gfx] [PATCH 6/8] drm/i915: Add kick_backend function to
+ i915_sched_engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,80 +65,187 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather than touching schedule state in the generic PM code, reset the
-priolist allocation when empty in the submission code. Add a wrapper
-function to do this and update the backends to call it in the correct
-place.
-
-v3:
- (Jason Ekstrand)
-  Update patch commit message with a better description
+Rather than touching execlist specific structures in the generic
+scheduling code, add a callback function in the backend.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Jason Ekstrand <jason@jlekstrand.net>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_pm.c            | 2 --
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c    | 2 ++
- drivers/gpu/drm/i915/i915_scheduler.h                | 7 +++++++
- 4 files changed, 10 insertions(+), 2 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 52 ++++++++++++++++
+ drivers/gpu/drm/i915/i915_scheduler.c         | 62 +------------------
+ drivers/gpu/drm/i915/i915_scheduler_types.h   |  6 ++
+ 3 files changed, 60 insertions(+), 60 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-index b6a00dd72808..1f07ac4e0672 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-@@ -280,8 +280,6 @@ static int __engine_park(struct intel_wakeref *wf)
- 	if (engine->park)
- 		engine->park(engine);
- 
--	engine->sched_engine->no_priolist = false;
--
- 	/* While gt calls i915_vma_parked(), we have to break the lock cycle */
- 	intel_gt_pm_put_async(engine->gt);
- 	return 0;
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index e36b0e81876a..47a43aafa39f 100644
+index 8a3d4014fd2c..9487d9e0be62 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1553,6 +1553,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 	 * interrupt for secondary ports).
- 	 */
- 	sched_engine->queue_priority_hint = queue_prio(sched_engine);
-+	i915_sched_engine_reset_on_empty(sched_engine);
- 	spin_unlock(&engine->active.lock);
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index d65a7665b38e..9887a514a4d5 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -263,6 +263,8 @@ static void guc_submission_tasklet(struct tasklet_struct *t)
- 
- 	__guc_dequeue(engine);
- 
-+	i915_sched_engine_reset_on_empty(engine->sched_engine);
-+
- 	spin_unlock_irqrestore(&engine->active.lock, flags);
+@@ -3116,10 +3116,61 @@ static bool can_preempt(struct intel_engine_cs *engine)
+ 	return engine->class != RENDER_CLASS;
  }
  
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 5bec7b3b8456..713c38c99de9 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -72,6 +72,13 @@ i915_sched_engine_is_empty(struct i915_sched_engine *sched_engine)
- 	return RB_EMPTY_ROOT(&sched_engine->queue.rb_root);
- }
- 
-+static inline void
-+i915_sched_engine_reset_on_empty(struct i915_sched_engine *sched_engine)
++static void kick_execlists(const struct i915_request *rq, int prio)
 +{
-+	if (i915_sched_engine_is_empty(sched_engine))
-+		sched_engine->no_priolist = false;
++	struct intel_engine_cs *engine = rq->engine;
++	struct i915_sched_engine *sched_engine = engine->sched_engine;
++	const struct i915_request *inflight;
++
++	/*
++	 * We only need to kick the tasklet once for the high priority
++	 * new context we add into the queue.
++	 */
++	if (prio <= sched_engine->queue_priority_hint)
++		return;
++
++	rcu_read_lock();
++
++	/* Nothing currently active? We're overdue for a submission! */
++	inflight = execlists_active(&engine->execlists);
++	if (!inflight)
++		goto unlock;
++
++	/*
++	 * If we are already the currently executing context, don't
++	 * bother evaluating if we should preempt ourselves.
++	 */
++	if (inflight->context == rq->context)
++		goto unlock;
++
++	ENGINE_TRACE(engine,
++		     "bumping queue-priority-hint:%d for rq:%llx:%lld, inflight:%llx:%lld prio %d\n",
++		     prio,
++		     rq->fence.context, rq->fence.seqno,
++		     inflight->fence.context, inflight->fence.seqno,
++		     inflight->sched.attr.priority);
++
++	sched_engine->queue_priority_hint = prio;
++
++	/*
++	 * Allow preemption of low -> normal -> high, but we do
++	 * not allow low priority tasks to preempt other low priority
++	 * tasks under the impression that latency for low priority
++	 * tasks does not matter (as much as background throughput),
++	 * so kiss.
++	 */
++	if (prio >= max(I915_PRIORITY_NORMAL, rq_prio(inflight)))
++		tasklet_hi_schedule(&engine->execlists.tasklet);
++
++unlock:
++	rcu_read_unlock();
 +}
 +
- void i915_request_show_with_schedule(struct drm_printer *m,
- 				     const struct i915_request *rq,
- 				     const char *prefix,
+ static void execlists_set_default_submission(struct intel_engine_cs *engine)
+ {
+ 	engine->submit_request = execlists_submit_request;
+ 	engine->sched_engine->schedule = i915_schedule;
++	engine->sched_engine->kick_backend = kick_execlists;
+ 	engine->execlists.tasklet.callback = execlists_submission_tasklet;
+ }
+ 
+@@ -3702,6 +3753,7 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
+ 	ve->base.request_alloc = execlists_request_alloc;
+ 
+ 	ve->base.sched_engine->schedule = i915_schedule;
++	ve->base.sched_engine->kick_backend = kick_execlists;
+ 	ve->base.submit_request = virtual_submit_request;
+ 	ve->base.bond_execute = virtual_bond_execute;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
+index 4bc6969f6a97..035b88f2e4aa 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/i915_scheduler.c
+@@ -157,65 +157,6 @@ sched_lock_engine(const struct i915_sched_node *node,
+ 	return locked;
+ }
+ 
+-static inline int rq_prio(const struct i915_request *rq)
+-{
+-	return rq->sched.attr.priority;
+-}
+-
+-static inline bool need_preempt(int prio, int active)
+-{
+-	/*
+-	 * Allow preemption of low -> normal -> high, but we do
+-	 * not allow low priority tasks to preempt other low priority
+-	 * tasks under the impression that latency for low priority
+-	 * tasks does not matter (as much as background throughput),
+-	 * so kiss.
+-	 */
+-	return prio >= max(I915_PRIORITY_NORMAL, active);
+-}
+-
+-static void kick_submission(struct intel_engine_cs *engine,
+-			    const struct i915_request *rq,
+-			    int prio)
+-{
+-	const struct i915_request *inflight;
+-
+-	/*
+-	 * We only need to kick the tasklet once for the high priority
+-	 * new context we add into the queue.
+-	 */
+-	if (prio <= engine->sched_engine->queue_priority_hint)
+-		return;
+-
+-	rcu_read_lock();
+-
+-	/* Nothing currently active? We're overdue for a submission! */
+-	inflight = execlists_active(&engine->execlists);
+-	if (!inflight)
+-		goto unlock;
+-
+-	/*
+-	 * If we are already the currently executing context, don't
+-	 * bother evaluating if we should preempt ourselves.
+-	 */
+-	if (inflight->context == rq->context)
+-		goto unlock;
+-
+-	ENGINE_TRACE(engine,
+-		     "bumping queue-priority-hint:%d for rq:%llx:%lld, inflight:%llx:%lld prio %d\n",
+-		     prio,
+-		     rq->fence.context, rq->fence.seqno,
+-		     inflight->fence.context, inflight->fence.seqno,
+-		     inflight->sched.attr.priority);
+-
+-	engine->sched_engine->queue_priority_hint = prio;
+-	if (need_preempt(prio, rq_prio(inflight)))
+-		tasklet_hi_schedule(&engine->execlists.tasklet);
+-
+-unlock:
+-	rcu_read_unlock();
+-}
+-
+ static void __i915_schedule(struct i915_sched_node *node,
+ 			    const struct i915_sched_attr *attr)
+ {
+@@ -335,7 +276,8 @@ static void __i915_schedule(struct i915_sched_node *node,
+ 		}
+ 
+ 		/* Defer (tasklet) submission until after all of our updates. */
+-		kick_submission(engine, node_to_request(node), prio);
++		if (engine->sched_engine->kick_backend)
++			engine->sched_engine->kick_backend(node_to_request(node), prio);
+ 	}
+ 
+ 	spin_unlock(&engine->sched_engine->lock);
+diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
+index 0c1e417b0164..8bd07d0c27e1 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler_types.h
++++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
+@@ -153,6 +153,12 @@ struct i915_sched_engine {
+ 	 */
+ 	bool no_priolist;
+ 
++	/**
++	 * @kick_backend: kick backend after a request's priority has changed
++	 */
++	void	(*kick_backend)(const struct i915_request *rq,
++				int prio);
++
+ 	/**
+ 	 * @schedule: adjust priority of request
+ 	 *
 -- 
 2.28.0
 
