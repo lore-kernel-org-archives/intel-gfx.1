@@ -2,48 +2,132 @@ Return-Path: <SRS0=F+1B=LC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0001FC47082
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 13:38:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3C98C47082
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 13:38:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BAC50610FB
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 13:38:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BAC50610FB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B146C6128D
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 13:38:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B146C6128D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566896EC01;
-	Tue,  8 Jun 2021 13:38:01 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F34516EC01
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 13:37:59 +0000 (UTC)
-IronPort-SDR: CEL2mQ6u6Ft3yCLzLKa0GHrg8tb/uhUVXCuEwDT65XNF45L7X7StW+Eie1c29Zr3WCpSGEbrWK
- ropRh1lnbb4w==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="226187400"
-X-IronPort-AV: E=Sophos;i="5.83,258,1616482800"; d="scan'208";a="226187400"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2021 06:37:59 -0700
-IronPort-SDR: 5ZDoCCHKjnNnuNoETh3mg1SVC5UijHxIHOMX7aKBFCZ/SpXIbGXTVTzVXL76rLQDjhD7tyu039
- U3WXM4nPijTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,258,1616482800"; d="scan'208";a="418907293"
-Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
- by orsmga002.jf.intel.com with ESMTP; 08 Jun 2021 06:37:55 -0700
-From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	imre.deak@intel.com
-Date: Tue,  8 Jun 2021 18:58:45 +0530
-Message-Id: <20210608132845.475357-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 502DE6EC01;
+	Tue,  8 Jun 2021 13:38:45 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2051.outbound.protection.outlook.com [40.107.212.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D5476EA79;
+ Tue,  8 Jun 2021 00:55:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mq/kkIus3mEbqcU3RRjOpRsd8QMlnXa02ornTdlAZOijPA0hSyFzUfVp52YFzlbaC7ZKidZFZE5uUpu2w+3xPVu/SbeEZZcLKTcAOAcyqbT7Vv4DXY9nn+gtlMaIE5yoRE9EZJAz1SK0SzOVVIdKt3PzteatHiG3f3N7K9qgGT4QAamp28RKkZLERLuP8ZS6ZEQjw2U2bY6C0bJlCyDdM/EFpUZa1H88qtZ615FCFL9O4TcLRntDkRde1ZWcE9mMxB71RejOgvigCDMHzSE6MDQM0ZLNhcbPQ65WasRjFo4CwwDs5ToJGvSo6Pvsb4cUXonM+ZWUSjNm1brT0jAMvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KbNUseuZfVmjOEc5NUfvlTUktAPBtyinUwz8YfOVMPg=;
+ b=KGGJdRNbdntqYj8BPKk07scmLjSVvsrBrAdZjGNjSwTtHME7yCXbKG8NKQmqGUTVdYU0HBRANqItNGigCEEelf6hA+CZfeV7W8wcPhCA21smswVeYsM8IIetoWnfzWEL0Mezo7VP0fonmxYqwo0x2LnfdCv3WI+b8tfRUhNHoy6w4W5RFz2JOciS1BRt61CmfaiqHtcuBd28pGOnHUL+B1i0zLiPXurDuH21/PVBFJLue+ex7LJIcyeAD/ArQsVaG1e5iRcxdml3MuEspVOj0T3TeP9O6tB05QhAMkGs+sQxw4Uyf9FV1NcYfnBNdcQmGwQzHtO2/1iB5DCfiDZpJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KbNUseuZfVmjOEc5NUfvlTUktAPBtyinUwz8YfOVMPg=;
+ b=YSdGL3kZVdxaUYYvcHBAI5MPDLdLCCi4hhlcKwuz1HPUo0P0S29I+Gwmle/NL0c/5xw9FcAv2EiRGNUHykAx/zajRogtRWiM8XIchfVn7MIDYoJ2WQ0j5CxWrxOdIusLddIRbm1SwEYmQ2BMri3z6k3IEtgW1zZhOkm3RVoHiHvLP4R54a9NRrqCbMtXs46FofyQKMSSYpypsvahXS4z0Di/jnNIMAODd9GOKWInvdpGw1dmo4E+r2ivq4HPa/vcz9YZwD1gVRC4Ik1UkHS0UkfMXKnmdMFoxV+zH9oVbZooC/NFyemOIMD98nA7NhXSRR6YEwznUn3Cqbgdwc6LeQ==
+Authentication-Results: linux.ie; dkim=none (message not signed)
+ header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
+ by BL1PR12MB5095.namprd12.prod.outlook.com (2603:10b6:208:31b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.24; Tue, 8 Jun
+ 2021 00:55:56 +0000
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::3d51:a3b9:8611:684e]) by BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::3d51:a3b9:8611:684e%6]) with mapi id 15.20.4195.030; Tue, 8 Jun 2021
+ 00:55:56 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Jason Herne <jjherne@linux.ibm.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
+ linux-s390@vger.kernel.org, Halil Pasic <pasic@linux.ibm.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Mon,  7 Jun 2021 21:55:48 -0300
+Message-Id: <6-v1-324b2038f212+1041f1-vfio3a_jgg@nvidia.com>
+In-Reply-To: <0-v1-324b2038f212+1041f1-vfio3a_jgg@nvidia.com>
+References: 
+X-Originating-IP: [47.55.113.94]
+X-ClientProxiedBy: MN2PR12CA0027.namprd12.prod.outlook.com
+ (2603:10b6:208:a8::40) To BL0PR12MB5506.namprd12.prod.outlook.com
+ (2603:10b6:208:1cb::22)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH V4] drm/i915/jsl: Add W/A 1409054076 for JSL
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (47.55.113.94) by
+ MN2PR12CA0027.namprd12.prod.outlook.com (2603:10b6:208:a8::40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4195.22 via Frontend Transport; Tue, 8 Jun 2021 00:55:54 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1lqQ24-003eKf-Jw; Mon, 07 Jun 2021 21:55:52 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7939e776-df59-4890-810c-08d92a182b52
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5095:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5095ABBC46E1109B4250BFA6C2379@BL1PR12MB5095.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VGR42DYmEGs4GTGIsT5gaXSTcx0PZ4WIhi9EqscIvIOG9iMGEAc4XAIdDZlKYfrrmOcp5LWxDiBtSbs9GpnCkDT5OSvn/bfT1afRjnzi6nK0dapHvvwGKH2GaeBtlHeN4QwW+k4R1RZQDh44wqPjIAxO6DsKEioTofF6NKaFyqH1SWWoAUevUqvxSXzQ5pRbJzV18MgMYar++wC0P1bIfb3HpEQ5nkVM2BnCA5HH8TqEReKTrkzU9KovoLOKmVaEE+b0mUVvjVu54uuzmsgV4mbQVc3VRSAUgf1igrYyeZ24YWj23uw+mnTK5DRg7xEhjifWvkJhF03lWC8cA0yYTHDUpn0gB4/0sX/goVbT1Gals5B05QN+x9pbYGEMXRIQHqqqJtNUfxP1eDtWnGbJla5REZLOFtCwHOI24w7NGT0DwSMBWqCO318ZNaf4mFQcXqyANy/4s5Q7Sl56nKWZapGT9JJFqmR5zeve6cSVCDB+HQMrsux+8F0krFiFKn7anZ+tosZ/7Z98XoZ81GSSC/AY+rV0npObPxGXte/ZUKEig6Xf+LikD0Bt7IQeoyMvF0kK38aYuV57sjey6g2D3ZEwBcV2ogWkNO6jwigQ0vTn9y8Hmy8H3t/x6aEx/sopxi/PoGOQkUtfV0Mb2Kobk1qdW1DGFKH9Z3O9C5nbTGs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(136003)(346002)(366004)(396003)(110136005)(2616005)(86362001)(9746002)(66556008)(2906002)(36756003)(186003)(921005)(9786002)(478600001)(426003)(66476007)(83380400001)(8936002)(8676002)(26005)(66946007)(5660300002)(316002)(38100700002)(6666004)(7416002)(4216001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gRt1PpQQ2kRrvz4ElF3VaHbWNq5l5lWbNwUNH+dYXSGw3omgD1GGylZjvvZt?=
+ =?us-ascii?Q?fXbYNrkvXpo8o6L2DsHyhJsZ0zdx/Umqkcn65DVzoeTjBX7hXgvkvDYeloIc?=
+ =?us-ascii?Q?G+Gvj6BzH2KjWbwThFS60Kl/02qsoJLcD+OuxnIzlMWTkzPhkVYB073Xw2jt?=
+ =?us-ascii?Q?NuMoYBL4AOfW7NyOW5O9MJCmYWtELujbN1r6SxwY7ooqhvCpd5E/p8rxoC1l?=
+ =?us-ascii?Q?LyLav33rJ2HGdFpE9oHY/Mq17mDTs7euqlz4f84L7WSKtYypLu3tenVS1B03?=
+ =?us-ascii?Q?U/Zu32HHbuAyhgNGRubv2j0kzFHdF8Ge72oZK9jp2qhzuhCaILV6SY/QX6DJ?=
+ =?us-ascii?Q?Ut7RnKswp/S+rTxihXeuV/ZmbRuXPS3Lbb86aiqUPfy9lSA2oDFmqrvcn7Lv?=
+ =?us-ascii?Q?A/+hArE86NjkYwEDokG/ZDrPbwE7usKhMxxrDsnr/jPc/L4pCH6mSkTyqPm4?=
+ =?us-ascii?Q?yWfb2xHbbWbbrgu+W+L2Kpe/Y2H8wTsgAcFhAwcDxWlFcmSCXQLJ4PID3RIf?=
+ =?us-ascii?Q?6ye9hPevdaZkf903sBRW7uuGQycgzE0qdEB7fVDqdrSz0sBZidNQClsrauCW?=
+ =?us-ascii?Q?03fDCwBlwNIRRiHm7F2LejnNUl5Y6B1TLRfXZZq4hnP4InOTficakHt+wPPc?=
+ =?us-ascii?Q?FQcpJZfAMhLKZrwnJxcHiU1vNkVOaR+fj45XaJCNntUvkxlU8Kna80TGKMId?=
+ =?us-ascii?Q?gQ+ilIPwcjYY1kkE+QwdVI20ZuHV7kEIJFfb7aRbHcbGdY4Z1vD1gUoexUv0?=
+ =?us-ascii?Q?HDFmRifMEc0fikF7AjCi7PQadZqjaDf52e9Dg1PPPpFiJu1GzwFPgA0eCEPd?=
+ =?us-ascii?Q?s+oMLZuPHtwhAV7hH0WCobjQ850ERmtNlEw8ps95n4jDcCiHQmASn2mk6vXb?=
+ =?us-ascii?Q?ckFBQNGwxTyr+GP1oWPFZ5axRzsKYJ/XLyzHX46tTBcPoXLyW6NTj84V0iwF?=
+ =?us-ascii?Q?FUuQZtyyiLQ37aoI+3CwyQo7lxcWmj4hz0+v17HCQBLZxaHETgTjZi8juzJn?=
+ =?us-ascii?Q?WD0r5sLJ5xrrn4obSRFD9VWMduzj8zV+grVlEAg3JX4Q72IYFR90rjOzB6lu?=
+ =?us-ascii?Q?mGwBNEuEC1qLdVbCuG4+tAdNmlYrJrwtKR50kqhjBhLkHOMLYVQXcExC/t5G?=
+ =?us-ascii?Q?kBH6NWYj3onGLV+xrwlou95ywW38OmNgktgUuW/41yDiNyHyb/KGHbYVJ2Yt?=
+ =?us-ascii?Q?mcmmW2pjuzzBtVAOX63jkOKhA19nivVPdyYiTwMi6Ga4AJtIjccIXiofXLu/?=
+ =?us-ascii?Q?UsDjbImRgRk9/HcjQME3LF0ceJ4OEGtq1m7w77ZOt//dGZfCqSCBN5Pvqhq5?=
+ =?us-ascii?Q?htpCGHr5zTKYhbh64ZHxj8Ii?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7939e776-df59-4890-810c-08d92a182b52
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 00:55:54.6245 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TTbb6Ss7UtjIqAOXQuYZAEyb5q3lbmmh+5pl5NwgfgNdo9kUW0JtpVsFESagjd7o
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5095
+X-Mailman-Approved-At: Tue, 08 Jun 2021 13:38:44 +0000
+Subject: [Intel-gfx] [PATCH 06/10] vfio/mdev: Remove CONFIG_VFIO_MDEV_DEVICE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,134 +145,214 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When pipe A is disabled and MIPI DSI is enabled on pipe B,
-the AMT KVMR feature will incorrectly see pipe A as enabled.
-Set 0x42080 bit 23=1 before enabling DSI on pipe B and leave
-it set while DSI is enabled on pipe B. No impact to setting
-it all the time.
+For some reason the vfio_mdev shim mdev_driver has its own module and
+kconfig. As the next patch requires access to it from mdev.ko merge the
+two modules together and remove VFIO_MDEV_DEVICE.
 
-Changes since V3:
-        - More meaningful name to workaround - Imre
-        - Remove boolean check clear flag
-        - Add WA_verify hook in dsi sync_state
-Changes since V2:
-        - Used REG_BIT, ignored pipe A and used sw state check - Jani
-        - Made function wrapper - Jani
-Changes since V1:
-        - ./dim checkpatch errors addressed
+A later patch deletes this driver entirely.
 
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 45 ++++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h        |  1 +
- 2 files changed, 46 insertions(+)
+ Documentation/s390/vfio-ap.rst   |  1 -
+ arch/s390/Kconfig                |  2 +-
+ drivers/gpu/drm/i915/Kconfig     |  2 +-
+ drivers/vfio/mdev/Kconfig        |  7 -------
+ drivers/vfio/mdev/Makefile       |  3 +--
+ drivers/vfio/mdev/mdev_core.c    | 16 ++++++++++++++--
+ drivers/vfio/mdev/mdev_private.h |  2 ++
+ drivers/vfio/mdev/vfio_mdev.c    | 24 +-----------------------
+ samples/Kconfig                  |  6 +++---
+ 9 files changed, 23 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 16812488c5dd..1bd049cc3aee 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1253,15 +1253,37 @@ static void gen11_dsi_pre_enable(struct intel_atomic_state *state,
- 	gen11_dsi_set_transcoder_timings(encoder, pipe_config);
+diff --git a/Documentation/s390/vfio-ap.rst b/Documentation/s390/vfio-ap.rst
+index e15436599086b7..f57ae621f33e89 100644
+--- a/Documentation/s390/vfio-ap.rst
++++ b/Documentation/s390/vfio-ap.rst
+@@ -514,7 +514,6 @@ These are the steps:
+    * S390_AP_IOMMU
+    * VFIO
+    * VFIO_MDEV
+-   * VFIO_MDEV_DEVICE
+    * KVM
+ 
+    If using make menuconfig select the following to build the vfio_ap module::
+diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
+index b4c7c34069f81a..ea63fd22e1198a 100644
+--- a/arch/s390/Kconfig
++++ b/arch/s390/Kconfig
+@@ -768,7 +768,7 @@ config VFIO_CCW
+ config VFIO_AP
+ 	def_tristate n
+ 	prompt "VFIO support for AP devices"
+-	depends on S390_AP_IOMMU && VFIO_MDEV_DEVICE && KVM
++	depends on S390_AP_IOMMU && VFIO_MDEV && KVM
+ 	depends on ZCRYPT
+ 	help
+ 		This driver grants access to Adjunct Processor (AP) devices
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 69f57ca9c68d73..9ab1cecd69b2a0 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -126,7 +126,7 @@ config DRM_I915_GVT_KVMGT
+ 	tristate "Enable KVM/VFIO support for Intel GVT-g"
+ 	depends on DRM_I915_GVT
+ 	depends on KVM
+-	depends on VFIO_MDEV && VFIO_MDEV_DEVICE
++	depends on VFIO_MDEV
+ 	default n
+ 	help
+ 	  Choose this option if you want to enable KVMGT support for
+diff --git a/drivers/vfio/mdev/Kconfig b/drivers/vfio/mdev/Kconfig
+index 5da27f2100f9bd..763c877a1318bc 100644
+--- a/drivers/vfio/mdev/Kconfig
++++ b/drivers/vfio/mdev/Kconfig
+@@ -9,10 +9,3 @@ config VFIO_MDEV
+ 	  See Documentation/driver-api/vfio-mediated-device.rst for more details.
+ 
+ 	  If you don't know what do here, say N.
+-
+-config VFIO_MDEV_DEVICE
+-	tristate "VFIO driver for Mediated devices"
+-	depends on VFIO && VFIO_MDEV
+-	default n
+-	help
+-	  VFIO based driver for Mediated devices.
+diff --git a/drivers/vfio/mdev/Makefile b/drivers/vfio/mdev/Makefile
+index 101516fdf3753e..ff9ecd80212503 100644
+--- a/drivers/vfio/mdev/Makefile
++++ b/drivers/vfio/mdev/Makefile
+@@ -1,6 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+-mdev-y := mdev_core.o mdev_sysfs.o mdev_driver.o
++mdev-y := mdev_core.o mdev_sysfs.o mdev_driver.o vfio_mdev.o
+ 
+ obj-$(CONFIG_VFIO_MDEV) += mdev.o
+-obj-$(CONFIG_VFIO_MDEV_DEVICE) += vfio_mdev.o
+diff --git a/drivers/vfio/mdev/mdev_core.c b/drivers/vfio/mdev/mdev_core.c
+index 2a85d6fcb7ddd0..ff8c1a84516698 100644
+--- a/drivers/vfio/mdev/mdev_core.c
++++ b/drivers/vfio/mdev/mdev_core.c
+@@ -360,11 +360,24 @@ int mdev_device_remove(struct mdev_device *mdev)
+ 
+ static int __init mdev_init(void)
+ {
+-	return mdev_bus_register();
++	int rc;
++
++	rc = mdev_bus_register();
++	if (rc)
++		return rc;
++	rc = mdev_register_driver(&vfio_mdev_driver);
++	if (rc)
++		goto err_bus;
++	return 0;
++err_bus:
++	mdev_bus_unregister();
++	return rc;
  }
  
-+/*
-+ * WA 1409054076:ICL,JSL,EHL
-+ * When pipe A is disabled and MIPI DSI is enabled on pipe B,
-+ * the AMT KVMR feature will incorrectly see pipe A as enabled.
-+ * Set 0x42080 bit 23=1 before enabling DSI on pipe B and leave
-+ * it set while DSI is enabled on pipe B
-+ */
-+static void icl_apply_kvmr_pipe_a_wa(struct intel_encoder *encoder,
-+				     enum pipe pipe, bool enable)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+
-+	if ((DISPLAY_VER(dev_priv) == 11) && pipe == PIPE_B) {
-+		intel_de_rmw(dev_priv, CHICKEN_PAR1_1,
-+			     IGNORE_KVMR_PIPE_A,
-+			     enable ? IGNORE_KVMR_PIPE_A : 0);
-+	}
-+}
- static void gen11_dsi_enable(struct intel_atomic_state *state,
- 			     struct intel_encoder *encoder,
- 			     const struct intel_crtc_state *crtc_state,
- 			     const struct drm_connector_state *conn_state)
+ static void __exit mdev_exit(void)
  {
- 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
-+	struct intel_crtc *crtc = to_intel_crtc(conn_state->crtc);
- 
- 	drm_WARN_ON(state->base.dev, crtc_state->has_pch_encoder);
- 
-+	/* wa 1409054076:icl,jsl,ehl */
-+	icl_apply_kvmr_pipe_a_wa(encoder, crtc->pipe, true);
++	mdev_unregister_driver(&vfio_mdev_driver);
 +
- 	/* step6d: enable dsi transcoder */
- 	gen11_dsi_enable_transcoder(encoder);
+ 	if (mdev_bus_compat_class)
+ 		class_compat_unregister(mdev_bus_compat_class);
  
-@@ -1415,6 +1437,7 @@ static void gen11_dsi_disable(struct intel_atomic_state *state,
- 			      const struct drm_connector_state *old_conn_state)
+@@ -378,4 +391,3 @@ MODULE_VERSION(DRIVER_VERSION);
+ MODULE_LICENSE("GPL v2");
+ MODULE_AUTHOR(DRIVER_AUTHOR);
+ MODULE_DESCRIPTION(DRIVER_DESC);
+-MODULE_SOFTDEP("post: vfio_mdev");
+diff --git a/drivers/vfio/mdev/mdev_private.h b/drivers/vfio/mdev/mdev_private.h
+index 6999c89db7b162..afbad7b0a14a17 100644
+--- a/drivers/vfio/mdev/mdev_private.h
++++ b/drivers/vfio/mdev/mdev_private.h
+@@ -37,6 +37,8 @@ struct mdev_type {
+ #define to_mdev_type(_kobj)		\
+ 	container_of(_kobj, struct mdev_type, kobj)
+ 
++extern struct mdev_driver vfio_mdev_driver;
++
+ int  parent_create_sysfs_files(struct mdev_parent *parent);
+ void parent_remove_sysfs_files(struct mdev_parent *parent);
+ 
+diff --git a/drivers/vfio/mdev/vfio_mdev.c b/drivers/vfio/mdev/vfio_mdev.c
+index 922729071c5a8e..d5b4eede47c1a5 100644
+--- a/drivers/vfio/mdev/vfio_mdev.c
++++ b/drivers/vfio/mdev/vfio_mdev.c
+@@ -17,10 +17,6 @@
+ 
+ #include "mdev_private.h"
+ 
+-#define DRIVER_VERSION  "0.1"
+-#define DRIVER_AUTHOR   "NVIDIA Corporation"
+-#define DRIVER_DESC     "VFIO based driver for Mediated device"
+-
+ static int vfio_mdev_open(struct vfio_device *core_vdev)
  {
- 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
-+	struct intel_crtc *crtc = to_intel_crtc(old_conn_state->crtc);
- 
- 	/* step1: turn off backlight */
- 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_BACKLIGHT_OFF);
-@@ -1423,6 +1446,9 @@ static void gen11_dsi_disable(struct intel_atomic_state *state,
- 	/* step2d,e: disable transcoder and wait */
- 	gen11_dsi_disable_transcoder(encoder);
- 
-+	/* wa 1409054076:icl,jsl,ehl */
-+	icl_apply_kvmr_pipe_a_wa(encoder, crtc->pipe, false);
-+
- 	/* step2f,g: powerdown panel */
- 	gen11_dsi_powerdown_panel(encoder);
- 
-@@ -1548,6 +1574,24 @@ static void gen11_dsi_get_config(struct intel_encoder *encoder,
- 		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_PERIODIC_CMD_MODE;
+ 	struct mdev_device *mdev = to_mdev_device(core_vdev->dev);
+@@ -151,7 +147,7 @@ static void vfio_mdev_remove(struct mdev_device *mdev)
+ 	kfree(vdev);
  }
  
-+static void gen11_dsi_sync_state(struct intel_encoder *encoder,
-+				 const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+	struct intel_crtc *intel_crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	enum pipe pipe = intel_crtc->pipe;
-+
-+	/* wa verify 1409054076:icl,jsl,ehl */
-+	if ((DISPLAY_VER(dev_priv) == 11) &&
-+	    pipe == PIPE_B &&
-+	    !(intel_de_read(dev_priv, CHICKEN_PAR1_1)
-+	      & IGNORE_KVMR_PIPE_A))
-+		drm_dbg_kms(&dev_priv->drm,
-+			    "[ENCODER:%d:%s] wa 1409054076 failed\n",
-+			    encoder->base.base.id,
-+			    encoder->base.name);
-+}
-+
- static int gen11_dsi_dsc_compute_config(struct intel_encoder *encoder,
- 					struct intel_crtc_state *crtc_state)
- {
-@@ -1966,6 +2010,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 	encoder->post_disable = gen11_dsi_post_disable;
- 	encoder->port = port;
- 	encoder->get_config = gen11_dsi_get_config;
-+	encoder->sync_state = gen11_dsi_sync_state;
- 	encoder->update_pipe = intel_panel_update_backlight;
- 	encoder->compute_config = gen11_dsi_compute_config;
- 	encoder->get_hw_state = gen11_dsi_get_hw_state;
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index eb13c601d680..cbe055ffe98d 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -8107,6 +8107,7 @@ enum {
- # define CHICKEN3_DGMG_DONE_FIX_DISABLE		(1 << 2)
+-static struct mdev_driver vfio_mdev_driver = {
++struct mdev_driver vfio_mdev_driver = {
+ 	.driver = {
+ 		.name = "vfio_mdev",
+ 		.owner = THIS_MODULE,
+@@ -160,21 +156,3 @@ static struct mdev_driver vfio_mdev_driver = {
+ 	.probe	= vfio_mdev_probe,
+ 	.remove	= vfio_mdev_remove,
+ };
+-
+-static int __init vfio_mdev_init(void)
+-{
+-	return mdev_register_driver(&vfio_mdev_driver);
+-}
+-
+-static void __exit vfio_mdev_exit(void)
+-{
+-	mdev_unregister_driver(&vfio_mdev_driver);
+-}
+-
+-module_init(vfio_mdev_init)
+-module_exit(vfio_mdev_exit)
+-
+-MODULE_VERSION(DRIVER_VERSION);
+-MODULE_LICENSE("GPL v2");
+-MODULE_AUTHOR(DRIVER_AUTHOR);
+-MODULE_DESCRIPTION(DRIVER_DESC);
+diff --git a/samples/Kconfig b/samples/Kconfig
+index b5a1a7aa7e23ab..b0503ef058d334 100644
+--- a/samples/Kconfig
++++ b/samples/Kconfig
+@@ -154,14 +154,14 @@ config SAMPLE_UHID
  
- #define CHICKEN_PAR1_1			_MMIO(0x42080)
-+#define  IGNORE_KVMR_PIPE_A		REG_BIT(23)
- #define  KBL_ARB_FILL_SPARE_22		REG_BIT(22)
- #define  DIS_RAM_BYPASS_PSR2_MAN_TRACK	(1 << 16)
- #define  SKL_DE_COMPRESSED_HASH_MODE	(1 << 15)
+ config SAMPLE_VFIO_MDEV_MTTY
+ 	tristate "Build VFIO mtty example mediated device sample code -- loadable modules only"
+-	depends on VFIO_MDEV_DEVICE && m
++	depends on VFIO_MDEV && m
+ 	help
+ 	  Build a virtual tty sample driver for use as a VFIO
+ 	  mediated device
+ 
+ config SAMPLE_VFIO_MDEV_MDPY
+ 	tristate "Build VFIO mdpy example mediated device sample code -- loadable modules only"
+-	depends on VFIO_MDEV_DEVICE && m
++	depends on VFIO_MDEV && m
+ 	help
+ 	  Build a virtual display sample driver for use as a VFIO
+ 	  mediated device.  It is a simple framebuffer and supports
+@@ -178,7 +178,7 @@ config SAMPLE_VFIO_MDEV_MDPY_FB
+ 
+ config SAMPLE_VFIO_MDEV_MBOCHS
+ 	tristate "Build VFIO mdpy example mediated device sample code -- loadable modules only"
+-	depends on VFIO_MDEV_DEVICE && m
++	depends on VFIO_MDEV && m
+ 	select DMA_SHARED_BUFFER
+ 	help
+ 	  Build a virtual display sample driver for use as a VFIO
 -- 
 2.31.1
 
