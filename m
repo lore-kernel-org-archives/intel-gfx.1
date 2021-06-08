@@ -2,51 +2,53 @@ Return-Path: <SRS0=F+1B=LC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CAAEC4743F
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 19:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D6A9C48BCD
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 19:01:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E89456108D
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 19:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E89456108D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D34BD6108D
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 19:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D34BD6108D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0965F6EC3E;
-	Tue,  8 Jun 2021 19:00:26 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD2A16EC43;
- Tue,  8 Jun 2021 19:00:21 +0000 (UTC)
-IronPort-SDR: v5qA1rvmJykA0A5rN5p+ialwEwAqOoYh361XnRbJo3wyxnGBSSoYW38uedCa4S/npK0xNp0MH2
- ZMdeVSXzvuXA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10009"; a="203059305"
-X-IronPort-AV: E=Sophos;i="5.83,259,1616482800"; d="scan'208";a="203059305"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2021 12:00:06 -0700
-IronPort-SDR: l0Cu47uzGDA9lQlI2251aa7EIpyGKvjcGXo0b7J/dnC7bJzVaLTtdTjYvGkfeNIkBp8XgUNYIC
- 8b/W9m0RCFfA==
-X-IronPort-AV: E=Sophos;i="5.83,259,1616482800"; d="scan'208";a="485391351"
-Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2021 12:00:06 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Tue,  8 Jun 2021 12:17:53 -0700
-Message-Id: <20210608191754.127059-8-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210608191754.127059-1-matthew.brost@intel.com>
-References: <20210608191754.127059-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF8A6EAAB;
+	Tue,  8 Jun 2021 19:01:13 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 370266EABF;
+ Tue,  8 Jun 2021 19:01:12 +0000 (UTC)
+IronPort-SDR: MU7rknGy4AaxDHDzTKxoNDbUyrmsvw8s+9nUajZbzjYGPVpQ+4WwMyxwAZB+fUTfyfSVOMAKz+
+ qZIzwDkM4uVw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10009"; a="184602392"
+X-IronPort-AV: E=Sophos;i="5.83,259,1616482800"; d="scan'208";a="184602392"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2021 12:01:05 -0700
+IronPort-SDR: 7FlSl1gt3av8cE+PgD5/CzkP+wPhY8wY7xkiZ6AMokpAPM1ZtoC55PJkzMVW7kPlOBPwykZfbK
+ PG4ZL6Bkbgkg==
+X-IronPort-AV: E=Sophos;i="5.83,259,1616482800"; d="scan'208";a="440586084"
+Received: from arajji-mobl.ger.corp.intel.com (HELO [10.249.254.90])
+ ([10.249.254.90])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2021 12:01:01 -0700
+Message-ID: <5f4fbc762eb8560b468c6d4bcce70348eca57ca7.camel@linux.intel.com>
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Tue, 08 Jun 2021 21:00:58 +0200
+In-Reply-To: <CAM0jSHOyOtORECkqjYuiCncj=rFrgUeoXP4DNvxBxkF2nBmFpg@mail.gmail.com>
+References: <20210608092846.64198-1-thomas.hellstrom@linux.intel.com>
+ <20210608092846.64198-4-thomas.hellstrom@linux.intel.com>
+ <CAM0jSHOyOtORECkqjYuiCncj=rFrgUeoXP4DNvxBxkF2nBmFpg@mail.gmail.com>
+User-Agent: Evolution 3.40.1 (3.40.1-1.fc34) 
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 7/8] drm/i915: Update i915_scheduler to operate
- on i915_sched_engine
+Subject: Re: [Intel-gfx] [PATCH 3/9] drm/i915: Introduce a ww transaction
+ helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,222 +61,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jason.ekstrand@intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather passing around an intel_engine_cs in the scheduling code, pass
-around a i915_sched_engine.
-
-v3:
- (Jason Ekstrand)
-  Add READ_ONCE around rq->engine in lock_sched_engine
-
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Jason Ekstrand <jason@jlekstrand.net>
----
- .../drm/i915/gt/intel_execlists_submission.c  | 11 +++--
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  2 +-
- drivers/gpu/drm/i915/i915_scheduler.c         | 46 +++++++++----------
- drivers/gpu/drm/i915/i915_scheduler.h         |  2 +-
- 4 files changed, 32 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 9487d9e0be62..ffad4d98cec0 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -382,7 +382,8 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
- 		GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
- 		if (rq_prio(rq) != prio) {
- 			prio = rq_prio(rq);
--			pl = i915_sched_lookup_priolist(engine, prio);
-+			pl = i915_sched_lookup_priolist(engine->sched_engine,
-+							prio);
- 		}
- 		GEM_BUG_ON(i915_sched_engine_is_empty(engine->sched_engine));
- 
-@@ -1096,7 +1097,8 @@ static void defer_active(struct intel_engine_cs *engine)
- 	if (!rq)
- 		return;
- 
--	defer_request(rq, i915_sched_lookup_priolist(engine, rq_prio(rq)));
-+	defer_request(rq, i915_sched_lookup_priolist(engine->sched_engine,
-+						     rq_prio(rq)));
- }
- 
- static bool
-@@ -2083,7 +2085,7 @@ static void __execlists_unhold(struct i915_request *rq)
- 
- 		i915_request_clear_hold(rq);
- 		list_move_tail(&rq->sched.link,
--			       i915_sched_lookup_priolist(rq->engine,
-+			       i915_sched_lookup_priolist(rq->engine->sched_engine,
- 							  rq_prio(rq)));
- 		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- 
-@@ -2452,7 +2454,8 @@ static void queue_request(struct intel_engine_cs *engine,
- {
- 	GEM_BUG_ON(!list_empty(&rq->sched.link));
- 	list_add_tail(&rq->sched.link,
--		      i915_sched_lookup_priolist(engine, rq_prio(rq)));
-+		      i915_sched_lookup_priolist(engine->sched_engine,
-+						 rq_prio(rq)));
- 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 60121809e6e2..cb13cc586c67 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -503,7 +503,7 @@ static inline void queue_request(struct intel_engine_cs *engine,
- {
- 	GEM_BUG_ON(!list_empty(&rq->sched.link));
- 	list_add_tail(&rq->sched.link,
--		      i915_sched_lookup_priolist(engine, prio));
-+		      i915_sched_lookup_priolist(engine->sched_engine, prio));
- 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- }
- 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 035b88f2e4aa..fa8863df9513 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -61,14 +61,13 @@ static void assert_priolists(struct i915_sched_engine * const sched_engine)
- }
- 
- struct list_head *
--i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio)
-+i915_sched_lookup_priolist(struct i915_sched_engine *sched_engine, int prio)
- {
--	struct i915_sched_engine * const sched_engine = engine->sched_engine;
- 	struct i915_priolist *p;
- 	struct rb_node **parent, *rb;
- 	bool first = true;
- 
--	lockdep_assert_held(&engine->sched_engine->lock);
-+	lockdep_assert_held(&sched_engine->lock);
- 	assert_priolists(sched_engine);
- 
- 	if (unlikely(sched_engine->no_priolist))
-@@ -130,13 +129,13 @@ struct sched_cache {
- 	struct list_head *priolist;
- };
- 
--static struct intel_engine_cs *
--sched_lock_engine(const struct i915_sched_node *node,
--		  struct intel_engine_cs *locked,
-+static struct i915_sched_engine *
-+lock_sched_engine(struct i915_sched_node *node,
-+		  struct i915_sched_engine *locked,
- 		  struct sched_cache *cache)
- {
- 	const struct i915_request *rq = node_to_request(node);
--	struct intel_engine_cs *engine;
-+	struct i915_sched_engine *sched_engine;
- 
- 	GEM_BUG_ON(!locked);
- 
-@@ -146,14 +145,14 @@ sched_lock_engine(const struct i915_sched_node *node,
- 	 * engine lock. The simple ploy we use is to take the lock then
- 	 * check that the rq still belongs to the newly locked engine.
- 	 */
--	while (locked != (engine = READ_ONCE(rq->engine))) {
--		spin_unlock(&locked->sched_engine->lock);
-+	while (locked != (sched_engine = READ_ONCE(rq->engine)->sched_engine)) {
-+		spin_unlock(&locked->lock);
- 		memset(cache, 0, sizeof(*cache));
--		spin_lock(&engine->sched_engine->lock);
--		locked = engine;
-+		spin_lock(&sched_engine->lock);
-+		locked = sched_engine;
- 	}
- 
--	GEM_BUG_ON(locked != engine);
-+	GEM_BUG_ON(locked != sched_engine);
- 	return locked;
- }
- 
-@@ -161,7 +160,7 @@ static void __i915_schedule(struct i915_sched_node *node,
- 			    const struct i915_sched_attr *attr)
- {
- 	const int prio = max(attr->priority, node->attr.priority);
--	struct intel_engine_cs *engine;
-+	struct i915_sched_engine *sched_engine;
- 	struct i915_dependency *dep, *p;
- 	struct i915_dependency stack;
- 	struct sched_cache cache;
-@@ -236,23 +235,24 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	}
- 
- 	memset(&cache, 0, sizeof(cache));
--	engine = node_to_request(node)->engine;
--	spin_lock(&engine->sched_engine->lock);
-+	sched_engine = node_to_request(node)->engine->sched_engine;
-+	spin_lock(&sched_engine->lock);
- 
- 	/* Fifo and depth-first replacement ensure our deps execute before us */
--	engine = sched_lock_engine(node, engine, &cache);
-+	sched_engine = lock_sched_engine(node, sched_engine, &cache);
- 	list_for_each_entry_safe_reverse(dep, p, &dfs, dfs_link) {
- 		INIT_LIST_HEAD(&dep->dfs_link);
- 
- 		node = dep->signaler;
--		engine = sched_lock_engine(node, engine, &cache);
--		lockdep_assert_held(&engine->sched_engine->lock);
-+		sched_engine = lock_sched_engine(node, sched_engine, &cache);
-+		lockdep_assert_held(&sched_engine->lock);
- 
- 		/* Recheck after acquiring the engine->timeline.lock */
- 		if (prio <= node->attr.priority || node_signaled(node))
- 			continue;
- 
--		GEM_BUG_ON(node_to_request(node)->engine != engine);
-+		GEM_BUG_ON(node_to_request(node)->engine->sched_engine !=
-+			   sched_engine);
- 
- 		WRITE_ONCE(node->attr.priority, prio);
- 
-@@ -270,17 +270,17 @@ static void __i915_schedule(struct i915_sched_node *node,
- 		if (i915_request_in_priority_queue(node_to_request(node))) {
- 			if (!cache.priolist)
- 				cache.priolist =
--					i915_sched_lookup_priolist(engine,
-+					i915_sched_lookup_priolist(sched_engine,
- 								   prio);
- 			list_move_tail(&node->link, cache.priolist);
- 		}
- 
- 		/* Defer (tasklet) submission until after all of our updates. */
--		if (engine->sched_engine->kick_backend)
--			engine->sched_engine->kick_backend(node_to_request(node), prio);
-+		if (sched_engine->kick_backend)
-+			sched_engine->kick_backend(node_to_request(node), prio);
- 	}
- 
--	spin_unlock(&engine->sched_engine->lock);
-+	spin_unlock(&sched_engine->lock);
- }
- 
- void i915_schedule(struct i915_request *rq, const struct i915_sched_attr *attr)
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 713c38c99de9..0014745bda30 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -39,7 +39,7 @@ void i915_schedule(struct i915_request *request,
- 		   const struct i915_sched_attr *attr);
- 
- struct list_head *
--i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio);
-+i915_sched_lookup_priolist(struct i915_sched_engine *sched_engine, int prio);
- 
- void __i915_priolist_free(struct i915_priolist *p);
- static inline void i915_priolist_free(struct i915_priolist *p)
--- 
-2.28.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gVHVlLCAyMDIxLTA2LTA4IGF0IDE4OjE3ICswMTAwLCBNYXR0aGV3IEF1bGQgd3JvdGU6Cj4g
+T24gVHVlLCA4IEp1biAyMDIxIGF0IDEwOjI5LCBUaG9tYXMgSGVsbHN0csO2bQo+IDx0aG9tYXMu
+aGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6Cj4gPiAKPiA+IEludHJvZHVjZSBhIGZv
+cl9pOTE1X2dlbV93dygpe30gdXRpbGl0eSB0byBoZWxwIG1ha2UgdGhlIGNvZGUKPiA+IGFyb3Vu
+ZCBhIHd3IHRyYW5zYWN0aW9uIG1vcmUgcmVhZGFibGUuCj4gPiAKPiA+IFNpZ25lZC1vZmYtYnk6
+IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4KPiA+
+IC0tLQo+ID4gwqBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2dlbV93dy5oIHwgMzEKPiA+ICsr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrLQo+ID4gwqAxIGZpbGUgY2hhbmdlZCwgMzAgaW5z
+ZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaTkxNV9nZW1fd3cuaAo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
+X2dlbV93dy5oCj4gPiBpbmRleCBmMmQ4NzY5ZTQxMTguLmY2YjFhNzk2NjY3YiAxMDA2NDQKPiA+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtX3d3LmgKPiA+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtX3d3LmgKPiA+IEBAIC0xMSwxMSArMTEsNDAgQEAgc3Ry
+dWN0IGk5MTVfZ2VtX3d3X2N0eCB7Cj4gPiDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qgd3dfYWNxdWly
+ZV9jdHggY3R4Owo+ID4gwqDCoMKgwqDCoMKgwqAgc3RydWN0IGxpc3RfaGVhZCBvYmpfbGlzdDsK
+PiA+IMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpjb250ZW5kZWQ7
+Cj4gPiAtwqDCoMKgwqDCoMKgIGJvb2wgaW50cjsKPiA+ICvCoMKgwqDCoMKgwqAgdW5zaWduZWQg
+c2hvcnQgaW50cjsKPiA+ICvCoMKgwqDCoMKgwqAgdW5zaWduZWQgc2hvcnQgbG9vcDsKPiAKPiBX
+aHkgYXJlIHRoZXNlIG5vdyB1bnNpZ25lZCBzaG9ydD8KPiAKVGhhdCdzIGJlY2F1c2UgSSBvbmNl
+IGdvdCBhIGhhcnNoIGNvbW1lbnQgbWFraW5nIHNvbWUgY2hhbmdlcyB0byB0aGUKY29yZSBtdXRl
+eCBjb2RlIHdoZXJlIEkgaGFwcGVuZWQgdG8gc3R1ZmYgYm9vbHMgaW4gdGhlIHN0cnVjdCB3d19t
+dXRleCwKYW5kIHdhcyB0b2xkIHRoYXQgaXQgd2FzIGJhZCBzdHlsZSBwdXR0aW5nIGJvb2xzIGlu
+IGNvbXBvdW5kIGRhdGEgdHlwZXMKaW4gdGhlIGxpbnV4IGtlcm5lbC4KClRoZXJlJ3Mgbm8gY2hl
+Y2twYXRjaC5wbCBjaGVja3MgZm9yIHRoYXQgdGhvdWdoLi4uCgo+IFJldmlld2VkLWJ5OiBNYXR0
+aGV3IEF1bGQgPG1hdHRoZXcuYXVsZEBpbnRlbC5jb20+Cj4gCj4gPiDCoH07Cj4gPiAKPiA+IMKg
+dm9pZCBpOTE1X2dlbV93d19jdHhfaW5pdChzdHJ1Y3QgaTkxNV9nZW1fd3dfY3R4ICpjdHgsIGJv
+b2wgaW50cik7Cj4gPiDCoHZvaWQgaTkxNV9nZW1fd3dfY3R4X2Zpbmkoc3RydWN0IGk5MTVfZ2Vt
+X3d3X2N0eCAqY3R4KTsKPiA+IMKgaW50IF9fbXVzdF9jaGVjayBpOTE1X2dlbV93d19jdHhfYmFj
+a29mZihzdHJ1Y3QgaTkxNV9nZW1fd3dfY3R4Cj4gPiAqY3R4KTsKPiA+IMKgdm9pZCBpOTE1X2dl
+bV93d191bmxvY2tfc2luZ2xlKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmopOwo+ID4g
+Kwo+ID4gKy8qIEludGVybmFsIGZ1bmN0aW9ucyB1c2VkIGJ5IHRoZSBpbmxpbmVzISBEb24ndCB1
+c2UuICovCj4gPiArc3RhdGljIGlubGluZSBpbnQgX19pOTE1X2dlbV93d19maW5pKHN0cnVjdCBp
+OTE1X2dlbV93d19jdHggKnd3LAo+ID4gaW50IGVycikKPiA+ICt7Cj4gPiArwqDCoMKgwqDCoMKg
+IHd3LT5sb29wID0gMDsKPiA+ICvCoMKgwqDCoMKgwqAgaWYgKGVyciA9PSAtRURFQURMSykgewo+
+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZXJyID0gaTkxNV9nZW1fd3dfY3R4X2Jh
+Y2tvZmYod3cpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKCFlcnIpCj4g
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgd3ctPmxvb3Ag
+PSAxOwo+ID4gK8KgwqDCoMKgwqDCoCB9Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKgIGlmICghd3ct
+Pmxvb3ApCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpOTE1X2dlbV93d19jdHhf
+ZmluaSh3dyk7Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKgIHJldHVybiBlcnI7Cj4gPiArfQo+ID4g
+Kwo+ID4gK3N0YXRpYyBpbmxpbmUgdm9pZAo+ID4gK19faTkxNV9nZW1fd3dfaW5pdChzdHJ1Y3Qg
+aTkxNV9nZW1fd3dfY3R4ICp3dywgYm9vbCBpbnRyKQo+ID4gK3sKPiA+ICvCoMKgwqDCoMKgwqAg
+aTkxNV9nZW1fd3dfY3R4X2luaXQod3csIGludHIpOwo+ID4gK8KgwqDCoMKgwqDCoCB3dy0+bG9v
+cCA9IDE7Cj4gPiArfQo+ID4gKwo+ID4gKyNkZWZpbmUgZm9yX2k5MTVfZ2VtX3d3KF93dywgX2Vy
+ciwgX2ludHIpwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+
+ICvCoMKgwqDCoMKgwqAgZm9yIChfX2k5MTVfZ2VtX3d3X2luaXQoX3d3LCBfaW50cik7IChfd3cp
+LT5sb29wO8KgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBfZXJyID0g
+X19pOTE1X2dlbV93d19maW5pKF93dywgX2VycikpCj4gPiArCj4gPiDCoCNlbmRpZgo+ID4gLS0K
+PiA+IDIuMzEuMQo+ID4gCj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwo+ID4gSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdAo+ID4gSW50ZWwtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9pbnRlbC1nZngKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9pbnRlbC1nZngK
