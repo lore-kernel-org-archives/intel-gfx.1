@@ -2,47 +2,67 @@ Return-Path: <SRS0=F+1B=LC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 106E4C47082
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:24:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CE3AC47082
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:42:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2626600EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:24:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2626600EF
+	by mail.kernel.org (Postfix) with ESMTPS id BD2B96108D
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 04:42:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD2B96108D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 445AC6EA94;
-	Tue,  8 Jun 2021 04:24:39 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5C9F6EA94
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 04:24:38 +0000 (UTC)
-IronPort-SDR: AcNSmThTKIE5IoNsHXgxrYPeNYDoG3ofwoxKtDWlKyHRUqH/SGJVuAz5tHBlhIo//5k1YmLNyH
- ERXsx40Upnrw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="204792095"
-X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="204792095"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2021 21:24:37 -0700
-IronPort-SDR: M6CEq+mGoI7svY12P3MtQsfn+EGnyip7cgYWd2dS/jYH+lZr4dLtyQX/L3Iqq8oWWoVYss39Fa
- 218l8Ut3TJ6w==
-X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="447749100"
-Received: from vandita-desktop.iind.intel.com ([10.223.74.52])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 07 Jun 2021 21:24:35 -0700
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Jun 2021 09:36:59 +0530
-Message-Id: <20210608040659.14131-1-vandita.kulkarni@intel.com>
-X-Mailer: git-send-email 2.21.0.5.gaeb582a
+	by gabe.freedesktop.org (Postfix) with ESMTP id 521BE6EA9B;
+	Tue,  8 Jun 2021 04:42:22 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE78A6EA9B
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Jun 2021 04:42:21 +0000 (UTC)
+IronPort-SDR: ZefjG6uCuRltmxg3kKlKHjYrn01naAR/gOjU+uUytVNd0bqzbfCCSYRmusFWrKGXUkLJ3DeBpx
+ JtHXFFFHsPKw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="192096261"
+X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="192096261"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2021 21:42:20 -0700
+IronPort-SDR: eiYSVto+cuZw8LOHb/5l+8Grcfj1JAof32NZrcN599oSry9rSa7ogyhvWOVnhjUVz7pab2qmT0
+ Af1jCCMi68GQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,256,1616482800"; d="scan'208";a="469349344"
+Received: from irsmsx603.ger.corp.intel.com ([163.33.146.9])
+ by fmsmga004.fm.intel.com with ESMTP; 07 Jun 2021 21:42:20 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ irsmsx603.ger.corp.intel.com (163.33.146.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Tue, 8 Jun 2021 05:42:18 +0100
+Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
+ ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2242.008;
+ Mon, 7 Jun 2021 21:42:16 -0700
+From: "Navare, Manasi D" <manasi.d.navare@intel.com>
+To: "Kulkarni, Vandita" <vandita.kulkarni@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [v3] drm/i915/dsc: Fix bigjoiner check in dsc_disable
+Thread-Index: AQHXXB4xRGwOHMd180e4voU/jIvnpqsJiNzg
+Date: Tue, 8 Jun 2021 04:42:16 +0000
+Message-ID: <c0ad19244b054866abd36c93bb0e9aa8@intel.com>
+References: <20210608040659.14131-1-vandita.kulkarni@intel.com>
+In-Reply-To: <20210608040659.14131-1-vandita.kulkarni@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+x-originating-ip: [10.22.254.132]
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v3] drm/i915/dsc: Fix bigjoiner check in dsc_disable
+Subject: Re: [Intel-gfx] [v3] drm/i915/dsc: Fix bigjoiner check in
+ dsc_disable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,15 +75,14 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: "Nikula, Jani" <jani.nikula@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This change takes care of resetting the dss_ctl registers
-in case of dsc_disable, bigjoiner disable and also
-uncompressed joiner disable.
+
+This change takes care of resetting the dss_ctl registers in case of dsc_disable, bigjoiner disable and also uncompressed joiner disable.
 
 v2: Fix formatting
 v3: Fix the typo (Mansi)
@@ -72,6 +91,13 @@ Suggested-by: Jani Nikula <jani.nikula@intel.com>
 Fixes: d961eb20adb6 (drm/i915/bigjoiner: atomic commit changes for uncompressed joiner)
 Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3537
 Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+
+Looks good to me now
+
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+
+Manasi
+
 ---
  drivers/gpu/drm/i915/display/intel_vdsc.c | 12 ++++++------
  1 file changed, 6 insertions(+), 6 deletions(-)
@@ -99,7 +125,7 @@ index 19cd9531c115..7121b66bf96d 100644
  }
  
  void intel_uncompressed_joiner_get_config(struct intel_crtc_state *crtc_state)
--- 
+--
 2.21.0.5.gaeb582a
 
 _______________________________________________
