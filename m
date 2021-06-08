@@ -2,130 +2,151 @@ Return-Path: <SRS0=F+1B=LC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9E78C47082
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 06:56:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E8D6C47082
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 07:02:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A62561246
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 06:56:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A62561246
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 021536124B
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jun 2021 07:02:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 021536124B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13B5D6EAAF;
-	Tue,  8 Jun 2021 06:56:01 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47C966EAAC;
- Tue,  8 Jun 2021 06:55:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94F2D6EAB3;
+	Tue,  8 Jun 2021 07:02:05 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8CC96EAB2;
+ Tue,  8 Jun 2021 07:02:03 +0000 (UTC)
+IronPort-SDR: v0c65Ljt2P1HSxDhYIPNirVST13XQBNKj1AyJvno/5so3NiKoHg8klCNCWcre3ily1bpgD5Bqo
+ Nu+NOeDqhLvg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10008"; a="204750953"
+X-IronPort-AV: E=Sophos;i="5.83,257,1616482800"; d="scan'208";a="204750953"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2021 00:02:00 -0700
+IronPort-SDR: hFN7vZAanymsUK0saaM4ih5f9WaIrwRBYYpTOPds++oPb/ocDtuW54TNZZQaVXEPU/7ObsO7yd
+ uydo43yBhQzA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,257,1616482800"; d="scan'208";a="637543327"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by fmsmga005.fm.intel.com with ESMTP; 08 Jun 2021 00:02:00 -0700
+Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Tue, 8 Jun 2021 00:01:59 -0700
+Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
+ ORSMSX609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Tue, 8 Jun 2021 00:01:59 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4
+ via Frontend Transport; Tue, 8 Jun 2021 00:01:59 -0700
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.101)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2242.4; Tue, 8 Jun 2021 00:01:59 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BBSFqG5y/yxmxPDD7RBnplFhbXRGwnG+Pdm5rhbDW2Y1UgH60CCrBOuEUna6JeDpxAzZ9LrvCo6w2DAhWssvawHsqGM+pna4kFvZRao+XuuIAZtexO5zviUkz3qJuMOo5Ubn0EMNpHK4iLseatoCEcw3UAbB9XRV99ZBGD86A7XpGgo4/73SEMPNcA4lgkLc1zr8jS0wVXV47wanuh/ZaAmmJn0vxMz0S1MP8UnbYyluegOF7ucLjncG4ajtHBumgmf5qxa9AjsDyAyQ26i4VUJKRVRTuybEFRgzshUiu4NUULh6QBKeINJvFIdPUjdEVejuryXSya0GP4QZyoww6g==
+ b=EJRzkN92Ar42IC3fmRUCC22yIRukrDPpTKpVtAJaCW/D7piya1JXeYL4K7FRTs7yylVDvBTlW0gKNuE8hb2dp5zXpZGhXha3wpmXjvoQeMKoFo/fPNQj1I9yzO0j/6iUk89UhIZ7yF1D9CgRhUobhouDBBMj7vFkVCAYW25fC93Sm38GNyuMSSQuOVU8q9royV1+F2bvNhDIJzUabasRs7Zbm4OKQZQdfRCJy4Zt585sKgETawhMqi/FP4eKyjlEKfcxa0YzjFvWgQbu2ALzi8pKBGgCjI8URTzLgqFv5UhAQ+90Og0PSoga23lXcLMSx2gO+X0wNrLCg3W3Lu7ZDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3axFji0+LJT6aH0ebwO3rSS9xTVPRSjLdfeBLY1M4Jk=;
- b=P566nlSKIHgevTQ424iALU4bELHD/4BkTEco6cJZUxcCUt1ybwBD2JzkuS/Jj4Vt9ovwOwWouuHue3DvWImAsJH+cwNLt+FjcsIB3lFc2dbUHwQwanbNku+L9iRWFPQ1NtdVaO1blTZzLZU7CNxIUgZs6/aYOUopx1+8VoPMP6nz/N8ZLIK29K0BsWp4XzfHIF3yRNzB9MBU0dC/P8HAgONfvkXj07sz22EL90ZZcKxkYmlGnXOAFyeI0chGwdyPmuheDN3GN7kpKTSOO0wUbcA19/gv+WwK67f7ILV7b+ce9qh06tAWlspmC0Kd8/icFYDVvhLx5Jqr5eVXOoCSdQ==
+ bh=CVwimsZIWb7WzDP0pWZGDnp8ICF6gPH/1eW9w7zbQEY=;
+ b=cVtKAjCHN57+hN6OJ9G7jri0DPMhSajD+M2iOKl3qzxvck1tbb7maZCP6WpiTNip2E4lZo8xICEFH4jWwGRAIdmwJBcwXxs8SURJXFaTs3vDd0rPSYnIeLnVfVvT4Z4+rApHZEosT9ke1OA+rR48OqrPU1L7NaHhRwG8iK9SLNuEc0aBtkXSJdPLPx8DfukZVW6Z3XlqoD91xfdApOieel6khxxgSOoHWdcuiiL/Wk3JSqwucmUVW6Pc/VvdT/l0fvTzKlsIk5zsoOeJDNEB11TLtenAvzrPTwKkUOBIdnCaM5edhm8RMmrCprMJUdYGbMZoUBDDJK8JQIj/OviB0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3axFji0+LJT6aH0ebwO3rSS9xTVPRSjLdfeBLY1M4Jk=;
- b=dOVgu2kJNFbkODlPFq1dAOsruRsaAVwgXQS3+obSUmwPZz5uGB2EQmGcqQ3Iof5ZO51UDbpsFN/WtqSgEYhmk3v6OyL+Di/osp/lY0VY2PdA69FUibKJwzkveOZ//mBUNQBMM36RdwcGkQ4VTDnm+RfnZCRkgQ+ruo96+Wdwxng=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4237.namprd12.prod.outlook.com (2603:10b6:208:1d6::7)
+ bh=CVwimsZIWb7WzDP0pWZGDnp8ICF6gPH/1eW9w7zbQEY=;
+ b=SuJZZeWdRL+VyjkqKEKhHBRfflULnBvPoTZZ80PTobHtHmpJsQZ7S4hSAKFbfcGWw7+ivIuRinRByBHgw8enUMh0+RBCgdGyVnyQxHnJ3uXh2plWCZAdCHDxJXmT5SOSKZ/oIvK/SiVy62qEkJ4pXPPJjQnwJco0CfO+ovwZb8s=
+Received: from CO6PR11MB5569.namprd11.prod.outlook.com (2603:10b6:303:139::20)
+ by CO6PR11MB5572.namprd11.prod.outlook.com (2603:10b6:303:13c::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.20; Tue, 8 Jun
- 2021 06:55:56 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6d4d:4674:1cf6:8d34]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6d4d:4674:1cf6:8d34%6]) with mapi id 15.20.4195.030; Tue, 8 Jun 2021
- 06:55:56 +0000
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- Dave Airlie <airlied@linux.ie>, DRI <dri-devel@lists.freedesktop.org>
-References: <20210608125046.07c6deca@canb.auug.org.au>
- <22010e38-3686-87ce-532d-4a53cae990b1@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <7b825bc4-9f81-3010-6445-d6708e34a9bd@amd.com>
-Date: Tue, 8 Jun 2021 08:55:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <22010e38-3686-87ce-532d-4a53cae990b1@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.22; Tue, 8 Jun
+ 2021 07:01:58 +0000
+Received: from CO6PR11MB5569.namprd11.prod.outlook.com
+ ([fe80::2d63:b94a:89c5:4514]) by CO6PR11MB5569.namprd11.prod.outlook.com
+ ([fe80::2d63:b94a:89c5:4514%7]) with mapi id 15.20.4195.030; Tue, 8 Jun 2021
+ 07:01:58 +0000
+From: "Modem, Bhanuprakash" <bhanuprakash.modem@intel.com>
+To: "Srinivas, Vidya" <vidya.srinivas@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "igt-dev@lists.freedesktop.org" <igt-dev@lists.freedesktop.org>
+Thread-Topic: [Intel-gfx] [PATCH i-g-t] [RFC] tests/kms_big_fb: Wait for
+ vblank before collecting CRC
+Thread-Index: AQHXU3sTO1a9PSwJqEaQmJNzvXJdZ6sJv0KA
+Date: Tue, 8 Jun 2021 07:01:58 +0000
+Message-ID: <CO6PR11MB55693230CBD2262DDCF5A0C18D379@CO6PR11MB5569.namprd11.prod.outlook.com>
+References: <1622176025-12499-1-git-send-email-vidya.srinivas@intel.com>
+In-Reply-To: <1622176025-12499-1-git-send-email-vidya.srinivas@intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:197a:8536:afbe:3762]
-X-ClientProxiedBy: PR2PR09CA0005.eurprd09.prod.outlook.com
- (2603:10a6:101:16::17) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+authentication-results: intel.com; dkim=none (message not signed)
+ header.d=none;intel.com; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [157.47.105.133]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e748ce41-bc99-4773-dafc-08d92a4b4eb8
+x-ms-traffictypediagnostic: CO6PR11MB5572:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CO6PR11MB557234949212A0B21C4182E68D379@CO6PR11MB5572.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:459;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: qQiChxlbZ7wKErAEMcEQE8Q8+A7BlPoR/CEdSg1qj9a5MQQJPBk062NxXXlzgM42k5kSMo+vHxlhjE3OPPXNZoSg7qQ+JpxrJEK/LtuftMw/eJ9SjtudJd8vzcyBJkMB70f8u4vh5Sz8pNKMwEF3QhqeThyDFtNIbBB1lpjZ42gpoc1yfDYSnE/8WYJ+1EqR1hZQrGG7v51Ah6fs9Gojes5GpPsIzK1bwr6RoA5SmceVCBjKZ4IpizBCUwrs4OEfgsd1aVGd+4H3DqpeYekXChs4iw0cNFfnRngcyKfJCpPtbbBWaueen9+LeSRyItj84wHOz7Q6E1tOMnvRGPBP5JADKMB7FakL7VbXINbhNJwcI64AYF7IzPjxApMWQtY2MvaXLFMEhmMQY8X4OiZsj8RFQvqEo8cYtQb8blvSu2Qga5ImxqxGL3bj5nYkV5rgkFXWR0fg5DJ1oOcUHa1ByxXZuzgqqzJDOWiNHIZLTsjBYsEuF2W3PehJAJ1sChHgZrm5RiXz+xM9neUi3FkyyJNBCLbrSJK9Bq6cUy1K3dg8ZFRdSwOM+RnqoV5hsGL1F2ye+hbXKcN87gf1ff4D6n+Fy09mAIJ9GPbUCF569de1wFxLR4/yPTR82LIv5GUVSEbL+NiXYF32Q1hYs19leg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR11MB5569.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(396003)(136003)(39860400002)(376002)(366004)(346002)(478600001)(38100700002)(71200400001)(122000001)(966005)(26005)(4326008)(107886003)(53546011)(33656002)(52536014)(86362001)(5660300002)(110136005)(55016002)(316002)(54906003)(7696005)(6506007)(66946007)(76116006)(66556008)(186003)(64756008)(66476007)(9686003)(83380400001)(8936002)(66446008)(8676002)(2906002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0bXcsAjO8lYfKpa1ccEoTXtQziIJ16lwejjtsGekVrdSfpGkqCVrTDQ8zMRc?=
+ =?us-ascii?Q?UiYZtptFPHsItCOWypYG1FMiNvxd0gnCwdelMxCYyH/0dG+AhH5/1euhsv+y?=
+ =?us-ascii?Q?+UHJxFvNSopOhVRonIMqHK2MTEba2CTEWrcHdFP2C/q4tJXGcz6xUcHOHRZI?=
+ =?us-ascii?Q?EJ5V//wFAE61s/Kv8G6hY0AGSdBd39gX1jZjz7ECRbPoPNftw+Mog9J1Y7GW?=
+ =?us-ascii?Q?PA0rj7QBiVpckjt3sAaZXTig76SOtqZeLloeKyoXkDITU1waK4OqM7d+A3ec?=
+ =?us-ascii?Q?YFHHiiFV2ZIl0BYShhejt0JNJoyW/VO4kvifY1D57O7qEetpn8+3aNAi41EG?=
+ =?us-ascii?Q?b84AaOp90++BI/ZR7bzhLrvyt8fdzRTJAcrQsPm09bfHh/jos66OnBQeOmRl?=
+ =?us-ascii?Q?3GCtacBzYBDCryVlGt8RiwFKtuPPMPCoXH1vPelMorwlAmscHeVNiD26Zz/J?=
+ =?us-ascii?Q?HKB/yyFn6fveno04T+XRoTRNK3L6MPeWpsOya2lX33P9Q4GSidLCtEnhCiaD?=
+ =?us-ascii?Q?qeaGlh4Cv2F3OBuRT/hSlEH7XrX9pjFrmXN2mlNDBTd3taQiio019GsKWiCW?=
+ =?us-ascii?Q?Piy0h4emYMbNIgY6JyyANk5KwNpnbU2S9z4clx+r0luiSBJugoBNLyAShiHm?=
+ =?us-ascii?Q?iNh8NCAMVmcWGnmbF+4LPG60Y3R3k7vU+jtvtytGzn+oXQrCIjTsGNPVzZ1H?=
+ =?us-ascii?Q?QCshRNuMkMfwrX+rbCaDd4250DHdR2UrHxFt6hjJreaIVtzRgpYItwFcZw0R?=
+ =?us-ascii?Q?DWA0SU7vBeumTp09cto80GZGHCSUS/1EcWoXZ0KateGl202R8CxDXBm2qTzq?=
+ =?us-ascii?Q?g3CASi5sFFNKX5djKmB17m5GG9z61nG+UtzUApbQo1NDNNS8mjh+VUwY0ODH?=
+ =?us-ascii?Q?vkA8PkvndqyytG91DSNLAMTze2wGuquXwA1sFDQZI/ejyVtZkWmZJh+W4A3v?=
+ =?us-ascii?Q?vT3LZo7IJZP/5IUqN3jURY9XRuF73vvZi+peutb1fD3fb8Imc1cqUYsJve80?=
+ =?us-ascii?Q?COAMpgFslEWoBRqW0N122yyGRtK3UGxqe9BTt3pH6uILq3JOc9r2Wrvjf6dK?=
+ =?us-ascii?Q?kdpRnCmiQQyUMOemPv9CStfqonqhoRgyqgtXURrtadZJuQFPL2MtB7/Xl549?=
+ =?us-ascii?Q?leGBWWhm5nP3XtL34a+odxmd+9hvtbM/4jfz5qIZXEBrapcApeb9kkgJIy2U?=
+ =?us-ascii?Q?q5SnxhXlcvBtJ5zMTog2ePTB9200I3KkUw82MWOA0FVnhCXgYeUtv9086ApL?=
+ =?us-ascii?Q?ZGn7zGuEn4g7wjpYncLKohCF2Zvsm+K1a4wMzJJSufQDxn/I7K1T5WMzI9Bt?=
+ =?us-ascii?Q?xuUHOg009c1Y7thDF983WwoA?=
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:197a:8536:afbe:3762]
- (2a02:908:1252:fb60:197a:8536:afbe:3762) by
- PR2PR09CA0005.eurprd09.prod.outlook.com (2603:10a6:101:16::17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4219.20 via Frontend Transport; Tue, 8 Jun 2021 06:55:54 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ecd1f24a-fcc2-4ab4-5599-08d92a4a76ea
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4237:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4237659BCBDF74C3669F8F1183379@MN2PR12MB4237.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PgRYhsyBzoRkFmivRG78VXH2NwGwfdvuiBc61VbrHswGTM2MFL+yogHRdVfTExHS9729W3b0f4HMiPQNPVUnKi6ONhJwioygZuEf0yZSEoktb8lufZAQM4wj6odgVdnvHudQPLscWaOagztXYBJs4+u2HouZpU7he9eqkqixl2THH8ZGrAjGZeYgsz9LB77mlj5c4r7hDUFxGXdBzF3WvqIOvg/SwqUq20aIvpq1PKWL4uUoZvBYG5pdVOHZHT+vQfFWE60YJ+Y/Vu/4fdIC00FmCAqdYZ+Ay5KvUaYWht5DV4D14VsrZ0/+vJ0WGZ1v17y62ZXB93M3PI+U3FIPKnZR0F85wxsWk8D1/9hlunYWq3bGanvQsYZnTlQpygOk3Dw4QehChzjDy0OtohsFEbghQJOT3dMg+ySx6u/YAzHCxY5B5WCp2unNTlAQNWvRgRc6fvp1UYRN8u8ocKhf6Tapl4zoGXymBHTunabV9Wm90PBuhCmDpv2inA0MoCNAJMGFQ8CgeQqAjwpMpAJWyC8fU3RKekWI5MhYHC0jwsnNXAmOb1PE8ZwsB0Nv/0NQPFFHdCjqazltYD0U4mIu3esa7EaVQWCq7Ui9nswmVnM3y4lpnbHUFU2oNtOVYtERVN5pej+n2HBa5oqH71sYoGNFRogf/BhoFV8VavClj/RiFSQl/CyuunimQsLeR5Ry
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(136003)(39860400002)(376002)(366004)(110136005)(66946007)(478600001)(54906003)(86362001)(316002)(66476007)(38100700002)(5660300002)(186003)(6486002)(6666004)(53546011)(66556008)(31686004)(8936002)(4326008)(36756003)(31696002)(2906002)(2616005)(16526019)(83380400001)(8676002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?Windows-1252?Q?+74qkdL0g4lg3OhYW6FXimxokW69yt2ooBlm1MLqLDJ+YHgH35qmPJrf?=
- =?Windows-1252?Q?DCC8ZQPv/u3n8SQZu1KtQgljOfdBZ3tOq3aEUZS7CRw5fn/a9CxPnqM8?=
- =?Windows-1252?Q?6GiYPAmsSj0trbF2dLzSpixOTtW6vjydRIy0SU3SKDnaTzM/2c/Q1xk0?=
- =?Windows-1252?Q?w25EaVG9Zh5DyeTLOZnFsR8vdFlffC9XaRcksmvqlwcJXZRFW2WMaBPz?=
- =?Windows-1252?Q?Ku/XUQVuOoPiX3TYU2L6wf9BLHQ8IkCQxBweyxY6SeyiKuixQ7OpOWaz?=
- =?Windows-1252?Q?Awyrv9eo9f7kDaQdYCHzmzXUAT4ii/Jxj89ljSsZ5TL/pxDd/gxl4vwy?=
- =?Windows-1252?Q?8pmhlH77EMAsQRB0eOmM/iIa928+Yz03xogob8lthWKTKmpha5+uQUkq?=
- =?Windows-1252?Q?zoPfeVA4K9g7yoP+PlmyDM8tqkKUABwq9IQ+rzVqX6xAx+ReCbCI6aY5?=
- =?Windows-1252?Q?lkr2I4RFZWAKwGBn/DuTeMSFEHR1zqexcz1ZRReCfDYeyk8E8qovVKIn?=
- =?Windows-1252?Q?z29bUdk8pCoyrARq8tgRcsT1L/MozR9lHw8a30ewLjPKVaeYAnkTMGgr?=
- =?Windows-1252?Q?V+P1MoI2N10NIv5f/Xw7wDU5ExhzOsRkDhYVlmi/4xkPyN78c4SZUL+E?=
- =?Windows-1252?Q?+FEL1fv6DabuLXsOwZ66HLnpax26BqxgdWyT/5u0S6Zsb0jsmYK+KKNr?=
- =?Windows-1252?Q?X/aKVP17PZnyLacb7LqMbJeHnr6UFr6K2BwaC6AAojeLkDwRhiBGCYxB?=
- =?Windows-1252?Q?iyvbq/ghRkPSf+o6gECpKAmzCZ0teOhtVckDXJMaKgSRTrI9MPQLqtqy?=
- =?Windows-1252?Q?Ff9O/rDmHcT7d+Bw2eyW1HCkqo854k2XIPicKZyUJVX2fvYYzCap8LBP?=
- =?Windows-1252?Q?SH/Bu/dKDTRAzrxoJlmvcFg+Yx65BNkHN8vlPEXnvvTnhqnzYOCiujxB?=
- =?Windows-1252?Q?bvGDH0W11kip7ldp1NcvsBiwIucM1SD+mpZiGZq7ePMzWFBTaFzLyMko?=
- =?Windows-1252?Q?WBu8WTJQCdumjUvPQpc4xvxTU7yfcFUnCh0kIVTwp1gn9GntEFVXyIiQ?=
- =?Windows-1252?Q?fLamrtAhaNZJELIfISf/Tp5tnYgE6luLkdkcMRKx/kDsp+BG9Ef+QTxm?=
- =?Windows-1252?Q?i6N8HvpwWcCxcwW3HbJGyQur7iTfhiInMzdP9ohPhtvJ6qnqQcpZCp8H?=
- =?Windows-1252?Q?8iQUZgwJDi9C+VGiwjp14gMFYjqsznGAnj5lrS7ZVA1BJnckfLf66a/t?=
- =?Windows-1252?Q?QzS3BQNyn+n59yjmiZLT2HUwaDUEsfJLhKEYfqqIBIXGOzQZJf/Pm+QB?=
- =?Windows-1252?Q?m2wCsaytLLbdDrlELcET9yMv9jT1W56uZCY9chPGxU31XsTyx42qQu0l?=
- =?Windows-1252?Q?TaKKSupVquLjuYAo/zdLAOaFDYF4/PZVuxRoFn4riWB9Bxw/LrkvF8ff?=
- =?Windows-1252?Q?nF53DIg3SDhwua1inv2myMriZsxL9URk+RlvfjIjuM+YvzREHVvqxrV7?=
- =?Windows-1252?Q?7360+eV8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ecd1f24a-fcc2-4ab4-5599-08d92a4a76ea
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2021 06:55:56.4079 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: amTXm17MG6N4HJXWjotJHNfbAGpNO+jCWerlEAblTTYtLWM4DsLWQoDU7p7Eyc7i
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4237
-Subject: Re: [Intel-gfx] linux-next: build failure after merge of the
- drm-misc tree
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR11MB5569.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e748ce41-bc99-4773-dafc-08d92a4b4eb8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2021 07:01:58.0590 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Tu/gn6T551Z6CSdeRy06GzVVQe8GbYPM9rfoSgxYMmjKxP+YzKKOMtEjAH7E249vutoSjQHWlLbAc6nBM3Ou4FFhGTN+I+h4jS9P2YPWQDk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR11MB5572
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH i-g-t] [RFC] tests/kms_big_fb: Wait for
+ vblank before collecting CRC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,109 +159,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="windows-1252"; Format="flowed"
+Cc: "markyacoub@chromium.org" <markyacoub@chromium.org>, "Lin,
+ Charlton" <charlton.lin@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Felix,
+> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Vidya
+> Srinivas
+> Sent: Friday, May 28, 2021 9:57 AM
+> To: intel-gfx@lists.freedesktop.org; igt-dev@lists.freedesktop.org
+> Cc: markyacoub@chromium.org; Lin, Charlton <charlton.lin@intel.com>
+> Subject: [Intel-gfx] [PATCH i-g-t] [RFC] tests/kms_big_fb: Wait for vblank
+> before collecting CRC
+> 
+> Without wait for vblank, CRC mismatch is seen
+> between big and small CRC on few Gen11 systems.
+> 
+> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
+> ---
+>  tests/kms_big_fb.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tests/kms_big_fb.c b/tests/kms_big_fb.c
+> index b35727a09bd0..f90363c3beb2 100644
+> --- a/tests/kms_big_fb.c
+> +++ b/tests/kms_big_fb.c
+> @@ -254,6 +254,7 @@ static void unset_lut(data_t *data)
+>  static bool test_plane(data_t *data)
+>  {
+>  	igt_plane_t *plane = data->plane;
+> +	igt_display_t *display = &data->display;
 
-that should already be fixed in drm-tip as part of the merge of the TTM =
+For code readability purpose, I think we need to update to use this variable
+wherever we are using "&data->display" in this function.
+s/"&data->display"/"display"/
 
-changes.
+With above change, this patch LGTM
+Reviewed-by: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
 
-Regards,
-Christian.
-
-Am 08.06.21 um 07:37 schrieb Felix Kuehling:
-> Hi Christian,
->
-> I based amdgpu_preempt_mgr on amdgpu_gtt_mgr and now I'm looking at what
-> changed there. Looks like I'll need to create a dummy node in
-> amdgpu_preempt_mgr_new to satisfy TTM, and free it in
-> amdgpu_preempt_mgr_del.
->
-> Thanks,
->  =A0 Felix
->
->
-> Am 2021-06-07 um 10:50 p.m. schrieb Stephen Rothwell:
->> Hi all,
->>
->> After merging the drm-misc tree, today's linux-next build (x86_64
->> allmodconfig) failed like this:
->>
->> drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c: In function 'amdgpu_pre=
-empt_mgr_new':
->> drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c:75:5: error: 'struct ttm=
-_resource' has no member named 'mm_node'
->>     75 |  mem->mm_node =3D NULL;
->>        |     ^~
->> drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c: At top level:
->> drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c:129:11: error: initializ=
-ation of 'int (*)(struct ttm_resource_manager *, struct ttm_buffer_object *=
-, const struct ttm_place *, struct ttm_resource **)' from incompatible poin=
-ter type 'int (*)(struct ttm_resource_manager *, struct ttm_buffer_object *=
-, const struct ttm_place *, struct ttm_resource *)' [-Werror=3Dincompatible=
--pointer-types]
->>    129 |  .alloc =3D amdgpu_preempt_mgr_new,
->>        |           ^~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c:129:11: note: (near init=
-ialization for 'amdgpu_preempt_mgr_func.alloc')
->>
->> Caused by commit
->>
->>    cb1c81467af3 ("drm/ttm: flip the switch for driver allocated resource=
-s v2")
->>
->> from the drm-misc tree interacting with commit
->>
->>    b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible SG BOs")
->>
->> from the drm tree.
->>
->> I don't know how to fix this, so I added the following hack (a better
->> fix would be nice):
->>
->> From: Stephen Rothwell <sfr@canb.auug.org.au>
->> Date: Tue, 8 Jun 2021 12:41:16 +1000
->> Subject: [PATCH] hack fix up for needed amdgpu_preempt_mgr_new() fix up
->>
->> Signed-off-by: Stephen Rothwell <sfr@canb.auug.org.au>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_preempt_mgr.c
->> index d607f314cc1b..e1a7b3e967b9 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c
->> @@ -66,14 +66,16 @@ static DEVICE_ATTR_RO(mem_info_preempt_used);
->>   static int amdgpu_preempt_mgr_new(struct ttm_resource_manager *man,
->>   				  struct ttm_buffer_object *tbo,
->>   				  const struct ttm_place *place,
->> -				  struct ttm_resource *mem)
->> +				  struct ttm_resource **res)
->>   {
->> +#if 0
->>   	struct amdgpu_preempt_mgr *mgr =3D to_preempt_mgr(man);
->>   =
-
->>   	atomic64_add(mem->num_pages, &mgr->used);
->>   =
-
->>   	mem->mm_node =3D NULL;
->>   	mem->start =3D AMDGPU_BO_INVALID_OFFSET;
->> +#endif
->>   	return 0;
->>   }
->>   =
-
-
+>  	struct igt_fb *small_fb = &data->small_fb;
+>  	struct igt_fb *big_fb = &data->big_fb;
+>  	int w = data->big_fb_width - small_fb->width;
+> @@ -337,16 +338,17 @@ static bool test_plane(data_t *data)
+>  		igt_display_commit2(&data->display, data->display.is_atomic ?
+>  				    COMMIT_ATOMIC : COMMIT_UNIVERSAL);
+> 
+> -
+> +		igt_wait_for_vblank(data->drm_fd, display->pipes[data->pipe].crtc_offset);
+>  		igt_pipe_crc_collect_crc(data->pipe_crc, &small_crc);
+> 
+>  		igt_plane_set_fb(plane, big_fb);
+>  		igt_fb_set_position(big_fb, plane, x, y);
+>  		igt_fb_set_size(big_fb, plane, small_fb->width, small_fb->height);
+> +
+>  		igt_plane_set_size(plane, data->width, data->height);
+>  		igt_display_commit2(&data->display, data->display.is_atomic ?
+>  				    COMMIT_ATOMIC : COMMIT_UNIVERSAL);
+> -
+> +		igt_wait_for_vblank(data->drm_fd, display->pipes[data->pipe].crtc_offset);
+>  		igt_pipe_crc_collect_crc(data->pipe_crc, &big_crc);
+> 
+>  		igt_plane_set_fb(plane, NULL);
+> --
+> 2.7.4
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
