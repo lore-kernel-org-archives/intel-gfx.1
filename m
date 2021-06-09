@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D04F2C48BCF
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 04:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 614C8C48BCD
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 04:37:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A45166008E
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 04:37:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A45166008E
+	by mail.kernel.org (Postfix) with ESMTPS id 34F1B608FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 04:37:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 34F1B608FE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB946ECBF;
-	Wed,  9 Jun 2021 04:36:46 +0000 (UTC)
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C93E6ECBB
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 04:36:42 +0000 (UTC)
-Received: by mail-pl1-x62a.google.com with SMTP id c13so11917032plz.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 08 Jun 2021 21:36:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 287156ECC3;
+	Wed,  9 Jun 2021 04:36:47 +0000 (UTC)
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8F916ECBF
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 04:36:45 +0000 (UTC)
+Received: by mail-pg1-x52d.google.com with SMTP id o9so15555911pgd.2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 08 Jun 2021 21:36:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=xBg7FwtpuNrM9Qka69WV71CAEgxhgNIxD+5d1vNtwIE=;
- b=LuyhoGiwxGipdfNFGfGoTTD5s1Tx5pHO09B1LbCdfqgPYJb9fjqq+ZAdwJDq2genj6
- +4U5+Ar1j1mkb5Lo/BGRaZTy6oDRoFFQiLHB6+U/mC6wGI4/yn3iEiEKr/poBGqLfDSo
- xvlG4PAHkWCWHHHML2oFxsvIXi4Vr4cOOSe+bpS4gALJ7VjdsBRaHYLQdE+NE9Hwk/1Q
- mlvn1Z7BOFn2grV1jLLNkbk9cNiidb18/Hq3TsF6x3G7Ij6ih2i1RVz6wrtdUAah6+nX
- Ja2DlUkGXLq9YjOjMPtsb5gb8uHeslowEz4Cwcs99D+VzW9g6A8MT6+oVZazIl+0zCyn
- tAog==
+ bh=a54CBrdUZFvu5Df2Uq5VXicIgx8GI6s8LwWaopBoFHY=;
+ b=Jbqoj2rG1gDgabB847fzO8yf1X3sE/y/BCIv82zarO3lAvGq7pv2dBl39RU3qLvzOp
+ Y0fmhzt76NsXtma7SJv5rcCDQ4H3aMKw5jjXJwIqOWzGUEzjE+UAVdElQ4uN1OxACpbO
+ ZT9bM1To2xC8GRwpxrb4BDWtlYMYJ1tWsGnzypT3gMpmMGT37GHwt9tbGHnvhi4NTBza
+ PkoTp/IOS6BOqdfz4S7wlN2adpkHSlu5T6H3I/1z/MsPMaXI2MXK3iToBPpvtK1dbLwO
+ auXuTDkFCH/PBbqTahabk3GjgaFl+uetRtN4Evy8b2xCs98h2AAD9axx2bwEzwWCyXuV
+ bYsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=xBg7FwtpuNrM9Qka69WV71CAEgxhgNIxD+5d1vNtwIE=;
- b=i70AT0tDaU1NQnpzmw16ayvtZXkEXxBpD49nFcb/jVuWvWqjJNfURfWzqK3ko6kDOq
- UUzM/bPWWhxlmvNZF42sFOh7p8wBoL5k77ie5vSb6qskhgkeQtYzfgwgoz4jvA/+Jp7v
- +Ewi3xP6NPH4cYqjw4MTQCHNfh4j3u+T2uEr6Ng4hXSL61b75F7Nzjbr4IqXa9sJtgGY
- BUXA6Ts7ePAzSr6zujwc5mkLdeDpakhpsH7lYn6w0YE6t9LZBTdVM61uWO4x7sQ7CRBs
- SNEpYSzlwnYqIutbJHFJ2JnknztHnsGQTHxaWs5bX1IgpgX/9fLbDpgeXwfCWTQ5ykEL
- rgnA==
-X-Gm-Message-State: AOAM531DJxcoZLYsJEHnzO0q35fSC/OmRA/A8nyhDCgHKOyTq7EcbzNG
- qzx8h4+bWdVu9Re2Ts7VUuuk9g==
-X-Google-Smtp-Source: ABdhPJwuHgtBNJ+Z0a+DzHFUHCSBkQ5s8o5QU/nGGls52wPlaCynTEm1PVAEmTBKK5sm7j6rxgLmhQ==
-X-Received: by 2002:a17:902:9006:b029:107:394a:387 with SMTP id
- a6-20020a1709029006b0290107394a0387mr3555919plp.35.1623213402067; 
- Tue, 08 Jun 2021 21:36:42 -0700 (PDT)
+ bh=a54CBrdUZFvu5Df2Uq5VXicIgx8GI6s8LwWaopBoFHY=;
+ b=VFcfG/TH2fN4PiumW+NFiV5ZbAbtPgPMX5GLeSiNm6CuI11GdG39c077aiYQ/slr2l
+ DTZVFIoJiIdN8Vh1nSDGcrr3F5nlSMJ4Qv4sk8PdWD6PPMPTsg2NoAKUgpKeGE5c7UHM
+ pLkjCpg4bSZpC92cvv+t12IE+OJl0v014IlQzXzJUIPP8lmZd869TswW9WuAogTW0vQM
+ Tju2rUd41A03tV5y9FKPjDpMDmmETB4WUKk7ugE9pu2dp1+wcOQCwiP4YmC10FrzZOck
+ DpH7shbCqbGzL5TpaInRJaHEgiyFyCdNVZHzN6lXJiOXzrstMnlgVs6aK1WGZl4JA7TH
+ vKWA==
+X-Gm-Message-State: AOAM531mK+i82lnjfgp0KoO8ezMXo7Renu8xjfqmNctBZE6OZRfb/Icz
+ kntOjlVIYkYYdNV+QnfjjpAYkg==
+X-Google-Smtp-Source: ABdhPJy9Pt1hxDpQ+ssVqdOBqCwZ9Of4kD9hL06FRnXtTiW6Rg496OYzr0t2OK6ztUlj7tMDSF18eg==
+X-Received: by 2002:a63:7d2:: with SMTP id 201mr1892748pgh.14.1623213405373;
+ Tue, 08 Jun 2021 21:36:45 -0700 (PDT)
 Received: from omlet.com (jfdmzpr06-ext.jf.intel.com. [134.134.137.75])
- by smtp.gmail.com with ESMTPSA id t5sm11991612pfe.116.2021.06.08.21.36.40
+ by smtp.gmail.com with ESMTPSA id t5sm11991612pfe.116.2021.06.08.21.36.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Jun 2021 21:36:41 -0700 (PDT)
+ Tue, 08 Jun 2021 21:36:45 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Jun 2021 23:35:55 -0500
-Message-Id: <20210609043613.102962-14-jason@jlekstrand.net>
+Date: Tue,  8 Jun 2021 23:35:57 -0500
+Message-Id: <20210609043613.102962-16-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210609043613.102962-1-jason@jlekstrand.net>
 References: <20210609043613.102962-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 13/31] drm/i915: Stop manually RCU banging in
- reset_stats_ioctl (v2)
+Subject: [Intel-gfx] [PATCH 15/31] drm/i915: Add gem/i915_gem_context.h to
+ the docs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,90 +86,153 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As far as I can tell, the only real reason for this is to avoid taking a
-reference to the i915_gem_context.  The cost of those two atomics
-probably pales in comparison to the cost of the ioctl itself so we're
-really not buying ourselves anything here.  We're about to make context
-lookup a tiny bit more complicated, so let's get rid of the one hand-
-rolled case.
-
-Some usermode drivers such as our Vulkan driver call GET_RESET_STATS on
-every execbuf so the perf here could theoretically be an issue.  If this
-ever does become a performance issue for any such userspace drivers,
-they can use set CONTEXT_PARAM_RECOVERABLE to false and look for -EIO
-coming from execbuf to check for hangs instead.
-
-v2 (Daniel Vetter):
- - Add a comment in the commit message about recoverable contexts
+In order to prevent kernel doc warnings, also fill out docs for any
+missing fields and fix those that forgot the "@".
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 13 ++++---------
- drivers/gpu/drm/i915/i915_drv.h             |  8 +-------
- 2 files changed, 5 insertions(+), 16 deletions(-)
+ Documentation/gpu/i915.rst                    |  2 +
+ .../gpu/drm/i915/gem/i915_gem_context_types.h | 43 ++++++++++++++++---
+ 2 files changed, 38 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 0ba8506fb966f..61fe6d18d4068 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -2090,16 +2090,13 @@ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev,
- 	struct drm_i915_private *i915 = to_i915(dev);
- 	struct drm_i915_reset_stats *args = data;
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index 42ce0196930a1..b452f84c9ef2b 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -422,6 +422,8 @@ Batchbuffer Parsing
+ User Batchbuffer Execution
+ --------------------------
+ 
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++
+ .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+    :doc: User command execution
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+index df76767f0c41b..5f0673a2129f9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+@@ -30,19 +30,39 @@ struct i915_address_space;
+ struct intel_timeline;
+ struct intel_ring;
+ 
++/**
++ * struct i915_gem_engines - A set of engines
++ */
+ struct i915_gem_engines {
+ 	union {
++		/** @link: Link in i915_gem_context::stale::engines */
+ 		struct list_head link;
++
++		/** @rcu: RCU to use when freeing */
+ 		struct rcu_head rcu;
+ 	};
++
++	/** @fence: Fence used for delayed destruction of engines */
+ 	struct i915_sw_fence fence;
++
++	/** @ctx: i915_gem_context backpointer */
  	struct i915_gem_context *ctx;
--	int ret;
++
++	/** @num_engines: Number of engines in this set */
+ 	unsigned int num_engines;
++
++	/** @engines: Array of engines */
+ 	struct intel_context *engines[];
+ };
  
- 	if (args->flags || args->pad)
- 		return -EINVAL;
++/**
++ * struct i915_gem_engines_iter - Iterator for an i915_gem_engines set
++ */
+ struct i915_gem_engines_iter {
++	/** @idx: Index into i915_gem_engines::engines */
+ 	unsigned int idx;
++
++	/** @engines: Engine set being iterated */
+ 	const struct i915_gem_engines *engines;
+ };
  
--	ret = -ENOENT;
--	rcu_read_lock();
--	ctx = __i915_gem_context_lookup_rcu(file->driver_priv, args->ctx_id);
-+	ctx = i915_gem_context_lookup(file->driver_priv, args->ctx_id);
- 	if (!ctx)
--		goto out;
-+		return -ENOENT;
+@@ -53,10 +73,10 @@ struct i915_gem_engines_iter {
+  * logical hardware state for a particular client.
+  */
+ struct i915_gem_context {
+-	/** i915: i915 device backpointer */
++	/** @i915: i915 device backpointer */
+ 	struct drm_i915_private *i915;
  
- 	/*
- 	 * We opt for unserialised reads here. This may result in tearing
-@@ -2116,10 +2113,8 @@ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev,
- 	args->batch_active = atomic_read(&ctx->guilty_count);
- 	args->batch_pending = atomic_read(&ctx->active_count);
+-	/** file_priv: owning file descriptor */
++	/** @file_priv: owning file descriptor */
+ 	struct drm_i915_file_private *file_priv;
  
--	ret = 0;
--out:
--	rcu_read_unlock();
--	return ret;
-+	i915_gem_context_put(ctx);
-+	return 0;
- }
+ 	/**
+@@ -81,7 +101,9 @@ struct i915_gem_context {
+ 	 * CONTEXT_USER_ENGINES flag is set).
+ 	 */
+ 	struct i915_gem_engines __rcu *engines;
+-	struct mutex engines_mutex; /* guards writes to engines */
++
++	/** @engines_mutex: guards writes to engines */
++	struct mutex engines_mutex;
  
- /* GEM context-engines iterator: for_each_gem_engine() */
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 38ff2fb897443..fed14ffc52437 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1850,19 +1850,13 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
+ 	/**
+ 	 * @syncobj: Shared timeline syncobj
+@@ -118,7 +140,7 @@ struct i915_gem_context {
+ 	 */
+ 	struct pid *pid;
  
- struct dma_buf *i915_gem_prime_export(struct drm_gem_object *gem_obj, int flags);
+-	/** link: place with &drm_i915_private.context_list */
++	/** @link: place with &drm_i915_private.context_list */
+ 	struct list_head link;
  
--static inline struct i915_gem_context *
--__i915_gem_context_lookup_rcu(struct drm_i915_file_private *file_priv, u32 id)
--{
--	return xa_load(&file_priv->context_xa, id);
--}
--
- static inline struct i915_gem_context *
- i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
- {
- 	struct i915_gem_context *ctx;
+ 	/**
+@@ -153,11 +175,13 @@ struct i915_gem_context {
+ #define CONTEXT_CLOSED			0
+ #define CONTEXT_USER_ENGINES		1
  
- 	rcu_read_lock();
--	ctx = __i915_gem_context_lookup_rcu(file_priv, id);
-+	ctx = xa_load(&file_priv->context_xa, id);
- 	if (ctx && !kref_get_unless_zero(&ctx->ref))
- 		ctx = NULL;
- 	rcu_read_unlock();
++	/** @mutex: guards everything that isn't engines or handles_vma */
+ 	struct mutex mutex;
+ 
++	/** @sched: scheduler parameters */
+ 	struct i915_sched_attr sched;
+ 
+-	/** guilty_count: How many times this context has caused a GPU hang. */
++	/** @guilty_count: How many times this context has caused a GPU hang. */
+ 	atomic_t guilty_count;
+ 	/**
+ 	 * @active_count: How many times this context was active during a GPU
+@@ -171,15 +195,17 @@ struct i915_gem_context {
+ 	unsigned long hang_timestamp[2];
+ #define CONTEXT_FAST_HANG_JIFFIES (120 * HZ) /* 3 hangs within 120s? Banned! */
+ 
+-	/** remap_slice: Bitmask of cache lines that need remapping */
++	/** @remap_slice: Bitmask of cache lines that need remapping */
+ 	u8 remap_slice;
+ 
+ 	/**
+-	 * handles_vma: rbtree to look up our context specific obj/vma for
++	 * @handles_vma: rbtree to look up our context specific obj/vma for
+ 	 * the user handle. (user handles are per fd, but the binding is
+ 	 * per vm, which may be one per context or shared with the global GTT)
+ 	 */
+ 	struct radix_tree_root handles_vma;
++
++	/** @lut_mutex: Locks handles_vma */
+ 	struct mutex lut_mutex;
+ 
+ 	/**
+@@ -191,8 +217,11 @@ struct i915_gem_context {
+ 	 */
+ 	char name[TASK_COMM_LEN + 8];
+ 
++	/** @stale: tracks stale engines to be destroyed */
+ 	struct {
++		/** @lock: guards engines */
+ 		spinlock_t lock;
++		/** @engines: list of stale engines */
+ 		struct list_head engines;
+ 	} stale;
+ };
 -- 
 2.31.1
 
