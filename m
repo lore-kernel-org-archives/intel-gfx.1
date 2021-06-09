@@ -7,68 +7,68 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EC15C48BCF
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 822EDC48BD1
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D7AFB6128A
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7AFB6128A
+	by mail.kernel.org (Postfix) with ESMTPS id 569D96128A
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 569D96128A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD5216EAC1;
-	Wed,  9 Jun 2021 17:44:47 +0000 (UTC)
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [IPv6:2607:f8b0:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CFE96EAAF
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:44:44 +0000 (UTC)
-Received: by mail-pg1-x532.google.com with SMTP id t17so3582634pga.5
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:44:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FF026EAB2;
+	Wed,  9 Jun 2021 17:44:51 +0000 (UTC)
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D618F6EACF
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:44:47 +0000 (UTC)
+Received: by mail-pl1-x62e.google.com with SMTP id v13so12959646ple.9
+ for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:44:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=p9LihMbkz0D/b2xxGApls+quCG+XTK2bjRKq93kZNxc=;
- b=PSgQB/YHZuvFwR8mOo+24INTrD9lsmkpetu2QnUVOgbarZDlvXm/ZeaOtIQZZ+fXO/
- x+UlPXnhrEI2Ajp6zrO2qa2kRn/utazjU6Lo2vcxV9Dx8h77jfdjDUHpODWA8yj/xwl4
- WVnZgm5g/JqdoTanHm1q96UVCZSqSqGMkecwn8pDytTuWEvZvjWbvJxzyfxJlOMExpaX
- nzagp5vraI30dIMnX4dKbk2K2TaWJtT+XorBxzZ8bjeabX6sa7uELoACbIPmgEHBb9co
- UMzEQTSyj4042ZANeWyq0GHofOxYb4WPKRY+MVXoArr32yIyiQBURg+8pC5C6rZapGbK
- qnPw==
+ bh=QOIZ7V91fLIl8fTP/re+L3I3ujQ1EjA9kvT8GvYB6UA=;
+ b=LSbWp9iSqsMqf1Xy5Pt5nIHopAGs9rby5zCMWNz8TjoWLc7iE9YjnQivpBqJIXk3g2
+ IktnTHBqt7hFRSGPj5MzoqDHDYGvwuJSfBgieYbqlbFSWwo5/zkuFnL3u0T7vB8q/1qY
+ PC8SeRZ+URgdw5O/edLx1Jb6Zqc+aSY5qFrFSfe7rUmVxcXxMF4BiPOEWk074zAmazry
+ HzzmigSr6dy1FujvDPNqqiqvqZrD75wdyEvfqY5THGF4O6LyTq6xacSHlWNciD9FOMkp
+ rdAnppgOdvAT3yxAwz/LRea99VMW4iHI8llVWgohrsKZjqdei2oKyWdTPXxcUw8mLp+5
+ MTFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=p9LihMbkz0D/b2xxGApls+quCG+XTK2bjRKq93kZNxc=;
- b=dOJvvRjIaYfCXUB779O8NRV5MW9c6ogXTyj/h/NmrJTt6yvkBLLZycyWlKY3nL/xe4
- c3IUWjM0iCtHnu5uc5GcWBoWN00Jr3xznDd0/vNbenY4AbVa8oPLH7zZifa7rvZLn1TO
- V3uqQmgXvW/hvAE9BbkVbXWBOJj7ztIWhz+fC4JtHY0baxchGt0SGtIFi1dh6HrZeKvH
- M8qsDgDmXK+XSzM5B03FvQrFM5NZr+jFCA5dYl6gPGyfETQiaI0Ep++rX5VOVwPPiWNm
- pumXrp/gumzs2yRHx70rdlA/ns/bphJ0AK15rR7jWM78NuziEE8M/O35Ye60zZMOfAvt
- l04w==
-X-Gm-Message-State: AOAM533g+VfYzvrp+xq1K/D3nsLEd6EeiwWwwyAUsaEEPDCge0OcAf9k
- uOC8mP1mS3KexQKoL5wLGD5hxzVzJNPGXA==
-X-Google-Smtp-Source: ABdhPJx3zyxQBM7eFLkCc0WRAUboQ3OAY042f5+qRWsYx5RpSP5oN+VLx7VixFHDQERMnIhiXlCGJA==
-X-Received: by 2002:a62:5547:0:b029:2ec:8f20:4e2 with SMTP id
- j68-20020a6255470000b02902ec8f2004e2mr914243pfb.71.1623260684060; 
- Wed, 09 Jun 2021 10:44:44 -0700 (PDT)
+ bh=QOIZ7V91fLIl8fTP/re+L3I3ujQ1EjA9kvT8GvYB6UA=;
+ b=DjAOpzzPJ4zZ1aupNgr5CUH5xqNII91uUEnZzRK8skIaMZnp+g3p+D93tEwD7P9ne+
+ VEt8+iK/PxxuFede+yxQKS2iYfE/o4sLby2ESDP+0qyl7NVHPQsFdZDPj/mzCqTSaoEk
+ aiqTLXK/e+EDr6lqI/6P8vz7PRi5rsBSNLhJcM162mRTdZ1xeus6fAkSzeJ1qtAzFy6b
+ fmDaV+uQ4T0DaGgHrqvY7hixfp6XmxxppqL1qLn7wzc01o+k4YWGbqOUas9kymsE+KeY
+ whb55eU/9Iz0P5VTrSLnjnExXhtecmS5svdQeGccy5r0bnDjOYrSTzcPzaxNZo4W+Q31
+ IxNw==
+X-Gm-Message-State: AOAM532ul1R8k7TZ6t604BNHyvuOqXxqiRIo7BaCk1WSmy6W2xNV+cy3
+ AotUSLeGNBqy+REg+1g6Kmveaw==
+X-Google-Smtp-Source: ABdhPJyycwiJt8lWUqRW4Q+WojrihpEALSuQGNEBx8OiJMp35nsnU5tHmpbt4tufThF0wGWSF+dUYg==
+X-Received: by 2002:a17:90a:bb97:: with SMTP id
+ v23mr694152pjr.148.1623260687453; 
+ Wed, 09 Jun 2021 10:44:47 -0700 (PDT)
 Received: from omlet.lan (jfdmzpr04-ext.jf.intel.com. [134.134.137.73])
- by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.44.42
+ by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.44.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jun 2021 10:44:43 -0700 (PDT)
+ Wed, 09 Jun 2021 10:44:47 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Jun 2021 12:43:59 -0500
-Message-Id: <20210609174418.249585-13-jason@jlekstrand.net>
+Date: Wed,  9 Jun 2021 12:44:01 -0500
+Message-Id: <20210609174418.249585-15-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210609174418.249585-1-jason@jlekstrand.net>
 References: <20210609174418.249585-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/31] drm/i915/gem: Disallow creating contexts
- with too many engines
+Subject: [Intel-gfx] [PATCH 14/31] drm/i915/gem: Add a separate
+ validate_priority helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,35 +87,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There's no sense in allowing userspace to create more engines than it
-can possibly access via execbuf.
+With the proto-context stuff added later in this series, we end up
+having to duplicate set_priority.  This lets us avoid duplicating the
+validation logic.
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 42 +++++++++++++--------
+ 1 file changed, 27 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 5eca91ded3423..0ba8506fb966f 100644
+index 61fe6d18d4068..f9a6eac78c0ae 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1639,11 +1639,11 @@ set_engines(struct i915_gem_context *ctx,
- 		return -EINVAL;
- 	}
+@@ -169,6 +169,28 @@ lookup_user_engine(struct i915_gem_context *ctx,
+ 	return i915_gem_context_get_engine(ctx, idx);
+ }
  
--	/*
--	 * Note that I915_EXEC_RING_MASK limits execbuf to only using the
--	 * first 64 engines defined here.
--	 */
- 	num_engines = (args->size - sizeof(*user)) / sizeof(*user->engines);
-+	/* RING_MASK has no shift so we can use it directly here */
-+	if (num_engines > I915_EXEC_RING_MASK + 1)
++static int validate_priority(struct drm_i915_private *i915,
++			     const struct drm_i915_gem_context_param *args)
++{
++	s64 priority = args->value;
++
++	if (args->size)
 +		return -EINVAL;
 +
- 	set.engines = alloc_engines(num_engines);
- 	if (!set.engines)
- 		return -ENOMEM;
++	if (!(i915->caps.scheduler & I915_SCHEDULER_CAP_PRIORITY))
++		return -ENODEV;
++
++	if (priority > I915_CONTEXT_MAX_USER_PRIORITY ||
++	    priority < I915_CONTEXT_MIN_USER_PRIORITY)
++		return -EINVAL;
++
++	if (priority > I915_CONTEXT_DEFAULT_PRIORITY &&
++	    !capable(CAP_SYS_NICE))
++		return -EPERM;
++
++	return 0;
++}
++
+ static struct i915_address_space *
+ context_get_vm_rcu(struct i915_gem_context *ctx)
+ {
+@@ -1744,23 +1766,13 @@ static void __apply_priority(struct intel_context *ce, void *arg)
+ static int set_priority(struct i915_gem_context *ctx,
+ 			const struct drm_i915_gem_context_param *args)
+ {
+-	s64 priority = args->value;
+-
+-	if (args->size)
+-		return -EINVAL;
+-
+-	if (!(ctx->i915->caps.scheduler & I915_SCHEDULER_CAP_PRIORITY))
+-		return -ENODEV;
+-
+-	if (priority > I915_CONTEXT_MAX_USER_PRIORITY ||
+-	    priority < I915_CONTEXT_MIN_USER_PRIORITY)
+-		return -EINVAL;
++	int err;
+ 
+-	if (priority > I915_CONTEXT_DEFAULT_PRIORITY &&
+-	    !capable(CAP_SYS_NICE))
+-		return -EPERM;
++	err = validate_priority(ctx->i915, args);
++	if (err)
++		return err;
+ 
+-	ctx->sched.priority = priority;
++	ctx->sched.priority = args->value;
+ 	context_apply_all(ctx, __apply_priority, ctx);
+ 
+ 	return 0;
 -- 
 2.31.1
 
