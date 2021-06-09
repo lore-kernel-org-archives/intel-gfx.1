@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA71EC48BCF
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48FE9C48BD1
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E018613EE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E018613EE
+	by mail.kernel.org (Postfix) with ESMTPS id 1026F613EE
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 21:29:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1026F613EE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D00A6EB59;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C65D6EB5B;
 	Wed,  9 Jun 2021 21:29:32 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 181B06EB59
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8457C6EB57
  for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 21:29:30 +0000 (UTC)
 Received: from mail-03.mail-europe.com (mail-0301.mail-europe.com
  [188.165.51.139])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
- by mail-4321.protonmail.ch (Postfix) with ESMTPS id 4G0g8r4fQgz4xVtT
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 21:24:12 +0000 (UTC)
+ by mail-4321.protonmail.ch (Postfix) with ESMTPS id 4G0g8N0y4bz4xVtH
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 21:23:48 +0000 (UTC)
 Authentication-Results: mail-4321.protonmail.ch;
  dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="XTDKNX2o"
-Date: Wed, 09 Jun 2021 21:24:03 +0000
+ header.b="nOqaF5Mn"
+Date: Wed, 09 Jun 2021 21:23:34 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail3; t=1623273848;
- bh=CRpCmV6JJvjSWIefuOMH4SCsYiJSl92J72nXZg36ElE=;
+ s=protonmail3; t=1623273824;
+ bh=FDslwf1U8VLFuARESNNa6lJIkZ4yWNQK04/FM1jIRC4=;
  h=Date:To:From:Cc:Reply-To:Subject:From;
- b=XTDKNX2oTSMf5r8Z9kCRg0LOrMUAnlSW83jpURVJFYUe2G9xmU1ff6Rlbn5CIhTDL
- wx+NewdFxon7fANrvUD8KISS5ZrZ+bLoDfAb2tCCai4lrkDgFja1bPdVeJevr+oCLi
- pjJWaE/zBfix/endv7nQNt6qXYl8anyDV/h84ZqNfAimI12uCMFu5TQNVXeyLH9P2Z
- 5OmKPb9HkvRdIoJlS1zkKomuiINMoqCZuHhmOFhriJebtRyM5gus5mTgFmKHVbbFra
- nlnSaw2toviWN2VQus1cd/1IMTreN2g0IOhcYIZuoBeW2I20EXBYZ54m9/k92sUd+M
- J31em3eI58x+Q==
+ b=nOqaF5MnFLXPNL9XgXvSla8fPAiMhB5ivZjzhiQzMBtqbID0nk7doNnTqiF5TyzfY
+ 86+/SYOcyFyGFE96NUBMucniQ/cRZkfuxwWWdXeZm05ZOMwxGGalyGGpJWOyzOJmpb
+ EMMfmS92susMRBlF4xjDlNNNQ1Mr9hNs2xkW0vHYXrBgsDKJR8i7t+WQzDl/wZcdBo
+ uc4/Ty4cSJ8mHTPUaFvOaCSKEBDRoe9lrKDJIrkX8NuMQ/TT2R5JDDUaNpBy017YcL
+ OuJiCTmtMUBK++Zt1SbB49c3kypz6ixgF558nbO/yU6IvoJHX+SsygcPQkYIjpTclu
+ C+d1FigQU/mGA==
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 From: Simon Ser <contact@emersion.fr>
-Message-ID: <s2nCZi12JRcxrixhDW8UTiJsEpPvIQhnFBMtgdRXMk@cp3-web-020.plabs.ch>
+Message-ID: <iCEjbatL1P3omEAweQouZjbWmGk0OkLbd8ZeD4jC8@cp7-web-042.plabs.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 6/7] i915/display/dp: send a more
- fine-grained link-status uevent
+Subject: [Intel-gfx] [PATCH v2 2/7] drm/probe-helper: add
+ drm_kms_helper_connector_hotplug_event
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,29 +70,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When link-status changes, send a hotplug uevent which contains the
-connector and property ID. That way, user-space can more easily
-figure out that only the link-status property of this connector has
-been updated.
+This function is the same as drm_kms_helper_hotplug_event, but takes
+a connector instead of a device.
 
 Signed-off-by: Simon Ser <contact@emersion.fr>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/drm_probe_helper.c | 23 +++++++++++++++++++++++
+ include/drm/drm_probe_helper.h     |  1 +
+ 2 files changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 5c9222283044..0ce44a97dd14 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5276,6 +5276,8 @@ static void intel_dp_modeset_retry_work_fn(struct work_struct *work)
- 	mutex_unlock(&connector->dev->mode_config.mutex);
- 	/* Send Hotplug uevent so userspace can reprobe */
- 	drm_kms_helper_hotplug_event(connector->dev);
-+	drm_sysfs_connector_status_event(connector,
-+					 connector->dev->mode_config.link_status_property);
+diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+index e7e1ee2aa352..8cc673267cba 100644
+--- a/drivers/gpu/drm/drm_probe_helper.c
++++ b/drivers/gpu/drm/drm_probe_helper.c
+@@ -604,6 +604,9 @@ EXPORT_SYMBOL(drm_helper_probe_single_connector_modes);
+  *
+  * This function must be called from process context with no mode
+  * setting locks held.
++ *
++ * If only a single connector has changed, consider calling
++ * drm_kms_helper_connector_hotplug_event() instead.
+  */
+ void drm_kms_helper_hotplug_event(struct drm_device *dev)
+ {
+@@ -616,6 +619,26 @@ void drm_kms_helper_hotplug_event(struct drm_device *dev)
  }
+ EXPORT_SYMBOL(drm_kms_helper_hotplug_event);
  
- bool
++/**
++ * drm_kms_helper_connector_hotplug_event - fire off a KMS connector hotplug event
++ * @connector: drm_connector which has changed
++ *
++ * This is the same as drm_kms_helper_hotplug_event(), except it fires a more
++ * fine-grained uevent for a single connector.
++ */
++void drm_kms_helper_connector_hotplug_event(struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++
++	/* send a uevent + call fbdev */
++	drm_sysfs_connector_hotplug_event(connector);
++	if (dev->mode_config.funcs->output_poll_changed)
++		dev->mode_config.funcs->output_poll_changed(dev);
++
++	drm_client_dev_hotplug(dev);
++}
++EXPORT_SYMBOL(drm_kms_helper_connector_hotplug_event);
++
+ static void output_poll_execute(struct work_struct *work)
+ {
+ 	struct delayed_work *delayed_work = to_delayed_work(work);
+diff --git a/include/drm/drm_probe_helper.h b/include/drm/drm_probe_helper.h
+index 8d3ed2834d34..733147ea89be 100644
+--- a/include/drm/drm_probe_helper.h
++++ b/include/drm/drm_probe_helper.h
+@@ -19,6 +19,7 @@ void drm_kms_helper_poll_init(struct drm_device *dev);
+ void drm_kms_helper_poll_fini(struct drm_device *dev);
+ bool drm_helper_hpd_irq_event(struct drm_device *dev);
+ void drm_kms_helper_hotplug_event(struct drm_device *dev);
++void drm_kms_helper_connector_hotplug_event(struct drm_connector *connector);
+ 
+ void drm_kms_helper_poll_disable(struct drm_device *dev);
+ void drm_kms_helper_poll_enable(struct drm_device *dev);
 -- 
 2.31.1
 
