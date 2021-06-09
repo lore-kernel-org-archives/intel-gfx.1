@@ -7,68 +7,68 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D525FC48BDF
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:44:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA458C48BD1
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A78156128A
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A78156128A
+	by mail.kernel.org (Postfix) with ESMTPS id 7010C6128A
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7010C6128A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B67D66EA94;
-	Wed,  9 Jun 2021 17:44:44 +0000 (UTC)
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4EF96EAA3
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:44:42 +0000 (UTC)
-Received: by mail-pj1-x1034.google.com with SMTP id ei4so1828379pjb.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:44:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E334F6EAD0;
+	Wed,  9 Jun 2021 17:44:47 +0000 (UTC)
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
+ [IPv6:2607:f8b0:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0A96EAB2
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:44:46 +0000 (UTC)
+Received: by mail-pg1-x529.google.com with SMTP id 27so20157285pgy.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:44:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=JRyS0b/MDwky2Oet+tqD0NXnx6ZIc/C0lZsUrgwwGVk=;
- b=zIBKL9yx/ZtKW6bSLPvjaC+gULe+0EydpybhvE/8s8GedbjCAIo/EnonJWFVUlhqeM
- PCF0kLEo4fFizcw1GT4qsdn2jwM75yQ5JXRWuEuRHO6vxnPsp5OL87GKK7eEkr8pZZ96
- OFXinxzZ7B8G3EsVVry4est+fDJI924rL4tcAgPSzIdVNRyg0EFbqIP/7c807hHmcxwo
- 1ygLNyaliYvfIzOeg0fuILDaJ2KioI+sEsWToszV9ksjgaEsNS6udlrhCZv4i28FjVVx
- MzbIUTL4hpFytZlRaKCPzPF1U/yVJHkkaBwolkV4Ocf4h6E2TGLK5AeDi51RTfIe3ov0
- UJTw==
+ bh=xBg7FwtpuNrM9Qka69WV71CAEgxhgNIxD+5d1vNtwIE=;
+ b=chONTgwcyINNkIqyT0gWQjptElKjNDNl1jFAT2khqClci19H9q6JNLn53rd5nskHId
+ N6nWnxxxsyu4DS+Fj+b5vr8CuC2CzbpJ8UeJgmJzcoBPY3xNwqDJ6ShYuUbO4A2tL04r
+ Obe45wRCMNAdvP9hG4loRF/mHIp90DaYYi/MIYXNBn9ds6Q45xrOG7Tv/y9SNTFGxgkY
+ G13KtelDBHMXUIMen9xC82DE42u7OI3Btl3gbeAoVojDinXYgg/ROOtm/grcytuuny2G
+ qHlx4IstSd2bgvgv511DUyA8yvo/YezMYUhDA8eFWWrchPtmVZROjLMb6+P7VKu5xPww
+ 8xmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=JRyS0b/MDwky2Oet+tqD0NXnx6ZIc/C0lZsUrgwwGVk=;
- b=JrF959kFemLjBL7LRVvCvm6sr8KveeTqmLc3yEJGuGd7X7jcf1ae5NUReqKKbbEdK4
- 7zbbHZrtnt2WRnSufgfDlFncolLcHAxsIcMdfnuPRZe3g9UFpNj0Si9Extn8lmFWxOSH
- 9sMZ9rcwwCCRCEB0m3iK3v55kOCnsp2paeq8Nzp0Alj3OZuE9hjJBGQ8GlNkbBnnZQ0m
- hkCB9j+lOrEdnIbyJZ6RdrsZgMn5RwYgTKZbQ6384f/rmHjwKhjm5IOk3FFEiIFT+0aM
- 8HMmDYvqr1qWRFPGdrjxWdBCkOmB01S+QtlVRLBOOutI+vTQY8XtIStkOrAvcetAmdnv
- DGQA==
-X-Gm-Message-State: AOAM533hpLfKRF1/lBC0B5KekGL64PLwKNEsnuLraZ44ExlVQUO4y9K0
- MlX5RQbvEF6H1DbQYe1+RCDgbA==
-X-Google-Smtp-Source: ABdhPJxgCh9f5gLW61JDZA6kFxEZ0z5w8rccYOlXAOPfBnYakMzXODedwCnuSbHmSF5zKDoojvEUVQ==
-X-Received: by 2002:a17:903:2289:b029:109:8cf1:7d9a with SMTP id
- b9-20020a1709032289b02901098cf17d9amr800482plh.53.1623260682339; 
- Wed, 09 Jun 2021 10:44:42 -0700 (PDT)
+ bh=xBg7FwtpuNrM9Qka69WV71CAEgxhgNIxD+5d1vNtwIE=;
+ b=cMz6BkoTNb5BJELegRha1HuvOcAwaXD04ffcPphAcpCucEqcOY7JHqZ4uP5dR3FSwK
+ 5YAqzIkxkTntKYx5zStm2Yt20mkpwyEknrnWzJ78wV2OY/QHHpzN/2bulBXk7MPKIrX6
+ 82OLZLhm+82HJo0EHgitWrMoDxHL9wDZ0Wc+CcnKc5cEm6w5xqAc0/MdsKdm7od0GTro
+ mjO9Obsii4VDemwhri6w9Xhd11LayDP/oFwpTb3p3vXW7HmObGbKNnd+B9RRnbD0kp0A
+ 7egJiRYzVz9EMaYervHNJWrfPKgo6IHgtF2njlFncVIHEOkTtA16Vavk4Zm15LOF4/lw
+ 57SA==
+X-Gm-Message-State: AOAM530aohtRpRMzQQe99asVodDWmAD0GyNP2wYd4lX7oQ1uckk+GPDY
+ drpS+vSikKQnPXIppsxrnUYKfw==
+X-Google-Smtp-Source: ABdhPJyDbKuljXhh5guEZqpWQcTuPn6aeIxc5WM2ZeW6IPK4Uit4k4igbO9cYUR00SVL2WjDfG9lTw==
+X-Received: by 2002:a62:3106:0:b029:25c:cd66:3be1 with SMTP id
+ x6-20020a6231060000b029025ccd663be1mr829742pfx.29.1623260685755; 
+ Wed, 09 Jun 2021 10:44:45 -0700 (PDT)
 Received: from omlet.lan (jfdmzpr04-ext.jf.intel.com. [134.134.137.73])
- by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.44.40
+ by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.44.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jun 2021 10:44:41 -0700 (PDT)
+ Wed, 09 Jun 2021 10:44:45 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Jun 2021 12:43:58 -0500
-Message-Id: <20210609174418.249585-12-jason@jlekstrand.net>
+Date: Wed,  9 Jun 2021 12:44:00 -0500
+Message-Id: <20210609174418.249585-14-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210609174418.249585-1-jason@jlekstrand.net>
 References: <20210609174418.249585-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 11/31] drm/i915/request: Remove the hook from
- await_execution
+Subject: [Intel-gfx] [PATCH 13/31] drm/i915: Stop manually RCU banging in
+ reset_stats_ioctl (v2)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,166 +87,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This was only ever used for FENCE_SUBMIT automatic engine selection
-which was removed in the previous commit.
+As far as I can tell, the only real reason for this is to avoid taking a
+reference to the i915_gem_context.  The cost of those two atomics
+probably pales in comparison to the cost of the ioctl itself so we're
+really not buying ourselves anything here.  We're about to make context
+lookup a tiny bit more complicated, so let's get rid of the one hand-
+rolled case.
+
+Some usermode drivers such as our Vulkan driver call GET_RESET_STATS on
+every execbuf so the perf here could theoretically be an issue.  If this
+ever does become a performance issue for any such userspace drivers,
+they can use set CONTEXT_PARAM_RECOVERABLE to false and look for -EIO
+coming from execbuf to check for hangs instead.
+
+v2 (Daniel Vetter):
+ - Add a comment in the commit message about recoverable contexts
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  3 +-
- drivers/gpu/drm/i915/i915_request.c           | 42 ++++---------------
- drivers/gpu/drm/i915/i915_request.h           |  4 +-
- 3 files changed, 9 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 13 ++++---------
+ drivers/gpu/drm/i915/i915_drv.h             |  8 +-------
+ 2 files changed, 5 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 88e7cbf8fc5f8..720487ad6a5a4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -3473,8 +3473,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 	if (in_fence) {
- 		if (args->flags & I915_EXEC_FENCE_SUBMIT)
- 			err = i915_request_await_execution(eb.request,
--							   in_fence,
--							   NULL);
-+							   in_fence);
- 		else
- 			err = i915_request_await_dma_fence(eb.request,
- 							   in_fence);
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 1014c71cf7f52..bb142f944f550 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -49,7 +49,6 @@
- struct execute_cb {
- 	struct irq_work work;
- 	struct i915_sw_fence *fence;
--	void (*hook)(struct i915_request *rq, struct dma_fence *signal);
- 	struct i915_request *signal;
- };
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 0ba8506fb966f..61fe6d18d4068 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -2090,16 +2090,13 @@ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev,
+ 	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct drm_i915_reset_stats *args = data;
+ 	struct i915_gem_context *ctx;
+-	int ret;
  
-@@ -180,17 +179,6 @@ static void irq_execute_cb(struct irq_work *wrk)
- 	kmem_cache_free(global.slab_execute_cbs, cb);
+ 	if (args->flags || args->pad)
+ 		return -EINVAL;
+ 
+-	ret = -ENOENT;
+-	rcu_read_lock();
+-	ctx = __i915_gem_context_lookup_rcu(file->driver_priv, args->ctx_id);
++	ctx = i915_gem_context_lookup(file->driver_priv, args->ctx_id);
+ 	if (!ctx)
+-		goto out;
++		return -ENOENT;
+ 
+ 	/*
+ 	 * We opt for unserialised reads here. This may result in tearing
+@@ -2116,10 +2113,8 @@ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev,
+ 	args->batch_active = atomic_read(&ctx->guilty_count);
+ 	args->batch_pending = atomic_read(&ctx->active_count);
+ 
+-	ret = 0;
+-out:
+-	rcu_read_unlock();
+-	return ret;
++	i915_gem_context_put(ctx);
++	return 0;
  }
  
--static void irq_execute_cb_hook(struct irq_work *wrk)
+ /* GEM context-engines iterator: for_each_gem_engine() */
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 38ff2fb897443..fed14ffc52437 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1850,19 +1850,13 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
+ 
+ struct dma_buf *i915_gem_prime_export(struct drm_gem_object *gem_obj, int flags);
+ 
+-static inline struct i915_gem_context *
+-__i915_gem_context_lookup_rcu(struct drm_i915_file_private *file_priv, u32 id)
 -{
--	struct execute_cb *cb = container_of(wrk, typeof(*cb), work);
--
--	cb->hook(container_of(cb->fence, struct i915_request, submit),
--		 &cb->signal->fence);
--	i915_request_put(cb->signal);
--
--	irq_execute_cb(wrk);
+-	return xa_load(&file_priv->context_xa, id);
 -}
 -
- static __always_inline void
- __notify_execute_cb(struct i915_request *rq, bool (*fn)(struct irq_work *wrk))
+ static inline struct i915_gem_context *
+ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
  {
-@@ -517,17 +505,12 @@ static bool __request_in_flight(const struct i915_request *signal)
- static int
- __await_execution(struct i915_request *rq,
- 		  struct i915_request *signal,
--		  void (*hook)(struct i915_request *rq,
--			       struct dma_fence *signal),
- 		  gfp_t gfp)
- {
- 	struct execute_cb *cb;
+ 	struct i915_gem_context *ctx;
  
--	if (i915_request_is_active(signal)) {
--		if (hook)
--			hook(rq, &signal->fence);
-+	if (i915_request_is_active(signal))
- 		return 0;
--	}
- 
- 	cb = kmem_cache_alloc(global.slab_execute_cbs, gfp);
- 	if (!cb)
-@@ -537,12 +520,6 @@ __await_execution(struct i915_request *rq,
- 	i915_sw_fence_await(cb->fence);
- 	init_irq_work(&cb->work, irq_execute_cb);
- 
--	if (hook) {
--		cb->hook = hook;
--		cb->signal = i915_request_get(signal);
--		cb->work.func = irq_execute_cb_hook;
--	}
--
- 	/*
- 	 * Register the callback first, then see if the signaler is already
- 	 * active. This ensures that if we race with the
-@@ -1253,7 +1230,7 @@ emit_semaphore_wait(struct i915_request *to,
- 		goto await_fence;
- 
- 	/* Only submit our spinner after the signaler is running! */
--	if (__await_execution(to, from, NULL, gfp))
-+	if (__await_execution(to, from, gfp))
- 		goto await_fence;
- 
- 	if (__emit_semaphore_wait(to, from, from->fence.seqno))
-@@ -1284,16 +1261,14 @@ static int intel_timeline_sync_set_start(struct intel_timeline *tl,
- 
- static int
- __i915_request_await_execution(struct i915_request *to,
--			       struct i915_request *from,
--			       void (*hook)(struct i915_request *rq,
--					    struct dma_fence *signal))
-+			       struct i915_request *from)
- {
- 	int err;
- 
- 	GEM_BUG_ON(intel_context_is_barrier(from->context));
- 
- 	/* Submit both requests at the same time */
--	err = __await_execution(to, from, hook, I915_FENCE_GFP);
-+	err = __await_execution(to, from, I915_FENCE_GFP);
- 	if (err)
- 		return err;
- 
-@@ -1406,9 +1381,7 @@ i915_request_await_external(struct i915_request *rq, struct dma_fence *fence)
- 
- int
- i915_request_await_execution(struct i915_request *rq,
--			     struct dma_fence *fence,
--			     void (*hook)(struct i915_request *rq,
--					  struct dma_fence *signal))
-+			     struct dma_fence *fence)
- {
- 	struct dma_fence **child = &fence;
- 	unsigned int nchild = 1;
-@@ -1441,8 +1414,7 @@ i915_request_await_execution(struct i915_request *rq,
- 
- 		if (dma_fence_is_i915(fence))
- 			ret = __i915_request_await_execution(rq,
--							     to_request(fence),
--							     hook);
-+							     to_request(fence));
- 		else
- 			ret = i915_request_await_external(rq, fence);
- 		if (ret < 0)
-@@ -1468,7 +1440,7 @@ await_request_submit(struct i915_request *to, struct i915_request *from)
- 							&from->submit,
- 							I915_FENCE_GFP);
- 	else
--		return __i915_request_await_execution(to, from, NULL);
-+		return __i915_request_await_execution(to, from);
- }
- 
- static int
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 270f6cd37650c..63b087a7f5707 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -352,9 +352,7 @@ int i915_request_await_object(struct i915_request *to,
- int i915_request_await_dma_fence(struct i915_request *rq,
- 				 struct dma_fence *fence);
- int i915_request_await_execution(struct i915_request *rq,
--				 struct dma_fence *fence,
--				 void (*hook)(struct i915_request *rq,
--					      struct dma_fence *signal));
-+				 struct dma_fence *fence);
- 
- void i915_request_add(struct i915_request *rq);
- 
+ 	rcu_read_lock();
+-	ctx = __i915_gem_context_lookup_rcu(file_priv, id);
++	ctx = xa_load(&file_priv->context_xa, id);
+ 	if (ctx && !kref_get_unless_zero(&ctx->ref))
+ 		ctx = NULL;
+ 	rcu_read_unlock();
 -- 
 2.31.1
 
