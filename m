@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0589C48BCD
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 06:35:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6937BC47095
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 06:35:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6DA3961181
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 06:35:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6DA3961181
+	by mail.kernel.org (Postfix) with ESMTPS id 3AD5161183
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 06:35:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AD5161183
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD9626E12D;
-	Wed,  9 Jun 2021 06:34:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07E106E20E;
+	Wed,  9 Jun 2021 06:35:01 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F33C6E154;
- Wed,  9 Jun 2021 06:34:55 +0000 (UTC)
-IronPort-SDR: UVwbEOLSFDz1pROuB9lz7uphxwekJlKYDkgoCCokbvFIrEl4VQ54KBWq8ShZFDrvF6OA++AFHm
- QnS3FLFpfdxw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10009"; a="268868890"
-X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="268868890"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A4F06E1F3;
+ Wed,  9 Jun 2021 06:34:59 +0000 (UTC)
+IronPort-SDR: ueaC5nhoIL/tomZSHU4hpWxkQHF9oXxuzGQsUGo9MGBoUoTNIR+0oOeT6IsQZdNAgY26sd74sj
+ lMnRn4AExwmg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10009"; a="268868903"
+X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="268868903"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2021 23:34:55 -0700
-IronPort-SDR: S8VGdF1MU3T7HsfzvNSTktfGcMycqsULjrdiD+Eqamv1BILYzIOWblQkCQG5Do2de5t0th7kyN
- LNPe/9IJt83Q==
-X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="482265804"
+ 08 Jun 2021 23:34:59 -0700
+IronPort-SDR: SU0r3vS0fy7T5KlRJUfhZGzbrai6tS9ABVuzUN1fVNv4ZBBU+Vi1kT4EAZqRZsIXBSxYBtu9ud
+ SFVdMenyS4Tw==
+X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="482265816"
 Received: from ekolpasx-mobl.ccr.corp.intel.com (HELO thellst-mobl1.intel.com)
  ([10.249.254.109])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2021 23:34:53 -0700
+ 08 Jun 2021 23:34:57 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed,  9 Jun 2021 08:34:31 +0200
-Message-Id: <20210609063436.284332-5-thomas.hellstrom@linux.intel.com>
+Date: Wed,  9 Jun 2021 08:34:33 +0200
+Message-Id: <20210609063436.284332-7-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210609063436.284332-1-thomas.hellstrom@linux.intel.com>
 References: <20210609063436.284332-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 4/9] drm/i915/gt: Add an insert_entry for
- gen8_ppgtt
+Subject: [Intel-gfx] [PATCH v2 6/9] drm/i915/gt: Export the pinned context
+ constructor and destructor
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,51 +68,120 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Chris Wilson <chris@chris-wilson.co.uk>
 
-In the next patch, we will want to write a PTE for an explicit
-dma address, outside of the usual vma.
+Allow internal clients to create and destroy a pinned context.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+v2:
+- (Thomas) Export also the pinned context destructor
+---
+ drivers/gpu/drm/i915/gt/intel_engine.h    | 11 +++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 27 ++++++++++++++---------
+ 2 files changed, 28 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index 21c8b7350b7a..1b676d7700bf 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -555,6 +555,24 @@ static void gen8_ppgtt_insert(struct i915_address_space *vm,
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 8d9184920c51..36ea9eb52bb5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -19,7 +19,9 @@
+ #include "intel_workarounds.h"
+ 
+ struct drm_printer;
++struct intel_context;
+ struct intel_gt;
++struct lock_class_key;
+ 
+ /* Early gen2 devices have a cacheline of just 32 bytes, using 64 is overkill,
+  * but keeps the logic simple. Indeed, the whole purpose of this macro is just
+@@ -256,6 +258,15 @@ struct i915_request *
+ intel_engine_find_active_request(struct intel_engine_cs *engine);
+ 
+ u32 intel_engine_context_size(struct intel_gt *gt, u8 class);
++struct intel_context *
++intel_engine_create_pinned_context(struct intel_engine_cs *engine,
++				   struct i915_address_space *vm,
++				   unsigned int ring_size,
++				   unsigned int hwsp,
++				   struct lock_class_key *key,
++				   const char *name);
++
++void intel_engine_destroy_pinned_context(struct intel_context *ce);
+ 
+ void intel_engine_init_active(struct intel_engine_cs *engine,
+ 			      unsigned int subclass);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 9ceddfbb1687..fcbaad18ac91 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -810,11 +810,13 @@ intel_engine_init_active(struct intel_engine_cs *engine, unsigned int subclass)
+ #endif
  }
  
-+static void gen8_ppgtt_insert_entry(struct i915_address_space *vm,
-+				    dma_addr_t addr,
-+				    u64 offset,
-+				    enum i915_cache_level level,
-+				    u32 flags)
-+{
-+	u64 idx = offset >> GEN8_PTE_SHIFT;
-+	struct i915_page_directory * const pdp =
-+		gen8_pdp_for_page_index(vm, idx);
-+	struct i915_page_directory *pd =
-+		i915_pd_entry(pdp, gen8_pd_index(idx, 2));
-+	gen8_pte_t *vaddr;
-+
-+	vaddr = px_vaddr(i915_pt_entry(pd, gen8_pd_index(idx, 1)));
-+	vaddr[gen8_pd_index(idx, 0)] = gen8_pte_encode(addr, level, flags);
-+	clflush_cache_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
-+}
-+
- static int gen8_init_scratch(struct i915_address_space *vm)
+-static struct intel_context *
+-create_pinned_context(struct intel_engine_cs *engine,
+-		      unsigned int hwsp,
+-		      struct lock_class_key *key,
+-		      const char *name)
++struct intel_context *
++intel_engine_create_pinned_context(struct intel_engine_cs *engine,
++				   struct i915_address_space *vm,
++				   unsigned int ring_size,
++				   unsigned int hwsp,
++				   struct lock_class_key *key,
++				   const char *name)
  {
- 	u32 pte_flags;
-@@ -734,6 +752,7 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
+ 	struct intel_context *ce;
+ 	int err;
+@@ -825,6 +827,10 @@ create_pinned_context(struct intel_engine_cs *engine,
  
- 	ppgtt->vm.bind_async_flags = I915_VMA_LOCAL_BIND;
- 	ppgtt->vm.insert_entries = gen8_ppgtt_insert;
-+	ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
- 	ppgtt->vm.allocate_va_range = gen8_ppgtt_alloc;
- 	ppgtt->vm.clear_range = gen8_ppgtt_clear;
+ 	__set_bit(CONTEXT_BARRIER_BIT, &ce->flags);
+ 	ce->timeline = page_pack_bits(NULL, hwsp);
++	ce->ring = __intel_context_ring_size(ring_size);
++
++	i915_vm_put(ce->vm);
++	ce->vm = i915_vm_get(vm);
  
+ 	err = intel_context_pin(ce); /* perma-pin so it is always available */
+ 	if (err) {
+@@ -843,7 +849,7 @@ create_pinned_context(struct intel_engine_cs *engine,
+ 	return ce;
+ }
+ 
+-static void destroy_pinned_context(struct intel_context *ce)
++void intel_engine_destroy_pinned_context(struct intel_context *ce)
+ {
+ 	struct intel_engine_cs *engine = ce->engine;
+ 	struct i915_vma *hwsp = engine->status_page.vma;
+@@ -863,8 +869,9 @@ create_kernel_context(struct intel_engine_cs *engine)
+ {
+ 	static struct lock_class_key kernel;
+ 
+-	return create_pinned_context(engine, I915_GEM_HWS_SEQNO_ADDR,
+-				     &kernel, "kernel_context");
++	return intel_engine_create_pinned_context(engine, engine->gt->vm, SZ_4K,
++						  I915_GEM_HWS_SEQNO_ADDR,
++						  &kernel, "kernel_context");
+ }
+ 
+ /**
+@@ -907,7 +914,7 @@ static int engine_init_common(struct intel_engine_cs *engine)
+ 	return 0;
+ 
+ err_context:
+-	destroy_pinned_context(ce);
++	intel_engine_destroy_pinned_context(ce);
+ 	return ret;
+ }
+ 
+@@ -969,7 +976,7 @@ void intel_engine_cleanup_common(struct intel_engine_cs *engine)
+ 		fput(engine->default_state);
+ 
+ 	if (engine->kernel_context)
+-		destroy_pinned_context(engine->kernel_context);
++		intel_engine_destroy_pinned_context(engine->kernel_context);
+ 
+ 	GEM_BUG_ON(!llist_empty(&engine->barrier_tasks));
+ 	cleanup_status_page(engine);
 -- 
 2.31.1
 
