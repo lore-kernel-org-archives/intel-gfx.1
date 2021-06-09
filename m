@@ -2,40 +2,48 @@ Return-Path: <SRS0=iOfG=LD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6585C48BCD
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 06:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 719F8C47095
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 06:34:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6724A61009
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 06:15:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6724A61009
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1DDDC61181
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 06:34:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DDDC61181
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 136796E02E;
-	Wed,  9 Jun 2021 06:15:57 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 17D986E02E;
- Wed,  9 Jun 2021 06:15:55 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1489EA47DB;
- Wed,  9 Jun 2021 06:15:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B11E26E0D6;
+	Wed,  9 Jun 2021 06:34:48 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF5956E0D6;
+ Wed,  9 Jun 2021 06:34:47 +0000 (UTC)
+IronPort-SDR: u5DcUwIvC3h7BXb6bVl3R/7eyvUIdR11LaJI/zRBJH9zqDGxcwkJqHCfOqjoZg/nvhzr9Kxycy
+ cKz7ReMmfxxg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10009"; a="268868875"
+X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="268868875"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2021 23:34:47 -0700
+IronPort-SDR: dK3sOhMys9p6HyLNjO+s5/pR6rdE+fPtUcJDd1O+urh4+kOeU6bN4+dRsnmnrNhFDNDkiFrWfy
+ ok6nSc4kh4cg==
+X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="482265758"
+Received: from ekolpasx-mobl.ccr.corp.intel.com (HELO thellst-mobl1.intel.com)
+ ([10.249.254.109])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2021 23:34:44 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Wed,  9 Jun 2021 08:34:27 +0200
+Message-Id: <20210609063436.284332-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jason Ekstrand" <jason@jlekstrand.net>
-Date: Wed, 09 Jun 2021 06:15:55 -0000
-Message-ID: <162321935508.27475.2604067232299742236@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210609043613.102962-1-jason@jlekstrand.net>
-In-Reply-To: <20210609043613.102962-1-jason@jlekstrand.net>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiB3YXJuaW5nIGZvciBk?=
- =?utf-8?q?rm/i915/gem=3A_ioctl_clean-ups_=28rev6=29?=
+Subject: [Intel-gfx] [PATCH v2 0/9] Prereqs for TTM accelerated migration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,38 +56,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: matthew.auld@intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: drm/i915/gem: ioctl clean-ups (rev6)
-URL   : https://patchwork.freedesktop.org/series/89443/
-State : warning
-
-== Summary ==
-
-CALL    scripts/checksyscalls.sh
-  CALL    scripts/atomic/check-atomics.sh
-  CHK     include/generated/compile.h
-Kernel: arch/x86/boot/bzImage is ready  (#1)
-  MODPOST modules-only.symvers
-ERROR: modpost: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-ERROR: modpost: "__divdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-scripts/Makefile.modpost:150: recipe for target 'modules-only.symvers' failed
-make[1]: *** [modules-only.symvers] Error 1
-make[1]: *** Deleting file 'modules-only.symvers'
-Makefile:1759: recipe for target 'modules' failed
-make: *** [modules] Error 2
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20316/build_32bit.log
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QSBjb3VwbGUgb2YgcGF0Y2hlcyBmcm9tIENocmlzIHdoaWNoIGltcGxlbWVudCBwaXBlbGluZWQg
+bWlncmF0aW9uIGFuZApjbGVhcnMgYnkgYXRvbWljYWxseSB3cml0aW5nIHRoZSBQVEVzIGluIHBs
+YWNlIGJlZm9yZSBwZXJmb3JtaW5nIHRoZQphY3R1YWwgYmxpdC4KClNvbWUgd3cgdXRpbGl0aWVz
+IG1haW5seSBmb3IgdGhlIGFjY29tcGFueWluZyBzZWxmdGVzdHMgYWRkZWQgYnkgVGhvbWFzLAph
+cyB3ZWxsIGFzIG1vZGlmaWVkIHRoZSBhYm92ZSBwYXRjaGVzIGZvciB3dyBsb2NraW5nLSBhbmQg
+bG1lbSBzdXBwb3J0LgoKVGhlIGFjdHVhbCBob29rIHVwIHRvIHRoZSBpOTE1IHR0bSBiYWNrZW5k
+IGlzIGJlaW5nIHdvcmtlZCBvbiBhbmQgbm90CmluY2x1ZGVkIHlldCwgc28gdGhpcyBpcyBjb25z
+aWRlcmVkIHRvIGJlIGFuIGVhcmx5IHJldmlldyBvcHBvcnR1bml0eS4KCnYyOgotIEEgY291cGxl
+IG9mIG1pbm9yIHN0eWxlIGZpeGVzIHBvaW50ZWQgb3V0IGJ5IE1hdHRoZXcgQXVsZAotIEV4cG9y
+dCBhbmQgdXNlIGludGVsX2VuZ2luZV9kZXN0cm95X3Bpbm5lZF9jb250ZXh0KCkgdG8gYWRkcmVz
+cyBhCiAgQ0kgd2FybmluZyAvIGZhaWx1cmUuCgpDaHJpcyBXaWxzb24gKDYpOgogIGRybS9pOTE1
+L2d0OiBBZGQgYW4gaW5zZXJ0X2VudHJ5IGZvciBnZW44X3BwZ3R0CiAgZHJtL2k5MTUvZ3Q6IEFk
+ZCBhIHJvdXRpbmUgdG8gaXRlcmF0ZSBvdmVyIHRoZSBwYWdldGFibGVzIG9mIGEgR1RUCiAgZHJt
+L2k5MTUvZ3Q6IEV4cG9ydCB0aGUgcGlubmVkIGNvbnRleHQgY29uc3RydWN0b3IgYW5kIGRlc3Ry
+dWN0b3IKICBkcm0vaTkxNS9ndDogUGlwZWxpbmVkIHBhZ2UgbWlncmF0aW9uCiAgZHJtL2k5MTUv
+Z3Q6IFBpcGVsaW5lZCBjbGVhcgogIGRybS9pOTE1L2d0OiBTZXR1cCBhIGRlZmF1bHQgbWlncmF0
+aW9uIGNvbnRleHQgb24gdGhlIEdUCgpUaG9tYXMgSGVsbHN0csO2bSAoMyk6CiAgZHJtL2k5MTU6
+IFJlZmVyZW5jZSBvYmplY3RzIG9uIHRoZSB3dyBvYmplY3QgbGlzdAogIGRybS9pOTE1OiBCcmVh
+ayBvdXQgZG1hX3Jlc3Ygd3cgbG9ja2luZyB1dGlsaXRpZXMgdG8gc2VwYXJhdGUgZmlsZXMKICBk
+cm0vaTkxNTogSW50cm9kdWNlIGEgd3cgdHJhbnNhY3Rpb24gaGVscGVyCgogZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvTWFrZWZpbGUgICAgICAgICAgICAgICAgIHwgICAyICsKIGRyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2dlbS9pOTE1X2dlbV9vYmplY3QuaCAgICB8ICAgOSArLQogZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZ3QvZ2VuOF9wcGd0dC5jICAgICAgICAgIHwgIDY4ICsrCiBkcml2ZXJzL2dwdS9kcm0v
+aTkxNS9ndC9pbnRlbF9lbmdpbmUuaCAgICAgICAgfCAgMTIgKwogZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZ3QvaW50ZWxfZW5naW5lX2NzLmMgICAgIHwgIDI3ICstCiBkcml2ZXJzL2dwdS9kcm0vaTkx
+NS9ndC9pbnRlbF9ncHVfY29tbWFuZHMuaCAgfCAgIDIgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUv
+Z3QvaW50ZWxfZ3QuYyAgICAgICAgICAgIHwgICA0ICsKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0
+L2ludGVsX2d0X3R5cGVzLmggICAgICB8ICAgMyArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9p
+bnRlbF9ndHQuaCAgICAgICAgICAgfCAgIDcgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50
+ZWxfbWlncmF0ZS5jICAgICAgIHwgNjg1ICsrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZ3QvaW50ZWxfbWlncmF0ZS5oICAgICAgIHwgIDY1ICsrCiBkcml2ZXJzL2dwdS9k
+cm0vaTkxNS9ndC9pbnRlbF9taWdyYXRlX3R5cGVzLmggfCAgMTUgKwogZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZ3QvaW50ZWxfcmVuZGVyc3RhdGUuaCAgIHwgICAxICsKIGRyaXZlcnMvZ3B1L2RybS9p
+OTE1L2d0L2ludGVsX3JpbmcuaCAgICAgICAgICB8ICAgMSArCiBkcml2ZXJzL2dwdS9kcm0vaTkx
+NS9ndC9zZWxmdGVzdF9taWdyYXRlLmMgICAgfCA2NzEgKysrKysrKysrKysrKysrKysKIGRyaXZl
+cnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtLmMgICAgICAgICAgICAgICB8ICA1MiAtLQogZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvaTkxNV9nZW0uaCAgICAgICAgICAgICAgIHwgIDEyIC0KIGRyaXZlcnMv
+Z3B1L2RybS9pOTE1L2k5MTVfZ2VtX3d3LmMgICAgICAgICAgICB8ICA2MyArKwogZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaTkxNV9nZW1fd3cuaCAgICAgICAgICAgIHwgIDUwICsrCiAuLi4vZHJtL2k5
+MTUvc2VsZnRlc3RzL2k5MTVfbGl2ZV9zZWxmdGVzdHMuaCAgfCAgIDEgKwogLi4uL2RybS9pOTE1
+L3NlbGZ0ZXN0cy9pOTE1X3BlcmZfc2VsZnRlc3RzLmggIHwgICAxICsKIDIxIGZpbGVzIGNoYW5n
+ZWQsIDE2NzUgaW5zZXJ0aW9ucygrKSwgNzYgZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2
+NDQgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfbWlncmF0ZS5jCiBjcmVhdGUgbW9kZSAx
+MDA2NDQgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfbWlncmF0ZS5oCiBjcmVhdGUgbW9k
+ZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfbWlncmF0ZV90eXBlcy5oCiBj
+cmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3RfbWlncmF0
+ZS5jCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9nZW1fd3cu
+YwogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtX3d3LmgK
+Ci0tIAoyLjMxLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdm
+eAo=
