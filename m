@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE autolearn=ham autolearn_force=no
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CF79FC48BCD
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 11:42:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32FD4C48BCD
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 11:44:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 950FE61364
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 11:42:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 950FE61364
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E8E6F61359
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 11:44:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8E6F61359
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C05989E15;
-	Wed,  9 Jun 2021 11:42:10 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4603E89E15
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 11:42:09 +0000 (UTC)
-IronPort-SDR: 1I9QX5wTeaD9cvomKWsvQa6/aaekzH+PpiDNtWobO54lfpENstNhXxzJmogRbaRZb39jKfw6QA
- OrcqV3kPzkdA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10009"; a="204867061"
-X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="204867061"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2021 04:42:08 -0700
-IronPort-SDR: qDUwN65R5A/ieZl9Sao5dAd8clZwF78gE+f2eFYHMe314VLVmYCgbuwptZSxEY8DaxZZgssant
- JvMRGqvCwhKQ==
-X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="482351160"
-Received: from ochaldek-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.34.111])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2021 04:42:07 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20210526143729.2563672-3-imre.deak@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210526143729.2563672-1-imre.deak@intel.com>
- <20210526143729.2563672-3-imre.deak@intel.com>
-Date: Wed, 09 Jun 2021 14:42:04 +0300
-Message-ID: <87y2bjz2lv.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94A676E038;
+	Wed,  9 Jun 2021 11:44:37 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 674B66E038
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 11:44:36 +0000 (UTC)
+IronPort-SDR: 3LID1WktXRN8q/r04DtINDL7jflHGSr7KkoYKfzpcV9ABlTaDrpIvwxca1pH3TPc4eR3LeL0Pu
+ vjsc6LPf/Gkg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10009"; a="226423196"
+X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="226423196"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2021 04:44:35 -0700
+IronPort-SDR: NmVTaJnYeYQVOXihl+yiqEA6p4Z7R3rdj+XcAstWRyVQzi72bEzkOQPmsmoZo1NQf40Hg/1uQ9
+ rjrn4pQc9IQg==
+X-IronPort-AV: E=Sophos;i="5.83,260,1616482800"; d="scan'208";a="402290170"
+Received: from akshayka-mobl.amr.corp.intel.com (HELO intel.com)
+ ([10.254.35.119])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2021 04:44:35 -0700
+Date: Wed, 9 Jun 2021 07:44:33 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <YMCpoTBisGKObOiH@intel.com>
+References: <20210609085632.22026-1-ville.syrjala@linux.intel.com>
+ <20210609085632.22026-5-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/adlp: Fix AUX power well ->
- PHY mapping
+Content-Disposition: inline
+In-Reply-To: <20210609085632.22026-5-ville.syrjala@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 4/6] drm/i915: Clean up pre-skl wm calling
+ convention
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,140 +60,342 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 26 May 2021, Imre Deak <imre.deak@intel.com> wrote:
-> On ADL_P the power well->PHY mapping doesn't follow the mapping on previous
-> platforms, fix this up.
->
-> While at it remove the redundant dev_priv param from
-> icl_tc_phy_aux_ch().
->
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
+On Wed, Jun 09, 2021 at 11:56:30AM +0300, Ville Syrjala wrote:
+> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> =
+
+> Just pass the full atomic state+crtc to the pre-skl watermark
+> functions, and clean up the types/variable names around the area.
+> =
+
+> Note that having both .compute_pipe_wm() and .compute_intermediate_wm()
+> is entirely redundant now. We could unify them to a single vfunc.
+> But let's do this one step at a time.
+> =
+
+> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 > ---
->  .../drm/i915/display/intel_display_power.c    | 34 ++++++++++---------
->  1 file changed, 18 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> index a95bbf23e6b7c..7ddd63114b36b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> @@ -291,8 +291,7 @@ static void hsw_power_well_pre_disable(struct drm_i915_private *dev_priv,
->  #define ICL_TBT_AUX_PW_TO_CH(pw_idx)	\
->  	((pw_idx) - ICL_PW_CTL_IDX_AUX_TBT1 + AUX_CH_C)
->  
-> -static enum aux_ch icl_tc_phy_aux_ch(struct drm_i915_private *dev_priv,
-> -				     struct i915_power_well *power_well)
-> +static enum aux_ch icl_aux_pw_to_ch(const struct i915_power_well *power_well)
->  {
->  	int pw_idx = power_well->desc->hsw.idx;
->  
-> @@ -327,6 +326,15 @@ aux_ch_to_digital_port(struct drm_i915_private *dev_priv,
->  	return dig_port;
->  }
->  
-> +static enum phy icl_aux_pw_to_phy(struct drm_i915_private *i915,
-> +				  const struct i915_power_well *power_well)
-> +{
-> +	enum aux_ch aux_ch = icl_aux_pw_to_ch(power_well);
-> +	struct intel_digital_port *dig_port = aux_ch_to_digital_port(i915, aux_ch);
+>  drivers/gpu/drm/i915/display/intel_display.c |  5 +-
+>  drivers/gpu/drm/i915/i915_drv.h              |  6 +-
+>  drivers/gpu/drm/i915/intel_pm.c              | 97 ++++++++++----------
+>  3 files changed, 58 insertions(+), 50 deletions(-)
+> =
 
-Replying to an already merged patch...
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index 1615501685c9..62221243fca9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -7288,12 +7288,13 @@ static int intel_crtc_atomic_check(struct intel_a=
+tomic_state *state,
+>  	}
+>  =
 
-aux_ch_to_digital_port() may return NULL but we don't really check this
-anywhere.
-
-Any thoughts how this should be handled?
-
-BR,
-Jani.
-
-
+>  	if (dev_priv->display.compute_pipe_wm) {
+> -		ret =3D dev_priv->display.compute_pipe_wm(crtc_state);
+> +		ret =3D dev_priv->display.compute_pipe_wm(state, crtc);
+>  		if (ret) {
+>  			drm_dbg_kms(&dev_priv->drm,
+>  				    "Target pipe watermarks are invalid\n");
+>  			return ret;
+>  		}
 > +
-> +	return intel_port_to_phy(i915, dig_port->base.port);
-> +}
-> +
->  static void hsw_wait_for_power_well_enable(struct drm_i915_private *dev_priv,
->  					   struct i915_power_well *power_well,
->  					   bool timeout_expected)
-> @@ -468,15 +476,13 @@ static void hsw_power_well_disable(struct drm_i915_private *dev_priv,
->  	hsw_wait_for_power_well_disable(dev_priv, power_well);
->  }
->  
-> -#define ICL_AUX_PW_TO_PHY(pw_idx)	((pw_idx) - ICL_PW_CTL_IDX_AUX_A)
-> -
->  static void
->  icl_combo_phy_aux_power_well_enable(struct drm_i915_private *dev_priv,
->  				    struct i915_power_well *power_well)
->  {
->  	const struct i915_power_well_regs *regs = power_well->desc->hsw.regs;
->  	int pw_idx = power_well->desc->hsw.idx;
-> -	enum phy phy = ICL_AUX_PW_TO_PHY(pw_idx);
-> +	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
->  	u32 val;
->  
->  	drm_WARN_ON(&dev_priv->drm, !IS_ICELAKE(dev_priv));
-> @@ -508,7 +514,7 @@ icl_combo_phy_aux_power_well_disable(struct drm_i915_private *dev_priv,
->  {
->  	const struct i915_power_well_regs *regs = power_well->desc->hsw.regs;
->  	int pw_idx = power_well->desc->hsw.idx;
-> -	enum phy phy = ICL_AUX_PW_TO_PHY(pw_idx);
-> +	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
->  	u32 val;
->  
->  	drm_WARN_ON(&dev_priv->drm, !IS_ICELAKE(dev_priv));
-> @@ -595,7 +601,7 @@ static void
->  icl_tc_phy_aux_power_well_enable(struct drm_i915_private *dev_priv,
->  				 struct i915_power_well *power_well)
->  {
-> -	enum aux_ch aux_ch = icl_tc_phy_aux_ch(dev_priv, power_well);
-> +	enum aux_ch aux_ch = icl_aux_pw_to_ch(power_well);
->  	struct intel_digital_port *dig_port = aux_ch_to_digital_port(dev_priv, aux_ch);
->  	const struct i915_power_well_regs *regs = power_well->desc->hsw.regs;
->  	bool is_tbt = power_well->desc->hsw.is_tc_tbt;
-> @@ -643,7 +649,7 @@ static void
->  icl_tc_phy_aux_power_well_disable(struct drm_i915_private *dev_priv,
->  				  struct i915_power_well *power_well)
->  {
-> -	enum aux_ch aux_ch = icl_tc_phy_aux_ch(dev_priv, power_well);
-> +	enum aux_ch aux_ch = icl_aux_pw_to_ch(power_well);
->  	struct intel_digital_port *dig_port = aux_ch_to_digital_port(dev_priv, aux_ch);
->  
->  	icl_tc_port_assert_ref_held(dev_priv, power_well, dig_port);
-> @@ -655,11 +661,9 @@ static void
->  icl_aux_power_well_enable(struct drm_i915_private *dev_priv,
->  			  struct i915_power_well *power_well)
->  {
-> -	int pw_idx = power_well->desc->hsw.idx;
-> -	enum phy phy = ICL_AUX_PW_TO_PHY(pw_idx);  /* non-TBT only */
-> -	bool is_tbt = power_well->desc->hsw.is_tc_tbt;
-> +	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
->  
-> -	if (is_tbt || intel_phy_is_tc(dev_priv, phy))
-> +	if (intel_phy_is_tc(dev_priv, phy))
->  		return icl_tc_phy_aux_power_well_enable(dev_priv, power_well);
->  	else if (IS_ICELAKE(dev_priv))
->  		return icl_combo_phy_aux_power_well_enable(dev_priv,
-> @@ -672,11 +676,9 @@ static void
->  icl_aux_power_well_disable(struct drm_i915_private *dev_priv,
->  			   struct i915_power_well *power_well)
->  {
-> -	int pw_idx = power_well->desc->hsw.idx;
-> -	enum phy phy = ICL_AUX_PW_TO_PHY(pw_idx);  /* non-TBT only */
-> -	bool is_tbt = power_well->desc->hsw.is_tc_tbt;
-> +	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
->  
-> -	if (is_tbt || intel_phy_is_tc(dev_priv, phy))
-> +	if (intel_phy_is_tc(dev_priv, phy))
->  		return icl_tc_phy_aux_power_well_disable(dev_priv, power_well);
->  	else if (IS_ICELAKE(dev_priv))
->  		return icl_combo_phy_aux_power_well_disable(dev_priv,
+>  	}
+>  =
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+>  	if (dev_priv->display.compute_intermediate_wm) {
+> @@ -7306,7 +7307,7 @@ static int intel_crtc_atomic_check(struct intel_ato=
+mic_state *state,
+>  		 * old state and the new state.  We can program these
+>  		 * immediately.
+>  		 */
+> -		ret =3D dev_priv->display.compute_intermediate_wm(crtc_state);
+> +		ret =3D dev_priv->display.compute_intermediate_wm(state, crtc);
+>  		if (ret) {
+>  			drm_dbg_kms(&dev_priv->drm,
+>  				    "No valid intermediate pipe watermarks are possible\n");
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_=
+drv.h
+> index 38ff2fb89744..e9cf0eaad7f8 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -270,8 +270,10 @@ struct drm_i915_display_funcs {
+>  	int (*bw_calc_min_cdclk)(struct intel_atomic_state *state);
+>  	int (*get_fifo_size)(struct drm_i915_private *dev_priv,
+>  			     enum i9xx_plane_id i9xx_plane);
+> -	int (*compute_pipe_wm)(struct intel_crtc_state *crtc_state);
+> -	int (*compute_intermediate_wm)(struct intel_crtc_state *crtc_state);
+> +	int (*compute_pipe_wm)(struct intel_atomic_state *state,
+> +			       struct intel_crtc *crtc);
+> +	int (*compute_intermediate_wm)(struct intel_atomic_state *state,
+> +				       struct intel_crtc *crtc);
+>  	void (*initial_watermarks)(struct intel_atomic_state *state,
+>  				   struct intel_crtc *crtc);
+>  	void (*atomic_update_watermarks)(struct intel_atomic_state *state,
+> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel=
+_pm.c
+> index 7ce9537fa2c7..dd682c64daf0 100644
+> --- a/drivers/gpu/drm/i915/intel_pm.c
+> +++ b/drivers/gpu/drm/i915/intel_pm.c
+> @@ -1370,11 +1370,11 @@ static bool g4x_compute_fbc_en(const struct g4x_w=
+m_state *wm_state,
+>  	return true;
+>  }
+>  =
+
+> -static int g4x_compute_pipe_wm(struct intel_crtc_state *crtc_state)
+> +static int g4x_compute_pipe_wm(struct intel_atomic_state *state,
+> +			       struct intel_crtc *crtc)
+>  {
+> -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> -	struct intel_atomic_state *state =3D
+> -		to_intel_atomic_state(crtc_state->uapi.state);
+> +	struct intel_crtc_state *crtc_state =3D
+> +		intel_atomic_get_new_crtc_state(state, crtc);
+>  	struct g4x_wm_state *wm_state =3D &crtc_state->wm.g4x.optimal;
+>  	int num_active_planes =3D hweight8(crtc_state->active_planes &
+>  					 ~BIT(PLANE_CURSOR));
+> @@ -1451,20 +1451,21 @@ static int g4x_compute_pipe_wm(struct intel_crtc_=
+state *crtc_state)
+>  	return 0;
+>  }
+>  =
+
+> -static int g4x_compute_intermediate_wm(struct intel_crtc_state *new_crtc=
+_state)
+> +static int g4x_compute_intermediate_wm(struct intel_atomic_state *state,
+> +				       struct intel_crtc *crtc)
+>  {
+> -	struct intel_crtc *crtc =3D to_intel_crtc(new_crtc_state->uapi.crtc);
+>  	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> +	struct intel_crtc_state *new_crtc_state =3D
+> +		intel_atomic_get_new_crtc_state(state, crtc);
+> +	const struct intel_crtc_state *old_crtc_state =3D
+> +		intel_atomic_get_old_crtc_state(state, crtc);
+>  	struct g4x_wm_state *intermediate =3D &new_crtc_state->wm.g4x.intermedi=
+ate;
+>  	const struct g4x_wm_state *optimal =3D &new_crtc_state->wm.g4x.optimal;
+> -	struct intel_atomic_state *intel_state =3D
+> -		to_intel_atomic_state(new_crtc_state->uapi.state);
+> -	const struct intel_crtc_state *old_crtc_state =3D
+> -		intel_atomic_get_old_crtc_state(intel_state, crtc);
+>  	const struct g4x_wm_state *active =3D &old_crtc_state->wm.g4x.optimal;
+>  	enum plane_id plane_id;
+>  =
+
+> -	if (!new_crtc_state->hw.active || drm_atomic_crtc_needs_modeset(&new_cr=
+tc_state->uapi)) {
+> +	if (!new_crtc_state->hw.active ||
+> +	    drm_atomic_crtc_needs_modeset(&new_crtc_state->uapi)) {
+>  		*intermediate =3D *optimal;
+>  =
+
+>  		intermediate->cxsr =3D false;
+> @@ -1890,12 +1891,12 @@ static bool vlv_raw_crtc_wm_is_valid(const struct=
+ intel_crtc_state *crtc_state,
+>  		vlv_raw_plane_wm_is_valid(crtc_state, PLANE_CURSOR, level);
+>  }
+>  =
+
+> -static int vlv_compute_pipe_wm(struct intel_crtc_state *crtc_state)
+> +static int vlv_compute_pipe_wm(struct intel_atomic_state *state,
+> +			       struct intel_crtc *crtc)
+>  {
+> -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+>  	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> -	struct intel_atomic_state *state =3D
+> -		to_intel_atomic_state(crtc_state->uapi.state);
+> +	struct intel_crtc_state *crtc_state =3D
+> +		intel_atomic_get_new_crtc_state(state, crtc);
+>  	struct vlv_wm_state *wm_state =3D &crtc_state->wm.vlv.optimal;
+>  	const struct vlv_fifo_state *fifo_state =3D
+>  		&crtc_state->wm.vlv.fifo_state;
+> @@ -2095,19 +2096,20 @@ static void vlv_atomic_update_fifo(struct intel_a=
+tomic_state *state,
+>  =
+
+>  #undef VLV_FIFO
+>  =
+
+> -static int vlv_compute_intermediate_wm(struct intel_crtc_state *new_crtc=
+_state)
+> +static int vlv_compute_intermediate_wm(struct intel_atomic_state *state,
+> +				       struct intel_crtc *crtc)
+>  {
+> -	struct intel_crtc *crtc =3D to_intel_crtc(new_crtc_state->uapi.crtc);
+> +	struct intel_crtc_state *new_crtc_state =3D
+> +		intel_atomic_get_new_crtc_state(state, crtc);
+> +	const struct intel_crtc_state *old_crtc_state =3D
+> +		intel_atomic_get_old_crtc_state(state, crtc);
+>  	struct vlv_wm_state *intermediate =3D &new_crtc_state->wm.vlv.intermedi=
+ate;
+>  	const struct vlv_wm_state *optimal =3D &new_crtc_state->wm.vlv.optimal;
+> -	struct intel_atomic_state *intel_state =3D
+> -		to_intel_atomic_state(new_crtc_state->uapi.state);
+> -	const struct intel_crtc_state *old_crtc_state =3D
+> -		intel_atomic_get_old_crtc_state(intel_state, crtc);
+>  	const struct vlv_wm_state *active =3D &old_crtc_state->wm.vlv.optimal;
+>  	int level;
+>  =
+
+> -	if (!new_crtc_state->hw.active || drm_atomic_crtc_needs_modeset(&new_cr=
+tc_state->uapi)) {
+> +	if (!new_crtc_state->hw.active ||
+> +	    drm_atomic_crtc_needs_modeset(&new_crtc_state->uapi)) {
+>  		*intermediate =3D *optimal;
+>  =
+
+>  		intermediate->cxsr =3D false;
+> @@ -3144,10 +3146,12 @@ static bool ilk_validate_pipe_wm(const struct drm=
+_i915_private *dev_priv,
+>  }
+>  =
+
+>  /* Compute new watermarks for the pipe */
+> -static int ilk_compute_pipe_wm(struct intel_crtc_state *crtc_state)
+> +static int ilk_compute_pipe_wm(struct intel_atomic_state *state,
+> +			       struct intel_crtc *crtc)
+>  {
+> -	struct drm_i915_private *dev_priv =3D to_i915(crtc_state->uapi.crtc->de=
+v);
+> -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> +	struct drm_i915_private *dev_priv =3D to_i915(state->base.dev);
+> +	struct intel_crtc_state *crtc_state =3D
+> +		intel_atomic_get_new_crtc_state(state, crtc);
+
+I didn't see much advantage on changing 1 to 2 arguments when you need the
+previous one anyway.
+
+But maybe I'm missing some other patch like the possible clean-up
+mentioned at the commit message above...
+
+anyway the code looks correct and no blocker here, so up to you:
+
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+>  	struct intel_pipe_wm *pipe_wm;
+>  	struct intel_plane *plane;
+>  	const struct intel_plane_state *plane_state;
+> @@ -3220,16 +3224,16 @@ static int ilk_compute_pipe_wm(struct intel_crtc_=
+state *crtc_state)
+>   * state and the new state.  These can be programmed to the hardware
+>   * immediately.
+>   */
+> -static int ilk_compute_intermediate_wm(struct intel_crtc_state *newstate)
+> +static int ilk_compute_intermediate_wm(struct intel_atomic_state *state,
+> +				       struct intel_crtc *crtc)
+>  {
+> -	struct intel_crtc *intel_crtc =3D to_intel_crtc(newstate->uapi.crtc);
+> -	struct drm_i915_private *dev_priv =3D to_i915(intel_crtc->base.dev);
+> -	struct intel_pipe_wm *a =3D &newstate->wm.ilk.intermediate;
+> -	struct intel_atomic_state *intel_state =3D
+> -		to_intel_atomic_state(newstate->uapi.state);
+> -	const struct intel_crtc_state *oldstate =3D
+> -		intel_atomic_get_old_crtc_state(intel_state, intel_crtc);
+> -	const struct intel_pipe_wm *b =3D &oldstate->wm.ilk.optimal;
+> +	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> +	struct intel_crtc_state *new_crtc_state =3D
+> +		intel_atomic_get_new_crtc_state(state, crtc);
+> +	const struct intel_crtc_state *old_crtc_state =3D
+> +		intel_atomic_get_old_crtc_state(state, crtc);
+> +	struct intel_pipe_wm *a =3D &new_crtc_state->wm.ilk.intermediate;
+> +	const struct intel_pipe_wm *b =3D &old_crtc_state->wm.ilk.optimal;
+>  	int level, max_level =3D ilk_wm_max_level(dev_priv);
+>  =
+
+>  	/*
+> @@ -3237,9 +3241,10 @@ static int ilk_compute_intermediate_wm(struct inte=
+l_crtc_state *newstate)
+>  	 * currently active watermarks to get values that are safe both before
+>  	 * and after the vblank.
+>  	 */
+> -	*a =3D newstate->wm.ilk.optimal;
+> -	if (!newstate->hw.active || drm_atomic_crtc_needs_modeset(&newstate->ua=
+pi) ||
+> -	    intel_state->skip_intermediate_wm)
+> +	*a =3D new_crtc_state->wm.ilk.optimal;
+> +	if (!new_crtc_state->hw.active ||
+> +	    drm_atomic_crtc_needs_modeset(&new_crtc_state->uapi) ||
+> +	    state->skip_intermediate_wm)
+>  		return 0;
+>  =
+
+>  	a->pipe_enabled |=3D b->pipe_enabled;
+> @@ -3270,8 +3275,8 @@ static int ilk_compute_intermediate_wm(struct intel=
+_crtc_state *newstate)
+>  	 * If our intermediate WM are identical to the final WM, then we can
+>  	 * omit the post-vblank programming; only update if it's different.
+>  	 */
+> -	if (memcmp(a, &newstate->wm.ilk.optimal, sizeof(*a)) !=3D 0)
+> -		newstate->wm.need_postvbl_update =3D true;
+> +	if (memcmp(a, &new_crtc_state->wm.ilk.optimal, sizeof(*a)) !=3D 0)
+> +		new_crtc_state->wm.need_postvbl_update =3D true;
+>  =
+
+>  	return 0;
+>  }
+> @@ -3283,12 +3288,12 @@ static void ilk_merge_wm_level(struct drm_i915_pr=
+ivate *dev_priv,
+>  			       int level,
+>  			       struct intel_wm_level *ret_wm)
+>  {
+> -	const struct intel_crtc *intel_crtc;
+> +	const struct intel_crtc *crtc;
+>  =
+
+>  	ret_wm->enable =3D true;
+>  =
+
+> -	for_each_intel_crtc(&dev_priv->drm, intel_crtc) {
+> -		const struct intel_pipe_wm *active =3D &intel_crtc->wm.active.ilk;
+> +	for_each_intel_crtc(&dev_priv->drm, crtc) {
+> +		const struct intel_pipe_wm *active =3D &crtc->wm.active.ilk;
+>  		const struct intel_wm_level *wm =3D &active->wm[level];
+>  =
+
+>  		if (!active->pipe_enabled)
+> @@ -3388,7 +3393,7 @@ static void ilk_compute_wm_results(struct drm_i915_=
+private *dev_priv,
+>  				   enum intel_ddb_partitioning partitioning,
+>  				   struct ilk_wm_values *results)
+>  {
+> -	struct intel_crtc *intel_crtc;
+> +	struct intel_crtc *crtc;
+>  	int level, wm_lp;
+>  =
+
+>  	results->enable_fbc_wm =3D merged->fbc_wm_enabled;
+> @@ -3433,9 +3438,9 @@ static void ilk_compute_wm_results(struct drm_i915_=
+private *dev_priv,
+>  	}
+>  =
+
+>  	/* LP0 register values */
+> -	for_each_intel_crtc(&dev_priv->drm, intel_crtc) {
+> -		enum pipe pipe =3D intel_crtc->pipe;
+> -		const struct intel_pipe_wm *pipe_wm =3D &intel_crtc->wm.active.ilk;
+> +	for_each_intel_crtc(&dev_priv->drm, crtc) {
+> +		enum pipe pipe =3D crtc->pipe;
+> +		const struct intel_pipe_wm *pipe_wm =3D &crtc->wm.active.ilk;
+>  		const struct intel_wm_level *r =3D &pipe_wm->wm[0];
+>  =
+
+>  		if (drm_WARN_ON(&dev_priv->drm, !r->enable))
+> -- =
+
+> 2.31.1
+> =
+
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
