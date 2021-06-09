@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C961BC48BE0
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 732CBC48BDF
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E27F613BD
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E27F613BD
+	by mail.kernel.org (Postfix) with ESMTPS id 447AF6128A
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 447AF6128A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7F66EADC;
-	Wed,  9 Jun 2021 17:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5A66EB12;
+	Wed,  9 Jun 2021 17:45:14 +0000 (UTC)
 Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
  [IPv6:2607:f8b0:4864:20::102e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 688386EADC
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:45:07 +0000 (UTC)
-Received: by mail-pj1-x102e.google.com with SMTP id h16so1839891pjv.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:45:07 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B300D6EAD2
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:45:09 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id
+ z3-20020a17090a3983b029016bc232e40bso1871175pjb.4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:45:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Lsc56SzoOEd/BCSfLfK8ytkSRwjAVkdeXZAyirihj3g=;
- b=nofF+lgk6qbbmuTq9ca6Tj3+SI+W1Za2EjyTiJKmxI+fapm7qOnIA+OQa+ya5mToSV
- M4Ml0XTO/w/+7haYSWMzb6bqyCY6k28mM8tfqFJSe2yRSJ9trVm+WO9l2LIsexmMilFu
- F1bGJEAWaYFfFAcJ6lt/B7nA47M3CsZRbrrG/LTnKamCJC0NQY/KW/4n6JsV9Szj0NOG
- 1oR5Q2ALs8pn3zAEijOhP+dSNrhJBh3bURP3CM7OfW7X1e4jIHDWMDRPpN2nWzlKOB2X
- WC1NYeYKgp0w5Rg/a/9Tm8lyoypstpyn6qSd6Yi8CNxkGnkdCKkURaoMD2heaT4gacAo
- fY6g==
+ bh=4P6B5yDCiRBuExW//HvseyUjwGeOe6wMXywTOUFvJNI=;
+ b=dnAY7fb6CQuvIHeSvXCH2ShSNdSclgEyiAdrAIeY+W1uZwqk5OuLLsN/vNTTSKlwBq
+ yD5w9sDMEwI9CQWNOOZuiSBvIBoRVFOrh1UEws5Hg1VKC6SYJNBXTRiwlR3RFke5EFlv
+ Tk7Qxph4HNu3q3v33YVywNpr0EUfxCuA1gotbNy95rYZaiwtov4Zt9oDVzdV08IkOrSg
+ js/FWx4EFxNO2H9uyg5h0tubBxe0DwBsoBnwI6Mxzv9BZFWig7y02gHWpDhuOAo+MiTw
+ dYgfh5ob/oLXZle4h4FaXSDWzSUWxiAveRNPa0jqWKRo2663soNcDrchu6XbAb3YRQEt
+ IXIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Lsc56SzoOEd/BCSfLfK8ytkSRwjAVkdeXZAyirihj3g=;
- b=mYbyZYg0kl/ZnQ7GtUuFbSis5qwFUY91/0hwuXpK892YPqu+JtHUhXobbo3s3aKbvp
- dq4wZiSVMlFY56PxUkQoX98IM71425IPuAQFVcs5UUz+NhEuPnUMASdTMSAA/o79H/0S
- YDGSFUJ/AWXgtAU33uwNIMDFUqfd3cPI9Ozuzg2V52+edzw57+imhrhdTRS5sSnun1QV
- XZ3uaZWSzCcP59XLmWDsn4CzjbIqmLl9ILFIWrkg4sJdysiltxuKbX5A2BFexVegnfX/
- 6DfLNbAHOi4jHZ5tSuKRyQCZU4Qh1iTO7LO+RkoSjOkA5DnQoUrAgoNccqS4lyKnyz4c
- wHUA==
-X-Gm-Message-State: AOAM532WuyTYHbU2ovurSamIT9dAk8RYeQ4+lRUJNsfj80xhtsxJGMh4
- 0PJ3IfgqTdU+SogjjrxlB1dUBw==
-X-Google-Smtp-Source: ABdhPJyFJX1+H7A+xlAEzHYAXvsHEK73HYpEF/1brY8VQhgE1FUFGGnpA2dXE91D6UvH40K7niUqRg==
-X-Received: by 2002:a17:902:ed82:b029:ef:48c8:128e with SMTP id
- e2-20020a170902ed82b02900ef48c8128emr878120plj.72.1623260702480; 
- Wed, 09 Jun 2021 10:45:02 -0700 (PDT)
+ bh=4P6B5yDCiRBuExW//HvseyUjwGeOe6wMXywTOUFvJNI=;
+ b=GwA1OGd22/u2Li2CFQQVd9f7yjCq5tgr8OGa96BMWvMSQM+i6jt40q5OUwKilx0vFy
+ l/0LeXcyx6bOjMznk00WvXxQs636lQSUarJLuSwBAEhlcOwfCBqywQQx848fDv0xcgxG
+ Eg9pRHMnB1kN7xN/9CnFmMf6OaY8yX8OXs6sn3iUvN0Fxn6LD+rhPjJ8Z0y6OKifsRLp
+ SbT8tkYXcB6KKKocsX9LlhFyU5BoQnHR0JcwWQaKEfReBcxWJh38ZoQaDLhgoooRWW0V
+ ahMXkNKPloseDIwqJ/1uScBPmVHM3MWrH1unyGwpvkzvhlzWxA/x1aCbWQmg9h1+xDrG
+ +WTA==
+X-Gm-Message-State: AOAM532mOczV6W1y+jLtrEeJLXT9W3IXV7LrweYDb4pLa78is0nFi7Q8
+ nzGgPwzmxYPR5HBRFb4c/wX8AuFzOem3Rg==
+X-Google-Smtp-Source: ABdhPJydpQjBMgxet0C3d9YxtOwEIbSk6eznmn7bQ97govyReOXbtZJ0330IIptk87Z+/e5Nnd52eg==
+X-Received: by 2002:a17:902:988f:b029:114:12d2:d548 with SMTP id
+ s15-20020a170902988fb029011412d2d548mr694989plp.73.1623260709242; 
+ Wed, 09 Jun 2021 10:45:09 -0700 (PDT)
 Received: from omlet.lan (jfdmzpr04-ext.jf.intel.com. [134.134.137.73])
- by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.45.01
+ by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.45.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jun 2021 10:45:02 -0700 (PDT)
+ Wed, 09 Jun 2021 10:45:08 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Jun 2021 12:44:10 -0500
-Message-Id: <20210609174418.249585-24-jason@jlekstrand.net>
+Date: Wed,  9 Jun 2021 12:44:14 -0500
+Message-Id: <20210609174418.249585-28-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210609174418.249585-1-jason@jlekstrand.net>
 References: <20210609174418.249585-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 23/31] drm/i915/gt: Drop
- i915_address_space::file (v2)
+Subject: [Intel-gfx] [PATCH 27/31] drm/i915/selftests: Take a VM in
+ kernel_context()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,102 +88,185 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There's a big comment saying how useful it is but no one is using this
-for anything anymore.
-
-It was added in 2bfa996e031b ("drm/i915: Store owning file on the
-i915_address_space") and used for debugfs at the time as well as telling
-the difference between the global GTT and a PPGTT.  In f6e8aa387171
-("drm/i915: Report the number of closed vma held by each context in
-debugfs") we removed one use of it by switching to a context walk and
-comparing with the VM in the context.  Finally, VM stats for debugfs
-were entirely nuked in db80a1294c23 ("drm/i915/gem: Remove per-client
-stats from debugfs/i915_gem_objects")
-
-v2 (Daniel Vetter):
- - Delete a struct drm_i915_file_private pre-declaration
- - Add a comment to the commit message about history
+This better models where we want to go with contexts in general where
+things like the VM and engine set are create parameters instead of being
+set after the fact.
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c |  9 ---------
- drivers/gpu/drm/i915/gt/intel_gtt.h         | 11 -----------
- drivers/gpu/drm/i915/selftests/mock_gtt.c   |  1 -
- 3 files changed, 21 deletions(-)
+ .../drm/i915/gem/selftests/i915_gem_context.c |  4 ++--
+ .../gpu/drm/i915/gem/selftests/mock_context.c |  9 ++++++++-
+ .../gpu/drm/i915/gem/selftests/mock_context.h |  4 +++-
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  | 20 +++++++++----------
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  2 +-
+ 5 files changed, 24 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 7045e3afa7113..5a1402544d48d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1453,17 +1453,10 @@ static int gem_context_register(struct i915_gem_context *ctx,
- 				u32 *id)
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index 92544a174cc9a..3e59746afdc82 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -680,7 +680,7 @@ static int igt_ctx_exec(void *arg)
+ 			struct i915_gem_context *ctx;
+ 			struct intel_context *ce;
+ 
+-			ctx = kernel_context(i915);
++			ctx = kernel_context(i915, NULL);
+ 			if (IS_ERR(ctx)) {
+ 				err = PTR_ERR(ctx);
+ 				goto out_file;
+@@ -813,7 +813,7 @@ static int igt_shared_ctx_exec(void *arg)
+ 			struct i915_gem_context *ctx;
+ 			struct intel_context *ce;
+ 
+-			ctx = kernel_context(i915);
++			ctx = kernel_context(i915, NULL);
+ 			if (IS_ERR(ctx)) {
+ 				err = PTR_ERR(ctx);
+ 				goto out_test;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_context.c b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
+index 61aaac4a334cf..500ef27ba4771 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/mock_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
+@@ -150,7 +150,8 @@ live_context_for_engine(struct intel_engine_cs *engine, struct file *file)
+ }
+ 
+ struct i915_gem_context *
+-kernel_context(struct drm_i915_private *i915)
++kernel_context(struct drm_i915_private *i915,
++	       struct i915_address_space *vm)
  {
- 	struct drm_i915_private *i915 = ctx->i915;
--	struct i915_address_space *vm;
- 	int ret;
+ 	struct i915_gem_context *ctx;
+ 	struct i915_gem_proto_context *pc;
+@@ -159,6 +160,12 @@ kernel_context(struct drm_i915_private *i915)
+ 	if (IS_ERR(pc))
+ 		return ERR_CAST(pc);
  
- 	ctx->file_priv = fpriv;
++	if (vm) {
++		if (pc->vm)
++			i915_vm_put(pc->vm);
++		pc->vm = i915_vm_get(vm);
++	}
++
+ 	ctx = i915_gem_create_context(i915, pc);
+ 	proto_context_close(pc);
+ 	if (IS_ERR(ctx))
+diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_context.h b/drivers/gpu/drm/i915/gem/selftests/mock_context.h
+index 2a6121d33352d..7a02fd9b5866a 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/mock_context.h
++++ b/drivers/gpu/drm/i915/gem/selftests/mock_context.h
+@@ -10,6 +10,7 @@
+ struct file;
+ struct drm_i915_private;
+ struct intel_engine_cs;
++struct i915_address_space;
  
--	mutex_lock(&ctx->mutex);
--	vm = i915_gem_context_vm(ctx);
--	if (vm)
--		WRITE_ONCE(vm->file, fpriv); /* XXX */
--	mutex_unlock(&ctx->mutex);
--
- 	ctx->pid = get_task_pid(current, PIDTYPE_PID);
- 	snprintf(ctx->name, sizeof(ctx->name), "%s[%d]",
- 		 current->comm, pid_nr(ctx->pid));
-@@ -1562,8 +1555,6 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
- 	if (IS_ERR(ppgtt))
- 		return PTR_ERR(ppgtt);
+ void mock_init_contexts(struct drm_i915_private *i915);
  
--	ppgtt->vm.file = file_priv;
--
- 	if (args->extensions) {
- 		err = i915_user_extensions(u64_to_user_ptr(args->extensions),
- 					   NULL, 0,
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index edea95b97c36e..474eae483ab0e 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -140,7 +140,6 @@ typedef u64 gen8_pte_t;
+@@ -25,7 +26,8 @@ live_context(struct drm_i915_private *i915, struct file *file);
+ struct i915_gem_context *
+ live_context_for_engine(struct intel_engine_cs *engine, struct file *file);
  
- enum i915_cache_level;
+-struct i915_gem_context *kernel_context(struct drm_i915_private *i915);
++struct i915_gem_context *kernel_context(struct drm_i915_private *i915,
++					struct i915_address_space *vm);
+ void kernel_context_close(struct i915_gem_context *ctx);
  
--struct drm_i915_file_private;
- struct drm_i915_gem_object;
- struct i915_fence_reg;
- struct i915_vma;
-@@ -220,16 +219,6 @@ struct i915_address_space {
- 	struct intel_gt *gt;
- 	struct drm_i915_private *i915;
- 	struct device *dma;
--	/*
--	 * Every address space belongs to a struct file - except for the global
--	 * GTT that is owned by the driver (and so @file is set to NULL). In
--	 * principle, no information should leak from one context to another
--	 * (or between files/processes etc) unless explicitly shared by the
--	 * owner. Tracking the owner is important in order to free up per-file
--	 * objects along with the file, to aide resource tracking, and to
--	 * assign blame.
--	 */
--	struct drm_i915_file_private *file;
- 	u64 total;		/* size addr space maps (ex. 2GB for ggtt) */
- 	u64 reserved;		/* size addr space reserved */
+ #endif /* !__MOCK_CONTEXT_H */
+diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+index 780939005554f..5eedb9b2e08f3 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
++++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+@@ -1522,12 +1522,12 @@ static int live_busywait_preempt(void *arg)
+ 	 * preempt the busywaits used to synchronise between rings.
+ 	 */
  
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gtt.c b/drivers/gpu/drm/i915/selftests/mock_gtt.c
-index 5c7ae40bba634..cc047ec594f93 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gtt.c
-@@ -73,7 +73,6 @@ struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name)
- 	ppgtt->vm.gt = &i915->gt;
- 	ppgtt->vm.i915 = i915;
- 	ppgtt->vm.total = round_down(U64_MAX, PAGE_SIZE);
--	ppgtt->vm.file = ERR_PTR(-ENODEV);
- 	ppgtt->vm.dma = i915->drm.dev;
+-	ctx_hi = kernel_context(gt->i915);
++	ctx_hi = kernel_context(gt->i915, NULL);
+ 	if (!ctx_hi)
+ 		return -ENOMEM;
+ 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
  
- 	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
+-	ctx_lo = kernel_context(gt->i915);
++	ctx_lo = kernel_context(gt->i915, NULL);
+ 	if (!ctx_lo)
+ 		goto err_ctx_hi;
+ 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+@@ -1724,12 +1724,12 @@ static int live_preempt(void *arg)
+ 	if (igt_spinner_init(&spin_lo, gt))
+ 		goto err_spin_hi;
+ 
+-	ctx_hi = kernel_context(gt->i915);
++	ctx_hi = kernel_context(gt->i915, NULL);
+ 	if (!ctx_hi)
+ 		goto err_spin_lo;
+ 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+-	ctx_lo = kernel_context(gt->i915);
++	ctx_lo = kernel_context(gt->i915, NULL);
+ 	if (!ctx_lo)
+ 		goto err_ctx_hi;
+ 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+@@ -1816,11 +1816,11 @@ static int live_late_preempt(void *arg)
+ 	if (igt_spinner_init(&spin_lo, gt))
+ 		goto err_spin_hi;
+ 
+-	ctx_hi = kernel_context(gt->i915);
++	ctx_hi = kernel_context(gt->i915, NULL);
+ 	if (!ctx_hi)
+ 		goto err_spin_lo;
+ 
+-	ctx_lo = kernel_context(gt->i915);
++	ctx_lo = kernel_context(gt->i915, NULL);
+ 	if (!ctx_lo)
+ 		goto err_ctx_hi;
+ 
+@@ -1910,7 +1910,7 @@ struct preempt_client {
+ 
+ static int preempt_client_init(struct intel_gt *gt, struct preempt_client *c)
+ {
+-	c->ctx = kernel_context(gt->i915);
++	c->ctx = kernel_context(gt->i915, NULL);
+ 	if (!c->ctx)
+ 		return -ENOMEM;
+ 
+@@ -3367,12 +3367,12 @@ static int live_preempt_timeout(void *arg)
+ 	if (igt_spinner_init(&spin_lo, gt))
+ 		return -ENOMEM;
+ 
+-	ctx_hi = kernel_context(gt->i915);
++	ctx_hi = kernel_context(gt->i915, NULL);
+ 	if (!ctx_hi)
+ 		goto err_spin_lo;
+ 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+-	ctx_lo = kernel_context(gt->i915);
++	ctx_lo = kernel_context(gt->i915, NULL);
+ 	if (!ctx_lo)
+ 		goto err_ctx_hi;
+ 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+@@ -3659,7 +3659,7 @@ static int live_preempt_smoke(void *arg)
+ 	}
+ 
+ 	for (n = 0; n < smoke.ncontext; n++) {
+-		smoke.contexts[n] = kernel_context(smoke.gt->i915);
++		smoke.contexts[n] = kernel_context(smoke.gt->i915, NULL);
+ 		if (!smoke.contexts[n])
+ 			goto err_ctx;
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 853246fad05f6..7ec2cf22fe56c 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -42,7 +42,7 @@ static int hang_init(struct hang *h, struct intel_gt *gt)
+ 	memset(h, 0, sizeof(*h));
+ 	h->gt = gt;
+ 
+-	h->ctx = kernel_context(gt->i915);
++	h->ctx = kernel_context(gt->i915, NULL);
+ 	if (IS_ERR(h->ctx))
+ 		return PTR_ERR(h->ctx);
+ 
 -- 
 2.31.1
 
