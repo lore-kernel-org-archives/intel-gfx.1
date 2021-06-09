@@ -2,73 +2,73 @@ Return-Path: <SRS0=iOfG=LD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A723C48BDF
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C71C0C48BCF
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F344613BD
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F344613BD
+	by mail.kernel.org (Postfix) with ESMTPS id 9A431613BD
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:45:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A431613BD
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1F036EAAD;
-	Wed,  9 Jun 2021 17:44:56 +0000 (UTC)
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [IPv6:2607:f8b0:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFD36EAC7
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:44:54 +0000 (UTC)
-Received: by mail-pl1-x62b.google.com with SMTP id v11so4482265ply.6
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:44:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B50126EACA;
+	Wed,  9 Jun 2021 17:44:59 +0000 (UTC)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8B876EAD2
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:44:57 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id n12so20101699pgs.13
+ for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:44:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=1c+Vf/fISSF1ShrETNnLZxD8aoMkPfO5q/h6Uf6iE2A=;
- b=KcAC1HvHgBSrp3FWltzBXQm2bNEtlT2Ch/duQvoYZ3UneVoH4J/NJ0sdA9/z7qBpNO
- p8jyvqv6t+Cjf5S8wereWd9AYqUgGMP+pAp7mMuJTExdNjXDvaoTc13ign/SdYhrs11U
- 229pQfGjJpeWyxlvf8TyHjJfvMLrYYCav268kRtpM7DNiyYX4vqM7QZPqz6vtz1DHMnV
- lK6eUmT4MagoFMx7aF0vF+tHhbB//u+UbklHFlbRyY8YRCSqVWm6pWzlXBq91j1tHYs8
- Imbe7lCaaH3tzp/rBYlfIY5/YFCbubtgVWNG2iX2EZ5nTeY97NOYqGfWdaXTpilWRvvc
- 5f2g==
+ bh=/MxEGwIIKD5mMqGy5bstKJNNe9nNe4pOifXOqautl+c=;
+ b=oOmodPJy9bMoPFh8GiArhk3KjeXNK2yUAYMxOoa04qdhRrBWmpHRulhNPepqaScQ5E
+ IOy48hkNKqCdDDPYv8y77GrHhWDDeSZbxHZ3UPLFuR4xzCKhjoGf8sNO1unXtljsFl9M
+ tC+hGy140M+f+Xyorg5ki6rK6onfW6sUhZWOKe2xnXnjrF3V3vMU/uCGSnR7amtUIz8o
+ JBFXbbvvXh1We0hLtKDNE72wYTgk93BXHncmgz73IlpHAIhrWe/AAlPdUMe0qR/XWqGH
+ BVmeGO0fNq0/C8Vqfvs3peJtNoaJPwlguzmfxXNwt5tTGL7mkKHFn/oMsO941p5NJfgI
+ Ipcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=1c+Vf/fISSF1ShrETNnLZxD8aoMkPfO5q/h6Uf6iE2A=;
- b=M5Gk1EA+gdNdJkZMC5sG8OfdueaHzckpf5o5F6EMkan2MWtckj+ZEiReTWtzy5BFkZ
- 6kMF3nf3l8zdS5QsK+hpokfmgqsSOUJG5BQTnNjAfeIpR4st5wvqvzosY3FEokPUVKLr
- 4dZXq6kFOsDDWjUv9xBVRyJa5QnQ6s2dVvdkjNwUKll5RiCQ2zN3kuaNJrzPYMrOHBbK
- dbmYo0ALo+esaScWJ/O6BXuDkTmGoZdpn3Z3SNjbPXzci32B6EJ0AMo1d0ffaCTPHzOi
- i6iI64mSTZhlFrbQcLfeipubg0gRkMOLpDmqKLnXA7bFOpz8hdPpsvOFM0Rjew4rX3R1
- gZrQ==
-X-Gm-Message-State: AOAM530pf4RmNcMKWRoEI282Wf3cPVNiTuGJa95SGMBdq4Vj72r7yfwM
- CBVmKkgSzgKIknODKHc0voxJ7w==
-X-Google-Smtp-Source: ABdhPJyantoZX+oENZqsa6w3dfoir360i00HC2gNs23TjxDAILiwTB153zqzNo/bV4mIaHgAGz7m/A==
-X-Received: by 2002:a17:903:22c6:b029:107:6048:ee4c with SMTP id
- y6-20020a17090322c6b02901076048ee4cmr804954plg.79.1623260694032; 
- Wed, 09 Jun 2021 10:44:54 -0700 (PDT)
+ bh=/MxEGwIIKD5mMqGy5bstKJNNe9nNe4pOifXOqautl+c=;
+ b=oRZtHiiDV0i27LN6VbDHOMGFvUCYzzqnbRrpb3Y7xC0P8dvVsQzbDybnr1b1Jg4nsk
+ NchgPwgjBsdybRvwNbTAlfIYD1QXSs76eAVtCI1P42TFJvA9guIjqXcXhjOu+iI0Ej4V
+ kFB8lXkVEPUydipo31glRUGxOiQlcmpBpbyMH4VnPheXkgicm69/17cwyYydQtHydz3V
+ blEhllYvMV0s6N7OTPeY5jL2+6Gt3S5inDFWbr6H7p+HJ0vWkxnEJURNbe6In7xWRzSv
+ JJqSA9naHeHx6Qc9EvPFrfRHSiY394+e7vyEntmO52fNUGW8Eph/r5wbJLGHC/av4AIZ
+ pmOw==
+X-Gm-Message-State: AOAM532yD0EL958PyLJ+QN5SzPEAsEJyWIffJGGUuCimDyOHVlQxIVUT
+ iuOrUWIWdoHd6rthKjn5LgLB+w==
+X-Google-Smtp-Source: ABdhPJxh6o8pGZtBPv7KBroeZLV7FyRKXWcFREqeltEdqbDOFZtmYF7LAo1zl8ZD8/T2LOUJZ9iCEA==
+X-Received: by 2002:aa7:998f:0:b029:2ec:9844:a549 with SMTP id
+ k15-20020aa7998f0000b02902ec9844a549mr916037pfh.65.1623260697396; 
+ Wed, 09 Jun 2021 10:44:57 -0700 (PDT)
 Received: from omlet.lan (jfdmzpr04-ext.jf.intel.com. [134.134.137.73])
- by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.44.52
+ by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.44.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jun 2021 10:44:53 -0700 (PDT)
+ Wed, 09 Jun 2021 10:44:56 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Jun 2021 12:44:05 -0500
-Message-Id: <20210609174418.249585-19-jason@jlekstrand.net>
+Date: Wed,  9 Jun 2021 12:44:07 -0500
+Message-Id: <20210609174418.249585-21-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210609174418.249585-1-jason@jlekstrand.net>
 References: <20210609174418.249585-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 18/31] drm/i915/gem: Optionally set SSEU in
- intel_context_set_gem
+Subject: [Intel-gfx] [PATCH 20/31] drm/i915/gem: Make an alignment check
+ more sensible
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,187 +87,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For now this is a no-op because everyone passes in a null SSEU but it
-lets us get some of the error handling and selftest refactoring plumbed
-through.
+What we really want to check is that size of the engines array, i.e.
+args->size - sizeof(*user) is divisible by the element size, i.e.
+sizeof(*user->engines) because that's what's required for computing the
+array length right below the check.  However, we're currently not doing
+this and instead doing a compile-time check that sizeof(*user) is
+divisible by sizeof(*user->engines) and avoiding the subtraction.  As
+far as I can tell, the only reason for the more confusing pair of checks
+is to avoid a single subtraction of a constant.
+
+The other thing the BUILD_BUG_ON might be trying to implicitly check is
+that offsetof(user->engines) == sizeof(*user) and we don't have any
+weird padding throwing us off.  However, that's not the check it's doing
+and it's not even a reliable way to do that check.
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 41 +++++++++++++++----
- .../gpu/drm/i915/gem/selftests/mock_context.c |  6 ++-
- 2 files changed, 36 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 93579fa0324d1..e62482477c771 100644
+index 8e7c0e3f070ed..c9bae1a1726e1 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -307,9 +307,12 @@ context_get_vm_rcu(struct i915_gem_context *ctx)
- 	} while (1);
- }
- 
--static void intel_context_set_gem(struct intel_context *ce,
--				  struct i915_gem_context *ctx)
-+static int intel_context_set_gem(struct intel_context *ce,
-+				 struct i915_gem_context *ctx,
-+				 struct intel_sseu sseu)
- {
-+	int ret = 0;
-+
- 	GEM_BUG_ON(rcu_access_pointer(ce->gem_context));
- 	RCU_INIT_POINTER(ce->gem_context, ctx);
- 
-@@ -336,6 +339,12 @@ static void intel_context_set_gem(struct intel_context *ce,
- 
- 		intel_context_set_watchdog_us(ce, (u64)timeout_ms * 1000);
- 	}
-+
-+	/* A valid SSEU has no zero fields */
-+	if (sseu.slice_mask && !WARN_ON(ce->engine->class != RENDER_CLASS))
-+		ret = intel_context_reconfigure_sseu(ce, sseu);
-+
-+	return ret;
- }
- 
- static void __free_engines(struct i915_gem_engines *e, unsigned int count)
-@@ -403,7 +412,8 @@ static struct i915_gem_engines *alloc_engines(unsigned int count)
- 	return e;
- }
- 
--static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx)
-+static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx,
-+						struct intel_sseu rcs_sseu)
- {
- 	const struct intel_gt *gt = &ctx->i915->gt;
- 	struct intel_engine_cs *engine;
-@@ -416,6 +426,8 @@ static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx)
- 
- 	for_each_engine(engine, gt, id) {
- 		struct intel_context *ce;
-+		struct intel_sseu sseu = {};
-+		int ret;
- 
- 		if (engine->legacy_idx == INVALID_ENGINE)
- 			continue;
-@@ -429,10 +441,18 @@ static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx)
- 			goto free_engines;
- 		}
- 
--		intel_context_set_gem(ce, ctx);
--
- 		e->engines[engine->legacy_idx] = ce;
- 		e->num_engines = max(e->num_engines, engine->legacy_idx + 1);
-+
-+		if (engine->class == RENDER_CLASS)
-+			sseu = rcs_sseu;
-+
-+		ret = intel_context_set_gem(ce, ctx, sseu);
-+		if (ret) {
-+			err = ERR_PTR(ret);
-+			goto free_engines;
-+		}
-+
+@@ -1764,9 +1764,8 @@ set_engines(struct i915_gem_context *ctx,
+ 		goto replace;
  	}
  
- 	return e;
-@@ -746,6 +766,7 @@ __create_context(struct drm_i915_private *i915,
- {
- 	struct i915_gem_context *ctx;
- 	struct i915_gem_engines *e;
-+	struct intel_sseu null_sseu = {};
- 	int err;
- 	int i;
- 
-@@ -763,7 +784,7 @@ __create_context(struct drm_i915_private *i915,
- 	INIT_LIST_HEAD(&ctx->stale.engines);
- 
- 	mutex_init(&ctx->engines_mutex);
--	e = default_engines(ctx);
-+	e = default_engines(ctx, null_sseu);
- 	if (IS_ERR(e)) {
- 		err = PTR_ERR(e);
- 		goto err_free;
-@@ -1549,6 +1570,7 @@ set_engines__load_balance(struct i915_user_extension __user *base, void *data)
- 	struct intel_engine_cs *stack[16];
- 	struct intel_engine_cs **siblings;
- 	struct intel_context *ce;
-+	struct intel_sseu null_sseu = {};
- 	u16 num_siblings, idx;
- 	unsigned int n;
- 	int err;
-@@ -1621,7 +1643,7 @@ set_engines__load_balance(struct i915_user_extension __user *base, void *data)
- 		goto out_siblings;
- 	}
- 
--	intel_context_set_gem(ce, set->ctx);
-+	intel_context_set_gem(ce, set->ctx, null_sseu);
- 
- 	if (cmpxchg(&set->engines->engines[idx], NULL, ce)) {
- 		intel_context_put(ce);
-@@ -1729,6 +1751,7 @@ set_engines(struct i915_gem_context *ctx,
- 	struct drm_i915_private *i915 = ctx->i915;
- 	struct i915_context_param_engines __user *user =
- 		u64_to_user_ptr(args->value);
-+	struct intel_sseu null_sseu = {};
- 	struct set_engines set = { .ctx = ctx };
- 	unsigned int num_engines, n;
- 	u64 extensions;
-@@ -1738,7 +1761,7 @@ set_engines(struct i915_gem_context *ctx,
- 		if (!i915_gem_context_user_engines(ctx))
- 			return 0;
- 
--		set.engines = default_engines(ctx);
-+		set.engines = default_engines(ctx, null_sseu);
- 		if (IS_ERR(set.engines))
- 			return PTR_ERR(set.engines);
- 
-@@ -1795,7 +1818,7 @@ set_engines(struct i915_gem_context *ctx,
- 			return PTR_ERR(ce);
- 		}
- 
--		intel_context_set_gem(ce, ctx);
-+		intel_context_set_gem(ce, ctx, null_sseu);
- 
- 		set.engines->engines[n] = ce;
- 	}
-diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_context.c b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-index e0f512ef7f3c6..cbeefd060e97b 100644
---- a/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-@@ -14,6 +14,7 @@ mock_context(struct drm_i915_private *i915,
- {
- 	struct i915_gem_context *ctx;
- 	struct i915_gem_engines *e;
-+	struct intel_sseu null_sseu = {};
- 
- 	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
- 	if (!ctx)
-@@ -31,7 +32,7 @@ mock_context(struct drm_i915_private *i915,
- 	i915_gem_context_set_persistence(ctx);
- 
- 	mutex_init(&ctx->engines_mutex);
--	e = default_engines(ctx);
-+	e = default_engines(ctx, null_sseu);
- 	if (IS_ERR(e))
- 		goto err_free;
- 	RCU_INIT_POINTER(ctx->engines, e);
-@@ -112,6 +113,7 @@ live_context_for_engine(struct intel_engine_cs *engine, struct file *file)
- {
- 	struct i915_gem_engines *engines;
- 	struct i915_gem_context *ctx;
-+	struct intel_sseu null_sseu = {};
- 	struct intel_context *ce;
- 
- 	engines = alloc_engines(1);
-@@ -130,7 +132,7 @@ live_context_for_engine(struct intel_engine_cs *engine, struct file *file)
- 		return ERR_CAST(ce);
- 	}
- 
--	intel_context_set_gem(ce, ctx);
-+	intel_context_set_gem(ce, ctx, null_sseu);
- 	engines->engines[0] = ce;
- 	engines->num_engines = 1;
- 
+-	BUILD_BUG_ON(!IS_ALIGNED(sizeof(*user), sizeof(*user->engines)));
+ 	if (args->size < sizeof(*user) ||
+-	    !IS_ALIGNED(args->size, sizeof(*user->engines))) {
++	    !IS_ALIGNED(args->size -  sizeof(*user), sizeof(*user->engines))) {
+ 		drm_dbg(&i915->drm, "Invalid size for engine array: %d\n",
+ 			args->size);
+ 		return -EINVAL;
 -- 
 2.31.1
 
