@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72ED3C48BCD
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:44:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC5E9C48BD1
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 489DB6128A
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 489DB6128A
+	by mail.kernel.org (Postfix) with ESMTPS id 8AB036128A
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 17:44:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8AB036128A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE7FE6EA55;
-	Wed,  9 Jun 2021 17:44:40 +0000 (UTC)
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7A2B6EA8E
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:44:35 +0000 (UTC)
-Received: by mail-pf1-x42f.google.com with SMTP id d16so18956040pfn.12
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:44:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0BE86EA9F;
+	Wed,  9 Jun 2021 17:44:42 +0000 (UTC)
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2829B6EAA3
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 17:44:41 +0000 (UTC)
+Received: by mail-pf1-x432.google.com with SMTP id c12so19014066pfl.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 09 Jun 2021 10:44:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=H0k+Hrkl0SFr4/YdLdKVO5hMJhlk3oeGPIHfbfiUluU=;
- b=DnAb0f5OMF1vcNN+RjNZupJfIi9WVvBFhviDyyJcAOGivSQHufeC/9Quzrb9wmFyKT
- 01Ta3MtnaKI0gTPOb/42oG4yrpku4MMo1LafGUtIE/mnUhF4YAAwTAnu50fqu98tYWv4
- ypTOgum5Und7oppfPZ6Z9usE4dAnY0IrxXyx88DNIk9xwyG2kVzB2U3dB1cpHTMvmSrJ
- W/VfJt/Jr//AQGZPFdlzCRYI9mWeAmaHLOlbY5WQClgCCKelqqwWPKMSZQZIa57d6HBP
- S9cmZFBaQrzfYPhm+0lmog68kw1Vz1Ybv5Cr1OKlsIfafLeQy5VeUpWmu/i7qRJ/W5+v
- W7oQ==
+ bh=sg/RDSIpH9ANRtVdKJYWolhXQFuO7nZkkGIGEry1Wg0=;
+ b=LYeXGr3EqvxlS+o+XCXon3IrGbE6Bsy7psfBFm0PytqkZa6/TM2BwPgsc0pSn6M/9G
+ KW6UXpgflYkshAnrvLt7WTxy9ygkE3AvQippP7QMPPyyFkcmcycrkIxO4yz8+JHeHlAH
+ TuJqVUu8XEiEea35lFe8aKlT6DLCqLu71bAYmCzOFDJoZsIqzDrcWzhpfPVhU/Lrzwoz
+ PUHMbFkRqv2gW2y46PaK1V2J3AIUgzc/ndYnvA6LUq+VRpAZ3ZxduD01PtHN1nUbr6+X
+ N6EDgkxJfOhWV/LacTgCaYg37LsO2kZCZLwPJI+WtJuA0HByqMEmWpO4O6M0QosSj6F3
+ km0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=H0k+Hrkl0SFr4/YdLdKVO5hMJhlk3oeGPIHfbfiUluU=;
- b=Kp3djRwqn625oIzpbktwqzyhGwApy3XxRsFaAOAQFQFK2zVHpWqBfjXeyLi/9j/pOr
- 6IRE9dbtloEHrmJ54xkG+CZZFNydyuJe87gWclowXPPpy76RsAoQMcm7zJxf129vN9FX
- vAphOOLqm+IUsg3DzSz8HSZNjxs9y5531rMejy8DMUOx4zH5TC5oRlWeeh4V8CERUKgv
- 013d0mSpIAeK0sxiz6dD8h9d1aq0vhCtMSjFQnbokoPje8x9mNfna2ft0M45khH/Bsho
- Ivlp7rXqwoj2e5xW8ZJKoPbvSCGY2MwwiX9UqSNUpbqys+ekqMhOYEXTMWy17M+GQ/Wz
- 6uWQ==
-X-Gm-Message-State: AOAM531fd1QV2gebYQdOXvzYA0/Ro/wGiBxzjegjd+CllgM4ftwvsRby
- +qBdyhna7DCA8asUBI+MaTmxKQ==
-X-Google-Smtp-Source: ABdhPJyGersUOvy8qPhDyKpwd4A/ndGn2UnTlVA18AZ0TIvX00yLvfhv37j75fFtdgBpfV5E6BofWw==
-X-Received: by 2002:aa7:82cb:0:b029:2e6:f397:d248 with SMTP id
- f11-20020aa782cb0000b02902e6f397d248mr923039pfn.52.1623260675440; 
- Wed, 09 Jun 2021 10:44:35 -0700 (PDT)
+ bh=sg/RDSIpH9ANRtVdKJYWolhXQFuO7nZkkGIGEry1Wg0=;
+ b=pG36QF5GPNnkMRvBqIKIUpDcjUA3pHA8tdmasp8XuuweRR+ArIR0pGHMtWIOKYmQyV
+ Al4ioR4at9c+TN5LNcfEs9SQT8AjfY9wsWSV/u6BXMUCOvqRQwK2GLIi2v+FO/yFG9fF
+ KC6STBpbRR2/TuuFGzAdQNvk6I2UZdhLE+toktzDgjf7wBUsLDxTXbQFzBGL0PB2h87d
+ XYAyhd2u0y2H7ZgdYrckTRiNWv0dXgbOXKu5YTsVqaQgGD77u7gNYwfFFBeddseGVouo
+ 2bHB+sZLsKm++2vKtzbE+ZXxW9pj0plq1xrhX1FUK9y0BFzmwGMIlEUd/vAfxhScE1h1
+ X+bQ==
+X-Gm-Message-State: AOAM532xxhYXqYrZMh1oO6Gv/lZCzcg0JoTw354JFjzWcpDGqjVVZMe+
+ hmULemq6Ss1kyuXUMrXDUx4Htg==
+X-Google-Smtp-Source: ABdhPJz5RHGRNgJR2UUD6BUOc+yJ5MEGqX/AMXHGhr04ShXpiKng1UII7YgajacYES73ifTlogs7sA==
+X-Received: by 2002:a63:ed4d:: with SMTP id m13mr794514pgk.433.1623260680708; 
+ Wed, 09 Jun 2021 10:44:40 -0700 (PDT)
 Received: from omlet.lan (jfdmzpr04-ext.jf.intel.com. [134.134.137.73])
- by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.44.34
+ by smtp.gmail.com with ESMTPSA id b10sm208619pfi.122.2021.06.09.10.44.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jun 2021 10:44:35 -0700 (PDT)
+ Wed, 09 Jun 2021 10:44:40 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Jun 2021 12:43:54 -0500
-Message-Id: <20210609174418.249585-8-jason@jlekstrand.net>
+Date: Wed,  9 Jun 2021 12:43:57 -0500
+Message-Id: <20210609174418.249585-11-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210609174418.249585-1-jason@jlekstrand.net>
 References: <20210609174418.249585-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/31] drm/i915: Implement SINGLE_TIMELINE with
- a syncobj (v4)
+Subject: [Intel-gfx] [PATCH 10/31] drm/i915/gem: Remove engine auto-magic
+ with FENCE_SUBMIT (v2)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,218 +86,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This API is entirely unnecessary and I'd love to get rid of it.  If
-userspace wants a single timeline across multiple contexts, they can
-either use implicit synchronization or a syncobj, both of which existed
-at the time this feature landed.  The justification given at the time
-was that it would help GL drivers which are inherently single-timeline.
-However, neither of our GL drivers actually wanted the feature.  i965
-was already in maintenance mode at the time and iris uses syncobj for
-everything.
+Even though FENCE_SUBMIT is only documented to wait until the request in
+the in-fence starts instead of waiting until it completes, it has a bit
+more magic than that.  If FENCE_SUBMIT is used to submit something to a
+balanced engine, we would wait to assign engines until the primary
+request was ready to start and then attempt to assign it to a different
+engine than the primary.  There is an IGT test (the bonded-slice subtest
+of gem_exec_balancer) which exercises this by submitting a primary batch
+to a specific VCS and then using FENCE_SUBMIT to submit a secondary
+which can run on any VCS and have i915 figure out which VCS to run it on
+such that they can run in parallel.
 
-Unfortunately, as much as I'd love to get rid of it, it is used by the
-media driver so we can't do that.  We can, however, do the next-best
-thing which is to embed a syncobj in the context and do exactly what
-we'd expect from userspace internally.  This isn't an entirely identical
-implementation because it's no longer atomic if userspace races with
-itself by calling execbuffer2 twice simultaneously from different
-threads.  It won't crash in that case; it just doesn't guarantee any
-ordering between those two submits.  It also means that sync files
-exported from different engines on a SINGLE_TIMELINE context will have
-different fence contexts.  This is visible to userspace if it looks at
-the obj_name field of sync_fence_info.
+However, this functionality has never been used in the real world.  The
+media driver (the only user of FENCE_SUBMIT) always picks exactly two
+physical engines to bond and never asks us to pick which to use.
 
-Moving SINGLE_TIMELINE to a syncobj emulation has a couple of technical
-advantages beyond mere annoyance.  One is that intel_timeline is no
-longer an api-visible object and can remain entirely an implementation
-detail.  This may be advantageous as we make scheduler changes going
-forward.  Second is that, together with deleting the CLONE_CONTEXT API,
-we should now have a 1:1 mapping between intel_context and
-intel_timeline which may help us reduce locking.
-
-v2 (Tvrtko Ursulin):
- - Update the comment on i915_gem_context::syncobj to mention that it's
-   an emulation and the possible race if userspace calls execbuffer2
-   twice on the same context concurrently.
-v2 (Jason Ekstrand):
- - Wrap the checks for eb.gem_context->syncobj in unlikely()
- - Drop the dma_fence reference
- - Improved commit message
-
-v3 (Jason Ekstrand):
- - Move the dma_fence_put() to before the error exit
-
-v4 (Tvrtko Ursulin):
- - Add a comment about fence contexts to the commit message
+v2 (Daniel Vetter):
+ - Mention the exact IGT test this breaks
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 49 +++++--------------
- .../gpu/drm/i915/gem/i915_gem_context_types.h | 14 +++++-
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 16 ++++++
- 3 files changed, 40 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c  |  2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h    |  7 -------
+ .../drm/i915/gt/intel_execlists_submission.c    | 17 -----------------
+ 3 files changed, 1 insertion(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 9f9369d3c0004..249bd36f14019 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -67,6 +67,8 @@
- #include <linux/log2.h>
- #include <linux/nospec.h>
- 
-+#include <drm/drm_syncobj.h>
-+
- #include "gt/gen6_ppgtt.h"
- #include "gt/intel_context.h"
- #include "gt/intel_context_param.h"
-@@ -224,10 +226,6 @@ static void intel_context_set_gem(struct intel_context *ce,
- 		ce->vm = vm;
- 	}
- 
--	GEM_BUG_ON(ce->timeline);
--	if (ctx->timeline)
--		ce->timeline = intel_timeline_get(ctx->timeline);
--
- 	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
- 	    intel_engine_has_timeslices(ce->engine))
- 		__set_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
-@@ -351,9 +349,6 @@ void i915_gem_context_release(struct kref *ref)
- 	mutex_destroy(&ctx->engines_mutex);
- 	mutex_destroy(&ctx->lut_mutex);
- 
--	if (ctx->timeline)
--		intel_timeline_put(ctx->timeline);
--
- 	put_pid(ctx->pid);
- 	mutex_destroy(&ctx->mutex);
- 
-@@ -570,6 +565,9 @@ static void context_close(struct i915_gem_context *ctx)
- 	if (vm)
- 		i915_vm_close(vm);
- 
-+	if (ctx->syncobj)
-+		drm_syncobj_put(ctx->syncobj);
-+
- 	ctx->file_priv = ERR_PTR(-EBADF);
- 
- 	/*
-@@ -765,33 +763,11 @@ static void __assign_ppgtt(struct i915_gem_context *ctx,
- 		i915_vm_close(vm);
- }
- 
--static void __set_timeline(struct intel_timeline **dst,
--			   struct intel_timeline *src)
--{
--	struct intel_timeline *old = *dst;
--
--	*dst = src ? intel_timeline_get(src) : NULL;
--
--	if (old)
--		intel_timeline_put(old);
--}
--
--static void __apply_timeline(struct intel_context *ce, void *timeline)
--{
--	__set_timeline(&ce->timeline, timeline);
--}
--
--static void __assign_timeline(struct i915_gem_context *ctx,
--			      struct intel_timeline *timeline)
--{
--	__set_timeline(&ctx->timeline, timeline);
--	context_apply_all(ctx, __apply_timeline, timeline);
--}
--
- static struct i915_gem_context *
- i915_gem_create_context(struct drm_i915_private *i915, unsigned int flags)
- {
- 	struct i915_gem_context *ctx;
-+	int ret;
- 
- 	if (flags & I915_CONTEXT_CREATE_FLAGS_SINGLE_TIMELINE &&
- 	    !HAS_EXECLISTS(i915))
-@@ -820,16 +796,13 @@ i915_gem_create_context(struct drm_i915_private *i915, unsigned int flags)
- 	}
- 
- 	if (flags & I915_CONTEXT_CREATE_FLAGS_SINGLE_TIMELINE) {
--		struct intel_timeline *timeline;
--
--		timeline = intel_timeline_create(&i915->gt);
--		if (IS_ERR(timeline)) {
-+		ret = drm_syncobj_create(&ctx->syncobj,
-+					 DRM_SYNCOBJ_CREATE_SIGNALED,
-+					 NULL);
-+		if (ret) {
- 			context_close(ctx);
--			return ERR_CAST(timeline);
-+			return ERR_PTR(ret);
- 		}
--
--		__assign_timeline(ctx, timeline);
--		intel_timeline_put(timeline);
- 	}
- 
- 	trace_i915_context_create(ctx);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index 676592e27e7d2..df76767f0c41b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -83,7 +83,19 @@ struct i915_gem_context {
- 	struct i915_gem_engines __rcu *engines;
- 	struct mutex engines_mutex; /* guards writes to engines */
- 
--	struct intel_timeline *timeline;
-+	/**
-+	 * @syncobj: Shared timeline syncobj
-+	 *
-+	 * When the SHARED_TIMELINE flag is set on context creation, we
-+	 * emulate a single timeline across all engines using this syncobj.
-+	 * For every execbuffer2 call, this syncobj is used as both an in-
-+	 * and out-fence.  Unlike the real intel_timeline, this doesn't
-+	 * provide perfect atomic in-order guarantees if the client races
-+	 * with itself by calling execbuffer2 twice concurrently.  However,
-+	 * if userspace races with itself, that's not likely to yield well-
-+	 * defined results anyway so we choose to not care.
-+	 */
-+	struct drm_syncobj *syncobj;
- 
- 	/**
- 	 * @vm: unique address space (GTT)
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 19a453bb170a1..a6a3b67aa0019 100644
+index a6a3b67aa0019..88e7cbf8fc5f8 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -3460,6 +3460,16 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 		goto err_vma;
- 	}
- 
-+	if (unlikely(eb.gem_context->syncobj)) {
-+		struct dma_fence *fence;
-+
-+		fence = drm_syncobj_fence_get(eb.gem_context->syncobj);
-+		err = i915_request_await_dma_fence(eb.request, fence);
-+		dma_fence_put(fence);
-+		if (err)
-+			goto err_ext;
-+	}
-+
- 	if (in_fence) {
+@@ -3474,7 +3474,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
  		if (args->flags & I915_EXEC_FENCE_SUBMIT)
  			err = i915_request_await_execution(eb.request,
-@@ -3517,6 +3527,12 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 			fput(out_fence->file);
- 		}
- 	}
-+
-+	if (unlikely(eb.gem_context->syncobj)) {
-+		drm_syncobj_replace_fence(eb.gem_context->syncobj,
-+					  &eb.request->fence);
-+	}
-+
- 	i915_request_put(eb.request);
+ 							   in_fence,
+-							   eb.engine->bond_execute);
++							   NULL);
+ 		else
+ 			err = i915_request_await_dma_fence(eb.request,
+ 							   in_fence);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index e113f93b32745..eeedb2f457ae5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -447,13 +447,6 @@ struct intel_engine_cs {
+ 	 */
+ 	void		(*submit_request)(struct i915_request *rq);
  
- err_vma:
+-	/*
+-	 * Called on signaling of a SUBMIT_FENCE, passing along the signaling
+-	 * request down to the bonded pairs.
+-	 */
+-	void            (*bond_execute)(struct i915_request *rq,
+-					struct dma_fence *signal);
+-
+ 	/*
+ 	 * Call when the priority on a request has changed and it and its
+ 	 * dependencies may need rescheduling. Note the request itself may
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 38fe91205c77d..01e77ba397372 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -3587,22 +3587,6 @@ static void virtual_submit_request(struct i915_request *rq)
+ 	spin_unlock_irqrestore(&ve->base.active.lock, flags);
+ }
+ 
+-static void
+-virtual_bond_execute(struct i915_request *rq, struct dma_fence *signal)
+-{
+-	intel_engine_mask_t allowed, exec;
+-
+-	allowed = ~to_request(signal)->engine->mask;
+-
+-	/* Restrict the bonded request to run on only the available engines */
+-	exec = READ_ONCE(rq->execution_mask);
+-	while (!try_cmpxchg(&rq->execution_mask, &exec, exec & allowed))
+-		;
+-
+-	/* Prevent the master from being re-run on the bonded engines */
+-	to_request(signal)->execution_mask &= ~allowed;
+-}
+-
+ struct intel_context *
+ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
+ 			       unsigned int count)
+@@ -3656,7 +3640,6 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
+ 
+ 	ve->base.schedule = i915_schedule;
+ 	ve->base.submit_request = virtual_submit_request;
+-	ve->base.bond_execute = virtual_bond_execute;
+ 
+ 	INIT_LIST_HEAD(virtual_queue(ve));
+ 	ve->base.execlists.queue_priority_hint = INT_MIN;
 -- 
 2.31.1
 
