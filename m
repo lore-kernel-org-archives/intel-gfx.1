@@ -7,69 +7,68 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A18DCC48BD1
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 04:37:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17120C48BE5
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 04:37:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 75DC36008E
+	by mail.kernel.org (Postfix) with ESMTPS id E3F366008E
 	for <intel-gfx@archiver.kernel.org>; Wed,  9 Jun 2021 04:37:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75DC36008E
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3F366008E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 024826ECC5;
-	Wed,  9 Jun 2021 04:37:12 +0000 (UTC)
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [IPv6:2607:f8b0:4864:20::1029])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FC4B6ECDF
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 04:37:09 +0000 (UTC)
-Received: by mail-pj1-x1029.google.com with SMTP id
- m13-20020a17090b068db02901656cc93a75so643971pjz.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 08 Jun 2021 21:37:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF686ECCB;
+	Wed,  9 Jun 2021 04:37:14 +0000 (UTC)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD696ECCB
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Jun 2021 04:37:12 +0000 (UTC)
+Received: by mail-pf1-x42f.google.com with SMTP id s14so16553956pfd.9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 08 Jun 2021 21:37:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=6vd4HrjqLsgBU80FzHWd/G9MkReVAnbCbdgJ5zbQrXI=;
- b=vWNhcZPCd5EnmAufP3CGAdJmDfQ8zsi3+1EfPxpF6AjwyvKFFlNr95BQjKa8oD1m7d
- WcCh4cOx/3R7p/cRUvqJMPVqip8xBajODo11CJGXM8+WK/fyAO+Uy4YE7jHqzDrYjOqt
- bYnK/ffHGQhQ22zBOAxrSJcd3gqpEb+o4iNx/gvFIgOe3aZ8+QARr+BRYPxCBAbq+Ti9
- x1yxcnONi9INai5dodFcKPEzl2YuyZytZE5Nol4cFohememr+d2XPB1VLREhLEGzpsxt
- 1T0iB4iduo9LyAbJX17tipYnRm0JLZGuZKbZ4PABtaBP7kV81Fsm1fzVjca99dg7Id7Z
- lDJQ==
+ bh=cgJesVcbjdz3Zul6YjwKP5n8kOkFD3vYWxtYFD7UMWk=;
+ b=oh/7qT9pEAByMDr3ey7DWvsrcL3/fGvjE0mO4RH0UZht5TwPTOZTGkJQcwQLplrT5j
+ SDxWCG1N1ua36+RGUnpnIneVlhLM/yFJElEiYlMZBTdeZ300MEg0St8xbpIJX8TqgZ9s
+ SSWIUS/CljOMnp8cgtrx7yeFjzLKFjGsATUa+5q+y3a3B9XCe6soAdHrry95iYyqlgTs
+ niNDBjv0K2Yx4EQYGjANphFLzGVYpdeLEU9aX85UjwnNpj4+4hjJWw6pBwfZtZ/VMhMd
+ d8/eqRToAi+0uQcTlZigyQbeDp67/HBFRe7OyRYmDj8mJmxbbIZ/YO7jlhBdnHKd254j
+ K1yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=6vd4HrjqLsgBU80FzHWd/G9MkReVAnbCbdgJ5zbQrXI=;
- b=TCzSg5a3uwWKD2dIprsed5if14gd6i72Qm5Lz1CpxcF/izU/eM93IOCjQujK8TQcFb
- nrGaqrXJGGw/K4MUF1m4Y4gTbqpLYA6TS1ZByMiLEFEKw9Bj048G4gt1xJz7sxfzTc3E
- XyXi7snvmM8bvWMNW4IPL35puDfO7HJEtN0scNtfVtpdlLWzC6czm64qt9ExSQJ0TKqn
- IR4qrtfLODORV+bVHTVQQ2ZHMTDN7qLO7nr0k+roAOpsLt8KPmp1c39OmfnaMCEHMFLl
- RvrSHvPz8ObnVEDqNbHhsJofBE7Ce+U/Ys3Idl3jIbOLMdjkz5I+wXzcxC2dGOFXgjBm
- HHFA==
-X-Gm-Message-State: AOAM531X2WKAALtLWRS47WGfspMfMC1BrBB+Jxe3DnU2PrhNChEj/TEb
- 8RlEjbF18ZotffPFU5/frzsO4Q==
-X-Google-Smtp-Source: ABdhPJyzWcSG5xL8aoVs1wWr+2OHRxS4wzy8F7S+O3E4C5RR74tUf9zsBM4cLlQPIBtVVoOPwVOeTQ==
-X-Received: by 2002:a17:902:b497:b029:115:e287:7b55 with SMTP id
- y23-20020a170902b497b0290115e2877b55mr577650plr.79.1623213428633; 
- Tue, 08 Jun 2021 21:37:08 -0700 (PDT)
+ bh=cgJesVcbjdz3Zul6YjwKP5n8kOkFD3vYWxtYFD7UMWk=;
+ b=FiuO+7StP3AGFUJpa2Sk+aJI3HuTNo0b5RyVFtQ+moPOKUooJdgMDWevPySp/1QXf+
+ QPabrTCmZIc0H5djswnk1PQtW+am0XHi2iwF2rbUIZmHIqTesK7pDah4ITF7nGRl4M/O
+ vwXKcTGK0y21oPi3F1lrSHRQKdB6JChM36TJHv++dTu/VF67Qp9l4IbMiQNxwSs/JKqc
+ 5iyJ7+Pj+6xnxhPkxKNgEfqUVhZd7Sk34pPFoMwOTvcpL1FY3iugD5AncWmWgSkVSAX4
+ khEwQjLzHQBrjuRJDPSI8QUxlXy2boIgOHe0mIS8O98W4PhJm0P5gL4mKHyTgZfFFc42
+ 5iuQ==
+X-Gm-Message-State: AOAM530xfdFv1FuEyeMBB2uY6fG+Ke9i8OSspkI6Q6M0jmKuEF6iPSde
+ 1EyI0E8/Q7f3y596Q1Tii5Tv7Q==
+X-Google-Smtp-Source: ABdhPJxd9SWcvknKN0/rNruYqWAGQLGwjUCE75iDDmcdRCq1+XjLF3uDIBJhTIDWn/KPmC9/HNGPkw==
+X-Received: by 2002:a05:6a00:1808:b029:2f0:53eb:6645 with SMTP id
+ y8-20020a056a001808b02902f053eb6645mr3513578pfa.46.1623213431708; 
+ Tue, 08 Jun 2021 21:37:11 -0700 (PDT)
 Received: from omlet.com (jfdmzpr06-ext.jf.intel.com. [134.134.137.75])
- by smtp.gmail.com with ESMTPSA id t5sm11991612pfe.116.2021.06.08.21.37.07
+ by smtp.gmail.com with ESMTPSA id t5sm11991612pfe.116.2021.06.08.21.37.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Jun 2021 21:37:08 -0700 (PDT)
+ Tue, 08 Jun 2021 21:37:11 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Jun 2021 23:36:10 -0500
-Message-Id: <20210609043613.102962-29-jason@jlekstrand.net>
+Date: Tue,  8 Jun 2021 23:36:12 -0500
+Message-Id: <20210609043613.102962-31-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210609043613.102962-1-jason@jlekstrand.net>
 References: <20210609043613.102962-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 28/31] i915/gem/selftests: Assign the VM at
- context creation in igt_shared_ctx_exec
+Subject: [Intel-gfx] [PATCH 30/31] drm/i915: Finalize contexts in
+ GEM_CONTEXT_CREATE on version 13+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,43 +81,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We want to delete __assign_ppgtt and, generally, stop setting the VM
-after context creation.  This is the one place I could find in the
-selftests where we set a VM after the fact.
+All the proto-context stuff for context creation exists to allow older
+userspace drivers to set VMs and engine sets via SET_CONTEXT_PARAM.
+Drivers need to update to use CONTEXT_CREATE_EXT_* for this going
+forward.  Force the issue by blocking the old mechanism on any future
+hardware generations.
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 33 +++++++++++++++------
+ 1 file changed, 24 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-index 3e59746afdc82..8eb5050f8cb3e 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-@@ -813,16 +813,12 @@ static int igt_shared_ctx_exec(void *arg)
- 			struct i915_gem_context *ctx;
- 			struct intel_context *ce;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index d3c9c42dcae4d..5312142daa0c0 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1994,9 +1994,22 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
+ 			goto err_pc;
+ 	}
  
--			ctx = kernel_context(i915, NULL);
-+			ctx = kernel_context(i915, ctx_vm(parent));
- 			if (IS_ERR(ctx)) {
- 				err = PTR_ERR(ctx);
- 				goto out_test;
- 			}
+-	ret = proto_context_register(ext_data.fpriv, ext_data.pc, &id);
+-	if (ret < 0)
+-		goto err_pc;
++	if (GRAPHICS_VER(i915) > 12) {
++		struct i915_gem_context *ctx;
++
++		ctx = i915_gem_create_context(i915, ext_data.pc);
++		if (IS_ERR(ctx)) {
++			ret = PTR_ERR(ctx);
++			goto err_pc;
++		}
++
++		proto_context_close(ext_data.pc);
++		gem_context_register(ctx, ext_data.fpriv, id);
++	} else {
++		ret = proto_context_register(ext_data.fpriv, ext_data.pc, &id);
++		if (ret < 0)
++			goto err_pc;
++	}
  
--			mutex_lock(&ctx->mutex);
--			__assign_ppgtt(ctx, ctx_vm(parent));
--			mutex_unlock(&ctx->mutex);
--
- 			ce = i915_gem_context_get_engine(ctx, engine->legacy_idx);
- 			GEM_BUG_ON(IS_ERR(ce));
+ 	args->ctx_id = id;
+ 	drm_dbg(&i915->drm, "HW context %d created\n", args->ctx_id);
+@@ -2179,15 +2192,17 @@ int i915_gem_context_setparam_ioctl(struct drm_device *dev, void *data,
+ 	mutex_lock(&file_priv->proto_context_lock);
+ 	ctx = __context_lookup(file_priv, args->ctx_id);
+ 	if (!ctx) {
+-		/* FIXME: We should consider disallowing SET_CONTEXT_PARAM
+-		 * for most things on future platforms.  Clients should be
+-		 * using CONTEXT_CREATE_EXT_PARAM instead.
+-		 */
+ 		pc = xa_load(&file_priv->proto_context_xa, args->ctx_id);
+-		if (pc)
++		if (pc) {
++			/* Contexts should be finalized inside
++			 * GEM_CONTEXT_CREATE starting with graphics
++			 * version 13.
++			 */
++			WARN_ON(GRAPHICS_VER(file_priv->dev_priv) > 12);
+ 			ret = set_proto_ctx_param(file_priv, pc, args);
+-		else
++		} else {
+ 			ret = -ENOENT;
++		}
+ 	}
+ 	mutex_unlock(&file_priv->proto_context_lock);
  
 -- 
 2.31.1
