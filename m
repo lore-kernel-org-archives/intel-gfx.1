@@ -5,48 +5,48 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4220EC48BDF
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 04:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F366C48BD1
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 04:19:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1364D61019
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 04:19:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1364D61019
+	by mail.kernel.org (Postfix) with ESMTPS id E4DC76109E
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 04:19:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4DC76109E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184BE6E84C;
-	Thu, 10 Jun 2021 04:19:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3BAD6E83B;
+	Thu, 10 Jun 2021 04:19:07 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1399E6E455;
- Thu, 10 Jun 2021 04:19:01 +0000 (UTC)
-IronPort-SDR: Vj0Xqd/dFtjGyIr8g/IioUrgp/z3jgiLqY8nmNp8RRel77xYmLALkDIwJaC8CMk65PoaMIsNw4
- ITN8Cu1KT96Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,10010"; a="203373014"
-X-IronPort-AV: E=Sophos;i="5.83,262,1616482800"; d="scan'208";a="203373014"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D98C76E454;
+ Thu, 10 Jun 2021 04:19:00 +0000 (UTC)
+IronPort-SDR: 1U8bKzbyQs4x3k8j4IzwMky5I+T5LJ87rsrmmBuo80f5627Fi0BPQS/kp8eo9upV2L413dMIep
+ c1qK9PxsYyRw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10010"; a="203373009"
+X-IronPort-AV: E=Sophos;i="5.83,262,1616482800"; d="scan'208";a="203373009"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2021 21:19:01 -0700
-IronPort-SDR: +GXJYM8vMaAz3jPDo0y+hMOfvn6j5rwJIOJC9j7sU5pswHbEbgyMYbvMHEumnBSOZB5W0n09Pf
- iD504Ry9V5Sw==
-X-IronPort-AV: E=Sophos;i="5.83,262,1616482800"; d="scan'208";a="485997282"
+ 09 Jun 2021 21:19:00 -0700
+IronPort-SDR: UOiFIj3b4PeU3EDO7ZupW3Fx9xiJUE2V+JlNpnA0GRj2Bv7p/VwDykZ0/xATJZjV6NLx9920Li
+ hfokCSdX55ww==
+X-IronPort-AV: E=Sophos;i="5.83,262,1616482800"; d="scan'208";a="485997259"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2021 21:19:01 -0700
+ 09 Jun 2021 21:19:00 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Wed,  9 Jun 2021 21:36:45 -0700
-Message-Id: <20210610043649.144416-10-matthew.brost@intel.com>
+Date: Wed,  9 Jun 2021 21:36:40 -0700
+Message-Id: <20210610043649.144416-5-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210610043649.144416-1-matthew.brost@intel.com>
 References: <20210610043649.144416-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/13] drm/i915/doc: Include GuC ABI
- documentation
+Subject: [Intel-gfx] [PATCH 04/13] drm/i915/guc: Support per context
+ scheduling policies
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,31 +59,118 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTWljaGFsIFdhamRlY3prbyA8bWljaGFsLndhamRlY3prb0BpbnRlbC5jb20+CgpHdUMg
-QUJJIGRvY3VtZW50YXRpb24gaXMgbm93IHJlYWR5IHRvIGJlIGluY2x1ZGVkIGluIGk5MTUucnN0
-CgpTaWduZWQtb2ZmLWJ5OiBNaWNoYWwgV2FqZGVjemtvIDxtaWNoYWwud2FqZGVjemtvQGludGVs
-LmNvbT4KU2lnbmVkLW9mZi1ieTogTWF0dGhldyBCcm9zdCA8bWF0dGhldy5icm9zdEBpbnRlbC5j
-b20+CkNjOiBQaW90ciBQacOzcmtvd3NraSA8cGlvdHIucGlvcmtvd3NraUBpbnRlbC5jb20+Ci0t
-LQogRG9jdW1lbnRhdGlvbi9ncHUvaTkxNS5yc3QgfCA4ICsrKysrKysrCiAxIGZpbGUgY2hhbmdl
-ZCwgOCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9ncHUvaTkxNS5y
-c3QgYi9Eb2N1bWVudGF0aW9uL2dwdS9pOTE1LnJzdAppbmRleCA0MmNlMDE5NjkzMGEuLmM3ODQ2
-YjFkOTI5MyAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9ncHUvaTkxNS5yc3QKKysrIGIvRG9j
-dW1lbnRhdGlvbi9ncHUvaTkxNS5yc3QKQEAgLTUxOCw2ICs1MTgsMTQgQEAgR3VDLWJhc2VkIGNv
-bW1hbmQgc3VibWlzc2lvbgogLi4ga2VybmVsLWRvYzo6IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0
-L3VjL2ludGVsX2d1Y19zdWJtaXNzaW9uLmMKICAgIDpkb2M6IEd1Qy1iYXNlZCBjb21tYW5kIHN1
-Ym1pc3Npb24KIAorR3VDIEFCSQorfn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgorCisuLiBr
-ZXJuZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvYWJpL2d1Y19tZXNzYWdlc19h
-YmkuaAorLi4ga2VybmVsLWRvYzo6IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2FiaS9ndWNf
-Y29tbXVuaWNhdGlvbl9tbWlvX2FiaS5oCisuLiBrZXJuZWwtZG9jOjogZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZ3QvdWMvYWJpL2d1Y19jb21tdW5pY2F0aW9uX2N0Yl9hYmkuaAorLi4ga2VybmVsLWRv
-Yzo6IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2FiaS9ndWNfYWN0aW9uc19hYmkuaAorCiBI
-dUMKIC0tLQogLi4ga2VybmVsLWRvYzo6IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2ludGVs
-X2h1Yy5jCi0tIAoyLjI4LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2lu
-dGVsLWdmeAo=
+From: John Harrison <John.C.Harrison@Intel.com>
+
+GuC firmware v53.0.0 introduced per context scheduling policies. This
+includes changes to some of the ADS structures which are required to
+load the firmware even if not using GuC submission.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 26 +++--------------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 31 +++++----------------
+ 2 files changed, 11 insertions(+), 46 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index 9abfbc6edbd6..4fcbe4b921f9 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -59,30 +59,12 @@ static u32 guc_ads_blob_size(struct intel_guc *guc)
+ 	       guc_ads_private_data_size(guc);
+ }
+ 
+-static void guc_policy_init(struct guc_policy *policy)
+-{
+-	policy->execution_quantum = POLICY_DEFAULT_EXECUTION_QUANTUM_US;
+-	policy->preemption_time = POLICY_DEFAULT_PREEMPTION_TIME_US;
+-	policy->fault_time = POLICY_DEFAULT_FAULT_TIME_US;
+-	policy->policy_flags = 0;
+-}
+-
+ static void guc_policies_init(struct guc_policies *policies)
+ {
+-	struct guc_policy *policy;
+-	u32 p, i;
+-
+-	policies->dpc_promote_time = POLICY_DEFAULT_DPC_PROMOTE_TIME_US;
+-	policies->max_num_work_items = POLICY_MAX_NUM_WI;
+-
+-	for (p = 0; p < GUC_CLIENT_PRIORITY_NUM; p++) {
+-		for (i = 0; i < GUC_MAX_ENGINE_CLASSES; i++) {
+-			policy = &policies->policy[p][i];
+-
+-			guc_policy_init(policy);
+-		}
+-	}
+-
++	policies->dpc_promote_time = GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US;
++	policies->max_num_work_items = GLOBAL_POLICY_MAX_NUM_WI;
++	/* Disable automatic resets as not yet supported. */
++	policies->global_flags = GLOBAL_POLICY_DISABLE_ENGINE_RESET;
+ 	policies->is_valid = 1;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index fb04e2211b79..251c3836bd2c 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -247,32 +247,14 @@ struct guc_stage_desc {
+ 
+ /* Scheduling policy settings */
+ 
+-/* Reset engine upon preempt failure */
+-#define POLICY_RESET_ENGINE		(1<<0)
+-/* Preempt to idle on quantum expiry */
+-#define POLICY_PREEMPT_TO_IDLE		(1<<1)
+-
+-#define POLICY_MAX_NUM_WI 15
+-#define POLICY_DEFAULT_DPC_PROMOTE_TIME_US 500000
+-#define POLICY_DEFAULT_EXECUTION_QUANTUM_US 1000000
+-#define POLICY_DEFAULT_PREEMPTION_TIME_US 500000
+-#define POLICY_DEFAULT_FAULT_TIME_US 250000
+-
+-struct guc_policy {
+-	/* Time for one workload to execute. (in micro seconds) */
+-	u32 execution_quantum;
+-	/* Time to wait for a preemption request to completed before issuing a
+-	 * reset. (in micro seconds). */
+-	u32 preemption_time;
+-	/* How much time to allow to run after the first fault is observed.
+-	 * Then preempt afterwards. (in micro seconds) */
+-	u32 fault_time;
+-	u32 policy_flags;
+-	u32 reserved[8];
+-} __packed;
++#define GLOBAL_POLICY_MAX_NUM_WI 15
++
++/* Don't reset an engine upon preemption failure */
++#define GLOBAL_POLICY_DISABLE_ENGINE_RESET				BIT(0)
++
++#define GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US 500000
+ 
+ struct guc_policies {
+-	struct guc_policy policy[GUC_CLIENT_PRIORITY_NUM][GUC_MAX_ENGINE_CLASSES];
+ 	u32 submission_queue_depth[GUC_MAX_ENGINE_CLASSES];
+ 	/* In micro seconds. How much time to allow before DPC processing is
+ 	 * called back via interrupt (to prevent DPC queue drain starving).
+@@ -286,6 +268,7 @@ struct guc_policies {
+ 	 * idle. */
+ 	u32 max_num_work_items;
+ 
++	u32 global_flags;
+ 	u32 reserved[4];
+ } __packed;
+ 
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
