@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 162D0C48BE0
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 20:46:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78E48C48BD1
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 20:46:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B88B261410
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 20:46:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B88B261410
+	by mail.kernel.org (Postfix) with ESMTPS id 466B261374
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 20:46:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 466B261374
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA9B96EDE0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0B6D6EDE1;
 	Thu, 10 Jun 2021 20:46:29 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6DA56EDDC;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E222E6EDDC;
  Thu, 10 Jun 2021 20:46:28 +0000 (UTC)
-IronPort-SDR: mB2cVOfpn8Hj1ipcB4aWSbOfgxTTJQYhQAU8zETWUWUMQEy+OCbJShRIVO8VBfQsz4CqGZ8CZz
- hTWw4p5Uq//Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,10011"; a="205359428"
-X-IronPort-AV: E=Sophos;i="5.83,264,1616482800"; d="scan'208";a="205359428"
+IronPort-SDR: puE5AtjRCl0qPbq0gN31rLKUVF3mE0TW+R/H9sJTlyPZHAHZTIc9WTfYbatSKbBJoDktR7jXoH
+ y/ccmsdyrNGQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10011"; a="205359427"
+X-IronPort-AV: E=Sophos;i="5.83,264,1616482800"; d="scan'208";a="205359427"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Jun 2021 13:46:27 -0700
-IronPort-SDR: ZgauLBT7as0KUJV1aEn7iza9YN2Swq7hLHfOJ0Z1dD39dGAI4FPpacMq9LhhKSPSjq2MfWwqz4
- 6HORpotFxZWQ==
+IronPort-SDR: V/jjB/5D47np14rvF8KTTYwHnqlNadGThJ+O+hUVScfzXLaULN3sY9019vnmhfjqU+77wUp8+1
+ 4tOZPmTvEZug==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,264,1616482800"; d="scan'208";a="448867753"
+X-IronPort-AV: E=Sophos;i="5.83,264,1616482800"; d="scan'208";a="448867751"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga008.jf.intel.com with ESMTP; 10 Jun 2021 13:46:26 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 10 Jun 2021 13:46:26 -0700
-Message-Id: <20210610204626.2995262-4-John.C.Harrison@Intel.com>
+Date: Thu, 10 Jun 2021 13:46:25 -0700
+Message-Id: <20210610204626.2995262-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210610204626.2995262-1-John.C.Harrison@Intel.com>
 References: <20210610204626.2995262-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/uapi: Add query for L3 bank count
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915/uapi: Add query for hwconfig table
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,128 +59,125 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Cc: Kenneth Graunke <kenneth.w.graunke@intel.com>,
+ DRI-Devel@Lists.FreeDesktop.Org,
+ Slawomir Milczarek <slawomir.milczarek@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-Various UMDs need to know the L3 bank count. So add a query API for it.
+GuC contains a consolidated table with a bunch of information about the
+current device.
 
+Previously, this information was spread and hardcoded to all the components
+including GuC, i915 and various UMDs. The goal here is to consolidate
+the data into GuC in a way that all interested components can grab the
+very latest and synchronized information using a simple query.
+
+As per most of the other queries, this one can be called twice.
+Once with item.length=0 to determine the exact buffer size, then
+allocate the user memory and call it again for to retrieve the
+table data. For example:
+  struct drm_i915_query_item item = {
+    .query_id = DRM_I915_QUERY_HWCONCFIG_TABLE;
+  };
+  query.items_ptr = (int64_t) &item;
+  query.num_items = 1;
+
+  ioctl(fd, DRM_IOCTL_I915_QUERY, query, sizeof(query));
+
+  if (item.length <= 0)
+    return -ENOENT;
+
+  data = malloc(item.length);
+  item.data_ptr = (int64_t) &data;
+  ioctl(fd, DRM_IOCTL_I915_QUERY, query, sizeof(query));
+
+  // Parse the data as appropriate...
+
+The returned array is a simple and flexible KLV (Key/Length/Value)
+formatted table. For example, it could be just:
+  enum device_attr {
+     ATTR_SOME_VALUE = 0,
+     ATTR_SOME_MASK  = 1,
+  };
+
+  static const u32 hwconfig[] = {
+      ATTR_SOME_VALUE,
+      1,             // Value Length in DWords
+      8,             // Value
+
+      ATTR_SOME_MASK,
+      3,
+      0x00FFFFFFFF, 0xFFFFFFFF, 0xFF000000,
+  };
+
+The attribute ids are defined in a hardware spec. The current list as
+known to the i915 driver can be found in i915/gt/intel_guc_hwconfig_types.h
+
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Kenneth Graunke <kenneth.w.graunke@intel.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Slawomir Milczarek <slawomir.milczarek@intel.com>
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c | 15 +++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt.h |  1 +
- drivers/gpu/drm/i915/i915_query.c  | 22 ++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h    |  1 +
- include/uapi/drm/i915_drm.h        |  1 +
- 5 files changed, 40 insertions(+)
+ drivers/gpu/drm/i915/i915_query.c | 23 +++++++++++++++++++++++
+ include/uapi/drm/i915_drm.h       |  1 +
+ 2 files changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 2161bf01ef8b..708bb3581d83 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -704,3 +704,18 @@ void intel_gt_info_print(const struct intel_gt_info *info,
- 
- 	intel_sseu_dump(&info->sseu, p);
- }
-+
-+int intel_gt_get_l3bank_count(struct intel_gt *gt)
-+{
-+	struct drm_i915_private *i915 = gt->i915;
-+	intel_wakeref_t wakeref;
-+	u32 fuse3;
-+
-+	if (GRAPHICS_VER(i915) < 12)
-+		return -ENODEV;
-+
-+	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
-+		fuse3 = intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3);
-+
-+	return hweight32(REG_FIELD_GET(GEN12_GT_L3_MODE_MASK, ~fuse3));
-+}
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
-index 7ec395cace69..46aa1cf4cf30 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.h
-@@ -77,6 +77,7 @@ static inline bool intel_gt_is_wedged(const struct intel_gt *gt)
- 
- void intel_gt_info_print(const struct intel_gt_info *info,
- 			 struct drm_printer *p);
-+int intel_gt_get_l3bank_count(struct intel_gt *gt);
- 
- void intel_gt_watchdog_work(struct work_struct *work);
- 
 diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
-index 96bd8fb3e895..0e92bb2d21b2 100644
+index e49da36c62fb..96bd8fb3e895 100644
 --- a/drivers/gpu/drm/i915/i915_query.c
 +++ b/drivers/gpu/drm/i915/i915_query.c
-@@ -10,6 +10,7 @@
- #include "i915_perf.h"
- #include "i915_query.h"
- #include <uapi/drm/i915_drm.h>
-+#include "gt/intel_gt.h"
- 
- static int copy_query_item(void *query_hdr, size_t query_sz,
- 			   u32 total_length,
-@@ -502,6 +503,26 @@ static int query_hwconfig_table(struct drm_i915_private *i915,
- 	return hwconfig->size;
+@@ -480,12 +480,35 @@ static int query_memregion_info(struct drm_i915_private *i915,
+ 	return total_length;
  }
  
-+static int query_l3banks(struct drm_i915_private *i915,
-+			 struct drm_i915_query_item *query_item)
++static int query_hwconfig_table(struct drm_i915_private *i915,
++				struct drm_i915_query_item *query_item)
 +{
-+	u32 banks;
++	struct intel_gt *gt = &i915->gt;
++	struct intel_guc_hwconfig *hwconfig = &gt->uc.guc.hwconfig;
++
++	if (!hwconfig->size || !hwconfig->ptr)
++		return -ENODEV;
 +
 +	if (query_item->length == 0)
-+		return sizeof(banks);
++		return hwconfig->size;
 +
-+	if (query_item->length < sizeof(banks))
++	if (query_item->length < hwconfig->size)
 +		return -EINVAL;
 +
-+	banks = intel_gt_get_l3bank_count(&i915->gt);
-+
 +	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr),
-+			 &banks, sizeof(banks)))
++			 hwconfig->ptr, hwconfig->size))
 +		return -EFAULT;
 +
-+	return sizeof(banks);
++	return hwconfig->size;
 +}
 +
  static int (* const i915_query_funcs[])(struct drm_i915_private *dev_priv,
  					struct drm_i915_query_item *query_item) = {
  	query_topology_info,
-@@ -509,6 +530,7 @@ static int (* const i915_query_funcs[])(struct drm_i915_private *dev_priv,
+ 	query_engine_info,
  	query_perf_config,
  	query_memregion_info,
- 	query_hwconfig_table,
-+	query_l3banks,
++	query_hwconfig_table,
  };
  
  int i915_query_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index eb13c601d680..e9ba88fe3db7 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3099,6 +3099,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define	GEN10_MIRROR_FUSE3		_MMIO(0x9118)
- #define GEN10_L3BANK_PAIR_COUNT     4
- #define GEN10_L3BANK_MASK   0x0F
-+#define GEN12_GT_L3_MODE_MASK 0xFF
- 
- #define GEN8_EU_DISABLE0		_MMIO(0x9134)
- #define   GEN8_EU_DIS0_S0_MASK		0xffffff
 diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 87d369cae22a..20d18cca5066 100644
+index c2c7759b7d2e..87d369cae22a 100644
 --- a/include/uapi/drm/i915_drm.h
 +++ b/include/uapi/drm/i915_drm.h
-@@ -2234,6 +2234,7 @@ struct drm_i915_query_item {
+@@ -2233,6 +2233,7 @@ struct drm_i915_query_item {
+ #define DRM_I915_QUERY_ENGINE_INFO	2
  #define DRM_I915_QUERY_PERF_CONFIG      3
  #define DRM_I915_QUERY_MEMORY_REGIONS   4
- #define DRM_I915_QUERY_HWCONFIG_TABLE   5
-+#define DRM_I915_QUERY_L3_BANK_COUNT    6
++#define DRM_I915_QUERY_HWCONFIG_TABLE   5
  /* Must be kept compact -- no holes and well documented */
  
  	/**
