@@ -5,47 +5,47 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB3FAC48BDF
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 04:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42A32C48BE0
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 04:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D6D46109E
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 04:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D6D46109E
+	by mail.kernel.org (Postfix) with ESMTPS id 0D06C61019
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Jun 2021 04:19:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D06C61019
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B04F66EB8E;
-	Thu, 10 Jun 2021 04:19:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03DD56EC6D;
+	Thu, 10 Jun 2021 04:19:10 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C4AC6E81E;
- Thu, 10 Jun 2021 04:19:03 +0000 (UTC)
-IronPort-SDR: 0i6oABnT1JtHoT3sAMvztThZtUJmMC8a2tJhAHq+g/FhuNhEKfWfAiz08jWn2k7hdxBmg2c1+t
- o3oJ3HMMJaQg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10010"; a="203373018"
-X-IronPort-AV: E=Sophos;i="5.83,262,1616482800"; d="scan'208";a="203373018"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF906E817;
+ Thu, 10 Jun 2021 04:19:02 +0000 (UTC)
+IronPort-SDR: MucaUfkukTguCk6vfaHFe0SaFvCbVk75DjFzWjPtLT33OAwPJrqoERXQPQck5W53NGPU7G2ygZ
+ H2EWEMSA2THA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10010"; a="203373015"
+X-IronPort-AV: E=Sophos;i="5.83,262,1616482800"; d="scan'208";a="203373015"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  09 Jun 2021 21:19:02 -0700
-IronPort-SDR: zd23R6TOb3ucVUJ9AMt+a2AbdtYabjDBqPo3D/mnEIfmQ5HcNJ5jWpxfBIJL//Zp5oSBdmHfDS
- MVPtEDl8RX5g==
-X-IronPort-AV: E=Sophos;i="5.83,262,1616482800"; d="scan'208";a="485997297"
+IronPort-SDR: gxlCmnhfgtLfJ1RkqFKGMBbOYnvIM7799gl1Phu7Pv8n6QLTiw3JIJGz78k6oaXOcGpPWKQcCA
+ p0Wuy5Z00HiA==
+X-IronPort-AV: E=Sophos;i="5.83,262,1616482800"; d="scan'208";a="485997286"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2021 21:19:02 -0700
+ 09 Jun 2021 21:19:01 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Wed,  9 Jun 2021 21:36:49 -0700
-Message-Id: <20210610043649.144416-14-matthew.brost@intel.com>
+Date: Wed,  9 Jun 2021 21:36:46 -0700
+Message-Id: <20210610043649.144416-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210610043649.144416-1-matthew.brost@intel.com>
 References: <20210610043649.144416-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 13/13] drm/i915/guc: Update firmware to v62.0.0
+Subject: [Intel-gfx] [PATCH 10/13] drm/i915/guc: Kill guc_clients.ct_pool
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,52 +63,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+CTB pool is now maintained internally by the GuC as part of its
+"private data". No need to allocate separate buffer and pass it
+to GuC as yet another ADS.
+
+Signed-off-by: Matthew Brost <matthew.brost@intel.com> #v4
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 26 ++++++++++++------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 12 ------------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 12 +-----------
+ 2 files changed, 1 insertion(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index df647c9a8d56..9f23e9de3237 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -48,19 +48,19 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
-  * firmware as TGL.
-  */
- #define INTEL_UC_FIRMWARE_DEFS(fw_def, guc_def, huc_def) \
--	fw_def(ALDERLAKE_S, 0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
--	fw_def(ROCKETLAKE,  0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
--	fw_def(TIGERLAKE,   0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
--	fw_def(JASPERLAKE,  0, guc_def(ehl, 49, 0, 1), huc_def(ehl,  9, 0, 0)) \
--	fw_def(ELKHARTLAKE, 0, guc_def(ehl, 49, 0, 1), huc_def(ehl,  9, 0, 0)) \
--	fw_def(ICELAKE,     0, guc_def(icl, 49, 0, 1), huc_def(icl,  9, 0, 0)) \
--	fw_def(COMETLAKE,   5, guc_def(cml, 49, 0, 1), huc_def(cml,  4, 0, 0)) \
--	fw_def(COMETLAKE,   0, guc_def(kbl, 49, 0, 1), huc_def(kbl,  4, 0, 0)) \
--	fw_def(COFFEELAKE,  0, guc_def(kbl, 49, 0, 1), huc_def(kbl,  4, 0, 0)) \
--	fw_def(GEMINILAKE,  0, guc_def(glk, 49, 0, 1), huc_def(glk,  4, 0, 0)) \
--	fw_def(KABYLAKE,    0, guc_def(kbl, 49, 0, 1), huc_def(kbl,  4, 0, 0)) \
--	fw_def(BROXTON,     0, guc_def(bxt, 49, 0, 1), huc_def(bxt,  2, 0, 0)) \
--	fw_def(SKYLAKE,     0, guc_def(skl, 49, 0, 1), huc_def(skl,  2, 0, 0))
-+	fw_def(ALDERLAKE_S, 0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 5, 0)) \
-+	fw_def(ROCKETLAKE,  0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 5, 0)) \
-+	fw_def(TIGERLAKE,   0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 5, 0)) \
-+	fw_def(JASPERLAKE,  0, guc_def(ehl, 62, 0, 0), huc_def(ehl,  9, 0, 0)) \
-+	fw_def(ELKHARTLAKE, 0, guc_def(ehl, 62, 0, 0), huc_def(ehl,  9, 0, 0)) \
-+	fw_def(ICELAKE,     0, guc_def(icl, 62, 0, 0), huc_def(icl,  9, 0, 0)) \
-+	fw_def(COMETLAKE,   5, guc_def(cml, 62, 0, 0), huc_def(cml,  4, 0, 0)) \
-+	fw_def(COMETLAKE,   0, guc_def(kbl, 62, 0, 0), huc_def(kbl,  4, 0, 0)) \
-+	fw_def(COFFEELAKE,  0, guc_def(kbl, 62, 0, 0), huc_def(kbl,  4, 0, 0)) \
-+	fw_def(GEMINILAKE,  0, guc_def(glk, 62, 0, 0), huc_def(glk,  4, 0, 0)) \
-+	fw_def(KABYLAKE,    0, guc_def(kbl, 62, 0, 0), huc_def(kbl,  4, 0, 0)) \
-+	fw_def(BROXTON,     0, guc_def(bxt, 62, 0, 0), huc_def(bxt,  2, 0, 0)) \
-+	fw_def(SKYLAKE,     0, guc_def(skl, 62, 0, 0), huc_def(skl,  2, 0, 0))
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index 4fcbe4b921f9..6e26fe04ce92 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -26,8 +26,6 @@
+  *      +---------------------------------------+
+  *      | guc_clients_info                      |
+  *      +---------------------------------------+
+- *      | guc_ct_pool_entry[size]               |
+- *      +---------------------------------------+
+  *      | padding                               |
+  *      +---------------------------------------+ <== 4K aligned
+  *      | private data                          |
+@@ -40,7 +38,6 @@ struct __guc_ads_blob {
+ 	struct guc_policies policies;
+ 	struct guc_gt_system_info system_info;
+ 	struct guc_clients_info clients_info;
+-	struct guc_ct_pool_entry ct_pool[GUC_CT_POOL_SIZE];
+ } __packed;
  
- #define __MAKE_UC_FW_PATH(prefix_, name_, major_, minor_, patch_) \
- 	"i915/" \
+ static u32 guc_ads_private_data_size(struct intel_guc *guc)
+@@ -68,11 +65,6 @@ static void guc_policies_init(struct guc_policies *policies)
+ 	policies->is_valid = 1;
+ }
+ 
+-static void guc_ct_pool_entries_init(struct guc_ct_pool_entry *pool, u32 num)
+-{
+-	memset(pool, 0, num * sizeof(*pool));
+-}
+-
+ static void guc_mapping_table_init(struct intel_gt *gt,
+ 				   struct guc_gt_system_info *system_info)
+ {
+@@ -161,11 +153,7 @@ static void __guc_ads_init(struct intel_guc *guc)
+ 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
+ 
+ 	/* Clients info  */
+-	guc_ct_pool_entries_init(blob->ct_pool, ARRAY_SIZE(blob->ct_pool));
+-
+ 	blob->clients_info.clients_num = 1;
+-	blob->clients_info.ct_pool_addr = base + ptr_offset(blob, ct_pool);
+-	blob->clients_info.ct_pool_count = ARRAY_SIZE(blob->ct_pool);
+ 
+ 	/* ADS */
+ 	blob->ads.scheduler_policies = base + ptr_offset(blob, policies);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 251c3836bd2c..2266444d074f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -295,19 +295,9 @@ struct guc_gt_system_info {
+ } __packed;
+ 
+ /* Clients info */
+-struct guc_ct_pool_entry {
+-	struct guc_ct_buffer_desc desc;
+-	u32 reserved[7];
+-} __packed;
+-
+-#define GUC_CT_POOL_SIZE	2
+-
+ struct guc_clients_info {
+ 	u32 clients_num;
+-	u32 reserved0[13];
+-	u32 ct_pool_addr;
+-	u32 ct_pool_count;
+-	u32 reserved[4];
++	u32 reserved[19];
+ } __packed;
+ 
+ /* GuC Additional Data Struct */
 -- 
 2.28.0
 
