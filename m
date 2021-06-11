@@ -2,52 +2,77 @@ Return-Path: <SRS0=pHm+=LF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F087C48BE5
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 14:55:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DEF7CC48BD1
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 15:09:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F123613D0
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 14:55:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F123613D0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A930F61357
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jun 2021 15:09:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A930F61357
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BEA26EEA8;
-	Fri, 11 Jun 2021 14:55:25 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C93A6EEA0;
- Fri, 11 Jun 2021 14:55:20 +0000 (UTC)
-IronPort-SDR: Mjdp0BbOwBM9fYg3pt1vFEzIJg2DVGD4Po2WbgJ4bebKt7HsG2m+E3Y4rFVNpaZLHcuC4AH861
- NhowcrYEbVAw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10012"; a="205355262"
-X-IronPort-AV: E=Sophos;i="5.83,265,1616482800"; d="scan'208";a="205355262"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2021 07:55:19 -0700
-IronPort-SDR: fUXp6agiSv429s46q1TeYrNPMF/LVaOLHYWkwO3hKlOpIg+GJVJ0dat7MY/Dqq0QX+1SLDGakv
- AqMrpSRz0obw==
-X-IronPort-AV: E=Sophos;i="5.83,265,1616482800"; d="scan'208";a="450783221"
-Received: from delmer-mobl.ger.corp.intel.com (HELO thellst-mobl1.intel.com)
- ([10.249.254.23])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2021 07:55:18 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Fri, 11 Jun 2021 16:54:58 +0200
-Message-Id: <20210611145459.8576-4-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210611145459.8576-1-thomas.hellstrom@linux.intel.com>
-References: <20210611145459.8576-1-thomas.hellstrom@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2066EEA5;
+	Fri, 11 Jun 2021 15:09:04 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E1F96EEA5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 15:09:03 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id y7so6439938wrh.7
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jun 2021 08:09:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=EY672yMhYAeanm3ZM3Zig55aOEiaHRdhDD9daSHIeN8=;
+ b=XIhgexOvsZXV8svcwFaDzSctxWk0TuFmznIezO2Z6lg4y6tBGUozO7CKtabajeTfF6
+ XnnokRoUJ7uvyEr7oIvdkiP7J3xGBnS1fPzlayk12+ciJZs9HERfgnp4fdSiv6wzGw55
+ +ejLXruxqQwh6AyGzPprBBqlbIQ/oVLirnwo8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=EY672yMhYAeanm3ZM3Zig55aOEiaHRdhDD9daSHIeN8=;
+ b=GQqcE4+KoNWrAEtZA7nbPsGzWWscjW9FCva3T3G7hjOBVayhxt7DL369M+pDeo/dyO
+ mcbMT9lUtPnKbMBu2qLXRG5W2OLLxzwdIoAd/2rBVRBaQtGUbVHK8P13GDnggnoZigXQ
+ ZBXDZmpHmaDWQ/GVD37hasU3zvjN8dKVEHVnAPHLesir1YxNIvUXMcHCRCGt/2GYt5ON
+ URyb8yoKWWNDjQ+YCAaItiU+ri0GrNPTH8IVaADr8RWtyKjtOUmar0yZNTlaxqlCkMCC
+ xoxOTZuCm8+tEj+wsQU6ZS8+yAKlu+Cw+cHmq9+2W+k3pzlGUzg3wZaFtt0umSzP8ysv
+ pi0Q==
+X-Gm-Message-State: AOAM533mCqv+cG7O2M6iDvQXE86gwtXx5PMQYtpwCdCEfdBMi+A6VmOP
+ A1aGEsYFe31ZJGjvedI31HGkvQ==
+X-Google-Smtp-Source: ABdhPJyuEAwwQLsuFChuy3uog0Y0WD1JUJYRWTHEZSjv688YfDvGCiVEAwkMyMKrlXJcfexOaCeIWA==
+X-Received: by 2002:adf:a193:: with SMTP id u19mr4725900wru.9.1623424141650;
+ Fri, 11 Jun 2021 08:09:01 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id v7sm7371613wru.66.2021.06.11.08.09.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Jun 2021 08:09:00 -0700 (PDT)
+Date: Fri, 11 Jun 2021 17:08:58 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Message-ID: <YMN8ilDBYlzESUD4@phenom.ffwll.local>
+References: <f9be43e3-4107-3742-a11b-8021b2c19e32@amd.com>
+ <CAKMK7uFMEdFjUSphcyxuKMW8HfLOWQAE2iw-Fei+SRTDwUbRdQ@mail.gmail.com>
+ <CAOFGe95BhZ7jXLxarL=2_zNYDydEoPJWnDWAG3aaeEJsDzR5dA@mail.gmail.com>
+ <CAOFGe96KrBfvBKxcUNwths5Sigk7fk7ycLeYbgxutL3msEgfyA@mail.gmail.com>
+ <CAKMK7uGqGLKFp7Obp-5xW3fPuoRmBa_0OawN-4Q-niDi147tXQ@mail.gmail.com>
+ <4dc8314b-4366-2d92-4cca-1497a7c73721@amd.com>
+ <CAKMK7uHhL3kepoaznCvAsx8H20sBjWQZgsnWY+zm63KgfCA4CQ@mail.gmail.com>
+ <b475e546-02d5-bacf-8764-233efd784ba0@amd.com>
+ <YMMt2BE7GaUt+b7v@phenom.ffwll.local>
+ <3e5ddb11-6df0-1aab-19e5-811dbbca79f6@amd.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 3/4] drm/i915/ttm: Calculate the object
- placement at get_pages time
+Content-Disposition: inline
+In-Reply-To: <3e5ddb11-6df0-1aab-19e5-811dbbca79f6@amd.com>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
+Subject: Re: [Intel-gfx] [PATCH 0/5] dma-fence,
+ i915: Stop allowing SLAB_TYPESAFE_BY_RCU for dma_fence
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,131 +85,354 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>, Dave Airlie <airlied@redhat.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-SW5zdGVhZCBvZiByZWx5aW5nIG9uIGEgc3RhdGljIHBsYWNlbWVudCwgY2FsY3VsYXRlIGF0IGdl
-dF9wYWdlcygpIHRpbWUuClRoaXMgc2hvdWxkIHdvcmsgZm9yIExNRU0gcmVnaW9ucyBhbmQgc3lz
-dGVtIGZvciBub3cuIEZvciBzdG9sZW4gd2UgbmVlZAp0byB0YWtlIHByZWFsbG9jYXRlZCByYW5n
-ZSBpbnRvIGFjY291bnQuIFRoYXQgd2VsbCBiZSBhZGRlZCBsYXRlci4KClNpZ25lZC1vZmYtYnk6
-IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4KLS0t
-CnYyOgotIEZpeGVkIGEgc3R5bGUgaXNzdWUgKFJlcG9ydGVkIGJ5IE1hdHRoZXcgQXVsZCkKLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fdHRtLmMgfCA5MiArKysrKysrKysr
-KysrKysrKystLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9yZWdpb25fdHRtLmMg
-fCAgOCArKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3JlZ2lvbl90dG0uaCB8ICAyICsK
-IDMgZmlsZXMgY2hhbmdlZCwgNzUgaW5zZXJ0aW9ucygrKSwgMjcgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3R0bS5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3R0bS5jCmluZGV4IDQ1ZWYxZDEwMTkzNy4uZmQz
-ZDExNzI4MjI5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1f
-dHRtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3R0bS5jCkBAIC0y
-NCw2ICsyNCwxMSBAQAogI2RlZmluZSBJOTE1X1RUTV9QUklPX05PX1BBR0VTICAxCiAjZGVmaW5l
-IEk5MTVfVFRNX1BSSU9fSEFTX1BBR0VTIDIKIAorLyoKKyAqIFNpemUgb2Ygc3RydWN0IHR0bV9w
-bGFjZSB2ZWN0b3IgaW4gb24tc3RhY2sgc3RydWN0IHR0bV9wbGFjZW1lbnQgYWxsb2NzCisgKi8K
-KyNkZWZpbmUgSTkxNV9UVE1fTUFYX1BMQUNFTUVOVFMgMTAKKwogLyoqCiAgKiBzdHJ1Y3QgaTkx
-NV90dG1fdHQgLSBUVE0gcGFnZSB2ZWN0b3Igd2l0aCBhZGRpdGlvbmFsIHByaXZhdGUgaW5mb3Jt
-YXRpb24KICAqIEB0dG06IFRoZSBiYXNlIFRUTSBwYWdlIHZlY3Rvci4KQEAgLTQyLDMyICs0Nywx
-OCBAQCBzdHJ1Y3QgaTkxNV90dG1fdHQgewogCXN0cnVjdCBzZ190YWJsZSAqY2FjaGVkX3N0Owog
-fTsKIAotc3RhdGljIGNvbnN0IHN0cnVjdCB0dG1fcGxhY2UgbG1lbTBfc3lzX3BsYWNlbWVudF9m
-bGFnc1tdID0gewotCXsKLQkJLmZwZm4gPSAwLAotCQkubHBmbiA9IDAsCi0JCS5tZW1fdHlwZSA9
-IEk5MTVfUExfTE1FTTAsCi0JCS5mbGFncyA9IDAsCi0JfSwgewotCQkuZnBmbiA9IDAsCi0JCS5s
-cGZuID0gMCwKLQkJLm1lbV90eXBlID0gSTkxNV9QTF9TWVNURU0sCi0JCS5mbGFncyA9IDAsCi0J
-fQotfTsKLQotc3RhdGljIHN0cnVjdCB0dG1fcGxhY2VtZW50IGk5MTVfbG1lbTBfcGxhY2VtZW50
-ID0gewotCS5udW1fcGxhY2VtZW50ID0gMSwKLQkucGxhY2VtZW50ID0gJmxtZW0wX3N5c19wbGFj
-ZW1lbnRfZmxhZ3NbMF0sCi0JLm51bV9idXN5X3BsYWNlbWVudCA9IDEsCi0JLmJ1c3lfcGxhY2Vt
-ZW50ID0gJmxtZW0wX3N5c19wbGFjZW1lbnRfZmxhZ3NbMF0sCitzdGF0aWMgY29uc3Qgc3RydWN0
-IHR0bV9wbGFjZSBzeXNfcGxhY2VtZW50X2ZsYWdzID0geworCS5mcGZuID0gMCwKKwkubHBmbiA9
-IDAsCisJLm1lbV90eXBlID0gSTkxNV9QTF9TWVNURU0sCisJLmZsYWdzID0gMCwKIH07CiAKIHN0
-YXRpYyBzdHJ1Y3QgdHRtX3BsYWNlbWVudCBpOTE1X3N5c19wbGFjZW1lbnQgPSB7CiAJLm51bV9w
-bGFjZW1lbnQgPSAxLAotCS5wbGFjZW1lbnQgPSAmbG1lbTBfc3lzX3BsYWNlbWVudF9mbGFnc1sx
-XSwKKwkucGxhY2VtZW50ID0gJnN5c19wbGFjZW1lbnRfZmxhZ3MsCiAJLm51bV9idXN5X3BsYWNl
-bWVudCA9IDEsCi0JLmJ1c3lfcGxhY2VtZW50ID0gJmxtZW0wX3N5c19wbGFjZW1lbnRfZmxhZ3Nb
-MV0sCisJLmJ1c3lfcGxhY2VtZW50ID0gJnN5c19wbGFjZW1lbnRfZmxhZ3MsCiB9OwogCiBzdGF0
-aWMgYm9vbCBncHVfYmluZHNfaW9tZW0oc3RydWN0IHR0bV9yZXNvdXJjZSAqbWVtKQpAQCAtODMs
-NiArNzQsNTUgQEAgc3RhdGljIGJvb2wgY3B1X21hcHNfaW9tZW0oc3RydWN0IHR0bV9yZXNvdXJj
-ZSAqbWVtKQogCiBzdGF0aWMgdm9pZCBpOTE1X3R0bV9hZGp1c3RfbHJ1KHN0cnVjdCBkcm1faTkx
-NV9nZW1fb2JqZWN0ICpvYmopOwogCitzdGF0aWMgZW51bSB0dG1fY2FjaGluZworaTkxNV90dG1f
-c2VsZWN0X3R0X2NhY2hpbmcoY29uc3Qgc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikK
-K3sKKwkvKgorCSAqIE9iamVjdHMgb25seSBhbGxvd2VkIGluIHN5c3RlbSBnZXQgY2FjaGVkIGNw
-dS1tYXBwaW5ncy4KKwkgKiBPdGhlciBvYmplY3RzIGdldCBXQyBtYXBwaW5nIGZvciBub3cuIEV2
-ZW4gaWYgaW4gc3lzdGVtLgorCSAqLworCWlmIChvYmotPm1tLnJlZ2lvbi0+dHlwZSA9PSBJTlRF
-TF9NRU1PUllfU1lTVEVNICYmCisJICAgIG9iai0+bW0ubl9wbGFjZW1lbnRzIDw9IDEpCisJCXJl
-dHVybiB0dG1fY2FjaGVkOworCisJcmV0dXJuIHR0bV93cml0ZV9jb21iaW5lZDsKK30KKworc3Rh
-dGljIHZvaWQKK2k5MTVfdHRtX3BsYWNlX2Zyb21fcmVnaW9uKGNvbnN0IHN0cnVjdCBpbnRlbF9t
-ZW1vcnlfcmVnaW9uICptciwKKwkJCSAgIHN0cnVjdCB0dG1fcGxhY2UgKnBsYWNlKQoreworCW1l
-bXNldChwbGFjZSwgMCwgc2l6ZW9mKCpwbGFjZSkpOworCXBsYWNlLT5tZW1fdHlwZSA9IGludGVs
-X3JlZ2lvbl90b190dG1fdHlwZShtcik7Cit9CisKK3N0YXRpYyB2b2lkCitpOTE1X3R0bV9wbGFj
-ZW1lbnRfZnJvbV9vYmooY29uc3Qgc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaiwKKwkJ
-CSAgICBzdHJ1Y3QgdHRtX3BsYWNlICpyZXF1ZXN0ZWQsCisJCQkgICAgc3RydWN0IHR0bV9wbGFj
-ZSAqYnVzeSwKKwkJCSAgICBzdHJ1Y3QgdHRtX3BsYWNlbWVudCAqcGxhY2VtZW50KQoreworCXVu
-c2lnbmVkIGludCBudW1fYWxsb3dlZCA9IG9iai0+bW0ubl9wbGFjZW1lbnRzOworCXVuc2lnbmVk
-IGludCBpOworCisJcGxhY2VtZW50LT5udW1fcGxhY2VtZW50ID0gMTsKKwlpOTE1X3R0bV9wbGFj
-ZV9mcm9tX3JlZ2lvbihudW1fYWxsb3dlZCA/IG9iai0+bW0ucGxhY2VtZW50c1swXSA6CisJCQkJ
-ICAgb2JqLT5tbS5yZWdpb24sIHJlcXVlc3RlZCk7CisKKwkvKiBDYWNoZSB0aGlzIG9uIG9iamVj
-dD8gKi8KKwlwbGFjZW1lbnQtPm51bV9idXN5X3BsYWNlbWVudCA9IG51bV9hbGxvd2VkOworCWZv
-ciAoaSA9IDA7IGkgPCBwbGFjZW1lbnQtPm51bV9idXN5X3BsYWNlbWVudDsgKytpKQorCQlpOTE1
-X3R0bV9wbGFjZV9mcm9tX3JlZ2lvbihvYmotPm1tLnBsYWNlbWVudHNbaV0sIGJ1c3kgKyBpKTsK
-KworCWlmIChudW1fYWxsb3dlZCA9PSAwKSB7CisJCSpidXN5ID0gKnJlcXVlc3RlZDsKKwkJcGxh
-Y2VtZW50LT5udW1fYnVzeV9wbGFjZW1lbnQgPSAxOworCX0KKworCXBsYWNlbWVudC0+cGxhY2Vt
-ZW50ID0gcmVxdWVzdGVkOworCXBsYWNlbWVudC0+YnVzeV9wbGFjZW1lbnQgPSBidXN5OworfQor
-CiBzdGF0aWMgc3RydWN0IHR0bV90dCAqaTkxNV90dG1fdHRfY3JlYXRlKHN0cnVjdCB0dG1fYnVm
-ZmVyX29iamVjdCAqYm8sCiAJCQkJCSB1aW50MzJfdCBwYWdlX2ZsYWdzKQogewpAQCAtMTAwLDcg
-KzE0MCw4IEBAIHN0YXRpYyBzdHJ1Y3QgdHRtX3R0ICppOTE1X3R0bV90dF9jcmVhdGUoc3RydWN0
-IHR0bV9idWZmZXJfb2JqZWN0ICpibywKIAkgICAgbWFuLT51c2VfdHQpCiAJCXBhZ2VfZmxhZ3Mg
-fD0gVFRNX1BBR0VfRkxBR19aRVJPX0FMTE9DOwogCi0JcmV0ID0gdHRtX3R0X2luaXQoJmk5MTVf
-dHQtPnR0bSwgYm8sIHBhZ2VfZmxhZ3MsIHR0bV93cml0ZV9jb21iaW5lZCk7CisJcmV0ID0gdHRt
-X3R0X2luaXQoJmk5MTVfdHQtPnR0bSwgYm8sIHBhZ2VfZmxhZ3MsCisJCQkgIGk5MTVfdHRtX3Nl
-bGVjdF90dF9jYWNoaW5nKG9iaikpOwogCWlmIChyZXQpIHsKIAkJa2ZyZWUoaTkxNV90dCk7CiAJ
-CXJldHVybiBOVUxMOwpAQCAtNDY1LDEwICs1MDYsMTMgQEAgc3RhdGljIGludCBpOTE1X3R0bV9n
-ZXRfcGFnZXMoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikKIAkJLm5vX3dhaXRfZ3B1
-ID0gZmFsc2UsCiAJfTsKIAlzdHJ1Y3Qgc2dfdGFibGUgKnN0OworCXN0cnVjdCB0dG1fcGxhY2Ug
-cmVxdWVzdGVkLCBidXN5W0k5MTVfVFRNX01BWF9QTEFDRU1FTlRTXTsKKwlzdHJ1Y3QgdHRtX3Bs
-YWNlbWVudCBwbGFjZW1lbnQ7CiAJaW50IHJldDsKIAogCS8qIE1vdmUgdG8gdGhlIHJlcXVlc3Rl
-ZCBwbGFjZW1lbnQuICovCi0JcmV0ID0gdHRtX2JvX3ZhbGlkYXRlKGJvLCAmaTkxNV9sbWVtMF9w
-bGFjZW1lbnQsICZjdHgpOworCWk5MTVfdHRtX3BsYWNlbWVudF9mcm9tX29iaihvYmosICZyZXF1
-ZXN0ZWQsIGJ1c3ksICZwbGFjZW1lbnQpOworCXJldCA9IHR0bV9ib192YWxpZGF0ZShibywgJnBs
-YWNlbWVudCwgJmN0eCk7CiAJaWYgKHJldCkKIAkJcmV0dXJuIHJldCA9PSAtRU5PU1BDID8gLUVO
-WElPIDogcmV0OwogCkBAIC02ODQsNyArNzI4LDYgQEAgaW50IF9faTkxNV9nZW1fdHRtX29iamVj
-dF9pbml0KHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0sCiAJaTkxNV9nZW1fb2JqZWN0
-X21ha2VfdW5zaHJpbmthYmxlKG9iaik7CiAJSU5JVF9SQURJWF9UUkVFKCZvYmotPnR0bS5nZXRf
-aW9fcGFnZS5yYWRpeCwgR0ZQX0tFUk5FTCB8IF9fR0ZQX05PV0FSTik7CiAJbXV0ZXhfaW5pdCgm
-b2JqLT50dG0uZ2V0X2lvX3BhZ2UubG9jayk7Ci0KIAlib190eXBlID0gKG9iai0+ZmxhZ3MgJiBJ
-OTE1X0JPX0FMTE9DX1VTRVIpID8gdHRtX2JvX3R5cGVfZGV2aWNlIDoKIAkJdHRtX2JvX3R5cGVf
-a2VybmVsOwogCkBAIC03MDgsNyArNzUxLDYgQEAgaW50IF9faTkxNV9nZW1fdHRtX29iamVjdF9p
-bml0KHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0sCiAJaTkxNV90dG1fYWRqdXN0X2Rv
-bWFpbnNfYWZ0ZXJfY3B1X21vdmUob2JqKTsKIAlpOTE1X3R0bV9hZGp1c3RfZ2VtX2FmdGVyX21v
-dmUob2JqKTsKIAlpOTE1X2dlbV9vYmplY3RfdW5sb2NrKG9iaik7Ci0KIG91dDoKIAkvKiBpOTE1
-IHdhbnRzIC1FTlhJTyB3aGVuIG91dCBvZiBtZW1vcnkgcmVnaW9uIHNwYWNlLiAqLwogCXJldHVy
-biAocmV0ID09IC1FTk9TUEMpID8gLUVOWElPIDogcmV0OwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvaW50ZWxfcmVnaW9uX3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50
-ZWxfcmVnaW9uX3R0bS5jCmluZGV4IDI3ZmUwNjY4ZDA5NC4uNWE2NjRmNmNjOTNmIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9yZWdpb25fdHRtLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvaW50ZWxfcmVnaW9uX3R0bS5jCkBAIC01MCwxMiArNTAsMTYgQEAgdm9p
-ZCBpbnRlbF9yZWdpb25fdHRtX2RldmljZV9maW5pKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpk
-ZXZfcHJpdikKICAqIGRyaXZlci1wcml2YXRlIHR5cGVzIGZvciBub3csIHJlc2VydmluZyBUVE1f
-UExfVlJBTSBmb3Igc3RvbGVuCiAgKiBtZW1vcnkgYW5kIFRUTV9QTF9UVCBmb3IgR0dUVCB1c2Ug
-aWYgZGVjaWRlZCB0byBpbXBsZW1lbnQgdGhpcy4KICAqLwotc3RhdGljIGludCBpbnRlbF9yZWdp
-b25fdG9fdHRtX3R5cGUoc3RydWN0IGludGVsX21lbW9yeV9yZWdpb24gKm1lbSkKK2ludCBpbnRl
-bF9yZWdpb25fdG9fdHRtX3R5cGUoY29uc3Qgc3RydWN0IGludGVsX21lbW9yeV9yZWdpb24gKm1l
-bSkKIHsKIAlpbnQgdHlwZTsKIAogCUdFTV9CVUdfT04obWVtLT50eXBlICE9IElOVEVMX01FTU9S
-WV9MT0NBTCAmJgotCQkgICBtZW0tPnR5cGUgIT0gSU5URUxfTUVNT1JZX01PQ0spOworCQkgICBt
-ZW0tPnR5cGUgIT0gSU5URUxfTUVNT1JZX01PQ0sgJiYKKwkJICAgbWVtLT50eXBlICE9IElOVEVM
-X01FTU9SWV9TWVNURU0pOworCisJaWYgKG1lbS0+dHlwZSA9PSBJTlRFTF9NRU1PUllfU1lTVEVN
-KQorCQlyZXR1cm4gVFRNX1BMX1NZU1RFTTsKIAogCXR5cGUgPSBtZW0tPmluc3RhbmNlICsgVFRN
-X1BMX1BSSVY7CiAJR0VNX0JVR19PTih0eXBlID49IFRUTV9OVU1fTUVNX1RZUEVTKTsKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3JlZ2lvbl90dG0uaCBiL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2ludGVsX3JlZ2lvbl90dG0uaAppbmRleCBlOGNmODMwZmRhNmYuLjY0OTQ5
-MTg0NGU3OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcmVnaW9uX3R0
-bS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3JlZ2lvbl90dG0uaApAQCAtMjgs
-NiArMjgsOCBAQCBzdHJ1Y3Qgc2dfdGFibGUgKmludGVsX3JlZ2lvbl90dG1fbm9kZV90b19zdChz
-dHJ1Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbiAqbWVtLAogdm9pZCBpbnRlbF9yZWdpb25fdHRtX25v
-ZGVfZnJlZShzdHJ1Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbiAqbWVtLAogCQkJCXN0cnVjdCB0dG1f
-cmVzb3VyY2UgKm5vZGUpOwogCitpbnQgaW50ZWxfcmVnaW9uX3RvX3R0bV90eXBlKGNvbnN0IHN0
-cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0pOworCiBzdHJ1Y3QgdHRtX2RldmljZV9mdW5j
-cyAqaTkxNV90dG1fZHJpdmVyKHZvaWQpOwogCiAjaWZkZWYgQ09ORklHX0RSTV9JOTE1X1NFTEZU
-RVNUCi0tIAoyLjMxLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVs
-LWdmeAo=
+On Fri, Jun 11, 2021 at 12:03:31PM +0200, Christian K=F6nig wrote:
+> Am 11.06.21 um 11:33 schrieb Daniel Vetter:
+> > On Fri, Jun 11, 2021 at 09:42:07AM +0200, Christian K=F6nig wrote:
+> > > Am 11.06.21 um 09:20 schrieb Daniel Vetter:
+> > > > On Fri, Jun 11, 2021 at 8:55 AM Christian K=F6nig
+> > > > <christian.koenig@amd.com> wrote:
+> > > > > Am 10.06.21 um 22:42 schrieb Daniel Vetter:
+> > > > > > On Thu, Jun 10, 2021 at 10:10 PM Jason Ekstrand <jason@jlekstra=
+nd.net> wrote:
+> > > > > > > On Thu, Jun 10, 2021 at 8:35 AM Jason Ekstrand <jason@jlekstr=
+and.net> wrote:
+> > > > > > > > On Thu, Jun 10, 2021 at 6:30 AM Daniel Vetter <daniel.vette=
+r@ffwll.ch> wrote:
+> > > > > > > > > On Thu, Jun 10, 2021 at 11:39 AM Christian K=F6nig
+> > > > > > > > > <christian.koenig@amd.com> wrote:
+> > > > > > > > > > Am 10.06.21 um 11:29 schrieb Tvrtko Ursulin:
+> > > > > > > > > > > On 09/06/2021 22:29, Jason Ekstrand wrote:
+> > > > > > > > > > > > We've tried to keep it somewhat contained by doing =
+most of the hard work
+> > > > > > > > > > > > to prevent access of recycled objects via dma_fence=
+_get_rcu_safe().
+> > > > > > > > > > > > However, a quick grep of kernel sources says that, =
+of the 30 instances
+> > > > > > > > > > > > of dma_fence_get_rcu*, only 11 of them use dma_fenc=
+e_get_rcu_safe().
+> > > > > > > > > > > > It's likely there bear traps in DRM and related sub=
+systems just waiting
+> > > > > > > > > > > > for someone to accidentally step in them.
+> > > > > > > > > > > ...because dma_fence_get_rcu_safe apears to be about =
+whether the
+> > > > > > > > > > > *pointer* to the fence itself is rcu protected, not a=
+bout the fence
+> > > > > > > > > > > object itself.
+> > > > > > > > > > Yes, exactly that.
+> > > > > > > > The fact that both of you think this either means that I've=
+ completely
+> > > > > > > > missed what's going on with RCUs here (possible but, in thi=
+s case, I
+> > > > > > > > think unlikely) or RCUs on dma fences should scare us all.
+> > > > > > > Taking a step back for a second and ignoring SLAB_TYPESAFE_BY=
+_RCU as
+> > > > > > > such,  I'd like to ask a slightly different question:  What a=
+re the
+> > > > > > > rules about what is allowed to be done under the RCU read loc=
+k and
+> > > > > > > what guarantees does a driver need to provide?
+> > > > > > > =
+
+> > > > > > > I think so far that we've all agreed on the following:
+> > > > > > > =
+
+> > > > > > >     1. Freeing an unsignaled fence is ok as long as it doesn'=
+t have any
+> > > > > > > pending callbacks.  (Callbacks should hold a reference anyway=
+).
+> > > > > > > =
+
+> > > > > > >     2. The pointer race solved by dma_fence_get_rcu_safe is r=
+eal and
+> > > > > > > requires the loop to sort out.
+> > > > > > > =
+
+> > > > > > > But let's say I have a dma_fence pointer that I got from, say=
+, calling
+> > > > > > > dma_resv_excl_fence() under rcu_read_lock().  What am I allow=
+ed to do
+> > > > > > > with it under the RCU lock?  What assumptions can I make?  Is=
+ this
+> > > > > > > code, for instance, ok?
+> > > > > > > =
+
+> > > > > > > rcu_read_lock();
+> > > > > > > fence =3D dma_resv_excl_fence(obj);
+> > > > > > > idle =3D !fence || test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fen=
+ce->flags);
+> > > > > > > rcu_read_unlock();
+> > > > > > > =
+
+> > > > > > > This code very much looks correct under the following assumpt=
+ions:
+> > > > > > > =
+
+> > > > > > >     1. A valid fence pointer stays alive under the RCU read l=
+ock
+> > > > > > >     2. SIGNALED_BIT is set-once (it's never unset after being=
+ set).
+> > > > > > > =
+
+> > > > > > > However, if it were, we wouldn't have dma_resv_test_singnaled=
+(), now
+> > > > > > > would we? :-)
+> > > > > > > =
+
+> > > > > > > The moment you introduce ANY dma_fence recycling that recycle=
+s a
+> > > > > > > dma_fence within a single RCU grace period, all your assumpti=
+ons break
+> > > > > > > down.  SLAB_TYPESAFE_BY_RCU is just one way that i915 does th=
+is.  We
+> > > > > > > also have a little i915_request recycler to try and help with=
+ memory
+> > > > > > > pressure scenarios in certain critical sections that also doe=
+sn't
+> > > > > > > respect RCU grace periods.  And, as mentioned multiple times,=
+ our
+> > > > > > > recycling leaks into every other driver because, thanks to i9=
+15's
+> > > > > > > choice, the above 4-line code snippet isn't valid ANYWHERE in=
+ the
+> > > > > > > kernel.
+> > > > > > > =
+
+> > > > > > > So the question I'm raising isn't so much about the rules tod=
+ay.
+> > > > > > > Today, we live in the wild wild west where everything is YOLO=
+.  But
+> > > > > > > where do we want to go?  Do we like this wild west world?  So=
+ we want
+> > > > > > > more consistency under the RCU read lock?  If so, what do we =
+want the
+> > > > > > > rules to be?
+> > > > > > > =
+
+> > > > > > > One option would be to accept the wild-west world we live in =
+and say
+> > > > > > > "The RCU read lock gains you nothing.  If you want to touch t=
+he guts
+> > > > > > > of a dma_fence, take a reference".  But, at that point, we're=
+ eating
+> > > > > > > two atomics for every time someone wants to look at a dma_fen=
+ce.  Do
+> > > > > > > we want that?
+> > > > > > > =
+
+> > > > > > > Alternatively, and this what I think Daniel and I were trying=
+ to
+> > > > > > > propose here, is that we place some constraints on dma_fence
+> > > > > > > recycling.  Specifically that, under the RCU read lock, the f=
+ence
+> > > > > > > doesn't suddenly become a new fence.  All of the immutability=
+ and
+> > > > > > > once-mutability guarantees of various bits of dma_fence hold =
+as long
+> > > > > > > as you have the RCU read lock.
+> > > > > > Yeah this is suboptimal. Too many potential bugs, not enough be=
+nefits.
+> > > > > > =
+
+> > > > > > This entire __rcu business started so that there would be a loc=
+kless
+> > > > > > way to get at fences, or at least the exclusive one. That did n=
+ot
+> > > > > > really pan out. I think we have a few options:
+> > > > > > =
+
+> > > > > > - drop the idea of rcu/lockless dma-fence access outright. A qu=
+ick
+> > > > > > sequence of grabbing the lock, acquiring the dma_fence and then
+> > > > > > dropping your lock again is probably plenty good. There's a lot=
+ of
+> > > > > > call_rcu and other stuff we could probably delete. I have no id=
+ea what
+> > > > > > the perf impact across all the drivers would be.
+> > > > > The question is maybe not the perf impact, but rather if that is
+> > > > > possible over all.
+> > > > > =
+
+> > > > > IIRC we now have some cases in TTM where RCU is mandatory and we =
+simply
+> > > > > don't have any other choice than using it.
+> > > > Adding Thomas Hellstrom.
+> > > > =
+
+> > > > Where is that stuff? If we end up with all the dma_resv locking
+> > > > complexity just for an oddball, then I think that would be rather b=
+ig
+> > > > bummer.
+> > > This is during buffer destruction. See the call to dma_resv_copy_fenc=
+es().
+> > Ok yeah that's tricky.
+> > =
+
+> > The way solved this in i915 is with a trylock and punting to a worker
+> > queue if the trylock fails. And the worker queue would also be flushed
+> > from the shrinker (once we get there at least).
+> =
+
+> That's what we already had done here as well, but the worker is exactly w=
+hat
+> we wanted to avoid by this.
+> =
+
+> > So this looks fixable.
+> =
+
+> I'm not sure of that. We had really good reasons to remove the worker.
+
+I've looked around, and I didn't see any huge changes around the
+delayed_delete work. There's lots of changes on how the lru is handled to
+optimize that.
+
+And even today we still have the delayed deletion thing.
+
+So essentially what I had in mind is instead of just ttm_bo_cleanup_refs
+you first check whether the resv is individualized already, and if not do
+that first.
+
+This means there's a slight delay when a bo is deleted between when the
+refcount drops, and when we actually individualize the fences.
+
+What was the commit that removed another worker here?
+-Daniel
+
+
+> =
+
+> > =
+
+> > > But that is basically just using a dma_resv function which accesses t=
+he
+> > > object without taking a lock.
+> > The other one I've found is the ghost object, but that one is locked
+> > fully.
+> > =
+
+> > > > > > - try to make all drivers follow some stricter rules. The troub=
+le is
+> > > > > > that at least with radeon dma_fence callbacks aren't even very
+> > > > > > reliable (that's why it has its own dma_fence_wait implementati=
+on), so
+> > > > > > things are wobbly anyway.
+> > > > > > =
+
+> > > > > > - live with the current situation, but radically delete all uns=
+afe
+> > > > > > interfaces. I.e. nothing is allowed to directly deref an rcu fe=
+nce
+> > > > > > pointer, everything goes through dma_fence_get_rcu_safe. The
+> > > > > > kref_get_unless_zero would become an internal implementation de=
+tail.
+> > > > > > Our "fast" and "lockless" dma_resv fence access stays a pile of
+> > > > > > seqlock, retry loop and an a conditional atomic inc + atomic de=
+c. The
+> > > > > > only thing that's slightly faster would be dma_resv_test_signal=
+ed()
+> > > > > > =
+
+> > > > > > - I guess minimally we should rename dma_fence_get_rcu to
+> > > > > > dma_fence_tryget. It has nothing to do with rcu really, and the=
+ use is
+> > > > > > very, very limited.
+> > > > > I think what we should do is to use RCU internally in the dma_resv
+> > > > > object but disallow drivers/frameworks to mess with that directly.
+> > > > > =
+
+> > > > > In other words drivers should use one of the following:
+> > > > > 1. dma_resv_wait_timeout()
+> > > > > 2. dma_resv_test_signaled()
+> > > > > 3. dma_resv_copy_fences()
+> > > > > 4. dma_resv_get_fences()
+> > > > > 5. dma_resv_for_each_fence() <- to be implemented
+> > > > > 6. dma_resv_for_each_fence_unlocked() <- to be implemented
+> > > > > =
+
+> > > > > Inside those functions we then make sure that we only save ways of
+> > > > > accessing the RCU protected data structures.
+> > > > > =
+
+> > > > > This way we only need to make sure that those accessor functions =
+are
+> > > > > sane and don't need to audit every driver individually.
+> > > > Yeah better encapsulation for dma_resv sounds like a good thing, le=
+ast
+> > > > for all the other issues we've been discussing recently. I guess yo=
+ur
+> > > > list is also missing the various "add/replace some more fences"
+> > > > functions, but we have them already.
+> > > > =
+
+> > > > > I can tackle implementing for the dma_res_for_each_fence()/_unloc=
+ked().
+> > > > > Already got a large bunch of that coded out anyway.
+> > > > When/where do we need ot iterate over fences unlocked? Given how mu=
+ch
+> > > > pain it is to get a consistent snapshot of the fences or fence state
+> > > > (I've read  the dma-buf poll implementation, and it looks a bit bug=
+gy
+> > > > in that regard, but not sure, just as an example) and unlocked
+> > > > iterator sounds very dangerous to me.
+> > > This is to make implementation of the other functions easier. Current=
+ly they
+> > > basically each roll their own loop implementation which at least for
+> > > dma_resv_test_signaled() looks a bit questionable to me.
+> > > =
+
+> > > Additionally to those we we have one more case in i915 and the unlock=
+ed
+> > > polling implementation which I agree is a bit questionable as well.
+> > Yeah, the more I look at any of these lockless loop things the more I'm
+> > worried. 90% sure the one in dma_buf_poll is broken too.
+> > =
+
+> > > My idea is to have the problematic logic in the iterator and only giv=
+e back
+> > > fence which have a reference and are 100% sure the right one.
+> > > =
+
+> > > Probably best if I show some code around to explain what I mean.
+> > My gut feeling is that we should just try and convert them all over to
+> > taking the dma_resv_lock. And if there is really a contention issue with
+> > that, then either try to shrink it, or make it an rwlock or similar. But
+> > just the more I read a lot of the implementations the more I see bugs a=
+nd
+> > have questions.
+> =
+
+> How about we abstract all that funny rcu dance inside the iterator instea=
+d?
+> =
+
+> I mean when we just have one walker function which is well documented and
+> understood then the rest becomes relatively easy.
+> =
+
+> Christian.
+> =
+
+> > Maybe at the end a few will be left over, and then we can look at these
+> > individually in detail. Like the ttm_bo_individualize_resv situation.
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
