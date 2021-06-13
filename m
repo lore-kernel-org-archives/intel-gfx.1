@@ -1,51 +1,50 @@
-Return-Path: <SRS0=J5D5=LG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=lAW7=LH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0B9BC48BE5
-	for <intel-gfx@archiver.kernel.org>; Sat, 12 Jun 2021 17:23:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 461FFC48BDF
+	for <intel-gfx@archiver.kernel.org>; Sun, 13 Jun 2021 16:14:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5439A61357
-	for <intel-gfx@archiver.kernel.org>; Sat, 12 Jun 2021 17:23:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5439A61357
+	by mail.kernel.org (Postfix) with ESMTPS id E710B61283
+	for <intel-gfx@archiver.kernel.org>; Sun, 13 Jun 2021 16:14:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E710B61283
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDC086E156;
-	Sat, 12 Jun 2021 17:23:24 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEA9D6E156
- for <intel-gfx@lists.freedesktop.org>; Sat, 12 Jun 2021 17:23:23 +0000 (UTC)
-IronPort-SDR: 5mS6mahX/J4sg7f+oRtyt9Gc6fdTXXEPvN6Au0k9EADp3HxIkj1SO8sBnNeSYevYte+zpuL+If
- YgCl8RP26iMQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10013"; a="192785394"
-X-IronPort-AV: E=Sophos;i="5.83,268,1616482800"; d="scan'208";a="192785394"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2021 10:23:20 -0700
-IronPort-SDR: KMT50fAPeXdJ1ELixAUSKuOwoZqo0GkWc6tv6cvkCWiuqzVMHmhvtrOPpEaYVLmdkLzEWzLdw3
- 7hbfU1CDiSmA==
-X-IronPort-AV: E=Sophos;i="5.83,268,1616482800"; d="scan'208";a="483603607"
-Received: from mdroper-desk1.fm.intel.com (HELO
- mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2021 10:23:20 -0700
-Date: Sat, 12 Jun 2021 10:23:19 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Message-ID: <20210612172319.GH951094@mdroper-desk1.amr.corp.intel.com>
-References: <20210612053531.1870920-1-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42AC189CA2;
+	Sun, 13 Jun 2021 16:14:05 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 694C589CAF
+ for <intel-gfx@lists.freedesktop.org>; Sun, 13 Jun 2021 16:14:04 +0000 (UTC)
+IronPort-SDR: F0A/thEtTQF+tKm1HXIthmOQUrngjvxNv8Z5JSt9eu9Gk2HitMveUNc6R1fWeL2m0SLQ+BDX5D
+ AHz+Zfb5M76A==
+X-IronPort-AV: E=McAfee;i="6200,9189,10014"; a="227171304"
+X-IronPort-AV: E=Sophos;i="5.83,271,1616482800"; d="scan'208";a="227171304"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2021 09:14:03 -0700
+IronPort-SDR: QpBDe+h02lx9+ZB+Fug0en6YDMmWy/EA2x+UxYbhD1Tu7SWso2ndK9unHzuP5qY3u9u6dCn1In
+ 9cITX/f7bGbQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,271,1616482800"; d="scan'208";a="620826840"
+Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
+ by orsmga005.jf.intel.com with ESMTP; 13 Jun 2021 09:14:03 -0700
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Sun, 13 Jun 2021 09:14:00 -0700
+Message-Id: <20210613161403.32549-2-anusha.srivatsa@intel.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210613161403.32549-1-anusha.srivatsa@intel.com>
+References: <20210613161403.32549-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210612053531.1870920-1-lucas.demarchi@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/xelpd: break feature inheritance
+Subject: [Intel-gfx] [CI 1/4] drm/i915/dmc: Introduce DMC_FW_MAIN
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,107 +57,178 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 11, 2021 at 10:35:31PM -0700, Lucas De Marchi wrote:
-> It's becoming pretty cumbersome to track the features enabled going back
-> to GEN7. Gather the XE_LPD display features together in XE_LPD_FEATURES
-> macro so they are sufficient to describe the display features.
-> 
-> In ADL-P's device_info we set has_psr_hw_tracking to 0 as it would
-> otherwise be enabled since it is inheriting from GEN12_FEATURES.
-> 
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+This is a prep patch for Pipe DMC plugging.
 
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Add dmc_info struct in intel_dmc to have all common fields
+shared between all DMC's in the package.
+Add DMC_FW_MAIN(dmc_id 0) to refer to the blob.
 
-> ---
->  drivers/gpu/drm/i915/i915_pci.c | 50 +++++++++++++++++++++++++++------
->  1 file changed, 42 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index 83b500bb170c..5e8348f506b8 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -939,15 +939,48 @@ static const struct intel_device_info adl_s_info = {
->  	.dma_mask_size = 46,
->  };
->  
-> +#define XE_LPD_CURSOR_OFFSETS \
-> +	.cursor_offsets = { \
-> +		[PIPE_A] = CURSOR_A_OFFSET, \
-> +		[PIPE_B] = IVB_CURSOR_B_OFFSET, \
-> +		[PIPE_C] = IVB_CURSOR_C_OFFSET, \
-> +		[PIPE_D] = TGL_CURSOR_D_OFFSET, \
-> +	}
-> +
->  #define XE_LPD_FEATURES \
-> -	.display.ver = 13,						\
-> -	.display.has_psr_hw_tracking = 0,				\
-> -	.abox_mask = GENMASK(1, 0),					\
-> -	.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D), \
-> -	.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |	\
-> -		BIT(TRANSCODER_C) | BIT(TRANSCODER_D),			\
-> -	.dbuf.size = 4096,						\
-> -	.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2) | BIT(DBUF_S3) | BIT(DBUF_S4)
-> +	.abox_mask = GENMASK(1, 0),						\
-> +	.color = { .degamma_lut_size = 33, .gamma_lut_size = 262145 },		\
-> +	.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |		\
-> +		BIT(TRANSCODER_C) | BIT(TRANSCODER_D),				\
-> +	.dbuf.size = 4096,							\
-> +	.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2) | BIT(DBUF_S3) |		\
-> +		BIT(DBUF_S4),							\
-> +	.display.has_ddi = 1,							\
-> +	.display.has_dmc = 1,							\
-> +	.display.has_dp_mst = 1,						\
-> +	.display.has_dsb = 1,							\
-> +	.display.has_dsc = 1,							\
-> +	.display.has_fbc = 1,							\
-> +	.display.has_fpga_dbg = 1,						\
-> +	.display.has_hdcp = 1,							\
-> +	.display.has_hotplug = 1,						\
-> +	.display.has_ipc = 1,							\
-> +	.display.has_psr = 1,							\
-> +	.display.ver = 13,							\
-> +	.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),	\
-> +	.pipe_offsets = {							\
-> +		[TRANSCODER_A] = PIPE_A_OFFSET,					\
-> +		[TRANSCODER_B] = PIPE_B_OFFSET,					\
-> +		[TRANSCODER_C] = PIPE_C_OFFSET,					\
-> +		[TRANSCODER_D] = PIPE_D_OFFSET,					\
-> +	},									\
-> +	.trans_offsets = {							\
-> +		[TRANSCODER_A] = TRANSCODER_A_OFFSET,				\
-> +		[TRANSCODER_B] = TRANSCODER_B_OFFSET,				\
-> +		[TRANSCODER_C] = TRANSCODER_C_OFFSET,				\
-> +		[TRANSCODER_D] = TRANSCODER_D_OFFSET,				\
-> +	},									\
-> +	XE_LPD_CURSOR_OFFSETS
->  
->  static const struct intel_device_info adl_p_info = {
->  	GEN12_FEATURES,
-> @@ -956,6 +989,7 @@ static const struct intel_device_info adl_p_info = {
->  	.has_cdclk_crawl = 1,
->  	.require_force_probe = 1,
->  	.display.has_modular_fia = 1,
-> +	.display.has_psr_hw_tracking = 0,
->  	.platform_engine_mask =
->  		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
->  	.ppgtt_size = 48,
-> -- 
-> 2.31.1
-> 
+v2: Remove dmc_offset and start_mmioaddr from dmc_info struct (Jose)
 
+Cc: Souza, Jose <jose.souza@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dmc.c | 38 +++++++++++++-----------
+ drivers/gpu/drm/i915/display/intel_dmc.h | 18 +++++++----
+ 2 files changed, 33 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index 97308da28059..269a57d936ab 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -239,7 +239,7 @@ struct stepping_info {
+ 
+ bool intel_dmc_has_payload(struct drm_i915_private *i915)
+ {
+-	return i915->dmc.dmc_payload;
++	return i915->dmc.dmc_info[DMC_FW_MAIN].payload;
+ }
+ 
+ static const struct stepping_info skl_stepping_info[] = {
+@@ -316,7 +316,8 @@ static void gen9_set_dc_state_debugmask(struct drm_i915_private *dev_priv)
+  */
+ void intel_dmc_load_program(struct drm_i915_private *dev_priv)
+ {
+-	u32 *payload = dev_priv->dmc.dmc_payload;
++	struct intel_dmc *dmc = &dev_priv->dmc;
++	struct dmc_fw_info *dmc_info = &dmc->dmc_info[DMC_FW_MAIN];
+ 	u32 i, fw_size;
+ 
+ 	if (!HAS_DMC(dev_priv)) {
+@@ -325,26 +326,26 @@ void intel_dmc_load_program(struct drm_i915_private *dev_priv)
+ 		return;
+ 	}
+ 
+-	if (!intel_dmc_has_payload(dev_priv)) {
++	if (!dev_priv->dmc.dmc_info[DMC_FW_MAIN].payload) {
+ 		drm_err(&dev_priv->drm,
+ 			"Tried to program CSR with empty payload\n");
+ 		return;
+ 	}
+ 
+-	fw_size = dev_priv->dmc.dmc_fw_size;
++	fw_size = dmc_info->dmc_fw_size;
+ 	assert_rpm_wakelock_held(&dev_priv->runtime_pm);
+ 
+ 	preempt_disable();
+ 
+ 	for (i = 0; i < fw_size; i++)
+ 		intel_uncore_write_fw(&dev_priv->uncore, DMC_PROGRAM(i),
+-				      payload[i]);
++				      dmc_info->payload[i]);
+ 
+ 	preempt_enable();
+ 
+-	for (i = 0; i < dev_priv->dmc.mmio_count; i++) {
+-		intel_de_write(dev_priv, dev_priv->dmc.mmioaddr[i],
+-			       dev_priv->dmc.mmiodata[i]);
++	for (i = 0; i < dmc_info->mmio_count; i++) {
++		intel_de_write(dev_priv, dmc_info->mmioaddr[i],
++			       dmc_info->mmiodata[i]);
+ 	}
+ 
+ 	dev_priv->dmc.dc_state = 0;
+@@ -401,13 +402,14 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 			       size_t rem_size)
+ {
+ 	struct drm_i915_private *i915 = container_of(dmc, typeof(*i915), dmc);
++	struct dmc_fw_info *dmc_info = &dmc->dmc_info[DMC_FW_MAIN];
+ 	unsigned int header_len_bytes, dmc_header_size, payload_size, i;
+ 	const u32 *mmioaddr, *mmiodata;
+ 	u32 mmio_count, mmio_count_max;
+ 	u8 *payload;
+ 
+-	BUILD_BUG_ON(ARRAY_SIZE(dmc->mmioaddr) < DMC_V3_MAX_MMIO_COUNT ||
+-		     ARRAY_SIZE(dmc->mmioaddr) < DMC_V1_MAX_MMIO_COUNT);
++	BUILD_BUG_ON(ARRAY_SIZE(dmc_info->mmioaddr) < DMC_V3_MAX_MMIO_COUNT ||
++		     ARRAY_SIZE(dmc_info->mmioaddr) < DMC_V1_MAX_MMIO_COUNT);
+ 
+ 	/*
+ 	 * Check if we can access common fields, we will checkc again below
+@@ -469,10 +471,10 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 				mmioaddr[i]);
+ 			return 0;
+ 		}
+-		dmc->mmioaddr[i] = _MMIO(mmioaddr[i]);
+-		dmc->mmiodata[i] = mmiodata[i];
++		dmc_info->mmioaddr[i] = _MMIO(mmioaddr[i]);
++		dmc_info->mmiodata[i] = mmiodata[i];
+ 	}
+-	dmc->mmio_count = mmio_count;
++	dmc_info->mmio_count = mmio_count;
+ 
+ 	rem_size -= header_len_bytes;
+ 
+@@ -485,14 +487,14 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 		drm_err(&i915->drm, "DMC FW too big (%u bytes)\n", payload_size);
+ 		return 0;
+ 	}
+-	dmc->dmc_fw_size = dmc_header->fw_size;
++	dmc_info->dmc_fw_size = dmc_header->fw_size;
+ 
+-	dmc->dmc_payload = kmalloc(payload_size, GFP_KERNEL);
+-	if (!dmc->dmc_payload)
++	dmc_info->payload = kmalloc(payload_size, GFP_KERNEL);
++	if (!dmc_info->payload)
+ 		return 0;
+ 
+ 	payload = (u8 *)(dmc_header) + header_len_bytes;
+-	memcpy(dmc->dmc_payload, payload, payload_size);
++	memcpy(dmc_info->payload, payload, payload_size);
+ 
+ 	return header_len_bytes + payload_size;
+ 
+@@ -827,5 +829,5 @@ void intel_dmc_ucode_fini(struct drm_i915_private *dev_priv)
+ 	intel_dmc_ucode_suspend(dev_priv);
+ 	drm_WARN_ON(&dev_priv->drm, dev_priv->dmc.wakeref);
+ 
+-	kfree(dev_priv->dmc.dmc_payload);
++	kfree(dev_priv->dmc.dmc_info[DMC_FW_MAIN].payload);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.h b/drivers/gpu/drm/i915/display/intel_dmc.h
+index 4c22f567b61b..b872f3a4fd03 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.h
++++ b/drivers/gpu/drm/i915/display/intel_dmc.h
+@@ -16,17 +16,25 @@ struct drm_i915_private;
+ #define DMC_VERSION_MAJOR(version)	((version) >> 16)
+ #define DMC_VERSION_MINOR(version)	((version) & 0xffff)
+ 
++enum {
++	DMC_FW_MAIN = 0,
++	DMC_FW_MAX
++};
++
+ struct intel_dmc {
+ 	struct work_struct work;
+ 	const char *fw_path;
+ 	u32 required_version;
+ 	u32 max_fw_size; /* bytes */
+-	u32 *dmc_payload;
+-	u32 dmc_fw_size; /* dwords */
+ 	u32 version;
+-	u32 mmio_count;
+-	i915_reg_t mmioaddr[20];
+-	u32 mmiodata[20];
++	struct dmc_fw_info {
++		u32 mmio_count;
++		i915_reg_t mmioaddr[20];
++		u32 mmiodata[20];
++		u32 dmc_fw_size; /*dwords */
++		u32 *payload;
++	} dmc_info[DMC_FW_MAX];
++
+ 	u32 dc_state;
+ 	u32 target_dc_state;
+ 	u32 allowed_dc_mask;
 -- 
-Matt Roper
-Graphics Software Engineer
-VTT-OSGC Platform Enablement
-Intel Corporation
-(916) 356-2795
+2.32.0
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
