@@ -7,46 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBC56C2B9F4
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 11:54:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33109C2B9F4
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 11:57:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8A909611BE
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 11:54:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8A909611BE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id DE884611BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 11:57:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE884611BE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD7889D61;
-	Mon, 14 Jun 2021 11:54:25 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC7B89D4B;
- Mon, 14 Jun 2021 11:54:24 +0000 (UTC)
-IronPort-SDR: W/FKo/kJOsrk5w84sVsTIl+iDNOSquicM0RnFHzvHYP9/Ti8ZTKDZkbx665F4hstgl3ZkhwrsG
- A8hTXNiTs26A==
-X-IronPort-AV: E=McAfee;i="6200,9189,10014"; a="185490618"
-X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="185490618"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2021 04:54:24 -0700
-IronPort-SDR: vSjOuSjkDfIyVMZFFOIjsPS68WoW33YaUqJD6/i/VF1+lEN31YM+2WFHfML1376XMU7BW8i8Ee
- 7C2t37cZ64Lw==
-X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="451570261"
-Received: from janlundk-mobl1.ger.corp.intel.com (HELO
- thellst-mobl1.intel.com) ([10.249.254.32])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2021 04:54:22 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 854A089CB5;
+	Mon, 14 Jun 2021 11:57:58 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF8389CB5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 11:57:57 +0000 (UTC)
+IronPort-SDR: oDU3SkKHXgyS83PQWE8jNfZy/mNT54r0HmlkwjBVYLf0oHqK4wuEsf53BCp50gnKsGApAaPS+4
+ 72dXD4jq/6bw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10014"; a="205756764"
+X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="205756764"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2021 04:57:56 -0700
+IronPort-SDR: nfe2uYg5dz67E76gIrS+j1AeIjI+X0RMMBNTiVdUMFBUoRydshKuZ8DERKE7CE0ckDAcPl96He
+ LvaGdjjiDZlA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="478361070"
+Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
+ by FMSMGA003.fm.intel.com with ESMTP; 14 Jun 2021 04:57:54 -0700
+From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Mon, 14 Jun 2021 13:54:06 +0200
-Message-Id: <20210614115406.153107-5-thomas.hellstrom@linux.intel.com>
+	imre.deak@intel.com
+Date: Mon, 14 Jun 2021 17:18:51 +0530
+Message-Id: <20210614114851.839925-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210614115406.153107-1-thomas.hellstrom@linux.intel.com>
-References: <20210614115406.153107-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 4/4] drm/i915/ttm: Use TTM for system memory
+Subject: [Intel-gfx] [PATCH V5] drm/i915/jsl: Add W/A 1409054076 for JSL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,81 +56,145 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- matthew.auld@intel.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rm9yIGRpc2NyZXRlLCB1c2UgVFRNIGZvciBib3RoIGNhY2hlZCBhbmQgV0Mgc3lzdGVtIG1lbW9y
-eS4gVGhhdCBtZWFucwp3ZSBjdXJyZW50bHkgcmVseSBvbiB0aGUgVFRNIG1lbW9yeSBhY2NvdW50
-aW5nIC8gc2hyaW5rZXIuIEZvciBjYWNoZWQKc3lzdGVtIG1lbW9yeSB3ZSBzaG91bGQgY29uc2lk
-ZXIgcmVtYWluaW5nIHNobWVtLWJhY2tlZCwgd2hpY2ggY2FuIGJlCmltcGxlbWVudGVkIGZyb20g
-b3VyIHR0bV90dF9wb3B1bGF0ZSBjYWxsYmFjay4gV2UgY2FuIHRoZW4gYWxzbyByZXVzZSBvdXIK
-b3duIHZlcnkgZWxhYm9yYXRlIHNocmlua2VyIGZvciB0aGF0IG1lbW9yeS4KClNpZ25lZC1vZmYt
-Ynk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4K
-UmV2aWV3ZWQtYnk6IE1hdHRoZXcgQXVsZCA8bWF0dGhldy5hdWxkQGludGVsLmNvbT4KLS0tCnYy
-OgotIEZpeCBJU19FUlJfT1JfTlVMTCgpIGNoZWNrIHRvIElTX0VSUigpIChSZXBvcnRlZCBieSBN
-YXR0aGV3IEF1bGQpCnYzOgotIENvbW1pdCBtZXNzYWdlIHR5cG8gZml4Ci0tLQogZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3R0bS5jICAgIHwgMjIgKysrKysrKysrKysrKysrKysr
-KysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCAgICAgICAgICAgIHwgIDMgLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmMgfCAgNyArKysrKyst
-CiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmggfCAgOCArKysrKysr
-KwogNCBmaWxlcyBjaGFuZ2VkLCAzNiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV90dG0uYyBiL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV90dG0uYwppbmRleCAxYzQ1ZjljODc5NDYuLmQ0
-OGNhMTdlNzBkZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2Vt
-X3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV90dG0uYwpAQCAt
-NzU1LDMgKzc1NSwyNSBAQCBpbnQgX19pOTE1X2dlbV90dG1fb2JqZWN0X2luaXQoc3RydWN0IGlu
-dGVsX21lbW9yeV9yZWdpb24gKm1lbSwKIAkvKiBpOTE1IHdhbnRzIC1FTlhJTyB3aGVuIG91dCBv
-ZiBtZW1vcnkgcmVnaW9uIHNwYWNlLiAqLwogCXJldHVybiAocmV0ID09IC1FTk9TUEMpID8gLUVO
-WElPIDogcmV0OwogfQorCitzdGF0aWMgY29uc3Qgc3RydWN0IGludGVsX21lbW9yeV9yZWdpb25f
-b3BzIHR0bV9zeXN0ZW1fcmVnaW9uX29wcyA9IHsKKwkuaW5pdF9vYmplY3QgPSBfX2k5MTVfZ2Vt
-X3R0bV9vYmplY3RfaW5pdCwKK307CisKK3N0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICoKK2k5
-MTVfZ2VtX3R0bV9zeXN0ZW1fc2V0dXAoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsCisJ
-CQkgIHUxNiB0eXBlLCB1MTYgaW5zdGFuY2UpCit7CisJc3RydWN0IGludGVsX21lbW9yeV9yZWdp
-b24gKm1yOworCisJbXIgPSBpbnRlbF9tZW1vcnlfcmVnaW9uX2NyZWF0ZShpOTE1LCAwLAorCQkJ
-CQl0b3RhbHJhbV9wYWdlcygpIDw8IFBBR0VfU0hJRlQsCisJCQkJCVBBR0VfU0laRSwgMCwKKwkJ
-CQkJdHlwZSwgaW5zdGFuY2UsCisJCQkJCSZ0dG1fc3lzdGVtX3JlZ2lvbl9vcHMpOworCWlmIChJ
-U19FUlIobXIpKQorCQlyZXR1cm4gbXI7CisKKwlpbnRlbF9tZW1vcnlfcmVnaW9uX3NldF9uYW1l
-KG1yLCAic3lzdGVtLXR0bSIpOworCXJldHVybiBtcjsKK30KZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2k5MTVfZHJ2LmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5o
-CmluZGV4IDM4ZmYyZmI4OTc0NC4uOTY0M2JlYmI5NTFkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pOTE1X2Rydi5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2
-LmgKQEAgLTE3NTEsOSArMTc1MSw2IEBAIHZvaWQgaTkxNV9nZW1fY2xlYW51cF91c2VycHRyKHN0
-cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdik7CiB2b2lkIGk5MTVfZ2VtX2luaXRfZWFy
-bHkoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KTsKIHZvaWQgaTkxNV9nZW1fY2xl
-YW51cF9lYXJseShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpOwogCi1zdHJ1Y3Qg
-aW50ZWxfbWVtb3J5X3JlZ2lvbiAqaTkxNV9nZW1fc2htZW1fc2V0dXAoc3RydWN0IGRybV9pOTE1
-X3ByaXZhdGUgKmk5MTUsCi0JCQkJCQkgdTE2IHR5cGUsIHUxNiBpbnN0YW5jZSk7Ci0KIHN0YXRp
-YyBpbmxpbmUgdm9pZCBpOTE1X2dlbV9kcmFpbl9mcmVlZF9vYmplY3RzKHN0cnVjdCBkcm1faTkx
-NV9wcml2YXRlICppOTE1KQogewogCS8qCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9pbnRlbF9tZW1vcnlfcmVnaW9uLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1v
-cnlfcmVnaW9uLmMKaW5kZXggMTJmYjU0MjNmZDVlLi4wYjAxNmJkYjhiODQgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24uYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmMKQEAgLTIyMCw3ICsyMjAsMTIgQEAg
-aW50IGludGVsX21lbW9yeV9yZWdpb25zX2h3X3Byb2JlKHN0cnVjdCBkcm1faTkxNV9wcml2YXRl
-ICppOTE1KQogCQlpbnN0YW5jZSA9IGludGVsX3JlZ2lvbl9tYXBbaV0uaW5zdGFuY2U7CiAJCXN3
-aXRjaCAodHlwZSkgewogCQljYXNlIElOVEVMX01FTU9SWV9TWVNURU06Ci0JCQltZW0gPSBpOTE1
-X2dlbV9zaG1lbV9zZXR1cChpOTE1LCB0eXBlLCBpbnN0YW5jZSk7CisJCQlpZiAoSVNfREdGWChp
-OTE1KSkKKwkJCQltZW0gPSBpOTE1X2dlbV90dG1fc3lzdGVtX3NldHVwKGk5MTUsIHR5cGUsCisJ
-CQkJCQkJCWluc3RhbmNlKTsKKwkJCWVsc2UKKwkJCQltZW0gPSBpOTE1X2dlbV9zaG1lbV9zZXR1
-cChpOTE1LCB0eXBlLAorCQkJCQkJCSAgIGluc3RhbmNlKTsKIAkJCWJyZWFrOwogCQljYXNlIElO
-VEVMX01FTU9SWV9TVE9MRU5fTE9DQUw6CiAJCQltZW0gPSBpOTE1X2dlbV9zdG9sZW5fbG1lbV9z
-ZXR1cChpOTE1LCB0eXBlLCBpbnN0YW5jZSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9t
-ZW1vcnlfcmVnaW9uLmgKaW5kZXggYzdlNjM1ZDYyZTFhLi4xYTJiYjlmYzlkZTUgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24uaAorKysgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmgKQEAgLTE0Myw0ICsxNDMsMTIg
-QEAgdm9pZCBpbnRlbF9tZW1vcnlfcmVnaW9uX3VucmVzZXJ2ZShzdHJ1Y3QgaW50ZWxfbWVtb3J5
-X3JlZ2lvbiAqbWVtKTsKIGludCBpbnRlbF9tZW1vcnlfcmVnaW9uX3Jlc2VydmUoc3RydWN0IGlu
-dGVsX21lbW9yeV9yZWdpb24gKm1lbSwKIAkJCQlyZXNvdXJjZV9zaXplX3Qgb2Zmc2V0LAogCQkJ
-CXJlc291cmNlX3NpemVfdCBzaXplKTsKKworc3RydWN0IGludGVsX21lbW9yeV9yZWdpb24gKgor
-aTkxNV9nZW1fdHRtX3N5c3RlbV9zZXR1cChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwK
-KwkJCSAgdTE2IHR5cGUsIHUxNiBpbnN0YW5jZSk7CitzdHJ1Y3QgaW50ZWxfbWVtb3J5X3JlZ2lv
-biAqCitpOTE1X2dlbV9zaG1lbV9zZXR1cChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwK
-KwkJICAgICB1MTYgdHlwZSwgdTE2IGluc3RhbmNlKTsKKwogI2VuZGlmCi0tIAoyLjMxLjEKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBt
-YWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+When pipe A is disabled and MIPI DSI is enabled on pipe B,
+the AMT KVMR feature will incorrectly see pipe A as enabled.
+Set 0x42080 bit 23=1 before enabling DSI on pipe B and leave
+it set while DSI is enabled on pipe B. No impact to setting
+it all the time.
+
+Changes since V4:
+        - Modified function comment Wa_<number>:icl,jsl,ehl - Lucas
+        - Modified debug message in sync state - Imre
+Changes since V3:
+        - More meaningful name to workaround - Imre
+        - Remove boolean check clear flag
+        - Add WA_verify hook in dsi sync_state
+Changes since V2:
+        - Used REG_BIT, ignored pipe A and used sw state check - Jani
+        - Made function wrapper - Jani
+Changes since V1:
+        - ./dim checkpatch errors addressed
+
+Cc: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+---
+ drivers/gpu/drm/i915/display/icl_dsi.c | 44 ++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_reg.h        |  1 +
+ 2 files changed, 45 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index 16812488c5dd..17e318eb1ad0 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -1253,15 +1253,37 @@ static void gen11_dsi_pre_enable(struct intel_atomic_state *state,
+ 	gen11_dsi_set_transcoder_timings(encoder, pipe_config);
+ }
+ 
++/*
++ * Wa_1409054076:icl,jsl,ehl
++ * When pipe A is disabled and MIPI DSI is enabled on pipe B,
++ * the AMT KVMR feature will incorrectly see pipe A as enabled.
++ * Set 0x42080 bit 23=1 before enabling DSI on pipe B and leave
++ * it set while DSI is enabled on pipe B
++ */
++static void icl_apply_kvmr_pipe_a_wa(struct intel_encoder *encoder,
++				     enum pipe pipe, bool enable)
++{
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++
++	if ((DISPLAY_VER(dev_priv) == 11) && pipe == PIPE_B) {
++		intel_de_rmw(dev_priv, CHICKEN_PAR1_1,
++			     IGNORE_KVMR_PIPE_A,
++			     enable ? IGNORE_KVMR_PIPE_A : 0);
++	}
++}
+ static void gen11_dsi_enable(struct intel_atomic_state *state,
+ 			     struct intel_encoder *encoder,
+ 			     const struct intel_crtc_state *crtc_state,
+ 			     const struct drm_connector_state *conn_state)
+ {
+ 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
++	struct intel_crtc *crtc = to_intel_crtc(conn_state->crtc);
+ 
+ 	drm_WARN_ON(state->base.dev, crtc_state->has_pch_encoder);
+ 
++	/* Wa_1409054076:icl,jsl,ehl */
++	icl_apply_kvmr_pipe_a_wa(encoder, crtc->pipe, true);
++
+ 	/* step6d: enable dsi transcoder */
+ 	gen11_dsi_enable_transcoder(encoder);
+ 
+@@ -1415,6 +1437,7 @@ static void gen11_dsi_disable(struct intel_atomic_state *state,
+ 			      const struct drm_connector_state *old_conn_state)
+ {
+ 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
++	struct intel_crtc *crtc = to_intel_crtc(old_conn_state->crtc);
+ 
+ 	/* step1: turn off backlight */
+ 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_BACKLIGHT_OFF);
+@@ -1423,6 +1446,9 @@ static void gen11_dsi_disable(struct intel_atomic_state *state,
+ 	/* step2d,e: disable transcoder and wait */
+ 	gen11_dsi_disable_transcoder(encoder);
+ 
++	/* Wa_1409054076:icl,jsl,ehl */
++	icl_apply_kvmr_pipe_a_wa(encoder, crtc->pipe, false);
++
+ 	/* step2f,g: powerdown panel */
+ 	gen11_dsi_powerdown_panel(encoder);
+ 
+@@ -1548,6 +1574,23 @@ static void gen11_dsi_get_config(struct intel_encoder *encoder,
+ 		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_PERIODIC_CMD_MODE;
+ }
+ 
++static void gen11_dsi_sync_state(struct intel_encoder *encoder,
++				 const struct intel_crtc_state *crtc_state)
++{
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	struct intel_crtc *intel_crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	enum pipe pipe = intel_crtc->pipe;
++
++	/* wa verify 1409054076:icl,jsl,ehl */
++	if ((DISPLAY_VER(dev_priv) == 11) && pipe == PIPE_B &&
++	    !(intel_de_read(dev_priv, CHICKEN_PAR1_1) & IGNORE_KVMR_PIPE_A))
++		drm_dbg_kms(&dev_priv->drm,
++			    "[ENCODER:%d:%s] BIOS left IGNORE_KVMR_PIPE_A\t"
++			    "cleared with pipe B enabled\n",
++			    encoder->base.base.id,
++			    encoder->base.name);
++}
++
+ static int gen11_dsi_dsc_compute_config(struct intel_encoder *encoder,
+ 					struct intel_crtc_state *crtc_state)
+ {
+@@ -1966,6 +2009,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
+ 	encoder->post_disable = gen11_dsi_post_disable;
+ 	encoder->port = port;
+ 	encoder->get_config = gen11_dsi_get_config;
++	encoder->sync_state = gen11_dsi_sync_state;
+ 	encoder->update_pipe = intel_panel_update_backlight;
+ 	encoder->compute_config = gen11_dsi_compute_config;
+ 	encoder->get_hw_state = gen11_dsi_get_hw_state;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index e915ec034c98..955027799d1d 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -8107,6 +8107,7 @@ enum {
+ # define CHICKEN3_DGMG_DONE_FIX_DISABLE		(1 << 2)
+ 
+ #define CHICKEN_PAR1_1			_MMIO(0x42080)
++#define  IGNORE_KVMR_PIPE_A		REG_BIT(23)
+ #define  KBL_ARB_FILL_SPARE_22		REG_BIT(22)
+ #define  DIS_RAM_BYPASS_PSR2_MAN_TRACK	(1 << 16)
+ #define  SKL_DE_COMPRESSED_HASH_MODE	(1 << 15)
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
