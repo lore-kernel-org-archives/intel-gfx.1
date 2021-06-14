@@ -6,33 +6,34 @@ X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30C15C48BE8
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 06:28:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11C24C48BE6
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 06:28:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D4ED1613AD
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 06:28:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D4ED1613AD
+	by mail.kernel.org (Postfix) with ESMTPS id B48A161246
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 06:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B48A161246
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5098489D84;
-	Mon, 14 Jun 2021 06:28:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C2DE89617;
+	Mon, 14 Jun 2021 06:28:23 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E3B889D84;
- Mon, 14 Jun 2021 06:28:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9F689D86;
+ Mon, 14 Jun 2021 06:28:21 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id DE87267373; Mon, 14 Jun 2021 08:28:01 +0200 (CEST)
-Date: Mon, 14 Jun 2021 08:28:01 +0200
+ id 4C6E068AFE; Mon, 14 Jun 2021 08:28:19 +0200 (CEST)
+Date: Mon, 14 Jun 2021 08:28:18 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210614062801.GJ28343@lst.de>
+Message-ID: <20210614062818.GK28343@lst.de>
 References: <20210611152659.2142983-1-tientzu@chromium.org>
  <20210611152659.2142983-12-tientzu@chromium.org>
+ <20210614062801.GJ28343@lst.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210611152659.2142983-12-tientzu@chromium.org>
+In-Reply-To: <20210614062801.GJ28343@lst.de>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 Subject: Re: [Intel-gfx] [PATCH v9 11/14] swiotlb: Add restricted DMA
  alloc/free support.
@@ -78,8 +79,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I think merging this with the next two patches would be a little more
-clear.
+On Mon, Jun 14, 2021 at 08:28:01AM +0200, Christoph Hellwig wrote:
+> I think merging this with the next two patches would be a little more
+> clear.
+
+Sorry, I mean the next patch and the previous one.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
