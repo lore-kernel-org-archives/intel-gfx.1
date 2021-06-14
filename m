@@ -2,48 +2,49 @@ Return-Path: <SRS0=Eks7=LI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33109C2B9F4
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 11:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95A55C4743C
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 12:09:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE884611BE
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 11:57:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE884611BE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4C8F761208
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jun 2021 12:09:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C8F761208
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 854A089CB5;
-	Mon, 14 Jun 2021 11:57:58 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF8389CB5
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Jun 2021 11:57:57 +0000 (UTC)
-IronPort-SDR: oDU3SkKHXgyS83PQWE8jNfZy/mNT54r0HmlkwjBVYLf0oHqK4wuEsf53BCp50gnKsGApAaPS+4
- 72dXD4jq/6bw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10014"; a="205756764"
-X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="205756764"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2021 04:57:56 -0700
-IronPort-SDR: nfe2uYg5dz67E76gIrS+j1AeIjI+X0RMMBNTiVdUMFBUoRydshKuZ8DERKE7CE0ckDAcPl96He
- LvaGdjjiDZlA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="478361070"
-Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
- by FMSMGA003.fm.intel.com with ESMTP; 14 Jun 2021 04:57:54 -0700
-From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	imre.deak@intel.com
-Date: Mon, 14 Jun 2021 17:18:51 +0530
-Message-Id: <20210614114851.839925-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45AC189BF8;
+	Mon, 14 Jun 2021 12:09:19 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCB3389BF5;
+ Mon, 14 Jun 2021 12:09:17 +0000 (UTC)
+IronPort-SDR: LaDPWxU9qdB4zpQIyTvRLUUFEOMKxD18Sjc/tKG9ocCM8rFf+lKroaK5IHJSE69RkhuayXpRuX
+ IoOgp4DjtlqA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10014"; a="202773121"
+X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="202773121"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2021 05:09:16 -0700
+IronPort-SDR: iVnDN4SgdIyX7vBzrCiMYxzsAn2L37LySqtr7lbgh+PR/R56VNpYD/OFuZEVwt5WKcSwU4anoZ
+ 3NOgybdMXVfA==
+X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="420763271"
+Received: from crowley-mobl1.ger.corp.intel.com (HELO tursulin-mobl2.home)
+ ([10.213.235.99])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2021 05:09:14 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Mon, 14 Jun 2021 13:09:06 +0100
+Message-Id: <20210614120906.1616120-1-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH V5] drm/i915/jsl: Add W/A 1409054076 for JSL
+Subject: [Intel-gfx] [PATCH v3] drm/i915: Be more gentle with exiting
+ non-persistent context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,143 +57,215 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Zhen Han <zhen.han@intel.com>, Chris Wilson <chris@chris-wilson.co.uk>,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When pipe A is disabled and MIPI DSI is enabled on pipe B,
-the AMT KVMR feature will incorrectly see pipe A as enabled.
-Set 0x42080 bit 23=1 before enabling DSI on pipe B and leave
-it set while DSI is enabled on pipe B. No impact to setting
-it all the time.
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Changes since V4:
-        - Modified function comment Wa_<number>:icl,jsl,ehl - Lucas
-        - Modified debug message in sync state - Imre
-Changes since V3:
-        - More meaningful name to workaround - Imre
-        - Remove boolean check clear flag
-        - Add WA_verify hook in dsi sync_state
-Changes since V2:
-        - Used REG_BIT, ignored pipe A and used sw state check - Jani
-        - Made function wrapper - Jani
-Changes since V1:
-        - ./dim checkpatch errors addressed
+When a non-persistent context exits we currently mark it as banned in
+order to trigger fast termination of any outstanding GPU jobs it may have
+left running.
 
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+In doing so we apply a very strict 1ms limit in which the left over job
+has to preempt before we issues an engine resets.
+
+Some workloads are not able to cleanly preempt in that time window and it
+can be argued that it would instead be better to give them a bit more
+grace since avoiding engine resets is generally preferrable.
+
+To achieve this the patch splits handling of banned contexts from simply
+exited non-persistent ones and then applies different timeouts for both
+and also extends the criteria which determines if a request should be
+scheduled back in after preemption or not.
+
+15ms preempt timeout grace is given to exited non-persistent contexts
+which have been empirically tested to satisfy customers requirements
+and still provides reasonably quick cleanup post exit.
+
+v2:
+ * Streamline fast path checks.
+
+v3:
+ * Simplify by using only schedulable status.
+ * Increase timeout to 20ms.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Zhen Han <zhen.han@intel.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 44 ++++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h        |  1 +
- 2 files changed, 45 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c      | 16 ++++++++++------
+ drivers/gpu/drm/i915/gt/intel_context.c          |  2 ++
+ drivers/gpu/drm/i915/gt/intel_context.h          | 11 +++++++++++
+ drivers/gpu/drm/i915/gt/intel_context_types.h    |  1 +
+ .../gpu/drm/i915/gt/intel_execlists_submission.c | 11 +++++++++--
+ drivers/gpu/drm/i915/i915_request.c              |  2 +-
+ 6 files changed, 34 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 16812488c5dd..17e318eb1ad0 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1253,15 +1253,37 @@ static void gen11_dsi_pre_enable(struct intel_atomic_state *state,
- 	gen11_dsi_set_transcoder_timings(encoder, pipe_config);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 7720b8c22c81..463d4aa9cf63 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -426,7 +426,8 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
+ 	return engine;
  }
  
-+/*
-+ * Wa_1409054076:icl,jsl,ehl
-+ * When pipe A is disabled and MIPI DSI is enabled on pipe B,
-+ * the AMT KVMR feature will incorrectly see pipe A as enabled.
-+ * Set 0x42080 bit 23=1 before enabling DSI on pipe B and leave
-+ * it set while DSI is enabled on pipe B
-+ */
-+static void icl_apply_kvmr_pipe_a_wa(struct intel_encoder *encoder,
-+				     enum pipe pipe, bool enable)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+
-+	if ((DISPLAY_VER(dev_priv) == 11) && pipe == PIPE_B) {
-+		intel_de_rmw(dev_priv, CHICKEN_PAR1_1,
-+			     IGNORE_KVMR_PIPE_A,
-+			     enable ? IGNORE_KVMR_PIPE_A : 0);
-+	}
-+}
- static void gen11_dsi_enable(struct intel_atomic_state *state,
- 			     struct intel_encoder *encoder,
- 			     const struct intel_crtc_state *crtc_state,
- 			     const struct drm_connector_state *conn_state)
+-static void kill_engines(struct i915_gem_engines *engines, bool ban)
++static void
++kill_engines(struct i915_gem_engines *engines, bool ban, bool persistent)
  {
- 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
-+	struct intel_crtc *crtc = to_intel_crtc(conn_state->crtc);
+ 	struct i915_gem_engines_iter it;
+ 	struct intel_context *ce;
+@@ -443,6 +444,9 @@ static void kill_engines(struct i915_gem_engines *engines, bool ban)
  
- 	drm_WARN_ON(state->base.dev, crtc_state->has_pch_encoder);
+ 		if (ban && intel_context_set_banned(ce))
+ 			continue;
++		else if (!persistent &&
++			 !intel_context_clear_schedulable(ce))
++			continue;
  
-+	/* Wa_1409054076:icl,jsl,ehl */
-+	icl_apply_kvmr_pipe_a_wa(encoder, crtc->pipe, true);
-+
- 	/* step6d: enable dsi transcoder */
- 	gen11_dsi_enable_transcoder(encoder);
+ 		/*
+ 		 * Check the current active state of this context; if we
+@@ -454,7 +458,7 @@ static void kill_engines(struct i915_gem_engines *engines, bool ban)
+ 		engine = active_engine(ce);
  
-@@ -1415,6 +1437,7 @@ static void gen11_dsi_disable(struct intel_atomic_state *state,
- 			      const struct drm_connector_state *old_conn_state)
+ 		/* First attempt to gracefully cancel the context */
+-		if (engine && !__cancel_engine(engine) && ban)
++		if (engine && !__cancel_engine(engine) && (ban || !persistent))
+ 			/*
+ 			 * If we are unable to send a preemptive pulse to bump
+ 			 * the context from the GPU, we have to resort to a full
+@@ -466,8 +470,6 @@ static void kill_engines(struct i915_gem_engines *engines, bool ban)
+ 
+ static void kill_context(struct i915_gem_context *ctx)
  {
- 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
-+	struct intel_crtc *crtc = to_intel_crtc(old_conn_state->crtc);
+-	bool ban = (!i915_gem_context_is_persistent(ctx) ||
+-		    !ctx->i915->params.enable_hangcheck);
+ 	struct i915_gem_engines *pos, *next;
  
- 	/* step1: turn off backlight */
- 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_BACKLIGHT_OFF);
-@@ -1423,6 +1446,9 @@ static void gen11_dsi_disable(struct intel_atomic_state *state,
- 	/* step2d,e: disable transcoder and wait */
- 	gen11_dsi_disable_transcoder(encoder);
+ 	spin_lock_irq(&ctx->stale.lock);
+@@ -480,7 +482,8 @@ static void kill_context(struct i915_gem_context *ctx)
  
-+	/* Wa_1409054076:icl,jsl,ehl */
-+	icl_apply_kvmr_pipe_a_wa(encoder, crtc->pipe, false);
+ 		spin_unlock_irq(&ctx->stale.lock);
+ 
+-		kill_engines(pos, ban);
++		kill_engines(pos, !ctx->i915->params.enable_hangcheck,
++			     i915_gem_context_is_persistent(ctx));
+ 
+ 		spin_lock_irq(&ctx->stale.lock);
+ 		GEM_BUG_ON(i915_sw_fence_signaled(&pos->fence));
+@@ -526,7 +529,8 @@ static void engines_idle_release(struct i915_gem_context *ctx,
+ 
+ kill:
+ 	if (list_empty(&engines->link)) /* raced, already closed */
+-		kill_engines(engines, true);
++		kill_engines(engines, true,
++			     i915_gem_context_is_persistent(ctx));
+ 
+ 	i915_sw_fence_commit(&engines->fence);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 4033184f13b9..9d539f48d7c6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -373,6 +373,8 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ 	ce->sseu = engine->sseu;
+ 	ce->ring = __intel_context_ring_size(SZ_4K);
+ 
++	__set_bit(CONTEXT_SCHEDULABLE, &ce->flags);
 +
- 	/* step2f,g: powerdown panel */
- 	gen11_dsi_powerdown_panel(encoder);
+ 	ewma_runtime_init(&ce->runtime.avg);
  
-@@ -1548,6 +1574,23 @@ static void gen11_dsi_get_config(struct intel_encoder *encoder,
- 		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_PERIODIC_CMD_MODE;
+ 	ce->vm = i915_vm_get(engine->gt->vm);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
+index f83a73a2b39f..2d00ccd2a865 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.h
++++ b/drivers/gpu/drm/i915/gt/intel_context.h
+@@ -217,9 +217,20 @@ static inline bool intel_context_is_banned(const struct intel_context *ce)
+ 
+ static inline bool intel_context_set_banned(struct intel_context *ce)
+ {
++	clear_bit(CONTEXT_SCHEDULABLE, &ce->flags);
+ 	return test_and_set_bit(CONTEXT_BANNED, &ce->flags);
  }
  
-+static void gen11_dsi_sync_state(struct intel_encoder *encoder,
-+				 const struct intel_crtc_state *crtc_state)
++static inline bool intel_context_clear_schedulable(struct intel_context *ce)
 +{
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+	struct intel_crtc *intel_crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	enum pipe pipe = intel_crtc->pipe;
-+
-+	/* wa verify 1409054076:icl,jsl,ehl */
-+	if ((DISPLAY_VER(dev_priv) == 11) && pipe == PIPE_B &&
-+	    !(intel_de_read(dev_priv, CHICKEN_PAR1_1) & IGNORE_KVMR_PIPE_A))
-+		drm_dbg_kms(&dev_priv->drm,
-+			    "[ENCODER:%d:%s] BIOS left IGNORE_KVMR_PIPE_A\t"
-+			    "cleared with pipe B enabled\n",
-+			    encoder->base.base.id,
-+			    encoder->base.name);
++	return test_and_clear_bit(CONTEXT_SCHEDULABLE, &ce->flags);
 +}
 +
- static int gen11_dsi_dsc_compute_config(struct intel_encoder *encoder,
- 					struct intel_crtc_state *crtc_state)
++static inline bool intel_context_is_schedulable(const struct intel_context *ce)
++{
++	return test_bit(CONTEXT_SCHEDULABLE, &ce->flags);
++}
++
+ static inline bool
+ intel_context_force_single_submission(const struct intel_context *ce)
  {
-@@ -1966,6 +2009,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 	encoder->post_disable = gen11_dsi_post_disable;
- 	encoder->port = port;
- 	encoder->get_config = gen11_dsi_get_config;
-+	encoder->sync_state = gen11_dsi_sync_state;
- 	encoder->update_pipe = intel_panel_update_backlight;
- 	encoder->compute_config = gen11_dsi_compute_config;
- 	encoder->get_hw_state = gen11_dsi_get_hw_state;
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index e915ec034c98..955027799d1d 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -8107,6 +8107,7 @@ enum {
- # define CHICKEN3_DGMG_DONE_FIX_DISABLE		(1 << 2)
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index ed8c447a7346..79d0bff7927a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -95,6 +95,7 @@ struct intel_context {
+ #define CONTEXT_BANNED			6
+ #define CONTEXT_FORCE_SINGLE_SUBMISSION	7
+ #define CONTEXT_NOPREEMPT		8
++#define CONTEXT_SCHEDULABLE		9  /* Unless banned or non-persistent closed. */
  
- #define CHICKEN_PAR1_1			_MMIO(0x42080)
-+#define  IGNORE_KVMR_PIPE_A		REG_BIT(23)
- #define  KBL_ARB_FILL_SPARE_22		REG_BIT(22)
- #define  DIS_RAM_BYPASS_PSR2_MAN_TRACK	(1 << 16)
- #define  SKL_DE_COMPRESSED_HASH_MODE	(1 << 15)
+ 	struct {
+ 		u64 timeout_us;
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index fc77592d88a9..ed9c4f6969f5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -479,7 +479,7 @@ __execlists_schedule_in(struct i915_request *rq)
+ 		     !intel_engine_has_heartbeat(engine)))
+ 		intel_context_set_banned(ce);
+ 
+-	if (unlikely(intel_context_is_banned(ce) || bad_request(rq)))
++	if (unlikely(!intel_context_is_schedulable(ce) || bad_request(rq)))
+ 		reset_active(rq, engine);
+ 
+ 	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+@@ -1205,12 +1205,19 @@ static void record_preemption(struct intel_engine_execlists *execlists)
+ static unsigned long active_preempt_timeout(struct intel_engine_cs *engine,
+ 					    const struct i915_request *rq)
+ {
++	struct intel_context *ce;
++
+ 	if (!rq)
+ 		return 0;
+ 
++	ce = rq->context;
++
+ 	/* Force a fast reset for terminated contexts (ignoring sysfs!) */
+-	if (unlikely(intel_context_is_banned(rq->context) || bad_request(rq)))
++	if (unlikely(intel_context_is_banned(ce) || bad_request(rq)))
+ 		return 1;
++	/* Longer grace for closed non-persistent contexts to avoid resets. */
++	else if (unlikely(!intel_context_is_schedulable(ce)))
++		return 20;
+ 
+ 	return READ_ONCE(engine->props.preempt_timeout_ms);
+ }
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 1014c71cf7f5..5beaa18d6c7a 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -660,7 +660,7 @@ bool __i915_request_submit(struct i915_request *request)
+ 		goto active;
+ 	}
+ 
+-	if (unlikely(intel_context_is_banned(request->context)))
++	if (unlikely(!intel_context_is_schedulable(request->context)))
+ 		i915_request_set_error_once(request, -EIO);
+ 
+ 	if (unlikely(fatal_error(request->fence.error)))
 -- 
-2.31.1
+2.30.2
 
 _______________________________________________
 Intel-gfx mailing list
