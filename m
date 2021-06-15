@@ -2,41 +2,55 @@ Return-Path: <SRS0=PnqF=LJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1AC14C48BDF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:40:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30D3DC49361
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:40:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D014361433
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:40:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D014361433
+	by mail.kernel.org (Postfix) with ESMTPS id ED87A61490
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:40:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED87A61490
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 708B089BE8;
-	Tue, 15 Jun 2021 13:40:36 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9BB89BE8;
- Tue, 15 Jun 2021 13:40:35 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id C138F67373; Tue, 15 Jun 2021 15:40:32 +0200 (CEST)
-Date: Tue, 15 Jun 2021 15:40:32 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96A746E329;
+	Tue, 15 Jun 2021 13:40:47 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEC8A6E328;
+ Tue, 15 Jun 2021 13:40:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description;
+ bh=7zBdRgs6Aw+//s47yjii4zG1FG8T5XTHf/JHxc+lehY=; b=tGQg7ZroNiCO7X1ffSQSU6sYSp
+ 9/T+fobBel6FCnxZVVsnGthARlkxgJZ7gOk+rFGsn5jRnUx9wRmJ9mn79ubwECKAAF4p5+LAAQ7sf
+ 4mFsGCM+/VnOQc01+E+isVAdJUNfGZvSZBZTO/13gPFWtAmSgtThEm5Ci//IazESeMWJzpHC8C/vV
+ vI8esHXx4AiTeXArAYJC5oD/ZXOxpMEMxRTMtvS1IwTdoVSA43PhIiDDlL+/7+1LxMBSIsb5CrSxL
+ H3p0kJ5WeowXh3Nwv5jVxS4Lkpve3iVADJ1qSQr116o+K6bKQk/QZS3gL2lMfzTWQVqCXDKxNeu+H
+ XN1QxfAw==;
+Received: from [2001:4bb8:19b:fdce:9045:1e63:20f0:ca9] (helo=localhost)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1lt9Hh-006pJ6-L1; Tue, 15 Jun 2021 13:39:24 +0000
 From: Christoph Hellwig <hch@lst.de>
-To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210615134032.GI20389@lst.de>
-References: <20210615132711.553451-1-tientzu@chromium.org>
- <20210615132711.553451-10-tientzu@chromium.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Kirti Wankhede <kwankhede@nvidia.com>
+Date: Tue, 15 Jun 2021 15:35:15 +0200
+Message-Id: <20210615133519.754763-7-hch@lst.de>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210615133519.754763-1-hch@lst.de>
+References: <20210615133519.754763-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210615132711.553451-10-tientzu@chromium.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v10 09/12] swiotlb: Add restricted DMA pool
- initialization
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [Intel-gfx] [PATCH 06/10] vfio/mdev: Remove CONFIG_VFIO_MDEV_DEVICE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,53 +63,234 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
- mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- jxgao@google.com, Will Deacon <will@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
- Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
- boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- tfiga@chromium.org,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
- Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
+Cc: Tony Krowiak <akrowiak@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
+ kvm@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
+ Jonathan Corbet <corbet@lwn.net>, David Airlie <airlied@linux.ie>,
+ linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, linux-doc@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 15, 2021 at 09:27:08PM +0800, Claire Chang wrote:
-> Add the initialization function to create restricted DMA pools from
-> matching reserved-memory nodes.
-> 
-> Regardless of swiotlb setting, the restricted DMA pool is preferred if
-> available.
-> 
-> The restricted DMA pools provide a basic level of protection against the
-> DMA overwriting buffer contents at unexpected times. However, to protect
-> against general data leakage and system memory corruption, the system
-> needs to provide a way to lock down the memory access, e.g., MPU.
-> 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-Looks good,
+For some reason the vfio_mdev shim mdev_driver has its own module and
+kconfig. As the next patch requires access to it from mdev.ko merge the
+two modules together and remove VFIO_MDEV_DEVICE.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+A later patch deletes this driver entirely.
+
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Cornelia Huck <cohuck@redhat.com>
+---
+ Documentation/s390/vfio-ap.rst   |  1 -
+ arch/s390/Kconfig                |  2 +-
+ drivers/gpu/drm/i915/Kconfig     |  2 +-
+ drivers/vfio/mdev/Kconfig        |  7 -------
+ drivers/vfio/mdev/Makefile       |  3 +--
+ drivers/vfio/mdev/mdev_core.c    | 16 ++++++++++++++--
+ drivers/vfio/mdev/mdev_private.h |  2 ++
+ drivers/vfio/mdev/vfio_mdev.c    | 24 +-----------------------
+ samples/Kconfig                  |  6 +++---
+ 9 files changed, 23 insertions(+), 40 deletions(-)
+
+diff --git a/Documentation/s390/vfio-ap.rst b/Documentation/s390/vfio-ap.rst
+index e15436599086..f57ae621f33e 100644
+--- a/Documentation/s390/vfio-ap.rst
++++ b/Documentation/s390/vfio-ap.rst
+@@ -514,7 +514,6 @@ These are the steps:
+    * S390_AP_IOMMU
+    * VFIO
+    * VFIO_MDEV
+-   * VFIO_MDEV_DEVICE
+    * KVM
+ 
+    If using make menuconfig select the following to build the vfio_ap module::
+diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
+index b4c7c34069f8..ea63fd22e119 100644
+--- a/arch/s390/Kconfig
++++ b/arch/s390/Kconfig
+@@ -768,7 +768,7 @@ config VFIO_CCW
+ config VFIO_AP
+ 	def_tristate n
+ 	prompt "VFIO support for AP devices"
+-	depends on S390_AP_IOMMU && VFIO_MDEV_DEVICE && KVM
++	depends on S390_AP_IOMMU && VFIO_MDEV && KVM
+ 	depends on ZCRYPT
+ 	help
+ 		This driver grants access to Adjunct Processor (AP) devices
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 1e1cb245fca7..53bc68631861 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -124,7 +124,7 @@ config DRM_I915_GVT_KVMGT
+ 	tristate "Enable KVM/VFIO support for Intel GVT-g"
+ 	depends on DRM_I915_GVT
+ 	depends on KVM
+-	depends on VFIO_MDEV && VFIO_MDEV_DEVICE
++	depends on VFIO_MDEV
+ 	default n
+ 	help
+ 	  Choose this option if you want to enable KVMGT support for
+diff --git a/drivers/vfio/mdev/Kconfig b/drivers/vfio/mdev/Kconfig
+index 5da27f2100f9..763c877a1318 100644
+--- a/drivers/vfio/mdev/Kconfig
++++ b/drivers/vfio/mdev/Kconfig
+@@ -9,10 +9,3 @@ config VFIO_MDEV
+ 	  See Documentation/driver-api/vfio-mediated-device.rst for more details.
+ 
+ 	  If you don't know what do here, say N.
+-
+-config VFIO_MDEV_DEVICE
+-	tristate "VFIO driver for Mediated devices"
+-	depends on VFIO && VFIO_MDEV
+-	default n
+-	help
+-	  VFIO based driver for Mediated devices.
+diff --git a/drivers/vfio/mdev/Makefile b/drivers/vfio/mdev/Makefile
+index 101516fdf375..ff9ecd802125 100644
+--- a/drivers/vfio/mdev/Makefile
++++ b/drivers/vfio/mdev/Makefile
+@@ -1,6 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+-mdev-y := mdev_core.o mdev_sysfs.o mdev_driver.o
++mdev-y := mdev_core.o mdev_sysfs.o mdev_driver.o vfio_mdev.o
+ 
+ obj-$(CONFIG_VFIO_MDEV) += mdev.o
+-obj-$(CONFIG_VFIO_MDEV_DEVICE) += vfio_mdev.o
+diff --git a/drivers/vfio/mdev/mdev_core.c b/drivers/vfio/mdev/mdev_core.c
+index 2a85d6fcb7dd..ff8c1a845166 100644
+--- a/drivers/vfio/mdev/mdev_core.c
++++ b/drivers/vfio/mdev/mdev_core.c
+@@ -360,11 +360,24 @@ int mdev_device_remove(struct mdev_device *mdev)
+ 
+ static int __init mdev_init(void)
+ {
+-	return mdev_bus_register();
++	int rc;
++
++	rc = mdev_bus_register();
++	if (rc)
++		return rc;
++	rc = mdev_register_driver(&vfio_mdev_driver);
++	if (rc)
++		goto err_bus;
++	return 0;
++err_bus:
++	mdev_bus_unregister();
++	return rc;
+ }
+ 
+ static void __exit mdev_exit(void)
+ {
++	mdev_unregister_driver(&vfio_mdev_driver);
++
+ 	if (mdev_bus_compat_class)
+ 		class_compat_unregister(mdev_bus_compat_class);
+ 
+@@ -378,4 +391,3 @@ MODULE_VERSION(DRIVER_VERSION);
+ MODULE_LICENSE("GPL v2");
+ MODULE_AUTHOR(DRIVER_AUTHOR);
+ MODULE_DESCRIPTION(DRIVER_DESC);
+-MODULE_SOFTDEP("post: vfio_mdev");
+diff --git a/drivers/vfio/mdev/mdev_private.h b/drivers/vfio/mdev/mdev_private.h
+index 6999c89db7b1..afbad7b0a14a 100644
+--- a/drivers/vfio/mdev/mdev_private.h
++++ b/drivers/vfio/mdev/mdev_private.h
+@@ -37,6 +37,8 @@ struct mdev_type {
+ #define to_mdev_type(_kobj)		\
+ 	container_of(_kobj, struct mdev_type, kobj)
+ 
++extern struct mdev_driver vfio_mdev_driver;
++
+ int  parent_create_sysfs_files(struct mdev_parent *parent);
+ void parent_remove_sysfs_files(struct mdev_parent *parent);
+ 
+diff --git a/drivers/vfio/mdev/vfio_mdev.c b/drivers/vfio/mdev/vfio_mdev.c
+index 922729071c5a..d5b4eede47c1 100644
+--- a/drivers/vfio/mdev/vfio_mdev.c
++++ b/drivers/vfio/mdev/vfio_mdev.c
+@@ -17,10 +17,6 @@
+ 
+ #include "mdev_private.h"
+ 
+-#define DRIVER_VERSION  "0.1"
+-#define DRIVER_AUTHOR   "NVIDIA Corporation"
+-#define DRIVER_DESC     "VFIO based driver for Mediated device"
+-
+ static int vfio_mdev_open(struct vfio_device *core_vdev)
+ {
+ 	struct mdev_device *mdev = to_mdev_device(core_vdev->dev);
+@@ -151,7 +147,7 @@ static void vfio_mdev_remove(struct mdev_device *mdev)
+ 	kfree(vdev);
+ }
+ 
+-static struct mdev_driver vfio_mdev_driver = {
++struct mdev_driver vfio_mdev_driver = {
+ 	.driver = {
+ 		.name = "vfio_mdev",
+ 		.owner = THIS_MODULE,
+@@ -160,21 +156,3 @@ static struct mdev_driver vfio_mdev_driver = {
+ 	.probe	= vfio_mdev_probe,
+ 	.remove	= vfio_mdev_remove,
+ };
+-
+-static int __init vfio_mdev_init(void)
+-{
+-	return mdev_register_driver(&vfio_mdev_driver);
+-}
+-
+-static void __exit vfio_mdev_exit(void)
+-{
+-	mdev_unregister_driver(&vfio_mdev_driver);
+-}
+-
+-module_init(vfio_mdev_init)
+-module_exit(vfio_mdev_exit)
+-
+-MODULE_VERSION(DRIVER_VERSION);
+-MODULE_LICENSE("GPL v2");
+-MODULE_AUTHOR(DRIVER_AUTHOR);
+-MODULE_DESCRIPTION(DRIVER_DESC);
+diff --git a/samples/Kconfig b/samples/Kconfig
+index b5a1a7aa7e23..b0503ef058d3 100644
+--- a/samples/Kconfig
++++ b/samples/Kconfig
+@@ -154,14 +154,14 @@ config SAMPLE_UHID
+ 
+ config SAMPLE_VFIO_MDEV_MTTY
+ 	tristate "Build VFIO mtty example mediated device sample code -- loadable modules only"
+-	depends on VFIO_MDEV_DEVICE && m
++	depends on VFIO_MDEV && m
+ 	help
+ 	  Build a virtual tty sample driver for use as a VFIO
+ 	  mediated device
+ 
+ config SAMPLE_VFIO_MDEV_MDPY
+ 	tristate "Build VFIO mdpy example mediated device sample code -- loadable modules only"
+-	depends on VFIO_MDEV_DEVICE && m
++	depends on VFIO_MDEV && m
+ 	help
+ 	  Build a virtual display sample driver for use as a VFIO
+ 	  mediated device.  It is a simple framebuffer and supports
+@@ -178,7 +178,7 @@ config SAMPLE_VFIO_MDEV_MDPY_FB
+ 
+ config SAMPLE_VFIO_MDEV_MBOCHS
+ 	tristate "Build VFIO mdpy example mediated device sample code -- loadable modules only"
+-	depends on VFIO_MDEV_DEVICE && m
++	depends on VFIO_MDEV && m
+ 	select DMA_SHARED_BUFFER
+ 	help
+ 	  Build a virtual display sample driver for use as a VFIO
+-- 
+2.30.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
