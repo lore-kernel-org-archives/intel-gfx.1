@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D642C48BE8
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:15:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF279C49361
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:15:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E9666145D
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:15:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E9666145D
+	by mail.kernel.org (Postfix) with ESMTPS id 79A316109D
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:15:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79A316109D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B24E16E303;
-	Tue, 15 Jun 2021 13:15:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEFA76E30F;
+	Tue, 15 Jun 2021 13:15:17 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 734D06E303
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Jun 2021 13:15:13 +0000 (UTC)
-IronPort-SDR: UJddoHuAITnySKHUUZeNoY/6ebCfCKnQBtX+azsfPBBzEC1htDxlUR9Xmb/DK0C8ebMqHqN8y8
- ZwyRAIvu+eDg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10015"; a="205804368"
-X-IronPort-AV: E=Sophos;i="5.83,275,1616482800"; d="scan'208";a="205804368"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C3D86E303
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Jun 2021 13:15:10 +0000 (UTC)
+IronPort-SDR: RPuAwmoYfq5FBH5kxuStk0gsXuPaSQfKbMLDNMO41BAG6Si0gS03CblxC9CH0VplW9VTpKzDiW
+ VGNtAUvlCMHQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10015"; a="205804360"
+X-IronPort-AV: E=Sophos;i="5.83,275,1616482800"; d="scan'208";a="205804360"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2021 06:15:13 -0700
-IronPort-SDR: InJoVSGreMgeB/IhGvw347xq0pVvceiCC4TX2xed+x/S3bcu8RcQL61td0irHqiwgEVtIr1C4t
- PHDrY+ajW/dA==
-X-IronPort-AV: E=Sophos;i="5.83,275,1616482800"; d="scan'208";a="554443346"
+ 15 Jun 2021 06:15:10 -0700
+IronPort-SDR: LB8Zd7a0Lfo6BvQfkF+PZ6NCTT4Dxxh9vD282nH/K0X70Rz++g1r6ItRHTZrJQfIZYzBn0AYsf
+ 4VkOhB4qv0lQ==
+X-IronPort-AV: E=Sophos;i="5.83,275,1616482800"; d="scan'208";a="554443325"
 Received: from vgribano-mobl.ccr.corp.intel.com (HELO thellst-mobl1.intel.com)
  ([10.249.254.53])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2021 06:15:11 -0700
+ 15 Jun 2021 06:15:08 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Jun 2021 15:14:44 +0200
-Message-Id: <20210615131451.61023-6-thomas.hellstrom@linux.intel.com>
+Date: Tue, 15 Jun 2021 15:14:42 +0200
+Message-Id: <20210615131451.61023-4-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210615131451.61023-1-thomas.hellstrom@linux.intel.com>
 References: <20210615131451.61023-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 05/12] drm/i915/gt: Add a routine to iterate
- over the pagetables of a GTT
+Subject: [Intel-gfx] [PATCH v4 03/12] drm/i915: Introduce a ww transaction
+ helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,113 +59,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: matthew.auld@intel.com, Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ matthew.auld@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris@chris-wilson.co.uk>
-
-In the next patch, we will want to look at the dma addresses of
-individual page tables, so add a routine to iterate over them.
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 49 ++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gtt.h  |  7 ++++
- 2 files changed, 56 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index 1b676d7700bf..3d02c726c746 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -361,6 +361,54 @@ static void gen8_ppgtt_alloc(struct i915_address_space *vm,
- 			   &start, start + length, vm->top);
- }
- 
-+static void __gen8_ppgtt_foreach(struct i915_address_space *vm,
-+				 struct i915_page_directory *pd,
-+				 u64 *start, u64 end, int lvl,
-+				 void (*fn)(struct i915_address_space *vm,
-+					    struct i915_page_table *pt,
-+					    void *data),
-+				 void *data)
-+{
-+	unsigned int idx, len;
-+
-+	len = gen8_pd_range(*start, end, lvl--, &idx);
-+
-+	spin_lock(&pd->lock);
-+	do {
-+		struct i915_page_table *pt = pd->entry[idx];
-+
-+		atomic_inc(&pt->used);
-+		spin_unlock(&pd->lock);
-+
-+		if (lvl) {
-+			__gen8_ppgtt_foreach(vm, as_pd(pt), start, end, lvl,
-+					     fn, data);
-+		} else {
-+			fn(vm, pt, data);
-+			*start += gen8_pt_count(*start, end);
-+		}
-+
-+		spin_lock(&pd->lock);
-+		atomic_dec(&pt->used);
-+	} while (idx++, --len);
-+	spin_unlock(&pd->lock);
-+}
-+
-+static void gen8_ppgtt_foreach(struct i915_address_space *vm,
-+			       u64 start, u64 length,
-+			       void (*fn)(struct i915_address_space *vm,
-+					  struct i915_page_table *pt,
-+					  void *data),
-+			       void *data)
-+{
-+	start >>= GEN8_PTE_SHIFT;
-+	length >>= GEN8_PTE_SHIFT;
-+
-+	__gen8_ppgtt_foreach(vm, i915_vm_to_ppgtt(vm)->pd,
-+			     &start, start + length, vm->top,
-+			     fn, data);
-+}
-+
- static __always_inline u64
- gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
- 		      struct i915_page_directory *pdp,
-@@ -755,6 +803,7 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
- 	ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
- 	ppgtt->vm.allocate_va_range = gen8_ppgtt_alloc;
- 	ppgtt->vm.clear_range = gen8_ppgtt_clear;
-+	ppgtt->vm.foreach = gen8_ppgtt_foreach;
- 
- 	ppgtt->vm.pte_encode = gen8_pte_encode;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index edea95b97c36..9bd89f2a01ff 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -296,6 +296,13 @@ struct i915_address_space {
- 			       u32 flags);
- 	void (*cleanup)(struct i915_address_space *vm);
- 
-+	void (*foreach)(struct i915_address_space *vm,
-+			u64 start, u64 length,
-+			void (*fn)(struct i915_address_space *vm,
-+				   struct i915_page_table *pt,
-+				   void *data),
-+			void *data);
-+
- 	struct i915_vma_ops vma_ops;
- 
- 	I915_SELFTEST_DECLARE(struct fault_attr fault_attr);
--- 
-2.31.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SW50cm9kdWNlIGEgZm9yX2k5MTVfZ2VtX3d3KCl7fSB1dGlsaXR5IHRvIGhlbHAgbWFrZSB0aGUg
+Y29kZQphcm91bmQgYSB3dyB0cmFuc2FjdGlvbiBtb3JlIHJlYWRhYmxlLgoKU2lnbmVkLW9mZi1i
+eTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwuY29tPgpS
+ZXZpZXdlZC1ieTogTWF0dGhldyBBdWxkIDxtYXR0aGV3LmF1bGRAaW50ZWwuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtX3d3LmggfCAzMSArKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCAzMCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9nZW1fd3cuaCBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtX3d3LmgKaW5kZXggZjJkODc2OWU0MTE4Li5mNmIx
+YTc5NjY2N2IgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtX3d3LmgK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9nZW1fd3cuaApAQCAtMTEsMTEgKzExLDQw
+IEBAIHN0cnVjdCBpOTE1X2dlbV93d19jdHggewogCXN0cnVjdCB3d19hY3F1aXJlX2N0eCBjdHg7
+CiAJc3RydWN0IGxpc3RfaGVhZCBvYmpfbGlzdDsKIAlzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVj
+dCAqY29udGVuZGVkOwotCWJvb2wgaW50cjsKKwl1bnNpZ25lZCBzaG9ydCBpbnRyOworCXVuc2ln
+bmVkIHNob3J0IGxvb3A7CiB9OwogCiB2b2lkIGk5MTVfZ2VtX3d3X2N0eF9pbml0KHN0cnVjdCBp
+OTE1X2dlbV93d19jdHggKmN0eCwgYm9vbCBpbnRyKTsKIHZvaWQgaTkxNV9nZW1fd3dfY3R4X2Zp
+bmkoc3RydWN0IGk5MTVfZ2VtX3d3X2N0eCAqY3R4KTsKIGludCBfX211c3RfY2hlY2sgaTkxNV9n
+ZW1fd3dfY3R4X2JhY2tvZmYoc3RydWN0IGk5MTVfZ2VtX3d3X2N0eCAqY3R4KTsKIHZvaWQgaTkx
+NV9nZW1fd3dfdW5sb2NrX3NpbmdsZShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKTsK
+KworLyogSW50ZXJuYWwgZnVuY3Rpb25zIHVzZWQgYnkgdGhlIGlubGluZXMhIERvbid0IHVzZS4g
+Ki8KK3N0YXRpYyBpbmxpbmUgaW50IF9faTkxNV9nZW1fd3dfZmluaShzdHJ1Y3QgaTkxNV9nZW1f
+d3dfY3R4ICp3dywgaW50IGVycikKK3sKKwl3dy0+bG9vcCA9IDA7CisJaWYgKGVyciA9PSAtRURF
+QURMSykgeworCQllcnIgPSBpOTE1X2dlbV93d19jdHhfYmFja29mZih3dyk7CisJCWlmICghZXJy
+KQorCQkJd3ctPmxvb3AgPSAxOworCX0KKworCWlmICghd3ctPmxvb3ApCisJCWk5MTVfZ2VtX3d3
+X2N0eF9maW5pKHd3KTsKKworCXJldHVybiBlcnI7Cit9CisKK3N0YXRpYyBpbmxpbmUgdm9pZAor
+X19pOTE1X2dlbV93d19pbml0KHN0cnVjdCBpOTE1X2dlbV93d19jdHggKnd3LCBib29sIGludHIp
+Cit7CisJaTkxNV9nZW1fd3dfY3R4X2luaXQod3csIGludHIpOworCXd3LT5sb29wID0gMTsKK30K
+KworI2RlZmluZSBmb3JfaTkxNV9nZW1fd3coX3d3LCBfZXJyLCBfaW50cikJCQlcCisJZm9yIChf
+X2k5MTVfZ2VtX3d3X2luaXQoX3d3LCBfaW50cik7IChfd3cpLT5sb29wOwlcCisJICAgICBfZXJy
+ID0gX19pOTE1X2dlbV93d19maW5pKF93dywgX2VycikpCisKICNlbmRpZgotLSAKMi4zMS4xCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZngg
+bWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
