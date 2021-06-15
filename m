@@ -2,41 +2,56 @@ Return-Path: <SRS0=PnqF=LJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC39FC48BE5
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 798DFC48BDF
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AECA661439
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AECA661439
+	by mail.kernel.org (Postfix) with ESMTPS id 411C461439
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 411C461439
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64B8889C08;
-	Tue, 15 Jun 2021 13:39:06 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F09C89C08;
- Tue, 15 Jun 2021 13:39:05 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 3CF0668AFE; Tue, 15 Jun 2021 15:39:03 +0200 (CEST)
-Date: Tue, 15 Jun 2021 15:39:02 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7198897FB;
+	Tue, 15 Jun 2021 13:39:19 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C7C86E332;
+ Tue, 15 Jun 2021 13:39:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description;
+ bh=nK9oYryAhBF0mkiA41xiL6v1OSc3YceHNrs1K8YxY9E=; b=Xq4JVrkj676LAOM7cPpq6Lf5wA
+ nuUoDANT46FNkT3CtVRD+2r+B/xjtu5YqCvwEtp+/n+P6wP8kU4YydxwSu0y3AZfvMEaoHYTEoUVG
+ PaVEF+fWJtsG+wOP3+XIpT3N0ksJXG01Jc5F0wDMqPLSGBS/J97hchCpCHhu1dBWtSgCaDkLwJYCv
+ uGviFR2/+ojWaqQ/S5C9uPodZYHNPYpeNiJxGLH/U80ap85ulAcvzCj7eo2ZP0dYrss+NZIAgBQhB
+ jMs+VoXa6Pmua3zVzFHu7WWC109hfwffUs+mH/VnGO86LH4gN38e7hOvpyTVNS/YJXCo/Sriipl3k
+ UVfnqU/Q==;
+Received: from [2001:4bb8:19b:fdce:9045:1e63:20f0:ca9] (helo=localhost)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1lt9Gg-006pCz-3W; Tue, 15 Jun 2021 13:38:23 +0000
 From: Christoph Hellwig <hch@lst.de>
-To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210615133902.GE20389@lst.de>
-References: <20210615132711.553451-1-tientzu@chromium.org>
- <20210615132711.553451-6-tientzu@chromium.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Kirti Wankhede <kwankhede@nvidia.com>
+Date: Tue, 15 Jun 2021 15:35:13 +0200
+Message-Id: <20210615133519.754763-5-hch@lst.de>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210615133519.754763-1-hch@lst.de>
+References: <20210615133519.754763-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210615132711.553451-6-tientzu@chromium.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v10 05/12] swiotlb: Update is_swiotlb_active
- to add a struct device argument
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [Intel-gfx] [PATCH 04/10] driver core: Don't return EPROBE_DEFER to
+ userspace during sysfs bind
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,45 +64,189 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
- mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- jxgao@google.com, Will Deacon <will@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
- Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
- boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- tfiga@chromium.org,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
- Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
+Cc: Tony Krowiak <akrowiak@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
+ kvm@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
+ Jonathan Corbet <corbet@lwn.net>, David Airlie <airlied@linux.ie>,
+ linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, linux-doc@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 15, 2021 at 09:27:04PM +0800, Claire Chang wrote:
-> Update is_swiotlb_active to add a struct device argument. This will be
-> useful later to allow for different pools.
-> 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
+EPROBE_DEFER is an internal kernel error code and it should not be leaked
+to userspace via the bind_store() sysfs. Userspace doesn't have this
+constant and cannot understand it.
 
-Looks good,
+Further, it doesn't really make sense to have userspace trigger a deferred
+probe via bind_store(), which could eventually succeed, while
+simultaneously returning an error back.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Resolve this by splitting driver_probe_device so that the version used
+by the sysfs binding that turns EPROBE_DEFER into -EAGAIN, while the one
+used for internally binding keeps the error code, and calls
+driver_deferred_probe_add where needed.  This also allows to nicely split
+out the defer_all_probes / probe_count checks so that they actually allow
+for full device_{block,unblock}_probing protection while not bothering
+the sysfs bind case.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/base/dd.c | 78 +++++++++++++++++++++++++----------------------
+ 1 file changed, 42 insertions(+), 36 deletions(-)
+
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index 25341f52198c..7d54bae52a8d 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -491,15 +491,6 @@ EXPORT_SYMBOL_GPL(device_bind_driver);
+ static atomic_t probe_count = ATOMIC_INIT(0);
+ static DECLARE_WAIT_QUEUE_HEAD(probe_waitqueue);
+ 
+-static void driver_deferred_probe_add_trigger(struct device *dev,
+-					      int local_trigger_count)
+-{
+-	driver_deferred_probe_add(dev);
+-	/* Did a trigger occur while probing? Need to re-trigger if yes */
+-	if (local_trigger_count != atomic_read(&deferred_trigger_count))
+-		driver_deferred_probe_trigger();
+-}
+-
+ static ssize_t state_synced_show(struct device *dev,
+ 				 struct device_attribute *attr, char *buf)
+ {
+@@ -547,10 +538,9 @@ static int call_driver_probe(struct device *dev, struct device_driver *drv)
+ 
+ static int really_probe(struct device *dev, struct device_driver *drv)
+ {
+-	int local_trigger_count = atomic_read(&deferred_trigger_count);
+ 	bool test_remove = IS_ENABLED(CONFIG_DEBUG_TEST_DRIVER_REMOVE) &&
+ 			   !drv->suppress_bind_attrs;
+-	int ret = -EPROBE_DEFER, probe_ret = 0;
++	int ret, probe_ret = 0;
+ 
+ 	if (defer_all_probes) {
+ 		/*
+@@ -559,17 +549,13 @@ static int really_probe(struct device *dev, struct device_driver *drv)
+ 		 * wait_for_device_probe() right after that to avoid any races.
+ 		 */
+ 		dev_dbg(dev, "Driver %s force probe deferral\n", drv->name);
+-		driver_deferred_probe_add(dev);
+-		return ret;
++		return -EPROBE_DEFER;
+ 	}
+ 
+ 	ret = device_links_check_suppliers(dev);
+-	if (ret == -EPROBE_DEFER)
+-		driver_deferred_probe_add_trigger(dev, local_trigger_count);
+ 	if (ret)
+ 		return ret;
+ 
+-	atomic_inc(&probe_count);
+ 	pr_debug("bus: '%s': %s: probing driver %s with device %s\n",
+ 		 drv->bus->name, __func__, drv->name, dev_name(dev));
+ 	if (!list_empty(&dev->devres_head)) {
+@@ -681,11 +667,7 @@ static int really_probe(struct device *dev, struct device_driver *drv)
+ 		dev->pm_domain->dismiss(dev);
+ 	pm_runtime_reinit(dev);
+ 	dev_pm_set_driver_flags(dev, 0);
+-	if (probe_ret == -EPROBE_DEFER)
+-		driver_deferred_probe_add_trigger(dev, local_trigger_count);
+ done:
+-	atomic_dec(&probe_count);
+-	wake_up_all(&probe_waitqueue);
+ 	return ret;
+ }
+ 
+@@ -739,21 +721,7 @@ void wait_for_device_probe(void)
+ }
+ EXPORT_SYMBOL_GPL(wait_for_device_probe);
+ 
+-/**
+- * driver_probe_device - attempt to bind device & driver together
+- * @drv: driver to bind a device to
+- * @dev: device to try to bind to the driver
+- *
+- * This function returns -ENODEV if the device is not registered, -EBUSY if it
+- * already has a driver, 0 if the device is bound successfully and a positive
+- * (inverted) error code for failures from the ->probe method.
+- *
+- * This function must be called with @dev lock held.  When called for a
+- * USB interface, @dev->parent lock must be held as well.
+- *
+- * If the device has a parent, runtime-resume the parent before driver probing.
+- */
+-static int driver_probe_device(struct device_driver *drv, struct device *dev)
++static int __driver_probe_device(struct device_driver *drv, struct device *dev)
+ {
+ 	int ret = 0;
+ 
+@@ -784,6 +752,42 @@ static int driver_probe_device(struct device_driver *drv, struct device *dev)
+ 	return ret;
+ }
+ 
++/**
++ * driver_probe_device - attempt to bind device & driver together
++ * @drv: driver to bind a device to
++ * @dev: device to try to bind to the driver
++ *
++ * This function returns -ENODEV if the device is not registered, -EBUSY if it
++ * already has a driver, 0 if the device is bound successfully and a positive
++ * (inverted) error code for failures from the ->probe method.
++ *
++ * This function must be called with @dev lock held.  When called for a
++ * USB interface, @dev->parent lock must be held as well.
++ *
++ * If the device has a parent, runtime-resume the parent before driver probing.
++ */
++static int driver_probe_device(struct device_driver *drv, struct device *dev)
++{
++	int trigger_count = atomic_read(&deferred_trigger_count);
++	int ret;
++
++	atomic_inc(&probe_count);
++	ret = __driver_probe_device(drv, dev);
++	if (ret == -EPROBE_DEFER || ret == EPROBE_DEFER) {
++		driver_deferred_probe_add(dev);
++
++		/*
++		 * Did a trigger occur while probing? Need to re-trigger if yes
++		 */
++		if (trigger_count != atomic_read(&deferred_trigger_count) &&
++		    !defer_all_probes)
++			driver_deferred_probe_trigger();
++	}
++	atomic_dec(&probe_count);
++	wake_up_all(&probe_waitqueue);
++	return ret;
++}
++
+ static inline bool cmdline_requested_async_probing(const char *drv_name)
+ {
+ 	return parse_option_str(async_probe_drv_names, drv_name);
+@@ -1051,12 +1055,14 @@ int device_driver_attach(struct device_driver *drv, struct device *dev)
+ 	int ret;
+ 
+ 	__device_driver_lock(dev, dev->parent);
+-	ret = driver_probe_device(drv, dev);
++	ret = __driver_probe_device(drv, dev);
+ 	__device_driver_unlock(dev, dev->parent);
+ 
+ 	/* also return probe errors as normal negative errnos */
+ 	if (ret > 0)
+ 		ret = -ret;
++	if (ret == -EPROBE_DEFER)
++		return -EAGAIN;
+ 	return ret;
+ }
+ 
+-- 
+2.30.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
