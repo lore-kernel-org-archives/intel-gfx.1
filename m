@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EFA1C48BDF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:15:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C623C49EA2
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:15:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 71356613CC
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:15:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71356613CC
+	by mail.kernel.org (Postfix) with ESMTPS id 0B518613CC
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:15:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B518613CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37BAF6E3F0;
-	Tue, 15 Jun 2021 14:14:41 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD406E3A0;
- Tue, 15 Jun 2021 14:14:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53F4A6E328;
+	Tue, 15 Jun 2021 14:14:43 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE246E3D6;
+ Tue, 15 Jun 2021 14:14:39 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id C0E1BC800AE;
- Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id 35A54C800B6;
+ Tue, 15 Jun 2021 16:14:38 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id 9e8yjv7jKvHP; Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
+ with LMTP id Ei7qgLkJPtya; Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
  (p200300e37F3949009F7CF2Abd5Da2787.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:9f7c:f2ab:d5da:2787])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 55389C800A1;
- Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTPA id B15E1C800A1;
+ Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
@@ -44,14 +44,14 @@ To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Jun 2021 16:14:14 +0200
-Message-Id: <20210615141426.6001-4-wse@tuxedocomputers.com>
+Date: Tue, 15 Jun 2021 16:14:20 +0200
+Message-Id: <20210615141426.6001-10-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210615141426.6001-1-wse@tuxedocomputers.com>
 References: <20210615141426.6001-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 03/14] drm/uAPI: Add "active bpc" as feedback
- channel for "max bpc" drm property
+Subject: [Intel-gfx] [PATCH v3 09/14] drm/uAPI: Add "active color range" drm
+ property as feedback for userspace
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,115 +69,150 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a new general drm property "active bpc" which can be used by graphic drivers
-to report the applied bit depth per pixel back to userspace.
+Add a new general drm property "active color range" which can be used by graphic
+drivers to report the used color range back to userspace.
 
-While "max bpc" can be used to change the color depth, there was no way to check
-which one actually got used. While in theory the driver chooses the best/highest
-color depth within the max bpc setting a user might not be fully aware what his
-hardware is or isn't capable off. This is meant as a quick way to double check
-the setup.
+There was no way to check which color range got actually used on a given
+monitor. To surely predict this, one must know the exact capabilities of the
+monitor and what the default behaviour of the used driver is. This property
+helps eliminating the guessing at this point.
 
 In the future, automatic color calibration for screens might also depend on this
 information being available.
 
 Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 ---
- drivers/gpu/drm/drm_connector.c | 50 +++++++++++++++++++++++++++++++++
- include/drm/drm_connector.h     |  8 ++++++
- 2 files changed, 58 insertions(+)
+ drivers/gpu/drm/drm_connector.c | 54 +++++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h     | 26 ++++++++++++++++
+ 2 files changed, 80 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index da39e7ff6965..02c310c1ac2d 100644
+index 2411b964c342..b4aff7d6910f 100644
 --- a/drivers/gpu/drm/drm_connector.c
 +++ b/drivers/gpu/drm/drm_connector.c
-@@ -1197,6 +1197,14 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
-  *	drm_connector_attach_max_bpc_property() to create and attach the
-  *	property to the connector during initialization.
+@@ -897,6 +897,12 @@ static const struct drm_prop_enum_list drm_active_color_format_enum_list[] = {
+ 	{ DRM_COLOR_FORMAT_YCRCB420, "ycbcr420" },
+ };
+ 
++static const struct drm_prop_enum_list drm_active_color_range_enum_list[] = {
++	{ DRM_MODE_COLOR_RANGE_UNSET, "Unknown" },
++	{ DRM_MODE_COLOR_RANGE_FULL, "Full" },
++	{ DRM_MODE_COLOR_RANGE_LIMITED_16_235, "Limited 16:235" },
++};
++
+ DRM_ENUM_NAME_FN(drm_get_dp_subconnector_name,
+ 		 drm_dp_subconnector_enum_list)
+ 
+@@ -1221,6 +1227,14 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+  *	drm_connector_attach_active_color_format_property() to install this
+  *	property.
   *
-+ * active bpc:
-+ *	This read-only range property tells userspace the pixel color bit depth
-+ *	actually used by the hardware display engine on "the cable" on a
-+ *	connector. The chosen value depends on hardware capabilities, both
-+ *	display engine and connected monitor, and the "max bpc" property.
-+ *	Drivers shall use drm_connector_attach_active_bpc_property() to install
-+ *	this property.
++ * active color range:
++ *	This read-only property tells userspace the color range actually used by
++ *	the hardware display engine on "the cable" on a connector. The chosen
++ *	value depends on hardware capabilities of the monitor and the used color
++ *	format. Drivers shall use
++ *	drm_connector_attach_active_color_range_property() to install this
++ *	property.
 + *
   * Connectors also have one standardized atomic property:
   *
   * CRTC_ID:
-@@ -2152,6 +2160,48 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+@@ -2258,6 +2272,46 @@ void drm_connector_set_active_color_format_property(struct drm_connector *connec
  }
- EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+ EXPORT_SYMBOL(drm_connector_set_active_color_format_property);
  
 +/**
-+ * drm_connector_attach_active_bpc_property - attach "active bpc" property
-+ * @connector: connector to attach active bpc property on.
-+ * @min: The minimum bit depth supported by the connector.
-+ * @max: The maximum bit depth supported by the connector.
++ * drm_connector_attach_active_color_range_property - attach "active color range" property
++ * @connector: connector to attach active color range property on.
 + *
-+ * This is used to check the applied bit depth on a connector.
++ * This is used to check the applied color range on a connector.
 + *
 + * Returns:
 + * Zero on success, negative errno on failure.
 + */
-+int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max)
++int drm_connector_attach_active_color_range_property(struct drm_connector *connector)
 +{
 +	struct drm_device *dev = connector->dev;
 +	struct drm_property *prop;
 +
-+	if (!connector->active_bpc_property) {
-+		prop = drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE, "active bpc", min, max);
++	if (!connector->active_color_range_property) {
++		prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE, "active color range", drm_active_color_range_enum_list, ARRAY_SIZE(drm_active_color_range_enum_list));
 +		if (!prop)
 +			return -ENOMEM;
 +
-+		connector->active_bpc_property = prop;
-+		drm_object_attach_property(&connector->base, prop, 0);
++		connector->active_color_range_property = prop;
++		drm_object_attach_property(&connector->base, prop, DRM_MODE_COLOR_RANGE_UNSET);
 +	}
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
++EXPORT_SYMBOL(drm_connector_attach_active_color_range_property);
 +
 +/**
-+ * drm_connector_set_active_bpc_property - sets the active bits per color property for a connector
++ * drm_connector_set_active_color_range_property - sets the active color range property for a connector
 + * @connector: drm connector
-+ * @active_bpc: bits per color for the connector currently active on "the cable"
++ * @active_color_range: color range for the connector currently active on "the cable"
 + *
-+ * Should be used by atomic drivers to update the active bits per color over a connector.
++ * Should be used by atomic drivers to update the active color range over a connector.
 + */
-+void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc)
++void drm_connector_set_active_color_range_property(struct drm_connector *connector, enum drm_mode_color_range active_color_range)
 +{
-+	drm_object_property_set_value(&connector->base, connector->active_bpc_property, active_bpc);
++	drm_object_property_set_value(&connector->base, connector->active_color_range_property, active_color_range);
 +}
-+EXPORT_SYMBOL(drm_connector_set_active_bpc_property);
++EXPORT_SYMBOL(drm_connector_set_active_color_range_property);
 +
  /**
   * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
   * @connector: connector to attach the property on.
 diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 714d1a01c065..eee86de62a5f 100644
+index 99e4989dd6b3..5cb122812727 100644
 --- a/include/drm/drm_connector.h
 +++ b/include/drm/drm_connector.h
-@@ -1380,6 +1380,12 @@ struct drm_connector {
+@@ -648,6 +648,24 @@ struct drm_tv_connector_state {
+ 	unsigned int hue;
+ };
+ 
++/**
++ * enum drm_mode_color_range - color_range info for &drm_connector
++ *
++ * This enum is used to represent full or limited color range on the display
++ * connector signal.
++ *
++ * @DRM_MODE_COLOR_RANGE_UNSET:		Color range is unspecified/default.
++ * @DRM_MODE_COLOR_RANGE_FULL:		Color range is full range, 0-255 for
++ * 					8-Bit color depth.
++ * DRM_MODE_COLOR_RANGE_LIMITED_16_235:	Color range is limited range, 16-235 for
++ * 					8-Bit color depth.
++ */
++enum drm_mode_color_range {
++	DRM_MODE_COLOR_RANGE_UNSET,
++	DRM_MODE_COLOR_RANGE_FULL,
++	DRM_MODE_COLOR_RANGE_LIMITED_16_235,
++};
++
+ /**
+  * struct drm_connector_state - mutable connector state
+  */
+@@ -1392,6 +1410,12 @@ struct drm_connector {
  	 */
- 	struct drm_property *max_bpc_property;
+ 	struct drm_property *active_color_format_property;
  
 +	/**
-+	 * @active_bpc_property: Default connector property for the active bpc
-+	 * to be driven out of the connector.
++	 * @active_color_range_property: Default connector property for the
++	 * active color range to be driven out of the connector.
 +	 */
-+	struct drm_property *active_bpc_property;
++	struct drm_property *active_color_range_property;
 +
  #define DRM_CONNECTOR_POLL_HPD (1 << 0)
  #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
  #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
-@@ -1702,6 +1708,8 @@ int drm_connector_set_panel_orientation_with_quirk(
- 	int width, int height);
- int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
- 					  int min, int max);
-+int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max);
-+void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc);
+@@ -1718,6 +1742,8 @@ int drm_connector_attach_active_bpc_property(struct drm_connector *connector, in
+ void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc);
+ int drm_connector_attach_active_color_format_property(struct drm_connector *connector);
+ void drm_connector_set_active_color_format_property(struct drm_connector *connector, u32 active_color_format);
++int drm_connector_attach_active_color_range_property(struct drm_connector *connector);
++void drm_connector_set_active_color_range_property(struct drm_connector *connector, enum drm_mode_color_range active_color_range);
  
  /**
   * struct drm_tile_group - Tile group metadata
