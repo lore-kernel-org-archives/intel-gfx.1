@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73F9CC48BE8
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:12:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30418C48BDF
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 46D81613CC
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:12:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46D81613CC
+	by mail.kernel.org (Postfix) with ESMTPS id EF156613CC
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:12:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF156613CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE796E332;
-	Tue, 15 Jun 2021 14:12:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 879AC6E32F;
+	Tue, 15 Jun 2021 14:12:27 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB806E2D8;
- Tue, 15 Jun 2021 14:11:58 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F258C613DA;
- Tue, 15 Jun 2021 14:11:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0685E6E32F;
+ Tue, 15 Jun 2021 14:12:27 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1C1C461446;
+ Tue, 15 Jun 2021 14:12:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1623766318;
- bh=jWHpYkMJZInCcjmmHShqhfjCLeTpOdYGCxPkgJO/tEk=;
+ s=korg; t=1623766346;
+ bh=gh2F299R4k2iDVtQbCSS7bY7JJHnWhyEvt6uhPQcyq4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=raYtjj7GpKZDjIpd+qVmxE8N9NStup2uhnBaVAK+0t4aVIugFqjNKp1Jq+1u16eFn
- KE+STiDwmWf84kr/y7NL7ogNp//9LtscQm9xHoBe8gi1LtjNEeOpRGeKw8cso7xjTK
- Zo0zaOjET7V6Wx7rNC+vmpAU0r9ULN0RRYU2dxw8=
-Date: Tue, 15 Jun 2021 16:11:56 +0200
+ b=rYzTyFv/7WfF5BEdmE9OcQCKpoSmAdqBZ9dMhGx1SD2QhqyIRjTxjR3Ox8zR5NmPg
+ /CiehRvufTeuLy7EvrzywbYDkDh2wPsK7MwI+CmaUMgannLrkmQnXV8UlAbfn/z348
+ mX1u+HCZSxV0pXBFVSVixI8s48HH8F3f2LPTqpS0=
+Date: Tue, 15 Jun 2021 16:12:24 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <YMi1LP1itYhFYg9O@kroah.com>
+Message-ID: <YMi1SBSadCNRRrbh@kroah.com>
 References: <20210615133519.754763-1-hch@lst.de>
- <20210615133519.754763-9-hch@lst.de>
+ <20210615133519.754763-10-hch@lst.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210615133519.754763-9-hch@lst.de>
-Subject: Re: [Intel-gfx] [PATCH 08/10] vfio/mtty: Convert to use
+In-Reply-To: <20210615133519.754763-10-hch@lst.de>
+Subject: Re: [Intel-gfx] [PATCH 09/10] vfio/mdpy: Convert to use
  vfio_register_group_dev()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,20 +70,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 15, 2021 at 03:35:17PM +0200, Christoph Hellwig wrote:
+On Tue, Jun 15, 2021 at 03:35:18PM +0200, Christoph Hellwig wrote:
 > From: Jason Gunthorpe <jgg@nvidia.com>
 > 
 > This is straightforward conversion, the mdev_state is actually serving as
 > the vfio_device and we can replace all the mdev_get_drvdata()'s and the
-> wonky dead code with a simple container_of()
+> wonky dead code with a simple container_of().
 > 
 > Reviewed-by: Christoph Hellwig <hch@lst.de>
 > Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->  samples/vfio-mdev/mtty.c | 185 ++++++++++++++++++---------------------
->  1 file changed, 83 insertions(+), 102 deletions(-)
-
+>  samples/vfio-mdev/mdpy.c | 159 ++++++++++++++++++++++-----------------
+>  1 file changed, 88 insertions(+), 71 deletions(-)
 
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 _______________________________________________
