@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BD18C48BDF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64A39C48BE5
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA7C261433
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA7C261433
+	by mail.kernel.org (Postfix) with ESMTPS id 3103061433
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3103061433
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D80589B70;
-	Tue, 15 Jun 2021 13:39:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4F696E329;
+	Tue, 15 Jun 2021 13:39:50 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8CD389B70;
- Tue, 15 Jun 2021 13:39:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B57C389BE8;
+ Tue, 15 Jun 2021 13:39:48 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 7B81967373; Tue, 15 Jun 2021 15:39:35 +0200 (CEST)
-Date: Tue, 15 Jun 2021 15:39:35 +0200
+ id 4BA0568AFE; Tue, 15 Jun 2021 15:39:46 +0200 (CEST)
+Date: Tue, 15 Jun 2021 15:39:45 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210615133935.GF20389@lst.de>
+Message-ID: <20210615133945.GG20389@lst.de>
 References: <20210615132711.553451-1-tientzu@chromium.org>
- <20210615132711.553451-7-tientzu@chromium.org>
+ <20210615132711.553451-8-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210615132711.553451-7-tientzu@chromium.org>
+In-Reply-To: <20210615132711.553451-8-tientzu@chromium.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v10 06/12] swiotlb: Use is_dev_swiotlb_force
- for swiotlb data bouncing
+Subject: Re: [Intel-gfx] [PATCH v10 07/12] swiotlb: Move alloc_size to
+ swiotlb_find_slots
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,10 +79,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 15, 2021 at 09:27:05PM +0800, Claire Chang wrote:
-> Propagate the swiotlb_force setting into io_tlb_default_mem->force and
-> use it to determine whether to bounce the data or not. This will be
-> useful later to allow for different pools.
+On Tue, Jun 15, 2021 at 09:27:06PM +0800, Claire Chang wrote:
+> Rename find_slots to swiotlb_find_slots and move the maintenance of
+> alloc_size to it for better code reusability later.
 > 
 > Signed-off-by: Claire Chang <tientzu@chromium.org>
 
