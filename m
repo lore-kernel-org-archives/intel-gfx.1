@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50A15C49361
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:15:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1746EC48BE5
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:15:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 25DC1613DA
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 25DC1613DA
+	by mail.kernel.org (Postfix) with ESMTPS id DB7B7613CC
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:15:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB7B7613CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 841516E32F;
-	Tue, 15 Jun 2021 14:14:43 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC3B96E34B;
- Tue, 15 Jun 2021 14:14:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FD246E41B;
+	Tue, 15 Jun 2021 14:14:46 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8466E332;
+ Tue, 15 Jun 2021 14:14:40 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id A1640C800B3;
- Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id E18C2C800BA;
+ Tue, 15 Jun 2021 16:14:38 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id S3V8gBwy4bRj; Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
+ with LMTP id UpiFaJekt_VD; Tue, 15 Jun 2021 16:14:38 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
  (p200300e37F3949009F7CF2Abd5Da2787.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:9f7c:f2ab:d5da:2787])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 3F6E4C800A1;
- Tue, 15 Jun 2021 16:14:37 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTPA id 6A7CEC800B5;
+ Tue, 15 Jun 2021 16:14:38 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
@@ -44,14 +44,14 @@ To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Jun 2021 16:14:18 +0200
-Message-Id: <20210615141426.6001-8-wse@tuxedocomputers.com>
+Date: Tue, 15 Jun 2021 16:14:23 +0200
+Message-Id: <20210615141426.6001-13-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210615141426.6001-1-wse@tuxedocomputers.com>
 References: <20210615141426.6001-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 07/14] drm/amd/display: Add handling for new
- "active color format" property
+Subject: [Intel-gfx] [PATCH v3 12/14] drm/uAPI: Add "preferred color format"
+ drm property as setting for userspace
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,88 +69,189 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This commit implements the "active color format" drm property for the AMD GPU
-driver.
+Add a new general drm property "preferred color format" which can be used by
+userspace to tell the graphic drivers to which color format to use.
+
+Possible options are:
+    - auto (default/current behaviour)
+    - rgb
+    - ycbcr444
+    - ycbcr422 (not supported by both amdgpu and i915)
+    - ycbcr420
+
+In theory the auto option should choose the best available option for the
+current setup, but because of bad internal conversion some monitors look better
+with rgb and some with ycbcr444.
+
+Also, because of bad shielded connectors and/or cables, it might be preferable
+to use the less bandwidth heavy ycbcr422 and ycbcr420 formats for a signal that
+is less deceptible to interference.
+
+In the future, automatic color calibration for screens might also depend on this
+option being available.
 
 Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +++++++++++++++++--
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 +++
- 2 files changed, 30 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_atomic_helper.c |  4 +++
+ drivers/gpu/drm/drm_atomic_uapi.c   |  4 +++
+ drivers/gpu/drm/drm_connector.c     | 46 ++++++++++++++++++++++++++++-
+ include/drm/drm_connector.h         | 17 +++++++++++
+ 4 files changed, 70 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f31bbcb11f03..b66336a1403e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6715,6 +6715,23 @@ static int convert_dc_color_depth_into_bpc (enum dc_color_depth display_color_de
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index bc3487964fb5..90d62f305257 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -687,6 +687,10 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+ 			if (old_connector_state->max_requested_bpc !=
+ 			    new_connector_state->max_requested_bpc)
+ 				new_crtc_state->connectors_changed = true;
++
++			if (old_connector_state->preferred_color_format !=
++			    new_connector_state->preferred_color_format)
++				new_crtc_state->connectors_changed = true;
+ 		}
  
-+static int convert_dc_pixel_encoding_into_drm_color_format(enum dc_pixel_encoding display_pixel_encoding)
+ 		if (funcs->atomic_check)
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 438e9585b225..c536f5e22016 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -796,6 +796,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
+ 						   fence_ptr);
+ 	} else if (property == connector->max_bpc_property) {
+ 		state->max_requested_bpc = val;
++	} else if (property == connector->preferred_color_format_property) {
++		state->preferred_color_format = val;
+ 	} else if (connector->funcs->atomic_set_property) {
+ 		return connector->funcs->atomic_set_property(connector,
+ 				state, property, val);
+@@ -873,6 +875,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+ 		*val = 0;
+ 	} else if (property == connector->max_bpc_property) {
+ 		*val = state->max_requested_bpc;
++	} else if (property == connector->preferred_color_format_property) {
++		*val = state->preferred_color_format;
+ 	} else if (connector->funcs->atomic_get_property) {
+ 		return connector->funcs->atomic_get_property(connector,
+ 				state, property, val);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index b4aff7d6910f..1dc537514c71 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -889,6 +889,14 @@ static const struct drm_prop_enum_list drm_dp_subconnector_enum_list[] = {
+ 	{ DRM_MODE_SUBCONNECTOR_Native,	     "Native"    }, /* DP */
+ };
+ 
++static const struct drm_prop_enum_list drm_preferred_color_format_enum_list[] = {
++	{ 0, "auto" },
++	{ DRM_COLOR_FORMAT_RGB444, "rgb" },
++	{ DRM_COLOR_FORMAT_YCRCB444, "ycbcr444" },
++	{ DRM_COLOR_FORMAT_YCRCB422, "ycbcr422" },
++	{ DRM_COLOR_FORMAT_YCRCB420, "ycbcr420" },
++};
++
+ static const struct drm_prop_enum_list drm_active_color_format_enum_list[] = {
+ 	{ 0, "unknown" },
+ 	{ DRM_COLOR_FORMAT_RGB444, "rgb" },
+@@ -1219,11 +1227,19 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+  *	Drivers shall use drm_connector_attach_active_bpc_property() to install
+  *	this property.
+  *
++ * preferred color format:
++ *	This property is used by userspace to change the used color format. When
++ *	used the driver will use the selected format if valid for the hardware,
++ *	sink, and current resolution and refresh rate combination. Drivers to
++ *	use the function drm_connector_attach_preferred_color_format_property()
++ *	to create and attach the property to the connector during
++ *	initialization.
++ *
+  * active color format:
+  *	This read-only property tells userspace the color format actually used
+  *	by the hardware display engine on "the cable" on a connector. The chosen
+  *	value depends on hardware capabilities, both display engine and
+- *	connected monitor. Drivers shall use
++ *	connected monitor, and the "preferred color format". Drivers shall use
+  *	drm_connector_attach_active_color_format_property() to install this
+  *	property.
+  *
+@@ -2232,6 +2248,34 @@ void drm_connector_set_active_bpc_property(struct drm_connector *connector, int
+ }
+ EXPORT_SYMBOL(drm_connector_set_active_bpc_property);
+ 
++/**
++ * drm_connector_attach_preferred_color_format_property - attach "preferred color format" property
++ * @connector: connector to attach active color format property on.
++ *
++ * This is used to add support for selecting a color format on a connector.
++ *
++ * Returns:
++ * Zero on success, negative errno on failure.
++ */
++int drm_connector_attach_preferred_color_format_property(struct drm_connector *connector)
 +{
-+	switch (display_pixel_encoding) {
-+		case PIXEL_ENCODING_RGB:
-+			return DRM_COLOR_FORMAT_RGB444;
-+		case PIXEL_ENCODING_YCBCR422:
-+			return DRM_COLOR_FORMAT_YCRCB422;
-+		case PIXEL_ENCODING_YCBCR444:
-+			return DRM_COLOR_FORMAT_YCRCB444;
-+		case PIXEL_ENCODING_YCBCR420:
-+			return DRM_COLOR_FORMAT_YCRCB420;
-+		default:
-+			break;
-+		}
++	struct drm_device *dev = connector->dev;
++	struct drm_property *prop;
++
++	if (!connector->preferred_color_format_property) {
++		prop = drm_property_create_enum(dev, 0, "preferred color format", drm_preferred_color_format_enum_list, ARRAY_SIZE(drm_preferred_color_format_enum_list));
++		if (!prop)
++			return -ENOMEM;
++
++		connector->preferred_color_format_property = prop;
++		drm_object_attach_property(&connector->base, prop, 0);
++		connector->state->preferred_color_format = 0;
++	}
++
 +	return 0;
 +}
++EXPORT_SYMBOL(drm_connector_attach_preferred_color_format_property);
 +
- static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
- 					  struct drm_crtc_state *crtc_state,
- 					  struct drm_connector_state *conn_state)
-@@ -7716,6 +7733,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	if (!aconnector->mst_port) {
- 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
- 		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
-+		drm_connector_attach_active_color_format_property(&aconnector->base);
- 	}
+ /**
+  * drm_connector_attach_active_color_format_property - attach "active color format" property
+  * @connector: connector to attach active color format property on.
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 5cb122812727..e52e0d2c3c4e 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -799,6 +799,16 @@ struct drm_connector_state {
+ 	 */
+ 	u8 max_bpc;
  
- 	/* This defaults to the max in the range, but we want 8bpc for non-edp. */
-@@ -9091,13 +9109,19 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		if (crtc) {
- 			new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
- 			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
--			if (dm_new_crtc_state->stream)
-+			if (dm_new_crtc_state->stream) {
- 				drm_connector_set_active_bpc_property(connector,
- 					convert_dc_color_depth_into_bpc(
- 					dm_new_crtc_state->stream->timing.display_color_depth));
-+				drm_connector_set_active_color_format_property(connector,
-+					convert_dc_pixel_encoding_into_drm_color_format(
-+					dm_new_crtc_state->stream->timing.pixel_encoding));
-+			}
- 		}
--		else
-+		else {
- 			drm_connector_set_active_bpc_property(connector, 0);
-+			drm_connector_set_active_color_format_property(connector, 0);
-+		}
- 	}
- 
- 	/* Count number of newly disabled CRTCs for dropping PM refs later. */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 0cf38743ec47..13151d13aa73 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -413,6 +413,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 	if (connector->active_bpc_property)
- 		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
- 
-+	connector->active_color_format_property = master->base.active_color_format_property;
-+	if (connector->active_color_format_property)
-+		drm_connector_attach_active_color_format_property(&aconnector->base);
++	/**
++	 * preferred_color_format: Property set by userspace to tell the GPU
++	 * driver which color format to use. It only gets applied if hardware,
++	 * meaning both the computer and the monitor, and the driver support the
++	 * given format at the current resolution and refresh rate. Userspace
++	 * can check for (un-)successful application via the active_color_format
++	 * property.
++	 */
++	u32 preferred_color_format;
 +
- 	connector->vrr_capable_property = master->base.vrr_capable_property;
- 	if (connector->vrr_capable_property)
- 		drm_connector_attach_vrr_capable_property(connector);
+ 	/**
+ 	 * @hdr_output_metadata:
+ 	 * DRM blob property for HDR output metadata
+@@ -1404,6 +1414,12 @@ struct drm_connector {
+ 	 */
+ 	struct drm_property *active_bpc_property;
+ 
++	/**
++	 * @preferred_color_format_property: Default connector property for the
++	 * preferred color format to be driven out of the connector.
++	 */
++	struct drm_property *preferred_color_format_property;
++
+ 	/**
+ 	 * @active_color_format_property: Default connector property for the
+ 	 * active color format to be driven out of the connector.
+@@ -1740,6 +1756,7 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+ 					  int min, int max);
+ int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max);
+ void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc);
++int drm_connector_attach_preferred_color_format_property(struct drm_connector *connector);
+ int drm_connector_attach_active_color_format_property(struct drm_connector *connector);
+ void drm_connector_set_active_color_format_property(struct drm_connector *connector, u32 active_color_format);
+ int drm_connector_attach_active_color_range_property(struct drm_connector *connector);
 -- 
 2.25.1
 
