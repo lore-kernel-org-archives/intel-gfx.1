@@ -2,41 +2,56 @@ Return-Path: <SRS0=PnqF=LJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8861CC48BDF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:38:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 887ADC48BE5
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 537FD61439
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:38:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 537FD61439
+	by mail.kernel.org (Postfix) with ESMTPS id 5EC5E61433
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:38:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5EC5E61433
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03E8F6E2D8;
-	Tue, 15 Jun 2021 13:38:17 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A15C26E2D8;
- Tue, 15 Jun 2021 13:38:15 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id CC6DF68AFE; Tue, 15 Jun 2021 15:38:12 +0200 (CEST)
-Date: Tue, 15 Jun 2021 15:38:12 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A906897FB;
+	Tue, 15 Jun 2021 13:38:26 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CC7289B57;
+ Tue, 15 Jun 2021 13:38:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description;
+ bh=hGSANRP5P35t6wC5Mesqg2wJrPlmWkK1ZvgcmMBtnPc=; b=lT591JpV40xhFdG4z3qnVEQYEw
+ o7c4Re8F8V3I6LHCoIo/eoDZQmtuSp6pa+dac82HWV2TQjqyU+uvKf1OSXhjo14FE1Pr37/KhM4sY
+ 5rA5eJYJzOhparfHGeYbvBuPpIWDJid0yXC1DSnwkhein0kcDeHdr042v8LXPW2cgmEkyWCeAAa6y
+ sDFsbZ6Cc4j2GyTYTxw+YrsM3rEkZeVwEsRTtlwCqPSi6az9ZdY0EM8lPXULgEe8o5cvit9Q6Fbpp
+ zj9/iZvs7vj7UVy8koscK//p2YBDOoh/+hA15OP8mLaHdNHGO9poNnjZ3Fn6PSVNjhm6zeZtikNCW
+ GZSswYVw==;
+Received: from [2001:4bb8:19b:fdce:9045:1e63:20f0:ca9] (helo=localhost)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1lt9FT-006p5Z-La; Tue, 15 Jun 2021 13:37:14 +0000
 From: Christoph Hellwig <hch@lst.de>
-To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210615133812.GB20389@lst.de>
-References: <20210615132711.553451-1-tientzu@chromium.org>
- <20210615132711.553451-3-tientzu@chromium.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Kirti Wankhede <kwankhede@nvidia.com>
+Date: Tue, 15 Jun 2021 15:35:11 +0200
+Message-Id: <20210615133519.754763-3-hch@lst.de>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210615133519.754763-1-hch@lst.de>
+References: <20210615133519.754763-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210615132711.553451-3-tientzu@chromium.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v10 02/12] swiotlb: Refactor
- swiotlb_create_debugfs
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [Intel-gfx] [PATCH 02/10] driver core: Better distinguish probe
+ errors in really_probe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,45 +64,136 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
- mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- jxgao@google.com, Will Deacon <will@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
- Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
- boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- tfiga@chromium.org,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
- Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
+Cc: Tony Krowiak <akrowiak@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
+ kvm@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
+ Jonathan Corbet <corbet@lwn.net>, David Airlie <airlied@linux.ie>,
+ linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, linux-doc@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 15, 2021 at 09:27:01PM +0800, Claire Chang wrote:
-> Split the debugfs creation to make the code reusable for supporting
-> different bounce buffer pools.
-> 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
+really_probe tries to special case errors from ->probe, but due to all
+other initialization added to the function over time now a lot of
+internal errors hit that code path as well.  Untangle that by adding
+a new probe_err local variable and apply the special casing only to
+that.
 
-Looks good,
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/base/dd.c | 72 +++++++++++++++++++++++++++--------------------
+ 1 file changed, 42 insertions(+), 30 deletions(-)
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index 7477d3322b3a..fd83817240e6 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -513,12 +513,44 @@ static ssize_t state_synced_show(struct device *dev,
+ }
+ static DEVICE_ATTR_RO(state_synced);
+ 
++
++static int call_driver_probe(struct device *dev, struct device_driver *drv)
++{
++	int ret = 0;
++
++	if (dev->bus->probe)
++		ret = dev->bus->probe(dev);
++	else if (drv->probe)
++		ret = drv->probe(dev);
++
++	switch (ret) {
++	case 0:
++		break;
++	case -EPROBE_DEFER:
++		/* Driver requested deferred probing */
++		dev_dbg(dev, "Driver %s requests probe deferral\n", drv->name);
++		break;
++	case -ENODEV:
++	case -ENXIO:
++		pr_debug("%s: probe of %s rejects match %d\n",
++			 drv->name, dev_name(dev), ret);
++		break;
++	default:
++		/* driver matched but the probe failed */
++		pr_warn("%s: probe of %s failed with error %d\n",
++			drv->name, dev_name(dev), ret);
++		break;
++	}
++
++	return ret;
++}
++
+ static int really_probe(struct device *dev, struct device_driver *drv)
+ {
+-	int ret = -EPROBE_DEFER;
+ 	int local_trigger_count = atomic_read(&deferred_trigger_count);
+ 	bool test_remove = IS_ENABLED(CONFIG_DEBUG_TEST_DRIVER_REMOVE) &&
+ 			   !drv->suppress_bind_attrs;
++	int ret = -EPROBE_DEFER, probe_ret = 0;
+ 
+ 	if (defer_all_probes) {
+ 		/*
+@@ -572,14 +604,14 @@ static int really_probe(struct device *dev, struct device_driver *drv)
+ 			goto probe_failed;
+ 	}
+ 
+-	if (dev->bus->probe) {
+-		ret = dev->bus->probe(dev);
+-		if (ret)
+-			goto probe_failed;
+-	} else if (drv->probe) {
+-		ret = drv->probe(dev);
+-		if (ret)
+-			goto probe_failed;
++	probe_ret = call_driver_probe(dev, drv);
++	if (probe_ret) {
++		/*
++		 * Ignore errors returned by ->probe so that the next driver can
++		 * try its luck.
++		 */
++		ret = 0;
++		goto probe_failed;
+ 	}
+ 
+ 	if (device_add_groups(dev, drv->dev_groups)) {
+@@ -650,28 +682,8 @@ static int really_probe(struct device *dev, struct device_driver *drv)
+ 		dev->pm_domain->dismiss(dev);
+ 	pm_runtime_reinit(dev);
+ 	dev_pm_set_driver_flags(dev, 0);
+-
+-	switch (ret) {
+-	case -EPROBE_DEFER:
+-		/* Driver requested deferred probing */
+-		dev_dbg(dev, "Driver %s requests probe deferral\n", drv->name);
++	if (probe_ret == -EPROBE_DEFER)
+ 		driver_deferred_probe_add_trigger(dev, local_trigger_count);
+-		break;
+-	case -ENODEV:
+-	case -ENXIO:
+-		pr_debug("%s: probe of %s rejects match %d\n",
+-			 drv->name, dev_name(dev), ret);
+-		break;
+-	default:
+-		/* driver matched but the probe failed */
+-		pr_warn("%s: probe of %s failed with error %d\n",
+-			drv->name, dev_name(dev), ret);
+-	}
+-	/*
+-	 * Ignore errors returned by ->probe so that the next driver can try
+-	 * its luck.
+-	 */
+-	ret = 0;
+ done:
+ 	atomic_dec(&probe_count);
+ 	wake_up_all(&probe_waitqueue);
+-- 
+2.30.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
