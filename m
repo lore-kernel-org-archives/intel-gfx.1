@@ -2,47 +2,45 @@ Return-Path: <SRS0=PnqF=LJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0317EC48BDF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 07:40:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07207C48BE8
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 07:41:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B9F2A61407
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 07:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9F2A61407
+	by mail.kernel.org (Postfix) with ESMTPS id CE6FE61407
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 07:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE6FE61407
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27F9C6E183;
-	Tue, 15 Jun 2021 07:40:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 414F26E20A;
+	Tue, 15 Jun 2021 07:41:00 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AFC16E183;
- Tue, 15 Jun 2021 07:40:32 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 66BBA610CD;
- Tue, 15 Jun 2021 07:40:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 498576E20A;
+ Tue, 15 Jun 2021 07:40:59 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 564E3610CD;
+ Tue, 15 Jun 2021 07:40:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1623742832;
- bh=wn7o8JIjggMn0Rfi5/qQqBJylu3YviZ3WirnVcRCtRA=;
+ s=korg; t=1623742859;
+ bh=VwEjZA+HLYCz2yRgKmTJNqgBt/h66NCTj9MfoC5gaww=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mDxjRHpKWMCop/mIT5zc2YizTnLWx7rJNQPinh659S6EfAW9CaJvEH3tonE/DMXlP
- /xCEReeji/aU5sr0uFsiqE86GiPUkU2bbFQax5ItP5mTEXMYqT/a1JIW1mSGVubN/4
- l9GjeZRVu7/KxnoZl07rAABnzGMCFd8CFYr5jx7o=
-Date: Tue, 15 Jun 2021 09:40:29 +0200
+ b=kYMdoWDLs7rJmcw26Crm656vvOkuphOrxxa5mnTunPuTHKsG8IbcQFOp6D454pdo1
+ W5vWO4J1i3yTSSzNBVrZLld7ptk8LW31Bk/OE34hHcej7SXGTvrmkL21SggR+/ryV6
+ 9ypiyBuaas3MxZTluSc3fWmwJy9Obf3iYfXAe/dY=
+Date: Tue, 15 Jun 2021 09:40:56 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <YMhZbWvI85fk4aUy@kroah.com>
+Message-ID: <YMhZiAFshz1xklUK@kroah.com>
 References: <20210604194840.14655-1-hdegoede@redhat.com>
- <20210604194840.14655-9-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210604194840.14655-9-hdegoede@redhat.com>
-Subject: Re: [Intel-gfx] [PATCH 8/8] usb: typec: altmodes/displayport:
- Notify drm subsys of hotplug events
+In-Reply-To: <20210604194840.14655-1-hdegoede@redhat.com>
+Subject: Re: [Intel-gfx] [PATCH 0/8] drm + usb-type-c: Add support for
+ out-of-band hotplug notification (v4)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,15 +65,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 04, 2021 at 09:48:40PM +0200, Hans de Goede wrote:
-> Use the new drm_connector_oob_hotplug_event() functions to let drm/kms
-> drivers know about DisplayPort over Type-C hotplug events.
+On Fri, Jun 04, 2021 at 09:48:32PM +0200, Hans de Goede wrote:
+> Here is v3 of my patchset making DP over Type-C work on devices where the
+> Type-C controller does not drive the HPD pin on the GPU, but instead
+> we need to forward HPD events from the Type-C controller to the DRM driver.
 > 
-> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Tested-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> Changes in v4:
+> - Rebase on top of latest drm-tip
+> - Add forward declaration for struct fwnode_handle to drm_crtc_internal.h
+>   (fixes warning reported by kernel test robot <lkp@intel.com>)
+> - Add Heikki's Reviewed-by to patch 7 & 8
+> - Add Heikki's Tested-by to the series
+> 
+> Changes in v3:
+> - Base on top of latest drm-tip, which should fix the CI being unable to
+>   apply (and thus to test) the patches
+> - Make intel_acpi_assign_connector_fwnodes() take a ref on the fwnode
+>   it stores in connector->fwnode and have drm_connector_cleanup() put
+>   this reference
+> - Drop data argument from drm_connector_oob_hotplug_event()
+> - Make the Type-C DP altmode code only call drm_connector_oob_hotplug_event()
+>   when the HPD bit in the status vdo changes
+> - Drop the platform/x86/intel_cht_int33fe: Correct "displayport" fwnode
+>   reference patch, this will be merged independently through the pdx86 tree
+> 
+> Changes in v2:
+> - Replace the bogus "drm/connector: Make the drm_sysfs connector->kdev
+>   device hold a reference to the connector" patch with:
+>   "drm/connector: Give connector sysfs devices there own device_type"
+>   the new patch is a dep for patch 2/9 see the patches
+> 
+> - Stop using a class-dev-iter, instead at a global connector list
+>   to drm_connector.c and use that to find the connector by the fwnode,
+>   similar to how we already do this in drm_panel.c and drm_bridge.c
+> 
+> - Make drm_connector_oob_hotplug_event() take a fwnode pointer as
+>   argument, rather then a drm_connector pointer and let it do the
+>   lookup itself. This allows making drm_connector_find_by_fwnode() a
+>   drm-internal function and avoids code outside the drm subsystem
+>   potentially holding on the a drm_connector reference for a longer
+>   period.
+> 
+> This series not only touches drm subsys files but it also touches
+> drivers/usb/typec/altmodes/typec_displayport.c, that file usually
+> does not see a whole lot of changes. So I believe it would be best
+> to just merge the entire series through drm-misc, Assuming we can
+> get an ack from Greg for merging the typec_displayport.c changes
+> this way.
 
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+No objection from me, I've replied with reviewed-by for those USB
+patches now.
+
+thanks,
+greg k-h
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
