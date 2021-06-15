@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB588C48BDF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 22:11:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61CE6C48BDF
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 22:11:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EA4161246
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 22:11:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EA4161246
+	by mail.kernel.org (Postfix) with ESMTPS id 2D2B261075
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 22:11:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D2B261075
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E0B86E42F;
-	Tue, 15 Jun 2021 22:11:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFDEC6E42F;
+	Tue, 15 Jun 2021 22:11:54 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5DAED6E42F;
- Tue, 15 Jun 2021 22:11:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id DFF1C6E42F;
+ Tue, 15 Jun 2021 22:11:52 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 54959A9A43;
- Tue, 15 Jun 2021 22:11:00 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id DBE75A9A43;
+ Tue, 15 Jun 2021 22:11:52 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matt Roper" <matthew.d.roper@intel.com>
-Date: Tue, 15 Jun 2021 22:11:00 -0000
-Message-ID: <162379506031.8818.12614898520030331017@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Date: Tue, 15 Jun 2021 22:11:52 -0000
+Message-ID: <162379511289.8818.14981738416304613749@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210615201558.1668315-1-matthew.d.roper@intel.com>
-In-Reply-To: <20210615201558.1668315-1-matthew.d.roper@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBF?=
- =?utf-8?q?xplicity_steer_l3bank_multicast_reads_when_necessary_=28rev2=29?=
+References: <20210615205900.26578-1-matthew.brost@intel.com>
+In-Reply-To: <20210615205900.26578-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBJ?=
+ =?utf-8?q?ntroduce_i915=5Fsched=5Fengine_object_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,19 +57,28 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: Explicity steer l3bank multicast reads when necessary (rev2)
-URL   : https://patchwork.freedesktop.org/series/91485/
+Series: Introduce i915_sched_engine object (rev4)
+URL   : https://patchwork.freedesktop.org/series/90630/
 State : failure
 
 == Summary ==
 
-Applying: drm/i915: extract steered reg access to common function
-Applying: drm/i915: Add GT support for multiple types of multicast steering
-Applying: drm/i915: Add support for explicit L3BANK steering
-error: sha1 information is lacking or useless (drivers/gpu/drm/i915/gt/intel_workarounds.c).
-error: could not build fake ancestor
+Applying: drm/i915: Move priolist to new i915_sched_engine object
+Applying: drm/i915: Add i915_sched_engine_is_empty function
+Applying: drm/i915: Reset sched_engine.no_priolist immediately after dequeue
+Applying: drm/i915: Move active tracking to i915_sched_engine
+Applying: drm/i915: Move engine->schedule to i915_sched_engine
+Applying: drm/i915: Add kick_backend function to i915_sched_engine
+Applying: drm/i915: Update i915_scheduler to operate on i915_sched_engine
+Applying: drm/i915: Move submission tasklet to i915_sched_engine
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/gt/selftest_execlists.c
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/i915/gt/selftest_execlists.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/gt/selftest_execlists.c
+error: Failed to merge in the changes.
 hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0003 drm/i915: Add support for explicit L3BANK steering
+Patch failed at 0008 drm/i915: Move submission tasklet to i915_sched_engine
 When you have resolved this problem, run "git am --continue".
 If you prefer to skip this patch, run "git am --skip" instead.
 To restore the original branch and stop patching, run "git am --abort".
