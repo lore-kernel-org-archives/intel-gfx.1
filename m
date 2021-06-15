@@ -2,56 +2,78 @@ Return-Path: <SRS0=PnqF=LJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 830D9C48BDF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:37:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 725A1C48BDF
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:37:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 44A2161439
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:37:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44A2161439
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 39B1861433
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39B1861433
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F085D6E30D;
-	Tue, 15 Jun 2021 13:37:39 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 013276E30D;
- Tue, 15 Jun 2021 13:37:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-Type:Content-ID:Content-Description;
- bh=NvKrTegNJt6p9ts7Wx4ZCH5HpolsdcaWLfUZKxp8Ym0=; b=MGKJ4afA3hE7QZbybSgt+x3RSf
- SHGz+JwWUFKMROwY6XxNd/ClwtFZw+BkvFoKanLLyWcyPTYUMWpVU4vnOQF+wy7e1HySXzciQpNxj
- YgpqE4bz7K4myBaxQnFETcDTCdcbm2BPG/MPzKfCL+2oIX6SIdu5okPGuGf3oKa7EGhuFxSFw9827
- hO2LX34nZ7Ku4Z58qjH1URziQbGAlBBQlEl2sudXryKDuLu9EKbWYRvz//eLyaFvs/h6tJQkgWWGN
- K+h5hhel73haPEmX3OuHhxRjswvnqCXQ4OClqfTBXsumpaIa6AnttuhINCpHBY7chvTbUljVfDlxj
- Dh9SoIGA==;
-Received: from [2001:4bb8:19b:fdce:9045:1e63:20f0:ca9] (helo=localhost)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1lt9Ep-006p1g-W0; Tue, 15 Jun 2021 13:36:34 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Kirti Wankhede <kwankhede@nvidia.com>
-Date: Tue, 15 Jun 2021 15:35:10 +0200
-Message-Id: <20210615133519.754763-2-hch@lst.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210615133519.754763-1-hch@lst.de>
-References: <20210615133519.754763-1-hch@lst.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E292C6E30F;
+	Tue, 15 Jun 2021 13:37:43 +0000 (UTC)
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9FC66E328
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Jun 2021 13:37:42 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ 13-20020a17090a08cdb029016eed209ca4so1499158pjn.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Jun 2021 06:37:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=UDZeAXhtUGNxVigPWnCAmqvhZ5xmOZkpwoxu/kotpBc=;
+ b=BkGuougKdpvJFSjPDCYcuDM+EfC9+Z6Iw8t63OKFUyvGcy9WEOaTZOyzUjDtlqxxWx
+ b+f6+GiSSKCn4V8zlclen8CemZkaZyLB8FJKB0g3go6na2Mkb6J76IEsPQg2PB5YFP++
+ oJX8/uFYscqhRRWgaBEXbZGZq7TD88YFqCsf4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UDZeAXhtUGNxVigPWnCAmqvhZ5xmOZkpwoxu/kotpBc=;
+ b=hO5xMU6eL+4Pqdrwnicp50dCMudo+O0GMwC6Rav8SeZ6R2/Mms4JTFpHkCeKswJZFW
+ LDFLTpxvdDZSRtXBd7IZshUOCCMtBwko0fUioDJlE6VKi8goWGUYIkb50RtmlYHvzDFl
+ 9f8DVru1V18/jp3ftzQSh6Kh8gqfKUtKei1ACRAiYCSQckh+T9qgqvFyc4b01o4e3Do/
+ buuZfSIii4DP2GRh3Luxgb4/1fDuLAQsIqfFN+BNU0I80L3pABNgdbcstAZKo/u67fl/
+ p4YX4jaKlMJXhxy3ls3KHSJXe3M5X/IaeXWDQGwjEl1Xj2b0iLeMwYrZXNLwujSSkwOG
+ lkLw==
+X-Gm-Message-State: AOAM532/MEo1mnwlYTYfTEzGVyWHyI/mpECV4+EJWeiT9bDsgMofx1/4
+ 4613IHzRUVpQmkMykReYr17ncX/duaaRuA==
+X-Google-Smtp-Source: ABdhPJzNHRNXEIXuMwuwJz8+sqbQfDuzU4eUEb6+GbfTSJWLTNtoGuNok4UN+76f84kJLOr6OFoFnw==
+X-Received: by 2002:a17:90a:5308:: with SMTP id
+ x8mr5032722pjh.70.1623764262042; 
+ Tue, 15 Jun 2021 06:37:42 -0700 (PDT)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com.
+ [209.85.210.174])
+ by smtp.gmail.com with ESMTPSA id y205sm15397268pfb.53.2021.06.15.06.37.41
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Jun 2021 06:37:41 -0700 (PDT)
+Received: by mail-pf1-f174.google.com with SMTP id c12so13298648pfl.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Jun 2021 06:37:41 -0700 (PDT)
+X-Received: by 2002:a05:6e02:219d:: with SMTP id
+ j29mr17936278ila.64.1623763835517; 
+ Tue, 15 Jun 2021 06:30:35 -0700 (PDT)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Intel-gfx] [PATCH 01/10] driver core: Pull required checks into
- driver_probe_device()
+References: <20210611152659.2142983-1-tientzu@chromium.org>
+In-Reply-To: <20210611152659.2142983-1-tientzu@chromium.org>
+From: Claire Chang <tientzu@chromium.org>
+Date: Tue, 15 Jun 2021 21:30:24 +0800
+X-Gmail-Original-Message-ID: <CALiNf28fb4rZ0Afun8wAWRYJY4gqc+-vRvDBZT3x2JgSPL_iVQ@mail.gmail.com>
+Message-ID: <CALiNf28fb4rZ0Afun8wAWRYJY4gqc+-vRvDBZT3x2JgSPL_iVQ@mail.gmail.com>
+To: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
+ Joerg Roedel <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>, 
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
+ jgross@suse.com, 
+ Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [Intel-gfx] [PATCH v9 00/14] Restricted DMA
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,137 +86,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tony Krowiak <akrowiak@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
- kvm@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
- Jonathan Corbet <corbet@lwn.net>, David Airlie <airlied@linux.ie>,
- linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
- Cornelia Huck <cohuck@redhat.com>, linux-doc@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
+ peterz@infradead.org, benh@kernel.crashing.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ grant.likely@arm.com, paulus@samba.org, mingo@kernel.org,
+ Jianxiong Gao <jxgao@google.com>, sstabellini@kernel.org,
+ Saravana Kannan <saravanak@google.com>, xypron.glpk@gmx.de,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
+ airlied@linux.ie, Robin Murphy <robin.murphy@arm.com>,
+ Nicolas Boichat <drinkcat@chromium.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ lkml <linux-kernel@vger.kernel.org>, Tomasz Figa <tfiga@chromium.org>,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, linuxppc-dev@lists.ozlabs.org,
+ bauerman@linux.ibm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Jason Gunthorpe <jgg@nvidia.com>
-
-Checking if the dev is dead or if the dev is already bound is a required
-precondition to invoking driver_probe_device(). All the call chains
-leading here duplicate these checks.
-
-Add it directly to driver_probe_device() so the precondition is clear and
-remove the checks from device_driver_attach() and
-__driver_attach_async_helper().
-
-The other call chain going through __device_attach_driver() does have
-these same checks but they are inlined into logic higher up the call stack
-and can't be removed.
-
-The sysfs uAPI call chain starting at bind_store() is a bit confused
-because it reads dev->driver unlocked and returns -ENODEV if it is !NULL,
-otherwise it reads it again under lock and returns 0 if it is !NULL. Fix
-this to always return -EBUSY and always read dev->driver under its lock.
-
-Done in preparation for the next patches which will add additional
-callers to driver_probe_device() and will need these checks as well.
-
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-[hch: drop the extra checks in device_driver_attach and bind_store]
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Reviewed-by: Cornelia Huck <cohuck@redhat.com>
----
- drivers/base/bus.c |  2 +-
- drivers/base/dd.c  | 32 ++++++++++----------------------
- 2 files changed, 11 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index 36d0c654ea61..7de13302e8c8 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -210,7 +210,7 @@ static ssize_t bind_store(struct device_driver *drv, const char *buf,
- 	int err = -ENODEV;
- 
- 	dev = bus_find_device_by_name(bus, NULL, buf);
--	if (dev && dev->driver == NULL && driver_match_device(drv, dev)) {
-+	if (dev && driver_match_device(drv, dev)) {
- 		err = device_driver_attach(drv, dev);
- 
- 		if (err > 0) {
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index ecd7cf848daf..7477d3322b3a 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -733,8 +733,9 @@ EXPORT_SYMBOL_GPL(wait_for_device_probe);
-  * @drv: driver to bind a device to
-  * @dev: device to try to bind to the driver
-  *
-- * This function returns -ENODEV if the device is not registered,
-- * 1 if the device is bound successfully and 0 otherwise.
-+ * This function returns -ENODEV if the device is not registered, -EBUSY if it
-+ * already has a driver, and 1 if the device is bound successfully and 0
-+ * otherwise.
-  *
-  * This function must be called with @dev lock held.  When called for a
-  * USB interface, @dev->parent lock must be held as well.
-@@ -745,8 +746,10 @@ static int driver_probe_device(struct device_driver *drv, struct device *dev)
- {
- 	int ret = 0;
- 
--	if (!device_is_registered(dev))
-+	if (dev->p->dead || !device_is_registered(dev))
- 		return -ENODEV;
-+	if (dev->driver)
-+		return -EBUSY;
- 
- 	dev->can_match = true;
- 	pr_debug("bus: '%s': %s: matched device %s with driver %s\n",
-@@ -1027,17 +1030,10 @@ static void __device_driver_unlock(struct device *dev, struct device *parent)
-  */
- int device_driver_attach(struct device_driver *drv, struct device *dev)
- {
--	int ret = 0;
-+	int ret;
- 
- 	__device_driver_lock(dev, dev->parent);
--
--	/*
--	 * If device has been removed or someone has already successfully
--	 * bound a driver before us just skip the driver probe call.
--	 */
--	if (!dev->p->dead && !dev->driver)
--		ret = driver_probe_device(drv, dev);
--
-+	ret = driver_probe_device(drv, dev);
- 	__device_driver_unlock(dev, dev->parent);
- 
- 	return ret;
-@@ -1047,19 +1043,11 @@ static void __driver_attach_async_helper(void *_dev, async_cookie_t cookie)
- {
- 	struct device *dev = _dev;
- 	struct device_driver *drv;
--	int ret = 0;
-+	int ret;
- 
- 	__device_driver_lock(dev, dev->parent);
--
- 	drv = dev->p->async_driver;
--
--	/*
--	 * If device has been removed or someone has already successfully
--	 * bound a driver before us just skip the driver probe call.
--	 */
--	if (!dev->p->dead && !dev->driver)
--		ret = driver_probe_device(drv, dev);
--
-+	ret = driver_probe_device(drv, dev);
- 	__device_driver_unlock(dev, dev->parent);
- 
- 	dev_dbg(dev, "driver %s async attach completed: %d\n", drv->name, ret);
--- 
-2.30.2
-
+v10 here: https://lore.kernel.org/patchwork/cover/1446882/
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
