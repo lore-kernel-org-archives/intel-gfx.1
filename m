@@ -2,39 +2,40 @@ Return-Path: <SRS0=PnqF=LJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B92EC48BE8
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A43C7C49361
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CC29D61459
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC29D61459
+	by mail.kernel.org (Postfix) with ESMTPS id 78FAE613CC
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 14:14:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78FAE613CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FFAE89DC9;
-	Tue, 15 Jun 2021 14:14:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F82C6E3CE;
+	Tue, 15 Jun 2021 14:14:39 +0000 (UTC)
 Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50F6F89DB5;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB4D89DB5;
  Tue, 15 Jun 2021 14:14:37 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id AD27DC800A7;
- Tue, 15 Jun 2021 16:14:35 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id 73078C800AB;
+ Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id Fnry7ItCZ1uv; Tue, 15 Jun 2021 16:14:35 +0200 (CEST)
+ with LMTP id uKqjFBh7Z-Zi; Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
  (p200300e37F3949009F7CF2Abd5Da2787.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:9f7c:f2ab:d5da:2787])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 01154C80095;
- Tue, 15 Jun 2021 16:14:34 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTPA id 112A4C80095;
+ Tue, 15 Jun 2021 16:14:36 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
@@ -43,12 +44,14 @@ To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Jun 2021 16:14:11 +0200
-Message-Id: <20210615141426.6001-1-wse@tuxedocomputers.com>
+Date: Tue, 15 Jun 2021 16:14:13 +0200
+Message-Id: <20210615141426.6001-3-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210615141426.6001-1-wse@tuxedocomputers.com>
+References: <20210615141426.6001-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 00/14] New uAPI drm properties for color
- management
+Subject: [Intel-gfx] [PATCH v3 02/14] drm/amd/display: Add missing cases
+ convert_dc_color_depth_into_bpc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,36 +69,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I started work on my proposal for better color handling in Linux display
-drivers: https://lkml.org/lkml/2021/5/12/764
+convert_dc_color_depth_into_bpc() that converts the enum dc_color_depth to an
+integer had the casses for COLOR_DEPTH_999 and COLOR_DEPTH_111111 missing.
 
-In this 3rd revision everything except the generalised Broadcast RGB
-implementation is included. I did however not yet include everything suggested
-in the feedback for v1 and v2.
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I rebased the patch series on drm-tip to have the latest changes in i915's
-YCbCr420 handling and to make the intel-gfx ci not fail on merge anymore.
-
-The read only properties are now correctly marked as immutable.
-
-Some questions I already have:
-
-I think Broadcast RGB is really no good name for the property as, at least in
-theory, YCbCr can also be "Limited" or "Full". Should the new implementation
-have a different name and make "Broadcast RGB" an alias for it? I propose
-"preferred color range" as the new name.
-
-I have not tested dp mst (both on AMD and Intel) as i have no adapter for it at
-hand. If one can test it, please let me know if things break or not.
-
-I found the DRM_MODE_PROP_ATOMIC flag and from the documentation it sounds like
-"max bpc" (and "preferred color format" and "Broadcast RGB") should have it. Is
-there a reason it doesn't?
-
-I have not yet looked into dsc and dithering behaviour.
-
-I have already submitted the first two patches separately to the lkml as they fix
-potential bugs and don't introduce new uAPI.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 44757720b15f..cd1df5cf4815 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6705,6 +6705,10 @@ static int convert_dc_color_depth_into_bpc (enum dc_color_depth display_color_de
+ 			return 14;
+ 		case COLOR_DEPTH_161616:
+ 			return 16;
++		case COLOR_DEPTH_999:
++			return 9;
++		case COLOR_DEPTH_111111:
++			return 11;
+ 		default:
+ 			break;
+ 		}
+-- 
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
