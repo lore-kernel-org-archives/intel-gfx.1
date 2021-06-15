@@ -2,41 +2,55 @@ Return-Path: <SRS0=PnqF=LJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 64A39C48BE5
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73911C48BE5
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3103061433
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3103061433
+	by mail.kernel.org (Postfix) with ESMTPS id 479D16147F
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:39:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 479D16147F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4F696E329;
-	Tue, 15 Jun 2021 13:39:50 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57C389BE8;
- Tue, 15 Jun 2021 13:39:48 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 4BA0568AFE; Tue, 15 Jun 2021 15:39:46 +0200 (CEST)
-Date: Tue, 15 Jun 2021 15:39:45 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D85A06E2D8;
+	Tue, 15 Jun 2021 13:39:52 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 691A06E2D8;
+ Tue, 15 Jun 2021 13:39:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description;
+ bh=yMNPlMYcL3iMnS3Vl2gx2alQ7O1aCguPHIu+WzDeDl8=; b=vwP0xYE/VtPiwltrVdNeOnpxuB
+ bapa3wApBtttmW7+ZFxKBuFKhzLih+SdOhhuYGKtLaoeZ33sw1yFYFBHHnyr5PnEUVehfVlVAw0j0
+ dZAirKR97JAzPHb6AcxcwMgTJxZb/mmcN7/Hw+HvM2LO/+k97Th3UH/p1pFU9NI1kn97u3RpXAwNW
+ UJpkvwaN+zSY6EqDLIy+b9D5je9juXl5SweZIXvYHbSwx7TtvKujP54IQZTV9QDi0+Y5VgMA2S9xa
+ cMLo5PSedmcFF1jJCo2stNPn2wG1JK61outqdCMLXwwWaiJ2JSgaFT49FyPhLjYJz7Iw2ce0+5/U2
+ ymKX04UA==;
+Received: from [2001:4bb8:19b:fdce:9045:1e63:20f0:ca9] (helo=localhost)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1lt9H6-006pG0-Nw; Tue, 15 Jun 2021 13:38:55 +0000
 From: Christoph Hellwig <hch@lst.de>
-To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210615133945.GG20389@lst.de>
-References: <20210615132711.553451-1-tientzu@chromium.org>
- <20210615132711.553451-8-tientzu@chromium.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Kirti Wankhede <kwankhede@nvidia.com>
+Date: Tue, 15 Jun 2021 15:35:14 +0200
+Message-Id: <20210615133519.754763-6-hch@lst.de>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210615133519.754763-1-hch@lst.de>
+References: <20210615133519.754763-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210615132711.553451-8-tientzu@chromium.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v10 07/12] swiotlb: Move alloc_size to
- swiotlb_find_slots
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [Intel-gfx] [PATCH 05/10] driver core: Export device_driver_attach()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,45 +63,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
- mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- jxgao@google.com, Will Deacon <will@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
- Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
- boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- tfiga@chromium.org,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
- Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
+Cc: Tony Krowiak <akrowiak@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
+ kvm@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
+ Jonathan Corbet <corbet@lwn.net>, David Airlie <airlied@linux.ie>,
+ linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, linux-doc@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 15, 2021 at 09:27:06PM +0800, Claire Chang wrote:
-> Rename find_slots to swiotlb_find_slots and move the maintenance of
-> alloc_size to it for better code reusability later.
-> 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-Looks good,
+This is intended as a replacement API for device_bind_driver(). It has at
+least the following benefits:
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+- Internal locking. Few of the users of device_bind_driver() follow the
+  locking rules
+
+- Calls device driver probe() internally. Notably this means that devm
+  support for probe works correctly as probe() error will call
+  devres_release_all()
+
+- struct device_driver -> dev_groups is supported
+
+- Simplified calling convention, no need to manually call probe().
+
+The general usage is for situations that already know what driver to bind
+and need to ensure the bind is synchronized with other logic. Call
+device_driver_attach() after device_add().
+
+If probe() returns a failure then this will be preserved up through to the
+error return of device_driver_attach().
+
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Cornelia Huck <cohuck@redhat.com>
+---
+ drivers/base/base.h    | 1 -
+ drivers/base/dd.c      | 3 +++
+ include/linux/device.h | 2 ++
+ 3 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/base/base.h b/drivers/base/base.h
+index e5f9b7e656c3..404db83ee5ec 100644
+--- a/drivers/base/base.h
++++ b/drivers/base/base.h
+@@ -152,7 +152,6 @@ extern int driver_add_groups(struct device_driver *drv,
+ 			     const struct attribute_group **groups);
+ extern void driver_remove_groups(struct device_driver *drv,
+ 				 const struct attribute_group **groups);
+-int device_driver_attach(struct device_driver *drv, struct device *dev);
+ void device_driver_detach(struct device *dev);
+ 
+ extern char *make_class_name(const char *name, struct kobject *kobj);
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index 7d54bae52a8d..4755da78f955 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -471,6 +471,8 @@ static void driver_sysfs_remove(struct device *dev)
+  * (It is ok to call with no other effort from a driver's probe() method.)
+  *
+  * This function must be called with the device lock held.
++ *
++ * Callers should prefer to use device_driver_attach() instead.
+  */
+ int device_bind_driver(struct device *dev)
+ {
+@@ -1065,6 +1067,7 @@ int device_driver_attach(struct device_driver *drv, struct device *dev)
+ 		return -EAGAIN;
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(device_driver_attach);
+ 
+ static void __driver_attach_async_helper(void *_dev, async_cookie_t cookie)
+ {
+diff --git a/include/linux/device.h b/include/linux/device.h
+index f1a00040fa53..d8b9c9e7d493 100644
+--- a/include/linux/device.h
++++ b/include/linux/device.h
+@@ -845,6 +845,8 @@ static inline void *dev_get_platdata(const struct device *dev)
+  * Manual binding of a device to driver. See drivers/base/bus.c
+  * for information on use.
+  */
++int __must_check device_driver_attach(struct device_driver *drv,
++				      struct device *dev);
+ int __must_check device_bind_driver(struct device *dev);
+ void device_release_driver(struct device *dev);
+ int  __must_check device_attach(struct device *dev);
+-- 
+2.30.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
