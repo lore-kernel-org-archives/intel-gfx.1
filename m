@@ -2,40 +2,53 @@ Return-Path: <SRS0=PnqF=LJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69531C49361
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 41F59C48BDF
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:37:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3699A60FE5
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:36:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3699A60FE5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 00C1B61474
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jun 2021 13:37:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00C1B61474
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B65AD6E30D;
-	Tue, 15 Jun 2021 13:36:40 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 595C66E30D;
- Tue, 15 Jun 2021 13:36:39 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 52357AA0ED;
- Tue, 15 Jun 2021 13:36:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C8036E2D8;
+	Tue, 15 Jun 2021 13:37:12 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DC976E2D8;
+ Tue, 15 Jun 2021 13:37:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:In-Reply-To:References;
+ bh=mI75xfisA2eMrNnkzQmGAm9ghfLRUHzTyYzm/ehApDI=; b=besrEgYaPZ92StUm+27IrAqfh/
+ rpC9wbemLrXn0xSURWCmfRcNOEkq/tO9XItxN9YK2rgHhl1VlDrhWCgKw+zmjxN5FUQxwi/dhhL2D
+ reGHC2Mai4CiHoXCT+UCy6PWMaZw0QugYXs5bO4ytFAdcx5rC14GbFOx+r+lLqfjjZP1SkvQvwFGz
+ 2TlMHEppRZUM9V9lpobJNXRii9ZvoRlwv4McWcdiAoKxLC53C8ms1Je9wYUehpSCzx9ljxo+jOiC8
+ qgM2boBu8ST8tOJZOYS1LkxYxAdCQzRO9j3TzcZa5nHLd6JAnb3kJeoO+lGfEfq1kDYGA8L7fJinp
+ S6/EDK4g==;
+Received: from [2001:4bb8:19b:fdce:9045:1e63:20f0:ca9] (helo=localhost)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1lt9Ds-006oxO-0m; Tue, 15 Jun 2021 13:35:47 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Kirti Wankhede <kwankhede@nvidia.com>
+Date: Tue, 15 Jun 2021 15:35:09 +0200
+Message-Id: <20210615133519.754763-1-hch@lst.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ramalingam C" <ramalingam.c@intel.com>
-Date: Tue, 15 Jun 2021 13:36:39 -0000
-Message-ID: <162376419933.8819.4284370819516280088@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210615131451.61023-1-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20210615131451.61023-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_i915_TTM_sync_accelerated_migration_and_clear_=28rev3=29?=
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [Intel-gfx] Allow mdev drivers to directly create the vfio_device
+ (v3)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,93 +61,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Tony Krowiak <akrowiak@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
+ kvm@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
+ Jonathan Corbet <corbet@lwn.net>, David Airlie <airlied@linux.ie>,
+ linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, linux-doc@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+This is my alternative take on this series from Jason:
 
-Series: i915 TTM sync accelerated migration and clear (rev3)
-URL   : https://patchwork.freedesktop.org/series/91463/
-State : warning
+https://lore.kernel.org/dri-devel/87czsszi9i.fsf@redhat.com/T/
 
-== Summary ==
+The mdev/vfio parts are exactly the same, but this solves the driver core
+changes for the direct probing without the in/out flag that Greg hated,
+which cause a little more work, but probably make the result better.
 
-$ dim checkpatch origin/drm-tip
-84d52ccba4bc drm/i915: Reference objects on the ww object list
-dad033f5d41d drm/i915: Break out dma_resv ww locking utilities to separate files
--:141: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#141: 
-new file mode 100644
+Original decription from Jason below:
 
--:166: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
-#166: FILE: drivers/gpu/drm/i915/i915_gem_ww.c:21:
-+	while ((obj = list_first_entry_or_null(&ww->obj_list, struct drm_i915_gem_object, obj_link))) {
+The mdev bus's core part for managing the lifecycle of devices is mostly
+as one would expect for a driver core bus subsystem.
 
-total: 0 errors, 2 warnings, 0 checks, 183 lines checked
-170905ae335a drm/i915: Introduce a ww transaction helper
--:56: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_ww' - possible side-effects?
-#56: FILE: drivers/gpu/drm/i915/i915_gem_ww.h:46:
-+#define for_i915_gem_ww(_ww, _err, _intr)			\
-+	for (__i915_gem_ww_init(_ww, _intr); (_ww)->loop;	\
-+	     _err = __i915_gem_ww_fini(_ww, _err))
+However instead of having a normal 'struct device_driver' and binding the
+actual mdev drivers through the standard driver core mechanisms it open
+codes this with the struct mdev_parent_ops and provides a single driver
+that shims between the VFIO core's struct vfio_device and the actual
+device driver.
 
--:56: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_err' - possible side-effects?
-#56: FILE: drivers/gpu/drm/i915/i915_gem_ww.h:46:
-+#define for_i915_gem_ww(_ww, _err, _intr)			\
-+	for (__i915_gem_ww_init(_ww, _intr); (_ww)->loop;	\
-+	     _err = __i915_gem_ww_fini(_ww, _err))
+Instead, allow mdev drivers implement an actual struct mdev_driver and
+directly call vfio_register_group_dev() in the probe() function for the
+mdev. Arrange to bind the created mdev_device to the mdev_driver that is
+provided by the end driver.
 
-total: 0 errors, 0 warnings, 2 checks, 41 lines checked
-1d7d203cc9de drm/i915/gt: Add an insert_entry for gen8_ppgtt
-b8de4e1527e9 drm/i915/gt: Add a routine to iterate over the pagetables of a GTT
-9c144ca818bb drm/i915/gt: Export the pinned context constructor and destructor
-ee3ad654412a drm/i915/gt: Pipelined page migration
--:66: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#66: 
-new file mode 100644
+The actual execution flow doesn't change much, eg what was
+parent_ops->create is now device_driver->probe and it is called at almost
+the exact same time - except under the normal control of the driver core.
 
--:878: WARNING:LINE_SPACING: Missing a blank line after declarations
-#878: FILE: drivers/gpu/drm/i915/gt/selftest_migrate.c:176:
-+	struct drm_i915_private *i915 = migrate->context->engine->i915;
-+	I915_RND_STATE(prng);
+Ultimately converting all the drivers unlocks a fair number of additional
+VFIO simplifications and cleanups.
 
--:907: WARNING:LINE_SPACING: Missing a blank line after declarations
-#907: FILE: drivers/gpu/drm/i915/gt/selftest_migrate.c:205:
-+	struct threaded_migrate *thread;
-+	I915_RND_STATE(prng);
-
--:932: WARNING:MSLEEP: msleep < 20ms can sleep for up to 20ms; see Documentation/timers/timers-howto.rst
-#932: FILE: drivers/gpu/drm/i915/gt/selftest_migrate.c:230:
-+	msleep(10); /* start all threads before we kthread_stop() */
-
-total: 0 errors, 4 warnings, 0 checks, 931 lines checked
-35222babd9d2 drm/i915/gt: Pipelined clear
--:355: WARNING:LINE_SPACING: Missing a blank line after declarations
-#355: FILE: drivers/gpu/drm/i915/gt/selftest_migrate.c:311:
-+	struct drm_i915_private *i915 = migrate->context->engine->i915;
-+	I915_RND_STATE(prng);
-
-total: 0 errors, 1 warnings, 0 checks, 380 lines checked
-1196a59da677 drm/i915/gt: Setup a default migration context on the GT
-54c4a427f357 drm/i915/ttm: accelerated move implementation
-656ff10118e4 drm/i915/gem: Zap the client blt code
--:35: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#35: 
-deleted file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 146 lines checked
-51bd492a35f8 drm/i915/gem: Zap the i915_gem_object_blt code
--:29: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#29: 
-deleted file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 65 lines checked
-
-
+Changes since v1:
+ - avoid warning spam for successful probes
+ - improve the probe_count protection
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
