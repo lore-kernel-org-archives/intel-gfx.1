@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 621D1C48BE6
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 07:39:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 340C8C48BE8
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 07:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C90A26109E
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 07:39:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C90A26109E
+	by mail.kernel.org (Postfix) with ESMTPS id 045C86109E
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 07:39:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 045C86109E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA056E1A7;
-	Wed, 16 Jun 2021 07:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D9A96E503;
+	Wed, 16 Jun 2021 07:39:46 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F60589C1E;
- Wed, 16 Jun 2021 07:39:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B01AA6E4F3;
+ Wed, 16 Jun 2021 07:39:44 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 9C8526736F; Wed, 16 Jun 2021 09:39:22 +0200 (CEST)
-Date: Wed, 16 Jun 2021 09:39:22 +0200
+ id 329CC68B05; Wed, 16 Jun 2021 09:39:42 +0200 (CEST)
+Date: Wed, 16 Jun 2021 09:39:42 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
-Message-ID: <20210616073922.GA2326@lst.de>
+Message-ID: <20210616073942.GB2326@lst.de>
 References: <20210616062157.953777-1-tientzu@chromium.org>
- <20210616062157.953777-7-tientzu@chromium.org>
+ <20210616062157.953777-10-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210616062157.953777-7-tientzu@chromium.org>
+In-Reply-To: <20210616062157.953777-10-tientzu@chromium.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v12 06/12] swiotlb: Use
- is_swiotlb_force_bounce for swiotlb data bouncing
+Subject: Re: [Intel-gfx] [PATCH v12 09/12] swiotlb: Add restricted DMA
+ alloc/free support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,10 +79,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 16, 2021 at 02:21:51PM +0800, Claire Chang wrote:
-> Propagate the swiotlb_force into io_tlb_default_mem->force_bounce and
-> use it to determine whether to bounce the data or not. This will be
-> useful later to allow for different pools.
+On Wed, Jun 16, 2021 at 02:21:54PM +0800, Claire Chang wrote:
+> Add the functions, swiotlb_{alloc,free} and is_swiotlb_for_alloc to
+> support the memory allocation from restricted DMA pool.
+> 
+> The restricted DMA pool is preferred if available.
+> 
+> Note that since coherent allocation needs remapping, one must set up
+> another device coherent pool by shared-dma-pool and use
+> dma_alloc_from_dev_coherent instead for atomic coherent allocation.
 > 
 > Signed-off-by: Claire Chang <tientzu@chromium.org>
 
