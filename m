@@ -6,34 +6,34 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEE40C48BE5
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 07:34:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67FA1C48BE5
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 07:35:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74AB161356
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 07:34:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74AB161356
+	by mail.kernel.org (Postfix) with ESMTPS id DF1726044F
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 07:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF1726044F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 059526E1A7;
-	Wed, 16 Jun 2021 07:34:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76D4D6E1A7;
+	Wed, 16 Jun 2021 07:35:32 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8D9D66E1A7;
- Wed, 16 Jun 2021 07:34:35 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 735066E1A7;
+ Wed, 16 Jun 2021 07:35:31 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 89578AADD0;
- Wed, 16 Jun 2021 07:34:35 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 6F24FA73C9;
+ Wed, 16 Jun 2021 07:35:31 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Claire Chang" <tientzu@chromium.org>
-Date: Wed, 16 Jun 2021 07:34:35 -0000
-Message-ID: <162382887555.8275.12853103261441727763@emeril.freedesktop.org>
+Date: Wed, 16 Jun 2021 07:35:31 -0000
+Message-ID: <162382893145.8275.17228180661376467293@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210616035240.840463-1-tientzu@chromium.org>
-In-Reply-To: <20210616035240.840463-1-tientzu@chromium.org>
+References: <20210616062157.953777-1-tientzu@chromium.org>
+In-Reply-To: <20210616062157.953777-1-tientzu@chromium.org>
 Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBS?=
  =?utf-8?q?estricted_DMA?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -58,7 +58,7 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 == Series Details ==
 
 Series: Restricted DMA
-URL   : https://patchwork.freedesktop.org/series/91548/
+URL   : https://patchwork.freedesktop.org/series/91553/
 State : failure
 
 == Summary ==
