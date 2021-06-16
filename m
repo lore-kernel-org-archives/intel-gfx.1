@@ -2,40 +2,50 @@ Return-Path: <SRS0=BVws=LK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E91BBC48BE5
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 00:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A7C9C48BE5
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 00:42:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 915126109E
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 00:22:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 915126109E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id A92F061107
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Jun 2021 00:42:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A92F061107
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F29F6E442;
-	Wed, 16 Jun 2021 00:22:12 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 20EE76E442;
- Wed, 16 Jun 2021 00:22:11 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1DBF5A008A;
- Wed, 16 Jun 2021 00:22:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01A886E442;
+	Wed, 16 Jun 2021 00:42:25 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 194B66E444
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Jun 2021 00:42:24 +0000 (UTC)
+IronPort-SDR: 7r+AHooagk8kjwU5xKXY1hvX26bf3MwSEn6ALyb62UkP9tuDI0+1GsQe2NeTjp87J2zijYsNpA
+ oUZpvEIvG74w==
+X-IronPort-AV: E=McAfee;i="6200,9189,10016"; a="186468445"
+X-IronPort-AV: E=Sophos;i="5.83,276,1616482800"; d="scan'208";a="186468445"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2021 17:42:23 -0700
+IronPort-SDR: NiyQaezlXPgFiCzsK3zOqOOX8aNFvdLLkFFkhoWMW8ZSdzQTpsbywB7GFWyWdJQstmZUbdC1vT
+ wxqXh68XE73A==
+X-IronPort-AV: E=Sophos;i="5.83,276,1616482800"; d="scan'208";a="478896386"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2021 17:42:23 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 15 Jun 2021 17:42:12 -0700
+Message-Id: <20210616004213.1705079-3-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20210616004213.1705079-1-matthew.d.roper@intel.com>
+References: <20210616004213.1705079-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matthew Brost" <matthew.brost@intel.com>
-Date: Wed, 16 Jun 2021 00:22:11 -0000
-Message-ID: <162380293111.8275.9264544731242859056@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210616001302.84233-1-matthew.brost@intel.com>
-In-Reply-To: <20210616001302.84233-1-matthew.brost@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?Update_firmware_to_v62=2E0=2E0_=28rev4=29?=
+Subject: [Intel-gfx] [PATCH v2.1 2/3] drm/i915: Add GT support for multiple
+ types of multicast steering
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,77 +58,313 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Although most of our multicast registers are replicated per-subslice, we
+also have a small number of multicast registers that are replicated
+per-l3 bank instead.  For both types of multicast registers we need to
+make sure we steer reads of these registers to a valid instance.
+Ideally we'd like to find a specific instance ID that would steer reads
+of either type of multicast register to a valid instance (i.e., not
+fused off and not powered down), but sometimes the combination of
+part-specific fusing and the additional restrictions imposed by Render
+Power Gating make it impossible to find any overlap between the set of
+valid subslices and valid l3 banks.  This problem will become even more
+noticeable on our upcoming platforms since they will be adding
+additional types of multicast registers with new types of replication
+and rules for finding valid instances for reads.
 
-Series: Update firmware to v62.0.0 (rev4)
-URL   : https://patchwork.freedesktop.org/series/91106/
-State : warning
+To handle this we'll continue to pick a suitable subslice instance at
+driver startup and program this as the default (sliceid,subsliceid)
+setting in the steering control register (0xFDC).  In cases where we
+need to read another type of multicast GT register, but the default
+subslice steering would not correspond to a valid instance, we'll
+explicitly re-steer the single read to a valid value, perform the read,
+and then reset the steering to it's "subslice" default.
 
-== Summary ==
+This patch adds the general functionality to prepare for this explicit
+steering of other multicast register types.  We'll plug L3 bank steering
+into this in the next patch, and then add additional types of multicast
+registers when the support for our next upcoming platform arrives.
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
--
-+drivers/gpu/drm/i915/display/intel_display.c:1893:21:    expected struct i915_vma *[assigned] vma
-+drivers/gpu/drm/i915/display/intel_display.c:1893:21:    got void [noderef] __iomem *[assigned] iomem
-+drivers/gpu/drm/i915/display/intel_display.c:1893:21: warning: incorrect type in assignment (different address spaces)
-+drivers/gpu/drm/i915/gem/i915_gem_ttm.c:564:38: warning: symbol 'i915_gem_ttm_obj_ops' was not declared. Should it be static?
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_reset.c:1396:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
-+drivers/gpu/drm/i915/gt/intel_ring_submission.c:1207:24: warning: Using plain integer as NULL pointer
-+drivers/gpu/drm/i915/i915_perf.c:1434:15: warning: memset with byte count of 16777216
-+drivers/gpu/drm/i915/i915_perf.c:1488:15: warning: memset with byte count of 16777216
-+./include/asm-generic/bitops/find.h:112:45: warning: shift count is negative (-262080)
-+./include/asm-generic/bitops/find.h:32:31: warning: shift count is negative (-262080)
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
+v2:
+ - Use entry->end==0 as table terminator.  (Rodrigo)
+ - Grab forcewake in wa_list_verify() now that we're using accessors
+   that assume forcewake is already held.
 
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt.c            | 84 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt.h            |  8 ++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      | 22 +++++
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   | 39 ++++++---
+ .../gpu/drm/i915/gt/selftest_workarounds.c    |  2 +-
+ 5 files changed, 142 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 2161bf01ef8b..66299105da66 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -697,6 +697,90 @@ void intel_gt_driver_late_release(struct intel_gt *gt)
+ 	intel_engines_free(gt);
+ }
+ 
++/**
++ * intel_gt_reg_needs_read_steering - determine whether a register read
++ *     requires explicit steering
++ * @gt: GT structure
++ * @reg: the register to check steering requirements for
++ * @type: type of multicast steering to check
++ *
++ * Determines whether @reg needs explicit steering of a specific type for
++ * reads.
++ *
++ * Returns false if @reg does not belong to a register range of the given
++ * steering type, or if the default (subslice-based) steering IDs are suitable
++ * for @type steering too.
++ */
++static bool intel_gt_reg_needs_read_steering(struct intel_gt *gt,
++					     i915_reg_t reg,
++					     enum intel_steering_type type)
++{
++	const u32 offset = i915_mmio_reg_offset(reg);
++	const struct intel_mmio_range *entry;
++
++	if (likely(!intel_gt_needs_read_steering(gt, type)))
++		return false;
++
++	for (entry = gt->steering_table[type]; !entry->end; entry++) {
++		if (offset >= entry->start && offset <= entry->end)
++			return true;
++	}
++
++	return false;
++}
++
++/**
++ * intel_gt_get_valid_steering - determines valid IDs for a class of MCR steering
++ * @gt: GT structure
++ * @type: multicast register type
++ * @sliceid: Slice ID returned
++ * @subsliceid: Subslice ID returned
++ *
++ * Determines sliceid and subsliceid values that will steer reads
++ * of a specific multicast register class to a valid value.
++ */
++static void intel_gt_get_valid_steering(struct intel_gt *gt,
++					enum intel_steering_type type,
++					u8 *sliceid, u8 *subsliceid)
++{
++	switch (type) {
++	default:
++		MISSING_CASE(type);
++		*sliceid = 0;
++		*subsliceid = 0;
++	}
++}
++
++/**
++ * intel_gt_read_register_fw - reads a GT register with support for multicast
++ * @gt: GT structure
++ * @reg: register to read
++ *
++ * This function will read a GT register.  If the register is a multicast
++ * register, the read will be steered to a valid instance (i.e., one that
++ * isn't fused off or powered down by power gating).
++ *
++ * Returns the value from a valid instance of @reg.
++ */
++u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg)
++{
++	int type;
++	u8 sliceid, subsliceid;
++
++	for (type = 0; type < NUM_STEERING_TYPES; type++) {
++		if (intel_gt_reg_needs_read_steering(gt, reg, type)) {
++			intel_gt_get_valid_steering(gt, type, &sliceid,
++						    &subsliceid);
++			return intel_uncore_read_with_mcr_steering_fw(gt->uncore,
++								      reg,
++								      sliceid,
++								      subsliceid);
++		}
++	}
++
++	return intel_uncore_read_fw(gt->uncore, reg);
++}
++
+ void intel_gt_info_print(const struct intel_gt_info *info,
+ 			 struct drm_printer *p)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
+index 7ec395cace69..e7aabe0cc5bf 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+@@ -75,6 +75,14 @@ static inline bool intel_gt_is_wedged(const struct intel_gt *gt)
+ 	return unlikely(test_bit(I915_WEDGED, &gt->reset.flags));
+ }
+ 
++static inline bool intel_gt_needs_read_steering(struct intel_gt *gt,
++						enum intel_steering_type type)
++{
++	return gt->steering_table[type];
++}
++
++u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg);
++
+ void intel_gt_info_print(const struct intel_gt_info *info,
+ 			 struct drm_printer *p);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index fecfacf551d5..f2c274eee1e6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -31,6 +31,26 @@ struct i915_ggtt;
+ struct intel_engine_cs;
+ struct intel_uncore;
+ 
++struct intel_mmio_range {
++	u32 start;
++	u32 end;
++};
++
++/*
++ * The hardware has multiple kinds of multicast register ranges that need
++ * special register steering (and future platforms are expected to add
++ * additional types).
++ *
++ * During driver startup, we initialize the steering control register to
++ * direct reads to a slice/subslice that are valid for the 'subslice' class
++ * of multicast registers.  If another type of steering does not have any
++ * overlap in valid steering targets with 'subslice' style registers, we will
++ * need to explicitly re-steer reads of registers of the other type.
++ */
++enum intel_steering_type {
++	NUM_STEERING_TYPES
++};
++
+ enum intel_submission_method {
+ 	INTEL_SUBMISSION_RING,
+ 	INTEL_SUBMISSION_ELSP,
+@@ -145,6 +165,8 @@ struct intel_gt {
+ 
+ 	struct i915_vma *scratch;
+ 
++	const struct intel_mmio_range *steering_table[NUM_STEERING_TYPES];
++
+ 	struct intel_gt_info {
+ 		intel_engine_mask_t engine_mask;
+ 		u8 num_engines;
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 977a76e648e0..93c74d4cae02 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -1248,8 +1248,9 @@ wa_verify(const struct i915_wa *wa, u32 cur, const char *name, const char *from)
+ }
+ 
+ static void
+-wa_list_apply(struct intel_uncore *uncore, const struct i915_wa_list *wal)
++wa_list_apply(struct intel_gt *gt, const struct i915_wa_list *wal)
+ {
++	struct intel_uncore *uncore = gt->uncore;
+ 	enum forcewake_domains fw;
+ 	unsigned long flags;
+ 	struct i915_wa *wa;
+@@ -1264,13 +1265,16 @@ wa_list_apply(struct intel_uncore *uncore, const struct i915_wa_list *wal)
+ 	intel_uncore_forcewake_get__locked(uncore, fw);
+ 
+ 	for (i = 0, wa = wal->list; i < wal->count; i++, wa++) {
+-		if (wa->clr)
+-			intel_uncore_rmw_fw(uncore, wa->reg, wa->clr, wa->set);
+-		else
+-			intel_uncore_write_fw(uncore, wa->reg, wa->set);
++		u32 val, old = 0;
++
++		/* open-coded rmw due to steering */
++		old = wa->clr ? intel_gt_read_register_fw(gt, wa->reg) : 0;
++		val = (old & ~wa->clr) | wa->set;
++		if (val != old || !wa->clr)
++			intel_uncore_write_fw(uncore, wa->reg, val);
++
+ 		if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+-			wa_verify(wa,
+-				  intel_uncore_read_fw(uncore, wa->reg),
++			wa_verify(wa, intel_gt_read_register_fw(gt, wa->reg),
+ 				  wal->name, "application");
+ 	}
+ 
+@@ -1280,28 +1284,39 @@ wa_list_apply(struct intel_uncore *uncore, const struct i915_wa_list *wal)
+ 
+ void intel_gt_apply_workarounds(struct intel_gt *gt)
+ {
+-	wa_list_apply(gt->uncore, &gt->i915->gt_wa_list);
++	wa_list_apply(gt, &gt->i915->gt_wa_list);
+ }
+ 
+-static bool wa_list_verify(struct intel_uncore *uncore,
++static bool wa_list_verify(struct intel_gt *gt,
+ 			   const struct i915_wa_list *wal,
+ 			   const char *from)
+ {
++	struct intel_uncore *uncore = gt->uncore;
+ 	struct i915_wa *wa;
++	enum forcewake_domains fw;
++	unsigned long flags;
+ 	unsigned int i;
+ 	bool ok = true;
+ 
++	fw = wal_get_fw_for_rmw(uncore, wal);
++
++	spin_lock_irqsave(&uncore->lock, flags);
++	intel_uncore_forcewake_get__locked(uncore, fw);
++
+ 	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
+ 		ok &= wa_verify(wa,
+-				intel_uncore_read(uncore, wa->reg),
++				intel_gt_read_register_fw(gt, wa->reg),
+ 				wal->name, from);
+ 
++	intel_uncore_forcewake_put__locked(uncore, fw);
++	spin_unlock_irqrestore(&uncore->lock, flags);
++
+ 	return ok;
+ }
+ 
+ bool intel_gt_verify_workarounds(struct intel_gt *gt, const char *from)
+ {
+-	return wa_list_verify(gt->uncore, &gt->i915->gt_wa_list, from);
++	return wa_list_verify(gt, &gt->i915->gt_wa_list, from);
+ }
+ 
+ __maybe_unused
+@@ -2084,7 +2099,7 @@ void intel_engine_init_workarounds(struct intel_engine_cs *engine)
+ 
+ void intel_engine_apply_workarounds(struct intel_engine_cs *engine)
+ {
+-	wa_list_apply(engine->uncore, &engine->wa_list);
++	wa_list_apply(engine->gt, &engine->wa_list);
+ }
+ 
+ struct mcr_range {
+diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+index c30754daf4b1..7ebc4edb8ecf 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+@@ -1147,7 +1147,7 @@ verify_wa_lists(struct intel_gt *gt, struct wa_lists *lists,
+ 	enum intel_engine_id id;
+ 	bool ok = true;
+ 
+-	ok &= wa_list_verify(gt->uncore, &lists->gt_wa_list, str);
++	ok &= wa_list_verify(gt, &lists->gt_wa_list, str);
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		struct intel_context *ce;
+-- 
+2.25.4
 
 _______________________________________________
 Intel-gfx mailing list
