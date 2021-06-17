@@ -2,52 +2,51 @@ Return-Path: <SRS0=jbmr=LL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4C42C48BE5
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 09:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58E10C2B9F4
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 09:55:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B4A9C613D5
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 09:33:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4A9C613D5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id F2B11613F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 09:55:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2B11613F5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 264FE6E8D0;
-	Thu, 17 Jun 2021 09:33:13 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCF0A6E846;
- Thu, 17 Jun 2021 00:09:32 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 70EFE61351;
- Thu, 17 Jun 2021 00:09:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623888572;
- bh=mN2okVVdTICmc/8v91DABSXp7kK2mc41VelpLLMzraM=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=ZYuvhN96769HVBf9HwXfEMrx5h2joXFESxJj/lRenrF7yXWLZjtrg1PWIka+vT/Q0
- oFtXyOpOZ9yR7QPt6WZ9qiVwYGYEJ72zE5pEW7HiR62r0bK1cPffUlPeluSwwsGV++
- 8riMe4sA8jh8H05UnuJF58KJLPG9dNHhkmEpW63Symhvau9C6X5CTpmeRZXg03FBNA
- YdmM71is91QiA8p/farR5qTSk/+kZjwaUjrHEt7/cAUyCA79A0OF17vUa8D0c+gd+H
- nwIEeujLTdx4sfeAu0ptJEutsq4BmObXoP4A9/HlakW6ogsicBITdzMemlH7LIUWJw
- GZfH7kl1LZ6XQ==
-Date: Wed, 16 Jun 2021 17:09:29 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Claire Chang <tientzu@chromium.org>
-In-Reply-To: <20210616062157.953777-12-tientzu@chromium.org>
-Message-ID: <alpine.DEB.2.21.2106161651290.24906@sstabellini-ThinkPad-T480s>
-References: <20210616062157.953777-1-tientzu@chromium.org>
- <20210616062157.953777-12-tientzu@chromium.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 891636E8D2;
+	Thu, 17 Jun 2021 09:55:15 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4A826E8D2;
+ Thu, 17 Jun 2021 09:55:14 +0000 (UTC)
+IronPort-SDR: cKlFkL0ggHmXe01Bpl/Izejc22dXp4kgqssDiX1N8yUpkxagJ3hZXzJpzr3eTRTm52IE3taJ4h
+ ELjJxRh6Ya4Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,10017"; a="206158115"
+X-IronPort-AV: E=Sophos;i="5.83,280,1616482800"; d="scan'208";a="206158115"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2021 02:54:55 -0700
+IronPort-SDR: 1+4wM5q0fSkC9Ahwg7Q7Vd5xHQCO3NJ9P14blvcmCMyQVBeUk8AIBqu47KoXmkHW1Y1CnLaqyM
+ V8nIXnBoSrBw==
+X-IronPort-AV: E=Sophos;i="5.83,280,1616482800"; d="scan'208";a="554351645"
+Received: from ramaling-i9x.iind.intel.com (HELO intel.com) ([10.99.66.205])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2021 02:54:53 -0700
+Date: Thu, 17 Jun 2021 15:26:20 +0530
+From: Ramalingam C <ramalingam.c@intel.com>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <20210617095620.GA15664@intel.com>
+References: <20210615113600.30660-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 17 Jun 2021 09:33:12 +0000
-Subject: Re: [Intel-gfx] [PATCH v12 11/12] dt-bindings: of: Add restricted
- DMA pool
+Content-Disposition: inline
+In-Reply-To: <20210615113600.30660-1-thomas.hellstrom@linux.intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Perform execbuffer object locking
+ as a separate step
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,114 +59,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
- mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- jxgao@google.com, Will Deacon <will@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
- Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
- boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- tfiga@chromium.org,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
- Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 16 Jun 2021, Claire Chang wrote:
-> Introduce the new compatible string, restricted-dma-pool, for restricted
-> DMA. One can specify the address and length of the restricted DMA memory
-> region by restricted-dma-pool in the reserved-memory node.
-> 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
-> ---
->  .../reserved-memory/reserved-memory.txt       | 36 +++++++++++++++++--
->  1 file changed, 33 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt b/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-> index e8d3096d922c..46804f24df05 100644
-> --- a/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-> +++ b/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-> @@ -51,6 +51,23 @@ compatible (optional) - standard definition
->            used as a shared pool of DMA buffers for a set of devices. It can
->            be used by an operating system to instantiate the necessary pool
->            management subsystem if necessary.
-> +        - restricted-dma-pool: This indicates a region of memory meant to be
-> +          used as a pool of restricted DMA buffers for a set of devices. The
-> +          memory region would be the only region accessible to those devices.
-> +          When using this, the no-map and reusable properties must not be set,
-> +          so the operating system can create a virtual mapping that will be used
-> +          for synchronization. The main purpose for restricted DMA is to
-> +          mitigate the lack of DMA access control on systems without an IOMMU,
-> +          which could result in the DMA accessing the system memory at
-> +          unexpected times and/or unexpected addresses, possibly leading to data
-> +          leakage or corruption. The feature on its own provides a basic level
-> +          of protection against the DMA overwriting buffer contents at
-> +          unexpected times. However, to protect against general data leakage and
-> +          system memory corruption, the system needs to provide way to lock down
-> +          the memory access, e.g., MPU. Note that since coherent allocation
-> +          needs remapping, one must set up another device coherent pool by
-> +          shared-dma-pool and use dma_alloc_from_dev_coherent instead for atomic
-> +          coherent allocation.
->          - vendor specific string in the form <vendor>,[<device>-]<usage>
->  no-map (optional) - empty property
->      - Indicates the operating system must not create a virtual mapping
-> @@ -85,10 +102,11 @@ memory-region-names (optional) - a list of names, one for each corresponding
->  
->  Example
->  -------
-> -This example defines 3 contiguous regions are defined for Linux kernel:
-> +This example defines 4 contiguous regions for Linux kernel:
->  one default of all device drivers (named linux,cma@72000000 and 64MiB in size),
-> -one dedicated to the framebuffer device (named framebuffer@78000000, 8MiB), and
-> -one for multimedia processing (named multimedia-memory@77000000, 64MiB).
-> +one dedicated to the framebuffer device (named framebuffer@78000000, 8MiB),
-> +one for multimedia processing (named multimedia-memory@77000000, 64MiB), and
-> +one for restricted dma pool (named restricted_dma_reserved@0x50000000, 64MiB).
->  
->  / {
->  	#address-cells = <1>;
-> @@ -120,6 +138,11 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
->  			compatible = "acme,multimedia-memory";
->  			reg = <0x77000000 0x4000000>;
->  		};
-> +
-> +		restricted_dma_reserved: restricted_dma_reserved {
-> +			compatible = "restricted-dma-pool";
-> +			reg = <0x50000000 0x4000000>;
-> +		};
->  	};
->  
->  	/* ... */
-> @@ -138,4 +161,11 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
->  		memory-region = <&multimedia_reserved>;
->  		/* ... */
->  	};
-> +
-> +	pcie_device: pcie_device@0,0 {
-> +		reg = <0x83010000 0x0 0x00000000 0x0 0x00100000
-> +		       0x83010000 0x0 0x00100000 0x0 0x00100000>;
-> +		memory-region = <&restricted_dma_mem_reserved>;
-
-Shouldn't it be &restricted_dma_reserved ?
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gMjAyMS0wNi0xNSBhdCAxMzozNjowMCArMDIwMCwgVGhvbWFzIEhlbGxzdHLDtm0gd3JvdGU6
+Cj4gVG8gaGVscCBhdm9pZCBldmljdGluZyBhbHJlYWR5IHJlc2lkZW50IGJ1ZmZlcnMgZnJvbSB0
+aGUgYmF0Y2ggd2UncmUKPiBwcm9jZXNzaW5nLCBwZXJmb3JtIGxvY2tpbmcgYXMgYSBzZXBhcmF0
+ZSBzdGVwLgo+IApMb29rcyByZWFzb25hYmxlIHRvIG1lLgoKUmV2aWV3ZWQtYnk6IFJhbWFsaW5n
+YW0gQyA8cmFtYWxpbmdhbS5jQGludGVsLmNvbT4KCj4gU2lnbmVkLW9mZi1ieTogVGhvbWFzIEhl
+bGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwuY29tPgo+IC0tLQo+ICAuLi4v
+Z3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9leGVjYnVmZmVyLmMgICAgfCAyNSArKysrKysrKysr
+KysrKysrLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAyMSBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9u
+cygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1f
+ZXhlY2J1ZmZlci5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2V4ZWNidWZm
+ZXIuYwo+IGluZGV4IDIwMWZlZDE5ZDEyMC4uMzk0ZWI0MGM5NWI1IDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9leGVjYnVmZmVyLmMKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5jCj4gQEAgLTkyMiwyMSAr
+OTIyLDM4IEBAIHN0YXRpYyBpbnQgZWJfbG9va3VwX3ZtYXMoc3RydWN0IGk5MTVfZXhlY2J1ZmZl
+ciAqZWIpCj4gIAlyZXR1cm4gZXJyOwo+ICB9Cj4gIAo+IC1zdGF0aWMgaW50IGViX3ZhbGlkYXRl
+X3ZtYXMoc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIpCj4gK3N0YXRpYyBpbnQgZWJfbG9ja192
+bWFzKHN0cnVjdCBpOTE1X2V4ZWNidWZmZXIgKmViKQo+ICB7Cj4gIAl1bnNpZ25lZCBpbnQgaTsK
+PiAgCWludCBlcnI7Cj4gIAo+IC0JSU5JVF9MSVNUX0hFQUQoJmViLT51bmJvdW5kKTsKPiAtCj4g
+IAlmb3IgKGkgPSAwOyBpIDwgZWItPmJ1ZmZlcl9jb3VudDsgaSsrKSB7Cj4gLQkJc3RydWN0IGRy
+bV9pOTE1X2dlbV9leGVjX29iamVjdDIgKmVudHJ5ID0gJmViLT5leGVjW2ldOwo+ICAJCXN0cnVj
+dCBlYl92bWEgKmV2ID0gJmViLT52bWFbaV07Cj4gIAkJc3RydWN0IGk5MTVfdm1hICp2bWEgPSBl
+di0+dm1hOwo+ICAKPiAgCQllcnIgPSBpOTE1X2dlbV9vYmplY3RfbG9jayh2bWEtPm9iaiwgJmVi
+LT53dyk7Cj4gIAkJaWYgKGVycikKPiAgCQkJcmV0dXJuIGVycjsKPiArCX0KPiArCj4gKwlyZXR1
+cm4gMDsKPiArfQo+ICsKPiArc3RhdGljIGludCBlYl92YWxpZGF0ZV92bWFzKHN0cnVjdCBpOTE1
+X2V4ZWNidWZmZXIgKmViKQo+ICt7Cj4gKwl1bnNpZ25lZCBpbnQgaTsKPiArCWludCBlcnI7Cj4g
+Kwo+ICsJSU5JVF9MSVNUX0hFQUQoJmViLT51bmJvdW5kKTsKPiArCj4gKwllcnIgPSBlYl9sb2Nr
+X3ZtYXMoZWIpOwo+ICsJaWYgKGVycikKPiArCQlyZXR1cm4gZXJyOwo+ICsKPiArCWZvciAoaSA9
+IDA7IGkgPCBlYi0+YnVmZmVyX2NvdW50OyBpKyspIHsKPiArCQlzdHJ1Y3QgZHJtX2k5MTVfZ2Vt
+X2V4ZWNfb2JqZWN0MiAqZW50cnkgPSAmZWItPmV4ZWNbaV07Cj4gKwkJc3RydWN0IGViX3ZtYSAq
+ZXYgPSAmZWItPnZtYVtpXTsKPiArCQlzdHJ1Y3QgaTkxNV92bWEgKnZtYSA9IGV2LT52bWE7Cj4g
+IAo+ICAJCWVyciA9IGViX3Bpbl92bWEoZWIsIGVudHJ5LCBldik7Cj4gIAkJaWYgKGVyciA9PSAt
+RURFQURMSykKPiAtLSAKPiAyLjMxLjEKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vaW50ZWwtZ2Z4Cg==
