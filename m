@@ -2,50 +2,47 @@ Return-Path: <SRS0=jbmr=LL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B48D2C49361
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 21:12:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B6E2C2B9F4
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 21:14:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 81D3F613BF
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 21:12:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81D3F613BF
+	by mail.kernel.org (Postfix) with ESMTPS id B3212613BF
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 21:14:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3212613BF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 019CF6E952;
-	Thu, 17 Jun 2021 21:12:35 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B4976E9B4
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 21:12:27 +0000 (UTC)
-IronPort-SDR: mWA3kQ7m70T67ea6jleHGDuhC2HWj8aFG0r+Y4Zhs6yy3JdEywOQrn8b1p2KOw0PK48c370a/M
- P9qCkV3B7Xzg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10018"; a="292081541"
-X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="292081541"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 358CA6E930;
+	Thu, 17 Jun 2021 21:14:27 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 923FD6E930
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 21:14:26 +0000 (UTC)
+IronPort-SDR: PFRm6mqsLSeJBMMm1/kQyxPfP7mYh9Ris+irLoYOqEVZp7S/amIJqe6M9TtCtJQMQhNaO4BBbn
+ G4PAW5MwaLHg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10018"; a="186830095"
+X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="186830095"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2021 14:12:27 -0700
-IronPort-SDR: SyZbPEo62SE9JIyxiYLST4cqfe1hds/dnj0KjAHntwWPKZkdapeu2odBMFxEcMTTRc8+MVbHcr
- S/h4mqH9rLpQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="622168079"
-Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
- by orsmga005.jf.intel.com with ESMTP; 17 Jun 2021 14:12:25 -0700
-From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2021 14:14:26 -0700
+IronPort-SDR: WfZK85Xb8YKU+80ha8NgimPOnSJ3U8qTkGImfjQZ2dDiH2IDeuAWhSjpH2K8oeJXS4YW8aN+/T
+ zm4g+AQf+IdA==
+X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="622168572"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2021 14:14:25 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Jun 2021 14:12:21 -0700
-Message-Id: <20210617211225.13549-2-anusha.srivatsa@intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210617211225.13549-1-anusha.srivatsa@intel.com>
-References: <20210617211225.13549-1-anusha.srivatsa@intel.com>
+Date: Thu, 17 Jun 2021 14:14:22 -0700
+Message-Id: <20210617211425.1943662-1-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/5] drm/i915/display: Limit disabling PSR
- around cdclk changes to ADL-P
+Subject: [Intel-gfx] [CI 0/3] Explicity steer l3bank multicast reads when
+ necessary
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,52 +55,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogR3dhbi1neWVvbmcgTXVuIDxnd2FuLWd5ZW9uZy5tdW5AaW50ZWwuY29tPgoKT25seSBB
-REwtUCBwbGF0Zm9ybSByZXF1aXJlcyBhIHRlbXBvcmFsIGRpc2FibGluZyBvZiBQU1IgZm9yIGNo
-YW5naW5nIHRoZQpDRENMSyBQTEwgZnJlcXVlbmN5IHdpdGggY3Jhd2xpbmcuIENoYW5naW5nIHRo
-ZSBDRENMSyBQTEwgZnJlcXVlbmN5IG9uCnByaW9yIHBsYXRmb3JtcyBvZiBBREwtUCBvciBjaGFu
-Z2luZyB0aGUgQ0RDTEsgUExMIGZyZXF1ZW5jeSB3aXRob3V0CmNyYXdsaW5nIG9uIEFETC1QIGRv
-bid0IG5lZWQgdG8gZGlzYWJsZSBvZiBQU1IuCgpCc3BlYzogNDkyMDcKCkNjOiBWaWxsZSBTeXJq
-w6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgpDYzogTWlrYSBLYWhvbGEgPG1p
-a2Eua2Fob2xhQGludGVsLmNvbT4KQ2M6IFN0YW5pc2xhdiBMaXNvdnNraXkgPHN0YW5pc2xhdi5s
-aXNvdnNraXlAaW50ZWwuY29tPgpDYzogQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3JpdmF0c2FA
-aW50ZWwuY29tPgpGaXhlczogMTdjMWE0YjdhYzZmICgiZHJtL2k5MTU6IERpc2FibGUgUFNSIGFy
-b3VuZCBjZGNsayBjaGFuZ2UiKQpTaWduZWQtb2ZmLWJ5OiBHd2FuLWd5ZW9uZyBNdW4gPGd3YW4t
-Z3llb25nLm11bkBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9jZGNsay5jIHwgMjIgKysrKysrKysrKysrKysrKy0tLS0tLQogMSBmaWxlIGNoYW5nZWQs
-IDE2IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9jZGNsay5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9jZGNsay5jCmluZGV4IDYxM2ZmY2M2OGViYS4uNmRhNDI2ZDI2YWFjIDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NkY2xrLmMKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9jZGNsay5jCkBAIC0xOTYyLDEw
-ICsxOTYyLDE4IEBAIHN0YXRpYyB2b2lkIGludGVsX3NldF9jZGNsayhzdHJ1Y3QgZHJtX2k5MTVf
-cHJpdmF0ZSAqZGV2X3ByaXYsCiAKIAlpbnRlbF9kdW1wX2NkY2xrX2NvbmZpZyhjZGNsa19jb25m
-aWcsICJDaGFuZ2luZyBDRENMSyB0byIpOwogCi0JZm9yX2VhY2hfaW50ZWxfZW5jb2Rlcl93aXRo
-X3BzcigmZGV2X3ByaXYtPmRybSwgZW5jb2RlcikgewotCQlzdHJ1Y3QgaW50ZWxfZHAgKmludGVs
-X2RwID0gZW5jX3RvX2ludGVsX2RwKGVuY29kZXIpOworCS8qCisJICogT25seSBBREwtUCBwbGF0
-Zm9ybSByZXF1aXJlcyBhIHRlbXBvcmFsIGRpc2FibGluZyBvZiBQU1IgZm9yIGNoYW5naW5nCisJ
-ICogdGhlIENEQ0xLIFBMTCBmcmVxdWVuY3kgd2l0aCBjcmF3bGluZy4KKwkgKiBDaGFuZ2luZyB0
-aGUgQ0RDTEsgUExMIGZyZXF1ZW5jeSBvbiBwcmlvciBwbGF0Zm9ybXMgb2YgQURMLVAgb3IgY2hh
-bmdpbmcKKwkgKiB0aGUgQ0RDTEsgUExMIGZyZXF1ZW5jeSB3aXRob3V0IGNyYXdsaW5nIG9uIEFE
-TC1QIGRvbid0IG5lZWQgdG8gZGlzYWJsZSBvZiBQU1IuCisJICovCisJaWYgKElTX0FMREVSTEFL
-RV9QKGRldl9wcml2KSkgeworCQlmb3JfZWFjaF9pbnRlbF9lbmNvZGVyX3dpdGhfcHNyKCZkZXZf
-cHJpdi0+ZHJtLCBlbmNvZGVyKSB7CisJCQlzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwID0gZW5j
-X3RvX2ludGVsX2RwKGVuY29kZXIpOwogCi0JCWludGVsX3Bzcl9wYXVzZShpbnRlbF9kcCk7CisJ
-CQlpbnRlbF9wc3JfcGF1c2UoaW50ZWxfZHApOworCQl9CiAJfQogCiAJLyoKQEAgLTE5OTAsMTAg
-KzE5OTgsMTIgQEAgc3RhdGljIHZvaWQgaW50ZWxfc2V0X2NkY2xrKHN0cnVjdCBkcm1faTkxNV9w
-cml2YXRlICpkZXZfcHJpdiwKIAl9CiAJbXV0ZXhfdW5sb2NrKCZkZXZfcHJpdi0+Z21idXNfbXV0
-ZXgpOwogCi0JZm9yX2VhY2hfaW50ZWxfZW5jb2Rlcl93aXRoX3BzcigmZGV2X3ByaXYtPmRybSwg
-ZW5jb2RlcikgewotCQlzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwID0gZW5jX3RvX2ludGVsX2Rw
-KGVuY29kZXIpOworCWlmIChJU19BTERFUkxBS0VfUChkZXZfcHJpdikpIHsKKwkJZm9yX2VhY2hf
-aW50ZWxfZW5jb2Rlcl93aXRoX3BzcigmZGV2X3ByaXYtPmRybSwgZW5jb2RlcikgeworCQkJc3Ry
-dWN0IGludGVsX2RwICppbnRlbF9kcCA9IGVuY190b19pbnRlbF9kcChlbmNvZGVyKTsKIAotCQlp
-bnRlbF9wc3JfcmVzdW1lKGludGVsX2RwKTsKKwkJCWludGVsX3Bzcl9yZXN1bWUoaW50ZWxfZHAp
-OworCQl9CiAJfQogCiAJaWYgKGRybV9XQVJOKCZkZXZfcHJpdi0+ZHJtLAotLSAKMi4zMi4wCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZngg
-bWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+We've recently learned that when steering reads of multicast registers
+that use 'subslice' replication, it's not only important to steer to a
+subslice that isn't fused off, but also to steer to the lowest-numbered
+subslice.  This is because when Render Power Gating is enabled, grabbing
+forcewake will only cause the hardware to power up a single subslice
+(referred to as the "minconfig") until/unless a real workload is being
+run on the EUs.  If we try to read back a value from a register instance
+other than the minconfig subslice, the read operation will either return
+0 or random garbage.
+
+Unfortunately this extra requirement to steer to the minconfig means
+that the steering target we use for subslice-replicated registers may
+not select a valid instance for l3bank-replicated registers.  In cases
+where the two types of multicast registers do not have compatible
+steering targets, we'll initialize the steering control register to the
+proper subslice target at driver load, and then explicitly re-steer
+individual reads of l3bank registers as they occur at runtime.
+
+This series sets up an infrastructure to handle explicit resteering of
+multiple multicast register types, and then applies it to l3bank
+registers.  Our next upcoming platform (which we'll probably start
+upstreaming soon) will bring several more types of multicast registers,
+each with their own steering criteria, so the infrastructure here is
+partially in preparation for those extra multicast types that will be
+arriving soon.
+
+v2:
+ - Use {} as table terminator and check for end==0 instead of 0xFFFFFF
+   on loop iteration.  (Rodrigo)
+ - Use gt->uncore instead of gt->i915->uncore.  (Tvrtko)
+ - Now that wa_list_verify() uses _fw accessors we need to explicitly
+   grab forcewake.
+
+v2.1:
+ - Rebase
+
+v3:
+ - The L3BANK fuse value is a disable mask rather than an enable mask.
+   We need to invert it before applying ffs() to select a valid
+   instance.
+
+v4:
+ - The selected L3BANK ID goes in the subslice field of the steering
+   register, not the slice field.
+
+v4.1:
+ - Rebase
+
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+
+Daniele Ceraolo Spurio (1):
+  drm/i915: extract steered reg access to common function
+
+Matt Roper (2):
+  drm/i915: Add GT support for multiple types of multicast steering
+  drm/i915: Add support for explicit L3BANK steering
+
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  41 +-----
+ drivers/gpu/drm/i915/gt/intel_gt.c            | 102 +++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt.h            |   8 ++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      |  26 ++++
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   | 123 ++++++++----------
+ .../gpu/drm/i915/gt/selftest_workarounds.c    |   2 +-
+ drivers/gpu/drm/i915/intel_uncore.c           |  55 ++++++++
+ drivers/gpu/drm/i915/intel_uncore.h           |   6 +
+ 8 files changed, 251 insertions(+), 112 deletions(-)
+
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
