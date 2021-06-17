@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA1BCC49EA2
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29E7CC48BE8
 	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 13:44:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE8D761222
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 13:44:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE8D761222
+	by mail.kernel.org (Postfix) with ESMTPS id F200961159
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 13:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F200961159
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00D756EA18;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F3486EA16;
 	Fri, 18 Jun 2021 13:44:52 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A97C16E1D8;
- Thu, 17 Jun 2021 23:30:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EC0DB6117A;
- Thu, 17 Jun 2021 23:30:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DB686E3EE;
+ Thu, 17 Jun 2021 23:31:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D38066128B;
+ Thu, 17 Jun 2021 23:31:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623972652;
- bh=zT1qdWU1gzmRyGeh30JGyHfeH/5dy6E64TCLRTPOMuQ=;
+ s=k20201202; t=1623972667;
+ bh=fWthFoIm/YEa+gCtln1XDDJSXfB5s/xQ0jk7l7+p7+0=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=L3nKu5Hm2ncrIKOEaFTf+2fL0fh6USJhIFnbQA9qkk03x89Y1npCLAh/mGQJh5jgS
- pnnSruyh6mX3z3Is7HGD+08WcJ0DnFnBawbI2rFKKmajFf1FEQ37ybp7Nq3v8pjbh0
- NHrvEDTsIOxk4nTYvYmiUcCNBuL4M/XxImwe4e8lhtE6D3K7hOlD4JIdGP+kIOALnw
- 5Scct4vYV5ZtSH09JchbACRHQNDYN1A3YXySJYHgErO3JUbn5qo9xkJbr5DFsapWSj
- o+frwhth6wJ1B4JrC45X+H0+WpZAVkNuIox4TsHm6lkmMwlV+YZDFHxdVI/S5CtGI5
- B7G21AS9iH6ZA==
-Date: Thu, 17 Jun 2021 16:30:50 -0700 (PDT)
+ b=QWqo3DqxQjEKowfqO/s2UKUn1DguQmxVjG6us/vFiMAFxg5HmszETvkadqrhYhjO6
+ p3G1uYRBl3sgiMDwarsK7QN9GUKmY1ppQedxfXy1LWj8nRA+raX38agu6FcFdZE8rE
+ u0SnAZ+syPcnB24pk3013wQUUK3otAsHcsjjDaqnsrBDVB5TZNRykVgiRAM8ftohQB
+ 0zL9uqU+EGZZr7X8V66FRgKnYPrnYunWMJVUC4BfgidwO8ZU2Lg4VckOSqGuRd5+zs
+ mHYalEYo2PrV1TSQiwCdtdYcCgfmpjbkd2fkGoESqy5HZncim8JNKQU8S6M5JXt0Mj
+ NrYdTfVkjlQUA==
+Date: Thu, 17 Jun 2021 16:31:05 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Claire Chang <tientzu@chromium.org>
-In-Reply-To: <20210617062635.1660944-4-tientzu@chromium.org>
-Message-ID: <alpine.DEB.2.21.2106171444510.24906@sstabellini-ThinkPad-T480s>
+In-Reply-To: <20210617062635.1660944-7-tientzu@chromium.org>
+Message-ID: <alpine.DEB.2.21.2106171433560.24906@sstabellini-ThinkPad-T480s>
 References: <20210617062635.1660944-1-tientzu@chromium.org>
- <20210617062635.1660944-4-tientzu@chromium.org>
+ <20210617062635.1660944-7-tientzu@chromium.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 X-Mailman-Approved-At: Fri, 18 Jun 2021 13:44:51 +0000
-Subject: Re: [Intel-gfx] [PATCH v13 03/12] swiotlb: Set dev->dma_io_tlb_mem
- to the swiotlb pool used
+Subject: Re: [Intel-gfx] [PATCH v13 06/12] swiotlb: Use
+ is_swiotlb_force_bounce for swiotlb data bouncing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,8 +91,9 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On Thu, 17 Jun 2021, Claire Chang wrote:
-> Always have the pointer to the swiotlb pool used in struct device. This
-> could help simplify the code for other pools.
+> Propagate the swiotlb_force into io_tlb_default_mem->force_bounce and
+> use it to determine whether to bounce the data or not. This will be
+> useful later to allow for different pools.
 > 
 > Signed-off-by: Claire Chang <tientzu@chromium.org>
 > Reviewed-by: Christoph Hellwig <hch@lst.de>
@@ -101,96 +102,112 @@ On Thu, 17 Jun 2021, Claire Chang wrote:
 
 Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
+
 > ---
->  drivers/base/core.c    | 4 ++++
->  include/linux/device.h | 4 ++++
->  kernel/dma/swiotlb.c   | 8 ++++----
->  3 files changed, 12 insertions(+), 4 deletions(-)
+>  drivers/xen/swiotlb-xen.c |  2 +-
+>  include/linux/swiotlb.h   | 11 +++++++++++
+>  kernel/dma/direct.c       |  2 +-
+>  kernel/dma/direct.h       |  2 +-
+>  kernel/dma/swiotlb.c      |  4 ++++
+>  5 files changed, 18 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/base/core.c b/drivers/base/core.c
-> index f29839382f81..cb3123e3954d 100644
-> --- a/drivers/base/core.c
-> +++ b/drivers/base/core.c
-> @@ -27,6 +27,7 @@
->  #include <linux/netdevice.h>
->  #include <linux/sched/signal.h>
->  #include <linux/sched/mm.h>
-> +#include <linux/swiotlb.h>
->  #include <linux/sysfs.h>
->  #include <linux/dma-map-ops.h> /* for dma_default_coherent */
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index 0c6ed09f8513..4730a146fa35 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -369,7 +369,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
+>  	if (dma_capable(dev, dev_addr, size, true) &&
+>  	    !range_straddles_page_boundary(phys, size) &&
+>  		!xen_arch_need_swiotlb(dev, phys, dev_addr) &&
+> -		swiotlb_force != SWIOTLB_FORCE)
+> +		!is_swiotlb_force_bounce(dev))
+>  		goto done;
 >  
-> @@ -2736,6 +2737,9 @@ void device_initialize(struct device *dev)
->      defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU_ALL)
->  	dev->dma_coherent = dma_default_coherent;
->  #endif
-> +#ifdef CONFIG_SWIOTLB
-> +	dev->dma_io_tlb_mem = io_tlb_default_mem;
-> +#endif
+>  	/*
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index dd1c30a83058..8d8855c77d9a 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -84,6 +84,7 @@ extern enum swiotlb_force swiotlb_force;
+>   *		unmap calls.
+>   * @debugfs:	The dentry to debugfs.
+>   * @late_alloc:	%true if allocated using the page allocator
+> + * @force_bounce: %true if swiotlb bouncing is forced
+>   */
+>  struct io_tlb_mem {
+>  	phys_addr_t start;
+> @@ -94,6 +95,7 @@ struct io_tlb_mem {
+>  	spinlock_t lock;
+>  	struct dentry *debugfs;
+>  	bool late_alloc;
+> +	bool force_bounce;
+>  	struct io_tlb_slot {
+>  		phys_addr_t orig_addr;
+>  		size_t alloc_size;
+> @@ -109,6 +111,11 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
+>  	return mem && paddr >= mem->start && paddr < mem->end;
 >  }
->  EXPORT_SYMBOL_GPL(device_initialize);
 >  
-> diff --git a/include/linux/device.h b/include/linux/device.h
-> index ba660731bd25..240d652a0696 100644
-> --- a/include/linux/device.h
-> +++ b/include/linux/device.h
-> @@ -416,6 +416,7 @@ struct dev_links_info {
->   * @dma_pools:	Dma pools (if dma'ble device).
->   * @dma_mem:	Internal for coherent mem override.
->   * @cma_area:	Contiguous memory area for dma allocations
-> + * @dma_io_tlb_mem: Pointer to the swiotlb pool used.  Not for driver use.
->   * @archdata:	For arch-specific additions.
->   * @of_node:	Associated device tree node.
->   * @fwnode:	Associated device node supplied by platform firmware.
-> @@ -518,6 +519,9 @@ struct device {
->  #ifdef CONFIG_DMA_CMA
->  	struct cma *cma_area;		/* contiguous memory area for dma
->  					   allocations */
-> +#endif
-> +#ifdef CONFIG_SWIOTLB
-> +	struct io_tlb_mem *dma_io_tlb_mem;
->  #endif
->  	/* arch specific additions */
->  	struct dev_archdata	archdata;
+> +static inline bool is_swiotlb_force_bounce(struct device *dev)
+> +{
+> +	return dev->dma_io_tlb_mem->force_bounce;
+> +}
+> +
+>  void __init swiotlb_exit(void);
+>  unsigned int swiotlb_max_segment(void);
+>  size_t swiotlb_max_mapping_size(struct device *dev);
+> @@ -120,6 +127,10 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
+>  {
+>  	return false;
+>  }
+> +static inline bool is_swiotlb_force_bounce(struct device *dev)
+> +{
+> +	return false;
+> +}
+>  static inline void swiotlb_exit(void)
+>  {
+>  }
+> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+> index 7a88c34d0867..a92465b4eb12 100644
+> --- a/kernel/dma/direct.c
+> +++ b/kernel/dma/direct.c
+> @@ -496,7 +496,7 @@ size_t dma_direct_max_mapping_size(struct device *dev)
+>  {
+>  	/* If SWIOTLB is active, use its maximum mapping size */
+>  	if (is_swiotlb_active(dev) &&
+> -	    (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE))
+> +	    (dma_addressing_limited(dev) || is_swiotlb_force_bounce(dev)))
+>  		return swiotlb_max_mapping_size(dev);
+>  	return SIZE_MAX;
+>  }
+> diff --git a/kernel/dma/direct.h b/kernel/dma/direct.h
+> index 13e9e7158d94..4632b0f4f72e 100644
+> --- a/kernel/dma/direct.h
+> +++ b/kernel/dma/direct.h
+> @@ -87,7 +87,7 @@ static inline dma_addr_t dma_direct_map_page(struct device *dev,
+>  	phys_addr_t phys = page_to_phys(page) + offset;
+>  	dma_addr_t dma_addr = phys_to_dma(dev, phys);
+>  
+> -	if (unlikely(swiotlb_force == SWIOTLB_FORCE))
+> +	if (is_swiotlb_force_bounce(dev))
+>  		return swiotlb_map(dev, phys, size, dir, attrs);
+>  
+>  	if (unlikely(!dma_capable(dev, dma_addr, size, true))) {
 > diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index 2dba659a1e73..de79e9437030 100644
+> index 409694d7a8ad..13891d5de8c9 100644
 > --- a/kernel/dma/swiotlb.c
 > +++ b/kernel/dma/swiotlb.c
-> @@ -340,7 +340,7 @@ void __init swiotlb_exit(void)
->  static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size,
->  			   enum dma_data_direction dir)
->  {
-> -	struct io_tlb_mem *mem = io_tlb_default_mem;
-> +	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
->  	int index = (tlb_addr - mem->start) >> IO_TLB_SHIFT;
->  	unsigned int offset = (tlb_addr - mem->start) & (IO_TLB_SIZE - 1);
->  	phys_addr_t orig_addr = mem->slots[index].orig_addr;
-> @@ -431,7 +431,7 @@ static unsigned int wrap_index(struct io_tlb_mem *mem, unsigned int index)
->  static int find_slots(struct device *dev, phys_addr_t orig_addr,
->  		size_t alloc_size)
->  {
-> -	struct io_tlb_mem *mem = io_tlb_default_mem;
-> +	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
->  	unsigned long boundary_mask = dma_get_seg_boundary(dev);
->  	dma_addr_t tbl_dma_addr =
->  		phys_to_dma_unencrypted(dev, mem->start) & boundary_mask;
-> @@ -508,7 +508,7 @@ phys_addr_t swiotlb_tbl_map_single(struct device *dev, phys_addr_t orig_addr,
->  		size_t mapping_size, size_t alloc_size,
->  		enum dma_data_direction dir, unsigned long attrs)
->  {
-> -	struct io_tlb_mem *mem = io_tlb_default_mem;
-> +	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
->  	unsigned int offset = swiotlb_align_offset(dev, orig_addr);
->  	unsigned int i;
->  	int index;
-> @@ -559,7 +559,7 @@ void swiotlb_tbl_unmap_single(struct device *hwdev, phys_addr_t tlb_addr,
->  			      size_t mapping_size, enum dma_data_direction dir,
->  			      unsigned long attrs)
->  {
-> -	struct io_tlb_mem *mem = io_tlb_default_mem;
-> +	struct io_tlb_mem *mem = hwdev->dma_io_tlb_mem;
->  	unsigned long flags;
->  	unsigned int offset = swiotlb_align_offset(hwdev, tlb_addr);
->  	int index = (tlb_addr - offset - mem->start) >> IO_TLB_SHIFT;
+> @@ -179,6 +179,10 @@ static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
+>  	mem->end = mem->start + bytes;
+>  	mem->index = 0;
+>  	mem->late_alloc = late_alloc;
+> +
+> +	if (swiotlb_force == SWIOTLB_FORCE)
+> +		mem->force_bounce = true;
+> +
+>  	spin_lock_init(&mem->lock);
+>  	for (i = 0; i < mem->nslabs; i++) {
+>  		mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
 > -- 
 > 2.32.0.288.g62a8d224e6-goog
 > 
