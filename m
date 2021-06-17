@@ -2,53 +2,52 @@ Return-Path: <SRS0=95Yg=LM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D412BC48BE8
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 13:44:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C106C48BDF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 13:44:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4D6761248
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 13:44:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4D6761248
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id C019F61159
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 13:44:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C019F61159
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 529836EA15;
-	Fri, 18 Jun 2021 13:44:26 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8F7C6EA09;
- Fri, 18 Jun 2021 13:44:24 +0000 (UTC)
-IronPort-SDR: yxEEwlM1itU5BakruY1nRumZmT/PPds/a2yLkb/dZt/qRHGqWhJfxe9MOpj0rzMpd8amjEFhFC
- EyWFgBpUru4A==
-X-IronPort-AV: E=McAfee;i="6200,9189,10018"; a="267698951"
-X-IronPort-AV: E=Sophos;i="5.83,283,1616482800"; d="scan'208";a="267698951"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2021 06:44:23 -0700
-IronPort-SDR: WPjJrZev67LxkfwPgucuda8GEBs/hZSnZPmabUZ2Z6M21oXtSVjlQ/vWQdydxq2tyAFqc3z60b
- yqLCIioCeFnA==
-X-IronPort-AV: E=Sophos;i="5.83,283,1616482800"; d="scan'208";a="638160330"
-Received: from jhogberg-mobl1.ger.corp.intel.com (HELO [10.249.254.60])
- ([10.249.254.60])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2021 06:44:22 -0700
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20210618133150.700375-1-matthew.auld@intel.com>
- <20210618133150.700375-2-matthew.auld@intel.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-Message-ID: <fc9d656c-ec77-8522-8cd5-3ec492b8f236@linux.intel.com>
-Date: Fri, 18 Jun 2021 15:44:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 539FC6EA10;
+	Fri, 18 Jun 2021 13:44:52 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0F556E3BB;
+ Thu, 17 Jun 2021 23:31:02 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C1A5961249;
+ Thu, 17 Jun 2021 23:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1623972662;
+ bh=jaTzVmgcSfCX/j7A0Q3wWD+e8d+fiEhtBDeTOvUECQg=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=Vu+FVgRFo8gjxJSbcRPtU5hVDRrL1t6lz+O6xlDZMyaHlVsd0LvbSMCvtJgk20TJP
+ PlQx+1Ru0/4CFPzGCZyS05uIuNhxW6cNPonigwh6cnA9SwWSLRdrB+T/t4Fqu6a6wM
+ BMLE4koVKY0dZPAIyMP/wWHDeP1vXEKxcZWyMm6+3nM5SOR97ZzKQVFtQxUYkQFMiH
+ bijXvEkfzsyMcHYI3Z9pagC6MT2NBZr9zSAstJZean3wmyt3vZHquCRLswFSMjfh1+
+ dUjtyU5okd2qgQNfKofiP6hT4HJPkGwlQ/ddRaj111+1534wu5MlmE9XEwlp1tycWR
+ dWkN61b6c9C2A==
+Date: Thu, 17 Jun 2021 16:30:59 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Claire Chang <tientzu@chromium.org>
+In-Reply-To: <20210617062635.1660944-6-tientzu@chromium.org>
+Message-ID: <alpine.DEB.2.21.2106171448050.24906@sstabellini-ThinkPad-T480s>
+References: <20210617062635.1660944-1-tientzu@chromium.org>
+ <20210617062635.1660944-6-tientzu@chromium.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <20210618133150.700375-2-matthew.auld@intel.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: add back the avail tracking
+X-Mailman-Approved-At: Fri, 18 Jun 2021 13:44:51 +0000
+Subject: Re: [Intel-gfx] [PATCH v13 05/12] swiotlb: Update is_swiotlb_active
+ to add a struct device argument
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,142 +60,151 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
+ peterz@infradead.org, benh@kernel.crashing.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
+ mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
+ sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
+ mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Christoph Hellwig <hch@lst.de>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
+ jxgao@google.com, Will Deacon <will@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
+ Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
+ Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
+ boris.ostrovsky@oracle.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
+ Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
+ tfiga@chromium.org,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
+ Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDYvMTgvMjEgMzozMSBQTSwgTWF0dGhldyBBdWxkIHdyb3RlOgo+IExvb2tzIGxpa2UgaXQg
-Z290IGxvc3QgYWxvbmcgdGhlIHdheSwgc28gYWRkIGl0IGJhY2suIFRoaXMgaXMgbmVlZGVkIGZv
-cgo+IHRoZSByZWdpb24gcXVlcnkgdUFQSSB3aGVyZSB3ZSBuZWVkIHRvIHJlcG9ydCBhbiBhY2N1
-cmF0ZSBhdmFpbGFibGUgc2l6ZQo+IGZvciBsbWVtLgoKSG1tLiBIb3cgaXMgdGhpcyB1QVBJIGlu
-dGVuZGVkIHRvIHdvcmsgaW4gYSBtdWx0aS1jbGllbnQgZW52aXJvbm1lbnQgCndoZXJlIHRoZSBy
-ZXR1cm5lZCB2YWx1ZSBjYW4gYmUgbm90aGluZyBidXQgYSBzbmFwc2hvdCBvZiB0aGUgY3VycmVu
-dCAKc3RhdGUsIHRoYXQgY2FuJ3QgYmUgcmVsaWVkIHVwb24/Cgo+IFRoaXMgdGltZSBhcm91bmQg
-bGV0J3MgcHVzaCBpdCBkaXJlY3RseSBpbnRvIHRoZSBhbGxvY2F0b3IsIHdoaWNoCj4gc2ltcGxp
-ZmllcyB0aGluZ3MsIGxpa2Ugbm90IGhhdmluZyB0byBjYXJlIGFib3V0IGludGVybmFsIGZyYWdt
-ZW50YXRpb24sCj4gb3IgaGF2aW5nIHRvIHJlbWVtYmVyIHRvIHRyYWNrIHRoaW5ncyBmb3IgYWxs
-IHBvc3NpYmxlIGludGVyZmFjZXMgdGhhdAo+IG1pZ2h0IHdhbnQgdG8gYWxsb2NhdGUgb3IgcmVz
-ZXJ2ZSBwYWdlcy4KPgo+IFNpZ25lZC1vZmYtYnk6IE1hdHRoZXcgQXVsZCA8bWF0dGhldy5hdWxk
-QGludGVsLmNvbT4KPiBDYzogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AbGlu
-dXguaW50ZWwuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9idWRkeS5j
-ICAgICAgICAgICAgIHwgIDYgKysrKysrCj4gICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2J1
-ZGR5LmggICAgICAgICAgICAgfCAgMSArCj4gICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rl
-YnVnZnMuYyAgICAgICAgICAgfCAgNSArKystLQo+ICAgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkx
-NV9xdWVyeS5jICAgICAgICAgICAgIHwgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5
-MTVfdHRtX2J1ZGR5X21hbmFnZXIuYyB8IDEzICsrKysrKysrKysrKysKPiAgIGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L2k5MTVfdHRtX2J1ZGR5X21hbmFnZXIuaCB8ICAyICsrCj4gICBkcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmMgICAgfCAgOCArKysrKysrKwo+ICAgZHJp
-dmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfbWVtb3J5X3JlZ2lvbi5oICAgIHwgIDQgKysrKwo+ICAg
-OCBmaWxlcyBjaGFuZ2VkLCAzOCBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Cj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfYnVkZHkuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2k5MTVfYnVkZHkuYwo+IGluZGV4IDI5ZGQ3ZDAzMTBjMS4uMjdjZDI0ODdhMThm
-IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfYnVkZHkuYwo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfYnVkZHkuYwo+IEBAIC04MCw2ICs4MCw3IEBAIGlu
-dCBpOTE1X2J1ZGR5X2luaXQoc3RydWN0IGk5MTVfYnVkZHlfbW0gKm1tLCB1NjQgc2l6ZSwgdTY0
-IGNodW5rX3NpemUpCj4gICAJc2l6ZSA9IHJvdW5kX2Rvd24oc2l6ZSwgY2h1bmtfc2l6ZSk7Cj4g
-ICAKPiAgIAltbS0+c2l6ZSA9IHNpemU7Cj4gKwltbS0+YXZhaWwgPSBzaXplOwo+ICAgCW1tLT5j
-aHVua19zaXplID0gY2h1bmtfc2l6ZTsKPiAgIAltbS0+bWF4X29yZGVyID0gaWxvZzIoc2l6ZSkg
-LSBpbG9nMihjaHVua19zaXplKTsKPiAgIAo+IEBAIC0xNTksNiArMTYwLDggQEAgdm9pZCBpOTE1
-X2J1ZGR5X2Zpbmkoc3RydWN0IGk5MTVfYnVkZHlfbW0gKm1tKQo+ICAgCQlpOTE1X2Jsb2NrX2Zy
-ZWUobW0sIG1tLT5yb290c1tpXSk7Cj4gICAJfQo+ICAgCj4gKwlHRU1fV0FSTl9PTihtbS0+YXZh
-aWwgIT0gbW0tPnNpemUpOwo+ICsKPiAgIAlrZnJlZShtbS0+cm9vdHMpOwo+ICAgCWtmcmVlKG1t
-LT5mcmVlX2xpc3QpOwo+ICAgCWttZW1fY2FjaGVfZGVzdHJveShtbS0+c2xhYl9ibG9ja3MpOwo+
-IEBAIC0yMzUsNiArMjM4LDcgQEAgdm9pZCBpOTE1X2J1ZGR5X2ZyZWUoc3RydWN0IGk5MTVfYnVk
-ZHlfbW0gKm1tLAo+ICAgCQkgICAgIHN0cnVjdCBpOTE1X2J1ZGR5X2Jsb2NrICpibG9jaykKPiAg
-IHsKPiAgIAlHRU1fQlVHX09OKCFpOTE1X2J1ZGR5X2Jsb2NrX2lzX2FsbG9jYXRlZChibG9jaykp
-Owo+ICsJbW0tPmF2YWlsICs9IGk5MTVfYnVkZHlfYmxvY2tfc2l6ZShtbSwgYmxvY2spOwo+ICAg
-CV9faTkxNV9idWRkeV9mcmVlKG1tLCBibG9jayk7Cj4gICB9Cj4gICAKPiBAQCAtMjg4LDYgKzI5
-Miw3IEBAIGk5MTVfYnVkZHlfYWxsb2Moc3RydWN0IGk5MTVfYnVkZHlfbW0gKm1tLCB1bnNpZ25l
-ZCBpbnQgb3JkZXIpCj4gICAJfQo+ICAgCj4gICAJbWFya19hbGxvY2F0ZWQoYmxvY2spOwo+ICsJ
-bW0tPmF2YWlsIC09IGk5MTVfYnVkZHlfYmxvY2tfc2l6ZShtbSwgYmxvY2spOwo+ICAgCWttZW1s
-ZWFrX3VwZGF0ZV90cmFjZShibG9jayk7Cj4gICAJcmV0dXJuIGJsb2NrOwo+ICAgCj4gQEAgLTM3
-Myw2ICszNzgsNyBAQCBpbnQgaTkxNV9idWRkeV9hbGxvY19yYW5nZShzdHJ1Y3QgaTkxNV9idWRk
-eV9tbSAqbW0sCj4gICAJCQl9Cj4gICAKPiAgIAkJCW1hcmtfYWxsb2NhdGVkKGJsb2NrKTsKPiAr
-CQkJbW0tPmF2YWlsIC09IGk5MTVfYnVkZHlfYmxvY2tfc2l6ZShtbSwgYmxvY2spOwo+ICAgCQkJ
-bGlzdF9hZGRfdGFpbCgmYmxvY2stPmxpbmssICZhbGxvY2F0ZWQpOwo+ICAgCQkJY29udGludWU7
-Cj4gICAJCX0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9idWRkeS5o
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9idWRkeS5oCj4gaW5kZXggMzdmOGM0MjA3MWQx
-Li5mZWI3YzFiYjYyNDQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9i
-dWRkeS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9idWRkeS5oCj4gQEAgLTcw
-LDYgKzcwLDcgQEAgc3RydWN0IGk5MTVfYnVkZHlfbW0gewo+ICAgCS8qIE11c3QgYmUgYXQgbGVh
-c3QgUEFHRV9TSVpFICovCj4gICAJdTY0IGNodW5rX3NpemU7Cj4gICAJdTY0IHNpemU7Cj4gKwl1
-NjQgYXZhaWw7Cj4gICB9Owo+ICAgCj4gICBzdGF0aWMgaW5saW5lIHU2NAo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2RlYnVnZnMuYyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2k5MTVfZGVidWdmcy5jCj4gaW5kZXggY2M3NDU3NTFhYzUzLi40NzY1ZjIyMDQ2OWUgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kZWJ1Z2ZzLmMKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2RlYnVnZnMuYwo+IEBAIC0yNDYsOCArMjQ2LDkgQEAg
-c3RhdGljIGludCBpOTE1X2dlbV9vYmplY3RfaW5mbyhzdHJ1Y3Qgc2VxX2ZpbGUgKm0sIHZvaWQg
-KmRhdGEpCj4gICAJCSAgIGF0b21pY19yZWFkKCZpOTE1LT5tbS5mcmVlX2NvdW50KSwKPiAgIAkJ
-ICAgaTkxNS0+bW0uc2hyaW5rX21lbW9yeSk7Cj4gICAJZm9yX2VhY2hfbWVtb3J5X3JlZ2lvbiht
-ciwgaTkxNSwgaWQpCj4gLQkJc2VxX3ByaW50ZihtLCAiJXM6IHRvdGFsOiVwYSwgYXZhaWxhYmxl
-OiVwYSBieXRlc1xuIiwKPiAtCQkJICAgbXItPm5hbWUsICZtci0+dG90YWwsICZtci0+YXZhaWwp
-Owo+ICsJCXNlcV9wcmludGYobSwgIiVzOiB0b3RhbDolcGEsIGF2YWlsYWJsZTolbGx1IGJ5dGVz
-XG4iLAo+ICsJCQkgICBtci0+bmFtZSwgJm1yLT50b3RhbCwKPiArCQkJICAgaW50ZWxfbWVtb3J5
-X3JlZ2lvbl9nZXRfYXZhaWwobXIpKTsKPiAgIAo+ICAgCXJldHVybiAwOwo+ICAgfQo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3F1ZXJ5LmMgYi9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9pOTE1X3F1ZXJ5LmMKPiBpbmRleCBlNDlkYTM2YzYyZmIuLmYxMGRjZWE5NGFjOSAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3F1ZXJ5LmMKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3F1ZXJ5LmMKPiBAQCAtNDY1LDcgKzQ2NSw3IEBAIHN0
-YXRpYyBpbnQgcXVlcnlfbWVtcmVnaW9uX2luZm8oc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5
-MTUsCj4gICAJCWluZm8ucmVnaW9uLm1lbW9yeV9jbGFzcyA9IG1yLT50eXBlOwo+ICAgCQlpbmZv
-LnJlZ2lvbi5tZW1vcnlfaW5zdGFuY2UgPSBtci0+aW5zdGFuY2U7Cj4gICAJCWluZm8ucHJvYmVk
-X3NpemUgPSBtci0+dG90YWw7Cj4gLQkJaW5mby51bmFsbG9jYXRlZF9zaXplID0gbXItPmF2YWls
-Owo+ICsJCWluZm8udW5hbGxvY2F0ZWRfc2l6ZSA9IGludGVsX21lbW9yeV9yZWdpb25fZ2V0X2F2
-YWlsKG1yKTsKPiAgIAo+ICAgCQlpZiAoX19jb3B5X3RvX3VzZXIoaW5mb19wdHIsICZpbmZvLCBz
-aXplb2YoaW5mbykpKQo+ICAgCQkJcmV0dXJuIC1FRkFVTFQ7Cj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2k5MTVfdHRtX2J1ZGR5X21hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2k5MTVfdHRtX2J1ZGR5X21hbmFnZXIuYwo+IGluZGV4IGZjN2FkNWMwMzViOC4uNTYy
-ZDExZWRjNWU0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfdHRtX2J1
-ZGR5X21hbmFnZXIuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfdHRtX2J1ZGR5
-X21hbmFnZXIuYwo+IEBAIC0yNDYsMyArMjQ2LDE2IEBAIGludCBpOTE1X3R0bV9idWRkeV9tYW5f
-cmVzZXJ2ZShzdHJ1Y3QgdHRtX3Jlc291cmNlX21hbmFnZXIgKm1hbiwKPiAgIAlyZXR1cm4gcmV0
-Owo+ICAgfQo+ICAgCj4gKy8qKgo+ICsgKiBpOTE1X3R0bV9idWRkeV9tYW5fYXZhaWwgLSBHZXQg
-dGhlIGN1cnJlbnRseSBhdmFpbGFibGUgc2l6ZQo+ICsgKiBAbWFuOiBUaGUgYnVkZHkgYWxsb2Nh
-dG9yIHR0bSBtYW5hZ2VyCj4gKyAqCj4gKyAqIFJldHVybjogVGhlIGF2YWlsYWJsZSBzaXplIGlu
-IGJ5dGVzCj4gKyAqLwo+ICt1NjQgaTkxNV90dG1fYnVkZHlfbWFuX2dldF9hdmFpbChzdHJ1Y3Qg
-dHRtX3Jlc291cmNlX21hbmFnZXIgKm1hbikKPiArewo+ICsJc3RydWN0IGk5MTVfdHRtX2J1ZGR5
-X21hbmFnZXIgKmJtYW4gPSB0b19idWRkeV9tYW5hZ2VyKG1hbik7Cj4gKwlzdHJ1Y3QgaTkxNV9i
-dWRkeV9tbSAqbW0gPSAmYm1hbi0+bW07Cj4gKwo+ICsJcmV0dXJuIG1tLT5hdmFpbDsKPiArfQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3R0bV9idWRkeV9tYW5hZ2Vy
-LmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3R0bV9idWRkeV9tYW5hZ2VyLmgKPiBpbmRl
-eCAyNjAyNjIxM2UyMGEuLjM5ZjViMWE0YzNlNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9pOTE1X3R0bV9idWRkeV9tYW5hZ2VyLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9pOTE1X3R0bV9idWRkeV9tYW5hZ2VyLmgKPiBAQCAtNTMsNCArNTMsNiBAQCBpbnQgaTkx
-NV90dG1fYnVkZHlfbWFuX2Zpbmkoc3RydWN0IHR0bV9kZXZpY2UgKmJkZXYsCj4gICBpbnQgaTkx
-NV90dG1fYnVkZHlfbWFuX3Jlc2VydmUoc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5hZ2VyICptYW4s
-Cj4gICAJCQkgICAgICAgdTY0IHN0YXJ0LCB1NjQgc2l6ZSk7Cj4gICAKPiArdTY0IGk5MTVfdHRt
-X2J1ZGR5X21hbl9nZXRfYXZhaWwoc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5hZ2VyICptYW4pOwo+
-ICsKPiAgICNlbmRpZgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9t
-ZW1vcnlfcmVnaW9uLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9u
-LmMKPiBpbmRleCBkZjU5Zjg4NGQzN2MuLjI2OWNiYjYwZTIzMyAxMDA2NDQKPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmMKPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmMKPiBAQCAtMTMyLDYgKzEzMiwxNCBAQCB2
-b2lkIGludGVsX21lbW9yeV9yZWdpb25fc2V0X25hbWUoc3RydWN0IGludGVsX21lbW9yeV9yZWdp
-b24gKm1lbSwKPiAgIAl2YV9lbmQoYXApOwo+ICAgfQo+ICAgCj4gK3U2NCBpbnRlbF9tZW1vcnlf
-cmVnaW9uX2dldF9hdmFpbChzdHJ1Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbiAqbXIpCj4gK3sKPiAr
-CWlmIChtci0+dHlwZSA9PSBJTlRFTF9NRU1PUllfTE9DQUwpCj4gKwkJcmV0dXJuIGk5MTVfdHRt
-X2J1ZGR5X21hbl9nZXRfYXZhaWwobXItPnJlZ2lvbl9wcml2YXRlKTsKPiArCj4gKwlyZXR1cm4g
-bXItPmF2YWlsOwo+ICt9CgpQZXJoYXBzIGEga2VybmVsZG9jIGNvbW1lbnQgaGVyZSBhcyB3ZWxs
-PwoKCj4gKwo+ICAgc3RhdGljIHZvaWQgX19pbnRlbF9tZW1vcnlfcmVnaW9uX2Rlc3Ryb3koc3Ry
-dWN0IGtyZWYgKmtyZWYpCj4gICB7Cj4gICAJc3RydWN0IGludGVsX21lbW9yeV9yZWdpb24gKm1l
-bSA9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdp
-b24uaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24uaAo+IGluZGV4
-IDJiZTg0MzNkMzczYS4uNmY3YTA3M2Q1YTcwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24uaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2ludGVsX21lbW9yeV9yZWdpb24uaAo+IEBAIC03NCw2ICs3NCw3IEBAIHN0cnVjdCBpbnRlbF9t
-ZW1vcnlfcmVnaW9uIHsKPiAgIAlyZXNvdXJjZV9zaXplX3QgaW9fc3RhcnQ7Cj4gICAJcmVzb3Vy
-Y2Vfc2l6ZV90IG1pbl9wYWdlX3NpemU7Cj4gICAJcmVzb3VyY2Vfc2l6ZV90IHRvdGFsOwo+ICsJ
-LyogRG8gbm90IGFjY2VzcyBkaXJlY3RseS4gVXNlIHRoZSBhY2Nlc3NvciBpbnN0ZWFkLiAqLwo+
-ICAgCXJlc291cmNlX3NpemVfdCBhdmFpbDsKPiAgIAo+ICAgCXUxNiB0eXBlOwo+IEBAIC0xMjUs
-NCArMTI2LDcgQEAgaW50ZWxfbWVtb3J5X3JlZ2lvbl9zZXRfbmFtZShzdHJ1Y3QgaW50ZWxfbWVt
-b3J5X3JlZ2lvbiAqbWVtLAo+ICAgaW50IGludGVsX21lbW9yeV9yZWdpb25fcmVzZXJ2ZShzdHJ1
-Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbiAqbWVtLAo+ICAgCQkJCXJlc291cmNlX3NpemVfdCBvZmZz
-ZXQsCj4gICAJCQkJcmVzb3VyY2Vfc2l6ZV90IHNpemUpOwo+ICsKPiArdTY0IGludGVsX21lbW9y
-eV9yZWdpb25fZ2V0X2F2YWlsKHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0pOwo+ICsK
-PiAgICNlbmRpZgoKT3RoZXJ3aXNlIGNvZGUgaXRzZWxmIGxvb2tzIGdvb2QgdG8gbWUuCgpSZXZp
-ZXdlZC1ieTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwu
-Y29tPgoKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJ
-bnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+On Thu, 17 Jun 2021, Claire Chang wrote:
+> Update is_swiotlb_active to add a struct device argument. This will be
+> useful later to allow for different pools.
+> 
+> Signed-off-by: Claire Chang <tientzu@chromium.org>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+> Tested-by: Will Deacon <will@kernel.org>
+
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_internal.c | 2 +-
+>  drivers/gpu/drm/nouveau/nouveau_ttm.c        | 2 +-
+>  drivers/pci/xen-pcifront.c                   | 2 +-
+>  include/linux/swiotlb.h                      | 4 ++--
+>  kernel/dma/direct.c                          | 2 +-
+>  kernel/dma/swiotlb.c                         | 4 ++--
+>  6 files changed, 8 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+> index a9d65fc8aa0e..4b7afa0fc85d 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+> @@ -42,7 +42,7 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
+>  
+>  	max_order = MAX_ORDER;
+>  #ifdef CONFIG_SWIOTLB
+> -	if (is_swiotlb_active()) {
+> +	if (is_swiotlb_active(obj->base.dev->dev)) {
+>  		unsigned int max_segment;
+>  
+>  		max_segment = swiotlb_max_segment();
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.c b/drivers/gpu/drm/nouveau/nouveau_ttm.c
+> index 9662522aa066..be15bfd9e0ee 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_ttm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_ttm.c
+> @@ -321,7 +321,7 @@ nouveau_ttm_init(struct nouveau_drm *drm)
+>  	}
+>  
+>  #if IS_ENABLED(CONFIG_SWIOTLB) && IS_ENABLED(CONFIG_X86)
+> -	need_swiotlb = is_swiotlb_active();
+> +	need_swiotlb = is_swiotlb_active(dev->dev);
+>  #endif
+>  
+>  	ret = ttm_bo_device_init(&drm->ttm.bdev, &nouveau_bo_driver,
+> diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+> index b7a8f3a1921f..0d56985bfe81 100644
+> --- a/drivers/pci/xen-pcifront.c
+> +++ b/drivers/pci/xen-pcifront.c
+> @@ -693,7 +693,7 @@ static int pcifront_connect_and_init_dma(struct pcifront_device *pdev)
+>  
+>  	spin_unlock(&pcifront_dev_lock);
+>  
+> -	if (!err && !is_swiotlb_active()) {
+> +	if (!err && !is_swiotlb_active(&pdev->xdev->dev)) {
+>  		err = pci_xen_swiotlb_init_late();
+>  		if (err)
+>  			dev_err(&pdev->xdev->dev, "Could not setup SWIOTLB!\n");
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index d1f3d95881cd..dd1c30a83058 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -112,7 +112,7 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
+>  void __init swiotlb_exit(void);
+>  unsigned int swiotlb_max_segment(void);
+>  size_t swiotlb_max_mapping_size(struct device *dev);
+> -bool is_swiotlb_active(void);
+> +bool is_swiotlb_active(struct device *dev);
+>  void __init swiotlb_adjust_size(unsigned long size);
+>  #else
+>  #define swiotlb_force SWIOTLB_NO_FORCE
+> @@ -132,7 +132,7 @@ static inline size_t swiotlb_max_mapping_size(struct device *dev)
+>  	return SIZE_MAX;
+>  }
+>  
+> -static inline bool is_swiotlb_active(void)
+> +static inline bool is_swiotlb_active(struct device *dev)
+>  {
+>  	return false;
+>  }
+> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+> index 84c9feb5474a..7a88c34d0867 100644
+> --- a/kernel/dma/direct.c
+> +++ b/kernel/dma/direct.c
+> @@ -495,7 +495,7 @@ int dma_direct_supported(struct device *dev, u64 mask)
+>  size_t dma_direct_max_mapping_size(struct device *dev)
+>  {
+>  	/* If SWIOTLB is active, use its maximum mapping size */
+> -	if (is_swiotlb_active() &&
+> +	if (is_swiotlb_active(dev) &&
+>  	    (dma_addressing_limited(dev) || swiotlb_force == SWIOTLB_FORCE))
+>  		return swiotlb_max_mapping_size(dev);
+>  	return SIZE_MAX;
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index de79e9437030..409694d7a8ad 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -664,9 +664,9 @@ size_t swiotlb_max_mapping_size(struct device *dev)
+>  	return ((size_t)IO_TLB_SIZE) * IO_TLB_SEGSIZE;
+>  }
+>  
+> -bool is_swiotlb_active(void)
+> +bool is_swiotlb_active(struct device *dev)
+>  {
+> -	return io_tlb_default_mem != NULL;
+> +	return dev->dma_io_tlb_mem != NULL;
+>  }
+>  EXPORT_SYMBOL_GPL(is_swiotlb_active);
+>  
+> -- 
+> 2.32.0.288.g62a8d224e6-goog
+> 
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
