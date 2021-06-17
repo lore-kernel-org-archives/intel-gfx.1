@@ -2,72 +2,41 @@ Return-Path: <SRS0=jbmr=LL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7AD1CC2B9F4
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 06:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEFA4C2B9F4
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 07:09:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 47742611BE
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 06:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47742611BE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 98F63613B9
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jun 2021 07:09:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98F63613B9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE51F6E882;
-	Thu, 17 Jun 2021 06:49:13 +0000 (UTC)
-Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
- [IPv6:2607:f8b0:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A3ED6E882
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Jun 2021 06:49:13 +0000 (UTC)
-Received: by mail-il1-x130.google.com with SMTP id j14so4483216ila.6
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Jun 2021 23:49:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IqsCA/yjikDS1aCYzllqiH9HoLVcQQhYIn5qSeonABE=;
- b=GiFPgetacPTJVsGZ3MFWgSvQPnCdoTJhc4FxcdhnTR1mIKLWNYkC5qsclOh1Nu4T0t
- 2JBHLcEHEvZiTaAAwPJzRshEva/oe1afpxIyCNXuS6Yc5SEiWBAid4ULBNFnG08bi+4b
- 5Y3w62S7YQM/biDmcuEcWF0r86zBUuRahetbQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IqsCA/yjikDS1aCYzllqiH9HoLVcQQhYIn5qSeonABE=;
- b=GtLACv2+cY1eRnOdUZVeGJSrYKvaEOLdi7E7oZ/Q6BdWgAeG9cfzMlbSkX/26CNmxS
- jd8ou9K6tK/LJsPSYDnf8B3SpTxfDQqhWsBmxKSBhAWj2dV/VsBrtrWkSJj8vSCACws+
- ADjjQFQ90SWFuh08Kq0cGE9+EGVUFowbHg9arTWZC9WesX6xt5TKjd/2lYHEloRll806
- 3DDNrjwfE0k0iU0Y98dW8LHY2/lBPy9WNZR/MK7JTmxa48NdSh1ovKGFW0pdRS9Z0wYo
- 3EauvzaFzaP7R0ACWf4/7nnKbUuiS331GuB1XvG+bOuT2b4VeMf8OaL9QybjlOT43dvp
- youA==
-X-Gm-Message-State: AOAM5318CayrptggCpZAwiutG7p2uHq3ep0cTzpZUH5p88jcb2rSPHD0
- +iwHqurrSJ9+c9Ys4RXkNaMea9wDJFfvrg==
-X-Google-Smtp-Source: ABdhPJz6HxN88+ZFectTSHAu2OJq9uhFWLL40aTHUZXSdSzpO5o7HYorMzberUpFikRdT1ddf+j6KQ==
-X-Received: by 2002:a92:c7cf:: with SMTP id g15mr2492079ilk.28.1623912552626; 
- Wed, 16 Jun 2021 23:49:12 -0700 (PDT)
-Received: from mail-il1-f170.google.com (mail-il1-f170.google.com.
- [209.85.166.170])
- by smtp.gmail.com with ESMTPSA id e2sm331638iot.50.2021.06.16.23.49.12
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jun 2021 23:49:12 -0700 (PDT)
-Received: by mail-il1-f170.google.com with SMTP id x12so4502264ill.4
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Jun 2021 23:49:12 -0700 (PDT)
-X-Received: by 2002:a05:6602:2344:: with SMTP id
- r4mr2559955iot.69.1623912068770; 
- Wed, 16 Jun 2021 23:41:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A2B66E882;
+	Thu, 17 Jun 2021 07:09:33 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 008206E029;
+ Thu, 17 Jun 2021 07:09:32 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id CDBF4A7DFB;
+ Thu, 17 Jun 2021 07:09:31 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210616062157.953777-1-tientzu@chromium.org>
- <20210616120837.GA22783@willie-the-truck>
-In-Reply-To: <20210616120837.GA22783@willie-the-truck>
-From: Claire Chang <tientzu@chromium.org>
-Date: Thu, 17 Jun 2021 14:40:57 +0800
-X-Gmail-Original-Message-ID: <CALiNf28SSxhs_+9Oq=pyOc7OWWDyWrtZLUqXKQKin6dRyXwo=w@mail.gmail.com>
-Message-ID: <CALiNf28SSxhs_+9Oq=pyOc7OWWDyWrtZLUqXKQKin6dRyXwo=w@mail.gmail.com>
-To: Will Deacon <will@kernel.org>
-Subject: Re: [Intel-gfx] [PATCH v12 00/12] Restricted DMA
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ramalingam C" <ramalingam.c@intel.com>
+Date: Thu, 17 Jun 2021 07:09:31 -0000
+Message-ID: <162391377181.3751.1963916029346947104@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210617063018.92802-1-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20210617063018.92802-1-thomas.hellstrom@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgaTkx?=
+ =?utf-8?q?5_TTM_sync_accelerated_migration_and_clear_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,38 +49,230 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
- mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- Jianxiong Gao <jxgao@google.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
- Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Rob Herring <robh+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- Tomasz Figa <tfiga@chromium.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
- Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1565586260=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v13: https://lore.kernel.org/patchwork/cover/1448001/
+--===============1565586260==
+Content-Type: multipart/alternative;
+ boundary="===============4790800303703509719=="
+
+--===============4790800303703509719==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: i915 TTM sync accelerated migration and clear (rev4)
+URL   : https://patchwork.freedesktop.org/series/91463/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10233 -> Patchwork_20397
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/index.html
+
+New tests
+---------
+
+  New tests have been introduced between CI_DRM_10233 and Patchwork_20397:
+
+### New IGT tests (1) ###
+
+  * igt@i915_selftest@live@migrate:
+    - Statuses : 2 dmesg-warn(s) 32 pass(s)
+    - Exec time: [0.53, 9.0] s
+
+  
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20397 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * {igt@i915_selftest@live@migrate} (NEW):
+    - {fi-ehl-2}:         NOTRUN -> [DMESG-WARN][1] ([i915#1222])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/fi-ehl-2/igt@i915_selftest@live@migrate.html
+    - {fi-jsl-1}:         NOTRUN -> [DMESG-WARN][2] ([i915#1222])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/fi-jsl-1/igt@i915_selftest@live@migrate.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - {fi-tgl-dsi}:       [DMESG-WARN][3] ([i915#1982] / [i915#2411]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10233/fi-tgl-dsi/igt@i915_pm_rpm@module-reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/fi-tgl-dsi/igt@i915_pm_rpm@module-reload.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#1222]: https://gitlab.freedesktop.org/drm/intel/issues/1222
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#2411]: https://gitlab.freedesktop.org/drm/intel/issues/2411
+
+
+Participating hosts (43 -> 38)
+------------------------------
+
+  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10233 -> Patchwork_20397
+
+  CI-20190529: 20190529
+  CI_DRM_10233: e00d16681acd7e91fd02f800adcc20cca89f6127 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6109: 61ba2ed489540e6a8a649be38abb075b3ab4d28a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20397: 0c1b355b98b0c758f219b94ae5ffcbda0a6acf75 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+0c1b355b98b0 drm/i915/gem: Zap the i915_gem_object_blt code
+f96ba67920e0 drm/i915/gem: Zap the client blt code
+44bc96f6062f drm/i915/ttm: accelerated move implementation
+af79c48203b1 drm/i915/gt: Setup a default migration context on the GT
+50c44cdbf0dc drm/i915/gt: Pipelined clear
+1348ed66563c drm/i915/gt: Pipelined page migration
+dafe4c39f77d drm/i915/gt: Export the pinned context constructor and destructor
+63732fd3b3dd drm/i915/gt: Add a routine to iterate over the pagetables of a GTT
+55d91f54ea63 drm/i915/gt: Add an insert_entry for gen8_ppgtt
+3d2c4703e490 drm/i915: Introduce a ww transaction helper
+b3d1124db2b3 drm/i915: Break out dma_resv ww locking utilities to separate files
+05e61818c510 drm/i915: Reference objects on the ww object list
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/index.html
+
+--===============4790800303703509719==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>i915 TTM sync accelerated migration and clear (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/91463/">https://patchwork.freedesktop.org/series/91463/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10233 -&gt; Patchwork_20397</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/index.html</p>
+<h2>New tests</h2>
+<p>New tests have been introduced between CI_DRM_10233 and Patchwork_20397:</p>
+<h3>New IGT tests (1)</h3>
+<ul>
+<li>igt@i915_selftest@live@migrate:<ul>
+<li>Statuses : 2 dmesg-warn(s) 32 pass(s)</li>
+<li>Exec time: [0.53, 9.0] s</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20397 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>{igt@i915_selftest@live@migrate} (NEW):</p>
+<ul>
+<li>
+<p>{fi-ehl-2}:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/fi-ehl-2/igt@i915_selftest@live@migrate.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1222">i915#1222</a>)</p>
+</li>
+<li>
+<p>{fi-jsl-1}:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/fi-jsl-1/igt@i915_selftest@live@migrate.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1222">i915#1222</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_pm_rpm@module-reload:<ul>
+<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10233/fi-tgl-dsi/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2411">i915#2411</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20397/fi-tgl-dsi/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (43 -&gt; 38)</h2>
+<p>Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10233 -&gt; Patchwork_20397</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10233: e00d16681acd7e91fd02f800adcc20cca89f6127 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6109: 61ba2ed489540e6a8a649be38abb075b3ab4d28a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20397: 0c1b355b98b0c758f219b94ae5ffcbda0a6acf75 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>0c1b355b98b0 drm/i915/gem: Zap the i915_gem_object_blt code<br />
+f96ba67920e0 drm/i915/gem: Zap the client blt code<br />
+44bc96f6062f drm/i915/ttm: accelerated move implementation<br />
+af79c48203b1 drm/i915/gt: Setup a default migration context on the GT<br />
+50c44cdbf0dc drm/i915/gt: Pipelined clear<br />
+1348ed66563c drm/i915/gt: Pipelined page migration<br />
+dafe4c39f77d drm/i915/gt: Export the pinned context constructor and destructor<br />
+63732fd3b3dd drm/i915/gt: Add a routine to iterate over the pagetables of a GTT<br />
+55d91f54ea63 drm/i915/gt: Add an insert_entry for gen8_ppgtt<br />
+3d2c4703e490 drm/i915: Introduce a ww transaction helper<br />
+b3d1124db2b3 drm/i915: Break out dma_resv ww locking utilities to separate files<br />
+05e61818c510 drm/i915: Reference objects on the ww object list</p>
+
+</body>
+</html>
+
+--===============4790800303703509719==--
+
+--===============1565586260==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1565586260==--
