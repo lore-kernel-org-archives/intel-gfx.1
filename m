@@ -2,64 +2,56 @@ Return-Path: <SRS0=95Yg=LM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 057D3C48BDF
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 08:58:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35705C48BDF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:11:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C5C5F61260
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 08:58:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5C5F61260
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id D5659613D6
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:11:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5659613D6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0B16E9A9;
-	Fri, 18 Jun 2021 08:58:20 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF086E9A9
- for <intel-gfx@lists.freedesktop.org>; Fri, 18 Jun 2021 08:58:18 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- w23-20020a0568301117b029044c37262dadso3651210otq.8
- for <intel-gfx@lists.freedesktop.org>; Fri, 18 Jun 2021 01:58:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=NPNbXHye30H91qovWBEnOtDajX5FK6NKrmCWrgyVNy8=;
- b=VFuG09iw0j/Nj2bdktNMG4smD6d5Dje67n99jc2Tlr8KeB4rBmvWxNKD9abJpck4Mf
- QqwS6SyiQVqsEaJzlZ1psp0eu3nxjJlk3wZpWzA/+lNB/im2UCkbtue+45E/NLivPHnl
- fAC/bI7qc95uQ+9OItWx3JxMdk2ysDhyo2DtI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=NPNbXHye30H91qovWBEnOtDajX5FK6NKrmCWrgyVNy8=;
- b=Ze7Eu+6omWqFNCKSvVppEeBzeJiRemN8yadOgUZzV/j/tZTrmxNSPS9YRqHpqQwN38
- UyroyXtJQgE00xT1nXlNSWsYbd9XG6Wmassx6hq9b8daB0ViV5zzw2g2YrOahnPGHtr/
- A4m377CdDsrUXygB9xftTmB0t9biXuzNpYUJBiWxHig1+q1/ydvmSHBZHLk0L1bD3KUy
- vTCkfXrkOodNn24DMsDYxjSEwBEQEFdasbQ35jBnBmyeDxDW/ZtgU3Na47KU2cb+dpWm
- yZuJtAjDxh2IekpFBN0VPG+mUmbkYRPSANK7moEOQp6If79EX+OAmHHDqzZYZyepMsN9
- Ma8w==
-X-Gm-Message-State: AOAM532XE3j6kCKyRempXjL0eBctlUNkgJ3Ck1fY5i/CVPtDJHM5ozZU
- EA65q36u2lF0gHur+dmea0EKRBwrYGnKldtcAB9Yew==
-X-Google-Smtp-Source: ABdhPJz7pTU2lDn29u5LbRjh1L7P3pdVyEM6infQjk3JZ6xD8WF1JVzROitJUhwqKdhs1QZef40H3FOjR3E5kKFbCs8=
-X-Received: by 2002:a9d:27a4:: with SMTP id c33mr8385381otb.281.1624006697682; 
- Fri, 18 Jun 2021 01:58:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6F6C6E9A9;
+	Fri, 18 Jun 2021 09:11:33 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29E936E9A9;
+ Fri, 18 Jun 2021 09:11:33 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id D2E54C800B9;
+ Fri, 18 Jun 2021 11:11:31 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
+ with LMTP id AlHmUsx4l1zF; Fri, 18 Jun 2021 11:11:31 +0200 (CEST)
+Received: from wsembach-tuxedo.fritz.box
+ (p200300e37f3949001760E5710682cA7E.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f39:4900:1760:e571:682:ca7e])
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPA id 5DFBAC800B3;
+ Fri, 18 Jun 2021 11:11:31 +0200 (CEST)
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Date: Fri, 18 Jun 2021 11:11:00 +0200
+Message-Id: <20210618091116.14428-2-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210618091116.14428-1-wse@tuxedocomputers.com>
+References: <20210618091116.14428-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
-References: <YMpDYfRjFqjfrMke@linux-uq9g.fritz.box>
- <CAPM=9tz-8WVAt5r_P+fH+SLnfnaPw-u-u9h8PvcioxVn6Ye_Fg@mail.gmail.com>
- <CAPM=9tyQMXVTaggmiTrqXkaH_RsTOcNW9CA98CbFf0kwqP_T5Q@mail.gmail.com>
-In-Reply-To: <CAPM=9tyQMXVTaggmiTrqXkaH_RsTOcNW9CA98CbFf0kwqP_T5Q@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Fri, 18 Jun 2021 10:58:06 +0200
-Message-ID: <CAKMK7uGUuBc_cCyh1Z-Pj6uw8UxLSb8817e3tmcU5vzcDjpA-w@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>
-Subject: Re: [Intel-gfx] [PULL] drm-misc-next-fixes
+Subject: [Intel-gfx] [PATCH v4 01/17] drm/amd/display: Remove unnecessary
+ SIGNAL_TYPE_HDMI_TYPE_A check
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,119 +64,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- "DRM maintainer tools announcements, discussion,
- and development" <dim-tools@lists.freedesktop.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gRnJpLCBKdW4gMTgsIDIwMjEgYXQgNDozMSBBTSBEYXZlIEFpcmxpZSA8YWlybGllZEBnbWFp
-bC5jb20+IHdyb3RlOgo+Cj4gT24gRnJpLCAxOCBKdW4gMjAyMSBhdCAxMjoyNiwgRGF2ZSBBaXJs
-aWUgPGFpcmxpZWRAZ21haWwuY29tPiB3cm90ZToKPiA+Cj4gPiB3aGVuIEkgcHVsbGVkIHRoaXMg
-aW4gZHJtLW5leHQgSSBnb3QgdGhlc2UuCj4gPgo+ID4gd2VyZSB0aGUgbXN0IGZpeGVzIG1lYW50
-IGZvciBuZXh0IG9yIGZpeGVzIGJ0dz8gSSdtIG5vdCByZWFsbHkgc3VyZSwKPiA+IGJ1dCBlaXRo
-ZXIgd2F5IEkgZG9uJ3QgdGhpbmsgdGhpcyBpcyBhIGxvY2FsIHJlYXNvbiBpdCBkb2Vzbid0IGJ1
-aWxkCj4gPiBvciBkaWQgSSBtaXNzIHNvbWV0aGluZz8KPgo+IEhpIFRob21hcywKPgo+IFBsZWFz
-ZSByZXNlbmQgd2l0aCB0aGUgZml4IEx5dWRlIGhhcyBwdXNoZWQgKGp1c3Qga2VlcCBidWlsZGlu
-ZywganVzdAo+IGtlZXAgYnVpbGRpbmcpLgoKWWVhaCBJIHRoaW5rIGJvdGggY29tbWl0dGVyIHdo
-ZW4gYXBwbHlpbmcgYW5kIHByb2JhYmx5IGFsc28gbWFpbnRhaW5lcgpiZWZvcmUgc2VuZGluZyBw
-dWxsIHNob3VsZCBoYXZlIHJlY2hlY2tlZCB0aGUgd29ya3MuIFVudGlsIHdlIGhhdmUgQ0kKb24g
-Z2l0bGFiIHRoaXMgZ3J1bmsgd29yayBpcyBqdXN0IG5lZWRlZCBiZWNhdXNlIGEgdG9uIG9mIHBl
-b3BsZSBkb24ndApkbyBpdCAtIGFzIHRoaXMgcGF0Y2ggc2hvd3MsIHdoZXJlIG91dCBvZiA0IHBl
-b3BsZSBvbmx5IHNlZW1zIHRvIGhhdmUKZmlyZWQgdXAgdGhlIGNvbXBpbGVyIDotKQotRGFuaWVs
-Cgo+Cj4gVGhhbmtzLAo+IERhdmUuCj4gPgo+ID4gRGF2ZS4KPiA+Cj4gPiAvaG9tZS9haXJsaWVk
-L2RldmVsL2tlcm5lbC9kaW0vc3JjL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5
-LmM6Cj4gPiBJbiBmdW5jdGlvbiDigJhkcm1fZHBfdXBkYXRlX3BheWxvYWRfcGFydDHigJk6Cj4g
-PiAvaG9tZS9haXJsaWVkL2RldmVsL2tlcm5lbC9kaW0vc3JjL2luY2x1ZGUvZHJtL2RybV9wcmlu
-dC5oOjQ1MDoyNzoKPiA+IGVycm9yOiByZXF1ZXN0IGZvciBtZW1iZXIg4oCYZGV24oCZIGluIHNv
-bWV0aGluZyBub3QgYSBzdHJ1Y3R1cmUgb3IgdW5pb24KPiA+ICAgNDUwIHwgIGRybV9kZXZfZGJn
-KChkcm0pID8gKGRybSktPmRldiA6IE5VTEwsIERSTV9VVF9LTVMsIGZtdCwgIyNfX1ZBX0FSR1Nf
-XykKPiA+ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICBefgo+ID4gL2hvbWUvYWly
-bGllZC9kZXZlbC9rZXJuZWwvZGltL3NyYy9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3Bv
-bG9neS5jOjMzOTI6NToKPiA+IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNybyDigJhkcm1fZGJn
-X2ttc+KAmQo+ID4gIDMzOTIgfCAgICAgZHJtX2RiZ19rbXMoIlZpcnR1YWwgY2hhbm5lbCAlZCBp
-cyBub3QgaW4gY3VycmVudCB0b3BvbG9neVxuIiwgaSk7Cj4gPiAgICAgICB8ICAgICBefn5+fn5+
-fn5+fgo+ID4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZGltL3NyYy9kcml2ZXJzL2dwdS9k
-cm0vZHJtX2RwX21zdF90b3BvbG9neS5jOjMzOTI6Njg6Cj4gPiB3YXJuaW5nOiBwYXNzaW5nIGFy
-Z3VtZW50IDMgb2Yg4oCYZHJtX2Rldl9kYmfigJkgbWFrZXMgcG9pbnRlciBmcm9tCj4gPiBpbnRl
-Z2VyIHdpdGhvdXQgYSBjYXN0IFstV2ludC1jb252ZXJzaW9uXQo+ID4gIDMzOTIgfCAgICAgZHJt
-X2RiZ19rbXMoIlZpcnR1YWwgY2hhbm5lbCAlZCBpcyBub3QgaW4gY3VycmVudCB0b3BvbG9neVxu
-IiwgaSk7Cj4gPiAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBeCj4gPiAgICAgICB8ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cj4g
-PiAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBpbnQKPiA+IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2Rp
-bS9zcmMvaW5jbHVkZS9kcm0vZHJtX3ByaW50Lmg6NDUwOjUzOgo+ID4gbm90ZTogaW4gZGVmaW5p
-dGlvbiBvZiBtYWNybyDigJhkcm1fZGJnX2ttc+KAmQo+ID4gICA0NTAgfCAgZHJtX2Rldl9kYmco
-KGRybSkgPyAoZHJtKS0+ZGV2IDogTlVMTCwgRFJNX1VUX0tNUywgZm10LCAjI19fVkFfQVJHU19f
-KQo+ID4gICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgXn5+Cj4gPiAvaG9tZS9haXJsaWVkL2RldmVsL2tlcm5lbC9kaW0vc3JjL2luY2x1
-ZGUvZHJtL2RybV9wcmludC5oOjMzODoxNjoKPiA+IG5vdGU6IGV4cGVjdGVkIOKAmGNvbnN0IGNo
-YXIgKuKAmSBidXQgYXJndW1lbnQgaXMgb2YgdHlwZSDigJhpbnTigJkKPiA+ICAgMzM4IHwgICAg
-Y29uc3QgY2hhciAqZm9ybWF0LCAuLi4pOwo+ID4gICAgICAgfCAgICB+fn5+fn5+fn5+fn5efn5+
-fn4KPiA+IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2RpbS9zcmMvZHJpdmVycy9ncHUvZHJt
-L2RybV9kcF9tc3RfdG9wb2xvZ3kuYzozNDA3OjUzOgo+ID4gZXJyb3I6IG1hY3JvICJkcm1fZGJn
-X2ttcyIgcmVxdWlyZXMgMyBhcmd1bWVudHMsIGJ1dCBvbmx5IDEgZ2l2ZW4KPiA+ICAzNDA3IHwg
-ICAgICAgZHJtX2RiZ19rbXMoIkZhaWw6c2V0IHBheWxvYWQgdG8gaW52YWxpZCBzaW5rIik7Cj4g
-PiAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBeCj4gPiBJbiBmaWxlIGluY2x1ZGVkIGZyb20KPiA+IC9ob21lL2FpcmxpZWQvZGV2ZWwv
-a2VybmVsL2RpbS9zcmMvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYzo0NToK
-PiA+IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2RpbS9zcmMvaW5jbHVkZS9kcm0vZHJtX3By
-aW50Lmg6NDQ5OiBub3RlOgo+ID4gbWFjcm8gImRybV9kYmdfa21zIiBkZWZpbmVkIGhlcmUKPiA+
-ICAgNDQ5IHwgI2RlZmluZSBkcm1fZGJnX2ttcyhkcm0sIGZtdCwgLi4uKSAgICAgXAo+ID4gICAg
-ICAgfAo+ID4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZGltL3NyYy9kcml2ZXJzL2dwdS9k
-cm0vZHJtX2RwX21zdF90b3BvbG9neS5jOjM0MDc6NzoKPiA+IGVycm9yOiDigJhkcm1fZGJnX2tt
-c+KAmSB1bmRlY2xhcmVkIChmaXJzdCB1c2UgaW4gdGhpcyBmdW5jdGlvbikKPiA+ICAzNDA3IHwg
-ICAgICAgZHJtX2RiZ19rbXMoIkZhaWw6c2V0IHBheWxvYWQgdG8gaW52YWxpZCBzaW5rIik7Cj4g
-PiAgICAgICB8ICAgICAgIF5+fn5+fn5+fn5+Cj4gPiAvaG9tZS9haXJsaWVkL2RldmVsL2tlcm5l
-bC9kaW0vc3JjL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmM6MzQwNzo3Ogo+
-ID4gbm90ZTogZWFjaCB1bmRlY2xhcmVkIGlkZW50aWZpZXIgaXMgcmVwb3J0ZWQgb25seSBvbmNl
-IGZvciBlYWNoCj4gPiBmdW5jdGlvbiBpdCBhcHBlYXJzIGluCj4gPiBtYWtlWzRdOiAqKiogWy9o
-b21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2RpbS9zcmMvc2NyaXB0cy9NYWtlZmlsZS5idWlsZDoy
-NzI6Cj4gPiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5vXSBFcnJvciAxCj4g
-PiBtYWtlWzRdOiAqKiogV2FpdGluZyBmb3IgdW5maW5pc2hlZCBqb2JzLi4uLgo+ID4KPiA+IE9u
-IFRodSwgMTcgSnVuIDIwMjEgYXQgMDQ6MzAsIFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFu
-bkBzdXNlLmRlPiB3cm90ZToKPiA+ID4KPiA+ID4gSGkgRGF2ZSBhbmQgRGFuaWVsLAo+ID4gPgo+
-ID4gPiBoZXJlJ3MgdGhpcyB3ZWVrJ3MgUFIgZm9yIGRybS1taXNjLW5leHQtZml4ZXMuCj4gPiA+
-Cj4gPiA+IEJlc3QgcmVnYXJkcwo+ID4gPiBUaG9tYXMKPiA+ID4KPiA+ID4gZHJtLW1pc2MtbmV4
-dC1maXhlcy0yMDIxLTA2LTE2Ogo+ID4gPiBTaG9ydCBzdW1tYXJ5IG9mIGZpeGVzIHB1bGw6Cj4g
-PiA+Cj4gPiA+ICAqIGh5cGVydjogYWR2ZXJ0aXNlIHRoZSBjb3JyZWN0IGZvcm1hdG1vZGlmaWVy
-cyBmb3IgaXRzIHByaW1hcnkgcGxhbmUKPiA+ID4gICogZHBfbXN0OiBWQ1BJIGZpeGVzIHRvIG1h
-a2UgaXQgd29yayB3aXRoIFN0YXJUZWNoIGh1Ygo+ID4gPgo+ID4gPiBUaGUgZm9sbG93aW5nIGNo
-YW5nZXMgc2luY2UgY29tbWl0IDFiZDhhN2RjMjhjMWM0MTBmMWNlZWZhZTFmMmE5N2MwNmQxYTY3
-YzI6Cj4gPiA+Cj4gPiA+ICAgTWVyZ2UgdGFnICdleHlub3MtZHJtLW5leHQtZm9yLXY1LjE0JyBv
-ZiBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvZGFlaW5raS9k
-cm0tZXh5bm9zIGludG8gZHJtLW5leHQgKDIwMjEtMDYtMTEgMTQ6MTk6MTIgKzEwMDApCj4gPiA+
-Cj4gPiA+IGFyZSBhdmFpbGFibGUgaW4gdGhlIEdpdCByZXBvc2l0b3J5IGF0Ogo+ID4gPgo+ID4g
-PiAgIGdpdDovL2Fub25naXQuZnJlZWRlc2t0b3Aub3JnL2RybS9kcm0tbWlzYyB0YWdzL2RybS1t
-aXNjLW5leHQtZml4ZXMtMjAyMS0wNi0xNgo+ID4gPgo+ID4gPiBmb3IgeW91IHRvIGZldGNoIGNo
-YW5nZXMgdXAgdG8gMzc2OWU0YzBhZjViODJjOGVhMjFkMDM3MDEzY2I5NTY0ZGZhYTUxZjoKPiA+
-ID4KPiA+ID4gICBkcm0vZHBfbXN0OiBBdm9pZCB0byBtZXNzIHVwIHBheWxvYWQgdGFibGUgYnkg
-cG9ydHMgaW4gc3RhbGUgdG9wb2xvZ3kgKDIwMjEtMDYtMTYgMTI6NTc6NDYgLTA0MDApCj4gPiA+
-Cj4gPiA+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0KPiA+ID4gU2hvcnQgc3VtbWFyeSBvZiBmaXhlcyBwdWxsOgo+ID4gPgo+
-ID4gPiAgKiBoeXBlcnY6IGFkdmVydGlzZSB0aGUgY29ycmVjdCBmb3JtYXRtb2RpZmllcnMgZm9y
-IGl0cyBwcmltYXJ5IHBsYW5lCj4gPiA+ICAqIGRwX21zdDogVkNQSSBmaXhlcyB0byBtYWtlIGl0
-IHdvcmsgd2l0aCBTdGFyVGVjaCBodWIKPiA+ID4KPiA+ID4gLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ID4gPiBQdSBMZWh1
-aSAoMSk6Cj4gPiA+ICAgICAgIGRybS9oeXBlcnY6IEZpeCB1bnVzZWQgY29uc3QgdmFyaWFibGUg
-J2h5cGVydl9tb2RpZmllcnMnCj4gPiA+Cj4gPiA+IFdheW5lIExpbiAoMik6Cj4gPiA+ICAgICAg
-IGRybS9kcF9tc3Q6IERvIG5vdCBzZXQgcHJvcG9zZWQgdmNwaSBkaXJlY3RseQo+ID4gPiAgICAg
-ICBkcm0vZHBfbXN0OiBBdm9pZCB0byBtZXNzIHVwIHBheWxvYWQgdGFibGUgYnkgcG9ydHMgaW4g
-c3RhbGUgdG9wb2xvZ3kKPiA+ID4KPiA+ID4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3Rv
-cG9sb2d5LmMgICAgICAgfCA2NSArKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLQo+ID4gPiAg
-ZHJpdmVycy9ncHUvZHJtL2h5cGVydi9oeXBlcnZfZHJtX21vZGVzZXQuYyB8ICAyICstCj4gPiA+
-ICAyIGZpbGVzIGNoYW5nZWQsIDQwIGluc2VydGlvbnMoKyksIDI3IGRlbGV0aW9ucygtKQo+ID4g
-Pgo+ID4gPiAtLQo+ID4gPiBUaG9tYXMgWmltbWVybWFubgo+ID4gPiBHcmFwaGljcyBEcml2ZXIg
-RGV2ZWxvcGVyCj4gPiA+IFNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSAo+ID4g
-PiBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcsIEdlcm1hbnkKPiA+ID4gKEhSQiAzNjgw
-OSwgQUcgTsO8cm5iZXJnKQo+ID4gPiBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJm
-ZmVyCgoKCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3Jh
-dGlvbgpodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9pbnRlbC1nZngK
+Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
+drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
+force_yuv420_output case.
+
+Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
+there is no reason to use RGB when the display
+reports drm_mode_is_420_only() even on a non HDMI connection.
+
+This patch also moves both checks in the same if-case. This  eliminates an
+extra else-if-case.
+
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6fda0dfb78f8..44757720b15f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5353,10 +5353,7 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	timing_out->v_border_bottom = 0;
+ 	/* TODO: un-hardcode */
+ 	if (drm_mode_is_420_only(info, mode_in)
+-			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+-		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-	else if (drm_mode_is_420_also(info, mode_in)
+-			&& aconnector->force_yuv420_output)
++			|| (drm_mode_is_420_also(info, mode_in) && aconnector->force_yuv420_output))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+ 	else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCRCB444)
+ 			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+-- 
+2.25.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
