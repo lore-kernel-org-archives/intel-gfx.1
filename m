@@ -2,56 +2,40 @@ Return-Path: <SRS0=95Yg=LM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD1AFC49EBA
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:12:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C700C48BE8
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A26E261175
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:12:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A26E261175
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5626B60230
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:47:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5626B60230
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 345F66E9F7;
-	Fri, 18 Jun 2021 09:11:52 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7DE76E9D8;
- Fri, 18 Jun 2021 09:11:48 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id AA9C3C800B9;
- Fri, 18 Jun 2021 11:11:47 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id K4gE7Xv2qCCa; Fri, 18 Jun 2021 11:11:47 +0200 (CEST)
-Received: from wsembach-tuxedo.fritz.box
- (p200300e37f3949001760E5710682cA7E.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f39:4900:1760:e571:682:ca7e])
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 4F361C800B7;
- Fri, 18 Jun 2021 11:11:47 +0200 (CEST)
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Date: Fri, 18 Jun 2021 11:11:16 +0200
-Message-Id: <20210618091116.14428-18-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210618091116.14428-1-wse@tuxedocomputers.com>
-References: <20210618091116.14428-1-wse@tuxedocomputers.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB7DD6E9CF;
+	Fri, 18 Jun 2021 09:47:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 119256E9CB;
+ Fri, 18 Jun 2021 09:47:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 088A2A47EA;
+ Fri, 18 Jun 2021 09:47:51 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 17/17] drm/amd/display: Add handling for new
- "Broadcast RGB" property
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Werner Sembach" <wse@tuxedocomputers.com>
+Date: Fri, 18 Jun 2021 09:47:51 -0000
+Message-ID: <162400967100.1294.15646271940215568363@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210618091116.14428-1-wse@tuxedocomputers.com>
+In-Reply-To: <20210618091116.14428-1-wse@tuxedocomputers.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_New_uAPI_drm_properties_for_color_management_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,103 +48,164 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This commit implements the "Broadcast RGB" drm property for the AMD GPU
-driver.
+== Series Details ==
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 ++++++++++++++-----
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++++
- 2 files changed, 21 insertions(+), 5 deletions(-)
+Series: New uAPI drm properties for color management (rev2)
+URL   : https://patchwork.freedesktop.org/series/91523/
+State : warning
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 9ffd2f9d3d75..c5dbf948a47a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5252,7 +5252,8 @@ get_aspect_ratio(const struct drm_display_mode *mode_in)
- }
- 
- static enum dc_color_space
--get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
-+get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
-+		       enum drm_mode_color_range preferred_color_range)
- {
- 	enum dc_color_space color_space = COLOR_SPACE_SRGB;
- 
-@@ -5267,13 +5268,17 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
- 		 * respectively
- 		 */
- 		if (dc_crtc_timing->pix_clk_100hz > 270300) {
--			if (dc_crtc_timing->flags.Y_ONLY)
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+8a1dbc104f1d drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
+-:32: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#32: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5356:
+ 	if (drm_mode_is_420_only(info, mode_in)
++			|| (drm_mode_is_420_also(info, mode_in) && aconnector->force_yuv420_output))
+
+total: 0 errors, 0 warnings, 1 checks, 11 lines checked
+a184c9f6c5f9 drm/amd/display: Add missing cases convert_dc_color_depth_into_bpc
+5d445706107f drm/uAPI: Add "active bpc" as feedback channel for "max bpc" drm property
+f27795b7edfc drm/amd/display: Add handling for new "active bpc" property
+-:40: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#40: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:9097:
++				drm_connector_set_active_bpc_property(connector,
++					convert_dc_color_depth_into_bpc(
+
+-:40: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#40: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:9097:
++					convert_dc_color_depth_into_bpc(
+
+-:42: CHECK:BRACES: Unbalanced braces around else statement
+#42: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:9099:
++		} else
+
+total: 0 errors, 0 warnings, 3 checks, 42 lines checked
+d894e2d6d92c drm/i915/display: Add handling for new "active bpc" property
+-:33: CHECK:BRACES: braces {} should be used on all arms of this statement
+#33: FILE: drivers/gpu/drm/i915/display/intel_display.c:10917:
++		if (crtc) {
+[...]
++		} else
+[...]
+
+-:38: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#38: FILE: drivers/gpu/drm/i915/display/intel_display.c:10922:
++			drm_connector_set_active_bpc_property(connector,
++				new_crtc_state->pipe_bpp / 3);
+
+-:39: CHECK:BRACES: Unbalanced braces around else statement
+#39: FILE: drivers/gpu/drm/i915/display/intel_display.c:10923:
++		} else
+
+total: 0 errors, 0 warnings, 3 checks, 66 lines checked
+01063e3e0973 drm/uAPI: Add "active color format" drm property as feedback for userspace
+b3388b2b31a3 drm/amd/display: Add handling for new "active color format" property
+-:20: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#20: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:6718:
++static int convert_dc_pixel_encoding_into_drm_color_format(
+
+-:60: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#60: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:9119:
++				drm_connector_set_active_color_format_property(connector,
++					convert_dc_pixel_encoding_into_drm_color_format(
+
+-:60: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#60: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:9119:
++					convert_dc_pixel_encoding_into_drm_color_format(
+
+total: 0 errors, 0 warnings, 3 checks, 61 lines checked
+d20d983e5c00 drm/i915/display: Add handling for new "active color format" property
+-:44: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#44: FILE: drivers/gpu/drm/i915/display/intel_display.c:10939:
++			drm_connector_set_active_color_format_property(connector,
++				convert_intel_output_format_into_drm_color_format(
+
+-:44: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#44: FILE: drivers/gpu/drm/i915/display/intel_display.c:10939:
++				convert_intel_output_format_into_drm_color_format(
+
+total: 0 errors, 0 warnings, 2 checks, 64 lines checked
+38cabfeae439 drm/uAPI: Add "active color range" drm property as feedback for userspace
+34a60f410858 drm/amd/display: Add handling for new "active color range" property
+-:63: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#63: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:9150:
++				drm_connector_set_active_color_range_property(connector,
++					convert_dc_color_space_into_drm_mode_color_range(
+
+-:63: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#63: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:9150:
++					convert_dc_color_space_into_drm_mode_color_range(
+
+total: 0 errors, 0 warnings, 2 checks, 65 lines checked
+4a5eb1073840 drm/i915/display: Add handling for new "active color range" property
+-:21: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#21: FILE: drivers/gpu/drm/i915/display/intel_display.c:10942:
++			drm_connector_set_active_color_range_property(connector,
++				new_crtc_state->limited_color_range ?
+
+total: 0 errors, 0 warnings, 1 checks, 45 lines checked
+c75e0d2c86bc drm/uAPI: Add "preferred color format" drm property as setting for userspace
+7c574ffde4b2 drm/amd/display: Add handling for new "preferred color format" property
+-:25: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#25: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5356:
++	if (connector_state
++			&& (connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB420
+
+-:26: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#26: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5357:
++			&& (connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB420
++			|| aconnector->force_yuv420_output) && drm_mode_is_420(info, mode_in))
+
+-:31: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#31: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5360:
++	else if (connector_state
++			&& connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB444
+
+-:32: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#32: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5361:
++			&& connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB444
++			&& connector->display_info.color_formats & DRM_COLOR_FORMAT_YCRCB444)
+
+-:36: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#36: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5364:
++	else if (connector_state
++			&& connector_state->preferred_color_format == DRM_COLOR_FORMAT_RGB444
+
+-:37: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#37: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5365:
++			&& connector_state->preferred_color_format == DRM_COLOR_FORMAT_RGB444
++			&& !drm_mode_is_420_only(info, mode_in))
+
+-:48: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#48: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5376:
++		else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCRCB444)
++				&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+
+total: 0 errors, 0 warnings, 7 checks, 55 lines checked
+7036e14723d4 drm/i915/display: Add handling for new "preferred color format" property
+fb7489fcb966 drm/uAPI: Move "Broadcast RGB" property from driver specific to general context
+0e59e4efe994 drm/i915/display: Use the general "Broadcast RGB" implementation
+c085286ee017 drm/amd/display: Add handling for new "Broadcast RGB" property
+-:32: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#32: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5272:
 +			if (dc_crtc_timing->flags.Y_ONLY
 +					|| preferred_color_range ==
-+						DRM_MODE_COLOR_RANGE_LIMITED_16_235)
- 				color_space =
- 					COLOR_SPACE_YCBCR709_LIMITED;
- 			else
- 				color_space = COLOR_SPACE_YCBCR709;
- 		} else {
--			if (dc_crtc_timing->flags.Y_ONLY)
+
+-:41: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#41: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5280:
 +			if (dc_crtc_timing->flags.Y_ONLY
 +					|| preferred_color_range ==
-+						DRM_MODE_COLOR_RANGE_LIMITED_16_235)
- 				color_space =
- 					COLOR_SPACE_YCBCR601_LIMITED;
- 			else
-@@ -5283,7 +5288,10 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
- 	}
- 	break;
- 	case PIXEL_ENCODING_RGB:
--		color_space = COLOR_SPACE_SRGB;
-+		if (preferred_color_range == DRM_MODE_COLOR_RANGE_LIMITED_16_235)
-+			color_space = COLOR_SPACE_SRGB_LIMITED;
-+		else
-+			color_space = COLOR_SPACE_SRGB;
- 		break;
- 
- 	default:
-@@ -5429,7 +5437,10 @@ static void fill_stream_properties_from_drm_display_mode(
- 
- 	timing_out->aspect_ratio = get_aspect_ratio(mode_in);
- 
--	stream->output_color_space = get_output_color_space(timing_out);
-+	stream->output_color_space = get_output_color_space(timing_out,
-+							    connector_state ?
-+							    connector_state->preferred_color_range :
-+							    DRM_MODE_COLOR_RANGE_UNSET);
- 
- 	stream->out_transfer_func->type = TF_TYPE_PREDEFINED;
- 	stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
-@@ -7780,6 +7791,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
- 		drm_connector_attach_preferred_color_format_property(&aconnector->base);
- 		drm_connector_attach_active_color_format_property(&aconnector->base);
-+		drm_connector_attach_preferred_color_range_property(&aconnector->base);
- 		drm_connector_attach_active_color_range_property(&aconnector->base);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 2563788ba95a..80e1389fd0ec 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -421,6 +421,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 	if (connector->active_color_format_property)
- 		drm_connector_attach_active_color_format_property(&aconnector->base);
- 
-+	connector->preferred_color_range_property = master->base.preferred_color_range_property;
-+	if (connector->preferred_color_range_property)
-+		drm_connector_attach_preferred_color_range_property(&aconnector->base);
-+
- 	connector->active_color_range_property = master->base.active_color_range_property;
- 	if (connector->active_color_range_property)
- 		drm_connector_attach_active_color_range_property(&aconnector->base);
--- 
-2.25.1
+
+total: 0 errors, 0 warnings, 2 checks, 67 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
