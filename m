@@ -2,42 +2,56 @@ Return-Path: <SRS0=95Yg=LM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6C8FC49ECA
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:12:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61DCBC49EB7
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 756C661175
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 756C661175
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 2DCED60FD8
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 09:12:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2DCED60FD8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A24FE6E9FA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 171676E9CB;
 	Fri, 18 Jun 2021 09:11:52 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 569996E9CA;
- Fri, 18 Jun 2021 09:11:49 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 49F77AADD6;
- Fri, 18 Jun 2021 09:11:49 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4F836E9D8;
+ Fri, 18 Jun 2021 09:11:45 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id 83120C800B3;
+ Fri, 18 Jun 2021 11:11:44 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
+ with LMTP id Lk_qPjcuFfw2; Fri, 18 Jun 2021 11:11:44 +0200 (CEST)
+Received: from wsembach-tuxedo.fritz.box
+ (p200300e37f3949001760E5710682cA7E.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f39:4900:1760:e571:682:ca7e])
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPA id 24AD9C800BA;
+ Fri, 18 Jun 2021 11:11:44 +0200 (CEST)
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Date: Fri, 18 Jun 2021 11:11:13 +0200
+Message-Id: <20210618091116.14428-15-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210618091116.14428-1-wse@tuxedocomputers.com>
+References: <20210618091116.14428-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Fri, 18 Jun 2021 09:11:49 -0000
-Message-ID: <162400750929.1291.12123216809090072259@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210618083117.158081-1-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20210618083117.158081-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/ttm=3A_Fix_incorrect_assumptions_about_ttm=5Fbo=5Fvalidat?=
- =?utf-8?q?e=28=29_semantics?=
+Subject: [Intel-gfx] [PATCH v4 14/17] drm/i915/display: Add handling for new
+ "preferred color format" property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,176 +64,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0731580994=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0731580994==
-Content-Type: multipart/alternative;
- boundary="===============7959247527909715817=="
+This commit implements the "preferred color format" drm property for the
+Intel GPU driver.
 
---===============7959247527909715817==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c     | 7 ++++++-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 5 +++++
+ drivers/gpu/drm/i915/display/intel_hdmi.c   | 6 ++++++
+ 3 files changed, 17 insertions(+), 1 deletion(-)
 
-== Series Details ==
-
-Series: drm/i915/ttm: Fix incorrect assumptions about ttm_bo_validate() semantics
-URL   : https://patchwork.freedesktop.org/series/91661/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10242 -> Patchwork_20407
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20407/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20407 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_chamelium@dp-crc-fast:
-    - fi-kbl-7500u:       [PASS][1] -> [FAIL][2] ([i915#1372])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10242/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20407/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@perf:
-    - {fi-tgl-dsi}:       [DMESG-WARN][3] ([i915#2867]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10242/fi-tgl-dsi/igt@i915_selftest@live@perf.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20407/fi-tgl-dsi/igt@i915_selftest@live@perf.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#1372]: https://gitlab.freedesktop.org/drm/intel/issues/1372
-  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
-
-
-Participating hosts (42 -> 37)
-------------------------------
-
-  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10242 -> Patchwork_20407
-
-  CI-20190529: 20190529
-  CI_DRM_10242: a31069c62e8586aa92907539ab948412c1d5f5a0 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6112: a17cc0c5d096fabfd516848c114bc411e11130f4 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20407: 88154e0600a8c8bc833dd9d869ae4863e91975c5 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-88154e0600a8 drm/i915/ttm: Fix incorrect assumptions about ttm_bo_validate() semantics
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20407/index.html
-
---===============7959247527909715817==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/ttm: Fix incorrect assumptions about ttm_bo_validate() semantics</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/91661/">https://patchwork.freedesktop.org/series/91661/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20407/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20407/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10242 -&gt; Patchwork_20407</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20407/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20407 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@kms_chamelium@dp-crc-fast:<ul>
-<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10242/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20407/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1372">i915#1372</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@perf:<ul>
-<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10242/fi-tgl-dsi/igt@i915_selftest@live@perf.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20407/fi-tgl-dsi/igt@i915_selftest@live@perf.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (42 -&gt; 37)</h2>
-<p>Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10242 -&gt; Patchwork_20407</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10242: a31069c62e8586aa92907539ab948412c1d5f5a0 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6112: a17cc0c5d096fabfd516848c114bc411e11130f4 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20407: 88154e0600a8c8bc833dd9d869ae4863e91975c5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>88154e0600a8 drm/i915/ttm: Fix incorrect assumptions about ttm_bo_validate() semantics</p>
-
-</body>
-</html>
-
---===============7959247527909715817==--
-
---===============0731580994==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 214010f7cbec..4c01ab887904 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -616,9 +616,12 @@ intel_dp_output_format(struct drm_connector *connector,
+ {
+ 	struct intel_dp *intel_dp = intel_attached_dp(to_intel_connector(connector));
+ 	const struct drm_display_info *info = &connector->display_info;
++	const struct drm_connector_state *connector_state = connector->state;
+ 
+ 	if (!connector->ycbcr_420_allowed ||
+-	    !drm_mode_is_420_only(info, mode))
++	    !(drm_mode_is_420_only(info, mode) ||
++	    (drm_mode_is_420_also(info, mode) && connector_state &&
++	    connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB420)))
+ 		return INTEL_OUTPUT_FORMAT_RGB;
+ 
+ 	if (intel_dp->dfp.rgb_to_ycbcr &&
+@@ -4691,11 +4694,13 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *connect
+ 	if (HAS_GMCH(dev_priv)) {
+ 		drm_connector_attach_max_bpc_property(connector, 6, 10);
+ 		drm_connector_attach_active_bpc_property(connector, 6, 10);
++		drm_connector_attach_preferred_color_format_property(connector);
+ 		drm_connector_attach_active_color_format_property(connector);
+ 		drm_connector_attach_active_color_range_property(connector);
+ 	} else if (DISPLAY_VER(dev_priv) >= 5) {
+ 		drm_connector_attach_max_bpc_property(connector, 6, 12);
+ 		drm_connector_attach_active_bpc_property(connector, 6, 12);
++		drm_connector_attach_preferred_color_format_property(connector);
+ 		drm_connector_attach_active_color_format_property(connector);
+ 		drm_connector_attach_active_color_range_property(connector);
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index cb876175258f..67f0fb649876 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -856,6 +856,11 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
+ 	if (connector->active_bpc_property)
+ 		drm_connector_attach_active_bpc_property(connector, 6, 12);
+ 
++	connector->preferred_color_format_property =
++		intel_dp->attached_connector->base.preferred_color_format_property;
++	if (connector->preferred_color_format_property)
++		drm_connector_attach_preferred_color_format_property(connector);
++
+ 	connector->active_color_format_property =
+ 		intel_dp->attached_connector->base.active_color_format_property;
+ 	if (connector->active_color_format_property)
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index dacac23a6c30..bce253bc5b16 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2153,6 +2153,11 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
+ 		crtc_state->output_format = INTEL_OUTPUT_FORMAT_RGB;
+ 	}
+ 
++	if (connector->ycbcr_420_allowed &&
++	    conn_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB420 &&
++	    drm_mode_is_420_also(&connector->display_info, adjusted_mode))
++		crtc_state->output_format = INTEL_OUTPUT_FORMAT_YCBCR420;
++
+ 	ret = intel_hdmi_compute_clock(encoder, crtc_state);
+ 	if (ret) {
+ 		if (crtc_state->output_format != INTEL_OUTPUT_FORMAT_YCBCR420 &&
+@@ -2516,6 +2521,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
+ 	if (!HAS_GMCH(dev_priv)) {
+ 		drm_connector_attach_max_bpc_property(connector, 8, 12);
+ 		drm_connector_attach_active_bpc_property(connector, 8, 12);
++		drm_connector_attach_preferred_color_format_property(connector);
+ 		drm_connector_attach_active_color_format_property(connector);
+ 		drm_connector_attach_active_color_range_property(connector);
+ 	}
+-- 
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0731580994==--
