@@ -2,76 +2,77 @@ Return-Path: <SRS0=95Yg=LM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0205FC48BE8
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 08:56:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87053C48BDF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 08:58:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE59561260
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 08:56:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE59561260
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3D50C613BA
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 08:58:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D50C613BA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C5CA6E998;
-	Fri, 18 Jun 2021 08:56:35 +0000 (UTC)
-X-Greylist: delayed 4686 seconds by postgrey-1.36 at gabe;
- Fri, 18 Jun 2021 08:56:33 UTC
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C333C6E998
- for <intel-gfx@lists.freedesktop.org>; Fri, 18 Jun 2021 08:56:33 +0000 (UTC)
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15I7Mo87003220; Fri, 18 Jun 2021 07:38:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=Bva+99kIbUt8U5GBoQCrjaYa7N50E6Drwc+bAxhYFtU=;
- b=XgABNxHkPvj3NbI1NVpSUdBksdCkXUfNHFyGXCT+v6fDpW55FZ0WVmEvVlajTRSUwxoU
- U62ZBWbtKM/NFZqkkq/y58as9pJvoc9Crvqaqfme2gqujY8DaeLFYDp4fmBwQh91AwZz
- OeHocI6uApIqjG+jsNc/8BC2uV+xpIU9RBRgahzy9Xjv0Mmmqcia2xpleqX4+jhxkQxi
- WRJ0OJ1I165LHWo88IxhLLHpksfi4ikqmGhjroxZ1MiNWtK5JSZ6ZQh9mpOWhOUc8462
- 8MxGm7d+K7SVVqdCV2EGIDg49QHJtrqf8keiMDgAx/OsxeP3XCeQkHAk+CzaB5fc/vcW aQ== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by mx0b-00069f02.pphosted.com with ESMTP id 39770hcu5n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 18 Jun 2021 07:38:24 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 15I7T20X080299;
- Fri, 18 Jun 2021 07:38:23 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by userp3030.oracle.com with ESMTP id 396war5309-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 18 Jun 2021 07:38:23 +0000
-Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 15I7cNBx098104;
- Fri, 18 Jun 2021 07:38:23 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3030.oracle.com with ESMTP id 396war52yt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 18 Jun 2021 07:38:23 +0000
-Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 15I7cMq0020820;
- Fri, 18 Jun 2021 07:38:22 GMT
-Received: from mwanda (/102.222.70.252)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 18 Jun 2021 00:38:21 -0700
-Date: Fri, 18 Jun 2021 10:38:16 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: michal.wajdeczko@intel.com
-Message-ID: <YMxNaH5MQakeg1L7@mwanda>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D26DF6E998;
+	Fri, 18 Jun 2021 08:58:14 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 127216E998;
+ Fri, 18 Jun 2021 08:58:14 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B089621ACA;
+ Fri, 18 Jun 2021 08:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624006692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=yvC5i/r5SAQg9pojYeOAMekoljsB4R2HJiZhKtU+M20=;
+ b=zWkZ2W51Rj9l3XzN1HQpULMYBd6dijMNcltmq5xIPYDO6RLipB4jTgTedk69Q/oNlvzqSp
+ Vj1qJYPG6gG7/lhNtfiemILCGPQV9+SQ7wDskriTl7Lesz6GaJe6sdZ8NeSVtNc/8MxXUY
+ ocLGtUCDlx/+9jcj5bcIzJz8bT8oIJ8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624006692;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=yvC5i/r5SAQg9pojYeOAMekoljsB4R2HJiZhKtU+M20=;
+ b=RNr84aC0ZlOj2k+3q2Vw8xeIQ1YF5rCFKEbcHl0gkrr/9eyvZBLxrPl8IZYLZmdDIvbWSY
+ 0guUXGYkMosR58Bw==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 7A5B6118DD;
+ Fri, 18 Jun 2021 08:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624006692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=yvC5i/r5SAQg9pojYeOAMekoljsB4R2HJiZhKtU+M20=;
+ b=zWkZ2W51Rj9l3XzN1HQpULMYBd6dijMNcltmq5xIPYDO6RLipB4jTgTedk69Q/oNlvzqSp
+ Vj1qJYPG6gG7/lhNtfiemILCGPQV9+SQ7wDskriTl7Lesz6GaJe6sdZ8NeSVtNc/8MxXUY
+ ocLGtUCDlx/+9jcj5bcIzJz8bT8oIJ8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624006692;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=yvC5i/r5SAQg9pojYeOAMekoljsB4R2HJiZhKtU+M20=;
+ b=RNr84aC0ZlOj2k+3q2Vw8xeIQ1YF5rCFKEbcHl0gkrr/9eyvZBLxrPl8IZYLZmdDIvbWSY
+ 0guUXGYkMosR58Bw==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id 6LTpHCRgzGAdJAAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Fri, 18 Jun 2021 08:58:12 +0000
+Date: Fri, 18 Jun 2021 10:58:11 +0200
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <YMxgI1oluBpPyfu6@linux-uq9g.fritz.box>
 MIME-Version: 1.0
 Content-Disposition: inline
-X-Proofpoint-GUID: M4da_Tpurrvuv3Cp6IQ8kxyR0XxZEtC4
-X-Proofpoint-ORIG-GUID: M4da_Tpurrvuv3Cp6IQ8kxyR0XxZEtC4
-Subject: [Intel-gfx] [bug report] drm/i915/guc: Add support for data
- reporting in GuC responses
+Subject: [Intel-gfx] [PULL] drm-misc-next-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,75 +85,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello Michal Wajdeczko,
+Hi Dave and Daniel,
 
-The patch b839a869dfc9: "drm/i915/guc: Add support for data reporting
-in GuC responses" from Mar 26, 2018, leads to the following static
-checker warning:
+here's the extra PR for drm-misc-next-fixes for this week. In addition
+to the previous fixes, it only contains the dp_mst build fix.
 
-	drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:307 intel_guc_ct_enable()
-	error: passing non negative 4095 to ERR_PTR
+Best regards
+Thomas
 
-drivers/gpu/drm/i915/gt/uc/.intel_guc.c
-   405          intel_guc_notify(guc);
-   406  
-   407          /*
-   408           * No GuC command should ever take longer than 10ms.
-   409           * Fast commands should still complete in 10us.
-   410           */
-   411          ret = __intel_wait_for_register_fw(uncore,
-   412                                             guc_send_reg(guc, 0),
-   413                                             INTEL_GUC_MSG_TYPE_MASK,
-   414                                             INTEL_GUC_MSG_TYPE_RESPONSE <<
-   415                                             INTEL_GUC_MSG_TYPE_SHIFT,
-   416                                             10, 10, &status);
-   417          /* If GuC explicitly returned an error, convert it to -EIO */
-   418          if (!ret && !INTEL_GUC_MSG_IS_RESPONSE_SUCCESS(status))
-   419                  ret = -EIO;
+drm-misc-next-fixes-2021-06-18:
+Short summary of fixes pull:
 
-If __intel_wait_for_register_fw() fails then either "ret" is set or
-"status" status has a code and "ret" becomes -EIO.
+ * hyperv: advertise the correct formatmodifiers for its primary plane
+ * dp_mst: VCPI fixes to make it work with StarTech hub; Fix build error
 
-   420  
-   421          if (ret) {
-   422                  DRM_ERROR("MMIO: GuC action %#x failed with error %d %#x\n",
-   423                            action[0], ret, status);
-   424                  goto out;
+The following changes since commit 1bd8a7dc28c1c410f1ceefae1f2a97c06d1a67c2:
 
-So if there is any errors we return here.
+  Merge tag 'exynos-drm-next-for-v5.14' of git://git.kernel.org/pub/scm/lin=
+ux/kernel/git/daeinki/drm-exynos into drm-next (2021-06-11 14:19:12 +1000)
 
-   425          }
-   426  
-   427          if (response_buf) {
-   428                  int count = min(response_buf_size, guc->send_regs.count - 1);
-   429  
-   430                  for (i = 0; i < count; i++)
-   431                          response_buf[i] = intel_uncore_read(uncore,
-   432                                                              guc_send_reg(guc, i + 1));
-   433          }
-   434  
-   435          /* Use data from the GuC response as our return value */
-   436          ret = INTEL_GUC_MSG_TO_DATA(status);
+are available in the Git repository at:
 
-But this is setting "ret" to something positive in the 0xffff range.
-The caller treats it as an error code.
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-fixes-2021-=
+06-18
 
-   437  
-   438  out:
-   439          intel_uncore_forcewake_put(uncore, guc->send_regs.fw_domains);
-   440          mutex_unlock(&guc->send_mutex);
-   441  
-   442          return ret;
-   443  }
+for you to fetch changes up to 24ff3dc18b99c4b912ab1746e803ddb3be5ced4c:
 
-regards,
-dan carpenter
+  drm/dp_mst: Add missing drm parameters to recently added call to drm_dbg_=
+kms() (2021-06-16 15:53:15 -0400)
+
+----------------------------------------------------------------
+Short summary of fixes pull:
+
+ * hyperv: advertise the correct formatmodifiers for its primary plane
+ * dp_mst: VCPI fixes to make it work with StarTech hub; Fix build error
+
+----------------------------------------------------------------
+Jos=E9 Roberto de Souza (1):
+      drm/dp_mst: Add missing drm parameters to recently added call to drm_=
+dbg_kms()
+
+Pu Lehui (1):
+      drm/hyperv: Fix unused const variable 'hyperv_modifiers'
+
+Wayne Lin (2):
+      drm/dp_mst: Do not set proposed vcpi directly
+      drm/dp_mst: Avoid to mess up payload table by ports in stale topology
+
+ drivers/gpu/drm/drm_dp_mst_topology.c       | 68 ++++++++++++++++++-------=
+----
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c |  2 +-
+ 2 files changed, 43 insertions(+), 27 deletions(-)
+
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=FCrnberg, Germany
+(HRB 36809, AG N=FCrnberg)
+Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
