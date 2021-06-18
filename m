@@ -5,48 +5,48 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 019BEC48BE5
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 00:49:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A227C49EA2
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 00:49:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BF6C1613AA
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 00:49:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF6C1613AA
+	by mail.kernel.org (Postfix) with ESMTPS id 3D0BD61209
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Jun 2021 00:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D0BD61209
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 206796E856;
-	Fri, 18 Jun 2021 00:48:51 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92B156E84E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7CED6E85A;
+	Fri, 18 Jun 2021 00:48:52 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 672646E84D;
  Fri, 18 Jun 2021 00:48:48 +0000 (UTC)
-IronPort-SDR: 5CMnCOHYt5Hwp+LzOdycvCXVUiU9RJ9xkizNpuKrzTDXbiWJMzNfxBGivsyFG8lbED7hMZXy4k
- gSWpQinTWxOw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10018"; a="186167265"
-X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="186167265"
+IronPort-SDR: Jk0Gp67r4TQhOxebmFeEDMXaqHSzCCLaIm+p1e1Xaw49LnIy/eljboUaDQwZ6GrNNUrOdDWoqJ
+ EU9wxQfX36mg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10018"; a="186853033"
+X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="186853033"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2021 17:48:48 -0700
-IronPort-SDR: XlyKQR0MEreQEjcUTEDuPeJNlq/x7N1YI1f9U7CQl/PSVBFQHx/4D2rLzlvJYltZwlPGCI3zJG
- reUgPAa2kZNA==
-X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="405127017"
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2021 17:48:47 -0700
+IronPort-SDR: YMNwp+i74P9VvxspSokkXDh7yDeOy6IqBu4vObJUzeyQCidCL5bm1yoz180l8iQYARye1GVpY9
+ 3XZt+T3ZRTBA==
+X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="405127003"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2021 17:48:47 -0700
+ 17 Jun 2021 17:48:46 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 17 Jun 2021 18:06:37 -0700
-Message-Id: <20210618010638.98941-8-matthew.brost@intel.com>
+Date: Thu, 17 Jun 2021 18:06:33 -0700
+Message-Id: <20210618010638.98941-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210618010638.98941-1-matthew.brost@intel.com>
 References: <20210618010638.98941-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 7/8] drm/i915: Update i915_scheduler to operate
- on i915_sched_engine
+Subject: [Intel-gfx] [PATCH 3/8] drm/i915: Reset sched_engine.no_priolist
+ immediately after dequeue
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,212 +64,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather passing around an intel_engine_cs in the scheduling code, pass
-around a i915_sched_engine.
+Rather than touching schedule state in the generic PM code, reset the
+priolist allocation when empty in the submission code. Add a wrapper
+function to do this and update the backends to call it in the correct
+place.
 
 v3:
  (Jason Ekstrand)
-  Add READ_ONCE around rq->engine in lock_sched_engine
+  Update patch commit message with a better description
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Jason Ekstrand <jason@jlekstrand.net>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 11 +++--
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  2 +-
- drivers/gpu/drm/i915/i915_scheduler.c         | 46 +++++++++----------
- drivers/gpu/drm/i915/i915_scheduler.h         |  2 +-
- 4 files changed, 32 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c            | 2 --
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c    | 2 ++
+ drivers/gpu/drm/i915/i915_scheduler.h                | 7 +++++++
+ 4 files changed, 10 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index b6a00dd72808..1f07ac4e0672 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -280,8 +280,6 @@ static int __engine_park(struct intel_wakeref *wf)
+ 	if (engine->park)
+ 		engine->park(engine);
+ 
+-	engine->sched_engine->no_priolist = false;
+-
+ 	/* While gt calls i915_vma_parked(), we have to break the lock cycle */
+ 	intel_gt_pm_put_async(engine->gt);
+ 	return 0;
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 9487d9e0be62..ffad4d98cec0 100644
+index e36b0e81876a..47a43aafa39f 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -382,7 +382,8 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
- 		GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
- 		if (rq_prio(rq) != prio) {
- 			prio = rq_prio(rq);
--			pl = i915_sched_lookup_priolist(engine, prio);
-+			pl = i915_sched_lookup_priolist(engine->sched_engine,
-+							prio);
- 		}
- 		GEM_BUG_ON(i915_sched_engine_is_empty(engine->sched_engine));
+@@ -1553,6 +1553,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 * interrupt for secondary ports).
+ 	 */
+ 	sched_engine->queue_priority_hint = queue_prio(sched_engine);
++	i915_sched_engine_reset_on_empty(sched_engine);
+ 	spin_unlock(&engine->active.lock);
  
-@@ -1096,7 +1097,8 @@ static void defer_active(struct intel_engine_cs *engine)
- 	if (!rq)
- 		return;
- 
--	defer_request(rq, i915_sched_lookup_priolist(engine, rq_prio(rq)));
-+	defer_request(rq, i915_sched_lookup_priolist(engine->sched_engine,
-+						     rq_prio(rq)));
- }
- 
- static bool
-@@ -2083,7 +2085,7 @@ static void __execlists_unhold(struct i915_request *rq)
- 
- 		i915_request_clear_hold(rq);
- 		list_move_tail(&rq->sched.link,
--			       i915_sched_lookup_priolist(rq->engine,
-+			       i915_sched_lookup_priolist(rq->engine->sched_engine,
- 							  rq_prio(rq)));
- 		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- 
-@@ -2452,7 +2454,8 @@ static void queue_request(struct intel_engine_cs *engine,
- {
- 	GEM_BUG_ON(!list_empty(&rq->sched.link));
- 	list_add_tail(&rq->sched.link,
--		      i915_sched_lookup_priolist(engine, rq_prio(rq)));
-+		      i915_sched_lookup_priolist(engine->sched_engine,
-+						 rq_prio(rq)));
- 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- }
- 
+ 	/*
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 60121809e6e2..cb13cc586c67 100644
+index d65a7665b38e..9887a514a4d5 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -503,7 +503,7 @@ static inline void queue_request(struct intel_engine_cs *engine,
- {
- 	GEM_BUG_ON(!list_empty(&rq->sched.link));
- 	list_add_tail(&rq->sched.link,
--		      i915_sched_lookup_priolist(engine, prio));
-+		      i915_sched_lookup_priolist(engine->sched_engine, prio));
- 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+@@ -263,6 +263,8 @@ static void guc_submission_tasklet(struct tasklet_struct *t)
+ 
+ 	__guc_dequeue(engine);
+ 
++	i915_sched_engine_reset_on_empty(engine->sched_engine);
++
+ 	spin_unlock_irqrestore(&engine->active.lock, flags);
  }
  
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 035b88f2e4aa..fa8863df9513 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -61,14 +61,13 @@ static void assert_priolists(struct i915_sched_engine * const sched_engine)
- }
- 
- struct list_head *
--i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio)
-+i915_sched_lookup_priolist(struct i915_sched_engine *sched_engine, int prio)
- {
--	struct i915_sched_engine * const sched_engine = engine->sched_engine;
- 	struct i915_priolist *p;
- 	struct rb_node **parent, *rb;
- 	bool first = true;
- 
--	lockdep_assert_held(&engine->sched_engine->lock);
-+	lockdep_assert_held(&sched_engine->lock);
- 	assert_priolists(sched_engine);
- 
- 	if (unlikely(sched_engine->no_priolist))
-@@ -130,13 +129,13 @@ struct sched_cache {
- 	struct list_head *priolist;
- };
- 
--static struct intel_engine_cs *
--sched_lock_engine(const struct i915_sched_node *node,
--		  struct intel_engine_cs *locked,
-+static struct i915_sched_engine *
-+lock_sched_engine(struct i915_sched_node *node,
-+		  struct i915_sched_engine *locked,
- 		  struct sched_cache *cache)
- {
- 	const struct i915_request *rq = node_to_request(node);
--	struct intel_engine_cs *engine;
-+	struct i915_sched_engine *sched_engine;
- 
- 	GEM_BUG_ON(!locked);
- 
-@@ -146,14 +145,14 @@ sched_lock_engine(const struct i915_sched_node *node,
- 	 * engine lock. The simple ploy we use is to take the lock then
- 	 * check that the rq still belongs to the newly locked engine.
- 	 */
--	while (locked != (engine = READ_ONCE(rq->engine))) {
--		spin_unlock(&locked->sched_engine->lock);
-+	while (locked != (sched_engine = READ_ONCE(rq->engine)->sched_engine)) {
-+		spin_unlock(&locked->lock);
- 		memset(cache, 0, sizeof(*cache));
--		spin_lock(&engine->sched_engine->lock);
--		locked = engine;
-+		spin_lock(&sched_engine->lock);
-+		locked = sched_engine;
- 	}
- 
--	GEM_BUG_ON(locked != engine);
-+	GEM_BUG_ON(locked != sched_engine);
- 	return locked;
- }
- 
-@@ -161,7 +160,7 @@ static void __i915_schedule(struct i915_sched_node *node,
- 			    const struct i915_sched_attr *attr)
- {
- 	const int prio = max(attr->priority, node->attr.priority);
--	struct intel_engine_cs *engine;
-+	struct i915_sched_engine *sched_engine;
- 	struct i915_dependency *dep, *p;
- 	struct i915_dependency stack;
- 	struct sched_cache cache;
-@@ -236,23 +235,24 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	}
- 
- 	memset(&cache, 0, sizeof(cache));
--	engine = node_to_request(node)->engine;
--	spin_lock(&engine->sched_engine->lock);
-+	sched_engine = node_to_request(node)->engine->sched_engine;
-+	spin_lock(&sched_engine->lock);
- 
- 	/* Fifo and depth-first replacement ensure our deps execute before us */
--	engine = sched_lock_engine(node, engine, &cache);
-+	sched_engine = lock_sched_engine(node, sched_engine, &cache);
- 	list_for_each_entry_safe_reverse(dep, p, &dfs, dfs_link) {
- 		INIT_LIST_HEAD(&dep->dfs_link);
- 
- 		node = dep->signaler;
--		engine = sched_lock_engine(node, engine, &cache);
--		lockdep_assert_held(&engine->sched_engine->lock);
-+		sched_engine = lock_sched_engine(node, sched_engine, &cache);
-+		lockdep_assert_held(&sched_engine->lock);
- 
- 		/* Recheck after acquiring the engine->timeline.lock */
- 		if (prio <= node->attr.priority || node_signaled(node))
- 			continue;
- 
--		GEM_BUG_ON(node_to_request(node)->engine != engine);
-+		GEM_BUG_ON(node_to_request(node)->engine->sched_engine !=
-+			   sched_engine);
- 
- 		WRITE_ONCE(node->attr.priority, prio);
- 
-@@ -270,17 +270,17 @@ static void __i915_schedule(struct i915_sched_node *node,
- 		if (i915_request_in_priority_queue(node_to_request(node))) {
- 			if (!cache.priolist)
- 				cache.priolist =
--					i915_sched_lookup_priolist(engine,
-+					i915_sched_lookup_priolist(sched_engine,
- 								   prio);
- 			list_move_tail(&node->link, cache.priolist);
- 		}
- 
- 		/* Defer (tasklet) submission until after all of our updates. */
--		if (engine->sched_engine->kick_backend)
--			engine->sched_engine->kick_backend(node_to_request(node), prio);
-+		if (sched_engine->kick_backend)
-+			sched_engine->kick_backend(node_to_request(node), prio);
- 	}
- 
--	spin_unlock(&engine->sched_engine->lock);
-+	spin_unlock(&sched_engine->lock);
- }
- 
- void i915_schedule(struct i915_request *rq, const struct i915_sched_attr *attr)
 diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 713c38c99de9..0014745bda30 100644
+index 5bec7b3b8456..713c38c99de9 100644
 --- a/drivers/gpu/drm/i915/i915_scheduler.h
 +++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -39,7 +39,7 @@ void i915_schedule(struct i915_request *request,
- 		   const struct i915_sched_attr *attr);
+@@ -72,6 +72,13 @@ i915_sched_engine_is_empty(struct i915_sched_engine *sched_engine)
+ 	return RB_EMPTY_ROOT(&sched_engine->queue.rb_root);
+ }
  
- struct list_head *
--i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio);
-+i915_sched_lookup_priolist(struct i915_sched_engine *sched_engine, int prio);
- 
- void __i915_priolist_free(struct i915_priolist *p);
- static inline void i915_priolist_free(struct i915_priolist *p)
++static inline void
++i915_sched_engine_reset_on_empty(struct i915_sched_engine *sched_engine)
++{
++	if (i915_sched_engine_is_empty(sched_engine))
++		sched_engine->no_priolist = false;
++}
++
+ void i915_request_show_with_schedule(struct drm_printer *m,
+ 				     const struct i915_request *rq,
+ 				     const char *prefix,
 -- 
 2.28.0
 
