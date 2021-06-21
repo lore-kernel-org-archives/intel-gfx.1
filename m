@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C6334C48BC2
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 19:14:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5E54C4743C
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 19:14:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 887C1611C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 19:14:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 887C1611C1
+	by mail.kernel.org (Postfix) with ESMTPS id 5720361040
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 19:14:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5720361040
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA5D36E3D8;
-	Mon, 21 Jun 2021 19:14:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 217316E3DA;
+	Mon, 21 Jun 2021 19:14:23 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53F036E3D6
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3436C6E3D8
  for <intel-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 19:14:18 +0000 (UTC)
-IronPort-SDR: dokG1N+FVEIHVAlMvSKxRFi9fBIKcgWRTW77jDS2QRuB+Eq+8cNfOpUhk/wap/Scf+CcNGgDba
- Xdn8jN536jew==
-X-IronPort-AV: E=McAfee;i="6200,9189,10022"; a="292545243"
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="292545243"
+IronPort-SDR: BX0r5aNuRSMP7PM4DLgvbWMcobVps4Hj7ieWtNH36xTrue4Ozza/cXozJta3K2oR0CKkiJdEBm
+ pVZs+HJU4ZKw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10022"; a="292545245"
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="292545245"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jun 2021 12:14:16 -0700
-IronPort-SDR: 3QXYczmXbhQNKOtv6vGDIplpJKKvzG547B8AnKcGV3Htp6tzKJz6iG3LOW0eNuHMYTWNnHCU/r
- pvjr93DF3Fcg==
+IronPort-SDR: dvO9TC9+GXfIs6KRBU7v+Q3cv0hhd5yYJN1ZSYXx4CqdLUI1ip6zZZIRynZn9XgEx5DY0WpVTn
+ EWUG8yu6qP8w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="406067945"
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="406067950"
 Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
  by orsmga003.jf.intel.com with ESMTP; 21 Jun 2021 12:14:16 -0700
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 21 Jun 2021 12:14:12 -0700
-Message-Id: <20210621191415.29823-2-anusha.srivatsa@intel.com>
+Date: Mon, 21 Jun 2021 12:14:15 -0700
+Message-Id: <20210621191415.29823-5-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210621191415.29823-1-anusha.srivatsa@intel.com>
 References: <20210621191415.29823-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 1/4] drm/i915/dmc: Introduce DMC_FW_MAIN
+Subject: [Intel-gfx] [CI 4/4] drm/i915/adl_p: Load DMC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,170 +62,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a prep patch for Pipe DMC plugging.
+Load DMC v2.10 on ADLP. The release notes mention that
+this version enables few power savings features.
 
-Add dmc_info struct in intel_dmc to have all common fields
-shared between all DMC's in the package.
-Add DMC_FW_MAIN(dmc_id 0) to refer to the blob.
+v2: Add DMC_PATH() for ADLP (Lucas)
 
-v2: Remove dmc_offset and start_mmioaddr from dmc_info struct (Jose)
-
-Cc: Souza, Jose <jose.souza@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Clint Taylor <clinton.a.taylor@intel.com>
 Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dmc.c | 38 +++++++++++++-----------
- drivers/gpu/drm/i915/display/intel_dmc.h | 18 +++++++----
- 2 files changed, 33 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dmc.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index 97308da28059..269a57d936ab 100644
+index 18e0d225a478..f8789d4543bf 100644
 --- a/drivers/gpu/drm/i915/display/intel_dmc.c
 +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -239,7 +239,7 @@ struct stepping_info {
+@@ -45,6 +45,10 @@
  
- bool intel_dmc_has_payload(struct drm_i915_private *i915)
- {
--	return i915->dmc.dmc_payload;
-+	return i915->dmc.dmc_info[DMC_FW_MAIN].payload;
- }
+ #define GEN12_DMC_MAX_FW_SIZE		ICL_DMC_MAX_FW_SIZE
  
- static const struct stepping_info skl_stepping_info[] = {
-@@ -316,7 +316,8 @@ static void gen9_set_dc_state_debugmask(struct drm_i915_private *dev_priv)
-  */
- void intel_dmc_load_program(struct drm_i915_private *dev_priv)
- {
--	u32 *payload = dev_priv->dmc.dmc_payload;
-+	struct intel_dmc *dmc = &dev_priv->dmc;
-+	struct dmc_fw_info *dmc_info = &dmc->dmc_info[DMC_FW_MAIN];
- 	u32 i, fw_size;
- 
- 	if (!HAS_DMC(dev_priv)) {
-@@ -325,26 +326,26 @@ void intel_dmc_load_program(struct drm_i915_private *dev_priv)
- 		return;
- 	}
- 
--	if (!intel_dmc_has_payload(dev_priv)) {
-+	if (!dev_priv->dmc.dmc_info[DMC_FW_MAIN].payload) {
- 		drm_err(&dev_priv->drm,
- 			"Tried to program CSR with empty payload\n");
- 		return;
- 	}
- 
--	fw_size = dev_priv->dmc.dmc_fw_size;
-+	fw_size = dmc_info->dmc_fw_size;
- 	assert_rpm_wakelock_held(&dev_priv->runtime_pm);
- 
- 	preempt_disable();
- 
- 	for (i = 0; i < fw_size; i++)
- 		intel_uncore_write_fw(&dev_priv->uncore, DMC_PROGRAM(i),
--				      payload[i]);
-+				      dmc_info->payload[i]);
- 
- 	preempt_enable();
- 
--	for (i = 0; i < dev_priv->dmc.mmio_count; i++) {
--		intel_de_write(dev_priv, dev_priv->dmc.mmioaddr[i],
--			       dev_priv->dmc.mmiodata[i]);
-+	for (i = 0; i < dmc_info->mmio_count; i++) {
-+		intel_de_write(dev_priv, dmc_info->mmioaddr[i],
-+			       dmc_info->mmiodata[i]);
- 	}
- 
- 	dev_priv->dmc.dc_state = 0;
-@@ -401,13 +402,14 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
- 			       size_t rem_size)
- {
- 	struct drm_i915_private *i915 = container_of(dmc, typeof(*i915), dmc);
-+	struct dmc_fw_info *dmc_info = &dmc->dmc_info[DMC_FW_MAIN];
- 	unsigned int header_len_bytes, dmc_header_size, payload_size, i;
- 	const u32 *mmioaddr, *mmiodata;
- 	u32 mmio_count, mmio_count_max;
- 	u8 *payload;
- 
--	BUILD_BUG_ON(ARRAY_SIZE(dmc->mmioaddr) < DMC_V3_MAX_MMIO_COUNT ||
--		     ARRAY_SIZE(dmc->mmioaddr) < DMC_V1_MAX_MMIO_COUNT);
-+	BUILD_BUG_ON(ARRAY_SIZE(dmc_info->mmioaddr) < DMC_V3_MAX_MMIO_COUNT ||
-+		     ARRAY_SIZE(dmc_info->mmioaddr) < DMC_V1_MAX_MMIO_COUNT);
- 
- 	/*
- 	 * Check if we can access common fields, we will checkc again below
-@@ -469,10 +471,10 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
- 				mmioaddr[i]);
- 			return 0;
- 		}
--		dmc->mmioaddr[i] = _MMIO(mmioaddr[i]);
--		dmc->mmiodata[i] = mmiodata[i];
-+		dmc_info->mmioaddr[i] = _MMIO(mmioaddr[i]);
-+		dmc_info->mmiodata[i] = mmiodata[i];
- 	}
--	dmc->mmio_count = mmio_count;
-+	dmc_info->mmio_count = mmio_count;
- 
- 	rem_size -= header_len_bytes;
- 
-@@ -485,14 +487,14 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
- 		drm_err(&i915->drm, "DMC FW too big (%u bytes)\n", payload_size);
- 		return 0;
- 	}
--	dmc->dmc_fw_size = dmc_header->fw_size;
-+	dmc_info->dmc_fw_size = dmc_header->fw_size;
- 
--	dmc->dmc_payload = kmalloc(payload_size, GFP_KERNEL);
--	if (!dmc->dmc_payload)
-+	dmc_info->payload = kmalloc(payload_size, GFP_KERNEL);
-+	if (!dmc_info->payload)
- 		return 0;
- 
- 	payload = (u8 *)(dmc_header) + header_len_bytes;
--	memcpy(dmc->dmc_payload, payload, payload_size);
-+	memcpy(dmc_info->payload, payload, payload_size);
- 
- 	return header_len_bytes + payload_size;
- 
-@@ -827,5 +829,5 @@ void intel_dmc_ucode_fini(struct drm_i915_private *dev_priv)
- 	intel_dmc_ucode_suspend(dev_priv);
- 	drm_WARN_ON(&dev_priv->drm, dev_priv->dmc.wakeref);
- 
--	kfree(dev_priv->dmc.dmc_payload);
-+	kfree(dev_priv->dmc.dmc_info[DMC_FW_MAIN].payload);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.h b/drivers/gpu/drm/i915/display/intel_dmc.h
-index 4c22f567b61b..b872f3a4fd03 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.h
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.h
-@@ -16,17 +16,25 @@ struct drm_i915_private;
- #define DMC_VERSION_MAJOR(version)	((version) >> 16)
- #define DMC_VERSION_MINOR(version)	((version) & 0xffff)
- 
-+enum {
-+	DMC_FW_MAIN = 0,
-+	DMC_FW_MAX
-+};
++#define ADLP_DMC_PATH			DMC_PATH(adlp, 2, 10)
++#define ADLP_DMC_VERSION_REQUIRED	DMC_VERSION(2, 10)
++MODULE_FIRMWARE(ADLP_DMC_PATH);
 +
- struct intel_dmc {
- 	struct work_struct work;
- 	const char *fw_path;
- 	u32 required_version;
- 	u32 max_fw_size; /* bytes */
--	u32 *dmc_payload;
--	u32 dmc_fw_size; /* dwords */
- 	u32 version;
--	u32 mmio_count;
--	i915_reg_t mmioaddr[20];
--	u32 mmiodata[20];
-+	struct dmc_fw_info {
-+		u32 mmio_count;
-+		i915_reg_t mmioaddr[20];
-+		u32 mmiodata[20];
-+		u32 dmc_fw_size; /*dwords */
-+		u32 *payload;
-+	} dmc_info[DMC_FW_MAX];
-+
- 	u32 dc_state;
- 	u32 target_dc_state;
- 	u32 allowed_dc_mask;
+ #define ADLS_DMC_PATH			DMC_PATH(adls, 2, 01)
+ #define ADLS_DMC_VERSION_REQUIRED	DMC_VERSION(2, 1)
+ MODULE_FIRMWARE(ADLS_DMC_PATH);
+@@ -724,7 +728,11 @@ void intel_dmc_ucode_init(struct drm_i915_private *dev_priv)
+ 	 */
+ 	intel_dmc_runtime_pm_get(dev_priv);
+ 
+-	if (IS_ALDERLAKE_S(dev_priv)) {
++	if (IS_ALDERLAKE_P(dev_priv)) {
++		dmc->fw_path = ADLP_DMC_PATH;
++		dmc->required_version = ADLP_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
++	} else if (IS_ALDERLAKE_S(dev_priv)) {
+ 		dmc->fw_path = ADLS_DMC_PATH;
+ 		dmc->required_version = ADLS_DMC_VERSION_REQUIRED;
+ 		dmc->max_fw_size = GEN12_DMC_MAX_FW_SIZE;
 -- 
 2.32.0
 
