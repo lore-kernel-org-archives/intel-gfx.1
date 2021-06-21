@@ -2,41 +2,54 @@ Return-Path: <SRS0=oyEe=LP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F826C4743C
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 20:51:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96AEBC4743C
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 21:25:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F3CA760FEB
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 20:51:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3CA760FEB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 39EC061003
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 21:25:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39EC061003
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 993E96E41B;
-	Mon, 21 Jun 2021 20:51:43 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4C2BC6E41B;
- Mon, 21 Jun 2021 20:51:42 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 457F6AA0EB;
- Mon, 21 Jun 2021 20:51:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8D2B6E428;
+	Mon, 21 Jun 2021 21:25:52 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01CF26E428
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Jun 2021 21:25:50 +0000 (UTC)
+IronPort-SDR: e8REVjDF1NF6KshQvPai/Vlqhpl9vtPgsND/4XCWJtPPpIti1288f9iQP0sDqS4G5b8+JLh4Ss
+ NfyrY6DrZWlg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10022"; a="270782367"
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="270782367"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2021 14:25:49 -0700
+IronPort-SDR: hbmXR03lMqxbATnBREzINwRvxoM2wNztTys75sg8gBRdUHPgVX7LKkGo4Opv4g6cS3KoqRs6wY
+ 39ckgLxUfulg==
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="406102452"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2021 14:25:49 -0700
+Date: Mon, 21 Jun 2021 14:34:47 -0700
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <20210621213447.GA20257@labuser-Z97X-UD5H>
+References: <20210610090528.20511-1-jani.nikula@intel.com>
+ <20210611231846.GA12407@labuser-Z97X-UD5H>
+ <87wnqwyi06.fsf@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Mon, 21 Jun 2021 20:51:42 -0000
-Message-ID: <162430870226.19771.17850210874468393872@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210621193644.105627-1-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20210621193644.105627-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Move_system_memory_to_TTM_for_discrete_=28rev6=29?=
+Content-Disposition: inline
+In-Reply-To: <87wnqwyi06.fsf@intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/dsc: abstract helpers to get
+ bigjoiner primary/secondary crtc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,149 +62,224 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1388130156=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1388130156==
-Content-Type: multipart/alternative;
- boundary="===============2477700428364377529=="
+On Mon, Jun 14, 2021 at 11:20:41AM +0300, Jani Nikula wrote:
+> On Fri, 11 Jun 2021, "Navare, Manasi" <manasi.d.navare@intel.com> wrote:
+> > On Thu, Jun 10, 2021 at 12:05:28PM +0300, Jani Nikula wrote:
+> >> Add a single point of truth for figuring out the primary/secondary crtc
+> >> for bigjoiner instead of duplicating the magic pipe +/- 1 in multiple
+> >> places.
+> >> 
+> >> Also fix the pipe validity checks to properly take non-contiguous pipes
+> >> into account. The current checks may theoretically overflow
+> >> i915->pipe_to_crtc_mapping[pipe], albeit with a warning, due to fused
+> >> off pipes, as INTEL_NUM_PIPES() returns the actual number of pipes on
+> >> the platform, and the check is for INTEL_NUM_PIPES() == pipe + 1.
+> >> 
+> >> Prefer primary/secondary terminology going forward.
+> >> 
+> >> v2:
+> >> - Improved abstractions for pipe validity etc.
+> >> 
+> >> Fixes: 8a029c113b17 ("drm/i915/dp: Modify VDSC helpers to configure DSC for Bigjoiner slave")
+> >> Fixes: d961eb20adb6 ("drm/i915/bigjoiner: atomic commit changes for uncompressed joiner")
+> >> Cc: Animesh Manna <animesh.manna@intel.com>
+> >> Cc: Manasi Navare <manasi.d.navare@intel.com>
+> >> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> >> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> >> 
+> >> ---
+> >> 
+> >> Dropped patch 2/2 [1], as the pipes need to be adjacent for big joiner,
+> >> even if pipes have been fused off.
+> >> 
+> >> [1] https://patchwork.freedesktop.org/patch/msgid/20210603122842.22496-2-jani.nikula@intel.com
+> >> ---
+> >>  drivers/gpu/drm/i915/display/intel_display.c  |  7 ++--
+> >>  .../drm/i915/display/intel_display_types.h    |  8 ++++
+> >>  drivers/gpu/drm/i915/display/intel_vdsc.c     | 40 +++++++++++++------
+> >>  drivers/gpu/drm/i915/display/intel_vdsc.h     |  1 +
+> >>  4 files changed, 40 insertions(+), 16 deletions(-)
+> >> 
+> >> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> >> index 362bff9beb5c..3bad4e00f7be 100644
+> >> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> >> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> >> @@ -9618,7 +9618,6 @@ static int intel_atomic_check_bigjoiner(struct intel_atomic_state *state,
+> >>  					struct intel_crtc_state *old_crtc_state,
+> >>  					struct intel_crtc_state *new_crtc_state)
+> >>  {
+> >> -	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+> >>  	struct intel_crtc_state *slave_crtc_state, *master_crtc_state;
+> >>  	struct intel_crtc *slave, *master;
+> >>  
+> >> @@ -9634,15 +9633,15 @@ static int intel_atomic_check_bigjoiner(struct intel_atomic_state *state,
+> >>  	if (!new_crtc_state->bigjoiner)
+> >>  		return 0;
+> >>  
+> >> -	if (1 + crtc->pipe >= INTEL_NUM_PIPES(dev_priv)) {
+> >> +	slave = intel_dsc_get_bigjoiner_secondary(crtc);
+> >> +	if (!slave) {
+> >>  		DRM_DEBUG_KMS("[CRTC:%d:%s] Big joiner configuration requires "
+> >>  			      "CRTC + 1 to be used, doesn't exist\n",
+> >>  			      crtc->base.base.id, crtc->base.name);
+> >>  		return -EINVAL;
+> >>  	}
+> >>  
+> >> -	slave = new_crtc_state->bigjoiner_linked_crtc =
+> >> -		intel_get_crtc_for_pipe(dev_priv, crtc->pipe + 1);
+> >> +	new_crtc_state->bigjoiner_linked_crtc = slave;
+> >>  	slave_crtc_state = intel_atomic_get_crtc_state(&state->base, slave);
+> >>  	master = crtc;
+> >>  	if (IS_ERR(slave_crtc_state))
+> >> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> >> index 15e91a99c8b9..7d64d8487fbe 100644
+> >> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> >> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> >> @@ -1723,6 +1723,14 @@ vlv_pipe_to_channel(enum pipe pipe)
+> >>  	}
+> >>  }
+> >>  
+> >> +static inline bool intel_pipe_valid(struct drm_i915_private *i915, enum pipe pipe)
+> >> +{
+> >> +	return (pipe >= 0 &&
+> >> +		pipe < ARRAY_SIZE(i915->pipe_to_crtc_mapping) &&
+> >> +		INTEL_INFO(i915)->pipe_mask & BIT(pipe) &&
+> >> +		i915->pipe_to_crtc_mapping[pipe]);
+> >
+> > So no need to check INTEL_NUM_PIPES as long as the index exists in pipe_to_crtc_mappings correct?
+> 
+> Checking against INTEL_NUM_PIPES() is just plain wrong, because pipe may
+> be >= INTEL_NUM_PIPES() if pipes have been fused off.
 
---===============2477700428364377529==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Okay yes agree
 
-== Series Details ==
+> 
+> >
+> >> +}
+> >> +
+> >>  static inline struct intel_crtc *
+> >>  intel_get_first_crtc(struct drm_i915_private *dev_priv)
+> >>  {
+> >> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> >> index 7121b66bf96d..85749370508c 100644
+> >> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
+> >> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> >> @@ -1106,6 +1106,27 @@ static i915_reg_t dss_ctl2_reg(const struct intel_crtc_state *crtc_state)
+> >>  	return is_pipe_dsc(crtc_state) ? ICL_PIPE_DSS_CTL2(pipe) : DSS_CTL2;
+> >>  }
+> >>  
+> >> +static struct intel_crtc *
+> >> +_get_crtc_for_pipe(struct drm_i915_private *i915, enum pipe pipe)
+> >> +{
+> >> +	if (!intel_pipe_valid(i915, pipe))
+> >> +		return NULL;
+> >> +
+> >> +	return intel_get_crtc_for_pipe(i915, pipe);
+> >> +}
+> >
+> > Can we not include intel_pipe_valid() check in intel_get_crtc_for_pipe() so that any other function that calls intel_get_crtc_for_pipe() also
+> > validates the pipe ?
+> 
+> There's a use case for intel_dsc_get_bigjoiner_secondary() that requires
+> graceful error handling withouth a WARN. intel_get_crtc_for_pipe()
+> always WARNs on invalid pipe.
+> 
+> We should probably use intel_pipe_valid() in intel_get_crtc_for_pipe()
+> too, and WARN, but that's for another patch another time.
 
-Series: drm/i915: Move system memory to TTM for discrete (rev6)
-URL   : https://patchwork.freedesktop.org/series/90898/
-State : success
+Okay sure. With these clarifications:
 
-== Summary ==
+Reviewed-by: Manasi Navare <manasi.dl.navare@intel.com>
 
-CI Bug Log - changes from CI_DRM_10257 -> Patchwork_20422
-====================================================
+Manasi
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20422/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20422 that come from known issues:
-
-### IGT changes ###
-
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-
-
-Participating hosts (44 -> 39)
-------------------------------
-
-  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10257 -> Patchwork_20422
-
-  CI-20190529: 20190529
-  CI_DRM_10257: d8f301b1b81563fb1d542c623d98ac6816d8f7e1 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6115: 4ef420186b82f1a6d9c9b69d2f8de4fd100a2af3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20422: 0c2a7578bd6c7aa377ed0b7865a1e23245fa3ce6 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-0c2a7578bd6c drm/i915/ttm: Use TTM for system memory
-6e4ec6c36c32 drm/i915/ttm: Adjust gem flags and caching settings after a move
-0c3d2a2d76b0 drm/i915: Update object placement flags to be mutable
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20422/index.html
-
---===============2477700428364377529==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Move system memory to TTM for discrete (rev6)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/90898/">https://patchwork.freedesktop.org/series/90898/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20422/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20422/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10257 -&gt; Patchwork_20422</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20422/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20422 that come from known issues:</p>
-<h3>IGT changes</h3>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (44 -&gt; 39)</h2>
-<p>Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10257 -&gt; Patchwork_20422</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10257: d8f301b1b81563fb1d542c623d98ac6816d8f7e1 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6115: 4ef420186b82f1a6d9c9b69d2f8de4fd100a2af3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20422: 0c2a7578bd6c7aa377ed0b7865a1e23245fa3ce6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>0c2a7578bd6c drm/i915/ttm: Use TTM for system memory<br />
-6e4ec6c36c32 drm/i915/ttm: Adjust gem flags and caching settings after a move<br />
-0c3d2a2d76b0 drm/i915: Update object placement flags to be mutable</p>
-
-</body>
-</html>
-
---===============2477700428364377529==--
-
---===============1388130156==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> BR,
+> Jani.
+> 
+> 
+> >
+> > Manasi
+> >
+> >
+> >> +
+> >> +struct intel_crtc *
+> >> +intel_dsc_get_bigjoiner_secondary(const struct intel_crtc *primary_crtc)
+> >> +{
+> >> +	return _get_crtc_for_pipe(to_i915(primary_crtc->base.dev), primary_crtc->pipe + 1);
+> >> +}
+> >> +
+> >> +static struct intel_crtc *
+> >> +intel_dsc_get_bigjoiner_primary(const struct intel_crtc *secondary_crtc)
+> >> +{
+> >> +	return _get_crtc_for_pipe(to_i915(secondary_crtc->base.dev), secondary_crtc->pipe - 1);
+> >> +}
+> >> +
+> >>  void intel_uncompressed_joiner_enable(const struct intel_crtc_state *crtc_state)
+> >>  {
+> >>  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+> >> @@ -1178,15 +1199,13 @@ void intel_uncompressed_joiner_get_config(struct intel_crtc_state *crtc_state)
+> >>  	dss_ctl1 = intel_de_read(dev_priv, dss_ctl1_reg(crtc_state));
+> >>  	if (dss_ctl1 & UNCOMPRESSED_JOINER_MASTER) {
+> >>  		crtc_state->bigjoiner = true;
+> >> -		if (!WARN_ON(INTEL_NUM_PIPES(dev_priv) == crtc->pipe + 1))
+> >> -			crtc_state->bigjoiner_linked_crtc =
+> >> -				intel_get_crtc_for_pipe(dev_priv, crtc->pipe + 1);
+> >> +		crtc_state->bigjoiner_linked_crtc = intel_dsc_get_bigjoiner_secondary(crtc);
+> >> +		drm_WARN_ON(&dev_priv->drm, !crtc_state->bigjoiner_linked_crtc);
+> >>  	} else if (dss_ctl1 & UNCOMPRESSED_JOINER_SLAVE) {
+> >>  		crtc_state->bigjoiner = true;
+> >>  		crtc_state->bigjoiner_slave = true;
+> >> -		if (!WARN_ON(crtc->pipe == PIPE_A))
+> >> -			crtc_state->bigjoiner_linked_crtc =
+> >> -				intel_get_crtc_for_pipe(dev_priv, crtc->pipe - 1);
+> >> +		crtc_state->bigjoiner_linked_crtc = intel_dsc_get_bigjoiner_primary(crtc);
+> >> +		drm_WARN_ON(&dev_priv->drm, !crtc_state->bigjoiner_linked_crtc);
+> >>  	}
+> >>  }
+> >>  
+> >> @@ -1224,14 +1243,11 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
+> >>  
+> >>  		if (!(dss_ctl1 & MASTER_BIG_JOINER_ENABLE)) {
+> >>  			crtc_state->bigjoiner_slave = true;
+> >> -			if (!WARN_ON(crtc->pipe == PIPE_A))
+> >> -				crtc_state->bigjoiner_linked_crtc =
+> >> -					intel_get_crtc_for_pipe(dev_priv, crtc->pipe - 1);
+> >> +			crtc_state->bigjoiner_linked_crtc = intel_dsc_get_bigjoiner_primary(crtc);
+> >>  		} else {
+> >> -			if (!WARN_ON(INTEL_NUM_PIPES(dev_priv) == crtc->pipe + 1))
+> >> -				crtc_state->bigjoiner_linked_crtc =
+> >> -					intel_get_crtc_for_pipe(dev_priv, crtc->pipe + 1);
+> >> +			crtc_state->bigjoiner_linked_crtc = intel_dsc_get_bigjoiner_secondary(crtc);
+> >>  		}
+> >> +		drm_WARN_ON(&dev_priv->drm, !crtc_state->bigjoiner_linked_crtc);
+> >>  	}
+> >>  
+> >>  	/* FIXME: add more state readout as needed */
+> >> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.h b/drivers/gpu/drm/i915/display/intel_vdsc.h
+> >> index fe4d45561253..dfb1fd38deb4 100644
+> >> --- a/drivers/gpu/drm/i915/display/intel_vdsc.h
+> >> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.h
+> >> @@ -22,5 +22,6 @@ void intel_uncompressed_joiner_get_config(struct intel_crtc_state *crtc_state);
+> >>  void intel_dsc_get_config(struct intel_crtc_state *crtc_state);
+> >>  enum intel_display_power_domain
+> >>  intel_dsc_power_domain(const struct intel_crtc_state *crtc_state);
+> >> +struct intel_crtc *intel_dsc_get_bigjoiner_secondary(const struct intel_crtc *primary_crtc);
+> >>  
+> >>  #endif /* __INTEL_VDSC_H__ */
+> >> -- 
+> >> 2.20.1
+> >> 
+> 
+> -- 
+> Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1388130156==--
