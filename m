@@ -7,49 +7,49 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E0ADC4743C
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 10:26:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA42BC4743C
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 10:55:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D7CA861059
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 10:26:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7CA861059
+	by mail.kernel.org (Postfix) with ESMTPS id 91026610EA
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jun 2021 10:55:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91026610EA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6540D89E11;
-	Mon, 21 Jun 2021 10:26:41 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF0C489E0E;
- Mon, 21 Jun 2021 10:26:39 +0000 (UTC)
-IronPort-SDR: KTEwgOgNSZuGni6ni1gyGRgS5KhN4GKNGA0rwadScOZk5mx3ttxW9vV4p5tdpTg0LnkrmY+SAw
- MhWxFOYQkheA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10021"; a="206637061"
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="206637061"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2021 03:26:39 -0700
-IronPort-SDR: UwWvUuU2SJj/EJBjYr2XopXjxSjRUV8vishL26GW3nlDG8PYTkhefLjvWlOuEwIEYKtWRj0ZT4
- JxgD75hcLPZQ==
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="623034761"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3386A89D46;
+	Mon, 21 Jun 2021 10:55:40 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F05A489E3F;
+ Mon, 21 Jun 2021 10:55:38 +0000 (UTC)
+IronPort-SDR: CSZs35lQtXmfGfJrNFkXfyvX/h3kRz5x1cfdfpJvTF2kGaZUjgU4As5g7NVn3FmrGcjdO8UTRq
+ DlEGx3eSel7Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,10021"; a="267959828"
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="267959828"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2021 03:55:38 -0700
+IronPort-SDR: NXbV9wE3YxDvUjddWYd3bdgWZFAY8YRcNF8rauyzUDEKxqPbSxSRTadKXu8hf+prP/DrqXCY2T
+ k3lXLy2VHW+Q==
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="422899876"
 Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.68.154])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2021 03:26:37 -0700
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2021 03:55:36 -0700
 Received: from platvala by thrakatuluk with local (Exim 4.94)
  (envelope-from <petri.latvala@intel.com>)
- id 1lvHAT-0004P3-OE; Mon, 21 Jun 2021 13:28:37 +0300
-Date: Mon, 21 Jun 2021 13:28:37 +0300
+ id 1lvHcX-0004td-Al; Mon, 21 Jun 2021 13:57:37 +0300
+Date: Mon, 21 Jun 2021 13:57:37 +0300
 From: Petri Latvala <petri.latvala@intel.com>
-To: Vidya Srinivas <vidya.srinivas@intel.com>
-Message-ID: <YNBp1bQ3YucQAnIs@platvala-desk.ger.corp.intel.com>
-References: <1622176367-12608-1-git-send-email-vidya.srinivas@intel.com>
+To: Lee Shawn C <shawn.c.lee@intel.com>
+Message-ID: <YNBwoaw3fgYfxsXS@platvala-desk.ger.corp.intel.com>
+References: <20210531153922.4683-1-shawn.c.lee@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1622176367-12608-1-git-send-email-vidya.srinivas@intel.com>
+In-Reply-To: <20210531153922.4683-1-shawn.c.lee@intel.com>
 X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH i-g-t] [RFC] tests/drm_read: Fix subtest
- invalid-buffer
+Subject: Re: [Intel-gfx] [igt-dev] [PATCH i-g-t] tests/kms_dp_dsc: Avoid
+ SIGSEGV when release DRM connector.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,54 +62,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org, markyacoub@chromium.org,
- intel-gfx@lists.freedesktop.org, charlton.lin@intel.com
+Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ charlton.lin@intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 28, 2021 at 10:02:47AM +0530, Vidya Srinivas wrote:
-> Using (void *)-1 directly in read is aborting on chrome systems.
-> Following message is seen.
+On Mon, May 31, 2021 at 11:39:22PM +0800, Lee Shawn C wrote:
+> Got SIGSEGV fault while running kms_dp_dsc test but did not
+> connect DP DSC capable monitor on eDP/DP port. This test daemon
+> should "SKIP" test without any problem. We found kms_dp_dsc
+> can't get proper drmModeConnector and caused this SIGSEGV fault
+> when release it. Make sure drmModeConnector is available before
+> free it can avoid this issue.
 > 
-> Starting subtest: invalid-buffer
-> *** buffer overflow detected ***: terminated
-> Received signal SIGABRT.
-> Stack trace:
-> Aborted (core dumped)
-> 
-> Patch just adds a pointer variable and uses it in read.
-> 
-> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
-> ---
->  tests/drm_read.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tests/drm_read.c b/tests/drm_read.c
-> index ccf9d822fd8d..2fdec5be4078 100644
-> --- a/tests/drm_read.c
-> +++ b/tests/drm_read.c
-> @@ -103,10 +103,11 @@ static void teardown(int fd)
->  static void test_invalid_buffer(int in)
->  {
->  	int fd = setup(in, 0);
-> +	void *add = (void *)-1;
->  
->  	alarm(1);
->  
-> -	igt_assert_eq(read(fd, (void *)-1, 4096), -1);
-> +	igt_assert_eq(read(fd, add, 4096), -1);
->  	igt_assert_eq(errno, EFAULT);
->  
->  	teardown(fd);
-
-This looked weird but then I checked what glibc is actually
-doing. This is FORTIFY_SOURCE in action, and read() checks the buffer
-with __builtin_object_size() that it has room for the read. Which it
-can only do here if the address is a literal.
+> Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 
 Reviewed-by: Petri Latvala <petri.latvala@intel.com>
+
+
+> ---
+>  tests/kms_dp_dsc.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tests/kms_dp_dsc.c b/tests/kms_dp_dsc.c
+> index 2446fd82bba3..ea7c9f4f72ce 100644
+> --- a/tests/kms_dp_dsc.c
+> +++ b/tests/kms_dp_dsc.c
+> @@ -262,7 +262,7 @@ igt_main
+>  	data_t data = {};
+>  	igt_output_t *output;
+>  	drmModeRes *res;
+> -	drmModeConnector *connector;
+> +	drmModeConnector *connector = NULL;
+>  	int i, test_conn_cnt, test_cnt;
+>  	int tests[] = {DRM_MODE_CONNECTOR_eDP, DRM_MODE_CONNECTOR_DisplayPort};
+>  
+> @@ -311,7 +311,8 @@ igt_main
+>  	}
+>  
+>  	igt_fixture {
+> -		drmModeFreeConnector(connector);
+> +		if (connector)
+> +			drmModeFreeConnector(connector);
+>  		drmModeFreeResources(res);
+>  		close(data.debugfs_fd);
+>  		close(data.drm_fd);
+> -- 
+> 2.17.1
+> 
+> _______________________________________________
+> igt-dev mailing list
+> igt-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/igt-dev
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
