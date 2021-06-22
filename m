@@ -2,66 +2,67 @@ Return-Path: <SRS0=wfJw=LQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6ECCEC48BE5
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 16:55:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D61AAC49EA2
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 16:55:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E6F96134F
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 16:55:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E6F96134F
+	by mail.kernel.org (Postfix) with ESMTPS id A15C06102A
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 16:55:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A15C06102A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F13F06E5D5;
-	Tue, 22 Jun 2021 16:55:19 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A079F6E1FB
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 16:55:18 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- h21-20020a1ccc150000b02901d4d33c5ca0so2708468wmb.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 09:55:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9059D6E5D1;
+	Tue, 22 Jun 2021 16:55:23 +0000 (UTC)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9B1A6E7E5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 16:55:20 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id w13so6652702wmc.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 09:55:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rGseW/2NA6fZVCFc5Kns8fRU7bafEFYBWr5+CbGtNOg=;
- b=BLlKpZF+W0F89w0d1M6ubYZffSuuE5Yps0apeP/drgt9QWtdVgszEHmIZdJ/mSxidD
- QLBmzI18tDJAVpkQuhCv6qPq75yDR+fbVwbT4P0af6wIBdrxkERaotV5dIxhohP7wMr1
- qTrUz0atoijLS9U3ZeZP2YgmD+4lQ/EpgbLws=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Pya40DVjcJj5BW1FVokXsLJJM2aJYidE6DU5AszPKcA=;
+ b=TrbJ1ukWOdbGIkgGvvhbR2N8NeHcu7TL0jxDDmJksRr3u6CINrNYADW2XJ8Muxljzw
+ +A5NwtlRHv5hIYq035iX3Ma+1HnPAfcbDN1AqBNatd7pmPZaCfwVTJZZ4xvn8IzmeFAX
+ uEOra2eN8WhuvKynwlS+mfdADlAghXaEkZ7s0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rGseW/2NA6fZVCFc5Kns8fRU7bafEFYBWr5+CbGtNOg=;
- b=PV1JaBszavCXkSQrkcSCXY6odWhIj1DE9TdQkE/JczT3q51ExkJOylCZo8Kbq1vn6L
- 0x3V1EfN+mq/x46xlfgya1SREwWL/WuRTWB1UTjtOcUDrAhC+r+YHEefrOBR0bCEeY4R
- NGAR4AzrvvpSvL4CV/pPZKzR/E0vW07n2Tq7Tbz4cV814Acf3Co7GsVaArLALAFEAPoV
- Cu1ofXBqrqa5df+4wh2Sf3QQfwS0GoLN9+9A/89eKMOWQrm4VZJL3RC+EFYScQTUHNZ4
- eaozpk63AEMMsevsM52BfACNQlGyAcMX40I70g9fjflSk9BCO7kuh72tJBeBSIdvQzOz
- d4AA==
-X-Gm-Message-State: AOAM5311jWGPZjHjEptPn8CfJdJGop4KhWqfHsg8cm9jG0pr0iyrXGG8
- 3M3DCnLxLLodBE/r8qfKJhtCVg==
-X-Google-Smtp-Source: ABdhPJwx7DftFLy/uJveBEvFozElMCAhNwSlUPie2QPKETquGjboOFCsRE7C89bBEUzYTH3kuNoKjw==
-X-Received: by 2002:a1c:4b04:: with SMTP id y4mr5714572wma.186.1624380917326; 
- Tue, 22 Jun 2021 09:55:17 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Pya40DVjcJj5BW1FVokXsLJJM2aJYidE6DU5AszPKcA=;
+ b=AhxKaQ2KQy5sMAZdoSBy1bVw1nPNCn4LuSjPQIaKZd/8rZxmPP2tziPRxEAlfXaxRB
+ GwqX6BM7/ctZkhUCOW5vWg+E7t0wH+7Wil4GVgcZBbx6oVz2PfwKylWnfu96OOf8Ah53
+ EpS8SiRDEdjD2CwC5BDdUSdAJ8u4W63tEADNWhm8BDUqoDcNnCM0XR0mjQmAGW5UhhE3
+ BcgL1hF3JMYctWxo2NmDLJdFpMP6jPpaAofLeez0UEVb1Uaym+bYJeriNW7KMRZvbBg1
+ 4p1QrvhMQr5qSgjvA38nHisye/+Un1xaesihYFz91sPBNx1e3NQGTi7FIlUMjvTxeBz2
+ 65rw==
+X-Gm-Message-State: AOAM530n7gN1BksbsMmAdbgfYQ3/DtA6DDJa/txmMd6mJloy9xcoxsjE
+ jdJYfAmyDqqZHqASKsemZrEOCg==
+X-Google-Smtp-Source: ABdhPJwScbI2igBwMthiteBhgJTlAyEs7MdGHzPT05OF2jHuLlFRzP0jfHfP+Bf1t2qvpRFNfoQxHA==
+X-Received: by 2002:a05:600c:3658:: with SMTP id
+ y24mr5564844wmq.6.1624380919402; 
+ Tue, 22 Jun 2021 09:55:19 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id l23sm3632342wmc.5.2021.06.22.09.55.16
+ by smtp.gmail.com with ESMTPSA id l23sm3632342wmc.5.2021.06.22.09.55.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Jun 2021 09:55:16 -0700 (PDT)
+ Tue, 22 Jun 2021 09:55:18 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue, 22 Jun 2021 18:54:56 +0200
-Message-Id: <20210622165511.3169559-1-daniel.vetter@ffwll.ch>
+Date: Tue, 22 Jun 2021 18:54:58 +0200
+Message-Id: <20210622165511.3169559-3-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0.rc2
+In-Reply-To: <20210622165511.3169559-1-daniel.vetter@ffwll.ch>
+References: <20210622165511.3169559-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/15] implicit fencing/dma-resv rules for
- shared buffers
+Subject: [Intel-gfx] [PATCH 02/15] dma-buf: Switch to inline kerneldoc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,122 +75,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Deepak R Varma <mh12gx2825@gmail.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Kevin Wang <kevin1.wang@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ linaro-mm-sig@lists.linaro.org, Nirmoy Das <nirmoy.das@amd.com>,
+ Chen Li <chenli@uniontech.com>, Dave Airlie <airlied@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
-
-After many bits have been spilled on dri-devel discussion this I think
-we're converging on a consensus understanding of where we are, and it's
-time to resubmit patches.
-
-This is essentially v2 of
-
-https://lore.kernel.org/dri-devel/20210521090959.1663703-7-daniel.vetter@ffwll.ch/
-
-but a lot has changed:
-
-- Christian fixed up amdgpu with a much more competent patch.
-
-- I used the entire audit I've done in that patch to instead improve the
-  documentation. That's the first 3 patches.
-
-- panfrost patches fixed (hopefully, testing would be appreciated)
-
-- drm/tiny patch fixed
-
-- I've also thrown an RFC on top at the end for what I think amdgpu should
-  be doing. Probably really, really buggy, so beware :-)
-
-Review on the entire pile except the very last RFC very much appreciated.
-
-Note that this does not, by far, fix all the various issues in handling
-dma_buf.resv fences. This is just the part I had mostly ready already, and
-which didn't take long to refresh and rebase. The other part is checking
-whether drivers do anything funny that breaks the cross driver contract in
-how they handle dependencies the get from the dma_buf.resv. I know they
-do, but the full audit is not yet done.
-
-Cheers, Daniel
-
-Daniel Vetter (15):
-  dma-resv: Fix kerneldoc
-  dma-buf: Switch to inline kerneldoc
-  dma-buf: Document dma-buf implicit fencing/resv fencing rules
-  drm/panfrost: Shrink sched_lock
-  drm/panfrost: Use xarray and helpers for depedency tracking
-  drm/panfrost: Fix implicit sync
-  drm/atomic-helper: make drm_gem_plane_helper_prepare_fb the default
-  drm/<driver>: drm_gem_plane_helper_prepare_fb is now the default
-  drm/armada: Remove prepare/cleanup_fb hooks
-  drm/vram-helpers: Create DRM_GEM_VRAM_PLANE_HELPER_FUNCS
-  drm/omap: Follow implicit fencing in prepare_fb
-  drm/simple-helper: drm_gem_simple_display_pipe_prepare_fb as default
-  drm/tiny: drm_gem_simple_display_pipe_prepare_fb is the default
-  drm/gem: Tiny kernel clarification for drm_gem_fence_array_add
-  RFC: drm/amdgpu: Implement a proper implicit fencing uapi
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  21 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   6 +
- drivers/gpu/drm/armada/armada_overlay.c       |   2 -
- drivers/gpu/drm/armada/armada_plane.c         |  29 ----
- drivers/gpu/drm/armada/armada_plane.h         |   2 -
- drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c      |   1 -
- drivers/gpu/drm/ast/ast_mode.c                |   3 +-
- drivers/gpu/drm/drm_atomic_helper.c           |  10 ++
- drivers/gpu/drm/drm_gem.c                     |   3 +
- drivers/gpu/drm/drm_gem_atomic_helper.c       |   3 +
- drivers/gpu/drm/drm_simple_kms_helper.c       |  12 +-
- drivers/gpu/drm/gud/gud_drv.c                 |   1 -
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    |   3 +-
- drivers/gpu/drm/imx/dcss/dcss-plane.c         |   1 -
- drivers/gpu/drm/imx/ipuv3-plane.c             |   1 -
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |   1 -
- drivers/gpu/drm/ingenic/ingenic-ipu.c         |   1 -
- drivers/gpu/drm/mcde/mcde_display.c           |   1 -
- drivers/gpu/drm/mediatek/mtk_drm_plane.c      |   1 -
- drivers/gpu/drm/meson/meson_overlay.c         |   1 -
- drivers/gpu/drm/meson/meson_plane.c           |   1 -
- drivers/gpu/drm/mxsfb/mxsfb_kms.c             |   2 -
- drivers/gpu/drm/omapdrm/omap_plane.c          |   3 +
- drivers/gpu/drm/panfrost/panfrost_drv.c       |  41 +++--
- drivers/gpu/drm/panfrost/panfrost_job.c       |  71 ++++-----
- drivers/gpu/drm/panfrost/panfrost_job.h       |   8 +-
- drivers/gpu/drm/pl111/pl111_display.c         |   1 -
- drivers/gpu/drm/rockchip/rockchip_drm_vop.c   |   1 -
- drivers/gpu/drm/stm/ltdc.c                    |   1 -
- drivers/gpu/drm/sun4i/sun4i_layer.c           |   1 -
- drivers/gpu/drm/sun4i/sun8i_ui_layer.c        |   1 -
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c        |   1 -
- drivers/gpu/drm/tidss/tidss_plane.c           |   1 -
- drivers/gpu/drm/tiny/hx8357d.c                |   1 -
- drivers/gpu/drm/tiny/ili9225.c                |   1 -
- drivers/gpu/drm/tiny/ili9341.c                |   1 -
- drivers/gpu/drm/tiny/ili9486.c                |   1 -
- drivers/gpu/drm/tiny/mi0283qt.c               |   1 -
- drivers/gpu/drm/tiny/repaper.c                |   1 -
- drivers/gpu/drm/tiny/st7586.c                 |   1 -
- drivers/gpu/drm/tiny/st7735r.c                |   1 -
- drivers/gpu/drm/tve200/tve200_display.c       |   1 -
- drivers/gpu/drm/vboxvideo/vbox_mode.c         |   3 +-
- drivers/gpu/drm/xen/xen_drm_front_kms.c       |   1 -
- include/drm/drm_gem_vram_helper.h             |  12 ++
- include/drm/drm_modeset_helper_vtables.h      |   7 +-
- include/drm/drm_simple_kms_helper.h           |   7 +-
- include/linux/dma-buf.h                       | 146 +++++++++++++++---
- include/linux/dma-resv.h                      |   2 +-
- include/uapi/drm/amdgpu_drm.h                 |  10 ++
- 51 files changed, 270 insertions(+), 170 deletions(-)
-
--- 
-2.32.0.rc2
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QWxzbyByZXZpZXcgJiB1cGRhdGUgZXZlcnl0aGluZyB3aGlsZSB3ZSdyZSBhdCBpdC4KClRoaXMg
+aXMgcHJlcCB3b3JrIHRvIHNtYXNoIGEgdG9uIG9mIHN0dWZmIGludG8gdGhlIGtlcm5lbGRvYyBm
+b3IKQHJlc3YuCgpTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGlu
+dGVsLmNvbT4KQ2M6IFN1bWl0IFNlbXdhbCA8c3VtaXQuc2Vtd2FsQGxpbmFyby5vcmc+CkNjOiAi
+Q2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6IEFsZXggRGV1
+Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmll
+bC52ZXR0ZXJAZmZ3bGwuY2g+CkNjOiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgpD
+YzogTmlybW95IERhcyA8bmlybW95LmRhc0BhbWQuY29tPgpDYzogRGVlcGFrIFIgVmFybWEgPG1o
+MTJneDI4MjVAZ21haWwuY29tPgpDYzogQ2hlbiBMaSA8Y2hlbmxpQHVuaW9udGVjaC5jb20+CkNj
+OiBLZXZpbiBXYW5nIDxrZXZpbjEud2FuZ0BhbWQuY29tPgpDYzogbGludXgtbWVkaWFAdmdlci5r
+ZXJuZWwub3JnCkNjOiBsaW5hcm8tbW0tc2lnQGxpc3RzLmxpbmFyby5vcmcKLS0tCiBpbmNsdWRl
+L2xpbnV4L2RtYS1idWYuaCB8IDEwNyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0t
+LS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgODMgaW5zZXJ0aW9ucygrKSwgMjQgZGVsZXRpb25zKC0p
+CgpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9kbWEtYnVmLmggYi9pbmNsdWRlL2xpbnV4L2Rt
+YS1idWYuaAppbmRleCA5MmVlYzM4YTAzYWEuLjZkMThiOWU0NDhiOSAxMDA2NDQKLS0tIGEvaW5j
+bHVkZS9saW51eC9kbWEtYnVmLmgKKysrIGIvaW5jbHVkZS9saW51eC9kbWEtYnVmLmgKQEAgLTI4
+OSwyOCArMjg5LDYgQEAgc3RydWN0IGRtYV9idWZfb3BzIHsKIAogLyoqCiAgKiBzdHJ1Y3QgZG1h
+X2J1ZiAtIHNoYXJlZCBidWZmZXIgb2JqZWN0Ci0gKiBAc2l6ZTogc2l6ZSBvZiB0aGUgYnVmZmVy
+OyBpbnZhcmlhbnQgb3ZlciB0aGUgbGlmZXRpbWUgb2YgdGhlIGJ1ZmZlci4KLSAqIEBmaWxlOiBm
+aWxlIHBvaW50ZXIgdXNlZCBmb3Igc2hhcmluZyBidWZmZXJzIGFjcm9zcywgYW5kIGZvciByZWZj
+b3VudGluZy4KLSAqIEBhdHRhY2htZW50czogbGlzdCBvZiBkbWFfYnVmX2F0dGFjaG1lbnQgdGhh
+dCBkZW5vdGVzIGFsbCBkZXZpY2VzIGF0dGFjaGVkLAotICogICAgICAgICAgICAgICBwcm90ZWN0
+ZWQgYnkgZG1hX3Jlc3YgbG9jay4KLSAqIEBvcHM6IGRtYV9idWZfb3BzIGFzc29jaWF0ZWQgd2l0
+aCB0aGlzIGJ1ZmZlciBvYmplY3QuCi0gKiBAbG9jazogdXNlZCBpbnRlcm5hbGx5IHRvIHNlcmlh
+bGl6ZSBsaXN0IG1hbmlwdWxhdGlvbiwgYXR0YWNoL2RldGFjaCBhbmQKLSAqICAgICAgICB2bWFw
+L3VubWFwCi0gKiBAdm1hcHBpbmdfY291bnRlcjogdXNlZCBpbnRlcm5hbGx5IHRvIHJlZmNudCB0
+aGUgdm1hcHMKLSAqIEB2bWFwX3B0cjogdGhlIGN1cnJlbnQgdm1hcCBwdHIgaWYgdm1hcHBpbmdf
+Y291bnRlciA+IDAKLSAqIEBleHBfbmFtZTogbmFtZSBvZiB0aGUgZXhwb3J0ZXI7IHVzZWZ1bCBm
+b3IgZGVidWdnaW5nLgotICogQG5hbWU6IHVzZXJzcGFjZS1wcm92aWRlZCBuYW1lOyB1c2VmdWwg
+Zm9yIGFjY291bnRpbmcgYW5kIGRlYnVnZ2luZywKLSAqICAgICAgICBwcm90ZWN0ZWQgYnkgQHJl
+c3YuCi0gKiBAbmFtZV9sb2NrOiBzcGlubG9jayB0byBwcm90ZWN0IG5hbWUgYWNjZXNzCi0gKiBA
+b3duZXI6IHBvaW50ZXIgdG8gZXhwb3J0ZXIgbW9kdWxlOyB1c2VkIGZvciByZWZjb3VudGluZyB3
+aGVuIGV4cG9ydGVyIGlzIGEKLSAqICAgICAgICAga2VybmVsIG1vZHVsZS4KLSAqIEBsaXN0X25v
+ZGU6IG5vZGUgZm9yIGRtYV9idWYgYWNjb3VudGluZyBhbmQgZGVidWdnaW5nLgotICogQHByaXY6
+IGV4cG9ydGVyIHNwZWNpZmljIHByaXZhdGUgZGF0YSBmb3IgdGhpcyBidWZmZXIgb2JqZWN0Lgot
+ICogQHJlc3Y6IHJlc2VydmF0aW9uIG9iamVjdCBsaW5rZWQgdG8gdGhpcyBkbWEtYnVmCi0gKiBA
+cG9sbDogZm9yIHVzZXJzcGFjZSBwb2xsIHN1cHBvcnQKLSAqIEBjYl9leGNsOiBmb3IgdXNlcnNw
+YWNlIHBvbGwgc3VwcG9ydAotICogQGNiX3NoYXJlZDogZm9yIHVzZXJzcGFjZSBwb2xsIHN1cHBv
+cnQKLSAqIEBzeXNmc19lbnRyeTogZm9yIGV4cG9zaW5nIGluZm9ybWF0aW9uIGFib3V0IHRoaXMg
+YnVmZmVyIGluIHN5c2ZzLgogICogVGhlIGF0dGFjaG1lbnRfdWlkIG1lbWJlciBvZiBAc3lzZnNf
+ZW50cnkgaXMgcHJvdGVjdGVkIGJ5IGRtYV9yZXN2IGxvY2sKICAqIGFuZCBpcyBpbmNyZW1lbnRl
+ZCBvbiBlYWNoIGF0dGFjaC4KICAqCkBAIC0zMjQsMjQgKzMwMiwxMDAgQEAgc3RydWN0IGRtYV9i
+dWZfb3BzIHsKICAqIERldmljZSBETUEgYWNjZXNzIGlzIGhhbmRsZWQgYnkgdGhlIHNlcGFyYXRl
+ICZzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50LgogICovCiBzdHJ1Y3QgZG1hX2J1ZiB7CisJLyoq
+CisJICogQHNpemU6CisJICoKKwkgKiBTaXplIG9mIHRoZSBidWZmZXI7IGludmFyaWFudCBvdmVy
+IHRoZSBsaWZldGltZSBvZiB0aGUgYnVmZmVyLgorCSAqLwogCXNpemVfdCBzaXplOworCisJLyoq
+CisJICogQGZpbGU6CisJICoKKwkgKiBGaWxlIHBvaW50ZXIgdXNlZCBmb3Igc2hhcmluZyBidWZm
+ZXJzIGFjcm9zcywgYW5kIGZvciByZWZjb3VudGluZy4KKwkgKiBTZWUgZG1hX2J1Zl9nZXQoKSBh
+bmQgZG1hX2J1Zl9wdXQoKS4KKwkgKi8KIAlzdHJ1Y3QgZmlsZSAqZmlsZTsKKworCS8qKgorCSAq
+IEBhdHRhY2htZW50czoKKwkgKgorCSAqIExpc3Qgb2YgZG1hX2J1Zl9hdHRhY2htZW50IHRoYXQg
+ZGVub3RlcyBhbGwgZGV2aWNlcyBhdHRhY2hlZCwKKwkgKiBwcm90ZWN0ZWQgYnkgJmRtYV9yZXN2
+IGxvY2sgQHJlc3YuCisJICovCiAJc3RydWN0IGxpc3RfaGVhZCBhdHRhY2htZW50czsKKworCS8q
+KiBAb3BzOiBkbWFfYnVmX29wcyBhc3NvY2lhdGVkIHdpdGggdGhpcyBidWZmZXIgb2JqZWN0LiAq
+LwogCWNvbnN0IHN0cnVjdCBkbWFfYnVmX29wcyAqb3BzOworCisJLyoqCisJICogQGxvY2s6CisJ
+ICoKKwkgKiBVc2VkIGludGVybmFsbHkgdG8gc2VyaWFsaXplIGxpc3QgbWFuaXB1bGF0aW9uLCBh
+dHRhY2gvZGV0YWNoIGFuZAorCSAqIHZtYXAvdW5tYXAuIE5vdGUgdGhhdCBpbiBtYW55IGNhc2Vz
+IHRoaXMgaXMgc3VwZXJzZWVkZWQgYnkKKwkgKiBkbWFfcmVzdl9sb2NrKCkgb24gQHJlc3YuCisJ
+ICovCiAJc3RydWN0IG11dGV4IGxvY2s7CisKKwkvKioKKwkgKiBAdm1hcHBpbmdfY291bnRlcjoK
+KwkgKgorCSAqIFVzZWQgaW50ZXJuYWxseSB0byByZWZjbnQgdGhlIHZtYXBzIHJldHVybmVkIGJ5
+IGRtYV9idWZfdm1hcCgpLgorCSAqIFByb3RlY3RlZCBieSBAbG9jay4KKwkgKi8KIAl1bnNpZ25l
+ZCB2bWFwcGluZ19jb3VudGVyOworCisJLyoqCisJICogQHZtYXBfcHRyOgorCSAqIFRoZSBjdXJy
+ZW50IHZtYXAgcHRyIGlmIEB2bWFwcGluZ19jb3VudGVyID4gMC4gUHJvdGVjdGVkIGJ5IEBsb2Nr
+LgorCSAqLwogCXN0cnVjdCBkbWFfYnVmX21hcCB2bWFwX3B0cjsKKworCS8qKgorCSAqIEBleHBf
+bmFtZToKKwkgKgorCSAqIE5hbWUgb2YgdGhlIGV4cG9ydGVyOyB1c2VmdWwgZm9yIGRlYnVnZ2lu
+Zy4gU2VlIHRoZQorCSAqIERNQV9CVUZfU0VUX05BTUUgSU9DVEwuCisJICovCiAJY29uc3QgY2hh
+ciAqZXhwX25hbWU7CisKKwkvKioKKwkgKiBAbmFtZToKKwkgKgorCSAqIFVzZXJzcGFjZS1wcm92
+aWRlZCBuYW1lOyB1c2VmdWwgZm9yIGFjY291bnRpbmcgYW5kIGRlYnVnZ2luZywKKwkgKiBwcm90
+ZWN0ZWQgYnkgZG1hX3Jlc3ZfbG9jaygpIG9uIEByZXN2IGFuZCBAbmFtZV9sb2NrIGZvciByZWFk
+IGFjY2Vzcy4KKwkgKi8KIAljb25zdCBjaGFyICpuYW1lOworCisJLyoqIEBuYW1lX2xvY2s6IFNw
+aW5sb2NrIHRvIHByb3RlY3QgbmFtZSBhY2NlcyBmb3IgcmVhZCBhY2Nlc3MuICovCiAJc3Bpbmxv
+Y2tfdCBuYW1lX2xvY2s7CisKKwkvKioKKwkgKiBAb3duZXI6CisJICoKKwkgKiBQb2ludGVyIHRv
+IGV4cG9ydGVyIG1vZHVsZTsgdXNlZCBmb3IgcmVmY291bnRpbmcgd2hlbiBleHBvcnRlciBpcyBh
+CisJICoga2VybmVsIG1vZHVsZS4KKwkgKi8KIAlzdHJ1Y3QgbW9kdWxlICpvd25lcjsKKworCS8q
+KiBAbGlzdF9ub2RlOiBub2RlIGZvciBkbWFfYnVmIGFjY291bnRpbmcgYW5kIGRlYnVnZ2luZy4g
+Ki8KIAlzdHJ1Y3QgbGlzdF9oZWFkIGxpc3Rfbm9kZTsKKworCS8qKiBAcHJpdjogZXhwb3J0ZXIg
+c3BlY2lmaWMgcHJpdmF0ZSBkYXRhIGZvciB0aGlzIGJ1ZmZlciBvYmplY3QuICovCiAJdm9pZCAq
+cHJpdjsKKworCS8qKgorCSAqIEByZXN2OgorCSAqCisJICogUmVzZXJ2YXRpb24gb2JqZWN0IGxp
+bmtlZCB0byB0aGlzIGRtYS1idWYuCisJICovCiAJc3RydWN0IGRtYV9yZXN2ICpyZXN2OwogCi0J
+LyogcG9sbCBzdXBwb3J0ICovCisJLyoqIEBwb2xsOiBmb3IgdXNlcnNwYWNlIHBvbGwgc3VwcG9y
+dCAqLwogCXdhaXRfcXVldWVfaGVhZF90IHBvbGw7CiAKKwkvKiogQGNiX2V4Y2w6IGZvciB1c2Vy
+c3BhY2UgcG9sbCBzdXBwb3J0ICovCisJLyoqIEBjYl9zaGFyZWQ6IGZvciB1c2Vyc3BhY2UgcG9s
+bCBzdXBwb3J0ICovCiAJc3RydWN0IGRtYV9idWZfcG9sbF9jYl90IHsKIAkJc3RydWN0IGRtYV9m
+ZW5jZV9jYiBjYjsKIAkJd2FpdF9xdWV1ZV9oZWFkX3QgKnBvbGw7CkBAIC0zNDksNyArNDAzLDEy
+IEBAIHN0cnVjdCBkbWFfYnVmIHsKIAkJX19wb2xsX3QgYWN0aXZlOwogCX0gY2JfZXhjbCwgY2Jf
+c2hhcmVkOwogI2lmZGVmIENPTkZJR19ETUFCVUZfU1lTRlNfU1RBVFMKLQkvKiBmb3Igc3lzZnMg
+c3RhdHMgKi8KKwkvKioKKwkgKiBAc3lzZnNfZW50cnk6CisJICoKKwkgKiBGb3IgZXhwb3Npbmcg
+aW5mb3JtYXRpb24gYWJvdXQgdGhpcyBidWZmZXIgaW4gc3lzZnMuIFNlZSBhbHNvCisJICogYERN
+QS1CVUYgc3RhdGlzdGljc2BfIGZvciB0aGUgdWFwaSB0aGlzIGVuYWJsZXMuCisJICovCiAJc3Ry
+dWN0IGRtYV9idWZfc3lzZnNfZW50cnkgewogCQlzdHJ1Y3Qga29iamVjdCBrb2JqOwogCQlzdHJ1
+Y3QgZG1hX2J1ZiAqZG1hYnVmOwotLSAKMi4zMi4wLnJjMgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
