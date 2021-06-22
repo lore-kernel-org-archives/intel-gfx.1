@@ -2,65 +2,51 @@ Return-Path: <SRS0=wfJw=LQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A67B5C48BE5
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 18:24:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98A6CC48BDF
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 19:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A3A461076
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 18:24:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A3A461076
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5C70661107
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Jun 2021 19:01:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C70661107
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64E5B6E870;
-	Tue, 22 Jun 2021 18:24:37 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AF578984D;
- Tue, 22 Jun 2021 18:24:35 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id s23so348345oiw.9;
- Tue, 22 Jun 2021 11:24:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=QnNjKnbGZ7GCakKJ0QRWcO3isBu6ee+iFzNt3JwiLrQ=;
- b=dqPmpji3/zleh1sSp3ECwtpB+rCeFmpJwfu48ICknDl4hPhbl4RJYchn4l7F/iei+f
- FJMQg+Xuap/VbhldFPL4BDYTcx8vhPBq7ReKyU4JKnxRRziTUmxgkzYIsiHM8hpLJJVa
- A6oo+pigack/3J3hxCiXFRcQwPRhBvNg707biv478ePFaEcpEToGyB7L3KXwVdf7tAB1
- bGdHUUXiR9Le3ssuzq16H5lPFRjfmDMlpeyXLfPJMSeCKwpmQD/8UbKkOsPK3E2Z9/gg
- BUvWzXPdqz2e9CfiiHQDSCweOtpvJT1oeu8yzDjwW74BHSjl5fN9EqClhJcduGvkw9e+
- m1kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=QnNjKnbGZ7GCakKJ0QRWcO3isBu6ee+iFzNt3JwiLrQ=;
- b=stZOlwquARmqcsx4FoaVKDVccReu1oX1/I6ht22RTjZ8ciJYEdwteCtDttboz1FPMn
- VQULsCXDwsmXnvEPyCFU7bAU6R2wyOtUgQg0QbTB7xzkiwXKmS/Ltj7NDZyVbwvhSpqm
- fZI8KFz/LELX3bmEHUmK9ug2F81cm5cwqIxlz/cTTUceNUcR8u5isF0QP01q4FmwCtE3
- pZEGJqohj7iXAF6whey6UnxO0646tvhJWqF7enfP1wk7KR+F5t/4Sv72ZxuGdv3qiWRK
- QVhWcywjKgZBUgqWC8DUiyZcw3ikWj/7ODQGDTuzKCrAQVLZI67nb7f8lnBnzLGmCAUG
- 5jnA==
-X-Gm-Message-State: AOAM530dswiE9ILS98qpReAX3HKZKeoqhJi64Ct0NRgndXM1+tSJkJq8
- sfqxuzss5CE2vjZuEHvoUKY+6zSO4kt8+nZEHGE=
-X-Google-Smtp-Source: ABdhPJxzuAriDmEVeAdrMJPYD/SJuKQM97c66cvLRZSBXLKm4X23QaNDIhTRCHyc4Kz7S3is47eENV+KomUGovpkSTU=
-X-Received: by 2002:a05:6808:c3:: with SMTP id t3mr85229oic.5.1624386275151;
- Tue, 22 Jun 2021 11:24:35 -0700 (PDT)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E03D66E875;
+	Tue, 22 Jun 2021 19:01:44 +0000 (UTC)
+X-Greylist: delayed 700 seconds by postgrey-1.36 at gabe;
+ Tue, 22 Jun 2021 19:01:43 UTC
+Received: from mx1.smtp.larsendata.com (mx1.smtp.larsendata.com
+ [91.221.196.215])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 527836E874
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Jun 2021 19:01:43 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx1.smtp.larsendata.com (Halon) with ESMTPS
+ id 51921ad5-d38c-11eb-960d-0050568c148b;
+ Tue, 22 Jun 2021 19:01:58 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id 5EA9B194B05;
+ Tue, 22 Jun 2021 21:01:45 +0200 (CEST)
+Date: Tue, 22 Jun 2021 21:01:37 +0200
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <YNIzkSg5kwp9gdCR@ravnborg.org>
 References: <20210622165511.3169559-1-daniel.vetter@ffwll.ch>
  <20210622165511.3169559-3-daniel.vetter@ffwll.ch>
+MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <20210622165511.3169559-3-daniel.vetter@ffwll.ch>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Jun 2021 14:24:24 -0400
-Message-ID: <CADnq5_Mb28xV67FcQnG9wGYGUMi7ooN7g_UEeqsYJ8tJ15Ykvw@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
 Subject: Re: [Intel-gfx] [PATCH 02/15] dma-buf: Switch to inline kerneldoc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,129 +64,89 @@ Cc: Deepak R Varma <mh12gx2825@gmail.com>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Kevin Wang <kevin1.wang@amd.com>,
  DRI Development <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Nirmoy Das <nirmoy.das@amd.com>, Chen Li <chenli@uniontech.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
+ linaro-mm-sig@lists.linaro.org, Nirmoy Das <nirmoy.das@amd.com>,
+ Chen Li <chenli@uniontech.com>, Daniel Vetter <daniel.vetter@intel.com>,
  Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBKdW4gMjIsIDIwMjEgYXQgMTI6NTUgUE0gRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZl
-dHRlckBmZndsbC5jaD4gd3JvdGU6Cj4KPiBBbHNvIHJldmlldyAmIHVwZGF0ZSBldmVyeXRoaW5n
-IHdoaWxlIHdlJ3JlIGF0IGl0Lgo+Cj4gVGhpcyBpcyBwcmVwIHdvcmsgdG8gc21hc2ggYSB0b24g
-b2Ygc3R1ZmYgaW50byB0aGUga2VybmVsZG9jIGZvcgo+IEByZXN2Lgo+Cj4gU2lnbmVkLW9mZi1i
-eTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBpbnRlbC5jb20+Cj4gQ2M6IFN1bWl0IFNl
-bXdhbCA8c3VtaXQuc2Vtd2FsQGxpbmFyby5vcmc+Cj4gQ2M6ICJDaHJpc3RpYW4gS8O2bmlnIiA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+Cj4gQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwu
-Y2g+Cj4gQ2M6IERhdmUgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+Cj4gQ2M6IE5pcm1veSBE
-YXMgPG5pcm1veS5kYXNAYW1kLmNvbT4KPiBDYzogRGVlcGFrIFIgVmFybWEgPG1oMTJneDI4MjVA
-Z21haWwuY29tPgo+IENjOiBDaGVuIExpIDxjaGVubGlAdW5pb250ZWNoLmNvbT4KPiBDYzogS2V2
-aW4gV2FuZyA8a2V2aW4xLndhbmdAYW1kLmNvbT4KPiBDYzogbGludXgtbWVkaWFAdmdlci5rZXJu
-ZWwub3JnCj4gQ2M6IGxpbmFyby1tbS1zaWdAbGlzdHMubGluYXJvLm9yZwo+IC0tLQo+ICBpbmNs
-dWRlL2xpbnV4L2RtYS1idWYuaCB8IDEwNyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-LS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA4MyBpbnNlcnRpb25zKCspLCAyNCBkZWxldGlv
-bnMoLSkKPgo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2RtYS1idWYuaCBiL2luY2x1ZGUv
-bGludXgvZG1hLWJ1Zi5oCj4gaW5kZXggOTJlZWMzOGEwM2FhLi42ZDE4YjllNDQ4YjkgMTAwNjQ0
-Cj4gLS0tIGEvaW5jbHVkZS9saW51eC9kbWEtYnVmLmgKPiArKysgYi9pbmNsdWRlL2xpbnV4L2Rt
-YS1idWYuaAo+IEBAIC0yODksMjggKzI4OSw2IEBAIHN0cnVjdCBkbWFfYnVmX29wcyB7Cj4KPiAg
-LyoqCj4gICAqIHN0cnVjdCBkbWFfYnVmIC0gc2hhcmVkIGJ1ZmZlciBvYmplY3QKPiAtICogQHNp
-emU6IHNpemUgb2YgdGhlIGJ1ZmZlcjsgaW52YXJpYW50IG92ZXIgdGhlIGxpZmV0aW1lIG9mIHRo
-ZSBidWZmZXIuCj4gLSAqIEBmaWxlOiBmaWxlIHBvaW50ZXIgdXNlZCBmb3Igc2hhcmluZyBidWZm
-ZXJzIGFjcm9zcywgYW5kIGZvciByZWZjb3VudGluZy4KPiAtICogQGF0dGFjaG1lbnRzOiBsaXN0
-IG9mIGRtYV9idWZfYXR0YWNobWVudCB0aGF0IGRlbm90ZXMgYWxsIGRldmljZXMgYXR0YWNoZWQs
-Cj4gLSAqICAgICAgICAgICAgICAgcHJvdGVjdGVkIGJ5IGRtYV9yZXN2IGxvY2suCj4gLSAqIEBv
-cHM6IGRtYV9idWZfb3BzIGFzc29jaWF0ZWQgd2l0aCB0aGlzIGJ1ZmZlciBvYmplY3QuCj4gLSAq
-IEBsb2NrOiB1c2VkIGludGVybmFsbHkgdG8gc2VyaWFsaXplIGxpc3QgbWFuaXB1bGF0aW9uLCBh
-dHRhY2gvZGV0YWNoIGFuZAo+IC0gKiAgICAgICAgdm1hcC91bm1hcAo+IC0gKiBAdm1hcHBpbmdf
-Y291bnRlcjogdXNlZCBpbnRlcm5hbGx5IHRvIHJlZmNudCB0aGUgdm1hcHMKPiAtICogQHZtYXBf
-cHRyOiB0aGUgY3VycmVudCB2bWFwIHB0ciBpZiB2bWFwcGluZ19jb3VudGVyID4gMAo+IC0gKiBA
-ZXhwX25hbWU6IG5hbWUgb2YgdGhlIGV4cG9ydGVyOyB1c2VmdWwgZm9yIGRlYnVnZ2luZy4KPiAt
-ICogQG5hbWU6IHVzZXJzcGFjZS1wcm92aWRlZCBuYW1lOyB1c2VmdWwgZm9yIGFjY291bnRpbmcg
-YW5kIGRlYnVnZ2luZywKPiAtICogICAgICAgIHByb3RlY3RlZCBieSBAcmVzdi4KPiAtICogQG5h
-bWVfbG9jazogc3BpbmxvY2sgdG8gcHJvdGVjdCBuYW1lIGFjY2Vzcwo+IC0gKiBAb3duZXI6IHBv
-aW50ZXIgdG8gZXhwb3J0ZXIgbW9kdWxlOyB1c2VkIGZvciByZWZjb3VudGluZyB3aGVuIGV4cG9y
-dGVyIGlzIGEKPiAtICogICAgICAgICBrZXJuZWwgbW9kdWxlLgo+IC0gKiBAbGlzdF9ub2RlOiBu
-b2RlIGZvciBkbWFfYnVmIGFjY291bnRpbmcgYW5kIGRlYnVnZ2luZy4KPiAtICogQHByaXY6IGV4
-cG9ydGVyIHNwZWNpZmljIHByaXZhdGUgZGF0YSBmb3IgdGhpcyBidWZmZXIgb2JqZWN0Lgo+IC0g
-KiBAcmVzdjogcmVzZXJ2YXRpb24gb2JqZWN0IGxpbmtlZCB0byB0aGlzIGRtYS1idWYKPiAtICog
-QHBvbGw6IGZvciB1c2Vyc3BhY2UgcG9sbCBzdXBwb3J0Cj4gLSAqIEBjYl9leGNsOiBmb3IgdXNl
-cnNwYWNlIHBvbGwgc3VwcG9ydAo+IC0gKiBAY2Jfc2hhcmVkOiBmb3IgdXNlcnNwYWNlIHBvbGwg
-c3VwcG9ydAo+IC0gKiBAc3lzZnNfZW50cnk6IGZvciBleHBvc2luZyBpbmZvcm1hdGlvbiBhYm91
-dCB0aGlzIGJ1ZmZlciBpbiBzeXNmcy4KPiAgICogVGhlIGF0dGFjaG1lbnRfdWlkIG1lbWJlciBv
-ZiBAc3lzZnNfZW50cnkgaXMgcHJvdGVjdGVkIGJ5IGRtYV9yZXN2IGxvY2sKPiAgICogYW5kIGlz
-IGluY3JlbWVudGVkIG9uIGVhY2ggYXR0YWNoLgo+ICAgKgo+IEBAIC0zMjQsMjQgKzMwMiwxMDAg
-QEAgc3RydWN0IGRtYV9idWZfb3BzIHsKPiAgICogRGV2aWNlIERNQSBhY2Nlc3MgaXMgaGFuZGxl
-ZCBieSB0aGUgc2VwYXJhdGUgJnN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQuCj4gICAqLwo+ICBz
-dHJ1Y3QgZG1hX2J1ZiB7Cj4gKyAgICAgICAvKioKPiArICAgICAgICAqIEBzaXplOgo+ICsgICAg
-ICAgICoKPiArICAgICAgICAqIFNpemUgb2YgdGhlIGJ1ZmZlcjsgaW52YXJpYW50IG92ZXIgdGhl
-IGxpZmV0aW1lIG9mIHRoZSBidWZmZXIuCj4gKyAgICAgICAgKi8KPiAgICAgICAgIHNpemVfdCBz
-aXplOwo+ICsKPiArICAgICAgIC8qKgo+ICsgICAgICAgICogQGZpbGU6Cj4gKyAgICAgICAgKgo+
-ICsgICAgICAgICogRmlsZSBwb2ludGVyIHVzZWQgZm9yIHNoYXJpbmcgYnVmZmVycyBhY3Jvc3Ms
-IGFuZCBmb3IgcmVmY291bnRpbmcuCj4gKyAgICAgICAgKiBTZWUgZG1hX2J1Zl9nZXQoKSBhbmQg
-ZG1hX2J1Zl9wdXQoKS4KPiArICAgICAgICAqLwo+ICAgICAgICAgc3RydWN0IGZpbGUgKmZpbGU7
-Cj4gKwo+ICsgICAgICAgLyoqCj4gKyAgICAgICAgKiBAYXR0YWNobWVudHM6Cj4gKyAgICAgICAg
-Kgo+ICsgICAgICAgICogTGlzdCBvZiBkbWFfYnVmX2F0dGFjaG1lbnQgdGhhdCBkZW5vdGVzIGFs
-bCBkZXZpY2VzIGF0dGFjaGVkLAo+ICsgICAgICAgICogcHJvdGVjdGVkIGJ5ICZkbWFfcmVzdiBs
-b2NrIEByZXN2Lgo+ICsgICAgICAgICovCj4gICAgICAgICBzdHJ1Y3QgbGlzdF9oZWFkIGF0dGFj
-aG1lbnRzOwo+ICsKPiArICAgICAgIC8qKiBAb3BzOiBkbWFfYnVmX29wcyBhc3NvY2lhdGVkIHdp
-dGggdGhpcyBidWZmZXIgb2JqZWN0LiAqLwoKRm9yIGNvbnNpc3RlbmN5IHlvdSBtYXkgd2FudCB0
-byBmb3JtYXQgdGhpcyBsaWtlOgovKioKICAqIEBvcHM6CiAgKgogICogZG1hX2J1Zl9vcHMgYXNz
-b2NpYXRlZCB3aXRoIHRoaXMgYnVmZmVyIG9iamVjdC4KICAqLwoKPiAgICAgICAgIGNvbnN0IHN0
-cnVjdCBkbWFfYnVmX29wcyAqb3BzOwo+ICsKPiArICAgICAgIC8qKgo+ICsgICAgICAgICogQGxv
-Y2s6Cj4gKyAgICAgICAgKgo+ICsgICAgICAgICogVXNlZCBpbnRlcm5hbGx5IHRvIHNlcmlhbGl6
-ZSBsaXN0IG1hbmlwdWxhdGlvbiwgYXR0YWNoL2RldGFjaCBhbmQKPiArICAgICAgICAqIHZtYXAv
-dW5tYXAuIE5vdGUgdGhhdCBpbiBtYW55IGNhc2VzIHRoaXMgaXMgc3VwZXJzZWVkZWQgYnkKPiAr
-ICAgICAgICAqIGRtYV9yZXN2X2xvY2soKSBvbiBAcmVzdi4KPiArICAgICAgICAqLwo+ICAgICAg
-ICAgc3RydWN0IG11dGV4IGxvY2s7Cj4gKwo+ICsgICAgICAgLyoqCj4gKyAgICAgICAgKiBAdm1h
-cHBpbmdfY291bnRlcjoKPiArICAgICAgICAqCj4gKyAgICAgICAgKiBVc2VkIGludGVybmFsbHkg
-dG8gcmVmY250IHRoZSB2bWFwcyByZXR1cm5lZCBieSBkbWFfYnVmX3ZtYXAoKS4KPiArICAgICAg
-ICAqIFByb3RlY3RlZCBieSBAbG9jay4KPiArICAgICAgICAqLwo+ICAgICAgICAgdW5zaWduZWQg
-dm1hcHBpbmdfY291bnRlcjsKPiArCj4gKyAgICAgICAvKioKPiArICAgICAgICAqIEB2bWFwX3B0
-cjoKPiArICAgICAgICAqIFRoZSBjdXJyZW50IHZtYXAgcHRyIGlmIEB2bWFwcGluZ19jb3VudGVy
-ID4gMC4gUHJvdGVjdGVkIGJ5IEBsb2NrLgo+ICsgICAgICAgICovCgpTYW1lIGNvbW1lbnQgYXMg
-YWJvdmUuCgo+ICAgICAgICAgc3RydWN0IGRtYV9idWZfbWFwIHZtYXBfcHRyOwo+ICsKPiArICAg
-ICAgIC8qKgo+ICsgICAgICAgICogQGV4cF9uYW1lOgo+ICsgICAgICAgICoKPiArICAgICAgICAq
-IE5hbWUgb2YgdGhlIGV4cG9ydGVyOyB1c2VmdWwgZm9yIGRlYnVnZ2luZy4gU2VlIHRoZQo+ICsg
-ICAgICAgICogRE1BX0JVRl9TRVRfTkFNRSBJT0NUTC4KPiArICAgICAgICAqLwo+ICAgICAgICAg
-Y29uc3QgY2hhciAqZXhwX25hbWU7Cj4gKwo+ICsgICAgICAgLyoqCj4gKyAgICAgICAgKiBAbmFt
-ZToKPiArICAgICAgICAqCj4gKyAgICAgICAgKiBVc2Vyc3BhY2UtcHJvdmlkZWQgbmFtZTsgdXNl
-ZnVsIGZvciBhY2NvdW50aW5nIGFuZCBkZWJ1Z2dpbmcsCj4gKyAgICAgICAgKiBwcm90ZWN0ZWQg
-YnkgZG1hX3Jlc3ZfbG9jaygpIG9uIEByZXN2IGFuZCBAbmFtZV9sb2NrIGZvciByZWFkIGFjY2Vz
-cy4KPiArICAgICAgICAqLwo+ICAgICAgICAgY29uc3QgY2hhciAqbmFtZTsKPiArCj4gKyAgICAg
-ICAvKiogQG5hbWVfbG9jazogU3BpbmxvY2sgdG8gcHJvdGVjdCBuYW1lIGFjY2VzIGZvciByZWFk
-IGFjY2Vzcy4gKi8KPiAgICAgICAgIHNwaW5sb2NrX3QgbmFtZV9sb2NrOwo+ICsKPiArICAgICAg
-IC8qKgo+ICsgICAgICAgICogQG93bmVyOgo+ICsgICAgICAgICoKPiArICAgICAgICAqIFBvaW50
-ZXIgdG8gZXhwb3J0ZXIgbW9kdWxlOyB1c2VkIGZvciByZWZjb3VudGluZyB3aGVuIGV4cG9ydGVy
-IGlzIGEKPiArICAgICAgICAqIGtlcm5lbCBtb2R1bGUuCj4gKyAgICAgICAgKi8KPiAgICAgICAg
-IHN0cnVjdCBtb2R1bGUgKm93bmVyOwo+ICsKPiArICAgICAgIC8qKiBAbGlzdF9ub2RlOiBub2Rl
-IGZvciBkbWFfYnVmIGFjY291bnRpbmcgYW5kIGRlYnVnZ2luZy4gKi8KCmFuZCBoZXJlLgoKPiAg
-ICAgICAgIHN0cnVjdCBsaXN0X2hlYWQgbGlzdF9ub2RlOwo+ICsKPiArICAgICAgIC8qKiBAcHJp
-djogZXhwb3J0ZXIgc3BlY2lmaWMgcHJpdmF0ZSBkYXRhIGZvciB0aGlzIGJ1ZmZlciBvYmplY3Qu
-ICovCgphbmQgaGVyZS4KCj4gICAgICAgICB2b2lkICpwcml2Owo+ICsKPiArICAgICAgIC8qKgo+
-ICsgICAgICAgICogQHJlc3Y6Cj4gKyAgICAgICAgKgo+ICsgICAgICAgICogUmVzZXJ2YXRpb24g
-b2JqZWN0IGxpbmtlZCB0byB0aGlzIGRtYS1idWYuCj4gKyAgICAgICAgKi8KPiAgICAgICAgIHN0
-cnVjdCBkbWFfcmVzdiAqcmVzdjsKPgo+IC0gICAgICAgLyogcG9sbCBzdXBwb3J0ICovCj4gKyAg
-ICAgICAvKiogQHBvbGw6IGZvciB1c2Vyc3BhY2UgcG9sbCBzdXBwb3J0ICovCgpoZXJlLgoKPiAg
-ICAgICAgIHdhaXRfcXVldWVfaGVhZF90IHBvbGw7Cj4KPiArICAgICAgIC8qKiBAY2JfZXhjbDog
-Zm9yIHVzZXJzcGFjZSBwb2xsIHN1cHBvcnQgKi8KPiArICAgICAgIC8qKiBAY2Jfc2hhcmVkOiBm
-b3IgdXNlcnNwYWNlIHBvbGwgc3VwcG9ydCAqLwoKSGVyZS4KCkVpdGhlciB3YXksClJldmlld2Vk
-LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+ICAgICAgICAg
-c3RydWN0IGRtYV9idWZfcG9sbF9jYl90IHsKPiAgICAgICAgICAgICAgICAgc3RydWN0IGRtYV9m
-ZW5jZV9jYiBjYjsKPiAgICAgICAgICAgICAgICAgd2FpdF9xdWV1ZV9oZWFkX3QgKnBvbGw7Cj4g
-QEAgLTM0OSw3ICs0MDMsMTIgQEAgc3RydWN0IGRtYV9idWYgewo+ICAgICAgICAgICAgICAgICBf
-X3BvbGxfdCBhY3RpdmU7Cj4gICAgICAgICB9IGNiX2V4Y2wsIGNiX3NoYXJlZDsKPiAgI2lmZGVm
-IENPTkZJR19ETUFCVUZfU1lTRlNfU1RBVFMKPiAtICAgICAgIC8qIGZvciBzeXNmcyBzdGF0cyAq
-Lwo+ICsgICAgICAgLyoqCj4gKyAgICAgICAgKiBAc3lzZnNfZW50cnk6Cj4gKyAgICAgICAgKgo+
-ICsgICAgICAgICogRm9yIGV4cG9zaW5nIGluZm9ybWF0aW9uIGFib3V0IHRoaXMgYnVmZmVyIGlu
-IHN5c2ZzLiBTZWUgYWxzbwo+ICsgICAgICAgICogYERNQS1CVUYgc3RhdGlzdGljc2BfIGZvciB0
-aGUgdWFwaSB0aGlzIGVuYWJsZXMuCj4gKyAgICAgICAgKi8KPiAgICAgICAgIHN0cnVjdCBkbWFf
-YnVmX3N5c2ZzX2VudHJ5IHsKPiAgICAgICAgICAgICAgICAgc3RydWN0IGtvYmplY3Qga29iajsK
-PiAgICAgICAgICAgICAgICAgc3RydWN0IGRtYV9idWYgKmRtYWJ1ZjsKPiAtLQo+IDIuMzIuMC5y
-YzIKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRl
-bC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+Hi Daniel.
+
+On Tue, Jun 22, 2021 at 06:54:58PM +0200, Daniel Vetter wrote:
+> Also review & update everything while we're at it.
+> =
+
+> This is prep work to smash a ton of stuff into the kerneldoc for
+> @resv.
+> =
+
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> Cc: "Christian K=F6nig" <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: Dave Airlie <airlied@redhat.com>
+> Cc: Nirmoy Das <nirmoy.das@amd.com>
+> Cc: Deepak R Varma <mh12gx2825@gmail.com>
+> Cc: Chen Li <chenli@uniontech.com>
+> Cc: Kevin Wang <kevin1.wang@amd.com>
+> Cc: linux-media@vger.kernel.org
+> Cc: linaro-mm-sig@lists.linaro.org
+> ---
+>  include/linux/dma-buf.h | 107 +++++++++++++++++++++++++++++++---------
+>  1 file changed, 83 insertions(+), 24 deletions(-)
+> =
+
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index 92eec38a03aa..6d18b9e448b9 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -289,28 +289,6 @@ struct dma_buf_ops {
+>  =
+
+>  /**
+>   * struct dma_buf - shared buffer object
+> - * @size: size of the buffer; invariant over the lifetime of the buffer.
+> - * @file: file pointer used for sharing buffers across, and for refcount=
+ing.
+> - * @attachments: list of dma_buf_attachment that denotes all devices att=
+ached,
+> - *               protected by dma_resv lock.
+> - * @ops: dma_buf_ops associated with this buffer object.
+> - * @lock: used internally to serialize list manipulation, attach/detach =
+and
+> - *        vmap/unmap
+> - * @vmapping_counter: used internally to refcnt the vmaps
+> - * @vmap_ptr: the current vmap ptr if vmapping_counter > 0
+> - * @exp_name: name of the exporter; useful for debugging.
+> - * @name: userspace-provided name; useful for accounting and debugging,
+> - *        protected by @resv.
+> - * @name_lock: spinlock to protect name access
+> - * @owner: pointer to exporter module; used for refcounting when exporte=
+r is a
+> - *         kernel module.
+> - * @list_node: node for dma_buf accounting and debugging.
+> - * @priv: exporter specific private data for this buffer object.
+> - * @resv: reservation object linked to this dma-buf
+> - * @poll: for userspace poll support
+> - * @cb_excl: for userspace poll support
+> - * @cb_shared: for userspace poll support
+> - * @sysfs_entry: for exposing information about this buffer in sysfs.
+
+This sentence
+>   * The attachment_uid member of @sysfs_entry is protected by dma_resv lo=
+ck
+>   * and is incremented on each attach.
+belongs to the paragraph describing sysfs_entry and should be moved too.
+Or maybe reworded and then document all fields in dma_buf_sysfs_entry?
+
+With this fixed:
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
