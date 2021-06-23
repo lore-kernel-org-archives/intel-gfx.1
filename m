@@ -2,81 +2,78 @@ Return-Path: <SRS0=EMYW=LR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2DCEC4743C
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:12:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B6F1C4743C
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:16:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72A3E61166
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:12:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72A3E61166
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id EDF816024A
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:16:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EDF816024A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A0EB89067;
-	Wed, 23 Jun 2021 10:12:30 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6D5589067;
- Wed, 23 Jun 2021 10:12:28 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 91A8C1FD36;
- Wed, 23 Jun 2021 10:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624443147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AeSHs/7he0F+E84CKwa27yLvW2Gd2++S8i4tP5dy3lg=;
- b=xpOJZsgVI171Pk8nwzSO2ahuF/mkjd6uQo2hFPI0pnm0dGpq5okFb1egaIKTxT5RIRFocO
- mR8zJbfzEm/L27q2b4LKr8xd7MUafkPxMIJSxgcplafz7ayp9G2O7ktC/7gvDAf87oD4cn
- ggEk5/nU2bWikG9as1mLGSO91lFEJKg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624443147;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AeSHs/7he0F+E84CKwa27yLvW2Gd2++S8i4tP5dy3lg=;
- b=hFSTKM8eN004b9/pauFj6nLqmmPxWb9nUGbZR7WAPuJsDdSscwqBjYrfbMgO3Hyb17fftE
- ftxYLcvsCZtJAtCw==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 5F0AF11A97;
- Wed, 23 Jun 2021 10:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624443147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AeSHs/7he0F+E84CKwa27yLvW2Gd2++S8i4tP5dy3lg=;
- b=xpOJZsgVI171Pk8nwzSO2ahuF/mkjd6uQo2hFPI0pnm0dGpq5okFb1egaIKTxT5RIRFocO
- mR8zJbfzEm/L27q2b4LKr8xd7MUafkPxMIJSxgcplafz7ayp9G2O7ktC/7gvDAf87oD4cn
- ggEk5/nU2bWikG9as1mLGSO91lFEJKg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624443147;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AeSHs/7he0F+E84CKwa27yLvW2Gd2++S8i4tP5dy3lg=;
- b=hFSTKM8eN004b9/pauFj6nLqmmPxWb9nUGbZR7WAPuJsDdSscwqBjYrfbMgO3Hyb17fftE
- ftxYLcvsCZtJAtCw==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id bqGFFAsJ02DcVAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Wed, 23 Jun 2021 10:12:27 +0000
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20210616122833.332954-1-matthew.auld@intel.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <e8e98f7f-0654-90b0-f56c-25827dd998a0@suse.de>
-Date: Wed, 23 Jun 2021 12:12:26 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 814BB6E8A0;
+	Wed, 23 Jun 2021 10:16:29 +0000 (UTC)
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29DFE6E896;
+ Wed, 23 Jun 2021 09:51:28 +0000 (UTC)
+Received: by mail-pf1-x433.google.com with SMTP id c5so1889667pfv.8;
+ Wed, 23 Jun 2021 02:51:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=0QDvHuJfqREZz3f3vm3J735hL5aeH0dddoGUvB6Zf7U=;
+ b=C4aDFBRG7R7KsfK169gc3kwblRIFSu9c3UtpBQYEHGgc5vB9NkPFfw7VVvWxPBPhjM
+ ChTtnJ8xg16ie3NhUO+0xe2cAQeHfhYiSQ4g8kC1Ujxrw8sSz9hV8kWiytBq2D0CbhKm
+ UT95QHibOM3m3J1X6tOQt07EPx8M8qeV9xMLf1GZ55WToZqWEL7WsWuQD6WipxpT6y5W
+ zNs5dZgMWJ0A+UyxNoeychvrPAWciQsyy2zlD78s/RQmXNpPUBm/78gcBNjG0tN9dYME
+ 38ElgnMjMnXS2y339JatJqaIp2sMRTLzaoClhb8Kt2lv0Z4J0bbIRCeCrVnerRI26PBh
+ aqLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=0QDvHuJfqREZz3f3vm3J735hL5aeH0dddoGUvB6Zf7U=;
+ b=UVMrEWMocoKBh7YdYDdwK02NBmAd9+YqnIi1k1n1NLdbbZaVVbWQDdHJcBXq9cKE07
+ +/ic1CjhidmGq/a7qppR01XZn6xI01/dQLswNkxc+RDUVJmJWrvZlQsss64VJSv1y95I
+ hk2pmVnzIfUtUJO6iYUwuH5XQyCRlkS8hDkv0aG6H9bEPMueQt0Qs2spc1fTzt2/ixwR
+ zsTy1qBtOsxxWKuP/xomtvGJcey6CptJ39DzCdFAxaSv0COqFFQvi5yBcj1IH/NYkAw7
+ r4fFVntsOROfq7yuRntWQEE4oFwXjfhz1Jj4XgDnN3MoQEKc41gN2Ndd/W6aocfJ4iTh
+ WA6g==
+X-Gm-Message-State: AOAM5335Fj8Eik2MGUilbVbinNQDyes1Md5j2+qHy+dhMBAC2/CpzT4W
+ cmHHpT4V9cXg5tI6IxUU5R0=
+X-Google-Smtp-Source: ABdhPJxknexnakpSxTsVEJv8bon2/iYIwXjzdEjoiKs7bxR/THceDVH+82ZxvDdW3HZkKupeFPcXXQ==
+X-Received: by 2002:a62:d41e:0:b029:305:b3ff:4056 with SMTP id
+ a30-20020a62d41e0000b0290305b3ff4056mr6218702pfh.78.1624441887581; 
+ Wed, 23 Jun 2021 02:51:27 -0700 (PDT)
+Received: from [192.168.1.237] ([118.200.190.93])
+ by smtp.gmail.com with ESMTPSA id ne11sm4791002pjb.40.2021.06.23.02.51.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Jun 2021 02:51:27 -0700 (PDT)
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+References: <20210622075409.2673805-1-daniel.vetter@ffwll.ch>
+ <94029dc6-6e8c-2a33-0efa-bfca678fc6b1@gmail.com>
+ <CAKMK7uE+=aWfL+rZCudmXjk6zR4c3q8QaMAVUP4XNg1gY=6rcg@mail.gmail.com>
+From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+Message-ID: <94ac6fbb-631e-b346-700f-45d546daec1f@gmail.com>
+Date: Wed, 23 Jun 2021 17:51:23 +0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210616122833.332954-1-matthew.auld@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: return DRIVER_NAME for the fence
- driver name
+In-Reply-To: <CAKMK7uE+=aWfL+rZCudmXjk6zR4c3q8QaMAVUP4XNg1gY=6rcg@mail.gmail.com>
+Content-Language: en-US
+X-Mailman-Approved-At: Wed, 23 Jun 2021 10:16:28 +0000
+Subject: Re: [Intel-gfx] [PATCH] Revert "drm: add a locked version of
+ drm_is_current_master"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,126 +86,326 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0612005336=="
+Cc: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@linux.ie>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ stable <stable@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0612005336==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="OASjlglkXHHPE57aKB18n1AIN4sE4UDae"
+On 23/6/21 4:14 pm, Daniel Vetter wrote:
+> On Wed, Jun 23, 2021 at 10:09 AM Desmond Cheong Zhi Xi
+> <desmondcheongzx@gmail.com> wrote:
+>>
+>> On 22/6/21 3:54 pm, Daniel Vetter wrote:
+>>> This reverts commit 1815d9c86e3090477fbde066ff314a7e9721ee0f.
+>>>
+>>> Unfortunately this inverts the locking hierarchy, so back to the
+>>> drawing board. Full lockdep splat below:
+>>>
+>>> ======================================================
+>>> WARNING: possible circular locking dependency detected
+>>> 5.13.0-rc7-CI-CI_DRM_10254+ #1 Not tainted
+>>> ------------------------------------------------------
+>>> kms_frontbuffer/1087 is trying to acquire lock:
+>>> ffff88810dcd01a8 (&dev->master_mutex){+.+.}-{3:3}, at: drm_is_current_master+0x1b/0x40
+>>> but task is already holding lock:
+>>> ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+>>> which lock already depends on the new lock.
+>>> the existing dependency chain (in reverse order) is:
+>>> -> #2 (&dev->mode_config.mutex){+.+.}-{3:3}:
+>>>          __mutex_lock+0xab/0x970
+>>>          drm_client_modeset_probe+0x22e/0xca0
+>>>          __drm_fb_helper_initial_config_and_unlock+0x42/0x540
+>>>          intel_fbdev_initial_config+0xf/0x20 [i915]
+>>>          async_run_entry_fn+0x28/0x130
+>>>          process_one_work+0x26d/0x5c0
+>>>          worker_thread+0x37/0x380
+>>>          kthread+0x144/0x170
+>>>          ret_from_fork+0x1f/0x30
+>>> -> #1 (&client->modeset_mutex){+.+.}-{3:3}:
+>>>          __mutex_lock+0xab/0x970
+>>>          drm_client_modeset_commit_locked+0x1c/0x180
+>>>          drm_client_modeset_commit+0x1c/0x40
+>>>          __drm_fb_helper_restore_fbdev_mode_unlocked+0x88/0xb0
+>>>          drm_fb_helper_set_par+0x34/0x40
+>>>          intel_fbdev_set_par+0x11/0x40 [i915]
+>>>          fbcon_init+0x270/0x4f0
+>>>          visual_init+0xc6/0x130
+>>>          do_bind_con_driver+0x1e5/0x2d0
+>>>          do_take_over_console+0x10e/0x180
+>>>          do_fbcon_takeover+0x53/0xb0
+>>>          register_framebuffer+0x22d/0x310
+>>>          __drm_fb_helper_initial_config_and_unlock+0x36c/0x540
+>>>          intel_fbdev_initial_config+0xf/0x20 [i915]
+>>>          async_run_entry_fn+0x28/0x130
+>>>          process_one_work+0x26d/0x5c0
+>>>          worker_thread+0x37/0x380
+>>>          kthread+0x144/0x170
+>>>          ret_from_fork+0x1f/0x30
+>>> -> #0 (&dev->master_mutex){+.+.}-{3:3}:
+>>>          __lock_acquire+0x151e/0x2590
+>>>          lock_acquire+0xd1/0x3d0
+>>>          __mutex_lock+0xab/0x970
+>>>          drm_is_current_master+0x1b/0x40
+>>>          drm_mode_getconnector+0x37e/0x4a0
+>>>          drm_ioctl_kernel+0xa8/0xf0
+>>>          drm_ioctl+0x1e8/0x390
+>>>          __x64_sys_ioctl+0x6a/0xa0
+>>>          do_syscall_64+0x39/0xb0
+>>>          entry_SYSCALL_64_after_hwframe+0x44/0xae
+>>> other info that might help us debug this:
+>>> Chain exists of: &dev->master_mutex --> &client->modeset_mutex --> &dev->mode_config.mutex
+>>>    Possible unsafe locking scenario:
+>>>          CPU0                    CPU1
+>>>          ----                    ----
+>>>     lock(&dev->mode_config.mutex);
+>>>                                  lock(&client->modeset_mutex);
+>>>                                  lock(&dev->mode_config.mutex);
+>>>     lock(&dev->master_mutex);
+>>> *** DEADLOCK ***
+>>
+>> Hi Daniel,
+>>
+>> Just a thought.
+>>
+>> Since &dev->mode_config.mutex is the modeset BKL and its scope isn't
+>> clear, keeping the dependency as is would mean that any lock that
+>> depends on &dev->mode_config.mutex would also depend on
+>> &client->modeset_mutex. Seems like this might be vulnerable to more
+>> circular dependencies.
+>>
+>> Would it make sense to invert the locking dependency for
+>> &client->modeset_mutex and &dev->mode_config.mutex to become
+>> &dev->mode_config.mutex --> &client->modeset_mutex? Something like this:
+> 
+> This isn't the problem I think, the problem is the inversion against
+> master_mutex. fbdev emulation code holds master mutex while doing
+> modesets, whereas getconnector checks for master status while holding
+> a modeset mutex. I think just pulling the drm_is_current_master check
+> out of getconnector should be fine to break the loop here?
+> 
+> Wrt changing the layering here: drm_client sits on top of the
+> lower-level modeset interfaces. So drm_client locks should defintiely
+> be outside of modeset locks, not the other way round. Also I'm not
+> sure why you're focusing on the client lock here, that's just a lock
+> that sits in the middle of the chain but otherwise doesn't matter. If
+> you flip these these two intermediate chain links are flipped, but the
+> overall chain is still closed. Heck you could completely remove
+> client->modeset_mutex, and the bug is still the same.
+> 
+> Cheers, Daniel
+> 
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---OASjlglkXHHPE57aKB18n1AIN4sE4UDae
-Content-Type: multipart/mixed; boundary="mCnZXzAW1dzoUGhz73txrexeTVdZ7BQUe";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: Michael Mason <michael.w.mason@intel.com>, dri-devel@lists.freedesktop.org
-Message-ID: <e8e98f7f-0654-90b0-f56c-25827dd998a0@suse.de>
-Subject: Re: [PATCH] drm/i915: return DRIVER_NAME for the fence driver name
-References: <20210616122833.332954-1-matthew.auld@intel.com>
-In-Reply-To: <20210616122833.332954-1-matthew.auld@intel.com>
+Right, scrap that thought then.
 
---mCnZXzAW1dzoUGhz73txrexeTVdZ7BQUe
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+I was initially confused by the lockdep splat report because I was on 
+the wrong drm-misc branch. Pulling drm_is_current_master out from the 
+&dev->mode_config.mutex lock makes sense to me now. Thanks.
 
-Hi
+Best wishes,
+Desmond
 
-Am 16.06.21 um 14:28 schrieb Matthew Auld:
-> The first tracepoint for a request is trace_dma_fence_init which is
-> called in the ctor before we have properly setup the request->engine. S=
-o
-> if it's a non-recycled request the rq->engine might be NULL, or some
-> garbage value, which leads to a crash.
->=20
-> Since we are not permitted to use kmem_cache_zalloc() here with
-> SLAB_TYPESAFE_BY_RCU, one approach is simply to return DRIVER_NAME. We
-> can then revisit this later if we decide to get rid of
-> SLAB_TYPESAFE_BY_RCU.
->=20
-> Fixes: 855e39e65cfc ("drm/i915: Initialise basic fence before acquiring=
- seqno")
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Michael Mason <michael.w.mason@intel.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> ---
->   drivers/gpu/drm/i915/i915_request.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915=
-/i915_request.c
-> index 1014c71cf7f5..55fa94bde22e 100644
-> --- a/drivers/gpu/drm/i915/i915_request.c
-> +++ b/drivers/gpu/drm/i915/i915_request.c
-> @@ -61,7 +61,7 @@ static struct i915_global_request {
->  =20
->   static const char *i915_fence_get_driver_name(struct dma_fence *fence=
-)
->   {
-> -	return dev_name(to_request(fence)->engine->i915->drm.dev);
-> +	return DRIVER_NAME;
-
-There was recently a discussion about using struct drm_driver.name=20
-consistently throughout the source code. I'd like to suggest to do this=20
-here.
-
-Best regards
-Thomas
-
->   }
->  =20
->   static const char *i915_fence_get_timeline_name(struct dma_fence *fen=
-ce)
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---mCnZXzAW1dzoUGhz73txrexeTVdZ7BQUe--
-
---OASjlglkXHHPE57aKB18n1AIN4sE4UDae
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmDTCQoFAwAAAAAACgkQlh/E3EQov+B2
-yxAAn2jA+p/KqPHqyBqUPIqN//ynn1yyajAz3bUEAThragTagiyr1XZZ/L4Ec2tmvW6fqVovZJes
-KR9J3nVus4vWrxp7xL8B3nYZvSOyDOXzSxF708gmrEjNQplioCirE4tAFxbUpMVxZ1deIFoq2dUw
-IpxIwZToanof9tGAYZ01jenSd5dnp07Mx2iLjnHTr1fJuKG7F7DPsVZQ33repBY4RvsaheVw9k4l
-+Sq5ZnpxJguTeFhugXq545EELK/hBYrVKWhXkYnz4aVBoq04DfO73KMDCTskADjHe0e6OH5K22j9
-aGDN/fSsa41htYZCzh/GsXX3q6iHCJYmuMW0wVsXIZ9vhQp3kFfDP541M7zRKSdQ7aEmmTwqd1N5
-I4adglz4tAkOVcDnZmoupXs+AqiaFIE5UrO+vh3LRYbUDfxQeniRztsXR3spa3xky2c65tW139+8
-pklZcMDusSCCEW6AZjbR4e1l/0byg/z0m8+UWHdP8VAikgpCSWnY9LpDsDLpgnvm988G0yqAcWpD
-tXHssgIPQL6VZqFPq90wtdeFLHO7xuGkIojxqrSbZJ5T6t6arLTRXxzHHpAYycs4eQeKGVntWIvM
-hiHhRm18ceUx2lrqekg9UDx1SsiuOogurDwwPOmFhaweW394kxSYgGxFAqw9LYyHpJfUc+F+ujC+
-oEk=
-=fvdw
------END PGP SIGNATURE-----
-
---OASjlglkXHHPE57aKB18n1AIN4sE4UDae--
-
---===============0612005336==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> 
+>>
+>> diff --git a/drivers/gpu/drm/drm_client_modeset.c
+>> b/drivers/gpu/drm/drm_client_modeset.c
+>> index ced09c7c06f9..859f99d97cde 100644
+>> --- a/drivers/gpu/drm/drm_client_modeset.c
+>> +++ b/drivers/gpu/drm/drm_client_modeset.c
+>> @@ -811,9 +811,9 @@ int drm_client_modeset_probe(struct drm_client_dev
+>> *client, unsigned int width,
+>>                  goto out;
+>>          }
+>>
+>> +       mutex_lock(&dev->mode_config.mutex);
+>>          mutex_lock(&client->modeset_mutex);
+>>
+>> -       mutex_lock(&dev->mode_config.mutex);
+>>          for (i = 0; i < connector_count; i++)
+>>                  total_modes_count += connectors[i]->funcs->fill_modes(connectors[i],
+>> width, height);
+>>          if (!total_modes_count)
+>> @@ -838,7 +838,6 @@ int drm_client_modeset_probe(struct drm_client_dev
+>> *client, unsigned int width,
+>>                  drm_client_pick_crtcs(client, connectors, connector_count,
+>>                                        crtcs, modes, 0, width, height);
+>>          }
+>> -       mutex_unlock(&dev->mode_config.mutex);
+>>
+>>          drm_client_modeset_release(client);
+>>
+>> @@ -869,6 +868,7 @@ int drm_client_modeset_probe(struct drm_client_dev
+>> *client, unsigned int width,
+>>          }
+>>
+>>          mutex_unlock(&client->modeset_mutex);
+>> +       mutex_unlock(&dev->mode_config.mutex);
+>>    out:
+>>          kfree(crtcs);
+>>          kfree(modes);
+>> diff --git a/drivers/gpu/drm/drm_fb_helper.c
+>> b/drivers/gpu/drm/drm_fb_helper.c
+>> index f6baa2046124..74302d110609 100644
+>> --- a/drivers/gpu/drm/drm_fb_helper.c
+>> +++ b/drivers/gpu/drm/drm_fb_helper.c
+>> @@ -1443,8 +1443,8 @@ static int pan_display_legacy(struct
+>> fb_var_screeninfo *var,
+>>          struct drm_mode_set *modeset;
+>>          int ret = 0;
+>>
+>> -       mutex_lock(&client->modeset_mutex);
+>>          drm_modeset_lock_all(fb_helper->dev);
+>> +       mutex_lock(&client->modeset_mutex);
+>>          drm_client_for_each_modeset(modeset, client) {
+>>                  modeset->x = var->xoffset;
+>>                  modeset->y = var->yoffset;
+>> @@ -1457,8 +1457,8 @@ static int pan_display_legacy(struct
+>> fb_var_screeninfo *var,
+>>                          }
+>>                  }
+>>          }
+>> -       drm_modeset_unlock_all(fb_helper->dev);
+>>          mutex_unlock(&client->modeset_mutex);
+>> +       drm_modeset_unlock_all(fb_helper->dev);
+>>
+>>          return ret;
+>>    }
+>>
+>>> 1 lock held by kms_frontbuffer/1087:
+>>>    #0: ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+>>> stack backtrace:
+>>> CPU: 7 PID: 1087 Comm: kms_frontbuffer Not tainted 5.13.0-rc7-CI-CI_DRM_10254+ #1
+>>> Hardware name: Intel Corporation Ice Lake Client Platform/IceLake U DDR4 SODIMM PD RVP TLC, BIOS ICLSFWR1.R00.3234.A01.1906141750 06/14/2019
+>>> Call Trace:
+>>>    dump_stack+0x7f/0xad
+>>>    check_noncircular+0x12e/0x150
+>>>    __lock_acquire+0x151e/0x2590
+>>>    lock_acquire+0xd1/0x3d0
+>>>    __mutex_lock+0xab/0x970
+>>>    drm_is_current_master+0x1b/0x40
+>>>    drm_mode_getconnector+0x37e/0x4a0
+>>>    drm_ioctl_kernel+0xa8/0xf0
+>>>    drm_ioctl+0x1e8/0x390
+>>>    __x64_sys_ioctl+0x6a/0xa0
+>>>    do_syscall_64+0x39/0xb0
+>>>    entry_SYSCALL_64_after_hwframe+0x44/0xae
+>>>
+>>> daniel@phenom:~/linux/drm-misc-fixes$ dim fixes 1815d9c86e3090477fbde066ff314a7e9721ee0f
+>>> Fixes: 1815d9c86e30 ("drm: add a locked version of drm_is_current_master")
+>>> Cc: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+>>> Cc: Emil Velikov <emil.l.velikov@gmail.com>
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: David Airlie <airlied@linux.ie>
+>>> Cc: Daniel Vetter <daniel@ffwll.ch>
+>>> ---
+>>>    drivers/gpu/drm/drm_auth.c | 51 ++++++++++++++------------------------
+>>>    1 file changed, 19 insertions(+), 32 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
+>>> index 86d4b72e95cb..232abbba3686 100644
+>>> --- a/drivers/gpu/drm/drm_auth.c
+>>> +++ b/drivers/gpu/drm/drm_auth.c
+>>> @@ -61,35 +61,6 @@
+>>>     * trusted clients.
+>>>     */
+>>>
+>>> -static bool drm_is_current_master_locked(struct drm_file *fpriv)
+>>> -{
+>>> -     lockdep_assert_held_once(&fpriv->master->dev->master_mutex);
+>>> -
+>>> -     return fpriv->is_master && drm_lease_owner(fpriv->master) == fpriv->minor->dev->master;
+>>> -}
+>>> -
+>>> -/**
+>>> - * drm_is_current_master - checks whether @priv is the current master
+>>> - * @fpriv: DRM file private
+>>> - *
+>>> - * Checks whether @fpriv is current master on its device. This decides whether a
+>>> - * client is allowed to run DRM_MASTER IOCTLs.
+>>> - *
+>>> - * Most of the modern IOCTL which require DRM_MASTER are for kernel modesetting
+>>> - * - the current master is assumed to own the non-shareable display hardware.
+>>> - */
+>>> -bool drm_is_current_master(struct drm_file *fpriv)
+>>> -{
+>>> -     bool ret;
+>>> -
+>>> -     mutex_lock(&fpriv->master->dev->master_mutex);
+>>> -     ret = drm_is_current_master_locked(fpriv);
+>>> -     mutex_unlock(&fpriv->master->dev->master_mutex);
+>>> -
+>>> -     return ret;
+>>> -}
+>>> -EXPORT_SYMBOL(drm_is_current_master);
+>>> -
+>>>    int drm_getmagic(struct drm_device *dev, void *data, struct drm_file *file_priv)
+>>>    {
+>>>        struct drm_auth *auth = data;
+>>> @@ -252,7 +223,7 @@ int drm_setmaster_ioctl(struct drm_device *dev, void *data,
+>>>        if (ret)
+>>>                goto out_unlock;
+>>>
+>>> -     if (drm_is_current_master_locked(file_priv))
+>>> +     if (drm_is_current_master(file_priv))
+>>>                goto out_unlock;
+>>>
+>>>        if (dev->master) {
+>>> @@ -301,7 +272,7 @@ int drm_dropmaster_ioctl(struct drm_device *dev, void *data,
+>>>        if (ret)
+>>>                goto out_unlock;
+>>>
+>>> -     if (!drm_is_current_master_locked(file_priv)) {
+>>> +     if (!drm_is_current_master(file_priv)) {
+>>>                ret = -EINVAL;
+>>>                goto out_unlock;
+>>>        }
+>>> @@ -350,7 +321,7 @@ void drm_master_release(struct drm_file *file_priv)
+>>>        if (file_priv->magic)
+>>>                idr_remove(&file_priv->master->magic_map, file_priv->magic);
+>>>
+>>> -     if (!drm_is_current_master_locked(file_priv))
+>>> +     if (!drm_is_current_master(file_priv))
+>>>                goto out;
+>>>
+>>>        drm_legacy_lock_master_cleanup(dev, master);
+>>> @@ -371,6 +342,22 @@ void drm_master_release(struct drm_file *file_priv)
+>>>        mutex_unlock(&dev->master_mutex);
+>>>    }
+>>>
+>>> +/**
+>>> + * drm_is_current_master - checks whether @priv is the current master
+>>> + * @fpriv: DRM file private
+>>> + *
+>>> + * Checks whether @fpriv is current master on its device. This decides whether a
+>>> + * client is allowed to run DRM_MASTER IOCTLs.
+>>> + *
+>>> + * Most of the modern IOCTL which require DRM_MASTER are for kernel modesetting
+>>> + * - the current master is assumed to own the non-shareable display hardware.
+>>> + */
+>>> +bool drm_is_current_master(struct drm_file *fpriv)
+>>> +{
+>>> +     return fpriv->is_master && drm_lease_owner(fpriv->master) == fpriv->minor->dev->master;
+>>> +}
+>>> +EXPORT_SYMBOL(drm_is_current_master);
+>>> +
+>>>    /**
+>>>     * drm_master_get - reference a master pointer
+>>>     * @master: &struct drm_master
+>>>
+>>
+> 
+> 
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0612005336==--
