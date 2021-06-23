@@ -2,52 +2,58 @@ Return-Path: <SRS0=EMYW=LR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43598C48BC2
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B2B2C4743C
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:17:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 117B261164
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:16:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 117B261164
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id D66D16024A
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:17:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D66D16024A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 985C36E8AB;
-	Wed, 23 Jun 2021 10:16:41 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34A6D6E0D7;
- Tue, 22 Jun 2021 21:03:01 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B82596108E;
- Tue, 22 Jun 2021 21:02:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624395780;
- bh=v96U5qnlOhDf3w1FKsu7SjrxREMp2X2HSv3JOsCkgmU=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=jp86WFjWXckU//EExyz6NMfilYlNSGD/Sp+e74iycIMnJPnrnvb2f/IMZhcf30u/Y
- nZN/eIYPHlNFb7aaAK4BGrzQ8h60A0DeuaUctP8s9mDpf/LCXTiw3xhjYNzVwnhtzX
- TCr/gTHfn3WY41P/JfXANtN8uFlsPQPDxHmgwY0xOxtbMzYm2w8bezm6pQenS5mO9T
- QACOuqiKoEaVeTvNfrREoxgLiMZfrcQDhTBPBD0g1ngPW8KyWNjA64wNxxoLTDCtna
- okD7zfnO67pIIlP+aLcNDcQOeKWv20TpkQkk9C2UIZdw5p+0AdNoxQDYVfglebC4DR
- 9wbHzTawfV26w==
-Date: Tue, 22 Jun 2021 14:02:58 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Claire Chang <tientzu@chromium.org>
-In-Reply-To: <20210619034043.199220-2-tientzu@chromium.org>
-Message-ID: <alpine.DEB.2.21.2106221402390.24906@sstabellini-ThinkPad-T480s>
-References: <20210619034043.199220-1-tientzu@chromium.org>
- <20210619034043.199220-2-tientzu@chromium.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 484BA6E8A7;
+	Wed, 23 Jun 2021 10:17:43 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3886E8A7;
+ Wed, 23 Jun 2021 10:17:42 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id BA174C800A7;
+ Wed, 23 Jun 2021 12:17:40 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id cq-7LrBxmnzK; Wed, 23 Jun 2021 12:17:40 +0200 (CEST)
+Received: from [IPv6:2003:e3:7f39:4900:3156:839d:aed8:6ea6]
+ (p200300e37f3949003156839Daed86eA6.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f39:4900:3156:839d:aed8:6ea6])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPSA id 2D4ABC8009D;
+ Wed, 23 Jun 2021 12:17:40 +0200 (CEST)
+To: Pekka Paalanen <ppaalanen@gmail.com>, Simon Ser <contact@emersion.fr>
+References: <20210618091116.14428-1-wse@tuxedocomputers.com>
+ <20210618091116.14428-10-wse@tuxedocomputers.com>
+ <20210622100042.4041624a@eldfell>
+ <56d079d4-841a-0ca5-b8a6-d2c10f91d211@tuxedocomputers.com>
+ <k_QeCRpur3SNNIspBiTHOTT6Oj1pSteEO3MzyQFUG0lSXmEqJUI2tMXJ6wR9chzUHGahdQApJZrUxdJvIv6s8aXr2DBdoHg-2PsGH4kEMyA=@emersion.fr>
+ <20210623103256.01d680ba@eldfell>
+From: Werner Sembach <wse@tuxedocomputers.com>
+Message-ID: <5947f768-dd87-6b39-ecfc-b7c4aaa88aca@tuxedocomputers.com>
+Date: Wed, 23 Jun 2021 12:17:40 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 23 Jun 2021 10:16:28 +0000
-Subject: Re: [Intel-gfx] [PATCH v14 01/12] swiotlb: Refactor swiotlb init
- functions
+In-Reply-To: <20210623103256.01d680ba@eldfell>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH v4 09/17] drm/uAPI: Add "active color range"
+ drm property as feedback for userspace
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,142 +66,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, Frank Rowand <frowand.list@gmail.com>,
- mingo@kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- jxgao@google.com, Will Deacon <will@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
- Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
- boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- tfiga@chromium.org,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
- thomas.lendacky@amd.com, Robin Murphy <robin.murphy@arm.com>,
- bauerman@linux.ibm.com
+Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ airlied@linux.ie, amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 19 Jun 2021, Claire Chang wrote:
-> Add a new function, swiotlb_init_io_tlb_mem, for the io_tlb_mem struct
-> initialization to make the code reusable.
-> 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> Tested-by: Stefano Stabellini <sstabellini@kernel.org>
-> Tested-by: Will Deacon <will@kernel.org>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Am 23.06.21 um 09:32 schrieb Pekka Paalanen:
+> On Tue, 22 Jun 2021 11:48:52 +0000
+> Simon Ser <contact@emersion.fr> wrote:
+>
+>> On Tuesday, June 22nd, 2021 at 11:50, Werner Sembach <wse@tuxedocomputers.com> wrote:
+>>
+>>> Unknown is when no monitor is connected or is when the
+>>> connector/monitor is disabled.  
+>> I think the other connector props (link-status, non-desktop, etc) don't
+>> have a special "unset" value, and instead the value is set to a random
+>> enum entry. User-space should ignore the prop on these disconnected
+>> connectors anyways.
+> That sounds fine to me.
 
+Currently the only case for "not applicable" is when the monitor is disconnected, but sicne the properties are so
+interdependent, there might be a case in the future where e.g. a color format that has no differentiation between full
+and limited arises. When there is no special unset/not applicable option, the userspace has to know exactly when an
+option is valid or not, possible requiring additional logic.
 
-> ---
->  kernel/dma/swiotlb.c | 50 ++++++++++++++++++++++----------------------
->  1 file changed, 25 insertions(+), 25 deletions(-)
-> 
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index 52e2ac526757..1f9b2b9e7490 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -168,9 +168,28 @@ void __init swiotlb_update_mem_attributes(void)
->  	memset(vaddr, 0, bytes);
->  }
->  
-> -int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
-> +static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
-> +				    unsigned long nslabs, bool late_alloc)
->  {
-> +	void *vaddr = phys_to_virt(start);
->  	unsigned long bytes = nslabs << IO_TLB_SHIFT, i;
-> +
-> +	mem->nslabs = nslabs;
-> +	mem->start = start;
-> +	mem->end = mem->start + bytes;
-> +	mem->index = 0;
-> +	mem->late_alloc = late_alloc;
-> +	spin_lock_init(&mem->lock);
-> +	for (i = 0; i < mem->nslabs; i++) {
-> +		mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
-> +		mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
-> +		mem->slots[i].alloc_size = 0;
-> +	}
-> +	memset(vaddr, 0, bytes);
-> +}
-> +
-> +int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
-> +{
->  	struct io_tlb_mem *mem;
->  	size_t alloc_size;
->  
-> @@ -186,16 +205,8 @@ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
->  	if (!mem)
->  		panic("%s: Failed to allocate %zu bytes align=0x%lx\n",
->  		      __func__, alloc_size, PAGE_SIZE);
-> -	mem->nslabs = nslabs;
-> -	mem->start = __pa(tlb);
-> -	mem->end = mem->start + bytes;
-> -	mem->index = 0;
-> -	spin_lock_init(&mem->lock);
-> -	for (i = 0; i < mem->nslabs; i++) {
-> -		mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
-> -		mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
-> -		mem->slots[i].alloc_size = 0;
-> -	}
-> +
-> +	swiotlb_init_io_tlb_mem(mem, __pa(tlb), nslabs, false);
->  
->  	io_tlb_default_mem = mem;
->  	if (verbose)
-> @@ -282,8 +293,8 @@ swiotlb_late_init_with_default_size(size_t default_size)
->  int
->  swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
->  {
-> -	unsigned long bytes = nslabs << IO_TLB_SHIFT, i;
->  	struct io_tlb_mem *mem;
-> +	unsigned long bytes = nslabs << IO_TLB_SHIFT;
->  
->  	if (swiotlb_force == SWIOTLB_NO_FORCE)
->  		return 0;
-> @@ -297,20 +308,9 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
->  	if (!mem)
->  		return -ENOMEM;
->  
-> -	mem->nslabs = nslabs;
-> -	mem->start = virt_to_phys(tlb);
-> -	mem->end = mem->start + bytes;
-> -	mem->index = 0;
-> -	mem->late_alloc = 1;
-> -	spin_lock_init(&mem->lock);
-> -	for (i = 0; i < mem->nslabs; i++) {
-> -		mem->slots[i].list = IO_TLB_SEGSIZE - io_tlb_offset(i);
-> -		mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
-> -		mem->slots[i].alloc_size = 0;
-> -	}
-> -
-> +	memset(mem, 0, sizeof(*mem));
->  	set_memory_decrypted((unsigned long)tlb, bytes >> PAGE_SHIFT);
-> -	memset(tlb, 0, bytes);
-> +	swiotlb_init_io_tlb_mem(mem, virt_to_phys(tlb), nslabs, true);
->  
->  	io_tlb_default_mem = mem;
->  	swiotlb_print_info();
-> -- 
-> 2.32.0.288.g62a8d224e6-goog
-> 
+Setting a "not applicable" value allows userspace to be more dumb, without much hassle on the kernelspace side.
+
+>
+>
+> Thanks,
+> pq
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
