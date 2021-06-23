@@ -2,54 +2,123 @@ Return-Path: <SRS0=EMYW=LR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0118BC4743C
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:16:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AEB5DC4743C
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B3FFD6024A
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:16:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3FFD6024A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 5808B6024A
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Jun 2021 10:16:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5808B6024A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC90B6E8A4;
-	Wed, 23 Jun 2021 10:16:31 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72DAB6E328;
- Mon, 21 Jun 2021 17:59:22 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 94438611CE;
- Mon, 21 Jun 2021 17:59:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624298362;
- bh=y8attfyCFvmhE/rEq1lKuxtMSlY+L9uu0zEo4FMjkv8=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=nVdx/hwygYr/MG4oSfAecQoTkcAWFsVr6dFhXJUhFXwqSbH08hcJcQHHaJ6yNTgwJ
- WFFrnk+RLaMbXPz1Xtr0MorwwBCBRCnNVEqXP2tUXHhGV2Usf3U4gjEu3zxeInr5od
- B9ktxTxXUHFXTSVy1nFGEpPSBK9O5Aws7oD7ucKaVc2hx8hm7IAXVZOQ8U1l9ZRj62
- sEXsTrg9MCBDzVl47wBX5+3xzZhCsWmVRvgAWZv47Xmzv8udI19xFqd0CjGvBvgqzh
- BtSw3vV40r9z2Jdokw3+RVbueWCN8P3KLA5YE9ZkG0ZSqiTJvVk9SGjw4FEHT8nF7N
- esGUOKjtCMepQ==
-Date: Mon, 21 Jun 2021 10:59:20 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+	by gabe.freedesktop.org (Postfix) with ESMTP id 311106E8A5;
+	Wed, 23 Jun 2021 10:16:32 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2069.outbound.protection.outlook.com [40.107.93.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 975456E87F;
+ Wed, 23 Jun 2021 00:05:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B3/KBdJDauQ7dVt5+j3SNsPYpt1TvZFwcKBAe/soen3qdXoWy/gKEc+plQ7pohVAa5gCm47wBBjYygAqdsZfnxN2AOj1etAaTLVtNs6NMm8ZMrkuTf/7Y6H7aDU0yjuUTf8M/c9RcloWuzKJ+Tw5b+wBaemP9QOzXAWV+NwCzIG70rqsy+5zPBQfj/qLJajjjCEw71/XKNdH45M9k/yx1mXdRgNyEuacgwT04rbD3BTtAMiLG0Gr81Uw5TLVXjIwdmUtWh/sNgIb/qZu6SlbNTy9HU4DhTouIRxs4RRB/OkfJCDcpWf+u6OrLGEPUZ7mJFFYa40nOHtCeyVTX8xTPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=00vjd5eelAB3Z7Vn7EjsipaY4AuovUAUgikKTrMKhzM=;
+ b=lXEulpoItrKWYdS/wGXx7cnk4ZQRk7/IPZa/5nSNzSn7NE8130514GFVTO5+8VxU5/GmbWltpSaZabrvjNI9GLr9T9PLkuy/VQ2qUS/sTVCv1qraFglMNj+g99jf2mOsMpjMVAT8tTv5BIt631uU2pRFwVsPgXaEBKrwZak4D7TesDuA2kykh0l5XERVXV7gGIMMGgfFCfcBdze20bxlO40gRZQaeRIZPgHppQo6l/gVzcEuhEFq+npBNw7F6nVUtbZ0UhoDnWOqO9KtyH5wU0tqaP9jYdEegO4Jy7c+6DPcuDIlg5rpQCTdcfxyOcrkKLyzOCctZYbrl+k4mndrfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=00vjd5eelAB3Z7Vn7EjsipaY4AuovUAUgikKTrMKhzM=;
+ b=jsNY7CzXfOG07PJuCaZasImaDQMH7rmjvakSFgWf74FikzwL0O4Z/4kTOl51yVpToh2ovtBVBKEhP76CCLM2PPQOgY9/REnC1keEUJRr9isqXr0oxuhwmV2GKH+W3y2gPwL+5hLm2zzBY8c/iMU404D8HvPi2IGrd+uW9f15iWcgAVDWB6KbFBlfXwj7XsIoDRolCbZIG3Sg9UQEGL1S86ofAGbKvvLH9tH5qDqSbaaYMk7SxUEprv20648i1rzZHv7Fafs5tWIcFqiRcr8olmMV8YxTDyzYw+N6iWCwjMY3uOy1Tlm5YfOhEavViog33blxHaIwweMoknNHZI0g0A==
+Authentication-Results: lst.de; dkim=none (message not signed)
+ header.d=none;lst.de; dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
+ by BL1PR12MB5206.namprd12.prod.outlook.com (2603:10b6:208:31c::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.18; Wed, 23 Jun
+ 2021 00:05:51 +0000
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::3d51:a3b9:8611:684e]) by BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::3d51:a3b9:8611:684e%8]) with mapi id 15.20.4264.018; Wed, 23 Jun 2021
+ 00:05:51 +0000
+Date: Tue, 22 Jun 2021 21:05:50 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
 To: Christoph Hellwig <hch@lst.de>
-In-Reply-To: <20210618143212.GA19284@lst.de>
-Message-ID: <alpine.DEB.2.21.2106211052270.24906@sstabellini-ThinkPad-T480s>
-References: <20210617062635.1660944-1-tientzu@chromium.org>
- <20210617062635.1660944-2-tientzu@chromium.org>
- <alpine.DEB.2.21.2106171434480.24906@sstabellini-ThinkPad-T480s>
- <CALiNf29SJ0jXirWVDhJw4BUNvkjUeGPyGNJK9m8c30OPX41=5Q@mail.gmail.com>
- <741a34cc-547c-984d-8af4-2f309880acfa@amd.com> <20210618143212.GA19284@lst.de>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+Message-ID: <20210623000550.GI2371267@nvidia.com>
+References: <20210617142218.1877096-1-hch@lst.de>
+Content-Disposition: inline
+In-Reply-To: <20210617142218.1877096-1-hch@lst.de>
+X-Originating-IP: [47.55.113.94]
+X-ClientProxiedBy: BL0PR02CA0048.namprd02.prod.outlook.com
+ (2603:10b6:207:3d::25) To BL0PR12MB5506.namprd12.prod.outlook.com
+ (2603:10b6:208:1cb::22)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (47.55.113.94) by
+ BL0PR02CA0048.namprd02.prod.outlook.com (2603:10b6:207:3d::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4242.21 via Frontend Transport; Wed, 23 Jun 2021 00:05:51 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1lvqOs-00BGsO-Ht; Tue, 22 Jun 2021 21:05:50 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: db3435c1-3125-49fe-86d3-08d935daa988
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5206:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5206A1FB5B9C0F2BD51DB5EBC2089@BL1PR12MB5206.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FMI2kWyz/BN5MjZjGURmfvJglsflb5Bhsj7jW8FZNjXnC0fY8oppCwp3C3+R2Wxn5v1CFgn/9au0Pp2vb+mvhDpkG1FM0rIXZRn9XE5+3XYJqdY52a7/UGR5vOMIcGc+SrbraqxX7Zmzbp48AyIJs8oB2G3rprXVBylUUYOuO8MysGSmoslMEmOOFjSoGvgeczOusPcXzEq1IVOEtnCVfDDkz7dmvMul5Q8BQrVGvC1zV1h+PQK9uGMOWvjNM0YGQZY9G6n6egEfLgGnEaox8FERjKnP21YOc/q/St73VJ74nJgE5pQc2GaeokHLKZMMx+TRN0ycsgtwgLOzNQULXhY1xFktQ2BL626JmtrEc/3t+2t/WOgDwyD/nD2004rGZMKaP++tswPMBVMAfGGjlON+CYwX6A75DN72MM3CtiIMDVWXJiiOkz8LRfCajitpp3Of8aal40iCCBxEanHVf63bbHyQmMHsKtKYsora+c4n800HNvuM8iiv8stYDEv82I2riHnCw+vJn7W6CyW1mlNrwhpTGxGsLnLAk/NAT7GOKiIiQT7sT1mS7dO+ZpeUz3xLrZxYSYKTOESYP1MfZKaeevhdMWoQKHHDS9z6/ey1V3wkuEkg8gb/YJbflbqtR5200d7hhzoGKAd/YZMCEqj009Wq/57dnAF1RmX8drftCak4uhhsQMpn47AbTd2pcbizzWesIFKIkzkd52LP9a53Q5x1Gt3BSKa65FfoWRjn3KaX1sVOFe4gxezeOakmblH7giunK4rmCVfthp6S9Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(6916009)(8676002)(36756003)(8936002)(86362001)(9786002)(9746002)(478600001)(316002)(38100700002)(2616005)(426003)(966005)(2906002)(4744005)(66946007)(1076003)(66556008)(66476007)(54906003)(5660300002)(26005)(33656002)(7416002)(186003)(4326008);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?p8OXyhdzcu+DPmcstmmHumq6IL7nNzruzvpzeWheHwnLpZ7hRqia9G41pO3K?=
+ =?us-ascii?Q?4Oe16pCitCvVYdXU40sCtnXAXmM36UX+vrhKNEnOqnqkRyLPeHkw9+KtxuLC?=
+ =?us-ascii?Q?nlDDs1br4BNAx/w1vF4GwAiQQQ0KEMFCpYjjo+Q1I8BPWw6PMYKLOYipoAxt?=
+ =?us-ascii?Q?RDYpT33/IZghZUz+OoR/ljnHXc3mOJruyzn/VI1BNi/FGeoQEaLxlRT7xDCz?=
+ =?us-ascii?Q?2jLUWYZIsYYIsZZCUAyxwQm23jLykuE+jGmePPBFNDEle4XEG/D8lJvz7E53?=
+ =?us-ascii?Q?cZUGFmfzPMGc82aqo1PcuSQ5bGqp0J5hwww9w2HYb+GWitoJWPyOhMGAl9DI?=
+ =?us-ascii?Q?Pjv21fQ+vl5wKfJKveUeeSSfxZui3lYAEHLUURLOazFLjpCtCLug2PYgt5x4?=
+ =?us-ascii?Q?XXtUHDN/azMk38Sx+EPi9RRzInnyfW5cFXb5bLm6e+t7u+RPCca3wvayF24b?=
+ =?us-ascii?Q?mFxUDxK2i8edZXDMXvZRl7VKEBG8saFUQP+LB9T82GqiFqvehf/fh/cRZU4A?=
+ =?us-ascii?Q?QZx0Gj5Fdvap7yakWprOFT/418Xo3su4IGo1Z0ey8JPvYG9w97bg34VUQJTk?=
+ =?us-ascii?Q?nzsJbAvi/1+qyiViwS5oXdQe1h409bzRmL8oEJCd2h/uTS+4jAR9MwuWUZG8?=
+ =?us-ascii?Q?HZsM/m5GSUrJnsVnbgGhl4xXpdXaBvZLRUVeBfP6/RR0hMSnWYEPHROqrGKg?=
+ =?us-ascii?Q?PMpopIlqJbYiLlD8nBVbo5+pviYwMja4uD5eTWKKldUUoYbiY2wtgN0JwRPH?=
+ =?us-ascii?Q?e+Vkmmr/r+CpZ2yUBJoYfeksoiU3s/nnaN7Ul7bWTOcoN4fwxxBysJGvP/7h?=
+ =?us-ascii?Q?qXzG3oD14Ep7BylXWwXPI9tcfPltFKi/awdm4GaKq5U+zyCkmAtT1NOlligE?=
+ =?us-ascii?Q?qJ5SeiJKHK+P5d5YToFZ/GBnQy8uR1YrDUZogwJPjjH+etrXm/g6/NNhkw/3?=
+ =?us-ascii?Q?+ulD5IoYyzted5o8HGKXeHI5XnDj6LaB8unF8hbQ3oAqb/TaM4H1XKTGZM0b?=
+ =?us-ascii?Q?i5WhusVsf9qMLN3IZV2b7ZZlgOz/brC9wk8ZK7NeLdKagSxQSFGufJC21et1?=
+ =?us-ascii?Q?yvukRezvP5xvSQJaF7zVrv0LhiIXehVKiIkv/2eTVaLVLR4doaF0JQH8UQMM?=
+ =?us-ascii?Q?u/rNinWe0wcbq+zo/I3DeBsDpo2GEsmjowQQRatPrpWwtWYkaMHXPp7eUFZL?=
+ =?us-ascii?Q?4RdsyyPQZU+XAvnYctYnZgwxI3ZbmM8OTWJnINTCXz16YgkSwIxEFeMC6psn?=
+ =?us-ascii?Q?Zvj6uxdU3xoZu+ttiCbXhVWl8iz6TXgYYIEvpDHp6JjwFPRQ4jr1814enl1X?=
+ =?us-ascii?Q?DykCWpNBC1R39XWHV7Iwg0Jm?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db3435c1-3125-49fe-86d3-08d935daa988
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2021 00:05:51.5245 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UjBGZjHrBZ+ImINUr7RJ9ye3BtoW5h/xfhAjdOoZ5oMF6HbtDLAt602iD5iIx6JL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5206
 X-Mailman-Approved-At: Wed, 23 Jun 2021 10:16:28 +0000
-Subject: Re: [Intel-gfx] [PATCH v13 01/12] swiotlb: Refactor swiotlb init
- functions
+Subject: Re: [Intel-gfx] Allow mdev drivers to directly create the
+ vfio_device (v4)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +131,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: thomas.hellstrom@linux.intel.com, heikki.krogerus@linux.intel.com,
- linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
- benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
- Frank Rowand <frowand.list@gmail.com>, mingo@kernel.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
- Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, Tom Lendacky <thomas.lendacky@amd.com>,
- Jianxiong Gao <jxgao@google.com>, Will Deacon <will@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, airlied@linux.ie,
- Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Rob Herring <robh+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Claire Chang <tientzu@chromium.org>, boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- Nicolas Boichat <drinkcat@chromium.org>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- Tomasz Figa <tfiga@chromium.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
- Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
+Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-s390@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ intel-gfx@lists.freedesktop.org, Jason Herne <jjherne@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Tony Krowiak <akrowiak@linux.ibm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Cornelia Huck <cohuck@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 18 Jun 2021, Christoph Hellwig wrote:
-> On Fri, Jun 18, 2021 at 09:09:17AM -0500, Tom Lendacky wrote:
-> > > swiotlb_init_with_tbl uses memblock_alloc to allocate the io_tlb_mem
-> > > and memblock_alloc[1] will do memset in memblock_alloc_try_nid[2], so
-> > > swiotlb_init_with_tbl is also good.
-> > > I'm happy to add the memset in swiotlb_init_io_tlb_mem if you think
-> > > it's clearer and safer.
-> > 
-> > On x86, if the memset is done before set_memory_decrypted() and memory
-> > encryption is active, then the memory will look like ciphertext afterwards
-> > and not be zeroes. If zeroed memory is required, then a memset must be
-> > done after the set_memory_decrypted() calls.
+On Thu, Jun 17, 2021 at 04:22:08PM +0200, Christoph Hellwig wrote:
+> This is my alternative take on this series from Jason:
 > 
-> Which should be fine - we don't care that the memory is cleared to 0,
-> just that it doesn't leak other data.  Maybe a comment would be useful,
-> though,
+> https://lore.kernel.org/dri-devel/87czsszi9i.fsf@redhat.com/T/
+> 
+> The mdev/vfio parts are exactly the same, but this solves the driver core
+> changes for the direct probing without the in/out flag that Greg hated,
+> which cause a little more work, but probably make the result better.
 
-Just as a clarification: I was referring to the zeroing of "mem" in
-swiotlb_late_init_with_tbl and swiotlb_init_with_tbl. While it looks
-like Tom and Christoph are talking about the zeroing of "tlb".
+I did some testing and it looks good, thanks
 
-The zeroing of "mem" is required as some fields of struct io_tlb_mem
-need to be initialized to zero. While the zeroing of "tlb" is not
-required except from the point of view of not leaking sensitive data as
-Christoph mentioned.
+I see Alex has this in hch-mdev-direct-v4 in linux-next now, so
+expecting this to be in the next merge window?
 
-Either way, Claire's v14 patch 01/12 looks fine to me.
+The AP prep patches seemed sorted so I'll resend the AP patch in three
+weeks
+
+Jason
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
