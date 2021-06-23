@@ -2,75 +2,52 @@ Return-Path: <SRS0=2qg2=LW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CBC06C2B9F4
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:32:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FA1DC49EAB
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:32:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9281761C49
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:32:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9281761C49
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1DB03619C5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:32:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DB03619C5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31D706E3DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A7246E3C6;
 	Mon, 28 Jun 2021 09:32:06 +0000 (UTC)
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DE836EC27
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 15:36:45 +0000 (UTC)
-Received: by mail-pl1-x62e.google.com with SMTP id i4so3136249plt.12
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 08:36:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=oSmcLkLaYmb30K4x2o5V0PgF5sReFf2n8jT9UaERRsg=;
- b=bSQo4DhU2KuL3CjUZN64j4WcwdggQch/R7XnEdix2NVuOf40qPGfYHBno8Xm619GAr
- wg2kvoNy4VPNerE1UJQqTO/mn+wSl2WW8B9f7dL8xOzOgdg74JEfehGKdbWSQ0+1rr/t
- 2LEY4HKbsscIOGINiR9uO5OVpBxOglyxXqSvwqqzzZpKt1BhIehu/QDEuFSbgcAbmd1A
- 2Vn5BfcWryEpw7ny/6e9BAwB13V5uLq3/TeIlPL3nNBaDSZ9vfocg3yuStOuQjDnW2a3
- vbLINUOPqFtht9Zb0kQj2xFTxtidhP/wmPjkGUm290ZvEfhGiSSc1t+MN7azCayA+NIy
- PYiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=oSmcLkLaYmb30K4x2o5V0PgF5sReFf2n8jT9UaERRsg=;
- b=qxnIC3QK3mReG21rDQVw4h8S5SJuh6QOFN5htvdS6DJYYI4juzPTOTakTnOQoGtpY3
- qglyFAtobYso906UQnM+HFJ/RT94cgbJy5fFQYPQP39LmTuZG5ZZyPhhX4lh8xMgK49Z
- KUADMWf/w2416XCup7kAumQhL5evMf+IdWKn7copgLI8PZDBb58NOopKkqmzqSez/6d3
- AO4kj6hDY4vjGzaCJ0h7lQm3D/60iYw0L+9t2gcIk7WRx31M/G8WZ1hEr0mfQJ1052W2
- FHEAX8fHeOVvs2BTvLhFPePRV62NlrF3bbCxuLY0CFPWuXUjxt6aCqUHHweEZ3Rb87JH
- kpmg==
-X-Gm-Message-State: AOAM530vemjlDWrajKHTk/7WovYKshxhLpDVhF63qQT/tR+hSritLSIM
- pNvKSeY7yELiXrW8e17NzxM9oQ==
-X-Google-Smtp-Source: ABdhPJxfmbtVti63yi0rwniZ/V3vp7ddChowhbbwk916pZwapRYWPu+wwBqr+2N8fYjWJaOb0U93+Q==
-X-Received: by 2002:a17:90a:8542:: with SMTP id
- a2mr14115924pjw.185.1624549004763; 
- Thu, 24 Jun 2021 08:36:44 -0700 (PDT)
-Received: from google.com (157.214.185.35.bc.googleusercontent.com.
- [35.185.214.157])
- by smtp.gmail.com with ESMTPSA id p1sm3132065pfp.137.2021.06.24.08.36.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 08:36:44 -0700 (PDT)
-Date: Thu, 24 Jun 2021 15:36:40 +0000
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <YNSmiOsmJin4UPcG@google.com>
-References: <20210624035749.4054934-1-stevensd@google.com>
- <20210624035749.4054934-2-stevensd@google.com>
- <1624524156.04etgk7zmz.astroid@bobo.none>
- <4816287a-b9a9-d3f4-f844-06922d696e06@redhat.com>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC8A6E971;
+ Wed, 23 Jun 2021 18:37:48 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3C1E061185;
+ Wed, 23 Jun 2021 18:37:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1624473468;
+ bh=K9ctSOOXg/HLNG/KMzo+bt+uXbhOKksVK31vHq8QEAc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pew0mCStiOrsU0bWjM0b54f2cDTk0BFJYuT7oL0Hl93RfndilrrpZ00P5EcbMTEX/
+ /lbkdoUtJfhzG6xhgO6NWycBIcDRvmNhEJGTWAKSFbeL2aFhOe2jpLrVodVSrKGkzr
+ gHxURUCJo+Bry9z+VHTZDIOT/ABoSs0DN2Tjo7IL/UHU38iukI2V/m5xdJIYc7NUws
+ 7NMVKjT7vcMuSIu2fy0OZOLVI8+LwwecPlMOHv27TBpClMax/sAEQmgzVN3VS5iIlB
+ HGiL4Uzn3xHn2voW7eTXBh/NjM9NO32LN+GkhPpRHj+kINjyQizH9+P5WDGveYcADU
+ kFBCzfquuEa8w==
+Date: Wed, 23 Jun 2021 19:37:37 +0100
+From: Will Deacon <will@kernel.org>
+To: Qian Cai <quic_qiancai@quicinc.com>
+Message-ID: <20210623183736.GA472@willie-the-truck>
+References: <20210619034043.199220-1-tientzu@chromium.org>
+ <20210619034043.199220-7-tientzu@chromium.org>
+ <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <4816287a-b9a9-d3f4-f844-06922d696e06@redhat.com>
+In-Reply-To: <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Mon, 28 Jun 2021 09:31:03 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/6] KVM: x86/mmu: release audited pfns
+Subject: Re: [Intel-gfx] [PATCH v14 06/12] swiotlb: Use
+ is_swiotlb_force_bounce for swiotlb data bouncing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,36 +60,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wanpeng Li <wanpengli@tencent.com>, kvm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
- Paul Mackerras <paulus@ozlabs.org>, Will Deacon <will@kernel.org>,
- kvmarm@lists.cs.columbia.edu, Marc Zyngier <maz@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Huacai Chen <chenhuacai@kernel.org>,
- Alexandru Elisei <alexandru.elisei@arm.com>,
- Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, intel-gfx@lists.freedesktop.org,
- kvm-ppc@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
- intel-gvt-dev@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- Jim Mattson <jmattson@google.com>, linux-kernel@vger.kernel.org,
- James Morse <james.morse@arm.com>, David Stevens <stevensd@chromium.org>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, linuxppc-dev@lists.ozlabs.org
+Cc: heikki.krogerus@linux.intel.com,
+ linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
+ benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
+ chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
+ Frank Rowand <frowand.list@gmail.com>, Christoph Hellwig <hch@lst.de>,
+ jxgao@google.com, sstabellini@kernel.org,
+ Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
+ Joerg Roedel <joro@8bytes.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, mingo@kernel.org,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Dan Williams <dan.j.williams@intel.com>, matthew.auld@intel.com,
+ Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
+ Jim Quinlan <james.quinlan@broadcom.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ intel-gfx@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>,
+ Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
+ Claire Chang <tientzu@chromium.org>, boris.ostrovsky@oracle.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
+ airlied@linux.ie, Thierry Reding <treding@nvidia.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ xypron.glpk@gmx.de, thomas.lendacky@amd.com, linuxppc-dev@lists.ozlabs.org,
+ bauerman@linux.ibm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 24, 2021, Paolo Bonzini wrote:
-> On 24/06/21 10:43, Nicholas Piggin wrote:
-> > Excerpts from David Stevens's message of June 24, 2021 1:57 pm:
-> > > From: David Stevens <stevensd@chromium.org>
-> > 
-> > Changelog? This looks like a bug, should it have a Fixes: tag?
+On Wed, Jun 23, 2021 at 12:39:29PM -0400, Qian Cai wrote:
 > 
-> Probably has been there forever... The best way to fix the bug would be to
-> nuke mmu_audit.c, which I've threatened to do many times but never followed
-> up on.
+> 
+> On 6/18/2021 11:40 PM, Claire Chang wrote:
+> > Propagate the swiotlb_force into io_tlb_default_mem->force_bounce and
+> > use it to determine whether to bounce the data or not. This will be
+> > useful later to allow for different pools.
+> > 
+> > Signed-off-by: Claire Chang <tientzu@chromium.org>
+> > Reviewed-by: Christoph Hellwig <hch@lst.de>
+> > Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+> > Tested-by: Will Deacon <will@kernel.org>
+> > Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> Reverting the rest of the series up to this patch fixed a boot crash with NVMe on today's linux-next.
 
-Yar.  It has only survived because it hasn't required any maintenance.
+Hmm, so that makes patch 7 the suspicious one, right?
+
+Looking at that one more closely, it looks like swiotlb_find_slots() takes
+'alloc_size + offset' as its 'alloc_size' parameter from
+swiotlb_tbl_map_single() and initialises 'mem->slots[i].alloc_size' based
+on 'alloc_size + offset', which looks like a change in behaviour from the
+old code, which didn't include the offset there.
+
+swiotlb_release_slots() then adds the offset back on afaict, so we end up
+accounting for it twice and possibly unmap more than we're supposed to?
+
+Will
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
