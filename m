@@ -2,71 +2,50 @@ Return-Path: <SRS0=foSz=LS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36A6BC48BDF
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:43:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F25DC48BDF
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:53:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05D2C613F0
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:43:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05D2C613F0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0F008613DA
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:53:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F008613DA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BC876EB53;
-	Thu, 24 Jun 2021 10:43:37 +0000 (UTC)
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 027AE6EAAA;
- Thu, 24 Jun 2021 10:43:35 +0000 (UTC)
-Received: by mail-pl1-x633.google.com with SMTP id x22so2726573pll.11;
- Thu, 24 Jun 2021 03:43:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:subject:to:cc:references:in-reply-to:mime-version
- :message-id:content-transfer-encoding;
- bh=Ntmvbr4Rsn/lopxAADIIDgcNErNmU/zbadQcByBiYK4=;
- b=Uzc43caEhY2Ti31+lpHHW0AZ5sLCVj6W+n4t/ez5IgVzQkVZOibK2DIWQ0+CAuzt9U
- PpuIA4kDsyK3chDvHhxE+YawXhAPb2eWGecCvYilJeif5bW1AWaPBDm7W4vYjxTYq4eX
- vsAbVyUYfQJDK46zRrnjfoRU3RdSuUfndWfij+20vPjPzE9a8Ky+gzwBiWuGHYujrH97
- b1g8G9j+MqQ6oKRgvSqRRvZdf9oww+7IytooiBQtjKLAdCQfMAXpO/dc/FMWyHkr12JS
- ZqabhMCopqc94H8G+WPpptqvIqeO4Wfi2qlPKFQXomh5RWpLJ4WGRgIbJ4SL7OebaZ9b
- Cu7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:subject:to:cc:references:in-reply-to
- :mime-version:message-id:content-transfer-encoding;
- bh=Ntmvbr4Rsn/lopxAADIIDgcNErNmU/zbadQcByBiYK4=;
- b=i7lHDa8Ur67n4na+tYB2JCOOIf77AaqawIsOGHKgKbE9w8+58Jf6tcVtY+bWkuzvNn
- AFWJj63ss9syD/bYQW3V4eLiyagFCaqCt+PyaRy2h1znF6DhV0lwv8zcntRyfJKs7cLK
- Y+N3xsLRQxVUgi2Wh/PhpeD2VORZVAKI/tgHeer/hckhp02IKUdPbz5eh/dwQEXunTDC
- xjtj67a7O84/xCsGCB5v9rywdqIL1zXmy0uWvuwZAieEJtSUfC9OkKj8tawZ8NQNLrSc
- DzJeZ2kisjY+6Lww6Syg/KlvogBmksuFE09W8YdhvpXPBleCAuAlmaf1iNRYBH4nmGhr
- IhAg==
-X-Gm-Message-State: AOAM530RReXkHPEreAXVfgUzUlut6brZPBSmGMw0aIfELupr10b8OekT
- vgPnWMWHiJa8c4+6Q3wxMno=
-X-Google-Smtp-Source: ABdhPJwSbcPeLeFEknq5SPs1K9/7wAZ9//Y8XUJsBm0HOgxDXNJ+d8W1kIX2/TWCimMS0wf9W28w6Q==
-X-Received: by 2002:a17:90a:ce87:: with SMTP id
- g7mr14492750pju.189.1624531415692; 
- Thu, 24 Jun 2021 03:43:35 -0700 (PDT)
-Received: from localhost (60-242-147-73.tpgi.com.au. [60.242.147.73])
- by smtp.gmail.com with ESMTPSA id n12sm2540624pfu.5.2021.06.24.03.43.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 03:43:35 -0700 (PDT)
-Date: Thu, 24 Jun 2021 20:43:29 +1000
-From: Nicholas Piggin <npiggin@gmail.com>
-To: Marc Zyngier <maz@kernel.org>
-References: <20210624035749.4054934-1-stevensd@google.com>
- <20210624035749.4054934-4-stevensd@google.com>
- <1624524744.2sr7o7ix86.astroid@bobo.none> <87mtrfinks.wl-maz@kernel.org>
-In-Reply-To: <87mtrfinks.wl-maz@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DA486EB59;
+	Thu, 24 Jun 2021 10:53:52 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 240526EB57;
+ Thu, 24 Jun 2021 10:53:51 +0000 (UTC)
+IronPort-SDR: ncd2qx+zflViNkzGB/AT7gaHyySQGYCtiuQv74e0i2j+bk0CJazkKJnxzyXIJEgzNAR2tAZypT
+ SQwOnQtXnt+g==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="271292823"
+X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="271292823"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2021 03:53:50 -0700
+IronPort-SDR: PzZzIoUyODME44ZvOWzHNBiict5S/yyV2OBfC4qEHOWDo7JMKXl2vfocXWHsQH5HIIRfYhTgcc
+ ZGEiCORV8gtQ==
+X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="624149104"
+Received: from cmutgix-mobl.gar.corp.intel.com (HELO thellst-mobl1.intel.com)
+ ([10.249.254.20])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2021 03:53:48 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Thu, 24 Jun 2021 12:53:37 +0200
+Message-Id: <20210624105337.296520-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Message-Id: <1624531381.4bht02wxsj.astroid@bobo.none>
-Subject: Re: [Intel-gfx] [PATCH 3/6] KVM: x86/mmu: avoid struct page in MMU
+Subject: [Intel-gfx] [PATCH] drm/i915: Reinstate the mmap ioctl for some
+ platforms
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,56 +58,34 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wanpeng Li <wanpengli@tencent.com>, kvm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
- Paul Mackerras <paulus@ozlabs.org>, Will Deacon <will@kernel.org>,
- kvmarm@lists.cs.columbia.edu, intel-gvt-dev@lists.freedesktop.org,
- Joerg Roedel <joro@8bytes.org>, Huacai Chen <chenhuacai@kernel.org>,
- Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, intel-gfx@lists.freedesktop.org,
- kvm-ppc@vger.kernel.org, Alexandru Elisei <alexandru.elisei@arm.com>,
- linux-arm-kernel@lists.infradead.org, Jim Mattson <jmattson@google.com>,
- Sean Christopherson <seanjc@google.com>, linux-kernel@vger.kernel.org,
- James Morse <james.morse@arm.com>, David Stevens <stevensd@chromium.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ matthew.auld@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Excerpts from Marc Zyngier's message of June 24, 2021 8:06 pm:
-> On Thu, 24 Jun 2021 09:58:00 +0100,
-> Nicholas Piggin <npiggin@gmail.com> wrote:
->> 
->> Excerpts from David Stevens's message of June 24, 2021 1:57 pm:
->> > From: David Stevens <stevensd@chromium.org>
->> >  out_unlock:
->> >  	if (is_tdp_mmu_root(vcpu->kvm, vcpu->arch.mmu->root_hpa))
->> >  		read_unlock(&vcpu->kvm->mmu_lock);
->> >  	else
->> >  		write_unlock(&vcpu->kvm->mmu_lock);
->> > -	kvm_release_pfn_clean(pfn);
->> > +	if (pfnpg.page)
->> > +		put_page(pfnpg.page);
->> >  	return r;
->> >  }
->> 
->> How about
->> 
->>   kvm_release_pfn_page_clean(pfnpg);
-> 
-> I'm not sure. I always found kvm_release_pfn_clean() ugly, because it
-> doesn't mark the page 'clean'. I find put_page() more correct.
-> 
-> Something like 'kvm_put_pfn_page()' would make more sense, but I'm so
-> bad at naming things that I could just as well call it 'bob()'.
-
-That seems like a fine name to me. A little better than bob.
-
-Thanks,
-Nick
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+UmVpbnN0YXRlIHRoZSBtbWFwIGlvY3RsIGZvciBhbGwgY3VycmVudCBpbnRlZ3JhdGVkIHBsYXRm
+b3Jtcy4KVGhlIGludGVudGlvbiB3YXMgcmVhbGx5IHRvIGhhdmUgaXQgZGlzYWJsZWQgZm9yIGRp
+c2NyZXRlIGdyYXBoaWNzCndoZXJlIHdlIGVuZm9yY2UgYSBzaW5nbGUgbW1hcCBtb2RlLgoKRml4
+ZXM6IDM1Y2JkOTFlYjU0MSAoImRybS9pOTE1OiBEaXNhYmxlIG1tYXAgaW9jdGwgZm9yIGdlbjEy
+KyIpClNpZ25lZC1vZmYtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGxp
+bnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fbW1h
+bi5jIHwgNyArKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAzIGRlbGV0
+aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9t
+bWFuLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fbW1hbi5jCmluZGV4IDJm
+ZDE1NTc0MmJkMi4uMDliNWVkMDE4YWFmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9nZW0vaTkxNV9nZW1fbW1hbi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1
+X2dlbV9tbWFuLmMKQEAgLTYyLDEwICs2MiwxMSBAQCBpOTE1X2dlbV9tbWFwX2lvY3RsKHN0cnVj
+dCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCiAJc3RydWN0IGRybV9pOTE1X2dlbV9vYmpl
+Y3QgKm9iajsKIAl1bnNpZ25lZCBsb25nIGFkZHI7CiAKLQkvKiBtbWFwIGlvY3RsIGlzIGRpc2Fs
+bG93ZWQgZm9yIGFsbCBwbGF0Zm9ybXMgYWZ0ZXIgVEdMLUxQLiAgVGhpcyBhbHNvCi0JICogY292
+ZXJzIGFsbCBwbGF0Zm9ybXMgd2l0aCBsb2NhbCBtZW1vcnkuCisJLyoKKwkgKiBtbWFwIGlvY3Rs
+IGlzIGRpc2FsbG93ZWQgZm9yIGFsbCBkaXNjcmV0ZSBwbGF0Zm9ybXMsIGFuZCBmb3IKKwkgKiBh
+bmQgZm9yIGFsbCBwbGF0Zm9ybXMgd2l0aCBHUkFQSElDU19WRVIgPiAxMi4KIAkgKi8KLQlpZiAo
+R1JBUEhJQ1NfVkVSKGk5MTUpID49IDEyICYmICFJU19USUdFUkxBS0UoaTkxNSkpCisJaWYgKElT
+X0RHRlgoaTkxNSkgfHwgR1JBUEhJQ1NfVkVSKGk5MTUpID4gMTIpCiAJCXJldHVybiAtRU9QTk9U
+U1VQUDsKIAogCWlmIChhcmdzLT5mbGFncyAmIH4oSTkxNV9NTUFQX1dDKSkKLS0gCjIuMzEuMQoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4
+IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
