@@ -5,48 +5,48 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24D29C49EA5
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F08AC49EA6
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E85E7613CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E85E7613CC
+	by mail.kernel.org (Postfix) with ESMTPS id B12BD613CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B12BD613CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 091566EA1B;
-	Thu, 24 Jun 2021 06:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0876E9F7;
+	Thu, 24 Jun 2021 06:47:34 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 816A26E9F3;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA91D6E9F3;
  Thu, 24 Jun 2021 06:47:28 +0000 (UTC)
-IronPort-SDR: B/yW9c0GIjdIEpQDH3+hat9tn5ISvhDU3EHZPe1n2Yfd6myKTABG9cmygNsJhT2E7PnxZ7hNO3
- 892P3KbpcvgQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346746"
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346746"
+IronPort-SDR: ebzJiBDbWfti38zMKxR6YWZVXkReTP17SAPW5O2L4xQQgrW8pbzYcFNJ9gQHTj+o77cRns56ne
+ KBcinVxbA1Mg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346749"
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346749"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:25 -0700
-IronPort-SDR: umPEH0X/Lc58f4dIvY9Ivnz4s+1Agzz3X/iXI9JJp4OqLibsK9EpJVpm1lKPaOjj8CEo0da+pB
- 58REE3ptfYEA==
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390886"
+IronPort-SDR: bVvyzn3ce1ZIumsQmXQslCg6c9pin1xYPIdD+dfO7QXQoT1tGv5Lt93g0adCU0ig3yWDOINQEh
+ LnohvfWmRnTA==
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390893"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:24 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 24 Jun 2021 00:04:37 -0700
-Message-Id: <20210624070516.21893-9-matthew.brost@intel.com>
+Date: Thu, 24 Jun 2021 00:04:39 -0700
+Message-Id: <20210624070516.21893-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210624070516.21893-1-matthew.brost@intel.com>
 References: <20210624070516.21893-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/47] drm/i915/guc: Add new GuC interface
- defines and structures
+Subject: [Intel-gfx] [PATCH 10/47] drm/i915/guc: Add lrc descriptor context
+ lookup array
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,111 +64,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add new GuC interface defines and structures while maintaining old ones
-in parallel.
+Add lrc descriptor context lookup array which can resolve the
+intel_context from the lrc descriptor index. In addition to lookup, it
+can determine in the lrc descriptor context is currently registered with
+the GuC by checking if an entry for a descriptor index is present.
+Future patches in the series will make use of this array.
 
 Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  | 14 +++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   | 41 +++++++++++++++++++
- 2 files changed, 55 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  5 +++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 32 +++++++++++++++++--
+ 2 files changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-index 2d6198e63ebe..57e18babdf4b 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-@@ -124,10 +124,24 @@ enum intel_guc_action {
- 	INTEL_GUC_ACTION_FORCE_LOG_BUFFER_FLUSH = 0x302,
- 	INTEL_GUC_ACTION_ENTER_S_STATE = 0x501,
- 	INTEL_GUC_ACTION_EXIT_S_STATE = 0x502,
-+	INTEL_GUC_ACTION_GLOBAL_SCHED_POLICY_CHANGE = 0x506,
-+	INTEL_GUC_ACTION_SCHED_CONTEXT = 0x1000,
-+	INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_SET = 0x1001,
-+	INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE = 0x1002,
-+	INTEL_GUC_ACTION_SCHED_ENGINE_MODE_SET = 0x1003,
-+	INTEL_GUC_ACTION_SCHED_ENGINE_MODE_DONE = 0x1004,
-+	INTEL_GUC_ACTION_SET_CONTEXT_PRIORITY = 0x1005,
-+	INTEL_GUC_ACTION_SET_CONTEXT_EXECUTION_QUANTUM = 0x1006,
-+	INTEL_GUC_ACTION_SET_CONTEXT_PREEMPTION_TIMEOUT = 0x1007,
-+	INTEL_GUC_ACTION_CONTEXT_RESET_NOTIFICATION = 0x1008,
-+	INTEL_GUC_ACTION_ENGINE_FAILURE_NOTIFICATION = 0x1009,
- 	INTEL_GUC_ACTION_SLPC_REQUEST = 0x3003,
- 	INTEL_GUC_ACTION_AUTHENTICATE_HUC = 0x4000,
-+	INTEL_GUC_ACTION_REGISTER_CONTEXT = 0x4502,
-+	INTEL_GUC_ACTION_DEREGISTER_CONTEXT = 0x4503,
- 	INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
- 	INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
-+	INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE = 0x4600,
- 	INTEL_GUC_ACTION_LIMIT
- };
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index b28fa54214f2..2313d9fc087b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -6,6 +6,8 @@
+ #ifndef _INTEL_GUC_H_
+ #define _INTEL_GUC_H_
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index 617ec601648d..28245a217a39 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -17,6 +17,9 @@
- #include "abi/guc_communication_ctb_abi.h"
- #include "abi/guc_messages_abi.h"
++#include "linux/xarray.h"
++
+ #include "intel_uncore.h"
+ #include "intel_guc_fw.h"
+ #include "intel_guc_fwif.h"
+@@ -46,6 +48,9 @@ struct intel_guc {
+ 	struct i915_vma *lrc_desc_pool;
+ 	void *lrc_desc_pool_vaddr;
  
-+#define GUC_CONTEXT_DISABLE		0
-+#define GUC_CONTEXT_ENABLE		1
++	/* guc_id to intel_context lookup */
++	struct xarray context_lookup;
 +
- #define GUC_CLIENT_PRIORITY_KMD_HIGH	0
- #define GUC_CLIENT_PRIORITY_HIGH	1
- #define GUC_CLIENT_PRIORITY_KMD_NORMAL	2
-@@ -26,6 +29,9 @@
- #define GUC_MAX_STAGE_DESCRIPTORS	1024
- #define	GUC_INVALID_STAGE_ID		GUC_MAX_STAGE_DESCRIPTORS
+ 	/* Control params for fw initialization */
+ 	u32 params[GUC_CTL_MAX_DWORDS];
  
-+#define GUC_MAX_LRC_DESCRIPTORS		65535
-+#define	GUC_INVALID_LRC_ID		GUC_MAX_LRC_DESCRIPTORS
-+
- #define GUC_RENDER_ENGINE		0
- #define GUC_VIDEO_ENGINE		1
- #define GUC_BLITTER_ENGINE		2
-@@ -237,6 +243,41 @@ struct guc_stage_desc {
- 	u64 desc_private;
- } __packed;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index a366890fb840..23a94a896a0b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -65,8 +65,6 @@ static inline struct i915_priolist *to_priolist(struct rb_node *rb)
+ 	return rb_entry(rb, struct i915_priolist, node);
+ }
  
-+#define CONTEXT_REGISTRATION_FLAG_KMD	BIT(0)
+-/* Future patches will use this function */
+-__attribute__ ((unused))
+ static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
+ {
+ 	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
+@@ -76,6 +74,15 @@ static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
+ 	return &base[index];
+ }
+ 
++static inline struct intel_context *__get_context(struct intel_guc *guc, u32 id)
++{
++	struct intel_context *ce = xa_load(&guc->context_lookup, id);
 +
-+#define CONTEXT_POLICY_DEFAULT_EXECUTION_QUANTUM_US 1000000
-+#define CONTEXT_POLICY_DEFAULT_PREEMPTION_TIME_US 500000
++	GEM_BUG_ON(id >= GUC_MAX_LRC_DESCRIPTORS);
 +
-+/* Preempt to idle on quantum expiry */
-+#define CONTEXT_POLICY_FLAG_PREEMPT_TO_IDLE	BIT(0)
++	return ce;
++}
 +
-+/*
-+ * GuC Context registration descriptor.
-+ * FIXME: This is only required to exist during context registration.
-+ * The current 1:1 between guc_lrc_desc and LRCs for the lifetime of the LRC
-+ * is not required.
-+ */
-+struct guc_lrc_desc {
-+	u32 hw_context_desc;
-+	u32 slpm_perf_mode_hint;	/* SPLC v1 only */
-+	u32 slpm_freq_hint;
-+	u32 engine_submit_mask;		/* In logical space */
-+	u8 engine_class;
-+	u8 reserved0[3];
-+	u32 priority;
-+	u32 process_desc;
-+	u32 wq_addr;
-+	u32 wq_size;
-+	u32 context_flags;		/* CONTEXT_REGISTRATION_* */
-+	/* Time for one workload to execute. (in micro seconds) */
-+	u32 execution_quantum;
-+	/* Time to wait for a preemption request to complete before issuing a
-+	 * reset. (in micro seconds). */
-+	u32 preemption_timeout;
-+	u32 policy_flags;		/* CONTEXT_POLICY_* */
-+	u32 reserved1[19];
-+} __packed;
+ static int guc_lrc_desc_pool_create(struct intel_guc *guc)
+ {
+ 	u32 size;
+@@ -96,6 +103,25 @@ static void guc_lrc_desc_pool_destroy(struct intel_guc *guc)
+ 	i915_vma_unpin_and_release(&guc->lrc_desc_pool, I915_VMA_RELEASE_MAP);
+ }
+ 
++static inline void reset_lrc_desc(struct intel_guc *guc, u32 id)
++{
++	struct guc_lrc_desc *desc = __get_lrc_desc(guc, id);
 +
- #define GUC_POWER_UNSPECIFIED	0
- #define GUC_POWER_D0		1
- #define GUC_POWER_D1		2
++	memset(desc, 0, sizeof(*desc));
++	xa_erase_irq(&guc->context_lookup, id);
++}
++
++static inline bool lrc_desc_registered(struct intel_guc *guc, u32 id)
++{
++	return __get_context(guc, id);
++}
++
++static inline void set_lrc_desc_registered(struct intel_guc *guc, u32 id,
++					   struct intel_context *ce)
++{
++	xa_store_irq(&guc->context_lookup, id, ce, GFP_ATOMIC);
++}
++
+ static void guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ {
+ 	/* Leaving stub as this function will be used in future patches */
+@@ -400,6 +426,8 @@ int intel_guc_submission_init(struct intel_guc *guc)
+ 	 */
+ 	GEM_BUG_ON(!guc->lrc_desc_pool);
+ 
++	xa_init_flags(&guc->context_lookup, XA_FLAGS_LOCK_IRQ);
++
+ 	return 0;
+ }
+ 
 -- 
 2.28.0
 
