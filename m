@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ECD0DC49EAF
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A2FDC49EA5
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B98DE613CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B98DE613CC
+	by mail.kernel.org (Postfix) with ESMTPS id 53697613CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53697613CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03F836EA4A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC4716EA4E;
 	Thu, 24 Jun 2021 06:47:50 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 518DA6E9F9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE4D66EA15;
  Thu, 24 Jun 2021 06:47:31 +0000 (UTC)
-IronPort-SDR: Zh2E5thA1ah90mci/0IWoVGs6/u7vGBTdSGX0mg6Y6MCuu8nkpcJuHhi5NdxJDuKlCDWjoK1ji
- ZllScEa81C5A==
-X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346774"
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346774"
+IronPort-SDR: WMXGhkqlYW3zVZGUBeZo8775dYpgbeZMQIlY8+zPu/2KXghlntDpqvevRszKpG0//VWa0zXssF
+ qQHBS5+GPuOw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346785"
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346785"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:26 -0700
-IronPort-SDR: k90Q/D66NSV1LHJ+keDU1ZTNSUjQYtrO6uBQpnfAvUBjucbXAIoQwG6rHsoDNKa65pkUHlkoi3
- k1V2M6p3jzQA==
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390968"
+IronPort-SDR: JFZsl6U2jDVYdFHBInzU9Csg6lyCx1vsfxRCrnKh1KsRaX50yqqiCiFmi6I0Y5hczEWEhCpEr6
+ 45RnXtv3qugw==
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556391004"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:26 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 24 Jun 2021 00:05:04 -0700
-Message-Id: <20210624070516.21893-36-matthew.brost@intel.com>
+Date: Thu, 24 Jun 2021 00:05:16 -0700
+Message-Id: <20210624070516.21893-48-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210624070516.21893-1-matthew.brost@intel.com>
 References: <20210624070516.21893-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 35/47] drm/i915/guc: Handle context reset
- notification
+Subject: [Intel-gfx] [PATCH 47/47] drm/i915/guc: Unblock GuC submission on
+ Gen11+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,122 +64,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-GuC will issue a reset on detecting an engine hang and will notify
-the driver via a G2H message. The driver will service the notification
-by resetting the guilty context to a simple state or banning it
-completely.
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
+Unblock GuC submission on Gen11+ platforms.
+
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  3 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 35 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_trace.h             | 10 ++++++
- 4 files changed, 50 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h            |  1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c |  8 ++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h |  3 +--
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c             | 14 +++++++++-----
+ 4 files changed, 19 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 85ef6767f13b..e94b0ef733da 100644
+index fae01dc8e1b9..77981788204f 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -262,6 +262,8 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 					  const u32 *msg, u32 len);
- int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 				     const u32 *msg, u32 len);
-+int intel_guc_context_reset_process_msg(struct intel_guc *guc,
-+					const u32 *msg, u32 len);
+@@ -54,6 +54,7 @@ struct intel_guc {
+ 	struct ida guc_ids;
+ 	struct list_head guc_id_list;
  
- void intel_guc_submission_reset_prepare(struct intel_guc *guc);
- void intel_guc_submission_reset(struct intel_guc *guc, bool stalled);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 4ed074df88e5..a2020373b8e8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -945,6 +945,9 @@ static int ct_process_request(struct intel_guc_ct *ct, struct ct_incoming_msg *r
- 	case INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE:
- 		ret = intel_guc_sched_done_process_msg(guc, payload, len);
- 		break;
-+	case INTEL_GUC_ACTION_CONTEXT_RESET_NOTIFICATION:
-+		ret = intel_guc_context_reset_process_msg(guc, payload, len);
-+		break;
- 	default:
- 		ret = -EOPNOTSUPP;
- 		break;
++	bool submission_supported;
+ 	bool submission_selected;
+ 
+ 	struct i915_vma *ads_vma;
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 16b61fe71b07..9845c5bd9832 100644
+index a427336ce916..405339202280 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2192,6 +2192,41 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 	return 0;
+@@ -2042,6 +2042,13 @@ void intel_guc_submission_disable(struct intel_guc *guc)
+ 	/* Note: By the time we're here, GuC may have already been reset */
  }
  
-+static void guc_context_replay(struct intel_context *ce)
++static bool __guc_submission_supported(struct intel_guc *guc)
 +{
-+	struct i915_sched_engine *sched_engine = ce->engine->sched_engine;
-+
-+	__guc_reset_context(ce, true);
-+	tasklet_hi_schedule(&sched_engine->tasklet);
++	/* GuC submission is unavailable for pre-Gen11 */
++	return intel_guc_is_supported(guc) &&
++	       INTEL_GEN(guc_to_gt(guc)->i915) >= 11;
 +}
 +
-+static void guc_handle_context_reset(struct intel_guc *guc,
-+				     struct intel_context *ce)
-+{
-+	trace_intel_context_reset(ce);
-+	guc_context_replay(ce);
-+}
-+
-+int intel_guc_context_reset_process_msg(struct intel_guc *guc,
-+					const u32 *msg, u32 len)
-+{
-+	struct intel_context *ce;
-+	int desc_idx = msg[0];
-+
-+	if (unlikely(len != 1)) {
-+		drm_dbg(&guc_to_gt(guc)->i915->drm, "Invalid length %u", len);
-+		return -EPROTO;
+ static bool __guc_submission_selected(struct intel_guc *guc)
+ {
+ 	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
+@@ -2054,6 +2061,7 @@ static bool __guc_submission_selected(struct intel_guc *guc)
+ 
+ void intel_guc_submission_init_early(struct intel_guc *guc)
+ {
++	guc->submission_supported = __guc_submission_supported(guc);
+ 	guc->submission_selected = __guc_submission_selected(guc);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
+index a2a3fad72be1..be767eb6ff71 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
+@@ -37,8 +37,7 @@ int intel_guc_wait_for_pending_msg(struct intel_guc *guc,
+ 
+ static inline bool intel_guc_submission_is_supported(struct intel_guc *guc)
+ {
+-	/* XXX: GuC submission is unavailable for now */
+-	return false;
++	return guc->submission_supported;
+ }
+ 
+ static inline bool intel_guc_submission_is_wanted(struct intel_guc *guc)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 7a69c3c027e9..61be0aa81492 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -34,8 +34,15 @@ static void uc_expand_default_options(struct intel_uc *uc)
+ 		return;
+ 	}
+ 
+-	/* Default: enable HuC authentication only */
+-	i915->params.enable_guc = ENABLE_GUC_LOAD_HUC;
++	/* Intermediate platforms are HuC authentication only */
++	if (IS_DG1(i915) || IS_ALDERLAKE_S(i915)) {
++		drm_dbg(&i915->drm, "Disabling GuC only due to old platform\n");
++		i915->params.enable_guc = ENABLE_GUC_LOAD_HUC;
++		return;
 +	}
 +
-+	ce = g2h_context_lookup(guc, desc_idx);
-+	if (unlikely(!ce))
-+		return -EPROTO;
-+
-+	guc_handle_context_reset(guc, ce);
-+
-+	return 0;
-+}
-+
- void intel_guc_log_submission_info(struct intel_guc *guc,
- 				   struct drm_printer *p)
- {
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index 97c2e83984ed..c095c4d39456 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -929,6 +929,11 @@ DECLARE_EVENT_CLASS(intel_context,
- 		      __entry->guc_sched_state_no_lock)
- );
- 
-+DEFINE_EVENT(intel_context, intel_context_reset,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
- DEFINE_EVENT(intel_context, intel_context_register,
- 	     TP_PROTO(struct intel_context *ce),
- 	     TP_ARGS(ce)
-@@ -1026,6 +1031,11 @@ trace_i915_request_out(struct i915_request *rq)
- {
++	/* Default: enable HuC authentication and GuC submission */
++	i915->params.enable_guc = ENABLE_GUC_LOAD_HUC | ENABLE_GUC_SUBMISSION;
  }
  
-+static inline void
-+trace_intel_context_reset(struct intel_context *ce)
-+{
-+}
-+
- static inline void
- trace_intel_context_register(struct intel_context *ce)
- {
+ /* Reset GuC providing us with fresh state for both GuC and HuC.
+@@ -313,9 +320,6 @@ static int __uc_init(struct intel_uc *uc)
+ 	if (i915_inject_probe_failure(uc_to_gt(uc)->i915))
+ 		return -ENOMEM;
+ 
+-	/* XXX: GuC submission is unavailable for now */
+-	GEM_BUG_ON(intel_uc_uses_guc_submission(uc));
+-
+ 	ret = intel_guc_init(guc);
+ 	if (ret)
+ 		return ret;
 -- 
 2.28.0
 
