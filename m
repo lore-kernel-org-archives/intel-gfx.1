@@ -2,51 +2,51 @@ Return-Path: <SRS0=foSz=LS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7DCDC49EA7
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F1ECC49EA5
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9F69C61351
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F69C61351
+	by mail.kernel.org (Postfix) with ESMTPS id 6F493613CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F493613CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07B0C6EA61;
-	Thu, 24 Jun 2021 06:47:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5B6D6EA6E;
+	Thu, 24 Jun 2021 06:48:00 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A071C6EA02;
- Thu, 24 Jun 2021 06:47:30 +0000 (UTC)
-IronPort-SDR: q6X/gUOVRuQYNaNC2OHGa9fZY/9ZcPvp74DJ+v+5KkWoC2xZ2pS/MyKuEtDcvBQ60wvT5SK7OF
- cNA+ivKFM1mg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346763"
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346763"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 090916EA05;
+ Thu, 24 Jun 2021 06:47:31 +0000 (UTC)
+IronPort-SDR: zrVaLvSroL7O4zF93zJVOlRq8/yUArOJ/xK/SmuM+zq8/8DGPh7ezw8sc0E6qRrcYrghGCWN6I
+ mmpo+1uG5Hsg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346767"
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346767"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:26 -0700
-IronPort-SDR: HWd0i+G3g7ZsXSiv5EfTChJpbvjXP9PhM76P86S6qx5z+htWccRI0BhKfXENMHNwmnXvizHwM8
- ly/eYB0LnEMA==
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390939"
+IronPort-SDR: GC1cKdZt/Ru2U7yPKopz5E19QIS7GOkBXWPsG7eJgaY6hFNxLZt/J6j+WjuzkbrWaX5Dr8GZYz
+ QBouyq7WkyUw==
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390945"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:25 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 24 Jun 2021 00:04:54 -0700
-Message-Id: <20210624070516.21893-26-matthew.brost@intel.com>
+Date: Thu, 24 Jun 2021 00:04:56 -0700
+Message-Id: <20210624070516.21893-28-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210624070516.21893-1-matthew.brost@intel.com>
 References: <20210624070516.21893-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 25/47] drm/i915: Add intel_context tracing
+Subject: [Intel-gfx] [PATCH 27/47] drm/i915: Track 'serial' counts for
+ virtual engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,310 +64,175 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add intel_context tracing. These trace points are particular helpful
-when debugging the GuC firmware and can be enabled via
-CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS kernel config option.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Cc: John Harrison <john.c.harrison@intel.com>
+The serial number tracking of engines happens at the backend of
+request submission and was expecting to only be given physical
+engines. However, in GuC submission mode, the decomposition of virtual
+to physical engines does not happen in i915. Instead, requests are
+submitted to their virtual engine mask all the way through to the
+hardware (i.e. to GuC). This would mean that the heart beat code
+thinks the physical engines are idle due to the serial number not
+incrementing.
+
+This patch updates the tracking to decompose virtual engines into
+their physical constituents and tracks the request against each. This
+is not entirely accurate as the GuC will only be issuing the request
+to one physical engine. However, it is the best that i915 can do given
+that it has no knowledge of the GuC's scheduling decisions.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       |   6 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  14 ++
- drivers/gpu/drm/i915/i915_trace.h             | 148 +++++++++++++++++-
- 3 files changed, 166 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_types.h     |  2 ++
+ .../gpu/drm/i915/gt/intel_execlists_submission.c |  6 ++++++
+ drivers/gpu/drm/i915/gt/intel_ring_submission.c  |  6 ++++++
+ drivers/gpu/drm/i915/gt/mock_engine.c            |  6 ++++++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c    | 16 ++++++++++++++++
+ drivers/gpu/drm/i915/i915_request.c              |  4 +++-
+ 6 files changed, 39 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 7f97753ab164..b24a1b7a3f88 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -8,6 +8,7 @@
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 5b91068ab277..1dc59e6c9a92 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -388,6 +388,8 @@ struct intel_engine_cs {
+ 	void		(*park)(struct intel_engine_cs *engine);
+ 	void		(*unpark)(struct intel_engine_cs *engine);
  
- #include "i915_drv.h"
- #include "i915_globals.h"
-+#include "i915_trace.h"
- 
- #include "intel_context.h"
- #include "intel_engine.h"
-@@ -28,6 +29,7 @@ static void rcu_context_free(struct rcu_head *rcu)
- {
- 	struct intel_context *ce = container_of(rcu, typeof(*ce), rcu);
- 
-+	trace_intel_context_free(ce);
- 	kmem_cache_free(global.slab_ce, ce);
- }
- 
-@@ -46,6 +48,7 @@ intel_context_create(struct intel_engine_cs *engine)
- 		return ERR_PTR(-ENOMEM);
- 
- 	intel_context_init(ce, engine);
-+	trace_intel_context_create(ce);
- 	return ce;
- }
- 
-@@ -268,6 +271,8 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
- 
- 	GEM_BUG_ON(!intel_context_is_pinned(ce)); /* no overflow! */
- 
-+	trace_intel_context_do_pin(ce);
++	void		(*bump_serial)(struct intel_engine_cs *engine);
 +
- err_unlock:
- 	mutex_unlock(&ce->pin_mutex);
- err_post_unpin:
-@@ -323,6 +328,7 @@ void __intel_context_do_unpin(struct intel_context *ce, int sub)
- 	 */
- 	intel_context_get(ce);
- 	intel_context_active_release(ce);
-+	trace_intel_context_do_unpin(ce);
- 	intel_context_put(ce);
+ 	void		(*set_default_submission)(struct intel_engine_cs *engine);
+ 
+ 	const struct intel_context_ops *cops;
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index bd4ced794ff9..9cfb8800a0e6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -3203,6 +3203,11 @@ static void execlists_release(struct intel_engine_cs *engine)
+ 	lrc_fini_wa_ctx(engine);
  }
  
++static void execlist_bump_serial(struct intel_engine_cs *engine)
++{
++	engine->serial++;
++}
++
+ static void
+ logical_ring_default_vfuncs(struct intel_engine_cs *engine)
+ {
+@@ -3212,6 +3217,7 @@ logical_ring_default_vfuncs(struct intel_engine_cs *engine)
+ 
+ 	engine->cops = &execlists_context_ops;
+ 	engine->request_alloc = execlists_request_alloc;
++	engine->bump_serial = execlist_bump_serial;
+ 
+ 	engine->reset.prepare = execlists_reset_prepare;
+ 	engine->reset.rewind = execlists_reset_rewind;
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 5d42a12ef3d6..e1506b280df1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -1044,6 +1044,11 @@ static void setup_irq(struct intel_engine_cs *engine)
+ 	}
+ }
+ 
++static void ring_bump_serial(struct intel_engine_cs *engine)
++{
++	engine->serial++;
++}
++
+ static void setup_common(struct intel_engine_cs *engine)
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
+@@ -1063,6 +1068,7 @@ static void setup_common(struct intel_engine_cs *engine)
+ 
+ 	engine->cops = &ring_context_ops;
+ 	engine->request_alloc = ring_request_alloc;
++	engine->bump_serial = ring_bump_serial;
+ 
+ 	/*
+ 	 * Using a global execution timeline; the previous final breadcrumb is
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index 68970398e4ef..9203c766db80 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -292,6 +292,11 @@ static void mock_engine_release(struct intel_engine_cs *engine)
+ 	intel_engine_fini_retire(engine);
+ }
+ 
++static void mock_bump_serial(struct intel_engine_cs *engine)
++{
++	engine->serial++;
++}
++
+ struct intel_engine_cs *mock_engine(struct drm_i915_private *i915,
+ 				    const char *name,
+ 				    int id)
+@@ -318,6 +323,7 @@ struct intel_engine_cs *mock_engine(struct drm_i915_private *i915,
+ 
+ 	engine->base.cops = &mock_context_ops;
+ 	engine->base.request_alloc = mock_request_alloc;
++	engine->base.bump_serial = mock_bump_serial;
+ 	engine->base.emit_flush = mock_emit_flush;
+ 	engine->base.emit_fini_breadcrumb = mock_emit_breadcrumb;
+ 	engine->base.submit_request = mock_submit_request;
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index c2327eebc09c..d605af0d66e6 100644
+index ccbcf024b31b..d1badd7137b7 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -348,6 +348,7 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 
- 	err = intel_guc_send_nb(guc, action, len, g2h_len_dw);
- 	if (!enabled && !err) {
-+		trace_intel_context_sched_enable(ce);
- 		atomic_inc(&guc->outstanding_submission_g2h);
- 		set_context_enabled(ce);
- 	} else if (!enabled) {
-@@ -812,6 +813,8 @@ static int register_context(struct intel_context *ce)
- 	u32 offset = intel_guc_ggtt_offset(guc, guc->lrc_desc_pool) +
- 		ce->guc_id * sizeof(struct guc_lrc_desc);
- 
-+	trace_intel_context_register(ce);
-+
- 	return __guc_action_register_context(guc, ce->guc_id, offset);
+@@ -1496,6 +1496,20 @@ static void guc_release(struct intel_engine_cs *engine)
+ 	lrc_fini_wa_ctx(engine);
  }
  
-@@ -831,6 +834,8 @@ static int deregister_context(struct intel_context *ce, u32 guc_id)
++static void guc_bump_serial(struct intel_engine_cs *engine)
++{
++	engine->serial++;
++}
++
++static void virtual_guc_bump_serial(struct intel_engine_cs *engine)
++{
++	struct intel_engine_cs *e;
++	intel_engine_mask_t tmp, mask = engine->mask;
++
++	for_each_engine_masked(e, engine->gt, mask, tmp)
++		e->serial++;
++}
++
+ static void guc_default_vfuncs(struct intel_engine_cs *engine)
  {
- 	struct intel_guc *guc = ce_to_guc(ce);
+ 	/* Default vfuncs which can be overridden by each engine. */
+@@ -1504,6 +1518,7 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
  
-+	trace_intel_context_deregister(ce);
-+
- 	return __guc_action_deregister_context(guc, guc_id);
- }
+ 	engine->cops = &guc_context_ops;
+ 	engine->request_alloc = guc_request_alloc;
++	engine->bump_serial = guc_bump_serial;
  
-@@ -905,6 +910,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce)
- 	 * GuC before registering this context.
- 	 */
- 	if (context_registered) {
-+		trace_intel_context_steal_guc_id(ce);
- 		set_context_wait_for_deregister_to_register(ce);
- 		intel_context_get(ce);
+ 	engine->sched_engine->schedule = i915_schedule;
  
-@@ -963,6 +969,7 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
+@@ -1836,6 +1851,7 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
  
- 	GEM_BUG_ON(guc_id == GUC_INVALID_LRC_ID);
+ 	ve->base.cops = &virtual_guc_context_ops;
+ 	ve->base.request_alloc = guc_request_alloc;
++	ve->base.bump_serial = virtual_guc_bump_serial;
  
-+	trace_intel_context_sched_disable(ce);
- 	intel_context_get(ce);
+ 	ve->base.submit_request = guc_submit_request;
  
- 	guc_submission_busy_loop(guc, action, ARRAY_SIZE(action),
-@@ -1119,6 +1126,9 @@ static void __guc_signal_context_fence(struct intel_context *ce)
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 7f7aa096e873..de9deb95b8b1 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -692,7 +692,9 @@ bool __i915_request_submit(struct i915_request *request)
+ 				     request->ring->vaddr + request->postfix);
  
- 	lockdep_assert_held(&ce->guc_state.lock);
+ 	trace_i915_request_execute(request);
+-	engine->serial++;
++	if (engine->bump_serial)
++		engine->bump_serial(engine);
++
+ 	result = true;
  
-+	if (!list_empty(&ce->guc_state.fences))
-+		trace_intel_context_fence_release(ce);
-+
- 	list_for_each_entry(rq, &ce->guc_state.fences, guc_fence_link)
- 		i915_sw_fence_complete(&rq->submit);
- 
-@@ -1529,6 +1539,8 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 	if (unlikely(!ce))
- 		return -EPROTO;
- 
-+	trace_intel_context_deregister_done(ce);
-+
- 	if (context_wait_for_deregister_to_register(ce)) {
- 		struct intel_runtime_pm *runtime_pm =
- 			&ce->engine->gt->i915->runtime_pm;
-@@ -1580,6 +1592,8 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 		return -EPROTO;
- 	}
- 
-+	trace_intel_context_sched_done(ce);
-+
- 	if (context_pending_enable(ce)) {
- 		clr_context_pending_enable(ce);
- 	} else if (context_pending_disable(ce)) {
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index b02d04b6c8f6..97c2e83984ed 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -818,8 +818,8 @@ DECLARE_EVENT_CLASS(i915_request,
- );
- 
- DEFINE_EVENT(i915_request, i915_request_add,
--	    TP_PROTO(struct i915_request *rq),
--	    TP_ARGS(rq)
-+	     TP_PROTO(struct i915_request *rq),
-+	     TP_ARGS(rq)
- );
- 
- #if defined(CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS)
-@@ -905,6 +905,90 @@ TRACE_EVENT(i915_request_out,
- 			      __entry->ctx, __entry->seqno, __entry->completed)
- );
- 
-+DECLARE_EVENT_CLASS(intel_context,
-+	    TP_PROTO(struct intel_context *ce),
-+	    TP_ARGS(ce),
-+
-+	    TP_STRUCT__entry(
-+			     __field(u32, guc_id)
-+			     __field(int, pin_count)
-+			     __field(u32, sched_state)
-+			     __field(u32, guc_sched_state_no_lock)
-+			     ),
-+
-+	    TP_fast_assign(
-+			   __entry->guc_id = ce->guc_id;
-+			   __entry->pin_count = atomic_read(&ce->pin_count);
-+			   __entry->sched_state = ce->guc_state.sched_state;
-+			   __entry->guc_sched_state_no_lock =
-+			   atomic_read(&ce->guc_sched_state_no_lock);
-+			   ),
-+
-+	    TP_printk("guc_id=%d, pin_count=%d sched_state=0x%x,0x%x",
-+		      __entry->guc_id, __entry->pin_count, __entry->sched_state,
-+		      __entry->guc_sched_state_no_lock)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_register,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_deregister,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_deregister_done,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_sched_enable,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_sched_disable,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_sched_done,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_create,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_fence_release,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_free,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_steal_guc_id,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_do_pin,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_do_unpin,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
- #else
- #if !defined(TRACE_HEADER_MULTI_READ)
- static inline void
-@@ -941,6 +1025,66 @@ static inline void
- trace_i915_request_out(struct i915_request *rq)
- {
- }
-+
-+static inline void
-+trace_intel_context_register(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_deregister(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_deregister_done(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_sched_enable(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_sched_disable(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_sched_done(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_create(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_fence_release(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_free(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_steal_guc_id(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_do_pin(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_do_unpin(struct intel_context *ce)
-+{
-+}
- #endif
- #endif
- 
+ 	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
 -- 
 2.28.0
 
