@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F013DC49EA5
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6053CC49EA7
 	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C5B60613CC
+	by mail.kernel.org (Postfix) with ESMTPS id 33495613CC
 	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5B60613CC
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33495613CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 051CC6EA0A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD0406EA49;
 	Thu, 24 Jun 2021 06:47:49 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 343196EA09;
- Thu, 24 Jun 2021 06:47:31 +0000 (UTC)
-IronPort-SDR: XyrVT9iwcHrCd1uIfizt+Tqtri1Dt8GH8OhLk7XiqgfIpj1a9utUNOePkkwG8VmBNSrApumr7/
- lZS4qT8tYIKg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346771"
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346771"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD3CA6E9F8;
+ Thu, 24 Jun 2021 06:47:30 +0000 (UTC)
+IronPort-SDR: fuNdobdHUvZqPtDiNNU5NftieFkNrxWo2h1qAS+nzI6yaDk1ZXpdSMU3cvLUtQBIhQfuH9/caN
+ Yr/+OQ13PBUA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346765"
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346765"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:26 -0700
-IronPort-SDR: RYOHhY4GEQGznowZd1rncVv9tddXErH/Zun6YLxym9sP55pclqWxfdQ27EKKeQQmDzjo0N0tvv
- YlTp5ByluX3w==
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390963"
+IronPort-SDR: XKxJo6DUBcfP440MmCdVrRxR9sqet+PbTySLH0N1T7PyuzN5lXsASetYpOQC5d2/O9OhY9raAU
+ mEZrLY9prQrw==
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390948"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2021 23:47:26 -0700
+ 23 Jun 2021 23:47:25 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 24 Jun 2021 00:05:02 -0700
-Message-Id: <20210624070516.21893-34-matthew.brost@intel.com>
+Date: Thu, 24 Jun 2021 00:04:57 -0700
+Message-Id: <20210624070516.21893-29-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210624070516.21893-1-matthew.brost@intel.com>
 References: <20210624070516.21893-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 33/47] drm/i915/guc: Add disable interrupts to
- guc sanitize
+Subject: [Intel-gfx] [PATCH 28/47] drm/i915: Hold reference to intel_context
+ over life of i915_request
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,100 +64,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add disable GuC interrupts to intel_guc_sanitize(). Part of this
-requires moving the guc_*_interrupt wrapper function into header file
-intel_guc.h.
+Hold a reference to the intel_context over life of an i915_request.
+Without this an i915_request can exist after the context has been
+destroyed (e.g. request retired, context closed, but user space holds a
+reference to the request from an out fence). In the case of GuC
+submission + virtual engine, the engine that the request references is
+also destroyed which can trigger bad pointer dref in fence ops (e.g.
+i915_fence_get_driver_name). We could likely change
+i915_fence_get_driver_name to avoid touching the engine but let's just
+be safe and hold the intel_context reference.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h | 16 ++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_uc.c  | 21 +++------------------
- 2 files changed, 19 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 54 ++++++++++++-----------------
+ 1 file changed, 22 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 40c9868762d7..85ef6767f13b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -217,9 +217,25 @@ static inline bool intel_guc_is_ready(struct intel_guc *guc)
- 	return intel_guc_is_fw_running(guc) && intel_guc_ct_enabled(&guc->ct);
- }
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index de9deb95b8b1..dec5a35c9aa2 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -126,39 +126,17 @@ static void i915_fence_release(struct dma_fence *fence)
+ 	i915_sw_fence_fini(&rq->semaphore);
  
-+static inline void intel_guc_reset_interrupts(struct intel_guc *guc)
-+{
-+	guc->interrupts.reset(guc);
-+}
-+
-+static inline void intel_guc_enable_interrupts(struct intel_guc *guc)
-+{
-+	guc->interrupts.enable(guc);
-+}
-+
-+static inline void intel_guc_disable_interrupts(struct intel_guc *guc)
-+{
-+	guc->interrupts.disable(guc);
-+}
-+
- static inline int intel_guc_sanitize(struct intel_guc *guc)
- {
- 	intel_uc_fw_sanitize(&guc->fw);
-+	intel_guc_disable_interrupts(guc);
- 	intel_guc_ct_sanitize(&guc->ct);
- 	guc->mmio_msg = 0;
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index f0b02200aa01..ab11fe731ee7 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -207,21 +207,6 @@ static void guc_handle_mmio_msg(struct intel_guc *guc)
- 	spin_unlock_irq(&guc->irq_lock);
- }
- 
--static void guc_reset_interrupts(struct intel_guc *guc)
--{
--	guc->interrupts.reset(guc);
--}
--
--static void guc_enable_interrupts(struct intel_guc *guc)
--{
--	guc->interrupts.enable(guc);
--}
--
--static void guc_disable_interrupts(struct intel_guc *guc)
--{
--	guc->interrupts.disable(guc);
--}
--
- static int guc_enable_communication(struct intel_guc *guc)
- {
- 	struct intel_gt *gt = guc_to_gt(guc);
-@@ -242,7 +227,7 @@ static int guc_enable_communication(struct intel_guc *guc)
- 	guc_get_mmio_msg(guc);
- 	guc_handle_mmio_msg(guc);
- 
--	guc_enable_interrupts(guc);
-+	intel_guc_enable_interrupts(guc);
- 
- 	/* check for CT messages received before we enabled interrupts */
- 	spin_lock_irq(&gt->irq_lock);
-@@ -265,7 +250,7 @@ static void guc_disable_communication(struct intel_guc *guc)
+ 	/*
+-	 * Keep one request on each engine for reserved use under mempressure
+-	 *
+-	 * We do not hold a reference to the engine here and so have to be
+-	 * very careful in what rq->engine we poke. The virtual engine is
+-	 * referenced via the rq->context and we released that ref during
+-	 * i915_request_retire(), ergo we must not dereference a virtual
+-	 * engine here. Not that we would want to, as the only consumer of
+-	 * the reserved engine->request_pool is the power management parking,
+-	 * which must-not-fail, and that is only run on the physical engines.
+-	 *
+-	 * Since the request must have been executed to be have completed,
+-	 * we know that it will have been processed by the HW and will
+-	 * not be unsubmitted again, so rq->engine and rq->execution_mask
+-	 * at this point is stable. rq->execution_mask will be a single
+-	 * bit if the last and _only_ engine it could execution on was a
+-	 * physical engine, if it's multiple bits then it started on and
+-	 * could still be on a virtual engine. Thus if the mask is not a
+-	 * power-of-two we assume that rq->engine may still be a virtual
+-	 * engine and so a dangling invalid pointer that we cannot dereference
+-	 *
+-	 * For example, consider the flow of a bonded request through a virtual
+-	 * engine. The request is created with a wide engine mask (all engines
+-	 * that we might execute on). On processing the bond, the request mask
+-	 * is reduced to one or more engines. If the request is subsequently
+-	 * bound to a single engine, it will then be constrained to only
+-	 * execute on that engine and never returned to the virtual engine
+-	 * after timeslicing away, see __unwind_incomplete_requests(). Thus we
+-	 * know that if the rq->execution_mask is a single bit, rq->engine
+-	 * can be a physical engine with the exact corresponding mask.
++	 * Keep one request on each engine for reserved use under mempressure,
++	 * do not use with virtual engines as this really is only needed for
++	 * kernel contexts.
  	 */
- 	guc_clear_mmio_msg(guc);
+-	if (is_power_of_2(rq->execution_mask) &&
+-	    !cmpxchg(&rq->engine->request_pool, NULL, rq))
++	if (!intel_engine_is_virtual(rq->engine) &&
++	    !cmpxchg(&rq->engine->request_pool, NULL, rq)) {
++		intel_context_put(rq->context);
+ 		return;
++	}
++
++	intel_context_put(rq->context);
  
--	guc_disable_interrupts(guc);
-+	intel_guc_disable_interrupts(guc);
+ 	kmem_cache_free(global.slab_requests, rq);
+ }
+@@ -977,7 +955,18 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
+ 		}
+ 	}
  
- 	intel_guc_ct_disable(&guc->ct);
+-	rq->context = ce;
++	/*
++	 * Hold a reference to the intel_context over life of an i915_request.
++	 * Without this an i915_request can exist after the context has been
++	 * destroyed (e.g. request retired, context closed, but user space holds
++	 * a reference to the request from an out fence). In the case of GuC
++	 * submission + virtual engine, the engine that the request references
++	 * is also destroyed which can trigger bad pointer dref in fence ops
++	 * (e.g. i915_fence_get_driver_name). We could likely change these
++	 * functions to avoid touching the engine but let's just be safe and
++	 * hold the intel_context reference.
++	 */
++	rq->context = intel_context_get(ce);
+ 	rq->engine = ce->engine;
+ 	rq->ring = ce->ring;
+ 	rq->execution_mask = ce->engine->mask;
+@@ -1054,6 +1043,7 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
+ 	GEM_BUG_ON(!list_empty(&rq->sched.waiters_list));
  
-@@ -463,7 +448,7 @@ static int __uc_init_hw(struct intel_uc *uc)
- 	if (ret)
- 		goto err_out;
- 
--	guc_reset_interrupts(guc);
-+	intel_guc_reset_interrupts(guc);
- 
- 	/* WaEnableuKernelHeaderValidFix:skl */
- 	/* WaEnableGuCBootHashCheckNotSet:skl,bxt,kbl */
+ err_free:
++	intel_context_put(ce);
+ 	kmem_cache_free(global.slab_requests, rq);
+ err_unreserve:
+ 	intel_context_unpin(ce);
 -- 
 2.28.0
 
