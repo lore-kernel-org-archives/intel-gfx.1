@@ -5,48 +5,48 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F7F4C49EA5
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA92AC48BDF
 	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E3B27613CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3B27613CC
+	by mail.kernel.org (Postfix) with ESMTPS id 831BE613CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 831BE613CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0957B6EA3C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 131706EA3E;
 	Thu, 24 Jun 2021 06:47:49 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 838596EA0E;
- Thu, 24 Jun 2021 06:47:31 +0000 (UTC)
-IronPort-SDR: 6MFFEtoWA3i7wfNT3qSqEBNnmO3Evdtb5ZFMN5UWTsX/hQFI0HCGIZpQEYub1ycUVU1hf+73k8
- HE7v6Kb3amOw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346778"
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346778"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57C2E6E9FC;
+ Thu, 24 Jun 2021 06:47:30 +0000 (UTC)
+IronPort-SDR: QUY/CfAFiL83ZN5S2msS7BJrwoH7Zn4Y244kqgwiaBNrrJCHvr/Gv9ZUtFndy4RKpPj3zCT72B
+ MPkx6iP2zGQg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346758"
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346758"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:26 -0700
-IronPort-SDR: bmx9mEFm8B8K9Yg18AYfuGBP2VP8ZQmXVJQDWUQkEfmZp2jJ49KT2HKnPgEiRXhiw+WYK4il/S
- XNXHIdWfq9Vw==
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390982"
+IronPort-SDR: dObRdaGh1MFmLFUbqRT5J4EkhdWU4DP3jjQqj+DdvXIR3pzjzf+lGVlMMW9+zUPW1D70QSM+ct
+ /2cXFDzgIngw==
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390919"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2021 23:47:26 -0700
+ 23 Jun 2021 23:47:25 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 24 Jun 2021 00:05:08 -0700
-Message-Id: <20210624070516.21893-40-matthew.brost@intel.com>
+Date: Thu, 24 Jun 2021 00:04:48 -0700
+Message-Id: <20210624070516.21893-20-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210624070516.21893-1-matthew.brost@intel.com>
 References: <20210624070516.21893-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 39/47] drm/i915/guc: Don't complain about reset
- races
+Subject: [Intel-gfx] [PATCH 19/47] drm/i915/guc: Ensure request ordering via
+ completion fences
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,72 +64,99 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
-
-It is impossible to seal all race conditions of resets occurring
-concurrent to other operations. At least, not without introducing
-excesive mutex locking. Instead, don't complain if it occurs. In
-particular, don't complain if trying to send a H2G during a reset.
-Whatever the H2G was about should get redone once the reset is over.
+If two requests are on the same ring, they are explicitly ordered by the
+HW. So, a submission fence is sufficient to ensure ordering when using
+the new GuC submission interface. Conversely, if two requests share a
+timeline and are on the same physical engine but different context this
+doesn't ensure ordering on the new GuC submission interface. So, a
+completion fence needs to be used to ensure ordering.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 5 ++++-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c     | 3 +++
- drivers/gpu/drm/i915/gt/uc/intel_uc.h     | 2 ++
- 3 files changed, 9 insertions(+), 1 deletion(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c   |  1 -
+ drivers/gpu/drm/i915/i915_request.c             | 17 +++++++++++++----
+ 2 files changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index dd6177c8d75c..3b32755f892e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -727,7 +727,10 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
- 	int ret;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 0a6ccdf32316..010e46dd6b16 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -926,7 +926,6 @@ static void guc_context_sched_disable(struct intel_context *ce)
+ 	 * request doesn't slip through the 'context_pending_disable' fence.
+ 	 */
+ 	if (unlikely(atomic_add_unless(&ce->pin_count, -2, 2))) {
+-		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+ 		return;
+ 	}
+ 	guc_id = prep_context_pending_disable(ce);
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 9dad3df5eaf7..d92c9f25c9f4 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -444,6 +444,7 @@ void i915_request_retire_upto(struct i915_request *rq)
  
- 	if (unlikely(!ct->enabled)) {
--		WARN(1, "Unexpected send: action=%#x\n", *action);
-+		struct intel_guc *guc = ct_to_guc(ct);
-+		struct intel_uc *uc = container_of(guc, struct intel_uc, guc);
+ 	do {
+ 		tmp = list_first_entry(&tl->requests, typeof(*tmp), link);
++		GEM_BUG_ON(!i915_request_completed(tmp));
+ 	} while (i915_request_retire(tmp) && tmp != rq);
+ }
+ 
+@@ -1405,6 +1406,9 @@ i915_request_await_external(struct i915_request *rq, struct dma_fence *fence)
+ 	return err;
+ }
+ 
++static int
++i915_request_await_request(struct i915_request *to, struct i915_request *from);
 +
-+		WARN(!uc->reset_in_progress, "Unexpected send: action=%#x\n", *action);
- 		return -ENODEV;
+ int
+ i915_request_await_execution(struct i915_request *rq,
+ 			     struct dma_fence *fence,
+@@ -1464,12 +1468,13 @@ await_request_submit(struct i915_request *to, struct i915_request *from)
+ 	 * the waiter to be submitted immediately to the physical engine
+ 	 * as it may then bypass the virtual request.
+ 	 */
+-	if (to->engine == READ_ONCE(from->engine))
++	if (to->engine == READ_ONCE(from->engine)) {
+ 		return i915_sw_fence_await_sw_fence_gfp(&to->submit,
+ 							&from->submit,
+ 							I915_FENCE_GFP);
+-	else
++	} else {
+ 		return __i915_request_await_execution(to, from, NULL);
++	}
+ }
+ 
+ static int
+@@ -1493,7 +1498,8 @@ i915_request_await_request(struct i915_request *to, struct i915_request *from)
+ 			return ret;
  	}
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index b523a8521351..77c1fe2ed883 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -550,6 +550,7 @@ void intel_uc_reset_prepare(struct intel_uc *uc)
- {
- 	struct intel_guc *guc = &uc->guc;
- 
-+	uc->reset_in_progress = true;
- 
- 	/* Nothing to do if GuC isn't supported */
- 	if (!intel_uc_supports_guc(uc))
-@@ -579,6 +580,8 @@ void intel_uc_reset_finish(struct intel_uc *uc)
- {
- 	struct intel_guc *guc = &uc->guc;
- 
-+	uc->reset_in_progress = false;
+-	if (is_power_of_2(to->execution_mask | READ_ONCE(from->execution_mask)))
++	if (!intel_engine_uses_guc(to->engine) &&
++	    is_power_of_2(to->execution_mask | READ_ONCE(from->execution_mask)))
+ 		ret = await_request_submit(to, from);
+ 	else
+ 		ret = emit_semaphore_wait(to, from, I915_FENCE_GFP);
+@@ -1654,6 +1660,8 @@ __i915_request_add_to_timeline(struct i915_request *rq)
+ 	prev = to_request(__i915_active_fence_set(&timeline->last_request,
+ 						  &rq->fence));
+ 	if (prev && !__i915_request_is_complete(prev)) {
++		bool uses_guc = intel_engine_uses_guc(rq->engine);
 +
- 	/* Firmware expected to be running when this function is called */
- 	if (intel_guc_is_fw_running(guc) && intel_uc_uses_guc_submission(uc))
- 		intel_guc_submission_reset_finish(guc);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-index eaa3202192ac..91315e3f1c58 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-@@ -30,6 +30,8 @@ struct intel_uc {
+ 		/*
+ 		 * The requests are supposed to be kept in order. However,
+ 		 * we need to be wary in case the timeline->last_request
+@@ -1664,7 +1672,8 @@ __i915_request_add_to_timeline(struct i915_request *rq)
+ 			   i915_seqno_passed(prev->fence.seqno,
+ 					     rq->fence.seqno));
  
- 	/* Snapshot of GuC log from last failed load */
- 	struct drm_i915_gem_object *load_err_log;
-+
-+	bool reset_in_progress;
- };
- 
- void intel_uc_init_early(struct intel_uc *uc);
+-		if (is_power_of_2(READ_ONCE(prev->engine)->mask | rq->engine->mask))
++		if ((!uses_guc && is_power_of_2(READ_ONCE(prev->engine)->mask | rq->engine->mask)) ||
++		    (uses_guc && prev->context == rq->context))
+ 			i915_sw_fence_await_sw_fence(&rq->submit,
+ 						     &prev->submit,
+ 						     &rq->submitq);
 -- 
 2.28.0
 
