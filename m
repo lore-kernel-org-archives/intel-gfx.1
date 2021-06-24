@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E438FC49EA5
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EE62C49EA6
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA82F61351
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA82F61351
+	by mail.kernel.org (Postfix) with ESMTPS id 755E861351
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 755E861351
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE236EA1E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1DD6EA1F;
 	Thu, 24 Jun 2021 06:47:33 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF3E56E9F5;
- Thu, 24 Jun 2021 06:47:28 +0000 (UTC)
-IronPort-SDR: 7L/SqCWZkVMEXxVpv9TfLqkpn4ZuZF3Mss0oZXE9/KV/L60v7P5xPPkdghZTH+6M1h1Yq8GABN
- UDCvcvthCc8A==
-X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346743"
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346743"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DF7A6E9FF;
+ Thu, 24 Jun 2021 06:47:30 +0000 (UTC)
+IronPort-SDR: T68eORcF91fFoT6tUKiFbzCeSAIbnxZkwGurr9HjOXYJzxrA2jn08OHDAjAZc0IyqZONiSl9kl
+ Qdl/oJB9z/XA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346760"
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346760"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2021 23:47:25 -0700
-IronPort-SDR: W6gpkkGz0TrFZGDPBsL7BWx4rx/jULj8lyv+Xp2agrgfqrdbK2qDYhGqB6YNmfvqj1O0iXc2h7
- HmATd0bbDnXQ==
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390875"
+ 23 Jun 2021 23:47:26 -0700
+IronPort-SDR: WGQ1oyzWcOKfOWrwPZKGAtfk7RwWb6N4Ia0D9SWvjOVdNTydNqzYQUjrQ5aOa5areuWW7Yw8C8
+ ptf3XFzLX/Dw==
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390926"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2021 23:47:24 -0700
+ 23 Jun 2021 23:47:25 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 24 Jun 2021 00:04:33 -0700
-Message-Id: <20210624070516.21893-5-matthew.brost@intel.com>
+Date: Thu, 24 Jun 2021 00:04:50 -0700
+Message-Id: <20210624070516.21893-22-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210624070516.21893-1-matthew.brost@intel.com>
 References: <20210624070516.21893-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/47] drm/i915/guc: Add non blocking CTB send
- function
+Subject: [Intel-gfx] [PATCH 21/47] drm/i915/guc: Ensure G2H response has
+ space in buffer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,141 +59,366 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QWRkIG5vbiBibG9ja2luZyBDVEIgc2VuZCBmdW5jdGlvbiwgaW50ZWxfZ3VjX3NlbmRfbmIuIEd1
-QyBzdWJtaXNzaW9uCndpbGwgc2VuZCBDVEJzIGluIHRoZSBjcml0aWNhbCBwYXRoIGFuZCBkb2Vz
-IG5vdCBuZWVkIHRvIHdhaXQgZm9yIHRoZXNlCkNUQnMgdG8gY29tcGxldGUgYmVmb3JlIG1vdmlu
-ZyBvbiwgaGVuY2UgdGhlIG5lZWQgZm9yIHRoaXMgbmV3IGZ1bmN0aW9uLgoKVGhlIG5vbi1ibG9j
-a2luZyBDVEIgbm93IG11c3QgaGF2ZSBhIGZsb3cgY29udHJvbCBtZWNoYW5pc20gdG8gZW5zdXJl
-CnRoZSBidWZmZXIgaXNuJ3Qgb3ZlcnJ1bi4gQSBsYXp5IHNwaW4gd2FpdCBpcyB1c2VkIGFzIHdl
-IGJlbGlldmUgdGhlCmZsb3cgY29udHJvbCBjb25kaXRpb24gc2hvdWxkIGJlIHJhcmUgd2l0aCBh
-IHByb3Blcmx5IHNpemVkIGJ1ZmZlci4KClRoZSBmdW5jdGlvbiwgaW50ZWxfZ3VjX3NlbmRfbmIs
-IGlzIGV4cG9ydGVkIGluIHRoaXMgcGF0Y2ggYnV0IHVudXNlZC4KU2V2ZXJhbCBwYXRjaGVzIGxh
-dGVyIGluIHRoZSBzZXJpZXMgbWFrZSB1c2Ugb2YgdGhpcyBmdW5jdGlvbi4KClNpZ25lZC1vZmYt
-Ynk6IEpvaG4gSGFycmlzb24gPEpvaG4uQy5IYXJyaXNvbkBJbnRlbC5jb20+ClNpZ25lZC1vZmYt
-Ynk6IE1hdHRoZXcgQnJvc3QgPG1hdHRoZXcuYnJvc3RAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Yy5oICAgIHwgMTIgKysrLQogZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZ3QvdWMvaW50ZWxfZ3VjX2N0LmMgfCA3NyArKysrKysrKysrKysrKysrKysrKyst
-LQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvaW50ZWxfZ3VjX2N0LmggfCAgMyArLQogMyBm
-aWxlcyBjaGFuZ2VkLCA4MiBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWMuaCBiL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Yy5oCmluZGV4IDRhYmM1OWY2ZjNjZC4uMjRiMWRmNmFk
-NGFlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWMuaAor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWMuaApAQCAtNzQsNyArNzQs
-MTUgQEAgc3RhdGljIGlubGluZSBzdHJ1Y3QgaW50ZWxfZ3VjICpsb2dfdG9fZ3VjKHN0cnVjdCBp
-bnRlbF9ndWNfbG9nICpsb2cpCiBzdGF0aWMKIGlubGluZSBpbnQgaW50ZWxfZ3VjX3NlbmQoc3Ry
-dWN0IGludGVsX2d1YyAqZ3VjLCBjb25zdCB1MzIgKmFjdGlvbiwgdTMyIGxlbikKIHsKLQlyZXR1
-cm4gaW50ZWxfZ3VjX2N0X3NlbmQoJmd1Yy0+Y3QsIGFjdGlvbiwgbGVuLCBOVUxMLCAwKTsKKwly
-ZXR1cm4gaW50ZWxfZ3VjX2N0X3NlbmQoJmd1Yy0+Y3QsIGFjdGlvbiwgbGVuLCBOVUxMLCAwLCAw
-KTsKK30KKworI2RlZmluZSBJTlRFTF9HVUNfU0VORF9OQgkJQklUKDMxKQorc3RhdGljCitpbmxp
-bmUgaW50IGludGVsX2d1Y19zZW5kX25iKHN0cnVjdCBpbnRlbF9ndWMgKmd1YywgY29uc3QgdTMy
-ICphY3Rpb24sIHUzMiBsZW4pCit7CisJcmV0dXJuIGludGVsX2d1Y19jdF9zZW5kKCZndWMtPmN0
-LCBhY3Rpb24sIGxlbiwgTlVMTCwgMCwKKwkJCQkgSU5URUxfR1VDX1NFTkRfTkIpOwogfQogCiBz
-dGF0aWMgaW5saW5lIGludApAQCAtODIsNyArOTAsNyBAQCBpbnRlbF9ndWNfc2VuZF9hbmRfcmVj
-ZWl2ZShzdHJ1Y3QgaW50ZWxfZ3VjICpndWMsIGNvbnN0IHUzMiAqYWN0aW9uLCB1MzIgbGVuLAog
-CQkJICAgdTMyICpyZXNwb25zZV9idWYsIHUzMiByZXNwb25zZV9idWZfc2l6ZSkKIHsKIAlyZXR1
-cm4gaW50ZWxfZ3VjX2N0X3NlbmQoJmd1Yy0+Y3QsIGFjdGlvbiwgbGVuLAotCQkJCSByZXNwb25z
-ZV9idWYsIHJlc3BvbnNlX2J1Zl9zaXplKTsKKwkJCQkgcmVzcG9uc2VfYnVmLCByZXNwb25zZV9i
-dWZfc2l6ZSwgMCk7CiB9CiAKIHN0YXRpYyBpbmxpbmUgdm9pZCBpbnRlbF9ndWNfdG9faG9zdF9l
-dmVudF9oYW5kbGVyKHN0cnVjdCBpbnRlbF9ndWMgKmd1YykKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19jdC5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-Z3QvdWMvaW50ZWxfZ3VjX2N0LmMKaW5kZXggYTE3MjE1OTIwZTU4Li5jOWE2NWQwNTkxMWYgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19jdC5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19jdC5jCkBAIC0zLDYgKzMsMTEg
-QEAKICAqIENvcHlyaWdodCDCqSAyMDE2LTIwMTkgSW50ZWwgQ29ycG9yYXRpb24KICAqLwogCisj
-aW5jbHVkZSA8bGludXgvY2lyY19idWYuaD4KKyNpbmNsdWRlIDxsaW51eC9rdGltZS5oPgorI2lu
-Y2x1ZGUgPGxpbnV4L3RpbWU2NC5oPgorI2luY2x1ZGUgPGxpbnV4L3RpbWVrZWVwaW5nLmg+CisK
-ICNpbmNsdWRlICJpOTE1X2Rydi5oIgogI2luY2x1ZGUgImludGVsX2d1Y19jdC5oIgogI2luY2x1
-ZGUgImd0L2ludGVsX2d0LmgiCkBAIC0zNzMsNyArMzc4LDcgQEAgc3RhdGljIHZvaWQgd3JpdGVf
-YmFycmllcihzdHJ1Y3QgaW50ZWxfZ3VjX2N0ICpjdCkKIHN0YXRpYyBpbnQgY3Rfd3JpdGUoc3Ry
-dWN0IGludGVsX2d1Y19jdCAqY3QsCiAJCSAgICBjb25zdCB1MzIgKmFjdGlvbiwKIAkJICAgIHUz
-MiBsZW4gLyogaW4gZHdvcmRzICovLAotCQkgICAgdTMyIGZlbmNlKQorCQkgICAgdTMyIGZlbmNl
-LCB1MzIgZmxhZ3MpCiB7CiAJc3RydWN0IGludGVsX2d1Y19jdF9idWZmZXIgKmN0YiA9ICZjdC0+
-Y3Ricy5zZW5kOwogCXN0cnVjdCBndWNfY3RfYnVmZmVyX2Rlc2MgKmRlc2MgPSBjdGItPmRlc2M7
-CkBAIC00MjEsOSArNDI2LDEzIEBAIHN0YXRpYyBpbnQgY3Rfd3JpdGUoc3RydWN0IGludGVsX2d1
-Y19jdCAqY3QsCiAJCSBGSUVMRF9QUkVQKEdVQ19DVEJfTVNHXzBfTlVNX0RXT1JEUywgbGVuKSB8
-CiAJCSBGSUVMRF9QUkVQKEdVQ19DVEJfTVNHXzBfRkVOQ0UsIGZlbmNlKTsKIAotCWh4ZyA9IEZJ
-RUxEX1BSRVAoR1VDX0hYR19NU0dfMF9UWVBFLCBHVUNfSFhHX1RZUEVfUkVRVUVTVCkgfAotCSAg
-ICAgIEZJRUxEX1BSRVAoR1VDX0hYR19SRVFVRVNUX01TR18wX0FDVElPTiB8Ci0JCQkgR1VDX0hY
-R19SRVFVRVNUX01TR18wX0RBVEEwLCBhY3Rpb25bMF0pOworCWh4ZyA9IChmbGFncyAmIElOVEVM
-X0dVQ19TRU5EX05CKSA/CisJCShGSUVMRF9QUkVQKEdVQ19IWEdfTVNHXzBfVFlQRSwgR1VDX0hY
-R19UWVBFX0VWRU5UKSB8CisJCSBGSUVMRF9QUkVQKEdVQ19IWEdfRVZFTlRfTVNHXzBfQUNUSU9O
-IHwKKwkJCSAgICBHVUNfSFhHX0VWRU5UX01TR18wX0RBVEEwLCBhY3Rpb25bMF0pKSA6CisJCShG
-SUVMRF9QUkVQKEdVQ19IWEdfTVNHXzBfVFlQRSwgR1VDX0hYR19UWVBFX1JFUVVFU1QpIHwKKwkJ
-IEZJRUxEX1BSRVAoR1VDX0hYR19SRVFVRVNUX01TR18wX0FDVElPTiB8CisJCQkgICAgR1VDX0hY
-R19SRVFVRVNUX01TR18wX0RBVEEwLCBhY3Rpb25bMF0pKTsKIAogCUNUX0RFQlVHKGN0LCAid3Jp
-dGluZyAodGFpbCAldSkgJSpwaCAlKnBoICUqcGhcbiIsCiAJCSB0YWlsLCA0LCAmaGVhZGVyLCA0
-LCAmaHhnLCA0ICogKGxlbiAtIDEpLCAmYWN0aW9uWzFdKTsKQEAgLTQ5OCw2ICs1MDcsNDYgQEAg
-c3RhdGljIGludCB3YWl0X2Zvcl9jdF9yZXF1ZXN0X3VwZGF0ZShzdHJ1Y3QgY3RfcmVxdWVzdCAq
-cmVxLCB1MzIgKnN0YXR1cykKIAlyZXR1cm4gZXJyOwogfQogCitzdGF0aWMgaW5saW5lIGJvb2wg
-aDJnX2hhc19yb29tKHN0cnVjdCBpbnRlbF9ndWNfY3RfYnVmZmVyICpjdGIsIHUzMiBsZW5fZHcp
-Cit7CisJc3RydWN0IGd1Y19jdF9idWZmZXJfZGVzYyAqZGVzYyA9IGN0Yi0+ZGVzYzsKKwl1MzIg
-aGVhZCA9IFJFQURfT05DRShkZXNjLT5oZWFkKTsKKwl1MzIgc3BhY2U7CisKKwlzcGFjZSA9IENJ
-UkNfU1BBQ0UoZGVzYy0+dGFpbCwgaGVhZCwgY3RiLT5zaXplKTsKKworCXJldHVybiBzcGFjZSA+
-PSBsZW5fZHc7Cit9CisKK3N0YXRpYyBpbnQgY3Rfc2VuZF9uYihzdHJ1Y3QgaW50ZWxfZ3VjX2N0
-ICpjdCwKKwkJICAgICAgY29uc3QgdTMyICphY3Rpb24sCisJCSAgICAgIHUzMiBsZW4sCisJCSAg
-ICAgIHUzMiBmbGFncykKK3sKKwlzdHJ1Y3QgaW50ZWxfZ3VjX2N0X2J1ZmZlciAqY3RiID0gJmN0
-LT5jdGJzLnNlbmQ7CisJdW5zaWduZWQgbG9uZyBzcGluX2ZsYWdzOworCXUzMiBmZW5jZTsKKwlp
-bnQgcmV0OworCisJc3Bpbl9sb2NrX2lycXNhdmUoJmN0Yi0+bG9jaywgc3Bpbl9mbGFncyk7CisK
-KwlyZXQgPSBoMmdfaGFzX3Jvb20oY3RiLCBsZW4gKyAxKTsKKwlpZiAodW5saWtlbHkocmV0KSkK
-KwkJZ290byBvdXQ7CisKKwlmZW5jZSA9IGN0X2dldF9uZXh0X2ZlbmNlKGN0KTsKKwlyZXQgPSBj
-dF93cml0ZShjdCwgYWN0aW9uLCBsZW4sIGZlbmNlLCBmbGFncyk7CisJaWYgKHVubGlrZWx5KHJl
-dCkpCisJCWdvdG8gb3V0OworCisJaW50ZWxfZ3VjX25vdGlmeShjdF90b19ndWMoY3QpKTsKKwor
-b3V0OgorCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmN0Yi0+bG9jaywgc3Bpbl9mbGFncyk7CisK
-KwlyZXR1cm4gcmV0OworfQorCiBzdGF0aWMgaW50IGN0X3NlbmQoc3RydWN0IGludGVsX2d1Y19j
-dCAqY3QsCiAJCSAgIGNvbnN0IHUzMiAqYWN0aW9uLAogCQkgICB1MzIgbGVuLApAQCAtNTA1LDYg
-KzU1NCw3IEBAIHN0YXRpYyBpbnQgY3Rfc2VuZChzdHJ1Y3QgaW50ZWxfZ3VjX2N0ICpjdCwKIAkJ
-ICAgdTMyIHJlc3BvbnNlX2J1Zl9zaXplLAogCQkgICB1MzIgKnN0YXR1cykKIHsKKwlzdHJ1Y3Qg
-aW50ZWxfZ3VjX2N0X2J1ZmZlciAqY3RiID0gJmN0LT5jdGJzLnNlbmQ7CiAJc3RydWN0IGN0X3Jl
-cXVlc3QgcmVxdWVzdDsKIAl1bnNpZ25lZCBsb25nIGZsYWdzOwogCXUzMiBmZW5jZTsKQEAgLTUx
-NCw4ICs1NjQsMjAgQEAgc3RhdGljIGludCBjdF9zZW5kKHN0cnVjdCBpbnRlbF9ndWNfY3QgKmN0
-LAogCUdFTV9CVUdfT04oIWxlbik7CiAJR0VNX0JVR19PTihsZW4gJiB+R1VDX0NUX01TR19MRU5f
-TUFTSyk7CiAJR0VNX0JVR19PTighcmVzcG9uc2VfYnVmICYmIHJlc3BvbnNlX2J1Zl9zaXplKTsK
-KwltaWdodF9zbGVlcCgpOwogCisJLyoKKwkgKiBXZSB1c2UgYSBsYXp5IHNwaW4gd2FpdCBsb29w
-IGhlcmUgYXMgd2UgYmVsaWV2ZSB0aGF0IGlmIHRoZSBDVAorCSAqIGJ1ZmZlcnMgYXJlIHNpemVk
-IGNvcnJlY3RseSB0aGUgZmxvdyBjb250cm9sIGNvbmRpdGlvbiBzaG91bGQgYmUKKwkgKiByYXJl
-LgorCSAqLworcmV0cnk6CiAJc3Bpbl9sb2NrX2lycXNhdmUoJmN0LT5jdGJzLnNlbmQubG9jaywg
-ZmxhZ3MpOworCWlmICh1bmxpa2VseSghaDJnX2hhc19yb29tKGN0YiwgbGVuICsgMSkpKSB7CisJ
-CXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmN0LT5jdGJzLnNlbmQubG9jaywgZmxhZ3MpOworCQlj
-b25kX3Jlc2NoZWQoKTsKKwkJZ290byByZXRyeTsKKwl9CiAKIAlmZW5jZSA9IGN0X2dldF9uZXh0
-X2ZlbmNlKGN0KTsKIAlyZXF1ZXN0LmZlbmNlID0gZmVuY2U7CkBAIC01MjcsNyArNTg5LDcgQEAg
-c3RhdGljIGludCBjdF9zZW5kKHN0cnVjdCBpbnRlbF9ndWNfY3QgKmN0LAogCWxpc3RfYWRkX3Rh
-aWwoJnJlcXVlc3QubGluaywgJmN0LT5yZXF1ZXN0cy5wZW5kaW5nKTsKIAlzcGluX3VubG9jaygm
-Y3QtPnJlcXVlc3RzLmxvY2spOwogCi0JZXJyID0gY3Rfd3JpdGUoY3QsIGFjdGlvbiwgbGVuLCBm
-ZW5jZSk7CisJZXJyID0gY3Rfd3JpdGUoY3QsIGFjdGlvbiwgbGVuLCBmZW5jZSwgMCk7CiAKIAlz
-cGluX3VubG9ja19pcnFyZXN0b3JlKCZjdC0+Y3Ricy5zZW5kLmxvY2ssIGZsYWdzKTsKIApAQCAt
-NTY5LDcgKzYzMSw3IEBAIHN0YXRpYyBpbnQgY3Rfc2VuZChzdHJ1Y3QgaW50ZWxfZ3VjX2N0ICpj
-dCwKICAqIENvbW1hbmQgVHJhbnNwb3J0IChDVCkgYnVmZmVyIGJhc2VkIEd1QyBzZW5kIGZ1bmN0
-aW9uLgogICovCiBpbnQgaW50ZWxfZ3VjX2N0X3NlbmQoc3RydWN0IGludGVsX2d1Y19jdCAqY3Qs
-IGNvbnN0IHUzMiAqYWN0aW9uLCB1MzIgbGVuLAotCQkgICAgICB1MzIgKnJlc3BvbnNlX2J1Ziwg
-dTMyIHJlc3BvbnNlX2J1Zl9zaXplKQorCQkgICAgICB1MzIgKnJlc3BvbnNlX2J1ZiwgdTMyIHJl
-c3BvbnNlX2J1Zl9zaXplLCB1MzIgZmxhZ3MpCiB7CiAJdTMyIHN0YXR1cyA9IH4wOyAvKiB1bmRl
-ZmluZWQgKi8KIAlpbnQgcmV0OwpAQCAtNTc5LDYgKzY0MSw5IEBAIGludCBpbnRlbF9ndWNfY3Rf
-c2VuZChzdHJ1Y3QgaW50ZWxfZ3VjX2N0ICpjdCwgY29uc3QgdTMyICphY3Rpb24sIHUzMiBsZW4s
-CiAJCXJldHVybiAtRU5PREVWOwogCX0KIAorCWlmIChmbGFncyAmIElOVEVMX0dVQ19TRU5EX05C
-KQorCQlyZXR1cm4gY3Rfc2VuZF9uYihjdCwgYWN0aW9uLCBsZW4sIGZsYWdzKTsKKwogCXJldCA9
-IGN0X3NlbmQoY3QsIGFjdGlvbiwgbGVuLCByZXNwb25zZV9idWYsIHJlc3BvbnNlX2J1Zl9zaXpl
-LCAmc3RhdHVzKTsKIAlpZiAodW5saWtlbHkocmV0IDwgMCkpIHsKIAkJQ1RfRVJST1IoY3QsICJT
-ZW5kaW5nIGFjdGlvbiAlI3ggZmFpbGVkIChlcnI9JWQgc3RhdHVzPSUjWClcbiIsCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfY3QuaCBiL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19jdC5oCmluZGV4IDFhZTJkZGU2ZGI5My4uZWI2
-OTI2MzMyNGJhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9n
-dWNfY3QuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfY3QuaApA
-QCAtNDIsNyArNDIsNiBAQCBzdHJ1Y3QgaW50ZWxfZ3VjX2N0X2J1ZmZlciB7CiAJYm9vbCBicm9r
-ZW47CiB9OwogCi0KIC8qKiBUb3AtbGV2ZWwgc3RydWN0dXJlIGZvciBDb21tYW5kIFRyYW5zcG9y
-dCByZWxhdGVkIGRhdGEKICAqCiAgKiBJbmNsdWRlcyBhIHBhaXIgb2YgQ1QgYnVmZmVycyBmb3Ig
-YmktZGlyZWN0aW9uYWwgY29tbXVuaWNhdGlvbiBhbmQgdHJhY2tpbmcKQEAgLTg4LDcgKzg3LDcg
-QEAgc3RhdGljIGlubGluZSBib29sIGludGVsX2d1Y19jdF9lbmFibGVkKHN0cnVjdCBpbnRlbF9n
-dWNfY3QgKmN0KQogfQogCiBpbnQgaW50ZWxfZ3VjX2N0X3NlbmQoc3RydWN0IGludGVsX2d1Y19j
-dCAqY3QsIGNvbnN0IHUzMiAqYWN0aW9uLCB1MzIgbGVuLAotCQkgICAgICB1MzIgKnJlc3BvbnNl
-X2J1ZiwgdTMyIHJlc3BvbnNlX2J1Zl9zaXplKTsKKwkJICAgICAgdTMyICpyZXNwb25zZV9idWYs
-IHUzMiByZXNwb25zZV9idWZfc2l6ZSwgdTMyIGZsYWdzKTsKIHZvaWQgaW50ZWxfZ3VjX2N0X2V2
-ZW50X2hhbmRsZXIoc3RydWN0IGludGVsX2d1Y19jdCAqY3QpOwogCiAjZW5kaWYgLyogX0lOVEVM
-X0dVQ19DVF9IXyAqLwotLSAKMi4yOC4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9pbnRlbC1nZngK
+Ensure G2H response has space in the buffer before sending H2G CTB as
+the GuC can't handle any backpressure on the G2H interface.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        | 13 +++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 76 +++++++++++++++----
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  4 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  4 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 13 ++--
+ 5 files changed, 87 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index b43ec56986b5..24e7a924134e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -95,11 +95,17 @@ inline int intel_guc_send(struct intel_guc *guc, const u32 *action, u32 len)
+ }
+ 
+ #define INTEL_GUC_SEND_NB		BIT(31)
++#define INTEL_GUC_SEND_G2H_DW_SHIFT	0
++#define INTEL_GUC_SEND_G2H_DW_MASK	(0xff << INTEL_GUC_SEND_G2H_DW_SHIFT)
++#define MAKE_SEND_FLAGS(len) \
++	({GEM_BUG_ON(!FIELD_FIT(INTEL_GUC_SEND_G2H_DW_MASK, len)); \
++	(FIELD_PREP(INTEL_GUC_SEND_G2H_DW_MASK, len) | INTEL_GUC_SEND_NB);})
+ static
+-inline int intel_guc_send_nb(struct intel_guc *guc, const u32 *action, u32 len)
++inline int intel_guc_send_nb(struct intel_guc *guc, const u32 *action, u32 len,
++			     u32 g2h_len_dw)
+ {
+ 	return intel_guc_ct_send(&guc->ct, action, len, NULL, 0,
+-				 INTEL_GUC_SEND_NB);
++				 MAKE_SEND_FLAGS(g2h_len_dw));
+ }
+ 
+ static inline int
+@@ -113,6 +119,7 @@ intel_guc_send_and_receive(struct intel_guc *guc, const u32 *action, u32 len,
+ static inline int intel_guc_send_busy_loop(struct intel_guc* guc,
+ 					   const u32 *action,
+ 					   u32 len,
++					   u32 g2h_len_dw,
+ 					   bool loop)
+ {
+ 	int err;
+@@ -121,7 +128,7 @@ static inline int intel_guc_send_busy_loop(struct intel_guc* guc,
+ 	might_sleep_if(loop && (!in_atomic() && !irqs_disabled()));
+ 
+ retry:
+-	err = intel_guc_send_nb(guc, action, len);
++	err = intel_guc_send_nb(guc, action, len, g2h_len_dw);
+ 	if (unlikely(err == -EBUSY && loop)) {
+ 		if (likely(!in_atomic() && !irqs_disabled()))
+ 			cond_resched();
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 7491f041859e..a60970e85635 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -73,6 +73,7 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
+ #define CTB_DESC_SIZE		ALIGN(sizeof(struct guc_ct_buffer_desc), SZ_2K)
+ #define CTB_H2G_BUFFER_SIZE	(SZ_4K)
+ #define CTB_G2H_BUFFER_SIZE	(4 * CTB_H2G_BUFFER_SIZE)
++#define G2H_ROOM_BUFFER_SIZE	(PAGE_SIZE)
+ 
+ struct ct_request {
+ 	struct list_head link;
+@@ -129,23 +130,27 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc)
+ 
+ static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb)
+ {
++	u32 space;
++
+ 	ctb->broken = false;
+ 	ctb->tail = 0;
+ 	ctb->head = 0;
+-	ctb->space = CIRC_SPACE(ctb->tail, ctb->head, ctb->size);
++	space = CIRC_SPACE(ctb->tail, ctb->head, ctb->size) - ctb->resv_space;
++	atomic_set(&ctb->space, space);
+ 
+ 	guc_ct_buffer_desc_init(ctb->desc);
+ }
+ 
+ static void guc_ct_buffer_init(struct intel_guc_ct_buffer *ctb,
+ 			       struct guc_ct_buffer_desc *desc,
+-			       u32 *cmds, u32 size_in_bytes)
++			       u32 *cmds, u32 size_in_bytes, u32 resv_space)
+ {
+ 	GEM_BUG_ON(size_in_bytes % 4);
+ 
+ 	ctb->desc = desc;
+ 	ctb->cmds = cmds;
+ 	ctb->size = size_in_bytes / 4;
++	ctb->resv_space = resv_space / 4;
+ 
+ 	guc_ct_buffer_reset(ctb);
+ }
+@@ -226,6 +231,7 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+ 	struct guc_ct_buffer_desc *desc;
+ 	u32 blob_size;
+ 	u32 cmds_size;
++	u32 resv_space;
+ 	void *blob;
+ 	u32 *cmds;
+ 	int err;
+@@ -250,19 +256,23 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+ 	desc = blob;
+ 	cmds = blob + 2 * CTB_DESC_SIZE;
+ 	cmds_size = CTB_H2G_BUFFER_SIZE;
+-	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u\n", "send",
+-		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
++	resv_space = 0;
++	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u/%u\n", "send",
++		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size,
++		 resv_space);
+ 
+-	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size);
++	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size, resv_space);
+ 
+ 	/* store pointers to desc and cmds for recv ctb */
+ 	desc = blob + CTB_DESC_SIZE;
+ 	cmds = blob + 2 * CTB_DESC_SIZE + CTB_H2G_BUFFER_SIZE;
+ 	cmds_size = CTB_G2H_BUFFER_SIZE;
+-	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u\n", "recv",
+-		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
++	resv_space = G2H_ROOM_BUFFER_SIZE;
++	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u/%u\n", "recv",
++		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size,
++		 resv_space);
+ 
+-	guc_ct_buffer_init(&ct->ctbs.recv, desc, cmds, cmds_size);
++	guc_ct_buffer_init(&ct->ctbs.recv, desc, cmds, cmds_size, resv_space);
+ 
+ 	return 0;
+ }
+@@ -458,7 +468,7 @@ static int ct_write(struct intel_guc_ct *ct,
+ 	/* now update descriptor */
+ 	ctb->tail = tail;
+ 	WRITE_ONCE(desc->tail, tail);
+-	ctb->space -= len + 1;
++	atomic_sub(len + 1, &ctb->space);
+ 
+ 	return 0;
+ 
+@@ -521,13 +531,34 @@ static inline bool ct_deadlocked(struct intel_guc_ct *ct)
+ 	return ret;
+ }
+ 
++static inline bool g2h_has_room(struct intel_guc_ct *ct, u32 g2h_len_dw)
++{
++	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
++
++	/*
++	 * We leave a certain amount of space in the G2H CTB buffer for
++	 * unexpected G2H CTBs (e.g. logging, engine hang, etc...)
++	 */
++	return !g2h_len_dw || atomic_read(&ctb->space) >= g2h_len_dw;
++}
++
++static inline void g2h_reserve_space(struct intel_guc_ct *ct, u32 g2h_len_dw)
++{
++	lockdep_assert_held(&ct->ctbs.send.lock);
++
++	GEM_BUG_ON(!g2h_has_room(ct, g2h_len_dw));
++
++	if (g2h_len_dw)
++		atomic_sub(g2h_len_dw, &ct->ctbs.recv.space);
++}
++
+ static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
+ {
+ 	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+ 	u32 head;
+ 	u32 space;
+ 
+-	if (ctb->space >= len_dw)
++	if (atomic_read(&ctb->space) >= len_dw)
+ 		return true;
+ 
+ 	head = READ_ONCE(ctb->desc->head);
+@@ -540,16 +571,16 @@ static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
+ 	}
+ 
+ 	space = CIRC_SPACE(ctb->tail, head, ctb->size);
+-	ctb->space = space;
++	atomic_set(&ctb->space, space);
+ 
+ 	return space >= len_dw;
+ }
+ 
+-static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
++static int has_room_nb(struct intel_guc_ct *ct, u32 h2g_dw, u32 g2h_dw)
+ {
+ 	lockdep_assert_held(&ct->ctbs.send.lock);
+ 
+-	if (unlikely(!h2g_has_room(ct, len_dw))) {
++	if (unlikely(!h2g_has_room(ct, h2g_dw) || !g2h_has_room(ct, g2h_dw))) {
+ 		if (ct->stall_time == KTIME_MAX)
+ 			ct->stall_time = ktime_get();
+ 
+@@ -563,6 +594,9 @@ static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
+ 	return 0;
+ }
+ 
++#define G2H_LEN_DW(f) \
++	FIELD_GET(INTEL_GUC_SEND_G2H_DW_MASK, f) ? \
++	FIELD_GET(INTEL_GUC_SEND_G2H_DW_MASK, f) + GUC_CTB_HXG_MSG_MIN_LEN : 0
+ static int ct_send_nb(struct intel_guc_ct *ct,
+ 		      const u32 *action,
+ 		      u32 len,
+@@ -570,12 +604,13 @@ static int ct_send_nb(struct intel_guc_ct *ct,
+ {
+ 	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+ 	unsigned long spin_flags;
++	u32 g2h_len_dw = G2H_LEN_DW(flags);
+ 	u32 fence;
+ 	int ret;
+ 
+ 	spin_lock_irqsave(&ctb->lock, spin_flags);
+ 
+-	ret = has_room_nb(ct, len + 1);
++	ret = has_room_nb(ct, len + 1, g2h_len_dw);
+ 	if (unlikely(ret))
+ 		goto out;
+ 
+@@ -584,6 +619,7 @@ static int ct_send_nb(struct intel_guc_ct *ct,
+ 	if (unlikely(ret))
+ 		goto out;
+ 
++	g2h_reserve_space(ct, g2h_len_dw);
+ 	intel_guc_notify(ct_to_guc(ct));
+ 
+ out:
+@@ -965,10 +1001,22 @@ static void ct_incoming_request_worker_func(struct work_struct *w)
+ static int ct_handle_event(struct intel_guc_ct *ct, struct ct_incoming_msg *request)
+ {
+ 	const u32 *hxg = &request->msg[GUC_CTB_MSG_MIN_LEN];
++	u32 action = FIELD_GET(GUC_HXG_EVENT_MSG_0_ACTION, hxg[0]);
+ 	unsigned long flags;
+ 
+ 	GEM_BUG_ON(FIELD_GET(GUC_HXG_MSG_0_TYPE, hxg[0]) != GUC_HXG_TYPE_EVENT);
+ 
++	/*
++	 * Adjusting the space must be done in IRQ or deadlock can occur as the
++	 * CTB processing in the below workqueue can send CTBs which creates a
++	 * circular dependency if the space was returned there.
++	 */
++	switch (action) {
++	case INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE:
++	case INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE:
++		atomic_add(request->size, &ct->ctbs.recv.space);
++	}
++
+ 	spin_lock_irqsave(&ct->requests.lock, flags);
+ 	list_add_tail(&request->link, &ct->requests.incoming);
+ 	spin_unlock_irqrestore(&ct->requests.lock, flags);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index 9924335e2ee6..660bf37238e2 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -33,6 +33,7 @@ struct intel_guc;
+  * @desc: pointer to the buffer descriptor
+  * @cmds: pointer to the commands buffer
+  * @size: size of the commands buffer in dwords
++ * @resv_space: reserved space in buffer in dwords
+  * @head: local shadow copy of head in dwords
+  * @tail: local shadow copy of tail in dwords
+  * @space: local shadow copy of space in dwords
+@@ -43,9 +44,10 @@ struct intel_guc_ct_buffer {
+ 	struct guc_ct_buffer_desc *desc;
+ 	u32 *cmds;
+ 	u32 size;
++	u32 resv_space;
+ 	u32 tail;
+ 	u32 head;
+-	u32 space;
++	atomic_t space;
+ 	bool broken;
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 4e4edc368b77..94bb1ca6f889 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -17,6 +17,10 @@
+ #include "abi/guc_communication_ctb_abi.h"
+ #include "abi/guc_messages_abi.h"
+ 
++/* Payload length only i.e. don't include G2H header length */
++#define G2H_LEN_DW_SCHED_CONTEXT_MODE_SET	2
++#define G2H_LEN_DW_DEREGISTER_CONTEXT		1
++
+ #define GUC_CONTEXT_DISABLE		0
+ #define GUC_CONTEXT_ENABLE		1
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 010e46dd6b16..ef24758c4266 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -260,6 +260,7 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ 	struct intel_context *ce = rq->context;
+ 	u32 action[3];
+ 	int len = 0;
++	u32 g2h_len_dw = 0;
+ 	bool enabled = context_enabled(ce);
+ 
+ 	GEM_BUG_ON(!atomic_read(&ce->guc_id_ref));
+@@ -271,13 +272,13 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ 		action[len++] = GUC_CONTEXT_ENABLE;
+ 		set_context_pending_enable(ce);
+ 		intel_context_get(ce);
++		g2h_len_dw = G2H_LEN_DW_SCHED_CONTEXT_MODE_SET;
+ 	} else {
+ 		action[len++] = INTEL_GUC_ACTION_SCHED_CONTEXT;
+ 		action[len++] = ce->guc_id;
+ 	}
+ 
+-	err = intel_guc_send_nb(guc, action, len);
+-
++	err = intel_guc_send_nb(guc, action, len, g2h_len_dw);
+ 	if (!enabled && !err) {
+ 		set_context_enabled(ce);
+ 	} else if (!enabled) {
+@@ -730,7 +731,7 @@ static int __guc_action_register_context(struct intel_guc *guc,
+ 		offset,
+ 	};
+ 
+-	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), true);
++	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), 0, true);
+ }
+ 
+ static int register_context(struct intel_context *ce)
+@@ -750,7 +751,8 @@ static int __guc_action_deregister_context(struct intel_guc *guc,
+ 		guc_id,
+ 	};
+ 
+-	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), true);
++	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action),
++					G2H_LEN_DW_DEREGISTER_CONTEXT, true);
+ }
+ 
+ static int deregister_context(struct intel_context *ce, u32 guc_id)
+@@ -889,7 +891,8 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
+ 
+ 	intel_context_get(ce);
+ 
+-	intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), true);
++	intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action),
++				 G2H_LEN_DW_SCHED_CONTEXT_MODE_SET, true);
+ }
+ 
+ static u16 prep_context_pending_disable(struct intel_context *ce)
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
