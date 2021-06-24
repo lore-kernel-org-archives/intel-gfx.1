@@ -2,73 +2,53 @@ Return-Path: <SRS0=foSz=LS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8E83C49EA5
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 15:57:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89F80C49EA7
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 15:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 89DE96135C
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 15:57:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89DE96135C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 5ED116135C
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 15:57:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5ED116135C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 354AF6EC56;
-	Thu, 24 Jun 2021 15:57:29 +0000 (UTC)
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [IPv6:2607:f8b0:4864:20::1029])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 591E16EC56
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 15:57:28 +0000 (UTC)
-Received: by mail-pj1-x1029.google.com with SMTP id bb20so3736636pjb.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 08:57:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=xfRvKXXPDGozL9xpkc2RXgCWY6OxEYfQN41+lxoFnvY=;
- b=kEshnj7M08k1T5XsbOYdzjZbq7nVnmjng6eJnfjl4lHMzaAZWk6m94BUgoAkO9vE9h
- LGUHt/CR+GHi3cdJm3u8om1RbudjT01C0RCIVYBXBb3iKIFLf6Hz/aFd03GLLTot9C9q
- is4g5Rc9w98QwWpmpTahpJ12S/0U2a21x3Eus=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=xfRvKXXPDGozL9xpkc2RXgCWY6OxEYfQN41+lxoFnvY=;
- b=Lc4PUzzsHyVmg/6VRG2IUfPRmzOp6UAHZER0rCaU7OBM46fCj3FqgDCTbb5aLPr+qq
- h6wEwkAbhO2vPcWZiCdkH4ZpexlYxNSlmD+OK84lJVfhTnQ80lZGwykodhmqO3fr1Btq
- RBovVvKOYDF5tNxwpWYjwDPI2UvMhJLndFt24lS6cBpG7crArvx5UCC32qUH/VHAK7w2
- W3Cn8MwF4P8FtLDU1yB516lZGYH2wp4mu+1sExKzKjU2H5vYbfZezE+vbCMLyiqcN+Lc
- qv4sy7MXSPhWhFEBLKZFyfygIEcp9HGBjzXd0encL0d3eQmQzXCbOKCdhxHI/HkfTlLd
- Iu5w==
-X-Gm-Message-State: AOAM532Kk1GfEPBqJaagF7Z21u/360lvA0MTQOf08VW2c6aXlvcGCzNc
- iI4yZF5uPVDBxSLtu2dYB5d+/A==
-X-Google-Smtp-Source: ABdhPJzInUpAy17snFNN0CGcBB/ghyLU73coTfwG0l77wDEHQQH9RWDi8n5UN9ZkYoU3wlPKMD5xpQ==
-X-Received: by 2002:a17:90b:2282:: with SMTP id
- kx2mr5939882pjb.60.1624550248050; 
- Thu, 24 Jun 2021 08:57:28 -0700 (PDT)
-Received: from localhost ([2401:fa00:95:205:165a:99ec:42d5:d8b])
- by smtp.gmail.com with UTF8SMTPSA id n6sm2862924pgt.7.2021.06.24.08.57.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jun 2021 08:57:27 -0700 (PDT)
-From: Claire Chang <tientzu@chromium.org>
-To: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Frank Rowand <frowand.list@gmail.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
- jgross@suse.com, Christoph Hellwig <hch@lst.de>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Date: Thu, 24 Jun 2021 23:55:26 +0800
-Message-Id: <20210624155526.2775863-13-tientzu@chromium.org>
-X-Mailer: git-send-email 2.32.0.288.g62a8d224e6-goog
-In-Reply-To: <20210624155526.2775863-1-tientzu@chromium.org>
-References: <20210624155526.2775863-1-tientzu@chromium.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFDE96EC5C;
+	Thu, 24 Jun 2021 15:57:46 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6351A6EC4A;
+ Thu, 24 Jun 2021 15:57:45 +0000 (UTC)
+IronPort-SDR: wFzDWiGK9fk1zZCAgh7xaBH3D9UWDv6FhaO6H5sJcsjsDTD3qXduvhrwHeQo6pycL1AYHasGgR
+ DGCNoEH2+p7Q==
+X-IronPort-AV: E=McAfee;i="6200,9189,10025"; a="207537948"
+X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="207537948"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2021 08:56:29 -0700
+IronPort-SDR: T7bIvbxkxvWH0/hSgX6WXYckUfx3Pm3K2JPYr72JrVXzyIPTJNapVIWRo1AaHD4tl7OobUWk2/
+ FN4pNLpVT0gw==
+X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="424116914"
+Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2021 08:56:29 -0700
+Date: Thu, 24 Jun 2021 08:49:48 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Message-ID: <20210624154947.GB1629@sdutt-i7>
+References: <20210624070516.21893-1-matthew.brost@intel.com>
+ <20210624070516.21893-5-matthew.brost@intel.com>
+ <761f2063-7fe6-518b-d05e-67f8fadb9a9c@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v15 12/12] of: Add plumbing for restricted DMA
- pool
+Content-Disposition: inline
+In-Reply-To: <761f2063-7fe6-518b-d05e-67f8fadb9a9c@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 04/47] drm/i915/guc: Add non blocking CTB
+ send function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,133 +61,335 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
- peterz@infradead.org, benh@kernel.crashing.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- grant.likely@arm.com, paulus@samba.org, mingo@kernel.org, jxgao@google.com,
- sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
- xypron.glpk@gmx.de, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
- airlied@linux.ie, Robin Murphy <robin.murphy@arm.com>,
- Nicolas Boichat <drinkcat@chromium.org>, bhelgaas@google.com,
- tientzu@chromium.org, Dan Williams <dan.j.williams@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- quic_qiancai@quicinc.com, lkml <linux-kernel@vger.kernel.org>,
- tfiga@chromium.org,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Jim Quinlan <james.quinlan@broadcom.com>, thomas.lendacky@amd.com,
- linuxppc-dev@lists.ozlabs.org, bauerman@linux.ibm.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If a device is not behind an IOMMU, we look up the device node and set
-up the restricted DMA when the restricted-dma-pool is presented.
+On Thu, Jun 24, 2021 at 04:48:32PM +0200, Michal Wajdeczko wrote:
+> =
 
-Signed-off-by: Claire Chang <tientzu@chromium.org>
-Tested-by: Stefano Stabellini <sstabellini@kernel.org>
-Tested-by: Will Deacon <will@kernel.org>
----
- drivers/of/address.c    | 33 +++++++++++++++++++++++++++++++++
- drivers/of/device.c     |  3 +++
- drivers/of/of_private.h |  6 ++++++
- 3 files changed, 42 insertions(+)
+> =
 
-diff --git a/drivers/of/address.c b/drivers/of/address.c
-index 73ddf2540f3f..cdf700fba5c4 100644
---- a/drivers/of/address.c
-+++ b/drivers/of/address.c
-@@ -8,6 +8,7 @@
- #include <linux/logic_pio.h>
- #include <linux/module.h>
- #include <linux/of_address.h>
-+#include <linux/of_reserved_mem.h>
- #include <linux/pci.h>
- #include <linux/pci_regs.h>
- #include <linux/sizes.h>
-@@ -1022,6 +1023,38 @@ int of_dma_get_range(struct device_node *np, const struct bus_dma_region **map)
- 	of_node_put(node);
- 	return ret;
- }
-+
-+int of_dma_set_restricted_buffer(struct device *dev, struct device_node *np)
-+{
-+	struct device_node *node, *of_node = dev->of_node;
-+	int count, i;
-+
-+	count = of_property_count_elems_of_size(of_node, "memory-region",
-+						sizeof(u32));
-+	/*
-+	 * If dev->of_node doesn't exist or doesn't contain memory-region, try
-+	 * the OF node having DMA configuration.
-+	 */
-+	if (count <= 0) {
-+		of_node = np;
-+		count = of_property_count_elems_of_size(
-+			of_node, "memory-region", sizeof(u32));
-+	}
-+
-+	for (i = 0; i < count; i++) {
-+		node = of_parse_phandle(of_node, "memory-region", i);
-+		/*
-+		 * There might be multiple memory regions, but only one
-+		 * restricted-dma-pool region is allowed.
-+		 */
-+		if (of_device_is_compatible(node, "restricted-dma-pool") &&
-+		    of_device_is_available(node))
-+			return of_reserved_mem_device_init_by_idx(dev, of_node,
-+								  i);
-+	}
-+
-+	return 0;
-+}
- #endif /* CONFIG_HAS_DMA */
- 
- /**
-diff --git a/drivers/of/device.c b/drivers/of/device.c
-index 6cb86de404f1..e68316836a7a 100644
---- a/drivers/of/device.c
-+++ b/drivers/of/device.c
-@@ -165,6 +165,9 @@ int of_dma_configure_id(struct device *dev, struct device_node *np,
- 
- 	arch_setup_dma_ops(dev, dma_start, size, iommu, coherent);
- 
-+	if (!iommu)
-+		return of_dma_set_restricted_buffer(dev, np);
-+
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(of_dma_configure_id);
-diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-index d9e6a324de0a..25cebbed5f02 100644
---- a/drivers/of/of_private.h
-+++ b/drivers/of/of_private.h
-@@ -161,12 +161,18 @@ struct bus_dma_region;
- #if defined(CONFIG_OF_ADDRESS) && defined(CONFIG_HAS_DMA)
- int of_dma_get_range(struct device_node *np,
- 		const struct bus_dma_region **map);
-+int of_dma_set_restricted_buffer(struct device *dev, struct device_node *np);
- #else
- static inline int of_dma_get_range(struct device_node *np,
- 		const struct bus_dma_region **map)
- {
- 	return -ENODEV;
- }
-+static inline int of_dma_set_restricted_buffer(struct device *dev,
-+					       struct device_node *np)
-+{
-+	return -ENODEV;
-+}
- #endif
- 
- #endif /* _LINUX_OF_PRIVATE_H */
--- 
-2.32.0.288.g62a8d224e6-goog
+> On 24.06.2021 09:04, Matthew Brost wrote:
+> > Add non blocking CTB send function, intel_guc_send_nb. GuC submission
+> > will send CTBs in the critical path and does not need to wait for these
+> > CTBs to complete before moving on, hence the need for this new function.
+> > =
+
+> > The non-blocking CTB now must have a flow control mechanism to ensure
+> > the buffer isn't overrun. A lazy spin wait is used as we believe the
+> > flow control condition should be rare with a properly sized buffer.
+> > =
+
+> > The function, intel_guc_send_nb, is exported in this patch but unused.
+> > Several patches later in the series make use of this function.
+> > =
+
+> > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/gt/uc/intel_guc.h    | 12 +++-
+> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 77 +++++++++++++++++++++--
+> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  3 +-
+> >  3 files changed, 82 insertions(+), 10 deletions(-)
+> > =
+
+> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i=
+915/gt/uc/intel_guc.h
+> > index 4abc59f6f3cd..24b1df6ad4ae 100644
+> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> > @@ -74,7 +74,15 @@ static inline struct intel_guc *log_to_guc(struct in=
+tel_guc_log *log)
+> >  static
+> >  inline int intel_guc_send(struct intel_guc *guc, const u32 *action, u3=
+2 len)
+> >  {
+> > -	return intel_guc_ct_send(&guc->ct, action, len, NULL, 0);
+> > +	return intel_guc_ct_send(&guc->ct, action, len, NULL, 0, 0);
+> > +}
+> > +
+> > +#define INTEL_GUC_SEND_NB		BIT(31)
+> =
+
+> hmm, this flag really belongs to intel_guc_ct_send() so it should be
+> defined as CTB flag near that function declaration
+> =
+
+
+I can move this up a few lines.
+
+> > +static
+> > +inline int intel_guc_send_nb(struct intel_guc *guc, const u32 *action,=
+ u32 len)
+> > +{
+> > +	return intel_guc_ct_send(&guc->ct, action, len, NULL, 0,
+> > +				 INTEL_GUC_SEND_NB);
+> >  }
+> >  =
+
+> >  static inline int
+> > @@ -82,7 +90,7 @@ intel_guc_send_and_receive(struct intel_guc *guc, con=
+st u32 *action, u32 len,
+> >  			   u32 *response_buf, u32 response_buf_size)
+> >  {
+> >  	return intel_guc_ct_send(&guc->ct, action, len,
+> > -				 response_buf, response_buf_size);
+> > +				 response_buf, response_buf_size, 0);
+> >  }
+> >  =
+
+> >  static inline void intel_guc_to_host_event_handler(struct intel_guc *g=
+uc)
+> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/dr=
+m/i915/gt/uc/intel_guc_ct.c
+> > index a17215920e58..c9a65d05911f 100644
+> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> > @@ -3,6 +3,11 @@
+> >   * Copyright =A9 2016-2019 Intel Corporation
+> >   */
+> >  =
+
+> > +#include <linux/circ_buf.h>
+> > +#include <linux/ktime.h>
+> > +#include <linux/time64.h>
+> > +#include <linux/timekeeping.h>
+> > +
+> >  #include "i915_drv.h"
+> >  #include "intel_guc_ct.h"
+> >  #include "gt/intel_gt.h"
+> > @@ -373,7 +378,7 @@ static void write_barrier(struct intel_guc_ct *ct)
+> >  static int ct_write(struct intel_guc_ct *ct,
+> >  		    const u32 *action,
+> >  		    u32 len /* in dwords */,
+> > -		    u32 fence)
+> > +		    u32 fence, u32 flags)
+> >  {
+> >  	struct intel_guc_ct_buffer *ctb =3D &ct->ctbs.send;
+> >  	struct guc_ct_buffer_desc *desc =3D ctb->desc;
+> > @@ -421,9 +426,13 @@ static int ct_write(struct intel_guc_ct *ct,
+> >  		 FIELD_PREP(GUC_CTB_MSG_0_NUM_DWORDS, len) |
+> >  		 FIELD_PREP(GUC_CTB_MSG_0_FENCE, fence);
+> >  =
+
+> > -	hxg =3D FIELD_PREP(GUC_HXG_MSG_0_TYPE, GUC_HXG_TYPE_REQUEST) |
+> > -	      FIELD_PREP(GUC_HXG_REQUEST_MSG_0_ACTION |
+> > -			 GUC_HXG_REQUEST_MSG_0_DATA0, action[0]);
+> > +	hxg =3D (flags & INTEL_GUC_SEND_NB) ?
+> > +		(FIELD_PREP(GUC_HXG_MSG_0_TYPE, GUC_HXG_TYPE_EVENT) |
+> > +		 FIELD_PREP(GUC_HXG_EVENT_MSG_0_ACTION |
+> > +			    GUC_HXG_EVENT_MSG_0_DATA0, action[0])) :
+> > +		(FIELD_PREP(GUC_HXG_MSG_0_TYPE, GUC_HXG_TYPE_REQUEST) |
+> > +		 FIELD_PREP(GUC_HXG_REQUEST_MSG_0_ACTION |
+> > +			    GUC_HXG_REQUEST_MSG_0_DATA0, action[0]));
+> =
+
+> or as we already switched to accept and return whole HXG messages in
+> guc_send_mmio() maybe we should do the same for CTB variant too and
+> instead of using extra flag just let caller to prepare proper HXG header
+> with HXG_EVENT type and then in CTB code just look at this type to make
+> decision which code path to use
+>
+
+Not sure I follow. Anyways could this be done in a follow up by you if
+want this change.
+ =
+
+> note that existing callers should not be impacted, as full HXG header
+> for the REQUEST message looks exactly the same as "action" code alone.
+> =
+
+> >  =
+
+> >  	CT_DEBUG(ct, "writing (tail %u) %*ph %*ph %*ph\n",
+> >  		 tail, 4, &header, 4, &hxg, 4 * (len - 1), &action[1]);
+> > @@ -498,6 +507,46 @@ static int wait_for_ct_request_update(struct ct_re=
+quest *req, u32 *status)
+> >  	return err;
+> >  }
+> >  =
+
+> > +static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 l=
+en_dw)
+> > +{
+> > +	struct guc_ct_buffer_desc *desc =3D ctb->desc;
+> > +	u32 head =3D READ_ONCE(desc->head);
+> > +	u32 space;
+> > +
+> > +	space =3D CIRC_SPACE(desc->tail, head, ctb->size);
+> > +
+> > +	return space >=3D len_dw;
+> =
+
+> here you are returning true(1) as has room
+>
+
+See below.
+ =
+
+> > +}
+> > +
+> > +static int ct_send_nb(struct intel_guc_ct *ct,
+> > +		      const u32 *action,
+> > +		      u32 len,
+> > +		      u32 flags)
+> > +{
+> > +	struct intel_guc_ct_buffer *ctb =3D &ct->ctbs.send;
+> > +	unsigned long spin_flags;
+> > +	u32 fence;
+> > +	int ret;
+> > +
+> > +	spin_lock_irqsave(&ctb->lock, spin_flags);
+> > +
+> > +	ret =3D h2g_has_room(ctb, len + 1);
+> =
+
+> but here you treat "1" it as en error
+> =
+
+
+Yes, this patch is broken but fixed in a follow up one. Regardless I'll
+fix this patch in place.
+
+> and this "1" is GUC_HXG_MSG_MIN_LEN, right ?
+>
+
+Not exactly. This is following how ct_send() uses the action + len
+field. Action[0] field goes in the HXG header and extra + 1 is for the
+CT header.
+
+> > +	if (unlikely(ret))
+> > +		goto out;
+> > +
+> > +	fence =3D ct_get_next_fence(ct);
+> > +	ret =3D ct_write(ct, action, len, fence, flags);
+> > +	if (unlikely(ret))
+> > +		goto out;
+> > +
+> > +	intel_guc_notify(ct_to_guc(ct));
+> > +
+> > +out:
+> > +	spin_unlock_irqrestore(&ctb->lock, spin_flags);
+> > +
+> > +	return ret;
+> > +}
+> > +
+> >  static int ct_send(struct intel_guc_ct *ct,
+> >  		   const u32 *action,
+> >  		   u32 len,
+> > @@ -505,6 +554,7 @@ static int ct_send(struct intel_guc_ct *ct,
+> >  		   u32 response_buf_size,
+> >  		   u32 *status)
+> >  {
+> > +	struct intel_guc_ct_buffer *ctb =3D &ct->ctbs.send;
+> >  	struct ct_request request;
+> >  	unsigned long flags;
+> >  	u32 fence;
+> > @@ -514,8 +564,20 @@ static int ct_send(struct intel_guc_ct *ct,
+> >  	GEM_BUG_ON(!len);
+> >  	GEM_BUG_ON(len & ~GUC_CT_MSG_LEN_MASK);
+> >  	GEM_BUG_ON(!response_buf && response_buf_size);
+> > +	might_sleep();
+> >  =
+
+> > +	/*
+> > +	 * We use a lazy spin wait loop here as we believe that if the CT
+> > +	 * buffers are sized correctly the flow control condition should be
+> > +	 * rare.
+> =
+
+> shouldn't we at least try to log such cases with RATE_LIMITED to find
+> out how "rare" it is, or if really unlikely just return -EBUSY as in
+> case of non-blocking send ?
+>
+
+Definitely not return -EBUSY as this a blocking call. Perhaps we can log
+this, but IGTs likely can hit rather easily. It really is only
+interesting if real workloads hit this. Regardless that can be a follow
+up.
+
+Matt
+ =
+
+> > +	 */
+> > +retry:
+> >  	spin_lock_irqsave(&ct->ctbs.send.lock, flags);
+> > +	if (unlikely(!h2g_has_room(ctb, len + 1))) {
+> > +		spin_unlock_irqrestore(&ct->ctbs.send.lock, flags);
+> > +		cond_resched();
+> > +		goto retry;
+> > +	}
+> >  =
+
+> >  	fence =3D ct_get_next_fence(ct);
+> >  	request.fence =3D fence;
+> > @@ -527,7 +589,7 @@ static int ct_send(struct intel_guc_ct *ct,
+> >  	list_add_tail(&request.link, &ct->requests.pending);
+> >  	spin_unlock(&ct->requests.lock);
+> >  =
+
+> > -	err =3D ct_write(ct, action, len, fence);
+> > +	err =3D ct_write(ct, action, len, fence, 0);
+> >  =
+
+> >  	spin_unlock_irqrestore(&ct->ctbs.send.lock, flags);
+> >  =
+
+> > @@ -569,7 +631,7 @@ static int ct_send(struct intel_guc_ct *ct,
+> >   * Command Transport (CT) buffer based GuC send function.
+> >   */
+> >  int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 =
+len,
+> > -		      u32 *response_buf, u32 response_buf_size)
+> > +		      u32 *response_buf, u32 response_buf_size, u32 flags)
+> >  {
+> >  	u32 status =3D ~0; /* undefined */
+> >  	int ret;
+> > @@ -579,6 +641,9 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, cons=
+t u32 *action, u32 len,
+> >  		return -ENODEV;
+> >  	}
+> >  =
+
+> > +	if (flags & INTEL_GUC_SEND_NB)
+> > +		return ct_send_nb(ct, action, len, flags);
+> > +
+> >  	ret =3D ct_send(ct, action, len, response_buf, response_buf_size, &st=
+atus);
+> >  	if (unlikely(ret < 0)) {
+> >  		CT_ERROR(ct, "Sending action %#x failed (err=3D%d status=3D%#X)\n",
+> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/dr=
+m/i915/gt/uc/intel_guc_ct.h
+> > index 1ae2dde6db93..eb69263324ba 100644
+> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+> > @@ -42,7 +42,6 @@ struct intel_guc_ct_buffer {
+> >  	bool broken;
+> >  };
+> >  =
+
+> > -
+> >  /** Top-level structure for Command Transport related data
+> >   *
+> >   * Includes a pair of CT buffers for bi-directional communication and =
+tracking
+> > @@ -88,7 +87,7 @@ static inline bool intel_guc_ct_enabled(struct intel_=
+guc_ct *ct)
+> >  }
+> >  =
+
+> >  int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 =
+len,
+> > -		      u32 *response_buf, u32 response_buf_size);
+> > +		      u32 *response_buf, u32 response_buf_size, u32 flags);
+> >  void intel_guc_ct_event_handler(struct intel_guc_ct *ct);
+> >  =
+
+> >  #endif /* _INTEL_GUC_CT_H_ */
+> > =
 
 _______________________________________________
 Intel-gfx mailing list
