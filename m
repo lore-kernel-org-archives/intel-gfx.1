@@ -2,58 +2,75 @@ Return-Path: <SRS0=2qg2=LW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96F59C49EAB
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CBC06C2B9F4
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4122C61C49
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4122C61C49
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9281761C49
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:32:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9281761C49
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6636E40A;
-	Mon, 28 Jun 2021 09:31:06 +0000 (UTC)
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 890766E9B6;
- Sat, 26 Jun 2021 06:35:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=ccSBQjSdQ0yyRGKtd2TN6frnfy5qFmhpR4DjfGkepkE=; 
- b=YaJ+LNitNLTcPjZP3ob9seOFY7b65vc0hq8Re1L4MYfp4gvEqbQ1c7pXOVTEH9L+HXmr1mrMHlsOMkRbb7EcpErU9vArDwAUargOOUXVZ/kC815UjA2ZQB+V5gL3kfpN+s1GhPTU1j4nCm24C7GhTAPm34dDa9cxvah+JoLo5hCb7zeVVzmddExLrQV/Dx6oIBHOLWR3YP31RbIVP8dBFfUWj5dXncKHBpWJjHSkmXFbDE7Fx3BWJ/6i+PDqP0L2r52huDerwXNkehSup0GsnYvSQV4MQ5HwYuiREbnZpWqc6noxTpWPlBR/qGJNmzIa1iiHPVMpfuAtf79xPlplpA==;
-Received: from 1.pool85-50-22.dynamic.orange.es ([85.50.22.1]
- helo=[192.168.1.119]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1lx1ui-0005dT-TN; Sat, 26 Jun 2021 08:35:37 +0200
-Message-ID: <0032ceefa7c39bdd03907565ab9762ad6007eb80.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>, 
- "events@lists.x.org"
- <events@lists.x.org>, "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
- <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
- <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
- <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Date: Sat, 26 Jun 2021 08:35:26 +0200
-In-Reply-To: <380e8cb0f18c6f4b21c20b382668316b8962159a.camel@igalia.com>
-References: <790BA4EE-E3F0-40B9-BE18-3646492F1CAE@intel.com>
- <380e8cb0f18c6f4b21c20b382668316b8962159a.camel@igalia.com>
-User-Agent: Evolution 3.40.2 (3.40.2-1.fc34) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31D706E3DB;
+	Mon, 28 Jun 2021 09:32:06 +0000 (UTC)
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DE836EC27
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 15:36:45 +0000 (UTC)
+Received: by mail-pl1-x62e.google.com with SMTP id i4so3136249plt.12
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 08:36:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=oSmcLkLaYmb30K4x2o5V0PgF5sReFf2n8jT9UaERRsg=;
+ b=bSQo4DhU2KuL3CjUZN64j4WcwdggQch/R7XnEdix2NVuOf40qPGfYHBno8Xm619GAr
+ wg2kvoNy4VPNerE1UJQqTO/mn+wSl2WW8B9f7dL8xOzOgdg74JEfehGKdbWSQ0+1rr/t
+ 2LEY4HKbsscIOGINiR9uO5OVpBxOglyxXqSvwqqzzZpKt1BhIehu/QDEuFSbgcAbmd1A
+ 2Vn5BfcWryEpw7ny/6e9BAwB13V5uLq3/TeIlPL3nNBaDSZ9vfocg3yuStOuQjDnW2a3
+ vbLINUOPqFtht9Zb0kQj2xFTxtidhP/wmPjkGUm290ZvEfhGiSSc1t+MN7azCayA+NIy
+ PYiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=oSmcLkLaYmb30K4x2o5V0PgF5sReFf2n8jT9UaERRsg=;
+ b=qxnIC3QK3mReG21rDQVw4h8S5SJuh6QOFN5htvdS6DJYYI4juzPTOTakTnOQoGtpY3
+ qglyFAtobYso906UQnM+HFJ/RT94cgbJy5fFQYPQP39LmTuZG5ZZyPhhX4lh8xMgK49Z
+ KUADMWf/w2416XCup7kAumQhL5evMf+IdWKn7copgLI8PZDBb58NOopKkqmzqSez/6d3
+ AO4kj6hDY4vjGzaCJ0h7lQm3D/60iYw0L+9t2gcIk7WRx31M/G8WZ1hEr0mfQJ1052W2
+ FHEAX8fHeOVvs2BTvLhFPePRV62NlrF3bbCxuLY0CFPWuXUjxt6aCqUHHweEZ3Rb87JH
+ kpmg==
+X-Gm-Message-State: AOAM530vemjlDWrajKHTk/7WovYKshxhLpDVhF63qQT/tR+hSritLSIM
+ pNvKSeY7yELiXrW8e17NzxM9oQ==
+X-Google-Smtp-Source: ABdhPJxfmbtVti63yi0rwniZ/V3vp7ddChowhbbwk916pZwapRYWPu+wwBqr+2N8fYjWJaOb0U93+Q==
+X-Received: by 2002:a17:90a:8542:: with SMTP id
+ a2mr14115924pjw.185.1624549004763; 
+ Thu, 24 Jun 2021 08:36:44 -0700 (PDT)
+Received: from google.com (157.214.185.35.bc.googleusercontent.com.
+ [35.185.214.157])
+ by smtp.gmail.com with ESMTPSA id p1sm3132065pfp.137.2021.06.24.08.36.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Jun 2021 08:36:44 -0700 (PDT)
+Date: Thu, 24 Jun 2021 15:36:40 +0000
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Message-ID: <YNSmiOsmJin4UPcG@google.com>
+References: <20210624035749.4054934-1-stevensd@google.com>
+ <20210624035749.4054934-2-stevensd@google.com>
+ <1624524156.04etgk7zmz.astroid@bobo.none>
+ <4816287a-b9a9-d3f4-f844-06922d696e06@redhat.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <4816287a-b9a9-d3f4-f844-06922d696e06@redhat.com>
 X-Mailman-Approved-At: Mon, 28 Jun 2021 09:31:03 +0000
-Subject: Re: [Intel-gfx] [Mesa-dev] XDC 2021: Registration & Call for
- Proposals now open!
+Subject: Re: [Intel-gfx] [PATCH 1/6] KVM: x86/mmu: release audited pfns
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,157 +83,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============1777755275=="
+Cc: Wanpeng Li <wanpengli@tencent.com>, kvm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ Paul Mackerras <paulus@ozlabs.org>, Will Deacon <will@kernel.org>,
+ kvmarm@lists.cs.columbia.edu, Marc Zyngier <maz@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Huacai Chen <chenhuacai@kernel.org>,
+ Alexandru Elisei <alexandru.elisei@arm.com>,
+ Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, intel-gfx@lists.freedesktop.org,
+ kvm-ppc@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
+ intel-gvt-dev@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ Jim Mattson <jmattson@google.com>, linux-kernel@vger.kernel.org,
+ James Morse <james.morse@arm.com>, David Stevens <stevensd@chromium.org>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Jun 24, 2021, Paolo Bonzini wrote:
+> On 24/06/21 10:43, Nicholas Piggin wrote:
+> > Excerpts from David Stevens's message of June 24, 2021 1:57 pm:
+> > > From: David Stevens <stevensd@chromium.org>
+> > 
+> > Changelog? This looks like a bug, should it have a Fixes: tag?
+> 
+> Probably has been there forever... The best way to fix the bug would be to
+> nuke mmu_audit.c, which I've threatened to do many times but never followed
+> up on.
 
---===============1777755275==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-01vBJSSMux+wzjjp4LED"
-
-
---=-01vBJSSMux+wzjjp4LED
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-One week!
-
-Don't forget to submit your proposals!
-
-Sam
-
-On Tue, 2021-06-08 at 12:38 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> Kind reminder. Deadline is Sunday, 4 July 2021 :-)
->=20
-> Sam
->=20
-> On Thu, 2021-05-20 at 10:01 +0000, Szwichtenberg, Radoslaw wrote:
-> > Hello!
-> > =C2=A0
-> > Registration & Call for Proposals are now open for XDC 2021, which
-> > will
-> > take place on September 15-17, 2021. This year we will repeat as
-> > virtual event.
-> > =C2=A0
-> > https://indico.freedesktop.org/event/1/
-> > =C2=A0
-> > As usual, the conference is free of charge and open to the general
-> > public. If you plan on attending, please make sure to register as
-> > early
-> > as possible!
-> > =C2=A0
-> > In order to register as attendee, you will therefore need to
-> > register
-> > via the XDC website. As XDC moved to a new Indico infrastructure,
-> > if
-> > you previously registered on the XDC website, you need to create a
-> > new
-> > account again.
-> > =C2=A0
-> > https://indico.freedesktop.org/event/1/registrations/1/
-> > =C2=A0
-> > In addition to registration, the CfP is now open for talks,
-> > workshops
-> > and demos at XDC 2021. While any serious proposal will be
-> > gratefully
-> > considered, topics of interest to X.Org and freedesktop.org
-> > developers
-> > are encouraged. The program focus is on new development, ongoing
-> > challenges and anything else that will spark discussions among
-> > attendees in the hallway track.
-> > =C2=A0
-> > We are open to talks across all layers of the graphics stack, from
-> > the
-> > kernel to desktop environments / graphical applications and about
-> > how
-> > to make things better for the developers who build them. Head to
-> > the
-> > CfP page to learn more:=C2=A0
-> > =C2=A0
-> > https://indico.freedesktop.org/event/1/abstracts/
-> > =C2=A0
-> > The deadline for submissions is Sunday, 4 July 2021.
-> > =C2=A0
-> > Last year we modified our Reimbursement Policy to accept speaker
-> > expenses for X.Org virtual events like XDC 2021. Check it out here:
-> > =C2=A0
-> > https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
-> > =C2=A0
-> > If you have any questions, please send me an email to
-> > radoslaw.szwichtenberg@intel.com,=C2=A0=C2=A0adding on CC the X.org boa=
-rd
-> > (board
-> > at foundation.x.org).
-> > =C2=A0
-> > And don't forget, you can follow us on Twitter for all the latest
-> > updates and to stay connected:
-> > =C2=A0
-> > =C2=A0
-> > https://twitter.com/XOrgDevConf
-> > =C2=A0
-> > Best,
-> > =C2=A0
-> > Radek
-> > =C2=A0
-> > P.S: a DNS redirection (xdc2021.x.org) is work in progress. Please
-> > use
-> > the mentioned links for the moment.
-> > =C2=A0
-> > =C2=A0
-> > Rados=C5=82aw Szwichtenberg
-> > -------------------------------------------------
-> > Intel Technology Poland sp. z o.o.
-> > ul. Slowackiego 173, 80-298 Gdansk
-> > KRS 101882 - NIP 957-07-52-316
-> > =C2=A0
-> > _______________________________________________
-> > mesa-dev mailing list
-> > mesa-dev@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-
-
---=-01vBJSSMux+wzjjp4LED
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmDWyq4ACgkQf/S6MvF9
-w0NeCA/+NKJD5cvxuz9Kgx4Q3zeKFaiT5K6l1uYCeoJhhftn5RejAoMTX/eChdoS
-ryG9w4LYKrplDwk2qDSKsrmUudxP8uoMJvtCXr8tkBwAwFwSKh0hUakr5sEOboCF
-+r1QnA9+pO+RTte3mTI0fkBRHQpE+iuit6ajL6VklzKHL3JR7bXd14YQDOllHBLo
-2m4fnT2552jAFB564Ws+c532MS5wOzSxmn1KCTmonscCD7ibawtImz9AkFrKO6H2
-prTX2lceXZEfNKUVBe2GdGTKY3b5IgprYGHezzTQ2OEB7ahuLgkCJhhybhtJgDBZ
-4PHSndp41jMF9ppg4PDch5VDkjuN5xxzeDgATdAt1aNaYqr1QuaMdQg5bGmYVWxA
-i8y9JstwBwrStSa2PlVDxHU4kYl8H2v3A4Bh40yO8euunb1kWYjMfjNvE2/4b7iM
-Ypnx4XRI3RV19HtAxjUvx67syWBzqSUYEr+DhmerikOmE7rA8a2rGSTpOJRJjYFt
-ziEcDgJbMrzbOE/+EYf93+FRotnBY7g7pzAq7WEOKx7fb9gB0nghpWD7GYxEIRn0
-cHkgj3huK4joxPgz3ezvOfN8v9LzW8xzf0g7KXCrgxzRwFjBv+O22mNgz4SgsTnd
-j9Ha/GpoZUxn4knkiuBIU+De8dCdIDUuvRKVIJlsMQVMAj2aNkI=
-=9mIJ
------END PGP SIGNATURE-----
-
---=-01vBJSSMux+wzjjp4LED--
-
-
---===============1777755275==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Yar.  It has only survived because it hasn't required any maintenance.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1777755275==--
-
