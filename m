@@ -5,48 +5,48 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFE76C49EA6
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 24D29C49EA5
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 918A1613CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 918A1613CC
+	by mail.kernel.org (Postfix) with ESMTPS id E85E7613CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 06:48:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E85E7613CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 682566EA20;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 091566EA1B;
 	Thu, 24 Jun 2021 06:47:33 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C5C76E848;
- Thu, 24 Jun 2021 06:47:29 +0000 (UTC)
-IronPort-SDR: 5jPB1Yh7Lx+0tQe4u0OhMde4cbjCc40n9pR4xky/mF25dMor+pICNZXmw1qfW2xH5zwFTC4lKn
- wJ5g99+jkq+Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346744"
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346744"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 816A26E9F3;
+ Thu, 24 Jun 2021 06:47:28 +0000 (UTC)
+IronPort-SDR: B/yW9c0GIjdIEpQDH3+hat9tn5ISvhDU3EHZPe1n2Yfd6myKTABG9cmygNsJhT2E7PnxZ7hNO3
+ 892P3KbpcvgQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207346746"
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="207346746"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:25 -0700
-IronPort-SDR: ab12i3mL+dp82DS4E90pjqfhy9hXNl19PU3RM0hW5PDeubOwTbLCUTt1NcbuIrb3a0R44CIHZq
- OicQiu3fnB9w==
-X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390878"
+IronPort-SDR: umPEH0X/Lc58f4dIvY9Ivnz4s+1Agzz3X/iXI9JJp4OqLibsK9EpJVpm1lKPaOjj8CEo0da+pB
+ 58REE3ptfYEA==
+X-IronPort-AV: E=Sophos;i="5.83,295,1616482800"; d="scan'208";a="556390886"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2021 23:47:24 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 24 Jun 2021 00:04:34 -0700
-Message-Id: <20210624070516.21893-6-matthew.brost@intel.com>
+Date: Thu, 24 Jun 2021 00:04:37 -0700
+Message-Id: <20210624070516.21893-9-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210624070516.21893-1-matthew.brost@intel.com>
 References: <20210624070516.21893-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 05/47] drm/i915/guc: Add stall timer to non
- blocking CTB send function
+Subject: [Intel-gfx] [PATCH 08/47] drm/i915/guc: Add new GuC interface
+ defines and structures
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,147 +64,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement a stall timer which fails H2G CTBs once a period of time
-with no forward progress is reached to prevent deadlock.
+Add new GuC interface defines and structures while maintaining old ones
+in parallel.
 
-Also update to ct_write to return -EIO rather than -EPIPE on a
-corrupted descriptor.
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 47 +++++++++++++++++++++--
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  4 ++
- 2 files changed, 48 insertions(+), 3 deletions(-)
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  | 14 +++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   | 41 +++++++++++++++++++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index c9a65d05911f..27ec30b5ef47 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -319,6 +319,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- 		goto err_deregister;
- 
- 	ct->enabled = true;
-+	ct->stall_time = KTIME_MAX;
- 
- 	return 0;
- 
-@@ -392,7 +393,7 @@ static int ct_write(struct intel_guc_ct *ct,
- 	unsigned int i;
- 
- 	if (unlikely(ctb->broken))
--		return -EPIPE;
-+		return -EIO;
- 
- 	if (unlikely(desc->status))
- 		goto corrupted;
-@@ -464,7 +465,7 @@ static int ct_write(struct intel_guc_ct *ct,
- 	CT_ERROR(ct, "Corrupted descriptor head=%u tail=%u status=%#x\n",
- 		 desc->head, desc->tail, desc->status);
- 	ctb->broken = true;
--	return -EPIPE;
-+	return -EIO;
- }
- 
- /**
-@@ -507,6 +508,18 @@ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
- 	return err;
- }
- 
-+#define GUC_CTB_TIMEOUT_MS	1500
-+static inline bool ct_deadlocked(struct intel_guc_ct *ct)
-+{
-+	long timeout = GUC_CTB_TIMEOUT_MS;
-+	bool ret = ktime_ms_delta(ktime_get(), ct->stall_time) > timeout;
-+
-+	if (unlikely(ret))
-+		CT_ERROR(ct, "CT deadlocked\n");
-+
-+	return ret;
-+}
-+
- static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
- {
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
-@@ -518,6 +531,26 @@ static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
- 	return space >= len_dw;
- }
- 
-+static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
-+{
-+	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
-+
-+	lockdep_assert_held(&ct->ctbs.send.lock);
-+
-+	if (unlikely(!h2g_has_room(ctb, len_dw))) {
-+		if (ct->stall_time == KTIME_MAX)
-+			ct->stall_time = ktime_get();
-+
-+		if (unlikely(ct_deadlocked(ct)))
-+			return -EIO;
-+		else
-+			return -EBUSY;
-+	}
-+
-+	ct->stall_time = KTIME_MAX;
-+	return 0;
-+}
-+
- static int ct_send_nb(struct intel_guc_ct *ct,
- 		      const u32 *action,
- 		      u32 len,
-@@ -530,7 +563,7 @@ static int ct_send_nb(struct intel_guc_ct *ct,
- 
- 	spin_lock_irqsave(&ctb->lock, spin_flags);
- 
--	ret = h2g_has_room(ctb, len + 1);
-+	ret = has_room_nb(ct, len + 1);
- 	if (unlikely(ret))
- 		goto out;
- 
-@@ -574,11 +607,19 @@ static int ct_send(struct intel_guc_ct *ct,
- retry:
- 	spin_lock_irqsave(&ct->ctbs.send.lock, flags);
- 	if (unlikely(!h2g_has_room(ctb, len + 1))) {
-+		if (ct->stall_time == KTIME_MAX)
-+			ct->stall_time = ktime_get();
- 		spin_unlock_irqrestore(&ct->ctbs.send.lock, flags);
-+
-+		if (unlikely(ct_deadlocked(ct)))
-+			return -EIO;
-+
- 		cond_resched();
- 		goto retry;
- 	}
- 
-+	ct->stall_time = KTIME_MAX;
-+
- 	fence = ct_get_next_fence(ct);
- 	request.fence = fence;
- 	request.status = 0;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index eb69263324ba..55ef7c52472f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -9,6 +9,7 @@
- #include <linux/interrupt.h>
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
-+#include <linux/ktime.h>
- 
- #include "intel_guc_fwif.h"
- 
-@@ -68,6 +69,9 @@ struct intel_guc_ct {
- 		struct list_head incoming; /* incoming requests */
- 		struct work_struct worker; /* handler for incoming requests */
- 	} requests;
-+
-+	/** @stall_time: time of first time a CTB submission is stalled */
-+	ktime_t stall_time;
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+index 2d6198e63ebe..57e18babdf4b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+@@ -124,10 +124,24 @@ enum intel_guc_action {
+ 	INTEL_GUC_ACTION_FORCE_LOG_BUFFER_FLUSH = 0x302,
+ 	INTEL_GUC_ACTION_ENTER_S_STATE = 0x501,
+ 	INTEL_GUC_ACTION_EXIT_S_STATE = 0x502,
++	INTEL_GUC_ACTION_GLOBAL_SCHED_POLICY_CHANGE = 0x506,
++	INTEL_GUC_ACTION_SCHED_CONTEXT = 0x1000,
++	INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_SET = 0x1001,
++	INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE = 0x1002,
++	INTEL_GUC_ACTION_SCHED_ENGINE_MODE_SET = 0x1003,
++	INTEL_GUC_ACTION_SCHED_ENGINE_MODE_DONE = 0x1004,
++	INTEL_GUC_ACTION_SET_CONTEXT_PRIORITY = 0x1005,
++	INTEL_GUC_ACTION_SET_CONTEXT_EXECUTION_QUANTUM = 0x1006,
++	INTEL_GUC_ACTION_SET_CONTEXT_PREEMPTION_TIMEOUT = 0x1007,
++	INTEL_GUC_ACTION_CONTEXT_RESET_NOTIFICATION = 0x1008,
++	INTEL_GUC_ACTION_ENGINE_FAILURE_NOTIFICATION = 0x1009,
+ 	INTEL_GUC_ACTION_SLPC_REQUEST = 0x3003,
+ 	INTEL_GUC_ACTION_AUTHENTICATE_HUC = 0x4000,
++	INTEL_GUC_ACTION_REGISTER_CONTEXT = 0x4502,
++	INTEL_GUC_ACTION_DEREGISTER_CONTEXT = 0x4503,
+ 	INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
+ 	INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
++	INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE = 0x4600,
+ 	INTEL_GUC_ACTION_LIMIT
  };
  
- void intel_guc_ct_init_early(struct intel_guc_ct *ct);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 617ec601648d..28245a217a39 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -17,6 +17,9 @@
+ #include "abi/guc_communication_ctb_abi.h"
+ #include "abi/guc_messages_abi.h"
+ 
++#define GUC_CONTEXT_DISABLE		0
++#define GUC_CONTEXT_ENABLE		1
++
+ #define GUC_CLIENT_PRIORITY_KMD_HIGH	0
+ #define GUC_CLIENT_PRIORITY_HIGH	1
+ #define GUC_CLIENT_PRIORITY_KMD_NORMAL	2
+@@ -26,6 +29,9 @@
+ #define GUC_MAX_STAGE_DESCRIPTORS	1024
+ #define	GUC_INVALID_STAGE_ID		GUC_MAX_STAGE_DESCRIPTORS
+ 
++#define GUC_MAX_LRC_DESCRIPTORS		65535
++#define	GUC_INVALID_LRC_ID		GUC_MAX_LRC_DESCRIPTORS
++
+ #define GUC_RENDER_ENGINE		0
+ #define GUC_VIDEO_ENGINE		1
+ #define GUC_BLITTER_ENGINE		2
+@@ -237,6 +243,41 @@ struct guc_stage_desc {
+ 	u64 desc_private;
+ } __packed;
+ 
++#define CONTEXT_REGISTRATION_FLAG_KMD	BIT(0)
++
++#define CONTEXT_POLICY_DEFAULT_EXECUTION_QUANTUM_US 1000000
++#define CONTEXT_POLICY_DEFAULT_PREEMPTION_TIME_US 500000
++
++/* Preempt to idle on quantum expiry */
++#define CONTEXT_POLICY_FLAG_PREEMPT_TO_IDLE	BIT(0)
++
++/*
++ * GuC Context registration descriptor.
++ * FIXME: This is only required to exist during context registration.
++ * The current 1:1 between guc_lrc_desc and LRCs for the lifetime of the LRC
++ * is not required.
++ */
++struct guc_lrc_desc {
++	u32 hw_context_desc;
++	u32 slpm_perf_mode_hint;	/* SPLC v1 only */
++	u32 slpm_freq_hint;
++	u32 engine_submit_mask;		/* In logical space */
++	u8 engine_class;
++	u8 reserved0[3];
++	u32 priority;
++	u32 process_desc;
++	u32 wq_addr;
++	u32 wq_size;
++	u32 context_flags;		/* CONTEXT_REGISTRATION_* */
++	/* Time for one workload to execute. (in micro seconds) */
++	u32 execution_quantum;
++	/* Time to wait for a preemption request to complete before issuing a
++	 * reset. (in micro seconds). */
++	u32 preemption_timeout;
++	u32 policy_flags;		/* CONTEXT_POLICY_* */
++	u32 reserved1[19];
++} __packed;
++
+ #define GUC_POWER_UNSPECIFIED	0
+ #define GUC_POWER_D0		1
+ #define GUC_POWER_D1		2
 -- 
 2.28.0
 
