@@ -2,53 +2,70 @@ Return-Path: <SRS0=foSz=LS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79BFEC49EA6
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 15:48:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 567F3C49EA5
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 15:55:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D781613DC
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 15:48:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D781613DC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D447C61209
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 15:55:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D447C61209
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A257D6EC41;
-	Thu, 24 Jun 2021 15:48:42 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D9E76EB5E;
- Thu, 24 Jun 2021 15:48:41 +0000 (UTC)
-IronPort-SDR: K7BkZt89mNhsRSouk3qgbYVJhKsX+S3uAbkQ7B5v0YmpGc/g+2ajyfq5VSk0TGc/FeiSNgZ3LG
- adRXE/NpwLbw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10025"; a="268630784"
-X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="268630784"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2021 08:48:40 -0700
-IronPort-SDR: zBwbJmFI9wx/89LsVN1u+c7y3aF8xYk5lgETlLZpOrklgTgsf11ryBzbYPT7JC25hqikPV6uFO
- DHLspgvYQQWA==
-X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="424115448"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2021 08:48:39 -0700
-Date: Thu, 24 Jun 2021 08:41:58 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Message-ID: <20210624154158.GA1629@sdutt-i7>
-References: <20210624070516.21893-1-matthew.brost@intel.com>
- <20210624070516.21893-4-matthew.brost@intel.com>
- <0b04e2ee-f5f3-3eb9-ad9f-a595f1942e4c@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8458A6EB2E;
+	Thu, 24 Jun 2021 15:55:39 +0000 (UTC)
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADF676EC44
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 15:55:38 +0000 (UTC)
+Received: by mail-pf1-x42c.google.com with SMTP id w71so5549354pfd.4
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 08:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rdc0HB9wCm28bStTIxqWIJNvJopKcq8sWWQzFyMGdN8=;
+ b=EWUPwdxHp5YKeCTYM1Ou9zc1bF9zF4WPE1YYn08iLU0DKzgmmZp5S8YTmyG8h6lXtv
+ H7bIKs3GpVKupJr/fP+pph0lGjQ+mJcFcHV01gy1FmuxsYy+jElw6HlWfLFvvUP+d+yn
+ QsIj+YxXmhSRVl7m7zjzDw87xA/6voIVdj0mk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rdc0HB9wCm28bStTIxqWIJNvJopKcq8sWWQzFyMGdN8=;
+ b=eM+5mI9P8vzYmKh1KHke4cpqtvR4aSX2RIiGIWKFmAOPvFhcHE5NQgJaWvdXCC8j8D
+ nFC06PJQ+DE/1VzBGkqGKd48Rog/NFtcAvb6jqgrwmxsqgczYykeKj5+VVYX9M0kDKC+
+ Xrgs0BYG9Q/U+Bu5/uzkYQ+ARjtw+fXTX1Kvw0+hgfL79YNQPqMEuGQzcHl+hLGFL6mP
+ 7bdWrB5ncKdsu5af7m/aisEPwWBGT4wpJaDyoTDG78boNxOS/0hQEhHYZRoED0AoGFS6
+ zuuaHgQ6x9ZO2zA/zCiUpdUQcey35NE35KFxtfaCiiDEkyHMxfNeubMKMdimLSqPuXCd
+ xt0w==
+X-Gm-Message-State: AOAM531svBFqtwXfQIuY6Fo3AqlHHfeHf57n1FFPP2CVYxPs3/5fLwU6
+ hkpN9NhiaunORo31+4HrcGfQlQ==
+X-Google-Smtp-Source: ABdhPJy87SSPlxL47d7OH+XoeGh+AXQQoDaeBE720F3P2KtS6fZXS8ICxE/Q45nw3Tf/1EGtaohwag==
+X-Received: by 2002:a05:6a00:810:b029:301:f08c:6b0d with SMTP id
+ m16-20020a056a000810b0290301f08c6b0dmr5744051pfk.8.1624550138225; 
+ Thu, 24 Jun 2021 08:55:38 -0700 (PDT)
+Received: from localhost ([2401:fa00:95:205:165a:99ec:42d5:d8b])
+ by smtp.gmail.com with UTF8SMTPSA id oc9sm2594487pjb.43.2021.06.24.08.55.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Jun 2021 08:55:37 -0700 (PDT)
+From: Claire Chang <tientzu@chromium.org>
+To: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
+ jgross@suse.com, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Thu, 24 Jun 2021 23:55:14 +0800
+Message-Id: <20210624155526.2775863-1-tientzu@chromium.org>
+X-Mailer: git-send-email 2.32.0.288.g62a8d224e6-goog
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <0b04e2ee-f5f3-3eb9-ad9f-a595f1942e4c@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 03/47] drm/i915/guc: Increase size of CTB
- buffers
+Subject: [Intel-gfx] [PATCH v15 00/12] Restricted DMA
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,70 +78,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: heikki.krogerus@linux.intel.com, thomas.hellstrom@linux.intel.com,
+ peterz@infradead.org, benh@kernel.crashing.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ grant.likely@arm.com, paulus@samba.org, mingo@kernel.org, jxgao@google.com,
+ sstabellini@kernel.org, Saravana Kannan <saravanak@google.com>,
+ xypron.glpk@gmx.de, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
+ airlied@linux.ie, Robin Murphy <robin.murphy@arm.com>,
+ Nicolas Boichat <drinkcat@chromium.org>, bhelgaas@google.com,
+ tientzu@chromium.org, Dan Williams <dan.j.williams@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ quic_qiancai@quicinc.com, lkml <linux-kernel@vger.kernel.org>,
+ tfiga@chromium.org,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, thomas.lendacky@amd.com,
+ linuxppc-dev@lists.ozlabs.org, bauerman@linux.ibm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 24, 2021 at 03:49:55PM +0200, Michal Wajdeczko wrote:
-> 
-> 
-> On 24.06.2021 09:04, Matthew Brost wrote:
-> > With the introduction of non-blocking CTBs more than one CTB can be in
-> > flight at a time. Increasing the size of the CTBs should reduce how
-> > often software hits the case where no space is available in the CTB
-> > buffer.
-> > 
-> > Cc: John Harrison <john.c.harrison@intel.com>
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 11 ++++++++---
-> >  1 file changed, 8 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > index 07f080ddb9ae..a17215920e58 100644
-> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > @@ -58,11 +58,16 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
-> >   *      +--------+-----------------------------------------------+------+
-> >   *
-> >   * Size of each `CT Buffer`_ must be multiple of 4K.
-> > - * As we don't expect too many messages, for now use minimum sizes.
-> > + * We don't expect too many messages in flight at any time, unless we are
-> > + * using the GuC submission. In that case each request requires a minimum
-> > + * 2 dwords which gives us a maximum 256 queue'd requests. Hopefully this
-> > + * enough space to avoid backpressure on the driver. We increase the size
-> > + * of the receive buffer (relative to the send) to ensure a G2H response
-> > + * CTB has a landing spot.
-> >   */
-> >  #define CTB_DESC_SIZE		ALIGN(sizeof(struct guc_ct_buffer_desc), SZ_2K)
-> >  #define CTB_H2G_BUFFER_SIZE	(SZ_4K)
-> > -#define CTB_G2H_BUFFER_SIZE	(SZ_4K)
-> > +#define CTB_G2H_BUFFER_SIZE	(4 * CTB_H2G_BUFFER_SIZE)
-> >  
-> >  struct ct_request {
-> >  	struct list_head link;
-> > @@ -641,7 +646,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
-> >  	/* beware of buffer wrap case */
-> >  	if (unlikely(available < 0))
-> >  		available += size;
-> > -	CT_DEBUG(ct, "available %d (%u:%u)\n", available, head, tail);
-> > +	CT_DEBUG(ct, "available %d (%u:%u:%u)\n", available, head, tail, size);
-> 
-> CTB size is already printed in intel_guc_ct_init() and is fixed so not
-> sure if repeating it on every ct_read has any benefit
-> 
+This series implements mitigations for lack of DMA access control on
+systems without an IOMMU, which could result in the DMA accessing the
+system memory at unexpected times and/or unexpected addresses, possibly
+leading to data leakage or corruption.
 
-I'd say more debug the better and if CT_DEBUG is enabled the logs are
-very verbose so an extra value doesn't really hurt.
+For example, we plan to use the PCI-e bus for Wi-Fi and that PCI-e bus is
+not behind an IOMMU. As PCI-e, by design, gives the device full access to
+system memory, a vulnerability in the Wi-Fi firmware could easily escalate
+to a full system exploit (remote wifi exploits: [1a], [1b] that shows a
+full chain of exploits; [2], [3]).
 
-Matt
+To mitigate the security concerns, we introduce restricted DMA. Restricted
+DMA utilizes the existing swiotlb to bounce streaming DMA in and out of a
+specially allocated region and does memory allocation from the same region.
+The feature on its own provides a basic level of protection against the DMA
+overwriting buffer contents at unexpected times. However, to protect
+against general data leakage and system memory corruption, the system needs
+to provide a way to restrict the DMA to a predefined memory region (this is
+usually done at firmware level, e.g. MPU in ATF on some ARM platforms [4]).
 
-> >  	GEM_BUG_ON(available < 0);
-> >  
-> >  	header = cmds[head];
-> > 
+[1a] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_4.html
+[1b] https://googleprojectzero.blogspot.com/2017/04/over-air-exploiting-broadcoms-wi-fi_11.html
+[2] https://blade.tencent.com/en/advisories/qualpwn/
+[3] https://www.bleepingcomputer.com/news/security/vulnerabilities-found-in-highly-popular-firmware-for-wifi-chips/
+[4] https://github.com/ARM-software/arm-trusted-firmware/blob/master/plat/mediatek/mt8183/drivers/emi_mpu/emi_mpu.c#L132
+
+v15:
+- Apply Will's diff (https://lore.kernel.org/patchwork/patch/1448957/#1647521)
+  to fix the crash reported by Qian.
+- Add Stefano's Acked-by tag for patch 01/12 from v14
+
+v14:
+- Move set_memory_decrypted before swiotlb_init_io_tlb_mem (patch 01/12, 10,12)
+- Add Stefano's Acked-by tag from v13
+https://lore.kernel.org/patchwork/cover/1448954/
+
+v13:
+- Fix xen-swiotlb issues
+  - memset in patch 01/12
+  - is_swiotlb_force_bounce in patch 06/12
+- Fix the dts example typo in reserved-memory.txt
+- Add Stefano and Will's Tested-by tag from v12
+https://lore.kernel.org/patchwork/cover/1448001/
+
+v12:
+Split is_dev_swiotlb_force into is_swiotlb_force_bounce (patch 06/12) and
+is_swiotlb_for_alloc (patch 09/12)
+https://lore.kernel.org/patchwork/cover/1447254/
+
+v11:
+- Rebase against swiotlb devel/for-linus-5.14
+- s/mempry/memory/g
+- exchange the order of patch 09/12 and 10/12
+https://lore.kernel.org/patchwork/cover/1447216/
+
+v10:
+Address the comments in v9 to
+  - fix the dev->dma_io_tlb_mem assignment
+  - propagate swiotlb_force setting into io_tlb_default_mem->force
+  - move set_memory_decrypted out of swiotlb_init_io_tlb_mem
+  - move debugfs_dir declaration into the main CONFIG_DEBUG_FS block
+  - add swiotlb_ prefix to find_slots and release_slots
+  - merge the 3 alloc/free related patches
+  - move the CONFIG_DMA_RESTRICTED_POOL later
+https://lore.kernel.org/patchwork/cover/1446882/
+
+v9:
+Address the comments in v7 to
+  - set swiotlb active pool to dev->dma_io_tlb_mem
+  - get rid of get_io_tlb_mem
+  - dig out the device struct for is_swiotlb_active
+  - move debugfs_create_dir out of swiotlb_create_debugfs
+  - do set_memory_decrypted conditionally in swiotlb_init_io_tlb_mem
+  - use IS_ENABLED in kernel/dma/direct.c
+  - fix redefinition of 'of_dma_set_restricted_buffer'
+https://lore.kernel.org/patchwork/cover/1445081/
+
+v8:
+- Fix reserved-memory.txt and add the reg property in example.
+- Fix sizeof for of_property_count_elems_of_size in
+  drivers/of/address.c#of_dma_set_restricted_buffer.
+- Apply Will's suggestion to try the OF node having DMA configuration in
+  drivers/of/address.c#of_dma_set_restricted_buffer.
+- Fix typo in the comment of drivers/of/address.c#of_dma_set_restricted_buffer.
+- Add error message for PageHighMem in
+  kernel/dma/swiotlb.c#rmem_swiotlb_device_init and move it to
+  rmem_swiotlb_setup.
+- Fix the message string in rmem_swiotlb_setup.
+https://lore.kernel.org/patchwork/cover/1437112/
+
+v7:
+Fix debugfs, PageHighMem and comment style in rmem_swiotlb_device_init
+https://lore.kernel.org/patchwork/cover/1431031/
+
+v6:
+Address the comments in v5
+https://lore.kernel.org/patchwork/cover/1423201/
+
+v5:
+Rebase on latest linux-next
+https://lore.kernel.org/patchwork/cover/1416899/
+
+v4:
+- Fix spinlock bad magic
+- Use rmem->name for debugfs entry
+- Address the comments in v3
+https://lore.kernel.org/patchwork/cover/1378113/
+
+v3:
+Using only one reserved memory region for both streaming DMA and memory
+allocation.
+https://lore.kernel.org/patchwork/cover/1360992/
+
+v2:
+Building on top of swiotlb.
+https://lore.kernel.org/patchwork/cover/1280705/
+
+v1:
+Using dma_map_ops.
+https://lore.kernel.org/patchwork/cover/1271660/
+
+Claire Chang (12):
+  swiotlb: Refactor swiotlb init functions
+  swiotlb: Refactor swiotlb_create_debugfs
+  swiotlb: Set dev->dma_io_tlb_mem to the swiotlb pool used
+  swiotlb: Update is_swiotlb_buffer to add a struct device argument
+  swiotlb: Update is_swiotlb_active to add a struct device argument
+  swiotlb: Use is_swiotlb_force_bounce for swiotlb data bouncing
+  swiotlb: Move alloc_size to swiotlb_find_slots
+  swiotlb: Refactor swiotlb_tbl_unmap_single
+  swiotlb: Add restricted DMA alloc/free support
+  swiotlb: Add restricted DMA pool initialization
+  dt-bindings: of: Add restricted DMA pool
+  of: Add plumbing for restricted DMA pool
+
+ .../reserved-memory/reserved-memory.txt       |  36 ++-
+ drivers/base/core.c                           |   4 +
+ drivers/gpu/drm/i915/gem/i915_gem_internal.c  |   2 +-
+ drivers/gpu/drm/nouveau/nouveau_ttm.c         |   2 +-
+ drivers/iommu/dma-iommu.c                     |  12 +-
+ drivers/of/address.c                          |  33 +++
+ drivers/of/device.c                           |   3 +
+ drivers/of/of_private.h                       |   6 +
+ drivers/pci/xen-pcifront.c                    |   2 +-
+ drivers/xen/swiotlb-xen.c                     |   4 +-
+ include/linux/device.h                        |   4 +
+ include/linux/swiotlb.h                       |  53 +++-
+ kernel/dma/Kconfig                            |  14 +
+ kernel/dma/direct.c                           |  59 ++--
+ kernel/dma/direct.h                           |   8 +-
+ kernel/dma/swiotlb.c                          | 251 +++++++++++++-----
+ 16 files changed, 390 insertions(+), 103 deletions(-)
+
+-- 
+2.32.0.288.g62a8d224e6-goog
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
