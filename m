@@ -2,72 +2,52 @@ Return-Path: <SRS0=foSz=LS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 842B3C49EA5
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0179DC49EA5
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:56:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4DB21613EE
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:55:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4DB21613EE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id BB030613FD
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 10:56:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BB030613FD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB1336EB5D;
-	Thu, 24 Jun 2021 10:55:31 +0000 (UTC)
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66A4F6EB5E
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 10:55:30 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id
- c7-20020a17090ad907b029016faeeab0ccso5646426pjv.4
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 03:55:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Hriaztl5QKv2WOAvCmMVPEwAJVtjiW9iYPTLBEXStgo=;
- b=PDsAEsv+dfSRLQusPsoLYF8w7G6GnvRlHkrr1kzzx6as4Dh+x0U/zsW8d+GhiKFdsg
- FA2BBqPC5dprZVkpB5t5nsTliD/J2q5h8naaAS4RkKkgY5ukGDiE+mHZ/fjywOYmt7sp
- ZrJF+LxGucZtg7eBi8oNwcPwnRMsbOh9cKajE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Hriaztl5QKv2WOAvCmMVPEwAJVtjiW9iYPTLBEXStgo=;
- b=BEoy/eM4kxFQuVfNEeQSDcjhhbrS+5Brenzkrx7X3w2/cm9h+x2eg+2qITZ/sVBPWr
- 7BpQ+ybrjp41wfqysTgPfFqIhPi/D0nQ1X4ckfRrEQahaIkA+/EpUtTxp9e2ecsxCnzW
- 4XY41GVDC8aKKvR77NuF7E2ST7e8eGyYX0Q5K+AV91tQ6twRNGD3WDg7NXb5v6Dqqjef
- 7X0MGZc0qnv5Tms35oT2PD735lQytBrm9k8YTAD3fKcqfuaLGdf2uy9T+U8Wk/mdg9uX
- hAdKhXeA0+KRSNUoNm8ObA2us2JSbeGalQc/50cRGLRVUCByJkK1TOQkojWFxUxfA5fJ
- qOhQ==
-X-Gm-Message-State: AOAM530aWb1hqDY98gsgMVWf89owS/vbHOUfAQXP6LIAXQD+eLcOQYUm
- I3xZ8QnLCQkojdsEPj8hmSP4sw==
-X-Google-Smtp-Source: ABdhPJwIDZVYWX3JX8E878WehoIk0M5IUEfQqdozGEiAiaCvO86PR75GYv750m47mk4o7duo8cErKQ==
-X-Received: by 2002:a17:90a:9a83:: with SMTP id
- e3mr15001900pjp.139.1624532130023; 
- Thu, 24 Jun 2021 03:55:30 -0700 (PDT)
-Received: from hsinyi-z840.tpe.corp.google.com
- ([2401:fa00:1:10:368f:686c:969:1f38])
- by smtp.gmail.com with ESMTPSA id t7sm2212536pgh.52.2021.06.24.03.55.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jun 2021 03:55:29 -0700 (PDT)
-From: Hsin-Yi Wang <hsinyi@chromium.org>
-To: dri-devel@lists.freedesktop.org, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org
-Date: Thu, 24 Jun 2021 18:55:17 +0800
-Message-Id: <20210624105517.3886963-3-hsinyi@chromium.org>
-X-Mailer: git-send-email 2.32.0.288.g62a8d224e6-goog
-In-Reply-To: <20210624105517.3886963-1-hsinyi@chromium.org>
-References: <20210624105517.3886963-1-hsinyi@chromium.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D21D6EB5B;
+	Thu, 24 Jun 2021 10:56:21 +0000 (UTC)
+X-Greylist: delayed 517 seconds by postgrey-1.36 at gabe;
+ Thu, 24 Jun 2021 10:56:19 UTC
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8171F6EB5B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 10:56:19 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 842B9532;
+ Thu, 24 Jun 2021 12:47:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1624531659;
+ bh=ZNycYCdpm5oEjlFfF/sEqNXjEFO/n03c+byQ10Bt5bw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CGN9DVFsEHoPFf+pGvo+BS5Oqq8sbq0BRLQS9wPa02YfsZbZHe42KSDL8SiS8nknQ
+ Dlh8v3FIrtFZ+aIelYdI0hq6VcbgqVLgvJq3npv5I27MKCnHAHxEiouigFeN+ZPJ+I
+ gY9uoWeAbXhjpnjIo6lsntNy9MnvXU5it7HqZ5l0=
+Date: Thu, 24 Jun 2021 13:47:08 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <YNRirARS1AIVncc+@pendragon.ideasonboard.com>
+References: <20210624072916.27703-1-tzimmermann@suse.de>
+ <20210624072916.27703-17-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 RESEND 3/3] arm64: dts: mt8183: Add panel
- rotation
+Content-Disposition: inline
+In-Reply-To: <20210624072916.27703-17-tzimmermann@suse.de>
+Subject: Re: [Intel-gfx] [PATCH v3 16/27] drm/rcar-du: Don't set struct
+ drm_device.irq_enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,38 +60,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+Cc: hamohammed.sa@gmail.com, heiko@sntech.de, emma@anholt.net, airlied@linux.ie,
+ nouveau@lists.freedesktop.org, alexandre.torgue@foss.st.com,
+ dri-devel@lists.freedesktop.org, michal.simek@xilinx.com,
+ melissa.srw@gmail.com, linux-tegra@vger.kernel.org, thierry.reding@gmail.com,
+ amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
+ linux@armlinux.org.uk, mihail.atanassov@arm.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ wens@csie.org, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
+ xinliang.liu@linaro.org, kong.kongxinwei@hisilicon.com,
+ james.qian.wang@arm.com, linux-imx@nxp.com, intel-gfx@lists.freedesktop.org,
+ linux-graphics-maintainer@vmware.com, linux-sunxi@lists.linux.dev,
+ bskeggs@redhat.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ puck.chen@hisilicon.com, s.hauer@pengutronix.de, mripard@kernel.org,
+ inki.dae@samsung.com, rodrigosiqueiramelo@gmail.com, john.stultz@linaro.org,
+ laurentiu.palcu@oss.nxp.com, matthias.bgg@gmail.com, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ hyun.kwon@xilinx.com, tomba@kernel.org, jyri.sarha@iki.fi,
+ yannick.fertre@foss.st.com, Xinhui.Pan@amd.com, sw0312.kim@samsung.com,
+ hjc@rock-chips.com, christian.koenig@amd.com, kyungmin.park@samsung.com,
+ kieran.bingham+renesas@ideasonboard.com, philippe.cornu@foss.st.com,
+ alexander.deucher@amd.com, tiantao6@hisilicon.com, shawnguo@kernel.org,
+ zackr@vmware.com, l.stach@pengutronix.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-krane, kakadu, and kodama boards have a default panel rotation.
+Hi Thomas,
 
-Signed-off-by: Hsin-Yi Wang <hsinyi@chromium.org>
----
- arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Thank you for the patch.
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-index ff56bcfa33703..793cc95013379 100644
---- a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-@@ -263,6 +263,7 @@ panel: panel@0 {
- 		avee-supply = <&ppvarp_lcd>;
- 		pp1800-supply = <&pp1800_lcd>;
- 		backlight = <&backlight_lcd0>;
-+		rotation = <270>;
- 		port {
- 			panel_in: endpoint {
- 				remote-endpoint = <&dsi_out>;
+On Thu, Jun 24, 2021 at 09:29:05AM +0200, Thomas Zimmermann wrote:
+> The field drm_device.irq_enabled is only used by legacy drivers
+> with userspace modesetting. Don't set it in rcar-du.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> ---
+>  drivers/gpu/drm/rcar-du/rcar_du_drv.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/rcar-du/rcar_du_drv.c b/drivers/gpu/drm/rcar-du/rcar_du_drv.c
+> index bfbff90588cb..e289a66594a7 100644
+> --- a/drivers/gpu/drm/rcar-du/rcar_du_drv.c
+> +++ b/drivers/gpu/drm/rcar-du/rcar_du_drv.c
+> @@ -593,8 +593,6 @@ static int rcar_du_probe(struct platform_device *pdev)
+>  		goto error;
+>  	}
+>  
+> -	rcdu->ddev.irq_enabled = 1;
+> -
+>  	/*
+>  	 * Register the DRM device with the core and the connectors with
+>  	 * sysfs.
+
 -- 
-2.32.0.288.g62a8d224e6-goog
+Regards,
 
+Laurent Pinchart
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
