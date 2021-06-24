@@ -2,52 +2,49 @@ Return-Path: <SRS0=foSz=LS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2F59C48BDF
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 08:29:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD523C48BDF
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 08:31:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CDD4613CE
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 08:29:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CDD4613CE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A518C613CE
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Jun 2021 08:31:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A518C613CE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E80C46EABF;
-	Thu, 24 Jun 2021 08:29:28 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFFC56EABF
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 08:29:27 +0000 (UTC)
-IronPort-SDR: uiacNRqHck/uVsRm0cT5NoR+GH2Y67vZzDxs0wkx55BCKDtlVSlPpgQzBaf9X3Hy8P1WsL6cBo
- ycgYPr0kFSVw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207364443"
-X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="207364443"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2021 01:29:14 -0700
-IronPort-SDR: DbU8OO8K6zmKQG7dTiz7+UlLePUI966nEweYLZ6CB5MWKlKm0vtBWqhfMHVVCKuHnXj7LkI+VV
- MB7vV1t6f+hA==
-X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="453340954"
-Received: from schulke-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.59.242])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2021 01:29:12 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lee Shawn C <shawn.c.lee@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20210624053932.21037-1-shawn.c.lee@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210622133107.7422-1-shawn.c.lee@intel.com>
- <20210624053932.21037-1-shawn.c.lee@intel.com>
-Date: Thu, 24 Jun 2021 11:29:09 +0300
-Message-ID: <87a6nfu0mi.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D2206EAE2;
+	Thu, 24 Jun 2021 08:31:26 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E81006EAE2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Jun 2021 08:31:24 +0000 (UTC)
+IronPort-SDR: fabZUTUgDCPooPFvrIt0dK1G3M+yoABHk8DRyj28wzgmTnRC005CCKsV+NxfAjxrbIbdhE5fAX
+ /pB03+gGtooA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="194726208"
+X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="194726208"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2021 01:31:24 -0700
+IronPort-SDR: +DF2DwkgktLNz1ckTh72rMOEPoSQJGmB6aX+tpn0AiQCqQdxgJmB7j7BLvs6X7PrclxkfD17If
+ rhffH9qeOJ0g==
+X-IronPort-AV: E=Sophos;i="5.83,296,1616482800"; d="scan'208";a="423999185"
+Received: from ryanmcla-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.213.220.55])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2021 01:31:20 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 24 Jun 2021 09:31:12 +0100
+Message-Id: <20210624083113.365039-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.3
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH v4] drm/i915: keep backlight_enable on until
- turn eDP display off
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/dg1: Compute MEM Bandwidth using
+ MCHBAR
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,139 +57,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Cooper Chiou <cooper.chiou@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 24 Jun 2021, Lee Shawn C <shawn.c.lee@intel.com> wrote:
-> This workaround is specific for a particular panel on Google
-> chromebook project. When user space daemon enter idle state.
-> It request adjust brightness to 0, turn backlight_enable signal
-> off and keep eDP main link active.
->
-> On general LCD, this behavior might not be a problem.
-> But on this panel, its tcon would expect source to execute
-> full eDP power off sequence after drop backlight_enable signal.
-> Without eDP power off sequence. Even source try to turn
-> backlight_enable signal on and restore proper brightness level.
-> This panel is not able to light on again.
->
-> This WA ignored the request from user space daemon to disable
-> backlight_enable signal and keep it on always. When user space
-> request kernel to turn eDP display off, kernel driver still
-> can control backlight_enable signal properly. It would not
-> impact standard eDP power off sequence.
->
-> v2: 1. modify the quirk name and debug messages.
->     2. unregister backlight.power callback for specific device.
-> v3: 1. modify debug output messages.
->     2. use DMI_EXACT_MATCH instead of DMI_MATCH.
->
-> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Cooper Chiou <cooper.chiou@intel.com>
-> Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
-
-Thanks, pushed to drm-intel-next.
-
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c     |  3 +-
->  drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
->  drivers/gpu/drm/i915/i915_drv.h             |  1 +
->  3 files changed, 37 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 6cc03b9e4321..d3312b9bcc6f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -5238,7 +5238,8 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
->  	}
->  
->  	intel_panel_init(&intel_connector->panel, fixed_mode, downclock_mode);
-> -	intel_connector->panel.backlight.power = intel_pps_backlight_power;
-> +	if (!(dev_priv->quirks & QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK))
-> +		intel_connector->panel.backlight.power = intel_pps_backlight_power;
->  	intel_panel_setup_backlight(connector, pipe);
->  
->  	if (fixed_mode) {
-> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-> index 98dd787b00e3..8a52b7a16774 100644
-> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
-> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-> @@ -53,6 +53,12 @@ static void quirk_increase_ddi_disabled_time(struct drm_i915_private *i915)
->  	drm_info(&i915->drm, "Applying Increase DDI Disabled quirk\n");
->  }
->  
-> +static void quirk_no_pps_backlight_power_hook(struct drm_i915_private *i915)
-> +{
-> +	i915->quirks |= QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK;
-> +	drm_info(&i915->drm, "Applying no pps backlight power quirk\n");
-> +}
-> +
->  struct intel_quirk {
->  	int device;
->  	int subsystem_vendor;
-> @@ -72,6 +78,12 @@ static int intel_dmi_reverse_brightness(const struct dmi_system_id *id)
->  	return 1;
->  }
->  
-> +static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
-> +{
-> +	DRM_INFO("No pps backlight support on %s\n", id->ident);
-> +	return 1;
-> +}
-> +
->  static const struct intel_dmi_quirk intel_dmi_quirks[] = {
->  	{
->  		.dmi_id_list = &(const struct dmi_system_id[]) {
-> @@ -96,6 +108,28 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
->  		},
->  		.hook = quirk_invert_brightness,
->  	},
-> +	{
-> +		.dmi_id_list = &(const struct dmi_system_id[]) {
-> +			{
-> +				.callback = intel_dmi_no_pps_backlight,
-> +				.ident = "Google Lillipup sku524294",
-> +				.matches = {DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "Google"),
-> +					    DMI_EXACT_MATCH(DMI_BOARD_NAME, "Lindar"),
-> +					    DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "sku524294"),
-> +				},
-> +			},
-> +			{
-> +				.callback = intel_dmi_no_pps_backlight,
-> +				.ident = "Google Lillipup sku524295",
-> +				.matches = {DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "Google"),
-> +					    DMI_EXACT_MATCH(DMI_BOARD_NAME, "Lindar"),
-> +					    DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "sku524295"),
-> +				},
-> +			},
-> +			{ }
-> +		},
-> +		.hook = quirk_no_pps_backlight_power_hook,
-> +	},
->  };
->  
->  static struct intel_quirk intel_quirks[] = {
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index 01e11fe38642..5a065be0792a 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -467,6 +467,7 @@ struct i915_drrs {
->  #define QUIRK_PIN_SWIZZLED_PAGES (1<<5)
->  #define QUIRK_INCREASE_T12_DELAY (1<<6)
->  #define QUIRK_INCREASE_DDI_DISABLED_TIME (1<<7)
-> +#define QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK (1<<8)
->  
->  struct intel_fbdev;
->  struct intel_fbc_work;
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogQ2xpbnQgVGF5bG9yIDxjbGludG9uLmEudGF5bG9yQGludGVsLmNvbT4KClRoZSBQVU5J
+VCBGVyBpcyBjdXJyZW50bHkgcmV0dXJuaW5nIDAgZm9yIGFsbCBtZW1vcnkgYmFuZHdpZHRoCnBh
+cmFtZXRlcnMuIFJlYWQgdGhlIHZhbHVlcyBkaXJlY3RseSBmcm9tIE1DSEJBUiBvZmZzZXRzIDB4
+NTkxOCBhbmQKMHg0MDAwKDQpLiBUaGlzIGlzIGEgdGVtcG9yYXJ5IFdBIHVudGlsIHRoZSBQVU5J
+VCBGVyByZXR1cm5zIHZhbGlkCnZhbHVlcy4KCnYyKEx1Y2FzKTogdGlkeSB1cCBjaGVja2luZyBm
+b3IgcmV0IHNsaWdodGx5CgpDYzogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5kZW1hcmNoaUBpbnRl
+bC5jb20+CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29t
+PgpDYzogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KQ2M6IEphbmkgU2Fh
+cmluZW4gPGphbmkuc2FhcmluZW5AaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBDbGludCBUYXls
+b3IgPGNsaW50b24uYS50YXlsb3JAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBKYW5pIE5pa3Vs
+YSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0aGV3IEF1bGQgPG1h
+dHRoZXcuYXVsZEBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9idy5jIHwgNTIgKysrKysrKysrKysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQs
+IDUyIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX2J3LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2J3LmMK
+aW5kZXggYmZiMzk4ZjA0MzJlLi42MmE3MGYzNjRmMmIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYncuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2J3LmMKQEAgLTIzLDYgKzIzLDUzIEBAIHN0cnVjdCBpbnRlbF9xZ3ZfaW5m
+byB7CiAJdTggdF9ibDsKIH07CiAKKyNkZWZpbmUgU0FfUEVSRl9TVEFUVVNfMF8wXzBfTUNIQkFS
+X1BDIF9NTUlPKE1DSEJBUl9NSVJST1JfQkFTRV9TTkIgKyAweDU5MTgpCisjZGVmaW5lICBERzFf
+UUNMS19SQVRJT19NQVNLICgweEZGIDw8IDIpCisjZGVmaW5lICBERzFfUUNMS19SQVRJT19TSElG
+VCAyCisjZGVmaW5lICBERzFfUUNMS19SRUZFUkVOQ0UgKDEgPDwgMTApCisKKyNkZWZpbmUgTUNI
+QkFSX0NIMF9DUl9UQ19QUkVfMF8wXzBfTUNIQkFSIF9NTUlPKE1DSEJBUl9NSVJST1JfQkFTRV9T
+TkIgKyAweDQwMDApCisjZGVmaW5lIE1DSEJBUl9DSDBfQ1JfVENfUFJFXzBfMF8wX01DSEJBUl9I
+SUdIIF9NTUlPKE1DSEJBUl9NSVJST1JfQkFTRV9TTkIgKyAweDQwMDQpCisjZGVmaW5lIE1DSEJB
+Ul9DSDFfQ1JfVENfUFJFXzBfMF8wX01DSEJBUiBfTU1JTyhNQ0hCQVJfTUlSUk9SX0JBU0VfU05C
+ICsgMHg0NDAwKQorI2RlZmluZSBNQ0hCQVJfQ0gxX0NSX1RDX1BSRV8wXzBfMF9NQ0hCQVJfSElH
+SCBfTU1JTyhNQ0hCQVJfTUlSUk9SX0JBU0VfU05CICsgMHg0NDA0KQorI2RlZmluZSAgREcxX0RS
+QU1fVF9SQ0RfTUFTSyAoMHg3RiA8PCA5KQorI2RlZmluZSAgREcxX0RSQU1fVF9SQ0RfU0hJRlQg
+OQorI2RlZmluZSAgREcxX0RSQU1fVF9SRFBSRV9NQVNLICgweDNGIDw8IDExKQorI2RlZmluZSAg
+REcxX0RSQU1fVF9SRFBSRV9TSElGVCAxMQorI2RlZmluZSAgREcxX0RSQU1fVF9SQVNfTUFTSyAo
+MHhGRiA8PCAxKQorI2RlZmluZSAgREcxX0RSQU1fVF9SQVNfU0hJRlQgMQorI2RlZmluZSAgREcx
+X0RSQU1fVF9SUF9NQVNLICgweDdGIDw8IDApCisjZGVmaW5lICBERzFfRFJBTV9UX1JQX1NISUZU
+IDAKKworc3RhdGljIGludCBkZzFfbWNoYmFyX3JlYWRfcWd2X3BvaW50X2luZm8oc3RydWN0IGRy
+bV9pOTE1X3ByaXZhdGUgKmRldl9wcml2LAorCQkJCQkgIHN0cnVjdCBpbnRlbF9xZ3ZfcG9pbnQg
+KnNwLAorCQkJCQkgIGludCBwb2ludCkKK3sKKwl1MzIgdmFsID0gMDsKKwl1MzIgZGNsa19yYXRp
+byA9IDAsIGRjbGtfcmVmZXJlbmNlID0gMDsKKworCXZhbCA9IGludGVsX3VuY29yZV9yZWFkKCZk
+ZXZfcHJpdi0+dW5jb3JlLCBTQV9QRVJGX1NUQVRVU18wXzBfMF9NQ0hCQVJfUEMpOworCWRjbGtf
+cmF0aW8gPSAodmFsICYgREcxX1FDTEtfUkFUSU9fTUFTSykgPj4gREcxX1FDTEtfUkFUSU9fU0hJ
+RlQ7CisJaWYgKHZhbCAmIERHMV9RQ0xLX1JFRkVSRU5DRSkKKwkJZGNsa19yZWZlcmVuY2UgPSA2
+OyAvKiA2ICogMTYuNjY2IE1IeiA9IDEwMCBNSHogKi8KKwllbHNlCisJCWRjbGtfcmVmZXJlbmNl
+ID0gODsgLyogOCAqIDE2LjY2NiBNSHogPSAxMzMgTUh6ICovCisJc3AtPmRjbGsgPSBkY2xrX3Jh
+dGlvICogZGNsa19yZWZlcmVuY2U7CisJaWYgKHNwLT5kY2xrID09IDApCisJCXJldHVybiAtRUlO
+VkFMOworCisJdmFsID0gaW50ZWxfdW5jb3JlX3JlYWQoJmRldl9wcml2LT51bmNvcmUsIE1DSEJB
+Ul9DSDBfQ1JfVENfUFJFXzBfMF8wX01DSEJBUik7CisJc3AtPnRfcnAgPSAodmFsICYgREcxX0RS
+QU1fVF9SUF9NQVNLKSA+PiBERzFfRFJBTV9UX1JQX1NISUZUOworCXNwLT50X3JkcHJlID0gKHZh
+bCAmIERHMV9EUkFNX1RfUkRQUkVfTUFTSykgPj4gREcxX0RSQU1fVF9SRFBSRV9TSElGVDsKKwor
+CXZhbCA9IGludGVsX3VuY29yZV9yZWFkKCZkZXZfcHJpdi0+dW5jb3JlLCBNQ0hCQVJfQ0gwX0NS
+X1RDX1BSRV8wXzBfMF9NQ0hCQVJfSElHSCk7CisJc3AtPnRfcmNkID0gKHZhbCAmIERHMV9EUkFN
+X1RfUkNEX01BU0spID4+IERHMV9EUkFNX1RfUkNEX1NISUZUOworCXNwLT50X3JhcyA9ICh2YWwg
+JiBERzFfRFJBTV9UX1JBU19NQVNLKSA+PiBERzFfRFJBTV9UX1JBU19TSElGVDsKKworCXNwLT50
+X3JjID0gc3AtPnRfcnAgKyBzcC0+dF9yYXM7CisJcmV0dXJuIDA7Cit9CisKIHN0YXRpYyBpbnQg
+aWNsX3Bjb2RlX3JlYWRfcWd2X3BvaW50X2luZm8oc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRl
+dl9wcml2LAogCQkJCQkgc3RydWN0IGludGVsX3Fndl9wb2ludCAqc3AsCiAJCQkJCSBpbnQgcG9p
+bnQpCkBAIC0xMDAsNiArMTQ3LDExIEBAIHN0YXRpYyBpbnQgaWNsX2dldF9xZ3ZfcG9pbnRzKHN0
+cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiwKIAkJc3RydWN0IGludGVsX3Fndl9wb2lu
+dCAqc3AgPSAmcWktPnBvaW50c1tpXTsKIAogCQlyZXQgPSBpY2xfcGNvZGVfcmVhZF9xZ3ZfcG9p
+bnRfaW5mbyhkZXZfcHJpdiwgc3AsIGkpOworCQlpZiAoSVNfREcxKGRldl9wcml2KSAmJiAocmV0
+IHx8IHNwLT5kY2xrID09IDApKSB7CisJCQlkcm1fZGJnX2ttcygmZGV2X3ByaXYtPmRybSwgIkZh
+aWxlZCB0byBnZXQgbWVtb3J5IHN1YnN5c3RlbSBpbmZvcm1hdGlvbiB2aWEgcGNvZGUuIElGV0kg
+bmVlZHMgdXBkYXRlLiBUcnlpbmcgd2l0aCBNQ0hCQVJcbiIpOworCQkJcmV0ID0gZGcxX21jaGJh
+cl9yZWFkX3Fndl9wb2ludF9pbmZvKGRldl9wcml2LCBzcCwgaSk7CisJCX0KKwogCQlpZiAocmV0
+KQogCQkJcmV0dXJuIHJldDsKIAotLSAKMi4yNi4zCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9pbnRlbC1nZngK
