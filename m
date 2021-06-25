@@ -2,47 +2,51 @@ Return-Path: <SRS0=ia64=LT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-21.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35B3DC49EA7
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 23:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8728BC2B9F4
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 23:52:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CC7B361584
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 23:39:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC7B361584
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2992061929
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 23:52:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2992061929
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5EE46E0BA;
-	Fri, 25 Jun 2021 23:39:09 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDCE36E09C;
- Fri, 25 Jun 2021 23:39:08 +0000 (UTC)
-IronPort-SDR: xt9BAR5FV16Zz4z34/qYAzpQ1fewnmEjek0AAf5VDOqZlDFDzD9M02VAPkoDdyVka/jEIBXm5Z
- xy0/hc152ndw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10026"; a="194900483"
-X-IronPort-AV: E=Sophos;i="5.83,300,1616482800"; d="scan'208";a="194900483"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2021 16:39:05 -0700
-IronPort-SDR: i8U5WcHskJhxGvzE1KgMfAYgeLqbtcBS4oGUXIjieH/paRLRAV1OQ3FMunedEEVlcTcxEDrI27
- lJgv6/QzaPSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,300,1616482800"; d="scan'208";a="453975005"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by orsmga008.jf.intel.com with ESMTP; 25 Jun 2021 16:39:03 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Fri, 25 Jun 2021 16:39:03 -0700
-Message-Id: <20210625233903.1567481-1-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80C846E0B7;
+	Fri, 25 Jun 2021 23:52:16 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D0DC6E0BA
+ for <intel-gfx@lists.freedesktop.org>; Fri, 25 Jun 2021 23:52:15 +0000 (UTC)
+IronPort-SDR: C/4y8SDeNtkN6U6vStskqhMI3b2y6dbCzSFUe+eEZ/pySsDXUAb5Hc9+elmjxMNaino6yMntA0
+ 1SaaxxtrmGKw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10026"; a="229357858"
+X-IronPort-AV: E=Sophos;i="5.83,300,1616482800"; d="scan'208";a="229357858"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2021 16:52:15 -0700
+IronPort-SDR: F2Bj85k3YQ41z8/HJv0xlbtCdcYkw05ajLX7dEkAcsg14MVf6EJdBjM1ac5HurNGdL16ce3keV
+ JNixaQuD1SpQ==
+X-IronPort-AV: E=Sophos;i="5.83,300,1616482800"; d="scan'208";a="491736194"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.24.14.59])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2021 16:52:14 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 25 Jun 2021 16:56:00 -0700
+Message-Id: <20210625235600.765677-2-jose.souza@intel.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210625235600.765677-1-jose.souza@intel.com>
+References: <20210625235600.765677-1-jose.souza@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI] PR for new GuC v62.0.3 and HuC v7.9.3 binaries
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/display: Disable FBC when PSR2 is
+ enabled display 12 and newer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,36 +59,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The following changes since commit 0f66b74b6267fce66395316308d88b0535aa3df2:
-
-  cypress: update firmware for cyw54591 pcie (2021-06-09 07:12:02 -0400)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-firmware adlp_updates
-
-for you to fetch changes up to 38983b6f28e0b217aedd7c5430081a60d6591732:
-
-  drm/i915/firmware: Add GuC v62.03 for ADLP (2021-06-25 11:51:11 -0700)
-
-----------------------------------------------------------------
-Anusha Srivatsa (2):
-      drm/i915/firmware: Add HuC v7.9.3 for TGL
-      drm/i915/firmware: Add GuC v62.03 for ADLP
-
- WHENCE              |   7 +++++++
- adlp_guc_62.0.3.bin | Bin 0 -> 336704 bytes
- tgl_huc_7.9.3.bin   | Bin 0 -> 589888 bytes
- 3 files changed, 7 insertions(+)
- create mode 100644 adlp_guc_62.0.3.bin
- create mode 100644 tgl_huc_7.9.3.bin
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+VGhpcyBpcyBub3cgYSByZXF1aXJlbWVudCBmb3IgYWxsIGRpc3BsYXkgMTIgYW5kIG5ld2VyLCBu
+b3Qgb25seSBmb3IKdGlnZXJsYWtlLgoKQlNwZWM6IDUwNDIyCkNjOiBHd2FuLWd5ZW9uZyBNdW4g
+PGd3YW4tZ3llb25nLm11bkBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEpvc8OpIFJvYmVydG8g
+ZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1
+L2Rpc3BsYXkvaW50ZWxfZmJjLmMgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
+bnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+ZGlzcGxheS9pbnRlbF9mYmMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
+ZmJjLmMKaW5kZXggN2RjNzJlNGE0NjU2Yi4uMjcwYjFmMjY1NjZkZiAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9mYmMuYworKysgYi9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9kaXNwbGF5L2ludGVsX2ZiYy5jCkBAIC05MTEsMTEgKzkxMSwxMSBAQCBzdGF0aWMg
+Ym9vbCBpbnRlbF9mYmNfY2FuX2FjdGl2YXRlKHN0cnVjdCBpbnRlbF9jcnRjICpjcnRjKQogCX0K
+IAogCS8qCi0JICogVGlnZXJsYWtlIGlzIG5vdCBzdXBwb3J0aW5nIEZCQyB3aXRoIFBTUjIuCisJ
+ICogRGlzcGxheSAxMisgaXMgbm90IHN1cHBvcnRpbmcgRkJDIHdpdGggUFNSMi4KIAkgKiBSZWNv
+bW1lbmRhdGlvbiBpcyB0byBrZWVwIHRoaXMgY29tYmluYXRpb24gZGlzYWJsZWQKIAkgKiBCc3Bl
+YzogNTA0MjIgSFNEOiAxNDAxMDI2MDAwMgogCSAqLwotCWlmIChmYmMtPnN0YXRlX2NhY2hlLnBz
+cjJfYWN0aXZlICYmIElTX1RJR0VSTEFLRShkZXZfcHJpdikpIHsKKwlpZiAoZmJjLT5zdGF0ZV9j
+YWNoZS5wc3IyX2FjdGl2ZSAmJiBESVNQTEFZX1ZFUihkZXZfcHJpdikgPj0gMTIpIHsKIAkJZmJj
+LT5ub19mYmNfcmVhc29uID0gIm5vdCBzdXBwb3J0ZWQgd2l0aCBQU1IyIjsKIAkJcmV0dXJuIGZh
+bHNlOwogCX0KLS0gCjIuMzIuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+aW50ZWwtZ2Z4Cg==
