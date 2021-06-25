@@ -2,40 +2,41 @@ Return-Path: <SRS0=ia64=LT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CEECC2B9F4
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 11:03:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85EC2C2B9F4
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 11:10:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B89E96144E
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 11:03:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B89E96144E
+	by mail.kernel.org (Postfix) with ESMTPS id 29E6F61465
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 11:10:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29E6F61465
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62D136ED98;
-	Fri, 25 Jun 2021 11:03:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7E846ED91;
+	Fri, 25 Jun 2021 11:10:35 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 128586ED91;
- Fri, 25 Jun 2021 11:03:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 63EC86ED91;
+ Fri, 25 Jun 2021 11:10:34 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 04A3FAA916;
- Fri, 25 Jun 2021 11:03:08 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5CD6BA47DB;
+ Fri, 25 Jun 2021 11:10:34 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: venkata.sai.patnana@intel.com
-Date: Fri, 25 Jun 2021 11:03:07 -0000
-Message-ID: <162461898799.13649.5047698737677974868@emeril.freedesktop.org>
+To: "Matthew Auld" <matthew.auld@intel.com>
+Date: Fri, 25 Jun 2021 11:10:34 -0000
+Message-ID: <162461943437.13649.14540283496592579107@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210625100838.5534-1-venkata.sai.patnana@intel.com>
-In-Reply-To: <20210625100838.5534-1-venkata.sai.patnana@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915/display/dsc=3A_Set_BPP_in_the_kernel?=
+References: <20210625103824.558481-1-matthew.auld@intel.com>
+In-Reply-To: <20210625103824.558481-1-matthew.auld@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5Bv3=2C1/2=5D_drm/i915=3A_support_for?=
+ =?utf-8?q?cing_the_page_size_with_lmem?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,76 +51,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============2105821648=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2105821648==
-Content-Type: multipart/alternative;
- boundary="===============6505287392325925734=="
-
---===============6505287392325925734==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
 == Series Details ==
 
-Series: drm/i915/display/dsc: Set BPP in the kernel
-URL   : https://patchwork.freedesktop.org/series/91917/
-State : failure
+Series: series starting with [v3,1/2] drm/i915: support forcing the page size with lmem
+URL   : https://patchwork.freedesktop.org/series/91918/
+State : warning
 
 == Summary ==
 
-Couldn't find any build artifact matching "Test-with: Test-with: 20210622102454.8922-1-venkata.sai.patnana@intel.com"
-Check that the msg-id is correct and make sure that it had been built.
+$ dim checkpatch origin/drm-tip
+98175644c174 drm/i915: support forcing the page size with lmem
+-:326: WARNING:TYPO_SPELLING: 'overriden' may be misspelled - perhaps 'overridden'?
+#326: FILE: drivers/gpu/drm/i915/i915_ttm_buddy_manager.c:142:
++ * this must be at least as large as @chunk_size, and can be overriden by
+                                                              ^^^^^^^^^
 
+total: 0 errors, 1 warnings, 0 checks, 379 lines checked
+38e9e257da23 drm/i915/gtt: ignore min_page_size for paging structures
 
-
---===============6505287392325925734==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display/dsc: Set BPP in the kernel</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/91917/">https://patchwork.freedesktop.org/series/91917/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-</table>
-
-
-    <p>Couldn't find any build artifact matching "Test-with: Test-with: 20210622102454.8922-1-venkata.sai.patnana@intel.com"<br />
-Check that the msg-id is correct and make sure that it had been built.</p>
-
-</body>
-</html>
-
---===============6505287392325925734==--
-
---===============2105821648==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============2105821648==--
