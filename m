@@ -2,46 +2,49 @@ Return-Path: <SRS0=ia64=LT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B46E7C2B9F4
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 10:19:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F8BCC48BC2
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 10:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7459061438
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 10:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7459061438
+	by mail.kernel.org (Postfix) with ESMTPS id 084FC60234
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jun 2021 10:19:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 084FC60234
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 230AD6E0F1;
-	Fri, 25 Jun 2021 10:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CDF76ED18;
+	Fri, 25 Jun 2021 10:19:22 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AE136E0F1
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Jun 2021 10:19:17 +0000 (UTC)
-IronPort-SDR: i5kCI14ufW5+FnXb6SHkwg4Gm9L7YC7OIZQkYFJcw1keHYJeNM2cxt/OSYvwDsYnp/U4otFyYF
- 4lqYrCcUvKUA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10025"; a="204636839"
-X-IronPort-AV: E=Sophos;i="5.83,298,1616482800"; d="scan'208";a="204636839"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B7286ED14
+ for <intel-gfx@lists.freedesktop.org>; Fri, 25 Jun 2021 10:19:21 +0000 (UTC)
+IronPort-SDR: 6MHGIBohMKPLFkkMiiJ6weYH5LW4GHfTpjk5YNWUzv12jYRycwkVjtromIrb8ovR7pDnxQaaNX
+ WXO9n5Eb6Xmg==
+X-IronPort-AV: E=McAfee;i="6200,9189,10025"; a="204636845"
+X-IronPort-AV: E=Sophos;i="5.83,298,1616482800"; d="scan'208";a="204636845"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2021 03:19:16 -0700
-IronPort-SDR: bzFLnql0+F0nsR04z4kzt+m90mII3RCgvS39kk/Njj4Za/uAEaUNuJNtj2onyZpNz2jsTrQ/xV
- FnW/2COj0mxw==
+ 25 Jun 2021 03:19:21 -0700
+IronPort-SDR: JfAfpqUefufda0KDDJUdNhCHNuSMDAZ37zPaQ86W94LrW6R5Nz0K4p7cl/tFuKfCklx69DB7dM
+ tc9HBBDGNuvw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,298,1616482800"; d="scan'208";a="453764819"
+X-IronPort-AV: E=Sophos;i="5.83,298,1616482800"; d="scan'208";a="453764845"
 Received: from kbommu-nuc8i7beh.iind.intel.com ([10.145.162.97])
- by orsmga008.jf.intel.com with ESMTP; 25 Jun 2021 03:19:12 -0700
+ by orsmga008.jf.intel.com with ESMTP; 25 Jun 2021 03:19:19 -0700
 From: venkata.sai.patnana@intel.com
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Jun 2021 15:38:36 +0530
-Message-Id: <20210625100838.5534-1-venkata.sai.patnana@intel.com>
+Date: Fri, 25 Jun 2021 15:38:38 +0530
+Message-Id: <20210625100838.5534-3-venkata.sai.patnana@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210625100838.5534-1-venkata.sai.patnana@intel.com>
+References: <20210625100838.5534-1-venkata.sai.patnana@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/2] drm/i915/display/dsc: Set BPP in the kernel
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/display/dsc: Set BPP in the kernel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,20 +62,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 
-Test-with: 20210622102454.8922-1-venkata.sai.patnana@intel.com
+Set compress BPP in kernel while connector DP or eDP
 
-Anusha Srivatsa (2):
-  drm/i915/display/dsc: Add Per connector debugfs node for DSC BPP
-    enable
-  drm/i915/display/dsc: Set BPP in the kernel
+Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Cc: Navare Manasi D <manasi.d.navare@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
- .../drm/i915/display/intel_display_debugfs.c  | 103 +++++++++++++++++-
- .../drm/i915/display/intel_display_types.h    |   1 +
- drivers/gpu/drm/i915/display/intel_dp.c       |  23 +++-
- 3 files changed, 121 insertions(+), 6 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index f74f70691247b..a454ee4210866 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1241,9 +1241,15 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	pipe_config->lane_count = limits->max_lane_count;
+ 
+ 	if (intel_dp_is_edp(intel_dp)) {
+-		pipe_config->dsc.compressed_bpp =
+-			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
+-			      pipe_config->pipe_bpp);
++		if (intel_dp->force_dsc_bpp) {
++			drm_dbg_kms(&dev_priv->drm,
++				"DSC BPC forced to %d", intel_dp->force_dsc_bpp);
++			pipe_config->dsc.compressed_bpp = intel_dp->force_dsc_bpp;
++		} else {
++			pipe_config->dsc.compressed_bpp =
++				min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
++				pipe_config->pipe_bpp);
++		}
+ 		pipe_config->dsc.slice_count =
+ 			drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd,
+ 							true);
+@@ -1269,9 +1275,15 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				    "Compressed BPP/Slice Count not supported\n");
+ 			return -EINVAL;
+ 		}
+-		pipe_config->dsc.compressed_bpp = min_t(u16,
++		if (intel_dp->force_dsc_bpp) {
++			drm_dbg_kms(&dev_priv->drm,
++				    "DSC BPC forced to %d\n", intel_dp->force_dsc_bpp);
++			pipe_config->dsc.compressed_bpp = intel_dp->force_dsc_bpp;
++		} else {
++			pipe_config->dsc.compressed_bpp = min_t(u16,
+ 							       dsc_max_output_bpp >> 4,
+ 							       pipe_config->pipe_bpp);
++		}
+ 		pipe_config->dsc.slice_count = dsc_dp_slice_count;
+ 	}
+ 	/*
+@@ -1374,7 +1386,8 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 	 * Pipe joiner needs compression upto display12 due to BW limitation. DG2
+ 	 * onwards pipe joiner can be enabled without compression.
+ 	 */
+-	drm_dbg_kms(&i915->drm, "Force DSC en = %d\n", intel_dp->force_dsc_en);
++	drm_dbg_kms(&i915->drm, "Force DSC en = %d\n Force DSC BPP = %d\n",
++		    intel_dp->force_dsc_en, intel_dp->force_dsc_bpp);
+ 	if (ret || intel_dp->force_dsc_en || (DISPLAY_VER(i915) < 13 &&
+ 					      pipe_config->bigjoiner)) {
+ 		ret = intel_dp_dsc_compute_config(intel_dp, pipe_config,
 -- 
 2.25.1
 
