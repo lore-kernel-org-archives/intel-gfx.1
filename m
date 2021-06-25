@@ -2,72 +2,110 @@ Return-Path: <SRS0=2qg2=LW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C92D6C49EB7
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 362A8C2B9F4
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A037161C49
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A037161C49
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=quicinc.com
+	by mail.kernel.org (Postfix) with ESMTPS id EF72361C59
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF72361C59
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=de.ibm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE5CF6E408;
-	Mon, 28 Jun 2021 09:31:05 +0000 (UTC)
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB636EBAC;
- Thu, 24 Jun 2021 14:10:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1624543860; x=1656079860;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=jIPt55RUzMMbkq7vhbeD6czYPulB4Zz8LFVe0v3gRZ0=;
- b=CbSwpOTVg3NEaVEsIcdSI8DBHqB/juX4NC9YL4WiIw9Dz789ljHAv1oP
- f0KLxQFbEwTudWX0nxJYTeK3sxcUCOtLVCxEQvwJdaVmllN5WyDvD9q5V
- XmuxopkkkC6Hn5Jyg73zn1ZTNOxvtlzrE+xoAIOl3E/BdiN7BZpceUcOE 4=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 24 Jun 2021 07:10:59 -0700
-X-QCInternal: smtphost
-Received: from nasanexm03e.na.qualcomm.com ([10.85.0.48])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 24 Jun 2021 07:10:57 -0700
-Received: from [10.111.163.161] (10.80.80.8) by nasanexm03e.na.qualcomm.com
- (10.85.0.48) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Thu, 24 Jun
- 2021 07:10:52 -0700
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>
-References: <20210619034043.199220-1-tientzu@chromium.org>
- <20210619034043.199220-7-tientzu@chromium.org>
- <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
- <20210623183736.GA472@willie-the-truck>
- <19d4c7a2-744d-21e0-289c-a576e1f0e6f3@quicinc.com>
- <20210624054315.GA25381@lst.de>
- <CALiNf288ZLMhY3E8E3N+z9rkwi1viWNLm1wwMEwT4rNwh3FfwQ@mail.gmail.com>
- <364e6715-eafd-fc4a-e0af-ce2a042756b4@arm.com>
- <20210624111855.GA1382@willie-the-truck>
- <452155d2-c98e-23f6-86d6-3a2ff2e74783@arm.com>
- <20210624114829.GB1382@willie-the-truck>
-From: Qian Cai <quic_qiancai@quicinc.com>
-Message-ID: <43ec9dd6-12c0-98ec-8d5d-b2904292721e@quicinc.com>
-Date: Thu, 24 Jun 2021 10:10:51 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+	by gabe.freedesktop.org (Postfix) with ESMTP id 609F46E3E5;
+	Mon, 28 Jun 2021 09:31:06 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B57EE6ED0E;
+ Fri, 25 Jun 2021 08:52:06 +0000 (UTC)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15P7YTqX061945; Fri, 25 Jun 2021 03:44:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=1RqvYvHqS+g8GAhL7EUAfBHKQHRxaUMGXuw/IwCXA00=;
+ b=Nmb11u4f/JhMKk+ivMs7oA1Ku85DovZ4LdaLOgwfNrDLH0a/wz5mI0aLrLO3Altwv4N4
+ LMTZyz/WDveZjxrU5tD5PPo68pDirAd4Gfrex52xiqR0TujC5LdTRYi0ri1ge/eDHmSN
+ JQJ8rK/jOMjr3THp/ok9RkvIdn/4KtjecaWiJfeTOER6nglHE+EZicixc1c1BnhsB+1Y
+ g5DWwvan20xvxygDIi3MEZQ7H/GwZDVcHzVEGz2iIjsiJgKnoZ7U+TUpyPDhD5O2Zekw
+ xJiAEI7Z0lyxcZgGi3MCDrgB0acHr+cDdUAyjJoQ4I+2kOZz0Z9ex/2nv4xilwCqOw4H ZA== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 39d8cn51sy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Jun 2021 03:44:39 -0400
+Received: from m0098420.ppops.net (m0098420.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 15P7YRo0061765;
+ Fri, 25 Jun 2021 03:44:38 -0400
+Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.102])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 39d8cn51s5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Jun 2021 03:44:38 -0400
+Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
+ by ppma06ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 15P7g5SF017198;
+ Fri, 25 Jun 2021 07:44:36 GMT
+Received: from b06avi18878370.portsmouth.uk.ibm.com
+ (b06avi18878370.portsmouth.uk.ibm.com [9.149.26.194])
+ by ppma06ams.nl.ibm.com with ESMTP id 3997uhaw6x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Jun 2021 07:44:35 +0000
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06avi18878370.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
+ id 15P7h6UA14352728
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 25 Jun 2021 07:43:06 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6193DAE056;
+ Fri, 25 Jun 2021 07:44:33 +0000 (GMT)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9D274AE051;
+ Fri, 25 Jun 2021 07:44:31 +0000 (GMT)
+Received: from oc7455500831.ibm.com (unknown [9.171.31.44])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Fri, 25 Jun 2021 07:44:31 +0000 (GMT)
+To: Nicholas Piggin <npiggin@gmail.com>,
+ Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+ Huacai Chen <chenhuacai@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Paul Mackerras <paulus@ozlabs.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ David Stevens <stevensd@chromium.org>, Zhenyu Wang
+ <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
+References: <20210624035749.4054934-1-stevensd@google.com>
+ <1624530624.8jff1f4u11.astroid@bobo.none>
+ <1624534759.nj0ylor2eh.astroid@bobo.none>
+ <0d3a699a-15eb-9f1b-0735-79d14736f38c@redhat.com>
+ <1624539354.6zggpdrdbw.astroid@bobo.none>
+From: Christian Borntraeger <borntraeger@de.ibm.com>
+Message-ID: <19c4e392-fbab-ee2c-7039-c88d1ae5775d@de.ibm.com>
+Date: Fri, 25 Jun 2021 09:44:31 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210624114829.GB1382@willie-the-truck>
+In-Reply-To: <1624539354.6zggpdrdbw.astroid@bobo.none>
 Content-Language: en-US
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanexm03c.na.qualcomm.com (10.85.0.106) To
- nasanexm03e.na.qualcomm.com (10.85.0.48)
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: Xd2p2n2e6jxdPlNvwSbyIgmg3LPAQMfs
+X-Proofpoint-ORIG-GUID: 6q0X_bUItmYJaGkAxPmmRfj9zzu6NsL2
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
+ definitions=2021-06-25_02:2021-06-24,
+ 2021-06-25 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 mlxlogscore=999
+ impostorscore=0 bulkscore=0 priorityscore=1501 clxscore=1011 mlxscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2106250043
 X-Mailman-Approved-At: Mon, 28 Jun 2021 09:31:03 +0000
-Subject: Re: [Intel-gfx] [PATCH v14 06/12] swiotlb: Use
- is_swiotlb_force_bounce for swiotlb data bouncing
+Subject: Re: [Intel-gfx] [PATCH 0/6] KVM: Remove uses of struct page from
+ x86 and arm64 MMU
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,86 +118,134 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com,
- linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
- benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
- Frank Rowand <frowand.list@gmail.com>, Christoph Hellwig <hch@lst.de>,
- Jianxiong Gao <jxgao@google.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
- Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, mingo@kernel.org,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Dan Williams <dan.j.williams@intel.com>, matthew.auld@intel.com,
- Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
- Jim Quinlan <james.quinlan@broadcom.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- intel-gfx@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Claire Chang <tientzu@chromium.org>,
- boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- airlied@linux.ie, Thierry Reding <treding@nvidia.com>,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- xypron.glpk@gmx.de, Tom Lendacky <thomas.lendacky@amd.com>,
- linuxppc-dev@lists.ozlabs.org, bauerman@linux.ibm.com
-Content-Type: text/plain; charset="us-ascii"
+Cc: Wanpeng Li <wanpengli@tencent.com>, kvm@vger.kernel.org,
+ David Stevens <stevensd@google.com>,
+ Alexandru Elisei <alexandru.elisei@arm.com>, intel-gfx@lists.freedesktop.org,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kvmarm@lists.cs.columbia.edu,
+ Will Deacon <will@kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ James Morse <james.morse@arm.com>, kvm-ppc@vger.kernel.org,
+ Sean Christopherson <seanjc@google.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, linux-mips@vger.kernel.org,
+ intel-gvt-dev@lists.freedesktop.org, Joerg Roedel <joro@8bytes.org>,
+ linux-arm-kernel@lists.infradead.org, Jim Mattson <jmattson@google.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 6/24/2021 7:48 AM, Will Deacon wrote:
-> Ok, diff below which attempts to tackle the offset issue I mentioned as
-> well. Qian Cai -- please can you try with these changes?
-
-This works fine.
-
+On 24.06.21 14:57, Nicholas Piggin wrote:
+> Excerpts from Paolo Bonzini's message of June 24, 2021 10:41 pm:
+>> On 24/06/21 13:42, Nicholas Piggin wrote:
+>>> Excerpts from Nicholas Piggin's message of June 24, 2021 8:34 pm:
+>>>> Excerpts from David Stevens's message of June 24, 2021 1:57 pm:
+>>>>> KVM supports mapping VM_IO and VM_PFNMAP memory into the guest by using
+>>>>> follow_pte in gfn_to_pfn. However, the resolved pfns may not have
+>>>>> assoicated struct pages, so they should not be passed to pfn_to_page.
+>>>>> This series removes such calls from the x86 and arm64 secondary MMU. To
+>>>>> do this, this series modifies gfn_to_pfn to return a struct page in
+>>>>> addition to a pfn, if the hva was resolved by gup. This allows the
+>>>>> caller to call put_page only when necessated by gup.
+>>>>>
+>>>>> This series provides a helper function that unwraps the new return type
+>>>>> of gfn_to_pfn to provide behavior identical to the old behavior. As I
+>>>>> have no hardware to test powerpc/mips changes, the function is used
+>>>>> there for minimally invasive changes. Additionally, as gfn_to_page and
+>>>>> gfn_to_pfn_cache are not integrated with mmu notifier, they cannot be
+>>>>> easily changed over to only use pfns.
+>>>>>
+>>>>> This addresses CVE-2021-22543 on x86 and arm64.
+>>>>
+>>>> Does this fix the problem? (untested I don't have a POC setup at hand,
+>>>> but at least in concept)
+>>>
+>>> This one actually compiles at least. Unfortunately I don't have much
+>>> time in the near future to test, and I only just found out about this
+>>> CVE a few hours ago.
+>>
+>> And it also works (the reproducer gets an infinite stream of userspace
+>> exits and especially does not crash).  We can still go for David's
+>> solution later since MMU notifiers are able to deal with this pages, but
+>> it's a very nice patch for stable kernels.
 > 
-> Will
+> Oh nice, thanks for testing. How's this?
 > 
-> --->8
+> Thanks,
+> Nick
 > 
-> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> index 175b6c113ed8..39284ff2a6cd 100644
-> --- a/include/linux/swiotlb.h
-> +++ b/include/linux/swiotlb.h
-> @@ -116,7 +116,9 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
->  
->  static inline bool is_swiotlb_force_bounce(struct device *dev)
->  {
-> -       return dev->dma_io_tlb_mem->force_bounce;
-> +       struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
+> ---
+> 
+> KVM: Fix page ref underflow for regions with valid but non-refcounted pages
+> 
+> It's possible to create a region which maps valid but non-refcounted
+> pages (e.g., tail pages of non-compound higher order allocations). These
+> host pages can then be returned by gfn_to_page, gfn_to_pfn, etc., family
+> of APIs, which take a reference to the page, which takes it from 0 to 1.
+> When the reference is dropped, this will free the page incorrectly.
+> 
+> Fix this by only taking a reference on the page if it was non-zero,
+> which indicates it is participating in normal refcounting (and can be
+> released with put_page).
+> 
+> Signed-off-by: Nicholas Piggin <npiggin@gmail.com>
+> ---
+>   virt/kvm/kvm_main.c | 19 +++++++++++++++++--
+>   1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index 6a6bc7af0e28..46fb042837d2 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+> @@ -2055,6 +2055,13 @@ static bool vma_is_valid(struct vm_area_struct *vma, bool write_fault)
+>   	return true;
+>   }
+>   
+> +static int kvm_try_get_pfn(kvm_pfn_t pfn)
+> +{
+> +	if (kvm_is_reserved_pfn(pfn))
+> +		return 1;
+> +	return get_page_unless_zero(pfn_to_page(pfn));
+> +}
 > +
-> +       return mem && mem->force_bounce;
->  }
->  
->  void __init swiotlb_exit(void);
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index 44be8258e27b..0ffbaae9fba2 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -449,6 +449,7 @@ static int swiotlb_find_slots(struct device *dev, phys_addr_t orig_addr,
->                 dma_get_min_align_mask(dev) & ~(IO_TLB_SIZE - 1);
->         unsigned int nslots = nr_slots(alloc_size), stride;
->         unsigned int index, wrap, count = 0, i;
-> +       unsigned int offset = swiotlb_align_offset(dev, orig_addr);
->         unsigned long flags;
->  
->         BUG_ON(!nslots);
-> @@ -497,7 +498,7 @@ static int swiotlb_find_slots(struct device *dev, phys_addr_t orig_addr,
->         for (i = index; i < index + nslots; i++) {
->                 mem->slots[i].list = 0;
->                 mem->slots[i].alloc_size =
-> -                       alloc_size - ((i - index) << IO_TLB_SHIFT);
-> +                       alloc_size - (offset + ((i - index) << IO_TLB_SHIFT));
->         }
->         for (i = index - 1;
->              io_tlb_offset(i) != IO_TLB_SEGSIZE - 1 &&
+>   static int hva_to_pfn_remapped(struct vm_area_struct *vma,
+>   			       unsigned long addr, bool *async,
+>   			       bool write_fault, bool *writable,
+> @@ -2104,13 +2111,21 @@ static int hva_to_pfn_remapped(struct vm_area_struct *vma,
+>   	 * Whoever called remap_pfn_range is also going to call e.g.
+>   	 * unmap_mapping_range before the underlying pages are freed,
+>   	 * causing a call to our MMU notifier.
+> +	 *
+> +	 * Certain IO or PFNMAP mappings can be backed with valid
+> +	 * struct pages, but be allocated without refcounting e.g.,
+> +	 * tail pages of non-compound higher order allocations, which
+> +	 * would then underflow the refcount when the caller does the
+> +	 * required put_page. Don't allow those pages here.
+>   	 */
+> -	kvm_get_pfn(pfn);
+> +	if (!kvm_try_get_pfn(pfn))
+> +		r = -EFAULT;
+>   
+
+Right. That should also take care of s390 (pin_guest_page in vsie.c
+which calls gfn_to_page).
+FWIW, the current API is really hard to follow as it does not tell
+which functions take a reference and which dont.
+
+Anyway, this patch (with cc stable?)
+
+Reviewed-by: Christian Borntraeger <borntraeger@de.ibm.com>
+
+>   out:
+>   	pte_unmap_unlock(ptep, ptl);
+>   	*p_pfn = pfn;
+> -	return 0;
+> +
+> +	return r;
+>   }
+>   
+>   /*
 > 
 _______________________________________________
 Intel-gfx mailing list
