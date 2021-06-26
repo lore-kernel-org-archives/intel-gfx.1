@@ -2,110 +2,58 @@ Return-Path: <SRS0=2qg2=LW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 362A8C2B9F4
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96F59C49EAB
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF72361C59
+	by mail.kernel.org (Postfix) with ESMTPS id 4122C61C49
 	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF72361C59
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=de.ibm.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4122C61C49
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 609F46E3E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6636E40A;
 	Mon, 28 Jun 2021 09:31:06 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57EE6ED0E;
- Fri, 25 Jun 2021 08:52:06 +0000 (UTC)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15P7YTqX061945; Fri, 25 Jun 2021 03:44:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=pp1;
- bh=1RqvYvHqS+g8GAhL7EUAfBHKQHRxaUMGXuw/IwCXA00=;
- b=Nmb11u4f/JhMKk+ivMs7oA1Ku85DovZ4LdaLOgwfNrDLH0a/wz5mI0aLrLO3Altwv4N4
- LMTZyz/WDveZjxrU5tD5PPo68pDirAd4Gfrex52xiqR0TujC5LdTRYi0ri1ge/eDHmSN
- JQJ8rK/jOMjr3THp/ok9RkvIdn/4KtjecaWiJfeTOER6nglHE+EZicixc1c1BnhsB+1Y
- g5DWwvan20xvxygDIi3MEZQ7H/GwZDVcHzVEGz2iIjsiJgKnoZ7U+TUpyPDhD5O2Zekw
- xJiAEI7Z0lyxcZgGi3MCDrgB0acHr+cDdUAyjJoQ4I+2kOZz0Z9ex/2nv4xilwCqOw4H ZA== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0b-001b2d01.pphosted.com with ESMTP id 39d8cn51sy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 25 Jun 2021 03:44:39 -0400
-Received: from m0098420.ppops.net (m0098420.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 15P7YRo0061765;
- Fri, 25 Jun 2021 03:44:38 -0400
-Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.102])
- by mx0b-001b2d01.pphosted.com with ESMTP id 39d8cn51s5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 25 Jun 2021 03:44:38 -0400
-Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
- by ppma06ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 15P7g5SF017198;
- Fri, 25 Jun 2021 07:44:36 GMT
-Received: from b06avi18878370.portsmouth.uk.ibm.com
- (b06avi18878370.portsmouth.uk.ibm.com [9.149.26.194])
- by ppma06ams.nl.ibm.com with ESMTP id 3997uhaw6x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 25 Jun 2021 07:44:35 +0000
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06avi18878370.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
- id 15P7h6UA14352728
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 25 Jun 2021 07:43:06 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6193DAE056;
- Fri, 25 Jun 2021 07:44:33 +0000 (GMT)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9D274AE051;
- Fri, 25 Jun 2021 07:44:31 +0000 (GMT)
-Received: from oc7455500831.ibm.com (unknown [9.171.31.44])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Fri, 25 Jun 2021 07:44:31 +0000 (GMT)
-To: Nicholas Piggin <npiggin@gmail.com>,
- Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
- Huacai Chen <chenhuacai@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Paul Mackerras <paulus@ozlabs.org>, Paolo Bonzini <pbonzini@redhat.com>,
- David Stevens <stevensd@chromium.org>, Zhenyu Wang
- <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
-References: <20210624035749.4054934-1-stevensd@google.com>
- <1624530624.8jff1f4u11.astroid@bobo.none>
- <1624534759.nj0ylor2eh.astroid@bobo.none>
- <0d3a699a-15eb-9f1b-0735-79d14736f38c@redhat.com>
- <1624539354.6zggpdrdbw.astroid@bobo.none>
-From: Christian Borntraeger <borntraeger@de.ibm.com>
-Message-ID: <19c4e392-fbab-ee2c-7039-c88d1ae5775d@de.ibm.com>
-Date: Fri, 25 Jun 2021 09:44:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 890766E9B6;
+ Sat, 26 Jun 2021 06:35:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=ccSBQjSdQ0yyRGKtd2TN6frnfy5qFmhpR4DjfGkepkE=; 
+ b=YaJ+LNitNLTcPjZP3ob9seOFY7b65vc0hq8Re1L4MYfp4gvEqbQ1c7pXOVTEH9L+HXmr1mrMHlsOMkRbb7EcpErU9vArDwAUargOOUXVZ/kC815UjA2ZQB+V5gL3kfpN+s1GhPTU1j4nCm24C7GhTAPm34dDa9cxvah+JoLo5hCb7zeVVzmddExLrQV/Dx6oIBHOLWR3YP31RbIVP8dBFfUWj5dXncKHBpWJjHSkmXFbDE7Fx3BWJ/6i+PDqP0L2r52huDerwXNkehSup0GsnYvSQV4MQ5HwYuiREbnZpWqc6noxTpWPlBR/qGJNmzIa1iiHPVMpfuAtf79xPlplpA==;
+Received: from 1.pool85-50-22.dynamic.orange.es ([85.50.22.1]
+ helo=[192.168.1.119]) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1lx1ui-0005dT-TN; Sat, 26 Jun 2021 08:35:37 +0200
+Message-ID: <0032ceefa7c39bdd03907565ab9762ad6007eb80.camel@igalia.com>
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>, 
+ "events@lists.x.org"
+ <events@lists.x.org>, "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
+ <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
+ <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
+ <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Date: Sat, 26 Jun 2021 08:35:26 +0200
+In-Reply-To: <380e8cb0f18c6f4b21c20b382668316b8962159a.camel@igalia.com>
+References: <790BA4EE-E3F0-40B9-BE18-3646492F1CAE@intel.com>
+ <380e8cb0f18c6f4b21c20b382668316b8962159a.camel@igalia.com>
+User-Agent: Evolution 3.40.2 (3.40.2-1.fc34) 
 MIME-Version: 1.0
-In-Reply-To: <1624539354.6zggpdrdbw.astroid@bobo.none>
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: Xd2p2n2e6jxdPlNvwSbyIgmg3LPAQMfs
-X-Proofpoint-ORIG-GUID: 6q0X_bUItmYJaGkAxPmmRfj9zzu6NsL2
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-06-25_02:2021-06-24,
- 2021-06-25 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 mlxlogscore=999
- impostorscore=0 bulkscore=0 priorityscore=1501 clxscore=1011 mlxscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2106250043
 X-Mailman-Approved-At: Mon, 28 Jun 2021 09:31:03 +0000
-Subject: Re: [Intel-gfx] [PATCH 0/6] KVM: Remove uses of struct page from
- x86 and arm64 MMU
+Subject: Re: [Intel-gfx] [Mesa-dev] XDC 2021: Registration & Call for
+ Proposals now open!
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,136 +66,157 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wanpeng Li <wanpengli@tencent.com>, kvm@vger.kernel.org,
- David Stevens <stevensd@google.com>,
- Alexandru Elisei <alexandru.elisei@arm.com>, intel-gfx@lists.freedesktop.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kvmarm@lists.cs.columbia.edu,
- Will Deacon <will@kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- James Morse <james.morse@arm.com>, kvm-ppc@vger.kernel.org,
- Sean Christopherson <seanjc@google.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, linux-mips@vger.kernel.org,
- intel-gvt-dev@lists.freedesktop.org, Joerg Roedel <joro@8bytes.org>,
- linux-arm-kernel@lists.infradead.org, Jim Mattson <jmattson@google.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Content-Type: multipart/mixed; boundary="===============1777755275=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
+--===============1777755275==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-01vBJSSMux+wzjjp4LED"
 
-On 24.06.21 14:57, Nicholas Piggin wrote:
-> Excerpts from Paolo Bonzini's message of June 24, 2021 10:41 pm:
->> On 24/06/21 13:42, Nicholas Piggin wrote:
->>> Excerpts from Nicholas Piggin's message of June 24, 2021 8:34 pm:
->>>> Excerpts from David Stevens's message of June 24, 2021 1:57 pm:
->>>>> KVM supports mapping VM_IO and VM_PFNMAP memory into the guest by using
->>>>> follow_pte in gfn_to_pfn. However, the resolved pfns may not have
->>>>> assoicated struct pages, so they should not be passed to pfn_to_page.
->>>>> This series removes such calls from the x86 and arm64 secondary MMU. To
->>>>> do this, this series modifies gfn_to_pfn to return a struct page in
->>>>> addition to a pfn, if the hva was resolved by gup. This allows the
->>>>> caller to call put_page only when necessated by gup.
->>>>>
->>>>> This series provides a helper function that unwraps the new return type
->>>>> of gfn_to_pfn to provide behavior identical to the old behavior. As I
->>>>> have no hardware to test powerpc/mips changes, the function is used
->>>>> there for minimally invasive changes. Additionally, as gfn_to_page and
->>>>> gfn_to_pfn_cache are not integrated with mmu notifier, they cannot be
->>>>> easily changed over to only use pfns.
->>>>>
->>>>> This addresses CVE-2021-22543 on x86 and arm64.
->>>>
->>>> Does this fix the problem? (untested I don't have a POC setup at hand,
->>>> but at least in concept)
->>>
->>> This one actually compiles at least. Unfortunately I don't have much
->>> time in the near future to test, and I only just found out about this
->>> CVE a few hours ago.
->>
->> And it also works (the reproducer gets an infinite stream of userspace
->> exits and especially does not crash).  We can still go for David's
->> solution later since MMU notifiers are able to deal with this pages, but
->> it's a very nice patch for stable kernels.
-> 
-> Oh nice, thanks for testing. How's this?
-> 
-> Thanks,
-> Nick
-> 
-> ---
-> 
-> KVM: Fix page ref underflow for regions with valid but non-refcounted pages
-> 
-> It's possible to create a region which maps valid but non-refcounted
-> pages (e.g., tail pages of non-compound higher order allocations). These
-> host pages can then be returned by gfn_to_page, gfn_to_pfn, etc., family
-> of APIs, which take a reference to the page, which takes it from 0 to 1.
-> When the reference is dropped, this will free the page incorrectly.
-> 
-> Fix this by only taking a reference on the page if it was non-zero,
-> which indicates it is participating in normal refcounting (and can be
-> released with put_page).
-> 
-> Signed-off-by: Nicholas Piggin <npiggin@gmail.com>
-> ---
->   virt/kvm/kvm_main.c | 19 +++++++++++++++++--
->   1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 6a6bc7af0e28..46fb042837d2 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -2055,6 +2055,13 @@ static bool vma_is_valid(struct vm_area_struct *vma, bool write_fault)
->   	return true;
->   }
->   
-> +static int kvm_try_get_pfn(kvm_pfn_t pfn)
-> +{
-> +	if (kvm_is_reserved_pfn(pfn))
-> +		return 1;
-> +	return get_page_unless_zero(pfn_to_page(pfn));
-> +}
-> +
->   static int hva_to_pfn_remapped(struct vm_area_struct *vma,
->   			       unsigned long addr, bool *async,
->   			       bool write_fault, bool *writable,
-> @@ -2104,13 +2111,21 @@ static int hva_to_pfn_remapped(struct vm_area_struct *vma,
->   	 * Whoever called remap_pfn_range is also going to call e.g.
->   	 * unmap_mapping_range before the underlying pages are freed,
->   	 * causing a call to our MMU notifier.
-> +	 *
-> +	 * Certain IO or PFNMAP mappings can be backed with valid
-> +	 * struct pages, but be allocated without refcounting e.g.,
-> +	 * tail pages of non-compound higher order allocations, which
-> +	 * would then underflow the refcount when the caller does the
-> +	 * required put_page. Don't allow those pages here.
->   	 */
-> -	kvm_get_pfn(pfn);
-> +	if (!kvm_try_get_pfn(pfn))
-> +		r = -EFAULT;
->   
 
-Right. That should also take care of s390 (pin_guest_page in vsie.c
-which calls gfn_to_page).
-FWIW, the current API is really hard to follow as it does not tell
-which functions take a reference and which dont.
+--=-01vBJSSMux+wzjjp4LED
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Anyway, this patch (with cc stable?)
+One week!
 
-Reviewed-by: Christian Borntraeger <borntraeger@de.ibm.com>
+Don't forget to submit your proposals!
 
->   out:
->   	pte_unmap_unlock(ptep, ptl);
->   	*p_pfn = pfn;
-> -	return 0;
-> +
-> +	return r;
->   }
->   
->   /*
-> 
+Sam
+
+On Tue, 2021-06-08 at 12:38 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> Kind reminder. Deadline is Sunday, 4 July 2021 :-)
+>=20
+> Sam
+>=20
+> On Thu, 2021-05-20 at 10:01 +0000, Szwichtenberg, Radoslaw wrote:
+> > Hello!
+> > =C2=A0
+> > Registration & Call for Proposals are now open for XDC 2021, which
+> > will
+> > take place on September 15-17, 2021. This year we will repeat as
+> > virtual event.
+> > =C2=A0
+> > https://indico.freedesktop.org/event/1/
+> > =C2=A0
+> > As usual, the conference is free of charge and open to the general
+> > public. If you plan on attending, please make sure to register as
+> > early
+> > as possible!
+> > =C2=A0
+> > In order to register as attendee, you will therefore need to
+> > register
+> > via the XDC website. As XDC moved to a new Indico infrastructure,
+> > if
+> > you previously registered on the XDC website, you need to create a
+> > new
+> > account again.
+> > =C2=A0
+> > https://indico.freedesktop.org/event/1/registrations/1/
+> > =C2=A0
+> > In addition to registration, the CfP is now open for talks,
+> > workshops
+> > and demos at XDC 2021. While any serious proposal will be
+> > gratefully
+> > considered, topics of interest to X.Org and freedesktop.org
+> > developers
+> > are encouraged. The program focus is on new development, ongoing
+> > challenges and anything else that will spark discussions among
+> > attendees in the hallway track.
+> > =C2=A0
+> > We are open to talks across all layers of the graphics stack, from
+> > the
+> > kernel to desktop environments / graphical applications and about
+> > how
+> > to make things better for the developers who build them. Head to
+> > the
+> > CfP page to learn more:=C2=A0
+> > =C2=A0
+> > https://indico.freedesktop.org/event/1/abstracts/
+> > =C2=A0
+> > The deadline for submissions is Sunday, 4 July 2021.
+> > =C2=A0
+> > Last year we modified our Reimbursement Policy to accept speaker
+> > expenses for X.Org virtual events like XDC 2021. Check it out here:
+> > =C2=A0
+> > https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
+> > =C2=A0
+> > If you have any questions, please send me an email to
+> > radoslaw.szwichtenberg@intel.com,=C2=A0=C2=A0adding on CC the X.org boa=
+rd
+> > (board
+> > at foundation.x.org).
+> > =C2=A0
+> > And don't forget, you can follow us on Twitter for all the latest
+> > updates and to stay connected:
+> > =C2=A0
+> > =C2=A0
+> > https://twitter.com/XOrgDevConf
+> > =C2=A0
+> > Best,
+> > =C2=A0
+> > Radek
+> > =C2=A0
+> > P.S: a DNS redirection (xdc2021.x.org) is work in progress. Please
+> > use
+> > the mentioned links for the moment.
+> > =C2=A0
+> > =C2=A0
+> > Rados=C5=82aw Szwichtenberg
+> > -------------------------------------------------
+> > Intel Technology Poland sp. z o.o.
+> > ul. Slowackiego 173, 80-298 Gdansk
+> > KRS 101882 - NIP 957-07-52-316
+> > =C2=A0
+> > _______________________________________________
+> > mesa-dev mailing list
+> > mesa-dev@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+>=20
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+
+
+--=-01vBJSSMux+wzjjp4LED
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmDWyq4ACgkQf/S6MvF9
+w0NeCA/+NKJD5cvxuz9Kgx4Q3zeKFaiT5K6l1uYCeoJhhftn5RejAoMTX/eChdoS
+ryG9w4LYKrplDwk2qDSKsrmUudxP8uoMJvtCXr8tkBwAwFwSKh0hUakr5sEOboCF
++r1QnA9+pO+RTte3mTI0fkBRHQpE+iuit6ajL6VklzKHL3JR7bXd14YQDOllHBLo
+2m4fnT2552jAFB564Ws+c532MS5wOzSxmn1KCTmonscCD7ibawtImz9AkFrKO6H2
+prTX2lceXZEfNKUVBe2GdGTKY3b5IgprYGHezzTQ2OEB7ahuLgkCJhhybhtJgDBZ
+4PHSndp41jMF9ppg4PDch5VDkjuN5xxzeDgATdAt1aNaYqr1QuaMdQg5bGmYVWxA
+i8y9JstwBwrStSa2PlVDxHU4kYl8H2v3A4Bh40yO8euunb1kWYjMfjNvE2/4b7iM
+Ypnx4XRI3RV19HtAxjUvx67syWBzqSUYEr+DhmerikOmE7rA8a2rGSTpOJRJjYFt
+ziEcDgJbMrzbOE/+EYf93+FRotnBY7g7pzAq7WEOKx7fb9gB0nghpWD7GYxEIRn0
+cHkgj3huK4joxPgz3ezvOfN8v9LzW8xzf0g7KXCrgxzRwFjBv+O22mNgz4SgsTnd
+j9Ha/GpoZUxn4knkiuBIU+De8dCdIDUuvRKVIJlsMQVMAj2aNkI=
+=9mIJ
+-----END PGP SIGNATURE-----
+
+--=-01vBJSSMux+wzjjp4LED--
+
+
+--===============1777755275==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1777755275==--
+
