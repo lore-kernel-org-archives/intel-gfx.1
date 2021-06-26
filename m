@@ -2,65 +2,52 @@ Return-Path: <SRS0=2qg2=LW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00D4AC49EAB
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B9B9C49EA7
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6BB061C49
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6BB061C49
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=quicinc.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2551961C49
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:31:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2551961C49
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=effective-light.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2E986E3F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77D196E3EF;
 	Mon, 28 Jun 2021 09:31:04 +0000 (UTC)
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1567A6E972;
- Wed, 23 Jun 2021 18:44:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1624473883; x=1656009883;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=N07wTNJU87j8J0GwX4jxR069BiU3mP0B1FK82hyEXsU=;
- b=YaQG1kmOJmrIQ4OYRGvFbMs7YdDbMfAUzTt5+3dU3awrC3ogq9wrVQyF
- by/8dBmI481zG9rDrDT63r5gl0+4Lgssz8Mjz1GicA/qq40Nz3W4Z2g8Y
- cwdpP2PDxeqtQnpQtwpqB5cxljkW9npsn4gepj+IF4rWnVDZ0OlwyEZ53 U=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 23 Jun 2021 11:44:42 -0700
-X-QCInternal: smtphost
-Received: from nasanexm03e.na.qualcomm.com ([10.85.0.48])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 23 Jun 2021 11:44:41 -0700
-Received: from [10.38.240.33] (10.80.80.8) by nasanexm03e.na.qualcomm.com
- (10.85.0.48) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 23 Jun
- 2021 11:44:35 -0700
-To: Will Deacon <will@kernel.org>
-References: <20210619034043.199220-1-tientzu@chromium.org>
- <20210619034043.199220-7-tientzu@chromium.org>
- <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
- <20210623183736.GA472@willie-the-truck>
-From: Qian Cai <quic_qiancai@quicinc.com>
-Message-ID: <19d4c7a2-744d-21e0-289c-a576e1f0e6f3@quicinc.com>
-Date: Wed, 23 Jun 2021 14:44:34 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+X-Greylist: delayed 400 seconds by postgrey-1.36 at gabe;
+ Sat, 26 Jun 2021 07:32:29 UTC
+Received: from h2.fbrelay.privateemail.com (h2.fbrelay.privateemail.com
+ [131.153.2.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 863756E9CF;
+ Sat, 26 Jun 2021 07:32:29 +0000 (UTC)
+Received: from MTA-06-3.privateemail.com (mta-06.privateemail.com
+ [68.65.122.16])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by h1.fbrelay.privateemail.com (Postfix) with ESMTPS id F247C800FD;
+ Sat, 26 Jun 2021 03:25:47 -0400 (EDT)
+Received: from MTA-06.privateemail.com (localhost [127.0.0.1])
+ by MTA-06.privateemail.com (Postfix) with ESMTP id 3187F6009C;
+ Sat, 26 Jun 2021 03:25:46 -0400 (EDT)
+Received: from hal-station.. (unknown [10.20.151.246])
+ by MTA-06.privateemail.com (Postfix) with ESMTPA id F20106009A;
+ Sat, 26 Jun 2021 03:25:43 -0400 (EDT)
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: linux-kernel@vger.kernel.org
+Date: Sat, 26 Jun 2021 03:25:09 -0400
+Message-Id: <20210626072513.41049-1-someguy@effective-light.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <20210623183736.GA472@willie-the-truck>
-Content-Language: en-US
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanexm03e.na.qualcomm.com (10.85.0.48)
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Mon, 28 Jun 2021 09:31:03 +0000
-Subject: Re: [Intel-gfx] [PATCH v14 06/12] swiotlb: Use
- is_swiotlb_force_bounce for swiotlb data bouncing
+Subject: [Intel-gfx] [PATCH] drm/i915/display: replace boilerplate code with
+ helper macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,82 +60,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com,
- linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
- benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
- Frank Rowand <frowand.list@gmail.com>, Christoph Hellwig <hch@lst.de>,
- jxgao@google.com, sstabellini@kernel.org,
- Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
- Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, mingo@kernel.org,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Dan Williams <dan.j.williams@intel.com>, matthew.auld@intel.com,
- Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
- Jim Quinlan <james.quinlan@broadcom.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- intel-gfx@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>,
- Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
- Claire Chang <tientzu@chromium.org>, boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- airlied@linux.ie, Thierry Reding <treding@nvidia.com>,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- xypron.glpk@gmx.de, thomas.lendacky@amd.com, linuxppc-dev@lists.ozlabs.org,
- bauerman@linux.ibm.com
+Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Hamza Mahfooz <someguy@effective-light.com>,
+ David Airlie <airlied@linux.ie>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dave Airlie <airlied@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-media@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+As per commit 22be87401289 ("drm: TODO: Add DRM_MODESET_LOCK_ALL*
+conversion to todo.rst"),
+drm_modeset_lock_all()/drm_modeset_unlock_all() and boilerplate code
+surronding instances of drm_modeset_lock_all_ctx() with a local acquire
+context should be replaced with the relevant helper macros.
 
+Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
 
-On 6/23/2021 2:37 PM, Will Deacon wrote:
-> On Wed, Jun 23, 2021 at 12:39:29PM -0400, Qian Cai wrote:
->>
->>
->> On 6/18/2021 11:40 PM, Claire Chang wrote:
->>> Propagate the swiotlb_force into io_tlb_default_mem->force_bounce and
->>> use it to determine whether to bounce the data or not. This will be
->>> useful later to allow for different pools.
->>>
->>> Signed-off-by: Claire Chang <tientzu@chromium.org>
->>> Reviewed-by: Christoph Hellwig <hch@lst.de>
->>> Tested-by: Stefano Stabellini <sstabellini@kernel.org>
->>> Tested-by: Will Deacon <will@kernel.org>
->>> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
->>
->> Reverting the rest of the series up to this patch fixed a boot crash with NVMe on today's linux-next.
-> 
-> Hmm, so that makes patch 7 the suspicious one, right?
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 64e9107d70f7..e8cb2881d2b4 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -40,6 +40,7 @@
+ #include <drm/drm_dp_helper.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fourcc.h>
++#include "drm/drm_modeset_lock.h"
+ #include <drm/drm_plane_helper.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_rect.h>
+@@ -11836,6 +11837,7 @@ int intel_modeset_init_nogem(struct drm_i915_private *i915)
+ 	struct drm_device *dev = &i915->drm;
+ 	enum pipe pipe;
+ 	struct intel_crtc *crtc;
++	struct drm_modeset_acquire_ctx ctx;
+ 	int ret;
+ 
+ 	intel_init_pm(i915);
+@@ -11884,9 +11886,9 @@ int intel_modeset_init_nogem(struct drm_i915_private *i915)
+ 	intel_vga_disable(i915);
+ 	intel_setup_outputs(i915);
+ 
+-	drm_modeset_lock_all(dev);
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 	intel_modeset_setup_hw_state(dev, dev->mode_config.acquire_ctx);
+-	drm_modeset_unlock_all(dev);
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	for_each_intel_crtc(dev, crtc) {
+ 		struct intel_initial_plane_config plane_config = {};
+@@ -12795,22 +12797,14 @@ void intel_display_resume(struct drm_device *dev)
+ 	if (state)
+ 		state->acquire_ctx = &ctx;
+ 
+-	drm_modeset_acquire_init(&ctx, 0);
+-
+-	while (1) {
+-		ret = drm_modeset_lock_all_ctx(dev, &ctx);
+-		if (ret != -EDEADLK)
+-			break;
+-
+-		drm_modeset_backoff(&ctx);
+-	}
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 
+ 	if (!ret)
+ 		ret = __intel_display_resume(dev, state, &ctx);
+ 
+ 	intel_enable_ipc(dev_priv);
+-	drm_modeset_drop_locks(&ctx);
+-	drm_modeset_acquire_fini(&ctx);
++
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
+ 
+ 	if (ret)
+ 		drm_err(&dev_priv->drm,
+-- 
+2.32.0
 
-Will, no. It is rather patch #6 (this patch). Only the patch from #6 to #12 were reverted to fix the issue. Also, looking at this offset of the crash,
-
-pc : dma_direct_map_sg+0x304/0x8f0
-is_swiotlb_force_bounce at /usr/src/linux-next/./include/linux/swiotlb.h:119
-
-is_swiotlb_force_bounce() was the new function introduced in this patch here.
-
-+static inline bool is_swiotlb_force_bounce(struct device *dev)
-+{
-+	return dev->dma_io_tlb_mem->force_bounce;
-+}
-
-> 
-> Looking at that one more closely, it looks like swiotlb_find_slots() takes
-> 'alloc_size + offset' as its 'alloc_size' parameter from
-> swiotlb_tbl_map_single() and initialises 'mem->slots[i].alloc_size' based
-> on 'alloc_size + offset', which looks like a change in behaviour from the
-> old code, which didn't include the offset there.
-> 
-> swiotlb_release_slots() then adds the offset back on afaict, so we end up
-> accounting for it twice and possibly unmap more than we're supposed to?
-> 
-> Will
-> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
