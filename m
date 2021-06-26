@@ -7,45 +7,47 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A144C2B9F4
-	for <intel-gfx@archiver.kernel.org>; Sat, 26 Jun 2021 00:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FD1DC2B9F4
+	for <intel-gfx@archiver.kernel.org>; Sat, 26 Jun 2021 00:45:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 29AA26194B
-	for <intel-gfx@archiver.kernel.org>; Sat, 26 Jun 2021 00:45:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29AA26194B
+	by mail.kernel.org (Postfix) with ESMTPS id DDE8F61407
+	for <intel-gfx@archiver.kernel.org>; Sat, 26 Jun 2021 00:45:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDE8F61407
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4FB66E12B;
-	Sat, 26 Jun 2021 00:45:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B02966E9AA;
+	Sat, 26 Jun 2021 00:45:24 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3C926E12B;
- Sat, 26 Jun 2021 00:45:22 +0000 (UTC)
-IronPort-SDR: TLgJSN9dgeJ5U5gCV7c/R/jrvjozprwaaHrs8hf//3mjB7AmerJRwZnEqTnMVjb74Wo6oiwhUk
- A/YKGfXPeb/A==
-X-IronPort-AV: E=McAfee;i="6200,9189,10026"; a="293394463"
-X-IronPort-AV: E=Sophos;i="5.83,300,1616482800"; d="scan'208";a="293394463"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 219ED6E986;
+ Sat, 26 Jun 2021 00:45:23 +0000 (UTC)
+IronPort-SDR: yBVbQgouMtcL/TRs10kqZOuvVAiOwe+XRfHTTcy6twV5VA/S7T4fYeSWBSeWR9Vj0GZ7YL2ZV/
+ 245gVHf0qTMQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10026"; a="293394465"
+X-IronPort-AV: E=Sophos;i="5.83,300,1616482800"; d="scan'208";a="293394465"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Jun 2021 17:45:22 -0700
-IronPort-SDR: LNyye9NmYgkKNLNVn5noDK5X0z29gwfQj7e0XmEWRkonj5vPS2q9ebzReBSisMCurSi9WBTxtW
- Ey8tj/oKlZSQ==
+IronPort-SDR: B582Jy5/LZA3jC22pekYtLx7EwbbUAWwrBqNxAuwlt5+iFghc89Tyn/hOFMYnnllIVuVSFddKo
+ BRTBiOZuhwcQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,300,1616482800"; d="scan'208";a="445806991"
+X-IronPort-AV: E=Sophos;i="5.83,300,1616482800"; d="scan'208";a="445806993"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga007.jf.intel.com with ESMTP; 25 Jun 2021 17:45:22 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Fri, 25 Jun 2021 17:45:20 -0700
-Message-Id: <20210626004522.1699509-1-John.C.Harrison@Intel.com>
+Date: Fri, 25 Jun 2021 17:45:22 -0700
+Message-Id: <20210626004522.1699509-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210626004522.1699509-1-John.C.Harrison@Intel.com>
+References: <20210626004522.1699509-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH 0/2] Update to new HuC for TGL+ and enable
- GuC/HuC on ADL-P
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/adlp: Add ADL-P GuC/HuC firmware
+ files
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,20 +68,27 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-There is a new HuC version available for TGL and compatible platforms,
-so switch to using it. Also, there is now a GuC and HuC for ADL-P, so
-use those too.
+Add ADL-P to the list of supported GuC and HuC firmware versions. For
+HuC, it reuses the existing TGL firmware file. For GuC, there is a
+dedicated firmware release.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-
-John Harrison (2):
-  drm/i915/huc: Update TGL and friends to HuC 7.9.3
-  drm/i915/adlp: Add ADL-P GuC/HuC firmware files
-
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index f05b1572e3c3..3a16d08608a5 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -48,6 +48,7 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+  * firmware as TGL.
+  */
+ #define INTEL_UC_FIRMWARE_DEFS(fw_def, guc_def, huc_def) \
++	fw_def(ALDERLAKE_P, 0, guc_def(adlp, 62, 0, 3), huc_def(tgl, 7, 9, 3)) \
+ 	fw_def(ALDERLAKE_S, 0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
+ 	fw_def(ROCKETLAKE,  0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
+ 	fw_def(TIGERLAKE,   0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
 -- 
 2.25.1
 
