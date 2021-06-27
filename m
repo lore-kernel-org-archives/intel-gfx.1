@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41172C49EA6
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Jun 2021 22:57:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC94BC48BC2
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Jun 2021 22:57:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1193861429
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Jun 2021 22:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1193861429
+	by mail.kernel.org (Postfix) with ESMTPS id B07C261429
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Jun 2021 22:57:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B07C261429
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE3E6E1BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9BDA6E1E8;
 	Sun, 27 Jun 2021 22:56:56 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1004F6E0D7;
- Sun, 27 Jun 2021 22:56:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10028"; a="206039733"
-X-IronPort-AV: E=Sophos;i="5.83,304,1616482800"; d="scan'208";a="206039733"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6F8B6E0BF;
+ Sun, 27 Jun 2021 22:56:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10028"; a="206039729"
+X-IronPort-AV: E=Sophos;i="5.83,304,1616482800"; d="scan'208";a="206039729"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Jun 2021 15:56:48 -0700
-X-IronPort-AV: E=Sophos;i="5.83,304,1616482800"; d="scan'208";a="625049914"
+X-IronPort-AV: E=Sophos;i="5.83,304,1616482800"; d="scan'208";a="625049900"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Jun 2021 15:56:48 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Sun, 27 Jun 2021 16:14:38 -0700
-Message-Id: <20210627231439.138612-7-matthew.brost@intel.com>
+Date: Sun, 27 Jun 2021 16:14:34 -0700
+Message-Id: <20210627231439.138612-3-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210627231439.138612-1-matthew.brost@intel.com>
 References: <20210627231439.138612-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 6/7] drm/i915/guc: Optimize CTB writes and reads
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915/guc: Improve error message for
+ unsolicited CT response
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,233 +60,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CTB writes are now in the path of command submission and should be
-optimized for performance. Rather than reading CTB descriptor values
-(e.g. head, tail) which could result in accesses across the PCIe bus,
-store shadow local copies and only read/write the descriptor values when
-absolutely necessary. Also store the current space in the each channel
-locally.
+Improve the error message when a unsolicited CT response is received by
+printing fence that couldn't be found, the last fence, and all requests
+with a response outstanding.
 
-v2:
- (Michel)
-  - Add additional sanity checks for head / tail pointers
-  - Use GUC_CTB_HDR_LEN rather than magic 1
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 88 +++++++++++++++--------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  6 ++
- 2 files changed, 65 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 8f553f7f9619..63bce4dc21fa 100644
+index b86575b99537..80db59b45c45 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -130,6 +130,10 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc)
- static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb)
- {
- 	ctb->broken = false;
-+	ctb->tail = 0;
-+	ctb->head = 0;
-+	ctb->space = CIRC_SPACE(ctb->tail, ctb->head, ctb->size);
-+
- 	guc_ct_buffer_desc_init(ctb->desc);
- }
- 
-@@ -383,10 +387,8 @@ static int ct_write(struct intel_guc_ct *ct,
- {
- 	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
--	u32 head = desc->head;
--	u32 tail = desc->tail;
-+	u32 tail = ctb->tail;
- 	u32 size = ctb->size;
--	u32 used;
- 	u32 header;
- 	u32 hxg;
- 	u32 *cmds = ctb->cmds;
-@@ -395,25 +397,22 @@ static int ct_write(struct intel_guc_ct *ct,
- 	if (unlikely(desc->status))
- 		goto corrupted;
- 
--	if (unlikely((tail | head) >= size)) {
-+	GEM_BUG_ON(tail > size);
-+
-+#ifdef CONFIG_DRM_I915_DEBUG_GUC
-+	if (unlikely(tail != READ_ONCE(desc->tail))) {
-+		CT_ERROR(ct, "Tail was modified %u != %u\n",
-+			 desc->tail, ctb->tail);
-+		desc->status |= GUC_CTB_STATUS_MISMATCH;
-+		goto corrupted;
-+	}
-+	if (unlikely((desc->tail | desc->head) >= size)) {
- 		CT_ERROR(ct, "Invalid offsets head=%u tail=%u (size=%u)\n",
--			 head, tail, size);
-+			 desc->head, desc->tail, size);
- 		desc->status |= GUC_CTB_STATUS_OVERFLOW;
- 		goto corrupted;
+@@ -732,12 +732,16 @@ static int ct_handle_response(struct intel_guc_ct *ct, struct ct_incoming_msg *r
+ 		found = true;
+ 		break;
  	}
+-	spin_unlock_irqrestore(&ct->requests.lock, flags);
 -
--	/*
--	 * tail == head condition indicates empty. GuC FW does not support
--	 * using up the entire buffer to get tail == head meaning full.
--	 */
--	if (tail < head)
--		used = (size - head) + tail;
--	else
--		used = tail - head;
--
--	/* make sure there is a space including extra dw for the fence */
--	if (unlikely(used + len + GUC_CTB_HDR_LEN >= size))
--		return -ENOSPC;
-+#endif
- 
- 	/*
- 	 * dw0: CT header (including fence)
-@@ -454,7 +453,9 @@ static int ct_write(struct intel_guc_ct *ct,
- 	write_barrier(ct);
- 
- 	/* now update descriptor */
-+	ctb->tail = tail;
- 	WRITE_ONCE(desc->tail, tail);
-+	ctb->space -= len + GUC_CTB_HDR_LEN;
- 
- 	return 0;
- 
-@@ -470,7 +471,7 @@ static int ct_write(struct intel_guc_ct *ct,
-  * @req:	pointer to pending request
-  * @status:	placeholder for status
-  *
-- * For each sent request, Guc shall send bac CT response message.
-+ * For each sent request, GuC shall send back CT response message.
-  * Our message handler will update status of tracked request once
-  * response message with given fence is received. Wait here and
-  * check for valid response status value.
-@@ -526,24 +527,35 @@ static inline bool ct_deadlocked(struct intel_guc_ct *ct)
- 	return ret;
- }
- 
--static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
-+static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
- {
--	struct guc_ct_buffer_desc *desc = ctb->desc;
--	u32 head = READ_ONCE(desc->head);
-+	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
-+	u32 head;
- 	u32 space;
- 
--	space = CIRC_SPACE(desc->tail, head, ctb->size);
-+	if (ctb->space >= len_dw)
-+		return true;
-+
-+	head = READ_ONCE(ctb->desc->head);
-+	if (unlikely(head > ctb->size)) {
-+		CT_ERROR(ct, "Corrupted descriptor head=%u tail=%u size=%u\n",
-+			  ctb->desc->head, ctb->desc->tail, ctb->size);
-+		ctb->desc->status |= GUC_CTB_STATUS_OVERFLOW;
-+		ctb->broken = true;
-+		return false;
-+	}
-+
-+	space = CIRC_SPACE(ctb->tail, head, ctb->size);
-+	ctb->space = space;
- 
- 	return space >= len_dw;
- }
- 
- static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
- {
--	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
--
- 	lockdep_assert_held(&ct->ctbs.send.lock);
- 
--	if (unlikely(!h2g_has_room(ctb, len_dw))) {
-+	if (unlikely(!h2g_has_room(ct, len_dw))) {
- 		if (ct->stall_time == KTIME_MAX)
- 			ct->stall_time = ktime_get();
- 
-@@ -619,7 +631,7 @@ static int ct_send(struct intel_guc_ct *ct,
- 	 */
- retry:
- 	spin_lock_irqsave(&ctb->lock, flags);
--	if (unlikely(!h2g_has_room(ctb, len + GUC_CTB_HDR_LEN))) {
-+	if (unlikely(!h2g_has_room(ct, len + GUC_CTB_HDR_LEN))) {
- 		if (ct->stall_time == KTIME_MAX)
- 			ct->stall_time = ktime_get();
- 		spin_unlock_irqrestore(&ctb->lock, flags);
-@@ -736,7 +748,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- {
- 	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
--	u32 head = desc->head;
-+	u32 head = ctb->head;
- 	u32 tail = desc->tail;
- 	u32 size = ctb->size;
- 	u32 *cmds = ctb->cmds;
-@@ -751,12 +763,29 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 	if (unlikely(desc->status))
- 		goto corrupted;
- 
--	if (unlikely((tail | head) >= size)) {
-+	GEM_BUG_ON(head > size);
-+
-+#ifdef CONFIG_DRM_I915_DEBUG_GUC
-+	if (unlikely(head != READ_ONCE(desc->head))) {
-+		CT_ERROR(ct, "Head was modified %u != %u\n",
-+			 desc->head, ctb->head);
-+		desc->status |= GUC_CTB_STATUS_MISMATCH;
-+		goto corrupted;
-+	}
-+	if (unlikely((desc->tail | desc->head) >= size)) {
-+		CT_ERROR(ct, "Invalid offsets head=%u tail=%u (size=%u)\n",
-+			 head, tail, size);
-+		desc->status |= GUC_CTB_STATUS_OVERFLOW;
-+		goto corrupted;
-+	}
-+#else
-+	if (unlikely((tail | ctb->head) >= size)) {
- 		CT_ERROR(ct, "Invalid offsets head=%u tail=%u (size=%u)\n",
- 			 head, tail, size);
- 		desc->status |= GUC_CTB_STATUS_OVERFLOW;
- 		goto corrupted;
+ 	if (!found) {
+ 		CT_ERROR(ct, "Unsolicited response (fence %u)\n", fence);
+-		return -ENOKEY;
++		CT_ERROR(ct, "Could not find fence=%u, last_fence=%u\n", fence,
++			 ct->requests.last_fence);
++		list_for_each_entry(req, &ct->requests.pending, link)
++			CT_ERROR(ct, "request %u awaits response\n",
++				 req->fence);
++		err = -ENOKEY;
  	}
-+#endif
++	spin_unlock_irqrestore(&ct->requests.lock, flags);
  
- 	/* tail == head condition indicates empty */
- 	available = tail - head;
-@@ -806,6 +835,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 	}
- 	CT_DEBUG(ct, "received %*ph\n", 4 * len, (*msg)->msg);
- 
-+	ctb->head = head;
- 	/* now update descriptor */
- 	WRITE_ONCE(desc->head, head);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index c9d6ae7848a7..a5b42b58483b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -33,6 +33,9 @@ struct intel_guc;
-  * @desc: pointer to the buffer descriptor
-  * @cmds: pointer to the commands buffer
-  * @size: size of the commands buffer in dwords
-+ * @head: local shadow copy of head in dwords
-+ * @tail: local shadow copy of tail in dwords
-+ * @space: local shadow copy of space in dwords
-  * @broken: flag to indicate if descriptor data is broken
-  */
- struct intel_guc_ct_buffer {
-@@ -40,6 +43,9 @@ struct intel_guc_ct_buffer {
- 	struct guc_ct_buffer_desc *desc;
- 	u32 *cmds;
- 	u32 size;
-+	u32 tail;
-+	u32 head;
-+	u32 space;
- 	bool broken;
- };
- 
+ 	if (unlikely(err))
+ 		return err;
 -- 
 2.28.0
 
