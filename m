@@ -2,44 +2,46 @@ Return-Path: <SRS0=2qg2=LW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEBADC49361
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 14:49:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5A8FC49EAB
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 14:49:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E590600CD
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 14:49:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E590600CD
+	by mail.kernel.org (Postfix) with ESMTPS id 88CFF61151
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 14:49:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88CFF61151
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B1986E484;
-	Mon, 28 Jun 2021 14:49:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94C0B6E489;
+	Mon, 28 Jun 2021 14:49:19 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56D476E484
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Jun 2021 14:49:14 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10029"; a="269097965"
-X-IronPort-AV: E=Sophos;i="5.83,306,1616482800"; d="scan'208";a="269097965"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2A9F6E487
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Jun 2021 14:49:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10029"; a="269097975"
+X-IronPort-AV: E=Sophos;i="5.83,306,1616482800"; d="scan'208";a="269097975"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2021 07:49:13 -0700
+ 28 Jun 2021 07:49:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,306,1616482800"; d="scan'208";a="456358332"
+X-IronPort-AV: E=Sophos;i="5.83,306,1616482800"; d="scan'208";a="456358346"
 Received: from kbommu-nuc8i7beh.iind.intel.com ([10.145.162.97])
- by fmsmga008.fm.intel.com with ESMTP; 28 Jun 2021 07:49:12 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 28 Jun 2021 07:49:15 -0700
 From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Jun 2021 20:08:25 +0530
-Message-Id: <20210628143829.22995-1-krishnaiah.bommu@intel.com>
+Date: Mon, 28 Jun 2021 20:08:27 +0530
+Message-Id: <20210628143829.22995-3-krishnaiah.bommu@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210628143829.22995-1-krishnaiah.bommu@intel.com>
+References: <20210628143829.22995-1-krishnaiah.bommu@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/4] The Following Patches are to Fix the
- Critical KclockWork Errors in i915_gem and gt
+Subject: [Intel-gfx] [PATCH 2/4] Klock work Fix for NULL dereferencing in
+ i915_gem_mman.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,36 +54,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
+ Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-S2xvY2sgd29yayBGaXggZm9yIE5VTEwgZGVyZWZlcmVuY2luZyBpbiBpOTE1X2dlbV90dG0uYwpv
-cmlnaW5hbCBpc3N1ZSBzdGF0ZW1lbnQgIlBvaW50ZXIgJ3NnJyByZXR1cm5lZCBmcm9tIGNhbGwg
-dG8gZnVuY3Rpb24gJ19faTkxNV9nZW1fb2JqZWN0X2dldF9zZycgYXQgbGluZSA1OTIgbWF5IGJl
-IE5VTEwgYW5kIHdpbGwgYmUgZGVyZWZlcmVuY2VkIGF0IGxpbmUgNTk0LiIKCktsb2NrIHdvcmsg
-Rml4IGZvciBOVUxMIGRlcmVmZXJlbmNpbmcgaW4gaTkxNV9nZW1fbW1hbi5jCm9yaWdpbmFsIGlz
-c3VlIHN0YXRlbWVudCAiTnVsbCBwb2ludGVyICdtbW8nIHRoYXQgY29tZXMgZnJvbSBsaW5lIDg5
-MiBtYXkgYmUgZGVyZWZlcmVuY2VkIGF0IGxpbmUgOTY0LiIKCktsb2NrIHdvcmsgRml4IGZvciBw
-b3NzaWJsZSBtZW1vcnkgbGVhayBpbiBpbnRlbF9leGVjbGlzdHNfc3VibWlzc2lvbi5jCm9yaWdp
-bmFsIGlzc3VlIHN0YXRlbWVudCDigJxQb3NzaWJsZSBtZW1vcnkgbGVhay4gRHluYW1pYyBtZW1v
-cnkgc3RvcmVkIGluICd2ZScgYWxsb2NhdGVkIHRocm91Z2ggZnVuY3Rpb24gJ2t6YWxsb2MnIGF0
-IGxpbmUgMzcyMSBjYW4gYmUgbG9zdCBhdCBsaW5lIDM4NTDigJ0KCktsb2NrIHdvcmsgRml4IGZv
-ciB1bmluaXRpYWxpemVkIGFycmF5IGludGVsX21pZ3JhdGUuYwpvcmlnaW5hbCBpc3N1ZSBzdGF0
-ZW1lbnQgIidlbmdpbmVzJyBhcnJheSBlbGVtZW50cyBtaWdodCBiZSB1c2VkIHVuaW5pdGlhbGl6
-ZWQgaW4gdGhpcyBmdW5jdGlvbi4iCgpCb21tdSBLcmlzaG5haWFoICg0KToKICBLbG9jayB3b3Jr
-IEZpeCBmb3IgTlVMTCBkZXJlZmVyZW5jaW5nIGluIGk5MTVfZ2VtX3R0bS5jCiAgS2xvY2sgd29y
-ayBGaXggZm9yIE5VTEwgZGVyZWZlcmVuY2luZyBpbiBpOTE1X2dlbV9tbWFuLmMKICBLbG9jayB3
-b3JrIEZpeCBmb3IgcG9zc2libGUgbWVtb3J5IGxlYWsgaW4KICAgIGludGVsX2V4ZWNsaXN0c19z
-dWJtaXNzaW9uLmMKICBLbG9jayB3b3JrIEZpeCBmb3IgdW5pbml0aWFsaXplZCBhcnJheSBpbnRl
-bF9taWdyYXRlLmMKCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fbW1hbi5jICAg
-ICAgICAgICAgIHwgMiArKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3R0bS5j
-ICAgICAgICAgICAgICB8IDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZXhlY2xp
-c3RzX3N1Ym1pc3Npb24uYyB8IDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfbWln
-cmF0ZS5jICAgICAgICAgICAgICB8IDQgKysrKwogNCBmaWxlcyBjaGFuZ2VkLCA4IGluc2VydGlv
-bnMoKykKCi0tIAoyLjI1LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2lu
-dGVsLWdmeAo=
+Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index a90f796e85c03..cad33cd49ba95 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -961,6 +961,8 @@ int i915_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+ 
+ 	vma->vm_private_data = mmo;
+ 
++	GEM_BUG_ON(!mmo);
++
+ 	switch (mmo->mmap_type) {
+ 	case I915_MMAP_TYPE_WC:
+ 		vma->vm_page_prot =
+-- 
+2.25.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
