@@ -2,52 +2,52 @@ Return-Path: <SRS0=2qg2=LW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FA1DC49EAB
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:32:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B3B2C2B9F4
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:38:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1DB03619C5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:32:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DB03619C5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 04D32619C5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 09:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 04D32619C5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A7246E3C6;
-	Mon, 28 Jun 2021 09:32:06 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC8A6E971;
- Wed, 23 Jun 2021 18:37:48 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3C1E061185;
- Wed, 23 Jun 2021 18:37:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624473468;
- bh=K9ctSOOXg/HLNG/KMzo+bt+uXbhOKksVK31vHq8QEAc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pew0mCStiOrsU0bWjM0b54f2cDTk0BFJYuT7oL0Hl93RfndilrrpZ00P5EcbMTEX/
- /lbkdoUtJfhzG6xhgO6NWycBIcDRvmNhEJGTWAKSFbeL2aFhOe2jpLrVodVSrKGkzr
- gHxURUCJo+Bry9z+VHTZDIOT/ABoSs0DN2Tjo7IL/UHU38iukI2V/m5xdJIYc7NUws
- 7NMVKjT7vcMuSIu2fy0OZOLVI8+LwwecPlMOHv27TBpClMax/sAEQmgzVN3VS5iIlB
- HGiL4Uzn3xHn2voW7eTXBh/NjM9NO32LN+GkhPpRHj+kINjyQizH9+P5WDGveYcADU
- kFBCzfquuEa8w==
-Date: Wed, 23 Jun 2021 19:37:37 +0100
-From: Will Deacon <will@kernel.org>
-To: Qian Cai <quic_qiancai@quicinc.com>
-Message-ID: <20210623183736.GA472@willie-the-truck>
-References: <20210619034043.199220-1-tientzu@chromium.org>
- <20210619034043.199220-7-tientzu@chromium.org>
- <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2A0E6E3B7;
+	Mon, 28 Jun 2021 09:38:13 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD4916E3B7;
+ Mon, 28 Jun 2021 09:38:12 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10028"; a="271778926"
+X-IronPort-AV: E=Sophos;i="5.83,305,1616482800"; d="scan'208";a="271778926"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2021 02:38:05 -0700
+X-IronPort-AV: E=Sophos;i="5.83,305,1616482800"; d="scan'208";a="454450822"
+Received: from danielmi-mobl2.ger.corp.intel.com (HELO [10.249.254.242])
+ ([10.249.254.242])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2021 02:38:03 -0700
+To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20210625122751.590289-1-matthew.auld@intel.com>
+ <20210625122751.590289-2-matthew.auld@intel.com>
+ <b6ee3701-2662-315c-3c2a-c4d92623fbbc@linux.intel.com>
+ <a7722f16-2f7b-b213-8a2d-27d5f02d893f@intel.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <d19caf7e-ed3b-5cfe-632a-46536aac03f4@linux.intel.com>
+Date: Mon, 28 Jun 2021 11:38:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <76c3343d-72e5-9df3-8924-5474ee698ef4@quicinc.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Mon, 28 Jun 2021 09:31:03 +0000
-Subject: Re: [Intel-gfx] [PATCH v14 06/12] swiotlb: Use
- is_swiotlb_force_bounce for swiotlb data bouncing
+In-Reply-To: <a7722f16-2f7b-b213-8a2d-27d5f02d893f@intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH v2 2/2] drm/i915/gem: only allow WB for smem
+ only placements
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,66 +60,101 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: heikki.krogerus@linux.intel.com,
- linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
- benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
- Frank Rowand <frowand.list@gmail.com>, Christoph Hellwig <hch@lst.de>,
- jxgao@google.com, sstabellini@kernel.org,
- Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
- Joerg Roedel <joro@8bytes.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, mingo@kernel.org,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Dan Williams <dan.j.williams@intel.com>, matthew.auld@intel.com,
- Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
- Jim Quinlan <james.quinlan@broadcom.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- intel-gfx@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>,
- Rob Herring <robh+dt@kernel.org>, bhelgaas@google.com,
- Claire Chang <tientzu@chromium.org>, boris.ostrovsky@oracle.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
- airlied@linux.ie, Thierry Reding <treding@nvidia.com>,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- xypron.glpk@gmx.de, thomas.lendacky@amd.com, linuxppc-dev@lists.ozlabs.org,
- bauerman@linux.ibm.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 23, 2021 at 12:39:29PM -0400, Qian Cai wrote:
-> 
-> 
-> On 6/18/2021 11:40 PM, Claire Chang wrote:
-> > Propagate the swiotlb_force into io_tlb_default_mem->force_bounce and
-> > use it to determine whether to bounce the data or not. This will be
-> > useful later to allow for different pools.
-> > 
-> > Signed-off-by: Claire Chang <tientzu@chromium.org>
-> > Reviewed-by: Christoph Hellwig <hch@lst.de>
-> > Tested-by: Stefano Stabellini <sstabellini@kernel.org>
-> > Tested-by: Will Deacon <will@kernel.org>
-> > Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> Reverting the rest of the series up to this patch fixed a boot crash with NVMe on today's linux-next.
-
-Hmm, so that makes patch 7 the suspicious one, right?
-
-Looking at that one more closely, it looks like swiotlb_find_slots() takes
-'alloc_size + offset' as its 'alloc_size' parameter from
-swiotlb_tbl_map_single() and initialises 'mem->slots[i].alloc_size' based
-on 'alloc_size + offset', which looks like a change in behaviour from the
-old code, which didn't include the offset there.
-
-swiotlb_release_slots() then adds the offset back on afaict, so we end up
-accounting for it twice and possibly unmap more than we're supposed to?
-
-Will
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SGksCgpPbiA2LzI4LzIxIDExOjEyIEFNLCBNYXR0aGV3IEF1bGQgd3JvdGU6Cj4gT24gMjgvMDYv
+MjAyMSAwODo0MSwgVGhvbWFzIEhlbGxzdHLDtm0gd3JvdGU6Cj4+Cj4+IE9uIDYvMjUvMjEgMjoy
+NyBQTSwgTWF0dGhldyBBdWxkIHdyb3RlOgo+Pj4gV2Ugb25seSBzdXBwb3J0IHNpbmdsZSBtb2Rl
+IGFuZCB0aGlzIHNob3VsZCBiZSBpbW11dGFibGUuIEZvciBzbWVtIG9ubHkKPj4+IHBsYWNlbWVu
+dHMgb24gREdGWCB0aGlzIHNob3VsZCBiZSBXQi4gT24gREcxIGV2ZXJ5dGhpbmcgaXMgc25vb3Bl
+ZCwKPj4+IGFsd2F5cywgYW5kIHNvIHNob3VsZCBiZSBjb2hlcmVudC4KPj4+Cj4+PiBJOTE1X0dF
+TV9ET01BSU5fR1RUIGxvb2tzIGxpa2UgaXQncyBmb3IgdGhlIGFwZXJ0dXJlIHdoaWNoIGlzIG5v
+dyBnb25lCj4+PiBmb3IgREdGWCwgc28gaG9wZWZ1bGx5IGNhbiBhbHNvIGJlIHNhZmVseSByZWpl
+Y3RlZC4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBNYXR0aGV3IEF1bGQgPG1hdHRoZXcuYXVsZEBp
+bnRlbC5jb20+Cj4+PiBDYzogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AbGlu
+dXguaW50ZWwuY29tPgo+Pj4gQ2M6IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxhbmtob3Jz
+dEBsaW51eC5pbnRlbC5jb20+Cj4+PiBDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBm
+ZndsbC5jaD4KPj4+IC0tLQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2Vt
+X2RvbWFpbi5jIHzCoCA3ICsrKysrKysKPj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9p
+OTE1X2dlbV9tbWFuLmPCoMKgIHwgMTAgKysrKysrKysrKwo+Pj4gwqAgMiBmaWxlcyBjaGFuZ2Vk
+LCAxNyBpbnNlcnRpb25zKCspCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2dlbS9pOTE1X2dlbV9kb21haW4uYyAKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2Vt
+L2k5MTVfZ2VtX2RvbWFpbi5jCj4+PiBpbmRleCBkMGM5MTY5N2JiMjIuLmUzNDU5YTUyNGU2NCAx
+MDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9kb21haW4u
+Ywo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2RvbWFpbi5jCj4+
+PiBAQCAtNTc3LDYgKzU3NywxMyBAQCBpOTE1X2dlbV9zZXRfZG9tYWluX2lvY3RsKHN0cnVjdCBk
+cm1fZGV2aWNlIAo+Pj4gKmRldiwgdm9pZCAqZGF0YSwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBn
+b3RvIG91dF91bnBpbjsKPj4+IMKgwqDCoMKgwqAgfQo+Pj4gK8KgwqDCoCBpZiAoSVNfREdGWCh0
+b19pOTE1KG9iai0+YmFzZS5kZXYpKSAmJiBvYmotPm1tLm5fcGxhY2VtZW50cyA9PSAKPj4+IDEg
+JiYKPj4+ICvCoMKgwqDCoMKgwqDCoCBpOTE1X2dlbV9vYmplY3RfcGxhY2VtZW50c19jb250YWlu
+X3R5cGUob2JqLCAKPj4+IElOVEVMX01FTU9SWV9TWVNURU0pICYmCj4+PiArwqDCoMKgwqDCoMKg
+wqAgcmVhZF9kb21haW5zICE9IEk5MTVfR0VNX0RPTUFJTl9DUFUpIHsKPj4+ICvCoMKgwqDCoMKg
+wqDCoCBlcnIgPSAtRUlOVkFMOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGdvdG8gb3V0X3VucGluOwo+
+Pj4gK8KgwqDCoCB9Cj4+PiArCj4+PiDCoMKgwqDCoMKgIGlmIChyZWFkX2RvbWFpbnMgJiBJOTE1
+X0dFTV9ET01BSU5fV0MpCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZXJyID0gaTkxNV9nZW1fb2Jq
+ZWN0X3NldF90b193Y19kb21haW4ob2JqLCB3cml0ZV9kb21haW4pOwo+Pj4gwqDCoMKgwqDCoCBl
+bHNlIGlmIChyZWFkX2RvbWFpbnMgJiBJOTE1X0dFTV9ET01BSU5fR1RUKQo+Pj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9tbWFuLmMgCj4+PiBiL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9tbWFuLmMKPj4+IGluZGV4IGYzNTg2YjM2ZGQ1
+My4uYWZjOWYzZGMzOGI5IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2Vt
+L2k5MTVfZ2VtX21tYW4uYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVf
+Z2VtX21tYW4uYwo+Pj4gQEAgLTY3Myw2ICs2NzMsNyBAQCBfX2Fzc2lnbl9tbWFwX29mZnNldChz
+dHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAKPj4+ICpvYmosCj4+PiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGVudW0gaTkxNV9tbWFwX3R5cGUgbW1hcF90eXBlLAo+Pj4gwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCB1NjQgKm9mZnNldCwgc3RydWN0IGRybV9maWxlICpmaWxlKQo+
+Pj4gwqAgewo+Pj4gK8KgwqDCoCBzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IHRvX2k5
+MTUob2JqLT5iYXNlLmRldik7Cj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBpOTE1X21tYXBfb2Zmc2V0
+ICptbW87Cj4+PiDCoMKgwqDCoMKgIGlmIChpOTE1X2dlbV9vYmplY3RfbmV2ZXJfbW1hcChvYmop
+KQo+Pj4gQEAgLTY5Nyw2ICs2OTgsMTUgQEAgX19hc3NpZ25fbW1hcF9vZmZzZXQoc3RydWN0IGRy
+bV9pOTE1X2dlbV9vYmplY3QgCj4+PiAqb2JqLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGk5MTVf
+Z2VtX29iamVjdF9wbGFjZW1lbnRzX2NvbnRhaW5fdHlwZShvYmosIAo+Pj4gSU5URUxfTUVNT1JZ
+X0xPQ0FMKSkKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT0RFVjsKPj4+ICvCoMKg
+wqAgLyoKPj4+ICvCoMKgwqDCoCAqIEZvciBzbWVtIG9ubHkgcGxhY2VtZW50cyBvbiBER0ZYIHdl
+IG5lZWQgdG8gZGVmYXVsdCB0byBXQi4gCj4+PiBPbiBERzEKPj4+ICvCoMKgwqDCoCAqIGV2ZXJ5
+dGhpbmcgaXMgc25vb3BlZCBhbHdheXMsIHNvIHNob3VsZCBhbHdheXMgYmUgY29oZXJlbnQuCj4+
+PiArwqDCoMKgwqAgKi8KPj4+ICvCoMKgwqDCoCBpZiAoSVNfREdGWChpOTE1KSAmJgo+Pj4gK8Kg
+wqDCoMKgwqDCoMKgwqAgbW1hcF90eXBlICE9IEk5MTVfTU1BUF9UWVBFX1dCICYmIG9iai0+bW0u
+bl9wbGFjZW1lbnRzID09IAo+Pj4gMSAmJgo+Pj4gK8KgwqDCoMKgwqDCoMKgwqAgaTkxNV9nZW1f
+b2JqZWN0X3BsYWNlbWVudHNfY29udGFpbl90eXBlKG9iaiwgCj4+PiBJTlRFTF9NRU1PUllfU1lT
+VEVNKSkKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT0RFVjsKPj4+ICsKPj4KPj4gU2Ft
+ZSB0aGluZyBoZXJlIGFzIGluIHRoZSBwcmV2aW91cyBwYXRjaC4KPj4KPj4gQWxzbyBkbyB3ZSBu
+ZWVkIHRvIG1vZGlmeSBpOTE1X2NvaGVyZW50X21hcF90eXBlKCkgdG8gYWxzbyBpbmNsdWRlIAo+
+PiBIQVNfU05PT1AoKT8KPj4KPj4gV2hpbGUgd2UncmUgYXQgaXQsIHRoYXQgImFsd2F5c19jb2hl
+cmVudCIgYXJndW1lbnQgdG8gCj4+IGk5MTVfY29oZXJlbnRfbWFwX3R5cGUoKSBhcHBlYXJzIHNj
+YXJ5IHRvIG1lIGFuZCBwcm9iYWJseSBuZWVkcyBzb21lIAo+PiBkb2N1bWVudGF0aW9uLiBJdCBz
+ZWVtcyB1c2VkIGZvciBwYWdlLXRhYmxlcy4gSXMgaXQgYmVjYXVzZSB3ZSBrbm93IAo+PiB0aG9z
+ZSBhcmUgYWx3YXlzIHNub29wZWQ/Cj4KPiBZZWFoLCBpdCdzIGVpdGhlciBiZWNhdXNlIHRoZSBj
+YWxsZXIgaGFzL3dpbGwgbWFyayB0aGUgcGFnZXMgYXMgCj4gY29oZXJlbnQod2hpY2ggdHJhbnNs
+YXRlcyB0byBzb21lIHNwZWNpYWwgcHBHVFQgYml0cyksIG9yIHdlIG1hbnVhbGx5IAo+IGZsdXNo
+IG91cnNlbHZlcy4gSW4gaTkxNV9jb2hlcmVudF9tYXBfdHlwZSgpIHdlIHNob3VsZCBhY2NvdW50
+IGZvciBERzEgCj4gc29tZWhvdy4KPgo+IEhpc3RvcmljYWxseSBJIGRvbid0IHRoaW5rIHdlIGVu
+YWJsZWQgc25vb3BpbmcgYnkgZGVmYXVsdCBzaW5jZSBpdCdzIAo+IGNvbnNpZGVyZWQgc2xvdyBj
+b21wYXJlZCB0byBzaGFyZWQgTExDLiBPbiBERzEgdGhpcyBpcyBhIGRpZmZlcmVudCAKPiBzdG9y
+eSB0aG91Z2guCj4KPiBBbHNvIHRoZSBwaW5fbWFwKCkgaW50ZXJmYWNlIGlzIHByZXR0eSBtdWNo
+IG9ubHkgZm9yIGtlcm5lbCBpbnRlcm5hbCAKPiBvYmplY3RzLCBzbyBJIGRvbid0IHRoaW5rIHdl
+IGhhdmUgYW55IHVzZXJzIHdoaWNoIHRyeSB0byBtYXAgdXNlcnNwYWNlIAo+IG9iamVjdHMgd2l0
+aCB0aGF0IGludGVyZmFjZS4gT2ssIGV4Y2VwdCBmb3Igdm1fYWNjZXNzIGl0IHNlZW1zLCBidXQg
+Cj4gdGhhdCBzaG91bGQgaG9wZWZ1bGx5IGJlIGEgc2ltcGxlIGZpeCB0byB1c2UgdGhlIGNvcnJl
+Y3QgY2FjaGluZyBtb2RlPyAKPiBXZSBjYW4gbWF5YmUgYWRkIHNvbWUgc2FuaXR5IGNoZWNraW5n
+IHRoZXJlIGlmIHNvbWVvbmUgdHJpZXMgdG8gbWFwIGEgCj4gdXNlcnNwYWNlIG9iamVjdD8KSSdt
+IG5vdCBmdWxseSBzdXJlIHRoYXQncyBzdWZmaWNpZW50LCBzZWUgYmVsb3cuCj4KPiBGb3IgYWxs
+IHRoZSBvdGhlciBjYWxsZXJzIG9mIHBpbl9tYXAoKSB3aGljaCBzaG91bGQgYWxsIGJlIGtlcm5l
+bCAKPiBpbnRlcm5hbCBkbyB3ZSBzdGlsbCBuZWVkIHRvIGZvcmNlIFdCIGZvciBzeXN0ZW0gbWVt
+b3J5PyBCeSBkZXNpZ24gd2UgCj4gb25seSBzdXBwb3J0IGEgc2luZ2xlIG1tLm1hcHBpbmcgdGhl
+cmUuIEZvciBsbWVtIHdlIGFscmVhZHkgdXNlIFdDIG9ubHkuCgpXZSdyZSBvbmx5IGFsbG93ZWQg
+dG8gbWFwIHdpdGggdGhlIHNhbWUgY2FjaGluZyBtb2RlIGFzIHRoZSBsaW5lYXIgCmtlcm5lbCBt
+YXBwaW5nIGZvciBkaXNjcmV0ZS4gT3RoZXJ3aXNlIHRoaW5ncyBtYXkgYmxvdyB1cCBvbiBub24t
+aW50ZWwgCmFyY2hpdGVjdHVyZXMuIFdlIGNhbiBwcm9iYWJseSB1cGRhdGUgMTk1X3R0bV9zZWxl
+Y3RfdHRfY2FjaGluZyB0byAKYWx3YXlzIHVzZSBXQiBmb3Igc3lzdGVtIHBhZ2VzIGZvciBrZXJu
+ZWwgb2JqZWN0cywgYnV0IHRoZW4gd2UgbXVzdCBtYWtlIApzdXJlIHdlIGRvbid0IHRyeSB0byBt
+YXAgdGhlc2UgV0MuCgovVGhvbWFzCgoKPgo+Pgo+PiAvVGhvbWFzCj4+Cj4+Cj4+PiDCoMKgwqDC
+oMKgIG1tbyA9IG1tYXBfb2Zmc2V0X2F0dGFjaChvYmosIG1tYXBfdHlwZSwgZmlsZSk7Cj4+PiDC
+oMKgwqDCoMKgIGlmIChJU19FUlIobW1vKSkKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4g
+UFRSX0VSUihtbW8pOwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1n
+ZngK
