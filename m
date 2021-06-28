@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BC2BC2B9F4
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 16:46:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B26AC2B9F4
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 16:49:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3536E6100B
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 16:46:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3536E6100B
+	by mail.kernel.org (Postfix) with ESMTPS id EE25F61422
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jun 2021 16:49:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE25F61422
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5B6D6E0EA;
-	Mon, 28 Jun 2021 16:46:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 993BA6E44F;
+	Mon, 28 Jun 2021 16:49:32 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1D6FE6E0EA;
- Mon, 28 Jun 2021 16:46:02 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 761E76E44F;
+ Mon, 28 Jun 2021 16:49:31 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 160B2A66C9;
- Mon, 28 Jun 2021 16:46:02 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 71ED7A66C9;
+ Mon, 28 Jun 2021 16:49:31 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Will Deacon" <will@kernel.org>
-Date: Mon, 28 Jun 2021 16:46:02 -0000
-Message-ID: <162489876206.2574.8079219569932955211@emeril.freedesktop.org>
+To: "Desmond Cheong Zhi Xi" <desmondcheongzx@gmail.com>
+Date: Mon, 28 Jun 2021 16:49:31 -0000
+Message-ID: <162489897146.2572.15039294713646263955@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210619034043.199220-1-tientzu@chromium.org>
-In-Reply-To: <20210619034043.199220-1-tientzu@chromium.org>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBS?=
- =?utf-8?q?estricted_DMA_=28rev2=29?=
+References: <20210623113740.6260-1-desmondcheongzx@gmail.com>
+In-Reply-To: <20210623113740.6260-1-desmondcheongzx@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm=3A_address_potential_UAF_bugs_with_drm=5Fmaster_ptrs?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,32 +50,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: Restricted DMA (rev2)
-URL   : https://patchwork.freedesktop.org/series/91694/
-State : failure
-
-== Summary ==
-
-Applying: swiotlb: Refactor swiotlb init functions
-Applying: swiotlb: Refactor swiotlb_create_debugfs
-Applying: swiotlb: Set dev->dma_io_tlb_mem to the swiotlb pool used
-error: sha1 information is lacking or useless (kernel/dma/swiotlb.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0003 swiotlb: Set dev->dma_io_tlb_mem to the swiotlb pool used
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+PT0gU2VyaWVzIERldGFpbHMgPT0KClNlcmllczogZHJtOiBhZGRyZXNzIHBvdGVudGlhbCBVQUYg
+YnVncyB3aXRoIGRybV9tYXN0ZXIgcHRycwpVUkwgICA6IGh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVk
+ZXNrdG9wLm9yZy9zZXJpZXMvOTE5NjkvClN0YXRlIDogZmFpbHVyZQoKPT0gU3VtbWFyeSA9PQoK
+Q0FMTCAgICBzY3JpcHRzL2NoZWNrc3lzY2FsbHMuc2gKICBDQUxMICAgIHNjcmlwdHMvYXRvbWlj
+L2NoZWNrLWF0b21pY3Muc2gKICBERVNDRU5EIG9ianRvb2wKICBDSEsgICAgIGluY2x1ZGUvZ2Vu
+ZXJhdGVkL2NvbXBpbGUuaAogIENDICAgICAgZHJpdmVycy9ncHUvZHJtL2RybV9jb25uZWN0b3Iu
+bwpkcml2ZXJzL2dwdS9kcm0vZHJtX2Nvbm5lY3Rvci5jOiBJbiBmdW5jdGlvbiDigJhkcm1fbW9k
+ZV9nZXRjb25uZWN0b3LigJk6CmRyaXZlcnMvZ3B1L2RybS9kcm1fY29ubmVjdG9yLmM6MjQ0ODo1
+NDogZXJyb3I6IGV4cGVjdGVkIOKAmDvigJkgYmVmb3JlIOKAmG11dGV4X2xvY2tfbmVzdGVk4oCZ
+CiAgaXNfY3VycmVudF9tYXN0ZXIgPSBkcm1faXNfY3VycmVudF9tYXN0ZXIoZmlsZV9wcml2KQog
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBeCiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDsKc2Ny
+aXB0cy9NYWtlZmlsZS5idWlsZDoyNzI6IHJlY2lwZSBmb3IgdGFyZ2V0ICdkcml2ZXJzL2dwdS9k
+cm0vZHJtX2Nvbm5lY3Rvci5vJyBmYWlsZWQKbWFrZVszXTogKioqIFtkcml2ZXJzL2dwdS9kcm0v
+ZHJtX2Nvbm5lY3Rvci5vXSBFcnJvciAxCnNjcmlwdHMvTWFrZWZpbGUuYnVpbGQ6NTE1OiByZWNp
+cGUgZm9yIHRhcmdldCAnZHJpdmVycy9ncHUvZHJtJyBmYWlsZWQKbWFrZVsyXTogKioqIFtkcml2
+ZXJzL2dwdS9kcm1dIEVycm9yIDIKc2NyaXB0cy9NYWtlZmlsZS5idWlsZDo1MTU6IHJlY2lwZSBm
+b3IgdGFyZ2V0ICdkcml2ZXJzL2dwdScgZmFpbGVkCm1ha2VbMV06ICoqKiBbZHJpdmVycy9ncHVd
+IEVycm9yIDIKTWFrZWZpbGU6MTg0NzogcmVjaXBlIGZvciB0YXJnZXQgJ2RyaXZlcnMnIGZhaWxl
+ZAptYWtlOiAqKiogW2RyaXZlcnNdIEVycm9yIDIKCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9pbnRlbC1nZngK
