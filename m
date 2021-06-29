@@ -2,75 +2,74 @@ Return-Path: <SRS0=NZj8=LX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CAEF6C11F6B
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 13:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D345C11F66
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 14:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 93C9761DD1
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 13:58:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 93C9761DD1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 37C9F61DBF
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 14:26:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37C9F61DBF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8C41898C2;
-	Tue, 29 Jun 2021 13:58:38 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 882D989885;
- Tue, 29 Jun 2021 13:58:36 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 354AB21F44;
- Tue, 29 Jun 2021 13:58:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624975115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=czyn8Ol6WmjBIbWhgsw7YYkLk950NiTNopW4iRndWpU=;
- b=RQDIkZgkPbOAfNjIQQdyQ7vPDxl7MTUjI1AqEvTVYpQybouNFsTvFjWEALeallLT0fQ4WC
- 1lqYv+HJCivaPtOqzgwSE862U9o1TmDtDwkwJ58EahPu4pvJUrI0WRxphqktflQlim1EM2
- py8A6Z3I1Ny6G2Z9SZFYKwnErIKzrXs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624975115;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=czyn8Ol6WmjBIbWhgsw7YYkLk950NiTNopW4iRndWpU=;
- b=xa5RRJY2dV8xhxoEWNWboErj85NCZ3IJSzw6EKC1UfhcarTHVOMsPynb6INmZZX0W954Tm
- xzgviKXAGzLnVYDg==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id D733411906;
- Tue, 29 Jun 2021 13:58:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624975115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=czyn8Ol6WmjBIbWhgsw7YYkLk950NiTNopW4iRndWpU=;
- b=RQDIkZgkPbOAfNjIQQdyQ7vPDxl7MTUjI1AqEvTVYpQybouNFsTvFjWEALeallLT0fQ4WC
- 1lqYv+HJCivaPtOqzgwSE862U9o1TmDtDwkwJ58EahPu4pvJUrI0WRxphqktflQlim1EM2
- py8A6Z3I1Ny6G2Z9SZFYKwnErIKzrXs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624975115;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=czyn8Ol6WmjBIbWhgsw7YYkLk950NiTNopW4iRndWpU=;
- b=xa5RRJY2dV8xhxoEWNWboErj85NCZ3IJSzw6EKC1UfhcarTHVOMsPynb6INmZZX0W954Tm
- xzgviKXAGzLnVYDg==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 74CmMwon22CidAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Tue, 29 Jun 2021 13:58:34 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch,
-	airlied@redhat.com
-Date: Tue, 29 Jun 2021 15:58:33 +0200
-Message-Id: <20210629135833.22679-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.32.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD78F89F0B;
+	Tue, 29 Jun 2021 14:26:26 +0000 (UTC)
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [IPv6:2607:f8b0:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84F3A6E5C6;
+ Tue, 29 Jun 2021 03:38:00 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id i6so16068976pfq.1;
+ Mon, 28 Jun 2021 20:38:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=VkOFQf/536RNFMu+xaArckMzz68g/ujSW9t2Sns7i4U=;
+ b=JBmBwYA7IT4xcNcqZ9oTxNv+fduy88l+lRYwHyOxAT4d74hZiHK2BqgFd8CRqzVKWB
+ QqH/TArCcsaSc2CM3xquE3JQcDTzNsqJ/wPCtDhzJOeilygI9OWtGJkWX8HyEz0z46Cm
+ EbqGpLPFrw0wICXehaI2HGKBXEfRARjdLK763N4wtu8JTZKvdfYgeu9fv9aafp43/C9b
+ xYq2U8pRKQC9+mEt2mpiuDm7muP9zXvZyBZsP/V65CRGuTis5rxUtcNzI0nNSO45/3Fn
+ UTrt6aLZw4qjfklyG7LB9ZxUNGfanmy8IyG05hdvWk10oFOdA9zUFtIDfptk/VRddVRY
+ 3Mkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=VkOFQf/536RNFMu+xaArckMzz68g/ujSW9t2Sns7i4U=;
+ b=BBtDdHJFTPLvtvh80n1y5ji4HZTaiSJyUDYZsxOVzcp2eDSCYgUMhi1U+W7bAu6xee
+ CaftMgTkAMndUJ8uDY0GSUVuUAmTgiF+6bGlV9fTPT8o03tu8bQliPVEfZEfgeFiuuy/
+ UNq5L0kd8AoCBMK6UzHzfJLuNkKSyjWm+Vn3G4I3WW273j7+xgF47QxLpNLyDfMoQsO8
+ IMUs4OunwrR+mbgrGTQCl4F+NQm2QCC00N+9ya5eiWQaWbz6zbbTnjh5E5QVGOxzHg+6
+ j7+WnSJWbfJd8R9/btKGHZBfFB3THq+4+xLHmKzxE4Mx8S3kETls+rgBQ48bELkfncZh
+ SvsA==
+X-Gm-Message-State: AOAM532FQ+DXvuLCfqClWYkPh6m4KdtjFgOGbstc3Q0cTj+EmdLrFA8o
+ ki7zAYf87cMbFAMG+QyRFdQ=
+X-Google-Smtp-Source: ABdhPJyFDojKWVkhV0CV0B2CVgV3KJ4T9IPd2rw0iLhik1NNTjHtlY4m556JI3QqbHPac0YSuAv1xQ==
+X-Received: by 2002:a63:d909:: with SMTP id r9mr26737857pgg.285.1624937880177; 
+ Mon, 28 Jun 2021 20:38:00 -0700 (PDT)
+Received: from localhost.localdomain ([118.200.190.93])
+ by smtp.gmail.com with ESMTPSA id d129sm14769076pfd.218.2021.06.28.20.37.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Jun 2021 20:37:59 -0700 (PDT)
+From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
+ christian.koenig@amd.com
+Date: Tue, 29 Jun 2021 11:37:04 +0800
+Message-Id: <20210629033706.20537-2-desmondcheongzx@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210629033706.20537-1-desmondcheongzx@gmail.com>
+References: <20210629033706.20537-1-desmondcheongzx@gmail.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/aperture: Pass DRM driver structure instead
- of driver name
+X-Mailman-Approved-At: Tue, 29 Jun 2021 14:26:26 +0000
+Subject: [Intel-gfx] [PATCH v5 1/3] drm: avoid circular locks in
+ drm_mode_getconnector
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,458 +82,138 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linux-rockchip@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org,
- spice-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, gregkh@linuxfoundation.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ skhan@linuxfoundation.org, Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
+ linux-kernel-mentees@lists.linuxfoundation.org, linux-media@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Print the name of the DRM driver when taking over fbdev devices. Makes
-the output to dmesg more consistent. Note that the driver name is only
-used for printing a string to the kernel log. No UAPI is affected by this
-change.
+In preparation for a future patch to take a lock on
+drm_device.master_mutex inside drm_is_current_master(), we first move
+the call to drm_is_current_master() in drm_mode_getconnector out from the
+section locked by &dev->mode_config.mutex. This avoids creating a
+circular lock dependency.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Failing to avoid this lock dependency produces the following lockdep
+splat:
+
+======================================================
+WARNING: possible circular locking dependency detected
+5.13.0-rc7-CI-CI_DRM_10254+ #1 Not tainted
+------------------------------------------------------
+kms_frontbuffer/1087 is trying to acquire lock:
+ffff88810dcd01a8 (&dev->master_mutex){+.+.}-{3:3}, at: drm_is_current_master+0x1b/0x40
+but task is already holding lock:
+ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+which lock already depends on the new lock.
+the existing dependency chain (in reverse order) is:
+-> #2 (&dev->mode_config.mutex){+.+.}-{3:3}:
+       __mutex_lock+0xab/0x970
+       drm_client_modeset_probe+0x22e/0xca0
+       __drm_fb_helper_initial_config_and_unlock+0x42/0x540
+       intel_fbdev_initial_config+0xf/0x20 [i915]
+       async_run_entry_fn+0x28/0x130
+       process_one_work+0x26d/0x5c0
+       worker_thread+0x37/0x380
+       kthread+0x144/0x170
+       ret_from_fork+0x1f/0x30
+-> #1 (&client->modeset_mutex){+.+.}-{3:3}:
+       __mutex_lock+0xab/0x970
+       drm_client_modeset_commit_locked+0x1c/0x180
+       drm_client_modeset_commit+0x1c/0x40
+       __drm_fb_helper_restore_fbdev_mode_unlocked+0x88/0xb0
+       drm_fb_helper_set_par+0x34/0x40
+       intel_fbdev_set_par+0x11/0x40 [i915]
+       fbcon_init+0x270/0x4f0
+       visual_init+0xc6/0x130
+       do_bind_con_driver+0x1e5/0x2d0
+       do_take_over_console+0x10e/0x180
+       do_fbcon_takeover+0x53/0xb0
+       register_framebuffer+0x22d/0x310
+       __drm_fb_helper_initial_config_and_unlock+0x36c/0x540
+       intel_fbdev_initial_config+0xf/0x20 [i915]
+       async_run_entry_fn+0x28/0x130
+       process_one_work+0x26d/0x5c0
+       worker_thread+0x37/0x380
+       kthread+0x144/0x170
+       ret_from_fork+0x1f/0x30
+-> #0 (&dev->master_mutex){+.+.}-{3:3}:
+       __lock_acquire+0x151e/0x2590
+       lock_acquire+0xd1/0x3d0
+       __mutex_lock+0xab/0x970
+       drm_is_current_master+0x1b/0x40
+       drm_mode_getconnector+0x37e/0x4a0
+       drm_ioctl_kernel+0xa8/0xf0
+       drm_ioctl+0x1e8/0x390
+       __x64_sys_ioctl+0x6a/0xa0
+       do_syscall_64+0x39/0xb0
+       entry_SYSCALL_64_after_hwframe+0x44/0xae
+other info that might help us debug this:
+Chain exists of: &dev->master_mutex --> &client->modeset_mutex --> &dev->mode_config.mutex
+ Possible unsafe locking scenario:
+       CPU0                    CPU1
+       ----                    ----
+  lock(&dev->mode_config.mutex);
+                               lock(&client->modeset_mutex);
+                               lock(&dev->mode_config.mutex);
+  lock(&dev->master_mutex);
+*** DEADLOCK ***
+1 lock held by kms_frontbuffer/1087:
+ #0: ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+stack backtrace:
+CPU: 7 PID: 1087 Comm: kms_frontbuffer Not tainted 5.13.0-rc7-CI-CI_DRM_10254+ #1
+Hardware name: Intel Corporation Ice Lake Client Platform/IceLake U DDR4 SODIMM PD RVP TLC, BIOS ICLSFWR1.R00.3234.A01.1906141750 06/14/2019
+Call Trace:
+ dump_stack+0x7f/0xad
+ check_noncircular+0x12e/0x150
+ __lock_acquire+0x151e/0x2590
+ lock_acquire+0xd1/0x3d0
+ __mutex_lock+0xab/0x970
+ drm_is_current_master+0x1b/0x40
+ drm_mode_getconnector+0x37e/0x4a0
+ drm_ioctl_kernel+0xa8/0xf0
+ drm_ioctl+0x1e8/0x390
+ __x64_sys_ioctl+0x6a/0xa0
+ do_syscall_64+0x39/0xb0
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  2 +-
- drivers/gpu/drm/armada/armada_drv.c           |  2 +-
- drivers/gpu/drm/ast/ast_drv.c                 |  2 +-
- drivers/gpu/drm/bochs/bochs_drv.c             |  2 +-
- drivers/gpu/drm/drm_aperture.c                | 19 ++++++++++++-------
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  2 +-
- drivers/gpu/drm/hyperv/hyperv_drm_drv.c       |  4 ++--
- drivers/gpu/drm/i915/i915_drv.c               |  2 +-
- drivers/gpu/drm/meson/meson_drv.c             |  2 +-
- drivers/gpu/drm/mgag200/mgag200_drv.c         |  2 +-
- drivers/gpu/drm/msm/msm_fbdev.c               |  2 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  2 +-
- drivers/gpu/drm/qxl/qxl_drv.c                 |  2 +-
- drivers/gpu/drm/radeon/radeon_drv.c           |  2 +-
- drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  2 +-
- drivers/gpu/drm/sun4i/sun4i_drv.c             |  2 +-
- drivers/gpu/drm/tegra/drm.c                   |  2 +-
- drivers/gpu/drm/tiny/cirrus.c                 |  2 +-
- drivers/gpu/drm/vboxvideo/vbox_drv.c          |  2 +-
- drivers/gpu/drm/vc4/vc4_drv.c                 |  2 +-
- drivers/gpu/drm/virtio/virtgpu_drv.c          |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  2 +-
- include/drm/drm_aperture.h                    | 14 +++++++++-----
- 23 files changed, 43 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/drm_connector.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 6f30c525caac..accf9c1b967a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1278,7 +1278,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- #endif
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index da39e7ff6965..2ba257b1ae20 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2414,6 +2414,7 @@ int drm_mode_getconnector(struct drm_device *dev, void *data,
+ 	struct drm_mode_modeinfo u_mode;
+ 	struct drm_mode_modeinfo __user *mode_ptr;
+ 	uint32_t __user *encoder_ptr;
++	bool is_current_master;
  
- 	/* Get rid of things like offb */
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "amdgpudrmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &amdgpu_kms_driver);
- 	if (ret)
- 		return ret;
+ 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+ 		return -EOPNOTSUPP;
+@@ -2444,9 +2445,11 @@ int drm_mode_getconnector(struct drm_device *dev, void *data,
+ 	out_resp->connector_type = connector->connector_type;
+ 	out_resp->connector_type_id = connector->connector_type_id;
  
-diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
-index dab0a1f0983b..31925ae3ab72 100644
---- a/drivers/gpu/drm/armada/armada_drv.c
-+++ b/drivers/gpu/drm/armada/armada_drv.c
-@@ -95,7 +95,7 @@ static int armada_drm_bind(struct device *dev)
- 	}
- 
- 	/* Remove early framebuffers */
--	ret = drm_aperture_remove_framebuffers(false, "armada-drm-fb");
-+	ret = drm_aperture_remove_framebuffers(false, &armada_drm_driver);
- 	if (ret) {
- 		dev_err(dev, "[" DRM_NAME ":%s] can't kick out simple-fb: %d\n",
- 			__func__, ret);
-diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
-index 5aa452b4efe6..86d5cd7b6318 100644
---- a/drivers/gpu/drm/ast/ast_drv.c
-+++ b/drivers/gpu/drm/ast/ast_drv.c
-@@ -100,7 +100,7 @@ static int ast_remove_conflicting_framebuffers(struct pci_dev *pdev)
- 	primary = pdev->resource[PCI_ROM_RESOURCE].flags & IORESOURCE_ROM_SHADOW;
- #endif
- 
--	return drm_aperture_remove_conflicting_framebuffers(base, size, primary, "astdrmfb");
-+	return drm_aperture_remove_conflicting_framebuffers(base, size, primary, &ast_driver);
- }
- 
- static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
-diff --git a/drivers/gpu/drm/bochs/bochs_drv.c b/drivers/gpu/drm/bochs/bochs_drv.c
-index c828cadbabff..0d232b44ecd7 100644
---- a/drivers/gpu/drm/bochs/bochs_drv.c
-+++ b/drivers/gpu/drm/bochs/bochs_drv.c
-@@ -110,7 +110,7 @@ static int bochs_pci_probe(struct pci_dev *pdev,
- 		return -ENOMEM;
- 	}
- 
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "bochsdrmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &bochs_driver);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/drm_aperture.c b/drivers/gpu/drm/drm_aperture.c
-index 9335d9d6cf9a..9ac39cf11694 100644
---- a/drivers/gpu/drm/drm_aperture.c
-+++ b/drivers/gpu/drm/drm_aperture.c
-@@ -33,6 +33,10 @@
-  *
-  * .. code-block:: c
-  *
-+ *	static const struct drm_driver example_driver = {
-+ *		...
-+ *	};
-+ *
-  *	static int remove_conflicting_framebuffers(struct pci_dev *pdev)
-  *	{
-  *		bool primary = false;
-@@ -46,7 +50,7 @@
-  *	#endif
-  *
-  *		return drm_aperture_remove_conflicting_framebuffers(base, size, primary,
-- *		                                                    "example driver");
-+ *		                                                    &example_driver);
-  *	}
-  *
-  *	static int probe(struct pci_dev *pdev)
-@@ -274,7 +278,7 @@ static void drm_aperture_detach_drivers(resource_size_t base, resource_size_t si
-  * @base: the aperture's base address in physical memory
-  * @size: aperture size in bytes
-  * @primary: also kick vga16fb if present
-- * @name: requesting driver name
-+ * @req_driver: requesting DRM driver
-  *
-  * This function removes graphics device drivers which use memory range described by
-  * @base and @size.
-@@ -283,7 +287,7 @@ static void drm_aperture_detach_drivers(resource_size_t base, resource_size_t si
-  * 0 on success, or a negative errno code otherwise
-  */
- int drm_aperture_remove_conflicting_framebuffers(resource_size_t base, resource_size_t size,
--						 bool primary, const char *name)
-+						 bool primary, const struct drm_driver *req_driver)
- {
- #if IS_REACHABLE(CONFIG_FB)
- 	struct apertures_struct *a;
-@@ -296,7 +300,7 @@ int drm_aperture_remove_conflicting_framebuffers(resource_size_t base, resource_
- 	a->ranges[0].base = base;
- 	a->ranges[0].size = size;
- 
--	ret = remove_conflicting_framebuffers(a, name, primary);
-+	ret = remove_conflicting_framebuffers(a, req_driver->name, primary);
- 	kfree(a);
- 
- 	if (ret)
-@@ -312,7 +316,7 @@ EXPORT_SYMBOL(drm_aperture_remove_conflicting_framebuffers);
- /**
-  * drm_aperture_remove_conflicting_pci_framebuffers - remove existing framebuffers for PCI devices
-  * @pdev: PCI device
-- * @name: requesting driver name
-+ * @req_driver: requesting DRM driver
-  *
-  * This function removes graphics device drivers using memory range configured
-  * for any of @pdev's memory bars. The function assumes that PCI device with
-@@ -321,7 +325,8 @@ EXPORT_SYMBOL(drm_aperture_remove_conflicting_framebuffers);
-  * Returns:
-  * 0 on success, or a negative errno code otherwise
-  */
--int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev, const char *name)
-+int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev,
-+						     const struct drm_driver *req_driver)
- {
- 	resource_size_t base, size;
- 	int bar, ret = 0;
-@@ -339,7 +344,7 @@ int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev, const
- 	 * otherwise the vga fbdev driver falls over.
- 	 */
- #if IS_REACHABLE(CONFIG_FB)
--	ret = remove_conflicting_pci_framebuffers(pdev, name);
-+	ret = remove_conflicting_pci_framebuffers(pdev, req_driver->name);
- #endif
- 	if (ret == 0)
- 		ret = vga_remove_vgacon(pdev);
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index f4bc5386574a..6f0297b854f2 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -314,7 +314,7 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
- 	struct drm_device *dev;
- 	int ret;
- 
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "hibmcdrmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &hibmc_driver);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-index eb06c92c4bfd..cd818a629183 100644
---- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-+++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-@@ -82,7 +82,7 @@ static int hyperv_setup_gen1(struct hyperv_drm_device *hv)
- 		return -ENODEV;
- 	}
- 
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "hypervdrmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &hyperv_driver);
- 	if (ret) {
- 		drm_err(dev, "Not able to remove boot fb\n");
- 		return ret;
-@@ -127,7 +127,7 @@ static int hyperv_setup_gen2(struct hyperv_drm_device *hv,
- 	drm_aperture_remove_conflicting_framebuffers(screen_info.lfb_base,
- 						     screen_info.lfb_size,
- 						     false,
--						     "hypervdrmfb");
-+						     &hyperv_driver);
- 
- 	hv->fb_size = (unsigned long)hv->mmio_megabytes * 1024 * 1024;
- 
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 850b499c71c8..62327c15f457 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -562,7 +562,7 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
- 	if (ret)
- 		goto err_perf;
- 
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "inteldrmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, dev_priv->drm.driver);
- 	if (ret)
- 		goto err_ggtt;
- 
-diff --git a/drivers/gpu/drm/meson/meson_drv.c b/drivers/gpu/drm/meson/meson_drv.c
-index a7388bf7c838..3d0ccc7eef1b 100644
---- a/drivers/gpu/drm/meson/meson_drv.c
-+++ b/drivers/gpu/drm/meson/meson_drv.c
-@@ -285,7 +285,7 @@ static int meson_drv_bind_master(struct device *dev, bool has_components)
- 	 * Remove early framebuffers (ie. simplefb). The framebuffer can be
- 	 * located anywhere in RAM
- 	 */
--	ret = drm_aperture_remove_framebuffers(false, "meson-drm-fb");
-+	ret = drm_aperture_remove_framebuffers(false, &meson_driver);
- 	if (ret)
- 		goto free_drm;
- 
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-index a701d9563257..36d1bfb3213f 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-@@ -342,7 +342,7 @@ mgag200_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	struct drm_device *dev;
- 	int ret;
- 
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "mgag200drmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &mgag200_driver);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
-index 227404077e39..67fae60f2fa5 100644
---- a/drivers/gpu/drm/msm/msm_fbdev.c
-+++ b/drivers/gpu/drm/msm/msm_fbdev.c
-@@ -169,7 +169,7 @@ struct drm_fb_helper *msm_fbdev_init(struct drm_device *dev)
- 	}
- 
- 	/* the fw fb could be anywhere in memory */
--	ret = drm_aperture_remove_framebuffers(false, "msm");
-+	ret = drm_aperture_remove_framebuffers(false, dev->driver);
- 	if (ret)
- 		goto fini;
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index a616cf4573b8..df8a2d92f473 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -738,7 +738,7 @@ static int nouveau_drm_probe(struct pci_dev *pdev,
- 	nvkm_device_del(&device);
- 
- 	/* Remove conflicting drivers (vesafb, efifb etc). */
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "nouveaufb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver_pci);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index 854e6c5a563f..31f4c86ceb99 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -95,7 +95,7 @@ qxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (ret)
- 		return ret;
- 
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "qxl");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &qxl_driver);
- 	if (ret)
- 		goto disable_pci;
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 8cd135fa6dcd..82ee8244c9b3 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -330,7 +330,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
- 		return -EPROBE_DEFER;
- 
- 	/* Get rid of things like offb */
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "radeondrmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &kms_driver);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-index b730b8d5d949..17a189bb6bbc 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-@@ -116,7 +116,7 @@ static int rockchip_drm_bind(struct device *dev)
- 	int ret;
- 
- 	/* Remove existing drivers that may own the framebuffer memory. */
--	ret = drm_aperture_remove_framebuffers(false, "rockchip-drm-fb");
-+	ret = drm_aperture_remove_framebuffers(false, &rockchip_drm_driver);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev,
- 			      "Failed to remove existing framebuffers - %d.\n",
-diff --git a/drivers/gpu/drm/sun4i/sun4i_drv.c b/drivers/gpu/drm/sun4i/sun4i_drv.c
-index af335f58bdfc..6bc1c8d6d43b 100644
---- a/drivers/gpu/drm/sun4i/sun4i_drv.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_drv.c
-@@ -100,7 +100,7 @@ static int sun4i_drv_bind(struct device *dev)
- 	drm->irq_enabled = true;
- 
- 	/* Remove early framebuffers (ie. simplefb) */
--	ret = drm_aperture_remove_framebuffers(false, "sun4i-drm-fb");
-+	ret = drm_aperture_remove_framebuffers(false, &sun4i_drv_driver);
- 	if (ret)
- 		goto cleanup_mode_config;
- 
-diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
-index f96c237b2242..2c8fc14bba1f 100644
---- a/drivers/gpu/drm/tegra/drm.c
-+++ b/drivers/gpu/drm/tegra/drm.c
-@@ -1204,7 +1204,7 @@ static int host1x_drm_probe(struct host1x_device *dev)
- 
- 	drm_mode_config_reset(drm);
- 
--	err = drm_aperture_remove_framebuffers(false, "tegradrmfb");
-+	err = drm_aperture_remove_framebuffers(false, &tegra_drm_driver);
- 	if (err < 0)
- 		goto hub;
- 
-diff --git a/drivers/gpu/drm/tiny/cirrus.c b/drivers/gpu/drm/tiny/cirrus.c
-index 42611dacde88..a8b476a59c0d 100644
---- a/drivers/gpu/drm/tiny/cirrus.c
-+++ b/drivers/gpu/drm/tiny/cirrus.c
-@@ -550,7 +550,7 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
- 	struct cirrus_device *cirrus;
- 	int ret;
- 
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "cirrusdrmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &cirrus_driver);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-index 6d4b32da9866..879a2445cc44 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-@@ -43,7 +43,7 @@ static int vbox_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (!vbox_check_supported(VBE_DISPI_ID_HGSMI))
- 		return -ENODEV;
- 
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "vboxvideodrmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index 8a60fb8ad370..73335feb712f 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -265,7 +265,7 @@ static int vc4_drm_bind(struct device *dev)
- 	if (ret)
- 		goto unbind_all;
- 
--	ret = drm_aperture_remove_framebuffers(false, "vc4drmfb");
-+	ret = drm_aperture_remove_framebuffers(false, &vc4_drm_driver);
- 	if (ret)
- 		goto unbind_all;
- 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index ca77edbc5ea0..ed85a7863256 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -57,7 +57,7 @@ static int virtio_gpu_pci_quirk(struct drm_device *dev, struct virtio_device *vd
- 		 vga ? "virtio-vga" : "virtio-gpu-pci",
- 		 pname);
- 	if (vga) {
--		ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "virtiodrmfb");
-+		ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 086dc75e7b42..40864ce19ae1 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -1574,7 +1574,7 @@ static int vmw_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	struct vmw_private *vmw;
- 	int ret;
- 
--	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "svgadrmfb");
-+	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver);
- 	if (ret)
- 		return ret;
- 
-diff --git a/include/drm/drm_aperture.h b/include/drm/drm_aperture.h
-index 6c148078780c..7096703c3949 100644
---- a/include/drm/drm_aperture.h
-+++ b/include/drm/drm_aperture.h
-@@ -6,20 +6,22 @@
- #include <linux/types.h>
- 
- struct drm_device;
-+struct drm_driver;
- struct pci_dev;
- 
- int devm_aperture_acquire_from_firmware(struct drm_device *dev, resource_size_t base,
- 					resource_size_t size);
- 
- int drm_aperture_remove_conflicting_framebuffers(resource_size_t base, resource_size_t size,
--						 bool primary, const char *name);
-+						 bool primary, const struct drm_driver *req_driver);
- 
--int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev, const char *name);
-+int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev,
-+						     const struct drm_driver *req_driver);
- 
- /**
-  * drm_aperture_remove_framebuffers - remove all existing framebuffers
-  * @primary: also kick vga16fb if present
-- * @name: requesting driver name
-+ * @req_driver: requesting DRM driver
-  *
-  * This function removes all graphics device drivers. Use this function on systems
-  * that can have their framebuffer located anywhere in memory.
-@@ -27,9 +29,11 @@ int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev, const
-  * Returns:
-  * 0 on success, or a negative errno code otherwise
-  */
--static inline int drm_aperture_remove_framebuffers(bool primary, const char *name)
-+static inline int
-+drm_aperture_remove_framebuffers(bool primary, const struct drm_driver *req_driver)
- {
--	return drm_aperture_remove_conflicting_framebuffers(0, (resource_size_t)-1, primary, name);
-+	return drm_aperture_remove_conflicting_framebuffers(0, (resource_size_t)-1, primary,
-+							    req_driver);
- }
- 
- #endif
++	is_current_master = drm_is_current_master(file_priv);
++
+ 	mutex_lock(&dev->mode_config.mutex);
+ 	if (out_resp->count_modes == 0) {
+-		if (drm_is_current_master(file_priv))
++		if (is_current_master)
+ 			connector->funcs->fill_modes(connector,
+ 						     dev->mode_config.max_width,
+ 						     dev->mode_config.max_height);
 -- 
-2.32.0
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
