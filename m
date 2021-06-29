@@ -2,41 +2,47 @@ Return-Path: <SRS0=NZj8=LX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8D42C11F66
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 07:55:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E187C11F68
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 08:13:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A583861DA7
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 07:55:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A583861DA7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 2D89361DC2
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 08:13:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D89361DC2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 306C289A5D;
-	Tue, 29 Jun 2021 07:55:45 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id DD4EE89A57;
- Tue, 29 Jun 2021 07:55:44 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D591DAA0ED;
- Tue, 29 Jun 2021 07:55:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 310AC89F31;
+	Tue, 29 Jun 2021 08:13:01 +0000 (UTC)
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8318489F2D;
+ Tue, 29 Jun 2021 08:12:59 +0000 (UTC)
+Date: Tue, 29 Jun 2021 08:12:54 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1624954376;
+ bh=Wt1VzxpUKhVa3HzTLpE5SfzFn/YP4YxfPtnwrLRl/ko=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=kT+JW4ZQ/XLWZcl11bQR37x0+KSRaeQZh+kE4omXiV6BfWIXtXDd9WyZtDYY/JY9Q
+ 1zd79RntcYijrdG1waxiPh2nou/ZvBfvcZypHdKrnM3PwLNucQr0OzCcTVrq4rh8Ni
+ m00QGUE0GcaCzer16iFx8ghVLePzrSLxcbmBR4jKdOIvbVxdAc9OX7/52DB/6bp8/J
+ 0WoLL0L4vGQIbORx3tk9vDc6XpknNlwi+5ZDIdukmY8s898XGiSCv8U8BfB9vVj2WN
+ cqt8zTHmvFnErL8LXt3H3nz10WMmR/gSmecxKqQLAOoPnTlcU59248/yhsU0VgsSln
+ j3LySWnSFt73Q==
+To: Pekka Paalanen <ppaalanen@gmail.com>
+From: Simon Ser <contact@emersion.fr>
+Message-ID: <jIDQ2rRRMWlhDDPf08Z8xZlEE8HTBx7fHsylFdK0joSSFVyES8D444Giyiji9zbIm7dU4QpbsXZLvIDTbGW0wEoUWKsMEI4evizn0UdGMvM=@emersion.fr>
+In-Reply-To: <20210622101516.6a53831c@eldfell>
+References: <20210618091116.14428-1-wse@tuxedocomputers.com>
+ <20210618091116.14428-13-wse@tuxedocomputers.com>
+ <20210622101516.6a53831c@eldfell>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: venkata.sai.patnana@intel.com
-Date: Tue, 29 Jun 2021 07:55:44 -0000
-Message-ID: <162495334484.9056.4452100685726246810@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210629065156.30301-1-venkata.sai.patnana@intel.com>
-In-Reply-To: <20210629065156.30301-1-venkata.sai.patnana@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/display/dsc=3A_Set_BPP_in_the_kernel_=28rev2=29?=
+Subject: Re: [Intel-gfx] [PATCH v4 12/17] drm/uAPI: Add "preferred color
+ format" drm property as setting for userspace
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,161 +55,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0123265803=="
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ airlied@linux.ie, amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
+ alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0123265803==
-Content-Type: multipart/alternative;
- boundary="===============3596356795799029031=="
+On Tuesday, June 22nd, 2021 at 09:15, Pekka Paalanen <ppaalanen@gmail.com> wrote:
 
---===============3596356795799029031==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+> yes, I think this makes sense, even if it is a property that one can't
+> tell for sure what it does before hand.
+>
+> Using a pair of properties, preference and active, to ask for something
+> and then check what actually worked is good for reducing the
+> combinatorial explosion caused by needing to "atomic TEST_ONLY commit"
+> test different KMS configurations. Userspace has a better chance of
+> finding a configuration that is possible.
+>
+> OTOH, this has the problem than in UI one cannot tell the user in
+> advance which options are truly possible. Given that KMS properties are
+> rarely completely independent, and in this case known to depend on
+> several other KMS properties, I think it is good enough to know after
+> the fact.
+>
+> If a driver does not use what userspace prefers, there is no way to
+> understand why, or what else to change to make it happen. That problem
+> exists anyway, because TEST_ONLY commits do not give useful feedback
+> but only a yes/no.
 
-== Series Details ==
+By submitting incremental atomic reqs with TEST_ONLY (i.e. only changing one
+property at a time), user-space can discover which property makes the atomic
+commit fail.
 
-Series: drm/i915/display/dsc: Set BPP in the kernel (rev2)
-URL   : https://patchwork.freedesktop.org/series/91917/
-State : success
+I'm not a fan of this "preference" property approach. The only way to find out
+whether it's possible to change the color format is to perform a user-visible
+change (with a regular atomic commit) and check whether it worked
+after-the-fact. This is unlike all other existing KMS properties.
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10285 -> Patchwork_20482
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20482/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20482 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@kms_chamelium@dp-crc-fast:
-    - fi-kbl-7500u:       [FAIL][1] ([i915#1372]) -> [PASS][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10285/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20482/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
-
-  
-  [i915#1372]: https://gitlab.freedesktop.org/drm/intel/issues/1372
-
-
-Participating hosts (40 -> 36)
-------------------------------
-
-  Missing    (4): fi-kbl-soraka fi-bsw-cyan fi-bdw-samus fi-hsw-4200u 
-
-
-Build changes
--------------
-
-  * IGT: IGT_6121 -> IGTPW_5962
-  * Linux: CI_DRM_10285 -> Patchwork_20482
-
-  CI-20190529: 20190529
-  CI_DRM_10285: e65a658751fc5d3be5b0f4bcc4731e66ca1a537a @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGTPW_5962: https://intel-gfx-ci.01.org/tree/drm-tip/IGTPW_5962/index.html
-  IGT_6121: a63ceb48e6c3e733d04156b32fba3b4f4d5ad794 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20482: f9fdb098f2480a719e469ed1f7efa2392db8ec67 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-f9fdb098f248 drm/i915/display/dsc: Set BPP in the kernel
-8c10d57a92b5 drm/i915/display/dsc: Add Per connector debugfs node for DSC BPP enable
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20482/index.html
-
---===============3596356795799029031==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display/dsc: Set BPP in the kernel (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/91917/">https://patchwork.freedesktop.org/series/91917/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20482/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20482/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10285 -&gt; Patchwork_20482</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20482/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20482 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_chamelium@dp-crc-fast:<ul>
-<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10285/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1372">i915#1372</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20482/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (40 -&gt; 36)</h2>
-<p>Missing    (4): fi-kbl-soraka fi-bsw-cyan fi-bdw-samus fi-hsw-4200u </p>
-<h2>Build changes</h2>
-<ul>
-<li>IGT: IGT_6121 -&gt; IGTPW_5962</li>
-<li>Linux: CI_DRM_10285 -&gt; Patchwork_20482</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10285: e65a658751fc5d3be5b0f4bcc4731e66ca1a537a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGTPW_5962: https://intel-gfx-ci.01.org/tree/drm-tip/IGTPW_5962/index.html<br />
-  IGT_6121: a63ceb48e6c3e733d04156b32fba3b4f4d5ad794 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20482: f9fdb098f2480a719e469ed1f7efa2392db8ec67 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>f9fdb098f248 drm/i915/display/dsc: Set BPP in the kernel<br />
-8c10d57a92b5 drm/i915/display/dsc: Add Per connector debugfs node for DSC BPP enable</p>
-
-</body>
-</html>
-
---===============3596356795799029031==--
-
---===============0123265803==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+I'd much rather see a more general approach to fix this combinatorial explosion
+than to add special-cases like this.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0123265803==--
