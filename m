@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 13D86C11F67
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 17:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44CCFC11F67
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 17:36:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB1F461DBA
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 17:34:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB1F461DBA
+	by mail.kernel.org (Postfix) with ESMTPS id 1063161DE2
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 17:36:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1063161DE2
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 485416E8D1;
-	Tue, 29 Jun 2021 17:34:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D56D6E8D6;
+	Tue, 29 Jun 2021 17:36:07 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id F072D6E8D1;
- Tue, 29 Jun 2021 17:34:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id DCD246E8D6;
+ Tue, 29 Jun 2021 17:36:06 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E7A87A41FB;
- Tue, 29 Jun 2021 17:34:19 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id CA514A00E6;
+ Tue, 29 Jun 2021 17:36:06 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Tue, 29 Jun 2021 17:34:19 -0000
-Message-ID: <162498805991.9056.5624405343074973249@emeril.freedesktop.org>
+Date: Tue, 29 Jun 2021 17:36:06 -0000
+Message-ID: <162498816680.9053.10866261885633487795@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210629151203.209465-1-thomas.hellstrom@linux.intel.com>
 In-Reply-To: <20210629151203.209465-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/gem=3A_Introduce_a_migrate_interface_=28rev5=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/gem=3A_Introduce_a_migrate_interface_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,15 +63,10 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-e12a3001cec3 drm/i915/gem: Implement object migration
-7f6ae4d61ef2 drm/i915/gem: Introduce a selftest for the gem object migrate functionality
--:39: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#39: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 272 lines checked
-94b313f6c0d2 drm/i915/display: Migrate objects to LMEM if possible for display
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
++drivers/gpu/drm/i915/selftests/i915_syncmap.c:80:54: warning: dubious: x | !y
 
 
 _______________________________________________
