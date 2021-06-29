@@ -2,44 +2,73 @@ Return-Path: <SRS0=NZj8=LX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E790C11F66
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 11:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 747B0C11F68
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 11:17:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 53A4E61D50
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 11:02:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53A4E61D50
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4263561D03
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Jun 2021 11:17:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4263561D03
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E92616E844;
-	Tue, 29 Jun 2021 11:02:45 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAC966E844
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Jun 2021 11:02:43 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10029"; a="293762289"
-X-IronPort-AV: E=Sophos;i="5.83,308,1616482800"; d="scan'208";a="293762289"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2021 04:02:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,308,1616482800"; d="scan'208";a="446996939"
-Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
- by orsmga007.jf.intel.com with ESMTP; 29 Jun 2021 04:02:41 -0700
-From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Jun 2021 16:23:56 +0530
-Message-Id: <20210629105356.927359-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-X-Mailer: git-send-email 2.31.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 881666E85B;
+	Tue, 29 Jun 2021 11:17:27 +0000 (UTC)
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A53F6E85A;
+ Tue, 29 Jun 2021 11:17:26 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id q16so24632755lfr.4;
+ Tue, 29 Jun 2021 04:17:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=co2MnmhqTunRm8w19zQP35XSCvF/jJ76gA/W9GlIUz0=;
+ b=JBet+L1/xGCXdWUkOprU0gLpjHcspyWMX41k11zgcAWXmzhI9gm3YIixLkNTJlqVB/
+ XcWiFb1eTuuQ0kZPvEkUrb3UuAcYdsKHD/D12Eaov5Lzyd9QnJCwNNchJ8ukHTIasmKs
+ SFGy7bdYdELyUi/4Cs4D+h5baTLqNvlmps9/xqsI+9OHQKc8Rq13MEKERP9VFoa5IgQG
+ W+ULAaQCMLpup1hbsAmWwrAshrxJwNGepLcM9rge/JvfV2nG6weCZl5M0tIBdw+xf5i9
+ 7vS+4WIflZLG5RqKPfZoLlErqKzj99hms0mYKEi1B3mu0Gv99P1J6P91mtxFB1BPzUWQ
+ zw6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=co2MnmhqTunRm8w19zQP35XSCvF/jJ76gA/W9GlIUz0=;
+ b=dEx9qcmRv6VLhuUB+ukXR4jsHosz5pZRRhN58ixCm3giLXOWBST6RccPM/u+Q/VsKt
+ Crhc7Z6FLHr5BiSbAUWCWfG+X72qopg9PxcGm5ZrNerEMz7ILHkAY4biZTv+PZTIAa4V
+ lJYCqtDBtPc1PWDUUoXmxqOX198nJoPA3AftDeOFPck5Hr66WwfZYh/QSiKwrxLYlrnq
+ VgfSgp35xX8Do1C3mYFm43uZbAo4hqOes/4bCkJCCAXLaM+GXRXtgyrqpJSAmdjstvxc
+ FTNjOd5KsyF8b4RDcuDWkRA1GJjgiAG4P9XNq73UFQNHJaVTqREXS6OJukxJX3Vb8b/1
+ GUBw==
+X-Gm-Message-State: AOAM533d6S1HtuCF50oBbwKsijc2OPMyh1W6T4iogns5K1sGwhYkBFTt
+ V2C/a2ch7HaqZ+y94BAOvqU=
+X-Google-Smtp-Source: ABdhPJyGUNfsY7ynhRA9iabVuy2UenX5kT6gcct7E/4hF5q63/J3+g9SwmUC5LFXj4H6uuIg3SuXrQ==
+X-Received: by 2002:a05:6512:3305:: with SMTP id
+ k5mr22335683lfe.132.1624965444978; 
+ Tue, 29 Jun 2021 04:17:24 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id v19sm1848185ljh.118.2021.06.29.04.17.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Jun 2021 04:17:24 -0700 (PDT)
+Date: Tue, 29 Jun 2021 14:17:12 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Simon Ser <contact@emersion.fr>
+Message-ID: <20210629141712.21f00c38@eldfell>
+In-Reply-To: <jIDQ2rRRMWlhDDPf08Z8xZlEE8HTBx7fHsylFdK0joSSFVyES8D444Giyiji9zbIm7dU4QpbsXZLvIDTbGW0wEoUWKsMEI4evizn0UdGMvM=@emersion.fr>
+References: <20210618091116.14428-1-wse@tuxedocomputers.com>
+ <20210618091116.14428-13-wse@tuxedocomputers.com>
+ <20210622101516.6a53831c@eldfell>
+ <jIDQ2rRRMWlhDDPf08Z8xZlEE8HTBx7fHsylFdK0joSSFVyES8D444Giyiji9zbIm7dU4QpbsXZLvIDTbGW0wEoUWKsMEI4evizn0UdGMvM=@emersion.fr>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/jsl: Remove require_force_probe
- protection
+Subject: Re: [Intel-gfx] [PATCH v4 12/17] drm/uAPI: Add "preferred color
+ format" drm property as setting for userspace
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,41 +81,130 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ airlied@linux.ie, amd-gfx@lists.freedesktop.org, tzimmermann@suse.de,
+ alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============1750579050=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Removing force probe protection from JSL platform. Did
-not observe warnings, errors, flickering or any visual
-defects while doing ordinary tasks like browsing and
-editing documents in a two monitor setup.
+--===============1750579050==
+Content-Type: multipart/signed; boundary="Sig_/LAj=Yh72UIUuJMQi5B=dyga";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-For more info drm-tip idle run results :
-https://intel-gfx-ci.01.org/tree/drm-tip/drmtip.html?
+--Sig_/LAj=Yh72UIUuJMQi5B=dyga
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
----
- drivers/gpu/drm/i915/i915_pci.c | 1 -
- 1 file changed, 1 deletion(-)
+On Tue, 29 Jun 2021 08:12:54 +0000
+Simon Ser <contact@emersion.fr> wrote:
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index f1f43192f9fb..bc3c14ce92f7 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -853,7 +853,6 @@ static const struct intel_device_info ehl_info = {
- static const struct intel_device_info jsl_info = {
- 	GEN11_FEATURES,
- 	PLATFORM(INTEL_JASPERLAKE),
--	.require_force_probe = 1,
- 	.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(VCS0) | BIT(VECS0),
- 	.ppgtt_size = 36,
- };
--- 
-2.31.1
+> On Tuesday, June 22nd, 2021 at 09:15, Pekka Paalanen <ppaalanen@gmail.com=
+> wrote:
+>=20
+> > yes, I think this makes sense, even if it is a property that one can't
+> > tell for sure what it does before hand.
+> >
+> > Using a pair of properties, preference and active, to ask for something
+> > and then check what actually worked is good for reducing the
+> > combinatorial explosion caused by needing to "atomic TEST_ONLY commit"
+> > test different KMS configurations. Userspace has a better chance of
+> > finding a configuration that is possible.
+> >
+> > OTOH, this has the problem than in UI one cannot tell the user in
+> > advance which options are truly possible. Given that KMS properties are
+> > rarely completely independent, and in this case known to depend on
+> > several other KMS properties, I think it is good enough to know after
+> > the fact.
+> >
+> > If a driver does not use what userspace prefers, there is no way to
+> > understand why, or what else to change to make it happen. That problem
+> > exists anyway, because TEST_ONLY commits do not give useful feedback
+> > but only a yes/no. =20
+>=20
+> By submitting incremental atomic reqs with TEST_ONLY (i.e. only changing =
+one
+> property at a time), user-space can discover which property makes the ato=
+mic
+> commit fail.
+
+That works if the properties are independent of each other. Color
+range, color format, bpc and more may all be interconnected,
+allowing only certain combinations to work.
+
+If all these properties have "auto" setting too, then it would be
+possible to probe each property individually, but that still does not
+tell which combinations are valid.
+
+If you probe towards a certain configuration by setting the properties
+one by one, then depending on the order you pick the properties, you
+may come to a different conclusion on which property breaks the
+configuration.
+
+> I'm not a fan of this "preference" property approach. The only way to fin=
+d out
+> whether it's possible to change the color format is to perform a user-vis=
+ible
+> change (with a regular atomic commit) and check whether it worked
+> after-the-fact. This is unlike all other existing KMS properties.
+
+I agree. FWIW, "max bpc" exists already.
+
+> I'd much rather see a more general approach to fix this combinatorial exp=
+losion
+> than to add special-cases like this.
+
+What would you suggest?
+
+Maybe all properties should have an "auto" value in addition to the
+explicit no-negotiation values where at all possible?
+
+That might help probing each property individually with TEST_ONLY
+commits, but it says nothing about combinations.
+
+A feedback list perhaps? TEST_ONLY commit somehow returning a list of
+property/value tuples indicating what value the "auto" valued
+properties actually get?
+
+What should a kernel driver optimize for when determining "auto" values?
+
+
+Thanks,
+pq
+
+--Sig_/LAj=Yh72UIUuJMQi5B=dyga
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDbATgACgkQI1/ltBGq
+qqcYExAAkwmMC2LyEGzVad5N3ja6Gax0qc3Wpe2Cw40DuxFKcr1j6wJ7AHT4Rmli
+R334a3TJ+3OPRzjeDnw28S4Ycx3ZEDVgPQ7g0pVBCGfSGze1gCaJRGd3sUFQDQxn
+OVdgRoP/sSHbOKylhXb74+UPYcw3MJfUed0EiPAZC9XE2gnxiv8tprcGkm6N0Xm3
+WYzu6Ssr7VGzKGmVDGg0cyjHHVZ6aOwmk9vxgI2KAoqeIr4rxycR07qxGARik5XP
+6GlZZ0s+zysJSPCwLu6gfDK//BhCGIdEXZ7wFp1k7Di5mPbygR/KJIa9rWmLLW7k
+RUi+QFcdfnJj7JNOq3Zx99ksh3RTjBzl0PQVa7YyTl0uZbBCR0JKb7BXntqhCKRL
+PY5ELnIRjezTDJ/9+gYQcnwASN7iyshKTXQAcg9aAmUz5u0pD8QcW/xC7+gq1MNQ
+v06S4Is633ONw5MAti7FsdqT42FxwoNdaDXgZKnnJV9UW2s81yUUkKftw2d1krXR
+EeWumEOlIIFqo95FCs9PW5PiAYMODq3tukBkaJyZnTf1rX7bqfuf4Z9rxI+dFIsc
+CKiql+ZpWTaJmp9sAGeaUcVtW52kiq4spGHRKct36Ahc1QeKsNzhmrmebHhAPMcB
+Klt909YOQ1LqqP0SiDmTZQVvQ8qYeS2wViXZE0e8ezLgLUe97pA=
+=9IoA
+-----END PGP SIGNATURE-----
+
+--Sig_/LAj=Yh72UIUuJMQi5B=dyga--
+
+--===============1750579050==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1750579050==--
