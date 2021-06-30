@@ -2,88 +2,47 @@ Return-Path: <SRS0=djoz=LY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 201C7C11F68
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:52:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 387ACC11F65
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 10:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5D1161D08
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:52:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5D1161D08
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 02C89611CE
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 10:05:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 02C89611CE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AEC06E975;
-	Wed, 30 Jun 2021 09:52:37 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2EBF6E0D2;
- Wed, 30 Jun 2021 09:52:31 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5446C1FE5B;
- Wed, 30 Jun 2021 09:52:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625046750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XryW5TyiYOiMhgG6bkD4TqFvFAkDxtnTdRbLYAIedhI=;
- b=KTs2NYRKMQ9cXU1GPFj7UoaWvptEgy6uzDOkryhnCFeGB0FIgpzRO+YolSHAh88el6a+xG
- CbbEE9dGlFxnIIOAX4mD6lLmU+Dn3sjKv6ZTlXUTc4sfnjQ1b2eitkwx29Ee50G+74FDHK
- 3OFclqyBtLOWOW9CNmUJQdPJ0bstTME=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625046750;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XryW5TyiYOiMhgG6bkD4TqFvFAkDxtnTdRbLYAIedhI=;
- b=WFOuLtHon6vNSG3hUiUqtOyP0DwfOfh6kFZWVF3OnGQuyuoyZNEfsjOrJy8N0TMwP6Iben
- 4No78Ybm0zlkuOAg==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 0000C11CC0;
- Wed, 30 Jun 2021 09:52:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625046750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XryW5TyiYOiMhgG6bkD4TqFvFAkDxtnTdRbLYAIedhI=;
- b=KTs2NYRKMQ9cXU1GPFj7UoaWvptEgy6uzDOkryhnCFeGB0FIgpzRO+YolSHAh88el6a+xG
- CbbEE9dGlFxnIIOAX4mD6lLmU+Dn3sjKv6ZTlXUTc4sfnjQ1b2eitkwx29Ee50G+74FDHK
- 3OFclqyBtLOWOW9CNmUJQdPJ0bstTME=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625046750;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XryW5TyiYOiMhgG6bkD4TqFvFAkDxtnTdRbLYAIedhI=;
- b=WFOuLtHon6vNSG3hUiUqtOyP0DwfOfh6kFZWVF3OnGQuyuoyZNEfsjOrJy8N0TMwP6Iben
- 4No78Ybm0zlkuOAg==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id EIrGOt0+3GBKcwAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Wed, 30 Jun 2021 09:52:29 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
- chris@chris-wilson.co.uk, mika.kuoppala@linux.intel.com,
- matthew.brost@intel.com, maarten.lankhorst@linux.intel.com,
- lucas.demarchi@intel.com, ville.syrjala@linux.intel.com
-Date: Wed, 30 Jun 2021 11:52:27 +0200
-Message-Id: <20210630095228.6665-2-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210630095228.6665-1-tzimmermann@suse.de>
-References: <20210630095228.6665-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1DC46E97F;
+	Wed, 30 Jun 2021 10:05:48 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3196C6E97D;
+ Wed, 30 Jun 2021 10:05:46 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10030"; a="208271095"
+X-IronPort-AV: E=Sophos;i="5.83,311,1616482800"; d="scan'208";a="208271095"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2021 03:05:43 -0700
+X-IronPort-AV: E=Sophos;i="5.83,311,1616482800"; d="scan'208";a="457157823"
+Received: from teutenbb-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.61.253])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2021 03:05:38 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>, Dave Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>
+In-Reply-To: <YNtsfguvCRSROBUZ@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <YNtsfguvCRSROBUZ@intel.com>
+Date: Wed, 30 Jun 2021 13:05:35 +0300
+Message-ID: <87zgv7r7kg.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 1/2] drm/i915: Use the correct IRQ during
- resume
+Subject: Re: [Intel-gfx] [PULL] drm-intel-next-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,93 +55,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: dim-tools@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The code in xcs_resume() probably didn't work as intended. It uses
-struct drm_device.irq, which is allocated to 0, but never initialized
-by i915 to the device's interrupt number.
-
-v3:
-	* also use intel_synchronize_hardirq() at another callsite
-v2:
-	* wrap irq code in intel_synchronize_hardirq() (Ville)
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 536f77b1caa0 ("drm/i915/gt: Call stop_ring() from ring resume, again")
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_engine_cs.c       | 2 +-
- drivers/gpu/drm/i915/gt/intel_ring_submission.c | 2 +-
- drivers/gpu/drm/i915/i915_irq.c                 | 5 +++++
- drivers/gpu/drm/i915/i915_irq.h                 | 1 +
- 4 files changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 88694822716a..5ca3d1664335 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1229,7 +1229,7 @@ bool intel_engine_is_idle(struct intel_engine_cs *engine)
- 		return true;
- 
- 	/* Waiting to drain ELSP? */
--	synchronize_hardirq(to_pci_dev(engine->i915->drm.dev)->irq);
-+	intel_synchronize_hardirq(engine->i915);
- 	intel_engine_flush_submission(engine);
- 
- 	/* ELSP is empty, but there are ready requests? E.g. after reset */
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 5d42a12ef3d6..1b5a22a83db6 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -185,7 +185,7 @@ static int xcs_resume(struct intel_engine_cs *engine)
- 		     ring->head, ring->tail);
- 
- 	/* Double check the ring is empty & disabled before we resume */
--	synchronize_hardirq(engine->i915->drm.irq);
-+	intel_synchronize_hardirq(engine->i915);
- 	if (!stop_ring(engine))
- 		goto err;
- 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 7d0ce8b9f8ed..2203dca19895 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -4575,3 +4575,8 @@ void intel_synchronize_irq(struct drm_i915_private *i915)
- {
- 	synchronize_irq(to_pci_dev(i915->drm.dev)->irq);
- }
-+
-+void intel_synchronize_hardirq(struct drm_i915_private *i915)
-+{
-+	synchronize_hardirq(to_pci_dev(i915->drm.dev)->irq);
-+}
-diff --git a/drivers/gpu/drm/i915/i915_irq.h b/drivers/gpu/drm/i915/i915_irq.h
-index db34d5dbe402..e43b6734f21b 100644
---- a/drivers/gpu/drm/i915/i915_irq.h
-+++ b/drivers/gpu/drm/i915/i915_irq.h
-@@ -94,6 +94,7 @@ void intel_runtime_pm_disable_interrupts(struct drm_i915_private *dev_priv);
- void intel_runtime_pm_enable_interrupts(struct drm_i915_private *dev_priv);
- bool intel_irqs_enabled(struct drm_i915_private *dev_priv);
- void intel_synchronize_irq(struct drm_i915_private *i915);
-+void intel_synchronize_hardirq(struct drm_i915_private *i915);
- 
- int intel_get_crtc_scanline(struct intel_crtc *crtc);
- void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
--- 
-2.32.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gVHVlLCAyOSBKdW4gMjAyMSwgUm9kcmlnbyBWaXZpIDxyb2RyaWdvLnZpdmlAaW50ZWwuY29t
+PiB3cm90ZToKPiBIaSBEYXZlIGFuZCBEYW5pZWwsCj4KPiBIZXJlIGdvZXMgZHJtLWludGVsLW5l
+eHQtZml4ZXMtMjAyMS0wNi0yOToKPgo+IFRoZSBiaWdnZXN0IGZpeCBpcyB0aGUgcmVzdG9yYXRp
+b24gb2YgbW1hcCBpb2N0bCBmb3IgZ2VuMTIgaW50ZWdyYXRlZCBwYXJ0cwo+IHdoaWNoIGxhY2sg
+d2FzIGJyZWFraW5nIEFETC1QIHdpdGggbWVkaWEgc3RhY2suCj4gQmVzaWRlcyB0aGF0IGEgc21h
+bGwgc2VsZnRlc3QgZml4IGFuZCBhIHRoZW9yZXRpY2FsIG92ZXJmbG93IG9uCj4gaTkxNS0+cGlw
+ZV90b19jcnRjX21hcHBpbmcuCgpNeSBsYXN0IGZpeGVzIHB1bGwgZm9yIHY1LjEzIGZlbGwgYmV0
+d2VlbiB0aGUgY3JhY2tzIFsxXS4gVGhlcmUgd2FzIG9uZQpzdGFibGUgd29ydGh5IGZpeCwgYnV0
+IHNpbmNlIGl0IHdhcyBzdGlsbCBpbiBkcm0taW50ZWwtZml4ZXMgd2hlbiB5b3UKcmFuIGRpbSBj
+aGVycnktcGljay1uZXh0LWZpeGVzLCBpdCB3YXMgc2tpcHBlZCBmb3IgZHJtLWludGVsLW5leHQt
+Zml4ZXMuCgpJJ3ZlIG5vdyBkcm9wcGVkIHRoZSBjb21taXQgYW5kIHB1c2hlZCB2NS4xMyB0byBk
+cm0taW50ZWwtZml4ZXMsIGFzCndlJ3JlIHBhc3QgdGhhdCBwb2ludC4gU3Vic2VxdWVudCBkaW0g
+Y2hlcnJ5LXBpY2stbmV4dC1maXhlcyBzaG91bGQgcGljawppdCB1cCBub3cuCgpQbGVhc2UgZG8g
+YW5vdGhlciBuZXh0IGZpeGVzIHB1bGwgcmVxdWVzdCB3aXRoIHRoYXQuIChJdCdzIG9rYXkgdG8g
+cHVsbAp0aGlzIG9uZSBhbHJlYWR5IHRob3VnaCwgZG9lc24ndCBtYWtlIGEgZGlmZmVyZW5jZS4p
+CgoKQlIsCkphbmkuCgoKWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvODdjenNidTE1ci5m
+c2ZAaW50ZWwuY29tCgoKCj4KPiBUaGFua3MsCj4gUm9kcmlnby4KPgo+IFRoZSBmb2xsb3dpbmcg
+Y2hhbmdlcyBzaW5jZSBjb21taXQgMWJkOGE3ZGMyOGMxYzQxMGYxY2VlZmFlMWYyYTk3YzA2ZDFh
+NjdjMjoKPgo+ICAgTWVyZ2UgdGFnICdleHlub3MtZHJtLW5leHQtZm9yLXY1LjE0JyBvZiBnaXQ6
+Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvZGFlaW5raS9kcm0tZXh5
+bm9zIGludG8gZHJtLW5leHQgKDIwMjEtMDYtMTEgMTQ6MTk6MTIgKzEwMDApCj4KPiBhcmUgYXZh
+aWxhYmxlIGluIHRoZSBHaXQgcmVwb3NpdG9yeSBhdDoKPgo+ICAgZ2l0Oi8vYW5vbmdpdC5mcmVl
+ZGVza3RvcC5vcmcvZHJtL2RybS1pbnRlbCB0YWdzL2RybS1pbnRlbC1uZXh0LWZpeGVzLTIwMjEt
+MDYtMjkKPgo+IGZvciB5b3UgdG8gZmV0Y2ggY2hhbmdlcyB1cCB0byBjOTBjNGM2NTc0ZjNmZWFm
+MjIwM2I1NjcxZGIxOTA3YTFlMTVjNjUzOgo+Cj4gICBkcm0vaTkxNTogUmVpbnN0YXRlIHRoZSBt
+bWFwIGlvY3RsIGZvciBzb21lIHBsYXRmb3JtcyAoMjAyMS0wNi0yOCAwNzo0Mzo1NiAtMDQwMCkK
+Pgo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0KPiBUaGUgYmlnZ2VzdCBmaXggaXMgdGhlIHJlc3RvcmF0aW9uIG9mIG1tYXAg
+aW9jdGwgZm9yIGdlbjEyIGludGVncmF0ZWQgcGFydHMKPiB3aGljaCBsYWNrIHdhcyBicmVha2lu
+ZyBBREwtUCB3aXRoIG1lZGlhIHN0YWNrLgo+IEJlc2lkZXMgdGhhdCBhIHNtYWxsIHNlbGZ0ZXN0
+IGZpeCBhbmQgYSB0aGVvcmV0aWNhbCBvdmVyZmxvdyBvbgo+IGk5MTUtPnBpcGVfdG9fY3J0Y19t
+YXBwaW5nLgo+Cj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLQo+IENocmlzIFdpbHNvbiAoMSk6Cj4gICAgICAgZHJtL2k5MTUv
+c2VsZnRlc3RzOiBSZW9yZGVyIHRhc2tsZXRfZGlzYWJsZSB2cyBsb2NhbF9iaF9kaXNhYmxlCj4K
+PiBKYW5pIE5pa3VsYSAoMSk6Cj4gICAgICAgZHJtL2k5MTUvZHNjOiBhYnN0cmFjdCBoZWxwZXJz
+IHRvIGdldCBiaWdqb2luZXIgcHJpbWFyeS9zZWNvbmRhcnkgY3J0Ywo+Cj4gVGhvbWFzIEhlbGxz
+dHLDtm0gKDEpOgo+ICAgICAgIGRybS9pOTE1OiBSZWluc3RhdGUgdGhlIG1tYXAgaW9jdGwgZm9y
+IHNvbWUgcGxhdGZvcm1zCj4KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9k
+aXNwbGF5LmMgICAgICAgfCAgNyArKy0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9kaXNwbGF5X3R5cGVzLmggfCAgOCArKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
+c3BsYXkvaW50ZWxfdmRzYy5jICAgICAgICAgIHwgNDAgKysrKysrKysrKystLS0tLQo+ICBkcml2
+ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zkc2MuaCAgICAgICAgICB8ICAxICsKPiAg
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX21tYW4uYyAgICAgICAgICAgfCAgNyAr
+LS0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3RfZXhlY2xpc3RzLmMgICAgICAg
+fCA1NSArKysrKysrKysrKysrLS0tLS0tLS0tCj4gIDYgZmlsZXMgY2hhbmdlZCwgNzYgaW5zZXJ0
+aW9ucygrKSwgNDIgZGVsZXRpb25zKC0pCgotLSAKSmFuaSBOaWt1bGEsIEludGVsIE9wZW4gU291
+cmNlIEdyYXBoaWNzIENlbnRlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9p
+bnRlbC1nZngK
