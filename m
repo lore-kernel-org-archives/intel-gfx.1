@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CECE5C11F8D
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 534FAC11F69
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A1D1061476
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A1D1061476
+	by mail.kernel.org (Postfix) with ESMTPS id 21E4261476
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 21E4261476
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4C196EA2E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE176EA2B;
 	Wed, 30 Jun 2021 15:10:33 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 795066EA0A;
- Wed, 30 Jun 2021 15:10:26 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A6606EA19;
+ Wed, 30 Jun 2021 15:10:29 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 31EE0C8007C;
- Wed, 30 Jun 2021 17:10:25 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id 27874C8008D;
+ Wed, 30 Jun 2021 17:10:28 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id HJAJKjwcvRQL; Wed, 30 Jun 2021 17:10:25 +0200 (CEST)
+ with LMTP id qD0huZBpkLQw; Wed, 30 Jun 2021 17:10:27 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
  (p200300e37F394900095779a208783f8e.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:957:79a2:878:3f8e])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id C9198C80085;
- Wed, 30 Jun 2021 17:10:24 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTPA id 84881C8009C;
+ Wed, 30 Jun 2021 17:10:27 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
@@ -44,14 +44,14 @@ To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, emil.l.velikov@gmail.com
-Date: Wed, 30 Jun 2021 17:10:05 +0200
-Message-Id: <20210630151018.330354-5-wse@tuxedocomputers.com>
+Date: Wed, 30 Jun 2021 17:10:18 +0200
+Message-Id: <20210630151018.330354-18-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210630151018.330354-1-wse@tuxedocomputers.com>
 References: <20210630151018.330354-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 04/17] drm/amd/display: Add handling for new
- "active bpc" property
+Subject: [Intel-gfx] [PATCH v5 17/17] drm/amd/display: Add handling for new
+ "Broadcast RGB" property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,73 +69,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This commit implements the "active bpc" drm property for the AMD GPU
+This commit implements the "Broadcast RGB" drm property for the AMD GPU
 driver.
 
 Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 ++++++++++++++++++-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++++
- 2 files changed, 27 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 14 +++++++++++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  4 ++++
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f4abb5f215d1..d984de82ae63 100644
+index 02a5809d4993..80d5a11fb0c5 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7708,8 +7708,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 				adev->mode_info.underscan_vborder_property,
- 				0);
+@@ -5247,7 +5247,8 @@ get_aspect_ratio(const struct drm_display_mode *mode_in)
+ }
  
--	if (!aconnector->mst_port)
-+	if (!aconnector->mst_port) {
- 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
-+		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
-+	}
+ static enum dc_color_space
+-get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
++get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
++		       enum drm_mode_color_range preferred_color_range)
+ {
+ 	enum dc_color_space color_space = COLOR_SPACE_SRGB;
  
- 	/* This defaults to the max in the range, but we want 8bpc for non-edp. */
- 	aconnector->base.state->max_bpc = (connector_type == DRM_MODE_CONNECTOR_eDP) ? 16 : 8;
-@@ -9078,6 +9080,26 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		mutex_unlock(&dm->dc_lock);
+@@ -5278,7 +5279,10 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
+ 	}
+ 	break;
+ 	case PIXEL_ENCODING_RGB:
+-		color_space = COLOR_SPACE_SRGB;
++		if (preferred_color_range == DRM_MODE_COLOR_RANGE_LIMITED_16_235)
++			color_space = COLOR_SPACE_SRGB_LIMITED;
++		else
++			color_space = COLOR_SPACE_SRGB;
+ 		break;
+ 
+ 	default:
+@@ -5424,7 +5428,10 @@ static void fill_stream_properties_from_drm_display_mode(
+ 
+ 	timing_out->aspect_ratio = get_aspect_ratio(mode_in);
+ 
+-	stream->output_color_space = get_output_color_space(timing_out);
++	stream->output_color_space = get_output_color_space(timing_out,
++							    connector_state ?
++							    connector_state->preferred_color_range :
++							    DRM_MODE_COLOR_RANGE_UNSET);
+ 
+ 	stream->out_transfer_func->type = TF_TYPE_PREDEFINED;
+ 	stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
+@@ -7775,6 +7782,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
+ 		drm_connector_attach_preferred_color_format_property(&aconnector->base);
+ 		drm_connector_attach_active_color_format_property(&aconnector->base);
++		drm_connector_attach_preferred_color_range_property(&aconnector->base);
+ 		drm_connector_attach_active_color_range_property(&aconnector->base);
  	}
  
-+	/* Extract information from crtc to communicate it to userspace as connector properties */
-+	for_each_new_connector_in_state(state, connector, new_con_state, i) {
-+		struct drm_crtc *crtc = new_con_state->crtc;
-+		struct dc_stream_state *stream;
-+
-+		if (crtc) {
-+			new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
-+			stream = dm_new_crtc_state->stream;
-+
-+			if (stream)
-+				drm_connector_set_active_bpc_property(connector,
-+					stream->timing.flags.DSC ?
-+						stream->timing.dsc_cfg.bits_per_pixel / 16 / 3 :
-+						convert_dc_color_depth_into_bpc(
-+							stream->timing.display_color_depth));
-+		} else
-+			drm_connector_set_active_bpc_property(connector, 0);
-+	}
-+
- 	/* Count number of newly disabled CRTCs for dropping PM refs later. */
- 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
- 				      new_crtc_state, i) {
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 5568d4e518e6..0cf38743ec47 100644
+index 2563788ba95a..80e1389fd0ec 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -409,6 +409,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 	if (connector->max_bpc_property)
- 		drm_connector_attach_max_bpc_property(connector, 8, 16);
+@@ -421,6 +421,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (connector->active_color_format_property)
+ 		drm_connector_attach_active_color_format_property(&aconnector->base);
  
-+	connector->active_bpc_property = master->base.active_bpc_property;
-+	if (connector->active_bpc_property)
-+		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
++	connector->preferred_color_range_property = master->base.preferred_color_range_property;
++	if (connector->preferred_color_range_property)
++		drm_connector_attach_preferred_color_range_property(&aconnector->base);
 +
- 	connector->vrr_capable_property = master->base.vrr_capable_property;
- 	if (connector->vrr_capable_property)
- 		drm_connector_attach_vrr_capable_property(connector);
+ 	connector->active_color_range_property = master->base.active_color_range_property;
+ 	if (connector->active_color_range_property)
+ 		drm_connector_attach_active_color_range_property(&aconnector->base);
 -- 
 2.25.1
 
