@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 984A0C11F68
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:10:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A080CC11F7C
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A7A261476
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:10:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A7A261476
+	by mail.kernel.org (Postfix) with ESMTPS id 75F18610FA
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:10:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75F18610FA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA2B96EA1F;
-	Wed, 30 Jun 2021 15:10:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CB8F6EA22;
+	Wed, 30 Jun 2021 15:10:30 +0000 (UTC)
 Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5263B6EA09;
- Wed, 30 Jun 2021 15:10:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A93676EA0E;
+ Wed, 30 Jun 2021 15:10:27 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 062E0C8008A;
+ by srv6.fidu.org (Postfix) with ESMTP id CB190C80085;
  Wed, 30 Jun 2021 17:10:25 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id eSXm553aiS_l; Wed, 30 Jun 2021 17:10:24 +0200 (CEST)
+ with LMTP id NyD59F1vF08f; Wed, 30 Jun 2021 17:10:25 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
  (p200300e37F394900095779a208783f8e.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:957:79a2:878:3f8e])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 92BFDC8007C;
- Wed, 30 Jun 2021 17:10:24 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTPA id 6D742C80091;
+ Wed, 30 Jun 2021 17:10:25 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
@@ -44,14 +44,14 @@ To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, emil.l.velikov@gmail.com
-Date: Wed, 30 Jun 2021 17:10:04 +0200
-Message-Id: <20210630151018.330354-4-wse@tuxedocomputers.com>
+Date: Wed, 30 Jun 2021 17:10:08 +0200
+Message-Id: <20210630151018.330354-8-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210630151018.330354-1-wse@tuxedocomputers.com>
 References: <20210630151018.330354-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 03/17] drm/uAPI: Add "active bpc" as feedback
- channel for "max bpc" drm property
+Subject: [Intel-gfx] [PATCH v5 07/17] drm/amd/display: Add handling for new
+ "active color format" property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,121 +69,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a new general drm property "active bpc" which can be used by graphic
-drivers to report the applied bit depth per pixel color back to userspace.
-
-While "max bpc" can be used to change the color depth, there was no way to
-check which one actually got used. While in theory the driver chooses the
-best/highest color depth within the max bpc setting a user might not be
-fully aware what his hardware is or isn't capable off. This is meant as a
-quick way to double check the setup.
-
-In the future, automatic color calibration for screens might also depend on
-this information being available.
+This commit implements the "active color format" drm property for the AMD
+GPU driver.
 
 Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 ---
- drivers/gpu/drm/drm_connector.c | 53 +++++++++++++++++++++++++++++++++
- include/drm/drm_connector.h     |  8 +++++
- 2 files changed, 61 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 +++++++++++++++++--
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 +++
+ 2 files changed, 31 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index da39e7ff6965..6461d00e8e49 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1197,6 +1197,15 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
-  *	drm_connector_attach_max_bpc_property() to create and attach the
-  *	property to the connector during initialization.
-  *
-+ * active bpc:
-+ *	This read-only range property tells userspace the pixel color bit depth
-+ *	actually used by the hardware display engine "on the cable" on a
-+ *	connector. This means after display stream compression and dithering
-+ *	done by the GPU. The chosen value depends on hardware capabilities, both
-+ *	display engine and connected monitor, and the "max bpc" property.
-+ *	Drivers shall use drm_connector_attach_active_bpc_property() to install
-+ *	this property. A value of 0 means "not applicable".
-+ *
-  * Connectors also have one standardized atomic property:
-  *
-  * CRTC_ID:
-@@ -2152,6 +2161,50 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d984de82ae63..098f3d53e681 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6710,6 +6710,24 @@ static int convert_dc_color_depth_into_bpc (enum dc_color_depth display_color_de
+ 	return 0;
  }
- EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
  
-+/**
-+ * drm_connector_attach_active_bpc_property - attach "active bpc" property
-+ * @connector: connector to attach active bpc property on.
-+ * @min: The minimum bit depth supported by the connector.
-+ * @max: The maximum bit depth supported by the connector.
-+ *
-+ * This is used to check the applied bit depth on a connector.
-+ *
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-+ */
-+int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max)
++static int convert_dc_pixel_encoding_into_drm_color_format(
++	enum dc_pixel_encoding display_pixel_encoding)
 +{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_property *prop;
-+
-+	if (!connector->active_bpc_property) {
-+		prop = drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE, "active bpc",
-+						 min, max);
-+		if (!prop)
-+			return -ENOMEM;
-+
-+		connector->active_bpc_property = prop;
++	switch (display_pixel_encoding) {
++	case PIXEL_ENCODING_RGB:
++		return DRM_COLOR_FORMAT_RGB444;
++	case PIXEL_ENCODING_YCBCR422:
++		return DRM_COLOR_FORMAT_YCRCB422;
++	case PIXEL_ENCODING_YCBCR444:
++		return DRM_COLOR_FORMAT_YCRCB444;
++	case PIXEL_ENCODING_YCBCR420:
++		return DRM_COLOR_FORMAT_YCRCB420;
++	default:
++		break;
 +	}
-+
-+	drm_object_attach_property(&connector->base, prop, 0);
-+
 +	return 0;
 +}
-+EXPORT_SYMBOL(drm_connector_attach_active_bpc_property);
 +
-+/**
-+ * drm_connector_set_active_bpc_property - sets the active bits per color property for a connector
-+ * @connector: drm connector
-+ * @active_bpc: bits per color for the connector currently active "on the cable"
-+ *
-+ * Should be used by atomic drivers to update the active bits per color over a connector.
-+ */
-+void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc)
-+{
-+	drm_object_property_set_value(&connector->base, connector->active_bpc_property, active_bpc);
-+}
-+EXPORT_SYMBOL(drm_connector_set_active_bpc_property);
-+
- /**
-  * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
-  * @connector: connector to attach the property on.
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 714d1a01c065..eee86de62a5f 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1380,6 +1380,12 @@ struct drm_connector {
- 	 */
- 	struct drm_property *max_bpc_property;
+ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
+ 					  struct drm_crtc_state *crtc_state,
+ 					  struct drm_connector_state *conn_state)
+@@ -7711,6 +7729,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	if (!aconnector->mst_port) {
+ 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
+ 		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
++		drm_connector_attach_active_color_format_property(&aconnector->base);
+ 	}
  
-+	/**
-+	 * @active_bpc_property: Default connector property for the active bpc
-+	 * to be driven out of the connector.
-+	 */
-+	struct drm_property *active_bpc_property;
-+
- #define DRM_CONNECTOR_POLL_HPD (1 << 0)
- #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
- #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
-@@ -1702,6 +1708,8 @@ int drm_connector_set_panel_orientation_with_quirk(
- 	int width, int height);
- int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
- 					  int min, int max);
-+int drm_connector_attach_active_bpc_property(struct drm_connector *connector, int min, int max);
-+void drm_connector_set_active_bpc_property(struct drm_connector *connector, int active_bpc);
+ 	/* This defaults to the max in the range, but we want 8bpc for non-edp. */
+@@ -9090,14 +9109,20 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 			stream = dm_new_crtc_state->stream;
  
- /**
-  * struct drm_tile_group - Tile group metadata
+-			if (stream)
++			if (stream) {
+ 				drm_connector_set_active_bpc_property(connector,
+ 					stream->timing.flags.DSC ?
+ 						stream->timing.dsc_cfg.bits_per_pixel / 16 / 3 :
+ 						convert_dc_color_depth_into_bpc(
+ 							stream->timing.display_color_depth));
+-		} else
++				drm_connector_set_active_color_format_property(connector,
++					convert_dc_pixel_encoding_into_drm_color_format(
++						dm_new_crtc_state->stream->timing.pixel_encoding));
++			}
++		} else {
+ 			drm_connector_set_active_bpc_property(connector, 0);
++			drm_connector_set_active_color_format_property(connector, 0);
++		}
+ 	}
+ 
+ 	/* Count number of newly disabled CRTCs for dropping PM refs later. */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 0cf38743ec47..13151d13aa73 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -413,6 +413,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (connector->active_bpc_property)
+ 		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
+ 
++	connector->active_color_format_property = master->base.active_color_format_property;
++	if (connector->active_color_format_property)
++		drm_connector_attach_active_color_format_property(&aconnector->base);
++
+ 	connector->vrr_capable_property = master->base.vrr_capable_property;
+ 	if (connector->vrr_capable_property)
+ 		drm_connector_attach_vrr_capable_property(connector);
 -- 
 2.25.1
 
