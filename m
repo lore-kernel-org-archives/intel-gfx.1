@@ -2,81 +2,88 @@ Return-Path: <SRS0=djoz=LY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C88DC11F65
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:52:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EDDCC11F65
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C1AFC61D0F
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:52:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1AFC61D0F
+	by mail.kernel.org (Postfix) with ESMTPS id 2064E61D0F
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 09:52:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2064E61D0F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F65B6E106;
-	Wed, 30 Jun 2021 09:52:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 338136E16F;
+	Wed, 30 Jun 2021 09:52:36 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416BB6E0D2;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 016966E0F0;
  Wed, 30 Jun 2021 09:52:31 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EF2041FE51;
- Wed, 30 Jun 2021 09:52:29 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A55911FE5F;
+ Wed, 30 Jun 2021 09:52:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625046749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625046750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BJKsWbs5XonXaeLo5fUgbpydSLp4Tf0/ewcaeteRXgg=;
- b=PXoKV0OmyQ5iUOFwRbn/UkD2GXxP6PVJmmyt+UnsA9M6ryfqUHhhWJVU5ANAAA/eok2Xin
- R3oMUVTYt9uLl3uoqH9AvHQWfftitB+mnecS0GJJysRMpqC5ZHGgsdi4u1zvZ2L8EUdDfh
- sIjaCS1BOQ6iA8i4dFfAAjMLRnRkp9M=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ltRNr4B+l+889GdS96xK+Aj1swrLWkljO+/5u65nZ+o=;
+ b=yC8h05yh5z+mhlMRV0MCRFL3ZZcPyaHerVoKb2IaV/tENGTd0Scm+8f1nq+I33koUy0MN3
+ E+N3gX8Mslt3C3d61aBIplImn84a9BekdgtSbVtk1TzqFgREGHaI7ro/iKelnZzrjIrDTP
+ XkIUuCaERUenH8KdR8Dydc4DFyMjQyA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625046749;
+ s=susede2_ed25519; t=1625046750;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BJKsWbs5XonXaeLo5fUgbpydSLp4Tf0/ewcaeteRXgg=;
- b=mjsZcla47CdOgRLu+O+ddarqiAXAvc4kVFpbtZwzLEZ4cwGdAvnoFXI3nFQsWLuxDWM6wj
- PujOcPky99iCluBg==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ltRNr4B+l+889GdS96xK+Aj1swrLWkljO+/5u65nZ+o=;
+ b=caHLNKFpGID7jvvXi0keBYMW+/xBCH0CCDRDzAIu2v17ufPqGSpiWg7TTTdrB1dXGcUXu7
+ l/lnML+hv0hvZlAQ==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id A763811906;
- Wed, 30 Jun 2021 09:52:29 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 5936311906;
+ Wed, 30 Jun 2021 09:52:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625046749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625046750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BJKsWbs5XonXaeLo5fUgbpydSLp4Tf0/ewcaeteRXgg=;
- b=PXoKV0OmyQ5iUOFwRbn/UkD2GXxP6PVJmmyt+UnsA9M6ryfqUHhhWJVU5ANAAA/eok2Xin
- R3oMUVTYt9uLl3uoqH9AvHQWfftitB+mnecS0GJJysRMpqC5ZHGgsdi4u1zvZ2L8EUdDfh
- sIjaCS1BOQ6iA8i4dFfAAjMLRnRkp9M=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ltRNr4B+l+889GdS96xK+Aj1swrLWkljO+/5u65nZ+o=;
+ b=yC8h05yh5z+mhlMRV0MCRFL3ZZcPyaHerVoKb2IaV/tENGTd0Scm+8f1nq+I33koUy0MN3
+ E+N3gX8Mslt3C3d61aBIplImn84a9BekdgtSbVtk1TzqFgREGHaI7ro/iKelnZzrjIrDTP
+ XkIUuCaERUenH8KdR8Dydc4DFyMjQyA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625046749;
+ s=susede2_ed25519; t=1625046750;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BJKsWbs5XonXaeLo5fUgbpydSLp4Tf0/ewcaeteRXgg=;
- b=mjsZcla47CdOgRLu+O+ddarqiAXAvc4kVFpbtZwzLEZ4cwGdAvnoFXI3nFQsWLuxDWM6wj
- PujOcPky99iCluBg==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ltRNr4B+l+889GdS96xK+Aj1swrLWkljO+/5u65nZ+o=;
+ b=caHLNKFpGID7jvvXi0keBYMW+/xBCH0CCDRDzAIu2v17ufPqGSpiWg7TTTdrB1dXGcUXu7
+ l/lnML+hv0hvZlAQ==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id vcfMJ90+3GBKcwAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Wed, 30 Jun 2021 09:52:29 +0000
+ id mLPWFN4+3GBKcwAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Wed, 30 Jun 2021 09:52:30 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
  chris@chris-wilson.co.uk, mika.kuoppala@linux.intel.com,
  matthew.brost@intel.com, maarten.lankhorst@linux.intel.com,
  lucas.demarchi@intel.com, ville.syrjala@linux.intel.com
-Date: Wed, 30 Jun 2021 11:52:26 +0200
-Message-Id: <20210630095228.6665-1-tzimmermann@suse.de>
+Date: Wed, 30 Jun 2021 11:52:28 +0200
+Message-Id: <20210630095228.6665-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210630095228.6665-1-tzimmermann@suse.de>
+References: <20210630095228.6665-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 0/2] drm/i915: IRQ fixes
+Subject: [Intel-gfx] [PATCH v3 2/2] drm/i915: Drop all references to DRM IRQ
+ midlayer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,43 +96,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: stable@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix a bug in the usage of IRQs and cleanup references to the DRM
-IRQ midlayer.
-
-Preferably this patchset would be merged through drm-misc-next.
-
-v3:
-	* also use intel_synchronize_hardirq() from other callsite
-v2:
-	* split patch
-	* also fix comment
-	* add intel_synchronize_hardirq() (Ville)
-	* update Fixes tag (Daniel)
-
-Thomas Zimmermann (2):
-  drm/i915: Use the correct IRQ during resume
-  drm/i915: Drop all references to DRM IRQ midlayer
-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c       |  2 +-
- drivers/gpu/drm/i915/gt/intel_ring_submission.c |  2 +-
- drivers/gpu/drm/i915/i915_drv.c                 |  1 -
- drivers/gpu/drm/i915/i915_irq.c                 | 10 +++++-----
- drivers/gpu/drm/i915/i915_irq.h                 |  1 +
- 5 files changed, 8 insertions(+), 8 deletions(-)
-
-
-base-commit: 67f5a18128770817e4218a9e496d2bf5047c51e8
---
-2.32.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+UmVtb3ZlIGFsbCByZWZlcmVuY2VzIHRvIERSTSdzIElSUSBtaWRsYXllci4gaTkxNSB1c2VzIExp
+bnV4JyBpbnRlcnJ1cHQKZnVuY3Rpb25zIGRpcmVjdGx5LgoKdjI6CgkqIGFsc28gcmVtb3ZlIGFu
+IG91dGRhdGVkIGNvbW1lbnQKCSogbW92ZSBJUlEgZml4IGludG8gc2VwYXJhdGUgcGF0Y2gKCSog
+dXBkYXRlIEZpeGVzIHRhZyAoRGFuaWVsKQoKU2lnbmVkLW9mZi1ieTogVGhvbWFzIFppbW1lcm1h
+bm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+CkZpeGVzOiBiMzE4YjgyNDU1YmQgKCJkcm0vaTkxNTog
+TnVrZSBkcm1fZHJpdmVyIGlycSB2ZnVuY3MiKQpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5z
+eXJqYWxhQGxpbnV4LmludGVsLmNvbT4KQ2M6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMtd2ls
+c29uLmNvLnVrPgpDYzogSmFuaSBOaWt1bGEgPGphbmkubmlrdWxhQGxpbnV4LmludGVsLmNvbT4K
+Q2M6IEpvb25hcyBMYWh0aW5lbiA8am9vbmFzLmxhaHRpbmVuQGxpbnV4LmludGVsLmNvbT4KQ2M6
+IFJvZHJpZ28gVml2aSA8cm9kcmlnby52aXZpQGludGVsLmNvbT4KQ2M6IGludGVsLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKQ2M6IDxzdGFibGVAdmdlci5rZXJuZWwub3JnPiAjIHY1LjQrCi0t
+LQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuYyB8IDEgLQogZHJpdmVycy9ncHUvZHJt
+L2k5MTUvaTkxNV9pcnEuYyB8IDUgLS0tLS0KIDIgZmlsZXMgY2hhbmdlZCwgNiBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuYwppbmRleCA4NTBiNDk5YzcxYzguLjczZGU0NTQ3MmY2
+MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5jCkBAIC00Miw3ICs0Miw2IEBACiAjaW5jbHVkZSA8
+ZHJtL2RybV9hcGVydHVyZS5oPgogI2luY2x1ZGUgPGRybS9kcm1fYXRvbWljX2hlbHBlci5oPgog
+I2luY2x1ZGUgPGRybS9kcm1faW9jdGwuaD4KLSNpbmNsdWRlIDxkcm0vZHJtX2lycS5oPgogI2lu
+Y2x1ZGUgPGRybS9kcm1fbWFuYWdlZC5oPgogI2luY2x1ZGUgPGRybS9kcm1fcHJvYmVfaGVscGVy
+Lmg+CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfaXJxLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jCmluZGV4IDIyMDNkY2ExOTg5NS4uMWQ0YzY4M2M5
+ZGU5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfaXJxLmMKQEAgLTMzLDcgKzMzLDYgQEAKICNpbmNsdWRl
+IDxsaW51eC9zeXNycS5oPgogCiAjaW5jbHVkZSA8ZHJtL2RybV9kcnYuaD4KLSNpbmNsdWRlIDxk
+cm0vZHJtX2lycS5oPgogCiAjaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9kZS5oIgogI2luY2x1ZGUg
+ImRpc3BsYXkvaW50ZWxfZGlzcGxheV90eXBlcy5oIgpAQCAtNDU2NCwxMCArNDU2Myw2IEBAIHZv
+aWQgaW50ZWxfcnVudGltZV9wbV9lbmFibGVfaW50ZXJydXB0cyhzdHJ1Y3QgZHJtX2k5MTVfcHJp
+dmF0ZSAqZGV2X3ByaXYpCiAKIGJvb2wgaW50ZWxfaXJxc19lbmFibGVkKHN0cnVjdCBkcm1faTkx
+NV9wcml2YXRlICpkZXZfcHJpdikKIHsKLQkvKgotCSAqIFdlIG9ubHkgdXNlIGRybV9pcnFfdW5p
+bnN0YWxsKCkgYXQgdW5sb2FkIGFuZCBWVCBzd2l0Y2gsIHNvCi0JICogdGhpcyBpcyB0aGUgb25s
+eSB0aGluZyB3ZSBuZWVkIHRvIGNoZWNrLgotCSAqLwogCXJldHVybiBkZXZfcHJpdi0+cnVudGlt
+ZV9wbS5pcnFzX2VuYWJsZWQ7CiB9CiAKLS0gCjIuMzIuMAoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
