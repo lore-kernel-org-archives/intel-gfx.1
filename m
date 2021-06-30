@@ -8,69 +8,70 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C06BC11F6A
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 14:59:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76FE3C11F6B
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 14:59:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 013D26142C
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 14:59:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 013D26142C
+	by mail.kernel.org (Postfix) with ESMTPS id 48CA2611CC
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 14:59:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48CA2611CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2762E6E9FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49F2B6E9FF;
 	Wed, 30 Jun 2021 14:59:41 +0000 (UTC)
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [IPv6:2607:f8b0:4864:20::1029])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 456616E9F8;
- Wed, 30 Jun 2021 14:55:59 +0000 (UTC)
-Received: by mail-pj1-x1029.google.com with SMTP id l11so1912278pji.5;
- Wed, 30 Jun 2021 07:55:59 -0700 (PDT)
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A5F56E9F4;
+ Wed, 30 Jun 2021 14:55:44 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id
+ cs1-20020a17090af501b0290170856e1a8aso4445162pjb.3; 
+ Wed, 30 Jun 2021 07:55:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=CtdxbqSeV/2csKmNSvUS45gYT6/rPtvycxiemXQFqoE=;
- b=PN6u8eiDV5DESHx+RsGe9Co74bFfrnP5XFh9U/KxoIUqISzrMtaU//FSpndLXYaEqO
- OPpVb6Qnlf0NNoNtmSX04iiIdE/1duZpMXrBLDCHq3At7L7bmbsFZOpBkifbO05YhCmt
- tDyhD3PUKSnBSIUZfOHjnrs9+QdlUdUjkStg4R+6kZmP+2F+auyDszxxwYOp3jg/VKXr
- CsDay4+9a9xTXQDIa3mbw9h9WekB4bFnjHOk3Ks4doCy4dRagcNZQHPjKVlMAKuv7RJF
- 2MORgECv93S+0LPXLTWkWQjzxTTHFqOoTC3x5zy4cVRTPLGEkRJSVjh7wiiftXVPs/5E
- R7Mg==
+ bh=vc5xi5ftWnxZlU1gt0+b48wT38LyZFngC4JD9PKuX7I=;
+ b=AvhwICnmdonw1bNZNeUn7EnWxJS5200zM+tAJ6/v8P7mOv15MTfNRLCLcB8865zZZG
+ ITwDAiGOFQR6pmUiwFDwo9XeL3aStlwQBQP/FEgeISvgRbStp3g9sOiTrnRPLrXYw7qJ
+ hP2nbFBlH/CdE8IIxNsRdzQja5QEcVL8XgYCO/3icE/lltRt7epwoZhaacOe3T4tGP1B
+ 9L4f8vWjia/QP8/9BbZiYh7AnKDl1+CwQ5L2UBkn6b2Z3+xHeEvjxbB3C/wYepnPolem
+ FGXvhHQ1uYZ3WEwCoHOEyQ/S/Y+QP88RDmnQ1wTYEnSFu0an7NFEnyjeU5g7F5Loq5o+
+ gYLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=CtdxbqSeV/2csKmNSvUS45gYT6/rPtvycxiemXQFqoE=;
- b=ZgN3y5THuLr4UgClZxMkL6J2zyF/g8o7UzKG3q6LzbAl2sid9axh1b+TVyz1fXVeSO
- ZMKI2C910HM1J3aN5TVEVafs43etLQw8Q0owmqg5W8e2lJXzz0HZyD7UwM8Lm7CEpkhO
- udnrIjrTiF9JMdHaTgxBnDdlzKieg84rJB/GNC6AgVfMGiPB4gtEwgg5pUfAqDNNIHeh
- 1UO7XKX3aPSKdj3HkKVvjvI/+oijBcxf9QTnzPqNDwYR/IP9qwhHDBxReAlgvpR0QqIr
- WYLZcP98aDfNjo2aE7NsmqyrV/NETZzlJ6QY6hV+0JxTANk5Fha4b7EkE5Qi77hPOSKX
- PxDA==
-X-Gm-Message-State: AOAM533noyK91nMTbjEQvf9E9Sk94L8NwxTCna6k8FojHaXC7qmF+Cp8
- tdH6OXb/qzf/YZJgqxnGvV8=
-X-Google-Smtp-Source: ABdhPJw8QsA5Ov2ap/McNShIZ3+kvdZIh2SptPjBMN/D7nE5je4eczXEAJ8ur1RuJs5yWKKQVsAeDg==
-X-Received: by 2002:a17:902:b210:b029:11a:bf7b:1a83 with SMTP id
- t16-20020a170902b210b029011abf7b1a83mr32636110plr.84.1625064958876; 
- Wed, 30 Jun 2021 07:55:58 -0700 (PDT)
+ bh=vc5xi5ftWnxZlU1gt0+b48wT38LyZFngC4JD9PKuX7I=;
+ b=QkcD5imWu+/2I0ysSq8s+kwX1Z6uFS1P3zj/Sz21EkTCTRDdO2dirBwvkS9eGFXDcj
+ w8GBBR12Yf9oAqFbzGA2W37+3dF51jttMBZy1+uiP/tHzkiXRn9ENKo6Y4GkKQ+OTqtT
+ lJvxBqCMCaSfEUUewWXglsbVDEQ9WuLAsvlU9DGpG0E86NlsUkijUAPgBgXyvBTDs+cz
+ R7dZd5LJtiGp61ZSdzvMTWXvBm/z/a3hv+SmYPpG2TxP9U3tOgtgzExL7H6nRwL7RYaF
+ ehOvQ+vcDNlNx/R7M5Sqz6FYkCJresX0LFjUm3WxFpFpnzzwElX1eC/S300t3F1CuKWg
+ ex/g==
+X-Gm-Message-State: AOAM5303P6drinIt4Qc9JUoF6pkWWtDSyUBVBgoOHfKMh4PbarqCKLIv
+ Zp1AU3iECoVle9tGpZ8VMOI=
+X-Google-Smtp-Source: ABdhPJyr3bKJqd0zmkQh1aRFAd1o9EX0RmZHcrao5wJgbSUM7aHCSXSISB6Gp6WTiEvE4mMPi3JH7w==
+X-Received: by 2002:a17:90a:6404:: with SMTP id
+ g4mr4807098pjj.155.1625064944080; 
+ Wed, 30 Jun 2021 07:55:44 -0700 (PDT)
 Received: from localhost.localdomain ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id d13sm7157234pjr.49.2021.06.30.07.55.54
+ by smtp.gmail.com with ESMTPSA id d13sm7157234pjr.49.2021.06.30.07.55.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jun 2021 07:55:58 -0700 (PDT)
+ Wed, 30 Jun 2021 07:55:43 -0700 (PDT)
 From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
  christian.koenig@amd.com
-Date: Wed, 30 Jun 2021 22:54:03 +0800
-Message-Id: <20210630145404.5958-4-desmondcheongzx@gmail.com>
+Date: Wed, 30 Jun 2021 22:54:01 +0800
+Message-Id: <20210630145404.5958-2-desmondcheongzx@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210630145404.5958-1-desmondcheongzx@gmail.com>
 References: <20210630145404.5958-1-desmondcheongzx@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Wed, 30 Jun 2021 14:59:39 +0000
-Subject: [Intel-gfx] [PATCH v6 3/4] drm: add a locked version of
- drm_is_current_master
+Subject: [Intel-gfx] [PATCH v6 1/4] drm: avoid circular locks in
+ drm_mode_getconnector
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,116 +94,127 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While checking the master status of the DRM file in
-drm_is_current_master(), the device's master mutex should be
-held. Without the mutex, the pointer fpriv->master may be freed
-concurrently by another process calling drm_setmaster_ioctl(). This
-could lead to use-after-free errors when the pointer is subsequently
-dereferenced in drm_lease_owner().
+In preparation for a future patch to take a lock on
+drm_device.master_mutex inside drm_is_current_master(), we first move
+the call to drm_is_current_master() in drm_mode_getconnector out from the
+section locked by &dev->mode_config.mutex. This avoids creating a
+circular lock dependency.
 
-The callers of drm_is_current_master() from drm_auth.c hold the
-device's master mutex, but external callers do not. Hence, we implement
-drm_is_current_master_locked() to be used within drm_auth.c, and
-modify drm_is_current_master() to grab the device's master mutex
-before checking the master status.
+Failing to avoid this lock dependency produces the following lockdep
+splat:
+
+======================================================
+WARNING: possible circular locking dependency detected
+5.13.0-rc7-CI-CI_DRM_10254+ #1 Not tainted
+------------------------------------------------------
+kms_frontbuffer/1087 is trying to acquire lock:
+ffff88810dcd01a8 (&dev->master_mutex){+.+.}-{3:3}, at: drm_is_current_master+0x1b/0x40
+but task is already holding lock:
+ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+which lock already depends on the new lock.
+the existing dependency chain (in reverse order) is:
+-> #2 (&dev->mode_config.mutex){+.+.}-{3:3}:
+       __mutex_lock+0xab/0x970
+       drm_client_modeset_probe+0x22e/0xca0
+       __drm_fb_helper_initial_config_and_unlock+0x42/0x540
+       intel_fbdev_initial_config+0xf/0x20 [i915]
+       async_run_entry_fn+0x28/0x130
+       process_one_work+0x26d/0x5c0
+       worker_thread+0x37/0x380
+       kthread+0x144/0x170
+       ret_from_fork+0x1f/0x30
+-> #1 (&client->modeset_mutex){+.+.}-{3:3}:
+       __mutex_lock+0xab/0x970
+       drm_client_modeset_commit_locked+0x1c/0x180
+       drm_client_modeset_commit+0x1c/0x40
+       __drm_fb_helper_restore_fbdev_mode_unlocked+0x88/0xb0
+       drm_fb_helper_set_par+0x34/0x40
+       intel_fbdev_set_par+0x11/0x40 [i915]
+       fbcon_init+0x270/0x4f0
+       visual_init+0xc6/0x130
+       do_bind_con_driver+0x1e5/0x2d0
+       do_take_over_console+0x10e/0x180
+       do_fbcon_takeover+0x53/0xb0
+       register_framebuffer+0x22d/0x310
+       __drm_fb_helper_initial_config_and_unlock+0x36c/0x540
+       intel_fbdev_initial_config+0xf/0x20 [i915]
+       async_run_entry_fn+0x28/0x130
+       process_one_work+0x26d/0x5c0
+       worker_thread+0x37/0x380
+       kthread+0x144/0x170
+       ret_from_fork+0x1f/0x30
+-> #0 (&dev->master_mutex){+.+.}-{3:3}:
+       __lock_acquire+0x151e/0x2590
+       lock_acquire+0xd1/0x3d0
+       __mutex_lock+0xab/0x970
+       drm_is_current_master+0x1b/0x40
+       drm_mode_getconnector+0x37e/0x4a0
+       drm_ioctl_kernel+0xa8/0xf0
+       drm_ioctl+0x1e8/0x390
+       __x64_sys_ioctl+0x6a/0xa0
+       do_syscall_64+0x39/0xb0
+       entry_SYSCALL_64_after_hwframe+0x44/0xae
+other info that might help us debug this:
+Chain exists of: &dev->master_mutex --> &client->modeset_mutex --> &dev->mode_config.mutex
+ Possible unsafe locking scenario:
+       CPU0                    CPU1
+       ----                    ----
+  lock(&dev->mode_config.mutex);
+                               lock(&client->modeset_mutex);
+                               lock(&dev->mode_config.mutex);
+  lock(&dev->master_mutex);
+*** DEADLOCK ***
+1 lock held by kms_frontbuffer/1087:
+ #0: ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+stack backtrace:
+CPU: 7 PID: 1087 Comm: kms_frontbuffer Not tainted 5.13.0-rc7-CI-CI_DRM_10254+ #1
+Hardware name: Intel Corporation Ice Lake Client Platform/IceLake U DDR4 SODIMM PD RVP TLC, BIOS ICLSFWR1.R00.3234.A01.1906141750 06/14/2019
+Call Trace:
+ dump_stack+0x7f/0xad
+ check_noncircular+0x12e/0x150
+ __lock_acquire+0x151e/0x2590
+ lock_acquire+0xd1/0x3d0
+ __mutex_lock+0xab/0x970
+ drm_is_current_master+0x1b/0x40
+ drm_mode_getconnector+0x37e/0x4a0
+ drm_ioctl_kernel+0xa8/0xf0
+ drm_ioctl+0x1e8/0x390
+ __x64_sys_ioctl+0x6a/0xa0
+ do_syscall_64+0x39/0xb0
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
 
 Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
 Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
 ---
- drivers/gpu/drm/drm_auth.c | 51 ++++++++++++++++++++++++--------------
- 1 file changed, 32 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/drm_connector.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-index f00e5abdbbf4..ab1863c5a5a0 100644
---- a/drivers/gpu/drm/drm_auth.c
-+++ b/drivers/gpu/drm/drm_auth.c
-@@ -61,6 +61,35 @@
-  * trusted clients.
-  */
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index da39e7ff6965..2ba257b1ae20 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2414,6 +2414,7 @@ int drm_mode_getconnector(struct drm_device *dev, void *data,
+ 	struct drm_mode_modeinfo u_mode;
+ 	struct drm_mode_modeinfo __user *mode_ptr;
+ 	uint32_t __user *encoder_ptr;
++	bool is_current_master;
  
-+static bool drm_is_current_master_locked(struct drm_file *fpriv)
-+{
-+	lockdep_assert_held_once(&fpriv->minor->dev->master_mutex);
+ 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+ 		return -EOPNOTSUPP;
+@@ -2444,9 +2445,11 @@ int drm_mode_getconnector(struct drm_device *dev, void *data,
+ 	out_resp->connector_type = connector->connector_type;
+ 	out_resp->connector_type_id = connector->connector_type_id;
+ 
++	is_current_master = drm_is_current_master(file_priv);
 +
-+	return fpriv->is_master && drm_lease_owner(fpriv->master) == fpriv->minor->dev->master;
-+}
-+
-+/**
-+ * drm_is_current_master - checks whether @priv is the current master
-+ * @fpriv: DRM file private
-+ *
-+ * Checks whether @fpriv is current master on its device. This decides whether a
-+ * client is allowed to run DRM_MASTER IOCTLs.
-+ *
-+ * Most of the modern IOCTL which require DRM_MASTER are for kernel modesetting
-+ * - the current master is assumed to own the non-shareable display hardware.
-+ */
-+bool drm_is_current_master(struct drm_file *fpriv)
-+{
-+	bool ret;
-+
-+	mutex_lock(&fpriv->minor->dev->master_mutex);
-+	ret = drm_is_current_master_locked(fpriv);
-+	mutex_unlock(&fpriv->minor->dev->master_mutex);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_is_current_master);
-+
- int drm_getmagic(struct drm_device *dev, void *data, struct drm_file *file_priv)
- {
- 	struct drm_auth *auth = data;
-@@ -223,7 +252,7 @@ int drm_setmaster_ioctl(struct drm_device *dev, void *data,
- 	if (ret)
- 		goto out_unlock;
- 
--	if (drm_is_current_master(file_priv))
-+	if (drm_is_current_master_locked(file_priv))
- 		goto out_unlock;
- 
- 	if (dev->master) {
-@@ -272,7 +301,7 @@ int drm_dropmaster_ioctl(struct drm_device *dev, void *data,
- 	if (ret)
- 		goto out_unlock;
- 
--	if (!drm_is_current_master(file_priv)) {
-+	if (!drm_is_current_master_locked(file_priv)) {
- 		ret = -EINVAL;
- 		goto out_unlock;
- 	}
-@@ -321,7 +350,7 @@ void drm_master_release(struct drm_file *file_priv)
- 	if (file_priv->magic)
- 		idr_remove(&file_priv->master->magic_map, file_priv->magic);
- 
--	if (!drm_is_current_master(file_priv))
-+	if (!drm_is_current_master_locked(file_priv))
- 		goto out;
- 
- 	drm_legacy_lock_master_cleanup(dev, master);
-@@ -342,22 +371,6 @@ void drm_master_release(struct drm_file *file_priv)
- 	mutex_unlock(&dev->master_mutex);
- }
- 
--/**
-- * drm_is_current_master - checks whether @priv is the current master
-- * @fpriv: DRM file private
-- *
-- * Checks whether @fpriv is current master on its device. This decides whether a
-- * client is allowed to run DRM_MASTER IOCTLs.
-- *
-- * Most of the modern IOCTL which require DRM_MASTER are for kernel modesetting
-- * - the current master is assumed to own the non-shareable display hardware.
-- */
--bool drm_is_current_master(struct drm_file *fpriv)
--{
--	return fpriv->is_master && drm_lease_owner(fpriv->master) == fpriv->minor->dev->master;
--}
--EXPORT_SYMBOL(drm_is_current_master);
--
- /**
-  * drm_master_get - reference a master pointer
-  * @master: &struct drm_master
+ 	mutex_lock(&dev->mode_config.mutex);
+ 	if (out_resp->count_modes == 0) {
+-		if (drm_is_current_master(file_priv))
++		if (is_current_master)
+ 			connector->funcs->fill_modes(connector,
+ 						     dev->mode_config.max_width,
+ 						     dev->mode_config.max_height);
 -- 
 2.25.1
 
