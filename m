@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95A12C11F88
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:10:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CECE5C11F8D
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6D25861476
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:10:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D25861476
+	by mail.kernel.org (Postfix) with ESMTPS id A1D1061476
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jun 2021 15:11:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A1D1061476
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99FAE6EA1D;
-	Wed, 30 Jun 2021 15:10:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4C196EA2E;
+	Wed, 30 Jun 2021 15:10:33 +0000 (UTC)
 Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3295B6EA16;
- Wed, 30 Jun 2021 15:10:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 795066EA0A;
+ Wed, 30 Jun 2021 15:10:26 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id E9049C80091;
- Wed, 30 Jun 2021 17:10:27 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTP id 31EE0C8007C;
+ Wed, 30 Jun 2021 17:10:25 +0200 (CEST)
 X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
 Received: from srv6.fidu.org ([127.0.0.1])
  by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id 7AKlkCiZ2qq5; Wed, 30 Jun 2021 17:10:27 +0200 (CEST)
+ with LMTP id HJAJKjwcvRQL; Wed, 30 Jun 2021 17:10:25 +0200 (CEST)
 Received: from wsembach-tuxedo.fritz.box
  (p200300e37F394900095779a208783f8e.dip0.t-ipconnect.de
  [IPv6:2003:e3:7f39:4900:957:79a2:878:3f8e])
  (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id DD0D9C80099;
- Wed, 30 Jun 2021 17:10:26 +0200 (CEST)
+ by srv6.fidu.org (Postfix) with ESMTPA id C9198C80085;
+ Wed, 30 Jun 2021 17:10:24 +0200 (CEST)
 From: Werner Sembach <wse@tuxedocomputers.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
@@ -44,14 +44,14 @@ To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, emil.l.velikov@gmail.com
-Date: Wed, 30 Jun 2021 17:10:15 +0200
-Message-Id: <20210630151018.330354-15-wse@tuxedocomputers.com>
+Date: Wed, 30 Jun 2021 17:10:05 +0200
+Message-Id: <20210630151018.330354-5-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210630151018.330354-1-wse@tuxedocomputers.com>
 References: <20210630151018.330354-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 14/17] drm/i915/display: Add handling for new
- "preferred color format" property
+Subject: [Intel-gfx] [PATCH v5 04/17] drm/amd/display: Add handling for new
+ "active bpc" property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,87 +69,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This commit implements the "preferred color format" drm property for the
-Intel GPU driver.
+This commit implements the "active bpc" drm property for the AMD GPU
+driver.
 
 Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 7 ++++++-
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 5 +++++
- drivers/gpu/drm/i915/display/intel_hdmi.c   | 6 ++++++
- 3 files changed, 17 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 ++++++++++++++++++-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++++
+ 2 files changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index fd33f753244d..29bb181ec4be 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -616,9 +616,12 @@ intel_dp_output_format(struct drm_connector *connector,
- {
- 	struct intel_dp *intel_dp = intel_attached_dp(to_intel_connector(connector));
- 	const struct drm_display_info *info = &connector->display_info;
-+	const struct drm_connector_state *connector_state = connector->state;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f4abb5f215d1..d984de82ae63 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7708,8 +7708,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 				adev->mode_info.underscan_vborder_property,
+ 				0);
  
- 	if (!connector->ycbcr_420_allowed ||
--	    !drm_mode_is_420_only(info, mode))
-+	    !(drm_mode_is_420_only(info, mode) ||
-+	    (drm_mode_is_420_also(info, mode) && connector_state &&
-+	    connector_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB420)))
- 		return INTEL_OUTPUT_FORMAT_RGB;
+-	if (!aconnector->mst_port)
++	if (!aconnector->mst_port) {
+ 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
++		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
++	}
  
- 	if (intel_dp->dfp.rgb_to_ycbcr &&
-@@ -4692,10 +4695,12 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *connect
- 	if (HAS_GMCH(dev_priv)) {
- 		drm_connector_attach_max_bpc_property(connector, 6, 10);
- 		drm_connector_attach_active_bpc_property(connector, 6, 10);
-+		drm_connector_attach_preferred_color_format_property(connector);
- 		drm_connector_attach_active_color_format_property(connector);
- 	} else if (DISPLAY_VER(dev_priv) >= 5) {
- 		drm_connector_attach_max_bpc_property(connector, 6, 12);
- 		drm_connector_attach_active_bpc_property(connector, 6, 12);
-+		drm_connector_attach_preferred_color_format_property(connector);
- 		drm_connector_attach_active_color_format_property(connector);
+ 	/* This defaults to the max in the range, but we want 8bpc for non-edp. */
+ 	aconnector->base.state->max_bpc = (connector_type == DRM_MODE_CONNECTOR_eDP) ? 16 : 8;
+@@ -9078,6 +9080,26 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		mutex_unlock(&dm->dc_lock);
  	}
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index cb876175258f..67f0fb649876 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -856,6 +856,11 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 	if (connector->active_bpc_property)
- 		drm_connector_attach_active_bpc_property(connector, 6, 12);
- 
-+	connector->preferred_color_format_property =
-+		intel_dp->attached_connector->base.preferred_color_format_property;
-+	if (connector->preferred_color_format_property)
-+		drm_connector_attach_preferred_color_format_property(connector);
++	/* Extract information from crtc to communicate it to userspace as connector properties */
++	for_each_new_connector_in_state(state, connector, new_con_state, i) {
++		struct drm_crtc *crtc = new_con_state->crtc;
++		struct dc_stream_state *stream;
 +
- 	connector->active_color_format_property =
- 		intel_dp->attached_connector->base.active_color_format_property;
- 	if (connector->active_color_format_property)
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 3ee25e0cc3b9..a7b85cd13227 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2153,6 +2153,11 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
- 		crtc_state->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 	}
- 
-+	if (connector->ycbcr_420_allowed &&
-+	    conn_state->preferred_color_format == DRM_COLOR_FORMAT_YCRCB420 &&
-+	    drm_mode_is_420_also(&connector->display_info, adjusted_mode))
-+		crtc_state->output_format = INTEL_OUTPUT_FORMAT_YCBCR420;
++		if (crtc) {
++			new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
++			stream = dm_new_crtc_state->stream;
 +
- 	ret = intel_hdmi_compute_clock(encoder, crtc_state);
- 	if (ret) {
- 		if (crtc_state->output_format != INTEL_OUTPUT_FORMAT_YCBCR420 &&
-@@ -2517,6 +2522,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
- 	if (!HAS_GMCH(dev_priv)) {
- 		drm_connector_attach_max_bpc_property(connector, 8, 12);
- 		drm_connector_attach_active_bpc_property(connector, 8, 12);
-+		drm_connector_attach_preferred_color_format_property(connector);
- 		drm_connector_attach_active_color_format_property(connector);
- 	}
- }
++			if (stream)
++				drm_connector_set_active_bpc_property(connector,
++					stream->timing.flags.DSC ?
++						stream->timing.dsc_cfg.bits_per_pixel / 16 / 3 :
++						convert_dc_color_depth_into_bpc(
++							stream->timing.display_color_depth));
++		} else
++			drm_connector_set_active_bpc_property(connector, 0);
++	}
++
+ 	/* Count number of newly disabled CRTCs for dropping PM refs later. */
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+ 				      new_crtc_state, i) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 5568d4e518e6..0cf38743ec47 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -409,6 +409,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (connector->max_bpc_property)
+ 		drm_connector_attach_max_bpc_property(connector, 8, 16);
+ 
++	connector->active_bpc_property = master->base.active_bpc_property;
++	if (connector->active_bpc_property)
++		drm_connector_attach_active_bpc_property(&aconnector->base, 8, 16);
++
+ 	connector->vrr_capable_property = master->base.vrr_capable_property;
+ 	if (connector->vrr_capable_property)
+ 		drm_connector_attach_vrr_capable_property(connector);
 -- 
 2.25.1
 
