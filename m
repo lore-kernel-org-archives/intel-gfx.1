@@ -2,74 +2,52 @@ Return-Path: <SRS0=QA22=LZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8076FC11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:56:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8614EC11F67
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B05561417
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:56:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B05561417
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2D6596140D
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:56:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D6596140D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4150D6EB7C;
-	Thu,  1 Jul 2021 17:55:55 +0000 (UTC)
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E341A6EB5E;
- Thu,  1 Jul 2021 16:54:53 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id j24so6398408pfi.12;
- Thu, 01 Jul 2021 09:54:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=a/frhO6FmtYyjDjb4pEipIaBwOJXfhDMByIQ78NnCHs=;
- b=TCW+FmOiZG+i+Z/ZlOr4Z4hcJh9xukuhv0/R3u0l56bjD/mt47x8ru3BiFnaysVube
- BOUcvz1JQgMxOHNt0IWw3jlnPvMxWXA1DfutI6KdoBQhgOpDF3ctqkcr+4i+xDB4xu5b
- yYgdSENSWRrO1Auokd1gD8y1w94GkqMSBdWRsTXZuJqY3x9dtRRLYuZ5nCZBiN2LiT/w
- 9Rfo9A9aw1K0zLKHVq5WupUS16wTSTwPpmesf8COEpqYZULJvGvTyrK1CnWv/V+OaPvC
- mWaDw6zsuAuTEjutPfyaN3GDLdFd/GuWlGJ1zdqrLedQT3+rppzgkjbzWV+C+xPnWSL+
- xZ/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=a/frhO6FmtYyjDjb4pEipIaBwOJXfhDMByIQ78NnCHs=;
- b=LKv880jHGyluvawQY4y6u1zMON0/YnYW4cH9MonVPpQHUePVTlNkk9tNgKGYBsMQnF
- ea+DH/LikxpvTZmYTbOzoww8mlWV6YiAxjhLflv1tF2oAY7E0dk+T0qqSwik7bdU3nlJ
- wbYgxW7jTq8wj61sUNyz8wv3QBS/jN8ahdKtXiTI1dLG4z5E5lVtnQgzgW0zEkamr2S/
- FCUdd05ScqQYvTwXbY+XbDywumCIJBE0DnUcFfuLVhVvhZjjk2bbBSkpx7Ik7L8AT1VH
- hARNc7qpQw81FuI+6on4lYKd8llVCmiaLw0WohJvD1tCAfh9emxmgFnp6Iu23D0HgNrU
- A8xA==
-X-Gm-Message-State: AOAM5308SXZQddAlQZ0RfXPOmhiJFqX1SXJfgCJcEy0PuhQjV3f81X4i
- saQPhTuY6g6qeNxzoX/TepI=
-X-Google-Smtp-Source: ABdhPJwE3OxMy8uOFmjcS/bajY7yrTC64aL5hOZ8sTBWSSVzlSL/vKTNf2leR7iswBH2WOcYCpq88g==
-X-Received: by 2002:a63:65c5:: with SMTP id z188mr555583pgb.174.1625158493587; 
- Thu, 01 Jul 2021 09:54:53 -0700 (PDT)
-Received: from localhost.localdomain ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id s20sm398738pgv.1.2021.07.01.09.54.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jul 2021 09:54:53 -0700 (PDT)
-From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
- christian.koenig@amd.com
-Date: Fri,  2 Jul 2021 00:53:57 +0800
-Message-Id: <20210701165358.19053-5-desmondcheongzx@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210701165358.19053-1-desmondcheongzx@gmail.com>
-References: <20210701165358.19053-1-desmondcheongzx@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8FAA6EB79;
+	Thu,  1 Jul 2021 17:55:54 +0000 (UTC)
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89E0E6E0CB;
+ Thu,  1 Jul 2021 16:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=wK9wrmd+6oYN7FKRJ1PwqG4FPKNWD7UZGqxDhFVY3YA=; 
+ b=Y4rlul+uhkYkZ4p6PoktJ1He64NFdmYZWcPpM13vr6JwyByUFcMFxf7tyOvHSUYGAsQGuCwcUoD7h5DI4G0VjAPU8O8+bLIPf62+t7OUSN+R/QYhU0JnC0VuJKQTtRvbWX3fbx6b5WzNX1bZImGRveVbDTtd/0HPNao87E/LJkrpM6iDlUx/srHN6OI5snwK8PxazjWK5xG7t3iJJ9WU+csZyt0hFOSwx3R6pP4/3oRO0mRpynHUbJfXQ4UfRyQqzglMs6SBk6RjTXKmiyJ0CAnUvAeJ2bnyP0rx715hkwTsNSF1wpGP3s6PM34qHol9in6d5fNW/mzzdtcje0K6/g==;
+Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
+ helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1lyzKj-0005WT-LU; Thu, 01 Jul 2021 18:14:33 +0200
+Message-ID: <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "events@lists.x.org" <events@lists.x.org>, 
+ "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org
+Date: Thu, 01 Jul 2021 18:14:23 +0200
+In-Reply-To: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
+References: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
+User-Agent: Evolution 3.38.3-1 
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 01 Jul 2021 17:55:54 +0000
-Subject: [Intel-gfx] [PATCH v7 4/5] drm: serialize drm_file.master with a
- master lock
+Subject: Re: [Intel-gfx] [Mesa-dev] Requests For Proposals for hosting XDC
+ 2022 are now open
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,139 +60,116 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, gregkh@linuxfoundation.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- skhan@linuxfoundation.org, Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
- linux-kernel-mentees@lists.linuxfoundation.org, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Content-Type: multipart/mixed; boundary="===============1480152473=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, drm_file.master pointers should be protected by
-drm_device.master_mutex when being dereferenced. This is because
-drm_file.master is not invariant for the lifetime of drm_file. If
-drm_file is not the creator of master, then drm_file.is_master is
-false, and a call to drm_setmaster_ioctl will invoke
-drm_new_set_master, which then allocates a new master for drm_file and
-puts the old master.
 
-Thus, without holding drm_device.master_mutex, the old value of
-drm_file.master could be freed while it is being used by another
-concurrent process.
+--===============1480152473==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-QH/ByUmgrN7MqV73jY6n"
 
-However, it is not always possible to lock drm_device.master_mutex to
-dereference drm_file.master. Through the fbdev emulation code, this
-might occur in a deep nest of other locks. But drm_device.master_mutex
-is also the outermost lock in the nesting hierarchy, so this leads to
-potential deadlocks.
 
-To address this, we introduce a new mutex at the bottom of the lock
-hierarchy that only serializes drm_file.master. With this change, the
-value of drm_file.master changes only when both
-drm_device.master_mutex and drm_file.master_lock are held. Hence, any
-process holding either of those locks can ensure that the value of
-drm_file.master will not change concurrently.
+--=-QH/ByUmgrN7MqV73jY6n
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since no lock depends on the new drm_file.master_lock, when
-drm_file.master is dereferenced, but drm_device.master_mutex cannot be
-held, we can safely protect the master pointer with
-drm_file.master_lock.
+This is a reminder that the call for proposals for hosting XDC 2022
+period finishes in two months.
 
-Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
----
+Be sure to prepare your submission before you leave on holiday!
 
-Since our lock inversions were a result of dev->master_mutex being
-used to serialize many other things, perhaps a finer grained lock will
-solve the lockdep issues.
+Sam
 
- drivers/gpu/drm/drm_auth.c | 10 ++++++++--
- drivers/gpu/drm/drm_file.c |  1 +
- include/drm/drm_file.h     | 12 +++++++++---
- 3 files changed, 18 insertions(+), 5 deletions(-)
+On Thu, 2021-05-20 at 12:15 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> Hello everyone!
+>=20
+> The X.org board is soliciting proposals to host XDC in 2022. Since
+> XDC 2021 is being held in Europe this year (although virtually),
+> we've
+> decided to host in North America. However, the board is open to other
+> locations, especially if there's an interesting co-location with
+> another conference.
+>=20
+> Of course though, due to the ongoing COVID-19 pandemic it's not yet
+> clear whether or not it will be possible to host XDC 2022 in person,
+> although is seems very likely. Because of this, we would like to
+> make it clear that sponsors should prepare for both the possibility
+> of an in person conference, and the possibility of a virtual
+> conference. We will work with organizers on coming up with a
+> deadline for deciding whether or not we'll be going virtual, likely
+> sometime around July 2022.
+>=20
+> If you're considering hosting XDC, we've assembled a wiki page with
+> what's generally expected and needed:
+>=20
+> https://www.x.org/wiki/Events/RFP/
+>=20
+> When submitting your proposal, please make sure to include at least
+> the
+> key information about the potential location in question, possible
+> dates along with estimated costs. Proposals can be submitted to board
+> at foundation.x.org until the deadline of *September 1st, 2021*.=C2=A0
+>=20
+> Additionally, an quirk early heads-up to the board if you're
+> considering hosting would be appreciated, in case we need to adjust
+> the
+> schedule a bit. Also, earlier is better since there generally will be
+> a
+> bit of Q&A with organizers.
+>=20
+> And if you just have some questions about what organizing XDC
+> entails,
+> please feel free to chat with previous organizers, or someone from
+> the
+> board.
+>=20
+> Thanks,
+>=20
+> Sam
+>=20
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
 
-diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-index ab1863c5a5a0..fe5b6adc6133 100644
---- a/drivers/gpu/drm/drm_auth.c
-+++ b/drivers/gpu/drm/drm_auth.c
-@@ -169,11 +169,14 @@ static int drm_new_set_master(struct drm_device *dev, struct drm_file *fpriv)
- 
- 	WARN_ON(fpriv->is_master);
- 	old_master = fpriv->master;
-+	mutex_lock(&fpriv->master_lock);
- 	fpriv->master = drm_master_create(dev);
- 	if (!fpriv->master) {
- 		fpriv->master = old_master;
-+		mutex_unlock(&fpriv->master_lock);
- 		return -ENOMEM;
- 	}
-+	mutex_unlock(&fpriv->master_lock);
- 
- 	fpriv->is_master = 1;
- 	fpriv->authenticated = 1;
-@@ -332,10 +335,13 @@ int drm_master_open(struct drm_file *file_priv)
- 	 * any master object for render clients
- 	 */
- 	mutex_lock(&dev->master_mutex);
--	if (!dev->master)
-+	if (!dev->master) {
- 		ret = drm_new_set_master(dev, file_priv);
--	else
-+	} else {
-+		mutex_lock(&file_priv->master_lock);
- 		file_priv->master = drm_master_get(dev->master);
-+		mutex_unlock(&file_priv->master_lock);
-+	}
- 	mutex_unlock(&dev->master_mutex);
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index d4f0bac6f8f8..8ccadfa1c752 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -176,6 +176,7 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
- 	init_waitqueue_head(&file->event_wait);
- 	file->event_space = 4096; /* set aside 4k for event buffer */
- 
-+	mutex_init(&file->master_lock);
- 	mutex_init(&file->event_read_lock);
- 
- 	if (drm_core_check_feature(dev, DRIVER_GEM))
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index b81b3bfb08c8..88539f93fc8e 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -226,15 +226,21 @@ struct drm_file {
- 	/**
- 	 * @master:
- 	 *
--	 * Master this node is currently associated with. Only relevant if
--	 * drm_is_primary_client() returns true. Note that this only
--	 * matches &drm_device.master if the master is the currently active one.
-+	 * Master this node is currently associated with. Protected by struct
-+	 * &drm_device.master_mutex, and serialized by @master_lock.
-+	 *
-+	 * Only relevant if drm_is_primary_client() returns true. Note that
-+	 * this only matches &drm_device.master if the master is the currently
-+	 * active one.
- 	 *
- 	 * See also @authentication and @is_master and the :ref:`section on
- 	 * primary nodes and authentication <drm_primary_node>`.
- 	 */
- 	struct drm_master *master;
- 
-+	/** @master_lock: Serializes @master. */
-+	struct mutex master_lock;
-+
- 	/** @pid: Process that opened this file. */
- 	struct pid *pid;
- 
--- 
-2.25.1
+
+--=-QH/ByUmgrN7MqV73jY6n
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmDd6d8ACgkQf/S6MvF9
+w0MKsRAA13BGnKOl2o6oyp+Ws0lBHITyQt5yGc5pIHoT3xjPVY924AFiGtJTsGq/
+oqYp9tMAGduh5VbFDmg9/FanKRpFSbFI8xXTWMuwC6OgaXgu+c9NDO8ilN8wl9vP
+3sAv88KlFP2bJtwwruGjw+jro7tnXE4WvKLaBILW8cqt3nL2xNZbI2JknPIFQDgp
+sddQ0GKSvFCtYuiEaMfxVTasJcaIyf1F4+bew031wDkS4yiuLdXUrBEoEXWNuGWG
+tcMg3HzGBAIkMFXrk3J8aSpSFlj/1r/AXlmT+UMHzp19xCk9YHcgEN5rUlnHA2BI
+AFrJKl5UBXiEl4q8h3V8sUoDM+MBItgpZxxW1P80dJvJe/OT0K9gh4VkYQoQx9Xh
+mg9IzmKENsavip/0Osh91MC9hUIBjEAvGWt2evEjlaIRCd2/xb1KO+gXcCMlz884
+nfZOoi3vAxtG/+XAohOq1pmdE6iSyuLdq8SPxtLSFXGCScHQ0R1Mh1I3xxou4dp6
+8jF2Wl4unF2ovuzCsR6VjQDyyGkXKCJHlueFLYyRrmlqjHd9n6ZDeQvHgCnYW93X
+eYYplicS4TVcZ9GHTsTgmxgGLXSM+aR7xzOZ0NQ4Dcy06uSYdbMet1iLz3XA3MoO
+ADwUOZ7evzwvmkdZ0AN4TjPI0iVtf9aVeZ5hpGPkP/eBEF033gA=
+=6VGv
+-----END PGP SIGNATURE-----
+
+--=-QH/ByUmgrN7MqV73jY6n--
+
+
+--===============1480152473==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1480152473==--
+
