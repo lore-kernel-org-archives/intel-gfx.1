@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CB76C11F6A
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6557C11F67
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E815A613F1
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E815A613F1
+	by mail.kernel.org (Postfix) with ESMTPS id 7ACB3613F1
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7ACB3613F1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB4006EC46;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC2AF6EC47;
 	Thu,  1 Jul 2021 20:25:43 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58D7E6EC15;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D3C96EC08;
  Thu,  1 Jul 2021 20:25:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="188998675"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="188998675"
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="188998670"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="188998670"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:21 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564563"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564535"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:24:27 -0700
-Message-Id: <20210701202427.1547543-54-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:24:18 -0700
+Message-Id: <20210701202427.1547543-45-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 53/53] drm/i915/dg2: Configure PCON in DP
- pre-enable path
+Subject: [Intel-gfx] [PATCH 44/53] drm/i915/dg2: Add vswing programming for
+ SNPS phys
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,44 +54,184 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Vswing programming for SNPS PHYs is just a single step -- look up the
+value that corresponds to the voltage level from a table and program it
+into the SNPS_PHY_TX_EQ register.
 
-Add the functions to configure HDMI2.1 pcon for DG2, before DP link
-training.
-
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Bspec: 53920
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 23 ++++++--
+ drivers/gpu/drm/i915/display/intel_snps_phy.c | 54 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_snps_phy.h |  4 ++
+ drivers/gpu/drm/i915/i915_reg.h               |  5 ++
+ 4 files changed, 83 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 5499a2975a0e..77f79f3269a1 100644
+index 929a95ddb316..ade03cf41caa 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2580,6 +2580,7 @@ static void dg2_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	if (!is_mst)
- 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+@@ -1496,6 +1496,16 @@ static int intel_ddi_dp_level(struct intel_dp *intel_dp)
+ 	return translate_signal_level(intel_dp, signal_levels);
+ }
  
-+	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
- 	intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
- 	/*
- 	 * DDI FEC: "anticipates enabling FEC encoding sets the FEC_READY bit
-@@ -2587,6 +2588,8 @@ static void dg2_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	 * training
++static void
++dg2_set_signal_levels(struct intel_dp *intel_dp,
++		      const struct intel_crtc_state *crtc_state)
++{
++	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
++	int level = intel_ddi_dp_level(intel_dp);
++
++	intel_snps_phy_ddi_vswing_sequence(encoder, level);
++}
++
+ static void
+ tgl_set_signal_levels(struct intel_dp *intel_dp,
+ 		      const struct intel_crtc_state *crtc_state)
+@@ -2563,7 +2573,10 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
  	 */
- 	intel_dp_sink_set_fec_ready(intel_dp, crtc_state);
-+	intel_dp_check_frl_training(intel_dp);
-+	intel_dp_pcon_dsc_configure(intel_dp, crtc_state);
+ 
+ 	/* 7.e Configure voltage swing and related IO settings */
+-	tgl_ddi_vswing_sequence(encoder, crtc_state, level);
++	if (IS_DG2(dev_priv))
++		intel_snps_phy_ddi_vswing_sequence(encoder, level);
++	else
++		tgl_ddi_vswing_sequence(encoder, crtc_state, level);
  
  	/*
- 	 * 5.h Follow DisplayPort specification training sequence (see notes for
+ 	 * 7.f Combo PHY: Configure PORT_CL_DW10 Static Power Down to power up
+@@ -3102,7 +3115,9 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
+ 			    "[CONNECTOR:%d:%s] Failed to configure sink scrambling/TMDS bit clock ratio\n",
+ 			    connector->base.id, connector->name);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 12)
++	if (IS_DG2(dev_priv))
++		intel_snps_phy_ddi_vswing_sequence(encoder, U32_MAX);
++	else if (DISPLAY_VER(dev_priv) >= 12)
+ 		tgl_ddi_vswing_sequence(encoder, crtc_state, level);
+ 	else if (DISPLAY_VER(dev_priv) == 11)
+ 		icl_ddi_vswing_sequence(encoder, crtc_state, level);
+@@ -4075,7 +4090,9 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
+ 	dig_port->dp.set_link_train = intel_ddi_set_link_train;
+ 	dig_port->dp.set_idle_link_train = intel_ddi_set_idle_link_train;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 12)
++	if (IS_DG2(dev_priv))
++		dig_port->dp.set_signal_levels = dg2_set_signal_levels;
++	else if (DISPLAY_VER(dev_priv) >= 12)
+ 		dig_port->dp.set_signal_levels = tgl_set_signal_levels;
+ 	else if (DISPLAY_VER(dev_priv) >= 11)
+ 		dig_port->dp.set_signal_levels = icl_set_signal_levels;
+diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+index 1317b4e94b50..77759bda98a4 100644
+--- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+@@ -21,6 +21,60 @@
+  * since it is not handled by the shared DPLL framework as on other platforms.
+  */
+ 
++static const u32 dg2_ddi_translations[] = {
++	/* VS 0, pre-emph 0 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 26),
++
++	/* VS 0, pre-emph 1 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 33) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 6),
++
++	/* VS 0, pre-emph 2 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 38) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 12),
++
++	/* VS 0, pre-emph 3 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 43) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 19),
++
++	/* VS 1, pre-emph 0 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 39),
++
++	/* VS 1, pre-emph 1 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 44) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 8),
++
++	/* VS 1, pre-emph 2 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 47) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 15),
++
++	/* VS 2, pre-emph 0 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 52),
++
++	/* VS 2, pre-emph 1 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 51) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 10),
++
++	/* VS 3, pre-emph 0 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 62),
++};
++
++void intel_snps_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
++					u32 level)
++{
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	enum phy phy = intel_port_to_phy(dev_priv, encoder->port);
++	int n_entries, ln;
++
++	n_entries = ARRAY_SIZE(dg2_ddi_translations);
++	if (level >= n_entries)
++		level = n_entries - 1;
++
++	for (ln = 0; ln < 4; ln++)
++		intel_de_write(dev_priv, SNPS_PHY_TX_EQ(ln, phy),
++			       dg2_ddi_translations[level]);
++}
++
+ /*
+  * Basic DP link rates with 100 MHz reference clock.
+  */
+diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.h b/drivers/gpu/drm/i915/display/intel_snps_phy.h
+index ca4c2a25182b..3ce92d424f66 100644
+--- a/drivers/gpu/drm/i915/display/intel_snps_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_snps_phy.h
+@@ -6,6 +6,8 @@
+ #ifndef __INTEL_SNPS_PHY_H__
+ #define __INTEL_SNPS_PHY_H__
+ 
++#include <linux/types.h>
++
+ struct intel_encoder;
+ struct intel_crtc_state;
+ struct intel_mpllb_state;
+@@ -21,5 +23,7 @@ int intel_mpllb_calc_port_clock(struct intel_encoder *encoder,
+ 				const struct intel_mpllb_state *pll_state);
+ 
+ int intel_snps_phy_check_hdmi_link_rate(int clock);
++void intel_snps_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
++					u32 level);
+ 
+ #endif /* __INTEL_SNPS_PHY_H__ */
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 15465f9cf9ab..203056b9f02c 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2340,6 +2340,11 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define SNPS_PHY_REF_CONTROL(phy)		_MMIO_SNPS(phy, 0x168188)
+ #define   SNPS_PHY_REF_CONTROL_REF_RANGE	REG_GENMASK(31, 27)
+ 
++#define SNPS_PHY_TX_EQ(ln, phy)			_MMIO_SNPS_LN(ln, phy, 0x168300)
++#define   SNPS_PHY_TX_EQ_MAIN			REG_GENMASK(23, 18)
++#define   SNPS_PHY_TX_EQ_POST			REG_GENMASK(15, 10)
++#define   SNPS_PHY_TX_EQ_PRE			REG_GENMASK(7, 2)
++
+ /* The spec defines this only for BXT PHY0, but lets assume that this
+  * would exist for PHY1 too if it had a second channel.
+  */
 -- 
 2.25.4
 
