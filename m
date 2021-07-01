@@ -7,42 +7,39 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 13008C11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:58:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2D09C11F69
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:58:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D376E613FD
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:58:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D376E613FD
+	by mail.kernel.org (Postfix) with ESMTPS id 98882613FD
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:58:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98882613FD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 800596EB66;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70C346EB60;
 	Thu,  1 Jul 2021 16:58:02 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A16E06EB5F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A98E6EB60;
  Thu,  1 Jul 2021 16:58:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208525581"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208525581"
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208525578"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208525578"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 09:58:00 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644504651"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644504641"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 09:58:00 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  1 Jul 2021 10:15:45 -0700
-Message-Id: <20210701171550.49353-3-matthew.brost@intel.com>
+Date: Thu,  1 Jul 2021 10:15:43 -0700
+Message-Id: <20210701171550.49353-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210701171550.49353-1-matthew.brost@intel.com>
-References: <20210701171550.49353-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/7] drm/i915/guc: Improve error message for
- unsolicited CT response
+Subject: [Intel-gfx] [PATCH 0/7] CT changes required for GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,40 +57,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Improve the error message when a unsolicited CT response is received by
-printing fence that couldn't be found, the last fence, and all requests
-with a response outstanding.
+As part of enabling GuC submission discussed in [1], [2], and [3] we
+need optimize and update the CT code as this is now in the critical
+path of submission. This series includes the patches to do that which is
+the first 7 patches from [3]. The patches should have addressed all the
+feedback in [3] and should be ready to merge once CI returns a we get a
+few more RBs.
+
+v2: Fix checkpatch warning, address a couple of Michal's comments
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index b86575b99537..80db59b45c45 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -732,12 +732,16 @@ static int ct_handle_response(struct intel_guc_ct *ct, struct ct_incoming_msg *r
- 		found = true;
- 		break;
- 	}
--	spin_unlock_irqrestore(&ct->requests.lock, flags);
--
- 	if (!found) {
- 		CT_ERROR(ct, "Unsolicited response (fence %u)\n", fence);
--		return -ENOKEY;
-+		CT_ERROR(ct, "Could not find fence=%u, last_fence=%u\n", fence,
-+			 ct->requests.last_fence);
-+		list_for_each_entry(req, &ct->requests.pending, link)
-+			CT_ERROR(ct, "request %u awaits response\n",
-+				 req->fence);
-+		err = -ENOKEY;
- 	}
-+	spin_unlock_irqrestore(&ct->requests.lock, flags);
- 
- 	if (unlikely(err))
- 		return err;
+[1] https://patchwork.freedesktop.org/series/89844/
+[2] https://patchwork.freedesktop.org/series/91417/
+[3] https://patchwork.freedesktop.org/series/91840/
+
+John Harrison (1):
+  drm/i915/guc: Module load failure test for CT buffer creation
+
+Matthew Brost (6):
+  drm/i915/guc: Relax CTB response timeout
+  drm/i915/guc: Improve error message for unsolicited CT response
+  drm/i915/guc: Increase size of CTB buffers
+  drm/i915/guc: Add non blocking CTB send function
+  drm/i915/guc: Add stall timer to non blocking CTB send function
+  drm/i915/guc: Optimize CTB writes and reads
+
+ .../gt/uc/abi/guc_communication_ctb_abi.h     |   3 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  11 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 250 +++++++++++++++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  14 +-
+ 4 files changed, 232 insertions(+), 46 deletions(-)
+
 -- 
 2.28.0
 
