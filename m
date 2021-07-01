@@ -2,41 +2,49 @@ Return-Path: <SRS0=QA22=LZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18F2BC11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 13:51:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5444C11F64
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 14:24:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE793613D8
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 13:51:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE793613D8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 9D81061409
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 14:24:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D81061409
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2106EABE;
-	Thu,  1 Jul 2021 13:51:26 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id F39596EABE;
- Thu,  1 Jul 2021 13:51:24 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E8A72A47E1;
- Thu,  1 Jul 2021 13:51:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 077616EB25;
+	Thu,  1 Jul 2021 14:24:22 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A16886EB24;
+ Thu,  1 Jul 2021 14:24:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208582272"
+X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="208582272"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 07:24:19 -0700
+X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="408948925"
+Received: from awvttdev-05.aw.intel.com ([10.228.212.156])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 07:24:18 -0700
+From: "Michael J. Ruhl" <michael.j.ruhl@intel.com>
+To: michael.j.ruhl@intel.com, daniel@ffwll.ch,
+ thomas.hellstrom@linux.intel.com, ckoenig.leichtzumerken@gmail.com,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ matthew.auld@intel.com, maarten.lankhorst@linux.intel.com
+Date: Thu,  1 Jul 2021 10:24:07 -0400
+Message-Id: <20210701142407.458836-2-michael.j.ruhl@intel.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210701142407.458836-1-michael.j.ruhl@intel.com>
+References: <20210701142407.458836-1-michael.j.ruhl@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Anshuman Gupta" <anshuman.gupta@intel.com>
-Date: Thu, 01 Jul 2021 13:51:24 -0000
-Message-ID: <162514748492.15052.6959959826452888615@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210701125346.10005-1-anshuman.gupta@intel.com>
-In-Reply-To: <20210701125346.10005-1-anshuman.gupta@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgbHBz?=
- =?utf-8?q?p_with_hdmi/dp_outputs?=
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/gem: Migrate to system at dma-buf
+ attach time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,140 +57,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0555803235=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0555803235==
-Content-Type: multipart/alternative;
- boundary="===============3231553246294719050=="
-
---===============3231553246294719050==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-== Series Details ==
-
-Series: lpsp with hdmi/dp outputs
-URL   : https://patchwork.freedesktop.org/series/92108/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10297 -> Patchwork_20506
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20506/index.html
-
-
-Changes
--------
-
-  No changes found
-
-
-Participating hosts (37 -> 35)
-------------------------------
-
-  Missing    (2): fi-bsw-cyan fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10297 -> Patchwork_20506
-
-  CI-20190529: 20190529
-  CI_DRM_10297: 96c7ad60de68518bdcd0d0e6381a2359034a0226 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6125: 5bb62cb290fa32777934de4b39e107ccd282f7e8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20506: b5cbf9ab064d49157bca393b17aa93a1d726d2ab @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-b5cbf9ab064d drm/i915/audio: Use AUDIO_PLAYBACK power domain
-ccb7234a2d9f drm/i915/display: Use AUDIO_MMIO for crtc power domain mask
-9b0be9be5168 drm/i915/dg1: Adjust the AUDIO power domain
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20506/index.html
-
---===============3231553246294719050==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>lpsp with hdmi/dp outputs</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/92108/">https://patchwork.freedesktop.org/series/92108/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20506/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20506/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10297 -&gt; Patchwork_20506</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20506/index.html</p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Participating hosts (37 -&gt; 35)</h2>
-<p>Missing    (2): fi-bsw-cyan fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10297 -&gt; Patchwork_20506</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10297: 96c7ad60de68518bdcd0d0e6381a2359034a0226 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6125: 5bb62cb290fa32777934de4b39e107ccd282f7e8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20506: b5cbf9ab064d49157bca393b17aa93a1d726d2ab @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>b5cbf9ab064d drm/i915/audio: Use AUDIO_PLAYBACK power domain<br />
-ccb7234a2d9f drm/i915/display: Use AUDIO_MMIO for crtc power domain mask<br />
-9b0be9be5168 drm/i915/dg1: Adjust the AUDIO power domain</p>
-
-</body>
-</html>
-
---===============3231553246294719050==--
-
---===============0555803235==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0555803235==--
+RnJvbTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwuY29t
+PgoKVW50aWwgd2Ugc3VwcG9ydCBwMnAgZG1hIG9yIGFzIGEgY29tcGxlbWVudCB0byB0aGF0LCBt
+aWdyYXRlIGRhdGEKdG8gc3lzdGVtIG1lbW9yeSBhdCBkbWEtYnVmIGF0dGFjaCB0aW1lIGlmIHBv
+c3NpYmxlLgoKdjI6Ci0gUmViYXNlIG9uIGR5bmFtaWMgZXhwb3J0ZXIuIFVwZGF0ZSB0aGUgaWd0
+X2RtYWJ1Zl9pbXBvcnRfc2FtZV9kcml2ZXIKICBzZWxmdGVzdCB0byBtaWdyYXRlIGlmIHdlIGFy
+ZSBMTUVNIGNhcGFibGUuCnYzOgotIE1pZ3JhdGUgYWxzbyBpbiB0aGUgcGluKCkgY2FsbGJhY2su
+CnY0OgotIE1pZ3JhdGUgaW4gYXR0YWNoCgpTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgSGVsbHN0csO2
+bSA8dGhvbWFzLmhlbGxzdHJvbUBsaW51eC5pbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IE1pY2hh
+ZWwgSi4gUnVobCA8bWljaGFlbC5qLnJ1aGxAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2dlbS9pOTE1X2dlbV9kbWFidWYuYyAgICAgICAgICAgfCAxMiArKysrKysrKysrKy0K
+IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9zZWxmdGVzdHMvaTkxNV9nZW1fZG1hYnVmLmMgfCAg
+NCArKystCiAyIGZpbGVzIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0p
+CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2RtYWJ1Zi5j
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2RtYWJ1Zi5jCmluZGV4IDAwMzM4
+YzhkMzczOS4uNDA2MDE2YWViMjAwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9n
+ZW0vaTkxNV9nZW1fZG1hYnVmLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVf
+Z2VtX2RtYWJ1Zi5jCkBAIC0xNzAsOSArMTcwLDE5IEBAIHN0YXRpYyBpbnQgaTkxNV9nZW1fZG1h
+YnVmX2F0dGFjaChzdHJ1Y3QgZG1hX2J1ZiAqZG1hYnVmLAogCQkJCSAgc3RydWN0IGRtYV9idWZf
+YXR0YWNobWVudCAqYXR0YWNoKQogewogCXN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmog
+PSBkbWFfYnVmX3RvX29iaihkbWFidWYpOworCWludCByZXQ7CiAKIAlhc3NlcnRfb2JqZWN0X2hl
+bGQob2JqKTsKLQlyZXR1cm4gaTkxNV9nZW1fb2JqZWN0X3Bpbl9wYWdlcyhvYmopOworCisJaWYg
+KCFpOTE1X2dlbV9vYmplY3RfY2FuX21pZ3JhdGUob2JqLCBJTlRFTF9SRUdJT05fU01FTSkpCisJ
+CXJldHVybiAtRU9QTk9UU1VQUDsKKwlyZXQgPSBpOTE1X2dlbV9vYmplY3RfbWlncmF0ZShvYmos
+IE5VTEwsIElOVEVMX1JFR0lPTl9TTUVNKTsKKwlpZiAoIXJldCkKKwkJcmV0ID0gaTkxNV9nZW1f
+b2JqZWN0X3dhaXRfbWlncmF0aW9uKG9iaiwgMCk7CisJaWYgKCFyZXQpCisJCXJldCA9IGk5MTVf
+Z2VtX29iamVjdF9waW5fcGFnZXMob2JqKTsKKworCXJldHVybiByZXQ7CiB9CiAKIHN0YXRpYyB2
+b2lkIGk5MTVfZ2VtX2RtYWJ1Zl9kZXRhY2goc3RydWN0IGRtYV9idWYgKmRtYWJ1ZiwKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9zZWxmdGVzdHMvaTkxNV9nZW1fZG1hYnVm
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vc2VsZnRlc3RzL2k5MTVfZ2VtX2RtYWJ1Zi5j
+CmluZGV4IDEwYTExM2NjMDBhNS4uNmZlYWMxYTE0MjgxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9nZW0vc2VsZnRlc3RzL2k5MTVfZ2VtX2RtYWJ1Zi5jCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9pOTE1L2dlbS9zZWxmdGVzdHMvaTkxNV9nZW1fZG1hYnVmLmMKQEAgLTEwMSw3ICsx
+MDEsOSBAQCBzdGF0aWMgaW50IGlndF9kbWFidWZfaW1wb3J0X3NhbWVfZHJpdmVyKHZvaWQgKmFy
+ZykKIAlpbnQgZXJyOwogCiAJZm9yY2VfZGlmZmVyZW50X2RldmljZXMgPSB0cnVlOwotCW9iaiA9
+IGk5MTVfZ2VtX29iamVjdF9jcmVhdGVfc2htZW0oaTkxNSwgUEFHRV9TSVpFKTsKKwlvYmogPSBp
+OTE1X2dlbV9vYmplY3RfY3JlYXRlX2xtZW0oaTkxNSwgUEFHRV9TSVpFLCAwKTsKKwlpZiAoSVNf
+RVJSKG9iaikpCisJCW9iaiA9IGk5MTVfZ2VtX29iamVjdF9jcmVhdGVfc2htZW0oaTkxNSwgUEFH
+RV9TSVpFKTsKIAlpZiAoSVNfRVJSKG9iaikpCiAJCWdvdG8gb3V0X3JldDsKIAotLSAKMi4zMS4x
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1n
+ZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
