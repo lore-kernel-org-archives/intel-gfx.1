@@ -7,40 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 084A4C11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B028EC11F67
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D4EA7613F3
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D4EA7613F3
+	by mail.kernel.org (Postfix) with ESMTPS id 84EB861416
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84EB861416
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D891F6EC61;
-	Thu,  1 Jul 2021 20:25:48 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 342CE6EC0F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34DF96EC62;
+	Thu,  1 Jul 2021 20:25:49 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E26D6EC1B;
  Thu,  1 Jul 2021 20:25:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="188998672"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="188998672"
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436170"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436170"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:21 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564542"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564559"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:24:20 -0700
-Message-Id: <20210701202427.1547543-47-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:24:25 -0700
+Message-Id: <20210701202427.1547543-52-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 46/53] drm/i915/dg2: Classify DG2 PHY types
+Subject: [Intel-gfx] [PATCH 51/53] drm/i915/display/dsc: Set BPP in the
+ kernel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,84 +60,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Although the bspec labels four of DG2's outputs as "combo PHY," the
-underlying PHYs in both cases are actually Synopsys PHYs that are
-programmed completely differently than the traditional Intel "combo" PHY
-units.  As such, we don't want intel_phy_is_combo to take us down legacy
-programming paths, so just return false from it on DG2.  Instead add a
-new intel_phy_is_snps() that will return true for all DG2 PHYs.
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
+Set compress BPP in kernel while connector DP or eDP
+
+Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Cc: Navare Manasi D <manasi.d.navare@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 26 +++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_display.h |  1 +
- 2 files changed, 26 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index cce520b6dfcf..9655f1b1b41b 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -3698,6 +3698,13 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
- {
- 	if (phy == PHY_NONE)
- 		return false;
-+	else if (IS_DG2(dev_priv))
-+		/*
-+		 * DG2 outputs labelled as "combo PHY" in the bspec use
-+		 * SNPS PHYs with completely different programming,
-+		 * hence we always return false here.
-+		 */
-+		return false;
- 	else if (IS_ALDERLAKE_S(dev_priv))
- 		return phy <= PHY_E;
- 	else if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv))
-@@ -3712,7 +3719,10 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 5b52beaddada..57aadee69d8b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1241,9 +1241,15 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	pipe_config->lane_count = limits->max_lane_count;
  
- bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
- {
--	if (IS_ALDERLAKE_P(dev_priv))
-+	if (IS_DG2(dev_priv))
-+		/* DG2's "TC1" output uses a SNPS PHY */
-+		return false;
-+	else if (IS_ALDERLAKE_P(dev_priv))
- 		return phy >= PHY_F && phy <= PHY_I;
- 	else if (IS_TIGERLAKE(dev_priv))
- 		return phy >= PHY_D && phy <= PHY_I;
-@@ -3722,6 +3732,20 @@ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
- 		return false;
- }
- 
-+bool intel_phy_is_snps(struct drm_i915_private *dev_priv, enum phy phy)
-+{
-+	if (phy == PHY_NONE)
-+		return false;
-+	else if (IS_DG2(dev_priv))
-+		/*
-+		 * All four "combo" ports and the TC1 port (PHY E) use
-+		 * Synopsis PHYs.
-+		 */
-+		return phy <= PHY_E;
-+
-+	return false;
-+}
-+
- enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port)
- {
- 	if (DISPLAY_VER(i915) >= 13 && port >= PORT_D_XELPD)
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index c9dbaf074d77..284936f0ddab 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -561,6 +561,7 @@ struct drm_display_mode *
- intel_encoder_current_mode(struct intel_encoder *encoder);
- bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy);
- bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy);
-+bool intel_phy_is_snps(struct drm_i915_private *dev_priv, enum phy phy);
- enum tc_port intel_port_to_tc(struct drm_i915_private *dev_priv,
- 			      enum port port);
- int intel_get_pipe_from_crtc_id_ioctl(struct drm_device *dev, void *data,
+ 	if (intel_dp_is_edp(intel_dp)) {
+-		pipe_config->dsc.compressed_bpp =
+-			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
+-			      pipe_config->pipe_bpp);
++		if (intel_dp->force_dsc_bpp) {
++			drm_dbg_kms(&dev_priv->drm,
++				"DSC BPC forced to %d", intel_dp->force_dsc_bpp);
++			pipe_config->dsc.compressed_bpp = intel_dp->force_dsc_bpp;
++		} else {
++			pipe_config->dsc.compressed_bpp =
++				min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
++				pipe_config->pipe_bpp);
++		}
+ 		pipe_config->dsc.slice_count =
+ 			drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd,
+ 							true);
+@@ -1269,9 +1275,15 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				    "Compressed BPP/Slice Count not supported\n");
+ 			return -EINVAL;
+ 		}
+-		pipe_config->dsc.compressed_bpp = min_t(u16,
++		if (intel_dp->force_dsc_bpp) {
++			drm_dbg_kms(&dev_priv->drm,
++				    "DSC BPC forced to %d\n", intel_dp->force_dsc_bpp);
++			pipe_config->dsc.compressed_bpp = intel_dp->force_dsc_bpp;
++		} else {
++			pipe_config->dsc.compressed_bpp = min_t(u16,
+ 							       dsc_max_output_bpp >> 4,
+ 							       pipe_config->pipe_bpp);
++		}
+ 		pipe_config->dsc.slice_count = dsc_dp_slice_count;
+ 	}
+ 	/*
+@@ -1374,7 +1386,8 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 	 * Pipe joiner needs compression upto display12 due to BW limitation. DG2
+ 	 * onwards pipe joiner can be enabled without compression.
+ 	 */
+-	drm_dbg_kms(&i915->drm, "Force DSC en = %d\n", intel_dp->force_dsc_en);
++	drm_dbg_kms(&i915->drm, "Force DSC en = %d\n Force DSC BPP = %d\n",
++		    intel_dp->force_dsc_en, intel_dp->force_dsc_bpp);
+ 	if (ret || intel_dp->force_dsc_en || (DISPLAY_VER(i915) < 13 &&
+ 					      pipe_config->bigjoiner)) {
+ 		ret = intel_dp_dsc_compute_config(intel_dp, pipe_config,
 -- 
 2.25.4
 
