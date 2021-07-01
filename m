@@ -2,50 +2,76 @@ Return-Path: <SRS0=QA22=LZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00D3EC11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 297DCC11F64
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:55:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9958E613E9
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9958E613E9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id DC2996140D
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:55:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC2996140D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC956E055;
-	Thu,  1 Jul 2021 17:46:50 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C0646E055
- for <intel-gfx@lists.freedesktop.org>; Thu,  1 Jul 2021 17:46:48 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="205579079"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="205579079"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 10:46:47 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="457757738"
-Received: from aebanas-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
- ([10.254.38.1])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 10:46:46 -0700
-Date: Thu, 1 Jul 2021 10:46:43 -0700
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: "Souza, Jose" <jose.souza@intel.com>
-Message-ID: <20210701174643.ufr2tmpsanjd4ods@ldmartin-desk2>
-X-Patchwork-Hint: comment
-References: <20210630230624.25407-1-anusha.srivatsa@intel.com>
- <20210701000114.smjdtszhfx24gkkj@ldmartin-desk2>
- <d8855d661aea7e6b3dc70ea378efd5c5f9cec3c4.camel@intel.com>
- <20210701001752.3oag6zry5w35m4xl@ldmartin-desk2>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A5F26E083;
+	Thu,  1 Jul 2021 17:55:54 +0000 (UTC)
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8A16EB5A;
+ Thu,  1 Jul 2021 16:54:33 +0000 (UTC)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ p4-20020a17090a9304b029016f3020d867so4308892pjo.3; 
+ Thu, 01 Jul 2021 09:54:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=vc5xi5ftWnxZlU1gt0+b48wT38LyZFngC4JD9PKuX7I=;
+ b=XSI+quGbHhOHhJUhLMEFgKiAjU7ZWtY5gdFSDEnU2n0Qm6PybNqbvktJWF0XqrYyBR
+ fM3tU5ZfsQ8kuOEzLk6+UmIMshjj09iaE8M0s63LbaZErj7JMvkJH4zexMx5xkaN3rYd
+ ZWxy2XpsyReXtzXcCRHhHY/LTIwnZwg1CE72V38FclywmZypjluIMusOL8pHFMpJaXqR
+ 3lQcW0djA/y9x+i09J0pmBpDRQN3Z1jRH9ZItgID5cYsC7be1v3G4A2V4Y90hu39zZtO
+ oAGamFkmxYcDsaUhcOT0007e0zylAmp6u+AHvNLRyIIJ+l+vItCXcRfCzAM6Yq7pZ2lJ
+ VE1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=vc5xi5ftWnxZlU1gt0+b48wT38LyZFngC4JD9PKuX7I=;
+ b=NiDPv1H+ToLvGmMAKhxQC9fyoUax41OIis8Uayx3yR9TAw+goFRJ7IzDmPtCk0oO82
+ yHePFtFzCgfoQLX3Mq0LfRs5UL3rFzXRCYT3Rz8+5+GYOp6EvN4bSVTTFG3WYEMT20eO
+ uZcqRpN8gS80ubSzuqEyP3tyaTocfZV8JIS5rLe4QNxgxUGbIjVl6iWnejA8mKSsbkFK
+ vP+kpTSqUpHHN549jRB5JAShLGhF1E+03aKT8WsioBdeZIvFG47GE38zlkssO8a2s5r5
+ YrJnNZK/4zailk+Ri5icq0Su/JtsKPgJUW7Txu070OgfCCRQY7UNE4e7R8WhcQTAprhD
+ BTKQ==
+X-Gm-Message-State: AOAM532S2qlQzqVhfpliNUU0YzYraAJg0gx3C74F67pUomGgEqZEJ7bJ
+ JZpwUyvwUTF5avITryNIe2M=
+X-Google-Smtp-Source: ABdhPJx0FRVHE0P9JY9PweVc7BKHZ6+iKxtn2+/VNCZJWOoD8ujSXIe+Xd4vpsLeQuU2hYVCbwcauw==
+X-Received: by 2002:a17:90a:f684:: with SMTP id
+ cl4mr594900pjb.197.1625158473088; 
+ Thu, 01 Jul 2021 09:54:33 -0700 (PDT)
+Received: from localhost.localdomain ([118.200.190.93])
+ by smtp.gmail.com with ESMTPSA id s20sm398738pgv.1.2021.07.01.09.54.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Jul 2021 09:54:32 -0700 (PDT)
+From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
+ christian.koenig@amd.com
+Date: Fri,  2 Jul 2021 00:53:54 +0800
+Message-Id: <20210701165358.19053-2-desmondcheongzx@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210701165358.19053-1-desmondcheongzx@gmail.com>
+References: <20210701165358.19053-1-desmondcheongzx@gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210701001752.3oag6zry5w35m4xl@ldmartin-desk2>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/dmc: Use RUNTIME_INFO->stp for DMC
+X-Mailman-Approved-At: Thu, 01 Jul 2021 17:55:54 +0000
+Subject: [Intel-gfx] [PATCH v7 1/5] drm: avoid circular locks in
+ drm_mode_getconnector
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,100 +84,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, gregkh@linuxfoundation.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ skhan@linuxfoundation.org, Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
+ linux-kernel-mentees@lists.linuxfoundation.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 30, 2021 at 05:17:52PM -0700, Lucas De Marchi wrote:
->On Wed, Jun 30, 2021 at 05:15:00PM -0700, Jose Souza wrote:
->>On Wed, 2021-06-30 at 17:01 -0700, Lucas De Marchi wrote:
->>>Typo: RUNTIME_INFO->stp
->>>
->>>On Wed, Jun 30, 2021 at 04:06:24PM -0700, Anusha Srivatsa wrote:
->>>> On the dmc side,we maintain a lookup table with different display
->>>> stepping-substepping combinations.
->>>>
->>>> Instead of adding new table for every new platform, lets ues
->>>> the stepping info from RUNTIME_INFO(dev_priv)->step
->>>> Adding the helper intel_get_display_step().
->>>>
->>>> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->>>> Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
->>>> ---
->>>> drivers/gpu/drm/i915/display/intel_dmc.c | 49 ++++++++++++++++++++++--
->>>> 1 file changed, 45 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
->>>> index f8789d4543bf..c7ff7ff3f412 100644
->>>> --- a/drivers/gpu/drm/i915/display/intel_dmc.c
->>>> +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
->>>> @@ -266,14 +266,55 @@ static const struct stepping_info icl_stepping_info[] = {
->>>> };
->>>>
->>>> static const struct stepping_info no_stepping_info = { '*', '*' };
->>>> +struct stepping_info *display_step;
->>>> +
->>>> +static struct stepping_info *
->>>> +intel_get_display_stepping(struct intel_step_info step)
->>>> +{
->>>> +
->>>> +	switch (step.display_step) {
->>>> +	case STEP_A0:
->>>> +		display_step->stepping = 'A';
->>>> +		display_step->substepping = '0';
->>>> +		break;
->>>> +	case STEP_A2:
->>>> +		display_step->stepping = 'A';
->>>> +		display_step->substepping = '2';
->>>> +		break;
->>>> +	case STEP_B0:
->>>> +		display_step->stepping = 'B';
->>>> +		display_step->substepping = '0';
->>>> +		break;
->>>> +	case STEP_B1:
->>>> +		display_step->stepping = 'B';
->>>> +		display_step->substepping = '1';
->>>> +		break;
->>>> +	case STEP_C0:
->>>> +		display_step->stepping = 'C';
->>>> +		display_step->substepping = '0';
->>>> +		break;
->>>> +	case STEP_D0:
->>>> +		display_step->stepping = 'D';
->>>> +		display_step->substepping = '0';
->>>> +		break;
->>>> +	default:
->>>> +		display_step->stepping = '*';
->>>> +		display_step->substepping = '*';
->>>> +		break;
->>>> +	}
->>>
->>>
->>>"crazy" idea that would avoid this type of conversion:
->>>changing the step enum to be:
->>>
->>>
->>>#define make_step(letter, num) (int)(((letter) << 8 ) | (num))
->>>
->>>STEP_A0 = make_step('A', '0'),
->>>STEP_A1 = make_step('A', '1'),
->>
->>Looks a good idea to me, we could also keep it u8 using 4bits for each if there is memory concerns.
->
->humn... indeed. Not much a concern actually, but not having to change
->additional code is already a good thing.
->
->
->I hope no stepping goes beyond Z9 :)
+In preparation for a future patch to take a lock on
+drm_device.master_mutex inside drm_is_current_master(), we first move
+the call to drm_is_current_master() in drm_mode_getconnector out from the
+section locked by &dev->mode_config.mutex. This avoids creating a
+circular lock dependency.
 
-I take that out. Even if we would do (number - 'A'), there is not enough
-room in 4bits to handle until Z. In fact we could go only until P8 - so
-if we are going that route we will need to have some extra build checks
-that we don't go beyond that.
+Failing to avoid this lock dependency produces the following lockdep
+splat:
 
-Lucas De Marchi
+======================================================
+WARNING: possible circular locking dependency detected
+5.13.0-rc7-CI-CI_DRM_10254+ #1 Not tainted
+------------------------------------------------------
+kms_frontbuffer/1087 is trying to acquire lock:
+ffff88810dcd01a8 (&dev->master_mutex){+.+.}-{3:3}, at: drm_is_current_master+0x1b/0x40
+but task is already holding lock:
+ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+which lock already depends on the new lock.
+the existing dependency chain (in reverse order) is:
+-> #2 (&dev->mode_config.mutex){+.+.}-{3:3}:
+       __mutex_lock+0xab/0x970
+       drm_client_modeset_probe+0x22e/0xca0
+       __drm_fb_helper_initial_config_and_unlock+0x42/0x540
+       intel_fbdev_initial_config+0xf/0x20 [i915]
+       async_run_entry_fn+0x28/0x130
+       process_one_work+0x26d/0x5c0
+       worker_thread+0x37/0x380
+       kthread+0x144/0x170
+       ret_from_fork+0x1f/0x30
+-> #1 (&client->modeset_mutex){+.+.}-{3:3}:
+       __mutex_lock+0xab/0x970
+       drm_client_modeset_commit_locked+0x1c/0x180
+       drm_client_modeset_commit+0x1c/0x40
+       __drm_fb_helper_restore_fbdev_mode_unlocked+0x88/0xb0
+       drm_fb_helper_set_par+0x34/0x40
+       intel_fbdev_set_par+0x11/0x40 [i915]
+       fbcon_init+0x270/0x4f0
+       visual_init+0xc6/0x130
+       do_bind_con_driver+0x1e5/0x2d0
+       do_take_over_console+0x10e/0x180
+       do_fbcon_takeover+0x53/0xb0
+       register_framebuffer+0x22d/0x310
+       __drm_fb_helper_initial_config_and_unlock+0x36c/0x540
+       intel_fbdev_initial_config+0xf/0x20 [i915]
+       async_run_entry_fn+0x28/0x130
+       process_one_work+0x26d/0x5c0
+       worker_thread+0x37/0x380
+       kthread+0x144/0x170
+       ret_from_fork+0x1f/0x30
+-> #0 (&dev->master_mutex){+.+.}-{3:3}:
+       __lock_acquire+0x151e/0x2590
+       lock_acquire+0xd1/0x3d0
+       __mutex_lock+0xab/0x970
+       drm_is_current_master+0x1b/0x40
+       drm_mode_getconnector+0x37e/0x4a0
+       drm_ioctl_kernel+0xa8/0xf0
+       drm_ioctl+0x1e8/0x390
+       __x64_sys_ioctl+0x6a/0xa0
+       do_syscall_64+0x39/0xb0
+       entry_SYSCALL_64_after_hwframe+0x44/0xae
+other info that might help us debug this:
+Chain exists of: &dev->master_mutex --> &client->modeset_mutex --> &dev->mode_config.mutex
+ Possible unsafe locking scenario:
+       CPU0                    CPU1
+       ----                    ----
+  lock(&dev->mode_config.mutex);
+                               lock(&client->modeset_mutex);
+                               lock(&dev->mode_config.mutex);
+  lock(&dev->master_mutex);
+*** DEADLOCK ***
+1 lock held by kms_frontbuffer/1087:
+ #0: ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+stack backtrace:
+CPU: 7 PID: 1087 Comm: kms_frontbuffer Not tainted 5.13.0-rc7-CI-CI_DRM_10254+ #1
+Hardware name: Intel Corporation Ice Lake Client Platform/IceLake U DDR4 SODIMM PD RVP TLC, BIOS ICLSFWR1.R00.3234.A01.1906141750 06/14/2019
+Call Trace:
+ dump_stack+0x7f/0xad
+ check_noncircular+0x12e/0x150
+ __lock_acquire+0x151e/0x2590
+ lock_acquire+0xd1/0x3d0
+ __mutex_lock+0xab/0x970
+ drm_is_current_master+0x1b/0x40
+ drm_mode_getconnector+0x37e/0x4a0
+ drm_ioctl_kernel+0xa8/0xf0
+ drm_ioctl+0x1e8/0x390
+ __x64_sys_ioctl+0x6a/0xa0
+ do_syscall_64+0x39/0xb0
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+---
+ drivers/gpu/drm/drm_connector.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index da39e7ff6965..2ba257b1ae20 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2414,6 +2414,7 @@ int drm_mode_getconnector(struct drm_device *dev, void *data,
+ 	struct drm_mode_modeinfo u_mode;
+ 	struct drm_mode_modeinfo __user *mode_ptr;
+ 	uint32_t __user *encoder_ptr;
++	bool is_current_master;
+ 
+ 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+ 		return -EOPNOTSUPP;
+@@ -2444,9 +2445,11 @@ int drm_mode_getconnector(struct drm_device *dev, void *data,
+ 	out_resp->connector_type = connector->connector_type;
+ 	out_resp->connector_type_id = connector->connector_type_id;
+ 
++	is_current_master = drm_is_current_master(file_priv);
++
+ 	mutex_lock(&dev->mode_config.mutex);
+ 	if (out_resp->count_modes == 0) {
+-		if (drm_is_current_master(file_priv))
++		if (is_current_master)
+ 			connector->funcs->fill_modes(connector,
+ 						     dev->mode_config.max_width,
+ 						     dev->mode_config.max_height);
+-- 
+2.25.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
