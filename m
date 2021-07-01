@@ -2,47 +2,46 @@ Return-Path: <SRS0=QA22=LZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5310BC11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 19:31:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 699CAC11F67
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 19:31:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 21B5C61410
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 19:31:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 21B5C61410
+	by mail.kernel.org (Postfix) with ESMTPS id 393ED6109D
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 19:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 393ED6109D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D2446EBAA;
-	Thu,  1 Jul 2021 19:31:00 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0F986EB91;
- Thu,  1 Jul 2021 19:30:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="205599329"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="205599329"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 12:30:48 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="457794047"
-Received: from josefeth-mobl.amr.corp.intel.com (HELO intel.com)
- ([10.212.93.40])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 12:30:47 -0700
-Date: Thu, 1 Jul 2021 15:30:45 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <YN4X5STOzppt9yAj@intel.com>
-References: <YNtsfguvCRSROBUZ@intel.com> <87zgv7r7kg.fsf@intel.com>
- <YNzAViVC1l4hE/uG@intel.com> <87k0maqulq.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD0386EB92;
+	Thu,  1 Jul 2021 19:31:20 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 512E56EB92
+ for <intel-gfx@lists.freedesktop.org>; Thu,  1 Jul 2021 19:31:19 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="272460122"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="272460122"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 12:31:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="455699892"
+Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
+ by orsmga008.jf.intel.com with ESMTP; 01 Jul 2021 12:31:18 -0700
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  1 Jul 2021 12:31:14 -0700
+Message-Id: <20210701193114.17531-3-anusha.srivatsa@intel.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210701193114.17531-1-anusha.srivatsa@intel.com>
+References: <20210701193114.17531-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87k0maqulq.fsf@intel.com>
-Subject: Re: [Intel-gfx] [PULL] drm-intel-next-fixes
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/dmc: Add steping info table for
+ remaining platforms
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,155 +54,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Dave Airlie <airlied@gmail.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 01, 2021 at 11:57:53AM +0300, Jani Nikula wrote:
-> On Wed, 30 Jun 2021, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
-> > On Wed, Jun 30, 2021 at 01:05:35PM +0300, Jani Nikula wrote:
-> >> On Tue, 29 Jun 2021, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
-> >> > Hi Dave and Daniel,
-> >> >
-> >> > Here goes drm-intel-next-fixes-2021-06-29:
-> >> >
-> >> > The biggest fix is the restoration of mmap ioctl for gen12 integrate=
-d parts
-> >> > which lack was breaking ADL-P with media stack.
-> >> > Besides that a small selftest fix and a theoretical overflow on
-> >> > i915->pipe_to_crtc_mapping.
-> >> =
+intel_step.c has stepping_info for  most platforms. With DMC using
+display_step from here, lets add the info for all older platforms
+as well
 
-> >> My last fixes pull for v5.13 fell between the cracks [1]. There was one
-> >> stable worthy fix, but since it was still in drm-intel-fixes when you
-> >> ran dim cherry-pick-next-fixes, it was skipped for drm-intel-next-fixe=
-s.
-> >> =
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+---
+ drivers/gpu/drm/i915/intel_step.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-> >> I've now dropped the commit and pushed v5.13 to drm-intel-fixes, as
-> >> we're past that point. Subsequent dim cherry-pick-next-fixes should pi=
-ck
-> >> it up now.
-> >
-> > it didn't, probably because the Fixes hash not being part of the drm-ne=
-xt yet?!
-> =
+diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
+index c8542161c5d0..d8f5ef9ac158 100644
+--- a/drivers/gpu/drm/i915/intel_step.c
++++ b/drivers/gpu/drm/i915/intel_step.c
+@@ -38,6 +38,13 @@ static const struct intel_step_info skl_revid_step_tbl[] = {
+ 	[9] = { .gt_step = STEP_J0, .display_step = STEP_J0 },
+ };
+ 
++static const struct intel_step_info glk_revid_step_tbl[] = {
++	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
++	[1] = { .gt_step = STEP_A1, .display_step = STEP_A1 },
++	[2] = { .gt_step = STEP_A2, .display_step = STEP_A2 },
++	[3] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
++};
++
+ static const struct intel_step_info icl_revid_step_tbl[] = {
+ 	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+ 	[3] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
+@@ -71,6 +78,18 @@ static const struct intel_step_info tgl_revid_step_tbl[] = {
+ 	[1] = { .gt_step = STEP_B0, .display_step = STEP_D0 },
+ };
+ 
++static const struct intel_step_info dg1_revid_step_tbl[] = {
++	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
++	[0x1] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
++};
++
++static const struct intel_step_info rkl_revid_step_tbl[] = {
++	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
++	[0x1] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
++	[0x4] = { .gt_step = STEP_C0, .display_step = STEP_C0 },
++
++};
++
+ static const struct intel_step_info adls_revid_step_tbl[] = {
+ 	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+ 	[0x1] = { .gt_step = STEP_A0, .display_step = STEP_A2 },
+@@ -99,6 +118,12 @@ void intel_step_init(struct drm_i915_private *i915)
+ 	} else if (IS_ALDERLAKE_S(i915)) {
+ 		revids = adls_revid_step_tbl;
+ 		size = ARRAY_SIZE(adls_revid_step_tbl);
++	} else if (IS_ROCKETLAKE(i915)) {
++		revids = rkl_revid_step_tbl;
++		size = ARRAY_SIZE(rkl_revid_step_tbl);
++	} else if (IS_DG1(i915)) {
++		revids = dg1_revid_step_tbl;
++		size = ARRAY_SIZE(dg1_revid_step_tbl);
+ 	} else if (IS_TGL_U(i915) || IS_TGL_Y(i915)) {
+ 		revids = tgl_uy_revid_step_tbl;
+ 		size = ARRAY_SIZE(tgl_uy_revid_step_tbl);
+@@ -111,6 +136,9 @@ void intel_step_init(struct drm_i915_private *i915)
+ 	} else if (IS_ICELAKE(i915)) {
+ 		revids = icl_revid_step_tbl;
+ 		size = ARRAY_SIZE(icl_revid_step_tbl);
++	} else if (IS_GEMINILAKE(i915)) {
++		revids = glk_revid_step_tbl;
++		size = ARRAY_SIZE(glk_revid_step_tbl);
+ 	} else if (IS_SKYLAKE(i915)) {
+ 		revids = skl_revid_step_tbl;
+ 		size = ARRAY_SIZE(skl_revid_step_tbl);
+-- 
+2.32.0
 
-> Odd, should be.
-
-indeed...
-
-> =
-
-> > I can cherry-pick that directly. Please let me know the commit id.
-> =
-
-> c88e2647c5bb ("drm/i915/display: Do not zero past infoframes.vsc")
-
-pushed to drm-intel-next-queue... will wait for CI results and send another=
- PR.
-I hope there's still time, otherwise it can wait for the -fixes flow
-
-> =
-
-> Thanks,
-> Jani.
-> =
-
-> =
-
-> >
-> > Thanks,
-> > Rodrigo.
-> >
-> >> =
-
-> >> Please do another next fixes pull request with that. (It's okay to pull
-> >> this one already though, doesn't make a difference.)
-> >> =
-
-> >> =
-
-> >> BR,
-> >> Jani.
-> >> =
-
-> >> =
-
-> >> [1] https://lore.kernel.org/r/87czsbu15r.fsf@intel.com
-> >> =
-
-> >> =
-
-> >> =
-
-> >> >
-> >> > Thanks,
-> >> > Rodrigo.
-> >> >
-> >> > The following changes since commit 1bd8a7dc28c1c410f1ceefae1f2a97c06=
-d1a67c2:
-> >> >
-> >> >   Merge tag 'exynos-drm-next-for-v5.14' of git://git.kernel.org/pub/=
-scm/linux/kernel/git/daeinki/drm-exynos into drm-next (2021-06-11 14:19:12 =
-+1000)
-> >> >
-> >> > are available in the Git repository at:
-> >> >
-> >> >   git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-next-fi=
-xes-2021-06-29
-> >> >
-> >> > for you to fetch changes up to c90c4c6574f3feaf2203b5671db1907a1e15c=
-653:
-> >> >
-> >> >   drm/i915: Reinstate the mmap ioctl for some platforms (2021-06-28 =
-07:43:56 -0400)
-> >> >
-> >> > ----------------------------------------------------------------
-> >> > The biggest fix is the restoration of mmap ioctl for gen12 integrate=
-d parts
-> >> > which lack was breaking ADL-P with media stack.
-> >> > Besides that a small selftest fix and a theoretical overflow on
-> >> > i915->pipe_to_crtc_mapping.
-> >> >
-> >> > ----------------------------------------------------------------
-> >> > Chris Wilson (1):
-> >> >       drm/i915/selftests: Reorder tasklet_disable vs local_bh_disable
-> >> >
-> >> > Jani Nikula (1):
-> >> >       drm/i915/dsc: abstract helpers to get bigjoiner primary/second=
-ary crtc
-> >> >
-> >> > Thomas Hellstr=F6m (1):
-> >> >       drm/i915: Reinstate the mmap ioctl for some platforms
-> >> >
-> >> >  drivers/gpu/drm/i915/display/intel_display.c       |  7 ++-
-> >> >  drivers/gpu/drm/i915/display/intel_display_types.h |  8 ++++
-> >> >  drivers/gpu/drm/i915/display/intel_vdsc.c          | 40 +++++++++++=
------
-> >> >  drivers/gpu/drm/i915/display/intel_vdsc.h          |  1 +
-> >> >  drivers/gpu/drm/i915/gem/i915_gem_mman.c           |  7 +--
-> >> >  drivers/gpu/drm/i915/gt/selftest_execlists.c       | 55 +++++++++++=
-++---------
-> >> >  6 files changed, 76 insertions(+), 42 deletions(-)
-> >> =
-
-> >> -- =
-
-> >> Jani Nikula, Intel Open Source Graphics Center
-> =
-
-> -- =
-
-> Jani Nikula, Intel Open Source Graphics Center
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
