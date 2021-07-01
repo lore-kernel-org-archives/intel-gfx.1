@@ -7,42 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 68DDAC11F69
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 15:56:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88EACC11F6A
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 15:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3143961374
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 15:56:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3143961374
+	by mail.kernel.org (Postfix) with ESMTPS id 5542A613CB
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 15:56:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5542A613CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6E316EB49;
-	Thu,  1 Jul 2021 15:56:07 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4159A6EB46;
- Thu,  1 Jul 2021 15:56:06 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="294194385"
-X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="294194385"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61DB56EB47;
+	Thu,  1 Jul 2021 15:56:09 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB8986EB47;
+ Thu,  1 Jul 2021 15:56:07 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208511927"
+X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="208511927"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 08:56:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="455635570"
+X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="426205293"
 Received: from irvmail001.ir.intel.com ([10.43.11.63])
- by orsmga008.jf.intel.com with ESMTP; 01 Jul 2021 08:56:02 -0700
+ by orsmga002.jf.intel.com with ESMTP; 01 Jul 2021 08:56:04 -0700
 Received: from mwajdecz-MOBL.ger.corp.intel.com
  (mwajdecz-MOBL.ger.corp.intel.com [10.249.146.9])
  by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
- 161Fu0L7001058; Thu, 1 Jul 2021 16:56:01 +0100
+ 161Fu0LB001058; Thu, 1 Jul 2021 16:56:03 +0100
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 17:55:09 +0200
-Message-Id: <20210701155513.2024-1-michal.wajdeczko@intel.com>
+Date: Thu,  1 Jul 2021 17:55:13 +0200
+Message-Id: <20210701155513.2024-5-michal.wajdeczko@intel.com>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20210701155513.2024-1-michal.wajdeczko@intel.com>
+References: <20210701155513.2024-1-michal.wajdeczko@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/4] drm/i915/guc: Improve CTB error handling
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915/guc: Move and improve error
+ message for missed CTB reply
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,20 +63,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There was a gap in handling MMIO result from CTB (de)registration
-and while fixing it improve some other error reports.
+If we timeout waiting for a CT reply we print very simple error
+message. Improve that and by moving error reporting to the caller
+we can use CT_ERROR instead of DRM_ERROR and report just fence
+as error code will be reported later anyway.
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Michal Wajdeczko (4):
-  drm/i915/guc: Verify result from CTB (de)register action
-  drm/i915/guc: Print error name on CTB (de)registration failure
-  drm/i915/guc: Print error name on CTB send failure
-  drm/i915/guc: Move and improve error message for missed CTB reply
-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 30 ++++++++++++++---------
- 1 file changed, 18 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 8110586ce1fd..f488a51e1ebe 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -490,9 +490,6 @@ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
+ 		err = wait_for(done, 10);
+ #undef done
+ 
+-	if (unlikely(err))
+-		DRM_ERROR("CT: fence %u err %d\n", req->fence, err);
+-
+ 	*status = req->status;
+ 	return err;
+ }
+@@ -536,8 +533,11 @@ static int ct_send(struct intel_guc_ct *ct,
+ 	intel_guc_notify(ct_to_guc(ct));
+ 
+ 	err = wait_for_ct_request_update(&request, status);
+-	if (unlikely(err))
++	if (unlikely(err)) {
++		CT_ERROR(ct, "No response for request %#x (fence %u)\n",
++			 action[0], request.fence);
+ 		goto unlink;
++	}
+ 
+ 	if (FIELD_GET(GUC_HXG_MSG_0_TYPE, *status) != GUC_HXG_TYPE_RESPONSE_SUCCESS) {
+ 		err = -EIO;
 -- 
 2.25.1
 
