@@ -7,42 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D9DDC11F67
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F943C47E48
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:58:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40FBF613E2
+	by mail.kernel.org (Postfix) with ESMTPS id CDB0D61400
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:58:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40FBF613E2
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDB0D61400
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA356EB6E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36ACF6EB6D;
 	Thu,  1 Jul 2021 16:58:04 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2F106EB69;
- Thu,  1 Jul 2021 16:58:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="206750107"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="206750107"
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F20636EB60;
+ Thu,  1 Jul 2021 16:58:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208525583"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208525583"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 09:58:02 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644504695"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 09:58:01 -0700
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644504655"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 09:58:01 -0700
+ 01 Jul 2021 09:58:00 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  1 Jul 2021 10:15:50 -0700
-Message-Id: <20210701171550.49353-8-matthew.brost@intel.com>
+Date: Thu,  1 Jul 2021 10:15:46 -0700
+Message-Id: <20210701171550.49353-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210701171550.49353-1-matthew.brost@intel.com>
 References: <20210701171550.49353-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 7/7] drm/i915/guc: Module load failure test for
- CT buffer creation
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915/guc: Increase size of CTB buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,44 +59,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+With the introduction of non-blocking CTBs more than one CTB can be in
+flight at a time. Increasing the size of the CTBs should reduce how
+often software hits the case where no space is available in the CTB
+buffer.
 
-Add several module failure load inject points in the CT buffer creation
-code path.
-
-Signed-off-by: John Harrison <john.c.harrison@intel.com>
+Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 5b8b4ff609e2..d2a55521ef25 100644
+index 80db59b45c45..43e03aa2dde8 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -175,6 +175,10 @@ static int ct_register_buffer(struct intel_guc_ct *ct, u32 type,
- {
- 	int err;
+@@ -58,11 +58,16 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
+  *      +--------+-----------------------------------------------+------+
+  *
+  * Size of each `CT Buffer`_ must be multiple of 4K.
+- * As we don't expect too many messages, for now use minimum sizes.
++ * We don't expect too many messages in flight at any time, unless we are
++ * using the GuC submission. In that case each request requires a minimum
++ * 2 dwords which gives us a maximum 256 queue'd requests. Hopefully this
++ * enough space to avoid backpressure on the driver. We increase the size
++ * of the receive buffer (relative to the send) to ensure a G2H response
++ * CTB has a landing spot.
+  */
+ #define CTB_DESC_SIZE		ALIGN(sizeof(struct guc_ct_buffer_desc), SZ_2K)
+ #define CTB_H2G_BUFFER_SIZE	(SZ_4K)
+-#define CTB_G2H_BUFFER_SIZE	(SZ_4K)
++#define CTB_G2H_BUFFER_SIZE	(4 * CTB_H2G_BUFFER_SIZE)
  
-+	err = i915_inject_probe_error(guc_to_gt(ct_to_guc(ct))->i915, -ENXIO);
-+	if (unlikely(err))
-+		return err;
-+
- 	err = guc_action_register_ct_buffer(ct_to_guc(ct), type,
- 					    desc_addr, buff_addr, size);
- 	if (unlikely(err))
-@@ -226,6 +230,10 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
- 	u32 *cmds;
- 	int err;
+ struct ct_request {
+ 	struct list_head link;
+@@ -643,7 +648,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
+ 	/* beware of buffer wrap case */
+ 	if (unlikely(available < 0))
+ 		available += size;
+-	CT_DEBUG(ct, "available %d (%u:%u)\n", available, head, tail);
++	CT_DEBUG(ct, "available %d (%u:%u:%u)\n", available, head, tail, size);
+ 	GEM_BUG_ON(available < 0);
  
-+	err = i915_inject_probe_error(guc_to_gt(guc)->i915, -ENXIO);
-+	if (err)
-+		return err;
-+
- 	GEM_BUG_ON(ct->vma);
- 
- 	blob_size = 2 * CTB_DESC_SIZE + CTB_H2G_BUFFER_SIZE + CTB_G2H_BUFFER_SIZE;
+ 	header = cmds[head];
 -- 
 2.28.0
 
