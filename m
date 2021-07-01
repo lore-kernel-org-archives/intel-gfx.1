@@ -2,83 +2,44 @@ Return-Path: <SRS0=QA22=LZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45F42C11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 10:03:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75C51C11F64
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 10:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E367A61468
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 10:03:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E367A61468
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 0A3D361456
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 10:11:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A3D361456
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 969EF6EAAF;
-	Thu,  1 Jul 2021 10:03:02 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 709376EAD5
- for <intel-gfx@lists.freedesktop.org>; Thu,  1 Jul 2021 10:03:01 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1C3481FF9A
- for <intel-gfx@lists.freedesktop.org>; Thu,  1 Jul 2021 10:03:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625133780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I1pM7Nl6u/n4dbDzcZf9/5lCa/uB+Lg753iNdjpDrds=;
- b=qcxpFEk3BtjyQ/8qdo/i2KMvxG5L/aVJgxzylNr4GXUMoOzvX7VrDGOMTFOBRqSlAlkjxy
- JvZuwSSFi0XJ/p1FsAwAWbbIbubqyFegrooYY1BEMnpfuoQVbX3yMdEZCmkGHLp9KJUgmc
- tGGp9yMa05cAJQsieOH4bMP06gYcOdw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625133780;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I1pM7Nl6u/n4dbDzcZf9/5lCa/uB+Lg753iNdjpDrds=;
- b=O+NzUTtZbFB8G5qbEpZqrBld2jiFzI7Y71Kt/wzdMYkqtcDUZIU6JXD2HGHlnp6SF7nwYX
- Hi5YkCIRFinye8DQ==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id F3AA411CC0
- for <intel-gfx@lists.freedesktop.org>; Thu,  1 Jul 2021 10:02:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625133780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I1pM7Nl6u/n4dbDzcZf9/5lCa/uB+Lg753iNdjpDrds=;
- b=qcxpFEk3BtjyQ/8qdo/i2KMvxG5L/aVJgxzylNr4GXUMoOzvX7VrDGOMTFOBRqSlAlkjxy
- JvZuwSSFi0XJ/p1FsAwAWbbIbubqyFegrooYY1BEMnpfuoQVbX3yMdEZCmkGHLp9KJUgmc
- tGGp9yMa05cAJQsieOH4bMP06gYcOdw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625133780;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I1pM7Nl6u/n4dbDzcZf9/5lCa/uB+Lg753iNdjpDrds=;
- b=O+NzUTtZbFB8G5qbEpZqrBld2jiFzI7Y71Kt/wzdMYkqtcDUZIU6JXD2HGHlnp6SF7nwYX
- Hi5YkCIRFinye8DQ==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id ao8qOtOS3WBkSQAALh3uQQ (envelope-from <tzimmermann@suse.de>)
- for <intel-gfx@lists.freedesktop.org>; Thu, 01 Jul 2021 10:02:59 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6C06E1B1;
+	Thu,  1 Jul 2021 10:11:05 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96B5D6E1B1
+ for <intel-gfx@lists.freedesktop.org>; Thu,  1 Jul 2021 10:11:04 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10031"; a="269637972"
+X-IronPort-AV: E=Sophos;i="5.83,313,1616482800"; d="scan'208";a="269637972"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 03:11:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,313,1616482800"; d="scan'208";a="644396862"
+Received: from kbommu-nuc8i7beh.iind.intel.com ([10.145.162.97])
+ by fmsmga005.fm.intel.com with ESMTP; 01 Jul 2021 03:11:01 -0700
+From: venkata.sai.patnana@intel.com
 To: intel-gfx@lists.freedesktop.org
-References: <20210701085833.26566-1-tzimmermann@suse.de>
- <162513261001.15055.8980583489371133638@emeril.freedesktop.org>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <1f3c0068-a4be-4787-c2b2-27c3c3bdd37f@suse.de>
-Date: Thu, 1 Jul 2021 12:02:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+Date: Thu,  1 Jul 2021 15:30:10 +0530
+Message-Id: <20210701100012.4212-1-venkata.sai.patnana@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210629065156.30301-1-venkata.sai.patnana@intel.com>
+References: <20210629065156.30301-1-venkata.sai.patnana@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <162513261001.15055.8980583489371133638@emeril.freedesktop.org>
-Subject: Re: [Intel-gfx] 
- =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_IRQ_fixes_=28rev3=29?=
+Subject: [Intel-gfx] [v4 0/2] drm/i915/display/dsc: Set BPP in the kernel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,262 +52,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1649664986=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1649664986==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="pb268V0DFuXOwdipwYVCJXtRhla3Nlbq4"
+From: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---pb268V0DFuXOwdipwYVCJXtRhla3Nlbq4
-Content-Type: multipart/mixed; boundary="F7nD7EUkJqSAA4CeclU0STajgROSJQlkN";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: intel-gfx@lists.freedesktop.org
-Message-ID: <1f3c0068-a4be-4787-c2b2-27c3c3bdd37f@suse.de>
-Subject: =?UTF-8?B?UmU6IOKclyBGaS5DSS5CQVQ6IGZhaWx1cmUgZm9yIGRybS9pOTE1OiBJ?=
- =?UTF-8?Q?RQ_fixes_=28rev3=29?=
-References: <20210701085833.26566-1-tzimmermann@suse.de>
- <162513261001.15055.8980583489371133638@emeril.freedesktop.org>
-In-Reply-To: <162513261001.15055.8980583489371133638@emeril.freedesktop.org>
+DSC can be supported per DP connector. This patch creates
+a per connector debugfs node to expose the Input and
+Compressed BPP.
 
---F7nD7EUkJqSAA4CeclU0STajgROSJQlkN
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+The same node can be used from userspace to force
+DSC to a certain BPP.
 
+force_dsc_bpp is written through this debugfs
+node to force DSC BPP to all accepted values
 
+Test-with: <20210622102454.8922-1-venkata.sai.patnana@intel.com>
 
-Am 01.07.21 um 11:43 schrieb Patchwork:
-> *Patch Details*
-> *Series:*	drm/i915: IRQ fixes (rev3)
-> *URL:*	https://patchwork.freedesktop.org/series/92053/=20
-> <https://patchwork.freedesktop.org/series/92053/>
-> *State:*	failure
-> *Details:*=20
-> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/index.html=20
-> <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/index.html>
->=20
->=20
->   CI Bug Log - changes from CI_DRM_10296 -> Patchwork_20502
->=20
->=20
->     Summary
->=20
-> *FAILURE*
->=20
-> Serious unknown changes coming with Patchwork_20502 absolutely need to =
-be
-> verified manually.
->=20
-> If you think the reported changes have nothing to do with the changes
-> introduced in Patchwork_20502, please notify your bug team to allow the=
-m
-> to document this new failure mode, which will reduce false positives in=
- CI.
->=20
-> External URL:=20
-> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/index.html
->=20
->=20
->     Possible new issues
->=20
-> Here are the unknown changes that may have been introduced in=20
-> Patchwork_20502:
->=20
->=20
->       IGT changes
->=20
->=20
->         Possible regressions
->=20
->   * igt@i915_selftest@live@workarounds:
->       o fi-ivb-3770: PASS
->         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10296/fi-ivb-3=
-770/igt@i915_selftest@live@workarounds.html>
->         -> DMESG-FAIL
->         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/fi-iv=
-b-3770/igt@i915_selftest@live@workarounds.html>
+Anusha Srivatsa (1):
+  drm/i915/display/dsc: Set BPP in the kernel
 
-This looks like it was introduced by v4. v3 didn't have this problem
+Patnana Venkata Sai (1):
+  drm/i915/display/dsc: Add Per connector debugfs node for DSC BPP
+    enable
 
-https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/fi-ivb-3770/igt@=
-i915_selftest@live@workarounds.html#dmesg-warnings249
+ .../drm/i915/display/intel_display_debugfs.c  | 74 ++++++++++++++++++-
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 23 ++++--
+ 3 files changed, 92 insertions(+), 6 deletions(-)
 
->=20
->=20
->     Known issues
->=20
-> Here are the changes found in Patchwork_20502 that come from known issu=
-es:
->=20
->=20
->       IGT changes
->=20
->=20
->         Issues hit
->=20
->   *
->=20
->     igt@amdgpu/amd_cs_nop@sync-fork-compute0:
->=20
->       o fi-snb-2600: NOTRUN -> SKIP
->         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/fi-sn=
-b-2600/igt@amdgpu/amd_cs_nop@sync-fork-compute0.html>
->         (fdo#109271
->         <https://bugs.freedesktop.org/show_bug.cgi?id=3D109271>) +17
->         similar issues
->   *
->=20
->     igt@i915_selftest@live@workarounds:
->=20
->       o fi-hsw-4770: PASS
->         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10296/fi-hsw-4=
-770/igt@i915_selftest@live@workarounds.html>
->         -> DMESG-FAIL
->         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/fi-hs=
-w-4770/igt@i915_selftest@live@workarounds.html>
->         (i915#2927 <https://gitlab.freedesktop.org/drm/intel/issues/292=
-7>)
->   *
->=20
->     igt@runner@aborted:
->=20
->       o
->=20
->         fi-hsw-4770: NOTRUN -> FAIL
->         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/fi-hs=
-w-4770/igt@runner@aborted.html>
->         (fdo#109271
->         <https://bugs.freedesktop.org/show_bug.cgi?id=3D109271> /
->         i915#1436 <https://gitlab.freedesktop.org/drm/intel/issues/1436=
->
->         / i915#2505 <https://gitlab.freedesktop.org/drm/intel/issues/25=
-05>)
->=20
->       o
->=20
->         fi-ivb-3770: NOTRUN -> FAIL
->         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/fi-iv=
-b-3770/igt@runner@aborted.html>
->         (fdo#109271 <https://bugs.freedesktop.org/show_bug.cgi?id=3D109=
-271>)
->=20
->=20
->         Possible fixes
->=20
->   *
->=20
->     igt@i915_module_load@reload:
->=20
->       o fi-kbl-soraka: DMESG-WARN
->         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10296/fi-kbl-s=
-oraka/igt@i915_module_load@reload.html>
->         (i915#1982
->         <https://gitlab.freedesktop.org/drm/intel/issues/1982>) -> PASS=
-
->         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/fi-kb=
-l-soraka/igt@i915_module_load@reload.html>
->   *
->=20
->     igt@i915_selftest@live@hangcheck:
->=20
->       o fi-snb-2600: INCOMPLETE
->         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10296/fi-snb-2=
-600/igt@i915_selftest@live@hangcheck.html>
->         (i915#2782
->         <https://gitlab.freedesktop.org/drm/intel/issues/2782>) -> PASS=
-
->         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/fi-sn=
-b-2600/igt@i915_selftest@live@hangcheck.html>
->   *
->=20
->     igt@kms_flip@basic-flip-vs-wf_vblank@a-dsi1:
->=20
->       o {fi-tgl-dsi}: DMESG-WARN
->         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10296/fi-tgl-d=
-si/igt@kms_flip@basic-flip-vs-wf_vblank@a-dsi1.html>
->         (i915#1982
->         <https://gitlab.freedesktop.org/drm/intel/issues/1982>) -> PASS=
-
->         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20502/fi-tg=
-l-dsi/igt@kms_flip@basic-flip-vs-wf_vblank@a-dsi1.html>
->=20
-> {name}: This element is suppressed. This means it is ignored when compu=
-ting
-> the status of the difference (SUCCESS, WARNING, or FAILURE).
->=20
->=20
->     Participating hosts (37 -> 35)
->=20
-> Missing (2): fi-bsw-cyan fi-bdw-samus
->=20
->=20
->     Build changes
->=20
->   * Linux: CI_DRM_10296 -> Patchwork_20502
->=20
-> CI-20190529: 20190529
-> CI_DRM_10296: 1ad092a7879a55938159b58a5b662370cab95ec8 @=20
-> git://anongit.freedesktop.org/gfx-ci/linux
-> IGT_6125: 5bb62cb290fa32777934de4b39e107ccd282f7e8 @=20
-> https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-> Patchwork_20502: 21c6e6f45c89cd7f4f38e9a6ef4992b6a5204031 @=20
-> git://anongit.freedesktop.org/gfx-ci/linux
->=20
-> =3D=3D Linux commits =3D=3D
->=20
-> 21c6e6f45c89 drm/i915: Drop all references to DRM IRQ midlayer
-> 1b2c2d630094 drm/i915: Use the correct IRQ during resume
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---F7nD7EUkJqSAA4CeclU0STajgROSJQlkN--
-
---pb268V0DFuXOwdipwYVCJXtRhla3Nlbq4
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmDdktMFAwAAAAAACgkQlh/E3EQov+BO
-xRAAvn6ttz3QG/LWwQzRzOg1JmkOyZhLmqJZEHvvmMYdnQkgMNP19qxZo0CjE8seKTSlApqMi0v6
-m+yuBdyNfopY6xh3GnkXvd7+p6IdO9KLn+UTygZQBHaE9GmI6fIrg4DMorMybwWrgEq/mOO4koKL
-CnYzpQEdmAK4oiCdw+yihgL6VA3IquV3+ntzlynwFbu3dIiuGiXlVDUvhBsnuAgZZRu7e9wVmpCj
-J7hY9Ml5lrFYudaO2VlaCkyKHaZ85c0SkUx4vE6akWlwZ/PtDuyxfX+5zTJn2ai/lew5VL1c2aOP
-2Gfeq2Co8fPTCnCD0XVdG1knxhUiDpOLpdKugMONUV0p2TtxNLOXm0wgvwoMPTFYJBJgBS4MG6Y5
-HQjYcjQB2HqZQzENfD29FUEC2SK9JiykZQ4OkGQcHEHh+ooyuoU7VkSP64VGOR2pk50Kh4OYAw5h
-Hhx5+J2w9O+JEVxs+d1QXWHlZPpaCDElANwGi4rRg28Iqi/G4vkwD1xZXt6aexsfXLO0TIzJoT8K
-KCQ1OxlneDEdwjIFSYRN/OPEFjgoclk7gnrHprKe1Ro6n3eApVWSlmLX8PmDddbujqJ1rcxnvu3g
-vV6qDWZcsr/CIdqrG9uP2is4sJvjFrT4S1SEEpsbUMOBojrK6qSg6iztWORhEkBiqpsByTE7WnNj
-j90=
-=i/wC
------END PGP SIGNATURE-----
-
---pb268V0DFuXOwdipwYVCJXtRhla3Nlbq4--
-
---===============1649664986==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1649664986==--
