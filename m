@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79F8AC11F86
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01738C11F85
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D7EC613F1
+	by mail.kernel.org (Postfix) with ESMTPS id C6086613F3
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D7EC613F1
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6086613F3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E8076EC05;
-	Thu,  1 Jul 2021 20:25:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB4556EB9B;
+	Thu,  1 Jul 2021 20:25:36 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 471146EC11;
- Thu,  1 Jul 2021 20:25:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436160"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436160"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A221C6EC02;
+ Thu,  1 Jul 2021 20:25:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436163"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436163"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:21 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564475"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564497"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:19 -0700
+ 01 Jul 2021 13:25:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:23:55 -0700
-Message-Id: <20210701202427.1547543-22-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:24:03 -0700
+Message-Id: <20210701202427.1547543-30-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 21/53] drm/i915/xehpsdv: Define MOCS table for
- XeHP SDV
+Subject: [Intel-gfx] [PATCH 29/53] drm/i915/dg2: Add new LRI reg offsets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,86 +53,145 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Chris P Wilson <chris.p.wilson@intel.com>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Lucas De Marchi <lucas.demarchi@intel.com>
+From: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
 
-Like DG1, XeHP SDV doesn't have LLC/eDRAM control values due to being a
-dgfx card. XeHP SDV adds 2 more bits: L3_GLBGO to "push the Go point to
-memory for L3 destined transaction" and L3_LKP to "enable Lookup for
-uncacheable accesses".
+New LRI register offsets were introduced for DG2, this patch adds
+those extra registers, and create new register table for setting offsets
+to compare with HW generated context image - especially for gt_lrc test.
+Also updates general purpose register with scratch offset for DG2, in
+order to use it for live_lrc_fixed selftest.
 
-Bspec: 45101
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: Stuart Summers <stuart.summers@intel.com>
+Cc: Chris P Wilson <chris.p.wilson@intel.com>
+Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Signed-off-by: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_mocs.c | 33 +++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 85 ++++++++++++++++++++++++++++-
+ 1 file changed, 83 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index 17848807f111..0c9d0b936c20 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -40,6 +40,8 @@ struct drm_i915_mocs_table {
- #define L3_ESC(value)		((value) << 0)
- #define L3_SCC(value)		((value) << 1)
- #define _L3_CACHEABILITY(value)	((value) << 4)
-+#define L3_GLBGO(value)		((value) << 6)
-+#define L3_LKUP(value)		((value) << 7)
- 
- /* Helper defines */
- #define GEN9_NUM_MOCS_ENTRIES	64  /* 63-64 are reserved, but configured. */
-@@ -314,6 +316,31 @@ static const struct drm_i915_mocs_entry dg1_mocs_table[] = {
- 	MOCS_ENTRY(63, 0, L3_1_UC),
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index fee735e2a524..da7ac1d970af 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -226,6 +226,40 @@ static const u8 gen12_xcs_offsets[] = {
+ 	END
  };
  
-+static const struct drm_i915_mocs_entry xehpsdv_mocs_table[] = {
-+	/* wa_1608975824 */
-+	MOCS_ENTRY(0, 0, L3_3_WB | L3_LKUP(1)),
++static const u8 dg2_xcs_offsets[] = {
++	NOP(1),
++	LRI(15, POSTED),
++	REG16(0x244),
++	REG(0x034),
++	REG(0x030),
++	REG(0x038),
++	REG(0x03c),
++	REG(0x168),
++	REG(0x140),
++	REG(0x110),
++	REG(0x1c0),
++	REG(0x1c4),
++	REG(0x1c8),
++	REG(0x180),
++	REG16(0x2b4),
++	REG(0x120),
++	REG(0x124),
 +
-+	/* UC - Coherent; GO:L3 */
-+	MOCS_ENTRY(1, 0, L3_1_UC | L3_LKUP(1)),
-+	/* UC - Coherent; GO:Memory */
-+	MOCS_ENTRY(2, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
-+	/* UC - Non-Coherent; GO:Memory */
-+	MOCS_ENTRY(3, 0, L3_1_UC | L3_GLBGO(1)),
-+	/* UC - Non-Coherent; GO:L3 */
-+	MOCS_ENTRY(4, 0, L3_1_UC),
++	NOP(1),
++	LRI(9, POSTED),
++	REG16(0x3a8),
++	REG16(0x28c),
++	REG16(0x288),
++	REG16(0x284),
++	REG16(0x280),
++	REG16(0x27c),
++	REG16(0x278),
++	REG16(0x274),
++	REG16(0x270),
 +
-+	/* WB */
-+	MOCS_ENTRY(5, 0, L3_3_WB | L3_LKUP(1)),
-+
-+	/* HW Reserved - SW program but never use. */
-+	MOCS_ENTRY(48, 0, L3_3_WB | L3_LKUP(1)),
-+	MOCS_ENTRY(49, 0, L3_1_UC | L3_LKUP(1)),
-+	MOCS_ENTRY(60, 0, L3_1_UC),
-+	MOCS_ENTRY(61, 0, L3_1_UC),
-+	MOCS_ENTRY(62, 0, L3_1_UC),
-+	MOCS_ENTRY(63, 0, L3_1_UC),
++	END
 +};
 +
- enum {
- 	HAS_GLOBAL_MOCS = BIT(0),
- 	HAS_ENGINE_MOCS = BIT(1),
-@@ -340,7 +367,11 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
- {
- 	unsigned int flags;
+ static const u8 gen8_rcs_offsets[] = {
+ 	NOP(1),
+ 	LRI(14, POSTED),
+@@ -525,6 +559,49 @@ static const u8 xehp_rcs_offsets[] = {
+ 	END
+ };
  
--	if (IS_DG1(i915)) {
-+	if (IS_XEHPSDV(i915)) {
-+		table->size = ARRAY_SIZE(xehpsdv_mocs_table);
-+		table->table = xehpsdv_mocs_table;
-+		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
-+	} else if (IS_DG1(i915)) {
- 		table->size = ARRAY_SIZE(dg1_mocs_table);
- 		table->table = dg1_mocs_table;
- 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
++static const u8 dg2_rcs_offsets[] = {
++	NOP(1),
++	LRI(15, POSTED),
++	REG16(0x244),
++	REG(0x034),
++	REG(0x030),
++	REG(0x038),
++	REG(0x03c),
++	REG(0x168),
++	REG(0x140),
++	REG(0x110),
++	REG(0x1c0),
++	REG(0x1c4),
++	REG(0x1c8),
++	REG(0x180),
++	REG16(0x2b4),
++	REG(0x120),
++	REG(0x124),
++
++	NOP(1),
++	LRI(9, POSTED),
++	REG16(0x3a8),
++	REG16(0x28c),
++	REG16(0x288),
++	REG16(0x284),
++	REG16(0x280),
++	REG16(0x27c),
++	REG16(0x278),
++	REG16(0x274),
++	REG16(0x270),
++
++	LRI(3, POSTED),
++	REG(0x1b0),
++	REG16(0x5a8),
++	REG16(0x5ac),
++
++	NOP(6),
++	LRI(1, 0),
++	REG(0x0c8),
++
++	END
++};
++
+ #undef END
+ #undef REG16
+ #undef REG
+@@ -543,7 +620,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		   !intel_engine_has_relative_mmio(engine));
+ 
+ 	if (engine->class == RENDER_CLASS) {
+-		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++			return dg2_rcs_offsets;
++		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
+ 			return xehp_rcs_offsets;
+ 		else if (GRAPHICS_VER(engine->i915) >= 12)
+ 			return gen12_rcs_offsets;
+@@ -554,7 +633,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		else
+ 			return gen8_rcs_offsets;
+ 	} else {
+-		if (GRAPHICS_VER(engine->i915) >= 12)
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++			return dg2_xcs_offsets;
++		else if (GRAPHICS_VER(engine->i915) >= 12)
+ 			return gen12_xcs_offsets;
+ 		else if (GRAPHICS_VER(engine->i915) >= 9)
+ 			return gen9_xcs_offsets;
 -- 
 2.25.4
 
