@@ -2,46 +2,46 @@ Return-Path: <SRS0=QA22=LZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25413C11F64
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4963C11F69
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EFEB3613F3
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EFEB3613F3
+	by mail.kernel.org (Postfix) with ESMTPS id A8BF3613F4
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A8BF3613F4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF8B26EC45;
-	Thu,  1 Jul 2021 20:25:44 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7E416EC23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13ABE6EC4D;
+	Thu,  1 Jul 2021 20:25:45 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85FC66EC1A;
  Thu,  1 Jul 2021 20:25:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436151"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436151"
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="188998674"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="188998674"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:20 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564411"
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 13:25:21 -0700
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564556"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:19 -0700
+ 01 Jul 2021 13:25:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:23:38 -0700
-Message-Id: <20210701202427.1547543-5-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:24:24 -0700
+Message-Id: <20210701202427.1547543-51-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/53] drm/i915/xehp: VDBOX/VEBOX fusing
- registers are enable-based
+Subject: [Intel-gfx] [PATCH 50/53] drm/i915/display/dsc: Add Per connector
+ debugfs node for DSC BPP enable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,43 +60,163 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 
-On Xe_HP the fusing register is renamed and changed to have the "enable"
-semantics, but otherwise remains compatible (mmio address, bitmask
-ranges) with older platforms.
+DSC can be supported per DP connector. This patch creates
+a per connector debugfs node to expose the Input and
+Compressed BPP.
 
-To simplify things we do not add a new register definition but just stop
-inverting the fusing masks before processing them.
+The same node can be used from userspace to force
+DSC to a certain BPP.
 
-Bspec: 33288
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+force_dsc_bpp is written through this debugfs
+node to force DSC BPP to all accepted values
+
+Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ .../drm/i915/display/intel_display_debugfs.c  | 103 +++++++++++++++++-
+ .../drm/i915/display/intel_display_types.h    |   1 +
+ 2 files changed, 103 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 88694822716a..151870d8fdd3 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -468,7 +468,14 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
- 	if (GRAPHICS_VER(i915) < 11)
- 		return info->engine_mask;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index af9e58619667..1805d70ea817 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -2389,6 +2389,100 @@ static const struct file_operations i915_dsc_fec_support_fops = {
+ 	.write = i915_dsc_fec_support_write
+ };
  
--	media_fuse = ~intel_uncore_read(uncore, GEN11_GT_VEBOX_VDBOX_DISABLE);
-+	/*
-+	 * On newer platforms the fusing register is called 'enable' and has
-+	 * enable semantics, while on older platforms it is called 'disable'
-+	 * and bits have disable semantices.
-+	 */
-+	media_fuse = intel_uncore_read(uncore, GEN11_GT_VEBOX_VDBOX_DISABLE);
-+	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 50))
-+		media_fuse = ~media_fuse;
++static int i915_dsc_bpp_support_show(struct seq_file *m, void *data)
++{
++	struct drm_connector *connector = m->private;
++	struct drm_device *dev = connector->dev;
++	struct drm_crtc *crtc;
++	struct intel_dp *intel_dp;
++	struct drm_modeset_acquire_ctx ctx;
++	struct intel_crtc_state *crtc_state = NULL;
++	int ret = 0;
++	bool try_again = false;
++
++	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
++
++	do {
++		try_again = false;
++		ret = drm_modeset_lock(&dev->mode_config.connection_mutex,
++				       &ctx);
++		if (ret) {
++			ret = -EINTR;
++			break;
++		}
++		crtc = connector->state->crtc;
++		if (connector->status != connector_status_connected || !crtc) {
++			ret = -ENODEV;
++			break;
++		}
++		ret = drm_modeset_lock(&crtc->mutex, &ctx);
++		if (ret == -EDEADLK) {
++			ret = drm_modeset_backoff(&ctx);
++			if (!ret) {
++				try_again = true;
++				continue;
++			}
++			break;
++		} else if (ret) {
++			break;
++		}
++		intel_dp = intel_attached_dp(to_intel_connector(connector));
++		crtc_state = to_intel_crtc_state(crtc->state);
++		seq_printf(m, "Input_BPP: %d\n", crtc_state->pipe_bpp);
++		seq_printf(m, "Compressed_BPP: %d\n",
++				crtc_state->dsc.compressed_bpp);
++	} while (try_again);
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++
++	return ret;
++}
++
++static ssize_t i915_dsc_bpp_support_write(struct file *file,
++						const char __user *ubuf,
++						size_t len, loff_t *offp)
++{
++	int dsc_bpp = 0;
++	int ret;
++	struct drm_connector *connector =
++		((struct seq_file *)file->private_data)->private;
++	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
++
++	if (len == 0)
++		return 0;
++
++	drm_dbg(&i915->drm,
++		"Copied %zu bytes from user to force BPP\n", len);
++
++	ret = kstrtoint_from_user(ubuf, len, 0, &dsc_bpp);
++
++	intel_dp->force_dsc_bpp = dsc_bpp;
++	if (ret < 0)
++		return ret;
++
++	*offp += len;
++	return len;
++}
++
++static int i915_dsc_bpp_support_open(struct inode *inode,
++					   struct file *file)
++{
++	return single_open(file, i915_dsc_bpp_support_show,
++			   inode->i_private);
++}
++
++static const struct file_operations i915_dsc_bpp_support_fops = {
++	.owner = THIS_MODULE,
++	.open = i915_dsc_bpp_support_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++	.write = i915_dsc_bpp_support_write
++};
++
+ /**
+  * intel_connector_debugfs_add - add i915 specific connector debugfs files
+  * @connector: pointer to a registered drm_connector
+@@ -2427,9 +2521,16 @@ int intel_connector_debugfs_add(struct drm_connector *connector)
+ 				    connector, &i915_hdcp_sink_capability_fops);
+ 	}
  
- 	vdbox_mask = media_fuse & GEN11_GT_VDBOX_DISABLE_MASK;
- 	vebox_mask = (media_fuse & GEN11_GT_VEBOX_DISABLE_MASK) >>
+-	if ((DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) && ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort && !to_intel_connector(connector)->mst_port) || connector->connector_type == DRM_MODE_CONNECTOR_eDP))
++	if ((DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) &&
++	    ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort &&
++	      !to_intel_connector(connector)->mst_port) ||
++	     connector->connector_type == DRM_MODE_CONNECTOR_eDP)) {
+ 		debugfs_create_file("i915_dsc_fec_support", S_IRUGO, root,
+ 				    connector, &i915_dsc_fec_support_fops);
++		debugfs_create_file("i915_dsc_bpp_support", 0444,
++				    root, connector,
++				    &i915_dsc_bpp_support_fops);
++	}
+ 
+ 	/* Legacy panels doesn't lpsp on any platform */
+ 	if ((DISPLAY_VER(dev_priv) >= 9 || IS_HASWELL(dev_priv) ||
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 29ae1d9b5abc..00320d89d266 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1627,6 +1627,7 @@ struct intel_dp {
+ 
+ 	/* Display stream compression testing */
+ 	bool force_dsc_en;
++	int force_dsc_bpp;
+ 
+ 	bool hobl_failed;
+ 	bool hobl_active;
 -- 
 2.25.4
 
