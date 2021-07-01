@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5ACA1C11F6A
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42EC3C11F64
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2EA73613F1
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2EA73613F1
+	by mail.kernel.org (Postfix) with ESMTPS id 19C1961410
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19C1961410
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 207266EC4E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7153C6EC51;
 	Thu,  1 Jul 2021 20:25:45 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9AAF6EB9B;
- Thu,  1 Jul 2021 20:25:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436155"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436155"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52A8A6EC13;
+ Thu,  1 Jul 2021 20:25:24 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436164"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436164"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:20 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564423"
+ 01 Jul 2021 13:25:21 -0700
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564506"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:19 -0700
+ 01 Jul 2021 13:25:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:23:41 -0700
-Message-Id: <20210701202427.1547543-8-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:24:09 -0700
+Message-Id: <20210701202427.1547543-36-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/53] drm/i915/xehp: Extra media engines - Part
- 1 (engine definitions)
+Subject: [Intel-gfx] [PATCH 35/53] drm/i915/dg2: Skip shared DPLL handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,197 +53,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tomas Winkler <tomas.winkler@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Mohammed Khajapasha <mohammed.khajapasha@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+DG2 has no shared DPLL's or DDI clock muxing.  The Port PLL is embedded
+within the PHY.
 
-Xe_HP can have a lot of extra media engines. This patch adds the basic
-definitions for them.
-
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Bspec: 54032
+Bspec: 54034
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c     |  7 ++-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 50 ++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_engine_types.h | 14 ++++--
- drivers/gpu/drm/i915/i915_reg.h              |  6 +++
- 4 files changed, 69 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c  | 10 +++++++---
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  5 ++++-
+ 2 files changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 87b06572fd2e..35edc55720f4 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -279,7 +279,7 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 	if (mode & EMIT_INVALIDATE)
- 		aux_inv = rq->engine->mask & ~BIT(BCS0);
- 	if (aux_inv)
--		cmd += 2 * hweight8(aux_inv) + 2;
-+		cmd += 2 * hweight32(aux_inv) + 2;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 026c28c612f0..c673d0c8fb4a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3474,7 +3474,8 @@ static void icl_ddi_bigjoiner_pre_enable(struct intel_atomic_state *state,
+ 		 * Enable sequence steps 1-7 on bigjoiner master
+ 		 */
+ 		intel_encoders_pre_pll_enable(state, master);
+-		intel_enable_shared_dpll(master_crtc_state);
++		if (master_crtc_state->shared_dpll)
++			intel_enable_shared_dpll(master_crtc_state);
+ 		intel_encoders_pre_enable(state, master);
  
- 	cs = intel_ring_begin(rq, cmd);
- 	if (IS_ERR(cs))
-@@ -313,9 +313,8 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 		struct intel_engine_cs *engine;
- 		unsigned int tmp;
+ 		/* and DSC on slave */
+@@ -8633,10 +8634,11 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
  
--		*cs++ = MI_LOAD_REGISTER_IMM(hweight8(aux_inv));
--		for_each_engine_masked(engine, rq->engine->gt,
--				       aux_inv, tmp) {
-+		*cs++ = MI_LOAD_REGISTER_IMM(hweight32(aux_inv));
-+		for_each_engine_masked(engine, rq->engine->gt, aux_inv, tmp) {
- 			*cs++ = i915_mmio_reg_offset(aux_inv_reg(engine));
- 			*cs++ = AUX_INV;
- 		}
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 4ab2c9abb943..6e2aa1acc4d4 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -104,6 +104,38 @@ static const struct engine_info intel_engines[] = {
- 			{ .graphics_ver = 11, .base = GEN11_BSD4_RING_BASE }
- 		},
- 	},
-+	[VCS4] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_DECODE_CLASS,
-+		.instance = 4,
-+		.mmio_bases = {
-+			{ .graphics_ver = 11, .base = XEHP_BSD5_RING_BASE }
-+		},
-+	},
-+	[VCS5] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_DECODE_CLASS,
-+		.instance = 5,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_BSD6_RING_BASE }
-+		},
-+	},
-+	[VCS6] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_DECODE_CLASS,
-+		.instance = 6,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_BSD7_RING_BASE }
-+		},
-+	},
-+	[VCS7] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_DECODE_CLASS,
-+		.instance = 7,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_BSD8_RING_BASE }
-+		},
-+	},
- 	[VECS0] = {
- 		.hw_id = VECS0_HW,
- 		.class = VIDEO_ENHANCEMENT_CLASS,
-@@ -121,6 +153,22 @@ static const struct engine_info intel_engines[] = {
- 			{ .graphics_ver = 11, .base = GEN11_VEBOX2_RING_BASE }
- 		},
- 	},
-+	[VECS2] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_ENHANCEMENT_CLASS,
-+		.instance = 2,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_VEBOX3_RING_BASE }
-+		},
-+	},
-+	[VECS3] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_ENHANCEMENT_CLASS,
-+		.instance = 3,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_VEBOX4_RING_BASE }
-+		},
-+	},
- };
+ 	PIPE_CONF_CHECK_BOOL(double_wide);
  
- /**
-@@ -269,6 +317,8 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+-	PIPE_CONF_CHECK_P(shared_dpll);
++	if (dev_priv->dpll.mgr)
++		PIPE_CONF_CHECK_P(shared_dpll);
  
- 	BUILD_BUG_ON(MAX_ENGINE_CLASS >= BIT(GEN11_ENGINE_CLASS_WIDTH));
- 	BUILD_BUG_ON(MAX_ENGINE_INSTANCE >= BIT(GEN11_ENGINE_INSTANCE_WIDTH));
-+	BUILD_BUG_ON(I915_MAX_VCS > (MAX_ENGINE_INSTANCE + 1));
-+	BUILD_BUG_ON(I915_MAX_VECS > (MAX_ENGINE_INSTANCE + 1));
+ 	/* FIXME do the readout properly and get rid of this quirk */
+-	if (!PIPE_CONF_QUIRK(PIPE_CONFIG_QUIRK_BIGJOINER_SLAVE)) {
++	if (dev_priv->dpll.mgr && !PIPE_CONF_QUIRK(PIPE_CONFIG_QUIRK_BIGJOINER_SLAVE)) {
+ 		PIPE_CONF_CHECK_X(dpll_hw_state.dpll);
+ 		PIPE_CONF_CHECK_X(dpll_hw_state.dpll_md);
+ 		PIPE_CONF_CHECK_X(dpll_hw_state.fp0);
+@@ -8668,7 +8670,9 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 		PIPE_CONF_CHECK_X(dpll_hw_state.mg_pll_ssc);
+ 		PIPE_CONF_CHECK_X(dpll_hw_state.mg_pll_bias);
+ 		PIPE_CONF_CHECK_X(dpll_hw_state.mg_pll_tdc_coldst_bias);
++	}
  
- 	if (GEM_DEBUG_WARN_ON(id >= ARRAY_SIZE(gt->engine)))
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 5b91068ab277..b25f594a7e4b 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -46,7 +46,7 @@
- #define COPY_ENGINE_CLASS	3
- #define OTHER_CLASS		4
- #define MAX_ENGINE_CLASS	4
--#define MAX_ENGINE_INSTANCE	3
-+#define MAX_ENGINE_INSTANCE	7
++	if (!PIPE_CONF_QUIRK(PIPE_CONFIG_QUIRK_BIGJOINER_SLAVE)) {
+ 		PIPE_CONF_CHECK_X(dsi_pll.ctrl);
+ 		PIPE_CONF_CHECK_X(dsi_pll.div);
  
- #define I915_MAX_SLICES	3
- #define I915_MAX_SUBSLICES 8
-@@ -64,7 +64,7 @@ struct intel_gt;
- struct intel_ring;
- struct intel_uncore;
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index 882bfd499e55..5688d9704636 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -4462,7 +4462,10 @@ void intel_shared_dpll_init(struct drm_device *dev)
+ 	const struct dpll_info *dpll_info;
+ 	int i;
  
--typedef u8 intel_engine_mask_t;
-+typedef u32 intel_engine_mask_t;
- #define ALL_ENGINES ((intel_engine_mask_t)~0ul)
- 
- struct intel_hw_status_page {
-@@ -101,8 +101,8 @@ struct i915_ctx_workarounds {
- 	struct i915_vma *vma;
- };
- 
--#define I915_MAX_VCS	4
--#define I915_MAX_VECS	2
-+#define I915_MAX_VCS	8
-+#define I915_MAX_VECS	4
- 
- /*
-  * Engine IDs definitions.
-@@ -115,9 +115,15 @@ enum intel_engine_id {
- 	VCS1,
- 	VCS2,
- 	VCS3,
-+	VCS4,
-+	VCS5,
-+	VCS6,
-+	VCS7,
- #define _VCS(n) (VCS0 + (n))
- 	VECS0,
- 	VECS1,
-+	VECS2,
-+	VECS3,
- #define _VECS(n) (VECS0 + (n))
- 	I915_NUM_ENGINES
- #define INVALID_ENGINE ((enum intel_engine_id)-1)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index f7dad8541417..d4546e871833 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2516,9 +2516,15 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define GEN11_BSD2_RING_BASE	0x1c4000
- #define GEN11_BSD3_RING_BASE	0x1d0000
- #define GEN11_BSD4_RING_BASE	0x1d4000
-+#define XEHP_BSD5_RING_BASE	0x1e0000
-+#define XEHP_BSD6_RING_BASE	0x1e4000
-+#define XEHP_BSD7_RING_BASE	0x1f0000
-+#define XEHP_BSD8_RING_BASE	0x1f4000
- #define VEBOX_RING_BASE		0x1a000
- #define GEN11_VEBOX_RING_BASE		0x1c8000
- #define GEN11_VEBOX2_RING_BASE		0x1d8000
-+#define XEHP_VEBOX3_RING_BASE		0x1e8000
-+#define XEHP_VEBOX4_RING_BASE		0x1f8000
- #define BLT_RING_BASE		0x22000
- #define RING_TAIL(base)		_MMIO((base) + 0x30)
- #define RING_HEAD(base)		_MMIO((base) + 0x34)
+-	if (IS_ALDERLAKE_P(dev_priv))
++	if (IS_DG2(dev_priv))
++		/* No shared DPLLs on DG2; port PLLs are part of the PHY */
++		dpll_mgr = NULL;
++	else if (IS_ALDERLAKE_P(dev_priv))
+ 		dpll_mgr = &adlp_pll_mgr;
+ 	else if (IS_ALDERLAKE_S(dev_priv))
+ 		dpll_mgr = &adls_pll_mgr;
 -- 
 2.25.4
 
