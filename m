@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B028EC11F67
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 707AEC11F67
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 84EB861416
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84EB861416
+	by mail.kernel.org (Postfix) with ESMTPS id 455EA61410
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 455EA61410
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34DF96EC62;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A53C76EC65;
 	Thu,  1 Jul 2021 20:25:49 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E26D6EC1B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 246B86EC0C;
  Thu,  1 Jul 2021 20:25:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436170"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436170"
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436165"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436165"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:21 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564559"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564509"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:24:25 -0700
-Message-Id: <20210701202427.1547543-52-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:24:10 -0700
+Message-Id: <20210701202427.1547543-37-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 51/53] drm/i915/display/dsc: Set BPP in the
- kernel
+Subject: [Intel-gfx] [PATCH 36/53] drm/i915/dg2: Don't wait for AUX power
+ well enable ACKs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,69 +60,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+On DG2 we're supposed to just wait 600us after programming the well
+before moving on; there won't be an ack from the hardware.
 
-Set compress BPP in kernel while connector DP or eDP
-
-Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Cc: Navare Manasi D <manasi.d.navare@intel.com>
-Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Signed-off-by: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
+Bspec: 49296
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ .../gpu/drm/i915/display/intel_display_power.c   | 16 ++++++++++++++++
+ .../gpu/drm/i915/display/intel_display_power.h   |  6 ++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 5b52beaddada..57aadee69d8b 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1241,9 +1241,15 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	pipe_config->lane_count = limits->max_lane_count;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 285380079aab..c34ff0947b85 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -341,6 +341,17 @@ static void hsw_wait_for_power_well_enable(struct drm_i915_private *dev_priv,
+ {
+ 	const struct i915_power_well_regs *regs = power_well->desc->hsw.regs;
+ 	int pw_idx = power_well->desc->hsw.idx;
++	int enable_delay = power_well->desc->hsw.fixed_enable_delay;
++
++	/*
++	 * For some power wells we're not supposed to watch the status bit for
++	 * an ack, but rather just wait a fixed amount of time and then
++	 * proceed.  This is only used on DG2.
++	 */
++	if (IS_DG2(dev_priv) && enable_delay) {
++		usleep_range(enable_delay, 2 * enable_delay);
++		return;
++	}
  
- 	if (intel_dp_is_edp(intel_dp)) {
--		pipe_config->dsc.compressed_bpp =
--			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
--			      pipe_config->pipe_bpp);
-+		if (intel_dp->force_dsc_bpp) {
-+			drm_dbg_kms(&dev_priv->drm,
-+				"DSC BPC forced to %d", intel_dp->force_dsc_bpp);
-+			pipe_config->dsc.compressed_bpp = intel_dp->force_dsc_bpp;
-+		} else {
-+			pipe_config->dsc.compressed_bpp =
-+				min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
-+				pipe_config->pipe_bpp);
-+		}
- 		pipe_config->dsc.slice_count =
- 			drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd,
- 							true);
-@@ -1269,9 +1275,15 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 				    "Compressed BPP/Slice Count not supported\n");
- 			return -EINVAL;
- 		}
--		pipe_config->dsc.compressed_bpp = min_t(u16,
-+		if (intel_dp->force_dsc_bpp) {
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "DSC BPC forced to %d\n", intel_dp->force_dsc_bpp);
-+			pipe_config->dsc.compressed_bpp = intel_dp->force_dsc_bpp;
-+		} else {
-+			pipe_config->dsc.compressed_bpp = min_t(u16,
- 							       dsc_max_output_bpp >> 4,
- 							       pipe_config->pipe_bpp);
-+		}
- 		pipe_config->dsc.slice_count = dsc_dp_slice_count;
- 	}
- 	/*
-@@ -1374,7 +1386,8 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 	 * Pipe joiner needs compression upto display12 due to BW limitation. DG2
- 	 * onwards pipe joiner can be enabled without compression.
- 	 */
--	drm_dbg_kms(&i915->drm, "Force DSC en = %d\n", intel_dp->force_dsc_en);
-+	drm_dbg_kms(&i915->drm, "Force DSC en = %d\n Force DSC BPP = %d\n",
-+		    intel_dp->force_dsc_en, intel_dp->force_dsc_bpp);
- 	if (ret || intel_dp->force_dsc_en || (DISPLAY_VER(i915) < 13 &&
- 					      pipe_config->bigjoiner)) {
- 		ret = intel_dp_dsc_compute_config(intel_dp, pipe_config,
+ 	/* Timeout for PW1:10 us, AUX:not specified, other PWs:20 us. */
+ 	if (intel_de_wait_for_set(dev_priv, regs->driver,
+@@ -4828,6 +4839,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
+ 		{
+ 			.hsw.regs = &icl_aux_power_well_regs,
+ 			.hsw.idx = ICL_PW_CTL_IDX_AUX_A,
++			.hsw.fixed_enable_delay = 600,
+ 		},
+ 	},
+ 	{
+@@ -4838,6 +4850,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
+ 		{
+ 			.hsw.regs = &icl_aux_power_well_regs,
+ 			.hsw.idx = ICL_PW_CTL_IDX_AUX_B,
++			.hsw.fixed_enable_delay = 600,
+ 		},
+ 	},
+ 	{
+@@ -4848,6 +4861,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
+ 		{
+ 			.hsw.regs = &icl_aux_power_well_regs,
+ 			.hsw.idx = ICL_PW_CTL_IDX_AUX_C,
++			.hsw.fixed_enable_delay = 600,
+ 		},
+ 	},
+ 	{
+@@ -4858,6 +4872,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
+ 		{
+ 			.hsw.regs = &icl_aux_power_well_regs,
+ 			.hsw.idx = XELPD_PW_CTL_IDX_AUX_D,
++			.hsw.fixed_enable_delay = 600,
+ 		},
+ 	},
+ 	{
+@@ -4878,6 +4893,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
+ 		{
+ 			.hsw.regs = &icl_aux_power_well_regs,
+ 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC1,
++			.hsw.fixed_enable_delay = 600,
+ 		},
+ 	},
+ 	{
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
+index 4f0917df4375..22367b5cba96 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.h
++++ b/drivers/gpu/drm/i915/display/intel_display_power.h
+@@ -223,6 +223,12 @@ struct i915_power_well_desc {
+ 			u8 idx;
+ 			/* Mask of pipes whose IRQ logic is backed by the pw */
+ 			u8 irq_pipe_mask;
++			/*
++			 * Instead of waiting for the status bit to ack enables,
++			 * just wait a specific amount of time and then consider
++			 * the well enabled.
++			 */
++			u16 fixed_enable_delay;
+ 			/* The pw is backing the VGA functionality */
+ 			bool has_vga:1;
+ 			bool has_fuses:1;
 -- 
 2.25.4
 
