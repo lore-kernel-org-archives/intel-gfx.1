@@ -7,40 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E1E5C11F67
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6C3FC11F6C
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4036F613F1
+	by mail.kernel.org (Postfix) with ESMTPS id B4F2F613F1
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4036F613F1
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4F2F613F1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0FDE6EC29;
-	Thu,  1 Jul 2021 20:25:26 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5A56EBA2;
- Thu,  1 Jul 2021 20:25:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="188998657"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="188998657"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73ECD6EC2B;
+	Thu,  1 Jul 2021 20:25:27 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90DDE6EB2C;
+ Thu,  1 Jul 2021 20:25:21 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208567505"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208567505"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:21 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564484"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 13:25:20 -0700
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564428"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:20 -0700
+ 01 Jul 2021 13:25:19 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:24:02 -0700
-Message-Id: <20210701202427.1547543-29-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:23:45 -0700
+Message-Id: <20210701202427.1547543-12-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 28/53] drm/i915/dg2: Add SQIDI steering
+Subject: [Intel-gfx] [PATCH 11/53] drm/i915/xehp: Define multicast register
+ ranges
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,115 +55,46 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Although DG2_G10 platforms will always have all SQIDI's present and
-don't need steering for registers in a SQIDI MMIO range, this isn't true
-for DG2_G11 platforms; only SQIDI's 2 and 3 can be used on those.
-
-We handle SQIDI ranges a bit differently from other types of explicit
-steering.  The SQIDI ranges belong to either the MCFG unit or the SF
-unit, both of which have their own dedicated steering registers and do
-not use the typical 0xFDC steering control that all other types of
-ranges use.  Thus we only need to worry about picking a valid initial
-value for the MCFG and SF steering registers (0xFD0 and 0xFD8
-resepectively) at driver init; they won't change after we set them up so
-we don't need to worry about re-steering them explicitly at runtime.
-
-Given that any SQIDI value should work fine for DG2-G10 and XeHP SDV,
-while only values of 2 and 3 are valid for DG2-G11, we'll just
-initialize the MCFG and SF steering registers to a constant value of "2"
-for all XeHP-based platforms for simplicity --- that will work in all
-cases.
-
-Bspec: 66534
-Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 28 +++++++++++++++++----
- drivers/gpu/drm/i915/i915_reg.h             |  2 ++
- 2 files changed, 25 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 4302dc1b728e..f97ff2848122 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -944,17 +944,24 @@ cfl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 		    GAMT_ECO_ENABLE_IN_PLACE_DECOMPRESS);
- }
- 
--static void __add_mcr_wa(struct drm_i915_private *i915, struct i915_wa_list *wal,
--			 unsigned slice, unsigned subslice)
-+static void __set_mcr_steering(struct i915_wa_list *wal,
-+			       i915_reg_t steering_reg,
-+			       unsigned int slice, unsigned int subslice)
- {
- 	u32 mcr, mcr_mask;
- 
- 	mcr = GEN11_MCR_SLICE(slice) | GEN11_MCR_SUBSLICE(subslice);
- 	mcr_mask = GEN11_MCR_SLICE_MASK | GEN11_MCR_SUBSLICE_MASK;
- 
--	drm_dbg(&i915->drm, "MCR slice/subslice = %x\n", mcr);
-+	wa_write_clr_set(wal, steering_reg, mcr_mask, mcr);
-+}
-+
-+static void __add_mcr_wa(struct drm_i915_private *i915, struct i915_wa_list *wal,
-+			 unsigned int slice, unsigned int subslice)
-+{
-+	drm_dbg(&i915->drm, "MCR slice=0x%x, subslice=0x%x\n", slice, subslice);
- 
--	wa_write_clr_set(wal, GEN8_MCR_SELECTOR, mcr_mask, mcr);
-+	__set_mcr_steering(wal, GEN8_MCR_SELECTOR, slice, subslice);
- }
- 
- static void
-@@ -1008,7 +1015,6 @@ xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
- 	 * - L3 Bank (fusable)
- 	 * - MSLICE (fusable)
- 	 * - LNCF (sub-unit within mslice; always present if mslice is present)
--	 * - SQIDI (always on)
- 	 *
- 	 * We'll do our default/implicit steering based on GSLICE (in the
- 	 * sliceid field) and DSS (in the subsliceid field).  If we can
-@@ -1058,6 +1064,18 @@ xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
- 	WARN_ON(dss_mask >> (slice * GEN_DSS_PER_GSLICE) == 0);
- 
- 	__add_mcr_wa(i915, wal, slice, subslice);
-+
-+	/*
-+	 * SQIDI ranges are special because they use different steering
-+	 * registers than everything else we work with.  On XeHP SDV and
-+	 * DG2-G10, any value in the steering registers will work fine since
-+	 * all instances are present, but DG2-G11 only has SQIDI instances at
-+	 * ID's 2 and 3, so we need to steer to one of those.  For simplicity
-+	 * we'll just steer to a hardcoded "2" since that value will work
-+	 * everywhere.
-+	 */
-+	__set_mcr_steering(wal, MCFG_MCR_SELECTOR, 0, 2);
-+	__set_mcr_steering(wal, SF_MCR_SELECTOR, 0, 2);
- }
- 
- static void
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 2992e8585399..b19d102e0a01 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2686,6 +2686,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define GEN12_SC_INSTDONE_EXTRA2	_MMIO(0x7108)
- #define GEN7_SAMPLER_INSTDONE	_MMIO(0xe160)
- #define GEN7_ROW_INSTDONE	_MMIO(0xe164)
-+#define MCFG_MCR_SELECTOR		_MMIO(0xfd0)
-+#define SF_MCR_SELECTOR			_MMIO(0xfd8)
- #define GEN8_MCR_SELECTOR		_MMIO(0xfdc)
- #define   GEN8_MCR_SLICE(slice)		(((slice) & 3) << 26)
- #define   GEN8_MCR_SLICE_MASK		GEN8_MCR_SLICE(3)
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+U2luY2Ugd2UgY2FuJ3Qgc3RlZXIgbXVsdGljYXN0IHJlZ2lzdGVyIHJlYWRzIGR1cmluZyByaW5n
+LWJhc2VkCndvcmthcm91bmQgdmVyaWZpY2F0aW9uLCB3ZSBuZWVkIHRvIGRlZmluZSB0aGUgbXVs
+dGljYXN0IHJhbmdlcyB3aGVyZQpmYWlsdXJlIHRvIHN0ZWVyIGNvdWxkIHBvdGVudGlhbGx5IGNh
+dXNlIHVzIHRvIHJlYWQgYmFjayBmcm9tIGEKZnVzZWQtb2ZmIHJlZ2lzdGVyIGluc3RhbmNlLgoK
+QXMgd2l0aCBnZW4xMiwgd2UgY2FuIGlnbm9yZSB0aGUgbXVsdGljYXN0IHJhbmdlcyB0aGF0IHRo
+ZSBic3BlYwpkZXNjcmliZXMgYXMgJ1NRSURJJyBzaW5jZSBhbGwgaW5zdGFuY2VzIG9mIHRob3Nl
+IHJlZ2lzdGVycyB3aWxsIGFsd2F5cwpiZSBwcmVzZW50IGFuZCB3ZSdsbCBhbHdheXMgYmUgYWJs
+ZSB0byByZWFkIGJhY2sgYSB3b3JrYXJvdW5kIHZhbHVlIHRoYXQKd2FzIHdyaXR0ZW4gd2l0aCBt
+dWx0aWNhc3QuCgpCc3BlYzogNjY1MzQKQ2M6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uu
+c291emFAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9w
+ZXJAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3dvcmthcm91
+bmRzLmMgfCAyMCArKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDE5IGluc2Vy
+dGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxf
+d29ya2Fyb3VuZHMuYwppbmRleCBkOWE1YTQ0NWNlZWMuLjIwYzZjYTI4ZTQwNyAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jCkBAIC0yMDg5LDEyICsyMDg5
+LDMwIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbWNyX3JhbmdlIG1jcl9yYW5nZXNfZ2VuMTJbXSA9
+IHsKIAl7fSwKIH07CiAKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgbWNyX3JhbmdlIG1jcl9yYW5nZXNf
+eGVocFtdID0geworCXsgLnN0YXJ0ID0gIDB4NDAwMCwgLmVuZCA9ICAweDRhZmYgfSwKKwl7IC5z
+dGFydCA9ICAweDUyMDAsIC5lbmQgPSAgMHg1MmZmIH0sCisJeyAuc3RhcnQgPSAgMHg1NDAwLCAu
+ZW5kID0gIDB4N2ZmZiB9LAorCXsgLnN0YXJ0ID0gIDB4ODE0MCwgLmVuZCA9ICAweDgxNWYgfSwK
+Kwl7IC5zdGFydCA9ICAweDhjODAsIC5lbmQgPSAgMHg4ZGZmIH0sCisJeyAuc3RhcnQgPSAgMHg5
+NGQwLCAuZW5kID0gIDB4OTU1ZiB9LAorCXsgLnN0YXJ0ID0gIDB4OTY4MCwgLmVuZCA9ICAweDk2
+ZmYgfSwKKwl7IC5zdGFydCA9ICAweGIwMDAsIC5lbmQgPSAgMHhiM2ZmIH0sCisJeyAuc3RhcnQg
+PSAgMHhjODAwLCAuZW5kID0gIDB4Y2ZmZiB9LAorCXsgLnN0YXJ0ID0gIDB4ZDgwMCwgLmVuZCA9
+ICAweGQ4ZmYgfSwKKwl7IC5zdGFydCA9ICAweGRjMDAsIC5lbmQgPSAgMHhmZmZmIH0sCisJeyAu
+c3RhcnQgPSAweDE3MDAwLCAuZW5kID0gMHgxN2ZmZiB9LAorCXsgLnN0YXJ0ID0gMHgyNGEwMCwg
+LmVuZCA9IDB4MjRhN2YgfSwKK307CisKIHN0YXRpYyBib29sIG1jcl9yYW5nZShzdHJ1Y3QgZHJt
+X2k5MTVfcHJpdmF0ZSAqaTkxNSwgdTMyIG9mZnNldCkKIHsKIAljb25zdCBzdHJ1Y3QgbWNyX3Jh
+bmdlICptY3JfcmFuZ2VzOwogCWludCBpOwogCi0JaWYgKEdSQVBISUNTX1ZFUihpOTE1KSA+PSAx
+MikKKwlpZiAoR1JBUEhJQ1NfVkVSX0ZVTEwoaTkxNSkgPj0gSVBfVkVSKDEyLCA1MCkpCisJCW1j
+cl9yYW5nZXMgPSBtY3JfcmFuZ2VzX3hlaHA7CisJZWxzZSBpZiAoR1JBUEhJQ1NfVkVSKGk5MTUp
+ID49IDEyKQogCQltY3JfcmFuZ2VzID0gbWNyX3Jhbmdlc19nZW4xMjsKIAllbHNlIGlmIChHUkFQ
+SElDU19WRVIoaTkxNSkgPj0gOCkKIAkJbWNyX3JhbmdlcyA9IG1jcl9yYW5nZXNfZ2VuODsKLS0g
+CjIuMjUuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
