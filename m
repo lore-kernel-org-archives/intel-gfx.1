@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 692BDC11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:25:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E730C11F67
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:25:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A6ED613F4
+	by mail.kernel.org (Postfix) with ESMTPS id F073E613F1
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:25:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A6ED613F4
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F073E613F1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 138F76EC25;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59DD36EBA1;
 	Thu,  1 Jul 2021 20:25:26 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52C376EB9F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6226EB9B;
  Thu,  1 Jul 2021 20:25:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208567514"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208567514"
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208567511"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208567511"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:21 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564446"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564465"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:19 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:23:47 -0700
-Message-Id: <20210701202427.1547543-14-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:23:58 -0700
+Message-Id: <20210701202427.1547543-25-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 13/53] drm/i915/xehp: New engine context offsets
+Subject: [Intel-gfx] [PATCH 24/53] drm/i915/dg2: add DG2 platform info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,133 +53,186 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+DG2 has Xe_LPD display (version 13) and Xe_HPG (version 12.55) graphics.
+There are two variants (treated as subplatforms in the code):  DG2-G10
+and DG2-G11 that require independent programming in some areas (e.g.,
+workarounds).
 
-The layout of some engine contexts has changed on Xe_HP.  Define the new
-offsets.
-
-Bspec: 45585, 46256
-Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-Signed-off-by: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>
-Signed-off-by: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
+Bspec: 44472, 44474, 46197, 48028, 48077
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 65 ++++++++++++++++++++++++++---
- 1 file changed, 59 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h          | 27 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_pci.c          | 16 ++++++++++++++
+ drivers/gpu/drm/i915/intel_device_info.c |  1 +
+ drivers/gpu/drm/i915/intel_device_info.h |  5 +++++
+ drivers/gpu/drm/i915/intel_step.c        | 20 +++++++++++++++++-
+ drivers/gpu/drm/i915/intel_step.h        |  1 +
+ 6 files changed, 69 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index e1c80e2c06d8..fee735e2a524 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -484,6 +484,47 @@ static const u8 gen12_rcs_offsets[] = {
- 	END
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 63bed18a2be7..828ad607795a 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1407,6 +1407,11 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_ALDERLAKE_S(dev_priv) IS_PLATFORM(dev_priv, INTEL_ALDERLAKE_S)
+ #define IS_ALDERLAKE_P(dev_priv) IS_PLATFORM(dev_priv, INTEL_ALDERLAKE_P)
+ #define IS_XEHPSDV(dev_priv) IS_PLATFORM(dev_priv, INTEL_XEHPSDV)
++#define IS_DG2(dev_priv)	IS_PLATFORM(dev_priv, INTEL_DG2)
++#define IS_DG2_G10(dev_priv) \
++	IS_SUBPLATFORM(dev_priv, INTEL_DG2, INTEL_SUBPLATFORM_G10)
++#define IS_DG2_G11(dev_priv) \
++	IS_SUBPLATFORM(dev_priv, INTEL_DG2, INTEL_SUBPLATFORM_G11)
+ #define IS_HSW_EARLY_SDV(dev_priv) (IS_HASWELL(dev_priv) && \
+ 				    (INTEL_DEVID(dev_priv) & 0xFF00) == 0x0C00)
+ #define IS_BDW_ULT(dev_priv) \
+@@ -1574,6 +1579,28 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_XEHPSDV_REVID(p, since, until) \
+ 	(IS_XEHPSDV(p) && IS_REVID(p, since, until))
+ 
++/*
++ * DG2 hardware steppings are a bit unusual.  The hardware design was forked
++ * to create two variants (G10 and G11) which have distinct workaround sets.
++ * The G11 fork of the DG2 design resets the GT stepping back to "A0" for its
++ * first iteration, even though it's more similar to a G10 B0 stepping in terms
++ * of functionality and workarounds.  However the display stepping does not
++ * reset in the same manner --- a specific stepping like "B0" has a consistent
++ * meaning regardless of whether it belongs to a G10 or G11 DG2.
++ *
++ * TLDR:  All GT workarounds and stepping-specific logic must be applied in
++ * relation to a specific subplatform (G10 or G11), whereas display workarounds
++ * and stepping-specific logic will be applied with a general DG2-wide stepping
++ * number.
++ */
++#define IS_DG2_GT_STEP(__i915, variant, since, until) \
++	(IS_SUBPLATFORM(__i915, INTEL_DG2, INTEL_SUBPLATFORM_##variant) && \
++	 IS_GT_STEP(__i915, since, until))
++
++#define IS_DG2_DISP_STEP(__i915, since, until) \
++	(IS_DG2(__i915) && \
++	 IS_DISPLAY_STEP(__i915, since, until))
++
+ #define IS_LP(dev_priv)		(INTEL_INFO(dev_priv)->is_lp)
+ #define IS_GEN9_LP(dev_priv)	(GRAPHICS_VER(dev_priv) == 9 && IS_LP(dev_priv))
+ #define IS_GEN9_BC(dev_priv)	(GRAPHICS_VER(dev_priv) == 9 && !IS_LP(dev_priv))
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 046309e95f43..a41e1792c0ff 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1040,6 +1040,22 @@ static const struct intel_device_info xehpsdv_info = {
+ 	.require_force_probe = 1,
  };
  
-+static const u8 xehp_rcs_offsets[] = {
-+	NOP(1),
-+	LRI(13, POSTED),
-+	REG16(0x244),
-+	REG(0x034),
-+	REG(0x030),
-+	REG(0x038),
-+	REG(0x03c),
-+	REG(0x168),
-+	REG(0x140),
-+	REG(0x110),
-+	REG(0x1c0),
-+	REG(0x1c4),
-+	REG(0x1c8),
-+	REG(0x180),
-+	REG16(0x2b4),
-+
-+	NOP(5),
-+	LRI(9, POSTED),
-+	REG16(0x3a8),
-+	REG16(0x28c),
-+	REG16(0x288),
-+	REG16(0x284),
-+	REG16(0x280),
-+	REG16(0x27c),
-+	REG16(0x278),
-+	REG16(0x274),
-+	REG16(0x270),
-+
-+	LRI(3, POSTED),
-+	REG(0x1b0),
-+	REG16(0x5a8),
-+	REG16(0x5ac),
-+
-+	NOP(6),
-+	LRI(1, 0),
-+	REG(0x0c8),
-+
-+	END
++__maybe_unused
++static const struct intel_device_info dg2_info = {
++	XE_HP_FEATURES,
++	XE_HPM_FEATURES,
++	XE_LPD_FEATURES,
++	DGFX_FEATURES,
++	.graphics_ver_release = 55,
++	.media_ver_release = 55,
++	PLATFORM(INTEL_DG2),
++	.platform_engine_mask =
++		BIT(RCS0) | BIT(BCS0) |
++		BIT(VECS0) | BIT(VECS1) |
++		BIT(VCS0) | BIT(VCS2),
++	.require_force_probe = 1,
 +};
 +
- #undef END
- #undef REG16
- #undef REG
-@@ -502,7 +543,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
- 		   !intel_engine_has_relative_mmio(engine));
+ #undef PLATFORM
  
- 	if (engine->class == RENDER_CLASS) {
--		if (GRAPHICS_VER(engine->i915) >= 12)
-+		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+			return xehp_rcs_offsets;
-+		else if (GRAPHICS_VER(engine->i915) >= 12)
- 			return gen12_rcs_offsets;
- 		else if (GRAPHICS_VER(engine->i915) >= 11)
- 			return gen11_rcs_offsets;
-@@ -522,7 +565,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ /*
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 7b37b68f4548..41205dc356b7 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -69,6 +69,7 @@ static const char * const platform_names[] = {
+ 	PLATFORM_NAME(ALDERLAKE_S),
+ 	PLATFORM_NAME(ALDERLAKE_P),
+ 	PLATFORM_NAME(XEHPSDV),
++	PLATFORM_NAME(DG2),
+ };
+ #undef PLATFORM_NAME
  
- static int lrc_ring_mi_mode(const struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index e8684199b0c9..856f0aa5d68f 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -89,6 +89,7 @@ enum intel_platform {
+ 	INTEL_ALDERLAKE_S,
+ 	INTEL_ALDERLAKE_P,
+ 	INTEL_XEHPSDV,
++	INTEL_DG2,
+ 	INTEL_MAX_PLATFORMS
+ };
+ 
+@@ -107,6 +108,10 @@ enum intel_platform {
+ /* CNL/ICL */
+ #define INTEL_SUBPLATFORM_PORTF	(0)
+ 
++/* DG2 */
++#define INTEL_SUBPLATFORM_G10	0
++#define INTEL_SUBPLATFORM_G11	1
++
+ enum intel_ppgtt_type {
+ 	INTEL_PPGTT_NONE = I915_GEM_PPGTT_NONE,
+ 	INTEL_PPGTT_ALIASING = I915_GEM_PPGTT_ALIASING,
+diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
+index ba9479a67521..30a53d9b76c1 100644
+--- a/drivers/gpu/drm/i915/intel_step.c
++++ b/drivers/gpu/drm/i915/intel_step.c
+@@ -54,6 +54,18 @@ static const struct intel_step_info adlp_revid_step_tbl[] = {
+ 	[0xC] = { .gt_step = STEP_C0, .display_step = STEP_D0 },
+ };
+ 
++static const struct intel_step_info dg2_g10_revid_step_tbl[] = {
++	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
++	[0x1] = { .gt_step = STEP_A1, .display_step = STEP_A0 },
++	[0x4] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
++	[0x8] = { .gt_step = STEP_C0, .display_step = STEP_C0 },
++};
++
++static const struct intel_step_info dg2_g11_revid_step_tbl[] = {
++	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_B0 },
++	[0x4] = { .gt_step = STEP_B0, .display_step = STEP_C0 },
++};
++
+ void intel_step_init(struct drm_i915_private *i915)
  {
--	if (GRAPHICS_VER(engine->i915) >= 12)
-+	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+		return 0x70;
-+	else if (GRAPHICS_VER(engine->i915) >= 12)
- 		return 0x60;
- 	else if (GRAPHICS_VER(engine->i915) >= 9)
- 		return 0x54;
-@@ -534,7 +579,9 @@ static int lrc_ring_mi_mode(const struct intel_engine_cs *engine)
+ 	const struct intel_step_info *revids = NULL;
+@@ -61,7 +73,13 @@ void intel_step_init(struct drm_i915_private *i915)
+ 	int revid = INTEL_REVID(i915);
+ 	struct intel_step_info step = {};
  
- static int lrc_ring_gpr0(const struct intel_engine_cs *engine)
- {
--	if (GRAPHICS_VER(engine->i915) >= 12)
-+	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+		return 0x84;
-+	else if (GRAPHICS_VER(engine->i915) >= 12)
- 		return 0x74;
- 	else if (GRAPHICS_VER(engine->i915) >= 9)
- 		return 0x68;
-@@ -578,10 +625,16 @@ static int lrc_ring_indirect_offset(const struct intel_engine_cs *engine)
- 
- static int lrc_ring_cmd_buf_cctl(const struct intel_engine_cs *engine)
- {
--	if (engine->class != RENDER_CLASS)
--		return -1;
- 
--	if (GRAPHICS_VER(engine->i915) >= 12)
-+	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+		/*
-+		 * Note that the CSFE context has a dummy slot for CMD_BUF_CCTL
-+		 * simply to match the RCS context image layout.
-+		 */
-+		return 0xc6;
-+	else if (engine->class != RENDER_CLASS)
-+		return -1;
-+	else if (GRAPHICS_VER(engine->i915) >= 12)
- 		return 0xb6;
- 	else if (GRAPHICS_VER(engine->i915) >= 11)
- 		return 0xaa;
+-	if (IS_ALDERLAKE_P(i915)) {
++	if (IS_DG2_G10(i915)) {
++		revids = dg2_g10_revid_step_tbl;
++		size = ARRAY_SIZE(dg2_g10_revid_step_tbl);
++	} else if (IS_DG2_G11(i915)) {
++		revids = dg2_g11_revid_step_tbl;
++		size = ARRAY_SIZE(dg2_g11_revid_step_tbl);
++	} else if (IS_ALDERLAKE_P(i915)) {
+ 		revids = adlp_revid_step_tbl;
+ 		size = ARRAY_SIZE(adlp_revid_step_tbl);
+ 	} else if (IS_ALDERLAKE_S(i915)) {
+diff --git a/drivers/gpu/drm/i915/intel_step.h b/drivers/gpu/drm/i915/intel_step.h
+index 958a8bb5d677..8efacef6ab31 100644
+--- a/drivers/gpu/drm/i915/intel_step.h
++++ b/drivers/gpu/drm/i915/intel_step.h
+@@ -22,6 +22,7 @@ struct intel_step_info {
+ enum intel_step {
+ 	STEP_NONE = 0,
+ 	STEP_A0,
++	STEP_A1,
+ 	STEP_A2,
+ 	STEP_B0,
+ 	STEP_B1,
 -- 
 2.25.4
 
