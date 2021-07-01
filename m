@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76358C11F67
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1AA8C11F67
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A3EA613F1
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A3EA613F1
+	by mail.kernel.org (Postfix) with ESMTPS id 7ADA561411
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:27:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7ADA561411
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4404A6EC4F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B37C6EC52;
 	Thu,  1 Jul 2021 20:25:45 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 015FA6EC07;
- Thu,  1 Jul 2021 20:25:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436162"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436162"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A35F26EC1E;
+ Thu,  1 Jul 2021 20:25:24 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436167"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436167"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:21 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564481"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564521"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:19 -0700
+ 01 Jul 2021 13:25:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:23:56 -0700
-Message-Id: <20210701202427.1547543-23-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:24:14 -0700
+Message-Id: <20210701202427.1547543-41-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 22/53] drm/i915/xehpsdv: factor out function to
- read RP_STATE_CAP
+Subject: [Intel-gfx] [PATCH 40/53] drm/i915/dg2: Don't read DRAM info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,124 +53,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Lucas De Marchi <lucas.demarchi@intel.com>
+DG2 does not use system DRAM information for BW_BUDDY programming or
+watermark workarounds, so there's no need to read this out at startup.
 
-Instead of maintaining the same if ladder in 3 different places, add a
-function to read RP_STATE_CAP.
-
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/debugfs_gt_pm.c |  8 +++-----
- drivers/gpu/drm/i915/gt/intel_rps.c     | 17 ++++++++++++-----
- drivers/gpu/drm/i915/gt/intel_rps.h     |  1 +
- drivers/gpu/drm/i915/i915_debugfs.c     |  8 +++-----
- 4 files changed, 19 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/intel_dram.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-index 4270b5a34a83..1061a62bdfce 100644
---- a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-@@ -309,13 +309,11 @@ static int frequency_show(struct seq_file *m, void *unused)
- 		int max_freq;
+diff --git a/drivers/gpu/drm/i915/intel_dram.c b/drivers/gpu/drm/i915/intel_dram.c
+index 879b0f007be3..9675bb94b70b 100644
+--- a/drivers/gpu/drm/i915/intel_dram.c
++++ b/drivers/gpu/drm/i915/intel_dram.c
+@@ -494,15 +494,15 @@ void intel_dram_detect(struct drm_i915_private *i915)
+ 	struct dram_info *dram_info = &i915->dram_info;
+ 	int ret;
  
- 		rp_state_limits = intel_uncore_read(uncore, GEN6_RP_STATE_LIMITS);
--		if (IS_GEN9_LP(i915)) {
--			rp_state_cap = intel_uncore_read(uncore, BXT_RP_STATE_CAP);
-+		rp_state_cap = intel_rps_read_state_cap(rps);
-+		if (IS_GEN9_LP(i915))
- 			gt_perf_status = intel_uncore_read(uncore, BXT_GT_PERF_STATUS);
--		} else {
--			rp_state_cap = intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
-+		else
- 			gt_perf_status = intel_uncore_read(uncore, GEN6_GT_PERF_STATUS);
--		}
- 
- 		/* RPSTAT1 is in the GT power well */
- 		intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 06e9a8ed4e03..490bc1513480 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -975,20 +975,16 @@ int intel_rps_set(struct intel_rps *rps, u8 val)
- static void gen6_rps_init(struct intel_rps *rps)
- {
- 	struct drm_i915_private *i915 = rps_to_i915(rps);
--	struct intel_uncore *uncore = rps_to_uncore(rps);
-+	u32 rp_state_cap = intel_rps_read_state_cap(rps);
- 
- 	/* All of these values are in units of 50MHz */
- 
- 	/* static values from HW: RP0 > RP1 > RPn (min_freq) */
- 	if (IS_GEN9_LP(i915)) {
--		u32 rp_state_cap = intel_uncore_read(uncore, BXT_RP_STATE_CAP);
--
- 		rps->rp0_freq = (rp_state_cap >> 16) & 0xff;
- 		rps->rp1_freq = (rp_state_cap >>  8) & 0xff;
- 		rps->min_freq = (rp_state_cap >>  0) & 0xff;
- 	} else {
--		u32 rp_state_cap = intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
--
- 		rps->rp0_freq = (rp_state_cap >>  0) & 0xff;
- 		rps->rp1_freq = (rp_state_cap >>  8) & 0xff;
- 		rps->min_freq = (rp_state_cap >> 16) & 0xff;
-@@ -1936,6 +1932,17 @@ u32 intel_rps_read_actual_frequency(struct intel_rps *rps)
- 	return freq;
- }
- 
-+u32 intel_rps_read_state_cap(struct intel_rps *rps)
-+{
-+	struct drm_i915_private *i915 = rps_to_i915(rps);
-+	struct intel_uncore *uncore = rps_to_uncore(rps);
++	if (GRAPHICS_VER(i915) < 9 || IS_DG2(i915) || !HAS_DISPLAY(i915))
++		return;
 +
-+	if (IS_GEN9_LP(i915))
-+		return intel_uncore_read(uncore, BXT_RP_STATE_CAP);
-+	else
-+		return intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
-+}
-+
- /* External interface for intel_ips.ko */
+ 	/*
+ 	 * Assume level 0 watermark latency adjustment is needed until proven
+ 	 * otherwise, this w/a is not needed by bxt/glk.
+ 	 */
+ 	dram_info->wm_lv_0_adjust_needed = !IS_GEN9_LP(i915);
  
- static struct drm_i915_private __rcu *ips_mchdev;
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.h b/drivers/gpu/drm/i915/gt/intel_rps.h
-index 1d2cfc98b510..6e06dd61f818 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.h
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.h
-@@ -31,6 +31,7 @@ int intel_gpu_freq(struct intel_rps *rps, int val);
- int intel_freq_opcode(struct intel_rps *rps, int val);
- u32 intel_rps_get_cagf(struct intel_rps *rps, u32 rpstat1);
- u32 intel_rps_read_actual_frequency(struct intel_rps *rps);
-+u32 intel_rps_read_state_cap(struct intel_rps *rps);
- 
- void gen5_rps_irq_handler(struct intel_rps *rps);
- void gen6_rps_irq_handler(struct intel_rps *rps, u32 pm_iir);
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index cc745751ac53..6c83da3956b9 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -420,13 +420,11 @@ static int i915_frequency_info(struct seq_file *m, void *unused)
- 		int max_freq;
- 
- 		rp_state_limits = intel_uncore_read(&dev_priv->uncore, GEN6_RP_STATE_LIMITS);
--		if (IS_GEN9_LP(dev_priv)) {
--			rp_state_cap = intel_uncore_read(&dev_priv->uncore, BXT_RP_STATE_CAP);
-+		rp_state_cap = intel_rps_read_state_cap(rps);
-+		if (IS_GEN9_LP(dev_priv))
- 			gt_perf_status = intel_uncore_read(&dev_priv->uncore, BXT_GT_PERF_STATUS);
--		} else {
--			rp_state_cap = intel_uncore_read(&dev_priv->uncore, GEN6_RP_STATE_CAP);
-+		else
- 			gt_perf_status = intel_uncore_read(&dev_priv->uncore, GEN6_GT_PERF_STATUS);
--		}
- 
- 		/* RPSTAT1 is in the GT power well */
- 		intel_uncore_forcewake_get(&dev_priv->uncore, FORCEWAKE_ALL);
+-	if (GRAPHICS_VER(i915) < 9 || !HAS_DISPLAY(i915))
+-		return;
+-
+ 	if (GRAPHICS_VER(i915) >= 12)
+ 		ret = gen12_get_dram_info(i915);
+ 	else if (GRAPHICS_VER(i915) >= 11)
 -- 
 2.25.4
 
