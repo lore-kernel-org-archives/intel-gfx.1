@@ -6,35 +6,35 @@ X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 429C3C11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 12:54:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 516A8C11F64
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 13:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2C91613FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 12:54:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2C91613FE
+	by mail.kernel.org (Postfix) with ESMTPS id 0329D61405
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 13:08:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0329D61405
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9364B6EADB;
-	Thu,  1 Jul 2021 12:54:19 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA4846EADB
- for <intel-gfx@lists.freedesktop.org>; Thu,  1 Jul 2021 12:54:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10031"; a="272381324"
-X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="272381324"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 05:54:14 -0700
-X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="558643046"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9148689F92;
+	Thu,  1 Jul 2021 13:08:47 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C259889F92
+ for <intel-gfx@lists.freedesktop.org>; Thu,  1 Jul 2021 13:08:46 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10031"; a="188213893"
+X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="188213893"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 06:08:23 -0700
+X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="420396772"
 Received: from genxfsim-desktop.iind.intel.com ([10.223.74.179])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 05:54:12 -0700
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 06:08:22 -0700
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 18:09:35 +0530
-Message-Id: <20210701123935.3032-1-anshuman.gupta@intel.com>
+Date: Thu,  1 Jul 2021 18:23:43 +0530
+Message-Id: <20210701125346.10005-1-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH 0/3] lpsp with hdmi/dp outputs
