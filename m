@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AE5BC11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:53:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13008C11F64
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:58:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0998E613F7
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0998E613F7
+	by mail.kernel.org (Postfix) with ESMTPS id D376E613FD
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 16:58:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D376E613FD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11CF289A72;
-	Thu,  1 Jul 2021 16:53:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 800596EB66;
+	Thu,  1 Jul 2021 16:58:02 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB5F88635;
- Thu,  1 Jul 2021 16:53:29 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208524743"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208524743"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A16E06EB5F;
+ Thu,  1 Jul 2021 16:58:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208525581"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208525581"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 09:53:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="426222744"
-Received: from irvmail001.ir.intel.com ([10.43.11.63])
- by orsmga002.jf.intel.com with ESMTP; 01 Jul 2021 09:53:25 -0700
-Received: from mwajdecz-MOBL.ger.corp.intel.com
- (mwajdecz-MOBL.ger.corp.intel.com [10.249.146.9])
- by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
- 161GrOor018728; Thu, 1 Jul 2021 17:53:24 +0100
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 18:53:21 +0200
-Message-Id: <20210701165321.2067-1-michal.wajdeczko@intel.com>
-X-Mailer: git-send-email 2.21.0
+ 01 Jul 2021 09:58:00 -0700
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644504651"
+Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 09:58:00 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Date: Thu,  1 Jul 2021 10:15:45 -0700
+Message-Id: <20210701171550.49353-3-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20210701171550.49353-1-matthew.brost@intel.com>
+References: <20210701171550.49353-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/guc: Improve GuC CTB ABI
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915/guc: Improve error message for
+ unsolicited CT response
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,174 +60,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make CTB Header explicit and separate from CTB Message.
+Improve the error message when a unsolicited CT response is received by
+printing fence that couldn't be found, the last fence, and all requests
+with a response outstanding.
 
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- .../gt/uc/abi/guc_communication_ctb_abi.h     | 51 +++++++++++--------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 24 ++++-----
- 2 files changed, 43 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-index e933ca02d0eb..90a86759e108 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-@@ -56,8 +56,9 @@ struct guc_ct_buffer_desc {
- } __packed;
- static_assert(sizeof(struct guc_ct_buffer_desc) == 64);
- 
-+
- /**
-- * DOC: CTB Message
-+ * DOC: CTB Header
-  *
-  *  +---+-------+--------------------------------------------------------------+
-  *  |   | Bits  | Description                                                  |
-@@ -71,21 +72,34 @@ static_assert(sizeof(struct guc_ct_buffer_desc) == 64);
-  *  |   +-------+--------------------------------------------------------------+
-  *  |   |   7:0 | **NUM_DWORDS** - length of the CTB message (w/o header)      |
-  *  +---+-------+--------------------------------------------------------------+
-- *  | 1 |  31:0 | optional (depends on FORMAT)                                 |
-- *  +---+-------+                                                              |
-- *  |...|       |                                                              |
-- *  +---+-------+                                                              |
-- *  | n |  31:0 |                                                              |
-+ */
-+
-+#define GUC_CTB_HDR_LEN					1u
-+#define GUC_CTB_HDR_0_FENCE				(0xffff << 16)
-+#define GUC_CTB_HDR_0_FORMAT				(0xf << 12)
-+#define   GUC_CTB_FORMAT_HXG				0u
-+#define GUC_CTB_HDR_0_RESERVED				(0xf << 8)
-+#define GUC_CTB_HDR_0_NUM_DWORDS			(0xff << 0)
-+#define   GUC_CTB_MAX_DWORDS				255u
-+
-+/**
-+ * DOC: CTB Message
-+ *
-+ *  +---+-------+--------------------------------------------------------------+
-+ *  |   | Bits  | Description                                                  |
-+ *  +===+=======+==============================================================+
-+ *  | 0 |  31:0 | `CTB Header`_                                                |
-+ *  +---+-------+--------------------------------------------------------------+
-+ *  | 1 |  31:0 |  +--------------------------------------------------------+  |
-+ *  +---+-------+  |                                                        |  |
-+ *  |...|       |  |  optional payload (depends on FORMAT)                  |  |
-+ *  +---+-------+  |                                                        |  |
-+ *  | n |  31:0 |  +--------------------------------------------------------+  |
-  *  +---+-------+--------------------------------------------------------------+
-  */
- 
--#define GUC_CTB_MSG_MIN_LEN			1u
--#define GUC_CTB_MSG_MAX_LEN			256u
--#define GUC_CTB_MSG_0_FENCE			(0xffff << 16)
--#define GUC_CTB_MSG_0_FORMAT			(0xf << 12)
--#define   GUC_CTB_FORMAT_HXG			0u
--#define GUC_CTB_MSG_0_RESERVED			(0xf << 8)
--#define GUC_CTB_MSG_0_NUM_DWORDS		(0xff << 0)
-+#define GUC_CTB_MSG_MIN_LEN		GUC_CTB_HDR_LEN
-+#define GUC_CTB_MSG_MAX_LEN		(GUC_CTB_HDR_LEN + GUC_CTB_MAX_DWORDS)
- 
- /**
-  * DOC: CTB HXG Message
-@@ -93,13 +107,10 @@ static_assert(sizeof(struct guc_ct_buffer_desc) == 64);
-  *  +---+-------+--------------------------------------------------------------+
-  *  |   | Bits  | Description                                                  |
-  *  +===+=======+==============================================================+
-- *  | 0 | 31:16 | FENCE                                                        |
-- *  |   +-------+--------------------------------------------------------------+
-- *  |   | 15:12 | FORMAT = GUC_CTB_FORMAT_HXG_                                 |
-- *  |   +-------+--------------------------------------------------------------+
-- *  |   |  11:8 | RESERVED = MBZ                                               |
-- *  |   +-------+--------------------------------------------------------------+
-- *  |   |   7:0 | NUM_DWORDS = length (in dwords) of the embedded HXG message  |
-+ *  | 0 |  31:0 | `CTB Header`_ with:                                          |
-+ *  |   |       |                                                              |
-+ *  |   |       |  - FORMAT = GUC_CTB_FORMAT_HXG_                              |
-+ *  |   |       |  - NUM_DWORDS = **n**                                        |
-  *  +---+-------+--------------------------------------------------------------+
-  *  | 1 |  31:0 |  +--------------------------------------------------------+  |
-  *  +---+-------+  |                                                        |  |
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 43409044528e..4236fc33d293 100644
+index b86575b99537..80db59b45c45 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -412,9 +412,9 @@ static int ct_write(struct intel_guc_ct *ct,
- 	 * dw1: HXG header (including action code)
- 	 * dw2+: action data
- 	 */
--	header = FIELD_PREP(GUC_CTB_MSG_0_FORMAT, GUC_CTB_FORMAT_HXG) |
--		 FIELD_PREP(GUC_CTB_MSG_0_NUM_DWORDS, len) |
--		 FIELD_PREP(GUC_CTB_MSG_0_FENCE, fence);
-+	header = FIELD_PREP(GUC_CTB_HDR_0_FORMAT, GUC_CTB_FORMAT_HXG) |
-+		 FIELD_PREP(GUC_CTB_HDR_0_NUM_DWORDS, len) |
-+		 FIELD_PREP(GUC_CTB_HDR_0_FENCE, fence);
+@@ -732,12 +732,16 @@ static int ct_handle_response(struct intel_guc_ct *ct, struct ct_incoming_msg *r
+ 		found = true;
+ 		break;
+ 	}
+-	spin_unlock_irqrestore(&ct->requests.lock, flags);
+-
+ 	if (!found) {
+ 		CT_ERROR(ct, "Unsolicited response (fence %u)\n", fence);
+-		return -ENOKEY;
++		CT_ERROR(ct, "Could not find fence=%u, last_fence=%u\n", fence,
++			 ct->requests.last_fence);
++		list_for_each_entry(req, &ct->requests.pending, link)
++			CT_ERROR(ct, "request %u awaits response\n",
++				 req->fence);
++		err = -ENOKEY;
+ 	}
++	spin_unlock_irqrestore(&ct->requests.lock, flags);
  
- 	hxg = FIELD_PREP(GUC_HXG_MSG_0_TYPE, GUC_HXG_TYPE_REQUEST) |
- 	      FIELD_PREP(GUC_HXG_REQUEST_MSG_0_ACTION |
-@@ -646,7 +646,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 	head = (head + 1) % size;
- 
- 	/* message len with header */
--	len = FIELD_GET(GUC_CTB_MSG_0_NUM_DWORDS, header) + GUC_CTB_MSG_MIN_LEN;
-+	len = FIELD_GET(GUC_CTB_HDR_0_NUM_DWORDS, header) + GUC_CTB_HDR_LEN;
- 	if (unlikely(len > (u32)available)) {
- 		CT_ERROR(ct, "Incomplete message %*ph %*ph %*ph\n",
- 			 4, &header,
-@@ -691,9 +691,9 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 
- static int ct_handle_response(struct intel_guc_ct *ct, struct ct_incoming_msg *response)
- {
--	u32 len = FIELD_GET(GUC_CTB_MSG_0_NUM_DWORDS, response->msg[0]);
--	u32 fence = FIELD_GET(GUC_CTB_MSG_0_FENCE, response->msg[0]);
--	const u32 *hxg = &response->msg[GUC_CTB_MSG_MIN_LEN];
-+	u32 len = FIELD_GET(GUC_CTB_HDR_0_NUM_DWORDS, response->msg[0]);
-+	u32 fence = FIELD_GET(GUC_CTB_HDR_0_FENCE, response->msg[0]);
-+	const u32 *hxg = &response->msg[GUC_CTB_HDR_LEN];
- 	const u32 *data = &hxg[GUC_HXG_MSG_MIN_LEN];
- 	u32 datalen = len - GUC_HXG_MSG_MIN_LEN;
- 	struct ct_request *req;
-@@ -750,8 +750,8 @@ static int ct_process_request(struct intel_guc_ct *ct, struct ct_incoming_msg *r
- 	u32 hxg_len, action, len;
- 	int ret;
- 
--	hxg = &request->msg[GUC_CTB_MSG_MIN_LEN];
--	hxg_len = request->size - GUC_CTB_MSG_MIN_LEN;
-+	hxg = &request->msg[GUC_CTB_HDR_LEN];
-+	hxg_len = request->size - GUC_CTB_HDR_LEN;
- 	payload = &hxg[GUC_HXG_MSG_MIN_LEN];
- 	action = FIELD_GET(GUC_HXG_EVENT_MSG_0_ACTION, hxg[0]);
- 	len = hxg_len - GUC_HXG_MSG_MIN_LEN;
-@@ -818,7 +818,7 @@ static void ct_incoming_request_worker_func(struct work_struct *w)
- 
- static int ct_handle_event(struct intel_guc_ct *ct, struct ct_incoming_msg *request)
- {
--	const u32 *hxg = &request->msg[GUC_CTB_MSG_MIN_LEN];
-+	const u32 *hxg = &request->msg[GUC_CTB_HDR_LEN];
- 	unsigned long flags;
- 
- 	GEM_BUG_ON(FIELD_GET(GUC_HXG_MSG_0_TYPE, hxg[0]) != GUC_HXG_TYPE_EVENT);
-@@ -840,7 +840,7 @@ static int ct_handle_hxg(struct intel_guc_ct *ct, struct ct_incoming_msg *msg)
- 	if (unlikely(msg->size < GUC_CTB_HXG_MSG_MIN_LEN))
- 		return -EBADMSG;
- 
--	hxg = &msg->msg[GUC_CTB_MSG_MIN_LEN];
-+	hxg = &msg->msg[GUC_CTB_HDR_LEN];
- 
- 	origin = FIELD_GET(GUC_HXG_MSG_0_ORIGIN, hxg[0]);
- 	if (unlikely(origin != GUC_HXG_ORIGIN_GUC)) {
-@@ -871,7 +871,7 @@ static int ct_handle_hxg(struct intel_guc_ct *ct, struct ct_incoming_msg *msg)
- 
- static void ct_handle_msg(struct intel_guc_ct *ct, struct ct_incoming_msg *msg)
- {
--	u32 format = FIELD_GET(GUC_CTB_MSG_0_FORMAT, msg->msg[0]);
-+	u32 format = FIELD_GET(GUC_CTB_HDR_0_FORMAT, msg->msg[0]);
- 	int err;
- 
- 	if (format == GUC_CTB_FORMAT_HXG)
+ 	if (unlikely(err))
+ 		return err;
 -- 
-2.25.1
+2.28.0
 
 _______________________________________________
 Intel-gfx mailing list
