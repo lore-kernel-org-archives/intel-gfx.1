@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6C3FC11F6C
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DC47C11F6F
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B4F2F613F1
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4F2F613F1
+	by mail.kernel.org (Postfix) with ESMTPS id E3B7D613F1
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3B7D613F1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73ECD6EC2B;
-	Thu,  1 Jul 2021 20:25:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13D5B6EB9D;
+	Thu,  1 Jul 2021 20:25:30 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90DDE6EB2C;
- Thu,  1 Jul 2021 20:25:21 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208567505"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208567505"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA1DF6EBA6;
+ Thu,  1 Jul 2021 20:25:22 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208567517"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208567517"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:20 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564428"
+ 01 Jul 2021 13:25:21 -0700
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564561"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:19 -0700
+ 01 Jul 2021 13:25:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:23:45 -0700
-Message-Id: <20210701202427.1547543-12-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:24:26 -0700
+Message-Id: <20210701202427.1547543-53-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 11/53] drm/i915/xehp: Define multicast register
- ranges
+Subject: [Intel-gfx] [PATCH 52/53] drm/i915/dg2: Update to bigjoiner path
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,46 +54,44 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-U2luY2Ugd2UgY2FuJ3Qgc3RlZXIgbXVsdGljYXN0IHJlZ2lzdGVyIHJlYWRzIGR1cmluZyByaW5n
-LWJhc2VkCndvcmthcm91bmQgdmVyaWZpY2F0aW9uLCB3ZSBuZWVkIHRvIGRlZmluZSB0aGUgbXVs
-dGljYXN0IHJhbmdlcyB3aGVyZQpmYWlsdXJlIHRvIHN0ZWVyIGNvdWxkIHBvdGVudGlhbGx5IGNh
-dXNlIHVzIHRvIHJlYWQgYmFjayBmcm9tIGEKZnVzZWQtb2ZmIHJlZ2lzdGVyIGluc3RhbmNlLgoK
-QXMgd2l0aCBnZW4xMiwgd2UgY2FuIGlnbm9yZSB0aGUgbXVsdGljYXN0IHJhbmdlcyB0aGF0IHRo
-ZSBic3BlYwpkZXNjcmliZXMgYXMgJ1NRSURJJyBzaW5jZSBhbGwgaW5zdGFuY2VzIG9mIHRob3Nl
-IHJlZ2lzdGVycyB3aWxsIGFsd2F5cwpiZSBwcmVzZW50IGFuZCB3ZSdsbCBhbHdheXMgYmUgYWJs
-ZSB0byByZWFkIGJhY2sgYSB3b3JrYXJvdW5kIHZhbHVlIHRoYXQKd2FzIHdyaXR0ZW4gd2l0aCBt
-dWx0aWNhc3QuCgpCc3BlYzogNjY1MzQKQ2M6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uu
-c291emFAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9w
-ZXJAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3dvcmthcm91
-bmRzLmMgfCAyMCArKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDE5IGluc2Vy
-dGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxf
-d29ya2Fyb3VuZHMuYwppbmRleCBkOWE1YTQ0NWNlZWMuLjIwYzZjYTI4ZTQwNyAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMuYworKysgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jCkBAIC0yMDg5LDEyICsyMDg5
-LDMwIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbWNyX3JhbmdlIG1jcl9yYW5nZXNfZ2VuMTJbXSA9
-IHsKIAl7fSwKIH07CiAKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgbWNyX3JhbmdlIG1jcl9yYW5nZXNf
-eGVocFtdID0geworCXsgLnN0YXJ0ID0gIDB4NDAwMCwgLmVuZCA9ICAweDRhZmYgfSwKKwl7IC5z
-dGFydCA9ICAweDUyMDAsIC5lbmQgPSAgMHg1MmZmIH0sCisJeyAuc3RhcnQgPSAgMHg1NDAwLCAu
-ZW5kID0gIDB4N2ZmZiB9LAorCXsgLnN0YXJ0ID0gIDB4ODE0MCwgLmVuZCA9ICAweDgxNWYgfSwK
-Kwl7IC5zdGFydCA9ICAweDhjODAsIC5lbmQgPSAgMHg4ZGZmIH0sCisJeyAuc3RhcnQgPSAgMHg5
-NGQwLCAuZW5kID0gIDB4OTU1ZiB9LAorCXsgLnN0YXJ0ID0gIDB4OTY4MCwgLmVuZCA9ICAweDk2
-ZmYgfSwKKwl7IC5zdGFydCA9ICAweGIwMDAsIC5lbmQgPSAgMHhiM2ZmIH0sCisJeyAuc3RhcnQg
-PSAgMHhjODAwLCAuZW5kID0gIDB4Y2ZmZiB9LAorCXsgLnN0YXJ0ID0gIDB4ZDgwMCwgLmVuZCA9
-ICAweGQ4ZmYgfSwKKwl7IC5zdGFydCA9ICAweGRjMDAsIC5lbmQgPSAgMHhmZmZmIH0sCisJeyAu
-c3RhcnQgPSAweDE3MDAwLCAuZW5kID0gMHgxN2ZmZiB9LAorCXsgLnN0YXJ0ID0gMHgyNGEwMCwg
-LmVuZCA9IDB4MjRhN2YgfSwKK307CisKIHN0YXRpYyBib29sIG1jcl9yYW5nZShzdHJ1Y3QgZHJt
-X2k5MTVfcHJpdmF0ZSAqaTkxNSwgdTMyIG9mZnNldCkKIHsKIAljb25zdCBzdHJ1Y3QgbWNyX3Jh
-bmdlICptY3JfcmFuZ2VzOwogCWludCBpOwogCi0JaWYgKEdSQVBISUNTX1ZFUihpOTE1KSA+PSAx
-MikKKwlpZiAoR1JBUEhJQ1NfVkVSX0ZVTEwoaTkxNSkgPj0gSVBfVkVSKDEyLCA1MCkpCisJCW1j
-cl9yYW5nZXMgPSBtY3JfcmFuZ2VzX3hlaHA7CisJZWxzZSBpZiAoR1JBUEhJQ1NfVkVSKGk5MTUp
-ID49IDEyKQogCQltY3JfcmFuZ2VzID0gbWNyX3Jhbmdlc19nZW4xMjsKIAllbHNlIGlmIChHUkFQ
-SElDU19WRVIoaTkxNSkgPj0gOCkKIAkJbWNyX3JhbmdlcyA9IG1jcl9yYW5nZXNfZ2VuODsKLS0g
-CjIuMjUuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+From: Animesh Manna <animesh.manna@intel.com>
+
+In verify_mpllb_state() encoder is retrieved from best_encoder
+of connector_state. As there will be only one connector_state
+for bigjoiner and checking encoder may not be needed for
+bigjoiner-slave. This code path related to mpll is done on dg2
+and need this fix to avoid null pointer dereference issue.
+
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 9655f1b1b41b..3f4e811145b6 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -9153,6 +9153,9 @@ verify_mpllb_state(struct intel_atomic_state *state,
+ 	if (!new_crtc_state->hw.active)
+ 		return;
+ 
++	if (new_crtc_state->bigjoiner_slave)
++		return;
++
+ 	encoder = intel_get_crtc_new_encoder(state, new_crtc_state);
+ 	intel_mpllb_readout_hw_state(encoder, &mpllb_hw_state);
+ 
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
