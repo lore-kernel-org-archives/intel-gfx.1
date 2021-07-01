@@ -2,52 +2,75 @@ Return-Path: <SRS0=QA22=LZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8614EC11F67
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DBBBC11F69
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D6596140D
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:56:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D6596140D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 46F3261417
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 17:56:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46F3261417
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8FAA6EB79;
-	Thu,  1 Jul 2021 17:55:54 +0000 (UTC)
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89E0E6E0CB;
- Thu,  1 Jul 2021 16:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=wK9wrmd+6oYN7FKRJ1PwqG4FPKNWD7UZGqxDhFVY3YA=; 
- b=Y4rlul+uhkYkZ4p6PoktJ1He64NFdmYZWcPpM13vr6JwyByUFcMFxf7tyOvHSUYGAsQGuCwcUoD7h5DI4G0VjAPU8O8+bLIPf62+t7OUSN+R/QYhU0JnC0VuJKQTtRvbWX3fbx6b5WzNX1bZImGRveVbDTtd/0HPNao87E/LJkrpM6iDlUx/srHN6OI5snwK8PxazjWK5xG7t3iJJ9WU+csZyt0hFOSwx3R6pP4/3oRO0mRpynHUbJfXQ4UfRyQqzglMs6SBk6RjTXKmiyJ0CAnUvAeJ2bnyP0rx715hkwTsNSF1wpGP3s6PM34qHol9in6d5fNW/mzzdtcje0K6/g==;
-Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
- helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1lyzKj-0005WT-LU; Thu, 01 Jul 2021 18:14:33 +0200
-Message-ID: <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "events@lists.x.org" <events@lists.x.org>, 
- "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org
-Date: Thu, 01 Jul 2021 18:14:23 +0200
-In-Reply-To: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
-References: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
-User-Agent: Evolution 3.38.3-1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4874B6EB7D;
+	Thu,  1 Jul 2021 17:55:57 +0000 (UTC)
+Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
+ [IPv6:2607:f8b0:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6415D6EB5A;
+ Thu,  1 Jul 2021 16:54:41 +0000 (UTC)
+Received: by mail-pg1-x536.google.com with SMTP id v7so6674174pgl.2;
+ Thu, 01 Jul 2021 09:54:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Hk4Axk4+PmQOI0kATUy1MHuqhx98yhhLacEznPnufxU=;
+ b=H5rk+QATHNu5kWtOMCyeQz/AqNtlWNfFVGjFlMSoUBVtW225R0Q/PpLFURKeg94mhQ
+ rCIY/kSGGHM+x+dNKOFQIgDVfOKr4dw5QWs3JWWI8vMeEOvEmNyN6sbCXGx7gVpi1nAU
+ XPtNr1lZa4yWS+MxXHtIvRzzjLp43ZnK0c7Oqo7FgyxxPaxJiNnXTyTWvsEvN3i9y81F
+ FsoBj0sgLAWBaYINyfki4KJxQoGpxQfYTrRmFT1R7lA4cMtPbMbS0OILbsjFnU10owY7
+ rj2vUNJz4nHI7wqLayeYTaqLJG2U8Rt/ykXrT4Rqt6dvDc3/vJaVg83yUHe7sLMpYFxW
+ zrRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Hk4Axk4+PmQOI0kATUy1MHuqhx98yhhLacEznPnufxU=;
+ b=UUQXc8ckej7CJ9vtrI7b0KUrduerrpIvE1Qkajd3aVoI55KZTl35etkLE7pTJM1Yz+
+ U/yJLCwT/H+OQz0hsChaQzA5TYvaFGDnsAg0EcIB9+f4kFfNNbBUNe2UjiJgv1EuqRvu
+ fsfAMM/zgsGt3LtKmxcghUenitaig5hRwV1u5yk7+5MZbbltCAYMbuucfOw+piuGzMBc
+ INzD+iF7iClHEhtN+tbJLeJ4j9QfX0RKZMsuw0RYtKfIm9+asQYp3BVfckaPpO5FkBYI
+ kA6laGRNmXUSX1pfwAY6cmgjMkOhcaTBw23N6p5ORSmNxXg245+z1XJ7Wju4CQ/OpuEB
+ rGKQ==
+X-Gm-Message-State: AOAM531+PGx02v8BDFaEfMvltaUgKBcEvCrI0thf1IHWd7/+sQYAG/8V
+ mKp/C5zoWhTLCQuQeUYELDE=
+X-Google-Smtp-Source: ABdhPJwcM4liZfM+/eMxIjvaqJ/4EedP/LLrwHGWzOdveO0AGD90Ae9rpc+eu//8ByUsW1tLKWLiGQ==
+X-Received: by 2002:a62:8847:0:b029:30d:4c44:7e99 with SMTP id
+ l68-20020a6288470000b029030d4c447e99mr947138pfd.64.1625158480703; 
+ Thu, 01 Jul 2021 09:54:40 -0700 (PDT)
+Received: from localhost.localdomain ([118.200.190.93])
+ by smtp.gmail.com with ESMTPSA id s20sm398738pgv.1.2021.07.01.09.54.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Jul 2021 09:54:40 -0700 (PDT)
+From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
+ christian.koenig@amd.com
+Date: Fri,  2 Jul 2021 00:53:55 +0800
+Message-Id: <20210701165358.19053-3-desmondcheongzx@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210701165358.19053-1-desmondcheongzx@gmail.com>
+References: <20210701165358.19053-1-desmondcheongzx@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 01 Jul 2021 17:55:54 +0000
-Subject: Re: [Intel-gfx] [Mesa-dev] Requests For Proposals for hosting XDC
- 2022 are now open
+Subject: [Intel-gfx] [PATCH v7 2/5] drm: separate locks in
+ __drm_mode_object_find
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,116 +83,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============1480152473=="
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, gregkh@linuxfoundation.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ skhan@linuxfoundation.org, Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
+ linux-kernel-mentees@lists.linuxfoundation.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+In a future patch, _drm_lease_held will dereference drm_file->master
+only after making a call to drm_file_get_master. This will increment
+the reference count of drm_file->master while holding onto a new
+drm_file.master_lock.
 
---===============1480152473==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-QH/ByUmgrN7MqV73jY6n"
+In preparation for this, the call to _drm_lease_held should be moved
+out from the section locked by &dev->mode_config.idr_mutex. This
+avoids creating new lock hierarchies between
+&dev->mode_config.idr_mutex and &drm_file->master_lock.
 
+Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+---
+ drivers/gpu/drm/drm_mode_object.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
---=-QH/ByUmgrN7MqV73jY6n
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-This is a reminder that the call for proposals for hosting XDC 2022
-period finishes in two months.
-
-Be sure to prepare your submission before you leave on holiday!
-
-Sam
-
-On Thu, 2021-05-20 at 12:15 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> Hello everyone!
->=20
-> The X.org board is soliciting proposals to host XDC in 2022. Since
-> XDC 2021 is being held in Europe this year (although virtually),
-> we've
-> decided to host in North America. However, the board is open to other
-> locations, especially if there's an interesting co-location with
-> another conference.
->=20
-> Of course though, due to the ongoing COVID-19 pandemic it's not yet
-> clear whether or not it will be possible to host XDC 2022 in person,
-> although is seems very likely. Because of this, we would like to
-> make it clear that sponsors should prepare for both the possibility
-> of an in person conference, and the possibility of a virtual
-> conference. We will work with organizers on coming up with a
-> deadline for deciding whether or not we'll be going virtual, likely
-> sometime around July 2022.
->=20
-> If you're considering hosting XDC, we've assembled a wiki page with
-> what's generally expected and needed:
->=20
-> https://www.x.org/wiki/Events/RFP/
->=20
-> When submitting your proposal, please make sure to include at least
-> the
-> key information about the potential location in question, possible
-> dates along with estimated costs. Proposals can be submitted to board
-> at foundation.x.org until the deadline of *September 1st, 2021*.=C2=A0
->=20
-> Additionally, an quirk early heads-up to the board if you're
-> considering hosting would be appreciated, in case we need to adjust
-> the
-> schedule a bit. Also, earlier is better since there generally will be
-> a
-> bit of Q&A with organizers.
->=20
-> And if you just have some questions about what organizing XDC
-> entails,
-> please feel free to chat with previous organizers, or someone from
-> the
-> board.
->=20
-> Thanks,
->=20
-> Sam
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-
-
---=-QH/ByUmgrN7MqV73jY6n
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmDd6d8ACgkQf/S6MvF9
-w0MKsRAA13BGnKOl2o6oyp+Ws0lBHITyQt5yGc5pIHoT3xjPVY924AFiGtJTsGq/
-oqYp9tMAGduh5VbFDmg9/FanKRpFSbFI8xXTWMuwC6OgaXgu+c9NDO8ilN8wl9vP
-3sAv88KlFP2bJtwwruGjw+jro7tnXE4WvKLaBILW8cqt3nL2xNZbI2JknPIFQDgp
-sddQ0GKSvFCtYuiEaMfxVTasJcaIyf1F4+bew031wDkS4yiuLdXUrBEoEXWNuGWG
-tcMg3HzGBAIkMFXrk3J8aSpSFlj/1r/AXlmT+UMHzp19xCk9YHcgEN5rUlnHA2BI
-AFrJKl5UBXiEl4q8h3V8sUoDM+MBItgpZxxW1P80dJvJe/OT0K9gh4VkYQoQx9Xh
-mg9IzmKENsavip/0Osh91MC9hUIBjEAvGWt2evEjlaIRCd2/xb1KO+gXcCMlz884
-nfZOoi3vAxtG/+XAohOq1pmdE6iSyuLdq8SPxtLSFXGCScHQ0R1Mh1I3xxou4dp6
-8jF2Wl4unF2ovuzCsR6VjQDyyGkXKCJHlueFLYyRrmlqjHd9n6ZDeQvHgCnYW93X
-eYYplicS4TVcZ9GHTsTgmxgGLXSM+aR7xzOZ0NQ4Dcy06uSYdbMet1iLz3XA3MoO
-ADwUOZ7evzwvmkdZ0AN4TjPI0iVtf9aVeZ5hpGPkP/eBEF033gA=
-=6VGv
------END PGP SIGNATURE-----
-
---=-QH/ByUmgrN7MqV73jY6n--
-
-
---===============1480152473==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
+index b26588b52795..83e35ff3b13a 100644
+--- a/drivers/gpu/drm/drm_mode_object.c
++++ b/drivers/gpu/drm/drm_mode_object.c
+@@ -146,16 +146,18 @@ struct drm_mode_object *__drm_mode_object_find(struct drm_device *dev,
+ 	if (obj && obj->id != id)
+ 		obj = NULL;
+ 
+-	if (obj && drm_mode_object_lease_required(obj->type) &&
+-	    !_drm_lease_held(file_priv, obj->id))
+-		obj = NULL;
+-
+ 	if (obj && obj->free_cb) {
+ 		if (!kref_get_unless_zero(&obj->refcount))
+ 			obj = NULL;
+ 	}
+ 	mutex_unlock(&dev->mode_config.idr_mutex);
+ 
++	if (obj && drm_mode_object_lease_required(obj->type) &&
++	    !_drm_lease_held(file_priv, obj->id)) {
++		drm_mode_object_put(obj);
++		obj = NULL;
++	}
++
+ 	return obj;
+ }
+ 
+-- 
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1480152473==--
-
