@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B1BFC11F83
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C804C11F75
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D32F661416
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D32F661416
+	by mail.kernel.org (Postfix) with ESMTPS id 041A261410
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 041A261410
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4DDE6EC31;
-	Thu,  1 Jul 2021 20:25:31 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EEF76EC01;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 998E96EC42;
+	Thu,  1 Jul 2021 20:25:35 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CFA66EBF6;
  Thu,  1 Jul 2021 20:25:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="188998666"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="188998666"
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436153"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436153"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:21 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564515"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 13:25:20 -0700
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564443"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:20 -0700
+ 01 Jul 2021 13:25:19 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:24:12 -0700
-Message-Id: <20210701202427.1547543-39-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:23:52 -0700
+Message-Id: <20210701202427.1547543-19-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 38/53] drm/i915/dg2: Add dbuf programming
+Subject: [Intel-gfx] [PATCH 18/53] drm/i915/xehpsdv: Add maximum sseu limits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,184 +59,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DG2 extends our DDB to four DBuf slices; pipes A+B only have access to
-the first two slices, whereas pipes C+D only have access to the second
-two.
+Due to the removal of legacy slices and the transition to a
+gslice/cslice/mslice/etc. design, we'll internally store all DSS under
+"slice0."
 
-Confusingly, our bspec decided to switch from 1-based numbering
-of dbuf slices (S1, S2) to 0-based numbering (S0, S1, S2, S3) in
-Display13.  At the moment we're using the 0-based number scheme for the
-DBUF_CTL_S() register addressing, but the 1-based number scheme in the
-actual slice assignment tables.  We may want to consider switching the
-assignment over to 0-based numbering too at some point...
-
-Bspec: 49255
-Bspec: 50057
-Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- .../drm/i915/display/intel_display_power.h    |   4 +
- drivers/gpu/drm/i915/intel_pm.c               | 120 +++++++++++++++++-
- 2 files changed, 123 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_sseu.c         | 5 ++++-
+ drivers/gpu/drm/i915/gt/intel_sseu.h         | 2 +-
+ drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c | 2 +-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index 22367b5cba96..ad788bbd727d 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -392,6 +392,10 @@ intel_display_power_put_all_in_set(struct drm_i915_private *i915,
- 	intel_display_power_put_mask_in_set(i915, power_domain_set, power_domain_set->mask);
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index 5d1b7d06c96b..16c0552fcd1d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -145,7 +145,10 @@ static void gen12_sseu_info_init(struct intel_gt *gt)
+ 	 * across the entire device. Then calculate out the DSS for each
+ 	 * workload type within that software slice.
+ 	 */
+-	intel_sseu_set_info(sseu, 1, 6, 16);
++	if (IS_XEHPSDV(gt->i915))
++		intel_sseu_set_info(sseu, 1, 32, 16);
++	else
++		intel_sseu_set_info(sseu, 1, 6, 16);
  
-+/*
-+ * FIXME: We should probably switch this to a 0-based scheme to be consistent
-+ * with how we now name/number DBUF_CTL instances.
-+ */
- enum dbuf_slice {
- 	DBUF_S1,
- 	DBUF_S2,
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 5fdb96e7d266..ff8d89fff502 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -4584,6 +4584,117 @@ static const struct dbuf_slice_conf_entry tgl_allowed_dbufs[] =
- 	{}
- };
+ 	/*
+ 	 * As mentioned above, Xe_HP does not have the concept of a slice.
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
+index 74487650b08f..204ea6709460 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.h
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
+@@ -16,7 +16,7 @@ struct intel_gt;
+ struct drm_printer;
  
-+static const struct dbuf_slice_conf_entry dg2_allowed_dbufs[] = {
-+	{
-+		.active_pipes = BIT(PIPE_A),
-+		.dbuf_mask = {
-+			[PIPE_A] = BIT(DBUF_S1) | BIT(DBUF_S2),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_B),
-+		.dbuf_mask = {
-+			[PIPE_B] = BIT(DBUF_S1) | BIT(DBUF_S2),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_A) | BIT(PIPE_B),
-+		.dbuf_mask = {
-+			[PIPE_A] = BIT(DBUF_S1),
-+			[PIPE_B] = BIT(DBUF_S2),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_C),
-+		.dbuf_mask = {
-+			[PIPE_C] = BIT(DBUF_S3) | BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_A) | BIT(PIPE_C),
-+		.dbuf_mask = {
-+			[PIPE_A] = BIT(DBUF_S1) | BIT(DBUF_S2),
-+			[PIPE_C] = BIT(DBUF_S3) | BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_B) | BIT(PIPE_C),
-+		.dbuf_mask = {
-+			[PIPE_B] = BIT(DBUF_S1) | BIT(DBUF_S2),
-+			[PIPE_C] = BIT(DBUF_S3) | BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C),
-+		.dbuf_mask = {
-+			[PIPE_A] = BIT(DBUF_S1),
-+			[PIPE_B] = BIT(DBUF_S2),
-+			[PIPE_C] = BIT(DBUF_S3) | BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_D),
-+		.dbuf_mask = {
-+			[PIPE_D] = BIT(DBUF_S3) | BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_A) | BIT(PIPE_D),
-+		.dbuf_mask = {
-+			[PIPE_A] = BIT(DBUF_S1) | BIT(DBUF_S2),
-+			[PIPE_D] = BIT(DBUF_S3) | BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_B) | BIT(PIPE_D),
-+		.dbuf_mask = {
-+			[PIPE_B] = BIT(DBUF_S1) | BIT(DBUF_S2),
-+			[PIPE_D] = BIT(DBUF_S3) | BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_D),
-+		.dbuf_mask = {
-+			[PIPE_A] = BIT(DBUF_S1),
-+			[PIPE_B] = BIT(DBUF_S2),
-+			[PIPE_D] = BIT(DBUF_S3) | BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_C) | BIT(PIPE_D),
-+		.dbuf_mask = {
-+			[PIPE_C] = BIT(DBUF_S3),
-+			[PIPE_D] = BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_A) | BIT(PIPE_C) | BIT(PIPE_D),
-+		.dbuf_mask = {
-+			[PIPE_A] = BIT(DBUF_S1) | BIT(DBUF_S2),
-+			[PIPE_C] = BIT(DBUF_S3),
-+			[PIPE_D] = BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
-+		.dbuf_mask = {
-+			[PIPE_B] = BIT(DBUF_S1) | BIT(DBUF_S2),
-+			[PIPE_C] = BIT(DBUF_S3),
-+			[PIPE_D] = BIT(DBUF_S4),
-+		},
-+	},
-+	{
-+		.active_pipes = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
-+		.dbuf_mask = {
-+			[PIPE_A] = BIT(DBUF_S1),
-+			[PIPE_B] = BIT(DBUF_S2),
-+			[PIPE_C] = BIT(DBUF_S3),
-+			[PIPE_D] = BIT(DBUF_S4),
-+		},
-+	},
-+	{}
-+};
-+
- static const struct dbuf_slice_conf_entry adlp_allowed_dbufs[] = {
- 	{
- 		.active_pipes = BIT(PIPE_A),
-@@ -4759,12 +4870,19 @@ static u32 adlp_compute_dbuf_slices(enum pipe pipe, u32 active_pipes)
- 	return compute_dbuf_slices(pipe, active_pipes, adlp_allowed_dbufs);
- }
- 
-+static u32 dg2_compute_dbuf_slices(enum pipe pipe, u32 active_pipes)
-+{
-+	return compute_dbuf_slices(pipe, active_pipes, dg2_allowed_dbufs);
-+}
-+
- static u8 skl_compute_dbuf_slices(struct intel_crtc *crtc, u8 active_pipes)
+ #define GEN_MAX_SLICES		(6) /* CNL upper bound */
+-#define GEN_MAX_SUBSLICES	(8) /* ICL upper bound */
++#define GEN_MAX_SUBSLICES	(32) /* XEHPSDV upper bound */
+ #define GEN_SSEU_STRIDE(max_entries) DIV_ROUND_UP(max_entries, BITS_PER_BYTE)
+ #define GEN_MAX_SUBSLICE_STRIDE GEN_SSEU_STRIDE(GEN_MAX_SUBSLICES)
+ #define GEN_MAX_EUS		(16) /* TGL upper bound */
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
+index 714fe8495775..a424150b052e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
+@@ -53,7 +53,7 @@ static void cherryview_sseu_device_status(struct intel_gt *gt,
+ static void gen10_sseu_device_status(struct intel_gt *gt,
+ 				     struct sseu_dev_info *sseu)
  {
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	enum pipe pipe = crtc->pipe;
- 
--	if (IS_ALDERLAKE_P(dev_priv))
-+	if (IS_DG2(dev_priv))
-+		return dg2_compute_dbuf_slices(pipe, active_pipes);
-+	else if (IS_ALDERLAKE_P(dev_priv))
- 		return adlp_compute_dbuf_slices(pipe, active_pipes);
- 	else if (DISPLAY_VER(dev_priv) == 12)
- 		return tgl_compute_dbuf_slices(pipe, active_pipes);
+-#define SS_MAX 6
++#define SS_MAX 8
+ 	struct intel_uncore *uncore = gt->uncore;
+ 	const struct intel_gt_info *info = &gt->info;
+ 	u32 s_reg[SS_MAX], eu_reg[2 * SS_MAX], eu_mask[2];
 -- 
 2.25.4
 
