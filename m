@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6799C11F72
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7321C11F79
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DE9061410
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DE9061410
+	by mail.kernel.org (Postfix) with ESMTPS id 72C83613F3
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72C83613F3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 941676EC3B;
-	Thu,  1 Jul 2021 20:25:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 593746EC43;
+	Thu,  1 Jul 2021 20:25:43 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B02416EC03;
- Thu,  1 Jul 2021 20:25:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436157"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436157"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 246166EC0A;
+ Thu,  1 Jul 2021 20:25:24 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436161"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436161"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:20 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564462"
+ 01 Jul 2021 13:25:21 -0700
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564495"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2021 13:25:19 -0700
+ 01 Jul 2021 13:25:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:23:57 -0700
-Message-Id: <20210701202427.1547543-24-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:24:06 -0700
+Message-Id: <20210701202427.1547543-33-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 23/53] drm/i915/xehpsdv: Read correct
- RP_STATE_CAP register
+Subject: [Intel-gfx] [PATCH 32/53] drm/i915/dg2: Define MOCS table for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,50 +53,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The RP_STATE_CAP register is no longer part of the MCHBAR on XEHPSDV; this
-register is now a per-tile register at GTTMMADDR offset 0x250014.
-
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Bspec: 45101, 45427
+Cc: Ramalingam C <ramalingam.c@intel.com>(v5)
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c | 4 +++-
- drivers/gpu/drm/i915/i915_reg.h     | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_mocs.c | 35 +++++++++++++++++++++++++++-
+ 1 file changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 490bc1513480..8e7b70248392 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1937,7 +1937,9 @@ u32 intel_rps_read_state_cap(struct intel_rps *rps)
- 	struct drm_i915_private *i915 = rps_to_i915(rps);
- 	struct intel_uncore *uncore = rps_to_uncore(rps);
+diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
+index 0c9d0b936c20..d22ca8212092 100644
+--- a/drivers/gpu/drm/i915/gt/intel_mocs.c
++++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
+@@ -341,6 +341,30 @@ static const struct drm_i915_mocs_entry xehpsdv_mocs_table[] = {
+ 	MOCS_ENTRY(63, 0, L3_1_UC),
+ };
  
--	if (IS_GEN9_LP(i915))
-+	if (IS_XEHPSDV(i915))
-+		return intel_uncore_read(uncore, XEHPSDV_RP_STATE_CAP);
-+	else if (IS_GEN9_LP(i915))
- 		return intel_uncore_read(uncore, BXT_RP_STATE_CAP);
- 	else
- 		return intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 0231f42226db..2992e8585399 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4110,6 +4110,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define GEN6_RP_STATE_CAP	_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5998)
- #define BXT_RP_STATE_CAP        _MMIO(0x138170)
- #define GEN9_RP_STATE_LIMITS	_MMIO(0x138148)
-+#define XEHPSDV_RP_STATE_CAP	_MMIO(0x250014)
++static const struct drm_i915_mocs_entry dg2_mocs_table[] = {
++	/* UC - Coherent; GO:L3 */
++	MOCS_ENTRY(0, 0, L3_1_UC | L3_LKUP(1)),
++	/* UC - Coherent; GO:Memory */
++	MOCS_ENTRY(1, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
++	/* UC - Non-Coherent; GO:Memory */
++	MOCS_ENTRY(2, 0, L3_1_UC | L3_GLBGO(1)),
++
++	/* WB - LC */
++	MOCS_ENTRY(3, 0, L3_3_WB | L3_LKUP(1)),
++};
++
++static const struct drm_i915_mocs_entry dg2_mocs_table_g10_ax[] = {
++	/* Wa_14011441408: Set Go to Memory for MOCS#0 */
++	MOCS_ENTRY(0, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
++	/* UC - Coherent; GO:Memory */
++	MOCS_ENTRY(1, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
++	/* UC - Non-Coherent; GO:Memory */
++	MOCS_ENTRY(2, 0, L3_1_UC | L3_GLBGO(1)),
++
++	/* WB - LC */
++	MOCS_ENTRY(3, 0, L3_3_WB | L3_LKUP(1)),
++};
++
+ enum {
+ 	HAS_GLOBAL_MOCS = BIT(0),
+ 	HAS_ENGINE_MOCS = BIT(1),
+@@ -367,7 +391,16 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
+ {
+ 	unsigned int flags;
  
- /*
-  * Logical Context regs
+-	if (IS_XEHPSDV(i915)) {
++	if (IS_DG2(i915)) {
++		if (IS_DG2_GT_STEP(i915, G10, STEP_A0, (STEP_B0 - 1))) {
++			table->size = ARRAY_SIZE(dg2_mocs_table_g10_ax);
++			table->table = dg2_mocs_table_g10_ax;
++		} else {
++			table->size = ARRAY_SIZE(dg2_mocs_table);
++			table->table = dg2_mocs_table;
++		}
++		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
++	} else if (IS_XEHPSDV(i915)) {
+ 		table->size = ARRAY_SIZE(xehpsdv_mocs_table);
+ 		table->table = xehpsdv_mocs_table;
+ 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
 -- 
 2.25.4
 
