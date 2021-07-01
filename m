@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C804C11F75
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6799C11F72
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 041A261410
+	by mail.kernel.org (Postfix) with ESMTPS id 7DE9061410
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 20:26:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 041A261410
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DE9061410
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 998E96EC42;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 941676EC3B;
 	Thu,  1 Jul 2021 20:25:35 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CFA66EBF6;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B02416EC03;
  Thu,  1 Jul 2021 20:25:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436153"
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436153"
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="208436157"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="208436157"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:20 -0700
-X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564443"
+X-IronPort-AV: E=Sophos;i="5.83,315,1616482800"; d="scan'208";a="644564462"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Jul 2021 13:25:19 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jul 2021 13:23:52 -0700
-Message-Id: <20210701202427.1547543-19-matthew.d.roper@intel.com>
+Date: Thu,  1 Jul 2021 13:23:57 -0700
+Message-Id: <20210701202427.1547543-24-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 18/53] drm/i915/xehpsdv: Add maximum sseu limits
+Subject: [Intel-gfx] [PATCH 23/53] drm/i915/xehpsdv: Read correct
+ RP_STATE_CAP register
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,65 +54,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Due to the removal of legacy slices and the transition to a
-gslice/cslice/mslice/etc. design, we'll internally store all DSS under
-"slice0."
+The RP_STATE_CAP register is no longer part of the MCHBAR on XEHPSDV; this
+register is now a per-tile register at GTTMMADDR offset 0x250014.
 
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_sseu.c         | 5 ++++-
- drivers/gpu/drm/i915/gt/intel_sseu.h         | 2 +-
- drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c | 2 +-
- 3 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_rps.c | 4 +++-
+ drivers/gpu/drm/i915/i915_reg.h     | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
-index 5d1b7d06c96b..16c0552fcd1d 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu.c
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
-@@ -145,7 +145,10 @@ static void gen12_sseu_info_init(struct intel_gt *gt)
- 	 * across the entire device. Then calculate out the DSS for each
- 	 * workload type within that software slice.
- 	 */
--	intel_sseu_set_info(sseu, 1, 6, 16);
-+	if (IS_XEHPSDV(gt->i915))
-+		intel_sseu_set_info(sseu, 1, 32, 16);
-+	else
-+		intel_sseu_set_info(sseu, 1, 6, 16);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 490bc1513480..8e7b70248392 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1937,7 +1937,9 @@ u32 intel_rps_read_state_cap(struct intel_rps *rps)
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+ 	struct intel_uncore *uncore = rps_to_uncore(rps);
  
- 	/*
- 	 * As mentioned above, Xe_HP does not have the concept of a slice.
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
-index 74487650b08f..204ea6709460 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu.h
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
-@@ -16,7 +16,7 @@ struct intel_gt;
- struct drm_printer;
+-	if (IS_GEN9_LP(i915))
++	if (IS_XEHPSDV(i915))
++		return intel_uncore_read(uncore, XEHPSDV_RP_STATE_CAP);
++	else if (IS_GEN9_LP(i915))
+ 		return intel_uncore_read(uncore, BXT_RP_STATE_CAP);
+ 	else
+ 		return intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 0231f42226db..2992e8585399 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4110,6 +4110,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define GEN6_RP_STATE_CAP	_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5998)
+ #define BXT_RP_STATE_CAP        _MMIO(0x138170)
+ #define GEN9_RP_STATE_LIMITS	_MMIO(0x138148)
++#define XEHPSDV_RP_STATE_CAP	_MMIO(0x250014)
  
- #define GEN_MAX_SLICES		(6) /* CNL upper bound */
--#define GEN_MAX_SUBSLICES	(8) /* ICL upper bound */
-+#define GEN_MAX_SUBSLICES	(32) /* XEHPSDV upper bound */
- #define GEN_SSEU_STRIDE(max_entries) DIV_ROUND_UP(max_entries, BITS_PER_BYTE)
- #define GEN_MAX_SUBSLICE_STRIDE GEN_SSEU_STRIDE(GEN_MAX_SUBSLICES)
- #define GEN_MAX_EUS		(16) /* TGL upper bound */
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
-index 714fe8495775..a424150b052e 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
-@@ -53,7 +53,7 @@ static void cherryview_sseu_device_status(struct intel_gt *gt,
- static void gen10_sseu_device_status(struct intel_gt *gt,
- 				     struct sseu_dev_info *sseu)
- {
--#define SS_MAX 6
-+#define SS_MAX 8
- 	struct intel_uncore *uncore = gt->uncore;
- 	const struct intel_gt_info *info = &gt->info;
- 	u32 s_reg[SS_MAX], eu_reg[2 * SS_MAX], eu_mask[2];
+ /*
+  * Logical Context regs
 -- 
 2.25.4
 
