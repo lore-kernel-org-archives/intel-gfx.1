@@ -2,77 +2,40 @@ Return-Path: <SRS0=QA22=LZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 13F1FC11F64
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 09:09:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EAA2DC11F64
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 09:13:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D468361476
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 09:09:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D468361476
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id B2C26614A5
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jul 2021 09:13:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2C26614A5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14B576EAB2;
-	Thu,  1 Jul 2021 09:09:05 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E167C6EAAD;
- Thu,  1 Jul 2021 09:09:02 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8C6C1227FB;
- Thu,  1 Jul 2021 09:09:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625130541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=2ZkAhHualJpXvHlhErO3vffMp9/Q0lg7AVNAbWuLZI4=;
- b=jZ+T9/d8Tv40cx3Gfbjs4CnOND8QC7AnNxL7j2RmPyWfAwLiE3oB3ZbAqdRua/r1YBb/bW
- Y2YZ4b3hbBRy+wyVpx5OA6B7FUSOvUicnbAycR9VqZh31PvRwdrGFSazSaIXjwy5LYapQ8
- PkoQnziAOaY1BEBTdBq2xFprz4bzlwY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625130541;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=2ZkAhHualJpXvHlhErO3vffMp9/Q0lg7AVNAbWuLZI4=;
- b=7rw2LrYVeR2gaE0jy7Ke80917hyYiKtfFL6tmKuNGX6P6jes/RdTdiyba7OcV/Q5yPYKVZ
- xBgP96FJo72Z3wDQ==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 55AD611CC0;
- Thu,  1 Jul 2021 09:09:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625130541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=2ZkAhHualJpXvHlhErO3vffMp9/Q0lg7AVNAbWuLZI4=;
- b=jZ+T9/d8Tv40cx3Gfbjs4CnOND8QC7AnNxL7j2RmPyWfAwLiE3oB3ZbAqdRua/r1YBb/bW
- Y2YZ4b3hbBRy+wyVpx5OA6B7FUSOvUicnbAycR9VqZh31PvRwdrGFSazSaIXjwy5LYapQ8
- PkoQnziAOaY1BEBTdBq2xFprz4bzlwY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625130541;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=2ZkAhHualJpXvHlhErO3vffMp9/Q0lg7AVNAbWuLZI4=;
- b=7rw2LrYVeR2gaE0jy7Ke80917hyYiKtfFL6tmKuNGX6P6jes/RdTdiyba7OcV/Q5yPYKVZ
- xBgP96FJo72Z3wDQ==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id ZeQPFC2G3WDGKAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Thu, 01 Jul 2021 09:09:01 +0000
-Date: Thu, 1 Jul 2021 11:08:59 +0200
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <YN2GK2SH64yqXqh9@linux-uq9g>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54F6D89E08;
+	Thu,  1 Jul 2021 09:13:32 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C1FCC89B7D;
+ Thu,  1 Jul 2021 09:13:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B99C9A41FB;
+ Thu,  1 Jul 2021 09:13:30 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] drm-misc-next-fixes
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Date: Thu, 01 Jul 2021 09:13:30 -0000
+Message-ID: <162513081075.15055.967934868022406313@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210701085833.26566-1-tzimmermann@suse.de>
+In-Reply-To: <20210701085833.26566-1-tzimmermann@suse.de>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_IRQ_fixes_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,79 +48,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave and Daniel,
+== Series Details ==
 
-this week's PR for drm-misc-next-fixes contains a number of BO-related
-fixes in amdgpu, gma500 and radeon, and a documentation fix for dma-buf.
+Series: drm/i915: IRQ fixes (rev3)
+URL   : https://patchwork.freedesktop.org/series/92053/
+State : warning
 
-Best regards
-Thomas
+== Summary ==
 
-drm-misc-next-fixes-2021-07-01:
-Short summary of fixes pull:
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/gt/intel_ring_submission.c:1207:24: warning: Using plain integer as NULL pointer
 
- * amdgpu: TTM fixes
- * dma-buf: Doc fixes
- * gma500: Fix potential BO leaks in error handling
- * radeon: Fix NULL-ptr deref
-The following changes since commit eed75ce7c8260e0d5612ced4a88180ab991e207c:
 
-  drm/amdgpu: fix amdgpu_preempt_mgr_new() (2021-06-21 15:24:29 +0200)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-fixes-2021-=
-07-01
-
-for you to fetch changes up to f18f58012ee894039cd59ee8c889bf499d7a3943:
-
-  drm/radeon: Fix NULL dereference when updating memory stats (2021-06-30 1=
-1:56:21 +0200)
-
-----------------------------------------------------------------
-Short summary of fixes pull:
-
- * amdgpu: TTM fixes
- * dma-buf: Doc fixes
- * gma500: Fix potential BO leaks in error handling
- * radeon: Fix NULL-ptr deref
-
-----------------------------------------------------------------
-Jing Xiangfeng (1):
-      drm/gma500: Add the missed drm_gem_object_put() in psb_user_framebuff=
-er_create()
-
-Mikel Rychliski (1):
-      drm/radeon: Fix NULL dereference when updating memory stats
-
-Nirmoy Das (1):
-      drm/amdgpu: return early for non-TTM_PL_TT type BOs
-
-Randy Dunlap (1):
-      <linux/dma-resv.h>: correct a function name in kernel-doc
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  3 ++-
- drivers/gpu/drm/gma500/framebuffer.c    |  7 ++++++-
- drivers/gpu/drm/radeon/radeon_object.c  | 29 ++++++++++++-----------------
- drivers/gpu/drm/radeon/radeon_object.h  |  2 +-
- drivers/gpu/drm/radeon/radeon_ttm.c     | 13 ++++++++++---
- include/linux/dma-resv.h                |  2 +-
- 6 files changed, 32 insertions(+), 24 deletions(-)
-
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=FCrnberg, Germany
-(HRB 36809, AG N=FCrnberg)
-Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
