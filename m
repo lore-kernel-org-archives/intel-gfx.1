@@ -2,46 +2,75 @@ Return-Path: <SRS0=xVQy=L2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C05FFC11F6A
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Jul 2021 09:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79D74C11F68
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Jul 2021 09:30:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E7C6610CA
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Jul 2021 09:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E7C6610CA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1A49D61352
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Jul 2021 09:30:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A49D61352
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 096816E0AB;
-	Fri,  2 Jul 2021 09:21:44 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 669276E0A1
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Jul 2021 09:21:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="294349241"
-X-IronPort-AV: E=Sophos;i="5.83,316,1616482800"; d="scan'208";a="294349241"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2021 02:21:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,316,1616482800"; d="scan'208";a="642492430"
-Received: from kbommu-nuc8i7beh.iind.intel.com ([10.145.162.97])
- by fmsmga006.fm.intel.com with ESMTP; 02 Jul 2021 02:21:35 -0700
-From: venkata.sai.patnana@intel.com
-To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Jul 2021 14:40:42 +0530
-Message-Id: <20210702091043.14368-2-venkata.sai.patnana@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210702091043.14368-1-venkata.sai.patnana@intel.com>
-References: <20210702091043.14368-1-venkata.sai.patnana@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9545989FEC;
+	Fri,  2 Jul 2021 09:30:47 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95CC089FEC;
+ Fri,  2 Jul 2021 09:30:46 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 1629DEDZ007865; Fri, 2 Jul 2021 09:30:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=y8XH+0UxgcFcaPtHQidy9BG2OpEHpi6oH21KE651syM=;
+ b=Sv+gVpHwQxbH7ieQrvFb1uE74mcwusgbzTFL0r6CZV4rbXJeZSmR1erIcluD/VAq0ZY7
+ OTLwYSjO0syEsGu5B4p2TBYs8QTUAKCOlQ0aHyLYXvYRqV5p8GkoAxOi0933WKI0DVYH
+ 7RpJ80gTug0OeFirZlnJ9kSlq8IP73DD8VpWtph/bVZe/QbPOhHysVKIaZNYFREZKd0i
+ uxMFJP1erSVcK7BU0W6+CMT+NiZ4auSQ4wwsmuhbqoj5zKkdmGwfzErtxIwkhY6Vzxvu
+ qSsiCrhWl4QkxnTfm+cAQDobjapBx5L7T76DQ8U9oE+v0/xas78DhDSoVt+YghsLIfQ+ 7A== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by mx0b-00069f02.pphosted.com with ESMTP id 39gy5w3bh9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 02 Jul 2021 09:30:44 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 1629U7NC094155;
+ Fri, 2 Jul 2021 09:30:43 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by userp3030.oracle.com with ESMTP id 39dsc61j0q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 02 Jul 2021 09:30:43 +0000
+Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 1629UgPm096744;
+ Fri, 2 Jul 2021 09:30:42 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3030.oracle.com with ESMTP id 39dsc61hyt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 02 Jul 2021 09:30:42 +0000
+Received: from abhmp0010.oracle.com (abhmp0010.oracle.com [141.146.116.16])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 1629UewB004723;
+ Fri, 2 Jul 2021 09:30:40 GMT
+Received: from kadam (/102.222.70.252) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 02 Jul 2021 02:30:40 -0700
+Date: Fri, 2 Jul 2021 12:30:32 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: kbuild@lists.01.org, Matthew Auld <matthew.auld@intel.com>
+Message-ID: <202107020223.RidpjHxP-lkp@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 1/2] drm/i915/display/dsc: Add Per connector
- debugfs node for DSC BPP enable
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-GUID: uv9V24ZAzt2nG0CPqBZBcRBJh7uoR-OL
+X-Proofpoint-ORIG-GUID: uv9V24ZAzt2nG0CPqBZBcRBJh7uoR-OL
+Subject: [Intel-gfx] [drm-intel:drm-intel-gt-next 7/8]
+ drivers/gpu/drm/i915/selftests/intel_memory_region.c:227 igt_mock_reserve()
+ error: 'mem' dereferencing possible ERR_PTR()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,170 +83,117 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, kbuild-all@lists.01.org,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
+tree:   git://anongit.freedesktop.org/drm-intel drm-intel-gt-next
+head:   13c2ceb6addb6b14468e09b75832c98909eed8e7
+commit: d53ec322dc7de32a59bf1c2a56b93e90fc2f1c28 [7/8] drm/i915/ttm: switch over to ttm_buddy_man
+config: x86_64-randconfig-m001-20210630 (attached as .config)
+compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
 
-[What]:
-This patch creates a per connector debugfs node to expose
-the Input and Compressed BPP.
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
 
-The same node can be used from userspace to force
-DSC to a certain BPP(all accepted values).
+New smatch warnings:
+drivers/gpu/drm/i915/selftests/intel_memory_region.c:227 igt_mock_reserve() error: 'mem' dereferencing possible ERR_PTR()
 
-[Why]:
-Useful to verify all supported/requested compression bpp's
-through IGT
+vim +/mem +227 drivers/gpu/drm/i915/selftests/intel_memory_region.c
 
-v2: Remove unnecessary logic (Jani)
-v3: Drop pipe bpp in debugfs node (Vandita)
-v4: Minor cleanups (Vandita)
+adeca641bcb64f Abdiel Janulgue 2021-01-27  153  static int igt_mock_reserve(void *arg)
+adeca641bcb64f Abdiel Janulgue 2021-01-27  154  {
+adeca641bcb64f Abdiel Janulgue 2021-01-27  155  	struct intel_memory_region *mem = arg;
+d53ec322dc7de3 Matthew Auld    2021-06-16  156  	struct drm_i915_private *i915 = mem->i915;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  157  	resource_size_t avail = resource_size(&mem->region);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  158  	struct drm_i915_gem_object *obj;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  159  	const u32 chunk_size = SZ_32M;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  160  	u32 i, offset, count, *order;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  161  	u64 allocated, cur_avail;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  162  	I915_RND_STATE(prng);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  163  	LIST_HEAD(objects);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  164  	int err = 0;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  165  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  166  	count = avail / chunk_size;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  167  	order = i915_random_order(count, &prng);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  168  	if (!order)
+adeca641bcb64f Abdiel Janulgue 2021-01-27  169  		return 0;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  170  
+d53ec322dc7de3 Matthew Auld    2021-06-16  171  	mem = mock_region_create(i915, 0, SZ_2G, I915_GTT_PAGE_SIZE_4K, 0);
+d53ec322dc7de3 Matthew Auld    2021-06-16  172  	if (IS_ERR(mem)) {
+d53ec322dc7de3 Matthew Auld    2021-06-16  173  		pr_err("failed to create memory region\n");
+d53ec322dc7de3 Matthew Auld    2021-06-16  174  		err = PTR_ERR(mem);
+d53ec322dc7de3 Matthew Auld    2021-06-16  175  		goto out_close;
 
-Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Cc: Navare Manasi D <manasi.d.navare@intel.com>
-Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Signed-off-by: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
+"mem" is an error pointer.
+
+d53ec322dc7de3 Matthew Auld    2021-06-16  176  	}
+d53ec322dc7de3 Matthew Auld    2021-06-16  177  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  178  	/* Reserve a bunch of ranges within the region */
+adeca641bcb64f Abdiel Janulgue 2021-01-27  179  	for (i = 0; i < count; ++i) {
+adeca641bcb64f Abdiel Janulgue 2021-01-27  180  		u64 start = order[i] * chunk_size;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  181  		u64 size = i915_prandom_u32_max_state(chunk_size, &prng);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  182  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  183  		/* Allow for some really big holes */
+adeca641bcb64f Abdiel Janulgue 2021-01-27  184  		if (!size)
+adeca641bcb64f Abdiel Janulgue 2021-01-27  185  			continue;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  186  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  187  		size = round_up(size, PAGE_SIZE);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  188  		offset = igt_random_offset(&prng, 0, chunk_size, size,
+adeca641bcb64f Abdiel Janulgue 2021-01-27  189  					   PAGE_SIZE);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  190  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  191  		err = intel_memory_region_reserve(mem, start + offset, size);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  192  		if (err) {
+adeca641bcb64f Abdiel Janulgue 2021-01-27  193  			pr_err("%s failed to reserve range", __func__);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  194  			goto out_close;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  195  		}
+adeca641bcb64f Abdiel Janulgue 2021-01-27  196  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  197  		/* XXX: maybe sanity check the block range here? */
+adeca641bcb64f Abdiel Janulgue 2021-01-27  198  		avail -= size;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  199  	}
+adeca641bcb64f Abdiel Janulgue 2021-01-27  200  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  201  	/* Try to see if we can allocate from the remaining space */
+adeca641bcb64f Abdiel Janulgue 2021-01-27  202  	allocated = 0;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  203  	cur_avail = avail;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  204  	do {
+adeca641bcb64f Abdiel Janulgue 2021-01-27  205  		u32 size = i915_prandom_u32_max_state(cur_avail, &prng);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  206  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  207  		size = max_t(u32, round_up(size, PAGE_SIZE), PAGE_SIZE);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  208  		obj = igt_object_create(mem, &objects, size, 0);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  209  		if (IS_ERR(obj)) {
+d53ec322dc7de3 Matthew Auld    2021-06-16  210  			if (PTR_ERR(obj) == -ENXIO)
+adeca641bcb64f Abdiel Janulgue 2021-01-27  211  				break;
+d53ec322dc7de3 Matthew Auld    2021-06-16  212  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  213  			err = PTR_ERR(obj);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  214  			goto out_close;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  215  		}
+adeca641bcb64f Abdiel Janulgue 2021-01-27  216  		cur_avail -= size;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  217  		allocated += size;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  218  	} while (1);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  219  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  220  	if (allocated != avail) {
+adeca641bcb64f Abdiel Janulgue 2021-01-27  221  		pr_err("%s mismatch between allocation and free space", __func__);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  222  		err = -EINVAL;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  223  	}
+adeca641bcb64f Abdiel Janulgue 2021-01-27  224  
+adeca641bcb64f Abdiel Janulgue 2021-01-27  225  out_close:
+adeca641bcb64f Abdiel Janulgue 2021-01-27  226  	kfree(order);
+adeca641bcb64f Abdiel Janulgue 2021-01-27 @227  	close_objects(mem, &objects);
+                                                                      ^^^
+Dereferenced inside function.
+
+d53ec322dc7de3 Matthew Auld    2021-06-16  228  	intel_memory_region_put(mem);
+adeca641bcb64f Abdiel Janulgue 2021-01-27  229  	return err;
+adeca641bcb64f Abdiel Janulgue 2021-01-27  230  }
+
 ---
- .../drm/i915/display/intel_display_debugfs.c  | 99 ++++++++++++++++++-
- .../drm/i915/display/intel_display_types.h    |  1 +
- 2 files changed, 99 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index af9e58619667d..6329907f440b9 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -2389,6 +2389,96 @@ static const struct file_operations i915_dsc_fec_support_fops = {
- 	.write = i915_dsc_fec_support_write
- };
- 
-+static int i915_dsc_bpp_support_show(struct seq_file *m, void *data)
-+{
-+	struct drm_connector *connector = m->private;
-+	struct drm_device *dev = connector->dev;
-+	struct drm_crtc *crtc;
-+	struct intel_crtc_state *crtc_state = NULL;
-+	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
-+	int ret = 0;
-+
-+	if (!encoder)
-+		return -ENODEV;
-+
-+	if (connector->status != connector_status_connected)
-+		return -ENODEV;
-+
-+	ret = drm_modeset_lock_single_interruptible(&dev->mode_config.connection_mutex);
-+	if (ret)
-+		return ret;
-+
-+	crtc = connector->state->crtc;
-+	crtc_state = to_intel_crtc_state(crtc->state);
-+	seq_printf(m, "Compressed_BPP: %d\n", crtc_state->dsc.compressed_bpp);
-+
-+	drm_modeset_unlock(&dev->mode_config.connection_mutex);
-+
-+	return ret;
-+}
-+
-+static ssize_t i915_dsc_bpp_support_write(struct file *file,
-+						const char __user *ubuf,
-+						size_t len, loff_t *offp)
-+{
-+	int dsc_bpp = 0;
-+	int ret;
-+	struct drm_connector *connector =
-+		((struct seq_file *)file->private_data)->private;
-+	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-+	struct drm_crtc *crtc;
-+	struct intel_crtc_state *crtc_state = NULL;
-+
-+	if (len == 0)
-+		return 0;
-+
-+	ret = kstrtoint_from_user(ubuf, len, 0, &dsc_bpp);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = drm_modeset_lock_single_interruptible(&i915->drm.mode_config.connection_mutex);
-+	if (ret)
-+		return ret;
-+
-+	crtc = connector->state->crtc;
-+	crtc_state = to_intel_crtc_state(crtc->state);
-+
-+	if (dsc_bpp <= 8 || dsc_bpp >= crtc_state->pipe_bpp) {
-+		drm_modeset_unlock(&i915->drm.mode_config.connection_mutex);
-+		drm_dbg(&i915->drm, "Compressed_BPP should be with in the limits\n");
-+
-+		return -EINVAL;
-+	}
-+
-+	drm_modeset_unlock(&i915->drm.mode_config.connection_mutex);
-+
-+	drm_dbg(&i915->drm,
-+		"Copied %zu bytes from user to force BPP\n", len);
-+
-+	intel_dp->force_dsc_bpp = dsc_bpp;
-+	*offp += len;
-+
-+	return len;
-+}
-+
-+static int i915_dsc_bpp_support_open(struct inode *inode,
-+					   struct file *file)
-+{
-+	return single_open(file, i915_dsc_bpp_support_show,
-+			   inode->i_private);
-+}
-+
-+static const struct file_operations i915_dsc_bpp_support_fops = {
-+	.owner = THIS_MODULE,
-+	.open = i915_dsc_bpp_support_open,
-+	.read = seq_read,
-+	.llseek = seq_lseek,
-+	.release = single_release,
-+	.write = i915_dsc_bpp_support_write
-+};
-+
- /**
-  * intel_connector_debugfs_add - add i915 specific connector debugfs files
-  * @connector: pointer to a registered drm_connector
-@@ -2427,9 +2517,16 @@ int intel_connector_debugfs_add(struct drm_connector *connector)
- 				    connector, &i915_hdcp_sink_capability_fops);
- 	}
- 
--	if ((DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) && ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort && !to_intel_connector(connector)->mst_port) || connector->connector_type == DRM_MODE_CONNECTOR_eDP))
-+	if ((DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) &&
-+	    ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort &&
-+	      !to_intel_connector(connector)->mst_port) ||
-+	     connector->connector_type == DRM_MODE_CONNECTOR_eDP)) {
- 		debugfs_create_file("i915_dsc_fec_support", S_IRUGO, root,
- 				    connector, &i915_dsc_fec_support_fops);
-+		debugfs_create_file("i915_dsc_bpp_support", S_IRUGO,
-+				    root, connector,
-+				    &i915_dsc_bpp_support_fops);
-+	}
- 
- 	/* Legacy panels doesn't lpsp on any platform */
- 	if ((DISPLAY_VER(dev_priv) >= 9 || IS_HASWELL(dev_priv) ||
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index d94f361b548b7..19d8d3eefbc27 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1612,6 +1612,7 @@ struct intel_dp {
- 
- 	/* Display stream compression testing */
- 	bool force_dsc_en;
-+	int force_dsc_bpp;
- 
- 	bool hobl_failed;
- 	bool hobl_active;
--- 
-2.25.1
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
 _______________________________________________
 Intel-gfx mailing list
