@@ -2,48 +2,44 @@ Return-Path: <SRS0=a3P7=L6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95C5AC07E96
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 21:47:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C3ADC07E96
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3593A61C91
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 21:47:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3593A61C91
+	by mail.kernel.org (Postfix) with ESMTPS id E422361C83
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E422361C83
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE0716E5BF;
-	Tue,  6 Jul 2021 21:47:52 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7170A6E5BD;
- Tue,  6 Jul 2021 21:47:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="273045419"
-X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="273045419"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2021 14:47:49 -0700
-X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="645181699"
-Received: from pbarbago-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
- ([10.251.131.218])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2021 14:47:48 -0700
-Date: Tue, 6 Jul 2021 14:47:48 -0700
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Message-ID: <20210706214748.q3pugg2q7mdtjdm4@ldmartin-desk2>
-X-Patchwork-Hint: comment
-References: <20210701202427.1547543-1-matthew.d.roper@intel.com>
- <20210701202427.1547543-34-matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 578CB6E5C5;
+	Tue,  6 Jul 2021 22:02:23 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FED56E5C3;
+ Tue,  6 Jul 2021 22:02:22 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="206190484"
+X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="206190484"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2021 15:02:19 -0700
+X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="410367902"
+Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2021 15:02:18 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Date: Tue,  6 Jul 2021 15:20:03 -0700
+Message-Id: <20210706222010.101522-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210701202427.1547543-34-matthew.d.roper@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 33/53] drm/i915/dg2: Add fake PCH
+Subject: [Intel-gfx] [PATCH 0/7] CT changes required for GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,91 +52,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 01, 2021 at 01:24:07PM -0700, Matt Roper wrote:
->As with DG1, DG2 has an ICL-style south display interface provided on
->the same PCI device.  Add a fake PCH to ensure DG2 takes the appropriate
->codepaths for south display handling.
->
->Bspec: 54871, 50062, 49961, 53673
->Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
->Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
->Signed-off-by: Jos=E9 Roberto de Souza <jose.souza@intel.com>
+As part of enabling GuC submission discussed in [1], [2], and [3] we
+need optimize and update the CT code as this is now in the critical
+path of submission. This series includes the patches to do that which is
+the first 7 patches from [3]. The patches should have addressed all the
+feedback in [3] and should be ready to merge once CI returns a we get a
+few more RBs.
 
+v2: Fix checkpatch warning, address a couple of Michal's comments
+v3: Address John Harrison's comments
 
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
-Lucas De Marchi
+[1] https://patchwork.freedesktop.org/series/89844/
+[2] https://patchwork.freedesktop.org/series/91417/
+[3] https://patchwork.freedesktop.org/series/91840/
 
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
->---
-> drivers/gpu/drm/i915/i915_irq.c  | 2 +-
-> drivers/gpu/drm/i915/intel_pch.c | 3 +++
-> drivers/gpu/drm/i915/intel_pch.h | 2 ++
-> 3 files changed, 6 insertions(+), 1 deletion(-)
->
->diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_i=
-rq.c
->index 9d47ffa39093..34a0d49e760e 100644
->--- a/drivers/gpu/drm/i915/i915_irq.c
->+++ b/drivers/gpu/drm/i915/i915_irq.c
->@@ -208,7 +208,7 @@ static void intel_hpd_init_pins(struct drm_i915_privat=
-e *dev_priv)
-> 	    (!HAS_PCH_SPLIT(dev_priv) || HAS_PCH_NOP(dev_priv)))
-> 		return;
->
->-	if (HAS_PCH_DG1(dev_priv))
->+	if (INTEL_PCH_TYPE(dev_priv) >=3D PCH_DG1)
-> 		hpd->pch_hpd =3D hpd_sde_dg1;
-> 	else if (INTEL_PCH_TYPE(dev_priv) >=3D PCH_ICP)
-> 		hpd->pch_hpd =3D hpd_icp;
->diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel=
-_pch.c
->index 4e92ae19189e..cc44164e242b 100644
->--- a/drivers/gpu/drm/i915/intel_pch.c
->+++ b/drivers/gpu/drm/i915/intel_pch.c
->@@ -211,6 +211,9 @@ void intel_detect_pch(struct drm_i915_private *dev_pri=
-v)
-> 	if (IS_DG1(dev_priv)) {
-> 		dev_priv->pch_type =3D PCH_DG1;
-> 		return;
->+	} else if (IS_DG2(dev_priv)) {
->+		dev_priv->pch_type =3D PCH_DG2;
->+		return;
-> 	}
->
-> 	/*
->diff --git a/drivers/gpu/drm/i915/intel_pch.h b/drivers/gpu/drm/i915/intel=
-_pch.h
->index e2f3f30c6445..7c0d83d292dc 100644
->--- a/drivers/gpu/drm/i915/intel_pch.h
->+++ b/drivers/gpu/drm/i915/intel_pch.h
->@@ -30,6 +30,7 @@ enum intel_pch {
->
-> 	/* Fake PCHs, functionality handled on the same PCI dev */
-> 	PCH_DG1 =3D 1024,
->+	PCH_DG2,
-> };
->
-> #define INTEL_PCH_DEVICE_ID_MASK		0xff80
->@@ -62,6 +63,7 @@ enum intel_pch {
->
-> #define INTEL_PCH_TYPE(dev_priv)		((dev_priv)->pch_type)
-> #define INTEL_PCH_ID(dev_priv)			((dev_priv)->pch_id)
->+#define HAS_PCH_DG2(dev_priv)			(INTEL_PCH_TYPE(dev_priv) =3D=3D PCH_DG2)
-> #define HAS_PCH_ADP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) =3D=3D PCH_ADP)
-> #define HAS_PCH_DG1(dev_priv)			(INTEL_PCH_TYPE(dev_priv) =3D=3D PCH_DG1)
-> #define HAS_PCH_JSP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) =3D=3D PCH_JSP)
->-- =
+John Harrison (1):
+  drm/i915/guc: Module load failure test for CT buffer creation
 
->2.25.4
->
+Matthew Brost (6):
+  drm/i915/guc: Relax CTB response timeout
+  drm/i915/guc: Improve error message for unsolicited CT response
+  drm/i915/guc: Increase size of CTB buffers
+  drm/i915/guc: Add non blocking CTB send function
+  drm/i915/guc: Add stall timer to non blocking CTB send function
+  drm/i915/guc: Optimize CTB writes and reads
+
+ .../gt/uc/abi/guc_communication_ctb_abi.h     |   3 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  11 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 249 +++++++++++++++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  14 +-
+ 4 files changed, 231 insertions(+), 46 deletions(-)
+
+-- 
+2.28.0
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
