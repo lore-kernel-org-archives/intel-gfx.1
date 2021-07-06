@@ -7,42 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38EFDC07E96
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87474C07E9E
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 086B66140F
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 086B66140F
+	by mail.kernel.org (Postfix) with ESMTPS id 5A1D56140F
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A1D56140F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EACEF6E5CC;
-	Tue,  6 Jul 2021 22:02:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A25D26E5D1;
+	Tue,  6 Jul 2021 22:02:26 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC276E5C3;
- Tue,  6 Jul 2021 22:02:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="206190489"
-X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="206190489"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8FA36E5C1;
+ Tue,  6 Jul 2021 22:02:22 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="206190485"
+X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="206190485"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Jul 2021 15:02:19 -0700
-X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="410367918"
+X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="410367905"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2021 15:02:19 -0700
+ 06 Jul 2021 15:02:18 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue,  6 Jul 2021 15:20:08 -0700
-Message-Id: <20210706222010.101522-6-matthew.brost@intel.com>
+Date: Tue,  6 Jul 2021 15:20:04 -0700
+Message-Id: <20210706222010.101522-2-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210706222010.101522-1-matthew.brost@intel.com>
 References: <20210706222010.101522-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 5/7] drm/i915/guc: Add stall timer to non
- blocking CTB send function
+Subject: [Intel-gfx] [PATCH 1/7] drm/i915/guc: Relax CTB response timeout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,183 +59,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement a stall timer which fails H2G CTBs once a period of time
-with no forward progress is reached to prevent deadlock.
+In upcoming patch we will allow more CTB requests to be sent in
+parallel to the GuC for processing, so we shouldn't assume any more
+that GuC will always reply without 10ms.
 
-v2:
- (Michal)
-  - Improve error message in ct_deadlock()
-  - Set broken when ct_deadlock() returns true
-  - Return -EPIPE on ct_deadlock()
+Use bigger value hardcoded value of 1s instead.
+
+v2: Add CONFIG_DRM_I915_GUC_CTB_TIMEOUT config option
 v3:
+ (Daniel Vetter)
+  - Use hardcoded value of 1s rather than config option
+v4:
  (Michal)
-  - Add ms to stall timer comment
- (Matthew)
-  - Move broken check to intel_guc_ct_send()
+  - Use defines for timeout values
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 62 ++++++++++++++++++++---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  4 ++
- 2 files changed, 59 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 3d6cba8d91ad..db3e85b89573 100644
+index 43409044528e..b86575b99537 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -4,6 +4,9 @@
-  */
+@@ -474,14 +474,18 @@ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
+ 	/*
+ 	 * Fast commands should complete in less than 10us, so sample quickly
+ 	 * up to that length of time, then switch to a slower sleep-wait loop.
+-	 * No GuC command should ever take longer than 10ms.
++	 * No GuC command should ever take longer than 10ms but many GuC
++	 * commands can be inflight at time, so use a 1s timeout on the slower
++	 * sleep-wait loop.
+ 	 */
++#define GUC_CTB_RESPONSE_TIMEOUT_SHORT_MS 10
++#define GUC_CTB_RESPONSE_TIMEOUT_LONG_MS 1000
+ #define done \
+ 	(FIELD_GET(GUC_HXG_MSG_0_ORIGIN, READ_ONCE(req->status)) == \
+ 	 GUC_HXG_ORIGIN_GUC)
+-	err = wait_for_us(done, 10);
++	err = wait_for_us(done, GUC_CTB_RESPONSE_TIMEOUT_SHORT_MS);
+ 	if (err)
+-		err = wait_for(done, 10);
++		err = wait_for(done, GUC_CTB_RESPONSE_TIMEOUT_LONG_MS);
+ #undef done
  
- #include <linux/circ_buf.h>
-+#include <linux/ktime.h>
-+#include <linux/time64.h>
-+#include <linux/timekeeping.h>
- 
- #include "i915_drv.h"
- #include "intel_guc_ct.h"
-@@ -316,6 +319,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
- 		goto err_deregister;
- 
- 	ct->enabled = true;
-+	ct->stall_time = KTIME_MAX;
- 
- 	return 0;
- 
-@@ -389,9 +393,6 @@ static int ct_write(struct intel_guc_ct *ct,
- 	u32 *cmds = ctb->cmds;
- 	unsigned int i;
- 
--	if (unlikely(ctb->broken))
--		return -EPIPE;
--
- 	if (unlikely(desc->status))
- 		goto corrupted;
- 
-@@ -505,6 +506,25 @@ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
- 	return err;
- }
- 
-+#define GUC_CTB_TIMEOUT_MS	1500
-+static inline bool ct_deadlocked(struct intel_guc_ct *ct)
-+{
-+	long timeout = GUC_CTB_TIMEOUT_MS;
-+	bool ret = ktime_ms_delta(ktime_get(), ct->stall_time) > timeout;
-+
-+	if (unlikely(ret)) {
-+		struct guc_ct_buffer_desc *send = ct->ctbs.send.desc;
-+		struct guc_ct_buffer_desc *recv = ct->ctbs.send.desc;
-+
-+		CT_ERROR(ct, "Communication stalled for %lld ms, desc status=%#x,%#x\n",
-+			 ktime_ms_delta(ktime_get(), ct->stall_time),
-+			 send->status, recv->status);
-+		ct->ctbs.send.broken = true;
-+	}
-+
-+	return ret;
-+}
-+
- static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
- {
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
-@@ -516,6 +536,26 @@ static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
- 	return space >= len_dw;
- }
- 
-+static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
-+{
-+	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
-+
-+	lockdep_assert_held(&ct->ctbs.send.lock);
-+
-+	if (unlikely(!h2g_has_room(ctb, len_dw))) {
-+		if (ct->stall_time == KTIME_MAX)
-+			ct->stall_time = ktime_get();
-+
-+		if (unlikely(ct_deadlocked(ct)))
-+			return -EPIPE;
-+		else
-+			return -EBUSY;
-+	}
-+
-+	ct->stall_time = KTIME_MAX;
-+	return 0;
-+}
-+
- static int ct_send_nb(struct intel_guc_ct *ct,
- 		      const u32 *action,
- 		      u32 len,
-@@ -528,11 +568,9 @@ static int ct_send_nb(struct intel_guc_ct *ct,
- 
- 	spin_lock_irqsave(&ctb->lock, spin_flags);
- 
--	ret = h2g_has_room(ctb, len + GUC_CTB_HDR_LEN);
--	if (unlikely(!ret)) {
--		ret = -EBUSY;
-+	ret = has_room_nb(ct, len + GUC_CTB_HDR_LEN);
-+	if (unlikely(ret))
- 		goto out;
--	}
- 
- 	fence = ct_get_next_fence(ct);
- 	ret = ct_write(ct, action, len, fence, flags);
-@@ -575,8 +613,13 @@ static int ct_send(struct intel_guc_ct *ct,
- retry:
- 	spin_lock_irqsave(&ctb->lock, flags);
- 	if (unlikely(!h2g_has_room(ctb, len + GUC_CTB_HDR_LEN))) {
-+		if (ct->stall_time == KTIME_MAX)
-+			ct->stall_time = ktime_get();
- 		spin_unlock_irqrestore(&ctb->lock, flags);
- 
-+		if (unlikely(ct_deadlocked(ct)))
-+			return -EPIPE;
-+
- 		if (msleep_interruptible(sleep_period_ms))
- 			return -EINTR;
- 		sleep_period_ms = sleep_period_ms << 1;
-@@ -584,6 +627,8 @@ static int ct_send(struct intel_guc_ct *ct,
- 		goto retry;
- 	}
- 
-+	ct->stall_time = KTIME_MAX;
-+
- 	fence = ct_get_next_fence(ct);
- 	request.fence = fence;
- 	request.status = 0;
-@@ -646,6 +691,9 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
- 		return -ENODEV;
- 	}
- 
-+	if (unlikely(ct->ctbs.send.broken))
-+		return -EPIPE;
-+
- 	if (flags & INTEL_GUC_CT_SEND_NB)
- 		return ct_send_nb(ct, action, len, flags);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index 5bb8bef024c8..bee03794c1eb 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -9,6 +9,7 @@
- #include <linux/interrupt.h>
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
-+#include <linux/ktime.h>
- 
- #include "intel_guc_fwif.h"
- 
-@@ -68,6 +69,9 @@ struct intel_guc_ct {
- 		struct list_head incoming; /* incoming requests */
- 		struct work_struct worker; /* handler for incoming requests */
- 	} requests;
-+
-+	/** @stall_time: time of first time a CTB submission is stalled */
-+	ktime_t stall_time;
- };
- 
- void intel_guc_ct_init_early(struct intel_guc_ct *ct);
+ 	if (unlikely(err))
 -- 
 2.28.0
 
