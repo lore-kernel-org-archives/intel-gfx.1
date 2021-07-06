@@ -2,63 +2,60 @@ Return-Path: <SRS0=YrHI=L7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07D56C07E95
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 11:37:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30542C07E95
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 11:44:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C65A461CBE
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 11:37:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C65A461CBE
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id E5C7C619F1
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 11:44:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5C7C619F1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2E636E0ED;
-	Wed,  7 Jul 2021 11:37:50 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F0436E0EA
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Jul 2021 11:37:49 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id s24so3031567oiw.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 07 Jul 2021 04:37:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=85wMp6mCEGea6kHziz5pSNxjdCXAx9VGNPnYANistYE=;
- b=Zvp163uYjPQXret6++TzRbPj8U5tkTaMRT9a2tRHF48GZYqVWG/6XVU7h5oztek7eU
- JRQcAAkA/y2a3w2aZJgVWk9yrWJ1wo2uPhw4h32ktCjbTmBPX1Hw81SYPL9I94fUb/RS
- bPkj/RO1kcw3128eSRpVf6nhH3Ym1xXZIY6CI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=85wMp6mCEGea6kHziz5pSNxjdCXAx9VGNPnYANistYE=;
- b=WEi8FSeb1kfiD/2NXeWFpqPcaVohHwwntAT2loIG1lpkh6OtAYQCtjFPsStPEx3LuD
- fXmpiS1SN2R852jrmcSl8nN+E7tPgWhBLBI+qQApbvxdwX2k9AvKapJfl8wOnIiZE+vU
- 91t/SUTGrBqGZqtxUSyG+b0XAUwfxKDyIT6zkAWxTNda4SUvwmlrBwmzmnE7ojw5MwbM
- 0l2L1+X3O8OnkNH+52uokcuWgFSYH5o89pqIrhBQrY6dVvCP0Cq4K+AeXFEz4aUPhP9V
- a+Cc8Rc4JAyteYZC8gZ+bFYbx3ydEnF5Fx8z0GnrZOHbmclk8i+zdhx6xCes4fzh2x9X
- MfWA==
-X-Gm-Message-State: AOAM531AMvcRDVqcOi3V++QPrVuYExhU1kPZtc5Zv/RJCcglhCCRflZg
- E55jNdMcNeLtogR3Pbbdp3QgzpHfJ24VhbJfTJcbBA==
-X-Google-Smtp-Source: ABdhPJzBh/OgHFXrP1YGWtVa6F5dseZyVBl9o/KLYgvxM2f05qhTSIoMfgakCnk/qOlq+v48P5/sazY9zyPDxZKiQks=
-X-Received: by 2002:aca:5793:: with SMTP id l141mr4481746oib.14.1625657868678; 
- Wed, 07 Jul 2021 04:37:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D7796E0F7;
+	Wed,  7 Jul 2021 11:44:57 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DDA16E59B;
+ Tue,  6 Jul 2021 19:14:22 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0B79260FEE;
+ Tue,  6 Jul 2021 19:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1625598861;
+ bh=QlBKfCu996qP5JenUg1J68Cu2xyoSjshlo1u0WQ5l4Q=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=TU5TtD5UIfY0r+aXmb18IJawcVy9481TeWFSQOFYJdeGslFF5REp8bH73BojUcAOS
+ WlHc4LPuYi7chvxRgoEbHiUmVBJCPC7C5tF6pdGMxY91712ZIHIFWEljUXECaizwR+
+ koaeta5RgZiHx0Sss+0r3QJAYmQBlDDtVdoZp0FeXJcOVflgaIqK1qCkplXl/uW0BS
+ LCRRvULfQJWTmzcODhL8YcjXYnyWkDWBHwYJN74M0CyF9fd7kjSS4G13Z+1zJxm7S+
+ SxqHpxzj/Vqq6tNxTCJBSiyuyZK+lbgOtwblLLeGRCpsIt4FpxqITodwMfqKGzStS2
+ aVPLPXphc2cDw==
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>
+References: <ea28db1f-846e-4f0a-4f13-beb67e66bbca@kernel.org>
+ <20210702135856.GB11132@willie-the-truck>
+ <0f7bd903-e309-94a0-21d7-f0e8e9546018@arm.com>
+ <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
+ <20210705190352.GA19461@willie-the-truck> <20210706044848.GA13640@lst.de>
+ <20210706132422.GA20327@willie-the-truck>
+ <a59f771f-3289-62f0-ca50-8f3675d9b166@arm.com>
+ <20210706140513.GA26498@lst.de>
+ <bb32d5a6-2b34-4524-e171-3e9f5f4d3a94@arm.com>
+ <20210706170657.GD20750@willie-the-truck>
+From: Nathan Chancellor <nathan@kernel.org>
+Message-ID: <e1c026c6-22c7-8979-4941-de9cfab3863a@kernel.org>
+Date: Tue, 6 Jul 2021 12:14:16 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20210706101209.3034092-1-daniel.vetter@ffwll.ch>
- <20210706101209.3034092-4-daniel.vetter@ffwll.ch>
- <7ae23a2b1a4aec4e57881e0d88a7d046fe17bfda.camel@pengutronix.de>
-In-Reply-To: <7ae23a2b1a4aec4e57881e0d88a7d046fe17bfda.camel@pengutronix.de>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed, 7 Jul 2021 13:37:37 +0200
-Message-ID: <CAKMK7uFHnet_rTHmBqsVPNcdWaJ=7nwiS3zHisiGOjBHPt=Qmg@mail.gmail.com>
-To: Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Intel-gfx] [PATCH 3/7] drm/etnaviv: Don't break exclusive
- fence ordering
+In-Reply-To: <20210706170657.GD20750@willie-the-truck>
+Content-Language: en-US
+X-Mailman-Approved-At: Wed, 07 Jul 2021 11:44:56 +0000
+Subject: Re: [Intel-gfx] [PATCH v15 06/12] swiotlb: Use
+ is_swiotlb_force_bounce for swiotlb data bouncing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,125 +68,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- The etnaviv authors <etnaviv@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Daniel Vetter <daniel.vetter@intel.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Jim Quinlan <james.quinlan@broadcom.com>, heikki.krogerus@linux.intel.com,
+ linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
+ benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
+ chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
+ Frank Rowand <frowand.list@gmail.com>, mingo@kernel.org,
+ Jianxiong Gao <jxgao@google.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Christoph Hellwig <hch@lst.de>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Thierry Reding <treding@nvidia.com>, matthew.auld@intel.com,
+ Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
+ jgross@suse.com, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ intel-gfx@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Claire Chang <tientzu@chromium.org>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ boris.ostrovsky@oracle.com, airlied@linux.ie,
+ Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Qian Cai <quic_qiancai@quicinc.com>, lkml <linux-kernel@vger.kernel.org>,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ xypron.glpk@gmx.de, Tom Lendacky <thomas.lendacky@amd.com>,
+ linuxppc-dev@lists.ozlabs.org, bauerman@linux.ibm.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 7, 2021 at 10:54 AM Lucas Stach <l.stach@pengutronix.de> wrote:
->
-> Hi Daniel,
->
-> I'm feeling like I miss a ton of context here, so some maybe dumb
-> questions/remarks below.
->
-> Am Dienstag, dem 06.07.2021 um 12:12 +0200 schrieb Daniel Vetter:
-> > There's only one exclusive slot, and we must not break the ordering.
-> >
-> > A better fix would be to us a dma_fence_chain or _array like e.g.
-> > amdgpu now uses, but it probably makes sense to lift this into
-> > dma-resv.c code as a proper concept, so that drivers don't have to
-> > hack up their own solution each on their own. Hence go with the simple
-> > fix for now.
-> >
-> > Another option is the fence import ioctl from Jason:
-> >
-> > https://lore.kernel.org/dri-devel/20210610210925.642582-7-jason@jlekstrand.net/
->
-> Sorry, but why is the fence import ioctl a alternative to the fix
-> proposed in this patch?
+Hi Will and Robin,
 
-It's not an alternative to fixing the issue here, it's an alternative
-to trying to fix this here without adding more dependencies. Depends a
-bit what exactly you want to do, I just linked this for the bigger
-picture.
+On 7/6/2021 10:06 AM, Will Deacon wrote:
+> On Tue, Jul 06, 2021 at 04:39:11PM +0100, Robin Murphy wrote:
+>> On 2021-07-06 15:05, Christoph Hellwig wrote:
+>>> On Tue, Jul 06, 2021 at 03:01:04PM +0100, Robin Murphy wrote:
+>>>> FWIW I was pondering the question of whether to do something along those
+>>>> lines or just scrap the default assignment entirely, so since I hadn't got
+>>>> round to saying that I've gone ahead and hacked up the alternative
+>>>> (similarly untested) for comparison :)
+>>>>
+>>>> TBH I'm still not sure which one I prefer...
+>>>
+>>> Claire did implement something like your suggestion originally, but
+>>> I don't really like it as it doesn't scale for adding multiple global
+>>> pools, e.g. for the 64-bit addressable one for the various encrypted
+>>> secure guest schemes.
+>>
+>> Ah yes, that had slipped my mind, and it's a fair point indeed. Since we're
+>> not concerned with a minimal fix for backports anyway I'm more than happy to
+>> focus on Will's approach. Another thing is that that looks to take us a
+>> quiet step closer to the possibility of dynamically resizing a SWIOTLB pool,
+>> which is something that some of the hypervisor protection schemes looking to
+>> build on top of this series may want to explore at some point.
+> 
+> Ok, I'll split that nasty diff I posted up into a reviewable series and we
+> can take it from there.
 
+For what it's worth, I attempted to boot Will's diff on top of Konrad's 
+devel/for-linus-5.14 and it did not work; in fact, I got no output on my 
+monitor period, even with earlyprintk=, and I do not think this machine 
+has a serial console.
 
->
-> >
-> > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > Cc: Lucas Stach <l.stach@pengutronix.de>
-> > Cc: Russell King <linux+etnaviv@armlinux.org.uk>
-> > Cc: Christian Gmeiner <christian.gmeiner@gmail.com>
-> > Cc: etnaviv@lists.freedesktop.org
-> > ---
-> >  drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c | 8 +++++---
-> >  1 file changed, 5 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-> > index 92478a50a580..5c4fed2b7c6a 100644
-> > --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-> > +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-> > @@ -178,18 +178,20 @@ static int submit_fence_sync(struct etnaviv_gem_submit *submit)
-> >       for (i = 0; i < submit->nr_bos; i++) {
-> >               struct etnaviv_gem_submit_bo *bo = &submit->bos[i];
-> >               struct dma_resv *robj = bo->obj->base.resv;
-> > +             bool write = bo->flags & ETNA_SUBMIT_BO_WRITE;
-> >
-> > -             if (!(bo->flags & ETNA_SUBMIT_BO_WRITE)) {
-> > +             if (!(write)) {
->
-> No parenthesis around the write needed.
->
-> >                       ret = dma_resv_reserve_shared(robj, 1);
-> >                       if (ret)
-> >                               return ret;
-> >               }
-> >
-> > -             if (submit->flags & ETNA_SUBMIT_NO_IMPLICIT)
-> > +             /* exclusive fences must be ordered */
->
-> I feel like this comment isn't really helpful. It might tell you all
-> you need to know if you just paged in all the context around dma_resv
-> and the dependency graph, but it's not more than noise to me right now.
->
-> I guess the comment should answer the question against what the
-> exclusive fence we are going to add needs to be ordered and why it
-> isn't safe to skip implicit sync in that case.
+Robin's fix does work, it survived ten reboots with no issues getting to 
+X and I do not see the KASAN and slub debug messages anymore but I 
+understand that this is not the preferred solution it seems (although 
+Konrad did want to know if it works).
 
-The full-length comment is the doc patch, which is last in the series.
-Essentially the rule is that your not allowed to drop fences on the
-floor (which you do if you just set a new write fence and not take any
-of the existing fences as dependencies), at least for shared buffers.
-But since it's easier to be consistent I think it's best if we do this
-just across the board.
+I am happy to test any further patches or follow ups as needed, just 
+keep me on CC.
 
-Like the commit message explains, there's a few ways to fix this:
-- just treat it as implicit synced
-- chain the fences together - that way you don't sync, but also
-there's no fence that's being lost. This is what amdgpu does, and also
-what the new import ioctl does.
-
-2nd option is a lot more involved, and since all the dma-resv stuff is
-a bit under discussion, I went with the most minimal thing possible.
--Daniel
-
->
-> Regards,
-> Lucas
-> > +             if (submit->flags & ETNA_SUBMIT_NO_IMPLICIT && !write)
-> >                       continue;
-> >
-> >               ret = drm_sched_job_await_implicit(&submit->sched_job, &bo->obj->base,
-> > -                                                bo->flags & ETNA_SUBMIT_BO_WRITE);
-> > +                                                write);
-> >               if (ret)
-> >                       return ret;
-> >       }
->
->
-
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Cheers,
+Nathan
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
