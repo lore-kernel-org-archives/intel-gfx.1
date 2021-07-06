@@ -2,51 +2,69 @@ Return-Path: <SRS0=a3P7=L6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D6A4C07E96
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:27:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D6C1C07E96
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:34:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 54F4261C54
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:27:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 54F4261C54
+	by mail.kernel.org (Postfix) with ESMTPS id F27A161C5B
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:34:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F27A161C5B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDEC56E580;
-	Tue,  6 Jul 2021 18:27:58 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 940F56E580;
- Tue,  6 Jul 2021 18:27:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="206161450"
-X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="206161450"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2021 11:27:56 -0700
-X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="457167097"
-Received: from johnharr-mobl1.amr.corp.intel.com (HELO [10.212.151.177])
- ([10.212.151.177])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2021 11:27:56 -0700
-To: Matthew Brost <matthew.brost@intel.com>, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-References: <20210701171550.49353-1-matthew.brost@intel.com>
- <20210701171550.49353-6-matthew.brost@intel.com>
-From: John Harrison <john.c.harrison@intel.com>
-Message-ID: <6d1007b2-1f84-80e5-a598-81c7e0f4727d@intel.com>
-Date: Tue, 6 Jul 2021 11:27:55 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9335E6E584;
+	Tue,  6 Jul 2021 18:34:00 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B081C6E584
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Jul 2021 18:33:59 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="209217248"
+X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="209217248"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2021 11:33:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="497212736"
+Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
+ by fmsmga002.fm.intel.com with ESMTP; 06 Jul 2021 11:33:55 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Tue, 6 Jul 2021 11:33:54 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Tue, 6 Jul 2021 11:33:54 -0700
+Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
+ fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2242.010;
+ Tue, 6 Jul 2021 11:33:54 -0700
+From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [Intel-gfx] [PATCH 1/2] drm/i915/dmc: Use RUNTIME_INFO->step for
+ DMC
+Thread-Index: AQHXbq+qpq7V2ckifEGiHk6jsPz8gas0oVoAgAGrhlA=
+Date: Tue, 6 Jul 2021 18:33:54 +0000
+Message-ID: <92ea39893db5435a9ad0126a91299a12@intel.com>
+References: <20210701193114.17531-1-anusha.srivatsa@intel.com>
+ <20210701193114.17531-2-anusha.srivatsa@intel.com> <87a6n19j11.fsf@intel.com>
+In-Reply-To: <87a6n19j11.fsf@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.132]
 MIME-Version: 1.0
-In-Reply-To: <20210701171550.49353-6-matthew.brost@intel.com>
-Content-Language: en-GB
-Subject: Re: [Intel-gfx] [PATCH 5/7] drm/i915/guc: Add stall timer to non
- blocking CTB send function
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/dmc: Use RUNTIME_INFO->step
+ for DMC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,193 +77,337 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "De Marchi, Lucas" <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 7/1/2021 10:15, Matthew Brost wrote:
-> Implement a stall timer which fails H2G CTBs once a period of time
-> with no forward progress is reached to prevent deadlock.
->
-> v2:
->   (Michal)
->    - Improve error message in ct_deadlock()
->    - Set broken when ct_deadlock() returns true
->    - Return -EPIPE on ct_deadlock()
-> v3:
->   (Michal)
->    - Add ms to stall timer comment
->   (Matthew)
->    - Move broken check to intel_guc_ct_send()
->
-> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Looks plausible to me.
 
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 
-> ---
->   drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 62 ++++++++++++++++++++---
->   drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  4 ++
->   2 files changed, 59 insertions(+), 7 deletions(-)
+> -----Original Message-----
+> From: Jani Nikula <jani.nikula@linux.intel.com>
+> Sent: Monday, July 5, 2021 3:01 AM
+> To: Srivatsa, Anusha <anusha.srivatsa@intel.com>; intel-
+> gfx@lists.freedesktop.org
+> Cc: De Marchi, Lucas <lucas.demarchi@intel.com>
+> Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/dmc: Use RUNTIME_INFO-
+> >step for DMC
+> 
+> On Thu, 01 Jul 2021, Anusha Srivatsa <anusha.srivatsa@intel.com> wrote:
+> > On the dmc side,we maintain a lookup table with different display
+> > stepping-substepping combinations.
+> >
+> > Instead of adding new table for every new platform, lets ues the
+> > stepping info from RUNTIME_INFO(dev_priv)->step
+> >
+> > v2: Add stepping table for older platforms in intel_step.c (Lucas)
+> >
+> > Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+> > Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_dmc.c | 117
+> > +++++++++++++++--------
+> 
+> The changes here...
+> 
+> >  drivers/gpu/drm/i915/intel_step.c        |  41 ++++++++
+> >  drivers/gpu/drm/i915/intel_step.h        |   7 ++
+> 
+> ...should be separate from, and depend on, the changes here. Please don't
+> try to do too much in one patch. Smaller is better.
+> 
+> >  3 files changed, 126 insertions(+), 39 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c
+> > b/drivers/gpu/drm/i915/display/intel_dmc.c
+> > index f8789d4543bf..df888a3d086e 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dmc.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+> > @@ -247,50 +247,89 @@ bool intel_dmc_has_payload(struct
+> drm_i915_private *i915)
+> >  	return i915->dmc.dmc_info[DMC_FW_MAIN].payload;
+> >  }
+> >
+> > -static const struct stepping_info skl_stepping_info[] = {
+> > -	{'A', '0'}, {'B', '0'}, {'C', '0'},
+> > -	{'D', '0'}, {'E', '0'}, {'F', '0'},
+> > -	{'G', '0'}, {'H', '0'}, {'I', '0'},
+> > -	{'J', '0'}, {'K', '0'}
+> > -};
+> > -
+> > -static const struct stepping_info bxt_stepping_info[] = {
+> > -	{'A', '0'}, {'A', '1'}, {'A', '2'},
+> > -	{'B', '0'}, {'B', '1'}, {'B', '2'}
+> > -};
+> > -
+> > -static const struct stepping_info icl_stepping_info[] = {
+> > -	{'A', '0'}, {'A', '1'}, {'A', '2'},
+> > -	{'B', '0'}, {'B', '2'},
+> > -	{'C', '0'}
+> > -};
+> > -
+> >  static const struct stepping_info no_stepping_info = { '*', '*' };
+> > +struct stepping_info *display_step;
+> >
+> > -static const struct stepping_info *
+> > +static struct stepping_info *
+> >  intel_get_stepping_info(struct drm_i915_private *dev_priv)  {
+> > -	const struct stepping_info *si;
+> > -	unsigned int size;
+> > -
+> > -	if (IS_ICELAKE(dev_priv)) {
+> > -		size = ARRAY_SIZE(icl_stepping_info);
+> > -		si = icl_stepping_info;
+> > -	} else if (IS_SKYLAKE(dev_priv)) {
+> > -		size = ARRAY_SIZE(skl_stepping_info);
+> > -		si = skl_stepping_info;
+> > -	} else if (IS_BROXTON(dev_priv)) {
+> > -		size = ARRAY_SIZE(bxt_stepping_info);
+> > -		si = bxt_stepping_info;
+> > -	} else {
+> > -		size = 0;
+> > -		si = NULL;
+> > +	struct intel_step_info step = RUNTIME_INFO(dev_priv)->step;
+> > +
+> > +	switch (step.display_step) {
+> > +	case STEP_A0:
+> > +		display_step->stepping = 'A';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_A1:
+> > +		display_step->stepping = 'A';
+> > +		display_step->substepping = '1';
+> > +		break;
+> > +	case STEP_A2:
+> > +		display_step->stepping = 'A';
+> > +		display_step->substepping = '2';
+> > +		break;
+> > +	case STEP_B0:
+> > +		display_step->stepping = 'B';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_B1:
+> > +		display_step->stepping = 'B';
+> > +		display_step->substepping = '1';
+> > +		break;
+> > +	case STEP_B2:
+> > +		display_step->stepping = 'B';
+> > +		display_step->substepping = '2';
+> > +		break;
+> > +	case STEP_C0:
+> > +		display_step->stepping = 'C';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_C1:
+> > +		display_step->stepping = 'C';
+> > +		display_step->substepping = '1';
+> > +		break;
+> > +	case STEP_D0:
+> > +		display_step->stepping = 'D';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_D1:
+> > +		display_step->stepping = 'D';
+> > +		display_step->substepping = '1';
+> > +		break;
+> > +	case STEP_E0:
+> > +		display_step->stepping = 'E';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_F0:
+> > +		display_step->stepping = 'F';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_G0:
+> > +		display_step->stepping = 'G';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_H0:
+> > +		display_step->stepping = 'H';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_I0:
+> > +		display_step->stepping = 'I';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_J0:
+> > +		display_step->stepping = 'J';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	case STEP_K0:
+> > +		display_step->stepping = 'K';
+> > +		display_step->substepping = '0';
+> > +		break;
+> > +	default:
+> > +		display_step->stepping = '*';
+> > +		display_step->substepping = '*';
+> > +		break;
+> >  	}
+> > -
+> > -	if (INTEL_REVID(dev_priv) < size)
+> > -		return si + INTEL_REVID(dev_priv);
+> > -
+> > -	return &no_stepping_info;
+> > +	return display_step;
+> >  }
+> >
+> >  static void gen9_set_dc_state_debugmask(struct drm_i915_private
+> > *dev_priv) diff --git a/drivers/gpu/drm/i915/intel_step.c
+> > b/drivers/gpu/drm/i915/intel_step.c
+> > index ba9479a67521..c8542161c5d0 100644
+> > --- a/drivers/gpu/drm/i915/intel_step.c
+> > +++ b/drivers/gpu/drm/i915/intel_step.c
+> > @@ -15,6 +15,38 @@
+> >
+> >
+> >  /* FIXME: what about REVID_E0 */
+> 
+> So that comment was next to kbl_revids, and this makes it meaningless.
+> 
+> > +static const struct intel_step_info bxt_revid_step_tbl[] = {
+> 
+> Please just call them "bxt_revids" or "bxt_steps" or something simple. I
+> meant to clean up all the other names too, they're a bit excessive.
 >
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> index fb825cc1d090..a9cb7b608520 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> @@ -4,6 +4,9 @@
->    */
->   
->   #include <linux/circ_buf.h>
-> +#include <linux/ktime.h>
-> +#include <linux/time64.h>
-> +#include <linux/timekeeping.h>
->   
->   #include "i915_drv.h"
->   #include "intel_guc_ct.h"
-> @@ -316,6 +319,7 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
->   		goto err_deregister;
->   
->   	ct->enabled = true;
-> +	ct->stall_time = KTIME_MAX;
->   
->   	return 0;
->   
-> @@ -388,9 +392,6 @@ static int ct_write(struct intel_guc_ct *ct,
->   	u32 *cmds = ctb->cmds;
->   	unsigned int i;
->   
-> -	if (unlikely(ctb->broken))
-> -		return -EPIPE;
-> -
->   	if (unlikely(desc->status))
->   		goto corrupted;
->   
-> @@ -506,6 +507,25 @@ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
->   	return err;
->   }
->   
-> +#define GUC_CTB_TIMEOUT_MS	1500
-> +static inline bool ct_deadlocked(struct intel_guc_ct *ct)
-> +{
-> +	long timeout = GUC_CTB_TIMEOUT_MS;
-> +	bool ret = ktime_ms_delta(ktime_get(), ct->stall_time) > timeout;
-> +
-> +	if (unlikely(ret)) {
-> +		struct guc_ct_buffer_desc *send = ct->ctbs.send.desc;
-> +		struct guc_ct_buffer_desc *recv = ct->ctbs.send.desc;
-> +
-> +		CT_ERROR(ct, "Communication stalled for %lld ms, desc status=%#x,%#x\n",
-> +			 ktime_ms_delta(ktime_get(), ct->stall_time),
-> +			 send->status, recv->status);
-> +		ct->ctbs.send.broken = true;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->   static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
->   {
->   	struct guc_ct_buffer_desc *desc = ctb->desc;
-> @@ -517,6 +537,26 @@ static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
->   	return space >= len_dw;
->   }
->   
-> +static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
-> +{
-> +	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
-> +
-> +	lockdep_assert_held(&ct->ctbs.send.lock);
-> +
-> +	if (unlikely(!h2g_has_room(ctb, len_dw))) {
-> +		if (ct->stall_time == KTIME_MAX)
-> +			ct->stall_time = ktime_get();
-> +
-> +		if (unlikely(ct_deadlocked(ct)))
-> +			return -EPIPE;
-> +		else
-> +			return -EBUSY;
-> +	}
-> +
-> +	ct->stall_time = KTIME_MAX;
-> +	return 0;
-> +}
-> +
->   static int ct_send_nb(struct intel_guc_ct *ct,
->   		      const u32 *action,
->   		      u32 len,
-> @@ -529,11 +569,9 @@ static int ct_send_nb(struct intel_guc_ct *ct,
->   
->   	spin_lock_irqsave(&ctb->lock, spin_flags);
->   
-> -	ret = h2g_has_room(ctb, len + GUC_CTB_HDR_LEN);
-> -	if (unlikely(!ret)) {
-> -		ret = -EBUSY;
-> +	ret = has_room_nb(ct, len + GUC_CTB_HDR_LEN);
-> +	if (unlikely(ret))
->   		goto out;
-> -	}
->   
->   	fence = ct_get_next_fence(ct);
->   	ret = ct_write(ct, action, len, fence, flags);
-> @@ -576,8 +614,13 @@ static int ct_send(struct intel_guc_ct *ct,
->   retry:
->   	spin_lock_irqsave(&ctb->lock, flags);
->   	if (unlikely(!h2g_has_room(ctb, len + GUC_CTB_HDR_LEN))) {
-> +		if (ct->stall_time == KTIME_MAX)
-> +			ct->stall_time = ktime_get();
->   		spin_unlock_irqrestore(&ctb->lock, flags);
->   
-> +		if (unlikely(ct_deadlocked(ct)))
-> +			return -EPIPE;
-> +
->   		if (msleep_interruptible(sleep_period_ms))
->   			return -EINTR;
->   		sleep_period_ms = sleep_period_ms << 1;
-> @@ -585,6 +628,8 @@ static int ct_send(struct intel_guc_ct *ct,
->   		goto retry;
->   	}
->   
-> +	ct->stall_time = KTIME_MAX;
-> +
->   	fence = ct_get_next_fence(ct);
->   	request.fence = fence;
->   	request.status = 0;
-> @@ -647,6 +692,9 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
->   		return -ENODEV;
->   	}
->   
-> +	if (unlikely(ct->ctbs.send.broken))
-> +		return -EPIPE;
-> +
->   	if (flags & INTEL_GUC_CT_SEND_NB)
->   		return ct_send_nb(ct, action, len, flags);
->   
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> index 5bb8bef024c8..bee03794c1eb 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> @@ -9,6 +9,7 @@
->   #include <linux/interrupt.h>
->   #include <linux/spinlock.h>
->   #include <linux/workqueue.h>
-> +#include <linux/ktime.h>
->   
->   #include "intel_guc_fwif.h"
->   
-> @@ -68,6 +69,9 @@ struct intel_guc_ct {
->   		struct list_head incoming; /* incoming requests */
->   		struct work_struct worker; /* handler for incoming requests */
->   	} requests;
-> +
-> +	/** @stall_time: time of first time a CTB submission is stalled */
-> +	ktime_t stall_time;
->   };
->   
->   void intel_guc_ct_init_early(struct intel_guc_ct *ct);
+I ll send the patch to change the names.
 
+> > +	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+> > +	[1] = { .gt_step = STEP_A1, .display_step = STEP_A1 },
+> > +	[2] = { .gt_step = STEP_A2, .display_step = STEP_A2 },
+> > +	[6] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
+> > +	[7] = { .gt_step = STEP_B1, .display_step = STEP_B1 },
+> > +	[8] = { .gt_step = STEP_B2, .display_step = STEP_B2 }, };
+> 
+> We might want to add something like this:
+> 
+> @@ -112,5 +112,8 @@ void intel_step_init(struct drm_i915_private *i915)
+>  	if (drm_WARN_ON(&i915->drm, step.gt_step == STEP_NONE))
+>  		return;
+> 
+> +	if (step.display_step == STEP_NONE)
+> +		step.display_step = step.gt_step;
+> +
+>  	RUNTIME_INFO(i915)->step = step;
+>  }
+> 
+> So that we could just initialize .gt_step when the .display_step matches the
+> .gt_step, and we could avoid the repetition. This wasn't useful for the
+> platforms currently added, because they actually have the differences.
+> 
+> This can also be left for future cleanup.
+
+Makes sense. I ll be changing this now. Thanks for feedback.
+
+> > +
+> > +
+> 
+> Superfluous newline.
+> 
+> > +static const struct intel_step_info skl_revid_step_tbl[] = {
+> > +	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+> > +	[1] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
+> > +	[2] = { .gt_step = STEP_C0, .display_step = STEP_C0 },
+> > +	[3] = { .gt_step = STEP_D0, .display_step = STEP_D0 },
+> > +	[4] = { .gt_step = STEP_E0, .display_step = STEP_E0 },
+> > +	[5] = { .gt_step = STEP_F0, .display_step = STEP_F0 },
+> > +	[6] = { .gt_step = STEP_G0, .display_step = STEP_G0 },
+> > +	[7] = { .gt_step = STEP_H0, .display_step = STEP_H0 },
+> > +	[8] = { .gt_step = STEP_I0, .display_step = STEP_I0 },
+> > +	[9] = { .gt_step = STEP_J0, .display_step = STEP_J0 },
+> 
+> skl_stepping_info in intel_dmc.c has K0, this one doesn't.
+>
+> > +};
+> > +
+> > +static const struct intel_step_info icl_revid_step_tbl[] = {
+> > +	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+> > +	[3] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
+> > +	[4] = { .gt_step = STEP_B2, .display_step = STEP_B2 },
+> > +	[5] = { .gt_step = STEP_C0, .display_step = STEP_C0 },
+> > +	[6] = { .gt_step = STEP_C1, .display_step = STEP_C1 },
+> > +	[7] = { .gt_step = STEP_D0, .display_step = STEP_D0 },
+> 
+> icl_stepping_info in intel_dmc.c has A1 and A2, this one doesn't. This one has
+> C1 and D0, the one in intel_dmc.c doesn't.
+> 
+> > +};
+> > +
+> >  static const struct intel_step_info kbl_revids[] = {
+> >  	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
+> >  	[1] = { .gt_step = STEP_B0, .display_step = STEP_B0 }, @@ -76,6
+> > +108,15 @@ void intel_step_init(struct drm_i915_private *i915)
+> >  	} else if (IS_KABYLAKE(i915)) {
+> >  		revids = kbl_revids;
+> >  		size = ARRAY_SIZE(kbl_revids);
+> > +	} else if (IS_ICELAKE(i915)) {
+> > +		revids = icl_revid_step_tbl;
+> > +		size = ARRAY_SIZE(icl_revid_step_tbl);
+> > +	} else if (IS_SKYLAKE(i915)) {
+> > +		revids = skl_revid_step_tbl;
+> > +		size = ARRAY_SIZE(skl_revid_step_tbl);
+> > +	} else if (IS_BROXTON(i915)) {
+> > +		revids = bxt_revid_step_tbl;
+> > +		size = ARRAY_SIZE(bxt_revid_step_tbl);
+> 
+> Doing this should be accompanied by:
+> 
+> * Removing *all* ICL_REVID_*, SKL_REVID_* and BXT_REVID_* macros from
+>   i915_drv.h.
+> 
+> * Converting IS_ICL_REVID(), IS_SKL_REVID(), and IS_BXT_REVID() to
+>   IS_{ICL,SKL,KBL}_{GT,DISPLAY}_STEP().
+> 
+> * And making their references use the generic STEP_* macros.
+> 
+> These changes should probably be done on a platform by platform basis, just
+> in case we hit any issues. This needs to be trivial to bisect and backtrack as
+> needed.
+> 
+> We currently have two schemes just for transition; we do not want to have
+> two schemes for a single platform effective at the same time.
+> 
+
+Thanks for feedback. Taking care of these changes.
+
+Anusha 
+ 
+> BR,
+> Jani.
+> 
+> >  	}
+> >
+> >  	/* Not using the stepping scheme for the platform yet. */ diff --git
+> > a/drivers/gpu/drm/i915/intel_step.h
+> > b/drivers/gpu/drm/i915/intel_step.h
+> > index 958a8bb5d677..1bffa41f2660 100644
+> > --- a/drivers/gpu/drm/i915/intel_step.h
+> > +++ b/drivers/gpu/drm/i915/intel_step.h
+> > @@ -22,15 +22,22 @@ struct intel_step_info {  enum intel_step {
+> >  	STEP_NONE = 0,
+> >  	STEP_A0,
+> > +	STEP_A1,
+> >  	STEP_A2,
+> >  	STEP_B0,
+> >  	STEP_B1,
+> > +	STEP_B2,
+> >  	STEP_C0,
+> > +	STEP_C1,
+> >  	STEP_D0,
+> >  	STEP_D1,
+> >  	STEP_E0,
+> >  	STEP_F0,
+> >  	STEP_G0,
+> > +	STEP_H0,
+> > +	STEP_I0,
+> > +	STEP_J0,
+> > +	STEP_K0,
+> >  	STEP_FUTURE,
+> >  	STEP_FOREVER,
+> >  };
+> 
+> --
+> Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
