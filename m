@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C70E2C07E9C
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B9CEC07E9B
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 934E861C83
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 934E861C83
+	by mail.kernel.org (Postfix) with ESMTPS id 55F1461C83
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 22:02:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55F1461C83
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 490966E5C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A60FD6E5CD;
 	Tue,  6 Jul 2021 22:02:25 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D098D6E5C3;
- Tue,  6 Jul 2021 22:02:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="206190490"
-X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="206190490"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C2476E5C5;
+ Tue,  6 Jul 2021 22:02:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="206190487"
+X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="206190487"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Jul 2021 15:02:19 -0700
-X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="410367921"
+X-IronPort-AV: E=Sophos;i="5.83,329,1616482800"; d="scan'208";a="410367912"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2021 15:02:19 -0700
+ 06 Jul 2021 15:02:18 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue,  6 Jul 2021 15:20:09 -0700
-Message-Id: <20210706222010.101522-7-matthew.brost@intel.com>
+Date: Tue,  6 Jul 2021 15:20:06 -0700
+Message-Id: <20210706222010.101522-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210706222010.101522-1-matthew.brost@intel.com>
 References: <20210706222010.101522-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 6/7] drm/i915/guc: Optimize CTB writes and reads
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915/guc: Increase size of CTB buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,236 +59,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CTB writes are now in the path of command submission and should be
-optimized for performance. Rather than reading CTB descriptor values
-(e.g. head, tail) which could result in accesses across the PCIe bus,
-store shadow local copies and only read/write the descriptor values when
-absolutely necessary. Also store the current space in the each channel
-locally.
+With the introduction of non-blocking CTBs more than one CTB can be in
+flight at a time. Increasing the size of the CTBs should reduce how
+often software hits the case where no space is available in the CTB
+buffer.
 
-v2:
- (Michal)
-  - Add additional sanity checks for head / tail pointers
-  - Use GUC_CTB_HDR_LEN rather than magic 1
-v3:
- (Michal / John H)
-  - Drop redundant check of head value
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 88 +++++++++++++++--------
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  6 ++
- 2 files changed, 65 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index db3e85b89573..4a73a1f03a9b 100644
+index 80db59b45c45..43e03aa2dde8 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -130,6 +130,10 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc)
- static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb)
- {
- 	ctb->broken = false;
-+	ctb->tail = 0;
-+	ctb->head = 0;
-+	ctb->space = CIRC_SPACE(ctb->tail, ctb->head, ctb->size);
-+
- 	guc_ct_buffer_desc_init(ctb->desc);
- }
- 
-@@ -383,10 +387,8 @@ static int ct_write(struct intel_guc_ct *ct,
- {
- 	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
--	u32 head = desc->head;
--	u32 tail = desc->tail;
-+	u32 tail = ctb->tail;
- 	u32 size = ctb->size;
--	u32 used;
- 	u32 header;
- 	u32 hxg;
- 	u32 type;
-@@ -396,25 +398,22 @@ static int ct_write(struct intel_guc_ct *ct,
- 	if (unlikely(desc->status))
- 		goto corrupted;
- 
--	if (unlikely((tail | head) >= size)) {
-+	GEM_BUG_ON(tail > size);
-+
-+#ifdef CONFIG_DRM_I915_DEBUG_GUC
-+	if (unlikely(tail != READ_ONCE(desc->tail))) {
-+		CT_ERROR(ct, "Tail was modified %u != %u\n",
-+			 desc->tail, ctb->tail);
-+		desc->status |= GUC_CTB_STATUS_MISMATCH;
-+		goto corrupted;
-+	}
-+	if (unlikely((desc->tail | desc->head) >= size)) {
- 		CT_ERROR(ct, "Invalid offsets head=%u tail=%u (size=%u)\n",
--			 head, tail, size);
-+			 desc->head, desc->tail, size);
- 		desc->status |= GUC_CTB_STATUS_OVERFLOW;
- 		goto corrupted;
- 	}
--
--	/*
--	 * tail == head condition indicates empty. GuC FW does not support
--	 * using up the entire buffer to get tail == head meaning full.
--	 */
--	if (tail < head)
--		used = (size - head) + tail;
--	else
--		used = tail - head;
--
--	/* make sure there is a space including extra dw for the header */
--	if (unlikely(used + len + GUC_CTB_HDR_LEN >= size))
--		return -ENOSPC;
-+#endif
- 
- 	/*
- 	 * dw0: CT header (including fence)
-@@ -453,7 +452,9 @@ static int ct_write(struct intel_guc_ct *ct,
- 	write_barrier(ct);
- 
- 	/* now update descriptor */
-+	ctb->tail = tail;
- 	WRITE_ONCE(desc->tail, tail);
-+	ctb->space -= len + GUC_CTB_HDR_LEN;
- 
- 	return 0;
- 
-@@ -469,7 +470,7 @@ static int ct_write(struct intel_guc_ct *ct,
-  * @req:	pointer to pending request
-  * @status:	placeholder for status
+@@ -58,11 +58,16 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
+  *      +--------+-----------------------------------------------+------+
   *
-- * For each sent request, Guc shall send bac CT response message.
-+ * For each sent request, GuC shall send back CT response message.
-  * Our message handler will update status of tracked request once
-  * response message with given fence is received. Wait here and
-  * check for valid response status value.
-@@ -525,24 +526,35 @@ static inline bool ct_deadlocked(struct intel_guc_ct *ct)
- 	return ret;
- }
- 
--static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
-+static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
- {
--	struct guc_ct_buffer_desc *desc = ctb->desc;
--	u32 head = READ_ONCE(desc->head);
-+	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
-+	u32 head;
- 	u32 space;
- 
--	space = CIRC_SPACE(desc->tail, head, ctb->size);
-+	if (ctb->space >= len_dw)
-+		return true;
-+
-+	head = READ_ONCE(ctb->desc->head);
-+	if (unlikely(head > ctb->size)) {
-+		CT_ERROR(ct, "Corrupted descriptor head=%u tail=%u size=%u\n",
-+			 ctb->desc->head, ctb->desc->tail, ctb->size);
-+		ctb->desc->status |= GUC_CTB_STATUS_OVERFLOW;
-+		ctb->broken = true;
-+		return false;
-+	}
-+
-+	space = CIRC_SPACE(ctb->tail, head, ctb->size);
-+	ctb->space = space;
- 
- 	return space >= len_dw;
- }
- 
- static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
- {
--	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
--
- 	lockdep_assert_held(&ct->ctbs.send.lock);
- 
--	if (unlikely(!h2g_has_room(ctb, len_dw))) {
-+	if (unlikely(!h2g_has_room(ct, len_dw))) {
- 		if (ct->stall_time == KTIME_MAX)
- 			ct->stall_time = ktime_get();
- 
-@@ -612,7 +624,7 @@ static int ct_send(struct intel_guc_ct *ct,
- 	 */
- retry:
- 	spin_lock_irqsave(&ctb->lock, flags);
--	if (unlikely(!h2g_has_room(ctb, len + GUC_CTB_HDR_LEN))) {
-+	if (unlikely(!h2g_has_room(ct, len + GUC_CTB_HDR_LEN))) {
- 		if (ct->stall_time == KTIME_MAX)
- 			ct->stall_time = ktime_get();
- 		spin_unlock_irqrestore(&ctb->lock, flags);
-@@ -732,7 +744,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- {
- 	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
- 	struct guc_ct_buffer_desc *desc = ctb->desc;
--	u32 head = desc->head;
-+	u32 head = ctb->head;
- 	u32 tail = desc->tail;
- 	u32 size = ctb->size;
- 	u32 *cmds = ctb->cmds;
-@@ -747,12 +759,29 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 	if (unlikely(desc->status))
- 		goto corrupted;
- 
--	if (unlikely((tail | head) >= size)) {
-+	GEM_BUG_ON(head > size);
-+
-+#ifdef CONFIG_DRM_I915_DEBUG_GUC
-+	if (unlikely(head != READ_ONCE(desc->head))) {
-+		CT_ERROR(ct, "Head was modified %u != %u\n",
-+			 desc->head, ctb->head);
-+		desc->status |= GUC_CTB_STATUS_MISMATCH;
-+		goto corrupted;
-+	}
-+	if (unlikely((desc->tail | desc->head) >= size)) {
- 		CT_ERROR(ct, "Invalid offsets head=%u tail=%u (size=%u)\n",
- 			 head, tail, size);
- 		desc->status |= GUC_CTB_STATUS_OVERFLOW;
- 		goto corrupted;
- 	}
-+#else
-+	if (unlikely(tail >= size)) {
-+		CT_ERROR(ct, "Invalid offsets tail=%u (size=%u)\n",
-+			 tail, size);
-+		desc->status |= GUC_CTB_STATUS_OVERFLOW;
-+		goto corrupted;
-+	}
-+#endif
- 
- 	/* tail == head condition indicates empty */
- 	available = tail - head;
-@@ -802,6 +831,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 	}
- 	CT_DEBUG(ct, "received %*ph\n", 4 * len, (*msg)->msg);
- 
-+	ctb->head = head;
- 	/* now update descriptor */
- 	WRITE_ONCE(desc->head, head);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index bee03794c1eb..edd1bba0445d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -33,6 +33,9 @@ struct intel_guc;
-  * @desc: pointer to the buffer descriptor
-  * @cmds: pointer to the commands buffer
-  * @size: size of the commands buffer in dwords
-+ * @head: local shadow copy of head in dwords
-+ * @tail: local shadow copy of tail in dwords
-+ * @space: local shadow copy of space in dwords
-  * @broken: flag to indicate if descriptor data is broken
+  * Size of each `CT Buffer`_ must be multiple of 4K.
+- * As we don't expect too many messages, for now use minimum sizes.
++ * We don't expect too many messages in flight at any time, unless we are
++ * using the GuC submission. In that case each request requires a minimum
++ * 2 dwords which gives us a maximum 256 queue'd requests. Hopefully this
++ * enough space to avoid backpressure on the driver. We increase the size
++ * of the receive buffer (relative to the send) to ensure a G2H response
++ * CTB has a landing spot.
   */
- struct intel_guc_ct_buffer {
-@@ -40,6 +43,9 @@ struct intel_guc_ct_buffer {
- 	struct guc_ct_buffer_desc *desc;
- 	u32 *cmds;
- 	u32 size;
-+	u32 tail;
-+	u32 head;
-+	u32 space;
- 	bool broken;
- };
+ #define CTB_DESC_SIZE		ALIGN(sizeof(struct guc_ct_buffer_desc), SZ_2K)
+ #define CTB_H2G_BUFFER_SIZE	(SZ_4K)
+-#define CTB_G2H_BUFFER_SIZE	(SZ_4K)
++#define CTB_G2H_BUFFER_SIZE	(4 * CTB_H2G_BUFFER_SIZE)
  
+ struct ct_request {
+ 	struct list_head link;
+@@ -643,7 +648,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
+ 	/* beware of buffer wrap case */
+ 	if (unlikely(available < 0))
+ 		available += size;
+-	CT_DEBUG(ct, "available %d (%u:%u)\n", available, head, tail);
++	CT_DEBUG(ct, "available %d (%u:%u:%u)\n", available, head, tail, size);
+ 	GEM_BUG_ON(available < 0);
+ 
+ 	header = cmds[head];
 -- 
 2.28.0
 
