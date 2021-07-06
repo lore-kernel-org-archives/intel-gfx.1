@@ -2,56 +2,52 @@ Return-Path: <SRS0=a3P7=L6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 665DEC07E96
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC7CBC07E9B
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:52:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FFE761358
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:52:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2FFE761358
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id A281261358
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jul 2021 18:52:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A281261358
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=arm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52F8A6E58A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB966E588;
 	Tue,  6 Jul 2021 18:52:33 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E55346E542;
- Tue,  6 Jul 2021 17:07:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D8BEB61C3B;
- Tue,  6 Jul 2021 17:07:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625591229;
- bh=VhhzIH6gzRT8gtRsisto5IDFaHK+/13p4/dNI43mqXQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hl0xCyjFbo3wnMVlDA8LcQL8eHToHXmUMr23zuNOTdipVfwNhivzNpi8rpTly6eYi
- yPd2oC5omfpzshqqnFMLEQGIyy9TAQeSgCgSvFYmHpKLsM30eMNC98TPrdW8hja8Kb
- 4m1fjoFjCWorTG/lEoPVyDyK3SJHLMjyzybho2CdMauS/azg7sMbNbYLaDlqMOER13
- ALFzRBBx8Uq7Drdf4gPPQLMEsDVKJLDGxMmwxLH7I7ZcRSFV8ffeda6f2WQMZefhG6
- DGh52bATmGicYuUcNyMSkAeHgzE8e4+s/u25yglW+hkrikwQu6kPAYHnUHYwEX7ru4
- L8ww7+blLmJBA==
-Date: Tue, 6 Jul 2021 18:06:58 +0100
-From: Will Deacon <will@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <20210706170657.GD20750@willie-the-truck>
-References: <ea28db1f-846e-4f0a-4f13-beb67e66bbca@kernel.org>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 73B8D6E4CA;
+ Tue,  6 Jul 2021 14:01:19 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E5E031B;
+ Tue,  6 Jul 2021 07:01:18 -0700 (PDT)
+Received: from [10.57.40.45] (unknown [10.57.40.45])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 461163F73B;
+ Tue,  6 Jul 2021 07:01:11 -0700 (PDT)
+To: Will Deacon <will@kernel.org>, Christoph Hellwig <hch@lst.de>
+References: <CALiNf2-a-haQN0-4+gX8+wa++52-0CnO2O4BEkxrQCxoTa_47w@mail.gmail.com>
+ <20210630114348.GA8383@willie-the-truck>
+ <YNyUQwiagNeZ9YeJ@Ryzen-9-3900X.localdomain>
+ <20210701074045.GA9436@willie-the-truck>
+ <ea28db1f-846e-4f0a-4f13-beb67e66bbca@kernel.org>
  <20210702135856.GB11132@willie-the-truck>
  <0f7bd903-e309-94a0-21d7-f0e8e9546018@arm.com>
  <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
- <20210705190352.GA19461@willie-the-truck>
- <20210706044848.GA13640@lst.de>
+ <20210705190352.GA19461@willie-the-truck> <20210706044848.GA13640@lst.de>
  <20210706132422.GA20327@willie-the-truck>
- <a59f771f-3289-62f0-ca50-8f3675d9b166@arm.com>
- <20210706140513.GA26498@lst.de>
- <bb32d5a6-2b34-4524-e171-3e9f5f4d3a94@arm.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <a59f771f-3289-62f0-ca50-8f3675d9b166@arm.com>
+Date: Tue, 6 Jul 2021 15:01:04 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <bb32d5a6-2b34-4524-e171-3e9f5f4d3a94@arm.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20210706132422.GA20327@willie-the-truck>
+Content-Language: en-GB
 X-Mailman-Approved-At: Tue, 06 Jul 2021 18:52:32 +0000
 Subject: Re: [Intel-gfx] [PATCH v15 06/12] swiotlb: Use
  is_swiotlb_force_bounce for swiotlb data bouncing
@@ -75,10 +71,9 @@ Cc: Jim Quinlan <james.quinlan@broadcom.com>, heikki.krogerus@linux.intel.com,
  Jianxiong Gao <jxgao@google.com>, Stefano Stabellini <sstabellini@kernel.org>,
  Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
  "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, matthew.auld@intel.com,
  linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, matthew.auld@intel.com,
+ Thierry Reding <treding@nvidia.com>, bskeggs@redhat.com,
  Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
  jgross@suse.com, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  intel-gfx@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
@@ -91,37 +86,183 @@ Cc: Jim Quinlan <james.quinlan@broadcom.com>, heikki.krogerus@linux.intel.com,
  "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
  xypron.glpk@gmx.de, Tom Lendacky <thomas.lendacky@amd.com>,
  linuxppc-dev@lists.ozlabs.org, bauerman@linux.ibm.com
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 06, 2021 at 04:39:11PM +0100, Robin Murphy wrote:
-> On 2021-07-06 15:05, Christoph Hellwig wrote:
-> > On Tue, Jul 06, 2021 at 03:01:04PM +0100, Robin Murphy wrote:
-> > > FWIW I was pondering the question of whether to do something along those
-> > > lines or just scrap the default assignment entirely, so since I hadn't got
-> > > round to saying that I've gone ahead and hacked up the alternative
-> > > (similarly untested) for comparison :)
-> > > 
-> > > TBH I'm still not sure which one I prefer...
-> > 
-> > Claire did implement something like your suggestion originally, but
-> > I don't really like it as it doesn't scale for adding multiple global
-> > pools, e.g. for the 64-bit addressable one for the various encrypted
-> > secure guest schemes.
+On 2021-07-06 14:24, Will Deacon wrote:
+> On Tue, Jul 06, 2021 at 06:48:48AM +0200, Christoph Hellwig wrote:
+>> On Mon, Jul 05, 2021 at 08:03:52PM +0100, Will Deacon wrote:
+>>> So at this point, the AMD IOMMU driver does:
+>>>
+>>> 	swiotlb        = (iommu_default_passthrough() || sme_me_mask) ? 1 : 0;
+>>>
+>>> where 'swiotlb' is a global variable indicating whether or not swiotlb
+>>> is in use. It's picked up a bit later on by pci_swiotlb_late_init(), which
+>>> will call swiotlb_exit() if 'swiotlb' is false.
+>>>
+>>> Now, that used to work fine, because swiotlb_exit() clears
+>>> 'io_tlb_default_mem' to NULL, but now with the restricted DMA changes, I
+>>> think that all the devices which have successfully probed beforehand will
+>>> have stale pointers to the freed structure in their 'dev->dma_io_tlb_mem'
+>>> field.
+>>
+>> Yeah.  I don't think we can do that anymore, and I also think it is
+>> a bad idea to start with.
 > 
-> Ah yes, that had slipped my mind, and it's a fair point indeed. Since we're
-> not concerned with a minimal fix for backports anyway I'm more than happy to
-> focus on Will's approach. Another thing is that that looks to take us a
-> quiet step closer to the possibility of dynamically resizing a SWIOTLB pool,
-> which is something that some of the hypervisor protection schemes looking to
-> build on top of this series may want to explore at some point.
+> I've had a crack at reworking things along the following lines:
+> 
+>    - io_tlb_default_mem now lives in the BSS, the flexible array member
+>      is now a pointer and that part is allocated dynamically (downside of
+>      this is an extra indirection to get at the slots).
+> 
+>    - io_tlb_default_mem.nslabs tells you whether the thing is valid
+> 
+>    - swiotlb_exit() frees the slots array and clears the rest of the
+>      structure to 0. I also extended it to free the actual slabs, but I'm
+>      not sure why it wasn't doing that before.
+> 
+> So a non-NULL dev->dma_io_tlb_mem should always be valid to follow.
 
-Ok, I'll split that nasty diff I posted up into a reviewable series and we
-can take it from there.
+FWIW I was pondering the question of whether to do something along those 
+lines or just scrap the default assignment entirely, so since I hadn't 
+got round to saying that I've gone ahead and hacked up the alternative 
+(similarly untested) for comparison :)
 
-Will
+TBH I'm still not sure which one I prefer...
+
+Robin.
+
+----->8-----
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+index ea5b85354526..394abf184c1a 100644
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -2847,9 +2847,6 @@ void device_initialize(struct device *dev)
+      defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU_ALL)
+  	dev->dma_coherent = dma_default_coherent;
+  #endif
+-#ifdef CONFIG_SWIOTLB
+-	dev->dma_io_tlb_mem = io_tlb_default_mem;
+-#endif
+  }
+  EXPORT_SYMBOL_GPL(device_initialize);
+
+diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+index 39284ff2a6cd..620f16d89a98 100644
+--- a/include/linux/swiotlb.h
++++ b/include/linux/swiotlb.h
+@@ -107,16 +107,21 @@ struct io_tlb_mem {
+  };
+  extern struct io_tlb_mem *io_tlb_default_mem;
+
++static inline struct io_tlb_mem *dev_iotlb_mem(struct device *dev)
++{
++	return dev->dma_io_tlb_mem ?: io_tlb_default_mem;
++}
++
+  static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t 
+paddr)
+  {
+-	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
++	struct io_tlb_mem *mem = dev_iotlb_mem(dev);
+
+  	return mem && paddr >= mem->start && paddr < mem->end;
+  }
+
+  static inline bool is_swiotlb_force_bounce(struct device *dev)
+  {
+-	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
++	struct io_tlb_mem *mem = dev_iotlb_mem(dev);
+
+  	return mem && mem->force_bounce;
+  }
+@@ -167,7 +172,7 @@ bool swiotlb_free(struct device *dev, struct page 
+*page, size_t size);
+
+  static inline bool is_swiotlb_for_alloc(struct device *dev)
+  {
+-	return dev->dma_io_tlb_mem->for_alloc;
++	return dev_iotlb_mem(dev)->for_alloc;
+  }
+  #else
+  static inline struct page *swiotlb_alloc(struct device *dev, size_t size)
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index b7f76bca89bf..f4942149f87d 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -359,7 +359,7 @@ static unsigned int swiotlb_align_offset(struct 
+device *dev, u64 addr)
+  static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, 
+size_t size,
+  			   enum dma_data_direction dir)
+  {
+-	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
++	struct io_tlb_mem *mem = dev_iotlb_mem(dev);
+  	int index = (tlb_addr - mem->start) >> IO_TLB_SHIFT;
+  	phys_addr_t orig_addr = mem->slots[index].orig_addr;
+  	size_t alloc_size = mem->slots[index].alloc_size;
+@@ -440,7 +440,7 @@ static unsigned int wrap_index(struct io_tlb_mem 
+*mem, unsigned int index)
+  static int swiotlb_find_slots(struct device *dev, phys_addr_t orig_addr,
+  			      size_t alloc_size)
+  {
+-	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
++	struct io_tlb_mem *mem = dev_iotlb_mem(dev);
+  	unsigned long boundary_mask = dma_get_seg_boundary(dev);
+  	dma_addr_t tbl_dma_addr =
+  		phys_to_dma_unencrypted(dev, mem->start) & boundary_mask;
+@@ -522,7 +522,7 @@ phys_addr_t swiotlb_tbl_map_single(struct device 
+*dev, phys_addr_t orig_addr,
+  		size_t mapping_size, size_t alloc_size,
+  		enum dma_data_direction dir, unsigned long attrs)
+  {
+-	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
++	struct io_tlb_mem *mem = dev_iotlb_mem(dev);
+  	unsigned int offset = swiotlb_align_offset(dev, orig_addr);
+  	unsigned int i;
+  	int index;
+@@ -565,7 +565,7 @@ phys_addr_t swiotlb_tbl_map_single(struct device 
+*dev, phys_addr_t orig_addr,
+
+  static void swiotlb_release_slots(struct device *dev, phys_addr_t 
+tlb_addr)
+  {
+-	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
++	struct io_tlb_mem *mem = dev_iotlb_mem(dev);
+  	unsigned long flags;
+  	unsigned int offset = swiotlb_align_offset(dev, tlb_addr);
+  	int index = (tlb_addr - offset - mem->start) >> IO_TLB_SHIFT;
+@@ -682,7 +682,7 @@ size_t swiotlb_max_mapping_size(struct device *dev)
+
+  bool is_swiotlb_active(struct device *dev)
+  {
+-	return dev->dma_io_tlb_mem != NULL;
++	return dev_iotlb_mem(dev) != NULL;
+  }
+  EXPORT_SYMBOL_GPL(is_swiotlb_active);
+
+@@ -729,7 +729,7 @@ static void rmem_swiotlb_debugfs_init(struct 
+reserved_mem *rmem)
+
+  struct page *swiotlb_alloc(struct device *dev, size_t size)
+  {
+-	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
++	struct io_tlb_mem *mem = dev_iotlb_mem(dev);
+  	phys_addr_t tlb_addr;
+  	int index;
+
+@@ -792,7 +792,7 @@ static int rmem_swiotlb_device_init(struct 
+reserved_mem *rmem,
+  static void rmem_swiotlb_device_release(struct reserved_mem *rmem,
+  					struct device *dev)
+  {
+-	dev->dma_io_tlb_mem = io_tlb_default_mem;
++	dev->dma_io_tlb_mem = NULL;
+  }
+
+  static const struct reserved_mem_ops rmem_swiotlb_ops = {
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
