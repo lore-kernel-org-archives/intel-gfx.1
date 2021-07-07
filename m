@@ -2,49 +2,47 @@ Return-Path: <SRS0=YrHI=L7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8B2EC07E95
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 17:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C333FC07E95
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 18:13:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 71CF561CC9
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 17:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71CF561CC9
+	by mail.kernel.org (Postfix) with ESMTPS id 5F14361C6C
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 18:13:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F14361C6C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D50A6E15F;
-	Wed,  7 Jul 2021 17:50:35 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09DFD6E15F;
- Wed,  7 Jul 2021 17:50:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="294993394"
-X-IronPort-AV: E=Sophos;i="5.84,221,1620716400"; d="scan'208";a="294993394"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2021 10:50:19 -0700
-X-IronPort-AV: E=Sophos;i="5.84,221,1620716400"; d="scan'208";a="461407474"
-Received: from live-gta-imageloader.fm.intel.com (HELO
- DUT029-TGLY.fm.intel.com) ([10.105.19.10])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2021 10:50:19 -0700
-Date: Wed, 7 Jul 2021 17:50:15 +0000
-From: Matthew Brost <matthew.brost@intel.com>
-To: John Harrison <john.c.harrison@intel.com>
-Message-ID: <20210707175015.GA17157@DUT029-TGLY.fm.intel.com>
-References: <20210706222010.101522-1-matthew.brost@intel.com>
- <20210706222010.101522-7-matthew.brost@intel.com>
- <9834f3c0-a1a3-9b1a-d291-732501b7a013@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C26086E839;
+	Wed,  7 Jul 2021 18:13:48 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 876FB6E1A4;
+ Wed,  7 Jul 2021 18:13:47 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="209316965"
+X-IronPort-AV: E=Sophos;i="5.84,221,1620716400"; d="scan'208";a="209316965"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2021 11:13:46 -0700
+X-IronPort-AV: E=Sophos;i="5.84,221,1620716400"; d="scan'208";a="457570319"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2021 11:13:46 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Wed,  7 Jul 2021 11:13:23 -0700
+Message-Id: <20210707181325.2130821-2-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210707181325.2130821-1-lucas.demarchi@intel.com>
+References: <20210707181325.2130821-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <9834f3c0-a1a3-9b1a-d291-732501b7a013@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 6/7] drm/i915/guc: Optimize CTB writes and
- reads
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/gt: finish INTEL_GEN and friends
+ conversion
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,256 +55,101 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Daniel Vetter <daniel.vetter@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 06, 2021 at 03:51:00PM -0700, John Harrison wrote:
-> On 7/6/2021 15:20, Matthew Brost wrote:
-> > CTB writes are now in the path of command submission and should be
-> > optimized for performance. Rather than reading CTB descriptor values
-> > (e.g. head, tail) which could result in accesses across the PCIe bus,
-> > store shadow local copies and only read/write the descriptor values when
-> > absolutely necessary. Also store the current space in the each channel
-> > locally.
-> > 
-> > v2:
-> >   (Michal)
-> >    - Add additional sanity checks for head / tail pointers
-> >    - Use GUC_CTB_HDR_LEN rather than magic 1
-> > v3:
-> >   (Michal / John H)
-> >    - Drop redundant check of head value
-> > 
-> > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > ---
-> >   drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 88 +++++++++++++++--------
-> >   drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  6 ++
-> >   2 files changed, 65 insertions(+), 29 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > index db3e85b89573..4a73a1f03a9b 100644
-> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > @@ -130,6 +130,10 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc)
-> >   static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb)
-> >   {
-> >   	ctb->broken = false;
-> > +	ctb->tail = 0;
-> > +	ctb->head = 0;
-> > +	ctb->space = CIRC_SPACE(ctb->tail, ctb->head, ctb->size);
-> > +
-> >   	guc_ct_buffer_desc_init(ctb->desc);
-> >   }
-> > @@ -383,10 +387,8 @@ static int ct_write(struct intel_guc_ct *ct,
-> >   {
-> >   	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
-> >   	struct guc_ct_buffer_desc *desc = ctb->desc;
-> > -	u32 head = desc->head;
-> > -	u32 tail = desc->tail;
-> > +	u32 tail = ctb->tail;
-> >   	u32 size = ctb->size;
-> > -	u32 used;
-> >   	u32 header;
-> >   	u32 hxg;
-> >   	u32 type;
-> > @@ -396,25 +398,22 @@ static int ct_write(struct intel_guc_ct *ct,
-> >   	if (unlikely(desc->status))
-> >   		goto corrupted;
-> > -	if (unlikely((tail | head) >= size)) {
-> > +	GEM_BUG_ON(tail > size);
-> > +
-> > +#ifdef CONFIG_DRM_I915_DEBUG_GUC
-> > +	if (unlikely(tail != READ_ONCE(desc->tail))) {
-> > +		CT_ERROR(ct, "Tail was modified %u != %u\n",
-> > +			 desc->tail, ctb->tail);
-> > +		desc->status |= GUC_CTB_STATUS_MISMATCH;
-> > +		goto corrupted;
-> > +	}
-> > +	if (unlikely((desc->tail | desc->head) >= size)) {
-> Same arguments below about head apply to tail here. Also, there is no #else
+Commit c816723b6b8a ("drm/i915/gt: replace IS_GEN and friends with
+GRAPHICS_VER") converted INTEL_GEN and friends to the new version check
+macros.  Meanwhile, some changes sneaked in to use INTEL_GEN. Remove the
+last users so we can remove the macros.
 
-Yes, desc->tail can be removed from this check. Same for head below. Can
-you fix this when merging?
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_migrate.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-> check on ctb->head?
-
-ctb->head variable isn't used in this path nor is ctb->tail in the
-other. In the other path desc->tail is checked as it is read while
-desc->head isn't needed to be read here. The other path can also likely
-be reworked to pull the tail check outside of the if / else define
-block.
-
-> 
-> >   		CT_ERROR(ct, "Invalid offsets head=%u tail=%u (size=%u)\n",
-> > -			 head, tail, size);
-> > +			 desc->head, desc->tail, size);
-> >   		desc->status |= GUC_CTB_STATUS_OVERFLOW;
-> >   		goto corrupted;
-> >   	}
-> > -
-> > -	/*
-> > -	 * tail == head condition indicates empty. GuC FW does not support
-> > -	 * using up the entire buffer to get tail == head meaning full.
-> > -	 */
-> > -	if (tail < head)
-> > -		used = (size - head) + tail;
-> > -	else
-> > -		used = tail - head;
-> > -
-> > -	/* make sure there is a space including extra dw for the header */
-> > -	if (unlikely(used + len + GUC_CTB_HDR_LEN >= size))
-> > -		return -ENOSPC;
-> > +#endif
-> >   	/*
-> >   	 * dw0: CT header (including fence)
-> > @@ -453,7 +452,9 @@ static int ct_write(struct intel_guc_ct *ct,
-> >   	write_barrier(ct);
-> >   	/* now update descriptor */
-> > +	ctb->tail = tail;
-> >   	WRITE_ONCE(desc->tail, tail);
-> > +	ctb->space -= len + GUC_CTB_HDR_LEN;
-> >   	return 0;
-> > @@ -469,7 +470,7 @@ static int ct_write(struct intel_guc_ct *ct,
-> >    * @req:	pointer to pending request
-> >    * @status:	placeholder for status
-> >    *
-> > - * For each sent request, Guc shall send bac CT response message.
-> > + * For each sent request, GuC shall send back CT response message.
-> >    * Our message handler will update status of tracked request once
-> >    * response message with given fence is received. Wait here and
-> >    * check for valid response status value.
-> > @@ -525,24 +526,35 @@ static inline bool ct_deadlocked(struct intel_guc_ct *ct)
-> >   	return ret;
-> >   }
-> > -static inline bool h2g_has_room(struct intel_guc_ct_buffer *ctb, u32 len_dw)
-> > +static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
-> >   {
-> > -	struct guc_ct_buffer_desc *desc = ctb->desc;
-> > -	u32 head = READ_ONCE(desc->head);
-> > +	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
-> > +	u32 head;
-> >   	u32 space;
-> > -	space = CIRC_SPACE(desc->tail, head, ctb->size);
-> > +	if (ctb->space >= len_dw)
-> > +		return true;
-> > +
-> > +	head = READ_ONCE(ctb->desc->head);
-> > +	if (unlikely(head > ctb->size)) {
-> > +		CT_ERROR(ct, "Corrupted descriptor head=%u tail=%u size=%u\n",
-> > +			 ctb->desc->head, ctb->desc->tail, ctb->size);
-> > +		ctb->desc->status |= GUC_CTB_STATUS_OVERFLOW;
-> > +		ctb->broken = true;
-> > +		return false;
-> > +	}
-> > +
-> > +	space = CIRC_SPACE(ctb->tail, head, ctb->size);
-> > +	ctb->space = space;
-> >   	return space >= len_dw;
-> >   }
-> >   static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
-> >   {
-> > -	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
-> > -
-> >   	lockdep_assert_held(&ct->ctbs.send.lock);
-> > -	if (unlikely(!h2g_has_room(ctb, len_dw))) {
-> > +	if (unlikely(!h2g_has_room(ct, len_dw))) {
-> >   		if (ct->stall_time == KTIME_MAX)
-> >   			ct->stall_time = ktime_get();
-> > @@ -612,7 +624,7 @@ static int ct_send(struct intel_guc_ct *ct,
-> >   	 */
-> >   retry:
-> >   	spin_lock_irqsave(&ctb->lock, flags);
-> > -	if (unlikely(!h2g_has_room(ctb, len + GUC_CTB_HDR_LEN))) {
-> > +	if (unlikely(!h2g_has_room(ct, len + GUC_CTB_HDR_LEN))) {
-> >   		if (ct->stall_time == KTIME_MAX)
-> >   			ct->stall_time = ktime_get();
-> >   		spin_unlock_irqrestore(&ctb->lock, flags);
-> > @@ -732,7 +744,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
-> >   {
-> >   	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
-> >   	struct guc_ct_buffer_desc *desc = ctb->desc;
-> > -	u32 head = desc->head;
-> > +	u32 head = ctb->head;
-> >   	u32 tail = desc->tail;
-> >   	u32 size = ctb->size;
-> >   	u32 *cmds = ctb->cmds;
-> > @@ -747,12 +759,29 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
-> >   	if (unlikely(desc->status))
-> >   		goto corrupted;
-> > -	if (unlikely((tail | head) >= size)) {
-> > +	GEM_BUG_ON(head > size);
-> > +
-> > +#ifdef CONFIG_DRM_I915_DEBUG_GUC
-> > +	if (unlikely(head != READ_ONCE(desc->head))) {
-> > +		CT_ERROR(ct, "Head was modified %u != %u\n",
-> > +			 desc->head, ctb->head);
-> > +		desc->status |= GUC_CTB_STATUS_MISMATCH;
-> > +		goto corrupted;
-> > +	}
-> > +	if (unlikely((desc->tail | desc->head) >= size)) {
-> As per comment in other thread, the check on head here is redundant because
-> you have already hit a BUG_ON(ctb->head > size) followed by
-> CT_ERROR(ctb->head != desc->head). Therefore, you can't get here if
-> 'desc->head > size'.
->
-
-Yep. See above we can likely just delete this.
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index 23c59ce66cee..14afa1974ea5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -277,7 +277,7 @@ static int emit_pte(struct i915_request *rq,
+ 	u32 *hdr, *cs;
+ 	int pkt;
  
-> >   		CT_ERROR(ct, "Invalid offsets head=%u tail=%u (size=%u)\n",
-> >   			 head, tail, size);
-> >   		desc->status |= GUC_CTB_STATUS_OVERFLOW;
-> >   		goto corrupted;
-> >   	}
-> > +#else
-> > +	if (unlikely(tail >= size)) {
-> > +		CT_ERROR(ct, "Invalid offsets tail=%u (size=%u)\n",
-> > +			 tail, size);
-> > +		desc->status |= GUC_CTB_STATUS_OVERFLOW;
-> > +		goto corrupted;
-> > +	}
+-	GEM_BUG_ON(INTEL_GEN(rq->engine->i915) < 8);
++	GEM_BUG_ON(GRAPHICS_VER(rq->engine->i915) < 8);
+ 
+ 	/* Compute the page directory offset for the target address range */
+ 	offset += (u64)rq->engine->instance << 32;
+@@ -347,11 +347,11 @@ static int emit_pte(struct i915_request *rq,
+ 	return total;
+ }
+ 
+-static bool wa_1209644611_applies(int gen, u32 size)
++static bool wa_1209644611_applies(int ver, u32 size)
+ {
+ 	u32 height = size >> PAGE_SHIFT;
+ 
+-	if (gen != 11)
++	if (ver != 11)
+ 		return false;
+ 
+ 	return height % 4 == 3 && height <= 8;
+@@ -359,15 +359,15 @@ static bool wa_1209644611_applies(int gen, u32 size)
+ 
+ static int emit_copy(struct i915_request *rq, int size)
+ {
+-	const int gen = INTEL_GEN(rq->engine->i915);
++	const int ver = GRAPHICS_VER(rq->engine->i915);
+ 	u32 instance = rq->engine->instance;
+ 	u32 *cs;
+ 
+-	cs = intel_ring_begin(rq, gen >= 8 ? 10 : 6);
++	cs = intel_ring_begin(rq, ver >= 8 ? 10 : 6);
+ 	if (IS_ERR(cs))
+ 		return PTR_ERR(cs);
+ 
+-	if (gen >= 9 && !wa_1209644611_applies(gen, size)) {
++	if (ver >= 9 && !wa_1209644611_applies(ver, size)) {
+ 		*cs++ = GEN9_XY_FAST_COPY_BLT_CMD | (10 - 2);
+ 		*cs++ = BLT_DEPTH_32 | PAGE_SIZE;
+ 		*cs++ = 0;
+@@ -378,7 +378,7 @@ static int emit_copy(struct i915_request *rq, int size)
+ 		*cs++ = PAGE_SIZE;
+ 		*cs++ = 0; /* src offset */
+ 		*cs++ = instance;
+-	} else if (gen >= 8) {
++	} else if (ver >= 8) {
+ 		*cs++ = XY_SRC_COPY_BLT_CMD | BLT_WRITE_RGBA | (10 - 2);
+ 		*cs++ = BLT_DEPTH_32 | BLT_ROP_SRC_COPY | PAGE_SIZE;
+ 		*cs++ = 0;
+@@ -491,17 +491,17 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 
+ static int emit_clear(struct i915_request *rq, int size, u32 value)
+ {
+-	const int gen = INTEL_GEN(rq->engine->i915);
++	const int ver = GRAPHICS_VER(rq->engine->i915);
+ 	u32 instance = rq->engine->instance;
+ 	u32 *cs;
+ 
+ 	GEM_BUG_ON(size >> PAGE_SHIFT > S16_MAX);
+ 
+-	cs = intel_ring_begin(rq, gen >= 8 ? 8 : 6);
++	cs = intel_ring_begin(rq, ver >= 8 ? 8 : 6);
+ 	if (IS_ERR(cs))
+ 		return PTR_ERR(cs);
+ 
+-	if (gen >= 8) {
++	if (ver >= 8) {
+ 		*cs++ = XY_COLOR_BLT_CMD | BLT_WRITE_RGBA | (7 - 2);
+ 		*cs++ = BLT_DEPTH_32 | BLT_ROP_COLOR_COPY | PAGE_SIZE;
+ 		*cs++ = 0;
+-- 
+2.31.1
 
-Now we can move this outside if/else define block as it is same check as
-above. Again can you do this when you merge this?
-
-Matt
-
-> > +#endif
-> >   	/* tail == head condition indicates empty */
-> >   	available = tail - head;
-> > @@ -802,6 +831,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
-> >   	}
-> >   	CT_DEBUG(ct, "received %*ph\n", 4 * len, (*msg)->msg);
-> > +	ctb->head = head;
-> >   	/* now update descriptor */
-> >   	WRITE_ONCE(desc->head, head);
-> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> > index bee03794c1eb..edd1bba0445d 100644
-> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> > @@ -33,6 +33,9 @@ struct intel_guc;
-> >    * @desc: pointer to the buffer descriptor
-> >    * @cmds: pointer to the commands buffer
-> >    * @size: size of the commands buffer in dwords
-> > + * @head: local shadow copy of head in dwords
-> > + * @tail: local shadow copy of tail in dwords
-> > + * @space: local shadow copy of space in dwords
-> >    * @broken: flag to indicate if descriptor data is broken
-> >    */
-> >   struct intel_guc_ct_buffer {
-> > @@ -40,6 +43,9 @@ struct intel_guc_ct_buffer {
-> >   	struct guc_ct_buffer_desc *desc;
-> >   	u32 *cmds;
-> >   	u32 size;
-> > +	u32 tail;
-> > +	u32 head;
-> > +	u32 space;
-> >   	bool broken;
-> >   };
-> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
