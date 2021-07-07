@@ -2,60 +2,63 @@ Return-Path: <SRS0=YrHI=L7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30542C07E95
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 403F0C07E9C
 	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 11:44:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5C7C619F1
+	by mail.kernel.org (Postfix) with ESMTPS id D9D6D61A2B
 	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jul 2021 11:44:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5C7C619F1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9D6D61A2B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D7796E0F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 417936E0EA;
 	Wed,  7 Jul 2021 11:44:57 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DDA16E59B;
- Tue,  6 Jul 2021 19:14:22 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0B79260FEE;
- Tue,  6 Jul 2021 19:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625598861;
- bh=QlBKfCu996qP5JenUg1J68Cu2xyoSjshlo1u0WQ5l4Q=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=TU5TtD5UIfY0r+aXmb18IJawcVy9481TeWFSQOFYJdeGslFF5REp8bH73BojUcAOS
- WlHc4LPuYi7chvxRgoEbHiUmVBJCPC7C5tF6pdGMxY91712ZIHIFWEljUXECaizwR+
- koaeta5RgZiHx0Sss+0r3QJAYmQBlDDtVdoZp0FeXJcOVflgaIqK1qCkplXl/uW0BS
- LCRRvULfQJWTmzcODhL8YcjXYnyWkDWBHwYJN74M0CyF9fd7kjSS4G13Z+1zJxm7S+
- SxqHpxzj/Vqq6tNxTCJBSiyuyZK+lbgOtwblLLeGRCpsIt4FpxqITodwMfqKGzStS2
- aVPLPXphc2cDw==
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>
-References: <ea28db1f-846e-4f0a-4f13-beb67e66bbca@kernel.org>
- <20210702135856.GB11132@willie-the-truck>
- <0f7bd903-e309-94a0-21d7-f0e8e9546018@arm.com>
- <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
- <20210705190352.GA19461@willie-the-truck> <20210706044848.GA13640@lst.de>
- <20210706132422.GA20327@willie-the-truck>
- <a59f771f-3289-62f0-ca50-8f3675d9b166@arm.com>
- <20210706140513.GA26498@lst.de>
- <bb32d5a6-2b34-4524-e171-3e9f5f4d3a94@arm.com>
- <20210706170657.GD20750@willie-the-truck>
-From: Nathan Chancellor <nathan@kernel.org>
-Message-ID: <e1c026c6-22c7-8979-4941-de9cfab3863a@kernel.org>
-Date: Tue, 6 Jul 2021 12:14:16 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+X-Greylist: delayed 379 seconds by postgrey-1.36 at gabe;
+ Wed, 07 Jul 2021 08:54:02 UTC
+Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E31EA8921C;
+ Wed,  7 Jul 2021 08:54:02 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.69])
+ by lucky1.263xmail.com (Postfix) with ESMTP id CFE02D5D0F;
+ Wed,  7 Jul 2021 16:47:38 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED: 0
+X-SKE-CHECKED: 1
+X-ANTISPAM-LEVEL: 2
+Received: from localhost.localdomain (unknown [111.207.172.18])
+ by smtp.263.net (postfix) whith ESMTP id
+ P12345T139824290686720S1625647658082957_; 
+ Wed, 07 Jul 2021 16:47:38 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <8bb40e571c070238cc02cdc94e353cc6>
+X-RL-SENDER: zhaoxiao@uniontech.com
+X-SENDER: zhaoxiao@uniontech.com
+X-LOGIN-NAME: zhaoxiao@uniontech.com
+X-FST-TO: airlied@linux.ie
+X-RCPT-COUNT: 16
+X-SENDER-IP: 111.207.172.18
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+From: zhaoxiao <zhaoxiao@uniontech.com>
+To: airlied@linux.ie, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ venkata.s.dhanalakota@intel.com
+Date: Wed,  7 Jul 2021 16:47:36 +0800
+Message-Id: <9ee149b983a05be6789147f96cb884ff30e9c92c.1625646947.git.zhaoxiao@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <cover.1625646947.git.zhaoxiao@uniontech.com>
+References: <cover.1625646947.git.zhaoxiao@uniontech.com>
 MIME-Version: 1.0
-In-Reply-To: <20210706170657.GD20750@willie-the-truck>
-Content-Language: en-US
 X-Mailman-Approved-At: Wed, 07 Jul 2021 11:44:56 +0000
-Subject: Re: [Intel-gfx] [PATCH v15 06/12] swiotlb: Use
- is_swiotlb_force_bounce for swiotlb data bouncing
+Subject: [Intel-gfx] [PATCH 1/2] drivers/gpu/drm/i915/gt/intel_engine_cs.c:
+ Repair typo in function name
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,78 +71,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Quinlan <james.quinlan@broadcom.com>, heikki.krogerus@linux.intel.com,
- linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
- benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
- Frank Rowand <frowand.list@gmail.com>, mingo@kernel.org,
- Jianxiong Gao <jxgao@google.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, matthew.auld@intel.com,
- Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
- jgross@suse.com, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- intel-gfx@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Claire Chang <tientzu@chromium.org>,
- Dan Williams <dan.j.williams@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- boris.ostrovsky@oracle.com, airlied@linux.ie,
- Greg KH <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- Qian Cai <quic_qiancai@quicinc.com>, lkml <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- xypron.glpk@gmx.de, Tom Lendacky <thomas.lendacky@amd.com>,
- linuxppc-dev@lists.ozlabs.org, bauerman@linux.ibm.com
+Cc: zhaoxiao <zhaoxiao@uniontech.com>, intel-gfx@lists.freedesktop.org,
+ lucas.demarchi@intel.com, linux-kernel@vger.kernel.org,
+ chris@chris-wilson.co.uk, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Will and Robin,
+Fixes the following W=1 kernel build warning(s):
 
-On 7/6/2021 10:06 AM, Will Deacon wrote:
-> On Tue, Jul 06, 2021 at 04:39:11PM +0100, Robin Murphy wrote:
->> On 2021-07-06 15:05, Christoph Hellwig wrote:
->>> On Tue, Jul 06, 2021 at 03:01:04PM +0100, Robin Murphy wrote:
->>>> FWIW I was pondering the question of whether to do something along those
->>>> lines or just scrap the default assignment entirely, so since I hadn't got
->>>> round to saying that I've gone ahead and hacked up the alternative
->>>> (similarly untested) for comparison :)
->>>>
->>>> TBH I'm still not sure which one I prefer...
->>>
->>> Claire did implement something like your suggestion originally, but
->>> I don't really like it as it doesn't scale for adding multiple global
->>> pools, e.g. for the 64-bit addressable one for the various encrypted
->>> secure guest schemes.
->>
->> Ah yes, that had slipped my mind, and it's a fair point indeed. Since we're
->> not concerned with a minimal fix for backports anyway I'm more than happy to
->> focus on Will's approach. Another thing is that that looks to take us a
->> quiet step closer to the possibility of dynamically resizing a SWIOTLB pool,
->> which is something that some of the hypervisor protection schemes looking to
->> build on top of this series may want to explore at some point.
-> 
-> Ok, I'll split that nasty diff I posted up into a reviewable series and we
-> can take it from there.
+drivers/gpu/drm/i915/gt/intel_engine_cs.c:882: warning: expecting prototype for intel_engines_init_common(). Prototype was for engine_init_common() instead
+drivers/gpu/drm/i915/gt/intel_engine_cs.c:959: warning: expecting prototype for intel_engines_cleanup_common(). Prototype was for intel_engine_cleanup_common() instead
 
-For what it's worth, I attempted to boot Will's diff on top of Konrad's 
-devel/for-linus-5.14 and it did not work; in fact, I got no output on my 
-monitor period, even with earlyprintk=, and I do not think this machine 
-has a serial console.
+Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Robin's fix does work, it survived ten reboots with no issues getting to 
-X and I do not see the KASAN and slub debug messages anymore but I 
-understand that this is not the preferred solution it seems (although 
-Konrad did want to know if it works).
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 7f03df236613..01b4dc041a72 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -868,7 +868,7 @@ create_kernel_context(struct intel_engine_cs *engine)
+ }
+ 
+ /**
+- * intel_engines_init_common - initialize cengine state which might require hw access
++ * engine_init_common - initialize cengine state which might require hw access
+  * @engine: Engine to initialize.
+  *
+  * Initializes @engine@ structure members shared between legacy and execlists
+@@ -949,7 +949,7 @@ int intel_engines_init(struct intel_gt *gt)
+ }
+ 
+ /**
+- * intel_engines_cleanup_common - cleans up the engine state created by
++ * intel_engine_cleanup_common - cleans up the engine state created by
+  *                                the common initiailizers.
+  * @engine: Engine to cleanup.
+  *
+-- 
+2.20.1
 
-I am happy to test any further patches or follow ups as needed, just 
-keep me on CC.
 
-Cheers,
-Nathan
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
