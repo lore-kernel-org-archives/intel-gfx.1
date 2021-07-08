@@ -2,45 +2,41 @@ Return-Path: <SRS0=yDSU=MA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 376C4C11F6A
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 23:18:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1172FC07E96
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 23:25:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D84336146B
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 23:18:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D84336146B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AE0EB61432
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 23:25:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE0EB61432
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B32856E95B;
-	Thu,  8 Jul 2021 23:18:30 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08B846E936
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Jul 2021 23:18:26 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10039"; a="209578464"
-X-IronPort-AV: E=Sophos;i="5.84,225,1620716400"; d="scan'208";a="209578464"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2021 16:18:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,225,1620716400"; d="scan'208";a="482707935"
-Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
- by fmsmga004.fm.intel.com with ESMTP; 08 Jul 2021 16:18:26 -0700
-From: Anusha Srivatsa <anusha.srivatsa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  8 Jul 2021 16:18:18 -0700
-Message-Id: <20210708231821.9163-8-anusha.srivatsa@intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210708231821.9163-1-anusha.srivatsa@intel.com>
-References: <20210708231821.9163-1-anusha.srivatsa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFE66E93B;
+	Thu,  8 Jul 2021 23:25:58 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AC5856E934;
+ Thu,  8 Jul 2021 23:25:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id A506EA0003;
+ Thu,  8 Jul 2021 23:25:56 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/10] drm/i915/cnl: Drop all workarounds
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lucas De Marchi" <lucas.demarchi@intel.com>
+Date: Thu, 08 Jul 2021 23:25:56 -0000
+Message-ID: <162578675664.32074.16997613166725250022@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210708175226.2451260-1-lucas.demarchi@intel.com>
+In-Reply-To: <20210708175226.2451260-1-lucas.demarchi@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/dg1=3A_Compute_MEM_Bandwidth_using_MCHBAR_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,130 +49,161 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0231301766=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+--===============0231301766==
+Content-Type: multipart/alternative;
+ boundary="===============5645715377438360315=="
 
-All of the Cannon Lake hardware that came out had graphics fused off,
-and our userspace drivers have already dropped their support for the
-platform; CNL-specific code in i915 that isn't inherited by subsequent
-platforms is effectively dead code.  Let's remove all of the
-CNL-specific workarounds as a quick and easy first step.
+--===============5645715377438360315==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-References: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/6899
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 55 ---------------------
- 1 file changed, 55 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 62321e9149db..9b257a394305 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -514,35 +514,6 @@ static void cfl_ctx_workarounds_init(struct intel_engine_cs *engine,
- 		     GEN7_SBE_SS_CACHE_DISPATCH_PORT_SHARING_DISABLE);
- }
- 
--static void cnl_ctx_workarounds_init(struct intel_engine_cs *engine,
--				     struct i915_wa_list *wal)
--{
--	/* WaForceContextSaveRestoreNonCoherent:cnl */
--	wa_masked_en(wal, CNL_HDC_CHICKEN0,
--		     HDC_FORCE_CONTEXT_SAVE_RESTORE_NON_COHERENT);
--
--	/* WaDisableReplayBufferBankArbitrationOptimization:cnl */
--	wa_masked_en(wal, COMMON_SLICE_CHICKEN2,
--		     GEN8_SBE_DISABLE_REPLAY_BUF_OPTIMIZATION);
--
--	/* WaPushConstantDereferenceHoldDisable:cnl */
--	wa_masked_en(wal, GEN7_ROW_CHICKEN2, PUSH_CONSTANT_DEREF_DISABLE);
--
--	/* FtrEnableFastAnisoL1BankingFix:cnl */
--	wa_masked_en(wal, HALF_SLICE_CHICKEN3, CNL_FAST_ANISO_L1_BANKING_FIX);
--
--	/* WaDisable3DMidCmdPreemption:cnl */
--	wa_masked_dis(wal, GEN8_CS_CHICKEN1, GEN9_PREEMPT_3D_OBJECT_LEVEL);
--
--	/* WaDisableGPGPUMidCmdPreemption:cnl */
--	wa_masked_field_set(wal, GEN8_CS_CHICKEN1,
--			    GEN9_PREEMPT_GPGPU_LEVEL_MASK,
--			    GEN9_PREEMPT_GPGPU_COMMAND_LEVEL);
--
--	/* WaDisableEarlyEOT:cnl */
--	wa_masked_en(wal, GEN8_ROW_CHICKEN, DISABLE_EARLY_EOT);
--}
--
- static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
- 				     struct i915_wa_list *wal)
- {
-@@ -704,8 +675,6 @@ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
- 		gen12_ctx_workarounds_init(engine, wal);
- 	else if (GRAPHICS_VER(i915) == 11)
- 		icl_ctx_workarounds_init(engine, wal);
--	else if (IS_CANNONLAKE(i915))
--		cnl_ctx_workarounds_init(engine, wal);
- 	else if (IS_COFFEELAKE(i915) || IS_COMETLAKE(i915))
- 		cfl_ctx_workarounds_init(engine, wal);
- 	else if (IS_GEMINILAKE(i915))
-@@ -982,15 +951,6 @@ icl_wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 	wa_write_clr_set(wal, GEN8_MCR_SELECTOR, mcr_mask, mcr);
- }
- 
--static void
--cnl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
--{
--	/* WaInPlaceDecompressionHang:cnl */
--	wa_write_or(wal,
--		    GEN9_GAMT_ECO_REG_RW_IA,
--		    GAMT_ECO_ENABLE_IN_PLACE_DECOMPRESS);
--}
--
- static void
- icl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- {
-@@ -1140,8 +1100,6 @@ gt_init_workarounds(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 		gen12_gt_workarounds_init(i915, wal);
- 	else if (GRAPHICS_VER(i915) == 11)
- 		icl_gt_workarounds_init(i915, wal);
--	else if (IS_CANNONLAKE(i915))
--		cnl_gt_workarounds_init(i915, wal);
- 	else if (IS_COFFEELAKE(i915) || IS_COMETLAKE(i915))
- 		cfl_gt_workarounds_init(i915, wal);
- 	else if (IS_GEMINILAKE(i915))
-@@ -1418,17 +1376,6 @@ static void cml_whitelist_build(struct intel_engine_cs *engine)
- 	cfl_whitelist_build(engine);
- }
- 
--static void cnl_whitelist_build(struct intel_engine_cs *engine)
--{
--	struct i915_wa_list *w = &engine->whitelist;
--
--	if (engine->class != RENDER_CLASS)
--		return;
--
--	/* WaEnablePreemptionGranularityControlByUMD:cnl */
--	whitelist_reg(w, GEN8_CS_CHICKEN1);
--}
--
- static void icl_whitelist_build(struct intel_engine_cs *engine)
- {
- 	struct i915_wa_list *w = &engine->whitelist;
-@@ -1542,8 +1489,6 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
- 		tgl_whitelist_build(engine);
- 	else if (GRAPHICS_VER(i915) == 11)
- 		icl_whitelist_build(engine);
--	else if (IS_CANNONLAKE(i915))
--		cnl_whitelist_build(engine);
- 	else if (IS_COMETLAKE(i915))
- 		cml_whitelist_build(engine);
- 	else if (IS_COFFEELAKE(i915))
--- 
-2.32.0
+Series: drm/i915/dg1: Compute MEM Bandwidth using MCHBAR (rev2)
+URL   : https://patchwork.freedesktop.org/series/92094/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10320 -> Patchwork_20557
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20557/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20557 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_exec_suspend@basic-s0:
+    - fi-cfl-8109u:       [PASS][1] -> [INCOMPLETE][2] ([i915#155])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10320/fi-cfl-8109u/igt@gem_exec_suspend@basic-s0.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20557/fi-cfl-8109u/igt@gem_exec_suspend@basic-s0.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#155]: https://gitlab.freedesktop.org/drm/intel/issues/155
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): fi-bsw-cyan 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10320 -> Patchwork_20557
+
+  CI-20190529: 20190529
+  CI_DRM_10320: 7d61ab4a59bcbb206324b6a430748b4c15dd8adb @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6132: 61fb9cdf2a9132e3618c8b08b9d20fec0c347831 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20557: 11350b4a8bc8324518472387c20aebe74ec93069 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+11350b4a8bc8 drm/i915/dg1: Compute MEM Bandwidth using MCHBAR
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20557/index.html
+
+--===============5645715377438360315==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dg1: Compute MEM Bandwidth using MCHBAR (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/92094/">https://patchwork.freedesktop.org/series/92094/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20557/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20557/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10320 -&gt; Patchwork_20557</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20557/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20557 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@gem_exec_suspend@basic-s0:<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10320/fi-cfl-8109u/igt@gem_exec_suspend@basic-s0.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20557/fi-cfl-8109u/igt@gem_exec_suspend@basic-s0.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/155">i915#155</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): fi-bsw-cyan </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10320 -&gt; Patchwork_20557</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10320: 7d61ab4a59bcbb206324b6a430748b4c15dd8adb @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6132: 61fb9cdf2a9132e3618c8b08b9d20fec0c347831 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20557: 11350b4a8bc8324518472387c20aebe74ec93069 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>11350b4a8bc8 drm/i915/dg1: Compute MEM Bandwidth using MCHBAR</p>
+
+</body>
+</html>
+
+--===============5645715377438360315==--
+
+--===============0231301766==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0231301766==--
