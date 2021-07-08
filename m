@@ -5,70 +5,70 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5A73C07E99
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 15:49:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18FA4C07E99
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 15:49:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 68F30613F3
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 15:49:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 68F30613F3
+	by mail.kernel.org (Postfix) with ESMTPS id DEB32613F3
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 15:49:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEB32613F3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E67D26E8FD;
-	Thu,  8 Jul 2021 15:48:50 +0000 (UTC)
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [IPv6:2607:f8b0:4864:20::c2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEB106E8F9
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Jul 2021 15:48:47 +0000 (UTC)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- o3-20020a4a84c30000b0290251d599f19bso1479291oog.8
- for <intel-gfx@lists.freedesktop.org>; Thu, 08 Jul 2021 08:48:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9F46E8FE;
+	Thu,  8 Jul 2021 15:48:55 +0000 (UTC)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAA726E902
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Jul 2021 15:48:54 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id u11so8323045oiv.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 08 Jul 2021 08:48:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=+KlH+LLR7pnPVMH7+wNipcAnoW8qxkOJwWrDiYFt7AA=;
- b=XM9dv8xmoDFCKQqIVlxzEFzqWJ7E558u+SGexql6uiB9zA/Z8KMHebiw0iUPuTRc9x
- pUywO09DQDZfZ47eOxGvWqioP0KhFmoTTz1d0leDBQEWVopNGxC8RHwoEey5HMuh/0wN
- qiKFXJsUtEcwd7PZEf7N/PIlgM2fk9kR2h/8Y6aLctOQTZePFeWnt4YMz8c+kjAeg9n2
- Pd2RespvCnL0t4kIJwtlG6veNHwP8/AS/wTKnK3Y0C7r9J16aaoQF3Wdf/RpKsl2mAIo
- wMiH0fPTUQ15e44Wk7olMjLUglZId0D297z3hXOKg1NRnlRA6SOHd1cocKbCKELFK5HZ
- QyRw==
+ bh=/SlZXLav3hqcYqv/ySEG20d32p+2hDGPheY2ExjlNf4=;
+ b=1pAcsLkhXRXhScwDD0nenjQhho5AmeC+MBowvX1gPCkcNLVqqz03vpK4tSCXro8/35
+ +KOXh3JgyyA5fKAXm+VaXWMukRDKs+xr3bqglw5Mju9JGI3q9eO9nNUIudIdKt5VrtgO
+ CeerkUlmSToDTyz2AI0xCsI50VoT4mAKPvgbkndCBvTQ8pKlJu18oZ6LdoXQa7f56SYO
+ vMPggD1Hs/nbXdCMkD9y2/jQ0iZKWRCMQObOrh4Q1WOwnKo3dcCJBcTMQVNir/0RqmWJ
+ j4XmqcjzLwjEejTescZ+uZ5n33CTXGq/F8Y1dgfwrcIbaFo2hBD7pQzFnROuGILe5DX3
+ lCQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=+KlH+LLR7pnPVMH7+wNipcAnoW8qxkOJwWrDiYFt7AA=;
- b=ItW16KW6ALZrcY2B3OIMC1GjkspEZ+plR67VsDBQ8VXC3f0zZxag+V9ePvbPqBxElK
- L4mIpf4IIJPm25EyXfaP48W75KhmDratf3ca43ZgtxrS9hnyNP5WaHNe7EWAXpnjR7+c
- pnySZETmuSvbCOfX9WSMcKRnJGBSLA9PRW31Wew5hqi0GXzSINKkbd3BQNjyLE8tbgLm
- dPE8D+3nF4YhPN5oGKGEiZOKu7pqOvdUAScZshZ3/MEFzDRmBP7LmA2DYznltaALaI1Y
- v3x2nXJHE+mCNSkxYIBDlGX2lDcRKpPyJn+4RWeVIc6qnFFgYFjWHuG1g7GXETj7RxAV
- qgtg==
-X-Gm-Message-State: AOAM532LRIw1z0n9GxL7H9I7YN/ARfKtEMaXWIGqZMjVNyhWzpwIyZg2
- HOYRUquBOX16wIig36Xxy7TjmGGOnaGsag==
-X-Google-Smtp-Source: ABdhPJzuTm1krc5FFHCp/pMvQRGHAbEHZ08BxxYWYL9TBZQJsua2HsPh+db6GNyspoF2cW47+GqouA==
-X-Received: by 2002:a4a:d484:: with SMTP id o4mr16926229oos.35.1625759326668; 
- Thu, 08 Jul 2021 08:48:46 -0700 (PDT)
+ bh=/SlZXLav3hqcYqv/ySEG20d32p+2hDGPheY2ExjlNf4=;
+ b=MiX4Y/DkYaWn8ngLNZusseH1cK8C37E44U14jydkL0HDW98qhH0spCX/UmM0Q6XpMB
+ ziIgclfUERd8EFN5PHV2xH9EKxxb4vzTdJ36u49HlHjXbQdogsZ3/EH4F0Cmikwm04fS
+ t2U4K66qc/4EjsGfDMQ22NbXTGh+8V0F1S/QsePFAdj0Wx9BP6wy+kitkHXLdRNtHQaA
+ 9z0zkaiNbJzc58o/kJSsjQWjtxAjChqBDx4MVUzgwMJlXL40N9VLQGbJf6bWU3U8TQc5
+ qcupVQHacUeBxE4JQGmCx4c384t+TQ0xNZdSynr5WscszLr7e2g6wjx2dlsA7XQmvAs0
+ iWJQ==
+X-Gm-Message-State: AOAM53375lN+kHoH0KbsyXt8bMgvuZ1bpDSFZN3gAwygEM66xXdk0GDz
+ gv16t4oUiZo1Tn/dtDncfgm2/CtsDMl9Jg==
+X-Google-Smtp-Source: ABdhPJzyQmfME56tdtQ36NWGhHqCDBB1Hnl68Ylh8OxZFkq2DlH4bwyDJZt+G3mgbdWhbKShpWIzeA==
+X-Received: by 2002:a05:6808:1309:: with SMTP id
+ y9mr3942542oiv.112.1625759333808; 
+ Thu, 08 Jul 2021 08:48:53 -0700 (PDT)
 Received: from omlet.lan ([68.203.99.148])
- by smtp.gmail.com with ESMTPSA id d20sm548356otq.62.2021.07.08.08.48.45
+ by smtp.gmail.com with ESMTPSA id d20sm548356otq.62.2021.07.08.08.48.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jul 2021 08:48:45 -0700 (PDT)
+ Thu, 08 Jul 2021 08:48:53 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu,  8 Jul 2021 10:48:12 -0500
-Message-Id: <20210708154835.528166-8-jason@jlekstrand.net>
+Date: Thu,  8 Jul 2021 10:48:18 -0500
+Message-Id: <20210708154835.528166-14-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210708154835.528166-1-jason@jlekstrand.net>
 References: <20210708154835.528166-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/30] drm/i915: Implement SINGLE_TIMELINE with
- a syncobj (v4)
+Subject: [Intel-gfx] [PATCH 13/30] drm/i915: Stop manually RCU banging in
+ reset_stats_ioctl (v2)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,218 +87,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This API is entirely unnecessary and I'd love to get rid of it.  If
-userspace wants a single timeline across multiple contexts, they can
-either use implicit synchronization or a syncobj, both of which existed
-at the time this feature landed.  The justification given at the time
-was that it would help GL drivers which are inherently single-timeline.
-However, neither of our GL drivers actually wanted the feature.  i965
-was already in maintenance mode at the time and iris uses syncobj for
-everything.
+As far as I can tell, the only real reason for this is to avoid taking a
+reference to the i915_gem_context.  The cost of those two atomics
+probably pales in comparison to the cost of the ioctl itself so we're
+really not buying ourselves anything here.  We're about to make context
+lookup a tiny bit more complicated, so let's get rid of the one hand-
+rolled case.
 
-Unfortunately, as much as I'd love to get rid of it, it is used by the
-media driver so we can't do that.  We can, however, do the next-best
-thing which is to embed a syncobj in the context and do exactly what
-we'd expect from userspace internally.  This isn't an entirely identical
-implementation because it's no longer atomic if userspace races with
-itself by calling execbuffer2 twice simultaneously from different
-threads.  It won't crash in that case; it just doesn't guarantee any
-ordering between those two submits.  It also means that sync files
-exported from different engines on a SINGLE_TIMELINE context will have
-different fence contexts.  This is visible to userspace if it looks at
-the obj_name field of sync_fence_info.
+Some usermode drivers such as our Vulkan driver call GET_RESET_STATS on
+every execbuf so the perf here could theoretically be an issue.  If this
+ever does become a performance issue for any such userspace drivers,
+they can use set CONTEXT_PARAM_RECOVERABLE to false and look for -EIO
+coming from execbuf to check for hangs instead.
 
-Moving SINGLE_TIMELINE to a syncobj emulation has a couple of technical
-advantages beyond mere annoyance.  One is that intel_timeline is no
-longer an api-visible object and can remain entirely an implementation
-detail.  This may be advantageous as we make scheduler changes going
-forward.  Second is that, together with deleting the CLONE_CONTEXT API,
-we should now have a 1:1 mapping between intel_context and
-intel_timeline which may help us reduce locking.
-
-v2 (Tvrtko Ursulin):
- - Update the comment on i915_gem_context::syncobj to mention that it's
-   an emulation and the possible race if userspace calls execbuffer2
-   twice on the same context concurrently.
-v2 (Jason Ekstrand):
- - Wrap the checks for eb.gem_context->syncobj in unlikely()
- - Drop the dma_fence reference
- - Improved commit message
-
-v3 (Jason Ekstrand):
- - Move the dma_fence_put() to before the error exit
-
-v4 (Tvrtko Ursulin):
- - Add a comment about fence contexts to the commit message
+v2 (Daniel Vetter):
+ - Add a comment in the commit message about recoverable contexts
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
 Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 49 +++++--------------
- .../gpu/drm/i915/gem/i915_gem_context_types.h | 14 +++++-
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 16 ++++++
- 3 files changed, 40 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 13 ++++---------
+ drivers/gpu/drm/i915/i915_drv.h             |  8 +-------
+ 2 files changed, 5 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 9f9369d3c0004..249bd36f14019 100644
+index 0ba8506fb966f..61fe6d18d4068 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -67,6 +67,8 @@
- #include <linux/log2.h>
- #include <linux/nospec.h>
+@@ -2090,16 +2090,13 @@ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev,
+ 	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct drm_i915_reset_stats *args = data;
+ 	struct i915_gem_context *ctx;
+-	int ret;
  
-+#include <drm/drm_syncobj.h>
-+
- #include "gt/gen6_ppgtt.h"
- #include "gt/intel_context.h"
- #include "gt/intel_context_param.h"
-@@ -224,10 +226,6 @@ static void intel_context_set_gem(struct intel_context *ce,
- 		ce->vm = vm;
- 	}
+ 	if (args->flags || args->pad)
+ 		return -EINVAL;
  
--	GEM_BUG_ON(ce->timeline);
--	if (ctx->timeline)
--		ce->timeline = intel_timeline_get(ctx->timeline);
--
- 	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
- 	    intel_engine_has_timeslices(ce->engine))
- 		__set_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
-@@ -351,9 +349,6 @@ void i915_gem_context_release(struct kref *ref)
- 	mutex_destroy(&ctx->engines_mutex);
- 	mutex_destroy(&ctx->lut_mutex);
- 
--	if (ctx->timeline)
--		intel_timeline_put(ctx->timeline);
--
- 	put_pid(ctx->pid);
- 	mutex_destroy(&ctx->mutex);
- 
-@@ -570,6 +565,9 @@ static void context_close(struct i915_gem_context *ctx)
- 	if (vm)
- 		i915_vm_close(vm);
- 
-+	if (ctx->syncobj)
-+		drm_syncobj_put(ctx->syncobj);
-+
- 	ctx->file_priv = ERR_PTR(-EBADF);
+-	ret = -ENOENT;
+-	rcu_read_lock();
+-	ctx = __i915_gem_context_lookup_rcu(file->driver_priv, args->ctx_id);
++	ctx = i915_gem_context_lookup(file->driver_priv, args->ctx_id);
+ 	if (!ctx)
+-		goto out;
++		return -ENOENT;
  
  	/*
-@@ -765,33 +763,11 @@ static void __assign_ppgtt(struct i915_gem_context *ctx,
- 		i915_vm_close(vm);
+ 	 * We opt for unserialised reads here. This may result in tearing
+@@ -2116,10 +2113,8 @@ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev,
+ 	args->batch_active = atomic_read(&ctx->guilty_count);
+ 	args->batch_pending = atomic_read(&ctx->active_count);
+ 
+-	ret = 0;
+-out:
+-	rcu_read_unlock();
+-	return ret;
++	i915_gem_context_put(ctx);
++	return 0;
  }
  
--static void __set_timeline(struct intel_timeline **dst,
--			   struct intel_timeline *src)
+ /* GEM context-engines iterator: for_each_gem_engine() */
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 6dff4ca012419..ae45ea7b26997 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1853,19 +1853,13 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
+ 
+ struct dma_buf *i915_gem_prime_export(struct drm_gem_object *gem_obj, int flags);
+ 
+-static inline struct i915_gem_context *
+-__i915_gem_context_lookup_rcu(struct drm_i915_file_private *file_priv, u32 id)
 -{
--	struct intel_timeline *old = *dst;
--
--	*dst = src ? intel_timeline_get(src) : NULL;
--
--	if (old)
--		intel_timeline_put(old);
+-	return xa_load(&file_priv->context_xa, id);
 -}
 -
--static void __apply_timeline(struct intel_context *ce, void *timeline)
--{
--	__set_timeline(&ce->timeline, timeline);
--}
--
--static void __assign_timeline(struct i915_gem_context *ctx,
--			      struct intel_timeline *timeline)
--{
--	__set_timeline(&ctx->timeline, timeline);
--	context_apply_all(ctx, __apply_timeline, timeline);
--}
--
- static struct i915_gem_context *
- i915_gem_create_context(struct drm_i915_private *i915, unsigned int flags)
+ static inline struct i915_gem_context *
+ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
  {
  	struct i915_gem_context *ctx;
-+	int ret;
  
- 	if (flags & I915_CONTEXT_CREATE_FLAGS_SINGLE_TIMELINE &&
- 	    !HAS_EXECLISTS(i915))
-@@ -820,16 +796,13 @@ i915_gem_create_context(struct drm_i915_private *i915, unsigned int flags)
- 	}
- 
- 	if (flags & I915_CONTEXT_CREATE_FLAGS_SINGLE_TIMELINE) {
--		struct intel_timeline *timeline;
--
--		timeline = intel_timeline_create(&i915->gt);
--		if (IS_ERR(timeline)) {
-+		ret = drm_syncobj_create(&ctx->syncobj,
-+					 DRM_SYNCOBJ_CREATE_SIGNALED,
-+					 NULL);
-+		if (ret) {
- 			context_close(ctx);
--			return ERR_CAST(timeline);
-+			return ERR_PTR(ret);
- 		}
--
--		__assign_timeline(ctx, timeline);
--		intel_timeline_put(timeline);
- 	}
- 
- 	trace_i915_context_create(ctx);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index 676592e27e7d2..df76767f0c41b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -83,7 +83,19 @@ struct i915_gem_context {
- 	struct i915_gem_engines __rcu *engines;
- 	struct mutex engines_mutex; /* guards writes to engines */
- 
--	struct intel_timeline *timeline;
-+	/**
-+	 * @syncobj: Shared timeline syncobj
-+	 *
-+	 * When the SHARED_TIMELINE flag is set on context creation, we
-+	 * emulate a single timeline across all engines using this syncobj.
-+	 * For every execbuffer2 call, this syncobj is used as both an in-
-+	 * and out-fence.  Unlike the real intel_timeline, this doesn't
-+	 * provide perfect atomic in-order guarantees if the client races
-+	 * with itself by calling execbuffer2 twice concurrently.  However,
-+	 * if userspace races with itself, that's not likely to yield well-
-+	 * defined results anyway so we choose to not care.
-+	 */
-+	struct drm_syncobj *syncobj;
- 
- 	/**
- 	 * @vm: unique address space (GTT)
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 73acc65d25bad..7b7897242a837 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -3479,6 +3479,16 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 		goto err_vma;
- 	}
- 
-+	if (unlikely(eb.gem_context->syncobj)) {
-+		struct dma_fence *fence;
-+
-+		fence = drm_syncobj_fence_get(eb.gem_context->syncobj);
-+		err = i915_request_await_dma_fence(eb.request, fence);
-+		dma_fence_put(fence);
-+		if (err)
-+			goto err_ext;
-+	}
-+
- 	if (in_fence) {
- 		if (args->flags & I915_EXEC_FENCE_SUBMIT)
- 			err = i915_request_await_execution(eb.request,
-@@ -3536,6 +3546,12 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 			fput(out_fence->file);
- 		}
- 	}
-+
-+	if (unlikely(eb.gem_context->syncobj)) {
-+		drm_syncobj_replace_fence(eb.gem_context->syncobj,
-+					  &eb.request->fence);
-+	}
-+
- 	i915_request_put(eb.request);
- 
- err_vma:
+ 	rcu_read_lock();
+-	ctx = __i915_gem_context_lookup_rcu(file_priv, id);
++	ctx = xa_load(&file_priv->context_xa, id);
+ 	if (ctx && !kref_get_unless_zero(&ctx->ref))
+ 		ctx = NULL;
+ 	rcu_read_unlock();
 -- 
 2.31.1
 
