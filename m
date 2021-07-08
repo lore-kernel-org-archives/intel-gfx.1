@@ -7,41 +7,39 @@ X-Spam-Status: No, score=-17.0 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C920EC11F67
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 16:04:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 53DBFC07E99
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 16:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9FFCE61878
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 16:04:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9FFCE61878
+	by mail.kernel.org (Postfix) with ESMTPS id 23D8E61874
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jul 2021 16:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23D8E61874
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1806E918;
-	Thu,  8 Jul 2021 16:04:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 962ED6E8EF;
+	Thu,  8 Jul 2021 16:04:16 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED2F76E918;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3D086E913;
  Thu,  8 Jul 2021 16:04:08 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10039"; a="231293767"
-X-IronPort-AV: E=Sophos;i="5.84,224,1620716400"; d="scan'208";a="231293767"
+X-IronPort-AV: E=McAfee;i="6200,9189,10039"; a="231293784"
+X-IronPort-AV: E=Sophos;i="5.84,224,1620716400"; d="scan'208";a="231293784"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2021 09:03:04 -0700
-X-IronPort-AV: E=Sophos;i="5.84,224,1620716400"; d="scan'208";a="492164217"
+ 08 Jul 2021 09:03:05 -0700
+X-IronPort-AV: E=Sophos;i="5.84,224,1620716400"; d="scan'208";a="492164239"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Jul 2021 09:03:04 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu,  8 Jul 2021 09:20:51 -0700
-Message-Id: <20210708162055.129996-4-matthew.brost@intel.com>
+Date: Thu,  8 Jul 2021 09:20:48 -0700
+Message-Id: <20210708162055.129996-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210708162055.129996-1-matthew.brost@intel.com>
-References: <20210708162055.129996-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/7] drm/i915/guc: Increase size of CTB buffers
+Subject: [Intel-gfx] [PATCH 0/7] CT changes required for GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,50 +57,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of non-blocking CTBs more than one CTB can be in
-flight at a time. Increasing the size of the CTBs should reduce how
-often software hits the case where no space is available in the CTB
-buffer.
+As part of enabling GuC submission discussed in [1], [2], and [3] we
+need optimize and update the CT code as this is now in the critical
+path of submission. This series includes the patches to do that which is
+the first 7 patches from [3]. The patches should have addressed all the
+feedback in [3] and should be ready to merge once CI returns a we get a
+few more RBs.
 
-Cc: John Harrison <john.c.harrison@intel.com>
+v2: Fix checkpatch warning, address a couple of Michal's comments
+v3: Address John Harrison's comments
+v4: Address remaining comments, resend for patchworks to merge
+
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 80db59b45c45..43e03aa2dde8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -58,11 +58,16 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
-  *      +--------+-----------------------------------------------+------+
-  *
-  * Size of each `CT Buffer`_ must be multiple of 4K.
-- * As we don't expect too many messages, for now use minimum sizes.
-+ * We don't expect too many messages in flight at any time, unless we are
-+ * using the GuC submission. In that case each request requires a minimum
-+ * 2 dwords which gives us a maximum 256 queue'd requests. Hopefully this
-+ * enough space to avoid backpressure on the driver. We increase the size
-+ * of the receive buffer (relative to the send) to ensure a G2H response
-+ * CTB has a landing spot.
-  */
- #define CTB_DESC_SIZE		ALIGN(sizeof(struct guc_ct_buffer_desc), SZ_2K)
- #define CTB_H2G_BUFFER_SIZE	(SZ_4K)
--#define CTB_G2H_BUFFER_SIZE	(SZ_4K)
-+#define CTB_G2H_BUFFER_SIZE	(4 * CTB_H2G_BUFFER_SIZE)
- 
- struct ct_request {
- 	struct list_head link;
-@@ -643,7 +648,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 	/* beware of buffer wrap case */
- 	if (unlikely(available < 0))
- 		available += size;
--	CT_DEBUG(ct, "available %d (%u:%u)\n", available, head, tail);
-+	CT_DEBUG(ct, "available %d (%u:%u:%u)\n", available, head, tail, size);
- 	GEM_BUG_ON(available < 0);
- 
- 	header = cmds[head];
+[1] https://patchwork.freedesktop.org/series/89844/
+[2] https://patchwork.freedesktop.org/series/91417/
+[3] https://patchwork.freedesktop.org/series/91840/
+
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+
+John Harrison (1):
+  drm/i915/guc: Module load failure test for CT buffer creation
+
+Matthew Brost (6):
+  drm/i915/guc: Relax CTB response timeout
+  drm/i915/guc: Improve error message for unsolicited CT response
+  drm/i915/guc: Increase size of CTB buffers
+  drm/i915/guc: Add non blocking CTB send function
+  drm/i915/guc: Add stall timer to non blocking CTB send function
+  drm/i915/guc: Optimize CTB writes and reads
+
+ .../gt/uc/abi/guc_communication_ctb_abi.h     |   3 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  11 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 256 +++++++++++++++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  14 +-
+ 4 files changed, 234 insertions(+), 50 deletions(-)
+
 -- 
 2.28.0
 
