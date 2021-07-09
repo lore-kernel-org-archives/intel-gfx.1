@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CDB5C07E99
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jul 2021 03:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2F9BC07E99
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jul 2021 04:16:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E23F613B2
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jul 2021 03:53:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E23F613B2
+	by mail.kernel.org (Postfix) with ESMTPS id 5EF8D61447
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jul 2021 04:16:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5EF8D61447
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6EBE6E95B;
-	Fri,  9 Jul 2021 03:53:24 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B37046E95B
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Jul 2021 03:53:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10039"; a="196918283"
-X-IronPort-AV: E=Sophos;i="5.84,225,1620716400"; d="scan'208";a="196918283"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2021 20:53:22 -0700
-X-IronPort-AV: E=Sophos;i="5.84,225,1620716400"; d="scan'208";a="411656455"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6C376E95B;
+	Fri,  9 Jul 2021 04:16:22 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3456B6E95B
+ for <intel-gfx@lists.freedesktop.org>; Fri,  9 Jul 2021 04:16:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10039"; a="196818544"
+X-IronPort-AV: E=Sophos;i="5.84,225,1620716400"; d="scan'208";a="196818544"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2021 21:16:19 -0700
+X-IronPort-AV: E=Sophos;i="5.84,225,1620716400"; d="scan'208";a="560838099"
 Received: from mdroper-desk1.fm.intel.com (HELO
  mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2021 20:53:22 -0700
-Date: Thu, 8 Jul 2021 20:53:21 -0700
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2021 21:16:18 -0700
+Date: Thu, 8 Jul 2021 21:16:16 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Message-ID: <20210709035321.GC951094@mdroper-desk1.amr.corp.intel.com>
+Message-ID: <20210709041616.GD951094@mdroper-desk1.amr.corp.intel.com>
 References: <20210708231821.9163-1-anusha.srivatsa@intel.com>
- <20210708231821.9163-9-anusha.srivatsa@intel.com>
+ <20210708231821.9163-10-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210708231821.9163-9-anusha.srivatsa@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 08/10] drm/i915/bxt: Use revid->stepping
- tables
+In-Reply-To: <20210708231821.9163-10-anusha.srivatsa@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 09/10] drm/i915/step: Add intel_step_name()
+ helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,68 +62,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 08, 2021 at 04:18:19PM -0700, Anusha Srivatsa wrote:
-> Switch BXT to use a revid->stepping table as we're trying to do on all
-> platforms going forward.
-> 
-> Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-> ---
->  drivers/gpu/drm/i915/intel_step.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
-> index c4ce02d22828..99c0d3df001b 100644
-> --- a/drivers/gpu/drm/i915/intel_step.c
-> +++ b/drivers/gpu/drm/i915/intel_step.c
-> @@ -31,6 +31,15 @@ static const struct intel_step_info skl_revid_step_tbl[] = {
->  	[0xA] = { .gt_step = STEP_I1, .display_step = STEP_I1 },
->  };
->  
-> +static const struct intel_step_info bxt_revids[] = {
-> +	[0] = { .gt_step = STEP_A0 },
-> +	[1] = { .gt_step = STEP_A1 },
-> +	[2] = { .gt_step = STEP_A2 },
-> +	[6] = { .gt_step = STEP_B0 },
-> +	[7] = { .gt_step = STEP_B1 },
-> +	[8] = { .gt_step = STEP_B2 },
+On Thu, Jul 08, 2021 at 04:18:20PM -0700, Anusha Srivatsa wrote:
+> Add a helper to convert the step info to string.
+> This is specifically useful when we want to load a specific
+> firmware for a given stepping/substepping combination.
 
-I realize the mistake originates from the #define's that you're
-replacing with these tables, but the values in this table aren't the
-correct GT/display steppings, but rather the SoC stepping; that's the
-wrong thing for us to be matching on for workarounds, DMC versions, etc.
-You want to use column #4 of the bspec table, not column #2.
+What if we use macros to generate the per-stepping code here as well as
+the stepping values in the enum?
 
-Also we need to update this to use the proper revisions from the bspec;
-most of the ones you have here were temporary placeholders before the
-platform was released and the actual revisions that showed up in real
-hardware are higher than any of your table entries.  If we take into
-account the right-most column of the bspec we'd actually want:
+In intel_step.h:
 
-        static  const struct intel_step_info bxt_revids[] = {
-                [0xA] = { .gt_step = STEP_C0 },
-                [0xB] = { .gt_step = STEP_C0 },
-                [0xC] = { .gt_step = STEP_D0 },
-                [0xD] = { .gt_step = STEP_E0 },
+        #define STEPPING_NAME_LIST(func) \
+                func(A0)
+                func(A1)
+                func(A2)
+                func(B0)
+                ...
+
+        #define STEPPING_ENUM_VAL(name)  STEP_##name,
+
+        enum intel_step {
+                STEP_NONE = 0,
+                STEPPING_NAME_LIST(STEPPING_ENUM_VAL)
+                STEP_FUTURE,
+                STEP_FOREVER,
         };
+
+and in intel_step.c:
+
+        #define STEPPING_NAME_CASE(name)        \
+                case STEP_##name:               \
+                        return #name;           \
+                        break;
+
+        const char *intel_step_name(enum intel_step step) {
+                switch(step) {
+                STEPPING_NAME_LIST(STEPPING_NAME_CASE)
+
+                default:
+                        return "**";
+                }
+        }
+
+This has the advantage that anytime a new stepping is added (in
+STEPPING_NAME_LIST) it will generate a new "STEP_XX" enum value and a
+new case statement to return "XX" as the name; we won't have to remember
+to update two separate places in the code.
 
 
 Matt
 
-> +};
+> 
+> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+> Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+> ---
+>  drivers/gpu/drm/i915/intel_step.c | 58 +++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/i915/intel_step.h |  1 +
+>  2 files changed, 59 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
+> index 99c0d3df001b..9af7f30b777e 100644
+> --- a/drivers/gpu/drm/i915/intel_step.c
+> +++ b/drivers/gpu/drm/i915/intel_step.c
+> @@ -182,3 +182,61 @@ void intel_step_init(struct drm_i915_private *i915)
+>  
+>  	RUNTIME_INFO(i915)->step = step;
+>  }
 > +
->  static const struct intel_step_info kbl_revid_step_tbl[] = {
->  	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
->  	[1] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
-> @@ -129,6 +138,9 @@ void intel_step_init(struct drm_i915_private *i915)
->  	} else if (IS_KABYLAKE(i915)) {
->  		revids = kbl_revid_step_tbl;
->  		size = ARRAY_SIZE(kbl_revid_step_tbl);
-> +	} else if (IS_BROXTON(i915)) {
-> +		revids = bxt_revids;
-> +		size = ARRAY_SIZE(bxt_revids);
->  	} else if (IS_SKYLAKE(i915)) {
->  		revids = skl_revid_step_tbl;
->  		size = ARRAY_SIZE(skl_revid_step_tbl);
+> +const char *intel_step_name(enum intel_step step) {
+> +	switch (step) {
+> +	case STEP_A0:
+> +		return "A0";
+> +		break;
+> +	case STEP_A1:
+> +		return "A1";
+> +		break;
+> +	case STEP_A2:
+> +		return "A2";
+> +		break;
+> +	case STEP_B0:
+> +		return "B0";
+> +		break;
+> +	case STEP_B1:
+> +		return "B1";
+> +		break;
+> +	case STEP_B2:
+> +		return "B2";
+> +		break;
+> +	case STEP_C0:
+> +		return "C0";
+> +		break;
+> +	case STEP_C1:
+> +		return "C1";
+> +		break;
+> +	case STEP_D0:
+> +		return "D0";
+> +		break;
+> +	case STEP_D1:
+> +		return "D1";
+> +		break;
+> +	case STEP_E0:
+> +		return "E0";
+> +		break;
+> +	case STEP_F0:
+> +		return "F0";
+> +		break;
+> +	case STEP_G0:
+> +		return "G0";
+> +		break;
+> +	case STEP_H0:
+> +		return "H0";
+> +		break;
+> +	case STEP_I0:
+> +		return "I0";
+> +		break;
+> +	case STEP_I1:
+> +		return "I1";
+> +		break;
+> +	case STEP_J0:
+> +		return "J0";
+> +		break;
+> +	default:
+> +		return "**";
+> +	}
+> +}
+> diff --git a/drivers/gpu/drm/i915/intel_step.h b/drivers/gpu/drm/i915/intel_step.h
+> index 3e8b2babd9da..2fbe51483472 100644
+> --- a/drivers/gpu/drm/i915/intel_step.h
+> +++ b/drivers/gpu/drm/i915/intel_step.h
+> @@ -43,5 +43,6 @@ enum intel_step {
+>  };
+>  
+>  void intel_step_init(struct drm_i915_private *i915);
+> +const char *intel_step_name(enum intel_step step);
+>  
+>  #endif /* __INTEL_STEP_H__ */
 > -- 
 > 2.32.0
 > 
