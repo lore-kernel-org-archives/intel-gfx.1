@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-15.5 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A7ECC07E99
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jul 2021 22:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49337C07E99
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jul 2021 23:03:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E637A613BF
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jul 2021 22:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E637A613BF
+	by mail.kernel.org (Postfix) with ESMTPS id 01F1361289
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jul 2021 23:03:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01F1361289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E076E9AD;
-	Fri,  9 Jul 2021 22:59:19 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E8D6E9AD;
- Fri,  9 Jul 2021 22:59:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10040"; a="209832022"
-X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="209832022"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4C226E9AD;
+	Fri,  9 Jul 2021 23:03:25 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 181886E9AD;
+ Fri,  9 Jul 2021 23:03:25 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10040"; a="207969359"
+X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="207969359"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2021 15:59:13 -0700
-X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="649662561"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2021 16:03:16 -0700
+X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="649663637"
 Received: from johnharr-mobl1.amr.corp.intel.com (HELO [10.212.142.243])
  ([10.212.142.243])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2021 15:59:12 -0700
+ 09 Jul 2021 16:03:15 -0700
 To: Matthew Brost <matthew.brost@intel.com>, intel-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org
 References: <20210624070516.21893-1-matthew.brost@intel.com>
- <20210624070516.21893-18-matthew.brost@intel.com>
+ <20210624070516.21893-19-matthew.brost@intel.com>
 From: John Harrison <john.c.harrison@intel.com>
-Message-ID: <1b8ede0f-538b-8633-8e25-542158562c31@intel.com>
-Date: Fri, 9 Jul 2021 15:59:11 -0700
+Message-ID: <bb7c547e-bb3d-ce63-75b4-dada8d501c58@intel.com>
+Date: Fri, 9 Jul 2021 16:03:15 -0700
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210624070516.21893-18-matthew.brost@intel.com>
+In-Reply-To: <20210624070516.21893-19-matthew.brost@intel.com>
 Content-Language: en-GB
-Subject: Re: [Intel-gfx] [PATCH 17/47] drm/i915/guc: Extend deregistration
- fence to schedule disable
+Subject: Re: [Intel-gfx] [PATCH 18/47] drm/i915: Disable preempt busywait
+ when using GuC scheduling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,97 +65,47 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On 6/24/2021 00:04, Matthew Brost wrote:
-> Extend the deregistration context fence to fence whne a GuC context has
-> scheduling disable pending.
+> Disable preempt busywait when using GuC scheduling. This isn't need as
+needed
+
+> the GuC control preemption when scheduling.
+controls
+
+With the above fixed:
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+
+
 >
 > Cc: John Harrison <john.c.harrison@intel.com>
 > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 > ---
->   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 37 +++++++++++++++----
->   1 file changed, 30 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> index 0386ccd5a481..0a6ccdf32316 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> @@ -918,7 +918,19 @@ static void guc_context_sched_disable(struct intel_context *ce)
->   		goto unpin;
+> diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+> index 87b06572fd2e..f7aae502ec3d 100644
+> --- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+> +++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+> @@ -506,7 +506,8 @@ gen8_emit_fini_breadcrumb_tail(struct i915_request *rq, u32 *cs)
+>   	*cs++ = MI_USER_INTERRUPT;
 >   
->   	spin_lock_irqsave(&ce->guc_state.lock, flags);
-> +
-> +	/*
-> +	 * We have to check if the context has been pinned again as another pin
-> +	 * operation is allowed to pass this function. Checking the pin count
-> +	 * here synchronizes this function with guc_request_alloc ensuring a
-> +	 * request doesn't slip through the 'context_pending_disable' fence.
-> +	 */
-The pin count is an atomic so doesn't need the spinlock. Also the above 
-comment 'checking the pin count here synchronizes ...' seems wrong. 
-Isn't the point that acquiring the spinlock is what synchronises with 
-guc_request_alloc? So the comment should be before the spinlock acquire 
-and should mention using the spinlock for this purpose?
-
-John.
-
-
-> +	if (unlikely(atomic_add_unless(&ce->pin_count, -2, 2))) {
-> +		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-> +		return;
-> +	}
->   	guc_id = prep_context_pending_disable(ce);
-> +
->   	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+>   	*cs++ = MI_ARB_ON_OFF | MI_ARB_ENABLE;
+> -	if (intel_engine_has_semaphores(rq->engine))
+> +	if (intel_engine_has_semaphores(rq->engine) &&
+> +	    !intel_uc_uses_guc_submission(&rq->engine->gt->uc))
+>   		cs = emit_preempt_busywait(rq, cs);
 >   
->   	with_intel_runtime_pm(runtime_pm, wakeref)
-> @@ -1123,19 +1135,22 @@ static int guc_request_alloc(struct i915_request *rq)
->   out:
->   	/*
->   	 * We block all requests on this context if a G2H is pending for a
-> -	 * context deregistration as the GuC will fail a context registration
-> -	 * while this G2H is pending. Once a G2H returns, the fence is released
-> -	 * that is blocking these requests (see guc_signal_context_fence).
-> +	 * schedule disable or context deregistration as the GuC will fail a
-> +	 * schedule enable or context registration if either G2H is pending
-> +	 * respectfully. Once a G2H returns, the fence is released that is
-> +	 * blocking these requests (see guc_signal_context_fence).
->   	 *
-> -	 * We can safely check the below field outside of the lock as it isn't
-> -	 * possible for this field to transition from being clear to set but
-> +	 * We can safely check the below fields outside of the lock as it isn't
-> +	 * possible for these fields to transition from being clear to set but
->   	 * converse is possible, hence the need for the check within the lock.
->   	 */
-> -	if (likely(!context_wait_for_deregister_to_register(ce)))
-> +	if (likely(!context_wait_for_deregister_to_register(ce) &&
-> +		   !context_pending_disable(ce)))
->   		return 0;
+>   	rq->tail = intel_ring_offset(rq, cs);
+> @@ -598,7 +599,8 @@ gen12_emit_fini_breadcrumb_tail(struct i915_request *rq, u32 *cs)
+>   	*cs++ = MI_USER_INTERRUPT;
 >   
->   	spin_lock_irqsave(&ce->guc_state.lock, flags);
-> -	if (context_wait_for_deregister_to_register(ce)) {
-> +	if (context_wait_for_deregister_to_register(ce) ||
-> +	    context_pending_disable(ce)) {
->   		i915_sw_fence_await(&rq->submit);
+>   	*cs++ = MI_ARB_ON_OFF | MI_ARB_ENABLE;
+> -	if (intel_engine_has_semaphores(rq->engine))
+> +	if (intel_engine_has_semaphores(rq->engine) &&
+> +	    !intel_uc_uses_guc_submission(&rq->engine->gt->uc))
+>   		cs = gen12_emit_preempt_busywait(rq, cs);
 >   
->   		list_add_tail(&rq->guc_fence_link, &ce->guc_state.fences);
-> @@ -1484,10 +1499,18 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
->   	if (context_pending_enable(ce)) {
->   		clr_context_pending_enable(ce);
->   	} else if (context_pending_disable(ce)) {
-> +		/*
-> +		 * Unpin must be done before __guc_signal_context_fence,
-> +		 * otherwise a race exists between the requests getting
-> +		 * submitted + retired before this unpin completes resulting in
-> +		 * the pin_count going to zero and the context still being
-> +		 * enabled.
-> +		 */
->   		intel_context_sched_disable_unpin(ce);
->   
->   		spin_lock_irqsave(&ce->guc_state.lock, flags);
->   		clr_context_pending_disable(ce);
-> +		__guc_signal_context_fence(ce);
->   		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
->   	}
->   
+>   	rq->tail = intel_ring_offset(rq, cs);
 
 _______________________________________________
 Intel-gfx mailing list
