@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-17.0 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDA87C07E9C
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBC54C11F68
 	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 03:37:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B057F613DC
-	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 03:37:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B057F613DC
+	by mail.kernel.org (Postfix) with ESMTPS id 97560613D0
+	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 03:37:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 97560613D0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F2336EAD7;
-	Sat, 10 Jul 2021 03:37:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 157A96EADB;
+	Sat, 10 Jul 2021 03:37:53 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B30126EAD0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C8566EACA
  for <intel-gfx@lists.freedesktop.org>; Sat, 10 Jul 2021 03:37:43 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10040"; a="273639490"
-X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="273639490"
+X-IronPort-AV: E=McAfee;i="6200,9189,10040"; a="273639487"
+X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="273639487"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  09 Jul 2021 20:37:42 -0700
-X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="566571898"
+X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="566571892"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  09 Jul 2021 20:37:41 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  9 Jul 2021 20:37:17 -0700
-Message-Id: <20210710033724.2459367-6-matthew.d.roper@intel.com>
+Date: Fri,  9 Jul 2021 20:37:15 -0700
+Message-Id: <20210710033724.2459367-4-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210710033724.2459367-1-matthew.d.roper@intel.com>
 References: <20210710033724.2459367-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 05/12] drm/i915/bxt: Use revid->stepping
+Subject: [Intel-gfx] [PATCH v2 03/12] drm/i915/skl: Use revid->stepping
  tables
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,71 +59,132 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Switch BXT to use a revid->stepping table as we're trying to do on all
-platforms going forward.  Note that the REVID macros we had before
-weren't being used anywhere in the code and weren't even correct; the
-table values come from the bspec (and omits all the placeholder and
-preproduction revisions).
+Switch SKL to use a revid->stepping table as we're trying to do on all
+platforms going forward.  Also drop the preproduction revisions and add
+the newer steppings we hadn't already handled.
 
-Although nothing in the code is using the data from this table at the
-moment, we expect some upcoming DMC patches to start utilizing it.
+Note that SKL has a case where a newer revision ID corresponds to an
+older GT/disp stepping (0x9 -> STEP_J0, 0xA -> STEP_I1).  Also, the lack
+of a revision ID 0x8 in the table is intentional and not an oversight.
+We'll re-write the KBL-specific comment to make it clear that these kind
+of quirks are expected.
 
-Bspec: 13620
+v2:
+ - Since GT and display steppings are always identical on SKL use a
+   macro to set both values at once in a more readable manner.  (Anusha)
+ - Drop preproduction steppings.
+
+Bspec: 13626
 Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h   |  9 ---------
- drivers/gpu/drm/i915/intel_step.c | 10 ++++++++++
- 2 files changed, 10 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c |  2 +-
+ drivers/gpu/drm/i915/i915_drv.h             | 11 +-------
+ drivers/gpu/drm/i915/intel_step.c           | 30 +++++++++++++++++----
+ drivers/gpu/drm/i915/intel_step.h           |  4 +++
+ 4 files changed, 31 insertions(+), 16 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index d9a5a445ceec..6dfd564e078f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -883,7 +883,7 @@ skl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 		    GEN8_EU_GAUNIT_CLOCK_GATE_DISABLE);
+ 
+ 	/* WaInPlaceDecompressionHang:skl */
+-	if (IS_SKL_REVID(i915, SKL_REVID_H0, REVID_FOREVER))
++	if (IS_SKL_GT_STEP(i915, STEP_H0, STEP_FOREVER))
+ 		wa_write_or(wal,
+ 			    GEN9_GAMT_ECO_REG_RW_IA,
+ 			    GAMT_ECO_ENABLE_IN_PLACE_DECOMPRESS);
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index f30499ed6787..afb159f2a658 100644
+index c4747f4407ef..f30499ed6787 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1517,15 +1517,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+@@ -1515,16 +1515,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_TGL_Y(dev_priv) \
+ 	IS_SUBPLATFORM(dev_priv, INTEL_TIGERLAKE, INTEL_SUBPLATFORM_ULX)
  
- #define IS_SKL_GT_STEP(p, since, until) (IS_SKYLAKE(p) && IS_GT_STEP(p, since, until))
+-#define SKL_REVID_A0		0x0
+-#define SKL_REVID_B0		0x1
+-#define SKL_REVID_C0		0x2
+-#define SKL_REVID_D0		0x3
+-#define SKL_REVID_E0		0x4
+-#define SKL_REVID_F0		0x5
+-#define SKL_REVID_G0		0x6
+-#define SKL_REVID_H0		0x7
+-
+-#define IS_SKL_REVID(p, since, until) (IS_SKYLAKE(p) && IS_REVID(p, since, until))
++#define IS_SKL_GT_STEP(p, since, until) (IS_SKYLAKE(p) && IS_GT_STEP(p, since, until))
  
--#define BXT_REVID_A0		0x0
--#define BXT_REVID_A1		0x1
--#define BXT_REVID_B0		0x3
--#define BXT_REVID_B_LAST	0x8
--#define BXT_REVID_C0		0x9
--
--#define IS_BXT_REVID(dev_priv, since, until) \
--	(IS_BROXTON(dev_priv) && IS_REVID(dev_priv, since, until))
--
- #define IS_KBL_GT_STEP(dev_priv, since, until) \
- 	(IS_KABYLAKE(dev_priv) && IS_GT_STEP(dev_priv, since, until))
- #define IS_KBL_DISPLAY_STEP(dev_priv, since, until) \
+ #define BXT_REVID_A0		0x0
+ #define BXT_REVID_A1		0x1
 diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
-index 8987453aa172..41e3904ae6e8 100644
+index 93ccd42f2514..69c928b046e8 100644
 --- a/drivers/gpu/drm/i915/intel_step.c
 +++ b/drivers/gpu/drm/i915/intel_step.c
-@@ -42,6 +42,13 @@ static const struct intel_step_info kbl_revids[] = {
- 	[7] = { .gt_step = STEP_G0, .display_step = STEP_C0 },
- };
+@@ -7,14 +7,31 @@
+ #include "intel_step.h"
  
-+static const struct intel_step_info bxt_revids[] = {
-+	[0xA] = { COMMON_STEPPING(C0) },
-+	[0xB] = { COMMON_STEPPING(C0) },
-+	[0xC] = { COMMON_STEPPING(D0) },
-+	[0xD] = { COMMON_STEPPING(E0) },
-+};
+ /*
+- * KBL revision ID ordering is bizarre; higher revision ID's map to lower
+- * steppings in some cases.  So rather than test against the revision ID
+- * directly, let's map that into our own range of increasing ID's that we
+- * can test against in a regular manner.
++ * Some platforms have unusual ways of mapping PCI revision ID to GT/display
++ * steppings.  E.g., in some cases a higher PCI revision may translate to a
++ * lower stepping of the GT and/or display IP.  This file provides lookup
++ * tables to map the PCI revision into a standard set of stepping values that
++ * can be compared numerically.
++ *
++ * Also note that some revisions/steppings may have been set aside as
++ * placeholders but never materialized in real hardware; in those cases there
++ * may be jumps in the revision IDs or stepping values in the tables below.
+  */
+ 
++/*
++ * Some platforms always have the same stepping value for GT and display;
++ * use a macro to define these to make it easier to identify the platforms
++ * where the two steppings can deviate.
++ */
++#define COMMON_STEPPING(x)  .gt_step = STEP_##x, .display_step = STEP_##x
 +
- static const struct intel_step_info tgl_uy_revids[] = {
++static const struct intel_step_info skl_revids[] = {
++	[0x6] = { COMMON_STEPPING(G0) },
++	[0x7] = { COMMON_STEPPING(H0) },
++	[0x9] = { COMMON_STEPPING(J0) },
++	[0xA] = { COMMON_STEPPING(I1) },
++};
+ 
+-/* FIXME: what about REVID_E0 */
+ static const struct intel_step_info kbl_revids[] = {
  	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
- 	[1] = { .gt_step = STEP_B0, .display_step = STEP_C0 },
-@@ -89,6 +96,9 @@ void intel_step_init(struct drm_i915_private *i915)
- 	} else if (IS_TIGERLAKE(i915)) {
- 		revids = tgl_revids;
- 		size = ARRAY_SIZE(tgl_revids);
-+	} else if (IS_BROXTON(i915)) {
-+		revids = bxt_revids;
-+		size = ARRAY_SIZE(bxt_revids);
+ 	[1] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
+@@ -76,6 +93,9 @@ void intel_step_init(struct drm_i915_private *i915)
  	} else if (IS_KABYLAKE(i915)) {
  		revids = kbl_revids;
  		size = ARRAY_SIZE(kbl_revids);
++	} else if (IS_SKYLAKE(i915)) {
++		revids = skl_revids;
++		size = ARRAY_SIZE(skl_revids);
+ 	}
+ 
+ 	/* Not using the stepping scheme for the platform yet. */
+diff --git a/drivers/gpu/drm/i915/intel_step.h b/drivers/gpu/drm/i915/intel_step.h
+index 958a8bb5d677..88a77159703e 100644
+--- a/drivers/gpu/drm/i915/intel_step.h
++++ b/drivers/gpu/drm/i915/intel_step.h
+@@ -31,6 +31,10 @@ enum intel_step {
+ 	STEP_E0,
+ 	STEP_F0,
+ 	STEP_G0,
++	STEP_H0,
++	STEP_I0,
++	STEP_I1,
++	STEP_J0,
+ 	STEP_FUTURE,
+ 	STEP_FOREVER,
+ };
 -- 
 2.25.4
 
