@@ -2,46 +2,46 @@ Return-Path: <SRS0=Us6R=MC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-17.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70EC7C07E9B
-	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 03:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 146DEC07E9E
+	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 03:37:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 24D8F613E1
-	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 03:37:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24D8F613E1
+	by mail.kernel.org (Postfix) with ESMTPS id BF1FE613DC
+	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 03:37:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF1FE613DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE22E6EAD6;
-	Sat, 10 Jul 2021 03:37:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B376EAD3;
+	Sat, 10 Jul 2021 03:37:45 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 881286EACA
- for <intel-gfx@lists.freedesktop.org>; Sat, 10 Jul 2021 03:37:43 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10040"; a="273639489"
-X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="273639489"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53DC96EAD4
+ for <intel-gfx@lists.freedesktop.org>; Sat, 10 Jul 2021 03:37:44 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10040"; a="273639497"
+X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="273639497"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  09 Jul 2021 20:37:42 -0700
-X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="566571889"
+X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="566571919"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2021 20:37:41 -0700
+ 09 Jul 2021 20:37:42 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  9 Jul 2021 20:37:13 -0700
-Message-Id: <20210710033724.2459367-2-matthew.d.roper@intel.com>
+Date: Fri,  9 Jul 2021 20:37:24 -0700
+Message-Id: <20210710033724.2459367-13-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210710033724.2459367-1-matthew.d.roper@intel.com>
 References: <20210710033724.2459367-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 01/12] drm/i915/step:
- s/<platform>_revid_tbl/<platform>_revids
+Subject: [Intel-gfx] [PATCH v2 12/12] drm/i915/icl: Drop workarounds that
+ only apply to pre-production steppings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,86 +54,112 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+We're past the point at which we usually drop workarounds that were
+never needed on production hardware.  The driver will already print an
+error and apply taint if loaded on pre-production hardware.
 
-Simplify the stepping info array name.
-
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/intel_step.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 39 ---------------------
+ drivers/gpu/drm/i915/i915_drv.h             |  3 --
+ 2 files changed, 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
-index ba9479a67521..93ccd42f2514 100644
---- a/drivers/gpu/drm/i915/intel_step.c
-+++ b/drivers/gpu/drm/i915/intel_step.c
-@@ -26,7 +26,7 @@ static const struct intel_step_info kbl_revids[] = {
- 	[7] = { .gt_step = STEP_G0, .display_step = STEP_C0 },
- };
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 9b257a394305..5ace14cdfa85 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -517,21 +517,12 @@ static void cfl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 				     struct i915_wa_list *wal)
+ {
+-	struct drm_i915_private *i915 = engine->i915;
+-
+ 	/* WaDisableBankHangMode:icl */
+ 	wa_write(wal,
+ 		 GEN8_L3CNTLREG,
+ 		 intel_uncore_read(engine->uncore, GEN8_L3CNTLREG) |
+ 		 GEN8_ERRDETBCTRL);
  
--static const struct intel_step_info tgl_uy_revid_step_tbl[] = {
-+static const struct intel_step_info tgl_uy_revids[] = {
- 	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
- 	[1] = { .gt_step = STEP_B0, .display_step = STEP_C0 },
- 	[2] = { .gt_step = STEP_B1, .display_step = STEP_C0 },
-@@ -34,12 +34,12 @@ static const struct intel_step_info tgl_uy_revid_step_tbl[] = {
- };
+-	/* Wa_1604370585:icl (pre-prod)
+-	 * Formerly known as WaPushConstantDereferenceHoldDisable
+-	 */
+-	if (IS_ICL_GT_STEP(i915, STEP_A0, STEP_B0))
+-		wa_masked_en(wal, GEN7_ROW_CHICKEN2,
+-			     PUSH_CONSTANT_DEREF_DISABLE);
+-
+ 	/* WaForceEnableNonCoherent:icl
+ 	 * This is not the same workaround as in early Gen9 platforms, where
+ 	 * lacking this could cause system hangs, but coherency performance
+@@ -541,18 +532,6 @@ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	 */
+ 	wa_masked_en(wal, ICL_HDC_MODE, HDC_FORCE_NON_COHERENT);
  
- /* Same GT stepping between tgl_uy_revids and tgl_revids don't mean the same HW */
--static const struct intel_step_info tgl_revid_step_tbl[] = {
-+static const struct intel_step_info tgl_revids[] = {
- 	[0] = { .gt_step = STEP_A0, .display_step = STEP_B0 },
- 	[1] = { .gt_step = STEP_B0, .display_step = STEP_D0 },
- };
+-	/* Wa_2006611047:icl (pre-prod)
+-	 * Formerly known as WaDisableImprovedTdlClkGating
+-	 */
+-	if (IS_ICL_GT_STEP(i915, STEP_A0, STEP_A0))
+-		wa_masked_en(wal, GEN7_ROW_CHICKEN2,
+-			     GEN11_TDL_CLOCK_GATING_FIX_DISABLE);
+-
+-	/* Wa_2006665173:icl (pre-prod) */
+-	if (IS_ICL_GT_STEP(i915, STEP_A0, STEP_A0))
+-		wa_masked_en(wal, GEN11_COMMON_SLICE_CHICKEN3,
+-			     GEN11_BLEND_EMB_FIX_DISABLE_IN_RCC);
+-
+ 	/* WaEnableFloatBlendOptimization:icl */
+ 	wa_write_clr_set(wal,
+ 			 GEN10_CACHE_MODE_SS,
+@@ -982,18 +961,6 @@ icl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 		    GEN8_GAMW_ECO_DEV_RW_IA,
+ 		    GAMW_ECO_DEV_CTX_RELOAD_DISABLE);
  
--static const struct intel_step_info adls_revid_step_tbl[] = {
-+static const struct intel_step_info adls_revids[] = {
- 	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
- 	[0x1] = { .gt_step = STEP_A0, .display_step = STEP_A2 },
- 	[0x4] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
-@@ -47,7 +47,7 @@ static const struct intel_step_info adls_revid_step_tbl[] = {
- 	[0xC] = { .gt_step = STEP_D0, .display_step = STEP_C0 },
- };
+-	/* Wa_1405779004:icl (pre-prod) */
+-	if (IS_ICL_GT_STEP(i915, STEP_A0, STEP_A0))
+-		wa_write_or(wal,
+-			    SLICE_UNIT_LEVEL_CLKGATE,
+-			    MSCUNIT_CLKGATE_DIS);
+-
+-	/* Wa_1406838659:icl (pre-prod) */
+-	if (IS_ICL_GT_STEP(i915, STEP_A0, STEP_B0))
+-		wa_write_or(wal,
+-			    INF_UNIT_LEVEL_CLKGATE,
+-			    CGPSF_CLKGATE_DIS);
+-
+ 	/* Wa_1406463099:icl
+ 	 * Formerly known as WaGamTlbPendError
+ 	 */
+@@ -1669,12 +1636,6 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 			    PMFLUSH_GAPL3UNBLOCK |
+ 			    PMFLUSHDONE_LNEBLK);
  
--static const struct intel_step_info adlp_revid_step_tbl[] = {
-+static const struct intel_step_info adlp_revids[] = {
- 	[0x0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
- 	[0x4] = { .gt_step = STEP_B0, .display_step = STEP_B0 },
- 	[0x8] = { .gt_step = STEP_C0, .display_step = STEP_C0 },
-@@ -62,17 +62,17 @@ void intel_step_init(struct drm_i915_private *i915)
- 	struct intel_step_info step = {};
+-		/* Wa_1406609255:icl (pre-prod) */
+-		if (IS_ICL_GT_STEP(i915, STEP_A0, STEP_B0))
+-			wa_write_or(wal,
+-				    GEN7_SARCHKMD,
+-				    GEN7_DISABLE_DEMAND_PREFETCH);
+-
+ 		/* Wa_1606682166:icl */
+ 		wa_write_or(wal,
+ 			    GEN7_SARCHKMD,
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 8682a5f557c5..da5f230e2d4b 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1513,9 +1513,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_KBL_DISPLAY_STEP(dev_priv, since, until) \
+ 	(IS_KABYLAKE(dev_priv) && IS_DISPLAY_STEP(dev_priv, since, until))
  
- 	if (IS_ALDERLAKE_P(i915)) {
--		revids = adlp_revid_step_tbl;
--		size = ARRAY_SIZE(adlp_revid_step_tbl);
-+		revids = adlp_revids;
-+		size = ARRAY_SIZE(adlp_revids);
- 	} else if (IS_ALDERLAKE_S(i915)) {
--		revids = adls_revid_step_tbl;
--		size = ARRAY_SIZE(adls_revid_step_tbl);
-+		revids = adls_revids;
-+		size = ARRAY_SIZE(adls_revids);
- 	} else if (IS_TGL_U(i915) || IS_TGL_Y(i915)) {
--		revids = tgl_uy_revid_step_tbl;
--		size = ARRAY_SIZE(tgl_uy_revid_step_tbl);
-+		revids = tgl_uy_revids;
-+		size = ARRAY_SIZE(tgl_uy_revids);
- 	} else if (IS_TIGERLAKE(i915)) {
--		revids = tgl_revid_step_tbl;
--		size = ARRAY_SIZE(tgl_revid_step_tbl);
-+		revids = tgl_revids;
-+		size = ARRAY_SIZE(tgl_revids);
- 	} else if (IS_KABYLAKE(i915)) {
- 		revids = kbl_revids;
- 		size = ARRAY_SIZE(kbl_revids);
+-#define IS_ICL_GT_STEP(p, since, until) \
+-	(IS_ICELAKE(p) && IS_GT_STEP(p, since, until))
+-
+ #define IS_JSL_EHL_GT_STEP(p, since, until) \
+ 	(IS_JSL_EHL(p) && IS_GT_STEP(p, since, until))
+ #define IS_JSL_EHL_DISPLAY_STEP(p, since, until) \
 -- 
 2.25.4
 
