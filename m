@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC5E3C07E95
-	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 05:06:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12305C07E95
+	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 05:07:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 50F96613E4
-	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 05:06:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50F96613E4
+	by mail.kernel.org (Postfix) with ESMTPS id AE168613E4
+	for <intel-gfx@archiver.kernel.org>; Sat, 10 Jul 2021 05:07:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE168613E4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7CF26EAD2;
-	Sat, 10 Jul 2021 05:06:09 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01C446EAD2
- for <intel-gfx@lists.freedesktop.org>; Sat, 10 Jul 2021 05:06:07 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10040"; a="273642326"
-X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="273642326"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2021 22:06:06 -0700
-X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="458570467"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD046EAD2;
+	Sat, 10 Jul 2021 05:07:07 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 891806EAD2
+ for <intel-gfx@lists.freedesktop.org>; Sat, 10 Jul 2021 05:07:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10040"; a="189491026"
+X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="189491026"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2021 22:07:06 -0700
+X-IronPort-AV: E=Sophos;i="5.84,228,1620716400"; d="scan'208";a="429038306"
 Received: from mdroper-desk1.fm.intel.com (HELO
  mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2021 22:06:06 -0700
-Date: Fri, 9 Jul 2021 22:06:04 -0700
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2021 22:07:05 -0700
+Date: Fri, 9 Jul 2021 22:07:04 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>
-Message-ID: <20210710050604.GP951094@mdroper-desk1.amr.corp.intel.com>
+Message-ID: <20210710050704.GQ951094@mdroper-desk1.amr.corp.intel.com>
 References: <20210708211827.288601-1-jose.souza@intel.com>
- <20210708211827.288601-2-jose.souza@intel.com>
+ <20210708211827.288601-3-jose.souza@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210708211827.288601-2-jose.souza@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 2/7] drm/i915: Implement Wa_1508744258
+In-Reply-To: <20210708211827.288601-3-jose.souza@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 3/7] drm/i915/adl_s: Extend Wa_1406941453
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +61,37 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 08, 2021 at 02:18:22PM -0700, Jos=E9 Roberto de Souza wrote:
-> Same bit was required for Wa_14012131227 in DG1 now it is also
-
-This is a DG1-specific number; the general lineage number given here and
-in the comment should be 22011054531 (and this lineage number does apply
-to TGL, RKL, ADL-S, ADL-P, and DG1 too).
-
-> required as Wa_1508744258 to TGL, RKL, DG1, ADL-S and ADL-P.
-
-Technically it's still working its way through the process to become
-official on RKL, but given that it's already an official workaround
-under the other number, I think it's safe to assume this one will become
-official too.
-
-> =
-
+On Thu, Jul 08, 2021 at 02:18:23PM -0700, Jos=E9 Roberto de Souza wrote:
+> BSpec: 54370
 > Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 > Signed-off-by: Jos=E9 Roberto de Souza <jose.souza@intel.com>
 
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 
 > ---
->  drivers/gpu/drm/i915/gt/intel_workarounds.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  drivers/gpu/drm/i915/gt/intel_workarounds.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > =
 
 > diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/dr=
 m/i915/gt/intel_workarounds.c
-> index e5e3f820074a9..c346229e2be00 100644
+> index c346229e2be00..72562c233ad20 100644
 > --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 > +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> @@ -670,6 +670,13 @@ static void gen12_ctx_workarounds_init(struct intel_=
-engine_cs *engine,
->  	       FF_MODE2_GS_TIMER_MASK,
->  	       FF_MODE2_GS_TIMER_224,
->  	       0);
-> +
-> +	/*
-> +	 * Wa_14012131227:dg1
-> +	 * Wa_1508744258:tgl,rkl,dg1,adl-s,adl-p
-> +	 */
-> +	wa_masked_en(wal, GEN7_COMMON_SLICE_CHICKEN1,
-> +		     GEN9_RHWO_OPTIMIZATION_DISABLE);
->  }
+> @@ -1677,8 +1677,9 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, =
+struct i915_wa_list *wal)
+>  			     GEN8_RC_SEMA_IDLE_MSG_DISABLE);
+>  	}
 >  =
 
->  static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
+> -	if (IS_DG1(i915) || IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915)) {
+> -		/* Wa_1406941453:tgl,rkl,dg1 */
+> +	if (IS_DG1(i915) || IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915) ||
+> +	    IS_ALDERLAKE_S(i915)) {
+> +		/* Wa_1406941453:tgl,rkl,dg1,adl-s */
+>  		wa_masked_en(wal,
+>  			     GEN10_SAMPLER_MODE,
+>  			     ENABLE_SMALLPL);
 > -- =
 
 > 2.32.0
