@@ -8,55 +8,55 @@ X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79B09C07E99
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:49:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B34E7C07E9C
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 493A36108B
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:49:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 493A36108B
+	by mail.kernel.org (Postfix) with ESMTPS id 7F13961003
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:49:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F13961003
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9FA89BAE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38EA289B65;
 	Mon, 12 Jul 2021 13:49:55 +0000 (UTC)
-Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
- [IPv6:2607:f8b0:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD5AD6EB8B;
- Sun, 11 Jul 2021 05:50:15 +0000 (UTC)
-Received: by mail-il1-x129.google.com with SMTP id o10so15534129ils.6;
- Sat, 10 Jul 2021 22:50:15 -0700 (PDT)
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A16626EB84;
+ Sun, 11 Jul 2021 05:50:12 +0000 (UTC)
+Received: by mail-io1-xd35.google.com with SMTP id l5so18015997iok.7;
+ Sat, 10 Jul 2021 22:50:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=RfbJyI1hmWPmulBvGl9yUX6sBfIUZuE+x/+Sb4PBAA4=;
- b=SXT+D1muNKI5ua6xuLy01IsiNNVAW/YwLCA/6pZSNl3BxgwBTBJS/ttTdjZmCvnJpV
- HeVS4rz6vpLq1rnZYVign5Ki4DWPILRyLnAyj2C9Z2+ew7+Jfle1uTXLyT13PLR93hTX
- 2k7vxOOI4O7Ves/z5rJSFzJSbuS48hkXzcgCSBPmB7rg/xaRrNO4lPeXVo1wAosjQpfk
- hOBKnog3cC7liGBlJYDZQDsxObcSild+pPv2h3c2j7jChmXC0WAfUPg4EHR6jVQmEcoK
- BuQPUsgqUSvJHvqIifVSfyEpQ9ainHbC61tQstR9Q/ZRMEvnwIF/IQZxvJRUCBDduyfB
- nEDQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=RCPL29qIKnKZKArq5zsuG+4bnxkVvxWb2dNm1WT6mf8=;
+ b=FtgJf8+lm9Jw2zuHcFq8yHyYE9Za+t1wpfVGe4pNR2hLepEyFXfbcy4nJTz2O55NOa
+ dmuoiB2rqb8nyl8EtjTo64ENTdtFYzzJAky2JuOy2aYMOSk0FedqxZYDtR2/GmPEUZhc
+ UPXarxCUa6yVyaJ6gyeiOEy6vbFz+4LbbuMB1YxPqQCTYW14S9NrlC1RiegTThPRtJ8Y
+ NSCaaUN0UawFs/fx4em62LxMiGzjjNZG8x82jWqJLOgcYBQiG+cMq/6xrE8FavIEmQZ0
+ 52yNoSHuYvjfMtL3yAmpyrs4GCbze6oRWYpU+gkIvz9536/7/V/OBRfRMXcJ0ujoiD8U
+ arUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=RfbJyI1hmWPmulBvGl9yUX6sBfIUZuE+x/+Sb4PBAA4=;
- b=i4NG9zWXNi2kDud1A3F9GatIjFAgWrv0AAnop/xjhBG0OMz5bWCzUrlD+2dPHh+3T5
- mt0yTB3o4sKyqaDY/e52wzuJ/Qxcz/CXmlV1T67BwTBXJ5OXbrwEOiS1umkaUZ6QWepa
- wTnk0aCRLDzlg8M1BDrmcHugGkaIQM/ZbOkfXdwVnVY2kMCJ11447ZZwGzLQF/3h9wg4
- d9NBrvL4eXsLjq3iq5AYmihpgYqqizJgLbVRNdkotMV6UtosxWYKorZf5OK7hogtS/fL
- vRr73pdpSde7LYz0O2jeMbXoTMeCH2BOfvhvQ/7fkU2EjpR0ZlCJ32SHY9RB/i1zG1kW
- XP1w==
-X-Gm-Message-State: AOAM531Fwnss48nqRkkBgL0hHoTYJvT+eymSbO+IEbVhPl/Vm5C0AdHv
- a84blrjXQB3xf2ScIAfAgV7XYVjkgxo6fZu2
-X-Google-Smtp-Source: ABdhPJyxtqN38rozSDK3IWdzykjn6Ccg7cUzlLWdkk2kwWLYPIouP4b04xGQtDsPOJHTknN7CO1dDA==
-X-Received: by 2002:a92:c56c:: with SMTP id b12mr33675200ilj.13.1625982615280; 
- Sat, 10 Jul 2021 22:50:15 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=RCPL29qIKnKZKArq5zsuG+4bnxkVvxWb2dNm1WT6mf8=;
+ b=NBDjYBVtJxkNcbD5hnqiU44gEQ3NJ39+k395IdC+ds34qP9B/THo1bReognHDI+VQy
+ F0LjMcJkkfOl+dOldaD59oBUyb+jHzMUhgdl/jdLOmu87oIRTgdGwICZarq2WPT8F1pI
+ Fy5nsTLb98bg6QbPQ8oUD35b4/henqAgYvY19s4V4Ml6bueeDInsB/GIByWb+EpuLcGE
+ AipQGJd2Olx/xctxdZdRPvYJNywHvrSPnV1iXKFhccnuj1K3gDgVe2W4Sm4RWsOsbFO8
+ HQcklIN5SpiUmfb/pR7wKsTm3d9DPUYkwzn15dGxv0YXWLIAZxc4pZKGGzeCIF2p4DHz
+ Yx1A==
+X-Gm-Message-State: AOAM530K61X92J4T8aVbjJU1+Ngoa8paSjlavKBL6DjC1o+90z7c+kS9
+ Xj2yei/j6+QJ49WGa4n/U3c=
+X-Google-Smtp-Source: ABdhPJy3x300qWkzveHT72BAIzXyFWEizGbKobKv9ZDxvJSQDWE4xAAJUsN56EWTboU9rLEPlKhH4A==
+X-Received: by 2002:a02:b006:: with SMTP id p6mr33668942jah.64.1625982612026; 
+ Sat, 10 Jul 2021 22:50:12 -0700 (PDT)
 Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id x8sm5852400ilq.63.2021.07.10.22.50.14
+ by smtp.googlemail.com with ESMTPSA id x8sm5852400ilq.63.2021.07.10.22.50.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Jul 2021 22:50:14 -0700 (PDT)
+ Sat, 10 Jul 2021 22:50:11 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -67,14 +67,13 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Sat, 10 Jul 2021 23:50:00 -0600
-Message-Id: <20210711055003.528167-3-jim.cromie@gmail.com>
+Date: Sat, 10 Jul 2021 23:49:58 -0600
+Message-Id: <20210711055003.528167-1-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210711055003.528167-1-jim.cromie@gmail.com>
-References: <20210711055003.528167-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 12 Jul 2021 13:49:54 +0000
-Subject: [Intel-gfx] [RFC PATCH v2 2/4] drm: fixup comment spelling
+Subject: [Intel-gfx] [RFC PATCH v2 0/4] Allow using dyndbg to replace
+ drm_debug_enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,24 +92,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-s/prink/printk/ - no functional changes
----
- include/drm/drm_print.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 6419b4e7c5dc..4559583bc88b 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -327,7 +327,7 @@ static inline bool drm_debug_enabled(enum drm_debug_category category)
- /*
-  * struct device based logging
-  *
-- * Prefer drm_device based logging over device or prink based logging.
-+ * Prefer drm_device based logging over device or printk based logging.
-  */
+drm_debug_enabled() is called a lot to do unlikely bit-tests to
+control debug printing; this is a good job for dynamic-debug, IFF it
+is built with JUMP_LABEL.
  
- __printf(3, 4)
+Enable the use of dynamic-debug to avoid drm_debug_enabled()
+overheads, opt in with CONFIG_DRM_USE_DYNAMIC_DEBUG=y.
+
+I have this patchset running bare-metal on an i915 laptop & an amdgpu
+desktop (both as loadable modules).
+
+I booted the amdgpu box with:
+
+BOOT_IMAGE=(hd2,gpt2)/vmlinuz-5.13.0-dd7-13692-g8def25788f56 \
+     root=UUID=mumble ro \
+     rootflags=subvol=root00 rhgb \
+     dynamic_debug.verbose=3 main.dyndbg=+p \
+     amdgpu.debug=1 amdgpu.test=1 \
+     "amdgpu.dyndbg=format ^[ +p"
+
+That last line activates ~1700 callsites with a format like '[DML' etc
+at boot, causing ~76k prdbgs in 409 seconds, before I turned them off
+with:
+
+  echo module amdgpu -p > /proc/dynamic_debug/control
+
+[root@gandalf jimc]# journalctl -b-0 | grep -P '\[(DML|VBLANK|SURFACE|BIOS|BANDWIDTH)' | wc
+  68708  578503 5054437
+[root@gandalf jimc]# journalctl -b-0 | grep -P '\[(DML|VBLANK|SURFACE|BIOS|BANDWIDTH|\w+)' | wc
+  76298  661176 6028087
+
+IOW, things appear to hold up under some stress.
+
+this is on top of master @ v5.13-13688-gde5540965853
+
+v1 is here:
+https://lore.kernel.org/lkml/20201204035318.332419-1-jim.cromie@gmail.com/
+
+Jim Cromie (4):
+  drm_print.h: rewrap __DRM_DEFINE_DBG_RATELIMITED macro
+  drm: fixup comment spelling
+  drm: RFC add choice to use dynamic debug in drm-debug
+  i915: map gvt pr_debug categories to bits in parameters/debug_gvt
+
+ drivers/gpu/drm/Kconfig            |  13 ++++
+ drivers/gpu/drm/drm_print.c        |  75 +++++++++++++++++-
+ drivers/gpu/drm/i915/gvt/Makefile  |   4 +
+ drivers/gpu/drm/i915/i915_params.c |  76 ++++++++++++++++++
+ include/drm/drm_print.h            | 119 ++++++++++++++++++++---------
+ 5 files changed, 249 insertions(+), 38 deletions(-)
+
 -- 
 2.31.1
 
