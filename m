@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D302FC07E9B
-	for <intel-gfx@archiver.kernel.org>; Sun, 11 Jul 2021 03:53:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C82EAC07E9C
+	for <intel-gfx@archiver.kernel.org>; Sun, 11 Jul 2021 03:53:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 944E0611AC
-	for <intel-gfx@archiver.kernel.org>; Sun, 11 Jul 2021 03:53:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 944E0611AC
+	by mail.kernel.org (Postfix) with ESMTPS id 9CF916128D
+	for <intel-gfx@archiver.kernel.org>; Sun, 11 Jul 2021 03:53:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CF916128D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4DE86EB82;
-	Sun, 11 Jul 2021 03:53:48 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8ABD6EB80
- for <intel-gfx@lists.freedesktop.org>; Sun, 11 Jul 2021 03:53:46 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id u15so83764oiw.3
- for <intel-gfx@lists.freedesktop.org>; Sat, 10 Jul 2021 20:53:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76A436EB84;
+	Sun, 11 Jul 2021 03:53:50 +0000 (UTC)
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3A246EB80
+ for <intel-gfx@lists.freedesktop.org>; Sun, 11 Jul 2021 03:53:44 +0000 (UTC)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ o3-20020a4a84c30000b0290251d599f19bso3469584oog.8
+ for <intel-gfx@lists.freedesktop.org>; Sat, 10 Jul 2021 20:53:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=LZpq7f5pIJW2dDuLII86TMWxTbEjjl9Ioc6Cn93MUc8=;
- b=i3pFB0G0Am2qTjj86SlsImB9JKL/dG+A3JXSIH5l+4zASPN/MXS0zkrePlXzRXTfpV
- Zel+dh2is/Gg4/ghLFAvg3QDDhrDzBrFzNThOLBkkv1UBQe8LqPGTrXPpg4kx3Iungiu
- Nw2G7CTR4YY2najZXcDujNPGpu6regillJeAlA2giwNiSvzO4/kq6S8TD8NxxEPLh4Ki
- vl/Gu7iYS076Invq6ccqsr4oa225FG/B7JmX36cqCxBwDhFO1qzXnxTsPLC4e9YEdnS1
- oAi4DnlTuE+wDDB7IapVvPqpIwwrPO7yPEGIZFnRRd0rKKDEoMHGLbFAiCrFm79WSXXi
- C9Gg==
+ bh=8g0NKGsiBt+LRz/CeZwrcLpTtaHucndBMGpot3ZHzBo=;
+ b=CWj1U9WycxGbEo1lWQsXldXtETWmHxTdqr2CAeNuOhFjS7ftCDZ84EM/gD3UELOfNl
+ TILwRrujwFfVbUwFRjh+65CdPAc6zjZtdbjVpQfFIxU2Hp/X43UzuZF8edOUIpgTXir3
+ Rmu3CgbeZNKinrb40jv5NWjz5Bo4zG86lQ1luUSYwyKk/WKkP3bAcQzh6HftDbY3rMvL
+ nM6wnPda5R2zIqDz/yF45xM+vHzcT6NtmgHeH2l9H8tqIjtQYF5+M8QlGK6aBUkzQmTo
+ yWg54h5a8bQzcpZNVHCnH0yeTvX4sCEB4vO6eluQ/QPzivLCcouSwjClMfzsS5d3yWh9
+ MPgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=LZpq7f5pIJW2dDuLII86TMWxTbEjjl9Ioc6Cn93MUc8=;
- b=UtW9cHwRgXwPQA+S6luzLTrCY3NQk5BgQrazalOIGMHbKugw5ynwpV/qrJnO9zG6Ph
- Xl87dfxdyYQc/SRo2Rho+4+ibuYCCPSt4DWrbxhD47iryZEuJm59tl6sbUGEGWD9tYoz
- m70vCsS6JMAPYgswIaqsLniBkMRcABR3AWsXS69DBd1tT+yJGHLIBq2qsSLSm/X3WdkN
- pok7nzQnvI3kB1wJUG6KytdCY3O8TZ9LlTCKUp4uBV1jN7OMRksVmbI9jo/IRqJAwEQl
- w+IW1ucm7FgqdBikG8Esf4Qvy/3MMghItBwwME5ovcM7u6kJvnEJjm8fWSwwgdqyogeO
- FIHA==
-X-Gm-Message-State: AOAM530h3kKShCYjB8Zgq/p4FnLW0CaUovR36HoZqGuT/xnT5k1dHwIe
- LyK5We5UcEhv39SzZpJDrtHQ5MAofJYVHw==
-X-Google-Smtp-Source: ABdhPJz00rvYPJfSgaxmlJqYZsxGUbw/M/EotxVLTIXDetuA9UNqjIYaQQmOi8aY+IOs4XImwrs/nQ==
-X-Received: by 2002:aca:6046:: with SMTP id u67mr5491114oib.23.1625975625817; 
- Sat, 10 Jul 2021 20:53:45 -0700 (PDT)
+ bh=8g0NKGsiBt+LRz/CeZwrcLpTtaHucndBMGpot3ZHzBo=;
+ b=L1499RxVXaH4pP/ytqC36wuM8V4UNPv0pCtirRHA4S8PTHcEdMu5yUnKnbCkMHLMrJ
+ 9dUl1h7J2vrWr3dsmVRQsay/N/r1ykbyXROVFeuZDX3TmNn8yHipINjOgGE7pEOxzsXM
+ KK5d/99xZNqkw2b7oNGAEroKqYZyDSmWlYqPMU1xzMISBSuOg8ertwYiD1TI8ki4kait
+ dCF3uLYudypsveNtq5fxO4q/7bQuYx8zmdMIrlXcTWvhFYrQ3LVYGCpBhIIRt53kEn2x
+ uw16D+6TXh5xck/0Y9Cwvmx7rntKf/ufOdkOXPk03k+bHSI6xe9YUPDdDqFa10Y5nY/D
+ aUPg==
+X-Gm-Message-State: AOAM5305TGfvQa0R9EEBMvf62nv6viRmBfys3WDCTnntFkwUbHP3yYaX
+ cZNb5NCvQU5v2gzwVQCA0Dn7w/murYKVFw==
+X-Google-Smtp-Source: ABdhPJwp0zPBXlmm05pTnn7gZ7FnNnEroogyFOjyRbn6K41ibsDQY+xmMQIbodr145LKZM/ULH+0Rg==
+X-Received: by 2002:a4a:dd09:: with SMTP id m9mr28018133oou.42.1625975624010; 
+ Sat, 10 Jul 2021 20:53:44 -0700 (PDT)
 Received: from omlet.lan ([68.203.99.148])
- by smtp.gmail.com with ESMTPSA id a11sm2310188otr.48.2021.07.10.20.53.45
+ by smtp.gmail.com with ESMTPSA id a11sm2310188otr.48.2021.07.10.20.53.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Jul 2021 20:53:45 -0700 (PDT)
+ Sat, 10 Jul 2021 20:53:43 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Sat, 10 Jul 2021 22:53:35 -0500
-Message-Id: <20210711035336.803025-5-jason@jlekstrand.net>
+Date: Sat, 10 Jul 2021 22:53:33 -0500
+Message-Id: <20210711035336.803025-3-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210711035336.803025-1-jason@jlekstrand.net>
 References: <20210711035336.803025-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915: Drop error handling from
- dma_fence_work
+Subject: [Intel-gfx] [PATCH 2/5] Revert "drm/i915: Propagate errors on
+ awaiting already signaled fences"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,95 +81,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, stable@vger.kernel.org,
+ Jason Ekstrand <jason.ekstrand@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Asynchronous command parsing was the only thing which ever returned a
-non-zero error.  With that gone, we can drop the error handling from
-dma_fence_work.
+This reverts commit 9e31c1fe45d555a948ff66f1f0e3fe1f83ca63f7.  Ever
+since that commit, we've been having issues where a hang in one client
+can propagate to another.  In particular, a hang in an app can propagate
+to the X server which causes the whole desktop to lock up.
+
+Error propagation along fences sound like a good idea, but as your bug
+shows, surprising consequences, since propagating errors across security
+boundaries is not a good thing.
+
+What we do have is track the hangs on the ctx, and report information to
+userspace using RESET_STATS. That's how arb_robustness works. Also, if my
+understanding is still correct, the EIO from execbuf is when your context
+is banned (because not recoverable or too many hangs). And in all these
+cases it's up to userspace to figure out what is all impacted and should
+be reported to the application, that's not on the kernel to guess and
+automatically propagate.
+
+What's more, we're also building more features on top of ctx error
+reporting with RESET_STATS ioctl: Encrypted buffers use the same, and the
+userspace fence wait also relies on that mechanism. So it is the path
+going forward for reporting gpu hangs and resets to userspace.
+
+So all together that's why I think we should just bury this idea again as
+not quite the direction we want to go to, hence why I think the revert is
+the right option here.
+
+For backporters: Please note that you _must_ have a backport of
+https://lore.kernel.org/dri-devel/20210602164149.391653-2-jason@jlekstrand.net/
+for otherwise backporting just this patch opens up a security bug.
+
+v2: Augment commit message. Also restore Jason's sob that I
+accidentally lost.
+
+v3: Add a note for backporters
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-Reviewed-by: Jon Bloomfield <jon.bloomfield@intel.com>
+Reported-by: Marcin Slusarz <marcin.slusarz@intel.com>
+Cc: <stable@vger.kernel.org> # v5.6+
+Cc: Jason Ekstrand <jason.ekstrand@intel.com>
+Cc: Marcin Slusarz <marcin.slusarz@intel.com>
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3080
+Fixes: 9e31c1fe45d5 ("drm/i915: Propagate errors on awaiting already signaled fences")
 Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Reviewed-by: Jon Bloomfield <jon.bloomfield@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_clflush.c | 4 +---
- drivers/gpu/drm/i915/i915_sw_fence_work.c   | 5 +----
- drivers/gpu/drm/i915/i915_sw_fence_work.h   | 2 +-
- drivers/gpu/drm/i915/i915_vma.c             | 3 +--
- 4 files changed, 4 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
-index daf9284ef1f54..f0435c6feb68b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
-@@ -24,13 +24,11 @@ static void __do_clflush(struct drm_i915_gem_object *obj)
- 	i915_gem_object_flush_frontbuffer(obj, ORIGIN_CPU);
- }
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 86b4c9f2613d5..09ebea9a0090a 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -1399,10 +1399,8 @@ i915_request_await_execution(struct i915_request *rq,
  
--static int clflush_work(struct dma_fence_work *base)
-+static void clflush_work(struct dma_fence_work *base)
- {
- 	struct clflush *clflush = container_of(base, typeof(*clflush), base);
+ 	do {
+ 		fence = *child++;
+-		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
+-			i915_sw_fence_set_error_once(&rq->submit, fence->error);
++		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+ 			continue;
+-		}
  
- 	__do_clflush(clflush->obj);
--
--	return 0;
- }
+ 		if (fence->context == rq->fence.context)
+ 			continue;
+@@ -1499,10 +1497,8 @@ i915_request_await_dma_fence(struct i915_request *rq, struct dma_fence *fence)
  
- static void clflush_release(struct dma_fence_work *base)
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence_work.c b/drivers/gpu/drm/i915/i915_sw_fence_work.c
-index a3a81bb8f2c36..5b33ef23d54c9 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence_work.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence_work.c
-@@ -16,11 +16,8 @@ static void fence_complete(struct dma_fence_work *f)
- static void fence_work(struct work_struct *work)
- {
- 	struct dma_fence_work *f = container_of(work, typeof(*f), work);
--	int err;
+ 	do {
+ 		fence = *child++;
+-		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
+-			i915_sw_fence_set_error_once(&rq->submit, fence->error);
++		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+ 			continue;
+-		}
  
--	err = f->ops->work(f);
--	if (err)
--		dma_fence_set_error(&f->dma, err);
-+	f->ops->work(f);
- 
- 	fence_complete(f);
- 	dma_fence_put(&f->dma);
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence_work.h b/drivers/gpu/drm/i915/i915_sw_fence_work.h
-index 2c409f11c5c59..d56806918d131 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence_work.h
-+++ b/drivers/gpu/drm/i915/i915_sw_fence_work.h
-@@ -17,7 +17,7 @@ struct dma_fence_work;
- 
- struct dma_fence_work_ops {
- 	const char *name;
--	int (*work)(struct dma_fence_work *f);
-+	void (*work)(struct dma_fence_work *f);
- 	void (*release)(struct dma_fence_work *f);
- };
- 
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 0f227f28b2802..5b9dce0f443b0 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -300,14 +300,13 @@ struct i915_vma_work {
- 	unsigned int flags;
- };
- 
--static int __vma_bind(struct dma_fence_work *work)
-+static void __vma_bind(struct dma_fence_work *work)
- {
- 	struct i915_vma_work *vw = container_of(work, typeof(*vw), base);
- 	struct i915_vma *vma = vw->vma;
- 
- 	vma->ops->bind_vma(vw->vm, &vw->stash,
- 			   vma, vw->cache_level, vw->flags);
--	return 0;
- }
- 
- static void __vma_release(struct dma_fence_work *work)
+ 		/*
+ 		 * Requests on the same timeline are explicitly ordered, along
 -- 
 2.31.1
 
