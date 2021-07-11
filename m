@@ -2,78 +2,81 @@ Return-Path: <SRS0=q1oR=ME=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2D14C07E9A
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCA7DC07E99
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 85A7F61003
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 85A7F61003
+	by mail.kernel.org (Postfix) with ESMTPS id 86EE561003
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86EE561003
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B268D89C16;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCB2B89C1A;
 	Mon, 12 Jul 2021 13:49:55 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DBBB6E9E9;
- Fri,  9 Jul 2021 08:48:36 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id i8so11060118wrp.12;
- Fri, 09 Jul 2021 01:48:36 -0700 (PDT)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C1066EB8F;
+ Sun, 11 Jul 2021 05:50:19 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id 62so6142565iob.0;
+ Sat, 10 Jul 2021 22:50:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=IZL0RVebz80UhYvt3lSs/13NdKZ7rvbA0Dgs8MSvPlE=;
- b=RT+nT75XXn1A6UM9rOVB6Kz2RVgz3n5U0CvgOh0rOu+q6OA0i00dY6wIZBxyRgqsCc
- B5qFXe+9g5Xa8l8Pf1uDWOd/Zpm2m2UpVtYU3k+zeb+rLwH7yvuPWWpHYnqlmKC7NyEO
- 5nicIm7miH2DS4TY4k0B6y5aHI/G06AxjUQAsHN64noXhXhGKBK6l4SU/Yvkoq2AywNq
- f0IJ+/F4NCJlyDifd2ZJtb9Zt/owkE4DIneghpIzq6qs6MiXgiUlxjvdjCO8AyjIvEN/
- 7aFMK0pgLmDceWNgQCI2AkEUuPBX0gf51Tf+Eq7a8XrTEevBP3zgZ3PWZ8e59p+Lbxon
- 7O5w==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=1JU6IkdQvvp5Go0AxPwnfi1zth99vpSVeAzYXXLnyDA=;
+ b=jX+yyHpgVqTIhve6qLKx+vddez8pXVVp/zoXrJJ/ZSic9YPuiCLLFG2GJ/joO0L9Po
+ GEgjbLkfs6WMeuA2PKTWTR3t/bALkAHtwMEfcPTAeKm3E4M6DfPNgqZv6bL30LxXkAKU
+ aPRYDI0K0V9YmdKsd6VPaj25SZIPP5um2ZFwohJMhWPvmDrO8SzsNWR9ifqkUG50ksQ8
+ AoYwZ3QbklETQ7Z35OCBQmd788+Ef4kbGouyCALrWsWfAwhwD++48AowJt8/w6mLz2ZG
+ lQt+BsWbofwFiR839XGfyVMeiJtJLVz2ozyyEmqoBJgmgAL2IosB4LQUyBZvm1++txjL
+ xZrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=IZL0RVebz80UhYvt3lSs/13NdKZ7rvbA0Dgs8MSvPlE=;
- b=A7UWGKo+kLtJmQzhD88E2xwz3cU/D8xX2Ow/dB7jUy33Jx+mrZ4wB/mHwqDNV2tzCT
- ewrNLvkf2IByexEGQJvoeH1RoWiBV9s1f1slgE+ktKHwHdw/sOZ2rmpEeVdFgRLfxlfi
- gGOgDkQFayzX7rKx8/ex4B1uGijCsFoBBMmg1Fcyd/qS2zacKdDxVCGazt4xsdcwRxl2
- ju3l37DHZ0kkoZ2KaJIgkgFfP/+yrriStWxtqn4DG2//pKC+K5r2qQSg1Mz+nMgnBbya
- WBeGElrE7q7RCk4cBsuVU+/ZxNMiZwHobbWdyjlzsm+G+3nn5+Q5avOYMduiIdm129S6
- j3Gw==
-X-Gm-Message-State: AOAM530N18OhHBOXH3wTARmrqwRtSHkJzJAC20bcSg6BnYIsMHiq/4Cv
- wu4Pci/bINwOC1LLtxy9vn80NT/68AA=
-X-Google-Smtp-Source: ABdhPJw4mHIMxmdUHqgbxfgmtWlqsE/jVJZcU3x3yckdnN/So3mD/rTfyth1ESMDLG3RizM9EnUchQ==
-X-Received: by 2002:a5d:48c6:: with SMTP id p6mr39867826wrs.45.1625820515276; 
- Fri, 09 Jul 2021 01:48:35 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:3da0:55de:64af:96f9?
- ([2a02:908:1252:fb60:3da0:55de:64af:96f9])
- by smtp.gmail.com with ESMTPSA id s7sm4623429wrp.97.2021.07.09.01.48.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jul 2021 01:48:34 -0700 (PDT)
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-References: <20210708173754.3877540-1-daniel.vetter@ffwll.ch>
- <20210708173754.3877540-17-daniel.vetter@ffwll.ch>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <2582129c-b0c3-831c-a3b4-caa51be95095@gmail.com>
-Date: Fri, 9 Jul 2021 10:48:33 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=1JU6IkdQvvp5Go0AxPwnfi1zth99vpSVeAzYXXLnyDA=;
+ b=ZhhwsYg2v780e9K549gSY7yUzDgO2lkwUYsh4wxVDBDSKWvzjhGioEmPbJsvKGx+Ev
+ cqzXthUw/efmxW4/O3FG0Vv5Hca9oMoIADIYahqZ4FXNfvHaMyeOzXpLqSP8Zugt6lmt
+ 4POInYXugWb9C0icBs3GYhmS4RKTZjTKzLw2EIow68N636obOdeLZ9LXft/Evon4ra7P
+ bFJ+CCQUpJ+nqnzc7ZQq1rVnbRGH/A77/Kr4Fzx2mL8WtwrAPy4Iq4tgelOS8qaQ0HQy
+ 1BMe4BuobuBZ3hVhBiOCnAOD9a4XeZ1rGGdb5Xs2GTnU258T9ROWAkRtk4c75MEMBQEt
+ 8+4g==
+X-Gm-Message-State: AOAM530ZxJbc+WckKGn74rMQO9AM6w99XyCl6ChDNiklbGqL7sWiOSx0
+ +luH/X2vIS6gOJc5VjXFfsM=
+X-Google-Smtp-Source: ABdhPJzHBs42lAveyvzML9lmuADkqzvZAMbBGeS3sw2D9YMkkwV+8J1AY2NDXsE7ZLT7wJlTDJaARw==
+X-Received: by 2002:a05:6602:1c4:: with SMTP id
+ w4mr34031289iot.44.1625982618817; 
+ Sat, 10 Jul 2021 22:50:18 -0700 (PDT)
+Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
+ by smtp.googlemail.com with ESMTPSA id x8sm5852400ilq.63.2021.07.10.22.50.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 10 Jul 2021 22:50:18 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Zhenyu Wang <zhenyuw@linux.intel.com>,
+ Zhi Wang <zhi.a.wang@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Date: Sat, 10 Jul 2021 23:50:02 -0600
+Message-Id: <20210711055003.528167-5-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210711055003.528167-1-jim.cromie@gmail.com>
+References: <20210711055003.528167-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210708173754.3877540-17-daniel.vetter@ffwll.ch>
-Content-Language: en-US
 X-Mailman-Approved-At: Mon, 12 Jul 2021 13:49:54 +0000
-Subject: Re: [Intel-gfx] [PATCH v3 16/20] drm/msm: always wait for the
- exclusive fence
+Subject: [Intel-gfx] [RFC PATCH v2 4/4] i915: map gvt pr_debug categories to
+ bits in parameters/debug_gvt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,45 +89,141 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Jim Cromie <jim.cromie@gmail.com>, jbaron@akamai.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDguMDcuMjEgdW0gMTk6Mzcgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IEZyb206IENocmlz
-dGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPgo+Cj4gRHJpdmVy
-cyBhbHNvIG5lZWQgdG8gdG8gc3luYyB0byB0aGUgZXhjbHVzaXZlIGZlbmNlIHdoZW4KPiBhIHNo
-YXJlZCBvbmUgaXMgcHJlc2VudC4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcg
-PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBbZGFudmV0OiBOb3QgdGhhdCBoYXJkIHRvIGNv
-bXBpbGUtdGVzdCBvbiBhcm0gLi4uXQo+IFNpZ25lZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIgPGRh
-bmllbC52ZXR0ZXJAZmZ3bGwuY2g+Cj4gQ2M6IFJvYiBDbGFyayA8cm9iZGNsYXJrQGdtYWlsLmNv
-bT4KPiBDYzogU2VhbiBQYXVsIDxzZWFuQHBvb3JseS5ydW4+Cj4gQ2M6IGxpbnV4LWFybS1tc21A
-dmdlci5rZXJuZWwub3JnCj4gQ2M6IGZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKCldv
-bmRlcmluZyBhIGJpdCB3aHkgeW91IGhhdmUgdGhhdCBpbiB0aGlzIHBhdGNoIHNldCBub3cuCgpC
-dXQgYW55IG9iamVjdGlvbnMgdGhhdCB3ZSBwdXNoIHRoaXMgbm93PwoKVGhhbmtzLApDaHJpc3Rp
-YW4uCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMgfCAxNiArKysrKysr
-LS0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9u
-cygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dlbS5jIGIvZHJp
-dmVycy9ncHUvZHJtL21zbS9tc21fZ2VtLmMKPiBpbmRleCAxNDExNzg3NTQyMzEuLmQ5YzRmMWRl
-ZWFmYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9nZW0uYwo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2dlbS5jCj4gQEAgLTgxMiwxNyArODEyLDE1IEBAIGlu
-dCBtc21fZ2VtX3N5bmNfb2JqZWN0KHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqLAo+ICAgCXN0
-cnVjdCBkbWFfZmVuY2UgKmZlbmNlOwo+ICAgCWludCBpLCByZXQ7Cj4gICAKPiAtCWZvYmogPSBk
-bWFfcmVzdl9zaGFyZWRfbGlzdChvYmotPnJlc3YpOwo+IC0JaWYgKCFmb2JqIHx8IChmb2JqLT5z
-aGFyZWRfY291bnQgPT0gMCkpIHsKPiAtCQlmZW5jZSA9IGRtYV9yZXN2X2V4Y2xfZmVuY2Uob2Jq
-LT5yZXN2KTsKPiAtCQkvKiBkb24ndCBuZWVkIHRvIHdhaXQgb24gb3VyIG93biBmZW5jZXMsIHNp
-bmNlIHJpbmcgaXMgZmlmbyAqLwo+IC0JCWlmIChmZW5jZSAmJiAoZmVuY2UtPmNvbnRleHQgIT0g
-ZmN0eC0+Y29udGV4dCkpIHsKPiAtCQkJcmV0ID0gZG1hX2ZlbmNlX3dhaXQoZmVuY2UsIHRydWUp
-Owo+IC0JCQlpZiAocmV0KQo+IC0JCQkJcmV0dXJuIHJldDsKPiAtCQl9Cj4gKwlmZW5jZSA9IGRt
-YV9yZXN2X2V4Y2xfZmVuY2Uob2JqLT5yZXN2KTsKPiArCS8qIGRvbid0IG5lZWQgdG8gd2FpdCBv
-biBvdXIgb3duIGZlbmNlcywgc2luY2UgcmluZyBpcyBmaWZvICovCj4gKwlpZiAoZmVuY2UgJiYg
-KGZlbmNlLT5jb250ZXh0ICE9IGZjdHgtPmNvbnRleHQpKSB7Cj4gKwkJcmV0ID0gZG1hX2ZlbmNl
-X3dhaXQoZmVuY2UsIHRydWUpOwo+ICsJCWlmIChyZXQpCj4gKwkJCXJldHVybiByZXQ7Cj4gICAJ
-fQo+ICAgCj4gKwlmb2JqID0gZG1hX3Jlc3Zfc2hhcmVkX2xpc3Qob2JqLT5yZXN2KTsKPiAgIAlp
-ZiAoIWV4Y2x1c2l2ZSB8fCAhZm9iaikKPiAgIAkJcmV0dXJuIDA7Cj4gICAKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxp
-c3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+The gvt component of this driver has ~120 pr_debugs, in 9 "classes".
+Following the interface model of drm.debug, add a parameter to map
+bits to these classes.
+
+If CONFIG_DRM_USE_DYNAMIC_DEBUG=y (and CONFIG_DYNAMIC_DEBUG_CORE), add
+-DDYNAMIC_DEBUG_MODULE into Makefile.  TBD: maybe add a separate
+CONFIG_I915_USE_DYNAMIC_DEBUG to more fully optionalize this.
+
+In i915_params.c, add callback to map bits to queries.
+
+TBD: the callback code should probably be moved to lib/dynamic_debug,
+and given a declarative interface, with implied bit-numbering,
+something like:
+
+MOD_PARM_BITMAP_DESC(__gvt_debug,
+	"gvt: cmd: ",  "command processing"
+	"gvt: core: ", "core help",
+	"gvt: dpy: ",  "display help",
+	"gvt: el: ",   "help",
+	"gvt: irq: ",  "help",
+	"gvt: mm: ",   "help",
+	"gvt: mmio: ", "help",
+	"gvt: render: ", "help",
+	"gvt: sched: " "help");
+---
+ drivers/gpu/drm/i915/gvt/Makefile  |  4 ++
+ drivers/gpu/drm/i915/i915_params.c | 76 ++++++++++++++++++++++++++++++
+ 2 files changed, 80 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gvt/Makefile b/drivers/gpu/drm/i915/gvt/Makefile
+index ea8324abc784..846ba73b8de6 100644
+--- a/drivers/gpu/drm/i915/gvt/Makefile
++++ b/drivers/gpu/drm/i915/gvt/Makefile
+@@ -7,3 +7,7 @@ GVT_SOURCE := gvt.o aperture_gm.o handlers.o vgpu.o trace_points.o firmware.o \
+ 
+ ccflags-y				+= -I $(srctree)/$(src) -I $(srctree)/$(src)/$(GVT_DIR)/
+ i915-y					+= $(addprefix $(GVT_DIR)/, $(GVT_SOURCE))
++
++#ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
++ccflags-y	+= -DDYNAMIC_DEBUG_MODULE
++#endif
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index e07f4cfea63a..e0d13aff5274 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -265,3 +265,79 @@ void i915_params_free(struct i915_params *params)
+ 	I915_PARAMS_FOR_EACH(FREE);
+ #undef FREE
+ }
++
++/* POC for callback -> dynamic_debug_exec_queries */
++unsigned long __gvt_debug;
++EXPORT_SYMBOL(__gvt_debug);
++
++static char *format_prefix_classes[] = {
++	"gvt: cmd: ",
++	"gvt: core: ",
++	"gvt: dpy: ",
++	"gvt: el: ",
++	"gvt: irq: ",
++	"gvt: mm: ",
++	"gvt: mmio: ",
++	"gvt: render: ",
++	"gvt: sched: "
++};
++#define NUM_CLASSES	ARRAY_SIZE(format_prefix_classes)
++#define OUR_QUERY_SIZE	128 /* we need about 20 */
++
++#include <linux/module.h>
++
++static int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
++{
++	unsigned int val;
++	unsigned long changes, result;
++	int rc, chgct = 0, totct = 0, bitpos;
++	char query[OUR_QUERY_SIZE];
++
++	rc = kstrtouint(instr, 0, &val);
++	if (rc) {
++		pr_err("set_dyndbg: failed\n");
++		return -EINVAL;
++	}
++	result = val;
++	pr_info("set_dyndbg: result:0x%lx from %s\n", result, instr);
++
++	changes = result ^ __gvt_debug;
++
++	for_each_set_bit(bitpos, &changes, NUM_CLASSES) {
++
++		sprintf(query, "format '^%s' %cp", format_prefix_classes[bitpos],
++			test_bit(bitpos, &result) ? '+' : '-');
++
++		chgct = dynamic_debug_exec_queries(query, "i915");
++
++		pr_info("%d changes on: %s\n", chgct, query);
++		totct += chgct;
++	}
++	pr_info("total changes: %d\n", totct);
++	__gvt_debug = result;
++	return 0;
++}
++static int param_get_dyndbg(char *buffer, const struct kernel_param *kp)
++{
++	return scnprintf(buffer, PAGE_SIZE, "%u\n",
++			 *((unsigned int *)kp->arg));
++}
++static const struct kernel_param_ops param_ops_dyndbg = {
++	.set = param_set_dyndbg,
++	.get = param_get_dyndbg,
++};
++
++#define info_ln(hexi, prefix) "\n\t0x" __stringify(hexi) "\t" prefix
++
++MODULE_PARM_DESC(debug_gvt, " gvt debug categories:"
++		 info_ln(1, "gvt: cmd:")
++		 info_ln(2, "gvt: core:")
++		 info_ln(4, "gvt: dpy:")
++		 info_ln(8, "gvt: el:")
++		 info_ln(10, "gvt: irq:")
++		 info_ln(20, "gvt: mm:")
++		 info_ln(40, "gvt: mmio:")
++		 info_ln(80, "gvt: render:")
++		 info_ln(100, "gvt: sched:"));
++
++module_param_cb(debug_gvt, &param_ops_dyndbg, &__gvt_debug, 0644);
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
