@@ -6,37 +6,37 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6733BC07E99
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 17:11:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 373CFC07E99
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 17:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2267A611CD
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 17:11:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2267A611CD
+	by mail.kernel.org (Postfix) with ESMTPS id D6502611CC
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 17:11:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6502611CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A139289CD9;
-	Mon, 12 Jul 2021 17:11:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88ECC89CF9;
+	Mon, 12 Jul 2021 17:11:48 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 61D6489CD9;
- Mon, 12 Jul 2021 17:11:02 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4A40189CF8;
+ Mon, 12 Jul 2021 17:11:47 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 5354BA0BCB;
- Mon, 12 Jul 2021 17:11:02 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 473C1A0BCB;
+ Mon, 12 Jul 2021 17:11:47 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Date: Mon, 12 Jul 2021 17:11:02 -0000
-Message-ID: <162610986231.23768.2245464210402416101@emeril.freedesktop.org>
+Date: Mon, 12 Jul 2021 17:11:47 -0000
+Message-ID: <162610990728.23768.17789924594118103685@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210712161815.24776-1-ville.syrjala@linux.intel.com>
 In-Reply-To: <20210712161815.24776-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5B1/2=5D_drm/i915=3A_Silence_=5F=5Fio?=
- =?utf-8?q?mem_sparse_warn?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/2=5D_drm/i915=3A_Silence_=5F=5Fiomem_?=
+ =?utf-8?q?sparse_warn?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,14 +64,11 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-1211da9bc69c drm/i915: Silence __iomem sparse warn
--:4: WARNING:EMAIL_SUBJECT: A patch subject line should describe the change not the tool that found it
-#4: 
-Subject: [PATCH] drm/i915: Silence __iomem sparse warn
-
-total: 0 errors, 1 warnings, 0 checks, 8 lines checked
-23873e58de17 drm/i915: s/0/NULL/
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-O:drivers/gpu/drm/i915/gt/intel_ring_submission.c:1210:24: warning: Using plain integer as NULL pointer
++
 
 
 _______________________________________________
