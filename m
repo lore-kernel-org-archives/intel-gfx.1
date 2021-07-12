@@ -7,49 +7,49 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4378C07E99
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 21:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84792C07E99
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 21:08:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62ED5611F1
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 21:02:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62ED5611F1
+	by mail.kernel.org (Postfix) with ESMTPS id 4749260FEA
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 21:08:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4749260FEA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B73E89E11;
-	Mon, 12 Jul 2021 21:02:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB9D789870;
+	Mon, 12 Jul 2021 21:08:58 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EC8089E11
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Jul 2021 21:02:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="209870234"
-X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="209870234"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8ABAF89870
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Jul 2021 21:08:57 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="209870862"
+X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="209870862"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2021 14:02:01 -0700
+ 12 Jul 2021 14:08:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="569650624"
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by fmsmga001.fm.intel.com with ESMTP; 12 Jul 2021 14:02:01 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="653242372"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga005.fm.intel.com with ESMTP; 12 Jul 2021 14:08:56 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10; Mon, 12 Jul 2021 14:02:01 -0700
+ 15.1.2242.10; Mon, 12 Jul 2021 14:08:55 -0700
 Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10; Mon, 12 Jul 2021 14:02:00 -0700
+ 15.1.2242.10; Mon, 12 Jul 2021 14:08:55 -0700
 Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
  fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2242.010;
- Mon, 12 Jul 2021 14:02:00 -0700
+ Mon, 12 Jul 2021 14:08:55 -0700
 From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
 To: "Roper, Matthew D" <matthew.d.roper@intel.com>
 Thread-Topic: [Intel-gfx] [PATCH 1/7] drm/i915: Make pre-production detection
  use direct revid comparison
-Thread-Index: AQHXc7uprKdaEfkXSECmcnGMGZR+qKs5YF0ggAKo8YCAA9FuEA==
-Date: Mon, 12 Jul 2021 21:02:00 +0000
-Message-ID: <4ea004c0a59541c5bcaf117eb1235248@intel.com>
+Thread-Index: AQHXc7uprKdaEfkXSECmcnGMGZR+qKs5YF0ggAKo8YCAA9Ne0A==
+Date: Mon, 12 Jul 2021 21:08:55 +0000
+Message-ID: <81d823ca4a7e454ebda80d8c8b8f09e6@intel.com>
 References: <20210708053819.2120187-1-matthew.d.roper@intel.com>
  <20210708053819.2120187-2-matthew.d.roper@intel.com>
  <bf223bb32e3f4ab49c3e1553b247aad2@intel.com>
