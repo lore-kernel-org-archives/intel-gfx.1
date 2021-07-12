@@ -8,70 +8,68 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF27EC11F67
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F61BC07E99
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7CC006108B
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CC006108B
+	by mail.kernel.org (Postfix) with ESMTPS id 10AB46108B
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10AB46108B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A154989C29;
-	Mon, 12 Jul 2021 13:50:05 +0000 (UTC)
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D867A89BD4;
- Mon, 12 Jul 2021 04:36:18 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id
- i16-20020a17090acf90b02901736d9d2218so4800775pju.1; 
- Sun, 11 Jul 2021 21:36:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF8B89C2C;
+	Mon, 12 Jul 2021 13:50:07 +0000 (UTC)
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B49189BC0;
+ Mon, 12 Jul 2021 04:35:56 +0000 (UTC)
+Received: by mail-pf1-x432.google.com with SMTP id 17so15241619pfz.4;
+ Sun, 11 Jul 2021 21:35:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=O+BhDSDa8a6VSiPpoweqCmWLRJoKkcr07kGDOlc6cDQ=;
- b=tJP61n3eKymsVwi7oalCf4eL5CGbTM5euNT0mEsaDGks4oc6iKJnfkIFkFSZWzbptn
- 5yjaDwHwhGxiQ5v/xWU6QW6wlRP3AXzqeiMu/PLr5gwMb/LnPU3V7XeZL+2zAUKH3LnM
- W1E12dKRGwzxymL/6vCQ5Ya3CgzYIiRMIbl/U+Hi9L/wvi7JNm8YA8f8agTX5fKczJVj
- XMmsIVwhiA9CUgWKCrz5Z8bJM55h4PSmOSVebzB+OTiopoqEbAktAvrjHbKKCdsXLcfG
- ay+v0EMmjy/xTL5UxkpS6LH/QQKUWoJRVk06hiLVqrulLoQBLf1mNzvbkujwqoWe2Jn1
- fYDQ==
+ bh=vc5xi5ftWnxZlU1gt0+b48wT38LyZFngC4JD9PKuX7I=;
+ b=Cb3M3vkk3FuoDtvFBvEh8156faQwTUThdp+n0uUYWQBYv3ouu9t5ZNGd5SwrKX67Kt
+ vl0hi9W3WmsJuZDYRTmIOr+4DeklTVF04l28vjLZf5qufrBH0FT1YD5Pslug4BG3Wtoe
+ 8AkwcOysJKQ6LzJP7JdbshGQu2qBgqICEslwnsXZ8jA0qGT1eqQko7RbSSIeNPZ0Wg4k
+ HH6HAbsBVycseDYivQSwfVgRRi5N2iUJFGEcs38O1flBvrS0sNwNE4s7mek9uJCX67nY
+ vZlOk9uRf2EmQ82ji96k3z3Z44BH3NKnBA78PtKalqTnCAMqh7uHRPCe7v3VojaTKZGx
+ PGMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=O+BhDSDa8a6VSiPpoweqCmWLRJoKkcr07kGDOlc6cDQ=;
- b=KfAtWQd2GiVxFdGuPDL3f7WG7Dh2JKaMVRH94YFiq1On4PK9el10PGmJnDSc4T3WEh
- FMcxREBbeaV5VaM//nlCYyZBFyTRRM6MAXvmzavmauuIiJloI2HMOeDS85j20dIY0swz
- mwHXZ1dlUaaZmM4MZieWsYfLLLyyQySjyJAqkWBWjwoN3LOxmdg+tXhuZ2zpaeCE0yAg
- BMq7WdwYPsi79n547qJ67igcrNjTyRbAn66xgqtS46FeFckqRNGM1FxfhgNjo9+mU6Zl
- nbKo0KtruUNSzC2FkauWx8FyVxEZy1n0B2/cykjdCVzF9j17AaPte9tnXdalT88FbBPe
- eDQA==
-X-Gm-Message-State: AOAM531Lf+lZD5iNJNzrt8t7Ufahm/Ry+IAKpad4ADKA3o0G8NIbs+Oi
- 4jSEYslacpTncs7Xisnn5QI=
-X-Google-Smtp-Source: ABdhPJx6GmwVqlWs06Z5kgSK1WZQvc3WPG2YwBZ2yL67QsegwDOtb3jcpA9v14ODt+nTQcPeSxUVUQ==
-X-Received: by 2002:a17:902:bf45:b029:129:8147:3a93 with SMTP id
- u5-20020a170902bf45b029012981473a93mr35405154pls.84.1626064578481; 
- Sun, 11 Jul 2021 21:36:18 -0700 (PDT)
+ bh=vc5xi5ftWnxZlU1gt0+b48wT38LyZFngC4JD9PKuX7I=;
+ b=TlGyg+PJAQrqDNbIwYkwQybzadtDXFeZ18FrHjlSBx/jiU845iXyy6fqcsue1KYx/t
+ r5CX+sxqxRZqeS1gf9Kum+RTh7NKHltOU98EfOFblqhw3OBq3frp3CWWAVTlAWoH7dWs
+ X6QVW8VDyIit6ojU0k/5+c2fZv8a/vIaayfrJLhVYBodUnyhrAuygb3X2Lk1+3G9/WUz
+ ybVPojCmOvj91oKD6Sb+6A45E27NTzVnt11/2ah5Tv3oWtco6V71LvylWa+6KE0+w7xD
+ PKuqWOUfmYrjBujxDpdXEzkphEp2QbGMskBpQdU8+n6EIELUzkX3Zw2HoLMoUsqkVgxG
+ Xu6w==
+X-Gm-Message-State: AOAM5309lXGXwxPUzvcHu7UHClMCDzBPn3hWnkzQlR7Cq+F71Uwek2Le
+ Z03YzDYfI5KAgG0OxCr8z/0=
+X-Google-Smtp-Source: ABdhPJxCujRkDQjCW3B0eNy7eTGjw4nq7M1Kn3DT88JRrgd3WhjryI26Pk/IICRmxm9iWx/UrR5ZbA==
+X-Received: by 2002:a63:f241:: with SMTP id d1mr2270900pgk.424.1626064556049; 
+ Sun, 11 Jul 2021 21:35:56 -0700 (PDT)
 Received: from localhost.localdomain ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id n3sm14242764pfn.216.2021.07.11.21.36.14
+ by smtp.gmail.com with ESMTPSA id n3sm14242764pfn.216.2021.07.11.21.35.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 11 Jul 2021 21:36:18 -0700 (PDT)
+ Sun, 11 Jul 2021 21:35:55 -0700 (PDT)
 From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
  christian.koenig@amd.com
-Date: Mon, 12 Jul 2021 12:35:08 +0800
-Message-Id: <20210712043508.11584-6-desmondcheongzx@gmail.com>
+Date: Mon, 12 Jul 2021 12:35:04 +0800
+Message-Id: <20210712043508.11584-2-desmondcheongzx@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210712043508.11584-1-desmondcheongzx@gmail.com>
 References: <20210712043508.11584-1-desmondcheongzx@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 12 Jul 2021 13:49:54 +0000
-Subject: [Intel-gfx] [PATCH v8 5/5] drm: protect drm_master pointers in
- drm_lease.c
+Subject: [Intel-gfx] [PATCH v8 1/5] drm: avoid circular locks in
+ drm_mode_getconnector
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,339 +92,127 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm_file->master pointers should be protected by
-drm_device.master_mutex or drm_file.master_lookup_lock when being
-dereferenced.
+In preparation for a future patch to take a lock on
+drm_device.master_mutex inside drm_is_current_master(), we first move
+the call to drm_is_current_master() in drm_mode_getconnector out from the
+section locked by &dev->mode_config.mutex. This avoids creating a
+circular lock dependency.
 
-However, in drm_lease.c, there are multiple instances where
-drm_file->master is accessed and dereferenced while neither lock is
-held. This makes drm_lease.c vulnerable to use-after-free bugs.
+Failing to avoid this lock dependency produces the following lockdep
+splat:
 
-We address this issue in 2 ways:
-
-1. Add a new drm_file_get_master() function that calls drm_master_get
-on drm_file->master while holding on to
-drm_file.master_lookup_lock. Since drm_master_get increments the
-reference count of master, this prevents master from being freed until
-we unreference it with drm_master_put.
-
-2. In each case where drm_file->master is directly accessed and
-eventually dereferenced in drm_lease.c, we wrap the access in a call
-to the new drm_file_get_master function, then unreference the master
-pointer once we are done using it.
+======================================================
+WARNING: possible circular locking dependency detected
+5.13.0-rc7-CI-CI_DRM_10254+ #1 Not tainted
+------------------------------------------------------
+kms_frontbuffer/1087 is trying to acquire lock:
+ffff88810dcd01a8 (&dev->master_mutex){+.+.}-{3:3}, at: drm_is_current_master+0x1b/0x40
+but task is already holding lock:
+ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+which lock already depends on the new lock.
+the existing dependency chain (in reverse order) is:
+-> #2 (&dev->mode_config.mutex){+.+.}-{3:3}:
+       __mutex_lock+0xab/0x970
+       drm_client_modeset_probe+0x22e/0xca0
+       __drm_fb_helper_initial_config_and_unlock+0x42/0x540
+       intel_fbdev_initial_config+0xf/0x20 [i915]
+       async_run_entry_fn+0x28/0x130
+       process_one_work+0x26d/0x5c0
+       worker_thread+0x37/0x380
+       kthread+0x144/0x170
+       ret_from_fork+0x1f/0x30
+-> #1 (&client->modeset_mutex){+.+.}-{3:3}:
+       __mutex_lock+0xab/0x970
+       drm_client_modeset_commit_locked+0x1c/0x180
+       drm_client_modeset_commit+0x1c/0x40
+       __drm_fb_helper_restore_fbdev_mode_unlocked+0x88/0xb0
+       drm_fb_helper_set_par+0x34/0x40
+       intel_fbdev_set_par+0x11/0x40 [i915]
+       fbcon_init+0x270/0x4f0
+       visual_init+0xc6/0x130
+       do_bind_con_driver+0x1e5/0x2d0
+       do_take_over_console+0x10e/0x180
+       do_fbcon_takeover+0x53/0xb0
+       register_framebuffer+0x22d/0x310
+       __drm_fb_helper_initial_config_and_unlock+0x36c/0x540
+       intel_fbdev_initial_config+0xf/0x20 [i915]
+       async_run_entry_fn+0x28/0x130
+       process_one_work+0x26d/0x5c0
+       worker_thread+0x37/0x380
+       kthread+0x144/0x170
+       ret_from_fork+0x1f/0x30
+-> #0 (&dev->master_mutex){+.+.}-{3:3}:
+       __lock_acquire+0x151e/0x2590
+       lock_acquire+0xd1/0x3d0
+       __mutex_lock+0xab/0x970
+       drm_is_current_master+0x1b/0x40
+       drm_mode_getconnector+0x37e/0x4a0
+       drm_ioctl_kernel+0xa8/0xf0
+       drm_ioctl+0x1e8/0x390
+       __x64_sys_ioctl+0x6a/0xa0
+       do_syscall_64+0x39/0xb0
+       entry_SYSCALL_64_after_hwframe+0x44/0xae
+other info that might help us debug this:
+Chain exists of: &dev->master_mutex --> &client->modeset_mutex --> &dev->mode_config.mutex
+ Possible unsafe locking scenario:
+       CPU0                    CPU1
+       ----                    ----
+  lock(&dev->mode_config.mutex);
+                               lock(&client->modeset_mutex);
+                               lock(&dev->mode_config.mutex);
+  lock(&dev->master_mutex);
+*** DEADLOCK ***
+1 lock held by kms_frontbuffer/1087:
+ #0: ffff88810dcd0488 (&dev->mode_config.mutex){+.+.}-{3:3}, at: drm_mode_getconnector+0x1c6/0x4a0
+stack backtrace:
+CPU: 7 PID: 1087 Comm: kms_frontbuffer Not tainted 5.13.0-rc7-CI-CI_DRM_10254+ #1
+Hardware name: Intel Corporation Ice Lake Client Platform/IceLake U DDR4 SODIMM PD RVP TLC, BIOS ICLSFWR1.R00.3234.A01.1906141750 06/14/2019
+Call Trace:
+ dump_stack+0x7f/0xad
+ check_noncircular+0x12e/0x150
+ __lock_acquire+0x151e/0x2590
+ lock_acquire+0xd1/0x3d0
+ __mutex_lock+0xab/0x970
+ drm_is_current_master+0x1b/0x40
+ drm_mode_getconnector+0x37e/0x4a0
+ drm_ioctl_kernel+0xa8/0xf0
+ drm_ioctl+0x1e8/0x390
+ __x64_sys_ioctl+0x6a/0xa0
+ do_syscall_64+0x39/0xb0
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
 
 Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
 Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
 ---
- drivers/gpu/drm/drm_auth.c  | 25 ++++++++++++
- drivers/gpu/drm/drm_lease.c | 81 ++++++++++++++++++++++++++++---------
- include/drm/drm_auth.h      |  1 +
- include/drm/drm_file.h      |  6 +++
- 4 files changed, 93 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/drm_connector.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-index 30a239901b36..f00354bec3fb 100644
---- a/drivers/gpu/drm/drm_auth.c
-+++ b/drivers/gpu/drm/drm_auth.c
-@@ -389,6 +389,31 @@ struct drm_master *drm_master_get(struct drm_master *master)
- }
- EXPORT_SYMBOL(drm_master_get);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index da39e7ff6965..2ba257b1ae20 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2414,6 +2414,7 @@ int drm_mode_getconnector(struct drm_device *dev, void *data,
+ 	struct drm_mode_modeinfo u_mode;
+ 	struct drm_mode_modeinfo __user *mode_ptr;
+ 	uint32_t __user *encoder_ptr;
++	bool is_current_master;
  
-+/**
-+ * drm_file_get_master - reference &drm_file.master of @file_priv
-+ * @file_priv: DRM file private
-+ *
-+ * Increments the reference count of @file_priv's &drm_file.master and returns
-+ * the &drm_file.master. If @file_priv has no &drm_file.master, returns NULL.
-+ *
-+ * Master pointers returned from this function should be unreferenced using
-+ * drm_master_put().
-+ */
-+struct drm_master *drm_file_get_master(struct drm_file *file_priv)
-+{
-+	struct drm_master *master = NULL;
-+
-+	spin_lock(&file_priv->master_lookup_lock);
-+	if (!file_priv->master)
-+		goto unlock;
-+	master = drm_master_get(file_priv->master);
-+
-+unlock:
-+	spin_unlock(&file_priv->master_lookup_lock);
-+	return master;
-+}
-+EXPORT_SYMBOL(drm_file_get_master);
-+
- static void drm_master_destroy(struct kref *kref)
- {
- 	struct drm_master *master = container_of(kref, struct drm_master, refcount);
-diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
-index 00fb433bcef1..92eac73d9001 100644
---- a/drivers/gpu/drm/drm_lease.c
-+++ b/drivers/gpu/drm/drm_lease.c
-@@ -106,10 +106,19 @@ static bool _drm_has_leased(struct drm_master *master, int id)
-  */
- bool _drm_lease_held(struct drm_file *file_priv, int id)
- {
--	if (!file_priv || !file_priv->master)
-+	bool ret;
-+	struct drm_master *master;
-+
-+	if (!file_priv)
- 		return true;
- 
--	return _drm_lease_held_master(file_priv->master, id);
-+	master = drm_file_get_master(file_priv);
-+	if (!master)
-+		return true;
-+	ret = _drm_lease_held_master(master, id);
-+	drm_master_put(&master);
-+
-+	return ret;
- }
- 
- /**
-@@ -128,13 +137,22 @@ bool drm_lease_held(struct drm_file *file_priv, int id)
- 	struct drm_master *master;
- 	bool ret;
- 
--	if (!file_priv || !file_priv->master || !file_priv->master->lessor)
-+	if (!file_priv)
- 		return true;
- 
--	master = file_priv->master;
-+	master = drm_file_get_master(file_priv);
-+	if (!master)
-+		return true;
-+	if (!master->lessor) {
-+		ret = true;
-+		goto out;
-+	}
- 	mutex_lock(&master->dev->mode_config.idr_mutex);
- 	ret = _drm_lease_held_master(master, id);
- 	mutex_unlock(&master->dev->mode_config.idr_mutex);
-+
-+out:
-+	drm_master_put(&master);
- 	return ret;
- }
- 
-@@ -154,10 +172,16 @@ uint32_t drm_lease_filter_crtcs(struct drm_file *file_priv, uint32_t crtcs_in)
- 	int count_in, count_out;
- 	uint32_t crtcs_out = 0;
- 
--	if (!file_priv || !file_priv->master || !file_priv->master->lessor)
-+	if (!file_priv)
- 		return crtcs_in;
- 
--	master = file_priv->master;
-+	master = drm_file_get_master(file_priv);
-+	if (!master)
-+		return crtcs_in;
-+	if (!master->lessor) {
-+		crtcs_out = crtcs_in;
-+		goto out;
-+	}
- 	dev = master->dev;
- 
- 	count_in = count_out = 0;
-@@ -176,6 +200,9 @@ uint32_t drm_lease_filter_crtcs(struct drm_file *file_priv, uint32_t crtcs_in)
- 		count_in++;
- 	}
- 	mutex_unlock(&master->dev->mode_config.idr_mutex);
-+
-+out:
-+	drm_master_put(&master);
- 	return crtcs_out;
- }
- 
-@@ -489,7 +516,7 @@ int drm_mode_create_lease_ioctl(struct drm_device *dev,
- 	size_t object_count;
- 	int ret = 0;
- 	struct idr leases;
--	struct drm_master *lessor = lessor_priv->master;
-+	struct drm_master *lessor;
- 	struct drm_master *lessee = NULL;
- 	struct file *lessee_file = NULL;
- 	struct file *lessor_file = lessor_priv->filp;
-@@ -501,12 +528,6 @@ int drm_mode_create_lease_ioctl(struct drm_device *dev,
  	if (!drm_core_check_feature(dev, DRIVER_MODESET))
  		return -EOPNOTSUPP;
+@@ -2444,9 +2445,11 @@ int drm_mode_getconnector(struct drm_device *dev, void *data,
+ 	out_resp->connector_type = connector->connector_type;
+ 	out_resp->connector_type_id = connector->connector_type_id;
  
--	/* Do not allow sub-leases */
--	if (lessor->lessor) {
--		DRM_DEBUG_LEASE("recursive leasing not allowed\n");
--		return -EINVAL;
--	}
--
- 	/* need some objects */
- 	if (cl->object_count == 0) {
- 		DRM_DEBUG_LEASE("no objects in lease\n");
-@@ -518,12 +539,22 @@ int drm_mode_create_lease_ioctl(struct drm_device *dev,
- 		return -EINVAL;
- 	}
- 
-+	lessor = drm_file_get_master(lessor_priv);
-+	/* Do not allow sub-leases */
-+	if (lessor->lessor) {
-+		DRM_DEBUG_LEASE("recursive leasing not allowed\n");
-+		ret = -EINVAL;
-+		goto out_lessor;
-+	}
++	is_current_master = drm_is_current_master(file_priv);
 +
- 	object_count = cl->object_count;
- 
- 	object_ids = memdup_user(u64_to_user_ptr(cl->object_ids),
- 			array_size(object_count, sizeof(__u32)));
--	if (IS_ERR(object_ids))
--		return PTR_ERR(object_ids);
-+	if (IS_ERR(object_ids)) {
-+		ret = PTR_ERR(object_ids);
-+		goto out_lessor;
-+	}
- 
- 	idr_init(&leases);
- 
-@@ -534,14 +565,15 @@ int drm_mode_create_lease_ioctl(struct drm_device *dev,
- 	if (ret) {
- 		DRM_DEBUG_LEASE("lease object lookup failed: %i\n", ret);
- 		idr_destroy(&leases);
--		return ret;
-+		goto out_lessor;
- 	}
- 
- 	/* Allocate a file descriptor for the lease */
- 	fd = get_unused_fd_flags(cl->flags & (O_CLOEXEC | O_NONBLOCK));
- 	if (fd < 0) {
- 		idr_destroy(&leases);
--		return fd;
-+		ret = fd;
-+		goto out_lessor;
- 	}
- 
- 	DRM_DEBUG_LEASE("Creating lease\n");
-@@ -577,6 +609,7 @@ int drm_mode_create_lease_ioctl(struct drm_device *dev,
- 	/* Hook up the fd */
- 	fd_install(fd, lessee_file);
- 
-+	drm_master_put(&lessor);
- 	DRM_DEBUG_LEASE("drm_mode_create_lease_ioctl succeeded\n");
- 	return 0;
- 
-@@ -586,6 +619,8 @@ int drm_mode_create_lease_ioctl(struct drm_device *dev,
- out_leases:
- 	put_unused_fd(fd);
- 
-+out_lessor:
-+	drm_master_put(&lessor);
- 	DRM_DEBUG_LEASE("drm_mode_create_lease_ioctl failed: %d\n", ret);
- 	return ret;
- }
-@@ -608,7 +643,7 @@ int drm_mode_list_lessees_ioctl(struct drm_device *dev,
- 	struct drm_mode_list_lessees *arg = data;
- 	__u32 __user *lessee_ids = (__u32 __user *) (uintptr_t) (arg->lessees_ptr);
- 	__u32 count_lessees = arg->count_lessees;
--	struct drm_master *lessor = lessor_priv->master, *lessee;
-+	struct drm_master *lessor, *lessee;
- 	int count;
- 	int ret = 0;
- 
-@@ -619,6 +654,7 @@ int drm_mode_list_lessees_ioctl(struct drm_device *dev,
- 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
- 		return -EOPNOTSUPP;
- 
-+	lessor = drm_file_get_master(lessor_priv);
- 	DRM_DEBUG_LEASE("List lessees for %d\n", lessor->lessee_id);
- 
- 	mutex_lock(&dev->mode_config.idr_mutex);
-@@ -642,6 +678,7 @@ int drm_mode_list_lessees_ioctl(struct drm_device *dev,
- 		arg->count_lessees = count;
- 
- 	mutex_unlock(&dev->mode_config.idr_mutex);
-+	drm_master_put(&lessor);
- 
- 	return ret;
- }
-@@ -661,7 +698,7 @@ int drm_mode_get_lease_ioctl(struct drm_device *dev,
- 	struct drm_mode_get_lease *arg = data;
- 	__u32 __user *object_ids = (__u32 __user *) (uintptr_t) (arg->objects_ptr);
- 	__u32 count_objects = arg->count_objects;
--	struct drm_master *lessee = lessee_priv->master;
-+	struct drm_master *lessee;
- 	struct idr *object_idr;
- 	int count;
- 	void *entry;
-@@ -675,6 +712,7 @@ int drm_mode_get_lease_ioctl(struct drm_device *dev,
- 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
- 		return -EOPNOTSUPP;
- 
-+	lessee = drm_file_get_master(lessee_priv);
- 	DRM_DEBUG_LEASE("get lease for %d\n", lessee->lessee_id);
- 
- 	mutex_lock(&dev->mode_config.idr_mutex);
-@@ -702,6 +740,7 @@ int drm_mode_get_lease_ioctl(struct drm_device *dev,
- 		arg->count_objects = count;
- 
- 	mutex_unlock(&dev->mode_config.idr_mutex);
-+	drm_master_put(&lessee);
- 
- 	return ret;
- }
-@@ -720,7 +759,7 @@ int drm_mode_revoke_lease_ioctl(struct drm_device *dev,
- 				void *data, struct drm_file *lessor_priv)
- {
- 	struct drm_mode_revoke_lease *arg = data;
--	struct drm_master *lessor = lessor_priv->master;
-+	struct drm_master *lessor;
- 	struct drm_master *lessee;
- 	int ret = 0;
- 
-@@ -730,6 +769,7 @@ int drm_mode_revoke_lease_ioctl(struct drm_device *dev,
- 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
- 		return -EOPNOTSUPP;
- 
-+	lessor = drm_file_get_master(lessor_priv);
- 	mutex_lock(&dev->mode_config.idr_mutex);
- 
- 	lessee = _drm_find_lessee(lessor, arg->lessee_id);
-@@ -750,6 +790,7 @@ int drm_mode_revoke_lease_ioctl(struct drm_device *dev,
- 
- fail:
- 	mutex_unlock(&dev->mode_config.idr_mutex);
-+	drm_master_put(&lessor);
- 
- 	return ret;
- }
-diff --git a/include/drm/drm_auth.h b/include/drm/drm_auth.h
-index 6bf8b2b78991..f99d3417f304 100644
---- a/include/drm/drm_auth.h
-+++ b/include/drm/drm_auth.h
-@@ -107,6 +107,7 @@ struct drm_master {
- };
- 
- struct drm_master *drm_master_get(struct drm_master *master);
-+struct drm_master *drm_file_get_master(struct drm_file *file_priv);
- void drm_master_put(struct drm_master **master);
- bool drm_is_current_master(struct drm_file *fpriv);
- 
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 9b82988e3427..726cfe0ff5f5 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -233,6 +233,12 @@ struct drm_file {
- 	 * this only matches &drm_device.master if the master is the currently
- 	 * active one.
- 	 *
-+	 * When dereferencing this pointer, either hold struct
-+	 * &drm_device.master_mutex for the duration of the pointer's use, or
-+	 * use drm_file_get_master() if struct &drm_device.master_mutex is not
-+	 * currently held and there is no other need to hold it. This prevents
-+	 * @master from being freed during use.
-+	 *
- 	 * See also @authentication and @is_master and the :ref:`section on
- 	 * primary nodes and authentication <drm_primary_node>`.
- 	 */
+ 	mutex_lock(&dev->mode_config.mutex);
+ 	if (out_resp->count_modes == 0) {
+-		if (drm_is_current_master(file_priv))
++		if (is_current_master)
+ 			connector->funcs->fill_modes(connector,
+ 						     dev->mode_config.max_width,
+ 						     dev->mode_config.max_height);
 -- 
 2.25.1
 
