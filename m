@@ -2,51 +2,66 @@ Return-Path: <SRS0=q1oR=ME=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 726C8C07E99
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 20:01:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 790DBC07E99
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 20:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3BA9A611F1
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 20:01:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3BA9A611F1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id ACB7F611CC
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 20:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACB7F611CC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C103489994;
-	Mon, 12 Jul 2021 20:01:50 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1790989994;
- Mon, 12 Jul 2021 20:01:49 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="197231783"
-X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="197231783"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2021 13:01:47 -0700
-X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="412698588"
-Received: from johnharr-mobl1.amr.corp.intel.com (HELO [10.209.125.18])
- ([10.209.125.18])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2021 13:01:46 -0700
-To: Matthew Brost <matthew.brost@intel.com>, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-References: <20210624070516.21893-1-matthew.brost@intel.com>
- <20210624070516.21893-33-matthew.brost@intel.com>
-From: John Harrison <john.c.harrison@intel.com>
-Message-ID: <33e8c150-9ecc-ce6b-46e4-ac6442e15a90@intel.com>
-Date: Mon, 12 Jul 2021 13:01:45 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5042989DA8;
+	Mon, 12 Jul 2021 20:01:59 +0000 (UTC)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5310889DA8
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Jul 2021 20:01:58 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id k4so20945491wrc.8
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Jul 2021 13:01:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rQ/9B9gp7BfGv+I7EqOLo+1pdU+MHrWq3XnBCjgYxfk=;
+ b=L5UHG+Kw93Duna2ZzLKxXclr1qe2L7eKrxZVfnALrgN3ZvRUXbvGDBsAn2G9U5GC8r
+ y8icd8rtiA2tBHfdM8R17XgM6GQxNpC7zOWNQo1VDPs9q3u2xG2hxHI1U4pRL0lU1ryo
+ /oU3iSEV1RilOpA+RVhi5NAX8nNscXiumHtGE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rQ/9B9gp7BfGv+I7EqOLo+1pdU+MHrWq3XnBCjgYxfk=;
+ b=XT3jQBiglCvjiwU/64+6SNCza+G5iCaxf9KsyZiFG/fUvhrkRi2wPzAROcX/TyqxTU
+ ud233wQgAcl3elv3YOqHlBiNAPPDM1SszCKK4EaD9tGGXwu/Bg/ShUzwax3f4DdAF1Bj
+ HxeKBpyUdq0QJFVM8zDWrVmbSuSYLUSrBjwITfJVLL11rGFIIvYndpssFb6DQ1zKXo2C
+ iIylebiZ1N+vA2lAqXKv1tNUGj8qvJmQhOuNYslfdxWxfvLQVG6Uut2sEFCp4r7Q0JgS
+ 0oAKByIPxmwUS7MZG6DR3arlOA3tcugi7WgyX72KS0qujG7HTwgu4A/nUOvuqX2EraQx
+ psvw==
+X-Gm-Message-State: AOAM532FRlxs0OvRmsxzu+4PcaGMiOTpU/lH1ah5cUJcoPZJFzXa7oF/
+ RK187u4l5j8UbLcQ4ygBYAUsH3xuRveaOA==
+X-Google-Smtp-Source: ABdhPJzOI24tnXrMeIteuBh5hI+52aMMqGVPI4see49LW0OfBDMJaxaqIYU4yTWmDbOOrG1PEqEybg==
+X-Received: by 2002:a05:6000:1867:: with SMTP id
+ d7mr818971wri.199.1626120116991; 
+ Mon, 12 Jul 2021 13:01:56 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id l14sm9858221wrs.22.2021.07.12.13.01.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jul 2021 13:01:56 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Date: Mon, 12 Jul 2021 19:53:34 +0200
+Message-Id: <20210712175352.802687-1-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <20210624070516.21893-33-matthew.brost@intel.com>
-Content-Language: en-GB
-Subject: Re: [Intel-gfx] [PATCH 32/47] drm/i915: Reset GPU immediately if
- submission is disabled
+Subject: [Intel-gfx] [PATCH v4 00/18] drm/sched dependency tracking and
+ dma-resv fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,248 +74,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 6/24/2021 00:05, Matthew Brost wrote:
-> If submission is disabled by the backend for any reason, reset the GPU
-> immediately in the heartbeat code as the backend can't be reenabled
-> until the GPU is reset.
->
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+Hi all,
 
-> ---
->   .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 63 +++++++++++++++----
->   .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |  4 ++
->   .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  9 +++
->   drivers/gpu/drm/i915/i915_scheduler.c         |  6 ++
->   drivers/gpu/drm/i915/i915_scheduler.h         |  6 ++
->   drivers/gpu/drm/i915/i915_scheduler_types.h   |  5 ++
->   6 files changed, 80 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-> index b6a305e6a974..a8495364d906 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-> @@ -70,12 +70,30 @@ static void show_heartbeat(const struct i915_request *rq,
->   {
->   	struct drm_printer p = drm_debug_printer("heartbeat");
->   
-> -	intel_engine_dump(engine, &p,
-> -			  "%s heartbeat {seqno:%llx:%lld, prio:%d} not ticking\n",
-> -			  engine->name,
-> -			  rq->fence.context,
-> -			  rq->fence.seqno,
-> -			  rq->sched.attr.priority);
-> +	if (!rq) {
-> +		intel_engine_dump(engine, &p,
-> +				  "%s heartbeat not ticking\n",
-> +				  engine->name);
-> +	} else {
-> +		intel_engine_dump(engine, &p,
-> +				  "%s heartbeat {seqno:%llx:%lld, prio:%d} not ticking\n",
-> +				  engine->name,
-> +				  rq->fence.context,
-> +				  rq->fence.seqno,
-> +				  rq->sched.attr.priority);
-> +	}
-> +}
-> +
-> +static void
-> +reset_engine(struct intel_engine_cs *engine, struct i915_request *rq)
-> +{
-> +	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-> +		show_heartbeat(rq, engine);
-> +
-> +	intel_gt_handle_error(engine->gt, engine->mask,
-> +			      I915_ERROR_CAPTURE,
-> +			      "stopped heartbeat on %s",
-> +			      engine->name);
->   }
->   
->   static void heartbeat(struct work_struct *wrk)
-> @@ -102,6 +120,11 @@ static void heartbeat(struct work_struct *wrk)
->   	if (intel_gt_is_wedged(engine->gt))
->   		goto out;
->   
-> +	if (i915_sched_engine_disabled(engine->sched_engine)) {
-> +		reset_engine(engine, engine->heartbeat.systole);
-> +		goto out;
-> +	}
-> +
->   	if (engine->heartbeat.systole) {
->   		long delay = READ_ONCE(engine->props.heartbeat_interval_ms);
->   
-> @@ -139,13 +162,7 @@ static void heartbeat(struct work_struct *wrk)
->   			engine->sched_engine->schedule(rq, &attr);
->   			local_bh_enable();
->   		} else {
-> -			if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-> -				show_heartbeat(rq, engine);
-> -
-> -			intel_gt_handle_error(engine->gt, engine->mask,
-> -					      I915_ERROR_CAPTURE,
-> -					      "stopped heartbeat on %s",
-> -					      engine->name);
-> +			reset_engine(engine, rq);
->   		}
->   
->   		rq->emitted_jiffies = jiffies;
-> @@ -194,6 +211,26 @@ void intel_engine_park_heartbeat(struct intel_engine_cs *engine)
->   		i915_request_put(fetch_and_zero(&engine->heartbeat.systole));
->   }
->   
-> +void intel_gt_unpark_heartbeats(struct intel_gt *gt)
-> +{
-> +	struct intel_engine_cs *engine;
-> +	enum intel_engine_id id;
-> +
-> +	for_each_engine(engine, gt, id)
-> +		if (intel_engine_pm_is_awake(engine))
-> +			intel_engine_unpark_heartbeat(engine);
-> +
-> +}
-> +
-> +void intel_gt_park_heartbeats(struct intel_gt *gt)
-> +{
-> +	struct intel_engine_cs *engine;
-> +	enum intel_engine_id id;
-> +
-> +	for_each_engine(engine, gt, id)
-> +		intel_engine_park_heartbeat(engine);
-> +}
-> +
->   void intel_engine_init_heartbeat(struct intel_engine_cs *engine)
->   {
->   	INIT_DELAYED_WORK(&engine->heartbeat.work, heartbeat);
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
-> index a488ea3e84a3..5da6d809a87a 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
-> @@ -7,6 +7,7 @@
->   #define INTEL_ENGINE_HEARTBEAT_H
->   
->   struct intel_engine_cs;
-> +struct intel_gt;
->   
->   void intel_engine_init_heartbeat(struct intel_engine_cs *engine);
->   
-> @@ -16,6 +17,9 @@ int intel_engine_set_heartbeat(struct intel_engine_cs *engine,
->   void intel_engine_park_heartbeat(struct intel_engine_cs *engine);
->   void intel_engine_unpark_heartbeat(struct intel_engine_cs *engine);
->   
-> +void intel_gt_park_heartbeats(struct intel_gt *gt);
-> +void intel_gt_unpark_heartbeats(struct intel_gt *gt);
-> +
->   int intel_engine_pulse(struct intel_engine_cs *engine);
->   int intel_engine_flush_barriers(struct intel_engine_cs *engine);
->   
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> index b8c894ad8caf..59fca9748c15 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> @@ -10,6 +10,7 @@
->   #include "gt/intel_breadcrumbs.h"
->   #include "gt/intel_context.h"
->   #include "gt/intel_engine_pm.h"
-> +#include "gt/intel_engine_heartbeat.h"
->   #include "gt/intel_gt.h"
->   #include "gt/intel_gt_irq.h"
->   #include "gt/intel_gt_pm.h"
-> @@ -605,6 +606,7 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
->   		/* Reset called during driver load? GuC not yet initialised! */
->   		return;
->   
-> +	intel_gt_park_heartbeats(guc_to_gt(guc));
->   	disable_submission(guc);
->   	guc->interrupts.disable(guc);
->   
-> @@ -890,6 +892,7 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
->   	atomic_set(&guc->outstanding_submission_g2h, 0);
->   
->   	enable_submission(guc);
-> +	intel_gt_unpark_heartbeats(guc_to_gt(guc));
->   }
->   
->   /*
-> @@ -1859,6 +1862,11 @@ static int guc_resume(struct intel_engine_cs *engine)
->   	return 0;
->   }
->   
-> +static bool guc_sched_engine_disabled(struct i915_sched_engine *sched_engine)
-> +{
-> +	return !sched_engine->tasklet.callback;
-> +}
-> +
->   static void guc_set_default_submission(struct intel_engine_cs *engine)
->   {
->   	engine->submit_request = guc_submit_request;
-> @@ -2009,6 +2017,7 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
->   			return -ENOMEM;
->   
->   		guc->sched_engine->schedule = i915_schedule;
-> +		guc->sched_engine->disabled = guc_sched_engine_disabled;
->   		guc->sched_engine->private_data = guc;
->   		tasklet_setup(&guc->sched_engine->tasklet,
->   			      guc_submission_tasklet);
-> diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-> index 3a58a9130309..3fb009ea2cb2 100644
-> --- a/drivers/gpu/drm/i915/i915_scheduler.c
-> +++ b/drivers/gpu/drm/i915/i915_scheduler.c
-> @@ -440,6 +440,11 @@ void i915_sched_engine_free(struct kref *kref)
->   	kfree(sched_engine);
->   }
->   
-> +static bool default_disabled(struct i915_sched_engine *sched_engine)
-> +{
-> +	return false;
-> +}
-> +
->   struct i915_sched_engine *
->   i915_sched_engine_create(unsigned int subclass)
->   {
-> @@ -453,6 +458,7 @@ i915_sched_engine_create(unsigned int subclass)
->   
->   	sched_engine->queue = RB_ROOT_CACHED;
->   	sched_engine->queue_priority_hint = INT_MIN;
-> +	sched_engine->disabled = default_disabled;
->   
->   	INIT_LIST_HEAD(&sched_engine->requests);
->   	INIT_LIST_HEAD(&sched_engine->hold);
-> diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-> index 650ab8e0db9f..72105a53b0e1 100644
-> --- a/drivers/gpu/drm/i915/i915_scheduler.h
-> +++ b/drivers/gpu/drm/i915/i915_scheduler.h
-> @@ -98,4 +98,10 @@ void i915_request_show_with_schedule(struct drm_printer *m,
->   				     const char *prefix,
->   				     int indent);
->   
-> +static inline bool
-> +i915_sched_engine_disabled(struct i915_sched_engine *sched_engine)
-> +{
-> +	return sched_engine->disabled(sched_engine);
-> +}
-> +
->   #endif /* _I915_SCHEDULER_H_ */
-> diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-> index 5935c3152bdc..cfaf52e528d0 100644
-> --- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-> +++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-> @@ -163,6 +163,11 @@ struct i915_sched_engine {
->   	 */
->   	void *private_data;
->   
-> +	/**
-> +	 * @disabled: check if backend has disabled submission
-> +	 */
-> +	bool	(*disabled)(struct i915_sched_engine *sched_engine);
-> +
->   	/**
->   	 * @kick_backend: kick backend after a request's priority has changed
->   	 */
+Quick new version since the previous one was a bit too broken:
+- dropped the bug-on patch to avoid breaking amdgpu's gpu reset failure
+  games
+- another attempt at splitting job_init/arm, hopefully we're getting
+  there.
+
+Note that Christian has brought up a bikeshed on the new functions to add
+dependencies to drm_sched_jobs. I'm happy to repaint, if there's some kind
+of consensus on what it should be.
+
+Testing and review very much welcome, as usual.
+
+Cheers, Daniel
+
+Daniel Vetter (18):
+  drm/sched: Split drm_sched_job_init
+  drm/sched: Barriers are needed for entity->last_scheduled
+  drm/sched: Add dependency tracking
+  drm/sched: drop entity parameter from drm_sched_push_job
+  drm/sched: improve docs around drm_sched_entity
+  drm/panfrost: use scheduler dependency tracking
+  drm/lima: use scheduler dependency tracking
+  drm/v3d: Move drm_sched_job_init to v3d_job_init
+  drm/v3d: Use scheduler dependency handling
+  drm/etnaviv: Use scheduler dependency handling
+  drm/gem: Delete gem array fencing helpers
+  drm/sched: Don't store self-dependencies
+  drm/sched: Check locking in drm_sched_job_await_implicit
+  drm/msm: Don't break exclusive fence ordering
+  drm/etnaviv: Don't break exclusive fence ordering
+  drm/i915: delete exclude argument from i915_sw_fence_await_reservation
+  drm/i915: Don't break exclusive fence ordering
+  dma-resv: Give the docs a do-over
+
+ Documentation/gpu/drm-mm.rst                  |   3 +
+ drivers/dma-buf/dma-resv.c                    |  24 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |   4 +-
+ drivers/gpu/drm/drm_gem.c                     |  96 ---------
+ drivers/gpu/drm/etnaviv/etnaviv_gem.h         |   5 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c  |  64 +++---
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c       |  65 +-----
+ drivers/gpu/drm/etnaviv/etnaviv_sched.h       |   3 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |   4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_clflush.c   |   2 +-
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |   8 +-
+ drivers/gpu/drm/i915/i915_sw_fence.c          |   6 +-
+ drivers/gpu/drm/i915/i915_sw_fence.h          |   1 -
+ drivers/gpu/drm/lima/lima_gem.c               |   7 +-
+ drivers/gpu/drm/lima/lima_sched.c             |  28 +--
+ drivers/gpu/drm/lima/lima_sched.h             |   6 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c          |   3 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c       |  16 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  39 +---
+ drivers/gpu/drm/panfrost/panfrost_job.h       |   5 +-
+ drivers/gpu/drm/scheduler/sched_entity.c      | 140 +++++++------
+ drivers/gpu/drm/scheduler/sched_fence.c       |  19 +-
+ drivers/gpu/drm/scheduler/sched_main.c        | 181 +++++++++++++++--
+ drivers/gpu/drm/v3d/v3d_drv.h                 |   6 +-
+ drivers/gpu/drm/v3d/v3d_gem.c                 | 115 +++++------
+ drivers/gpu/drm/v3d/v3d_sched.c               |  44 +----
+ include/drm/drm_gem.h                         |   5 -
+ include/drm/gpu_scheduler.h                   | 186 ++++++++++++++----
+ include/linux/dma-buf.h                       |   7 +
+ include/linux/dma-resv.h                      | 104 +++++++++-
+ 31 files changed, 672 insertions(+), 528 deletions(-)
+
+-- 
+2.32.0
 
 _______________________________________________
 Intel-gfx mailing list
