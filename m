@@ -2,76 +2,73 @@ Return-Path: <SRS0=q1oR=ME=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A30FAC07E9C
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DFFDC07E9A
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 736B461003
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 736B461003
+	by mail.kernel.org (Postfix) with ESMTPS id 4B68761003
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jul 2021 13:50:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B68761003
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A052889C05;
-	Mon, 12 Jul 2021 13:49:55 +0000 (UTC)
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19AAC89BF4;
- Mon, 12 Jul 2021 04:36:13 +0000 (UTC)
-Received: by mail-pj1-x1034.google.com with SMTP id
- h1-20020a17090a3d01b0290172d33bb8bcso12031589pjc.0; 
- Sun, 11 Jul 2021 21:36:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40D0C89C27;
+	Mon, 12 Jul 2021 13:49:56 +0000 (UTC)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BBB88933C;
+ Mon, 12 Jul 2021 04:35:49 +0000 (UTC)
+Received: by mail-pj1-x1036.google.com with SMTP id g24so9384686pji.4;
+ Sun, 11 Jul 2021 21:35:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=HkvtxDTuclRkRfTpFmPh6ccETrvYpVzoM2/E6X8XKUc=;
- b=TkFWuvGuG4fZZPRhLWtJVUChMTZQMKiDWsOjFEd94fJHPeV6SmiyctfD9zQTxnnJuK
- RMudC3sRYxeRIskkNkEFScXy9JAbOP57L9jHAfOq5En9oH00ZFlYZsZLs99yYdNAPPGb
- PRDe5Wos02fqSAxIM4RmBwr2gu/scHZaiW8JGlnQtmMUDLL3UGxKE280nxQHEgUdqsFj
- WOiiX5yZRDdaj1wMA6OKvjl1M1TudI5EPJcLXlAp5IgBgGVkbx/aWhmDNjLoSG3XQKXn
- HmhO8tjMlIYyZqLbqTU5oP0GfgMQNB1SgZ0Epx31nTeQWSLcUEY3ppZqFgaINLVhVvVE
- h0mg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4rLWxgvTxRO6/WnLGuPe5bx1yA3ZPfoXkYG4O0mj5Ag=;
+ b=Geoi+0MWpfFz4FPkrYi/nx4PnAtxpDewQhIbIJJEpdvLJd+zqBYat7d/uOq4bOLVmd
+ crQ/FoTUO9henHk0k11fQML6QMzkjWON0Bt18h+gJv2G/u9O9SDKTBmGaHB5IW53VE4S
+ dROuzbLroxbfZ+hAfVRA1sBJwY8qb8JowpBI+TITbGDJyvK+HYjHCaIUdC1xAyu7xKp5
+ IPR01Sq4YwLldIdNar4XcUj524b6nWeJauuyT1o61vKbGdw75fpaUfireHd2P6nG5SoU
+ h4Fpq9tBo8yTM42PgkUERGI5dzs6z4lPbvLONb4iO7jVKoeo3VkpxgjE/ca8jJ+PZKkL
+ 41/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=HkvtxDTuclRkRfTpFmPh6ccETrvYpVzoM2/E6X8XKUc=;
- b=EtBlRO7ZPyU14NK9oHY8YIAE5jGxaF1Aw93/607wEjKPCVwobzqUI50sKJRI1Q7pTJ
- 8wyUYAHnzGKEVWvqYi8CjN5ll2ZZuKClzqr38m+dFNKFSz6CZPsLf8CnVqvu9Ls2ismt
- TBeMyjcOujEwWqXoWhpYHT4I1fh1+QuqyclN7jUoW0v/QlGbSiES8L972c5L1NnLPDnA
- i0p2GAV2J6fEsRzMVlFG3t7SBoFl4W4piGwZwRosfvLlsmffQfAK4gpJU/+JjqvJmN14
- qxcw/FIiDc9itzAD1X+XLyimt/R10cB3Z12EjWpYVudZSzTirZTeeS6D2StisV0VWP0M
- yw1w==
-X-Gm-Message-State: AOAM530a+Fj0zd0ocOr3pTef6+m6atn6/yN7Jw5jNJrAoKslXwqnys8L
- 5A0sGXu1UupHMLk//xYgsgg=
-X-Google-Smtp-Source: ABdhPJwtA90cYSifrQJwTaSoHydI6hlJwqkehQwc9gGVWpl+Pq7yrX4poeQ4rY4gRfpeWFGPKJLnKw==
-X-Received: by 2002:a17:902:fe8b:b029:129:7797:ff4d with SMTP id
- x11-20020a170902fe8bb02901297797ff4dmr37311850plm.17.1626064572731; 
- Sun, 11 Jul 2021 21:36:12 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4rLWxgvTxRO6/WnLGuPe5bx1yA3ZPfoXkYG4O0mj5Ag=;
+ b=d+Qik32wMd/29E3XXEtu48CJWNFsmSIOQa8rdw28FHp15oDNGNs7GICFJ13BCT/Zvm
+ Li/FKdr88f7f0N+yO6BrLrWZa2MywI3Zn3vLV1+szdfNTd8kMUiTdDistwVXMzwDmbn7
+ ukQ+s3Qgv5wTxTlRMf++wKV2i1B5zxpr4rB/bklBVO9Y9mqq14RXTFPcIaVfR4qszJf/
+ e3qq7q/Kh/GrppcP2yEabQEV9tl8t4YQ2xdOC4j3XxGWuI2B1M1y12MH1x1urrImNtn7
+ UxwzGymA97yBdFzp0aWxS/dG0erCBYiP+X3H7f6bcaXzrz0d0YORGLP0b1qW9HBoinrQ
+ 2JiQ==
+X-Gm-Message-State: AOAM530hTo57rsrFXf0obLNH7R4KPcqeyfTQMsXfT9w1r28Kk8JH8PFa
+ 5hMfndEA5EuOERi83N10qNo=
+X-Google-Smtp-Source: ABdhPJwl+CRq9QTeLobKLyJ6aOiBlK052/w9C9BYiZxarzwfe1F9ZnaLlpMcaNfVay5lzr4CjUJ4tQ==
+X-Received: by 2002:a17:90a:c484:: with SMTP id
+ j4mr48282588pjt.218.1626064548647; 
+ Sun, 11 Jul 2021 21:35:48 -0700 (PDT)
 Received: from localhost.localdomain ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id n3sm14242764pfn.216.2021.07.11.21.36.08
+ by smtp.gmail.com with ESMTPSA id n3sm14242764pfn.216.2021.07.11.21.35.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 11 Jul 2021 21:36:12 -0700 (PDT)
+ Sun, 11 Jul 2021 21:35:48 -0700 (PDT)
 From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
  christian.koenig@amd.com
-Date: Mon, 12 Jul 2021 12:35:07 +0800
-Message-Id: <20210712043508.11584-5-desmondcheongzx@gmail.com>
+Date: Mon, 12 Jul 2021 12:35:03 +0800
+Message-Id: <20210712043508.11584-1-desmondcheongzx@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210712043508.11584-1-desmondcheongzx@gmail.com>
-References: <20210712043508.11584-1-desmondcheongzx@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 12 Jul 2021 13:49:54 +0000
-Subject: [Intel-gfx] [PATCH v8 4/5] drm: serialize drm_file.master with a
- new spinlock
+Subject: [Intel-gfx] [PATCH v8 0/5] drm: address potential UAF bugs with
+ drm_master ptrs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,138 +81,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, gregkh@linuxfoundation.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- skhan@linuxfoundation.org, Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
+Cc: gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, skhan@linuxfoundation.org,
+ Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
  linux-kernel-mentees@lists.linuxfoundation.org, linux-media@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, drm_file.master pointers should be protected by
-drm_device.master_mutex when being dereferenced. This is because
-drm_file.master is not invariant for the lifetime of drm_file. If
-drm_file is not the creator of master, then drm_file.is_master is
-false, and a call to drm_setmaster_ioctl will invoke
-drm_new_set_master, which then allocates a new master for drm_file and
-puts the old master.
+Hi,
 
-Thus, without holding drm_device.master_mutex, the old value of
-drm_file.master could be freed while it is being used by another
-concurrent process.
+In the previous thread on this series we decided to remove a patch that was violating a lockdep requirement in drm_lease. In addition to this change, I took a closer look at the CI logs for the Basic Acceptance Tests and noticed that another regression was introduced. The new patch 2 is a response to this.
 
-However, it is not always possible to lock drm_device.master_mutex to
-dereference drm_file.master. Through the fbdev emulation code, this
-might occur in a deep nest of other locks. But drm_device.master_mutex
-is also the outermost lock in the nesting hierarchy, so this leads to
-potential deadlocks.
+Overall, this series addresses potential use-after-free errors when dereferencing pointers to struct drm_master. These were identified after one such bug was caught by Syzbot in drm_getunique():
+https://syzkaller.appspot.com/bug?id=148d2f1dfac64af52ffd27b661981a540724f803
 
-To address this, we introduce a new spin lock at the bottom of the
-lock hierarchy that only serializes drm_file.master. With this change,
-the value of drm_file.master changes only when both
-drm_device.master_mutex and drm_file.master_lookup_lock are
-held. Hence, any process holding either of those locks can ensure that
-the value of drm_file.master will not change concurrently.
+The series is broken up into five patches:
 
-Since no lock depends on the new drm_file.master_lookup_lock, when
-drm_file.master is dereferenced, but drm_device.master_mutex cannot be
-held, we can safely protect the master pointer with
-drm_file.master_lookup_lock.
+1. Move a call to drm_is_current_master() out from a section locked by &dev->mode_config.mutex in drm_mode_getconnector(). This patch does not apply to stable.
 
-Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
----
- drivers/gpu/drm/drm_auth.c | 17 +++++++++++------
- drivers/gpu/drm/drm_file.c |  1 +
- include/drm/drm_file.h     | 12 +++++++++---
- 3 files changed, 21 insertions(+), 9 deletions(-)
+2. Move a call to drm_is_current_master() out from the RCU read-side critical section in drm_clients_info().
 
-diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-index ab1863c5a5a0..30a239901b36 100644
---- a/drivers/gpu/drm/drm_auth.c
-+++ b/drivers/gpu/drm/drm_auth.c
-@@ -164,16 +164,18 @@ static void drm_set_master(struct drm_device *dev, struct drm_file *fpriv,
- static int drm_new_set_master(struct drm_device *dev, struct drm_file *fpriv)
- {
- 	struct drm_master *old_master;
-+	struct drm_master *new_master;
- 
- 	lockdep_assert_held_once(&dev->master_mutex);
- 
- 	WARN_ON(fpriv->is_master);
- 	old_master = fpriv->master;
--	fpriv->master = drm_master_create(dev);
--	if (!fpriv->master) {
--		fpriv->master = old_master;
-+	new_master = drm_master_create(dev);
-+	if (!new_master)
- 		return -ENOMEM;
--	}
-+	spin_lock(&fpriv->master_lookup_lock);
-+	fpriv->master = new_master;
-+	spin_unlock(&fpriv->master_lookup_lock);
- 
- 	fpriv->is_master = 1;
- 	fpriv->authenticated = 1;
-@@ -332,10 +334,13 @@ int drm_master_open(struct drm_file *file_priv)
- 	 * any master object for render clients
- 	 */
- 	mutex_lock(&dev->master_mutex);
--	if (!dev->master)
-+	if (!dev->master) {
- 		ret = drm_new_set_master(dev, file_priv);
--	else
-+	} else {
-+		spin_lock(&file_priv->master_lookup_lock);
- 		file_priv->master = drm_master_get(dev->master);
-+		spin_unlock(&file_priv->master_lookup_lock);
-+	}
- 	mutex_unlock(&dev->master_mutex);
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index d4f0bac6f8f8..ceb1a9723855 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -176,6 +176,7 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
- 	init_waitqueue_head(&file->event_wait);
- 	file->event_space = 4096; /* set aside 4k for event buffer */
- 
-+	spin_lock_init(&file->master_lookup_lock);
- 	mutex_init(&file->event_read_lock);
- 
- 	if (drm_core_check_feature(dev, DRIVER_GEM))
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index b81b3bfb08c8..9b82988e3427 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -226,15 +226,21 @@ struct drm_file {
- 	/**
- 	 * @master:
- 	 *
--	 * Master this node is currently associated with. Only relevant if
--	 * drm_is_primary_client() returns true. Note that this only
--	 * matches &drm_device.master if the master is the currently active one.
-+	 * Master this node is currently associated with. Protected by struct
-+	 * &drm_device.master_mutex, and serialized by @master_lookup_lock.
-+	 *
-+	 * Only relevant if drm_is_primary_client() returns true. Note that
-+	 * this only matches &drm_device.master if the master is the currently
-+	 * active one.
- 	 *
- 	 * See also @authentication and @is_master and the :ref:`section on
- 	 * primary nodes and authentication <drm_primary_node>`.
- 	 */
- 	struct drm_master *master;
- 
-+	/** @master_lock: Serializes @master. */
-+	spinlock_t master_lookup_lock;
-+
- 	/** @pid: Process that opened this file. */
- 	struct pid *pid;
- 
+3. Implement a locked version of drm_is_current_master() function that's used within drm_auth.c.
+
+4. Serialize drm_file.master by introducing a new spinlock that's held whenever the value of drm_file.master changes.
+
+5. Identify areas in drm_lease.c where pointers to struct drm_master are dereferenced, and ensure that the master pointers are not freed during use.
+
+v7 -> v8:
+- Remove the patch that moves the call to _drm_lease_held out from the section locked by &dev->mode_config.idr_mutex in __drm_mode_object_find. This patch violated an existing lockdep requirement as reported by the intel-gfx CI.
+- Added a new patch that moves a call to drm_is_current_master out from the RCU critical section in drm_clients_info. This was reported by the intel-gfx CI.
+
+v6 -> v7:
+- Modify code alignment as suggested by the intel-gfx CI.
+- Add a new patch to the series that adds a new lock to serialize drm_file.master, in response to the lockdep splat by the intel-gfx CI.
+- Update drm_file_get_master to use the new drm_file.master_lock instead of drm_device.master_mutex, in response to the lockdep splat by the intel-gfx CI.
+
+v5 -> v6:
+- Add a new patch to the series that moves the call to _drm_lease_held out from the section locked by &dev->mode_config.idr_mutex in __drm_mode_object_find.
+- Clarify the kerneldoc for dereferencing drm_file.master, as suggested by Daniel Vetter.
+- Refactor error paths with goto labels so that each function only has a single drm_master_put(), as suggested by Emil Velikov.
+- Modify comparisons to NULL into "!master", as suggested by the intel-gfx CI.
+
+v4 -> v5:
+- Add a new patch to the series that moves the call to drm_is_current_master in drm_mode_getconnector out from the section locked by &dev->mode_config.mutex.
+- Additionally, added a missing semicolon to the patch, caught by the intel-gfx CI.
+
+v3 -> v4:
+- Move the call to drm_is_current_master in drm_mode_getconnector out from the section locked by &dev->mode_config.mutex. As suggested by Daniel Vetter. This avoids a circular lock lock dependency as reported here https://patchwork.freedesktop.org/patch/440406/
+- Inside drm_is_current_master, instead of grabbing &fpriv->master->dev->master_mutex, we grab &fpriv->minor->dev->master_mutex to avoid dereferencing a null ptr if fpriv->master is not set.
+- Modify kerneldoc formatting for drm_file.master, as suggested by Daniel Vetter.
+- Additionally, add a file_priv->master NULL check inside drm_file_get_master, and handle the NULL result accordingly in drm_lease.c. As suggested by Daniel Vetter.
+
+v2 -> v3:
+- Move the definition of drm_is_current_master and the _locked version higher up in drm_auth.c to avoid needing a forward declaration of drm_is_current_master_locked. As suggested by Daniel Vetter.
+- Instead of leaking drm_device.master_mutex into drm_lease.c to protect drm_master pointers, add a new drm_file_get_master() function that returns drm_file->master while increasing its reference count, to prevent drm_file->master from being freed. As suggested by Daniel Vetter.
+
+v1 -> v2:
+- Move the lock and assignment before the DRM_DEBUG_LEASE in drm_mode_get_lease_ioctl, as suggested by Emil Velikov.
+
+Desmond Cheong Zhi Xi (5):
+  drm: avoid circular locks in drm_mode_getconnector
+  drm: avoid blocking in drm_clients_info's rcu section
+  drm: add a locked version of drm_is_current_master
+  drm: serialize drm_file.master with a new spinlock
+  drm: protect drm_master pointers in drm_lease.c
+
+ drivers/gpu/drm/drm_auth.c      | 93 ++++++++++++++++++++++++---------
+ drivers/gpu/drm/drm_connector.c |  5 +-
+ drivers/gpu/drm/drm_debugfs.c   |  3 +-
+ drivers/gpu/drm/drm_file.c      |  1 +
+ drivers/gpu/drm/drm_lease.c     | 81 +++++++++++++++++++++-------
+ include/drm/drm_auth.h          |  1 +
+ include/drm/drm_file.h          | 18 +++++--
+ 7 files changed, 152 insertions(+), 50 deletions(-)
+
 -- 
 2.25.1
 
