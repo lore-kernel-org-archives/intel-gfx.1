@@ -2,44 +2,52 @@ Return-Path: <SRS0=tFHw=MF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D541C07E95
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 20:28:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BEE04C07E95
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 20:30:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 417D961360
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 20:28:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 417D961360
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4727461351
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 20:30:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4727461351
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAF6A89831;
-	Tue, 13 Jul 2021 20:28:46 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D42A289831
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 20:28:45 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="189921975"
-X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="189921975"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E87926E12C;
+	Tue, 13 Jul 2021 20:30:14 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BAA26E12C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 20:30:14 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="271350012"
+X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="271350012"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 13:28:44 -0700
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 13:30:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="570576877"
-Received: from ariakraf-desk2.fm.intel.com ([10.105.129.123])
- by fmsmga001.fm.intel.com with ESMTP; 13 Jul 2021 13:28:44 -0700
-From: Aria Kraft <aria.m.kraft@intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>
-Date: Tue, 13 Jul 2021 13:17:01 -0700
-Message-Id: <20210713201701.1231730-1-aria.m.kraft@intel.com>
-X-Mailer: git-send-email 2.31.1
+X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="570577241"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga001.fm.intel.com with SMTP; 13 Jul 2021 13:30:10 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 13 Jul 2021 23:30:10 +0300
+Date: Tue, 13 Jul 2021 23:30:10 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Lu Baolu <baolu.lu@linux.intel.com>
+Message-ID: <YO330qFZi58X36PJ@intel.com>
+References: <20210709164750.9465-1-ville.syrjala@linux.intel.com>
+ <20210709164750.9465-2-ville.syrjala@linux.intel.com>
+ <ab04666c-229c-fbd2-07f3-6955b46985db@linux.intel.com>
+ <YOxkBeICOosZcVEY@intel.com>
+ <dcc41a8e-8076-5798-75da-1c356756d9b0@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/ehl: Resolve insufficient header
- credits in MIPI DSI
+Content-Disposition: inline
+In-Reply-To: <dcc41a8e-8076-5798-75da-1c356756d9b0@linux.intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 1/4] iommu/vt-d: Disable superpage for
+ Geminilake igfx
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,82 +60,147 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org, David Woodhouse <dwmw2@infradead.org>,
+ iommu@lists.linux-foundation.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-MIPI DSI initialization on EHL can fail due to not enough header credits available.
+On Tue, Jul 13, 2021 at 09:34:09AM +0800, Lu Baolu wrote:
+> On 7/12/21 11:47 PM, Ville Syrj=E4l=E4 wrote:
+> > On Mon, Jul 12, 2021 at 07:23:07AM +0800, Lu Baolu wrote:
+> >> On 7/10/21 12:47 AM, Ville Syrjala wrote:
+> >>> From: Ville Syrj=E4l=E4<ville.syrjala@linux.intel.com>
+> >>>
+> >>> While running "gem_exec_big --r single" from igt-gpu-tools on
+> >>> Geminilake as soon as a 2M mapping is made I tend to get a DMAR
+> >>> write fault. Strangely the faulting address is always a 4K page
+> >>> and usually very far away from the 2M page that got mapped.
+> >>> But if no 2M mappings get used I can't reproduce the fault.
+> >>>
+> >>> I also tried to dump the PTE for the faulting address but it actually
+> >>> looks correct to me (ie. definitely seems to have the write bit set):
+> >>>    DMAR: DRHD: handling fault status reg 2
+> >>>    DMAR: [DMA Write] Request device [00:02.0] PASID ffffffff fault ad=
+dr 7fa8a78000 [fault reason 05] PTE Write access is not set
+> >>>    DMAR: fault 7fa8a78000 (level=3D1) PTE =3D 149efc003
+> >>>
+> >>> So not really sure what's going on and this might just be full on duct
+> >>> tape, but it seems to work here. The machine has now survived a whole=
+ day
+> >>> running that test whereas with superpage enabled it fails in less than
+> >>> a minute usually.
+> >>>
+> >>> TODO: might be nice to disable superpage only for the igfx iommu
+> >>>         instead of both iommus
+> >> If all these quirks are about igfx dedicated iommu's, I would suggest =
+to
+> >> disable superpage only for the igfx ones.
+> > Sure. Unfortunately there's no convenient mechanism to do that in
+> > the iommu driver that I can immediately see. So not something I
+> > can just whip up easily. Since you're actually familiar with the
+> > driver maybe you can come up with a decent solution for that?
+> > =
 
-To resolve this failure, this patch adds a header count to the existing 100us wait function.
+> =
 
-It then adds a call to this modified function to request a single header credit during initialization.
+> How about something like below? [no compile, no test...]
+> =
 
-Reviewed-by: Bob Paauwe <bob.j.paauwe@intel.com>
-Signed-off-by: Aria Kraft <aria.m.kraft@intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index 1131b8efb050..2d51ef288a9e 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -338,6 +338,7 @@ static int intel_iommu_strict;
+>   static int intel_iommu_superpage =3D 1;
+>   static int iommu_identity_mapping;
+>   static int iommu_skip_te_disable;
+> +static int iommu_skip_igfx_superpage;
+> =
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 43ec7fcd3f5d..fd836fdc6ec7 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -54,12 +54,15 @@ static int payload_credits_available(struct drm_i915_private *dev_priv,
- 		>> FREE_PLOAD_CREDIT_SHIFT;
- }
- 
--static void wait_for_header_credits(struct drm_i915_private *dev_priv,
--				    enum transcoder dsi_trans)
-+static bool wait_for_header_credits(struct drm_i915_private *dev_priv,
-+				    enum transcoder dsi_trans, unsigned int credits)
- {
- 	if (wait_for_us(header_credits_available(dev_priv, dsi_trans) >=
--			MAX_HEADER_CREDIT, 100))
-+			credits, 100)) {
- 		drm_err(&dev_priv->drm, "DSI header credits not released\n");
-+		return false;
-+	}
-+	return true;
- }
- 
- static void wait_for_payload_credits(struct drm_i915_private *dev_priv,
-@@ -90,7 +93,7 @@ static void wait_for_cmds_dispatched_to_panel(struct intel_encoder *encoder)
- 	/* wait for header/payload credits to be released */
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		dsi_trans = dsi_port_to_transcoder(port);
--		wait_for_header_credits(dev_priv, dsi_trans);
-+		wait_for_header_credits(dev_priv, dsi_trans, MAX_HEADER_CREDIT);
- 		wait_for_payload_credits(dev_priv, dsi_trans);
- 	}
- 
-@@ -108,7 +111,7 @@ static void wait_for_cmds_dispatched_to_panel(struct intel_encoder *encoder)
- 	/* wait for header credits to be released */
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		dsi_trans = dsi_port_to_transcoder(port);
--		wait_for_header_credits(dev_priv, dsi_trans);
-+		wait_for_header_credits(dev_priv, dsi_trans, MAX_HEADER_CREDIT);
- 	}
- 
- 	/* wait for LP TX in progress bit to be cleared */
-@@ -155,13 +158,9 @@ static int dsi_send_pkt_hdr(struct intel_dsi_host *host,
- 	struct drm_i915_private *dev_priv = to_i915(intel_dsi->base.base.dev);
- 	enum transcoder dsi_trans = dsi_port_to_transcoder(host->port);
- 	u32 tmp;
--	int free_credits;
- 
- 	/* check if header credit available */
--	free_credits = header_credits_available(dev_priv, dsi_trans);
--	if (free_credits < 1) {
--		drm_err(&dev_priv->drm,
--			"send pkt header failed, not enough hdr credits\n");
-+	if (!wait_for_header_credits(dev_priv, dsi_trans, 1)) {
- 		return -1;
- 	}
- 
--- 
-2.31.1
+>   #define IDENTMAP_GFX		2
+>   #define IDENTMAP_AZALIA		4
+> @@ -652,6 +653,27 @@ static bool domain_update_iommu_snooping(struct =
 
+> intel_iommu *skip)
+>   	return ret;
+>   }
+> =
+
+> +static bool domain_use_super_page(struct dmar_domain *domain)
+> +{
+> +	struct dmar_drhd_unit *drhd;
+> +	struct intel_iommu *iommu;
+> +	bool ret =3D true;
+> +
+> +	if (!intel_iommu_superpage)
+> +		return false;
+> +
+> +	rcu_read_lock();
+> +	for_each_active_iommu(iommu, drhd) {
+> +		if (drhd->gfx_dedicated && iommu_skip_igfx_superpage) {
+> +			ret =3D false;
+> +			break
+                             ^
+Missing semicolon. Othwerwise seems to work great here. Thanks.
+
+Are you going to turn this into a proper patch, or do you
+want me to just squash this into my patches and repost?
+
+> +		}
+> +	}
+> +	rcu_read_unlock();
+> +
+> +	return ret;
+> +}
+> +
+>   static int domain_update_iommu_superpage(struct dmar_domain *domain,
+>   					 struct intel_iommu *skip)
+>   {
+> @@ -659,7 +681,7 @@ static int domain_update_iommu_superpage(struct =
+
+> dmar_domain *domain,
+>   	struct intel_iommu *iommu;
+>   	int mask =3D 0x3;
+> =
+
+> -	if (!intel_iommu_superpage)
+> +	if (!domain_use_super_page(domain))
+>   		return 0;
+> =
+
+>   	/* set iommu_superpage to the smallest common denominator */
+> @@ -5656,6 +5678,14 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, =
+
+> 0x1632, quirk_iommu_igfx);
+>   DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163A, quirk_iommu_igfx);
+>   DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163D, quirk_iommu_igfx);
+> =
+
+> +static void quirk_skip_igfx_superpage(struct pci_dev *dev)
+> +{
+> +	pci_info(dev, "Disabling IOMMU superpage for graphics on this chipset\n=
+");
+> +	iommu_skip_igfx_superpage =3D 1;
+> +}
+> +
+> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x3184, =
+
+> quirk_skip_igfx_superpage);
+> +
+>   static void quirk_iommu_rwbf(struct pci_dev *dev)
+>   {
+>   	if (risky_device(dev))
+> =
+
+> Best regards,
+> baolu
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
