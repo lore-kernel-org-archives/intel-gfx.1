@@ -2,42 +2,46 @@ Return-Path: <SRS0=tFHw=MF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 332FFC07E9A
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 00:02:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ADD53C11F66
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 00:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F223361154
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 00:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F223361154
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7684661002
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 00:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7684661002
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA6789F9F;
-	Tue, 13 Jul 2021 00:02:53 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id BA80D89F9F;
- Tue, 13 Jul 2021 00:02:51 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B3D50A47DB;
- Tue, 13 Jul 2021 00:02:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E18D89F07;
+	Tue, 13 Jul 2021 00:34:50 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 391F189F07
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 00:34:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="273907687"
+X-IronPort-AV: E=Sophos;i="5.84,235,1620716400"; d="scan'208";a="273907687"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2021 17:34:47 -0700
+X-IronPort-AV: E=Sophos;i="5.84,235,1620716400"; d="scan'208";a="451584099"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.24.14.59])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2021 17:34:47 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 12 Jul 2021 17:38:51 -0700
+Message-Id: <20210713003854.143197-3-jose.souza@intel.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210713003854.143197-1-jose.souza@intel.com>
+References: <20210713003854.143197-1-jose.souza@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jason Ekstrand" <jason@jlekstrand.net>
-Date: Tue, 13 Jul 2021 00:02:51 -0000
-Message-ID: <162613457171.711.7084041159964327667@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210712231234.1031975-1-jason@jlekstrand.net>
-In-Reply-To: <20210712231234.1031975-1-jason@jlekstrand.net>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5B1/2=5D_drm/i915/gem=3A_Correct_the_locking?=
- =?utf-8?q?_and_pin_pattern_for_dma-buf_=28v5=29?=
+Subject: [Intel-gfx] [PATCH CI 3/6] drm/i915: Implement Wa_1508744258
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,157 +54,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1149064694=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1149064694==
-Content-Type: multipart/alternative;
- boundary="===============6752150056575164566=="
-
---===============6752150056575164566==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-== Series Details ==
-
-Series: series starting with [1/2] drm/i915/gem: Correct the locking and pin pattern for dma-buf (v5)
-URL   : https://patchwork.freedesktop.org/series/92454/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10335 -> Patchwork_20580
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20580/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20580 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_chamelium@common-hpd-after-suspend:
-    - fi-kbl-7500u:       [PASS][1] -> [DMESG-WARN][2] ([i915#2868])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10335/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20580/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
-
-  
-  [i915#2868]: https://gitlab.freedesktop.org/drm/intel/issues/2868
-
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10335 -> Patchwork_20580
-
-  CI-20190529: 20190529
-  CI_DRM_10335: 6420d4c905cfd9a9098c7ab339992eafa628de4d @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6134: cd63c83e23789eb194d38b8d272247a88122f2f6 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20580: a353e0a7e001395d0afb278307622610add7244f @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-a353e0a7e001 drm/i915/gem: Migrate to system at dma-buf attach time (v5)
-65b5bf0bcc7d drm/i915/gem: Correct the locking and pin pattern for dma-buf (v5)
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20580/index.html
-
---===============6752150056575164566==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [1/2] drm/i915/gem: Correct the locking and pin pattern for dma-buf (v5)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/92454/">https://patchwork.freedesktop.org/series/92454/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20580/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20580/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10335 -&gt; Patchwork_20580</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20580/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20580 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@kms_chamelium@common-hpd-after-suspend:<ul>
-<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10335/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20580/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2868">i915#2868</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10335 -&gt; Patchwork_20580</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10335: 6420d4c905cfd9a9098c7ab339992eafa628de4d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6134: cd63c83e23789eb194d38b8d272247a88122f2f6 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20580: a353e0a7e001395d0afb278307622610add7244f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>a353e0a7e001 drm/i915/gem: Migrate to system at dma-buf attach time (v5)<br />
-65b5bf0bcc7d drm/i915/gem: Correct the locking and pin pattern for dma-buf (v5)</p>
-
-</body>
-</html>
-
---===============6752150056575164566==--
-
---===============1149064694==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1149064694==--
+U2FtZSBiaXQgd2FzIHJlcXVpcmVkIGZvciBXYV8xNDAxMjEzMTIyNyBpbiBERzEgbm93IGl0IGlz
+IGFsc28KcmVxdWlyZWQgYXMgV2FfMTUwODc0NDI1OCB0byBUR0wsIFJLTCwgREcxLCBBREwtUyBh
+bmQgQURMLVAuCgpDYzogR3dhbi1neWVvbmcgTXVuIDxnd2FuLWd5ZW9uZy5tdW5AaW50ZWwuY29t
+PgpSZXZpZXdlZC1ieTogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KU2ln
+bmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+
+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMuYyB8IDcgKysr
+KysrKwogMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3dvcmthcm91bmRzLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jCmluZGV4IGU1ZTNmODIwMDc0YTkuLmMzNDYyMjll
+MmJlMDAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3dvcmthcm91
+bmRzLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMuYwpA
+QCAtNjcwLDYgKzY3MCwxMyBAQCBzdGF0aWMgdm9pZCBnZW4xMl9jdHhfd29ya2Fyb3VuZHNfaW5p
+dChzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmUsCiAJICAgICAgIEZGX01PREUyX0dTX1RJ
+TUVSX01BU0ssCiAJICAgICAgIEZGX01PREUyX0dTX1RJTUVSXzIyNCwKIAkgICAgICAgMCk7CisK
+KwkvKgorCSAqIFdhXzE0MDEyMTMxMjI3OmRnMQorCSAqIFdhXzE1MDg3NDQyNTg6dGdsLHJrbCxk
+ZzEsYWRsLXMsYWRsLXAKKwkgKi8KKwl3YV9tYXNrZWRfZW4od2FsLCBHRU43X0NPTU1PTl9TTElD
+RV9DSElDS0VOMSwKKwkJICAgICBHRU45X1JIV09fT1BUSU1JWkFUSU9OX0RJU0FCTEUpOwogfQog
+CiBzdGF0aWMgdm9pZCBkZzFfY3R4X3dvcmthcm91bmRzX2luaXQoc3RydWN0IGludGVsX2VuZ2lu
+ZV9jcyAqZW5naW5lLAotLSAKMi4zMi4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9pbnRlbC1nZngK
