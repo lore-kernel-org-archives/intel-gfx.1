@@ -2,46 +2,41 @@ Return-Path: <SRS0=tFHw=MF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16C42C11F66
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 16:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A722C07E95
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 16:43:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D99226120A
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 16:15:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D99226120A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D0EB060FEE
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 16:43:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0EB060FEE
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9371C6E0E8;
-	Tue, 13 Jul 2021 16:15:22 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 114696E0E8
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 16:15:21 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210240084"
-X-IronPort-AV: E=Sophos;i="5.84,236,1620716400"; d="scan'208";a="210240084"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 09:15:11 -0700
-X-IronPort-AV: E=Sophos;i="5.84,236,1620716400"; d="scan'208";a="503204156"
-Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 09:15:11 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 09:14:45 -0700
-Message-Id: <20210713161444.3334530-1-matthew.d.roper@intel.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <69cca14862c94a84987fbf53c727beac@intel.com>
-References: <69cca14862c94a84987fbf53c727beac@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BAE66E0FD;
+	Tue, 13 Jul 2021 16:43:17 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 158CD6E0FD;
+ Tue, 13 Jul 2021 16:43:16 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0D40AA47E8;
+ Tue, 13 Jul 2021 16:43:16 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 08/12] drm/i915/jsl_ehl: Use revid->stepping
- tables
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
+Date: Tue, 13 Jul 2021 16:43:16 -0000
+Message-ID: <162619459602.710.14608042079754892606@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210713135922.1384264-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20210713135922.1384264-1-daniel.vetter@ffwll.ch>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/fb-helper=3A_Try_to_protect_cleanup_against_delayed_set?=
+ =?utf-8?q?up?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,101 +49,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Switch JSL/EHL to use a revid->stepping table as we're trying to do on
-all platforms going forward.
+== Series Details ==
 
-v2:
- - Use COMMON_STEPPING().  (Anusha)
+Series: drm/fb-helper: Try to protect cleanup against delayed setup
+URL   : https://patchwork.freedesktop.org/series/92478/
+State : warning
 
-Bspec: 29153
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 2 +-
- drivers/gpu/drm/i915/gt/intel_workarounds.c   | 2 +-
- drivers/gpu/drm/i915/i915_drv.h               | 9 ++++-----
- drivers/gpu/drm/i915/intel_step.c             | 8 ++++++++
- 4 files changed, 14 insertions(+), 7 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 882bfd499e55..dfc31b682848 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -2674,7 +2674,7 @@ static bool
- ehl_combo_pll_div_frac_wa_needed(struct drm_i915_private *i915)
- {
- 	return ((IS_PLATFORM(i915, INTEL_ELKHARTLAKE) &&
--		 IS_JSL_EHL_REVID(i915, EHL_REVID_B0, REVID_FOREVER)) ||
-+		 IS_JSL_EHL_DISPLAY_STEP(i915, STEP_B0, STEP_FOREVER)) ||
- 		 IS_TIGERLAKE(i915) || IS_ALDERLAKE_P(i915)) &&
- 		 i915->dpll.ref_clks.nssc == 38400;
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index e2d8acb8c1c9..4c0c15bbdac2 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1043,7 +1043,7 @@ icl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 
- 	/* Wa_1607087056:icl,ehl,jsl */
- 	if (IS_ICELAKE(i915) ||
--	    IS_JSL_EHL_REVID(i915, EHL_REVID_A0, EHL_REVID_A0))
-+	    IS_JSL_EHL_GT_STEP(i915, STEP_A0, STEP_A0))
- 		wa_write_or(wal,
- 			    SLICE_UNIT_LEVEL_CLKGATE,
- 			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index d4f705f06c73..b3ce2b73a143 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1532,11 +1532,10 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define IS_ICL_GT_STEP(p, since, until) \
- 	(IS_ICELAKE(p) && IS_GT_STEP(p, since, until))
- 
--#define EHL_REVID_A0            0x0
--#define EHL_REVID_B0            0x1
--
--#define IS_JSL_EHL_REVID(p, since, until) \
--	(IS_JSL_EHL(p) && IS_REVID(p, since, until))
-+#define IS_JSL_EHL_GT_STEP(p, since, until) \
-+	(IS_JSL_EHL(p) && IS_GT_STEP(p, since, until))
-+#define IS_JSL_EHL_DISPLAY_STEP(p, since, until) \
-+	(IS_JSL_EHL(p) && IS_DISPLAY_STEP(p, since, until))
- 
- #define IS_TGL_DISPLAY_STEP(__i915, since, until) \
- 	(IS_TIGERLAKE(__i915) && \
-diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
-index f8be464d1179..868606f8139f 100644
---- a/drivers/gpu/drm/i915/intel_step.c
-+++ b/drivers/gpu/drm/i915/intel_step.c
-@@ -57,6 +57,11 @@ static const struct intel_step_info icl_revids[] = {
- 	[7] = { COMMON_STEPPING(D0) },
- };
- 
-+static const struct intel_step_info jsl_ehl_revids[] = {
-+	[0] = { COMMON_STEPPING(A0) },
-+	[1] = { COMMON_STEPPING(B0) },
-+};
-+
- static const struct intel_step_info tgl_uy_revids[] = {
- 	[0] = { .gt_step = STEP_A0, .display_step = STEP_A0 },
- 	[1] = { .gt_step = STEP_B0, .display_step = STEP_C0 },
-@@ -104,6 +109,9 @@ void intel_step_init(struct drm_i915_private *i915)
- 	} else if (IS_TIGERLAKE(i915)) {
- 		revids = tgl_revids;
- 		size = ARRAY_SIZE(tgl_revids);
-+	} else if (IS_JSL_EHL(i915)) {
-+		revids = jsl_ehl_revids;
-+		size = ARRAY_SIZE(jsl_ehl_revids);
- 	} else if (IS_ICELAKE(i915)) {
- 		revids = icl_revids;
- 		size = ARRAY_SIZE(icl_revids);
--- 
-2.25.4
+$ dim checkpatch origin/drm-tip
+b0ba74e0d5e3 drm/fb-helper: Try to protect cleanup against delayed setup
+-:18: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#18: 
+References: https://intel-gfx-ci.01.org/tree/linux-next/next-20201215/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
+
+-:62: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 2 warnings, 0 checks, 28 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
