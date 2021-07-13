@@ -2,65 +2,49 @@ Return-Path: <SRS0=tFHw=MF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 984E9C07E96
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 17:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3508C07E95
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 17:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D2A961362
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 17:45:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D2A961362
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 5394261358
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 17:47:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5394261358
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E63FC6E10D;
-	Tue, 13 Jul 2021 17:45:49 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 213256E107
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 17:45:48 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id w188so4945063oif.10
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 10:45:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tmtzcyst+8OgXBI41dqYr4OHovq38Lmve+NnPNNWFaA=;
- b=E9kH+I9A0KksyrSJYGuPUtireKMQ1h2VVRvbVTFj8eIP6xeFILzX1kJzRhrGWs6vO2
- 0GxXLljCV1mje7M4duMNSElcxU8qhCQCWnKE3E3TutR8TWp1lLyaL6PvyZo22zMJ0oku
- 7HEYM2UyRDUBzKlVlqAyP7or8ocosvwOWsNAk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tmtzcyst+8OgXBI41dqYr4OHovq38Lmve+NnPNNWFaA=;
- b=HQKLACguyU7G6CYyVxN+/CiJwq0zWSYHby3sjj+uN1WA5LhDRWQHDooat8EJ9Fo9N/
- 3vmaWoo/g9xU07UPDMfpbbRRObHpjxSC7Su5J24pmOz6A6khe6h65L+alqlM4MIusJHS
- 383WKD8vD4mAnhl/NgCEQgc0VzCGEpoNX87Y01ij8cmfqQgzI0umyS1xqLe9Nl0MB91+
- M9CTCTeq9pngXMRWVizebOTVCNzsLmMaRB4i4/8xxzf5gp6R77pUSXP/DgyCk5lOGGA1
- Zx33gnQe6tGSy8Kui+QrT7x8DP+442HF5RGrUk6moPLI9I3iA5GF+S21fdakjyNxqMuc
- rj+Q==
-X-Gm-Message-State: AOAM5313nkLntaGtcg5aaRalobeeOL54JkUP6HRZdL9O1ltyaUkviIwZ
- 5fa4o/owbN5vMO3mgOXMZ1AyF8Z55xtpKZtpyEz/pg==
-X-Google-Smtp-Source: ABdhPJxzpjd8fmeN5xsqQQ8/UWTplGKa3o1OKFivFnAQ9i+M2VhbfW3DpqnVr7dh4haRV9U3tHRv1DXHvWi5XsqX2z4=
-X-Received: by 2002:aca:3085:: with SMTP id w127mr398974oiw.101.1626198347467; 
- Tue, 13 Jul 2021 10:45:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0E226E105;
+	Tue, 13 Jul 2021 17:47:37 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3CAB6E105;
+ Tue, 13 Jul 2021 17:47:36 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232019174"
+X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="232019174"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 10:47:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="493199519"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by FMSMGA003.fm.intel.com with SMTP; 13 Jul 2021 10:47:32 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 13 Jul 2021 20:47:31 +0300
+Date: Tue, 13 Jul 2021 20:47:31 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Matthew Auld <matthew.william.auld@gmail.com>
+Message-ID: <YO3RsxZHUe5imN3q@intel.com>
+References: <20210713104554.2381406-1-matthew.auld@intel.com>
+ <YO23Y3PUS22FaXDC@intel.com>
+ <CAM0jSHOx=WVbzfQzn=kL-5qaG4B3dxPLOimkvUdv6HFJymZeZw@mail.gmail.com>
 MIME-Version: 1.0
-References: <20210712175352.802687-1-daniel.vetter@ffwll.ch>
- <20210712175352.802687-15-daniel.vetter@ffwll.ch>
- <CAF6AEGtC0BxABJtSaOmhEt_WKiuptWCHP7g4D5wEaJ4NaEuz4w@mail.gmail.com>
- <CAKMK7uEL8dr5RT2362ehR1Gb7mvwLmcEsZV+uWDj_kpoovWKxg@mail.gmail.com>
- <CAF6AEGvsQnULTKwqWu+ToX0cVt12hs4SZrZ2Ai216m=8MBaqTQ@mail.gmail.com>
-In-Reply-To: <CAF6AEGvsQnULTKwqWu+ToX0cVt12hs4SZrZ2Ai216m=8MBaqTQ@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 13 Jul 2021 19:45:36 +0200
-Message-ID: <CAKMK7uF8wZuJVON0-06xDGtuSof2m6Y-cj7qkdUSTYd1PrVt9A@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Intel-gfx] [PATCH v4 14/18] drm/msm: Don't break exclusive
- fence ordering
+Content-Disposition: inline
+In-Reply-To: <CAM0jSHOx=WVbzfQzn=kL-5qaG4B3dxPLOimkvUdv6HFJymZeZw@mail.gmail.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 1/5] drm/i915: document caching related bits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,116 +57,122 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Lucas Stach <l.stach@pengutronix.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Matthew Auld <matthew.auld@intel.com>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 13, 2021 at 7:42 PM Rob Clark <robdclark@gmail.com> wrote:
-> On Tue, Jul 13, 2021 at 9:58 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+On Tue, Jul 13, 2021 at 05:13:37PM +0100, Matthew Auld wrote:
+> On Tue, 13 Jul 2021 at 16:55, Ville Syrj=E4l=E4
+> <ville.syrjala@linux.intel.com> wrote:
 > >
-> > On Tue, Jul 13, 2021 at 6:51 PM Rob Clark <robdclark@gmail.com> wrote:
-> > >
-> > > On Mon, Jul 12, 2021 at 1:02 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> > > >
-> > > > There's only one exclusive slot, and we must not break the ordering.
-> > > >
-> > > > Adding a new exclusive fence drops all previous fences from the
-> > > > dma_resv. To avoid violating the signalling order we err on the side of
-> > > > over-synchronizing by waiting for the existing fences, even if
-> > > > userspace asked us to ignore them.
-> > > >
-> > > > A better fix would be to us a dma_fence_chain or _array like e.g.
-> > > > amdgpu now uses, but
-> > > > - msm has a synchronous dma_fence_wait for anything from another
-> > > >   context, so doesn't seem to care much,
-> > > > - and it probably makes sense to lift this into dma-resv.c code as a
-> > > >   proper concept, so that drivers don't have to hack up their own
-> > > >   solution each on their own.
-> > > >
-> > > > v2: Improve commit message per Lucas' suggestion.
-> > > >
-> > > > Cc: Lucas Stach <l.stach@pengutronix.de>
-> > > > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > > > Cc: Rob Clark <robdclark@gmail.com>
-> > > > Cc: Sean Paul <sean@poorly.run>
-> > > > Cc: linux-arm-msm@vger.kernel.org
-> > > > Cc: freedreno@lists.freedesktop.org
-> > > > ---
-> > > >  drivers/gpu/drm/msm/msm_gem_submit.c | 3 ++-
-> > > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > > index b71da71a3dd8..edd0051d849f 100644
-> > > > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > > > @@ -306,7 +306,8 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> > > >                                 return ret;
-> > > >                 }
-> > > >
-> > > > -               if (no_implicit)
-> > > > +               /* exclusive fences must be ordered */
-> > > > +               if (no_implicit && !write)
-> > > >                         continue;
-> > >
-> > > In practice, modern userspace (the kind that is more likely to set the
-> > > no-implicit flag on every submit) also sets MSM_SUBMIT_BO_WRITE on
-> > > every bo, to shave some cpu overhead so I suppose this would not
-> > > really hurt anything
-> > >
-> > > Do you know if this is covered in any piglit/etc test?
+> > On Tue, Jul 13, 2021 at 11:45:50AM +0100, Matthew Auld wrote:
+> > > +     /**
+> > > +      * @cache_coherent:
+> > > +      *
+> > > +      * Track whether the pages are coherent with the GPU if reading=
+ or
+> > > +      * writing through the CPU cache.
+> > > +      *
+> > > +      * This largely depends on the @cache_level, for example if the=
+ object
+> > > +      * is marked as I915_CACHE_LLC, then GPU access is coherent for=
+ both
+> > > +      * reads and writes through the CPU cache.
+> > > +      *
+> > > +      * Note that on platforms with shared-LLC support(HAS_LLC) read=
+s through
+> > > +      * the CPU cache are always coherent, regardless of the @cache_=
+level. On
+> > > +      * snooping based platforms this is not the case, unless the fu=
+ll
+> > > +      * I915_CACHE_LLC or similar setting is used.
+> > > +      *
+> > > +      * As a result of this we need to track coherency separately fo=
+r reads
+> > > +      * and writes, in order to avoid superfluous flushing on shared=
+-LLC
+> > > +      * platforms, for reads.
+> > > +      *
+> > > +      * I915_BO_CACHE_COHERENT_FOR_READ:
+> > > +      *
+> > > +      * When reading through the CPU cache, the GPU is still coheren=
+t. Note
+> > > +      * that no data has actually been modified here, so it might se=
+em
+> > > +      * strange that we care about this.
+> > > +      *
+> > > +      * As an example, if some object is mapped on the CPU with writ=
+e-back
+> > > +      * caching, and we read some page, then the cache likely now co=
+ntains
+> > > +      * the data from that read. At this point the cache and main me=
+mory
+> > > +      * match up, so all good. But next the GPU needs to write some =
+data to
+> > > +      * that same page. Now if the @cache_level is I915_CACHE_NONE a=
+nd the
+> > > +      * the platform doesn't have the shared-LLC, then the GPU will
+> > > +      * effectively skip invalidating the cache(or however that works
+> > > +      * internally) when writing the new value.  This is really bad =
+since the
+> > > +      * GPU has just written some new data to main memory, but the C=
+PU cache
+> > > +      * is still valid and now contains stale data. As a result the =
+next time
+> > > +      * we do a cached read with the CPU, we are rewarded with stale=
+ data.
+> > > +      * Likewise if the cache is later flushed, we might be rewarded=
+ with
+> > > +      * overwriting main memory with stale data.
+> > > +      *
+> > > +      * I915_BO_CACHE_COHERENT_FOR_WRITE:
+> > > +      *
+> > > +      * When writing through the CPU cache, the GPU is still coheren=
+t. Note
+> > > +      * that this also implies I915_BO_CACHE_COHERENT_FOR_READ.
+> > > +      *
+> > > +      * This is never set when I915_CACHE_NONE is used for @cache_le=
+vel,
+> > > +      * where instead we have to manually flush the caches after wri=
+ting
+> > > +      * through the CPU cache. For other cache levels this should be=
+ set and
+> > > +      * the object is therefore considered coherent for both reads a=
+nd writes
+> > > +      * through the CPU cache.
 > >
-> > You need some command submission, plus buffer sharing with vgem
-> > setting it's own exclusive fences, plus checking with dma_buf poll()
-> > whether it signals all in the right order. That's pretty low-level, so
-> > maybe something in igt, but I haven't typed that. Maybe I need to do
-> > that for i915 at least.
->
-> ok, you lost me at vgem ;-)
->
-> (the vgem vs cache situation on arm is kinda hopeless)
+> > I don't remember why we have this read vs. write split and this new
+> > documentation doesn't seem to really explain it either.
+> =
 
-Oh that explains a few things ... I just found out why vgem is failing
-for wc buffers on x86 (on some of our less-coherent igpu at least),
-and wondered how the heck this works on arm. Sounds like it just
-doesn't :-/
+> Hmm, I attempted to explain that earlier:
+> =
 
-On the testcase: You'd never actually check buffer contents, only
-fences, so the test would still work.
--Daniel
->
-> BR,
-> -R
->
-> > -Daniel
-> >
-> > > BR,
-> > > -R
-> > >
-> > > >
-> > > >                 ret = msm_gem_sync_object(&msm_obj->base, submit->ring->fctx,
-> > > > --
-> > > > 2.32.0
-> > > >
-> >
-> >
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
+> * Note that on platforms with shared-LLC support(HAS_LLC) reads through
+> * the CPU cache are always coherent, regardless of the @cache_level. On
+> * snooping based platforms this is not the case, unless the full
+> * I915_CACHE_LLC or similar setting is used.
+> *
+> * As a result of this we need to track coherency separately for reads
+> * and writes, in order to avoid superfluous flushing on shared-LLC
+> * platforms, for reads.
+> =
 
+> So AFAIK it's just because shared-LLC can be coherent for reads, while
+> also not being coherent for writes(CACHE_NONE),
 
+CPU vs. GPU is fully coherent when it comes to LLC. Or at least I've
+never heard of any mechanism that would make it only partially coherent.
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
