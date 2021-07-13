@@ -7,42 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ABBF8C07E95
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 10:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C19FAC11F69
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 10:47:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6EEC561260
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 10:47:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EEC561260
+	by mail.kernel.org (Postfix) with ESMTPS id 7493E61249
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 10:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7493E61249
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DE3F89F97;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82A366E06B;
 	Tue, 13 Jul 2021 10:47:13 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02D09897C5;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BBCE89CF4;
  Tue, 13 Jul 2021 10:47:11 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="197325321"
-X-IronPort-AV: E=Sophos;i="5.84,236,1620716400"; d="scan'208";a="197325321"
+X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="197325325"
+X-IronPort-AV: E=Sophos;i="5.84,236,1620716400"; d="scan'208";a="197325325"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 03:47:06 -0700
-X-IronPort-AV: E=Sophos;i="5.84,236,1620716400"; d="scan'208";a="503054375"
+ 13 Jul 2021 03:47:09 -0700
+X-IronPort-AV: E=Sophos;i="5.84,236,1620716400"; d="scan'208";a="503054388"
 Received: from ewaterla-mobl2.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.5.95])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 03:47:05 -0700
+ 13 Jul 2021 03:47:08 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 11:45:51 +0100
-Message-Id: <20210713104554.2381406-2-matthew.auld@intel.com>
+Date: Tue, 13 Jul 2021 11:45:53 +0100
+Message-Id: <20210713104554.2381406-4-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210713104554.2381406-1-matthew.auld@intel.com>
 References: <20210713104554.2381406-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/5] drm/i915/uapi: convert drm_i915_gem_madvise
- to kernel-doc
+Subject: [Intel-gfx] [PATCH 4/5] drm/i915: pull in some more kernel-doc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,87 +54,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add some kernel doc for this. We can then just reference this later when
-documenting madv in the kernel.
+Pull in the kernel-doc for drm_i915_gem_object.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- include/uapi/drm/i915_drm.h | 50 +++++++++++++++++++++++++++++++------
- 1 file changed, 42 insertions(+), 8 deletions(-)
+ Documentation/gpu/i915.rst | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index e334a8b14ef2..a839085b6577 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1492,20 +1492,54 @@ struct drm_i915_get_pipe_from_crtc_id {
- 	__u32 pipe;
- };
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index 204ebdaadb45..77558084e989 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -387,6 +387,13 @@ GEM BO Management Implementation Details
+ .. kernel-doc:: drivers/gpu/drm/i915/i915_vma_types.h
+    :doc: Virtual Memory Address
  
--#define I915_MADV_WILLNEED 0
--#define I915_MADV_DONTNEED 1
--#define __I915_MADV_PURGED 2 /* internal state */
--
-+/**
-+ * struct drm_i915_gem_madvise - Update the madvise hint for the object.
-+ *
-+ * The kernel uses this to know when it can safely discard the backing pages for
-+ * an object, when under memory pressure.
-+ */
- struct drm_i915_gem_madvise {
--	/** Handle of the buffer to change the backing store advice */
-+	/**
-+	 * @handle: Handle of the buffer to change the backing store advice for.
-+	 */
- 	__u32 handle;
- 
--	/* Advice: either the buffer will be needed again in the near future,
--	 *         or wont be and could be discarded under memory pressure.
-+	/**
-+	 * @madv: The madvise hint to set for the object.
-+	 *
-+	 * Supported values:
-+	 *
-+	 * I915_MADV_WILLNEED:
-+	 *
-+	 * The buffer will be needed again in the near future. By default all
-+	 * objects are set as I915_MADV_WILLNEED. Once the pages become
-+	 * dirty, the kernel is no longer allowed to simply discard the pages,
-+	 * and instead can only resort to swapping the pages out, if under
-+	 * memory pressure, where the page contents must persist when swapping
-+	 * the pages back in.
-+	 *
-+	 * I915_MADV_DONTNEED:
-+	 *
-+	 * The buffer wont be needed. The pages and their contents can be
-+	 * discarded under memory pressure.
-+	 *
-+	 * Note that if the pages were discarded then the kernel updates the
-+	 * internal madvise value of the object to __I915_MADV_PURGED, which
-+	 * effectively kills the object, since all further requests to allocate
-+	 * pages for the object will be rejected. At this point a new object is
-+	 * needed. This will be reflected in @retained.
- 	 */
-+#define I915_MADV_WILLNEED 0
-+#define I915_MADV_DONTNEED 1
-+#define __I915_MADV_PURGED 2 /* internal state */
- 	__u32 madv;
- 
--	/** Whether the backing store still exists. */
-+	/**
-+	 * @retained: Whether the backing store still exists.
-+	 *
-+	 * Set to false if the kernel purged the object and marked the object as
-+	 * __I915_MADV_PURGED.
-+	 */
- 	__u32 retained;
- };
++GEM Buffer Object
++-----------------
++This section documents our core GEM object, and related bits.
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++   :internal:
++
+ Buffer Object Eviction
+ ----------------------
  
 -- 
 2.26.3
