@@ -2,43 +2,45 @@ Return-Path: <SRS0=tFHw=MF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57639C11F6E
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 19:36:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0641AC11F69
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 19:36:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 204C760725
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 19:36:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 204C760725
+	by mail.kernel.org (Postfix) with ESMTPS id BCD296128E
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jul 2021 19:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BCD296128E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E106E12C;
-	Tue, 13 Jul 2021 19:36:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7E1D6E134;
+	Tue, 13 Jul 2021 19:36:56 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D29A16E11C
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 19:36:44 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="190609863"
-X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="190609863"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B08216E11C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jul 2021 19:36:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="190609876"
+X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="190609876"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 12:36:43 -0700
-X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="487456135"
+ 13 Jul 2021 12:36:44 -0700
+X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="487456169"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Jul 2021 12:36:43 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 12:36:23 -0700
-Message-Id: <20210713193635.3390052-1-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 12:36:34 -0700
+Message-Id: <20210713193635.3390052-12-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20210713193635.3390052-1-matthew.d.roper@intel.com>
+References: <20210713193635.3390052-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI v4 00/12] Minor revid/stepping and workaround
- cleanup
+Subject: [Intel-gfx] [CI v4 11/12] drm/i915/cnl: Drop all workarounds
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,87 +58,139 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PCI revision IDs don't always map to GT and display IP steppings in an
-intuitive/sensible way.  On many of our recent platforms we've switched
-to using revid->stepping lookup tables with the infrastructure in
-intel_step.c to handle stepping lookups and comparisons.  This series
-converts several of our older platforms over to the same table-based
-scheme; this is good not only for consistency, but also because some
-upcoming DMC work will rely on table-based lookups.  Going forward the
-only place that revision ID's should really get used directly is when
-checking to see if we're running on pre-production hardware.
+All of the Cannon Lake hardware that came out had graphics fused off,
+and our userspace drivers have already dropped their support for the
+platform; CNL-specific code in i915 that isn't inherited by subsequent
+platforms is effectively dead code.  Let's remove all of the
+CNL-specific workarounds as a quick and easy first step.
 
-Note:  I haven't added the stepping tables for CFL and its derivatives
-(WHL, AML) yet since there are so many different variants and the
-steppings work a bit strangely on some of them.  We don't have any
-stepping-specific workarounds on these platforms, so the tables aren't
-necessary until Anusha's DMC work arrives; I'll let her determine the
-best way to handle the tables for those.  Ditto for CML.
+References: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/6899
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 55 ---------------------
+ drivers/gpu/drm/i915/i915_drv.h             |  7 ---
+ 2 files changed, 62 deletions(-)
 
-Let's also take the opportunity to drop a bit of effectively dead code
-in the workarounds file too.
-
-v2:
- - Include an already-reviewed patch from Anusha's DMC series as the
-   first patch here that changes the naming of the revision ID tables,
-   and then adjust the naming of the new tables I add here to follow the
-   same convention.
- - Drop the pre-production revisions for all gen11 and earlier
-   platforms; we're past the point where we usually drop the
-   pre-production support.  intel_detect_preproduction_hw() is updated
-   with the proper revids for ICL to ensure we print an error and taint
-   the kernel if the kernel is loaded on a pre-production platform.
- - ICL workarounds that only apply to pre-production steppings are
-   dropped.
- - For platforms where GT stepping is always the same as display
-   stepping, we use a macro to assign them both at once to make it more
-   obvious how the platform works.
- - Stepping tables for BXT and GLK are added.  They're completely unused
-   in our current code (we have no stepping-specific workarounds), but
-   some DMC patches from Anusha will arrive shortly that require these.
-   Note that the BXT revision macros we had previously were completely
-   wrong; it's a good thing they weren't actually being used for
-   anything.
-
-v3:
- - Use COMMON_STEP() macro on a few more platforms.  (Anusha)
-
-v4:
- - s/COMMON_STEPPING/COMMON_STEP/ across whole series.  (Lucas)
-
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Anusha Srivatsa (1):
-  drm/i915/step: s/<platform>_revid_tbl/<platform>_revids
-
-Matt Roper (11):
-  drm/i915: Make pre-production detection use direct revid comparison
-  drm/i915/skl: Use revid->stepping tables
-  drm/i915/kbl: Drop pre-production revision from stepping table
-  drm/i915/bxt: Use revid->stepping tables
-  drm/i915/glk: Use revid->stepping tables
-  drm/i915/icl: Use revid->stepping tables
-  drm/i915/jsl_ehl: Use revid->stepping tables
-  drm/i915/rkl: Use revid->stepping tables
-  drm/i915/dg1: Use revid->stepping tables
-  drm/i915/cnl: Drop all workarounds
-  drm/i915/icl: Drop workarounds that only apply to pre-production
-    steppings
-
- .../drm/i915/display/intel_display_power.c    |   2 +-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c |   2 +-
- drivers/gpu/drm/i915/display/intel_psr.c      |   4 +-
- drivers/gpu/drm/i915/gt/intel_region_lmem.c   |   2 +-
- drivers/gpu/drm/i915/gt/intel_workarounds.c   | 108 ++----------------
- drivers/gpu/drm/i915/i915_drv.c               |   9 +-
- drivers/gpu/drm/i915/i915_drv.h               |  79 ++-----------
- drivers/gpu/drm/i915/intel_pm.c               |   2 +-
- drivers/gpu/drm/i915/intel_step.c             | 104 ++++++++++++++---
- drivers/gpu/drm/i915/intel_step.h             |   4 +
- 10 files changed, 119 insertions(+), 197 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 045bb794a3ad..1398f35affcb 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -514,35 +514,6 @@ static void cfl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 		     GEN7_SBE_SS_CACHE_DISPATCH_PORT_SHARING_DISABLE);
+ }
+ 
+-static void cnl_ctx_workarounds_init(struct intel_engine_cs *engine,
+-				     struct i915_wa_list *wal)
+-{
+-	/* WaForceContextSaveRestoreNonCoherent:cnl */
+-	wa_masked_en(wal, CNL_HDC_CHICKEN0,
+-		     HDC_FORCE_CONTEXT_SAVE_RESTORE_NON_COHERENT);
+-
+-	/* WaDisableReplayBufferBankArbitrationOptimization:cnl */
+-	wa_masked_en(wal, COMMON_SLICE_CHICKEN2,
+-		     GEN8_SBE_DISABLE_REPLAY_BUF_OPTIMIZATION);
+-
+-	/* WaPushConstantDereferenceHoldDisable:cnl */
+-	wa_masked_en(wal, GEN7_ROW_CHICKEN2, PUSH_CONSTANT_DEREF_DISABLE);
+-
+-	/* FtrEnableFastAnisoL1BankingFix:cnl */
+-	wa_masked_en(wal, HALF_SLICE_CHICKEN3, CNL_FAST_ANISO_L1_BANKING_FIX);
+-
+-	/* WaDisable3DMidCmdPreemption:cnl */
+-	wa_masked_dis(wal, GEN8_CS_CHICKEN1, GEN9_PREEMPT_3D_OBJECT_LEVEL);
+-
+-	/* WaDisableGPGPUMidCmdPreemption:cnl */
+-	wa_masked_field_set(wal, GEN8_CS_CHICKEN1,
+-			    GEN9_PREEMPT_GPGPU_LEVEL_MASK,
+-			    GEN9_PREEMPT_GPGPU_COMMAND_LEVEL);
+-
+-	/* WaDisableEarlyEOT:cnl */
+-	wa_masked_en(wal, GEN8_ROW_CHICKEN, DISABLE_EARLY_EOT);
+-}
+-
+ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 				     struct i915_wa_list *wal)
+ {
+@@ -711,8 +682,6 @@ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+ 		gen12_ctx_workarounds_init(engine, wal);
+ 	else if (GRAPHICS_VER(i915) == 11)
+ 		icl_ctx_workarounds_init(engine, wal);
+-	else if (IS_CANNONLAKE(i915))
+-		cnl_ctx_workarounds_init(engine, wal);
+ 	else if (IS_COFFEELAKE(i915) || IS_COMETLAKE(i915))
+ 		cfl_ctx_workarounds_init(engine, wal);
+ 	else if (IS_GEMINILAKE(i915))
+@@ -989,15 +958,6 @@ icl_wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 	wa_write_clr_set(wal, GEN8_MCR_SELECTOR, mcr_mask, mcr);
+ }
+ 
+-static void
+-cnl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+-{
+-	/* WaInPlaceDecompressionHang:cnl */
+-	wa_write_or(wal,
+-		    GEN9_GAMT_ECO_REG_RW_IA,
+-		    GAMT_ECO_ENABLE_IN_PLACE_DECOMPRESS);
+-}
+-
+ static void
+ icl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ {
+@@ -1147,8 +1107,6 @@ gt_init_workarounds(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 		gen12_gt_workarounds_init(i915, wal);
+ 	else if (GRAPHICS_VER(i915) == 11)
+ 		icl_gt_workarounds_init(i915, wal);
+-	else if (IS_CANNONLAKE(i915))
+-		cnl_gt_workarounds_init(i915, wal);
+ 	else if (IS_COFFEELAKE(i915) || IS_COMETLAKE(i915))
+ 		cfl_gt_workarounds_init(i915, wal);
+ 	else if (IS_GEMINILAKE(i915))
+@@ -1425,17 +1383,6 @@ static void cml_whitelist_build(struct intel_engine_cs *engine)
+ 	cfl_whitelist_build(engine);
+ }
+ 
+-static void cnl_whitelist_build(struct intel_engine_cs *engine)
+-{
+-	struct i915_wa_list *w = &engine->whitelist;
+-
+-	if (engine->class != RENDER_CLASS)
+-		return;
+-
+-	/* WaEnablePreemptionGranularityControlByUMD:cnl */
+-	whitelist_reg(w, GEN8_CS_CHICKEN1);
+-}
+-
+ static void icl_whitelist_build(struct intel_engine_cs *engine)
+ {
+ 	struct i915_wa_list *w = &engine->whitelist;
+@@ -1549,8 +1496,6 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
+ 		tgl_whitelist_build(engine);
+ 	else if (GRAPHICS_VER(i915) == 11)
+ 		icl_whitelist_build(engine);
+-	else if (IS_CANNONLAKE(i915))
+-		cnl_whitelist_build(engine);
+ 	else if (IS_COMETLAKE(i915))
+ 		cml_whitelist_build(engine);
+ 	else if (IS_COFFEELAKE(i915))
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index d462b9434541..8682a5f557c5 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1513,13 +1513,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_KBL_DISPLAY_STEP(dev_priv, since, until) \
+ 	(IS_KABYLAKE(dev_priv) && IS_DISPLAY_STEP(dev_priv, since, until))
+ 
+-#define CNL_REVID_A0		0x0
+-#define CNL_REVID_B0		0x1
+-#define CNL_REVID_C0		0x2
+-
+-#define IS_CNL_REVID(p, since, until) \
+-	(IS_CANNONLAKE(p) && IS_REVID(p, since, until))
+-
+ #define IS_ICL_GT_STEP(p, since, until) \
+ 	(IS_ICELAKE(p) && IS_GT_STEP(p, since, until))
+ 
 -- 
 2.25.4
 
