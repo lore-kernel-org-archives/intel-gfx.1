@@ -6,76 +6,68 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01184C07E9A
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 10:15:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8646C07E9A
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 11:17:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A395B6101D
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 10:15:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A395B6101D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=darnok.org
+	by mail.kernel.org (Postfix) with ESMTPS id 5BA01613B2
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 11:17:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5BA01613B2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E51A6E202;
-	Wed, 14 Jul 2021 10:15:30 +0000 (UTC)
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [IPv6:2607:f8b0:4864:20::732])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB27B6E141;
- Wed, 14 Jul 2021 00:06:38 +0000 (UTC)
-Received: by mail-qk1-x732.google.com with SMTP id m3so9736983qkm.10;
- Tue, 13 Jul 2021 17:06:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=BRzBORQqhYkIvSSgRD10J8EaiYQ9ItZJaai9Sym40Us=;
- b=teI5WRKub2F/rwFPxCg0ZINCjBfRJc54nJqUFdAMXpGIMiTspU9RrcrUvARcHwoeMd
- CQXv1wJ/Fog/rhWZSvumcNrgcq+BxotT51h+tTiRDV8aZpevQuwsLDR4vyQtZSmmoC6h
- F9IEcsAuWnvI+dAhgG0Eo2jqsi01XmkKdYdzhKwGl4vTdbqsh5/P7DXsca+16o6s1nU2
- 2kLICjJFyej3TGeGHMleEoqCSW2m15wa6CXhxq4NskVTucQzPb/x7tap01fpFeI4k0/I
- 0oDywPh08J0yunT5JHEEyAcZVTBsHz7FszjRqikpByO6wq8hJu89C/WxnMp4EIv1s5qc
- +urw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03CB06E216;
+	Wed, 14 Jul 2021 11:17:03 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93FC36E216
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 11:17:01 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id d12so2693247wre.13
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 04:17:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=o4jVt0FM0uAOA8tI8bouOUQFzl1zaNiC0NrKdXM6dVw=;
+ b=MDyz5/5F+mKIzn7pjRzpVCsBk/ysg1vO8murrzxivOdY3gat8oShcdeYtgzWd6gZSp
+ 942fNhxcMgyVrlpO5rp2i0yRIYvMmfg6Ffq6Ac1iIelA/u3DpJKPakIihpFTNzx6MGRA
+ i+Py3WPwntttAaD4Kh9kUiglTfCSS+tnbwcvM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to;
- bh=BRzBORQqhYkIvSSgRD10J8EaiYQ9ItZJaai9Sym40Us=;
- b=FmS314Bk2W+p9WMJMjQRzYUX91KKhjiDFp0WVGuPpzZyutkEgwmIncttjgsqG1iPZa
- qVrhdXU9UcCeOv4E3sdsD58QUziG8K1r8wm95X9yY5B4bG86kVAvX1AKiSR9DbaRy0CK
- SfSQHqH2QpcfZHZm8VzG0bXBnI69eV8lf86b4Vc5UU6j2HeeRRqhWBURYjD4qtlLdNK0
- AjFc2xSpzbdGfuBE8Qwt/qeKyXNQKsmSKPO36d40KIFB8jVrj8eTeIiNf1mLWfyuPoT9
- /+PLqj3mtREhBJUeJ5v9cPtuEe/IKQmVDvj67XbAhCbKk1UN8C1jGVlMun9RkRKa5Zdv
- u+ug==
-X-Gm-Message-State: AOAM533GWgmhXxImdHwAFjsJCc1skp5yeUeu7KgYvmYNZ6pFbFlWYnrn
- A1aszRJhSaCk+Jy1Z7oBS9E=
-X-Google-Smtp-Source: ABdhPJwNdfUqk7dW6v+BkJSkD78e6Hf5RHfzRN9m+TvOapNBOx9APu0hdr4kc7VyqpHBok4bqL0fFQ==
-X-Received: by 2002:a05:620a:b85:: with SMTP id
- k5mr282577qkh.219.1626221197830; 
- Tue, 13 Jul 2021 17:06:37 -0700 (PDT)
-Received: from fedora ([130.44.160.152])
- by smtp.gmail.com with ESMTPSA id o1sm128098qta.87.2021.07.13.17.06.35
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=o4jVt0FM0uAOA8tI8bouOUQFzl1zaNiC0NrKdXM6dVw=;
+ b=fN+a9Rb+nDdKWVCo+mEQRTmBtlj+ZUDlBkPKrAmF8hi4QV7edOCusTSy5QVAqwmtQI
+ jQoWBv1K7/6x+Vzfa4wL/Ht8ezWo6dmcWYC1XANJJk5kiGCYC6NheXo8e0TrafV5GDae
+ cAuhfGrUT5CpBOwRFN+eTFTPGuVTj4QGXznH2bB/XCw1/M2hs3I7WQw9T96eKnno9rez
+ GVFNznetHZdPS7vBbvtJNptI37peapyqDlJJacCEdoFcockIu4UhMzHgvzwWowHtynBz
+ 3PE/MBZ3EfWK0qgSGe6ZiI5xfVVDOUaxn1yNrr+9Wl1OMdEoVkEzpGsA6kcVQRj0ZSfM
+ BK0w==
+X-Gm-Message-State: AOAM530fYMXVfn/nkmJqII4uA4Yj4qjGnAUs/zZtAeg+sUx20Ty2IkCi
+ 974e05qK6dxKe0EOo18s12CGFiDcaeU2/A==
+X-Google-Smtp-Source: ABdhPJwkf5F4x9FZ486vbcPY4mjJm2lVy4arVYixqB3Jatd0VqiZjlofaKudrfy37tYy9LZ2Q47olA==
+X-Received: by 2002:a5d:68c2:: with SMTP id p2mr11750294wrw.27.1626261420349; 
+ Wed, 14 Jul 2021 04:17:00 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id f15sm4728066wmj.15.2021.07.14.04.16.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jul 2021 17:06:37 -0700 (PDT)
-Date: Tue, 13 Jul 2021 20:06:33 -0400
-From: Konrad Rzeszutek Wilk <konrad@darnok.org>
-To: Will Deacon <will@kernel.org>
-Message-ID: <YO4qifiYjL4BTMv4@fedora>
-References: <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
- <20210705190352.GA19461@willie-the-truck>
- <20210706044848.GA13640@lst.de>
- <20210706132422.GA20327@willie-the-truck>
- <a59f771f-3289-62f0-ca50-8f3675d9b166@arm.com>
- <20210706140513.GA26498@lst.de>
- <YORsr0h7u5l9DZwh@char.us.oracle.com>
- <20210706165720.GC20750@willie-the-truck>
- <YOSMDZmtfXEKerpf@char.us.oracle.com>
- <20210712135645.GA28881@willie-the-truck>
+ Wed, 14 Jul 2021 04:16:59 -0700 (PDT)
+Date: Wed, 14 Jul 2021 13:16:57 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Message-ID: <YO7HqVPtY2GpbD77@phenom.ffwll.local>
+References: <20210713104554.2381406-1-matthew.auld@intel.com>
+ <YO23Y3PUS22FaXDC@intel.com>
+ <CAM0jSHOx=WVbzfQzn=kL-5qaG4B3dxPLOimkvUdv6HFJymZeZw@mail.gmail.com>
+ <YO3RsxZHUe5imN3q@intel.com>
+ <CAM0jSHOsqPUOWCJu_Ti3gW-fnpWF2CtUoo-qt-aMWExAwDDT5A@mail.gmail.com>
+ <YO3fhvKCo8eXrmst@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210712135645.GA28881@willie-the-truck>
-X-Mailman-Approved-At: Wed, 14 Jul 2021 10:15:28 +0000
-Subject: Re: [Intel-gfx] [PATCH v15 06/12] swiotlb: Use
- is_swiotlb_force_bounce for swiotlb data bouncing
+In-Reply-To: <YO3fhvKCo8eXrmst@intel.com>
+X-Operating-System: Linux phenom 5.10.0-7-amd64 
+Subject: Re: [Intel-gfx] [PATCH 1/5] drm/i915: document caching related bits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,52 +80,182 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Quinlan <james.quinlan@broadcom.com>, heikki.krogerus@linux.intel.com,
- linux-devicetree <devicetree@vger.kernel.org>, peterz@infradead.org,
- benh@kernel.crashing.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, grant.likely@arm.com, paulus@samba.org,
- Frank Rowand <frowand.list@gmail.com>, mingo@kernel.org,
- Jianxiong Gao <jxgao@google.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, xypron.glpk@gmx.de,
- Christoph Hellwig <hch@lst.de>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
- Thierry Reding <treding@nvidia.com>, matthew.auld@intel.com,
- Nicolas Boichat <drinkcat@chromium.org>, thomas.hellstrom@linux.intel.com,
- jgross@suse.com, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- intel-gfx@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Claire Chang <tientzu@chromium.org>, Dan Williams <dan.j.williams@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- boris.ostrovsky@oracle.com, airlied@linux.ie, linuxppc-dev@lists.ozlabs.org,
- Randy Dunlap <rdunlap@infradead.org>, Qian Cai <quic_qiancai@quicinc.com>,
- lkml <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Greg KH <gregkh@linuxfoundation.org>, Tom Lendacky <thomas.lendacky@amd.com>,
- Robin Murphy <robin.murphy@arm.com>, bauerman@linux.ibm.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-..snip..
-> > > I think the main question I have is how would you like to see patches for
-> > > 5.15? i.e. as patches on top of devel/for-linus-5.14 or something else?
-> > 
-> > Yes that would be perfect. If there are any dependencies on the rc1, I
-> > can rebase it on top of that.
-> 
-> Yes, please, rebasing would be very helpful. The broader rework of
-> 'io_tlb_default_mem' is going to conflict quite badly otherwise.
+On Tue, Jul 13, 2021 at 09:46:30PM +0300, Ville Syrj=E4l=E4 wrote:
+> On Tue, Jul 13, 2021 at 07:24:23PM +0100, Matthew Auld wrote:
+> > On Tue, 13 Jul 2021 at 18:47, Ville Syrj=E4l=E4
+> > <ville.syrjala@linux.intel.com> wrote:
+> > >
+> > > On Tue, Jul 13, 2021 at 05:13:37PM +0100, Matthew Auld wrote:
+> > > > On Tue, 13 Jul 2021 at 16:55, Ville Syrj=E4l=E4
+> > > > <ville.syrjala@linux.intel.com> wrote:
+> > > > >
+> > > > > On Tue, Jul 13, 2021 at 11:45:50AM +0100, Matthew Auld wrote:
+> > > > > > +     /**
+> > > > > > +      * @cache_coherent:
+> > > > > > +      *
+> > > > > > +      * Track whether the pages are coherent with the GPU if r=
+eading or
+> > > > > > +      * writing through the CPU cache.
+> > > > > > +      *
+> > > > > > +      * This largely depends on the @cache_level, for example =
+if the object
+> > > > > > +      * is marked as I915_CACHE_LLC, then GPU access is cohere=
+nt for both
+> > > > > > +      * reads and writes through the CPU cache.
+> > > > > > +      *
+> > > > > > +      * Note that on platforms with shared-LLC support(HAS_LLC=
+) reads through
+> > > > > > +      * the CPU cache are always coherent, regardless of the @=
+cache_level. On
+> > > > > > +      * snooping based platforms this is not the case, unless =
+the full
+> > > > > > +      * I915_CACHE_LLC or similar setting is used.
+> > > > > > +      *
+> > > > > > +      * As a result of this we need to track coherency separat=
+ely for reads
+> > > > > > +      * and writes, in order to avoid superfluous flushing on =
+shared-LLC
+> > > > > > +      * platforms, for reads.
+> > > > > > +      *
+> > > > > > +      * I915_BO_CACHE_COHERENT_FOR_READ:
+> > > > > > +      *
+> > > > > > +      * When reading through the CPU cache, the GPU is still c=
+oherent. Note
+> > > > > > +      * that no data has actually been modified here, so it mi=
+ght seem
+> > > > > > +      * strange that we care about this.
+> > > > > > +      *
+> > > > > > +      * As an example, if some object is mapped on the CPU wit=
+h write-back
+> > > > > > +      * caching, and we read some page, then the cache likely =
+now contains
+> > > > > > +      * the data from that read. At this point the cache and m=
+ain memory
+> > > > > > +      * match up, so all good. But next the GPU needs to write=
+ some data to
+> > > > > > +      * that same page. Now if the @cache_level is I915_CACHE_=
+NONE and the
+> > > > > > +      * the platform doesn't have the shared-LLC, then the GPU=
+ will
+> > > > > > +      * effectively skip invalidating the cache(or however tha=
+t works
+> > > > > > +      * internally) when writing the new value.  This is reall=
+y bad since the
+> > > > > > +      * GPU has just written some new data to main memory, but=
+ the CPU cache
+> > > > > > +      * is still valid and now contains stale data. As a resul=
+t the next time
+> > > > > > +      * we do a cached read with the CPU, we are rewarded with=
+ stale data.
+> > > > > > +      * Likewise if the cache is later flushed, we might be re=
+warded with
+> > > > > > +      * overwriting main memory with stale data.
+> > > > > > +      *
+> > > > > > +      * I915_BO_CACHE_COHERENT_FOR_WRITE:
+> > > > > > +      *
+> > > > > > +      * When writing through the CPU cache, the GPU is still c=
+oherent. Note
+> > > > > > +      * that this also implies I915_BO_CACHE_COHERENT_FOR_READ.
+> > > > > > +      *
+> > > > > > +      * This is never set when I915_CACHE_NONE is used for @ca=
+che_level,
+> > > > > > +      * where instead we have to manually flush the caches aft=
+er writing
+> > > > > > +      * through the CPU cache. For other cache levels this sho=
+uld be set and
+> > > > > > +      * the object is therefore considered coherent for both r=
+eads and writes
+> > > > > > +      * through the CPU cache.
+> > > > >
+> > > > > I don't remember why we have this read vs. write split and this n=
+ew
+> > > > > documentation doesn't seem to really explain it either.
+> > > >
+> > > > Hmm, I attempted to explain that earlier:
+> > > >
+> > > > * Note that on platforms with shared-LLC support(HAS_LLC) reads thr=
+ough
+> > > > * the CPU cache are always coherent, regardless of the @cache_level=
+. On
+> > > > * snooping based platforms this is not the case, unless the full
+> > > > * I915_CACHE_LLC or similar setting is used.
+> > > > *
+> > > > * As a result of this we need to track coherency separately for rea=
+ds
+> > > > * and writes, in order to avoid superfluous flushing on shared-LLC
+> > > > * platforms, for reads.
+> > > >
+> > > > So AFAIK it's just because shared-LLC can be coherent for reads, wh=
+ile
+> > > > also not being coherent for writes(CACHE_NONE),
+> > >
+> > > CPU vs. GPU is fully coherent when it comes to LLC. Or at least I've
+> > > never heard of any mechanism that would make it only partially cohere=
+nt.
+> > =
 
-There is a devel/for-linus-5.15 (based on v5.14-rc1) now.
+> > What do you mean by "comes to LLC", are you talking about HAS_LLC() or
+> > I915_CACHE_LLC?
+> =
 
-Thank you!
-> 
-> Cheers,
-> 
-> Will
+> I'm talking about the actual cache.
+> =
+
+> > =
+
+> > If you set I915_CACHE_LLC, then yes it is fully coherent for both
+> > HAS_LLC() and HAS_SNOOP().
+> > =
+
+> > If you set I915_CACHE_NONE, then reads are still coherent on
+> > HAS_LLC(),
+> =
+
+> Reads and writes both. The only thing that's not coherent is the
+> display engine.
+
+There's a lot of code which seems to disagree, plus there's now this new
+MOCS thing. I really hope we don't have all those cache coherency bits
+just because the code complexity is entertaining?
+
+Are there some igts to verify this all? Or selftests probably more
+appropriate.
+-Daniel
+
+
+> > for HAS_SNOOP() they are not. Or at least that is the
+> > existing behaviour in the driver AFAIK.
+> > =
+
+> > >
+> > > --
+> > > Ville Syrj=E4l=E4
+> > > Intel
+> =
+
+> -- =
+
+> Ville Syrj=E4l=E4
+> Intel
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
