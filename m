@@ -2,72 +2,69 @@ Return-Path: <SRS0=C5oC=MG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28D6DC47E48
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 19:34:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F385C1B08C
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 19:40:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED5A461370
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 19:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED5A461370
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
+	by mail.kernel.org (Postfix) with ESMTPS id 63314613D2
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 19:40:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63314613D2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 667336E4E8;
-	Wed, 14 Jul 2021 19:34:40 +0000 (UTC)
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [IPv6:2607:f8b0:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42FA66E4E6
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 19:34:35 +0000 (UTC)
-Received: by mail-pg1-x52f.google.com with SMTP id k20so3556610pgg.7
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 12:34:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=LZpq7f5pIJW2dDuLII86TMWxTbEjjl9Ioc6Cn93MUc8=;
- b=w8YZPuh7S9TVbLNxwc2NO+izQBE6O8DlmY5cOOm8k27HMoIa5GY/QLy2EbKEu3fA+M
- bXPi3tECWjahQNfvYBDAk8vdEpRyynez6sKCU7xiM4313cw4kGYYOeFiY0WR97Vh4xZi
- 0yP+REhgB1A7uIP82b58AVnZNi/deuiOkwohLR3zcFWFcfrAwshDUduPtzaW9lbSXWSq
- ji0xrZGg+fCN9Xf/KcDD8uPsSj0UvAGQKJl3gCslpPFru69+RXd8pAYLP2Gbp3O2Ib1y
- cNN2gY+OjhgqOd1DcD01fAjw42jxAhLBgAbmQg0iAV8wWgmjYsMD5M1dL9dsAMqYwbWQ
- M9Cg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FC916E4D2;
+	Wed, 14 Jul 2021 19:40:38 +0000 (UTC)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0EB16E4D2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 19:40:36 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id 141so5158025ljj.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 12:40:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=bMEpkDktZ7hoyXFRMGUJBVFQpO3DDTb1mBblxM254NQ=;
+ b=lxfYWzBPXY2ZA2JgIR5mH1CfmsYEONVpnQTcrgNcJZl1F3ZmIfaZPgBU6PDrOJlCNx
+ hfPjjLH9c1G6mwErZKpbrEOd/tdJ6Lq2KTMe4Wkh9UeGjClMp091XNdjaLoOatJpCgC6
+ 1clrfBaKuJett9Ya+XuiWazDUnSB64hGX1WIP42larmZvJVfVnKUEQPt2CFS8kfT7XW/
+ drYEAYyZbQdH/ZaOXiRaNBaOalVT0+gh6s8GqreEEx7G+zMiiWYMxazJ57RS2KiSfwxC
+ D36rl/jj+7CRebioV2NIC0XUJUdaJnnEc6Why6bJ8thAAe5p7QSYxm0eT2W12U9kD4qF
+ /+Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=LZpq7f5pIJW2dDuLII86TMWxTbEjjl9Ioc6Cn93MUc8=;
- b=uaK2LYJnLc1aIQBp21Mn/kyyYYy3FyFkkkSFRS9VQrjV4Ln1KwKkY3abVEJ7SWuv6u
- SbWfiypfth2kTz4kfy2BIzF3VgX4OVQmtbmkkJleGigxMgnzHKs3wTjKQCPvEJdQmm20
- 8j/crAqf+TG3pYeN3Hw9hyxgajOc0a5q1fhD/gnY8AzLxN9U5qye+u8519+AmLFPOhx4
- K3cE4LvI6YbjadtGa/yO6mrkAgLZLZKAQunx95DzHe4VZEPsJxWJGYXea6zg6r6Lpo/s
- bjO0VnE/m2rM2qo2xKf8hCslvQe5QKLcSC+ZoVR+gqkS7Zcl6U74gFKNZELrqYwKb5/t
- 1pYg==
-X-Gm-Message-State: AOAM531YkTNEcHTIkYAwjLKDRtDagBjcic/Ct8mTKS46PSPg5Sq696wn
- tkdEgPriEvwOjlVWpPUCtCZfjq4Cn0HR0w==
-X-Google-Smtp-Source: ABdhPJysyhnL3fYVRgercJqJ73t2gaymGr5FvicIcps9O0xIGvBq0LW1ljxM8eRy7rYCS0KqYQNypQ==
-X-Received: by 2002:a63:f516:: with SMTP id w22mr11230436pgh.188.1626291274624; 
- Wed, 14 Jul 2021 12:34:34 -0700 (PDT)
-Received: from omlet.com ([134.134.139.71])
- by smtp.gmail.com with ESMTPSA id i1sm3679740pfo.37.2021.07.14.12.34.32
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=bMEpkDktZ7hoyXFRMGUJBVFQpO3DDTb1mBblxM254NQ=;
+ b=dD1rbeTYsDSHCAIHIZgNXc3j/YbhA3wMMiRlTmHSp7yG4eSnDU22gg2ZPo6j8pqTpy
+ N23jb2WeF0/tTor0qjF7zjI6TI1sOye1zNAHvbM59EMQ8AuYrdx5rQP4/CI5Xm58j2Qu
+ Iuazk7mf6GPaOLP6yFSob6re+lZUoNI0Da18dyi+cKgvtydL7WYAN0+jwsXVrNEjHNIF
+ TZe5HtqANV2Xya29TTLc29aDVtKDjD0PpFV82fLTY+ex2O2vydZDhXZWDjJuzbIHkH25
+ PLnDdQzMp9oD7WUWxZL1WWZKs042arr8WAyApxGlVbEkb18JmFoGWiJ4k68QhluwGhNG
+ 3S1Q==
+X-Gm-Message-State: AOAM530qx/wgFoOZ00SHpfZvORSEipU9mydnSOhaGx+7nRwfekHgXXTx
+ Pishkcp+2y1XLUxr9ZtBD1UJTknwpJAaevL1
+X-Google-Smtp-Source: ABdhPJzUOmXCEnJ1MMTccmJnmQp0gYv7svZuFy576RQHd+/T/iBvRanZvJsaJXmGjyYTNNJusprT9A==
+X-Received: by 2002:a2e:81c8:: with SMTP id s8mr10866469ljg.324.1626291635000; 
+ Wed, 14 Jul 2021 12:40:35 -0700 (PDT)
+Received: from localhost.localdomain (82-203-161-237.bb.dnainternet.fi.
+ [82.203.161.237])
+ by smtp.gmail.com with ESMTPSA id o22sm233284lfl.6.2021.07.14.12.40.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jul 2021 12:34:33 -0700 (PDT)
-From: Jason Ekstrand <jason@jlekstrand.net>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Wed, 14 Jul 2021 14:34:18 -0500
-Message-Id: <20210714193419.1459723-5-jason@jlekstrand.net>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210714193419.1459723-1-jason@jlekstrand.net>
-References: <20210714193419.1459723-1-jason@jlekstrand.net>
+ Wed, 14 Jul 2021 12:40:34 -0700 (PDT)
+From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 14 Jul 2021 22:39:34 +0300
+Message-Id: <20210714193934.32552-1-juhapekka.heikkila@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915: Drop error handling from
- dma_fence_work
+Subject: [Intel-gfx] [PATCH v2] drm/i915: Fix wm params for ccs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,97 +77,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Asynchronous command parsing was the only thing which ever returned a
-non-zero error.  With that gone, we can drop the error handling from
-dma_fence_work.
+skl_compute_wm_params() didn't take into account ccs modifiers
+on graphics ver >= 12
 
-Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-Reviewed-by: Jon Bloomfield <jon.bloomfield@intel.com>
-Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+v2 (Imre): Don't set rc_surface flag for mc ccs.
+
+Signed-off-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_clflush.c | 4 +---
- drivers/gpu/drm/i915/i915_sw_fence_work.c   | 5 +----
- drivers/gpu/drm/i915/i915_sw_fence_work.h   | 2 +-
- drivers/gpu/drm/i915/i915_vma.c             | 3 +--
- 4 files changed, 4 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/intel_pm.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
-index daf9284ef1f54..f0435c6feb68b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
-@@ -24,13 +24,11 @@ static void __do_clflush(struct drm_i915_gem_object *obj)
- 	i915_gem_object_flush_frontbuffer(obj, ORIGIN_CPU);
- }
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 0cbb79452fcf..5a63920c3913 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -5249,11 +5249,10 @@ skl_compute_wm_params(const struct intel_crtc_state *crtc_state,
  
--static int clflush_work(struct dma_fence_work *base)
-+static void clflush_work(struct dma_fence_work *base)
- {
- 	struct clflush *clflush = container_of(base, typeof(*clflush), base);
+ 	wp->y_tiled = modifier == I915_FORMAT_MOD_Y_TILED ||
+ 		      modifier == I915_FORMAT_MOD_Yf_TILED ||
+-		      modifier == I915_FORMAT_MOD_Y_TILED_CCS ||
+-		      modifier == I915_FORMAT_MOD_Yf_TILED_CCS;
++		      is_ccs_modifier(modifier);
+ 	wp->x_tiled = modifier == I915_FORMAT_MOD_X_TILED;
+-	wp->rc_surface = modifier == I915_FORMAT_MOD_Y_TILED_CCS ||
+-			 modifier == I915_FORMAT_MOD_Yf_TILED_CCS;
++	wp->rc_surface = is_ccs_modifier(modifier) &&
++			 modifier != I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS;
+ 	wp->is_planar = intel_format_info_is_yuv_semiplanar(format, modifier);
  
- 	__do_clflush(clflush->obj);
--
--	return 0;
- }
- 
- static void clflush_release(struct dma_fence_work *base)
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence_work.c b/drivers/gpu/drm/i915/i915_sw_fence_work.c
-index a3a81bb8f2c36..5b33ef23d54c9 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence_work.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence_work.c
-@@ -16,11 +16,8 @@ static void fence_complete(struct dma_fence_work *f)
- static void fence_work(struct work_struct *work)
- {
- 	struct dma_fence_work *f = container_of(work, typeof(*f), work);
--	int err;
- 
--	err = f->ops->work(f);
--	if (err)
--		dma_fence_set_error(&f->dma, err);
-+	f->ops->work(f);
- 
- 	fence_complete(f);
- 	dma_fence_put(&f->dma);
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence_work.h b/drivers/gpu/drm/i915/i915_sw_fence_work.h
-index 2c409f11c5c59..d56806918d131 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence_work.h
-+++ b/drivers/gpu/drm/i915/i915_sw_fence_work.h
-@@ -17,7 +17,7 @@ struct dma_fence_work;
- 
- struct dma_fence_work_ops {
- 	const char *name;
--	int (*work)(struct dma_fence_work *f);
-+	void (*work)(struct dma_fence_work *f);
- 	void (*release)(struct dma_fence_work *f);
- };
- 
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 0f227f28b2802..5b9dce0f443b0 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -300,14 +300,13 @@ struct i915_vma_work {
- 	unsigned int flags;
- };
- 
--static int __vma_bind(struct dma_fence_work *work)
-+static void __vma_bind(struct dma_fence_work *work)
- {
- 	struct i915_vma_work *vw = container_of(work, typeof(*vw), base);
- 	struct i915_vma *vma = vw->vma;
- 
- 	vma->ops->bind_vma(vw->vm, &vw->stash,
- 			   vma, vw->cache_level, vw->flags);
--	return 0;
- }
- 
- static void __vma_release(struct dma_fence_work *work)
+ 	wp->width = width;
 -- 
-2.31.1
+2.28.0
 
 _______________________________________________
 Intel-gfx mailing list
