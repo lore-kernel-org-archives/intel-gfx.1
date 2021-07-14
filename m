@@ -7,40 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5C2BC11F69
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B734C11F66
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A975C61289
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A975C61289
+	by mail.kernel.org (Postfix) with ESMTPS id 4875C61289
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4875C61289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 244CA6E15C;
-	Wed, 14 Jul 2021 03:16:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E7ED6E17B;
+	Wed, 14 Jul 2021 03:16:03 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42EC66E15C
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:58 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232085869"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232085869"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 423986E15C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:16:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232085885"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232085885"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:57 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031563"
+ 13 Jul 2021 20:16:00 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031610"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:57 -0700
+ 13 Jul 2021 20:16:00 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:15:24 -0700
-Message-Id: <20210714031540.3539704-35-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:15:37 -0700
+Message-Id: <20210714031540.3539704-48-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 34/50] drm/i915/dg2: Skip shared DPLL handling
+Subject: [Intel-gfx] [PATCH v2 47/50] drm/i915/dg2: Update lane disable
+ power state during PSR
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,78 +54,129 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DG2 has no shared DPLL's or DDI clock muxing.  The Port PLL is embedded
-within the PHY.
+From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 
-Bspec: 54032
-Bspec: 54034
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+The PSR enable/disable sequences now require that we program an extra
+register in the PHY to adjust the lane disable power setting.
+
+Bspec: 49274
+Bspec: 53885
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  | 10 +++++++---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  5 ++++-
- 2 files changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c      |  7 +++++++
+ drivers/gpu/drm/i915/display/intel_snps_phy.c | 14 ++++++++++++++
+ drivers/gpu/drm/i915/display/intel_snps_phy.h |  3 +++
+ drivers/gpu/drm/i915/i915_reg.h               |  3 +++
+ 4 files changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 65ddb6ca16e6..45dc58dedf57 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -3474,7 +3474,8 @@ static void icl_ddi_bigjoiner_pre_enable(struct intel_atomic_state *state,
- 		 * Enable sequence steps 1-7 on bigjoiner master
- 		 */
- 		intel_encoders_pre_pll_enable(state, master);
--		intel_enable_shared_dpll(master_crtc_state);
-+		if (master_crtc_state->shared_dpll)
-+			intel_enable_shared_dpll(master_crtc_state);
- 		intel_encoders_pre_enable(state, master);
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 4dfe1dceb863..c987a7fbc8fe 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -32,6 +32,7 @@
+ #include "intel_dp_aux.h"
+ #include "intel_hdmi.h"
+ #include "intel_psr.h"
++#include "intel_snps_phy.h"
+ #include "intel_sprite.h"
+ #include "skl_universal_plane.h"
  
- 		/* and DSC on slave */
-@@ -8633,10 +8634,11 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+@@ -1206,6 +1207,7 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ {
+ 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
++	enum phy phy = intel_port_to_phy(dev_priv, dig_port->base.port);
+ 	struct intel_encoder *encoder = &dig_port->base;
+ 	u32 val;
  
- 	PIPE_CONF_CHECK_BOOL(double_wide);
+@@ -1231,6 +1233,7 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ 	intel_dp_compute_psr_vsc_sdp(intel_dp, crtc_state, conn_state,
+ 				     &intel_dp->psr.vsc);
+ 	intel_write_dp_vsc_sdp(encoder, crtc_state, &intel_dp->psr.vsc);
++	intel_snps_phy_update_psr_power_state(dev_priv, phy, true);
+ 	intel_psr_enable_sink(intel_dp);
+ 	intel_psr_enable_source(intel_dp);
+ 	intel_dp->psr.enabled = true;
+@@ -1327,6 +1330,8 @@ static void intel_psr_wait_exit_locked(struct intel_dp *intel_dp)
+ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
++	enum phy phy = intel_port_to_phy(dev_priv,
++					 dp_to_dig_port(intel_dp)->base.port);
  
--	PIPE_CONF_CHECK_P(shared_dpll);
-+	if (dev_priv->dpll.mgr)
-+		PIPE_CONF_CHECK_P(shared_dpll);
+ 	lockdep_assert_held(&intel_dp->psr.lock);
  
- 	/* FIXME do the readout properly and get rid of this quirk */
--	if (!PIPE_CONF_QUIRK(PIPE_CONFIG_QUIRK_BIGJOINER_SLAVE)) {
-+	if (dev_priv->dpll.mgr && !PIPE_CONF_QUIRK(PIPE_CONFIG_QUIRK_BIGJOINER_SLAVE)) {
- 		PIPE_CONF_CHECK_X(dpll_hw_state.dpll);
- 		PIPE_CONF_CHECK_X(dpll_hw_state.dpll_md);
- 		PIPE_CONF_CHECK_X(dpll_hw_state.fp0);
-@@ -8668,7 +8670,9 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 		PIPE_CONF_CHECK_X(dpll_hw_state.mg_pll_ssc);
- 		PIPE_CONF_CHECK_X(dpll_hw_state.mg_pll_bias);
- 		PIPE_CONF_CHECK_X(dpll_hw_state.mg_pll_tdc_coldst_bias);
-+	}
+@@ -1353,6 +1358,8 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
+ 			     TRANS_SET_CONTEXT_LATENCY(intel_dp->psr.transcoder),
+ 			     TRANS_SET_CONTEXT_LATENCY_MASK, 0);
  
-+	if (!PIPE_CONF_QUIRK(PIPE_CONFIG_QUIRK_BIGJOINER_SLAVE)) {
- 		PIPE_CONF_CHECK_X(dsi_pll.ctrl);
- 		PIPE_CONF_CHECK_X(dsi_pll.div);
++	intel_snps_phy_update_psr_power_state(dev_priv, phy, false);
++
+ 	/* Disable PSR on Sink */
+ 	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_EN_CFG, 0);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 882bfd499e55..5688d9704636 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4462,7 +4462,10 @@ void intel_shared_dpll_init(struct drm_device *dev)
- 	const struct dpll_info *dpll_info;
- 	int i;
+diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+index f0c30d3d2dfb..18b52b64af95 100644
+--- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+@@ -36,6 +36,20 @@ void intel_snps_phy_wait_for_calibration(struct drm_i915_private *dev_priv)
+ 	}
+ }
  
--	if (IS_ALDERLAKE_P(dev_priv))
-+	if (IS_DG2(dev_priv))
-+		/* No shared DPLLs on DG2; port PLLs are part of the PHY */
-+		dpll_mgr = NULL;
-+	else if (IS_ALDERLAKE_P(dev_priv))
- 		dpll_mgr = &adlp_pll_mgr;
- 	else if (IS_ALDERLAKE_S(dev_priv))
- 		dpll_mgr = &adls_pll_mgr;
++void intel_snps_phy_update_psr_power_state(struct drm_i915_private *dev_priv,
++					   enum phy phy, bool enable)
++{
++	u32 val;
++
++	if (!intel_phy_is_snps(dev_priv, phy))
++		return;
++
++	val = REG_FIELD_PREP(SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR,
++			     enable ? 2 : 3);
++	intel_uncore_rmw(&dev_priv->uncore, SNPS_PHY_TX_REQ(phy),
++			 SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR, val);
++}
++
+ static const u32 dg2_ddi_translations[] = {
+ 	/* VS 0, pre-emph 0 */
+ 	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 26),
+diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.h b/drivers/gpu/drm/i915/display/intel_snps_phy.h
+index 6aa33ff729ec..6261ff88ef5c 100644
+--- a/drivers/gpu/drm/i915/display/intel_snps_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_snps_phy.h
+@@ -12,8 +12,11 @@ struct drm_i915_private;
+ struct intel_encoder;
+ struct intel_crtc_state;
+ struct intel_mpllb_state;
++enum phy;
+ 
+ void intel_snps_phy_wait_for_calibration(struct drm_i915_private *dev_priv);
++void intel_snps_phy_update_psr_power_state(struct drm_i915_private *dev_priv,
++					   enum phy phy, bool enable);
+ 
+ int intel_mpllb_calc_state(struct intel_crtc_state *crtc_state,
+ 			   struct intel_encoder *encoder);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 9c7dc812317e..34d3806568e4 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2340,6 +2340,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define SNPS_PHY_REF_CONTROL(phy)		_MMIO_SNPS(phy, 0x168188)
+ #define   SNPS_PHY_REF_CONTROL_REF_RANGE	REG_GENMASK(31, 27)
+ 
++#define SNPS_PHY_TX_REQ(phy)			_MMIO_SNPS(phy, 0x168200)
++#define   SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR	REG_GENMASK(31, 30)
++
+ #define SNPS_PHY_TX_EQ(ln, phy)			_MMIO_SNPS_LN(ln, phy, 0x168300)
+ #define   SNPS_PHY_TX_EQ_MAIN			REG_GENMASK(23, 18)
+ #define   SNPS_PHY_TX_EQ_POST			REG_GENMASK(15, 10)
 -- 
 2.25.4
 
