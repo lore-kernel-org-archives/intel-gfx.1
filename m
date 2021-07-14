@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E675C11F68
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5387FC11F67
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E312C61289
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E312C61289
+	by mail.kernel.org (Postfix) with ESMTPS id 2611A61289
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2611A61289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1706E182;
-	Wed, 14 Jul 2021 03:16:03 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 604676E167
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:58 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232085870"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232085870"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA9F6E196;
+	Wed, 14 Jul 2021 03:16:04 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAAB46E15C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:53 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256260"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256260"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:58 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031567"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 20:15:53 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031496"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:57 -0700
+ 13 Jul 2021 20:15:53 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:15:25 -0700
-Message-Id: <20210714031540.3539704-36-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:15:06 -0700
+Message-Id: <20210714031540.3539704-17-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 35/50] drm/i915/dg2: Don't wait for AUX power
- well enable ACKs
+Subject: [Intel-gfx] [PATCH v2 16/50] drm/i915/xehp: Changes to ss/eu
+ definitions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,100 +54,118 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On DG2 we're supposed to just wait 600us after programming the well
-before moving on; there won't be an ack from the hardware.
+From: Matthew Auld <matthew.auld@intel.com>
 
-Bspec: 49296
+Xe_HP no longer has "slices" in the same way that old platforms did.
+There are new concepts (gslices, cslices, mslices) that apply in various
+contexts, but for the purposes of fusing slices no longer exist and we
+just have one large pool of dual-subslices (DSS) to work with.
+Furthermore, the meaning of the DSS fuse is inverted compared to past
+platforms --- it now specifies which DSS are enabled rather than which
+ones are disabled.
+
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Signed-off-by: Stuart Summers <stuart.summers@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Prasad Nallani <prasad.nallani@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_power.c   | 16 ++++++++++++++++
- .../gpu/drm/i915/display/intel_display_power.h   |  6 ++++++
- 2 files changed, 22 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_sseu.c | 24 ++++++++++++++++++++----
+ drivers/gpu/drm/i915/i915_getparam.c |  6 ++++--
+ drivers/gpu/drm/i915/i915_reg.h      |  3 +++
+ 3 files changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index d92db471411e..04af987f3324 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -341,6 +341,17 @@ static void hsw_wait_for_power_well_enable(struct drm_i915_private *dev_priv,
- {
- 	const struct i915_power_well_regs *regs = power_well->desc->hsw.regs;
- 	int pw_idx = power_well->desc->hsw.idx;
-+	int enable_delay = power_well->desc->hsw.fixed_enable_delay;
-+
-+	/*
-+	 * For some power wells we're not supposed to watch the status bit for
-+	 * an ack, but rather just wait a fixed amount of time and then
-+	 * proceed.  This is only used on DG2.
-+	 */
-+	if (IS_DG2(dev_priv) && enable_delay) {
-+		usleep_range(enable_delay, 2 * enable_delay);
-+		return;
-+	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index bbed8e8625e1..5d1b7d06c96b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -139,17 +139,33 @@ static void gen12_sseu_info_init(struct intel_gt *gt)
+ 	 * Gen12 has Dual-Subslices, which behave similarly to 2 gen11 SS.
+ 	 * Instead of splitting these, provide userspace with an array
+ 	 * of DSS to more closely represent the hardware resource.
++	 *
++	 * In addition, the concept of slice has been removed in Xe_HP.
++	 * To be compatible with prior generations, assume a single slice
++	 * across the entire device. Then calculate out the DSS for each
++	 * workload type within that software slice.
+ 	 */
+ 	intel_sseu_set_info(sseu, 1, 6, 16);
  
- 	/* Timeout for PW1:10 us, AUX:not specified, other PWs:20 us. */
- 	if (intel_de_wait_for_set(dev_priv, regs->driver,
-@@ -4828,6 +4839,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 		{
- 			.hsw.regs = &icl_aux_power_well_regs,
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_A,
-+			.hsw.fixed_enable_delay = 600,
- 		},
- 	},
- 	{
-@@ -4838,6 +4850,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 		{
- 			.hsw.regs = &icl_aux_power_well_regs,
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_B,
-+			.hsw.fixed_enable_delay = 600,
- 		},
- 	},
- 	{
-@@ -4848,6 +4861,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 		{
- 			.hsw.regs = &icl_aux_power_well_regs,
- 			.hsw.idx = ICL_PW_CTL_IDX_AUX_C,
-+			.hsw.fixed_enable_delay = 600,
- 		},
- 	},
- 	{
-@@ -4858,6 +4872,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 		{
- 			.hsw.regs = &icl_aux_power_well_regs,
- 			.hsw.idx = XELPD_PW_CTL_IDX_AUX_D,
-+			.hsw.fixed_enable_delay = 600,
- 		},
- 	},
- 	{
-@@ -4878,6 +4893,7 @@ static const struct i915_power_well_desc xelpd_power_wells[] = {
- 		{
- 			.hsw.regs = &icl_aux_power_well_regs,
- 			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC1,
-+			.hsw.fixed_enable_delay = 600,
- 		},
- 	},
- 	{
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index 4f0917df4375..22367b5cba96 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -223,6 +223,12 @@ struct i915_power_well_desc {
- 			u8 idx;
- 			/* Mask of pipes whose IRQ logic is backed by the pw */
- 			u8 irq_pipe_mask;
-+			/*
-+			 * Instead of waiting for the status bit to ack enables,
-+			 * just wait a specific amount of time and then consider
-+			 * the well enabled.
-+			 */
-+			u16 fixed_enable_delay;
- 			/* The pw is backing the VGA functionality */
- 			bool has_vga:1;
- 			bool has_fuses:1;
+-	s_en = intel_uncore_read(uncore, GEN11_GT_SLICE_ENABLE) &
+-		GEN11_GT_S_ENA_MASK;
++	/*
++	 * As mentioned above, Xe_HP does not have the concept of a slice.
++	 * Enable one for software backwards compatibility.
++	 */
++	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 50))
++		s_en = 0x1;
++	else
++		s_en = intel_uncore_read(uncore, GEN11_GT_SLICE_ENABLE) &
++		       GEN11_GT_S_ENA_MASK;
+ 
+ 	dss_en = intel_uncore_read(uncore, GEN12_GT_DSS_ENABLE);
+ 
+ 	/* one bit per pair of EUs */
+-	eu_en_fuse = ~(intel_uncore_read(uncore, GEN11_EU_DISABLE) &
+-		       GEN11_EU_DIS_MASK);
++	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 50))
++		eu_en_fuse = intel_uncore_read(uncore, XEHP_EU_ENABLE) & XEHP_EU_ENA_MASK;
++	else
++		eu_en_fuse = ~(intel_uncore_read(uncore, GEN11_EU_DISABLE) &
++			       GEN11_EU_DIS_MASK);
++
+ 	for (eu = 0; eu < sseu->max_eus_per_subslice / 2; eu++)
+ 		if (eu_en_fuse & BIT(eu))
+ 			eu_en |= BIT(eu * 2) | BIT(eu * 2 + 1);
+diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
+index 24e18219eb50..e289397d9178 100644
+--- a/drivers/gpu/drm/i915/i915_getparam.c
++++ b/drivers/gpu/drm/i915/i915_getparam.c
+@@ -15,7 +15,7 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	const struct sseu_dev_info *sseu = &i915->gt.info.sseu;
+ 	drm_i915_getparam_t *param = data;
+-	int value;
++	int value = 0;
+ 
+ 	switch (param->param) {
+ 	case I915_PARAM_IRQ_ACTIVE:
+@@ -150,7 +150,9 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
+ 			return -ENODEV;
+ 		break;
+ 	case I915_PARAM_SUBSLICE_MASK:
+-		value = sseu->subslice_mask[0];
++		/* Only copy bits from the first slice */
++		memcpy(&value, sseu->subslice_mask,
++		       min(sseu->ss_stride, (u8)sizeof(value)));
+ 		if (!value)
+ 			return -ENODEV;
+ 		break;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 47f015976966..4cabafa1c836 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -3151,6 +3151,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ 
+ #define GEN12_GT_DSS_ENABLE _MMIO(0x913C)
+ 
++#define XEHP_EU_ENABLE			_MMIO(0x9134)
++#define XEHP_EU_ENA_MASK		0xFF
++
+ #define GEN6_BSD_SLEEP_PSMI_CONTROL	_MMIO(0x12050)
+ #define   GEN6_BSD_SLEEP_MSG_DISABLE	(1 << 0)
+ #define   GEN6_BSD_SLEEP_FLUSH_DISABLE	(1 << 2)
 -- 
 2.25.4
 
