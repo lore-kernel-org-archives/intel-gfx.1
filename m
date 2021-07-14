@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC212C11F6B
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FDE6C11F67
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8055061289
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8055061289
+	by mail.kernel.org (Postfix) with ESMTPS id 05B51613AA
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05B51613AA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC98B6E1B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE69F6E1B6;
 	Wed, 14 Jul 2021 03:16:12 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2DA16E15C
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:16:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232085887"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232085887"
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB8F6E167
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:57 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="295923564"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="295923564"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:16:01 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031617"
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 20:15:56 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031543"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:16:01 -0700
+ 13 Jul 2021 20:15:56 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:15:39 -0700
-Message-Id: <20210714031540.3539704-50-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:15:18 -0700
+Message-Id: <20210714031540.3539704-29-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 49/50] drm/i915/dg2: Update to bigjoiner path
+Subject: [Intel-gfx] [PATCH v2 28/50] drm/i915/dg2: Add new LRI reg offsets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,41 +53,145 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Chris P Wilson <chris.p.wilson@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Animesh Manna <animesh.manna@intel.com>
+From: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
 
-In verify_mpllb_state() encoder is retrieved from best_encoder
-of connector_state. As there will be only one connector_state
-for bigjoiner and checking encoder may not be needed for
-bigjoiner-slave. This code path related to mpll is done on dg2
-and need this fix to avoid null pointer dereference issue.
+New LRI register offsets were introduced for DG2, this patch adds
+those extra registers, and create new register table for setting offsets
+to compare with HW generated context image - especially for gt_lrc test.
+Also updates general purpose register with scratch offset for DG2, in
+order to use it for live_lrc_fixed selftest.
 
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Cc: Chris P Wilson <chris.p.wilson@intel.com>
+Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Signed-off-by: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 85 ++++++++++++++++++++++++++++-
+ 1 file changed, 83 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 90d4efba466b..d038fa6a8b24 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -9153,6 +9153,9 @@ verify_mpllb_state(struct intel_atomic_state *state,
- 	if (!new_crtc_state->hw.active)
- 		return;
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index c3f5bec8ae15..1b7e75e4c011 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -226,6 +226,40 @@ static const u8 gen12_xcs_offsets[] = {
+ 	END
+ };
  
-+	if (new_crtc_state->bigjoiner_slave)
-+		return;
++static const u8 dg2_xcs_offsets[] = {
++	NOP(1),
++	LRI(15, POSTED),
++	REG16(0x244),
++	REG(0x034),
++	REG(0x030),
++	REG(0x038),
++	REG(0x03c),
++	REG(0x168),
++	REG(0x140),
++	REG(0x110),
++	REG(0x1c0),
++	REG(0x1c4),
++	REG(0x1c8),
++	REG(0x180),
++	REG16(0x2b4),
++	REG(0x120),
++	REG(0x124),
 +
- 	encoder = intel_get_crtc_new_encoder(state, new_crtc_state);
- 	intel_mpllb_readout_hw_state(encoder, &mpllb_hw_state);
++	NOP(1),
++	LRI(9, POSTED),
++	REG16(0x3a8),
++	REG16(0x28c),
++	REG16(0x288),
++	REG16(0x284),
++	REG16(0x280),
++	REG16(0x27c),
++	REG16(0x278),
++	REG16(0x274),
++	REG16(0x270),
++
++	END
++};
++
+ static const u8 gen8_rcs_offsets[] = {
+ 	NOP(1),
+ 	LRI(14, POSTED),
+@@ -525,6 +559,49 @@ static const u8 xehp_rcs_offsets[] = {
+ 	END
+ };
  
++static const u8 dg2_rcs_offsets[] = {
++	NOP(1),
++	LRI(15, POSTED),
++	REG16(0x244),
++	REG(0x034),
++	REG(0x030),
++	REG(0x038),
++	REG(0x03c),
++	REG(0x168),
++	REG(0x140),
++	REG(0x110),
++	REG(0x1c0),
++	REG(0x1c4),
++	REG(0x1c8),
++	REG(0x180),
++	REG16(0x2b4),
++	REG(0x120),
++	REG(0x124),
++
++	NOP(1),
++	LRI(9, POSTED),
++	REG16(0x3a8),
++	REG16(0x28c),
++	REG16(0x288),
++	REG16(0x284),
++	REG16(0x280),
++	REG16(0x27c),
++	REG16(0x278),
++	REG16(0x274),
++	REG16(0x270),
++
++	LRI(3, POSTED),
++	REG(0x1b0),
++	REG16(0x5a8),
++	REG16(0x5ac),
++
++	NOP(6),
++	LRI(1, 0),
++	REG(0x0c8),
++
++	END
++};
++
+ #undef END
+ #undef REG16
+ #undef REG
+@@ -543,7 +620,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		   !intel_engine_has_relative_mmio(engine));
+ 
+ 	if (engine->class == RENDER_CLASS) {
+-		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++			return dg2_rcs_offsets;
++		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
+ 			return xehp_rcs_offsets;
+ 		else if (GRAPHICS_VER(engine->i915) >= 12)
+ 			return gen12_rcs_offsets;
+@@ -554,7 +633,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		else
+ 			return gen8_rcs_offsets;
+ 	} else {
+-		if (GRAPHICS_VER(engine->i915) >= 12)
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++			return dg2_xcs_offsets;
++		else if (GRAPHICS_VER(engine->i915) >= 12)
+ 			return gen12_xcs_offsets;
+ 		else if (GRAPHICS_VER(engine->i915) >= 9)
+ 			return gen9_xcs_offsets;
 -- 
 2.25.4
 
