@@ -2,141 +2,35 @@ Return-Path: <SRS0=C5oC=MG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA616C07E9A
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 09:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59BD0C07E9A
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 10:03:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B431D6115A
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 09:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B431D6115A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 10BD6611AB
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 10:03:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10BD6611AB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 563336E1F3;
-	Wed, 14 Jul 2021 09:58:03 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9F226E1F3
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 09:58:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210135914"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210135914"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2021 02:58:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="413236319"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by orsmga003.jf.intel.com with ESMTP; 14 Jul 2021 02:58:01 -0700
-Received: from orsmsx605.amr.corp.intel.com (10.22.229.18) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10; Wed, 14 Jul 2021 02:58:00 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4
- via Frontend Transport; Wed, 14 Jul 2021 02:58:00 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.175)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2242.10; Wed, 14 Jul 2021 02:58:00 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UTtJTnON05dau9L4z7rujcxvbzrcn4ckIy+1x4/Z9pC0QPv2zLWPxhoV1W2jr5N4GDSOOVyF1Q0U7jRevUxZSq8bXWhnDbuYaET0RA7YFtsmDidwJjqQg68l1Zi2xWngXu7z1S8kCX6Vn5bC55QDJituAGhy3P/qx5Q9Am29Uymu2eIpGynE1EzI10WPeUgFMY6SBSo/owFpZNuL1eQbk14u+qUd5ACBNWDEuaDdYr6ZVHbh/R0kiO3dFWBcpOQA1Ov+Vn5rxucl+tB5nMvNDltX8ArPbg7/+BRnXZbcVF7ZoLSa+jcej3icpsP9tR7aYaPbvxQcA9mdeaT/1sjE/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=olmhzLGe2MljeC4yVdW2/yD4OL4CuC8SPutLP+fQJtk=;
- b=JpsesXs/1g2RYaYBep3lUGs65Carwg5NvRcJ/07Z79sYVeuFOUhCR8WYWerBkl3OW1XWF8xWOEvTmrBnh3sTOI3F+x7k77c2stPqsZED+awzzoYPtJ+onhnUZC0mQEGtjvlbHqvLXd5RoeP+w5NwGk+o2RZApmF4tsv3OwjyMv7Z7xEKaR1jRelLsQTF/wuBFHQnYPYDJCQKGT2dhvSg3OpNhqvLZ/ji8JDZ+UNO3gd9P35TxL9vcj0GhPuWA+DWqEi+yGHg3Sh647BX4Nzz6gQbEr1WLHyn2RErzhyapcAheQjyDmnWRmTX4r/GB6zfWCu+CJmDPvOUhanb+5PLvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=olmhzLGe2MljeC4yVdW2/yD4OL4CuC8SPutLP+fQJtk=;
- b=LbmKq6nN2XVIhoOKPT5b1lO6+/jwa4xh9HaW+elRXbCmjLllZ9yW/XL/vj+EUpXlCybi7MV8MVkz1xMkAn8LsUZ65Q0Be/44rMqiBaIOqDUM3nHDAM0i/68gyt3ekMs2asDQOHhzU7t2JSD4E91RB+Em+pcqHkaST5MXZBhAupU=
-Received: from CH0PR11MB5737.namprd11.prod.outlook.com (2603:10b6:610:112::11)
- by CH2PR11MB4392.namprd11.prod.outlook.com (2603:10b6:610:3e::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.22; Wed, 14 Jul
- 2021 09:57:56 +0000
-Received: from CH0PR11MB5737.namprd11.prod.outlook.com
- ([fe80::c47:5ab1:a0ac:f5fa]) by CH0PR11MB5737.namprd11.prod.outlook.com
- ([fe80::c47:5ab1:a0ac:f5fa%6]) with mapi id 15.20.4308.027; Wed, 14 Jul 2021
- 09:57:56 +0000
-From: "Sharma, Swati2" <swati2.sharma@intel.com>
-To: "Kulkarni, Vandita" <vandita.kulkarni@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [Intel-gfx] [v2] drm/i915/display/dsc: Force dsc BPP
-Thread-Index: AQHXdAHENIMNvFib+EqQ/vsrzHRcwatCRPrg
-Date: Wed, 14 Jul 2021 09:57:56 +0000
-Message-ID: <CH0PR11MB5737A50F679C1FDD90E169DDAF139@CH0PR11MB5737.namprd11.prod.outlook.com>
-References: <20210708102549.27821-4-vandita.kulkarni@intel.com>
- <20210708140104.3357-1-vandita.kulkarni@intel.com>
-In-Reply-To: <20210708140104.3357-1-vandita.kulkarni@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-authentication-results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0d071b7d-3f58-42e7-1fa0-08d946addad2
-x-ms-traffictypediagnostic: CH2PR11MB4392:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR11MB43922F7AA3EBF726DE909538AF139@CH2PR11MB4392.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bvLbfCgCECZJ+1EAg0djXHqIfY0YVzUxTlKo8e+YbWetNecJuB4tFrlxfQBhWWBB9DDpSEVdMhC3ENV5ZH2ZKEMjMJrFJ5TsyOlzeovxBXy/2Y9nfuPA1Yuu0IxCSDda0efcRVdeOQdGf6Zh+QTpGwbGKa9ihFi5y76oTU0qf2N5itonmNYQQa1Fz3+Gy9znOD0Vo8JvCjLUx+OVzXSAh6Ju0IqiXQT5tejQuWStSITDckPhXcdBlvPFHGAn3ap+l5njB8JKdLwlIq56ESHXn20R4R9BF02wTNivkgZXevBEgBzDLLgu1LHAo7tWMidh4Ea9kf9cx+VNvy4Qty1ZTj2KBDwFhKotdxFmEVRAw7Ulpx7PjkHFC51XM0ECtJyCcvhDYJ38Quv++rwjjMoTzxFI1Z5lVDFgY/TnLQVkLFvInYQvqOg3j+xkXB3nxWzV7VWLTlg18LBtUNFByk50sT05W6zKDWzqU4RTLF14L5pOtZTn4A4VBVnmB6R7y8RE+sAE+VKzO3pIaZupWLdiYaFgsvpJlM2mu/rhqhTiQwrvwcHHRqkmOImc/xrnNeL9KvTHIye4Vs5low1sQtABKEs/ZV2ngMFrpDbrJpHZKi4/1RKXp8COzQJlBjSVeOcp0tADfec0ZTgtyxxlQ9lmnMbgf7HycPqjBlBHn6JPqyykTsHkI4t7LQ0Ug2r3awDvOQ55UxsHr0P8X2dRFhxRpg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR11MB5737.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(376002)(366004)(396003)(136003)(26005)(71200400001)(66446008)(83380400001)(64756008)(66946007)(966005)(66476007)(33656002)(38100700002)(66556008)(478600001)(107886003)(8676002)(8936002)(6506007)(53546011)(110136005)(76116006)(7696005)(55016002)(186003)(316002)(86362001)(52536014)(5660300002)(122000001)(9686003)(4326008)(2906002)(38070700004);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?yUHbRzagAokoE7176HgUqi2nMnP7jx472QfqNPQp32CurXuQcp9ZJQcMn3DN?=
- =?us-ascii?Q?Y5qNXFlVqZ8Hew7zdzY0mTXTljkdnvlxbh/imY5zBTPCpmPDJY7wH5CfzJEr?=
- =?us-ascii?Q?Yde+DbT/eldYcqztYkQIDfKQio3B5dli7CtlLwiO3XSFf2LZgNqNNhNGhGZC?=
- =?us-ascii?Q?33iKM0X5xC6ujz/EOW2UV+yG6VnLrVnGIC4TbMr+CxgFH/mXrtPJ6UTx87zH?=
- =?us-ascii?Q?QUkbfJCYgIFWsbZiZ174cMGj+tGfGtszGDHOpny3x9f6TWCw0yfFUM5oP6gC?=
- =?us-ascii?Q?HZeN/YVNrAQTcR4P5VDwhpMj6leMCnhFwXE9qWmLfHK/lPBrB+TfqLXM/gJp?=
- =?us-ascii?Q?OHVNQhH65aAuaXE5dnEP74d1Dal1bMvjFKNOVKo0nE2XRlo/9qYJzeUb7ajZ?=
- =?us-ascii?Q?e2tFfX0nqdIpEmJ4mgAETCXt3r+kG/oJ+8uCx+RGJUhhuCMDniIMs+KbfwVS?=
- =?us-ascii?Q?K059cWCdjUENupvJSvdut+qHu0k7tf9jihYEOqiFFTb7a+iEWOhaZn97pOn9?=
- =?us-ascii?Q?ZkXY/J7mwuuGXQLjUUKaQZ9kds2DypBXCSRS/cDcRm1KXilrUUFdGwopnr4F?=
- =?us-ascii?Q?DpRhJdCFMAuCxlxoIW39DX5q3jn7SZXm5COdMxtceWJxrmDdl3LcUvC0vqLS?=
- =?us-ascii?Q?qvtVq2JQKThBjBB8/wQ7GOGmoI2bbk1GFZ/87SdL0tk809/FsL8wRVk/SvlJ?=
- =?us-ascii?Q?UoKMRC69UxhAruJFibXw7RzRhxKfO3KWt0S2KQYmZHvR//rZXG6NXbsMzGte?=
- =?us-ascii?Q?7vsjOvCcAqX+z43ieus7Mi7vqk35pYW/PeQn8U9lghpmrWODAa5X7w/gOo20?=
- =?us-ascii?Q?9CI2viICn/6jT0kQ5kMRCTyx1oWroe3sToYMAgceFoVz7wT92u+0+ePdXGom?=
- =?us-ascii?Q?IVNj6ZwxlQPArqfa3Ye1l5mN+wdUrmcffzVgurfwrTPxhDbTG08EzcrJ8zKH?=
- =?us-ascii?Q?1GMsmumULYygGoijBEsXEFNQUMMTEfbPrGknbUWlo8SmerSU0ZnQhNBITKSZ?=
- =?us-ascii?Q?vomzz/smx/UlGWylX7LPn5ANj2jiJaZHvCjHKdZWWkfZGFfQM5pi07pSyr6T?=
- =?us-ascii?Q?FbboaomtvOiJDREKhdj0a+fuhPDdovBVeN3XPTj4GxEafx3WoFO3J1Jb01PX?=
- =?us-ascii?Q?nozxo+dhZCFdGWb+FypK8A1ObCkmuUOo1/zrw7EDqaVmmIgnFyMTn9p1/ZMF?=
- =?us-ascii?Q?jxyWTufDz8zYiyNvs+6wMzNpPjdDDbw7EKDa3oKySqjQBQQJkXpEbv3NmFBY?=
- =?us-ascii?Q?jBRE3RurolYVllIsn5T8OVDseNcn9/EHRRZ+q8CA9SyOUk1hbhCbI8fzMTrj?=
- =?us-ascii?Q?ck2C2zUdX2bDheZ5KBt0NXEU?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98A746E1F4;
+	Wed, 14 Jul 2021 10:03:34 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl
+ [IPv6:2a02:2308::216:3eff:fe92:dfa3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06B456E1F4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 10:03:32 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 14 Jul 2021 12:03:23 +0200
+Message-Id: <20210714100323.752828-1-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5737.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d071b7d-3f58-42e7-1fa0-08d946addad2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2021 09:57:56.2752 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: icaoe2hqI2tzxoKAQJ49gg7yshsiZ41Tm4weRLJwFRaxkDSvDBou7S5Rn8Xma7Oy16vtNNJ3ZPTX5QO1VAWg8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR11MB4392
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [v2] drm/i915/display/dsc: Force dsc BPP
+Subject: [Intel-gfx] [PATCH] drm/i915: Add TTM offset argument to mmap.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,72 +43,263 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Nikula, Jani" <jani.nikula@intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With both review comments by Jani N addressed,
-Reviewed-by: Swati Sharma <swati2.sharma@intel.com>
+The FIXED mapping is only used for ttm, and tells userspace that the
+mapping type is pre-defined. This disables the other type of mmap
+offsets when discrete memory is used, so fix the selftests as well.
 
-Thanks and Regards,
-Swati
+Document the struct as well, so it shows up in docbook.
 
------Original Message-----
-From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Vandita Kulkarni
-Sent: Thursday, July 8, 2021 7:31 PM
-To: intel-gfx@lists.freedesktop.org
-Cc: Nikula, Jani <jani.nikula@intel.com>
-Subject: [Intel-gfx] [v2] drm/i915/display/dsc: Force dsc BPP
-
-Set DSC BPP to the value forced through
-debugfs. It can go from bpc to bpp-1.
-
-v2: Use default dsc bpp when we are just
-    doing force_dsc_en, use default dsc bpp
-    for invalid force_dsc_bpp values. (Jani)
-
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Cc: Jason Ekstrand <jason@jlekstrand.net>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      | 17 ++++++-
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  1 +
+ .../drm/i915/gem/selftests/i915_gem_mman.c    | 27 ++++++++++-
+ include/uapi/drm/i915_drm.h                   | 46 ++++++++++++++-----
+ 4 files changed, 77 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 5b52beaddada..c386ef8eb200 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1274,6 +1274,23 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 							       pipe_config->pipe_bpp);
- 		pipe_config->dsc.slice_count = dsc_dp_slice_count;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index a90f796e85c0..31c4021bb6be 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -679,10 +679,16 @@ __assign_mmap_offset(struct drm_i915_gem_object *obj,
+ 		return -ENODEV;
+ 
+ 	if (obj->ops->mmap_offset)  {
++		if (mmap_type != I915_MMAP_TYPE_FIXED)
++			return -ENODEV;
++
+ 		*offset = obj->ops->mmap_offset(obj);
+ 		return 0;
  	}
+ 
++	if (mmap_type == I915_MMAP_TYPE_FIXED)
++		return -ENODEV;
 +
-+	/* As of today we support DSC for only RGB */
-+	if (intel_dp->force_dsc_bpp) {
-+		if (intel_dp->force_dsc_bpp >= 8 &&
-+		    intel_dp->force_dsc_bpp < pipe_bpp) {
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "DSC BPP forced to %d",
-+				    intel_dp->force_dsc_bpp);
-+			pipe_config->dsc.compressed_bpp =
-+						intel_dp->force_dsc_bpp;
-+		} else {
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "Invalid DSC BPP %d",
-+				    intel_dp->force_dsc_bpp);
-+		}
-+	}
+ 	if (mmap_type != I915_MMAP_TYPE_GTT &&
+ 	    !i915_gem_object_has_struct_page(obj) &&
+ 	    !i915_gem_object_has_iomem(obj))
+@@ -727,7 +733,9 @@ i915_gem_dumb_mmap_offset(struct drm_file *file,
+ {
+ 	enum i915_mmap_type mmap_type;
+ 
+-	if (boot_cpu_has(X86_FEATURE_PAT))
++	if (HAS_LMEM(to_i915(dev)))
++		mmap_type = I915_MMAP_TYPE_FIXED;
++	else if (boot_cpu_has(X86_FEATURE_PAT))
+ 		mmap_type = I915_MMAP_TYPE_WC;
+ 	else if (!i915_ggtt_has_aperture(&to_i915(dev)->ggtt))
+ 		return -ENODEV;
+@@ -798,6 +806,10 @@ i915_gem_mmap_offset_ioctl(struct drm_device *dev, void *data,
+ 		type = I915_MMAP_TYPE_UC;
+ 		break;
+ 
++	case I915_MMAP_OFFSET_FIXED:
++		type = I915_MMAP_TYPE_FIXED;
++		break;
 +
- 	/*
- 	 * VDSC engine operates at 1 Pixel per clock, so if peak pixel rate
- 	 * is greater than the maximum Cdclock and if slice count is even
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -968,6 +980,9 @@ int i915_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+ 		vma->vm_ops = &vm_ops_cpu;
+ 		break;
+ 
++	case I915_MMAP_TYPE_FIXED:
++		GEM_WARN_ON(1);
++		/* fall-through */
+ 	case I915_MMAP_TYPE_WB:
+ 		vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+ 		vma->vm_ops = &vm_ops_cpu;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index ef3de2ae9723..afbadfc5516b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -105,6 +105,7 @@ enum i915_mmap_type {
+ 	I915_MMAP_TYPE_WC,
+ 	I915_MMAP_TYPE_WB,
+ 	I915_MMAP_TYPE_UC,
++	I915_MMAP_TYPE_FIXED,
+ };
+ 
+ struct i915_mmap_offset {
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 1da8bd675e54..52789c8ad337 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -573,6 +573,14 @@ static int make_obj_busy(struct drm_i915_gem_object *obj)
+ 	return 0;
+ }
+ 
++static enum i915_mmap_type default_mapping(struct drm_i915_private *i915)
++{
++	if (HAS_LMEM(i915))
++		return I915_MMAP_TYPE_FIXED;
++
++	return I915_MMAP_TYPE_GTT;
++}
++
+ static bool assert_mmap_offset(struct drm_i915_private *i915,
+ 			       unsigned long size,
+ 			       int expected)
+@@ -585,7 +593,7 @@ static bool assert_mmap_offset(struct drm_i915_private *i915,
+ 	if (IS_ERR(obj))
+ 		return expected && expected == PTR_ERR(obj);
+ 
+-	ret = __assign_mmap_offset(obj, I915_MMAP_TYPE_GTT, &offset, NULL);
++	ret = __assign_mmap_offset(obj, default_mapping(i915), &offset, NULL);
+ 	i915_gem_object_put(obj);
+ 
+ 	return ret == expected;
+@@ -689,7 +697,7 @@ static int igt_mmap_offset_exhaustion(void *arg)
+ 		goto out;
+ 	}
+ 
+-	err = __assign_mmap_offset(obj, I915_MMAP_TYPE_GTT, &offset, NULL);
++	err = __assign_mmap_offset(obj, default_mapping(i915), &offset, NULL);
+ 	if (err) {
+ 		pr_err("Unable to insert object into reclaimed hole\n");
+ 		goto err_obj;
+@@ -831,8 +839,14 @@ static int wc_check(struct drm_i915_gem_object *obj)
+ 
+ static bool can_mmap(struct drm_i915_gem_object *obj, enum i915_mmap_type type)
+ {
++	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	bool no_map;
+ 
++	if (HAS_LMEM(i915))
++		return type == I915_MMAP_TYPE_FIXED;
++	else if (type == I915_MMAP_TYPE_FIXED)
++		return false;
++
+ 	if (type == I915_MMAP_TYPE_GTT &&
+ 	    !i915_ggtt_has_aperture(&to_i915(obj->base.dev)->ggtt))
+ 		return false;
+@@ -970,6 +984,8 @@ static int igt_mmap(void *arg)
+ 			err = __igt_mmap(i915, obj, I915_MMAP_TYPE_GTT);
+ 			if (err == 0)
+ 				err = __igt_mmap(i915, obj, I915_MMAP_TYPE_WC);
++			if (err == 0)
++				err = __igt_mmap(i915, obj, I915_MMAP_TYPE_FIXED);
+ 
+ 			i915_gem_object_put(obj);
+ 			if (err)
+@@ -987,6 +1003,7 @@ static const char *repr_mmap_type(enum i915_mmap_type type)
+ 	case I915_MMAP_TYPE_WB: return "wb";
+ 	case I915_MMAP_TYPE_WC: return "wc";
+ 	case I915_MMAP_TYPE_UC: return "uc";
++	case I915_MMAP_TYPE_FIXED: return "ttm";
+ 	default: return "unknown";
+ 	}
+ }
+@@ -1100,6 +1117,8 @@ static int igt_mmap_access(void *arg)
+ 			err = __igt_mmap_access(i915, obj, I915_MMAP_TYPE_WC);
+ 		if (err == 0)
+ 			err = __igt_mmap_access(i915, obj, I915_MMAP_TYPE_UC);
++		if (err == 0)
++			err = __igt_mmap_access(i915, obj, I915_MMAP_TYPE_FIXED);
+ 
+ 		i915_gem_object_put(obj);
+ 		if (err)
+@@ -1241,6 +1260,8 @@ static int igt_mmap_gpu(void *arg)
+ 		err = __igt_mmap_gpu(i915, obj, I915_MMAP_TYPE_GTT);
+ 		if (err == 0)
+ 			err = __igt_mmap_gpu(i915, obj, I915_MMAP_TYPE_WC);
++		if (err == 0)
++			err = __igt_mmap_gpu(i915, obj, I915_MMAP_TYPE_FIXED);
+ 
+ 		i915_gem_object_put(obj);
+ 		if (err)
+@@ -1396,6 +1417,8 @@ static int igt_mmap_revoke(void *arg)
+ 		err = __igt_mmap_revoke(i915, obj, I915_MMAP_TYPE_GTT);
+ 		if (err == 0)
+ 			err = __igt_mmap_revoke(i915, obj, I915_MMAP_TYPE_WC);
++		if (err == 0)
++			err = __igt_mmap_revoke(i915, obj, I915_MMAP_TYPE_FIXED);
+ 
+ 		i915_gem_object_put(obj);
+ 		if (err)
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index e334a8b14ef2..223f60d7694a 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -849,31 +849,55 @@ struct drm_i915_gem_mmap_gtt {
+ 	__u64 offset;
+ };
+ 
++/**
++ * struct drm_i915_gem_mmap_offset - Retrieve an offset so we can mmap this buffer object.
++ *
++ * This struct is passed as argument to the `DRM_IOCTL_I915_GEM_MMAP_OFFSET` ioctl,
++ * and is used to retrieve the fake offset to mmap an object specified by &handle.
++ *
++ * The legacy way of using `DRM_IOCTL_I915_GEM_MMAP` is removed on gen12+.
++ * `DRM_IOCTL_I915_GEM_MMAP_GTT` is an older supported alias to this struct, but will behave
++ * as setting the &extensions to 0, and &flags to `I915_MMAP_OFFSET_GTT`.
++ */
+ struct drm_i915_gem_mmap_offset {
+-	/** Handle for the object being mapped. */
++	/** @handle: Handle for the object being mapped. */
+ 	__u32 handle;
++	/** @pad: Must be zero */
+ 	__u32 pad;
+ 	/**
+-	 * Fake offset to use for subsequent mmap call
++	 * @offset: The fake offset to use for subsequent mmap call
+ 	 *
+ 	 * This is a fixed-size type for 32/64 compatibility.
+ 	 */
+ 	__u64 offset;
+ 
+ 	/**
+-	 * Flags for extended behaviour.
++	 * @flags: Flags for extended behaviour.
++	 *
++	 * It is mandatory that one of the `MMAP_OFFSET` types
++	 * should be included:
++	 * - `I915_MMAP_OFFSET_GTT`: Use mmap with the object bound to GTT. (Write-Combined)
++	 * - `I915_MMAP_OFFSET_WC`: Use Write-Combined caching.
++	 * - `I915_MMAP_OFFSET_WB`: Use Write-Back caching.
++	 * - `I915_MMAP_OFFSET_FIXED`: Use object placement to determine caching.
++	 *
++	 * On devices with local memory `I915_MMAP_OFFSET_FIXED` is the only valid
++	 * type. Ondevices without local memory, this caching mode is invalid.
+ 	 *
+-	 * It is mandatory that one of the MMAP_OFFSET types
+-	 * (GTT, WC, WB, UC, etc) should be included.
++	 * As caching mode when specifying `I915_MMAP_OFFSET_FIXED`, WC or WB will
++	 * be used, depending on the object placement on creation. WB will be used
++	 * when the object can only exist in system memory, WC otherwise.
+ 	 */
+ 	__u64 flags;
+-#define I915_MMAP_OFFSET_GTT 0
+-#define I915_MMAP_OFFSET_WC  1
+-#define I915_MMAP_OFFSET_WB  2
+-#define I915_MMAP_OFFSET_UC  3
+ 
+-	/*
+-	 * Zero-terminated chain of extensions.
++#define I915_MMAP_OFFSET_GTT	0
++#define I915_MMAP_OFFSET_WC	1
++#define I915_MMAP_OFFSET_WB	2
++#define I915_MMAP_OFFSET_UC	3
++#define I915_MMAP_OFFSET_FIXED	4
++
++	/**
++	 * @extensions: Zero-terminated chain of extensions.
+ 	 *
+ 	 * No current extensions defined; mbz.
+ 	 */
 -- 
-2.32.0
+2.31.0
 
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
