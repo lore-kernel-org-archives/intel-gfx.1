@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99F92C07E95
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E083AC07E96
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 67AF961289
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67AF961289
+	by mail.kernel.org (Postfix) with ESMTPS id A8B6761289
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A8B6761289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77EB46E15F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7C766E157;
 	Wed, 14 Jul 2021 03:15:53 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8DEC6E157
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256248"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256248"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17FA86E157
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256253"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256253"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Jul 2021 20:15:51 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031456"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031470"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:50 -0700
+ 13 Jul 2021 20:15:51 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:14:56 -0700
-Message-Id: <20210714031540.3539704-7-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:15:00 -0700
+Message-Id: <20210714031540.3539704-11-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 06/50] drm/i915/xehp: Extra media engines -
- Part 1 (engine definitions)
+Subject: [Intel-gfx] [PATCH v2 10/50] drm/i915/xehp: Define multicast
+ register ranges
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,250 +54,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tomas Winkler <tomas.winkler@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
-
-Xe_HP can have a lot of extra media engines. This patch adds the basic
-definitions for them.
-
-v2:
- - Re-order intel_gt_info and intel_device_info slightly to avoid
-   unnecessary padding now that we've increased the size of
-   intel_engine_mask_t.  (Tvrtko)
-
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c     |  7 ++-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 50 ++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_engine_types.h | 14 ++++--
- drivers/gpu/drm/i915/gt/intel_gt_types.h     |  5 +-
- drivers/gpu/drm/i915/i915_reg.h              |  6 +++
- drivers/gpu/drm/i915/intel_device_info.h     |  3 +-
- 6 files changed, 74 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 87b06572fd2e..35edc55720f4 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -279,7 +279,7 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 	if (mode & EMIT_INVALIDATE)
- 		aux_inv = rq->engine->mask & ~BIT(BCS0);
- 	if (aux_inv)
--		cmd += 2 * hweight8(aux_inv) + 2;
-+		cmd += 2 * hweight32(aux_inv) + 2;
- 
- 	cs = intel_ring_begin(rq, cmd);
- 	if (IS_ERR(cs))
-@@ -313,9 +313,8 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 		struct intel_engine_cs *engine;
- 		unsigned int tmp;
- 
--		*cs++ = MI_LOAD_REGISTER_IMM(hweight8(aux_inv));
--		for_each_engine_masked(engine, rq->engine->gt,
--				       aux_inv, tmp) {
-+		*cs++ = MI_LOAD_REGISTER_IMM(hweight32(aux_inv));
-+		for_each_engine_masked(engine, rq->engine->gt, aux_inv, tmp) {
- 			*cs++ = i915_mmio_reg_offset(aux_inv_reg(engine));
- 			*cs++ = AUX_INV;
- 		}
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 3f8013612a08..6c2cb1400c8c 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -104,6 +104,38 @@ static const struct engine_info intel_engines[] = {
- 			{ .graphics_ver = 11, .base = GEN11_BSD4_RING_BASE }
- 		},
- 	},
-+	[VCS4] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_DECODE_CLASS,
-+		.instance = 4,
-+		.mmio_bases = {
-+			{ .graphics_ver = 11, .base = XEHP_BSD5_RING_BASE }
-+		},
-+	},
-+	[VCS5] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_DECODE_CLASS,
-+		.instance = 5,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_BSD6_RING_BASE }
-+		},
-+	},
-+	[VCS6] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_DECODE_CLASS,
-+		.instance = 6,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_BSD7_RING_BASE }
-+		},
-+	},
-+	[VCS7] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_DECODE_CLASS,
-+		.instance = 7,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_BSD8_RING_BASE }
-+		},
-+	},
- 	[VECS0] = {
- 		.hw_id = VECS0_HW,
- 		.class = VIDEO_ENHANCEMENT_CLASS,
-@@ -121,6 +153,22 @@ static const struct engine_info intel_engines[] = {
- 			{ .graphics_ver = 11, .base = GEN11_VEBOX2_RING_BASE }
- 		},
- 	},
-+	[VECS2] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_ENHANCEMENT_CLASS,
-+		.instance = 2,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_VEBOX3_RING_BASE }
-+		},
-+	},
-+	[VECS3] = {
-+		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
-+		.class = VIDEO_ENHANCEMENT_CLASS,
-+		.instance = 3,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHP_VEBOX4_RING_BASE }
-+		},
-+	},
- };
- 
- /**
-@@ -269,6 +317,8 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
- 
- 	BUILD_BUG_ON(MAX_ENGINE_CLASS >= BIT(GEN11_ENGINE_CLASS_WIDTH));
- 	BUILD_BUG_ON(MAX_ENGINE_INSTANCE >= BIT(GEN11_ENGINE_INSTANCE_WIDTH));
-+	BUILD_BUG_ON(I915_MAX_VCS > (MAX_ENGINE_INSTANCE + 1));
-+	BUILD_BUG_ON(I915_MAX_VECS > (MAX_ENGINE_INSTANCE + 1));
- 
- 	if (GEM_DEBUG_WARN_ON(id >= ARRAY_SIZE(gt->engine)))
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 1cb9c3b70b29..e0b1cbdbadce 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -46,7 +46,7 @@
- #define COPY_ENGINE_CLASS	3
- #define OTHER_CLASS		4
- #define MAX_ENGINE_CLASS	4
--#define MAX_ENGINE_INSTANCE	3
-+#define MAX_ENGINE_INSTANCE	7
- 
- #define I915_MAX_SLICES	3
- #define I915_MAX_SUBSLICES 8
-@@ -64,7 +64,7 @@ struct intel_gt;
- struct intel_ring;
- struct intel_uncore;
- 
--typedef u8 intel_engine_mask_t;
-+typedef u32 intel_engine_mask_t;
- #define ALL_ENGINES ((intel_engine_mask_t)~0ul)
- 
- struct intel_hw_status_page {
-@@ -101,8 +101,8 @@ struct i915_ctx_workarounds {
- 	struct i915_vma *vma;
- };
- 
--#define I915_MAX_VCS	4
--#define I915_MAX_VECS	2
-+#define I915_MAX_VCS	8
-+#define I915_MAX_VECS	4
- 
- /*
-  * Engine IDs definitions.
-@@ -115,9 +115,15 @@ enum intel_engine_id {
- 	VCS1,
- 	VCS2,
- 	VCS3,
-+	VCS4,
-+	VCS5,
-+	VCS6,
-+	VCS7,
- #define _VCS(n) (VCS0 + (n))
- 	VECS0,
- 	VECS1,
-+	VECS2,
-+	VECS3,
- #define _VECS(n) (VECS0 + (n))
- 	I915_NUM_ENGINES
- #define INVALID_ENGINE ((enum intel_engine_id)-1)
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index d93d578a4105..97a5075288d2 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -174,13 +174,14 @@ struct intel_gt {
- 
- 	struct intel_gt_info {
- 		intel_engine_mask_t engine_mask;
-+
-+		u32 l3bank_mask;
-+
- 		u8 num_engines;
- 
- 		/* Media engine access to SFC per instance */
- 		u8 vdbox_sfc_access;
- 
--		u32 l3bank_mask;
--
- 		/* Slice/subslice/EU info */
- 		struct sseu_dev_info sseu;
- 	} info;
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 2274e9c01d61..de0c27d67e15 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2516,9 +2516,15 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define GEN11_BSD2_RING_BASE	0x1c4000
- #define GEN11_BSD3_RING_BASE	0x1d0000
- #define GEN11_BSD4_RING_BASE	0x1d4000
-+#define XEHP_BSD5_RING_BASE	0x1e0000
-+#define XEHP_BSD6_RING_BASE	0x1e4000
-+#define XEHP_BSD7_RING_BASE	0x1f0000
-+#define XEHP_BSD8_RING_BASE	0x1f4000
- #define VEBOX_RING_BASE		0x1a000
- #define GEN11_VEBOX_RING_BASE		0x1c8000
- #define GEN11_VEBOX2_RING_BASE		0x1d8000
-+#define XEHP_VEBOX3_RING_BASE		0x1e8000
-+#define XEHP_VEBOX4_RING_BASE		0x1f8000
- #define BLT_RING_BASE		0x22000
- #define RING_TAIL(base)		_MMIO((base) + 0x30)
- #define RING_HEAD(base)		_MMIO((base) + 0x34)
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index ba7483acc3f7..75d225d0db47 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -166,7 +166,6 @@ struct intel_device_info {
- 	u8 media_ver;
- 	u8 media_rel;
- 
--	u8 gt; /* GT number, 0 if undefined */
- 	intel_engine_mask_t platform_engine_mask; /* Engines supported by the HW */
- 
- 	enum intel_platform platform;
-@@ -182,6 +181,8 @@ struct intel_device_info {
- 
- 	u32 display_mmio_offset;
- 
-+	u8 gt; /* GT number, 0 if undefined */
-+
- 	u8 pipe_mask;
- 	u8 cpu_transcoder_mask;
- 
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+U2luY2Ugd2UgY2FuJ3Qgc3RlZXIgbXVsdGljYXN0IHJlZ2lzdGVyIHJlYWRzIGR1cmluZyByaW5n
+LWJhc2VkCndvcmthcm91bmQgdmVyaWZpY2F0aW9uLCB3ZSBuZWVkIHRvIGRlZmluZSB0aGUgbXVs
+dGljYXN0IHJhbmdlcyB3aGVyZQpmYWlsdXJlIHRvIHN0ZWVyIGNvdWxkIHBvdGVudGlhbGx5IGNh
+dXNlIHVzIHRvIHJlYWQgYmFjayBmcm9tIGEKZnVzZWQtb2ZmIHJlZ2lzdGVyIGluc3RhbmNlLgoK
+QXMgd2l0aCBnZW4xMiwgd2UgY2FuIGlnbm9yZSB0aGUgbXVsdGljYXN0IHJhbmdlcyB0aGF0IHRo
+ZSBic3BlYwpkZXNjcmliZXMgYXMgJ1NRSURJJyBzaW5jZSBhbGwgaW5zdGFuY2VzIG9mIHRob3Nl
+IHJlZ2lzdGVycyB3aWxsIGFsd2F5cwpiZSBwcmVzZW50IGFuZCB3ZSdsbCBhbHdheXMgYmUgYWJs
+ZSB0byByZWFkIGJhY2sgYSB3b3JrYXJvdW5kIHZhbHVlIHRoYXQKd2FzIHdyaXR0ZW4gd2l0aCBt
+dWx0aWNhc3QuCgpCc3BlYzogNjY1MzQKQ2M6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uu
+c291emFAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9w
+ZXJAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3dvcmthcm91
+bmRzLmMgfCAyMCArKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDE5IGluc2Vy
+dGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxf
+d29ya2Fyb3VuZHMuYwppbmRleCA3MjU2MmMyMzNhZDIuLjNhYmU0MjRlZjljOSAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jCkBAIC0yMDk3LDEyICsyMDk3
+LDMwIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbWNyX3JhbmdlIG1jcl9yYW5nZXNfZ2VuMTJbXSA9
+IHsKIAl7fSwKIH07CiAKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgbWNyX3JhbmdlIG1jcl9yYW5nZXNf
+eGVocFtdID0geworCXsgLnN0YXJ0ID0gIDB4NDAwMCwgLmVuZCA9ICAweDRhZmYgfSwKKwl7IC5z
+dGFydCA9ICAweDUyMDAsIC5lbmQgPSAgMHg1MmZmIH0sCisJeyAuc3RhcnQgPSAgMHg1NDAwLCAu
+ZW5kID0gIDB4N2ZmZiB9LAorCXsgLnN0YXJ0ID0gIDB4ODE0MCwgLmVuZCA9ICAweDgxNWYgfSwK
+Kwl7IC5zdGFydCA9ICAweDhjODAsIC5lbmQgPSAgMHg4ZGZmIH0sCisJeyAuc3RhcnQgPSAgMHg5
+NGQwLCAuZW5kID0gIDB4OTU1ZiB9LAorCXsgLnN0YXJ0ID0gIDB4OTY4MCwgLmVuZCA9ICAweDk2
+ZmYgfSwKKwl7IC5zdGFydCA9ICAweGIwMDAsIC5lbmQgPSAgMHhiM2ZmIH0sCisJeyAuc3RhcnQg
+PSAgMHhjODAwLCAuZW5kID0gIDB4Y2ZmZiB9LAorCXsgLnN0YXJ0ID0gIDB4ZDgwMCwgLmVuZCA9
+ICAweGQ4ZmYgfSwKKwl7IC5zdGFydCA9ICAweGRjMDAsIC5lbmQgPSAgMHhmZmZmIH0sCisJeyAu
+c3RhcnQgPSAweDE3MDAwLCAuZW5kID0gMHgxN2ZmZiB9LAorCXsgLnN0YXJ0ID0gMHgyNGEwMCwg
+LmVuZCA9IDB4MjRhN2YgfSwKK307CisKIHN0YXRpYyBib29sIG1jcl9yYW5nZShzdHJ1Y3QgZHJt
+X2k5MTVfcHJpdmF0ZSAqaTkxNSwgdTMyIG9mZnNldCkKIHsKIAljb25zdCBzdHJ1Y3QgbWNyX3Jh
+bmdlICptY3JfcmFuZ2VzOwogCWludCBpOwogCi0JaWYgKEdSQVBISUNTX1ZFUihpOTE1KSA+PSAx
+MikKKwlpZiAoR1JBUEhJQ1NfVkVSX0ZVTEwoaTkxNSkgPj0gSVBfVkVSKDEyLCA1MCkpCisJCW1j
+cl9yYW5nZXMgPSBtY3JfcmFuZ2VzX3hlaHA7CisJZWxzZSBpZiAoR1JBUEhJQ1NfVkVSKGk5MTUp
+ID49IDEyKQogCQltY3JfcmFuZ2VzID0gbWNyX3Jhbmdlc19nZW4xMjsKIAllbHNlIGlmIChHUkFQ
+SElDU19WRVIoaTkxNSkgPj0gOCkKIAkJbWNyX3JhbmdlcyA9IG1jcl9yYW5nZXNfZ2VuODsKLS0g
+CjIuMjUuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
