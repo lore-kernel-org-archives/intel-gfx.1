@@ -2,44 +2,46 @@ Return-Path: <SRS0=C5oC=MG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61807C11F67
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99F92C07E95
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2A9C561289
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A9C561289
+	by mail.kernel.org (Postfix) with ESMTPS id 67AF961289
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67AF961289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E58A6E15D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77EB46E15F;
 	Wed, 14 Jul 2021 03:15:53 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 643DA6E156
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8DEC6E157
  for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256240"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256240"
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256248"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256248"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:49 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031430"
+ 13 Jul 2021 20:15:51 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031456"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:49 -0700
+ 13 Jul 2021 20:15:50 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:14:50 -0700
-Message-Id: <20210714031540.3539704-1-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:14:56 -0700
+Message-Id: <20210714031540.3539704-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
+References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 00/50] Begin enabling Xe_HP SDV and DG2
- platforms
+Subject: [Intel-gfx] [PATCH v2 06/50] drm/i915/xehp: Extra media engines -
+ Part 1 (engine definitions)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,140 +54,250 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Tomas Winkler <tomas.winkler@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhpcyBzZXJpZXMgcHJvdmlkZXMgc29tZSBvZiB0aGUgaW5pdGlhbCBlbmFibGVtZW50IHBhdGNo
-ZXMgZm9yIHR3bwp1cGNvbWluZyBkaXNjcmV0ZSBHUFVzOgogKiBYZUhQIFNEVjogIFhlX0hQICh2
-ZXJzaW9uIDEyLjUwKSBncmFwaGljcyBJUCwgbm8gZGlzcGxheSBJUAogKiBERzI6ICBYZV9IUEcg
-KHZlcnNpb24gMTIuNTUpIGdyYXBoaWNzIElQLCBYZV9MUEQgKHZlcnNpb24gMTMpIGRpc3BsYXkg
-SVAKCkJvdGggcGxhdGZvcm1zIHdpbGwgbmVlZCBhZGRpdGlvbmFsIGVuYWJsZW1lbnQgcGF0Y2hl
-cyBiZXlvbmQgd2hhdCdzCnByZXNlbnQgaW4gdGhpcyBzZXJpZXMgYmVmb3JlIHRoZXkncmUgdHJ1
-bHkgdXNhYmxlLCBpbmNsdWRpbmcgdmFyaW91cwpMTUVNIGFuZCBHdUMgd29yayB0aGF0J3MgYWxy
-ZWFkeSBoYXBwZW5pbmcgc2VwYXJhdGVseS4gIFRoZSBuZXcKZmVhdHVyZXMvZnVuY3Rpb25hbGl0
-eSB0aGF0IHRoZXNlIHBsYXRmb3JtcyBicmluZyAoc3VjaCBhcyBtdWx0aS10aWxlCnN1cHBvcnQs
-IGRlZGljYXRlZCBjb21wdXRlIGVuZ2luZXMsIGV0Yy4pIG1heSBiZSByZWZlcmVuY2VkIGluIHBh
-c3NpbmcKaW4gc29tZSBvZiB0aGVzZSBwYXRjaGVzIGJ1dCB3aWxsIGJlIGZ1bGx5IGVuYWJsZWQg
-aW4gZnV0dXJlIHNlcmllcy4KCnYyOgogLSBHZW5lcmFsIHJlYmFzZSBhbmQgaW5jb3Jwb3JhdGlv
-biBvZiByLWIncy4KIC0gUmUtb3JkZXIgaW50ZWxfZ3RfaW5mbyBhbmQgaW50ZWxfZGV2aWNlX2lu
-Zm8gc3RydWN0dXJlcyB0byBlbGltaW5hdGUKICAgc29tZSB1bm5lY2Vzc2FyeSBwYWRkaW5nIGFm
-dGVyIHRoZSBzaXplIGNoYW5nZSBvZgogICBpbnRlbF9lbmdpbmVfbWFza190LiAgKFR2cnRrbykK
-IC0gVXNlICdpbnRlbF9zdGVwJyBtZWNoYW5pc21zIGZvciByZXZpZC0+c3RlcHBpbmcgbWFwcGlu
-Zy4gIChKYW5pKQogLSBEcm9wIHRoZSBEU0MgcGF0Y2hlcyBmb3Igbm93OyB0aGV5IG5lZWQgc29t
-ZSByZXdvcmsuICAoSmFuaSkKCkNjOiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2aUBpbnRlbC5j
-b20+CkNjOiBMdWNhcyBEZSBNYXJjaGkgPGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4KQ2M6IEph
-bWVzIEF1c211cyA8amFtZXMuYXVzbXVzQGludGVsLmNvbT4KCgpBa2VlbSBHIEFib2R1bnJpbiAo
-MSk6CiAgZHJtL2k5MTUvZGcyOiBBZGQgbmV3IExSSSByZWcgb2Zmc2V0cwoKQW5pbWVzaCBNYW5u
-YSAoMSk6CiAgZHJtL2k5MTUvZGcyOiBVcGRhdGUgdG8gYmlnam9pbmVyIHBhdGgKCkFua2l0IE5h
-dXRpeWFsICgxKToKICBkcm0vaTkxNS9kZzI6IENvbmZpZ3VyZSBQQ09OIGluIERQIHByZS1lbmFi
-bGUgcGF0aAoKRGFuaWVsZSBDZXJhb2xvIFNwdXJpbyAoMSk6CiAgZHJtL2k5MTUveGVocDogaGFu
-ZGxlIG5ldyBzdGVlcmluZyBvcHRpb25zCgpHd2FuLWd5ZW9uZyBNdW4gKDEpOgogIGRybS9pOTE1
-L2RnMjogVXBkYXRlIGxhbmUgZGlzYWJsZSBwb3dlciBzdGF0ZSBkdXJpbmcgUFNSCgpKb2huIEhh
-cnJpc29uICg0KToKICBkcm0vaTkxNS9zZWxmdGVzdHM6IEFsbG93IGZvciBsYXJnZXIgZW5naW5l
-IGNvdW50cwogIGRybS9pOTE1L3hlaHA6IEV4dHJhIG1lZGlhIGVuZ2luZXMgLSBQYXJ0IDEgKGVu
-Z2luZSBkZWZpbml0aW9ucykKICBkcm0vaTkxNS94ZWhwOiBFeHRyYSBtZWRpYSBlbmdpbmVzIC0g
-UGFydCAyIChpbnRlcnJ1cHRzKQogIGRybS9pOTE1L3hlaHA6IEV4dHJhIG1lZGlhIGVuZ2luZXMg
-LSBQYXJ0IDMgKHJlc2V0KQoKSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSAoMSk6CiAgZHJtL2k5MTUv
-ZGcyOiBBZGQgREcyIHRvIHRoZSBQU1IyIGRlZmVhdHVyZSBsaXN0CgpMdWNhcyBEZSBNYXJjaGkg
-KDQpOgogIGRybS9pOTE1OiBBZGQgWEVfSFAgaW5pdGlhbCBkZWZpbml0aW9ucwogIGRybS9pOTE1
-L3hlaHBzZHY6IGFkZCBpbml0aWFsIFhlSFAgU0RWIGRlZmluaXRpb25zCiAgZHJtL2k5MTUveGVo
-cHNkdjogRGVmaW5lIE1PQ1MgdGFibGUgZm9yIFhlSFAgU0RWCiAgZHJtL2k5MTUveGVocHNkdjog
-ZmFjdG9yIG91dCBmdW5jdGlvbiB0byByZWFkIFJQX1NUQVRFX0NBUAoKTWF0dCBSb3BlciAoMjkp
-OgogIGRybS9pOTE1L3hlaHA6IFhlX0hQIGZvcmNld2FrZSBzdXBwb3J0CiAgZHJtL2k5MTUveGVo
-cDogRGVmaW5lIG11bHRpY2FzdCByZWdpc3RlciByYW5nZXMKICBkcm0vaTkxNS94ZWhwOiBMb29w
-IG92ZXIgYWxsIGdzbGljZXMgZm9yIElOU1RET05FIHByb2Nlc3NpbmcKICBkcm0vaTkxNS94ZWhw
-c2R2OiBBZGQgbWF4aW11bSBzc2V1IGxpbWl0cwogIGRybS9pOTE1L3hlaHBzZHY6IERlZmluZSBz
-dGVlcmluZyB0YWJsZXMKICBkcm0vaTkxNS94ZWhwc2R2OiBSZWFkIGNvcnJlY3QgUlBfU1RBVEVf
-Q0FQIHJlZ2lzdGVyCiAgZHJtL2k5MTUvZGcyOiBhZGQgREcyIHBsYXRmb3JtIGluZm8KICBkcm0v
-aTkxNS9kZzI6IERHMiB1c2VzIHRoZSBzYW1lIHNzZXUgbGltaXRzIGFzIFhlSFAgU0RWCiAgZHJt
-L2k5MTUvZGcyOiBBZGQgZm9yY2V3YWtlIHRhYmxlCiAgZHJtL2k5MTUvZGcyOiBVcGRhdGUgTE5D
-RiBzdGVlcmluZyByYW5nZXMKICBkcm0vaTkxNS9kZzI6IEFkZCBTUUlESSBzdGVlcmluZwogIGRy
-bS9pOTE1L2RnMjogTWFpbnRhaW4gYmFja3dhcmQtY29tcGF0aWJsZSBuZXN0ZWQgYmF0Y2ggYmVo
-YXZpb3IKICBkcm0vaTkxNS9kZzI6IFJlcG9ydCBJTlNURE9ORV9HRU9NIHZhbHVlcyBpbiBlcnJv
-ciBzdGF0ZQogIGRybS9pOTE1L2RnMjogRGVmaW5lIE1PQ1MgdGFibGUgZm9yIERHMgogIGRybS9p
-OTE1L2RnMjogQWRkIGZha2UgUENICiAgZHJtL2k5MTUvZGcyOiBBZGQgY2RjbGsgdGFibGUgYW5k
-IHJlZmVyZW5jZSBjbG9jawogIGRybS9pOTE1L2RnMjogU2tpcCBzaGFyZWQgRFBMTCBoYW5kbGlu
-ZwogIGRybS9pOTE1L2RnMjogRG9uJ3Qgd2FpdCBmb3IgQVVYIHBvd2VyIHdlbGwgZW5hYmxlIEFD
-S3MKICBkcm0vaTkxNS9kZzI6IFNldHVwIGRpc3BsYXkgb3V0cHV0cwogIGRybS9pOTE1L2RnMjog
-QWRkIGRidWYgcHJvZ3JhbW1pbmcKICBkcm0vaTkxNS9kZzI6IERvbid0IHByb2dyYW0gQldfQlVE
-RFkgcmVnaXN0ZXJzCiAgZHJtL2k5MTUvZGcyOiBEb24ndCByZWFkIERSQU0gaW5mbwogIGRybS9p
-OTE1L2RnMjogREcyIGhhcyBmaXhlZCBtZW1vcnkgYmFuZHdpZHRoCiAgZHJtL2k5MTUvZGcyOiBB
-ZGQgTVBMTEIgcHJvZ3JhbW1pbmcgZm9yIFNOUFMgUEhZCiAgZHJtL2k5MTUvZGcyOiBBZGQgTVBM
-TEIgcHJvZ3JhbW1pbmcgZm9yIEhETUkKICBkcm0vaTkxNS9kZzI6IEFkZCB2c3dpbmcgcHJvZ3Jh
-bW1pbmcgZm9yIFNOUFMgcGh5cwogIGRybS9pOTE1L2RnMjogVXBkYXRlIG1vZGVzZXQgc2VxdWVu
-Y2VzCiAgZHJtL2k5MTUvZGcyOiBDbGFzc2lmeSBERzIgUEhZIHR5cGVzCiAgZHJtL2k5MTUvZGcy
-OiBXYWl0IGZvciBTTlBTIFBIWSBjYWxpYnJhdGlvbiBkdXJpbmcgZGlzcGxheSBpbml0CgpNYXR0
-aGV3IEF1bGQgKDEpOgogIGRybS9pOTE1L3hlaHA6IENoYW5nZXMgdG8gc3MvZXUgZGVmaW5pdGlv
-bnMKClBhdWxvIFphbm9uaSAoMSk6CiAgZHJtL2k5MTU6IEZvcmsgREcxIGludGVycnVwdCBoYW5k
-bGVyCgpQcmF0aGFwIEt1bWFyIFZhbHNhbiAoMSk6CiAgZHJtL2k5MTUveGVocDogTmV3IGVuZ2lu
-ZSBjb250ZXh0IG9mZnNldHMKClN0dWFydCBTdW1tZXJzICgyKToKICBkcm0vaTkxNS94ZWhwOiBI
-YW5kbGUgbmV3IGRldmljZSBjb250ZXh0IElEIGZvcm1hdAogIGRybS9pOTE1L3hlaHBzZHY6IEFk
-ZCBjb21wdXRlIERTUyB0eXBlCgpUdnJ0a28gVXJzdWxpbiAoMSk6CiAgZHJtL2k5MTUveGVocDog
-VkRCT1gvVkVCT1ggZnVzaW5nIHJlZ2lzdGVycyBhcmUgZW5hYmxlLWJhc2VkCgpWZW5rYXRhIFNh
-bmRlZXAgRGhhbmFsYWtvdGEgKDEpOgogIGRybS9pOTE1L2dlbjEyOiBVc2UgZnVzZSBpbmZvIHRv
-IGVuYWJsZSBTRkMKCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZSAgICAgICAgICAgICAg
-ICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9idy5jICAgICAg
-IHwgIDI0ICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NkY2xrLmMgICAg
-fCAgMjQgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGRpLmMgICAgICB8
-IDE2MSArKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyAg
-fCAgOTQgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5oICB8
-ICAgMSArCiAuLi4vZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bvd2VyLmMgICAgfCAg
-MjUgKwogLi4uL2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9wb3dlci5oICAgIHwgIDEw
-ICsKIC4uLi9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaCAgICB8ICAxNyAr
-LQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcGxsLmMgICAgIHwgIDEyICst
-CiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwbGxfbWdyLmMgfCAgIDUgKy0K
-IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfaGRtaS5jICAgICB8ICAxMSArCiBk
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jICAgICAgfCAgMTAgKy0KIGRy
-aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfc25wc19waHkuYyB8IDg2MiArKysrKysr
-KysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfc25wc19waHku
-aCB8ICAzNSArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9kZWJ1Z2ZzX2d0X3BtLmMgICAgICAg
-fCAgIDggKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2dlbjhfZW5naW5lX2NzLmMgICAgICB8
-ICAgNyArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZW5naW5lX2NzLmMgICAgIHwg
-MTQ0ICsrLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZW5naW5lX3R5cGVzLmggIHwg
-IDI5ICstCiAuLi4vZHJtL2k5MTUvZ3QvaW50ZWxfZXhlY2xpc3RzX3N1Ym1pc3Npb24uYyAgfCAg
-NzggKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0LmMgICAgICAgICAgICB8ICA2
-NiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3QuaCAgICAgICAgICAgIHwgICAx
-ICsKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X2lycS5jICAgICAgICB8ICAxMyAr
-LQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfdHlwZXMuaCAgICAgIHwgIDEyICst
-CiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9scmMuYyAgICAgICAgICAgfCAxNTYgKysr
-LQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfbHJjX3JlZy5oICAgICAgIHwgICAyICsK
-IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX21vY3MuYyAgICAgICAgICB8ICA2NiArLQog
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfcmVnaW9uX2xtZW0uYyAgIHwgICAxICsKIGRy
-aXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3Jlc2V0LmMgICAgICAgICB8ICAgNiArCiBkcml2
-ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ycHMuYyAgICAgICAgICAgfCAgMTkgKy0KIGRyaXZl
-cnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3Jwcy5oICAgICAgICAgICB8ICAgMSArCiBkcml2ZXJz
-L2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9zc2V1LmMgICAgICAgICAgfCAxMTYgKystCiBkcml2ZXJz
-L2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9zc2V1LmggICAgICAgICAgfCAgMjAgKy0KIGRyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L2ludGVsX3NzZXVfZGVidWdmcy5jICB8ICAgMiArLQogZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMuYyAgIHwgMTc1ICsrKy0KIGRyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L3NlbGZ0ZXN0X2V4ZWNsaXN0cy5jICB8ICAxMCArLQogLi4uL2dwdS9k
-cm0vaTkxNS9ndC9zZWxmdGVzdF93b3JrYXJvdW5kcy5jICAgIHwgIDMyICstCiBkcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pOTE1X2RlYnVnZnMuYyAgICAgICAgICAgfCAgIDggKy0KIGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L2k5MTVfZHJ2LmggICAgICAgICAgICAgICB8ICAzNiArLQogZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvaTkxNV9nZXRwYXJhbS5jICAgICAgICAgIHwgICA2ICstCiBkcml2ZXJzL2dwdS9k
-cm0vaTkxNS9pOTE1X2dwdV9lcnJvci5jICAgICAgICAgfCAgMzYgKy0KIGRyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2k5MTVfaXJxLmMgICAgICAgICAgICAgICB8IDE0MSArKy0KIGRyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2k5MTVfcGNpLmMgICAgICAgICAgICAgICB8ICA2MyArLQogZHJpdmVycy9ncHUvZHJt
-L2k5MTUvaTkxNV9wZXJmLmMgICAgICAgICAgICAgIHwgIDI5ICstCiBkcml2ZXJzL2dwdS9kcm0v
-aTkxNS9pOTE1X3JlZy5oICAgICAgICAgICAgICAgfCAxMDkgKystCiBkcml2ZXJzL2dwdS9kcm0v
-aTkxNS9pbnRlbF9kZXZpY2VfaW5mby5jICAgICAgfCAgIDIgKwogZHJpdmVycy9ncHUvZHJtL2k5
-MTUvaW50ZWxfZGV2aWNlX2luZm8uaCAgICAgIHwgIDExICstCiBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9pbnRlbF9kcmFtLmMgICAgICAgICAgICAgfCAgIDYgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1
-L2ludGVsX3BjaC5jICAgICAgICAgICAgICB8ICAgMyArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9p
-bnRlbF9wY2guaCAgICAgICAgICAgICAgfCAgIDIgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50
-ZWxfcG0uYyAgICAgICAgICAgICAgIHwgMTIwICsrLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50
-ZWxfc3RlcC5jICAgICAgICAgICAgIHwgIDMwICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRl
-bF9zdGVwLmggICAgICAgICAgICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxf
-dW5jb3JlLmMgICAgICAgICAgIHwgMzY3ICsrKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9p
-bnRlbF91bmNvcmUuaCAgICAgICAgICAgfCAgMTQgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L3Nl
-bGZ0ZXN0cy9pbnRlbF91bmNvcmUuYyB8ICAgMiArCiBpbmNsdWRlL3VhcGkvZHJtL2k5MTVfZHJt
-LmggICAgICAgICAgICAgICAgICAgfCAgIDMgLQogNTcgZmlsZXMgY2hhbmdlZCwgMjk1OSBpbnNl
-cnRpb25zKCspLCAyODYgZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9zbnBzX3BoeS5jCiBjcmVhdGUgbW9kZSAxMDA2NDQg
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9zbnBzX3BoeS5oCgotLSAKMi4yNS40
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1n
-ZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+From: John Harrison <John.C.Harrison@Intel.com>
+
+Xe_HP can have a lot of extra media engines. This patch adds the basic
+definitions for them.
+
+v2:
+ - Re-order intel_gt_info and intel_device_info slightly to avoid
+   unnecessary padding now that we've increased the size of
+   intel_engine_mask_t.  (Tvrtko)
+
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c     |  7 ++-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 50 ++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_types.h | 14 ++++--
+ drivers/gpu/drm/i915/gt/intel_gt_types.h     |  5 +-
+ drivers/gpu/drm/i915/i915_reg.h              |  6 +++
+ drivers/gpu/drm/i915/intel_device_info.h     |  3 +-
+ 6 files changed, 74 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 87b06572fd2e..35edc55720f4 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -279,7 +279,7 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
+ 	if (mode & EMIT_INVALIDATE)
+ 		aux_inv = rq->engine->mask & ~BIT(BCS0);
+ 	if (aux_inv)
+-		cmd += 2 * hweight8(aux_inv) + 2;
++		cmd += 2 * hweight32(aux_inv) + 2;
+ 
+ 	cs = intel_ring_begin(rq, cmd);
+ 	if (IS_ERR(cs))
+@@ -313,9 +313,8 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
+ 		struct intel_engine_cs *engine;
+ 		unsigned int tmp;
+ 
+-		*cs++ = MI_LOAD_REGISTER_IMM(hweight8(aux_inv));
+-		for_each_engine_masked(engine, rq->engine->gt,
+-				       aux_inv, tmp) {
++		*cs++ = MI_LOAD_REGISTER_IMM(hweight32(aux_inv));
++		for_each_engine_masked(engine, rq->engine->gt, aux_inv, tmp) {
+ 			*cs++ = i915_mmio_reg_offset(aux_inv_reg(engine));
+ 			*cs++ = AUX_INV;
+ 		}
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 3f8013612a08..6c2cb1400c8c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -104,6 +104,38 @@ static const struct engine_info intel_engines[] = {
+ 			{ .graphics_ver = 11, .base = GEN11_BSD4_RING_BASE }
+ 		},
+ 	},
++	[VCS4] = {
++		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
++		.class = VIDEO_DECODE_CLASS,
++		.instance = 4,
++		.mmio_bases = {
++			{ .graphics_ver = 11, .base = XEHP_BSD5_RING_BASE }
++		},
++	},
++	[VCS5] = {
++		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
++		.class = VIDEO_DECODE_CLASS,
++		.instance = 5,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHP_BSD6_RING_BASE }
++		},
++	},
++	[VCS6] = {
++		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
++		.class = VIDEO_DECODE_CLASS,
++		.instance = 6,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHP_BSD7_RING_BASE }
++		},
++	},
++	[VCS7] = {
++		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
++		.class = VIDEO_DECODE_CLASS,
++		.instance = 7,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHP_BSD8_RING_BASE }
++		},
++	},
+ 	[VECS0] = {
+ 		.hw_id = VECS0_HW,
+ 		.class = VIDEO_ENHANCEMENT_CLASS,
+@@ -121,6 +153,22 @@ static const struct engine_info intel_engines[] = {
+ 			{ .graphics_ver = 11, .base = GEN11_VEBOX2_RING_BASE }
+ 		},
+ 	},
++	[VECS2] = {
++		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
++		.class = VIDEO_ENHANCEMENT_CLASS,
++		.instance = 2,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHP_VEBOX3_RING_BASE }
++		},
++	},
++	[VECS3] = {
++		.hw_id = 0, /* not used in GEN12+, see MI_SEMAPHORE_SIGNAL */
++		.class = VIDEO_ENHANCEMENT_CLASS,
++		.instance = 3,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHP_VEBOX4_RING_BASE }
++		},
++	},
+ };
+ 
+ /**
+@@ -269,6 +317,8 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+ 
+ 	BUILD_BUG_ON(MAX_ENGINE_CLASS >= BIT(GEN11_ENGINE_CLASS_WIDTH));
+ 	BUILD_BUG_ON(MAX_ENGINE_INSTANCE >= BIT(GEN11_ENGINE_INSTANCE_WIDTH));
++	BUILD_BUG_ON(I915_MAX_VCS > (MAX_ENGINE_INSTANCE + 1));
++	BUILD_BUG_ON(I915_MAX_VECS > (MAX_ENGINE_INSTANCE + 1));
+ 
+ 	if (GEM_DEBUG_WARN_ON(id >= ARRAY_SIZE(gt->engine)))
+ 		return -EINVAL;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 1cb9c3b70b29..e0b1cbdbadce 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -46,7 +46,7 @@
+ #define COPY_ENGINE_CLASS	3
+ #define OTHER_CLASS		4
+ #define MAX_ENGINE_CLASS	4
+-#define MAX_ENGINE_INSTANCE	3
++#define MAX_ENGINE_INSTANCE	7
+ 
+ #define I915_MAX_SLICES	3
+ #define I915_MAX_SUBSLICES 8
+@@ -64,7 +64,7 @@ struct intel_gt;
+ struct intel_ring;
+ struct intel_uncore;
+ 
+-typedef u8 intel_engine_mask_t;
++typedef u32 intel_engine_mask_t;
+ #define ALL_ENGINES ((intel_engine_mask_t)~0ul)
+ 
+ struct intel_hw_status_page {
+@@ -101,8 +101,8 @@ struct i915_ctx_workarounds {
+ 	struct i915_vma *vma;
+ };
+ 
+-#define I915_MAX_VCS	4
+-#define I915_MAX_VECS	2
++#define I915_MAX_VCS	8
++#define I915_MAX_VECS	4
+ 
+ /*
+  * Engine IDs definitions.
+@@ -115,9 +115,15 @@ enum intel_engine_id {
+ 	VCS1,
+ 	VCS2,
+ 	VCS3,
++	VCS4,
++	VCS5,
++	VCS6,
++	VCS7,
+ #define _VCS(n) (VCS0 + (n))
+ 	VECS0,
+ 	VECS1,
++	VECS2,
++	VECS3,
+ #define _VECS(n) (VECS0 + (n))
+ 	I915_NUM_ENGINES
+ #define INVALID_ENGINE ((enum intel_engine_id)-1)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index d93d578a4105..97a5075288d2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -174,13 +174,14 @@ struct intel_gt {
+ 
+ 	struct intel_gt_info {
+ 		intel_engine_mask_t engine_mask;
++
++		u32 l3bank_mask;
++
+ 		u8 num_engines;
+ 
+ 		/* Media engine access to SFC per instance */
+ 		u8 vdbox_sfc_access;
+ 
+-		u32 l3bank_mask;
+-
+ 		/* Slice/subslice/EU info */
+ 		struct sseu_dev_info sseu;
+ 	} info;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 2274e9c01d61..de0c27d67e15 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2516,9 +2516,15 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define GEN11_BSD2_RING_BASE	0x1c4000
+ #define GEN11_BSD3_RING_BASE	0x1d0000
+ #define GEN11_BSD4_RING_BASE	0x1d4000
++#define XEHP_BSD5_RING_BASE	0x1e0000
++#define XEHP_BSD6_RING_BASE	0x1e4000
++#define XEHP_BSD7_RING_BASE	0x1f0000
++#define XEHP_BSD8_RING_BASE	0x1f4000
+ #define VEBOX_RING_BASE		0x1a000
+ #define GEN11_VEBOX_RING_BASE		0x1c8000
+ #define GEN11_VEBOX2_RING_BASE		0x1d8000
++#define XEHP_VEBOX3_RING_BASE		0x1e8000
++#define XEHP_VEBOX4_RING_BASE		0x1f8000
+ #define BLT_RING_BASE		0x22000
+ #define RING_TAIL(base)		_MMIO((base) + 0x30)
+ #define RING_HEAD(base)		_MMIO((base) + 0x34)
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index ba7483acc3f7..75d225d0db47 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -166,7 +166,6 @@ struct intel_device_info {
+ 	u8 media_ver;
+ 	u8 media_rel;
+ 
+-	u8 gt; /* GT number, 0 if undefined */
+ 	intel_engine_mask_t platform_engine_mask; /* Engines supported by the HW */
+ 
+ 	enum intel_platform platform;
+@@ -182,6 +181,8 @@ struct intel_device_info {
+ 
+ 	u32 display_mmio_offset;
+ 
++	u8 gt; /* GT number, 0 if undefined */
++
+ 	u8 pipe_mask;
+ 	u8 cpu_transcoder_mask;
+ 
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
