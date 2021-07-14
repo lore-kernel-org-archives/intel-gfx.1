@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00DFEC11F68
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78118C11F69
 	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A17BC613AA
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A17BC613AA
+	by mail.kernel.org (Postfix) with ESMTPS id 49B9D613AA
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 49B9D613AA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53F726E16F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 481E76E16D;
 	Wed, 14 Jul 2021 03:15:54 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A709E6E157
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 171D26E156
  for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:52 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256254"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256254"
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256252"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256252"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:52 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031475"
+ 13 Jul 2021 20:15:51 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031467"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Jul 2021 20:15:51 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:15:01 -0700
-Message-Id: <20210714031540.3539704-12-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:14:59 -0700
+Message-Id: <20210714031540.3539704-10-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 11/50] drm/i915/xehp: Handle new device
- context ID format
+Subject: [Intel-gfx] [PATCH v2 09/50] drm/i915/xehp: Xe_HP forcewake support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,248 +58,519 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stuart Summers <stuart.summers@intel.com>
+Implement Xe_HP forcewake handling.  While we're at it, let's reorder to
+the forcewake assignment if/else ladder to match our usual driver
+conventions.
 
-Xe_HP changes the format of the context ID from past platforms.
-
+Co-authored-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Stuart Summers <stuart.summers@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 74 ++++++++++++++++---
- drivers/gpu/drm/i915/gt/intel_lrc.c           |  8 ++
- drivers/gpu/drm/i915/gt/intel_lrc_reg.h       |  2 +
- drivers/gpu/drm/i915/i915_perf.c              | 29 +++++---
- drivers/gpu/drm/i915/i915_reg.h               |  5 ++
- 5 files changed, 97 insertions(+), 21 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  |   4 +
+ drivers/gpu/drm/i915/intel_uncore.c           | 336 +++++++++++++++---
+ drivers/gpu/drm/i915/intel_uncore.h           |  14 +-
+ drivers/gpu/drm/i915/selftests/intel_uncore.c |   2 +
+ 4 files changed, 302 insertions(+), 54 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index cf1ac0010056..be99a74e6e09 100644
+index 56e25090da67..cf1ac0010056 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -153,6 +153,12 @@
- #define GEN12_CSB_CTX_VALID(csb_dw) \
- 	(FIELD_GET(GEN12_CSB_SW_CTX_ID_MASK, csb_dw) != GEN12_IDLE_CTX_ID)
- 
-+#define XEHP_CTX_STATUS_SWITCHED_TO_NEW_QUEUE	BIT(1) /* upper csb dword */
-+#define XEHP_CSB_SW_CTX_ID_MASK			GENMASK(31, 10)
-+#define XEHP_IDLE_CTX_ID			0xFFFF
-+#define XEHP_CSB_CTX_VALID(csb_dw) \
-+	(FIELD_GET(XEHP_CSB_SW_CTX_ID_MASK, csb_dw) != XEHP_IDLE_CTX_ID)
+@@ -3306,6 +3306,10 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
+ 			i915_mmio_reg_offset(RING_EXECLIST_SQ_CONTENTS(base));
+ 		execlists->ctrl_reg = uncore->regs +
+ 			i915_mmio_reg_offset(RING_EXECLIST_CONTROL(base));
 +
- /* Typical size of the average request (2 pipecontrols and a MI_BB) */
- #define EXECLISTS_REQUEST_SIZE 64 /* bytes */
- 
-@@ -478,6 +484,16 @@ __execlists_schedule_in(struct i915_request *rq)
- 		/* Use a fixed tag for OA and friends */
- 		GEM_BUG_ON(ce->tag <= BITS_PER_LONG);
- 		ce->lrc.ccid = ce->tag;
-+	} else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50)) {
-+		/* We don't need a strict matching tag, just different values */
-+		unsigned int tag = ffs(READ_ONCE(engine->context_tag));
-+
-+		GEM_BUG_ON(tag == 0 || tag >= BITS_PER_LONG);
-+		clear_bit(tag - 1, &engine->context_tag);
-+		ce->lrc.ccid = tag << (XEHP_SW_CTX_ID_SHIFT - 32);
-+
-+		BUILD_BUG_ON(BITS_PER_LONG > GEN12_MAX_CONTEXT_HW_ID);
-+
++		engine->fw_domain = intel_uncore_forcewake_for_reg(engine->uncore,
++				    RING_EXECLIST_CONTROL(engine->mmio_base),
++				    FW_REG_WRITE);
  	} else {
- 		/* We don't need a strict matching tag, just different values */
- 		unsigned int tag = __ffs(engine->context_tag);
-@@ -588,8 +604,14 @@ static void __execlists_schedule_out(struct i915_request * const rq,
- 		intel_engine_add_retire(engine, ce->timeline);
+ 		execlists->submit_reg = uncore->regs +
+ 			i915_mmio_reg_offset(RING_ELSP(base));
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index ee1c6fbc3d97..8cf53f54559d 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -24,6 +24,8 @@
+ #include <linux/pm_runtime.h>
+ #include <asm/iosf_mbi.h>
  
- 	ccid = ce->lrc.ccid;
--	ccid >>= GEN11_SW_CTX_ID_SHIFT - 32;
--	ccid &= GEN12_MAX_CONTEXT_HW_ID;
-+	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50)) {
-+		ccid >>= XEHP_SW_CTX_ID_SHIFT - 32;
-+		ccid &= XEHP_MAX_CONTEXT_HW_ID;
-+	} else {
-+		ccid >>= GEN11_SW_CTX_ID_SHIFT - 32;
-+		ccid &= GEN12_MAX_CONTEXT_HW_ID;
-+	}
++#include "gt/intel_lrc_reg.h" /* for shadow reg list */
 +
- 	if (ccid < BITS_PER_LONG) {
- 		GEM_BUG_ON(ccid == 0);
- 		GEM_BUG_ON(test_bit(ccid - 1, &engine->context_tag));
-@@ -1648,13 +1670,24 @@ static void invalidate_csb_entries(const u64 *first, const u64 *last)
-  *     bits 44-46: reserved
-  *     bits 47-57: sw context id of the lrc the GT switched away from
-  *     bits 58-63: sw counter of the lrc the GT switched away from
-+ *
-+ * Xe_HP csb shuffles things around compared to TGL:
-+ *
-+ *     bits 0-3:   context switch detail (same possible values as TGL)
-+ *     bits 4-9:   engine instance
-+ *     bits 10-25: sw context id of the lrc the GT switched to
-+ *     bits 26-31: sw counter of the lrc the GT switched to
-+ *     bit  32:    semaphore wait mode (poll or signal), Only valid when
-+ *                 switch detail is set to "wait on semaphore"
-+ *     bit  33:    switched to new queue
-+ *     bits 34-41: wait detail (for switch detail 1 to 4)
-+ *     bits 42-57: sw context id of the lrc the GT switched away from
-+ *     bits 58-63: sw counter of the lrc the GT switched away from
-  */
--static bool gen12_csb_parse(const u64 csb)
-+static inline bool
-+__gen12_csb_parse(bool ctx_to_valid, bool ctx_away_valid, bool new_queue,
-+		  u8 switch_detail)
- {
--	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(csb));
--	bool new_queue =
--		lower_32_bits(csb) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
--
- 	/*
- 	 * The context switch detail is not guaranteed to be 5 when a preemption
- 	 * occurs, so we can't just check for that. The check below works for
-@@ -1663,7 +1696,7 @@ static bool gen12_csb_parse(const u64 csb)
- 	 * would require some extra handling, but we don't support that.
- 	 */
- 	if (!ctx_away_valid || new_queue) {
--		GEM_BUG_ON(!GEN12_CSB_CTX_VALID(lower_32_bits(csb)));
-+		GEM_BUG_ON(!ctx_to_valid);
- 		return true;
- 	}
+ #include "i915_drv.h"
+ #include "i915_trace.h"
+ #include "i915_vgpu.h"
+@@ -68,8 +70,14 @@ static const char * const forcewake_domain_names[] = {
+ 	"vdbox1",
+ 	"vdbox2",
+ 	"vdbox3",
++	"vdbox4",
++	"vdbox5",
++	"vdbox6",
++	"vdbox7",
+ 	"vebox0",
+ 	"vebox1",
++	"vebox2",
++	"vebox3",
+ };
  
-@@ -1672,10 +1705,26 @@ static bool gen12_csb_parse(const u64 csb)
- 	 * context switch on an unsuccessful wait instruction since we always
- 	 * use polling mode.
- 	 */
--	GEM_BUG_ON(GEN12_CTX_SWITCH_DETAIL(upper_32_bits(csb)));
-+	GEM_BUG_ON(switch_detail);
- 	return false;
+ const char *
+@@ -952,30 +960,80 @@ static const i915_reg_t gen8_shadowed_regs[] = {
+ };
+ 
+ static const i915_reg_t gen11_shadowed_regs[] = {
+-	RING_TAIL(RENDER_RING_BASE),		/* 0x2000 (base) */
+-	GEN6_RPNSWREQ,				/* 0xA008 */
+-	GEN6_RC_VIDEO_FREQ,			/* 0xA00C */
+-	RING_TAIL(BLT_RING_BASE),		/* 0x22000 (base) */
+-	RING_TAIL(GEN11_BSD_RING_BASE),		/* 0x1C0000 (base) */
+-	RING_TAIL(GEN11_BSD2_RING_BASE),	/* 0x1C4000 (base) */
+-	RING_TAIL(GEN11_VEBOX_RING_BASE),	/* 0x1C8000 (base) */
+-	RING_TAIL(GEN11_BSD3_RING_BASE),	/* 0x1D0000 (base) */
+-	RING_TAIL(GEN11_BSD4_RING_BASE),	/* 0x1D4000 (base) */
+-	RING_TAIL(GEN11_VEBOX2_RING_BASE),	/* 0x1D8000 (base) */
++	RING_TAIL(RENDER_RING_BASE),			/* 0x2000 (base) */
++	RING_EXECLIST_CONTROL(RENDER_RING_BASE),        /* 0x2550 */
++	GEN6_RPNSWREQ,					/* 0xA008 */
++	GEN6_RC_VIDEO_FREQ,				/* 0xA00C */
++	RING_TAIL(BLT_RING_BASE),			/* 0x22000 (base) */
++	RING_EXECLIST_CONTROL(BLT_RING_BASE),		/* 0x22550 */
++	RING_TAIL(GEN11_BSD_RING_BASE),			/* 0x1C0000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD_RING_BASE),	/* 0x1C0550 */
++	RING_TAIL(GEN11_BSD2_RING_BASE),		/* 0x1C4000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD2_RING_BASE),	/* 0x1C4550 */
++	RING_TAIL(GEN11_VEBOX_RING_BASE),		/* 0x1C8000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_VEBOX_RING_BASE),	/* 0x1C8550 */
++	RING_TAIL(GEN11_BSD3_RING_BASE),		/* 0x1D0000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD3_RING_BASE),	/* 0x1D0550 */
++	RING_TAIL(GEN11_BSD4_RING_BASE),		/* 0x1D4000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD4_RING_BASE),	/* 0x1D4550 */
++	RING_TAIL(GEN11_VEBOX2_RING_BASE),		/* 0x1D8000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_VEBOX2_RING_BASE),	/* 0x1D8550 */
+ 	/* TODO: Other registers are not yet used */
+ };
+ 
+ static const i915_reg_t gen12_shadowed_regs[] = {
+-	RING_TAIL(RENDER_RING_BASE),		/* 0x2000 (base) */
+-	GEN6_RPNSWREQ,				/* 0xA008 */
+-	GEN6_RC_VIDEO_FREQ,			/* 0xA00C */
+-	RING_TAIL(BLT_RING_BASE),		/* 0x22000 (base) */
+-	RING_TAIL(GEN11_BSD_RING_BASE),		/* 0x1C0000 (base) */
+-	RING_TAIL(GEN11_BSD2_RING_BASE),	/* 0x1C4000 (base) */
+-	RING_TAIL(GEN11_VEBOX_RING_BASE),	/* 0x1C8000 (base) */
+-	RING_TAIL(GEN11_BSD3_RING_BASE),	/* 0x1D0000 (base) */
+-	RING_TAIL(GEN11_BSD4_RING_BASE),	/* 0x1D4000 (base) */
+-	RING_TAIL(GEN11_VEBOX2_RING_BASE),	/* 0x1D8000 (base) */
++	RING_TAIL(RENDER_RING_BASE),			/* 0x2000 (base) */
++	RING_EXECLIST_CONTROL(RENDER_RING_BASE),	/* 0x2550 */
++	GEN6_RPNSWREQ,					/* 0xA008 */
++	GEN6_RC_VIDEO_FREQ,				/* 0xA00C */
++	RING_TAIL(BLT_RING_BASE),			/* 0x22000 (base) */
++	RING_EXECLIST_CONTROL(BLT_RING_BASE),		/* 0x22550 */
++	RING_TAIL(GEN11_BSD_RING_BASE),			/* 0x1C0000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD_RING_BASE),	/* 0x1C0550 */
++	RING_TAIL(GEN11_BSD2_RING_BASE),		/* 0x1C4000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD2_RING_BASE),	/* 0x1C4550 */
++	RING_TAIL(GEN11_VEBOX_RING_BASE),		/* 0x1C8000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_VEBOX_RING_BASE),	/* 0x1C8550 */
++	RING_TAIL(GEN11_BSD3_RING_BASE),		/* 0x1D0000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD3_RING_BASE),	/* 0x1D0550 */
++	RING_TAIL(GEN11_BSD4_RING_BASE),		/* 0x1D4000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD4_RING_BASE),	/* 0x1D4550 */
++	RING_TAIL(GEN11_VEBOX2_RING_BASE),		/* 0x1D8000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_VEBOX2_RING_BASE),	/* 0x1D8550 */
++	/* TODO: Other registers are not yet used */
++};
++
++static const i915_reg_t xehp_shadowed_regs[] = {
++	RING_TAIL(RENDER_RING_BASE),			/* 0x2000 (base) */
++	RING_EXECLIST_CONTROL(RENDER_RING_BASE),        /* 0x2550 */
++	GEN6_RPNSWREQ,					/* 0xA008 */
++	GEN6_RC_VIDEO_FREQ,				/* 0xA00C */
++	RING_TAIL(BLT_RING_BASE),			/* 0x22000 (base) */
++	RING_EXECLIST_CONTROL(BLT_RING_BASE),		/* 0x22550 */
++	RING_TAIL(GEN11_BSD_RING_BASE),			/* 0x1C0000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD_RING_BASE),	/* 0x1C0550 */
++	RING_TAIL(GEN11_BSD2_RING_BASE),		/* 0x1C4000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD2_RING_BASE),	/* 0x1C4550 */
++	RING_TAIL(GEN11_VEBOX_RING_BASE),		/* 0x1C8000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_VEBOX_RING_BASE),	/* 0x1C8550 */
++	RING_TAIL(GEN11_BSD3_RING_BASE),		/* 0x1D0000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD3_RING_BASE),	/* 0x1D0550 */
++	RING_TAIL(GEN11_BSD4_RING_BASE),		/* 0x1D4000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_BSD4_RING_BASE),	/* 0x1D4550 */
++	RING_TAIL(GEN11_VEBOX2_RING_BASE),		/* 0x1D8000 (base) */
++	RING_EXECLIST_CONTROL(GEN11_VEBOX2_RING_BASE),	/* 0x1D8550 */
++	RING_TAIL(XEHP_BSD5_RING_BASE),			/* 0x1E0000 (base) */
++	RING_EXECLIST_CONTROL(XEHP_BSD5_RING_BASE),	/* 0x1E0550 */
++	RING_TAIL(XEHP_BSD6_RING_BASE),			/* 0x1E4000 (base) */
++	RING_EXECLIST_CONTROL(XEHP_BSD6_RING_BASE),	/* 0x1E4550 */
++	RING_TAIL(XEHP_VEBOX3_RING_BASE),		/* 0x1E8000 (base) */
++	RING_EXECLIST_CONTROL(XEHP_VEBOX3_RING_BASE),	/* 0x1E8550 */
++	RING_TAIL(XEHP_BSD7_RING_BASE),			/* 0x1F0000 (base) */
++	RING_EXECLIST_CONTROL(XEHP_BSD7_RING_BASE),	/* 0x1F0550 */
++	RING_TAIL(XEHP_BSD8_RING_BASE),			/* 0x1F4000 (base) */
++	RING_EXECLIST_CONTROL(XEHP_BSD8_RING_BASE),	/* 0x1F4550 */
++	RING_TAIL(XEHP_VEBOX4_RING_BASE),		/* 0x1F8000 (base) */
++	RING_EXECLIST_CONTROL(XEHP_VEBOX4_RING_BASE),	/* 0x1F8550 */
+ 	/* TODO: Other registers are not yet used */
+ };
+ 
+@@ -991,17 +1049,18 @@ static int mmio_reg_cmp(u32 key, const i915_reg_t *reg)
+ 		return 0;
  }
  
-+static bool xehp_csb_parse(const u64 csb)
-+{
-+	return __gen12_csb_parse(XEHP_CSB_CTX_VALID(lower_32_bits(csb)), /* cxt to */
-+				 XEHP_CSB_CTX_VALID(upper_32_bits(csb)), /* cxt away */
-+				 upper_32_bits(csb) & XEHP_CTX_STATUS_SWITCHED_TO_NEW_QUEUE,
-+				 GEN12_CTX_SWITCH_DETAIL(lower_32_bits(csb)));
-+}
+-#define __is_genX_shadowed(x) \
+-static bool is_gen##x##_shadowed(u32 offset) \
++#define __is_X_shadowed(x) \
++static bool is_##x##_shadowed(u32 offset) \
+ { \
+-	const i915_reg_t *regs = gen##x##_shadowed_regs; \
+-	return BSEARCH(offset, regs, ARRAY_SIZE(gen##x##_shadowed_regs), \
++	const i915_reg_t *regs = x##_shadowed_regs; \
++	return BSEARCH(offset, regs, ARRAY_SIZE(x##_shadowed_regs), \
+ 		       mmio_reg_cmp); \
+ }
+ 
+-__is_genX_shadowed(8)
+-__is_genX_shadowed(11)
+-__is_genX_shadowed(12)
++__is_X_shadowed(gen8)
++__is_X_shadowed(gen11)
++__is_X_shadowed(gen12)
++__is_X_shadowed(xehp)
+ 
+ static enum forcewake_domains
+ gen6_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
+@@ -1065,6 +1124,15 @@ static const struct intel_forcewake_range __chv_fw_ranges[] = {
+ 	__fwd; \
+ })
+ 
++#define __xehp_fwtable_reg_write_fw_domains(uncore, offset) \
++({ \
++	enum forcewake_domains __fwd = 0; \
++	const u32 __offset = (offset); \
++	if (!is_xehp_shadowed(__offset)) \
++		__fwd = find_fw_domain(uncore, __offset); \
++	__fwd; \
++})
 +
-+static bool gen12_csb_parse(const u64 csb)
-+{
-+	return __gen12_csb_parse(GEN12_CSB_CTX_VALID(lower_32_bits(csb)), /* cxt to */
-+				 GEN12_CSB_CTX_VALID(upper_32_bits(csb)), /* cxt away */
-+				 lower_32_bits(csb) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE,
-+				 GEN12_CTX_SWITCH_DETAIL(upper_32_bits(csb)));
-+}
+ /* *Must* be sorted by offset ranges! See intel_fw_table_check(). */
+ static const struct intel_forcewake_range __gen9_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x0, 0xaff, FORCEWAKE_GT),
+@@ -1249,6 +1317,145 @@ static const struct intel_forcewake_range __gen12_fw_ranges[] = {
+ 		0x1d3f00 - 0x1d3fff: VD2 */
+ };
+ 
++/* *Must* be sorted by offset ranges! See intel_fw_table_check(). */
++static const struct intel_forcewake_range __xehp_fw_ranges[] = {
++	GEN_FW_RANGE(0x0, 0x1fff, 0), /*
++		  0x0 -  0xaff: reserved
++		0xb00 - 0x1fff: always on */
++	GEN_FW_RANGE(0x2000, 0x26ff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x2700, 0x4aff, FORCEWAKE_GT),
++	GEN_FW_RANGE(0x4b00, 0x51ff, 0), /*
++		0x4b00 - 0x4fff: reserved
++		0x5000 - 0x51ff: always on */
++	GEN_FW_RANGE(0x5200, 0x7fff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x8000, 0x813f, FORCEWAKE_GT),
++	GEN_FW_RANGE(0x8140, 0x815f, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x8160, 0x81ff, 0), /*
++		0x8160 - 0x817f: reserved
++		0x8180 - 0x81ff: always on */
++	GEN_FW_RANGE(0x8200, 0x82ff, FORCEWAKE_GT),
++	GEN_FW_RANGE(0x8300, 0x84ff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x8500, 0x94cf, FORCEWAKE_GT), /*
++		0x8500 - 0x87ff: gt
++		0x8800 - 0x8fff: reserved
++		0x9000 - 0x947f: gt
++		0x9480 - 0x94cf: reserved */
++	GEN_FW_RANGE(0x94d0, 0x955f, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x9560, 0x97ff, 0), /*
++		0x9560 - 0x95ff: always on
++		0x9600 - 0x97ff: reserved */
++	GEN_FW_RANGE(0x9800, 0xcfff, FORCEWAKE_GT), /*
++		0x9800 - 0xb4ff: gt
++		0xb500 - 0xbfff: reserved
++		0xc000 - 0xcfff: gt */
++	GEN_FW_RANGE(0xd000, 0xd7ff, 0),
++	GEN_FW_RANGE(0xd800, 0xdbff, FORCEWAKE_GT),
++	GEN_FW_RANGE(0xdc00, 0xdcff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0xdd00, 0xde7f, FORCEWAKE_GT), /*
++		0xdd00 - 0xddff: gt
++		0xde00 - 0xde7f: reserved */
++	GEN_FW_RANGE(0xde80, 0xe8ff, FORCEWAKE_RENDER), /*
++		0xde80 - 0xdfff: render
++		0xe000 - 0xe0ff: reserved
++		0xe100 - 0xe8ff: render */
++	GEN_FW_RANGE(0xe900, 0xffff, FORCEWAKE_GT), /*
++		0xe900 - 0xe9ff: gt
++		0xea00 - 0xefff: reserved
++		0xf000 - 0xffff: gt */
++	GEN_FW_RANGE(0x10000, 0x13fff, 0), /*
++		0x10000 - 0x11fff: reserved
++		0x12000 - 0x127ff: always on
++		0x12800 - 0x13fff: reserved */
++	GEN_FW_RANGE(0x14000, 0x141ff, FORCEWAKE_MEDIA_VDBOX0),
++	GEN_FW_RANGE(0x14200, 0x143ff, FORCEWAKE_MEDIA_VDBOX2),
++	GEN_FW_RANGE(0x14400, 0x145ff, FORCEWAKE_MEDIA_VDBOX4),
++	GEN_FW_RANGE(0x14600, 0x147ff, FORCEWAKE_MEDIA_VDBOX6),
++	GEN_FW_RANGE(0x14800, 0x1ffff, FORCEWAKE_RENDER), /*
++		0x14800 - 0x14fff: render
++		0x15000 - 0x16dff: reserved
++		0x16e00 - 0x1ffff: render */
++	GEN_FW_RANGE(0x20000, 0x21fff, FORCEWAKE_MEDIA_VDBOX0), /*
++		0x20000 - 0x20fff: VD0
++		0x21000 - 0x21fff: reserved */
++	GEN_FW_RANGE(0x22000, 0x23fff, FORCEWAKE_GT),
++	GEN_FW_RANGE(0x24000, 0x2417f, 0), /*
++		0x24000 - 0x2407f: always on
++		0x24080 - 0x2417f: reserved */
++	GEN_FW_RANGE(0x24180, 0x249ff, FORCEWAKE_GT), /*
++		0x24180 - 0x241ff: gt
++		0x24200 - 0x249ff: reserved */
++	GEN_FW_RANGE(0x24a00, 0x251ff, FORCEWAKE_RENDER), /*
++		0x24a00 - 0x24a7f: render
++		0x24a80 - 0x251ff: reserved */
++	GEN_FW_RANGE(0x25200, 0x25fff, FORCEWAKE_GT), /*
++		0x25200 - 0x252ff: gt
++		0x25300 - 0x25fff: reserved */
++	GEN_FW_RANGE(0x26000, 0x2ffff, FORCEWAKE_RENDER), /*
++		0x26000 - 0x27fff: render
++		0x28000 - 0x29fff: reserved
++		0x2a000 - 0x2ffff: undocumented */
++	GEN_FW_RANGE(0x30000, 0x3ffff, FORCEWAKE_GT),
++	GEN_FW_RANGE(0x40000, 0x1bffff, 0),
++	GEN_FW_RANGE(0x1c0000, 0x1c3fff, FORCEWAKE_MEDIA_VDBOX0), /*
++		0x1c0000 - 0x1c2bff: VD0
++		0x1c2c00 - 0x1c2cff: reserved
++		0x1c2d00 - 0x1c2dff: VD0
++		0x1c2e00 - 0x1c3eff: reserved
++		0x1c3f00 - 0x1c3fff: VD0 */
++	GEN_FW_RANGE(0x1c4000, 0x1c7fff, FORCEWAKE_MEDIA_VDBOX1), /*
++		0x1c4000 - 0x1c6bff: VD1
++		0x1c6c00 - 0x1c6cff: reserved
++		0x1c6d00 - 0x1c6dff: VD1
++		0x1c6e00 - 0x1c7fff: reserved */
++	GEN_FW_RANGE(0x1c8000, 0x1cbfff, FORCEWAKE_MEDIA_VEBOX0), /*
++		0x1c8000 - 0x1ca0ff: VE0
++		0x1ca100 - 0x1cbfff: reserved */
++	GEN_FW_RANGE(0x1cc000, 0x1ccfff, FORCEWAKE_MEDIA_VDBOX0),
++	GEN_FW_RANGE(0x1cd000, 0x1cdfff, FORCEWAKE_MEDIA_VDBOX2),
++	GEN_FW_RANGE(0x1ce000, 0x1cefff, FORCEWAKE_MEDIA_VDBOX4),
++	GEN_FW_RANGE(0x1cf000, 0x1cffff, FORCEWAKE_MEDIA_VDBOX6),
++	GEN_FW_RANGE(0x1d0000, 0x1d3fff, FORCEWAKE_MEDIA_VDBOX2), /*
++		0x1d0000 - 0x1d2bff: VD2
++		0x1d2c00 - 0x1d2cff: reserved
++		0x1d2d00 - 0x1d2dff: VD2
++		0x1d2e00 - 0x1d3eff: reserved
++		0x1d3f00 - 0x1d3fff: VD2 */
++	GEN_FW_RANGE(0x1d4000, 0x1d7fff, FORCEWAKE_MEDIA_VDBOX3), /*
++		0x1d4000 - 0x1d6bff: VD3
++		0x1d6c00 - 0x1d6cff: reserved
++		0x1d6d00 - 0x1d6dff: VD3
++		0x1d6e00 - 0x1d7fff: reserved */
++	GEN_FW_RANGE(0x1d8000, 0x1dffff, FORCEWAKE_MEDIA_VEBOX1), /*
++		0x1d8000 - 0x1da0ff: VE1
++		0x1da100 - 0x1dffff: reserved */
++	GEN_FW_RANGE(0x1e0000, 0x1e3fff, FORCEWAKE_MEDIA_VDBOX4), /*
++		0x1e0000 - 0x1e2bff: VD4
++		0x1e2c00 - 0x1e2cff: reserved
++		0x1e2d00 - 0x1e2dff: VD4
++		0x1e2e00 - 0x1e3eff: reserved
++		0x1e3f00 - 0x1e3fff: VD4 */
++	GEN_FW_RANGE(0x1e4000, 0x1e7fff, FORCEWAKE_MEDIA_VDBOX5), /*
++		0x1e4000 - 0x1e6bff: VD5
++		0x1e6c00 - 0x1e6cff: reserved
++		0x1e6d00 - 0x1e6dff: VD5
++		0x1e6e00 - 0x1e7fff: reserved */
++	GEN_FW_RANGE(0x1e8000, 0x1effff, FORCEWAKE_MEDIA_VEBOX2), /*
++		0x1e8000 - 0x1ea0ff: VE2
++		0x1ea100 - 0x1effff: reserved */
++	GEN_FW_RANGE(0x1f0000, 0x1f3fff, FORCEWAKE_MEDIA_VDBOX6), /*
++		0x1f0000 - 0x1f2bff: VD6
++		0x1f2c00 - 0x1f2cff: reserved
++		0x1f2d00 - 0x1f2dff: VD6
++		0x1f2e00 - 0x1f3eff: reserved
++		0x1f3f00 - 0x1f3fff: VD6 */
++	GEN_FW_RANGE(0x1f4000, 0x1f7fff, FORCEWAKE_MEDIA_VDBOX7), /*
++		0x1f4000 - 0x1f6bff: VD7
++		0x1f6c00 - 0x1f6cff: reserved
++		0x1f6d00 - 0x1f6dff: VD7
++		0x1f6e00 - 0x1f7fff: reserved */
++	GEN_FW_RANGE(0x1f8000, 0x1fa0ff, FORCEWAKE_MEDIA_VEBOX3),
++};
 +
- static bool gen8_csb_parse(const u64 csb)
+ static void
+ ilk_dummy_write(struct intel_uncore *uncore)
  {
- 	return csb & (GEN8_CTX_STATUS_IDLE_ACTIVE | GEN8_CTX_STATUS_PREEMPTED);
-@@ -1840,7 +1889,9 @@ process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
- 		ENGINE_TRACE(engine, "csb[%d]: status=0x%08x:0x%08x\n",
- 			     head, upper_32_bits(csb), lower_32_bits(csb));
+@@ -1502,6 +1709,7 @@ __gen_write(func, 8) \
+ __gen_write(func, 16) \
+ __gen_write(func, 32)
  
--		if (GRAPHICS_VER(engine->i915) >= 12)
-+		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+			promote = xehp_csb_parse(csb);
-+		else if (GRAPHICS_VER(engine->i915) >= 12)
- 			promote = gen12_csb_parse(csb);
- 		else
- 			promote = gen8_csb_parse(csb);
-@@ -3327,7 +3378,8 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
- 		execlists->csb_size = GEN11_CSB_ENTRIES;
++__gen_reg_write_funcs(xehp_fwtable);
+ __gen_reg_write_funcs(gen12_fwtable);
+ __gen_reg_write_funcs(gen11_fwtable);
+ __gen_reg_write_funcs(fwtable);
+@@ -1582,8 +1790,14 @@ static int __fw_domain_init(struct intel_uncore *uncore,
+ 	BUILD_BUG_ON(FORCEWAKE_MEDIA_VDBOX1 != (1 << FW_DOMAIN_ID_MEDIA_VDBOX1));
+ 	BUILD_BUG_ON(FORCEWAKE_MEDIA_VDBOX2 != (1 << FW_DOMAIN_ID_MEDIA_VDBOX2));
+ 	BUILD_BUG_ON(FORCEWAKE_MEDIA_VDBOX3 != (1 << FW_DOMAIN_ID_MEDIA_VDBOX3));
++	BUILD_BUG_ON(FORCEWAKE_MEDIA_VDBOX4 != (1 << FW_DOMAIN_ID_MEDIA_VDBOX4));
++	BUILD_BUG_ON(FORCEWAKE_MEDIA_VDBOX5 != (1 << FW_DOMAIN_ID_MEDIA_VDBOX5));
++	BUILD_BUG_ON(FORCEWAKE_MEDIA_VDBOX6 != (1 << FW_DOMAIN_ID_MEDIA_VDBOX6));
++	BUILD_BUG_ON(FORCEWAKE_MEDIA_VDBOX7 != (1 << FW_DOMAIN_ID_MEDIA_VDBOX7));
+ 	BUILD_BUG_ON(FORCEWAKE_MEDIA_VEBOX0 != (1 << FW_DOMAIN_ID_MEDIA_VEBOX0));
+ 	BUILD_BUG_ON(FORCEWAKE_MEDIA_VEBOX1 != (1 << FW_DOMAIN_ID_MEDIA_VEBOX1));
++	BUILD_BUG_ON(FORCEWAKE_MEDIA_VEBOX2 != (1 << FW_DOMAIN_ID_MEDIA_VEBOX2));
++	BUILD_BUG_ON(FORCEWAKE_MEDIA_VEBOX3 != (1 << FW_DOMAIN_ID_MEDIA_VEBOX3));
  
- 	engine->context_tag = GENMASK(BITS_PER_LONG - 2, 0);
--	if (GRAPHICS_VER(engine->i915) >= 11) {
-+	if (GRAPHICS_VER(engine->i915) >= 11 &&
-+	    GRAPHICS_VER_FULL(engine->i915) < IP_VER(12, 50)) {
- 		execlists->ccid |= engine->instance << (GEN11_ENGINE_INSTANCE_SHIFT - 32);
- 		execlists->ccid |= engine->class << (GEN11_ENGINE_CLASS_SHIFT - 32);
+ 	d->mask = BIT(domain_id);
+ 
+@@ -1870,36 +2084,36 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
+ 		return ret;
+ 	forcewake_early_sanitize(uncore, 0);
+ 
+-	if (IS_GRAPHICS_VER(i915, 6, 7)) {
+-		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen6);
+-
+-		if (IS_VALLEYVIEW(i915)) {
+-			ASSIGN_FW_DOMAINS_TABLE(uncore, __vlv_fw_ranges);
+-			ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+-		} else {
+-			ASSIGN_READ_MMIO_VFUNCS(uncore, gen6);
+-		}
+-	} else if (GRAPHICS_VER(i915) == 8) {
+-		if (IS_CHERRYVIEW(i915)) {
+-			ASSIGN_FW_DOMAINS_TABLE(uncore, __chv_fw_ranges);
+-			ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+-			ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+-		} else {
+-			ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen8);
+-			ASSIGN_READ_MMIO_VFUNCS(uncore, gen6);
+-		}
+-	} else if (IS_GRAPHICS_VER(i915, 9, 10)) {
+-		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen9_fw_ranges);
+-		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+-		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+-	} else if (GRAPHICS_VER(i915) == 11) {
+-		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen11_fw_ranges);
+-		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen11_fwtable);
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
++		ASSIGN_FW_DOMAINS_TABLE(uncore, __xehp_fw_ranges);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, xehp_fwtable);
+ 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
+-	} else {
++	} else if (GRAPHICS_VER(i915) >= 12) {
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen12_fw_ranges);
+ 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen12_fwtable);
+ 		ASSIGN_READ_MMIO_VFUNCS(uncore, gen12_fwtable);
++	} else if (GRAPHICS_VER(i915) == 11) {
++		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen11_fw_ranges);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen11_fwtable);
++		ASSIGN_READ_MMIO_VFUNCS(uncore, gen11_fwtable);
++	} else if (IS_GRAPHICS_VER(i915, 9, 10)) {
++		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen9_fw_ranges);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
++		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
++	} else if (IS_CHERRYVIEW(i915)) {
++		ASSIGN_FW_DOMAINS_TABLE(uncore, __chv_fw_ranges);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
++		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
++	} else if (GRAPHICS_VER(i915) == 8) {
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen8);
++		ASSIGN_READ_MMIO_VFUNCS(uncore, gen6);
++	} else if (IS_VALLEYVIEW(i915)) {
++		ASSIGN_FW_DOMAINS_TABLE(uncore, __vlv_fw_ranges);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen6);
++		ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
++	} else if (IS_GRAPHICS_VER(i915, 6, 7)) {
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, gen6);
++		ASSIGN_READ_MMIO_VFUNCS(uncore, gen6);
  	}
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 8ada1afe3d22..7f8fe6726504 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1101,6 +1101,14 @@ setup_indirect_ctx_bb(const struct intel_context *ce,
-  *      bits 55-60:    SW counter
-  *      bits 61-63:    engine class
-  *
-+ * On Xe_HP, the upper dword of the descriptor has a new format:
-+ *
-+ *      bits 32-37:    virtual function number
-+ *      bit 38:        mbz, reserved for use by hardware
-+ *      bits 39-54:    SW context ID
-+ *      bits 55-57:    reserved
-+ *      bits 58-63:    SW counter
-+ *
-  * engine info, SW context ID and SW counter need to form a unique number
-  * (Context ID) per lrc.
-  */
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc_reg.h b/drivers/gpu/drm/i915/gt/intel_lrc_reg.h
-index 41e5350a7a05..9548f4ade068 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc_reg.h
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc_reg.h
-@@ -91,5 +91,7 @@
- #define GEN11_MAX_CONTEXT_HW_ID	(1 << 11) /* exclusive */
- /* in Gen12 ID 0x7FF is reserved to indicate idle */
- #define GEN12_MAX_CONTEXT_HW_ID	(GEN11_MAX_CONTEXT_HW_ID - 1)
-+/* in Xe_HP ID 0xFFFF is reserved to indicate "invalid context" */
-+#define XEHP_MAX_CONTEXT_HW_ID	0xFFFF
  
- #endif /* _INTEL_LRC_REG_H_ */
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index b4ec114a4698..324ec3f35672 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1284,17 +1284,26 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
- 		break;
+ 	uncore->pmic_bus_access_nb.notifier_call = i915_pmic_bus_access_notifier;
+@@ -1988,6 +2202,22 @@ void intel_uncore_prune_engine_fw_domains(struct intel_uncore *uncore,
+ 		if (HAS_ENGINE(gt, _VCS(i)))
+ 			continue;
  
- 	case 11:
--	case 12: {
--		stream->specific_ctx_id_mask =
--			((1U << GEN11_SW_CTX_ID_WIDTH) - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
--		/*
--		 * Pick an unused context id
--		 * 0 - BITS_PER_LONG are used by other contexts
--		 * GEN12_MAX_CONTEXT_HW_ID (0x7ff) is used by idle context
--		 */
--		stream->specific_ctx_id = (GEN12_MAX_CONTEXT_HW_ID - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
-+	case 12:
-+		if (GRAPHICS_VER_FULL(ce->engine->i915) >= IP_VER(12, 50)) {
-+			stream->specific_ctx_id_mask =
-+				((1U << XEHP_SW_CTX_ID_WIDTH) - 1) <<
-+				(XEHP_SW_CTX_ID_SHIFT - 32);
-+			stream->specific_ctx_id =
-+				(XEHP_MAX_CONTEXT_HW_ID - 1) <<
-+				(XEHP_SW_CTX_ID_SHIFT - 32);
-+		} else {
-+			stream->specific_ctx_id_mask =
-+				((1U << GEN11_SW_CTX_ID_WIDTH) - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
-+			/*
-+			 * Pick an unused context id
-+			 * 0 - BITS_PER_LONG are used by other contexts
-+			 * GEN12_MAX_CONTEXT_HW_ID (0x7ff) is used by idle context
-+			 */
-+			stream->specific_ctx_id =
-+				(GEN12_MAX_CONTEXT_HW_ID - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
-+		}
- 		break;
--	}
- 
- 	default:
- 		MISSING_CASE(GRAPHICS_VER(ce->engine->i915));
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 1eca88ac7057..60d780d17d5d 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4172,6 +4172,11 @@ enum {
- #define GEN11_ENGINE_INSTANCE_SHIFT 48
- #define GEN11_ENGINE_INSTANCE_WIDTH 6
- 
-+#define XEHP_SW_CTX_ID_SHIFT 39
-+#define XEHP_SW_CTX_ID_WIDTH 16
-+#define XEHP_SW_COUNTER_SHIFT 58
-+#define XEHP_SW_COUNTER_WIDTH 6
++		/*
++		 * Starting with XeHP, the power well for an even-numbered
++		 * VDBOX is also used for shared units within the
++		 * media slice such as SFC.  So even if the engine
++		 * itself is fused off, we still need to initialize
++		 * the forcewake domain if any of the other engines
++		 * in the same media slice are present.
++		 */
++		if (GRAPHICS_VER_FULL(uncore->i915) >= IP_VER(12, 50) && i % 2 == 0) {
++			if ((i + 1 < I915_MAX_VCS) && HAS_ENGINE(gt, _VCS(i + 1)))
++				continue;
 +
- #define CHV_CLK_CTL1			_MMIO(0x101100)
- #define VLV_CLK_CTL2			_MMIO(0x101104)
- #define   CLK_CTL2_CZCOUNT_30NS_SHIFT	28
++			if (HAS_ENGINE(gt, _VECS(i / 2)))
++				continue;
++		}
++
+ 		if (fw_domains & BIT(domain_id))
+ 			fw_domain_fini(uncore, domain_id);
+ 	}
+diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+index a18bdb57af7b..3c0b0a8b5250 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.h
++++ b/drivers/gpu/drm/i915/intel_uncore.h
+@@ -52,8 +52,14 @@ enum forcewake_domain_id {
+ 	FW_DOMAIN_ID_MEDIA_VDBOX1,
+ 	FW_DOMAIN_ID_MEDIA_VDBOX2,
+ 	FW_DOMAIN_ID_MEDIA_VDBOX3,
++	FW_DOMAIN_ID_MEDIA_VDBOX4,
++	FW_DOMAIN_ID_MEDIA_VDBOX5,
++	FW_DOMAIN_ID_MEDIA_VDBOX6,
++	FW_DOMAIN_ID_MEDIA_VDBOX7,
+ 	FW_DOMAIN_ID_MEDIA_VEBOX0,
+ 	FW_DOMAIN_ID_MEDIA_VEBOX1,
++	FW_DOMAIN_ID_MEDIA_VEBOX2,
++	FW_DOMAIN_ID_MEDIA_VEBOX3,
+ 
+ 	FW_DOMAIN_ID_COUNT
+ };
+@@ -66,10 +72,16 @@ enum forcewake_domains {
+ 	FORCEWAKE_MEDIA_VDBOX1	= BIT(FW_DOMAIN_ID_MEDIA_VDBOX1),
+ 	FORCEWAKE_MEDIA_VDBOX2	= BIT(FW_DOMAIN_ID_MEDIA_VDBOX2),
+ 	FORCEWAKE_MEDIA_VDBOX3	= BIT(FW_DOMAIN_ID_MEDIA_VDBOX3),
++	FORCEWAKE_MEDIA_VDBOX4	= BIT(FW_DOMAIN_ID_MEDIA_VDBOX4),
++	FORCEWAKE_MEDIA_VDBOX5	= BIT(FW_DOMAIN_ID_MEDIA_VDBOX5),
++	FORCEWAKE_MEDIA_VDBOX6	= BIT(FW_DOMAIN_ID_MEDIA_VDBOX6),
++	FORCEWAKE_MEDIA_VDBOX7	= BIT(FW_DOMAIN_ID_MEDIA_VDBOX7),
+ 	FORCEWAKE_MEDIA_VEBOX0	= BIT(FW_DOMAIN_ID_MEDIA_VEBOX0),
+ 	FORCEWAKE_MEDIA_VEBOX1	= BIT(FW_DOMAIN_ID_MEDIA_VEBOX1),
++	FORCEWAKE_MEDIA_VEBOX2	= BIT(FW_DOMAIN_ID_MEDIA_VEBOX2),
++	FORCEWAKE_MEDIA_VEBOX3	= BIT(FW_DOMAIN_ID_MEDIA_VEBOX3),
+ 
+-	FORCEWAKE_ALL = BIT(FW_DOMAIN_ID_COUNT) - 1
++	FORCEWAKE_ALL = BIT(FW_DOMAIN_ID_COUNT) - 1,
+ };
+ 
+ struct intel_uncore_funcs {
+diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+index 8ef9e6a4ad05..720b60853f8b 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
++++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+@@ -68,6 +68,7 @@ static int intel_shadow_table_check(void)
+ 		{ gen8_shadowed_regs, ARRAY_SIZE(gen8_shadowed_regs) },
+ 		{ gen11_shadowed_regs, ARRAY_SIZE(gen11_shadowed_regs) },
+ 		{ gen12_shadowed_regs, ARRAY_SIZE(gen12_shadowed_regs) },
++		{ xehp_shadowed_regs, ARRAY_SIZE(xehp_shadowed_regs) },
+ 	};
+ 	const i915_reg_t *reg;
+ 	unsigned int i, j;
+@@ -103,6 +104,7 @@ int intel_uncore_mock_selftests(void)
+ 		{ __gen9_fw_ranges, ARRAY_SIZE(__gen9_fw_ranges), true },
+ 		{ __gen11_fw_ranges, ARRAY_SIZE(__gen11_fw_ranges), true },
+ 		{ __gen12_fw_ranges, ARRAY_SIZE(__gen12_fw_ranges), true },
++		{ __xehp_fw_ranges, ARRAY_SIZE(__xehp_fw_ranges), true },
+ 	};
+ 	int err, i;
+ 
 -- 
 2.25.4
 
