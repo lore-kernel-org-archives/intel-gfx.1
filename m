@@ -2,48 +2,69 @@ Return-Path: <SRS0=C5oC=MG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF040C11F67
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:19:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60F72C07E9A
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:38:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7BE08613B9
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:19:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BE08613B9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1BDAE613B7
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 13:38:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BDAE613B7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD8F6E2B6;
-	Wed, 14 Jul 2021 13:19:04 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19B886E2B6
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 13:19:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="274172941"
-X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="274172941"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2021 06:18:51 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC6836E2E3;
+	Wed, 14 Jul 2021 13:38:37 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB4E898D9
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 13:38:36 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="190030089"
+X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="190030089"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2021 06:38:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="459983615"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga008.jf.intel.com with SMTP; 14 Jul 2021 06:18:48 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 14 Jul 2021 16:18:48 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Jul 2021 16:18:36 +0300
-Message-Id: <20210714131837.8978-4-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210714131837.8978-1-ville.syrjala@linux.intel.com>
-References: <20210714131837.8978-1-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="571176348"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmsmga001.fm.intel.com with ESMTP; 14 Jul 2021 06:38:28 -0700
+Received: from bgsmsx601.gar.corp.intel.com (10.109.78.80) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Wed, 14 Jul 2021 06:38:27 -0700
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ BGSMSX601.gar.corp.intel.com (10.109.78.80) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Wed, 14 Jul 2021 19:08:24 +0530
+Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
+ BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.2242.010;
+ Wed, 14 Jul 2021 19:08:24 +0530
+From: "Gupta, Anshuman" <anshuman.gupta@intel.com>
+To: "Manna, Animesh" <animesh.manna@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH] drm/i915/debugfs: DISPLAY_VER 13 lpsp capability
+Thread-Index: AQHXd79Gohg9FiwS6UK9S30Yy4RtM6tCFLkAgABmnsA=
+Date: Wed, 14 Jul 2021 13:38:24 +0000
+Message-ID: <9a1b445644fd4faaa31753286c0d74c5@intel.com>
+References: <20210709115420.25381-1-anshuman.gupta@intel.com>
+ <20210713075738.23759-1-anshuman.gupta@intel.com>
+ <61e6f1836cbd48c0a9d1500aaa26d3fb@intel.com>
+In-Reply-To: <61e6f1836cbd48c0a9d1500aaa26d3fb@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.5.1.3
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.132]
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 3/4] iommu/vt-d: Disable superpage for
- Skylake igfx
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/debugfs: DISPLAY_VER 13 lpsp
+ capability
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,73 +77,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: iommu@lists.linux-foundation.org, David Woodhouse <dwmw2@infradead.org>,
- Lu Baolu <baolu.lu@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KClNr
-eWxha2UgaGFzIGtub3duIGlzc3VlcyB3aXRoIFZULWQgc3VwZXJwYWdlLiBOYW1lbHkgZnJhbWUg
-YnVmZmVyCmNvbXByZXNzaW9uIChGQkMpIGNhbid0IGJlIHNhZmVseSB1c2VkIHdoZW4gc3VwZXJw
-YWdlIGlzIGVuYWJsZWQuCkN1cnJlbnRseSB3ZSdyZSBkaXNhYmxpbmcgRkJDIGVudGlyZWx5IHdo
-ZW4gVlQtZCBpcyBhY3RpdmUsIGJ1dApJIHRoaW5rIGp1c3QgZGlzYWJsaW5nIHN1cGVycGFnZSB3
-b3VsZCBiZSBiZXR0ZXIgc2luY2UgRkJDIGNhbgpzYXZlIHNvbWUgcG93ZXIuCgpUT0RPOiB3b3Vs
-ZCBiZSBuaWNlIHRvIHVzZSB0aGUgbWFjcm9zIGZyb20gaW5jbHVkZS9kcm0vaTkxNV9wY2lpZHMu
-aCwKICAgICAgYnV0IGNhbid0IGRvIHRoYXQgd2l0aCBERUNMQVJFX1BDSV9GSVhVUF9IRUFERVIo
-KQoKQ2M6IERhdmlkIFdvb2Rob3VzZSA8ZHdtdzJAaW5mcmFkZWFkLm9yZz4KQ2M6IEx1IEJhb2x1
-IDxiYW9sdS5sdUBsaW51eC5pbnRlbC5jb20+CkNjOiBpb21tdUBsaXN0cy5saW51eC1mb3VuZGF0
-aW9uLm9yZwpTaWduZWQtb2ZmLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGlu
-dXguaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvaW9tbXUvaW50ZWwvaW9tbXUuYyB8IDI3ICsrKysr
-KysrKysrKysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDI3IGluc2VydGlvbnMoKykK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2lvbW11L2ludGVsL2lvbW11LmMgYi9kcml2ZXJzL2lvbW11
-L2ludGVsL2lvbW11LmMKaW5kZXggZWY3MTc5MDg2NDdkLi5lYTljNjlkYzEzZjUgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvaW9tbXUvaW50ZWwvaW9tbXUuYworKysgYi9kcml2ZXJzL2lvbW11L2ludGVs
-L2lvbW11LmMKQEAgLTU2ODEsNiArNTY4MSwzMyBAQCBzdGF0aWMgdm9pZCBxdWlya19za2lwX2ln
-Znhfc3VwZXJwYWdlKHN0cnVjdCBwY2lfZGV2ICpkZXYpCiAJaW9tbXVfc2tpcF9pZ2Z4X3N1cGVy
-cGFnZSA9IDE7CiB9CiAKKy8qIFNreWxha2UgaWdmeCBoYXMgaXNzdWVzIHdpdGggc3VwZXJwYWdl
-ICovCitERUNMQVJFX1BDSV9GSVhVUF9IRUFERVIoUENJX1ZFTkRPUl9JRF9JTlRFTCwgMHgxOTA2
-LCBxdWlya19za2lwX2lnZnhfc3VwZXJwYWdlKTsKK0RFQ0xBUkVfUENJX0ZJWFVQX0hFQURFUihQ
-Q0lfVkVORE9SX0lEX0lOVEVMLCAweDE5MTMsIHF1aXJrX3NraXBfaWdmeF9zdXBlcnBhZ2UpOwor
-REVDTEFSRV9QQ0lfRklYVVBfSEVBREVSKFBDSV9WRU5ET1JfSURfSU5URUwsIDB4MTkwRSwgcXVp
-cmtfc2tpcF9pZ2Z4X3N1cGVycGFnZSk7CitERUNMQVJFX1BDSV9GSVhVUF9IRUFERVIoUENJX1ZF
-TkRPUl9JRF9JTlRFTCwgMHgxOTE1LCBxdWlya19za2lwX2lnZnhfc3VwZXJwYWdlKTsKK0RFQ0xB
-UkVfUENJX0ZJWFVQX0hFQURFUihQQ0lfVkVORE9SX0lEX0lOVEVMLCAweDE5MDIsIHF1aXJrX3Nr
-aXBfaWdmeF9zdXBlcnBhZ2UpOworREVDTEFSRV9QQ0lfRklYVVBfSEVBREVSKFBDSV9WRU5ET1Jf
-SURfSU5URUwsIDB4MTkwQSwgcXVpcmtfc2tpcF9pZ2Z4X3N1cGVycGFnZSk7CitERUNMQVJFX1BD
-SV9GSVhVUF9IRUFERVIoUENJX1ZFTkRPUl9JRF9JTlRFTCwgMHgxOTBCLCBxdWlya19za2lwX2ln
-Znhfc3VwZXJwYWdlKTsKK0RFQ0xBUkVfUENJX0ZJWFVQX0hFQURFUihQQ0lfVkVORE9SX0lEX0lO
-VEVMLCAweDE5MTcsIHF1aXJrX3NraXBfaWdmeF9zdXBlcnBhZ2UpOworREVDTEFSRV9QQ0lfRklY
-VVBfSEVBREVSKFBDSV9WRU5ET1JfSURfSU5URUwsIDB4MTkxNiwgcXVpcmtfc2tpcF9pZ2Z4X3N1
-cGVycGFnZSk7CitERUNMQVJFX1BDSV9GSVhVUF9IRUFERVIoUENJX1ZFTkRPUl9JRF9JTlRFTCwg
-MHgxOTIxLCBxdWlya19za2lwX2lnZnhfc3VwZXJwYWdlKTsKK0RFQ0xBUkVfUENJX0ZJWFVQX0hF
-QURFUihQQ0lfVkVORE9SX0lEX0lOVEVMLCAweDE5MUUsIHF1aXJrX3NraXBfaWdmeF9zdXBlcnBh
-Z2UpOworREVDTEFSRV9QQ0lfRklYVVBfSEVBREVSKFBDSV9WRU5ET1JfSURfSU5URUwsIDB4MTkx
-MiwgcXVpcmtfc2tpcF9pZ2Z4X3N1cGVycGFnZSk7CitERUNMQVJFX1BDSV9GSVhVUF9IRUFERVIo
-UENJX1ZFTkRPUl9JRF9JTlRFTCwgMHgxOTFBLCBxdWlya19za2lwX2lnZnhfc3VwZXJwYWdlKTsK
-K0RFQ0xBUkVfUENJX0ZJWFVQX0hFQURFUihQQ0lfVkVORE9SX0lEX0lOVEVMLCAweDE5MUIsIHF1
-aXJrX3NraXBfaWdmeF9zdXBlcnBhZ2UpOworREVDTEFSRV9QQ0lfRklYVVBfSEVBREVSKFBDSV9W
-RU5ET1JfSURfSU5URUwsIDB4MTkxRCwgcXVpcmtfc2tpcF9pZ2Z4X3N1cGVycGFnZSk7CitERUNM
-QVJFX1BDSV9GSVhVUF9IRUFERVIoUENJX1ZFTkRPUl9JRF9JTlRFTCwgMHgxOTIzLCBxdWlya19z
-a2lwX2lnZnhfc3VwZXJwYWdlKTsKK0RFQ0xBUkVfUENJX0ZJWFVQX0hFQURFUihQQ0lfVkVORE9S
-X0lEX0lOVEVMLCAweDE5MjYsIHF1aXJrX3NraXBfaWdmeF9zdXBlcnBhZ2UpOworREVDTEFSRV9Q
-Q0lfRklYVVBfSEVBREVSKFBDSV9WRU5ET1JfSURfSU5URUwsIDB4MTkyNywgcXVpcmtfc2tpcF9p
-Z2Z4X3N1cGVycGFnZSk7CitERUNMQVJFX1BDSV9GSVhVUF9IRUFERVIoUENJX1ZFTkRPUl9JRF9J
-TlRFTCwgMHgxOTJBLCBxdWlya19za2lwX2lnZnhfc3VwZXJwYWdlKTsKK0RFQ0xBUkVfUENJX0ZJ
-WFVQX0hFQURFUihQQ0lfVkVORE9SX0lEX0lOVEVMLCAweDE5MkIsIHF1aXJrX3NraXBfaWdmeF9z
-dXBlcnBhZ2UpOworREVDTEFSRV9QQ0lfRklYVVBfSEVBREVSKFBDSV9WRU5ET1JfSURfSU5URUws
-IDB4MTkyRCwgcXVpcmtfc2tpcF9pZ2Z4X3N1cGVycGFnZSk7CitERUNMQVJFX1BDSV9GSVhVUF9I
-RUFERVIoUENJX1ZFTkRPUl9JRF9JTlRFTCwgMHgxOTMyLCBxdWlya19za2lwX2lnZnhfc3VwZXJw
-YWdlKTsKK0RFQ0xBUkVfUENJX0ZJWFVQX0hFQURFUihQQ0lfVkVORE9SX0lEX0lOVEVMLCAweDE5
-M0EsIHF1aXJrX3NraXBfaWdmeF9zdXBlcnBhZ2UpOworREVDTEFSRV9QQ0lfRklYVVBfSEVBREVS
-KFBDSV9WRU5ET1JfSURfSU5URUwsIDB4MTkzQiwgcXVpcmtfc2tpcF9pZ2Z4X3N1cGVycGFnZSk7
-CitERUNMQVJFX1BDSV9GSVhVUF9IRUFERVIoUENJX1ZFTkRPUl9JRF9JTlRFTCwgMHgxOTNELCBx
-dWlya19za2lwX2lnZnhfc3VwZXJwYWdlKTsKKwogLyogQnJveHRvbiBpZ2Z4IGhhcyBpc3N1ZXMg
-d2l0aCBzdXBlcnBhZ2UgKi8KIERFQ0xBUkVfUENJX0ZJWFVQX0hFQURFUihQQ0lfVkVORE9SX0lE
-X0lOVEVMLCAweDBBODQsIHF1aXJrX3NraXBfaWdmeF9zdXBlcnBhZ2UpOwogREVDTEFSRV9QQ0lf
-RklYVVBfSEVBREVSKFBDSV9WRU5ET1JfSURfSU5URUwsIDB4MUE4NCwgcXVpcmtfc2tpcF9pZ2Z4
-X3N1cGVycGFnZSk7Ci0tIAoyLjMxLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2ludGVsLWdmeAo=
+
+
+> -----Original Message-----
+> From: Manna, Animesh <animesh.manna@intel.com>
+> Sent: Wednesday, July 14, 2021 6:30 PM
+> To: Gupta, Anshuman <anshuman.gupta@intel.com>; intel-
+> gfx@lists.freedesktop.org
+> Subject: RE: [PATCH] drm/i915/debugfs: DISPLAY_VER 13 lpsp capability
+> 
+> 
+> 
+> > -----Original Message-----
+> > From: Gupta, Anshuman <anshuman.gupta@intel.com>
+> > Sent: Tuesday, July 13, 2021 1:28 PM
+> > To: intel-gfx@lists.freedesktop.org
+> > Cc: Gupta, Anshuman <anshuman.gupta@intel.com>; Manna, Animesh
+> > <animesh.manna@intel.com>
+> > Subject: [PATCH] drm/i915/debugfs: DISPLAY_VER 13 lpsp capability
+> >
+> > Extend i915_lpsp_capability debugfs to DG2,ADLP and future platforms.
+> >
+> > v2: commit log modification.
+> >
+> > Cc: Animesh Manna <animesh.manna@intel.com>
+> > Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+> 
+> Changes looks good to me.
+> 
+> Reviewed-by: Animesh Manna <animesh.manna@intel.com>
+Thanks for review pushed to drm-intel-next.
+> 
+> Regards,
+> Animesh
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display_debugfs.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> > b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> > index d5af5708c9da..65832c4d962f 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> > @@ -2256,6 +2256,11 @@ static int i915_lpsp_capability_show(struct
+> > seq_file *m, void *data)
+> >  	if (connector->status != connector_status_connected)
+> >  		return -ENODEV;
+> >
+> > +	if (DISPLAY_VER(i915) >= 13) {
+> > +		LPSP_CAPABLE(encoder->port <= PORT_B);
+> > +		return 0;
+> > +	}
+> > +
+> >  	switch (DISPLAY_VER(i915)) {
+> >  	case 12:
+> >  		/*
+> > --
+> > 2.26.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
