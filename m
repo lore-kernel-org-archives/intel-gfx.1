@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E083AC07E96
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5AD8AC11F67
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A8B6761289
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A8B6761289
+	by mail.kernel.org (Postfix) with ESMTPS id 2A7AA613AA
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A7AA613AA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C766E157;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C55186E160;
 	Wed, 14 Jul 2021 03:15:53 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17FA86E157
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:52 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256253"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256253"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B56D16E156
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:51 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256247"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256247"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:51 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031470"
+ 13 Jul 2021 20:15:50 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031451"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:51 -0700
+ 13 Jul 2021 20:15:50 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:15:00 -0700
-Message-Id: <20210714031540.3539704-11-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:14:55 -0700
+Message-Id: <20210714031540.3539704-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 10/50] drm/i915/xehp: Define multicast
- register ranges
+Subject: [Intel-gfx] [PATCH v2 05/50] drm/i915/selftests: Allow for larger
+ engine counts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,46 +54,179 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-U2luY2Ugd2UgY2FuJ3Qgc3RlZXIgbXVsdGljYXN0IHJlZ2lzdGVyIHJlYWRzIGR1cmluZyByaW5n
-LWJhc2VkCndvcmthcm91bmQgdmVyaWZpY2F0aW9uLCB3ZSBuZWVkIHRvIGRlZmluZSB0aGUgbXVs
-dGljYXN0IHJhbmdlcyB3aGVyZQpmYWlsdXJlIHRvIHN0ZWVyIGNvdWxkIHBvdGVudGlhbGx5IGNh
-dXNlIHVzIHRvIHJlYWQgYmFjayBmcm9tIGEKZnVzZWQtb2ZmIHJlZ2lzdGVyIGluc3RhbmNlLgoK
-QXMgd2l0aCBnZW4xMiwgd2UgY2FuIGlnbm9yZSB0aGUgbXVsdGljYXN0IHJhbmdlcyB0aGF0IHRo
-ZSBic3BlYwpkZXNjcmliZXMgYXMgJ1NRSURJJyBzaW5jZSBhbGwgaW5zdGFuY2VzIG9mIHRob3Nl
-IHJlZ2lzdGVycyB3aWxsIGFsd2F5cwpiZSBwcmVzZW50IGFuZCB3ZSdsbCBhbHdheXMgYmUgYWJs
-ZSB0byByZWFkIGJhY2sgYSB3b3JrYXJvdW5kIHZhbHVlIHRoYXQKd2FzIHdyaXR0ZW4gd2l0aCBt
-dWx0aWNhc3QuCgpCc3BlYzogNjY1MzQKQ2M6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uu
-c291emFAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9w
-ZXJAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3dvcmthcm91
-bmRzLmMgfCAyMCArKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDE5IGluc2Vy
-dGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxf
-d29ya2Fyb3VuZHMuYwppbmRleCA3MjU2MmMyMzNhZDIuLjNhYmU0MjRlZjljOSAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMuYworKysgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jCkBAIC0yMDk3LDEyICsyMDk3
-LDMwIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbWNyX3JhbmdlIG1jcl9yYW5nZXNfZ2VuMTJbXSA9
-IHsKIAl7fSwKIH07CiAKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgbWNyX3JhbmdlIG1jcl9yYW5nZXNf
-eGVocFtdID0geworCXsgLnN0YXJ0ID0gIDB4NDAwMCwgLmVuZCA9ICAweDRhZmYgfSwKKwl7IC5z
-dGFydCA9ICAweDUyMDAsIC5lbmQgPSAgMHg1MmZmIH0sCisJeyAuc3RhcnQgPSAgMHg1NDAwLCAu
-ZW5kID0gIDB4N2ZmZiB9LAorCXsgLnN0YXJ0ID0gIDB4ODE0MCwgLmVuZCA9ICAweDgxNWYgfSwK
-Kwl7IC5zdGFydCA9ICAweDhjODAsIC5lbmQgPSAgMHg4ZGZmIH0sCisJeyAuc3RhcnQgPSAgMHg5
-NGQwLCAuZW5kID0gIDB4OTU1ZiB9LAorCXsgLnN0YXJ0ID0gIDB4OTY4MCwgLmVuZCA9ICAweDk2
-ZmYgfSwKKwl7IC5zdGFydCA9ICAweGIwMDAsIC5lbmQgPSAgMHhiM2ZmIH0sCisJeyAuc3RhcnQg
-PSAgMHhjODAwLCAuZW5kID0gIDB4Y2ZmZiB9LAorCXsgLnN0YXJ0ID0gIDB4ZDgwMCwgLmVuZCA9
-ICAweGQ4ZmYgfSwKKwl7IC5zdGFydCA9ICAweGRjMDAsIC5lbmQgPSAgMHhmZmZmIH0sCisJeyAu
-c3RhcnQgPSAweDE3MDAwLCAuZW5kID0gMHgxN2ZmZiB9LAorCXsgLnN0YXJ0ID0gMHgyNGEwMCwg
-LmVuZCA9IDB4MjRhN2YgfSwKK307CisKIHN0YXRpYyBib29sIG1jcl9yYW5nZShzdHJ1Y3QgZHJt
-X2k5MTVfcHJpdmF0ZSAqaTkxNSwgdTMyIG9mZnNldCkKIHsKIAljb25zdCBzdHJ1Y3QgbWNyX3Jh
-bmdlICptY3JfcmFuZ2VzOwogCWludCBpOwogCi0JaWYgKEdSQVBISUNTX1ZFUihpOTE1KSA+PSAx
-MikKKwlpZiAoR1JBUEhJQ1NfVkVSX0ZVTEwoaTkxNSkgPj0gSVBfVkVSKDEyLCA1MCkpCisJCW1j
-cl9yYW5nZXMgPSBtY3JfcmFuZ2VzX3hlaHA7CisJZWxzZSBpZiAoR1JBUEhJQ1NfVkVSKGk5MTUp
-ID49IDEyKQogCQltY3JfcmFuZ2VzID0gbWNyX3Jhbmdlc19nZW4xMjsKIAllbHNlIGlmIChHUkFQ
-SElDU19WRVIoaTkxNSkgPj0gOCkKIAkJbWNyX3JhbmdlcyA9IG1jcl9yYW5nZXNfZ2VuODsKLS0g
-CjIuMjUuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+From: John Harrison <John.C.Harrison@Intel.com>
+
+Increasing the engine count causes a couple of local array variables
+to exceed the kernel stack limit. So make them dynamic allocations
+instead.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  | 10 ++++--
+ .../gpu/drm/i915/gt/selftest_workarounds.c    | 32 ++++++++++++-------
+ 2 files changed, 29 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+index 73ddc6e14730..22a124b134b6 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
++++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+@@ -3561,12 +3561,16 @@ static int smoke_crescendo(struct preempt_smoke *smoke, unsigned int flags)
+ #define BATCH BIT(0)
+ {
+ 	struct task_struct *tsk[I915_NUM_ENGINES] = {};
+-	struct preempt_smoke arg[I915_NUM_ENGINES];
++	struct preempt_smoke *arg;
+ 	struct intel_engine_cs *engine;
+ 	enum intel_engine_id id;
+ 	unsigned long count;
+ 	int err = 0;
+ 
++	arg = kmalloc_array(I915_NUM_ENGINES, sizeof(*arg), GFP_KERNEL);
++	if (!arg)
++		return -ENOMEM;
++
+ 	for_each_engine(engine, smoke->gt, id) {
+ 		arg[id] = *smoke;
+ 		arg[id].engine = engine;
+@@ -3574,7 +3578,7 @@ static int smoke_crescendo(struct preempt_smoke *smoke, unsigned int flags)
+ 			arg[id].batch = NULL;
+ 		arg[id].count = 0;
+ 
+-		tsk[id] = kthread_run(smoke_crescendo_thread, &arg,
++		tsk[id] = kthread_run(smoke_crescendo_thread, arg,
+ 				      "igt/smoke:%d", id);
+ 		if (IS_ERR(tsk[id])) {
+ 			err = PTR_ERR(tsk[id]);
+@@ -3603,6 +3607,8 @@ static int smoke_crescendo(struct preempt_smoke *smoke, unsigned int flags)
+ 
+ 	pr_info("Submitted %lu crescendo:%x requests across %d engines and %d contexts\n",
+ 		count, flags, smoke->gt->info.num_engines, smoke->ncontext);
++
++	kfree(arg);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+index 7ebc4edb8ecf..7a38ce40feb2 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+@@ -1175,31 +1175,36 @@ live_gpu_reset_workarounds(void *arg)
+ {
+ 	struct intel_gt *gt = arg;
+ 	intel_wakeref_t wakeref;
+-	struct wa_lists lists;
++	struct wa_lists *lists;
+ 	bool ok;
+ 
+ 	if (!intel_has_gpu_reset(gt))
+ 		return 0;
+ 
++	lists = kzalloc(sizeof(*lists), GFP_KERNEL);
++	if (!lists)
++		return -ENOMEM;
++
+ 	pr_info("Verifying after GPU reset...\n");
+ 
+ 	igt_global_reset_lock(gt);
+ 	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
+ 
+-	reference_lists_init(gt, &lists);
++	reference_lists_init(gt, lists);
+ 
+-	ok = verify_wa_lists(gt, &lists, "before reset");
++	ok = verify_wa_lists(gt, lists, "before reset");
+ 	if (!ok)
+ 		goto out;
+ 
+ 	intel_gt_reset(gt, ALL_ENGINES, "live_workarounds");
+ 
+-	ok = verify_wa_lists(gt, &lists, "after reset");
++	ok = verify_wa_lists(gt, lists, "after reset");
+ 
+ out:
+-	reference_lists_fini(gt, &lists);
++	reference_lists_fini(gt, lists);
+ 	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
+ 	igt_global_reset_unlock(gt);
++	kfree(lists);
+ 
+ 	return ok ? 0 : -ESRCH;
+ }
+@@ -1214,16 +1219,20 @@ live_engine_reset_workarounds(void *arg)
+ 	struct igt_spinner spin;
+ 	struct i915_request *rq;
+ 	intel_wakeref_t wakeref;
+-	struct wa_lists lists;
++	struct wa_lists *lists;
+ 	int ret = 0;
+ 
+ 	if (!intel_has_reset_engine(gt))
+ 		return 0;
+ 
++	lists = kzalloc(sizeof(*lists), GFP_KERNEL);
++	if (!lists)
++		return -ENOMEM;
++
+ 	igt_global_reset_lock(gt);
+ 	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
+ 
+-	reference_lists_init(gt, &lists);
++	reference_lists_init(gt, lists);
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		bool ok;
+@@ -1235,7 +1244,7 @@ live_engine_reset_workarounds(void *arg)
+ 			break;
+ 		}
+ 
+-		ok = verify_wa_lists(gt, &lists, "before reset");
++		ok = verify_wa_lists(gt, lists, "before reset");
+ 		if (!ok) {
+ 			ret = -ESRCH;
+ 			goto err;
+@@ -1247,7 +1256,7 @@ live_engine_reset_workarounds(void *arg)
+ 			goto err;
+ 		}
+ 
+-		ok = verify_wa_lists(gt, &lists, "after idle reset");
++		ok = verify_wa_lists(gt, lists, "after idle reset");
+ 		if (!ok) {
+ 			ret = -ESRCH;
+ 			goto err;
+@@ -1282,7 +1291,7 @@ live_engine_reset_workarounds(void *arg)
+ 		igt_spinner_end(&spin);
+ 		igt_spinner_fini(&spin);
+ 
+-		ok = verify_wa_lists(gt, &lists, "after busy reset");
++		ok = verify_wa_lists(gt, lists, "after busy reset");
+ 		if (!ok) {
+ 			ret = -ESRCH;
+ 			goto err;
+@@ -1294,9 +1303,10 @@ live_engine_reset_workarounds(void *arg)
+ 			break;
+ 	}
+ 
+-	reference_lists_fini(gt, &lists);
++	reference_lists_fini(gt, lists);
+ 	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
+ 	igt_global_reset_unlock(gt);
++	kfree(lists);
+ 
+ 	igt_flush_test(gt->i915);
+ 
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
