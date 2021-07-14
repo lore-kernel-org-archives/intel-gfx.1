@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62E16C07E96
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BE20C11F69
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 32DB561289
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32DB561289
+	by mail.kernel.org (Postfix) with ESMTPS id 51120613AA
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51120613AA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB5226E176;
-	Wed, 14 Jul 2021 03:16:02 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D11D6E174
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:54 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256264"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256264"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1679E6E19B;
+	Wed, 14 Jul 2021 03:16:05 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03D886E167
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232085875"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232085875"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:54 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031507"
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 20:15:58 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031577"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:54 -0700
+ 13 Jul 2021 20:15:58 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:15:09 -0700
-Message-Id: <20210714031540.3539704-20-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:15:28 -0700
+Message-Id: <20210714031540.3539704-39-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 19/50] drm/i915/xehpsdv: Define steering
- tables
+Subject: [Intel-gfx] [PATCH v2 38/50] drm/i915/dg2: Don't program BW_BUDDY
+ registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,87 +59,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Define and initialize the MMIO ranges for which XeHP SDV requires MSLICE
-and LNCF steering.
+Although the BW_BUDDY registers still exist, they are not used for
+anything on DG2.  This change is expected to hold true for future dgpu's
+too.
 
-Bspec: 66534
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Bspec: 49218
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c          | 19 ++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 11 +++++++++--
- 2 files changed, 27 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_power.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index f59bcedbb80b..9d1c99c9c0dd 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -89,6 +89,20 @@ static const struct intel_mmio_range icl_l3bank_steering_table[] = {
- 	{},
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 04af987f3324..9593c517a321 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -5814,6 +5814,10 @@ static void tgl_bw_buddy_init(struct drm_i915_private *dev_priv)
+ 	unsigned long abox_mask = INTEL_INFO(dev_priv)->abox_mask;
+ 	int config, i;
  
-+static const struct intel_mmio_range xehpsdv_mslice_steering_table[] = {
-+	{ 0x004000, 0x004AFF },
-+	{ 0x00C800, 0x00CFFF },
-+	{ 0x00DD00, 0x00DDFF },
-+	{ 0x00E900, 0x00FFFF }, /* 0xEA00 - OxEFFF is unused */
-+	{},
-+};
++	/* BW_BUDDY registers are not used on dgpu's beyond DG1 */
++	if (IS_DGFX(dev_priv) && !IS_DG1(dev_priv))
++		return;
 +
-+static const struct intel_mmio_range xehpsdv_lncf_steering_table[] = {
-+	{ 0x00B000, 0x00B0FF },
-+	{ 0x00D800, 0x00D8FF },
-+	{},
-+};
-+
- static u16 slicemask(struct intel_gt *gt, int count)
- {
- 	u64 dss_mask = intel_sseu_get_subslices(&gt->info.sseu, 0);
-@@ -113,7 +127,10 @@ int intel_gt_init_mmio(struct intel_gt *gt)
- 			(intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3) &
- 			 GEN12_MEML3_EN_MASK);
- 
--	if (GRAPHICS_VER(gt->i915) >= 11 &&
-+	if (IS_XEHPSDV(gt->i915)) {
-+		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
-+		gt->steering_table[LNCF] = xehpsdv_lncf_steering_table;
-+	} else if (GRAPHICS_VER(gt->i915) >= 11 &&
- 		   GRAPHICS_VER_FULL(gt->i915) < IP_VER(12, 50)) {
- 		gt->steering_table[L3BANK] = icl_l3bank_steering_table;
- 		gt->info.l3bank_mask =
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 257c13059874..df8892a01412 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -996,7 +996,6 @@ icl_wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 	__add_mcr_wa(i915, wal, slice, subslice);
- }
- 
--__maybe_unused
- static void
- xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
- {
-@@ -1215,10 +1214,18 @@ dg1_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 			    VSUNIT_CLKGATE_DIS_TGL);
- }
- 
-+static void
-+xehpsdv_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-+{
-+	xehp_init_mcr(&i915->gt, wal);
-+}
-+
- static void
- gt_init_workarounds(struct drm_i915_private *i915, struct i915_wa_list *wal)
- {
--	if (IS_DG1(i915))
-+	if (IS_XEHPSDV(i915))
-+		xehpsdv_gt_workarounds_init(i915, wal);
-+	else if (IS_DG1(i915))
- 		dg1_gt_workarounds_init(i915, wal);
- 	else if (IS_TIGERLAKE(i915))
- 		tgl_gt_workarounds_init(i915, wal);
+ 	if (IS_ALDERLAKE_S(dev_priv) ||
+ 	    IS_DG1_REVID(dev_priv, DG1_REVID_A0, DG1_REVID_A0) ||
+ 	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
 -- 
 2.25.4
 
