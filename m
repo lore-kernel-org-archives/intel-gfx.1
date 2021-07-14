@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79B4CC11F67
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 861DDC11F6C
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 499D961289
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 499D961289
+	by mail.kernel.org (Postfix) with ESMTPS id 5C27961289
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C27961289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 067D56E190;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 812806E187;
 	Wed, 14 Jul 2021 03:16:03 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 793606E160
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:53 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256259"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256259"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 484E76E171
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:56 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256273"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256273"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:53 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031492"
+ 13 Jul 2021 20:15:56 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031536"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:52 -0700
+ 13 Jul 2021 20:15:55 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:15:05 -0700
-Message-Id: <20210714031540.3539704-16-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:15:16 -0700
+Message-Id: <20210714031540.3539704-27-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 15/50] drm/i915/xehpsdv: add initial XeHP SDV
- definitions
+Subject: [Intel-gfx] [PATCH v2 26/50] drm/i915/dg2: Update LNCF steering
+ ranges
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,108 +54,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Tomas Winkler <tomas.winkler@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5kZW1hcmNoaUBpbnRlbC5jb20+CgpYZUhQIFNE
-ViBpcyBhIEludGVswq4gZEdQVSB3aXRob3V0IGRpc3BsYXkuIFRoaXMgaXMganVzdCB0aGUgZGVm
-aW5pdGlvbgpvZiBzb21lIGJhc2ljIHBsYXRmb3JtIG1hY3JvcywgYnkgbGFyZ2UgYSBjb3B5IG9m
-IGN1cnJlbnQgc3RhdGUgb2YKVGlnZXJsYWtlIHdoaWNoIGRvZXMgbm90IHJlZmxlY3QgdGhlIGVu
-ZCBzdGF0ZSBvZiB0aGlzIHBsYXRmb3JtLgoKdjI6CiAtIFN3aXRjaCB0byBpbnRlbF9zdGVwIGlu
-ZnJhc3RydWN0dXJlIGZvciBzdGVwcGluZyBtYXRjaGVzLiAoSmFuaSkKCkJzcGVjOiA0NDQ2Nywg
-NDgwNzcKQ2M6IFJvZHJpZ28gVml2aSA8cm9kcmlnby52aXZpQGludGVsLmNvbT4KU2lnbmVkLW9m
-Zi1ieTogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5kZW1hcmNoaUBpbnRlbC5jb20+ClNpZ25lZC1v
-ZmYtYnk6IERhbmllbGUgQ2VyYW9sbyBTcHVyaW8gPGRhbmllbGUuY2VyYW9sb3NwdXJpb0BpbnRl
-bC5jb20+ClNpZ25lZC1vZmYtYnk6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFA
-aW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBTdHVhcnQgU3VtbWVycyA8c3R1YXJ0LnN1bW1lcnNA
-aW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBUb21hcyBXaW5rbGVyIDx0b21hcy53aW5rbGVyQGlu
-dGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVs
-LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oICAgICAgICAgIHwgIDQg
-KysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9wY2kuYyAgICAgICAgICB8IDIwICsrKysr
-KysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5j
-IHwgIDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNlX2luZm8uaCB8ICAxICsK
-IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3N0ZXAuYyAgICAgICAgfCAxMiArKysrKysrKysr
-Ky0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3N0ZXAuaCAgICAgICAgfCAgMSArCiA2IGZp
-bGVzIGNoYW5nZWQsIDM4IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-aTkxNV9kcnYuaAppbmRleCBlZmZiNTU1ZDE0ZjUuLjI0MTgxYWEzNmVmYiAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9pOTE1X2Rydi5oCkBAIC0xNDUzLDYgKzE0NTMsNyBAQCBJU19TVUJQTEFURk9STShjb25zdCBz
-dHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwKICNkZWZpbmUgSVNfREcxKGRldl9wcml2KSAg
-ICAgICAgSVNfUExBVEZPUk0oZGV2X3ByaXYsIElOVEVMX0RHMSkKICNkZWZpbmUgSVNfQUxERVJM
-QUtFX1MoZGV2X3ByaXYpIElTX1BMQVRGT1JNKGRldl9wcml2LCBJTlRFTF9BTERFUkxBS0VfUykK
-ICNkZWZpbmUgSVNfQUxERVJMQUtFX1AoZGV2X3ByaXYpIElTX1BMQVRGT1JNKGRldl9wcml2LCBJ
-TlRFTF9BTERFUkxBS0VfUCkKKyNkZWZpbmUgSVNfWEVIUFNEVihkZXZfcHJpdikgSVNfUExBVEZP
-Uk0oZGV2X3ByaXYsIElOVEVMX1hFSFBTRFYpCiAjZGVmaW5lIElTX0hTV19FQVJMWV9TRFYoZGV2
-X3ByaXYpIChJU19IQVNXRUxMKGRldl9wcml2KSAmJiBcCiAJCQkJICAgIChJTlRFTF9ERVZJRChk
-ZXZfcHJpdikgJiAweEZGMDApID09IDB4MEMwMCkKICNkZWZpbmUgSVNfQkRXX1VMVChkZXZfcHJp
-dikgXApAQCAtMTYxMSw2ICsxNjEyLDkgQEAgSVNfU1VCUExBVEZPUk0oY29uc3Qgc3RydWN0IGRy
-bV9pOTE1X3ByaXZhdGUgKmk5MTUsCiAJKElTX0FMREVSTEFLRV9QKF9faTkxNSkgJiYgXAogCSBJ
-U19HVF9TVEVQKF9faTkxNSwgc2luY2UsIHVudGlsKSkKIAorI2RlZmluZSBJU19YRUhQU0RWX0dU
-X1NURVAocCwgc2luY2UsIHVudGlsKSBcCisJKElTX1hFSFBTRFYocCkgJiYgSVNfR1RfU1RFUChf
-X2k5MTUsIHNpbmNlLCB1bnRpbCkpCisKICNkZWZpbmUgSVNfTFAoZGV2X3ByaXYpCQkoSU5URUxf
-SU5GTyhkZXZfcHJpdiktPmlzX2xwKQogI2RlZmluZSBJU19HRU45X0xQKGRldl9wcml2KQkoR1JB
-UEhJQ1NfVkVSKGRldl9wcml2KSA9PSA5ICYmIElTX0xQKGRldl9wcml2KSkKICNkZWZpbmUgSVNf
-R0VOOV9CQyhkZXZfcHJpdikJKEdSQVBISUNTX1ZFUihkZXZfcHJpdikgPT0gOSAmJiAhSVNfTFAo
-ZGV2X3ByaXYpKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9wY2kuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGNpLmMKaW5kZXggNjVjYmFiMWMxYTE1Li4wN2M1
-N2Q4ZjNhOWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGNpLmMKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9wY2kuYwpAQCAtMTAyMCw2ICsxMDIwLDI2IEBA
-IHN0YXRpYyBjb25zdCBzdHJ1Y3QgaW50ZWxfZGV2aWNlX2luZm8gYWRsX3BfaW5mbyA9IHsKIAku
-cHBndHRfc2l6ZSA9IDQ4LCBcCiAJLnBwZ3R0X3R5cGUgPSBJTlRFTF9QUEdUVF9GVUxMCiAKKyNk
-ZWZpbmUgWEVfSFBNX0ZFQVRVUkVTIFwKKwkubWVkaWFfdmVyID0gMTIsIFwKKwkubWVkaWFfcmVs
-ID0gNTAKKworX19tYXliZV91bnVzZWQKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgaW50ZWxfZGV2aWNl
-X2luZm8geGVocHNkdl9pbmZvID0geworCVhFX0hQX0ZFQVRVUkVTLAorCVhFX0hQTV9GRUFUVVJF
-UywKKwlER0ZYX0ZFQVRVUkVTLAorCVBMQVRGT1JNKElOVEVMX1hFSFBTRFYpLAorCS5kaXNwbGF5
-ID0geyB9LAorCS5waXBlX21hc2sgPSAwLAorCS5wbGF0Zm9ybV9lbmdpbmVfbWFzayA9CisJCUJJ
-VChSQ1MwKSB8IEJJVChCQ1MwKSB8CisJCUJJVChWRUNTMCkgfCBCSVQoVkVDUzEpIHwgQklUKFZF
-Q1MyKSB8IEJJVChWRUNTMykgfAorCQlCSVQoVkNTMCkgfCBCSVQoVkNTMSkgfCBCSVQoVkNTMikg
-fCBCSVQoVkNTMykgfAorCQlCSVQoVkNTNCkgfCBCSVQoVkNTNSkgfCBCSVQoVkNTNikgfCBCSVQo
-VkNTNyksCisJLnJlcXVpcmVfZm9yY2VfcHJvYmUgPSAxLAorfTsKKwogI3VuZGVmIFBMQVRGT1JN
-CiAKIC8qCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5m
-by5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNlX2luZm8uYwppbmRleCBkMmE1
-MTRkMjU1MWQuLmI3NTBmOWRlZDlkNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-aW50ZWxfZGV2aWNlX2luZm8uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZp
-Y2VfaW5mby5jCkBAIC02OCw2ICs2OCw3IEBAIHN0YXRpYyBjb25zdCBjaGFyICogY29uc3QgcGxh
-dGZvcm1fbmFtZXNbXSA9IHsKIAlQTEFURk9STV9OQU1FKERHMSksCiAJUExBVEZPUk1fTkFNRShB
-TERFUkxBS0VfUyksCiAJUExBVEZPUk1fTkFNRShBTERFUkxBS0VfUCksCisJUExBVEZPUk1fTkFN
-RShYRUhQU0RWKSwKIH07CiAjdW5kZWYgUExBVEZPUk1fTkFNRQogCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5oIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvaW50ZWxfZGV2aWNlX2luZm8uaAppbmRleCA3NWM2OWNmYjExZjIuLjY5MGEwZDI4MTJiYiAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNlX2luZm8uaAorKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5oCkBAIC04OCw2ICs4OCw3
-IEBAIGVudW0gaW50ZWxfcGxhdGZvcm0gewogCUlOVEVMX0RHMSwKIAlJTlRFTF9BTERFUkxBS0Vf
-UywKIAlJTlRFTF9BTERFUkxBS0VfUCwKKwlJTlRFTF9YRUhQU0RWLAogCUlOVEVMX01BWF9QTEFU
-Rk9STVMKIH07CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3N0ZXAu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3N0ZXAuYwppbmRleCBiYTk0NzlhNjc1MjEu
-LmEyN2E0MWNhZWQ3MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfc3Rl
-cC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3N0ZXAuYwpAQCAtNTQsNiArNTQs
-MTMgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBpbnRlbF9zdGVwX2luZm8gYWRscF9yZXZpZF9zdGVw
-X3RibFtdID0gewogCVsweENdID0geyAuZ3Rfc3RlcCA9IFNURVBfQzAsIC5kaXNwbGF5X3N0ZXAg
-PSBTVEVQX0QwIH0sCiB9OwogCitzdGF0aWMgY29uc3Qgc3RydWN0IGludGVsX3N0ZXBfaW5mbyB4
-ZWhwc2R2X3JldmlkX3N0ZXBfdGJsW10gPSB7CisJWzB4MF0gPSB7IC5ndF9zdGVwID0gU1RFUF9B
-MCB9LAorCVsweDFdID0geyAuZ3Rfc3RlcCA9IFNURVBfQTEgfSwKKwlbMHg0XSA9IHsgLmd0X3N0
-ZXAgPSBTVEVQX0IwIH0sCisJWzB4OF0gPSB7IC5ndF9zdGVwID0gU1RFUF9DMCB9LAorfTsKKwog
-dm9pZCBpbnRlbF9zdGVwX2luaXQoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCiB7CiAJ
-Y29uc3Qgc3RydWN0IGludGVsX3N0ZXBfaW5mbyAqcmV2aWRzID0gTlVMTDsKQEAgLTYxLDcgKzY4
-LDEwIEBAIHZvaWQgaW50ZWxfc3RlcF9pbml0KHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1
-KQogCWludCByZXZpZCA9IElOVEVMX1JFVklEKGk5MTUpOwogCXN0cnVjdCBpbnRlbF9zdGVwX2lu
-Zm8gc3RlcCA9IHt9OwogCi0JaWYgKElTX0FMREVSTEFLRV9QKGk5MTUpKSB7CisJaWYgKElTX1hF
-SFBTRFYoaTkxNSkpIHsKKwkJcmV2aWRzID0geGVocHNkdl9yZXZpZF9zdGVwX3RibDsKKwkJc2l6
-ZSA9IEFSUkFZX1NJWkUoeGVocHNkdl9yZXZpZF9zdGVwX3RibCk7CisJfSBlbHNlIGlmIChJU19B
-TERFUkxBS0VfUChpOTE1KSkgewogCQlyZXZpZHMgPSBhZGxwX3JldmlkX3N0ZXBfdGJsOwogCQlz
-aXplID0gQVJSQVlfU0laRShhZGxwX3JldmlkX3N0ZXBfdGJsKTsKIAl9IGVsc2UgaWYgKElTX0FM
-REVSTEFLRV9TKGk5MTUpKSB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRl
-bF9zdGVwLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9zdGVwLmgKaW5kZXggOTU4YThi
-YjVkNjc3Li44ZWZhY2VmNmFiMzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2lu
-dGVsX3N0ZXAuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9zdGVwLmgKQEAgLTIy
-LDYgKzIyLDcgQEAgc3RydWN0IGludGVsX3N0ZXBfaW5mbyB7CiBlbnVtIGludGVsX3N0ZXAgewog
-CVNURVBfTk9ORSA9IDAsCiAJU1RFUF9BMCwKKwlTVEVQX0ExLAogCVNURVBfQTIsCiAJU1RFUF9C
-MCwKIAlTVEVQX0IxLAotLSAKMi4yNS40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9pbnRlbC1nZngK
+DG2's replicated register ranges are almost the same at XeHP SDV with
+the exception of one LNCF sub-range that switches to gslice steering.
+We can re-use the XeHP SDV mslice steering table and just provide a
+DG2-specific LNCF steering table.
+
+Bspec: 66534
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 9d1c99c9c0dd..d640fd37792f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -103,6 +103,12 @@ static const struct intel_mmio_range xehpsdv_lncf_steering_table[] = {
+ 	{},
+ };
+ 
++static const struct intel_mmio_range dg2_lncf_steering_table[] = {
++	{ 0x00B000, 0x00B0FF },
++	{ 0x00D880, 0x00D8FF },
++	{},
++};
++
+ static u16 slicemask(struct intel_gt *gt, int count)
+ {
+ 	u64 dss_mask = intel_sseu_get_subslices(&gt->info.sseu, 0);
+@@ -127,7 +133,10 @@ int intel_gt_init_mmio(struct intel_gt *gt)
+ 			(intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3) &
+ 			 GEN12_MEML3_EN_MASK);
+ 
+-	if (IS_XEHPSDV(gt->i915)) {
++	if (IS_DG2(gt->i915)) {
++		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
++		gt->steering_table[LNCF] = dg2_lncf_steering_table;
++	} else if (IS_XEHPSDV(gt->i915)) {
+ 		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
+ 		gt->steering_table[LNCF] = xehpsdv_lncf_steering_table;
+ 	} else if (GRAPHICS_VER(gt->i915) >= 11 &&
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
