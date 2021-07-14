@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C7E8C11F66
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E878C07E96
 	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D178361289
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D178361289
+	by mail.kernel.org (Postfix) with ESMTPS id 601C9613AA
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 601C9613AA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E03C66E18E;
-	Wed, 14 Jul 2021 03:16:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84F2C6E197;
+	Wed, 14 Jul 2021 03:16:04 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D50A86E15C
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:16:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232085889"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232085889"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC3336E167
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:57 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232085865"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232085865"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:16:01 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031621"
+ 13 Jul 2021 20:15:57 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031552"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:16:01 -0700
+ 13 Jul 2021 20:15:57 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:15:40 -0700
-Message-Id: <20210714031540.3539704-51-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:15:21 -0700
+Message-Id: <20210714031540.3539704-32-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 50/50] drm/i915/dg2: Configure PCON in DP
- pre-enable path
+Subject: [Intel-gfx] [PATCH v2 31/50] drm/i915/dg2: Define MOCS table for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,38 +58,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-
-Add the functions to configure HDMI2.1 pcon for DG2, before DP link
-training.
-
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Bspec: 45101, 45427
+Cc: Ramalingam C <ramalingam.c@intel.com>(v5)
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_mocs.c | 35 +++++++++++++++++++++++++++-
+ 1 file changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index f96dd8dde61e..659583c360d4 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2576,6 +2576,7 @@ static void dg2_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	if (!is_mst)
- 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
+index 0c9d0b936c20..d22ca8212092 100644
+--- a/drivers/gpu/drm/i915/gt/intel_mocs.c
++++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
+@@ -341,6 +341,30 @@ static const struct drm_i915_mocs_entry xehpsdv_mocs_table[] = {
+ 	MOCS_ENTRY(63, 0, L3_1_UC),
+ };
  
-+	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
- 	intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
- 	/*
- 	 * DDI FEC: "anticipates enabling FEC encoding sets the FEC_READY bit
-@@ -2583,6 +2584,8 @@ static void dg2_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	 * training
- 	 */
- 	intel_dp_sink_set_fec_ready(intel_dp, crtc_state);
-+	intel_dp_check_frl_training(intel_dp);
-+	intel_dp_pcon_dsc_configure(intel_dp, crtc_state);
++static const struct drm_i915_mocs_entry dg2_mocs_table[] = {
++	/* UC - Coherent; GO:L3 */
++	MOCS_ENTRY(0, 0, L3_1_UC | L3_LKUP(1)),
++	/* UC - Coherent; GO:Memory */
++	MOCS_ENTRY(1, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
++	/* UC - Non-Coherent; GO:Memory */
++	MOCS_ENTRY(2, 0, L3_1_UC | L3_GLBGO(1)),
++
++	/* WB - LC */
++	MOCS_ENTRY(3, 0, L3_3_WB | L3_LKUP(1)),
++};
++
++static const struct drm_i915_mocs_entry dg2_mocs_table_g10_ax[] = {
++	/* Wa_14011441408: Set Go to Memory for MOCS#0 */
++	MOCS_ENTRY(0, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
++	/* UC - Coherent; GO:Memory */
++	MOCS_ENTRY(1, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
++	/* UC - Non-Coherent; GO:Memory */
++	MOCS_ENTRY(2, 0, L3_1_UC | L3_GLBGO(1)),
++
++	/* WB - LC */
++	MOCS_ENTRY(3, 0, L3_3_WB | L3_LKUP(1)),
++};
++
+ enum {
+ 	HAS_GLOBAL_MOCS = BIT(0),
+ 	HAS_ENGINE_MOCS = BIT(1),
+@@ -367,7 +391,16 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
+ {
+ 	unsigned int flags;
  
- 	/*
- 	 * 5.h Follow DisplayPort specification training sequence (see notes for
+-	if (IS_XEHPSDV(i915)) {
++	if (IS_DG2(i915)) {
++		if (IS_DG2_GT_STEP(i915, G10, STEP_A0, (STEP_B0 - 1))) {
++			table->size = ARRAY_SIZE(dg2_mocs_table_g10_ax);
++			table->table = dg2_mocs_table_g10_ax;
++		} else {
++			table->size = ARRAY_SIZE(dg2_mocs_table);
++			table->table = dg2_mocs_table;
++		}
++		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
++	} else if (IS_XEHPSDV(i915)) {
+ 		table->size = ARRAY_SIZE(xehpsdv_mocs_table);
+ 		table->table = xehpsdv_mocs_table;
+ 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
 -- 
 2.25.4
 
