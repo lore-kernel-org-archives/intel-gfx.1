@@ -7,40 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B3CCC11F6B
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AC3AC07E96
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E4D161289
+	by mail.kernel.org (Postfix) with ESMTPS id D158761289
 	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jul 2021 03:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E4D161289
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D158761289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F42F6E195;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F23F6E193;
 	Wed, 14 Jul 2021 03:16:04 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2A2F6E15C
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232085867"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232085867"
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 464AC6E167
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Jul 2021 03:15:54 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210256261"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210256261"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:57 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031556"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 20:15:53 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="494031500"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:15:57 -0700
+ 13 Jul 2021 20:15:53 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Jul 2021 20:15:22 -0700
-Message-Id: <20210714031540.3539704-33-matthew.d.roper@intel.com>
+Date: Tue, 13 Jul 2021 20:15:07 -0700
+Message-Id: <20210714031540.3539704-18-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 32/50] drm/i915/dg2: Add fake PCH
+Subject: [Intel-gfx] [PATCH v2 17/50] drm/i915/xehpsdv: Add maximum sseu
+ limits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,55 +54,68 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QXMgd2l0aCBERzEsIERHMiBoYXMgYW4gSUNMLXN0eWxlIHNvdXRoIGRpc3BsYXkgaW50ZXJmYWNl
-IHByb3ZpZGVkIG9uCnRoZSBzYW1lIFBDSSBkZXZpY2UuICBBZGQgYSBmYWtlIFBDSCB0byBlbnN1
-cmUgREcyIHRha2VzIHRoZSBhcHByb3ByaWF0ZQpjb2RlcGF0aHMgZm9yIHNvdXRoIGRpc3BsYXkg
-aGFuZGxpbmcuCgpCc3BlYzogNTQ4NzEsIDUwMDYyLCA0OTk2MSwgNTM2NzMKQ2M6IEx1Y2FzIERl
-IE1hcmNoaSA8bHVjYXMuZGVtYXJjaGlAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJv
-cGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBBZGl0eWEgU3dh
-cnVwIDxhZGl0eWEuc3dhcnVwQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0
-byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+ClJldmlld2VkLWJ5OiBMdWNhcyBEZSBN
-YXJjaGkgPGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9pOTE1X2lycS5jICB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BjaC5jIHwg
-MyArKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BjaC5oIHwgMiArKwogMyBmaWxlcyBj
-aGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9p
-cnEuYwppbmRleCA2MWRjZWIyYTE3YzEuLmUyMTcxYmQyODIwZSAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvaTkxNV9pcnEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
-X2lycS5jCkBAIC0yMDcsNyArMjA3LDcgQEAgc3RhdGljIHZvaWQgaW50ZWxfaHBkX2luaXRfcGlu
-cyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJICAgICghSEFTX1BDSF9TUExJ
-VChkZXZfcHJpdikgfHwgSEFTX1BDSF9OT1AoZGV2X3ByaXYpKSkKIAkJcmV0dXJuOwogCi0JaWYg
-KEhBU19QQ0hfREcxKGRldl9wcml2KSkKKwlpZiAoSU5URUxfUENIX1RZUEUoZGV2X3ByaXYpID49
-IFBDSF9ERzEpCiAJCWhwZC0+cGNoX2hwZCA9IGhwZF9zZGVfZGcxOwogCWVsc2UgaWYgKElOVEVM
-X1BDSF9UWVBFKGRldl9wcml2KSA+PSBQQ0hfSUNQKQogCQlocGQtPnBjaF9ocGQgPSBocGRfaWNw
-OwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcGNoLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pbnRlbF9wY2guYwppbmRleCA0ZTkyYWUxOTE4OWUuLmNjNDQxNjRlMjQy
-YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcGNoLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcGNoLmMKQEAgLTIxMSw2ICsyMTEsOSBAQCB2b2lkIGlu
-dGVsX2RldGVjdF9wY2goc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KQogCWlmIChJ
-U19ERzEoZGV2X3ByaXYpKSB7CiAJCWRldl9wcml2LT5wY2hfdHlwZSA9IFBDSF9ERzE7CiAJCXJl
-dHVybjsKKwl9IGVsc2UgaWYgKElTX0RHMihkZXZfcHJpdikpIHsKKwkJZGV2X3ByaXYtPnBjaF90
-eXBlID0gUENIX0RHMjsKKwkJcmV0dXJuOwogCX0KIAogCS8qCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pbnRlbF9wY2guaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3Bj
-aC5oCmluZGV4IGUyZjNmMzBjNjQ0NS4uN2MwZDgzZDI5MmRjIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pbnRlbF9wY2guaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRl
-bF9wY2guaApAQCAtMzAsNiArMzAsNyBAQCBlbnVtIGludGVsX3BjaCB7CiAKIAkvKiBGYWtlIFBD
-SHMsIGZ1bmN0aW9uYWxpdHkgaGFuZGxlZCBvbiB0aGUgc2FtZSBQQ0kgZGV2ICovCiAJUENIX0RH
-MSA9IDEwMjQsCisJUENIX0RHMiwKIH07CiAKICNkZWZpbmUgSU5URUxfUENIX0RFVklDRV9JRF9N
-QVNLCQkweGZmODAKQEAgLTYyLDYgKzYzLDcgQEAgZW51bSBpbnRlbF9wY2ggewogCiAjZGVmaW5l
-IElOVEVMX1BDSF9UWVBFKGRldl9wcml2KQkJKChkZXZfcHJpdiktPnBjaF90eXBlKQogI2RlZmlu
-ZSBJTlRFTF9QQ0hfSUQoZGV2X3ByaXYpCQkJKChkZXZfcHJpdiktPnBjaF9pZCkKKyNkZWZpbmUg
-SEFTX1BDSF9ERzIoZGV2X3ByaXYpCQkJKElOVEVMX1BDSF9UWVBFKGRldl9wcml2KSA9PSBQQ0hf
-REcyKQogI2RlZmluZSBIQVNfUENIX0FEUChkZXZfcHJpdikJCQkoSU5URUxfUENIX1RZUEUoZGV2
-X3ByaXYpID09IFBDSF9BRFApCiAjZGVmaW5lIEhBU19QQ0hfREcxKGRldl9wcml2KQkJCShJTlRF
-TF9QQ0hfVFlQRShkZXZfcHJpdikgPT0gUENIX0RHMSkKICNkZWZpbmUgSEFTX1BDSF9KU1AoZGV2
-X3ByaXYpCQkJKElOVEVMX1BDSF9UWVBFKGRldl9wcml2KSA9PSBQQ0hfSlNQKQotLSAKMi4yNS40
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1n
-ZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+Due to the removal of legacy slices and the transition to a
+gslice/cslice/mslice/etc. design, we'll internally store all DSS under
+"slice0."
+
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_sseu.c         | 5 ++++-
+ drivers/gpu/drm/i915/gt/intel_sseu.h         | 2 +-
+ drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c | 2 +-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index 5d1b7d06c96b..16c0552fcd1d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -145,7 +145,10 @@ static void gen12_sseu_info_init(struct intel_gt *gt)
+ 	 * across the entire device. Then calculate out the DSS for each
+ 	 * workload type within that software slice.
+ 	 */
+-	intel_sseu_set_info(sseu, 1, 6, 16);
++	if (IS_XEHPSDV(gt->i915))
++		intel_sseu_set_info(sseu, 1, 32, 16);
++	else
++		intel_sseu_set_info(sseu, 1, 6, 16);
+ 
+ 	/*
+ 	 * As mentioned above, Xe_HP does not have the concept of a slice.
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
+index 74487650b08f..204ea6709460 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.h
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
+@@ -16,7 +16,7 @@ struct intel_gt;
+ struct drm_printer;
+ 
+ #define GEN_MAX_SLICES		(6) /* CNL upper bound */
+-#define GEN_MAX_SUBSLICES	(8) /* ICL upper bound */
++#define GEN_MAX_SUBSLICES	(32) /* XEHPSDV upper bound */
+ #define GEN_SSEU_STRIDE(max_entries) DIV_ROUND_UP(max_entries, BITS_PER_BYTE)
+ #define GEN_MAX_SUBSLICE_STRIDE GEN_SSEU_STRIDE(GEN_MAX_SUBSLICES)
+ #define GEN_MAX_EUS		(16) /* TGL upper bound */
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
+index 714fe8495775..a424150b052e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
+@@ -53,7 +53,7 @@ static void cherryview_sseu_device_status(struct intel_gt *gt,
+ static void gen10_sseu_device_status(struct intel_gt *gt,
+ 				     struct sseu_dev_info *sseu)
+ {
+-#define SS_MAX 6
++#define SS_MAX 8
+ 	struct intel_uncore *uncore = gt->uncore;
+ 	const struct intel_gt_info *info = &gt->info;
+ 	u32 s_reg[SS_MAX], eu_reg[2 * SS_MAX], eu_mask[2];
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
