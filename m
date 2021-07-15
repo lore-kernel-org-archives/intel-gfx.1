@@ -2,71 +2,73 @@ Return-Path: <SRS0=YxzO=MH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F000C636C8
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 22:39:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A6FCC636C9
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 22:39:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0B75E613D4
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 22:39:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B75E613D4
+	by mail.kernel.org (Postfix) with ESMTPS id E9835613D4
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 22:39:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E9835613D4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7D7189362;
-	Thu, 15 Jul 2021 22:39:08 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7474B89362
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 22:39:08 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id b12so7015401pfv.6
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 15:39:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ABE46E47A;
+	Thu, 15 Jul 2021 22:39:12 +0000 (UTC)
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [IPv6:2607:f8b0:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B46E26E455
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 22:39:11 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id c1so3183487pfc.13
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 15:39:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=G1Lpom/liCFd7FkPda8eG+Ob59hWafgxm9MVZyipJKo=;
- b=0hy8UNQn6b8g3IZrpVAd8Q9Obk69uJrHeqzA3FUwOB0ty1FC0JRHimil0TRxjH1lK8
- D7txpJzPQx9dM/dSQCBqF12E6+OtyH2mBquV+lmrjoW7lTeg19saD47m3Nfaq+gI5ka7
- nY/Y7DrZCBjvxD6BaJft5F76PAD90IO2PL+mpA8sDAZvWfswD1WXfGdj0VlFZmPJBC5X
- Cvw0IUxZoD4F0DKF6dmVEKbwid3HdOeJKI6MaSx1BWe9gHdI2FFg9GjZVgJoKj3Zl1Li
- eNYOIJ9HKiLgf+VNcIK+mcmJLhKVlBR2DaGHxj3mFivXSy3tvv73kApxawJ7kch2iMis
- 4ndg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=/jcwphcKJO9pLpY070tV+qaBYrvw17p6gFbN9lGJR2I=;
+ b=RObuNOMMSoQKIBLvLDzC0l+1NS3oX5NrJCVtFApipg7dBOrt9Cw6R9x4i2SZ2jB7j1
+ JCtj+pApzgFPNKE0BteEXuVWAvomdLZwXqt2sYf5Vn8v0guOJ2mqXUXt51LXUVVdQf1B
+ f9sP34FELkQU3RSNNuzKX5K5weeNxqE6O0RgDY+S9sTLa8Q4p4IzN+oNeyP6SLVdjqJp
+ gG5lS83Ix71329RNcFH1RWiM2wqo/jS9ZroTXpN66CGTGjq1ydTk5b6FXabvNhyWlRqo
+ hygF4b9gULs6Sn4dz3U5PloAPvmOlTolG1OUvitwyd5jbZfu144K8+h6UScsHV2Hz83U
+ yZUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=G1Lpom/liCFd7FkPda8eG+Ob59hWafgxm9MVZyipJKo=;
- b=AeIEsJa4ggFiR2mCuzAMgcPZD89dm+wtQ9Cyt+boS4RKIvv6qv5ZOJXuslKbGOHEB1
- ytdOOQfC5Q0dHO1LAFc1IjCOHTHzbHI8bS3NKd+HrjHWpTRmei9BS9X6xl/hg09Y4y/r
- BnFStVV3MfDEtaC0lu3gsw9rBWa1Xr0pXjVe76ZiNqajUbuIXaCIkkh3MdWFcHQvR5fn
- epLLhl0/CEOSQ2iVJRFdmSnroAwIk5jEZCw/ebOuwwMwUantnc/JXpy2gclTXfD4a536
- kZpL8oA3rGUQGKvVsIGiTPU9tkviF+b2MKKlWP5xguW5nuuYmJma0NdZJlF/cdkEJxJg
- 0A+A==
-X-Gm-Message-State: AOAM533xj82UH7UpuT8o/x6RbRCeR+oqrNk+S1azcWhl8RUfDyBh/gox
- msWMUrhAxeeu25EjdP8rxT+KT0bawB+qfw==
-X-Google-Smtp-Source: ABdhPJzDILL7sndS34R3iOTTaSbyM8hR+PBuVhZinzcqPzSNlp9xv8k+9pOlFG5FKA+2DCiEfRiexQ==
-X-Received: by 2002:a05:6a00:84d:b029:329:a067:b1bf with SMTP id
- q13-20020a056a00084db0290329a067b1bfmr6883158pfk.47.1626388747488; 
- Thu, 15 Jul 2021 15:39:07 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=/jcwphcKJO9pLpY070tV+qaBYrvw17p6gFbN9lGJR2I=;
+ b=XLi4T6Zk7zoE845qNzs45DQRh0njfKOGQGOXywPbtmENFSxI06tpQQrcCMXZjLm+/0
+ ZE6NePzH2GtmYCb6oQEd/oT0gCYgtIbzkIEWtSSX0IL3v1Pq0QMs2hV0JeKtQWDZ0As2
+ VVqxdfGKRevETs2vyk2ZK+aQ740bU1Gb4STnO0QUvpCqqdYbiPPAtLXqotQgst6ZIob9
+ 9k7XVlILELShtn2cVBepSGpHqoyPVfEBdpFoKw5fHRz9aZDTTndkQJR7OOnwmZaY0XBC
+ mFkSRGu3+uLkrY5RHwzK/pQa/Z4D8gisIldEEWhx6U56S6izg763gpb47cN+4MN0AwbY
+ /oUQ==
+X-Gm-Message-State: AOAM533GbeyHqvkx2DXkJnpdQLqXjjKxgXAxduhEu4FYtN8CaLtUlLFE
+ oCfR0ilcGpFsZkbwTRLgfJVB0O1UBlkvEA==
+X-Google-Smtp-Source: ABdhPJxtvb599Pb+jYg4WyJmpxc79u9lpzcDxUUL5z3sAf6yKhwwR80yXezC6JzoNShMt6nW/yfzgQ==
+X-Received: by 2002:a05:6a00:21c6:b029:2ff:e9:94f0 with SMTP id
+ t6-20020a056a0021c6b02902ff00e994f0mr7077057pfj.73.1626388750958; 
+ Thu, 15 Jul 2021 15:39:10 -0700 (PDT)
 Received: from omlet.com ([134.134.137.87])
- by smtp.gmail.com with ESMTPSA id ft7sm9959459pjb.32.2021.07.15.15.39.05
+ by smtp.gmail.com with ESMTPSA id ft7sm9959459pjb.32.2021.07.15.15.39.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jul 2021 15:39:06 -0700 (PDT)
+ Thu, 15 Jul 2021 15:39:10 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 15 Jul 2021 17:38:53 -0500
-Message-Id: <20210715223900.1840576-1-jason@jlekstrand.net>
+Date: Thu, 15 Jul 2021 17:38:55 -0500
+Message-Id: <20210715223900.1840576-3-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210715223900.1840576-1-jason@jlekstrand.net>
+References: <20210715223900.1840576-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/7] drm/i915: Migrate memory to SMEM when
- imported cross-device
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915/gem: Refactor placement setup for
+ i915_gem_object_create*
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,32 +81,220 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhpcyBwYXRjaCBzZXJpZXMgZml4ZXMgYW4gaXNzdWUgd2l0aCBkaXNjcmV0ZSBncmFwaGljcyBv
-biBJbnRlbCB3aGVyZSB3ZQphbGxvd2VkIGRtYS1idWYgaW1wb3J0IHdoaWxlIGxlYXZpbmcgdGhl
-IG9iamVjdCBpbiBsb2NhbCBtZW1vcnkuICBUaGlzCmJyZWFrcyBkb3duIHByZXR0eSBiYWRseSBp
-ZiB0aGUgaW1wb3J0IGhhcHBlbmVkIG9uIGEgZGlmZmVyZW50IHBoeXNpY2FsCmRldmljZS4KCkph
-c29uIEVrc3RyYW5kICg1KToKICBkcm0vaTkxNS9nZW06IENoZWNrIG9iamVjdF9jYW5fbWlncmF0
-ZSBmcm9tIG9iamVjdF9taWdyYXRlCiAgZHJtL2k5MTUvZ2VtOiBSZWZhY3RvciBwbGFjZW1lbnQg
-c2V0dXAgZm9yIGk5MTVfZ2VtX29iamVjdF9jcmVhdGUqCiAgZHJtL2k5MTUvZ2VtOiBVbmlmeSB1
-c2VyIG9iamVjdCBjcmVhdGlvbgogIGRybS9pOTE1L2dlbS90dG06IFBsYWNlIG5ldyBCT3MgaW4g
-dGhlIHJlcXVlc3RlZCByZWdpb24KICBkcm0vaTkxNS9nZW0vdHRtOiBSZXNwZWN0IHRoZSBvYmpl
-Y3Rpb24gcmVnaW9uIGluIHBsYWNlbWVudF9mcm9tX29iagoKVGhvbWFzIEhlbGxzdHLDtm0gKDIp
-OgogIGRybS9pOTE1L2dlbTogQ29ycmVjdCB0aGUgbG9ja2luZyBhbmQgcGluIHBhdHRlcm4gZm9y
-IGRtYS1idWYgKHY2KQogIGRybS9pOTE1L2dlbTogTWlncmF0ZSB0byBzeXN0ZW0gYXQgZG1hLWJ1
-ZiBhdHRhY2ggdGltZSAodjYpCgogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2Ny
-ZWF0ZS5jICAgIHwgMTU5ICsrKysrKysrLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2Vt
-L2k5MTVfZ2VtX2RtYWJ1Zi5jICAgIHwgIDY0ICsrKystLQogZHJpdmVycy9ncHUvZHJtL2k5MTUv
-Z2VtL2k5MTVfZ2VtX29iamVjdC5jICAgIHwgIDEzICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9n
-ZW0vaTkxNV9nZW1fb2JqZWN0LmggICAgfCAgIDQgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2Vt
-L2k5MTVfZ2VtX3R0bS5jICAgICAgIHwgIDExICstCiAuLi4vZHJtL2k5MTUvZ2VtL3NlbGZ0ZXN0
-cy9pOTE1X2dlbV9kbWFidWYuYyAgfCAxODQgKysrKysrKysrKysrKysrKystCiAuLi4vZHJtL2k5
-MTUvZ2VtL3NlbGZ0ZXN0cy9pOTE1X2dlbV9taWdyYXRlLmMgfCAgMTUgLS0KIDcgZmlsZXMgY2hh
-bmdlZCwgMzI0IGluc2VydGlvbnMoKyksIDEyNiBkZWxldGlvbnMoLSkKCi0tIAoyLjMxLjEKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBt
-YWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+Since we don't allow changing the set of regions after creation, we can
+make ext_set_placements() build up the region set directly in the
+create_ext and assign it to the object later.  This is similar to what
+we did for contexts with the proto-context only simpler because there's
+no funny object shuffling.  This will be used in the next patch to allow
+us to de-duplicate a bunch of code.  Also, since we know the maximum
+number of regions up-front, we can use a fixed-size temporary array for
+the regions.  This simplifies memory management a bit for this new
+delayed approach.
+
+Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_create.c | 75 +++++++++++++---------
+ 1 file changed, 45 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+index 51f92e4b1a69d..391c8c4a12172 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+@@ -27,10 +27,13 @@ static u32 object_max_page_size(struct drm_i915_gem_object *obj)
+ 	return max_page_size;
+ }
+ 
+-static void object_set_placements(struct drm_i915_gem_object *obj,
+-				  struct intel_memory_region **placements,
+-				  unsigned int n_placements)
++static int object_set_placements(struct drm_i915_gem_object *obj,
++				 struct intel_memory_region **placements,
++				 unsigned int n_placements)
+ {
++	struct intel_memory_region **arr;
++	unsigned int i;
++
+ 	GEM_BUG_ON(!n_placements);
+ 
+ 	/*
+@@ -44,9 +47,20 @@ static void object_set_placements(struct drm_i915_gem_object *obj,
+ 		obj->mm.placements = &i915->mm.regions[mr->id];
+ 		obj->mm.n_placements = 1;
+ 	} else {
+-		obj->mm.placements = placements;
++		arr = kmalloc_array(n_placements,
++				    sizeof(struct intel_memory_region *),
++				    GFP_KERNEL);
++		if (!arr)
++			return -ENOMEM;
++
++		for (i = 0; i < n_placements; i++)
++			arr[i] = placements[i];
++
++		obj->mm.placements = arr;
+ 		obj->mm.n_placements = n_placements;
+ 	}
++
++	return 0;
+ }
+ 
+ static int i915_gem_publish(struct drm_i915_gem_object *obj,
+@@ -148,7 +162,9 @@ i915_gem_dumb_create(struct drm_file *file,
+ 		return -ENOMEM;
+ 
+ 	mr = intel_memory_region_by_type(to_i915(dev), mem_type);
+-	object_set_placements(obj, &mr, 1);
++	ret = object_set_placements(obj, &mr, 1);
++	if (ret)
++		goto object_free;
+ 
+ 	ret = i915_gem_setup(obj, args->size);
+ 	if (ret)
+@@ -184,7 +200,9 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		return -ENOMEM;
+ 
+ 	mr = intel_memory_region_by_type(i915, INTEL_MEMORY_SYSTEM);
+-	object_set_placements(obj, &mr, 1);
++	ret = object_set_placements(obj, &mr, 1);
++	if (ret)
++		goto object_free;
+ 
+ 	ret = i915_gem_setup(obj, args->size);
+ 	if (ret)
+@@ -197,9 +215,12 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
+ 	return ret;
+ }
+ 
++#define MAX_N_PLACEMENTS = (INTEL_REGION_UNKNOWN + 1)
++
+ struct create_ext {
+ 	struct drm_i915_private *i915;
+-	struct drm_i915_gem_object *vanilla_object;
++	struct intel_memory_region *placements[INTEL_REGION_UNKNOWN];
++	unsigned int n_placements;
+ };
+ 
+ static void repr_placements(char *buf, size_t size,
+@@ -230,8 +251,7 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
+ 	struct drm_i915_private *i915 = ext_data->i915;
+ 	struct drm_i915_gem_memory_class_instance __user *uregions =
+ 		u64_to_user_ptr(args->regions);
+-	struct drm_i915_gem_object *obj = ext_data->vanilla_object;
+-	struct intel_memory_region **placements;
++	struct intel_memory_region *placements[INTEL_REGION_UNKNOWN];
+ 	u32 mask;
+ 	int i, ret = 0;
+ 
+@@ -245,6 +265,8 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
+ 		ret = -EINVAL;
+ 	}
+ 
++	BUILD_BUG_ON(ARRAY_SIZE(i915->mm.regions) != ARRAY_SIZE(placements));
++	BUILD_BUG_ON(ARRAY_SIZE(ext_data->placements) != ARRAY_SIZE(placements));
+ 	if (args->num_regions > ARRAY_SIZE(i915->mm.regions)) {
+ 		drm_dbg(&i915->drm, "num_regions is too large\n");
+ 		ret = -EINVAL;
+@@ -253,12 +275,6 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
+ 	if (ret)
+ 		return ret;
+ 
+-	placements = kmalloc_array(args->num_regions,
+-				   sizeof(struct intel_memory_region *),
+-				   GFP_KERNEL);
+-	if (!placements)
+-		return -ENOMEM;
+-
+ 	mask = 0;
+ 	for (i = 0; i < args->num_regions; i++) {
+ 		struct drm_i915_gem_memory_class_instance region;
+@@ -293,14 +309,13 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
+ 		++uregions;
+ 	}
+ 
+-	if (obj->mm.placements) {
++	if (ext_data->n_placements) {
+ 		ret = -EINVAL;
+ 		goto out_dump;
+ 	}
+ 
+-	object_set_placements(obj, placements, args->num_regions);
+-	if (args->num_regions == 1)
+-		kfree(placements);
++	for (i = 0; i < args->num_regions; i++)
++		ext_data->placements[i] = placements[i];
+ 
+ 	return 0;
+ 
+@@ -308,11 +323,11 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
+ 	if (1) {
+ 		char buf[256];
+ 
+-		if (obj->mm.placements) {
++		if (ext_data->n_placements) {
+ 			repr_placements(buf,
+ 					sizeof(buf),
+-					obj->mm.placements,
+-					obj->mm.n_placements);
++					ext_data->placements,
++					ext_data->n_placements);
+ 			drm_dbg(&i915->drm,
+ 				"Placements were already set in previous EXT. Existing placements: %s\n",
+ 				buf);
+@@ -358,7 +373,6 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct drm_i915_gem_create_ext *args = data;
+ 	struct create_ext ext_data = { .i915 = i915 };
+-	struct intel_memory_region **placements_ext;
+ 	struct drm_i915_gem_object *obj;
+ 	int ret;
+ 
+@@ -371,21 +385,22 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+ 	if (!obj)
+ 		return -ENOMEM;
+ 
+-	ext_data.vanilla_object = obj;
+ 	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
+ 				   create_extensions,
+ 				   ARRAY_SIZE(create_extensions),
+ 				   &ext_data);
+-	placements_ext = obj->mm.placements;
+ 	if (ret)
+ 		goto object_free;
+ 
+-	if (!placements_ext) {
+-		struct intel_memory_region *mr =
++	if (!ext_data.n_placements) {
++		ext_data.placements[0] =
+ 			intel_memory_region_by_type(i915, INTEL_MEMORY_SYSTEM);
+-
+-		object_set_placements(obj, &mr, 1);
++		ext_data.n_placements = 1;
+ 	}
++	ret = object_set_placements(obj, ext_data.placements,
++				    ext_data.n_placements);
++	if (ret)
++		goto object_free;
+ 
+ 	ret = i915_gem_setup(obj, args->size);
+ 	if (ret)
+@@ -395,7 +410,7 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+ 
+ object_free:
+ 	if (obj->mm.n_placements > 1)
+-		kfree(placements_ext);
++		kfree(obj->mm.placements);
+ 	i915_gem_object_free(obj);
+ 	return ret;
+ }
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
