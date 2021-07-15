@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02ABDC47E48
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 09:18:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E1BBC1B08C
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 09:18:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9CD946128D
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 09:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CD946128D
+	by mail.kernel.org (Postfix) with ESMTPS id E1288610C7
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 09:18:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1288610C7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F7E86E5D2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C5B6E5D3;
 	Thu, 15 Jul 2021 09:18:36 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AFA289A88;
- Thu, 15 Jul 2021 09:18:35 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10045"; a="232333005"
-X-IronPort-AV: E=Sophos;i="5.84,240,1620716400"; d="scan'208";a="232333005"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D45D6E5CF;
+ Thu, 15 Jul 2021 09:18:32 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10045"; a="232332987"
+X-IronPort-AV: E=Sophos;i="5.84,240,1620716400"; d="scan'208";a="232332987"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2021 02:18:35 -0700
-X-IronPort-AV: E=Sophos;i="5.84,240,1620716400"; d="scan'208";a="572767956"
+ 15 Jul 2021 02:18:32 -0700
+X-IronPort-AV: E=Sophos;i="5.84,240,1620716400"; d="scan'208";a="572767256"
 Received: from shyland-mobl2.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.241.81])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2021 02:18:33 -0700
+ 15 Jul 2021 02:18:30 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Jul 2021 10:18:16 +0100
-Message-Id: <20210715091820.1613726-5-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 15 Jul 2021 10:18:14 +0100
+Message-Id: <20210715091820.1613726-3-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210715091820.1613726-1-tvrtko.ursulin@linux.intel.com>
 References: <20210715091820.1613726-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 4/8] drm/i915: Track all user contexts per client
+Subject: [Intel-gfx] [RFC 2/8] drm/i915: Make GEM contexts track DRM clients
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,110 +62,61 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-We soon want to start answering questions like how much GPU time is the
-context belonging to a client which exited still using.
+Make GEM contexts keep a reference to i915_drm_client for the whole of
+of their lifetime which will come handy in following patches.
 
-To enable this we start tracking all context belonging to a client on a
-separate list.
+v2: Don't bother supporting selftests contexts from debugfs. (Chris)
+v3 (Lucas): Finish constructing ctx before adding it to the list
+v4 (Ram): Rebase.
+v5: Trivial rebase for proto ctx changes.
+v6: Rebase after clients no longer track name and pid.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk> # v5
+Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com> # v5
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c       | 12 ++++++++++++
- drivers/gpu/drm/i915/gem/i915_gem_context_types.h |  3 +++
- drivers/gpu/drm/i915/i915_drm_client.c            |  2 ++
- drivers/gpu/drm/i915/i915_drm_client.h            |  5 +++++
- 4 files changed, 22 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c       | 5 +++++
+ drivers/gpu/drm/i915/gem/i915_gem_context_types.h | 3 +++
+ 2 files changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 4b93fcb11914..9f32540f97bd 100644
+index 7d6f52d8a801..3bf409cf0214 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1215,6 +1215,7 @@ static void set_closed_name(struct i915_gem_context *ctx)
+@@ -988,6 +988,9 @@ void i915_gem_context_release(struct kref *ref)
+ 	trace_i915_context_free(ctx);
+ 	GEM_BUG_ON(!i915_gem_context_is_closed(ctx));
  
- static void context_close(struct i915_gem_context *ctx)
- {
-+	struct i915_drm_client *client;
- 	struct i915_address_space *vm;
- 
- 	/* Flush any concurrent set_engines() */
-@@ -1247,6 +1248,13 @@ static void context_close(struct i915_gem_context *ctx)
- 	list_del(&ctx->link);
- 	spin_unlock(&ctx->i915->gem.contexts.lock);
- 
-+	client = ctx->client;
-+	if (client) {
-+		spin_lock(&client->ctx_lock);
-+		list_del_rcu(&ctx->client_link);
-+		spin_unlock(&client->ctx_lock);
-+	}
++	if (ctx->client)
++		i915_drm_client_put(ctx->client);
 +
- 	mutex_unlock(&ctx->mutex);
+ 	mutex_destroy(&ctx->engines_mutex);
+ 	mutex_destroy(&ctx->lut_mutex);
  
- 	/*
-@@ -1469,6 +1477,10 @@ static void gem_context_register(struct i915_gem_context *ctx,
- 	old = xa_store(&fpriv->context_xa, id, ctx, GFP_KERNEL);
- 	WARN_ON(old);
+@@ -1436,6 +1439,8 @@ static void gem_context_register(struct i915_gem_context *ctx,
+ 	ctx->file_priv = fpriv;
  
-+	spin_lock(&ctx->client->ctx_lock);
-+	list_add_tail_rcu(&ctx->client_link, &ctx->client->ctx_list);
-+	spin_unlock(&ctx->client->ctx_lock);
+ 	ctx->pid = get_task_pid(current, PIDTYPE_PID);
++	ctx->client = i915_drm_client_get(fpriv->client);
 +
- 	spin_lock(&i915->gem.contexts.lock);
- 	list_add_tail(&ctx->link, &i915->gem.contexts.list);
- 	spin_unlock(&i915->gem.contexts.lock);
+ 	snprintf(ctx->name, sizeof(ctx->name), "%s[%d]",
+ 		 current->comm, pid_nr(ctx->pid));
+ 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index e1bca913818e..4eab17591f3c 100644
+index 94c03a97cb77..e1bca913818e 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -280,6 +280,9 @@ struct i915_gem_context {
- 	/** @client: struct i915_drm_client */
- 	struct i915_drm_client *client;
+@@ -277,6 +277,9 @@ struct i915_gem_context {
+ 	/** @link: place with &drm_i915_private.context_list */
+ 	struct list_head link;
  
-+	/** link: &drm_client.context_list */
-+	struct list_head client_link;
++	/** @client: struct i915_drm_client */
++	struct i915_drm_client *client;
 +
  	/**
  	 * @ref: reference count
  	 *
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-index e61e9ba15256..91a8559bebf7 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.c
-+++ b/drivers/gpu/drm/i915/i915_drm_client.c
-@@ -38,6 +38,8 @@ struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients)
- 		goto err;
- 
- 	kref_init(&client->kref);
-+	spin_lock_init(&client->ctx_lock);
-+	INIT_LIST_HEAD(&client->ctx_list);
- 	client->clients = clients;
- 
- 	return client;
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
-index 9d80d9f715ee..7416e18aa33c 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.h
-+++ b/drivers/gpu/drm/i915/i915_drm_client.h
-@@ -7,6 +7,8 @@
- #define __I915_DRM_CLIENT_H__
- 
- #include <linux/kref.h>
-+#include <linux/list.h>
-+#include <linux/spinlock.h>
- #include <linux/xarray.h>
- 
- #include "gt/intel_engine_types.h"
-@@ -25,6 +27,9 @@ struct i915_drm_client {
- 
- 	unsigned int id;
- 
-+	spinlock_t ctx_lock; /* For add/remove from ctx_list. */
-+	struct list_head ctx_list; /* List of contexts belonging to client. */
-+
- 	struct i915_drm_clients *clients;
- 
- 	/**
 -- 
 2.30.2
 
