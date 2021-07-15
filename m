@@ -2,65 +2,106 @@ Return-Path: <SRS0=YxzO=MH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3455CC07E96
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 13:00:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30EC5C47E48
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 13:17:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E405C613BA
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 13:00:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E405C613BA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id EDBCE601FA
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 13:17:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EDBCE601FA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 703736E847;
-	Thu, 15 Jul 2021 13:00:15 +0000 (UTC)
-Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
- [IPv6:2607:f8b0:4864:20::72a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B17F66E854;
- Thu, 15 Jul 2021 13:00:13 +0000 (UTC)
-Received: by mail-qk1-x72a.google.com with SMTP id 23so5072403qke.0;
- Thu, 15 Jul 2021 06:00:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=P9NP2ZXCtnUixASNcl6G9GBrniLmGpcnxXddxH11xYE=;
- b=DpNyUJdmjjeTxYHJSTQu5bApOZCfBYI9TiT53q77VDCcKkG0crGcJI4dKKDAJbVsXh
- ttbUHGXNl1D04/lrS2i0y49P83+W9tuDMsCHwwp+FquoPR3PDRgAaNkLYXQQPwTLEXTC
- eDh+lZwf7mfqgDp6Vr6tTnJJkYtV0C4Li+bii2KOL5uDMN0veOUCVuxO9T/iM+FL7Mvy
- 7L+o059XVb3VdNyMb17OIRb0XKoSEwchn61l2M2zS/PHqmbWMqfqjvONVry7uPHjcAnm
- FYKWCKcHchOe11MIWaEAreNBtJE4bgkIoW7WBCq30VgcxCdcLqvFJ20pQ9wkPuj/Yovx
- qOjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=P9NP2ZXCtnUixASNcl6G9GBrniLmGpcnxXddxH11xYE=;
- b=JEIbGTaof3SOjnGRMW9QHQj9y70RarXOUEKgU534tMh2It6IWkQYS4N0Hx3kqbpGta
- 4ZdPvmT9QwXHH/9rsXAspN8JvZmV3lUUV3ctTRKiIwCpZzlPMlWCykJ6Q8R4Ke0RocML
- p/vVx7r7ePZtNLBqiwG23a8TMooMyqfxcMP1wrxHB/L8SdTiO3cSn414VfbI0KWyClHl
- fVqtWHwXIefVcc2nBDjdET/i5wkGRk+3r4DwebtlbkxMBeWnzI9crRlZ5yryhCHqlsvn
- /3Jy7vCjNTjP0JJ6gW26WDuhZtkJVM0VnW2BURZEYXhVvG1DkaQJ6fYZmLgsuqyX2hga
- iGFw==
-X-Gm-Message-State: AOAM531n3uEKMBjakRFW7lZnye01u9/xGEFqRrNIlbmMQGExOGh3KCFN
- uef7406RQ3cr5Q3WNKVRgG1OmlcRGNWOKLsPTZo36TBg82I=
-X-Google-Smtp-Source: ABdhPJwf9lGcmHmZ47eylIAmZLK2Kf7ice6qZu1iIEVx7DjWUzTHc02P4/xcZB1UD+z3uv3LEQ9DRnP+gy4RBQpeAdI=
-X-Received: by 2002:a05:620a:a19:: with SMTP id
- i25mr3906149qka.426.1626354012928; 
- Thu, 15 Jul 2021 06:00:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B35A6E848;
+	Thu, 15 Jul 2021 13:17:54 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2047.outbound.protection.outlook.com [40.107.100.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ECD06E4C4;
+ Thu, 15 Jul 2021 03:49:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=n0gfSoP/4C249BMFC0ON1VABdhydQCfZQ5OQLqwSrd2kMuFr5pv3Jf1ZAUjDrEOYdHeRd8cW5DYt26DLnzerUv8eyXUmMWAIrwyk3B9Io7c9LIpzzCW+/Uh+ha66XS+V5zDvY8pUjTwV34fmd8aDNovXroqUHgxm5gWoSrSSssdbZoQAF+F97l7YrIck5YH0H0VkALkk2HOeBW0df7cFTF27Pkg3wkXJ+Nixyqw6MbIgoMXzii9lycqzbhQ0uGCYVqDo+0alUeiiNBrwnUj74DwQMDuT1CEkSn5sHYYmLeAsSmFpEF79MtWrTXnYA8/u2PoLTFnwigxKJTAWlEekfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0sWWtisFvIMjOSkzRFvjoJlbQkVUZQ+K2FpZnFmQS2I=;
+ b=j3hDapAiiAvf8/OC0DfEKJjjLpNMiOVMHuTzIuFcRgMhX0QTlqnT7pA2HgSsAdWmdK9LvBZWexQa+D2cv7LZ5wyDewufvv0FU5ibTXMw6fIlGOZniJoc3s+BAMILJrzuGYStWCU9LTHTdrpdbACZkttLWgT7LpMKJGuXwNCWXIJE/gHVDHVk9qxRZYADPdDhFhgAZfmbpKevTJPJXRJj/zpKZV6mTJxEvU4lpF52nVqN1GJoE8+H3QwsWtfH55TlNgDuMJKDmGted2cd1BrD6Us4NyJg0VVe2g8MfQf/86qZyp1Lw6wRGfhP2hBV1Chh/ahpYIqy1YLLmGJ+V4Szgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.112.34) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0sWWtisFvIMjOSkzRFvjoJlbQkVUZQ+K2FpZnFmQS2I=;
+ b=F+PhbOpV7EVJfPf3ylo2P5m3CUxMrPnZfJL65VSoiVx/TF8SUvPZ5whgk5tR8AGDGzDouqRToG4KwfkEcJKgh4d9iZCc/2/CBEFbmCBLfza7GBe4ig/7XBB6AHYt8JG5nCL0Rh6+6SrK9nQJ5GW0mcTIy6RHn4DmskBJfWk5edDRizbxxRDkHEEd+um6Dz3T1Iq58jiBn5Mlq5jrds3FJCqtKYBwseKeCIfi+caIpDC4TX9fJkFgNueNRRH7ZXpQ0WbnWMcqtYRdYqyKzYJt95Bt7/AOCLMd9tvjzBLKxdIvmN/TN9UzsB5zOtAP3NDdfTvm8xmVz7Pj4QvaB1MzGA==
+Received: from DM6PR13CA0068.namprd13.prod.outlook.com (2603:10b6:5:134::45)
+ by DM5PR12MB1147.namprd12.prod.outlook.com (2603:10b6:3:79::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.23; Thu, 15 Jul
+ 2021 03:49:10 +0000
+Received: from DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:134:cafe::59) by DM6PR13CA0068.outlook.office365.com
+ (2603:10b6:5:134::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.9 via Frontend
+ Transport; Thu, 15 Jul 2021 03:49:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.34)
+ smtp.mailfrom=nvidia.com; vger.kernel.org; dkim=none (message not signed)
+ header.d=none; vger.kernel.org; dmarc=pass action=none header.from=nvidia.com; 
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.112.34 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.34; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.34) by
+ DM6NAM11FT058.mail.protection.outlook.com (10.13.172.216) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.4331.21 via Frontend Transport; Thu, 15 Jul 2021 03:49:10 +0000
+Received: from localhost (172.20.187.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 15 Jul
+ 2021 03:49:08 +0000
+Date: Thu, 15 Jul 2021 06:49:05 +0300
+From: Leon Romanovsky <leonro@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Message-ID: <YO+wMbZ2TWscTynr@unreal>
+References: <0-v1-eaf3ccbba33c+1add0-vfio_reflck_jgg@nvidia.com>
+ <2-v1-eaf3ccbba33c+1add0-vfio_reflck_jgg@nvidia.com>
 MIME-Version: 1.0
-References: <20210714204452.1481805-1-jason@jlekstrand.net>
-In-Reply-To: <20210714204452.1481805-1-jason@jlekstrand.net>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Thu, 15 Jul 2021 13:59:44 +0100
-Message-ID: <CAM0jSHMm2Y6vtzHK8eLc2ZmhaTRWntbbcO5qM1iL53sc=dxS=Q@mail.gmail.com>
-To: Jason Ekstrand <jason@jlekstrand.net>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Check object_can_migrate from
- object_migrate
+Content-Disposition: inline
+In-Reply-To: <2-v1-eaf3ccbba33c+1add0-vfio_reflck_jgg@nvidia.com>
+X-Originating-IP: [172.20.187.5]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b3f9b869-c0d2-4b03-1e91-08d94743811f
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1147:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB114707BABD943402020C3F34BD129@DM5PR12MB1147.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NIZzDydBOWn4etqen3ycusuy+uDalEMlB8z1DfgNbMvQkY0g71bCZ//UoNFJrOlCD2FzkZpdIRKGxBOPh6xYe9aYTZpx7dpDJzOXinH0yMOsIIdyIqTAeERenipstPKtyEwmoM3KG/Awxgmvlde0VaTga+dkV36oItw312/jkHLLWFiQy5iDmA72kG1gtb2pIqY5vtdYf/CbIyeesfagFQv7kZzkE8BFeeG8t9rVsv8VFZ4MchP2B6gxGypvzRo3wTlN6G2uUOw4Y6h7cALBkE8ZT4eQ5PLxYICbOB9wW3eaiaEWiTXjG4bGIFDWXt4F8n56+WVXxwcQ7yVbg6rOqutBOE9//QALO+/q6+WGWIYPnm1yC+gyx6ND/FiWXK08rjXsq3XnjwmT74iLX4oTV7IVrmud/FA4i6veRr/gkPZsjg2tHfnWv9KwjFCTF3X3U7R5PKpCF6KekhFxUowOaefy5EhyIZgVHU7+HzWPmHU2B6nu9P81nfNxvTyXeDdkQmap9VoUWCQ9wzloyRXm5805zgdGljc2+LiajiNxFQQDP1ukbo2dxPCFnBTLRK+mkx/0KIY9rEVi1ruw+clkDmB8A5R2+cOtPHz3TfVAUHR05sX6Wzc4ArA4vruLIm/Beufk7ND/Aa/QxEm9mHn9KXwT3XcNYPsYp1p3UzG/11mrGDQQcQNY9+Ftma1cuBOPuZOWWy6x4xq+xLgQVt0Lk/s7aLSco5mCWXat9eeB4fkH/h3uXN+6kXvQ0VjhTLLv
+X-Forefront-Antispam-Report: CIP:216.228.112.34; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid03.nvidia.com; CAT:NONE;
+ SFS:(4636009)(7916004)(396003)(136003)(376002)(39860400002)(346002)(36840700001)(46966006)(6862004)(107886003)(34020700004)(33716001)(5660300002)(82310400003)(82740400003)(426003)(70206006)(9686003)(7406005)(26005)(16526019)(7416002)(4326008)(83380400001)(356005)(6636002)(70586007)(336012)(316002)(6666004)(47076005)(7636003)(2906002)(8676002)(86362001)(186003)(36860700001)(36906005)(478600001)(54906003)(8936002)(67856001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2021 03:49:10.3257 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3f9b869-c0d2-4b03-1e91-08d94743811f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.34];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1147
+X-Mailman-Approved-At: Thu, 15 Jul 2021 13:17:53 +0000
+Subject: Re: [Intel-gfx] [PATCH 02/13] vfio: Introduce a
+ vfio_uninit_group_dev() API call
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,31 +114,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Matthew Auld <matthew.auld@intel.com>,
- ML dri-devel <dri-devel@lists.freedesktop.org>
+Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, Kirti
+ Wankhede <kwankhede@nvidia.com>, Max Gurtovoy <mgurtovoy@nvidia.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Diana Craciun <diana.craciun@oss.nxp.com>, Christoph Hellwig <hch@lst.de>,
+ linux-s390@vger.kernel.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Jonathan Corbet <corbet@lwn.net>, Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ intel-gfx@lists.freedesktop.org, Jason Herne <jjherne@linux.ibm.com>,
+ Eric Farman <farman@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Eric Auger <eric.auger@redhat.com>, Harald
+ Freudenberger <freude@linux.ibm.com>, intel-gvt-dev@lists.freedesktop.org, "Raj,
+ Ashok" <ashok.raj@intel.com>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Cornelia Huck <cohuck@redhat.com>, Peter
+ Oberparleiter <oberpar@linux.ibm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 14 Jul 2021 at 21:45, Jason Ekstrand <jason@jlekstrand.net> wrote:
->
-> We don't roll them together entirely because there are still a couple
-> cases where we want a separate can_migrate check.  For instance, the
-> display code checks that you can migrate a buffer to LMEM before it
-> accepts it in fb_create.  The dma-buf import code also uses it to do an
-> early check and return a different error code if someone tries to attach
-> a LMEM-only dma-buf to another driver.
->
-> However, no one actually wants to call object_migrate when can_migrate
-> has failed.  The stated intention is for self-tests but none of those
-> actually take advantage of this unsafe migration.
->
-> Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+On Wed, Jul 14, 2021 at 09:20:31PM -0300, Jason Gunthorpe wrote:
+> From: Max Gurtovoy <mgurtovoy@nvidia.com>
+> 
+> This pairs with vfio_init_group_dev() and allows undoing any state that is
+> stored in the vfio_device unrelated to registration. Add appropriately
+> placed calls to all the drivers.
+> 
+> The following patch will use this to add pre-registration state for the
+> device set.
+> 
+> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> ---
+>  Documentation/driver-api/vfio.rst            |  4 ++-
+>  drivers/vfio/fsl-mc/vfio_fsl_mc.c            |  6 +++--
+>  drivers/vfio/mdev/vfio_mdev.c                | 13 +++++++---
+>  drivers/vfio/pci/vfio_pci.c                  |  6 +++--
+>  drivers/vfio/platform/vfio_platform_common.c |  7 +++--
+>  drivers/vfio/vfio.c                          |  5 ++++
+>  include/linux/vfio.h                         |  1 +
+>  samples/vfio-mdev/mbochs.c                   |  2 ++
+>  samples/vfio-mdev/mdpy.c                     | 25 ++++++++++--------
+>  samples/vfio-mdev/mtty.c                     | 27 ++++++++++++--------
+>  10 files changed, 64 insertions(+), 32 deletions(-)
+
+<...>
+
+> @@ -674,6 +675,7 @@ static int vfio_fsl_mc_remove(struct fsl_mc_device *mc_dev)
+>  
+>  	dprc_remove_devices(mc_dev, NULL, 0);
+>  	vfio_fsl_uninit_device(vdev);
+> +	vfio_uninit_group_dev(&vdev->vdev);
+
+This is wrong place, the _uninit_ should be after vfio_fsl_mc_reflck_put().
+
+>  	vfio_fsl_mc_reflck_put(vdev->reflck);
+>  
+>  	kfree(vdev);
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
