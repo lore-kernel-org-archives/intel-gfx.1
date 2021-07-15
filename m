@@ -5,43 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B15AC47E4E
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 09:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A2ACC1B08C
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 09:18:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3658B610C7
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 09:18:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3658B610C7
+	by mail.kernel.org (Postfix) with ESMTPS id 01A2C61358
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 09:18:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01A2C61358
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11C706E446;
-	Thu, 15 Jul 2021 09:18:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DEF96E7D7;
+	Thu, 15 Jul 2021 09:18:40 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DBA36E446;
- Thu, 15 Jul 2021 09:18:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10045"; a="232333033"
-X-IronPort-AV: E=Sophos;i="5.84,240,1620716400"; d="scan'208";a="232333033"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E6036E5CA;
+ Thu, 15 Jul 2021 09:18:34 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10045"; a="232332999"
+X-IronPort-AV: E=Sophos;i="5.84,240,1620716400"; d="scan'208";a="232332999"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2021 02:18:41 -0700
-X-IronPort-AV: E=Sophos;i="5.84,240,1620716400"; d="scan'208";a="572768166"
+ 15 Jul 2021 02:18:33 -0700
+X-IronPort-AV: E=Sophos;i="5.84,240,1620716400"; d="scan'208";a="572767643"
 Received: from shyland-mobl2.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.241.81])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2021 02:18:40 -0700
+ 15 Jul 2021 02:18:32 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Jul 2021 10:18:20 +0100
-Message-Id: <20210715091820.1613726-9-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 15 Jul 2021 10:18:15 +0100
+Message-Id: <20210715091820.1613726-4-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210715091820.1613726-1-tvrtko.ursulin@linux.intel.com>
 References: <20210715091820.1613726-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 8/8] drm/amdgpu: Convert to common fdinfo format
+Subject: [Intel-gfx] [RFC 3/8] drm/i915: Track runtime spent in closed and
+ unreachable GEM contexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,96 +55,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David M Nieto <David.Nieto@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Chris Wilson <chris@chris-wilson.co.uk>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVHZydGtvIFVyc3VsaW4gPHR2cnRrby51cnN1bGluQGludGVsLmNvbT4KCkNvbnZlcnQg
-ZmRpbmZvIGZvcm1hdCB0byBvbmUgZG9jdW1lbnRlZCBpbiBkcm0tdXNhZ2Utc3RhdHMucnN0LgoK
-T3BlbnM6CiAqIERvZXMgaXQgd29yayBmb3IgQU1EPwogKiBXaGF0IGFyZSB0aGUgc2VtYW50aWNz
-IG9mIEFNRCBlbmdpbmUgdXRpbGlzYXRpb24gcmVwb3J0ZWQgaW4gcGVyY2VudHM/CiAgIENhbiBp
-dCBhbGlnbiB3aXRoIHdoYXQgaTkxNSBkb2VzIG9yIG5lZWRzIHRvIGRvY3VtZW50IHRoZSBhbHRl
-cm5hdGl2ZQogICBpbiB0aGUgc3BlY2lmaWNhdGlvbiBkb2N1bWVudD8KClNpZ25lZC1vZmYtYnk6
-IFR2cnRrbyBVcnN1bGluIDx0dnJ0a28udXJzdWxpbkBpbnRlbC5jb20+CkNjOiBEYXZpZCBNIE5p
-ZXRvIDxEYXZpZC5OaWV0b0BhbWQuY29tPgpDYzogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
-LmtvZW5pZ0BhbWQuY29tPgpDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPgotLS0K
-IERvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QgICAgICAgICAgICAgICB8IDI2ICsrKysrKysr
-KysrKysrKysrKysrKysKIERvY3VtZW50YXRpb24vZ3B1L2RybS11c2FnZS1zdGF0cy5yc3QgICAg
-ICB8ICA3ICsrKysrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZkaW5mby5j
-IHwgMTggKysrKysrKysrKy0tLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDQ1IGluc2VydGlvbnMoKyks
-IDYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJz
-dCBiL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QKaW5kZXggMzY0NjgwY2RhZDJlLi5iOWI3
-OWM4MTBmMjggMTAwNjQ0Ci0tLSBhL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QKKysrIGIv
-RG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdApAQCAtMzIyLDMgKzMyMiwyOSBAQCBzbWFydHNo
-aWZ0X2JpYXMKIAogLi4ga2VybmVsLWRvYzo6IGRyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1
-X3BtLmMKICAgIDpkb2M6IHNtYXJ0c2hpZnRfYmlhcworCisuLiBfYW1kZ3B1LXVzYWdlLXN0YXRz
-OgorCithbWRncHUgRFJNIGNsaWVudCB1c2FnZSBzdGF0cyBpbXBsZW1lbnRhdGlvbgorPT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KKworVGhlIGFtZGdwdSBkcml2
-ZXIgaW1wbGVtZW50cyB0aGUgRFJNIGNsaWVudCB1c2FnZSBzdGF0cyBzcGVjaWZpY2F0aW9uIGFz
-Citkb2N1bWVudGVkIGluIDpyZWY6YGRybS1jbGllbnQtdXNhZ2Utc3RhdHNgLgorCitFeGFtcGxl
-IG9mIHRoZSBvdXRwdXQgc2hvd2luZyB0aGUgaW1wbGVtZW50ZWQga2V5IHZhbHVlIHBhaXJzIGFu
-ZCBlbnRpcmV0eSBvZgordGhlIGN1cnJlbmx5IHBvc3NpYmxlIGZvcm1hdCBvcHRpb25zOgorCis6
-OgorCisgICAgICBwb3M6ICAgIDAKKyAgICAgIGZsYWdzOiAgMDEwMDAwMgorICAgICAgbW50X2lk
-OiAyMQorICAgICAgZHJtLWRyaXZlcjogYW1kZ3B1CisgICAgICBkcm0tcGRldjogICAwMDAwOjAw
-OjAyLjAKKyAgICAgIGRybS1jbGllbnQtaWQ6ICAgICAgNworICAgICAgZHJtLWVuZ2luZS0uLi4g
-VE9ETworICAgICAgZHJtLW1lbW9yeS0uLi4gVE9ETworCitQb3NzaWJsZSBgZHJtLWVuZ2luZS1g
-IGtleSBuYW1lcyBhcmU6IGBgLC4uLiBUT0RPLgorCitQb3NzaWJsZSBgZHJtLW1lbW9yeS1gIGtl
-eSBuYW1lcyBhcmU6IGBgLC4uLiBUT0RPLgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9ncHUv
-ZHJtLXVzYWdlLXN0YXRzLnJzdCBiL0RvY3VtZW50YXRpb24vZ3B1L2RybS11c2FnZS1zdGF0cy5y
-c3QKaW5kZXggYjg3NTA1NDM4YWFhLi5lYWFhMzYxODA1YzAgMTAwNjQ0Ci0tLSBhL0RvY3VtZW50
-YXRpb24vZ3B1L2RybS11c2FnZS1zdGF0cy5yc3QKKysrIGIvRG9jdW1lbnRhdGlvbi9ncHUvZHJt
-LXVzYWdlLXN0YXRzLnJzdApAQCAtNjksNyArNjksNyBAQCBzY29wZSBvZiBlYWNoIGRldmljZSwg
-aW4gd2hpY2ggY2FzZSBgZHJtLXBkZXZgIHNoYWxsIGJlIHByZXNlbnQgYXMgd2VsbC4KIFVzZXJz
-cGFjZSBzaG91bGQgbWFrZSBzdXJlIHRvIG5vdCBkb3VibGUgYWNjb3VudCBhbnkgdXNhZ2Ugc3Rh
-dGlzdGljcyBieSB1c2luZwogdGhlIGFib3ZlIGRlc2NyaWJlZCBjcml0ZXJpYSBpbiBvcmRlciB0
-byBhc3NvY2lhdGUgZGF0YSB0byBpbmRpdmlkdWFsIGNsaWVudHMuCiAKLS0gZHJtLWVuZ2luZS08
-c3RyPjogPHVpbnQ+IG5zCistIGRybS1lbmdpbmUtPHN0cj46IDx1aW50PiBbbnN8JV0KIAogR1BV
-cyB1c3VhbGx5IGNvbnRhaW4gbXVsdGlwbGUgZXhlY3V0aW9uIGVuZ2luZXMuIEVhY2ggc2hhbGwg
-YmUgZ2l2ZW4gYSBzdGFibGUKIGFuZCB1bmlxdWUgbmFtZSAoc3RyKSwgd2l0aCBwb3NzaWJsZSB2
-YWx1ZXMgZG9jdW1lbnRlZCBpbiB0aGUgZHJpdmVyIHNwZWNpZmljCkBAIC04NCw2ICs4NCw5IEBA
-IGxhcmdlciB2YWx1ZSB3aXRoaW4gYSByZWFzb25hYmxlIHBlcmlvZC4gVXBvbiBvYnNlcnZpbmcg
-YSB2YWx1ZSBsb3dlciB0aGFuIHdoYXQKIHdhcyBwcmV2aW91c2x5IHJlYWQsIHVzZXJzcGFjZSBp
-cyBleHBlY3RlZCB0byBzdGF5IHdpdGggdGhhdCBsYXJnZXIgcHJldmlvdXMKIHZhbHVlIHVudGls
-IGEgbW9ub3RvbmljIHVwZGF0ZSBpcyBzZWVuLgogCitXaGVyZSB0aW1lIHVuaXQgaXMgZ2l2ZW4g
-YXMgYSBwZXJjZW50YWdlLi4uW0FNRCBmb2xrcyB0byBmaWxsIHRoZSBzZW1hbnRpY3MKK2FuZCBp
-bnRlcnByZXRhdGlvbiBvZiB0aGF0XS4uLgorCiAtIGRybS1tZW1vcnktPHN0cj46IDx1aW50PiBb
-S2lCfE1pQl0KIAogRWFjaCBwb3NzaWJsZSBtZW1vcnkgdHlwZSB3aGljaCBjYW4gYmUgdXNlZCB0
-byBzdG9yZSBidWZmZXIgb2JqZWN0cyBieSB0aGUKQEAgLTEwMSwzICsxMDQsNSBAQCBEcml2ZXIg
-c3BlY2lmaWMgaW1wbGVtZW50YXRpb25zCiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-CiAKIDpyZWY6YGk5MTUtdXNhZ2Utc3RhdHNgCisKKzpyZWY6YGFtZGdwdS11c2FnZS1zdGF0c2AK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZGluZm8uYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZGluZm8uYwppbmRleCBkOTRjNTQx
-OWVjMjUuLmQ2YjAxMTAwOGZlOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2ZkaW5mby5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9mZGluZm8uYwpAQCAtNzYsMTEgKzc2LDE5IEBAIHZvaWQgYW1kZ3B1X3Nob3dfZmRpbmZvKHN0
-cnVjdCBzZXFfZmlsZSAqbSwgc3RydWN0IGZpbGUgKmYpCiAJfQogCWFtZGdwdV92bV9nZXRfbWVt
-b3J5KCZmcHJpdi0+dm0sICZ2cmFtX21lbSwgJmd0dF9tZW0sICZjcHVfbWVtKTsKIAlhbWRncHVf
-Ym9fdW5yZXNlcnZlKGZwcml2LT52bS5yb290LmJvKTsKLQlzZXFfcHJpbnRmKG0sICJwZGV2Olx0
-JTA0eDolMDJ4OiUwMnguJWRcbnBhc2lkOlx0JXVcbiIsIGRvbWFpbiwgYnVzLAorCisJLyoKKwkg
-KiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioKKwkgKiBGb3IgdGV4dCBvdXRwdXQgZm9ybWF0IGRlc2NyaXB0aW9uIHBsZWFz
-ZSBzZWUgZHJtLXVzYWdlLXN0YXRzLnJzdCEKKwkgKiAqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioKKwkgKi8KKworCXNlcV9w
-dXRzKG0sICJkcm0tZHJpdmVyOiBhbWRncHVcbiIpOworCXNlcV9wcmludGYobSwgImRybS1wZGV2
-Olx0JTA0eDolMDJ4OiUwMnguJWRcbnBhc2lkOlx0JXVcbiIsIGRvbWFpbiwgYnVzLAogCQkJZGV2
-LCBmbiwgZnByaXYtPnZtLnBhc2lkKTsKLQlzZXFfcHJpbnRmKG0sICJ2cmFtIG1lbTpcdCVsbHUg
-a0JcbiIsIHZyYW1fbWVtLzEwMjRVTCk7Ci0Jc2VxX3ByaW50ZihtLCAiZ3R0IG1lbTpcdCVsbHUg
-a0JcbiIsIGd0dF9tZW0vMTAyNFVMKTsKLQlzZXFfcHJpbnRmKG0sICJjcHUgbWVtOlx0JWxsdSBr
-QlxuIiwgY3B1X21lbS8xMDI0VUwpOworCXNlcV9wcmludGYobSwgImRybS1tZW1vcnktdnJhbTpc
-dCVsbHUgS2lCXG4iLCB2cmFtX21lbS8xMDI0VUwpOworCXNlcV9wcmludGYobSwgImRybS1tZW1v
-cnktZ3R0Olx0JWxsdSBLaUJcbiIsIGd0dF9tZW0vMTAyNFVMKTsKKwlzZXFfcHJpbnRmKG0sICJk
-cm0tbWVtb3J5LWNwdTpcdCVsbHUgS2lCXG4iLCBjcHVfbWVtLzEwMjRVTCk7CiAJZm9yIChpID0g
-MDsgaSA8IEFNREdQVV9IV19JUF9OVU07IGkrKykgewogCQl1aW50MzJfdCBjb3VudCA9IGFtZGdw
-dV9jdHhfbnVtX2VudGl0aWVzW2ldOwogCQlpbnQgaWR4ID0gMDsKQEAgLTk2LDcgKzEwNCw3IEBA
-IHZvaWQgYW1kZ3B1X3Nob3dfZmRpbmZvKHN0cnVjdCBzZXFfZmlsZSAqbSwgc3RydWN0IGZpbGUg
-KmYpCiAJCQlwZXJjID0gZGl2NjRfdTY0KDEwMDAwICogdG90YWwsIG1pbik7CiAJCQlmcmFjID0g
-cGVyYyAlIDEwMDsKIAotCQkJc2VxX3ByaW50ZihtLCAiJXMlZDpcdCVkLiVkJSVcbiIsCisJCQlz
-ZXFfcHJpbnRmKG0sICJkcm0tZW5naW5lLSVzJWQ6XHQlZC4lZCAlJVxuIiwKIAkJCQkJYW1kZ3B1
-X2lwX25hbWVbaV0sCiAJCQkJCWlkeCwgcGVyYy8xMDAsIGZyYWMpOwogCQl9Ci0tIAoyLjMwLjIK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdm
-eCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+As contexts are abandoned we want to remember how much GPU time they used
+(per class) so later we can used it for smarter purposes.
+
+As GEM contexts are closed we want to have the DRM client remember how
+much GPU time they used (per class) so later we can used it for smarter
+purposes.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 25 +++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_drm_client.h      |  7 ++++++
+ 2 files changed, 30 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 3bf409cf0214..4b93fcb11914 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -841,23 +841,44 @@ static void free_engines_rcu(struct rcu_head *rcu)
+ 	free_engines(engines);
+ }
+ 
++static void accumulate_runtime(struct i915_drm_client *client,
++			       struct i915_gem_engines *engines)
++{
++	struct i915_gem_engines_iter it;
++	struct intel_context *ce;
++
++	if (!client)
++		return;
++
++	/* Transfer accumulated runtime to the parent GEM context. */
++	for_each_gem_engine(ce, engines, it) {
++		unsigned int class = ce->engine->uabi_class;
++
++		GEM_BUG_ON(class >= ARRAY_SIZE(client->past_runtime));
++		atomic64_add(intel_context_get_total_runtime_ns(ce),
++			     &client->past_runtime[class]);
++	}
++}
++
+ static int __i915_sw_fence_call
+ engines_notify(struct i915_sw_fence *fence, enum i915_sw_fence_notify state)
+ {
+ 	struct i915_gem_engines *engines =
+ 		container_of(fence, typeof(*engines), fence);
++	struct i915_gem_context *ctx = engines->ctx;
+ 
+ 	switch (state) {
+ 	case FENCE_COMPLETE:
+ 		if (!list_empty(&engines->link)) {
+-			struct i915_gem_context *ctx = engines->ctx;
+ 			unsigned long flags;
+ 
+ 			spin_lock_irqsave(&ctx->stale.lock, flags);
+ 			list_del(&engines->link);
+ 			spin_unlock_irqrestore(&ctx->stale.lock, flags);
+ 		}
+-		i915_gem_context_put(engines->ctx);
++		accumulate_runtime(ctx->client, engines);
++		i915_gem_context_put(ctx);
++
+ 		break;
+ 
+ 	case FENCE_FREE:
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index e8986ad51176..9d80d9f715ee 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -9,6 +9,8 @@
+ #include <linux/kref.h>
+ #include <linux/xarray.h>
+ 
++#include "gt/intel_engine_types.h"
++
+ struct drm_i915_private;
+ 
+ struct i915_drm_clients {
+@@ -24,6 +26,11 @@ struct i915_drm_client {
+ 	unsigned int id;
+ 
+ 	struct i915_drm_clients *clients;
++
++	/**
++	 * @past_runtime: Accumulation of pphwsp runtimes from closed contexts.
++	 */
++	atomic64_t past_runtime[MAX_ENGINE_CLASS + 1];
+ };
+ 
+ void i915_drm_clients_init(struct i915_drm_clients *clients,
+-- 
+2.30.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
