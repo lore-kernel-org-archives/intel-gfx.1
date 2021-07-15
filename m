@@ -2,71 +2,68 @@ Return-Path: <SRS0=YxzO=MH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B419EC07E96
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 11:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D383C47E4B
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 11:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C46B613BA
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 11:07:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C46B613BA
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 70E0F611AB
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jul 2021 11:09:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70E0F611AB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3616B6E825;
-	Thu, 15 Jul 2021 11:07:39 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C27086E824
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 11:07:37 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id d12so7186099wre.13
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Jul 2021 04:07:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=m1mEFS+u6luv5SpAYux4dU20h7Ou7Zi475xjguaULhk=;
- b=IBwkzY3Z39MwZRNh0xNiJOYGZHZgym+Qw5XiuYPF4VUv5roKeJ9ZxjwT0kV6MJEl7D
- K3YS4A6VV5uH3zDMEL/N4RdulZt6DqbcqCftar923lh/c4P/TMOxMoQvuTmIQnLqp0bZ
- 5VQwPTaoGCR3mYutqd4yFyrAbC2VExRGYDy/A=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03BC96E823;
+	Thu, 15 Jul 2021 11:09:57 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A81606E822;
+ Thu, 15 Jul 2021 11:09:55 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ h24-20020a9d64180000b029036edcf8f9a6so5759505otl.3; 
+ Thu, 15 Jul 2021 04:09:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VnIvSXzuiLKWuvgulqfarspmLG2dOzwb7htWyTzwsjw=;
+ b=jZSvmaYSy8ADTgcCb9b7ny+VGlsNNLLNOYJdU7McebyVX4mq0pGAcstpYcMq1Aiv6S
+ XOo3xy1FWet7MXd7e7bhh9ULV6oDNaPZwU83/HY/YN+avkBCc7WRn8rrw01zsWV94kqD
+ zveDrhVhYXZNw9+xQg2SBfo7OMbtziipz+BPTRr2nVTwTX5Zbj3LNmo5gqPZla4YgjUr
+ CMVnzDdH9YVyJCAxYWCz6i0n7jvRINXJv0bLBQO52VA4L5QduTy2cR8drOamqk/LOftw
+ kysUkWgyiG6dY9FlEfnonTf57JurQjQ+0MQUH4y/eduUeozIhN6rWYTFT2mAUx+bFtCa
+ eVcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=m1mEFS+u6luv5SpAYux4dU20h7Ou7Zi475xjguaULhk=;
- b=efSuo+Sb5+t+Qi7fdBbqkk6MT1OIC+2DOXaKj0f6Bau9HjqASk6zv5rrJ6VuYcqhnR
- YwQY0ANAg1nd54LHBySpDCZMQoxyJLsb25AFipsJ1/3G7WpWlyWxH3IG9iCmWkYmi8dF
- eB93+HYCIKyhviYeoMQB9a1W+zMROm2WG6Kd49FyLAAuXgibvMgTo7JwKxR58nvqlusO
- K0n7tIy2RtcoYMwMGLs1HJIPU4AYsjnkGzAvsTcvcshD+h3kvkrKG0M7sMkHyNYjmhU4
- XFzfL71VNiObJhEEwEHE4lKBCWtirKhmoJu/3Y4I61fGoVNVBwNmYH1mP3uwtO20iC/q
- T1Jg==
-X-Gm-Message-State: AOAM531llBU6LyTvCORGOzfMoDIA96JUj7+Jh8DZztOGY1cNPbnZF2Aw
- EDyIdtkc3Oqm6LBtbIlklUGZcQ==
-X-Google-Smtp-Source: ABdhPJyhB7LGCV5ckfaESvFIe+g2exrn+yj5GVu82V0JeqegtOh5ZPWXbfjWARNZYMc6n7nV12Sl3A==
-X-Received: by 2002:a5d:4a4c:: with SMTP id v12mr4766878wrs.256.1626347256451; 
- Thu, 15 Jul 2021 04:07:36 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id g3sm6262492wrv.64.2021.07.15.04.07.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jul 2021 04:07:35 -0700 (PDT)
-Date: Thu, 15 Jul 2021 13:07:33 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <YPAW9f/2oJV4UNnB@phenom.ffwll.local>
-References: <20210715101536.2606307-1-matthew.auld@intel.com>
- <20210715101536.2606307-4-matthew.auld@intel.com>
- <997238fe-075b-380d-3ef2-b9f528193623@linux.intel.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VnIvSXzuiLKWuvgulqfarspmLG2dOzwb7htWyTzwsjw=;
+ b=e6STrcDKzWNO3T2Ev2Bp9sh2akAJ2k6ao22iba10cUA7tbqKXEgf66H1/FXu4y1LJm
+ iHRHJcB3hq/pF0ldX7y/dk2gWRfdcffWggazqp1YopOY1Cqyr3DOg1QENBoDdMXSI0Dh
+ 0jyYQAHv6TTL/x9BgTgq3RJAcAgJ7ayxCpRnJnYv8p78YEAt7eZDP4veL7UT8ax5vk3o
+ Lsu+WjA2iPu+PfW0WOPTg6nX6cOHPo5rKzm4Zhm0W0VsxHuCplIZflzu344oU1jqxyDc
+ EmrnT/eR5NjMXcuy7ircbGygQ6le8oClZ8iUojpSXyWMIsn9R3kY2CVrQYRZS11Phgkw
+ GveQ==
+X-Gm-Message-State: AOAM530pPwPyb8ecPcN9ifkzS4qArBvM+XulUmxvOxl+BykV7YRNn65D
+ ZsHuxxwcD7uxS8jFwy2dzlXGm1XpIyJBxL/BTMU=
+X-Google-Smtp-Source: ABdhPJyE6O2CsuPYvTE0fEvIRod8YkMOcqSCGJb0RhRrpq/XyumDEFhAFhjuy8zGn19Bma0gQJuRs9BuxAPgAU8c3Mw=
+X-Received: by 2002:a05:6830:19cd:: with SMTP id
+ p13mr2307456otp.362.1626347395013; 
+ Thu, 15 Jul 2021 04:09:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <997238fe-075b-380d-3ef2-b9f528193623@linux.intel.com>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
-Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915/userptr: Probe existence of
- backing struct pages upon creation
+References: <20210624105517.3886963-1-hsinyi@chromium.org>
+ <20210624105517.3886963-2-hsinyi@chromium.org>
+In-Reply-To: <20210624105517.3886963-2-hsinyi@chromium.org>
+From: Enric Balletbo Serra <eballetbo@gmail.com>
+Date: Thu, 15 Jul 2021 13:09:43 +0200
+Message-ID: <CAFqH_51zDMC6N-1DBiSfARTM-SG0SH9VAXOX=G1W6yHJaVBL3A@mail.gmail.com>
+To: Hsin-Yi Wang <hsinyi@chromium.org>
+Subject: Re: [Intel-gfx] [PATCH v6 RESEND 2/3] drm/mediatek: init panel
+ orientation property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,244 +76,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Kenneth Graunke <kenneth@whitecape.org>, Matthew Auld <matthew.auld@intel.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ devicetree <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ intel-gfx@lists.freedesktop.org, linux-kernel <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 15, 2021 at 11:33:10AM +0100, Tvrtko Ursulin wrote:
-> =
+Hi Hsin-Yi,
 
-> On 15/07/2021 11:15, Matthew Auld wrote:
-> > From: Chris Wilson <chris@chris-wilson.co.uk>
-> > =
+Thank you for your patch.
 
-> > Jason Ekstrand requested a more efficient method than userptr+set-domain
-> > to determine if the userptr object was backed by a complete set of pages
-> > upon creation. To be more efficient than simply populating the userptr
-> > using get_user_pages() (as done by the call to set-domain or execbuf),
-> > we can walk the tree of vm_area_struct and check for gaps or vma not
-> > backed by struct page (VM_PFNMAP). The question is how to handle
-> > VM_MIXEDMAP which may be either struct page or pfn backed...
-> > =
+Missatge de Hsin-Yi Wang <hsinyi@chromium.org> del dia dj., 24 de juny
+2021 a les 12:55:
+>
+> Init panel orientation property after connector is initialized. Let the
+> panel driver decides the orientation value later.
+>
+> Signed-off-by: Hsin-Yi Wang <hsinyi@chromium.org>
+> Acked-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
 
-> > With discrete are going to drop support for set_domain(), so offering a
-> > way to probe the pages, without having to resort to dummy batches has
-> > been requested.
-> > =
+Tested-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
 
-> > v2:
-> > - add new query param for the PROPBE flag, so userspace can easily
-> >    check if the kernel supports it(Jason).
-> > - use mmap_read_{lock, unlock}.
-> > - add some kernel-doc.
-> =
-
-> 1)
-> =
-
-> I think probing is too weak to be offered as part of the uapi. What probes
-> successfully at create time might not be there anymore at usage time. So =
-if
-> the pointer is not trusted at one point, why should it be at a later stag=
-e?
-> =
-
-> Only thing which works for me is populate (so get_pages) at create time. =
-But
-> again with no guarantees they are still there at use time clearly
-> documented.
-
-Populate is exactly as racy as probe. We don't support pinned userptr
-anymore.
-
-> 2)
-> =
-
-> I am also not a fan of getparam for individual ioctl flags since I don't
-> think it scales nicely. How about add a param which returns all supported
-> flags like I915_PARAM_USERPTR_SUPPORTED_FLAGS?
-> =
-
-> Downside is it only works for 32-bit flag fields with getparam. Or it cou=
-ld
-> be a query to solve that as well.
-
-I expect the actual userspace code will simply try with the probe flag
-first, and then without + set_domain. So strictly speaking we might not
-even have a need for the getparam.
-
-Otoh, let's not overthink/engineer this, whatever works for userspace is
-ok imo. A new query that lists all flags is the kind of fake-generic stuff
-that will like mis-estimate where the future actually lands, e.g. how do
-you encode if we add extensions to userptr to this? Which is something we
-absolutely can, by extending the struct at the end, which doesn't even
-need a new flag.
-
-Let's solve the immediate problem at hand, and not try to guess what more
-problems we might have in the future.
--Daniel
-
-> Regards,
-> =
-
-> Tvrtko
-> =
-
-> > Testcase: igt/gem_userptr_blits/probe
-> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> > Cc: Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> > Cc: Jordan Justen <jordan.l.justen@intel.com>
-> > Cc: Kenneth Graunke <kenneth@whitecape.org>
-> > Cc: Jason Ekstrand <jason@jlekstrand.net>
-> > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > Cc: Ramalingam C <ramalingam.c@intel.com>
-> > ---
-> >   drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 40 ++++++++++++++++++++-
-> >   drivers/gpu/drm/i915/i915_getparam.c        |  3 ++
-> >   include/uapi/drm/i915_drm.h                 | 18 ++++++++++
-> >   3 files changed, 60 insertions(+), 1 deletion(-)
-> > =
-
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/=
-drm/i915/gem/i915_gem_userptr.c
-> > index 56edfeff8c02..fd6880328596 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-> > @@ -422,6 +422,33 @@ static const struct drm_i915_gem_object_ops i915_g=
-em_userptr_ops =3D {
-> >   #endif
-> > +static int
-> > +probe_range(struct mm_struct *mm, unsigned long addr, unsigned long le=
-n)
-> > +{
-> > +	const unsigned long end =3D addr + len;
-> > +	struct vm_area_struct *vma;
-> > +	int ret =3D -EFAULT;
-> > +
-> > +	mmap_read_lock(mm);
-> > +	for (vma =3D find_vma(mm, addr); vma; vma =3D vma->vm_next) {
-> > +		if (vma->vm_start > addr)
-> > +			break;
-> > +
-> > +		if (vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP))
-> > +			break;
-> > +
-> > +		if (vma->vm_end >=3D end) {
-> > +			ret =3D 0;
-> > +			break;
-> > +		}
-> > +
-> > +		addr =3D vma->vm_end;
-> > +	}
-> > +	mmap_read_unlock(mm);
-> > +
-> > +	return ret;
-> > +}
-> > +
-> >   /*
-> >    * Creates a new mm object that wraps some normal memory from the pro=
-cess
-> >    * context - user memory.
-> > @@ -477,7 +504,8 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
-> >   	}
-> >   	if (args->flags & ~(I915_USERPTR_READ_ONLY |
-> > -			    I915_USERPTR_UNSYNCHRONIZED))
-> > +			    I915_USERPTR_UNSYNCHRONIZED |
-> > +			    I915_USERPTR_PROBE))
-> >   		return -EINVAL;
-> >   	if (i915_gem_object_size_2big(args->user_size))
-> > @@ -504,6 +532,16 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
-> >   			return -ENODEV;
-> >   	}
-> > +	if (args->flags & I915_USERPTR_PROBE) {
-> > +		/*
-> > +		 * Check that the range pointed to represents real struct
-> > +		 * pages and not iomappings (at this moment in time!)
-> > +		 */
-> > +		ret =3D probe_range(current->mm, args->user_ptr, args->user_size);
-> > +		if (ret)
-> > +			return ret;
-> > +	}
-> > +
-> >   #ifdef CONFIG_MMU_NOTIFIER
-> >   	obj =3D i915_gem_object_alloc();
-> >   	if (obj =3D=3D NULL)
-> > diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i91=
-5/i915_getparam.c
-> > index 24e18219eb50..d6d2e1a10d14 100644
-> > --- a/drivers/gpu/drm/i915/i915_getparam.c
-> > +++ b/drivers/gpu/drm/i915/i915_getparam.c
-> > @@ -163,6 +163,9 @@ int i915_getparam_ioctl(struct drm_device *dev, voi=
-d *data,
-> >   	case I915_PARAM_PERF_REVISION:
-> >   		value =3D i915_perf_ioctl_version();
-> >   		break;
-> > +	case I915_PARAM_HAS_USERPTR_PROBE:
-> > +		value =3D true;
-> > +		break;
-> >   	default:
-> >   		DRM_DEBUG("Unknown parameter %d\n", param->param);
-> >   		return -EINVAL;
-> > diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-> > index e20eeeca7a1c..2e4112bf4d38 100644
-> > --- a/include/uapi/drm/i915_drm.h
-> > +++ b/include/uapi/drm/i915_drm.h
-> > @@ -674,6 +674,9 @@ typedef struct drm_i915_irq_wait {
-> >    */
-> >   #define I915_PARAM_HAS_EXEC_TIMELINE_FENCES 55
-> > +/* Query if the kernel supports the I915_USERPTR_PROBE flag. */
-> > +#define I915_PARAM_HAS_USERPTR_PROBE 56
-> > +
-> >   /* Must be kept compact -- no holes and well documented */
-> >   typedef struct drm_i915_getparam {
-> > @@ -2178,12 +2181,27 @@ struct drm_i915_gem_userptr {
-> >   	 * through the GTT. If the HW can't support readonly access, an erro=
-r is
-> >   	 * returned.
-> >   	 *
-> > +	 * I915_USERPTR_PROBE:
-> > +	 *
-> > +	 * Probe the provided @user_ptr range and validate that the @user_ptr=
- is
-> > +	 * indeed pointing to normal memory and that the range is also valid.
-> > +	 * For example if some garbage address is given to the kernel, then t=
-his
-> > +	 * should complain.
-> > +	 *
-> > +	 * Returns -EFAULT if the probe failed.
-> > +	 *
-> > +	 * Note that this doesn't populate the backing pages.
-> > +	 *
-> > +	 * The kernel supports this feature if I915_PARAM_HAS_USERPTR_PROBE
-> > +	 * returns a non-zero value.
-> > +	 *
-> >   	 * I915_USERPTR_UNSYNCHRONIZED:
-> >   	 *
-> >   	 * NOT USED. Setting this flag will result in an error.
-> >   	 */
-> >   	__u32 flags;
-> >   #define I915_USERPTR_READ_ONLY 0x1
-> > +#define I915_USERPTR_PROBE 0x2
-> >   #define I915_USERPTR_UNSYNCHRONIZED 0x80000000
-> >   	/**
-> >   	 * @handle: Returned handle for the object.
-> > =
+As together with the other two patches works and I don't see any
+problem on the Lenovo IdeaPad Duet, and the panel has the proper
+orientation
 
 
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+> ---
+>  drivers/gpu/drm/mediatek/mtk_dsi.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> index ae403c67cbd92..9da1fd6491319 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -964,6 +964,13 @@ static int mtk_dsi_encoder_init(struct drm_device *drm, struct mtk_dsi *dsi)
+>                 ret = PTR_ERR(dsi->connector);
+>                 goto err_cleanup_encoder;
+>         }
+> +
+> +       ret = drm_connector_init_panel_orientation_property(dsi->connector);
+> +       if (ret) {
+> +               DRM_ERROR("Unable to init panel orientation\n");
+> +               goto err_cleanup_encoder;
+> +       }
+> +
+>         drm_connector_attach_encoder(dsi->connector, &dsi->encoder);
+>
+>         return 0;
+> --
+> 2.32.0.288.g62a8d224e6-goog
+>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
