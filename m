@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE5BDC636CB
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1B62C636CE
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E747561289
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E747561289
+	by mail.kernel.org (Postfix) with ESMTPS id 7FDEF613F9
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FDEF613F9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DDF06EA52;
-	Fri, 16 Jul 2021 19:59:56 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 984646EA02;
- Fri, 16 Jul 2021 19:59:47 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="198046862"
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="198046862"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9AB96EA3E;
+	Fri, 16 Jul 2021 19:59:55 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9536E9F5;
+ Fri, 16 Jul 2021 19:59:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596758"
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596758"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:46 -0700
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507239079"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2021 12:59:44 -0700
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507239044"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:46 -0700
+ 16 Jul 2021 12:59:44 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 16 Jul 2021 13:17:24 -0700
-Message-Id: <20210716201724.54804-52-matthew.brost@intel.com>
+Date: Fri, 16 Jul 2021 13:17:17 -0700
+Message-Id: <20210716201724.54804-45-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210716201724.54804-1-matthew.brost@intel.com>
 References: <20210716201724.54804-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 51/51] drm/i915/guc: Unblock GuC submission on
- Gen11+
+Subject: [Intel-gfx] [PATCH 44/51] drm/i915/selftest: Better error reporting
+ from hangcheck selftest
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,109 +60,347 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Unblock GuC submission on Gen11+ platforms.
+There are many ways in which the hangcheck selftest can fail. Very few
+of them actually printed an error message to say what happened. So,
+fill in the missing messages.
 
-v2:
- (Martin Peres / John H)
-  - Delete debug message when GuC is disabled by default on certain
-    platforms
-
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h            |  1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c |  8 ++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h |  3 +--
- drivers/gpu/drm/i915/gt/uc/intel_uc.c             | 13 ++++++++-----
- 4 files changed, 18 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 89 ++++++++++++++++----
+ 1 file changed, 72 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index eb6062f95d3b..5d94cf482516 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -55,6 +55,7 @@ struct intel_guc {
- 	struct ida guc_ids;
- 	struct list_head guc_id_list;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 7aea10aa1fb4..0ed87cc4d063 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -378,6 +378,7 @@ static int igt_reset_nop(void *arg)
+ 			ce = intel_context_create(engine);
+ 			if (IS_ERR(ce)) {
+ 				err = PTR_ERR(ce);
++				pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+ 				break;
+ 			}
  
-+	bool submission_supported;
- 	bool submission_selected;
+@@ -387,6 +388,7 @@ static int igt_reset_nop(void *arg)
+ 				rq = intel_context_create_request(ce);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
++					pr_err("[%s] Create request failed: %d!\n", engine->name, err);
+ 					break;
+ 				}
  
- 	struct i915_vma *ads_vma;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 263ad6a9e4a9..32269a22562e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2512,6 +2512,13 @@ void intel_guc_submission_disable(struct intel_guc *guc)
- 	/* Note: By the time we're here, GuC may have already been reset */
- }
+@@ -401,24 +403,31 @@ static int igt_reset_nop(void *arg)
+ 		igt_global_reset_unlock(gt);
  
-+static bool __guc_submission_supported(struct intel_guc *guc)
-+{
-+	/* GuC submission is unavailable for pre-Gen11 */
-+	return intel_guc_is_supported(guc) &&
-+	       GRAPHICS_VER(guc_to_gt(guc)->i915) >= 11;
-+}
-+
- static bool __guc_submission_selected(struct intel_guc *guc)
- {
- 	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
-@@ -2524,6 +2531,7 @@ static bool __guc_submission_selected(struct intel_guc *guc)
+ 		if (intel_gt_is_wedged(gt)) {
++			pr_err("[%s] GT is wedged!\n", engine->name);
+ 			err = -EIO;
+ 			break;
+ 		}
  
- void intel_guc_submission_init_early(struct intel_guc *guc)
- {
-+	guc->submission_supported = __guc_submission_supported(guc);
- 	guc->submission_selected = __guc_submission_selected(guc);
- }
+ 		if (i915_reset_count(global) != reset_count + ++count) {
+-			pr_err("Full GPU reset not recorded!\n");
++			pr_err("[%s] Reset not recorded: %d vs %d + %d!\n",
++			       engine->name, i915_reset_count(global), reset_count, count);
+ 			err = -EINVAL;
+ 			break;
+ 		}
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-index 03bc1c83a4d2..c7ef44fa0c36 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-@@ -38,8 +38,7 @@ int intel_guc_wait_for_pending_msg(struct intel_guc *guc,
+ 		err = igt_flush_test(gt->i915);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Flush failed: %d!\n", engine->name, err);
+ 			break;
++		}
+ 	} while (time_before(jiffies, end_time));
+ 	pr_info("%s: %d resets\n", __func__, count);
  
- static inline bool intel_guc_submission_is_supported(struct intel_guc *guc)
- {
--	/* XXX: GuC submission is unavailable for now */
--	return false;
-+	return guc->submission_supported;
- }
- 
- static inline bool intel_guc_submission_is_wanted(struct intel_guc *guc)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 7a69c3c027e9..da57d18d9f6b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -34,8 +34,14 @@ static void uc_expand_default_options(struct intel_uc *uc)
- 		return;
- 	}
- 
--	/* Default: enable HuC authentication only */
--	i915->params.enable_guc = ENABLE_GUC_LOAD_HUC;
-+	/* Intermediate platforms are HuC authentication only */
-+	if (IS_DG1(i915) || IS_ALDERLAKE_S(i915)) {
-+		i915->params.enable_guc = ENABLE_GUC_LOAD_HUC;
-+		return;
+-	if (igt_flush_test(gt->i915))
++	if (igt_flush_test(gt->i915)) {
++		pr_err("Post flush failed: %d!\n", err);
+ 		err = -EIO;
 +	}
 +
-+	/* Default: enable HuC authentication and GuC submission */
-+	i915->params.enable_guc = ENABLE_GUC_LOAD_HUC | ENABLE_GUC_SUBMISSION;
+ 	return err;
  }
  
- /* Reset GuC providing us with fresh state for both GuC and HuC.
-@@ -313,9 +319,6 @@ static int __uc_init(struct intel_uc *uc)
- 	if (i915_inject_probe_failure(uc_to_gt(uc)->i915))
- 		return -ENOMEM;
+@@ -441,8 +450,10 @@ static int igt_reset_nop_engine(void *arg)
+ 		int err;
  
--	/* XXX: GuC submission is unavailable for now */
--	GEM_BUG_ON(intel_uc_uses_guc_submission(uc));
--
- 	ret = intel_guc_init(guc);
- 	if (ret)
- 		return ret;
+ 		ce = intel_context_create(engine);
+-		if (IS_ERR(ce))
++		if (IS_ERR(ce)) {
++			pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+ 			return PTR_ERR(ce);
++		}
+ 
+ 		reset_count = i915_reset_count(global);
+ 		reset_engine_count = i915_reset_engine_count(global, engine);
+@@ -550,8 +561,10 @@ static int igt_reset_fail_engine(void *arg)
+ 		int err;
+ 
+ 		ce = intel_context_create(engine);
+-		if (IS_ERR(ce))
++		if (IS_ERR(ce)) {
++			pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+ 			return PTR_ERR(ce);
++		}
+ 
+ 		st_engine_heartbeat_disable(engine);
+ 		set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
+@@ -711,6 +724,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 				rq = hang_create_request(&h, engine);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
++					pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 					break;
+ 				}
+ 
+@@ -765,12 +779,16 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 			break;
+ 
+ 		err = igt_flush_test(gt->i915);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Flush failed: %d!\n", engine->name, err);
+ 			break;
++		}
+ 	}
+ 
+-	if (intel_gt_is_wedged(gt))
++	if (intel_gt_is_wedged(gt)) {
++		pr_err("GT is wedged!\n");
+ 		err = -EIO;
++	}
+ 
+ 	if (active)
+ 		hang_fini(&h);
+@@ -837,6 +855,7 @@ static int active_engine(void *data)
+ 		ce[count] = intel_context_create(engine);
+ 		if (IS_ERR(ce[count])) {
+ 			err = PTR_ERR(ce[count]);
++			pr_err("[%s] Create context #%ld failed: %d!\n", engine->name, count, err);
+ 			while (--count)
+ 				intel_context_put(ce[count]);
+ 			return err;
+@@ -852,6 +871,7 @@ static int active_engine(void *data)
+ 		new = intel_context_create_request(ce[idx]);
+ 		if (IS_ERR(new)) {
+ 			err = PTR_ERR(new);
++			pr_err("[%s] Create request #%d failed: %d!\n", engine->name, idx, err);
+ 			break;
+ 		}
+ 
+@@ -867,8 +887,10 @@ static int active_engine(void *data)
+ 		}
+ 
+ 		err = active_request_put(old);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Request put failed: %d!\n", engine->name, err);
+ 			break;
++		}
+ 
+ 		cond_resched();
+ 	}
+@@ -876,6 +898,9 @@ static int active_engine(void *data)
+ 	for (count = 0; count < ARRAY_SIZE(rq); count++) {
+ 		int err__ = active_request_put(rq[count]);
+ 
++		if (err)
++			pr_err("[%s] Request put #%ld failed: %d!\n", engine->name, count, err);
++
+ 		/* Keep the first error */
+ 		if (!err)
+ 			err = err__;
+@@ -949,6 +974,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 					  "igt/%s", other->name);
+ 			if (IS_ERR(tsk)) {
+ 				err = PTR_ERR(tsk);
++				pr_err("[%s] Thread spawn failed: %d!\n", engine->name, err);
+ 				goto unwind;
+ 			}
+ 
+@@ -967,6 +993,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 				rq = hang_create_request(&h, engine);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
++					pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 					break;
+ 				}
+ 
+@@ -999,10 +1026,10 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			if (rq) {
+ 				if (rq->fence.error != -EIO) {
+ 					pr_err("i915_reset_engine(%s:%s):"
+-					       " failed to reset request %llx:%lld\n",
++					       " failed to reset request %lld:%lld [0x%04X]\n",
+ 					       engine->name, test_name,
+ 					       rq->fence.context,
+-					       rq->fence.seqno);
++					       rq->fence.seqno, rq->context->guc_id);
+ 					i915_request_put(rq);
+ 
+ 					GEM_TRACE_DUMP();
+@@ -1101,8 +1128,10 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			break;
+ 
+ 		err = igt_flush_test(gt->i915);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Flush failed: %d!\n", engine->name, err);
+ 			break;
++		}
+ 	}
+ 
+ 	if (intel_gt_is_wedged(gt))
+@@ -1180,12 +1209,15 @@ static int igt_reset_wait(void *arg)
+ 	igt_global_reset_lock(gt);
+ 
+ 	err = hang_init(&h, gt);
+-	if (err)
++	if (err) {
++		pr_err("[%s] Hang init failed: %d!\n", engine->name, err);
+ 		goto unlock;
++	}
+ 
+ 	rq = hang_create_request(&h, engine);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
++		pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 		goto fini;
+ 	}
+ 
+@@ -1310,12 +1342,15 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	/* Check that we can recover an unbind stuck on a hanging request */
+ 
+ 	err = hang_init(&h, gt);
+-	if (err)
++	if (err) {
++		pr_err("[%s] Hang init failed: %d!\n", engine->name, err);
+ 		return err;
++	}
+ 
+ 	obj = i915_gem_object_create_internal(gt->i915, SZ_1M);
+ 	if (IS_ERR(obj)) {
+ 		err = PTR_ERR(obj);
++		pr_err("[%s] Create object failed: %d!\n", engine->name, err);
+ 		goto fini;
+ 	}
+ 
+@@ -1330,12 +1365,14 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	arg.vma = i915_vma_instance(obj, vm, NULL);
+ 	if (IS_ERR(arg.vma)) {
+ 		err = PTR_ERR(arg.vma);
++		pr_err("[%s] VMA instance failed: %d!\n", engine->name, err);
+ 		goto out_obj;
+ 	}
+ 
+ 	rq = hang_create_request(&h, engine);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
++		pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 		goto out_obj;
+ 	}
+ 
+@@ -1347,6 +1384,7 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	err = i915_vma_pin(arg.vma, 0, 0, pin_flags);
+ 	if (err) {
+ 		i915_request_add(rq);
++		pr_err("[%s] VMA pin failed: %d!\n", engine->name, err);
+ 		goto out_obj;
+ 	}
+ 
+@@ -1363,8 +1401,14 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	i915_vma_lock(arg.vma);
+ 	err = i915_request_await_object(rq, arg.vma->obj,
+ 					flags & EXEC_OBJECT_WRITE);
+-	if (err == 0)
++	if (err == 0) {
+ 		err = i915_vma_move_to_active(arg.vma, rq, flags);
++		if (err)
++			pr_err("[%s] Move to active failed: %d!\n", engine->name, err);
++	} else {
++		pr_err("[%s] Request await failed: %d!\n", engine->name, err);
++	}
++
+ 	i915_vma_unlock(arg.vma);
+ 
+ 	if (flags & EXEC_OBJECT_NEEDS_FENCE)
+@@ -1392,6 +1436,7 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	tsk = kthread_run(fn, &arg, "igt/evict_vma");
+ 	if (IS_ERR(tsk)) {
+ 		err = PTR_ERR(tsk);
++		pr_err("[%s] Thread spawn failed: %d!\n", engine->name, err);
+ 		tsk = NULL;
+ 		goto out_reset;
+ 	}
+@@ -1518,6 +1563,7 @@ static int igt_reset_queue(void *arg)
+ 		prev = hang_create_request(&h, engine);
+ 		if (IS_ERR(prev)) {
+ 			err = PTR_ERR(prev);
++			pr_err("[%s] Create 'prev' hang request failed: %d!\n", engine->name, err);
+ 			goto fini;
+ 		}
+ 
+@@ -1532,6 +1578,7 @@ static int igt_reset_queue(void *arg)
+ 			rq = hang_create_request(&h, engine);
+ 			if (IS_ERR(rq)) {
+ 				err = PTR_ERR(rq);
++				pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 				goto fini;
+ 			}
+ 
+@@ -1619,8 +1666,10 @@ static int igt_reset_queue(void *arg)
+ 		i915_request_put(prev);
+ 
+ 		err = igt_flush_test(gt->i915);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Flush failed: %d!\n", engine->name, err);
+ 			break;
++		}
+ 	}
+ 
+ fini:
+@@ -1653,12 +1702,15 @@ static int igt_handle_error(void *arg)
+ 		return 0;
+ 
+ 	err = hang_init(&h, gt);
+-	if (err)
++	if (err) {
++		pr_err("[%s] Hang init failed: %d!\n", engine->name, err);
+ 		return err;
++	}
+ 
+ 	rq = hang_create_request(&h, engine);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
++		pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 		goto err_fini;
+ 	}
+ 
+@@ -1743,12 +1795,15 @@ static int igt_atomic_reset_engine(struct intel_engine_cs *engine,
+ 		return err;
+ 
+ 	err = hang_init(&h, engine->gt);
+-	if (err)
++	if (err) {
++		pr_err("[%s] Hang init failed: %d!\n", engine->name, err);
+ 		return err;
++	}
+ 
+ 	rq = hang_create_request(&h, engine);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
++		pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 		goto out;
+ 	}
+ 
 -- 
 2.28.0
 
