@@ -7,41 +7,42 @@ X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44FB5C636CE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6204DC6377A
 	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 99BC9613F3
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99BC9613F3
+	by mail.kernel.org (Postfix) with ESMTPS id 2A70F6128A
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A70F6128A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA4066E9F7;
-	Fri, 16 Jul 2021 19:59:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 088B96E9FD;
+	Fri, 16 Jul 2021 19:59:43 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E75C16E9DF;
- Fri, 16 Jul 2021 19:59:38 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596725"
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596725"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC75E6E9D4;
+ Fri, 16 Jul 2021 19:59:37 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596720"
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596720"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:38 -0700
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238930"
+ 16 Jul 2021 12:59:37 -0700
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238915"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:38 -0700
+ 16 Jul 2021 12:59:37 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 16 Jul 2021 13:16:51 -0700
-Message-Id: <20210716201724.54804-19-matthew.brost@intel.com>
+Date: Fri, 16 Jul 2021 13:16:47 -0700
+Message-Id: <20210716201724.54804-15-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210716201724.54804-1-matthew.brost@intel.com>
 References: <20210716201724.54804-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 18/51] drm/i915: Add intel_context tracing
+Subject: [Intel-gfx] [PATCH 14/51] drm/i915/guc: Ensure G2H response has
+ space in buffer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,300 +60,414 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add intel_context tracing. These trace points are particular helpful
-when debugging the GuC firmware and can be enabled via
-CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS kernel config option.
+Ensure G2H response has space in the buffer before sending H2G CTB as
+the GuC can't handle any backpressure on the G2H interface.
 
-Cc: John Harrison <john.c.harrison@intel.com>
+v2:
+ (Matthew)
+  - s/INTEL_GUC_SEND/INTEL_GUC_CT_SEND
+v3:
+ (Matthew)
+  - Add G2H credit accounting to blocking path, add g2h_release_space
+    helper
+ (John H)
+  - CTB_G2H_BUFFER_SIZE / 4 == G2H_ROOM_BUFFER_SIZE
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       |   6 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  14 ++
- drivers/gpu/drm/i915/i915_trace.h             | 144 ++++++++++++++++++
- 3 files changed, 164 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  8 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 91 +++++++++++++++----
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  9 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  4 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 13 ++-
+ 5 files changed, 99 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 91349d071e0e..251ff7eea22d 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -8,6 +8,7 @@
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 03b7222b04a2..80b88bae5f24 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -96,10 +96,11 @@ inline int intel_guc_send(struct intel_guc *guc, const u32 *action, u32 len)
+ }
  
- #include "i915_drv.h"
- #include "i915_globals.h"
-+#include "i915_trace.h"
- 
- #include "intel_context.h"
- #include "intel_engine.h"
-@@ -28,6 +29,7 @@ static void rcu_context_free(struct rcu_head *rcu)
+ static
+-inline int intel_guc_send_nb(struct intel_guc *guc, const u32 *action, u32 len)
++inline int intel_guc_send_nb(struct intel_guc *guc, const u32 *action, u32 len,
++			     u32 g2h_len_dw)
  {
- 	struct intel_context *ce = container_of(rcu, typeof(*ce), rcu);
- 
-+	trace_intel_context_free(ce);
- 	kmem_cache_free(global.slab_ce, ce);
+ 	return intel_guc_ct_send(&guc->ct, action, len, NULL, 0,
+-				 INTEL_GUC_CT_SEND_NB);
++				 MAKE_SEND_FLAGS(g2h_len_dw));
  }
  
-@@ -46,6 +48,7 @@ intel_context_create(struct intel_engine_cs *engine)
- 		return ERR_PTR(-ENOMEM);
- 
- 	intel_context_init(ce, engine);
-+	trace_intel_context_create(ce);
- 	return ce;
- }
- 
-@@ -268,6 +271,8 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
- 
- 	GEM_BUG_ON(!intel_context_is_pinned(ce)); /* no overflow! */
- 
-+	trace_intel_context_do_pin(ce);
-+
- err_unlock:
- 	mutex_unlock(&ce->pin_mutex);
- err_post_unpin:
-@@ -323,6 +328,7 @@ void __intel_context_do_unpin(struct intel_context *ce, int sub)
- 	 */
- 	intel_context_get(ce);
- 	intel_context_active_release(ce);
-+	trace_intel_context_do_unpin(ce);
- 	intel_context_put(ce);
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 480fb2184ecf..05958260e849 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -343,6 +343,7 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 
- 	err = intel_guc_send_nb(guc, action, len, g2h_len_dw);
- 	if (!enabled && !err) {
-+		trace_intel_context_sched_enable(ce);
- 		atomic_inc(&guc->outstanding_submission_g2h);
- 		set_context_enabled(ce);
- 	} else if (!enabled) {
-@@ -808,6 +809,8 @@ static int register_context(struct intel_context *ce)
- 	u32 offset = intel_guc_ggtt_offset(guc, guc->lrc_desc_pool) +
- 		ce->guc_id * sizeof(struct guc_lrc_desc);
- 
-+	trace_intel_context_register(ce);
-+
- 	return __guc_action_register_context(guc, ce->guc_id, offset);
- }
- 
-@@ -828,6 +831,8 @@ static int deregister_context(struct intel_context *ce, u32 guc_id)
+ static inline int
+@@ -113,6 +114,7 @@ intel_guc_send_and_receive(struct intel_guc *guc, const u32 *action, u32 len,
+ static inline int intel_guc_send_busy_loop(struct intel_guc* guc,
+ 					   const u32 *action,
+ 					   u32 len,
++					   u32 g2h_len_dw,
+ 					   bool loop)
  {
- 	struct intel_guc *guc = ce_to_guc(ce);
+ 	int err;
+@@ -123,7 +125,7 @@ static inline int intel_guc_send_busy_loop(struct intel_guc* guc,
+ 	might_sleep_if(loop && not_atomic);
  
-+	trace_intel_context_deregister(ce);
+ retry:
+-	err = intel_guc_send_nb(guc, action, len);
++	err = intel_guc_send_nb(guc, action, len, g2h_len_dw);
+ 	if (unlikely(err == -EBUSY && loop)) {
+ 		if (likely(not_atomic)) {
+ 			if (msleep_interruptible(sleep_period_ms))
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 019b25ff1888..c33906ec478d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -73,6 +73,7 @@ static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
+ #define CTB_DESC_SIZE		ALIGN(sizeof(struct guc_ct_buffer_desc), SZ_2K)
+ #define CTB_H2G_BUFFER_SIZE	(SZ_4K)
+ #define CTB_G2H_BUFFER_SIZE	(4 * CTB_H2G_BUFFER_SIZE)
++#define G2H_ROOM_BUFFER_SIZE	(CTB_G2H_BUFFER_SIZE / 4)
+ 
+ struct ct_request {
+ 	struct list_head link;
+@@ -129,23 +130,27 @@ static void guc_ct_buffer_desc_init(struct guc_ct_buffer_desc *desc)
+ 
+ static void guc_ct_buffer_reset(struct intel_guc_ct_buffer *ctb)
+ {
++	u32 space;
 +
- 	return __guc_action_deregister_context(guc, guc_id);
+ 	ctb->broken = false;
+ 	ctb->tail = 0;
+ 	ctb->head = 0;
+-	ctb->space = CIRC_SPACE(ctb->tail, ctb->head, ctb->size);
++	space = CIRC_SPACE(ctb->tail, ctb->head, ctb->size) - ctb->resv_space;
++	atomic_set(&ctb->space, space);
+ 
+ 	guc_ct_buffer_desc_init(ctb->desc);
  }
  
-@@ -902,6 +907,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce)
- 	 * GuC before registering this context.
- 	 */
- 	if (context_registered) {
-+		trace_intel_context_steal_guc_id(ce);
- 		set_context_wait_for_deregister_to_register(ce);
- 		intel_context_get(ce);
+ static void guc_ct_buffer_init(struct intel_guc_ct_buffer *ctb,
+ 			       struct guc_ct_buffer_desc *desc,
+-			       u32 *cmds, u32 size_in_bytes)
++			       u32 *cmds, u32 size_in_bytes, u32 resv_space)
+ {
+ 	GEM_BUG_ON(size_in_bytes % 4);
  
-@@ -960,6 +966,7 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
+ 	ctb->desc = desc;
+ 	ctb->cmds = cmds;
+ 	ctb->size = size_in_bytes / 4;
++	ctb->resv_space = resv_space / 4;
  
- 	GEM_BUG_ON(guc_id == GUC_INVALID_LRC_ID);
+ 	guc_ct_buffer_reset(ctb);
+ }
+@@ -226,6 +231,7 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+ 	struct guc_ct_buffer_desc *desc;
+ 	u32 blob_size;
+ 	u32 cmds_size;
++	u32 resv_space;
+ 	void *blob;
+ 	u32 *cmds;
+ 	int err;
+@@ -250,19 +256,23 @@ int intel_guc_ct_init(struct intel_guc_ct *ct)
+ 	desc = blob;
+ 	cmds = blob + 2 * CTB_DESC_SIZE;
+ 	cmds_size = CTB_H2G_BUFFER_SIZE;
+-	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u\n", "send",
+-		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
++	resv_space = 0;
++	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u/%u\n", "send",
++		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size,
++		 resv_space);
  
-+	trace_intel_context_sched_disable(ce);
- 	intel_context_get(ce);
+-	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size);
++	guc_ct_buffer_init(&ct->ctbs.send, desc, cmds, cmds_size, resv_space);
  
- 	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
-@@ -1121,6 +1128,9 @@ static void __guc_signal_context_fence(struct intel_context *ce)
+ 	/* store pointers to desc and cmds for recv ctb */
+ 	desc = blob + CTB_DESC_SIZE;
+ 	cmds = blob + 2 * CTB_DESC_SIZE + CTB_H2G_BUFFER_SIZE;
+ 	cmds_size = CTB_G2H_BUFFER_SIZE;
+-	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u\n", "recv",
+-		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size);
++	resv_space = G2H_ROOM_BUFFER_SIZE;
++	CT_DEBUG(ct, "%s desc %#tx cmds %#tx size %u/%u\n", "recv",
++		 ptrdiff(desc, blob), ptrdiff(cmds, blob), cmds_size,
++		 resv_space);
  
- 	lockdep_assert_held(&ce->guc_state.lock);
+-	guc_ct_buffer_init(&ct->ctbs.recv, desc, cmds, cmds_size);
++	guc_ct_buffer_init(&ct->ctbs.recv, desc, cmds, cmds_size, resv_space);
  
-+	if (!list_empty(&ce->guc_state.fences))
-+		trace_intel_context_fence_release(ce);
+ 	return 0;
+ }
+@@ -461,8 +471,8 @@ static int ct_write(struct intel_guc_ct *ct,
+ 
+ 	/* update local copies */
+ 	ctb->tail = tail;
+-	GEM_BUG_ON(ctb->space < len + GUC_CTB_HDR_LEN);
+-	ctb->space -= len + GUC_CTB_HDR_LEN;
++	GEM_BUG_ON(atomic_read(&ctb->space) < len + GUC_CTB_HDR_LEN);
++	atomic_sub(len + GUC_CTB_HDR_LEN, &ctb->space);
+ 
+ 	/* now update descriptor */
+ 	WRITE_ONCE(desc->tail, tail);
+@@ -537,6 +547,32 @@ static inline bool ct_deadlocked(struct intel_guc_ct *ct)
+ 	return ret;
+ }
+ 
++static inline bool g2h_has_room(struct intel_guc_ct *ct, u32 g2h_len_dw)
++{
++	struct intel_guc_ct_buffer *ctb = &ct->ctbs.recv;
 +
- 	list_for_each_entry(rq, &ce->guc_state.fences, guc_fence_link)
- 		i915_sw_fence_complete(&rq->submit);
- 
-@@ -1531,6 +1541,8 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 	if (unlikely(!ce))
- 		return -EPROTO;
- 
-+	trace_intel_context_deregister_done(ce);
++	/*
++	 * We leave a certain amount of space in the G2H CTB buffer for
++	 * unexpected G2H CTBs (e.g. logging, engine hang, etc...)
++	 */
++	return !g2h_len_dw || atomic_read(&ctb->space) >= g2h_len_dw;
++}
 +
- 	if (context_wait_for_deregister_to_register(ce)) {
- 		struct intel_runtime_pm *runtime_pm =
- 			&ce->engine->gt->i915->runtime_pm;
-@@ -1582,6 +1594,8 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 		return -EPROTO;
++static inline void g2h_reserve_space(struct intel_guc_ct *ct, u32 g2h_len_dw)
++{
++	lockdep_assert_held(&ct->ctbs.send.lock);
++
++	GEM_BUG_ON(!g2h_has_room(ct, g2h_len_dw));
++
++	if (g2h_len_dw)
++		atomic_sub(g2h_len_dw, &ct->ctbs.recv.space);
++}
++
++static inline void g2h_release_space(struct intel_guc_ct *ct, u32 g2h_len_dw)
++{
++	atomic_add(g2h_len_dw, &ct->ctbs.recv.space);
++}
++
+ static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
+ {
+ 	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+@@ -544,7 +580,7 @@ static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
+ 	u32 head;
+ 	u32 space;
+ 
+-	if (ctb->space >= len_dw)
++	if (atomic_read(&ctb->space) >= len_dw)
+ 		return true;
+ 
+ 	head = READ_ONCE(desc->head);
+@@ -557,16 +593,16 @@ static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
  	}
  
-+	trace_intel_context_sched_done(ce);
-+
- 	if (context_pending_enable(ce)) {
- 		clr_context_pending_enable(ce);
- 	} else if (context_pending_disable(ce)) {
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index ea41d069bf7d..97c2e83984ed 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -905,6 +905,90 @@ TRACE_EVENT(i915_request_out,
- 			      __entry->ctx, __entry->seqno, __entry->completed)
- );
+ 	space = CIRC_SPACE(ctb->tail, head, ctb->size);
+-	ctb->space = space;
++	atomic_set(&ctb->space, space);
  
-+DECLARE_EVENT_CLASS(intel_context,
-+	    TP_PROTO(struct intel_context *ce),
-+	    TP_ARGS(ce),
-+
-+	    TP_STRUCT__entry(
-+			     __field(u32, guc_id)
-+			     __field(int, pin_count)
-+			     __field(u32, sched_state)
-+			     __field(u32, guc_sched_state_no_lock)
-+			     ),
-+
-+	    TP_fast_assign(
-+			   __entry->guc_id = ce->guc_id;
-+			   __entry->pin_count = atomic_read(&ce->pin_count);
-+			   __entry->sched_state = ce->guc_state.sched_state;
-+			   __entry->guc_sched_state_no_lock =
-+			   atomic_read(&ce->guc_sched_state_no_lock);
-+			   ),
-+
-+	    TP_printk("guc_id=%d, pin_count=%d sched_state=0x%x,0x%x",
-+		      __entry->guc_id, __entry->pin_count, __entry->sched_state,
-+		      __entry->guc_sched_state_no_lock)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_register,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_deregister,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_deregister_done,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_sched_enable,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_sched_disable,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_sched_done,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_create,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_fence_release,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_free,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_steal_guc_id,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_do_pin,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_do_unpin,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
-+);
-+
- #else
- #if !defined(TRACE_HEADER_MULTI_READ)
- static inline void
-@@ -941,6 +1025,66 @@ static inline void
- trace_i915_request_out(struct i915_request *rq)
- {
+ 	return space >= len_dw;
  }
-+
-+static inline void
-+trace_intel_context_register(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_deregister(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_deregister_done(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_sched_enable(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_sched_disable(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_sched_done(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_create(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_fence_release(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_free(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_steal_guc_id(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_do_pin(struct intel_context *ce)
-+{
-+}
-+
-+static inline void
-+trace_intel_context_do_unpin(struct intel_context *ce)
-+{
-+}
- #endif
- #endif
  
+-static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
++static int has_room_nb(struct intel_guc_ct *ct, u32 h2g_dw, u32 g2h_dw)
+ {
+ 	lockdep_assert_held(&ct->ctbs.send.lock);
+ 
+-	if (unlikely(!h2g_has_room(ct, len_dw))) {
++	if (unlikely(!h2g_has_room(ct, h2g_dw) || !g2h_has_room(ct, g2h_dw))) {
+ 		if (ct->stall_time == KTIME_MAX)
+ 			ct->stall_time = ktime_get();
+ 
+@@ -580,6 +616,9 @@ static int has_room_nb(struct intel_guc_ct *ct, u32 len_dw)
+ 	return 0;
+ }
+ 
++#define G2H_LEN_DW(f) \
++	FIELD_GET(INTEL_GUC_CT_SEND_G2H_DW_MASK, f) ? \
++	FIELD_GET(INTEL_GUC_CT_SEND_G2H_DW_MASK, f) + GUC_CTB_HXG_MSG_MIN_LEN : 0
+ static int ct_send_nb(struct intel_guc_ct *ct,
+ 		      const u32 *action,
+ 		      u32 len,
+@@ -587,12 +626,13 @@ static int ct_send_nb(struct intel_guc_ct *ct,
+ {
+ 	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+ 	unsigned long spin_flags;
++	u32 g2h_len_dw = G2H_LEN_DW(flags);
+ 	u32 fence;
+ 	int ret;
+ 
+ 	spin_lock_irqsave(&ctb->lock, spin_flags);
+ 
+-	ret = has_room_nb(ct, len + GUC_CTB_HDR_LEN);
++	ret = has_room_nb(ct, len + GUC_CTB_HDR_LEN, g2h_len_dw);
+ 	if (unlikely(ret))
+ 		goto out;
+ 
+@@ -601,6 +641,7 @@ static int ct_send_nb(struct intel_guc_ct *ct,
+ 	if (unlikely(ret))
+ 		goto out;
+ 
++	g2h_reserve_space(ct, g2h_len_dw);
+ 	intel_guc_notify(ct_to_guc(ct));
+ 
+ out:
+@@ -632,11 +673,13 @@ static int ct_send(struct intel_guc_ct *ct,
+ 	/*
+ 	 * We use a lazy spin wait loop here as we believe that if the CT
+ 	 * buffers are sized correctly the flow control condition should be
+-	 * rare.
++	 * rare. Reserving the maximum size in the G2H credits as we don't know
++	 * how big the response is going to be.
+ 	 */
+ retry:
+ 	spin_lock_irqsave(&ctb->lock, flags);
+-	if (unlikely(!h2g_has_room(ct, len + GUC_CTB_HDR_LEN))) {
++	if (unlikely(!h2g_has_room(ct, len + GUC_CTB_HDR_LEN) ||
++		     !g2h_has_room(ct, GUC_CTB_HXG_MSG_MAX_LEN))) {
+ 		if (ct->stall_time == KTIME_MAX)
+ 			ct->stall_time = ktime_get();
+ 		spin_unlock_irqrestore(&ctb->lock, flags);
+@@ -664,6 +707,7 @@ static int ct_send(struct intel_guc_ct *ct,
+ 	spin_unlock(&ct->requests.lock);
+ 
+ 	err = ct_write(ct, action, len, fence, 0);
++	g2h_reserve_space(ct, GUC_CTB_HXG_MSG_MAX_LEN);
+ 
+ 	spin_unlock_irqrestore(&ctb->lock, flags);
+ 
+@@ -673,6 +717,7 @@ static int ct_send(struct intel_guc_ct *ct,
+ 	intel_guc_notify(ct_to_guc(ct));
+ 
+ 	err = wait_for_ct_request_update(&request, status);
++	g2h_release_space(ct, GUC_CTB_HXG_MSG_MAX_LEN);
+ 	if (unlikely(err))
+ 		goto unlink;
+ 
+@@ -992,10 +1037,22 @@ static void ct_incoming_request_worker_func(struct work_struct *w)
+ static int ct_handle_event(struct intel_guc_ct *ct, struct ct_incoming_msg *request)
+ {
+ 	const u32 *hxg = &request->msg[GUC_CTB_MSG_MIN_LEN];
++	u32 action = FIELD_GET(GUC_HXG_EVENT_MSG_0_ACTION, hxg[0]);
+ 	unsigned long flags;
+ 
+ 	GEM_BUG_ON(FIELD_GET(GUC_HXG_MSG_0_TYPE, hxg[0]) != GUC_HXG_TYPE_EVENT);
+ 
++	/*
++	 * Adjusting the space must be done in IRQ or deadlock can occur as the
++	 * CTB processing in the below workqueue can send CTBs which creates a
++	 * circular dependency if the space was returned there.
++	 */
++	switch (action) {
++	case INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE:
++	case INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE:
++		g2h_release_space(ct, request->size);
++	}
++
+ 	spin_lock_irqsave(&ct->requests.lock, flags);
+ 	list_add_tail(&request->link, &ct->requests.incoming);
+ 	spin_unlock_irqrestore(&ct->requests.lock, flags);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index edd1bba0445d..785dfc5c6efb 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -33,6 +33,7 @@ struct intel_guc;
+  * @desc: pointer to the buffer descriptor
+  * @cmds: pointer to the commands buffer
+  * @size: size of the commands buffer in dwords
++ * @resv_space: reserved space in buffer in dwords
+  * @head: local shadow copy of head in dwords
+  * @tail: local shadow copy of tail in dwords
+  * @space: local shadow copy of space in dwords
+@@ -43,9 +44,10 @@ struct intel_guc_ct_buffer {
+ 	struct guc_ct_buffer_desc *desc;
+ 	u32 *cmds;
+ 	u32 size;
++	u32 resv_space;
+ 	u32 tail;
+ 	u32 head;
+-	u32 space;
++	atomic_t space;
+ 	bool broken;
+ };
+ 
+@@ -97,6 +99,11 @@ static inline bool intel_guc_ct_enabled(struct intel_guc_ct *ct)
+ }
+ 
+ #define INTEL_GUC_CT_SEND_NB		BIT(31)
++#define INTEL_GUC_CT_SEND_G2H_DW_SHIFT	0
++#define INTEL_GUC_CT_SEND_G2H_DW_MASK	(0xff << INTEL_GUC_CT_SEND_G2H_DW_SHIFT)
++#define MAKE_SEND_FLAGS(len) \
++	({GEM_BUG_ON(!FIELD_FIT(INTEL_GUC_CT_SEND_G2H_DW_MASK, len)); \
++	(FIELD_PREP(INTEL_GUC_CT_SEND_G2H_DW_MASK, len) | INTEL_GUC_CT_SEND_NB);})
+ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
+ 		      u32 *response_buf, u32 response_buf_size, u32 flags);
+ void intel_guc_ct_event_handler(struct intel_guc_ct *ct);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 4e4edc368b77..94bb1ca6f889 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -17,6 +17,10 @@
+ #include "abi/guc_communication_ctb_abi.h"
+ #include "abi/guc_messages_abi.h"
+ 
++/* Payload length only i.e. don't include G2H header length */
++#define G2H_LEN_DW_SCHED_CONTEXT_MODE_SET	2
++#define G2H_LEN_DW_DEREGISTER_CONTEXT		1
++
+ #define GUC_CONTEXT_DISABLE		0
+ #define GUC_CONTEXT_ENABLE		1
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 4443cc6f5320..f7e34baa9506 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -260,6 +260,7 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ 	struct intel_context *ce = rq->context;
+ 	u32 action[3];
+ 	int len = 0;
++	u32 g2h_len_dw = 0;
+ 	bool enabled = context_enabled(ce);
+ 
+ 	GEM_BUG_ON(!atomic_read(&ce->guc_id_ref));
+@@ -271,13 +272,13 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ 		action[len++] = GUC_CONTEXT_ENABLE;
+ 		set_context_pending_enable(ce);
+ 		intel_context_get(ce);
++		g2h_len_dw = G2H_LEN_DW_SCHED_CONTEXT_MODE_SET;
+ 	} else {
+ 		action[len++] = INTEL_GUC_ACTION_SCHED_CONTEXT;
+ 		action[len++] = ce->guc_id;
+ 	}
+ 
+-	err = intel_guc_send_nb(guc, action, len);
+-
++	err = intel_guc_send_nb(guc, action, len, g2h_len_dw);
+ 	if (!enabled && !err) {
+ 		set_context_enabled(ce);
+ 	} else if (!enabled) {
+@@ -730,7 +731,7 @@ static int __guc_action_register_context(struct intel_guc *guc,
+ 		offset,
+ 	};
+ 
+-	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), true);
++	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), 0, true);
+ }
+ 
+ static int register_context(struct intel_context *ce)
+@@ -750,7 +751,8 @@ static int __guc_action_deregister_context(struct intel_guc *guc,
+ 		guc_id,
+ 	};
+ 
+-	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), true);
++	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action),
++					G2H_LEN_DW_DEREGISTER_CONTEXT, true);
+ }
+ 
+ static int deregister_context(struct intel_context *ce, u32 guc_id)
+@@ -891,7 +893,8 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
+ 
+ 	intel_context_get(ce);
+ 
+-	intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), true);
++	intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action),
++				 G2H_LEN_DW_SCHED_CONTEXT_MODE_SET, true);
+ }
+ 
+ static u16 prep_context_pending_disable(struct intel_context *ce)
 -- 
 2.28.0
 
