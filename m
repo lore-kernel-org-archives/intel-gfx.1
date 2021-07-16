@@ -5,44 +5,41 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC772C636CA
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 19:59:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BC9BC12002
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 19:59:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9880F61289
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 19:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9880F61289
+	by mail.kernel.org (Postfix) with ESMTPS id 3949A61289
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 19:59:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3949A61289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A20E6E9D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA9376E9DD;
 	Fri, 16 Jul 2021 19:59:36 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AFC66E9D0;
- Fri, 16 Jul 2021 19:59:35 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596703"
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596703"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07C996E9D0;
+ Fri, 16 Jul 2021 19:59:34 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596701"
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596701"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:35 -0700
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238863"
+ 16 Jul 2021 12:59:34 -0700
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238855"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Jul 2021 12:59:34 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 16 Jul 2021 13:16:35 -0700
-Message-Id: <20210716201724.54804-3-matthew.brost@intel.com>
+Date: Fri, 16 Jul 2021 13:16:33 -0700
+Message-Id: <20210716201724.54804-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210716201724.54804-1-matthew.brost@intel.com>
-References: <20210716201724.54804-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/51] drm/i915/guc: Remove GuC stage descriptor,
- add LRC descriptor
+Subject: [Intel-gfx] [PATCH 00/51] GuC submission support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,249 +57,162 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove old GuC stage descriptor, add LRC descriptor which will be used
-by the new GuC interface implemented in this patch series.
+As discussed in [1], [2] we are enabling GuC submission support in the
+i915. This is a subset of the patches in step 5 described in [1],
+basically it is absolute to enable CI with GuC submission on gen11+
+platforms.
 
-v2:
- (John Harrison)
-  - s/lrc/LRC/g
+This series itself will likely be broken down into smaller patch sets to
+merge. Likely into CTBs changes, basic submission, virtual engines, and
+resets.
 
-Cc: John Harrison <john.c.harrison@intel.com>
+A following series will address the missing patches remaining from [1].
+
+Locally tested on TGL machine and basic tests seem to be passing.
+
+v2: Address all review comments in [3], include several more patches to
+make CI [4] happy.
+
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  4 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   | 65 -----------------
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 72 ++++++-------------
- 3 files changed, 25 insertions(+), 116 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 72e4653222e2..2625d2d5959f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -43,8 +43,8 @@ struct intel_guc {
- 	struct i915_vma *ads_vma;
- 	struct __guc_ads_blob *ads_blob;
- 
--	struct i915_vma *stage_desc_pool;
--	void *stage_desc_pool_vaddr;
-+	struct i915_vma *lrc_desc_pool;
-+	void *lrc_desc_pool_vaddr;
- 
- 	/* Control params for fw initialization */
- 	u32 params[GUC_CTL_MAX_DWORDS];
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index 28245a217a39..4e4edc368b77 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -26,9 +26,6 @@
- #define GUC_CLIENT_PRIORITY_NORMAL	3
- #define GUC_CLIENT_PRIORITY_NUM		4
- 
--#define GUC_MAX_STAGE_DESCRIPTORS	1024
--#define	GUC_INVALID_STAGE_ID		GUC_MAX_STAGE_DESCRIPTORS
--
- #define GUC_MAX_LRC_DESCRIPTORS		65535
- #define	GUC_INVALID_LRC_ID		GUC_MAX_LRC_DESCRIPTORS
- 
-@@ -181,68 +178,6 @@ struct guc_process_desc {
- 	u32 reserved[30];
- } __packed;
- 
--/* engine id and context id is packed into guc_execlist_context.context_id*/
--#define GUC_ELC_CTXID_OFFSET		0
--#define GUC_ELC_ENGINE_OFFSET		29
--
--/* The execlist context including software and HW information */
--struct guc_execlist_context {
--	u32 context_desc;
--	u32 context_id;
--	u32 ring_status;
--	u32 ring_lrca;
--	u32 ring_begin;
--	u32 ring_end;
--	u32 ring_next_free_location;
--	u32 ring_current_tail_pointer_value;
--	u8 engine_state_submit_value;
--	u8 engine_state_wait_value;
--	u16 pagefault_count;
--	u16 engine_submit_queue_count;
--} __packed;
--
--/*
-- * This structure describes a stage set arranged for a particular communication
-- * between uKernel (GuC) and Driver (KMD). Technically, this is known as a
-- * "GuC Context descriptor" in the specs, but we use the term "stage descriptor"
-- * to avoid confusion with all the other things already named "context" in the
-- * driver. A static pool of these descriptors are stored inside a GEM object
-- * (stage_desc_pool) which is held for the entire lifetime of our interaction
-- * with the GuC, being allocated before the GuC is loaded with its firmware.
-- */
--struct guc_stage_desc {
--	u32 sched_common_area;
--	u32 stage_id;
--	u32 pas_id;
--	u8 engines_used;
--	u64 db_trigger_cpu;
--	u32 db_trigger_uk;
--	u64 db_trigger_phy;
--	u16 db_id;
--
--	struct guc_execlist_context lrc[GUC_MAX_ENGINES_NUM];
--
--	u8 attribute;
--
--	u32 priority;
--
--	u32 wq_sampled_tail_offset;
--	u32 wq_total_submit_enqueues;
--
--	u32 process_desc;
--	u32 wq_addr;
--	u32 wq_size;
--
--	u32 engine_presence;
--
--	u8 engine_suspended;
--
--	u8 reserved0[3];
--	u64 reserved1[1];
--
--	u64 desc_private;
--} __packed;
--
- #define CONTEXT_REGISTRATION_FLAG_KMD	BIT(0)
- 
- #define CONTEXT_POLICY_DEFAULT_EXECUTION_QUANTUM_US 1000000
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index e9c237b18692..a366890fb840 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -65,57 +65,35 @@ static inline struct i915_priolist *to_priolist(struct rb_node *rb)
- 	return rb_entry(rb, struct i915_priolist, node);
- }
- 
--static struct guc_stage_desc *__get_stage_desc(struct intel_guc *guc, u32 id)
-+/* Future patches will use this function */
-+__attribute__ ((unused))
-+static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
- {
--	struct guc_stage_desc *base = guc->stage_desc_pool_vaddr;
-+	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
- 
--	return &base[id];
--}
--
--static int guc_stage_desc_pool_create(struct intel_guc *guc)
--{
--	u32 size = PAGE_ALIGN(sizeof(struct guc_stage_desc) *
--			      GUC_MAX_STAGE_DESCRIPTORS);
-+	GEM_BUG_ON(index >= GUC_MAX_LRC_DESCRIPTORS);
- 
--	return intel_guc_allocate_and_map_vma(guc, size, &guc->stage_desc_pool,
--					      &guc->stage_desc_pool_vaddr);
-+	return &base[index];
- }
- 
--static void guc_stage_desc_pool_destroy(struct intel_guc *guc)
--{
--	i915_vma_unpin_and_release(&guc->stage_desc_pool, I915_VMA_RELEASE_MAP);
--}
--
--/*
-- * Initialise/clear the stage descriptor shared with the GuC firmware.
-- *
-- * This descriptor tells the GuC where (in GGTT space) to find the important
-- * data structures related to work submission (process descriptor, write queue,
-- * etc).
-- */
--static void guc_stage_desc_init(struct intel_guc *guc)
-+static int guc_lrc_desc_pool_create(struct intel_guc *guc)
- {
--	struct guc_stage_desc *desc;
--
--	/* we only use 1 stage desc, so hardcode it to 0 */
--	desc = __get_stage_desc(guc, 0);
--	memset(desc, 0, sizeof(*desc));
--
--	desc->attribute = GUC_STAGE_DESC_ATTR_ACTIVE |
--			  GUC_STAGE_DESC_ATTR_KERNEL;
-+	u32 size;
-+	int ret;
- 
--	desc->stage_id = 0;
--	desc->priority = GUC_CLIENT_PRIORITY_KMD_NORMAL;
-+	size = PAGE_ALIGN(sizeof(struct guc_lrc_desc) *
-+			  GUC_MAX_LRC_DESCRIPTORS);
-+	ret = intel_guc_allocate_and_map_vma(guc, size, &guc->lrc_desc_pool,
-+					     (void **)&guc->lrc_desc_pool_vaddr);
-+	if (ret)
-+		return ret;
- 
--	desc->wq_size = GUC_WQ_SIZE;
-+	return 0;
- }
- 
--static void guc_stage_desc_fini(struct intel_guc *guc)
-+static void guc_lrc_desc_pool_destroy(struct intel_guc *guc)
- {
--	struct guc_stage_desc *desc;
--
--	desc = __get_stage_desc(guc, 0);
--	memset(desc, 0, sizeof(*desc));
-+	i915_vma_unpin_and_release(&guc->lrc_desc_pool, I915_VMA_RELEASE_MAP);
- }
- 
- static void guc_add_request(struct intel_guc *guc, struct i915_request *rq)
-@@ -410,26 +388,25 @@ int intel_guc_submission_init(struct intel_guc *guc)
- {
- 	int ret;
- 
--	if (guc->stage_desc_pool)
-+	if (guc->lrc_desc_pool)
- 		return 0;
- 
--	ret = guc_stage_desc_pool_create(guc);
-+	ret = guc_lrc_desc_pool_create(guc);
- 	if (ret)
- 		return ret;
- 	/*
- 	 * Keep static analysers happy, let them know that we allocated the
- 	 * vma after testing that it didn't exist earlier.
- 	 */
--	GEM_BUG_ON(!guc->stage_desc_pool);
-+	GEM_BUG_ON(!guc->lrc_desc_pool);
- 
- 	return 0;
- }
- 
- void intel_guc_submission_fini(struct intel_guc *guc)
- {
--	if (guc->stage_desc_pool) {
--		guc_stage_desc_pool_destroy(guc);
--	}
-+	if (guc->lrc_desc_pool)
-+		guc_lrc_desc_pool_destroy(guc);
- }
- 
- static int guc_context_alloc(struct intel_context *ce)
-@@ -695,7 +672,6 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
- 
- void intel_guc_submission_enable(struct intel_guc *guc)
- {
--	guc_stage_desc_init(guc);
- }
- 
- void intel_guc_submission_disable(struct intel_guc *guc)
-@@ -705,8 +681,6 @@ void intel_guc_submission_disable(struct intel_guc *guc)
- 	GEM_BUG_ON(gt->awake); /* GT should be parked first */
- 
- 	/* Note: By the time we're here, GuC may have already been reset */
--
--	guc_stage_desc_fini(guc);
- }
- 
- static bool __guc_submission_selected(struct intel_guc *guc)
+[1] https://patchwork.freedesktop.org/series/89844/
+[2] https://patchwork.freedesktop.org/series/91417/
+[3] https://patchwork.freedesktop.org/series/91840/
+[4] https://patchwork.freedesktop.org/series/91885/
+
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+
+Daniele Ceraolo Spurio (1):
+  drm/i915/guc: Unblock GuC submission on Gen11+
+
+John Harrison (12):
+  drm/i915: Track 'serial' counts for virtual engines
+  drm/i915/guc: Provide mmio list to be saved/restored on engine reset
+  drm/i915/guc: Don't complain about reset races
+  drm/i915/guc: Enable GuC engine reset
+  drm/i915/guc: Fix for error capture after full GPU reset with GuC
+  drm/i915/guc: Hook GuC scheduling policies up
+  drm/i915/guc: Connect reset modparam updates to GuC policy flags
+  drm/i915/guc: Include scheduling policies in the debugfs state dump
+  drm/i915/guc: Add golden context to GuC ADS
+  drm/i915/selftest: Better error reporting from hangcheck selftest
+  drm/i915/selftest: Fix hangcheck self test for GuC submission
+  drm/i915/selftest: Bump selftest timeouts for hangcheck
+
+Matthew Brost (36):
+  drm/i915/guc: Add new GuC interface defines and structures
+  drm/i915/guc: Remove GuC stage descriptor, add LRC descriptor
+  drm/i915/guc: Add LRC descriptor context lookup array
+  drm/i915/guc: Implement GuC submission tasklet
+  drm/i915/guc: Add bypass tasklet submission path to GuC
+  drm/i915/guc: Implement GuC context operations for new inteface
+  drm/i915/guc: Insert fence on context when deregistering
+  drm/i915/guc: Defer context unpin until scheduling is disabled
+  drm/i915/guc: Disable engine barriers with GuC during unpin
+  drm/i915/guc: Extend deregistration fence to schedule disable
+  drm/i915: Disable preempt busywait when using GuC scheduling
+  drm/i915/guc: Ensure request ordering via completion fences
+  drm/i915/guc: Disable semaphores when using GuC scheduling
+  drm/i915/guc: Ensure G2H response has space in buffer
+  drm/i915/guc: Update intel_gt_wait_for_idle to work with GuC
+  drm/i915/guc: Update GuC debugfs to support new GuC
+  drm/i915/guc: Add several request trace points
+  drm/i915: Add intel_context tracing
+  drm/i915/guc: GuC virtual engines
+  drm/i915: Hold reference to intel_context over life of i915_request
+  drm/i915/guc: Disable bonding extension with GuC submission
+  drm/i915/guc: Direct all breadcrumbs for a class to single breadcrumbs
+  drm/i915: Add i915_sched_engine destroy vfunc
+  drm/i915: Move active request tracking to a vfunc
+  drm/i915/guc: Reset implementation for new GuC interface
+  drm/i915: Reset GPU immediately if submission is disabled
+  drm/i915/guc: Add disable interrupts to guc sanitize
+  drm/i915/guc: Suspend/resume implementation for new interface
+  drm/i915/guc: Handle context reset notification
+  drm/i915/guc: Handle engine reset failure notification
+  drm/i915/guc: Enable the timer expired interrupt for GuC
+  drm/i915/guc: Capture error state on context reset
+  drm/i915/guc: Implement banned contexts for GuC submission
+  drm/i915/guc: Support request cancellation
+  drm/i915/selftest: Increase some timeouts in live_requests
+  drm/i915/guc: Implement GuC priority management
+
+Rahul Kumar Singh (2):
+  drm/i915/selftest: Fix workarounds selftest for GuC submission
+  drm/i915/selftest: Fix MOCS selftest for GuC submission
+
+ drivers/gpu/drm/i915/Makefile                 |    1 +
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |   21 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.h   |    1 +
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      |    3 +-
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |    6 +-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   44 +-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.h   |   16 +-
+ .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |    7 +
+ drivers/gpu/drm/i915/gt/intel_context.c       |   50 +-
+ drivers/gpu/drm/i915/gt/intel_context.h       |   50 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h |   63 +-
+ drivers/gpu/drm/i915/gt/intel_engine.h        |   54 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  182 +-
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |   71 +-
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |    4 +
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |   13 +-
+ drivers/gpu/drm/i915/gt/intel_engine_user.c   |    4 +
+ .../drm/i915/gt/intel_execlists_submission.c  |   95 +-
+ .../drm/i915/gt/intel_execlists_submission.h  |    4 -
+ drivers/gpu/drm/i915/gt/intel_gt.c            |   21 +
+ drivers/gpu/drm/i915/gt/intel_gt.h            |    2 +
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |    6 +-
+ drivers/gpu/drm/i915/gt/intel_gt_requests.c   |   21 +-
+ drivers/gpu/drm/i915/gt/intel_gt_requests.h   |    7 +-
+ drivers/gpu/drm/i915/gt/intel_lrc_reg.h       |    1 -
+ drivers/gpu/drm/i915/gt/intel_reset.c         |   50 +-
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |   48 +
+ drivers/gpu/drm/i915/gt/intel_rps.c           |    4 +
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   |   46 +-
+ .../gpu/drm/i915/gt/intel_workarounds_types.h |    1 +
+ drivers/gpu/drm/i915/gt/mock_engine.c         |   40 +-
+ drivers/gpu/drm/i915/gt/selftest_context.c    |   10 +
+ .../drm/i915/gt/selftest_engine_heartbeat.c   |   22 +
+ .../drm/i915/gt/selftest_engine_heartbeat.h   |    2 +
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  |   12 +-
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  314 +-
+ drivers/gpu/drm/i915/gt/selftest_mocs.c       |   50 +-
+ .../gpu/drm/i915/gt/selftest_workarounds.c    |  132 +-
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   15 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   82 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  101 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  461 ++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h    |    4 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  132 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |   16 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |   25 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   88 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 2776 +++++++++++++++--
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.h |   18 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  101 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.h         |   11 +
+ drivers/gpu/drm/i915/i915_debugfs_params.c    |   31 +
+ drivers/gpu/drm/i915/i915_gem_evict.c         |    1 +
+ drivers/gpu/drm/i915/i915_gpu_error.c         |   25 +-
+ drivers/gpu/drm/i915/i915_reg.h               |    2 +
+ drivers/gpu/drm/i915/i915_request.c           |  174 +-
+ drivers/gpu/drm/i915/i915_request.h           |   29 +
+ drivers/gpu/drm/i915/i915_scheduler.c         |   16 +-
+ drivers/gpu/drm/i915/i915_scheduler.h         |   10 +-
+ drivers/gpu/drm/i915/i915_scheduler_types.h   |   22 +
+ drivers/gpu/drm/i915/i915_trace.h             |  219 +-
+ drivers/gpu/drm/i915/selftests/i915_request.c |    4 +-
+ .../gpu/drm/i915/selftests/igt_flush_test.c   |    2 +-
+ .../gpu/drm/i915/selftests/igt_live_test.c    |    2 +-
+ .../i915/selftests/intel_scheduler_helpers.c  |   89 +
+ .../i915/selftests/intel_scheduler_helpers.h  |   35 +
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |    3 +-
+ include/uapi/drm/i915_drm.h                   |    9 +
+ 68 files changed, 5119 insertions(+), 862 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
+ create mode 100644 drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
+
 -- 
 2.28.0
 
