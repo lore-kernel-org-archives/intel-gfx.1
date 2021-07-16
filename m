@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4472C636CD
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D2F5C636CB
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9614A613F3
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9614A613F3
+	by mail.kernel.org (Postfix) with ESMTPS id 6B74061289
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B74061289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8C76EA0C;
-	Fri, 16 Jul 2021 19:59:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12CB76EA43;
+	Fri, 16 Jul 2021 19:59:52 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A0A6E9D4;
- Fri, 16 Jul 2021 19:59:35 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596707"
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596707"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D362A6E9F9;
+ Fri, 16 Jul 2021 19:59:42 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596745"
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596745"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:35 -0700
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238873"
+ 16 Jul 2021 12:59:42 -0700
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507239006"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:35 -0700
+ 16 Jul 2021 12:59:42 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 16 Jul 2021 13:16:38 -0700
-Message-Id: <20210716201724.54804-6-matthew.brost@intel.com>
+Date: Fri, 16 Jul 2021 13:17:07 -0700
+Message-Id: <20210716201724.54804-35-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210716201724.54804-1-matthew.brost@intel.com>
 References: <20210716201724.54804-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 05/51] drm/i915/guc: Add bypass tasklet
- submission path to GuC
+Subject: [Intel-gfx] [PATCH 34/51] drm/i915/guc: Don't complain about reset
+ races
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,85 +60,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add bypass tasklet submission path to GuC. The tasklet is only used if H2G
-channel has backpresure.
+From: John Harrison <John.C.Harrison@Intel.com>
 
+It is impossible to seal all race conditions of resets occurring
+concurrent to other operations. At least, not without introducing
+excesive mutex locking. Instead, don't complain if it occurs. In
+particular, don't complain if trying to send a H2G during a reset.
+Whatever the H2G was about should get redone once the reset is over.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 37 +++++++++++++++----
- 1 file changed, 29 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 5 ++++-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c     | 3 +++
+ drivers/gpu/drm/i915/gt/uc/intel_uc.h     | 2 ++
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index ca0717166a27..53b4a5eb4a85 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -172,6 +172,12 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 	return err;
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index d16381784ee2..92976d205478 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -757,7 +757,10 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
+ 	int ret;
  
-+static inline void guc_set_lrc_tail(struct i915_request *rq)
-+{
-+	rq->context->lrc_reg_state[CTX_RING_TAIL] =
-+		intel_ring_set_tail(rq->ring, rq->tail);
-+}
+ 	if (unlikely(!ct->enabled)) {
+-		WARN(1, "Unexpected send: action=%#x\n", *action);
++		struct intel_guc *guc = ct_to_guc(ct);
++		struct intel_uc *uc = container_of(guc, struct intel_uc, guc);
 +
- static inline int rq_prio(const struct i915_request *rq)
- {
- 	return rq->sched.attr.priority;
-@@ -215,8 +221,7 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
++		WARN(!uc->reset_in_progress, "Unexpected send: action=%#x\n", *action);
+ 		return -ENODEV;
  	}
- done:
- 	if (submit) {
--		last->context->lrc_reg_state[CTX_RING_TAIL] =
--			intel_ring_set_tail(last->ring, last->tail);
-+		guc_set_lrc_tail(last);
- resubmit:
- 		/*
- 		 * We only check for -EBUSY here even though it is possible for
-@@ -496,20 +501,36 @@ static inline void queue_request(struct i915_sched_engine *sched_engine,
- 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- }
  
-+static int guc_bypass_tasklet_submit(struct intel_guc *guc,
-+				     struct i915_request *rq)
-+{
-+	int ret;
-+
-+	__i915_request_submit(rq);
-+
-+	trace_i915_request_in(rq, 0);
-+
-+	guc_set_lrc_tail(rq);
-+	ret = guc_add_request(guc, rq);
-+	if (ret == -EBUSY)
-+		guc->stalled_request = rq;
-+
-+	return ret;
-+}
-+
- static void guc_submit_request(struct i915_request *rq)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index b523a8521351..77c1fe2ed883 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -550,6 +550,7 @@ void intel_uc_reset_prepare(struct intel_uc *uc)
  {
- 	struct i915_sched_engine *sched_engine = rq->engine->sched_engine;
-+	struct intel_guc *guc = &rq->engine->gt->uc.guc;
- 	unsigned long flags;
+ 	struct intel_guc *guc = &uc->guc;
  
- 	/* Will be called from irq-context when using foreign fences. */
- 	spin_lock_irqsave(&sched_engine->lock, flags);
++	uc->reset_in_progress = true;
  
--	queue_request(sched_engine, rq, rq_prio(rq));
--
--	GEM_BUG_ON(i915_sched_engine_is_empty(sched_engine));
--	GEM_BUG_ON(list_empty(&rq->sched.link));
--
--	tasklet_hi_schedule(&sched_engine->tasklet);
-+	if (guc->stalled_request || !i915_sched_engine_is_empty(sched_engine))
-+		queue_request(sched_engine, rq, rq_prio(rq));
-+	else if (guc_bypass_tasklet_submit(guc, rq) == -EBUSY)
-+		tasklet_hi_schedule(&sched_engine->tasklet);
+ 	/* Nothing to do if GuC isn't supported */
+ 	if (!intel_uc_supports_guc(uc))
+@@ -579,6 +580,8 @@ void intel_uc_reset_finish(struct intel_uc *uc)
+ {
+ 	struct intel_guc *guc = &uc->guc;
  
- 	spin_unlock_irqrestore(&sched_engine->lock, flags);
- }
++	uc->reset_in_progress = false;
++
+ 	/* Firmware expected to be running when this function is called */
+ 	if (intel_guc_is_fw_running(guc) && intel_uc_uses_guc_submission(uc))
+ 		intel_guc_submission_reset_finish(guc);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+index eaa3202192ac..91315e3f1c58 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+@@ -30,6 +30,8 @@ struct intel_uc {
+ 
+ 	/* Snapshot of GuC log from last failed load */
+ 	struct drm_i915_gem_object *load_err_log;
++
++	bool reset_in_progress;
+ };
+ 
+ void intel_uc_init_early(struct intel_uc *uc);
 -- 
 2.28.0
 
