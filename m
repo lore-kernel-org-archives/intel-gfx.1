@@ -2,65 +2,47 @@ Return-Path: <SRS0=AA48=MI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D865DC12002
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 19:52:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4750EC12002
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 19:59:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E7D061289
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 19:52:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E7D061289
+	by mail.kernel.org (Postfix) with ESMTPS id 023F36128A
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 19:59:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 023F36128A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2FC6E9D2;
-	Fri, 16 Jul 2021 19:52:52 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 976DD6E9D2
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 19:52:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210773627"
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210773627"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:52:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="656514161"
-Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
- by fmsmga005.fm.intel.com with ESMTP; 16 Jul 2021 12:52:49 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.4; Fri, 16 Jul 2021 12:52:49 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10; Fri, 16 Jul 2021 12:52:49 -0700
-Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
- ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2242.010;
- Fri, 16 Jul 2021 12:52:49 -0700
-From: "Souza, Jose" <jose.souza@intel.com>
-To: "Roper, Matthew D" <matthew.d.roper@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [PATCH v2 32/50] drm/i915/dg2: Add fake PCH
-Thread-Index: AQHXeF6RJFWn5+4CHUaM0w5qILr0SqtGfh0A
-Date: Fri, 16 Jul 2021 19:52:48 +0000
-Message-ID: <8587eb22d972dcd21f7ecca61d4316bc99162177.camel@intel.com>
-References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
- <20210714031540.3539704-33-matthew.d.roper@intel.com>
-In-Reply-To: <20210714031540.3539704-33-matthew.d.roper@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.22.254.132]
-Content-ID: <D55B8F70B6C8A14280F93A3C2C38575A@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A22ED6E9D0;
+	Fri, 16 Jul 2021 19:59:35 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E7C66E9D2;
+ Fri, 16 Jul 2021 19:59:35 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596702"
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596702"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2021 12:59:34 -0700
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238859"
+Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2021 12:59:34 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Date: Fri, 16 Jul 2021 13:16:34 -0700
+Message-Id: <20210716201724.54804-2-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20210716201724.54804-1-matthew.brost@intel.com>
+References: <20210716201724.54804-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH v2 32/50] drm/i915/dg2: Add fake PCH
+Subject: [Intel-gfx] [PATCH 01/51] drm/i915/guc: Add new GuC interface
+ defines and structures
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,61 +55,121 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "De Marchi, Lucas" <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAyMDIxLTA3LTEzIGF0IDIwOjE1IC0wNzAwLCBNYXR0IFJvcGVyIHdyb3RlOg0KPiBB
-cyB3aXRoIERHMSwgREcyIGhhcyBhbiBJQ0wtc3R5bGUgc291dGggZGlzcGxheSBpbnRlcmZhY2Ug
-cHJvdmlkZWQgb24NCj4gdGhlIHNhbWUgUENJIGRldmljZS4gIEFkZCBhIGZha2UgUENIIHRvIGVu
-c3VyZSBERzIgdGFrZXMgdGhlIGFwcHJvcHJpYXRlDQo+IGNvZGVwYXRocyBmb3Igc291dGggZGlz
-cGxheSBoYW5kbGluZy4NCj4gDQoNClJldmlld2VkLWJ5OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXph
-IDxqb3NlLnNvdXphQGludGVsLmNvbT4NCg0KPiBCc3BlYzogNTQ4NzEsIDUwMDYyLCA0OTk2MSwg
-NTM2NzMNCj4gQ2M6IEx1Y2FzIERlIE1hcmNoaSA8bHVjYXMuZGVtYXJjaGlAaW50ZWwuY29tPg0K
-PiBTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwuY29tPg0K
-PiBTaWduZWQtb2ZmLWJ5OiBBZGl0eWEgU3dhcnVwIDxhZGl0eWEuc3dhcnVwQGludGVsLmNvbT4N
-Cj4gU2lnbmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRl
-bC5jb20+DQo+IFJldmlld2VkLWJ5OiBMdWNhcyBEZSBNYXJjaGkgPGx1Y2FzLmRlbWFyY2hpQGlu
-dGVsLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jICB8IDIg
-Ky0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BjaC5jIHwgMyArKysNCj4gIGRyaXZl
-cnMvZ3B1L2RybS9pOTE1L2ludGVsX3BjaC5oIHwgMiArKw0KPiAgMyBmaWxlcyBjaGFuZ2VkLCA2
-IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9pcnEu
-Yw0KPiBpbmRleCA2MWRjZWIyYTE3YzEuLmUyMTcxYmQyODIwZSAxMDA2NDQNCj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvaTkxNV9pcnEuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9pOTE1X2lycS5jDQo+IEBAIC0yMDcsNyArMjA3LDcgQEAgc3RhdGljIHZvaWQgaW50ZWxfaHBk
-X2luaXRfcGlucyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpDQo+ICAJICAgICgh
-SEFTX1BDSF9TUExJVChkZXZfcHJpdikgfHwgSEFTX1BDSF9OT1AoZGV2X3ByaXYpKSkNCj4gIAkJ
-cmV0dXJuOw0KPiAgDQo+IC0JaWYgKEhBU19QQ0hfREcxKGRldl9wcml2KSkNCj4gKwlpZiAoSU5U
-RUxfUENIX1RZUEUoZGV2X3ByaXYpID49IFBDSF9ERzEpDQo+ICAJCWhwZC0+cGNoX2hwZCA9IGhw
-ZF9zZGVfZGcxOw0KPiAgCWVsc2UgaWYgKElOVEVMX1BDSF9UWVBFKGRldl9wcml2KSA+PSBQQ0hf
-SUNQKQ0KPiAgCQlocGQtPnBjaF9ocGQgPSBocGRfaWNwOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvaW50ZWxfcGNoLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9w
-Y2guYw0KPiBpbmRleCA0ZTkyYWUxOTE4OWUuLmNjNDQxNjRlMjQyYiAxMDA2NDQNCj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcGNoLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvaW50ZWxfcGNoLmMNCj4gQEAgLTIxMSw2ICsyMTEsOSBAQCB2b2lkIGludGVsX2RldGVj
-dF9wY2goc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KQ0KPiAgCWlmIChJU19ERzEo
-ZGV2X3ByaXYpKSB7DQo+ICAJCWRldl9wcml2LT5wY2hfdHlwZSA9IFBDSF9ERzE7DQo+ICAJCXJl
-dHVybjsNCj4gKwl9IGVsc2UgaWYgKElTX0RHMihkZXZfcHJpdikpIHsNCj4gKwkJZGV2X3ByaXYt
-PnBjaF90eXBlID0gUENIX0RHMjsNCj4gKwkJcmV0dXJuOw0KPiAgCX0NCj4gIA0KPiAgCS8qDQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wY2guaCBiL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2ludGVsX3BjaC5oDQo+IGluZGV4IGUyZjNmMzBjNjQ0NS4uN2MwZDgzZDI5
-MmRjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wY2guaA0KPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wY2guaA0KPiBAQCAtMzAsNiArMzAsNyBA
-QCBlbnVtIGludGVsX3BjaCB7DQo+ICANCj4gIAkvKiBGYWtlIFBDSHMsIGZ1bmN0aW9uYWxpdHkg
-aGFuZGxlZCBvbiB0aGUgc2FtZSBQQ0kgZGV2ICovDQo+ICAJUENIX0RHMSA9IDEwMjQsDQo+ICsJ
-UENIX0RHMiwNCj4gIH07DQo+ICANCj4gICNkZWZpbmUgSU5URUxfUENIX0RFVklDRV9JRF9NQVNL
-CQkweGZmODANCj4gQEAgLTYyLDYgKzYzLDcgQEAgZW51bSBpbnRlbF9wY2ggew0KPiAgDQo+ICAj
-ZGVmaW5lIElOVEVMX1BDSF9UWVBFKGRldl9wcml2KQkJKChkZXZfcHJpdiktPnBjaF90eXBlKQ0K
-PiAgI2RlZmluZSBJTlRFTF9QQ0hfSUQoZGV2X3ByaXYpCQkJKChkZXZfcHJpdiktPnBjaF9pZCkN
-Cj4gKyNkZWZpbmUgSEFTX1BDSF9ERzIoZGV2X3ByaXYpCQkJKElOVEVMX1BDSF9UWVBFKGRldl9w
-cml2KSA9PSBQQ0hfREcyKQ0KPiAgI2RlZmluZSBIQVNfUENIX0FEUChkZXZfcHJpdikJCQkoSU5U
-RUxfUENIX1RZUEUoZGV2X3ByaXYpID09IFBDSF9BRFApDQo+ICAjZGVmaW5lIEhBU19QQ0hfREcx
-KGRldl9wcml2KQkJCShJTlRFTF9QQ0hfVFlQRShkZXZfcHJpdikgPT0gUENIX0RHMSkNCj4gICNk
-ZWZpbmUgSEFTX1BDSF9KU1AoZGV2X3ByaXYpCQkJKElOVEVMX1BDSF9UWVBFKGRldl9wcml2KSA9
-PSBQQ0hfSlNQKQ0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1n
-ZngK
+Add new GuC interface defines and structures while maintaining old ones
+in parallel.
+
+Cc: John Harrison <john.c.harrison@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  | 14 +++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   | 41 +++++++++++++++++++
+ 2 files changed, 55 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+index 2d6198e63ebe..57e18babdf4b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+@@ -124,10 +124,24 @@ enum intel_guc_action {
+ 	INTEL_GUC_ACTION_FORCE_LOG_BUFFER_FLUSH = 0x302,
+ 	INTEL_GUC_ACTION_ENTER_S_STATE = 0x501,
+ 	INTEL_GUC_ACTION_EXIT_S_STATE = 0x502,
++	INTEL_GUC_ACTION_GLOBAL_SCHED_POLICY_CHANGE = 0x506,
++	INTEL_GUC_ACTION_SCHED_CONTEXT = 0x1000,
++	INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_SET = 0x1001,
++	INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE = 0x1002,
++	INTEL_GUC_ACTION_SCHED_ENGINE_MODE_SET = 0x1003,
++	INTEL_GUC_ACTION_SCHED_ENGINE_MODE_DONE = 0x1004,
++	INTEL_GUC_ACTION_SET_CONTEXT_PRIORITY = 0x1005,
++	INTEL_GUC_ACTION_SET_CONTEXT_EXECUTION_QUANTUM = 0x1006,
++	INTEL_GUC_ACTION_SET_CONTEXT_PREEMPTION_TIMEOUT = 0x1007,
++	INTEL_GUC_ACTION_CONTEXT_RESET_NOTIFICATION = 0x1008,
++	INTEL_GUC_ACTION_ENGINE_FAILURE_NOTIFICATION = 0x1009,
+ 	INTEL_GUC_ACTION_SLPC_REQUEST = 0x3003,
+ 	INTEL_GUC_ACTION_AUTHENTICATE_HUC = 0x4000,
++	INTEL_GUC_ACTION_REGISTER_CONTEXT = 0x4502,
++	INTEL_GUC_ACTION_DEREGISTER_CONTEXT = 0x4503,
+ 	INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
+ 	INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
++	INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE = 0x4600,
+ 	INTEL_GUC_ACTION_LIMIT
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 617ec601648d..28245a217a39 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -17,6 +17,9 @@
+ #include "abi/guc_communication_ctb_abi.h"
+ #include "abi/guc_messages_abi.h"
+ 
++#define GUC_CONTEXT_DISABLE		0
++#define GUC_CONTEXT_ENABLE		1
++
+ #define GUC_CLIENT_PRIORITY_KMD_HIGH	0
+ #define GUC_CLIENT_PRIORITY_HIGH	1
+ #define GUC_CLIENT_PRIORITY_KMD_NORMAL	2
+@@ -26,6 +29,9 @@
+ #define GUC_MAX_STAGE_DESCRIPTORS	1024
+ #define	GUC_INVALID_STAGE_ID		GUC_MAX_STAGE_DESCRIPTORS
+ 
++#define GUC_MAX_LRC_DESCRIPTORS		65535
++#define	GUC_INVALID_LRC_ID		GUC_MAX_LRC_DESCRIPTORS
++
+ #define GUC_RENDER_ENGINE		0
+ #define GUC_VIDEO_ENGINE		1
+ #define GUC_BLITTER_ENGINE		2
+@@ -237,6 +243,41 @@ struct guc_stage_desc {
+ 	u64 desc_private;
+ } __packed;
+ 
++#define CONTEXT_REGISTRATION_FLAG_KMD	BIT(0)
++
++#define CONTEXT_POLICY_DEFAULT_EXECUTION_QUANTUM_US 1000000
++#define CONTEXT_POLICY_DEFAULT_PREEMPTION_TIME_US 500000
++
++/* Preempt to idle on quantum expiry */
++#define CONTEXT_POLICY_FLAG_PREEMPT_TO_IDLE	BIT(0)
++
++/*
++ * GuC Context registration descriptor.
++ * FIXME: This is only required to exist during context registration.
++ * The current 1:1 between guc_lrc_desc and LRCs for the lifetime of the LRC
++ * is not required.
++ */
++struct guc_lrc_desc {
++	u32 hw_context_desc;
++	u32 slpm_perf_mode_hint;	/* SPLC v1 only */
++	u32 slpm_freq_hint;
++	u32 engine_submit_mask;		/* In logical space */
++	u8 engine_class;
++	u8 reserved0[3];
++	u32 priority;
++	u32 process_desc;
++	u32 wq_addr;
++	u32 wq_size;
++	u32 context_flags;		/* CONTEXT_REGISTRATION_* */
++	/* Time for one workload to execute. (in micro seconds) */
++	u32 execution_quantum;
++	/* Time to wait for a preemption request to complete before issuing a
++	 * reset. (in micro seconds). */
++	u32 preemption_timeout;
++	u32 policy_flags;		/* CONTEXT_POLICY_* */
++	u32 reserved1[19];
++} __packed;
++
+ #define GUC_POWER_UNSPECIFIED	0
+ #define GUC_POWER_D0		1
+ #define GUC_POWER_D1		2
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
