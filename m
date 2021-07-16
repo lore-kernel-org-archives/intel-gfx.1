@@ -5,71 +5,69 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34720C636CA
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E10F9C636CD
 	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 14:14:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F243B601FC
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 14:14:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F243B601FC
+	by mail.kernel.org (Postfix) with ESMTPS id AFE84613EB
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 14:14:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AFE84613EB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64BD86E9AA;
-	Fri, 16 Jul 2021 14:14:36 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 484136E9A2
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 14:14:32 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- t4-20020a05683014c4b02904cd671b911bso1927015otq.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 07:14:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9D2D6E9A5;
+	Fri, 16 Jul 2021 14:14:38 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C37836E9A5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 14:14:36 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id c197so10990086oib.11
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 07:14:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=EAdUjXToMO2wcirjbJS/4rAMriZmGkIQw2hZt/dp5Vk=;
- b=fDdVfuDOJAjyAQJn/0UDoeQnwBJNKoLPyl6xZ5TPF/zTlE+myEA2Ao9oymRKVCwhZX
- skvCIH/wDpkk0HAZklTlBHz9t2pHu6sHWsmGXc9RWOhm1xTTW4MVlGAvjWIlH2zBcImP
- 2dJ9mftyhiiFVrIYVmDji7FqCzyKZawqqVCb6CWlI+ZdWFgGAoTvlBg7M+7tabSFX/tA
- FukHBJmJ8NMJKetjrF6pGGZlanVRsVrNUNoCsy4cgrwZpgYhc6Me/RiwDhPnN+Oygdxc
- YtuwknmvI873kcby7F/3+KmEBoVFl4XJFqfSIVxziY/tMXy4MgsWrgTmRH4cW9nr6HnO
- /w2w==
+ bh=iwESnNdVb8Ql0T+r09B5hLFoFY4TsIMumU8Vn60f698=;
+ b=vR+2D6eDT8yL3l+WGb2B0R9gPRTqbfdNRrFEPBcZ0AtwVHrvo4gIbmE78fLQGLUfAy
+ mC+VW4oj54o1rX/qGxgbL2soI+6+aWB+OwumWJTUJhOx8ux0r6GC1dzeBp72rvLKisg3
+ 2oEcjN7AeHRiVUCAFJYm1DnimI/9euQr8GyNQXW2sc/aCBFDdGYbIzqI2+rxIsZGogTS
+ KwRwRFJ2JjeMuXMBWcB0Od3qs22wIu0WvYvTAYGXSJ94uJc0X8ibg0rSkvIlJeGMzQVh
+ 7w/mJXSG2zoG50lR11NhFdl+4l22LbY3PFyIuitSeOqPTK6SfYz5+j5Ch/cXEdyn9Ndo
+ KpGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=EAdUjXToMO2wcirjbJS/4rAMriZmGkIQw2hZt/dp5Vk=;
- b=UjJ5GbIRooYPJMXjIFODKjlVEiP2VVl/0b8fxktUPZjYHhDdMkhxDQ3l2ifKKB0UJK
- +WqWxtqPRmD4+v0OThb+q2ccag1XQYSHePthIepLJvrybkXDqhEiPJRpS280mq2jnxxa
- MkewLJf3h+0wZ7PKdIOvXrBe60IWFFUuUrRL+usIWktfOqSw+3k8Ow1xFfOhUPFFs9bX
- 6W/8i69vFQdot0INZkEjoo2jTkkfHNTnG9JBoGuWrwwpx8WCVgIYH4tCOBZ0RlpLGEk8
- zjDlXRo1eCJu6+qaJNfSX9cJqw1SgH6R6rRDBbWwU+ZkRjZz68nqOqxSC9anBqNDemUA
- nY3g==
-X-Gm-Message-State: AOAM533WElGHHVSP/viClYDUdIrIUI82mn6iyuwpPZFCjMGezyTtYgSQ
- +Inc7LpS+pYpVEe56MTJ611Z5/yT6VNu5Q==
-X-Google-Smtp-Source: ABdhPJy42Hv0yI+eI3CUEux+26uB4NZOsbymEatxdy1jj5wT8nwfKdQb9Yss0voZ5rKd3ixpRV2RIA==
-X-Received: by 2002:a05:6830:78c:: with SMTP id
- w12mr5431029ots.162.1626444870566; 
- Fri, 16 Jul 2021 07:14:30 -0700 (PDT)
+ bh=iwESnNdVb8Ql0T+r09B5hLFoFY4TsIMumU8Vn60f698=;
+ b=EnBnzej0vDB6S42N/se0lwWqlOKIDjzdf9X1GzunsPf+13NL4+UNnsUkA4dphXJhKk
+ fjzNYEoSSMONISg3BpEWor1a8bXmdnFtiNQQmM6QS5TTkWMVWKVfBscsPDxrbiNygU0k
+ utKQ3RlL6s+26f3pBGpdWpDZ0RQ9QKhKCOh+qmhm4v89IBaotURARJmyh6P6Mh8Axlnh
+ LSdi+E85g915m04EdtykwqAOL/rUFCS2cxlA0GEJafYeYeQ5jMlCOH+0SLmN2AG67znN
+ VKeFENIcCtYKBZBQvjPRwvttgZ1lrEhd/D1M10KuP2k91NQ017HqO7ddMAjThxzgCvHU
+ ND3w==
+X-Gm-Message-State: AOAM530+d3k0bjcOJN0KZcW3fC+fcFU8tWoYHgTDa77uMZQGWKnrW9TT
+ xneOMs750zslf4qOSwmkDxoMHQqhv/AUjA==
+X-Google-Smtp-Source: ABdhPJwF0zbCi/sMNX1FGANRLJiLGHHvLoNOWWNHG8I2wWswXkqMrViZbP5CpdSCLtZStbDieU94Kw==
+X-Received: by 2002:aca:aaca:: with SMTP id t193mr12208413oie.94.1626444875876; 
+ Fri, 16 Jul 2021 07:14:35 -0700 (PDT)
 Received: from omlet.lan ([68.203.99.148])
- by smtp.gmail.com with ESMTPSA id v42sm1852266ott.70.2021.07.16.07.14.29
+ by smtp.gmail.com with ESMTPSA id v42sm1852266ott.70.2021.07.16.07.14.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Jul 2021 07:14:30 -0700 (PDT)
+ Fri, 16 Jul 2021 07:14:35 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 16 Jul 2021 09:14:21 -0500
-Message-Id: <20210716141426.1904528-3-jason@jlekstrand.net>
+Date: Fri, 16 Jul 2021 09:14:26 -0500
+Message-Id: <20210716141426.1904528-8-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210716141426.1904528-1-jason@jlekstrand.net>
 References: <20210716141426.1904528-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/7] drm/i915/gem: Refactor placement setup for
- i915_gem_object_create* (v2)
+Subject: [Intel-gfx] [PATCH 7/7] drm/i915/gem: Migrate to system at dma-buf
+ attach time (v6)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,242 +80,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since we don't allow changing the set of regions after creation, we can
-make ext_set_placements() build up the region set directly in the
-create_ext and assign it to the object later.  This is similar to what
-we did for contexts with the proto-context only simpler because there's
-no funny object shuffling.  This will be used in the next patch to allow
-us to de-duplicate a bunch of code.  Also, since we know the maximum
-number of regions up-front, we can use a fixed-size temporary array for
-the regions.  This simplifies memory management a bit for this new
-delayed approach.
-
-v2 (Matthew Auld):
- - Get rid of MAX_N_PLACEMENTS
- - Drop kfree(placements) from set_placements()
-
-Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-Cc: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_create.c | 81 ++++++++++++----------
- 1 file changed, 45 insertions(+), 36 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-index 51f92e4b1a69d..5766749a449c0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-@@ -27,10 +27,13 @@ static u32 object_max_page_size(struct drm_i915_gem_object *obj)
- 	return max_page_size;
- }
- 
--static void object_set_placements(struct drm_i915_gem_object *obj,
--				  struct intel_memory_region **placements,
--				  unsigned int n_placements)
-+static int object_set_placements(struct drm_i915_gem_object *obj,
-+				 struct intel_memory_region **placements,
-+				 unsigned int n_placements)
- {
-+	struct intel_memory_region **arr;
-+	unsigned int i;
-+
- 	GEM_BUG_ON(!n_placements);
- 
- 	/*
-@@ -44,9 +47,20 @@ static void object_set_placements(struct drm_i915_gem_object *obj,
- 		obj->mm.placements = &i915->mm.regions[mr->id];
- 		obj->mm.n_placements = 1;
- 	} else {
--		obj->mm.placements = placements;
-+		arr = kmalloc_array(n_placements,
-+				    sizeof(struct intel_memory_region *),
-+				    GFP_KERNEL);
-+		if (!arr)
-+			return -ENOMEM;
-+
-+		for (i = 0; i < n_placements; i++)
-+			arr[i] = placements[i];
-+
-+		obj->mm.placements = arr;
- 		obj->mm.n_placements = n_placements;
- 	}
-+
-+	return 0;
- }
- 
- static int i915_gem_publish(struct drm_i915_gem_object *obj,
-@@ -148,7 +162,9 @@ i915_gem_dumb_create(struct drm_file *file,
- 		return -ENOMEM;
- 
- 	mr = intel_memory_region_by_type(to_i915(dev), mem_type);
--	object_set_placements(obj, &mr, 1);
-+	ret = object_set_placements(obj, &mr, 1);
-+	if (ret)
-+		goto object_free;
- 
- 	ret = i915_gem_setup(obj, args->size);
- 	if (ret)
-@@ -184,7 +200,9 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
- 		return -ENOMEM;
- 
- 	mr = intel_memory_region_by_type(i915, INTEL_MEMORY_SYSTEM);
--	object_set_placements(obj, &mr, 1);
-+	ret = object_set_placements(obj, &mr, 1);
-+	if (ret)
-+		goto object_free;
- 
- 	ret = i915_gem_setup(obj, args->size);
- 	if (ret)
-@@ -199,7 +217,8 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
- 
- struct create_ext {
- 	struct drm_i915_private *i915;
--	struct drm_i915_gem_object *vanilla_object;
-+	struct intel_memory_region *placements[INTEL_REGION_UNKNOWN];
-+	unsigned int n_placements;
- };
- 
- static void repr_placements(char *buf, size_t size,
-@@ -230,8 +249,7 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
- 	struct drm_i915_private *i915 = ext_data->i915;
- 	struct drm_i915_gem_memory_class_instance __user *uregions =
- 		u64_to_user_ptr(args->regions);
--	struct drm_i915_gem_object *obj = ext_data->vanilla_object;
--	struct intel_memory_region **placements;
-+	struct intel_memory_region *placements[INTEL_REGION_UNKNOWN];
- 	u32 mask;
- 	int i, ret = 0;
- 
-@@ -245,6 +263,8 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
- 		ret = -EINVAL;
- 	}
- 
-+	BUILD_BUG_ON(ARRAY_SIZE(i915->mm.regions) != ARRAY_SIZE(placements));
-+	BUILD_BUG_ON(ARRAY_SIZE(ext_data->placements) != ARRAY_SIZE(placements));
- 	if (args->num_regions > ARRAY_SIZE(i915->mm.regions)) {
- 		drm_dbg(&i915->drm, "num_regions is too large\n");
- 		ret = -EINVAL;
-@@ -253,21 +273,13 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
- 	if (ret)
- 		return ret;
- 
--	placements = kmalloc_array(args->num_regions,
--				   sizeof(struct intel_memory_region *),
--				   GFP_KERNEL);
--	if (!placements)
--		return -ENOMEM;
--
- 	mask = 0;
- 	for (i = 0; i < args->num_regions; i++) {
- 		struct drm_i915_gem_memory_class_instance region;
- 		struct intel_memory_region *mr;
- 
--		if (copy_from_user(&region, uregions, sizeof(region))) {
--			ret = -EFAULT;
--			goto out_free;
--		}
-+		if (copy_from_user(&region, uregions, sizeof(region)))
-+			return -EFAULT;
- 
- 		mr = intel_memory_region_lookup(i915,
- 						region.memory_class,
-@@ -293,14 +305,13 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
- 		++uregions;
- 	}
- 
--	if (obj->mm.placements) {
-+	if (ext_data->n_placements) {
- 		ret = -EINVAL;
- 		goto out_dump;
- 	}
- 
--	object_set_placements(obj, placements, args->num_regions);
--	if (args->num_regions == 1)
--		kfree(placements);
-+	for (i = 0; i < args->num_regions; i++)
-+		ext_data->placements[i] = placements[i];
- 
- 	return 0;
- 
-@@ -308,11 +319,11 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
- 	if (1) {
- 		char buf[256];
- 
--		if (obj->mm.placements) {
-+		if (ext_data->n_placements) {
- 			repr_placements(buf,
- 					sizeof(buf),
--					obj->mm.placements,
--					obj->mm.n_placements);
-+					ext_data->placements,
-+					ext_data->n_placements);
- 			drm_dbg(&i915->drm,
- 				"Placements were already set in previous EXT. Existing placements: %s\n",
- 				buf);
-@@ -322,8 +333,6 @@ static int set_placements(struct drm_i915_gem_create_ext_memory_regions *args,
- 		drm_dbg(&i915->drm, "New placements(so far validated): %s\n", buf);
- 	}
- 
--out_free:
--	kfree(placements);
- 	return ret;
- }
- 
-@@ -358,7 +367,6 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
- 	struct drm_i915_private *i915 = to_i915(dev);
- 	struct drm_i915_gem_create_ext *args = data;
- 	struct create_ext ext_data = { .i915 = i915 };
--	struct intel_memory_region **placements_ext;
- 	struct drm_i915_gem_object *obj;
- 	int ret;
- 
-@@ -371,21 +379,22 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
- 	if (!obj)
- 		return -ENOMEM;
- 
--	ext_data.vanilla_object = obj;
- 	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
- 				   create_extensions,
- 				   ARRAY_SIZE(create_extensions),
- 				   &ext_data);
--	placements_ext = obj->mm.placements;
- 	if (ret)
- 		goto object_free;
- 
--	if (!placements_ext) {
--		struct intel_memory_region *mr =
-+	if (!ext_data.n_placements) {
-+		ext_data.placements[0] =
- 			intel_memory_region_by_type(i915, INTEL_MEMORY_SYSTEM);
--
--		object_set_placements(obj, &mr, 1);
-+		ext_data.n_placements = 1;
- 	}
-+	ret = object_set_placements(obj, ext_data.placements,
-+				    ext_data.n_placements);
-+	if (ret)
-+		goto object_free;
- 
- 	ret = i915_gem_setup(obj, args->size);
- 	if (ret)
-@@ -395,7 +404,7 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
- 
- object_free:
- 	if (obj->mm.n_placements > 1)
--		kfree(placements_ext);
-+		kfree(obj->mm.placements);
- 	i915_gem_object_free(obj);
- 	return ret;
- }
--- 
-2.31.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwuY29t
+PgoKVW50aWwgd2Ugc3VwcG9ydCBwMnAgZG1hIG9yIGFzIGEgY29tcGxlbWVudCB0byB0aGF0LCBt
+aWdyYXRlIGRhdGEKdG8gc3lzdGVtIG1lbW9yeSBhdCBkbWEtYnVmIGF0dGFjaCB0aW1lIGlmIHBv
+c3NpYmxlLgoKdjI6Ci0gUmViYXNlIG9uIGR5bmFtaWMgZXhwb3J0ZXIuIFVwZGF0ZSB0aGUgaWd0
+X2RtYWJ1Zl9pbXBvcnRfc2FtZV9kcml2ZXIKICBzZWxmdGVzdCB0byBtaWdyYXRlIGlmIHdlIGFy
+ZSBMTUVNIGNhcGFibGUuCnYzOgotIE1pZ3JhdGUgYWxzbyBpbiB0aGUgcGluKCkgY2FsbGJhY2su
+CnY0OgotIE1pZ3JhdGUgaW4gYXR0YWNoCnY1OiAoamFzb24pCi0gTG9jayBhcm91bmQgdGhlIG1p
+Z3JhdGlvbgp2NjogKGphc29uKQotIE1vdmUgdGhlIGNhbl9taWdyYXRlIGNoZWNrIG91dHNpZGUg
+dGhlIGxvY2sKLSBSZXdvcmsgdGhlIHNlbGZ0ZXN0cyB0byB0ZXN0IG1vcmUgbWlncmF0aW9uIGNv
+bmRpdGlvbnMuICBJbgogIHBhcnRpY3VsYXIsIFNNRU0sIExNRU0sIGFuZCBMTUVNK1NNRU0gYXJl
+IGFsbCBjaGVja2VkLgoKU2lnbmVkLW9mZi1ieTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5o
+ZWxsc3Ryb21AbGludXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNaWNoYWVsIEouIFJ1aGwg
+PG1pY2hhZWwuai5ydWhsQGludGVsLmNvbT4KUmVwb3J0ZWQtYnk6IGtlcm5lbCB0ZXN0IHJvYm90
+IDxsa3BAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBKYXNvbiBFa3N0cmFuZCA8amFzb25Aamxl
+a3N0cmFuZC5uZXQ+ClJldmlld2VkLWJ5OiBKYXNvbiBFa3N0cmFuZCA8amFzb25Aamxla3N0cmFu
+ZC5uZXQ+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2NyZWF0ZS5jICAg
+IHwgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9kbWFidWYuYyAgICB8
+IDIzICsrKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmggICAg
+fCAgNCArCiAuLi4vZHJtL2k5MTUvZ2VtL3NlbGZ0ZXN0cy9pOTE1X2dlbV9kbWFidWYuYyAgfCA4
+OSArKysrKysrKysrKysrKysrKystCiA0IGZpbGVzIGNoYW5nZWQsIDExMiBpbnNlcnRpb25zKCsp
+LCA2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9p
+OTE1X2dlbV9jcmVhdGUuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9jcmVh
+dGUuYwppbmRleCAwMzllNGYzYjM5Yzc5Li40MWM0Y2QzZTFlYTAxIDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fY3JlYXRlLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2NyZWF0ZS5jCkBAIC04Miw3ICs4Miw3IEBAIHN0YXRpYyBp
+bnQgaTkxNV9nZW1fcHVibGlzaChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqLAogCXJl
+dHVybiAwOwogfQogCi1zdGF0aWMgc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKgorc3RydWN0
+IGRybV9pOTE1X2dlbV9vYmplY3QgKgogaTkxNV9nZW1fb2JqZWN0X2NyZWF0ZV91c2VyKHN0cnVj
+dCBkcm1faTkxNV9wcml2YXRlICppOTE1LCB1NjQgc2l6ZSwKIAkJCSAgICBzdHJ1Y3QgaW50ZWxf
+bWVtb3J5X3JlZ2lvbiAqKnBsYWNlbWVudHMsCiAJCQkgICAgdW5zaWduZWQgaW50IG5fcGxhY2Vt
+ZW50cykKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9kbWFi
+dWYuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9kbWFidWYuYwppbmRleCA5
+YTY1NWY2OWEwNjcxLi41ZDQzOGI5NTgyNmI5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9nZW0vaTkxNV9nZW1fZG1hYnVmLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2Vt
+L2k5MTVfZ2VtX2RtYWJ1Zi5jCkBAIC0xNzAsOCArMTcwLDI5IEBAIHN0YXRpYyBpbnQgaTkxNV9n
+ZW1fZG1hYnVmX2F0dGFjaChzdHJ1Y3QgZG1hX2J1ZiAqZG1hYnVmLAogCQkJCSAgc3RydWN0IGRt
+YV9idWZfYXR0YWNobWVudCAqYXR0YWNoKQogewogCXN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0
+ICpvYmogPSBkbWFfYnVmX3RvX29iaihkbWFidWYpOworCXN0cnVjdCBpOTE1X2dlbV93d19jdHgg
+d3c7CisJaW50IGVycjsKKworCWlmICghaTkxNV9nZW1fb2JqZWN0X2Nhbl9taWdyYXRlKG9iaiwg
+SU5URUxfUkVHSU9OX1NNRU0pKQorCQlyZXR1cm4gLUVPUE5PVFNVUFA7CisKKwlmb3JfaTkxNV9n
+ZW1fd3coJnd3LCBlcnIsIHRydWUpIHsKKwkJZXJyID0gaTkxNV9nZW1fb2JqZWN0X2xvY2sob2Jq
+LCAmd3cpOworCQlpZiAoZXJyKQorCQkJY29udGludWU7CisKKwkJZXJyID0gaTkxNV9nZW1fb2Jq
+ZWN0X21pZ3JhdGUob2JqLCAmd3csIElOVEVMX1JFR0lPTl9TTUVNKTsKKwkJaWYgKGVycikKKwkJ
+CWNvbnRpbnVlOwogCi0JcmV0dXJuIGk5MTVfZ2VtX29iamVjdF9waW5fcGFnZXNfdW5sb2NrZWQo
+b2JqKTsKKwkJZXJyID0gaTkxNV9nZW1fb2JqZWN0X3dhaXRfbWlncmF0aW9uKG9iaiwgMCk7CisJ
+CWlmIChlcnIpCisJCQljb250aW51ZTsKKworCQllcnIgPSBpOTE1X2dlbV9vYmplY3RfcGluX3Bh
+Z2VzKG9iaik7CisJfQorCisJcmV0dXJuIGVycjsKIH0KIAogc3RhdGljIHZvaWQgaTkxNV9nZW1f
+ZG1hYnVmX2RldGFjaChzdHJ1Y3QgZG1hX2J1ZiAqZG1hYnVmLApkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5oIGIvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5oCmluZGV4IDhiZTRmYWRlZWU0ODcuLmZiYWU1M2JkNDYz
+ODQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmplY3Qu
+aAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmgKQEAgLTYx
+LDYgKzYxLDEwIEBAIGk5MTVfZ2VtX29iamVjdF9jcmVhdGVfc2htZW0oc3RydWN0IGRybV9pOTE1
+X3ByaXZhdGUgKmk5MTUsCiBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqCiBpOTE1X2dlbV9v
+YmplY3RfY3JlYXRlX3NobWVtX2Zyb21fZGF0YShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkx
+NSwKIAkJCQkgICAgICAgY29uc3Qgdm9pZCAqZGF0YSwgcmVzb3VyY2Vfc2l6ZV90IHNpemUpOwor
+c3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKgoraTkxNV9nZW1fb2JqZWN0X2NyZWF0ZV91c2Vy
+KHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1LCB1NjQgc2l6ZSwKKwkJCSAgICBzdHJ1Y3Qg
+aW50ZWxfbWVtb3J5X3JlZ2lvbiAqKnBsYWNlbWVudHMsCisJCQkgICAgdW5zaWduZWQgaW50IG5f
+cGxhY2VtZW50cyk7CiAKIGV4dGVybiBjb25zdCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdF9v
+cHMgaTkxNV9nZW1fc2htZW1fb3BzOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9nZW0vc2VsZnRlc3RzL2k5MTVfZ2VtX2RtYWJ1Zi5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+Z2VtL3NlbGZ0ZXN0cy9pOTE1X2dlbV9kbWFidWYuYwppbmRleCA0NDUxYmJiNDkxN2U0Li43Yjc2
+NDdlN2UyMjBhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vc2VsZnRlc3Rz
+L2k5MTVfZ2VtX2RtYWJ1Zi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9zZWxmdGVz
+dHMvaTkxNV9nZW1fZG1hYnVmLmMKQEAgLTg1LDkgKzg1LDYyIEBAIHN0YXRpYyBpbnQgaWd0X2Rt
+YWJ1Zl9pbXBvcnRfc2VsZih2b2lkICphcmcpCiAJcmV0dXJuIGVycjsKIH0KIAotc3RhdGljIGlu
+dCBpZ3RfZG1hYnVmX2ltcG9ydF9zYW1lX2RyaXZlcih2b2lkICphcmcpCitzdGF0aWMgaW50IGln
+dF9kbWFidWZfaW1wb3J0X3NhbWVfZHJpdmVyX2xtZW0odm9pZCAqYXJnKQogewogCXN0cnVjdCBk
+cm1faTkxNV9wcml2YXRlICppOTE1ID0gYXJnOworCXN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9u
+ICpsbWVtID0gaTkxNS0+bW0ucmVnaW9uc1tJTlRFTF9SRUdJT05fTE1FTV07CisJc3RydWN0IGRy
+bV9pOTE1X2dlbV9vYmplY3QgKm9iajsKKwlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmltcG9ydDsK
+KwlzdHJ1Y3QgZG1hX2J1ZiAqZG1hYnVmOworCWludCBlcnI7CisKKwlpZiAoIWk5MTUtPm1tLnJl
+Z2lvbnNbSU5URUxfUkVHSU9OX0xNRU1dKQorCQlyZXR1cm4gMDsKKworCWZvcmNlX2RpZmZlcmVu
+dF9kZXZpY2VzID0gdHJ1ZTsKKworCW9iaiA9IGk5MTVfZ2VtX29iamVjdF9jcmVhdGVfdXNlcihp
+OTE1LCBQQUdFX1NJWkUsICZsbWVtLCAxKTsKKwlpZiAoSVNfRVJSKG9iaikpIHsKKwkJcHJfZXJy
+KCJpOTE1X2dlbV9vYmplY3RfY3JlYXRlX3VzZXIgZmFpbGVkIHdpdGggZXJyPSVkXG4iLAorCQkg
+ICAgICAgKGludClQVFJfRVJSKGRtYWJ1ZikpOworCQllcnIgPSBQVFJfRVJSKG9iaik7CisJCWdv
+dG8gb3V0X3JldDsKKwl9CisKKwlkbWFidWYgPSBpOTE1X2dlbV9wcmltZV9leHBvcnQoJm9iai0+
+YmFzZSwgMCk7CisJaWYgKElTX0VSUihkbWFidWYpKSB7CisJCXByX2VycigiaTkxNV9nZW1fcHJp
+bWVfZXhwb3J0IGZhaWxlZCB3aXRoIGVycj0lZFxuIiwKKwkJICAgICAgIChpbnQpUFRSX0VSUihk
+bWFidWYpKTsKKwkJZXJyID0gUFRSX0VSUihkbWFidWYpOworCQlnb3RvIG91dDsKKwl9CisKKwkv
+KiBXZSBleHBlY3QgYW4gaW1wb3J0IG9mIGFuIExNRU0tb25seSBvYmplY3QgdG8gZmFpbCB3aXRo
+CisJICogLUVPUE5PVFNVUFAgYmVjYXVzZSBpdCBjYW4ndCBiZSBtaWdyYXRlZCB0byBTTUVNLgor
+CSAqLworCWltcG9ydCA9IGk5MTVfZ2VtX3ByaW1lX2ltcG9ydCgmaTkxNS0+ZHJtLCBkbWFidWYp
+OworCWlmICghSVNfRVJSKGltcG9ydCkpIHsKKwkJZHJtX2dlbV9vYmplY3RfcHV0KGltcG9ydCk7
+CisJCXByX2VycigiaTkxNV9nZW1fcHJpbWVfaW1wb3J0IHN1Y2NlZWRlZCB3aGVuIGl0IHNob3Vs
+ZG4ndCBoYXZlXG4iKTsKKwkJZXJyID0gLUVJTlZBTDsKKwl9IGVsc2UgaWYgKFBUUl9FUlIoaW1w
+b3J0KSAhPSAtRU9QTk9UU1VQUCkgeworCQlwcl9lcnIoImk5MTVfZ2VtX3ByaW1lX2ltcG9ydCBm
+YWlsZWQgd2l0aCB0aGUgd3JvbmcgZXJyPSVkXG4iLAorCQkgICAgICAgKGludClQVFJfRVJSKGlt
+cG9ydCkpOworCQllcnIgPSBQVFJfRVJSKGltcG9ydCk7CisJfQorCisJZG1hX2J1Zl9wdXQoZG1h
+YnVmKTsKK291dDoKKwlpOTE1X2dlbV9vYmplY3RfcHV0KG9iaik7CitvdXRfcmV0OgorCWZvcmNl
+X2RpZmZlcmVudF9kZXZpY2VzID0gZmFsc2U7CisJcmV0dXJuIGVycjsKK30KKworc3RhdGljIGlu
+dCBpZ3RfZG1hYnVmX2ltcG9ydF9zYW1lX2RyaXZlcihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAq
+aTkxNSwKKwkJCQkJIHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICoqcmVnaW9ucywKKwkJCQkJ
+IHVuc2lnbmVkIGludCBudW1fcmVnaW9ucykKK3sKIAlzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVj
+dCAqb2JqLCAqaW1wb3J0X29iajsKIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmltcG9ydDsKIAlz
+dHJ1Y3QgZG1hX2J1ZiAqZG1hYnVmOwpAQCAtOTcsOSArMTUwLDE1IEBAIHN0YXRpYyBpbnQgaWd0
+X2RtYWJ1Zl9pbXBvcnRfc2FtZV9kcml2ZXIodm9pZCAqYXJnKQogCWludCBlcnI7CiAKIAlmb3Jj
+ZV9kaWZmZXJlbnRfZGV2aWNlcyA9IHRydWU7Ci0Jb2JqID0gaTkxNV9nZW1fb2JqZWN0X2NyZWF0
+ZV9zaG1lbShpOTE1LCBQQUdFX1NJWkUpOwotCWlmIChJU19FUlIob2JqKSkKKworCW9iaiA9IGk5
+MTVfZ2VtX29iamVjdF9jcmVhdGVfdXNlcihpOTE1LCBQQUdFX1NJWkUsCisJCQkJCSAgcmVnaW9u
+cywgbnVtX3JlZ2lvbnMpOworCWlmIChJU19FUlIob2JqKSkgeworCQlwcl9lcnIoImk5MTVfZ2Vt
+X29iamVjdF9jcmVhdGVfdXNlciBmYWlsZWQgd2l0aCBlcnI9JWRcbiIsCisJCSAgICAgICAoaW50
+KVBUUl9FUlIoZG1hYnVmKSk7CisJCWVyciA9IFBUUl9FUlIob2JqKTsKIAkJZ290byBvdXRfcmV0
+OworCX0KIAogCWRtYWJ1ZiA9IGk5MTVfZ2VtX3ByaW1lX2V4cG9ydCgmb2JqLT5iYXNlLCAwKTsK
+IAlpZiAoSVNfRVJSKGRtYWJ1ZikpIHsKQEAgLTE3NCw2ICsyMzMsMjYgQEAgc3RhdGljIGludCBp
+Z3RfZG1hYnVmX2ltcG9ydF9zYW1lX2RyaXZlcih2b2lkICphcmcpCiAJcmV0dXJuIGVycjsKIH0K
+IAorc3RhdGljIGludCBpZ3RfZG1hYnVmX2ltcG9ydF9zYW1lX2RyaXZlcl9zbWVtKHZvaWQgKmFy
+ZykKK3sKKwlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IGFyZzsKKwlzdHJ1Y3QgaW50
+ZWxfbWVtb3J5X3JlZ2lvbiAqc21lbSA9IGk5MTUtPm1tLnJlZ2lvbnNbSU5URUxfUkVHSU9OX1NN
+RU1dOworCXJldHVybiBpZ3RfZG1hYnVmX2ltcG9ydF9zYW1lX2RyaXZlcihpOTE1LCAmc21lbSwg
+MSk7Cit9CisKK3N0YXRpYyBpbnQgaWd0X2RtYWJ1Zl9pbXBvcnRfc2FtZV9kcml2ZXJfbG1lbV9z
+bWVtKHZvaWQgKmFyZykKK3sKKwlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IGFyZzsK
+KwlzdHJ1Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbiAqcmVnaW9uc1syXTsKKworCWlmICghaTkxNS0+
+bW0ucmVnaW9uc1tJTlRFTF9SRUdJT05fTE1FTV0pCisJCXJldHVybiAwOworCisJcmVnaW9uc1sw
+XSA9IGk5MTUtPm1tLnJlZ2lvbnNbSU5URUxfUkVHSU9OX0xNRU1dOworCXJlZ2lvbnNbMV0gPSBp
+OTE1LT5tbS5yZWdpb25zW0lOVEVMX1JFR0lPTl9TTUVNXTsKKwlyZXR1cm4gaWd0X2RtYWJ1Zl9p
+bXBvcnRfc2FtZV9kcml2ZXIoaTkxNSwgcmVnaW9ucywgMik7Cit9CisKIHN0YXRpYyBpbnQgaWd0
+X2RtYWJ1Zl9pbXBvcnQodm9pZCAqYXJnKQogewogCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpp
+OTE1ID0gYXJnOwpAQCAtMzg0LDcgKzQ2Myw5IEBAIGludCBpOTE1X2dlbV9kbWFidWZfbGl2ZV9z
+ZWxmdGVzdHMoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCiB7CiAJc3RhdGljIGNvbnN0
+IHN0cnVjdCBpOTE1X3N1YnRlc3QgdGVzdHNbXSA9IHsKIAkJU1VCVEVTVChpZ3RfZG1hYnVmX2V4
+cG9ydCksCi0JCVNVQlRFU1QoaWd0X2RtYWJ1Zl9pbXBvcnRfc2FtZV9kcml2ZXIpLAorCQlTVUJU
+RVNUKGlndF9kbWFidWZfaW1wb3J0X3NhbWVfZHJpdmVyX2xtZW0pLAorCQlTVUJURVNUKGlndF9k
+bWFidWZfaW1wb3J0X3NhbWVfZHJpdmVyX3NtZW0pLAorCQlTVUJURVNUKGlndF9kbWFidWZfaW1w
+b3J0X3NhbWVfZHJpdmVyX2xtZW1fc21lbSksCiAJfTsKIAogCXJldHVybiBpOTE1X3N1YnRlc3Rz
+KHRlc3RzLCBpOTE1KTsKLS0gCjIuMzEuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vaW50ZWwtZ2Z4Cg==
