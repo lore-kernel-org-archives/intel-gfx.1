@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1192EC636CB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3C08C636CE
 	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D96CB61289
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D96CB61289
+	by mail.kernel.org (Postfix) with ESMTPS id 7ED2261289
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7ED2261289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7716E9F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B16776EA17;
 	Fri, 16 Jul 2021 19:59:46 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 428B66E9E7;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 970416E9E8;
  Fri, 16 Jul 2021 19:59:40 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596730"
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596730"
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596732"
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596732"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:39 -0700
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238963"
+ 16 Jul 2021 12:59:40 -0700
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238969"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:39 -0700
+ 16 Jul 2021 12:59:40 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 16 Jul 2021 13:16:56 -0700
-Message-Id: <20210716201724.54804-24-matthew.brost@intel.com>
+Date: Fri, 16 Jul 2021 13:16:58 -0700
+Message-Id: <20210716201724.54804-26-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210716201724.54804-1-matthew.brost@intel.com>
 References: <20210716201724.54804-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 23/51] drm/i915/guc: Direct all breadcrumbs for
- a class to single breadcrumbs
+Subject: [Intel-gfx] [PATCH 25/51] drm/i915: Move active request tracking to
+ a vfunc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,438 +60,375 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With GuC virtual engines the physical engine which a request executes
-and completes on isn't known to the i915. Therefore we can't attach a
-request to a physical engines breadcrumbs. To work around this we create
-a single breadcrumbs per engine class when using GuC submission and
-direct all physical engine interrupts to this breadcrumbs.
-
-v2:
- (John H)
-  - Rework header file structure so intel_engine_mask_t can be in
-    intel_engine_types.h
+Move active request tracking to a backend vfunc rather than assuming all
+backends want to do this in the maner. In the case execlists /
+ring submission the tracking is on the physical engine while with GuC
+submission it is on the context.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-CC: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 41 +++++-------
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.h   | 16 ++++-
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |  7 ++
- drivers/gpu/drm/i915/gt/intel_engine.h        |  3 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 28 +++++++-
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |  2 +-
- .../drm/i915/gt/intel_execlists_submission.c  |  2 +-
- drivers/gpu/drm/i915/gt/mock_engine.c         |  4 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 67 +++++++++++++++++--
- 9 files changed, 133 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c       |  3 ++
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  7 ++++
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  6 +++
+ .../drm/i915/gt/intel_execlists_submission.c  | 40 ++++++++++++++++++
+ .../gpu/drm/i915/gt/intel_ring_submission.c   | 22 ++++++++++
+ drivers/gpu/drm/i915/gt/mock_engine.c         | 30 ++++++++++++++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 33 +++++++++++++++
+ drivers/gpu/drm/i915/i915_request.c           | 41 ++-----------------
+ drivers/gpu/drm/i915/i915_request.h           |  2 +
+ 9 files changed, 147 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index 38cc42783dfb..2007dc6f6b99 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -15,28 +15,14 @@
- #include "intel_gt_pm.h"
- #include "intel_gt_requests.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 251ff7eea22d..bfb05d8697d1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -393,6 +393,9 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ 	spin_lock_init(&ce->guc_state.lock);
+ 	INIT_LIST_HEAD(&ce->guc_state.fences);
  
--static bool irq_enable(struct intel_engine_cs *engine)
-+static bool irq_enable(struct intel_breadcrumbs *b)
- {
--	if (!engine->irq_enable)
--		return false;
--
--	/* Caller disables interrupts */
--	spin_lock(&engine->gt->irq_lock);
--	engine->irq_enable(engine);
--	spin_unlock(&engine->gt->irq_lock);
--
--	return true;
-+	return intel_engine_irq_enable(b->irq_engine);
- }
- 
--static void irq_disable(struct intel_engine_cs *engine)
-+static void irq_disable(struct intel_breadcrumbs *b)
- {
--	if (!engine->irq_disable)
--		return;
--
--	/* Caller disables interrupts */
--	spin_lock(&engine->gt->irq_lock);
--	engine->irq_disable(engine);
--	spin_unlock(&engine->gt->irq_lock);
-+	intel_engine_irq_disable(b->irq_engine);
- }
- 
- static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
-@@ -57,7 +43,7 @@ static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
- 	WRITE_ONCE(b->irq_armed, true);
- 
- 	/* Requests may have completed before we could enable the interrupt. */
--	if (!b->irq_enabled++ && irq_enable(b->irq_engine))
-+	if (!b->irq_enabled++ && b->irq_enable(b))
- 		irq_work_queue(&b->irq_work);
- }
- 
-@@ -76,7 +62,7 @@ static void __intel_breadcrumbs_disarm_irq(struct intel_breadcrumbs *b)
- {
- 	GEM_BUG_ON(!b->irq_enabled);
- 	if (!--b->irq_enabled)
--		irq_disable(b->irq_engine);
-+		b->irq_disable(b);
- 
- 	WRITE_ONCE(b->irq_armed, false);
- 	intel_gt_pm_put_async(b->irq_engine->gt);
-@@ -281,7 +267,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
- 	if (!b)
- 		return NULL;
- 
--	b->irq_engine = irq_engine;
-+	kref_init(&b->ref);
- 
- 	spin_lock_init(&b->signalers_lock);
- 	INIT_LIST_HEAD(&b->signalers);
-@@ -290,6 +276,10 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
- 	spin_lock_init(&b->irq_lock);
- 	init_irq_work(&b->irq_work, signal_irq_work);
- 
-+	b->irq_engine = irq_engine;
-+	b->irq_enable = irq_enable;
-+	b->irq_disable = irq_disable;
++	spin_lock_init(&ce->guc_active.lock);
++	INIT_LIST_HEAD(&ce->guc_active.requests);
 +
- 	return b;
- }
+ 	ce->guc_id = GUC_INVALID_LRC_ID;
+ 	INIT_LIST_HEAD(&ce->guc_id_link);
  
-@@ -303,9 +293,9 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
- 	spin_lock_irqsave(&b->irq_lock, flags);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 542c98418771..035108c10b2c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -162,6 +162,13 @@ struct intel_context {
+ 		struct list_head fences;
+ 	} guc_state;
  
- 	if (b->irq_enabled)
--		irq_enable(b->irq_engine);
-+		b->irq_enable(b);
- 	else
--		irq_disable(b->irq_engine);
-+		b->irq_disable(b);
- 
- 	spin_unlock_irqrestore(&b->irq_lock, flags);
- }
-@@ -325,11 +315,14 @@ void __intel_breadcrumbs_park(struct intel_breadcrumbs *b)
- 	}
- }
- 
--void intel_breadcrumbs_free(struct intel_breadcrumbs *b)
-+void intel_breadcrumbs_free(struct kref *kref)
- {
-+	struct intel_breadcrumbs *b = container_of(kref, typeof(*b), ref);
++	struct {
++		/** lock: protects everything in guc_active */
++		spinlock_t lock;
++		/** requests: active requests on this context */
++		struct list_head requests;
++	} guc_active;
 +
- 	irq_work_sync(&b->irq_work);
- 	GEM_BUG_ON(!list_empty(&b->signalers));
- 	GEM_BUG_ON(b->irq_armed);
-+
- 	kfree(b);
- }
+ 	/* GuC scheduling state flags that do not require a lock. */
+ 	atomic_t guc_sched_state_no_lock;
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
-index 3ce5ce270b04..be0d4f379a85 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
-@@ -9,7 +9,7 @@
- #include <linux/atomic.h>
- #include <linux/irq_work.h>
- 
--#include "intel_engine_types.h"
-+#include "intel_breadcrumbs_types.h"
- 
- struct drm_printer;
- struct i915_request;
-@@ -17,7 +17,7 @@ struct intel_breadcrumbs;
- 
- struct intel_breadcrumbs *
- intel_breadcrumbs_create(struct intel_engine_cs *irq_engine);
--void intel_breadcrumbs_free(struct intel_breadcrumbs *b);
-+void intel_breadcrumbs_free(struct kref *kref);
- 
- void intel_breadcrumbs_reset(struct intel_breadcrumbs *b);
- void __intel_breadcrumbs_park(struct intel_breadcrumbs *b);
-@@ -48,4 +48,16 @@ void i915_request_cancel_breadcrumb(struct i915_request *request);
- void intel_context_remove_breadcrumbs(struct intel_context *ce,
- 				      struct intel_breadcrumbs *b);
- 
-+static inline struct intel_breadcrumbs *
-+intel_breadcrumbs_get(struct intel_breadcrumbs *b)
-+{
-+	kref_get(&b->ref);
-+	return b;
-+}
-+
-+static inline void intel_breadcrumbs_put(struct intel_breadcrumbs *b)
-+{
-+	kref_put(&b->ref, intel_breadcrumbs_free);
-+}
-+
- #endif /* __INTEL_BREADCRUMBS__ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-index 3a084ce8ff5e..72dfd3748c4c 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-@@ -7,10 +7,13 @@
- #define __INTEL_BREADCRUMBS_TYPES__
- 
- #include <linux/irq_work.h>
-+#include <linux/kref.h>
- #include <linux/list.h>
- #include <linux/spinlock.h>
- #include <linux/types.h>
- 
-+#include "intel_engine_types.h"
-+
- /*
-  * Rather than have every client wait upon all user interrupts,
-  * with the herd waking after every interrupt and each doing the
-@@ -29,6 +32,7 @@
-  * the overhead of waking that client is much preferred.
-  */
- struct intel_breadcrumbs {
-+	struct kref ref;
- 	atomic_t active;
- 
- 	spinlock_t signalers_lock; /* protects the list of signalers */
-@@ -42,7 +46,10 @@ struct intel_breadcrumbs {
- 	bool irq_armed;
- 
- 	/* Not all breadcrumbs are attached to physical HW */
-+	intel_engine_mask_t	engine_mask;
- 	struct intel_engine_cs *irq_engine;
-+	bool	(*irq_enable)(struct intel_breadcrumbs *b);
-+	void	(*irq_disable)(struct intel_breadcrumbs *b);
- };
- 
- #endif /* __INTEL_BREADCRUMBS_TYPES__ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 9fec0aca5f4b..edbde6171bca 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -212,6 +212,9 @@ void intel_engine_get_instdone(const struct intel_engine_cs *engine,
- 
- void intel_engine_init_execlists(struct intel_engine_cs *engine);
- 
-+bool intel_engine_irq_enable(struct intel_engine_cs *engine);
-+void intel_engine_irq_disable(struct intel_engine_cs *engine);
-+
- static inline void __intel_engine_reset(struct intel_engine_cs *engine,
- 					bool stalled)
- {
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index b7292d5cb7da..d95d666407f5 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -739,7 +739,7 @@ static int engine_setup_common(struct intel_engine_cs *engine)
- err_cmd_parser:
- 	i915_sched_engine_put(engine->sched_engine);
- err_sched_engine:
--	intel_breadcrumbs_free(engine->breadcrumbs);
-+	intel_breadcrumbs_put(engine->breadcrumbs);
- err_status:
- 	cleanup_status_page(engine);
- 	return err;
-@@ -948,7 +948,7 @@ void intel_engine_cleanup_common(struct intel_engine_cs *engine)
- 	GEM_BUG_ON(!list_empty(&engine->sched_engine->requests));
- 
- 	i915_sched_engine_put(engine->sched_engine);
--	intel_breadcrumbs_free(engine->breadcrumbs);
-+	intel_breadcrumbs_put(engine->breadcrumbs);
- 
- 	intel_engine_fini_retire(engine);
- 	intel_engine_cleanup_cmd_parser(engine);
-@@ -1265,6 +1265,30 @@ bool intel_engines_are_idle(struct intel_gt *gt)
- 	return true;
- }
- 
-+bool intel_engine_irq_enable(struct intel_engine_cs *engine)
-+{
-+	if (!engine->irq_enable)
-+		return false;
-+
-+	/* Caller disables interrupts */
-+	spin_lock(&engine->gt->irq_lock);
-+	engine->irq_enable(engine);
-+	spin_unlock(&engine->gt->irq_lock);
-+
-+	return true;
-+}
-+
-+void intel_engine_irq_disable(struct intel_engine_cs *engine)
-+{
-+	if (!engine->irq_disable)
-+		return;
-+
-+	/* Caller disables interrupts */
-+	spin_lock(&engine->gt->irq_lock);
-+	engine->irq_disable(engine);
-+	spin_unlock(&engine->gt->irq_lock);
-+}
-+
- void intel_engines_reset_default_submission(struct intel_gt *gt)
- {
- 	struct intel_engine_cs *engine;
 diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 8ad304b2f2e4..03a81e8d87f4 100644
+index 03a81e8d87f4..950fc73ed6af 100644
 --- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
 +++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -21,7 +21,6 @@
- #include "i915_pmu.h"
- #include "i915_priolist_types.h"
- #include "i915_selftest.h"
--#include "intel_breadcrumbs_types.h"
- #include "intel_sseu.h"
- #include "intel_timeline_types.h"
- #include "intel_uncore.h"
-@@ -63,6 +62,7 @@ struct i915_sched_engine;
- struct intel_gt;
- struct intel_ring;
- struct intel_uncore;
-+struct intel_breadcrumbs;
+@@ -420,6 +420,12 @@ struct intel_engine_cs {
  
- typedef u8 intel_engine_mask_t;
- #define ALL_ENGINES ((intel_engine_mask_t)~0ul)
+ 	void		(*release)(struct intel_engine_cs *engine);
+ 
++	/*
++	 * Add / remove request from engine active tracking
++	 */
++	void		(*add_active_request)(struct i915_request *rq);
++	void		(*remove_active_request)(struct i915_request *rq);
++
+ 	struct intel_engine_execlists execlists;
+ 
+ 	/*
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 920707e22eb0..abe48421fd7a 100644
+index abe48421fd7a..f9b5f54a5abe 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3407,7 +3407,7 @@ static void rcu_virtual_context_destroy(struct work_struct *wrk)
- 	intel_context_fini(&ve->context);
+@@ -3106,6 +3106,42 @@ static void execlists_park(struct intel_engine_cs *engine)
+ 	cancel_timer(&engine->execlists.preempt);
+ }
  
- 	if (ve->base.breadcrumbs)
--		intel_breadcrumbs_free(ve->base.breadcrumbs);
-+		intel_breadcrumbs_put(ve->base.breadcrumbs);
- 	if (ve->base.sched_engine)
- 		i915_sched_engine_put(ve->base.sched_engine);
- 	intel_engine_free_request_pool(&ve->base);
++static void add_to_engine(struct i915_request *rq)
++{
++	lockdep_assert_held(&rq->engine->sched_engine->lock);
++	list_move_tail(&rq->sched.link, &rq->engine->sched_engine->requests);
++}
++
++static void remove_from_engine(struct i915_request *rq)
++{
++	struct intel_engine_cs *engine, *locked;
++
++	/*
++	 * Virtual engines complicate acquiring the engine timeline lock,
++	 * as their rq->engine pointer is not stable until under that
++	 * engine lock. The simple ploy we use is to take the lock then
++	 * check that the rq still belongs to the newly locked engine.
++	 */
++	locked = READ_ONCE(rq->engine);
++	spin_lock_irq(&locked->sched_engine->lock);
++	while (unlikely(locked != (engine = READ_ONCE(rq->engine)))) {
++		spin_unlock(&locked->sched_engine->lock);
++		spin_lock(&engine->sched_engine->lock);
++		locked = engine;
++	}
++	list_del_init(&rq->sched.link);
++
++	clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
++	clear_bit(I915_FENCE_FLAG_HOLD, &rq->fence.flags);
++
++	/* Prevent further __await_execution() registering a cb, then flush */
++	set_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags);
++
++	spin_unlock_irq(&locked->sched_engine->lock);
++
++	i915_request_notify_execute_cb_imm(rq);
++}
++
+ static bool can_preempt(struct intel_engine_cs *engine)
+ {
+ 	if (GRAPHICS_VER(engine->i915) > 8)
+@@ -3206,6 +3242,8 @@ logical_ring_default_vfuncs(struct intel_engine_cs *engine)
+ 	engine->cops = &execlists_context_ops;
+ 	engine->request_alloc = execlists_request_alloc;
+ 	engine->bump_serial = execlist_bump_serial;
++	engine->add_active_request = add_to_engine;
++	engine->remove_active_request = remove_from_engine;
+ 
+ 	engine->reset.prepare = execlists_reset_prepare;
+ 	engine->reset.rewind = execlists_reset_rewind;
+@@ -3797,6 +3835,8 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
+ 			 "v%dx%d", ve->base.class, count);
+ 		ve->base.context_size = sibling->context_size;
+ 
++		ve->base.add_active_request = sibling->add_active_request;
++		ve->base.remove_active_request = sibling->remove_active_request;
+ 		ve->base.emit_bb_start = sibling->emit_bb_start;
+ 		ve->base.emit_flush = sibling->emit_flush;
+ 		ve->base.emit_init_breadcrumb = sibling->emit_init_breadcrumb;
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 61469c631057..3b1471c50d40 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -1052,6 +1052,25 @@ static void ring_bump_serial(struct intel_engine_cs *engine)
+ 	engine->serial++;
+ }
+ 
++static void add_to_engine(struct i915_request *rq)
++{
++	lockdep_assert_held(&rq->engine->sched_engine->lock);
++	list_move_tail(&rq->sched.link, &rq->engine->sched_engine->requests);
++}
++
++static void remove_from_engine(struct i915_request *rq)
++{
++	spin_lock_irq(&rq->engine->sched_engine->lock);
++	list_del_init(&rq->sched.link);
++
++	/* Prevent further __await_execution() registering a cb, then flush */
++	set_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags);
++
++	spin_unlock_irq(&rq->engine->sched_engine->lock);
++
++	i915_request_notify_execute_cb_imm(rq);
++}
++
+ static void setup_common(struct intel_engine_cs *engine)
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
+@@ -1069,6 +1088,9 @@ static void setup_common(struct intel_engine_cs *engine)
+ 	engine->reset.cancel = reset_cancel;
+ 	engine->reset.finish = reset_finish;
+ 
++	engine->add_active_request = add_to_engine;
++	engine->remove_active_request = remove_from_engine;
++
+ 	engine->cops = &ring_context_ops;
+ 	engine->request_alloc = ring_request_alloc;
+ 	engine->bump_serial = ring_bump_serial;
 diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
-index 9203c766db80..fc5a65ab1937 100644
+index fc5a65ab1937..5f86ff79c98c 100644
 --- a/drivers/gpu/drm/i915/gt/mock_engine.c
 +++ b/drivers/gpu/drm/i915/gt/mock_engine.c
-@@ -284,7 +284,7 @@ static void mock_engine_release(struct intel_engine_cs *engine)
- 	GEM_BUG_ON(timer_pending(&mock->hw_delay));
+@@ -235,6 +235,34 @@ static void mock_submit_request(struct i915_request *request)
+ 	spin_unlock_irqrestore(&engine->hw_lock, flags);
+ }
  
- 	i915_sched_engine_put(engine->sched_engine);
--	intel_breadcrumbs_free(engine->breadcrumbs);
-+	intel_breadcrumbs_put(engine->breadcrumbs);
++static void mock_add_to_engine(struct i915_request *rq)
++{
++	lockdep_assert_held(&rq->engine->sched_engine->lock);
++	list_move_tail(&rq->sched.link, &rq->engine->sched_engine->requests);
++}
++
++static void mock_remove_from_engine(struct i915_request *rq)
++{
++	struct intel_engine_cs *engine, *locked;
++
++	/*
++	 * Virtual engines complicate acquiring the engine timeline lock,
++	 * as their rq->engine pointer is not stable until under that
++	 * engine lock. The simple ploy we use is to take the lock then
++	 * check that the rq still belongs to the newly locked engine.
++	 */
++
++	locked = READ_ONCE(rq->engine);
++	spin_lock_irq(&locked->sched_engine->lock);
++	while (unlikely(locked != (engine = READ_ONCE(rq->engine)))) {
++		spin_unlock(&locked->sched_engine->lock);
++		spin_lock(&engine->sched_engine->lock);
++		locked = engine;
++	}
++	list_del_init(&rq->sched.link);
++	spin_unlock_irq(&locked->sched_engine->lock);
++}
++
+ static void mock_reset_prepare(struct intel_engine_cs *engine)
+ {
+ }
+@@ -327,6 +355,8 @@ struct intel_engine_cs *mock_engine(struct drm_i915_private *i915,
+ 	engine->base.emit_flush = mock_emit_flush;
+ 	engine->base.emit_fini_breadcrumb = mock_emit_breadcrumb;
+ 	engine->base.submit_request = mock_submit_request;
++	engine->base.add_active_request = mock_add_to_engine;
++	engine->base.remove_active_request = mock_remove_from_engine;
  
- 	intel_context_unpin(engine->kernel_context);
- 	intel_context_put(engine->kernel_context);
-@@ -376,7 +376,7 @@ int mock_engine_init(struct intel_engine_cs *engine)
- 	return 0;
- 
- err_breadcrumbs:
--	intel_breadcrumbs_free(engine->breadcrumbs);
-+	intel_breadcrumbs_put(engine->breadcrumbs);
- err_schedule:
- 	i915_sched_engine_put(engine->sched_engine);
- 	return -ENOMEM;
+ 	engine->base.reset.prepare = mock_reset_prepare;
+ 	engine->base.reset.rewind = mock_reset_rewind;
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 372e0dc7617a..9f28899ff17f 100644
+index 9f28899ff17f..f8a6077fa3f9 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1076,6 +1076,9 @@ static void __guc_context_destroy(struct intel_context *ce)
- 		struct guc_virtual_engine *ve =
- 			container_of(ce, typeof(*ve), context);
+@@ -1147,6 +1147,33 @@ static int guc_context_alloc(struct intel_context *ce)
+ 	return lrc_alloc(ce, ce->engine);
+ }
  
-+		if (ve->base.breadcrumbs)
-+			intel_breadcrumbs_put(ve->base.breadcrumbs);
++static void add_to_context(struct i915_request *rq)
++{
++	struct intel_context *ce = rq->context;
 +
- 		kfree(ve);
- 	} else {
- 		intel_context_free(ce);
-@@ -1366,6 +1369,62 @@ static const struct intel_context_ops virtual_guc_context_ops = {
- 	.get_sibling = guc_virtual_get_sibling,
- };
++	spin_lock(&ce->guc_active.lock);
++	list_move_tail(&rq->sched.link, &ce->guc_active.requests);
++	spin_unlock(&ce->guc_active.lock);
++}
++
++static void remove_from_context(struct i915_request *rq)
++{
++	struct intel_context *ce = rq->context;
++
++	spin_lock_irq(&ce->guc_active.lock);
++
++	list_del_init(&rq->sched.link);
++	clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
++
++	/* Prevent further __await_execution() registering a cb, then flush */
++	set_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags);
++
++	spin_unlock_irq(&ce->guc_active.lock);
++
++	atomic_dec(&ce->guc_id_ref);
++	i915_request_notify_execute_cb_imm(rq);
++}
++
+ static const struct intel_context_ops guc_context_ops = {
+ 	.alloc = guc_context_alloc,
  
-+static bool
-+guc_irq_enable_breadcrumbs(struct intel_breadcrumbs *b)
-+{
-+	struct intel_engine_cs *sibling;
-+	intel_engine_mask_t tmp, mask = b->engine_mask;
-+	bool result = false;
-+
-+	for_each_engine_masked(sibling, b->irq_engine->gt, mask, tmp)
-+		result |= intel_engine_irq_enable(sibling);
-+
-+	return result;
-+}
-+
-+static void
-+guc_irq_disable_breadcrumbs(struct intel_breadcrumbs *b)
-+{
-+	struct intel_engine_cs *sibling;
-+	intel_engine_mask_t tmp, mask = b->engine_mask;
-+
-+	for_each_engine_masked(sibling, b->irq_engine->gt, mask, tmp)
-+		intel_engine_irq_disable(sibling);
-+}
-+
-+static void guc_init_breadcrumbs(struct intel_engine_cs *engine)
-+{
-+	int i;
-+
-+       /*
-+        * In GuC submission mode we do not know which physical engine a request
-+        * will be scheduled on, this creates a problem because the breadcrumb
-+        * interrupt is per physical engine. To work around this we attach
-+        * requests and direct all breadcrumb interrupts to the first instance
-+        * of an engine per class. In addition all breadcrumb interrupts are
-+	* enabled / disabled across an engine class in unison.
-+        */
-+	for (i = 0; i < MAX_ENGINE_INSTANCE; ++i) {
-+		struct intel_engine_cs *sibling =
-+			engine->gt->engine_class[engine->class][i];
-+
-+		if (sibling) {
-+			if (engine->breadcrumbs != sibling->breadcrumbs) {
-+				intel_breadcrumbs_put(engine->breadcrumbs);
-+				engine->breadcrumbs =
-+					intel_breadcrumbs_get(sibling->breadcrumbs);
-+			}
-+			break;
-+		}
-+	}
-+
-+	if (engine->breadcrumbs) {
-+		engine->breadcrumbs->engine_mask |= engine->mask;
-+		engine->breadcrumbs->irq_enable = guc_irq_enable_breadcrumbs;
-+		engine->breadcrumbs->irq_disable = guc_irq_disable_breadcrumbs;
-+	}
-+}
-+
- static void sanitize_hwsp(struct intel_engine_cs *engine)
+@@ -1567,6 +1594,8 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
+ 	engine->cops = &guc_context_ops;
+ 	engine->request_alloc = guc_request_alloc;
+ 	engine->bump_serial = guc_bump_serial;
++	engine->add_active_request = add_to_context;
++	engine->remove_active_request = remove_from_context;
+ 
+ 	engine->sched_engine->schedule = i915_schedule;
+ 
+@@ -1931,6 +1960,10 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
+ 				 "v%dx%d", ve->base.class, count);
+ 			ve->base.context_size = sibling->context_size;
+ 
++			ve->base.add_active_request =
++				sibling->add_active_request;
++			ve->base.remove_active_request =
++				sibling->remove_active_request;
+ 			ve->base.emit_bb_start = sibling->emit_bb_start;
+ 			ve->base.emit_flush = sibling->emit_flush;
+ 			ve->base.emit_init_breadcrumb =
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index b3c792d55321..4eba848b20e3 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -182,7 +182,7 @@ static bool irq_work_imm(struct irq_work *wrk)
+ 	return false;
+ }
+ 
+-static void __notify_execute_cb_imm(struct i915_request *rq)
++void i915_request_notify_execute_cb_imm(struct i915_request *rq)
  {
- 	struct intel_timeline *tl;
-@@ -1589,6 +1648,7 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
+ 	__notify_execute_cb(rq, irq_work_imm);
+ }
+@@ -256,37 +256,6 @@ i915_request_active_engine(struct i915_request *rq,
+ 	return ret;
+ }
  
- 	guc_default_vfuncs(engine);
- 	guc_default_irqs(engine);
-+	guc_init_breadcrumbs(engine);
- 
- 	if (engine->class == RENDER_CLASS)
- 		rcs_submission_override(engine);
-@@ -1831,11 +1891,6 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
- 	ve->base.instance = I915_ENGINE_CLASS_INVALID_VIRTUAL;
- 	ve->base.uabi_instance = I915_ENGINE_CLASS_INVALID_VIRTUAL;
- 	ve->base.saturated = ALL_ENGINES;
--	ve->base.breadcrumbs = intel_breadcrumbs_create(&ve->base);
--	if (!ve->base.breadcrumbs) {
--		kfree(ve);
--		return ERR_PTR(-ENOMEM);
+-
+-static void remove_from_engine(struct i915_request *rq)
+-{
+-	struct intel_engine_cs *engine, *locked;
+-
+-	/*
+-	 * Virtual engines complicate acquiring the engine timeline lock,
+-	 * as their rq->engine pointer is not stable until under that
+-	 * engine lock. The simple ploy we use is to take the lock then
+-	 * check that the rq still belongs to the newly locked engine.
+-	 */
+-	locked = READ_ONCE(rq->engine);
+-	spin_lock_irq(&locked->sched_engine->lock);
+-	while (unlikely(locked != (engine = READ_ONCE(rq->engine)))) {
+-		spin_unlock(&locked->sched_engine->lock);
+-		spin_lock(&engine->sched_engine->lock);
+-		locked = engine;
 -	}
+-	list_del_init(&rq->sched.link);
+-
+-	clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+-	clear_bit(I915_FENCE_FLAG_HOLD, &rq->fence.flags);
+-
+-	/* Prevent further __await_execution() registering a cb, then flush */
+-	set_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags);
+-
+-	spin_unlock_irq(&locked->sched_engine->lock);
+-
+-	__notify_execute_cb_imm(rq);
+-}
+-
+ static void __rq_init_watchdog(struct i915_request *rq)
+ {
+ 	rq->watchdog.timer.function = NULL;
+@@ -383,9 +352,7 @@ bool i915_request_retire(struct i915_request *rq)
+ 	 * after removing the breadcrumb and signaling it, so that we do not
+ 	 * inadvertently attach the breadcrumb to a completed request.
+ 	 */
+-	if (!list_empty(&rq->sched.link))
+-		remove_from_engine(rq);
+-	atomic_dec(&rq->context->guc_id_ref);
++	rq->engine->remove_active_request(rq);
+ 	GEM_BUG_ON(!llist_empty(&rq->execute_cb));
  
- 	snprintf(ve->base.name, sizeof(ve->base.name), "virtual");
+ 	__list_del_entry(&rq->link); /* poison neither prev/next (RCU walks) */
+@@ -516,7 +483,7 @@ __await_execution(struct i915_request *rq,
+ 	if (llist_add(&cb->work.node.llist, &signal->execute_cb)) {
+ 		if (i915_request_is_active(signal) ||
+ 		    __request_in_flight(signal))
+-			__notify_execute_cb_imm(signal);
++			i915_request_notify_execute_cb_imm(signal);
+ 	}
  
-@@ -1884,6 +1939,8 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
- 				sibling->emit_fini_breadcrumb;
- 			ve->base.emit_fini_breadcrumb_dw =
- 				sibling->emit_fini_breadcrumb_dw;
-+			ve->base.breadcrumbs =
-+				intel_breadcrumbs_get(sibling->breadcrumbs);
+ 	return 0;
+@@ -653,7 +620,7 @@ bool __i915_request_submit(struct i915_request *request)
+ 	result = true;
  
- 			ve->base.flags |= sibling->flags;
+ 	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
+-	list_move_tail(&request->sched.link, &engine->sched_engine->requests);
++	engine->add_active_request(request);
+ active:
+ 	clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
+ 	set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags);
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index 717e5b292046..128030f43bbf 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -647,4 +647,6 @@ bool
+ i915_request_active_engine(struct i915_request *rq,
+ 			   struct intel_engine_cs **active);
  
++void i915_request_notify_execute_cb_imm(struct i915_request *rq);
++
+ #endif /* I915_REQUEST_H */
 -- 
 2.28.0
 
