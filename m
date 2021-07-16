@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFA0CC6377B
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA273C12002
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9491E613F3
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9491E613F3
+	by mail.kernel.org (Postfix) with ESMTPS id 96FA161289
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96FA161289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 166E06EA38;
-	Fri, 16 Jul 2021 19:59:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 712286EA54;
+	Fri, 16 Jul 2021 19:59:53 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 634796E9E1;
- Fri, 16 Jul 2021 19:59:39 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596727"
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596727"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FFAC6EA0B;
+ Fri, 16 Jul 2021 19:59:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596761"
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596761"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:39 -0700
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238939"
+ 16 Jul 2021 12:59:45 -0700
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507239060"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:38 -0700
+ 16 Jul 2021 12:59:44 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 16 Jul 2021 13:16:53 -0700
-Message-Id: <20210716201724.54804-21-matthew.brost@intel.com>
+Date: Fri, 16 Jul 2021 13:17:19 -0700
+Message-Id: <20210716201724.54804-47-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210716201724.54804-1-matthew.brost@intel.com>
 References: <20210716201724.54804-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 20/51] drm/i915: Track 'serial' counts for
- virtual engines
+Subject: [Intel-gfx] [PATCH 46/51] drm/i915/selftest: Fix MOCS selftest for
+ GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,175 +60,127 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+From: Rahul Kumar Singh <rahul.kumar.singh@intel.com>
 
-The serial number tracking of engines happens at the backend of
-request submission and was expecting to only be given physical
-engines. However, in GuC submission mode, the decomposition of virtual
-to physical engines does not happen in i915. Instead, requests are
-submitted to their virtual engine mask all the way through to the
-hardware (i.e. to GuC). This would mean that the heart beat code
-thinks the physical engines are idle due to the serial number not
-incrementing.
+When GuC submission is enabled, the GuC controls engine resets. Rather
+than explicitly triggering a reset, the driver must submit a hanging
+context to GuC and wait for the reset to occur.
 
-This patch updates the tracking to decompose virtual engines into
-their physical constituents and tracks the request against each. This
-is not entirely accurate as the GuC will only be issuing the request
-to one physical engine. However, it is the best that i915 can do given
-that it has no knowledge of the GuC's scheduling decisions.
-
+Signed-off-by: Rahul Kumar Singh <rahul.kumar.singh@intel.com>
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_types.h     |  2 ++
- .../gpu/drm/i915/gt/intel_execlists_submission.c |  6 ++++++
- drivers/gpu/drm/i915/gt/intel_ring_submission.c  |  6 ++++++
- drivers/gpu/drm/i915/gt/mock_engine.c            |  6 ++++++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c    | 16 ++++++++++++++++
- drivers/gpu/drm/i915/i915_request.c              |  4 +++-
- 6 files changed, 39 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/selftest_mocs.c | 49 ++++++++++++++++++-------
+ 1 file changed, 35 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 1cb9c3b70b29..8ad304b2f2e4 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -388,6 +388,8 @@ struct intel_engine_cs {
- 	void		(*park)(struct intel_engine_cs *engine);
- 	void		(*unpark)(struct intel_engine_cs *engine);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_mocs.c b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+index 8763bbeca0f7..b7314739ee40 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_mocs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+@@ -10,6 +10,7 @@
+ #include "gem/selftests/mock_context.h"
+ #include "selftests/igt_reset.h"
+ #include "selftests/igt_spinner.h"
++#include "selftests/intel_scheduler_helpers.h"
  
-+	void		(*bump_serial)(struct intel_engine_cs *engine);
-+
- 	void		(*set_default_submission)(struct intel_engine_cs *engine);
- 
- 	const struct intel_context_ops *cops;
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 28492cdce706..920707e22eb0 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3191,6 +3191,11 @@ static void execlists_release(struct intel_engine_cs *engine)
- 	lrc_fini_wa_ctx(engine);
+ struct live_mocs {
+ 	struct drm_i915_mocs_table table;
+@@ -318,7 +319,8 @@ static int live_mocs_clean(void *arg)
  }
  
-+static void execlist_bump_serial(struct intel_engine_cs *engine)
-+{
-+	engine->serial++;
-+}
-+
- static void
- logical_ring_default_vfuncs(struct intel_engine_cs *engine)
+ static int active_engine_reset(struct intel_context *ce,
+-			       const char *reason)
++			       const char *reason,
++			       bool using_guc)
  {
-@@ -3200,6 +3205,7 @@ logical_ring_default_vfuncs(struct intel_engine_cs *engine)
- 
- 	engine->cops = &execlists_context_ops;
- 	engine->request_alloc = execlists_request_alloc;
-+	engine->bump_serial = execlist_bump_serial;
- 
- 	engine->reset.prepare = execlists_reset_prepare;
- 	engine->reset.rewind = execlists_reset_rewind;
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 5c4d204d07cc..61469c631057 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -1047,6 +1047,11 @@ static void setup_irq(struct intel_engine_cs *engine)
+ 	struct igt_spinner spin;
+ 	struct i915_request *rq;
+@@ -335,9 +337,13 @@ static int active_engine_reset(struct intel_context *ce,
  	}
+ 
+ 	err = request_add_spin(rq, &spin);
+-	if (err == 0)
++	if (err == 0 && !using_guc)
+ 		err = intel_engine_reset(ce->engine, reason);
+ 
++	/* Ensure the reset happens and kills the engine */
++	if (err == 0)
++		err = intel_selftest_wait_for_rq(rq);
++
+ 	igt_spinner_end(&spin);
+ 	igt_spinner_fini(&spin);
+ 
+@@ -345,21 +351,23 @@ static int active_engine_reset(struct intel_context *ce,
  }
  
-+static void ring_bump_serial(struct intel_engine_cs *engine)
-+{
-+	engine->serial++;
-+}
-+
- static void setup_common(struct intel_engine_cs *engine)
+ static int __live_mocs_reset(struct live_mocs *mocs,
+-			     struct intel_context *ce)
++			     struct intel_context *ce, bool using_guc)
  {
- 	struct drm_i915_private *i915 = engine->i915;
-@@ -1066,6 +1071,7 @@ static void setup_common(struct intel_engine_cs *engine)
+ 	struct intel_gt *gt = ce->engine->gt;
+ 	int err;
  
- 	engine->cops = &ring_context_ops;
- 	engine->request_alloc = ring_request_alloc;
-+	engine->bump_serial = ring_bump_serial;
- 
- 	/*
- 	 * Using a global execution timeline; the previous final breadcrumb is
-diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
-index 68970398e4ef..9203c766db80 100644
---- a/drivers/gpu/drm/i915/gt/mock_engine.c
-+++ b/drivers/gpu/drm/i915/gt/mock_engine.c
-@@ -292,6 +292,11 @@ static void mock_engine_release(struct intel_engine_cs *engine)
- 	intel_engine_fini_retire(engine);
- }
- 
-+static void mock_bump_serial(struct intel_engine_cs *engine)
-+{
-+	engine->serial++;
-+}
+ 	if (intel_has_reset_engine(gt)) {
+-		err = intel_engine_reset(ce->engine, "mocs");
+-		if (err)
+-			return err;
+-
+-		err = check_mocs_engine(mocs, ce);
+-		if (err)
+-			return err;
++		if (!using_guc) {
++			err = intel_engine_reset(ce->engine, "mocs");
++			if (err)
++				return err;
 +
- struct intel_engine_cs *mock_engine(struct drm_i915_private *i915,
- 				    const char *name,
- 				    int id)
-@@ -318,6 +323,7 @@ struct intel_engine_cs *mock_engine(struct drm_i915_private *i915,
++			err = check_mocs_engine(mocs, ce);
++			if (err)
++				return err;
++		}
  
- 	engine->base.cops = &mock_context_ops;
- 	engine->base.request_alloc = mock_request_alloc;
-+	engine->base.bump_serial = mock_bump_serial;
- 	engine->base.emit_flush = mock_emit_flush;
- 	engine->base.emit_fini_breadcrumb = mock_emit_breadcrumb;
- 	engine->base.submit_request = mock_submit_request;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 7b3e1c91e689..372e0dc7617a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1485,6 +1485,20 @@ static void guc_release(struct intel_engine_cs *engine)
- 	lrc_fini_wa_ctx(engine);
- }
+-		err = active_engine_reset(ce, "mocs");
++		err = active_engine_reset(ce, "mocs", using_guc);
+ 		if (err)
+ 			return err;
  
-+static void guc_bump_serial(struct intel_engine_cs *engine)
-+{
-+	engine->serial++;
-+}
+@@ -395,19 +403,32 @@ static int live_mocs_reset(void *arg)
+ 
+ 	igt_global_reset_lock(gt);
+ 	for_each_engine(engine, gt, id) {
++		bool using_guc = intel_engine_uses_guc(engine);
++		struct intel_selftest_saved_policy saved;
+ 		struct intel_context *ce;
++		int err2;
 +
-+static void virtual_guc_bump_serial(struct intel_engine_cs *engine)
-+{
-+	struct intel_engine_cs *e;
-+	intel_engine_mask_t tmp, mask = engine->mask;
++		err = intel_selftest_modify_policy(engine, &saved);
++		if (err)
++			break;
+ 
+ 		ce = mocs_context_create(engine);
+ 		if (IS_ERR(ce)) {
+ 			err = PTR_ERR(ce);
+-			break;
++			goto restore;
+ 		}
+ 
+ 		intel_engine_pm_get(engine);
+-		err = __live_mocs_reset(&mocs, ce);
+-		intel_engine_pm_put(engine);
+ 
++		err = __live_mocs_reset(&mocs, ce, using_guc);
 +
-+	for_each_engine_masked(e, engine->gt, mask, tmp)
-+		e->serial++;
-+}
++		intel_engine_pm_put(engine);
+ 		intel_context_put(ce);
 +
- static void guc_default_vfuncs(struct intel_engine_cs *engine)
- {
- 	/* Default vfuncs which can be overridden by each engine. */
-@@ -1493,6 +1507,7 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
- 
- 	engine->cops = &guc_context_ops;
- 	engine->request_alloc = guc_request_alloc;
-+	engine->bump_serial = guc_bump_serial;
- 
- 	engine->sched_engine->schedule = i915_schedule;
- 
-@@ -1828,6 +1843,7 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
- 
- 	ve->base.cops = &virtual_guc_context_ops;
- 	ve->base.request_alloc = guc_request_alloc;
-+	ve->base.bump_serial = virtual_guc_bump_serial;
- 
- 	ve->base.submit_request = guc_submit_request;
- 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 01aa3d1ee2b1..30ecdc46a12f 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -669,7 +669,9 @@ bool __i915_request_submit(struct i915_request *request)
- 				     request->ring->vaddr + request->postfix);
- 
- 	trace_i915_request_execute(request);
--	engine->serial++;
-+	if (engine->bump_serial)
-+		engine->bump_serial(engine);
-+
- 	result = true;
- 
- 	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
++restore:
++		err2 = intel_selftest_restore_policy(engine, &saved);
++		if (err == 0)
++			err = err2;
+ 		if (err)
+ 			break;
+ 	}
 -- 
 2.28.0
 
