@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59D88C636CA
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4472C636CD
 	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2815B613F3
+	by mail.kernel.org (Postfix) with ESMTPS id 9614A613F3
 	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2815B613F3
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9614A613F3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32DB06EA13;
-	Fri, 16 Jul 2021 19:59:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8C76EA0C;
+	Fri, 16 Jul 2021 19:59:45 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F1AF6E9DE;
- Fri, 16 Jul 2021 19:59:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596742"
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596742"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A0A6E9D4;
+ Fri, 16 Jul 2021 19:59:35 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596707"
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596707"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:41 -0700
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238998"
+ 16 Jul 2021 12:59:35 -0700
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507238873"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:41 -0700
+ 16 Jul 2021 12:59:35 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 16 Jul 2021 13:17:05 -0700
-Message-Id: <20210716201724.54804-33-matthew.brost@intel.com>
+Date: Fri, 16 Jul 2021 13:16:38 -0700
+Message-Id: <20210716201724.54804-6-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210716201724.54804-1-matthew.brost@intel.com>
 References: <20210716201724.54804-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 32/51] drm/i915/guc: Enable the timer expired
- interrupt for GuC
+Subject: [Intel-gfx] [PATCH 05/51] drm/i915/guc: Add bypass tasklet
+ submission path to GuC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,31 +60,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The GuC can implement execution qunatums, detect hung contexts and
-other such things but it requires the timer expired interrupt to do so.
+Add bypass tasklet submission path to GuC. The tasklet is only used if H2G
+channel has backpresure.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-CC: John Harrison <John.C.Harrison@Intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 37 +++++++++++++++----
+ 1 file changed, 29 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 06e9a8ed4e03..0c8e7f2b06f0 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1877,6 +1877,10 @@ void intel_rps_init(struct intel_rps *rps)
- 
- 	if (GRAPHICS_VER(i915) >= 8 && GRAPHICS_VER(i915) < 11)
- 		rps->pm_intrmsk_mbz |= GEN8_PMINTR_DISABLE_REDIRECT_TO_GUC;
-+
-+	/* GuC needs ARAT expired interrupt unmasked */
-+	if (intel_uc_uses_guc_submission(&rps_to_gt(rps)->uc))
-+		rps->pm_intrmsk_mbz |= ARAT_EXPIRED_INTRMSK;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index ca0717166a27..53b4a5eb4a85 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -172,6 +172,12 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ 	return err;
  }
  
- void intel_rps_sanitize(struct intel_rps *rps)
++static inline void guc_set_lrc_tail(struct i915_request *rq)
++{
++	rq->context->lrc_reg_state[CTX_RING_TAIL] =
++		intel_ring_set_tail(rq->ring, rq->tail);
++}
++
+ static inline int rq_prio(const struct i915_request *rq)
+ {
+ 	return rq->sched.attr.priority;
+@@ -215,8 +221,7 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
+ 	}
+ done:
+ 	if (submit) {
+-		last->context->lrc_reg_state[CTX_RING_TAIL] =
+-			intel_ring_set_tail(last->ring, last->tail);
++		guc_set_lrc_tail(last);
+ resubmit:
+ 		/*
+ 		 * We only check for -EBUSY here even though it is possible for
+@@ -496,20 +501,36 @@ static inline void queue_request(struct i915_sched_engine *sched_engine,
+ 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+ }
+ 
++static int guc_bypass_tasklet_submit(struct intel_guc *guc,
++				     struct i915_request *rq)
++{
++	int ret;
++
++	__i915_request_submit(rq);
++
++	trace_i915_request_in(rq, 0);
++
++	guc_set_lrc_tail(rq);
++	ret = guc_add_request(guc, rq);
++	if (ret == -EBUSY)
++		guc->stalled_request = rq;
++
++	return ret;
++}
++
+ static void guc_submit_request(struct i915_request *rq)
+ {
+ 	struct i915_sched_engine *sched_engine = rq->engine->sched_engine;
++	struct intel_guc *guc = &rq->engine->gt->uc.guc;
+ 	unsigned long flags;
+ 
+ 	/* Will be called from irq-context when using foreign fences. */
+ 	spin_lock_irqsave(&sched_engine->lock, flags);
+ 
+-	queue_request(sched_engine, rq, rq_prio(rq));
+-
+-	GEM_BUG_ON(i915_sched_engine_is_empty(sched_engine));
+-	GEM_BUG_ON(list_empty(&rq->sched.link));
+-
+-	tasklet_hi_schedule(&sched_engine->tasklet);
++	if (guc->stalled_request || !i915_sched_engine_is_empty(sched_engine))
++		queue_request(sched_engine, rq, rq_prio(rq));
++	else if (guc_bypass_tasklet_submit(guc, rq) == -EBUSY)
++		tasklet_hi_schedule(&sched_engine->tasklet);
+ 
+ 	spin_unlock_irqrestore(&sched_engine->lock, flags);
+ }
 -- 
 2.28.0
 
