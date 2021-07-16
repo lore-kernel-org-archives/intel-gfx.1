@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D60C1C636CA
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7B69C12002
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9DAC661289
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9DAC661289
+	by mail.kernel.org (Postfix) with ESMTPS id 81D52613F3
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 20:01:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81D52613F3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A386EA5B;
-	Fri, 16 Jul 2021 19:59:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A5046EA02;
+	Fri, 16 Jul 2021 19:59:55 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 719396EA02;
- Fri, 16 Jul 2021 19:59:43 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596749"
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596749"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F26AF6E9ED;
+ Fri, 16 Jul 2021 19:59:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210596763"
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="210596763"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:43 -0700
-X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507239018"
+ 16 Jul 2021 12:59:45 -0700
+X-IronPort-AV: E=Sophos;i="5.84,245,1620716400"; d="scan'208";a="507239068"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 12:59:42 -0700
+ 16 Jul 2021 12:59:45 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Fri, 16 Jul 2021 13:17:10 -0700
-Message-Id: <20210716201724.54804-38-matthew.brost@intel.com>
+Date: Fri, 16 Jul 2021 13:17:21 -0700
+Message-Id: <20210716201724.54804-49-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210716201724.54804-1-matthew.brost@intel.com>
 References: <20210716201724.54804-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 37/51] drm/i915/guc: Fix for error capture after
- full GPU reset with GuC
+Subject: [Intel-gfx] [PATCH 48/51] drm/i915/selftest: Fix hangcheck self
+ test for GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,430 +62,660 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-In the case of a full GPU reset (e.g. because GuC has died or because
-GuC's hang detection has been disabled), the driver can't rely on GuC
-reporting the guilty context. Instead, the driver needs to scan all
-active contexts and find one that is currently executing, as per the
-execlist mode behaviour. In GuC mode, this scan is different to
-execlist mode as the active request list is handled very differently.
+When GuC submission is enabled, the GuC controls engine resets. Rather
+than explicitly triggering a reset, the driver must submit a hanging
+context to GuC and wait for the reset to occur.
 
-Similarly, the request state dump in debugfs needs to be handled
-differently when in GuC submission mode.
+Conversely, one of the tests specifically sends hanging batches to the
+engines but wants them to sit around until a manual reset of the full
+GT (including GuC itself). That means disabling GuC based engine
+resets to prevent those from killing the hanging batch too soon. So,
+add support to the scheduling policy helper for disabling resets as
+well as making them quicker!
 
-Also refactured some of the request scanning code to avoid duplication
-across the multiple code paths that are now replicating it.
+In GuC submission mode, the 'is engine idle' test basically turns into
+'is engine PM wakelock held'. Independently, there is a heartbeat
+disable helper function that the tests use. For unexplained reasons,
+this acquires the engine wakelock before disabling the heartbeat and
+only releases it when re-enabling the heartbeat. As one of the tests
+tries to do a wait for idle in the middle of a heartbeat disabled
+section, it is therefore guaranteed to always fail. Added a 'no_pm'
+variant of the heartbeat helper that allows the engine to be asleep
+while also having heartbeats disabled.
 
-Signed-off-by: John Harrison <john.c.harrison@intel.com>
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine.h        |   3 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 139 ++++++++++++------
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |   8 +
- drivers/gpu/drm/i915/gt/intel_reset.c         |   2 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  67 +++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.h |   3 +
- drivers/gpu/drm/i915/i915_request.c           |  41 ++++++
- drivers/gpu/drm/i915/i915_request.h           |  11 ++
- 9 files changed, 229 insertions(+), 47 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |   1 +
+ .../drm/i915/gt/selftest_engine_heartbeat.c   |  22 ++
+ .../drm/i915/gt/selftest_engine_heartbeat.h   |   2 +
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  | 223 +++++++++++++-----
+ drivers/gpu/drm/i915/gt/selftest_mocs.c       |   3 +-
+ .../gpu/drm/i915/gt/selftest_workarounds.c    |   6 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |   3 +
+ .../i915/selftests/intel_scheduler_helpers.c  |  39 ++-
+ .../i915/selftests/intel_scheduler_helpers.h  |   9 +-
+ 9 files changed, 237 insertions(+), 71 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 8b5425612e8b..2310ccda8058 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -240,6 +240,9 @@ __printf(3, 4)
- void intel_engine_dump(struct intel_engine_cs *engine,
- 		       struct drm_printer *m,
- 		       const char *header, ...);
-+void intel_engine_dump_active_requests(struct list_head *requests,
-+				       struct i915_request *hung_rq,
-+				       struct drm_printer *m);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index d66b732a91c2..eec57e57403f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -449,6 +449,7 @@ struct intel_engine_cs {
+ #define I915_ENGINE_IS_VIRTUAL       BIT(5)
+ #define I915_ENGINE_HAS_RELATIVE_MMIO BIT(6)
+ #define I915_ENGINE_REQUIRES_CMD_PARSER BIT(7)
++#define I915_ENGINE_WANT_FORCED_PREEMPTION BIT(8)
+ 	unsigned int flags;
  
- ktime_t intel_engine_get_busy_time(struct intel_engine_cs *engine,
- 				   ktime_t *now);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index c1f2e57aa789..51a0d860d551 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1625,6 +1625,97 @@ static void print_properties(struct intel_engine_cs *engine,
- 			   read_ul(&engine->defaults, p->offset));
+ 	/*
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
+index 4896e4ccad50..317eebf086c3 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
+@@ -405,3 +405,25 @@ void st_engine_heartbeat_enable(struct intel_engine_cs *engine)
+ 	engine->props.heartbeat_interval_ms =
+ 		engine->defaults.heartbeat_interval_ms;
  }
- 
-+static void engine_dump_request(struct i915_request *rq, struct drm_printer *m, const char *msg)
++
++void st_engine_heartbeat_disable_no_pm(struct intel_engine_cs *engine)
 +{
-+	struct intel_timeline *tl = get_timeline(rq);
-+
-+	i915_request_show(m, rq, msg, 0);
-+
-+	drm_printf(m, "\t\tring->start:  0x%08x\n",
-+		   i915_ggtt_offset(rq->ring->vma));
-+	drm_printf(m, "\t\tring->head:   0x%08x\n",
-+		   rq->ring->head);
-+	drm_printf(m, "\t\tring->tail:   0x%08x\n",
-+		   rq->ring->tail);
-+	drm_printf(m, "\t\tring->emit:   0x%08x\n",
-+		   rq->ring->emit);
-+	drm_printf(m, "\t\tring->space:  0x%08x\n",
-+		   rq->ring->space);
-+
-+	if (tl) {
-+		drm_printf(m, "\t\tring->hwsp:   0x%08x\n",
-+			   tl->hwsp_offset);
-+		intel_timeline_put(tl);
-+	}
-+
-+	print_request_ring(m, rq);
-+
-+	if (rq->context->lrc_reg_state) {
-+		drm_printf(m, "Logical Ring Context:\n");
-+		hexdump(m, rq->context->lrc_reg_state, PAGE_SIZE);
-+	}
-+}
-+
-+void intel_engine_dump_active_requests(struct list_head *requests,
-+				       struct i915_request *hung_rq,
-+				       struct drm_printer *m)
-+{
-+	struct i915_request *rq;
-+	const char *msg;
-+	enum i915_request_state state;
-+
-+	list_for_each_entry(rq, requests, sched.link) {
-+		if (rq == hung_rq)
-+			continue;
-+
-+		state = i915_test_request_state(rq);
-+		if (state < I915_REQUEST_QUEUED)
-+			continue;
-+
-+		if (state == I915_REQUEST_ACTIVE)
-+			msg = "\t\tactive on engine";
-+		else
-+			msg = "\t\tactive in queue";
-+
-+		engine_dump_request(rq, m, msg);
-+	}
-+}
-+
-+static void engine_dump_active_requests(struct intel_engine_cs *engine, struct drm_printer *m)
-+{
-+	struct i915_request *hung_rq = NULL;
-+	struct intel_context *ce;
-+	bool guc;
++	engine->props.heartbeat_interval_ms = 0;
 +
 +	/*
-+	 * No need for an engine->irq_seqno_barrier() before the seqno reads.
-+	 * The GPU is still running so requests are still executing and any
-+	 * hardware reads will be out of date by the time they are reported.
-+	 * But the intention here is just to report an instantaneous snapshot
-+	 * so that's fine.
++	 * Park the heartbeat but without holding the PM lock as that
++	 * makes the engines appear not-idle. Note that if/when unpark
++	 * is called due to the PM lock being acquired later the
++	 * heartbeat still won't be enabled because of the above = 0.
 +	 */
-+	lockdep_assert_held(&engine->sched_engine->lock);
-+
-+	drm_printf(m, "\tRequests:\n");
-+
-+	guc = intel_uc_uses_guc_submission(&engine->gt->uc);
-+	if (guc) {
-+		ce = intel_engine_get_hung_context(engine);
-+		if (ce)
-+			hung_rq = intel_context_find_active_request(ce);
-+	} else
-+		hung_rq = intel_engine_execlist_find_hung_request(engine);
-+
-+	if (hung_rq)
-+		engine_dump_request(hung_rq, m, "\t\thung");
-+
-+	if (guc)
-+		intel_guc_dump_active_requests(engine, hung_rq, m);
-+	else
-+		intel_engine_dump_active_requests(&engine->sched_engine->requests,
-+						  hung_rq, m);
++	if (intel_engine_pm_get_if_awake(engine)) {
++		intel_engine_park_heartbeat(engine);
++		intel_engine_pm_put(engine);
++	}
 +}
 +
- void intel_engine_dump(struct intel_engine_cs *engine,
- 		       struct drm_printer *m,
- 		       const char *header, ...)
-@@ -1669,39 +1760,9 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- 		   i915_reset_count(error));
- 	print_properties(engine, m);
++void st_engine_heartbeat_enable_no_pm(struct intel_engine_cs *engine)
++{
++	engine->props.heartbeat_interval_ms =
++		engine->defaults.heartbeat_interval_ms;
++}
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.h b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.h
+index cd27113d5400..81da2cd8e406 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.h
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.h
+@@ -9,6 +9,8 @@
+ struct intel_engine_cs;
  
--	drm_printf(m, "\tRequests:\n");
--
- 	spin_lock_irqsave(&engine->sched_engine->lock, flags);
--	rq = intel_engine_execlist_find_hung_request(engine);
--	if (rq) {
--		struct intel_timeline *tl = get_timeline(rq);
--
--		i915_request_show(m, rq, "\t\tactive ", 0);
--
--		drm_printf(m, "\t\tring->start:  0x%08x\n",
--			   i915_ggtt_offset(rq->ring->vma));
--		drm_printf(m, "\t\tring->head:   0x%08x\n",
--			   rq->ring->head);
--		drm_printf(m, "\t\tring->tail:   0x%08x\n",
--			   rq->ring->tail);
--		drm_printf(m, "\t\tring->emit:   0x%08x\n",
--			   rq->ring->emit);
--		drm_printf(m, "\t\tring->space:  0x%08x\n",
--			   rq->ring->space);
--
--		if (tl) {
--			drm_printf(m, "\t\tring->hwsp:   0x%08x\n",
--				   tl->hwsp_offset);
--			intel_timeline_put(tl);
--		}
--
--		print_request_ring(m, rq);
-+	engine_dump_active_requests(engine, m);
+ void st_engine_heartbeat_disable(struct intel_engine_cs *engine);
++void st_engine_heartbeat_disable_no_pm(struct intel_engine_cs *engine);
+ void st_engine_heartbeat_enable(struct intel_engine_cs *engine);
++void st_engine_heartbeat_enable_no_pm(struct intel_engine_cs *engine);
  
--		if (rq->context->lrc_reg_state) {
--			drm_printf(m, "Logical Ring Context:\n");
--			hexdump(m, rq->context->lrc_reg_state, PAGE_SIZE);
--		}
--	}
- 	drm_printf(m, "\tOn hold?: %lu\n",
- 		   list_count(&engine->sched_engine->hold));
- 	spin_unlock_irqrestore(&engine->sched_engine->lock, flags);
-@@ -1775,13 +1836,6 @@ intel_engine_create_virtual(struct intel_engine_cs **siblings,
- 	return siblings[0]->cops->create_virtual(siblings, count);
- }
+ #endif /* SELFTEST_ENGINE_HEARTBEAT_H */
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 0ed87cc4d063..971c0c249eb0 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -17,6 +17,8 @@
+ #include "selftests/igt_flush_test.h"
+ #include "selftests/igt_reset.h"
+ #include "selftests/igt_atomic.h"
++#include "selftests/igt_spinner.h"
++#include "selftests/intel_scheduler_helpers.h"
  
--static bool match_ring(struct i915_request *rq)
--{
--	u32 ring = ENGINE_READ(rq->engine, RING_START);
--
--	return ring == i915_ggtt_offset(rq->ring->vma);
--}
--
- struct i915_request *
- intel_engine_execlist_find_hung_request(struct intel_engine_cs *engine)
- {
-@@ -1825,14 +1879,7 @@ intel_engine_execlist_find_hung_request(struct intel_engine_cs *engine)
+ #include "selftests/mock_drm.h"
  
- 	list_for_each_entry(request, &engine->sched_engine->requests,
- 			    sched.link) {
--		if (__i915_request_is_complete(request))
--			continue;
--
--		if (!__i915_request_has_started(request))
--			continue;
--
--		/* More than one preemptible request may match! */
--		if (!match_ring(request))
-+		if (i915_test_request_state(request) != I915_REQUEST_ACTIVE)
+@@ -449,6 +451,14 @@ static int igt_reset_nop_engine(void *arg)
+ 		IGT_TIMEOUT(end_time);
+ 		int err;
+ 
++		if (intel_engine_uses_guc(engine)) {
++			/* Engine level resets are triggered by GuC when a hang
++			 * is detected. They can't be triggered by the KMD any
++			 * more. Thus a nop batch cannot be used as a reset test
++			 */
++			continue;
++		}
++
+ 		ce = intel_context_create(engine);
+ 		if (IS_ERR(ce)) {
+ 			pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+@@ -560,6 +570,10 @@ static int igt_reset_fail_engine(void *arg)
+ 		IGT_TIMEOUT(end_time);
+ 		int err;
+ 
++		/* Can't manually break the reset if i915 doesn't perform it */
++		if (intel_engine_uses_guc(engine))
++			continue;
++
+ 		ce = intel_context_create(engine);
+ 		if (IS_ERR(ce)) {
+ 			pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+@@ -699,8 +713,12 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 	for_each_engine(engine, gt, id) {
+ 		unsigned int reset_count, reset_engine_count;
+ 		unsigned long count;
++		bool using_guc = intel_engine_uses_guc(engine);
+ 		IGT_TIMEOUT(end_time);
+ 
++		if (using_guc && !active)
++			continue;
++
+ 		if (active && !intel_engine_can_store_dword(engine))
  			continue;
  
- 		active = request;
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index a8495364d906..f0768824de6f 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -90,6 +90,14 @@ reset_engine(struct intel_engine_cs *engine, struct i915_request *rq)
- 	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
- 		show_heartbeat(rq, engine);
- 
-+	if (intel_engine_uses_guc(engine))
-+		/*
-+		 * GuC itself is toast or GuC's hang detection
-+		 * is disabled. Either way, need to find the
-+		 * hang culprit manually.
-+		 */
-+		intel_guc_find_hung_context(engine);
+@@ -718,14 +736,23 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 		set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
+ 		count = 0;
+ 		do {
+-			if (active) {
+-				struct i915_request *rq;
++			struct i915_request *rq = NULL;
++			struct intel_selftest_saved_policy saved;
++			int err2;
 +
- 	intel_gt_handle_error(engine->gt, engine->mask,
- 			      I915_ERROR_CAPTURE,
- 			      "stopped heartbeat on %s",
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 2987282dff6d..f3cdbf4ba5c8 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -156,7 +156,7 @@ void __i915_request_reset(struct i915_request *rq, bool guilty)
- 	if (guilty) {
- 		i915_request_set_error_once(rq, -EIO);
- 		__i915_request_skip(rq);
--		if (mark_guilty(rq))
-+		if (mark_guilty(rq) && !intel_engine_uses_guc(rq->engine))
- 			skip_context(rq);
- 	} else {
- 		i915_request_set_error_once(rq, -EAGAIN);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 3897abb59dba..62187c3dcda9 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -268,6 +268,8 @@ int intel_guc_context_reset_process_msg(struct intel_guc *guc,
- int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
- 					 const u32 *msg, u32 len);
++			err = intel_selftest_modify_policy(engine, &saved,
++							   SELFTEST_SCHEDULER_MODIFY_FAST_RESET);
++			if (err) {
++				pr_err("[%s] Modify policy failed: %d!\n", engine->name, err);
++				break;
++			}
  
-+void intel_guc_find_hung_context(struct intel_engine_cs *engine);
++			if (active) {
+ 				rq = hang_create_request(&h, engine);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
+ 					pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+-					break;
++					goto restore;
+ 				}
+ 
+ 				i915_request_get(rq);
+@@ -741,34 +768,58 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 
+ 					i915_request_put(rq);
+ 					err = -EIO;
+-					break;
++					goto restore;
+ 				}
++			}
+ 
+-				i915_request_put(rq);
++			if (!using_guc) {
++				err = intel_engine_reset(engine, NULL);
++				if (err) {
++					pr_err("intel_engine_reset(%s) failed, err:%d\n",
++					       engine->name, err);
++					goto skip;
++				}
+ 			}
+ 
+-			err = intel_engine_reset(engine, NULL);
+-			if (err) {
+-				pr_err("intel_engine_reset(%s) failed, err:%d\n",
+-				       engine->name, err);
+-				break;
++			if (rq) {
++				/* Ensure the reset happens and kills the engine */
++				err = intel_selftest_wait_for_rq(rq);
++				if (err)
++					pr_err("[%s] Wait for request %lld:%lld [0x%04X] failed: %d!\n",
++					       engine->name, rq->fence.context, rq->fence.seqno, rq->context->guc_id, err);
+ 			}
+ 
++skip:
++			if (rq)
++				i915_request_put(rq);
 +
- void intel_guc_submission_reset_prepare(struct intel_guc *guc);
- void intel_guc_submission_reset(struct intel_guc *guc, bool stalled);
- void intel_guc_submission_reset_finish(struct intel_guc *guc);
+ 			if (i915_reset_count(global) != reset_count) {
+ 				pr_err("Full GPU reset recorded! (engine reset expected)\n");
+ 				err = -EINVAL;
+-				break;
++				goto restore;
+ 			}
+ 
+-			if (i915_reset_engine_count(global, engine) !=
+-			    ++reset_engine_count) {
+-				pr_err("%s engine reset not recorded!\n",
+-				       engine->name);
+-				err = -EINVAL;
+-				break;
++			/* GuC based resets are not logged per engine */
++			if (!using_guc) {
++				if (i915_reset_engine_count(global, engine) !=
++				    ++reset_engine_count) {
++					pr_err("%s engine reset not recorded!\n",
++					       engine->name);
++					err = -EINVAL;
++					goto restore;
++				}
+ 			}
+ 
+ 			count++;
++
++restore:
++			err2 = intel_selftest_restore_policy(engine, &saved);
++			if (err2)
++				pr_err("[%s] Restore policy failed: %d!\n", engine->name, err);
++			if (err == 0)
++				err = err2;
++			if (err)
++				break;
+ 		} while (time_before(jiffies, end_time));
+ 		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
+ 		st_engine_heartbeat_enable(engine);
+@@ -941,10 +992,13 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 		struct active_engine threads[I915_NUM_ENGINES] = {};
+ 		unsigned long device = i915_reset_count(global);
+ 		unsigned long count = 0, reported;
++		bool using_guc = intel_engine_uses_guc(engine);
+ 		IGT_TIMEOUT(end_time);
+ 
+-		if (flags & TEST_ACTIVE &&
+-		    !intel_engine_can_store_dword(engine))
++		if (flags & TEST_ACTIVE) {
++			if (!intel_engine_can_store_dword(engine))
++				continue;
++		} else if (using_guc)
+ 			continue;
+ 
+ 		if (!wait_for_idle(engine)) {
+@@ -984,17 +1038,26 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 
+ 		yield(); /* start all threads before we begin */
+ 
+-		st_engine_heartbeat_disable(engine);
++		st_engine_heartbeat_disable_no_pm(engine);
+ 		set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
+ 		do {
+ 			struct i915_request *rq = NULL;
++			struct intel_selftest_saved_policy saved;
++			int err2;
++
++			err = intel_selftest_modify_policy(engine, &saved,
++							  SELFTEST_SCHEDULER_MODIFY_FAST_RESET);
++			if (err) {
++				pr_err("[%s] Modify policy failed: %d!\n", engine->name, err);
++				break;
++			}
+ 
+ 			if (flags & TEST_ACTIVE) {
+ 				rq = hang_create_request(&h, engine);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
+ 					pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+-					break;
++					goto restore;
+ 				}
+ 
+ 				i915_request_get(rq);
+@@ -1010,15 +1073,27 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 
+ 					i915_request_put(rq);
+ 					err = -EIO;
+-					break;
++					goto restore;
+ 				}
++			} else {
++				intel_engine_pm_get(engine);
+ 			}
+ 
+-			err = intel_engine_reset(engine, NULL);
+-			if (err) {
+-				pr_err("i915_reset_engine(%s:%s): failed, err=%d\n",
+-				       engine->name, test_name, err);
+-				break;
++			if (!using_guc) {
++				err = intel_engine_reset(engine, NULL);
++				if (err) {
++					pr_err("i915_reset_engine(%s:%s): failed, err=%d\n",
++					       engine->name, test_name, err);
++					goto restore;
++				}
++			}
++
++			if (rq) {
++				/* Ensure the reset happens and kills the engine */
++				err = intel_selftest_wait_for_rq(rq);
++				if (err)
++					pr_err("[%s] Wait for request %lld:%lld [0x%04X] failed: %d!\n",
++					       engine->name, rq->fence.context, rq->fence.seqno, rq->context->guc_id, err);
+ 			}
+ 
+ 			count++;
+@@ -1035,7 +1110,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 					GEM_TRACE_DUMP();
+ 					intel_gt_set_wedged(gt);
+ 					err = -EIO;
+-					break;
++					goto restore;
+ 				}
+ 
+ 				if (i915_request_wait(rq, 0, HZ / 5) < 0) {
+@@ -1054,12 +1129,15 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 					GEM_TRACE_DUMP();
+ 					intel_gt_set_wedged(gt);
+ 					err = -EIO;
+-					break;
++					goto restore;
+ 				}
+ 
+ 				i915_request_put(rq);
+ 			}
+ 
++			if (!(flags & TEST_ACTIVE))
++				intel_engine_pm_put(engine);
++
+ 			if (!(flags & TEST_SELF) && !wait_for_idle(engine)) {
+ 				struct drm_printer p =
+ 					drm_info_printer(gt->i915->drm.dev);
+@@ -1071,22 +1149,34 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 						  "%s\n", engine->name);
+ 
+ 				err = -EIO;
+-				break;
++				goto restore;
+ 			}
++
++restore:
++			err2 = intel_selftest_restore_policy(engine, &saved);
++			if (err2)
++				pr_err("[%s] Restore policy failed: %d!\n", engine->name, err2);
++			if (err == 0)
++				err = err2;
++			if (err)
++				break;
+ 		} while (time_before(jiffies, end_time));
+ 		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
+-		st_engine_heartbeat_enable(engine);
++		st_engine_heartbeat_enable_no_pm(engine);
+ 
+ 		pr_info("i915_reset_engine(%s:%s): %lu resets\n",
+ 			engine->name, test_name, count);
+ 
+-		reported = i915_reset_engine_count(global, engine);
+-		reported -= threads[engine->id].resets;
+-		if (reported != count) {
+-			pr_err("i915_reset_engine(%s:%s): reset %lu times, but reported %lu\n",
+-			       engine->name, test_name, count, reported);
+-			if (!err)
+-				err = -EINVAL;
++		/* GuC based resets are not logged per engine */
++		if (!using_guc) {
++			reported = i915_reset_engine_count(global, engine);
++			reported -= threads[engine->id].resets;
++			if (reported != count) {
++				pr_err("i915_reset_engine(%s:%s): reset %lu times, but reported %lu\n",
++				       engine->name, test_name, count, reported);
++				if (!err)
++					err = -EINVAL;
++			}
+ 		}
+ 
+ unwind:
+@@ -1105,15 +1195,18 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			}
+ 			put_task_struct(threads[tmp].task);
+ 
+-			if (other->uabi_class != engine->uabi_class &&
+-			    threads[tmp].resets !=
+-			    i915_reset_engine_count(global, other)) {
+-				pr_err("Innocent engine %s was reset (count=%ld)\n",
+-				       other->name,
+-				       i915_reset_engine_count(global, other) -
+-				       threads[tmp].resets);
+-				if (!err)
+-					err = -EINVAL;
++			/* GuC based resets are not logged per engine */
++			if (!using_guc) {
++				if (other->uabi_class != engine->uabi_class &&
++				    threads[tmp].resets !=
++				    i915_reset_engine_count(global, other)) {
++					pr_err("Innocent engine %s was reset (count=%ld)\n",
++					       other->name,
++					       i915_reset_engine_count(global, other) -
++					       threads[tmp].resets);
++					if (!err)
++						err = -EINVAL;
++				}
+ 			}
+ 		}
+ 
+@@ -1553,18 +1646,29 @@ static int igt_reset_queue(void *arg)
+ 		goto unlock;
+ 
+ 	for_each_engine(engine, gt, id) {
++		struct intel_selftest_saved_policy saved;
+ 		struct i915_request *prev;
+ 		IGT_TIMEOUT(end_time);
+ 		unsigned int count;
++		bool using_guc = intel_engine_uses_guc(engine);
+ 
+ 		if (!intel_engine_can_store_dword(engine))
+ 			continue;
+ 
++		if (using_guc) {
++			err = intel_selftest_modify_policy(engine, &saved,
++							  SELFTEST_SCHEDULER_MODIFY_NO_HANGCHECK);
++			if (err) {
++				pr_err("[%s] Modify policy failed: %d!\n", engine->name, err);
++				goto fini;
++			}
++		}
++
+ 		prev = hang_create_request(&h, engine);
+ 		if (IS_ERR(prev)) {
+ 			err = PTR_ERR(prev);
+ 			pr_err("[%s] Create 'prev' hang request failed: %d!\n", engine->name, err);
+-			goto fini;
++			goto restore;
+ 		}
+ 
+ 		i915_request_get(prev);
+@@ -1579,7 +1683,7 @@ static int igt_reset_queue(void *arg)
+ 			if (IS_ERR(rq)) {
+ 				err = PTR_ERR(rq);
+ 				pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+-				goto fini;
++				goto restore;
+ 			}
+ 
+ 			i915_request_get(rq);
+@@ -1604,7 +1708,7 @@ static int igt_reset_queue(void *arg)
+ 
+ 				GEM_TRACE_DUMP();
+ 				intel_gt_set_wedged(gt);
+-				goto fini;
++				goto restore;
+ 			}
+ 
+ 			if (!wait_until_running(&h, prev)) {
+@@ -1622,7 +1726,7 @@ static int igt_reset_queue(void *arg)
+ 				intel_gt_set_wedged(gt);
+ 
+ 				err = -EIO;
+-				goto fini;
++				goto restore;
+ 			}
+ 
+ 			reset_count = fake_hangcheck(gt, BIT(id));
+@@ -1633,7 +1737,7 @@ static int igt_reset_queue(void *arg)
+ 				i915_request_put(rq);
+ 				i915_request_put(prev);
+ 				err = -EINVAL;
+-				goto fini;
++				goto restore;
+ 			}
+ 
+ 			if (rq->fence.error) {
+@@ -1642,7 +1746,7 @@ static int igt_reset_queue(void *arg)
+ 				i915_request_put(rq);
+ 				i915_request_put(prev);
+ 				err = -EINVAL;
+-				goto fini;
++				goto restore;
+ 			}
+ 
+ 			if (i915_reset_count(global) == reset_count) {
+@@ -1650,7 +1754,7 @@ static int igt_reset_queue(void *arg)
+ 				i915_request_put(rq);
+ 				i915_request_put(prev);
+ 				err = -EINVAL;
+-				goto fini;
++				goto restore;
+ 			}
+ 
+ 			i915_request_put(prev);
+@@ -1665,6 +1769,17 @@ static int igt_reset_queue(void *arg)
+ 
+ 		i915_request_put(prev);
+ 
++restore:
++		if (using_guc) {
++			int err2 = intel_selftest_restore_policy(engine, &saved);
++			if (err2)
++				pr_err("%s:%d> [%s] Restore policy failed: %d!\n", __func__, __LINE__, engine->name, err2);
++			if (err == 0)
++				err = err2;
++		}
++		if (err)
++			goto fini;
++
+ 		err = igt_flush_test(gt->i915);
+ 		if (err) {
+ 			pr_err("[%s] Flush failed: %d!\n", engine->name, err);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_mocs.c b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+index b7314739ee40..13d25bf2a94a 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_mocs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+@@ -408,7 +408,8 @@ static int live_mocs_reset(void *arg)
+ 		struct intel_context *ce;
+ 		int err2;
+ 
+-		err = intel_selftest_modify_policy(engine, &saved);
++		err = intel_selftest_modify_policy(engine, &saved,
++						   SELFTEST_SCHEDULER_MODIFY_FAST_RESET);
+ 		if (err)
+ 			break;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+index 7727bc531ea9..d820f0b41634 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+@@ -810,7 +810,8 @@ static int live_reset_whitelist(void *arg)
+ 				struct intel_selftest_saved_policy saved;
+ 				int err2;
+ 
+-				err = intel_selftest_modify_policy(engine, &saved);
++				err = intel_selftest_modify_policy(engine, &saved,
++								   SELFTEST_SCHEDULER_MODIFY_FAST_RESET);
+ 				if(err)
+ 					goto out;
+ 
+@@ -1268,7 +1269,8 @@ live_engine_reset_workarounds(void *arg)
+ 		int ret2;
+ 
+ 		pr_info("Verifying after %s reset...\n", engine->name);
+-		ret = intel_selftest_modify_policy(engine, &saved);
++		ret = intel_selftest_modify_policy(engine, &saved,
++						   SELFTEST_SCHEDULER_MODIFY_FAST_RESET);
+ 		if (ret)
+ 			break;
+ 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index dbb24585483d..c8e1fc80f58e 100644
+index 1c30d04733ff..536fdbc406c6 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2272,6 +2272,73 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
- 	return 0;
- }
- 
-+void intel_guc_find_hung_context(struct intel_engine_cs *engine)
-+{
-+	struct intel_guc *guc = &engine->gt->uc.guc;
-+	struct intel_context *ce;
-+	struct i915_request *rq;
-+	unsigned long index;
-+
-+	/* Reset called during driver load? GuC not yet initialised! */
-+	if (unlikely(!guc_submission_initialized(guc)))
-+		return;
-+
-+	xa_for_each(&guc->context_lookup, index, ce) {
-+		if (!intel_context_is_pinned(ce))
-+			continue;
-+
-+		if (intel_engine_is_virtual(ce->engine)) {
-+			if (!(ce->engine->mask & engine->mask))
-+				continue;
-+		} else {
-+			if (ce->engine != engine)
-+				continue;
-+		}
-+
-+		list_for_each_entry(rq, &ce->guc_active.requests, sched.link) {
-+			if (i915_test_request_state(rq) != I915_REQUEST_ACTIVE)
-+				continue;
-+
-+			intel_engine_set_hung_context(engine, ce);
-+
-+			/* Can only cope with one hang at a time... */
-+			return;
-+		}
-+	}
-+}
-+
-+void intel_guc_dump_active_requests(struct intel_engine_cs *engine,
-+				    struct i915_request *hung_rq,
-+				    struct drm_printer *m)
-+{
-+	struct intel_guc *guc = &engine->gt->uc.guc;
-+	struct intel_context *ce;
-+	unsigned long index;
-+	unsigned long flags;
-+
-+	/* Reset called during driver load? GuC not yet initialised! */
-+	if (unlikely(!guc_submission_initialized(guc)))
-+		return;
-+
-+	xa_for_each(&guc->context_lookup, index, ce) {
-+		if (!intel_context_is_pinned(ce))
-+			continue;
-+
-+		if (intel_engine_is_virtual(ce->engine)) {
-+			if (!(ce->engine->mask & engine->mask))
-+				continue;
-+		} else {
-+			if (ce->engine != engine)
-+				continue;
-+		}
-+
-+		spin_lock_irqsave(&ce->guc_active.lock, flags);
-+		intel_engine_dump_active_requests(&ce->guc_active.requests,
-+						  hung_rq, m);
-+		spin_unlock_irqrestore(&ce->guc_active.lock, flags);
-+	}
-+}
-+
- void intel_guc_submission_print_info(struct intel_guc *guc,
- 				     struct drm_printer *p)
+@@ -1235,6 +1235,9 @@ static void guc_context_policy_init(struct intel_engine_cs *engine,
  {
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-index 08ff77c5c50e..03bc1c83a4d2 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-@@ -25,6 +25,9 @@ void intel_guc_submission_print_info(struct intel_guc *guc,
- 				     struct drm_printer *p);
- void intel_guc_submission_print_context_info(struct intel_guc *guc,
- 					     struct drm_printer *p);
-+void intel_guc_dump_active_requests(struct intel_engine_cs *engine,
-+				    struct i915_request *hung_rq,
-+				    struct drm_printer *m);
+ 	desc->policy_flags = 0;
  
- bool intel_guc_virtual_engine_has_heartbeat(const struct intel_engine_cs *ve);
++	if (engine->flags & I915_ENGINE_WANT_FORCED_PREEMPTION)
++		desc->policy_flags |= CONTEXT_POLICY_FLAG_PREEMPT_TO_IDLE;
++
+ 	/* NB: For both of these, zero means disabled. */
+ 	desc->execution_quantum = engine->props.timeslice_duration_ms * 1000;
+ 	desc->preemption_timeout = engine->props.preempt_timeout_ms * 1000;
+diff --git a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
+index 91ecd8a1bd21..69db139f9e0d 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
++++ b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
+@@ -16,7 +16,8 @@
+ #define WAIT_FOR_RESET_TIME	1000
  
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 4eba848b20e3..eb109f93ebcb 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -2048,6 +2048,47 @@ void i915_request_show(struct drm_printer *m,
- 		   name);
- }
+ int intel_selftest_modify_policy(struct intel_engine_cs *engine,
+-				 struct intel_selftest_saved_policy *saved)
++				 struct intel_selftest_saved_policy *saved,
++				 u32 modify_type)
  
-+static bool engine_match_ring(struct intel_engine_cs *engine, struct i915_request *rq)
-+{
-+	u32 ring = ENGINE_READ(engine, RING_START);
+ {
+ 	int err;
+@@ -26,18 +27,30 @@ int intel_selftest_modify_policy(struct intel_engine_cs *engine,
+ 	saved->timeslice = engine->props.timeslice_duration_ms;
+ 	saved->preempt_timeout = engine->props.preempt_timeout_ms;
+ 
+-	/*
+-	 * Enable force pre-emption on time slice expiration
+-	 * together with engine reset on pre-emption timeout.
+-	 * This is required to make the GuC notice and reset
+-	 * the single hanging context.
+-	 * Also, reduce the preemption timeout to something
+-	 * small to speed the test up.
+-	 */
+-	engine->i915->params.reset = 2;
+-	engine->flags |= I915_ENGINE_WANT_FORCED_PREEMPTION;
+-	engine->props.timeslice_duration_ms = REDUCED_TIMESLICE;
+-	engine->props.preempt_timeout_ms = REDUCED_PREEMPT;
++	switch (modify_type) {
++	case SELFTEST_SCHEDULER_MODIFY_FAST_RESET:
++		/*
++		 * Enable force pre-emption on time slice expiration
++		 * together with engine reset on pre-emption timeout.
++		 * This is required to make the GuC notice and reset
++		 * the single hanging context.
++		 * Also, reduce the preemption timeout to something
++		 * small to speed the test up.
++		 */
++		engine->i915->params.reset = 2;
++		engine->flags |= I915_ENGINE_WANT_FORCED_PREEMPTION;
++		engine->props.timeslice_duration_ms = REDUCED_TIMESLICE;
++		engine->props.preempt_timeout_ms = REDUCED_PREEMPT;
++		break;
 +
-+	return ring == i915_ggtt_offset(rq->ring->vma);
-+}
++	case SELFTEST_SCHEDULER_MODIFY_NO_HANGCHECK:
++		engine->props.preempt_timeout_ms = 0;
++		break;
 +
-+static bool match_ring(struct i915_request *rq)
-+{
-+	struct intel_engine_cs *engine;
-+	bool found;
-+	int i;
-+
-+	if (!intel_engine_is_virtual(rq->engine))
-+		return engine_match_ring(rq->engine, rq);
-+
-+	found = false;
-+	i = 0;
-+	while ((engine = intel_engine_get_sibling(rq->engine, i++))) {
-+		found = engine_match_ring(engine, rq);
-+		if (found)
-+			break;
++	default:
++		pr_err("Invalid scheduler policy modification type: %d!\n", modify_type);
++		return -EINVAL;
 +	}
-+
-+	return found;
-+}
-+
-+enum i915_request_state i915_test_request_state(struct i915_request *rq)
-+{
-+	if (i915_request_completed(rq))
-+		return I915_REQUEST_COMPLETE;
-+
-+	if (!i915_request_started(rq))
-+		return I915_REQUEST_PENDING;
-+
-+	if (match_ring(rq))
-+		return I915_REQUEST_ACTIVE;
-+
-+	return I915_REQUEST_QUEUED;
-+}
-+
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftests/mock_request.c"
- #include "selftests/i915_request.c"
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 128030f43bbf..a3d4728ea06c 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -649,4 +649,15 @@ i915_request_active_engine(struct i915_request *rq,
  
- void i915_request_notify_execute_cb_imm(struct i915_request *rq);
+ 	if (!intel_engine_uses_guc(engine))
+ 		return 0;
+diff --git a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
+index f30e96f0ba95..050bc5a8ba8b 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
++++ b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
+@@ -19,8 +19,15 @@ struct intel_selftest_saved_policy
+ 	u64 preempt_timeout;
+ };
  
-+enum i915_request_state
++enum selftest_scheduler_modify
 +{
-+	I915_REQUEST_UNKNOWN = 0,
-+	I915_REQUEST_COMPLETE,
-+	I915_REQUEST_PENDING,
-+	I915_REQUEST_QUEUED,
-+	I915_REQUEST_ACTIVE,
++	SELFTEST_SCHEDULER_MODIFY_NO_HANGCHECK = 0,
++	SELFTEST_SCHEDULER_MODIFY_FAST_RESET,
 +};
 +
-+enum i915_request_state i915_test_request_state(struct i915_request *rq);
-+
- #endif /* I915_REQUEST_H */
+ int intel_selftest_modify_policy(struct intel_engine_cs *engine,
+-				 struct intel_selftest_saved_policy *saved);
++				 struct intel_selftest_saved_policy *saved,
++				 enum selftest_scheduler_modify modify_type);
+ int intel_selftest_restore_policy(struct intel_engine_cs *engine,
+ 				  struct intel_selftest_saved_policy *saved);
+ int intel_selftest_wait_for_rq( struct i915_request *rq);
 -- 
 2.28.0
 
