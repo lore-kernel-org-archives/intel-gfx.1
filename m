@@ -7,69 +7,68 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D276FC12002
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 14:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2805EC636CB
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 14:14:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 944EA613E9
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 14:14:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 944EA613E9
+	by mail.kernel.org (Postfix) with ESMTPS id EE8E0613EB
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 14:14:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE8E0613EB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2100F6E9A0;
-	Fri, 16 Jul 2021 14:14:32 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF9576E99E
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 14:14:30 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- v32-20020a0568300920b02904b90fde9029so9984452ott.7
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 07:14:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF1556E9A7;
+	Fri, 16 Jul 2021 14:14:34 +0000 (UTC)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E7686E99E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 14:14:32 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ i12-20020a05683033ecb02903346fa0f74dso9957077otu.10
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 07:14:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=AXY3KUSW9Nh3jlxZEN6OgRLzanV/GR5AneGVxHmy0Rg=;
- b=r+cVLEH/aj16esSSY8320ynVhgJFUXrrHAiGHoTI7jzmpgQ6366ANVYFnEZZqSJyCn
- Loh56/aBEYCJGGk/11Pqn17iAGrvCmtXrlvRP1vkRkpNybiQO0oFu5z7T6zClPTjGzJd
- Gl0rBOKCgpTpHHarRO306zBNaTZ7OsVrJ5SJ4YUFkYaHnLlDPiAb70P7mCXEZe6olw3C
- bHDHYC8jCu+r3DGp9hHKCY20yu3JpnIiTsMBcAH3FVAMLK35tQw8yHyYLY/NqKNj5LkX
- vXbeTwuT/gtDNhGvj9i8dURoU0AV6htrOzj+n415TBDBK9SK5bY4e+NsyfAsgu4YLY6M
- cPnQ==
+ bh=46xU+SXnqlLkmlzsI55zUXIr3djBOo3fEmLgJyTXo+M=;
+ b=nrn0B+IqE0DunuPhH9qgvK3pgxePiU+u5i+w3JSW6+U0cH4bqQHWJScoug5eBQ7uC3
+ Asr3iQrQ4H1sW6NAb1JHOIYoL+ndDqzVR1BK0RMYR/5/xrgxRRcSQ0Lf7TLoG0uBALGV
+ Rkel9AfPU2xs/wkPiuYm84759RN22q9EmHJDpLbJKrTz6t49xpbuh2hyjmkxc0iIF/MJ
+ 3zxiEbCSzeMZF9D4CsEW+LI+hfTElrPhIsGC5evuF5jjdzh6+94v5mNwJGEFeK9p9H9R
+ mG3TjcHNfa8C/iC6lZ0VPzmTI7wuRUsn1WTyPn5TaDaXVRuIlkhiKzTyyWvfxaapxKMJ
+ 8kFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=AXY3KUSW9Nh3jlxZEN6OgRLzanV/GR5AneGVxHmy0Rg=;
- b=izxrpD+IjyERMgoxcawyqk9tb0Rz7khbhJYyfEfqt7l3Q6JdCIzvYVb5BGjpAT/lPD
- AJy5yAX4wxF4R1PNEB8AfQY5+wbm0O+uEINi9IiycRZOF53+8+U0ButaD7ViTOiLNgY8
- ZwwP5eilAq7OdoyGHooMCiJSzxXiHcrcAGwyudULgxKfA9hS6jjUHX1/Ac1fjxUaNYWT
- TvbZ87ML+mjST9JR1YeVcMbk5FpQg/OuNXv+5+JGt/IEf6TwW769PMYYViOhmk2NnydM
- Zt8yKwGsfoBiWp5NCke9QJceu1+4os7/8wnF6V5YSULHgPH/GjPdEGYscjAFrkLHJQ8f
- TPYQ==
-X-Gm-Message-State: AOAM533NzP5/wecCvEq9ovHmlpqZ2Irr6Yyon2QnFBadFBQjJcc2/PZx
- fPPGHaBcgMMFoX7g67Nf1BBwrg/AUyDRXQ==
-X-Google-Smtp-Source: ABdhPJzfl5DsR3wnWI5+Hqhq/6S+13EOtcvMSyPR6GbyBGa9l8KsGp8QNZYc73BfPvnlxRADBXZYWw==
-X-Received: by 2002:a05:6830:2413:: with SMTP id
- j19mr8431560ots.332.1626444869694; 
- Fri, 16 Jul 2021 07:14:29 -0700 (PDT)
+ bh=46xU+SXnqlLkmlzsI55zUXIr3djBOo3fEmLgJyTXo+M=;
+ b=YzQfb2StzJQp+gCLqo8BWqdhMymWwtv72CZmvgWzVJkxU5xuOWEd3UN6jqIR6hA+4U
+ 1eW7qcqyaZF9WGWJ4gc7gbyWQot1X4QiylGyFwCdeTRAuOWQv3c0M2vCxSe9xCl+EF8U
+ 23KYNF0aqUjMRFkM22KOiRJeDKyo2kAAyOACfCFaOMiu0o5gEd58Z5Ww2Wq0Yt8E5XDZ
+ hDWBKisLkmOMEYAZzMg/USRfpN3V35Q2hcd33VCfQ9hvjrmbyM3oOGCY5TsIva6omD/c
+ OjuqI0IxO2czY0ZAKYcCfI6Zx47aDdtoNSgJhQ/IHyxZU9hQtXFtPOeKcJxrlaYiP7e3
+ ZPdQ==
+X-Gm-Message-State: AOAM530DHQSCbX8x1Z4GoeyoOnDPEWcR15KjIQ4JJdp1Z+pGne04lOY3
+ /8TMjz+nhm8COnzEYr+dzFfO+v3mi28Tqw==
+X-Google-Smtp-Source: ABdhPJxhtLCtyeshB1Ll9sx4/SUW5z0DS9S/txY8nctuNTmk86n37RDi7feuVT3HmW2wgupaiHnfnQ==
+X-Received: by 2002:a9d:7f14:: with SMTP id j20mr8042414otq.82.1626444871280; 
+ Fri, 16 Jul 2021 07:14:31 -0700 (PDT)
 Received: from omlet.lan ([68.203.99.148])
- by smtp.gmail.com with ESMTPSA id v42sm1852266ott.70.2021.07.16.07.14.28
+ by smtp.gmail.com with ESMTPSA id v42sm1852266ott.70.2021.07.16.07.14.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Jul 2021 07:14:29 -0700 (PDT)
+ Fri, 16 Jul 2021 07:14:31 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 16 Jul 2021 09:14:20 -0500
-Message-Id: <20210716141426.1904528-2-jason@jlekstrand.net>
+Date: Fri, 16 Jul 2021 09:14:22 -0500
+Message-Id: <20210716141426.1904528-4-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210716141426.1904528-1-jason@jlekstrand.net>
 References: <20210716141426.1904528-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/7] drm/i915/gem: Check object_can_migrate from
- object_migrate
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915/gem: Call
+ i915_gem_flush_free_objects() in i915_gem_dumb_create()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,96 +87,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We don't roll them together entirely because there are still a couple
-cases where we want a separate can_migrate check.  For instance, the
-display code checks that you can migrate a buffer to LMEM before it
-accepts it in fb_create.  The dma-buf import code also uses it to do an
-early check and return a different error code if someone tries to attach
-a LMEM-only dma-buf to another driver.
-
-However, no one actually wants to call object_migrate when can_migrate
-has failed.  The stated intention is for self-tests but none of those
-actually take advantage of this unsafe migration.
+This doesn't really fix anything serious since the chances of a client
+creating and destroying a mass of dumb BOs is pretty low.  However, it
+is called by the other two create IOCTLs to garbage collect old objects.
+Call it here too for consistency.
 
 Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.c        | 13 ++-----------
- .../gpu/drm/i915/gem/selftests/i915_gem_migrate.c | 15 ---------------
- 2 files changed, 2 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_create.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 9da7b288b7ede..f2244ae09a613 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -584,12 +584,6 @@ bool i915_gem_object_can_migrate(struct drm_i915_gem_object *obj,
-  * completed yet, and to accomplish that, i915_gem_object_wait_migration()
-  * must be called.
-  *
-- * This function is a bit more permissive than i915_gem_object_can_migrate()
-- * to allow for migrating objects where the caller knows exactly what is
-- * happening. For example within selftests. More specifically this
-- * function allows migrating I915_BO_ALLOC_USER objects to regions
-- * that are not in the list of allowable regions.
-- *
-  * Note: the @ww parameter is not used yet, but included to make sure
-  * callers put some effort into obtaining a valid ww ctx if one is
-  * available.
-@@ -616,11 +610,8 @@ int i915_gem_object_migrate(struct drm_i915_gem_object *obj,
- 	if (obj->mm.region == mr)
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+index 5766749a449c0..1b370914587c0 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+@@ -151,6 +151,8 @@ i915_gem_dumb_create(struct drm_file *file,
+ 	if (args->pitch < args->width)
+ 		return -EINVAL;
  
--	if (!i915_gem_object_evictable(obj))
--		return -EBUSY;
--
--	if (!obj->ops->migrate)
--		return -EOPNOTSUPP;
-+	if (!i915_gem_object_can_migrate(obj, id))
-+		return -EINVAL;
++	i915_gem_flush_free_objects(i915);
++
+ 	args->size = mul_u32_u32(args->pitch, args->height);
  
- 	return obj->ops->migrate(obj, mr);
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
-index 0b7144d2991ca..28a700f08b49a 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
-@@ -61,11 +61,6 @@ static int igt_create_migrate(struct intel_gt *gt, enum intel_region_id src,
- 		if (err)
- 			continue;
- 
--		if (!i915_gem_object_can_migrate(obj, dst)) {
--			err = -EINVAL;
--			continue;
--		}
--
- 		err = i915_gem_object_migrate(obj, &ww, dst);
- 		if (err)
- 			continue;
-@@ -114,11 +109,6 @@ static int lmem_pages_migrate_one(struct i915_gem_ww_ctx *ww,
- 		return err;
- 
- 	if (i915_gem_object_is_lmem(obj)) {
--		if (!i915_gem_object_can_migrate(obj, INTEL_REGION_SMEM)) {
--			pr_err("object can't migrate to smem.\n");
--			return -EINVAL;
--		}
--
- 		err = i915_gem_object_migrate(obj, ww, INTEL_REGION_SMEM);
- 		if (err) {
- 			pr_err("Object failed migration to smem\n");
-@@ -137,11 +127,6 @@ static int lmem_pages_migrate_one(struct i915_gem_ww_ctx *ww,
- 		}
- 
- 	} else {
--		if (!i915_gem_object_can_migrate(obj, INTEL_REGION_LMEM)) {
--			pr_err("object can't migrate to lmem.\n");
--			return -EINVAL;
--		}
--
- 		err = i915_gem_object_migrate(obj, ww, INTEL_REGION_LMEM);
- 		if (err) {
- 			pr_err("Object failed migration to lmem\n");
+ 	mem_type = INTEL_MEMORY_SYSTEM;
 -- 
 2.31.1
 
