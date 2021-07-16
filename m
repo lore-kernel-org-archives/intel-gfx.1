@@ -2,53 +2,50 @@ Return-Path: <SRS0=AA48=MI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B273C07E95
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 08:21:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63073C07E95
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 09:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1429561279
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 08:21:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1429561279
+	by mail.kernel.org (Postfix) with ESMTPS id 1E2CE61279
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jul 2021 09:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E2CE61279
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD1A86E93C;
-	Fri, 16 Jul 2021 08:21:04 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2346E93C;
- Fri, 16 Jul 2021 08:21:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10046"; a="210744520"
-X-IronPort-AV: E=Sophos;i="5.84,244,1620716400"; d="scan'208";a="210744520"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 01:21:03 -0700
-X-IronPort-AV: E=Sophos;i="5.84,244,1620716400"; d="scan'208";a="431129829"
-Received: from kjmurthy-mobl.ger.corp.intel.com (HELO [10.213.193.231])
- ([10.213.193.231])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 01:21:00 -0700
-To: Kenneth Graunke <kenneth@whitecape.org>, Daniel Vetter <daniel@ffwll.ch>
-References: <20210715101536.2606307-1-matthew.auld@intel.com>
- <YPAW9f/2oJV4UNnB@phenom.ffwll.local>
- <2098303d-5b94-d9ff-7bd4-a7ba197a7431@linux.intel.com>
- <2516720.Dzi6zm1QmA@mizzik>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <567d0dbb-65eb-b3e6-4fd8-eaf9aadda96d@linux.intel.com>
-Date: Fri, 16 Jul 2021 09:20:58 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7DEE6E955;
+	Fri, 16 Jul 2021 09:34:50 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4379D6E955
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jul 2021 09:34:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10046"; a="271819410"
+X-IronPort-AV: E=Sophos;i="5.84,244,1620716400"; d="scan'208";a="271819410"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2021 02:34:48 -0700
+X-IronPort-AV: E=Sophos;i="5.84,244,1620716400"; d="scan'208";a="506816715"
+Received: from kmbaku-mobl.ger.corp.intel.com (HELO [10.252.62.109])
+ ([10.252.62.109])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2021 02:34:47 -0700
+To: Matthew Auld <matthew.william.auld@gmail.com>
+References: <20210715120842.806605-1-maarten.lankhorst@linux.intel.com>
+ <CAM0jSHMZStUCDFzcUrQPaAFXoBVxKmsmK2XQ4hALYHh5Y9p8Jw@mail.gmail.com>
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Message-ID: <feaa7999-d28a-d09d-8284-52dec5f5d059@linux.intel.com>
+Date: Fri, 16 Jul 2021 11:34:44 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <2516720.Dzi6zm1QmA@mizzik>
+In-Reply-To: <CAM0jSHMZStUCDFzcUrQPaAFXoBVxKmsmK2XQ4hALYHh5Y9p8Jw@mail.gmail.com>
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915/userptr: Probe existence of
- backing struct pages upon creation
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Add missing docbook chapters
+ for i915 uapi.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,97 +58,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 15/07/2021 19:21, Kenneth Graunke wrote:
-> On Thursday, July 15, 2021 4:27:44 AM PDT Tvrtko Ursulin wrote:
+Op 15-07-2021 om 14:19 schreef Matthew Auld:
+> On Thu, 15 Jul 2021 at 13:08, Maarten Lankhorst
+> <maarten.lankhorst@linux.intel.com> wrote:
+>> I noticed when grepping for DOC: that those were defined
+>> in the header, but not actually used. Fix it by removing
+>> all chapters and the internal annotation, so the docbook
+>> generated chapters are used.
 >>
->> On 15/07/2021 12:07, Daniel Vetter wrote:
->>> On Thu, Jul 15, 2021 at 11:33:10AM +0100, Tvrtko Ursulin wrote:
->>>>
->>>> On 15/07/2021 11:15, Matthew Auld wrote:
->>>>> From: Chris Wilson <chris@chris-wilson.co.uk>
->>>>>
->>>>> Jason Ekstrand requested a more efficient method than userptr+set-domain
->>>>> to determine if the userptr object was backed by a complete set of pages
->>>>> upon creation. To be more efficient than simply populating the userptr
->>>>> using get_user_pages() (as done by the call to set-domain or execbuf),
->>>>> we can walk the tree of vm_area_struct and check for gaps or vma not
->>>>> backed by struct page (VM_PFNMAP). The question is how to handle
->>>>> VM_MIXEDMAP which may be either struct page or pfn backed...
->>>>>
->>>>> With discrete are going to drop support for set_domain(), so offering a
->>>>> way to probe the pages, without having to resort to dummy batches has
->>>>> been requested.
->>>>>
->>>>> v2:
->>>>> - add new query param for the PROPBE flag, so userspace can easily
->>>>>      check if the kernel supports it(Jason).
->>>>> - use mmap_read_{lock, unlock}.
->>>>> - add some kernel-doc.
->>>>
->>>> 1)
->>>>
->>>> I think probing is too weak to be offered as part of the uapi. What probes
->>>> successfully at create time might not be there anymore at usage time. So if
->>>> the pointer is not trusted at one point, why should it be at a later stage?
->>>>
->>>> Only thing which works for me is populate (so get_pages) at create time. But
->>>> again with no guarantees they are still there at use time clearly
->>>> documented.
->>>
->>> Populate is exactly as racy as probe. We don't support pinned userptr
->>> anymore.
+>> Changes since v1:
+>> - Just remove the chapters, no need for those.
 >>
->> Yes, wrote so myself - "..again with no guarantees they are still there
->> at use time..".
+>> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Link: https://patchwork.freedesktop.org/patch/msgid/20210709113842.651140-1-maarten.lankhorst@linux.intel.com
+> Indeed, it seems to still render correctly here.
+>
+> Maybe update the commit title when pushing,
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+>
+>> ---
+>>  Documentation/gpu/driver-uapi.rst | 21 ---------------------
+>>  1 file changed, 21 deletions(-)
 >>
->> Perhaps I don't understand what problem is probe supposed to solve. It
->> doesn't deal 1:1 with set_domain removal since that one actually did
->> get_pages so that would be populate. But fact remains regardless that if
->> userspace is given a pointer it doesn't trust, _and_ wants the check it
->> for this reason or that, then probe solves nothing. Unless there is
->> actually at minimum some protocol to reply to whoever sent the pointer
->> like "not that pointer please".
-> 
-> That's exactly the point.  GL_AMD_pinned_memory requires us the OpenGL
-> implementation to return an error for "not that pointer, please", at the
-> time when said pointer is supplied - not at first use.
-> 
-> Sure, there can be reasons why it might seem fine up front, and not work
-> later.  But an early check of "just no, you're doing it totally wrong"
-> at the right moment can be helpful for application developers.  While it
-> shouldn't really happen, if it ever did, it would be a lot more obvious
-> to debug than "much later on, when something randomly flushed the GPU
-> commands we were building, something went wrong, and we don't know why."
+>> diff --git a/Documentation/gpu/driver-uapi.rst b/Documentation/gpu/driver-uapi.rst
+>> index 27d0fbe33e87..4411e6919a3d 100644
+>> --- a/Documentation/gpu/driver-uapi.rst
+>> +++ b/Documentation/gpu/driver-uapi.rst
+>> @@ -5,25 +5,4 @@ DRM Driver uAPI
+>>  drm/i915 uAPI
+>>  =============
+>>
+>> -Engine Discovery uAPI
+>> ----------------------
+>> -
+>> -.. kernel-doc:: include/uapi/drm/i915_drm.h
+>> -   :doc: Engine Discovery uAPI
+>> -
+>> -Context Engine Map uAPI
+>> ------------------------
+>> -
+>> -.. kernel-doc:: include/uapi/drm/i915_drm.h
+>> -   :doc: Context Engine Map uAPI
+>> -
+>> -Virtual Engine uAPI
+>> --------------------
+>> -
+>> -.. kernel-doc:: include/uapi/drm/i915_drm.h
+>> -   :doc: Virtual Engine uAPI
+>> -
+>> -i915_drm.h
+>> -----------
+>>  .. kernel-doc:: include/uapi/drm/i915_drm.h
+>> -   :internal:
+>> --
+>> 2.31.0
+>>
+>> _______________________________________________
+>> Intel-gfx mailing list
+>> Intel-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 
-Ack, thanks for the clarification. For this limited use case I agree probe works.
-
-Regards,
-
-Tvrtko
-
-P.S. I made a mistake (?) of looking at the GL_AMD_pinned_memory spec:
-
-"""
-
-     3) Can the application free the memory?
-
-         RESOLVED: YES. However, the underlying buffer object should
-         have been deleted from the OpenGL to prevent any access by
-         the GPU, or the result is undefined, including program or even system
-         termination.
-"""
-
-Scary stuff that spec of userspace level API would allow such kernel bugs!
+Thanks, pushed!
 
 _______________________________________________
 Intel-gfx mailing list
