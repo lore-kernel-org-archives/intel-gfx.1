@@ -2,49 +2,46 @@ Return-Path: <SRS0=UgYw=MJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3139FC636CA
-	for <intel-gfx@archiver.kernel.org>; Sat, 17 Jul 2021 04:09:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 445D4C636CA
+	for <intel-gfx@archiver.kernel.org>; Sat, 17 Jul 2021 05:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF0656128B
-	for <intel-gfx@archiver.kernel.org>; Sat, 17 Jul 2021 04:09:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF0656128B
+	by mail.kernel.org (Postfix) with ESMTPS id DD5EA6115B
+	for <intel-gfx@archiver.kernel.org>; Sat, 17 Jul 2021 05:14:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD5EA6115B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6172D6EA02;
-	Sat, 17 Jul 2021 04:09:32 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 762C46E9FF;
- Sat, 17 Jul 2021 04:09:30 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="210867811"
-X-IronPort-AV: E=Sophos;i="5.84,246,1620716400"; d="scan'208";a="210867811"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 21:09:29 -0700
-X-IronPort-AV: E=Sophos;i="5.84,246,1620716400"; d="scan'208";a="431415704"
-Received: from dut151-iclu.fm.intel.com ([10.105.23.43])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2021 21:09:29 -0700
-Date: Sat, 17 Jul 2021 04:09:27 +0000
-From: Matthew Brost <matthew.brost@intel.com>
-To: John Harrison <john.c.harrison@intel.com>
-Message-ID: <20210717040927.GA11555@DUT151-ICLU.fm.intel.com>
-References: <20210624070516.21893-1-matthew.brost@intel.com>
- <20210624070516.21893-23-matthew.brost@intel.com>
- <c198f902-aa5c-ee9d-ceba-d9da9ce7e1d7@intel.com>
- <20210710035502.GA187444@DUT030-TGLY.fm.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EED46EA14;
+	Sat, 17 Jul 2021 05:14:33 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA1F16EA14
+ for <intel-gfx@lists.freedesktop.org>; Sat, 17 Jul 2021 05:14:32 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10047"; a="198008401"
+X-IronPort-AV: E=Sophos;i="5.84,246,1620716400"; d="scan'208";a="198008401"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2021 22:14:31 -0700
+X-IronPort-AV: E=Sophos;i="5.84,246,1620716400"; d="scan'208";a="563335077"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2021 22:14:31 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 16 Jul 2021 22:14:26 -0700
+Message-Id: <20210717051426.4120328-8-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20210717051426.4120328-1-matthew.d.roper@intel.com>
+References: <20210717051426.4120328-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210710035502.GA187444@DUT030-TGLY.fm.intel.com>
-Subject: Re: [Intel-gfx] [PATCH 22/47] drm/i915/guc: Update
- intel_gt_wait_for_idle to work with GuC
+Subject: [Intel-gfx] [PATCH 7/7] drm/i915: Make workaround upper bounds
+ exclusive
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,471 +54,414 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jul 10, 2021 at 03:55:02AM +0000, Matthew Brost wrote:
-> On Fri, Jul 09, 2021 at 05:16:34PM -0700, John Harrison wrote:
-> > On 6/24/2021 00:04, Matthew Brost wrote:
-> > > When running the GuC the GPU can't be considered idle if the GuC still
-> > > has contexts pinned. As such, a call has been added in
-> > > intel_gt_wait_for_idle to idle the UC and in turn the GuC by waiting for
-> > > the number of unpinned contexts to go to zero.
-> > > 
-> > > v2: rtimeout -> remaining_timeout
-> > > 
-> > > Cc: John Harrison <john.c.harrison@intel.com>
-> > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > ---
-> > >   drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  3 +-
-> > >   drivers/gpu/drm/i915/gt/intel_gt.c            | 19 ++++
-> > >   drivers/gpu/drm/i915/gt/intel_gt.h            |  2 +
-> > >   drivers/gpu/drm/i915/gt/intel_gt_requests.c   | 22 ++---
-> > >   drivers/gpu/drm/i915/gt/intel_gt_requests.h   |  9 +-
-> > >   drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  4 +
-> > >   drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  1 +
-> > >   drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  4 +
-> > >   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 88 ++++++++++++++++++-
-> > >   drivers/gpu/drm/i915/gt/uc/intel_uc.h         |  5 ++
-> > >   drivers/gpu/drm/i915/i915_debugfs.c           |  1 +
-> > >   drivers/gpu/drm/i915/i915_gem_evict.c         |  1 +
-> > >   .../gpu/drm/i915/selftests/igt_live_test.c    |  2 +-
-> > >   .../gpu/drm/i915/selftests/mock_gem_device.c  |  3 +-
-> > >   14 files changed, 137 insertions(+), 27 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> > > index 2fd155742bd2..335b955d5b4b 100644
-> > > --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> > > +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> > > @@ -644,7 +644,8 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
-> > >   		goto insert;
-> > >   	/* Attempt to reap some mmap space from dead objects */
-> > > -	err = intel_gt_retire_requests_timeout(&i915->gt, MAX_SCHEDULE_TIMEOUT);
-> > > +	err = intel_gt_retire_requests_timeout(&i915->gt, MAX_SCHEDULE_TIMEOUT,
-> > > +					       NULL);
-> > >   	if (err)
-> > >   		goto err;
-> > > diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-> > > index e714e21c0a4d..acfdd53b2678 100644
-> > > --- a/drivers/gpu/drm/i915/gt/intel_gt.c
-> > > +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-> > > @@ -585,6 +585,25 @@ static void __intel_gt_disable(struct intel_gt *gt)
-> > >   	GEM_BUG_ON(intel_gt_pm_is_awake(gt));
-> > >   }
-> > > +int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
-> > > +{
-> > > +	long remaining_timeout;
-> > > +
-> > > +	/* If the device is asleep, we have no requests outstanding */
-> > > +	if (!intel_gt_pm_is_awake(gt))
-> > > +		return 0;
-> > > +
-> > > +	while ((timeout = intel_gt_retire_requests_timeout(gt, timeout,
-> > > +							   &remaining_timeout)) > 0) {
-> > > +		cond_resched();
-> > > +		if (signal_pending(current))
-> > > +			return -EINTR;
-> > > +	}
-> > > +
-> > > +	return timeout ? timeout : intel_uc_wait_for_idle(&gt->uc,
-> > > +							  remaining_timeout);
-> > > +}
-> > > +
-> > >   int intel_gt_init(struct intel_gt *gt)
-> > >   {
-> > >   	int err;
-> > > diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
-> > > index e7aabe0cc5bf..74e771871a9b 100644
-> > > --- a/drivers/gpu/drm/i915/gt/intel_gt.h
-> > > +++ b/drivers/gpu/drm/i915/gt/intel_gt.h
-> > > @@ -48,6 +48,8 @@ void intel_gt_driver_release(struct intel_gt *gt);
-> > >   void intel_gt_driver_late_release(struct intel_gt *gt);
-> > > +int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout);
-> > > +
-> > >   void intel_gt_check_and_clear_faults(struct intel_gt *gt);
-> > >   void intel_gt_clear_error_registers(struct intel_gt *gt,
-> > >   				    intel_engine_mask_t engine_mask);
-> > > diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-> > > index 647eca9d867a..39f5e824dac5 100644
-> > > --- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-> > > +++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-> > > @@ -13,6 +13,7 @@
-> > >   #include "intel_gt_pm.h"
-> > >   #include "intel_gt_requests.h"
-> > >   #include "intel_timeline.h"
-> > > +#include "uc/intel_uc.h"
-> > Why is this needed?
-> > 
-> 
-> It is not, likely holdover from internal churn.
-> 
-> > >   static bool retire_requests(struct intel_timeline *tl)
-> > >   {
-> > > @@ -130,7 +131,8 @@ void intel_engine_fini_retire(struct intel_engine_cs *engine)
-> > >   	GEM_BUG_ON(engine->retire);
-> > >   }
-> > > -long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout)
-> > > +long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout,
-> > > +				      long *remaining_timeout)
-> > >   {
-> > >   	struct intel_gt_timelines *timelines = &gt->timelines;
-> > >   	struct intel_timeline *tl, *tn;
-> > > @@ -195,22 +197,10 @@ out_active:	spin_lock(&timelines->lock);
-> > >   	if (flush_submission(gt, timeout)) /* Wait, there's more! */
-> > >   		active_count++;
-> > > -	return active_count ? timeout : 0;
-> > > -}
-> > > -
-> > > -int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
-> > > -{
-> > > -	/* If the device is asleep, we have no requests outstanding */
-> > > -	if (!intel_gt_pm_is_awake(gt))
-> > > -		return 0;
-> > > -
-> > > -	while ((timeout = intel_gt_retire_requests_timeout(gt, timeout)) > 0) {
-> > > -		cond_resched();
-> > > -		if (signal_pending(current))
-> > > -			return -EINTR;
-> > > -	}
-> > > +	if (remaining_timeout)
-> > > +		*remaining_timeout = timeout;
-> > > -	return timeout;
-> > > +	return active_count ? timeout : 0;
-> > >   }
-> > >   static void retire_work_handler(struct work_struct *work)
-> > > diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.h b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
-> > > index fcc30a6e4fe9..51dbe0e3294e 100644
-> > > --- a/drivers/gpu/drm/i915/gt/intel_gt_requests.h
-> > > +++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
-> > > @@ -6,14 +6,17 @@
-> > >   #ifndef INTEL_GT_REQUESTS_H
-> > >   #define INTEL_GT_REQUESTS_H
-> > > +#include <stddef.h>
-> > > +
-> > Why is this needed?
-> > 
-> 
-> I swear I needed stddef.h for NULL on a different machice of mine. It
-> seems to be quite happy without it on my current machine. Can remove.
-> 
+Workarounds are documented in the bspec with an exclusive upper bound
+(i.e., a "fixed" stepping that no longer needs the workaround).  This
+makes our driver's use of an inclusive upper bound for stepping ranges
+confusing; the differing notation between code and bspec makes it very
+easy for mistakes to creep in.
 
-And it in fact does need to be included. See CI results below:
-https://patchwork.freedesktop.org/series/91840/#rev3
+Let's switch the upper bound of our IS_{GT,DISP}_STEP macros over to use
+an exclusive upper bound like the bspec does.  This also has the benefit
+of helping make sure workarounds are properly handled for new minor
+steppings that show up (e.g., an A1 between the A0 and B0 we already
+knew about) --- if the new intermediate stepping pulls in hardware fixes
+early, there will be an update to the workaround definition which lets
+us know we need to change our code.  If the new stepping does not pull a
+hardware fix earlier, then the new stepping will already be captured
+properly by the "[begin, fix)" range in the code.
 
-Matt
+We'll probably need to be extra vigilant in code review of new
+workarounds for the near future to make sure developers notice the new
+semantics of workaround bounds.  But we just migrated a bunch of our
+platforms from the IS_REVID bounds over to IS_{GT,DISP}_STEP, so people
+are already adjusting to the new macros and now is a good time to make
+this change too.
 
-> > >   struct intel_engine_cs;
-> > >   struct intel_gt;
-> > >   struct intel_timeline;
-> > > -long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout);
-> > > +long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout,
-> > > +				      long *remaining_timeout);
-> > >   static inline void intel_gt_retire_requests(struct intel_gt *gt)
-> > >   {
-> > > -	intel_gt_retire_requests_timeout(gt, 0);
-> > > +	intel_gt_retire_requests_timeout(gt, 0, NULL);
-> > >   }
-> > >   void intel_engine_init_retire(struct intel_engine_cs *engine);
-> > > @@ -21,8 +24,6 @@ void intel_engine_add_retire(struct intel_engine_cs *engine,
-> > >   			     struct intel_timeline *tl);
-> > >   void intel_engine_fini_retire(struct intel_engine_cs *engine);
-> > > -int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout);
-> > > -
-> > >   void intel_gt_init_requests(struct intel_gt *gt);
-> > >   void intel_gt_park_requests(struct intel_gt *gt);
-> > >   void intel_gt_unpark_requests(struct intel_gt *gt);
-> > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-> > > index 24e7a924134e..22eb1e9cca41 100644
-> > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-> > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-> > > @@ -38,6 +38,8 @@ struct intel_guc {
-> > >   	spinlock_t irq_lock;
-> > >   	unsigned int msg_enabled_mask;
-> > > +	atomic_t outstanding_submission_g2h;
-> > > +
-> > >   	struct {
-> > >   		void (*reset)(struct intel_guc *guc);
-> > >   		void (*enable)(struct intel_guc *guc);
-> > > @@ -238,6 +240,8 @@ static inline void intel_guc_disable_msg(struct intel_guc *guc, u32 mask)
-> > >   	spin_unlock_irq(&guc->irq_lock);
-> > >   }
-> > > +int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout);
-> > > +
-> > >   int intel_guc_reset_engine(struct intel_guc *guc,
-> > >   			   struct intel_engine_cs *engine);
-> > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > > index a60970e85635..e0f92e28350c 100644
-> > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-> > > @@ -109,6 +109,7 @@ void intel_guc_ct_init_early(struct intel_guc_ct *ct)
-> > >   	INIT_LIST_HEAD(&ct->requests.incoming);
-> > >   	INIT_WORK(&ct->requests.worker, ct_incoming_request_worker_func);
-> > >   	tasklet_setup(&ct->receive_tasklet, ct_receive_tasklet_func);
-> > > +	init_waitqueue_head(&ct->wq);
-> > >   }
-> > >   static inline const char *guc_ct_buffer_type_to_str(u32 type)
-> > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> > > index 660bf37238e2..ab1b79ab960b 100644
-> > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-> > > @@ -10,6 +10,7 @@
-> > >   #include <linux/spinlock.h>
-> > >   #include <linux/workqueue.h>
-> > >   #include <linux/ktime.h>
-> > > +#include <linux/wait.h>
-> > >   #include "intel_guc_fwif.h"
-> > > @@ -68,6 +69,9 @@ struct intel_guc_ct {
-> > >   	struct tasklet_struct receive_tasklet;
-> > > +	/** @wq: wait queue for g2h chanenl */
-> > > +	wait_queue_head_t wq;
-> > > +
-> > >   	struct {
-> > >   		u16 last_fence; /* last fence used to send request */
-> > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > index ef24758c4266..d1a28283a9ae 100644
-> > > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > > @@ -254,6 +254,74 @@ static inline void set_lrc_desc_registered(struct intel_guc *guc, u32 id,
-> > >   	xa_store_irq(&guc->context_lookup, id, ce, GFP_ATOMIC);
-> > >   }
-> > > +static int guc_submission_busy_loop(struct intel_guc* guc,
-> > I think this name is misleading. It would be better as
-> > guc_submission_send_busy_loop.
-> > 
-> 
-> Yep, better name. Will fix.
-> 
-> > > +				    const u32 *action,
-> > > +				    u32 len,
-> > > +				    u32 g2h_len_dw,
-> > > +				    bool loop)
-> > > +{
-> > > +	int err;
-> > > +
-> > > +	err = intel_guc_send_busy_loop(guc, action, len, g2h_len_dw, loop);
-> > > +
-> > > +	if (!err && g2h_len_dw)
-> > > +		atomic_inc(&guc->outstanding_submission_g2h);
-> > > +
-> > > +	return err;
-> > > +}
-> > > +
-> > > +static int guc_wait_for_pending_msg(struct intel_guc *guc,
-> > > +				    atomic_t *wait_var,
-> > > +				    bool interruptible,
-> > > +				    long timeout)
-> > > +{
-> > > +	const int state = interruptible ?
-> > > +		TASK_INTERRUPTIBLE : TASK_UNINTERRUPTIBLE;
-> > > +	DEFINE_WAIT(wait);
-> > > +
-> > > +	might_sleep();
-> > > +	GEM_BUG_ON(timeout < 0);
-> > > +
-> > > +	if (!atomic_read(wait_var))
-> > > +		return 0;
-> > > +
-> > > +	if (!timeout)
-> > > +		return -ETIME;
-> > > +
-> > > +	for (;;) {
-> > > +		prepare_to_wait(&guc->ct.wq, &wait, state);
-> > > +
-> > > +		if (!atomic_read(wait_var))
-> > > +			break;
-> > > +
-> > > +		if (signal_pending_state(state, current)) {
-> > > +			timeout = -ERESTARTSYS;
-> > > +			break;
-> > > +		}
-> > > +
-> > > +		if (!timeout) {
-> > > +			timeout = -ETIME;
-> > > +			break;
-> > > +		}
-> > > +
-> > > +		timeout = io_schedule_timeout(timeout);
-> > > +	}
-> > > +	finish_wait(&guc->ct.wq, &wait);
-> > > +
-> > > +	return (timeout < 0) ? timeout : 0;
-> > > +}
-> > > +
-> > > +int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout)
-> > > +{
-> > > +	bool interruptible = true;
-> > > +
-> > > +	if (unlikely(timeout < 0))
-> > > +		timeout = -timeout, interruptible = false;
-> > Why is this a comma bridged statement rather than just two lines with braces
-> > on the if?
-> > 
-> > And overloading negative timeouts to mean non-interruptible seems
-> > unnecessarily convoluted in the first place. Why not just have an
-> > interruptible parameter? I'm also not seeing how the timeout gets to be
-> > negative in the first place?
-> >
-> 
-> Copy paste from some other code, can remove the comma and replace with 2
-> lines.
-> 
-> This is how intel_gt_wait_for_idle works which in turn calls this. Not
-> saying the negative parameter meaning something special is right, just
-> how it is currently done. Now that you mention this with the
-> remaining_timeout I may have broken this too. How about I just add
-> parameter than this convoluted sceme as you suggest.
->  
-> > 
-> > > +
-> > > +	return guc_wait_for_pending_msg(guc, &guc->outstanding_submission_g2h,
-> > > +					interruptible, timeout);
-> > > +}
-> > > +
-> > >   static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
-> > >   {
-> > >   	int err;
-> > > @@ -280,6 +348,7 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
-> > >   	err = intel_guc_send_nb(guc, action, len, g2h_len_dw);
-> > >   	if (!enabled && !err) {
-> > > +		atomic_inc(&guc->outstanding_submission_g2h);
-> > >   		set_context_enabled(ce);
-> > >   	} else if (!enabled) {
-> > >   		clr_context_pending_enable(ce);
-> > > @@ -731,7 +800,7 @@ static int __guc_action_register_context(struct intel_guc *guc,
-> > >   		offset,
-> > >   	};
-> > > -	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), 0, true);
-> > > +	return guc_submission_busy_loop(guc, action, ARRAY_SIZE(action), 0, true);
-> > >   }
-> > >   static int register_context(struct intel_context *ce)
-> > > @@ -751,7 +820,7 @@ static int __guc_action_deregister_context(struct intel_guc *guc,
-> > >   		guc_id,
-> > >   	};
-> > > -	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action),
-> > > +	return guc_submission_busy_loop(guc, action, ARRAY_SIZE(action),
-> > >   					G2H_LEN_DW_DEREGISTER_CONTEXT, true);
-> > >   }
-> > > @@ -868,7 +937,9 @@ static int guc_context_pin(struct intel_context *ce, void *vaddr)
-> > >   static void guc_context_unpin(struct intel_context *ce)
-> > >   {
-> > > -	unpin_guc_id(ce_to_guc(ce), ce);
-> > > +	struct intel_guc *guc = ce_to_guc(ce);
-> > > +
-> > > +	unpin_guc_id(guc, ce);
-> > Should this be part of this patch?
-> > 
-> 
-> Not likely. Let me see what is going on here.
-> 
-> > >   	lrc_unpin(ce);
-> > >   }
-> > > @@ -891,7 +962,7 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
-> > >   	intel_context_get(ce);
-> > > -	intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action),
-> > > +	guc_submission_busy_loop(guc, action, ARRAY_SIZE(action),
-> > >   				 G2H_LEN_DW_SCHED_CONTEXT_MODE_SET, true);
-> > >   }
-> > > @@ -1433,6 +1504,12 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
-> > >   	return ce;
-> > >   }
-> > > +static void decr_outstanding_submission_g2h(struct intel_guc *guc)
-> > > +{
-> > > +	if (atomic_dec_and_test(&guc->outstanding_submission_g2h))
-> > > +		wake_up_all(&guc->ct.wq);
-> > > +}
-> > > +
-> > >   int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
-> > >   					  const u32 *msg,
-> > >   					  u32 len)
-> > > @@ -1468,6 +1545,8 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
-> > >   		lrc_destroy(&ce->ref);
-> > >   	}
-> > > +	decr_outstanding_submission_g2h(guc);
-> > > +
-> > >   	return 0;
-> > >   }
-> > > @@ -1516,6 +1595,7 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
-> > >   		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-> > >   	}
-> > > +	decr_outstanding_submission_g2h(guc);
-> > >   	intel_context_put(ce);
-> > >   	return 0;
-> > > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-> > > index 9c954c589edf..c4cef885e984 100644
-> > > --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-> > > +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-> > > @@ -81,6 +81,11 @@ uc_state_checkers(guc, guc_submission);
-> > >   #undef uc_state_checkers
-> > >   #undef __uc_state_checker
-> > > +static inline int intel_uc_wait_for_idle(struct intel_uc *uc, long timeout)
-> > > +{
-> > > +	return intel_guc_wait_for_idle(&uc->guc, timeout);
-> > > +}
-> > > +
-> > >   #define intel_uc_ops_function(_NAME, _OPS, _TYPE, _RET) \
-> > >   static inline _TYPE intel_uc_##_NAME(struct intel_uc *uc) \
-> > >   { \
-> > > diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-> > > index cc745751ac53..277800987bf8 100644
-> > > --- a/drivers/gpu/drm/i915/i915_debugfs.c
-> > > +++ b/drivers/gpu/drm/i915/i915_debugfs.c
-> > > @@ -36,6 +36,7 @@
-> > >   #include "gt/intel_gt_clock_utils.h"
-> > >   #include "gt/intel_gt.h"
-> > >   #include "gt/intel_gt_pm.h"
-> > > +#include "gt/intel_gt.h"
-> > All of these extra includes seem incorrect. There is no code change in any
-> > of the files below that would warrant a new include.
-> > 
-> 
-> Well this is surely wrong as it is included two lines above. Will fix.
-> 
-> Matt
-> 
-> > John.
-> > 
-> > 
-> > >   #include "gt/intel_gt_requests.h"
-> > >   #include "gt/intel_reset.h"
-> > >   #include "gt/intel_rc6.h"
-> > > diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
-> > > index 4d2d59a9942b..2b73ddb11c66 100644
-> > > --- a/drivers/gpu/drm/i915/i915_gem_evict.c
-> > > +++ b/drivers/gpu/drm/i915/i915_gem_evict.c
-> > > @@ -27,6 +27,7 @@
-> > >    */
-> > >   #include "gem/i915_gem_context.h"
-> > > +#include "gt/intel_gt.h"
-> > >   #include "gt/intel_gt_requests.h"
-> > >   #include "i915_drv.h"
-> > > diff --git a/drivers/gpu/drm/i915/selftests/igt_live_test.c b/drivers/gpu/drm/i915/selftests/igt_live_test.c
-> > > index c130010a7033..1c721542e277 100644
-> > > --- a/drivers/gpu/drm/i915/selftests/igt_live_test.c
-> > > +++ b/drivers/gpu/drm/i915/selftests/igt_live_test.c
-> > > @@ -5,7 +5,7 @@
-> > >    */
-> > >   #include "i915_drv.h"
-> > > -#include "gt/intel_gt_requests.h"
-> > > +#include "gt/intel_gt.h"
-> > >   #include "../i915_selftest.h"
-> > >   #include "igt_flush_test.h"
-> > > diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-> > > index d189c4bd4bef..4f8180146888 100644
-> > > --- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-> > > +++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-> > > @@ -52,7 +52,8 @@ void mock_device_flush(struct drm_i915_private *i915)
-> > >   	do {
-> > >   		for_each_engine(engine, gt, id)
-> > >   			mock_engine_flush(engine);
-> > > -	} while (intel_gt_retire_requests_timeout(gt, MAX_SCHEDULE_TIMEOUT));
-> > > +	} while (intel_gt_retire_requests_timeout(gt, MAX_SCHEDULE_TIMEOUT,
-> > > +						  NULL));
-> > >   }
-> > >   static void mock_device_release(struct drm_device *dev)
-> > 
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cdclk.c    |  2 +-
+ .../drm/i915/display/intel_display_power.c    |  8 +++---
+ drivers/gpu/drm/i915/display/intel_psr.c      | 18 ++++++------
+ .../drm/i915/display/skl_universal_plane.c    |  8 +++---
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |  2 +-
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c   |  2 +-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   | 28 +++++++++----------
+ drivers/gpu/drm/i915/i915_drv.h               |  4 +--
+ drivers/gpu/drm/i915/intel_device_info.c      |  2 +-
+ drivers/gpu/drm/i915/intel_pm.c               |  8 +++---
+ 10 files changed, 41 insertions(+), 41 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 71067a62264d..944fb13b9d98 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2879,7 +2879,7 @@ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
+ 		dev_priv->display.modeset_calc_cdclk = bxt_modeset_calc_cdclk;
+ 		dev_priv->display.calc_voltage_level = tgl_calc_voltage_level;
+ 		/* Wa_22011320316:adl-p[a0] */
+-		if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0))
++		if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+ 			dev_priv->cdclk.table = adlp_a_step_cdclk_table;
+ 		else
+ 			dev_priv->cdclk.table = adlp_cdclk_table;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index e3aaf9678b07..bec380e58f40 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -5799,10 +5799,10 @@ static void tgl_bw_buddy_init(struct drm_i915_private *dev_priv)
+ 	int config, i;
+ 
+ 	if (IS_ALDERLAKE_S(dev_priv) ||
+-	    IS_DG1_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0) ||
+-	    IS_RKL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0) ||
+-	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+-		/* Wa_1409767108:tgl,rkl,dg1,adl-s */
++	    IS_DG1_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) ||
++	    IS_RKL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) ||
++	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0))
++		/* Wa_1409767108:tgl,dg1,adl-s */
+ 		table = wa_1409767108_buddy_page_masks;
+ 	else
+ 		table = tgl_buddy_page_masks;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 0a3d42c8d47d..f0381edefded 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -546,7 +546,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+ 	val |= intel_psr2_get_tp_time(intel_dp);
+ 
+ 	/* Wa_22012278275:adl-p */
+-	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_D1)) {
++	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_E0)) {
+ 		static const u8 map[] = {
+ 			2, /* 5 lines */
+ 			1, /* 6 lines */
+@@ -593,7 +593,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+ 
+ 	if (intel_dp->psr.psr2_sel_fetch_enabled) {
+ 		/* Wa_1408330847 */
+-		if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0))
++		if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+ 			intel_de_rmw(dev_priv, CHICKEN_PAR1_1,
+ 				     DIS_RAM_BYPASS_PSR2_MAN_TRACK,
+ 				     DIS_RAM_BYPASS_PSR2_MAN_TRACK);
+@@ -733,7 +733,7 @@ tgl_dc3co_exitline_compute_config(struct intel_dp *intel_dp,
+ 		return;
+ 
+ 	/* Wa_16011303918:adl-p */
+-	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0))
++	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+ 		return;
+ 
+ 	/*
+@@ -780,7 +780,7 @@ static bool intel_psr2_sel_fetch_config_valid(struct intel_dp *intel_dp,
+ 	}
+ 
+ 	/* Wa_14010254185 Wa_14010103792 */
+-	if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B1)) {
++	if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "PSR2 sel fetch not enabled, missing the implementation of WAs\n");
+ 		return false;
+@@ -939,7 +939,7 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
+ 
+ 	/* Wa_2209313811 */
+ 	if (!crtc_state->enable_psr2_sel_fetch &&
+-	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B1)) {
++	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0)) {
+ 		drm_dbg_kms(&dev_priv->drm, "PSR2 HW tracking is not supported this Display stepping\n");
+ 		return false;
+ 	}
+@@ -966,7 +966,7 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
+ 
+ 	/* Wa_16011303918:adl-p */
+ 	if (crtc_state->vrr.enable &&
+-	    IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0)) {
++	    IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "PSR2 not enabled, not compatible with HW stepping + VRR\n");
+ 		return false;
+@@ -1160,7 +1160,7 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp)
+ 			     IGNORE_PSR2_HW_TRACKING : 0);
+ 
+ 	/* Wa_16011168373:adl-p */
+-	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0) &&
++	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) &&
+ 	    intel_dp->psr.psr2_enabled)
+ 		intel_de_rmw(dev_priv,
+ 			     TRANS_SET_CONTEXT_LATENCY(intel_dp->psr.transcoder),
+@@ -1340,12 +1340,12 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
+ 
+ 	/* Wa_1408330847 */
+ 	if (intel_dp->psr.psr2_sel_fetch_enabled &&
+-	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0))
++	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+ 		intel_de_rmw(dev_priv, CHICKEN_PAR1_1,
+ 			     DIS_RAM_BYPASS_PSR2_MAN_TRACK, 0);
+ 
+ 	/* Wa_16011168373:adl-p */
+-	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0) &&
++	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) &&
+ 	    intel_dp->psr.psr2_enabled)
+ 		intel_de_rmw(dev_priv,
+ 			     TRANS_SET_CONTEXT_LATENCY(intel_dp->psr.transcoder),
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 628b678d9a71..3ad04bf2a0fd 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1910,11 +1910,11 @@ static bool gen12_plane_supports_mc_ccs(struct drm_i915_private *dev_priv,
+ {
+ 	/* Wa_14010477008:tgl[a0..c0],rkl[all],dg1[all] */
+ 	if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv) ||
+-	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0))
++	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_D0))
+ 		return false;
+ 
+ 	/* Wa_22011186057 */
+-	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0))
++	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+ 		return false;
+ 
+ 	return plane_id < PLANE_SPRITE4;
+@@ -1938,7 +1938,7 @@ static bool gen12_plane_format_mod_supported(struct drm_plane *_plane,
+ 	case I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS:
+ 	case I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC:
+ 		/* Wa_22011186057 */
+-		if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0))
++		if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+ 			return false;
+ 		break;
+ 	default:
+@@ -1995,7 +1995,7 @@ static const u64 *gen12_get_plane_modifiers(struct drm_i915_private *dev_priv,
+ 					    enum plane_id plane_id)
+ {
+ 	/* Wa_22011186057 */
+-	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A0))
++	if (IS_ADLP_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+ 		return adlp_step_a_plane_format_modifiers;
+ 	else if (gen12_plane_supports_mc_ccs(dev_priv, plane_id))
+ 		return gen12_plane_format_modifiers_mc_ccs;
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 87b06572fd2e..a69f5c438c72 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -42,7 +42,7 @@ int gen8_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 			vf_flush_wa = true;
+ 
+ 		/* WaForGAMHang:kbl */
+-		if (IS_KBL_GT_STEP(rq->engine->i915, 0, STEP_B0))
++		if (IS_KBL_GT_STEP(rq->engine->i915, 0, STEP_C0))
+ 			dc_flush_wa = true;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+index 50d11a84e7a9..e3a2a2fa5f94 100644
+--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
++++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+@@ -157,7 +157,7 @@ intel_gt_setup_fake_lmem(struct intel_gt *gt)
+ static bool get_legacy_lowmem_region(struct intel_uncore *uncore,
+ 				     u64 *start, u32 *size)
+ {
+-	if (!IS_DG1_GT_STEP(uncore->i915, STEP_A0, STEP_B0))
++	if (!IS_DG1_GT_STEP(uncore->i915, STEP_A0, STEP_C0))
+ 		return false;
+ 
+ 	*start = 0;
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 685c6115d380..247f0331ebee 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -838,7 +838,7 @@ skl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 		    GEN8_EU_GAUNIT_CLOCK_GATE_DISABLE);
+ 
+ 	/* WaInPlaceDecompressionHang:skl */
+-	if (IS_SKL_GT_STEP(i915, STEP_A0, STEP_H0 - 1))
++	if (IS_SKL_GT_STEP(i915, STEP_A0, STEP_H0))
+ 		wa_write_or(wal,
+ 			    GEN9_GAMT_ECO_REG_RW_IA,
+ 			    GAMT_ECO_ENABLE_IN_PLACE_DECOMPRESS);
+@@ -850,7 +850,7 @@ kbl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 	gen9_gt_workarounds_init(i915, wal);
+ 
+ 	/* WaDisableDynamicCreditSharing:kbl */
+-	if (IS_KBL_GT_STEP(i915, 0, STEP_B0))
++	if (IS_KBL_GT_STEP(i915, 0, STEP_C0))
+ 		wa_write_or(wal,
+ 			    GAMT_CHKN_BIT_REG,
+ 			    GAMT_CHKN_DISABLE_DYNAMIC_CREDIT_SHARING);
+@@ -961,7 +961,7 @@ icl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 
+ 	/* Wa_1607087056:icl,ehl,jsl */
+ 	if (IS_ICELAKE(i915) ||
+-	    IS_JSL_EHL_GT_STEP(i915, STEP_A0, STEP_A0))
++	    IS_JSL_EHL_GT_STEP(i915, STEP_A0, STEP_B0))
+ 		wa_write_or(wal,
+ 			    SLICE_UNIT_LEVEL_CLKGATE,
+ 			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
+@@ -1015,19 +1015,19 @@ tgl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 	gen12_gt_workarounds_init(i915, wal);
+ 
+ 	/* Wa_1409420604:tgl */
+-	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_A0))
++	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0))
+ 		wa_write_or(wal,
+ 			    SUBSLICE_UNIT_LEVEL_CLKGATE2,
+ 			    CPSSUNIT_CLKGATE_DIS);
+ 
+ 	/* Wa_1607087056:tgl also know as BUG:1409180338 */
+-	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_A0))
++	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0))
+ 		wa_write_or(wal,
+ 			    SLICE_UNIT_LEVEL_CLKGATE,
+ 			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
+ 
+ 	/* Wa_1408615072:tgl[a0] */
+-	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_A0))
++	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0))
+ 		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE2,
+ 			    VSUNIT_CLKGATE_DIS_TGL);
+ }
+@@ -1038,7 +1038,7 @@ dg1_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 	gen12_gt_workarounds_init(i915, wal);
+ 
+ 	/* Wa_1607087056:dg1 */
+-	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_A0))
++	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_B0))
+ 		wa_write_or(wal,
+ 			    SLICE_UNIT_LEVEL_CLKGATE,
+ 			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
+@@ -1436,7 +1436,7 @@ static void dg1_whitelist_build(struct intel_engine_cs *engine)
+ 	tgl_whitelist_build(engine);
+ 
+ 	/* GEN:BUG:1409280441:dg1 */
+-	if (IS_DG1_GT_STEP(engine->i915, STEP_A0, STEP_A0) &&
++	if (IS_DG1_GT_STEP(engine->i915, STEP_A0, STEP_B0) &&
+ 	    (engine->class == RENDER_CLASS ||
+ 	     engine->class == COPY_ENGINE_CLASS))
+ 		whitelist_reg_ext(w, RING_ID(engine->mmio_base),
+@@ -1504,8 +1504,8 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
+-	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_A0) ||
+-	    IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_A0)) {
++	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_B0) ||
++	    IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0)) {
+ 		/*
+ 		 * Wa_1607138336:tgl[a0],dg1[a0]
+ 		 * Wa_1607063988:tgl[a0],dg1[a0]
+@@ -1515,7 +1515,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 			    GEN12_DISABLE_POSH_BUSY_FF_DOP_CG);
+ 	}
+ 
+-	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_A0)) {
++	if (IS_TGL_UY_GT_STEP(i915, STEP_A0, STEP_B0)) {
+ 		/*
+ 		 * Wa_1606679103:tgl
+ 		 * (see also Wa_1606682166:icl)
+@@ -1550,7 +1550,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 	}
+ 
+ 	if (IS_ALDERLAKE_P(i915) || IS_ALDERLAKE_S(i915) ||
+-	    IS_DG1_GT_STEP(i915, STEP_A0, STEP_A0) ||
++	    IS_DG1_GT_STEP(i915, STEP_A0, STEP_B0) ||
+ 	    IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915)) {
+ 		/* Wa_1409804808:tgl,rkl,dg1[a0],adl-s,adl-p */
+ 		wa_masked_en(wal, GEN7_ROW_CHICKEN2,
+@@ -1564,7 +1564,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 	}
+ 
+ 
+-	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_A0) ||
++	if (IS_DG1_GT_STEP(i915, STEP_A0, STEP_B0) ||
+ 	    IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915)) {
+ 		/*
+ 		 * Wa_1607030317:tgl
+@@ -1925,7 +1925,7 @@ xcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
+ 	/* WaKBLVECSSemaphoreWaitPoll:kbl */
+-	if (IS_KBL_GT_STEP(i915, STEP_A0, STEP_E0)) {
++	if (IS_KBL_GT_STEP(i915, STEP_A0, STEP_F0)) {
+ 		wa_write(wal,
+ 			 RING_SEMA_WAIT_POLL(engine->mmio_base),
+ 			 1);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index da5f230e2d4b..b42405afb28e 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1332,11 +1332,11 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
+ 
+ #define IS_DISPLAY_STEP(__i915, since, until) \
+ 	(drm_WARN_ON(&(__i915)->drm, INTEL_DISPLAY_STEP(__i915) == STEP_NONE), \
+-	 INTEL_DISPLAY_STEP(__i915) >= (since) && INTEL_DISPLAY_STEP(__i915) <= (until))
++	 INTEL_DISPLAY_STEP(__i915) >= (since) && INTEL_DISPLAY_STEP(__i915) < (until))
+ 
+ #define IS_GT_STEP(__i915, since, until) \
+ 	(drm_WARN_ON(&(__i915)->drm, INTEL_GT_STEP(__i915) == STEP_NONE), \
+-	 INTEL_GT_STEP(__i915) >= (since) && INTEL_GT_STEP(__i915) <= (until))
++	 INTEL_GT_STEP(__i915) >= (since) && INTEL_GT_STEP(__i915) < (until))
+ 
+ static __always_inline unsigned int
+ __platform_mask_index(const struct intel_runtime_info *info,
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index dd63dd2c45ad..5c83b2ec69da 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -262,7 +262,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
+ 	enum pipe pipe;
+ 
+ 	/* Wa_14011765242: adl-s A0,A1 */
+-	if (IS_ADLS_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A1))
++	if (IS_ADLS_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A2))
+ 		for_each_pipe(dev_priv, pipe)
+ 			runtime->num_scalers[pipe] = 0;
+ 	else if (GRAPHICS_VER(dev_priv) >= 10) {
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 8a84abfaa4b0..597383430ca6 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -7359,7 +7359,7 @@ static void gen12lp_init_clock_gating(struct drm_i915_private *dev_priv)
+ 				   ILK_DPFC_CHICKEN_COMP_DUMMY_PIXEL);
+ 
+ 	/* Wa_1409825376:tgl (pre-prod)*/
+-	if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B1))
++	if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0))
+ 		intel_uncore_write(&dev_priv->uncore, GEN9_CLKGATE_DIS_3, intel_uncore_read(&dev_priv->uncore, GEN9_CLKGATE_DIS_3) |
+ 			   TGL_VRH_GATING_DIS);
+ 
+@@ -7382,7 +7382,7 @@ static void dg1_init_clock_gating(struct drm_i915_private *dev_priv)
+ 	gen12lp_init_clock_gating(dev_priv);
+ 
+ 	/* Wa_1409836686:dg1[a0] */
+-	if (IS_DG1_GT_STEP(dev_priv, STEP_A0, STEP_A0))
++	if (IS_DG1_GT_STEP(dev_priv, STEP_A0, STEP_B0))
+ 		intel_uncore_write(&dev_priv->uncore, GEN9_CLKGATE_DIS_3, intel_uncore_read(&dev_priv->uncore, GEN9_CLKGATE_DIS_3) |
+ 			   DPT_GATING_DIS);
+ }
+@@ -7467,12 +7467,12 @@ static void kbl_init_clock_gating(struct drm_i915_private *dev_priv)
+ 		   FBC_LLC_FULLY_OPEN);
+ 
+ 	/* WaDisableSDEUnitClockGating:kbl */
+-	if (IS_KBL_GT_STEP(dev_priv, 0, STEP_B0))
++	if (IS_KBL_GT_STEP(dev_priv, 0, STEP_C0))
+ 		intel_uncore_write(&dev_priv->uncore, GEN8_UCGCTL6, intel_uncore_read(&dev_priv->uncore, GEN8_UCGCTL6) |
+ 			   GEN8_SDEUNIT_CLOCK_GATE_DISABLE);
+ 
+ 	/* WaDisableGamClockGating:kbl */
+-	if (IS_KBL_GT_STEP(dev_priv, 0, STEP_B0))
++	if (IS_KBL_GT_STEP(dev_priv, 0, STEP_C0))
+ 		intel_uncore_write(&dev_priv->uncore, GEN6_UCGCTL1, intel_uncore_read(&dev_priv->uncore, GEN6_UCGCTL1) |
+ 			   GEN6_GAMUNIT_CLOCK_GATE_DISABLE);
+ 
+-- 
+2.25.4
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
