@@ -2,51 +2,40 @@ Return-Path: <SRS0=F6ds=ML=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A472C636CB
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 09:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C3FCC12002
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 09:09:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 595F8600CD
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 09:09:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 595F8600CD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 528EA6101E
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 09:09:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 528EA6101E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0ED189E0D;
-	Mon, 19 Jul 2021 09:09:04 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57BA989E0D;
- Mon, 19 Jul 2021 09:09:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10049"; a="191302238"
-X-IronPort-AV: E=Sophos;i="5.84,251,1620716400"; d="scan'208";a="191302238"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2021 02:09:02 -0700
-X-IronPort-AV: E=Sophos;i="5.84,251,1620716400"; d="scan'208";a="631842063"
-Received: from mtlovett-mobl.ger.corp.intel.com (HELO [10.213.196.244])
- ([10.213.196.244])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2021 02:09:01 -0700
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-References: <20210719083534.2949348-1-daniel.vetter@ffwll.ch>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <ea0ecfbd-6428-02e1-4785-bdf32e475eb8@linux.intel.com>
-Date: Mon, 19 Jul 2021 10:09:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF8DE89E0D;
+	Mon, 19 Jul 2021 09:09:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3A09089E0D;
+ Mon, 19 Jul 2021 09:09:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 323E6A008A;
+ Mon, 19 Jul 2021 09:09:51 +0000 (UTC)
 MIME-Version: 1.0
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
+Date: Mon, 19 Jul 2021 09:09:51 -0000
+Message-ID: <162668579120.8480.7345924932804828142@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210719083534.2949348-1-daniel.vetter@ffwll.ch>
 In-Reply-To: <20210719083534.2949348-1-daniel.vetter@ffwll.ch>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Check for nomodeset in
- i915_init() first
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915=3A_Check_for_nomodeset_in_i915=5Finit=28=29_first?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,70 +48,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+== Series Details ==
 
-On 19/07/2021 09:35, Daniel Vetter wrote:
-> Jason is trying to sort out the unwinding in i915_init and i915_exit,
-> while reviewing those patches I noticed that we also have the
-> nomodeset handling now in the middle of things.
-> 
-> Pull that out for simplisity in unwinding - if you run selftest with
-> nomodeset you get nothing, *shrug*.
+Series: drm/i915: Check for nomodeset in i915_init() first
+URL   : https://patchwork.freedesktop.org/series/92700/
+State : warning
 
-Where "nothing" equals success!? Quite bad for platform bringup on two 
-levels.
+== Summary ==
 
-Regards,
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'jump_whitelist' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'shadow_map' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'batch_map' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Function parameter or member 'trampoline' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'jump_whitelist' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'shadow_map' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'batch_map' description in 'intel_engine_cmd_parser'
 
-Tvrtko
 
-> Cc: Jason Ekstrand <jason@jlekstrand.net>
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> ---
->   drivers/gpu/drm/i915/i915_pci.c | 16 ++++++++--------
->   1 file changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index 67696d752271..6fe709ac1b4b 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -1199,14 +1199,6 @@ static int __init i915_init(void)
->   	bool use_kms = true;
->   	int err;
->   
-> -	err = i915_globals_init();
-> -	if (err)
-> -		return err;
-> -
-> -	err = i915_mock_selftests();
-> -	if (err)
-> -		return err > 0 ? 0 : err;
-> -
->   	/*
->   	 * Enable KMS by default, unless explicitly overriden by
->   	 * either the i915.modeset prarameter or by the
-> @@ -1225,6 +1217,14 @@ static int __init i915_init(void)
->   		return 0;
->   	}
->   
-> +	err = i915_globals_init();
-> +	if (err)
-> +		return err;
-> +
-> +	err = i915_mock_selftests();
-> +	if (err)
-> +		return err > 0 ? 0 : err;
-> +
->   	i915_pmu_init();
->   
->   	err = pci_register_driver(&i915_pci_driver);
-> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
