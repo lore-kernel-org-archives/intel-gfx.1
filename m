@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CC52C12002
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 18:31:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09592C07E9B
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 18:31:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5F84161003
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 18:31:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F84161003
+	by mail.kernel.org (Postfix) with ESMTPS id C5B2560FF4
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jul 2021 18:31:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5B2560FF4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDC716E07B;
-	Mon, 19 Jul 2021 18:31:01 +0000 (UTC)
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2990089E33
- for <intel-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 18:30:58 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id b12so17236896pfv.6
- for <intel-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 11:30:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C15596E14F;
+	Mon, 19 Jul 2021 18:31:08 +0000 (UTC)
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB7D86E07B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 18:31:00 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ jx7-20020a17090b46c7b02901757deaf2c8so583411pjb.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 19 Jul 2021 11:31:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=qFNdhkykZcCs3HXRfapYY9OkVQ/lDSNnVRyFvwWEZ84=;
- b=LDjnX2FSQrlmSDxmQqhF3UZTYEjB3opXAgjmZl7d/IU6t7qJi3n/wlFASNdRJLwoL5
- pu5g65wb6YUYtnUPgT5BDqRsP8hX0AIY3nfdzjzBxUAqIyNkJwawDD0OVDr2fnJteppW
- 0jx/Gr9dfw4UaatdLu6mAy9EspiX1GOIsi+2k+M/ucvNdn/7pejFWMBvWz+mCNv8hL/c
- mE07NK1eLorJQrAlo0BpmnqTeTeon4Q1FqnqlZuIGDqmtyK3WbBlvZPU+XY8Y/doGmpz
- 4zELtwX2zIm3DA9B1IpjACCPCpRg14fKDM02rLIRIfFpJKgXBcQ86Ppaez0ZsPddAEsm
- g5YQ==
+ bh=E/GP8kKx9GV1KDV40SZ5oe0nrG9fM0ehQJYkajDCId0=;
+ b=jGoB/k0rmyX7DJd5WRK8QTKjLzMT3s1JaEob/np7/Ss4idygid4EWEuDzOjn0NMZ2G
+ E1PPsCIpKnbs6Kzs7ycbbVeXE4s3UiOUhmqgyJ4s/2JqOWE2zX8jm2+QKkh1wwzkncJ2
+ EAWq4j8ngwzGRfeULvQiUd0eTS5OUnpVaThNoqeV847TjE2IbYU2gii8hNt9vjOCwGzV
+ soFc41TvqDdl0ZeWEehqQevr8tLEeL0bZMWwXiiooPOEkPDLUcfFjdAVDYaI+2KgcrV9
+ 8gN2lE2W9oIlnzdSMiCDobArKKR2ShY3wpSrJKKAdZDFMgIxU3dp4GtQgpglhFJnn6Bf
+ yJ9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=qFNdhkykZcCs3HXRfapYY9OkVQ/lDSNnVRyFvwWEZ84=;
- b=MQLtqlO31x2u61bcFXVo1OWqtliUkxZ00NnE2Yd6t+gThp6jhI1P3UzzTnW0BCpzwG
- 1jxxRUur80jLJ/zHGEMwb4JbZGy8KR/1bs1oloKD0ERJ8tfu46baveoCXk94lArLFIby
- CKXkVQhky9jXGdk2yFXvbcHFCBJ4EyAutQghq2VwPz8T95pTfWOXHcQuRAxjbbZo5sZK
- n/t9EuNjxY3EItYFF8uyWrInvYgjKuBMcYIJr6JdDUGbQ2OZneE7mVX+yTxQoDlnTP6+
- LtmSKJaXZ+YusoQ1SZlnp6KZSyqeUyKV6IydEZ5nZG3pq+9afTppyOBfsmt/QkKOrrB8
- ga7A==
-X-Gm-Message-State: AOAM533CoQAChp4OGCv1G9rv7px3utBx65g67YnITlBGJJUPmqNOrhwU
- tUsYgjI7IduACjGZQOxf15j3QdKI0QBzHA==
-X-Google-Smtp-Source: ABdhPJyCSaK1BnjPMSbDfFGRDUr24/UBx8EAgEtP2JUda23KRKsR0D09mUnkHbwjSN6IBYFUMzGIYQ==
-X-Received: by 2002:a63:43c4:: with SMTP id
- q187mr26495416pga.172.1626719457407; 
- Mon, 19 Jul 2021 11:30:57 -0700 (PDT)
+ bh=E/GP8kKx9GV1KDV40SZ5oe0nrG9fM0ehQJYkajDCId0=;
+ b=KrHvDX1ajy1tNX+4Qr1hWDyzVLzdlNCKTwOpKEi0xqokbUizj0DvYCpCBSYZkxi8xE
+ Px/uFY/lU/6e/5/rZTHMlRdNXyzC+zbi0eTxPW78pthxgMpMr3elejAzJIQ/5ZWBedL5
+ eUzwBt1j8Ja3lmr5xbeDQf1/f0OezLZ+aocY3vyK+gFt1SGnsxE5jmQhfw0orfIkQm27
+ pM6QNsmG8nnbA7RZoeG5PCihpoJ54Npz9MZzSJi3kCppjzdEey6ts7v6cUCMILDPrKB2
+ ofET7/PlKTepqNoLYmVzT5KkrWBVgL3aM6XIeM1g1vFGXGwux2Udze9w3orWge/4SYqx
+ /w5A==
+X-Gm-Message-State: AOAM533hCqC2s5n+DIAhb037N0+amxCB3gQ0N5g2pw7b/npXhZAYrjZp
+ aaxAoKeRWxaQCpXW1wEShj99y7JI36r+Ug==
+X-Google-Smtp-Source: ABdhPJzT/6XqSXWhLpC5fZ2HOlqFNWc1sktZ71B6Oe2F9SkuRbx+LUZ4tEP2XBs7VsgNRD6Iecrfxw==
+X-Received: by 2002:a17:902:e04f:b029:eb:66b0:6d08 with SMTP id
+ x15-20020a170902e04fb02900eb66b06d08mr20252079plx.50.1626719460238; 
+ Mon, 19 Jul 2021 11:31:00 -0700 (PDT)
 Received: from omlet.com ([134.134.137.83])
- by smtp.gmail.com with ESMTPSA id w23sm6961555pfc.60.2021.07.19.11.30.56
+ by smtp.gmail.com with ESMTPSA id w23sm6961555pfc.60.2021.07.19.11.30.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jul 2021 11:30:56 -0700 (PDT)
+ Mon, 19 Jul 2021 11:30:59 -0700 (PDT)
 From: Jason Ekstrand <jason@jlekstrand.net>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon, 19 Jul 2021 13:30:45 -0500
-Message-Id: <20210719183047.2624569-5-jason@jlekstrand.net>
+Date: Mon, 19 Jul 2021 13:30:47 -0500
+Message-Id: <20210719183047.2624569-7-jason@jlekstrand.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210719183047.2624569-1-jason@jlekstrand.net>
 References: <20210719183047.2624569-1-jason@jlekstrand.net>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/6] drm/ttm: Force re-init if ttm_global_init()
- fails
+Subject: [Intel-gfx] [PATCH 6/6] drm/i915: Make the kmem slab for
+ i915_buddy_block a global
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,28 +82,180 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Matthew Auld <matthew.auld@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-SWYgd2UgaGF2ZSBhIGZhaWx1cmUsIGRlY3JlbWVudCB0aGUgcmVmZXJlbmNlIGNvdW50IHNvIHRo
-YXQgdGhlIG5leHQKY2FsbCB0byB0dG1fZ2xvYmFsX2luaXQoKSB3aWxsIGFjdHVhbGx5IGRvIHNv
-bWV0aGluZyBpbnN0ZWFkIG9mIGFzc3VtZQpldmVyeXRoaW5nIGlzIGFsbCBzZXQgdXAuCgpTaWdu
-ZWQtb2ZmLWJ5OiBKYXNvbiBFa3N0cmFuZCA8amFzb25Aamxla3N0cmFuZC5uZXQ+CkZpeGVzOiA2
-MmI1M2IzN2U0YjEgKCJkcm0vdHRtOiB1c2UgYSBzdGF0aWMgdHRtX2JvX2dsb2JhbCBpbnN0YW5j
-ZSIpCkNjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fZGV2aWNlLmMgfCAyICsrCiAxIGZpbGUgY2hhbmdlZCwg
-MiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fZGV2
-aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9kZXZpY2UuYwppbmRleCA1ZjMxYWNlYzNh
-ZDc2Li41MTlkZWVhOGUzOWI3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9k
-ZXZpY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9kZXZpY2UuYwpAQCAtMTAwLDYg
-KzEwMCw4IEBAIHN0YXRpYyBpbnQgdHRtX2dsb2JhbF9pbml0KHZvaWQpCiAJZGVidWdmc19jcmVh
-dGVfYXRvbWljX3QoImJ1ZmZlcl9vYmplY3RzIiwgMDQ0NCwgdHRtX2RlYnVnZnNfcm9vdCwKIAkJ
-CQkmZ2xvYi0+Ym9fY291bnQpOwogb3V0OgorCWlmIChyZXQpCisJCS0tdHRtX2dsb2JfdXNlX2Nv
-dW50OwogCW11dGV4X3VubG9jaygmdHRtX2dsb2JhbF9tdXRleCk7CiAJcmV0dXJuIHJldDsKIH0K
-LS0gCjIuMzEuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4
-Cg==
+There's no reason that I can tell why this should be per-i915_buddy_mm
+and doing so causes KMEM_CACHE to throw dmesg warnings because it tries
+to create a debugfs entry with the name i915_buddy_block multiple times.
+We could handle this by carefully giving each slab its own name but that
+brings its own pain because then we have to store that string somewhere
+and manage the lifetimes of the different slabs.  The most likely
+outcome would be a global atomic which we increment to get a new name or
+something like that.
+
+The much easier solution is to use the i915_globals system like we do
+for every other slab in i915.  This ensures that we have exactly one of
+them for each i915 driver load and it gets neatly created on module load
+and destroyed on module unload.  Using the globals system also means
+that its now tied into the shrink handler so we can properly respond to
+low-memory situations.
+
+Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+Fixes: 88be9a0a06b7 ("drm/i915/ttm: add ttm_buddy_man")
+Cc: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/drm/i915/i915_buddy.c   | 44 ++++++++++++++++++++++-------
+ drivers/gpu/drm/i915/i915_buddy.h   |  3 +-
+ drivers/gpu/drm/i915/i915_globals.c |  2 ++
+ 3 files changed, 38 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_buddy.c b/drivers/gpu/drm/i915/i915_buddy.c
+index 29dd7d0310c1f..911feedad4513 100644
+--- a/drivers/gpu/drm/i915/i915_buddy.c
++++ b/drivers/gpu/drm/i915/i915_buddy.c
+@@ -8,8 +8,14 @@
+ #include "i915_buddy.h"
+ 
+ #include "i915_gem.h"
++#include "i915_globals.h"
+ #include "i915_utils.h"
+ 
++static struct i915_global_buddy {
++	struct i915_global base;
++	struct kmem_cache *slab_blocks;
++} global;
++
+ static struct i915_buddy_block *i915_block_alloc(struct i915_buddy_mm *mm,
+ 						 struct i915_buddy_block *parent,
+ 						 unsigned int order,
+@@ -19,7 +25,7 @@ static struct i915_buddy_block *i915_block_alloc(struct i915_buddy_mm *mm,
+ 
+ 	GEM_BUG_ON(order > I915_BUDDY_MAX_ORDER);
+ 
+-	block = kmem_cache_zalloc(mm->slab_blocks, GFP_KERNEL);
++	block = kmem_cache_zalloc(global.slab_blocks, GFP_KERNEL);
+ 	if (!block)
+ 		return NULL;
+ 
+@@ -34,7 +40,7 @@ static struct i915_buddy_block *i915_block_alloc(struct i915_buddy_mm *mm,
+ static void i915_block_free(struct i915_buddy_mm *mm,
+ 			    struct i915_buddy_block *block)
+ {
+-	kmem_cache_free(mm->slab_blocks, block);
++	kmem_cache_free(global.slab_blocks, block);
+ }
+ 
+ static void mark_allocated(struct i915_buddy_block *block)
+@@ -85,15 +91,11 @@ int i915_buddy_init(struct i915_buddy_mm *mm, u64 size, u64 chunk_size)
+ 
+ 	GEM_BUG_ON(mm->max_order > I915_BUDDY_MAX_ORDER);
+ 
+-	mm->slab_blocks = KMEM_CACHE(i915_buddy_block, SLAB_HWCACHE_ALIGN);
+-	if (!mm->slab_blocks)
+-		return -ENOMEM;
+-
+ 	mm->free_list = kmalloc_array(mm->max_order + 1,
+ 				      sizeof(struct list_head),
+ 				      GFP_KERNEL);
+ 	if (!mm->free_list)
+-		goto out_destroy_slab;
++		return -ENOMEM;
+ 
+ 	for (i = 0; i <= mm->max_order; ++i)
+ 		INIT_LIST_HEAD(&mm->free_list[i]);
+@@ -145,8 +147,6 @@ int i915_buddy_init(struct i915_buddy_mm *mm, u64 size, u64 chunk_size)
+ 	kfree(mm->roots);
+ out_free_list:
+ 	kfree(mm->free_list);
+-out_destroy_slab:
+-	kmem_cache_destroy(mm->slab_blocks);
+ 	return -ENOMEM;
+ }
+ 
+@@ -161,7 +161,6 @@ void i915_buddy_fini(struct i915_buddy_mm *mm)
+ 
+ 	kfree(mm->roots);
+ 	kfree(mm->free_list);
+-	kmem_cache_destroy(mm->slab_blocks);
+ }
+ 
+ static int split_block(struct i915_buddy_mm *mm,
+@@ -410,3 +409,28 @@ int i915_buddy_alloc_range(struct i915_buddy_mm *mm,
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftests/i915_buddy.c"
+ #endif
++
++static void i915_global_buddy_shrink(void)
++{
++	kmem_cache_shrink(global.slab_blocks);
++}
++
++static void i915_global_buddy_exit(void)
++{
++	kmem_cache_destroy(global.slab_blocks);
++}
++
++static struct i915_global_buddy global = { {
++	.shrink = i915_global_buddy_shrink,
++	.exit = i915_global_buddy_exit,
++} };
++
++int __init i915_global_buddy_init(void)
++{
++	global.slab_blocks = KMEM_CACHE(i915_buddy_block, 0);
++	if (!global.slab_blocks)
++		return -ENOMEM;
++
++	i915_global_register(&global.base);
++	return 0;
++}
+diff --git a/drivers/gpu/drm/i915/i915_buddy.h b/drivers/gpu/drm/i915/i915_buddy.h
+index 37f8c42071d12..d8f26706de52f 100644
+--- a/drivers/gpu/drm/i915/i915_buddy.h
++++ b/drivers/gpu/drm/i915/i915_buddy.h
+@@ -47,7 +47,6 @@ struct i915_buddy_block {
+  * i915_buddy_alloc* and i915_buddy_free* should suffice.
+  */
+ struct i915_buddy_mm {
+-	struct kmem_cache *slab_blocks;
+ 	/* Maintain a free list for each order. */
+ 	struct list_head *free_list;
+ 
+@@ -130,4 +129,6 @@ void i915_buddy_free(struct i915_buddy_mm *mm, struct i915_buddy_block *block);
+ 
+ void i915_buddy_free_list(struct i915_buddy_mm *mm, struct list_head *objects);
+ 
++int i915_global_buddy_init(void);
++
+ #endif
+diff --git a/drivers/gpu/drm/i915/i915_globals.c b/drivers/gpu/drm/i915/i915_globals.c
+index 87267e1d2ad92..e57102a4c8d16 100644
+--- a/drivers/gpu/drm/i915/i915_globals.c
++++ b/drivers/gpu/drm/i915/i915_globals.c
+@@ -8,6 +8,7 @@
+ #include <linux/workqueue.h>
+ 
+ #include "i915_active.h"
++#include "i915_buddy.h"
+ #include "gem/i915_gem_context.h"
+ #include "gem/i915_gem_object.h"
+ #include "i915_globals.h"
+@@ -87,6 +88,7 @@ static void __i915_globals_cleanup(void)
+ 
+ static __initconst int (* const initfn[])(void) = {
+ 	i915_global_active_init,
++	i915_global_buddy_init,
+ 	i915_global_context_init,
+ 	i915_global_gem_context_init,
+ 	i915_global_objects_init,
+-- 
+2.31.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
