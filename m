@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4834C636CA
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9850CC07E9B
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA24D60FF3
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA24D60FF3
+	by mail.kernel.org (Postfix) with ESMTPS id 6BAA860FEA
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6BAA860FEA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 484C86E59F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C18C6E5A0;
 	Tue, 20 Jul 2021 20:40:37 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B25C46E532;
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35FA66E4E3;
  Tue, 20 Jul 2021 20:40:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="296885381"
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="296885381"
+X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="209421888"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="209421888"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 13:40:18 -0700
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906102"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2021 13:40:17 -0700
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906088"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jul 2021 13:40:16 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 20 Jul 2021 13:58:02 -0700
-Message-Id: <20210720205802.39610-43-matthew.brost@intel.com>
+Date: Tue, 20 Jul 2021 13:57:49 -0700
+Message-Id: <20210720205802.39610-30-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210720205802.39610-1-matthew.brost@intel.com>
 References: <20210720205802.39610-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 42/42] drm/i915/execlists: Parallel
- submission support for execlists
+Subject: [Intel-gfx] [RFC PATCH 29/42] drm/i915/guc: Implement BB boundary
+ preemption for multi-lrc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,292 +60,408 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A weak implmentation of parallel submission (multi-bb execbuf IOCTL) for
-execlists. Basically doing as little as possible to support this
-interface for execlists - basically just passing submit fences between
-each request generated and virtual engines are not allowed. This is on
-par with what is there for the existing (hopefully soon deprecated)
-bonding interface.
-
-As with the GuC implementation the pinning interface laying is broken.
-This will get cleaned up once the pre_pin / post_unpin laying violations
-get fixed. Rather than try to fix it here, just do what the GuC is doing
-in the meantime.
+For some users of multi-lrc, e.g. split frame, it isn't safe to preempt
+mid BB. To safely enable preemption at the BB boundary, a handshake
+between to parent and child is needed. This is implemented via custom
+emit_bb_start & emit_fini_breadcrumb functions and enabled via by
+default if a context is configured by set parallel extension.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |   9 +-
- drivers/gpu/drm/i915/gt/intel_context.c       |   1 -
- drivers/gpu/drm/i915/gt/intel_context_types.h |   2 +
- .../drm/i915/gt/intel_execlists_submission.c  | 196 ++++++++++++++++++
- 4 files changed, 204 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c       |   2 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h |   3 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   2 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 285 +++++++++++++++++-
+ 4 files changed, 289 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 23befe264f35..8b595ec006a7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -533,9 +533,6 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
- 	struct intel_engine_cs **siblings = NULL;
- 	intel_engine_mask_t prev_mask;
- 
--	if (!(intel_uc_uses_guc_submission(&i915->gt.uc)))
--		return -ENODEV;
--
- 	if (get_user(slot, &ext->engine_index))
- 		return -EFAULT;
- 
-@@ -545,6 +542,12 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
- 	if (get_user(num_siblings, &ext->num_siblings))
- 		return -EFAULT;
- 
-+	if (!intel_uc_uses_guc_submission(&i915->gt.uc) && num_siblings != 1) {
-+		drm_dbg(&i915->drm, "Only 1 sibling (%d) supported in non-GuC mode\n",
-+			num_siblings);
-+		return -EINVAL;
-+	}
-+
- 	if (slot >= set->num_engines) {
- 		drm_dbg(&i915->drm, "Invalid placement value, %d >= %d\n",
- 			slot, set->num_engines);
 diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index ab69ba9bb9aa..5187a75d4e04 100644
+index 7395894724f8..35f5d28c7465 100644
 --- a/drivers/gpu/drm/i915/gt/intel_context.c
 +++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -637,7 +637,6 @@ void intel_context_bind_parent_child(struct intel_context *parent,
- 	 * Callers responsibility to validate that this function is used
- 	 * correctly but we use GEM_BUG_ON here ensure that they do.
- 	 */
--	GEM_BUG_ON(!intel_engine_uses_guc(parent->engine));
- 	GEM_BUG_ON(intel_context_is_pinned(parent));
- 	GEM_BUG_ON(intel_context_is_child(parent));
- 	GEM_BUG_ON(intel_context_is_pinned(child));
+@@ -639,7 +639,7 @@ void intel_context_bind_parent_child(struct intel_context *parent,
+ 	GEM_BUG_ON(intel_context_is_child(child));
+ 	GEM_BUG_ON(intel_context_is_parent(child));
+ 
+-        parent->guc_number_children++;
++        child->guc_child_index = parent->guc_number_children++;
+         list_add_tail(&child->guc_child_link,
+ 		      &parent->guc_child_list);
+ 	child->parent = parent;
 diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index e5d4cc113358..f66f54820c93 100644
+index 5912eb291bad..4886e107c1f8 100644
 --- a/drivers/gpu/drm/i915/gt/intel_context_types.h
 +++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -116,6 +116,8 @@ struct intel_context {
- #define CONTEXT_FORCE_SINGLE_SUBMISSION	7
- #define CONTEXT_NOPREEMPT		8
- #define CONTEXT_LRCA_DIRTY		9
-+#define CONTEXT_PIN_TO_PARENT		10
-+#define CONTEXT_PIN_CHILDREN		11
+@@ -222,6 +222,9 @@ struct intel_context {
+ 	/* Number of children if parent */
+ 	u8 guc_number_children;
  
- 	struct {
- 		u64 timeout_us;
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 87ce28320098..f25e0af8b184 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2551,6 +2551,201 @@ static void execlists_context_cancel_request(struct intel_context *ce,
- 				      current->comm);
++	/* Child index if child */
++	u8 guc_child_index;
++
+ 	u8 parent_page; /* if set, page num reserved for parent context */
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 820cb6b5d2d0..11d64746dbf1 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -181,7 +181,7 @@ struct guc_process_desc {
+ 	u32 wq_status;
+ 	u32 engine_presence;
+ 	u32 priority;
+-	u32 reserved[30];
++	u32 reserved[36];
+ } __packed;
+ 
+ #define CONTEXT_REGISTRATION_FLAG_KMD	BIT(0)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index dde6aab1db85..b9c43ba823b4 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -11,6 +11,7 @@
+ #include "gt/intel_context.h"
+ #include "gt/intel_engine_pm.h"
+ #include "gt/intel_engine_heartbeat.h"
++#include "gt/intel_gpu_commands.h"
+ #include "gt/intel_gt.h"
+ #include "gt/intel_gt_irq.h"
+ #include "gt/intel_gt_pm.h"
+@@ -460,10 +461,14 @@ static inline struct i915_priolist *to_priolist(struct rb_node *rb)
+ 
+ /*
+  * When using multi-lrc submission an extra page in the context state is
+- * reserved for the process descriptor and work queue.
++ * reserved for the process descriptor, work queue, and preempt BB boundary
++ * handshake between the parent + childlren contexts.
+  *
+  * The layout of this page is below:
+  * 0						guc_process_desc
++ * + sizeof(struct guc_process_desc)		child go
++ * + CACHELINE_BYTES				child join ...
++ * + CACHELINE_BYTES ...
+  * ...						unused
+  * PAGE_SIZE / 2				work queue start
+  * ...						work queue
+@@ -2166,6 +2171,30 @@ static int deregister_context(struct intel_context *ce, u32 guc_id, bool loop)
+ 	return __guc_action_deregister_context(guc, guc_id, loop);
  }
  
-+static int execlists_parent_context_pre_pin(struct intel_context *ce,
-+					    struct i915_gem_ww_ctx *ww)
++static inline void clear_children_join_go_memory(struct intel_context *ce)
 +{
-+	struct intel_context *child;
-+	int err, i = 0, j = 0;
++	u32 *mem = (u32 *)(__get_process_desc(ce) + 1);
++	u8 i;
 +
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	for_each_child(ce, child) {
-+		err = i915_active_acquire(&child->active);
-+		if (unlikely(err))
-+			goto unwind_active;
-+		++i;
-+	}
-+
-+	for_each_child(ce, child) {
-+		err = __execlists_context_pre_pin(child, child->engine, ww);
-+		if (unlikely(err))
-+			goto unwind_pre_pin;
-+		++j;
-+	}
-+
-+	err = __execlists_context_pre_pin(ce, ce->engine, ww);
-+	if (unlikely(err))
-+		goto unwind_pre_pin;
-+
-+	return 0;
-+
-+unwind_pre_pin:
-+	for_each_child(ce, child) {
-+		if (!j--)
-+			break;
-+		lrc_post_unpin(child);
-+	}
-+
-+unwind_active:
-+	for_each_child(ce, child) {
-+		if (!i--)
-+			break;
-+		i915_active_release(&child->active);
-+	}
-+
-+	return err;
++	for (i = 0; i < ce->guc_number_children + 1; ++i)
++		mem[i * (CACHELINE_BYTES / sizeof(u32))] = 0;
 +}
 +
-+static void execlists_parent_context_post_unpin(struct intel_context *ce)
++static inline u32 get_children_go_value(struct intel_context *ce)
 +{
-+	struct intel_context *child;
++	u32 *mem = (u32 *)(__get_process_desc(ce) + 1);
 +
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	for_each_child(ce, child)
-+		lrc_post_unpin(child);
-+	lrc_post_unpin(ce);
-+
-+	for_each_child(ce, child) {
-+		intel_context_get(child);
-+		i915_active_release(&child->active);
-+		intel_context_put(child);
-+	}
++	return mem[0];
 +}
 +
-+static int execlists_parent_context_pin(struct intel_context *ce)
++static inline u32 get_children_join_value(struct intel_context *ce,
++					  u8 child_index)
 +{
-+	int ret, i = 0, j = 0;
-+	struct intel_context *child;
++	u32 *mem = (u32 *)(__get_process_desc(ce) + 1);
 +
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	for_each_child(ce, child) {
-+		ret = lrc_pin(child, child->engine);
-+		if (unlikely(ret))
-+			goto unwind_pin;
-+		++i;
-+	}
-+	ret = lrc_pin(ce, ce->engine);
-+	if (unlikely(ret))
-+		goto unwind_pin;
-+
-+	return 0;
-+
-+unwind_pin:
-+	for_each_child(ce, child) {
-+		if (++j > i)
-+			break;
-+		lrc_unpin(child);
-+	}
-+
-+	return ret;
++	return mem[(child_index + 1) * (CACHELINE_BYTES / sizeof(u32))];
 +}
 +
-+static void execlists_parent_context_unpin(struct intel_context *ce)
-+{
-+	struct intel_context *child;
+ static void guc_context_policy_init(struct intel_engine_cs *engine,
+ 				    struct guc_lrc_desc *desc)
+ {
+@@ -2361,6 +2390,8 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+ 			desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
+ 			guc_context_policy_init(engine, desc);
+ 		}
 +
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	for_each_child(ce, child)
-+		lrc_unpin(child);
-+	lrc_unpin(ce);
-+}
-+
-+static const struct intel_context_ops parent_context_ops = {
-+	.flags = COPS_HAS_INFLIGHT,
-+
-+	.alloc = execlists_context_alloc,
-+
-+	.cancel_request = execlists_context_cancel_request,
-+
-+	.pre_pin = execlists_parent_context_pre_pin,
-+	.pin = execlists_parent_context_pin,
-+	.unpin = execlists_parent_context_unpin,
-+	.post_unpin = execlists_parent_context_post_unpin,
-+
-+	.enter = intel_context_enter_engine,
-+	.exit = intel_context_exit_engine,
-+
-+	.destroy = lrc_destroy,
-+};
-+
-+static const struct intel_context_ops child_context_ops = {
-+	.flags = COPS_HAS_INFLIGHT,
-+
-+	.alloc = execlists_context_alloc,
-+
-+	.cancel_request = execlists_context_cancel_request,
-+
-+	.enter = intel_context_enter_engine,
-+	.exit = intel_context_exit_engine,
-+
-+	.destroy = lrc_destroy,
-+};
-+
-+static struct intel_context *
-+execlists_create_parallel(struct intel_engine_cs **engines,
-+			  unsigned int num_siblings,
-+			  unsigned int width)
-+{
-+	struct intel_engine_cs **siblings = NULL;
-+	struct intel_context *parent = NULL, *ce, *err;
-+	int i, j;
-+	int ret;
-+
-+	GEM_BUG_ON(num_siblings != 1);
-+
-+	siblings = kmalloc_array(num_siblings,
-+				 sizeof(*siblings),
-+				 GFP_KERNEL);
-+	if (!siblings)
-+		return ERR_PTR(-ENOMEM);
-+
-+	for (i = 0; i < width; ++i) {
-+		for (j = 0; j < num_siblings; ++j)
-+			siblings[j] = engines[i * num_siblings + j];
-+
-+		ce = intel_context_create(siblings[0]);
-+		if (!ce) {
-+			err = ERR_PTR(-ENOMEM);
-+			goto unwind;
-+		}
-+
-+		if (i == 0) {
-+			parent = ce;
-+		} else {
-+			intel_context_bind_parent_child(parent, ce);
-+			ret = intel_context_alloc_state(ce);
-+			if (ret) {
-+				err = ERR_PTR(ret);
-+				goto unwind;
-+			}
-+		}
-+	}
-+
-+	__set_bit(CONTEXT_NOPREEMPT, &parent->flags);
-+	for_each_child(parent, ce)
-+		__set_bit(CONTEXT_NOPREEMPT, &ce->flags);
-+
-+	parent->ops = &parent_context_ops;
-+	for_each_child(parent, ce)
-+		ce->ops = &child_context_ops;
-+
-+
-+	kfree(siblings);
-+	return parent;
-+
-+unwind:
-+	if (parent) {
-+		for_each_child(parent, ce)
-+			intel_context_put(ce);
-+		intel_context_put(parent);
-+	}
-+	kfree(siblings);
-+	return err;
-+}
-+
- static const struct intel_context_ops execlists_context_ops = {
- 	.flags = COPS_HAS_INFLIGHT,
++		clear_children_join_go_memory(ce);
+ 	}
  
-@@ -2569,6 +2764,7 @@ static const struct intel_context_ops execlists_context_ops = {
- 	.reset = lrc_reset,
- 	.destroy = lrc_destroy,
- 
-+	.create_parallel = execlists_create_parallel,
- 	.create_virtual = execlists_create_virtual,
+ 	/*
+@@ -3771,6 +3802,32 @@ static const struct intel_context_ops virtual_child_context_ops = {
+ 	.destroy = guc_child_context_destroy,
  };
  
++/*
++ * The below override of the breadcrumbs is enabled when the user configures a
++ * context for parallel submission (multi-lrc, parent-child).
++ *
++ * The overridden breadcrumbs implements an algorithm which allows the GuC to
++ * safely preempt all the hw contexts configured for parallel submission
++ * between each BB. The contract between the i915 and GuC is if the parent
++ * context can be preempted, all the children can be preempted, and the GuC will
++ * always try to preempt the parent before the children. A handshake between the
++ * parent / children breadcrumbs ensures the i915 holds up its end of the deal
++ * creating a window to preempt between each set of BBs.
++ */
++static int emit_bb_start_parent_bb_preempt_boundary(struct i915_request *rq,
++						    u64 offset, u32 len,
++						    const unsigned int flags);
++static int emit_bb_start_child_bb_preempt_boundary(struct i915_request *rq,
++						   u64 offset, u32 len,
++						   const unsigned int flags);
++static u32 *
++emit_fini_breadcrumb_parent_bb_preempt_boundary(struct i915_request *rq,
++						u32 *cs);
++static u32 *
++emit_fini_breadcrumb_child_bb_preempt_boundary(struct i915_request *rq,
++					       u32 *cs);
++
++
+ static struct intel_context *
+ guc_create_parallel(struct intel_engine_cs **engines,
+ 		    unsigned int num_siblings,
+@@ -3814,6 +3871,20 @@ guc_create_parallel(struct intel_engine_cs **engines,
+ 	for_each_child(parent, ce)
+ 		ce->ops = &virtual_child_context_ops;
+ 
++	parent->engine->emit_bb_start =
++		emit_bb_start_parent_bb_preempt_boundary;
++	parent->engine->emit_fini_breadcrumb =
++		emit_fini_breadcrumb_parent_bb_preempt_boundary;
++	parent->engine->emit_fini_breadcrumb_dw =
++		12 + 4 * parent->guc_number_children;
++	for_each_child(parent, ce) {
++		ce->engine->emit_bb_start =
++			emit_bb_start_child_bb_preempt_boundary;
++		ce->engine->emit_fini_breadcrumb =
++			emit_fini_breadcrumb_child_bb_preempt_boundary;
++		ce->engine->emit_fini_breadcrumb_dw = 16;
++	}
++
+ 	kfree(siblings);
+ 	return parent;
+ 
+@@ -4174,6 +4245,205 @@ void intel_guc_submission_init_early(struct intel_guc *guc)
+ 	guc->submission_selected = __guc_submission_selected(guc);
+ }
+ 
++static inline u32 get_children_go_addr(struct intel_context *ce)
++{
++	GEM_BUG_ON(!intel_context_is_parent(ce));
++
++	return i915_ggtt_offset(ce->state) +
++		__get_process_desc_offset(ce) +
++		sizeof(struct guc_process_desc);
++}
++
++static inline u32 get_children_join_addr(struct intel_context *ce,
++					 u8 child_index)
++{
++	GEM_BUG_ON(!intel_context_is_parent(ce));
++
++	return get_children_go_addr(ce) + (child_index + 1) * CACHELINE_BYTES;
++}
++
++#define PARENT_GO_BB			1
++#define PARENT_GO_FINI_BREADCRUMB	0
++#define CHILD_GO_BB			1
++#define CHILD_GO_FINI_BREADCRUMB	0
++static int emit_bb_start_parent_bb_preempt_boundary(struct i915_request *rq,
++						    u64 offset, u32 len,
++						    const unsigned int flags)
++{
++	struct intel_context *ce = rq->context;
++	u32 *cs;
++	u8 i;
++
++	GEM_BUG_ON(!intel_context_is_parent(ce));
++
++	cs = intel_ring_begin(rq, 10 + 4 * ce->guc_number_children);
++	if (IS_ERR(cs))
++		return PTR_ERR(cs);
++
++	/* Wait on chidlren */
++	for (i = 0; i < ce->guc_number_children; ++i) {
++		*cs++ = (MI_SEMAPHORE_WAIT |
++			 MI_SEMAPHORE_GLOBAL_GTT |
++			 MI_SEMAPHORE_POLL |
++			 MI_SEMAPHORE_SAD_EQ_SDD);
++		*cs++ = PARENT_GO_BB;
++		*cs++ = get_children_join_addr(ce, i);
++		*cs++ = 0;
++	}
++
++	/* Turn off preemption */
++	*cs++ = MI_ARB_ON_OFF | MI_ARB_DISABLE;
++	*cs++ = MI_NOOP;
++
++	/* Tell children go */
++	cs = gen8_emit_ggtt_write(cs,
++				  CHILD_GO_BB,
++				  get_children_go_addr(ce),
++				  0);
++
++	/* Jump to batch */
++	*cs++ = MI_BATCH_BUFFER_START_GEN8 |
++		(flags & I915_DISPATCH_SECURE ? 0 : BIT(8));
++	*cs++ = lower_32_bits(offset);
++	*cs++ = upper_32_bits(offset);
++	*cs++ = MI_NOOP;
++
++	intel_ring_advance(rq, cs);
++
++	return 0;
++}
++
++static int emit_bb_start_child_bb_preempt_boundary(struct i915_request *rq,
++						   u64 offset, u32 len,
++						   const unsigned int flags)
++{
++	struct intel_context *ce = rq->context;
++	u32 *cs;
++
++	GEM_BUG_ON(!intel_context_is_child(ce));
++
++	cs = intel_ring_begin(rq, 12);
++	if (IS_ERR(cs))
++		return PTR_ERR(cs);
++
++	/* Signal parent */
++	cs = gen8_emit_ggtt_write(cs,
++				  PARENT_GO_BB,
++				  get_children_join_addr(ce->parent,
++							 ce->guc_child_index),
++				  0);
++
++	/* Wait parent on for go */
++	*cs++ = (MI_SEMAPHORE_WAIT |
++		 MI_SEMAPHORE_GLOBAL_GTT |
++		 MI_SEMAPHORE_POLL |
++		 MI_SEMAPHORE_SAD_EQ_SDD);
++	*cs++ = CHILD_GO_BB;
++	*cs++ = get_children_go_addr(ce->parent);
++	*cs++ = 0;
++
++	/* Turn off preemption */
++	*cs++ = MI_ARB_ON_OFF | MI_ARB_DISABLE;
++
++	/* Jump to batch */
++	*cs++ = MI_BATCH_BUFFER_START_GEN8 |
++		(flags & I915_DISPATCH_SECURE ? 0 : BIT(8));
++	*cs++ = lower_32_bits(offset);
++	*cs++ = upper_32_bits(offset);
++
++	intel_ring_advance(rq, cs);
++
++	return 0;
++}
++
++static u32 *
++emit_fini_breadcrumb_parent_bb_preempt_boundary(struct i915_request *rq,
++						u32 *cs)
++{
++	struct intel_context *ce = rq->context;
++	u8 i;
++
++	GEM_BUG_ON(!intel_context_is_parent(ce));
++
++	/* Wait on children */
++	for (i = 0; i < ce->guc_number_children; ++i) {
++		*cs++ = (MI_SEMAPHORE_WAIT |
++			 MI_SEMAPHORE_GLOBAL_GTT |
++			 MI_SEMAPHORE_POLL |
++			 MI_SEMAPHORE_SAD_EQ_SDD);
++		*cs++ = PARENT_GO_FINI_BREADCRUMB;
++		*cs++ = get_children_join_addr(ce, i);
++		*cs++ = 0;
++	}
++
++	/* Turn on preemption */
++	*cs++ = MI_ARB_ON_OFF | MI_ARB_ENABLE;
++	*cs++ = MI_NOOP;
++
++	/* Tell children go */
++	cs = gen8_emit_ggtt_write(cs,
++				  CHILD_GO_FINI_BREADCRUMB,
++				  get_children_go_addr(ce),
++				  0);
++
++	/* Emit fini breadcrumb */
++	cs = gen8_emit_ggtt_write(cs,
++				  rq->fence.seqno,
++				  i915_request_active_timeline(rq)->hwsp_offset,
++				  0);
++
++	/* User interrupt */
++	*cs++ = MI_USER_INTERRUPT;
++	*cs++ = MI_NOOP;
++
++	rq->tail = intel_ring_offset(rq, cs);
++
++	return cs;
++}
++
++static u32 *
++emit_fini_breadcrumb_child_bb_preempt_boundary(struct i915_request *rq,
++					       u32 *cs)
++{
++	struct intel_context *ce = rq->context;
++
++	GEM_BUG_ON(!intel_context_is_child(ce));
++
++	/* Turn on preemption */
++	*cs++ = MI_ARB_ON_OFF | MI_ARB_ENABLE;
++	*cs++ = MI_NOOP;
++
++	/* Signal parent */
++	cs = gen8_emit_ggtt_write(cs,
++				  PARENT_GO_FINI_BREADCRUMB,
++				  get_children_join_addr(ce->parent,
++							 ce->guc_child_index),
++				  0);
++
++	/* Wait parent on for go */
++	*cs++ = (MI_SEMAPHORE_WAIT |
++		 MI_SEMAPHORE_GLOBAL_GTT |
++		 MI_SEMAPHORE_POLL |
++		 MI_SEMAPHORE_SAD_EQ_SDD);
++	*cs++ = CHILD_GO_FINI_BREADCRUMB;
++	*cs++ = get_children_go_addr(ce->parent);
++	*cs++ = 0;
++
++	/* Emit fini breadcrumb */
++	cs = gen8_emit_ggtt_write(cs,
++				  rq->fence.seqno,
++				  i915_request_active_timeline(rq)->hwsp_offset,
++				  0);
++
++	/* User interrupt */
++	*cs++ = MI_USER_INTERRUPT;
++	*cs++ = MI_NOOP;
++
++	rq->tail = intel_ring_offset(rq, cs);
++
++	return cs;
++}
++
+ static inline struct intel_context *
+ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
+ {
+@@ -4615,6 +4885,19 @@ void intel_guc_submission_print_context_info(struct intel_guc *guc,
+ 			drm_printf(p, "\t\tWQI Status: %u\n\n",
+ 				   READ_ONCE(desc->wq_status));
+ 
++			drm_printf(p, "\t\tNumber Children: %u\n\n",
++				   ce->guc_number_children);
++			if (ce->engine->emit_bb_start ==
++			    emit_bb_start_parent_bb_preempt_boundary) {
++				u8 i;
++
++				drm_printf(p, "\t\tChildren Go: %u\n\n",
++					   get_children_go_value(ce));
++				for (i = 0; i < ce->guc_number_children; ++i)
++					drm_printf(p, "\t\tChildren Join: %u\n",
++						   get_children_join_value(ce, i));
++			}
++
+ 			for_each_child(ce, child)
+ 				guc_log_context(p, child);
+ 		}
 -- 
 2.28.0
 
