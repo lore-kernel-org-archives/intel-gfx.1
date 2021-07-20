@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AD77C6377D
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:40:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 359CBC6377C
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0FF9560FEA
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:40:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0FF9560FEA
+	by mail.kernel.org (Postfix) with ESMTPS id 00EA260FEA
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:40:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00EA260FEA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFA806E563;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDF726E566;
 	Tue, 20 Jul 2021 20:40:25 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 378D56E50C;
- Tue, 20 Jul 2021 20:40:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="296885376"
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="296885376"
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEAE66E3DA;
+ Tue, 20 Jul 2021 20:40:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="209421881"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="209421881"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 13:40:17 -0700
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906087"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2021 13:40:16 -0700
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906066"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 13:40:16 -0700
+ 20 Jul 2021 13:40:15 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 20 Jul 2021 13:57:48 -0700
-Message-Id: <20210720205802.39610-29-matthew.brost@intel.com>
+Date: Tue, 20 Jul 2021 13:57:29 -0700
+Message-Id: <20210720205802.39610-10-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210720205802.39610-1-matthew.brost@intel.com>
 References: <20210720205802.39610-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 28/42] drm/i915/guc: Add basic GuC multi-lrc
- selftest
+Subject: [Intel-gfx] [RFC PATCH 09/42] drm/i915/guc: Take GT PM ref when
+ deregistering context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,109 +55,272 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QWRkIHZlcnkgYmFzaWMgKHNpbmdsZSBzdWJtaXNzaW9uKSBtdWx0aS1scmMgc2VsZnRlc3QuCgpT
-aWduZWQtb2ZmLWJ5OiBNYXR0aGV3IEJyb3N0IDxtYXR0aGV3LmJyb3N0QGludGVsLmNvbT4KLS0t
-CiAuLi4vZ3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19zdWJtaXNzaW9uLmMgfCAgIDEgKwog
-Li4uL2RybS9pOTE1L2d0L3VjL3NlbGZ0ZXN0X2d1Y19tdWx0aV9scmMuYyAgIHwgMTY4ICsrKysr
-KysrKysrKysrKysrKwogLi4uL2RybS9pOTE1L3NlbGZ0ZXN0cy9pOTE1X2xpdmVfc2VsZnRlc3Rz
-LmggIHwgICAxICsKIDMgZmlsZXMgY2hhbmdlZCwgMTcwIGluc2VydGlvbnMoKykKIGNyZWF0ZSBt
-b2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9zZWxmdGVzdF9ndWNfbXVsdGlf
-bHJjLmMKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNf
-c3VibWlzc2lvbi5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvaW50ZWxfZ3VjX3N1Ym1p
-c3Npb24uYwppbmRleCAzMjZjYjRmYzhhOWQuLmRkZTZhYWIxZGI4NSAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvaW50ZWxfZ3VjX3N1Ym1pc3Npb24uYworKysgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfc3VibWlzc2lvbi5jCkBAIC00NzM3LDQg
-KzQ3MzcsNSBAQCBib29sIGludGVsX2d1Y192aXJ0dWFsX2VuZ2luZV9oYXNfaGVhcnRiZWF0KGNv
-bnN0IHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKnZlKQogCiAjaWYgSVNfRU5BQkxFRChDT05GSUdf
-RFJNX0k5MTVfU0VMRlRFU1QpCiAjaW5jbHVkZSAic2VsZnRlc3RfZ3VjX2Zsb3dfY29udHJvbC5j
-IgorI2luY2x1ZGUgInNlbGZ0ZXN0X2d1Y19tdWx0aV9scmMuYyIKICNlbmRpZgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvc2VsZnRlc3RfZ3VjX211bHRpX2xyYy5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvc2VsZnRlc3RfZ3VjX211bHRpX2xyYy5jCm5ldyBm
-aWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uMjI2ZTY0ZmVlOTE5Ci0tLSAvZGV2
-L251bGwKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvc2VsZnRlc3RfZ3VjX211bHRp
-X2xyYy5jCkBAIC0wLDAgKzEsMTY4IEBACisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogTUlU
-CisvKgorICogQ29weXJpZ2h0IO+/ve+/vSAyMDE5IEludGVsIENvcnBvcmF0aW9uCisgKi8KKwor
-I2luY2x1ZGUgInNlbGZ0ZXN0cy9pZ3Rfc3Bpbm5lci5oIgorI2luY2x1ZGUgInNlbGZ0ZXN0cy9p
-Z3RfcmVzZXQuaCIKKyNpbmNsdWRlICJzZWxmdGVzdHMvaW50ZWxfc2NoZWR1bGVyX2hlbHBlcnMu
-aCIKKyNpbmNsdWRlICJndC9pbnRlbF9lbmdpbmVfaGVhcnRiZWF0LmgiCisjaW5jbHVkZSAiZ2Vt
-L3NlbGZ0ZXN0cy9tb2NrX2NvbnRleHQuaCIKKworc3RhdGljIHZvaWQgbG9naWNhbF9zb3J0KHN0
-cnVjdCBpbnRlbF9lbmdpbmVfY3MgKiplbmdpbmVzLCBpbnQgbnVtX2VuZ2luZXMpCit7CisJc3Ry
-dWN0IGludGVsX2VuZ2luZV9jcyAqc29ydGVkW01BWF9FTkdJTkVfSU5TVEFOQ0UgKyAxXTsKKwlp
-bnQgaSwgajsKKworCWZvciAoaSA9IDA7IGkgPCBudW1fZW5naW5lczsgKytpKQorCQlmb3IgKGog
-PSAwOyBqIDwgTUFYX0VOR0lORV9JTlNUQU5DRSArIDE7ICsraikgeworCQkJaWYgKGVuZ2luZXNb
-al0tPmxvZ2ljYWxfbWFzayAmIEJJVChpKSkgeworCQkJCXNvcnRlZFtpXSA9IGVuZ2luZXNbal07
-CisJCQkJYnJlYWs7CisJCQl9CisJCX0KKworCW1lbWNweSgqZW5naW5lcywgKnNvcnRlZCwKKwkg
-ICAgICAgc2l6ZW9mKHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKikgKiBudW1fZW5naW5lcyk7Cit9
-CisKK3N0YXRpYyBzdHJ1Y3QgaW50ZWxfY29udGV4dCAqCittdWx0aV9scmNfY3JlYXRlX3BhcmVu
-dChzdHJ1Y3QgaW50ZWxfZ3QgKmd0LCB1OCBjbGFzcywKKwkJCXVuc2lnbmVkIGxvbmcgZmxhZ3Mp
-Cit7CisJc3RydWN0IGludGVsX2VuZ2luZV9jcyAqc2libGluZ3NbTUFYX0VOR0lORV9JTlNUQU5D
-RSArIDFdOworCXN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZTsKKwllbnVtIGludGVsX2Vu
-Z2luZV9pZCBpZDsKKwlpbnQgaSA9IDA7CisKKwlmb3JfZWFjaF9lbmdpbmUoZW5naW5lLCBndCwg
-aWQpIHsKKwkJaWYgKGVuZ2luZS0+Y2xhc3MgIT0gY2xhc3MpCisJCQljb250aW51ZTsKKworCQlz
-aWJsaW5nc1tpKytdID0gZW5naW5lOworCX0KKworCWlmIChpIDw9IDEpCisJCXJldHVybiBFUlJf
-UFRSKDApOworCisJbG9naWNhbF9zb3J0KHNpYmxpbmdzLCBpKTsKKworCXJldHVybiBpbnRlbF9l
-bmdpbmVfY3JlYXRlX3BhcmFsbGVsKHNpYmxpbmdzLCAxLCBpKTsKK30KKworc3RhdGljIHZvaWQg
-bXVsdGlfbHJjX2NvbnRleHRfcHV0KHN0cnVjdCBpbnRlbF9jb250ZXh0ICpjZSkKK3sKKwlHRU1f
-QlVHX09OKCFpbnRlbF9jb250ZXh0X2lzX3BhcmVudChjZSkpOworCisJLyoKKwkgKiBPbmx5IHRo
-ZSBwYXJlbnQgZ2V0cyB0aGUgY3JlYXRpb24gcmVmIHB1dCBpbiB0aGUgdUFQSSwgdGhlIHBhcmVu
-dAorCSAqIGl0c2VsZiBpcyByZXNwb25zaWJsZSBmb3IgY3JlYXRpb24gcmVmIHB1dCBvbiB0aGUg
-Y2hpbGRyZW4uCisJICovCisJaW50ZWxfY29udGV4dF9wdXQoY2UpOworfQorCitzdGF0aWMgc3Ry
-dWN0IGk5MTVfcmVxdWVzdCAqCittdWx0aV9scmNfbm9wX3JlcXVlc3Qoc3RydWN0IGludGVsX2Nv
-bnRleHQgKmNlKQoreworCXN0cnVjdCBpbnRlbF9jb250ZXh0ICpjaGlsZDsKKwlzdHJ1Y3QgaTkx
-NV9yZXF1ZXN0ICpycSwgKmNoaWxkX3JxOworCWludCBpID0gMDsKKworCUdFTV9CVUdfT04oIWlu
-dGVsX2NvbnRleHRfaXNfcGFyZW50KGNlKSk7CisKKwlycSA9IGludGVsX2NvbnRleHRfY3JlYXRl
-X3JlcXVlc3QoY2UpOworCWlmIChJU19FUlIocnEpKQorCQlyZXR1cm4gcnE7CisKKwlpOTE1X3Jl
-cXVlc3RfZ2V0KHJxKTsKKwlpOTE1X3JlcXVlc3RfYWRkKHJxKTsKKworCWZvcl9lYWNoX2NoaWxk
-KGNlLCBjaGlsZCkgeworCQljaGlsZF9ycSA9IGludGVsX2NvbnRleHRfY3JlYXRlX3JlcXVlc3Qo
-Y2hpbGQpOworCQlpZiAoSVNfRVJSKGNoaWxkX3JxKSkKKwkJCWdvdG8gY2hpbGRfZXJyb3I7CisK
-KwkJaWYgKCsraSA9PSBjZS0+Z3VjX251bWJlcl9jaGlsZHJlbikKKwkJCXNldF9iaXQoSTkxNV9G
-RU5DRV9GTEFHX1NVQk1JVF9QQVJBTExFTCwKKwkJCQkmY2hpbGRfcnEtPmZlbmNlLmZsYWdzKTsK
-KwkJaTkxNV9yZXF1ZXN0X2FkZChjaGlsZF9ycSk7CisJfQorCisJcmV0dXJuIHJxOworCitjaGls
-ZF9lcnJvcjoKKwlpOTE1X3JlcXVlc3RfcHV0KHJxKTsKKworCXJldHVybiBFUlJfUFRSKC1FTk9N
-RU0pOworfQorCitzdGF0aWMgaW50IF9faW50ZWxfZ3VjX211bHRpX2xyY19iYXNpYyhzdHJ1Y3Qg
-aW50ZWxfZ3QgKmd0LCB1bnNpZ25lZCBpbnQgY2xhc3MpCit7CisJc3RydWN0IGludGVsX2NvbnRl
-eHQgKnBhcmVudDsKKwlzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycTsKKwlpbnQgcmV0OworCisJcGFy
-ZW50ID0gbXVsdGlfbHJjX2NyZWF0ZV9wYXJlbnQoZ3QsIGNsYXNzLCAwKTsKKwlpZiAoSVNfRVJS
-KHBhcmVudCkpIHsKKwkJcHJfZXJyKCJGYWlsZWQgY3JlYXRpbmcgY29udGV4dHM6ICVsZCIsIFBU
-Ul9FUlIocGFyZW50KSk7CisJCXJldHVybiBQVFJfRVJSKHBhcmVudCk7CisJfSBlbHNlIGlmIChw
-YXJlbnQgPT0gTlVMTCkgeworCQlwcl9kZWJ1ZygiTm90IGVub3VnaCBlbmdpbmVzIGluIGNsYXNz
-OiAlZCIsCisJCQkgVklERU9fREVDT0RFX0NMQVNTKTsKKwkJcmV0dXJuIDA7CisJfQorCisJcnEg
-PSBtdWx0aV9scmNfbm9wX3JlcXVlc3QocGFyZW50KTsKKwlpZiAoSVNfRVJSKHJxKSkgeworCQly
-ZXQgPSBQVFJfRVJSKHJxKTsKKwkJcHJfZXJyKCJGYWlsZWQgY3JlYXRpbmcgcmVxdWVzdHM6ICVk
-IiwgcmV0KTsKKwkJZ290byBvdXQ7CisJfQorCisJcmV0ID0gaW50ZWxfc2VsZnRlc3Rfd2FpdF9m
-b3JfcnEocnEpOworCWlmIChyZXQpCisJCXByX2VycigiRmFpbGVkIHdhaXRpbmcgb24gcmVxdWVz
-dDogJWQiLCByZXQpOworCisJaTkxNV9yZXF1ZXN0X3B1dChycSk7CisKKwlpZiAocmV0ID49IDAp
-IHsKKwkJcmV0ID0gaW50ZWxfZ3Rfd2FpdF9mb3JfaWRsZShndCwgSFogKiA1KTsKKwkJaWYgKHJl
-dCA8IDApCisJCQlwcl9lcnIoIkdUIGZhaWxlZCB0byBpZGxlOiAlZFxuIiwgcmV0KTsKKwl9CisK
-K291dDoKKwltdWx0aV9scmNfY29udGV4dF9wdXQocGFyZW50KTsKKwlyZXR1cm4gcmV0OworfQor
-CitzdGF0aWMgaW50IGludGVsX2d1Y19tdWx0aV9scmNfYmFzaWModm9pZCAqYXJnKQoreworCXN0
-cnVjdCBpbnRlbF9ndCAqZ3QgPSBhcmc7CisJdW5zaWduZWQgY2xhc3M7CisJaW50IHJldDsKKwor
-CWZvciAoY2xhc3MgPSAwOyBjbGFzcyA8IE1BWF9FTkdJTkVfQ0xBU1MgKyAxOyArK2NsYXNzKSB7
-CisJCXJldCA9IF9faW50ZWxfZ3VjX211bHRpX2xyY19iYXNpYyhndCwgY2xhc3MpOworCQlpZiAo
-cmV0KQorCQkJcmV0dXJuIHJldDsKKwl9CisKKwlyZXR1cm4gMDsKK30KKworaW50IGludGVsX2d1
-Y19tdWx0aV9scmMoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCit7CisJc3RhdGljIGNv
-bnN0IHN0cnVjdCBpOTE1X3N1YnRlc3QgdGVzdHNbXSA9IHsKKwkJU1VCVEVTVChpbnRlbF9ndWNf
-bXVsdGlfbHJjX2Jhc2ljKSwKKwl9OworCXN0cnVjdCBpbnRlbF9ndCAqZ3QgPSAmaTkxNS0+Z3Q7
-CisKKwlpZiAoaW50ZWxfZ3RfaXNfd2VkZ2VkKGd0KSkKKwkJcmV0dXJuIDA7CisKKwlpZiAoIWlu
-dGVsX3VjX3VzZXNfZ3VjX3N1Ym1pc3Npb24oJmd0LT51YykpCisJCXJldHVybiAwOworCisJcmV0
-dXJuIGludGVsX2d0X2xpdmVfc3VidGVzdHModGVzdHMsIGd0KTsKK30KZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9pOTE1X2xpdmVfc2VsZnRlc3RzLmggYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9saXZlX3NlbGZ0ZXN0cy5oCmluZGV4IGQ5
-YmQ3MzJiNzQxYS4uMmRkYjcyYmJhYjY5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9zZWxmdGVzdHMvaTkxNV9saXZlX3NlbGZ0ZXN0cy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L3NlbGZ0ZXN0cy9pOTE1X2xpdmVfc2VsZnRlc3RzLmgKQEAgLTQ4LDUgKzQ4LDYgQEAgc2Vs
-ZnRlc3QoZXhlY2xpc3RzLCBpbnRlbF9leGVjbGlzdHNfbGl2ZV9zZWxmdGVzdHMpCiBzZWxmdGVz
-dChyaW5nX3N1Ym1pc3Npb24sIGludGVsX3Jpbmdfc3VibWlzc2lvbl9saXZlX3NlbGZ0ZXN0cykK
-IHNlbGZ0ZXN0KHBlcmYsIGk5MTVfcGVyZl9saXZlX3NlbGZ0ZXN0cykKIHNlbGZ0ZXN0KGd1Y19m
-bG93X2NvbnRyb2wsIGludGVsX2d1Y19mbG93X2NvbnRyb2wpCitzZWxmdGVzdChndWNfbXVsdGlf
-bHJjLCBpbnRlbF9ndWNfbXVsdGlfbHJjKQogLyogSGVyZSBiZSBkcmFnb25zOiBrZWVwIGxhc3Qg
-dG8gcnVuIGxhc3QhICovCiBzZWxmdGVzdChsYXRlX2d0X3BtLCBpbnRlbF9ndF9wbV9sYXRlX3Nl
-bGZ0ZXN0cykKLS0gCjIuMjguMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-aW50ZWwtZ2Z4Cg==
+Taking a PM reference to prevent intel_gt_wait_for_idle from short
+circuiting while a deregister context H2G is in flight.
+
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_pm.h     |  5 +
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h         | 13 +++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  4 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 98 +++++++++++++++----
+ 4 files changed, 101 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.h b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+index 70ea46d6cfb0..17a5028ea177 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+@@ -16,6 +16,11 @@ intel_engine_pm_is_awake(const struct intel_engine_cs *engine)
+ 	return intel_wakeref_is_active(&engine->wakeref);
+ }
+ 
++static inline void __intel_engine_pm_get(struct intel_engine_cs *engine)
++{
++	__intel_wakeref_get(&engine->wakeref);
++}
++
+ static inline void intel_engine_pm_get(struct intel_engine_cs *engine)
+ {
+ 	intel_wakeref_get(&engine->wakeref);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+index d0588d8aaa44..a17bf0d4592b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+@@ -41,6 +41,19 @@ static inline void intel_gt_pm_put_async(struct intel_gt *gt)
+ 	intel_wakeref_put_async(&gt->wakeref);
+ }
+ 
++#define with_intel_gt_pm(gt, tmp) \
++	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
++	     intel_gt_pm_put(gt), tmp = 0)
++#define with_intel_gt_pm_async(gt, tmp) \
++	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
++	     intel_gt_pm_put_async(gt), tmp = 0)
++#define with_intel_gt_pm_if_awake(gt, tmp) \
++	for (tmp = intel_gt_pm_get_if_awake(gt); tmp; \
++	     intel_gt_pm_put(gt), tmp = 0)
++#define with_intel_gt_pm_if_awake_async(gt, tmp) \
++	for (tmp = intel_gt_pm_get_if_awake(gt); tmp; \
++	     intel_gt_pm_put_async(gt), tmp = 0)
++
+ static inline int intel_gt_pm_wait_for_idle(struct intel_gt *gt)
+ {
+ 	return intel_wakeref_wait_for_idle(&gt->wakeref);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 3198480f717c..4fe7fd4ce10e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -61,6 +61,10 @@ struct intel_guc {
+ 	struct list_head guc_id_list_no_ref;
+ 	struct list_head guc_id_list_unpinned;
+ 
++	spinlock_t destroy_lock;
++	struct list_head destroyed_contexts;
++	struct work_struct destroy_worker;
++
+ 	bool submission_supported;
+ 	bool submission_selected;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index e1a35f647025..f13558adc142 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -908,6 +908,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
+ 			if (deregister)
+ 				guc_signal_context_fence(ce);
+ 			if (destroyed) {
++				intel_gt_pm_put_async(guc_to_gt(guc));
+ 				release_guc_id(guc, ce);
+ 				__guc_context_destroy(ce);
+ 			}
+@@ -1026,6 +1027,8 @@ static void guc_flush_submissions(struct intel_guc *guc)
+ 			gse_flush_submissions(guc->gse[i]);
+ }
+ 
++static void guc_flush_destroyed_contexts(struct intel_guc *guc);
++
+ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ {
+ 	int i;
+@@ -1043,6 +1046,7 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ 	spin_unlock_irq(&guc_to_gt(guc)->irq_lock);
+ 
+ 	guc_flush_submissions(guc);
++	guc_flush_destroyed_contexts(guc);
+ 
+ 	/*
+ 	 * Handle any outstanding G2Hs before reset. Call IRQ handler directly
+@@ -1368,6 +1372,8 @@ static void retire_worker_func(struct work_struct *w)
+ static int guc_lrcd_reg_init(struct intel_guc *guc);
+ static void guc_lrcd_reg_fini(struct intel_guc *guc);
+ 
++static void destroy_worker_func(struct work_struct *w);
++
+ /*
+  * Set up the memory resources to be shared with the GuC (via the GGTT)
+  * at firmware loading time.
+@@ -1390,6 +1396,10 @@ int intel_guc_submission_init(struct intel_guc *guc)
+ 	INIT_LIST_HEAD(&guc->guc_id_list_unpinned);
+ 	ida_init(&guc->guc_ids);
+ 
++	spin_lock_init(&guc->destroy_lock);
++	INIT_LIST_HEAD(&guc->destroyed_contexts);
++	INIT_WORK(&guc->destroy_worker, destroy_worker_func);
++
+ 	return 0;
+ }
+ 
+@@ -1400,6 +1410,7 @@ void intel_guc_submission_fini(struct intel_guc *guc)
+ 	if (!guc_submission_initialized(guc))
+ 		return;
+ 
++	guc_flush_destroyed_contexts(guc);
+ 	guc_lrcd_reg_fini(guc);
+ 
+ 	for (i = 0; i < GUC_SUBMIT_ENGINE_MAX; ++i) {
+@@ -2326,11 +2337,29 @@ static void guc_context_sched_disable(struct intel_context *ce)
+ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
+ {
+ 	struct intel_guc *guc = ce_to_guc(ce);
++	struct intel_gt *gt = guc_to_gt(guc);
++	unsigned long flags;
++	bool disabled;
+ 
++	GEM_BUG_ON(!intel_gt_pm_is_awake(gt));
+ 	GEM_BUG_ON(!lrc_desc_registered(guc, ce->guc_id));
+ 	GEM_BUG_ON(ce != __get_context(guc, ce->guc_id));
+ 	GEM_BUG_ON(context_enabled(ce));
+ 
++	/* Seal race with Reset */
++	spin_lock_irqsave(&ce->guc_state.lock, flags);
++	disabled = submission_disabled(guc);
++	if (likely(!disabled)) {
++		__intel_gt_pm_get(gt);
++		set_context_destroyed(ce);
++	}
++	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++	if (unlikely(disabled)) {
++		release_guc_id(guc, ce);
++		__guc_context_destroy(ce);
++		return;
++	}
++
+ 	clr_context_registered(ce);
+ 	deregister_context(ce, ce->guc_id, true);
+ }
+@@ -2359,12 +2388,51 @@ static void __guc_context_destroy(struct intel_context *ce)
+ 	}
+ }
+ 
++static void guc_flush_destroyed_contexts(struct intel_guc *guc)
++{
++	struct intel_context *ce, *cn;
++	unsigned long flags;
++	spin_lock_irqsave(&guc->destroy_lock, flags);
++	list_for_each_entry_safe(ce, cn,
++				 &guc->destroyed_contexts, guc_id_link) {
++		list_del_init(&ce->guc_id_link);
++		release_guc_id(guc, ce);
++		__guc_context_destroy(ce);
++	}
++	spin_unlock_irqrestore(&guc->destroy_lock, flags);
++}
++
++static void deregister_destroyed_contexts(struct intel_guc *guc)
++{
++	struct intel_context *ce, *cn;
++	unsigned long flags;
++
++	spin_lock_irqsave(&guc->destroy_lock, flags);
++	list_for_each_entry_safe(ce, cn,
++				 &guc->destroyed_contexts, guc_id_link) {
++		list_del_init(&ce->guc_id_link);
++		spin_unlock_irqrestore(&guc->destroy_lock, flags);
++		guc_lrc_desc_unpin(ce);
++		spin_lock_irqsave(&guc->destroy_lock, flags);
++	}
++	spin_unlock_irqrestore(&guc->destroy_lock, flags);
++}
++
++static void destroy_worker_func(struct work_struct *w)
++{
++	struct intel_guc *guc =
++		container_of(w, struct intel_guc, destroy_worker);
++	struct intel_gt *gt = guc_to_gt(guc);
++	int tmp;
++
++	with_intel_gt_pm(gt, tmp)
++		deregister_destroyed_contexts(guc);
++}
++
+ static void guc_context_destroy(struct kref *kref)
+ {
+ 	struct intel_context *ce = container_of(kref, typeof(*ce), ref);
+-	struct intel_runtime_pm *runtime_pm = ce->engine->uncore->rpm;
+ 	struct intel_guc *guc = ce_to_guc(ce);
+-	intel_wakeref_t wakeref;
+ 	unsigned long flags;
+ 	bool disabled;
+ 
+@@ -2404,12 +2472,12 @@ static void guc_context_destroy(struct kref *kref)
+ 		list_del_init(&ce->guc_id_link);
+ 	spin_unlock_irqrestore(&guc->contexts_lock, flags);
+ 
+-	/* Seal race with Reset */
+-	spin_lock_irqsave(&ce->guc_state.lock, flags);
++	/* Seal race with reset */
++	spin_lock_irqsave(&guc->destroy_lock, flags);
+ 	disabled = submission_disabled(guc);
+ 	if (likely(!disabled))
+-		set_context_destroyed(ce);
+-	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++		list_add_tail(&ce->guc_id_link, &guc->destroyed_contexts);
++	spin_unlock_irqrestore(&guc->destroy_lock, flags);
+ 	if (unlikely(disabled)) {
+ 		release_guc_id(guc, ce);
+ 		__guc_context_destroy(ce);
+@@ -2417,20 +2485,11 @@ static void guc_context_destroy(struct kref *kref)
+ 	}
+ 
+ 	/*
+-	 * We defer GuC context deregistration until the context is destroyed
+-	 * in order to save on CTBs. With this optimization ideally we only need
+-	 * 1 CTB to register the context during the first pin and 1 CTB to
+-	 * deregister the context when the context is destroyed. Without this
+-	 * optimization, a CTB would be needed every pin & unpin.
+-	 *
+-	 * XXX: Need to acqiure the runtime wakeref as this can be triggered
+-	 * from context_free_worker when runtime wakeref is not held.
+-	 * guc_lrc_desc_unpin requires the runtime as a GuC register is written
+-	 * in H2G CTB to deregister the context. A future patch may defer this
+-	 * H2G CTB if the runtime wakeref is zero.
++	 * We use a worker to issue the H2G to deregister the context as we can
++	 * take the GT PM for the first time which isn't allowed from an atomic
++	 * context.
+ 	 */
+-	with_intel_runtime_pm(runtime_pm, wakeref)
+-		guc_lrc_desc_unpin(ce);
++	queue_work(system_unbound_wq, &guc->destroy_worker);
+ }
+ 
+ static int guc_context_alloc(struct intel_context *ce)
+@@ -3441,6 +3500,7 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
+ 		intel_context_put(ce);
+ 	} else if (context_destroyed(ce)) {
+ 		/* Context has been destroyed */
++		intel_gt_pm_put_async(guc_to_gt(guc));
+ 		release_guc_id(guc, ce);
+ 		__guc_context_destroy(ce);
+ 	}
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
