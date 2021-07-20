@@ -7,49 +7,49 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47D08C07E95
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C45B1C636C8
 	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 17:43:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 150CC60232
+	by mail.kernel.org (Postfix) with ESMTPS id 95AE660232
 	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 17:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 150CC60232
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95AE660232
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 065ED6E4D7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8214E6E525;
 	Tue, 20 Jul 2021 17:43:11 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2047.outbound.protection.outlook.com [40.107.94.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54AB06E4E8;
- Tue, 20 Jul 2021 17:43:08 +0000 (UTC)
+ (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97FA96E51B;
+ Tue, 20 Jul 2021 17:43:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dOot55sPUp9de/iPPxLhd0Jw/7RjBYYusHYytQoNoxArojD1pt91DtP46lZVFrUrZaTQmqE3S3oNxvtJUG8jBJ7bqF+bHENBhaJ1lrNb/zj6YgOAhoxjk3ads0EdxrIiKHPrY1fCmOTvFLhaBPw9z8n2G4RFMuUhNGZl7b65NNuPNQLbz/NUiAwWMO1NgMVBgQj4HEWm8tiV44LaGAB4bCAzERf8Lu51E0YkGwOFFFTAi3fKw98sfPSDyQfHvWD7Da5qYr54TVYJ58ijOqbCYyWUjRlcwwdPyw2zwpEEHKdPUtxvcej5YRYFRAyvasuRPulGSda8M97cbGSXg52nqw==
+ b=AQpBVhgIibZwQoD3n6UWz11+XfYkL+4X9u5eswEC/o/soj1yKIgJhqEmsZfNUIQs3Y1QEZEnw3CiTPiVymRkTkM3dD7gVyRVCEzDOlkrPGAhEjy4gRD28a/aTYCIEJO9cRrOsXEFS1ScpCAiMgXd9J8+F6aUU2DCFSpyR9a3j6MlMvZ3JrxD/88HvXFkRKJx8UObWQfiK58c+BYL11yOrunzbA/J4VYX22Sg8DgdgFRf43RSR7d0yGQ/RtB2aiUvFKNiqQD/5yoqKcB+Mm7bfpdTdV9SLOMEco499swOPJ5GjlGEntE5MhH6JExOXU1MRpAEsbzw1nHWGR7UZ4KpDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t0lNkTQD1vanlR/Ltc7GgcGK4VYeDxLnG7YEUFQ6P7I=;
- b=Tnt/YNe9YGyTYoYoImoo1vus+zWTdEPSygIoVnW5u53OEMpPLzeWFpW73kEdPopY49sN3eXxuio1r8r/RoxFonk09pbSG3uy+VYYm4iUrEUtrlbMOruU/sStQb3pW4Fa+K/0SMfTdqz05Evo5iA98AKTVMfb0vV3h4nNuq5eiBkuZWAEBQsb4fSI4T1+jXah+g8kP7aCZWlhidUhT7PX/g6QRf40Jt7piajQADVK1PhpU1QFto2GfB3UuxmwEe2vKOuxYeOYvk60NzXSO2j1EbWBx4eX/PlG6IhuuVJ6cwex6h6z+D0UFI5ebnFM5M85sQ+JqCxr8971WmmsSulV0g==
+ bh=FLzSCfm46aaxgunSwJCbcPbWiLquGUluYNQWWJ5J2ns=;
+ b=StWi9m5kaRwKr0q+I2p2FpLT3IlCxv9UynHdbM/IA/i2AlM0KoMgobPDDTmX4gyqfhAsJHRjjXIccTroA+Q+bBaP64T5cx25bVLfraL4AXSrM3P5ZsurknIBlzx3qcOJCfynOSCOuv3PQi8OM5Pa2H1ERKtEzp8LM65fJx+LPdkuYi88OT42gcudxkB/ZFnlOHqYFgG71XzVpAAMo7sJVlyJfMVdiJ+JvNJ4L/lE38hcGLZoQY/HX8PQlzB9VyRt1RcfQ5DwMIB6uhJEttyzQWwZnMwX//rtFxS5YzA1fpgfVO54ljbHgdC8i1fHKYYw4t5qiwAu8pWVtWGpxbZmlg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t0lNkTQD1vanlR/Ltc7GgcGK4VYeDxLnG7YEUFQ6P7I=;
- b=Drjt+NWC7uSB1ZJJd9rrbnXP4r9iFUy8mUSVbOPysxmMGcGUKix7DuXXdc/x7Dpab8ydHa7g+WXCksm+s/huQyaDD77aU4ncH7jJS1qh6WDC0aTGw8uXuphUYAKCpbBrviCa3+zL54NrsyTxgEbEcMAS8fgLQjR8VJ0AHz8LibQQ5xvb75VbnyviJHMl3a31p0SPe+mKiAehBGh67d3rC2E2aJgQb7K4O0zbGn83eoWKL6QfG/roNcTRFSNaJxPZNOOibt5snB77T4ZdRiI0eJ25zl3si5JBpGlPtDDX2IDfkLrDaQ+U7imETXYwa9Q/qwwk2v3Faf4RooCU19OJzg==
+ bh=FLzSCfm46aaxgunSwJCbcPbWiLquGUluYNQWWJ5J2ns=;
+ b=L6vfJjoMn6cOrH0c+ljatMcGy+B8qmfWl7Jn8rxBDofioPO365hUh5oreWqFP2L9zgUTBtQSqqC5ExPnyGc1fjbZfh3ZYAE/BsZta/aOdofgIiC6yLn+yHxzzYjoNp1DX/b5LwkbxkPpqIVCmBusSv5V3NA/yFV2SGtL82nqyir8LOaYVJ3HX/PO30jDnyE4c0/FNmis22I0yYCB8ai7jmJ4Uyi7tc/jW7sLwbojLOmNqKM2ybJhjtEu8kzW0W31O1ebV+DtUfODpjahatyRCLCavn2Z2u39G76jXQSeAv3LIEDyOPtjYPkwI9fmkSnIbrsSptn6kLRvMs6EARsgkw==
 Authentication-Results: linux.ie; dkim=none (message not signed)
  header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
  by BL1PR12MB5288.namprd12.prod.outlook.com (2603:10b6:208:314::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Tue, 20 Jul
- 2021 17:43:06 +0000
+ 2021 17:43:08 +0000
 Received: from BL0PR12MB5506.namprd12.prod.outlook.com
  ([fe80::d017:af2f:7049:5482]) by BL0PR12MB5506.namprd12.prod.outlook.com
  ([fe80::d017:af2f:7049:5482%5]) with mapi id 15.20.4331.034; Tue, 20 Jul 2021
- 17:43:06 +0000
+ 17:43:08 +0000
 From: Jason Gunthorpe <jgg@nvidia.com>
 To: David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
  Alex Williamson <alex.williamson@redhat.com>,
@@ -69,71 +69,72 @@ To: David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
  Peter Oberparleiter <oberpar@linux.ibm.com>,
  Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Vineeth Vijayan <vneethv@linux.ibm.com>, Zhi Wang <zhi.a.wang@intel.com>
-Date: Tue, 20 Jul 2021 14:42:55 -0300
-Message-Id: <9-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
+Date: Tue, 20 Jul 2021 14:42:59 -0300
+Message-Id: <13-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
 In-Reply-To: <0-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
 References: 
-X-ClientProxiedBy: MN2PR02CA0016.namprd02.prod.outlook.com
- (2603:10b6:208:fc::29) To BL0PR12MB5506.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN2PR22CA0018.namprd22.prod.outlook.com
+ (2603:10b6:208:238::23) To BL0PR12MB5506.namprd12.prod.outlook.com
  (2603:10b6:208:1cb::22)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from mlx.ziepe.ca (142.162.113.129) by
- MN2PR02CA0016.namprd02.prod.outlook.com (2603:10b6:208:fc::29) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4331.21 via Frontend Transport; Tue, 20 Jul 2021 17:43:03 +0000
+ MN2PR22CA0018.namprd22.prod.outlook.com (2603:10b6:208:238::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21 via Frontend
+ Transport; Tue, 20 Jul 2021 17:43:05 +0000
 Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1m5tll-0051F4-Ik; Tue, 20 Jul 2021 14:43:01 -0300
+ <jgg@nvidia.com>)	id 1m5tll-0051FK-RM; Tue, 20 Jul 2021 14:43:01 -0300
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2f3a4786-216b-4341-b370-08d94ba5d37d
+X-MS-Office365-Filtering-Correlation-Id: 67c687d2-942a-44f2-5871-08d94ba5d41f
 X-MS-TrafficTypeDiagnostic: BL1PR12MB5288:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5288131FC677A37180A5A3B3C2E29@BL1PR12MB5288.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5288BB8E340C81C8EAF4D69BC2E29@BL1PR12MB5288.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:608;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: oCayBSaOlurHVP3RgZL2gg9gqdn1a6Xi0XukFsjtZGVzGHx3N+5TvdKz9cfT6iUTPBnGqtvgU587od6/hIqLOh1DKWZ9zIy40w71aF4Ph86U0caXlyGBBhecGeYM7eFqUFLP+rFVF1NzV4wv3EAXT7LqEbnpv7ALuDprcUwp/wlyyd8ojsiaz0xXVga1or5ORCRN0wyqgG17rJXXLrDXcK+w+PcYiGeS9sVZkvR2toZpjYNMIlyAuJtGgvvWk4habyMr6pFXyyWSBs/WDQ7lCxHWdVjVI7hnYWsBiBGsdA5Wo+ra1NZCerMzN9LpzmN6E4rUSrajpQrnZlrLrCZ40VkYUVWiiawvQ/mSuq/ppJjsMH4l0GJe+EJU4oG/vXiI34xMRkekUYqTrh42XXEQHRio+XTNq5XAnM2S5JpMy6dpjlE0oWyC5Vvn5Obo3QQhn1namQ6UHMd/0FFrqgZJBNKNTjFdHPI+kEqpVt1rm+DFeW6uigw3s1oYU1SzNtEQJn/+LgbH3m3VNx62TXQSynVbOTuvbcOKhwADpx3zepg0i3bFxA3IdtiKqoroQm2+Fhzih2S5SrHY1b7EsPVgK91dSMDJJWIfFRcPDRhPuD/SJWlxO719JUHNcrWvWoVlQbRzNdO22IKY2XZSRC+j4/XMZp5/os7t5tf1teWW6pgfB3bN4ZHb9w7DM05O9uniZav7iUCyIXh56gMeRHeixQ==
+X-Microsoft-Antispam-Message-Info: gSLqAvw+eXdB4K3t0+CEBOci/yS2fx0eeu6QL1IPVjbTgRiVr6uZ93czxG6Ta+PLLXOjCPpM1QSgnqbhRE6pWSWwGW3xIDUgTchdwtMrSEcSyG2hyLW5AdWtiubW4Yv5gsmii/g0hnurn+/HhCXNtUobs6v3RW/PP28Mb3EnI/fnVU+76R23fU4kmb1Lamq+CCZQHXPLpQYfjSKak5ETClFUdlFJIkZjDkUgl+/cJHw0uHfjbstfJ+nr4ngRIuFyWZhPZf2x6hkKZos5f0u183YVH2pI61o6LWaHEdjmQ4Sq7apmIIIWtNmRuxWcs5qIxptpYv/pKOhdz9SE1VUnjW2ES3Iv6yAzlgTht8c9pbDIp9DGEum+BCaGxY7/pqNNhSQMDMcIjqedonNXApicRyGf3Da9oZEln8lxHUiFaMoafYa27jCDanrod/+2pYB7YccaQjpVfP17EfPpxyHDA3D2aUKFIde56wzWf4ragh0gxqN4Y3RBeywLlx0cmCoy5mabqwjRkZp4fifSD1F4/Wd7l2WnCdCcRwZvt/yyEcS0iI/mT2V220JFUvtrTAeKffLSseMjsFHzmWCtyMAT9BZ3A/YieRdPPncg2CCFevawcUX6eltXJEGxsHCWy0t9bcbDW3OSB7bM1GWaLMlfriSR03xHrQQ5xYQd1dbsQFYVeLxslN5yJgu9UvKVI6hg
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(376002)(366004)(39860400002)(346002)(6666004)(66946007)(7416002)(7406005)(86362001)(2906002)(66476007)(54906003)(38100700002)(83380400001)(8936002)(316002)(110136005)(478600001)(36756003)(66556008)(186003)(26005)(5660300002)(8676002)(921005)(9786002)(9746002)(4326008)(426003)(2616005)(4216001);
+ SFS:(4636009)(396003)(136003)(376002)(366004)(39860400002)(346002)(66946007)(7416002)(7406005)(86362001)(2906002)(66476007)(54906003)(38100700002)(83380400001)(8936002)(316002)(110136005)(478600001)(36756003)(66556008)(186003)(26005)(5660300002)(8676002)(921005)(9786002)(9746002)(4326008)(426003)(2616005);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Uqsy6FaEsJykhpYzcxCmCpFT8zmxqiIXqUlH4SqP9k3YYrmnSNyBz9Swb3PP?=
- =?us-ascii?Q?Dx8JJnEbsceSuL0ghnMpSfu1ZxgT3AgYw98tGlvyHk+TUqYikkCqHQErpbx0?=
- =?us-ascii?Q?xxAtIM+GU7Fat5jSu+tOya+gGIXKIuvbA+HmbxZwBk7piyoOc9QrBGek8bJb?=
- =?us-ascii?Q?4hfYECNx4IShHhdbCobJP9GjwWUJO1PeTHQ8jrlMi9gpHjGI5IouZHyl9qBa?=
- =?us-ascii?Q?mxbLz/bLeEllPEgj0AMRxyAI/PV66JTRfgOlQpc8P82Os69mOGEsyD1/wqwv?=
- =?us-ascii?Q?Hm3S81owXZ2MVpXEHcZvL4nHQfB16HhDQFVO4ZlUdeOQrjmMcCHsDskeCtSR?=
- =?us-ascii?Q?NVa3oGJw9ucNDQdQIR3k+EiOYj78BwOJ/Z6H3wQsyivIYcZzwGo71ho3QRxa?=
- =?us-ascii?Q?dJZFfklLZh8Fzyqr2y2uC2t35QyYoMSEft6JjlbH4DcPcNdmEuIwNrvVJSQH?=
- =?us-ascii?Q?S+gZi6jhiudvl5trhSVdjw32vVqhAox4gmwA5crXuwBtZOQX2/ZKkeQY23oD?=
- =?us-ascii?Q?IbWt1eUPK1hv7Q6QyrjbIzGmh5mZU3+nvHGg8WlqJWF3HRLf115IiaauukO5?=
- =?us-ascii?Q?Vxto8raByUqfhk9tFsv2fJx1j9rZDn2SD1CNI1GkOgu4QgKXBP7CA8vMUx4t?=
- =?us-ascii?Q?DrS7K3v0wkPxnrlt6w4KWlbjMBuR5eSQ3PBHYrMNZM7AP4KddrO+ax5AoyPm?=
- =?us-ascii?Q?2l6forjaQX7hPVnCk+pEYS/PS/ANlNm7g3p7ktQS24ACjFKPqr+JDNRKbXW7?=
- =?us-ascii?Q?vloqeTrhrIMeqffP+JVSM44iKSkz8X7+ZdXTAT66tp9+nfJoG/FAr1EofZ12?=
- =?us-ascii?Q?Ooi3Eov4fsLsNOeCFz0KmGVlAuq1WNFKPRlVcLRy2yS0z82kjKnrinDOlbBc?=
- =?us-ascii?Q?b4Xs3gCAr1MnoE92kTdVR0SnM4RagtyKfCquJDsMFu+HE7E4jQKY4yCoWPjf?=
- =?us-ascii?Q?EXvXz0/x2xNixJB/+WE/NdhSzbCYpYoSkwigUkbc3Ti04ezsl4a4ig2J5B0d?=
- =?us-ascii?Q?FBAkqveiKDnsrtBdmOTMBaItTzokgEdaohSopdve1hHqhCekh0RQzBupwlO9?=
- =?us-ascii?Q?yD9nwQzCJzBtT+HmJFfywnJWuPGPRcmiGSxBofZmJisCw9N37stz0h7fboPi?=
- =?us-ascii?Q?fYdEOEqB9SlwkhNiWXxZq5xO0OGHAM8BQsUd/Z6L23LbRNOPKiveQzrdWWOu?=
- =?us-ascii?Q?o8Trp4LeTl4OuiVjLO/ikXapTGaknxS0I6j9kobhPNJjTga1S1x0Y//Ff72t?=
- =?us-ascii?Q?kjkIpJ/d3xRJIV0Js7PGG2wA8qQ6MMdzdxP91AtQ1Qk/XElqGmuX5s7XPfKw?=
- =?us-ascii?Q?clvkAt7Tj47D0Y2GSVH2OH+C?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VKf24NszFTp6+mvWF1sC1lgvCA2bK6drIHPPgHcTSijz0Zn/3La0iSMtdK9I?=
+ =?us-ascii?Q?vyktlSpfoHHKuWBj+dpuM6RtmqjIhe8lAKaDcfyhESdWfabrgUIWbb38/WFc?=
+ =?us-ascii?Q?xaZGaqGcRbh0U60X2lWmRj1RXycUmTmCvH2yG0cKkq9x+vLrIY1daZkfrIed?=
+ =?us-ascii?Q?6AJAShjx124vlGFE9Eujkf1yCl2X0gbrqchW2FLpgJDmWuon0vQieB5sD7UD?=
+ =?us-ascii?Q?5/bChbrm4T00Y5+nCEnmGvT88FTGF9mwI/ev9V4sKfJ1RyQkR2AFQoaIZlow?=
+ =?us-ascii?Q?OL+sGCnQFht+vjBSkflPxLiBIg5ZJQbZ1d7auRHe4cbndOn8/5Xm9L1eiPjY?=
+ =?us-ascii?Q?H3wn4p2AAAEtb6Z1snBofq0KJTTEHZbgn94g1YAKRkcsE4UKIaLuA6Am5hc/?=
+ =?us-ascii?Q?vUF9JZCDdvAju8hjdmRKnPPurI6DPrfSW1gBz3XkGZcGUg4kHXHNJS8jKWcp?=
+ =?us-ascii?Q?gpJmlplswWlMAuFfIDbBJvJYTaNSY33pNgGyT/Eq64draerasqpMM0s50dkv?=
+ =?us-ascii?Q?fCZmzeO7sv5O0mbd0hP7MVBSumVkPn4atpC1y3nuU0a8HZAAWCtAniMnzkxc?=
+ =?us-ascii?Q?9p/eZ3TJs4jmahWlm4jnaJzbEB0Tln2hA20QhvH01rIabV5pPYlDg2r/CuyX?=
+ =?us-ascii?Q?LfuT5A0TaJcSh7L2+qf26W1Cws35kqW2kKXb/mAzpZk2sHKxzKNsFaJF4/D9?=
+ =?us-ascii?Q?+/lA9IhC4qqd8S2xxdia7byUE4KWf2YxXs8bctSKHhldbpRSumTvJFkAmuos?=
+ =?us-ascii?Q?LPG3RpnjyrUQ7c4HCpgdmmf8ByYAx/Jyew04tbp8nOGkyTGf0BHnK346tIkn?=
+ =?us-ascii?Q?zmN5KpVodx7KciTxfBHEAI+3yMkfEWZjrSRPYvt0odgrUnpVe9s1Lrwbdoem?=
+ =?us-ascii?Q?B6gYTg4wjhwf6gTeGc050LSEGtlBVOOz/V18OZenm9s5Zt75qEK50pyexal2?=
+ =?us-ascii?Q?UY2ED6tkOZ1wPnCj3aPJaQ2i5pEe8jnhL8Pczu3WrzpaUQldHXZUHtPsGFCb?=
+ =?us-ascii?Q?cB8/0NqjFSHIeObRbN6CBiF0kVTzpPDnGVF5xtoFomkVFdPVRJpZqjUKgeFL?=
+ =?us-ascii?Q?oY6uMnODqYb3JCeasAfr5X09AS3Bya32bJk2b2drQLwYXvvgI7QRIBt6VKH/?=
+ =?us-ascii?Q?xHfJj7FBi6eAmDWNSm4Tevoa4+WocWdUY3MeTtWhiZX1YGWaxhD3PzdWW/a3?=
+ =?us-ascii?Q?nld7e46b3XczraW5Q0n5wDSdytY7ST39B64MWCwpJ7h1dU2dqz5lMcZcbryX?=
+ =?us-ascii?Q?hkFrp4XBYvwcwFJDffAwpbKm8mBSt+9eZhPirmDWp7ms4E1dk38/gyocAayZ?=
+ =?us-ascii?Q?LlrC3rNovEwk+7EH7vw3ej6k?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f3a4786-216b-4341-b370-08d94ba5d37d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67c687d2-942a-44f2-5871-08d94ba5d41f
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 17:43:04.1753 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 17:43:05.2018 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1AoQE9gnktv0XmkWJQE5KwvwBvNW87dL8JTxLbKsFSZVpd1PyH1WxoIZwjw/6jxG
+X-MS-Exchange-CrossTenant-UserPrincipalName: NdoOL+styLJQNHiZRvJ/2E5F0H2zJ6PacZgh+X0uYh/zg58WGcAwAIbTASMOlfrR
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5288
-Subject: [Intel-gfx] [PATCH v2 09/14] vfio/pci: Change
- vfio_pci_try_bus_reset() to use the dev_set
+Subject: [Intel-gfx] [PATCH v2 13/14] vfio/gvt: Fix open/close when multiple
+ device FDs are open
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,242 +155,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Keep track of all the vfio_devices that have been added to the device set
-and use this list in vfio_pci_try_bus_reset() instead of trying to work
-backwards from the pci_device.
+The user can open multiple device FDs if it likes, however the open
+function calls vfio_register_notifier() on device global state. Calling
+vfio_register_notifier() twice will trigger a WARN_ON from
+notifier_chain_register() and the first close will wrongly delete the
+notifier and more.
 
-The dev_set->lock directly prevents devices from joining/leaving the set,
-which further implies the pci_device cannot change drivers or that the
-vfio_device be freed, eliminating the need for get/put's.
+Since these really want the new open/close_device() semantics just change
+the function over.
 
-Completeness of the device set can be directly measured by checking if
-every PCI device in the reset group is also in the device set - which
-proves that VFIO drivers are attached to everything.
-
-This restructuring corrects a call to pci_dev_driver() without holding the
-device_lock() and removes a hard wiring to &vfio_pci_driver.
-
+Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+Reviewed-by: Cornelia Huck <cohuck@redhat.com>
 Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/vfio/pci/vfio_pci.c | 110 ++++++++++++++----------------------
- drivers/vfio/vfio.c         |  10 ++++
- include/linux/vfio.h        |   2 +
- 3 files changed, 53 insertions(+), 69 deletions(-)
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci.c b/drivers/vfio/pci/vfio_pci.c
-index 22774e447b5f4a..fbc20f6d2dd412 100644
---- a/drivers/vfio/pci/vfio_pci.c
-+++ b/drivers/vfio/pci/vfio_pci.c
-@@ -404,6 +404,9 @@ static void vfio_pci_disable(struct vfio_pci_device *vdev)
- 	struct vfio_pci_ioeventfd *ioeventfd, *ioeventfd_tmp;
- 	int i, bar;
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index 1ac98f8aba31e6..7efa386449d104 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -885,7 +885,7 @@ static int intel_vgpu_group_notifier(struct notifier_block *nb,
+ 	return NOTIFY_OK;
+ }
  
-+	/* For needs_reset */
-+	lockdep_assert_held(&vdev->vdev.dev_set->lock);
-+
- 	/* Stop the device from further DMA */
- 	pci_clear_master(pdev);
- 
-@@ -2139,34 +2142,17 @@ static struct pci_driver vfio_pci_driver = {
- 	.err_handler		= &vfio_err_handlers,
- };
- 
--static int vfio_pci_get_unused_devs(struct pci_dev *pdev, void *data)
-+static int vfio_pci_check_all_devices_bound(struct pci_dev *pdev, void *data)
+-static int intel_vgpu_open(struct mdev_device *mdev)
++static int intel_vgpu_open_device(struct mdev_device *mdev)
  {
--	struct vfio_devices *devs = data;
--	struct vfio_device *device;
--	struct vfio_pci_device *vdev;
--
--	if (devs->cur_index == devs->max_index)
--		return -ENOSPC;
-+	struct vfio_device_set *dev_set = data;
-+	struct vfio_device *cur;
- 
--	device = vfio_device_get_from_dev(&pdev->dev);
--	if (!device)
--		return -EINVAL;
--
--	if (pci_dev_driver(pdev) != &vfio_pci_driver) {
--		vfio_device_put(device);
--		return -EBUSY;
--	}
--
--	vdev = container_of(device, struct vfio_pci_device, vdev);
--
--	/* Fault if the device is not unused */
--	if (device->open_count) {
--		vfio_device_put(device);
--		return -EBUSY;
--	}
-+	lockdep_assert_held(&dev_set->lock);
- 
--	devs->devices[devs->cur_index++] = vdev;
--	return 0;
-+	list_for_each_entry(cur, &dev_set->device_list, dev_set_list)
-+		if (cur->dev == &pdev->dev)
-+			return 0;
-+	return -EBUSY;
+ 	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
+ 	struct kvmgt_vdev *vdev = kvmgt_vdev(vgpu);
+@@ -1004,7 +1004,7 @@ static void __intel_vgpu_release(struct intel_vgpu *vgpu)
+ 	vgpu->handle = 0;
  }
  
- static int vfio_pci_try_zap_and_vma_lock_cb(struct pci_dev *pdev, void *data)
-@@ -2210,8 +2196,7 @@ static int vfio_pci_try_zap_and_vma_lock_cb(struct pci_dev *pdev, void *data)
-  *    needs_reset (such as by lack of FLR support)
-  * Then attempt to perform that bus or slot reset.  Callers are required
-  * to hold vdev->dev_set->lock, protecting the bus/slot reset group from
-- * concurrent opens.  A vfio_device reference is acquired for each device
-- * to prevent unbinds during the reset operation.
-+ * concurrent opens.
-  *
-  * NB: vfio-core considers a group to be viable even if some devices are
-  * bound to drivers like pci-stub or pcieport.  Here we require all devices
-@@ -2220,61 +2205,48 @@ static int vfio_pci_try_zap_and_vma_lock_cb(struct pci_dev *pdev, void *data)
-  */
- static void vfio_pci_try_bus_reset(struct vfio_pci_device *vdev)
+-static void intel_vgpu_release(struct mdev_device *mdev)
++static void intel_vgpu_close_device(struct mdev_device *mdev)
  {
--	struct vfio_devices devs = { .cur_index = 0 };
--	int i = 0, ret = -EINVAL;
--	bool slot = false;
--	struct vfio_pci_device *tmp;
--
--	if (!pci_probe_reset_slot(vdev->pdev->slot))
--		slot = true;
--	else if (pci_probe_reset_bus(vdev->pdev->bus))
--		return;
-+	struct vfio_device_set *dev_set = vdev->vdev.dev_set;
-+	struct vfio_pci_device *to_reset = NULL;
-+	struct vfio_pci_device *cur;
-+	int ret;
+ 	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
  
--	if (vfio_pci_for_each_slot_or_bus(vdev->pdev, vfio_pci_count_devs,
--					  &i, slot) || !i)
-+	if (pci_probe_reset_slot(vdev->pdev->slot) &&
-+	    pci_probe_reset_bus(vdev->pdev->bus))
- 		return;
+@@ -1753,8 +1753,8 @@ static struct mdev_parent_ops intel_vgpu_ops = {
+ 	.create			= intel_vgpu_create,
+ 	.remove			= intel_vgpu_remove,
  
--	devs.max_index = i;
--	devs.devices = kcalloc(i, sizeof(struct vfio_device *), GFP_KERNEL);
--	if (!devs.devices)
--		return;
-+	lockdep_assert_held(&vdev->vdev.dev_set->lock);
+-	.open			= intel_vgpu_open,
+-	.release		= intel_vgpu_release,
++	.open_device		= intel_vgpu_open_device,
++	.close_device		= intel_vgpu_close_device,
  
--	if (vfio_pci_for_each_slot_or_bus(vdev->pdev,
--					  vfio_pci_get_unused_devs,
--					  &devs, slot))
--		goto put_devs;
-+	/* All VFIO devices have a closed FD */
-+	list_for_each_entry(cur, &dev_set->device_list, vdev.dev_set_list)
-+		if (cur->vdev.open_count)
-+			return;
-+
-+	/* All devices in the group to be reset need VFIO devices */
-+	if (vfio_pci_for_each_slot_or_bus(
-+		    vdev->pdev, vfio_pci_check_all_devices_bound, dev_set,
-+		    !pci_probe_reset_slot(vdev->pdev->slot)))
-+		return;
- 
- 	/* Does at least one need a reset? */
--	for (i = 0; i < devs.cur_index; i++) {
--		tmp = devs.devices[i];
--		if (tmp->needs_reset) {
--			ret = pci_reset_bus(vdev->pdev);
-+	list_for_each_entry(cur, &dev_set->device_list, vdev.dev_set_list) {
-+		if (cur->needs_reset) {
-+			to_reset = cur;
- 			break;
- 		}
- 	}
-+	if (!to_reset)
-+		return;
- 
--put_devs:
--	for (i = 0; i < devs.cur_index; i++) {
--		tmp = devs.devices[i];
--
--		/*
--		 * If reset was successful, affected devices no longer need
--		 * a reset and we should return all the collateral devices
--		 * to low power.  If not successful, we either didn't reset
--		 * the bus or timed out waiting for it, so let's not touch
--		 * the power state.
--		 */
--		if (!ret) {
--			tmp->needs_reset = false;
-+	ret = pci_reset_bus(to_reset->pdev);
-+	if (ret)
-+		return;
- 
--			if (tmp != vdev && !disable_idle_d3)
--				vfio_pci_set_power_state(tmp, PCI_D3hot);
--		}
-+	list_for_each_entry(cur, &dev_set->device_list, vdev.dev_set_list) {
-+		cur->needs_reset = false;
- 
--		vfio_device_put(&tmp->vdev);
-+		if (cur != to_reset && !disable_idle_d3)
-+			vfio_pci_set_power_state(cur, PCI_D3hot);
- 	}
--
--	kfree(devs.devices);
- }
- 
- static void __exit vfio_pci_cleanup(void)
-diff --git a/drivers/vfio/vfio.c b/drivers/vfio/vfio.c
-index 8572d943320214..7e352d68b1b01d 100644
---- a/drivers/vfio/vfio.c
-+++ b/drivers/vfio/vfio.c
-@@ -129,7 +129,12 @@ int vfio_assign_device_set(struct vfio_device *device, void *set_id)
- 	if (dev_set) {
- 		dev_set->device_count++;
- 		xa_unlock(&vfio_device_set_xa);
-+
-+		mutex_lock(&dev_set->lock);
- 		device->dev_set = dev_set;
-+		list_add_tail(&device->dev_set_list, &dev_set->device_list);
-+		mutex_unlock(&dev_set->lock);
-+
- 		if (dev_set != alloc_dev_set)
- 			kfree(alloc_dev_set);
- 		return 0;
-@@ -143,6 +148,7 @@ int vfio_assign_device_set(struct vfio_device *device, void *set_id)
- 	if (!alloc_dev_set)
- 		return -ENOMEM;
- 	mutex_init(&alloc_dev_set->lock);
-+	INIT_LIST_HEAD(&alloc_dev_set->device_list);
- 	alloc_dev_set->set_id = set_id;
- 	goto again;
- }
-@@ -155,6 +161,10 @@ static void vfio_release_device_set(struct vfio_device *device)
- 	if (!dev_set)
- 		return;
- 
-+	mutex_lock(&dev_set->lock);
-+	list_del(&device->dev_set_list);
-+	mutex_unlock(&dev_set->lock);
-+
- 	xa_lock(&vfio_device_set_xa);
- 	dev_set->device_count--;
- 	if (!dev_set->device_count) {
-diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-index 128b4db00adc57..f0e6a72875e471 100644
---- a/include/linux/vfio.h
-+++ b/include/linux/vfio.h
-@@ -23,6 +23,7 @@
- struct vfio_device_set {
- 	void *set_id;
- 	struct mutex lock;
-+	struct list_head device_list;
- 	unsigned int device_count;
- };
- 
-@@ -31,6 +32,7 @@ struct vfio_device {
- 	const struct vfio_device_ops *ops;
- 	struct vfio_group *group;
- 	struct vfio_device_set *dev_set;
-+	struct list_head dev_set_list;
- 
- 	/* Members below here are private, not for driver use */
- 	refcount_t refcount;
+ 	.read			= intel_vgpu_read,
+ 	.write			= intel_vgpu_write,
 -- 
 2.32.0
 
