@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0241C636C9
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DB38C6377A
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B2F0260FF3
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2F0260FF3
+	by mail.kernel.org (Postfix) with ESMTPS id 1AF5260FF3
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1AF5260FF3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F37256E51D;
-	Tue, 20 Jul 2021 20:40:40 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFE556E530;
- Tue, 20 Jul 2021 20:40:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="190909014"
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="190909014"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC7E26E598;
+	Tue, 20 Jul 2021 20:40:46 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB5626E516;
+ Tue, 20 Jul 2021 20:40:17 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="296885372"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="296885372"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jul 2021 13:40:17 -0700
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906089"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906077"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jul 2021 13:40:16 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 20 Jul 2021 13:57:50 -0700
-Message-Id: <20210720205802.39610-31-matthew.brost@intel.com>
+Date: Tue, 20 Jul 2021 13:57:39 -0700
+Message-Id: <20210720205802.39610-20-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210720205802.39610-1-matthew.brost@intel.com>
 References: <20210720205802.39610-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 30/42] i915/drm: Move secure execbuf check
- to execbuf2
+Subject: [Intel-gfx] [RFC PATCH 19/42] drm/i915/guc: Ensure GuC schedule
+ operations do not operate on child contexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,81 +60,131 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Goal is to remove all input sanity checks from the core submission.
+In GuC parent-child contexts the parent context controls the scheduling,
+ensure only the parent does the scheduling operations.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 35 +++++++++++--------
- 1 file changed, 21 insertions(+), 14 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 48 +++++++++++++++----
+ 1 file changed, 38 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 1ed7475de454..70d352fc543f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -3184,19 +3184,8 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 	eb.num_fences = 0;
- 
- 	eb.batch_flags = 0;
--	if (args->flags & I915_EXEC_SECURE) {
--		if (GRAPHICS_VER(i915) >= 11)
--			return -ENODEV;
--
--		/* Return -EPERM to trigger fallback code on old binaries. */
--		if (!HAS_SECURE_BATCHES(i915))
--			return -EPERM;
--
--		if (!drm_is_current_master(file) || !capable(CAP_SYS_ADMIN))
--			return -EPERM;
--
-+	if (args->flags & I915_EXEC_SECURE)
- 		eb.batch_flags |= I915_DISPATCH_SECURE;
--	}
- 	if (args->flags & I915_EXEC_IS_PINNED)
- 		eb.batch_flags |= I915_DISPATCH_PINNED;
- 
-@@ -3414,6 +3403,18 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
- 		return -EINVAL;
- 	}
- 
-+	if (args->flags & I915_EXEC_SECURE) {
-+		if (GRAPHICS_VER(i915) >= 11)
-+			return -ENODEV;
-+
-+		/* Return -EPERM to trigger fallback code on old binaries. */
-+		if (!HAS_SECURE_BATCHES(i915))
-+			return -EPERM;
-+
-+		if (!drm_is_current_master(file) || !capable(CAP_SYS_ADMIN))
-+			return -EPERM;
-+	}
-+
- 	err = i915_gem_check_execbuffer(args);
- 	if (err)
- 		return err;
-@@ -3430,8 +3431,8 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
- 			   u64_to_user_ptr(args->buffers_ptr),
- 			   sizeof(*exec2_list) * count)) {
- 		drm_dbg(&i915->drm, "copy %zd exec entries failed\n", count);
--		kvfree(exec2_list);
--		return -EFAULT;
-+		err = -EFAULT;
-+		goto err_copy;
- 	}
- 
- 	err = i915_gem_do_execbuffer(dev, file, args, exec2_list);
-@@ -3476,6 +3477,12 @@ end:;
- 
- 	args->flags &= ~__I915_EXEC_UNKNOWN_FLAGS;
- 	kvfree(exec2_list);
-+
-+	return err;
-+
-+err_copy:
-+	kvfree(exec2_list);
-+
- 	return err;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 0045895e0fa0..f60a46704ac5 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -402,6 +402,18 @@ static inline void clr_context_banned(struct intel_context *ce)
+ 	ce->guc_state.sched_state &= ~SCHED_STATE_BANNED;
  }
+ 
++static inline struct intel_context *
++to_parent(struct intel_context *ce)
++{
++	return intel_context_is_child(ce) ? ce->parent : ce;
++}
++
++static inline struct intel_context *
++request_to_scheduling_context(struct i915_request *rq)
++{
++	return to_parent(rq->context);
++}
++
+ static inline bool context_guc_id_invalid(struct intel_context *ce)
+ {
+ 	return (ce->guc_id == GUC_INVALID_LRC_ID);
+@@ -2341,6 +2353,7 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
+ 	GEM_BUG_ON(guc_id == GUC_INVALID_LRC_ID);
+ #endif
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
+ 	trace_intel_context_sched_disable(ce);
+ 
+ 	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
+@@ -2546,6 +2559,8 @@ static void guc_context_sched_disable(struct intel_context *ce)
+ 	u16 guc_id;
+ 	bool enabled;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
++
+ 	if (submission_disabled(guc) || context_guc_id_invalid(ce) ||
+ 	    !lrc_desc_registered(guc, ce->guc_id)) {
+ 		clr_context_enabled(ce);
+@@ -2941,6 +2956,8 @@ static void guc_signal_context_fence(struct intel_context *ce)
+ {
+ 	unsigned long flags;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
++
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 	clr_context_wait_for_deregister_to_register(ce);
+ 	__guc_signal_context_fence(ce);
+@@ -3026,10 +3043,21 @@ static bool context_needs_lrc_desc_pin(struct intel_context *ce, bool new_guc_id
+ 		!submission_disabled(ce_to_guc(ce));
+ }
+ 
++static void clear_lrca_dirty(struct intel_context *ce)
++{
++	struct intel_context *child;
++
++	GEM_BUG_ON(intel_context_is_child(ce));
++
++	clear_bit(CONTEXT_LRCA_DIRTY, &ce->flags);
++	for_each_child(ce, child)
++		clear_bit(CONTEXT_LRCA_DIRTY, &child->flags);
++}
++
+ static int tasklet_pin_guc_id(struct guc_submit_engine *gse,
+ 			      struct i915_request *rq)
+ {
+-	struct intel_context *ce = rq->context;
++	struct intel_context *ce = request_to_scheduling_context(rq);
+ 	int ret = 0;
+ 
+ 	lockdep_assert_held(&gse->sched_engine.lock);
+@@ -3061,7 +3089,7 @@ static int tasklet_pin_guc_id(struct guc_submit_engine *gse,
+ 		gse->submission_stall_reason = STALL_SCHED_DISABLE;
+ 	}
+ 
+-	clear_bit(CONTEXT_LRCA_DIRTY, &ce->flags);
++	clear_lrca_dirty(ce);
+ out:
+ 	gse->total_num_rq_with_no_guc_id -= ce->guc_num_rq_submit_no_id;
+ 	GEM_BUG_ON(gse->total_num_rq_with_no_guc_id < 0);
+@@ -3092,7 +3120,7 @@ static int tasklet_pin_guc_id(struct guc_submit_engine *gse,
+ 
+ static int guc_request_alloc(struct i915_request *rq)
+ {
+-	struct intel_context *ce = rq->context;
++	struct intel_context *ce = request_to_scheduling_context(rq);
+ 	struct intel_guc *guc = ce_to_guc(ce);
+ 	struct guc_submit_engine *gse = ce_to_gse(ce);
+ 	unsigned long flags;
+@@ -3143,11 +3171,12 @@ static int guc_request_alloc(struct i915_request *rq)
+ 	 * persistent until the generated request is retired. Thus, sealing these
+ 	 * race conditions.
+ 	 *
+-	 * There is no need for a lock here as the timeline mutex ensures at
+-	 * most one context can be executing this code path at once. The
+-	 * guc_id_ref is incremented once for every request in flight and
+-	 * decremented on each retire. When it is zero, a lock around the
+-	 * increment (in pin_guc_id) is needed to seal a race with unpin_guc_id.
++	 * There is no need for a lock here as the timeline mutex (or
++	 * parallel_submit mutex in the case of multi-lrc) ensures at most one
++	 * context can be executing this code path at once. The guc_id_ref is
++	 * incremented once for every request in flight and decremented on each
++	 * retire. When it is zero, a lock around the increment (in pin_guc_id)
++	 * is needed to seal a race with unpin_guc_id.
+ 	 */
+ 	if (atomic_add_unless(&ce->guc_id_ref, 1, 0))
+ 		goto out;
+@@ -3185,8 +3214,7 @@ static int guc_request_alloc(struct i915_request *rq)
+ 		}
+ 	}
+ 
+-	clear_bit(CONTEXT_LRCA_DIRTY, &ce->flags);
+-
++	clear_lrca_dirty(ce);
+ out:
+ 	incr_num_rq_not_ready(ce);
  
 -- 
 2.28.0
