@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96C7CC636C9
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:40:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36CA7C636C8
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:40:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6936E60FEA
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:40:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6936E60FEA
+	by mail.kernel.org (Postfix) with ESMTPS id 0716B60FF3
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:40:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0716B60FF3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 988EC6E3DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB04C6E542;
 	Tue, 20 Jul 2021 20:40:19 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23B2B6E49F;
- Tue, 20 Jul 2021 20:40:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="209421883"
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="209421883"
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 672116E49F;
+ Tue, 20 Jul 2021 20:40:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="296885362"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="296885362"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 13:40:16 -0700
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906068"
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2021 13:40:15 -0700
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906057"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jul 2021 13:40:15 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 20 Jul 2021 13:57:31 -0700
-Message-Id: <20210720205802.39610-12-matthew.brost@intel.com>
+Date: Tue, 20 Jul 2021 13:57:23 -0700
+Message-Id: <20210720205802.39610-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210720205802.39610-1-matthew.brost@intel.com>
 References: <20210720205802.39610-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 11/42] drm/i915/guc: Take engine PM when a
- context is pinned with GuC submission
+Subject: [Intel-gfx] [RFC PATCH 03/42] drm/i915/guc: Connect the number of
+ guc_ids to debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,96 +60,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Taking a PM reference to prevent intel_gt_wait_for_idle from short
-circuiting while a scheduling of user context could be enabled.
+For testing purposes it may make sense to reduce the number of guc_ids
+available to be allocated. Add debugfs support for setting the number of
+guc_ids.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                 |  1 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 36 +++++++++++++++++--
- 2 files changed, 34 insertions(+), 3 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    | 31 +++++++++++++++++++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  3 +-
+ 2 files changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index ab7679957623..29b722ad3f8b 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -102,6 +102,7 @@ gt-y += \
- 	gt/intel_gt_clock_utils.o \
- 	gt/intel_gt_irq.o \
- 	gt/intel_gt_pm.o \
-+	gt/intel_gt_pm_unpark_work.o \
- 	gt/intel_gt_pm_irq.o \
- 	gt/intel_gt_requests.o \
- 	gt/intel_gtt.o \
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 2fdfcec3b5fa..8c3332e24d59 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2041,7 +2041,12 @@ static int guc_context_pre_pin(struct intel_context *ce,
- 
- static int guc_context_pin(struct intel_context *ce, void *vaddr)
- {
--	return __guc_context_pin(ce, ce->engine, vaddr);
-+	int ret = __guc_context_pin(ce, ce->engine, vaddr);
-+
-+	if (likely(!ret && !intel_context_is_barrier(ce)))
-+		intel_engine_pm_get(ce->engine);
-+
-+	return ret;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
+index 72ddfff42f7d..7c479c5e7b3a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
+@@ -50,11 +50,42 @@ static int guc_registered_contexts_show(struct seq_file *m, void *data)
  }
+ DEFINE_GT_DEBUGFS_ATTRIBUTE(guc_registered_contexts);
  
- static void guc_context_unpin(struct intel_context *ce)
-@@ -2052,6 +2057,9 @@ static void guc_context_unpin(struct intel_context *ce)
- 
- 	unpin_guc_id(guc, ce, true);
- 	lrc_unpin(ce);
++static int guc_num_id_get(void *data, u64 *val)
++{
++	struct intel_guc *guc = data;
 +
-+	if (likely(!intel_context_is_barrier(ce)))
-+		intel_engine_pm_put(ce->engine);
- }
- 
- static void guc_context_post_unpin(struct intel_context *ce)
-@@ -2971,8 +2979,30 @@ static int guc_virtual_context_pre_pin(struct intel_context *ce,
- static int guc_virtual_context_pin(struct intel_context *ce, void *vaddr)
- {
- 	struct intel_engine_cs *engine = guc_virtual_get_sibling(ce->engine, 0);
-+	int ret = __guc_context_pin(ce, engine, vaddr);
-+	intel_engine_mask_t tmp, mask = ce->engine->mask;
++	if (!intel_guc_submission_is_used(guc))
++		return -ENODEV;
 +
-+	if (likely(!ret))
-+		for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
-+			intel_engine_pm_get(engine);
++	*val = guc->num_guc_ids;
 +
-+	return ret;
++	return 0;
 +}
 +
-+static void guc_virtual_context_unpin(struct intel_context *ce)
++static int guc_num_id_set(void *data, u64 val)
 +{
-+	intel_engine_mask_t tmp, mask = ce->engine->mask;
-+	struct intel_engine_cs *engine;
-+	struct intel_guc *guc = ce_to_guc(ce);
- 
--	return __guc_context_pin(ce, engine, vaddr);
-+	GEM_BUG_ON(context_enabled(ce));
-+	GEM_BUG_ON(intel_context_is_barrier(ce));
++	struct intel_guc *guc = data;
 +
-+	unpin_guc_id(guc, ce, true);
-+	lrc_unpin(ce);
++	if (!intel_guc_submission_is_used(guc))
++		return -ENODEV;
 +
-+	for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
-+		intel_engine_pm_put(engine);
- }
++	if (val > guc->max_guc_ids)
++		val = guc->max_guc_ids;
++	else if (val < 256)
++		val = 256;
++
++	guc->num_guc_ids = val;
++
++	return 0;
++}
++DEFINE_SIMPLE_ATTRIBUTE(guc_num_id_fops, guc_num_id_get, guc_num_id_set, "%lld\n");
++
+ void intel_guc_debugfs_register(struct intel_guc *guc, struct dentry *root)
+ {
+ 	static const struct debugfs_gt_file files[] = {
+ 		{ "guc_info", &guc_info_fops, NULL },
+ 		{ "guc_registered_contexts", &guc_registered_contexts_fops, NULL },
++		{ "guc_num_id", &guc_num_id_fops, NULL },
+ 	};
  
- static void guc_virtual_context_enter(struct intel_context *ce)
-@@ -3009,7 +3039,7 @@ static const struct intel_context_ops virtual_guc_context_ops = {
+ 	if (!intel_guc_is_supported(guc))
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 46a149d447e6..c6069fe2f23c 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -2540,7 +2540,8 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
  
- 	.pre_pin = guc_virtual_context_pre_pin,
- 	.pin = guc_virtual_context_pin,
--	.unpin = guc_context_unpin,
-+	.unpin = guc_virtual_context_unpin,
- 	.post_unpin = guc_context_post_unpin,
+ 	if (unlikely(desc_idx >= guc->max_guc_ids)) {
+ 		drm_err(&guc_to_gt(guc)->i915->drm,
+-			"Invalid desc_idx %u", desc_idx);
++			"Invalid desc_idx %u, max %u",
++			desc_idx, guc->max_guc_ids);
+ 		return NULL;
+ 	}
  
- 	.ban = guc_context_ban,
 -- 
 2.28.0
 
