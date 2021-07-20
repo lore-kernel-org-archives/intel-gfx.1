@@ -2,43 +2,45 @@ Return-Path: <SRS0=c2Tb=MM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC997C636CE
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 23:24:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C049C636CA
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 23:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A45586101E
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 23:24:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A45586101E
+	by mail.kernel.org (Postfix) with ESMTPS id CDF90600D4
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 23:24:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDF90600D4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 028CD89EF7;
-	Tue, 20 Jul 2021 23:24:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A93C89E7C;
+	Tue, 20 Jul 2021 23:24:40 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87FC889E7B;
- Tue, 20 Jul 2021 23:24:38 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="209441156"
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="209441156"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA7DE89E7C;
+ Tue, 20 Jul 2021 23:24:39 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="209441157"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="209441157"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jul 2021 16:24:38 -0700
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="632477376"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="632477379"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jul 2021 16:24:37 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 20 Jul 2021 16:20:10 -0700
-Message-Id: <20210720232014.3302645-1-lucas.demarchi@intel.com>
+Date: Tue, 20 Jul 2021 16:20:11 -0700
+Message-Id: <20210720232014.3302645-2-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210720232014.3302645-1-lucas.demarchi@intel.com>
+References: <20210720232014.3302645-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/4] Nuke legacy hw_id
+Subject: [Intel-gfx] [PATCH 1/4] drm/i915/gt: fix platform prefix
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,29 +59,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Motivated by my review in
-https://patchwork.freedesktop.org/patch/443857/?series=92135&rev=5 I
-went to look why we needed the additional hw_id fields. It turns out we
-don't, but we kept adding new IDs to keep it consistent. Now that with
-the extra media engines we would just leave than zero'ed, let's refactor
-the code so we don't keep them around: they aren't used since
-GRAPHICS_VER == 8.
+gen8_clear_engine_error_register() is actually not used by
+GRAPHICS_VER >= 8, since for those we are using another register that is
+not engine-dependent. Fix the platform prefix, to make clear we are not
+using any GEN6_RING_FAULT_REG_* one GRAPHICS_VER >= 8.
 
-I'd say last patch is a stretch due to the use of _PICK() and hardcoding
-the map, but to me it seems to avoid making it more complex elsewhere.
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Lucas De Marchi (4):
-  drm/i915/gt: fix platform prefix
-  drm/i915/gt: nuke unused legacy engine hw_id
-  drm/i915/gt: rename legacy engine->hw_id to engine->gen6_hw_id
-  drm/i915/gt: nuke gen6_hw_id
-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 10 ----------
- drivers/gpu/drm/i915/gt/intel_engine_types.h | 12 ------------
- drivers/gpu/drm/i915/gt/intel_gt.c           |  4 ++--
- drivers/gpu/drm/i915/i915_reg.h              |  4 +++-
- 4 files changed, 5 insertions(+), 25 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index e714e21c0a4d..a8efdd44e9cf 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -205,7 +205,7 @@ static void clear_register(struct intel_uncore *uncore, i915_reg_t reg)
+ 	intel_uncore_rmw(uncore, reg, 0, 0);
+ }
+ 
+-static void gen8_clear_engine_error_register(struct intel_engine_cs *engine)
++static void gen6_clear_engine_error_register(struct intel_engine_cs *engine)
+ {
+ 	GEN6_RING_FAULT_REG_RMW(engine, RING_FAULT_VALID, 0);
+ 	GEN6_RING_FAULT_REG_POSTING_READ(engine);
+@@ -251,7 +251,7 @@ intel_gt_clear_error_registers(struct intel_gt *gt,
+ 		enum intel_engine_id id;
+ 
+ 		for_each_engine_masked(engine, gt, engine_mask, id)
+-			gen8_clear_engine_error_register(engine);
++			gen6_clear_engine_error_register(engine);
+ 	}
+ }
+ 
 -- 
 2.31.1
 
