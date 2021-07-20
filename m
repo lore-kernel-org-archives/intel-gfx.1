@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BEF6C636C8
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 22:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08C6AC636C9
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 22:21:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2CD5D61165
+	by mail.kernel.org (Postfix) with ESMTPS id CFD9A61209
 	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 22:21:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CD5D61165
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CFD9A61209
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E45C66E59F;
-	Tue, 20 Jul 2021 22:21:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 308B86E7D3;
+	Tue, 20 Jul 2021 22:21:36 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 389526E591;
- Tue, 20 Jul 2021 22:21:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="211056145"
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="211056145"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47D1E6E591;
+ Tue, 20 Jul 2021 22:21:33 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="211056154"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="211056154"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 15:21:31 -0700
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="500940095"
+ 20 Jul 2021 15:21:33 -0700
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="500940130"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 15:21:31 -0700
+ 20 Jul 2021 15:21:32 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 20 Jul 2021 15:39:04 -0700
-Message-Id: <20210720223921.56160-2-matthew.brost@intel.com>
+Date: Tue, 20 Jul 2021 15:39:12 -0700
+Message-Id: <20210720223921.56160-10-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210720223921.56160-1-matthew.brost@intel.com>
 References: <20210720223921.56160-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 01/18] drm/i915/guc: Add new GuC interface
- defines and structures
+Subject: [Intel-gfx] [PATCH 09/18] drm/i915/guc: Disable engine barriers
+ with GuC during unpin
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,112 +60,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add new GuC interface defines and structures while maintaining old ones
-in parallel.
+Disable engine barriers for unpinning with GuC. This feature isn't
+needed with the GuC as it disables context scheduling before unpinning
+which guarantees the HW will not reference the context. Hence it is
+not necessary to defer unpinning until a kernel context request
+completes on each engine in the context engine mask.
 
 Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  | 14 +++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   | 41 +++++++++++++++++++
- 2 files changed, 55 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_context.c    |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_context.c | 10 ++++++++++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-index 2d6198e63ebe..57e18babdf4b 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-@@ -124,10 +124,24 @@ enum intel_guc_action {
- 	INTEL_GUC_ACTION_FORCE_LOG_BUFFER_FLUSH = 0x302,
- 	INTEL_GUC_ACTION_ENTER_S_STATE = 0x501,
- 	INTEL_GUC_ACTION_EXIT_S_STATE = 0x502,
-+	INTEL_GUC_ACTION_GLOBAL_SCHED_POLICY_CHANGE = 0x506,
-+	INTEL_GUC_ACTION_SCHED_CONTEXT = 0x1000,
-+	INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_SET = 0x1001,
-+	INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE = 0x1002,
-+	INTEL_GUC_ACTION_SCHED_ENGINE_MODE_SET = 0x1003,
-+	INTEL_GUC_ACTION_SCHED_ENGINE_MODE_DONE = 0x1004,
-+	INTEL_GUC_ACTION_SET_CONTEXT_PRIORITY = 0x1005,
-+	INTEL_GUC_ACTION_SET_CONTEXT_EXECUTION_QUANTUM = 0x1006,
-+	INTEL_GUC_ACTION_SET_CONTEXT_PREEMPTION_TIMEOUT = 0x1007,
-+	INTEL_GUC_ACTION_CONTEXT_RESET_NOTIFICATION = 0x1008,
-+	INTEL_GUC_ACTION_ENGINE_FAILURE_NOTIFICATION = 0x1009,
- 	INTEL_GUC_ACTION_SLPC_REQUEST = 0x3003,
- 	INTEL_GUC_ACTION_AUTHENTICATE_HUC = 0x4000,
-+	INTEL_GUC_ACTION_REGISTER_CONTEXT = 0x4502,
-+	INTEL_GUC_ACTION_DEREGISTER_CONTEXT = 0x4503,
- 	INTEL_GUC_ACTION_REGISTER_COMMAND_TRANSPORT_BUFFER = 0x4505,
- 	INTEL_GUC_ACTION_DEREGISTER_COMMAND_TRANSPORT_BUFFER = 0x4506,
-+	INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE = 0x4600,
- 	INTEL_GUC_ACTION_LIMIT
- };
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 3d5b4116617f..91349d071e0e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -80,7 +80,7 @@ static int intel_context_active_acquire(struct intel_context *ce)
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index 617ec601648d..28245a217a39 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -17,6 +17,9 @@
- #include "abi/guc_communication_ctb_abi.h"
- #include "abi/guc_messages_abi.h"
+ 	__i915_active_acquire(&ce->active);
  
-+#define GUC_CONTEXT_DISABLE		0
-+#define GUC_CONTEXT_ENABLE		1
-+
- #define GUC_CLIENT_PRIORITY_KMD_HIGH	0
- #define GUC_CLIENT_PRIORITY_HIGH	1
- #define GUC_CLIENT_PRIORITY_KMD_NORMAL	2
-@@ -26,6 +29,9 @@
- #define GUC_MAX_STAGE_DESCRIPTORS	1024
- #define	GUC_INVALID_STAGE_ID		GUC_MAX_STAGE_DESCRIPTORS
+-	if (intel_context_is_barrier(ce))
++	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine))
+ 		return 0;
  
-+#define GUC_MAX_LRC_DESCRIPTORS		65535
-+#define	GUC_INVALID_LRC_ID		GUC_MAX_LRC_DESCRIPTORS
-+
- #define GUC_RENDER_ENGINE		0
- #define GUC_VIDEO_ENGINE		1
- #define GUC_BLITTER_ENGINE		2
-@@ -237,6 +243,41 @@ struct guc_stage_desc {
- 	u64 desc_private;
- } __packed;
+ 	/* Preallocate tracking nodes */
+diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c b/drivers/gpu/drm/i915/gt/selftest_context.c
+index 26685b927169..fa7b99a671dd 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_context.c
++++ b/drivers/gpu/drm/i915/gt/selftest_context.c
+@@ -209,7 +209,13 @@ static int __live_active_context(struct intel_engine_cs *engine)
+ 	 * This test makes sure that the context is kept alive until a
+ 	 * subsequent idle-barrier (emitted when the engine wakeref hits 0
+ 	 * with no more outstanding requests).
++	 *
++	 * In GuC submission mode we don't use idle barriers and we instead
++	 * get a message from the GuC to signal that it is safe to unpin the
++	 * context from memory.
+ 	 */
++	if (intel_engine_uses_guc(engine))
++		return 0;
  
-+#define CONTEXT_REGISTRATION_FLAG_KMD	BIT(0)
-+
-+#define CONTEXT_POLICY_DEFAULT_EXECUTION_QUANTUM_US 1000000
-+#define CONTEXT_POLICY_DEFAULT_PREEMPTION_TIME_US 500000
-+
-+/* Preempt to idle on quantum expiry */
-+#define CONTEXT_POLICY_FLAG_PREEMPT_TO_IDLE	BIT(0)
-+
-+/*
-+ * GuC Context registration descriptor.
-+ * FIXME: This is only required to exist during context registration.
-+ * The current 1:1 between guc_lrc_desc and LRCs for the lifetime of the LRC
-+ * is not required.
-+ */
-+struct guc_lrc_desc {
-+	u32 hw_context_desc;
-+	u32 slpm_perf_mode_hint;	/* SPLC v1 only */
-+	u32 slpm_freq_hint;
-+	u32 engine_submit_mask;		/* In logical space */
-+	u8 engine_class;
-+	u8 reserved0[3];
-+	u32 priority;
-+	u32 process_desc;
-+	u32 wq_addr;
-+	u32 wq_size;
-+	u32 context_flags;		/* CONTEXT_REGISTRATION_* */
-+	/* Time for one workload to execute. (in micro seconds) */
-+	u32 execution_quantum;
-+	/* Time to wait for a preemption request to complete before issuing a
-+	 * reset. (in micro seconds). */
-+	u32 preemption_timeout;
-+	u32 policy_flags;		/* CONTEXT_POLICY_* */
-+	u32 reserved1[19];
-+} __packed;
-+
- #define GUC_POWER_UNSPECIFIED	0
- #define GUC_POWER_D0		1
- #define GUC_POWER_D1		2
+ 	if (intel_engine_pm_is_awake(engine)) {
+ 		pr_err("%s is awake before starting %s!\n",
+@@ -357,7 +363,11 @@ static int __live_remote_context(struct intel_engine_cs *engine)
+ 	 * on the context image remotely (intel_context_prepare_remote_request),
+ 	 * which inserts foreign fences into intel_context.active, does not
+ 	 * clobber the idle-barrier.
++	 *
++	 * In GuC submission mode we don't use idle barriers.
+ 	 */
++	if (intel_engine_uses_guc(engine))
++		return 0;
+ 
+ 	if (intel_engine_pm_is_awake(engine)) {
+ 		pr_err("%s is awake before starting %s!\n",
 -- 
 2.28.0
 
