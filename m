@@ -2,47 +2,47 @@ Return-Path: <SRS0=c2Tb=MM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF7D2C6377A
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3489FC636CE
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 818A560FF3
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 818A560FF3
+	by mail.kernel.org (Postfix) with ESMTPS id 0709360FEA
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 20:41:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0709360FEA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F0116E56A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 809A66E57E;
 	Tue, 20 Jul 2021 20:40:31 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03F886E51D;
- Tue, 20 Jul 2021 20:40:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="209421887"
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="209421887"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 658C26E529;
+ Tue, 20 Jul 2021 20:40:18 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="209421889"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="209421889"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jul 2021 13:40:17 -0700
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906085"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="414906091"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jul 2021 13:40:16 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 20 Jul 2021 13:57:46 -0700
-Message-Id: <20210720205802.39610-27-matthew.brost@intel.com>
+Date: Tue, 20 Jul 2021 13:57:52 -0700
+Message-Id: <20210720205802.39610-33-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210720205802.39610-1-matthew.brost@intel.com>
 References: <20210720205802.39610-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 26/42] drm/i915/guc: Update debugfs for GuC
- multi-lrc
+Subject: [Intel-gfx] [RFC PATCH 32/42] drm/i915: Move output fence handling
+ to i915_gem_execbuffer2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,89 +60,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Display the workqueue status in debugfs for GuC contexts that are in
-parent-child relationship.
+Move the job of creating a new file descriptor and passing it back to
+userspace to i915_gem_execbuffer2.
 
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 56 +++++++++++++------
- 1 file changed, 39 insertions(+), 17 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 45 ++++++++++---------
+ 1 file changed, 25 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 8db1d56e34e2..81a5439de924 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4489,31 +4489,53 @@ void intel_guc_submission_print_info(struct intel_guc *guc,
- 		gse_log_submission_info(guc->gse[i], p, i);
- }
- 
-+static inline void guc_log_context(struct drm_printer *p,
-+				   struct intel_context *ce)
-+{
-+	drm_printf(p, "GuC lrc descriptor %u:\n", ce->guc_id);
-+	drm_printf(p, "\tHW Context Desc: 0x%08x\n", ce->lrc.lrca);
-+	drm_printf(p, "\t\tLRC Head: Internal %u, Memory %u\n",
-+		   ce->ring->head,
-+		   ce->lrc_reg_state[CTX_RING_HEAD]);
-+	drm_printf(p, "\t\tLRC Tail: Internal %u, Memory %u\n",
-+		   ce->ring->tail,
-+		   ce->lrc_reg_state[CTX_RING_TAIL]);
-+	drm_printf(p, "\t\tContext Pin Count: %u\n",
-+		   atomic_read(&ce->pin_count));
-+	drm_printf(p, "\t\tGuC ID Ref Count: %u\n",
-+		   atomic_read(&ce->guc_id_ref));
-+	drm_printf(p, "\t\tNumber Requests Not Ready: %u\n",
-+		   atomic_read(&ce->guc_num_rq_not_ready));
-+	drm_printf(p, "\t\tSchedule State: 0x%x, 0x%x\n\n",
-+		   ce->guc_state.sched_state,
-+		   atomic_read(&ce->guc_sched_state_no_lock));
-+}
-+
- void intel_guc_submission_print_context_info(struct intel_guc *guc,
- 					     struct drm_printer *p)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 0416bcb551b0..66f1819fcebc 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -3148,13 +3148,13 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 		       struct drm_i915_gem_execbuffer2 *args,
+ 		       struct drm_i915_gem_exec_object2 *exec,
+ 		       struct dma_fence *in_fence,
+-		       struct dma_fence *exec_fence)
++		       struct dma_fence *exec_fence,
++		       int out_fence_fd)
  {
- 	struct intel_context *ce;
- 	unsigned long index;
- 	xa_for_each(&guc->context_lookup, index, ce) {
--		drm_printf(p, "GuC lrc descriptor %u:\n", ce->guc_id);
--		drm_printf(p, "\tHW Context Desc: 0x%08x\n", ce->lrc.lrca);
--		drm_printf(p, "\t\tLRC Head: Internal %u, Memory %u\n",
--			   ce->ring->head,
--			   ce->lrc_reg_state[CTX_RING_HEAD]);
--		drm_printf(p, "\t\tLRC Tail: Internal %u, Memory %u\n",
--			   ce->ring->tail,
--			   ce->lrc_reg_state[CTX_RING_TAIL]);
--		drm_printf(p, "\t\tContext Pin Count: %u\n",
--			   atomic_read(&ce->pin_count));
--		drm_printf(p, "\t\tGuC ID Ref Count: %u\n",
--			   atomic_read(&ce->guc_id_ref));
--		drm_printf(p, "\t\tNumber Requests Not Ready: %u\n",
--			   atomic_read(&ce->guc_num_rq_not_ready));
--		drm_printf(p, "\t\tSchedule State: 0x%x, 0x%x\n\n",
--			   ce->guc_state.sched_state,
--			   atomic_read(&ce->guc_sched_state_no_lock));
-+		GEM_BUG_ON(intel_context_is_child(ce));
+ 	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct i915_execbuffer eb;
+ 	struct sync_file *out_fence = NULL;
+ 	struct i915_vma *batch;
+-	int out_fence_fd = -1;
+ 	int err;
  
-+		guc_log_context(p, ce);
- 		guc_log_context_priority(p, ce);
-+
-+		if (intel_context_is_parent(ce)) {
-+			struct guc_process_desc *desc = __get_process_desc(ce);
-+			struct intel_context *child;
-+
-+			drm_printf(p, "\t\tWQI Head: %u\n",
-+				   READ_ONCE(desc->head));
-+			drm_printf(p, "\t\tWQI Tail: %u\n",
-+				   READ_ONCE(desc->tail));
-+			drm_printf(p, "\t\tWQI Status: %u\n\n",
-+				   READ_ONCE(desc->wq_status));
-+
-+			for_each_child(ce, child)
-+				guc_log_context(p, child);
-+		}
+ 	BUILD_BUG_ON(__EXEC_INTERNAL_FLAGS & ~__I915_EXEC_ILLEGAL_FLAGS);
+@@ -3198,15 +3198,9 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 	if (err)
+ 		goto err_ext;
+ 
+-	if (args->flags & I915_EXEC_FENCE_OUT) {
+-		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
+-		if (out_fence_fd < 0)
+-			goto err_ext;
+-	}
+-
+ 	err = eb_create(&eb);
+ 	if (err)
+-		goto err_out_fence;
++		goto err_ext;
+ 
+ 	GEM_BUG_ON(!eb.lut_size);
+ 
+@@ -3283,7 +3277,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 			goto err_request;
  	}
- }
  
+-	if (out_fence_fd != -1) {
++	if (out_fence_fd >= 0) {
+ 		out_fence = sync_file_create(&eb.request->fence);
+ 		if (!out_fence) {
+ 			err = -ENOMEM;
+@@ -3313,14 +3307,10 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 		signal_fence_array(&eb);
+ 
+ 	if (out_fence) {
+-		if (err == 0) {
++		if (err == 0)
+ 			fd_install(out_fence_fd, out_fence->file);
+-			args->rsvd2 &= GENMASK_ULL(31, 0); /* keep in-fence */
+-			args->rsvd2 |= (u64)out_fence_fd << 32;
+-			out_fence_fd = -1;
+-		} else {
++		else
+ 			fput(out_fence->file);
+-		}
+ 	}
+ 
+ 	if (unlikely(eb.gem_context->syncobj)) {
+@@ -3349,9 +3339,6 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 	i915_gem_context_put(eb.gem_context);
+ err_destroy:
+ 	eb_destroy(&eb);
+-err_out_fence:
+-	if (out_fence_fd != -1)
+-		put_unused_fd(out_fence_fd);
+ err_ext:
+ 	put_fence_array(eb.fences, eb.num_fences);
+ 	return err;
+@@ -3384,6 +3371,7 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_i915_gem_exec_object2 *exec2_list;
+ 	struct dma_fence *in_fence = NULL;
+ 	struct dma_fence *exec_fence = NULL;
++	int out_fence_fd = -1;
+ 	const size_t count = args->buffer_count;
+ 	int err;
+ 
+@@ -3427,6 +3415,14 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
+ 		}
+ 	}
+ 
++	if (args->flags & I915_EXEC_FENCE_OUT) {
++		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
++		if (out_fence_fd < 0) {
++			err = out_fence_fd;
++			goto err_out_fence;
++		}
++	}
++
+ 	/* Allocate extra slots for use by the command parser */
+ 	exec2_list = kvmalloc_array(count + 2, eb_element_size(),
+ 				    __GFP_NOWARN | GFP_KERNEL);
+@@ -3445,7 +3441,7 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 
+ 	err = i915_gem_do_execbuffer(dev, file, args, exec2_list, in_fence,
+-				     exec_fence);
++				     exec_fence, out_fence_fd);
+ 
+ 	/*
+ 	 * Now that we have begun execution of the batchbuffer, we ignore
+@@ -3485,11 +3481,20 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
+ end:;
+ 	}
+ 
++	if (!err && out_fence_fd >= 0) {
++		args->rsvd2 &= GENMASK_ULL(31, 0); /* keep in-fence */
++		args->rsvd2 |= (u64)out_fence_fd << 32;
++		out_fence_fd = -1;
++	}
++
+ 	args->flags &= ~__I915_EXEC_UNKNOWN_FLAGS;
+ 
+ err_copy:
+ 	kvfree(exec2_list);
+ err_alloc:
++	if (out_fence_fd >= 0)
++		put_unused_fd(out_fence_fd);
++err_out_fence:
+ 	dma_fence_put(exec_fence);
+ err_exec_fence:
+ 	dma_fence_put(in_fence);
 -- 
 2.28.0
 
