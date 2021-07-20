@@ -2,46 +2,44 @@ Return-Path: <SRS0=c2Tb=MM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02445C636C8
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 06:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 770DEC07E95
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 06:49:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BEB376113B
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 06:49:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEB376113B
+	by mail.kernel.org (Postfix) with ESMTPS id 4040A6113B
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 06:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4040A6113B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A3BA6E122;
-	Tue, 20 Jul 2021 06:49:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC91A6E1B2;
+	Tue, 20 Jul 2021 06:49:20 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D7B06E122
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 06:49:11 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10050"; a="232965324"
-X-IronPort-AV: E=Sophos;i="5.84,254,1620716400"; d="scan'208";a="232965324"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2EB96E0AC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 06:49:10 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10050"; a="232965314"
+X-IronPort-AV: E=Sophos;i="5.84,254,1620716400"; d="scan'208";a="232965314"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2021 23:49:09 -0700
-X-IronPort-AV: E=Sophos;i="5.84,254,1620716400"; d="scan'208";a="657368709"
+ 19 Jul 2021 23:49:04 -0700
+X-IronPort-AV: E=Sophos;i="5.84,254,1620716400"; d="scan'208";a="657368664"
 Received: from unknown (HELO vandita-Z390-AORUS-ULTRA.iind.intel.com)
  ([10.190.238.8])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2021 23:49:08 -0700
+ 19 Jul 2021 23:49:03 -0700
 From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 20 Jul 2021 12:19:07 +0530
-Message-Id: <20210720064907.9771-4-vandita.kulkarni@intel.com>
+Date: Tue, 20 Jul 2021 12:19:04 +0530
+Message-Id: <20210720064907.9771-1-vandita.kulkarni@intel.com>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210720064907.9771-1-vandita.kulkarni@intel.com>
-References: <20210720064907.9771-1-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v7 3/3] drm/i915/display/dsc: Force dsc BPP
+Subject: [Intel-gfx] [v7 0/3] Enable setting custom DSC BPP
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,47 +57,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Set DSC BPP to the value forced through
-debugfs. It can go from bpc to bpp-1.
+This series add debugfs entry to force dsc bpp to
+ceratin valid test value, for validation needs.
+This series has been tested locally.
+With the introduction of i915_dsc_bpp debugfs
+the expectation is that whenever there is force_dsc_en
+set, force_dsc_bpp should have a valid value for that
+format which is between bpp to bpp-1.
 
-v2: Use default dsc bpp when we are just
-    doing force_dsc_en, use default dsc bpp
-    for invalid force_dsc_bpp values. (Jani)
+This makes the older test kms_dp_dsc --basic fail
+as in that case force_dsc_bpp would be 0 and is not a valid
+value.
 
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Reviewed-by: Swati Sharma <swati2.sharma@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Have tested with local changes on the same.
+The series https://patchwork.freedesktop.org/series/91772/
+have the base patches and would need some work on the debugfs name
+change, giving default value for force_dsc_bpp in case of
+basic-dsc-enable
+test cases, clearing up of the force_dsc_bpp value while exiting the
+test. Which will be floated shortly.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 5b52beaddada..c386ef8eb200 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1274,6 +1274,23 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 							       pipe_config->pipe_bpp);
- 		pipe_config->dsc.slice_count = dsc_dp_slice_count;
- 	}
-+
-+	/* As of today we support DSC for only RGB */
-+	if (intel_dp->force_dsc_bpp) {
-+		if (intel_dp->force_dsc_bpp >= 8 &&
-+		    intel_dp->force_dsc_bpp < pipe_bpp) {
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "DSC BPP forced to %d",
-+				    intel_dp->force_dsc_bpp);
-+			pipe_config->dsc.compressed_bpp =
-+						intel_dp->force_dsc_bpp;
-+		} else {
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "Invalid DSC BPP %d",
-+				    intel_dp->force_dsc_bpp);
-+		}
-+	}
-+
- 	/*
- 	 * VDSC engine operates at 1 Pixel per clock, so if peak pixel rate
- 	 * is greater than the maximum Cdclock and if slice count is even
+Have added minor fix on the feci debugfs interface.
+If further changes are needed on the same will float them in a different
+series.
+
+This series has been reviewed here
+https://patchwork.freedesktop.org/series/92312/#rev5
+
+Resubmitting it here as the series submitter got overridden due to
+one of the review comment mishaps.
+
+Patnana Venkata Sai (1):
+  drm/i915/display/dsc: Add Per connector debugfs node for DSC BPP
+    enable
+
+Vandita Kulkarni (2):
+  drm/i915/display: Add write permissions for fec support
+  drm/i915/display/dsc: Force dsc BPP
+
+ .../drm/i915/display/intel_display_debugfs.c  | 78 ++++++++++++++++++-
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 17 ++++
+ 3 files changed, 94 insertions(+), 2 deletions(-)
+
 -- 
 2.32.0
 
