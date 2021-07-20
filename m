@@ -2,48 +2,137 @@ Return-Path: <SRS0=c2Tb=MM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47DB7C636C8
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 17:31:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87DD2C636C8
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 17:43:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18C4F600D4
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 17:31:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18C4F600D4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 45E8B6100C
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 17:43:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45E8B6100C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96A016E25B;
-	Tue, 20 Jul 2021 17:31:06 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C90966E25B;
- Tue, 20 Jul 2021 17:31:05 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="233074782"
-X-IronPort-AV: E=Sophos;i="5.84,255,1620716400"; d="scan'208";a="233074782"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 10:25:20 -0700
-X-IronPort-AV: E=Sophos;i="5.84,255,1620716400"; d="scan'208";a="657618204"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 10:25:19 -0700
-Date: Tue, 20 Jul 2021 10:14:04 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Message-ID: <20210720171403.GA29967@sdutt-i7>
-References: <20210716201724.54804-1-matthew.brost@intel.com>
- <20210716201724.54804-46-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78B8D6E4B0;
+	Tue, 20 Jul 2021 17:43:05 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2058.outbound.protection.outlook.com [40.107.94.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2D86E4AA;
+ Tue, 20 Jul 2021 17:43:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cog5D0aX1dmEK59zHL73FhKpXF1baIaPstF6rQTAk3U3PVZ+arQYOIGdTKeE6T0sGShCPmKl9cRARMzI4uhqij7Swr5sdsuT8vWLGErSGuQLCrQtpy4iD1y/VqnkH1l6S5W4U4vXmLYQ6dSKouvkrqrx/LUankqCcfT2xUo5Q2UltjLuQYqra6ppUjJJleTmv3oR3bEz99NfjpVtAyLahFx/bhZWnlWtDzJ4uH7/ugQSIFt3boE5mrakPWhZjKRPI6fLSImlMwFxrqS99QhY549wTQ80SeVhu/QP/nJaQAPKqxmxu59wwc/A1P+s1OKxzQyXF1pMhy08rXbZSYITYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q+CqPWbRYNbM3kON0iD8CCcWDFjIjT7SkcujZ9stK/M=;
+ b=jeRAHCzys6gy+zDT4eokhn8zS80JwlDJfGK3cs1A/jRsbo8DoOn/x069eNEydI7d+SQquyvnrMkpcRxm7nI4AHCCebGUva2t6nzI8lYqnT6cu/lnF0MoRJ/pVawT76WhMhseOGBA8bqVrajBgov5KzOr4js9TmO0HEZmTbzUKK/sOzUj+hAd/v1HGfpbrLVp1T5AqK+pyIiu2NLGLyNTSQ87z5vbZ01/NN3Xse9ird/l6qL0xW2l41BF002qHYcFZskESSqYU+fPoaZhMI/ifojDIgbJY956BVZat+ZhSOa3ZupR8iiqRkJCi11MpAFMk0E3XAS12XzTzL6N4FB+XQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q+CqPWbRYNbM3kON0iD8CCcWDFjIjT7SkcujZ9stK/M=;
+ b=DPHSlkn22cH5IbSknDVzyNKw/AkYuthN2jqN+JMFXO5BidUNTtJSDBwIdDZnqB//keTY+X0+Yh2MpGLNMje228KFcL7Kb8URS5LfJ46OAHcVHNee1ZgZ2hUgMT7nrBCRA7hVT8f9i7A640nlYVA7k077BKISWGnoLYx4KACiv5wGVgRTioknE2U4Cy89Jt8Cjn18+wMW0kX8xQv0bKNPiZFErEHwQKO24gZjxUmuB3+BXy3LQlrGEkHH6Lc/EdPdqvQMDCnKnfUMjQ2DC0j4Gb/b7zvR6T830TS/MMFqa/+soc8/u6S57hUaAim4ZCHvtpGCW0G5qNUsB1fd2keACQ==
+Authentication-Results: linux.ie; dkim=none (message not signed)
+ header.d=none;linux.ie; dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
+ by BL1PR12MB5288.namprd12.prod.outlook.com (2603:10b6:208:314::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Tue, 20 Jul
+ 2021 17:43:02 +0000
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::d017:af2f:7049:5482]) by BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::d017:af2f:7049:5482%5]) with mapi id 15.20.4331.034; Tue, 20 Jul 2021
+ 17:43:02 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Daniel Vetter <daniel@ffwll.ch>, Diana Craciun <diana.craciun@oss.nxp.com>,
+ dri-devel@lists.freedesktop.org, Eric Auger <eric.auger@redhat.com>,
+ Eric Farman <farman@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Jason Herne <jjherne@linux.ibm.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
+ linux-s390@vger.kernel.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>, Zhi Wang <zhi.a.wang@intel.com>
+Date: Tue, 20 Jul 2021 14:42:47 -0300
+Message-Id: <1-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
+In-Reply-To: <0-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
+References: 
+X-ClientProxiedBy: MN2PR02CA0026.namprd02.prod.outlook.com
+ (2603:10b6:208:fc::39) To BL0PR12MB5506.namprd12.prod.outlook.com
+ (2603:10b6:208:1cb::22)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210716201724.54804-46-matthew.brost@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 45/51] drm/i915/selftest: Fix workarounds
- selftest for GuC submission
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (142.162.113.129) by
+ MN2PR02CA0026.namprd02.prod.outlook.com (2603:10b6:208:fc::39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4331.21 via Frontend Transport; Tue, 20 Jul 2021 17:43:02 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1m5tll-0051EY-29; Tue, 20 Jul 2021 14:43:01 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f86fb051-5233-4dfb-ffeb-08d94ba5d260
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5288:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB528815BA4F20864BAAC3DC74C2E29@BL1PR12MB5288.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: e+1yBJ8wwcHelEz2s6GH38h+Gh6hYnIAt9EpYA/PWXmHP4sUR3P4O6fuE/hrcNCzjoGZgoB9q2EmH3f8J98yybzukmQZW1eVgsRjATjK0nlufXYbjEQinCKJF7IAQrFOxUx1kNl6uZ7Jy8Miai2W9NaPQW+CVKVJTbO2r+X+rzfQrGtLkEvz5zu++Wr4gLQXKll96FQ44v7bjVgK9xiXu4BSlc66C+kP1vwge0PQ9OW5Hu4XUS9/TTSUlVlS0enwcs1C+ZwR36Ppy6RwBCNnSf4e64Ceo9wGnjU3iEL8Lt5FrRr6ULbnJ5gKmWpIKrRpIDp5KL06qev5sEywysK0MGhLO0NTH+CID+ByJSS2LoY83pMg2TvxPJcap0CR+8SxGoJOsIYP7k+M8G56ocSspoJ6k+Q3LifCMAvmBvrV54iLxFWNu9OduUevS4sc0OYXKGYU2j9iUyxiZo3M43WfNZD1MsPxtufJPSNXKo/0A0eb9U/+3li01WYZI/DfD2NSXS3Xkku24fVsvImkdrerm80+ZwBSYGV7nkE0CqjIK9u2V1eMbKMQyI4kZ+j6NvAj+z7RgdNh3dkEEl6dY7aEVAj3V59MpKpQa747iyUevvTSSwm/Bhus14u4gYOvBw4efDKJzg8HCPeMWohTsscddcnoj2EttO4jEqhtzrrdG7fWleqVySZidMXDIIzQ7Y7HzFFvU8OkwbVzdubOutSmYA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(376002)(366004)(39860400002)(346002)(6666004)(66946007)(7416002)(7406005)(86362001)(2906002)(66476007)(54906003)(38100700002)(83380400001)(8936002)(316002)(110136005)(478600001)(36756003)(66556008)(186003)(26005)(5660300002)(8676002)(921005)(9786002)(9746002)(4326008)(426003)(2616005)(4216001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hPDeo/17EFWnDXIJe0BsEJwx2v1L2N13jTpjzxsKA1zBaxIRo+JVt7O8ZsS0?=
+ =?us-ascii?Q?FAVMXwJFvhXZJp3B2K/je871XvMzsMTjETJKmgnbTdQXBOLBbSFRdInEubju?=
+ =?us-ascii?Q?13JUkl9rJ70FElFjaodlLBMLNWmLuZv9MjZ5VZY5asmf0s+/7wlGvcJA0FWJ?=
+ =?us-ascii?Q?QLaC5jRVY1F+gNXEIANe6CwWqE+piH9N3pF7VsO6eCtXYpYdkCYmCoV5oaAm?=
+ =?us-ascii?Q?zKH6gcx/pwn41Jc6OUC2P/VkMrqCY+6Lt8qUMU1mwHTtp70zLRFTjN/th3wD?=
+ =?us-ascii?Q?MRaGSrIK4Uiq6dnr5evv3jEIiVAR/wzcTk35VRD+x8radRlAYRxhtzSCSx7H?=
+ =?us-ascii?Q?jFLe3Z0OmL0HICOuT8uMj3hbfp9dAU+v0478bIGI7Cv5wOLsMUWhLkBuLoXJ?=
+ =?us-ascii?Q?jk/QGfAc2BJPx+uGZoeR0YVyNNFIBxWW+OJ9DDWUJPqg5y03vrh3j7/OPNDN?=
+ =?us-ascii?Q?YsKYlRU5gNnjYg972yB0McixKlGuqHxeLBzZa4+120qIfUY26UHIRjonEh9c?=
+ =?us-ascii?Q?TkvR4oi713KpYA0RzXu6aEMLBMsA1HLX5ZD8aZUhJ3tJ490FZREbK0pBu/Fk?=
+ =?us-ascii?Q?xDrHgsELGwQ+tpNzG1zCZODff80EmDPl/IFJ2NXpxsw5PQTLr1Lu+/o43vZu?=
+ =?us-ascii?Q?Tw4zhybfNRyJFdi4cWs+igbQBAK7Vte24XS+DxoxIf3rka9aBUoZ0HdGvGNZ?=
+ =?us-ascii?Q?DdwBBtLKQcz6iPVr2NwgLNdndzMYpeKspXjPQabQk6bHNGGVsk1EEpHg3YGs?=
+ =?us-ascii?Q?MLAgs79jdOk6zhmlvfzcK/JzweZJHFz2pCo6LyC1Pvi9eivCF+Pnqoftnhxc?=
+ =?us-ascii?Q?4b78QWDupcAU5tX5b7W42HaMTOWZ3bq2Dvz26+BHGHcjsHdl7k8k0LKMc6wf?=
+ =?us-ascii?Q?JJOztYso+JhVjcE7TTOufn5cwH/UChBQlxgGOF2VLG7OSvrk05wVTOaik0o+?=
+ =?us-ascii?Q?Yw2Z8dCuJJuBVrbNzAVUMsBmoFsxuLrBFee6i/9SAQEEyIoMhrlLf0XocHTv?=
+ =?us-ascii?Q?HLyzP/i5ZXGqHulcL93gD2xuxOh8gihxWLZV7hm8pHKZQws6DLIHgIsP/2X1?=
+ =?us-ascii?Q?AtX/bjXksPzirva9VXWxzG6QaiIIgfa6zfNso1votv6Or6pcPhA4nN27Epmd?=
+ =?us-ascii?Q?Sgar8HMLGl9OIjcZ9dQCOD9U7S8ab751z4lXy7ItkiGY82ODiVwLbJiCzOtW?=
+ =?us-ascii?Q?uj+goF8libqZe3gqDCnot9MSQLT88icv1atB21NY0IjG8F98u8V9ycrSImoD?=
+ =?us-ascii?Q?TRYG2JTcsq/N/V0Va0RSZh7zTuj7gG1Zxp2XyKkuZLIOr1vcZCO4tfwQ5gVI?=
+ =?us-ascii?Q?//9kdQsDVt+E7IsL0qyDmIWq?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f86fb051-5233-4dfb-ffeb-08d94ba5d260
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 17:43:02.3254 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X03RHXVdT9jQ3yyMa+0zkpM1MtM6pR7S5rjO9wPldPsn8A1SZHkk/ImCRYRVkp68
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5288
+Subject: [Intel-gfx] [PATCH v2 01/14] vfio/samples: Remove module get/put
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,431 +145,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Max Gurtovoy <mgurtovoy@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+ "Raj, Ashok" <ashok.raj@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Christoph Hellwig <hch@lst.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 16, 2021 at 01:17:18PM -0700, Matthew Brost wrote:
-> From: Rahul Kumar Singh <rahul.kumar.singh@intel.com>
-> =
+The patch to move the get/put to core and the patch to convert the samples
+to use vfio_device crossed in a way that this was missed. When both
+patches are together the samples do not need their own get/put.
 
-> When GuC submission is enabled, the GuC controls engine resets. Rather
-> than explicitly triggering a reset, the driver must submit a hanging
-> context to GuC and wait for the reset to occur.
-> =
+Fixes: 437e41368c01 ("vfio/mdpy: Convert to use vfio_register_group_dev()")
+Fixes: 681c1615f891 ("vfio/mbochs: Convert to use vfio_register_group_dev()")
+Reviewed-by: Cornelia Huck <cohuck@redhat.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+---
+ samples/vfio-mdev/mbochs.c | 4 ----
+ samples/vfio-mdev/mdpy.c   | 4 ----
+ 2 files changed, 8 deletions(-)
 
-> Signed-off-by: Rahul Kumar Singh <rahul.kumar.singh@intel.com>
-> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
+diff --git a/samples/vfio-mdev/mbochs.c b/samples/vfio-mdev/mbochs.c
+index 6c0f229db36a1a..e81b875b4d87b4 100644
+--- a/samples/vfio-mdev/mbochs.c
++++ b/samples/vfio-mdev/mbochs.c
+@@ -1274,9 +1274,6 @@ static long mbochs_ioctl(struct vfio_device *vdev, unsigned int cmd,
+ 
+ static int mbochs_open(struct vfio_device *vdev)
+ {
+-	if (!try_module_get(THIS_MODULE))
+-		return -ENODEV;
+-
+ 	return 0;
+ }
+ 
+@@ -1300,7 +1297,6 @@ static void mbochs_close(struct vfio_device *vdev)
+ 	mbochs_put_pages(mdev_state);
+ 
+ 	mutex_unlock(&mdev_state->ops_lock);
+-	module_put(THIS_MODULE);
+ }
+ 
+ static ssize_t
+diff --git a/samples/vfio-mdev/mdpy.c b/samples/vfio-mdev/mdpy.c
+index 393c9df6f6a010..a7d4ed28d66411 100644
+--- a/samples/vfio-mdev/mdpy.c
++++ b/samples/vfio-mdev/mdpy.c
+@@ -611,15 +611,11 @@ static long mdpy_ioctl(struct vfio_device *vdev, unsigned int cmd,
+ 
+ static int mdpy_open(struct vfio_device *vdev)
+ {
+-	if (!try_module_get(THIS_MODULE))
+-		return -ENODEV;
+-
+ 	return 0;
+ }
+ 
+ static void mdpy_close(struct vfio_device *vdev)
+ {
+-	module_put(THIS_MODULE);
+ }
+ 
+ static ssize_t
+-- 
+2.32.0
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-
-> ---
->  drivers/gpu/drm/i915/Makefile                 |   1 +
->  .../gpu/drm/i915/gt/selftest_workarounds.c    | 130 +++++++++++++-----
->  .../i915/selftests/intel_scheduler_helpers.c  |  76 ++++++++++
->  .../i915/selftests/intel_scheduler_helpers.h  |  28 ++++
->  4 files changed, 201 insertions(+), 34 deletions(-)
->  create mode 100644 drivers/gpu/drm/i915/selftests/intel_scheduler_helper=
-s.c
->  create mode 100644 drivers/gpu/drm/i915/selftests/intel_scheduler_helper=
-s.h
-> =
-
-> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-> index 10b3bb6207ba..ab7679957623 100644
-> --- a/drivers/gpu/drm/i915/Makefile
-> +++ b/drivers/gpu/drm/i915/Makefile
-> @@ -280,6 +280,7 @@ i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) +=3D i915_gpu_e=
-rror.o
->  i915-$(CONFIG_DRM_I915_SELFTEST) +=3D \
->  	gem/selftests/i915_gem_client_blt.o \
->  	gem/selftests/igt_gem_utils.o \
-> +	selftests/intel_scheduler_helpers.o \
->  	selftests/i915_random.o \
->  	selftests/i915_selftest.o \
->  	selftests/igt_atomic.o \
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu=
-/drm/i915/gt/selftest_workarounds.c
-> index 7ebc4edb8ecf..7727bc531ea9 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> @@ -12,6 +12,7 @@
->  #include "selftests/igt_flush_test.h"
->  #include "selftests/igt_reset.h"
->  #include "selftests/igt_spinner.h"
-> +#include "selftests/intel_scheduler_helpers.h"
->  #include "selftests/mock_drm.h"
->  =
-
->  #include "gem/selftests/igt_gem_utils.h"
-> @@ -261,28 +262,34 @@ static int do_engine_reset(struct intel_engine_cs *=
-engine)
->  	return intel_engine_reset(engine, "live_workarounds");
->  }
->  =
-
-> +static int do_guc_reset(struct intel_engine_cs *engine)
-> +{
-> +	/* Currently a no-op as the reset is handled by GuC */
-> +	return 0;
-> +}
-> +
->  static int
->  switch_to_scratch_context(struct intel_engine_cs *engine,
-> -			  struct igt_spinner *spin)
-> +			  struct igt_spinner *spin,
-> +			  struct i915_request **rq)
->  {
->  	struct intel_context *ce;
-> -	struct i915_request *rq;
->  	int err =3D 0;
->  =
-
->  	ce =3D intel_context_create(engine);
->  	if (IS_ERR(ce))
->  		return PTR_ERR(ce);
->  =
-
-> -	rq =3D igt_spinner_create_request(spin, ce, MI_NOOP);
-> +	*rq =3D igt_spinner_create_request(spin, ce, MI_NOOP);
->  	intel_context_put(ce);
->  =
-
-> -	if (IS_ERR(rq)) {
-> +	if (IS_ERR(*rq)) {
->  		spin =3D NULL;
-> -		err =3D PTR_ERR(rq);
-> +		err =3D PTR_ERR(*rq);
->  		goto err;
->  	}
->  =
-
-> -	err =3D request_add_spin(rq, spin);
-> +	err =3D request_add_spin(*rq, spin);
->  err:
->  	if (err && spin)
->  		igt_spinner_end(spin);
-> @@ -296,6 +303,7 @@ static int check_whitelist_across_reset(struct intel_=
-engine_cs *engine,
->  {
->  	struct intel_context *ce, *tmp;
->  	struct igt_spinner spin;
-> +	struct i915_request *rq;
->  	intel_wakeref_t wakeref;
->  	int err;
->  =
-
-> @@ -316,13 +324,24 @@ static int check_whitelist_across_reset(struct inte=
-l_engine_cs *engine,
->  		goto out_spin;
->  	}
->  =
-
-> -	err =3D switch_to_scratch_context(engine, &spin);
-> +	err =3D switch_to_scratch_context(engine, &spin, &rq);
->  	if (err)
->  		goto out_spin;
->  =
-
-> +	/* Ensure the spinner hasn't aborted */
-> +	if (i915_request_completed(rq)) {
-> +		pr_err("%s spinner failed to start\n", name);
-> +		err =3D -ETIMEDOUT;
-> +		goto out_spin;
-> +	}
-> +
->  	with_intel_runtime_pm(engine->uncore->rpm, wakeref)
->  		err =3D reset(engine);
->  =
-
-> +	/* Ensure the reset happens and kills the engine */
-> +	if (err =3D=3D 0)
-> +		err =3D intel_selftest_wait_for_rq(rq);
-> +
->  	igt_spinner_end(&spin);
->  =
-
->  	if (err) {
-> @@ -787,9 +806,26 @@ static int live_reset_whitelist(void *arg)
->  			continue;
->  =
-
->  		if (intel_has_reset_engine(gt)) {
-> -			err =3D check_whitelist_across_reset(engine,
-> -							   do_engine_reset,
-> -							   "engine");
-> +			if (intel_engine_uses_guc(engine)) {
-> +				struct intel_selftest_saved_policy saved;
-> +				int err2;
-> +
-> +				err =3D intel_selftest_modify_policy(engine, &saved);
-> +				if(err)
-> +					goto out;
-> +
-> +				err =3D check_whitelist_across_reset(engine,
-> +								   do_guc_reset,
-> +								   "guc");
-> +
-> +				err2 =3D intel_selftest_restore_policy(engine, &saved);
-> +				if (err =3D=3D 0)
-> +					err =3D err2;
-> +			} else
-> +				err =3D check_whitelist_across_reset(engine,
-> +								   do_engine_reset,
-> +								   "engine");
-> +
->  			if (err)
->  				goto out;
->  		}
-> @@ -1226,31 +1262,41 @@ live_engine_reset_workarounds(void *arg)
->  	reference_lists_init(gt, &lists);
->  =
-
->  	for_each_engine(engine, gt, id) {
-> +		struct intel_selftest_saved_policy saved;
-> +		bool using_guc =3D intel_engine_uses_guc(engine);
->  		bool ok;
-> +		int ret2;
->  =
-
->  		pr_info("Verifying after %s reset...\n", engine->name);
-> +		ret =3D intel_selftest_modify_policy(engine, &saved);
-> +		if (ret)
-> +			break;
-> +
-> +
->  		ce =3D intel_context_create(engine);
->  		if (IS_ERR(ce)) {
->  			ret =3D PTR_ERR(ce);
-> -			break;
-> +			goto restore;
->  		}
->  =
-
-> -		ok =3D verify_wa_lists(gt, &lists, "before reset");
-> -		if (!ok) {
-> -			ret =3D -ESRCH;
-> -			goto err;
-> -		}
-> +		if (!using_guc) {
-> +			ok =3D verify_wa_lists(gt, &lists, "before reset");
-> +			if (!ok) {
-> +				ret =3D -ESRCH;
-> +				goto err;
-> +			}
->  =
-
-> -		ret =3D intel_engine_reset(engine, "live_workarounds:idle");
-> -		if (ret) {
-> -			pr_err("%s: Reset failed while idle\n", engine->name);
-> -			goto err;
-> -		}
-> +			ret =3D intel_engine_reset(engine, "live_workarounds:idle");
-> +			if (ret) {
-> +				pr_err("%s: Reset failed while idle\n", engine->name);
-> +				goto err;
-> +			}
->  =
-
-> -		ok =3D verify_wa_lists(gt, &lists, "after idle reset");
-> -		if (!ok) {
-> -			ret =3D -ESRCH;
-> -			goto err;
-> +			ok =3D verify_wa_lists(gt, &lists, "after idle reset");
-> +			if (!ok) {
-> +				ret =3D -ESRCH;
-> +				goto err;
-> +			}
->  		}
->  =
-
->  		ret =3D igt_spinner_init(&spin, engine->gt);
-> @@ -1271,25 +1317,41 @@ live_engine_reset_workarounds(void *arg)
->  			goto err;
->  		}
->  =
-
-> -		ret =3D intel_engine_reset(engine, "live_workarounds:active");
-> -		if (ret) {
-> -			pr_err("%s: Reset failed on an active spinner\n",
-> -			       engine->name);
-> -			igt_spinner_fini(&spin);
-> -			goto err;
-> +		/* Ensure the spinner hasn't aborted */
-> +		if (i915_request_completed(rq)) {
-> +			ret =3D -ETIMEDOUT;
-> +			goto skip;
-> +		}
-> +
-> +		if (!using_guc) {
-> +			ret =3D intel_engine_reset(engine, "live_workarounds:active");
-> +			if (ret) {
-> +				pr_err("%s: Reset failed on an active spinner\n",
-> +				       engine->name);
-> +				igt_spinner_fini(&spin);
-> +				goto err;
-> +			}
->  		}
->  =
-
-> +		/* Ensure the reset happens and kills the engine */
-> +		if (ret =3D=3D 0)
-> +			ret =3D intel_selftest_wait_for_rq(rq);
-> +
-> +skip:
->  		igt_spinner_end(&spin);
->  		igt_spinner_fini(&spin);
->  =
-
->  		ok =3D verify_wa_lists(gt, &lists, "after busy reset");
-> -		if (!ok) {
-> +		if (!ok)
->  			ret =3D -ESRCH;
-> -			goto err;
-> -		}
->  =
-
->  err:
->  		intel_context_put(ce);
-> +
-> +restore:
-> +		ret2 =3D intel_selftest_restore_policy(engine, &saved);
-> +		if (ret =3D=3D 0)
-> +			ret =3D ret2;
->  		if (ret)
->  			break;
->  	}
-> diff --git a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c b/d=
-rivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
-> new file mode 100644
-> index 000000000000..91ecd8a1bd21
-> --- /dev/null
-> +++ b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
-> @@ -0,0 +1,76 @@
-> +/*
-> + * SPDX-License-Identifier: MIT
-> + *
-> + * Copyright =A9 2018 Intel Corporation
-> + */
-> +
-> +//#include "gt/intel_engine_user.h"
-> +#include "gt/intel_gt.h"
-> +#include "i915_drv.h"
-> +#include "i915_selftest.h"
-> +
-> +#include "selftests/intel_scheduler_helpers.h"
-> +
-> +#define REDUCED_TIMESLICE	5
-> +#define REDUCED_PREEMPT		10
-> +#define WAIT_FOR_RESET_TIME	1000
-> +
-> +int intel_selftest_modify_policy(struct intel_engine_cs *engine,
-> +				 struct intel_selftest_saved_policy *saved)
-> +
-> +{
-> +	int err;
-> +
-> +	saved->reset =3D engine->i915->params.reset;
-> +	saved->flags =3D engine->flags;
-> +	saved->timeslice =3D engine->props.timeslice_duration_ms;
-> +	saved->preempt_timeout =3D engine->props.preempt_timeout_ms;
-> +
-> +	/*
-> +	 * Enable force pre-emption on time slice expiration
-> +	 * together with engine reset on pre-emption timeout.
-> +	 * This is required to make the GuC notice and reset
-> +	 * the single hanging context.
-> +	 * Also, reduce the preemption timeout to something
-> +	 * small to speed the test up.
-> +	 */
-> +	engine->i915->params.reset =3D 2;
-> +	engine->flags |=3D I915_ENGINE_WANT_FORCED_PREEMPTION;
-> +	engine->props.timeslice_duration_ms =3D REDUCED_TIMESLICE;
-> +	engine->props.preempt_timeout_ms =3D REDUCED_PREEMPT;
-> +
-> +	if (!intel_engine_uses_guc(engine))
-> +		return 0;
-> +
-> +	err =3D intel_guc_global_policies_update(&engine->gt->uc.guc);
-> +	if (err)
-> +		intel_selftest_restore_policy(engine, saved);
-> +
-> +	return err;
-> +}
-> +
-> +int intel_selftest_restore_policy(struct intel_engine_cs *engine,
-> +				  struct intel_selftest_saved_policy *saved)
-> +{
-> +	/* Restore the original policies */
-> +	engine->i915->params.reset =3D saved->reset;
-> +	engine->flags =3D saved->flags;
-> +	engine->props.timeslice_duration_ms =3D saved->timeslice;
-> +	engine->props.preempt_timeout_ms =3D saved->preempt_timeout;
-> +
-> +	if (!intel_engine_uses_guc(engine))
-> +		return 0;
-> +
-> +	return intel_guc_global_policies_update(&engine->gt->uc.guc);
-> +}
-> +
-> +int intel_selftest_wait_for_rq(struct i915_request *rq)
-> +{
-> +	long ret;
-> +
-> +	ret =3D i915_request_wait(rq, 0, WAIT_FOR_RESET_TIME);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h b/d=
-rivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
-> new file mode 100644
-> index 000000000000..f30e96f0ba95
-> --- /dev/null
-> +++ b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
-> @@ -0,0 +1,28 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright =A9 2014-2019 Intel Corporation
-> + */
-> +
-> +#ifndef _INTEL_SELFTEST_SCHEDULER_HELPERS_H_
-> +#define _INTEL_SELFTEST_SCHEDULER_HELPERS_H_
-> +
-> +#include <linux/types.h>
-> +
-> +struct i915_request;
-> +struct intel_engine_cs;
-> +
-> +struct intel_selftest_saved_policy
-> +{
-> +	u32 flags;
-> +	u32 reset;
-> +	u64 timeslice;
-> +	u64 preempt_timeout;
-> +};
-> +
-> +int intel_selftest_modify_policy(struct intel_engine_cs *engine,
-> +				 struct intel_selftest_saved_policy *saved);
-> +int intel_selftest_restore_policy(struct intel_engine_cs *engine,
-> +				  struct intel_selftest_saved_policy *saved);
-> +int intel_selftest_wait_for_rq( struct i915_request *rq);
-> +
-> +#endif
-> -- =
-
-> 2.28.0
-> =
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
