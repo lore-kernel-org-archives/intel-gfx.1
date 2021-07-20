@@ -2,47 +2,46 @@ Return-Path: <SRS0=c2Tb=MM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24091C636C8
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 22:22:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8CFEC636C9
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 22:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE4AD60FE9
+	by mail.kernel.org (Postfix) with ESMTPS id 7A9E260FE9
 	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 22:22:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE4AD60FE9
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A9E260FE9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BF5D6E811;
-	Tue, 20 Jul 2021 22:21:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A45926E808;
+	Tue, 20 Jul 2021 22:21:39 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 507F16E5BD;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CFC06E5D1;
  Tue, 20 Jul 2021 22:21:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="211056159"
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="211056159"
+X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="211056167"
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="211056167"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 15:21:33 -0700
-X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="500940144"
+ 20 Jul 2021 15:21:34 -0700
+X-IronPort-AV: E=Sophos;i="5.84,256,1620716400"; d="scan'208";a="500940164"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 15:21:33 -0700
+ 20 Jul 2021 15:21:34 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue, 20 Jul 2021 15:39:16 -0700
-Message-Id: <20210720223921.56160-14-matthew.brost@intel.com>
+Date: Tue, 20 Jul 2021 15:39:21 -0700
+Message-Id: <20210720223921.56160-19-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210720223921.56160-1-matthew.brost@intel.com>
 References: <20210720223921.56160-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 13/18] drm/i915/guc: Disable semaphores when
- using GuC scheduling
+Subject: [Intel-gfx] [PATCH 18/18] drm/i915: Add intel_context tracing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,54 +59,300 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Semaphores are an optimization and not required for basic GuC submission
-to work properly. Disable until we have time to do the implementation to
-enable semaphores and tune them for performance. Also long direction is
-just to delete semaphores from the i915 so another reason to not enable
-these for GuC submission.
-
-This patch fixes an existing bugs where I915_ENGINE_HAS_SEMAPHORES was
-not honored correctly.
-
-v2: Reword commit message
-v3:
- (John H)
-  - Add text to commit indicating this also fixing an existing bug
-v4:
- (John H)
-  - s/bug/bugs
+Add intel_context tracing. These trace points are particular helpful
+when debugging the GuC firmware and can be enabled via
+CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS kernel config option.
 
 Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c       |   6 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  14 ++
+ drivers/gpu/drm/i915/i915_trace.h             | 144 ++++++++++++++++++
+ 3 files changed, 164 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 7d6f52d8a801..64659802d4df 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -799,7 +799,8 @@ static int intel_context_set_gem(struct intel_context *ce,
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 91349d071e0e..251ff7eea22d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -8,6 +8,7 @@
+ 
+ #include "i915_drv.h"
+ #include "i915_globals.h"
++#include "i915_trace.h"
+ 
+ #include "intel_context.h"
+ #include "intel_engine.h"
+@@ -28,6 +29,7 @@ static void rcu_context_free(struct rcu_head *rcu)
+ {
+ 	struct intel_context *ce = container_of(rcu, typeof(*ce), rcu);
+ 
++	trace_intel_context_free(ce);
+ 	kmem_cache_free(global.slab_ce, ce);
+ }
+ 
+@@ -46,6 +48,7 @@ intel_context_create(struct intel_engine_cs *engine)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	intel_context_init(ce, engine);
++	trace_intel_context_create(ce);
+ 	return ce;
+ }
+ 
+@@ -268,6 +271,8 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
+ 
+ 	GEM_BUG_ON(!intel_context_is_pinned(ce)); /* no overflow! */
+ 
++	trace_intel_context_do_pin(ce);
++
+ err_unlock:
+ 	mutex_unlock(&ce->pin_mutex);
+ err_post_unpin:
+@@ -323,6 +328,7 @@ void __intel_context_do_unpin(struct intel_context *ce, int sub)
+ 	 */
+ 	intel_context_get(ce);
+ 	intel_context_active_release(ce);
++	trace_intel_context_do_unpin(ce);
+ 	intel_context_put(ce);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index ff613e1ed9c3..cf746111dddc 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -344,6 +344,7 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ 
+ 	err = intel_guc_send_nb(guc, action, len, g2h_len_dw);
+ 	if (!enabled && !err) {
++		trace_intel_context_sched_enable(ce);
+ 		atomic_inc(&guc->outstanding_submission_g2h);
+ 		set_context_enabled(ce);
+ 	} else if (!enabled) {
+@@ -812,6 +813,8 @@ static int register_context(struct intel_context *ce)
+ 	u32 offset = intel_guc_ggtt_offset(guc, guc->lrc_desc_pool) +
+ 		ce->guc_id * sizeof(struct guc_lrc_desc);
+ 
++	trace_intel_context_register(ce);
++
+ 	return __guc_action_register_context(guc, ce->guc_id, offset);
+ }
+ 
+@@ -832,6 +835,8 @@ static int deregister_context(struct intel_context *ce, u32 guc_id)
+ {
+ 	struct intel_guc *guc = ce_to_guc(ce);
+ 
++	trace_intel_context_deregister(ce);
++
+ 	return __guc_action_deregister_context(guc, guc_id);
+ }
+ 
+@@ -905,6 +910,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce)
+ 	 * GuC before registering this context.
+ 	 */
+ 	if (context_registered) {
++		trace_intel_context_steal_guc_id(ce);
+ 		set_context_wait_for_deregister_to_register(ce);
+ 		intel_context_get(ce);
+ 
+@@ -968,6 +974,7 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
+ 
+ 	GEM_BUG_ON(guc_id == GUC_INVALID_LRC_ID);
+ 
++	trace_intel_context_sched_disable(ce);
+ 	intel_context_get(ce);
+ 
+ 	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
+@@ -1130,6 +1137,9 @@ static void __guc_signal_context_fence(struct intel_context *ce)
+ 
+ 	lockdep_assert_held(&ce->guc_state.lock);
+ 
++	if (!list_empty(&ce->guc_state.fences))
++		trace_intel_context_fence_release(ce);
++
+ 	list_for_each_entry(rq, &ce->guc_state.fences, guc_fence_link)
+ 		i915_sw_fence_complete(&rq->submit);
+ 
+@@ -1535,6 +1545,8 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
+ 	if (unlikely(!ce))
+ 		return -EPROTO;
+ 
++	trace_intel_context_deregister_done(ce);
++
+ 	if (context_wait_for_deregister_to_register(ce)) {
+ 		struct intel_runtime_pm *runtime_pm =
+ 			&ce->engine->gt->i915->runtime_pm;
+@@ -1586,6 +1598,8 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
+ 		return -EPROTO;
  	}
  
- 	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
--	    intel_engine_has_timeslices(ce->engine))
-+	    intel_engine_has_timeslices(ce->engine) &&
-+	    intel_engine_has_semaphores(ce->engine))
- 		__set_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
++	trace_intel_context_sched_done(ce);
++
+ 	if (context_pending_enable(ce)) {
+ 		clr_context_pending_enable(ce);
+ 	} else if (context_pending_disable(ce)) {
+diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
+index 478f5427531d..3a939bd57dcf 100644
+--- a/drivers/gpu/drm/i915/i915_trace.h
++++ b/drivers/gpu/drm/i915/i915_trace.h
+@@ -895,6 +895,90 @@ TRACE_EVENT(i915_request_out,
+ 			      __entry->ctx, __entry->seqno, __entry->completed)
+ );
  
- 	if (IS_ACTIVE(CONFIG_DRM_I915_REQUEST_TIMEOUT) &&
-@@ -1778,7 +1779,8 @@ static void __apply_priority(struct intel_context *ce, void *arg)
- 	if (!intel_engine_has_timeslices(ce->engine))
- 		return;
++DECLARE_EVENT_CLASS(intel_context,
++	    TP_PROTO(struct intel_context *ce),
++	    TP_ARGS(ce),
++
++	    TP_STRUCT__entry(
++			     __field(u32, guc_id)
++			     __field(int, pin_count)
++			     __field(u32, sched_state)
++			     __field(u32, guc_sched_state_no_lock)
++			     ),
++
++	    TP_fast_assign(
++			   __entry->guc_id = ce->guc_id;
++			   __entry->pin_count = atomic_read(&ce->pin_count);
++			   __entry->sched_state = ce->guc_state.sched_state;
++			   __entry->guc_sched_state_no_lock =
++			   atomic_read(&ce->guc_sched_state_no_lock);
++			   ),
++
++	    TP_printk("guc_id=%d, pin_count=%d sched_state=0x%x,0x%x",
++		      __entry->guc_id, __entry->pin_count, __entry->sched_state,
++		      __entry->guc_sched_state_no_lock)
++);
++
++DEFINE_EVENT(intel_context, intel_context_register,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_deregister,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_deregister_done,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_sched_enable,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_sched_disable,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_sched_done,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_create,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_fence_release,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_free,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_steal_guc_id,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_do_pin,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
++DEFINE_EVENT(intel_context, intel_context_do_unpin,
++	     TP_PROTO(struct intel_context *ce),
++	     TP_ARGS(ce)
++);
++
+ #else
+ #if !defined(TRACE_HEADER_MULTI_READ)
+ static inline void
+@@ -921,6 +1005,66 @@ static inline void
+ trace_i915_request_out(struct i915_request *rq)
+ {
+ }
++
++static inline void
++trace_intel_context_register(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_deregister(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_deregister_done(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_sched_enable(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_sched_disable(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_sched_done(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_create(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_fence_release(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_free(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_steal_guc_id(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_do_pin(struct intel_context *ce)
++{
++}
++
++static inline void
++trace_intel_context_do_unpin(struct intel_context *ce)
++{
++}
+ #endif
+ #endif
  
--	if (ctx->sched.priority >= I915_PRIORITY_NORMAL)
-+	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
-+	    intel_engine_has_semaphores(ce->engine))
- 		intel_context_set_use_semaphores(ce);
- 	else
- 		intel_context_clear_use_semaphores(ce);
 -- 
 2.28.0
 
