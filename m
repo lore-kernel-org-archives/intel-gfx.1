@@ -2,53 +2,47 @@ Return-Path: <SRS0=c2Tb=MM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B377FC07E9B
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 06:32:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D08A3C07E95
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 06:49:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B0DE610FB
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 06:32:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B0DE610FB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
+	by mail.kernel.org (Postfix) with ESMTPS id 8DE986113B
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jul 2021 06:49:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8DE986113B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D07C289F73;
-	Tue, 20 Jul 2021 06:32:23 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB17889F73;
- Tue, 20 Jul 2021 06:32:22 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4GTTQn5dDwz9sX1;
- Tue, 20 Jul 2021 16:32:16 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=canb.auug.org.au;
- s=201702; t=1626762740;
- bh=KzjgF2y5aBYeBDObwr2SaY7dstWwB7n9nlqKcUb/nHc=;
- h=Date:From:To:Cc:Subject:From;
- b=R6W9LU1fBtB+fjh9QKteMVQDrpLvKZpWZkzXEveFkr+ieFvm140gTTRUDROpT15zp
- 66vQhkIx5PNwkyReOlWDHveSymOL2sxOYPHj2d0BIRQLE7Jk2j3vkhPIdlecPtJDwp
- 2lEqJ2meWzv6N5kXC3u8n8LTFC4L3RzsT8Jhnc2rGlHXQoOxJkekSeCvvkA2PraLsl
- +SXX1ZpymQCFlhwo7BBC9PngG2tEbqXxAtSnOrA1yAgSxQlFUAUA4aCnHmRb9xVtgu
- 2dBZLLag2pRCPnCyXDesxNKmOQbHQzAV5uAOVdIwIzXOhp4uf+xS4IVnTTyaoIUB4G
- 4nmPlJyM+zATA==
-Date: Tue, 20 Jul 2021 16:32:16 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>, DRI
- <dri-devel@lists.freedesktop.org>
-Message-ID: <20210720163216.2b639d0d@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BC296E0AC;
+	Tue, 20 Jul 2021 06:49:12 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41AE36E0AC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 20 Jul 2021 06:49:11 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10050"; a="232965322"
+X-IronPort-AV: E=Sophos;i="5.84,254,1620716400"; d="scan'208";a="232965322"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2021 23:49:08 -0700
+X-IronPort-AV: E=Sophos;i="5.84,254,1620716400"; d="scan'208";a="657368691"
+Received: from unknown (HELO vandita-Z390-AORUS-ULTRA.iind.intel.com)
+ ([10.190.238.8])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2021 23:49:05 -0700
+From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 20 Jul 2021 12:19:06 +0530
+Message-Id: <20210720064907.9771-3-vandita.kulkarni@intel.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210720064907.9771-1-vandita.kulkarni@intel.com>
+References: <20210720064907.9771-1-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] linux-next: build warning after merge of the
- drm-intel-fixes tree
+Subject: [Intel-gfx] [v7 2/3] drm/i915/display/dsc: Add Per connector
+ debugfs node for DSC BPP enable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,75 +55,155 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: multipart/mixed; boundary="===============1709953741=="
+Cc: Jani Nikula <jani.nikula@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1709953741==
-Content-Type: multipart/signed; boundary="Sig_/sgTT+lRhMW2dTzwoUP1m3pV";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+From: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
 
---Sig_/sgTT+lRhMW2dTzwoUP1m3pV
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+This patch creates a per connector debugfs node to expose
+the Compressed BPP. The same node can be used from userspace
+to force DSC to a certain BPP(all accepted values).
 
-Hi all,
+This is useful to verify all supported/requested
+compression bpp's through IGT
 
-After merging the drm-intel-fixes tree, today's linux-next build
-(htmldocs) produced this warning:
+v2: Remove unnecessary logic (Jani)
+v3: Drop pipe bpp in debugfs node (Vandita)
+v4: Minor cleanups (Vandita)
+v5: Fix NULL pointer dereference
+v6: Fix dim tool checkpatch errors
+    Release the lock before return (Vandita)
+v7: Rename to file to dsc_bpp, remove unwanted
+    dsc bpp range check from v6, permissions (Jani)
 
-drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function param=
-eter 'jump_whitelist' description in 'intel_engine_cmd_parser'
-drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function param=
-eter 'shadow_map' description in 'intel_engine_cmd_parser'
-drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function param=
-eter 'batch_map' description in 'intel_engine_cmd_parser'
-drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Function parameter or=
- member 'trampoline' not described in 'intel_engine_cmd_parser'
-drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function param=
-eter 'jump_whitelist' description in 'intel_engine_cmd_parser'
-drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function param=
-eter 'shadow_map' description in 'intel_engine_cmd_parser'
-drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function param=
-eter 'batch_map' description in 'intel_engine_cmd_parser'
+Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Cc: Navare Manasi D <manasi.d.navare@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Patnana Venkata Sai <venkata.sai.patnana@intel.com>
+Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+---
+ .../drm/i915/display/intel_display_debugfs.c  | 76 ++++++++++++++++++-
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ 2 files changed, 76 insertions(+), 1 deletion(-)
 
-Introduced by commit
-
-  c9d9fdbc108a ("drm/i915: Revert "drm/i915/gem: Asynchronous cmdparser"")
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/sgTT+lRhMW2dTzwoUP1m3pV
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmD2bfAACgkQAVBC80lX
-0GzpewgAlFCUL4HwCtTIOPN7HMd1F3qrv5hX0xWcZ1wcaCD3x0Zcx148curbt7mR
-OpCi1tNkPxLeqsjq9zcnnRwVokcxST2RXZNy3wWVdYYoOOaa/DO6lqZwzlNRThR7
-6RKUn7bckFx1HKQAs+PLxHaXConfxaKhYf7b9u15199WGm2CLJ6JVHSvy1e8b4kU
-m89OleovF8GepmH6t2gh0fWtKnm/9zFdknOIpbrI1QbUt5rbbPOA6WjpbVRzrUXA
-8dHUE7V3l4FSAufBeOZ0+erP7Da8e68+q+f8suvpH5MpJvq+rquIVvCRF1GJ6ED5
-dJ0ejKB2opUePOBNMddOaRMHSpq2qg==
-=j8Ep
------END PGP SIGNATURE-----
-
---Sig_/sgTT+lRhMW2dTzwoUP1m3pV--
-
---===============1709953741==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 717d5624839d..2cf742a0b957 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -2395,6 +2395,73 @@ static const struct file_operations i915_dsc_fec_support_fops = {
+ 	.write = i915_dsc_fec_support_write
+ };
+ 
++static int i915_dsc_bpp_show(struct seq_file *m, void *data)
++{
++	struct drm_connector *connector = m->private;
++	struct drm_device *dev = connector->dev;
++	struct drm_crtc *crtc;
++	struct intel_crtc_state *crtc_state;
++	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
++	int ret;
++
++	if (!encoder)
++		return -ENODEV;
++
++	ret = drm_modeset_lock_single_interruptible(&dev->mode_config.connection_mutex);
++	if (ret)
++		return ret;
++
++	crtc = connector->state->crtc;
++	if (connector->status != connector_status_connected || !crtc) {
++		ret = -ENODEV;
++		goto out;
++	}
++
++	crtc_state = to_intel_crtc_state(crtc->state);
++	seq_printf(m, "Compressed_BPP: %d\n", crtc_state->dsc.compressed_bpp);
++
++out:	drm_modeset_unlock(&dev->mode_config.connection_mutex);
++
++	return ret;
++}
++
++static ssize_t i915_dsc_bpp_write(struct file *file,
++				  const char __user *ubuf,
++				  size_t len, loff_t *offp)
++{
++	struct drm_connector *connector =
++		((struct seq_file *)file->private_data)->private;
++	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
++	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
++	int dsc_bpp = 0;
++	int ret;
++
++	ret = kstrtoint_from_user(ubuf, len, 0, &dsc_bpp);
++	if (ret < 0)
++		return ret;
++
++	intel_dp->force_dsc_bpp = dsc_bpp;
++	*offp += len;
++
++	return len;
++}
++
++static int i915_dsc_bpp_open(struct inode *inode,
++			     struct file *file)
++{
++	return single_open(file, i915_dsc_bpp_show,
++			   inode->i_private);
++}
++
++static const struct file_operations i915_dsc_bpp_fops = {
++	.owner = THIS_MODULE,
++	.open = i915_dsc_bpp_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++	.write = i915_dsc_bpp_write
++};
++
+ /**
+  * intel_connector_debugfs_add - add i915 specific connector debugfs files
+  * @connector: pointer to a registered drm_connector
+@@ -2433,10 +2500,17 @@ int intel_connector_debugfs_add(struct drm_connector *connector)
+ 				    connector, &i915_hdcp_sink_capability_fops);
+ 	}
+ 
+-	if ((DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) && ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort && !to_intel_connector(connector)->mst_port) || connector->connector_type == DRM_MODE_CONNECTOR_eDP))
++	if ((DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) &&
++	    ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort &&
++	    !to_intel_connector(connector)->mst_port) ||
++	    connector->connector_type == DRM_MODE_CONNECTOR_eDP)) {
+ 		debugfs_create_file("i915_dsc_fec_support", 0644, root,
+ 				    connector, &i915_dsc_fec_support_fops);
+ 
++		debugfs_create_file("i915_dsc_bpp", 0644, root,
++				    connector, &i915_dsc_bpp_fops);
++	}
++
+ 	/* Legacy panels doesn't lpsp on any platform */
+ 	if ((DISPLAY_VER(dev_priv) >= 9 || IS_HASWELL(dev_priv) ||
+ 	     IS_BROADWELL(dev_priv)) &&
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index d94f361b548b..19d8d3eefbc2 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1612,6 +1612,7 @@ struct intel_dp {
+ 
+ 	/* Display stream compression testing */
+ 	bool force_dsc_en;
++	int force_dsc_bpp;
+ 
+ 	bool hobl_failed;
+ 	bool hobl_active;
+-- 
+2.32.0
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1709953741==--
