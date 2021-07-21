@@ -2,72 +2,69 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B988CC12002
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:56:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEC7DC636C9
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:56:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D3DF60E0C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:56:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D3DF60E0C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
+	by mail.kernel.org (Postfix) with ESMTPS id B53A66113C
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:56:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B53A66113C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB766EBA4;
-	Wed, 21 Jul 2021 17:56:24 +0000 (UTC)
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF406EBA4
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 17:56:23 +0000 (UTC)
-Received: by mail-qk1-x735.google.com with SMTP id s193so2888044qke.4
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 10:56:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=3aPSv8mU3AbCHcMFdN+dylgnKrMQgvv2xeAE6ndQ/lg=;
- b=UEKAiKxwuGl5DOU7RytreKynZZtulprGu3JD7GVZtOo8cxtjHOX2hzYUdMNWqN1WWM
- eecbQaoYNGqioKrOviRkvfWAahOpQtBk4bE1qEFxpij9tLnt/EOUM3SEylZOxcnjxs4t
- rt5DIiaC9hVuk0fbnzH/jqAfgQ7qpePV5sjisubF8LCNKVNPjMQyX5NWrZ0sKJcIEHug
- 74dyFPxJDrNR0W884yFkb1WbQsFiSk3X2S+yXZnkOdJCUMvOZUgOOQUECK2I4dGjuZQp
- WHZC9dOL0IXzKgm9/vU8w0TkhsFQX26TJ28TKCFnV373QnrUFm6EdC9qzfHxpeXPvSHg
- eN+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=3aPSv8mU3AbCHcMFdN+dylgnKrMQgvv2xeAE6ndQ/lg=;
- b=C8bgtoG/ZbOaJUyNH4dMmHIsDaPFzTsYwzBxa4syp77xQw18ho7Y3tRx/LXry9KEy2
- uXCan6EG24kPIDxLp3dTHqCvaHuUqcSfBoKYdUkWVpmsManyhw6wFXE/fXEo5WqhTbOP
- UwLXr3vyqkFjjr8P4cM8ibIlIEWEKpLwTJ4tYSMHnZUoJTW3yTrse2dVDBaAVL3nthXg
- 2zjU9DiSDkeiMy5Usek2V3QJh22bjpF+TgjSwFTOXKL+OIFBfjfmUN+1eo8CcapN+BDG
- e8jk4OeM+QeZ7Cfjs0Q5ZR1E3zmg/f+xOcTkTi+UPF5K9xZSEfkzok0ST5kJK3CzJ7wY
- UWFg==
-X-Gm-Message-State: AOAM530aZAE3O7ynYV94YbEFo++I5y3I8lQPFObMCar5uspGBbuqGi+b
- HG4pUSRKgR7458fVIzHs1hioWQ==
-X-Google-Smtp-Source: ABdhPJytrLby92pWZXaux2n8Ywej7baHIvSrQti78yqoxO4kXC/jEucxQ9yxi5aOpS5mFrtrro3RzA==
-X-Received: by 2002:ae9:f201:: with SMTP id m1mr35493084qkg.381.1626890182775; 
- Wed, 21 Jul 2021 10:56:22 -0700 (PDT)
-Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id f15sm7497848qtv.60.2021.07.21.10.56.22
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 21 Jul 2021 10:56:22 -0700 (PDT)
-From: Sean Paul <sean@poorly.run>
-To: dri-devel@lists.freedesktop.org, ppaalanen@gmail.com,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@linux.ie,
- daniel.vetter@ffwll.ch
-Date: Wed, 21 Jul 2021 13:55:19 -0400
-Message-Id: <20210721175526.22020-13-sean@poorly.run>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210721175526.22020-1-sean@poorly.run>
-References: <20210721175526.22020-1-sean@poorly.run>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77A0C6EC5B;
+	Wed, 21 Jul 2021 17:56:57 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 427896EC5B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 17:56:56 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="191069754"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="191069754"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 10:56:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470236826"
+Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+ by fmsmga008.fm.intel.com with ESMTP; 21 Jul 2021 10:56:55 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Wed, 21 Jul 2021 10:56:54 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Wed, 21 Jul 2021 10:56:54 -0700
+Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
+ fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2242.010;
+ Wed, 21 Jul 2021 10:56:54 -0700
+From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
+To: "Roper, Matthew D" <matthew.d.roper@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [Intel-gfx] [PATCH v2 48/50] drm/i915/dg2: Add DG2 to the PSR2
+ defeature list
+Thread-Index: AQHXeF6ga2tHFzzlrkqfB/mAth0jRqtNwrLw
+Date: Wed, 21 Jul 2021 17:56:54 +0000
+Message-ID: <3a953ee834134879af1feb44f5c2c0e5@intel.com>
+References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
+ <20210714031540.3539704-49-matthew.d.roper@intel.com>
+In-Reply-To: <20210714031540.3539704-49-matthew.d.roper@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.132]
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RESEND PATCH v6 12/14] drm/i915: Use debug category
- printer for welcome message
+Subject: Re: [Intel-gfx] [PATCH v2 48/50] drm/i915/dg2: Add DG2 to the PSR2
+ defeature list
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,47 +77,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Sean Paul <seanpaul@chromium.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sean Paul <seanpaul@chromium.org>
-
-The welcome printer is meant to be gated on DRM_UT_DRIVER, so use the
-debug category printer to avoid dumping the message in the wrong
-place.
-
-Signed-off-by: Sean Paul <seanpaul@chromium.org>
-Link: https://patchwork.freedesktop.org/patch/msgid/20200608210505.48519-13-sean@poorly.run #v5
-
-Changes in v5:
--Added to the set
-Changes in v6:
--None
----
- drivers/gpu/drm/i915/i915_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index c43b698bf0b9..93299af1e853 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -731,7 +731,8 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
- static void i915_welcome_messages(struct drm_i915_private *dev_priv)
- {
- 	if (drm_debug_enabled(DRM_UT_DRIVER)) {
--		struct drm_printer p = drm_debug_printer("i915 device info:");
-+		struct drm_printer p = drm_debug_category_printer(DRM_UT_DRIVER,
-+						"i915 device info:");
- 
- 		drm_printf(&p, "pciid=0x%04x rev=0x%02x platform=%s (subplatform=0x%x) gen=%i\n",
- 			   INTEL_DEVID(dev_priv),
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSW50ZWwtZ2Z4IDxpbnRl
+bC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZg0KPiBNYXR0
+IFJvcGVyDQo+IFNlbnQ6IFR1ZXNkYXksIEp1bHkgMTMsIDIwMjEgODoxNiBQTQ0KPiBUbzogaW50
+ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBbSW50ZWwtZ2Z4XSBbUEFU
+Q0ggdjIgNDgvNTBdIGRybS9pOTE1L2RnMjogQWRkIERHMiB0byB0aGUgUFNSMg0KPiBkZWZlYXR1
+cmUgbGlzdA0KPiANCj4gRnJvbTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBp
+bnRlbC5jb20+DQo+IA0KPiBQU1IyIGlzIG5vdCBzdXBwb3J0ZWQgb24gREcyLg0KPiANCj4gQ2M6
+IENheiBZb2tveWFtYSA8Q2F6Lllva295YW1hQGludGVsLmNvbT4NCj4gQ2M6IEd3YW4tZ3llb25n
+IE11biA8Z3dhbi1neWVvbmcubXVuQGludGVsLmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogSm9zw6kg
+Um9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6
+IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5yb3BlckBpbnRlbC5jb20+DQoNClJldmlld2VkLWJ5OiBB
+bnVzaGEgU3JpdmF0c2EgPGFudXNoYS5zcml2YXRzYUBpbnRlbC5jb20+DQoNCj4gLS0tDQo+ICBk
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jIHwgMyArKy0NCj4gIDEgZmls
+ZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jDQo+IGIvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiBpbmRleCBjOTg3YTdmYmM4ZmUu
+LjU4NGI1ODA2NjczOCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9wc3IuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X3Bzci5jDQo+IEBAIC04NjYsNyArODY2LDggQEAgc3RhdGljIGJvb2wgaW50ZWxfcHNyMl9jb25m
+aWdfdmFsaWQoc3RydWN0IGludGVsX2RwDQo+ICppbnRlbF9kcCwNCj4gIAl9DQo+IA0KPiAgCS8q
+IFdhXzE2MDExMTgxMjUwICovDQo+IC0JaWYgKElTX1JPQ0tFVExBS0UoZGV2X3ByaXYpIHx8IElT
+X0FMREVSTEFLRV9TKGRldl9wcml2KSkgew0KPiArCWlmIChJU19ST0NLRVRMQUtFKGRldl9wcml2
+KSB8fCBJU19BTERFUkxBS0VfUyhkZXZfcHJpdikgfHwNCj4gKwkgICAgSVNfREcyKGRldl9wcml2
+KSkgew0KPiAgCQlkcm1fZGJnX2ttcygmZGV2X3ByaXYtPmRybSwgIlBTUjIgaXMgZGVmZWF0dXJl
+ZCBmb3IgdGhpcw0KPiBwbGF0Zm9ybVxuIik7DQo+ICAJCXJldHVybiBmYWxzZTsNCj4gIAl9DQo+
+IC0tDQo+IDIuMjUuNA0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18NCj4gSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdA0KPiBJbnRlbC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vaW50ZWwtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9p
+bnRlbC1nZngK
