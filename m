@@ -2,46 +2,47 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7652EC6377B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:02:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22ECFC6377A
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:02:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C1B561244
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:02:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C1B561244
+	by mail.kernel.org (Postfix) with ESMTPS id E99EA60551
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E99EA60551
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAE3F6E84D;
-	Wed, 21 Jul 2021 23:02:31 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC5606E199;
- Wed, 21 Jul 2021 23:02:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211252742"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211252742"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 16:02:19 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="511965344"
-Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 16:02:19 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <igt-dev@lists.freedesktop.org>
-Date: Wed, 21 Jul 2021 16:20:04 -0700
-Message-Id: <20210721232004.31470-8-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210721232004.31470-1-matthew.brost@intel.com>
-References: <20210721232004.31470-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2D66E88B;
+	Wed, 21 Jul 2021 23:02:40 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 198946E270;
+ Wed, 21 Jul 2021 23:02:36 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="275351121"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="275351121"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 16:02:35 -0700
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="576848578"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 16:02:35 -0700
+Date: Wed, 21 Jul 2021 16:02:33 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Message-ID: <20210721230233.GO4174536@mdroper-desk1.amr.corp.intel.com>
+References: <20210720232014.3302645-1-lucas.demarchi@intel.com>
+ <20210720232014.3302645-5-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 7/7] i915/gem_ctx_shared: Make
- gem_ctx_shared understand static priority mapping
+Content-Disposition: inline
+In-Reply-To: <20210720232014.3302645-5-lucas.demarchi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 4/4] drm/i915/gt: nuke gen6_hw_id
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,57 +55,148 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Tomas Winkler <tomas.winkler@intel.com>,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The i915 currently has 2k visible priority levels which are currently
-unqiue. This is changing to statically map these 2k levels into 3
-buckets:
+On Tue, Jul 20, 2021 at 04:20:14PM -0700, Lucas De Marchi wrote:
+> This is only used by GRAPHICS_VER == 6 and GRAPHICS_VER == 7. All other
+> recent platforms do not depend on this field, so it doesn't make much
+> sense to keep it generic like that. Instead, just do a mapping from
+> engine class to HW ID in the single place that is needed.
+> 
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 6 ------
+>  drivers/gpu/drm/i915/gt/intel_engine_types.h | 8 --------
+>  drivers/gpu/drm/i915/i915_reg.h              | 4 +++-
+>  3 files changed, 3 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> index 508221de411c..0a04e8d90e9e 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> @@ -42,7 +42,6 @@
+>  
+>  #define MAX_MMIO_BASES 3
+>  struct engine_info {
+> -	u8 gen6_hw_id;
+>  	u8 class;
+>  	u8 instance;
+>  	/* mmio bases table *must* be sorted in reverse graphics_ver order */
+> @@ -54,7 +53,6 @@ struct engine_info {
+>  
+>  static const struct engine_info intel_engines[] = {
+>  	[RCS0] = {
+> -		.gen6_hw_id = RCS0_HW,
+>  		.class = RENDER_CLASS,
+>  		.instance = 0,
+>  		.mmio_bases = {
+> @@ -62,7 +60,6 @@ static const struct engine_info intel_engines[] = {
+>  		},
+>  	},
+>  	[BCS0] = {
+> -		.gen6_hw_id = BCS0_HW,
+>  		.class = COPY_ENGINE_CLASS,
+>  		.instance = 0,
+>  		.mmio_bases = {
+> @@ -70,7 +67,6 @@ static const struct engine_info intel_engines[] = {
+>  		},
+>  	},
+>  	[VCS0] = {
+> -		.gen6_hw_id = VCS0_HW,
+>  		.class = VIDEO_DECODE_CLASS,
+>  		.instance = 0,
+>  		.mmio_bases = {
+> @@ -102,7 +98,6 @@ static const struct engine_info intel_engines[] = {
+>  		},
+>  	},
+>  	[VECS0] = {
+> -		.gen6_hw_id = VECS0_HW,
+>  		.class = VIDEO_ENHANCEMENT_CLASS,
+>  		.instance = 0,
+>  		.mmio_bases = {
+> @@ -290,7 +285,6 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+>  	engine->i915 = i915;
+>  	engine->gt = gt;
+>  	engine->uncore = gt->uncore;
+> -	engine->gen6_hw_id = info->gen6_hw_id;
+>  	guc_class = engine_class_to_guc_class(info->class);
+>  	engine->guc_id = MAKE_GUC_ID(guc_class, info->instance);
+>  	engine->mmio_base = __engine_mmio_base(i915, info->mmio_bases);
+> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+> index 266422d8d1b1..64330bfb7641 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+> @@ -28,13 +28,6 @@
+>  #include "intel_wakeref.h"
+>  #include "intel_workarounds_types.h"
+>  
+> -/* Legacy HW Engine ID */
+> -
+> -#define RCS0_HW		0
+> -#define VCS0_HW		1
+> -#define BCS0_HW		2
+> -#define VECS0_HW	3
+> -
+>  /* Gen11+ HW Engine class + instance */
+>  #define RENDER_CLASS		0
+>  #define VIDEO_DECODE_CLASS	1
+> @@ -268,7 +261,6 @@ struct intel_engine_cs {
+>  
+>  	intel_engine_mask_t mask;
+>  
+> -	u8 gen6_hw_id;
+>  	u8 class;
+>  	u8 instance;
+>  
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> index 8750ffce9d61..d91386f4828e 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -2572,7 +2572,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+>  #define   ARB_MODE_BWGTLB_DISABLE (1 << 9)
+>  #define   ARB_MODE_SWIZZLE_BDW	(1 << 1)
+>  #define RENDER_HWS_PGA_GEN7	_MMIO(0x04080)
+> -#define RING_FAULT_REG(engine)	_MMIO(0x4094 + 0x100 * (engine)->gen6_hw_id)
+> +
+> +#define _GEN6_ENGINE_CLASS_TO_ID(class) _PICK((class), 0, 1, 3, 2)
+> +#define RING_FAULT_REG(engine)	_MMIO(0x4094 + 0x100 * _GEN6_ENGINE_CLASS_TO_ID((engine)->class))
 
-low: < 0
-mid: 0
-high: > 0
+If you want to make this more clear to someone reading it down the road,
+you could always do something explicit like:
 
-Update gem_scheduler to understand this. This entails updating promotion
-test to use 3 levels that will map into different buckets and also
-delete a racey check.
+  #define _RING_FAULT_REG_RCS        0x4094
+  #define _RING_FAULT_REG_VCS        0x4194
+  #define _RING_FAULT_REG_BCS        0x4294
+  #define _RING_FAULT_REG_VECS       0x4394
+  #define RING_FAULT_REG(engine)     _MMIO(_PICK((engine)->class, \
+                                                 _RING_FAULT_REG_RCS, \
+                                                 _RING_FAULT_REG_VCS, \
+                                                 _RING_FAULT_REG_VECS, \
+                                                 _RING_FAULT_REG_BCS))
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- tests/i915/gem_ctx_shared.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+But in general,
 
-diff --git a/tests/i915/gem_ctx_shared.c b/tests/i915/gem_ctx_shared.c
-index 4441e6eb7..0d95df8a5 100644
---- a/tests/i915/gem_ctx_shared.c
-+++ b/tests/i915/gem_ctx_shared.c
-@@ -771,10 +771,10 @@ static void promotion(int i915, const intel_ctx_cfg_t *cfg, unsigned ring)
- 	gem_context_set_priority(i915, ctx[LO]->id, MIN_PRIO);
- 
- 	ctx[HI] = intel_ctx_create(i915, &q_cfg);
--	gem_context_set_priority(i915, ctx[HI]->id, 0);
-+	gem_context_set_priority(i915, ctx[HI]->id, MAX_PRIO);
- 
- 	ctx[NOISE] = intel_ctx_create(i915, &q_cfg);
--	gem_context_set_priority(i915, ctx[NOISE]->id, MIN_PRIO/2);
-+	gem_context_set_priority(i915, ctx[NOISE]->id, 0);
- 
- 	result = gem_create(i915, 4096);
- 	dep = gem_create(i915, 4096);
-@@ -811,7 +811,6 @@ static void promotion(int i915, const intel_ctx_cfg_t *cfg, unsigned ring)
- 			I915_GEM_DOMAIN_GTT, I915_GEM_DOMAIN_GTT);
- 	gem_close(i915, result);
- 
--	igt_assert_eq_u32(ptr[0], ctx[NOISE]->id);
- 	munmap(ptr, 4096);
- 
- 	intel_ctx_destroy(i915, ctx[NOISE]);
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+
+
+>  #define GEN8_RING_FAULT_REG	_MMIO(0x4094)
+>  #define GEN12_RING_FAULT_REG	_MMIO(0xcec4)
+>  #define   GEN8_RING_FAULT_ENGINE_ID(x)	(((x) >> 12) & 0x7)
+> -- 
+> 2.31.1
+> 
+
 -- 
-2.28.0
-
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
