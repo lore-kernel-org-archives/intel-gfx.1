@@ -2,54 +2,51 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.4 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE0B9C12002
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00B51C12002
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:32:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 99E4261248
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99E4261248
+	by mail.kernel.org (Postfix) with ESMTPS id A285F6023B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:32:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A285F6023B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 313EF6E0F6;
-	Wed, 21 Jul 2021 17:29:06 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E77086E0F6;
- Wed, 21 Jul 2021 17:29:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="233287893"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="233287893"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 10:29:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="632711426"
-Received: from irvmail001.ir.intel.com ([10.43.11.63])
- by orsmga005.jf.intel.com with ESMTP; 21 Jul 2021 10:26:41 -0700
-Received: from [10.249.140.99] (mwajdecz-MOBL.ger.corp.intel.com
- [10.249.140.99])
- by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
- 16LHQedl030773; Wed, 21 Jul 2021 18:26:40 +0100
-To: Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20210721161120.24610-1-vinay.belgaumkar@intel.com>
- <20210721161120.24610-6-vinay.belgaumkar@intel.com>
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Message-ID: <fa6e3691-d43b-1b42-f031-f3d533298eae@intel.com>
-Date: Wed, 21 Jul 2021 19:26:39 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39E026E922;
+	Wed, 21 Jul 2021 17:32:21 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 815BA6E922
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 17:32:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="191757647"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="191757647"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 10:32:18 -0700
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="495432391"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 10:32:18 -0700
+Date: Wed, 21 Jul 2021 10:42:08 -0700
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+Message-ID: <20210721174208.GA31398@labuser-Z97X-UD5H>
+References: <20210714223414.9849-1-manasi.d.navare@intel.com>
+ <9fb23633-cbeb-b4c8-d548-95323c7a71b3@intel.com>
+ <20210719185840.GA30216@labuser-Z97X-UD5H>
+ <7e483a82-b997-4eb1-d585-484fc98b3914@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20210721161120.24610-6-vinay.belgaumkar@intel.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 05/14] drm/i915/guc/slpc: Allocate,
- initialize and release SLPC
+Content-Disposition: inline
+In-Reply-To: <7e483a82-b997-4eb1-d585-484fc98b3914@intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Fix shared dpll mismatch
+ for bigjoiner slave
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,167 +59,91 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Pushed to drm-intel-next, tahnks for the reviews.
 
+Manasi
 
-On 21.07.2021 18:11, Vinay Belgaumkar wrote:
-> Allocate data structures for SLPC and functions for
-> initializing on host side.
-> 
-> v2: Address review comments (Michal W)
-> 
-> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-> Signed-off-by: Sundaresan Sujaritha <sujaritha.sundaresan@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 11 ++++++
->  drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   | 36 ++++++++++++++++++-
->  drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h   |  1 +
->  .../gpu/drm/i915/gt/uc/intel_guc_slpc_types.h |  3 ++
->  4 files changed, 50 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-> index fcccb103a21a..686cb978662d 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-> @@ -337,6 +337,12 @@ int intel_guc_init(struct intel_guc *guc)
->  			goto err_ct;
->  	}
->  
-> +	if (intel_guc_slpc_is_used(guc)) {
-> +		ret = intel_guc_slpc_init(&guc->slpc);
-> +		if (ret)
-> +			goto err_submission;
-> +	}
-> +
->  	/* now that everything is perma-pinned, initialize the parameters */
->  	guc_init_params(guc);
->  
-> @@ -347,6 +353,8 @@ int intel_guc_init(struct intel_guc *guc)
->  
->  	return 0;
->  
-> +err_submission:
-> +	intel_guc_submission_fini(guc);
->  err_ct:
->  	intel_guc_ct_fini(&guc->ct);
->  err_ads:
-> @@ -369,6 +377,9 @@ void intel_guc_fini(struct intel_guc *guc)
->  
->  	i915_ggtt_disable_guc(gt->ggtt);
->  
-> +	if (intel_guc_slpc_is_used(guc))
-> +		intel_guc_slpc_fini(&guc->slpc);
-> +
->  	if (intel_guc_submission_is_used(guc))
->  		intel_guc_submission_fini(guc);
->  
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-> index d9feb430ce35..a99d727b5bf0 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-> @@ -12,6 +12,16 @@ static inline struct intel_guc *slpc_to_guc(struct intel_guc_slpc *slpc)
->  	return container_of(slpc, struct intel_guc, slpc);
->  }
->  
-> +static inline struct intel_gt *slpc_to_gt(struct intel_guc_slpc *slpc)
-> +{
-> +	return guc_to_gt(slpc_to_guc(slpc));
-> +}
-> +
-> +static inline struct drm_i915_private *slpc_to_i915(struct intel_guc_slpc *slpc)
-> +{
-> +	return (slpc_to_gt(slpc))->i915;
+On Tue, Jul 20, 2021 at 12:53:23PM +0530, Nautiyal, Ankit K wrote:
+> =
 
-redundant ( )
+> On 7/20/2021 12:28 AM, Navare, Manasi wrote:
+> >On Mon, Jul 19, 2021 at 11:47:51AM +0530, Nautiyal, Ankit K wrote:
+> >>Patch looks good to me.
+> >>
+> >>Please find below some suggestions
+> >>
+> >>On 7/15/2021 4:04 AM, Manasi Navare wrote:
+> >>>Currently when we do the HW state readout, we dont set the shared dpll=
+ to NULL
+> >>>for the bigjoiner slave which should not have a DPLL assigned. So it h=
+as
+> >>>some garbage while the HW state readout is NULL. So explicitly reset
+> >>>the shared dpll for bigjoiner slave pipe.
+> >>>
+> >>>Bug: https://gitlab.freedesktop.org/drm/intel/-/issues/3465
+> >>>Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> >>>Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> >>>Tested-By: Swati Sharma <swati2.sharma@intel.com>
+> >>checkpatch warning about tested-by tag.
+> >>>Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> >>>---
+> >>>  drivers/gpu/drm/i915/display/intel_display.c | 4 ++++
+> >>>  1 file changed, 4 insertions(+)
+> >>>
+> >>>diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gp=
+u/drm/i915/display/intel_display.c
+> >>>index 65ddb6ca16e6..c274bfb8e549 100644
+> >>>--- a/drivers/gpu/drm/i915/display/intel_display.c
+> >>>+++ b/drivers/gpu/drm/i915/display/intel_display.c
+> >>>@@ -9006,6 +9006,10 @@ verify_crtc_state(struct intel_crtc *crtc,
+> >>>  	if (!new_crtc_state->hw.active)
+> >>>  		return;
+> >>>+	if (new_crtc_state->bigjoiner_slave)
+> >>>+		/* No PLLs set for slave */
+> >>>+		pipe_config->shared_dpll =3D NULL;
+> >>>+
+> >>there is a check for bigjoiner_slave, couple of lines above this:
+> >>
+> >>if (new_crtc_state->bigjoiner_slave)
+> >> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 master =3D new_crtc_stat=
+e->bigjoiner_linked_crtc;
+> >>
+> >>Perhaps it will make sense to club the set shared_dpll to NULL, along w=
+ith
+> >>these lines.
+> >Yup, thats where I was resetting in earlier patch but then it actually g=
+ets overridden in a function call
+> >after this point so need to reset it after separately.
+> >
+> >Manasi
+> =
 
-> +}
-> +
->  static bool __detect_slpc_supported(struct intel_guc *guc)
->  {
->  	/* GuC SLPC is unavailable for pre-Gen12 */
-> @@ -35,9 +45,29 @@ void intel_guc_slpc_init_early(struct intel_guc_slpc *slpc)
->  	guc->slpc_selected = __guc_slpc_selected(guc);
->  }
->  
-> +static int slpc_shared_data_init(struct intel_guc_slpc *slpc)
-> +{
-> +	struct intel_guc *guc = slpc_to_guc(slpc);
-> +	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-> +	u32 size = PAGE_ALIGN(sizeof(struct slpc_shared_data));
-> +	int err;
-> +
-> +	err = intel_guc_allocate_and_map_vma(guc, size, &slpc->vma, (void **)&slpc->vaddr);
-> +	if (unlikely(err)) {
-> +		drm_err(&i915->drm,
-> +			"Failed to allocate SLPC struct (err=%pe)\n",
-> +			ERR_PTR(err));
-> +		return err;
-> +	}
-> +
-> +	return err;
-> +}
-> +
->  int intel_guc_slpc_init(struct intel_guc_slpc *slpc)
->  {
-> -	return 0;
-> +	GEM_BUG_ON(slpc->vma);
-> +
-> +	return slpc_shared_data_init(slpc);
->  }
->  
->  /*
-> @@ -60,4 +90,8 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
->  
->  void intel_guc_slpc_fini(struct intel_guc_slpc *slpc)
->  {
-> +	if (!slpc->vma)
-> +		return;
-> +
-> +	i915_vma_unpin_and_release(&slpc->vma, I915_VMA_RELEASE_MAP);
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-> index c3b0ad7f0f93..f02249ff5f1b 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-> @@ -8,6 +8,7 @@
->  
->  #include "intel_guc_submission.h"
->  #include "intel_guc_slpc_types.h"
-> +#include "abi/guc_actions_slpc_abi.h"
+> You are right. I missed that, pipe_config gets overwritten just before th=
+is
+> point, so the change is at the right place.
+> =
 
-is this is needed here ?
-maybe abi.h could be included only in slcp.c ?
+> Regards,
+> =
 
->  
->  static inline bool intel_guc_slpc_is_supported(struct intel_guc *guc)
->  {
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-> index b85148265b1f..214a449e78f2 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-> @@ -7,9 +7,12 @@
->  #define _INTEL_GUC_SLPC_TYPES_H_
->  
->  #include <linux/types.h>
-> +#include "abi/guc_actions_slpc_abi.h"
+> Ankit
+> =
 
-for below pointers you don't need this header(s) to be included
+> =
 
-Michal
-
->  
->  struct intel_guc_slpc {
->  
-> +	struct i915_vma *vma;
-> +	struct slpc_shared_data *vaddr;
->  };
->  
->  #endif
-> 
+> >
+> >>In any case:
+> >>
+> >>Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> >>
+> >>>  	intel_pipe_config_sanity_check(dev_priv, pipe_config);
+> >>>  	if (!intel_pipe_config_compare(new_crtc_state,
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
