@@ -2,44 +2,41 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3704FC636C9
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 16:11:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C25CC12002
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 16:12:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EDF526100C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 16:11:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EDF526100C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id CF5DE6100C
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 16:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF5DE6100C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C8BE6E88A;
-	Wed, 21 Jul 2021 16:11:46 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E38E6E88A;
- Wed, 21 Jul 2021 16:11:44 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="198669902"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="198669902"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 09:11:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="564786540"
-Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.27.27])
- by orsmga004.jf.intel.com with ESMTP; 21 Jul 2021 09:11:42 -0700
-From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Wed, 21 Jul 2021 09:11:06 -0700
-Message-Id: <20210721161120.24610-1-vinay.belgaumkar@intel.com>
-X-Mailer: git-send-email 2.25.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6496E98C;
+	Wed, 21 Jul 2021 16:12:02 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 51D1C6E98C;
+ Wed, 21 Jul 2021 16:12:01 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 49949A0118;
+ Wed, 21 Jul 2021 16:12:01 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 00/14] drm/i915/guc: Enable GuC based power
- management features
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jason Ekstrand" <jason@jlekstrand.net>
+Date: Wed, 21 Jul 2021 16:12:01 -0000
+Message-ID: <162688392129.769.13113287390856980310@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210721152358.2893314-1-jason@jlekstrand.net>
+In-Reply-To: <20210721152358.2893314-1-jason@jlekstrand.net>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRml4?=
+ =?utf-8?q?_the_debugfs_splat_from_mock_selftests_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,159 +49,203 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============2109195042=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series enables Single Loop Power Control (SLPC) feature in GuC.
-GuC implements various power management algorithms as part of it's
-operation. These need to be specifically enabled by KMD. They replace
-the legacy host based management of these features.
+--===============2109195042==
+Content-Type: multipart/alternative;
+ boundary="===============5779939161321443676=="
 
-With this series, we will enable two PM features - GTPerf and GuCRC. These
-are the Turbo and RC6 equivalents of the host based version. GuC provides
-various interfaces via host-to-guc messaging, which allows KMD to enable
-these features after GuC is loaded and GuC submission is enabled. We will
-specifically disable the IA/GT Balancer and Duty Cycle control features in
-SLPC.
+--===============5779939161321443676==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-To enable GTPerf, KMD sends a specific h2g message after setting up
-some shared data structures. As part of this, we will gate host RPS as 
-well. GuC takes over the duties of requesting frequencies by monitoring
-GPU busyness. We can influence what GuC requests by modifying the min 
-and max frequencies setup by SLPC through the sysfs interfaces that have
-been exposed by legacy Turbo. SLPC typically requests efficient frequency
-instead of minimum frequency to optimize performance. It also does not
-necessarily stick to platform max, and can request frequencies that are
-much higher since pcode will ultimately grant the appropriate values.
-However, we will force it to adhere to platform min and max values so as
-to maintain legacy behavior. SLPC does not have the concept of waitboost,
-so the boost_freq sysfs will show a '0' value for now. There is a patch
-forthcoming to ensure the interface is not exposed when SLPC is enabled.
+== Series Details ==
 
-GuCRC is enabled similarly through a h2g message. We still need to enable
-RC6 feature bit (GEN6_RC_CTL_RC6_ENABLE) before we send this out.
-Render/Media power gating still needs to be enabled by host as before.
-GuC will take care of setting up the hysterisis values for RC6, host
-does not need to set this up anymore.
+Series: Fix the debugfs splat from mock selftests (rev3)
+URL   : https://patchwork.freedesktop.org/series/92729/
+State : success
 
-v2: Address review comments (Michal W)
+== Summary ==
 
-Matthew Brost (1):
-  drm/i915/guc: SQUASHED PATCH - DO NOT REVIEW
+CI Bug Log - changes from CI_DRM_10365 -> Patchwork_20664
+====================================================
 
-Vinay Belgaumkar (13):
-  drm/i915/guc/slpc: Initial definitions for SLPC
-  drm/i915/guc/slpc: Gate Host RPS when SLPC is enabled
-  drm/i915/guc/slpc: Adding SLPC communication interfaces
-  drm/i915/guc/slpc: Allocate, initialize and release SLPC
-  drm/i915/guc/slpc: Enable SLPC and add related H2G events
-  drm/i915/guc/slpc: Add methods to set min/max frequency
-  drm/i915/guc/slpc: Add get max/min freq hooks
-  drm/i915/guc/slpc: Add debugfs for SLPC info
-  drm/i915/guc/slpc: Enable ARAT timer interrupt
-  drm/i915/guc/slpc: Cache platform frequency limits
-  drm/i915/guc/slpc: Sysfs hooks for SLPC
-  drm/i915/guc/slpc: Add SLPC selftest
-  drm/i915/guc/rc: Setup and enable GUCRC feature
+Summary
+-------
 
- drivers/gpu/drm/i915/Makefile                 |    3 +
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |   21 +-
- drivers/gpu/drm/i915/gem/i915_gem_mman.c      |    3 +-
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |    6 +-
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   44 +-
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.h   |   16 +-
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |    7 +
- drivers/gpu/drm/i915/gt/intel_context.c       |   50 +-
- drivers/gpu/drm/i915/gt/intel_context.h       |   50 +-
- drivers/gpu/drm/i915/gt/intel_context_types.h |   63 +-
- drivers/gpu/drm/i915/gt/intel_engine.h        |   57 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  182 +-
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |   71 +-
- .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |    4 +
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |   13 +-
- drivers/gpu/drm/i915/gt/intel_engine_user.c   |    4 +
- .../drm/i915/gt/intel_execlists_submission.c  |   89 +-
- .../drm/i915/gt/intel_execlists_submission.h  |    4 -
- drivers/gpu/drm/i915/gt/intel_gt.c            |   23 +-
- drivers/gpu/drm/i915/gt/intel_gt.h            |    2 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.c         |    6 +-
- drivers/gpu/drm/i915/gt/intel_gt_requests.c   |   21 +-
- drivers/gpu/drm/i915/gt/intel_gt_requests.h   |    9 +-
- drivers/gpu/drm/i915/gt/intel_lrc_reg.h       |    1 -
- drivers/gpu/drm/i915/gt/intel_rc6.c           |   22 +-
- drivers/gpu/drm/i915/gt/intel_reset.c         |   50 +-
- .../gpu/drm/i915/gt/intel_ring_submission.c   |   42 +
- drivers/gpu/drm/i915/gt/intel_rps.c           |  190 ++
- drivers/gpu/drm/i915/gt/intel_rps.h           |   11 +
- drivers/gpu/drm/i915/gt/intel_workarounds.c   |   46 +-
- .../gpu/drm/i915/gt/intel_workarounds_types.h |    1 +
- drivers/gpu/drm/i915/gt/mock_engine.c         |   34 +-
- drivers/gpu/drm/i915/gt/selftest_context.c    |   10 +
- .../drm/i915/gt/selftest_engine_heartbeat.c   |   22 +
- .../drm/i915/gt/selftest_engine_heartbeat.h   |    2 +
- drivers/gpu/drm/i915/gt/selftest_execlists.c  |   12 +-
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  322 +-
- drivers/gpu/drm/i915/gt/selftest_mocs.c       |   50 +-
- drivers/gpu/drm/i915/gt/selftest_slpc.c       |  318 ++
- drivers/gpu/drm/i915/gt/selftest_slpc.h       |   12 +
- .../gpu/drm/i915/gt/selftest_workarounds.c    |  132 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   21 +
- .../drm/i915/gt/uc/abi/guc_actions_slpc_abi.h |  201 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  100 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  107 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  464 ++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h    |    4 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  133 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |   17 +-
- .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |   48 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   90 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c     |   81 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_rc.h     |   31 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   |  607 ++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h   |   42 +
- .../gpu/drm/i915/gt/uc/intel_guc_slpc_types.h |   29 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 2823 +++++++++++++++--
- .../gpu/drm/i915/gt/uc/intel_guc_submission.h |   18 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  125 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.h         |   15 +
- drivers/gpu/drm/i915/i915_debugfs_params.c    |   32 +
- drivers/gpu/drm/i915/i915_gem_evict.c         |    1 +
- drivers/gpu/drm/i915/i915_gpu_error.c         |   25 +-
- drivers/gpu/drm/i915/i915_pmu.c               |    2 +-
- drivers/gpu/drm/i915/i915_reg.h               |    7 +
- drivers/gpu/drm/i915/i915_request.c           |  174 +-
- drivers/gpu/drm/i915/i915_request.h           |   28 +
- drivers/gpu/drm/i915/i915_scheduler.c         |   16 +-
- drivers/gpu/drm/i915/i915_scheduler.h         |   10 +-
- drivers/gpu/drm/i915/i915_scheduler_types.h   |   22 +
- drivers/gpu/drm/i915/i915_sysfs.c             |   77 +-
- drivers/gpu/drm/i915/i915_trace.h             |  201 +-
- .../drm/i915/selftests/i915_live_selftests.h  |    1 +
- drivers/gpu/drm/i915/selftests/i915_request.c |    4 +-
- .../gpu/drm/i915/selftests/igt_flush_test.c   |    2 +-
- .../gpu/drm/i915/selftests/igt_live_test.c    |    2 +-
- .../i915/selftests/intel_scheduler_helpers.c  |   89 +
- .../i915/selftests/intel_scheduler_helpers.h  |   35 +
- .../gpu/drm/i915/selftests/mock_gem_device.c  |    3 +-
- include/uapi/drm/i915_drm.h                   |    9 +
- 80 files changed, 6762 insertions(+), 959 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/selftest_slpc.c
- create mode 100644 drivers/gpu/drm/i915/gt/selftest_slpc.h
- create mode 100644 drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_rc.h
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
- create mode 100644 drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
- create mode 100644 drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
+  **SUCCESS**
 
--- 
-2.25.0
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20664 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@execlists:
+    - fi-bsw-kefka:       [PASS][1] -> [INCOMPLETE][2] ([i915#2782] / [i915#2940])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10365/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
+
+  * igt@runner@aborted:
+    - fi-bsw-kefka:       NOTRUN -> [FAIL][3] ([fdo#109271] / [i915#1436])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bsw-kefka/igt@runner@aborted.html
+    - fi-bdw-5557u:       NOTRUN -> [FAIL][4] ([i915#1602] / [i915#2029])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bdw-5557u/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s0:
+    - fi-tgl-u2:          [FAIL][5] ([i915#1888]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10365/fi-tgl-u2/igt@gem_exec_suspend@basic-s0.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-tgl-u2/igt@gem_exec_suspend@basic-s0.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
+  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+  [i915#2029]: https://gitlab.freedesktop.org/drm/intel/issues/2029
+  [i915#2782]: https://gitlab.freedesktop.org/drm/intel/issues/2782
+  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
+
+
+Participating hosts (38 -> 33)
+------------------------------
+
+  Missing    (5): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-n3050 fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10365 -> Patchwork_20664
+
+  CI-20190529: 20190529
+  CI_DRM_10365: ac586c6a6b56905df2af88699c1e6d28416dd9a4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6146: 6caef22e4aafed275771f564d4ea4cab09896ebc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20664: d03eff83a6462ceea9aa878c114277f449740d0e @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+d03eff83a646 drm/i915: Make the kmem slab for i915_buddy_block a global
+fde79ac95398 drm/ttm: Initialize debugfs from ttm_global_init()
+e72dbb7e01fa drm/i915: Use a table for i915_init/exit (v2)
+6b5175fb9124 drm/i915: Call i915_globals_exit() if pci_register_device() fails
+b682cf540a5c drm/i915: Call i915_globals_exit() after i915_pmu_exit()
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html
+
+--===============5779939161321443676==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fix the debugfs splat from mock selftests (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/92729/">https://patchwork.freedesktop.org/series/92729/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10365 -&gt; Patchwork_20664</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20664 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@execlists:</p>
+<ul>
+<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10365/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2782">i915#2782</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>
+<p>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bsw-kefka/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a>)</p>
+</li>
+<li>
+<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2029">i915#2029</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@gem_exec_suspend@basic-s0:<ul>
+<li>fi-tgl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10365/fi-tgl-u2/igt@gem_exec_suspend@basic-s0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-tgl-u2/igt@gem_exec_suspend@basic-s0.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (38 -&gt; 33)</h2>
+<p>Missing    (5): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-n3050 fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10365 -&gt; Patchwork_20664</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10365: ac586c6a6b56905df2af88699c1e6d28416dd9a4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6146: 6caef22e4aafed275771f564d4ea4cab09896ebc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20664: d03eff83a6462ceea9aa878c114277f449740d0e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>d03eff83a646 drm/i915: Make the kmem slab for i915_buddy_block a global<br />
+fde79ac95398 drm/ttm: Initialize debugfs from ttm_global_init()<br />
+e72dbb7e01fa drm/i915: Use a table for i915_init/exit (v2)<br />
+6b5175fb9124 drm/i915: Call i915_globals_exit() if pci_register_device() fails<br />
+b682cf540a5c drm/i915: Call i915_globals_exit() after i915_pmu_exit()</p>
+
+</body>
+</html>
+
+--===============5779939161321443676==--
+
+--===============2109195042==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============2109195042==--
