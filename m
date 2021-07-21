@@ -2,79 +2,65 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A01BBC636C9
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 10:06:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2055CC12002
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 10:29:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5DC1A61029
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 10:06:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5DC1A61029
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id AAE3860FF2
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 10:29:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AAE3860FF2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F032C6E903;
-	Wed, 21 Jul 2021 10:06:20 +0000 (UTC)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63E496E8D0;
- Wed, 21 Jul 2021 08:30:20 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id c15so1224977wrs.5;
- Wed, 21 Jul 2021 01:30:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=yUJHVWQTlhcEWMO4DydR2xNVcklNcrzSF7aJbrXgfvg=;
- b=GwdmBlYvKMUbfBL/G94R3vphXcZlpRXLWB5bF6QGSKL6pV85wsV22JWa094sGOGZ7g
- P7qZ2LHJQBo4PwG/TNgCHOaSgH2i2SjcyzRNDuX20bIJxYhvzaR4zaGWcHvYfz7FosQ1
- +yN7E9DcdXpiJYZyNTefp+5fVA6/p0Iih4ldiljoRyOGgUM/UJfxsJv02X3wzob4Rndq
- IFXhZkCFEChrGwQ0t0RNvLKWhe0VX5MuIqQGR6jl1KGLr0E0wvw3SXlB/oyfvLUR0i77
- BLKvwGfPp8i9fxGt49K+cQN7ANcz5BjuZM8eJYMmSGGv2iBwzBMt/VngBYxrBWcVPqtB
- SFaw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 467F56E89C;
+	Wed, 21 Jul 2021 10:29:17 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12EC26E89C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 10:29:16 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ t4-20020a05683014c4b02904cd671b911bso1635119otq.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 03:29:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=h417+5Nn2Pgd6WA/rkzrOB7f5qZl0K/oFZRySnon6fM=;
+ b=dP5y0SRwrB1hjw/MVYi14vnTeaxW3RWgNT4XKLVwLQTSLYGNhUM8B/5tUKn/AjmG/e
+ 87Dgni6usuZj0Gwd26LtGaiVnfb+Nb3LcfIks58zLNCluPjUgZ07/vDQPpH5UsVcLJnm
+ DUBHIuwtqCITyO6+jd9Nl3a1Uz9J2CkocvlKU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=yUJHVWQTlhcEWMO4DydR2xNVcklNcrzSF7aJbrXgfvg=;
- b=QVG+z32ihdZiZyAC+TXXqgHdxQgCwvLrvO48rlX3wa1s3W9Nmvsz0AxyTDlBuqMpFE
- /TSVz9EOTiTOm1zK0y5HNRNlBdtgDbyie591cQJekHBo8tBIMAPY6CWGgB31azywLS+e
- X6T722oETBip0oLgJSa4LZ5YnB5o58s882RTbjYUPsWJ1rLgYXrrMkSQP+8wVe7DjqkQ
- iGQEzR2R7nDNaX53QhBsjc1+0mCUtTDpCtYZKgM2+Cz4qrFxun5O/dw8iybgWqBQ4JlV
- wkaemjzw52WdVtsFLk3FZe/ohTsNNhanQngsJen1UyZBVD0SPW7CK9IauZqR0j1rr/D8
- ao3w==
-X-Gm-Message-State: AOAM531SPMlzgTmo03pzs0LXmA6z9BrDEl1CPSmd4Q7MuF5/s4G2bet2
- w9/4D+UeuBq2Kx/mGlrhcdw=
-X-Google-Smtp-Source: ABdhPJw/bXojKZq/3rBVxc6LypfZ1k0EVFJuDmJugmtJ7S6ZqIPs+VTOFVKLsKXR1S8VTaSs6Vqj4A==
-X-Received: by 2002:adf:b605:: with SMTP id f5mr41299570wre.419.1626856219104; 
- Wed, 21 Jul 2021 01:30:19 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:9bcf:837a:d18c:dc66?
- ([2a02:908:1252:fb60:9bcf:837a:d18c:dc66])
- by smtp.gmail.com with ESMTPSA id w3sm26068057wrt.55.2021.07.21.01.30.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jul 2021 01:30:18 -0700 (PDT)
-To: Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20210716061634.2446357-1-hch@lst.de>
- <20210716061634.2446357-2-hch@lst.de>
- <f171831b-3281-5a5a-04d3-2d69cb77f1a2@amd.com>
- <YPbUvIYmu3WfyM2C@phenom.ffwll.local>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <81094b7d-1846-9d43-dc58-44ff9bd60995@gmail.com>
-Date: Wed, 21 Jul 2021 10:30:17 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=h417+5Nn2Pgd6WA/rkzrOB7f5qZl0K/oFZRySnon6fM=;
+ b=eOOeTPAS8QMaC2Me0pGAt4Nr4sZJ+JxH7gTRqiiUroZAmTx3zQF5MTbRi4e4w2SaAd
+ d/JtollsKdEvcJk0j6FxyuMLX4kdjBlJlUJ70E2iK1BYiFLfFitywQbYRJxEt8pA8Hzx
+ Qi8VanxlOU06AVbfwfV8UZAkUsdV4DQeaiuYf3Hads8a5iuMDJXvVpLjo8xBZ/HHmJsA
+ fWxJBY8GHgG19iADAifDJX1Xi5jMmH3OB0+pMg3TxJt72GGQQUNd2xwNUglFjB3aiHw2
+ ifbd0ZvyI0MwlaNtKmoc9Luz21TSNUJpVhlJf6P4LmpbWXtU0Jyn04IuD1JyEkGAhY4n
+ ERWw==
+X-Gm-Message-State: AOAM531fpGmnA6m0sPhn6U82yzKNrcI4YOdAYQLGG4ywQNQsM8Flvcwr
+ b2PsR8T9lpVlqptldW64bkh2TPRT8Hd4wxUefkivCA==
+X-Google-Smtp-Source: ABdhPJxnsfA3n87/jWpR0qUhPsWBSfRhmjyGwC0ANDR9tMSbPA64GLPwtsPMaBOTIwvd+I7FHsCQ2NOVZZiPWLN/Uko=
+X-Received: by 2002:a05:6830:2802:: with SMTP id
+ w2mr24416395otu.303.1626863355405; 
+ Wed, 21 Jul 2021 03:29:15 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <YPbUvIYmu3WfyM2C@phenom.ffwll.local>
-Content-Language: en-US
-X-Mailman-Approved-At: Wed, 21 Jul 2021 10:06:19 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/7] vgaarb: remove VGA_DEFAULT_DEVICE
+References: <20210712043508.11584-1-desmondcheongzx@gmail.com>
+ <YPcU3wJK7kC5b7kv@phenom.ffwll.local>
+ <50c5582b-c674-4ef8-585f-7a3d78a49f85@gmail.com>
+In-Reply-To: <50c5582b-c674-4ef8-585f-7a3d78a49f85@gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 21 Jul 2021 12:29:04 +0200
+Message-ID: <CAKMK7uGvb3O9Ypd73xZf6bdMcXJyGJw4C7GXGprkZLpN9Gx7qQ@mail.gmail.com>
+To: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+Subject: Re: [Intel-gfx] [PATCH v8 0/5] drm: address potential UAF bugs with
+ drm_master ptrs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,39 +73,156 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, kvm@vger.kernel.org,
- David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Christoph Hellwig <hch@lst.de>, Ben Skeggs <bskeggs@redhat.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Dave Airlie <airlied@linux.ie>, Greg KH <gregkh@linuxfoundation.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ linux-kernel-mentees@lists.linuxfoundation.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CgpBbSAyMC4wNy4yMSB1bSAxNTo1MCBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4gT24gRnJpLCBK
-dWwgMTYsIDIwMjEgYXQgMDk6MTQ6MDJBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToK
-Pj4gQW0gMTYuMDcuMjEgdW0gMDg6MTYgc2NocmllYiBDaHJpc3RvcGggSGVsbHdpZzoKPj4+IFRo
-ZSBkZWZpbmUgaXMgZW50aXJlbHkgdW51c2VkLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IENocmlz
-dG9waCBIZWxsd2lnIDxoY2hAbHN0LmRlPgo+PiBJJ20gbm90IGFuIGV4cGVydCBmb3IgdGhpcyBw
-YXJ0aWN1bGFyIGNvZGUsIGJ1dCBhdCBsZWFzdCBvZiBoYW5kIGV2ZXJ5dGhpbmcKPj4geW91IGRv
-IGhlcmUgbWFrZXMgdG90YWxseSBzZW5zZS4KPj4KPj4gV2hvbGUgc2VyaWVzIGlzIEFja2VkLWJ5
-OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gQ2FyZSB0byBh
-bHNvIHB1c2ggdGhpcyBpbnRvIGRybS1taXNjLW5leHQgc2luY2UgeW91IGxvb2tlZCBhbHJlYWR5
-PwoKRG9uZS4KCkNocmlzdGlhbi4KCj4gLURhbmllbAo+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlh
-bi4KPj4KPj4+IC0tLQo+Pj4gICAgaW5jbHVkZS9saW51eC92Z2FhcmIuaCB8IDYgLS0tLS0tCj4+
-PiAgICAxIGZpbGUgY2hhbmdlZCwgNiBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEv
-aW5jbHVkZS9saW51eC92Z2FhcmIuaCBiL2luY2x1ZGUvbGludXgvdmdhYXJiLmgKPj4+IGluZGV4
-IGRjNmRkY2U5MjA2Ni4uMjZlYzhhMDU3ZDJhIDEwMDY0NAo+Pj4gLS0tIGEvaW5jbHVkZS9saW51
-eC92Z2FhcmIuaAo+Pj4gKysrIGIvaW5jbHVkZS9saW51eC92Z2FhcmIuaAo+Pj4gQEAgLTQyLDEy
-ICs0Miw2IEBACj4+PiAgICAjZGVmaW5lIFZHQV9SU1JDX05PUk1BTF9JTyAgICAgMHgwNAo+Pj4g
-ICAgI2RlZmluZSBWR0FfUlNSQ19OT1JNQUxfTUVNICAgIDB4MDgKPj4+IC0vKiBQYXNzaW5nIHRo
-YXQgaW5zdGVhZCBvZiBhIHBjaV9kZXYgdG8gdXNlIHRoZSBzeXN0ZW0gImRlZmF1bHQiCj4+PiAt
-ICogZGV2aWNlLCB0aGF0IGlzIHRoZSBvbmUgdXNlZCBieSB2Z2Fjb24uIEFyY2hzIHdpbGwgcHJv
-YmFibHkKPj4+IC0gKiBoYXZlIHRvIHByb3ZpZGUgdGhlaXIgb3duIHZnYV9kZWZhdWx0X2Rldmlj
-ZSgpOwo+Pj4gLSAqLwo+Pj4gLSNkZWZpbmUgVkdBX0RFRkFVTFRfREVWSUNFICAgICAoTlVMTCkK
-Pj4+IC0KPj4+ICAgIHN0cnVjdCBwY2lfZGV2Owo+Pj4gICAgLyogRm9yIHVzZSBieSBjbGllbnRz
-ICovCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRl
-bC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+On Wed, Jul 21, 2021 at 6:12 AM Desmond Cheong Zhi Xi
+<desmondcheongzx@gmail.com> wrote:
+> On 21/7/21 2:24 am, Daniel Vetter wrote:
+> > On Mon, Jul 12, 2021 at 12:35:03PM +0800, Desmond Cheong Zhi Xi wrote:
+> >> Hi,
+> >>
+> >> In the previous thread on this series we decided to remove a patch that was violating a lockdep requirement in drm_lease. In addition to this change, I took a closer look at the CI logs for the Basic Acceptance Tests and noticed that another regression was introduced. The new patch 2 is a response to this.
+> >>
+> >> Overall, this series addresses potential use-after-free errors when dereferencing pointers to struct drm_master. These were identified after one such bug was caught by Syzbot in drm_getunique():
+> >> https://syzkaller.appspot.com/bug?id=148d2f1dfac64af52ffd27b661981a540724f803
+> >>
+> >> The series is broken up into five patches:
+> >>
+> >> 1. Move a call to drm_is_current_master() out from a section locked by &dev->mode_config.mutex in drm_mode_getconnector(). This patch does not apply to stable.
+> >>
+> >> 2. Move a call to drm_is_current_master() out from the RCU read-side critical section in drm_clients_info().
+> >>
+> >> 3. Implement a locked version of drm_is_current_master() function that's used within drm_auth.c.
+> >>
+> >> 4. Serialize drm_file.master by introducing a new spinlock that's held whenever the value of drm_file.master changes.
+> >>
+> >> 5. Identify areas in drm_lease.c where pointers to struct drm_master are dereferenced, and ensure that the master pointers are not freed during use.
+> >>
+> >> v7 -> v8:
+> >> - Remove the patch that moves the call to _drm_lease_held out from the section locked by &dev->mode_config.idr_mutex in __drm_mode_object_find. This patch violated an existing lockdep requirement as reported by the intel-gfx CI.
+> >> - Added a new patch that moves a call to drm_is_current_master out from the RCU critical section in drm_clients_info. This was reported by the intel-gfx CI.
+> >>
+> >> v6 -> v7:
+> >> - Modify code alignment as suggested by the intel-gfx CI.
+> >> - Add a new patch to the series that adds a new lock to serialize drm_file.master, in response to the lockdep splat by the intel-gfx CI.
+> >> - Update drm_file_get_master to use the new drm_file.master_lock instead of drm_device.master_mutex, in response to the lockdep splat by the intel-gfx CI.
+> >>
+> >> v5 -> v6:
+> >> - Add a new patch to the series that moves the call to _drm_lease_held out from the section locked by &dev->mode_config.idr_mutex in __drm_mode_object_find.
+> >> - Clarify the kerneldoc for dereferencing drm_file.master, as suggested by Daniel Vetter.
+> >> - Refactor error paths with goto labels so that each function only has a single drm_master_put(), as suggested by Emil Velikov.
+> >> - Modify comparisons to NULL into "!master", as suggested by the intel-gfx CI.
+> >>
+> >> v4 -> v5:
+> >> - Add a new patch to the series that moves the call to drm_is_current_master in drm_mode_getconnector out from the section locked by &dev->mode_config.mutex.
+> >> - Additionally, added a missing semicolon to the patch, caught by the intel-gfx CI.
+> >>
+> >> v3 -> v4:
+> >> - Move the call to drm_is_current_master in drm_mode_getconnector out from the section locked by &dev->mode_config.mutex. As suggested by Daniel Vetter. This avoids a circular lock lock dependency as reported here https://patchwork.freedesktop.org/patch/440406/
+> >> - Inside drm_is_current_master, instead of grabbing &fpriv->master->dev->master_mutex, we grab &fpriv->minor->dev->master_mutex to avoid dereferencing a null ptr if fpriv->master is not set.
+> >> - Modify kerneldoc formatting for drm_file.master, as suggested by Daniel Vetter.
+> >> - Additionally, add a file_priv->master NULL check inside drm_file_get_master, and handle the NULL result accordingly in drm_lease.c. As suggested by Daniel Vetter.
+> >>
+> >> v2 -> v3:
+> >> - Move the definition of drm_is_current_master and the _locked version higher up in drm_auth.c to avoid needing a forward declaration of drm_is_current_master_locked. As suggested by Daniel Vetter.
+> >> - Instead of leaking drm_device.master_mutex into drm_lease.c to protect drm_master pointers, add a new drm_file_get_master() function that returns drm_file->master while increasing its reference count, to prevent drm_file->master from being freed. As suggested by Daniel Vetter.
+> >>
+> >> v1 -> v2:
+> >> - Move the lock and assignment before the DRM_DEBUG_LEASE in drm_mode_get_lease_ioctl, as suggested by Emil Velikov.
+> >
+> > Apologies for the delay, I missed your series. Maybe just ping next time
+> > around there's silence.
+> >
+> > Looks all great, merged to drm-misc-next. Given how complex this was I'm
+> > vary of just pushing this to -fixes without some solid testing.
+> >
+>
+> Hi Daniel,
+>
+> Thanks for merging, more testing definitely sounds good to me.
+>
+> > One thing I noticed is that drm_is_current_master could just use the
+> > spinlock, since it's only doing a read access. Care to type up that patch?
+> >
+>
+> I thought about this too, but I'm not sure if that's the best solution.
+>
+> drm_is_current_master calls drm_lease_owner which then walks up the tree
+> of master lessors. The spinlock protects the master of the current drm
+> file, but subsequent lessors aren't protected without holding the
+> device's master mutex.
+
+But this isn't a fpriv->master pointer, but a master->lessor pointer.
+Which should never ever be able to change (we'd have tons of uaf bugs
+around drm_lease_owner otherwise). So I don't think there's anything
+that dev->master_lock protects here that fpriv->master_lookup_lock
+doesn't protect already?
+
+Or am I missing something?
+
+The comment in the struct drm_master says it's protected by
+mode_config.idr_mutex, but that only applies to the idrs and lists I
+think.
+
+> > Also, do you plan to look into that idea we've discussed to flush pending
+> > access when we revoke a master or a lease? I think that would be really
+> > nice improvement here.
+> > -Daniel
+> >
+>
+> Yup, now that the potential UAFs are addressed (hopefully), I'll take a
+> closer look and propose a patch for this.
+
+Thanks a lot.
+-Daniel
+
+>
+> Best wishes,
+> Desmond
+>
+> >>
+> >> Desmond Cheong Zhi Xi (5):
+> >>    drm: avoid circular locks in drm_mode_getconnector
+> >>    drm: avoid blocking in drm_clients_info's rcu section
+> >>    drm: add a locked version of drm_is_current_master
+> >>    drm: serialize drm_file.master with a new spinlock
+> >>    drm: protect drm_master pointers in drm_lease.c
+> >>
+> >>   drivers/gpu/drm/drm_auth.c      | 93 ++++++++++++++++++++++++---------
+> >>   drivers/gpu/drm/drm_connector.c |  5 +-
+> >>   drivers/gpu/drm/drm_debugfs.c   |  3 +-
+> >>   drivers/gpu/drm/drm_file.c      |  1 +
+> >>   drivers/gpu/drm/drm_lease.c     | 81 +++++++++++++++++++++-------
+> >>   include/drm/drm_auth.h          |  1 +
+> >>   include/drm/drm_file.h          | 18 +++++--
+> >>   7 files changed, 152 insertions(+), 50 deletions(-)
+> >>
+> >> --
+> >> 2.25.1
+> >>
+> >
+>
+
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
