@@ -2,41 +2,47 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D0A6C6377A
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:20:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20B11C6377A
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C85B611C1
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:20:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C85B611C1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id DB1AA6120D
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB1AA6120D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C37FA6E3F4;
-	Wed, 21 Jul 2021 21:20:53 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 474946E3F4;
- Wed, 21 Jul 2021 21:20:52 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 397A2A882E;
- Wed, 21 Jul 2021 21:20:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A99036E9D4;
+	Wed, 21 Jul 2021 21:33:14 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B26476E897;
+ Wed, 21 Jul 2021 21:33:13 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="198724332"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="198724332"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 14:33:12 -0700
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470296671"
+Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 14:33:11 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Date: Wed, 21 Jul 2021 14:50:47 -0700
+Message-Id: <20210721215101.139794-5-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20210721215101.139794-1-matthew.brost@intel.com>
+References: <20210721215101.139794-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jason Ekstrand" <jason@jlekstrand.net>
-Date: Wed, 21 Jul 2021 21:20:52 -0000
-Message-ID: <162690245221.766.10601739689836283977@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210721201343.2962674-1-jason@jlekstrand.net>
-In-Reply-To: <20210721201343.2962674-1-jason@jlekstrand.net>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915=3A_Migrate_memory_to_SMEM_when_imported_cross-device_?=
- =?utf-8?b?KHJldjMp?=
+Subject: [Intel-gfx] [PATCH 04/18] drm/i915/guc: Implement GuC submission
+ tasklet
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,85 +55,437 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Implement GuC submission tasklet for new interface. The new GuC
+interface uses H2G to submit contexts to the GuC. Since H2G use a single
+channel, a single tasklet is used for the submission path.
 
-Series: drm/i915: Migrate memory to SMEM when imported cross-device (rev3)
-URL   : https://patchwork.freedesktop.org/series/92617/
-State : warning
+Also the per engine interrupt handler has been updated to disable the
+rescheduling of the physical engine tasklet, when using GuC scheduling,
+as the physical engine tasklet is no longer used.
 
-== Summary ==
+In this patch the field, guc_id, has been added to intel_context and is
+not assigned. Patches later in the series will assign this value.
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+v2:
+ (John Harrison)
+  - Clean up some comments
+v3:
+ (John Harrison)
+  - More comment cleanups
+
+Cc: John Harrison <john.c.harrison@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_context_types.h |   9 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   4 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 231 +++++++++---------
+ 3 files changed, 127 insertions(+), 117 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 90026c177105..6d99631d19b9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -137,6 +137,15 @@ struct intel_context {
+ 	struct intel_sseu sseu;
+ 
+ 	u8 wa_bb_page; /* if set, page num reserved for context workarounds */
++
++	/* GuC scheduling state flags that do not require a lock. */
++	atomic_t guc_sched_state_no_lock;
++
++	/*
++	 * GuC LRC descriptor ID - Not assigned in this patch but future patches
++	 * in the series will.
++	 */
++	u16 guc_id;
+ };
+ 
+ #endif /* __INTEL_CONTEXT_TYPES__ */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 35783558d261..8c7b92f699f1 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -30,6 +30,10 @@ struct intel_guc {
+ 	struct intel_guc_log log;
+ 	struct intel_guc_ct ct;
+ 
++	/* Global engine used to submit requests to GuC */
++	struct i915_sched_engine *sched_engine;
++	struct i915_request *stalled_request;
++
+ 	/* intel_guc_recv interrupt related state */
+ 	spinlock_t irq_lock;
+ 	unsigned int msg_enabled_mask;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 23a94a896a0b..ca0717166a27 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -60,6 +60,31 @@
+ 
+ #define GUC_REQUEST_SIZE 64 /* bytes */
+ 
++/*
++ * Below is a set of functions which control the GuC scheduling state which do
++ * not require a lock as all state transitions are mutually exclusive. i.e. It
++ * is not possible for the context pinning code and submission, for the same
++ * context, to be executing simultaneously. We still need an atomic as it is
++ * possible for some of the bits to changing at the same time though.
++ */
++#define SCHED_STATE_NO_LOCK_ENABLED			BIT(0)
++static inline bool context_enabled(struct intel_context *ce)
++{
++	return (atomic_read(&ce->guc_sched_state_no_lock) &
++		SCHED_STATE_NO_LOCK_ENABLED);
++}
++
++static inline void set_context_enabled(struct intel_context *ce)
++{
++	atomic_or(SCHED_STATE_NO_LOCK_ENABLED, &ce->guc_sched_state_no_lock);
++}
++
++static inline void clr_context_enabled(struct intel_context *ce)
++{
++	atomic_and((u32)~SCHED_STATE_NO_LOCK_ENABLED,
++		   &ce->guc_sched_state_no_lock);
++}
++
+ static inline struct i915_priolist *to_priolist(struct rb_node *rb)
+ {
+ 	return rb_entry(rb, struct i915_priolist, node);
+@@ -122,37 +147,29 @@ static inline void set_lrc_desc_registered(struct intel_guc *guc, u32 id,
+ 	xa_store_irq(&guc->context_lookup, id, ce, GFP_ATOMIC);
+ }
+ 
+-static void guc_add_request(struct intel_guc *guc, struct i915_request *rq)
++static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+ {
+-	/* Leaving stub as this function will be used in future patches */
+-}
++	int err;
++	struct intel_context *ce = rq->context;
++	u32 action[3];
++	int len = 0;
++	bool enabled = context_enabled(ce);
+ 
+-/*
+- * When we're doing submissions using regular execlists backend, writing to
+- * ELSP from CPU side is enough to make sure that writes to ringbuffer pages
+- * pinned in mappable aperture portion of GGTT are visible to command streamer.
+- * Writes done by GuC on our behalf are not guaranteeing such ordering,
+- * therefore, to ensure the flush, we're issuing a POSTING READ.
+- */
+-static void flush_ggtt_writes(struct i915_vma *vma)
+-{
+-	if (i915_vma_is_map_and_fenceable(vma))
+-		intel_uncore_posting_read_fw(vma->vm->gt->uncore,
+-					     GUC_STATUS);
+-}
++	if (!enabled) {
++		action[len++] = INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_SET;
++		action[len++] = ce->guc_id;
++		action[len++] = GUC_CONTEXT_ENABLE;
++	} else {
++		action[len++] = INTEL_GUC_ACTION_SCHED_CONTEXT;
++		action[len++] = ce->guc_id;
++	}
+ 
+-static void guc_submit(struct intel_engine_cs *engine,
+-		       struct i915_request **out,
+-		       struct i915_request **end)
+-{
+-	struct intel_guc *guc = &engine->gt->uc.guc;
++	err = intel_guc_send_nb(guc, action, len);
+ 
+-	do {
+-		struct i915_request *rq = *out++;
++	if (!enabled && !err)
++		set_context_enabled(ce);
+ 
+-		flush_ggtt_writes(rq->ring->vma);
+-		guc_add_request(guc, rq);
+-	} while (out != end);
++	return err;
+ }
+ 
+ static inline int rq_prio(const struct i915_request *rq)
+@@ -160,125 +177,88 @@ static inline int rq_prio(const struct i915_request *rq)
+ 	return rq->sched.attr.priority;
+ }
+ 
+-static struct i915_request *schedule_in(struct i915_request *rq, int idx)
++static int guc_dequeue_one_context(struct intel_guc *guc)
+ {
+-	trace_i915_request_in(rq, idx);
 -
-+drivers/gpu/drm/i915/display/intel_display.c:1896:21:    expected struct i915_vma *[assigned] vma
-+drivers/gpu/drm/i915/display/intel_display.c:1896:21:    got void [noderef] __iomem *[assigned] iomem
-+drivers/gpu/drm/i915/display/intel_display.c:1896:21: warning: incorrect type in assignment (different address spaces)
-+drivers/gpu/drm/i915/gem/i915_gem_context.c:1412:34:    expected struct i915_address_space *vm
-+drivers/gpu/drm/i915/gem/i915_gem_context.c:1412:34:    got struct i915_address_space [noderef] __rcu *vm
-+drivers/gpu/drm/i915/gem/i915_gem_context.c:1412:34: warning: incorrect type in argument 1 (different address spaces)
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:43:25:    expected struct i915_address_space [noderef] __rcu *vm
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:43:25:    got struct i915_address_space *
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:43:25: warning: incorrect type in assignment (different address spaces)
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:60:34:    expected struct i915_address_space *vm
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:60:34:    got struct i915_address_space [noderef] __rcu *vm
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:60:34: warning: incorrect type in argument 1 (different address spaces)
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_reset.c:1396:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
-+drivers/gpu/drm/i915/gt/intel_ring_submission.c:1210:24: warning: Using plain integer as NULL pointer
-+drivers/gpu/drm/i915/i915_perf.c:1434:15: warning: memset with byte count of 16777216
-+drivers/gpu/drm/i915/i915_perf.c:1488:15: warning: memset with byte count of 16777216
-+./include/asm-generic/bitops/find.h:112:45: warning: shift count is negative (-262080)
-+./include/asm-generic/bitops/find.h:32:31: warning: shift count is negative (-262080)
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
-
+-	/*
+-	 * Currently we are not tracking the rq->context being inflight
+-	 * (ce->inflight = rq->engine). It is only used by the execlists
+-	 * backend at the moment, a similar counting strategy would be
+-	 * required if we generalise the inflight tracking.
+-	 */
+-
+-	__intel_gt_pm_get(rq->engine->gt);
+-	return i915_request_get(rq);
+-}
+-
+-static void schedule_out(struct i915_request *rq)
+-{
+-	trace_i915_request_out(rq);
+-
+-	intel_gt_pm_put_async(rq->engine->gt);
+-	i915_request_put(rq);
+-}
+-
+-static void __guc_dequeue(struct intel_engine_cs *engine)
+-{
+-	struct intel_engine_execlists * const execlists = &engine->execlists;
+-	struct i915_sched_engine * const sched_engine = engine->sched_engine;
+-	struct i915_request **first = execlists->inflight;
+-	struct i915_request ** const last_port = first + execlists->port_mask;
+-	struct i915_request *last = first[0];
+-	struct i915_request **port;
++	struct i915_sched_engine * const sched_engine = guc->sched_engine;
++	struct i915_request *last = NULL;
+ 	bool submit = false;
+ 	struct rb_node *rb;
++	int ret;
+ 
+ 	lockdep_assert_held(&sched_engine->lock);
+ 
+-	if (last) {
+-		if (*++first)
+-			return;
+-
+-		last = NULL;
++	if (guc->stalled_request) {
++		submit = true;
++		last = guc->stalled_request;
++		goto resubmit;
+ 	}
+ 
+-	/*
+-	 * We write directly into the execlists->inflight queue and don't use
+-	 * the execlists->pending queue, as we don't have a distinct switch
+-	 * event.
+-	 */
+-	port = first;
+ 	while ((rb = rb_first_cached(&sched_engine->queue))) {
+ 		struct i915_priolist *p = to_priolist(rb);
+ 		struct i915_request *rq, *rn;
+ 
+ 		priolist_for_each_request_consume(rq, rn, p) {
+-			if (last && rq->context != last->context) {
+-				if (port == last_port)
+-					goto done;
+-
+-				*port = schedule_in(last,
+-						    port - execlists->inflight);
+-				port++;
+-			}
++			if (last && rq->context != last->context)
++				goto done;
+ 
+ 			list_del_init(&rq->sched.link);
++
+ 			__i915_request_submit(rq);
+-			submit = true;
++
++			trace_i915_request_in(rq, 0);
+ 			last = rq;
++			submit = true;
+ 		}
+ 
+ 		rb_erase_cached(&p->node, &sched_engine->queue);
+ 		i915_priolist_free(p);
+ 	}
+ done:
+-	sched_engine->queue_priority_hint =
+-		rb ? to_priolist(rb)->priority : INT_MIN;
+ 	if (submit) {
+-		*port = schedule_in(last, port - execlists->inflight);
+-		*++port = NULL;
+-		guc_submit(engine, first, port);
++		last->context->lrc_reg_state[CTX_RING_TAIL] =
++			intel_ring_set_tail(last->ring, last->tail);
++resubmit:
++		/*
++		 * We only check for -EBUSY here even though it is possible for
++		 * -EDEADLK to be returned. If -EDEADLK is returned, the GuC has
++		 * died and a full GT reset needs to be done. The hangcheck will
++		 * eventually detect that the GuC has died and trigger this
++		 * reset so no need to handle -EDEADLK here.
++		 */
++		ret = guc_add_request(guc, last);
++		if (ret == -EBUSY) {
++			tasklet_schedule(&sched_engine->tasklet);
++			guc->stalled_request = last;
++			return false;
++		}
+ 	}
+-	execlists->active = execlists->inflight;
++
++	guc->stalled_request = NULL;
++	return submit;
+ }
+ 
+ static void guc_submission_tasklet(struct tasklet_struct *t)
+ {
+ 	struct i915_sched_engine *sched_engine =
+ 		from_tasklet(sched_engine, t, tasklet);
+-	struct intel_engine_cs * const engine = sched_engine->private_data;
+-	struct intel_engine_execlists * const execlists = &engine->execlists;
+-	struct i915_request **port, *rq;
+ 	unsigned long flags;
++	bool loop;
+ 
+-	spin_lock_irqsave(&engine->sched_engine->lock, flags);
+-
+-	for (port = execlists->inflight; (rq = *port); port++) {
+-		if (!i915_request_completed(rq))
+-			break;
+-
+-		schedule_out(rq);
+-	}
+-	if (port != execlists->inflight) {
+-		int idx = port - execlists->inflight;
+-		int rem = ARRAY_SIZE(execlists->inflight) - idx;
+-		memmove(execlists->inflight, port, rem * sizeof(*port));
+-	}
++	spin_lock_irqsave(&sched_engine->lock, flags);
+ 
+-	__guc_dequeue(engine);
++	do {
++		loop = guc_dequeue_one_context(sched_engine->private_data);
++	} while (loop);
+ 
+-	i915_sched_engine_reset_on_empty(engine->sched_engine);
++	i915_sched_engine_reset_on_empty(sched_engine);
+ 
+-	spin_unlock_irqrestore(&engine->sched_engine->lock, flags);
++	spin_unlock_irqrestore(&sched_engine->lock, flags);
+ }
+ 
+ static void cs_irq_handler(struct intel_engine_cs *engine, u16 iir)
+ {
+-	if (iir & GT_RENDER_USER_INTERRUPT) {
++	if (iir & GT_RENDER_USER_INTERRUPT)
+ 		intel_engine_signal_breadcrumbs(engine);
+-		tasklet_hi_schedule(&engine->sched_engine->tasklet);
+-	}
+ }
+ 
+ static void guc_reset_prepare(struct intel_engine_cs *engine)
+@@ -349,6 +329,10 @@ static void guc_reset_cancel(struct intel_engine_cs *engine)
+ 	struct rb_node *rb;
+ 	unsigned long flags;
+ 
++	/* Can be called during boot if GuC fails to load */
++	if (!engine->gt)
++		return;
++
+ 	ENGINE_TRACE(engine, "\n");
+ 
+ 	/*
+@@ -433,8 +417,11 @@ int intel_guc_submission_init(struct intel_guc *guc)
+ 
+ void intel_guc_submission_fini(struct intel_guc *guc)
+ {
+-	if (guc->lrc_desc_pool)
+-		guc_lrc_desc_pool_destroy(guc);
++	if (!guc->lrc_desc_pool)
++		return;
++
++	guc_lrc_desc_pool_destroy(guc);
++	i915_sched_engine_put(guc->sched_engine);
+ }
+ 
+ static int guc_context_alloc(struct intel_context *ce)
+@@ -499,32 +486,32 @@ static int guc_request_alloc(struct i915_request *request)
+ 	return 0;
+ }
+ 
+-static inline void queue_request(struct intel_engine_cs *engine,
++static inline void queue_request(struct i915_sched_engine *sched_engine,
+ 				 struct i915_request *rq,
+ 				 int prio)
+ {
+ 	GEM_BUG_ON(!list_empty(&rq->sched.link));
+ 	list_add_tail(&rq->sched.link,
+-		      i915_sched_lookup_priolist(engine->sched_engine, prio));
++		      i915_sched_lookup_priolist(sched_engine, prio));
+ 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+ }
+ 
+ static void guc_submit_request(struct i915_request *rq)
+ {
+-	struct intel_engine_cs *engine = rq->engine;
++	struct i915_sched_engine *sched_engine = rq->engine->sched_engine;
+ 	unsigned long flags;
+ 
+ 	/* Will be called from irq-context when using foreign fences. */
+-	spin_lock_irqsave(&engine->sched_engine->lock, flags);
++	spin_lock_irqsave(&sched_engine->lock, flags);
+ 
+-	queue_request(engine, rq, rq_prio(rq));
++	queue_request(sched_engine, rq, rq_prio(rq));
+ 
+-	GEM_BUG_ON(i915_sched_engine_is_empty(engine->sched_engine));
++	GEM_BUG_ON(i915_sched_engine_is_empty(sched_engine));
+ 	GEM_BUG_ON(list_empty(&rq->sched.link));
+ 
+-	tasklet_hi_schedule(&engine->sched_engine->tasklet);
++	tasklet_hi_schedule(&sched_engine->tasklet);
+ 
+-	spin_unlock_irqrestore(&engine->sched_engine->lock, flags);
++	spin_unlock_irqrestore(&sched_engine->lock, flags);
+ }
+ 
+ static void sanitize_hwsp(struct intel_engine_cs *engine)
+@@ -602,8 +589,6 @@ static void guc_release(struct intel_engine_cs *engine)
+ {
+ 	engine->sanitize = NULL; /* no longer in control, nothing to sanitize */
+ 
+-	tasklet_kill(&engine->sched_engine->tasklet);
+-
+ 	intel_engine_cleanup_common(engine);
+ 	lrc_fini_wa_ctx(engine);
+ }
+@@ -674,6 +659,7 @@ static inline void guc_default_irqs(struct intel_engine_cs *engine)
+ int intel_guc_submission_setup(struct intel_engine_cs *engine)
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
++	struct intel_guc *guc = &engine->gt->uc.guc;
+ 
+ 	/*
+ 	 * The setup relies on several assumptions (e.g. irqs always enabled)
+@@ -681,7 +667,18 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
+ 	 */
+ 	GEM_BUG_ON(GRAPHICS_VER(i915) < 11);
+ 
+-	tasklet_setup(&engine->sched_engine->tasklet, guc_submission_tasklet);
++	if (!guc->sched_engine) {
++		guc->sched_engine = i915_sched_engine_create(ENGINE_VIRTUAL);
++		if (!guc->sched_engine)
++			return -ENOMEM;
++
++		guc->sched_engine->schedule = i915_schedule;
++		guc->sched_engine->private_data = guc;
++		tasklet_setup(&guc->sched_engine->tasklet,
++			      guc_submission_tasklet);
++	}
++	i915_sched_engine_put(engine->sched_engine);
++	engine->sched_engine = i915_sched_engine_get(guc->sched_engine);
+ 
+ 	guc_default_vfuncs(engine);
+ 	guc_default_irqs(engine);
+-- 
+2.28.0
 
 _______________________________________________
 Intel-gfx mailing list
