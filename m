@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1ADFC6377E
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:31:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D654C6377D
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B094B6023D
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:31:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B094B6023D
+	by mail.kernel.org (Postfix) with ESMTPS id 4C0E66023D
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:31:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C0E66023D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D7FA6EB4D;
-	Wed, 21 Jul 2021 22:30:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1360A6EB5D;
+	Wed, 21 Jul 2021 22:30:55 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E20726EB29
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 22:30:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211528007"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211528007"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C476EB1E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 22:30:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211528000"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211528000"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 15:30:49 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="658464194"
+ 21 Jul 2021 15:30:48 -0700
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="658464192"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 15:30:47 -0700
+ 21 Jul 2021 15:30:48 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Jul 2021 15:30:33 -0700
-Message-Id: <20210721223043.834562-9-matthew.d.roper@intel.com>
+Date: Wed, 21 Jul 2021 15:30:35 -0700
+Message-Id: <20210721223043.834562-11-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210721223043.834562-1-matthew.d.roper@intel.com>
 References: <20210721223043.834562-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 08/18] drm/i915/xehp: Handle new device context ID
- format
+Subject: [Intel-gfx] [CI 10/18] drm/i915/dg2: Add fake PCH
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,258 +53,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stuart Summers <stuart.summers@intel.com>
-
-Xe_HP changes the format of the context ID from past platforms.
-
-Signed-off-by: Stuart Summers <stuart.summers@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
----
- .../drm/i915/gt/intel_execlists_submission.c  | 74 ++++++++++++++++---
- drivers/gpu/drm/i915/gt/intel_lrc.c           |  8 ++
- drivers/gpu/drm/i915/gt/intel_lrc_reg.h       |  2 +
- drivers/gpu/drm/i915/i915_perf.c              | 29 +++++---
- drivers/gpu/drm/i915/i915_reg.h               |  5 ++
- 5 files changed, 97 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 56e25090da67..87cedaeb4bf8 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -153,6 +153,12 @@
- #define GEN12_CSB_CTX_VALID(csb_dw) \
- 	(FIELD_GET(GEN12_CSB_SW_CTX_ID_MASK, csb_dw) != GEN12_IDLE_CTX_ID)
- 
-+#define XEHP_CTX_STATUS_SWITCHED_TO_NEW_QUEUE	BIT(1) /* upper csb dword */
-+#define XEHP_CSB_SW_CTX_ID_MASK			GENMASK(31, 10)
-+#define XEHP_IDLE_CTX_ID			0xFFFF
-+#define XEHP_CSB_CTX_VALID(csb_dw) \
-+	(FIELD_GET(XEHP_CSB_SW_CTX_ID_MASK, csb_dw) != XEHP_IDLE_CTX_ID)
-+
- /* Typical size of the average request (2 pipecontrols and a MI_BB) */
- #define EXECLISTS_REQUEST_SIZE 64 /* bytes */
- 
-@@ -478,6 +484,16 @@ __execlists_schedule_in(struct i915_request *rq)
- 		/* Use a fixed tag for OA and friends */
- 		GEM_BUG_ON(ce->tag <= BITS_PER_LONG);
- 		ce->lrc.ccid = ce->tag;
-+	} else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50)) {
-+		/* We don't need a strict matching tag, just different values */
-+		unsigned int tag = ffs(READ_ONCE(engine->context_tag));
-+
-+		GEM_BUG_ON(tag == 0 || tag >= BITS_PER_LONG);
-+		clear_bit(tag - 1, &engine->context_tag);
-+		ce->lrc.ccid = tag << (XEHP_SW_CTX_ID_SHIFT - 32);
-+
-+		BUILD_BUG_ON(BITS_PER_LONG > GEN12_MAX_CONTEXT_HW_ID);
-+
- 	} else {
- 		/* We don't need a strict matching tag, just different values */
- 		unsigned int tag = __ffs(engine->context_tag);
-@@ -588,8 +604,14 @@ static void __execlists_schedule_out(struct i915_request * const rq,
- 		intel_engine_add_retire(engine, ce->timeline);
- 
- 	ccid = ce->lrc.ccid;
--	ccid >>= GEN11_SW_CTX_ID_SHIFT - 32;
--	ccid &= GEN12_MAX_CONTEXT_HW_ID;
-+	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50)) {
-+		ccid >>= XEHP_SW_CTX_ID_SHIFT - 32;
-+		ccid &= XEHP_MAX_CONTEXT_HW_ID;
-+	} else {
-+		ccid >>= GEN11_SW_CTX_ID_SHIFT - 32;
-+		ccid &= GEN12_MAX_CONTEXT_HW_ID;
-+	}
-+
- 	if (ccid < BITS_PER_LONG) {
- 		GEM_BUG_ON(ccid == 0);
- 		GEM_BUG_ON(test_bit(ccid - 1, &engine->context_tag));
-@@ -1648,13 +1670,24 @@ static void invalidate_csb_entries(const u64 *first, const u64 *last)
-  *     bits 44-46: reserved
-  *     bits 47-57: sw context id of the lrc the GT switched away from
-  *     bits 58-63: sw counter of the lrc the GT switched away from
-+ *
-+ * Xe_HP csb shuffles things around compared to TGL:
-+ *
-+ *     bits 0-3:   context switch detail (same possible values as TGL)
-+ *     bits 4-9:   engine instance
-+ *     bits 10-25: sw context id of the lrc the GT switched to
-+ *     bits 26-31: sw counter of the lrc the GT switched to
-+ *     bit  32:    semaphore wait mode (poll or signal), Only valid when
-+ *                 switch detail is set to "wait on semaphore"
-+ *     bit  33:    switched to new queue
-+ *     bits 34-41: wait detail (for switch detail 1 to 4)
-+ *     bits 42-57: sw context id of the lrc the GT switched away from
-+ *     bits 58-63: sw counter of the lrc the GT switched away from
-  */
--static bool gen12_csb_parse(const u64 csb)
-+static inline bool
-+__gen12_csb_parse(bool ctx_to_valid, bool ctx_away_valid, bool new_queue,
-+		  u8 switch_detail)
- {
--	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(csb));
--	bool new_queue =
--		lower_32_bits(csb) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
--
- 	/*
- 	 * The context switch detail is not guaranteed to be 5 when a preemption
- 	 * occurs, so we can't just check for that. The check below works for
-@@ -1663,7 +1696,7 @@ static bool gen12_csb_parse(const u64 csb)
- 	 * would require some extra handling, but we don't support that.
- 	 */
- 	if (!ctx_away_valid || new_queue) {
--		GEM_BUG_ON(!GEN12_CSB_CTX_VALID(lower_32_bits(csb)));
-+		GEM_BUG_ON(!ctx_to_valid);
- 		return true;
- 	}
- 
-@@ -1672,10 +1705,26 @@ static bool gen12_csb_parse(const u64 csb)
- 	 * context switch on an unsuccessful wait instruction since we always
- 	 * use polling mode.
- 	 */
--	GEM_BUG_ON(GEN12_CTX_SWITCH_DETAIL(upper_32_bits(csb)));
-+	GEM_BUG_ON(switch_detail);
- 	return false;
- }
- 
-+static bool xehp_csb_parse(const u64 csb)
-+{
-+	return __gen12_csb_parse(XEHP_CSB_CTX_VALID(lower_32_bits(csb)), /* cxt to */
-+				 XEHP_CSB_CTX_VALID(upper_32_bits(csb)), /* cxt away */
-+				 upper_32_bits(csb) & XEHP_CTX_STATUS_SWITCHED_TO_NEW_QUEUE,
-+				 GEN12_CTX_SWITCH_DETAIL(lower_32_bits(csb)));
-+}
-+
-+static bool gen12_csb_parse(const u64 csb)
-+{
-+	return __gen12_csb_parse(GEN12_CSB_CTX_VALID(lower_32_bits(csb)), /* cxt to */
-+				 GEN12_CSB_CTX_VALID(upper_32_bits(csb)), /* cxt away */
-+				 lower_32_bits(csb) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE,
-+				 GEN12_CTX_SWITCH_DETAIL(upper_32_bits(csb)));
-+}
-+
- static bool gen8_csb_parse(const u64 csb)
- {
- 	return csb & (GEN8_CTX_STATUS_IDLE_ACTIVE | GEN8_CTX_STATUS_PREEMPTED);
-@@ -1840,7 +1889,9 @@ process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
- 		ENGINE_TRACE(engine, "csb[%d]: status=0x%08x:0x%08x\n",
- 			     head, upper_32_bits(csb), lower_32_bits(csb));
- 
--		if (GRAPHICS_VER(engine->i915) >= 12)
-+		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+			promote = xehp_csb_parse(csb);
-+		else if (GRAPHICS_VER(engine->i915) >= 12)
- 			promote = gen12_csb_parse(csb);
- 		else
- 			promote = gen8_csb_parse(csb);
-@@ -3323,7 +3374,8 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
- 		execlists->csb_size = GEN11_CSB_ENTRIES;
- 
- 	engine->context_tag = GENMASK(BITS_PER_LONG - 2, 0);
--	if (GRAPHICS_VER(engine->i915) >= 11) {
-+	if (GRAPHICS_VER(engine->i915) >= 11 &&
-+	    GRAPHICS_VER_FULL(engine->i915) < IP_VER(12, 50)) {
- 		execlists->ccid |= engine->instance << (GEN11_ENGINE_INSTANCE_SHIFT - 32);
- 		execlists->ccid |= engine->class << (GEN11_ENGINE_CLASS_SHIFT - 32);
- 	}
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 8ada1afe3d22..7f8fe6726504 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1101,6 +1101,14 @@ setup_indirect_ctx_bb(const struct intel_context *ce,
-  *      bits 55-60:    SW counter
-  *      bits 61-63:    engine class
-  *
-+ * On Xe_HP, the upper dword of the descriptor has a new format:
-+ *
-+ *      bits 32-37:    virtual function number
-+ *      bit 38:        mbz, reserved for use by hardware
-+ *      bits 39-54:    SW context ID
-+ *      bits 55-57:    reserved
-+ *      bits 58-63:    SW counter
-+ *
-  * engine info, SW context ID and SW counter need to form a unique number
-  * (Context ID) per lrc.
-  */
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc_reg.h b/drivers/gpu/drm/i915/gt/intel_lrc_reg.h
-index 41e5350a7a05..9548f4ade068 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc_reg.h
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc_reg.h
-@@ -91,5 +91,7 @@
- #define GEN11_MAX_CONTEXT_HW_ID	(1 << 11) /* exclusive */
- /* in Gen12 ID 0x7FF is reserved to indicate idle */
- #define GEN12_MAX_CONTEXT_HW_ID	(GEN11_MAX_CONTEXT_HW_ID - 1)
-+/* in Xe_HP ID 0xFFFF is reserved to indicate "invalid context" */
-+#define XEHP_MAX_CONTEXT_HW_ID	0xFFFF
- 
- #endif /* _INTEL_LRC_REG_H_ */
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index b4ec114a4698..324ec3f35672 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1284,17 +1284,26 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
- 		break;
- 
- 	case 11:
--	case 12: {
--		stream->specific_ctx_id_mask =
--			((1U << GEN11_SW_CTX_ID_WIDTH) - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
--		/*
--		 * Pick an unused context id
--		 * 0 - BITS_PER_LONG are used by other contexts
--		 * GEN12_MAX_CONTEXT_HW_ID (0x7ff) is used by idle context
--		 */
--		stream->specific_ctx_id = (GEN12_MAX_CONTEXT_HW_ID - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
-+	case 12:
-+		if (GRAPHICS_VER_FULL(ce->engine->i915) >= IP_VER(12, 50)) {
-+			stream->specific_ctx_id_mask =
-+				((1U << XEHP_SW_CTX_ID_WIDTH) - 1) <<
-+				(XEHP_SW_CTX_ID_SHIFT - 32);
-+			stream->specific_ctx_id =
-+				(XEHP_MAX_CONTEXT_HW_ID - 1) <<
-+				(XEHP_SW_CTX_ID_SHIFT - 32);
-+		} else {
-+			stream->specific_ctx_id_mask =
-+				((1U << GEN11_SW_CTX_ID_WIDTH) - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
-+			/*
-+			 * Pick an unused context id
-+			 * 0 - BITS_PER_LONG are used by other contexts
-+			 * GEN12_MAX_CONTEXT_HW_ID (0x7ff) is used by idle context
-+			 */
-+			stream->specific_ctx_id =
-+				(GEN12_MAX_CONTEXT_HW_ID - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
-+		}
- 		break;
--	}
- 
- 	default:
- 		MISSING_CASE(GRAPHICS_VER(ce->engine->i915));
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 5275a89f9ddc..962a92fc10a1 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4158,6 +4158,11 @@ enum {
- #define GEN11_ENGINE_INSTANCE_SHIFT 48
- #define GEN11_ENGINE_INSTANCE_WIDTH 6
- 
-+#define XEHP_SW_CTX_ID_SHIFT 39
-+#define XEHP_SW_CTX_ID_WIDTH 16
-+#define XEHP_SW_COUNTER_SHIFT 58
-+#define XEHP_SW_COUNTER_WIDTH 6
-+
- #define CHV_CLK_CTL1			_MMIO(0x101100)
- #define VLV_CLK_CTL2			_MMIO(0x101104)
- #define   CLK_CTL2_CZCOUNT_30NS_SHIFT	28
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QXMgd2l0aCBERzEsIERHMiBoYXMgYW4gSUNMLXN0eWxlIHNvdXRoIGRpc3BsYXkgaW50ZXJmYWNl
+IHByb3ZpZGVkIG9uCnRoZSBzYW1lIFBDSSBkZXZpY2UuICBBZGQgYSBmYWtlIFBDSCB0byBlbnN1
+cmUgREcyIHRha2VzIHRoZSBhcHByb3ByaWF0ZQpjb2RlcGF0aHMgZm9yIHNvdXRoIGRpc3BsYXkg
+aGFuZGxpbmcuCgpCc3BlYzogNTQ4NzEsIDUwMDYyLCA0OTk2MSwgNTM2NzMKQ2M6IEx1Y2FzIERl
+IE1hcmNoaSA8bHVjYXMuZGVtYXJjaGlAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJv
+cGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBBZGl0eWEgU3dh
+cnVwIDxhZGl0eWEuc3dhcnVwQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0
+byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+ClJldmlld2VkLWJ5OiBMdWNhcyBEZSBN
+YXJjaGkgPGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IEpvc8OpIFJvYmVy
+dG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9p
+OTE1L2k5MTVfaXJxLmMgIHwgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcGNoLmMg
+fCAzICsrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcGNoLmggfCAyICsrCiAzIGZpbGVz
+IGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfaXJxLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
+X2lycS5jCmluZGV4IDYxZGNlYjJhMTdjMS4uZTIxNzFiZDI4MjBlIDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5
+MTVfaXJxLmMKQEAgLTIwNyw3ICsyMDcsNyBAQCBzdGF0aWMgdm9pZCBpbnRlbF9ocGRfaW5pdF9w
+aW5zKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdikKIAkgICAgKCFIQVNfUENIX1NQ
+TElUKGRldl9wcml2KSB8fCBIQVNfUENIX05PUChkZXZfcHJpdikpKQogCQlyZXR1cm47CiAKLQlp
+ZiAoSEFTX1BDSF9ERzEoZGV2X3ByaXYpKQorCWlmIChJTlRFTF9QQ0hfVFlQRShkZXZfcHJpdikg
+Pj0gUENIX0RHMSkKIAkJaHBkLT5wY2hfaHBkID0gaHBkX3NkZV9kZzE7CiAJZWxzZSBpZiAoSU5U
+RUxfUENIX1RZUEUoZGV2X3ByaXYpID49IFBDSF9JQ1ApCiAJCWhwZC0+cGNoX2hwZCA9IGhwZF9p
+Y3A7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wY2guYyBiL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2ludGVsX3BjaC5jCmluZGV4IDRlOTJhZTE5MTg5ZS4uY2M0NDE2NGUy
+NDJiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wY2guYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wY2guYwpAQCAtMjExLDYgKzIxMSw5IEBAIHZvaWQg
+aW50ZWxfZGV0ZWN0X3BjaChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJaWYg
+KElTX0RHMShkZXZfcHJpdikpIHsKIAkJZGV2X3ByaXYtPnBjaF90eXBlID0gUENIX0RHMTsKIAkJ
+cmV0dXJuOworCX0gZWxzZSBpZiAoSVNfREcyKGRldl9wcml2KSkgeworCQlkZXZfcHJpdi0+cGNo
+X3R5cGUgPSBQQ0hfREcyOworCQlyZXR1cm47CiAJfQogCiAJLyoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2ludGVsX3BjaC5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxf
+cGNoLmgKaW5kZXggZTJmM2YzMGM2NDQ1Li43YzBkODNkMjkyZGMgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2ludGVsX3BjaC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2lu
+dGVsX3BjaC5oCkBAIC0zMCw2ICszMCw3IEBAIGVudW0gaW50ZWxfcGNoIHsKIAogCS8qIEZha2Ug
+UENIcywgZnVuY3Rpb25hbGl0eSBoYW5kbGVkIG9uIHRoZSBzYW1lIFBDSSBkZXYgKi8KIAlQQ0hf
+REcxID0gMTAyNCwKKwlQQ0hfREcyLAogfTsKIAogI2RlZmluZSBJTlRFTF9QQ0hfREVWSUNFX0lE
+X01BU0sJCTB4ZmY4MApAQCAtNjIsNiArNjMsNyBAQCBlbnVtIGludGVsX3BjaCB7CiAKICNkZWZp
+bmUgSU5URUxfUENIX1RZUEUoZGV2X3ByaXYpCQkoKGRldl9wcml2KS0+cGNoX3R5cGUpCiAjZGVm
+aW5lIElOVEVMX1BDSF9JRChkZXZfcHJpdikJCQkoKGRldl9wcml2KS0+cGNoX2lkKQorI2RlZmlu
+ZSBIQVNfUENIX0RHMihkZXZfcHJpdikJCQkoSU5URUxfUENIX1RZUEUoZGV2X3ByaXYpID09IFBD
+SF9ERzIpCiAjZGVmaW5lIEhBU19QQ0hfQURQKGRldl9wcml2KQkJCShJTlRFTF9QQ0hfVFlQRShk
+ZXZfcHJpdikgPT0gUENIX0FEUCkKICNkZWZpbmUgSEFTX1BDSF9ERzEoZGV2X3ByaXYpCQkJKElO
+VEVMX1BDSF9UWVBFKGRldl9wcml2KSA9PSBQQ0hfREcxKQogI2RlZmluZSBIQVNfUENIX0pTUChk
+ZXZfcHJpdikJCQkoSU5URUxfUENIX1RZUEUoZGV2X3ByaXYpID09IFBDSF9KU1ApCi0tIAoyLjI1
+LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVs
+LWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
