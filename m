@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87213C6377A
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52471C63793
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:31:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 57D8F6023D
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:31:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57D8F6023D
+	by mail.kernel.org (Postfix) with ESMTPS id 250896023D
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:31:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 250896023D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 324196EB47;
-	Wed, 21 Jul 2021 22:30:54 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16E1F6EB1E
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F94D6EB72;
+	Wed, 21 Jul 2021 22:30:55 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E49426EB3A
  for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 22:30:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="272641648"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="272641648"
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211528010"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211528010"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jul 2021 15:30:49 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="658464202"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="658464219"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jul 2021 15:30:48 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Jul 2021 15:30:34 -0700
-Message-Id: <20210721223043.834562-10-matthew.d.roper@intel.com>
+Date: Wed, 21 Jul 2021 15:30:43 -0700
+Message-Id: <20210721223043.834562-19-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210721223043.834562-1-matthew.d.roper@intel.com>
 References: <20210721223043.834562-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 09/18] drm/i915/xehp: New engine context offsets
+Subject: [Intel-gfx] [CI 18/18] drm/i915/dg2: DG2 has fixed memory bandwidth
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,127 +58,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+DG2 doesn't have a SAGV or QGV points that determine memory bandwidth.
+Instead it has a constant amount of memory bandwidth available to
+display that does not need to be reduced based on the number of active
+planes.
 
-The layout of some engine contexts has changed on Xe_HP.  Define the new
-offsets.
+For simplicity, we'll just modify driver initialization to create a
+single dummy QGV point with the proper amount of memory bandwidth,
+rather than trying to query the pcode for this information.
 
-Bspec: 45585, 46256
-Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-Signed-off-by: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>
-Signed-off-by: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
+Bspec: 64631
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 65 ++++++++++++++++++++++++++---
- 1 file changed, 59 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bw.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 7f8fe6726504..c3f5bec8ae15 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -484,6 +484,47 @@ static const u8 gen12_rcs_offsets[] = {
- 	END
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index 0d5d52548925..f554c1974072 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -273,6 +273,26 @@ static int icl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel
+ 	return 0;
+ }
  
-+static const u8 xehp_rcs_offsets[] = {
-+	NOP(1),
-+	LRI(13, POSTED),
-+	REG16(0x244),
-+	REG(0x034),
-+	REG(0x030),
-+	REG(0x038),
-+	REG(0x03c),
-+	REG(0x168),
-+	REG(0x140),
-+	REG(0x110),
-+	REG(0x1c0),
-+	REG(0x1c4),
-+	REG(0x1c8),
-+	REG(0x180),
-+	REG16(0x2b4),
++static void dg2_get_bw_info(struct drm_i915_private *i915)
++{
++	struct intel_bw_info *bi = &i915->max_bw[0];
 +
-+	NOP(5),
-+	LRI(9, POSTED),
-+	REG16(0x3a8),
-+	REG16(0x28c),
-+	REG16(0x288),
-+	REG16(0x284),
-+	REG16(0x280),
-+	REG16(0x27c),
-+	REG16(0x278),
-+	REG16(0x274),
-+	REG16(0x270),
++	/*
++	 * DG2 doesn't have SAGV or QGV points, just a constant max bandwidth
++	 * that doesn't depend on the number of planes enabled.  Create a
++	 * single dummy QGV point to reflect that.  DG2-G10 platforms have a
++	 * constant 50 GB/s bandwidth, whereas DG2-G11 platforms have 38 GB/s.
++	 */
++	bi->num_planes = 1;
++	bi->num_qgv_points = 1;
++	if (IS_DG2_G11(i915))
++		bi->deratedbw[0] = 38000;
++	else
++		bi->deratedbw[0] = 50000;
 +
-+	LRI(3, POSTED),
-+	REG(0x1b0),
-+	REG16(0x5a8),
-+	REG16(0x5ac),
++	i915->sagv_status = I915_SAGV_NOT_CONTROLLED;
++}
 +
-+	NOP(6),
-+	LRI(1, 0),
-+	REG(0x0c8),
-+
-+	END
-+};
-+
- #undef END
- #undef REG16
- #undef REG
-@@ -502,7 +543,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
- 		   !intel_engine_has_relative_mmio(engine));
- 
- 	if (engine->class == RENDER_CLASS) {
--		if (GRAPHICS_VER(engine->i915) >= 12)
-+		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+			return xehp_rcs_offsets;
-+		else if (GRAPHICS_VER(engine->i915) >= 12)
- 			return gen12_rcs_offsets;
- 		else if (GRAPHICS_VER(engine->i915) >= 11)
- 			return gen11_rcs_offsets;
-@@ -522,7 +565,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
- 
- static int lrc_ring_mi_mode(const struct intel_engine_cs *engine)
+ static unsigned int icl_max_bw(struct drm_i915_private *dev_priv,
+ 			       int num_planes, int qgv_point)
  {
--	if (GRAPHICS_VER(engine->i915) >= 12)
-+	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+		return 0x70;
-+	else if (GRAPHICS_VER(engine->i915) >= 12)
- 		return 0x60;
- 	else if (GRAPHICS_VER(engine->i915) >= 9)
- 		return 0x54;
-@@ -534,7 +579,9 @@ static int lrc_ring_mi_mode(const struct intel_engine_cs *engine)
+@@ -306,7 +326,9 @@ void intel_bw_init_hw(struct drm_i915_private *dev_priv)
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return;
  
- static int lrc_ring_gpr0(const struct intel_engine_cs *engine)
- {
--	if (GRAPHICS_VER(engine->i915) >= 12)
-+	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+		return 0x84;
-+	else if (GRAPHICS_VER(engine->i915) >= 12)
- 		return 0x74;
- 	else if (GRAPHICS_VER(engine->i915) >= 9)
- 		return 0x68;
-@@ -578,10 +625,16 @@ static int lrc_ring_indirect_offset(const struct intel_engine_cs *engine)
- 
- static int lrc_ring_cmd_buf_cctl(const struct intel_engine_cs *engine)
- {
--	if (engine->class != RENDER_CLASS)
--		return -1;
- 
--	if (GRAPHICS_VER(engine->i915) >= 12)
-+	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
-+		/*
-+		 * Note that the CSFE context has a dummy slot for CMD_BUF_CCTL
-+		 * simply to match the RCS context image layout.
-+		 */
-+		return 0xc6;
-+	else if (engine->class != RENDER_CLASS)
-+		return -1;
-+	else if (GRAPHICS_VER(engine->i915) >= 12)
- 		return 0xb6;
- 	else if (GRAPHICS_VER(engine->i915) >= 11)
- 		return 0xaa;
+-	if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv))
++	if (IS_DG2(dev_priv))
++		dg2_get_bw_info(dev_priv);
++	else if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv))
+ 		icl_get_bw_info(dev_priv, &adls_sa_info);
+ 	else if (IS_ROCKETLAKE(dev_priv))
+ 		icl_get_bw_info(dev_priv, &rkl_sa_info);
 -- 
 2.25.4
 
