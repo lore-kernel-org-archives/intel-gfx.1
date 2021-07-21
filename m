@@ -7,39 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B00CC6377B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE081C6377B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 599986120C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 599986120C
+	by mail.kernel.org (Postfix) with ESMTPS id BC41C6121E
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC41C6121E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE7036EA01;
-	Wed, 21 Jul 2021 21:33:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 719ED6EA0A;
+	Wed, 21 Jul 2021 21:33:15 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21CBF6E2D1;
- Wed, 21 Jul 2021 21:33:12 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="198724327"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="198724327"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F14686E914;
+ Wed, 21 Jul 2021 21:33:13 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="198724335"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="198724335"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 14:33:11 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470296661"
+ 21 Jul 2021 14:33:12 -0700
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470296679"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 14:33:11 -0700
+ 21 Jul 2021 14:33:12 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Wed, 21 Jul 2021 14:50:43 -0700
-Message-Id: <20210721215101.139794-1-matthew.brost@intel.com>
+Date: Wed, 21 Jul 2021 14:50:50 -0700
+Message-Id: <20210721215101.139794-8-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20210721215101.139794-1-matthew.brost@intel.com>
+References: <20210721215101.139794-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/18] Series to merge a subset of GuC submission
+Subject: [Intel-gfx] [PATCH 07/18] drm/i915/guc: Insert fence on context
+ when deregistering
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +60,164 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The first 18 patches [1] are basically ready to merge.
+Sometimes during context pinning a context with the same guc_id is
+registered with the GuC. In this a case deregister must be done before
+the context can be registered. A fence is inserted on all requests while
+the deregister is in flight. Once the G2H is received indicating the
+deregistration is complete the context is registered and the fence is
+released.
 
-v2: Address NITs, add missing RBs, fix checkpatch warnings
+v2:
+ (John H)
+  - Fix commit message
 
+Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: John Harrison <john.c.harrison@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_context.c       |  1 +
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  5 ++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 51 ++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_request.h           |  8 +++
+ 4 files changed, 63 insertions(+), 2 deletions(-)
 
-[1] https://patchwork.freedesktop.org/series/91840/
-
-
-Matthew Brost (18):
-  drm/i915/guc: Add new GuC interface defines and structures
-  drm/i915/guc: Remove GuC stage descriptor, add LRC descriptor
-  drm/i915/guc: Add LRC descriptor context lookup array
-  drm/i915/guc: Implement GuC submission tasklet
-  drm/i915/guc: Add bypass tasklet submission path to GuC
-  drm/i915/guc: Implement GuC context operations for new inteface
-  drm/i915/guc: Insert fence on context when deregistering
-  drm/i915/guc: Defer context unpin until scheduling is disabled
-  drm/i915/guc: Disable engine barriers with GuC during unpin
-  drm/i915/guc: Extend deregistration fence to schedule disable
-  drm/i915: Disable preempt busywait when using GuC scheduling
-  drm/i915/guc: Ensure request ordering via completion fences
-  drm/i915/guc: Disable semaphores when using GuC scheduling
-  drm/i915/guc: Ensure G2H response has space in buffer
-  drm/i915/guc: Update intel_gt_wait_for_idle to work with GuC
-  drm/i915/guc: Update GuC debugfs to support new GuC
-  drm/i915/guc: Add trace point for GuC submit
-  drm/i915: Add intel_context tracing
-
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |    6 +-
- drivers/gpu/drm/i915/gem/i915_gem_mman.c      |    3 +-
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |    6 +-
- drivers/gpu/drm/i915/gt/intel_context.c       |   18 +-
- drivers/gpu/drm/i915/gt/intel_context.h       |   27 +-
- drivers/gpu/drm/i915/gt/intel_context_types.h |   32 +
- drivers/gpu/drm/i915/gt/intel_gt.c            |   19 +
- drivers/gpu/drm/i915/gt/intel_gt.h            |    2 +
- drivers/gpu/drm/i915/gt/intel_gt_requests.c   |   21 +-
- drivers/gpu/drm/i915/gt/intel_gt_requests.h   |    9 +-
- drivers/gpu/drm/i915/gt/intel_lrc_reg.h       |    1 -
- drivers/gpu/drm/i915/gt/selftest_context.c    |   10 +
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   14 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   72 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  124 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |   18 +-
- .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |   23 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   89 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 1290 ++++++++++++++---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.h |    5 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.h         |    5 +
- drivers/gpu/drm/i915/i915_gem_evict.c         |    1 +
- drivers/gpu/drm/i915/i915_reg.h               |    1 +
- drivers/gpu/drm/i915/i915_request.c           |   11 +-
- drivers/gpu/drm/i915/i915_request.h           |    8 +
- drivers/gpu/drm/i915/i915_trace.h             |  168 ++-
- .../gpu/drm/i915/selftests/igt_live_test.c    |    2 +-
- .../gpu/drm/i915/selftests/mock_gem_device.c  |    3 +-
- 28 files changed, 1707 insertions(+), 281 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 32fd6647154b..ad7197c5910f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -385,6 +385,7 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ 	mutex_init(&ce->pin_mutex);
+ 
+ 	spin_lock_init(&ce->guc_state.lock);
++	INIT_LIST_HEAD(&ce->guc_state.fences);
+ 
+ 	ce->guc_id = GUC_INVALID_LRC_ID;
+ 	INIT_LIST_HEAD(&ce->guc_id_link);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 606c480aec26..e0e3a937f709 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -147,6 +147,11 @@ struct intel_context {
+ 		 * submission
+ 		 */
+ 		u8 sched_state;
++		/*
++		 * fences: maintains of list of requests that have a submit
++		 * fence related to GuC submission
++		 */
++		struct list_head fences;
+ 	} guc_state;
+ 
+ 	/* GuC scheduling state flags that do not require a lock. */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 463613a414d2..a0871b800153 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -935,6 +935,30 @@ static const struct intel_context_ops guc_context_ops = {
+ 	.destroy = guc_context_destroy,
+ };
+ 
++static void __guc_signal_context_fence(struct intel_context *ce)
++{
++	struct i915_request *rq;
++
++	lockdep_assert_held(&ce->guc_state.lock);
++
++	list_for_each_entry(rq, &ce->guc_state.fences, guc_fence_link)
++		i915_sw_fence_complete(&rq->submit);
++
++	INIT_LIST_HEAD(&ce->guc_state.fences);
++}
++
++static void guc_signal_context_fence(struct intel_context *ce)
++{
++	unsigned long flags;
++
++	GEM_BUG_ON(!context_wait_for_deregister_to_register(ce));
++
++	spin_lock_irqsave(&ce->guc_state.lock, flags);
++	clr_context_wait_for_deregister_to_register(ce);
++	__guc_signal_context_fence(ce);
++	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++}
++
+ static bool context_needs_register(struct intel_context *ce, bool new_guc_id)
+ {
+ 	return new_guc_id || test_bit(CONTEXT_LRCA_DIRTY, &ce->flags) ||
+@@ -945,6 +969,7 @@ static int guc_request_alloc(struct i915_request *rq)
+ {
+ 	struct intel_context *ce = rq->context;
+ 	struct intel_guc *guc = ce_to_guc(ce);
++	unsigned long flags;
+ 	int ret;
+ 
+ 	GEM_BUG_ON(!intel_context_is_pinned(rq->context));
+@@ -989,7 +1014,7 @@ static int guc_request_alloc(struct i915_request *rq)
+ 	 * increment (in pin_guc_id) is needed to seal a race with unpin_guc_id.
+ 	 */
+ 	if (atomic_add_unless(&ce->guc_id_ref, 1, 0))
+-		return 0;
++		goto out;
+ 
+ 	ret = pin_guc_id(guc, ce);	/* returns 1 if new guc_id assigned */
+ 	if (unlikely(ret < 0))
+@@ -1005,6 +1030,28 @@ static int guc_request_alloc(struct i915_request *rq)
+ 
+ 	clear_bit(CONTEXT_LRCA_DIRTY, &ce->flags);
+ 
++out:
++	/*
++	 * We block all requests on this context if a G2H is pending for a
++	 * context deregistration as the GuC will fail a context registration
++	 * while this G2H is pending. Once a G2H returns, the fence is released
++	 * that is blocking these requests (see guc_signal_context_fence).
++	 *
++	 * We can safely check the below field outside of the lock as it isn't
++	 * possible for this field to transition from being clear to set but
++	 * converse is possible, hence the need for the check within the lock.
++	 */
++	if (likely(!context_wait_for_deregister_to_register(ce)))
++		return 0;
++
++	spin_lock_irqsave(&ce->guc_state.lock, flags);
++	if (context_wait_for_deregister_to_register(ce)) {
++		i915_sw_fence_await(&rq->submit);
++
++		list_add_tail(&rq->guc_fence_link, &ce->guc_state.fences);
++	}
++	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++
+ 	return 0;
+ }
+ 
+@@ -1301,7 +1348,7 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
+ 		 */
+ 		with_intel_runtime_pm(runtime_pm, wakeref)
+ 			register_context(ce);
+-		clr_context_wait_for_deregister_to_register(ce);
++		guc_signal_context_fence(ce);
+ 		intel_context_put(ce);
+ 	} else if (context_destroyed(ce)) {
+ 		/* Context has been destroyed */
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index 5deb65ec5fa5..717e5b292046 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -285,6 +285,14 @@ struct i915_request {
+ 		struct hrtimer timer;
+ 	} watchdog;
+ 
++	/*
++	 * Requests may need to be stalled when using GuC submission waiting for
++	 * certain GuC operations to complete. If that is the case, stalled
++	 * requests are added to a per context list of stalled requests. The
++	 * below list_head is the link in that list.
++	 */
++	struct list_head guc_fence_link;
++
+ 	I915_SELFTEST_DECLARE(struct {
+ 		struct list_head link;
+ 		unsigned long delay;
 -- 
 2.28.0
 
