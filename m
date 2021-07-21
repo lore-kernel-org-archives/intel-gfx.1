@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1905C6377C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0244DC6377B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 29B266124C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29B266124C
+	by mail.kernel.org (Postfix) with ESMTPS id 578DD6124C
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 578DD6124C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F14286EA2F;
-	Wed, 21 Jul 2021 21:33:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D83AC6EA22;
+	Wed, 21 Jul 2021 21:33:19 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A5266E9D1;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F9226E914;
  Wed, 21 Jul 2021 21:33:14 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="198724340"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="198724340"
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="198724337"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="198724337"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jul 2021 14:33:13 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470296688"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470296684"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 14:33:13 -0700
+ 21 Jul 2021 14:33:12 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Wed, 21 Jul 2021 14:50:55 -0700
-Message-Id: <20210721215101.139794-13-matthew.brost@intel.com>
+Date: Wed, 21 Jul 2021 14:50:52 -0700
+Message-Id: <20210721215101.139794-10-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210721215101.139794-1-matthew.brost@intel.com>
 References: <20210721215101.139794-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/18] drm/i915/guc: Ensure request ordering via
- completion fences
+Subject: [Intel-gfx] [PATCH 09/18] drm/i915/guc: Disable engine barriers
+ with GuC during unpin
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,69 +60,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If two requests are on the same ring, they are explicitly ordered by the
-HW. So, a submission fence is sufficient to ensure ordering when using
-the new GuC submission interface. Conversely, if two requests share a
-timeline and are on the same physical engine but different context this
-doesn't ensure ordering on the new GuC submission interface. So, a
-completion fence needs to be used to ensure ordering.
+Disable engine barriers for unpinning with GuC. This feature isn't
+needed with the GuC as it disables context scheduling before unpinning
+which guarantees the HW will not reference the context. Hence it is
+not necessary to defer unpinning until a kernel context request
+completes on each engine in the context engine mask.
 
-v2:
- (Daniele)
-  - Don't delete spin lock
-v3:
- (Daniele)
-  - Delete forward dec
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/i915_request.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c    |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_context.c | 10 ++++++++++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index ef26724fe980..c55dea0edb09 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -432,6 +432,7 @@ void i915_request_retire_upto(struct i915_request *rq)
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 3d5b4116617f..91349d071e0e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -80,7 +80,7 @@ static int intel_context_active_acquire(struct intel_context *ce)
  
- 	do {
- 		tmp = list_first_entry(&tl->requests, typeof(*tmp), link);
-+		GEM_BUG_ON(!i915_request_completed(tmp));
- 	} while (i915_request_retire(tmp) && tmp != rq);
- }
+ 	__i915_active_acquire(&ce->active);
  
-@@ -1463,7 +1464,8 @@ i915_request_await_request(struct i915_request *to, struct i915_request *from)
- 			return ret;
- 	}
+-	if (intel_context_is_barrier(ce))
++	if (intel_context_is_barrier(ce) || intel_engine_uses_guc(ce->engine))
+ 		return 0;
  
--	if (is_power_of_2(to->execution_mask | READ_ONCE(from->execution_mask)))
-+	if (!intel_engine_uses_guc(to->engine) &&
-+	    is_power_of_2(to->execution_mask | READ_ONCE(from->execution_mask)))
- 		ret = await_request_submit(to, from);
- 	else
- 		ret = emit_semaphore_wait(to, from, I915_FENCE_GFP);
-@@ -1622,6 +1624,8 @@ __i915_request_add_to_timeline(struct i915_request *rq)
- 	prev = to_request(__i915_active_fence_set(&timeline->last_request,
- 						  &rq->fence));
- 	if (prev && !__i915_request_is_complete(prev)) {
-+		bool uses_guc = intel_engine_uses_guc(rq->engine);
-+
- 		/*
- 		 * The requests are supposed to be kept in order. However,
- 		 * we need to be wary in case the timeline->last_request
-@@ -1632,7 +1636,9 @@ __i915_request_add_to_timeline(struct i915_request *rq)
- 			   i915_seqno_passed(prev->fence.seqno,
- 					     rq->fence.seqno));
+ 	/* Preallocate tracking nodes */
+diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c b/drivers/gpu/drm/i915/gt/selftest_context.c
+index 26685b927169..fa7b99a671dd 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_context.c
++++ b/drivers/gpu/drm/i915/gt/selftest_context.c
+@@ -209,7 +209,13 @@ static int __live_active_context(struct intel_engine_cs *engine)
+ 	 * This test makes sure that the context is kept alive until a
+ 	 * subsequent idle-barrier (emitted when the engine wakeref hits 0
+ 	 * with no more outstanding requests).
++	 *
++	 * In GuC submission mode we don't use idle barriers and we instead
++	 * get a message from the GuC to signal that it is safe to unpin the
++	 * context from memory.
+ 	 */
++	if (intel_engine_uses_guc(engine))
++		return 0;
  
--		if (is_power_of_2(READ_ONCE(prev->engine)->mask | rq->engine->mask))
-+		if ((!uses_guc &&
-+		     is_power_of_2(READ_ONCE(prev->engine)->mask | rq->engine->mask)) ||
-+		    (uses_guc && prev->context == rq->context))
- 			i915_sw_fence_await_sw_fence(&rq->submit,
- 						     &prev->submit,
- 						     &rq->submitq);
+ 	if (intel_engine_pm_is_awake(engine)) {
+ 		pr_err("%s is awake before starting %s!\n",
+@@ -357,7 +363,11 @@ static int __live_remote_context(struct intel_engine_cs *engine)
+ 	 * on the context image remotely (intel_context_prepare_remote_request),
+ 	 * which inserts foreign fences into intel_context.active, does not
+ 	 * clobber the idle-barrier.
++	 *
++	 * In GuC submission mode we don't use idle barriers.
+ 	 */
++	if (intel_engine_uses_guc(engine))
++		return 0;
+ 
+ 	if (intel_engine_pm_is_awake(engine)) {
+ 		pr_err("%s is awake before starting %s!\n",
 -- 
 2.28.0
 
