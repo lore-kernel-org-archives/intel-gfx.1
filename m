@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56B0FC6377D
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1905C6377C
 	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 781CF61246
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 781CF61246
+	by mail.kernel.org (Postfix) with ESMTPS id 29B266124C
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29B266124C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 227B16EA27;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F14286EA2F;
 	Wed, 21 Jul 2021 21:33:20 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA6D86E452;
- Wed, 21 Jul 2021 21:33:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="198724333"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="198724333"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A5266E9D1;
+ Wed, 21 Jul 2021 21:33:14 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="198724340"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="198724340"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 14:33:12 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470296673"
+ 21 Jul 2021 14:33:13 -0700
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470296688"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 14:33:11 -0700
+ 21 Jul 2021 14:33:13 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Wed, 21 Jul 2021 14:50:48 -0700
-Message-Id: <20210721215101.139794-6-matthew.brost@intel.com>
+Date: Wed, 21 Jul 2021 14:50:55 -0700
+Message-Id: <20210721215101.139794-13-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210721215101.139794-1-matthew.brost@intel.com>
 References: <20210721215101.139794-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 05/18] drm/i915/guc: Add bypass tasklet
- submission path to GuC
+Subject: [Intel-gfx] [PATCH 12/18] drm/i915/guc: Ensure request ordering via
+ completion fences
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,85 +60,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add bypass tasklet submission path to GuC. The tasklet is only used if H2G
-channel has backpresure.
+If two requests are on the same ring, they are explicitly ordered by the
+HW. So, a submission fence is sufficient to ensure ordering when using
+the new GuC submission interface. Conversely, if two requests share a
+timeline and are on the same physical engine but different context this
+doesn't ensure ordering on the new GuC submission interface. So, a
+completion fence needs to be used to ensure ordering.
 
+v2:
+ (Daniele)
+  - Don't delete spin lock
+v3:
+ (Daniele)
+  - Delete forward dec
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 37 +++++++++++++++----
- 1 file changed, 29 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index ca0717166a27..53b4a5eb4a85 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -172,6 +172,12 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 	return err;
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index ef26724fe980..c55dea0edb09 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -432,6 +432,7 @@ void i915_request_retire_upto(struct i915_request *rq)
+ 
+ 	do {
+ 		tmp = list_first_entry(&tl->requests, typeof(*tmp), link);
++		GEM_BUG_ON(!i915_request_completed(tmp));
+ 	} while (i915_request_retire(tmp) && tmp != rq);
  }
  
-+static inline void guc_set_lrc_tail(struct i915_request *rq)
-+{
-+	rq->context->lrc_reg_state[CTX_RING_TAIL] =
-+		intel_ring_set_tail(rq->ring, rq->tail);
-+}
-+
- static inline int rq_prio(const struct i915_request *rq)
- {
- 	return rq->sched.attr.priority;
-@@ -215,8 +221,7 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
+@@ -1463,7 +1464,8 @@ i915_request_await_request(struct i915_request *to, struct i915_request *from)
+ 			return ret;
  	}
- done:
- 	if (submit) {
--		last->context->lrc_reg_state[CTX_RING_TAIL] =
--			intel_ring_set_tail(last->ring, last->tail);
-+		guc_set_lrc_tail(last);
- resubmit:
+ 
+-	if (is_power_of_2(to->execution_mask | READ_ONCE(from->execution_mask)))
++	if (!intel_engine_uses_guc(to->engine) &&
++	    is_power_of_2(to->execution_mask | READ_ONCE(from->execution_mask)))
+ 		ret = await_request_submit(to, from);
+ 	else
+ 		ret = emit_semaphore_wait(to, from, I915_FENCE_GFP);
+@@ -1622,6 +1624,8 @@ __i915_request_add_to_timeline(struct i915_request *rq)
+ 	prev = to_request(__i915_active_fence_set(&timeline->last_request,
+ 						  &rq->fence));
+ 	if (prev && !__i915_request_is_complete(prev)) {
++		bool uses_guc = intel_engine_uses_guc(rq->engine);
++
  		/*
- 		 * We only check for -EBUSY here even though it is possible for
-@@ -496,20 +501,36 @@ static inline void queue_request(struct i915_sched_engine *sched_engine,
- 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- }
+ 		 * The requests are supposed to be kept in order. However,
+ 		 * we need to be wary in case the timeline->last_request
+@@ -1632,7 +1636,9 @@ __i915_request_add_to_timeline(struct i915_request *rq)
+ 			   i915_seqno_passed(prev->fence.seqno,
+ 					     rq->fence.seqno));
  
-+static int guc_bypass_tasklet_submit(struct intel_guc *guc,
-+				     struct i915_request *rq)
-+{
-+	int ret;
-+
-+	__i915_request_submit(rq);
-+
-+	trace_i915_request_in(rq, 0);
-+
-+	guc_set_lrc_tail(rq);
-+	ret = guc_add_request(guc, rq);
-+	if (ret == -EBUSY)
-+		guc->stalled_request = rq;
-+
-+	return ret;
-+}
-+
- static void guc_submit_request(struct i915_request *rq)
- {
- 	struct i915_sched_engine *sched_engine = rq->engine->sched_engine;
-+	struct intel_guc *guc = &rq->engine->gt->uc.guc;
- 	unsigned long flags;
- 
- 	/* Will be called from irq-context when using foreign fences. */
- 	spin_lock_irqsave(&sched_engine->lock, flags);
- 
--	queue_request(sched_engine, rq, rq_prio(rq));
--
--	GEM_BUG_ON(i915_sched_engine_is_empty(sched_engine));
--	GEM_BUG_ON(list_empty(&rq->sched.link));
--
--	tasklet_hi_schedule(&sched_engine->tasklet);
-+	if (guc->stalled_request || !i915_sched_engine_is_empty(sched_engine))
-+		queue_request(sched_engine, rq, rq_prio(rq));
-+	else if (guc_bypass_tasklet_submit(guc, rq) == -EBUSY)
-+		tasklet_hi_schedule(&sched_engine->tasklet);
- 
- 	spin_unlock_irqrestore(&sched_engine->lock, flags);
- }
+-		if (is_power_of_2(READ_ONCE(prev->engine)->mask | rq->engine->mask))
++		if ((!uses_guc &&
++		     is_power_of_2(READ_ONCE(prev->engine)->mask | rq->engine->mask)) ||
++		    (uses_guc && prev->context == rq->context))
+ 			i915_sw_fence_await_sw_fence(&rq->submit,
+ 						     &prev->submit,
+ 						     &rq->submitq);
 -- 
 2.28.0
 
