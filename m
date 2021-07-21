@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AEBD4C6377B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38701C6377B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:30:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 794C361019
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:30:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 794C361019
+	by mail.kernel.org (Postfix) with ESMTPS id 0445461019
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0445461019
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FD516EB1E;
-	Wed, 21 Jul 2021 22:30:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C8356EB29;
+	Wed, 21 Jul 2021 22:30:53 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62F926EB1E
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 22:30:49 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211527997"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211527997"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 183BA6EB3A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 22:30:50 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211528003"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211528003"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jul 2021 15:30:48 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="658464173"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="658464185"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jul 2021 15:30:47 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Jul 2021 15:30:27 -0700
-Message-Id: <20210721223043.834562-3-matthew.d.roper@intel.com>
+Date: Wed, 21 Jul 2021 15:30:31 -0700
+Message-Id: <20210721223043.834562-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210721223043.834562-1-matthew.d.roper@intel.com>
 References: <20210721223043.834562-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 02/18] drm/i915/xehpsdv: add initial XeHP SDV
- definitions
+Subject: [Intel-gfx] [CI 06/18] drm/i915/gen12: Use fuse info to enable SFC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,100 +53,87 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5kZW1hcmNoaUBpbnRlbC5jb20+CgpYZUhQIFNE
-ViBpcyBhIEludGVswq4gZEdQVSB3aXRob3V0IGRpc3BsYXkuIFRoaXMgaXMganVzdCB0aGUgZGVm
-aW5pdGlvbgpvZiBzb21lIGJhc2ljIHBsYXRmb3JtIG1hY3JvcywgYnkgbGFyZ2UgYSBjb3B5IG9m
-IGN1cnJlbnQgc3RhdGUgb2YKVGlnZXJsYWtlIHdoaWNoIGRvZXMgbm90IHJlZmxlY3QgdGhlIGVu
-ZCBzdGF0ZSBvZiB0aGlzIHBsYXRmb3JtLgoKdjI6CiAtIFN3aXRjaCB0byBpbnRlbF9zdGVwIGlu
-ZnJhc3RydWN0dXJlIGZvciBzdGVwcGluZyBtYXRjaGVzLiAoSmFuaSkKdjM6CiAtIEJyaW5nIGVh
-cmxpZXIgaW4gcGF0Y2ggc2VyaWVzIGFuZCBsZWF2ZSBhZGRpdGlvbiBvZiBuZXcgbWVkaWEgZW5n
-aW5lcwogICB0byB0aGUgZW5naW5lIG1hc2sgZm9yIGEgbGF0ZXIgcGF0Y2guCgpCc3BlYzogNDQ0
-NjcsIDQ4MDc3CkNjOiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2aUBpbnRlbC5jb20+ClNpZ25l
-ZC1vZmYtYnk6IEx1Y2FzIERlIE1hcmNoaSA8bHVjYXMuZGVtYXJjaGlAaW50ZWwuY29tPgpTaWdu
-ZWQtb2ZmLWJ5OiBEYW5pZWxlIENlcmFvbG8gU3B1cmlvIDxkYW5pZWxlLmNlcmFvbG9zcHVyaW9A
-aW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNv
-dXphQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogU3R1YXJ0IFN1bW1lcnMgPHN0dWFydC5zdW1t
-ZXJzQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogVG9tYXMgV2lua2xlciA8dG9tYXMud2lua2xl
-ckBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5yb3BlckBp
-bnRlbC5jb20+ClJldmlld2VkLWJ5OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXph
-QGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oICAgICAgICAg
-IHwgIDQgKysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9wY2kuYyAgICAgICAgICB8IDE5
-ICsrKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RldmljZV9p
-bmZvLmMgfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5oIHwg
-IDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfc3RlcC5jICAgICAgICB8IDEyICsrKysr
-KysrKysrLQogNSBmaWxlcyBjaGFuZ2VkLCAzNiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0p
-CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCBiL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2k5MTVfZHJ2LmgKaW5kZXggMDMyMWExZjk3MzhkLi4zMTBmMjcyYTAwNWYg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmgKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaApAQCAtMTQ0NCw2ICsxNDQ0LDcgQEAgSVNfU1VCUExB
-VEZPUk0oY29uc3Qgc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsCiAjZGVmaW5lIElTX0RH
-MShkZXZfcHJpdikgICAgICAgIElTX1BMQVRGT1JNKGRldl9wcml2LCBJTlRFTF9ERzEpCiAjZGVm
-aW5lIElTX0FMREVSTEFLRV9TKGRldl9wcml2KSBJU19QTEFURk9STShkZXZfcHJpdiwgSU5URUxf
-QUxERVJMQUtFX1MpCiAjZGVmaW5lIElTX0FMREVSTEFLRV9QKGRldl9wcml2KSBJU19QTEFURk9S
-TShkZXZfcHJpdiwgSU5URUxfQUxERVJMQUtFX1ApCisjZGVmaW5lIElTX1hFSFBTRFYoZGV2X3By
-aXYpIElTX1BMQVRGT1JNKGRldl9wcml2LCBJTlRFTF9YRUhQU0RWKQogI2RlZmluZSBJU19IU1df
-RUFSTFlfU0RWKGRldl9wcml2KSAoSVNfSEFTV0VMTChkZXZfcHJpdikgJiYgXAogCQkJCSAgICAo
-SU5URUxfREVWSUQoZGV2X3ByaXYpICYgMHhGRjAwKSA9PSAweDBDMDApCiAjZGVmaW5lIElTX0JE
-V19VTFQoZGV2X3ByaXYpIFwKQEAgLTE1NTQsNiArMTU1NSw5IEBAIElTX1NVQlBMQVRGT1JNKGNv
-bnN0IHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1LAogCShJU19BTERFUkxBS0VfUChfX2k5
-MTUpICYmIFwKIAkgSVNfR1RfU1RFUChfX2k5MTUsIHNpbmNlLCB1bnRpbCkpCiAKKyNkZWZpbmUg
-SVNfWEVIUFNEVl9HVF9TVEVQKHAsIHNpbmNlLCB1bnRpbCkgXAorCShJU19YRUhQU0RWKHApICYm
-IElTX0dUX1NURVAoX19pOTE1LCBzaW5jZSwgdW50aWwpKQorCiAjZGVmaW5lIElTX0xQKGRldl9w
-cml2KQkJKElOVEVMX0lORk8oZGV2X3ByaXYpLT5pc19scCkKICNkZWZpbmUgSVNfR0VOOV9MUChk
-ZXZfcHJpdikJKEdSQVBISUNTX1ZFUihkZXZfcHJpdikgPT0gOSAmJiBJU19MUChkZXZfcHJpdikp
-CiAjZGVmaW5lIElTX0dFTjlfQkMoZGV2X3ByaXYpCShHUkFQSElDU19WRVIoZGV2X3ByaXYpID09
-IDkgJiYgIUlTX0xQKGRldl9wcml2KSkKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2k5MTVfcGNpLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BjaS5jCmluZGV4IGJlNWVl
-NWUwZTMyNC4uMzMwYjk4Mzk2YzdiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9p
-OTE1X3BjaS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGNpLmMKQEAgLTEwMTks
-NiArMTAxOSwyNSBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGludGVsX2RldmljZV9pbmZvIGFkbF9w
-X2luZm8gPSB7CiAJLnBwZ3R0X3NpemUgPSA0OCwgXAogCS5wcGd0dF90eXBlID0gSU5URUxfUFBH
-VFRfRlVMTAogCisjZGVmaW5lIFhFX0hQTV9GRUFUVVJFUyBcCisJLm1lZGlhX3ZlciA9IDEyLCBc
-CisJLm1lZGlhX3JlbCA9IDUwCisKK19fbWF5YmVfdW51c2VkCitzdGF0aWMgY29uc3Qgc3RydWN0
-IGludGVsX2RldmljZV9pbmZvIHhlaHBzZHZfaW5mbyA9IHsKKwlYRV9IUF9GRUFUVVJFUywKKwlY
-RV9IUE1fRkVBVFVSRVMsCisJREdGWF9GRUFUVVJFUywKKwlQTEFURk9STShJTlRFTF9YRUhQU0RW
-KSwKKwkuZGlzcGxheSA9IHsgfSwKKwkucGlwZV9tYXNrID0gMCwKKwkucGxhdGZvcm1fZW5naW5l
-X21hc2sgPQorCQlCSVQoUkNTMCkgfCBCSVQoQkNTMCkgfAorCQlCSVQoVkVDUzApIHwgQklUKFZF
-Q1MxKSB8CisJCUJJVChWQ1MwKSB8IEJJVChWQ1MxKSB8IEJJVChWQ1MyKSB8IEJJVChWQ1MzKSwK
-KwkucmVxdWlyZV9mb3JjZV9wcm9iZSA9IDEsCit9OworCiAjdW5kZWYgUExBVEZPUk0KIAogLyoK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RldmljZV9pbmZvLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5jCmluZGV4IDVjODNiMmVjNjlk
-YS4uNzFkNjc5ZWE1Nzc5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9k
-ZXZpY2VfaW5mby5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RldmljZV9pbmZv
-LmMKQEAgLTY4LDYgKzY4LDcgQEAgc3RhdGljIGNvbnN0IGNoYXIgKiBjb25zdCBwbGF0Zm9ybV9u
-YW1lc1tdID0gewogCVBMQVRGT1JNX05BTUUoREcxKSwKIAlQTEFURk9STV9OQU1FKEFMREVSTEFL
-RV9TKSwKIAlQTEFURk9STV9OQU1FKEFMREVSTEFLRV9QKSwKKwlQTEFURk9STV9OQU1FKFhFSFBT
-RFYpLAogfTsKICN1bmRlZiBQTEFURk9STV9OQU1FCiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2ludGVsX2RldmljZV9pbmZvLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRl
-bF9kZXZpY2VfaW5mby5oCmluZGV4IGJkODMwMDRjNzhiNi4uNWRiNTg1Yjc4Y2M3IDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5oCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2ludGVsX2RldmljZV9pbmZvLmgKQEAgLTg4LDYgKzg4LDcgQEAgZW51
-bSBpbnRlbF9wbGF0Zm9ybSB7CiAJSU5URUxfREcxLAogCUlOVEVMX0FMREVSTEFLRV9TLAogCUlO
-VEVMX0FMREVSTEFLRV9QLAorCUlOVEVMX1hFSFBTRFYsCiAJSU5URUxfTUFYX1BMQVRGT1JNUwog
-fTsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfc3RlcC5jIGIvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfc3RlcC5jCmluZGV4IDlmY2YxNzcwOGNjOC4uYjk5ODI5
-YmNiNGY3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9zdGVwLmMKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfc3RlcC5jCkBAIC0xMDEsNiArMTAxLDEzIEBA
-IHN0YXRpYyBjb25zdCBzdHJ1Y3QgaW50ZWxfc3RlcF9pbmZvIGFkbHBfcmV2aWRzW10gPSB7CiAJ
-WzB4Q10gPSB7IC5ndF9zdGVwID0gU1RFUF9DMCwgLmRpc3BsYXlfc3RlcCA9IFNURVBfRDAgfSwK
-IH07CiAKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgaW50ZWxfc3RlcF9pbmZvIHhlaHBzZHZfcmV2aWRz
-W10gPSB7CisJWzB4MF0gPSB7IC5ndF9zdGVwID0gU1RFUF9BMCB9LAorCVsweDFdID0geyAuZ3Rf
-c3RlcCA9IFNURVBfQTEgfSwKKwlbMHg0XSA9IHsgLmd0X3N0ZXAgPSBTVEVQX0IwIH0sCisJWzB4
-OF0gPSB7IC5ndF9zdGVwID0gU1RFUF9DMCB9LAorfTsKKwogdm9pZCBpbnRlbF9zdGVwX2luaXQo
-c3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCiB7CiAJY29uc3Qgc3RydWN0IGludGVsX3N0
-ZXBfaW5mbyAqcmV2aWRzID0gTlVMTDsKQEAgLTEwOCw3ICsxMTUsMTAgQEAgdm9pZCBpbnRlbF9z
-dGVwX2luaXQoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCiAJaW50IHJldmlkID0gSU5U
-RUxfUkVWSUQoaTkxNSk7CiAJc3RydWN0IGludGVsX3N0ZXBfaW5mbyBzdGVwID0ge307CiAKLQlp
-ZiAoSVNfQUxERVJMQUtFX1AoaTkxNSkpIHsKKwlpZiAoSVNfWEVIUFNEVihpOTE1KSkgeworCQly
-ZXZpZHMgPSB4ZWhwc2R2X3JldmlkczsKKwkJc2l6ZSA9IEFSUkFZX1NJWkUoeGVocHNkdl9yZXZp
-ZHMpOworCX0gZWxzZSBpZiAoSVNfQUxERVJMQUtFX1AoaTkxNSkpIHsKIAkJcmV2aWRzID0gYWRs
-cF9yZXZpZHM7CiAJCXNpemUgPSBBUlJBWV9TSVpFKGFkbHBfcmV2aWRzKTsKIAl9IGVsc2UgaWYg
-KElTX0FMREVSTEFLRV9TKGk5MTUpKSB7Ci0tIAoyLjI1LjQKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+From: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+
+In Gen12 there are various fuse combinations and in each configuration
+vdbox engine may be connected to SFC depending on which engines are
+available, so we need to set the SFC capability based on fuse value from
+the hardware. Even numbered physical instance always have SFC, odd
+numbered physical instances have SFC only if previous even instance is
+fused off.
+
+v2:
+ - Minor style & typo fixes (Tvrtko)
+ - Drop an unwanted 'inline' (Tvrtko)
+
+Bspec: 48028
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 30 ++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 5cfeb91d1b7b..3f8013612a08 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -442,6 +442,28 @@ void intel_engines_free(struct intel_gt *gt)
+ 	}
+ }
+ 
++static
++bool gen11_vdbox_has_sfc(struct drm_i915_private *i915,
++			 unsigned int physical_vdbox,
++			 unsigned int logical_vdbox, u16 vdbox_mask)
++{
++	/*
++	 * In Gen11, only even numbered logical VDBOXes are hooked
++	 * up to an SFC (Scaler & Format Converter) unit.
++	 * In Gen12, Even numbered physical instance always are connected
++	 * to an SFC. Odd numbered physical instances have SFC only if
++	 * previous even instance is fused off.
++	 */
++	if (GRAPHICS_VER(i915) == 12)
++		return (physical_vdbox % 2 == 0) ||
++			!(BIT(physical_vdbox - 1) & vdbox_mask);
++	else if (GRAPHICS_VER(i915) == 11)
++		return logical_vdbox % 2 == 0;
++
++	MISSING_CASE(GRAPHICS_VER(i915));
++	return false;
++}
++
+ /*
+  * Determine which engines are fused off in our particular hardware.
+  * Note that we have a catch-22 situation where we need to be able to access
+@@ -493,13 +515,9 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
+ 			continue;
+ 		}
+ 
+-		/*
+-		 * In Gen11, only even numbered logical VDBOXes are
+-		 * hooked up to an SFC (Scaler & Format Converter) unit.
+-		 * In TGL each VDBOX has access to an SFC.
+-		 */
+-		if (GRAPHICS_VER(i915) >= 12 || logical_vdbox++ % 2 == 0)
++		if (gen11_vdbox_has_sfc(i915, i, logical_vdbox, vdbox_mask))
+ 			gt->info.vdbox_sfc_access |= BIT(i);
++		logical_vdbox++;
+ 	}
+ 	drm_dbg(&i915->drm, "vdbox enable: %04x, instances: %04lx\n",
+ 		vdbox_mask, VDBOX_MASK(gt));
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
