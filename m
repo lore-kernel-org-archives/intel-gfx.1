@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79A0FC6377A
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 97186C6377D
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C77B86121E
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C77B86121E
+	by mail.kernel.org (Postfix) with ESMTPS id D74F76121E
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:33:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D74F76121E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57A996EA2A;
-	Wed, 21 Jul 2021 21:33:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F5B26EA34;
+	Wed, 21 Jul 2021 21:33:21 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2BCD6E9D3;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FFC86E452;
  Wed, 21 Jul 2021 21:33:14 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="209620425"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="209620425"
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="209620422"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="209620422"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jul 2021 14:33:13 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470296694"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="470296689"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jul 2021 14:33:13 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Wed, 21 Jul 2021 14:50:58 -0700
-Message-Id: <20210721215101.139794-16-matthew.brost@intel.com>
+Date: Wed, 21 Jul 2021 14:50:56 -0700
+Message-Id: <20210721215101.139794-14-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210721215101.139794-1-matthew.brost@intel.com>
 References: <20210721215101.139794-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 15/18] drm/i915/guc: Update
- intel_gt_wait_for_idle to work with GuC
+Subject: [Intel-gfx] [PATCH 13/18] drm/i915/guc: Disable semaphores when
+ using GuC scheduling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,426 +60,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When running the GuC the GPU can't be considered idle if the GuC still
-has contexts pinned. As such, a call has been added in
-intel_gt_wait_for_idle to idle the UC and in turn the GuC by waiting for
-the number of unpinned contexts to go to zero.
+Semaphores are an optimization and not required for basic GuC submission
+to work properly. Disable until we have time to do the implementation to
+enable semaphores and tune them for performance. Also long direction is
+just to delete semaphores from the i915 so another reason to not enable
+these for GuC submission.
 
-v2: rtimeout -> remaining_timeout
-v3: Drop unnecessary includes, guc_submission_busy_loop ->
-guc_submission_send_busy_loop, drop negatie timeout trick, move a
-refactor of guc_context_unpin to earlier path (John H)
-v4: Add stddef.h back into intel_gt_requests.h, sort circuit idle
-function if not in GuC submission mode
+This patch fixes an existing bugs where I915_ENGINE_HAS_SEMAPHORES was
+not honored correctly.
+
+v2: Reword commit message
+v3:
+ (John H)
+  - Add text to commit indicating this also fixing an existing bug
+v4:
+ (John H)
+  - s/bug/bugs
 
 Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  3 +-
- drivers/gpu/drm/i915/gt/intel_gt.c            | 19 ++++
- drivers/gpu/drm/i915/gt/intel_gt.h            |  2 +
- drivers/gpu/drm/i915/gt/intel_gt_requests.c   | 21 ++---
- drivers/gpu/drm/i915/gt/intel_gt_requests.h   |  9 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  4 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  4 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 88 +++++++++++++++++--
- drivers/gpu/drm/i915/gt/uc/intel_uc.h         |  5 ++
- drivers/gpu/drm/i915/i915_gem_evict.c         |  1 +
- .../gpu/drm/i915/selftests/igt_live_test.c    |  2 +-
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  3 +-
- 13 files changed, 134 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-index 2f3b7dc7b0e6..5130e8ed9564 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-@@ -645,7 +645,8 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
- 		goto insert;
- 
- 	/* Attempt to reap some mmap space from dead objects */
--	err = intel_gt_retire_requests_timeout(&i915->gt, MAX_SCHEDULE_TIMEOUT);
-+	err = intel_gt_retire_requests_timeout(&i915->gt, MAX_SCHEDULE_TIMEOUT,
-+					       NULL);
- 	if (err)
- 		goto err;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index e714e21c0a4d..acfdd53b2678 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -585,6 +585,25 @@ static void __intel_gt_disable(struct intel_gt *gt)
- 	GEM_BUG_ON(intel_gt_pm_is_awake(gt));
- }
- 
-+int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
-+{
-+	long remaining_timeout;
-+
-+	/* If the device is asleep, we have no requests outstanding */
-+	if (!intel_gt_pm_is_awake(gt))
-+		return 0;
-+
-+	while ((timeout = intel_gt_retire_requests_timeout(gt, timeout,
-+							   &remaining_timeout)) > 0) {
-+		cond_resched();
-+		if (signal_pending(current))
-+			return -EINTR;
-+	}
-+
-+	return timeout ? timeout : intel_uc_wait_for_idle(&gt->uc,
-+							  remaining_timeout);
-+}
-+
- int intel_gt_init(struct intel_gt *gt)
- {
- 	int err;
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
-index e7aabe0cc5bf..74e771871a9b 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.h
-@@ -48,6 +48,8 @@ void intel_gt_driver_release(struct intel_gt *gt);
- 
- void intel_gt_driver_late_release(struct intel_gt *gt);
- 
-+int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout);
-+
- void intel_gt_check_and_clear_faults(struct intel_gt *gt);
- void intel_gt_clear_error_registers(struct intel_gt *gt,
- 				    intel_engine_mask_t engine_mask);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-index 647eca9d867a..edb881d75630 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-@@ -130,7 +130,8 @@ void intel_engine_fini_retire(struct intel_engine_cs *engine)
- 	GEM_BUG_ON(engine->retire);
- }
- 
--long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout)
-+long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout,
-+				      long *remaining_timeout)
- {
- 	struct intel_gt_timelines *timelines = &gt->timelines;
- 	struct intel_timeline *tl, *tn;
-@@ -195,22 +196,10 @@ out_active:	spin_lock(&timelines->lock);
- 	if (flush_submission(gt, timeout)) /* Wait, there's more! */
- 		active_count++;
- 
--	return active_count ? timeout : 0;
--}
--
--int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
--{
--	/* If the device is asleep, we have no requests outstanding */
--	if (!intel_gt_pm_is_awake(gt))
--		return 0;
--
--	while ((timeout = intel_gt_retire_requests_timeout(gt, timeout)) > 0) {
--		cond_resched();
--		if (signal_pending(current))
--			return -EINTR;
--	}
-+	if (remaining_timeout)
-+		*remaining_timeout = timeout;
- 
--	return timeout;
-+	return active_count ? timeout : 0;
- }
- 
- static void retire_work_handler(struct work_struct *work)
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.h b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
-index fcc30a6e4fe9..51dbe0e3294e 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_requests.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
-@@ -6,14 +6,17 @@
- #ifndef INTEL_GT_REQUESTS_H
- #define INTEL_GT_REQUESTS_H
- 
-+#include <stddef.h>
-+
- struct intel_engine_cs;
- struct intel_gt;
- struct intel_timeline;
- 
--long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout);
-+long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout,
-+				      long *remaining_timeout);
- static inline void intel_gt_retire_requests(struct intel_gt *gt)
- {
--	intel_gt_retire_requests_timeout(gt, 0);
-+	intel_gt_retire_requests_timeout(gt, 0, NULL);
- }
- 
- void intel_engine_init_retire(struct intel_engine_cs *engine);
-@@ -21,8 +24,6 @@ void intel_engine_add_retire(struct intel_engine_cs *engine,
- 			     struct intel_timeline *tl);
- void intel_engine_fini_retire(struct intel_engine_cs *engine);
- 
--int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout);
--
- void intel_gt_init_requests(struct intel_gt *gt);
- void intel_gt_park_requests(struct intel_gt *gt);
- void intel_gt_unpark_requests(struct intel_gt *gt);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 451797c62b41..d4987cd789ea 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -39,6 +39,8 @@ struct intel_guc {
- 	spinlock_t irq_lock;
- 	unsigned int msg_enabled_mask;
- 
-+	atomic_t outstanding_submission_g2h;
-+
- 	struct {
- 		void (*reset)(struct intel_guc *guc);
- 		void (*enable)(struct intel_guc *guc);
-@@ -245,6 +247,8 @@ static inline void intel_guc_disable_msg(struct intel_guc *guc, u32 mask)
- 	spin_unlock_irq(&guc->irq_lock);
- }
- 
-+int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout);
-+
- int intel_guc_reset_engine(struct intel_guc *guc,
- 			   struct intel_engine_cs *engine);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 75f69c28056e..b6bbbdb4c689 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -109,6 +109,7 @@ void intel_guc_ct_init_early(struct intel_guc_ct *ct)
- 	INIT_LIST_HEAD(&ct->requests.incoming);
- 	INIT_WORK(&ct->requests.worker, ct_incoming_request_worker_func);
- 	tasklet_setup(&ct->receive_tasklet, ct_receive_tasklet_func);
-+	init_waitqueue_head(&ct->wq);
- }
- 
- static inline const char *guc_ct_buffer_type_to_str(u32 type)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index dda2d6a75392..2758ee849a59 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -10,6 +10,7 @@
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
- #include <linux/ktime.h>
-+#include <linux/wait.h>
- 
- #include "intel_guc_fwif.h"
- 
-@@ -68,6 +69,9 @@ struct intel_guc_ct {
- 
- 	struct tasklet_struct receive_tasklet;
- 
-+	/** @wq: wait queue for g2h chanenl */
-+	wait_queue_head_t wq;
-+
- 	struct {
- 		u16 last_fence; /* last fence used to send request */
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index cba38f05e44d..e4ce21c9b7ef 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -252,6 +252,72 @@ static inline void set_lrc_desc_registered(struct intel_guc *guc, u32 id,
- 	xa_store_irq(&guc->context_lookup, id, ce, GFP_ATOMIC);
- }
- 
-+static int guc_submission_send_busy_loop(struct intel_guc *guc,
-+					 const u32 *action,
-+					 u32 len,
-+					 u32 g2h_len_dw,
-+					 bool loop)
-+{
-+	int err;
-+
-+	err = intel_guc_send_busy_loop(guc, action, len, g2h_len_dw, loop);
-+
-+	if (!err && g2h_len_dw)
-+		atomic_inc(&guc->outstanding_submission_g2h);
-+
-+	return err;
-+}
-+
-+static int guc_wait_for_pending_msg(struct intel_guc *guc,
-+				    atomic_t *wait_var,
-+				    bool interruptible,
-+				    long timeout)
-+{
-+	const int state = interruptible ?
-+		TASK_INTERRUPTIBLE : TASK_UNINTERRUPTIBLE;
-+	DEFINE_WAIT(wait);
-+
-+	might_sleep();
-+	GEM_BUG_ON(timeout < 0);
-+
-+	if (!atomic_read(wait_var))
-+		return 0;
-+
-+	if (!timeout)
-+		return -ETIME;
-+
-+	for (;;) {
-+		prepare_to_wait(&guc->ct.wq, &wait, state);
-+
-+		if (!atomic_read(wait_var))
-+			break;
-+
-+		if (signal_pending_state(state, current)) {
-+			timeout = -EINTR;
-+			break;
-+		}
-+
-+		if (!timeout) {
-+			timeout = -ETIME;
-+			break;
-+		}
-+
-+		timeout = io_schedule_timeout(timeout);
-+	}
-+	finish_wait(&guc->ct.wq, &wait);
-+
-+	return (timeout < 0) ? timeout : 0;
-+}
-+
-+int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout)
-+{
-+	if (!intel_uc_uses_guc_submission(&guc_to_gt(guc)->uc))
-+		return 0;
-+
-+	return guc_wait_for_pending_msg(guc, &guc->outstanding_submission_g2h,
-+					true, timeout);
-+}
-+
- static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- {
- 	int err;
-@@ -278,6 +344,7 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 
- 	err = intel_guc_send_nb(guc, action, len, g2h_len_dw);
- 	if (!enabled && !err) {
-+		atomic_inc(&guc->outstanding_submission_g2h);
- 		set_context_enabled(ce);
- 	} else if (!enabled) {
- 		clr_context_pending_enable(ce);
-@@ -735,7 +802,8 @@ static int __guc_action_register_context(struct intel_guc *guc,
- 		offset,
- 	};
- 
--	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), 0, true);
-+	return guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
-+					     0, true);
- }
- 
- static int register_context(struct intel_context *ce)
-@@ -755,8 +823,9 @@ static int __guc_action_deregister_context(struct intel_guc *guc,
- 		guc_id,
- 	};
- 
--	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action),
--					G2H_LEN_DW_DEREGISTER_CONTEXT, true);
-+	return guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
-+					     G2H_LEN_DW_DEREGISTER_CONTEXT,
-+					     true);
- }
- 
- static int deregister_context(struct intel_context *ce, u32 guc_id)
-@@ -901,8 +970,8 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
- 
- 	intel_context_get(ce);
- 
--	intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action),
--				 G2H_LEN_DW_SCHED_CONTEXT_MODE_SET, true);
-+	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
-+				      G2H_LEN_DW_SCHED_CONTEXT_MODE_SET, true);
- }
- 
- static u16 prep_context_pending_disable(struct intel_context *ce)
-@@ -1444,6 +1513,12 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
- 	return ce;
- }
- 
-+static void decr_outstanding_submission_g2h(struct intel_guc *guc)
-+{
-+	if (atomic_dec_and_test(&guc->outstanding_submission_g2h))
-+		wake_up_all(&guc->ct.wq);
-+}
-+
- int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 					  const u32 *msg,
- 					  u32 len)
-@@ -1479,6 +1554,8 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 		lrc_destroy(&ce->ref);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 7d6f52d8a801..64659802d4df 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -799,7 +799,8 @@ static int intel_context_set_gem(struct intel_context *ce,
  	}
  
-+	decr_outstanding_submission_g2h(guc);
-+
- 	return 0;
- }
+ 	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
+-	    intel_engine_has_timeslices(ce->engine))
++	    intel_engine_has_timeslices(ce->engine) &&
++	    intel_engine_has_semaphores(ce->engine))
+ 		__set_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
  
-@@ -1527,6 +1604,7 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 	}
+ 	if (IS_ACTIVE(CONFIG_DRM_I915_REQUEST_TIMEOUT) &&
+@@ -1778,7 +1779,8 @@ static void __apply_priority(struct intel_context *ce, void *arg)
+ 	if (!intel_engine_has_timeslices(ce->engine))
+ 		return;
  
-+	decr_outstanding_submission_g2h(guc);
- 	intel_context_put(ce);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-index 9c954c589edf..c4cef885e984 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-@@ -81,6 +81,11 @@ uc_state_checkers(guc, guc_submission);
- #undef uc_state_checkers
- #undef __uc_state_checker
- 
-+static inline int intel_uc_wait_for_idle(struct intel_uc *uc, long timeout)
-+{
-+	return intel_guc_wait_for_idle(&uc->guc, timeout);
-+}
-+
- #define intel_uc_ops_function(_NAME, _OPS, _TYPE, _RET) \
- static inline _TYPE intel_uc_##_NAME(struct intel_uc *uc) \
- { \
-diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
-index 4d2d59a9942b..2b73ddb11c66 100644
---- a/drivers/gpu/drm/i915/i915_gem_evict.c
-+++ b/drivers/gpu/drm/i915/i915_gem_evict.c
-@@ -27,6 +27,7 @@
-  */
- 
- #include "gem/i915_gem_context.h"
-+#include "gt/intel_gt.h"
- #include "gt/intel_gt_requests.h"
- 
- #include "i915_drv.h"
-diff --git a/drivers/gpu/drm/i915/selftests/igt_live_test.c b/drivers/gpu/drm/i915/selftests/igt_live_test.c
-index c130010a7033..1c721542e277 100644
---- a/drivers/gpu/drm/i915/selftests/igt_live_test.c
-+++ b/drivers/gpu/drm/i915/selftests/igt_live_test.c
-@@ -5,7 +5,7 @@
-  */
- 
- #include "i915_drv.h"
--#include "gt/intel_gt_requests.h"
-+#include "gt/intel_gt.h"
- 
- #include "../i915_selftest.h"
- #include "igt_flush_test.h"
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index d189c4bd4bef..4f8180146888 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -52,7 +52,8 @@ void mock_device_flush(struct drm_i915_private *i915)
- 	do {
- 		for_each_engine(engine, gt, id)
- 			mock_engine_flush(engine);
--	} while (intel_gt_retire_requests_timeout(gt, MAX_SCHEDULE_TIMEOUT));
-+	} while (intel_gt_retire_requests_timeout(gt, MAX_SCHEDULE_TIMEOUT,
-+						  NULL));
- }
- 
- static void mock_device_release(struct drm_device *dev)
+-	if (ctx->sched.priority >= I915_PRIORITY_NORMAL)
++	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
++	    intel_engine_has_semaphores(ce->engine))
+ 		intel_context_set_use_semaphores(ce);
+ 	else
+ 		intel_context_clear_use_semaphores(ce);
 -- 
 2.28.0
 
