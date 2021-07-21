@@ -2,40 +2,49 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74CBFC6377B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:03:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C511CC6377B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4810B61244
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:03:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4810B61244
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7BC6F6120C
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:17:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BC6F6120C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E145D6E864;
-	Wed, 21 Jul 2021 23:03:10 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5098F6E864;
- Wed, 21 Jul 2021 23:03:09 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4A744A47E1;
- Wed, 21 Jul 2021 23:03:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D70E6E201;
+	Wed, 21 Jul 2021 23:17:26 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB6F6E201;
+ Wed, 21 Jul 2021 23:17:24 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="297094683"
+X-IronPort-AV: E=Sophos;i="5.84,259,1620716400"; d="scan'208";a="297094683"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 16:17:24 -0700
+X-IronPort-AV: E=Sophos;i="5.84,259,1620716400"; d="scan'208";a="415707564"
+Received: from vaganesh-mobl2.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.209.84.147])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 16:17:23 -0700
+Date: Wed, 21 Jul 2021 16:17:22 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Matt Roper <matthew.d.roper@intel.com>
+Message-ID: <20210721231722.h7nsmh6qz5u5khp5@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <20210720232014.3302645-1-lucas.demarchi@intel.com>
+ <20210720232014.3302645-3-lucas.demarchi@intel.com>
+ <20210721224722.GM4174536@mdroper-desk1.amr.corp.intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Rodrigo Vivi" <rodrigo.vivi@intel.com>
-Date: Wed, 21 Jul 2021 23:03:09 -0000
-Message-ID: <162690858930.767.770536304949134345@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210721220023.268194-1-rodrigo.vivi@intel.com>
-In-Reply-To: <20210721220023.268194-1-rodrigo.vivi@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/bios=3A_Fix_ports_mask?=
+Content-Disposition: inline
+In-Reply-To: <20210721224722.GM4174536@mdroper-desk1.amr.corp.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 2/4] drm/i915/gt: nuke unused legacy engine
+ hw_id
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,30 +57,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: intel-gfx@lists.freedesktop.org, Tomas Winkler <tomas.winkler@intel.com>,
+ dri-devel@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Wed, Jul 21, 2021 at 03:47:22PM -0700, Matt Roper wrote:
+>On Tue, Jul 20, 2021 at 04:20:12PM -0700, Lucas De Marchi wrote:
+>> The engine hw_id is only used by RING_FAULT_REG(), which is not used
+>> since GRAPHICS_VER == 8. We tend to keep adding new defines just to be
+>> consistent, but let's try to remove them and let them defined to 0 when
+>> not used.
+>
+>s/when not used/for engines that only exist on gen8+ platforms/
+>
+>Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+>
+>For historical reference, we did use hw_id on gen8+ platforms too until
+>relatively recently --- it was used to set the engine's guc_id as well
+>up until:
+>
+>        commit c784e5249e773689e38d2bc1749f08b986621a26
+>        Author: John Harrison <John.C.Harrison@Intel.com>
+>        Date:   Wed Oct 28 07:58:24 2020 -0700
+>
+>            drm/i915/guc: Update to use firmware v49.0.1
 
-Series: drm/i915/bios: Fix ports mask
-URL   : https://patchwork.freedesktop.org/series/92850/
-State : warning
+thanks for digging this, I will add that to the commit message as well.
 
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-69ca4ceb0ec6 drm/i915/bios: Fix ports mask
--:35: WARNING:LINE_CONTINUATIONS: Avoid unnecessary line continuations
-#35: FILE: drivers/gpu/drm/i915/display/intel_bios.c:2169:
-+	int ports = BIT(PORT_A) | BIT(PORT_B) | BIT(PORT_C) | \
-
-total: 0 errors, 1 warnings, 0 checks, 9 lines checked
-
-
+Lucas De Marchi
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
