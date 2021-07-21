@@ -2,49 +2,41 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C511CC6377B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0B72C6377A
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7BC6F6120C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:17:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BC6F6120C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 99AD86121F
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:32:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99AD86121F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D70E6E201;
-	Wed, 21 Jul 2021 23:17:26 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB6F6E201;
- Wed, 21 Jul 2021 23:17:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="297094683"
-X-IronPort-AV: E=Sophos;i="5.84,259,1620716400"; d="scan'208";a="297094683"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 16:17:24 -0700
-X-IronPort-AV: E=Sophos;i="5.84,259,1620716400"; d="scan'208";a="415707564"
-Received: from vaganesh-mobl2.amr.corp.intel.com (HELO ldmartin-desk2)
- ([10.209.84.147])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 16:17:23 -0700
-Date: Wed, 21 Jul 2021 16:17:22 -0700
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Message-ID: <20210721231722.h7nsmh6qz5u5khp5@ldmartin-desk2>
-X-Patchwork-Hint: comment
-References: <20210720232014.3302645-1-lucas.demarchi@intel.com>
- <20210720232014.3302645-3-lucas.demarchi@intel.com>
- <20210721224722.GM4174536@mdroper-desk1.amr.corp.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2995F6EB6C;
+	Wed, 21 Jul 2021 23:32:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E04FD6E82A;
+ Wed, 21 Jul 2021 23:32:50 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D9E25A0BCB;
+ Wed, 21 Jul 2021 23:32:50 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210721224722.GM4174536@mdroper-desk1.amr.corp.intel.com>
-Subject: Re: [Intel-gfx] [PATCH 2/4] drm/i915/gt: nuke unused legacy engine
- hw_id
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Rodrigo Vivi" <rodrigo.vivi@intel.com>
+Date: Wed, 21 Jul 2021 23:32:50 -0000
+Message-ID: <162691037087.769.12041109891130158188@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210721220023.268194-1-rodrigo.vivi@intel.com>
+In-Reply-To: <20210721220023.268194-1-rodrigo.vivi@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/bios=3A_Fix_ports_mask?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,38 +49,202 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Tomas Winkler <tomas.winkler@intel.com>,
- dri-devel@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0780708861=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 21, 2021 at 03:47:22PM -0700, Matt Roper wrote:
->On Tue, Jul 20, 2021 at 04:20:12PM -0700, Lucas De Marchi wrote:
->> The engine hw_id is only used by RING_FAULT_REG(), which is not used
->> since GRAPHICS_VER == 8. We tend to keep adding new defines just to be
->> consistent, but let's try to remove them and let them defined to 0 when
->> not used.
->
->s/when not used/for engines that only exist on gen8+ platforms/
->
->Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
->
->For historical reference, we did use hw_id on gen8+ platforms too until
->relatively recently --- it was used to set the engine's guc_id as well
->up until:
->
->        commit c784e5249e773689e38d2bc1749f08b986621a26
->        Author: John Harrison <John.C.Harrison@Intel.com>
->        Date:   Wed Oct 28 07:58:24 2020 -0700
->
->            drm/i915/guc: Update to use firmware v49.0.1
+--===============0780708861==
+Content-Type: multipart/alternative;
+ boundary="===============8464729383425517476=="
 
-thanks for digging this, I will add that to the commit message as well.
+--===============8464729383425517476==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Lucas De Marchi
+== Series Details ==
+
+Series: drm/i915/bios: Fix ports mask
+URL   : https://patchwork.freedesktop.org/series/92850/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10367 -> Patchwork_20672
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20672 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@cs-gfx:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/fi-kbl-soraka/igt@amdgpu/amd_basic@cs-gfx.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s0:
+    - {fi-tgl-1115g4}:    [FAIL][2] ([i915#1888]) -> [PASS][3]
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
+
+  * igt@i915_selftest@live@execlists:
+    - fi-kbl-soraka:      [INCOMPLETE][4] ([i915#2782] / [i915#794]) -> [PASS][5]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-kbl-soraka/igt@i915_selftest@live@execlists.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/fi-kbl-soraka/igt@i915_selftest@live@execlists.html
+
+  * igt@kms_chamelium@common-hpd-after-suspend:
+    - fi-kbl-7500u:       [DMESG-FAIL][6] ([i915#165]) -> [PASS][7]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#165]: https://gitlab.freedesktop.org/drm/intel/issues/165
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+  [i915#2782]: https://gitlab.freedesktop.org/drm/intel/issues/2782
+  [i915#794]: https://gitlab.freedesktop.org/drm/intel/issues/794
+
+
+Participating hosts (38 -> 35)
+------------------------------
+
+  Missing    (3): fi-ilk-m540 fi-bdw-samus fi-hsw-4200u 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10367 -> Patchwork_20672
+
+  CI-20190529: 20190529
+  CI_DRM_10367: 598494d0149b67545593dfb1b5fa60278907749e @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6146: 6caef22e4aafed275771f564d4ea4cab09896ebc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20672: 69ca4ceb0ec678298a2639731d208dcf520e50d9 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+69ca4ceb0ec6 drm/i915/bios: Fix ports mask
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/index.html
+
+--===============8464729383425517476==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/bios: Fix ports mask</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/92850/">https://patchwork.freedesktop.org/series/92850/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10367 -&gt; Patchwork_20672</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20672 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@amdgpu/amd_basic@cs-gfx:<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/fi-kbl-soraka/igt@amdgpu/amd_basic@cs-gfx.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s0:</p>
+<ul>
+<li>{fi-tgl-1115g4}:    <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@execlists:</p>
+<ul>
+<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-kbl-soraka/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2782">i915#2782</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/794">i915#794</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/fi-kbl-soraka/igt@i915_selftest@live@execlists.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
+<ul>
+<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/165">i915#165</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20672/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (38 -&gt; 35)</h2>
+<p>Missing    (3): fi-ilk-m540 fi-bdw-samus fi-hsw-4200u </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10367 -&gt; Patchwork_20672</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10367: 598494d0149b67545593dfb1b5fa60278907749e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6146: 6caef22e4aafed275771f564d4ea4cab09896ebc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20672: 69ca4ceb0ec678298a2639731d208dcf520e50d9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>69ca4ceb0ec6 drm/i915/bios: Fix ports mask</p>
+
+</body>
+</html>
+
+--===============8464729383425517476==--
+
+--===============0780708861==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0780708861==--
