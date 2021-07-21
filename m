@@ -2,51 +2,56 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.4 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00B51C12002
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:32:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D328BC12002
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A285F6023B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:32:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A285F6023B
+	by mail.kernel.org (Postfix) with ESMTPS id 881C961241
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:36:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 881C961241
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39E026E922;
-	Wed, 21 Jul 2021 17:32:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF0C6E996;
+	Wed, 21 Jul 2021 17:36:54 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 815BA6E922
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 17:32:20 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="191757647"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="191757647"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B38B6E996;
+ Wed, 21 Jul 2021 17:36:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="191758237"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="191758237"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 10:32:18 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="495432391"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 10:32:18 -0700
-Date: Wed, 21 Jul 2021 10:42:08 -0700
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-Message-ID: <20210721174208.GA31398@labuser-Z97X-UD5H>
-References: <20210714223414.9849-1-manasi.d.navare@intel.com>
- <9fb23633-cbeb-b4c8-d548-95323c7a71b3@intel.com>
- <20210719185840.GA30216@labuser-Z97X-UD5H>
- <7e483a82-b997-4eb1-d585-484fc98b3914@intel.com>
+ 21 Jul 2021 10:36:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="576764852"
+Received: from irvmail001.ir.intel.com ([10.43.11.63])
+ by fmsmga001.fm.intel.com with ESMTP; 21 Jul 2021 10:36:51 -0700
+Received: from [10.249.140.99] (mwajdecz-MOBL.ger.corp.intel.com
+ [10.249.140.99])
+ by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
+ 16LHanVY001973; Wed, 21 Jul 2021 18:36:50 +0100
+To: "Belgaumkar, Vinay" <vinay.belgaumkar@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20210710012026.19705-1-vinay.belgaumkar@intel.com>
+ <20210710012026.19705-8-vinay.belgaumkar@intel.com>
+ <24627794-12b3-1d4a-2ee0-d6ef45be0b05@intel.com>
+ <46aa5a21-c32e-9626-830a-43ff3fade57f@intel.com>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Message-ID: <0aef5d78-71fa-d53a-d0da-7cc8f8d39841@intel.com>
+Date: Wed, 21 Jul 2021 19:36:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7e483a82-b997-4eb1-d585-484fc98b3914@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Fix shared dpll mismatch
- for bigjoiner slave
+In-Reply-To: <46aa5a21-c32e-9626-830a-43ff3fade57f@intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 07/16] drm/i915/guc/slpc: Enable slpc and
+ add related H2G events
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,92 +64,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pushed to drm-intel-next, tahnks for the reviews.
-
-Manasi
-
-On Tue, Jul 20, 2021 at 12:53:23PM +0530, Nautiyal, Ankit K wrote:
-> =
-
-> On 7/20/2021 12:28 AM, Navare, Manasi wrote:
-> >On Mon, Jul 19, 2021 at 11:47:51AM +0530, Nautiyal, Ankit K wrote:
-> >>Patch looks good to me.
-> >>
-> >>Please find below some suggestions
-> >>
-> >>On 7/15/2021 4:04 AM, Manasi Navare wrote:
-> >>>Currently when we do the HW state readout, we dont set the shared dpll=
- to NULL
-> >>>for the bigjoiner slave which should not have a DPLL assigned. So it h=
-as
-> >>>some garbage while the HW state readout is NULL. So explicitly reset
-> >>>the shared dpll for bigjoiner slave pipe.
-> >>>
-> >>>Bug: https://gitlab.freedesktop.org/drm/intel/-/issues/3465
-> >>>Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> >>>Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> >>>Tested-By: Swati Sharma <swati2.sharma@intel.com>
-> >>checkpatch warning about tested-by tag.
-> >>>Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
-> >>>---
-> >>>  drivers/gpu/drm/i915/display/intel_display.c | 4 ++++
-> >>>  1 file changed, 4 insertions(+)
-> >>>
-> >>>diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gp=
-u/drm/i915/display/intel_display.c
-> >>>index 65ddb6ca16e6..c274bfb8e549 100644
-> >>>--- a/drivers/gpu/drm/i915/display/intel_display.c
-> >>>+++ b/drivers/gpu/drm/i915/display/intel_display.c
-> >>>@@ -9006,6 +9006,10 @@ verify_crtc_state(struct intel_crtc *crtc,
-> >>>  	if (!new_crtc_state->hw.active)
-> >>>  		return;
-> >>>+	if (new_crtc_state->bigjoiner_slave)
-> >>>+		/* No PLLs set for slave */
-> >>>+		pipe_config->shared_dpll =3D NULL;
-> >>>+
-> >>there is a check for bigjoiner_slave, couple of lines above this:
-> >>
-> >>if (new_crtc_state->bigjoiner_slave)
-> >> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 master =3D new_crtc_stat=
-e->bigjoiner_linked_crtc;
-> >>
-> >>Perhaps it will make sense to club the set shared_dpll to NULL, along w=
-ith
-> >>these lines.
-> >Yup, thats where I was resetting in earlier patch but then it actually g=
-ets overridden in a function call
-> >after this point so need to reset it after separately.
-> >
-> >Manasi
-> =
-
-> You are right. I missed that, pipe_config gets overwritten just before th=
-is
-> point, so the change is at the right place.
-> =
-
-> Regards,
-> =
-
-> Ankit
-> =
-
-> =
-
-> >
-> >>In any case:
-> >>
-> >>Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> >>
-> >>>  	intel_pipe_config_sanity_check(dev_priv, pipe_config);
-> >>>  	if (!intel_pipe_config_compare(new_crtc_state,
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+CgpPbiAxNS4wNy4yMDIxIDAzOjU4LCBCZWxnYXVta2FyLCBWaW5heSB3cm90ZToKPiAKPiAKPiBP
+biA3LzEwLzIwMjEgMTA6MzcgQU0sIE1pY2hhbCBXYWpkZWN6a28gd3JvdGU6Cj4+Cj4+Cj4+IE9u
+IDEwLjA3LjIwMjEgMDM6MjAsIFZpbmF5IEJlbGdhdW1rYXIgd3JvdGU6Ci4uLgo+Pj4gwqAgZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19zdWJtaXNzaW9u
+LmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvaW50ZWxfZ3VjX3N1Ym1pc3Npb24u
+Ywo+Pj4gaW5kZXggZTI2NDRhMDVmMjk4Li4zZTc2ZDRkNWY3YmIgMTAwNjQ0Cj4+PiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfc3VibWlzc2lvbi5jCj4+PiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfc3VibWlzc2lvbi5jCj4+PiBA
+QCAtMjMyMSwxMCArMjMyMSw2IEBAIHZvaWQgaW50ZWxfZ3VjX3N1Ym1pc3Npb25fZW5hYmxlKHN0
+cnVjdAo+Pj4gaW50ZWxfZ3VjICpndWMpCj4+PiDCoCDCoCB2b2lkIGludGVsX2d1Y19zdWJtaXNz
+aW9uX2Rpc2FibGUoc3RydWN0IGludGVsX2d1YyAqZ3VjKQo+Pj4gwqAgewo+Pj4gLcKgwqDCoCBz
+dHJ1Y3QgaW50ZWxfZ3QgKmd0ID0gZ3VjX3RvX2d0KGd1Yyk7Cj4+PiAtCj4+PiAtwqDCoMKgIEdF
+TV9CVUdfT04oZ3QtPmF3YWtlKTsgLyogR1Qgc2hvdWxkIGJlIHBhcmtlZCBmaXJzdCAqLwo+Pgo+
+PiBpZiBub3QgbWlzdGFrZSwgY2FuIHlvdSBleHBsYWluIHdoeSBpdCB3YXMgcmVtb3ZlZCA/Cj4g
+Cj4gVGhpcyB3YXMgcGFydCBvZiBhIGRpZmZlcmVudCBjb21taXQuIFRoZSBCVUdfT04gaW4KPiBk
+aXNhYmxlX2d1Y19zdWJtaXNzaW9uIHdhcyBhZGRlZCB3aXRoIGFuIGFzc3VtcHRpb24gdGhhdCBp
+dCB3aWxsIGJlCj4gY2FsbGVkIG9ubHkgZHVyaW5nIGRyaXZlciB1bmxvYWQgYW5kIG5vdCBleHBl
+Y3RlZCB0byBob2xkIGFueSBHVCBQTQo+IHJlZmVyZW5jZXMuIFNpbmNlIHRoaXMgbmVlZHMgdG8g
+YmUgY2FsbGVkIGZyb20gYW4gZXJyb3Igc2NlbmFyaW8gZHVyaW5nCj4gc2xwYyBlbmFibGUsIHJl
+bW92ZSB0aGUgQlVHX09OLiBEbyB3ZSBuZWVkIHRoaXMgYXMgYSBzZXBhcmF0ZSBjb21taXQ/Cgp5
+ZXMsIHBsZWFzZQoKTWljaGFsCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9p
+bnRlbC1nZngK
