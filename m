@@ -2,72 +2,69 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 289E7C636C9
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 24FCFC636CA
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA57A6113C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:55:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA57A6113C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
+	by mail.kernel.org (Postfix) with ESMTPS id E3A8E60E0C
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 17:55:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3A8E60E0C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 868F86E991;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE7F96EB11;
 	Wed, 21 Jul 2021 17:55:48 +0000 (UTC)
-Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
- [IPv6:2607:f8b0:4864:20::f36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE2CA6E98A
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E61236E991
  for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 17:55:46 +0000 (UTC)
-Received: by mail-qv1-xf36.google.com with SMTP id ay16so1332893qvb.12
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 10:55:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=EoDFhw4Yf6mVRdX8jKrsmhhWKMjigC0f9LN3iXc51/c=;
- b=cg7kAhAaynCph+VXjbRGMYkIG2dR1MaRPWuhPEKB64q493qSEp8cdveMLRq1Q0sCxI
- KpokDyQKkSkzRYK8QbYGv3uBHQ08Ws8KwgmZHxOh0sFmQ5uXo+weKN29q3Fg8ksuTkEW
- PedUNhtL31a55MK4Bv/34fMWYnmGfTXK1i1j5eKM+Hcat4N9U+ZmbvFX+UQY9H5RJg2z
- Ts2fsRgQmC5590a4NId2xdFAfSolJQK1zU38uazXRq0ZmGjrkPl/DKscXUY1YdXyxm9z
- inqGU4bJbLcQfy9RLGaFYuFoQVBwCxZBGLxp+tg3Za0yHS0GKOHUAeK7sl4gz8x7HYFL
- JhpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=EoDFhw4Yf6mVRdX8jKrsmhhWKMjigC0f9LN3iXc51/c=;
- b=tgvNkrOFjvcQ3xAHl/5H6LG9eAUiRMGIiu3p2ZwniwuJHg8NT4l8owR62Yb+1KM347
- Zy2zAyjWdEsmHuDLqltWRiEdXbJtQ2EmG7h3akcGNhJ7W5Ls9lR6eOoON8jEpcjQ7QEF
- hIoAg/7GmDW+5t67oY3hJjvsUtGBCAlbQFIjGrLmKpytZvQPjYR17PjvBzoHAKwquRr1
- iwBbo+YwlaUMh1KqlnwwOOGW5030rCNE4slMS52n+TRL6H1loxDLXduC9JPeXYjqR7xd
- 8cAaudmCCNPodHVBwr4bBlhb9n5Hp72D8ctTuo/DMO5bxrnqSc6e7khWFwVfgicm671Z
- YeVg==
-X-Gm-Message-State: AOAM532YBVP4cOkoLKCzh8NVTHTgsyZMEOA4IcwfRTWd3OIyF6DtIxA5
- jGVWJbusqkk8US8+pgnYET1ZEw==
-X-Google-Smtp-Source: ABdhPJyj8FrqECd0pXbY6TjpkVUf88cbq/zCgT6gW/7hA77lt/WAWvkFBE37PqNFPML9rJEZ4npT4Q==
-X-Received: by 2002:ad4:4bae:: with SMTP id i14mr37288441qvw.24.1626890146181; 
- Wed, 21 Jul 2021 10:55:46 -0700 (PDT)
-Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id w26sm8803374qki.6.2021.07.21.10.55.45
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 21 Jul 2021 10:55:45 -0700 (PDT)
-From: Sean Paul <sean@poorly.run>
-To: dri-devel@lists.freedesktop.org, ppaalanen@gmail.com,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@linux.ie,
- daniel.vetter@ffwll.ch
-Date: Wed, 21 Jul 2021 13:55:10 -0400
-Message-Id: <20210721175526.22020-4-sean@poorly.run>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210721175526.22020-1-sean@poorly.run>
-References: <20210721175526.22020-1-sean@poorly.run>
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211206926"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211206926"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 10:55:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="658363622"
+Received: from fmsmsx606.amr.corp.intel.com ([10.18.126.86])
+ by fmsmga006.fm.intel.com with ESMTP; 21 Jul 2021 10:55:46 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Wed, 21 Jul 2021 10:55:45 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Wed, 21 Jul 2021 10:55:44 -0700
+Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
+ fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2242.010;
+ Wed, 21 Jul 2021 10:55:44 -0700
+From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
+To: "Roper, Matthew D" <matthew.d.roper@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH v2 47/50] drm/i915/dg2: Update lane disable power state
+ during PSR
+Thread-Index: AQHXeF6TGTapW/juhUKor+OrdtorQqtNwmuQ
+Date: Wed, 21 Jul 2021 17:55:44 +0000
+Message-ID: <d5dd79f47860479ab5bc4005216baefc@intel.com>
+References: <20210714031540.3539704-1-matthew.d.roper@intel.com>
+ <20210714031540.3539704-48-matthew.d.roper@intel.com>
+In-Reply-To: <20210714031540.3539704-48-matthew.d.roper@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.132]
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RESEND PATCH v6 03/14] drm/i915/utils: Replace
- dev_printk with drm helpers
+Subject: Re: [Intel-gfx] [PATCH v2 47/50] drm/i915/dg2: Update lane disable
+ power state during PSR
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,47 +77,164 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Sean Paul <seanpaul@chromium.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sean Paul <seanpaul@chromium.org>
 
-Use drm logging helpers to add support for the upcoming tracefs
-implementation.
 
-Signed-off-by: Sean Paul <seanpaul@chromium.org>
-Link: https://patchwork.freedesktop.org/patch/msgid/20200608210505.48519-4-sean@poorly.run #v5
+> -----Original Message-----
+> From: Roper, Matthew D <matthew.d.roper@intel.com>
+> Sent: Tuesday, July 13, 2021 8:16 PM
+> To: intel-gfx@lists.freedesktop.org
+> Cc: Roper, Matthew D <matthew.d.roper@intel.com>; Mun, Gwan-gyeong
+> <gwan-gyeong.mun@intel.com>; Srivatsa, Anusha
+> <anusha.srivatsa@intel.com>
+> Subject: [PATCH v2 47/50] drm/i915/dg2: Update lane disable power state
+> during PSR
+> 
+> From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+> 
+> The PSR enable/disable sequences now require that we program an extra
+> register in the PHY to adjust the lane disable power setting.
+> 
+> Bspec: 49274
+> Bspec: 53885
+> Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+> Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 
-Changes in v5:
--Added to the set
-Changes in v6:
--None
----
- drivers/gpu/drm/i915/i915_utils.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_utils.c b/drivers/gpu/drm/i915/i915_utils.c
-index f9e780dee9de..d858c92c6997 100644
---- a/drivers/gpu/drm/i915/i915_utils.c
-+++ b/drivers/gpu/drm/i915/i915_utils.c
-@@ -30,10 +30,9 @@ __i915_printk(struct drm_i915_private *dev_priv, const char *level,
- 	vaf.va = &args;
- 
- 	if (is_error)
--		dev_printk(level, kdev, "%pV", &vaf);
-+		drm_dev_printk(kdev, level, "%pV", &vaf);
- 	else
--		dev_printk(level, kdev, "[" DRM_NAME ":%ps] %pV",
--			   __builtin_return_address(0), &vaf);
-+		drm_err(&dev_priv->drm, "%pV", &vaf);
- 
- 	va_end(args);
- 
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+> ---
+>  drivers/gpu/drm/i915/display/intel_psr.c      |  7 +++++++
+>  drivers/gpu/drm/i915/display/intel_snps_phy.c | 14 ++++++++++++++
+> drivers/gpu/drm/i915/display/intel_snps_phy.h |  3 +++
+>  drivers/gpu/drm/i915/i915_reg.h               |  3 +++
+>  4 files changed, 27 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c
+> b/drivers/gpu/drm/i915/display/intel_psr.c
+> index 4dfe1dceb863..c987a7fbc8fe 100644
+> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> @@ -32,6 +32,7 @@
+>  #include "intel_dp_aux.h"
+>  #include "intel_hdmi.h"
+>  #include "intel_psr.h"
+> +#include "intel_snps_phy.h"
+>  #include "intel_sprite.h"
+>  #include "skl_universal_plane.h"
+> 
+> @@ -1206,6 +1207,7 @@ static void intel_psr_enable_locked(struct intel_dp
+> *intel_dp,  {
+>  	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+>  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+> +	enum phy phy = intel_port_to_phy(dev_priv, dig_port->base.port);
+>  	struct intel_encoder *encoder = &dig_port->base;
+>  	u32 val;
+> 
+> @@ -1231,6 +1233,7 @@ static void intel_psr_enable_locked(struct intel_dp
+> *intel_dp,
+>  	intel_dp_compute_psr_vsc_sdp(intel_dp, crtc_state, conn_state,
+>  				     &intel_dp->psr.vsc);
+>  	intel_write_dp_vsc_sdp(encoder, crtc_state, &intel_dp->psr.vsc);
+> +	intel_snps_phy_update_psr_power_state(dev_priv, phy, true);
+>  	intel_psr_enable_sink(intel_dp);
+>  	intel_psr_enable_source(intel_dp);
+>  	intel_dp->psr.enabled = true;
+> @@ -1327,6 +1330,8 @@ static void intel_psr_wait_exit_locked(struct
+> intel_dp *intel_dp)  static void intel_psr_disable_locked(struct intel_dp
+> *intel_dp)  {
+>  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+> +	enum phy phy = intel_port_to_phy(dev_priv,
+> +					 dp_to_dig_port(intel_dp)-
+> >base.port);
+> 
+>  	lockdep_assert_held(&intel_dp->psr.lock);
+> 
+> @@ -1353,6 +1358,8 @@ static void intel_psr_disable_locked(struct intel_dp
+> *intel_dp)
+>  			     TRANS_SET_CONTEXT_LATENCY(intel_dp-
+> >psr.transcoder),
+>  			     TRANS_SET_CONTEXT_LATENCY_MASK, 0);
+> 
+> +	intel_snps_phy_update_psr_power_state(dev_priv, phy, false);
+> +
+>  	/* Disable PSR on Sink */
+>  	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_EN_CFG, 0);
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c
+> b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+> index f0c30d3d2dfb..18b52b64af95 100644
+> --- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
+> +++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+> @@ -36,6 +36,20 @@ void intel_snps_phy_wait_for_calibration(struct
+> drm_i915_private *dev_priv)
+>  	}
+>  }
+> 
+> +void intel_snps_phy_update_psr_power_state(struct drm_i915_private
+> *dev_priv,
+> +					   enum phy phy, bool enable)
+> +{
+> +	u32 val;
+> +
+> +	if (!intel_phy_is_snps(dev_priv, phy))
+> +		return;
+> +
+> +	val =
+> REG_FIELD_PREP(SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR,
+> +			     enable ? 2 : 3);
+> +	intel_uncore_rmw(&dev_priv->uncore, SNPS_PHY_TX_REQ(phy),
+> +			 SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR, val);
+> }
+> +
+>  static const u32 dg2_ddi_translations[] = {
+>  	/* VS 0, pre-emph 0 */
+>  	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 26), diff --git
+> a/drivers/gpu/drm/i915/display/intel_snps_phy.h
+> b/drivers/gpu/drm/i915/display/intel_snps_phy.h
+> index 6aa33ff729ec..6261ff88ef5c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_snps_phy.h
+> +++ b/drivers/gpu/drm/i915/display/intel_snps_phy.h
+> @@ -12,8 +12,11 @@ struct drm_i915_private;  struct intel_encoder;  struct
+> intel_crtc_state;  struct intel_mpllb_state;
+> +enum phy;
+> 
+>  void intel_snps_phy_wait_for_calibration(struct drm_i915_private
+> *dev_priv);
+> +void intel_snps_phy_update_psr_power_state(struct drm_i915_private
+> *dev_priv,
+> +					   enum phy phy, bool enable);
+> 
+>  int intel_mpllb_calc_state(struct intel_crtc_state *crtc_state,
+>  			   struct intel_encoder *encoder);
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h
+> b/drivers/gpu/drm/i915/i915_reg.h index 9c7dc812317e..34d3806568e4
+> 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -2340,6 +2340,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t
+> reg)
+>  #define SNPS_PHY_REF_CONTROL(phy)		_MMIO_SNPS(phy,
+> 0x168188)
+>  #define   SNPS_PHY_REF_CONTROL_REF_RANGE	REG_GENMASK(31,
+> 27)
+> 
+> +#define SNPS_PHY_TX_REQ(phy)			_MMIO_SNPS(phy,
+> 0x168200)
+> +#define   SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR
+> 	REG_GENMASK(31, 30)
+> +
+>  #define SNPS_PHY_TX_EQ(ln, phy)			_MMIO_SNPS_LN(ln,
+> phy, 0x168300)
+>  #define   SNPS_PHY_TX_EQ_MAIN			REG_GENMASK(23,
+> 18)
+>  #define   SNPS_PHY_TX_EQ_POST			REG_GENMASK(15,
+> 10)
+> --
+> 2.25.4
 
 _______________________________________________
 Intel-gfx mailing list
