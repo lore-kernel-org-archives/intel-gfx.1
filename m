@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B0FFC6377E
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:30:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18FF0C6377D
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EED736023D
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:30:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EED736023D
+	by mail.kernel.org (Postfix) with ESMTPS id D97E36023D
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 22:30:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D97E36023D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60D2D6EB4A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33C666EB48;
 	Wed, 21 Jul 2021 22:30:54 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAB786EB40
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6506B6EB1E
  for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 22:30:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211528005"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211528005"
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211528001"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211528001"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 15:30:49 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="658464188"
+ 21 Jul 2021 15:30:48 -0700
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="658464182"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jul 2021 15:30:47 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Jul 2021 15:30:32 -0700
-Message-Id: <20210721223043.834562-8-matthew.d.roper@intel.com>
+Date: Wed, 21 Jul 2021 15:30:30 -0700
+Message-Id: <20210721223043.834562-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210721223043.834562-1-matthew.d.roper@intel.com>
 References: <20210721223043.834562-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 07/18] drm/i915/selftests: Allow for larger engine
- counts
+Subject: [Intel-gfx] [CI 05/18] drm/i915/xehp: VDBOX/VEBOX fusing registers
+ are enable-based
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,169 +59,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Increasing the engine count causes a couple of local array variables
-to exceed the kernel stack limit. So make them dynamic allocations
-instead.
+On Xe_HP the fusing register is renamed and changed to have the "enable"
+semantics, but otherwise remains compatible (mmio address, bitmask
+ranges) with older platforms.
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+To simplify things we do not add a new register definition but just stop
+inverting the fusing masks before processing them.
+
+Bspec: 52615
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_execlists.c  | 10 ++++--
- .../gpu/drm/i915/gt/selftest_workarounds.c    | 32 ++++++++++++-------
- 2 files changed, 29 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index 73ddc6e14730..22a124b134b6 100644
---- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -3561,12 +3561,16 @@ static int smoke_crescendo(struct preempt_smoke *smoke, unsigned int flags)
- #define BATCH BIT(0)
- {
- 	struct task_struct *tsk[I915_NUM_ENGINES] = {};
--	struct preempt_smoke arg[I915_NUM_ENGINES];
-+	struct preempt_smoke *arg;
- 	struct intel_engine_cs *engine;
- 	enum intel_engine_id id;
- 	unsigned long count;
- 	int err = 0;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index d561573ed98c..5cfeb91d1b7b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -468,7 +468,14 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
+ 	if (GRAPHICS_VER(i915) < 11)
+ 		return info->engine_mask;
  
-+	arg = kmalloc_array(I915_NUM_ENGINES, sizeof(*arg), GFP_KERNEL);
-+	if (!arg)
-+		return -ENOMEM;
-+
- 	for_each_engine(engine, smoke->gt, id) {
- 		arg[id] = *smoke;
- 		arg[id].engine = engine;
-@@ -3574,7 +3578,7 @@ static int smoke_crescendo(struct preempt_smoke *smoke, unsigned int flags)
- 			arg[id].batch = NULL;
- 		arg[id].count = 0;
+-	media_fuse = ~intel_uncore_read(uncore, GEN11_GT_VEBOX_VDBOX_DISABLE);
++	/*
++	 * On newer platforms the fusing register is called 'enable' and has
++	 * enable semantics, while on older platforms it is called 'disable'
++	 * and bits have disable semantices.
++	 */
++	media_fuse = intel_uncore_read(uncore, GEN11_GT_VEBOX_VDBOX_DISABLE);
++	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 50))
++		media_fuse = ~media_fuse;
  
--		tsk[id] = kthread_run(smoke_crescendo_thread, &arg,
-+		tsk[id] = kthread_run(smoke_crescendo_thread, arg,
- 				      "igt/smoke:%d", id);
- 		if (IS_ERR(tsk[id])) {
- 			err = PTR_ERR(tsk[id]);
-@@ -3603,6 +3607,8 @@ static int smoke_crescendo(struct preempt_smoke *smoke, unsigned int flags)
- 
- 	pr_info("Submitted %lu crescendo:%x requests across %d engines and %d contexts\n",
- 		count, flags, smoke->gt->info.num_engines, smoke->ncontext);
-+
-+	kfree(arg);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-index 7ebc4edb8ecf..7a38ce40feb2 100644
---- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-@@ -1175,31 +1175,36 @@ live_gpu_reset_workarounds(void *arg)
- {
- 	struct intel_gt *gt = arg;
- 	intel_wakeref_t wakeref;
--	struct wa_lists lists;
-+	struct wa_lists *lists;
- 	bool ok;
- 
- 	if (!intel_has_gpu_reset(gt))
- 		return 0;
- 
-+	lists = kzalloc(sizeof(*lists), GFP_KERNEL);
-+	if (!lists)
-+		return -ENOMEM;
-+
- 	pr_info("Verifying after GPU reset...\n");
- 
- 	igt_global_reset_lock(gt);
- 	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
- 
--	reference_lists_init(gt, &lists);
-+	reference_lists_init(gt, lists);
- 
--	ok = verify_wa_lists(gt, &lists, "before reset");
-+	ok = verify_wa_lists(gt, lists, "before reset");
- 	if (!ok)
- 		goto out;
- 
- 	intel_gt_reset(gt, ALL_ENGINES, "live_workarounds");
- 
--	ok = verify_wa_lists(gt, &lists, "after reset");
-+	ok = verify_wa_lists(gt, lists, "after reset");
- 
- out:
--	reference_lists_fini(gt, &lists);
-+	reference_lists_fini(gt, lists);
- 	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
- 	igt_global_reset_unlock(gt);
-+	kfree(lists);
- 
- 	return ok ? 0 : -ESRCH;
- }
-@@ -1214,16 +1219,20 @@ live_engine_reset_workarounds(void *arg)
- 	struct igt_spinner spin;
- 	struct i915_request *rq;
- 	intel_wakeref_t wakeref;
--	struct wa_lists lists;
-+	struct wa_lists *lists;
- 	int ret = 0;
- 
- 	if (!intel_has_reset_engine(gt))
- 		return 0;
- 
-+	lists = kzalloc(sizeof(*lists), GFP_KERNEL);
-+	if (!lists)
-+		return -ENOMEM;
-+
- 	igt_global_reset_lock(gt);
- 	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
- 
--	reference_lists_init(gt, &lists);
-+	reference_lists_init(gt, lists);
- 
- 	for_each_engine(engine, gt, id) {
- 		bool ok;
-@@ -1235,7 +1244,7 @@ live_engine_reset_workarounds(void *arg)
- 			break;
- 		}
- 
--		ok = verify_wa_lists(gt, &lists, "before reset");
-+		ok = verify_wa_lists(gt, lists, "before reset");
- 		if (!ok) {
- 			ret = -ESRCH;
- 			goto err;
-@@ -1247,7 +1256,7 @@ live_engine_reset_workarounds(void *arg)
- 			goto err;
- 		}
- 
--		ok = verify_wa_lists(gt, &lists, "after idle reset");
-+		ok = verify_wa_lists(gt, lists, "after idle reset");
- 		if (!ok) {
- 			ret = -ESRCH;
- 			goto err;
-@@ -1282,7 +1291,7 @@ live_engine_reset_workarounds(void *arg)
- 		igt_spinner_end(&spin);
- 		igt_spinner_fini(&spin);
- 
--		ok = verify_wa_lists(gt, &lists, "after busy reset");
-+		ok = verify_wa_lists(gt, lists, "after busy reset");
- 		if (!ok) {
- 			ret = -ESRCH;
- 			goto err;
-@@ -1294,9 +1303,10 @@ live_engine_reset_workarounds(void *arg)
- 			break;
- 	}
- 
--	reference_lists_fini(gt, &lists);
-+	reference_lists_fini(gt, lists);
- 	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
- 	igt_global_reset_unlock(gt);
-+	kfree(lists);
- 
- 	igt_flush_test(gt->i915);
- 
+ 	vdbox_mask = media_fuse & GEN11_GT_VDBOX_DISABLE_MASK;
+ 	vebox_mask = (media_fuse & GEN11_GT_VEBOX_DISABLE_MASK) >>
 -- 
 2.25.4
 
