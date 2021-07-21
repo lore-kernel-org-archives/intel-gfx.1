@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27FBCC07E9B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 07:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B43CC07E9B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 08:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE4F061009
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 07:57:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE4F061009
+	by mail.kernel.org (Postfix) with ESMTPS id 04AD360FDB
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 08:01:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 04AD360FDB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4FE6E912;
-	Wed, 21 Jul 2021 07:57:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A46136E881;
+	Wed, 21 Jul 2021 08:01:50 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id F28A66E912;
- Wed, 21 Jul 2021 07:57:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8A3136E881;
+ Wed, 21 Jul 2021 08:01:49 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id EB54DA0BCB;
- Wed, 21 Jul 2021 07:57:57 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 82E95A0099;
+ Wed, 21 Jul 2021 08:01:49 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Zhenyu Wang" <zhenyuw@linux.intel.com>
-Date: Wed, 21 Jul 2021 07:57:57 -0000
-Message-ID: <162685427796.767.8628119115629713212@emeril.freedesktop.org>
+Date: Wed, 21 Jul 2021 08:01:49 -0000
+Message-ID: <162685450950.768.12569337352322636004@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210721062607.512307-1-zhenyuw@linux.intel.com>
 In-Reply-To: <20210721062607.512307-1-zhenyuw@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/gvt=3A_Fix_cached_atomics_setting_for_Windows_VM?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/gvt=3A_Fix_cached_atomics_setting_for_Windows_VM?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,18 +63,14 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-8d1c9c577082 drm/i915/gvt: Fix cached atomics setting for Windows VM
--:8: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 58586680ffad ("drm/i915: Disable atomics in L3 for gen9")'
-#8: 
-58586680ffad ("drm/i915: Disable atomics in L3 for gen9"), which seems
-
--:11: WARNING:TYPO_SPELLING: 'trys' may be misspelled - perhaps 'tries'?
-#11: 
-This trys to add new scratch register handler and add those in mmio
-     ^^^^
-
-total: 1 errors, 1 warnings, 0 checks, 15 lines checked
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'jump_whitelist' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'shadow_map' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'batch_map' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Function parameter or member 'trampoline' not described in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'jump_whitelist' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'shadow_map' description in 'intel_engine_cmd_parser'
+./drivers/gpu/drm/i915/i915_cmd_parser.c:1436: warning: Excess function parameter 'batch_map' description in 'intel_engine_cmd_parser'
 
 
 _______________________________________________
