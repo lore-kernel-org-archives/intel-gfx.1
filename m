@@ -2,41 +2,47 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C25CC12002
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 16:12:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F339C12002
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 16:12:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CF5DE6100C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 16:12:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF5DE6100C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 6C2AC608FC
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 16:12:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C2AC608FC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6496E98C;
-	Wed, 21 Jul 2021 16:12:02 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 51D1C6E98C;
- Wed, 21 Jul 2021 16:12:01 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 49949A0118;
- Wed, 21 Jul 2021 16:12:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1E8C6E9B7;
+	Wed, 21 Jul 2021 16:12:16 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E696B6E9B3;
+ Wed, 21 Jul 2021 16:12:13 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="297028200"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="297028200"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 09:12:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="564786934"
+Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.27.27])
+ by orsmga004.jf.intel.com with ESMTP; 21 Jul 2021 09:12:11 -0700
+From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Wed, 21 Jul 2021 09:11:09 -0700
+Message-Id: <20210721161120.24610-4-vinay.belgaumkar@intel.com>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20210721161120.24610-1-vinay.belgaumkar@intel.com>
+References: <20210721161120.24610-1-vinay.belgaumkar@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jason Ekstrand" <jason@jlekstrand.net>
-Date: Wed, 21 Jul 2021 16:12:01 -0000
-Message-ID: <162688392129.769.13113287390856980310@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210721152358.2893314-1-jason@jlekstrand.net>
-In-Reply-To: <20210721152358.2893314-1-jason@jlekstrand.net>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRml4?=
- =?utf-8?q?_the_debugfs_splat_from_mock_selftests_=28rev3=29?=
+Subject: [Intel-gfx] [PATCH 03/14] drm/i915/guc/slpc: Gate Host RPS when
+ SLPC is enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,203 +55,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============2109195042=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2109195042==
-Content-Type: multipart/alternative;
- boundary="===============5779939161321443676=="
+Also ensure uc_init is called before we initialize RPS so that we
+can check for SLPC support. We do not need to enable up/down
+interrupts when SLPC is enabled. However, we still need the ARAT
+interrupt, which will be enabled separately later.
 
---===============5779939161321443676==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Signed-off-by: Sundaresan Sujaritha <sujaritha.sundaresan@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt.c  |  2 +-
+ drivers/gpu/drm/i915/gt/intel_rps.c | 20 ++++++++++++++++++++
+ 2 files changed, 21 insertions(+), 1 deletion(-)
 
-== Series Details ==
-
-Series: Fix the debugfs splat from mock selftests (rev3)
-URL   : https://patchwork.freedesktop.org/series/92729/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10365 -> Patchwork_20664
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20664 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@execlists:
-    - fi-bsw-kefka:       [PASS][1] -> [INCOMPLETE][2] ([i915#2782] / [i915#2940])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10365/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
-
-  * igt@runner@aborted:
-    - fi-bsw-kefka:       NOTRUN -> [FAIL][3] ([fdo#109271] / [i915#1436])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bsw-kefka/igt@runner@aborted.html
-    - fi-bdw-5557u:       NOTRUN -> [FAIL][4] ([i915#1602] / [i915#2029])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bdw-5557u/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s0:
-    - fi-tgl-u2:          [FAIL][5] ([i915#1888]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10365/fi-tgl-u2/igt@gem_exec_suspend@basic-s0.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-tgl-u2/igt@gem_exec_suspend@basic-s0.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
-  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
-  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
-  [i915#2029]: https://gitlab.freedesktop.org/drm/intel/issues/2029
-  [i915#2782]: https://gitlab.freedesktop.org/drm/intel/issues/2782
-  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
-
-
-Participating hosts (38 -> 33)
-------------------------------
-
-  Missing    (5): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-n3050 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10365 -> Patchwork_20664
-
-  CI-20190529: 20190529
-  CI_DRM_10365: ac586c6a6b56905df2af88699c1e6d28416dd9a4 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6146: 6caef22e4aafed275771f564d4ea4cab09896ebc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20664: d03eff83a6462ceea9aa878c114277f449740d0e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-d03eff83a646 drm/i915: Make the kmem slab for i915_buddy_block a global
-fde79ac95398 drm/ttm: Initialize debugfs from ttm_global_init()
-e72dbb7e01fa drm/i915: Use a table for i915_init/exit (v2)
-6b5175fb9124 drm/i915: Call i915_globals_exit() if pci_register_device() fails
-b682cf540a5c drm/i915: Call i915_globals_exit() after i915_pmu_exit()
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html
-
---===============5779939161321443676==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Fix the debugfs splat from mock selftests (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/92729/">https://patchwork.freedesktop.org/series/92729/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10365 -&gt; Patchwork_20664</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20664 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@execlists:</p>
-<ul>
-<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10365/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2782">i915#2782</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>
-<p>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bsw-kefka/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a>)</p>
-</li>
-<li>
-<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2029">i915#2029</a>)</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@gem_exec_suspend@basic-s0:<ul>
-<li>fi-tgl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10365/fi-tgl-u2/igt@gem_exec_suspend@basic-s0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20664/fi-tgl-u2/igt@gem_exec_suspend@basic-s0.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (38 -&gt; 33)</h2>
-<p>Missing    (5): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-n3050 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10365 -&gt; Patchwork_20664</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10365: ac586c6a6b56905df2af88699c1e6d28416dd9a4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6146: 6caef22e4aafed275771f564d4ea4cab09896ebc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20664: d03eff83a6462ceea9aa878c114277f449740d0e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>d03eff83a646 drm/i915: Make the kmem slab for i915_buddy_block a global<br />
-fde79ac95398 drm/ttm: Initialize debugfs from ttm_global_init()<br />
-e72dbb7e01fa drm/i915: Use a table for i915_init/exit (v2)<br />
-6b5175fb9124 drm/i915: Call i915_globals_exit() if pci_register_device() fails<br />
-b682cf540a5c drm/i915: Call i915_globals_exit() after i915_pmu_exit()</p>
-
-</body>
-</html>
-
---===============5779939161321443676==--
-
---===============2109195042==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index ceeb517ba259..f94d2e1ec3fe 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -41,8 +41,8 @@ void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915)
+ 	intel_gt_init_timelines(gt);
+ 	intel_gt_pm_init_early(gt);
+ 
+-	intel_rps_init_early(&gt->rps);
+ 	intel_uc_init_early(&gt->uc);
++	intel_rps_init_early(&gt->rps);
+ }
+ 
+ int intel_gt_probe_lmem(struct intel_gt *gt)
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 0c8e7f2b06f0..e858eeb2c59d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -37,6 +37,13 @@ static struct intel_uncore *rps_to_uncore(struct intel_rps *rps)
+ 	return rps_to_gt(rps)->uncore;
+ }
+ 
++static bool rps_uses_slpc(struct intel_rps *rps)
++{
++	struct intel_gt *gt = rps_to_gt(rps);
++
++	return intel_uc_uses_guc_slpc(&gt->uc);
++}
++
+ static u32 rps_pm_sanitize_mask(struct intel_rps *rps, u32 mask)
+ {
+ 	return mask & ~rps->pm_intrmsk_mbz;
+@@ -167,6 +174,8 @@ static void rps_enable_interrupts(struct intel_rps *rps)
+ {
+ 	struct intel_gt *gt = rps_to_gt(rps);
+ 
++	GEM_BUG_ON(rps_uses_slpc(rps));
++
+ 	GT_TRACE(gt, "interrupts:on rps->pm_events: %x, rps_pm_mask:%x\n",
+ 		 rps->pm_events, rps_pm_mask(rps, rps->last_freq));
+ 
+@@ -771,6 +780,8 @@ static int gen6_rps_set(struct intel_rps *rps, u8 val)
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+ 	u32 swreq;
+ 
++	GEM_BUG_ON(rps_uses_slpc(rps));
++
+ 	if (GRAPHICS_VER(i915) >= 9)
+ 		swreq = GEN9_FREQUENCY(val);
+ 	else if (IS_HASWELL(i915) || IS_BROADWELL(i915))
+@@ -861,6 +872,9 @@ void intel_rps_park(struct intel_rps *rps)
+ {
+ 	int adj;
+ 
++	if (!intel_rps_is_enabled(rps))
++		return;
++
+ 	GEM_BUG_ON(atomic_read(&rps->num_waiters));
+ 
+ 	if (!intel_rps_clear_active(rps))
+@@ -1829,6 +1843,9 @@ void intel_rps_init(struct intel_rps *rps)
+ {
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+ 
++	if (rps_uses_slpc(rps))
++		return;
++
+ 	if (IS_CHERRYVIEW(i915))
+ 		chv_rps_init(rps);
+ 	else if (IS_VALLEYVIEW(i915))
+@@ -1885,6 +1902,9 @@ void intel_rps_init(struct intel_rps *rps)
+ 
+ void intel_rps_sanitize(struct intel_rps *rps)
+ {
++	if (rps_uses_slpc(rps))
++		return;
++
+ 	if (GRAPHICS_VER(rps_to_i915(rps)) >= 6)
+ 		rps_disable_interrupts(rps);
+ }
+-- 
+2.25.0
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============2109195042==--
