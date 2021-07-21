@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8DA7C6377B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CE88C6377A
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:02:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ACC3261244
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:02:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACC3261244
+	by mail.kernel.org (Postfix) with ESMTPS id E1C5E60551
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 23:02:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1C5E60551
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 383E66E9D9;
-	Wed, 21 Jul 2021 23:02:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 634196EA33;
+	Wed, 21 Jul 2021 23:02:27 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 285726E199;
- Wed, 21 Jul 2021 23:02:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211252732"
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211252732"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 849636E84D;
+ Wed, 21 Jul 2021 23:02:19 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="211252740"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="211252740"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 16:02:18 -0700
-X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="511965335"
+ 21 Jul 2021 16:02:19 -0700
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="511965340"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 16:02:18 -0700
+ 21 Jul 2021 16:02:19 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <igt-dev@lists.freedesktop.org>
-Date: Wed, 21 Jul 2021 16:20:00 -0700
-Message-Id: <20210721232004.31470-4-matthew.brost@intel.com>
+Date: Wed, 21 Jul 2021 16:20:03 -0700
+Message-Id: <20210721232004.31470-7-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210721232004.31470-1-matthew.brost@intel.com>
 References: <20210721232004.31470-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 3/7] lib/intel_ctx: Add support for
- parallel contexts to intel_ctx library
+Subject: [Intel-gfx] [PATCH i-g-t 6/7] i915/gem_scheduler: Make
+ gem_scheduler understand static priority mapping
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,79 +60,158 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The i915 currently has 2k visible priority levels which are currently
+unqiue. This is changing to statically map these 2k levels into 3
+buckets:
+
+low: < 0
+mid: 0
+high: > 0
+
+Update gem_scheduler to understand this. This entails updating promotion
+test to use 3 levels that will map into different buckets and also
+delete a racey check. Also skip any tests that rely on having more than
+3 priority levels.
+
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- lib/intel_ctx.c | 28 +++++++++++++++++++++++++++-
- lib/intel_ctx.h |  2 ++
- 2 files changed, 29 insertions(+), 1 deletion(-)
+ lib/i915/gem_scheduler.c       | 13 ++++++++++
+ lib/i915/gem_scheduler.h       |  1 +
+ tests/i915/gem_exec_schedule.c | 47 ++++++++++++++++++++--------------
+ 3 files changed, 42 insertions(+), 19 deletions(-)
 
-diff --git a/lib/intel_ctx.c b/lib/intel_ctx.c
-index f28c15544..11ec6fca4 100644
---- a/lib/intel_ctx.c
-+++ b/lib/intel_ctx.c
-@@ -83,6 +83,7 @@ __context_create_cfg(int fd, const intel_ctx_cfg_t *cfg, uint32_t *ctx_id)
- {
- 	uint64_t ext_root = 0;
- 	I915_DEFINE_CONTEXT_ENGINES_LOAD_BALANCE(balance, GEM_MAX_ENGINES);
-+	I915_DEFINE_CONTEXT_ENGINES_PARALLEL_SUBMIT(parallel, GEM_MAX_ENGINES);
- 	I915_DEFINE_CONTEXT_PARAM_ENGINES(engines, GEM_MAX_ENGINES);
- 	struct drm_i915_gem_context_create_ext_setparam engines_param, vm_param;
- 	struct drm_i915_gem_context_create_ext_setparam persist_param;
-@@ -117,7 +118,29 @@ __context_create_cfg(int fd, const intel_ctx_cfg_t *cfg, uint32_t *ctx_id)
- 		unsigned num_logical_engines;
- 		memset(&engines, 0, sizeof(engines));
+diff --git a/lib/i915/gem_scheduler.c b/lib/i915/gem_scheduler.c
+index cdddf42ad..bec2e485a 100644
+--- a/lib/i915/gem_scheduler.c
++++ b/lib/i915/gem_scheduler.c
+@@ -90,6 +90,19 @@ bool gem_scheduler_has_ctx_priority(int fd)
+ 		I915_SCHEDULER_CAP_PRIORITY;
+ }
  
--		if (cfg->load_balance) {
-+		if (cfg->parallel) {
-+			memset(&parallel, 0, sizeof(parallel));
++/**
++ * gem_scheduler_has_ctx_priority:
++ * @fd: open i915 drm file descriptor
++ *
++ * Feature test macro to query whether the driver supports priority assigned
++ * from user space are statically mapping into 3 buckets.
++ */
++bool gem_scheduler_has_static_priority(int fd)
++{
++	return gem_scheduler_capability(fd) &
++		I915_SCHEDULER_CAP_STATIC_PRIORITY_MAP;
++}
 +
-+			num_logical_engines = 1;
+ /**
+  * gem_scheduler_has_preemption:
+  * @fd: open i915 drm file descriptor
+diff --git a/lib/i915/gem_scheduler.h b/lib/i915/gem_scheduler.h
+index d43e84bd2..b00804f70 100644
+--- a/lib/i915/gem_scheduler.h
++++ b/lib/i915/gem_scheduler.h
+@@ -29,6 +29,7 @@
+ unsigned gem_scheduler_capability(int fd);
+ bool gem_scheduler_enabled(int fd);
+ bool gem_scheduler_has_ctx_priority(int fd);
++bool gem_scheduler_has_static_priority(int fd);
+ bool gem_scheduler_has_preemption(int fd);
+ bool gem_scheduler_has_semaphores(int fd);
+ bool gem_scheduler_has_engine_busy_stats(int fd);
+diff --git a/tests/i915/gem_exec_schedule.c b/tests/i915/gem_exec_schedule.c
+index e5fb45982..f03842478 100644
+--- a/tests/i915/gem_exec_schedule.c
++++ b/tests/i915/gem_exec_schedule.c
+@@ -1344,8 +1344,7 @@ static void reorder(int fd, const intel_ctx_cfg_t *cfg,
+ static void promotion(int fd, const intel_ctx_cfg_t *cfg, unsigned ring)
+ {
+ 	IGT_CORK_FENCE(cork);
+-	uint32_t result, dep;
+-	uint32_t result_read, dep_read;
++	uint32_t result, dep, dep_read;
+ 	const intel_ctx_t *ctx[3];
+ 	int fence;
+ 
+@@ -1353,10 +1352,10 @@ static void promotion(int fd, const intel_ctx_cfg_t *cfg, unsigned ring)
+ 	gem_context_set_priority(fd, ctx[LO]->id, MIN_PRIO);
+ 
+ 	ctx[HI] = intel_ctx_create(fd, cfg);
+-	gem_context_set_priority(fd, ctx[HI]->id, 0);
++	gem_context_set_priority(fd, ctx[HI]->id, MAX_PRIO);
+ 
+ 	ctx[NOISE] = intel_ctx_create(fd, cfg);
+-	gem_context_set_priority(fd, ctx[NOISE]->id, MIN_PRIO/2);
++	gem_context_set_priority(fd, ctx[NOISE]->id, 0);
+ 
+ 	result = gem_create(fd, 4096);
+ 	dep = gem_create(fd, 4096);
+@@ -1383,11 +1382,9 @@ static void promotion(int fd, const intel_ctx_cfg_t *cfg, unsigned ring)
+ 	dep_read = __sync_read_u32(fd, dep, 0);
+ 	gem_close(fd, dep);
+ 
+-	result_read = __sync_read_u32(fd, result, 0);
+ 	gem_close(fd, result);
+ 
+ 	igt_assert_eq_u32(dep_read, ctx[HI]->id);
+-	igt_assert_eq_u32(result_read, ctx[NOISE]->id);
+ 
+ 	intel_ctx_destroy(fd, ctx[NOISE]);
+ 	intel_ctx_destroy(fd, ctx[LO]);
+@@ -2963,19 +2960,25 @@ igt_main
+ 			test_each_engine_store("preempt-other-chain", fd, ctx, e)
+ 				preempt_other(fd, &ctx->cfg, e->flags, CHAIN);
+ 
+-			test_each_engine_store("preempt-queue", fd, ctx, e)
+-				preempt_queue(fd, &ctx->cfg, e->flags, 0);
++			test_each_engine_store("preempt-engines", fd, ctx, e)
++				preempt_engines(fd, e, 0);
+ 
+-			test_each_engine_store("preempt-queue-chain", fd, ctx, e)
+-				preempt_queue(fd, &ctx->cfg, e->flags, CHAIN);
+-			test_each_engine_store("preempt-queue-contexts", fd, ctx, e)
+-				preempt_queue(fd, &ctx->cfg, e->flags, CONTEXTS);
++			igt_subtest_group {
++				igt_fixture {
++					igt_require(!gem_scheduler_has_static_priority(fd));
++				}
+ 
+-			test_each_engine_store("preempt-queue-contexts-chain", fd, ctx, e)
+-				preempt_queue(fd, &ctx->cfg, e->flags, CONTEXTS | CHAIN);
++				test_each_engine_store("preempt-queue", fd, ctx, e)
++					preempt_queue(fd, &ctx->cfg, e->flags, 0);
+ 
+-			test_each_engine_store("preempt-engines", fd, ctx, e)
+-				preempt_engines(fd, e, 0);
++				test_each_engine_store("preempt-queue-chain", fd, ctx, e)
++					preempt_queue(fd, &ctx->cfg, e->flags, CHAIN);
++				test_each_engine_store("preempt-queue-contexts", fd, ctx, e)
++					preempt_queue(fd, &ctx->cfg, e->flags, CONTEXTS);
 +
-+			parallel.base.name =
-+				I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT;
++				test_each_engine_store("preempt-queue-contexts-chain", fd, ctx, e)
++					preempt_queue(fd, &ctx->cfg, e->flags, CONTEXTS | CHAIN);
++			}
+ 
+ 			igt_subtest_group {
+ 				igt_hang_t hang;
+@@ -3017,11 +3020,17 @@ igt_main
+ 		test_each_engine_store("wide", fd, ctx, e)
+ 			wide(fd, &ctx->cfg, e->flags);
+ 
+-		test_each_engine_store("reorder-wide", fd, ctx, e)
+-			reorder_wide(fd, &ctx->cfg, e->flags);
+-
+ 		test_each_engine_store("smoketest", fd, ctx, e)
+ 			smoketest(fd, &ctx->cfg, e->flags, 5);
 +
-+			engines.engines[0].engine_class =
-+				I915_ENGINE_CLASS_INVALID;
-+			engines.engines[0].engine_instance =
-+				I915_ENGINE_CLASS_INVALID_NONE;
-+
-+			parallel.num_siblings = cfg->num_engines;
-+			parallel.width = cfg->width;
-+			for (i = 0; i < cfg->num_engines * cfg->width; i++) {
-+				igt_assert_eq(cfg->engines[0].engine_class,
-+					      cfg->engines[i].engine_class);
-+				parallel.engines[i] = cfg->engines[i];
++		igt_subtest_group {
++			igt_fixture {
++				igt_require(!gem_scheduler_has_static_priority(fd));
 +			}
 +
-+			engines.extensions = to_user_pointer(&parallel);
-+		} else if (cfg->load_balance) {
- 			memset(&balance, 0, sizeof(balance));
++			test_each_engine_store("reorder-wide", fd, ctx, e)
++				reorder_wide(fd, &ctx->cfg, e->flags);
++		}
+ 	}
  
- 			/* In this case, the first engine is the virtual
-@@ -127,6 +150,9 @@ __context_create_cfg(int fd, const intel_ctx_cfg_t *cfg, uint32_t *ctx_id)
- 			igt_assert(cfg->num_engines + 1 <= GEM_MAX_ENGINES);
- 			num_logical_engines = cfg->num_engines + 1;
- 
-+			balance.base.name =
-+				I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE;
-+
- 			engines.engines[0].engine_class =
- 				I915_ENGINE_CLASS_INVALID;
- 			engines.engines[0].engine_instance =
-diff --git a/lib/intel_ctx.h b/lib/intel_ctx.h
-index 9649f6d96..89c65fcd3 100644
---- a/lib/intel_ctx.h
-+++ b/lib/intel_ctx.h
-@@ -46,7 +46,9 @@ typedef struct intel_ctx_cfg {
- 	uint32_t vm;
- 	bool nopersist;
- 	bool load_balance;
-+	bool parallel;
- 	unsigned int num_engines;
-+	unsigned int width;
- 	struct i915_engine_class_instance engines[GEM_MAX_ENGINES];
- } intel_ctx_cfg_t;
- 
+ 	igt_subtest_group {
 -- 
 2.28.0
 
