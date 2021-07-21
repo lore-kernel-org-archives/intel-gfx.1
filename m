@@ -2,63 +2,49 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0ADDEC12002
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 09:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14D3BC07E9B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 10:05:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 84DA661181
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 09:40:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84DA661181
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id C46A561029
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 10:05:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C46A561029
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 355AC6E949;
-	Wed, 21 Jul 2021 09:40:52 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6B336EB49
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 09:40:51 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- 31-20020a9d0ea20000b02904d360fbc71bso765943otj.10
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 02:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9jxXwVV+aN3Rmsz4UMzvrUtjRp7srjOGboK+OYH5Kdk=;
- b=LhPCk9YyyxbWlHb+cowVth1I1M2cCfTUqkyPp/DmxHuTijTiqeLfgLgB3he7N4ahyY
- SzP6z27w2Vca6UHnE0gLq2VLIbYpjKZcPIIxSXmbY3o7PuQ6vrnA8zueyvOE/PYa9xnW
- RTpOmb5mtmXZk3W7p5oIGUF9GHPij+4+2T9QQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9jxXwVV+aN3Rmsz4UMzvrUtjRp7srjOGboK+OYH5Kdk=;
- b=n0zH+aCIgAcJD8gl57sr70ydaaBagdR7av4VkDgKUEdRJ+JHYXJjRii5ubi4h/tNCx
- 2nSX7AgN9brUhohQO1XYyg9dHuERBhsEGR2YlaQMulHb22zJ1SNFZjOu+4Ut1ByN/p7F
- xTdFODBs+mQk4xYkbz8OT8nHDtgx9BUThld0WqLo710BjGmlNuVFWDAmxNt3wmUuvHNM
- QZG199+gHYHMRle9AZEhI9BQKwEgNw2jPR76pFHLSzGk3NiPe/KTKXYicjB9zRVlhvfF
- 6IVoqPstA/CeIXBDO3mVpCj0isNnpSPjmaQ8PNavkjv2QBNs3iDpJf2ZWItMceutEhue
- LOrA==
-X-Gm-Message-State: AOAM532cqNfxlD6OYR8/ybDkT1LJ4QWAXSp+te2Qg+m+VRqoatQm44qJ
- 2gKW3D+ggQlJs52vjcRX8Qu6sxV/RzO52BHA8ngFDg==
-X-Google-Smtp-Source: ABdhPJyqySVeOWrWftIeRooADmFBeof6NbpCffW0JVFgb69i4kcAx9TNZlp/PU0RIAEv3xq05jVx8xpvz+fgHjLB9VM=
-X-Received: by 2002:a9d:27a4:: with SMTP id c33mr26204874otb.281.1626860451258; 
- Wed, 21 Jul 2021 02:40:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69BE56EB29;
+	Wed, 21 Jul 2021 10:05:38 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A47DD6E890
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 10:05:37 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10051"; a="190991487"
+X-IronPort-AV: E=Sophos;i="5.84,257,1620716400"; d="scan'208";a="190991487"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 03:05:33 -0700
+X-IronPort-AV: E=Sophos;i="5.84,257,1620716400"; d="scan'208";a="496559437"
+Received: from pramodhp-mobl1.amr.corp.intel.com (HELO intel.com)
+ ([10.212.44.180])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 03:05:31 -0700
+Date: Wed, 21 Jul 2021 06:05:30 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Jason Ekstrand <jason@jlekstrand.net>
+Message-ID: <YPfxaqe51WtKcA06@intel.com>
+References: <20210720182108.2761496-1-jason@jlekstrand.net>
+ <YPcxMC1oULxcCSSO@intel.com> <YPcxkGJi9b8jpXII@intel.com>
+ <CAOFGe95_ELCr2d==7ohQ+5aFBufcSHo-PZi59bfDNREarN7YPg@mail.gmail.com>
 MIME-Version: 1.0
-References: <1626432098-27626-1-git-send-email-xiyuyang19@fudan.edu.cn>
- <20210721020009.GG13928@zhen-hp.sh.intel.com>
-In-Reply-To: <20210721020009.GG13928@zhen-hp.sh.intel.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 21 Jul 2021 11:40:40 +0200
-Message-ID: <CAKMK7uHFarZMChcVNdxpP=1XKqc+WJCayELvpiAjmzO9YXk+hA@mail.gmail.com>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: Convert from atomic_t to
- refcount_t on intel_vgpu_ppgtt_spt->refcount
+Content-Disposition: inline
+In-Reply-To: <CAOFGe95_ELCr2d==7ohQ+5aFBufcSHo-PZi59bfDNREarN7YPg@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Correct the docs for
+ intel_engine_cmd_parser
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,111 +57,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xin Tan <tanxin.ctf@gmail.com>, yuanxzhang@fudan.edu.cn,
- Xiyu Yang <xiyuyang19@fudan.edu.cn>, David Airlie <airlied@linux.ie>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>
+Cc: Intel GFX <intel-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 21, 2021 at 4:21 AM Zhenyu Wang <zhenyuw@linux.intel.com> wrote:
-> On 2021.07.16 18:41:38 +0800, Xiyu Yang wrote:
-> > refcount_t type and corresponding API can protect refcounters from
-> > accidental underflow and overflow and further use-after-free situations
+On Tue, Jul 20, 2021 at 04:04:59PM -0500, Jason Ekstrand wrote:
+> On Tue, Jul 20, 2021 at 3:26 PM Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
 > >
->
-> Thanks for the patch. Is there any specific problem you run with current code?
-> Any shadow ppgtt error?
+> > On Tue, Jul 20, 2021 at 04:25:21PM -0400, Rodrigo Vivi wrote:
+> > > On Tue, Jul 20, 2021 at 01:21:08PM -0500, Jason Ekstrand wrote:
+> > > > In c9d9fdbc108a ("drm/i915: Revert "drm/i915/gem: Asynchronous
+> > > > cmdparser""), the parameters to intel_engine_cmd_parser() were altered
+> > > > without updating the docs, causing Fi.CI.DOCS to start failing.
+> > > >
+> > > > Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+> > > > ---
+> > > >  drivers/gpu/drm/i915/i915_cmd_parser.c | 4 +---
+> > > >  1 file changed, 1 insertion(+), 3 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/i915/i915_cmd_parser.c b/drivers/gpu/drm/i915/i915_cmd_parser.c
+> > > > index 322f4d5955a4f..e0403ce9ce692 100644
+> > > > --- a/drivers/gpu/drm/i915/i915_cmd_parser.c
+> > > > +++ b/drivers/gpu/drm/i915/i915_cmd_parser.c
+> > > > @@ -1416,9 +1416,7 @@ static unsigned long *alloc_whitelist(u32 batch_length)
+> > > >   * @batch_offset: byte offset in the batch at which execution starts
+> > > >   * @batch_length: length of the commands in batch_obj
+> > > >   * @shadow: validated copy of the batch buffer in question
+> > > > - * @jump_whitelist: buffer preallocated with intel_engine_cmd_parser_alloc_jump_whitelist()
+> > > > - * @shadow_map: mapping to @shadow vma
+> > > > - * @batch_map: mapping to @batch vma
+> > > > + * @trampoline: true if we need to trampoline into privileged execution
+> > >
+> > > I was wondering if we should also return the original text, but this one
+> > > here looks better.
+> > >
+> > >
+> > > Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> >
+> > btw, while on it, I wouldn't mind if you squash some english fixes to
+> > the trampoline documentation block inside this function ;)
+> 
+> I don't mind at all but I'm not sure what changes you're suggesting.
 
-refcount_t is just part of the kernel hardening project, and
-recommeded to be used anywhere it's possible. It doesn't fix bugs
-itself, but makes it impossible to exploit at least some of them and
-warns in other cases, so easier to catch them if they do exist.
--Daniel
-
-> > Signed-off-by: Xiyu Yang <xiyuyang19@fudan.edu.cn>
-> > Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
-> > ---
-> >  drivers/gpu/drm/i915/gvt/gtt.c | 11 ++++++-----
-> >  drivers/gpu/drm/i915/gvt/gtt.h |  3 ++-
-> >  2 files changed, 8 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-> > index cc2c05e18206..62f3daff5a36 100644
-> > --- a/drivers/gpu/drm/i915/gvt/gtt.c
-> > +++ b/drivers/gpu/drm/i915/gvt/gtt.c
-> > @@ -841,7 +841,7 @@ static struct intel_vgpu_ppgtt_spt *ppgtt_alloc_spt(
-> >       }
-> >
-> >       spt->vgpu = vgpu;
-> > -     atomic_set(&spt->refcount, 1);
-> > +     refcount_set(&spt->refcount, 1);
-> >       INIT_LIST_HEAD(&spt->post_shadow_list);
-> >
-> >       /*
-> > @@ -927,18 +927,19 @@ static struct intel_vgpu_ppgtt_spt *ppgtt_alloc_spt_gfn(
-> >
-> >  static inline void ppgtt_get_spt(struct intel_vgpu_ppgtt_spt *spt)
-> >  {
-> > -     int v = atomic_read(&spt->refcount);
-> > +     int v = refcount_read(&spt->refcount);
-> >
-> >       trace_spt_refcount(spt->vgpu->id, "inc", spt, v, (v + 1));
-> > -     atomic_inc(&spt->refcount);
-> > +     refcount_inc(&spt->refcount);
-> >  }
-> >
-> >  static inline int ppgtt_put_spt(struct intel_vgpu_ppgtt_spt *spt)
-> >  {
-> > -     int v = atomic_read(&spt->refcount);
-> > +     int v = refcount_read(&spt->refcount);
-> >
-> >       trace_spt_refcount(spt->vgpu->id, "dec", spt, v, (v - 1));
-> > -     return atomic_dec_return(&spt->refcount);
-> > +     refcount_dec(&spt->refcount);
-> > +     return refcount_read(&spt->refcount);
-> >  }
-> >
-> >  static int ppgtt_invalidate_spt(struct intel_vgpu_ppgtt_spt *spt);
-> > diff --git a/drivers/gpu/drm/i915/gvt/gtt.h b/drivers/gpu/drm/i915/gvt/gtt.h
-> > index 3bf45672ef98..944c2d0739df 100644
-> > --- a/drivers/gpu/drm/i915/gvt/gtt.h
-> > +++ b/drivers/gpu/drm/i915/gvt/gtt.h
-> > @@ -38,6 +38,7 @@
-> >  #include <linux/kref.h>
-> >  #include <linux/mutex.h>
-> >  #include <linux/radix-tree.h>
-> > +#include <linux/refcount.h>
-> >
-> >  #include "gt/intel_gtt.h"
-> >
-> > @@ -243,7 +244,7 @@ struct intel_vgpu_oos_page {
-> >
-> >  /* Represent a vgpu shadow page table. */
-> >  struct intel_vgpu_ppgtt_spt {
-> > -     atomic_t refcount;
-> > +     refcount_t refcount;
-> >       struct intel_vgpu *vgpu;
-> >
-> >       struct {
-> > --
-> > 2.7.4
-> >
-> > _______________________________________________
-> > intel-gvt-dev mailing list
-> > intel-gvt-dev@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/intel-gvt-dev
+nevermind...
+It was just my broke english that didn't know the inversion on the "only if"
 
 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+> 
+> > >
+> > >
+> > > >   *
+> > > >   * Parses the specified batch buffer looking for privilege violations as
+> > > >   * described in the overview.
+> > > > --
+> > > > 2.31.1
+> > > >
+> > > > _______________________________________________
+> > > > Intel-gfx mailing list
+> > > > Intel-gfx@lists.freedesktop.org
+> > > > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
