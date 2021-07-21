@@ -2,42 +2,44 @@ Return-Path: <SRS0=klwv=MN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B157BC6377A
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:50:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17CD8C6377B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72F416120A
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:50:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72F416120A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id CDF0C61208
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jul 2021 21:52:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDF0C61208
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3B3B6E201;
-	Wed, 21 Jul 2021 21:50:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 248D66E201;
- Wed, 21 Jul 2021 21:50:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1E22BA0118;
- Wed, 21 Jul 2021 21:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4166E47A;
+	Wed, 21 Jul 2021 21:52:41 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 158376E201
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jul 2021 21:52:40 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="233330287"
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="233330287"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2021 14:52:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,258,1620716400"; d="scan'208";a="501454814"
+Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
+ by FMSMGA003.fm.intel.com with ESMTP; 21 Jul 2021 14:52:38 -0700
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 21 Jul 2021 14:52:35 -0700
+Message-Id: <20210721215238.24980-1-anusha.srivatsa@intel.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jason Ekstrand" <jason@jlekstrand.net>
-Date: Wed, 21 Jul 2021 21:50:20 -0000
-Message-ID: <162690422009.767.3066973602751782138@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210721201343.2962674-1-jason@jlekstrand.net>
-In-Reply-To: <20210721201343.2962674-1-jason@jlekstrand.net>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Migrate_memory_to_SMEM_when_imported_cross-device_=28r?=
- =?utf-8?q?ev3=29?=
+Subject: [Intel-gfx] [CI 1/4] drm/i915/step: Add macro magic for handling
+ steps
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,199 +52,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1261488312=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1261488312==
-Content-Type: multipart/alternative;
- boundary="===============3050219277555768549=="
+With the addition of stepping info for
+all platforms, lets use macros for handling them
+and autogenerating code for all steps at a time.
 
---===============3050219277555768549==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Suggested-by: Matt Roper <matthew.d.roper@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/intel_step.c | 14 ++++++++++++
+ drivers/gpu/drm/i915/intel_step.h | 38 +++++++++++++++++++------------
+ 2 files changed, 37 insertions(+), 15 deletions(-)
 
-== Series Details ==
-
-Series: drm/i915: Migrate memory to SMEM when imported cross-device (rev3)
-URL   : https://patchwork.freedesktop.org/series/92617/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10367 -> Patchwork_20668
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20668 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s0:
-    - {fi-tgl-1115g4}:    [FAIL][1] ([i915#1888]) -> [PASS][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
-
-  * igt@kms_chamelium@common-hpd-after-suspend:
-    - fi-kbl-7500u:       [DMESG-FAIL][3] ([i915#165]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
-
-  * igt@kms_chamelium@dp-crc-fast:
-    - fi-kbl-7500u:       [FAIL][5] ([i915#1372]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#1372]: https://gitlab.freedesktop.org/drm/intel/issues/1372
-  [i915#165]: https://gitlab.freedesktop.org/drm/intel/issues/165
-  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
-  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
-
-
-Participating hosts (38 -> 34)
-------------------------------
-
-  Missing    (4): fi-kbl-soraka fi-ilk-m540 fi-bdw-samus fi-hsw-4200u 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10367 -> Patchwork_20668
-
-  CI-20190529: 20190529
-  CI_DRM_10367: 598494d0149b67545593dfb1b5fa60278907749e @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6146: 6caef22e4aafed275771f564d4ea4cab09896ebc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20668: aef265c105907ab46375159b29676223f3dc15cd @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-aef265c10590 drm/i915/gem: Migrate to system at dma-buf attach time (v7)
-ed5f8fe5c868 drm/i915/gem: Correct the locking and pin pattern for dma-buf (v8)
-a341d44369d5 drm/i915/gem/ttm: Respect the objection region in placement_from_obj
-8e3b292518c5 drm/i915/gem: Unify user object creation (v3)
-7e52c04eada6 drm/i915/gem: Call i915_gem_flush_free_objects() in i915_gem_dumb_create()
-30e5e6cbd8ab drm/i915/gem: Refactor placement setup for i915_gem_object_create* (v2)
-ac72c58af8ba drm/i915/gem: Check object_can_migrate from object_migrate
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/index.html
-
---===============3050219277555768549==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Migrate memory to SMEM when imported cross-device (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/92617/">https://patchwork.freedesktop.org/series/92617/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10367 -&gt; Patchwork_20668</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20668 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s0:</p>
-<ul>
-<li>{fi-tgl-1115g4}:    <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
-<ul>
-<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/165">i915#165</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@dp-crc-fast:</p>
-<ul>
-<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10367/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1372">i915#1372</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20668/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (38 -&gt; 34)</h2>
-<p>Missing    (4): fi-kbl-soraka fi-ilk-m540 fi-bdw-samus fi-hsw-4200u </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10367 -&gt; Patchwork_20668</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10367: 598494d0149b67545593dfb1b5fa60278907749e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6146: 6caef22e4aafed275771f564d4ea4cab09896ebc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20668: aef265c105907ab46375159b29676223f3dc15cd @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>aef265c10590 drm/i915/gem: Migrate to system at dma-buf attach time (v7)<br />
-ed5f8fe5c868 drm/i915/gem: Correct the locking and pin pattern for dma-buf (v8)<br />
-a341d44369d5 drm/i915/gem/ttm: Respect the objection region in placement_from_obj<br />
-8e3b292518c5 drm/i915/gem: Unify user object creation (v3)<br />
-7e52c04eada6 drm/i915/gem: Call i915_gem_flush_free_objects() in i915_gem_dumb_create()<br />
-30e5e6cbd8ab drm/i915/gem: Refactor placement setup for i915_gem_object_create* (v2)<br />
-ac72c58af8ba drm/i915/gem: Check object_can_migrate from object_migrate</p>
-
-</body>
-</html>
-
---===============3050219277555768549==--
-
---===============1261488312==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
+index 9fcf17708cc8..e9ec111d6232 100644
+--- a/drivers/gpu/drm/i915/intel_step.c
++++ b/drivers/gpu/drm/i915/intel_step.c
+@@ -182,3 +182,17 @@ void intel_step_init(struct drm_i915_private *i915)
+ 
+ 	RUNTIME_INFO(i915)->step = step;
+ }
++
++#define STEP_NAME_CASE(name)	\
++	case STEP_##name:	\
++		return #name;
++
++const char *intel_step_name(enum intel_step step)
++{
++	switch (step) {
++	STEP_NAME_LIST(STEP_NAME_CASE);
++
++	default:
++		return "**";
++	}
++}
+diff --git a/drivers/gpu/drm/i915/intel_step.h b/drivers/gpu/drm/i915/intel_step.h
+index 41567d9b7c35..f6641e2a3c77 100644
+--- a/drivers/gpu/drm/i915/intel_step.h
++++ b/drivers/gpu/drm/i915/intel_step.h
+@@ -15,31 +15,39 @@ struct intel_step_info {
+ 	u8 display_step;
+ };
+ 
++#define STEP_ENUM_VAL(name)  STEP_##name,
++
++#define STEP_NAME_LIST(func)		\
++	func(A0)			\
++	func(A1)			\
++	func(A2)			\
++	func(B0)			\
++	func(B1)			\
++	func(B2)			\
++	func(C0)			\
++	func(C1)			\
++	func(D0)			\
++	func(D1)			\
++	func(E0)			\
++	func(F0)			\
++	func(G0)			\
++	func(H0)			\
++	func(I0)			\
++	func(I1)			\
++	func(J0)
++
+ /*
+  * Symbolic steppings that do not match the hardware. These are valid both as gt
+  * and display steppings as symbolic names.
+  */
+ enum intel_step {
+ 	STEP_NONE = 0,
+-	STEP_A0,
+-	STEP_A1,
+-	STEP_A2,
+-	STEP_B0,
+-	STEP_B1,
+-	STEP_C0,
+-	STEP_D0,
+-	STEP_D1,
+-	STEP_E0,
+-	STEP_F0,
+-	STEP_G0,
+-	STEP_H0,
+-	STEP_I0,
+-	STEP_I1,
+-	STEP_J0,
++	STEP_NAME_LIST(STEP_ENUM_VAL)
+ 	STEP_FUTURE,
+ 	STEP_FOREVER,
+ };
+ 
+ void intel_step_init(struct drm_i915_private *i915);
++const char *intel_step_name(enum intel_step step);
+ 
+ #endif /* __INTEL_STEP_H__ */
+-- 
+2.32.0
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1261488312==--
