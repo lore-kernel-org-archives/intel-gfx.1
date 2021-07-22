@@ -2,46 +2,75 @@ Return-Path: <SRS0=pd08=MO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C2A3CC6377D
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 731C2C63797
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 76BAC6124B
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:06:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76BAC6124B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 47B8961241
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:08:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47B8961241
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11E3E6EBD0;
-	Thu, 22 Jul 2021 10:06:59 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C813F6EA2A;
- Thu, 22 Jul 2021 10:06:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="272727227"
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; 
- d="asc'?scan'208";a="272727227"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 03:06:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; 
- d="asc'?scan'208";a="433069587"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
- by fmsmga007.fm.intel.com with ESMTP; 22 Jul 2021 03:06:54 -0700
-Date: Thu, 22 Jul 2021 17:45:16 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210722094516.GQ13928@zhen-hp.sh.intel.com>
-References: <20210721155355.173183-1-hch@lst.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6B5B6EA0D;
+	Thu, 22 Jul 2021 10:08:57 +0000 (UTC)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7025E6EA0D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 10:08:56 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id
+ f10-20020a05600c4e8ab029023e8d74d693so2631079wmq.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 03:08:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=euI9nvHpCU3803TpEyVGMETIawOGnWRBcvEDR/YrZhs=;
+ b=Ay9UFWPQUNYO03OvQH24TQaZ9uMEV50Tb0pXJeWgyhoGzc68E/SkWcKGbgaQbhM6Ro
+ x/ghwom5++A9DINmH1wZFbnMdiK4QV1zEfV+CyOLiX1zc2TlzFnt4ZJ76DZDLJpp0qwb
+ m89+7VA6+GkBAocD78ZHrEtfAFDTDm5o6eKLs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=euI9nvHpCU3803TpEyVGMETIawOGnWRBcvEDR/YrZhs=;
+ b=Le1XeP6yDIsMC+XaZhcV0N7fLkwgDUL260tKaMHlrL4OyWsVFVGT8BtVBl+y+QRv+J
+ IE9FbGNMjbnW3VRmGJ+uQZeklujQ+rxuznT51tR5v6C0fgkb0l6vYuE81kYdTHCBsvze
+ tEJ1qZgAv8qB5uIDONd4VOM8X/BDUlbMLUJZNqHjjj/ZxKr6lqZOxYSRPmORx9RdXDVL
+ GdpeCw4YeEPq1173ImgbMShn+gT1g+OokMGwmVBoOr8lb2eNltQ1YtbgIHMsau0vHQeV
+ V6//wv+EzzeGZRPvYKtuzaEWq5jp5lzfBocBWQcFEXWr3Z2oOb+yxbafGP9I+s5vxc2l
+ fXeg==
+X-Gm-Message-State: AOAM530sIG8shuMp8TfFiYWmgcsyWUROxmzpvHk+T5YmxPmG7HAfHxNC
+ hoeTLlqMqh1kHjwNph4D32jt1A==
+X-Google-Smtp-Source: ABdhPJy63OXeImxeIGz6rXH083rMDkm3QX8Ia+XLpudHDN2alOBHkLIbzf6tiNnFv1tUKkfzDsZYHg==
+X-Received: by 2002:a05:600c:4656:: with SMTP id
+ n22mr36815038wmo.37.1626948535005; 
+ Thu, 22 Jul 2021 03:08:55 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id o3sm29367576wrw.56.2021.07.22.03.08.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jul 2021 03:08:54 -0700 (PDT)
+Date: Thu, 22 Jul 2021 12:08:52 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Jason Ekstrand <jason@jlekstrand.net>
+Message-ID: <YPlDtFd5yMBgWxwD@phenom.ffwll.local>
+References: <20210721152358.2893314-1-jason@jlekstrand.net>
+ <20210721152358.2893314-7-jason@jlekstrand.net>
+ <23df1788-bd8e-ac44-337d-92bb5f345b8f@intel.com>
+ <YPht8s0wtnUxuF5q@phenom.ffwll.local>
+ <CAOFGe97Z4NO=80LkyoLp0YnwegF_EGYVut7Ww0+Bc5qQQ7qfVQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210721155355.173183-1-hch@lst.de>
-Subject: Re: [Intel-gfx] refactor the i915 GVT support
+Content-Disposition: inline
+In-Reply-To: <CAOFGe97Z4NO=80LkyoLp0YnwegF_EGYVut7Ww0+Bc5qQQ7qfVQ@mail.gmail.com>
+X-Operating-System: Linux phenom 5.10.0-7-amd64 
+Subject: Re: [Intel-gfx] [PATCH 6/6] drm/i915: Make the kmem slab for
+ i915_buddy_block a global
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,108 +83,245 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1480107282=="
+Cc: Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Intel GFX <intel-gfx@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Jul 21, 2021 at 03:15:09PM -0500, Jason Ekstrand wrote:
+> On Wed, Jul 21, 2021 at 1:56 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+> >
+> > On Wed, Jul 21, 2021 at 05:25:41PM +0100, Matthew Auld wrote:
+> > > On 21/07/2021 16:23, Jason Ekstrand wrote:
+> > > > There's no reason that I can tell why this should be per-i915_buddy=
+_mm
+> > > > and doing so causes KMEM_CACHE to throw dmesg warnings because it t=
+ries
+> > > > to create a debugfs entry with the name i915_buddy_block multiple t=
+imes.
+> > > > We could handle this by carefully giving each slab its own name but=
+ that
+> > > > brings its own pain because then we have to store that string somew=
+here
+> > > > and manage the lifetimes of the different slabs.  The most likely
+> > > > outcome would be a global atomic which we increment to get a new na=
+me or
+> > > > something like that.
+> > > >
+> > > > The much easier solution is to use the i915_globals system like we =
+do
+> > > > for every other slab in i915.  This ensures that we have exactly on=
+e of
+> > > > them for each i915 driver load and it gets neatly created on module=
+ load
+> > > > and destroyed on module unload.  Using the globals system also means
+> > > > that its now tied into the shrink handler so we can properly respon=
+d to
+> > > > low-memory situations.
+> > > >
+> > > > Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+> > > > Fixes: 88be9a0a06b7 ("drm/i915/ttm: add ttm_buddy_man")
+> > > > Cc: Matthew Auld <matthew.auld@intel.com>
+> > > > Cc: Christian K=F6nig <christian.koenig@amd.com>
+> > >
+> > > It was intentionally ripped it out with the idea that we would be mov=
+ing the
+> > > buddy stuff into ttm, and so part of that was trying to get rid of th=
+e some
+> > > of the i915 specifics, like this globals thing.
+> > >
+> > > Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> >
+> > I just sent out a patch to put i915_globals on a diet, so maybe we can
+> > hold this patch here a bit when there's other reasons for why this is
+> > special?
+> =
 
---===============1480107282==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="wjoFZxbW4tu+iR6v"
-Content-Disposition: inline
+> This is required to get rid of the dmesg warnings.
+> =
 
+> > Or at least no make this use the i915_globals stuff and instead just li=
+nk
+> > up the init/exit function calls directly into Jason's new table, so that
+> > we don't have a merge conflict here?
+> =
 
---wjoFZxbW4tu+iR6v
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> I'm happy to deal with merge conflicts however they land.
 
-On 2021.07.21 17:53:34 +0200, Christoph Hellwig wrote:
-> Hi all,
->=20
-> the GVT code in the i915 is a bit of a mess right now due to strange
-> abstractions and lots of indirect calls.  This series refactors various
-> bits to clean that up.  The main user visible change is that almost all
-> of the GVT code moves out of the main i915 driver and into the kvmgt
-> module.
->
+I went hitshooting and rebased while applying :-)
+-Daniel
 
-The reason we isolated hypervisor specific code from core vgpu
-emulation is to make multiple hypervisor support possible. Yes, we do
-have Xen support but never got way into upstream...And we also have
-third party hypervisors which leverage gvt function through current
-hypervisor interface.
+> =
 
-Sorry I may not have more time to check in details for now, but some
-of them look fine to me. I'll review more after vacation or let Zhi check d=
-etails.
+> --Jason
+> =
 
-Thanks!
+> > -Daniel
+> >
+> > >
+> > > > ---
+> > > >   drivers/gpu/drm/i915/i915_buddy.c   | 44 ++++++++++++++++++++++--=
+-----
+> > > >   drivers/gpu/drm/i915/i915_buddy.h   |  3 +-
+> > > >   drivers/gpu/drm/i915/i915_globals.c |  2 ++
+> > > >   3 files changed, 38 insertions(+), 11 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/i915/i915_buddy.c b/drivers/gpu/drm/i9=
+15/i915_buddy.c
+> > > > index 29dd7d0310c1f..911feedad4513 100644
+> > > > --- a/drivers/gpu/drm/i915/i915_buddy.c
+> > > > +++ b/drivers/gpu/drm/i915/i915_buddy.c
+> > > > @@ -8,8 +8,14 @@
+> > > >   #include "i915_buddy.h"
+> > > >   #include "i915_gem.h"
+> > > > +#include "i915_globals.h"
+> > > >   #include "i915_utils.h"
+> > > > +static struct i915_global_buddy {
+> > > > +   struct i915_global base;
+> > > > +   struct kmem_cache *slab_blocks;
+> > > > +} global;
+> > > > +
+> > > >   static struct i915_buddy_block *i915_block_alloc(struct i915_budd=
+y_mm *mm,
+> > > >                                              struct i915_buddy_bloc=
+k *parent,
+> > > >                                              unsigned int order,
+> > > > @@ -19,7 +25,7 @@ static struct i915_buddy_block *i915_block_alloc(=
+struct i915_buddy_mm *mm,
+> > > >     GEM_BUG_ON(order > I915_BUDDY_MAX_ORDER);
+> > > > -   block =3D kmem_cache_zalloc(mm->slab_blocks, GFP_KERNEL);
+> > > > +   block =3D kmem_cache_zalloc(global.slab_blocks, GFP_KERNEL);
+> > > >     if (!block)
+> > > >             return NULL;
+> > > > @@ -34,7 +40,7 @@ static struct i915_buddy_block *i915_block_alloc(=
+struct i915_buddy_mm *mm,
+> > > >   static void i915_block_free(struct i915_buddy_mm *mm,
+> > > >                         struct i915_buddy_block *block)
+> > > >   {
+> > > > -   kmem_cache_free(mm->slab_blocks, block);
+> > > > +   kmem_cache_free(global.slab_blocks, block);
+> > > >   }
+> > > >   static void mark_allocated(struct i915_buddy_block *block)
+> > > > @@ -85,15 +91,11 @@ int i915_buddy_init(struct i915_buddy_mm *mm, u=
+64 size, u64 chunk_size)
+> > > >     GEM_BUG_ON(mm->max_order > I915_BUDDY_MAX_ORDER);
+> > > > -   mm->slab_blocks =3D KMEM_CACHE(i915_buddy_block, SLAB_HWCACHE_A=
+LIGN);
+> > > > -   if (!mm->slab_blocks)
+> > > > -           return -ENOMEM;
+> > > > -
+> > > >     mm->free_list =3D kmalloc_array(mm->max_order + 1,
+> > > >                                   sizeof(struct list_head),
+> > > >                                   GFP_KERNEL);
+> > > >     if (!mm->free_list)
+> > > > -           goto out_destroy_slab;
+> > > > +           return -ENOMEM;
+> > > >     for (i =3D 0; i <=3D mm->max_order; ++i)
+> > > >             INIT_LIST_HEAD(&mm->free_list[i]);
+> > > > @@ -145,8 +147,6 @@ int i915_buddy_init(struct i915_buddy_mm *mm, u=
+64 size, u64 chunk_size)
+> > > >     kfree(mm->roots);
+> > > >   out_free_list:
+> > > >     kfree(mm->free_list);
+> > > > -out_destroy_slab:
+> > > > -   kmem_cache_destroy(mm->slab_blocks);
+> > > >     return -ENOMEM;
+> > > >   }
+> > > > @@ -161,7 +161,6 @@ void i915_buddy_fini(struct i915_buddy_mm *mm)
+> > > >     kfree(mm->roots);
+> > > >     kfree(mm->free_list);
+> > > > -   kmem_cache_destroy(mm->slab_blocks);
+> > > >   }
+> > > >   static int split_block(struct i915_buddy_mm *mm,
+> > > > @@ -410,3 +409,28 @@ int i915_buddy_alloc_range(struct i915_buddy_m=
+m *mm,
+> > > >   #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+> > > >   #include "selftests/i915_buddy.c"
+> > > >   #endif
+> > > > +
+> > > > +static void i915_global_buddy_shrink(void)
+> > > > +{
+> > > > +   kmem_cache_shrink(global.slab_blocks);
+> > > > +}
+> > > > +
+> > > > +static void i915_global_buddy_exit(void)
+> > > > +{
+> > > > +   kmem_cache_destroy(global.slab_blocks);
+> > > > +}
+> > > > +
+> > > > +static struct i915_global_buddy global =3D { {
+> > > > +   .shrink =3D i915_global_buddy_shrink,
+> > > > +   .exit =3D i915_global_buddy_exit,
+> > > > +} };
+> > > > +
+> > > > +int __init i915_global_buddy_init(void)
+> > > > +{
+> > > > +   global.slab_blocks =3D KMEM_CACHE(i915_buddy_block, 0);
+> > > > +   if (!global.slab_blocks)
+> > > > +           return -ENOMEM;
+> > > > +
+> > > > +   i915_global_register(&global.base);
+> > > > +   return 0;
+> > > > +}
+> > > > diff --git a/drivers/gpu/drm/i915/i915_buddy.h b/drivers/gpu/drm/i9=
+15/i915_buddy.h
+> > > > index 37f8c42071d12..d8f26706de52f 100644
+> > > > --- a/drivers/gpu/drm/i915/i915_buddy.h
+> > > > +++ b/drivers/gpu/drm/i915/i915_buddy.h
+> > > > @@ -47,7 +47,6 @@ struct i915_buddy_block {
+> > > >    * i915_buddy_alloc* and i915_buddy_free* should suffice.
+> > > >    */
+> > > >   struct i915_buddy_mm {
+> > > > -   struct kmem_cache *slab_blocks;
+> > > >     /* Maintain a free list for each order. */
+> > > >     struct list_head *free_list;
+> > > > @@ -130,4 +129,6 @@ void i915_buddy_free(struct i915_buddy_mm *mm, =
+struct i915_buddy_block *block);
+> > > >   void i915_buddy_free_list(struct i915_buddy_mm *mm, struct list_h=
+ead *objects);
+> > > > +int i915_global_buddy_init(void);
+> > > > +
+> > > >   #endif
+> > > > diff --git a/drivers/gpu/drm/i915/i915_globals.c b/drivers/gpu/drm/=
+i915/i915_globals.c
+> > > > index 87267e1d2ad92..e57102a4c8d16 100644
+> > > > --- a/drivers/gpu/drm/i915/i915_globals.c
+> > > > +++ b/drivers/gpu/drm/i915/i915_globals.c
+> > > > @@ -8,6 +8,7 @@
+> > > >   #include <linux/workqueue.h>
+> > > >   #include "i915_active.h"
+> > > > +#include "i915_buddy.h"
+> > > >   #include "gem/i915_gem_context.h"
+> > > >   #include "gem/i915_gem_object.h"
+> > > >   #include "i915_globals.h"
+> > > > @@ -87,6 +88,7 @@ static void __i915_globals_cleanup(void)
+> > > >   static __initconst int (* const initfn[])(void) =3D {
+> > > >     i915_global_active_init,
+> > > > +   i915_global_buddy_init,
+> > > >     i915_global_context_init,
+> > > >     i915_global_gem_context_init,
+> > > >     i915_global_objects_init,
+> > > >
+> > > _______________________________________________
+> > > Intel-gfx mailing list
+> > > Intel-gfx@lists.freedesktop.org
+> > > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> >
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
 
-> Tested on my Thinkpad with a Kaby Lake CPU and integrated graphics.
->=20
-> Git tree:
->=20
->     git://git.infradead.org/users/hch/misc.git i915-gvt
->=20
-> Gitweb:
->=20
->     http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/i915-=
-gvt
->=20
-> Diffstat:
->  b/drivers/gpu/drm/i915/Kconfig                         |   31=20
->  b/drivers/gpu/drm/i915/Makefile                        |   30=20
->  b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c |    4=20
->  b/drivers/gpu/drm/i915/gvt/cfg_space.c                 |   89 --
->  b/drivers/gpu/drm/i915/gvt/cmd_parser.c                |    4=20
->  b/drivers/gpu/drm/i915/gvt/dmabuf.c                    |   36=20
->  b/drivers/gpu/drm/i915/gvt/execlist.c                  |   12=20
->  b/drivers/gpu/drm/i915/gvt/gtt.c                       |   55 -
->  b/drivers/gpu/drm/i915/gvt/gvt.c                       |  100 --
->  b/drivers/gpu/drm/i915/gvt/gvt.h                       |  132 ++-
->  b/drivers/gpu/drm/i915/gvt/interrupt.c                 |   38 -
->  b/drivers/gpu/drm/i915/gvt/kvmgt.c                     |  634 ++++------=
--------
->  b/drivers/gpu/drm/i915/gvt/mmio.c                      |    4=20
->  b/drivers/gpu/drm/i915/gvt/opregion.c                  |  148 ---
->  b/drivers/gpu/drm/i915/gvt/page_track.c                |    8=20
->  b/drivers/gpu/drm/i915/gvt/scheduler.c                 |   37=20
->  b/drivers/gpu/drm/i915/gvt/trace.h                     |    2=20
->  b/drivers/gpu/drm/i915/gvt/vgpu.c                      |   22=20
->  b/drivers/gpu/drm/i915/i915_drv.h                      |    7=20
->  b/drivers/gpu/drm/i915/i915_params.c                   |    2=20
->  b/drivers/gpu/drm/i915/intel_gvt.c                     |   64 +
->  b/drivers/gpu/drm/i915/intel_gvt.h                     |    4=20
->  drivers/gpu/drm/i915/gvt/Makefile                      |    9=20
->  drivers/gpu/drm/i915/gvt/hypercall.h                   |   82 --
->  drivers/gpu/drm/i915/gvt/mpt.h                         |  400 ----------
->  25 files changed, 541 insertions(+), 1413 deletions(-)
+-- =
 
---wjoFZxbW4tu+iR6v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYPk+JAAKCRCxBBozTXgY
-J09VAJ9C5w8OkOxQaT+Hh6GRuwyrHlKVPgCfR2B56jaNxNaxyz+943xRn2xdLCo=
-=enIC
------END PGP SIGNATURE-----
-
---wjoFZxbW4tu+iR6v--
-
---===============1480107282==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1480107282==--
