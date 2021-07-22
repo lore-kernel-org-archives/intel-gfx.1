@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DB14C43214
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09075C4320A
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E105A60EB2
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E105A60EB2
+	by mail.kernel.org (Postfix) with ESMTPS id C907B60EB2
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C907B60EB2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A4DA6F5B7;
-	Thu, 22 Jul 2021 23:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B40D56F533;
+	Thu, 22 Jul 2021 23:36:40 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1C6C6F50D;
- Thu, 22 Jul 2021 23:36:37 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659266"
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659266"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7DAA6F50D;
+ Thu, 22 Jul 2021 23:36:36 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659259"
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659259"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:37 -0700
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860940"
+ 22 Jul 2021 16:36:36 -0700
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860932"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:37 -0700
+ 22 Jul 2021 16:36:36 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 22 Jul 2021 16:54:02 -0700
-Message-Id: <20210722235426.31831-10-matthew.brost@intel.com>
+Date: Thu, 22 Jul 2021 16:53:56 -0700
+Message-Id: <20210722235426.31831-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210722235426.31831-1-matthew.brost@intel.com>
 References: <20210722235426.31831-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/33] drm/i915: Reset GPU immediately if
- submission is disabled
+Subject: [Intel-gfx] [PATCH 03/33] drm/i915: Hold reference to intel_context
+ over life of i915_request
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,241 +60,109 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If submission is disabled by the backend for any reason, reset the GPU
-immediately in the heartbeat code as the backend can't be reenabled
-until the GPU is reset.
+Hold a reference to the intel_context over life of an i915_request.
+Without this an i915_request can exist after the context has been
+destroyed (e.g. request retired, context closed, but user space holds a
+reference to the request from an out fence). In the case of GuC
+submission + virtual engine, the engine that the request references is
+also destroyed which can trigger bad pointer dref in fence ops (e.g.
+i915_fence_get_driver_name). We could likely change
+i915_fence_get_driver_name to avoid touching the engine but let's just
+be safe and hold the intel_context reference.
+
+v2:
+ (John Harrison)
+  - Update comment explaining how GuC mode and execlists mode deal with
+    virtual engines differently
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 63 +++++++++++++++----
- .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |  4 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  9 +++
- drivers/gpu/drm/i915/i915_scheduler.c         |  6 ++
- drivers/gpu/drm/i915/i915_scheduler.h         |  6 ++
- drivers/gpu/drm/i915/i915_scheduler_types.h   |  5 ++
- 6 files changed, 80 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 55 ++++++++++++-----------------
+ 1 file changed, 23 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index b6a305e6a974..a8495364d906 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -70,12 +70,30 @@ static void show_heartbeat(const struct i915_request *rq,
- {
- 	struct drm_printer p = drm_debug_printer("heartbeat");
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 39a21d96577e..57c9187aff74 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -125,39 +125,17 @@ static void i915_fence_release(struct dma_fence *fence)
+ 	i915_sw_fence_fini(&rq->semaphore);
  
--	intel_engine_dump(engine, &p,
--			  "%s heartbeat {seqno:%llx:%lld, prio:%d} not ticking\n",
--			  engine->name,
--			  rq->fence.context,
--			  rq->fence.seqno,
--			  rq->sched.attr.priority);
-+	if (!rq) {
-+		intel_engine_dump(engine, &p,
-+				  "%s heartbeat not ticking\n",
-+				  engine->name);
-+	} else {
-+		intel_engine_dump(engine, &p,
-+				  "%s heartbeat {seqno:%llx:%lld, prio:%d} not ticking\n",
-+				  engine->name,
-+				  rq->fence.context,
-+				  rq->fence.seqno,
-+				  rq->sched.attr.priority);
-+	}
-+}
-+
-+static void
-+reset_engine(struct intel_engine_cs *engine, struct i915_request *rq)
-+{
-+	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-+		show_heartbeat(rq, engine);
-+
-+	intel_gt_handle_error(engine->gt, engine->mask,
-+			      I915_ERROR_CAPTURE,
-+			      "stopped heartbeat on %s",
-+			      engine->name);
- }
- 
- static void heartbeat(struct work_struct *wrk)
-@@ -102,6 +120,11 @@ static void heartbeat(struct work_struct *wrk)
- 	if (intel_gt_is_wedged(engine->gt))
- 		goto out;
- 
-+	if (i915_sched_engine_disabled(engine->sched_engine)) {
-+		reset_engine(engine, engine->heartbeat.systole);
-+		goto out;
-+	}
-+
- 	if (engine->heartbeat.systole) {
- 		long delay = READ_ONCE(engine->props.heartbeat_interval_ms);
- 
-@@ -139,13 +162,7 @@ static void heartbeat(struct work_struct *wrk)
- 			engine->sched_engine->schedule(rq, &attr);
- 			local_bh_enable();
- 		} else {
--			if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
--				show_heartbeat(rq, engine);
--
--			intel_gt_handle_error(engine->gt, engine->mask,
--					      I915_ERROR_CAPTURE,
--					      "stopped heartbeat on %s",
--					      engine->name);
-+			reset_engine(engine, rq);
- 		}
- 
- 		rq->emitted_jiffies = jiffies;
-@@ -194,6 +211,26 @@ void intel_engine_park_heartbeat(struct intel_engine_cs *engine)
- 		i915_request_put(fetch_and_zero(&engine->heartbeat.systole));
- }
- 
-+void intel_gt_unpark_heartbeats(struct intel_gt *gt)
-+{
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+
-+	for_each_engine(engine, gt, id)
-+		if (intel_engine_pm_is_awake(engine))
-+			intel_engine_unpark_heartbeat(engine);
-+
-+}
-+
-+void intel_gt_park_heartbeats(struct intel_gt *gt)
-+{
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+
-+	for_each_engine(engine, gt, id)
-+		intel_engine_park_heartbeat(engine);
-+}
-+
- void intel_engine_init_heartbeat(struct intel_engine_cs *engine)
- {
- 	INIT_DELAYED_WORK(&engine->heartbeat.work, heartbeat);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
-index a488ea3e84a3..5da6d809a87a 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
-@@ -7,6 +7,7 @@
- #define INTEL_ENGINE_HEARTBEAT_H
- 
- struct intel_engine_cs;
-+struct intel_gt;
- 
- void intel_engine_init_heartbeat(struct intel_engine_cs *engine);
- 
-@@ -16,6 +17,9 @@ int intel_engine_set_heartbeat(struct intel_engine_cs *engine,
- void intel_engine_park_heartbeat(struct intel_engine_cs *engine);
- void intel_engine_unpark_heartbeat(struct intel_engine_cs *engine);
- 
-+void intel_gt_park_heartbeats(struct intel_gt *gt);
-+void intel_gt_unpark_heartbeats(struct intel_gt *gt);
-+
- int intel_engine_pulse(struct intel_engine_cs *engine);
- int intel_engine_flush_barriers(struct intel_engine_cs *engine);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 227225a7917c..aef059b909d8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -10,6 +10,7 @@
- #include "gt/intel_breadcrumbs.h"
- #include "gt/intel_context.h"
- #include "gt/intel_engine_pm.h"
-+#include "gt/intel_engine_heartbeat.h"
- #include "gt/intel_gt.h"
- #include "gt/intel_gt_irq.h"
- #include "gt/intel_gt_pm.h"
-@@ -603,6 +604,7 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ 	/*
+-	 * Keep one request on each engine for reserved use under mempressure
+-	 *
+-	 * We do not hold a reference to the engine here and so have to be
+-	 * very careful in what rq->engine we poke. The virtual engine is
+-	 * referenced via the rq->context and we released that ref during
+-	 * i915_request_retire(), ergo we must not dereference a virtual
+-	 * engine here. Not that we would want to, as the only consumer of
+-	 * the reserved engine->request_pool is the power management parking,
+-	 * which must-not-fail, and that is only run on the physical engines.
+-	 *
+-	 * Since the request must have been executed to be have completed,
+-	 * we know that it will have been processed by the HW and will
+-	 * not be unsubmitted again, so rq->engine and rq->execution_mask
+-	 * at this point is stable. rq->execution_mask will be a single
+-	 * bit if the last and _only_ engine it could execution on was a
+-	 * physical engine, if it's multiple bits then it started on and
+-	 * could still be on a virtual engine. Thus if the mask is not a
+-	 * power-of-two we assume that rq->engine may still be a virtual
+-	 * engine and so a dangling invalid pointer that we cannot dereference
+-	 *
+-	 * For example, consider the flow of a bonded request through a virtual
+-	 * engine. The request is created with a wide engine mask (all engines
+-	 * that we might execute on). On processing the bond, the request mask
+-	 * is reduced to one or more engines. If the request is subsequently
+-	 * bound to a single engine, it will then be constrained to only
+-	 * execute on that engine and never returned to the virtual engine
+-	 * after timeslicing away, see __unwind_incomplete_requests(). Thus we
+-	 * know that if the rq->execution_mask is a single bit, rq->engine
+-	 * can be a physical engine with the exact corresponding mask.
++	 * Keep one request on each engine for reserved use under mempressure,
++	 * do not use with virtual engines as this really is only needed for
++	 * kernel contexts.
+ 	 */
+-	if (is_power_of_2(rq->execution_mask) &&
+-	    !cmpxchg(&rq->engine->request_pool, NULL, rq))
++	if (!intel_engine_is_virtual(rq->engine) &&
++	    !cmpxchg(&rq->engine->request_pool, NULL, rq)) {
++		intel_context_put(rq->context);
  		return;
++	}
++
++	intel_context_put(rq->context);
+ 
+ 	kmem_cache_free(global.slab_requests, rq);
+ }
+@@ -956,7 +934,19 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
+ 		}
  	}
  
-+	intel_gt_park_heartbeats(guc_to_gt(guc));
- 	disable_submission(guc);
- 	guc->interrupts.disable(guc);
- 
-@@ -890,6 +892,7 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
- 	atomic_set(&guc->outstanding_submission_g2h, 0);
- 
- 	enable_submission(guc);
-+	intel_gt_unpark_heartbeats(guc_to_gt(guc));
- }
- 
- /*
-@@ -1865,6 +1868,11 @@ static int guc_resume(struct intel_engine_cs *engine)
- 	return 0;
- }
- 
-+static bool guc_sched_engine_disabled(struct i915_sched_engine *sched_engine)
-+{
-+	return !sched_engine->tasklet.callback;
-+}
-+
- static void guc_set_default_submission(struct intel_engine_cs *engine)
- {
- 	engine->submit_request = guc_submit_request;
-@@ -2015,6 +2023,7 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
- 			return -ENOMEM;
- 
- 		guc->sched_engine->schedule = i915_schedule;
-+		guc->sched_engine->disabled = guc_sched_engine_disabled;
- 		guc->sched_engine->private_data = guc;
- 		guc->sched_engine->destroy = guc_sched_engine_destroy;
- 		tasklet_setup(&guc->sched_engine->tasklet,
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 2804fd5b660b..28dd887eb1be 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -440,6 +440,11 @@ static void default_destroy(struct kref *kref)
- 	kfree(sched_engine);
- }
- 
-+static bool default_disabled(struct i915_sched_engine *sched_engine)
-+{
-+	return false;
-+}
-+
- struct i915_sched_engine *
- i915_sched_engine_create(unsigned int subclass)
- {
-@@ -454,6 +459,7 @@ i915_sched_engine_create(unsigned int subclass)
- 	sched_engine->queue = RB_ROOT_CACHED;
- 	sched_engine->queue_priority_hint = INT_MIN;
- 	sched_engine->destroy = default_destroy;
-+	sched_engine->disabled = default_disabled;
- 
- 	INIT_LIST_HEAD(&sched_engine->requests);
- 	INIT_LIST_HEAD(&sched_engine->hold);
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 3c9504e9f409..f4d9811ade5b 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -96,4 +96,10 @@ void i915_request_show_with_schedule(struct drm_printer *m,
- 				     const char *prefix,
- 				     int indent);
- 
-+static inline bool
-+i915_sched_engine_disabled(struct i915_sched_engine *sched_engine)
-+{
-+	return sched_engine->disabled(sched_engine);
-+}
-+
- #endif /* _I915_SCHEDULER_H_ */
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index 00384e2c5273..eaef233e9080 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -168,6 +168,11 @@ struct i915_sched_engine {
- 	 */
- 	void	(*destroy)(struct kref *kref);
- 
-+	/**
-+	 * @disabled: check if backend has disabled submission
+-	rq->context = ce;
++	/*
++	 * Hold a reference to the intel_context over life of an i915_request.
++	 * Without this an i915_request can exist after the context has been
++	 * destroyed (e.g. request retired, context closed, but user space holds
++	 * a reference to the request from an out fence). In the case of GuC
++	 * submission + virtual engine, the engine that the request references
++	 * is also destroyed which can trigger bad pointer dref in fence ops
++	 * (e.g. i915_fence_get_driver_name). We could likely change these
++	 * functions to avoid touching the engine but let's just be safe and
++	 * hold the intel_context reference. In execlist mode the request always
++	 * eventually points to a physical engine so this isn't an issue.
 +	 */
-+	bool	(*disabled)(struct i915_sched_engine *sched_engine);
-+
- 	/**
- 	 * @kick_backend: kick backend after a request's priority has changed
- 	 */
++	rq->context = intel_context_get(ce);
+ 	rq->engine = ce->engine;
+ 	rq->ring = ce->ring;
+ 	rq->execution_mask = ce->engine->mask;
+@@ -1033,6 +1023,7 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
+ 	GEM_BUG_ON(!list_empty(&rq->sched.waiters_list));
+ 
+ err_free:
++	intel_context_put(ce);
+ 	kmem_cache_free(global.slab_requests, rq);
+ err_unreserve:
+ 	intel_context_unpin(ce);
 -- 
 2.28.0
 
