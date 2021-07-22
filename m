@@ -5,41 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8079BC4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:36:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7E07C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3ADC460EB2
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3ADC460EB2
+	by mail.kernel.org (Postfix) with ESMTPS id 7508460E9B
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7508460E9B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C79136EADF;
-	Thu, 22 Jul 2021 23:36:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D150E6F5A2;
+	Thu, 22 Jul 2021 23:36:39 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 505236EADF;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C11906EADF;
  Thu, 22 Jul 2021 23:36:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659255"
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659255"
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659258"
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659258"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:35 -0700
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860929"
+ 22 Jul 2021 16:36:36 -0700
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860931"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:35 -0700
+ 22 Jul 2021 16:36:36 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 22 Jul 2021 16:53:53 -0700
-Message-Id: <20210722235426.31831-1-matthew.brost@intel.com>
+Date: Thu, 22 Jul 2021 16:53:55 -0700
+Message-Id: <20210722235426.31831-3-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20210722235426.31831-1-matthew.brost@intel.com>
+References: <20210722235426.31831-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/33] Remaining patches for basic GuC submission
+Subject: [Intel-gfx] [PATCH 02/33] drm/i915/guc: Make hangcheck work with
+ GuC virtual engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,117 +60,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The remaining patches for basic GuC submission [1]. Need 4 more RB and
-CI results to get this merged. 
+From: John Harrison <John.C.Harrison@Intel.com>
 
+The serial number tracking of engines happens at the backend of
+request submission and was expecting to only be given physical
+engines. However, in GuC submission mode, the decomposition of virtual
+to physical engines does not happen in i915. Instead, requests are
+submitted to their virtual engine mask all the way through to the
+hardware (i.e. to GuC). This would mean that the heart beat code
+thinks the physical engines are idle due to the serial number not
+incrementing. Which in turns means hangcheck does not work for
+GuC virtual engines.
+
+This patch updates the tracking to decompose virtual engines into
+their physical constituents and tracks the request against each. This
+is not entirely accurate as the GuC will only be issuing the request
+to one physical engine. However, it is the best that i915 can do given
+that it has no knowledge of the GuC's scheduling decisions.
+
+Downside of this is that all physical engines constituting a GuC
+virtual engine will be periodically unparked (even during just a single
+context executing) in order to be pinged with a heartbeat request.
+However the power and performance cost of this is not expected to be
+measurable (due low frequency of heartbeat pulses) and it is considered
+an easier option than trying to make changes to GuC firmware.
+
+v2:
+ (Tvrtko)
+  - Update commit message
+  - Have default behavior if no vfunc present
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_types.h      |  2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 10 ++++++++++
+ drivers/gpu/drm/i915/i915_request.c               |  6 +++++-
+ 3 files changed, 17 insertions(+), 1 deletion(-)
 
-[1] https://patchwork.freedesktop.org/series/91840/
-
-Daniele Ceraolo Spurio (1):
-  drm/i915/guc: Unblock GuC submission on Gen11+
-
-John Harrison (11):
-  drm/i915/guc: Make hangcheck work with GuC virtual engines
-  drm/i915/guc: Don't complain about reset races
-  drm/i915/guc: Enable GuC engine reset
-  drm/i915/guc: Fix for error capture after full GPU reset with GuC
-  drm/i915/guc: Hook GuC scheduling policies up
-  drm/i915/guc: Connect reset modparam updates to GuC policy flags
-  drm/i915/guc: Include scheduling policies in the debugfs state dump
-  drm/i915/guc: Add golden context to GuC ADS
-  drm/i915/selftest: Better error reporting from hangcheck selftest
-  drm/i915/selftest: Fix hangcheck self test for GuC submission
-  drm/i915/selftest: Bump selftest timeouts for hangcheck
-
-Matthew Brost (18):
-  drm/i915/guc: GuC virtual engines
-  drm/i915: Hold reference to intel_context over life of i915_request
-  drm/i915/guc: Disable bonding extension with GuC submission
-  drm/i915/guc: Direct all breadcrumbs for a class to single breadcrumbs
-  drm/i915: Add i915_sched_engine destroy vfunc
-  drm/i915: Move active request tracking to a vfunc
-  drm/i915/guc: Reset implementation for new GuC interface
-  drm/i915: Reset GPU immediately if submission is disabled
-  drm/i915/guc: Add disable interrupts to guc sanitize
-  drm/i915/guc: Suspend/resume implementation for new interface
-  drm/i915/guc: Handle context reset notification
-  drm/i915/guc: Handle engine reset failure notification
-  drm/i915/guc: Enable the timer expired interrupt for GuC
-  drm/i915/guc: Capture error state on context reset
-  drm/i915/guc: Implement banned contexts for GuC submission
-  drm/i915/guc: Support request cancellation
-  drm/i915/selftest: Increase some timeouts in live_requests
-  drm/i915/guc: Implement GuC priority management
-
-Rahul Kumar Singh (1):
-  drm/i915/selftest: Fix MOCS selftest for GuC submission
-
-Signed-off-by: John Harrison (1):
-  drm/i915/guc: Provide mmio list to be saved/restored on engine reset
-
-Signed-off-by: Rahul Kumar Singh (1):
-  drm/i915/selftest: Fix workarounds selftest for GuC submission
-
- drivers/gpu/drm/i915/Makefile                 |    1 +
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |   15 +-
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   44 +-
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.h   |   16 +-
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |    7 +
- drivers/gpu/drm/i915/gt/intel_context.c       |   36 +
- drivers/gpu/drm/i915/gt/intel_context.h       |   23 +
- drivers/gpu/drm/i915/gt/intel_context_types.h |   31 +-
- drivers/gpu/drm/i915/gt/intel_engine.h        |   57 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  182 +-
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |   71 +-
- .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |    4 +
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |   13 +-
- drivers/gpu/drm/i915/gt/intel_engine_user.c   |    4 +
- .../drm/i915/gt/intel_execlists_submission.c  |   89 +-
- .../drm/i915/gt/intel_execlists_submission.h  |    4 -
- drivers/gpu/drm/i915/gt/intel_gt.c            |    2 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.c         |    6 +-
- drivers/gpu/drm/i915/gt/intel_reset.c         |   50 +-
- .../gpu/drm/i915/gt/intel_ring_submission.c   |   58 +
- drivers/gpu/drm/i915/gt/intel_rps.c           |    4 +
- drivers/gpu/drm/i915/gt/intel_workarounds.c   |   46 +-
- .../gpu/drm/i915/gt/intel_workarounds_types.h |    1 +
- drivers/gpu/drm/i915/gt/mock_engine.c         |   34 +-
- .../drm/i915/gt/selftest_engine_heartbeat.c   |   22 +
- .../drm/i915/gt/selftest_engine_heartbeat.h   |    2 +
- drivers/gpu/drm/i915/gt/selftest_execlists.c  |   12 +-
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  322 +++-
- drivers/gpu/drm/i915/gt/selftest_mocs.c       |   50 +-
- .../gpu/drm/i915/gt/selftest_workarounds.c    |  134 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |    1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   82 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   38 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  464 ++++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h    |    4 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   11 +-
- .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |    2 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 1601 +++++++++++++++--
- .../gpu/drm/i915/gt/uc/intel_guc_submission.h |   13 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  101 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.h         |    6 +
- drivers/gpu/drm/i915/i915_debugfs_params.c    |   32 +
- drivers/gpu/drm/i915/i915_gpu_error.c         |   25 +-
- drivers/gpu/drm/i915/i915_reg.h               |    1 +
- drivers/gpu/drm/i915/i915_request.c           |  162 +-
- drivers/gpu/drm/i915/i915_request.h           |   21 +
- drivers/gpu/drm/i915/i915_scheduler.c         |   16 +-
- drivers/gpu/drm/i915/i915_scheduler.h         |   10 +-
- drivers/gpu/drm/i915/i915_scheduler_types.h   |   22 +
- drivers/gpu/drm/i915/i915_trace.h             |   37 +-
- drivers/gpu/drm/i915/selftests/i915_request.c |    4 +-
- .../gpu/drm/i915/selftests/igt_flush_test.c   |    2 +-
- .../i915/selftests/intel_scheduler_helpers.c  |   88 +
- .../i915/selftests/intel_scheduler_helpers.h  |   33 +
- include/uapi/drm/i915_drm.h                   |    9 +
- 55 files changed, 3490 insertions(+), 635 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
- create mode 100644 drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 1cb9c3b70b29..8ad304b2f2e4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -388,6 +388,8 @@ struct intel_engine_cs {
+ 	void		(*park)(struct intel_engine_cs *engine);
+ 	void		(*unpark)(struct intel_engine_cs *engine);
+ 
++	void		(*bump_serial)(struct intel_engine_cs *engine);
++
+ 	void		(*set_default_submission)(struct intel_engine_cs *engine);
+ 
+ 	const struct intel_context_ops *cops;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 28404454a97a..7528e8269c9c 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1492,6 +1492,15 @@ static void guc_release(struct intel_engine_cs *engine)
+ 	lrc_fini_wa_ctx(engine);
+ }
+ 
++static void virtual_guc_bump_serial(struct intel_engine_cs *engine)
++{
++	struct intel_engine_cs *e;
++	intel_engine_mask_t tmp, mask = engine->mask;
++
++	for_each_engine_masked(e, engine->gt, mask, tmp)
++		e->serial++;
++}
++
+ static void guc_default_vfuncs(struct intel_engine_cs *engine)
+ {
+ 	/* Default vfuncs which can be overridden by each engine. */
+@@ -1835,6 +1844,7 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
+ 
+ 	ve->base.cops = &virtual_guc_context_ops;
+ 	ve->base.request_alloc = guc_request_alloc;
++	ve->base.bump_serial = virtual_guc_bump_serial;
+ 
+ 	ve->base.submit_request = guc_submit_request;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 6594cb2f8ebd..39a21d96577e 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -669,7 +669,11 @@ bool __i915_request_submit(struct i915_request *request)
+ 				     request->ring->vaddr + request->postfix);
+ 
+ 	trace_i915_request_execute(request);
+-	engine->serial++;
++	if (engine->bump_serial)
++		engine->bump_serial(engine);
++	else
++		engine->serial++;
++
+ 	result = true;
+ 
+ 	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
 -- 
 2.28.0
 
