@@ -2,44 +2,45 @@ Return-Path: <SRS0=pd08=MO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 049B1C6377D
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E545C63793
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:19:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE93561285
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:18:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE93561285
+	by mail.kernel.org (Postfix) with ESMTPS id D9AA861264
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:19:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9AA861264
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D2B86E14F;
-	Thu, 22 Jul 2021 10:18:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4814B6E8D2;
+	Thu, 22 Jul 2021 10:19:00 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E6186E14F
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 10:18:53 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="275432489"
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="275432489"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 433A76E8BA
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 10:18:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="275432500"
+X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="275432500"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 03:18:52 -0700
+ 22 Jul 2021 03:18:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="632937096"
+X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="632937123"
 Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
- by orsmga005.jf.intel.com with ESMTP; 22 Jul 2021 03:18:51 -0700
+ by orsmga005.jf.intel.com with ESMTP; 22 Jul 2021 03:18:56 -0700
 From: Lee Shawn C <shawn.c.lee@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 22 Jul 2021 18:25:55 +0800
-Message-Id: <20210722102558.362-3-shawn.c.lee@intel.com>
+Date: Thu, 22 Jul 2021 18:25:58 +0800
+Message-Id: <20210722102558.362-6-shawn.c.lee@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210722102558.362-1-shawn.c.lee@intel.com>
 References: <20210722102558.362-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [PATCH v2 2/5] drm/i915/jsl: program DSI panel GPIOs
+Subject: [Intel-gfx] [PATCH v2 5/5] drm/i915: Get proper min cdclk if vDSC
+ enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,8 +60,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DSI driver should have its own implementation to toggle
-gpio pins based on GPIO info coming from VBT sequences.
+VDSC engine can process only 1 pixel per Cd clock. In case
+VDSC is used and max slice count == 1, max supported pixel
+clock should be 100% of CD clock. Then do min_cdclk and
+pixel clock comparison to get proper min cdclk.
+
+v2:
+- Check for dsc enable and slice count ==1 then allow to
+  double confirm min cdclk value.
 
 Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
@@ -69,93 +76,30 @@ Cc: Cooper Chiou <cooper.chiou@intel.com>
 Cc: William Tseng <william.tseng@intel.com>
 Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 44 +++++++++++++++++++-
- drivers/gpu/drm/i915/i915_reg.h              | 10 +++++
- 2 files changed, 53 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index cc93e045a425..dd03e5629ba6 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -43,6 +43,7 @@
- #include "intel_display_types.h"
- #include "intel_dsi.h"
- #include "intel_sideband.h"
-+#include "intel_de.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 71067a62264d..3e09f6370d27 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2159,6 +2159,16 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	/* Account for additional needs from the planes */
+ 	min_cdclk = max(intel_planes_min_cdclk(crtc_state), min_cdclk);
  
- #define MIPI_TRANSFER_MODE_SHIFT	0
- #define MIPI_VIRTUAL_CHANNEL_SHIFT	1
-@@ -354,7 +355,48 @@ static void bxt_exec_gpio(struct drm_i915_private *dev_priv,
- static void icl_exec_gpio(struct drm_i915_private *dev_priv,
- 			  u8 gpio_source, u8 gpio_index, bool value)
- {
--	drm_dbg_kms(&dev_priv->drm, "Skipping ICL GPIO element execution\n");
-+	u32 val;
++	/*
++	 * VDSC engine can process only 1 pixel per Cd clock.
++	 * In case VDSC is used and max slice count == 1,
++	 * max supported pixel clock should be 100% of CD clock.
++	 * Then do min_cdclk and pixel clock comparison to get cdclk.
++	 */
++	if (crtc_state->dsc.compression_enable &&
++	    crtc_state->dsc.slice_count == 1)
++		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
 +
-+	switch (gpio_index) {
-+	case ICL_GPIO_L_VDDEN_1:
-+		val = intel_de_read(dev_priv, ICP_PP_CONTROL(1));
-+		if (value)
-+			val |= PWR_STATE_TARGET;
-+		else
-+			val &= ~PWR_STATE_TARGET;
-+		intel_de_write(dev_priv, ICP_PP_CONTROL(1), val);
-+		break;
-+	case ICL_GPIO_L_BKLTEN_1:
-+		val = intel_de_read(dev_priv, ICP_PP_CONTROL(1));
-+		if (value)
-+			val |= BACKLIGHT_ENABLE;
-+		else
-+			val &= ~BACKLIGHT_ENABLE;
-+		intel_de_write(dev_priv, ICP_PP_CONTROL(1), val);
-+		break;
-+	case ICL_GPIO_DDPA_CTRLCLK_1:
-+		val = intel_de_read(dev_priv, GPIO(1));
-+		if (value)
-+			val |= GPIO_CLOCK_VAL_OUT;
-+		else
-+			val &= ~GPIO_CLOCK_VAL_OUT;
-+		val |= GPIO_CLOCK_DIR_MASK | GPIO_CLOCK_DIR_OUT | GPIO_CLOCK_VAL_MASK;
-+		intel_de_write(dev_priv, GPIO(1), val);
-+		break;
-+	case ICL_GPIO_DDPA_CTRLDATA_1:
-+		val = intel_de_read(dev_priv, GPIO(1));
-+		if (value)
-+			val |= GPIO_DATA_VAL_OUT;
-+		else
-+			val &= ~GPIO_DATA_VAL_OUT;
-+		val |= GPIO_DATA_DIR_MASK | GPIO_DATA_DIR_OUT | GPIO_DATA_VAL_MASK;
-+		intel_de_write(dev_priv, GPIO(1), val);
-+		break;
-+	default:
-+		/* TODO: Add support for remaining GPIOs */
-+		DRM_ERROR("Invalid GPIO number (%d) from VBT\n", gpio_index);
-+		break;
-+	}
- }
- 
- static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 943fe485c662..b725234e0e9c 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5143,6 +5143,16 @@ enum {
- #define _PP_STATUS			0x61200
- #define PP_STATUS(pps_idx)		_MMIO_PPS(pps_idx, _PP_STATUS)
- #define   PP_ON				REG_BIT(31)
-+
-+#define _PP_CONTROL_1			0xc7204
-+#define _PP_CONTROL_2			0xc7304
-+#define ICP_PP_CONTROL(x)		_MMIO(((x) == 1) ? _PP_CONTROL_1 : \
-+					      _PP_CONTROL_2)
-+#define  POWER_CYCLE_DELAY_MASK		REG_GENMASK(8, 4)
-+#define  VDD_OVERRIDE_FORCE		REG_BIT(3)
-+#define  BACKLIGHT_ENABLE		REG_BIT(2)
-+#define  PWR_DOWN_ON_RESET		REG_BIT(1)
-+#define  PWR_STATE_TARGET		REG_BIT(0)
- /*
-  * Indicates that all dependencies of the panel are on:
-  *
+ 	/*
+ 	 * HACK. Currently for TGL platforms we calculate
+ 	 * min_cdclk initially based on pixel_rate divided
 -- 
 2.17.1
 
