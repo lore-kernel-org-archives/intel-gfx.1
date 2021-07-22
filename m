@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75BFBC4338F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F31D0C4320E
 	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4927F60E9B
+	by mail.kernel.org (Postfix) with ESMTPS id CE0F660E9B
 	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4927F60E9B
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CE0F660E9B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6D3D6F5CC;
-	Thu, 22 Jul 2021 23:36:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6CB6F5DC;
+	Thu, 22 Jul 2021 23:36:50 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBA156F5A3;
- Thu, 22 Jul 2021 23:36:37 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659267"
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659267"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0C356F5A8;
+ Thu, 22 Jul 2021 23:36:38 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659273"
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659273"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:37 -0700
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860941"
+ 22 Jul 2021 16:36:38 -0700
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860947"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:37 -0700
+ 22 Jul 2021 16:36:38 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 22 Jul 2021 16:54:03 -0700
-Message-Id: <20210722235426.31831-11-matthew.brost@intel.com>
+Date: Thu, 22 Jul 2021 16:54:09 -0700
+Message-Id: <20210722235426.31831-17-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210722235426.31831-1-matthew.brost@intel.com>
 References: <20210722235426.31831-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 10/33] drm/i915/guc: Add disable interrupts to
- guc sanitize
+Subject: [Intel-gfx] [PATCH 16/33] drm/i915/guc: Don't complain about reset
+ races
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,101 +60,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add disable GuC interrupts to intel_guc_sanitize(). Part of this
-requires moving the guc_*_interrupt wrapper function into header file
-intel_guc.h.
+From: John Harrison <John.C.Harrison@Intel.com>
 
+It is impossible to seal all race conditions of resets occurring
+concurrent to other operations. At least, not without introducing
+excesive mutex locking. Instead, don't complain if it occurs. In
+particular, don't complain if trying to send a H2G during a reset.
+Whatever the H2G was about should get redone once the reset is over.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h | 16 ++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_uc.c  | 21 +++------------------
- 2 files changed, 19 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 5 ++++-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c     | 3 +++
+ drivers/gpu/drm/i915/gt/uc/intel_uc.h     | 2 ++
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index a068e3262676..7b871f675e48 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -224,9 +224,25 @@ static inline bool intel_guc_is_ready(struct intel_guc *guc)
- 	return intel_guc_is_fw_running(guc) && intel_guc_ct_enabled(&guc->ct);
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 18917b443f05..22b4733b55e2 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -760,7 +760,10 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
+ 	int ret;
  
-+static inline void intel_guc_reset_interrupts(struct intel_guc *guc)
-+{
-+	guc->interrupts.reset(guc);
-+}
+ 	if (unlikely(!ct->enabled)) {
+-		WARN(1, "Unexpected send: action=%#x\n", *action);
++		struct intel_guc *guc = ct_to_guc(ct);
++		struct intel_uc *uc = container_of(guc, struct intel_uc, guc);
 +
-+static inline void intel_guc_enable_interrupts(struct intel_guc *guc)
-+{
-+	guc->interrupts.enable(guc);
-+}
-+
-+static inline void intel_guc_disable_interrupts(struct intel_guc *guc)
-+{
-+	guc->interrupts.disable(guc);
-+}
-+
- static inline int intel_guc_sanitize(struct intel_guc *guc)
- {
- 	intel_uc_fw_sanitize(&guc->fw);
-+	intel_guc_disable_interrupts(guc);
- 	intel_guc_ct_sanitize(&guc->ct);
- 	guc->mmio_msg = 0;
++		WARN(!uc->reset_in_progress, "Unexpected send: action=%#x\n", *action);
+ 		return -ENODEV;
+ 	}
  
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index f0b02200aa01..ab11fe731ee7 100644
+index b523a8521351..77c1fe2ed883 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -207,21 +207,6 @@ static void guc_handle_mmio_msg(struct intel_guc *guc)
- 	spin_unlock_irq(&guc->irq_lock);
- }
- 
--static void guc_reset_interrupts(struct intel_guc *guc)
--{
--	guc->interrupts.reset(guc);
--}
--
--static void guc_enable_interrupts(struct intel_guc *guc)
--{
--	guc->interrupts.enable(guc);
--}
--
--static void guc_disable_interrupts(struct intel_guc *guc)
--{
--	guc->interrupts.disable(guc);
--}
--
- static int guc_enable_communication(struct intel_guc *guc)
+@@ -550,6 +550,7 @@ void intel_uc_reset_prepare(struct intel_uc *uc)
  {
- 	struct intel_gt *gt = guc_to_gt(guc);
-@@ -242,7 +227,7 @@ static int guc_enable_communication(struct intel_guc *guc)
- 	guc_get_mmio_msg(guc);
- 	guc_handle_mmio_msg(guc);
+ 	struct intel_guc *guc = &uc->guc;
  
--	guc_enable_interrupts(guc);
-+	intel_guc_enable_interrupts(guc);
++	uc->reset_in_progress = true;
  
- 	/* check for CT messages received before we enabled interrupts */
- 	spin_lock_irq(&gt->irq_lock);
-@@ -265,7 +250,7 @@ static void guc_disable_communication(struct intel_guc *guc)
- 	 */
- 	guc_clear_mmio_msg(guc);
+ 	/* Nothing to do if GuC isn't supported */
+ 	if (!intel_uc_supports_guc(uc))
+@@ -579,6 +580,8 @@ void intel_uc_reset_finish(struct intel_uc *uc)
+ {
+ 	struct intel_guc *guc = &uc->guc;
  
--	guc_disable_interrupts(guc);
-+	intel_guc_disable_interrupts(guc);
++	uc->reset_in_progress = false;
++
+ 	/* Firmware expected to be running when this function is called */
+ 	if (intel_guc_is_fw_running(guc) && intel_uc_uses_guc_submission(uc))
+ 		intel_guc_submission_reset_finish(guc);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+index eaa3202192ac..91315e3f1c58 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+@@ -30,6 +30,8 @@ struct intel_uc {
  
- 	intel_guc_ct_disable(&guc->ct);
+ 	/* Snapshot of GuC log from last failed load */
+ 	struct drm_i915_gem_object *load_err_log;
++
++	bool reset_in_progress;
+ };
  
-@@ -463,7 +448,7 @@ static int __uc_init_hw(struct intel_uc *uc)
- 	if (ret)
- 		goto err_out;
- 
--	guc_reset_interrupts(guc);
-+	intel_guc_reset_interrupts(guc);
- 
- 	/* WaEnableuKernelHeaderValidFix:skl */
- 	/* WaEnableGuCBootHashCheckNotSet:skl,bxt,kbl */
+ void intel_uc_init_early(struct intel_uc *uc);
 -- 
 2.28.0
 
