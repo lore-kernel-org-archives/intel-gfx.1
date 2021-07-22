@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ECD1BC63793
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 09:30:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 62B32C6377D
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 09:30:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C11F46120C
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 09:30:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C11F46120C
+	by mail.kernel.org (Postfix) with ESMTPS id 37E4C61221
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 09:30:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37E4C61221
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 080156EEA6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C5A76EEB4;
 	Thu, 22 Jul 2021 09:30:21 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0ECA6EEA6
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 09:30:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="233418031"
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="233418031"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98BE16EEB3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 09:30:19 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="233418059"
+X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="233418059"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 02:30:04 -0700
+ 22 Jul 2021 02:30:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="565021441"
+X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="565021526"
 Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
- by orsmga004.jf.intel.com with ESMTP; 22 Jul 2021 02:30:02 -0700
+ by orsmga004.jf.intel.com with ESMTP; 22 Jul 2021 02:30:07 -0700
 From: Lee Shawn C <shawn.c.lee@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 22 Jul 2021 17:37:09 +0800
-Message-Id: <20210722093711.32338-4-shawn.c.lee@intel.com>
+Date: Thu, 22 Jul 2021 17:37:11 +0800
+Message-Id: <20210722093711.32338-6-shawn.c.lee@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210722093711.32338-1-shawn.c.lee@intel.com>
 References: <20210719072222.13369-1-shawn.c.lee@intel.com>
  <20210722093711.32338-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [PATCH v2 3/5] drm/i915/dsi: wait for header and
- payload credit available
+Subject: [Intel-gfx] [PATCH v2 5/5] drm/i915: Get proper min cdclk if vDSC
+ enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,10 +62,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Driver should wait for free header or payload buffer in FIFO.
-It would be good to wait a while for HW to release credit before
-give it up to write to HW. Without sending initailize command
-sets completely. It would caused MIPI display can't light up properly.
+VDSC engine can process only 1 pixel per Cd clock. In case
+VDSC is used and max slice count == 1, max supported pixel
+clock should be 100% of CD clock. Then do min_cdclk and
+pixel clock comparison to get proper min cdclk.
+
+v2:
+- Check for dsc enable and slice count ==1 then allow to
+  double confirm min cdclk value.
+- Add more checking in dsi_dsc_compute_config() to avoid
+  crtc_clock exceeds dev_priv->max_cdclk_freq.
 
 Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
@@ -74,105 +80,67 @@ Cc: Cooper Chiou <cooper.chiou@intel.com>
 Cc: William Tseng <william.tseng@intel.com>
 Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 40 ++++++++++++--------------
- 1 file changed, 19 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c     | 18 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 10 ++++++++++
+ 2 files changed, 28 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 43ec7fcd3f5d..1780830d9909 100644
+index 60413bbf565f..c51ba3b9051e 100644
 --- a/drivers/gpu/drm/i915/display/icl_dsi.c
 +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -54,20 +54,28 @@ static int payload_credits_available(struct drm_i915_private *dev_priv,
- 		>> FREE_PLOAD_CREDIT_SHIFT;
- }
- 
--static void wait_for_header_credits(struct drm_i915_private *dev_priv,
--				    enum transcoder dsi_trans)
-+static bool wait_for_header_credits(struct drm_i915_private *dev_priv,
-+				    enum transcoder dsi_trans, int hdr_credit)
+@@ -1592,6 +1592,8 @@ static int gen11_dsi_dsc_compute_config(struct intel_encoder *encoder,
  {
- 	if (wait_for_us(header_credits_available(dev_priv, dsi_trans) >=
--			MAX_HEADER_CREDIT, 100))
-+			hdr_credit, 100)) {
- 		drm_err(&dev_priv->drm, "DSI header credits not released\n");
-+		return false;
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
++	const struct drm_display_mode *adjusted_mode =
++		&crtc_state->hw.adjusted_mode;
+ 	int dsc_max_bpc = DISPLAY_VER(dev_priv) >= 12 ? 12 : 10;
+ 	bool use_dsc;
+ 	int ret;
+@@ -1612,6 +1614,22 @@ static int gen11_dsi_dsc_compute_config(struct intel_encoder *encoder,
+ 	/* FIXME: initialize from VBT */
+ 	vdsc_cfg->rc_model_size = DSC_RC_MODEL_SIZE_CONST;
+ 
++	/*
++	 * VDSC engine operates at 1 Pixel per clock, so if peak pixel rate
++	 * is greater than the maximum Cdclock and if slice count is even
++	 * then we need to use 2 VDSC instances.
++	 */
++	if (adjusted_mode->crtc_clock > dev_priv->max_cdclk_freq ||
++	    crtc_state->bigjoiner) {
++		if (crtc_state->dsc.slice_count < 2) {
++			drm_dbg_kms(&dev_priv->drm,
++				    "Cannot split stream to use 2 VDSC instances\n");
++			return -EINVAL;
++		}
++
++		crtc_state->dsc.dsc_split = true;
 +	}
 +
-+	return true;
- }
+ 	ret = intel_dsc_compute_params(encoder, crtc_state);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 71067a62264d..3e09f6370d27 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2159,6 +2159,16 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	/* Account for additional needs from the planes */
+ 	min_cdclk = max(intel_planes_min_cdclk(crtc_state), min_cdclk);
  
--static void wait_for_payload_credits(struct drm_i915_private *dev_priv,
--				     enum transcoder dsi_trans)
-+static bool wait_for_payload_credits(struct drm_i915_private *dev_priv,
-+				     enum transcoder dsi_trans, int payld_credit)
- {
- 	if (wait_for_us(payload_credits_available(dev_priv, dsi_trans) >=
--			MAX_PLOAD_CREDIT, 100))
-+			payld_credit, 100)) {
- 		drm_err(&dev_priv->drm, "DSI payload credits not released\n");
-+		return false;
-+	}
++	/*
++	 * VDSC engine can process only 1 pixel per Cd clock.
++	 * In case VDSC is used and max slice count == 1,
++	 * max supported pixel clock should be 100% of CD clock.
++	 * Then do min_cdclk and pixel clock comparison to get cdclk.
++	 */
++	if (crtc_state->dsc.compression_enable &&
++	    crtc_state->dsc.slice_count == 1)
++		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
 +
-+	return true;
- }
- 
- static enum transcoder dsi_port_to_transcoder(enum port port)
-@@ -90,8 +98,8 @@ static void wait_for_cmds_dispatched_to_panel(struct intel_encoder *encoder)
- 	/* wait for header/payload credits to be released */
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		dsi_trans = dsi_port_to_transcoder(port);
--		wait_for_header_credits(dev_priv, dsi_trans);
--		wait_for_payload_credits(dev_priv, dsi_trans);
-+		wait_for_header_credits(dev_priv, dsi_trans, MAX_HEADER_CREDIT);
-+		wait_for_payload_credits(dev_priv, dsi_trans, MAX_PLOAD_CREDIT);
- 	}
- 
- 	/* send nop DCS command */
-@@ -108,7 +116,7 @@ static void wait_for_cmds_dispatched_to_panel(struct intel_encoder *encoder)
- 	/* wait for header credits to be released */
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		dsi_trans = dsi_port_to_transcoder(port);
--		wait_for_header_credits(dev_priv, dsi_trans);
-+		wait_for_header_credits(dev_priv, dsi_trans, MAX_HEADER_CREDIT);
- 	}
- 
- 	/* wait for LP TX in progress bit to be cleared */
-@@ -126,18 +134,13 @@ static bool add_payld_to_queue(struct intel_dsi_host *host, const u8 *data,
- 	struct intel_dsi *intel_dsi = host->intel_dsi;
- 	struct drm_i915_private *dev_priv = to_i915(intel_dsi->base.base.dev);
- 	enum transcoder dsi_trans = dsi_port_to_transcoder(host->port);
--	int free_credits;
- 	int i, j;
- 
- 	for (i = 0; i < len; i += 4) {
- 		u32 tmp = 0;
- 
--		free_credits = payload_credits_available(dev_priv, dsi_trans);
--		if (free_credits < 1) {
--			drm_err(&dev_priv->drm,
--				"Payload credit not available\n");
-+		if (!wait_for_payload_credits(dev_priv, dsi_trans, 1))
- 			return false;
--		}
- 
- 		for (j = 0; j < min_t(u32, len - i, 4); j++)
- 			tmp |= *data++ << 8 * j;
-@@ -155,15 +158,10 @@ static int dsi_send_pkt_hdr(struct intel_dsi_host *host,
- 	struct drm_i915_private *dev_priv = to_i915(intel_dsi->base.base.dev);
- 	enum transcoder dsi_trans = dsi_port_to_transcoder(host->port);
- 	u32 tmp;
--	int free_credits;
- 
- 	/* check if header credit available */
--	free_credits = header_credits_available(dev_priv, dsi_trans);
--	if (free_credits < 1) {
--		drm_err(&dev_priv->drm,
--			"send pkt header failed, not enough hdr credits\n");
-+	if (!wait_for_header_credits(dev_priv, dsi_trans, 1))
- 		return -1;
--	}
- 
- 	tmp = intel_de_read(dev_priv, DSI_CMD_TXHDR(dsi_trans));
- 
+ 	/*
+ 	 * HACK. Currently for TGL platforms we calculate
+ 	 * min_cdclk initially based on pixel_rate divided
 -- 
 2.17.1
 
