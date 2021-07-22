@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7E07C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75528C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7508460E9B
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7508460E9B
+	by mail.kernel.org (Postfix) with ESMTPS id 451F260EB2
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 451F260EB2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D150E6F5A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0867C6F5AE;
 	Thu, 22 Jul 2021 23:36:39 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C11906EADF;
- Thu, 22 Jul 2021 23:36:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659258"
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659258"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69BE36F5A2;
+ Thu, 22 Jul 2021 23:36:38 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659271"
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659271"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:36 -0700
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860931"
+ 22 Jul 2021 16:36:38 -0700
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860945"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:36 -0700
+ 22 Jul 2021 16:36:38 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 22 Jul 2021 16:53:55 -0700
-Message-Id: <20210722235426.31831-3-matthew.brost@intel.com>
+Date: Thu, 22 Jul 2021 16:54:07 -0700
+Message-Id: <20210722235426.31831-15-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210722235426.31831-1-matthew.brost@intel.com>
 References: <20210722235426.31831-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/33] drm/i915/guc: Make hangcheck work with
- GuC virtual engines
+Subject: [Intel-gfx] [PATCH 14/33] drm/i915/guc: Enable the timer expired
+ interrupt for GuC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,103 +60,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+The GuC can implement execution qunatums, detect hung contexts and
+other such things but it requires the timer expired interrupt to do so.
 
-The serial number tracking of engines happens at the backend of
-request submission and was expecting to only be given physical
-engines. However, in GuC submission mode, the decomposition of virtual
-to physical engines does not happen in i915. Instead, requests are
-submitted to their virtual engine mask all the way through to the
-hardware (i.e. to GuC). This would mean that the heart beat code
-thinks the physical engines are idle due to the serial number not
-incrementing. Which in turns means hangcheck does not work for
-GuC virtual engines.
-
-This patch updates the tracking to decompose virtual engines into
-their physical constituents and tracks the request against each. This
-is not entirely accurate as the GuC will only be issuing the request
-to one physical engine. However, it is the best that i915 can do given
-that it has no knowledge of the GuC's scheduling decisions.
-
-Downside of this is that all physical engines constituting a GuC
-virtual engine will be periodically unparked (even during just a single
-context executing) in order to be pinged with a heartbeat request.
-However the power and performance cost of this is not expected to be
-measurable (due low frequency of heartbeat pulses) and it is considered
-an easier option than trying to make changes to GuC firmware.
-
-v2:
- (Tvrtko)
-  - Update commit message
-  - Have default behavior if no vfunc present
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+CC: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_types.h      |  2 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 10 ++++++++++
- drivers/gpu/drm/i915/i915_request.c               |  6 +++++-
- 3 files changed, 17 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_rps.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 1cb9c3b70b29..8ad304b2f2e4 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -388,6 +388,8 @@ struct intel_engine_cs {
- 	void		(*park)(struct intel_engine_cs *engine);
- 	void		(*unpark)(struct intel_engine_cs *engine);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 06e9a8ed4e03..0c8e7f2b06f0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1877,6 +1877,10 @@ void intel_rps_init(struct intel_rps *rps)
  
-+	void		(*bump_serial)(struct intel_engine_cs *engine);
+ 	if (GRAPHICS_VER(i915) >= 8 && GRAPHICS_VER(i915) < 11)
+ 		rps->pm_intrmsk_mbz |= GEN8_PMINTR_DISABLE_REDIRECT_TO_GUC;
 +
- 	void		(*set_default_submission)(struct intel_engine_cs *engine);
- 
- 	const struct intel_context_ops *cops;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 28404454a97a..7528e8269c9c 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1492,6 +1492,15 @@ static void guc_release(struct intel_engine_cs *engine)
- 	lrc_fini_wa_ctx(engine);
++	/* GuC needs ARAT expired interrupt unmasked */
++	if (intel_uc_uses_guc_submission(&rps_to_gt(rps)->uc))
++		rps->pm_intrmsk_mbz |= ARAT_EXPIRED_INTRMSK;
  }
  
-+static void virtual_guc_bump_serial(struct intel_engine_cs *engine)
-+{
-+	struct intel_engine_cs *e;
-+	intel_engine_mask_t tmp, mask = engine->mask;
-+
-+	for_each_engine_masked(e, engine->gt, mask, tmp)
-+		e->serial++;
-+}
-+
- static void guc_default_vfuncs(struct intel_engine_cs *engine)
- {
- 	/* Default vfuncs which can be overridden by each engine. */
-@@ -1835,6 +1844,7 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
- 
- 	ve->base.cops = &virtual_guc_context_ops;
- 	ve->base.request_alloc = guc_request_alloc;
-+	ve->base.bump_serial = virtual_guc_bump_serial;
- 
- 	ve->base.submit_request = guc_submit_request;
- 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 6594cb2f8ebd..39a21d96577e 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -669,7 +669,11 @@ bool __i915_request_submit(struct i915_request *request)
- 				     request->ring->vaddr + request->postfix);
- 
- 	trace_i915_request_execute(request);
--	engine->serial++;
-+	if (engine->bump_serial)
-+		engine->bump_serial(engine);
-+	else
-+		engine->serial++;
-+
- 	result = true;
- 
- 	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
+ void intel_rps_sanitize(struct intel_rps *rps)
 -- 
 2.28.0
 
