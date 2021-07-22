@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A767C4320E
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DB14C43214
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6047060EB5
+	by mail.kernel.org (Postfix) with ESMTPS id E105A60EB2
 	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6047060EB5
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E105A60EB2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AE316F5B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A4DA6F5B7;
 	Thu, 22 Jul 2021 23:36:41 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 361C26EADF;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1C6C6F50D;
  Thu, 22 Jul 2021 23:36:37 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659260"
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659260"
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659266"
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659266"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:36 -0700
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860933"
+ 22 Jul 2021 16:36:37 -0700
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860940"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:36 -0700
+ 22 Jul 2021 16:36:37 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 22 Jul 2021 16:53:57 -0700
-Message-Id: <20210722235426.31831-5-matthew.brost@intel.com>
+Date: Thu, 22 Jul 2021 16:54:02 -0700
+Message-Id: <20210722235426.31831-10-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210722235426.31831-1-matthew.brost@intel.com>
 References: <20210722235426.31831-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/33] drm/i915/guc: Disable bonding extension
- with GuC submission
+Subject: [Intel-gfx] [PATCH 09/33] drm/i915: Reset GPU immediately if
+ submission is disabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,32 +60,241 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Update the bonding extension to return -ENODEV when using GuC submission
-as this extension fundamentally will not work with the GuC submission
-interface.
+If submission is disabled by the backend for any reason, reset the GPU
+immediately in the heartbeat code as the backend can't be reenabled
+until the GPU is reset.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 63 +++++++++++++++----
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |  4 ++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  9 +++
+ drivers/gpu/drm/i915/i915_scheduler.c         |  6 ++
+ drivers/gpu/drm/i915/i915_scheduler.h         |  6 ++
+ drivers/gpu/drm/i915/i915_scheduler_types.h   |  5 ++
+ 6 files changed, 80 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index bc52eeed782a..e3df01a201d7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -491,6 +491,11 @@ set_proto_ctx_engines_bond(struct i915_user_extension __user *base, void *data)
- 		return -EINVAL;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+index b6a305e6a974..a8495364d906 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+@@ -70,12 +70,30 @@ static void show_heartbeat(const struct i915_request *rq,
+ {
+ 	struct drm_printer p = drm_debug_printer("heartbeat");
  
-+	if (intel_engine_uses_guc(master)) {
-+		DRM_DEBUG("bonding extension not supported with GuC submission");
-+		return -ENODEV;
+-	intel_engine_dump(engine, &p,
+-			  "%s heartbeat {seqno:%llx:%lld, prio:%d} not ticking\n",
+-			  engine->name,
+-			  rq->fence.context,
+-			  rq->fence.seqno,
+-			  rq->sched.attr.priority);
++	if (!rq) {
++		intel_engine_dump(engine, &p,
++				  "%s heartbeat not ticking\n",
++				  engine->name);
++	} else {
++		intel_engine_dump(engine, &p,
++				  "%s heartbeat {seqno:%llx:%lld, prio:%d} not ticking\n",
++				  engine->name,
++				  rq->fence.context,
++				  rq->fence.seqno,
++				  rq->sched.attr.priority);
++	}
++}
++
++static void
++reset_engine(struct intel_engine_cs *engine, struct i915_request *rq)
++{
++	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
++		show_heartbeat(rq, engine);
++
++	intel_gt_handle_error(engine->gt, engine->mask,
++			      I915_ERROR_CAPTURE,
++			      "stopped heartbeat on %s",
++			      engine->name);
+ }
+ 
+ static void heartbeat(struct work_struct *wrk)
+@@ -102,6 +120,11 @@ static void heartbeat(struct work_struct *wrk)
+ 	if (intel_gt_is_wedged(engine->gt))
+ 		goto out;
+ 
++	if (i915_sched_engine_disabled(engine->sched_engine)) {
++		reset_engine(engine, engine->heartbeat.systole);
++		goto out;
 +	}
 +
- 	if (get_user(num_bonds, &ext->num_bonds))
- 		return -EFAULT;
+ 	if (engine->heartbeat.systole) {
+ 		long delay = READ_ONCE(engine->props.heartbeat_interval_ms);
  
+@@ -139,13 +162,7 @@ static void heartbeat(struct work_struct *wrk)
+ 			engine->sched_engine->schedule(rq, &attr);
+ 			local_bh_enable();
+ 		} else {
+-			if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+-				show_heartbeat(rq, engine);
+-
+-			intel_gt_handle_error(engine->gt, engine->mask,
+-					      I915_ERROR_CAPTURE,
+-					      "stopped heartbeat on %s",
+-					      engine->name);
++			reset_engine(engine, rq);
+ 		}
+ 
+ 		rq->emitted_jiffies = jiffies;
+@@ -194,6 +211,26 @@ void intel_engine_park_heartbeat(struct intel_engine_cs *engine)
+ 		i915_request_put(fetch_and_zero(&engine->heartbeat.systole));
+ }
+ 
++void intel_gt_unpark_heartbeats(struct intel_gt *gt)
++{
++	struct intel_engine_cs *engine;
++	enum intel_engine_id id;
++
++	for_each_engine(engine, gt, id)
++		if (intel_engine_pm_is_awake(engine))
++			intel_engine_unpark_heartbeat(engine);
++
++}
++
++void intel_gt_park_heartbeats(struct intel_gt *gt)
++{
++	struct intel_engine_cs *engine;
++	enum intel_engine_id id;
++
++	for_each_engine(engine, gt, id)
++		intel_engine_park_heartbeat(engine);
++}
++
+ void intel_engine_init_heartbeat(struct intel_engine_cs *engine)
+ {
+ 	INIT_DELAYED_WORK(&engine->heartbeat.work, heartbeat);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
+index a488ea3e84a3..5da6d809a87a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
+@@ -7,6 +7,7 @@
+ #define INTEL_ENGINE_HEARTBEAT_H
+ 
+ struct intel_engine_cs;
++struct intel_gt;
+ 
+ void intel_engine_init_heartbeat(struct intel_engine_cs *engine);
+ 
+@@ -16,6 +17,9 @@ int intel_engine_set_heartbeat(struct intel_engine_cs *engine,
+ void intel_engine_park_heartbeat(struct intel_engine_cs *engine);
+ void intel_engine_unpark_heartbeat(struct intel_engine_cs *engine);
+ 
++void intel_gt_park_heartbeats(struct intel_gt *gt);
++void intel_gt_unpark_heartbeats(struct intel_gt *gt);
++
+ int intel_engine_pulse(struct intel_engine_cs *engine);
+ int intel_engine_flush_barriers(struct intel_engine_cs *engine);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 227225a7917c..aef059b909d8 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -10,6 +10,7 @@
+ #include "gt/intel_breadcrumbs.h"
+ #include "gt/intel_context.h"
+ #include "gt/intel_engine_pm.h"
++#include "gt/intel_engine_heartbeat.h"
+ #include "gt/intel_gt.h"
+ #include "gt/intel_gt_irq.h"
+ #include "gt/intel_gt_pm.h"
+@@ -603,6 +604,7 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ 		return;
+ 	}
+ 
++	intel_gt_park_heartbeats(guc_to_gt(guc));
+ 	disable_submission(guc);
+ 	guc->interrupts.disable(guc);
+ 
+@@ -890,6 +892,7 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
+ 	atomic_set(&guc->outstanding_submission_g2h, 0);
+ 
+ 	enable_submission(guc);
++	intel_gt_unpark_heartbeats(guc_to_gt(guc));
+ }
+ 
+ /*
+@@ -1865,6 +1868,11 @@ static int guc_resume(struct intel_engine_cs *engine)
+ 	return 0;
+ }
+ 
++static bool guc_sched_engine_disabled(struct i915_sched_engine *sched_engine)
++{
++	return !sched_engine->tasklet.callback;
++}
++
+ static void guc_set_default_submission(struct intel_engine_cs *engine)
+ {
+ 	engine->submit_request = guc_submit_request;
+@@ -2015,6 +2023,7 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
+ 			return -ENOMEM;
+ 
+ 		guc->sched_engine->schedule = i915_schedule;
++		guc->sched_engine->disabled = guc_sched_engine_disabled;
+ 		guc->sched_engine->private_data = guc;
+ 		guc->sched_engine->destroy = guc_sched_engine_destroy;
+ 		tasklet_setup(&guc->sched_engine->tasklet,
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
+index 2804fd5b660b..28dd887eb1be 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/i915_scheduler.c
+@@ -440,6 +440,11 @@ static void default_destroy(struct kref *kref)
+ 	kfree(sched_engine);
+ }
+ 
++static bool default_disabled(struct i915_sched_engine *sched_engine)
++{
++	return false;
++}
++
+ struct i915_sched_engine *
+ i915_sched_engine_create(unsigned int subclass)
+ {
+@@ -454,6 +459,7 @@ i915_sched_engine_create(unsigned int subclass)
+ 	sched_engine->queue = RB_ROOT_CACHED;
+ 	sched_engine->queue_priority_hint = INT_MIN;
+ 	sched_engine->destroy = default_destroy;
++	sched_engine->disabled = default_disabled;
+ 
+ 	INIT_LIST_HEAD(&sched_engine->requests);
+ 	INIT_LIST_HEAD(&sched_engine->hold);
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
+index 3c9504e9f409..f4d9811ade5b 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.h
++++ b/drivers/gpu/drm/i915/i915_scheduler.h
+@@ -96,4 +96,10 @@ void i915_request_show_with_schedule(struct drm_printer *m,
+ 				     const char *prefix,
+ 				     int indent);
+ 
++static inline bool
++i915_sched_engine_disabled(struct i915_sched_engine *sched_engine)
++{
++	return sched_engine->disabled(sched_engine);
++}
++
+ #endif /* _I915_SCHEDULER_H_ */
+diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
+index 00384e2c5273..eaef233e9080 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler_types.h
++++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
+@@ -168,6 +168,11 @@ struct i915_sched_engine {
+ 	 */
+ 	void	(*destroy)(struct kref *kref);
+ 
++	/**
++	 * @disabled: check if backend has disabled submission
++	 */
++	bool	(*disabled)(struct i915_sched_engine *sched_engine);
++
+ 	/**
+ 	 * @kick_backend: kick backend after a request's priority has changed
+ 	 */
 -- 
 2.28.0
 
