@@ -2,75 +2,80 @@ Return-Path: <SRS0=pd08=MO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA33EC63797
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 13:21:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 202ABC63793
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 13:22:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 868FC61285
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 13:21:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 868FC61285
+	by mail.kernel.org (Postfix) with ESMTPS id E3D3860FE7
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 13:22:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3D3860FE7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4032B6EA7B;
-	Thu, 22 Jul 2021 13:21:51 +0000 (UTC)
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [IPv6:2607:f8b0:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7A296EE7C;
- Thu, 22 Jul 2021 09:30:11 +0000 (UTC)
-Received: by mail-pl1-x62d.google.com with SMTP id n11so3787738plc.2;
- Thu, 22 Jul 2021 02:30:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 635896EEC4;
+	Thu, 22 Jul 2021 13:22:00 +0000 (UTC)
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DB486E93C;
+ Thu, 22 Jul 2021 13:03:04 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ jx7-20020a17090b46c7b02901757deaf2c8so5445579pjb.0; 
+ Thu, 22 Jul 2021 06:03:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=RSgVdB0+HpET8iLINuWOoeOWDDxUJjmmluxZNEz35KA=;
- b=o6LJ/myMP6JO8ChH8dYoqq21TZnuVfWqQC7aMNZVbEwvgt/wmupSJe5X7mUycZZ1OP
- wZUOpxPzR0Di4iK476owf2txOnd8aRvZIuWOSyNSQwF8qAfJx1gZjc1rqQNENDcoU4k8
- pWfm16Rm2AyVdjC+e3kTofDMg7W/f1X4eU9NPEhv7mUcvN6ebC/kCdQLgGMJIgNOCd38
- Z79Cpgk8vmBkJLmcW9tTTfCW8TJv/6nRrpzuj2HycvK3LMZlVo0xpmCpHif6k1kmeqBf
- /hzT0Pmizi11dqx4L91lE1OKq6ULDL3w/A5pjP58k83vlOPYfDR9I9UDXt06Iw0JzA4O
- hv7w==
+ h=subject:to:references:cc:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=Ff/8a51zf65javwTWFaQzWRS2rzY3fOngFsjFjhL2pU=;
+ b=QRRSv42l3OKSfAHNwnceLsGisP7k4+dhKuS3ZPP+QH08L8pDuodnXV/ywZIp0mGMV3
+ Ie4kRVwlk8+RQiyIKSVySxkANpsNy058jZtVjY0OtuEt5O6lohuXIxWHd6YAUxhOeXo0
+ lX1Vr0t5kSevBOlm0Ojb3WxJrLSkKIsHWzGkPg3NnpU0KyqUPLpTETP/lEa3xjJbo0KG
+ n5lf4h+ao5Aa40NstQ9J44KybIqxo0Kdd+D7K9VtVrDxTlNJFmmDDHAWmJN7+hvjw6cG
+ QBhkDqdXz6X/rIXzRfn/S7OBeNZ54QUTc0rx+GUTCstf46QP9tFuHSULmZOFbR5724ws
+ NhBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=RSgVdB0+HpET8iLINuWOoeOWDDxUJjmmluxZNEz35KA=;
- b=ompWVo1nAMaZPZ9ck8m/pAr5jcWYm+23OvsMO0DYy95WPdzNSWicw07M99kOXEjF4I
- 8RwKS80tqXJFJFN46gg+DdVpPSqvlLOdtM0R2I7fOgiHXbMqKkKIgBRAn2UcFA1ocfj9
- aFDyy0xPSNlLV1dUt23h2ip0GsUhCKuJI/bVaBovHscBnAWJoGSlOcyQln9bcBkL5WBh
- IH070SNaVPVz/2X24dI9J9ZujqL9trlGsupK/JwPVXJsCWS3lzNKkWtqJS5IH7uwGWnx
- WXp4nE7Sq3crMRkkMxpUgDD/jHEZy1Vi6JZHAC1OIFmJ/lNK4sRgpWUfL61KOru1L6G+
- apzA==
-X-Gm-Message-State: AOAM531cam2O4Ig1PV3/g2ha92gkAMxGn3Z+X55M7O3OIzMoTruvp24f
- aq3t73qyLe9VGLVTBz9cWgw=
-X-Google-Smtp-Source: ABdhPJyscK7c550TzHfpDv1WRnYYvoBsSoBWYdMCW0natilUebpT1uRY7os1lbemOjfZnuzWFb0RqA==
-X-Received: by 2002:a05:6a00:2306:b029:331:ebe8:a4b4 with SMTP id
- h6-20020a056a002306b0290331ebe8a4b4mr39978184pfh.15.1626946211504; 
- Thu, 22 Jul 2021 02:30:11 -0700 (PDT)
-Received: from localhost.localdomain ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id q5sm1069592pjo.7.2021.07.22.02.30.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jul 2021 02:30:11 -0700 (PDT)
-From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-To: linux-graphics-maintainer@vmware.com, zackr@vmware.com, airlied@linux.ie,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de
-Date: Thu, 22 Jul 2021 17:29:27 +0800
-Message-Id: <20210722092929.244629-2-desmondcheongzx@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210722092929.244629-1-desmondcheongzx@gmail.com>
+ h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=Ff/8a51zf65javwTWFaQzWRS2rzY3fOngFsjFjhL2pU=;
+ b=tuxnfxPMZVtRre1CndAzwtP7DY608KaUPnuUUOsxoUtO+oVlzspFUtV9IJDlyyoeBP
+ A2guFEXMlhxl4GNpOLS2bU+vuenHO6QJm0fPfCXc2jpC7O/eqRRDTznyIBIenQf8CXVy
+ 7jWiNLpCij5mu2ZQ3ccKZzmFgYSR41uxkC9zd/frBPdWWNR3CJ+I767OuwSfCHl1I2pe
+ fX/vRcPeKCsgHjocO/8goWY7WI8eUlH6DhaUJ6dUHJnk4mQ/XUpzPw0Q5bvTdyJPU0ww
+ aOKWcSMPyWGf2G44/xmtWj7dQdnMRJuZWNzTRLX18BF7CU5/WTJLRrEwYfDsQ3pqdpy6
+ 3ZUQ==
+X-Gm-Message-State: AOAM531RHKRa2kaUCovucU3ueiuact3blsuE9BlyaLhp2OYrMyhak//J
+ /Dr+fFiLJdNuIMrfJM0X5xs=
+X-Google-Smtp-Source: ABdhPJyOCFGS9acfJ60WJxT+N7y/ltJ75utKHHvTo7/YKDME4Kuyaqk+hiaooaaT+vCzYQrSvH2iIQ==
+X-Received: by 2002:a17:90b:1484:: with SMTP id
+ js4mr40515679pjb.155.1626958983678; 
+ Thu, 22 Jul 2021 06:03:03 -0700 (PDT)
+Received: from [192.168.1.237] ([118.200.190.93])
+ by smtp.gmail.com with ESMTPSA id m21sm25643502pjz.36.2021.07.22.06.02.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Jul 2021 06:03:02 -0700 (PDT)
+To: Daniel Vetter <daniel@ffwll.ch>
 References: <20210722092929.244629-1-desmondcheongzx@gmail.com>
+ <20210722092929.244629-3-desmondcheongzx@gmail.com>
+ <YPlKCc7Sep71xjBC@phenom.ffwll.local>
+From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+Message-ID: <5b8b3bd5-7519-e383-cb84-f354d898dc81@gmail.com>
+Date: Thu, 22 Jul 2021 21:02:56 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <YPlKCc7Sep71xjBC@phenom.ffwll.local>
+Content-Language: en-US
 X-Mailman-Approved-At: Thu, 22 Jul 2021 13:21:49 +0000
-Subject: [Intel-gfx] [PATCH 1/3] drm: use the lookup lock in
- drm_is_current_master
+Subject: Re: [Intel-gfx] [PATCH 2/3] drm: clarify lifetime/locking for
+ drm_master's lease fields
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,58 +88,175 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>, skhan@linuxfoundation.org,
- Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
- linux-kernel-mentees@lists.linuxfoundation.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: airlied@linux.ie, gregkh@linuxfoundation.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mripard@kernel.org, linux-graphics-maintainer@vmware.com,
+ dri-devel@lists.freedesktop.org, tzimmermann@suse.de,
+ skhan@linuxfoundation.org, linux-kernel-mentees@lists.linuxfoundation.org,
+ zackr@vmware.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Inside drm_is_current_master, using the outer drm_device.master_mutex
-to protect reads of drm_file.master makes the function prone to creating
-lock hierarchy inversions. Instead, we can use the
-drm_file.master_lookup_lock that sits at the bottom of the lock
-hierarchy.
+On 22/7/21 6:35 pm, Daniel Vetter wrote:
+> On Thu, Jul 22, 2021 at 05:29:28PM +0800, Desmond Cheong Zhi Xi wrote:
+>> In particular, we make it clear that &drm_device.mode_config.idr_mutex
+>> protects the lease idr and list structures for drm_master. The lessor
+>> field itself doesn't need to be protected as it doesn't change after
+>> it's set in drm_lease_create.
+>>
+>> Additionally, we add descriptions for the lifetime of lessors and
+>> leases to make it easier to reason about them.
+>>
+>> Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+>> ---
+>>   include/drm/drm_auth.h | 62 ++++++++++++++++++++++++++++++++++--------
+>>   1 file changed, 51 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/include/drm/drm_auth.h b/include/drm/drm_auth.h
+>> index f99d3417f304..c978c85464fa 100644
+>> --- a/include/drm/drm_auth.h
+>> +++ b/include/drm/drm_auth.h
+>> @@ -58,12 +58,6 @@ struct drm_lock_data {
+>>    * @refcount: Refcount for this master object.
+>>    * @dev: Link back to the DRM device
+>>    * @driver_priv: Pointer to driver-private information.
+>> - * @lessor: Lease holder
+>> - * @lessee_id: id for lessees. Owners always have id 0
+>> - * @lessee_list: other lessees of the same master
+>> - * @lessees: drm_masters leasing from this one
+>> - * @leases: Objects leased to this drm_master.
+>> - * @lessee_idr: All lessees under this owner (only used where lessor == NULL)
+>>    *
+>>    * Note that master structures are only relevant for the legacy/primary device
+>>    * nodes, hence there can only be one per device, not one per drm_minor.
+>> @@ -88,17 +82,63 @@ struct drm_master {
+>>   	struct idr magic_map;
+>>   	void *driver_priv;
+>>   
+>> -	/* Tree of display resource leases, each of which is a drm_master struct
+>> -	 * All of these get activated simultaneously, so drm_device master points
+>> -	 * at the top of the tree (for which lessor is NULL). Protected by
+>> -	 * &drm_device.mode_config.idr_mutex.
+>> +	/**
+>> +	 * @lessor:
+>> +	 *
+>> +	 * Lease holder. The lessor does not change once it's set in
+> 
+> Lessor is the lease grantor, lessee is the one receiving the lease. Maybe
+> clarify this with
+> 
+> "Lease grantor, only set if this struct drm_master represents a lessee
+> holding a lease of objects from @lessor. Full owners of the device have
+> this set to NULL."
+> 
+>> +	 * drm_lease_create(). Each lessee holds a reference to its lessor that
+> 
+> I also figured it'd be a good idea to link to the drm_lease docs here to
+> explain the concepts, but alas we don't have those :-( Hence at least
+> define what we mean with lessor, lessee, lease and owner.
+> 
 
-Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
----
- drivers/gpu/drm/drm_auth.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Thanks for the suggestions, Daniel. I'll incorporate them in a v2.
 
-diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-index f00354bec3fb..9c24b8cc8e36 100644
---- a/drivers/gpu/drm/drm_auth.c
-+++ b/drivers/gpu/drm/drm_auth.c
-@@ -63,8 +63,9 @@
- 
- static bool drm_is_current_master_locked(struct drm_file *fpriv)
- {
--	lockdep_assert_held_once(&fpriv->minor->dev->master_mutex);
--
-+	/* Either drm_device.master_mutex or drm_file.master_lookup_lock
-+	 * should be held here.
-+	 */
- 	return fpriv->is_master && drm_lease_owner(fpriv->master) == fpriv->minor->dev->master;
- }
- 
-@@ -82,9 +83,9 @@ bool drm_is_current_master(struct drm_file *fpriv)
- {
- 	bool ret;
- 
--	mutex_lock(&fpriv->minor->dev->master_mutex);
-+	spin_lock(&fpriv->master_lookup_lock);
- 	ret = drm_is_current_master_locked(fpriv);
--	mutex_unlock(&fpriv->minor->dev->master_mutex);
-+	spin_unlock(&fpriv->master_lookup_lock);
- 
- 	return ret;
- }
--- 
-2.25.1
+Regarding the missing drm_lease docs... any reason we can't just add it 
+in? Seems like most of the comments in drm_lease.c are almost correctly 
+formatted too. I could clean them up, define the terms in a preamble, 
+then add it to the v2 patch.
+
+>> +	 * it releases upon being destroyed in drm_lease_destroy().
+>> +	 *
+>> +	 * Display resource leases form a tree of &struct drm_master. All of
+> 
+> For now we've limited the tree to a depth of 1, you can't create another
+> lease if yourself are a lease. I guess another reason to update the
+> drm_lease.c docs.
+> 
+> So maybe add "Currently the lease tree depth is limited to 1."
+> 
+>> +	 * these get activated simultaneously, so &drm_device.master
+>> +	 * points at the top of the tree (for which lessor is NULL).
+>>   	 */
+>> -
+>>   	struct drm_master *lessor;
+>> +
+>> +	/**
+>> +	 * @lessee_id:
+>> +	 *
+>> +	 * ID for lessees. Owners always have ID 0. Protected by
+> 
+> Maybe clarify to "Owners (i.e. @lessor is NULL) ..."
+> 
+>> +	 * &drm_device.mode_config's &drm_mode_config.idr_mutex.
+>> +	 */
+>>   	int	lessee_id;
+>> +
+>> +	/**
+>> +	 * @lessee_list:
+>> +	 *
+>> +	 * List of lessees of the same master. Protected by
+> 
+> We try to distinguis between list entries and the list, even though it's
+> the same struct. So maybe
+> 
+> "List entry of lessees of @lessor, where they are linked to @lessee. Not
+> use for owners."
+> 
+>> +	 * &drm_device.mode_config's &drm_mode_config.idr_mutex.
+> 
+>> +	 */
+>>   	struct list_head lessee_list;
+>> +
+>> +	/**
+>> +	 * @lessees:
+>> +	 *
+>> +	 * List of drm_masters leasing from this one. Protected by
+>> +	 * &drm_device.mode_config's &drm_mode_config.idr_mutex.
+>> +	 *
+>> +	 * This master cannot be destroyed unless this list is empty as lessors
+>> +	 * are referenced by all their lessees.
+> 
+> Maybe add "this list is empty of no leases have been granted."
+> 
+>> +	 */
+>>   	struct list_head lessees;
+>> +
+>> +	/**
+>> +	 * @leases:
+>> +	 *
+>> +	 * Objects leased to this drm_master. Protected by
+>> +	 * &drm_device.mode_config's &drm_mode_config.idr_mutex.
+>> +	 *
+>> +	 * Objects are leased all together in drm_lease_create(), and are
+>> +	 * removed all together when the lease is revoked.
+>> +	 */
+>>   	struct idr leases;
+>> +
+>> +	/**
+>> +	 * @lessee_idr:
+>> +	 *
+>> +	 * All lessees under this owner (only used where lessor is NULL).
+> 
+> @lessor so it's highlighted correctly
+> 
+>> +	 * Protected by &drm_device.mode_config's &drm_mode_config.idr_mutex.
+>> +	 */
+>>   	struct idr lessee_idr;
+>>   	/* private: */
+> 
+> With the nits addressed:
+> 
+> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> 
+> Thanks for updating the docs!
+> -Daniel
+> 
+>>   #if IS_ENABLED(CONFIG_DRM_LEGACY)
+>> -- 
+>> 2.25.1
+>>
+> 
 
 _______________________________________________
 Intel-gfx mailing list
