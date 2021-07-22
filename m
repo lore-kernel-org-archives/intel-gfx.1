@@ -2,134 +2,77 @@ Return-Path: <SRS0=pd08=MO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5282C432BE
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 19:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64669C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 19:39:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C61060EB5
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 19:17:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4C61060EB5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vmware.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2243460EB9
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 19:39:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2243460EB9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6216E8CA;
-	Thu, 22 Jul 2021 19:17:25 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2063.outbound.protection.outlook.com [40.107.94.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E33D6E84F;
- Thu, 22 Jul 2021 19:17:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MozLo7GnRgocN9e0wteTXcXq44WTJVffl/Kbbr4mz0bVNH8KVstvwzunQm32lAtouqKMnx99xpveP8MzB6axB2dH0YGLMxqKXhMX2y7EAaKKYiuO/0YyFV/yWoKgWBA8HnwL644oVgan5aUX8ZDHDcNrJw9aWYFB/ZrFoJSZEKVwk7iiGPbRDVM5lExJF+FAtw8AnDzxj7I1kQuIuJfzuRKAQxe5IH2YS21DzS+9uoJ6HBwJ7FyO8Ym29ChJhb6yKqcRd7D9cE1ZtvCwNOwyznvAk+SVh36zaO0+3UKc/L8Id9Rl3/hHE2KqSn+gyPwXuDcXysZTB7FHD3aPnaWKlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2REzenTYSg9PCaQurwCehaLOlMSheR4pQ15YhJat5C4=;
- b=VQqVuXBNm7atkfxcWYAqiCh9E8xyYWzCFQ1VXo6xqBGhwKwsjsFQEtmGtvRW7Fe4AcudZ3YQZ0eztadLrUBc4y3z33VFKWBs8/tv3e5Jd8XZCCDI+udi7pg/Q0yR74faZPtjFoOSLbj/RG05iNBgZHFckrDztq4whZf4QR/025BsZs5FqJ984Mi/ATpD14RamHhRBpK1VtrcXCVoDw/0xf0zW0LQB3tDszs6a01mXnLTEgPxXWPxhhZVW+tSVa2ukr0v3rgCfVmhWRgHqIwA586mN2s8/Bg4ioBIqwh1MvqXewc6shDVHU05hMZPZm5K24PsmbuPi1q7cUoMQLCLtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
- dkim=pass header.d=vmware.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2REzenTYSg9PCaQurwCehaLOlMSheR4pQ15YhJat5C4=;
- b=aFDG4rWledNOb5dHz165abB6Q3QkeTvdOBTjy7fQp7KpG19PxDVoCk1+234niBK8IeR23qEfUK8Go+UvQt9lvJXGf8Lab9VWegLP+euKc/ZhVEvQPfRSVzf424XYaIWQgZw9Mzi66IfqgQn5f8/+DVSA6yKK+14obPSlfYJ3ktw=
-Authentication-Results: lists.linuxfoundation.org; dkim=none (message not
- signed) header.d=none;lists.linuxfoundation.org; dmarc=none action=none
- header.from=vmware.com;
-Received: from BN8PR05MB6611.namprd05.prod.outlook.com (2603:10b6:408:57::15)
- by BN7PR05MB3955.namprd05.prod.outlook.com (2603:10b6:406:8a::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.14; Thu, 22 Jul
- 2021 19:17:20 +0000
-Received: from BN8PR05MB6611.namprd05.prod.outlook.com
- ([fe80::b5c1:f355:fee4:c23c]) by BN8PR05MB6611.namprd05.prod.outlook.com
- ([fe80::b5c1:f355:fee4:c23c%5]) with mapi id 15.20.4373.009; Thu, 22 Jul 2021
- 19:17:20 +0000
-To: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
- linux-graphics-maintainer@vmware.com, airlied@linux.ie, daniel@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
-References: <20210722092929.244629-1-desmondcheongzx@gmail.com>
- <20210722092929.244629-4-desmondcheongzx@gmail.com>
-From: Zack Rusin <zackr@vmware.com>
-Message-ID: <b27a2e80-c912-15eb-e78b-c8b6f3993930@vmware.com>
-Date: Thu, 22 Jul 2021 15:17:14 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210722092929.244629-4-desmondcheongzx@gmail.com>
-Content-Language: en-US
-X-ClientProxiedBy: MW4PR03CA0047.namprd03.prod.outlook.com
- (2603:10b6:303:8e::22) To BN8PR05MB6611.namprd05.prod.outlook.com
- (2603:10b6:408:57::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9046E6E2B4;
+	Thu, 22 Jul 2021 19:39:18 +0000 (UTC)
+Received: from mail-vs1-xe31.google.com (mail-vs1-xe31.google.com
+ [IPv6:2607:f8b0:4864:20::e31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53D376E2B4;
+ Thu, 22 Jul 2021 19:39:17 +0000 (UTC)
+Received: by mail-vs1-xe31.google.com with SMTP id j2so3961585vsi.6;
+ Thu, 22 Jul 2021 12:39:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7DaVr1b+362zLHRUtuZLZIEuCblGBWwhIVXIOpe6r18=;
+ b=E9UJpR1xCvFg+26nePCbhu6whpQ1S2faC1XeQjKjs2M4cQuCD/CfuhVabZeCMig8Ic
+ 7lJ1+i3oiebnYl73I6pOPo9dFsbHvegCw+YLJJI3eRgR7bT8cT7sc63ZGbb6t/f7yGGY
+ PZhmGUFVL4aVgVku8JaRxteb2It6hQfqIqMgcFiPZ4vpsXFWtTrU91ZDtffUoOtQuQnu
+ 1pofr1Oehud3HfnGwGWiaKguFZFXEvheKlMIph87Qy4yaLa/OcxsZLIS7/VS2EVEGrEa
+ AccCpgh/iRiVzlwfWdbNAf5Kcu8q/APnC1CHiLo1FiNqgAUKWK7T3uhYoTQtdVkvWNTk
+ Tukg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7DaVr1b+362zLHRUtuZLZIEuCblGBWwhIVXIOpe6r18=;
+ b=jeQfIBfkB5m9fWQ+EPS48VdJ4ybTO4/VRth96AHh2PKOmq2usWfkYO/UhSsOW9wlbp
+ kRXOjsLcDwK9brOw7VNTKdfrne0yB53nyiETSA/JFxmc4XMul3uStzucOJfYvpInr0cu
+ cAre5NjEpG4B4krbbo3lHAJVo4EYsQ2bQW4ea2CdSmlIHPoOJvtZUztNu8v+/y8RNfYw
+ FLjyx82vWYu2OsZgNvqTQR3Jir9cdYvW5vVFunLmOOHMinWGphfHZeySezVHDe97o7SH
+ PNXZGCFh4YAfIHCz3A5SfiQPL5JivfgIQ8x0XstOKW+8tSyyihVMGr8LNu1vEoEmpl+s
+ /mXw==
+X-Gm-Message-State: AOAM533bTiQ3OtGE4eZsEllIpOsHyqafkUF+mS2DUVWQwIrKSpu60UJK
+ 5mzouVkSp8vJs5ihAUu/q14CdXRDl8ZYuuqDqFk=
+X-Google-Smtp-Source: ABdhPJw/yqiQRbpZShbSgJJ85ur28nDK8fzSieBMoS3NJdzzjfJU48Ac+fZV56n+164BXuIYpx6m3n8dXqqdcQMGm+g=
+X-Received: by 2002:a67:fdc2:: with SMTP id l2mr1969758vsq.7.1626982756301;
+ Thu, 22 Jul 2021 12:39:16 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.0.193] (108.36.85.85) by
- MW4PR03CA0047.namprd03.prod.outlook.com (2603:10b6:303:8e::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4352.26 via Frontend Transport; Thu, 22 Jul 2021 19:17:17 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6a66bffb-6ea9-4950-f098-08d94d455351
-X-MS-TrafficTypeDiagnostic: BN7PR05MB3955:
-X-LD-Processed: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN7PR05MB3955B655F165A20F83AC2686CEE49@BN7PR05MB3955.namprd05.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HohuSOKLJGlViNfEP2jqBSX8y7PtEjQBVQzIff/rjHt2pBXNrKo0K8PFtZfaxHnaO/qze3colbwoZlVYOlw5uarfoFCgRdpc6oidWqbWN3q9Evofe8i4khcIAtpZ+QVw0kxAnXZ/Yh6/cD5vNv/Gv2Lu1dn20geTlsNiLd/2AAVmlrslzS0/hoL6oqumRzTT+lQr3tIs/KVAZ2ZvnDAqO3ZsOefqCMpuRhm3UWM4x4b4W6Up0vQAgay0Kh2lMnWVfZ0aSZ5tDOzSRAgUnIzxgJm1Bft/sCmu8g9yR1Ni5YmgDXpJFsKDEvq1gqT2p1GNG5azQoG0cWZh+7DwGJbZmwkHW8+K3H/srgQWINJg0Ofv4yDFnviE2JOq2OZfqq4UpF9W2Es9RKdrJBmrb0rYvKmkrhw0rm0dbyxIskJWweZ51eO119Yc78FAlTVGalre4XH0yAjNMi6rOv81zuVtN5nix6rvk1fgmyr1BwE9BwizWcSJ28QahyOC/dc38YtT5M1dp6X2MI2lqQH/MwD7OhS3PU24K6/w5Vkr7bX9wBeIspvdEaBKefIx9+AmeziKpkR8aRefj1E+OTGhb0qtAX7PuUX04Y0KBUEC/KeRed8XbKjmuzuzOHSwiBzp7KgdV8LpcuiArlbMu8hu9/c/bry7rkgZcj9oCETzuGyXnBd+/1uYtHEQ50voVKVmrKok9+mFQIlfV6UI+M9dkesI1m5S/1q2h/4FGeuB7Y0ujwQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR05MB6611.namprd05.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6486002)(316002)(508600001)(66556008)(186003)(86362001)(4744005)(66946007)(53546011)(6666004)(7416002)(83380400001)(2906002)(8676002)(31696002)(16576012)(2616005)(5660300002)(956004)(4326008)(26005)(8936002)(31686004)(66476007)(36756003)(38100700002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1Z1dWtYa1RwTWZtNEwyL3NWYWxnckgxMk5pY3dlVjQ4WHVuTVZGeDMxUGJp?=
- =?utf-8?B?YnQ2Yy80U04ramxsVmFzaFp0elNrOUdLdTV1RE40K2MyM2swZGxLSnEwQ3lm?=
- =?utf-8?B?MnhYbTFxY09QN3Faemt6NFdjSnBsdTQrZVF6Q0lndDZNeElaSWVMVmFZTW4z?=
- =?utf-8?B?QXVJOG5LaVlBTWttVW9zdzVXaElmQmk5WENrYXBmZnQrRk9XK29oeVJqcmdv?=
- =?utf-8?B?ZHgvV3EyckhaaE43dnQyRnpON0l1azZVL3FCUW9DT2dHRENDbU4rUzdxaWRu?=
- =?utf-8?B?UkVxSEJHaEFmUkhhb25FVVdGeVpPUGZmWXptcXMxam0xYXdkbkU0elMyU3Rj?=
- =?utf-8?B?TlVXM1hvRVI4T25Eb09KTkx5K212cmx1aStVL3A5elFqRmlBSHErVDloUVFo?=
- =?utf-8?B?U2tURGVITGo2b3BlU3VRQkNzZEh6V0oreFpObnVMNklGcFZvTHJTVkZwL0xP?=
- =?utf-8?B?TkUrNTgwZlJjMi8vWTNHU2JDZjd2empNTG9rNkdYZ3ZiaUVVWkx3TUx3UWFt?=
- =?utf-8?B?dzEra3dFTFd3aHFpN0ZYUlpZdkxUNGdXTFFqcWgyZGVuTTdoVEFQQmJQbkV4?=
- =?utf-8?B?MWhPTWQzQ0lFVVRQbk81MmI4ZSsvZUhaRnFNQjBSUVdxZm56ZkEvalhlOTQ0?=
- =?utf-8?B?TDI1ZDR4anVlNU5jR3RGZjZCaDA1VFc4a0s0aG5jVkxhU2NDTldUbmJOQ3Uw?=
- =?utf-8?B?SkJtSno2OWVua1NXOGgrc3lGSWZKZkQvdmF3SDZGaXM1eW1Qa3FTcW5xSldN?=
- =?utf-8?B?OXRONDF4SDRjbkpWc1V3cFE4R1RCLzhXL1RqbFR1c2pnaDZRQVJ5dVh2VVk4?=
- =?utf-8?B?YURpVFZsRmxsZU9EOHlmVmVMYlRtWmpobnlrcTAzTHhGbFloaElvRy9ESEtN?=
- =?utf-8?B?V3BBTm5zVEdLMmFXanpDeHVJMjhhRjQ4d3hFbHRzMG5GdDR3c1lLS0E5T1ZL?=
- =?utf-8?B?S0NhTnFwOUQxSmp3NnVOWGVJTFlvVkhFUG1lNUFuQXBDU2tlSEpKTUI2UE1Z?=
- =?utf-8?B?UkhPSFhPbG1xRWtkc1RicnN4Vk95NDZDY0hBemo2RUpvWXRUbVVFL2Z2NS84?=
- =?utf-8?B?NUdEeVNqa1BXS0hLTFo0WU1ZSjFnUTd4dHRlU0kvZnlnNVkxRHBka1cwdzFz?=
- =?utf-8?B?cUJIK2x3RjNhZm5ySnErTHpqd2hlZFEzQTBOSXB6NUlpQWN3MU9OM0wwQjdv?=
- =?utf-8?B?T3ZYZFpBcmY1Y2Q4YTRLZThndzR4QmFPbk9sT21KejczSUV2bjc0ZWZjZFhk?=
- =?utf-8?B?U1ptWldOcGMxajhDUFBxNElhOXR5dDB3SHNST2t1VEdvU2tTOTZrSXR1eG11?=
- =?utf-8?B?ZVhyY1d5d2RJYWZLVnZMKzBpVlZrMzM0Umdhc1FIUldlVkJNYllQWFpoaW11?=
- =?utf-8?B?RTVCZlZDTnhFTGQvYUhTVS9lLzBha0tXRWEvRVcvRGtselVRL2VydHJYME1J?=
- =?utf-8?B?T0F3RmRUT2ZKSFVsdk8zaEJWQWZpZWQ4eDN1UE9FWWN4WWp0YlBLWWk3SVlo?=
- =?utf-8?B?ZEI0dFVIZ1RuSzhSa1dRQk1OQ05GRlNKMGFhaEtwYThENDQ4MzI3N3R2Y3Zu?=
- =?utf-8?B?bE5pZ1doK2dJU1VNbEJjTEYxY1orM3lUTTFDQWpUUzV2eXQ3TmVxYlpNY29L?=
- =?utf-8?B?Y0kzZHM3R25peXRxb1lBM2MvLzhub2lFQ3Fkdkt2cUNDbkhTUnFHMjQyZk9t?=
- =?utf-8?B?REZKZVlCSTVVWlJXVE5peCtlVG9uSW1KUS9tS1ltM1VPWGZVVzJ6UUtlRVZn?=
- =?utf-8?Q?odNoNwM3OBPdr/0Y3CHxBLOUhC/x7UPf0MsAbEX?=
-X-OriginatorOrg: vmware.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a66bffb-6ea9-4950-f098-08d94d455351
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR05MB6611.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2021 19:17:20.2093 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JKbqVp7hO95kIRk1SjInER4GQVD9aSFjVA0Rp0aaDmh8REcxhMXGnSmkpZBtweFLfnIJ6aiMplzmH5pUoRJGPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR05MB3955
-Subject: Re: [Intel-gfx] [PATCH 3/3] drm/vmwgfx: fix potential UAF in
- vmwgfx_surface.c
+References: <20210714175138.319514-1-jim.cromie@gmail.com>
+ <20210714175138.319514-4-jim.cromie@gmail.com>
+ <YPbPvm/xcBlTK1wq@phenom.ffwll.local>
+In-Reply-To: <YPbPvm/xcBlTK1wq@phenom.ffwll.local>
+From: jim.cromie@gmail.com
+Date: Thu, 22 Jul 2021 15:38:50 -0400
+Message-ID: <CAJfuBxxFL7bsuyFy6M4LK1QgvR0+0yt_DJQNjY=xMi36FU8jMA@mail.gmail.com>
+To: Jim Cromie <jim.cromie@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>, 
+ Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>, 
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ Jason Baron <jbaron@akamai.com>
+Subject: Re: [Intel-gfx] [PATCH v3 3/5] drm/print: RFC add choice to use
+ dynamic debug in drm-debug
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,29 +85,250 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- skhan@linuxfoundation.org, linux-kernel-mentees@lists.linuxfoundation.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 7/22/21 5:29 AM, Desmond Cheong Zhi Xi wrote:
-> drm_file.master should be protected by either drm_device.master_mutex
-> or drm_file.master_lookup_lock when being dereferenced. However,
-> drm_master_get is called on unprotected file_priv->master pointers in
-> vmw_surface_define_ioctl and vmw_gb_surface_define_internal.
-> 
-> This is fixed by replacing drm_master_get with drm_file_get_master.
-> 
-> Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+Thanks for the feedback!
 
-Reviewed-by: Zack Rusin <zackr@vmware.com>
 
-Thanks for taking the time to fix this. Apart from the clear logic error, do you happen to know under what circumstances would this be hit? We have someone looking at writing some vmwgfx specific igt tests and I was wondering if I could add this to the list.
+On Tue, Jul 20, 2021 at 9:29 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Wed, Jul 14, 2021 at 11:51:36AM -0600, Jim Cromie wrote:
+> > drm's debug system uses distinct categories of debug messages, encoded
+> > in an enum (DRM_UT_<CATEGORY>), which are mapped to bits in drm.debug.
+> > drm_debug_enabled() does a lot of unlikely bit-mask checks on
+> > drm.debug; we can use dynamic debug instead, and get all that
+> > static_key/jump_label goodness.
+> >
+> > Dynamic debug has no concept of category, but we can map the DRM_UT_*
+> > to a set of distinct prefixes; "drm:core:", "drm:kms:" etc, and
+> > prepend them to the given formats.
+> >
+> > Then we can use:
+> >   `echo module drm format ^drm:core: +p > control`
+> >
+> > to enable every such "prefixed" pr_debug with one query.  This new
+> > prefix changes pr_debug's output, so is user visible, but it seems
+> > unlikely to cause trouble for log watchers; they're not relying on the
+> > absence of class prefix strings.
+> >
+> > This conversion yields ~2100 new callsites on my i7/i915 laptop:
+> >
+> >   dyndbg: 195 debug prints in module drm_kms_helper
+> >   dyndbg: 298 debug prints in module drm
+> >   dyndbg: 1630 debug prints in module i915
+> >
+> > CONFIG_DRM_USE_DYNAMIC_DEBUG enables this, and is available if
+> > CONFIG_DYNAMIC_DEBUG or CONFIG_DYNAMIC_DEBUG_CORE is chosen, and if
+> > CONFIG_JUMP_LABEL is enabled; this because its required to get the
+> > promised optimizations.
+> >
+> > The indirection/switchover is layered into the macro scheme:
+> >
+> > 0. A new callback on drm.debug which calls dynamic_debug_exec_queries
+> >    to map those bits to specific query/commands
+> >    dynamic_debug_exec_queries("format ^drm:kms: +p", "drm*");
+> >    here for POC, this should be in dynamic_debug.c
+> >    with a MODULE_PARAM_DEBUG_BITMAP(__drm_debug, { "prefix-1", "desc-1" }+)
+>
+> This is really awesome. For merging I think we need to discuss with dyn
+> debug folks whether they're all ok with this, but it's exported already
+> should should be fine.
+>
 
-z
+Yay.  FWIW, Im to blame for that export, with this use case in mind.
+That said, I dont know if that macro can be written as I described,
+but if not, then { BIT(0), "prefix-0", "description-0" }, { BIT(1)
+.... } should work.
+If its been done elsewhere, Id copy it, or imitate it.
+
+
+
+
+
+> >
+> > 1. A "converted" or "classy" DRM_UT_* map
+> >
+> >    based on:   DRM_UT_* ( symbol => bit-mask )
+> >    named it:  cDRM_UT_* ( symbol => format-class-prefix-string )
+> >
+> >    So cDRM_UT_* is either:
+> >    legacy: cDRM_UT_* <-- DRM_UT_*   ( !CONFIG_DRM_USE_DYNAMIC_DEBUG )
+> >    enabled:
+> >     #define cDRM_UT_KMS    "drm:kms: "
+> >     #define cDRM_UT_PRIME  "drm:prime: "
+> >     #define cDRM_UT_ATOMIC "drm:atomic: "
+>
+> the cDRM looks a bit funny, plus I don't eve have an idea what _UT_ means
+> (and git history isn't helpful either). What about just using
+> DRM_DBG_CLASS_ as the prefix here for these indirection macros, i.e.
+> DRM_DBG_CLASS_KMS.
+>
+
+yes.
+
+
+> Also would be really nice if we could make these a table or something, but
+> I guess with the macro magic that's not possible.
+>
+
+not obvious to me, I'll watch for an opportunity.
+
+> >
+> >    DRM_UT_* are unchanged, since theyre used in drm_debug_enabled()
+> >    and elsewhere.
+>
+> I think for the production version of these we need to retire/deprecate
+> them, at least for drm core. Otherwise you have an annoying mismatch
+> between drm.debug module option and dyn debug.
+>
+
+I will look at renaming it :  __drm_debug_enabled
+and making a macro for the old name.
+so enabled, it would end up like
+if (unlikely(1) && ... )
+
+drivers/gpu/drm/drm_atomic_uapi.c
+1457: if (drm_debug_enabled(DRM_UT_STATE))
+
+drivers/gpu/drm/drm_dp_mst_topology.c
+1358: if (unlikely(ret == -EIO) && drm_debug_enabled(DRM_UT_DP)) {
+2875: if (unlikely(ret) && drm_debug_enabled(DRM_UT_DP)) {
+2919: if (drm_debug_enabled(DRM_UT_DP)) {
+
+
+> >
+> > 2. drm_dev_dbg & drm_debug are renamed (prefixed with '_')
+> >
+> >    old names are now macros, calling either:
+> >      legacy:  -> to renamed fn
+> >      enabled: -> dev_dbg & pr_debug, with cDRM-prefix # format.
+> >
+> >    these names are used in a fat layer of macros (3) which supply the
+> >    category; those macros are used throughout drm code, yielding the
+> >    ~2100 new prdbgs reported above.
+> >
+> > 3. names in (2) are invoked by DRM_DEBUG_<Category>, drm_dbg_<Category>.
+> >
+> >    all these macros get "converted" to use cDRM_UT_*
+> >    to get right token type for both !/!! DRM_USE_DYNAMIC_DEBUG
+> >
+> > 4. simplification of __DRM_DEFINE_DBG_RATELIMITED macro
+> >
+> >    remove DRM_UT_ ## KMS as extra indirection
+> >    pass both DRM_UT & cDRM_UT, for drm_debug_enabled & drm_dev_dbg
+>
+> For merging, can we pull out the renames and reorgs from this patch, and
+> then maybe also the reorder the next patch in your series here to be
+> before the dyn debug stuff?
+>
+
+I will drop the 4. RATELIMITED tweaks.
+FWIW, I have semi-working code to implement rate limiting
+in dynamic debug, controlled by `+r > control`
+which would touch this anyway.
+
+wrt reordering 4/5, can you clarify ?
+the i915 changes are 1/2 POC, so I'll assume you mean after getting 0.
+into dyndbg
+
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> > ---
+> >  drivers/gpu/drm/Kconfig     |  13 +++++
+> >  drivers/gpu/drm/drm_print.c |  75 ++++++++++++++++++++++++--
+> >  include/drm/drm_print.h     | 102 ++++++++++++++++++++++++++----------
+> >  3 files changed, 158 insertions(+), 32 deletions(-)
+>
+> I really like this, I think you can drop the RFC. A few more things that I
+> think we need:
+>
+> - An overview kerneldoc section which explains the interfaces and how it
+>   all works together. Essentially your commit message with some light
+>   markup to make it look good.
+
+into include/drm/drm_print.h ?
+
+>
+> - I think it would be really good to review the driver docs for all this
+>   and make sure it's complete. Some of the interface functions aren't
+>   documented yet (or maybe the ones that drivers shouldn't used need more
+>   __ prefixes to denote them as internal, dunno).
+>
+
+I will look, but I dont have the experience here to make these
+qualitative judgements
+
+Also, I renamed drm_dev_dbg to _drm_dev_dbg, with a single underscore.
+I'm now thinking this is reserved, and __ prefix is better (legal)
+This isnt quite the same is lower-level implementation detail,
+since it adds a CONFIG dependent alternative impl.
+But I'll do this unless you have a better name
+
+> - I guess deprecation notice for drm_debug_enabled() and all that, so that
+>   we have a consistent interface. Doing the conversion will probably
+>   highlight the need for a bit more infrastructure and tooling, e.g. the
+>   bigger dump functions (like edid hex dump, or also the various decode
+>   helpers we have for dp, hdmi infoframes and all that) ideally have a
+>   single dyn_debug label to enable all of them instead of line-by-line.
+>   Tbh no idea how this should work, might need dyndbg work too.
+>
+
+macrofying drm_debug_enabled()  might work for this set.
+possibly with different prefixes,  forex: "drmx:*"  or "drm:misc:"
+
+> - For the driver side of this we probably want a
+>   Documentation/gpu/TODO.rst entry if it's not all easy to convert
+>   directly.
+
+so there are 32 uses of drm_debug_enabled(DRM_UT_*)
+and just 1 used in drm_dev_dbg    (with category as arg)
+I'll try to macrofy it, see if it will handle the 32 cases.
+
+>
+> >
+> > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> > index 7ff89690a976..e4524ccba040 100644
+> > --- a/drivers/gpu/drm/Kconfig
+> > +++ b/drivers/gpu/drm/Kconfig
+> > @@ -57,6 +57,19 @@ config DRM_DEBUG_MM
+> >
+> >         If in doubt, say "N".
+> >
+> > +config DRM_USE_DYNAMIC_DEBUG
+> > +     bool "use dynamic debug to implement drm.debug"
+> > +     default n
+> > +     depends on DRM
+> > +     depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
+> > +     depends on JUMP_LABEL
+> > +     help
+> > +       The drm debug category facility does a lot of unlikely bit-field
+> > +       tests at runtime; while cheap individually, the cost accumulates.
+> > +       This option uses dynamic debug facility (if configured and
+> > +       using jump_label) to avoid those runtime checks, patching
+> > +       the kernel when those debugs are desired.
+>
+> Can't we just make this an internal option that's enabled automatically
+> when dyndbg is around? Plus a comment somewhere that we really recommend
+> enabling dyndbg for drm. Or would this mean that in certain dyndbg
+> configurations we'd loose all the debug lines, which would suck?
+>
+
+We could indeed, I took the cautious approach.
+keeping the CONFIG simplifies comparing DRM_USE_DD=y/n builds,
+and changing default later is easy, and probably should have some numbers
+about instructions saved and obj size increase.
+
+
+> Anyway there's a pile of details, but the big picture I really like.
+> Especially that we can make dyndbg seamlessly support drm.debug is really
+> nice.
+>
+> Cheers, Daniel
+>
+
+thanks, Jim
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
