@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3C4DC43216
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75BFBC4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC55560E9B
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BC55560E9B
+	by mail.kernel.org (Postfix) with ESMTPS id 4927F60E9B
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4927F60E9B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F15576F5D5;
-	Thu, 22 Jul 2021 23:36:48 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC5166F5BA;
- Thu, 22 Jul 2021 23:36:41 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="272883251"
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="272883251"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6D3D6F5CC;
+	Thu, 22 Jul 2021 23:36:49 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBA156F5A3;
+ Thu, 22 Jul 2021 23:36:37 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659267"
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659267"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:40 -0700
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860961"
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2021 16:36:37 -0700
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860941"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:40 -0700
+ 22 Jul 2021 16:36:37 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 22 Jul 2021 16:54:22 -0700
-Message-Id: <20210722235426.31831-30-matthew.brost@intel.com>
+Date: Thu, 22 Jul 2021 16:54:03 -0700
+Message-Id: <20210722235426.31831-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210722235426.31831-1-matthew.brost@intel.com>
 References: <20210722235426.31831-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 29/33] drm/i915/selftest: Increase some timeouts
- in live_requests
+Subject: [Intel-gfx] [PATCH 10/33] drm/i915/guc: Add disable interrupts to
+ guc sanitize
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,37 +60,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Requests may take slightly longer with GuC submission, let's increase
-the timeouts in live_requests.
+Add disable GuC interrupts to intel_guc_sanitize(). Part of this
+requires moving the guc_*_interrupt wrapper function into header file
+intel_guc.h.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/selftests/i915_request.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h | 16 ++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c  | 21 +++------------------
+ 2 files changed, 19 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index bd5c96a77ba3..d67710d10615 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -1313,7 +1313,7 @@ static int __live_parallel_engine1(void *arg)
- 		i915_request_add(rq);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index a068e3262676..7b871f675e48 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -224,9 +224,25 @@ static inline bool intel_guc_is_ready(struct intel_guc *guc)
+ 	return intel_guc_is_fw_running(guc) && intel_guc_ct_enabled(&guc->ct);
+ }
  
- 		err = 0;
--		if (i915_request_wait(rq, 0, HZ / 5) < 0)
-+		if (i915_request_wait(rq, 0, HZ) < 0)
- 			err = -ETIME;
- 		i915_request_put(rq);
- 		if (err)
-@@ -1419,7 +1419,7 @@ static int __live_parallel_spin(void *arg)
- 	}
- 	igt_spinner_end(&spin);
++static inline void intel_guc_reset_interrupts(struct intel_guc *guc)
++{
++	guc->interrupts.reset(guc);
++}
++
++static inline void intel_guc_enable_interrupts(struct intel_guc *guc)
++{
++	guc->interrupts.enable(guc);
++}
++
++static inline void intel_guc_disable_interrupts(struct intel_guc *guc)
++{
++	guc->interrupts.disable(guc);
++}
++
+ static inline int intel_guc_sanitize(struct intel_guc *guc)
+ {
+ 	intel_uc_fw_sanitize(&guc->fw);
++	intel_guc_disable_interrupts(guc);
+ 	intel_guc_ct_sanitize(&guc->ct);
+ 	guc->mmio_msg = 0;
  
--	if (err == 0 && i915_request_wait(rq, 0, HZ / 5) < 0)
-+	if (err == 0 && i915_request_wait(rq, 0, HZ) < 0)
- 		err = -EIO;
- 	i915_request_put(rq);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index f0b02200aa01..ab11fe731ee7 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -207,21 +207,6 @@ static void guc_handle_mmio_msg(struct intel_guc *guc)
+ 	spin_unlock_irq(&guc->irq_lock);
+ }
  
+-static void guc_reset_interrupts(struct intel_guc *guc)
+-{
+-	guc->interrupts.reset(guc);
+-}
+-
+-static void guc_enable_interrupts(struct intel_guc *guc)
+-{
+-	guc->interrupts.enable(guc);
+-}
+-
+-static void guc_disable_interrupts(struct intel_guc *guc)
+-{
+-	guc->interrupts.disable(guc);
+-}
+-
+ static int guc_enable_communication(struct intel_guc *guc)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
+@@ -242,7 +227,7 @@ static int guc_enable_communication(struct intel_guc *guc)
+ 	guc_get_mmio_msg(guc);
+ 	guc_handle_mmio_msg(guc);
+ 
+-	guc_enable_interrupts(guc);
++	intel_guc_enable_interrupts(guc);
+ 
+ 	/* check for CT messages received before we enabled interrupts */
+ 	spin_lock_irq(&gt->irq_lock);
+@@ -265,7 +250,7 @@ static void guc_disable_communication(struct intel_guc *guc)
+ 	 */
+ 	guc_clear_mmio_msg(guc);
+ 
+-	guc_disable_interrupts(guc);
++	intel_guc_disable_interrupts(guc);
+ 
+ 	intel_guc_ct_disable(&guc->ct);
+ 
+@@ -463,7 +448,7 @@ static int __uc_init_hw(struct intel_uc *uc)
+ 	if (ret)
+ 		goto err_out;
+ 
+-	guc_reset_interrupts(guc);
++	intel_guc_reset_interrupts(guc);
+ 
+ 	/* WaEnableuKernelHeaderValidFix:skl */
+ 	/* WaEnableGuCBootHashCheckNotSet:skl,bxt,kbl */
 -- 
 2.28.0
 
