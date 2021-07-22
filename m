@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51853C63798
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 09:30:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E79AC6379A
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 09:30:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 25F406120C
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 09:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 25F406120C
+	by mail.kernel.org (Postfix) with ESMTPS id 117706120C
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 09:30:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 117706120C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A0446EEB3;
-	Thu, 22 Jul 2021 09:30:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FFE76EF2E;
+	Thu, 22 Jul 2021 09:30:22 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D71596EEA6
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 09:30:16 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="233418012"
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="233418012"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A991A6EEA6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 09:30:18 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="233418046"
+X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="233418046"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 02:29:58 -0700
+ 22 Jul 2021 02:30:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="565021374"
+X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; d="scan'208";a="565021474"
 Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
- by orsmga004.jf.intel.com with ESMTP; 22 Jul 2021 02:29:57 -0700
+ by orsmga004.jf.intel.com with ESMTP; 22 Jul 2021 02:30:05 -0700
 From: Lee Shawn C <shawn.c.lee@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 22 Jul 2021 17:37:07 +0800
-Message-Id: <20210722093711.32338-2-shawn.c.lee@intel.com>
+Date: Thu, 22 Jul 2021 17:37:10 +0800
+Message-Id: <20210722093711.32338-5-shawn.c.lee@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210722093711.32338-1-shawn.c.lee@intel.com>
 References: <20210719072222.13369-1-shawn.c.lee@intel.com>
  <20210722093711.32338-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [PATCH v2 1/5] drm/i915/dsi: send correct gpio_number
- on gen11 platform
+Subject: [Intel-gfx] [PATCH v2 4/5] drm/i915/dsi: refine send MIPI DCS
+ command sequence
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,8 +62,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Transfer "gpio_nunmber" instead of "gpio_index" while doing
-gpio configuration in icl_exec_gpio().
+According to chapter "Sending Commands to the Panel" in bspec #29738
+and #49188. If driver try to send DCS long pakcet, we have to program
+TX payload register at first. And configure TX header HW register later.
+DSC long packet would not be sent properly if we don't follow this
+sequence.
 
 Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
@@ -72,22 +75,37 @@ Cc: Cooper Chiou <cooper.chiou@intel.com>
 Cc: William Tseng <william.tseng@intel.com>
 Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index c2a2cd1f84dc..cc93e045a425 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -381,7 +381,7 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
- 	value = *data++ & 1;
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index 1780830d9909..60413bbf565f 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -1807,11 +1807,6 @@ static ssize_t gen11_dsi_host_transfer(struct mipi_dsi_host *host,
+ 	if (msg->flags & MIPI_DSI_MSG_USE_LPM)
+ 		enable_lpdt = true;
  
- 	if (DISPLAY_VER(dev_priv) >= 11)
--		icl_exec_gpio(dev_priv, gpio_source, gpio_index, value);
-+		icl_exec_gpio(dev_priv, gpio_source, gpio_number, value);
- 	else if (IS_VALLEYVIEW(dev_priv))
- 		vlv_exec_gpio(dev_priv, gpio_source, gpio_number, value);
- 	else if (IS_CHERRYVIEW(dev_priv))
+-	/* send packet header */
+-	ret  = dsi_send_pkt_hdr(intel_dsi_host, dsi_pkt, enable_lpdt);
+-	if (ret < 0)
+-		return ret;
+-
+ 	/* only long packet contains payload */
+ 	if (mipi_dsi_packet_format_is_long(msg->type)) {
+ 		ret = dsi_send_pkt_payld(intel_dsi_host, dsi_pkt);
+@@ -1819,6 +1814,11 @@ static ssize_t gen11_dsi_host_transfer(struct mipi_dsi_host *host,
+ 			return ret;
+ 	}
+ 
++	/* send packet header */
++	ret  = dsi_send_pkt_hdr(intel_dsi_host, dsi_pkt, enable_lpdt);
++	if (ret < 0)
++		return ret;
++
+ 	//TODO: add payload receive code if needed
+ 
+ 	ret = sizeof(dsi_pkt.header) + dsi_pkt.payload_length;
 -- 
 2.17.1
 
