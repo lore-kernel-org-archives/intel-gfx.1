@@ -2,71 +2,46 @@ Return-Path: <SRS0=pd08=MO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 717A4C6377D
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:05:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2A3CC6377D
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:06:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F03A661241
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:05:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F03A661241
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 76BAC6124B
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 10:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76BAC6124B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1548E6EA2E;
-	Thu, 22 Jul 2021 10:05:54 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25CF96E988
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 10:05:52 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- o3-20020a05600c5103b029024c0f9e1a5fso952252wms.4
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jul 2021 03:05:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=MKCrubzNw+m5XCWRbANx2rZlu56zV+LIDXTT++NESQM=;
- b=Wy6O1hjTe/a9cJyqEKl9vYGyg14s8SGUxKVW2IiKoYGRNRIzp+mD3aylaNv79++DQn
- f6buNUgUutHExPDHaf//TQ5+IJVRQ1lrtwoL2F+5tI6tiBbrQfUHKvI540GzeDDSpzh9
- R1ir5pbtMLz1mRaAqrNvZSmDg70xayNcoGcFQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=MKCrubzNw+m5XCWRbANx2rZlu56zV+LIDXTT++NESQM=;
- b=h6+qrhopvH+F8QD+c0RuEYjH3O2zupokMUa3X9N2Ymtbk7973fnWZCGRy72oSD92fO
- HTgt+PH+Q3k7R9gY65ZW1xpGq0mZuSyLJ1u0eXs/vYrKtW//xBqoG+jrz6fPreH/DV9c
- JccdON6u2VtgKzO/OIGXbhgUCf6P/VjreMJbUQ788ZY8EhKLRh+ZHx9gOhEmQFR70Vfc
- 9JyEXS6eYtyWBZrVlZCKIH8KDWm+US7+LE2dIZgg7s6g2K1+yP3oxTj3cHhdtCqBbYLC
- VbKv/3m0Kipn1IZaNK6Xj664VAg5WJb/Es6ItAHpPKFxVuqKsFih3AVCVKzBdYIeJxIL
- 9mlA==
-X-Gm-Message-State: AOAM531QeUFNJ/YgVEIOG2SGqhNLF55KuqEuVnXKRPvFxY52cizpNDWr
- QVKt7ogWmaiRjGqMAh8zlX10Ojn5A4KU/w==
-X-Google-Smtp-Source: ABdhPJyMwmh9668k66jjJfeAQyN7Nl4NToUgchhmJQXgQZ4rw+D+Q/EaDWNCNuBl5b0Q0tb1Rke28w==
-X-Received: by 2002:a7b:c111:: with SMTP id w17mr8353822wmi.163.1626948350810; 
- Thu, 22 Jul 2021 03:05:50 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id i10sm16540576wml.31.2021.07.22.03.05.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jul 2021 03:05:50 -0700 (PDT)
-Date: Thu, 22 Jul 2021 12:05:48 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jason Ekstrand <jason@jlekstrand.net>
-Message-ID: <YPlC/GGI1G9uTiEt@phenom.ffwll.local>
-References: <20210721152358.2893314-1-jason@jlekstrand.net>
- <20210721152358.2893314-5-jason@jlekstrand.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11E3E6EBD0;
+	Thu, 22 Jul 2021 10:06:59 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C813F6EA2A;
+ Thu, 22 Jul 2021 10:06:57 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="272727227"
+X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; 
+ d="asc'?scan'208";a="272727227"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2021 03:06:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; 
+ d="asc'?scan'208";a="433069587"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
+ by fmsmga007.fm.intel.com with ESMTP; 22 Jul 2021 03:06:54 -0700
+Date: Thu, 22 Jul 2021 17:45:16 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20210722094516.GQ13928@zhen-hp.sh.intel.com>
+References: <20210721155355.173183-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210721152358.2893314-5-jason@jlekstrand.net>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
-Subject: Re: [Intel-gfx] [PATCH 4/6] drm/ttm: Force re-init if
- ttm_global_init() fails
+In-Reply-To: <20210721155355.173183-1-hch@lst.de>
+Subject: Re: [Intel-gfx] refactor the i915 GVT support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,62 +54,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1480107282=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 21, 2021 at 10:23:56AM -0500, Jason Ekstrand wrote:
-> If we have a failure, decrement the reference count so that the next
-> call to ttm_global_init() will actually do something instead of assume
-> everything is all set up.
-> =
 
-> Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-> Fixes: 62b53b37e4b1 ("drm/ttm: use a static ttm_bo_global instance")
-> Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>
+--===============1480107282==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="wjoFZxbW4tu+iR6v"
+Content-Disposition: inline
 
-This one is already in drm-misc-fixes.
--Daniel
 
-> ---
->  drivers/gpu/drm/ttm/ttm_device.c | 2 ++
->  1 file changed, 2 insertions(+)
-> =
+--wjoFZxbW4tu+iR6v
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_d=
-evice.c
-> index 5f31acec3ad76..519deea8e39b7 100644
-> --- a/drivers/gpu/drm/ttm/ttm_device.c
-> +++ b/drivers/gpu/drm/ttm/ttm_device.c
-> @@ -100,6 +100,8 @@ static int ttm_global_init(void)
->  	debugfs_create_atomic_t("buffer_objects", 0444, ttm_debugfs_root,
->  				&glob->bo_count);
->  out:
-> +	if (ret)
-> +		--ttm_glob_use_count;
->  	mutex_unlock(&ttm_global_mutex);
->  	return ret;
->  }
-> -- =
+On 2021.07.21 17:53:34 +0200, Christoph Hellwig wrote:
+> Hi all,
+>=20
+> the GVT code in the i915 is a bit of a mess right now due to strange
+> abstractions and lots of indirect calls.  This series refactors various
+> bits to clean that up.  The main user visible change is that almost all
+> of the GVT code moves out of the main i915 driver and into the kvmgt
+> module.
+>
 
-> 2.31.1
-> =
+The reason we isolated hypervisor specific code from core vgpu
+emulation is to make multiple hypervisor support possible. Yes, we do
+have Xen support but never got way into upstream...And we also have
+third party hypervisors which leverage gvt function through current
+hypervisor interface.
 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Sorry I may not have more time to check in details for now, but some
+of them look fine to me. I'll review more after vacation or let Zhi check d=
+etails.
 
--- =
+Thanks!
 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+> Tested on my Thinkpad with a Kaby Lake CPU and integrated graphics.
+>=20
+> Git tree:
+>=20
+>     git://git.infradead.org/users/hch/misc.git i915-gvt
+>=20
+> Gitweb:
+>=20
+>     http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/i915-=
+gvt
+>=20
+> Diffstat:
+>  b/drivers/gpu/drm/i915/Kconfig                         |   31=20
+>  b/drivers/gpu/drm/i915/Makefile                        |   30=20
+>  b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c |    4=20
+>  b/drivers/gpu/drm/i915/gvt/cfg_space.c                 |   89 --
+>  b/drivers/gpu/drm/i915/gvt/cmd_parser.c                |    4=20
+>  b/drivers/gpu/drm/i915/gvt/dmabuf.c                    |   36=20
+>  b/drivers/gpu/drm/i915/gvt/execlist.c                  |   12=20
+>  b/drivers/gpu/drm/i915/gvt/gtt.c                       |   55 -
+>  b/drivers/gpu/drm/i915/gvt/gvt.c                       |  100 --
+>  b/drivers/gpu/drm/i915/gvt/gvt.h                       |  132 ++-
+>  b/drivers/gpu/drm/i915/gvt/interrupt.c                 |   38 -
+>  b/drivers/gpu/drm/i915/gvt/kvmgt.c                     |  634 ++++------=
+-------
+>  b/drivers/gpu/drm/i915/gvt/mmio.c                      |    4=20
+>  b/drivers/gpu/drm/i915/gvt/opregion.c                  |  148 ---
+>  b/drivers/gpu/drm/i915/gvt/page_track.c                |    8=20
+>  b/drivers/gpu/drm/i915/gvt/scheduler.c                 |   37=20
+>  b/drivers/gpu/drm/i915/gvt/trace.h                     |    2=20
+>  b/drivers/gpu/drm/i915/gvt/vgpu.c                      |   22=20
+>  b/drivers/gpu/drm/i915/i915_drv.h                      |    7=20
+>  b/drivers/gpu/drm/i915/i915_params.c                   |    2=20
+>  b/drivers/gpu/drm/i915/intel_gvt.c                     |   64 +
+>  b/drivers/gpu/drm/i915/intel_gvt.h                     |    4=20
+>  drivers/gpu/drm/i915/gvt/Makefile                      |    9=20
+>  drivers/gpu/drm/i915/gvt/hypercall.h                   |   82 --
+>  drivers/gpu/drm/i915/gvt/mpt.h                         |  400 ----------
+>  25 files changed, 541 insertions(+), 1413 deletions(-)
+
+--wjoFZxbW4tu+iR6v
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYPk+JAAKCRCxBBozTXgY
+J09VAJ9C5w8OkOxQaT+Hh6GRuwyrHlKVPgCfR2B56jaNxNaxyz+943xRn2xdLCo=
+=enIC
+-----END PGP SIGNATURE-----
+
+--wjoFZxbW4tu+iR6v--
+
+--===============1480107282==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1480107282==--
