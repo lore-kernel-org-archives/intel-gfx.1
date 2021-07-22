@@ -2,47 +2,47 @@ Return-Path: <SRS0=pd08=MO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8571BC4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71D65C432BE
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D01A260E9B
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D01A260E9B
+	by mail.kernel.org (Postfix) with ESMTPS id 42E8F60E9B
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 23:37:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 42E8F60E9B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 594236F5CE;
-	Thu, 22 Jul 2021 23:36:48 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2DD46F5BA;
- Thu, 22 Jul 2021 23:36:43 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="198975878"
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="198975878"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1E96F5C4;
+	Thu, 22 Jul 2021 23:36:49 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BCBB6F50D;
+ Thu, 22 Jul 2021 23:36:37 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="208659262"
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="208659262"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:42 -0700
-X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860964"
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2021 16:36:36 -0700
+X-IronPort-AV: E=Sophos;i="5.84,262,1620716400"; d="scan'208";a="470860935"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 16:36:41 -0700
+ 22 Jul 2021 16:36:36 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 22 Jul 2021 16:54:25 -0700
-Message-Id: <20210722235426.31831-33-matthew.brost@intel.com>
+Date: Thu, 22 Jul 2021 16:53:58 -0700
+Message-Id: <20210722235426.31831-6-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210722235426.31831-1-matthew.brost@intel.com>
 References: <20210722235426.31831-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 32/33] drm/i915/guc: Implement GuC priority
- management
+Subject: [Intel-gfx] [PATCH 05/33] drm/i915/guc: Direct all breadcrumbs for
+ a class to single breadcrumbs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,606 +60,438 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement a simple static mapping algorithm of the i915 priority levels
-(int, -1k to 1k exposed to user) to the 4 GuC levels. Mapping is as
-follows:
-
-i915 level < 0          -> GuC low level     (3)
-i915 level == 0         -> GuC normal level  (2)
-i915 level < INT_MAX    -> GuC high level    (1)
-i915 level == INT_MAX   -> GuC highest level (0)
-
-We believe this mapping should cover the UMD use cases (3 distinct user
-levels + 1 kernel level).
-
-In addition to static mapping, a simple counter system is attached to
-each context tracking the number of requests inflight on the context at
-each level. This is needed as the GuC levels are per context while in
-the i915 levels are per request.
+With GuC virtual engines the physical engine which a request executes
+and completes on isn't known to the i915. Therefore we can't attach a
+request to a physical engines breadcrumbs. To work around this we create
+a single breadcrumbs per engine class when using GuC submission and
+direct all physical engine interrupts to this breadcrumbs.
 
 v2:
- (Daniele)
-  - Add BUILD_BUG_ON to enforce ordering of priority levels
-  - Add missing lockdep to guc_prio_fini
-  - Check for return before setting context registered flag
-  - Map DISPLAY priority or higher to highest guc prio
-  - Update comment for guc_prio
+ (John H)
+  - Rework header file structure so intel_engine_mask_t can be in
+    intel_engine_types.h
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+CC: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   3 +
- drivers/gpu/drm/i915/gt/intel_context_types.h |   9 +-
- drivers/gpu/drm/i915/gt/intel_engine_user.c   |   4 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 214 +++++++++++++++++-
- drivers/gpu/drm/i915/i915_request.c           |   5 +
- drivers/gpu/drm/i915/i915_request.h           |   9 +
- drivers/gpu/drm/i915/i915_scheduler.c         |   7 +
- drivers/gpu/drm/i915/i915_scheduler_types.h   |  12 +
- drivers/gpu/drm/i915/i915_trace.h             |  17 +-
- include/uapi/drm/i915_drm.h                   |   9 +
- 10 files changed, 283 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 41 +++++-------
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.h   | 16 ++++-
+ .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |  7 ++
+ drivers/gpu/drm/i915/gt/intel_engine.h        |  3 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 28 +++++++-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  2 +-
+ .../drm/i915/gt/intel_execlists_submission.c  |  2 +-
+ drivers/gpu/drm/i915/gt/mock_engine.c         |  4 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 67 +++++++++++++++++--
+ 9 files changed, 133 insertions(+), 37 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index 2007dc6f6b99..209cf265bf74 100644
+index 38cc42783dfb..2007dc6f6b99 100644
 --- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -245,6 +245,9 @@ static void signal_irq_work(struct irq_work *work)
- 			llist_entry(signal, typeof(*rq), signal_node);
- 		struct list_head cb_list;
+@@ -15,28 +15,14 @@
+ #include "intel_gt_pm.h"
+ #include "intel_gt_requests.h"
  
-+		if (rq->engine->sched_engine->retire_inflight_request_prio)
-+			rq->engine->sched_engine->retire_inflight_request_prio(rq);
-+
- 		spin_lock(&rq->lock);
- 		list_replace(&rq->fence.cb_list, &cb_list);
- 		__dma_fence_signal__timestamp(&rq->fence, timestamp);
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 005a64f2afa7..fe555551c2d2 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -18,8 +18,9 @@
- #include "intel_engine_types.h"
- #include "intel_sseu.h"
- 
--#define CONTEXT_REDZONE POISON_INUSE
-+#include "uc/intel_guc_fwif.h"
- 
-+#define CONTEXT_REDZONE POISON_INUSE
- DECLARE_EWMA(runtime, 3, 8);
- 
- struct i915_gem_context;
-@@ -191,6 +192,12 @@ struct intel_context {
- 
- 	/* GuC context blocked fence */
- 	struct i915_sw_fence guc_blocked;
-+
-+	/*
-+	 * GuC priority management
-+	 */
-+	u8 guc_prio;
-+	u32 guc_prio_count[GUC_CLIENT_PRIORITY_NUM];
- };
- 
- #endif /* __INTEL_CONTEXT_TYPES__ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-index 84142127ebd8..8f8bea08e734 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-@@ -11,6 +11,7 @@
- #include "intel_engine.h"
- #include "intel_engine_user.h"
- #include "intel_gt.h"
-+#include "uc/intel_guc_submission.h"
- 
- struct intel_engine_cs *
- intel_engine_lookup_user(struct drm_i915_private *i915, u8 class, u8 instance)
-@@ -115,6 +116,9 @@ static void set_scheduler_caps(struct drm_i915_private *i915)
- 			disabled |= (I915_SCHEDULER_CAP_ENABLED |
- 				     I915_SCHEDULER_CAP_PRIORITY);
- 
-+		if (intel_uc_uses_guc_submission(&i915->gt.uc))
-+			enabled |= I915_SCHEDULER_CAP_STATIC_PRIORITY_MAP;
-+
- 		for (i = 0; i < ARRAY_SIZE(map); i++) {
- 			if (engine->flags & BIT(map[i].engine))
- 				enabled |= BIT(map[i].sched);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 58506d2781e8..a323befb9753 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -81,7 +81,8 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count);
-  */
- #define SCHED_STATE_NO_LOCK_ENABLED			BIT(0)
- #define SCHED_STATE_NO_LOCK_PENDING_ENABLE		BIT(1)
--#define SCHED_STATE_NO_LOCK_BLOCKED_SHIFT		2
-+#define SCHED_STATE_NO_LOCK_REGISTERED			BIT(2)
-+#define SCHED_STATE_NO_LOCK_BLOCKED_SHIFT		3
- #define SCHED_STATE_NO_LOCK_BLOCKED \
- 	BIT(SCHED_STATE_NO_LOCK_BLOCKED_SHIFT)
- #define SCHED_STATE_NO_LOCK_BLOCKED_MASK \
-@@ -145,6 +146,24 @@ static inline void decr_context_blocked(struct intel_context *ce)
- 		   &ce->guc_sched_state_no_lock);
- }
- 
-+static inline bool context_registered(struct intel_context *ce)
-+{
-+	return (atomic_read(&ce->guc_sched_state_no_lock) &
-+		SCHED_STATE_NO_LOCK_REGISTERED);
-+}
-+
-+static inline void set_context_registered(struct intel_context *ce)
-+{
-+	atomic_or(SCHED_STATE_NO_LOCK_REGISTERED,
-+		  &ce->guc_sched_state_no_lock);
-+}
-+
-+static inline void clr_context_registered(struct intel_context *ce)
-+{
-+	atomic_and((u32)~SCHED_STATE_NO_LOCK_REGISTERED,
-+		   &ce->guc_sched_state_no_lock);
-+}
-+
- /*
-  * Below is a set of functions which control the GuC scheduling state which
-  * require a lock, aside from the special case where the functions are called
-@@ -1092,6 +1111,7 @@ static int steal_guc_id(struct intel_guc *guc)
- 
- 		list_del_init(&ce->guc_id_link);
- 		guc_id = ce->guc_id;
-+		clr_context_registered(ce);
- 		set_context_guc_id_invalid(ce);
- 		return guc_id;
- 	} else {
-@@ -1201,10 +1221,15 @@ static int register_context(struct intel_context *ce, bool loop)
- 	struct intel_guc *guc = ce_to_guc(ce);
- 	u32 offset = intel_guc_ggtt_offset(guc, guc->lrc_desc_pool) +
- 		ce->guc_id * sizeof(struct guc_lrc_desc);
-+	int ret;
- 
- 	trace_intel_context_register(ce);
- 
--	return __guc_action_register_context(guc, ce->guc_id, offset, loop);
-+	ret = __guc_action_register_context(guc, ce->guc_id, offset, loop);
-+	if (likely(!ret))
-+		set_context_registered(ce);
-+
-+	return ret;
- }
- 
- static int __guc_action_deregister_context(struct intel_guc *guc,
-@@ -1260,6 +1285,8 @@ static void guc_context_policy_init(struct intel_engine_cs *engine,
- 	desc->preemption_timeout = engine->props.preempt_timeout_ms * 1000;
- }
- 
-+static inline u8 map_i915_prio_to_guc_prio(int prio);
-+
- static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+-static bool irq_enable(struct intel_engine_cs *engine)
++static bool irq_enable(struct intel_breadcrumbs *b)
  {
- 	struct intel_engine_cs *engine = ce->engine;
-@@ -1267,6 +1294,8 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	struct intel_guc *guc = &engine->gt->uc.guc;
- 	u32 desc_idx = ce->guc_id;
- 	struct guc_lrc_desc *desc;
-+	const struct i915_gem_context *ctx;
-+	int prio = I915_CONTEXT_DEFAULT_PRIORITY;
- 	bool context_registered;
- 	intel_wakeref_t wakeref;
- 	int ret = 0;
-@@ -1282,6 +1311,12 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 
- 	context_registered = lrc_desc_registered(guc, desc_idx);
- 
-+	rcu_read_lock();
-+	ctx = rcu_dereference(ce->gem_context);
-+	if (ctx)
-+		prio = ctx->sched.priority;
-+	rcu_read_unlock();
-+
- 	reset_lrc_desc(guc, desc_idx);
- 	set_lrc_desc_registered(guc, desc_idx, ce);
- 
-@@ -1290,7 +1325,8 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	desc->engine_submit_mask = adjust_engine_mask(engine->class,
- 						      engine->mask);
- 	desc->hw_context_desc = ce->lrc.lrca;
--	desc->priority = GUC_CLIENT_PRIORITY_KMD_NORMAL;
-+	ce->guc_prio = map_i915_prio_to_guc_prio(prio);
-+	desc->priority = ce->guc_prio;
- 	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
- 	guc_context_policy_init(engine, desc);
- 	init_sched_state(ce);
-@@ -1679,11 +1715,17 @@ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
- 	GEM_BUG_ON(ce != __get_context(guc, ce->guc_id));
- 	GEM_BUG_ON(context_enabled(ce));
- 
-+	clr_context_registered(ce);
- 	deregister_context(ce, ce->guc_id, true);
+-	if (!engine->irq_enable)
+-		return false;
+-
+-	/* Caller disables interrupts */
+-	spin_lock(&engine->gt->irq_lock);
+-	engine->irq_enable(engine);
+-	spin_unlock(&engine->gt->irq_lock);
+-
+-	return true;
++	return intel_engine_irq_enable(b->irq_engine);
  }
  
- static void __guc_context_destroy(struct intel_context *ce)
+-static void irq_disable(struct intel_engine_cs *engine)
++static void irq_disable(struct intel_breadcrumbs *b)
  {
-+	GEM_BUG_ON(ce->guc_prio_count[GUC_CLIENT_PRIORITY_KMD_HIGH] ||
-+		   ce->guc_prio_count[GUC_CLIENT_PRIORITY_HIGH] ||
-+		   ce->guc_prio_count[GUC_CLIENT_PRIORITY_KMD_NORMAL] ||
-+		   ce->guc_prio_count[GUC_CLIENT_PRIORITY_NORMAL]);
-+
- 	lrc_fini(ce);
- 	intel_context_fini(ce);
- 
-@@ -1777,15 +1819,124 @@ static int guc_context_alloc(struct intel_context *ce)
- 	return lrc_alloc(ce, ce->engine);
+-	if (!engine->irq_disable)
+-		return;
+-
+-	/* Caller disables interrupts */
+-	spin_lock(&engine->gt->irq_lock);
+-	engine->irq_disable(engine);
+-	spin_unlock(&engine->gt->irq_lock);
++	intel_engine_irq_disable(b->irq_engine);
  }
  
-+static void guc_context_set_prio(struct intel_guc *guc,
-+				 struct intel_context *ce,
-+				 u8 prio)
-+{
-+	u32 action[] = {
-+		INTEL_GUC_ACTION_SET_CONTEXT_PRIORITY,
-+		ce->guc_id,
-+		prio,
-+	};
-+
-+	GEM_BUG_ON(prio < GUC_CLIENT_PRIORITY_KMD_HIGH ||
-+		   prio > GUC_CLIENT_PRIORITY_NORMAL);
-+
-+	if (ce->guc_prio == prio || submission_disabled(guc) ||
-+	    !context_registered(ce))
-+		return;
-+
-+	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action), 0, true);
-+
-+	ce->guc_prio = prio;
-+	trace_intel_context_set_prio(ce);
-+}
-+
-+static inline u8 map_i915_prio_to_guc_prio(int prio)
-+{
-+	if (prio == I915_PRIORITY_NORMAL)
-+		return GUC_CLIENT_PRIORITY_KMD_NORMAL;
-+	else if (prio < I915_PRIORITY_NORMAL)
-+		return GUC_CLIENT_PRIORITY_NORMAL;
-+	else if (prio < I915_PRIORITY_DISPLAY)
-+		return GUC_CLIENT_PRIORITY_HIGH;
-+	else
-+		return GUC_CLIENT_PRIORITY_KMD_HIGH;
-+}
-+
-+static inline void add_context_inflight_prio(struct intel_context *ce,
-+					     u8 guc_prio)
-+{
-+	lockdep_assert_held(&ce->guc_active.lock);
-+	GEM_BUG_ON(guc_prio >= ARRAY_SIZE(ce->guc_prio_count));
-+
-+	++ce->guc_prio_count[guc_prio];
-+
-+	/* Overflow protection */
-+	GEM_WARN_ON(!ce->guc_prio_count[guc_prio]);
-+}
-+
-+static inline void sub_context_inflight_prio(struct intel_context *ce,
-+					     u8 guc_prio)
-+{
-+	lockdep_assert_held(&ce->guc_active.lock);
-+	GEM_BUG_ON(guc_prio >= ARRAY_SIZE(ce->guc_prio_count));
-+
-+	/* Underflow protection */
-+	GEM_WARN_ON(!ce->guc_prio_count[guc_prio]);
-+
-+	--ce->guc_prio_count[guc_prio];
-+}
-+
-+static inline void update_context_prio(struct intel_context *ce)
-+{
-+	struct intel_guc *guc = &ce->engine->gt->uc.guc;
-+	int i;
-+
-+	BUILD_BUG_ON(GUC_CLIENT_PRIORITY_KMD_HIGH != 0);
-+	BUILD_BUG_ON(GUC_CLIENT_PRIORITY_KMD_HIGH > GUC_CLIENT_PRIORITY_NORMAL);
-+
-+	lockdep_assert_held(&ce->guc_active.lock);
-+
-+	for (i = 0; i < ARRAY_SIZE(ce->guc_prio_count); ++i) {
-+		if (ce->guc_prio_count[i]) {
-+			guc_context_set_prio(guc, ce, i);
-+			break;
-+		}
-+	}
-+}
-+
-+static inline bool new_guc_prio_higher(u8 old_guc_prio, u8 new_guc_prio)
-+{
-+	/* Lower value is higher priority */
-+	return new_guc_prio < old_guc_prio;
-+}
-+
- static void add_to_context(struct i915_request *rq)
- {
- 	struct intel_context *ce = rq->context;
-+	u8 new_guc_prio = map_i915_prio_to_guc_prio(rq_prio(rq));
-+
-+	GEM_BUG_ON(rq->guc_prio == GUC_PRIO_FINI);
+ static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
+@@ -57,7 +43,7 @@ static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
+ 	WRITE_ONCE(b->irq_armed, true);
  
- 	spin_lock(&ce->guc_active.lock);
- 	list_move_tail(&rq->sched.link, &ce->guc_active.requests);
-+
-+	if (rq->guc_prio == GUC_PRIO_INIT) {
-+		rq->guc_prio = new_guc_prio;
-+		add_context_inflight_prio(ce, rq->guc_prio);
-+	} else if (new_guc_prio_higher(rq->guc_prio, new_guc_prio)) {
-+		sub_context_inflight_prio(ce, rq->guc_prio);
-+		rq->guc_prio = new_guc_prio;
-+		add_context_inflight_prio(ce, rq->guc_prio);
-+	}
-+	update_context_prio(ce);
-+
- 	spin_unlock(&ce->guc_active.lock);
+ 	/* Requests may have completed before we could enable the interrupt. */
+-	if (!b->irq_enabled++ && irq_enable(b->irq_engine))
++	if (!b->irq_enabled++ && b->irq_enable(b))
+ 		irq_work_queue(&b->irq_work);
  }
  
-+static void guc_prio_fini(struct i915_request *rq, struct intel_context *ce)
-+{
-+	lockdep_assert_held(&ce->guc_active.lock);
-+
-+	if (rq->guc_prio != GUC_PRIO_INIT &&
-+	    rq->guc_prio != GUC_PRIO_FINI) {
-+		sub_context_inflight_prio(ce, rq->guc_prio);
-+		update_context_prio(ce);
-+	}
-+	rq->guc_prio = GUC_PRIO_FINI;
-+}
-+
- static void remove_from_context(struct i915_request *rq)
+@@ -76,7 +62,7 @@ static void __intel_breadcrumbs_disarm_irq(struct intel_breadcrumbs *b)
  {
- 	struct intel_context *ce = rq->context;
-@@ -1798,6 +1949,8 @@ static void remove_from_context(struct i915_request *rq)
- 	/* Prevent further __await_execution() registering a cb, then flush */
- 	set_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags);
+ 	GEM_BUG_ON(!b->irq_enabled);
+ 	if (!--b->irq_enabled)
+-		irq_disable(b->irq_engine);
++		b->irq_disable(b);
  
-+	guc_prio_fini(rq, ce);
+ 	WRITE_ONCE(b->irq_armed, false);
+ 	intel_gt_pm_put_async(b->irq_engine->gt);
+@@ -281,7 +267,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
+ 	if (!b)
+ 		return NULL;
+ 
+-	b->irq_engine = irq_engine;
++	kref_init(&b->ref);
+ 
+ 	spin_lock_init(&b->signalers_lock);
+ 	INIT_LIST_HEAD(&b->signalers);
+@@ -290,6 +276,10 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
+ 	spin_lock_init(&b->irq_lock);
+ 	init_irq_work(&b->irq_work, signal_irq_work);
+ 
++	b->irq_engine = irq_engine;
++	b->irq_enable = irq_enable;
++	b->irq_disable = irq_disable;
 +
- 	spin_unlock_irq(&ce->guc_active.lock);
+ 	return b;
+ }
  
- 	atomic_dec(&ce->guc_id_ref);
-@@ -2079,6 +2232,39 @@ static void guc_init_breadcrumbs(struct intel_engine_cs *engine)
+@@ -303,9 +293,9 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
+ 	spin_lock_irqsave(&b->irq_lock, flags);
+ 
+ 	if (b->irq_enabled)
+-		irq_enable(b->irq_engine);
++		b->irq_enable(b);
+ 	else
+-		irq_disable(b->irq_engine);
++		b->irq_disable(b);
+ 
+ 	spin_unlock_irqrestore(&b->irq_lock, flags);
+ }
+@@ -325,11 +315,14 @@ void __intel_breadcrumbs_park(struct intel_breadcrumbs *b)
  	}
  }
  
-+static void guc_bump_inflight_request_prio(struct i915_request *rq,
-+					   int prio)
+-void intel_breadcrumbs_free(struct intel_breadcrumbs *b)
++void intel_breadcrumbs_free(struct kref *kref)
+ {
++	struct intel_breadcrumbs *b = container_of(kref, typeof(*b), ref);
++
+ 	irq_work_sync(&b->irq_work);
+ 	GEM_BUG_ON(!list_empty(&b->signalers));
+ 	GEM_BUG_ON(b->irq_armed);
++
+ 	kfree(b);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
+index 3ce5ce270b04..be0d4f379a85 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
+@@ -9,7 +9,7 @@
+ #include <linux/atomic.h>
+ #include <linux/irq_work.h>
+ 
+-#include "intel_engine_types.h"
++#include "intel_breadcrumbs_types.h"
+ 
+ struct drm_printer;
+ struct i915_request;
+@@ -17,7 +17,7 @@ struct intel_breadcrumbs;
+ 
+ struct intel_breadcrumbs *
+ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine);
+-void intel_breadcrumbs_free(struct intel_breadcrumbs *b);
++void intel_breadcrumbs_free(struct kref *kref);
+ 
+ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b);
+ void __intel_breadcrumbs_park(struct intel_breadcrumbs *b);
+@@ -48,4 +48,16 @@ void i915_request_cancel_breadcrumb(struct i915_request *request);
+ void intel_context_remove_breadcrumbs(struct intel_context *ce,
+ 				      struct intel_breadcrumbs *b);
+ 
++static inline struct intel_breadcrumbs *
++intel_breadcrumbs_get(struct intel_breadcrumbs *b)
 +{
-+	struct intel_context *ce = rq->context;
-+	u8 new_guc_prio = map_i915_prio_to_guc_prio(prio);
-+
-+	/* Short circuit function */
-+	if (prio < I915_PRIORITY_NORMAL ||
-+	    (rq->guc_prio == GUC_PRIO_FINI) ||
-+	    (rq->guc_prio != GUC_PRIO_INIT &&
-+	     !new_guc_prio_higher(rq->guc_prio, new_guc_prio)))
-+		return;
-+
-+	spin_lock(&ce->guc_active.lock);
-+	if (rq->guc_prio != GUC_PRIO_FINI) {
-+		if (rq->guc_prio != GUC_PRIO_INIT)
-+			sub_context_inflight_prio(ce, rq->guc_prio);
-+		rq->guc_prio = new_guc_prio;
-+		add_context_inflight_prio(ce, rq->guc_prio);
-+		update_context_prio(ce);
-+	}
-+	spin_unlock(&ce->guc_active.lock);
++	kref_get(&b->ref);
++	return b;
 +}
 +
-+static void guc_retire_inflight_request_prio(struct i915_request *rq)
++static inline void intel_breadcrumbs_put(struct intel_breadcrumbs *b)
 +{
-+	struct intel_context *ce = rq->context;
++	kref_put(&b->ref, intel_breadcrumbs_free);
++}
 +
-+	spin_lock(&ce->guc_active.lock);
-+	guc_prio_fini(rq, ce);
-+	spin_unlock(&ce->guc_active.lock);
+ #endif /* __INTEL_BREADCRUMBS__ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index 3a084ce8ff5e..72dfd3748c4c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -7,10 +7,13 @@
+ #define __INTEL_BREADCRUMBS_TYPES__
+ 
+ #include <linux/irq_work.h>
++#include <linux/kref.h>
+ #include <linux/list.h>
+ #include <linux/spinlock.h>
+ #include <linux/types.h>
+ 
++#include "intel_engine_types.h"
++
+ /*
+  * Rather than have every client wait upon all user interrupts,
+  * with the herd waking after every interrupt and each doing the
+@@ -29,6 +32,7 @@
+  * the overhead of waking that client is much preferred.
+  */
+ struct intel_breadcrumbs {
++	struct kref ref;
+ 	atomic_t active;
+ 
+ 	spinlock_t signalers_lock; /* protects the list of signalers */
+@@ -42,7 +46,10 @@ struct intel_breadcrumbs {
+ 	bool irq_armed;
+ 
+ 	/* Not all breadcrumbs are attached to physical HW */
++	intel_engine_mask_t	engine_mask;
+ 	struct intel_engine_cs *irq_engine;
++	bool	(*irq_enable)(struct intel_breadcrumbs *b);
++	void	(*irq_disable)(struct intel_breadcrumbs *b);
+ };
+ 
+ #endif /* __INTEL_BREADCRUMBS_TYPES__ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 13bfb7ec33b2..8fc76dc8bf98 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -212,6 +212,9 @@ void intel_engine_get_instdone(const struct intel_engine_cs *engine,
+ 
+ void intel_engine_init_execlists(struct intel_engine_cs *engine);
+ 
++bool intel_engine_irq_enable(struct intel_engine_cs *engine);
++void intel_engine_irq_disable(struct intel_engine_cs *engine);
++
+ static inline void __intel_engine_reset(struct intel_engine_cs *engine,
+ 					bool stalled)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 7dee9a1209bc..b768725b6b57 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -757,7 +757,7 @@ static int engine_setup_common(struct intel_engine_cs *engine)
+ err_cmd_parser:
+ 	i915_sched_engine_put(engine->sched_engine);
+ err_sched_engine:
+-	intel_breadcrumbs_free(engine->breadcrumbs);
++	intel_breadcrumbs_put(engine->breadcrumbs);
+ err_status:
+ 	cleanup_status_page(engine);
+ 	return err;
+@@ -966,7 +966,7 @@ void intel_engine_cleanup_common(struct intel_engine_cs *engine)
+ 	GEM_BUG_ON(!list_empty(&engine->sched_engine->requests));
+ 
+ 	i915_sched_engine_put(engine->sched_engine);
+-	intel_breadcrumbs_free(engine->breadcrumbs);
++	intel_breadcrumbs_put(engine->breadcrumbs);
+ 
+ 	intel_engine_fini_retire(engine);
+ 	intel_engine_cleanup_cmd_parser(engine);
+@@ -1283,6 +1283,30 @@ bool intel_engines_are_idle(struct intel_gt *gt)
+ 	return true;
+ }
+ 
++bool intel_engine_irq_enable(struct intel_engine_cs *engine)
++{
++	if (!engine->irq_enable)
++		return false;
++
++	/* Caller disables interrupts */
++	spin_lock(&engine->gt->irq_lock);
++	engine->irq_enable(engine);
++	spin_unlock(&engine->gt->irq_lock);
++
++	return true;
++}
++
++void intel_engine_irq_disable(struct intel_engine_cs *engine)
++{
++	if (!engine->irq_disable)
++		return;
++
++	/* Caller disables interrupts */
++	spin_lock(&engine->gt->irq_lock);
++	engine->irq_disable(engine);
++	spin_unlock(&engine->gt->irq_lock);
++}
++
+ void intel_engines_reset_default_submission(struct intel_gt *gt)
+ {
+ 	struct intel_engine_cs *engine;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 8ad304b2f2e4..03a81e8d87f4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -21,7 +21,6 @@
+ #include "i915_pmu.h"
+ #include "i915_priolist_types.h"
+ #include "i915_selftest.h"
+-#include "intel_breadcrumbs_types.h"
+ #include "intel_sseu.h"
+ #include "intel_timeline_types.h"
+ #include "intel_uncore.h"
+@@ -63,6 +62,7 @@ struct i915_sched_engine;
+ struct intel_gt;
+ struct intel_ring;
+ struct intel_uncore;
++struct intel_breadcrumbs;
+ 
+ typedef u8 intel_engine_mask_t;
+ #define ALL_ENGINES ((intel_engine_mask_t)~0ul)
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index b2580cd2ce51..605dd7cb2901 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -3453,7 +3453,7 @@ static void rcu_virtual_context_destroy(struct work_struct *wrk)
+ 	intel_context_fini(&ve->context);
+ 
+ 	if (ve->base.breadcrumbs)
+-		intel_breadcrumbs_free(ve->base.breadcrumbs);
++		intel_breadcrumbs_put(ve->base.breadcrumbs);
+ 	if (ve->base.sched_engine)
+ 		i915_sched_engine_put(ve->base.sched_engine);
+ 	intel_engine_free_request_pool(&ve->base);
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index 68970398e4ef..2ddaacb4e753 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -284,7 +284,7 @@ static void mock_engine_release(struct intel_engine_cs *engine)
+ 	GEM_BUG_ON(timer_pending(&mock->hw_delay));
+ 
+ 	i915_sched_engine_put(engine->sched_engine);
+-	intel_breadcrumbs_free(engine->breadcrumbs);
++	intel_breadcrumbs_put(engine->breadcrumbs);
+ 
+ 	intel_context_unpin(engine->kernel_context);
+ 	intel_context_put(engine->kernel_context);
+@@ -370,7 +370,7 @@ int mock_engine_init(struct intel_engine_cs *engine)
+ 	return 0;
+ 
+ err_breadcrumbs:
+-	intel_breadcrumbs_free(engine->breadcrumbs);
++	intel_breadcrumbs_put(engine->breadcrumbs);
+ err_schedule:
+ 	i915_sched_engine_put(engine->sched_engine);
+ 	return -ENOMEM;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 7528e8269c9c..891b2922ced9 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1087,6 +1087,9 @@ static void __guc_context_destroy(struct intel_context *ce)
+ 		struct guc_virtual_engine *ve =
+ 			container_of(ce, typeof(*ve), context);
+ 
++		if (ve->base.breadcrumbs)
++			intel_breadcrumbs_put(ve->base.breadcrumbs);
++
+ 		kfree(ve);
+ 	} else {
+ 		intel_context_free(ce);
+@@ -1378,6 +1381,62 @@ static const struct intel_context_ops virtual_guc_context_ops = {
+ 	.get_sibling = guc_virtual_get_sibling,
+ };
+ 
++static bool
++guc_irq_enable_breadcrumbs(struct intel_breadcrumbs *b)
++{
++	struct intel_engine_cs *sibling;
++	intel_engine_mask_t tmp, mask = b->engine_mask;
++	bool result = false;
++
++	for_each_engine_masked(sibling, b->irq_engine->gt, mask, tmp)
++		result |= intel_engine_irq_enable(sibling);
++
++	return result;
++}
++
++static void
++guc_irq_disable_breadcrumbs(struct intel_breadcrumbs *b)
++{
++	struct intel_engine_cs *sibling;
++	intel_engine_mask_t tmp, mask = b->engine_mask;
++
++	for_each_engine_masked(sibling, b->irq_engine->gt, mask, tmp)
++		intel_engine_irq_disable(sibling);
++}
++
++static void guc_init_breadcrumbs(struct intel_engine_cs *engine)
++{
++	int i;
++
++	/*
++	 * In GuC submission mode we do not know which physical engine a request
++	 * will be scheduled on, this creates a problem because the breadcrumb
++	 * interrupt is per physical engine. To work around this we attach
++	 * requests and direct all breadcrumb interrupts to the first instance
++	 * of an engine per class. In addition all breadcrumb interrupts are
++	 * enabled / disabled across an engine class in unison.
++	 */
++	for (i = 0; i < MAX_ENGINE_INSTANCE; ++i) {
++		struct intel_engine_cs *sibling =
++			engine->gt->engine_class[engine->class][i];
++
++		if (sibling) {
++			if (engine->breadcrumbs != sibling->breadcrumbs) {
++				intel_breadcrumbs_put(engine->breadcrumbs);
++				engine->breadcrumbs =
++					intel_breadcrumbs_get(sibling->breadcrumbs);
++			}
++			break;
++		}
++	}
++
++	if (engine->breadcrumbs) {
++		engine->breadcrumbs->engine_mask |= engine->mask;
++		engine->breadcrumbs->irq_enable = guc_irq_enable_breadcrumbs;
++		engine->breadcrumbs->irq_disable = guc_irq_disable_breadcrumbs;
++	}
 +}
 +
  static void sanitize_hwsp(struct intel_engine_cs *engine)
  {
  	struct intel_timeline *tl;
-@@ -2303,6 +2489,10 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
- 		guc->sched_engine->disabled = guc_sched_engine_disabled;
- 		guc->sched_engine->private_data = guc;
- 		guc->sched_engine->destroy = guc_sched_engine_destroy;
-+		guc->sched_engine->bump_inflight_request_prio =
-+			guc_bump_inflight_request_prio;
-+		guc->sched_engine->retire_inflight_request_prio =
-+			guc_retire_inflight_request_prio;
- 		tasklet_setup(&guc->sched_engine->tasklet,
- 			      guc_submission_tasklet);
- 	}
-@@ -2680,6 +2870,22 @@ void intel_guc_submission_print_info(struct intel_guc *guc,
- 	drm_printf(p, "\n");
- }
+@@ -1590,6 +1649,7 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
  
-+static inline void guc_log_context_priority(struct drm_printer *p,
-+					    struct intel_context *ce)
-+{
-+	int i;
-+
-+	drm_printf(p, "\t\tPriority: %d\n",
-+		   ce->guc_prio);
-+	drm_printf(p, "\t\tNumber Requests (lower index == higher priority)\n");
-+	for (i = GUC_CLIENT_PRIORITY_KMD_HIGH;
-+	     i < GUC_CLIENT_PRIORITY_NUM; ++i) {
-+		drm_printf(p, "\t\tNumber requests in priority band[%d]: %d\n",
-+			   i, ce->guc_prio_count[i]);
-+	}
-+	drm_printf(p, "\n");
-+}
-+
- void intel_guc_submission_print_context_info(struct intel_guc *guc,
- 					     struct drm_printer *p)
- {
-@@ -2702,6 +2908,8 @@ void intel_guc_submission_print_context_info(struct intel_guc *guc,
- 		drm_printf(p, "\t\tSchedule State: 0x%x, 0x%x\n\n",
- 			   ce->guc_state.sched_state,
- 			   atomic_read(&ce->guc_sched_state_no_lock));
-+
-+		guc_log_context_priority(p, ce);
- 	}
- }
+ 	guc_default_vfuncs(engine);
+ 	guc_default_irqs(engine);
++	guc_init_breadcrumbs(engine);
  
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 541a20371502..1f1d4a6a0eff 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -114,6 +114,9 @@ static void i915_fence_release(struct dma_fence *fence)
- {
- 	struct i915_request *rq = to_request(fence);
+ 	if (engine->class == RENDER_CLASS)
+ 		rcs_submission_override(engine);
+@@ -1832,11 +1892,6 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
+ 	ve->base.instance = I915_ENGINE_CLASS_INVALID_VIRTUAL;
+ 	ve->base.uabi_instance = I915_ENGINE_CLASS_INVALID_VIRTUAL;
+ 	ve->base.saturated = ALL_ENGINES;
+-	ve->base.breadcrumbs = intel_breadcrumbs_create(&ve->base);
+-	if (!ve->base.breadcrumbs) {
+-		kfree(ve);
+-		return ERR_PTR(-ENOMEM);
+-	}
  
-+	GEM_BUG_ON(rq->guc_prio != GUC_PRIO_INIT &&
-+		   rq->guc_prio != GUC_PRIO_FINI);
-+
- 	/*
- 	 * The request is put onto a RCU freelist (i.e. the address
- 	 * is immediately reused), mark the fences as being freed now.
-@@ -924,6 +927,8 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
+ 	snprintf(ve->base.name, sizeof(ve->base.name), "virtual");
  
- 	rq->rcustate = get_state_synchronize_rcu(); /* acts as smp_mb() */
+@@ -1885,6 +1940,8 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
+ 				sibling->emit_fini_breadcrumb;
+ 			ve->base.emit_fini_breadcrumb_dw =
+ 				sibling->emit_fini_breadcrumb_dw;
++			ve->base.breadcrumbs =
++				intel_breadcrumbs_get(sibling->breadcrumbs);
  
-+	rq->guc_prio = GUC_PRIO_INIT;
-+
- 	/* We bump the ref for the fence chain */
- 	i915_sw_fence_reinit(&i915_request_get(rq)->submit);
- 	i915_sw_fence_reinit(&i915_request_get(rq)->semaphore);
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index ac0e3326c067..e6a0e0ebc9aa 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -293,6 +293,15 @@ struct i915_request {
- 	 */
- 	struct list_head guc_fence_link;
- 
-+	/**
-+	 * Priority level while the request is inflight. Differs from i915
-+	 * scheduler priority. See comment above
-+	 * I915_SCHEDULER_CAP_STATIC_PRIORITY_MAP for details.
-+	 */
-+#define	GUC_PRIO_INIT	0xff
-+#define	GUC_PRIO_FINI	0xfe
-+	u8 guc_prio;
-+
- 	I915_SELFTEST_DECLARE(struct {
- 		struct list_head link;
- 		unsigned long delay;
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 28dd887eb1be..17843c204356 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -241,6 +241,9 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	/* Fifo and depth-first replacement ensure our deps execute before us */
- 	sched_engine = lock_sched_engine(node, sched_engine, &cache);
- 	list_for_each_entry_safe_reverse(dep, p, &dfs, dfs_link) {
-+		struct i915_request *from = container_of(dep->signaler,
-+							 struct i915_request,
-+							 sched);
- 		INIT_LIST_HEAD(&dep->dfs_link);
- 
- 		node = dep->signaler;
-@@ -254,6 +257,10 @@ static void __i915_schedule(struct i915_sched_node *node,
- 		GEM_BUG_ON(node_to_request(node)->engine->sched_engine !=
- 			   sched_engine);
- 
-+		/* Must be called before changing the nodes priority */
-+		if (sched_engine->bump_inflight_request_prio)
-+			sched_engine->bump_inflight_request_prio(from, prio);
-+
- 		WRITE_ONCE(node->attr.priority, prio);
- 
- 		/*
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index eaef233e9080..b0a1b58c7893 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -179,6 +179,18 @@ struct i915_sched_engine {
- 	void	(*kick_backend)(const struct i915_request *rq,
- 				int prio);
- 
-+	/**
-+	 * @bump_inflight_request_prio: update priority of an inflight request
-+	 */
-+	void	(*bump_inflight_request_prio)(struct i915_request *rq,
-+					      int prio);
-+
-+	/**
-+	 * @retire_inflight_request_prio: indicate request is retired to
-+	 * priority tracking
-+	 */
-+	void	(*retire_inflight_request_prio)(struct i915_request *rq);
-+
- 	/**
- 	 * @schedule: adjust priority of request
- 	 *
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index 9613a7c19661..806ad688274b 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -904,6 +904,7 @@ DECLARE_EVENT_CLASS(intel_context,
- 			     __field(int, pin_count)
- 			     __field(u32, sched_state)
- 			     __field(u32, guc_sched_state_no_lock)
-+			     __field(u8, guc_prio)
- 			     ),
- 
- 		    TP_fast_assign(
-@@ -912,12 +913,19 @@ DECLARE_EVENT_CLASS(intel_context,
- 			   __entry->sched_state = ce->guc_state.sched_state;
- 			   __entry->guc_sched_state_no_lock =
- 			   atomic_read(&ce->guc_sched_state_no_lock);
-+			   __entry->guc_prio = ce->guc_prio;
- 			   ),
- 
--		    TP_printk("guc_id=%d, pin_count=%d sched_state=0x%x,0x%x",
-+		    TP_printk("guc_id=%d, pin_count=%d sched_state=0x%x,0x%x, guc_prio=%u",
- 			      __entry->guc_id, __entry->pin_count,
- 			      __entry->sched_state,
--			      __entry->guc_sched_state_no_lock)
-+			      __entry->guc_sched_state_no_lock,
-+			      __entry->guc_prio)
-+);
-+
-+DEFINE_EVENT(intel_context, intel_context_set_prio,
-+	     TP_PROTO(struct intel_context *ce),
-+	     TP_ARGS(ce)
- );
- 
- DEFINE_EVENT(intel_context, intel_context_reset,
-@@ -1017,6 +1025,11 @@ trace_i915_request_out(struct i915_request *rq)
- {
- }
- 
-+static inline void
-+trace_intel_context_set_prio(struct intel_context *ce)
-+{
-+}
-+
- static inline void
- trace_intel_context_reset(struct intel_context *ce)
- {
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 0aea82657cdc..7d9819dc49c8 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -572,6 +572,15 @@ typedef struct drm_i915_irq_wait {
- #define   I915_SCHEDULER_CAP_PREEMPTION	(1ul << 2)
- #define   I915_SCHEDULER_CAP_SEMAPHORES	(1ul << 3)
- #define   I915_SCHEDULER_CAP_ENGINE_BUSY_STATS	(1ul << 4)
-+/*
-+ * Indicates the 2k user priority levels are statically mapped into 3 buckets as
-+ * follows:
-+ *
-+ * -1k to -1	Low priority
-+ * 0		Normal priority
-+ * 1 to 1k	Highest priority
-+ */
-+#define   I915_SCHEDULER_CAP_STATIC_PRIORITY_MAP	(1ul << 5)
- 
- #define I915_PARAM_HUC_STATUS		 42
+ 			ve->base.flags |= sibling->flags;
  
 -- 
 2.28.0
