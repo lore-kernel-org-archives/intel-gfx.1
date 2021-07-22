@@ -2,107 +2,56 @@ Return-Path: <SRS0=pd08=MO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6651CC63793
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 16:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7C25C6377D
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 16:09:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28D6461222
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 16:06:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28D6461222
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4B2F061222
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jul 2021 16:09:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B2F061222
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE7396E9DD;
-	Thu, 22 Jul 2021 16:06:31 +0000 (UTC)
-Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
- [IPv6:2607:f8b0:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB7A96E872;
- Thu, 22 Jul 2021 15:04:58 +0000 (UTC)
-Received: by mail-il1-x130.google.com with SMTP id j5so5663818ilk.3;
- Thu, 22 Jul 2021 08:04:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=pdY6rhVpt2cvtRD9X+6uRamQHWbNgW9tGd+/rf6LByw=;
- b=LfsodAg1o0ijTbK+UfgG4wZc2ri4Sy1nUrT/7gxYKMSxuvQ+PZJee8lZ8iU8iY7YFF
- hYuYP7CWfASDCME7zXCXWrJMHrwbwEOoVAC6enIZFmZGsym+ZslNIazL0Yu3CiGMFDQm
- JLmWMtUrUa4HuratO6FsGooWyNX1Mna9Y0z7CHCNCJTkrW7QD+1CEu5sJMGbVjPKGoks
- JWXLdZ4HwnDvYbBD+1ckhsYvFxWiEFEs3T+198xWlTn0EU+Vrm4lspa2q6TFX+UWSY5+
- 0+GQHEm1qB+1uQyzFvO+k3OEIay5gz6KO2ZU7U1MSd44k0v3GKixXoOry47KjWPS3mTC
- i4dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=pdY6rhVpt2cvtRD9X+6uRamQHWbNgW9tGd+/rf6LByw=;
- b=MCSf+FvIBWwRwgpJ7KInwXTLqCstx+Zrt3vJNDPzwRED9eW+Rw4gOTmAfzL57fjjHK
- XxjHAiiEMWVBvCNTqHKSJjIu+oBkPQv1aBlf3x1/kUKtWn04357zr2392r9nHHQN81Hv
- jgsl/+NvHrnuiJ+ePYn5GyurTLjQGqcn+m/Ck6kgA1Ps75albNl6+rectzVjt6qjRNxf
- sWSh1bTeSTVV4SksWgE3cmP/pM7HDXlxHIXVms+H2Tm3ATvYnG8k4ucr1ZDQOnEdUBV6
- 8J8pLlQAmbGm0mb4ZNCkqsygNlJ/vL3Zq32U8WMzpFJ6bgxPEsVlFolkl6dfjbHiUY6B
- Gr/Q==
-X-Gm-Message-State: AOAM532xQB9I2XhGFCnoLXc1X55YrXNKoi9JyxTeldCLlx4smcPLsfcM
- 0uyB7+S+xbT0w8WgBj/Kbzg=
-X-Google-Smtp-Source: ABdhPJx/iCOEfKNx6SSZefLw/rcSZSwYcTvNl8FtSu3/Q1+/ix8XCODVcVTLTL+UhF83S6mF8+E0Ow==
-X-Received: by 2002:a92:c8c3:: with SMTP id c3mr193016ilq.153.1626966297417;
- Thu, 22 Jul 2021 08:04:57 -0700 (PDT)
-Received: from auth2-smtp.messagingengine.com (auth2-smtp.messagingengine.com.
- [66.111.4.228])
- by smtp.gmail.com with ESMTPSA id d9sm7011761ilv.62.2021.07.22.08.04.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jul 2021 08:04:56 -0700 (PDT)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailauth.nyi.internal (Postfix) with ESMTP id DE65C27C0054;
- Thu, 22 Jul 2021 11:04:54 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Thu, 22 Jul 2021 11:04:54 -0400
-X-ME-Sender: <xms:FYn5YAWD-wPR-RVw-WwgbE4Lz_ycSmb-gkti1iUf_GKPSuyM0GECsg>
- <xme:FYn5YEljXxBbC0VSh0ebQokzBVcIcnrl0abPWqqHKUFaXSoDB_y7md7LMg0moircI
- GhFOubvfNfPTQZQIg>
-X-ME-Received: <xmr:FYn5YEY0fXjO9nL8oqKGhmiVbxt2vJDbd4VVLFFaXI-DVT7NzWLz3N0GbW4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrfeeigdekudcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepuehoqhhunhcu
- hfgvnhhguceosghoqhhunhdrfhgvnhhgsehgmhgrihhlrdgtohhmqeenucggtffrrghtth
- gvrhhnpeegudegfedtjedtffdvleelteefuddvkefgheejuedujeehfeelkeetjeegtdef
- gfenucffohhmrghinhepfhhffihllhdrtghhnecuvehluhhsthgvrhfuihiivgeptdenuc
- frrghrrghmpehmrghilhhfrhhomhepsghoqhhunhdomhgvshhmthhprghuthhhphgvrhhs
- ohhnrghlihhthidqieelvdeghedtieegqddujeejkeehheehvddqsghoqhhunhdrfhgvnh
- hgpeepghhmrghilhdrtghomhesfhhigihmvgdrnhgrmhgv
-X-ME-Proxy: <xmx:FYn5YPWRsfO9ylx6MZT3WvV8V59fPf49rtUcHHSIj61yPQL1vpqR9g>
- <xmx:FYn5YKkH3YsWLAzswxzjeD3_KE1Ukrxn1L_fk7uLNJDu7P8Ge3LPSQ>
- <xmx:FYn5YEe1sEA8kHDMSNFZHjhtJ2AG0Ygx4w6cqst97KBNYafBlF2JCw>
- <xmx:Fon5YAl3nQwOwvJ0QPtpedI0pnNG0cRa7eC3mLZlyOQFW5BfYWOtepdQhhk>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Jul 2021 11:04:52 -0400 (EDT)
-Date: Thu, 22 Jul 2021 23:04:49 +0800
-From: Boqun Feng <boqun.feng@gmail.com>
-To: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- linux-graphics-maintainer@vmware.com, zackr@vmware.com,
- airlied@linux.ie, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- skhan@linuxfoundation.org, gregkh@linuxfoundation.org,
- linux-kernel-mentees@lists.linuxfoundation.org
-Message-ID: <YPmJEYrnB0j17cZV@boqun-archlinux>
-References: <20210722092929.244629-1-desmondcheongzx@gmail.com>
- <20210722092929.244629-2-desmondcheongzx@gmail.com>
- <YPlKkvelm/mcnCj0@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D87DF6E9DD;
+	Thu, 22 Jul 2021 16:09:20 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F9766E9DD;
+ Thu, 22 Jul 2021 16:09:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=7GRzbOnE4n7J56vmgig0wV5ooQFTNp+XniFNisjegbw=; b=fTzmt3wOxBQh4aaUEOFsTaj7pz
+ +1iomTiizvFOZZKqRrXS0vt+4Xwpo9yuJf1ICewYTJ7C+FIgvFco6R4wzgrCSex1EWidTkHK8R+56
+ LsK8e3v16lYT/8neT/JTfTQ2bmT6PfWg1mf3bczcUSHMaoK+ZqnwKkg4Fykncyvrf6QLQzNkEZAfV
+ 2moy2Ln5awHG28ZJPb77dYaTHGujP6XyF2mIey2+tCszxJ8+Anjkr23no5NbRGGLn5iWo3DgKIfE6
+ GraJaqknz76QlQYNZas+UVogRh8W42X+krIyJyYnW121UX9yaTJHnT4GyMDj55G1t/yBrKryJZbat
+ 3dnFDhkA==;
+Received: from hch by casper.infradead.org with local (Exim 4.94.2 #2 (Red Hat
+ Linux)) id 1m6bFk-00AQ5I-BZ; Thu, 22 Jul 2021 16:08:57 +0000
+Date: Thu, 22 Jul 2021 17:08:52 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Message-ID: <YPmYFNs2r3DBiHtf@infradead.org>
+References: <YPgAuSt6Ps7w4/AI@infradead.org> <YPgD/8Y3/te/Hsu3@intel.com>
+ <YPhApJo1o6yBYUh2@infradead.org> <YPiGI9tzLzGZg47j@infradead.org>
+ <YPiPGv/wtnjsxSZy@intel.com> <YPjy/sYgy1SvZBD+@infradead.org>
+ <20210722055523.e5tdgcledznyzmxt@ldmartin-desk2>
+ <YPkcQqnRGZABpmce@infradead.org>
+ <20210722160345.xi5krc5truc65t5y@ldmartin-desk2>
 MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="QsOoP1Rtz9Mliiho"
 Content-Disposition: inline
-In-Reply-To: <YPlKkvelm/mcnCj0@phenom.ffwll.local>
-X-Mailman-Approved-At: Thu, 22 Jul 2021 16:06:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/3] drm: use the lookup lock in
- drm_is_current_master
+In-Reply-To: <20210722160345.xi5krc5truc65t5y@ldmartin-desk2>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: Re: [Intel-gfx] 5.14-rc2 warnings with kvmgvt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,121 +64,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Christoph Hellwig <hch@infradead.org>, intel-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 22, 2021 at 12:38:10PM +0200, Daniel Vetter wrote:
-> On Thu, Jul 22, 2021 at 05:29:27PM +0800, Desmond Cheong Zhi Xi wrote:
-> > Inside drm_is_current_master, using the outer drm_device.master_mutex
-> > to protect reads of drm_file.master makes the function prone to creating
-> > lock hierarchy inversions. Instead, we can use the
-> > drm_file.master_lookup_lock that sits at the bottom of the lock
-> > hierarchy.
+
+--QsOoP1Rtz9Mliiho
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Jul 22, 2021 at 09:03:45AM -0700, Lucas De Marchi wrote:
+> On Thu, Jul 22, 2021 at 08:20:34AM +0100, Christoph Hellwig wrote:
+> > On Thu, Jul 22, 2021 at 01:55:23AM -0400, Lucas De Marchi wrote:
+> > > humn... PORT_F. KBL doesn't have PORT_F. We decided to keep the handling
+> > > of DISPLAY_VER == 10 and DISPLAY_VER == 9 together and trust the VBT,
+> > > but when the VBT is not present, DDI F will get added unconditio.
+> > > 
+> > > maybe best thing to do is to split that
 > > 
-> > Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-> > ---
-> >  drivers/gpu/drm/drm_auth.c | 9 +++++----
-> >  1 file changed, 5 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-> > index f00354bec3fb..9c24b8cc8e36 100644
-> > --- a/drivers/gpu/drm/drm_auth.c
-> > +++ b/drivers/gpu/drm/drm_auth.c
-> > @@ -63,8 +63,9 @@
-> >  
-> >  static bool drm_is_current_master_locked(struct drm_file *fpriv)
-> >  {
-> > -	lockdep_assert_held_once(&fpriv->minor->dev->master_mutex);
-> > -
-> > +	/* Either drm_device.master_mutex or drm_file.master_lookup_lock
-> > +	 * should be held here.
-> > +	 */
+> > With this and the previous patch the stack traces are gone.
 > 
-> Disappointing that lockdep can't check or conditions for us, a
-> lockdep_assert_held_either would be really neat in some cases.
+> maybe not the perfect fix though... can you share how you're starting
+> qemu so I can try to reproduce it? I'd like to see a log with
+> drm.debug=0xe param.
 > 
+> In theory 5a9d38b20a5a ("drm/i915/display: hide workaround for broken vbt in intel_bios.c")
+> should filter out the PORT_F in KBL.
 
-The implementation is not hard but I don't understand the usage, for
-example, if we have a global variable x, and two locks L1 and L2, and
-the function
+Here is my qemu script that reproduces the issue:
 
-	void do_something_to_x(void)
-	{
-		lockdep_assert_held_either(L1, L2);
-		x++;
-	}
 
-and two call sites:
+--QsOoP1Rtz9Mliiho
+Content-Type: application/x-sh
+Content-Disposition: attachment; filename="kvm-gvt.sh"
+Content-Transfer-Encoding: quoted-printable
 
-	void f(void)
-	{
-		lock(L1);
-		do_something_to_x();
-		unlock(L1);
-	}
+#!/bin/sh=0A=0Aqemu-system-x86_64 -enable-kvm \=0A	-m 4096 \=0A	-smp 4 \=0A=
+	-kernel arch/x86/boot/bzImage \=0A	-append "root=3D/dev/vda1 console=3Dtty=
+S0,115200n8 cgroup_no_v1=3Dall" \=0A	-nographic \=0A	-drive if=3Dvirtio,fil=
+e=3D/home/hch/images/jessie.img,cache=3Dnone \=0A	-drive if=3Dvirtio,id=3Dt=
+est,file=3D/home/hch/images/test.img,cache=3Dnone,aio=3Dnative \=0A	-drive =
+if=3Dvirtio,id=3Dscratch,file=3D/home/hch/images/scratch.img,cache=3Dnone,a=
+io=3Dnative \=0A	-device vfio-pci,sysfsdev=3D/sys/bus/mdev/devices/6814f392=
+-50ac-4236-ae3d-26d472fd8aae=0A=0A# this actually shows output:=0A# -device=
+ vfio-pci,sysfsdev=3D/sys/bus/mdev/devices/6814f392-50ac-4236-ae3d-26d472fd=
+8aae,display=3Don,x-igd-opregion=3Don \=0A#	-display gtk,gl=3Don -vga none =
+\=0A
+--QsOoP1Rtz9Mliiho
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-	void g(void)
-	{
-		lock(L2);
-		do_something_to_x();
-		unlock(L2);
-	}
-
-, wouldn't it be racy if f() and g() called by two threads at the same
-time? Usually I would expect there exists a third synchronazition
-mechanism (say M), which synchronizes the calls to f() and g(), and we
-put M in the lockdep_assert_held() check inside do_something_to_x()
-like:
-
-	void do_something_to_x(void)
-	{
-		lockdep_assert_held_once(M);
-		x++;
-	}
-
-But of course, M may not be a lock, so we cannot put the assert there.
-
-My cscope failed to find ->master_lookup_lock in -rc2 and seems it's not
-introduced in the patchset either, could you point me the branch this
-patchset is based on, so that I could understand this better, and maybe
-come up with a solution? Thanks ;-)
-
-Regards,
-Boqun
-
-> Adding lockdep folks, maybe they have ideas.
-> 
-> On the patch:
-> 
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> 
-> >  	return fpriv->is_master && drm_lease_owner(fpriv->master) == fpriv->minor->dev->master;
-> >  }
-> >  
-> > @@ -82,9 +83,9 @@ bool drm_is_current_master(struct drm_file *fpriv)
-> >  {
-> >  	bool ret;
-> >  
-> > -	mutex_lock(&fpriv->minor->dev->master_mutex);
-> > +	spin_lock(&fpriv->master_lookup_lock);
-> >  	ret = drm_is_current_master_locked(fpriv);
-> > -	mutex_unlock(&fpriv->minor->dev->master_mutex);
-> > +	spin_unlock(&fpriv->master_lookup_lock);
-> >  
-> >  	return ret;
-> >  }
-> > -- 
-> > 2.25.1
-> > 
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--QsOoP1Rtz9Mliiho--
