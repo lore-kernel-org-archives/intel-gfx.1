@@ -7,40 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 735C5C4320A
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FCCAC4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40D5360EFD
+	by mail.kernel.org (Postfix) with ESMTPS id E416E60EFD
 	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 40D5360EFD
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E416E60EFD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB016FBAB;
-	Fri, 23 Jul 2021 17:43:13 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E1456FBA0
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:07 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="273032712"
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="273032712"
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA1976FBA5;
+	Fri, 23 Jul 2021 17:43:11 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1177D6FB9B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:42:59 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="199127539"
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="199127539"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:53 -0700
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229128"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2021 10:42:51 -0700
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229099"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:52 -0700
+ 23 Jul 2021 10:42:51 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 10:42:38 -0700
-Message-Id: <20210723174239.1551352-30-matthew.d.roper@intel.com>
+Date: Fri, 23 Jul 2021 10:42:29 -0700
+Message-Id: <20210723174239.1551352-21-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 References: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 29/30] drm/i915/dg2: Update to bigjoiner path
+Subject: [Intel-gfx] [PATCH v3 20/30] drm/i915/dg2: Maintain
+ backward-compatible nested batch behavior
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,36 +59,105 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Animesh Manna <animesh.manna@intel.com>
+For tgl+, the per-context setting of MI_MODE[12] determines whether
+the bits of a nested MI_BATCH_BUFFER_START instruction should be
+interpreted in the traditional manner or whether they should
+instead use a new tgl+ meaning that breaks backward compatibility, but
+allows nesting into 3rd-level batchbuffers.  For previous platforms,
+the hardware default for this register bit is to maintain
+backward-compatible behavior unless a context intentionally opts into
+the new behavior; however Xe_HPG flips the hardware default behavior.
 
-In verify_mpllb_state() encoder is retrieved from best_encoder
-of connector_state. As there will be only one connector_state
-for bigjoiner and checking encoder may not be needed for
-bigjoiner-slave. This code path related to mpll is done on dg2
-and need this fix to avoid null pointer dereference issue.
+From a SW perspective, we want to maintain the backward-compatible
+behavior for userspace, so we'll apply a fake workaround to set it back
+to the legacy behavior on platforms where the hardware default is to
+break compatibility.  At the moment there is no Linux userspace that
+utilizes third-level batchbuffers, so this will avoid userspace from
+needing to make any changes.  using the legacy meaning is the correct
+thing to do.  If/when we have userspace consumers that want to utilize
+third-level batch nesting, we can provide a context parameter to allow
+them to opt-in.
 
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Bspec: 45974, 45718
+Cc: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 39 +++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_reg.h             |  1 +
+ 2 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 8c66e92fb7b3..c68187f39494 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -9157,6 +9157,9 @@ verify_mpllb_state(struct intel_atomic_state *state,
- 	if (!new_crtc_state->hw.active)
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 57f0e0ceba77..638cfde84e50 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -643,6 +643,37 @@ static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 		     DG1_HZ_READ_SUPPRESSION_OPTIMIZATION_DISABLE);
+ }
+ 
++static void fakewa_disable_nestedbb_mode(struct intel_engine_cs *engine,
++					 struct i915_wa_list *wal)
++{
++	/*
++	 * This is a "fake" workaround defined by software to ensure we
++	 * maintain reliable, backward-compatible behavior for userspace with
++	 * regards to how nested MI_BATCH_BUFFER_START commands are handled.
++	 *
++	 * The per-context setting of MI_MODE[12] determines whether the bits
++	 * of a nested MI_BATCH_BUFFER_START instruction should be interpreted
++	 * in the traditional manner or whether they should instead use a new
++	 * tgl+ meaning that breaks backward compatibility, but allows nesting
++	 * into 3rd-level batchbuffers.  When this new capability was first
++	 * added in TGL, it remained off by default unless a context
++	 * intentionally opted in to the new behavior.  However Xe_HPG now
++	 * flips this on by default and requires that we explicitly opt out if
++	 * we don't want the new behavior.
++	 *
++	 * From a SW perspective, we want to maintain the backward-compatible
++	 * behavior for userspace, so we'll apply a fake workaround to set it
++	 * back to the legacy behavior on platforms where the hardware default
++	 * is to break compatibility.  At the moment there is no Linux
++	 * userspace that utilizes third-level batchbuffers, so this will avoid
++	 * userspace from needing to make any changes.  using the legacy
++	 * meaning is the correct thing to do.  If/when we have userspace
++	 * consumers that want to utilize third-level batch nesting, we can
++	 * provide a context parameter to allow them to opt-in.
++	 */
++	wa_masked_dis(wal, RING_MI_MODE(engine->mmio_base), TGL_NESTED_BB_EN);
++}
++
+ static void
+ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+ 			   struct i915_wa_list *wal,
+@@ -650,11 +681,15 @@ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
++	wa_init_start(wal, name, engine->name);
++
++	/* Applies to all engines */
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55))
++		fakewa_disable_nestedbb_mode(engine, wal);
++
+ 	if (engine->class != RENDER_CLASS)
  		return;
  
-+	if (new_crtc_state->bigjoiner_slave)
-+		return;
-+
- 	encoder = intel_get_crtc_new_encoder(state, new_crtc_state);
- 	intel_mpllb_readout_hw_state(encoder, &mpllb_hw_state);
- 
+-	wa_init_start(wal, name, engine->name);
+-
+ 	if (IS_DG1(i915))
+ 		dg1_ctx_workarounds_init(engine, wal);
+ 	else if (GRAPHICS_VER(i915) == 12)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 555759f382f8..b6ffdb89db6f 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2821,6 +2821,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define MI_MODE		_MMIO(0x209c)
+ # define VS_TIMER_DISPATCH				(1 << 6)
+ # define MI_FLUSH_ENABLE				(1 << 12)
++# define TGL_NESTED_BB_EN				(1 << 12)
+ # define ASYNC_FLIP_PERF_DISABLE			(1 << 14)
+ # define MODE_IDLE					(1 << 9)
+ # define STOP_RING					(1 << 8)
 -- 
 2.25.4
 
