@@ -2,80 +2,40 @@ Return-Path: <SRS0=oFzv=MP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6DA1C432BE
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 09:40:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54AC7C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 09:41:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EECE60725
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 09:40:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7EECE60725
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 18EDD60E8E
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 09:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 18EDD60E8E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEEE76EC37;
-	Fri, 23 Jul 2021 09:40:27 +0000 (UTC)
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 892476EC3F;
- Fri, 23 Jul 2021 06:44:41 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id a20so2294165plm.0;
- Thu, 22 Jul 2021 23:44:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=JtVRhU77ke1jykJUlx44YgtyrOvEU41Pb5DTJX/92t8=;
- b=YICsHnOycxoxkOgj0f0hjRbEP9/EY2rkWi/vMtZq7CjO4baIqSowmIcWA3Httq8u0T
- 9VTxJKZo/Uze4wwTZMDFowZR7eq6Xi5NGBR4XR69N0PhPkflgn9kz5ICkPWPi1UKzDGp
- M2B3tekHiBZBL23dNaDN/fjKudWdmkxIYvIrvSMQJpm2vUXfh7PjlVxD3OpUodCsj3E3
- OtIxeEVpX3fSMNV8S8PoGC/66JqXT3qxwXBNBjfyyj0/2tTanARkAuMkZBCegz5Ygqjb
- e6NDLDE4vh8wtcAEDrC0uE0EOfWYMAC+vxcxNrjV85kTVU4syxEyEikhxxv/cQWF67ny
- g/Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=JtVRhU77ke1jykJUlx44YgtyrOvEU41Pb5DTJX/92t8=;
- b=P20YQosaI+c0m5X2NFsny49jFRTEDJ5aUn9Und9gRuJbYDpUa3uc513FcO1OeJctbi
- XVcdiXwbTSZlS4FdUPga2iLmY+5AQEY0gfREXoTXMClnPhFBKiT2oQkR2R0XpwXVsBEr
- Moy9mTpNysysMXMqLVSjH79oPEiDDRf5pWyirLPWt6DKunZmS5hvQqL3NGE1TtF08g4O
- A4KZPUXDH1cNQSf/BI2AOPKMwiCwkjoue5ZYxnpvocPU11GoJYrle5JblJIBt+GkHPhc
- lPwlSzpANEttiAb2eTEGbAcizmEsrmbe1GXdYFKW7nWKki62a2RwN+ohC8xxtekZx0D4
- hoWw==
-X-Gm-Message-State: AOAM532CaoJnGQ2gibwHlQCgFoRPXEClCkvXZR9eFnaJjnlyBYJ4Nx6U
- boMxC/wyPAYA0ApUWuh+CEAXZTzZ6jeUlF0Rkow=
-X-Google-Smtp-Source: ABdhPJz9iplYhIwZU1EW3jCgZDLvrZ1Zvw9a2ACvz4RyKBOSbBtaaNTJgPvIr9uWhLuDw5FJaj2vmw==
-X-Received: by 2002:a17:90b:3a92:: with SMTP id
- om18mr3315626pjb.33.1627022681207; 
- Thu, 22 Jul 2021 23:44:41 -0700 (PDT)
-Received: from [192.168.1.237] ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id u14sm28466293pga.93.2021.07.22.23.44.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Jul 2021 23:44:40 -0700 (PDT)
-To: Zack Rusin <zackr@vmware.com>, linux-graphics-maintainer@vmware.com,
- airlied@linux.ie, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de
-References: <20210722092929.244629-1-desmondcheongzx@gmail.com>
- <20210722092929.244629-4-desmondcheongzx@gmail.com>
- <b27a2e80-c912-15eb-e78b-c8b6f3993930@vmware.com>
-From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-Message-ID: <cb3ea66e-7f59-c057-06ea-7ddca4329a7c@gmail.com>
-Date: Fri, 23 Jul 2021 14:44:35 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B06626EC37;
+	Fri, 23 Jul 2021 09:41:12 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0CEB06EAAA;
+ Fri, 23 Jul 2021 09:41:12 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 05FBAA8169;
+ Fri, 23 Jul 2021 09:41:12 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <b27a2e80-c912-15eb-e78b-c8b6f3993930@vmware.com>
-Content-Language: en-US
-X-Mailman-Approved-At: Fri, 23 Jul 2021 09:40:27 +0000
-Subject: Re: [Intel-gfx] [PATCH 3/3] drm/vmwgfx: fix potential UAF in
- vmwgfx_surface.c
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Christoph Hellwig" <hch@lst.de>
+Date: Fri, 23 Jul 2021 09:41:12 -0000
+Message-ID: <162703327202.3044.16659074123640207084@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <0-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
+In-Reply-To: <0-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBQ?=
+ =?utf-8?q?rovide_core_infrastructure_for_managing_open/release_=28rev6=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,59 +48,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- skhan@linuxfoundation.org, linux-kernel-mentees@lists.linuxfoundation.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 23/7/21 3:17 am, Zack Rusin wrote:
-> On 7/22/21 5:29 AM, Desmond Cheong Zhi Xi wrote:
->> drm_file.master should be protected by either drm_device.master_mutex
->> or drm_file.master_lookup_lock when being dereferenced. However,
->> drm_master_get is called on unprotected file_priv->master pointers in
->> vmw_surface_define_ioctl and vmw_gb_surface_define_internal.
->>
->> This is fixed by replacing drm_master_get with drm_file_get_master.
->>
->> Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-> 
-> Reviewed-by: Zack Rusin <zackr@vmware.com>
-> 
-> Thanks for taking the time to fix this. Apart from the clear logic 
-> error, do you happen to know under what circumstances would this be hit? 
-> We have someone looking at writing some vmwgfx specific igt tests and I 
-> was wondering if I could add this to the list.
-> 
-> z
+== Series Details ==
 
-Hi Zack,
+Series: Provide core infrastructure for managing open/release (rev6)
+URL   : https://patchwork.freedesktop.org/series/92556/
+State : failure
 
-Thanks for the review.
+== Summary ==
 
-For some context, the use-after-free happens when there's a race between 
-accessing the value of drm_file.master, and a call to 
-drm_setmaster_ioctl. If drm_file is not the creator of master, then the 
-ioctl allocates a new master for drm_file and puts the old master.
+Applying: vfio/samples: Remove module get/put
+Applying: vfio/mbochs: Fix missing error unwind in mbochs_probe()
+Applying: vfio: Introduce a vfio_uninit_group_dev() API call
+Using index info to reconstruct a base tree...
+M	drivers/vfio/pci/vfio_pci.c
+M	samples/vfio-mdev/mbochs.c
+Falling back to patching base and 3-way merge...
+Auto-merging samples/vfio-mdev/mbochs.c
+CONFLICT (content): Merge conflict in samples/vfio-mdev/mbochs.c
+Auto-merging drivers/vfio/pci/vfio_pci.c
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0003 vfio: Introduce a vfio_uninit_group_dev() API call
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-Thus for example, the old value of drm_file.master could be freed in 
-between getting the value of file_priv->master, and the call to 
-drm_master_get.
-
-I'm not entirely sure whether this scenario is a good candidate for a test?
-
-For further reference, the issue was originally caught by Syzbot here:
-https://syzkaller.appspot.com/bug?id=148d2f1dfac64af52ffd27b661981a540724f803
-
-And from the logs it seems that the reproducer set up a race between 
-DRM_IOCTL_GET_UNIQUE and DRM_IOCTL_SET_MASTER. So possibly a race 
-between VMW_CREATE_SURFACE and DRM_IOCTL_SET_MASTER could trigger the 
-same bug.
-
-Best wishes,
-Desmond
 
 _______________________________________________
 Intel-gfx mailing list
