@@ -7,40 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 042FFC432BE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AFDF6C4320E
 	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA95860EFD
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CA95860EFD
+	by mail.kernel.org (Postfix) with ESMTPS id 7DDC760C51
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7DDC760C51
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34D236FBA2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75F7C6FBA8;
 	Fri, 23 Jul 2021 17:43:12 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1EB66FB9F
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:06 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="275742996"
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="275742996"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C365D6FB9C
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="275742972"
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="275742972"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:51 -0700
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229106"
+ 23 Jul 2021 10:42:50 -0700
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229069"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:51 -0700
+ 23 Jul 2021 10:42:49 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 10:42:31 -0700
-Message-Id: <20210723174239.1551352-23-matthew.d.roper@intel.com>
+Date: Fri, 23 Jul 2021 10:42:20 -0700
+Message-Id: <20210723174239.1551352-12-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 References: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 22/30] drm/i915/dg2: Define MOCS table for DG2
+Subject: [Intel-gfx] [PATCH v3 11/30] drm/i915/xehpsdv: Define steering
+ tables
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,66 +59,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Bspec: 45101, 45427
-Cc: Ramalingam C <ramalingam.c@intel.com>(v5)
+Define and initialize the MMIO ranges for which XeHP SDV requires MSLICE
+and LNCF steering.
+
+Bspec: 66534
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_mocs.c | 35 +++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_gt.c          | 19 ++++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 11 +++++++++--
+ 2 files changed, 27 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index 0c9d0b936c20..d22ca8212092 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -341,6 +341,30 @@ static const struct drm_i915_mocs_entry xehpsdv_mocs_table[] = {
- 	MOCS_ENTRY(63, 0, L3_1_UC),
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 0ee33a31a3cd..4c9b5d2725e1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -89,6 +89,20 @@ static const struct intel_mmio_range icl_l3bank_steering_table[] = {
+ 	{},
  };
  
-+static const struct drm_i915_mocs_entry dg2_mocs_table[] = {
-+	/* UC - Coherent; GO:L3 */
-+	MOCS_ENTRY(0, 0, L3_1_UC | L3_LKUP(1)),
-+	/* UC - Coherent; GO:Memory */
-+	MOCS_ENTRY(1, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
-+	/* UC - Non-Coherent; GO:Memory */
-+	MOCS_ENTRY(2, 0, L3_1_UC | L3_GLBGO(1)),
-+
-+	/* WB - LC */
-+	MOCS_ENTRY(3, 0, L3_3_WB | L3_LKUP(1)),
++static const struct intel_mmio_range xehpsdv_mslice_steering_table[] = {
++	{ 0x004000, 0x004AFF },
++	{ 0x00C800, 0x00CFFF },
++	{ 0x00DD00, 0x00DDFF },
++	{ 0x00E900, 0x00FFFF }, /* 0xEA00 - OxEFFF is unused */
++	{},
 +};
 +
-+static const struct drm_i915_mocs_entry dg2_mocs_table_g10_ax[] = {
-+	/* Wa_14011441408: Set Go to Memory for MOCS#0 */
-+	MOCS_ENTRY(0, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
-+	/* UC - Coherent; GO:Memory */
-+	MOCS_ENTRY(1, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
-+	/* UC - Non-Coherent; GO:Memory */
-+	MOCS_ENTRY(2, 0, L3_1_UC | L3_GLBGO(1)),
-+
-+	/* WB - LC */
-+	MOCS_ENTRY(3, 0, L3_3_WB | L3_LKUP(1)),
++static const struct intel_mmio_range xehpsdv_lncf_steering_table[] = {
++	{ 0x00B000, 0x00B0FF },
++	{ 0x00D800, 0x00D8FF },
++	{},
 +};
 +
- enum {
- 	HAS_GLOBAL_MOCS = BIT(0),
- 	HAS_ENGINE_MOCS = BIT(1),
-@@ -367,7 +391,16 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
+ static u16 slicemask(struct intel_gt *gt, int count)
  {
- 	unsigned int flags;
+ 	u64 dss_mask = intel_sseu_get_subslices(&gt->info.sseu, 0);
+@@ -113,7 +127,10 @@ int intel_gt_init_mmio(struct intel_gt *gt)
+ 			(intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3) &
+ 			 GEN12_MEML3_EN_MASK);
  
--	if (IS_XEHPSDV(i915)) {
-+	if (IS_DG2(i915)) {
-+		if (IS_DG2_GT_STEP(i915, G10, STEP_A0, (STEP_B0 - 1))) {
-+			table->size = ARRAY_SIZE(dg2_mocs_table_g10_ax);
-+			table->table = dg2_mocs_table_g10_ax;
-+		} else {
-+			table->size = ARRAY_SIZE(dg2_mocs_table);
-+			table->table = dg2_mocs_table;
-+		}
-+		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
-+	} else if (IS_XEHPSDV(i915)) {
- 		table->size = ARRAY_SIZE(xehpsdv_mocs_table);
- 		table->table = xehpsdv_mocs_table;
- 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
+-	if (GRAPHICS_VER(gt->i915) >= 11 &&
++	if (IS_XEHPSDV(gt->i915)) {
++		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
++		gt->steering_table[LNCF] = xehpsdv_lncf_steering_table;
++	} else if (GRAPHICS_VER(gt->i915) >= 11 &&
+ 		   GRAPHICS_VER_FULL(gt->i915) < IP_VER(12, 50)) {
+ 		gt->steering_table[L3BANK] = icl_l3bank_steering_table;
+ 		gt->info.l3bank_mask =
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 48f794f4a1af..9c8af022bca0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -933,7 +933,6 @@ icl_wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 	__add_mcr_wa(i915, wal, slice, subslice);
+ }
+ 
+-__maybe_unused
+ static void
+ xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
+ {
+@@ -1135,10 +1134,18 @@ dg1_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 			    VSUNIT_CLKGATE_DIS_TGL);
+ }
+ 
++static void
++xehpsdv_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
++{
++	xehp_init_mcr(&i915->gt, wal);
++}
++
+ static void
+ gt_init_workarounds(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ {
+-	if (IS_DG1(i915))
++	if (IS_XEHPSDV(i915))
++		xehpsdv_gt_workarounds_init(i915, wal);
++	else if (IS_DG1(i915))
+ 		dg1_gt_workarounds_init(i915, wal);
+ 	else if (IS_TIGERLAKE(i915))
+ 		tgl_gt_workarounds_init(i915, wal);
 -- 
 2.25.4
 
