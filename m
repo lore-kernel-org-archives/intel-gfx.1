@@ -2,126 +2,157 @@ Return-Path: <SRS0=oFzv=MP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A47ACC4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 22:27:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96AB0C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 22:28:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5F3DC60EB4
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 22:27:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5F3DC60EB4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5604160ED7
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 22:28:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5604160ED7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A4036FD0E;
-	Fri, 23 Jul 2021 22:27:33 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2073.outbound.protection.outlook.com [40.107.95.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F24956F9C8;
- Fri, 23 Jul 2021 17:45:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E44086FD0B;
+	Fri, 23 Jul 2021 22:28:43 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35A9C6FD0B;
+ Fri, 23 Jul 2021 22:28:43 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="199221057"
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="199221057"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2021 15:28:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="663435359"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.229.17])
+ by fmsmga005.fm.intel.com with ESMTP; 23 Jul 2021 15:28:41 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Fri, 23 Jul 2021 15:28:41 -0700
+Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Fri, 23 Jul 2021 15:28:40 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10 via Frontend Transport; Fri, 23 Jul 2021 15:28:40 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.168)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2242.10; Fri, 23 Jul 2021 15:28:40 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W7MxJfA8D3q0OT504xkngauS3u0diyeWiJ/HeWfM5WG+HZ5qmpUE82oJ6jQc5lyMDiMsbS0FC8Q/aq+x+xBJC/g+/PVxTQazlni1KvPA1AwCxQBcm6A9Jblvc8X7sdJOHTFHf2TVlX6OylsiHthTeRjOZC4pEsxaiKCL3mo769c3PoPrSv8VGXJPdFE8IydZ5ILXXuIrhi3meHdgtjZVape8q9/QPl1Cei1P+oZUyeUZPNpjtXMN4tXgsvRUvItEP2TBDGRjo9FL1zAlkgVNIXUoaWc98Rvw0+zrQTLGxE3bT/7BC+qJrWuQKzUoI4MjphsimedIVlBUaDYxfzyO1Q==
+ b=K1WLmJPbPxkBs5bPtrh7IbJHWNQ8HASYTI5Dp4pYFUG7DcaYsDaJWR+mmZxT4iGwzS3kUXsm/AiuNCA3M62CQR+pCazpvYXLvCEor8gc14O/pjGrmk8BhgYYITummW/z8I0xt+5CkacCnvz7rWk9j4A/qv7QKbvu9Yqocu5wcsNTvLSf0LEW2jtqbrtcnH1I3isEKpPJq/ixIcBTqlj+8gC1GwDxr2ohQEVvXwOvfCyM4G6/bP8WwGCAWTgWhwamhV5hrIw8z6Ii02JnHD39KC/o3AxiitBDYLmLH5wJ5N7u2muLC0DkIOJZm8tTcQJvBXsuhiTnDMfdRNNYdWjsiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/pQ4mQksB2b8cyedjyXoiiRVp0CtQeiwbgBoMQTjK1Q=;
- b=e73fnzw+DoASu4k0wPSWWcYSQLhIWhwq6tUwUpnF+f6a1n3Rrz/3dlXwjwsf4ow0+B3VLOOUMc2maQJxA7taj9XGCEOdNOUA5TyztQIX2Hssi3dy+DWEubZOjKja/7UTfbTTtBRBaAz3rVgmSSCBq2fGR1z653XS5AlNlb1E+ceVtxRSexEjCN4Dex2Ca7x3HPD38tpXurHrY5V+VWyHoqwC3nGYm6BOtQFwDABWk+pNltzStNAYanHNNVyk4/kf/RngQoLpdSTKInLCwd+7IkR9ncskPYVQz5d1yo6JPKMaawhJhQ2P+szhYv9vWq4X62JNCgqHasAJ1CB81M2kqQ==
+ bh=+p4s3F7cem7aQ01sIOFf+fuXjyHWv5qXHIZ19HOR590=;
+ b=BLm+E4EZlSvAxwN8CY8D5YCDdFNgnnpi5aAO0B9bv8HxhqLRBkIapjmPkOJcGgoa8BiU/vbA5GWWzooEpeBF+SrN1Fcm7gwXj83dP6V0ukvBjn8i5x83wc4oBUo6snhksmg+l/zWtL7lIPdrxwp7DkmuqCaeXt5bm8lfc8x7WhR7XmlNB20ls6hCH03Jil+SC8iR+/vsIpIUkX0T7aJhwX+bAZ8sAlt7aH8aNXlWATeX4VwcvjOAoKFjlqiiCb8BYNCnyZZ6LH85Tfx6HoOdEaum8yQwdwVx+DOdoFAEhdgaWWIsAJqXMflkm0vkLHwi4Kn2a18j13vJUSPVjqZzPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/pQ4mQksB2b8cyedjyXoiiRVp0CtQeiwbgBoMQTjK1Q=;
- b=qwUwLA0eTCs0kZQIh8TPF2lh/2mq2a/1CBRqqSHoh6OhXKp/66YCgrnONpKCz3U9/0rhC+7sEsuWPQ3hb8BtAdL6vbO5RtzMxhsucJd9gppoMkj+YYaHxsrqFoqDMzeDPiNVQZvVmRfuS6YLoP3/ZwDfZO98RQVaOOjEUhGHXwE=
-Received: from DM6PR12MB2841.namprd12.prod.outlook.com (2603:10b6:5:49::10) by
- DM6PR12MB2921.namprd12.prod.outlook.com (2603:10b6:5:182::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4352.28; Fri, 23 Jul 2021 17:45:03 +0000
-Received: from DM6PR12MB2841.namprd12.prod.outlook.com
- ([fe80::553b:1fdb:ecf4:7593]) by DM6PR12MB2841.namprd12.prod.outlook.com
- ([fe80::553b:1fdb:ecf4:7593%6]) with mapi id 15.20.4331.034; Fri, 23 Jul 2021
- 17:45:03 +0000
-From: "Nieto, David M" <David.Nieto@amd.com>
-To: Daniel Vetter <daniel@ffwll.ch>, Daniel Stone <daniel@fooishbar.org>
-Thread-Topic: [RFC 6/8] drm: Document fdinfo format specification
-Thread-Index: AQHXeVpnxl7t4552HUWFTAYa2yF97atQ0OSAgAABQQCAAA4xAA==
-Date: Fri, 23 Jul 2021 17:45:03 +0000
-Message-ID: <DM6PR12MB2841BE4BD79C3CFAED57029DF4E59@DM6PR12MB2841.namprd12.prod.outlook.com>
-References: <20210715091820.1613726-1-tvrtko.ursulin@linux.intel.com>
- <20210715091820.1613726-7-tvrtko.ursulin@linux.intel.com>
- <CAPj87rMxvq2c9uQ-ArvsLo2M7rXq=7LiJZ_XJwST=1VDhhNXRA@mail.gmail.com>,
- <YPryorSobmlnGT1b@phenom.ffwll.local>
-In-Reply-To: <YPryorSobmlnGT1b@phenom.ffwll.local>
-Accept-Language: en-US
+ bh=+p4s3F7cem7aQ01sIOFf+fuXjyHWv5qXHIZ19HOR590=;
+ b=roaspLIbPXFF3n6vO10OK6JZz4N8txRza0VVHxRCGOQQByhi6i1xP94aQxjkslKsnHZ9XeYYWBp2cstKqmmMkH9qBHRdXMIYC+56q3dTdSeKMNpJHa/muBA+peRJjDAJNj2FU4Yi+wcCNVkUxq7zWXR1G3JLkODlNqXWR9eDAeM=
+Authentication-Results: linux.intel.com; dkim=none (message not signed)
+ header.d=none;linux.intel.com; dmarc=none action=none header.from=intel.com;
+Received: from CO6PR11MB5634.namprd11.prod.outlook.com (2603:10b6:5:35d::20)
+ by CO6PR11MB5585.namprd11.prod.outlook.com (2603:10b6:5:356::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.25; Fri, 23 Jul
+ 2021 22:28:34 +0000
+Received: from CO6PR11MB5634.namprd11.prod.outlook.com
+ ([fe80::5d5e:b6bf:aafa:ecd4]) by CO6PR11MB5634.namprd11.prod.outlook.com
+ ([fe80::5d5e:b6bf:aafa:ecd4%9]) with mapi id 15.20.4352.029; Fri, 23 Jul 2021
+ 22:28:34 +0000
+To: Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+References: <20210721161120.24610-1-vinay.belgaumkar@intel.com>
+ <20210721161120.24610-13-vinay.belgaumkar@intel.com>
+ <c8b72a61-61a2-a32e-1842-6d296154733d@intel.com>
+From: "Belgaumkar, Vinay" <vinay.belgaumkar@intel.com>
+Message-ID: <3af453f6-c549-7101-05fd-6adca8b2e045@intel.com>
+Date: Fri, 23 Jul 2021 15:28:30 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.12.0
+In-Reply-To: <c8b72a61-61a2-a32e-1842-6d296154733d@intel.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2021-07-23T17:45:02.779Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-authentication-results: ffwll.ch; dkim=none (message not signed)
- header.d=none;ffwll.ch; dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d7a4ad20-70e5-47bb-8f98-08d94e0199d4
-x-ms-traffictypediagnostic: DM6PR12MB2921:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2921DB41C0DB97E635E6EF28F4E59@DM6PR12MB2921.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: +sEwwp06tDAm+nbnY0hQjf92sPNA5Vu02zS4EUc0HgQJWDiAVt+t64k4vUnx3jVqe09Fsghl6J5Vx2aJW68gbxSTtLkzngQEQYn6Bo4i9/qgomxgxN9yhXjHMakeNGgaaull3jB60dCu1OU7LXijpNwoiTm70wZZWVattcUbN13K4e7mGOMoXLqGIlmk9kJ1agah0H2nyR9v1HwFpdyavGxe4+63KzlaH4CL63B7AC6/XJpEJI0D1xM+QV244HYcQqJyNaUsrXu63MoOTaFJir106CUH8bT1y59d3yE7BqgyccbF/nd5nBp08vsx8ALylC3FF3Ndq9vjnEcFavCb0W9i5bJlFbwqDS4VJ4lhAn3y2gpXxS9odjTyY2mqef8J+SZc6tX2Jq5hJNaxEwbUtpHehyPWHdlSuinl/LVTDke9Gqkt2XAGGdKsFaSgI9uYzUM9nWvCEXftJUT/DHFH8ETiBo9cdcaYRg3Fr1y5IVHN+HsjtqGQ0YMvypv5ldrwwB3zdHaX6SZMWkupqqT/r1axO0rUDkofeu2DE3Ha77yPNUhXowqmJuZByET3vJcekO7Lz7wqQLZ2IkYnp3G7VE7iGFhXckZetQG5Sngs/1s27seQ050Gv2YWpTsciUFPBrD+/1NwNC57N2qWpwfgO9EVbzSgPpbms0MIBEJ7d1g42DYhrWmJb8ZfPDUu/05ZSOJOcGYng7kCd1Xaw6ZYZ0tNPan9zS1cNObriL+mNA8wJrhF7FNwocCYUSSGlIvPwoJ7EGg2DYCf96kjHBY+JqqIA57gtohGcKxQXiUOoiE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2841.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(55016002)(76116006)(6506007)(966005)(66946007)(122000001)(86362001)(53546011)(7696005)(19627405001)(45080400002)(66476007)(83380400001)(166002)(71200400001)(66556008)(4326008)(508600001)(316002)(8936002)(52536014)(66446008)(54906003)(38100700002)(110136005)(9686003)(5660300002)(64756008)(26005)(8676002)(2906002)(186003)(33656002)(38070700004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?32rioRYFCmDk0JADqk5PvshbrOV9sRsxBUhbOxZcNZFBuAKkXNP2umVzUSWS?=
- =?us-ascii?Q?q8bC7SpphWIUc294lAlP1Iey03xDOV/wpznZhVEYwPYoD8dkSaevkhSo9nIH?=
- =?us-ascii?Q?5QzTTwM9CrLxn3VUqEc3khz8d/BCarxGWXc0PMeq7KFugjT/WhCyGtk1vAjE?=
- =?us-ascii?Q?eJWgpjjZS7ijLA9caekFMmAEmh39DSil+sKiNvr2DRy3RF4PcgU7dsrUCiSU?=
- =?us-ascii?Q?6fUMI4ox7Rot2MhTTlnucszY4uzqK7NT4wkBamxHNx8JqvZ+4ZRf5Q8d60WC?=
- =?us-ascii?Q?aartOlYGHgqnSH68snubbcDX97lKNu8ROulpVO/oCL07YMRGXzxkdn8mZOrD?=
- =?us-ascii?Q?bhw+yL5l7bWYuIXppKclhXcShICHFV+lzMzlW70lzxrIMD5h6NF7igH2hytl?=
- =?us-ascii?Q?4UMcSeJk/cPUKECeR8+CZBYJS3yLVeDLOm84GRviGwKTBvf/Y4dXeVz6qw8D?=
- =?us-ascii?Q?i/k3UIUqFK0Mm6jhBJIrpI+1Q0C5Fh3NoUZbEMR9fvgykhPVu6BbVdKngMh5?=
- =?us-ascii?Q?c0Oox3DvsU/RDg1ma+SgpTM+F7RQIYAA3uLVLTbaYKhGH0aBuvghsPYh1P/9?=
- =?us-ascii?Q?H82gmH0pS3/17BZxXfSSyjKSTHwXuhXN6HER3wfbIGO3YPF3/wJisFYIcICT?=
- =?us-ascii?Q?iTfwIRrnYMV5FbOYzMd382yVrzfq90bcVfPLVdd9cz8gM6yk+IcII1SeYGuI?=
- =?us-ascii?Q?ZgZhUmZHPEx2NuOww96ys6Wcx1S0+ZYmo+Eid7VqEF53QGZQh/wNKUR58fKz?=
- =?us-ascii?Q?KMjMpz7xx/OyC5DHHSZFAhVkuLE1sJOJynbaHMGRrv1gRzBPrcNxG6TlE4/b?=
- =?us-ascii?Q?65AAsijq5AKrMSUeMyctQpwO6vQnAJamvlzfeAqMHfak9umhhnj1FDa9cMkM?=
- =?us-ascii?Q?AhTkOyp4EmHcI3fN4eDpOpKRhk7v9nvTxHUSGsZco9HYtlSuyTJ1F3cKi6zP?=
- =?us-ascii?Q?3lhyZTeaZl8BGncKACFwDQXYZ62BMhUcoGPXDIU3fv+IRrGd8bEZVMD+QA06?=
- =?us-ascii?Q?fxI6Xvq4BpBdv3NITsf6O4JyKwxc1ighign6smGYBFrKDaPLCn1nUNNbelDb?=
- =?us-ascii?Q?QmgRFRHjKbNEOLXCu4Jl5DLIv3ULbFEZijUO2lLnfbR1kutVoebw/iyzCMoL?=
- =?us-ascii?Q?adRdjrriarOeccIKc8Uhx4AnDfoh2rFZWEszRnB+Rh69Xx3GdwuNwrbi8tTt?=
- =?us-ascii?Q?SOpo5RoSQaq5T2iCwx4ZoxCap/ewiRsWcPTzaXQPhujcX2ahEtovX4YVt/IW?=
- =?us-ascii?Q?9Q1yt/tkmgnGQuimhltgwQaB3iIVpU3lF8Fwg0MvVKQbBfe4+hga6NUsG+3y?=
- =?us-ascii?Q?kgI=3D?=
+X-ClientProxiedBy: SJ0PR05CA0116.namprd05.prod.outlook.com
+ (2603:10b6:a03:334::31) To CO6PR11MB5634.namprd11.prod.outlook.com
+ (2603:10b6:5:35d::20)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.1.71] (99.88.121.38) by
+ SJ0PR05CA0116.namprd05.prod.outlook.com (2603:10b6:a03:334::31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.7 via Frontend
+ Transport; Fri, 23 Jul 2021 22:28:33 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7eb332fa-f5ca-4fb5-c877-08d94e2934e9
+X-MS-TrafficTypeDiagnostic: CO6PR11MB5585:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CO6PR11MB55851DBD9D1120652DFED19285E59@CO6PR11MB5585.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OsTif6z0lxK3N6Pxyv8vK73YI7aG0Xw9iwF+DuYKJnREgCSM1/h9gZwaaTXsjaqQ7nEN/s1FJJXKAqGM+214HLfSdgpR8EOyIZBESLzeVbbEas1Yf68Gk2oh3rUjXevKV3KYPUPaDRBFs6pgqCkrwKSGO4pT28QfMvZ+vzFl5HeW4H8ybYY/2F9slh+/GPGjyCVjlXpy7i0aDuRt+Xo1ad6Y5l/pZBySSiOYWwPlHnoNEBeWwCe9Dc59sOzhQGEibtF0AO0F5ncwHRiWrMlSqJLg0r+QUPElsoHTmhoM8gjR+ORJUAbGov0IpMY8P7sKnfU0RYZS4ZU3RY1uhoXuPSK1ZBNRD0JMKHDbIbRJbgQN1J+Yl7YcVtY1F1apXRXAaSx7abGraLWHixHCTLSWydacGPQ2Vz/7ndBwzJnK0uTU1HmEKuFBwtCZsZrFkjxd+I5FybFQDgG8HRxEAu6l7IMwbcKS/W7pEBPpuJTHfQuyOkI4WfJdYEyiFHY/kS5SrL2SFDsM2sQ/n2KQVfJv5qEwXcETTJ22vSgYsHRmJNTiCPcjHrUivECxdKJOpxXY5YpJQSINgiGzn8RhTwVGO4WCzLpE2cae5vyh6JZYz9PT8cyXmmY9uKliFyFSuP/jRCrbeAqUlzg1qwQUevUp7g4ihMrw0F/NqoEYROWLV05V/F2MuIZyjaYCIJYgbp1tdHVlSjbuMzAhP27OXy5OC93pdq4yYzOqI0wy1Qs8jqw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR11MB5634.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(366004)(396003)(39860400002)(376002)(53546011)(16576012)(66946007)(8936002)(26005)(2906002)(4326008)(83380400001)(86362001)(38100700002)(316002)(66556008)(186003)(478600001)(956004)(31696002)(36756003)(31686004)(5660300002)(6486002)(2616005)(8676002)(66476007)(30864003)(54906003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzAwNXJnWHhqdE4rTFZOei9SZ0IrUU0vT2tYaUdRSk4ybitlZDBiTXJyVnFk?=
+ =?utf-8?B?VkhsU09ncmh3bjVtbklrcVAyK25xQUtlTGxDWFNaQ3ZLN1pSTjhYN2RleUUx?=
+ =?utf-8?B?RDIzM1lLK2FVdjlWcktWbjlnam84RWJuaEY3YmwvVnhHZEovZTlXNWUvdFd5?=
+ =?utf-8?B?VkdoWWJ1Y2pTblhidDgwcjlXK3JiWlpkTFRPVkg1cHRqWUpZR2d6VHpuc3Nx?=
+ =?utf-8?B?R1hUcHNHdEQzM1F6dURkS2FDSkY3SnhuNTdickxBSlY1UWpSbHBBTzhadlR2?=
+ =?utf-8?B?THFGeFdjQ2VNbHNtQnVGU1FmN3VZanJwUC80bGVoNG9OV2NoNm84MHRXZ2tl?=
+ =?utf-8?B?VUxnc1YxUi9MT2Z3eDBpa1dSVU9xNk8zMmxBV29EcDFBRVdHOTlQV1JUVm8r?=
+ =?utf-8?B?c01pZFQ5NjhMYzFWN1VyaitUNlMxNm80WE5QKzZmT255bjQ0VE01K3BESjJI?=
+ =?utf-8?B?emtmVUxKSEt1VG1xbmF2cGhvMUowUmVpY2F2c0FoSSs1aTBZTTc5cHdtSndB?=
+ =?utf-8?B?Wi9ZRXVOYmdCelAraStMNG9lYjFXcWhIeC82ZHJtdG1qaEhNNFNFUFR1WjFI?=
+ =?utf-8?B?S0VNWVhlVzlqdUZmQVlqcTNPWUdEalI3NU5TU3pYZ1JkVG9CWEs0VUZ0TGNj?=
+ =?utf-8?B?dDhqYzN0ZjBjbUY2WXluS2J3aXBCWXhRUHRzQmlDUDlNVDh1R0J6Qnk1U1N6?=
+ =?utf-8?B?b01GYm1MYzJuWExpOXZwblhINHVKZ2JFK3dZOEhtakUxRlU2QjAxSFJsTUhX?=
+ =?utf-8?B?N3A0QkRaYXNSOFlRL29TZDZTbWxLRGxjdVZRVmRJODY4ZG9UOVE4N1RKajFI?=
+ =?utf-8?B?MnN0VUFVL09MMHlLZGpoYnp2THpCOFRId0Q0ZUpZYm0yZEpBWTFrWlFhY3Nz?=
+ =?utf-8?B?MEdDT3kyK3N1KzN1QUxOR3lTbytCb0k1R1BGblpLZ2kzRmxuZU9LaDl3cVN5?=
+ =?utf-8?B?d0t6MkZCZGE0MnQ1bjVqb0RYY2lpZEx5ZXV1M1Y3c0kzWWF0VzQvZnB0OUZH?=
+ =?utf-8?B?ZTVwSUVCNGJxdmdzQVVNM1dmZVBGMkw1MDFValFya1p5UDRJZ3ExN1YvV2lq?=
+ =?utf-8?B?bWZ6Z24ydTcyMlo5UDRoeVJERmVBcTQ5SjZ0NjI0R3FWSmVCSHNYWkFHVG80?=
+ =?utf-8?B?UnZYZjFVeXVHWG42cCtCdlJWOUJxbXp4blJyK3ZicXZhZWFseE5lWGZmOHU4?=
+ =?utf-8?B?RFIzZXUzL1VnZTB5ZkJweXpUT3IvbVZRZllYTURkd0hrK2tOWWx2d3V0b3VB?=
+ =?utf-8?B?a0ZwMnRjMkpJZmtTVGdwMEh6ZVlheC8yVHVHR0NHb2pnaXdGTk5xMUxQbExX?=
+ =?utf-8?B?eE5landVM2VhMFhNL05QUVdPSnBCWEtCUXdjR0VETzgxSlUxejZMeTRDZVFG?=
+ =?utf-8?B?T2xLWklKUmxnakFtNWhnOVBRNXBCVFNWc2wxNTJrN3VnWENuc214L1hwVEZZ?=
+ =?utf-8?B?VG9DU0pLZ2hkbXZ3VjBYRnZIUXIzbTZISlNhRngyMnZ3WTlaMWdURk9TcVhj?=
+ =?utf-8?B?WHBsR3ZleEtKbVRBUkhEMUNqWlZYb051ZjRRamkwUGZxTUZiYkVQdFdKVWhR?=
+ =?utf-8?B?OWduVDNaUEl3T0g4cDhsZEJ2N2lBUmx6ZlA2UkQvR1V1b3IraExZbFcybTZN?=
+ =?utf-8?B?aFJhZVJHNEFyOHNSV3BpdXJwNm9jL3NIenVSMTU3bmJXL0FxMituYktjV05q?=
+ =?utf-8?B?eHc2dkNpTjhoSGRvdkJKNTVORFhCZ3JvSGl0UHVmOURsbTd6Ly9CWnhlb2c3?=
+ =?utf-8?Q?o3y0mq4w6dMtoUsxg8Tbm4FSWLr4yvD9wPYtgF4?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7eb332fa-f5ca-4fb5-c877-08d94e2934e9
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR11MB5634.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2841.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7a4ad20-70e5-47bb-8f98-08d94e0199d4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2021 17:45:03.1594 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9zekkaJiEofAMTpyvdzZ9WFpNg3uD1OmWoDic6ysicTHQQVyHDqOir4ebsAY/jSt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2921
-X-Mailman-Approved-At: Fri, 23 Jul 2021 22:27:31 +0000
-Subject: Re: [Intel-gfx] [RFC 6/8] drm: Document fdinfo format specification
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2021 22:28:33.9580 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YYXUgeLDHlzuVk/vJYTW6Y8TJyITwT8pcJ0NxC9znNNLqZaaNn98IniLV/CTZu/lmSzoLR2tugqLC8v7Gd+33JYsct5rJ/H8YRBr8EuehW0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR11MB5585
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH 12/14] drm/i915/guc/slpc: Sysfs hooks for
+ SLPC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,407 +165,468 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <Intel-gfx@lists.freedesktop.org>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0260265240=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0260265240==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB2841BE4BD79C3CFAED57029DF4E59DM6PR12MB2841namp_"
 
---_000_DM6PR12MB2841BE4BD79C3CFAED57029DF4E59DM6PR12MB2841namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only]
+On 7/21/2021 11:13 AM, Michal Wajdeczko wrote:
+> 
+> 
+> On 21.07.2021 18:11, Vinay Belgaumkar wrote:
+>> Update the get/set min/max freq hooks to work for
+>> SLPC case as well. Consolidate helpers for requested/min/max
+>> frequency get/set to intel_rps where the proper action can
+>> be taken depending on whether slpc is enabled.
+> 
+> s/slpc/SLPC
 
-I just want to make a comment that with this approach (the ns) calculating =
-the percentage will take at least two reads of the fdinfo per pid over some=
- time. Some engines may be able to provide a single shot percentage usage o=
-ver an internal integration period. That is, for example, what we currently=
- have implemented for that exact reason.
+ok.
 
-I'd like to propose that we add an optional set of fields for this. Also, I=
- may have missed a message, but why did we remove the timstamp? It is neede=
-d for accurate measurements of engine usage.
+> 
+>>
+>> v2: Add wrappers for getting rp0/1/n frequencies, update
+>> softlimits in set min/max slpc functions. Also check for
+>> boundary conditions before setting them.
+>>
+>> v3: Address review comments (Michal W)
+>>
+>> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+>> Signed-off-by: Sujaritha Sundaresan <sujaritha.sundaresan@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/gt/intel_rps.c         | 165 ++++++++++++++++++++
+>>   drivers/gpu/drm/i915/gt/intel_rps.h         |  11 ++
+>>   drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c |  14 ++
+>>   drivers/gpu/drm/i915/i915_pmu.c             |   2 +-
+>>   drivers/gpu/drm/i915/i915_reg.h             |   2 +
+>>   drivers/gpu/drm/i915/i915_sysfs.c           |  77 ++-------
+>>   6 files changed, 207 insertions(+), 64 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+>> index e858eeb2c59d..48d4147165a9 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_rps.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+>> @@ -37,6 +37,13 @@ static struct intel_uncore *rps_to_uncore(struct intel_rps *rps)
+>>   	return rps_to_gt(rps)->uncore;
+>>   }
+>>   
+>> +static struct intel_guc_slpc *rps_to_slpc(struct intel_rps *rps)
+>> +{
+>> +	struct intel_gt *gt = rps_to_gt(rps);
+>> +
+>> +	return &gt->uc.guc.slpc;
+>> +}
+>> +
+>>   static bool rps_uses_slpc(struct intel_rps *rps)
+>>   {
+>>   	struct intel_gt *gt = rps_to_gt(rps);
+>> @@ -1960,6 +1967,164 @@ u32 intel_rps_read_actual_frequency(struct intel_rps *rps)
+>>   	return freq;
+>>   }
+>>   
+>> +u32 intel_rps_read_punit_req(struct intel_rps *rps)
+>> +{
+>> +	struct intel_uncore *uncore = rps_to_uncore(rps);
+>> +
+>> +	return intel_uncore_read(uncore, GEN6_RPNSWREQ);
+>> +}
+>> +
+>> +u32 intel_rps_get_req(struct intel_rps *rps, u32 pureq)
+>> +{
+>> +	u32 req = pureq >> GEN9_SW_REQ_UNSLICE_RATIO_SHIFT;
+>> +
+>> +	return req;
+>> +}
+>> +
+>> +u32 intel_rps_read_punit_req_frequency(struct intel_rps *rps)
+>> +{
+>> +	u32 freq = intel_rps_get_req(rps, intel_rps_read_punit_req(rps));
+>> +
+>> +	return intel_gpu_freq(rps, freq);
+>> +}
+>> +
+>> +u32 intel_rps_get_requested_frequency(struct intel_rps *rps)
+>> +{
+>> +	if (rps_uses_slpc(rps))
+>> +		return intel_rps_read_punit_req_frequency(rps);
+>> +	else
+>> +		return intel_gpu_freq(rps, rps->cur_freq);
+>> +}
+>> +
+>> +u32 intel_rps_get_max_frequency(struct intel_rps *rps)
+>> +{
+>> +	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+>> +
+>> +	if (rps_uses_slpc(rps))
+>> +		return slpc->max_freq_softlimit;
+>> +	else
+>> +		return intel_gpu_freq(rps, rps->max_freq_softlimit);
+>> +}
+>> +
+>> +u32 intel_rps_get_rp0_frequency(struct intel_rps *rps)
+>> +{
+>> +	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+>> +
+>> +	if (rps_uses_slpc(rps))
+>> +		return slpc->rp0_freq;
+>> +	else
+>> +		return intel_gpu_freq(rps, rps->rp0_freq);
+>> +}
+>> +
+>> +u32 intel_rps_get_rp1_frequency(struct intel_rps *rps)
+>> +{
+>> +	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+>> +
+>> +	if (rps_uses_slpc(rps))
+>> +		return slpc->rp1_freq;
+>> +	else
+>> +		return intel_gpu_freq(rps, rps->rp1_freq);
+>> +}
+>> +
+>> +u32 intel_rps_get_rpn_frequency(struct intel_rps *rps)
+>> +{
+>> +	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+>> +
+>> +	if (rps_uses_slpc(rps))
+>> +		return slpc->min_freq;
+>> +	else
+>> +		return intel_gpu_freq(rps, rps->min_freq);
+>> +}
+>> +
+>> +int intel_rps_set_max_frequency(struct intel_rps *rps, u32 val)
+>> +{
+>> +	struct drm_i915_private *i915 = rps_to_i915(rps);
+>> +	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+>> +	int ret = 0;
+>> +
+>> +	if (rps_uses_slpc(rps))
+>> +		return intel_guc_slpc_set_max_freq(slpc, val);
+>> +
+>> +	mutex_lock(&rps->lock);
+>> +
+>> +	val = intel_freq_opcode(rps, val);
+>> +	if (val < rps->min_freq ||
+>> +	    val > rps->max_freq ||
+>> +	    val < rps->min_freq_softlimit) {
+>> +		ret = -EINVAL;
+>> +		goto unlock;
+>> +	}
+>> +
+>> +	if (val > rps->rp0_freq)
+>> +		drm_dbg(&i915->drm, "User requested overclocking to %d\n",
+>> +			  intel_gpu_freq(rps, val));
+>> +
+>> +	rps->max_freq_softlimit = val;
+>> +
+>> +	val = clamp_t(int, rps->cur_freq,
+>> +		      rps->min_freq_softlimit,
+>> +		      rps->max_freq_softlimit);
+>> +
+>> +	/*
+>> +	 * We still need *_set_rps to process the new max_delay and
+>> +	 * update the interrupt limits and PMINTRMSK even though
+>> +	 * frequency request may be unchanged.
+>> +	 */
+>> +	intel_rps_set(rps, val);
+>> +
+>> +unlock:
+>> +	mutex_unlock(&rps->lock);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +u32 intel_rps_get_min_frequency(struct intel_rps *rps)
+>> +{
+>> +	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+>> +
+>> +	if (rps_uses_slpc(rps))
+>> +		return slpc->min_freq_softlimit;
+>> +	else
+>> +		return intel_gpu_freq(rps, rps->min_freq_softlimit);
+>> +}
+>> +
+>> +int intel_rps_set_min_frequency(struct intel_rps *rps, u32 val)
+>> +{
+>> +	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+>> +	int ret = 0;
+>> +
+>> +	if (rps_uses_slpc(rps))
+>> +		return intel_guc_slpc_set_min_freq(slpc, val);
+>> +
+>> +	mutex_lock(&rps->lock);
+>> +
+>> +	val = intel_freq_opcode(rps, val);
+>> +	if (val < rps->min_freq ||
+>> +	    val > rps->max_freq ||
+>> +	    val > rps->max_freq_softlimit) {
+>> +		ret = -EINVAL;
+>> +		goto unlock;
+>> +	}
+>> +
+>> +	rps->min_freq_softlimit = val;
+>> +
+>> +	val = clamp_t(int, rps->cur_freq,
+>> +		      rps->min_freq_softlimit,
+>> +		      rps->max_freq_softlimit);
+>> +
+>> +	/*
+>> +	 * We still need *_set_rps to process the new min_delay and
+>> +	 * update the interrupt limits and PMINTRMSK even though
+>> +	 * frequency request may be unchanged.
+>> +	 */
+>> +	intel_rps_set(rps, val);
+>> +
+>> +unlock:
+>> +	mutex_unlock(&rps->lock);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>   /* External interface for intel_ips.ko */
+>>   
+>>   static struct drm_i915_private __rcu *ips_mchdev;
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_rps.h b/drivers/gpu/drm/i915/gt/intel_rps.h
+>> index 1d2cfc98b510..6a66690dfb0f 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_rps.h
+>> +++ b/drivers/gpu/drm/i915/gt/intel_rps.h
+>> @@ -31,6 +31,17 @@ int intel_gpu_freq(struct intel_rps *rps, int val);
+>>   int intel_freq_opcode(struct intel_rps *rps, int val);
+>>   u32 intel_rps_get_cagf(struct intel_rps *rps, u32 rpstat1);
+>>   u32 intel_rps_read_actual_frequency(struct intel_rps *rps);
+>> +u32 intel_rps_get_requested_frequency(struct intel_rps *rps);
+>> +u32 intel_rps_get_min_frequency(struct intel_rps *rps);
+>> +int intel_rps_set_min_frequency(struct intel_rps *rps, u32 val);
+>> +u32 intel_rps_get_max_frequency(struct intel_rps *rps);
+>> +int intel_rps_set_max_frequency(struct intel_rps *rps, u32 val);
+>> +u32 intel_rps_get_rp0_frequency(struct intel_rps *rps);
+>> +u32 intel_rps_get_rp1_frequency(struct intel_rps *rps);
+>> +u32 intel_rps_get_rpn_frequency(struct intel_rps *rps);
+>> +u32 intel_rps_read_punit_req(struct intel_rps *rps);
+>> +u32 intel_rps_get_req(struct intel_rps *rps, u32 pureq);
+>> +u32 intel_rps_read_punit_req_frequency(struct intel_rps *rps);
+>>   
+>>   void gen5_rps_irq_handler(struct intel_rps *rps);
+>>   void gen6_rps_irq_handler(struct intel_rps *rps, u32 pm_iir);
+>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+>> index 134c57ca10b7..05d8870ec6da 100644
+>> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+>> @@ -301,6 +301,11 @@ int intel_guc_slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 val)
+>>   	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+>>   	intel_wakeref_t wakeref;
+>>   
+>> +	if ((val < slpc->min_freq) ||
+>> +	    (val > slpc->rp0_freq) ||
+>> +	    (val < slpc->min_freq_softlimit))
+>> +		return -EINVAL;
+>> +
+>>   	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+>>   		ret = slpc_set_param(slpc,
+>>   			       SLPC_PARAM_GLOBAL_MAX_GT_UNSLICE_FREQ_MHZ,
+>> @@ -313,6 +318,8 @@ int intel_guc_slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 val)
+>>   		}
+>>   	}
+>>   
+>> +	slpc->max_freq_softlimit = val;
+>> +
+>>   	return ret;
+>>   }
+>>   
+>> @@ -359,6 +366,11 @@ int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val)
+>>   	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
+>>   	intel_wakeref_t wakeref;
+>>   
+>> +	if ((val < slpc->min_freq) ||
+>> +	    (val > slpc->rp0_freq) ||
+>> +	    (val > slpc->max_freq_softlimit))
+>> +		return -EINVAL;
+>> +
+>>   	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+>>   		ret = slpc_set_param(slpc,
+>>   			       SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
+>> @@ -371,6 +383,8 @@ int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val)
+>>   		}
+>>   	}
+>>   
+>> +	slpc->min_freq_softlimit = val;
+>> +
+>>   	return ret;
+>>   }
+>>   
+>> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+>> index 34d37d46a126..a896bec18255 100644
+>> --- a/drivers/gpu/drm/i915/i915_pmu.c
+>> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+>> @@ -407,7 +407,7 @@ frequency_sample(struct intel_gt *gt, unsigned int period_ns)
+>>   
+>>   	if (pmu->enable & config_mask(I915_PMU_REQUESTED_FREQUENCY)) {
+>>   		add_sample_mult(&pmu->sample[__I915_SAMPLE_FREQ_REQ],
+>> -				intel_gpu_freq(rps, rps->cur_freq),
+>> +				intel_rps_get_requested_frequency(rps),
+>>   				period_ns / 1000);
+>>   	}
+>>   
+>> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+>> index 92392c1da0e6..a5d893625736 100644
+>> --- a/drivers/gpu/drm/i915/i915_reg.h
+>> +++ b/drivers/gpu/drm/i915/i915_reg.h
+>> @@ -9198,6 +9198,8 @@ enum {
+>>   #define   GEN9_FREQUENCY(x)			((x) << 23)
+>>   #define   GEN6_OFFSET(x)			((x) << 19)
+>>   #define   GEN6_AGGRESSIVE_TURBO			(0 << 15)
+>> +#define   GEN9_SW_REQ_UNSLICE_RATIO_SHIFT 	23
+>> +
+>>   #define GEN6_RC_VIDEO_FREQ			_MMIO(0xA00C)
+>>   #define GEN6_RC_CONTROL				_MMIO(0xA090)
+>>   #define   GEN6_RC_CTL_RC6pp_ENABLE		(1 << 16)
+>> diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
+>> index 873bf996ceb5..346646a0b43b 100644
+>> --- a/drivers/gpu/drm/i915/i915_sysfs.c
+>> +++ b/drivers/gpu/drm/i915/i915_sysfs.c
+>> @@ -272,7 +272,7 @@ static ssize_t gt_cur_freq_mhz_show(struct device *kdev,
+>>   	struct drm_i915_private *i915 = kdev_minor_to_i915(kdev);
+>>   	struct intel_rps *rps = &i915->gt.rps;
+>>   
+>> -	return sysfs_emit(buf, "%d\n", intel_gpu_freq(rps, rps->cur_freq));
+>> +	return sysfs_emit(buf, "%d\n", intel_rps_get_requested_frequency(rps));
+>>   }
+>>   
+>>   static ssize_t gt_boost_freq_mhz_show(struct device *kdev, struct device_attribute *attr, char *buf)
+>> @@ -326,9 +326,10 @@ static ssize_t vlv_rpe_freq_mhz_show(struct device *kdev,
+>>   static ssize_t gt_max_freq_mhz_show(struct device *kdev, struct device_attribute *attr, char *buf)
+>>   {
+>>   	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
+>> -	struct intel_rps *rps = &dev_priv->gt.rps;
+>> +	struct intel_gt *gt = &dev_priv->gt;
+>> +	struct intel_rps *rps = &gt->rps;
+>>   
+>> -	return sysfs_emit(buf, "%d\n", intel_gpu_freq(rps, rps->max_freq_softlimit));
+>> +	return sysfs_emit(buf, "%d\n", intel_rps_get_max_frequency(rps));
+>>   }
+>>   
+>>   static ssize_t gt_max_freq_mhz_store(struct device *kdev,
+>> @@ -336,7 +337,8 @@ static ssize_t gt_max_freq_mhz_store(struct device *kdev,
+>>   				     const char *buf, size_t count)
+>>   {
+>>   	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
+>> -	struct intel_rps *rps = &dev_priv->gt.rps;
+>> +	struct intel_gt *gt = &dev_priv->gt;
+>> +	struct intel_rps *rps = &gt->rps;
+>>   	ssize_t ret;
+>>   	u32 val;
+>>   
+>> @@ -344,35 +346,7 @@ static ssize_t gt_max_freq_mhz_store(struct device *kdev,
+>>   	if (ret)
+>>   		return ret;
+>>   
+>> -	mutex_lock(&rps->lock);
+>> -
+>> -	val = intel_freq_opcode(rps, val);
+>> -	if (val < rps->min_freq ||
+>> -	    val > rps->max_freq ||
+>> -	    val < rps->min_freq_softlimit) {
+>> -		ret = -EINVAL;
+>> -		goto unlock;
+>> -	}
+>> -
+>> -	if (val > rps->rp0_freq)
+>> -		DRM_DEBUG("User requested overclocking to %d\n",
+>> -			  intel_gpu_freq(rps, val));
+>> -
+>> -	rps->max_freq_softlimit = val;
+>> -
+>> -	val = clamp_t(int, rps->cur_freq,
+>> -		      rps->min_freq_softlimit,
+>> -		      rps->max_freq_softlimit);
+>> -
+>> -	/*
+>> -	 * We still need *_set_rps to process the new max_delay and
+>> -	 * update the interrupt limits and PMINTRMSK even though
+>> -	 * frequency request may be unchanged.
+>> -	 */
+>> -	intel_rps_set(rps, val);
+>> -
+>> -unlock:
+>> -	mutex_unlock(&rps->lock);
+>> +	ret = intel_rps_set_max_frequency(rps, val);
+>>   
+>>   	return ret ?: count;
+>>   }
+>> @@ -380,9 +354,10 @@ static ssize_t gt_max_freq_mhz_store(struct device *kdev,
+>>   static ssize_t gt_min_freq_mhz_show(struct device *kdev, struct device_attribute *attr, char *buf)
+>>   {
+>>   	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
+>> -	struct intel_rps *rps = &dev_priv->gt.rps;
+>> +	struct intel_gt *gt = &dev_priv->gt;
+>> +	struct intel_rps *rps = &gt->rps;
+>>   
+>> -	return sysfs_emit(buf, "%d\n", intel_gpu_freq(rps, rps->min_freq_softlimit));
+>> +	return sysfs_emit(buf, "%d\n", intel_rps_get_min_frequency(rps));
+>>   }
+>>   
+>>   static ssize_t gt_min_freq_mhz_store(struct device *kdev,
+>> @@ -398,31 +373,7 @@ static ssize_t gt_min_freq_mhz_store(struct device *kdev,
+>>   	if (ret)
+>>   		return ret;
+>>   
+>> -	mutex_lock(&rps->lock);
+>> -
+>> -	val = intel_freq_opcode(rps, val);
+>> -	if (val < rps->min_freq ||
+>> -	    val > rps->max_freq ||
+>> -	    val > rps->max_freq_softlimit) {
+>> -		ret = -EINVAL;
+>> -		goto unlock;
+>> -	}
+>> -
+>> -	rps->min_freq_softlimit = val;
+>> -
+>> -	val = clamp_t(int, rps->cur_freq,
+>> -		      rps->min_freq_softlimit,
+>> -		      rps->max_freq_softlimit);
+>> -
+>> -	/*
+>> -	 * We still need *_set_rps to process the new min_delay and
+>> -	 * update the interrupt limits and PMINTRMSK even though
+>> -	 * frequency request may be unchanged.
+>> -	 */
+>> -	intel_rps_set(rps, val);
+>> -
+>> -unlock:
+>> -	mutex_unlock(&rps->lock);
+>> +	ret = intel_rps_set_min_frequency(rps, val);
+>>   
+>>   	return ret ?: count;
+>>   }
+>> @@ -448,11 +399,11 @@ static ssize_t gt_rp_mhz_show(struct device *kdev, struct device_attribute *attr
+>>   	u32 val;
+>>   
+>>   	if (attr == &dev_attr_gt_RP0_freq_mhz)
+>> -		val = intel_gpu_freq(rps, rps->rp0_freq);
+>> +		val = intel_rps_get_rp0_frequency(rps);
+>>   	else if (attr == &dev_attr_gt_RP1_freq_mhz)
+>> -		val = intel_gpu_freq(rps, rps->rp1_freq);
+>> +		val = intel_rps_get_rp1_frequency(rps);
+>>   	else if (attr == &dev_attr_gt_RPn_freq_mhz)
+>> -		val = intel_gpu_freq(rps, rps->min_freq);
+>> +		val = intel_rps_get_rpn_frequency(rps);
+>>   	else
+>>   		BUG();
+>>   
+>>
+> 
+> LGTM, but likely you will want someone who is more familiar with RPS to
+> give r-b, from my side, with typo fixed, this is:
 
-David
-________________________________
-From: Daniel Vetter <daniel@ffwll.ch>
-Sent: Friday, July 23, 2021 9:47 AM
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>; intel-gfx <Intel-gfx@l=
-ists.freedesktop.org>; Tvrtko Ursulin <tvrtko.ursulin@intel.com>; Koenig, C=
-hristian <Christian.Koenig@amd.com>; dri-devel <dri-devel@lists.freedesktop=
-.org>; Nieto, David M <David.Nieto@amd.com>
-Subject: Re: [RFC 6/8] drm: Document fdinfo format specification
-
-On Fri, Jul 23, 2021 at 05:43:01PM +0100, Daniel Stone wrote:
-> Hi Tvrtko,
-> Thanks for typing this up!
->
-> On Thu, 15 Jul 2021 at 10:18, Tvrtko Ursulin
-> <tvrtko.ursulin@linux.intel.com> wrote:
-> > +Mandatory fully standardised keys
-> > +---------------------------------
-> > +
-> > +- drm-driver: <str>
-> > +
-> > +String shall contain a fixed string uniquely identified the driver han=
-dling
-> > +the device in question. For example name of the respective kernel modu=
-le.
->
-> I think let's be more prescriptive and just say that it is the module nam=
-e.
-
-Just a quick comment on this one.
-
-drm_driver.name is already uapi, so let's please not invent a new one. The
-shared code should probably make sure drivers don't get this wrong. Maybe
-good if we document the getverion ioctl, which also exposes this, and then
-link between the two.
--Daniel
-
->
-> > +Optional fully standardised keys
-> > +--------------------------------
-> > +
-> > +- drm-pdev: <aaaa:bb.cc.d>
-> > +
-> > +For PCI devices this should contain the PCI slot address of the device=
- in
-> > +question.
->
-> How about just major:minor of the DRM render node device it's attached to=
-?
->
-> > +- drm-client-id: <uint>
-> > +
-> > +Unique value relating to the open DRM file descriptor used to distingu=
-ish
-> > +duplicated and shared file descriptors. Conceptually the value should =
-map 1:1
-> > +to the in kernel representation of `struct drm_file` instances.
-> > +
-> > +Uniqueness of the value shall be either globally unique, or unique wit=
-hin the
-> > +scope of each device, in which case `drm-pdev` shall be present as wel=
-l.
-> > +
-> > +Userspace should make sure to not double account any usage statistics =
-by using
-> > +the above described criteria in order to associate data to individual =
-clients.
-> > +
-> > +- drm-engine-<str>: <uint> ns
-> > +
-> > +GPUs usually contain multiple execution engines. Each shall be given a=
- stable
-> > +and unique name (str), with possible values documented in the driver s=
-pecific
-> > +documentation.
-> > +
-> > +Value shall be in specified time units which the respective GPU engine=
- spent
-> > +busy executing workloads belonging to this client.
-> > +
-> > +Values are not required to be constantly monotonic if it makes the dri=
-ver
-> > +implementation easier, but are required to catch up with the previousl=
-y reported
-> > +larger value within a reasonable period. Upon observing a value lower =
-than what
-> > +was previously read, userspace is expected to stay with that larger pr=
-evious
-> > +value until a monotonic update is seen.
->
-> Yeah, that would work well for Mali/Panfrost. We can queue multiple
-> jobs in the hardware, which can either be striped across multiple
-> cores with an affinity mask (e.g. 3 cores for your client and 1 for
-> your compositor), or picked according to priority, or ...
->
-> The fine-grained performance counters (e.g. time spent waiting for
-> sampler) are only GPU-global. So if you have two jobs running
-> simultaneously, you have no idea who's responsible for what.
->
-> But it does give us coarse-grained counters which are accounted
-> per-job-slot, including exactly this metric: amount of 'GPU time'
-> (whatever that means) occupied by that job slot during the sampling
-> period. So we could support that nicely if we fenced job-slot updates
-> with register reads/writes.
->
-> Something I'm missing though is how we enable this information. Seems
-> like it would be best to either only do it whilst fdinfo is open (and
-> re-read it whenever you need an update), or on a per-driver sysfs
-> toggle, or ... ?
->
-> > +- drm-memory-<str>: <uint> [KiB|MiB]
-> > +
-> > +Each possible memory type which can be used to store buffer objects by=
- the
-> > +GPU in question shall be given a stable and unique name to be returned=
- as the
-> > +string here.
-> > +
-> > +Value shall reflect the amount of storage currently consumed by the bu=
-ffer
-> > +object belong to this client, in the respective memory region.
-> > +
-> > +Default unit shall be bytes with optional unit specifiers of 'KiB' or =
-'MiB'
-> > +indicating kibi- or mebi-bytes.
->
-> I'm a bit wary of the accounting here. Is it buffer allocations
-> originating from the client, in which case it conceptually clashes
-> with gralloc? Is it the client which last wrote to the buffer? The
-> client with the oldest open handle to the buffer? Other?
->
-> Cheers,
-> Daniel
-
---
-Daniel Vetter
-Software Engineer, Intel Corporation
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fblog.ffw=
-ll.ch%2F&amp;data=3D04%7C01%7CDavid.Nieto%40amd.com%7Cda2d9f95ced44d09f66c0=
-8d94df991da%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637626556571460650=
-%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haW=
-wiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DGrjAYg9tG2QX7z4BDaqa4wMPj2nFcvGo4xCmD8O=
-zwNE%3D&amp;reserved=3D0
-
---_000_DM6PR12MB2841BE4BD79C3CFAED57029DF4E59DM6PR12MB2841namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-I just want to make a comment that with this approach (the ns) calculating =
-the percentage will take at least two reads of the fdinfo per pid over some=
- time. Some engines may be able to provide a single shot percentage usage o=
-ver an internal integration period.
- That is, for example, what we currently have implemented for that exact re=
-ason.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-I'd like to propose that we add an optional set of fields for this. Also, I=
- may have missed a message, but why did we remove the timstamp? It is neede=
-d for accurate measurements of engine usage.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
-David</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Daniel Vetter &lt;dan=
-iel@ffwll.ch&gt;<br>
-<b>Sent:</b> Friday, July 23, 2021 9:47 AM<br>
-<b>To:</b> Daniel Stone &lt;daniel@fooishbar.org&gt;<br>
-<b>Cc:</b> Tvrtko Ursulin &lt;tvrtko.ursulin@linux.intel.com&gt;; intel-gfx=
- &lt;Intel-gfx@lists.freedesktop.org&gt;; Tvrtko Ursulin &lt;tvrtko.ursulin=
-@intel.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; dri-dev=
-el &lt;dri-devel@lists.freedesktop.org&gt;; Nieto, David M &lt;David.Nieto@=
-amd.com&gt;<br>
-<b>Subject:</b> Re: [RFC 6/8] drm: Document fdinfo format specification</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On Fri, Jul 23, 2021 at 05:43:01PM +0100, Daniel S=
-tone wrote:<br>
-&gt; Hi Tvrtko,<br>
-&gt; Thanks for typing this up!<br>
-&gt; <br>
-&gt; On Thu, 15 Jul 2021 at 10:18, Tvrtko Ursulin<br>
-&gt; &lt;tvrtko.ursulin@linux.intel.com&gt; wrote:<br>
-&gt; &gt; +Mandatory fully standardised keys<br>
-&gt; &gt; +---------------------------------<br>
-&gt; &gt; +<br>
-&gt; &gt; +- drm-driver: &lt;str&gt;<br>
-&gt; &gt; +<br>
-&gt; &gt; +String shall contain a fixed string uniquely identified the driv=
-er handling<br>
-&gt; &gt; +the device in question. For example name of the respective kerne=
-l module.<br>
-&gt; <br>
-&gt; I think let's be more prescriptive and just say that it is the module =
-name.<br>
-<br>
-Just a quick comment on this one.<br>
-<br>
-drm_driver.name is already uapi, so let's please not invent a new one. The<=
-br>
-shared code should probably make sure drivers don't get this wrong. Maybe<b=
-r>
-good if we document the getverion ioctl, which also exposes this, and then<=
-br>
-link between the two.<br>
--Daniel<br>
-<br>
-&gt; <br>
-&gt; &gt; +Optional fully standardised keys<br>
-&gt; &gt; +--------------------------------<br>
-&gt; &gt; +<br>
-&gt; &gt; +- drm-pdev: &lt;aaaa:bb.cc.d&gt;<br>
-&gt; &gt; +<br>
-&gt; &gt; +For PCI devices this should contain the PCI slot address of the =
-device in<br>
-&gt; &gt; +question.<br>
-&gt; <br>
-&gt; How about just major:minor of the DRM render node device it's attached=
- to?<br>
-&gt; <br>
-&gt; &gt; +- drm-client-id: &lt;uint&gt;<br>
-&gt; &gt; +<br>
-&gt; &gt; +Unique value relating to the open DRM file descriptor used to di=
-stinguish<br>
-&gt; &gt; +duplicated and shared file descriptors. Conceptually the value s=
-hould map 1:1<br>
-&gt; &gt; +to the in kernel representation of `struct drm_file` instances.<=
-br>
-&gt; &gt; +<br>
-&gt; &gt; +Uniqueness of the value shall be either globally unique, or uniq=
-ue within the<br>
-&gt; &gt; +scope of each device, in which case `drm-pdev` shall be present =
-as well.<br>
-&gt; &gt; +<br>
-&gt; &gt; +Userspace should make sure to not double account any usage stati=
-stics by using<br>
-&gt; &gt; +the above described criteria in order to associate data to indiv=
-idual clients.<br>
-&gt; &gt; +<br>
-&gt; &gt; +- drm-engine-&lt;str&gt;: &lt;uint&gt; ns<br>
-&gt; &gt; +<br>
-&gt; &gt; +GPUs usually contain multiple execution engines. Each shall be g=
-iven a stable<br>
-&gt; &gt; +and unique name (str), with possible values documented in the dr=
-iver specific<br>
-&gt; &gt; +documentation.<br>
-&gt; &gt; +<br>
-&gt; &gt; +Value shall be in specified time units which the respective GPU =
-engine spent<br>
-&gt; &gt; +busy executing workloads belonging to this client.<br>
-&gt; &gt; +<br>
-&gt; &gt; +Values are not required to be constantly monotonic if it makes t=
-he driver<br>
-&gt; &gt; +implementation easier, but are required to catch up with the pre=
-viously reported<br>
-&gt; &gt; +larger value within a reasonable period. Upon observing a value =
-lower than what<br>
-&gt; &gt; +was previously read, userspace is expected to stay with that lar=
-ger previous<br>
-&gt; &gt; +value until a monotonic update is seen.<br>
-&gt; <br>
-&gt; Yeah, that would work well for Mali/Panfrost. We can queue multiple<br=
->
-&gt; jobs in the hardware, which can either be striped across multiple<br>
-&gt; cores with an affinity mask (e.g. 3 cores for your client and 1 for<br=
->
-&gt; your compositor), or picked according to priority, or ...<br>
-&gt; <br>
-&gt; The fine-grained performance counters (e.g. time spent waiting for<br>
-&gt; sampler) are only GPU-global. So if you have two jobs running<br>
-&gt; simultaneously, you have no idea who's responsible for what.<br>
-&gt; <br>
-&gt; But it does give us coarse-grained counters which are accounted<br>
-&gt; per-job-slot, including exactly this metric: amount of 'GPU time'<br>
-&gt; (whatever that means) occupied by that job slot during the sampling<br=
->
-&gt; period. So we could support that nicely if we fenced job-slot updates<=
-br>
-&gt; with register reads/writes.<br>
-&gt; <br>
-&gt; Something I'm missing though is how we enable this information. Seems<=
-br>
-&gt; like it would be best to either only do it whilst fdinfo is open (and<=
-br>
-&gt; re-read it whenever you need an update), or on a per-driver sysfs<br>
-&gt; toggle, or ... ?<br>
-&gt; <br>
-&gt; &gt; +- drm-memory-&lt;str&gt;: &lt;uint&gt; [KiB|MiB]<br>
-&gt; &gt; +<br>
-&gt; &gt; +Each possible memory type which can be used to store buffer obje=
-cts by the<br>
-&gt; &gt; +GPU in question shall be given a stable and unique name to be re=
-turned as the<br>
-&gt; &gt; +string here.<br>
-&gt; &gt; +<br>
-&gt; &gt; +Value shall reflect the amount of storage currently consumed by =
-the buffer<br>
-&gt; &gt; +object belong to this client, in the respective memory region.<b=
-r>
-&gt; &gt; +<br>
-&gt; &gt; +Default unit shall be bytes with optional unit specifiers of 'Ki=
-B' or 'MiB'<br>
-&gt; &gt; +indicating kibi- or mebi-bytes.<br>
-&gt; <br>
-&gt; I'm a bit wary of the accounting here. Is it buffer allocations<br>
-&gt; originating from the client, in which case it conceptually clashes<br>
-&gt; with gralloc? Is it the client which last wrote to the buffer? The<br>
-&gt; client with the oldest open handle to the buffer? Other?<br>
-&gt; <br>
-&gt; Cheers,<br>
-&gt; Daniel<br>
-<br>
--- <br>
-Daniel Vetter<br>
-Software Engineer, Intel Corporation<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F=
-%2Fblog.ffwll.ch%2F&amp;amp;data=3D04%7C01%7CDavid.Nieto%40amd.com%7Cda2d9f=
-95ced44d09f66c08d94df991da%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637=
-626556571460650%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzI=
-iLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DGrjAYg9tG2QX7z4BDaqa=
-4wMPj2nFcvGo4xCmD8OzwNE%3D&amp;amp;reserved=3D0">https://nam11.safelinks.pr=
-otection.outlook.com/?url=3Dhttp%3A%2F%2Fblog.ffwll.ch%2F&amp;amp;data=3D04=
-%7C01%7CDavid.Nieto%40amd.com%7Cda2d9f95ced44d09f66c08d94df991da%7C3dd8961f=
-e4884e608e11a82d994e183d%7C0%7C0%7C637626556571460650%7CUnknown%7CTWFpbGZsb=
-3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C100=
-0&amp;amp;sdata=3DGrjAYg9tG2QX7z4BDaqa4wMPj2nFcvGo4xCmD8OzwNE%3D&amp;amp;re=
-served=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB2841BE4BD79C3CFAED57029DF4E59DM6PR12MB2841namp_--
-
---===============0260265240==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks,
+Vinay.
+> 
+> Acked-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0260265240==--
