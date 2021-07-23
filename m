@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8D1AC432BE
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 851DEC4320E
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FE9B60EAF
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FE9B60EAF
+	by mail.kernel.org (Postfix) with ESMTPS id 5827360EAF
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5827360EAF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27CA96FA4E;
-	Fri, 23 Jul 2021 06:58:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 047376FA50;
+	Fri, 23 Jul 2021 06:58:49 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5F06FA4C
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 06:58:38 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="211829770"
-X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="211829770"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A932A6F94B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 06:58:41 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="211829775"
+X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="211829775"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 23:58:37 -0700
+ 22 Jul 2021 23:58:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="502405594"
+X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="502405611"
 Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
- by FMSMGA003.fm.intel.com with ESMTP; 22 Jul 2021 23:58:36 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 22 Jul 2021 23:58:39 -0700
 From: Lee Shawn C <shawn.c.lee@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 15:05:45 +0800
-Message-Id: <20210723070548.29315-5-shawn.c.lee@intel.com>
+Date: Fri, 23 Jul 2021 15:05:47 +0800
+Message-Id: <20210723070548.29315-7-shawn.c.lee@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210723070548.29315-1-shawn.c.lee@intel.com>
 References: <20210723070548.29315-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [V3 4/7] drm/i915/dsi: refine send MIPI DCS command
- sequence
+Subject: [Intel-gfx] [V3 6/7] drm/i915/dsi: Retrieve max brightness level
+ from VBT.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,11 +60,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-According to chapter "Sending Commands to the Panel" in bspec #29738
-and #49188. If driver try to send DCS long pakcet, we have to program
-TX payload register at first. And configure TX header HW register later.
-DSC long packet would not be sent properly if we don't follow this
-sequence.
+So far, DCS backlight driver hardcode (0xFF) for max brightness level.
+MIPI DCS spec allow max 0xFFFF for set_display_brightness (51h) command.
+And VBT brightness precision bits can support 8 ~ 16 bits.
+
+We should set correct precision bits in VBT that meet panel's request.
+Driver can refer to this setting then configure max brightness level
+in DCS backlight driver properly.
 
 Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
@@ -73,37 +75,69 @@ Cc: Cooper Chiou <cooper.chiou@intel.com>
 Cc: William Tseng <william.tseng@intel.com>
 Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c            |  3 +++
+ .../gpu/drm/i915/display/intel_dsi_dcs_backlight.c   | 12 +++++++++---
+ drivers/gpu/drm/i915/i915_drv.h                      |  1 +
+ 3 files changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 1780830d9909..60413bbf565f 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1807,11 +1807,6 @@ static ssize_t gen11_dsi_host_transfer(struct mipi_dsi_host *host,
- 	if (msg->flags & MIPI_DSI_MSG_USE_LPM)
- 		enable_lpdt = true;
- 
--	/* send packet header */
--	ret  = dsi_send_pkt_hdr(intel_dsi_host, dsi_pkt, enable_lpdt);
--	if (ret < 0)
--		return ret;
--
- 	/* only long packet contains payload */
- 	if (mipi_dsi_packet_format_is_long(msg->type)) {
- 		ret = dsi_send_pkt_payld(intel_dsi_host, dsi_pkt);
-@@ -1819,6 +1814,11 @@ static ssize_t gen11_dsi_host_transfer(struct mipi_dsi_host *host,
- 			return ret;
- 	}
- 
-+	/* send packet header */
-+	ret  = dsi_send_pkt_hdr(intel_dsi_host, dsi_pkt, enable_lpdt);
-+	if (ret < 0)
-+		return ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 5b6922e28ef2..a43cbf35a01d 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -483,6 +483,9 @@ parse_lfp_backlight(struct drm_i915_private *i915,
+ 			level = 255;
+ 		}
+ 		i915->vbt.backlight.min_brightness = min_level;
 +
- 	//TODO: add payload receive code if needed
++		i915->vbt.backlight.max_brightness_level =
++			(1 << backlight_data->brightness_precision_bits[panel_type]) - 1;
+ 	} else {
+ 		level = backlight_data->level[panel_type];
+ 		i915->vbt.backlight.min_brightness = entry->min_brightness;
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
+index 584c14c4cbd0..cd85520d36e2 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
+@@ -41,7 +41,7 @@
+ #define POWER_SAVE_HIGH			(3 << 0)
+ #define POWER_SAVE_OUTDOOR_MODE		(4 << 0)
  
- 	ret = sizeof(dsi_pkt.header) + dsi_pkt.payload_length;
+-#define PANEL_PWM_MAX_VALUE		0xFF
++#define PANEL_PWM_MAX_VALUE		0xFFFF
+ 
+ static u32 dcs_get_backlight(struct intel_connector *connector, enum pipe unused)
+ {
+@@ -147,10 +147,16 @@ static void dcs_enable_backlight(const struct intel_crtc_state *crtc_state,
+ static int dcs_setup_backlight(struct intel_connector *connector,
+ 			       enum pipe unused)
+ {
++	struct drm_device *dev = connector->base.dev;
++	struct drm_i915_private *dev_priv = to_i915(dev);
+ 	struct intel_panel *panel = &connector->panel;
+ 
+-	panel->backlight.max = PANEL_PWM_MAX_VALUE;
+-	panel->backlight.level = PANEL_PWM_MAX_VALUE;
++	panel->backlight.max = dev_priv->vbt.backlight.max_brightness_level \
++			       ? dev_priv->vbt.backlight.max_brightness_level \
++			       : PANEL_PWM_MAX_VALUE;
++	panel->backlight.level = dev_priv->vbt.backlight.max_brightness_level \
++				 ? dev_priv->vbt.backlight.max_brightness_level \
++				 : PANEL_PWM_MAX_VALUE;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index f99b6c0dd068..210eef301ba6 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -712,6 +712,7 @@ struct intel_vbt_data {
+ 
+ 	struct {
+ 		u16 pwm_freq_hz;
++		u16 max_brightness_level;
+ 		bool present;
+ 		bool active_low_pwm;
+ 		u8 min_brightness;	/* min_brightness/255 of max */
 -- 
 2.17.1
 
