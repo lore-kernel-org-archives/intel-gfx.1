@@ -7,39 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8144BC4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26DF5C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A42D60ED7
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4A42D60ED7
+	by mail.kernel.org (Postfix) with ESMTPS id EBF3D60EAF
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EBF3D60EAF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 469B06F8C5;
-	Fri, 23 Jul 2021 06:58:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 889976F94B;
+	Fri, 23 Jul 2021 06:58:44 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC0706FA4C
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 06:58:39 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="211829772"
-X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="211829772"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 562C26F94B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 06:58:43 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="211829779"
+X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="211829779"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 23:58:39 -0700
+ 22 Jul 2021 23:58:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="502405603"
+X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="502405623"
 Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
- by FMSMGA003.fm.intel.com with ESMTP; 22 Jul 2021 23:58:38 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 22 Jul 2021 23:58:41 -0700
 From: Lee Shawn C <shawn.c.lee@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 15:05:46 +0800
-Message-Id: <20210723070548.29315-6-shawn.c.lee@intel.com>
+Date: Fri, 23 Jul 2021 15:05:48 +0800
+Message-Id: <20210723070548.29315-8-shawn.c.lee@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210723070548.29315-1-shawn.c.lee@intel.com>
 References: <20210723070548.29315-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [V3 5/7] drm/i915: Get proper min cdclk if vDSC enabled
+Subject: [Intel-gfx] [V3 7/7] drm/i915/dsi: Send proper brightness value via
+ MIPI DCS command
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,14 +60,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VDSC engine can process only 1 pixel per Cd clock. In case
-VDSC is used and max slice count == 1, max supported pixel
-clock should be 100% of CD clock. Then do min_cdclk and
-pixel clock comparison to get proper min cdclk.
-
-v2:
-- Check for dsc enable and slice count ==1 then allow to
-  double confirm min cdclk value.
+Driver has to swap the endian before send brightness level value
+to tcon.
 
 Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
@@ -75,30 +70,25 @@ Cc: Cooper Chiou <cooper.chiou@intel.com>
 Cc: William Tseng <william.tseng@intel.com>
 Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 71067a62264d..3e09f6370d27 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2159,6 +2159,16 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
- 	/* Account for additional needs from the planes */
- 	min_cdclk = max(intel_planes_min_cdclk(crtc_state), min_cdclk);
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
+index cd85520d36e2..47c1cd704915 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
+@@ -66,10 +66,9 @@ static void dcs_set_backlight(const struct drm_connector_state *conn_state, u32
+ {
+ 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(to_intel_encoder(conn_state->best_encoder));
+ 	struct mipi_dsi_device *dsi_device;
+-	u8 data = level;
++	u16 data = cpu_to_be16(level);
+ 	enum port port;
  
-+	/*
-+	 * VDSC engine can process only 1 pixel per Cd clock.
-+	 * In case VDSC is used and max slice count == 1,
-+	 * max supported pixel clock should be 100% of CD clock.
-+	 * Then do min_cdclk and pixel clock comparison to get cdclk.
-+	 */
-+	if (crtc_state->dsc.compression_enable &&
-+	    crtc_state->dsc.slice_count == 1)
-+		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
-+
- 	/*
- 	 * HACK. Currently for TGL platforms we calculate
- 	 * min_cdclk initially based on pixel_rate divided
+-	/* FIXME: Need to take care of 16 bit brightness level */
+ 	for_each_dsi_port(port, intel_dsi->dcs_backlight_ports) {
+ 		dsi_device = intel_dsi->dsi_hosts[port]->device;
+ 		mipi_dsi_dcs_write(dsi_device, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
 -- 
 2.17.1
 
