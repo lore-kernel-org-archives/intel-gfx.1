@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C1E50C43214
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 62DF7C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 964E660C51
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 964E660C51
+	by mail.kernel.org (Postfix) with ESMTPS id 34CD060C51
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 34CD060C51
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CAAE6FBB2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD2F6FBB1;
 	Fri, 23 Jul 2021 17:43:37 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAC7A6FBAC
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="211644184"
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="211644184"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 696B86FBA2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:11 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="211644170"
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="211644170"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jul 2021 10:42:52 -0700
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229125"
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229121"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jul 2021 10:42:52 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 10:42:37 -0700
-Message-Id: <20210723174239.1551352-29-matthew.d.roper@intel.com>
+Date: Fri, 23 Jul 2021 10:42:36 -0700
+Message-Id: <20210723174239.1551352-28-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 References: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 28/30] drm/i915/dg2: Update lane disable
- power state during PSR
+Subject: [Intel-gfx] [PATCH v3 27/30] drm/i915/dg2: Wait for SNPS PHY
+ calibration during display init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,125 +59,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Initialization of the PHY is handled by the hardware/firmware, but the
+driver should wait up to 25ms for the PHY to report that its calibration
+has completed.
 
-The PSR enable/disable sequences now require that we program an extra
-register in the PHY to adjust the lane disable power setting.
-
-Bspec: 49274
-Bspec: 53885
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Bspec: 49189
+Bspec: 50107
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c      |  7 +++++++
- drivers/gpu/drm/i915/display/intel_snps_phy.c | 14 ++++++++++++++
- drivers/gpu/drm/i915/display/intel_snps_phy.h |  3 +++
- drivers/gpu/drm/i915/i915_reg.h               |  3 +++
- 4 files changed, 27 insertions(+)
+ .../gpu/drm/i915/display/intel_display_power.c    |  5 +++++
+ drivers/gpu/drm/i915/display/intel_snps_phy.c     | 15 +++++++++++++++
+ drivers/gpu/drm/i915/display/intel_snps_phy.h     |  3 +++
+ drivers/gpu/drm/i915/i915_reg.h                   |  1 +
+ 4 files changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index f84930e7c6dd..a3fcd5ebfe48 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -32,6 +32,7 @@
- #include "intel_dp_aux.h"
- #include "intel_hdmi.h"
- #include "intel_psr.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 81efc77bada0..39cb55f3a648 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -18,6 +18,7 @@
+ #include "intel_pm.h"
+ #include "intel_pps.h"
+ #include "intel_sideband.h"
 +#include "intel_snps_phy.h"
- #include "intel_sprite.h"
- #include "skl_universal_plane.h"
+ #include "intel_tc.h"
+ #include "intel_vga.h"
  
-@@ -1212,6 +1213,7 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
- {
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	enum phy phy = intel_port_to_phy(dev_priv, dig_port->base.port);
- 	struct intel_encoder *encoder = &dig_port->base;
- 	u32 val;
+@@ -5901,6 +5902,10 @@ static void icl_display_core_init(struct drm_i915_private *dev_priv,
+ 	if (DISPLAY_VER(dev_priv) >= 12)
+ 		tgl_bw_buddy_init(dev_priv);
  
-@@ -1237,6 +1239,7 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
- 	intel_dp_compute_psr_vsc_sdp(intel_dp, crtc_state, conn_state,
- 				     &intel_dp->psr.vsc);
- 	intel_write_dp_vsc_sdp(encoder, crtc_state, &intel_dp->psr.vsc);
-+	intel_snps_phy_update_psr_power_state(dev_priv, phy, true);
- 	intel_psr_enable_sink(intel_dp);
- 	intel_psr_enable_source(intel_dp);
- 	intel_dp->psr.enabled = true;
-@@ -1333,6 +1336,8 @@ static void intel_psr_wait_exit_locked(struct intel_dp *intel_dp)
- static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	enum phy phy = intel_port_to_phy(dev_priv,
-+					 dp_to_dig_port(intel_dp)->base.port);
- 
- 	lockdep_assert_held(&intel_dp->psr.lock);
- 
-@@ -1358,6 +1363,8 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 			     TRANS_SET_CONTEXT_LATENCY(intel_dp->psr.transcoder),
- 			     TRANS_SET_CONTEXT_LATENCY_MASK, 0);
- 
-+	intel_snps_phy_update_psr_power_state(dev_priv, phy, false);
++	/* 8. Ensure PHYs have completed calibration and adaptation */
++	if (IS_DG2(dev_priv))
++		intel_snps_phy_wait_for_calibration(dev_priv);
 +
- 	/* Disable PSR on Sink */
- 	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_EN_CFG, 0);
+ 	if (resume && intel_dmc_has_payload(dev_priv))
+ 		intel_dmc_load_program(dev_priv);
  
 diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-index f0c30d3d2dfb..18b52b64af95 100644
+index 77759bda98a4..f0c30d3d2dfb 100644
 --- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
 +++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-@@ -36,6 +36,20 @@ void intel_snps_phy_wait_for_calibration(struct drm_i915_private *dev_priv)
- 	}
- }
+@@ -21,6 +21,21 @@
+  * since it is not handled by the shared DPLL framework as on other platforms.
+  */
  
-+void intel_snps_phy_update_psr_power_state(struct drm_i915_private *dev_priv,
-+					   enum phy phy, bool enable)
++void intel_snps_phy_wait_for_calibration(struct drm_i915_private *dev_priv)
 +{
-+	u32 val;
++	enum phy phy;
 +
-+	if (!intel_phy_is_snps(dev_priv, phy))
-+		return;
++	for_each_phy_masked(phy, ~0) {
++		if (!intel_phy_is_snps(dev_priv, phy))
++			continue;
 +
-+	val = REG_FIELD_PREP(SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR,
-+			     enable ? 2 : 3);
-+	intel_uncore_rmw(&dev_priv->uncore, SNPS_PHY_TX_REQ(phy),
-+			 SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR, val);
++		if (intel_de_wait_for_clear(dev_priv, ICL_PHY_MISC(phy),
++					    DG2_PHY_DP_TX_ACK_MASK, 25))
++			DRM_ERROR("SNPS PHY %c failed to calibrate after 25ms.\n",
++				  phy);
++	}
 +}
 +
  static const u32 dg2_ddi_translations[] = {
  	/* VS 0, pre-emph 0 */
  	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 26),
 diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.h b/drivers/gpu/drm/i915/display/intel_snps_phy.h
-index 6aa33ff729ec..6261ff88ef5c 100644
+index 3ce92d424f66..6aa33ff729ec 100644
 --- a/drivers/gpu/drm/i915/display/intel_snps_phy.h
 +++ b/drivers/gpu/drm/i915/display/intel_snps_phy.h
-@@ -12,8 +12,11 @@ struct drm_i915_private;
+@@ -8,10 +8,13 @@
+ 
+ #include <linux/types.h>
+ 
++struct drm_i915_private;
  struct intel_encoder;
  struct intel_crtc_state;
  struct intel_mpllb_state;
-+enum phy;
  
- void intel_snps_phy_wait_for_calibration(struct drm_i915_private *dev_priv);
-+void intel_snps_phy_update_psr_power_state(struct drm_i915_private *dev_priv,
-+					   enum phy phy, bool enable);
- 
++void intel_snps_phy_wait_for_calibration(struct drm_i915_private *dev_priv);
++
  int intel_mpllb_calc_state(struct intel_crtc_state *crtc_state,
  			   struct intel_encoder *encoder);
+ void intel_mpllb_enable(struct intel_encoder *encoder,
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index d990f9364157..86fc34f1e949 100644
+index 2e028350c32d..d990f9364157 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2340,6 +2340,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define SNPS_PHY_REF_CONTROL(phy)		_MMIO_SNPS(phy, 0x168188)
- #define   SNPS_PHY_REF_CONTROL_REF_RANGE	REG_GENMASK(31, 27)
+@@ -12461,6 +12461,7 @@ enum skl_power_gate {
+ 						 _ICL_PHY_MISC_B)
+ #define  ICL_PHY_MISC_MUX_DDID			(1 << 28)
+ #define  ICL_PHY_MISC_DE_IO_COMP_PWR_DOWN	(1 << 23)
++#define  DG2_PHY_DP_TX_ACK_MASK			REG_GENMASK(23, 20)
  
-+#define SNPS_PHY_TX_REQ(phy)			_MMIO_SNPS(phy, 0x168200)
-+#define   SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR	REG_GENMASK(31, 30)
-+
- #define SNPS_PHY_TX_EQ(ln, phy)			_MMIO_SNPS_LN(ln, phy, 0x168300)
- #define   SNPS_PHY_TX_EQ_MAIN			REG_GENMASK(23, 18)
- #define   SNPS_PHY_TX_EQ_POST			REG_GENMASK(15, 10)
+ /* Icelake Display Stream Compression Registers */
+ #define DSCA_PICTURE_PARAMETER_SET_0		_MMIO(0x6B200)
 -- 
 2.25.4
 
