@@ -7,61 +7,61 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA78FC4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 19:29:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 343F8C432BE
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 19:29:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 811F860E97
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 19:29:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 811F860E97
+	by mail.kernel.org (Postfix) with ESMTPS id 0887960E97
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 19:29:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0887960E97
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 305956FCFA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D00D6FCFD;
 	Fri, 23 Jul 2021 19:29:52 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BBF16FCF4
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 19:29:45 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id g15so3486811wrd.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 12:29:45 -0700 (PDT)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D83CE6FCF4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 19:29:46 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id y8so3419949wrt.10
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 12:29:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=jvHZSHCTFhPZcSwhiRoD7iAMhzOpQwcD87IHvGz5oc4=;
- b=VCcCnXk2bMW8Y5Tm+nDldA060LSuM8pogmdtNzq9Eb5sSCSrafXG5V1WbbQ9xG6vnW
- 4CvW7yyXxhBwAddpqUICSdctsRdkecQcGsY3/soBEY5PdixgU+z0dPQERuujMVIYRLLr
- 2hlQixSbRThcbANlQiVXHEr7MCAwz++5zCxOI=
+ bh=nmRjqomJwY9MhJTuEQv+zSbFNG0aKRXKpI5J5546BC4=;
+ b=LIKGnYGc0SjW6QH+Bo3HU/PAw+ZG0n1qaC/KtqWpH7s0wvqhcIdB0hMNhPKkAweKe0
+ 4ICEnEfXrqqfSPegrkZBKUvG5cmGUTsC0meXZAyb0ZsYBFI2TkqQvsRyxHP2BXbs3TRj
+ /3me5WhZSmluF6H0NBawzRv5a3wfuyRFMjBbg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=jvHZSHCTFhPZcSwhiRoD7iAMhzOpQwcD87IHvGz5oc4=;
- b=g8ho+XdOFKwI/9gRIFsG+f6q5EJ/QkHFGYfAxGiFByCxF96jZMzlCUULb5dWaOcLgk
- GvyElQUVppvXRwyvi6korOn3KSOA5f6bamOFrZbvUvuWc4eZX2zYpLbRb0A2VIwIqP2e
- 6pmzuFr7IwpK3/iwXORAjfHEsic/LbUmWZEPiKSl8Vc9LAPuU9npwAY6ZrNc4hprOQNc
- a1JaBJnJkW7YWGv5gIZRCTTumzlfUZ5nYn5jWNJqf5NyxMCWN/pwgiWwNcSqMMjFTdbd
- Zf02d89P9c60hpi/SiPUmb46FHJnqXlDrHsmjHI5PFvpK5yIhJXQ7F7fD3zxSu/tyuB8
- DG7A==
-X-Gm-Message-State: AOAM530zU7GoLlRCD+77w4v/aPde35B+9hexz4m7XsimUH++WMytC6i7
- VEIRT2svhvitD7Q25N2721+WIQ==
-X-Google-Smtp-Source: ABdhPJwoqOnU7UuG+1SC5sRkptFrXmJj9RTxEjzNI1VVc9RUnYpU6DSWOBzTPOr7ET7dUSKtRTT+ww==
-X-Received: by 2002:adf:ecc9:: with SMTP id s9mr823266wro.306.1627068584213;
- Fri, 23 Jul 2021 12:29:44 -0700 (PDT)
+ bh=nmRjqomJwY9MhJTuEQv+zSbFNG0aKRXKpI5J5546BC4=;
+ b=LlegAz35ss2X6lvkKQwMB/S2Jdyumym5bSf2yGzfaXaf4/zywC95L79oKCNvV6Nc7I
+ XsGyo2tIv3qbk2xopFibpaEDw+kgDgronbYHn/2+fJS30L6aT3cxEKAazbxveXOXcQfJ
+ L2z6mkhONUI4RIjw/sUQnEouJa2T0Jcdc2F1UjPY5bh2WoNlcMACkA9JmXWNqxIaYb6c
+ 26ejpqKUWivn1Kvy66EpGp/EeKTgwV9PaZw6e/031GKx7s3/Y68auMbTUrLSVtPvyb9j
+ gWPDSBJLFtAhiwx5GistT2TA6vufeaCGlV5mU5eIMAY7sLO0gzGphomur5yvWOl+r/Hg
+ 5t1Q==
+X-Gm-Message-State: AOAM530np5k9zGxGkbBHyIxw1pq32b2Ib50ADskraXOTlLgK952zreMT
+ mtVkAQvnX81pSQX8NfkbFB/xyQ==
+X-Google-Smtp-Source: ABdhPJxFzJM9FjyRwZP8zYXAodnPo9evulp7x2gjRyUtJyiYJQv3vK3TSkynEBou6b22BcdkGwYlQg==
+X-Received: by 2002:adf:ce8d:: with SMTP id r13mr6957100wrn.304.1627068585586; 
+ Fri, 23 Jul 2021 12:29:45 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s14sm17609870wmc.25.2021.07.23.12.29.43
+ by smtp.gmail.com with ESMTPSA id s14sm17609870wmc.25.2021.07.23.12.29.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Jul 2021 12:29:43 -0700 (PDT)
+ Fri, 23 Jul 2021 12:29:45 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri, 23 Jul 2021 21:29:30 +0200
-Message-Id: <20210723192934.1004427-6-daniel.vetter@ffwll.ch>
+Date: Fri, 23 Jul 2021 21:29:32 +0200
+Message-Id: <20210723192934.1004427-8-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210723192934.1004427-1-daniel.vetter@ffwll.ch>
 References: <20210723192934.1004427-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/10] drm/i915: move gem_objects slab to direct
+Subject: [Intel-gfx] [PATCH 08/10] drm/i915: move scheduler slabs to direct
  module init/exit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,136 +87,182 @@ With the global kmem_cache shrink infrastructure gone there's nothing
 special and we can convert them over.
 
 I'm doing this split up into each patch because there's quite a bit of
-noise with removing the static global.slab_objects to just a
-slab_objects.
+noise with removing the static global.slab_dependencies|priorities to just a
+slab_dependencies|priorities.
 
 Cc: Jason Ekstrand <jason@jlekstrand.net>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.c | 26 +++++++---------------
- drivers/gpu/drm/i915/gem/i915_gem_object.h |  3 +++
- drivers/gpu/drm/i915/i915_globals.c        |  1 -
- drivers/gpu/drm/i915/i915_globals.h        |  1 -
- drivers/gpu/drm/i915/i915_pci.c            |  1 +
- 5 files changed, 12 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/i915_globals.c   |  2 --
+ drivers/gpu/drm/i915/i915_globals.h   |  2 --
+ drivers/gpu/drm/i915/i915_pci.c       |  2 ++
+ drivers/gpu/drm/i915/i915_scheduler.c | 39 +++++++++++----------------
+ drivers/gpu/drm/i915/i915_scheduler.h |  3 +++
+ 5 files changed, 20 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 5c21cff33199..53156250d283 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -30,14 +30,10 @@
- #include "i915_gem_context.h"
- #include "i915_gem_mman.h"
- #include "i915_gem_object.h"
--#include "i915_globals.h"
- #include "i915_memcpy.h"
- #include "i915_trace.h"
- 
--static struct i915_global_object {
--	struct i915_global base;
--	struct kmem_cache *slab_objects;
--} global;
-+struct kmem_cache *slab_objects;
- 
- static const struct drm_gem_object_funcs i915_gem_object_funcs;
- 
-@@ -45,7 +41,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
- {
- 	struct drm_i915_gem_object *obj;
- 
--	obj = kmem_cache_zalloc(global.slab_objects, GFP_KERNEL);
-+	obj = kmem_cache_zalloc(slab_objects, GFP_KERNEL);
- 	if (!obj)
- 		return NULL;
- 	obj->base.funcs = &i915_gem_object_funcs;
-@@ -55,7 +51,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
- 
- void i915_gem_object_free(struct drm_i915_gem_object *obj)
- {
--	return kmem_cache_free(global.slab_objects, obj);
-+	return kmem_cache_free(slab_objects, obj);
- }
- 
- void i915_gem_object_init(struct drm_i915_gem_object *obj,
-@@ -664,23 +660,17 @@ void i915_gem_init__objects(struct drm_i915_private *i915)
- 	INIT_WORK(&i915->mm.free_work, __i915_gem_free_work);
- }
- 
--static void i915_global_objects_exit(void)
-+void i915_objects_module_exit(void)
- {
--	kmem_cache_destroy(global.slab_objects);
-+	kmem_cache_destroy(slab_objects);
- }
- 
--static struct i915_global_object global = { {
--	.exit = i915_global_objects_exit,
--} };
--
--int __init i915_global_objects_init(void)
-+int __init i915_objects_module_init(void)
- {
--	global.slab_objects =
--		KMEM_CACHE(drm_i915_gem_object, SLAB_HWCACHE_ALIGN);
--	if (!global.slab_objects)
-+	slab_objects = KMEM_CACHE(drm_i915_gem_object, SLAB_HWCACHE_ALIGN);
-+	if (!slab_objects)
- 		return -ENOMEM;
- 
--	i915_global_register(&global.base);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index f3ede43282dc..6d8ea62a372f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -48,6 +48,9 @@ static inline bool i915_gem_object_size_2big(u64 size)
- 
- void i915_gem_init__objects(struct drm_i915_private *i915);
- 
-+void i915_objects_module_exit(void);
-+int i915_objects_module_init(void);
-+
- struct drm_i915_gem_object *i915_gem_object_alloc(void);
- void i915_gem_object_free(struct drm_i915_gem_object *obj);
- 
 diff --git a/drivers/gpu/drm/i915/i915_globals.c b/drivers/gpu/drm/i915/i915_globals.c
-index dbb3d81eeea7..40a592fbc3e0 100644
+index 8fffa8d93bc5..8923589057ab 100644
 --- a/drivers/gpu/drm/i915/i915_globals.c
 +++ b/drivers/gpu/drm/i915/i915_globals.c
-@@ -30,7 +30,6 @@ static void __i915_globals_cleanup(void)
+@@ -8,7 +8,6 @@
+ #include <linux/workqueue.h>
+ 
+ #include "i915_globals.h"
+-#include "i915_scheduler.h"
+ #include "i915_vma.h"
+ 
+ static LIST_HEAD(globals);
+@@ -29,7 +28,6 @@ static void __i915_globals_cleanup(void)
  }
  
  static __initconst int (* const initfn[])(void) = {
--	i915_global_objects_init,
- 	i915_global_request_init,
- 	i915_global_scheduler_init,
+-	i915_global_scheduler_init,
  	i915_global_vma_init,
+ };
+ 
 diff --git a/drivers/gpu/drm/i915/i915_globals.h b/drivers/gpu/drm/i915/i915_globals.h
-index f16752dbbdbf..9734740708f4 100644
+index 9734740708f4..7a57bce1da05 100644
 --- a/drivers/gpu/drm/i915/i915_globals.h
 +++ b/drivers/gpu/drm/i915/i915_globals.h
-@@ -23,7 +23,6 @@ int i915_globals_init(void);
+@@ -23,8 +23,6 @@ int i915_globals_init(void);
  void i915_globals_exit(void);
  
  /* constructors */
--int i915_global_objects_init(void);
- int i915_global_request_init(void);
- int i915_global_scheduler_init(void);
+-int i915_global_request_init(void);
+-int i915_global_scheduler_init(void);
  int i915_global_vma_init(void);
+ 
+ #endif /* _I915_GLOBALS_H_ */
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 2b56e664d043..2334eb3e9abb 100644
+index bb2bd12fb8c2..a44318519977 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1301,6 +1301,7 @@ static const struct {
- 	{ i915_buddy_module_init, i915_buddy_module_exit },
- 	{ i915_context_module_init, i915_context_module_exit },
+@@ -39,6 +39,7 @@
+ #include "i915_perf.h"
+ #include "i915_globals.h"
+ #include "i915_selftest.h"
++#include "i915_scheduler.h"
+ 
+ #define PLATFORM(x) .platform = (x)
+ #define GEN(x) \
+@@ -1304,6 +1305,7 @@ static const struct {
  	{ i915_gem_context_module_init, i915_gem_context_module_exit },
-+	{ i915_objects_module_init, i915_objects_module_exit },
+ 	{ i915_objects_module_init, i915_objects_module_exit },
+ 	{ i915_request_module_init, i915_request_module_exit },
++	{ i915_scheduler_module_init, i915_scheduler_module_exit },
  	{ i915_globals_init, i915_globals_exit },
  	{ i915_mock_selftests, NULL },
  	{ i915_pmu_init, i915_pmu_exit },
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
+index 561c649e59f7..02d90d239ff5 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/i915_scheduler.c
+@@ -7,15 +7,11 @@
+ #include <linux/mutex.h>
+ 
+ #include "i915_drv.h"
+-#include "i915_globals.h"
+ #include "i915_request.h"
+ #include "i915_scheduler.h"
+ 
+-static struct i915_global_scheduler {
+-	struct i915_global base;
+-	struct kmem_cache *slab_dependencies;
+-	struct kmem_cache *slab_priorities;
+-} global;
++struct kmem_cache *slab_dependencies;
++struct kmem_cache *slab_priorities;
+ 
+ static DEFINE_SPINLOCK(schedule_lock);
+ 
+@@ -93,7 +89,7 @@ i915_sched_lookup_priolist(struct i915_sched_engine *sched_engine, int prio)
+ 	if (prio == I915_PRIORITY_NORMAL) {
+ 		p = &sched_engine->default_priolist;
+ 	} else {
+-		p = kmem_cache_alloc(global.slab_priorities, GFP_ATOMIC);
++		p = kmem_cache_alloc(slab_priorities, GFP_ATOMIC);
+ 		/* Convert an allocation failure to a priority bump */
+ 		if (unlikely(!p)) {
+ 			prio = I915_PRIORITY_NORMAL; /* recurses just once */
+@@ -122,7 +118,7 @@ i915_sched_lookup_priolist(struct i915_sched_engine *sched_engine, int prio)
+ 
+ void __i915_priolist_free(struct i915_priolist *p)
+ {
+-	kmem_cache_free(global.slab_priorities, p);
++	kmem_cache_free(slab_priorities, p);
+ }
+ 
+ struct sched_cache {
+@@ -313,13 +309,13 @@ void i915_sched_node_reinit(struct i915_sched_node *node)
+ static struct i915_dependency *
+ i915_dependency_alloc(void)
+ {
+-	return kmem_cache_alloc(global.slab_dependencies, GFP_KERNEL);
++	return kmem_cache_alloc(slab_dependencies, GFP_KERNEL);
+ }
+ 
+ static void
+ i915_dependency_free(struct i915_dependency *dep)
+ {
+-	kmem_cache_free(global.slab_dependencies, dep);
++	kmem_cache_free(slab_dependencies, dep);
+ }
+ 
+ bool __i915_sched_node_add_dependency(struct i915_sched_node *node,
+@@ -475,32 +471,27 @@ i915_sched_engine_create(unsigned int subclass)
+ 	return sched_engine;
+ }
+ 
+-static void i915_global_scheduler_exit(void)
++void i915_scheduler_module_exit(void)
+ {
+-	kmem_cache_destroy(global.slab_dependencies);
+-	kmem_cache_destroy(global.slab_priorities);
++	kmem_cache_destroy(slab_dependencies);
++	kmem_cache_destroy(slab_priorities);
+ }
+ 
+-static struct i915_global_scheduler global = { {
+-	.exit = i915_global_scheduler_exit,
+-} };
+-
+-int __init i915_global_scheduler_init(void)
++int __init i915_scheduler_module_init(void)
+ {
+-	global.slab_dependencies = KMEM_CACHE(i915_dependency,
++	slab_dependencies = KMEM_CACHE(i915_dependency,
+ 					      SLAB_HWCACHE_ALIGN |
+ 					      SLAB_TYPESAFE_BY_RCU);
+-	if (!global.slab_dependencies)
++	if (!slab_dependencies)
+ 		return -ENOMEM;
+ 
+-	global.slab_priorities = KMEM_CACHE(i915_priolist, 0);
+-	if (!global.slab_priorities)
++	slab_priorities = KMEM_CACHE(i915_priolist, 0);
++	if (!slab_priorities)
+ 		goto err_priorities;
+ 
+-	i915_global_register(&global.base);
+ 	return 0;
+ 
+ err_priorities:
+-	kmem_cache_destroy(global.slab_priorities);
++	kmem_cache_destroy(slab_priorities);
+ 	return -ENOMEM;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
+index 650ab8e0db9f..0a4f61fd0be0 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.h
++++ b/drivers/gpu/drm/i915/i915_scheduler.h
+@@ -98,4 +98,7 @@ void i915_request_show_with_schedule(struct drm_printer *m,
+ 				     const char *prefix,
+ 				     int indent);
+ 
++void i915_scheduler_module_exit(void);
++int i915_scheduler_module_init(void);
++
+ #endif /* _I915_SCHEDULER_H_ */
 -- 
 2.32.0
 
