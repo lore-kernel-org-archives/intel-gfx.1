@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 582EDC4320A
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 08:13:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 229B3C4320E
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 08:14:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CF07660F02
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 08:13:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CF07660F02
+	by mail.kernel.org (Postfix) with ESMTPS id E4E8C60F02
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 08:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E4E8C60F02
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEE026E03A;
-	Fri, 23 Jul 2021 08:13:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97AF36E8BF;
+	Fri, 23 Jul 2021 08:14:23 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE55589F99;
- Fri, 23 Jul 2021 08:13:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B416E8BF;
+ Fri, 23 Jul 2021 08:14:22 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id A9C4267373; Fri, 23 Jul 2021 10:13:37 +0200 (CEST)
-Date: Fri, 23 Jul 2021 10:13:37 +0200
+ id 2B9A267373; Fri, 23 Jul 2021 10:14:20 +0200 (CEST)
+Date: Fri, 23 Jul 2021 10:14:18 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Jason Gunthorpe <jgg@nvidia.com>
-Message-ID: <20210723081337.GF2795@lst.de>
+Message-ID: <20210723081418.GG2795@lst.de>
 References: <0-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
- <11-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
+ <13-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <11-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
+In-Reply-To: <13-v2-b6a5582525c9+ff96-vfio_reflck_jgg@nvidia.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v2 11/14] vfio/mbochs: Fix close when
+Subject: Re: [Intel-gfx] [PATCH v2 13/14] vfio/gvt: Fix open/close when
  multiple device FDs are open
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,13 +70,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 20, 2021 at 02:42:57PM -0300, Jason Gunthorpe wrote:
-> mbochs_close() iterates over global device state and frees it. Currently
-> this is done every time a device FD is closed, but if multiple device FDs
-> are open this could corrupt other still active FDs.
+On Tue, Jul 20, 2021 at 02:42:59PM -0300, Jason Gunthorpe wrote:
+> The user can open multiple device FDs if it likes, however the open
+> function calls vfio_register_notifier() on device global state. Calling
+> vfio_register_notifier() twice will trigger a WARN_ON from
+> notifier_chain_register() and the first close will wrongly delete the
+> notifier and more.
 > 
-> Change this to use close_device() so it only runs on the last close.
+> Since these really want the new open/close_device() semantics just change
+> the function over.
 > 
+> Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
 > Reviewed-by: Cornelia Huck <cohuck@redhat.com>
 > Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 
