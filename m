@@ -2,45 +2,41 @@ Return-Path: <SRS0=oFzv=MP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 851DEC4320E
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E579C432BE
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 07:01:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5827360EAF
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5827360EAF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6BB6A60EAF
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 07:01:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6BB6A60EAF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 047376FA50;
-	Fri, 23 Jul 2021 06:58:49 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A932A6F94B
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 06:58:41 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="211829775"
-X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="211829775"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2021 23:58:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="502405611"
-Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
- by FMSMGA003.fm.intel.com with ESMTP; 22 Jul 2021 23:58:39 -0700
-From: Lee Shawn C <shawn.c.lee@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 15:05:47 +0800
-Message-Id: <20210723070548.29315-7-shawn.c.lee@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210723070548.29315-1-shawn.c.lee@intel.com>
-References: <20210723070548.29315-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [V3 6/7] drm/i915/dsi: Retrieve max brightness level
- from VBT.
+	by gabe.freedesktop.org (Postfix) with ESMTP id 228596F8C5;
+	Fri, 23 Jul 2021 07:01:55 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A50CE6F8C5;
+ Fri, 23 Jul 2021 07:01:53 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 9E5FDA9932;
+ Fri, 23 Jul 2021 07:01:53 +0000 (UTC)
+MIME-Version: 1.0
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matt Roper" <matthew.d.roper@intel.com>
+Date: Fri, 23 Jul 2021 07:01:53 -0000
+Message-ID: <162702371362.3044.9200855691499945273@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210723053401.1269829-1-matthew.d.roper@intel.com>
+In-Reply-To: <20210723053401.1269829-1-matthew.d.roper@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgQURM?=
+ =?utf-8?q?_DDI_translation_buffer_updates_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,95 +49,178 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: cooper.chiou@intel.com, william.tseng@intel.com, jani.nikula@intel.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1563977314=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-So far, DCS backlight driver hardcode (0xFF) for max brightness level.
-MIPI DCS spec allow max 0xFFFF for set_display_brightness (51h) command.
-And VBT brightness precision bits can support 8 ~ 16 bits.
+--===============1563977314==
+Content-Type: multipart/alternative;
+ boundary="===============5327642157531817973=="
 
-We should set correct precision bits in VBT that meet panel's request.
-Driver can refer to this setting then configure max brightness level
-in DCS backlight driver properly.
+--===============5327642157531817973==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Cc: Cooper Chiou <cooper.chiou@intel.com>
-Cc: William Tseng <william.tseng@intel.com>
-Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
----
- drivers/gpu/drm/i915/display/intel_bios.c            |  3 +++
- .../gpu/drm/i915/display/intel_dsi_dcs_backlight.c   | 12 +++++++++---
- drivers/gpu/drm/i915/i915_drv.h                      |  1 +
- 3 files changed, 13 insertions(+), 3 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 5b6922e28ef2..a43cbf35a01d 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -483,6 +483,9 @@ parse_lfp_backlight(struct drm_i915_private *i915,
- 			level = 255;
- 		}
- 		i915->vbt.backlight.min_brightness = min_level;
-+
-+		i915->vbt.backlight.max_brightness_level =
-+			(1 << backlight_data->brightness_precision_bits[panel_type]) - 1;
- 	} else {
- 		level = backlight_data->level[panel_type];
- 		i915->vbt.backlight.min_brightness = entry->min_brightness;
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-index 584c14c4cbd0..cd85520d36e2 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-@@ -41,7 +41,7 @@
- #define POWER_SAVE_HIGH			(3 << 0)
- #define POWER_SAVE_OUTDOOR_MODE		(4 << 0)
- 
--#define PANEL_PWM_MAX_VALUE		0xFF
-+#define PANEL_PWM_MAX_VALUE		0xFFFF
- 
- static u32 dcs_get_backlight(struct intel_connector *connector, enum pipe unused)
- {
-@@ -147,10 +147,16 @@ static void dcs_enable_backlight(const struct intel_crtc_state *crtc_state,
- static int dcs_setup_backlight(struct intel_connector *connector,
- 			       enum pipe unused)
- {
-+	struct drm_device *dev = connector->base.dev;
-+	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct intel_panel *panel = &connector->panel;
- 
--	panel->backlight.max = PANEL_PWM_MAX_VALUE;
--	panel->backlight.level = PANEL_PWM_MAX_VALUE;
-+	panel->backlight.max = dev_priv->vbt.backlight.max_brightness_level \
-+			       ? dev_priv->vbt.backlight.max_brightness_level \
-+			       : PANEL_PWM_MAX_VALUE;
-+	panel->backlight.level = dev_priv->vbt.backlight.max_brightness_level \
-+				 ? dev_priv->vbt.backlight.max_brightness_level \
-+				 : PANEL_PWM_MAX_VALUE;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index f99b6c0dd068..210eef301ba6 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -712,6 +712,7 @@ struct intel_vbt_data {
- 
- 	struct {
- 		u16 pwm_freq_hz;
-+		u16 max_brightness_level;
- 		bool present;
- 		bool active_low_pwm;
- 		u8 min_brightness;	/* min_brightness/255 of max */
--- 
-2.17.1
+Series: ADL DDI translation buffer updates (rev2)
+URL   : https://patchwork.freedesktop.org/series/92921/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10376 -> Patchwork_20688
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20688/index.html
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_20688:
+
+### IGT changes ###
+
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@i915_selftest@live@gt_timelines:
+    - {fi-tgl-dsi}:       [PASS][1] -> [DMESG-WARN][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10376/fi-tgl-dsi/igt@i915_selftest@live@gt_timelines.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20688/fi-tgl-dsi/igt@i915_selftest@live@gt_timelines.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20688 that come from known issues:
+
+### IGT changes ###
+
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
+
+
+Participating hosts (38 -> 35)
+------------------------------
+
+  Missing    (3): fi-ilk-m540 fi-bdw-samus fi-hsw-4200u 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10376 -> Patchwork_20688
+
+  CI-20190529: 20190529
+  CI_DRM_10376: 299bd09eafa6bf94ac922867ee0c797f8e569d3b @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6147: f3994c2cd99a1acfe991a8cc838a387dcb36598a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20688: 43e59f118335f3b00de582e633bb5074319b1c58 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+43e59f118335 drm/i915/adl_p: Add ddi buf translation tables for combo PHY
+faad50971bdd drm/i915/adl_s: Update ddi buf translation tables
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20688/index.html
+
+--===============5327642157531817973==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>ADL DDI translation buffer updates (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/92921/">https://patchwork.freedesktop.org/series/92921/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20688/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20688/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10376 -&gt; Patchwork_20688</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20688/index.html</p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_20688:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>igt@i915_selftest@live@gt_timelines:<ul>
+<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10376/fi-tgl-dsi/igt@i915_selftest@live@gt_timelines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20688/fi-tgl-dsi/igt@i915_selftest@live@gt_timelines.html">DMESG-WARN</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20688 that come from known issues:</p>
+<h3>IGT changes</h3>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (38 -&gt; 35)</h2>
+<p>Missing    (3): fi-ilk-m540 fi-bdw-samus fi-hsw-4200u </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10376 -&gt; Patchwork_20688</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10376: 299bd09eafa6bf94ac922867ee0c797f8e569d3b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6147: f3994c2cd99a1acfe991a8cc838a387dcb36598a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20688: 43e59f118335f3b00de582e633bb5074319b1c58 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>43e59f118335 drm/i915/adl_p: Add ddi buf translation tables for combo PHY<br />
+faad50971bdd drm/i915/adl_s: Update ddi buf translation tables</p>
+
+</body>
+</html>
+
+--===============5327642157531817973==--
+
+--===============1563977314==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1563977314==--
