@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F225C4320E
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91079C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4ECC260EFD
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4ECC260EFD
+	by mail.kernel.org (Postfix) with ESMTPS id 6099860EFD
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6099860EFD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5AB6FB9E;
-	Fri, 23 Jul 2021 17:43:03 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBCD56FB9B
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:42:58 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="199127530"
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="199127530"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09C496FB9F;
+	Fri, 23 Jul 2021 17:43:11 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EBAC6FBA0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:06 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="273032685"
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="273032685"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:51 -0700
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229076"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2021 10:42:52 -0700
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229115"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:50 -0700
+ 23 Jul 2021 10:42:52 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 10:42:22 -0700
-Message-Id: <20210723174239.1551352-14-matthew.d.roper@intel.com>
+Date: Fri, 23 Jul 2021 10:42:34 -0700
+Message-Id: <20210723174239.1551352-26-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 References: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 13/30] drm/i915/xehpsdv: factor out function
- to read RP_STATE_CAP
+Subject: [Intel-gfx] [PATCH v3 25/30] drm/i915/dg2: Add vswing programming
+ for SNPS phys
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,124 +54,185 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Lucas De Marchi <lucas.demarchi@intel.com>
+Vswing programming for SNPS PHYs is just a single step -- look up the
+value that corresponds to the voltage level from a table and program it
+into the SNPS_PHY_TX_EQ register.
 
-Instead of maintaining the same if ladder in 3 different places, add a
-function to read RP_STATE_CAP.
-
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Bspec: 53920
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/gt/debugfs_gt_pm.c |  8 +++-----
- drivers/gpu/drm/i915/gt/intel_rps.c     | 17 ++++++++++++-----
- drivers/gpu/drm/i915/gt/intel_rps.h     |  1 +
- drivers/gpu/drm/i915/i915_debugfs.c     |  8 +++-----
- 4 files changed, 19 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 23 ++++++--
+ drivers/gpu/drm/i915/display/intel_snps_phy.c | 54 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_snps_phy.h |  4 ++
+ drivers/gpu/drm/i915/i915_reg.h               |  5 ++
+ 4 files changed, 83 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-index 4270b5a34a83..1061a62bdfce 100644
---- a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-@@ -309,13 +309,11 @@ static int frequency_show(struct seq_file *m, void *unused)
- 		int max_freq;
- 
- 		rp_state_limits = intel_uncore_read(uncore, GEN6_RP_STATE_LIMITS);
--		if (IS_GEN9_LP(i915)) {
--			rp_state_cap = intel_uncore_read(uncore, BXT_RP_STATE_CAP);
-+		rp_state_cap = intel_rps_read_state_cap(rps);
-+		if (IS_GEN9_LP(i915))
- 			gt_perf_status = intel_uncore_read(uncore, BXT_GT_PERF_STATUS);
--		} else {
--			rp_state_cap = intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
-+		else
- 			gt_perf_status = intel_uncore_read(uncore, GEN6_GT_PERF_STATUS);
--		}
- 
- 		/* RPSTAT1 is in the GT power well */
- 		intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 06e9a8ed4e03..490bc1513480 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -975,20 +975,16 @@ int intel_rps_set(struct intel_rps *rps, u8 val)
- static void gen6_rps_init(struct intel_rps *rps)
- {
- 	struct drm_i915_private *i915 = rps_to_i915(rps);
--	struct intel_uncore *uncore = rps_to_uncore(rps);
-+	u32 rp_state_cap = intel_rps_read_state_cap(rps);
- 
- 	/* All of these values are in units of 50MHz */
- 
- 	/* static values from HW: RP0 > RP1 > RPn (min_freq) */
- 	if (IS_GEN9_LP(i915)) {
--		u32 rp_state_cap = intel_uncore_read(uncore, BXT_RP_STATE_CAP);
--
- 		rps->rp0_freq = (rp_state_cap >> 16) & 0xff;
- 		rps->rp1_freq = (rp_state_cap >>  8) & 0xff;
- 		rps->min_freq = (rp_state_cap >>  0) & 0xff;
- 	} else {
--		u32 rp_state_cap = intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
--
- 		rps->rp0_freq = (rp_state_cap >>  0) & 0xff;
- 		rps->rp1_freq = (rp_state_cap >>  8) & 0xff;
- 		rps->min_freq = (rp_state_cap >> 16) & 0xff;
-@@ -1936,6 +1932,17 @@ u32 intel_rps_read_actual_frequency(struct intel_rps *rps)
- 	return freq;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 929a95ddb316..ade03cf41caa 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -1496,6 +1496,16 @@ static int intel_ddi_dp_level(struct intel_dp *intel_dp)
+ 	return translate_signal_level(intel_dp, signal_levels);
  }
  
-+u32 intel_rps_read_state_cap(struct intel_rps *rps)
++static void
++dg2_set_signal_levels(struct intel_dp *intel_dp,
++		      const struct intel_crtc_state *crtc_state)
 +{
-+	struct drm_i915_private *i915 = rps_to_i915(rps);
-+	struct intel_uncore *uncore = rps_to_uncore(rps);
++	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
++	int level = intel_ddi_dp_level(intel_dp);
 +
-+	if (IS_GEN9_LP(i915))
-+		return intel_uncore_read(uncore, BXT_RP_STATE_CAP);
-+	else
-+		return intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
++	intel_snps_phy_ddi_vswing_sequence(encoder, level);
 +}
 +
- /* External interface for intel_ips.ko */
+ static void
+ tgl_set_signal_levels(struct intel_dp *intel_dp,
+ 		      const struct intel_crtc_state *crtc_state)
+@@ -2563,7 +2573,10 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	 */
  
- static struct drm_i915_private __rcu *ips_mchdev;
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.h b/drivers/gpu/drm/i915/gt/intel_rps.h
-index 1d2cfc98b510..6e06dd61f818 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.h
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.h
-@@ -31,6 +31,7 @@ int intel_gpu_freq(struct intel_rps *rps, int val);
- int intel_freq_opcode(struct intel_rps *rps, int val);
- u32 intel_rps_get_cagf(struct intel_rps *rps, u32 rpstat1);
- u32 intel_rps_read_actual_frequency(struct intel_rps *rps);
-+u32 intel_rps_read_state_cap(struct intel_rps *rps);
+ 	/* 7.e Configure voltage swing and related IO settings */
+-	tgl_ddi_vswing_sequence(encoder, crtc_state, level);
++	if (IS_DG2(dev_priv))
++		intel_snps_phy_ddi_vswing_sequence(encoder, level);
++	else
++		tgl_ddi_vswing_sequence(encoder, crtc_state, level);
  
- void gen5_rps_irq_handler(struct intel_rps *rps);
- void gen6_rps_irq_handler(struct intel_rps *rps, u32 pm_iir);
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index 0529576f069c..37056b2c044a 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -420,13 +420,11 @@ static int i915_frequency_info(struct seq_file *m, void *unused)
- 		int max_freq;
+ 	/*
+ 	 * 7.f Combo PHY: Configure PORT_CL_DW10 Static Power Down to power up
+@@ -3102,7 +3115,9 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
+ 			    "[CONNECTOR:%d:%s] Failed to configure sink scrambling/TMDS bit clock ratio\n",
+ 			    connector->base.id, connector->name);
  
- 		rp_state_limits = intel_uncore_read(&dev_priv->uncore, GEN6_RP_STATE_LIMITS);
--		if (IS_GEN9_LP(dev_priv)) {
--			rp_state_cap = intel_uncore_read(&dev_priv->uncore, BXT_RP_STATE_CAP);
-+		rp_state_cap = intel_rps_read_state_cap(rps);
-+		if (IS_GEN9_LP(dev_priv))
- 			gt_perf_status = intel_uncore_read(&dev_priv->uncore, BXT_GT_PERF_STATUS);
--		} else {
--			rp_state_cap = intel_uncore_read(&dev_priv->uncore, GEN6_RP_STATE_CAP);
-+		else
- 			gt_perf_status = intel_uncore_read(&dev_priv->uncore, GEN6_GT_PERF_STATUS);
--		}
+-	if (DISPLAY_VER(dev_priv) >= 12)
++	if (IS_DG2(dev_priv))
++		intel_snps_phy_ddi_vswing_sequence(encoder, U32_MAX);
++	else if (DISPLAY_VER(dev_priv) >= 12)
+ 		tgl_ddi_vswing_sequence(encoder, crtc_state, level);
+ 	else if (DISPLAY_VER(dev_priv) == 11)
+ 		icl_ddi_vswing_sequence(encoder, crtc_state, level);
+@@ -4075,7 +4090,9 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
+ 	dig_port->dp.set_link_train = intel_ddi_set_link_train;
+ 	dig_port->dp.set_idle_link_train = intel_ddi_set_idle_link_train;
  
- 		/* RPSTAT1 is in the GT power well */
- 		intel_uncore_forcewake_get(&dev_priv->uncore, FORCEWAKE_ALL);
+-	if (DISPLAY_VER(dev_priv) >= 12)
++	if (IS_DG2(dev_priv))
++		dig_port->dp.set_signal_levels = dg2_set_signal_levels;
++	else if (DISPLAY_VER(dev_priv) >= 12)
+ 		dig_port->dp.set_signal_levels = tgl_set_signal_levels;
+ 	else if (DISPLAY_VER(dev_priv) >= 11)
+ 		dig_port->dp.set_signal_levels = icl_set_signal_levels;
+diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+index 1317b4e94b50..77759bda98a4 100644
+--- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+@@ -21,6 +21,60 @@
+  * since it is not handled by the shared DPLL framework as on other platforms.
+  */
+ 
++static const u32 dg2_ddi_translations[] = {
++	/* VS 0, pre-emph 0 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 26),
++
++	/* VS 0, pre-emph 1 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 33) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 6),
++
++	/* VS 0, pre-emph 2 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 38) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 12),
++
++	/* VS 0, pre-emph 3 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 43) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 19),
++
++	/* VS 1, pre-emph 0 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 39),
++
++	/* VS 1, pre-emph 1 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 44) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 8),
++
++	/* VS 1, pre-emph 2 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 47) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 15),
++
++	/* VS 2, pre-emph 0 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 52),
++
++	/* VS 2, pre-emph 1 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 51) |
++		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 10),
++
++	/* VS 3, pre-emph 0 */
++	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 62),
++};
++
++void intel_snps_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
++					u32 level)
++{
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	enum phy phy = intel_port_to_phy(dev_priv, encoder->port);
++	int n_entries, ln;
++
++	n_entries = ARRAY_SIZE(dg2_ddi_translations);
++	if (level >= n_entries)
++		level = n_entries - 1;
++
++	for (ln = 0; ln < 4; ln++)
++		intel_de_write(dev_priv, SNPS_PHY_TX_EQ(ln, phy),
++			       dg2_ddi_translations[level]);
++}
++
+ /*
+  * Basic DP link rates with 100 MHz reference clock.
+  */
+diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.h b/drivers/gpu/drm/i915/display/intel_snps_phy.h
+index ca4c2a25182b..3ce92d424f66 100644
+--- a/drivers/gpu/drm/i915/display/intel_snps_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_snps_phy.h
+@@ -6,6 +6,8 @@
+ #ifndef __INTEL_SNPS_PHY_H__
+ #define __INTEL_SNPS_PHY_H__
+ 
++#include <linux/types.h>
++
+ struct intel_encoder;
+ struct intel_crtc_state;
+ struct intel_mpllb_state;
+@@ -21,5 +23,7 @@ int intel_mpllb_calc_port_clock(struct intel_encoder *encoder,
+ 				const struct intel_mpllb_state *pll_state);
+ 
+ int intel_snps_phy_check_hdmi_link_rate(int clock);
++void intel_snps_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
++					u32 level);
+ 
+ #endif /* __INTEL_SNPS_PHY_H__ */
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index dc0002c1efda..2e028350c32d 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2340,6 +2340,11 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define SNPS_PHY_REF_CONTROL(phy)		_MMIO_SNPS(phy, 0x168188)
+ #define   SNPS_PHY_REF_CONTROL_REF_RANGE	REG_GENMASK(31, 27)
+ 
++#define SNPS_PHY_TX_EQ(ln, phy)			_MMIO_SNPS_LN(ln, phy, 0x168300)
++#define   SNPS_PHY_TX_EQ_MAIN			REG_GENMASK(23, 18)
++#define   SNPS_PHY_TX_EQ_POST			REG_GENMASK(15, 10)
++#define   SNPS_PHY_TX_EQ_PRE			REG_GENMASK(7, 2)
++
+ /* The spec defines this only for BXT PHY0, but lets assume that this
+  * would exist for PHY1 too if it had a second channel.
+  */
 -- 
 2.25.4
 
