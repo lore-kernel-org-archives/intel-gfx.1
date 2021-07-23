@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 91079C4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15B3AC4320A
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6099860EFD
+	by mail.kernel.org (Postfix) with ESMTPS id D94A160C51
 	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6099860EFD
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D94A160C51
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09C496FB9F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A5796FBA0;
 	Fri, 23 Jul 2021 17:43:11 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EBAC6FBA0
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:06 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="273032685"
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="273032685"
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34EEC6FB9B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:02 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="275742967"
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="275742967"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:52 -0700
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229115"
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2021 10:42:50 -0700
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229060"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:52 -0700
+ 23 Jul 2021 10:42:49 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 10:42:34 -0700
-Message-Id: <20210723174239.1551352-26-matthew.d.roper@intel.com>
+Date: Fri, 23 Jul 2021 10:42:17 -0700
+Message-Id: <20210723174239.1551352-9-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 References: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 25/30] drm/i915/dg2: Add vswing programming
- for SNPS phys
+Subject: [Intel-gfx] [PATCH v3 08/30] drm/i915/xehp: Changes to ss/eu
+ definitions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,185 +54,118 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Vswing programming for SNPS PHYs is just a single step -- look up the
-value that corresponds to the voltage level from a table and program it
-into the SNPS_PHY_TX_EQ register.
+From: Matthew Auld <matthew.auld@intel.com>
 
-Bspec: 53920
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
+Xe_HP no longer has "slices" in the same way that old platforms did.
+There are new concepts (gslices, cslices, mslices) that apply in various
+contexts, but for the purposes of fusing slices no longer exist and we
+just have one large pool of dual-subslices (DSS) to work with.
+Furthermore, the meaning of the DSS fuse is inverted compared to past
+platforms --- it now specifies which DSS are enabled rather than which
+ones are disabled.
+
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Signed-off-by: Stuart Summers <stuart.summers@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
+Signed-off-by: Prasad Nallani <prasad.nallani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c      | 23 ++++++--
- drivers/gpu/drm/i915/display/intel_snps_phy.c | 54 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_snps_phy.h |  4 ++
- drivers/gpu/drm/i915/i915_reg.h               |  5 ++
- 4 files changed, 83 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_sseu.c | 24 ++++++++++++++++++++----
+ drivers/gpu/drm/i915/i915_getparam.c |  6 ++++--
+ drivers/gpu/drm/i915/i915_reg.h      |  3 +++
+ 3 files changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 929a95ddb316..ade03cf41caa 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -1496,6 +1496,16 @@ static int intel_ddi_dp_level(struct intel_dp *intel_dp)
- 	return translate_signal_level(intel_dp, signal_levels);
- }
- 
-+static void
-+dg2_set_signal_levels(struct intel_dp *intel_dp,
-+		      const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
-+	int level = intel_ddi_dp_level(intel_dp);
-+
-+	intel_snps_phy_ddi_vswing_sequence(encoder, level);
-+}
-+
- static void
- tgl_set_signal_levels(struct intel_dp *intel_dp,
- 		      const struct intel_crtc_state *crtc_state)
-@@ -2563,7 +2573,10 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index bbed8e8625e1..5d1b7d06c96b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -139,17 +139,33 @@ static void gen12_sseu_info_init(struct intel_gt *gt)
+ 	 * Gen12 has Dual-Subslices, which behave similarly to 2 gen11 SS.
+ 	 * Instead of splitting these, provide userspace with an array
+ 	 * of DSS to more closely represent the hardware resource.
++	 *
++	 * In addition, the concept of slice has been removed in Xe_HP.
++	 * To be compatible with prior generations, assume a single slice
++	 * across the entire device. Then calculate out the DSS for each
++	 * workload type within that software slice.
  	 */
+ 	intel_sseu_set_info(sseu, 1, 6, 16);
  
- 	/* 7.e Configure voltage swing and related IO settings */
--	tgl_ddi_vswing_sequence(encoder, crtc_state, level);
-+	if (IS_DG2(dev_priv))
-+		intel_snps_phy_ddi_vswing_sequence(encoder, level);
+-	s_en = intel_uncore_read(uncore, GEN11_GT_SLICE_ENABLE) &
+-		GEN11_GT_S_ENA_MASK;
++	/*
++	 * As mentioned above, Xe_HP does not have the concept of a slice.
++	 * Enable one for software backwards compatibility.
++	 */
++	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 50))
++		s_en = 0x1;
 +	else
-+		tgl_ddi_vswing_sequence(encoder, crtc_state, level);
++		s_en = intel_uncore_read(uncore, GEN11_GT_SLICE_ENABLE) &
++		       GEN11_GT_S_ENA_MASK;
  
- 	/*
- 	 * 7.f Combo PHY: Configure PORT_CL_DW10 Static Power Down to power up
-@@ -3102,7 +3115,9 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
- 			    "[CONNECTOR:%d:%s] Failed to configure sink scrambling/TMDS bit clock ratio\n",
- 			    connector->base.id, connector->name);
+ 	dss_en = intel_uncore_read(uncore, GEN12_GT_DSS_ENABLE);
  
--	if (DISPLAY_VER(dev_priv) >= 12)
-+	if (IS_DG2(dev_priv))
-+		intel_snps_phy_ddi_vswing_sequence(encoder, U32_MAX);
-+	else if (DISPLAY_VER(dev_priv) >= 12)
- 		tgl_ddi_vswing_sequence(encoder, crtc_state, level);
- 	else if (DISPLAY_VER(dev_priv) == 11)
- 		icl_ddi_vswing_sequence(encoder, crtc_state, level);
-@@ -4075,7 +4090,9 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
- 	dig_port->dp.set_link_train = intel_ddi_set_link_train;
- 	dig_port->dp.set_idle_link_train = intel_ddi_set_idle_link_train;
+ 	/* one bit per pair of EUs */
+-	eu_en_fuse = ~(intel_uncore_read(uncore, GEN11_EU_DISABLE) &
+-		       GEN11_EU_DIS_MASK);
++	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 50))
++		eu_en_fuse = intel_uncore_read(uncore, XEHP_EU_ENABLE) & XEHP_EU_ENA_MASK;
++	else
++		eu_en_fuse = ~(intel_uncore_read(uncore, GEN11_EU_DISABLE) &
++			       GEN11_EU_DIS_MASK);
++
+ 	for (eu = 0; eu < sseu->max_eus_per_subslice / 2; eu++)
+ 		if (eu_en_fuse & BIT(eu))
+ 			eu_en |= BIT(eu * 2) | BIT(eu * 2 + 1);
+diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
+index 24e18219eb50..e289397d9178 100644
+--- a/drivers/gpu/drm/i915/i915_getparam.c
++++ b/drivers/gpu/drm/i915/i915_getparam.c
+@@ -15,7 +15,7 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	const struct sseu_dev_info *sseu = &i915->gt.info.sseu;
+ 	drm_i915_getparam_t *param = data;
+-	int value;
++	int value = 0;
  
--	if (DISPLAY_VER(dev_priv) >= 12)
-+	if (IS_DG2(dev_priv))
-+		dig_port->dp.set_signal_levels = dg2_set_signal_levels;
-+	else if (DISPLAY_VER(dev_priv) >= 12)
- 		dig_port->dp.set_signal_levels = tgl_set_signal_levels;
- 	else if (DISPLAY_VER(dev_priv) >= 11)
- 		dig_port->dp.set_signal_levels = icl_set_signal_levels;
-diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-index 1317b4e94b50..77759bda98a4 100644
---- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-@@ -21,6 +21,60 @@
-  * since it is not handled by the shared DPLL framework as on other platforms.
-  */
- 
-+static const u32 dg2_ddi_translations[] = {
-+	/* VS 0, pre-emph 0 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 26),
-+
-+	/* VS 0, pre-emph 1 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 33) |
-+		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 6),
-+
-+	/* VS 0, pre-emph 2 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 38) |
-+		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 12),
-+
-+	/* VS 0, pre-emph 3 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 43) |
-+		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 19),
-+
-+	/* VS 1, pre-emph 0 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 39),
-+
-+	/* VS 1, pre-emph 1 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 44) |
-+		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 8),
-+
-+	/* VS 1, pre-emph 2 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 47) |
-+		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 15),
-+
-+	/* VS 2, pre-emph 0 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 52),
-+
-+	/* VS 2, pre-emph 1 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 51) |
-+		REG_FIELD_PREP(SNPS_PHY_TX_EQ_POST, 10),
-+
-+	/* VS 3, pre-emph 0 */
-+	REG_FIELD_PREP(SNPS_PHY_TX_EQ_MAIN, 62),
-+};
-+
-+void intel_snps_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
-+					u32 level)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+	enum phy phy = intel_port_to_phy(dev_priv, encoder->port);
-+	int n_entries, ln;
-+
-+	n_entries = ARRAY_SIZE(dg2_ddi_translations);
-+	if (level >= n_entries)
-+		level = n_entries - 1;
-+
-+	for (ln = 0; ln < 4; ln++)
-+		intel_de_write(dev_priv, SNPS_PHY_TX_EQ(ln, phy),
-+			       dg2_ddi_translations[level]);
-+}
-+
- /*
-  * Basic DP link rates with 100 MHz reference clock.
-  */
-diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.h b/drivers/gpu/drm/i915/display/intel_snps_phy.h
-index ca4c2a25182b..3ce92d424f66 100644
---- a/drivers/gpu/drm/i915/display/intel_snps_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_snps_phy.h
-@@ -6,6 +6,8 @@
- #ifndef __INTEL_SNPS_PHY_H__
- #define __INTEL_SNPS_PHY_H__
- 
-+#include <linux/types.h>
-+
- struct intel_encoder;
- struct intel_crtc_state;
- struct intel_mpllb_state;
-@@ -21,5 +23,7 @@ int intel_mpllb_calc_port_clock(struct intel_encoder *encoder,
- 				const struct intel_mpllb_state *pll_state);
- 
- int intel_snps_phy_check_hdmi_link_rate(int clock);
-+void intel_snps_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
-+					u32 level);
- 
- #endif /* __INTEL_SNPS_PHY_H__ */
+ 	switch (param->param) {
+ 	case I915_PARAM_IRQ_ACTIVE:
+@@ -150,7 +150,9 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
+ 			return -ENODEV;
+ 		break;
+ 	case I915_PARAM_SUBSLICE_MASK:
+-		value = sseu->subslice_mask[0];
++		/* Only copy bits from the first slice */
++		memcpy(&value, sseu->subslice_mask,
++		       min(sseu->ss_stride, (u8)sizeof(value)));
+ 		if (!value)
+ 			return -ENODEV;
+ 		break;
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index dc0002c1efda..2e028350c32d 100644
+index 0009833fa033..897238ca54e1 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2340,6 +2340,11 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define SNPS_PHY_REF_CONTROL(phy)		_MMIO_SNPS(phy, 0x168188)
- #define   SNPS_PHY_REF_CONTROL_REF_RANGE	REG_GENMASK(31, 27)
+@@ -3151,6 +3151,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
  
-+#define SNPS_PHY_TX_EQ(ln, phy)			_MMIO_SNPS_LN(ln, phy, 0x168300)
-+#define   SNPS_PHY_TX_EQ_MAIN			REG_GENMASK(23, 18)
-+#define   SNPS_PHY_TX_EQ_POST			REG_GENMASK(15, 10)
-+#define   SNPS_PHY_TX_EQ_PRE			REG_GENMASK(7, 2)
+ #define GEN12_GT_DSS_ENABLE _MMIO(0x913C)
+ 
++#define XEHP_EU_ENABLE			_MMIO(0x9134)
++#define XEHP_EU_ENA_MASK		0xFF
 +
- /* The spec defines this only for BXT PHY0, but lets assume that this
-  * would exist for PHY1 too if it had a second channel.
-  */
+ #define GEN6_BSD_SLEEP_PSMI_CONTROL	_MMIO(0x12050)
+ #define   GEN6_BSD_SLEEP_MSG_DISABLE	(1 << 0)
+ #define   GEN6_BSD_SLEEP_FLUSH_DISABLE	(1 << 2)
 -- 
 2.25.4
 
