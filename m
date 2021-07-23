@@ -2,40 +2,42 @@ Return-Path: <SRS0=oFzv=MP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5431DC4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:31:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AEB79C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 17C5660EAF
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:31:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 17C5660EAF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 6498760ED7
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 06:58:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6498760ED7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA8376ED04;
-	Fri, 23 Jul 2021 06:31:24 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id DD0656ED04;
- Fri, 23 Jul 2021 06:31:22 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D68C7A47DB;
- Fri, 23 Jul 2021 06:31:22 +0000 (UTC)
-MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matt Roper" <matthew.d.roper@intel.com>
-Date: Fri, 23 Jul 2021 06:31:22 -0000
-Message-ID: <162702188287.3043.9877966001889444727@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210723053401.1269829-1-matthew.d.roper@intel.com>
-In-Reply-To: <20210723053401.1269829-1-matthew.d.roper@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_ADL_DDI_translation_buffer_updates_=28rev2=29?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C0076FA49;
+	Fri, 23 Jul 2021 06:58:34 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D98E6FA49
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 06:58:32 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="211829748"
+X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="211829748"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2021 23:58:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="502405567"
+Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
+ by FMSMGA003.fm.intel.com with ESMTP; 22 Jul 2021 23:58:29 -0700
+From: Lee Shawn C <shawn.c.lee@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 23 Jul 2021 15:05:41 +0800
+Message-Id: <20210723070548.29315-1-shawn.c.lee@intel.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [Intel-gfx] [V3 0/7] MIPI DSI driver enhancements
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,30 +50,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: cooper.chiou@intel.com, william.tseng@intel.com, jani.nikula@intel.com
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+v2:
+- Check for dsc enable and slice count ==1 then allow to
+  double confirm min cdclk value.
 
-Series: ADL DDI translation buffer updates (rev2)
-URL   : https://patchwork.freedesktop.org/series/92921/
-State : warning
+v3:
+- Add two patches that fix MIPI DCS backlight control.
 
-== Summary ==
+Lee Shawn C (7):
+  drm/i915/dsi: send correct gpio_number on gen11 platform
+  drm/i915/jsl: program DSI panel GPIOs
+  drm/i915/dsi: wait for header and payload credit available
+  drm/i915/dsi: refine send MIPI DCS command sequence
+  drm/i915: Get proper min cdclk if vDSC enabled
+  drm/i915/dsi: Retrieve max brightness level from VBT.
+  drm/i915/dsi: Send proper brightness value via MIPI DCS command
 
-$ dim checkpatch origin/drm-tip
-faad50971bdd drm/i915/adl_s: Update ddi buf translation tables
-43e59f118335 drm/i915/adl_p: Add ddi buf translation tables for combo PHY
--:95: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
-#95: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1728:
-+		return intel_get_buf_trans(&adlp_combo_phy_ddi_translations_dp_hbr2_hbr3, n_entries);
+ drivers/gpu/drm/i915/display/icl_dsi.c        | 50 +++++++++----------
+ drivers/gpu/drm/i915/display/intel_bios.c     |  3 ++
+ drivers/gpu/drm/i915/display/intel_cdclk.c    | 10 ++++
+ .../i915/display/intel_dsi_dcs_backlight.c    | 15 ++++--
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c  | 46 ++++++++++++++++-
+ drivers/gpu/drm/i915/i915_drv.h               |  1 +
+ drivers/gpu/drm/i915/i915_reg.h               | 10 ++++
+ 7 files changed, 102 insertions(+), 33 deletions(-)
 
-total: 0 errors, 1 warnings, 0 checks, 124 lines checked
-
+-- 
+2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
