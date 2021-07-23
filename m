@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3BC1C432BE
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 735C5C4320A
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8716160C51
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8716160C51
+	by mail.kernel.org (Postfix) with ESMTPS id 40D5360EFD
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 40D5360EFD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7D796FBA9;
-	Fri, 23 Jul 2021 17:43:12 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA4B6FB9F
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="275742977"
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="275742977"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB016FBAB;
+	Fri, 23 Jul 2021 17:43:13 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E1456FBA0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:07 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="273032712"
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="273032712"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:51 -0700
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229078"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2021 10:42:53 -0700
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229128"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:50 -0700
+ 23 Jul 2021 10:42:52 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 10:42:23 -0700
-Message-Id: <20210723174239.1551352-15-matthew.d.roper@intel.com>
+Date: Fri, 23 Jul 2021 10:42:38 -0700
+Message-Id: <20210723174239.1551352-30-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 References: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 14/30] drm/i915/xehpsdv: Read correct
- RP_STATE_CAP register
+Subject: [Intel-gfx] [PATCH v3 29/30] drm/i915/dg2: Update to bigjoiner path
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,51 +53,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The RP_STATE_CAP register is no longer part of the MCHBAR on XEHPSDV; this
-register is now a per-tile register at GTTMMADDR offset 0x250014.
+From: Animesh Manna <animesh.manna@intel.com>
 
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+In verify_mpllb_state() encoder is retrieved from best_encoder
+of connector_state. As there will be only one connector_state
+for bigjoiner and checking encoder may not be needed for
+bigjoiner-slave. This code path related to mpll is done on dg2
+and need this fix to avoid null pointer dereference issue.
+
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c | 4 +++-
- drivers/gpu/drm/i915/i915_reg.h     | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 490bc1513480..8e7b70248392 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1937,7 +1937,9 @@ u32 intel_rps_read_state_cap(struct intel_rps *rps)
- 	struct drm_i915_private *i915 = rps_to_i915(rps);
- 	struct intel_uncore *uncore = rps_to_uncore(rps);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 8c66e92fb7b3..c68187f39494 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -9157,6 +9157,9 @@ verify_mpllb_state(struct intel_atomic_state *state,
+ 	if (!new_crtc_state->hw.active)
+ 		return;
  
--	if (IS_GEN9_LP(i915))
-+	if (IS_XEHPSDV(i915))
-+		return intel_uncore_read(uncore, XEHPSDV_RP_STATE_CAP);
-+	else if (IS_GEN9_LP(i915))
- 		return intel_uncore_read(uncore, BXT_RP_STATE_CAP);
- 	else
- 		return intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 3d37ffec7b56..35c29807c693 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4110,6 +4110,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define GEN6_RP_STATE_CAP	_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5998)
- #define BXT_RP_STATE_CAP        _MMIO(0x138170)
- #define GEN9_RP_STATE_LIMITS	_MMIO(0x138148)
-+#define XEHPSDV_RP_STATE_CAP	_MMIO(0x250014)
++	if (new_crtc_state->bigjoiner_slave)
++		return;
++
+ 	encoder = intel_get_crtc_new_encoder(state, new_crtc_state);
+ 	intel_mpllb_readout_hw_state(encoder, &mpllb_hw_state);
  
- /*
-  * Logical Context regs
 -- 
 2.25.4
 
