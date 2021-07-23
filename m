@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC8F2C43214
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A85D9C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D6E360C51
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D6E360C51
+	by mail.kernel.org (Postfix) with ESMTPS id 75E1F60F02
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Jul 2021 17:43:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 75E1F60F02
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D45E66FBAA;
-	Fri, 23 Jul 2021 17:43:12 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66FAF6FB9F
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:43:07 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="275742995"
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="275742995"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22EF46FBAE;
+	Fri, 23 Jul 2021 17:43:36 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14AA66FB9C
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jul 2021 17:42:59 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="199127534"
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="199127534"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jul 2021 10:42:51 -0700
-X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229102"
+X-IronPort-AV: E=Sophos;i="5.84,264,1620716400"; d="scan'208";a="463229081"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 10:42:51 -0700
+ 23 Jul 2021 10:42:50 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 10:42:30 -0700
-Message-Id: <20210723174239.1551352-22-matthew.d.roper@intel.com>
+Date: Fri, 23 Jul 2021 10:42:24 -0700
+Message-Id: <20210723174239.1551352-16-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 References: <20210723174239.1551352-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 21/30] drm/i915/dg2: Report INSTDONE_GEOM
- values in error state
+Subject: [Intel-gfx] [PATCH v3 15/30] drm/i915/dg2: DG2 uses the same sseu
+ limits as XeHP SDV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,109 +54,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Xe_HPG adds some additional INSTDONE_GEOM debug registers; the Mesa team
-has indicated that having these reported in the error state would be
-useful for debugging GPU hangs.  These registers are replicated per-DSS
-with gslice steering.
-
-Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Acked-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  7 +++++++
- drivers/gpu/drm/i915/gt/intel_engine_types.h |  3 +++
- drivers/gpu/drm/i915/i915_gpu_error.c        | 10 ++++++++--
- drivers/gpu/drm/i915/i915_reg.h              |  1 +
- 4 files changed, 19 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index fc8538ce47ae..71f6e7d7c3b9 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1211,6 +1211,13 @@ void intel_engine_get_instdone(const struct intel_engine_cs *engine,
- 							  GEN7_ROW_INSTDONE);
- 			}
- 		}
-+
-+		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55)) {
-+			for_each_instdone_gslice_dss_xehp(i915, sseu, iter, slice, subslice)
-+				instdone->geom_svg[slice][subslice] =
-+					read_subslice_reg(engine, slice, subslice,
-+							  XEHPG_INSTDONE_GEOM_SVG);
-+		}
- 	} else if (GRAPHICS_VER(i915) >= 7) {
- 		instdone->instdone =
- 			intel_uncore_read(uncore, RING_INSTDONE(mmio_base));
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index b23d76ceea0e..8f9e79074c1c 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -76,6 +76,9 @@ struct intel_instdone {
- 	u32 slice_common_extra[2];
- 	u32 sampler[GEN_MAX_GSLICES][I915_MAX_SUBSLICES];
- 	u32 row[GEN_MAX_GSLICES][I915_MAX_SUBSLICES];
-+
-+	/* Added in XeHPG */
-+	u32 geom_svg[GEN_MAX_GSLICES][I915_MAX_SUBSLICES];
- };
- 
- /*
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index c1e744b5ab47..4de7edc451ef 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -431,6 +431,7 @@ static void error_print_instdone(struct drm_i915_error_state_buf *m,
- 	const struct sseu_dev_info *sseu = &ee->engine->gt->info.sseu;
- 	int slice;
- 	int subslice;
-+	int iter;
- 
- 	err_printf(m, "  INSTDONE: 0x%08x\n",
- 		   ee->instdone.instdone);
-@@ -445,8 +446,6 @@ static void error_print_instdone(struct drm_i915_error_state_buf *m,
- 		return;
- 
- 	if (GRAPHICS_VER_FULL(m->i915) >= IP_VER(12, 50)) {
--		int iter;
--
- 		for_each_instdone_gslice_dss_xehp(m->i915, sseu, iter, slice, subslice)
- 			err_printf(m, "  SAMPLER_INSTDONE[%d][%d]: 0x%08x\n",
- 				   slice, subslice,
-@@ -471,6 +470,13 @@ static void error_print_instdone(struct drm_i915_error_state_buf *m,
- 	if (GRAPHICS_VER(m->i915) < 12)
- 		return;
- 
-+	if (GRAPHICS_VER_FULL(m->i915) >= IP_VER(12, 55)) {
-+		for_each_instdone_gslice_dss_xehp(m->i915, sseu, iter, slice, subslice)
-+			err_printf(m, "  GEOM_SVGUNIT_INSTDONE[%d][%d]: 0x%08x\n",
-+				   slice, subslice,
-+				   ee->instdone.geom_svg[slice][subslice]);
-+	}
-+
- 	err_printf(m, "  SC_INSTDONE_EXTRA: 0x%08x\n",
- 		   ee->instdone.slice_common_extra[0]);
- 	err_printf(m, "  SC_INSTDONE_EXTRA2: 0x%08x\n",
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index b6ffdb89db6f..45cc76f88738 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2686,6 +2686,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define GEN12_SC_INSTDONE_EXTRA2	_MMIO(0x7108)
- #define GEN7_SAMPLER_INSTDONE	_MMIO(0xe160)
- #define GEN7_ROW_INSTDONE	_MMIO(0xe164)
-+#define XEHPG_INSTDONE_GEOM_SVG		_MMIO(0x666c)
- #define MCFG_MCR_SELECTOR		_MMIO(0xfd0)
- #define SF_MCR_SELECTOR			_MMIO(0xfd8)
- #define GEN8_MCR_SELECTOR		_MMIO(0xfdc)
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+REcyIHN1cHBvcnRzIGNvbXB1dGUgRFNTIGFuZCBoYXMgdGhlIHNhbWUgbWF4aW11bSBudW1iZXIg
+b2YgRFNTIGFuZCBFVQphcyBYZUhQIFNEVi4KClNpZ25lZC1vZmYtYnk6IE1hdHQgUm9wZXIgPG1h
+dHRoZXcuZC5yb3BlckBpbnRlbC5jb20+ClJldmlld2VkLWJ5OiBDYXogWW9rb3lhbWEgPGNhei55
+b2tveWFtYUBpbnRlbC5jb20+ClJldmlld2VkLWJ5OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxq
+b3NlLnNvdXphQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9z
+c2V1LmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24o
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9zc2V1LmMgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9zc2V1LmMKaW5kZXggNWQzYjhkZmY0NjRjLi5l
+YWZmMjIxZGI1YjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3Nz
+ZXUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9zc2V1LmMKQEAgLTE3MSw3
+ICsxNzEsNyBAQCBzdGF0aWMgdm9pZCBnZW4xMl9zc2V1X2luZm9faW5pdChzdHJ1Y3QgaW50ZWxf
+Z3QgKmd0KQogCSAqIGFjcm9zcyB0aGUgZW50aXJlIGRldmljZS4gVGhlbiBjYWxjdWxhdGUgb3V0
+IHRoZSBEU1MgZm9yIGVhY2gKIAkgKiB3b3JrbG9hZCB0eXBlIHdpdGhpbiB0aGF0IHNvZnR3YXJl
+IHNsaWNlLgogCSAqLwotCWlmIChJU19YRUhQU0RWKGd0LT5pOTE1KSkgeworCWlmIChJU19ERzIo
+Z3QtPmk5MTUpIHx8IElTX1hFSFBTRFYoZ3QtPmk5MTUpKSB7CiAJCWludGVsX3NzZXVfc2V0X2lu
+Zm8oc3NldSwgMSwgMzIsIDE2KTsKIAkJc3NldS0+aGFzX2NvbXB1dGVfZHNzID0gMTsKIAl9IGVs
+c2UgewotLSAKMi4yNS40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRl
+bC1nZngK
