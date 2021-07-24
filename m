@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 640BBC4320E
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC743C432BE
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A64760EAF
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3A64760EAF
+	by mail.kernel.org (Postfix) with ESMTPS id C10C060E8F
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C10C060E8F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09FB26FD44;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 493356FD45;
 	Sat, 24 Jul 2021 00:11:41 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE6F6FD28;
- Sat, 24 Jul 2021 00:11:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="191563460"
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="191563460"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E70FD6FD21;
+ Sat, 24 Jul 2021 00:11:31 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="191563456"
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="191563456"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:33 -0700
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="434270023"
+ 23 Jul 2021 17:11:31 -0700
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="434270010"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:32 -0700
+ 23 Jul 2021 17:11:31 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 17:11:02 -0700
-Message-Id: <20210724001114.249295-19-lucas.demarchi@intel.com>
+Date: Fri, 23 Jul 2021 17:10:58 -0700
+Message-Id: <20210724001114.249295-15-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210724001114.249295-1-lucas.demarchi@intel.com>
 References: <20210724001114.249295-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 18/30] drm/i915: remove explicit CNL handling
- from i915_irq.c
+Subject: [Intel-gfx] [PATCH 14/30] drm/i915/display: remove explicit CNL
+ handling from skl_universal_plane.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,47 +60,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove special handling of PORT_F in i915_irq.c and only do it for
-DISPLAY_VER == 11.
+The only real platform with DISPLAY_VER == 10 is GLK. We don't need to
+handle CNL explicitly in skl_universal_plane.c.
+
+Remove code and rename functions/macros accordingly to use ICL prefix.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 7 +++----
- drivers/gpu/drm/i915/i915_reg.h | 2 +-
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index e2171bd2820e..17d336218b67 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -2297,11 +2297,10 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
- 			GEN9_AUX_CHANNEL_C |
- 			GEN9_AUX_CHANNEL_D;
- 
--	if (IS_CNL_WITH_PORT_F(dev_priv) || DISPLAY_VER(dev_priv) == 11)
--		mask |= CNL_AUX_CHANNEL_F;
--
--	if (DISPLAY_VER(dev_priv) == 11)
-+	if (DISPLAY_VER(dev_priv) == 11) {
-+		mask |= ICL_AUX_CHANNEL_F;
- 		mask |= ICL_AUX_CHANNEL_E;
-+	}
- 
- 	return mask;
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 3ad04bf2a0fd..0f40f8b07724 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -835,7 +835,7 @@ static u32 skl_plane_ctl_rotate(unsigned int rotate)
+ 	return 0;
  }
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index d198b1a2d4b5..fdc8fd424d36 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7945,7 +7945,7 @@ enum {
- #define  DSI1_NON_TE			(1 << 31)
- #define  DSI0_NON_TE			(1 << 30)
- #define  ICL_AUX_CHANNEL_E		(1 << 29)
--#define  CNL_AUX_CHANNEL_F		(1 << 28)
-+#define  ICL_AUX_CHANNEL_F		(1 << 28)
- #define  GEN9_AUX_CHANNEL_D		(1 << 27)
- #define  GEN9_AUX_CHANNEL_C		(1 << 26)
- #define  GEN9_AUX_CHANNEL_B		(1 << 25)
+ 
+-static u32 cnl_plane_ctl_flip(unsigned int reflect)
++static u32 icl_plane_ctl_flip(unsigned int reflect)
+ {
+ 	switch (reflect) {
+ 	case 0:
+@@ -917,8 +917,8 @@ static u32 skl_plane_ctl(const struct intel_crtc_state *crtc_state,
+ 	plane_ctl |= skl_plane_ctl_tiling(fb->modifier);
+ 	plane_ctl |= skl_plane_ctl_rotate(rotation & DRM_MODE_ROTATE_MASK);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
+-		plane_ctl |= cnl_plane_ctl_flip(rotation &
++	if (DISPLAY_VER(dev_priv) >= 11)
++		plane_ctl |= icl_plane_ctl_flip(rotation &
+ 						DRM_MODE_REFLECT_MASK);
+ 
+ 	if (key->flags & I915_SET_COLORKEY_DESTINATION)
+@@ -1828,7 +1828,7 @@ static bool skl_plane_has_ccs(struct drm_i915_private *dev_priv,
+ 	if (plane_id == PLANE_CURSOR)
+ 		return false;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 11)
+ 		return true;
+ 
+ 	if (IS_GEMINILAKE(dev_priv))
+@@ -2144,7 +2144,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ 			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
+ 			DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 11)
+ 		supported_rotations |= DRM_MODE_REFLECT_X;
+ 
+ 	drm_plane_create_rotation_property(&plane->base,
+@@ -2174,7 +2174,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ 	if (DISPLAY_VER(dev_priv) >= 12)
+ 		drm_plane_enable_fb_damage_clips(&plane->base);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 11)
+ 		drm_plane_create_scaling_filter_property(&plane->base,
+ 						BIT(DRM_SCALING_FILTER_DEFAULT) |
+ 						BIT(DRM_SCALING_FILTER_NEAREST_NEIGHBOR));
+@@ -2295,7 +2295,7 @@ skl_get_initial_plane_config(struct intel_crtc *crtc,
+ 		break;
+ 	}
+ 
+-	if ((DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) && val & PLANE_CTL_FLIP_HORIZONTAL)
++	if (DISPLAY_VER(dev_priv) >= 11 && val & PLANE_CTL_FLIP_HORIZONTAL)
+ 		plane_config->rotation |= DRM_MODE_REFLECT_X;
+ 
+ 	/* 90/270 degree rotation would require extra work */
 -- 
 2.31.1
 
