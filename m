@@ -5,43 +5,43 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35B83C4320E
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06D0DC43214
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0AC6060EAF
+	by mail.kernel.org (Postfix) with ESMTPS id C9B9360E8F
 	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0AC6060EAF
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C9B9360E8F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8435C6FD49;
-	Sat, 24 Jul 2021 00:11:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 238026FD4F;
+	Sat, 24 Jul 2021 00:11:42 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D14156FD21;
- Sat, 24 Jul 2021 00:11:30 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="191563453"
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="191563453"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B5746FD2C;
+ Sat, 24 Jul 2021 00:11:34 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="191563464"
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="191563464"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:30 -0700
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="434269999"
+ 23 Jul 2021 17:11:34 -0700
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="434270033"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:30 -0700
+ 23 Jul 2021 17:11:33 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 17:10:55 -0700
-Message-Id: <20210724001114.249295-12-lucas.demarchi@intel.com>
+Date: Fri, 23 Jul 2021 17:11:05 -0700
+Message-Id: <20210724001114.249295-22-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210724001114.249295-1-lucas.demarchi@intel.com>
 References: <20210724001114.249295-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 11/30] drm/i915/display: remove explicit CNL
- handling from intel_dp.c
+Subject: [Intel-gfx] [PATCH 21/30] drm/i915: remove explicit CNL handling
+ from intel_pch.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,76 +60,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The only real platform with DISPLAY_VER == 10 is GLK. We don't need to
-handle CNL explicitly in intel_dp.c.
-
-Remove code and rename functions/macros accordingly to use ICL prefix.
+Remove references for CNL from pch detection.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 35 ++++---------------------
- 1 file changed, 5 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/i915/intel_pch.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index c386ef8eb200..db701ec5a221 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -222,29 +222,6 @@ bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp)
- 		 encoder->port != PORT_A);
- }
- 
--static int cnl_max_source_rate(struct intel_dp *intel_dp)
--{
--	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
--	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
--	enum port port = dig_port->base.port;
--
--	u32 voltage = intel_de_read(dev_priv, CNL_PORT_COMP_DW3) & VOLTAGE_INFO_MASK;
--
--	/* Low voltage SKUs are limited to max of 5.4G */
--	if (voltage == VOLTAGE_INFO_0_85V)
--		return 540000;
--
--	/* For this SKU 8.1G is supported in all ports */
--	if (IS_CNL_WITH_PORT_F(dev_priv))
--		return 810000;
--
--	/* For other SKUs, max rate on ports A and D is 5.4G */
--	if (port == PORT_A || port == PORT_D)
--		return 540000;
--
--	return 810000;
--}
--
- static int icl_max_source_rate(struct intel_dp *intel_dp)
- {
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-@@ -270,7 +247,7 @@ static void
- intel_dp_set_source_rates(struct intel_dp *intel_dp)
- {
- 	/* The values must be in increasing order */
--	static const int cnl_rates[] = {
-+	static const int icl_rates[] = {
- 		162000, 216000, 270000, 324000, 432000, 540000, 648000, 810000
- 	};
- 	static const int bxt_rates[] = {
-@@ -295,12 +272,10 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
- 	drm_WARN_ON(&dev_priv->drm,
- 		    intel_dp->source_rates || intel_dp->num_source_rates);
- 
--	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) {
--		source_rates = cnl_rates;
--		size = ARRAY_SIZE(cnl_rates);
--		if (DISPLAY_VER(dev_priv) == 10)
--			max_rate = cnl_max_source_rate(intel_dp);
--		else if (IS_JSL_EHL(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 11) {
-+		source_rates = icl_rates;
-+		size = ARRAY_SIZE(icl_rates);
-+		if (IS_JSL_EHL(dev_priv))
- 			max_rate = ehl_max_source_rate(intel_dp);
- 		else
- 			max_rate = icl_max_source_rate(intel_dp);
+diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
+index cc44164e242b..d1d4b97b86f5 100644
+--- a/drivers/gpu/drm/i915/intel_pch.c
++++ b/drivers/gpu/drm/i915/intel_pch.c
+@@ -81,7 +81,6 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 	case INTEL_PCH_CNP_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found Cannon Lake PCH (CNP)\n");
+ 		drm_WARN_ON(&dev_priv->drm,
+-			    !IS_CANNONLAKE(dev_priv) &&
+ 			    !IS_COFFEELAKE(dev_priv) &&
+ 			    !IS_COMETLAKE(dev_priv));
+ 		return PCH_CNP;
+@@ -89,7 +88,6 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "Found Cannon Lake LP PCH (CNP-LP)\n");
+ 		drm_WARN_ON(&dev_priv->drm,
+-			    !IS_CANNONLAKE(dev_priv) &&
+ 			    !IS_COFFEELAKE(dev_priv) &&
+ 			    !IS_COMETLAKE(dev_priv));
+ 		return PCH_CNP;
+@@ -171,8 +169,7 @@ intel_virt_detect_pch(const struct drm_i915_private *dev_priv,
+ 		id = INTEL_PCH_MCC_DEVICE_ID_TYPE;
+ 	else if (IS_ICELAKE(dev_priv))
+ 		id = INTEL_PCH_ICP_DEVICE_ID_TYPE;
+-	else if (IS_CANNONLAKE(dev_priv) ||
+-		 IS_COFFEELAKE(dev_priv) ||
++	else if (IS_COFFEELAKE(dev_priv) ||
+ 		 IS_COMETLAKE(dev_priv))
+ 		id = INTEL_PCH_CNP_DEVICE_ID_TYPE;
+ 	else if (IS_KABYLAKE(dev_priv) || IS_SKYLAKE(dev_priv))
 -- 
 2.31.1
 
