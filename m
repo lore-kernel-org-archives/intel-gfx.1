@@ -2,53 +2,48 @@ Return-Path: <SRS0=c+dM=MQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8980DC4338F
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 17:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3112C432BE
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 18:05:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 339EA60E09
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 17:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 339EA60E09
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id A256A60E91
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 18:05:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A256A60E91
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE5F46FA64;
-	Sat, 24 Jul 2021 17:41:43 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D27F16FA64;
- Sat, 24 Jul 2021 17:41:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=fS/avFUdQMxkSAv5SkN1DS49aprmUYZx7X+PjgA1ZZg=; b=uh9X8+FjRCl3sVhCeZuTYyIipB
- uF1rYX4ManeS6WhaBBKj0PO+uTv+5Amz7S48dPkXdEQac3EaG7X7THI+VifZrMMQ79WUrSxLtfT2J
- vh31qqt9Y84E0DMfskBqGoV1SvlYdX+32OFVYd5xWk4UZez5VipaXM5M5vVcZuT37wGtofVcH6nR2
- L4Bpg17xDp+MQSiUrBiFWmrpzesV4BnKqsSiJJvYwlhKuA5N3ebF7fKVdG9Rmewxr+vG9yftUz01+
- nZCg1ScG93j0EuOVfp+wItosUL95vtd/wjroCfXELp2A7eXtjcPUW4V9hAe8c2D/ouoKIu+961EVf
- EbAv+ydg==;
-Received: from hch by casper.infradead.org with local (Exim 4.94.2 #2 (Red Hat
- Linux)) id 1m7LeL-00CQtz-HI; Sat, 24 Jul 2021 17:41:23 +0000
-Date: Sat, 24 Jul 2021 18:41:21 +0100
-From: Christoph Hellwig <hch@infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3B176E9E1;
+	Sat, 24 Jul 2021 18:05:11 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 756386E139;
+ Sat, 24 Jul 2021 18:05:10 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10055"; a="273137794"
+X-IronPort-AV: E=Sophos;i="5.84,266,1620716400"; d="scan'208";a="273137794"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2021 11:05:09 -0700
+X-IronPort-AV: E=Sophos;i="5.84,266,1620716400"; d="scan'208";a="436009063"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2021 11:05:09 -0700
+Date: Sat, 24 Jul 2021 11:05:07 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
 To: Lucas De Marchi <lucas.demarchi@intel.com>
-Message-ID: <YPxQwdEAcNRIX9ep@infradead.org>
+Message-ID: <20210724180507.GK1556418@mdroper-desk1.amr.corp.intel.com>
 References: <20210724001114.249295-1-lucas.demarchi@intel.com>
- <20210724001114.249295-3-lucas.demarchi@intel.com>
+ <20210724001114.249295-4-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210724001114.249295-3-lucas.demarchi@intel.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Intel-gfx] [PATCH 02/30] drm/i915/display: split DISPLAY_VER 9
- and 10 in intel_setup_outputs()
+In-Reply-To: <20210724001114.249295-4-lucas.demarchi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 03/30] drm/i915/display: remove PORT_F
+ workaround for CNL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,17 +56,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- Christoph Hellwig <hch@infradead.org>
+Cc: dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Still tests fine:
+On Fri, Jul 23, 2021 at 05:10:47PM -0700, Lucas De Marchi wrote:
+> Explicit support for CNL is being removed from the driver as it's not
+> expected to work. Remove the workaround for PORT_F from
+> display/intel_bios.c so we can also remove the generic DISPLAY_VER == 10
+> calls to intel_ddi_init(): the only platform with that display version
+> is already handled separately (GLK).
+> 
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 
-Tested-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_bios.c    | 6 +++---
+>  drivers/gpu/drm/i915/display/intel_display.c | 7 -------
+>  2 files changed, 3 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+> index aa667fa71158..4172c8ee6aa6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bios.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> @@ -1871,12 +1871,12 @@ intel_bios_encoder_supports_edp(const struct intel_bios_encoder_data *devdata)
+>  static bool is_port_valid(struct drm_i915_private *i915, enum port port)
+>  {
+>  	/*
+> -	 * On some ICL/CNL SKUs port F is not present, but broken VBTs mark
+> +	 * On some ICL SKUs port F is not present, but broken VBTs mark
+>  	 * the port as present. Only try to initialize port F for the
+>  	 * SKUs that may actually have it.
+>  	 */
+> -	if (port == PORT_F && (IS_ICELAKE(i915) || IS_CANNONLAKE(i915)))
+> -		return IS_ICL_WITH_PORT_F(i915) || IS_CNL_WITH_PORT_F(i915);
+> +	if (port == PORT_F && IS_ICELAKE(i915))
+> +		return IS_ICL_WITH_PORT_F(i915);
+>  
+>  	return true;
+>  }
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 4633d4e00e6b..ee6d5f8de24b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -11409,13 +11409,6 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+>  		intel_ddi_init(dev_priv, PORT_B);
+>  		intel_ddi_init(dev_priv, PORT_C);
+>  		vlv_dsi_init(dev_priv);
+> -	} else if (DISPLAY_VER(dev_priv) == 10) {
+> -		intel_ddi_init(dev_priv, PORT_A);
+> -		intel_ddi_init(dev_priv, PORT_B);
+> -		intel_ddi_init(dev_priv, PORT_C);
+> -		intel_ddi_init(dev_priv, PORT_D);
+> -		intel_ddi_init(dev_priv, PORT_E);
+> -		intel_ddi_init(dev_priv, PORT_F);
+>  	} else if (DISPLAY_VER(dev_priv) >= 9) {
+>  		intel_ddi_init(dev_priv, PORT_A);
+>  		intel_ddi_init(dev_priv, PORT_B);
+> -- 
+> 2.31.1
+> 
+
+-- 
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
