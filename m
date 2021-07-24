@@ -5,43 +5,43 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 17D51C432BE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCC3BC4320A
 	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD82E60E8F
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DD82E60E8F
+	by mail.kernel.org (Postfix) with ESMTPS id 967E560EB0
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 967E560EB0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3FF06FD37;
-	Sat, 24 Jul 2021 00:11:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F6566FD50;
+	Sat, 24 Jul 2021 00:11:47 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE2C6FD21;
- Sat, 24 Jul 2021 00:11:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="191563459"
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="191563459"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 135306FD2A;
+ Sat, 24 Jul 2021 00:11:34 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="191563462"
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="191563462"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:32 -0700
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="434270020"
+ 23 Jul 2021 17:11:33 -0700
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="434270030"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:32 -0700
+ 23 Jul 2021 17:11:33 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 17:11:01 -0700
-Message-Id: <20210724001114.249295-18-lucas.demarchi@intel.com>
+Date: Fri, 23 Jul 2021 17:11:04 -0700
+Message-Id: <20210724001114.249295-21-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210724001114.249295-1-lucas.demarchi@intel.com>
 References: <20210724001114.249295-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 17/30] drm/i915/display: rename CNL references
- in skl_scaler.c
+Subject: [Intel-gfx] [PATCH 20/30] drm/i915: remove explicit CNL handling
+ from intel_mocs.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,75 +60,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the removal of CNL, let's consider GLK as the first platform using
-those constants since GLK has DISPLAY_VER == 10.
+Only one reference to CNL that is not needed, but code is the same for
+GEN9_BC, so leave the code around and just remove the special
+case for CNL.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_scaler.c | 10 +++++-----
- drivers/gpu/drm/i915/i915_reg.h           |  4 ++--
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_mocs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index 911a113ee006..ebdd3115de16 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -341,12 +341,12 @@ static u16 cnl_nearest_filter_coef(int t)
-  *
-  */
- 
--static void cnl_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
-+static void glk_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
- 					     enum pipe pipe, int id, int set)
- {
- 	int i;
- 
--	intel_de_write_fw(dev_priv, CNL_PS_COEF_INDEX_SET(pipe, id, set),
-+	intel_de_write_fw(dev_priv, GLK_PS_COEF_INDEX_SET(pipe, id, set),
- 			  PS_COEE_INDEX_AUTO_INC);
- 
- 	for (i = 0; i < 17 * 7; i += 2) {
-@@ -359,11 +359,11 @@ static void cnl_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
- 		t = cnl_coef_tap(i + 1);
- 		tmp |= cnl_nearest_filter_coef(t) << 16;
- 
--		intel_de_write_fw(dev_priv, CNL_PS_COEF_DATA_SET(pipe, id, set),
-+		intel_de_write_fw(dev_priv, GLK_PS_COEF_DATA_SET(pipe, id, set),
- 				  tmp);
- 	}
- 
--	intel_de_write_fw(dev_priv, CNL_PS_COEF_INDEX_SET(pipe, id, set), 0);
-+	intel_de_write_fw(dev_priv, GLK_PS_COEF_INDEX_SET(pipe, id, set), 0);
- }
- 
- static u32 skl_scaler_get_filter_select(enum drm_scaling_filter filter, int set)
-@@ -386,7 +386,7 @@ static void skl_scaler_setup_filter(struct drm_i915_private *dev_priv, enum pipe
- 	case DRM_SCALING_FILTER_DEFAULT:
- 		break;
- 	case DRM_SCALING_FILTER_NEAREST_NEIGHBOR:
--		cnl_program_nearest_filter_coefs(dev_priv, pipe, id, set);
-+		glk_program_nearest_filter_coefs(dev_priv, pipe, id, set);
- 		break;
- 	default:
- 		MISSING_CASE(filter);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 91e93f3e9649..d198b1a2d4b5 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7726,11 +7726,11 @@ enum {
- #define SKL_PS_ECC_STAT(pipe, id)  _MMIO_PIPE(pipe,     \
- 			_ID(id, _PS_ECC_STAT_1A, _PS_ECC_STAT_2A),   \
- 			_ID(id, _PS_ECC_STAT_1B, _PS_ECC_STAT_2B))
--#define CNL_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
-+#define GLK_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
- 			_ID(id, _PS_COEF_SET0_INDEX_1A, _PS_COEF_SET0_INDEX_2A) + (set) * 8, \
- 			_ID(id, _PS_COEF_SET0_INDEX_1B, _PS_COEF_SET0_INDEX_2B) + (set) * 8)
- 
--#define CNL_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
-+#define GLK_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
- 			_ID(id, _PS_COEF_SET0_DATA_1A, _PS_COEF_SET0_DATA_2A) + (set) * 8, \
- 			_ID(id, _PS_COEF_SET0_DATA_1B, _PS_COEF_SET0_DATA_2B) + (set) * 8)
- /* legacy palette */
+diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
+index 17848807f111..582c4423b95d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_mocs.c
++++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
+@@ -352,7 +352,7 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
+ 		table->size  = ARRAY_SIZE(icl_mocs_table);
+ 		table->table = icl_mocs_table;
+ 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
+-	} else if (IS_GEN9_BC(i915) || IS_CANNONLAKE(i915)) {
++	} else if (IS_GEN9_BC(i915)) {
+ 		table->size  = ARRAY_SIZE(skl_mocs_table);
+ 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
+ 		table->table = skl_mocs_table;
 -- 
 2.31.1
 
