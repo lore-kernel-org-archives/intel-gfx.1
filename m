@@ -2,51 +2,76 @@ Return-Path: <SRS0=Qdda=MS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE0E6C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 08:57:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29C95C4338F
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 08:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74B3560F4C
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 08:57:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 74B3560F4C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D873660D07
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 08:59:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D873660D07
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9886E86D;
-	Mon, 26 Jul 2021 08:57:15 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7F126E86D;
- Mon, 26 Jul 2021 08:57:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10056"; a="192464505"
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="192464505"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 01:57:11 -0700
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="436703204"
-Received: from jdonohue-mobl.ger.corp.intel.com (HELO [10.213.215.117])
- ([10.213.215.117])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 01:57:09 -0700
-To: Daniel Stone <daniel@fooishbar.org>
-References: <20210715091820.1613726-1-tvrtko.ursulin@linux.intel.com>
- <20210715091820.1613726-7-tvrtko.ursulin@linux.intel.com>
- <CAPj87rMxvq2c9uQ-ArvsLo2M7rXq=7LiJZ_XJwST=1VDhhNXRA@mail.gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <4e192c14-c7ba-cb65-966e-589c09e0e80b@linux.intel.com>
-Date: Mon, 26 Jul 2021 09:57:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 836366E89E;
+	Mon, 26 Jul 2021 08:59:17 +0000 (UTC)
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34C656FC18;
+ Sat, 24 Jul 2021 11:19:17 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ m2-20020a17090a71c2b0290175cf22899cso7333934pjs.2; 
+ Sat, 24 Jul 2021 04:19:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=9YtTx2F8aCtjxUTXqe0aUtd1QKwb/HSkiydeejpIB4k=;
+ b=DvPcmCPEmDyLe3TGFTP1QJeVA2WB+aAXO8mtDMt92/tIWfVwoxyj/t+ohBnZhllumo
+ FE8nIVjaonsiw5dBGIuKHq5HwvCS+RUy7HQLPgjUJ2OG2ki1X2sPyNz9OTIz5RDCj/Q0
+ TULtxmO2p7V7NaIniuhDYieJ05ETRDTZNH06S96TDnJAYDgnwUyK56O6hTnJIBCrZzbz
+ oE2sV1ptouoT+cunTJ6XEJvbfVFqHx6uyfCFZdyW/zYc0CLRjOcIxxstpi8unewZ8ZMw
+ CcMBMYraxUKiFmoranTvKMp1CVTb6CaPaHx45wcC25uTJLdvQmxvvr3oWnzD4gXSggTr
+ 5YEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=9YtTx2F8aCtjxUTXqe0aUtd1QKwb/HSkiydeejpIB4k=;
+ b=F2dKTd2D76d/hvzb9TnoMBcUrwe0w9H6dZg0mGDlJynwadQ3FrPWDC8ILeJ1Bs5sRj
+ g2iGyIpN1gnljffva0L+O7prhsCWg0DfmDgarSy2D9xhlcHq5FWdAC27Bg5szrfrB1et
+ ccRSF+TDQSVDfK0AV2VS6fRGpW6Al6YyOAN2sPy3HpF08Ave3qmdjF0gMuijNBDy4HJ4
+ F3dFLCB3hMZyzFZg5jYxGiYgyNZcpDVceb0rLKY8XKlhgbQl86Sl9ZbXAzbXZzW5LRCA
+ BVa1TeXmtCfjOoBMSGT3ox/X78rc/itaUw/WoGQbE36S9n5eCZHRHWVLY7ZDpSESXEB5
+ lOpQ==
+X-Gm-Message-State: AOAM531l4sBTYX5dLXQR47GHXhcmr7aqagu05YVxAww765aRFyjVLDEM
+ 8ZObcv5nKN+EvxG/syHCagg=
+X-Google-Smtp-Source: ABdhPJyrONu1cda28NLCVz+hXTIkL/SdYozfXqjGTiFBPvzVDezB4CPrSnB9KOd278Mq2Mi/gub3UQ==
+X-Received: by 2002:a17:90a:9ac:: with SMTP id
+ 41mr17424928pjo.97.1627125556886; 
+ Sat, 24 Jul 2021 04:19:16 -0700 (PDT)
+Received: from localhost.localdomain ([118.200.190.93])
+ by smtp.gmail.com with ESMTPSA id v15sm21310057pff.105.2021.07.24.04.19.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 24 Jul 2021 04:19:16 -0700 (PDT)
+From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+To: linux-graphics-maintainer@vmware.com, zackr@vmware.com, airlied@linux.ie,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, corbet@lwn.net
+Date: Sat, 24 Jul 2021 19:18:22 +0800
+Message-Id: <20210724111824.59266-2-desmondcheongzx@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210724111824.59266-1-desmondcheongzx@gmail.com>
+References: <20210724111824.59266-1-desmondcheongzx@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAPj87rMxvq2c9uQ-ArvsLo2M7rXq=7LiJZ_XJwST=1VDhhNXRA@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [RFC 6/8] drm: Document fdinfo format specification
+X-Mailman-Approved-At: Mon, 26 Jul 2021 08:59:16 +0000
+Subject: [Intel-gfx] [PATCH v2 1/3] drm: use the lookup lock in
+ drm_is_current_master
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,129 +84,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <Intel-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- David M Nieto <David.Nieto@amd.com>
+Cc: gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, skhan@linuxfoundation.org,
+ Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
+ linux-kernel-mentees@lists.linuxfoundation.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Inside drm_is_current_master, using the outer drm_device.master_mutex
+to protect reads of drm_file.master makes the function prone to creating
+lock hierarchy inversions. Instead, we can use the
+drm_file.master_lookup_lock that sits at the bottom of the lock
+hierarchy.
 
-On 23/07/2021 17:43, Daniel Stone wrote:
-> Hi Tvrtko,
-> Thanks for typing this up!
-> 
-> On Thu, 15 Jul 2021 at 10:18, Tvrtko Ursulin
-> <tvrtko.ursulin@linux.intel.com> wrote:
->> +Mandatory fully standardised keys
->> +---------------------------------
->> +
->> +- drm-driver: <str>
->> +
->> +String shall contain a fixed string uniquely identified the driver handling
->> +the device in question. For example name of the respective kernel module.
-> 
-> I think let's be more prescriptive and just say that it is the module name.
+Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+---
+ drivers/gpu/drm/drm_auth.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-I liked the drm_driver.name the other Daniel made so I'll go with that.
-
->> +Optional fully standardised keys
->> +--------------------------------
->> +
->> +- drm-pdev: <aaaa:bb.cc.d>
->> +
->> +For PCI devices this should contain the PCI slot address of the device in
->> +question.
-> 
-> How about just major:minor of the DRM render node device it's attached to?
-
-I don't have a strong opinion on this one. I can add it, but might keep 
-the drm-dev tag under the optional list because it is handy for 
-intel_gpu_top multi-device support. Or maybe the lookup to pci device is 
-easier than I think now so okay, on my todo list to check.
-
->> +- drm-client-id: <uint>
->> +
->> +Unique value relating to the open DRM file descriptor used to distinguish
->> +duplicated and shared file descriptors. Conceptually the value should map 1:1
->> +to the in kernel representation of `struct drm_file` instances.
->> +
->> +Uniqueness of the value shall be either globally unique, or unique within the
->> +scope of each device, in which case `drm-pdev` shall be present as well.
->> +
->> +Userspace should make sure to not double account any usage statistics by using
->> +the above described criteria in order to associate data to individual clients.
->> +
->> +- drm-engine-<str>: <uint> ns
->> +
->> +GPUs usually contain multiple execution engines. Each shall be given a stable
->> +and unique name (str), with possible values documented in the driver specific
->> +documentation.
->> +
->> +Value shall be in specified time units which the respective GPU engine spent
->> +busy executing workloads belonging to this client.
->> +
->> +Values are not required to be constantly monotonic if it makes the driver
->> +implementation easier, but are required to catch up with the previously reported
->> +larger value within a reasonable period. Upon observing a value lower than what
->> +was previously read, userspace is expected to stay with that larger previous
->> +value until a monotonic update is seen.
-> 
-> Yeah, that would work well for Mali/Panfrost. We can queue multiple
-> jobs in the hardware, which can either be striped across multiple
-> cores with an affinity mask (e.g. 3 cores for your client and 1 for
-> your compositor), or picked according to priority, or ...
-> 
-> The fine-grained performance counters (e.g. time spent waiting for
-> sampler) are only GPU-global. So if you have two jobs running
-> simultaneously, you have no idea who's responsible for what.
-> 
-> But it does give us coarse-grained counters which are accounted
-> per-job-slot, including exactly this metric: amount of 'GPU time'
-> (whatever that means) occupied by that job slot during the sampling
-> period. So we could support that nicely if we fenced job-slot updates
-> with register reads/writes.
-> 
-> Something I'm missing though is how we enable this information. Seems
-> like it would be best to either only do it whilst fdinfo is open (and
-> re-read it whenever you need an update), or on a per-driver sysfs
-> toggle, or ... ?
-
-Presumably there is non-trivial cost for querying this data on your driver?
-
-Would it be workable to enable tracking on first use and stop some time 
-after last? Just a thought which may have significant downsides from 
-driver to driver.
-
->> +- drm-memory-<str>: <uint> [KiB|MiB]
->> +
->> +Each possible memory type which can be used to store buffer objects by the
->> +GPU in question shall be given a stable and unique name to be returned as the
->> +string here.
->> +
->> +Value shall reflect the amount of storage currently consumed by the buffer
->> +object belong to this client, in the respective memory region.
->> +
->> +Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
->> +indicating kibi- or mebi-bytes.
-> 
-> I'm a bit wary of the accounting here. Is it buffer allocations
-> originating from the client, in which case it conceptually clashes
-> with gralloc? Is it the client which last wrote to the buffer? The
-> client with the oldest open handle to the buffer? Other?
-
-Haven't looked into AMD code here so know what they export.
-
-Gralloc allocates buffer from it's own drm client and shares them or it 
-is just a library which runs from a client context?
-
-Regards,
-
-Tvrtko
-
-
+diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
+index f00354bec3fb..9c24b8cc8e36 100644
+--- a/drivers/gpu/drm/drm_auth.c
++++ b/drivers/gpu/drm/drm_auth.c
+@@ -63,8 +63,9 @@
+ 
+ static bool drm_is_current_master_locked(struct drm_file *fpriv)
+ {
+-	lockdep_assert_held_once(&fpriv->minor->dev->master_mutex);
+-
++	/* Either drm_device.master_mutex or drm_file.master_lookup_lock
++	 * should be held here.
++	 */
+ 	return fpriv->is_master && drm_lease_owner(fpriv->master) == fpriv->minor->dev->master;
+ }
+ 
+@@ -82,9 +83,9 @@ bool drm_is_current_master(struct drm_file *fpriv)
+ {
+ 	bool ret;
+ 
+-	mutex_lock(&fpriv->minor->dev->master_mutex);
++	spin_lock(&fpriv->master_lookup_lock);
+ 	ret = drm_is_current_master_locked(fpriv);
+-	mutex_unlock(&fpriv->minor->dev->master_mutex);
++	spin_unlock(&fpriv->master_lookup_lock);
+ 
+ 	return ret;
+ }
+-- 
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
