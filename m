@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5FB2C4320A
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:11:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8909FC432BE
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B22D960EB0
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:11:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B22D960EB0
+	by mail.kernel.org (Postfix) with ESMTPS id 5CC6860E90
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:11:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5CC6860E90
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C81BF6FD30;
-	Sat, 24 Jul 2021 00:11:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C26026FD32;
+	Sat, 24 Jul 2021 00:11:36 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B36116FD1C;
- Sat, 24 Jul 2021 00:11:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="191563461"
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="191563461"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 223786FD2A;
+ Sat, 24 Jul 2021 00:11:35 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="191563466"
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="191563466"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:33 -0700
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="434270026"
+ 23 Jul 2021 17:11:34 -0700
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="434270041"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:33 -0700
+ 23 Jul 2021 17:11:34 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 17:11:03 -0700
-Message-Id: <20210724001114.249295-20-lucas.demarchi@intel.com>
+Date: Fri, 23 Jul 2021 17:11:07 -0700
+Message-Id: <20210724001114.249295-24-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210724001114.249295-1-lucas.demarchi@intel.com>
 References: <20210724001114.249295-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 19/30] drm/i915: remove explicit CNL handling
- from intel_pm.c
+Subject: [Intel-gfx] [PATCH 23/30] drm/i915/gt: remove explicit CNL handling
+ from intel_sseu.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,95 +60,130 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove support for CNL as it's highly untested, probably broken, and
-there is no real platform that requires this code. This is part of CNL
-removal from i915.
+CNL is the only platform with GRAPHICS_VER == 10. With its removal we
+don't need to handle that version anymore.
+
+Also we can now reduce the max number of slices: the call to
+intel_sseu_set_info() with the highest number of slices comes from SKL
+and BDW with 3 slices. Recent platforms actually increase the
+number of subslices so the number of slices remain 1.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h |  2 +-
- drivers/gpu/drm/i915/intel_pm.c | 41 +--------------------------------
- 2 files changed, 2 insertions(+), 41 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_sseu.c | 79 ----------------------------
+ drivers/gpu/drm/i915/gt/intel_sseu.h |  2 +-
+ 2 files changed, 1 insertion(+), 80 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index fdc8fd424d36..f032a4c8b26d 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -8239,7 +8239,7 @@ enum {
- 
- #define GEN8_CHICKEN_DCPR_1		_MMIO(0x46430)
- #define   SKL_SELECT_ALTERNATE_DC_EXIT	(1 << 30)
--#define   CNL_DELAY_PMRSP		(1 << 22)
-+#define   ICL_DELAY_PMRSP		(1 << 22)
- #define   MASK_WAKEMEM			(1 << 13)
- #define   CNL_DDI_CLOCK_REG_ACCESS_ON	(1 << 7)
- 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index aa64b2ef2efb..65bc3709f54c 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -7465,7 +7465,7 @@ static void icl_init_clock_gating(struct drm_i915_private *dev_priv)
- 
- 	/*Wa_14010594013:icl, ehl */
- 	intel_uncore_rmw(&dev_priv->uncore, GEN8_CHICKEN_DCPR_1,
--			 0, CNL_DELAY_PMRSP);
-+			 0, ICL_DELAY_PMRSP);
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index 367fd44b81c8..9542c3f3822a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -188,83 +188,6 @@ static void gen11_sseu_info_init(struct intel_gt *gt)
+ 	sseu->has_eu_pg = 1;
  }
  
- static void gen12lp_init_clock_gating(struct drm_i915_private *dev_priv)
-@@ -7515,43 +7515,6 @@ static void cnp_init_clock_gating(struct drm_i915_private *dev_priv)
- 		   CNP_PWM_CGE_GATING_DISABLE);
- }
- 
--static void cnl_init_clock_gating(struct drm_i915_private *dev_priv)
+-static void gen10_sseu_info_init(struct intel_gt *gt)
 -{
--	u32 val;
--	cnp_init_clock_gating(dev_priv);
+-	struct intel_uncore *uncore = gt->uncore;
+-	struct sseu_dev_info *sseu = &gt->info.sseu;
+-	const u32 fuse2 = intel_uncore_read(uncore, GEN8_FUSE2);
+-	const int eu_mask = 0xff;
+-	u32 subslice_mask, eu_en;
+-	int s, ss;
 -
--	/* This is not an Wa. Enable for better image quality */
--	intel_uncore_write(&dev_priv->uncore, _3D_CHICKEN3,
--		   _MASKED_BIT_ENABLE(_3D_CHICKEN3_AA_LINE_QUALITY_FIX_ENABLE));
+-	intel_sseu_set_info(sseu, 6, 4, 8);
 -
--	/* WaEnableChickenDCPR:cnl */
--	intel_uncore_write(&dev_priv->uncore, GEN8_CHICKEN_DCPR_1,
--		   intel_uncore_read(&dev_priv->uncore, GEN8_CHICKEN_DCPR_1) | MASK_WAKEMEM);
+-	sseu->slice_mask = (fuse2 & GEN10_F2_S_ENA_MASK) >>
+-		GEN10_F2_S_ENA_SHIFT;
+-
+-	/* Slice0 */
+-	eu_en = ~intel_uncore_read(uncore, GEN8_EU_DISABLE0);
+-	for (ss = 0; ss < sseu->max_subslices; ss++)
+-		sseu_set_eus(sseu, 0, ss, (eu_en >> (8 * ss)) & eu_mask);
+-	/* Slice1 */
+-	sseu_set_eus(sseu, 1, 0, (eu_en >> 24) & eu_mask);
+-	eu_en = ~intel_uncore_read(uncore, GEN8_EU_DISABLE1);
+-	sseu_set_eus(sseu, 1, 1, eu_en & eu_mask);
+-	/* Slice2 */
+-	sseu_set_eus(sseu, 2, 0, (eu_en >> 8) & eu_mask);
+-	sseu_set_eus(sseu, 2, 1, (eu_en >> 16) & eu_mask);
+-	/* Slice3 */
+-	sseu_set_eus(sseu, 3, 0, (eu_en >> 24) & eu_mask);
+-	eu_en = ~intel_uncore_read(uncore, GEN8_EU_DISABLE2);
+-	sseu_set_eus(sseu, 3, 1, eu_en & eu_mask);
+-	/* Slice4 */
+-	sseu_set_eus(sseu, 4, 0, (eu_en >> 8) & eu_mask);
+-	sseu_set_eus(sseu, 4, 1, (eu_en >> 16) & eu_mask);
+-	/* Slice5 */
+-	sseu_set_eus(sseu, 5, 0, (eu_en >> 24) & eu_mask);
+-	eu_en = ~intel_uncore_read(uncore, GEN10_EU_DISABLE3);
+-	sseu_set_eus(sseu, 5, 1, eu_en & eu_mask);
+-
+-	subslice_mask = (1 << 4) - 1;
+-	subslice_mask &= ~((fuse2 & GEN10_F2_SS_DIS_MASK) >>
+-			   GEN10_F2_SS_DIS_SHIFT);
+-
+-	for (s = 0; s < sseu->max_slices; s++) {
+-		u32 subslice_mask_with_eus = subslice_mask;
+-
+-		for (ss = 0; ss < sseu->max_subslices; ss++) {
+-			if (sseu_get_eus(sseu, s, ss) == 0)
+-				subslice_mask_with_eus &= ~BIT(ss);
+-		}
+-
+-		/*
+-		 * Slice0 can have up to 3 subslices, but there are only 2 in
+-		 * slice1/2.
+-		 */
+-		intel_sseu_set_subslices(sseu, s, s == 0 ?
+-					 subslice_mask_with_eus :
+-					 subslice_mask_with_eus & 0x3);
+-	}
+-
+-	sseu->eu_total = compute_eu_total(sseu);
 -
 -	/*
--	 * WaFbcWakeMemOn:cnl
--	 * Display WA #0859: cnl
+-	 * CNL is expected to always have a uniform distribution
+-	 * of EU across subslices with the exception that any one
+-	 * EU in any one subslice may be fused off for die
+-	 * recovery.
 -	 */
--	intel_uncore_write(&dev_priv->uncore, DISP_ARB_CTL, intel_uncore_read(&dev_priv->uncore, DISP_ARB_CTL) |
--		   DISP_FBC_MEMORY_WAKE);
+-	sseu->eu_per_subslice =
+-		intel_sseu_subslice_total(sseu) ?
+-		DIV_ROUND_UP(sseu->eu_total, intel_sseu_subslice_total(sseu)) :
+-		0;
 -
--	val = intel_uncore_read(&dev_priv->uncore, SLICE_UNIT_LEVEL_CLKGATE);
--	/* ReadHitWriteOnlyDisable:cnl */
--	val |= RCCUNIT_CLKGATE_DIS;
--	intel_uncore_write(&dev_priv->uncore, SLICE_UNIT_LEVEL_CLKGATE, val);
--
--	/* Wa_2201832410:cnl */
--	val = intel_uncore_read(&dev_priv->uncore, SUBSLICE_UNIT_LEVEL_CLKGATE);
--	val |= GWUNIT_CLKGATE_DIS;
--	intel_uncore_write(&dev_priv->uncore, SUBSLICE_UNIT_LEVEL_CLKGATE, val);
--
--	/* WaDisableVFclkgate:cnl */
--	/* WaVFUnitClockGatingDisable:cnl */
--	val = intel_uncore_read(&dev_priv->uncore, UNSLICE_UNIT_LEVEL_CLKGATE);
--	val |= VFUNIT_CLKGATE_DIS;
--	intel_uncore_write(&dev_priv->uncore, UNSLICE_UNIT_LEVEL_CLKGATE, val);
+-	/* No restrictions on Power Gating */
+-	sseu->has_slice_pg = 1;
+-	sseu->has_subslice_pg = 1;
+-	sseu->has_eu_pg = 1;
 -}
 -
- static void cfl_init_clock_gating(struct drm_i915_private *dev_priv)
+ static void cherryview_sseu_info_init(struct intel_gt *gt)
  {
- 	cnp_init_clock_gating(dev_priv);
-@@ -7980,8 +7943,6 @@ void intel_init_clock_gating_hooks(struct drm_i915_private *dev_priv)
- 		dev_priv->display.init_clock_gating = gen12lp_init_clock_gating;
- 	else if (GRAPHICS_VER(dev_priv) == 11)
- 		dev_priv->display.init_clock_gating = icl_init_clock_gating;
--	else if (IS_CANNONLAKE(dev_priv))
--		dev_priv->display.init_clock_gating = cnl_init_clock_gating;
- 	else if (IS_COFFEELAKE(dev_priv) || IS_COMETLAKE(dev_priv))
- 		dev_priv->display.init_clock_gating = cfl_init_clock_gating;
- 	else if (IS_SKYLAKE(dev_priv))
+ 	struct sseu_dev_info *sseu = &gt->info.sseu;
+@@ -592,8 +515,6 @@ void intel_sseu_info_init(struct intel_gt *gt)
+ 		bdw_sseu_info_init(gt);
+ 	else if (GRAPHICS_VER(i915) == 9)
+ 		gen9_sseu_info_init(gt);
+-	else if (GRAPHICS_VER(i915) == 10)
+-		gen10_sseu_info_init(gt);
+ 	else if (GRAPHICS_VER(i915) == 11)
+ 		gen11_sseu_info_init(gt);
+ 	else if (GRAPHICS_VER(i915) >= 12)
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
+index 4cd1a8a7298a..8d85ec05f610 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.h
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
+@@ -15,7 +15,7 @@ struct drm_i915_private;
+ struct intel_gt;
+ struct drm_printer;
+ 
+-#define GEN_MAX_SLICES		(6) /* CNL upper bound */
++#define GEN_MAX_SLICES		(3) /* SKL upper bound */
+ #define GEN_MAX_SUBSLICES	(8) /* ICL upper bound */
+ #define GEN_SSEU_STRIDE(max_entries) DIV_ROUND_UP(max_entries, BITS_PER_BYTE)
+ #define GEN_MAX_SUBSLICE_STRIDE GEN_SSEU_STRIDE(GEN_MAX_SUBSLICES)
 -- 
 2.31.1
 
