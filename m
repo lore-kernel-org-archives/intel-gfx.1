@@ -2,45 +2,52 @@ Return-Path: <SRS0=c+dM=MQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78D2FC432BE
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2581C4338F
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 45F0B60EAF
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:12:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 45F0B60EAF
+	by mail.kernel.org (Postfix) with ESMTPS id B666360E98
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jul 2021 00:32:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B666360E98
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 118F36FD5F;
-	Sat, 24 Jul 2021 00:11:59 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47BA66FD39;
- Sat, 24 Jul 2021 00:11:37 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="191563472"
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="191563472"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:37 -0700
-X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="434270062"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2021 17:11:36 -0700
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Jul 2021 17:11:13 -0700
-Message-Id: <20210724001114.249295-30-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210724001114.249295-1-lucas.demarchi@intel.com>
-References: <20210724001114.249295-1-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34FE36F962;
+	Sat, 24 Jul 2021 00:32:11 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9355C6F962;
+ Sat, 24 Jul 2021 00:32:10 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10054"; a="210085650"
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="210085650"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2021 17:32:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,265,1620716400"; d="scan'208";a="660373519"
+Received: from lkp-server01.sh.intel.com (HELO d053b881505b) ([10.239.97.150])
+ by fmsmga006.fm.intel.com with ESMTP; 23 Jul 2021 17:32:07 -0700
+Received: from kbuild by d053b881505b with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1m75aI-0002X7-Rz; Sat, 24 Jul 2021 00:32:06 +0000
+Date: Sat, 24 Jul 2021 08:31:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-ID: <20210724003153.GA56920@793cd2865ea5>
+References: <20210721161120.24610-10-vinay.belgaumkar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 29/30] drm/i915: replace random CNL comments
+Content-Disposition: inline
+In-Reply-To: <20210721161120.24610-10-vinay.belgaumkar@intel.com>
+X-Patchwork-Hint: ignore
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: [Intel-gfx] [RFC PATCH] drm/i915/guc/slpc:
+ intel_eval_slpc_support() can be static
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,103 +60,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org
+Cc: kbuild-all@lists.01.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Cleanup remaining cases that we find CNL in the codebase.
+drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c:67:6: warning: symbol 'intel_eval_slpc_support' was not declared. Should it be static?
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: kernel test robot <lkp@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c     | 2 +-
- drivers/gpu/drm/i915/display/intel_display.c  | 2 +-
- drivers/gpu/drm/i915/display/intel_dp_aux.c   | 1 -
- drivers/gpu/drm/i915/display/intel_dpll_mgr.h | 1 -
- drivers/gpu/drm/i915/display/intel_vbt_defs.h | 2 +-
- drivers/gpu/drm/i915/intel_device_info.h      | 2 +-
- 6 files changed, 4 insertions(+), 6 deletions(-)
+ intel_guc_debugfs.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 4172c8ee6aa6..e86e6ed2d3bf 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -1998,7 +1998,7 @@ static void parse_ddi_port(struct drm_i915_private *i915,
- 			    "Port %c VBT HDMI boost level: %d\n",
- 			    port_name(port), hdmi_boost_level);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
+index 46b22187927bf..216b2f23dca11 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
+@@ -64,7 +64,7 @@ static int guc_slpc_info_show(struct seq_file *m, void *unused)
+ }
+ DEFINE_GT_DEBUGFS_ATTRIBUTE(guc_slpc_info);
  
--	/* DP max link rate for CNL+ */
-+	/* DP max link rate for GLK+ */
- 	if (i915->vbt.version >= 216) {
- 		if (i915->vbt.version >= 230)
- 			info->dp_max_link_rate = parse_bdb_230_dp_max_link_rate(child->dp_max_link_rate);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index ee6d5f8de24b..b49bf380baab 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -9778,7 +9778,7 @@ static int intel_atomic_check_async(struct intel_atomic_state *state)
+-bool intel_eval_slpc_support(void *data)
++static bool intel_eval_slpc_support(void *data)
+ {
+ 	struct intel_guc *guc;
  
- 		/*
- 		 * FIXME: This check is kept generic for all platforms.
--		 * Need to verify this for all gen9 and gen10 platforms to enable
-+		 * Need to verify this for all gen9 platforms to enable
- 		 * this selectively if required.
- 		 */
- 		switch (new_plane_state->hw.fb->modifier) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index 7c048d2ecf43..f483f479dd0b 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -158,7 +158,6 @@ static u32 skl_get_aux_send_ctl(struct intel_dp *intel_dp,
- 	/*
- 	 * Max timeout values:
- 	 * SKL-GLK: 1.6ms
--	 * CNL: 3.2ms
- 	 * ICL+: 4ms
- 	 */
- 	ret = DP_AUX_CH_CTL_SEND_BUSY |
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-index 7fd031a70cfd..6b19f74efd61 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-@@ -206,7 +206,6 @@ struct intel_dpll_hw_state {
- 
- 	/* cnl */
- 	u32 cfgcr0;
--	/* CNL also uses cfgcr1 */
- 
- 	/* bxt */
- 	u32 ebb0, ebb4, pll0, pll1, pll2, pll3, pll6, pll8, pll9, pll10, pcsdw12;
-diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index dbe24d7e7375..330077c2e588 100644
---- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -456,7 +456,7 @@ struct child_device_config {
- 	u16 dp_gpio_pin_num;					/* 195 */
- 	u8 dp_iboost_level:4;					/* 196 */
- 	u8 hdmi_iboost_level:4;					/* 196 */
--	u8 dp_max_link_rate:3;					/* 216/230 CNL+ */
-+	u8 dp_max_link_rate:3;					/* 216/230 GLK+ */
- 	u8 dp_max_link_rate_reserved:5;				/* 216/230 */
- } __packed;
- 
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 057c9aa6f9c6..ef1eecd259e0 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -103,7 +103,7 @@ enum intel_platform {
- #define INTEL_SUBPLATFORM_ULT	(0)
- #define INTEL_SUBPLATFORM_ULX	(1)
- 
--/* CNL/ICL */
-+/* ICL */
- #define INTEL_SUBPLATFORM_PORTF	(0)
- 
- /* DG2 */
--- 
-2.31.1
-
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
