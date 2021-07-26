@@ -2,48 +2,48 @@ Return-Path: <SRS0=Qdda=MS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE438C4320A
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 10:11:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF9FFC4338F
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 10:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A6D7760F56
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 10:11:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A6D7760F56
+	by mail.kernel.org (Postfix) with ESMTPS id 8455E60F44
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 10:11:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8455E60F44
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C592F6EB03;
-	Mon, 26 Jul 2021 10:11:38 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 127956E934;
- Mon, 26 Jul 2021 10:11:36 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10056"; a="275998909"
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="275998909"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 03:11:35 -0700
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="516041460"
-Received: from dechasso-mobl3.amr.corp.intel.com (HELO intel.com)
- ([10.212.115.115])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 03:11:34 -0700
-Date: Mon, 26 Jul 2021 06:11:33 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Message-ID: <YP6KVZSZUFo6YgIZ@intel.com>
-References: <20210724001114.249295-1-lucas.demarchi@intel.com>
- <20210724001114.249295-18-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 393E16E8AE;
+	Mon, 26 Jul 2021 10:11:57 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 242E66E8AE;
+ Mon, 26 Jul 2021 10:11:56 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10056"; a="191791556"
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="191791556"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2021 03:11:55 -0700
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="634003900"
+Received: from ramaling-i9x.iind.intel.com (HELO intel.com) ([10.99.66.205])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2021 03:11:53 -0700
+Date: Mon, 26 Jul 2021 15:43:45 +0530
+From: Ramalingam C <ramalingam.c@intel.com>
+To: Matthew Auld <matthew.auld@intel.com>
+Message-ID: <20210726101345.GB20437@intel.com>
+References: <20210708122554.1874987-1-matthew.auld@intel.com>
+ <20210708122554.1874987-2-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210724001114.249295-18-lucas.demarchi@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 17/30] drm/i915/display: rename CNL
- references in skl_scaler.c
+In-Reply-To: <20210708122554.1874987-2-matthew.auld@intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [igt-dev] [PATCH i-g-t 2/3] tests/i915_query:
+ extract query_garbage_items
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,89 +56,163 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 23, 2021 at 05:11:01PM -0700, Lucas De Marchi wrote:
-> With the removal of CNL, let's consider GLK as the first platform using
-> those constants since GLK has DISPLAY_VER == 10.
+On 2021-07-08 at 13:25:53 +0100, Matthew Auld wrote:
+> We should be able to re-use this for other queries.
+
+LGTM
+
+Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
 > 
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
 > ---
->  drivers/gpu/drm/i915/display/skl_scaler.c | 10 +++++-----
->  drivers/gpu/drm/i915/i915_reg.h           |  4 ++--
->  2 files changed, 7 insertions(+), 7 deletions(-)
+>  tests/i915/i915_query.c | 46 ++++++++++++++++++++++++-----------------
+>  1 file changed, 27 insertions(+), 19 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-> index 911a113ee006..ebdd3115de16 100644
-> --- a/drivers/gpu/drm/i915/display/skl_scaler.c
-> +++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-> @@ -341,12 +341,12 @@ static u16 cnl_nearest_filter_coef(int t)
->   *
->   */
->  
-> -static void cnl_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
-> +static void glk_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
->  					     enum pipe pipe, int id, int set)
->  {
->  	int i;
->  
-> -	intel_de_write_fw(dev_priv, CNL_PS_COEF_INDEX_SET(pipe, id, set),
-> +	intel_de_write_fw(dev_priv, GLK_PS_COEF_INDEX_SET(pipe, id, set),
->  			  PS_COEE_INDEX_AUTO_INC);
->  
->  	for (i = 0; i < 17 * 7; i += 2) {
-> @@ -359,11 +359,11 @@ static void cnl_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
->  		t = cnl_coef_tap(i + 1);
->  		tmp |= cnl_nearest_filter_coef(t) << 16;
->  
-> -		intel_de_write_fw(dev_priv, CNL_PS_COEF_DATA_SET(pipe, id, set),
-> +		intel_de_write_fw(dev_priv, GLK_PS_COEF_DATA_SET(pipe, id, set),
->  				  tmp);
->  	}
->  
-> -	intel_de_write_fw(dev_priv, CNL_PS_COEF_INDEX_SET(pipe, id, set), 0);
-> +	intel_de_write_fw(dev_priv, GLK_PS_COEF_INDEX_SET(pipe, id, set), 0);
+> diff --git a/tests/i915/i915_query.c b/tests/i915/i915_query.c
+> index 29b938e9..34965841 100644
+> --- a/tests/i915/i915_query.c
+> +++ b/tests/i915/i915_query.c
+> @@ -92,7 +92,8 @@ static void test_query_garbage(int fd)
+>  	i915_query_items_err(fd, &item, 1, EINVAL);
 >  }
 >  
->  static u32 skl_scaler_get_filter_select(enum drm_scaling_filter filter, int set)
-> @@ -386,7 +386,7 @@ static void skl_scaler_setup_filter(struct drm_i915_private *dev_priv, enum pipe
->  	case DRM_SCALING_FILTER_DEFAULT:
->  		break;
->  	case DRM_SCALING_FILTER_NEAREST_NEIGHBOR:
-> -		cnl_program_nearest_filter_coefs(dev_priv, pipe, id, set);
-> +		glk_program_nearest_filter_coefs(dev_priv, pipe, id, set);
->  		break;
->  	default:
->  		MISSING_CASE(filter);
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index 91e93f3e9649..d198b1a2d4b5 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -7726,11 +7726,11 @@ enum {
->  #define SKL_PS_ECC_STAT(pipe, id)  _MMIO_PIPE(pipe,     \
->  			_ID(id, _PS_ECC_STAT_1A, _PS_ECC_STAT_2A),   \
->  			_ID(id, _PS_ECC_STAT_1B, _PS_ECC_STAT_2B))
-> -#define CNL_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
-> +#define GLK_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
->  			_ID(id, _PS_COEF_SET0_INDEX_1A, _PS_COEF_SET0_INDEX_2A) + (set) * 8, \
->  			_ID(id, _PS_COEF_SET0_INDEX_1B, _PS_COEF_SET0_INDEX_2B) + (set) * 8)
+> -static void test_query_garbage_items(int fd)
+> +static void test_query_garbage_items(int fd, int query_id, int min_item_size,
+> +				     int sizeof_query_item)
+>  {
+>  	struct drm_i915_query_item items[2];
+>  	struct drm_i915_query_item *items_ptr;
+> @@ -103,7 +104,7 @@ static void test_query_garbage_items(int fd)
+>  	 * Subject to change in the future.
+>  	 */
+>  	memset(items, 0, sizeof(items));
+> -	items[0].query_id = DRM_I915_QUERY_TOPOLOGY_INFO;
+> +	items[0].query_id = query_id;
+>  	items[0].flags = 42;
+>  	i915_query_items(fd, items, 1);
+>  	igt_assert_eq(items[0].length, -EINVAL);
+> @@ -113,10 +114,10 @@ static void test_query_garbage_items(int fd)
+>  	 * one is properly processed.
+>  	 */
+>  	memset(items, 0, sizeof(items));
+> -	items[0].query_id = DRM_I915_QUERY_TOPOLOGY_INFO;
+> +	items[0].query_id = query_id;
+>  	items[1].query_id = ULONG_MAX;
+>  	i915_query_items(fd, items, 2);
+> -	igt_assert_lte(MIN_TOPOLOGY_ITEM_SIZE, items[0].length);
+> +	igt_assert_lte(min_item_size, items[0].length);
+>  	igt_assert_eq(items[1].length, -EINVAL);
 >  
-> -#define CNL_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
-> +#define GLK_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
->  			_ID(id, _PS_COEF_SET0_DATA_1A, _PS_COEF_SET0_DATA_2A) + (set) * 8, \
->  			_ID(id, _PS_COEF_SET0_DATA_1B, _PS_COEF_SET0_DATA_2B) + (set) * 8)
->  /* legacy palette */
+>  	/*
+> @@ -126,16 +127,16 @@ static void test_query_garbage_items(int fd)
+>  	 */
+>  	memset(items, 0, sizeof(items));
+>  	items[0].query_id = ULONG_MAX;
+> -	items[1].query_id = DRM_I915_QUERY_TOPOLOGY_INFO;
+> +	items[1].query_id = query_id;
+>  	i915_query_items(fd, items, 2);
+>  	igt_assert_eq(items[0].length, -EINVAL);
+> -	igt_assert_lte(MIN_TOPOLOGY_ITEM_SIZE, items[1].length);
+> +	igt_assert_lte(min_item_size, items[1].length);
+>  
+>  	/* Test a couple of invalid data pointer in query item. */
+>  	memset(items, 0, sizeof(items));
+> -	items[0].query_id = DRM_I915_QUERY_TOPOLOGY_INFO;
+> +	items[0].query_id = query_id;
+>  	i915_query_items(fd, items, 1);
+> -	igt_assert_lte(MIN_TOPOLOGY_ITEM_SIZE, items[0].length);
+> +	igt_assert_lte(min_item_size, items[0].length);
+>  
+>  	items[0].data_ptr = 0;
+>  	i915_query_items(fd, items, 1);
+> @@ -145,14 +146,13 @@ static void test_query_garbage_items(int fd)
+>  	i915_query_items(fd, items, 1);
+>  	igt_assert_eq(items[0].length, -EFAULT);
+>  
+> -
+>  	/* Test an invalid query item length. */
+>  	memset(items, 0, sizeof(items));
+> -	items[0].query_id = DRM_I915_QUERY_TOPOLOGY_INFO;
+> -	items[1].query_id = DRM_I915_QUERY_TOPOLOGY_INFO;
+> -	items[1].length = sizeof(struct drm_i915_query_topology_info) - 1;
+> +	items[0].query_id = query_id;
+> +	items[1].query_id = query_id;
+> +	items[1].length = sizeof_query_item - 1;
+>  	i915_query_items(fd, items, 2);
+> -	igt_assert_lte(MIN_TOPOLOGY_ITEM_SIZE, items[0].length);
+> +	igt_assert_lte(min_item_size, items[0].length);
+>  	igt_assert_eq(items[1].length, -EINVAL);
+>  
+>  	/*
+> @@ -162,9 +162,9 @@ static void test_query_garbage_items(int fd)
+>  	 * has been removed from our address space.
+>  	 */
+>  	items_ptr = mmap(0, 4096, PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
+> -	items_ptr[0].query_id = DRM_I915_QUERY_TOPOLOGY_INFO;
+> +	items_ptr[0].query_id = query_id;
+>  	i915_query_items(fd, items_ptr, 1);
+> -	igt_assert_lte(MIN_TOPOLOGY_ITEM_SIZE, items_ptr[0].length);
+> +	igt_assert_lte(min_item_size, items_ptr[0].length);
+>  	munmap(items_ptr, 4096);
+>  	i915_query_items_err(fd, items_ptr, 1, EFAULT);
+>  
+> @@ -173,7 +173,7 @@ static void test_query_garbage_items(int fd)
+>  	 * the kernel errors out with EFAULT.
+>  	 */
+>  	items_ptr = mmap(0, 4096, PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
+> -	items_ptr[0].query_id = DRM_I915_QUERY_TOPOLOGY_INFO;
+> +	items_ptr[0].query_id = query_id;
+>  	igt_assert_eq(0, mprotect(items_ptr, 4096, PROT_READ));
+>  	i915_query_items_err(fd, items_ptr, 1, EFAULT);
+>  	munmap(items_ptr, 4096);
+> @@ -186,12 +186,20 @@ static void test_query_garbage_items(int fd)
+>  	memset(items_ptr, 0, 8192);
+>  	n_items = 8192 / sizeof(struct drm_i915_query_item);
+>  	for (i = 0; i < n_items; i++)
+> -		items_ptr[i].query_id = DRM_I915_QUERY_TOPOLOGY_INFO;
+> +		items_ptr[i].query_id = query_id;
+>  	mprotect(((uint8_t *)items_ptr) + 4096, 4096, PROT_READ);
+>  	i915_query_items_err(fd, items_ptr, n_items, EFAULT);
+>  	munmap(items_ptr, 8192);
+>  }
+>  
+> +static void test_query_topology_garbage_items(int fd)
+> +{
+> +	test_query_garbage_items(fd,
+> +				 DRM_I915_QUERY_TOPOLOGY_INFO,
+> +				 MIN_TOPOLOGY_ITEM_SIZE,
+> +				 sizeof(struct drm_i915_query_topology_info));
+> +}
+> +
+>  /*
+>   * Allocate more on both sides of where the kernel is going to write and verify
+>   * that it writes only where it's supposed to.
+> @@ -738,9 +746,9 @@ igt_main
+>  	igt_subtest("query-garbage")
+>  		test_query_garbage(fd);
+>  
+> -	igt_subtest("query-garbage-items") {
+> +	igt_subtest("query-topology-garbage-items") {
+>  		igt_require(query_topology_supported(fd));
+> -		test_query_garbage_items(fd);
+> +		test_query_topology_garbage_items(fd);
+>  	}
+>  
+>  	igt_subtest("query-topology-kernel-writes") {
 > -- 
-> 2.31.1
+> 2.26.3
 > 
+> _______________________________________________
+> igt-dev mailing list
+> igt-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/igt-dev
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
