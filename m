@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92926C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:09:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13F10C4338F
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5FFAE60238
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:09:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5FFAE60238
+	by mail.kernel.org (Postfix) with ESMTPS id D4D6760F5D
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:09:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D4D6760F5D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 055B972C7C;
-	Mon, 26 Jul 2021 19:09:03 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9638D72C75;
- Mon, 26 Jul 2021 19:09:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="234162142"
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="234162142"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BA9B72D56;
+	Mon, 26 Jul 2021 19:09:14 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F78F72C96;
+ Mon, 26 Jul 2021 19:09:10 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="212291083"
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="212291083"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 12:09:01 -0700
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2021 12:09:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="566278247"
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="566278281"
 Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.27.27])
- by orsmga004.jf.intel.com with ESMTP; 26 Jul 2021 12:09:01 -0700
+ by orsmga004.jf.intel.com with ESMTP; 26 Jul 2021 12:09:09 -0700
 From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon, 26 Jul 2021 12:07:54 -0700
-Message-Id: <20210726190800.26762-10-vinay.belgaumkar@intel.com>
+Date: Mon, 26 Jul 2021 12:07:56 -0700
+Message-Id: <20210726190800.26762-12-vinay.belgaumkar@intel.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20210726190800.26762-1-vinay.belgaumkar@intel.com>
 References: <20210726190800.26762-1-vinay.belgaumkar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/15] drm/i915/guc/slpc: Add get max/min freq
- hooks
+Subject: [Intel-gfx] [PATCH 11/15] drm/i915/guc/slpc: Enable ARAT timer
+ interrupt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,106 +60,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add helpers to read the min/max frequency being used
-by SLPC. This is done by send a H2G command which forces
-SLPC to update the shared data struct which can then be
-read. These helpers will be used in a sysfs patch later
-on.
-
-v2: Address review comments (Michal W)
-v3: Return err in case of query failure (Michal W)
+This interrupt is enabled during RPS initialization, and
+now needs to be done by SLPC code. It allows ARAT timer
+expiry interrupts to get forwarded to GuC.
 
 Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Signed-off-by: Sundaresan Sujaritha <sujaritha.sundaresan@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 54 +++++++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h |  2 +
- 2 files changed, 56 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 16 ++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h |  2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c       |  8 ++++++++
+ 3 files changed, 26 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index 63656640189c..c653bba3b5eb 100644
+index 995d3d4807a3..c79dba60b2e6 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -306,6 +306,33 @@ int intel_guc_slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 val)
+@@ -392,6 +392,20 @@ int intel_guc_slpc_get_min_freq(struct intel_guc_slpc *slpc, u32 *val)
  	return ret;
  }
  
-+/**
-+ * intel_guc_slpc_get_max_freq() - Get max frequency limit for SLPC.
-+ * @slpc: pointer to intel_guc_slpc.
-+ * @val: pointer to val which will hold max frequency (MHz)
-+ *
-+ * This function will invoke GuC SLPC action to read the max frequency
-+ * limit for unslice.
-+ *
-+ * Return: 0 on success, non-zero error code on failure.
-+ */
-+int intel_guc_slpc_get_max_freq(struct intel_guc_slpc *slpc, u32 *val)
++void intel_guc_pm_intrmsk_enable(struct intel_gt *gt)
 +{
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	intel_wakeref_t wakeref;
-+	int ret = 0;
++	u32 pm_intrmsk_mbz = 0;
 +
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+		/* Force GuC to update task data */
-+		ret = slpc_query_task_state(slpc);
++	/* Allow GuC to receive ARAT timer expiry event.
++	 * This interrupt register is setup by RPS code
++	 * when host based Turbo is enabled.
++	 */
++	pm_intrmsk_mbz |= ARAT_EXPIRED_INTRMSK;
 +
-+		if (!ret)
-+			*val = slpc_decode_max_freq(slpc);
-+	}
-+
-+	return ret;
-+}
-+
- /**
-  * intel_guc_slpc_set_min_freq() - Set min frequency limit for SLPC.
-  * @slpc: pointer to intel_guc_slpc.
-@@ -338,6 +365,33 @@ int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val)
- 	return ret;
- }
- 
-+/**
-+ * intel_guc_slpc_get_min_freq() - Get min frequency limit for SLPC.
-+ * @slpc: pointer to intel_guc_slpc.
-+ * @val: pointer to val which will hold min frequency (MHz)
-+ *
-+ * This function will invoke GuC SLPC action to read the min frequency
-+ * limit for unslice.
-+ *
-+ * Return: 0 on success, non-zero error code on failure.
-+ */
-+int intel_guc_slpc_get_min_freq(struct intel_guc_slpc *slpc, u32 *val)
-+{
-+	intel_wakeref_t wakeref;
-+	struct drm_i915_private *i915 = guc_to_gt(slpc_to_guc(slpc))->i915;
-+	int ret = 0;
-+
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+		/* Force GuC to update task data */
-+		ret = slpc_query_task_state(slpc);
-+
-+		if (!ret)
-+			*val = slpc_decode_min_freq(slpc);
-+	}
-+
-+	return ret;
++	intel_uncore_rmw(gt->uncore,
++			   GEN6_PMINTRMSK, pm_intrmsk_mbz, 0);
 +}
 +
  /*
   * intel_guc_slpc_enable() - Start SLPC
   * @slpc: pointer to intel_guc_slpc.
+@@ -439,6 +453,8 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ 
+ 	slpc_query_task_state(slpc);
+ 
++	intel_guc_pm_intrmsk_enable(&i915->gt);
++
+ 	/* min and max frequency limits being used by SLPC */
+ 	drm_info(&i915->drm, "SLPC min freq: %u Mhz, max is %u Mhz\n",
+ 			slpc_decode_min_freq(slpc),
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-index e594510497ec..92d7afd44f07 100644
+index d133c8020c16..f128143cc1d8 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-@@ -31,5 +31,7 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc);
- void intel_guc_slpc_fini(struct intel_guc_slpc *slpc);
- int intel_guc_slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 val);
- int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val);
-+int intel_guc_slpc_get_max_freq(struct intel_guc_slpc *slpc, u32 *val);
-+int intel_guc_slpc_get_min_freq(struct intel_guc_slpc *slpc, u32 *val);
+@@ -9,6 +9,7 @@
+ #include "intel_guc_submission.h"
+ #include "intel_guc_slpc_types.h"
+ 
++struct intel_gt;
+ struct drm_printer;
+ 
+ static inline bool intel_guc_slpc_is_supported(struct intel_guc *guc)
+@@ -35,5 +36,6 @@ int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val);
+ int intel_guc_slpc_get_max_freq(struct intel_guc_slpc *slpc, u32 *val);
+ int intel_guc_slpc_get_min_freq(struct intel_guc_slpc *slpc, u32 *val);
+ int intel_guc_slpc_info(struct intel_guc_slpc *slpc, struct drm_printer *p);
++void intel_guc_pm_intrmsk_enable(struct intel_gt *gt);
  
  #endif
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index b98c14f8c229..9238bc076605 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -652,6 +652,7 @@ void intel_uc_suspend(struct intel_uc *uc)
+ static int __uc_resume(struct intel_uc *uc, bool enable_communication)
+ {
+ 	struct intel_guc *guc = &uc->guc;
++	struct intel_gt *gt = guc_to_gt(guc);
+ 	int err;
+ 
+ 	if (!intel_guc_is_fw_running(guc))
+@@ -663,6 +664,13 @@ static int __uc_resume(struct intel_uc *uc, bool enable_communication)
+ 	if (enable_communication)
+ 		guc_enable_communication(guc);
+ 
++	/* If we are only resuming GuC communication but not reloading
++	 * GuC, we need to ensure the ARAT timer interrupt is enabled
++	 * again. In case of GuC reload, it is enabled during SLPC enable.
++	 */
++	if (enable_communication && intel_uc_uses_guc_slpc(uc))
++		intel_guc_pm_intrmsk_enable(gt);
++
+ 	err = intel_guc_resume(guc);
+ 	if (err) {
+ 		DRM_DEBUG_DRIVER("Failed to resume GuC, err=%d", err);
 -- 
 2.25.0
 
