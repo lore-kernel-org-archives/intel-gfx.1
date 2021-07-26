@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99147C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:08:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80A19C432BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:09:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66BAB60F5D
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:08:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 66BAB60F5D
+	by mail.kernel.org (Postfix) with ESMTPS id 5053560238
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:09:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5053560238
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0852C72351;
-	Mon, 26 Jul 2021 19:08:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3D8972C22;
+	Mon, 26 Jul 2021 19:08:59 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ED6072BCA;
- Mon, 26 Jul 2021 19:08:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="234162117"
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="234162117"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C997672C74;
+ Mon, 26 Jul 2021 19:08:57 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="234162130"
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="234162130"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 12:08:50 -0700
+ 26 Jul 2021 12:08:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="566278214"
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="566278239"
 Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.27.27])
- by orsmga004.jf.intel.com with ESMTP; 26 Jul 2021 12:08:50 -0700
+ by orsmga004.jf.intel.com with ESMTP; 26 Jul 2021 12:08:57 -0700
 From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon, 26 Jul 2021 12:07:51 -0700
-Message-Id: <20210726190800.26762-7-vinay.belgaumkar@intel.com>
+Date: Mon, 26 Jul 2021 12:07:53 -0700
+Message-Id: <20210726190800.26762-9-vinay.belgaumkar@intel.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20210726190800.26762-1-vinay.belgaumkar@intel.com>
 References: <20210726190800.26762-1-vinay.belgaumkar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/15] drm/i915/guc/slpc: Enable SLPC and add
- related H2G events
+Subject: [Intel-gfx] [PATCH 08/15] drm/i915/guc/slpc: Add methods to set
+ min/max frequency
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,101 +60,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add methods for interacting with GuC for enabling SLPC. Enable
-SLPC after GuC submission has been established. GuC load will
-fail if SLPC cannot be successfully initialized. Add various
-helper methods to set/unset the parameters for SLPC. They can
-be set using H2G calls or directly setting bits in the shared
-data structure.
+Add param set h2g helpers to set the min and max frequencies
+for use by SLPC.
 
-v2: Address several review comments, add new helpers for
-decoding the SLPC min/max frequencies. Use masks instead of hardcoded
-constants. (Michal W)
+v2: Address review comments (Michal W)
+v3: Check for positive error code (Michal W)
 
-v3: Split global_state_to_string function, and check for positive
-non-zero return value from intel_guc_send() (Michal W)
-
-Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 Signed-off-by: Sundaresan Sujaritha <sujaritha.sundaresan@intel.com>
+Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   | 237 ++++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_slpc_types.h |   2 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   8 +
- 3 files changed, 247 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 89 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h |  2 +
+ 2 files changed, 90 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index bae4e33db0f8..f5808d2acbca 100644
+index f5808d2acbca..63656640189c 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -45,6 +45,40 @@ void intel_guc_slpc_init_early(struct intel_guc_slpc *slpc)
- 	guc->slpc_selected = __guc_slpc_selected(guc);
+@@ -109,6 +109,21 @@ static u32 slpc_get_state(struct intel_guc_slpc *slpc)
+ 	return data->header.global_state;
  }
  
-+static void slpc_mem_set_param(struct slpc_shared_data *data,
-+				u32 id, u32 value)
-+{
-+	GEM_BUG_ON(id >= SLPC_MAX_OVERRIDE_PARAMETERS);
-+	/*
-+	 * When the flag bit is set, corresponding value will be read
-+	 * and applied by slpc.
-+	 */
-+	data->override_params.bits[id >> 5] |= (1 << (id % 32));
-+	data->override_params.values[id] = value;
-+}
-+
-+static void slpc_mem_set_enabled(struct slpc_shared_data *data,
-+				u8 enable_id, u8 disable_id)
-+{
-+	/*
-+	 * Enabling a param involves setting the enable_id
-+	 * to 1 and disable_id to 0.
-+	 */
-+	slpc_mem_set_param(data, enable_id, 1);
-+	slpc_mem_set_param(data, disable_id, 0);
-+}
-+
-+static void slpc_mem_set_disabled(struct slpc_shared_data *data,
-+				u8 enable_id, u8 disable_id)
-+{
-+	/*
-+	 * Disabling a param involves setting the enable_id
-+	 * to 0 and disable_id to 1.
-+	 */
-+	slpc_mem_set_param(data, disable_id, 1);
-+	slpc_mem_set_param(data, enable_id, 0);
-+}
-+
- static int slpc_shared_data_init(struct intel_guc_slpc *slpc)
- {
- 	struct intel_guc *guc = slpc_to_guc(slpc);
-@@ -63,6 +97,129 @@ static int slpc_shared_data_init(struct intel_guc_slpc *slpc)
- 	return err;
- }
- 
-+static u32 slpc_get_state(struct intel_guc_slpc *slpc)
-+{
-+	struct slpc_shared_data *data;
-+
-+	GEM_BUG_ON(!slpc->vma);
-+
-+	drm_clflush_virt_range(slpc->vaddr, sizeof(u32));
-+	data = slpc->vaddr;
-+
-+	return data->header.global_state;
-+}
-+
-+static bool slpc_is_running(struct intel_guc_slpc *slpc)
-+{
-+	return (slpc_get_state(slpc) == SLPC_GLOBAL_STATE_RUNNING);
-+}
-+
-+static int guc_action_slpc_query(struct intel_guc *guc, u32 offset)
++static int guc_action_slpc_set_param(struct intel_guc *guc, u8 id, u32 value)
 +{
 +	u32 request[] = {
 +		INTEL_GUC_ACTION_SLPC_REQUEST,
-+ 		SLPC_EVENT(SLPC_EVENT_QUERY_TASK_STATE, 2),
-+		offset,
-+		0,
++		SLPC_EVENT(SLPC_EVENT_PARAMETER_SET, 2),
++		id,
++		value,
 +	};
 +	int ret;
 +
@@ -163,226 +96,116 @@ index bae4e33db0f8..f5808d2acbca 100644
 +	return ret > 0 ? -EPROTO : ret;
 +}
 +
-+static int slpc_query_task_state(struct intel_guc_slpc *slpc)
+ static bool slpc_is_running(struct intel_guc_slpc *slpc)
+ {
+ 	return (slpc_get_state(slpc) == SLPC_GLOBAL_STATE_RUNNING);
+@@ -118,7 +133,7 @@ static int guc_action_slpc_query(struct intel_guc *guc, u32 offset)
+ {
+ 	u32 request[] = {
+ 		INTEL_GUC_ACTION_SLPC_REQUEST,
+- 		SLPC_EVENT(SLPC_EVENT_QUERY_TASK_STATE, 2),
++		SLPC_EVENT(SLPC_EVENT_QUERY_TASK_STATE, 2),
+ 		offset,
+ 		0,
+ 	};
+@@ -146,6 +161,15 @@ static int slpc_query_task_state(struct intel_guc_slpc *slpc)
+ 	return ret;
+ }
+ 
++static int slpc_set_param(struct intel_guc_slpc *slpc, u8 id, u32 value)
 +{
 +	struct intel_guc *guc = slpc_to_guc(slpc);
++
++	GEM_BUG_ON(id >= SLPC_MAX_PARAM);
++
++	return guc_action_slpc_set_param(guc, id, value);
++}
++
+ static const char *slpc_global_state_to_string(enum slpc_global_state state)
+ {
+ 	const char *str = NULL;
+@@ -251,6 +275,69 @@ static u32 slpc_decode_max_freq(struct intel_guc_slpc *slpc)
+ 		GT_FREQUENCY_MULTIPLIER, GEN9_FREQ_SCALER);
+ }
+ 
++/**
++ * intel_guc_slpc_set_max_freq() - Set max frequency limit for SLPC.
++ * @slpc: pointer to intel_guc_slpc.
++ * @val: frequency (MHz)
++ *
++ * This function will invoke GuC SLPC action to update the max frequency
++ * limit for unslice.
++ *
++ * Return: 0 on success, non-zero error code on failure.
++ */
++int intel_guc_slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 val)
++{
 +	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	u32 shared_data_gtt_offset = intel_guc_ggtt_offset(guc, slpc->vma);
++	intel_wakeref_t wakeref;
 +	int ret;
 +
-+	ret = guc_action_slpc_query(guc, shared_data_gtt_offset);
-+	if (ret)
-+		drm_err(&i915->drm, "Query task state data returned (%pe)\n",
-+				ERR_PTR(ret));
-+
-+	drm_clflush_virt_range(slpc->vaddr, SLPC_PAGE_SIZE_BYTES);
++	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
++		ret = slpc_set_param(slpc,
++			       SLPC_PARAM_GLOBAL_MAX_GT_UNSLICE_FREQ_MHZ,
++			       val);
++		if (ret) {
++			drm_err(&i915->drm,
++				"Set max frequency unslice returned (%pe)\n", ERR_PTR(ret));
++			/* Return standardized err code for sysfs */
++			ret = -EIO;
++		}
++	}
 +
 +	return ret;
 +}
 +
-+static const char *slpc_global_state_to_string(enum slpc_global_state state)
-+{
-+	const char *str = NULL;
-+
-+	switch (state) {
-+	case SLPC_GLOBAL_STATE_NOT_RUNNING:
-+		str = "not running";
-+		break;
-+	case SLPC_GLOBAL_STATE_INITIALIZING:
-+		str = "initializing";
-+		break;
-+	case SLPC_GLOBAL_STATE_RESETTING:
-+		str = "resetting";
-+		break;
-+	case SLPC_GLOBAL_STATE_RUNNING:
-+		str = "running";
-+		break;
-+	case SLPC_GLOBAL_STATE_SHUTTING_DOWN:
-+		str = "shutting down";
-+		break;
-+	case SLPC_GLOBAL_STATE_ERROR:
-+		str = "error";
-+		break;
-+	default:
-+		str = "unknown";
-+		break;
-+	}
-+
-+	return str;
-+}
-+
-+static const char *slpc_get_state_string(struct intel_guc_slpc *slpc)
-+{
-+	return slpc_global_state_to_string(slpc_get_state(slpc));
-+}
-+
-+static int guc_action_slpc_reset(struct intel_guc *guc, u32 offset)
-+{
-+	u32 request[] = {
-+		INTEL_GUC_ACTION_SLPC_REQUEST,
-+		SLPC_EVENT(SLPC_EVENT_RESET, 2),
-+		offset,
-+		0,
-+	};
-+	int ret;
-+
-+	ret = intel_guc_send(guc, request, ARRAY_SIZE(request));
-+
-+	return ret > 0 ? -EPROTO : ret;
-+}
-+
-+static int slpc_reset(struct intel_guc_slpc *slpc)
-+{
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	struct intel_guc *guc = slpc_to_guc(slpc);
-+	u32 offset = intel_guc_ggtt_offset(guc, slpc->vma);
-+	int ret;
-+
-+	ret = guc_action_slpc_reset(guc, offset);
-+
-+	if (unlikely(ret < 0))
-+		return ret;
-+
-+	if (!ret) {
-+		if (wait_for(slpc_is_running(slpc), SLPC_RESET_TIMEOUT_MS)) {
-+			drm_err(&i915->drm, "SLPC not enabled! State = %s\n",
-+				  slpc_get_state_string(slpc));
-+			return -EIO;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- int intel_guc_slpc_init(struct intel_guc_slpc *slpc)
- {
- 	GEM_BUG_ON(slpc->vma);
-@@ -70,6 +227,86 @@ int intel_guc_slpc_init(struct intel_guc_slpc *slpc)
- 	return slpc_shared_data_init(slpc);
- }
- 
-+static u32 slpc_decode_min_freq(struct intel_guc_slpc *slpc)
-+{
-+	struct slpc_shared_data *data = slpc->vaddr;
-+
-+	GEM_BUG_ON(!slpc->vma);
-+
-+	return	DIV_ROUND_CLOSEST(
-+		REG_FIELD_GET(SLPC_MIN_UNSLICE_FREQ_MASK,
-+			data->task_state_data.freq) *
-+		GT_FREQUENCY_MULTIPLIER, GEN9_FREQ_SCALER);
-+}
-+
-+static u32 slpc_decode_max_freq(struct intel_guc_slpc *slpc)
-+{
-+	struct slpc_shared_data *data = slpc->vaddr;
-+
-+	GEM_BUG_ON(!slpc->vma);
-+
-+	return	DIV_ROUND_CLOSEST(
-+		REG_FIELD_GET(SLPC_MAX_UNSLICE_FREQ_MASK,
-+			data->task_state_data.freq) *
-+		GT_FREQUENCY_MULTIPLIER, GEN9_FREQ_SCALER);
-+}
-+
-+/*
-+ * intel_guc_slpc_enable() - Start SLPC
++/**
++ * intel_guc_slpc_set_min_freq() - Set min frequency limit for SLPC.
 + * @slpc: pointer to intel_guc_slpc.
++ * @val: frequency (MHz)
 + *
-+ * SLPC is enabled by setting up the shared data structure and
-+ * sending reset event to GuC SLPC. Initial data is setup in
-+ * intel_guc_slpc_init. Here we send the reset event. We do
-+ * not currently need a slpc_disable since this is taken care
-+ * of automatically when a reset/suspend occurs and the GuC
-+ * CTB is destroyed.
++ * This function will invoke GuC SLPC action to update the min unslice
++ * frequency.
 + *
 + * Return: 0 on success, non-zero error code on failure.
 + */
-+int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
++int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val)
 +{
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	struct slpc_shared_data *data;
 +	int ret;
++	struct intel_guc *guc = slpc_to_guc(slpc);
++	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
++	intel_wakeref_t wakeref;
 +
-+	GEM_BUG_ON(!slpc->vma);
-+
-+	memset(slpc->vaddr, 0, sizeof(struct slpc_shared_data));
-+
-+	data = slpc->vaddr;
-+	data->header.size = sizeof(struct slpc_shared_data);
-+
-+	/* Enable only GTPERF task, disable others */
-+	slpc_mem_set_enabled(data, SLPC_PARAM_TASK_ENABLE_GTPERF,
-+				SLPC_PARAM_TASK_DISABLE_GTPERF);
-+
-+	slpc_mem_set_disabled(data, SLPC_PARAM_TASK_ENABLE_BALANCER,
-+				SLPC_PARAM_TASK_DISABLE_BALANCER);
-+
-+	slpc_mem_set_disabled(data, SLPC_PARAM_TASK_ENABLE_DCC,
-+				SLPC_PARAM_TASK_DISABLE_DCC);
-+
-+	ret = slpc_reset(slpc);
-+	if (unlikely(ret < 0)) {
-+		drm_err(&i915->drm, "SLPC Reset event returned (%pe)\n",
-+				ERR_PTR(ret));
-+		return ret;
++	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
++		ret = slpc_set_param(slpc,
++			       SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
++			       val);
++		if (ret) {
++			drm_err(&i915->drm,
++				"Set min frequency for unslice returned (%pe)\n", ERR_PTR(ret));
++			/* Return standardized err code for sysfs */
++			ret = -EIO;
++		}
 +	}
 +
-+	drm_info(&i915->drm, "GuC SLPC: enabled\n");
-+
-+	slpc_query_task_state(slpc);
-+
-+	/* min and max frequency limits being used by SLPC */
-+	drm_info(&i915->drm, "SLPC min freq: %u Mhz, max is %u Mhz\n",
-+			slpc_decode_min_freq(slpc),
-+			slpc_decode_max_freq(slpc));
-+
-+
-+	return 0;
++	return ret;
 +}
 +
- void intel_guc_slpc_fini(struct intel_guc_slpc *slpc)
- {
- 	if (!slpc->vma)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-index edcf4c05bd9f..f14f81821a51 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-@@ -6,6 +6,8 @@
- #ifndef _INTEL_GUC_SLPC_TYPES_H_
- #define _INTEL_GUC_SLPC_TYPES_H_
+ /*
+  * intel_guc_slpc_enable() - Start SLPC
+  * @slpc: pointer to intel_guc_slpc.
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
+index c3b0ad7f0f93..e594510497ec 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
+@@ -29,5 +29,7 @@ void intel_guc_slpc_init_early(struct intel_guc_slpc *slpc);
+ int intel_guc_slpc_init(struct intel_guc_slpc *slpc);
+ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc);
+ void intel_guc_slpc_fini(struct intel_guc_slpc *slpc);
++int intel_guc_slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 val);
++int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val);
  
-+#define SLPC_RESET_TIMEOUT_MS 5
-+
- struct intel_guc_slpc {
- 	struct i915_vma *vma;
- 	struct slpc_shared_data *vaddr;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index e6bd9406c7b2..b98c14f8c229 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -506,6 +506,12 @@ static int __uc_init_hw(struct intel_uc *uc)
- 		 "submission",
- 		 enableddisabled(intel_uc_uses_guc_submission(uc)));
- 
-+	if (intel_uc_uses_guc_slpc(uc)) {
-+		ret = intel_guc_slpc_enable(&guc->slpc);
-+		if (ret)
-+			goto err_submission;
-+	}
-+
- 	if (intel_uc_uses_huc(uc)) {
- 		drm_info(&i915->drm, "%s firmware %s version %u.%u %s:%s\n",
- 			 intel_uc_fw_type_repr(INTEL_UC_FW_TYPE_HUC),
-@@ -520,6 +526,8 @@ static int __uc_init_hw(struct intel_uc *uc)
- 	/*
- 	 * We've failed to load the firmware :(
- 	 */
-+err_submission:
-+	intel_guc_submission_disable(guc);
- err_log_capture:
- 	__uc_capture_load_err_log(uc);
- err_out:
+ #endif
 -- 
 2.25.0
 
