@@ -5,43 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1AEA0C4338F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99F23C4320A
 	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:09:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D88ED60F6E
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:09:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D88ED60F6E
+	by mail.kernel.org (Postfix) with ESMTPS id 68A0660F6E
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 19:09:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 68A0660F6E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C671072EDB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2B7F72EDC;
 	Mon, 26 Jul 2021 19:09:26 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E0D72C96;
- Mon, 26 Jul 2021 19:09:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="212022563"
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="212022563"
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73B2672E38;
+ Mon, 26 Jul 2021 19:09:13 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="212291089"
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="212291089"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 12:09:22 -0700
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2021 12:09:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="566278328"
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="566278295"
 Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.27.27])
- by orsmga004.jf.intel.com with ESMTP; 26 Jul 2021 12:09:22 -0700
+ by orsmga004.jf.intel.com with ESMTP; 26 Jul 2021 12:09:13 -0700
 From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon, 26 Jul 2021 12:07:59 -0700
-Message-Id: <20210726190800.26762-15-vinay.belgaumkar@intel.com>
+Date: Mon, 26 Jul 2021 12:07:57 -0700
+Message-Id: <20210726190800.26762-13-vinay.belgaumkar@intel.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20210726190800.26762-1-vinay.belgaumkar@intel.com>
 References: <20210726190800.26762-1-vinay.belgaumkar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 14/15] drm/i915/guc/slpc: Add SLPC selftest
+Subject: [Intel-gfx] [PATCH 12/15] drm/i915/guc/slpc: Cache platform
+ frequency limits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,184 +55,216 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGVzdHMgdGhhdCBleGVyY2lzZSB0aGUgU0xQQyBnZXQvc2V0IGZyZXF1ZW5jeSBpbnRlcmZhY2Vz
-LgoKQ2xhbXBfbWF4IHdpbGwgc2V0IG1heCBmcmVxdWVuY3kgdG8gbXVsdGlwbGUgbGV2ZWxzIGFu
-ZCBjaGVjawp0aGF0IFNMUEMgcmVxdWVzdHMgZnJlcXVlbmN5IGxvd2VyIHRoYW4gb3IgZXF1YWwg
-dG8gaXQuCgpDbGFtcF9taW4gd2lsbCBzZXQgbWluIGZyZXF1ZW5jeSB0byBkaWZmZXJlbnQgbGV2
-ZWxzIGFuZCBjaGVjawppZiBTTFBDIHJlcXVlc3RzIGFyZSBoaWdoZXIgb3IgZXF1YWwgdG8gdGhv
-c2UgbGV2ZWxzLgoKdjI6IEFkZHJlc3MgcmV2aWV3IGNvbW1lbnRzIChNaWNoYWwgVykKdjM6IENo
-ZWNrcGF0Y2goKSBjb3JyZWN0aW9ucwoKU2lnbmVkLW9mZi1ieTogVmluYXkgQmVsZ2F1bWthciA8
-dmluYXkuYmVsZ2F1bWthckBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qv
-aW50ZWxfcnBzLmMgICAgICAgICAgIHwgICAxICsKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3Nl
-bGZ0ZXN0X3NscGMuYyAgICAgICB8IDMxMSArKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L2d0L3NlbGZ0ZXN0X3NscGMuaCAgICAgICB8ICAxMiArCiAuLi4vZHJtL2k5MTUv
-c2VsZnRlc3RzL2k5MTVfbGl2ZV9zZWxmdGVzdHMuaCAgfCAgIDEgKwogNCBmaWxlcyBjaGFuZ2Vk
-LCAzMjUgaW5zZXJ0aW9ucygrKQogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9p
-OTE1L2d0L3NlbGZ0ZXN0X3NscGMuYwogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2d0L3NlbGZ0ZXN0X3NscGMuaAoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2d0L2ludGVsX3Jwcy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfcnBzLmMK
-aW5kZXggNDhkNDE0NzE2NWE5Li42MjM3MzMyODM1ZmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2d0L2ludGVsX3Jwcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2lu
-dGVsX3Jwcy5jCkBAIC0yMzE4LDQgKzIzMTgsNSBAQCBFWFBPUlRfU1lNQk9MX0dQTChpOTE1X2dw
-dV90dXJib19kaXNhYmxlKTsKIAogI2lmIElTX0VOQUJMRUQoQ09ORklHX0RSTV9JOTE1X1NFTEZU
-RVNUKQogI2luY2x1ZGUgInNlbGZ0ZXN0X3Jwcy5jIgorI2luY2x1ZGUgInNlbGZ0ZXN0X3NscGMu
-YyIKICNlbmRpZgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3Rf
-c2xwYy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3Rfc2xwYy5jCm5ldyBmaWxl
-IG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uNTAxOGY2ODY2ODZmCi0tLSAvZGV2L251
-bGwKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3Rfc2xwYy5jCkBAIC0wLDAg
-KzEsMzExIEBACisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogTUlUCisvKgorICogQ29weXJp
-Z2h0IMKpIDIwMjEgSW50ZWwgQ29ycG9yYXRpb24KKyAqLworCisjaW5jbHVkZSAic2VsZnRlc3Rf
-c2xwYy5oIgorCisjZGVmaW5lIE5VTV9TVEVQUyA1CisjZGVmaW5lIEgyR19ERUxBWSA1MDAwMAor
-I2RlZmluZSBkZWxheV9mb3JfaDJnKCkgdXNsZWVwX3JhbmdlKEgyR19ERUxBWSwgSDJHX0RFTEFZ
-ICsgMTAwMDApCisKK3N0YXRpYyBpbnQgc2V0X21pbl9mcmVxKHN0cnVjdCBpbnRlbF9ndWNfc2xw
-YyAqc2xwYywgdTMyIGZyZXEpCit7CisJaW50IHJldDsKKworCXJldCA9IGludGVsX2d1Y19zbHBj
-X3NldF9taW5fZnJlcShzbHBjLCBmcmVxKTsKKwlpZiAocmV0KQorCQlwcl9lcnIoIkNvdWxkIG5v
-dCBzZXQgbWluIGZyZXF1ZW5jeSB0byBbJXVdXG4iLCBmcmVxKTsKKwllbHNlIC8qIERlbGF5IHRv
-IGVuc3VyZSBoMmcgY29tcGxldGVzICovCisJCWRlbGF5X2Zvcl9oMmcoKTsKKworCXJldHVybiBy
-ZXQ7Cit9CisKK3N0YXRpYyBpbnQgc2V0X21heF9mcmVxKHN0cnVjdCBpbnRlbF9ndWNfc2xwYyAq
-c2xwYywgdTMyIGZyZXEpCit7CisJaW50IHJldDsKKworCXJldCA9IGludGVsX2d1Y19zbHBjX3Nl
-dF9tYXhfZnJlcShzbHBjLCBmcmVxKTsKKwlpZiAocmV0KQorCQlwcl9lcnIoIkNvdWxkIG5vdCBz
-ZXQgbWF4aW11bSBmcmVxdWVuY3kgWyV1XVxuIiwKKwkJCWZyZXEpOworCWVsc2UgLyogRGVsYXkg
-dG8gZW5zdXJlIGgyZyBjb21wbGV0ZXMgKi8KKwkJZGVsYXlfZm9yX2gyZygpOworCisJcmV0dXJu
-IHJldDsKK30KKworaW50IGxpdmVfc2xwY19jbGFtcF9taW4odm9pZCAqYXJnKQoreworCXN0cnVj
-dCBkcm1faTkxNV9wcml2YXRlICppOTE1ID0gYXJnOworCXN0cnVjdCBpbnRlbF9ndCAqZ3QgPSAm
-aTkxNS0+Z3Q7CisJc3RydWN0IGludGVsX2d1Y19zbHBjICpzbHBjID0gJmd0LT51Yy5ndWMuc2xw
-YzsKKwlzdHJ1Y3QgaW50ZWxfcnBzICpycHMgPSAmZ3QtPnJwczsKKwlzdHJ1Y3QgaW50ZWxfZW5n
-aW5lX2NzICplbmdpbmU7CisJZW51bSBpbnRlbF9lbmdpbmVfaWQgaWQ7CisJc3RydWN0IGlndF9z
-cGlubmVyIHNwaW47CisJdTMyIHNscGNfbWluX2ZyZXEsIHNscGNfbWF4X2ZyZXE7CisJaW50IGVy
-ciA9IDA7CisKKwlpZiAoIWludGVsX3VjX3VzZXNfZ3VjX3NscGMoJmd0LT51YykpCisJCXJldHVy
-biAwOworCisJaWYgKGlndF9zcGlubmVyX2luaXQoJnNwaW4sIGd0KSkKKwkJcmV0dXJuIC1FTk9N
-RU07CisKKwlpZiAoaW50ZWxfZ3VjX3NscGNfZ2V0X21heF9mcmVxKHNscGMsICZzbHBjX21heF9m
-cmVxKSkgeworCQlwcl9lcnIoIkNvdWxkIG5vdCBnZXQgU0xQQyBtYXggZnJlcVxuIik7CisJCXJl
-dHVybiAtRUlPOworCX0KKworCWlmIChpbnRlbF9ndWNfc2xwY19nZXRfbWluX2ZyZXEoc2xwYywg
-JnNscGNfbWluX2ZyZXEpKSB7CisJCXByX2VycigiQ291bGQgbm90IGdldCBTTFBDIG1pbiBmcmVx
-XG4iKTsKKwkJcmV0dXJuIC1FSU87CisJfQorCisJaWYgKHNscGNfbWluX2ZyZXEgPT0gc2xwY19t
-YXhfZnJlcSkgeworCQlwcl9lcnIoIk1pbi9NYXggYXJlIGZ1c2VkIHRvIHRoZSBzYW1lIHZhbHVl
-XG4iKTsKKwkJcmV0dXJuIC1FSU5WQUw7CisJfQorCisJaW50ZWxfZ3RfcG1fd2FpdF9mb3JfaWRs
-ZShndCk7CisJaW50ZWxfZ3RfcG1fZ2V0KGd0KTsKKwlmb3JfZWFjaF9lbmdpbmUoZW5naW5lLCBn
-dCwgaWQpIHsKKwkJc3RydWN0IGk5MTVfcmVxdWVzdCAqcnE7CisJCXUzMiBzdGVwLCBtaW5fZnJl
-cSwgcmVxX2ZyZXE7CisJCXUzMiBhY3RfZnJlcSwgbWF4X2FjdF9mcmVxOworCisJCWlmICghaW50
-ZWxfZW5naW5lX2Nhbl9zdG9yZV9kd29yZChlbmdpbmUpKQorCQkJY29udGludWU7CisKKwkJLyog
-R28gZnJvbSBtaW4gdG8gbWF4IGluIDUgc3RlcHMgKi8KKwkJc3RlcCA9IChzbHBjX21heF9mcmVx
-IC0gc2xwY19taW5fZnJlcSkgLyBOVU1fU1RFUFM7CisJCW1heF9hY3RfZnJlcSA9IHNscGNfbWlu
-X2ZyZXE7CisJCWZvciAobWluX2ZyZXEgPSBzbHBjX21pbl9mcmVxOyBtaW5fZnJlcSA8IHNscGNf
-bWF4X2ZyZXE7CisJCQkJCW1pbl9mcmVxICs9IHN0ZXApIHsKKwkJCWVyciA9IHNldF9taW5fZnJl
-cShzbHBjLCBtaW5fZnJlcSk7CisJCQlpZiAoZXJyKQorCQkJCWJyZWFrOworCisJCQlzdF9lbmdp
-bmVfaGVhcnRiZWF0X2Rpc2FibGUoZW5naW5lKTsKKworCQkJcnEgPSBpZ3Rfc3Bpbm5lcl9jcmVh
-dGVfcmVxdWVzdCgmc3BpbiwKKwkJCQkJZW5naW5lLT5rZXJuZWxfY29udGV4dCwKKwkJCQkJTUlf
-Tk9PUCk7CisJCQlpZiAoSVNfRVJSKHJxKSkgeworCQkJCWVyciA9IFBUUl9FUlIocnEpOworCQkJ
-CXN0X2VuZ2luZV9oZWFydGJlYXRfZW5hYmxlKGVuZ2luZSk7CisJCQkJYnJlYWs7CisJCQl9CisK
-KwkJCWk5MTVfcmVxdWVzdF9hZGQocnEpOworCisJCQlpZiAoIWlndF93YWl0X2Zvcl9zcGlubmVy
-KCZzcGluLCBycSkpIHsKKwkJCQlwcl9lcnIoIiVzOiBTcGlubmVyIGRpZCBub3Qgc3RhcnRcbiIs
-CisJCQkJCWVuZ2luZS0+bmFtZSk7CisJCQkJaWd0X3NwaW5uZXJfZW5kKCZzcGluKTsKKwkJCQlz
-dF9lbmdpbmVfaGVhcnRiZWF0X2VuYWJsZShlbmdpbmUpOworCQkJCWludGVsX2d0X3NldF93ZWRn
-ZWQoZW5naW5lLT5ndCk7CisJCQkJZXJyID0gLUVJTzsKKwkJCQlicmVhazsKKwkJCX0KKworCQkJ
-LyogV2FpdCBmb3IgR3VDIHRvIGRldGVjdCBidXNpbmVzcyBhbmQgcmFpc2UKKwkJCSAqIHJlcXVl
-c3RlZCBmcmVxdWVuY3kgaWYgbmVjZXNzYXJ5LgorCQkJICovCisJCQlkZWxheV9mb3JfaDJnKCk7
-CisKKwkJCXJlcV9mcmVxID0gaW50ZWxfcnBzX3JlYWRfcHVuaXRfcmVxX2ZyZXF1ZW5jeShycHMp
-OworCisJCQkvKiBHdUMgcmVxdWVzdHMgZnJlcSBpbiBtdWx0aXBsZXMgb2YgNTAvMyBNSHogKi8K
-KwkJCWlmIChyZXFfZnJlcSA8IChtaW5fZnJlcSAtIDUwLzMpKSB7CisJCQkJcHJfZXJyKCJTV1Jl
-cSBpcyAlZCwgc2hvdWxkIGJlIGF0IGxlYXN0ICVkXG4iLCByZXFfZnJlcSwKKwkJCQkJbWluX2Zy
-ZXEgLSA1MC8zKTsKKwkJCQlpZ3Rfc3Bpbm5lcl9lbmQoJnNwaW4pOworCQkJCXN0X2VuZ2luZV9o
-ZWFydGJlYXRfZW5hYmxlKGVuZ2luZSk7CisJCQkJZXJyID0gLUVJTlZBTDsKKwkJCQlicmVhazsK
-KwkJCX0KKworCQkJYWN0X2ZyZXEgPSAgaW50ZWxfcnBzX3JlYWRfYWN0dWFsX2ZyZXF1ZW5jeShy
-cHMpOworCQkJaWYgKGFjdF9mcmVxID4gbWF4X2FjdF9mcmVxKQorCQkJCW1heF9hY3RfZnJlcSA9
-IGFjdF9mcmVxOworCisJCQlpZ3Rfc3Bpbm5lcl9lbmQoJnNwaW4pOworCQkJc3RfZW5naW5lX2hl
-YXJ0YmVhdF9lbmFibGUoZW5naW5lKTsKKwkJfQorCisJCXByX2luZm8oIk1heCBhY3R1YWwgZnJl
-cXVlbmN5IGZvciAlcyB3YXMgJWRcbiIsCisJCQkJZW5naW5lLT5uYW1lLCBtYXhfYWN0X2ZyZXEp
-OworCisJCS8qIEFjdHVhbCBmcmVxdWVuY3kgc2hvdWxkIHJpc2UgYWJvdmUgbWluICovCisJCWlm
-IChtYXhfYWN0X2ZyZXEgPT0gc2xwY19taW5fZnJlcSkgeworCQkJcHJfZXJyKCJBY3R1YWwgZnJl
-cSBkaWQgbm90IHJpc2UgYWJvdmUgbWluXG4iKTsKKwkJCWVyciA9IC1FSU5WQUw7CisJCX0KKwor
-CQlpZiAoZXJyKQorCQkJYnJlYWs7CisJfQorCisJLyogUmVzdG9yZSBtaW4vbWF4IGZyZXF1ZW5j
-aWVzICovCisJc2V0X21heF9mcmVxKHNscGMsIHNscGNfbWF4X2ZyZXEpOworCXNldF9taW5fZnJl
-cShzbHBjLCBzbHBjX21pbl9mcmVxKTsKKworCWlmIChpZ3RfZmx1c2hfdGVzdChndC0+aTkxNSkp
-CisJCWVyciA9IC1FSU87CisKKwlpbnRlbF9ndF9wbV9wdXQoZ3QpOworCWlndF9zcGlubmVyX2Zp
-bmkoJnNwaW4pOworCWludGVsX2d0X3BtX3dhaXRfZm9yX2lkbGUoZ3QpOworCisJcmV0dXJuIGVy
-cjsKK30KKworaW50IGxpdmVfc2xwY19jbGFtcF9tYXgodm9pZCAqYXJnKQoreworCXN0cnVjdCBk
-cm1faTkxNV9wcml2YXRlICppOTE1ID0gYXJnOworCXN0cnVjdCBpbnRlbF9ndCAqZ3QgPSAmaTkx
-NS0+Z3Q7CisJc3RydWN0IGludGVsX2d1Y19zbHBjICpzbHBjOworCXN0cnVjdCBpbnRlbF9ycHMg
-KnJwczsKKwlzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmU7CisJZW51bSBpbnRlbF9lbmdp
-bmVfaWQgaWQ7CisJc3RydWN0IGlndF9zcGlubmVyIHNwaW47CisJaW50IGVyciA9IDA7CisJdTMy
-IHNscGNfbWluX2ZyZXEsIHNscGNfbWF4X2ZyZXE7CisKKwlzbHBjID0gJmd0LT51Yy5ndWMuc2xw
-YzsKKwlycHMgPSAmZ3QtPnJwczsKKworCWlmICghaW50ZWxfdWNfdXNlc19ndWNfc2xwYygmZ3Qt
-PnVjKSkKKwkJcmV0dXJuIDA7CisKKwlpZiAoaWd0X3NwaW5uZXJfaW5pdCgmc3BpbiwgZ3QpKQor
-CQlyZXR1cm4gLUVOT01FTTsKKworCWlmIChpbnRlbF9ndWNfc2xwY19nZXRfbWF4X2ZyZXEoc2xw
-YywgJnNscGNfbWF4X2ZyZXEpKSB7CisJCXByX2VycigiQ291bGQgbm90IGdldCBTTFBDIG1heCBm
-cmVxXG4iKTsKKwkJcmV0dXJuIC1FSU87CisJfQorCisJaWYgKGludGVsX2d1Y19zbHBjX2dldF9t
-aW5fZnJlcShzbHBjLCAmc2xwY19taW5fZnJlcSkpIHsKKwkJcHJfZXJyKCJDb3VsZCBub3QgZ2V0
-IFNMUEMgbWluIGZyZXFcbiIpOworCQlyZXR1cm4gLUVJTzsKKwl9CisKKwlpZiAoc2xwY19taW5f
-ZnJlcSA9PSBzbHBjX21heF9mcmVxKSB7CisJCXByX2VycigiTWluL01heCBhcmUgZnVzZWQgdG8g
-dGhlIHNhbWUgdmFsdWVcbiIpOworCQlyZXR1cm4gLUVJTlZBTDsKKwl9CisKKwlpbnRlbF9ndF9w
-bV93YWl0X2Zvcl9pZGxlKGd0KTsKKwlpbnRlbF9ndF9wbV9nZXQoZ3QpOworCWZvcl9lYWNoX2Vu
-Z2luZShlbmdpbmUsIGd0LCBpZCkgeworCQlzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycTsKKwkJdTMy
-IG1heF9mcmVxLCByZXFfZnJlcTsKKwkJdTMyIGFjdF9mcmVxLCBtYXhfYWN0X2ZyZXE7CisJCXUz
-MiBzdGVwOworCisJCWlmICghaW50ZWxfZW5naW5lX2Nhbl9zdG9yZV9kd29yZChlbmdpbmUpKQor
-CQkJY29udGludWU7CisKKwkJLyogR28gZnJvbSBtYXggdG8gbWluIGluIDUgc3RlcHMgKi8KKwkJ
-c3RlcCA9IChzbHBjX21heF9mcmVxIC0gc2xwY19taW5fZnJlcSkgLyBOVU1fU1RFUFM7CisJCW1h
-eF9hY3RfZnJlcSA9IHNscGNfbWluX2ZyZXE7CisJCWZvciAobWF4X2ZyZXEgPSBzbHBjX21heF9m
-cmVxOyBtYXhfZnJlcSA+IHNscGNfbWluX2ZyZXE7CisJCQkJCW1heF9mcmVxIC09IHN0ZXApIHsK
-KwkJCWVyciA9IHNldF9tYXhfZnJlcShzbHBjLCBtYXhfZnJlcSk7CisJCQlpZiAoZXJyKQorCQkJ
-CWJyZWFrOworCisJCQlzdF9lbmdpbmVfaGVhcnRiZWF0X2Rpc2FibGUoZW5naW5lKTsKKworCQkJ
-cnEgPSBpZ3Rfc3Bpbm5lcl9jcmVhdGVfcmVxdWVzdCgmc3BpbiwKKwkJCQkJCWVuZ2luZS0+a2Vy
-bmVsX2NvbnRleHQsCisJCQkJCQlNSV9OT09QKTsKKwkJCWlmIChJU19FUlIocnEpKSB7CisJCQkJ
-c3RfZW5naW5lX2hlYXJ0YmVhdF9lbmFibGUoZW5naW5lKTsKKwkJCQllcnIgPSBQVFJfRVJSKHJx
-KTsKKwkJCQlicmVhazsKKwkJCX0KKworCQkJaTkxNV9yZXF1ZXN0X2FkZChycSk7CisKKwkJCWlm
-ICghaWd0X3dhaXRfZm9yX3NwaW5uZXIoJnNwaW4sIHJxKSkgeworCQkJCXByX2VycigiJXM6IFNM
-UEMgc3Bpbm5lciBkaWQgbm90IHN0YXJ0XG4iLAorCQkJCSAgICAgICBlbmdpbmUtPm5hbWUpOwor
-CQkJCWlndF9zcGlubmVyX2VuZCgmc3Bpbik7CisJCQkJc3RfZW5naW5lX2hlYXJ0YmVhdF9lbmFi
-bGUoZW5naW5lKTsKKwkJCQlpbnRlbF9ndF9zZXRfd2VkZ2VkKGVuZ2luZS0+Z3QpOworCQkJCWVy
-ciA9IC1FSU87CisJCQkJYnJlYWs7CisJCQl9CisKKwkJCWRlbGF5X2Zvcl9oMmcoKTsKKworCQkJ
-LyogVmVyaWZ5IHRoYXQgU1dSRVEgaW5kZWVkIHdhcyBzZXQgdG8gc3BlY2lmaWMgdmFsdWUgKi8K
-KwkJCXJlcV9mcmVxID0gaW50ZWxfcnBzX3JlYWRfcHVuaXRfcmVxX2ZyZXF1ZW5jeShycHMpOwor
-CisJCQkvKiBHdUMgcmVxdWVzdHMgZnJlcSBpbiBtdWx0aXBsZXMgb2YgNTAvMyBNSHogKi8KKwkJ
-CWlmIChyZXFfZnJlcSA+IChtYXhfZnJlcSArIDUwLzMpKSB7CisJCQkJcHJfZXJyKCJTV1JlcSBp
-cyAlZCwgc2hvdWxkIGJlIGF0IG1vc3QgJWRcbiIsIHJlcV9mcmVxLAorCQkJCQltYXhfZnJlcSAr
-IDUwLzMpOworCQkJCWlndF9zcGlubmVyX2VuZCgmc3Bpbik7CisJCQkJc3RfZW5naW5lX2hlYXJ0
-YmVhdF9lbmFibGUoZW5naW5lKTsKKwkJCQllcnIgPSAtRUlOVkFMOworCQkJCWJyZWFrOworCQkJ
-fQorCisJCQlhY3RfZnJlcSA9ICBpbnRlbF9ycHNfcmVhZF9hY3R1YWxfZnJlcXVlbmN5KHJwcyk7
-CisJCQlpZiAoYWN0X2ZyZXEgPiBtYXhfYWN0X2ZyZXEpCisJCQkJbWF4X2FjdF9mcmVxID0gYWN0
-X2ZyZXE7CisKKwkJCXN0X2VuZ2luZV9oZWFydGJlYXRfZW5hYmxlKGVuZ2luZSk7CisJCQlpZ3Rf
-c3Bpbm5lcl9lbmQoJnNwaW4pOworCisJCQlpZiAoZXJyKQorCQkJCWJyZWFrOworCQl9CisKKwkJ
-cHJfaW5mbygiTWF4IGFjdHVhbCBmcmVxdWVuY3kgZm9yICVzIHdhcyAlZFxuIiwKKwkJCQllbmdp
-bmUtPm5hbWUsIG1heF9hY3RfZnJlcSk7CisKKwkJLyogQWN0dWFsIGZyZXF1ZW5jeSBzaG91bGQg
-cmlzZSBhYm92ZSBtaW4gKi8KKwkJaWYgKG1heF9hY3RfZnJlcSA9PSBzbHBjX21pbl9mcmVxKSB7
-CisJCQlwcl9lcnIoIkFjdHVhbCBmcmVxIGRpZCBub3QgcmlzZSBhYm92ZSBtaW5cbiIpOworCQkJ
-ZXJyID0gLUVJTlZBTDsKKwkJfQorCisJCWlmIChpZ3RfZmx1c2hfdGVzdChndC0+aTkxNSkpIHsK
-KwkJCWVyciA9IC1FSU87CisJCQlicmVhazsKKwkJfQorCisJCWlmIChlcnIpCisJCQlicmVhazsK
-Kwl9CisKKwkvKiBSZXN0b3JlIG1pbi9tYXggZnJlcSAqLworCXNldF9tYXhfZnJlcShzbHBjLCBz
-bHBjX21heF9mcmVxKTsKKwlzZXRfbWluX2ZyZXEoc2xwYywgc2xwY19taW5fZnJlcSk7CisKKwlp
-bnRlbF9ndF9wbV9wdXQoZ3QpOworCWlndF9zcGlubmVyX2ZpbmkoJnNwaW4pOworCWludGVsX2d0
-X3BtX3dhaXRfZm9yX2lkbGUoZ3QpOworCisJcmV0dXJuIGVycjsKK30KKworaW50IGludGVsX3Ns
-cGNfbGl2ZV9zZWxmdGVzdHMoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCit7CisJc3Rh
-dGljIGNvbnN0IHN0cnVjdCBpOTE1X3N1YnRlc3QgdGVzdHNbXSA9IHsKKwkJU1VCVEVTVChsaXZl
-X3NscGNfY2xhbXBfbWF4KSwKKwkJU1VCVEVTVChsaXZlX3NscGNfY2xhbXBfbWluKSwKKwl9Owor
-CisJaWYgKGludGVsX2d0X2lzX3dlZGdlZCgmaTkxNS0+Z3QpKQorCQlyZXR1cm4gMDsKKworCXJl
-dHVybiBpOTE1X2xpdmVfc3VidGVzdHModGVzdHMsIGk5MTUpOworfQpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3Rfc2xwYy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZ3Qvc2VsZnRlc3Rfc2xwYy5oCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAw
-MDAwMC4uMDQ4MGU2MmVkM2Q3Ci0tLSAvZGV2L251bGwKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZ3Qvc2VsZnRlc3Rfc2xwYy5oCkBAIC0wLDAgKzEsMTIgQEAKKy8qIFNQRFgtTGljZW5zZS1J
-ZGVudGlmaWVyOiBNSVQgKi8KKy8qCisgKiBDb3B5cmlnaHQgwqkgMjAyMSBJbnRlbCBDb3Jwb3Jh
-dGlvbgorICovCisKKyNpZm5kZWYgU0VMRlRFU1RfU0xQQ19ICisjZGVmaW5lIFNFTEZURVNUX1NM
-UENfSAorCitpbnQgbGl2ZV9zbHBjX2NsYW1wX21heCh2b2lkICphcmcpOworaW50IGxpdmVfc2xw
-Y19jbGFtcF9taW4odm9pZCAqYXJnKTsKKworI2VuZGlmIC8qIFNFTEZURVNUX1NMUENfSCAqLwpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfbGl2ZV9zZWxm
-dGVzdHMuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9pOTE1X2xpdmVfc2VsZnRl
-c3RzLmgKaW5kZXggZTJmZDFiNjFhZjcxLi4xNzQ2YTU2ZGRhMDYgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9pOTE1X2xpdmVfc2VsZnRlc3RzLmgKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfbGl2ZV9zZWxmdGVzdHMuaApAQCAtNDcs
-NSArNDcsNiBAQCBzZWxmdGVzdChoYW5nY2hlY2ssIGludGVsX2hhbmdjaGVja19saXZlX3NlbGZ0
-ZXN0cykKIHNlbGZ0ZXN0KGV4ZWNsaXN0cywgaW50ZWxfZXhlY2xpc3RzX2xpdmVfc2VsZnRlc3Rz
-KQogc2VsZnRlc3QocmluZ19zdWJtaXNzaW9uLCBpbnRlbF9yaW5nX3N1Ym1pc3Npb25fbGl2ZV9z
-ZWxmdGVzdHMpCiBzZWxmdGVzdChwZXJmLCBpOTE1X3BlcmZfbGl2ZV9zZWxmdGVzdHMpCitzZWxm
-dGVzdChzbHBjLCBpbnRlbF9zbHBjX2xpdmVfc2VsZnRlc3RzKQogLyogSGVyZSBiZSBkcmFnb25z
-OiBrZWVwIGxhc3QgdG8gcnVuIGxhc3QhICovCiBzZWxmdGVzdChsYXRlX2d0X3BtLCBpbnRlbF9n
-dF9wbV9sYXRlX3NlbGZ0ZXN0cykKLS0gCjIuMjUuMAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+Cache rp0, rp1 and rpn platform limits into SLPC structure
+for range checking while setting min/max frequencies.
+
+Also add "soft" limits which keep track of frequency changes
+made from userland. These are initially set to platform min
+and max.
+
+v2: Address review comments (Michal W)
+v3: Formatting (Michal W)
+
+Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   | 97 +++++++++++++++++++
+ .../gpu/drm/i915/gt/uc/intel_guc_slpc_types.h | 11 +++
+ drivers/gpu/drm/i915/i915_reg.h               |  3 +
+ 3 files changed, 111 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+index c79dba60b2e6..a98cbf274862 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+@@ -94,6 +94,9 @@ static int slpc_shared_data_init(struct intel_guc_slpc *slpc)
+ 		return err;
+ 	}
+ 
++	slpc->max_freq_softlimit = 0;
++	slpc->min_freq_softlimit = 0;
++
+ 	return err;
+ }
+ 
+@@ -124,6 +127,18 @@ static int guc_action_slpc_set_param(struct intel_guc *guc, u8 id, u32 value)
+ 	return ret > 0 ? -EPROTO : ret;
+ }
+ 
++static int guc_action_slpc_unset_param(struct intel_guc *guc, u8 id)
++{
++	u32 request[] = {
++		INTEL_GUC_ACTION_SLPC_REQUEST,
++		SLPC_EVENT(SLPC_EVENT_PARAMETER_UNSET, 2),
++		id,
++	};
++
++	return intel_guc_send(guc, request, ARRAY_SIZE(request));
++}
++
++
+ static bool slpc_is_running(struct intel_guc_slpc *slpc)
+ {
+ 	return (slpc_get_state(slpc) == SLPC_GLOBAL_STATE_RUNNING);
+@@ -170,6 +185,16 @@ static int slpc_set_param(struct intel_guc_slpc *slpc, u8 id, u32 value)
+ 	return guc_action_slpc_set_param(guc, id, value);
+ }
+ 
++static int slpc_unset_param(struct intel_guc_slpc *slpc,
++				u8 id)
++{
++	struct intel_guc *guc = slpc_to_guc(slpc);
++
++	GEM_BUG_ON(id >= SLPC_MAX_PARAM);
++
++	return guc_action_slpc_unset_param(guc, id);
++}
++
+ static const char *slpc_global_state_to_string(enum slpc_global_state state)
+ {
+ 	const char *str = NULL;
+@@ -406,6 +431,55 @@ void intel_guc_pm_intrmsk_enable(struct intel_gt *gt)
+ 			   GEN6_PMINTRMSK, pm_intrmsk_mbz, 0);
+ }
+ 
++static int intel_guc_slpc_set_softlimits(struct intel_guc_slpc *slpc)
++{
++	int ret = 0;
++
++	/* Softlimits are initially equivalent to platform limits
++	 * unless they have deviated from defaults, in which case,
++	 * we retain the values and set min/max accordingly.
++	 */
++	if (!slpc->max_freq_softlimit)
++		slpc->max_freq_softlimit = slpc->rp0_freq;
++	else if (slpc->max_freq_softlimit != slpc->rp0_freq)
++		ret = intel_guc_slpc_set_max_freq(slpc,
++					slpc->max_freq_softlimit);
++
++	if (!slpc->min_freq_softlimit)
++		slpc->min_freq_softlimit = slpc->min_freq;
++	else if (slpc->min_freq_softlimit != slpc->min_freq)
++		ret = intel_guc_slpc_set_min_freq(slpc,
++					slpc->min_freq_softlimit);
++
++	return ret;
++}
++
++static void intel_guc_slpc_ignore_eff_freq(struct intel_guc_slpc *slpc, bool ignore)
++{
++	if (ignore) {
++		/* A failure here does not affect the algorithm in a fatal way */
++		slpc_set_param(slpc,
++		   SLPC_PARAM_IGNORE_EFFICIENT_FREQUENCY,
++		   ignore);
++		slpc_set_param(slpc,
++		   SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
++		   slpc->min_freq);
++	} else {
++		slpc_unset_param(slpc,
++		   SLPC_PARAM_IGNORE_EFFICIENT_FREQUENCY);
++		slpc_unset_param(slpc,
++		   SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ);
++	}
++}
++
++static void intel_guc_slpc_use_fused_rp0(struct intel_guc_slpc *slpc)
++{
++	/* Force slpc to used platform rp0 */
++	slpc_set_param(slpc,
++	   SLPC_PARAM_GLOBAL_MAX_GT_UNSLICE_FREQ_MHZ,
++	   slpc->rp0_freq);
++}
++
+ /*
+  * intel_guc_slpc_enable() - Start SLPC
+  * @slpc: pointer to intel_guc_slpc.
+@@ -423,6 +497,7 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ {
+ 	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+ 	struct slpc_shared_data *data;
++	u32 rp_state_cap;
+ 	int ret;
+ 
+ 	GEM_BUG_ON(!slpc->vma);
+@@ -460,6 +535,28 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ 			slpc_decode_min_freq(slpc),
+ 			slpc_decode_max_freq(slpc));
+ 
++	rp_state_cap = intel_uncore_read(i915->gt.uncore, GEN6_RP_STATE_CAP);
++
++	slpc->rp0_freq = REG_FIELD_GET(RP0_CAP_MASK, rp_state_cap) *
++					GT_FREQUENCY_MULTIPLIER;
++	slpc->rp1_freq = REG_FIELD_GET(RP1_CAP_MASK, rp_state_cap) *
++					GT_FREQUENCY_MULTIPLIER;
++	slpc->min_freq = REG_FIELD_GET(RPN_CAP_MASK, rp_state_cap) *
++					GT_FREQUENCY_MULTIPLIER;
++
++	/* Ignore efficient freq and set min/max to platform min/max */
++	intel_guc_slpc_ignore_eff_freq(slpc, true);
++	intel_guc_slpc_use_fused_rp0(slpc);
++
++	ret = intel_guc_slpc_set_softlimits(slpc);
++	if (ret)
++		drm_err(&i915->drm, "Failed to set SLPC softlimits (%pe)\n",
++					ERR_PTR(ret));
++
++	drm_info(&i915->drm,
++		 "Platform fused frequency values - min: %u Mhz, max: %u Mhz\n",
++		 slpc->min_freq,
++		 slpc->rp0_freq);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
+index f14f81821a51..16dec703db43 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
+@@ -6,11 +6,22 @@
+ #ifndef _INTEL_GUC_SLPC_TYPES_H_
+ #define _INTEL_GUC_SLPC_TYPES_H_
+ 
++#include <linux/types.h>
++
+ #define SLPC_RESET_TIMEOUT_MS 5
+ 
+ struct intel_guc_slpc {
+ 	struct i915_vma *vma;
+ 	struct slpc_shared_data *vaddr;
++
++	/* platform frequency limits */
++	u32 min_freq;
++	u32 rp0_freq;
++	u32 rp1_freq;
++
++	/* frequency softlimits */
++	u32 min_freq_softlimit;
++	u32 max_freq_softlimit;
+ };
+ 
+ #endif
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 5603377e06ca..f3a445f79a36 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4109,6 +4109,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define BXT_GT_PERF_STATUS      _MMIO(MCHBAR_MIRROR_BASE_SNB + 0x7070)
+ #define GEN6_RP_STATE_LIMITS	_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5994)
+ #define GEN6_RP_STATE_CAP	_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5998)
++#define   RP0_CAP_MASK		REG_GENMASK(7, 0)
++#define   RP1_CAP_MASK		REG_GENMASK(15, 8)
++#define   RPN_CAP_MASK		REG_GENMASK(23, 16)
+ #define BXT_RP_STATE_CAP        _MMIO(0x138170)
+ #define GEN9_RP_STATE_LIMITS	_MMIO(0x138148)
+ 
+-- 
+2.25.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
