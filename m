@@ -2,41 +2,43 @@ Return-Path: <SRS0=Qdda=MS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACB94C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 18:29:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2260C432BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 18:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7581360F8F
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 18:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7581360F8F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id A6B9360F6E
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jul 2021 18:41:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A6B9360F6E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F19C76EA20;
-	Mon, 26 Jul 2021 18:29:03 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id B7D076E093;
- Mon, 26 Jul 2021 18:29:02 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B1893A73C9;
- Mon, 26 Jul 2021 18:29:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4906EA86;
+	Mon, 26 Jul 2021 18:41:47 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 702526EA86
+ for <intel-gfx@lists.freedesktop.org>; Mon, 26 Jul 2021 18:41:46 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="199482617"
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="199482617"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2021 11:41:20 -0700
+X-IronPort-AV: E=Sophos;i="5.84,270,1620716400"; d="scan'208";a="664763222"
+Received: from linux-x299-aorus-gaming-3-pro.iind.intel.com ([10.223.34.130])
+ by fmsmga005-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jul 2021 11:41:18 -0700
+From: Swati Sharma <swati2.sharma@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 27 Jul 2021 00:21:55 +0530
+Message-Id: <20210726185156.27183-1-swati2.sharma@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
-Date: Mon, 26 Jul 2021 18:29:02 -0000
-Message-ID: <162732414270.2613.6071417440367596158@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210726181559.80855-1-jose.souza@intel.com>
-In-Reply-To: <20210726181559.80855-1-jose.souza@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/display=3A_Disable_audio=2C_DRRS_and_PSR_before_pl?=
- =?utf-8?q?anes?=
+Subject: [Intel-gfx] [PATCH] drm/i915/display: Drop redundant debug print
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,41 +51,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+drm_dp_dpcd_read/write already has debug error message.
+Drop redundant error messages which gives false
+status even if correct value is read in drm_dp_dpcd_read().
 
-Series: drm/i915/display: Disable audio, DRRS and PSR before planes
-URL   : https://patchwork.freedesktop.org/series/93024/
-State : warning
+Signed-off-by: Swati Sharma <swati2.sharma@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-4b987bbf5ee8 drm/i915/display: Disable audio, DRRS and PSR before planes
--:137: WARNING:FUNCTION_ARGUMENTS: function definition argument 'struct intel_atomic_state *' should also have an identifier name
-#137: FILE: drivers/gpu/drm/i915/display/intel_display_types.h:199:
-+	void (*pre_disable)(struct intel_atomic_state *,
-
--:137: WARNING:FUNCTION_ARGUMENTS: function definition argument 'struct intel_encoder *' should also have an identifier name
-#137: FILE: drivers/gpu/drm/i915/display/intel_display_types.h:199:
-+	void (*pre_disable)(struct intel_atomic_state *,
-
--:137: WARNING:FUNCTION_ARGUMENTS: function definition argument 'const struct intel_crtc_state *' should also have an identifier name
-#137: FILE: drivers/gpu/drm/i915/display/intel_display_types.h:199:
-+	void (*pre_disable)(struct intel_atomic_state *,
-
--:137: WARNING:FUNCTION_ARGUMENTS: function definition argument 'const struct drm_connector_state *' should also have an identifier name
-#137: FILE: drivers/gpu/drm/i915/display/intel_display_types.h:199:
-+	void (*pre_disable)(struct intel_atomic_state *,
-
-total: 0 errors, 4 warnings, 0 checks, 132 lines checked
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index c386ef8eb200..5c84f51ad41d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3871,16 +3871,12 @@ static void intel_dp_check_link_service_irq(struct intel_dp *intel_dp)
+ 		return;
+ 
+ 	if (drm_dp_dpcd_readb(&intel_dp->aux,
+-			      DP_LINK_SERVICE_IRQ_VECTOR_ESI0, &val) != 1 || !val) {
+-		drm_dbg_kms(&i915->drm, "Error in reading link service irq vector\n");
++			      DP_LINK_SERVICE_IRQ_VECTOR_ESI0, &val) != 1 || !val)
+ 		return;
+-	}
+ 
+ 	if (drm_dp_dpcd_writeb(&intel_dp->aux,
+-			       DP_LINK_SERVICE_IRQ_VECTOR_ESI0, val) != 1) {
+-		drm_dbg_kms(&i915->drm, "Error in writing link service irq vector\n");
++			       DP_LINK_SERVICE_IRQ_VECTOR_ESI0, val) != 1)
+ 		return;
+-	}
+ 
+ 	if (val & HDMI_LINK_STATUS_CHANGED)
+ 		intel_dp_handle_hdmi_link_status_change(intel_dp);
+-- 
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
