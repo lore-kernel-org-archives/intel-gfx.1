@@ -2,92 +2,56 @@ Return-Path: <SRS0=MV7T=MT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DDBDC4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 13:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E599BC4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 20:19:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6FDA61AA2
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 13:55:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E6FDA61AA2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
+	by mail.kernel.org (Postfix) with ESMTPS id 8B82760F9B
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 20:19:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8B82760F9B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87E026EA39;
-	Tue, 27 Jul 2021 13:55:08 +0000 (UTC)
-Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
- [IPv6:2607:f8b0:4864:20::f2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 687166EA39
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 13:55:07 +0000 (UTC)
-Received: by mail-qv1-xf2a.google.com with SMTP id d17so6830113qvn.13
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 06:55:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=resent-from:resent-date:resent-message-id:resent-to:date:from:to
- :subject:message-id:references:mime-version:content-disposition
- :in-reply-to:user-agent;
- bh=j+ccLjOAeIEZxyVBWcrGNrQukKQ4n8ePVx/MnT6scgg=;
- b=f/xBpih2raViHe/H2m9pa807ljnaB16Br1L01UWVwYLzmiANwGpE5coTbY/VR+sByq
- ncOFOLvUa6Qe4Ji7qY7V12nB6WUDkcUPudkISfdJUi9NXDpWy068bhvz8nQ3XswNEnDH
- gNQBblu30tuVPRvPtJWzEoLBiqyxuimlvBvnBhmBeXAzR4xIyL0wGx5jouzUp3bfhqMH
- k1oA3wBvJhkPJeu25Wo3j4gbT4Q6ZClMgcDF89JKDggELI3elOu9GxteEGM+mvr1tzhB
- aSVFAu47xaoBc4v23GZKEjw+kgt2jwQSEziRlxAFbKF3kbIWTLzILiqQ89Qtw//ZyYcG
- BkCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:resent-from:resent-date:resent-message-id
- :resent-to:date:from:to:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=j+ccLjOAeIEZxyVBWcrGNrQukKQ4n8ePVx/MnT6scgg=;
- b=QrOoakKcQa/ExFv2d7uVxGSQbkYbwll9nOR2fIQPy5m968/io71Xy6d0iVy/17C/Uy
- Nw3/KEhQ6nJ04TgYJg59wmTS55SllUFY4m5weEj+Qx9Vd+Np7agqbvvqruTtDU2zOfPm
- HyuETO7KhjUP+RFQEsnFNu54k/mmVmspBuR0om5xjAgpfWLiYqkSznHoC8K9AAZ+FVqF
- qr/NtNCL6adcWgh5sXKuNGLrv3jLw9s/uZwJndgq4+CwWx5DKF4qWGaXg8l3LaczpH2m
- Xt+bQIrOHh5PSyXckvoougJ2QIySd6CnKpQQAoX98EHde7WWPKPMG91YErdNneYm+5w+
- q/7A==
-X-Gm-Message-State: AOAM533DmPN0u2NkErKLwNbWdMlIXDxNI+utKnCZDU4LHthkUw8PcFwO
- koFT6Q0V7wP3IVnDs6eOgUwk4A==
-X-Google-Smtp-Source: ABdhPJz8TAQsGy287QA/GYwCGUngh2zA3AA9pFI7Wrbv244oxNBvN1cJctD94lZHQVkNZbHCkcjbbg==
-X-Received: by 2002:a05:6214:d08:: with SMTP id
- 8mr23087002qvh.32.1627394106381; 
- Tue, 27 Jul 2021 06:55:06 -0700 (PDT)
-Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id l4sm1409754qtr.62.2021.07.27.06.55.05
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 27 Jul 2021 06:55:05 -0700 (PDT)
-Resent-From: Sean Paul <sean@poorly.run>
-Resent-Date: Tue, 27 Jul 2021 09:55:04 -0400
-Resent-Message-ID: <20210727135504.GA31127@art_vandelay>
-Resent-To: Jim Cromie <jim.cromie@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>,
- Zhenyu Wang <zhenyuw@linux.intel.com>,
- Zhi Wang <zhi.a.wang@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, jbaron@akamai.com
-Date: Thu, 22 Jul 2021 11:20:09 -0400
-From: Sean Paul <sean@poorly.run>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <20210722152009.GZ22946@art_vandelay>
-References: <20210714175138.319514-1-jim.cromie@gmail.com>
- <20210714175138.319514-4-jim.cromie@gmail.com>
- <YPbPvm/xcBlTK1wq@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8206E171;
+	Tue, 27 Jul 2021 20:19:42 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 050076E171;
+ Tue, 27 Jul 2021 20:19:40 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10058"; a="192801502"
+X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="192801502"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2021 13:19:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="417536581"
+Received: from irvmail001.ir.intel.com ([10.43.11.63])
+ by orsmga003.jf.intel.com with ESMTP; 27 Jul 2021 13:19:38 -0700
+Received: from [10.249.141.251] (mwajdecz-MOBL.ger.corp.intel.com
+ [10.249.141.251])
+ by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
+ 16RKJbRS029171; Tue, 27 Jul 2021 21:19:37 +0100
+To: "Belgaumkar, Vinay" <vinay.belgaumkar@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20210726190800.26762-1-vinay.belgaumkar@intel.com>
+ <20210726190800.26762-7-vinay.belgaumkar@intel.com>
+ <1e49627f-80a5-5283-eb6d-f06b0f024911@intel.com>
+ <dd8d1976-4b3b-be9d-8b7d-e6487f2c06aa@intel.com>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Message-ID: <3358d696-04c6-a22a-a956-bfd17f2f1bae@intel.com>
+Date: Tue, 27 Jul 2021 22:19:37 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YPbPvm/xcBlTK1wq@phenom.ffwll.local>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH v3 3/5] drm/print: RFC add choice to use
- dynamic debug in drm-debug
+In-Reply-To: <dd8d1976-4b3b-be9d-8b7d-e6487f2c06aa@intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 06/15] drm/i915/guc/slpc: Enable SLPC and
+ add related H2G events
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,549 +64,250 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 20, 2021 at 03:29:34PM +0200, Daniel Vetter wrote:
-> On Wed, Jul 14, 2021 at 11:51:36AM -0600, Jim Cromie wrote:
-> > drm's debug system uses distinct categories of debug messages, encoded
-> > in an enum (DRM_UT_<CATEGORY>), which are mapped to bits in drm.debug.
-> > drm_debug_enabled() does a lot of unlikely bit-mask checks on
-> > drm.debug; we can use dynamic debug instead, and get all that
-> > static_key/jump_label goodness.
-
-Hi Jim,
-Thanks for your patches! Daniel pointed me at them in response to my drm_trace
-patchset (https://patchwork.freedesktop.org/series/78133/). I'd love to get your
-input on it. I think the 2 sets are mostly compatible, we'd just need to keep
-drm_dev_dbg and do the CONFIG check in the function beside the trace_enabled
-checks.
-
-> > 
-> > Dynamic debug has no concept of category, but we can map the DRM_UT_*
-> > to a set of distinct prefixes; "drm:core:", "drm:kms:" etc, and
-> > prepend them to the given formats.
-> > 
-> > Then we can use:
-> >   `echo module drm format ^drm:core: +p > control`
-> > 
-> > to enable every such "prefixed" pr_debug with one query.  This new
-> > prefix changes pr_debug's output, so is user visible, but it seems
-> > unlikely to cause trouble for log watchers; they're not relying on the
-> > absence of class prefix strings.
-> > 
-> > This conversion yields ~2100 new callsites on my i7/i915 laptop:
-> > 
-> >   dyndbg: 195 debug prints in module drm_kms_helper
-> >   dyndbg: 298 debug prints in module drm
-> >   dyndbg: 1630 debug prints in module i915
-> > 
-> > CONFIG_DRM_USE_DYNAMIC_DEBUG enables this, and is available if
-> > CONFIG_DYNAMIC_DEBUG or CONFIG_DYNAMIC_DEBUG_CORE is chosen, and if
-> > CONFIG_JUMP_LABEL is enabled; this because its required to get the
-> > promised optimizations.
-> > 
-> > The indirection/switchover is layered into the macro scheme:
-> > 
-> > 0. A new callback on drm.debug which calls dynamic_debug_exec_queries
-> >    to map those bits to specific query/commands
-> >    dynamic_debug_exec_queries("format ^drm:kms: +p", "drm*");
-> >    here for POC, this should be in dynamic_debug.c
-> >    with a MODULE_PARAM_DEBUG_BITMAP(__drm_debug, { "prefix-1", "desc-1" }+)
-> 
-> This is really awesome. 
-
-
-Agreed, this is a very clever way of merging the 2 worlds!
-
-
-> For merging I think we need to discuss with dyn
-> debug folks whether they're all ok with this, but it's exported already
-> should should be fine.
-
-I wonder if this is a good time to reconsider our drm categories. IMO they're
-overly broad and it's hard to get the right information without subscribing to
-the firehose. It seems like dyndbg might be a good opportunity to unlock
-subcategories of log messages.
-
-More concretely, on CrOS we can't subscribe to atomic or state categories since
-they're too noisy. However if there was a "fail" subcategory which dumped
-state/atomic logs on check failures, that would be really compelling. Something
-like:
-
-        drm:atomic:fail vs. drm:atomic
-
-Both would be picked up if (drm.debug & DRM_DBG_ATOMIC), however it would allow
-dyndbg-aware clients to get better logs without having a huge table of
-individual log signatures.
-
-I'm not sure how tightly we'd want to control the subcategories. It could be
-strict like the categories spelled out in drm_print.h, or an open prefix arg to
-drm_dev_dbg. I suspect we'd want the former, but would want to be careful to
-provide enough flexibility to properly 
-
-Of course, none of this needs to be decided to land this initial support, it can
-be bolted on later easily enough (I think).
-
-
-> 
-> > 
-> > 1. A "converted" or "classy" DRM_UT_* map
-> > 
-> >    based on:   DRM_UT_* ( symbol => bit-mask )
-> >    named it:  cDRM_UT_* ( symbol => format-class-prefix-string )
-> > 
-> >    So cDRM_UT_* is either:
-> >    legacy: cDRM_UT_* <-- DRM_UT_*   ( !CONFIG_DRM_USE_DYNAMIC_DEBUG )
-> >    enabled:
-> >     #define cDRM_UT_KMS    "drm:kms: "
-> >     #define cDRM_UT_PRIME  "drm:prime: "
-> >     #define cDRM_UT_ATOMIC "drm:atomic: "
-> 
-> the cDRM looks a bit funny, plus I don't eve have an idea what _UT_ means
-> (and git history isn't helpful either). What about just using
-> DRM_DBG_CLASS_ as the prefix here for these indirection macros, i.e.
-> DRM_DBG_CLASS_KMS.
-> 
-> Also would be really nice if we could make these a table or something, but
-> I guess with the macro magic that's not possible.
-> 
-> > 
-> >    DRM_UT_* are unchanged, since theyre used in drm_debug_enabled()
-> >    and elsewhere.
-> 
-> I think for the production version of these we need to retire/deprecate
-> them, at least for drm core. Otherwise you have an annoying mismatch
-> between drm.debug module option and dyn debug.
-> 
-> > 
-> > 2. drm_dev_dbg & drm_debug are renamed (prefixed with '_')
-> > 
-> >    old names are now macros, calling either:
-> >      legacy:  -> to renamed fn
-> >      enabled: -> dev_dbg & pr_debug, with cDRM-prefix # format.
-> > 
-> >    these names are used in a fat layer of macros (3) which supply the
-> >    category; those macros are used throughout drm code, yielding the
-> >    ~2100 new prdbgs reported above.
-> > 
-> > 3. names in (2) are invoked by DRM_DEBUG_<Category>, drm_dbg_<Category>.
-> > 
-> >    all these macros get "converted" to use cDRM_UT_*
-> >    to get right token type for both !/!! DRM_USE_DYNAMIC_DEBUG
-> > 
-> > 4. simplification of __DRM_DEFINE_DBG_RATELIMITED macro
-> > 
-> >    remove DRM_UT_ ## KMS as extra indirection
-> >    pass both DRM_UT & cDRM_UT, for drm_debug_enabled & drm_dev_dbg
-> 
-> For merging, can we pull out the renames and reorgs from this patch, and
-> then maybe also the reorder the next patch in your series here to be
-> before the dyn debug stuff?
-> 
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > ---
-> >  drivers/gpu/drm/Kconfig     |  13 +++++
-> >  drivers/gpu/drm/drm_print.c |  75 ++++++++++++++++++++++++--
-> >  include/drm/drm_print.h     | 102 ++++++++++++++++++++++++++----------
-> >  3 files changed, 158 insertions(+), 32 deletions(-)
-> 
-> I really like this, I think you can drop the RFC. A few more things that I
-> think we need:
-> 
-> - An overview kerneldoc section which explains the interfaces and how it
->   all works together. Essentially your commit message with some light
->   markup to make it look good.
-> 
-> - I think it would be really good to review the driver docs for all this
->   and make sure it's complete. Some of the interface functions aren't
->   documented yet (or maybe the ones that drivers shouldn't used need more
->   __ prefixes to denote them as internal, dunno).
-> 
-> - I guess deprecation notice for drm_debug_enabled() and all that, so that
->   we have a consistent interface. Doing the conversion will probably
->   highlight the need for a bit more infrastructure and tooling, e.g. the
->   bigger dump functions (like edid hex dump, or also the various decode
->   helpers we have for dp, hdmi infoframes and all that) ideally have a
->   single dyn_debug label to enable all of them instead of line-by-line.
->   Tbh no idea how this should work, might need dyndbg work too.
-
-Yeah, this is going to be tricky.
-
-We'll probably need to enumerate these fully and if the process of gathering
-the data is simple or already done in the course of the function, just avoid the
-drm_debug_enabled() call with a CONFIG_DRM_DYNDBG check.
-
-If the debug_enabled call gates a HW access, we probably need to query dyndbg
-for the prefix the logs are associated with before gathering the log contents.
-
-Sean
-> 
-> - For the driver side of this we probably want a
->   Documentation/gpu/TODO.rst entry if it's not all easy to convert
->   directly.
-> 
-> > 
-> > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> > index 7ff89690a976..e4524ccba040 100644
-> > --- a/drivers/gpu/drm/Kconfig
-> > +++ b/drivers/gpu/drm/Kconfig
-> > @@ -57,6 +57,19 @@ config DRM_DEBUG_MM
-> >  
-> >  	  If in doubt, say "N".
-> >  
-> > +config DRM_USE_DYNAMIC_DEBUG
-> > +	bool "use dynamic debug to implement drm.debug"
-> > +	default n
-> > +	depends on DRM
-> > +	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
-> > +	depends on JUMP_LABEL
-> > +	help
-> > +	  The drm debug category facility does a lot of unlikely bit-field
-> > +	  tests at runtime; while cheap individually, the cost accumulates.
-> > +	  This option uses dynamic debug facility (if configured and
-> > +	  using jump_label) to avoid those runtime checks, patching
-> > +	  the kernel when those debugs are desired.
-> 
-> Can't we just make this an internal option that's enabled automatically
-> when dyndbg is around? Plus a comment somewhere that we really recommend
-> enabling dyndbg for drm. Or would this mean that in certain dyndbg
-> configurations we'd loose all the debug lines, which would suck?
-> 
-> Anyway there's a pile of details, but the big picture I really like.
-> Especially that we can make dyndbg seamlessly support drm.debug is really
-> nice.
-> 
-> Cheers, Daniel
-> 
-> > +
-> >  config DRM_DEBUG_SELFTEST
-> >  	tristate "kselftests for DRM"
-> >  	depends on DRM
-> > diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-> > index 111b932cf2a9..e2acdfc7088b 100644
-> > --- a/drivers/gpu/drm/drm_print.c
-> > +++ b/drivers/gpu/drm/drm_print.c
-> > @@ -52,8 +52,75 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
-> >  "\t\tBit 5 (0x20)  will enable VBL messages (vblank code)\n"
-> >  "\t\tBit 7 (0x80)  will enable LEASE messages (leasing code)\n"
-> >  "\t\tBit 8 (0x100) will enable DP messages (displayport code)");
-> > +
-> > +#ifndef CONFIG_DRM_USE_DYNAMIC_DEBUG
-> >  module_param_named(debug, __drm_debug, int, 0600);
-> >  
-> > +#else
-> > +static char *format_class_prefixes[] = {
-> > +	cDRM_UT_CORE,
-> > +	cDRM_UT_DRIVER,
-> > +	cDRM_UT_KMS,
-> > +	cDRM_UT_PRIME,
-> > +	cDRM_UT_ATOMIC,
-> > +	cDRM_UT_VBL,
-> > +	cDRM_UT_STATE,
-> > +	cDRM_UT_LEASE,
-> > +	cDRM_UT_DP,
-> > +	cDRM_UT_DRMRES
-> > +};
-> > +
-> > +#define OUR_QUERY_SIZE 64 /* > strlen "format '^%s' %cp" + longest prefix */
-> > +
-> > +static int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
-> > +{
-> > +	unsigned int val;
-> > +	unsigned long changes, result;
-> > +	int rc, chgct = 0, totct = 0, bitpos;
-> > +	char query[OUR_QUERY_SIZE];
-> > +
-> > +	rc = kstrtouint(instr, 0, &val);
-> > +	if (rc) {
-> > +		pr_err("%s: failed\n", __func__);
-> > +		return -EINVAL;
-> > +	}
-> > +	result = val;
-> > +	changes = result ^ __drm_debug;
-> > +
-> > +	pr_debug("changes:0x%lx from result:0x%lx\n", changes, result);
-> > +
-> > +	for_each_set_bit(bitpos, &changes, ARRAY_SIZE(format_class_prefixes)) {
-> > +
-> > +		sprintf(query, "format '^%s' %cp", format_class_prefixes[bitpos],
-> > +			test_bit(bitpos, &result) ? '+' : '-');
-> > +
-> > +		chgct = dynamic_debug_exec_queries(query, "drm*");
-> > +		if (chgct < 0) {
-> > +			pr_err("%s: exec err:%d on: %s\n", __func__, chgct, query);
-> > +			continue;
-> > +		}
-> > +		pr_debug("change ct:%d on %s\n", chgct, query);
-> > +		totct += chgct;
-> > +	}
-> > +	pr_debug("total changes: %d\n", totct);
-> > +	__drm_debug = result;
-> > +	return 0;
-> > +}
-> > +
-> > +static int param_get_dyndbg(char *buffer, const struct kernel_param *kp)
-> > +{
-> > +	pr_debug("debug-val:0x%x %u\n", __drm_debug, *((unsigned int *)kp->arg));
-> > +	return scnprintf(buffer, PAGE_SIZE, "%u\n",
-> > +			 *((unsigned int *)kp->arg));
-> > +}
-> > +static const struct kernel_param_ops param_ops_debug = {
-> > +	.set = param_set_dyndbg,
-> > +	.get = param_get_dyndbg,
-> > +};
-> > +module_param_cb(debug, &param_ops_debug, &__drm_debug, 0644);
-> > +
-> > +#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
-> > +
-> >  void __drm_puts_coredump(struct drm_printer *p, const char *str)
-> >  {
-> >  	struct drm_print_iterator *iterator = p->arg;
-> > @@ -256,7 +323,7 @@ void drm_dev_printk(const struct device *dev, const char *level,
-> >  }
-> >  EXPORT_SYMBOL(drm_dev_printk);
-> >  
-> > -void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> > +void _drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> >  		 const char *format, ...)
-> >  {
-> >  	struct va_format vaf;
-> > @@ -278,9 +345,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> >  
-> >  	va_end(args);
-> >  }
-> > -EXPORT_SYMBOL(drm_dev_dbg);
-> > +EXPORT_SYMBOL(_drm_dev_dbg);
-> >  
-> > -void __drm_dbg(enum drm_debug_category category, const char *format, ...)
-> > +void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
-> >  {
-> >  	struct va_format vaf;
-> >  	va_list args;
-> > @@ -297,7 +364,7 @@ void __drm_dbg(enum drm_debug_category category, const char *format, ...)
-> >  
-> >  	va_end(args);
-> >  }
-> > -EXPORT_SYMBOL(__drm_dbg);
-> > +EXPORT_SYMBOL(___drm_dbg);
-> >  
-> >  void __drm_err(const char *format, ...)
-> >  {
-> > diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-> > index ff5ac0e88321..499fa0b35200 100644
-> > --- a/include/drm/drm_print.h
-> > +++ b/include/drm/drm_print.h
-> > @@ -319,6 +319,51 @@ enum drm_debug_category {
-> >  	DRM_UT_DRMRES		= 0x200,
-> >  };
-> >  
-> > +#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-> > +
-> > +/* Use legacy drm-debug functions, and drm_debug_enabled().
-> > + * For cDRM_UT_* (converted category), identity map to DRM_UT_*
-> > + */
-> > +#define __drm_dbg(cls, fmt, ...)			\
-> > +	___drm_dbg(cls, fmt, ##__VA_ARGS__)
-> > +#define drm_dev_dbg(dev, cls, fmt, ...)			\
-> > +	_drm_dev_dbg(dev, cls, fmt, ##__VA_ARGS__)
-> > +
-> > +#define cDRM_UT_CORE	DRM_UT_CORE
-> > +#define cDRM_UT_DRIVER	DRM_UT_DRIVER
-> > +#define cDRM_UT_KMS	DRM_UT_KMS
-> > +#define cDRM_UT_PRIME	DRM_UT_PRIME
-> > +#define cDRM_UT_ATOMIC	DRM_UT_ATOMIC
-> > +#define cDRM_UT_VBL	DRM_UT_VBL
-> > +#define cDRM_UT_STATE	DRM_UT_STATE
-> > +#define cDRM_UT_LEASE	DRM_UT_LEASE
-> > +#define cDRM_UT_DP	DRM_UT_DP
-> > +#define cDRM_UT_DRMRES	DRM_UT_DRMRES
-> > +
-> > +#else /* !CONFIG_DRM_USE_DYNAMIC_DEBUG */
-> > +
-> > +/* use dynamic_debug to avoid drm_debug_enabled().
-> > + * dyndbg has no category, so we prefix the format with a "class"
-> > + * string; cDRM_UT_* maps to those class strings
-> > + */
-> > +#define __drm_dbg(cls, fmt, ...)		\
-> > +	pr_debug(cls # fmt, ##__VA_ARGS__)
-> > +#define drm_dev_dbg(dev, cls, fmt, ...)		\
-> > +	dev_dbg(dev, cls # fmt, ##__VA_ARGS__)
-> > +
-> > +#define cDRM_UT_CORE	"drm:core: "
-> > +#define cDRM_UT_DRIVER	"drm:drvr: "
-> > +#define cDRM_UT_KMS	"drm:kms: "
-> > +#define cDRM_UT_PRIME	"drm:prime: "
-> > +#define cDRM_UT_ATOMIC	"drm:atomic: "
-> > +#define cDRM_UT_VBL	"drm:vbl: "
-> > +#define cDRM_UT_STATE	"drm:state: "
-> > +#define cDRM_UT_LEASE	"drm:lease: "
-> > +#define cDRM_UT_DP	"drm:dp: "
-> > +#define cDRM_UT_DRMRES	"drm:res "
-> > +
-> > +#endif /* !CONFIG_DRM_USE_DYNAMIC_DEBUG */
-> > +
-> >  static inline bool drm_debug_enabled(enum drm_debug_category category)
-> >  {
-> >  	return unlikely(__drm_debug & category);
-> > @@ -334,7 +379,7 @@ __printf(3, 4)
-> >  void drm_dev_printk(const struct device *dev, const char *level,
-> >  		    const char *format, ...);
-> >  __printf(3, 4)
-> > -void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> > +void _drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> >  		 const char *format, ...);
-> >  
-> >  /**
-> > @@ -383,7 +428,7 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> >   * @fmt: printf() like format string.
-> >   */
-> >  #define DRM_DEV_DEBUG(dev, fmt, ...)					\
-> > -	drm_dev_dbg(dev, DRM_UT_CORE, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg(dev, cDRM_UT_CORE, fmt, ##__VA_ARGS__)
-> >  /**
-> >   * DRM_DEV_DEBUG_DRIVER() - Debug output for vendor specific part of the driver
-> >   *
-> > @@ -391,7 +436,7 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> >   * @fmt: printf() like format string.
-> >   */
-> >  #define DRM_DEV_DEBUG_DRIVER(dev, fmt, ...)				\
-> > -	drm_dev_dbg(dev, DRM_UT_DRIVER,	fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg(dev, cDRM_UT_DRIVER, fmt, ##__VA_ARGS__)
-> >  /**
-> >   * DRM_DEV_DEBUG_KMS() - Debug output for modesetting code
-> >   *
-> > @@ -399,7 +444,7 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> >   * @fmt: printf() like format string.
-> >   */
-> >  #define DRM_DEV_DEBUG_KMS(dev, fmt, ...)				\
-> > -	drm_dev_dbg(dev, DRM_UT_KMS, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg(dev, cDRM_UT_KMS, fmt, ##__VA_ARGS__)
-> >  
-> >  /*
-> >   * struct drm_device based logging
-> > @@ -443,25 +488,25 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> >  
-> >  
-> >  #define drm_dbg_core(drm, fmt, ...)					\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_CORE, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_CORE, fmt, ##__VA_ARGS__)
-> >  #define drm_dbg(drm, fmt, ...)						\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_DRIVER, fmt, ##__VA_ARGS__)
-> >  #define drm_dbg_kms(drm, fmt, ...)					\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_KMS, fmt, ##__VA_ARGS__)
-> >  #define drm_dbg_prime(drm, fmt, ...)					\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_PRIME, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_PRIME, fmt, ##__VA_ARGS__)
-> >  #define drm_dbg_atomic(drm, fmt, ...)					\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
-> >  #define drm_dbg_vbl(drm, fmt, ...)					\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_VBL, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_VBL, fmt, ##__VA_ARGS__)
-> >  #define drm_dbg_state(drm, fmt, ...)					\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_STATE, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_STATE, fmt, ##__VA_ARGS__)
-> >  #define drm_dbg_lease(drm, fmt, ...)					\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_LEASE, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_LEASE, fmt, ##__VA_ARGS__)
-> >  #define drm_dbg_dp(drm, fmt, ...)					\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DP, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_DP, fmt, ##__VA_ARGS__)
-> >  #define drm_dbg_drmres(drm, fmt, ...)					\
-> > -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRMRES, fmt, ##__VA_ARGS__)
-> > +	drm_dev_dbg((drm) ? (drm)->dev : NULL, cDRM_UT_DRMRES, fmt, ##__VA_ARGS__)
-> >  
-> >  
-> >  /*
-> > @@ -471,7 +516,7 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-> >   */
-> >  
-> >  __printf(2, 3)
-> > -void __drm_dbg(enum drm_debug_category category, const char *format, ...);
-> > +void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
-> >  __printf(1, 2)
-> >  void __drm_err(const char *format, ...);
-> >  
-> > @@ -500,44 +545,45 @@ void __drm_err(const char *format, ...);
-> >  #define DRM_ERROR_RATELIMITED(fmt, ...)					\
-> >  	DRM_DEV_ERROR_RATELIMITED(NULL, fmt, ##__VA_ARGS__)
-> >  
-> > +
-> >  #define DRM_DEBUG(fmt, ...)						\
-> > -	__drm_dbg(DRM_UT_CORE, fmt, ##__VA_ARGS__)
-> > +	__drm_dbg(cDRM_UT_CORE, fmt, ##__VA_ARGS__)
-> >  
-> >  #define DRM_DEBUG_DRIVER(fmt, ...)					\
-> > -	__drm_dbg(DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
-> > +	__drm_dbg(cDRM_UT_DRIVER, fmt, ##__VA_ARGS__)
-> >  
-> >  #define DRM_DEBUG_KMS(fmt, ...)						\
-> > -	__drm_dbg(DRM_UT_KMS, fmt, ##__VA_ARGS__)
-> > +	__drm_dbg(cDRM_UT_KMS, fmt, ##__VA_ARGS__)
-> >  
-> >  #define DRM_DEBUG_PRIME(fmt, ...)					\
-> > -	__drm_dbg(DRM_UT_PRIME, fmt, ##__VA_ARGS__)
-> > +	__drm_dbg(cDRM_UT_PRIME, fmt, ##__VA_ARGS__)
-> >  
-> >  #define DRM_DEBUG_ATOMIC(fmt, ...)					\
-> > -	__drm_dbg(DRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
-> > +	__drm_dbg(cDRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
-> >  
-> >  #define DRM_DEBUG_VBL(fmt, ...)						\
-> > -	__drm_dbg(DRM_UT_VBL, fmt, ##__VA_ARGS__)
-> > +	__drm_dbg(cDRM_UT_VBL, fmt, ##__VA_ARGS__)
-> >  
-> >  #define DRM_DEBUG_LEASE(fmt, ...)					\
-> > -	__drm_dbg(DRM_UT_LEASE, fmt, ##__VA_ARGS__)
-> > +	__drm_dbg(cDRM_UT_LEASE, fmt, ##__VA_ARGS__)
-> >  
-> >  #define DRM_DEBUG_DP(fmt, ...)						\
-> > -	__drm_dbg(DRM_UT_DP, fmt, ## __VA_ARGS__)
-> > +	__drm_dbg(cDRM_UT_DP, fmt, ## __VA_ARGS__)
-> >  
-> > -#define __DRM_DEFINE_DBG_RATELIMITED(category, drm, fmt, ...)		\
-> > +#define __DRM_DEFINE_DBG_RATELIMITED(DRM_UT, cDRM_UT, drm, fmt, ...)	\
-> >  ({									\
-> >  	static DEFINE_RATELIMIT_STATE(rs_,				\
-> >  				      DEFAULT_RATELIMIT_INTERVAL,	\
-> >  				      DEFAULT_RATELIMIT_BURST);		\
-> >  	const struct drm_device *drm_ = (drm);				\
-> >  									\
-> > -	if (drm_debug_enabled(DRM_UT_ ## category) && __ratelimit(&rs_))\
-> > -		drm_dev_printk(drm_ ? drm_->dev : NULL,			\
-> > -			       KERN_DEBUG, fmt, ## __VA_ARGS__);	\
-> > +	if (drm_debug_enabled(DRM_UT) && __ratelimit(&rs_))		\
-> > +		drm_dev_dbg((drm_) ? (drm_)->dev : NULL,		\
-> > +			    cDRM_UT, fmt, ##__VA_ARGS__);		\
-> >  })
-> >  
-> >  #define drm_dbg_kms_ratelimited(drm, fmt, ...) \
-> > -	__DRM_DEFINE_DBG_RATELIMITED(KMS, drm, fmt, ## __VA_ARGS__)
-> > +	__DRM_DEFINE_DBG_RATELIMITED(DRM_UT_KMS, cDRM_UT_KMS, drm, fmt, ## __VA_ARGS__)
-> >  
-> >  #define DRM_DEBUG_KMS_RATELIMITED(fmt, ...) \
-> >  	drm_dbg_kms_ratelimited(NULL, fmt, ## __VA_ARGS__)
-> > -- 
-> > 2.31.1
-> > 
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+CgpPbiAyNy4wNy4yMDIxIDIyOjAwLCBCZWxnYXVta2FyLCBWaW5heSB3cm90ZToKPiAKPiAKPiBP
+biA3LzI3LzIwMjEgODoxMiBBTSwgTWljaGFsIFdhamRlY3prbyB3cm90ZToKPj4KPj4KPj4gT24g
+MjYuMDcuMjAyMSAyMTowNywgVmluYXkgQmVsZ2F1bWthciB3cm90ZToKPj4+IEFkZCBtZXRob2Rz
+IGZvciBpbnRlcmFjdGluZyB3aXRoIEd1QyBmb3IgZW5hYmxpbmcgU0xQQy4gRW5hYmxlCj4+PiBT
+TFBDIGFmdGVyIEd1QyBzdWJtaXNzaW9uIGhhcyBiZWVuIGVzdGFibGlzaGVkLiBHdUMgbG9hZCB3
+aWxsCj4+PiBmYWlsIGlmIFNMUEMgY2Fubm90IGJlIHN1Y2Nlc3NmdWxseSBpbml0aWFsaXplZC4g
+QWRkIHZhcmlvdXMKPj4+IGhlbHBlciBtZXRob2RzIHRvIHNldC91bnNldCB0aGUgcGFyYW1ldGVy
+cyBmb3IgU0xQQy4gVGhleSBjYW4KPj4+IGJlIHNldCB1c2luZyBIMkcgY2FsbHMgb3IgZGlyZWN0
+bHkgc2V0dGluZyBiaXRzIGluIHRoZSBzaGFyZWQKPj4+IGRhdGEgc3RydWN0dXJlLgo+Pj4KPj4+
+IHYyOiBBZGRyZXNzIHNldmVyYWwgcmV2aWV3IGNvbW1lbnRzLCBhZGQgbmV3IGhlbHBlcnMgZm9y
+Cj4+PiBkZWNvZGluZyB0aGUgU0xQQyBtaW4vbWF4IGZyZXF1ZW5jaWVzLiBVc2UgbWFza3MgaW5z
+dGVhZCBvZiBoYXJkY29kZWQKPj4+IGNvbnN0YW50cy4gKE1pY2hhbCBXKQo+Pj4KPj4+IHYzOiBT
+cGxpdCBnbG9iYWxfc3RhdGVfdG9fc3RyaW5nIGZ1bmN0aW9uLCBhbmQgY2hlY2sgZm9yIHBvc2l0
+aXZlCj4+PiBub24temVybyByZXR1cm4gdmFsdWUgZnJvbSBpbnRlbF9ndWNfc2VuZCgpIChNaWNo
+YWwgVykKPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBWaW5heSBCZWxnYXVta2FyIDx2aW5heS5iZWxn
+YXVta2FyQGludGVsLmNvbT4KPj4+IFNpZ25lZC1vZmYtYnk6IFN1bmRhcmVzYW4gU3VqYXJpdGhh
+IDxzdWphcml0aGEuc3VuZGFyZXNhbkBpbnRlbC5jb20+Cj4+PiAtLS0KPj4+IMKgIGRyaXZlcnMv
+Z3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX2d1Y19zbHBjLmPCoMKgIHwgMjM3ICsrKysrKysrKysr
+KysrKysrKwo+Pj4gwqAgLi4uL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfc2xwY190eXBl
+cy5oIHzCoMKgIDIgKwo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvaW50ZWxfdWMu
+Y8KgwqDCoMKgwqDCoMKgwqAgfMKgwqAgOCArCj4+PiDCoCAzIGZpbGVzIGNoYW5nZWQsIDI0NyBp
+bnNlcnRpb25zKCspCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0
+L3VjL2ludGVsX2d1Y19zbHBjLmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvaW50
+ZWxfZ3VjX3NscGMuYwo+Pj4gaW5kZXggYmFlNGUzM2RiMGY4Li5mNTgwOGQyYWNiY2EgMTAwNjQ0
+Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfc2xwYy5jCj4+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9pbnRlbF9ndWNfc2xwYy5jCj4+PiBA
+QCAtNDUsNiArNDUsNDAgQEAgdm9pZCBpbnRlbF9ndWNfc2xwY19pbml0X2Vhcmx5KHN0cnVjdAo+
+Pj4gaW50ZWxfZ3VjX3NscGMgKnNscGMpCj4+PiDCoMKgwqDCoMKgIGd1Yy0+c2xwY19zZWxlY3Rl
+ZCA9IF9fZ3VjX3NscGNfc2VsZWN0ZWQoZ3VjKTsKPj4+IMKgIH0KPj4+IMKgICtzdGF0aWMgdm9p
+ZCBzbHBjX21lbV9zZXRfcGFyYW0oc3RydWN0IHNscGNfc2hhcmVkX2RhdGEgKmRhdGEsCj4+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHUzMiBpZCwgdTMyIHZhbHVlKQo+Pj4gK3sK
+Pj4+ICvCoMKgwqAgR0VNX0JVR19PTihpZCA+PSBTTFBDX01BWF9PVkVSUklERV9QQVJBTUVURVJT
+KTsKPj4+ICvCoMKgwqAgLyoKPj4+ICvCoMKgwqDCoCAqIFdoZW4gdGhlIGZsYWcgYml0IGlzIHNl
+dCwgY29ycmVzcG9uZGluZyB2YWx1ZSB3aWxsIGJlIHJlYWQKPj4+ICvCoMKgwqDCoCAqIGFuZCBh
+cHBsaWVkIGJ5IHNscGMuCj4+Cj4+IHMvc2xwYy9TTFBDCj4gb2suCj4gCj4+Cj4+PiArwqDCoMKg
+wqAgKi8KPj4+ICvCoMKgwqAgZGF0YS0+b3ZlcnJpZGVfcGFyYW1zLmJpdHNbaWQgPj4gNV0gfD0g
+KDEgPDwgKGlkICUgMzIpKTsKPj4+ICvCoMKgwqAgZGF0YS0+b3ZlcnJpZGVfcGFyYW1zLnZhbHVl
+c1tpZF0gPSB2YWx1ZTsKPj4+ICt9Cj4+PiArCj4+PiArc3RhdGljIHZvaWQgc2xwY19tZW1fc2V0
+X2VuYWJsZWQoc3RydWN0IHNscGNfc2hhcmVkX2RhdGEgKmRhdGEsCj4+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHU4IGVuYWJsZV9pZCwgdTggZGlzYWJsZV9pZCkKPj4+ICt7Cj4+
+PiArwqDCoMKgIC8qCj4+PiArwqDCoMKgwqAgKiBFbmFibGluZyBhIHBhcmFtIGludm9sdmVzIHNl
+dHRpbmcgdGhlIGVuYWJsZV9pZAo+Pj4gK8KgwqDCoMKgICogdG8gMSBhbmQgZGlzYWJsZV9pZCB0
+byAwLgo+Pj4gK8KgwqDCoMKgICovCj4+PiArwqDCoMKgIHNscGNfbWVtX3NldF9wYXJhbShkYXRh
+LCBlbmFibGVfaWQsIDEpOwo+Pj4gK8KgwqDCoCBzbHBjX21lbV9zZXRfcGFyYW0oZGF0YSwgZGlz
+YWJsZV9pZCwgMCk7Cj4+PiArfQo+Pj4gKwo+Pj4gK3N0YXRpYyB2b2lkIHNscGNfbWVtX3NldF9k
+aXNhYmxlZChzdHJ1Y3Qgc2xwY19zaGFyZWRfZGF0YSAqZGF0YSwKPj4+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgdTggZW5hYmxlX2lkLCB1OCBkaXNhYmxlX2lkKQo+Pj4gK3sKPj4+
+ICvCoMKgwqAgLyoKPj4+ICvCoMKgwqDCoCAqIERpc2FibGluZyBhIHBhcmFtIGludm9sdmVzIHNl
+dHRpbmcgdGhlIGVuYWJsZV9pZAo+Pj4gK8KgwqDCoMKgICogdG8gMCBhbmQgZGlzYWJsZV9pZCB0
+byAxLgo+Pj4gK8KgwqDCoMKgICovCj4+PiArwqDCoMKgIHNscGNfbWVtX3NldF9wYXJhbShkYXRh
+LCBkaXNhYmxlX2lkLCAxKTsKPj4+ICvCoMKgwqAgc2xwY19tZW1fc2V0X3BhcmFtKGRhdGEsIGVu
+YWJsZV9pZCwgMCk7Cj4+PiArfQo+Pj4gKwo+Pj4gwqAgc3RhdGljIGludCBzbHBjX3NoYXJlZF9k
+YXRhX2luaXQoc3RydWN0IGludGVsX2d1Y19zbHBjICpzbHBjKQo+Pj4gwqAgewo+Pj4gwqDCoMKg
+wqDCoCBzdHJ1Y3QgaW50ZWxfZ3VjICpndWMgPSBzbHBjX3RvX2d1YyhzbHBjKTsKPj4+IEBAIC02
+Myw2ICs5NywxMjkgQEAgc3RhdGljIGludCBzbHBjX3NoYXJlZF9kYXRhX2luaXQoc3RydWN0Cj4+
+PiBpbnRlbF9ndWNfc2xwYyAqc2xwYykKPj4+IMKgwqDCoMKgwqAgcmV0dXJuIGVycjsKPj4+IMKg
+IH0KPj4+IMKgICtzdGF0aWMgdTMyIHNscGNfZ2V0X3N0YXRlKHN0cnVjdCBpbnRlbF9ndWNfc2xw
+YyAqc2xwYykKPj4+ICt7Cj4+PiArwqDCoMKgIHN0cnVjdCBzbHBjX3NoYXJlZF9kYXRhICpkYXRh
+Owo+Pj4gKwo+Pj4gK8KgwqDCoCBHRU1fQlVHX09OKCFzbHBjLT52bWEpOwo+Pj4gKwo+Pj4gK8Kg
+wqDCoCBkcm1fY2xmbHVzaF92aXJ0X3JhbmdlKHNscGMtPnZhZGRyLCBzaXplb2YodTMyKSk7Cj4+
+PiArwqDCoMKgIGRhdGEgPSBzbHBjLT52YWRkcjsKPj4+ICsKPj4+ICvCoMKgwqAgcmV0dXJuIGRh
+dGEtPmhlYWRlci5nbG9iYWxfc3RhdGU7Cj4+PiArfQo+Pj4gKwo+Pj4gK3N0YXRpYyBib29sIHNs
+cGNfaXNfcnVubmluZyhzdHJ1Y3QgaW50ZWxfZ3VjX3NscGMgKnNscGMpCj4+PiArewo+Pj4gK8Kg
+wqDCoCByZXR1cm4gKHNscGNfZ2V0X3N0YXRlKHNscGMpID09IFNMUENfR0xPQkFMX1NUQVRFX1JV
+Tk5JTkcpOwo+Pgo+PiBleHRyYSAoICkgbm90IG5lZWRlZAo+IAo+IG9rLgo+IAo+Pgo+Pj4gK30K
+Pj4+ICsKPj4+ICtzdGF0aWMgaW50IGd1Y19hY3Rpb25fc2xwY19xdWVyeShzdHJ1Y3QgaW50ZWxf
+Z3VjICpndWMsIHUzMiBvZmZzZXQpCj4+PiArewo+Pj4gK8KgwqDCoCB1MzIgcmVxdWVzdFtdID0g
+ewo+Pj4gK8KgwqDCoMKgwqDCoMKgIElOVEVMX0dVQ19BQ1RJT05fU0xQQ19SRVFVRVNULAo+Pj4g
+K8KgwqDCoMKgwqDCoMKgwqAgU0xQQ19FVkVOVChTTFBDX0VWRU5UX1FVRVJZX1RBU0tfU1RBVEUs
+IDIpLAo+Pj4gK8KgwqDCoMKgwqDCoMKgIG9mZnNldCwKPj4+ICvCoMKgwqDCoMKgwqDCoCAwLAo+
+Pj4gK8KgwqDCoCB9Owo+Pj4gK8KgwqDCoCBpbnQgcmV0Owo+Pj4gKwo+Pj4gK8KgwqDCoCByZXQg
+PSBpbnRlbF9ndWNfc2VuZChndWMsIHJlcXVlc3QsIEFSUkFZX1NJWkUocmVxdWVzdCkpOwo+Pj4g
+Kwo+Pj4gK8KgwqDCoCByZXR1cm4gcmV0ID4gMCA/IC1FUFJPVE8gOiByZXQ7Cj4+PiArfQo+Pj4g
+Kwo+Pj4gK3N0YXRpYyBpbnQgc2xwY19xdWVyeV90YXNrX3N0YXRlKHN0cnVjdCBpbnRlbF9ndWNf
+c2xwYyAqc2xwYykKPj4+ICt7Cj4+PiArwqDCoMKgIHN0cnVjdCBpbnRlbF9ndWMgKmd1YyA9IHNs
+cGNfdG9fZ3VjKHNscGMpOwo+Pj4gK8KgwqDCoCBzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkx
+NSA9IHNscGNfdG9faTkxNShzbHBjKTsKPj4+ICvCoMKgwqAgdTMyIHNoYXJlZF9kYXRhX2d0dF9v
+ZmZzZXQgPSBpbnRlbF9ndWNfZ2d0dF9vZmZzZXQoZ3VjLCBzbHBjLT52bWEpOwo+Pgo+PiBqdXN0
+ICJvZmZzZXQiID8gb3IgbWF5YmUgcGFzcyBkaXJlY3RseSBpbiBjYWxsIGJlbG93ID8KPiAKPiBv
+ay4KPiAKPj4KPj4+ICvCoMKgwqAgaW50IHJldDsKPj4+ICsKPj4+ICvCoMKgwqAgcmV0ID0gZ3Vj
+X2FjdGlvbl9zbHBjX3F1ZXJ5KGd1Yywgc2hhcmVkX2RhdGFfZ3R0X29mZnNldCk7Cj4+PiArwqDC
+oMKgIGlmIChyZXQpCj4+PiArwqDCoMKgwqDCoMKgwqAgZHJtX2VycigmaTkxNS0+ZHJtLCAiUXVl
+cnkgdGFzayBzdGF0ZSBkYXRhIHJldHVybmVkICglcGUpXG4iLAo+Pgo+PiAiRmFpbGVkIHRvIHF1
+ZXJ5IHRhc2sgc3RhdGUgKCVwZSlcbiIgPwo+IAo+IG9rLgo+Pgo+Pj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBFUlJfUFRSKHJldCkpOwo+Pj4gKwo+Pj4gK8KgwqDCoCBkcm1fY2xm
+bHVzaF92aXJ0X3JhbmdlKHNscGMtPnZhZGRyLCBTTFBDX1BBR0VfU0laRV9CWVRFUyk7Cj4+PiAr
+Cj4+PiArwqDCoMKgIHJldHVybiByZXQ7Cj4+PiArfQo+Pj4gKwo+Pj4gK3N0YXRpYyBjb25zdCBj
+aGFyICpzbHBjX2dsb2JhbF9zdGF0ZV90b19zdHJpbmcoZW51bQo+Pj4gc2xwY19nbG9iYWxfc3Rh
+dGUgc3RhdGUpCj4+PiArewo+Pj4gK8KgwqDCoCBjb25zdCBjaGFyICpzdHIgPSBOVUxMOwo+Pj4g
+Kwo+Pj4gK8KgwqDCoCBzd2l0Y2ggKHN0YXRlKSB7Cj4+PiArwqDCoMKgIGNhc2UgU0xQQ19HTE9C
+QUxfU1RBVEVfTk9UX1JVTk5JTkc6Cj4+PiArwqDCoMKgwqDCoMKgwqAgc3RyID0gIm5vdCBydW5u
+aW5nIjsKPj4+ICvCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+ICvCoMKgwqAgY2FzZSBTTFBDX0dM
+T0JBTF9TVEFURV9JTklUSUFMSVpJTkc6Cj4+PiArwqDCoMKgwqDCoMKgwqAgc3RyID0gImluaXRp
+YWxpemluZyI7Cj4+PiArwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+PiArwqDCoMKgIGNhc2UgU0xQ
+Q19HTE9CQUxfU1RBVEVfUkVTRVRUSU5HOgo+Pj4gK8KgwqDCoMKgwqDCoMKgIHN0ciA9ICJyZXNl
+dHRpbmciOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4gK8KgwqDCoCBjYXNlIFNMUENf
+R0xPQkFMX1NUQVRFX1JVTk5JTkc6Cj4+PiArwqDCoMKgwqDCoMKgwqAgc3RyID0gInJ1bm5pbmci
+Owo+Pj4gK8KgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4gK8KgwqDCoCBjYXNlIFNMUENfR0xPQkFM
+X1NUQVRFX1NIVVRUSU5HX0RPV046Cj4+PiArwqDCoMKgwqDCoMKgwqAgc3RyID0gInNodXR0aW5n
+IGRvd24iOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4gK8KgwqDCoCBjYXNlIFNMUENf
+R0xPQkFMX1NUQVRFX0VSUk9SOgo+Pj4gK8KgwqDCoMKgwqDCoMKgIHN0ciA9ICJlcnJvciI7Cj4+
+PiArwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+PiArwqDCoMKgIGRlZmF1bHQ6Cj4+PiArwqDCoMKg
+wqDCoMKgwqAgc3RyID0gInVua25vd24iOwo+Pgo+PiBuaXQ6IHlvdSBjYW4gZG8gZWFybHkgcmV0
+dXJucyB0byBzaW1wbGlmeSB0aGUgY29kZQo+IG9rLgo+IAo+Pgo+Pj4gK8KgwqDCoMKgwqDCoMKg
+IGJyZWFrOwo+Pj4gK8KgwqDCoCB9Cj4+PiArCj4+PiArwqDCoMKgIHJldHVybiBzdHI7Cj4+PiAr
+fQo+Pj4gKwo+Pj4gK3N0YXRpYyBjb25zdCBjaGFyICpzbHBjX2dldF9zdGF0ZV9zdHJpbmcoc3Ry
+dWN0IGludGVsX2d1Y19zbHBjICpzbHBjKQo+Pj4gK3sKPj4+ICvCoMKgwqAgcmV0dXJuIHNscGNf
+Z2xvYmFsX3N0YXRlX3RvX3N0cmluZyhzbHBjX2dldF9zdGF0ZShzbHBjKSk7Cj4+PiArfQo+Pj4g
+Kwo+Pj4gK3N0YXRpYyBpbnQgZ3VjX2FjdGlvbl9zbHBjX3Jlc2V0KHN0cnVjdCBpbnRlbF9ndWMg
+Kmd1YywgdTMyIG9mZnNldCkKPj4+ICt7Cj4+PiArwqDCoMKgIHUzMiByZXF1ZXN0W10gPSB7Cj4+
+PiArwqDCoMKgwqDCoMKgwqAgSU5URUxfR1VDX0FDVElPTl9TTFBDX1JFUVVFU1QsCj4+PiArwqDC
+oMKgwqDCoMKgwqAgU0xQQ19FVkVOVChTTFBDX0VWRU5UX1JFU0VULCAyKSwKPj4+ICvCoMKgwqDC
+oMKgwqDCoCBvZmZzZXQsCj4+PiArwqDCoMKgwqDCoMKgwqAgMCwKPj4+ICvCoMKgwqAgfTsKPj4+
+ICvCoMKgwqAgaW50IHJldDsKPj4+ICsKPj4+ICvCoMKgwqAgcmV0ID0gaW50ZWxfZ3VjX3NlbmQo
+Z3VjLCByZXF1ZXN0LCBBUlJBWV9TSVpFKHJlcXVlc3QpKTsKPj4+ICsKPj4+ICvCoMKgwqAgcmV0
+dXJuIHJldCA+IDAgPyAtRVBST1RPIDogcmV0Owo+Pj4gK30KPj4+ICsKPj4+ICtzdGF0aWMgaW50
+IHNscGNfcmVzZXQoc3RydWN0IGludGVsX2d1Y19zbHBjICpzbHBjKQo+Pj4gK3sKPj4+ICvCoMKg
+wqAgc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUgPSBzbHBjX3RvX2k5MTUoc2xwYyk7Cj4+
+PiArwqDCoMKgIHN0cnVjdCBpbnRlbF9ndWMgKmd1YyA9IHNscGNfdG9fZ3VjKHNscGMpOwo+Pj4g
+K8KgwqDCoCB1MzIgb2Zmc2V0ID0gaW50ZWxfZ3VjX2dndHRfb2Zmc2V0KGd1Yywgc2xwYy0+dm1h
+KTsKPj4+ICvCoMKgwqAgaW50IHJldDsKPj4+ICsKPj4+ICvCoMKgwqAgcmV0ID0gZ3VjX2FjdGlv
+bl9zbHBjX3Jlc2V0KGd1Yywgb2Zmc2V0KTsKPj4+ICsKPj4+ICvCoMKgwqAgaWYgKHVubGlrZWx5
+KHJldCA8IDApKQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7Cj4+Cj4+IG5vIFNMUEMg
+ZXJyb3IgaGVyZSA/Cj4gCj4gYWRkZWQuCj4gCj4+Cj4+PiArCj4+PiArwqDCoMKgIGlmICghcmV0
+KSB7Cj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKHdhaXRfZm9yKHNscGNfaXNfcnVubmluZyhzbHBj
+KSwgU0xQQ19SRVNFVF9USU1FT1VUX01TKSkgewo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+ZHJtX2VycigmaTkxNS0+ZHJtLCAiU0xQQyBub3QgZW5hYmxlZCEgU3RhdGUgPSAlc1xuIiwKPj4+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNscGNfZ2V0X3N0YXRlX3N0cmlu
+ZyhzbHBjKSk7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTzsKPj4+ICvC
+oMKgwqDCoMKgwqDCoCB9Cj4+PiArwqDCoMKgIH0KPj4+ICsKPj4+ICvCoMKgwqAgcmV0dXJuIDA7
+Cj4+PiArfQo+Pj4gKwo+Pj4gwqAgaW50IGludGVsX2d1Y19zbHBjX2luaXQoc3RydWN0IGludGVs
+X2d1Y19zbHBjICpzbHBjKQo+Pj4gwqAgewo+Pj4gwqDCoMKgwqDCoCBHRU1fQlVHX09OKHNscGMt
+PnZtYSk7Cj4+PiBAQCAtNzAsNiArMjI3LDg2IEBAIGludCBpbnRlbF9ndWNfc2xwY19pbml0KHN0
+cnVjdCBpbnRlbF9ndWNfc2xwYyAqc2xwYykKPj4+IMKgwqDCoMKgwqAgcmV0dXJuIHNscGNfc2hh
+cmVkX2RhdGFfaW5pdChzbHBjKTsKPj4+IMKgIH0KPj4+IMKgICtzdGF0aWMgdTMyIHNscGNfZGVj
+b2RlX21pbl9mcmVxKHN0cnVjdCBpbnRlbF9ndWNfc2xwYyAqc2xwYykKPj4+ICt7Cj4+PiArwqDC
+oMKgIHN0cnVjdCBzbHBjX3NoYXJlZF9kYXRhICpkYXRhID0gc2xwYy0+dmFkZHI7Cj4+PiArCj4+
+PiArwqDCoMKgIEdFTV9CVUdfT04oIXNscGMtPnZtYSk7Cj4+PiArCj4+PiArwqDCoMKgIHJldHVy
+bsKgwqDCoCBESVZfUk9VTkRfQ0xPU0VTVCgKPj4+ICvCoMKgwqDCoMKgwqDCoCBSRUdfRklFTERf
+R0VUKFNMUENfTUlOX1VOU0xJQ0VfRlJFUV9NQVNLLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgZGF0YS0+dGFza19zdGF0ZV9kYXRhLmZyZXEpICoKPj4+ICvCoMKgwqDCoMKgwqDCoCBHVF9G
+UkVRVUVOQ1lfTVVMVElQTElFUiwgR0VOOV9GUkVRX1NDQUxFUik7Cj4+PiArfQo+Pj4gKwo+Pj4g
+K3N0YXRpYyB1MzIgc2xwY19kZWNvZGVfbWF4X2ZyZXEoc3RydWN0IGludGVsX2d1Y19zbHBjICpz
+bHBjKQo+Pj4gK3sKPj4+ICvCoMKgwqAgc3RydWN0IHNscGNfc2hhcmVkX2RhdGEgKmRhdGEgPSBz
+bHBjLT52YWRkcjsKPj4+ICsKPj4+ICvCoMKgwqAgR0VNX0JVR19PTighc2xwYy0+dm1hKTsKPj4+
+ICsKPj4+ICvCoMKgwqAgcmV0dXJuwqDCoMKgIERJVl9ST1VORF9DTE9TRVNUKAo+Pj4gK8KgwqDC
+oMKgwqDCoMKgIFJFR19GSUVMRF9HRVQoU0xQQ19NQVhfVU5TTElDRV9GUkVRX01BU0ssCj4+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkYXRhLT50YXNrX3N0YXRlX2RhdGEuZnJlcSkgKgo+Pj4g
+K8KgwqDCoMKgwqDCoMKgIEdUX0ZSRVFVRU5DWV9NVUxUSVBMSUVSLCBHRU45X0ZSRVFfU0NBTEVS
+KTsKPj4+ICt9Cj4+PiArCj4+PiArLyoKPj4+ICsgKiBpbnRlbF9ndWNfc2xwY19lbmFibGUoKSAt
+IFN0YXJ0IFNMUEMKPj4+ICsgKiBAc2xwYzogcG9pbnRlciB0byBpbnRlbF9ndWNfc2xwYy4KPj4+
+ICsgKgo+Pj4gKyAqIFNMUEMgaXMgZW5hYmxlZCBieSBzZXR0aW5nIHVwIHRoZSBzaGFyZWQgZGF0
+YSBzdHJ1Y3R1cmUgYW5kCj4+PiArICogc2VuZGluZyByZXNldCBldmVudCB0byBHdUMgU0xQQy4g
+SW5pdGlhbCBkYXRhIGlzIHNldHVwIGluCj4+PiArICogaW50ZWxfZ3VjX3NscGNfaW5pdC4gSGVy
+ZSB3ZSBzZW5kIHRoZSByZXNldCBldmVudC4gV2UgZG8KPj4+ICsgKiBub3QgY3VycmVudGx5IG5l
+ZWQgYSBzbHBjX2Rpc2FibGUgc2luY2UgdGhpcyBpcyB0YWtlbiBjYXJlCj4+PiArICogb2YgYXV0
+b21hdGljYWxseSB3aGVuIGEgcmVzZXQvc3VzcGVuZCBvY2N1cnMgYW5kIHRoZSBHdUMKPj4+ICsg
+KiBDVEIgaXMgZGVzdHJveWVkLgo+Pj4gKyAqCj4+PiArICogUmV0dXJuOiAwIG9uIHN1Y2Nlc3Ms
+IG5vbi16ZXJvIGVycm9yIGNvZGUgb24gZmFpbHVyZS4KPj4+ICsgKi8KPj4+ICtpbnQgaW50ZWxf
+Z3VjX3NscGNfZW5hYmxlKHN0cnVjdCBpbnRlbF9ndWNfc2xwYyAqc2xwYykKPj4+ICt7Cj4+PiAr
+wqDCoMKgIHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1ID0gc2xwY190b19pOTE1KHNscGMp
+Owo+Pj4gK8KgwqDCoCBzdHJ1Y3Qgc2xwY19zaGFyZWRfZGF0YSAqZGF0YTsKPj4+ICvCoMKgwqAg
+aW50IHJldDsKPj4+ICsKPj4+ICvCoMKgwqAgR0VNX0JVR19PTighc2xwYy0+dm1hKTsKPj4+ICsK
+Pj4+ICvCoMKgwqAgbWVtc2V0KHNscGMtPnZhZGRyLCAwLCBzaXplb2Yoc3RydWN0IHNscGNfc2hh
+cmVkX2RhdGEpKTsKPj4+ICsKPj4+ICvCoMKgwqAgZGF0YSA9IHNscGMtPnZhZGRyOwo+Pgo+PiB2
+YWRkciBpcyAic3RydWN0IHNscGNfc2hhcmVkX2RhdGEgKiIKPj4gZG8geW91IHJlYWxseSBuZWVk
+ICJkYXRhIiBsb2NhbCB2YXI/Cj4+Cj4+PiArwqDCoMKgIGRhdGEtPmhlYWRlci5zaXplID0gc2l6
+ZW9mKHN0cnVjdCBzbHBjX3NoYXJlZF9kYXRhKTsKPj4+ICsKPj4+ICvCoMKgwqAgLyogRW5hYmxl
+IG9ubHkgR1RQRVJGIHRhc2ssIGRpc2FibGUgb3RoZXJzICovCj4+PiArwqDCoMKgIHNscGNfbWVt
+X3NldF9lbmFibGVkKGRhdGEsIFNMUENfUEFSQU1fVEFTS19FTkFCTEVfR1RQRVJGLAo+Pj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBTTFBDX1BBUkFNX1RBU0tfRElTQUJMRV9HVFBF
+UkYpOwo+Pj4gKwo+Pj4gK8KgwqDCoCBzbHBjX21lbV9zZXRfZGlzYWJsZWQoZGF0YSwgU0xQQ19Q
+QVJBTV9UQVNLX0VOQUJMRV9CQUxBTkNFUiwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgU0xQQ19QQVJBTV9UQVNLX0RJU0FCTEVfQkFMQU5DRVIpOwo+Pj4gKwo+Pj4gK8KgwqDC
+oCBzbHBjX21lbV9zZXRfZGlzYWJsZWQoZGF0YSwgU0xQQ19QQVJBTV9UQVNLX0VOQUJMRV9EQ0Ms
+Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFNMUENfUEFSQU1fVEFTS19ESVNB
+QkxFX0RDQyk7Cj4+Cj4+IGJ0dywgYWxsIHRoaXMgImRhdGEiIHJlbGF0ZWQgY2FsbHMgYXJlIGdv
+b2QgY2FuZGlkYXRlIGZvciBoZWxwZXIgbGlrZQo+Pgo+PiBzdGF0aWMgdm9pZCBzbHBjX3NoYXJl
+ZF9kYXRhX3Jlc2V0KHN0cnVjdCBzbHBjX3NoYXJlZF9kYXRhICpkYXRhKQo+PiB7IC4uLiB9Cj4g
+Cj4gb2suCj4gCj4+Cj4+PiArCj4+PiArwqDCoMKgIHJldCA9IHNscGNfcmVzZXQoc2xwYyk7Cj4+
+PiArwqDCoMKgIGlmICh1bmxpa2VseShyZXQgPCAwKSkgewo+Pj4gK8KgwqDCoMKgwqDCoMKgIGRy
+bV9lcnIoJmk5MTUtPmRybSwgIlNMUEMgUmVzZXQgZXZlbnQgcmV0dXJuZWQgKCVwZSlcbiIsCj4+
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEVSUl9QVFIocmV0KSk7Cj4+PiArwqDC
+oMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPj4+ICvCoMKgwqAgfQo+Pj4gKwo+Pj4gK8KgwqDCoCBk
+cm1faW5mbygmaTkxNS0+ZHJtLCAiR3VDIFNMUEM6IGVuYWJsZWRcbiIpOwo+Pj4gKwo+Pj4gK8Kg
+wqDCoCBzbHBjX3F1ZXJ5X3Rhc2tfc3RhdGUoc2xwYyk7Cj4+Cj4+IGFzIHRoaXMgc3RpbGwgbWF5
+IGZhaWwsIG1heWJlIGl0IHNob3VsZCBiZSBiZWZvcmUgd2UgY2xhaW0gc3VjY2VzcyBhbmQKPj4g
+IlNMUEM6IGVuYWJsZWQiID8KPiAKPiBvay4gQWRkZWQgZXJyb3IgY2hlY2sgZm9yIHRoaXMgYXMg
+d2VsbC4KPiAKPj4KPj4+ICsKPj4+ICvCoMKgwqAgLyogbWluIGFuZCBtYXggZnJlcXVlbmN5IGxp
+bWl0cyBiZWluZyB1c2VkIGJ5IFNMUEMgKi8KPj4+ICvCoMKgwqAgZHJtX2luZm8oJmk5MTUtPmRy
+bSwgIlNMUEMgbWluIGZyZXE6ICV1IE1oeiwgbWF4IGlzICV1IE1oelxuIiwKPj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHNscGNfZGVjb2RlX21pbl9mcmVxKHNscGMpLAo+Pj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgc2xwY19kZWNvZGVfbWF4X2ZyZXEoc2xwYykpOwo+Pj4gKwo+Pj4gKwo+
+Pj4gK8KgwqDCoCByZXR1cm4gMDsKPj4+ICt9Cj4+PiArCj4+PiDCoCB2b2lkIGludGVsX2d1Y19z
+bHBjX2Zpbmkoc3RydWN0IGludGVsX2d1Y19zbHBjICpzbHBjKQo+Pj4gwqAgewo+Pj4gwqDCoMKg
+wqDCoCBpZiAoIXNscGMtPnZtYSkKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9ndC91Yy9pbnRlbF9ndWNfc2xwY190eXBlcy5oCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2d0L3VjL2ludGVsX2d1Y19zbHBjX3R5cGVzLmgKPj4+IGluZGV4IGVkY2Y0YzA1YmQ5Zi4uZjE0
+ZjgxODIxYTUxIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvaW50
+ZWxfZ3VjX3NscGNfdHlwZXMuaAo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMv
+aW50ZWxfZ3VjX3NscGNfdHlwZXMuaAo+Pj4gQEAgLTYsNiArNiw4IEBACj4+PiDCoCAjaWZuZGVm
+IF9JTlRFTF9HVUNfU0xQQ19UWVBFU19IXwo+Pj4gwqAgI2RlZmluZSBfSU5URUxfR1VDX1NMUENf
+VFlQRVNfSF8KPj4+IMKgICsjZGVmaW5lIFNMUENfUkVTRVRfVElNRU9VVF9NUyA1Cj4+PiArCj4+
+PiDCoCBzdHJ1Y3QgaW50ZWxfZ3VjX3NscGMgewo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgaTkxNV92
+bWEgKnZtYTsKPj4+IMKgwqDCoMKgwqAgc3RydWN0IHNscGNfc2hhcmVkX2RhdGEgKnZhZGRyOwo+
+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3VjL2ludGVsX3VjLmMKPj4+
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvdWMvaW50ZWxfdWMuYwo+Pj4gaW5kZXggZTZiZDk0
+MDZjN2IyLi5iOThjMTRmOGMyMjkgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9ndC91Yy9pbnRlbF91Yy5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9p
+bnRlbF91Yy5jCj4+PiBAQCAtNTA2LDYgKzUwNiwxMiBAQCBzdGF0aWMgaW50IF9fdWNfaW5pdF9o
+dyhzdHJ1Y3QgaW50ZWxfdWMgKnVjKQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgInN1Ym1pc3Np
+b24iLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgZW5hYmxlZGRpc2FibGVkKGludGVsX3VjX3Vz
+ZXNfZ3VjX3N1Ym1pc3Npb24odWMpKSk7Cj4+PiDCoCArwqDCoMKgIGlmIChpbnRlbF91Y191c2Vz
+X2d1Y19zbHBjKHVjKSkgewo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldCA9IGludGVsX2d1Y19zbHBj
+X2VuYWJsZSgmZ3VjLT5zbHBjKTsKPj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAocmV0KQo+Pj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBlcnJfc3VibWlzc2lvbjsKPj4KPj4gaG1tLCBhcyB0
+aGlzIG1heSBmYWlsLCBhYm92ZSBzdWNjZXNzIG1lc3NhZ2UKPj4gwqDCoMKgwqAiR3VDIHN1Ym1p
+c3Npb24gZW5hYmxlZCIKPj4gd2lsbCBiZSB2b2lkCj4+Cj4+IHdoYXQgeW91IGxpa2VseSBuZWVk
+IGlzIHRvIHNwbGl0ICJzbHBjX2VuYWJsZSIgd2l0aCBlcnJvciBtZXNzYWdlcyBvbmx5Cj4+IHRo
+YXQgaXMgY2FsbGVkIGJlZm9yZSB3ZSBzdGFydCByZXBvcnRpbmcgc3VjY2Vzc2VzLCBhbmQgdGhl
+bgo+PiAic2xwY19zdGF0dXMiIHBhcnQgd2l0aCBhbGwgZHJtX2luZm8oKSB0aGF0IGNvdWxkIGJl
+IHBsYWNlZCBoZXJlLgo+IAo+IFdoeT8gSXQgaXMgdG90YWxseSBwb3NzaWJsZSB0aGF0IEd1QyBz
+dWJtaXNzaW9uIHdvcmtzIGp1c3QgZmluZSwgYnV0Cj4gU0xQQyBlbmFibGUgZmFpbHMuIEluIHRo
+aXMgY2FzZSwgZXZlbiB0aG91Z2ggd2UgcHJpbnRlZCAic3VibWlzc2lvbgo+IGVuYWJsZWQiLCB3
+ZSBjYW4gc3RpbGwgZmFpbCBsYXRlciB3aXRoIHNscGMgZXJyb3JzLgoKaG1tLCBpbiB0aGUgY29k
+ZSBhYm92ZSB0aGVyZSBpcyAiZ290byBlcnJfc3VibWlzc2lvbiIgaWYgU0xQQyBlbmFibGluZwpm
+YWlscywgYW5kIHRoYXQgd2lsbCBnbyB0byB0aGUgIldlJ3ZlIGZhaWxlZCB0byBsb2FkIHRoZSBm
+aXJtd2FyZSIKc2VjdGlvbiBiZWxvdyB0aGF0IGRpc2FibGVzIEd1QyBzdWJtaXNzaW9uIC4uLiBu
+byA/CgpNaWNoYWwKCj4gCj4gVGhhbmtzLAo+IFZpbmF5Lgo+Pgo+PiBNaWNoYWwKPj4KPj4+ICvC
+oMKgwqAgfQo+Pj4gKwo+Pj4gwqDCoMKgwqDCoCBpZiAoaW50ZWxfdWNfdXNlc19odWModWMpKSB7
+Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZHJtX2luZm8oJmk5MTUtPmRybSwgIiVzIGZpcm13YXJl
+ICVzIHZlcnNpb24gJXUuJXUgJXM6JXNcbiIsCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGludGVsX3VjX2Z3X3R5cGVfcmVwcihJTlRFTF9VQ19GV19UWVBFX0hVQyksCj4+PiBAQCAt
+NTIwLDYgKzUyNiw4IEBAIHN0YXRpYyBpbnQgX191Y19pbml0X2h3KHN0cnVjdCBpbnRlbF91YyAq
+dWMpCj4+PiDCoMKgwqDCoMKgIC8qCj4+PiDCoMKgwqDCoMKgwqAgKiBXZSd2ZSBmYWlsZWQgdG8g
+bG9hZCB0aGUgZmlybXdhcmUgOigKPj4+IMKgwqDCoMKgwqDCoCAqLwo+Pj4gK2Vycl9zdWJtaXNz
+aW9uOgo+Pj4gK8KgwqDCoCBpbnRlbF9ndWNfc3VibWlzc2lvbl9kaXNhYmxlKGd1Yyk7Cj4+PiDC
+oCBlcnJfbG9nX2NhcHR1cmU6Cj4+PiDCoMKgwqDCoMKgIF9fdWNfY2FwdHVyZV9sb2FkX2Vycl9s
+b2codWMpOwo+Pj4gwqAgZXJyX291dDoKPj4+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2ludGVsLWdmeAo=
