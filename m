@@ -2,72 +2,46 @@ Return-Path: <SRS0=MV7T=MT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4720C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 14:55:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14D27C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 15:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9703261B04
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 14:55:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9703261B04
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id CC9A661B03
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 15:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CC9A661B03
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AF7E6E81D;
-	Tue, 27 Jul 2021 14:55:09 +0000 (UTC)
-X-Greylist: delayed 1054 seconds by postgrey-1.36 at gabe;
- Tue, 27 Jul 2021 14:55:07 UTC
-Received: from desiato.infradead.org (desiato.infradead.org
- [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E527B6E5A4;
- Tue, 27 Jul 2021 14:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:To:From:Date:Sender:Reply-To:Cc:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=7JGTPyc+EQAmJMLeawxbIpd5nxKaSoB1NrO5dhBDcSg=; b=Z1QWHyfBAudsewtVZ8tqnA9Zbe
- j7krK+aZ2Zsve4mh2dBwCSB44HSDKQ0euh1GAIQ6kNWAtVaIoKZQd8wNgQ7TCvuBFV5rJNtSG0e4t
- m5+mGVrmjRQ9ES/wMXEbwAmky2+Qyb9Xs6s6D6wO4GkeA40a3GFrw2wPM9hbVcTk93YrWsDKBKeRG
- 3+/Sq1R6enZLH+TZn6chT/YHadroZd3KO2N0yelV5eB27FwFx9da4HDEzPx+6zweL+6d9bihFwgwB
- +ZJEuEuEW5kcfrqL/etrGmj5yfV6mIsX7jIOea2y6EXyXYnWmzBzqewuLAzypZFKOD6Hv8jbsm4qM
- 2lzBbYVg==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1m8OCz-003Sbi-7Y; Tue, 27 Jul 2021 14:37:25 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 5D8F130005A;
- Tue, 27 Jul 2021 16:37:22 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 4CE37213986E1; Tue, 27 Jul 2021 16:37:22 +0200 (CEST)
-Date: Tue, 27 Jul 2021 16:37:22 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
- linux-graphics-maintainer@vmware.com, zackr@vmware.com,
- airlied@linux.ie, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- skhan@linuxfoundation.org, gregkh@linuxfoundation.org,
- linux-kernel-mentees@lists.linuxfoundation.org
-Message-ID: <YQAaIrNUXa6i2gxD@hirez.programming.kicks-ass.net>
-References: <20210722092929.244629-1-desmondcheongzx@gmail.com>
- <20210722092929.244629-2-desmondcheongzx@gmail.com>
- <YPlKkvelm/mcnCj0@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56B086E212;
+	Tue, 27 Jul 2021 15:04:19 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B33C46E1BD;
+ Tue, 27 Jul 2021 15:04:18 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="192739976"
+X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="192739976"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2021 08:04:15 -0700
+X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="505919092"
+Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2021 08:04:15 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <igt-dev@lists.freedesktop.org>
+Date: Tue, 27 Jul 2021 08:21:57 -0700
+Message-Id: <20210727152202.9527-3-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20210727152202.9527-1-matthew.brost@intel.com>
+References: <20210727152202.9527-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YPlKkvelm/mcnCj0@phenom.ffwll.local>
-Subject: Re: [Intel-gfx] [PATCH 1/3] drm: use the lookup lock in
- drm_is_current_master
+Subject: [Intel-gfx] [PATCH i-g-t 2/7] include/drm-uapi: Add logical mapping
+ uAPI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,138 +54,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 22, 2021 at 12:38:10PM +0200, Daniel Vetter wrote:
-> On Thu, Jul 22, 2021 at 05:29:27PM +0800, Desmond Cheong Zhi Xi wrote:
-> > Inside drm_is_current_master, using the outer drm_device.master_mutex
-> > to protect reads of drm_file.master makes the function prone to creating
-> > lock hierarchy inversions. Instead, we can use the
-> > drm_file.master_lookup_lock that sits at the bottom of the lock
-> > hierarchy.
-> > 
-> > Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-> > ---
-> >  drivers/gpu/drm/drm_auth.c | 9 +++++----
-> >  1 file changed, 5 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-> > index f00354bec3fb..9c24b8cc8e36 100644
-> > --- a/drivers/gpu/drm/drm_auth.c
-> > +++ b/drivers/gpu/drm/drm_auth.c
-> > @@ -63,8 +63,9 @@
-> >  
-> >  static bool drm_is_current_master_locked(struct drm_file *fpriv)
-> >  {
-> > -	lockdep_assert_held_once(&fpriv->minor->dev->master_mutex);
-> > -
-> > +	/* Either drm_device.master_mutex or drm_file.master_lookup_lock
-> > +	 * should be held here.
-> > +	 */
-> 
-> Disappointing that lockdep can't check or conditions for us, a
-> lockdep_assert_held_either would be really neat in some cases.
-> 
-> Adding lockdep folks, maybe they have ideas.
+v2:
+ (CI)
+  - Fix off by 1 error in size of reserved fields
 
-#ifdef CONFIG_LOCKDEP
-	WARN_ON_ONCE(debug_locks && !(lockdep_is_held(&drm_device.master_mutex) ||
-				      lockdep_is_held(&drm_file.master_lookup_lock)));
-#endif
-
-doesn't exactly roll off the tongue, but should do as you want I
-suppose.
-
-Would something like:
-
-#define lockdep_assert(cond)	WARN_ON_ONCE(debug_locks && !(cond))
-
-Such that we can write:
-
-	lockdep_assert(lockdep_is_held(&drm_device.master_mutex) ||
-		       lockdep_is_held(&drm_file.master_lookup_lock));
-
-make it better ?
-
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
-Subject: locking/lockdep: Provide lockdep_assert{,_once}() helpers
+ include/drm-uapi/i915_drm.h | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Extract lockdep_assert{,_once}() helpers to more easily write composite
-assertions like, for example:
-
-	lockdep_assert(lockdep_is_held(&drm_device.master_mutex) ||
-		       lockdep_is_held(&drm_file.master_lookup_lock));
-
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
----
-diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
-index 5cf387813754..0da67341c1fb 100644
---- a/include/linux/lockdep.h
-+++ b/include/linux/lockdep.h
-@@ -306,31 +306,29 @@ extern void lock_unpin_lock(struct lockdep_map *lock, struct pin_cookie);
+diff --git a/include/drm-uapi/i915_drm.h b/include/drm-uapi/i915_drm.h
+index 3c1aac348..332c07e3d 100644
+--- a/include/drm-uapi/i915_drm.h
++++ b/include/drm-uapi/i915_drm.h
+@@ -2518,14 +2518,20 @@ struct drm_i915_engine_info {
  
- #define lockdep_depth(tsk)	(debug_locks ? (tsk)->lockdep_depth : 0)
+ 	/** @flags: Engine flags. */
+ 	__u64 flags;
++#define I915_ENGINE_INFO_HAS_LOGICAL_INSTANCE		(1 << 0)
  
--#define lockdep_assert_held(l)	do {					\
--		WARN_ON(debug_locks &&					\
--			lockdep_is_held(l) == LOCK_STATE_NOT_HELD);	\
--	} while (0)
-+#define lockdep_assert(cond)		\
-+	do { WARN_ON(debug_locks && !(cond)); } while (0)
+ 	/** @capabilities: Capabilities of this engine. */
+ 	__u64 capabilities;
+ #define I915_VIDEO_CLASS_CAPABILITY_HEVC		(1 << 0)
+ #define I915_VIDEO_AND_ENHANCE_CLASS_CAPABILITY_SFC	(1 << 1)
  
--#define lockdep_assert_not_held(l)	do {				\
--		WARN_ON(debug_locks &&					\
--			lockdep_is_held(l) == LOCK_STATE_HELD);		\
--	} while (0)
-+#define lockdep_assert_once(cond)	\
-+	do { WARN_ON_ONCE(debug_locks && !(cond)); } while (0)
- 
--#define lockdep_assert_held_write(l)	do {			\
--		WARN_ON(debug_locks && !lockdep_is_held_type(l, 0));	\
--	} while (0)
-+#define lockdep_assert_held(l)		\
-+	lockdep_assert(lockdep_is_held(l) != LOCK_STAT_NOT_HELD)
- 
--#define lockdep_assert_held_read(l)	do {				\
--		WARN_ON(debug_locks && !lockdep_is_held_type(l, 1));	\
--	} while (0)
-+#define lockdep_assert_not_held(l)	\
-+	lockdep_assert(lockdep_is_held(l) != LOCK_STATE_HELD)
- 
--#define lockdep_assert_held_once(l)	do {				\
--		WARN_ON_ONCE(debug_locks && !lockdep_is_held(l));	\
--	} while (0)
-+#define lockdep_assert_held_write(l)	\
-+	lockdep_assert(lockdep_is_held_type(l, 0))
- 
--#define lockdep_assert_none_held_once()	do {				\
--		WARN_ON_ONCE(debug_locks && current->lockdep_depth);	\
--	} while (0)
-+#define lockdep_assert_held_read(l)	\
-+	lockdep_assert(lockdep_is_held_type(l, 1))
++	/** @logical_instance: Logical instance of engine */
++	__u16 logical_instance;
 +
-+#define lockdep_assert_held_once(l)		\
-+	lockdep_assert_once(lockdep_is_held(l) != LOCK_STAT_NOT_HELD)
-+
-+#define lockdep_assert_none_held_once()		\
-+	lockdep_assert_once(!current->lockdep_depth)
+ 	/** @rsvd1: Reserved fields. */
+-	__u64 rsvd1[4];
++	__u16 rsvd1[3];
++	/** @rsvd2: Reserved fields. */
++	__u64 rsvd2[3];
+ };
  
- #define lockdep_recursing(tsk)	((tsk)->lockdep_recursion)
- 
-@@ -407,6 +405,9 @@ extern int lock_is_held(const void *);
- extern int lockdep_is_held(const void *);
- #define lockdep_is_held_type(l, r)		(1)
- 
-+#define lockdep_assert(c)			do { } while (0)
-+#define lockdep_assert_once(c)			do { } while (0)
-+
- #define lockdep_assert_held(l)			do { (void)(l); } while (0)
- #define lockdep_assert_not_held(l)		do { (void)(l); } while (0)
- #define lockdep_assert_held_write(l)		do { (void)(l); } while (0)
+ /**
+-- 
+2.28.0
 
 _______________________________________________
 Intel-gfx mailing list
