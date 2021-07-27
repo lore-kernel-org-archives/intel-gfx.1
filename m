@@ -7,39 +7,41 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36E82C4320A
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0D51C432BE
 	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0710A611C0
+	by mail.kernel.org (Postfix) with ESMTPS id 8DF26611C4
 	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0710A611C0
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8DF26611C4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 908A3733F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 178B2733BE;
 	Tue, 27 Jul 2021 07:19:49 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 874E76EB22
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 07:19:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191982327"
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191982327"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CCED6EB22
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 07:19:04 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191982342"
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191982342"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 00:19:01 -0700
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="505378835"
+ 27 Jul 2021 00:19:03 -0700
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="505378901"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 00:19:00 -0700
+ 27 Jul 2021 00:19:03 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 27 Jul 2021 00:18:18 -0700
-Message-Id: <20210727071845.841554-1-lucas.demarchi@intel.com>
+Date: Tue, 27 Jul 2021 00:18:32 -0700
+Message-Id: <20210727071845.841554-15-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210727071845.841554-1-lucas.demarchi@intel.com>
+References: <20210727071845.841554-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 01/28] drm/i915/display: remove PORT_F workaround
- for CNL
+Subject: [Intel-gfx] [CI 15/28] drm/i915/display: rename CNL references in
+ skl_scaler.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,57 +59,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Explicit support for CNL is being removed from the driver as it's not
-expected to work. Remove the workaround for PORT_F from
-display/intel_bios.c so we can also remove the generic DISPLAY_VER == 10
-calls to intel_ddi_init(): the only platform with that display version
-is already handled separately (GLK).
+With the removal of CNL, let's consider GLK as the first platform using
+those constants since GLK has DISPLAY_VER == 10.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c    | 6 +++---
- drivers/gpu/drm/i915/display/intel_display.c | 7 -------
- 2 files changed, 3 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/skl_scaler.c | 10 +++++-----
+ drivers/gpu/drm/i915/i915_reg.h           |  4 ++--
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index aa667fa71158..4172c8ee6aa6 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -1871,12 +1871,12 @@ intel_bios_encoder_supports_edp(const struct intel_bios_encoder_data *devdata)
- static bool is_port_valid(struct drm_i915_private *i915, enum port port)
- {
- 	/*
--	 * On some ICL/CNL SKUs port F is not present, but broken VBTs mark
-+	 * On some ICL SKUs port F is not present, but broken VBTs mark
- 	 * the port as present. Only try to initialize port F for the
- 	 * SKUs that may actually have it.
- 	 */
--	if (port == PORT_F && (IS_ICELAKE(i915) || IS_CANNONLAKE(i915)))
--		return IS_ICL_WITH_PORT_F(i915) || IS_CNL_WITH_PORT_F(i915);
-+	if (port == PORT_F && IS_ICELAKE(i915))
-+		return IS_ICL_WITH_PORT_F(i915);
+diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
+index 911a113ee006..ebdd3115de16 100644
+--- a/drivers/gpu/drm/i915/display/skl_scaler.c
++++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+@@ -341,12 +341,12 @@ static u16 cnl_nearest_filter_coef(int t)
+  *
+  */
  
- 	return true;
+-static void cnl_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
++static void glk_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
+ 					     enum pipe pipe, int id, int set)
+ {
+ 	int i;
+ 
+-	intel_de_write_fw(dev_priv, CNL_PS_COEF_INDEX_SET(pipe, id, set),
++	intel_de_write_fw(dev_priv, GLK_PS_COEF_INDEX_SET(pipe, id, set),
+ 			  PS_COEE_INDEX_AUTO_INC);
+ 
+ 	for (i = 0; i < 17 * 7; i += 2) {
+@@ -359,11 +359,11 @@ static void cnl_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
+ 		t = cnl_coef_tap(i + 1);
+ 		tmp |= cnl_nearest_filter_coef(t) << 16;
+ 
+-		intel_de_write_fw(dev_priv, CNL_PS_COEF_DATA_SET(pipe, id, set),
++		intel_de_write_fw(dev_priv, GLK_PS_COEF_DATA_SET(pipe, id, set),
+ 				  tmp);
+ 	}
+ 
+-	intel_de_write_fw(dev_priv, CNL_PS_COEF_INDEX_SET(pipe, id, set), 0);
++	intel_de_write_fw(dev_priv, GLK_PS_COEF_INDEX_SET(pipe, id, set), 0);
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index bb0aebcc3ecd..dab04a4d60f0 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -11413,13 +11413,6 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
- 		intel_ddi_init(dev_priv, PORT_B);
- 		intel_ddi_init(dev_priv, PORT_C);
- 		vlv_dsi_init(dev_priv);
--	} else if (DISPLAY_VER(dev_priv) == 10) {
--		intel_ddi_init(dev_priv, PORT_A);
--		intel_ddi_init(dev_priv, PORT_B);
--		intel_ddi_init(dev_priv, PORT_C);
--		intel_ddi_init(dev_priv, PORT_D);
--		intel_ddi_init(dev_priv, PORT_E);
--		intel_ddi_init(dev_priv, PORT_F);
- 	} else if (DISPLAY_VER(dev_priv) >= 9) {
- 		intel_ddi_init(dev_priv, PORT_A);
- 		intel_ddi_init(dev_priv, PORT_B);
+ 
+ static u32 skl_scaler_get_filter_select(enum drm_scaling_filter filter, int set)
+@@ -386,7 +386,7 @@ static void skl_scaler_setup_filter(struct drm_i915_private *dev_priv, enum pipe
+ 	case DRM_SCALING_FILTER_DEFAULT:
+ 		break;
+ 	case DRM_SCALING_FILTER_NEAREST_NEIGHBOR:
+-		cnl_program_nearest_filter_coefs(dev_priv, pipe, id, set);
++		glk_program_nearest_filter_coefs(dev_priv, pipe, id, set);
+ 		break;
+ 	default:
+ 		MISSING_CASE(filter);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index a7f21ae19733..9f62ecb72c2c 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7749,11 +7749,11 @@ enum {
+ #define SKL_PS_ECC_STAT(pipe, id)  _MMIO_PIPE(pipe,     \
+ 			_ID(id, _PS_ECC_STAT_1A, _PS_ECC_STAT_2A),   \
+ 			_ID(id, _PS_ECC_STAT_1B, _PS_ECC_STAT_2B))
+-#define CNL_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
++#define GLK_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
+ 			_ID(id, _PS_COEF_SET0_INDEX_1A, _PS_COEF_SET0_INDEX_2A) + (set) * 8, \
+ 			_ID(id, _PS_COEF_SET0_INDEX_1B, _PS_COEF_SET0_INDEX_2B) + (set) * 8)
+ 
+-#define CNL_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
++#define GLK_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
+ 			_ID(id, _PS_COEF_SET0_DATA_1A, _PS_COEF_SET0_DATA_2A) + (set) * 8, \
+ 			_ID(id, _PS_COEF_SET0_DATA_1B, _PS_COEF_SET0_DATA_2B) + (set) * 8)
+ /* legacy palette */
 -- 
 2.31.1
 
