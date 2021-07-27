@@ -2,66 +2,48 @@ Return-Path: <SRS0=MV7T=MT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2E67C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 11:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03B6FC432BE
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 11:15:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3AE0E6187C
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 11:09:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3AE0E6187C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id C0BAA61263
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 11:15:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C0BAA61263
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF3526E0F7;
-	Tue, 27 Jul 2021 11:09:39 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E08766E1F3
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 11:09:38 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- c2-20020a0568303482b029048bcf4c6bd9so11679908otu.8
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 04:09:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=toEhJU+DBnuXNuC/VzAQiuiOBPJGpanC4ZtXqo4rgcM=;
- b=T3ZjYLBEJHvCyFh3G3Q7kzzhyZl851+30p3BHtc/Psx9QocC5034u/BjICq3LIHL3c
- mqybI1qjeyayJqn1tSVomGiXQFzU+B6Fdz8n3wzIZ8Jajl3q62qJwt3fL7zZ3qT2a1Bb
- ZCXdBxFJ2XIQYAKyCax7sW7u7jmdQTRD5cSM0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=toEhJU+DBnuXNuC/VzAQiuiOBPJGpanC4ZtXqo4rgcM=;
- b=bPrbHdZCPIfWGeILkCj4f7K3JpcTj2Wk6P5KDc6TlCueyx6AerE2nd0fB9MmKcFodP
- npjgCHtoykgDyEDnD/VR8CAGXt25QlhBrruAR/6yQ588Tp0Yy9ikjZNxKyudKRR8a63f
- /h1KFvTfKEcm8sWsKKDayxSb5PRWpLRlVzPWLuK92tdT+W6YKmi8RsuejOTqBQvb3b7V
- g/iWG6EV+yOm90bzpfCm5X7++ZHAetXgZhK6yUINWY5INmTJvDcQM//SlwHKzz8QyROH
- 7PWJlwBIDTkoQGCJX3rAfAOoROp5giky4P5rUJAdZn5g41A+6mkekQtQ0DvOFepcD1KF
- ipNQ==
-X-Gm-Message-State: AOAM532jCZAnIDHiDzf1GTY4nOt54PjQ2AiVbTlJrEGDdlCeHvdrMBNZ
- m4tJgNIA21sbrSQ9RicmuH4rKpZTy+yNIL/c/bt2qg==
-X-Google-Smtp-Source: ABdhPJyzU0vZYJAw5c3L/snDmwAuOs0LRxiLHhz+I4RrtqhZBCHAzwTeLL7a9d605aObjgTmHAQnpPT65r1SZTDXlcQ=
-X-Received: by 2002:a05:6830:2802:: with SMTP id
- w2mr14709176otu.303.1627384177818; 
- Tue, 27 Jul 2021 04:09:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D3CB6E4CA;
+	Tue, 27 Jul 2021 11:15:04 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B60C26E450;
+ Tue, 27 Jul 2021 11:15:02 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F184A619E7;
+ Tue, 27 Jul 2021 11:15:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1627384502;
+ bh=SHNmjykDf+/IHH82HQeFn3YwhgbHyD3jCgQMSP69lOI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=FcemJGhQdYRVe3m7zefdJe3mE01yPbdu6/pSiqD+oMEaq5E1aNeu92z8xkuJt2mn4
+ BYrGadW6e+eWvW2kBIh0nV00K9vCimI23lU7GPwJoc86AlFhfdqrJrBawLDdXMUBY6
+ 8bPr9ULDjldPEZgZX+hz4YhIpl2+heI74hSgOQ2aGJ2JNrstig/1TVbN6027Hqc+Lg
+ rTCNC2q/mQ9zEjxjNXxe9c+7eUUt9sToLS5lxW8Xc1BNL+U5d0nAyAPmy7WhXkB9yw
+ Y7iVEA/EqL3qROZR3dzxFFFhZ6AgNjvub2Mp3ONnpaskP+RXXtzaT05rSWI+wnvu5J
+ nHoNaG+LYge9g==
+From: Mark Brown <broonie@kernel.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Date: Tue, 27 Jul 2021 12:14:47 +0100
+Message-Id: <20210727111448.1443-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <20210712175352.802687-1-daniel.vetter@ffwll.ch>
- <20210712175352.802687-4-daniel.vetter@ffwll.ch>
-In-Reply-To: <20210712175352.802687-4-daniel.vetter@ffwll.ch>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 27 Jul 2021 13:09:26 +0200
-Message-ID: <CAKMK7uG8bMuDP=7-z9nZ38WgMdbeUk96eNx3buTCiaKatYOJxw@mail.gmail.com>
-To: DRI Development <dri-devel@lists.freedesktop.org>,
- Melissa Wen <melissa.srw@gmail.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Intel-gfx] [PATCH v4 03/18] drm/sched: Add dependency tracking
+Subject: [Intel-gfx] linux-next: manual merge of the drm-misc tree with the
+ drm-next tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,55 +56,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Jack Zhang <Jack.Zhang1@amd.com>, David Airlie <airlied@linux.ie>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Luben Tuikov <luben.tuikov@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Steven Price <steven.price@arm.com>,
- Lee Jones <lee.jones@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nirmoy Das <nirmoy.aiemd@gmail.com>
+Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Zack Rusin <zackr@vmware.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Adding a few more people to this bikeshed.
+Hi all,
 
-On Mon, Jul 12, 2021 at 10:02 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+Today's linux-next merge of the drm-misc tree got a conflict in:
 
-> @@ -349,6 +367,13 @@ int drm_sched_job_init(struct drm_sched_job *job,
->                        struct drm_sched_entity *entity,
->                        void *owner);
->  void drm_sched_job_arm(struct drm_sched_job *job);
-> +int drm_sched_job_await_fence(struct drm_sched_job *job,
-> +                             struct dma_fence *fence);
-> +int drm_sched_job_await_implicit(struct drm_sched_job *job,
-> +                                struct drm_gem_object *obj,
-> +                                bool write);
-> +
-> +
+  drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
 
-I'm still waiting on the paint delivery for these two functions so I
-can finish this shed.
+between commit:
 
-Thanks, Daniel
+  ebc9ac7c3dfe ("drm/vmwgfx: Update device headers")
 
->  void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
->                                     struct drm_gpu_scheduler **sched_list,
->                                     unsigned int num_sched_list);
-> --
-> 2.32.0
->
+from the drm-next tree and commit:
 
+  be4f77ac6884 ("drm/vmwgfx: Cleanup fifo mmio handling")
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+from the drm-misc tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
+index 356f82c26f59,5652d982b1ce..000000000000
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
