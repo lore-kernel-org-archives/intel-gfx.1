@@ -2,46 +2,46 @@ Return-Path: <SRS0=MV7T=MT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	UPPERCASE_50_75,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F6D2C432BE
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1192FC4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5017761078
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5017761078
+	by mail.kernel.org (Postfix) with ESMTPS id D80CC61078
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D80CC61078
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 498FB72E49;
-	Tue, 27 Jul 2021 07:19:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02C86733AD;
+	Tue, 27 Jul 2021 07:19:35 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC2426EB22
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 07:19:05 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191982357"
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191982357"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EF606EB74
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 07:19:03 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191982325"
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191982325"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 00:19:05 -0700
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="505378957"
+ 27 Jul 2021 00:19:01 -0700
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="505378826"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 00:19:05 -0700
+ 27 Jul 2021 00:19:01 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 27 Jul 2021 00:18:43 -0700
-Message-Id: <20210727071845.841554-26-lucas.demarchi@intel.com>
+Date: Tue, 27 Jul 2021 00:18:19 -0700
+Message-Id: <20210727071845.841554-2-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210727071845.841554-1-lucas.demarchi@intel.com>
 References: <20210727071845.841554-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 26/28] drm/i915: rename/remove CNL registers
+Subject: [Intel-gfx] [CI 02/28] drm/i915/display: remove explicit CNL
+ handling from intel_cdclk.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,393 +59,229 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove registers that are not used anymore due to CNL removal and rename
-those that are.
+The only real platform with DISPLAY_VER == 10 is GLK, so we don't need
+any checks and supporting code for CNL. Remove code and rename
+functions/macros accordingly.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h          | 192 ++++++-----------------
- drivers/gpu/drm/i915/intel_device_info.c |   2 +-
- 2 files changed, 48 insertions(+), 146 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 72 +++++-----------------
+ drivers/gpu/drm/i915/i915_reg.h            |  4 +-
+ 2 files changed, 18 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index e2a373784d5b..c320d0a5dd81 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1885,7 +1885,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define BXT_PORT_CL1CM_DW30(phy)	_BXT_PHY((phy), _PORT_CL1CM_DW30_BC)
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index ff35c29508d5..34fa4130d5c4 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1195,17 +1195,6 @@ static const struct intel_cdclk_vals glk_cdclk_table[] = {
+ 	{}
+ };
  
- /*
-- * CNL/ICL Port/COMBO-PHY Registers
-+ * ICL Port/COMBO-PHY Registers
-  */
- #define _ICL_COMBOPHY_A			0x162000
- #define _ICL_COMBOPHY_B			0x6C000
-@@ -1899,11 +1899,10 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- 					      _RKL_COMBOPHY_D, \
- 					      _ADL_COMBOPHY_E)
- 
--/* CNL/ICL Port CL_DW registers */
-+/* ICL Port CL_DW registers */
- #define _ICL_PORT_CL_DW(dw, phy)	(_ICL_COMBOPHY(phy) + \
- 					 4 * (dw))
- 
--#define CNL_PORT_CL1CM_DW5		_MMIO(0x162014)
- #define ICL_PORT_CL_DW5(phy)		_MMIO(_ICL_PORT_CL_DW(5, phy))
- #define   CL_POWER_DOWN_ENABLE		(1 << 4)
- #define   SUS_CLOCK_CONFIG		(3 << 0)
-@@ -1928,19 +1927,16 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define ICL_PORT_CL_DW12(phy)		_MMIO(_ICL_PORT_CL_DW(12, phy))
- #define   ICL_LANE_ENABLE_AUX		(1 << 0)
- 
--/* CNL/ICL Port COMP_DW registers */
-+/* ICL Port COMP_DW registers */
- #define _ICL_PORT_COMP			0x100
- #define _ICL_PORT_COMP_DW(dw, phy)	(_ICL_COMBOPHY(phy) + \
- 					 _ICL_PORT_COMP + 4 * (dw))
- 
--#define CNL_PORT_COMP_DW0		_MMIO(0x162100)
- #define ICL_PORT_COMP_DW0(phy)		_MMIO(_ICL_PORT_COMP_DW(0, phy))
- #define   COMP_INIT			(1 << 31)
- 
--#define CNL_PORT_COMP_DW1		_MMIO(0x162104)
- #define ICL_PORT_COMP_DW1(phy)		_MMIO(_ICL_PORT_COMP_DW(1, phy))
- 
--#define CNL_PORT_COMP_DW3		_MMIO(0x16210c)
- #define ICL_PORT_COMP_DW3(phy)		_MMIO(_ICL_PORT_COMP_DW(3, phy))
- #define   PROCESS_INFO_DOT_0		(0 << 26)
- #define   PROCESS_INFO_DOT_1		(1 << 26)
-@@ -1956,38 +1952,11 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define ICL_PORT_COMP_DW8(phy)		_MMIO(_ICL_PORT_COMP_DW(8, phy))
- #define   IREFGEN			(1 << 24)
- 
--#define CNL_PORT_COMP_DW9		_MMIO(0x162124)
- #define ICL_PORT_COMP_DW9(phy)		_MMIO(_ICL_PORT_COMP_DW(9, phy))
- 
--#define CNL_PORT_COMP_DW10		_MMIO(0x162128)
- #define ICL_PORT_COMP_DW10(phy)		_MMIO(_ICL_PORT_COMP_DW(10, phy))
- 
--/* CNL/ICL Port PCS registers */
--#define _CNL_PORT_PCS_DW1_GRP_AE	0x162304
--#define _CNL_PORT_PCS_DW1_GRP_B		0x162384
--#define _CNL_PORT_PCS_DW1_GRP_C		0x162B04
--#define _CNL_PORT_PCS_DW1_GRP_D		0x162B84
--#define _CNL_PORT_PCS_DW1_GRP_F		0x162A04
--#define _CNL_PORT_PCS_DW1_LN0_AE	0x162404
--#define _CNL_PORT_PCS_DW1_LN0_B		0x162604
--#define _CNL_PORT_PCS_DW1_LN0_C		0x162C04
--#define _CNL_PORT_PCS_DW1_LN0_D		0x162E04
--#define _CNL_PORT_PCS_DW1_LN0_F		0x162804
--#define CNL_PORT_PCS_DW1_GRP(phy)	_MMIO(_PICK(phy, \
--						    _CNL_PORT_PCS_DW1_GRP_AE, \
--						    _CNL_PORT_PCS_DW1_GRP_B, \
--						    _CNL_PORT_PCS_DW1_GRP_C, \
--						    _CNL_PORT_PCS_DW1_GRP_D, \
--						    _CNL_PORT_PCS_DW1_GRP_AE, \
--						    _CNL_PORT_PCS_DW1_GRP_F))
--#define CNL_PORT_PCS_DW1_LN0(phy)	_MMIO(_PICK(phy, \
--						    _CNL_PORT_PCS_DW1_LN0_AE, \
--						    _CNL_PORT_PCS_DW1_LN0_B, \
--						    _CNL_PORT_PCS_DW1_LN0_C, \
--						    _CNL_PORT_PCS_DW1_LN0_D, \
--						    _CNL_PORT_PCS_DW1_LN0_AE, \
--						    _CNL_PORT_PCS_DW1_LN0_F))
+-static const struct intel_cdclk_vals cnl_cdclk_table[] = {
+-	{ .refclk = 19200, .cdclk = 168000, .divider = 4, .ratio = 35 },
+-	{ .refclk = 19200, .cdclk = 336000, .divider = 2, .ratio = 35 },
+-	{ .refclk = 19200, .cdclk = 528000, .divider = 2, .ratio = 55 },
 -
-+/* ICL Port PCS registers */
- #define _ICL_PORT_PCS_AUX		0x300
- #define _ICL_PORT_PCS_GRP		0x600
- #define _ICL_PORT_PCS_LN(ln)		(0x800 + (ln) * 0x100)
-@@ -2006,34 +1975,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define   LATENCY_OPTIM_MASK		(0x3 << 2)
- #define   LATENCY_OPTIM_VAL(x)		((x) << 2)
- 
--/* CNL/ICL Port TX registers */
--#define _CNL_PORT_TX_AE_GRP_OFFSET		0x162340
--#define _CNL_PORT_TX_B_GRP_OFFSET		0x1623C0
--#define _CNL_PORT_TX_C_GRP_OFFSET		0x162B40
--#define _CNL_PORT_TX_D_GRP_OFFSET		0x162BC0
--#define _CNL_PORT_TX_F_GRP_OFFSET		0x162A40
--#define _CNL_PORT_TX_AE_LN0_OFFSET		0x162440
--#define _CNL_PORT_TX_B_LN0_OFFSET		0x162640
--#define _CNL_PORT_TX_C_LN0_OFFSET		0x162C40
--#define _CNL_PORT_TX_D_LN0_OFFSET		0x162E40
--#define _CNL_PORT_TX_F_LN0_OFFSET		0x162840
--#define _CNL_PORT_TX_DW_GRP(dw, port)	(_PICK((port), \
--					       _CNL_PORT_TX_AE_GRP_OFFSET, \
--					       _CNL_PORT_TX_B_GRP_OFFSET, \
--					       _CNL_PORT_TX_B_GRP_OFFSET, \
--					       _CNL_PORT_TX_D_GRP_OFFSET, \
--					       _CNL_PORT_TX_AE_GRP_OFFSET, \
--					       _CNL_PORT_TX_F_GRP_OFFSET) + \
--					       4 * (dw))
--#define _CNL_PORT_TX_DW_LN0(dw, port)	(_PICK((port), \
--					       _CNL_PORT_TX_AE_LN0_OFFSET, \
--					       _CNL_PORT_TX_B_LN0_OFFSET, \
--					       _CNL_PORT_TX_B_LN0_OFFSET, \
--					       _CNL_PORT_TX_D_LN0_OFFSET, \
--					       _CNL_PORT_TX_AE_LN0_OFFSET, \
--					       _CNL_PORT_TX_F_LN0_OFFSET) + \
--					       4 * (dw))
+-	{ .refclk = 24000, .cdclk = 168000, .divider = 4, .ratio = 28 },
+-	{ .refclk = 24000, .cdclk = 336000, .divider = 2, .ratio = 28 },
+-	{ .refclk = 24000, .cdclk = 528000, .divider = 2, .ratio = 44 },
+-	{}
+-};
 -
-+/* ICL Port TX registers */
- #define _ICL_PORT_TX_AUX		0x380
- #define _ICL_PORT_TX_GRP		0x680
- #define _ICL_PORT_TX_LN(ln)		(0x880 + (ln) * 0x100)
-@@ -2045,8 +1987,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define _ICL_PORT_TX_DW_LN(dw, ln, phy) (_ICL_COMBOPHY(phy) + \
- 					  _ICL_PORT_TX_LN(ln) + 4 * (dw))
+ static const struct intel_cdclk_vals icl_cdclk_table[] = {
+ 	{ .refclk = 19200, .cdclk = 172800, .divider = 2, .ratio = 18 },
+ 	{ .refclk = 19200, .cdclk = 192000, .divider = 2, .ratio = 20 },
+@@ -1339,16 +1328,6 @@ static u8 bxt_calc_voltage_level(int cdclk)
+ 	return DIV_ROUND_UP(cdclk, 25000);
+ }
  
--#define CNL_PORT_TX_DW2_GRP(port)	_MMIO(_CNL_PORT_TX_DW_GRP(2, port))
--#define CNL_PORT_TX_DW2_LN0(port)	_MMIO(_CNL_PORT_TX_DW_LN0(2, port))
- #define ICL_PORT_TX_DW2_AUX(phy)	_MMIO(_ICL_PORT_TX_DW_AUX(2, phy))
- #define ICL_PORT_TX_DW2_GRP(phy)	_MMIO(_ICL_PORT_TX_DW_GRP(2, phy))
- #define ICL_PORT_TX_DW2_LN0(phy)	_MMIO(_ICL_PORT_TX_DW_LN(2, 0, phy))
-@@ -2059,13 +1999,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define   RCOMP_SCALAR(x)		((x) << 0)
- #define   RCOMP_SCALAR_MASK		(0xFF << 0)
- 
--#define _CNL_PORT_TX_DW4_LN0_AE		0x162450
--#define _CNL_PORT_TX_DW4_LN1_AE		0x1624D0
--#define CNL_PORT_TX_DW4_GRP(port)	_MMIO(_CNL_PORT_TX_DW_GRP(4, (port)))
--#define CNL_PORT_TX_DW4_LN0(port)	_MMIO(_CNL_PORT_TX_DW_LN0(4, (port)))
--#define CNL_PORT_TX_DW4_LN(ln, port)   _MMIO(_CNL_PORT_TX_DW_LN0(4, (port)) + \
--					   ((ln) * (_CNL_PORT_TX_DW4_LN1_AE - \
--						    _CNL_PORT_TX_DW4_LN0_AE)))
- #define ICL_PORT_TX_DW4_AUX(phy)	_MMIO(_ICL_PORT_TX_DW_AUX(4, phy))
- #define ICL_PORT_TX_DW4_GRP(phy)	_MMIO(_ICL_PORT_TX_DW_GRP(4, phy))
- #define ICL_PORT_TX_DW4_LN0(phy)	_MMIO(_ICL_PORT_TX_DW_LN(4, 0, phy))
-@@ -2078,8 +2011,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define   CURSOR_COEFF(x)		((x) << 0)
- #define   CURSOR_COEFF_MASK		(0x3F << 0)
- 
--#define CNL_PORT_TX_DW5_GRP(port)	_MMIO(_CNL_PORT_TX_DW_GRP(5, port))
--#define CNL_PORT_TX_DW5_LN0(port)	_MMIO(_CNL_PORT_TX_DW_LN0(5, port))
- #define ICL_PORT_TX_DW5_AUX(phy)	_MMIO(_ICL_PORT_TX_DW_AUX(5, phy))
- #define ICL_PORT_TX_DW5_GRP(phy)	_MMIO(_ICL_PORT_TX_DW_GRP(5, phy))
- #define ICL_PORT_TX_DW5_LN0(phy)	_MMIO(_ICL_PORT_TX_DW_LN(5, 0, phy))
-@@ -2091,8 +2022,6 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define   RTERM_SELECT(x)		((x) << 3)
- #define   RTERM_SELECT_MASK		(0x7 << 3)
- 
--#define CNL_PORT_TX_DW7_GRP(port)	_MMIO(_CNL_PORT_TX_DW_GRP(7, (port)))
--#define CNL_PORT_TX_DW7_LN0(port)	_MMIO(_CNL_PORT_TX_DW_LN0(7, (port)))
- #define ICL_PORT_TX_DW7_AUX(phy)	_MMIO(_ICL_PORT_TX_DW_AUX(7, phy))
- #define ICL_PORT_TX_DW7_GRP(phy)	_MMIO(_ICL_PORT_TX_DW_GRP(7, phy))
- #define ICL_PORT_TX_DW7_LN0(phy)	_MMIO(_ICL_PORT_TX_DW_LN(7, 0, phy))
-@@ -8161,7 +8090,6 @@ enum {
- #define  KVM_CONFIG_CHANGE_NOTIFICATION_SELECT	(1 << 14)
- 
- #define CHICKEN_MISC_2		_MMIO(0x42084)
--#define  CNL_COMP_PWR_DOWN	(1 << 23)
- #define  KBL_ARB_FILL_SPARE_14	REG_BIT(14)
- #define  KBL_ARB_FILL_SPARE_13	REG_BIT(13)
- #define  GLK_CL2_PWR_DOWN	(1 << 12)
-@@ -8201,7 +8129,7 @@ enum {
- 					    [TRANSCODER_D] = _CHICKEN_TRANS_D))
- #define  HSW_FRAME_START_DELAY_MASK	REG_GENMASK(28, 27)
- #define  HSW_FRAME_START_DELAY(x)	REG_FIELD_PREP(HSW_FRAME_START_DELAY_MASK, x)
--#define  VSC_DATA_SEL_SOFTWARE_CONTROL	REG_BIT(25) /* GLK and CNL+ */
-+#define  VSC_DATA_SEL_SOFTWARE_CONTROL	REG_BIT(25) /* GLK */
- #define  FECSTALL_DIS_DPTSTREAM_DPTTG	REG_BIT(23)
- #define  DDI_TRAINING_OVERRIDE_ENABLE	REG_BIT(19)
- #define  DDI_TRAINING_OVERRIDE_VALUE	REG_BIT(18)
-@@ -8268,7 +8196,6 @@ enum {
- #define   SKL_SELECT_ALTERNATE_DC_EXIT	(1 << 30)
- #define   ICL_DELAY_PMRSP		(1 << 22)
- #define   MASK_WAKEMEM			(1 << 13)
--#define   CNL_DDI_CLOCK_REG_ACCESS_ON	(1 << 7)
- 
- #define GEN11_CHICKEN_DCPR_2			_MMIO(0x46434)
- #define   DCPR_MASK_MAXLATENCY_MEMUP_CLR	REG_BIT(27)
-@@ -8289,10 +8216,9 @@ enum {
- #define   SKL_DFSM_PIPE_B_DISABLE	(1 << 21)
- #define   SKL_DFSM_PIPE_C_DISABLE	(1 << 28)
- #define   TGL_DFSM_PIPE_D_DISABLE	(1 << 22)
--#define   CNL_DFSM_DISPLAY_DSC_DISABLE	(1 << 7)
-+#define   GLK_DFSM_DISPLAY_DSC_DISABLE	(1 << 7)
- 
- #define SKL_DSSM				_MMIO(0x51004)
--#define CNL_DSSM_CDCLK_PLL_REFCLK_24MHz		(1 << 31)
- #define ICL_DSSM_CDCLK_PLL_REFCLK_MASK		(7 << 29)
- #define ICL_DSSM_CDCLK_PLL_REFCLK_24MHz		(0 << 29)
- #define ICL_DSSM_CDCLK_PLL_REFCLK_19_2MHz	(1 << 29)
-@@ -8391,7 +8317,6 @@ enum {
- 
- /* GEN8 chicken */
- #define HDC_CHICKEN0				_MMIO(0x7300)
--#define CNL_HDC_CHICKEN0			_MMIO(0xE5F0)
- #define ICL_HDC_MODE				_MMIO(0xE5F4)
- #define  HDC_FORCE_CSR_NON_COHERENT_OVR_DISABLE	(1 << 15)
- #define  HDC_FENCE_DEST_SLM_DISABLE		(1 << 14)
-@@ -9567,7 +9492,6 @@ enum {
- #define   HSW_SAMPLE_C_PERFORMANCE	(1 << 9)
- #define   GEN8_CENTROID_PIXEL_OPT_DIS	(1 << 8)
- #define   GEN9_DISABLE_OCL_OOB_SUPPRESS_LOGIC	(1 << 5)
--#define   CNL_FAST_ANISO_L1_BANKING_FIX	(1 << 4)
- #define   GEN8_SAMPLER_POWER_BYPASS_DIS	(1 << 1)
- 
- #define GEN9_HALF_SLICE_CHICKEN7	_MMIO(0xe194)
-@@ -9748,15 +9672,12 @@ enum {
- /* HSW/BDW power well */
- #define   HSW_PW_CTL_IDX_GLOBAL			15
- 
--/* SKL/BXT/GLK/CNL power wells */
-+/* SKL/BXT/GLK power wells */
- #define   SKL_PW_CTL_IDX_PW_2			15
- #define   SKL_PW_CTL_IDX_PW_1			14
--#define   CNL_PW_CTL_IDX_AUX_F			12
--#define   CNL_PW_CTL_IDX_AUX_D			11
- #define   GLK_PW_CTL_IDX_AUX_C			10
- #define   GLK_PW_CTL_IDX_AUX_B			9
- #define   GLK_PW_CTL_IDX_AUX_A			8
--#define   CNL_PW_CTL_IDX_DDI_F			6
- #define   SKL_PW_CTL_IDX_DDI_D			4
- #define   SKL_PW_CTL_IDX_DDI_C			3
- #define   SKL_PW_CTL_IDX_DDI_B			2
-@@ -10154,11 +10075,11 @@ enum skl_power_gate {
- #define  TRANS_DDI_BPC_10		(1 << 20)
- #define  TRANS_DDI_BPC_6		(2 << 20)
- #define  TRANS_DDI_BPC_12		(3 << 20)
--#define  TRANS_DDI_PORT_SYNC_MASTER_SELECT_MASK	REG_GENMASK(19, 18) /* bdw-cnl */
-+#define  TRANS_DDI_PORT_SYNC_MASTER_SELECT_MASK	REG_GENMASK(19, 18)
- #define  TRANS_DDI_PORT_SYNC_MASTER_SELECT(x)	REG_FIELD_PREP(TRANS_DDI_PORT_SYNC_MASTER_SELECT_MASK, (x))
- #define  TRANS_DDI_PVSYNC		(1 << 17)
- #define  TRANS_DDI_PHSYNC		(1 << 16)
--#define  TRANS_DDI_PORT_SYNC_ENABLE	REG_BIT(15) /* bdw-cnl */
-+#define  TRANS_DDI_PORT_SYNC_ENABLE	REG_BIT(15)
- #define  TRANS_DDI_EDP_INPUT_MASK	(7 << 12)
- #define  TRANS_DDI_EDP_INPUT_A_ON	(0 << 12)
- #define  TRANS_DDI_EDP_INPUT_A_ONOFF	(4 << 12)
-@@ -10514,17 +10435,6 @@ enum skl_power_gate {
- #define DPLL_CFGCR1(id)	_MMIO_PIPE((id) - SKL_DPLL1, _DPLL1_CFGCR1, _DPLL2_CFGCR1)
- #define DPLL_CFGCR2(id)	_MMIO_PIPE((id) - SKL_DPLL1, _DPLL1_CFGCR2, _DPLL2_CFGCR2)
- 
--/*
-- * CNL Clocks
-- */
--#define DPCLKA_CFGCR0				_MMIO(0x6C200)
--#define  DPCLKA_CFGCR0_DDI_CLK_OFF(port)	(1 << ((port) ==  PORT_F ? 23 : \
--						      (port) + 10))
--#define  DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(port)	((port) == PORT_F ? 21 : \
--						(port) * 2)
--#define  DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(port)	(3 << DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(port))
--#define  DPCLKA_CFGCR0_DDI_CLK_SEL(pll, port)	((pll) << DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(port))
+-static u8 cnl_calc_voltage_level(int cdclk)
+-{
+-	if (cdclk > 336000)
+-		return 2;
+-	else if (cdclk > 168000)
+-		return 1;
+-	else
+-		return 0;
+-}
 -
- /* ICL Clocks */
- #define ICL_DPCLKA_CFGCR0			_MMIO(0x164280)
- #define  ICL_DPCLKA_CFGCR0_DDI_CLK_OFF(phy)	(1 << _PICK(phy, 10, 11, 24, 4, 5))
-@@ -10757,60 +10667,52 @@ enum skl_power_gate {
- 						   _MG_PLL_TDC_COLDST_BIAS_PORT1, \
- 						   _MG_PLL_TDC_COLDST_BIAS_PORT2)
+ static u8 icl_calc_voltage_level(int cdclk)
+ {
+ 	if (cdclk > 556800)
+@@ -1383,15 +1362,6 @@ static u8 tgl_calc_voltage_level(int cdclk)
+ 		return 0;
+ }
  
--#define _CNL_DPLL0_CFGCR0		0x6C000
--#define _CNL_DPLL1_CFGCR0		0x6C080
--#define  DPLL_CFGCR0_HDMI_MODE		(1 << 30)
--#define  DPLL_CFGCR0_SSC_ENABLE		(1 << 29)
--#define  DPLL_CFGCR0_SSC_ENABLE_ICL	(1 << 25)
--#define  DPLL_CFGCR0_LINK_RATE_MASK	(0xf << 25)
--#define  DPLL_CFGCR0_LINK_RATE_2700	(0 << 25)
--#define  DPLL_CFGCR0_LINK_RATE_1350	(1 << 25)
--#define  DPLL_CFGCR0_LINK_RATE_810	(2 << 25)
--#define  DPLL_CFGCR0_LINK_RATE_1620	(3 << 25)
--#define  DPLL_CFGCR0_LINK_RATE_1080	(4 << 25)
--#define  DPLL_CFGCR0_LINK_RATE_2160	(5 << 25)
--#define  DPLL_CFGCR0_LINK_RATE_3240	(6 << 25)
--#define  DPLL_CFGCR0_LINK_RATE_4050	(7 << 25)
--#define  DPLL_CFGCR0_DCO_FRACTION_MASK	(0x7fff << 10)
--#define  DPLL_CFGCR0_DCO_FRACTION_SHIFT	(10)
--#define  DPLL_CFGCR0_DCO_FRACTION(x)	((x) << 10)
--#define  DPLL_CFGCR0_DCO_INTEGER_MASK	(0x3ff)
--#define CNL_DPLL_CFGCR0(pll)		_MMIO_PLL(pll, _CNL_DPLL0_CFGCR0, _CNL_DPLL1_CFGCR0)
+-static void cnl_readout_refclk(struct drm_i915_private *dev_priv,
+-			       struct intel_cdclk_config *cdclk_config)
+-{
+-	if (intel_de_read(dev_priv, SKL_DSSM) & CNL_DSSM_CDCLK_PLL_REFCLK_24MHz)
+-		cdclk_config->ref = 24000;
+-	else
+-		cdclk_config->ref = 19200;
+-}
 -
--#define _CNL_DPLL0_CFGCR1		0x6C004
--#define _CNL_DPLL1_CFGCR1		0x6C084
--#define  DPLL_CFGCR1_QDIV_RATIO_MASK	(0xff << 10)
--#define  DPLL_CFGCR1_QDIV_RATIO_SHIFT	(10)
--#define  DPLL_CFGCR1_QDIV_RATIO(x)	((x) << 10)
--#define  DPLL_CFGCR1_QDIV_MODE_SHIFT	(9)
--#define  DPLL_CFGCR1_QDIV_MODE(x)	((x) << 9)
--#define  DPLL_CFGCR1_KDIV_MASK		(7 << 6)
--#define  DPLL_CFGCR1_KDIV_SHIFT		(6)
--#define  DPLL_CFGCR1_KDIV(x)		((x) << 6)
--#define  DPLL_CFGCR1_KDIV_1		(1 << 6)
--#define  DPLL_CFGCR1_KDIV_2		(2 << 6)
--#define  DPLL_CFGCR1_KDIV_3		(4 << 6)
--#define  DPLL_CFGCR1_PDIV_MASK		(0xf << 2)
--#define  DPLL_CFGCR1_PDIV_SHIFT		(2)
--#define  DPLL_CFGCR1_PDIV(x)		((x) << 2)
--#define  DPLL_CFGCR1_PDIV_2		(1 << 2)
--#define  DPLL_CFGCR1_PDIV_3		(2 << 2)
--#define  DPLL_CFGCR1_PDIV_5		(4 << 2)
--#define  DPLL_CFGCR1_PDIV_7		(8 << 2)
--#define  DPLL_CFGCR1_CENTRAL_FREQ	(3 << 0)
--#define  DPLL_CFGCR1_CENTRAL_FREQ_8400	(3 << 0)
--#define  TGL_DPLL_CFGCR1_CFSELOVRD_NORMAL_XTAL	(0 << 0)
--#define CNL_DPLL_CFGCR1(pll)		_MMIO_PLL(pll, _CNL_DPLL0_CFGCR1, _CNL_DPLL1_CFGCR1)
--
- #define _ICL_DPLL0_CFGCR0		0x164000
- #define _ICL_DPLL1_CFGCR0		0x164080
- #define ICL_DPLL_CFGCR0(pll)		_MMIO_PLL(pll, _ICL_DPLL0_CFGCR0, \
- 						  _ICL_DPLL1_CFGCR0)
-+#define   DPLL_CFGCR0_HDMI_MODE		(1 << 30)
-+#define   DPLL_CFGCR0_SSC_ENABLE	(1 << 29)
-+#define   DPLL_CFGCR0_SSC_ENABLE_ICL	(1 << 25)
-+#define   DPLL_CFGCR0_LINK_RATE_MASK	(0xf << 25)
-+#define   DPLL_CFGCR0_LINK_RATE_2700	(0 << 25)
-+#define   DPLL_CFGCR0_LINK_RATE_1350	(1 << 25)
-+#define   DPLL_CFGCR0_LINK_RATE_810	(2 << 25)
-+#define   DPLL_CFGCR0_LINK_RATE_1620	(3 << 25)
-+#define   DPLL_CFGCR0_LINK_RATE_1080	(4 << 25)
-+#define   DPLL_CFGCR0_LINK_RATE_2160	(5 << 25)
-+#define   DPLL_CFGCR0_LINK_RATE_3240	(6 << 25)
-+#define   DPLL_CFGCR0_LINK_RATE_4050	(7 << 25)
-+#define   DPLL_CFGCR0_DCO_FRACTION_MASK	(0x7fff << 10)
-+#define   DPLL_CFGCR0_DCO_FRACTION_SHIFT	(10)
-+#define   DPLL_CFGCR0_DCO_FRACTION(x)	((x) << 10)
-+#define   DPLL_CFGCR0_DCO_INTEGER_MASK	(0x3ff)
+ static void icl_readout_refclk(struct drm_i915_private *dev_priv,
+ 			       struct intel_cdclk_config *cdclk_config)
+ {
+@@ -1422,8 +1392,6 @@ static void bxt_de_pll_readout(struct drm_i915_private *dev_priv,
+ 		cdclk_config->ref = 38400;
+ 	else if (DISPLAY_VER(dev_priv) >= 11)
+ 		icl_readout_refclk(dev_priv, cdclk_config);
+-	else if (IS_CANNONLAKE(dev_priv))
+-		cnl_readout_refclk(dev_priv, cdclk_config);
+ 	else
+ 		cdclk_config->ref = 19200;
  
- #define _ICL_DPLL0_CFGCR1		0x164004
- #define _ICL_DPLL1_CFGCR1		0x164084
- #define ICL_DPLL_CFGCR1(pll)		_MMIO_PLL(pll, _ICL_DPLL0_CFGCR1, \
- 						  _ICL_DPLL1_CFGCR1)
-+#define   DPLL_CFGCR1_QDIV_RATIO_MASK	(0xff << 10)
-+#define   DPLL_CFGCR1_QDIV_RATIO_SHIFT	(10)
-+#define   DPLL_CFGCR1_QDIV_RATIO(x)	((x) << 10)
-+#define   DPLL_CFGCR1_QDIV_MODE_SHIFT	(9)
-+#define   DPLL_CFGCR1_QDIV_MODE(x)	((x) << 9)
-+#define   DPLL_CFGCR1_KDIV_MASK		(7 << 6)
-+#define   DPLL_CFGCR1_KDIV_SHIFT		(6)
-+#define   DPLL_CFGCR1_KDIV(x)		((x) << 6)
-+#define   DPLL_CFGCR1_KDIV_1		(1 << 6)
-+#define   DPLL_CFGCR1_KDIV_2		(2 << 6)
-+#define   DPLL_CFGCR1_KDIV_3		(4 << 6)
-+#define   DPLL_CFGCR1_PDIV_MASK		(0xf << 2)
-+#define   DPLL_CFGCR1_PDIV_SHIFT		(2)
-+#define   DPLL_CFGCR1_PDIV(x)		((x) << 2)
-+#define   DPLL_CFGCR1_PDIV_2		(1 << 2)
-+#define   DPLL_CFGCR1_PDIV_3		(2 << 2)
-+#define   DPLL_CFGCR1_PDIV_5		(4 << 2)
-+#define   DPLL_CFGCR1_PDIV_7		(8 << 2)
-+#define   DPLL_CFGCR1_CENTRAL_FREQ	(3 << 0)
-+#define   DPLL_CFGCR1_CENTRAL_FREQ_8400	(3 << 0)
-+#define   TGL_DPLL_CFGCR1_CFSELOVRD_NORMAL_XTAL	(0 << 0)
- 
- #define _TGL_DPLL0_CFGCR0		0x164284
- #define _TGL_DPLL1_CFGCR0		0x16428C
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 4319ae020c86..ffe3b5d89a63 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -365,7 +365,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
- 			info->display.has_dmc = 0;
- 
- 		if (DISPLAY_VER(dev_priv) >= 10 &&
--		    (dfsm & CNL_DFSM_DISPLAY_DSC_DISABLE))
-+		    (dfsm & GLK_DFSM_DISPLAY_DSC_DISABLE))
- 			info->display.has_dsc = 0;
+@@ -1439,11 +1407,11 @@ static void bxt_de_pll_readout(struct drm_i915_private *dev_priv,
  	}
  
+ 	/*
+-	 * CNL+ have the ratio directly in the PLL enable register, gen9lp had
+-	 * it in a separate PLL control register.
++	 * DISPLAY_VER >= 11 have the ratio directly in the PLL enable register,
++	 * gen9lp had it in a separate PLL control register.
+ 	 */
+-	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
+-		ratio = val & CNL_CDCLK_PLL_RATIO_MASK;
++	if (DISPLAY_VER(dev_priv) >= 11)
++		ratio = val & ICL_CDCLK_PLL_RATIO_MASK;
+ 	else
+ 		ratio = intel_de_read(dev_priv, BXT_DE_PLL_CTL) & BXT_DE_PLL_RATIO_MASK;
+ 
+@@ -1530,7 +1498,7 @@ static void bxt_de_pll_enable(struct drm_i915_private *dev_priv, int vco)
+ 	dev_priv->cdclk.hw.vco = vco;
+ }
+ 
+-static void cnl_cdclk_pll_disable(struct drm_i915_private *dev_priv)
++static void icl_cdclk_pll_disable(struct drm_i915_private *dev_priv)
+ {
+ 	intel_de_rmw(dev_priv, BXT_DE_PLL_ENABLE,
+ 		     BXT_DE_PLL_PLL_ENABLE, 0);
+@@ -1542,12 +1510,12 @@ static void cnl_cdclk_pll_disable(struct drm_i915_private *dev_priv)
+ 	dev_priv->cdclk.hw.vco = 0;
+ }
+ 
+-static void cnl_cdclk_pll_enable(struct drm_i915_private *dev_priv, int vco)
++static void icl_cdclk_pll_enable(struct drm_i915_private *dev_priv, int vco)
+ {
+ 	int ratio = DIV_ROUND_CLOSEST(vco, dev_priv->cdclk.hw.ref);
+ 	u32 val;
+ 
+-	val = CNL_CDCLK_PLL_RATIO(ratio);
++	val = ICL_CDCLK_PLL_RATIO(ratio);
+ 	intel_de_write(dev_priv, BXT_DE_PLL_ENABLE, val);
+ 
+ 	val |= BXT_DE_PLL_PLL_ENABLE;
+@@ -1566,7 +1534,7 @@ static void adlp_cdclk_pll_crawl(struct drm_i915_private *dev_priv, int vco)
+ 	u32 val;
+ 
+ 	/* Write PLL ratio without disabling */
+-	val = CNL_CDCLK_PLL_RATIO(ratio) | BXT_DE_PLL_PLL_ENABLE;
++	val = ICL_CDCLK_PLL_RATIO(ratio) | BXT_DE_PLL_PLL_ENABLE;
+ 	intel_de_write(dev_priv, BXT_DE_PLL_ENABLE, val);
+ 
+ 	/* Submit freq change request */
+@@ -1635,7 +1603,7 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 	int ret;
+ 
+ 	/* Inform power controller of upcoming frequency change. */
+-	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 11)
+ 		ret = skl_pcode_request(dev_priv, SKL_PCODE_CDCLK_CONTROL,
+ 					SKL_CDCLK_PREPARE_FOR_CHANGE,
+ 					SKL_CDCLK_READY_FOR_CHANGE,
+@@ -1659,13 +1627,13 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 	if (HAS_CDCLK_CRAWL(dev_priv) && dev_priv->cdclk.hw.vco > 0 && vco > 0) {
+ 		if (dev_priv->cdclk.hw.vco != vco)
+ 			adlp_cdclk_pll_crawl(dev_priv, vco);
+-	} else if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) {
++	} else if (DISPLAY_VER(dev_priv) >= 11) {
+ 		if (dev_priv->cdclk.hw.vco != 0 &&
+ 		    dev_priv->cdclk.hw.vco != vco)
+-			cnl_cdclk_pll_disable(dev_priv);
++			icl_cdclk_pll_disable(dev_priv);
+ 
+ 		if (dev_priv->cdclk.hw.vco != vco)
+-			cnl_cdclk_pll_enable(dev_priv, vco);
++			icl_cdclk_pll_enable(dev_priv, vco);
+ 	} else {
+ 		if (dev_priv->cdclk.hw.vco != 0 &&
+ 		    dev_priv->cdclk.hw.vco != vco)
+@@ -1691,7 +1659,7 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 	if (pipe != INVALID_PIPE)
+ 		intel_wait_for_vblank(dev_priv, pipe);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) {
++	if (DISPLAY_VER(dev_priv) >= 11) {
+ 		ret = sandybridge_pcode_write(dev_priv, SKL_PCODE_CDCLK_CONTROL,
+ 					      cdclk_config->voltage_level);
+ 	} else {
+@@ -1716,7 +1684,7 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 
+ 	intel_update_cdclk(dev_priv);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 11)
+ 		/*
+ 		 * Can't read out the voltage level :(
+ 		 * Let's just assume everything is as expected.
+@@ -2125,7 +2093,7 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	    crtc_state->port_clock >= 540000 &&
+ 	    crtc_state->lane_count == 4) {
+ 		if (DISPLAY_VER(dev_priv) == 10) {
+-			/* Display WA #1145: glk,cnl */
++			/* Display WA #1145: glk */
+ 			min_cdclk = max(316800, min_cdclk);
+ 		} else if (DISPLAY_VER(dev_priv) == 9 || IS_BROADWELL(dev_priv)) {
+ 			/* Display WA #1144: skl,bxt */
+@@ -2246,7 +2214,7 @@ static int intel_compute_min_cdclk(struct intel_cdclk_state *cdclk_state)
+ 
+ /*
+  * Account for port clock min voltage level requirements.
+- * This only really does something on CNL+ but can be
++ * This only really does something on DISPLA_VER >= 11 but can be
+  * called on earlier platforms as well.
+  *
+  * Note that this functions assumes that 0 is
+@@ -2660,8 +2628,6 @@ void intel_update_max_cdclk(struct drm_i915_private *dev_priv)
+ 			dev_priv->max_cdclk_freq = 648000;
+ 		else
+ 			dev_priv->max_cdclk_freq = 652800;
+-	} else if (IS_CANNONLAKE(dev_priv)) {
+-		dev_priv->max_cdclk_freq = 528000;
+ 	} else if (IS_GEMINILAKE(dev_priv)) {
+ 		dev_priv->max_cdclk_freq = 316800;
+ 	} else if (IS_BROXTON(dev_priv)) {
+@@ -2925,12 +2891,6 @@ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
+ 		dev_priv->display.modeset_calc_cdclk = bxt_modeset_calc_cdclk;
+ 		dev_priv->display.calc_voltage_level = icl_calc_voltage_level;
+ 		dev_priv->cdclk.table = icl_cdclk_table;
+-	} else if (IS_CANNONLAKE(dev_priv)) {
+-		dev_priv->display.bw_calc_min_cdclk = skl_bw_calc_min_cdclk;
+-		dev_priv->display.set_cdclk = bxt_set_cdclk;
+-		dev_priv->display.modeset_calc_cdclk = bxt_modeset_calc_cdclk;
+-		dev_priv->display.calc_voltage_level = cnl_calc_voltage_level;
+-		dev_priv->cdclk.table = cnl_cdclk_table;
+ 	} else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv)) {
+ 		dev_priv->display.bw_calc_min_cdclk = skl_bw_calc_min_cdclk;
+ 		dev_priv->display.set_cdclk = bxt_set_cdclk;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index f01821d70155..d63d460e5d11 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -11043,8 +11043,8 @@ enum skl_power_gate {
+ #define   BXT_DE_PLL_LOCK		(1 << 30)
+ #define   BXT_DE_PLL_FREQ_REQ		(1 << 23)
+ #define   BXT_DE_PLL_FREQ_REQ_ACK	(1 << 22)
+-#define   CNL_CDCLK_PLL_RATIO(x)	(x)
+-#define   CNL_CDCLK_PLL_RATIO_MASK	0xff
++#define   ICL_CDCLK_PLL_RATIO(x)	(x)
++#define   ICL_CDCLK_PLL_RATIO_MASK	0xff
+ 
+ /* GEN9 DC */
+ #define DC_STATE_EN			_MMIO(0x45504)
 -- 
 2.31.1
 
