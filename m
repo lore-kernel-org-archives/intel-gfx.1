@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B9F37C43214
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 00:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E747AC00144
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 00:06:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 82E3260F93
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 00:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 82E3260F93
+	by mail.kernel.org (Postfix) with ESMTPS id B56E060F93
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 00:06:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B56E060F93
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A4D3731C5;
-	Tue, 27 Jul 2021 00:06:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EFF0731E3;
+	Tue, 27 Jul 2021 00:06:16 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E0696FC38;
- Tue, 27 Jul 2021 00:05:59 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191932128"
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191932128"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9A9A73306;
+ Tue, 27 Jul 2021 00:06:03 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191932153"
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191932153"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 17:05:59 -0700
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="662339155"
+ 26 Jul 2021 17:06:03 -0700
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="662339222"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 17:05:59 -0700
+ 26 Jul 2021 17:06:03 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Mon, 26 Jul 2021 17:23:24 -0700
-Message-Id: <20210727002348.97202-10-matthew.brost@intel.com>
+Date: Mon, 26 Jul 2021 17:23:41 -0700
+Message-Id: <20210727002348.97202-27-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210727002348.97202-1-matthew.brost@intel.com>
 References: <20210727002348.97202-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/33] drm/i915: Reset GPU immediately if
- submission is disabled
+Subject: [Intel-gfx] [PATCH 26/33] drm/i915/selftest: Better error reporting
+ from hangcheck selftest
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,240 +60,352 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If submission is disabled by the backend for any reason, reset the GPU
-immediately in the heartbeat code as the backend can't be reenabled
-until the GPU is reset.
+From: John Harrison <John.C.Harrison@Intel.com>
 
+There are many ways in which the hangcheck selftest can fail. Very few
+of them actually printed an error message to say what happened. So,
+fill in the missing messages.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 62 +++++++++++++++----
- .../gpu/drm/i915/gt/intel_engine_heartbeat.h  |  4 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  9 +++
- drivers/gpu/drm/i915/i915_scheduler.c         |  6 ++
- drivers/gpu/drm/i915/i915_scheduler.h         |  6 ++
- drivers/gpu/drm/i915/i915_scheduler_types.h   |  5 ++
- 6 files changed, 79 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 93 ++++++++++++++++----
+ 1 file changed, 75 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index b6a305e6a974..0b16f19c384e 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -70,12 +70,30 @@ static void show_heartbeat(const struct i915_request *rq,
- {
- 	struct drm_printer p = drm_debug_printer("heartbeat");
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 7aea10aa1fb4..f93ba4076b2b 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -378,6 +378,7 @@ static int igt_reset_nop(void *arg)
+ 			ce = intel_context_create(engine);
+ 			if (IS_ERR(ce)) {
+ 				err = PTR_ERR(ce);
++				pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+ 				break;
+ 			}
  
--	intel_engine_dump(engine, &p,
--			  "%s heartbeat {seqno:%llx:%lld, prio:%d} not ticking\n",
--			  engine->name,
--			  rq->fence.context,
--			  rq->fence.seqno,
--			  rq->sched.attr.priority);
-+	if (!rq) {
-+		intel_engine_dump(engine, &p,
-+				  "%s heartbeat not ticking\n",
-+				  engine->name);
-+	} else {
-+		intel_engine_dump(engine, &p,
-+				  "%s heartbeat {seqno:%llx:%lld, prio:%d} not ticking\n",
-+				  engine->name,
-+				  rq->fence.context,
-+				  rq->fence.seqno,
-+				  rq->sched.attr.priority);
-+	}
-+}
-+
-+static void
-+reset_engine(struct intel_engine_cs *engine, struct i915_request *rq)
-+{
-+	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-+		show_heartbeat(rq, engine);
-+
-+	intel_gt_handle_error(engine->gt, engine->mask,
-+			      I915_ERROR_CAPTURE,
-+			      "stopped heartbeat on %s",
-+			      engine->name);
- }
+@@ -387,6 +388,8 @@ static int igt_reset_nop(void *arg)
+ 				rq = intel_context_create_request(ce);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
++					pr_err("[%s] Create request failed: %d!\n",
++					       engine->name, err);
+ 					break;
+ 				}
  
- static void heartbeat(struct work_struct *wrk)
-@@ -102,6 +120,11 @@ static void heartbeat(struct work_struct *wrk)
- 	if (intel_gt_is_wedged(engine->gt))
- 		goto out;
+@@ -401,24 +404,31 @@ static int igt_reset_nop(void *arg)
+ 		igt_global_reset_unlock(gt);
  
-+	if (i915_sched_engine_disabled(engine->sched_engine)) {
-+		reset_engine(engine, engine->heartbeat.systole);
-+		goto out;
-+	}
-+
- 	if (engine->heartbeat.systole) {
- 		long delay = READ_ONCE(engine->props.heartbeat_interval_ms);
- 
-@@ -139,13 +162,7 @@ static void heartbeat(struct work_struct *wrk)
- 			engine->sched_engine->schedule(rq, &attr);
- 			local_bh_enable();
- 		} else {
--			if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
--				show_heartbeat(rq, engine);
--
--			intel_gt_handle_error(engine->gt, engine->mask,
--					      I915_ERROR_CAPTURE,
--					      "stopped heartbeat on %s",
--					      engine->name);
-+			reset_engine(engine, rq);
+ 		if (intel_gt_is_wedged(gt)) {
++			pr_err("[%s] GT is wedged!\n", engine->name);
+ 			err = -EIO;
+ 			break;
  		}
  
- 		rq->emitted_jiffies = jiffies;
-@@ -194,6 +211,25 @@ void intel_engine_park_heartbeat(struct intel_engine_cs *engine)
- 		i915_request_put(fetch_and_zero(&engine->heartbeat.systole));
+ 		if (i915_reset_count(global) != reset_count + ++count) {
+-			pr_err("Full GPU reset not recorded!\n");
++			pr_err("[%s] Reset not recorded: %d vs %d + %d!\n",
++			       engine->name, i915_reset_count(global), reset_count, count);
+ 			err = -EINVAL;
+ 			break;
+ 		}
+ 
+ 		err = igt_flush_test(gt->i915);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Flush failed: %d!\n", engine->name, err);
+ 			break;
++		}
+ 	} while (time_before(jiffies, end_time));
+ 	pr_info("%s: %d resets\n", __func__, count);
+ 
+-	if (igt_flush_test(gt->i915))
++	if (igt_flush_test(gt->i915)) {
++		pr_err("Post flush failed: %d!\n", err);
+ 		err = -EIO;
++	}
++
+ 	return err;
  }
  
-+void intel_gt_unpark_heartbeats(struct intel_gt *gt)
-+{
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+
-+	for_each_engine(engine, gt, id)
-+		if (intel_engine_pm_is_awake(engine))
-+			intel_engine_unpark_heartbeat(engine);
-+}
-+
-+void intel_gt_park_heartbeats(struct intel_gt *gt)
-+{
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+
-+	for_each_engine(engine, gt, id)
-+		intel_engine_park_heartbeat(engine);
-+}
-+
- void intel_engine_init_heartbeat(struct intel_engine_cs *engine)
- {
- 	INIT_DELAYED_WORK(&engine->heartbeat.work, heartbeat);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
-index a488ea3e84a3..5da6d809a87a 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.h
-@@ -7,6 +7,7 @@
- #define INTEL_ENGINE_HEARTBEAT_H
+@@ -441,8 +451,10 @@ static int igt_reset_nop_engine(void *arg)
+ 		int err;
  
- struct intel_engine_cs;
-+struct intel_gt;
+ 		ce = intel_context_create(engine);
+-		if (IS_ERR(ce))
++		if (IS_ERR(ce)) {
++			pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+ 			return PTR_ERR(ce);
++		}
  
- void intel_engine_init_heartbeat(struct intel_engine_cs *engine);
+ 		reset_count = i915_reset_count(global);
+ 		reset_engine_count = i915_reset_engine_count(global, engine);
+@@ -550,8 +562,10 @@ static int igt_reset_fail_engine(void *arg)
+ 		int err;
  
-@@ -16,6 +17,9 @@ int intel_engine_set_heartbeat(struct intel_engine_cs *engine,
- void intel_engine_park_heartbeat(struct intel_engine_cs *engine);
- void intel_engine_unpark_heartbeat(struct intel_engine_cs *engine);
+ 		ce = intel_context_create(engine);
+-		if (IS_ERR(ce))
++		if (IS_ERR(ce)) {
++			pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+ 			return PTR_ERR(ce);
++		}
  
-+void intel_gt_park_heartbeats(struct intel_gt *gt);
-+void intel_gt_unpark_heartbeats(struct intel_gt *gt);
-+
- int intel_engine_pulse(struct intel_engine_cs *engine);
- int intel_engine_flush_barriers(struct intel_engine_cs *engine);
+ 		st_engine_heartbeat_disable(engine);
+ 		set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
+@@ -711,6 +725,8 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 				rq = hang_create_request(&h, engine);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
++					pr_err("[%s] Create hang request failed: %d!\n",
++					       engine->name, err);
+ 					break;
+ 				}
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index be13a33ef17e..dd4ea1ef5731 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -10,6 +10,7 @@
- #include "gt/intel_breadcrumbs.h"
- #include "gt/intel_context.h"
- #include "gt/intel_engine_pm.h"
-+#include "gt/intel_engine_heartbeat.h"
- #include "gt/intel_gt.h"
- #include "gt/intel_gt_irq.h"
- #include "gt/intel_gt_pm.h"
-@@ -603,6 +604,7 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
- 		return;
+@@ -765,12 +781,16 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 			break;
+ 
+ 		err = igt_flush_test(gt->i915);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Flush failed: %d!\n", engine->name, err);
+ 			break;
++		}
  	}
  
-+	intel_gt_park_heartbeats(guc_to_gt(guc));
- 	disable_submission(guc);
- 	guc->interrupts.disable(guc);
+-	if (intel_gt_is_wedged(gt))
++	if (intel_gt_is_wedged(gt)) {
++		pr_err("GT is wedged!\n");
+ 		err = -EIO;
++	}
  
-@@ -890,6 +892,7 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
- 	atomic_set(&guc->outstanding_submission_g2h, 0);
+ 	if (active)
+ 		hang_fini(&h);
+@@ -837,6 +857,7 @@ static int active_engine(void *data)
+ 		ce[count] = intel_context_create(engine);
+ 		if (IS_ERR(ce[count])) {
+ 			err = PTR_ERR(ce[count]);
++			pr_err("[%s] Create context #%ld failed: %d!\n", engine->name, count, err);
+ 			while (--count)
+ 				intel_context_put(ce[count]);
+ 			return err;
+@@ -852,6 +873,7 @@ static int active_engine(void *data)
+ 		new = intel_context_create_request(ce[idx]);
+ 		if (IS_ERR(new)) {
+ 			err = PTR_ERR(new);
++			pr_err("[%s] Create request #%d failed: %d!\n", engine->name, idx, err);
+ 			break;
+ 		}
  
- 	enable_submission(guc);
-+	intel_gt_unpark_heartbeats(guc_to_gt(guc));
- }
+@@ -867,8 +889,10 @@ static int active_engine(void *data)
+ 		}
  
- /*
-@@ -1866,6 +1869,11 @@ static int guc_resume(struct intel_engine_cs *engine)
- 	return 0;
- }
+ 		err = active_request_put(old);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Request put failed: %d!\n", engine->name, err);
+ 			break;
++		}
  
-+static bool guc_sched_engine_disabled(struct i915_sched_engine *sched_engine)
-+{
-+	return !sched_engine->tasklet.callback;
-+}
+ 		cond_resched();
+ 	}
+@@ -876,6 +900,9 @@ static int active_engine(void *data)
+ 	for (count = 0; count < ARRAY_SIZE(rq); count++) {
+ 		int err__ = active_request_put(rq[count]);
+ 
++		if (err)
++			pr_err("[%s] Request put #%ld failed: %d!\n", engine->name, count, err);
 +
- static void guc_set_default_submission(struct intel_engine_cs *engine)
- {
- 	engine->submit_request = guc_submit_request;
-@@ -2016,6 +2024,7 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
- 			return -ENOMEM;
+ 		/* Keep the first error */
+ 		if (!err)
+ 			err = err__;
+@@ -949,6 +976,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 					  "igt/%s", other->name);
+ 			if (IS_ERR(tsk)) {
+ 				err = PTR_ERR(tsk);
++				pr_err("[%s] Thread spawn failed: %d!\n", engine->name, err);
+ 				goto unwind;
+ 			}
  
- 		guc->sched_engine->schedule = i915_schedule;
-+		guc->sched_engine->disabled = guc_sched_engine_disabled;
- 		guc->sched_engine->private_data = guc;
- 		guc->sched_engine->destroy = guc_sched_engine_destroy;
- 		tasklet_setup(&guc->sched_engine->tasklet,
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 2804fd5b660b..28dd887eb1be 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -440,6 +440,11 @@ static void default_destroy(struct kref *kref)
- 	kfree(sched_engine);
- }
+@@ -967,6 +995,8 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 				rq = hang_create_request(&h, engine);
+ 				if (IS_ERR(rq)) {
+ 					err = PTR_ERR(rq);
++					pr_err("[%s] Create hang request failed: %d!\n",
++					       engine->name, err);
+ 					break;
+ 				}
  
-+static bool default_disabled(struct i915_sched_engine *sched_engine)
-+{
-+	return false;
-+}
+@@ -998,11 +1028,10 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 
+ 			if (rq) {
+ 				if (rq->fence.error != -EIO) {
+-					pr_err("i915_reset_engine(%s:%s):"
+-					       " failed to reset request %llx:%lld\n",
++					pr_err("i915_reset_engine(%s:%s): failed to reset request %lld:%lld [0x%04X]\n",
+ 					       engine->name, test_name,
+ 					       rq->fence.context,
+-					       rq->fence.seqno);
++					       rq->fence.seqno, rq->context->guc_id);
+ 					i915_request_put(rq);
+ 
+ 					GEM_TRACE_DUMP();
+@@ -1101,8 +1130,10 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			break;
+ 
+ 		err = igt_flush_test(gt->i915);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Flush failed: %d!\n", engine->name, err);
+ 			break;
++		}
+ 	}
+ 
+ 	if (intel_gt_is_wedged(gt))
+@@ -1180,12 +1211,15 @@ static int igt_reset_wait(void *arg)
+ 	igt_global_reset_lock(gt);
+ 
+ 	err = hang_init(&h, gt);
+-	if (err)
++	if (err) {
++		pr_err("[%s] Hang init failed: %d!\n", engine->name, err);
+ 		goto unlock;
++	}
+ 
+ 	rq = hang_create_request(&h, engine);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
++		pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 		goto fini;
+ 	}
+ 
+@@ -1310,12 +1344,15 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	/* Check that we can recover an unbind stuck on a hanging request */
+ 
+ 	err = hang_init(&h, gt);
+-	if (err)
++	if (err) {
++		pr_err("[%s] Hang init failed: %d!\n", engine->name, err);
+ 		return err;
++	}
+ 
+ 	obj = i915_gem_object_create_internal(gt->i915, SZ_1M);
+ 	if (IS_ERR(obj)) {
+ 		err = PTR_ERR(obj);
++		pr_err("[%s] Create object failed: %d!\n", engine->name, err);
+ 		goto fini;
+ 	}
+ 
+@@ -1330,12 +1367,14 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	arg.vma = i915_vma_instance(obj, vm, NULL);
+ 	if (IS_ERR(arg.vma)) {
+ 		err = PTR_ERR(arg.vma);
++		pr_err("[%s] VMA instance failed: %d!\n", engine->name, err);
+ 		goto out_obj;
+ 	}
+ 
+ 	rq = hang_create_request(&h, engine);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
++		pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 		goto out_obj;
+ 	}
+ 
+@@ -1347,6 +1386,7 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	err = i915_vma_pin(arg.vma, 0, 0, pin_flags);
+ 	if (err) {
+ 		i915_request_add(rq);
++		pr_err("[%s] VMA pin failed: %d!\n", engine->name, err);
+ 		goto out_obj;
+ 	}
+ 
+@@ -1363,8 +1403,14 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	i915_vma_lock(arg.vma);
+ 	err = i915_request_await_object(rq, arg.vma->obj,
+ 					flags & EXEC_OBJECT_WRITE);
+-	if (err == 0)
++	if (err == 0) {
+ 		err = i915_vma_move_to_active(arg.vma, rq, flags);
++		if (err)
++			pr_err("[%s] Move to active failed: %d!\n", engine->name, err);
++	} else {
++		pr_err("[%s] Request await failed: %d!\n", engine->name, err);
++	}
 +
- struct i915_sched_engine *
- i915_sched_engine_create(unsigned int subclass)
- {
-@@ -454,6 +459,7 @@ i915_sched_engine_create(unsigned int subclass)
- 	sched_engine->queue = RB_ROOT_CACHED;
- 	sched_engine->queue_priority_hint = INT_MIN;
- 	sched_engine->destroy = default_destroy;
-+	sched_engine->disabled = default_disabled;
+ 	i915_vma_unlock(arg.vma);
  
- 	INIT_LIST_HEAD(&sched_engine->requests);
- 	INIT_LIST_HEAD(&sched_engine->hold);
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 3c9504e9f409..f4d9811ade5b 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -96,4 +96,10 @@ void i915_request_show_with_schedule(struct drm_printer *m,
- 				     const char *prefix,
- 				     int indent);
+ 	if (flags & EXEC_OBJECT_NEEDS_FENCE)
+@@ -1392,6 +1438,7 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	tsk = kthread_run(fn, &arg, "igt/evict_vma");
+ 	if (IS_ERR(tsk)) {
+ 		err = PTR_ERR(tsk);
++		pr_err("[%s] Thread spawn failed: %d!\n", engine->name, err);
+ 		tsk = NULL;
+ 		goto out_reset;
+ 	}
+@@ -1518,6 +1565,7 @@ static int igt_reset_queue(void *arg)
+ 		prev = hang_create_request(&h, engine);
+ 		if (IS_ERR(prev)) {
+ 			err = PTR_ERR(prev);
++			pr_err("[%s] Create 'prev' hang request failed: %d!\n", engine->name, err);
+ 			goto fini;
+ 		}
  
-+static inline bool
-+i915_sched_engine_disabled(struct i915_sched_engine *sched_engine)
-+{
-+	return sched_engine->disabled(sched_engine);
-+}
-+
- #endif /* _I915_SCHEDULER_H_ */
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index 00384e2c5273..eaef233e9080 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -168,6 +168,11 @@ struct i915_sched_engine {
- 	 */
- 	void	(*destroy)(struct kref *kref);
+@@ -1532,6 +1580,7 @@ static int igt_reset_queue(void *arg)
+ 			rq = hang_create_request(&h, engine);
+ 			if (IS_ERR(rq)) {
+ 				err = PTR_ERR(rq);
++				pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 				goto fini;
+ 			}
  
-+	/**
-+	 * @disabled: check if backend has disabled submission
-+	 */
-+	bool	(*disabled)(struct i915_sched_engine *sched_engine);
-+
- 	/**
- 	 * @kick_backend: kick backend after a request's priority has changed
- 	 */
+@@ -1619,8 +1668,10 @@ static int igt_reset_queue(void *arg)
+ 		i915_request_put(prev);
+ 
+ 		err = igt_flush_test(gt->i915);
+-		if (err)
++		if (err) {
++			pr_err("[%s] Flush failed: %d!\n", engine->name, err);
+ 			break;
++		}
+ 	}
+ 
+ fini:
+@@ -1653,12 +1704,15 @@ static int igt_handle_error(void *arg)
+ 		return 0;
+ 
+ 	err = hang_init(&h, gt);
+-	if (err)
++	if (err) {
++		pr_err("[%s] Hang init failed: %d!\n", engine->name, err);
+ 		return err;
++	}
+ 
+ 	rq = hang_create_request(&h, engine);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
++		pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 		goto err_fini;
+ 	}
+ 
+@@ -1743,12 +1797,15 @@ static int igt_atomic_reset_engine(struct intel_engine_cs *engine,
+ 		return err;
+ 
+ 	err = hang_init(&h, engine->gt);
+-	if (err)
++	if (err) {
++		pr_err("[%s] Hang init failed: %d!\n", engine->name, err);
+ 		return err;
++	}
+ 
+ 	rq = hang_create_request(&h, engine);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
++		pr_err("[%s] Create hang request failed: %d!\n", engine->name, err);
+ 		goto out;
+ 	}
+ 
 -- 
 2.28.0
 
