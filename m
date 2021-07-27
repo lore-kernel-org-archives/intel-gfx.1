@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A18BC4320A
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEACFC4338F
 	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A4B8611C0
+	by mail.kernel.org (Postfix) with ESMTPS id C07A8611C0
 	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0A4B8611C0
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C07A8611C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E38AE6EDAE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DABEC6E94C;
 	Tue, 27 Jul 2021 07:19:16 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B65F6E94C
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 07:19:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191982345"
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191982345"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF9A56EB22
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 07:19:03 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191982335"
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191982335"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 00:19:03 -0700
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="505378911"
+ 27 Jul 2021 00:19:02 -0700
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="505378871"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 00:19:03 -0700
+ 27 Jul 2021 00:19:02 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 27 Jul 2021 00:18:34 -0700
-Message-Id: <20210727071845.841554-17-lucas.demarchi@intel.com>
+Date: Tue, 27 Jul 2021 00:18:26 -0700
+Message-Id: <20210727071845.841554-9-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210727071845.841554-1-lucas.demarchi@intel.com>
 References: <20210727071845.841554-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 17/28] drm/i915: remove explicit CNL handling from
- intel_pm.c
+Subject: [Intel-gfx] [CI 09/28] drm/i915/display: remove explicit CNL
+ handling from intel_dp.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,96 +59,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove support for CNL as it's highly untested, probably broken, and
-there is no real platform that requires this code. This is part of CNL
-removal from i915.
+The only real platform with DISPLAY_VER == 10 is GLK. We don't need to
+handle CNL explicitly in intel_dp.c.
+
+Remove code and rename functions/macros accordingly to use ICL prefix.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h |  2 +-
- drivers/gpu/drm/i915/intel_pm.c | 41 +--------------------------------
- 2 files changed, 2 insertions(+), 41 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 35 ++++---------------------
+ 1 file changed, 5 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 1ca9fef2f86c..36bde25426bd 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -8266,7 +8266,7 @@ enum {
- 
- #define GEN8_CHICKEN_DCPR_1		_MMIO(0x46430)
- #define   SKL_SELECT_ALTERNATE_DC_EXIT	(1 << 30)
--#define   CNL_DELAY_PMRSP		(1 << 22)
-+#define   ICL_DELAY_PMRSP		(1 << 22)
- #define   MASK_WAKEMEM			(1 << 13)
- #define   CNL_DDI_CLOCK_REG_ACCESS_ON	(1 << 7)
- 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index aa64b2ef2efb..65bc3709f54c 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -7465,7 +7465,7 @@ static void icl_init_clock_gating(struct drm_i915_private *dev_priv)
- 
- 	/*Wa_14010594013:icl, ehl */
- 	intel_uncore_rmw(&dev_priv->uncore, GEN8_CHICKEN_DCPR_1,
--			 0, CNL_DELAY_PMRSP);
-+			 0, ICL_DELAY_PMRSP);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index c386ef8eb200..db701ec5a221 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -222,29 +222,6 @@ bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp)
+ 		 encoder->port != PORT_A);
  }
  
- static void gen12lp_init_clock_gating(struct drm_i915_private *dev_priv)
-@@ -7515,43 +7515,6 @@ static void cnp_init_clock_gating(struct drm_i915_private *dev_priv)
- 		   CNP_PWM_CGE_GATING_DISABLE);
- }
- 
--static void cnl_init_clock_gating(struct drm_i915_private *dev_priv)
+-static int cnl_max_source_rate(struct intel_dp *intel_dp)
 -{
--	u32 val;
--	cnp_init_clock_gating(dev_priv);
+-	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+-	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
+-	enum port port = dig_port->base.port;
 -
--	/* This is not an Wa. Enable for better image quality */
--	intel_uncore_write(&dev_priv->uncore, _3D_CHICKEN3,
--		   _MASKED_BIT_ENABLE(_3D_CHICKEN3_AA_LINE_QUALITY_FIX_ENABLE));
+-	u32 voltage = intel_de_read(dev_priv, CNL_PORT_COMP_DW3) & VOLTAGE_INFO_MASK;
 -
--	/* WaEnableChickenDCPR:cnl */
--	intel_uncore_write(&dev_priv->uncore, GEN8_CHICKEN_DCPR_1,
--		   intel_uncore_read(&dev_priv->uncore, GEN8_CHICKEN_DCPR_1) | MASK_WAKEMEM);
+-	/* Low voltage SKUs are limited to max of 5.4G */
+-	if (voltage == VOLTAGE_INFO_0_85V)
+-		return 540000;
 -
--	/*
--	 * WaFbcWakeMemOn:cnl
--	 * Display WA #0859: cnl
--	 */
--	intel_uncore_write(&dev_priv->uncore, DISP_ARB_CTL, intel_uncore_read(&dev_priv->uncore, DISP_ARB_CTL) |
--		   DISP_FBC_MEMORY_WAKE);
+-	/* For this SKU 8.1G is supported in all ports */
+-	if (IS_CNL_WITH_PORT_F(dev_priv))
+-		return 810000;
 -
--	val = intel_uncore_read(&dev_priv->uncore, SLICE_UNIT_LEVEL_CLKGATE);
--	/* ReadHitWriteOnlyDisable:cnl */
--	val |= RCCUNIT_CLKGATE_DIS;
--	intel_uncore_write(&dev_priv->uncore, SLICE_UNIT_LEVEL_CLKGATE, val);
+-	/* For other SKUs, max rate on ports A and D is 5.4G */
+-	if (port == PORT_A || port == PORT_D)
+-		return 540000;
 -
--	/* Wa_2201832410:cnl */
--	val = intel_uncore_read(&dev_priv->uncore, SUBSLICE_UNIT_LEVEL_CLKGATE);
--	val |= GWUNIT_CLKGATE_DIS;
--	intel_uncore_write(&dev_priv->uncore, SUBSLICE_UNIT_LEVEL_CLKGATE, val);
--
--	/* WaDisableVFclkgate:cnl */
--	/* WaVFUnitClockGatingDisable:cnl */
--	val = intel_uncore_read(&dev_priv->uncore, UNSLICE_UNIT_LEVEL_CLKGATE);
--	val |= VFUNIT_CLKGATE_DIS;
--	intel_uncore_write(&dev_priv->uncore, UNSLICE_UNIT_LEVEL_CLKGATE, val);
+-	return 810000;
 -}
 -
- static void cfl_init_clock_gating(struct drm_i915_private *dev_priv)
+ static int icl_max_source_rate(struct intel_dp *intel_dp)
  {
- 	cnp_init_clock_gating(dev_priv);
-@@ -7980,8 +7943,6 @@ void intel_init_clock_gating_hooks(struct drm_i915_private *dev_priv)
- 		dev_priv->display.init_clock_gating = gen12lp_init_clock_gating;
- 	else if (GRAPHICS_VER(dev_priv) == 11)
- 		dev_priv->display.init_clock_gating = icl_init_clock_gating;
--	else if (IS_CANNONLAKE(dev_priv))
--		dev_priv->display.init_clock_gating = cnl_init_clock_gating;
- 	else if (IS_COFFEELAKE(dev_priv) || IS_COMETLAKE(dev_priv))
- 		dev_priv->display.init_clock_gating = cfl_init_clock_gating;
- 	else if (IS_SKYLAKE(dev_priv))
+ 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+@@ -270,7 +247,7 @@ static void
+ intel_dp_set_source_rates(struct intel_dp *intel_dp)
+ {
+ 	/* The values must be in increasing order */
+-	static const int cnl_rates[] = {
++	static const int icl_rates[] = {
+ 		162000, 216000, 270000, 324000, 432000, 540000, 648000, 810000
+ 	};
+ 	static const int bxt_rates[] = {
+@@ -295,12 +272,10 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
+ 	drm_WARN_ON(&dev_priv->drm,
+ 		    intel_dp->source_rates || intel_dp->num_source_rates);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) {
+-		source_rates = cnl_rates;
+-		size = ARRAY_SIZE(cnl_rates);
+-		if (DISPLAY_VER(dev_priv) == 10)
+-			max_rate = cnl_max_source_rate(intel_dp);
+-		else if (IS_JSL_EHL(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 11) {
++		source_rates = icl_rates;
++		size = ARRAY_SIZE(icl_rates);
++		if (IS_JSL_EHL(dev_priv))
+ 			max_rate = ehl_max_source_rate(intel_dp);
+ 		else
+ 			max_rate = icl_max_source_rate(intel_dp);
 -- 
 2.31.1
 
