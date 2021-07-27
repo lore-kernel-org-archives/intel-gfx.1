@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EEACFC4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A790DC43214
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C07A8611C0
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C07A8611C0
+	by mail.kernel.org (Postfix) with ESMTPS id 76E2D61078
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 07:19:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 76E2D61078
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DABEC6E94C;
-	Tue, 27 Jul 2021 07:19:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4455F6EE17;
+	Tue, 27 Jul 2021 07:19:17 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF9A56EB22
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 07:19:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191982335"
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191982335"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D966E6E94C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 07:19:05 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191982358"
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191982358"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 00:19:02 -0700
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="505378871"
+ 27 Jul 2021 00:19:05 -0700
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="505378960"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 00:19:02 -0700
+ 27 Jul 2021 00:19:05 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 27 Jul 2021 00:18:26 -0700
-Message-Id: <20210727071845.841554-9-lucas.demarchi@intel.com>
+Date: Tue, 27 Jul 2021 00:18:44 -0700
+Message-Id: <20210727071845.841554-27-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210727071845.841554-1-lucas.demarchi@intel.com>
 References: <20210727071845.841554-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 09/28] drm/i915/display: remove explicit CNL
- handling from intel_dp.c
+Subject: [Intel-gfx] [CI 27/28] drm/i915: replace random CNL comments
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,77 +58,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The only real platform with DISPLAY_VER == 10 is GLK. We don't need to
-handle CNL explicitly in intel_dp.c.
-
-Remove code and rename functions/macros accordingly to use ICL prefix.
+Cleanup remaining cases that we find CNL in the codebase.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 35 ++++---------------------
- 1 file changed, 5 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c     | 2 +-
+ drivers/gpu/drm/i915/display/intel_display.c  | 2 +-
+ drivers/gpu/drm/i915/display/intel_dp_aux.c   | 1 -
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.h | 1 -
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h | 2 +-
+ drivers/gpu/drm/i915/intel_device_info.h      | 2 +-
+ 6 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index c386ef8eb200..db701ec5a221 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -222,29 +222,6 @@ bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp)
- 		 encoder->port != PORT_A);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 4172c8ee6aa6..e86e6ed2d3bf 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -1998,7 +1998,7 @@ static void parse_ddi_port(struct drm_i915_private *i915,
+ 			    "Port %c VBT HDMI boost level: %d\n",
+ 			    port_name(port), hdmi_boost_level);
  
--static int cnl_max_source_rate(struct intel_dp *intel_dp)
--{
--	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
--	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
--	enum port port = dig_port->base.port;
--
--	u32 voltage = intel_de_read(dev_priv, CNL_PORT_COMP_DW3) & VOLTAGE_INFO_MASK;
--
--	/* Low voltage SKUs are limited to max of 5.4G */
--	if (voltage == VOLTAGE_INFO_0_85V)
--		return 540000;
--
--	/* For this SKU 8.1G is supported in all ports */
--	if (IS_CNL_WITH_PORT_F(dev_priv))
--		return 810000;
--
--	/* For other SKUs, max rate on ports A and D is 5.4G */
--	if (port == PORT_A || port == PORT_D)
--		return 540000;
--
--	return 810000;
--}
--
- static int icl_max_source_rate(struct intel_dp *intel_dp)
- {
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-@@ -270,7 +247,7 @@ static void
- intel_dp_set_source_rates(struct intel_dp *intel_dp)
- {
- 	/* The values must be in increasing order */
--	static const int cnl_rates[] = {
-+	static const int icl_rates[] = {
- 		162000, 216000, 270000, 324000, 432000, 540000, 648000, 810000
- 	};
- 	static const int bxt_rates[] = {
-@@ -295,12 +272,10 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
- 	drm_WARN_ON(&dev_priv->drm,
- 		    intel_dp->source_rates || intel_dp->num_source_rates);
+-	/* DP max link rate for CNL+ */
++	/* DP max link rate for GLK+ */
+ 	if (i915->vbt.version >= 216) {
+ 		if (i915->vbt.version >= 230)
+ 			info->dp_max_link_rate = parse_bdb_230_dp_max_link_rate(child->dp_max_link_rate);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index dab04a4d60f0..95122d2e866b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -9782,7 +9782,7 @@ static int intel_atomic_check_async(struct intel_atomic_state *state)
  
--	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) {
--		source_rates = cnl_rates;
--		size = ARRAY_SIZE(cnl_rates);
--		if (DISPLAY_VER(dev_priv) == 10)
--			max_rate = cnl_max_source_rate(intel_dp);
--		else if (IS_JSL_EHL(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 11) {
-+		source_rates = icl_rates;
-+		size = ARRAY_SIZE(icl_rates);
-+		if (IS_JSL_EHL(dev_priv))
- 			max_rate = ehl_max_source_rate(intel_dp);
- 		else
- 			max_rate = icl_max_source_rate(intel_dp);
+ 		/*
+ 		 * FIXME: This check is kept generic for all platforms.
+-		 * Need to verify this for all gen9 and gen10 platforms to enable
++		 * Need to verify this for all gen9 platforms to enable
+ 		 * this selectively if required.
+ 		 */
+ 		switch (new_plane_state->hw.fb->modifier) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+index 7c048d2ecf43..f483f479dd0b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+@@ -158,7 +158,6 @@ static u32 skl_get_aux_send_ctl(struct intel_dp *intel_dp,
+ 	/*
+ 	 * Max timeout values:
+ 	 * SKL-GLK: 1.6ms
+-	 * CNL: 3.2ms
+ 	 * ICL+: 4ms
+ 	 */
+ 	ret = DP_AUX_CH_CTL_SEND_BUSY |
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+index 7fd031a70cfd..6b19f74efd61 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+@@ -206,7 +206,6 @@ struct intel_dpll_hw_state {
+ 
+ 	/* cnl */
+ 	u32 cfgcr0;
+-	/* CNL also uses cfgcr1 */
+ 
+ 	/* bxt */
+ 	u32 ebb0, ebb4, pll0, pll1, pll2, pll3, pll6, pll8, pll9, pll10, pcsdw12;
+diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+index dbe24d7e7375..330077c2e588 100644
+--- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
++++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+@@ -456,7 +456,7 @@ struct child_device_config {
+ 	u16 dp_gpio_pin_num;					/* 195 */
+ 	u8 dp_iboost_level:4;					/* 196 */
+ 	u8 hdmi_iboost_level:4;					/* 196 */
+-	u8 dp_max_link_rate:3;					/* 216/230 CNL+ */
++	u8 dp_max_link_rate:3;					/* 216/230 GLK+ */
+ 	u8 dp_max_link_rate_reserved:5;				/* 216/230 */
+ } __packed;
+ 
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 995091451ca2..2028b267232e 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -103,7 +103,7 @@ enum intel_platform {
+ #define INTEL_SUBPLATFORM_ULT	(0)
+ #define INTEL_SUBPLATFORM_ULX	(1)
+ 
+-/* CNL/ICL */
++/* ICL */
+ #define INTEL_SUBPLATFORM_PORTF	(0)
+ 
+ /* DG2 */
 -- 
 2.31.1
 
