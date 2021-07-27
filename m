@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24A06C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 00:07:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB472C4320A
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 00:07:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DC19160F9B
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 00:07:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DC19160F9B
+	by mail.kernel.org (Postfix) with ESMTPS id A478360F6B
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 00:07:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A478360F6B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43CAC73348;
-	Tue, 27 Jul 2021 00:07:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 029CA7334F;
+	Tue, 27 Jul 2021 00:07:28 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D227973279;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B27A73230;
  Tue, 27 Jul 2021 00:06:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191932149"
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191932149"
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="191932145"
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="191932145"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Jul 2021 17:06:02 -0700
-X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="662339209"
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="662339200"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2021 17:06:02 -0700
+ 26 Jul 2021 17:06:01 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Mon, 26 Jul 2021 17:23:38 -0700
-Message-Id: <20210727002348.97202-24-matthew.brost@intel.com>
+Date: Mon, 26 Jul 2021 17:23:36 -0700
+Message-Id: <20210727002348.97202-22-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210727002348.97202-1-matthew.brost@intel.com>
 References: <20210727002348.97202-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 23/33] drm/i915/guc: Add golden context to GuC
- ADS
+Subject: [Intel-gfx] [PATCH 21/33] drm/i915/guc: Connect reset modparam
+ updates to GuC policy flags
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,417 +62,109 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The media watchdog mechanism involves GuC doing a silent reset and
-continue of the hung context. This requires the i915 driver provide a
-golden context to GuC in the ADS.
+Changing the reset module parameter has no effect on a running GuC.
+The corresponding entry in the ADS must be updated and then the GuC
+informed via a Host2GuC message.
 
-v2:
- (Matthew Brost):
-  - Fix memory corruption in shmem_read
- (John H)
-  - Use locals rather than defines for LR_* + SKIP_SIZE
+The new debugfs interface to module parameters allows this to happen.
+However, connecting the parameter data address back to anything useful
+is messy. One option would be to pass a new private data structure
+address through instead of just the parameter pointer. However, that
+means having a new (and different) data structure for each parameter
+and a new (and different) write function for each parameter. This
+method keeps everything generic by instead using a string lookup on
+the directory entry name.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c         |   2 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.c     |   5 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h     |   2 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 216 ++++++++++++++++++---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h |   1 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.c      |   5 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.h      |   1 +
- 7 files changed, 202 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c |  2 +-
+ drivers/gpu/drm/i915/i915_debugfs_params.c | 32 ++++++++++++++++++++++
+ 2 files changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 46441607d18b..a64aa43f7cd9 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -654,6 +654,8 @@ int intel_gt_init(struct intel_gt *gt)
- 	if (err)
- 		goto err_gt;
- 
-+	intel_uc_init_late(&gt->uc);
-+
- 	err = i915_inject_probe_error(gt->i915, -EIO);
- 	if (err)
- 		goto err_gt;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index 68266cbffd1f..979128e28372 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -180,6 +180,11 @@ void intel_guc_init_early(struct intel_guc *guc)
- 	}
- }
- 
-+void intel_guc_init_late(struct intel_guc *guc)
-+{
-+	intel_guc_ads_init_late(guc);
-+}
-+
- static u32 guc_ctl_debug_flags(struct intel_guc *guc)
- {
- 	u32 level = intel_guc_log_get_level(&guc->log);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 8c8cf842c29a..1875303c3bca 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -60,6 +60,7 @@ struct intel_guc {
- 	struct i915_vma *ads_vma;
- 	struct __guc_ads_blob *ads_blob;
- 	u32 ads_regset_size;
-+	u32 ads_golden_ctxt_size;
- 
- 	struct i915_vma *lrc_desc_pool;
- 	void *lrc_desc_pool_vaddr;
-@@ -183,6 +184,7 @@ static inline u32 intel_guc_ggtt_offset(struct intel_guc *guc,
- }
- 
- void intel_guc_init_early(struct intel_guc *guc);
-+void intel_guc_init_late(struct intel_guc *guc);
- void intel_guc_init_send_regs(struct intel_guc *guc);
- void intel_guc_write_params(struct intel_guc *guc);
- int intel_guc_init(struct intel_guc *guc);
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 51fc14ee79cd..6926919bcac6 100644
+index 60b73625f686..7797766c56a9 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -7,6 +7,7 @@
+@@ -99,7 +99,7 @@ static int guc_action_policies_update(struct intel_guc *guc, u32 policy_offset)
+ 		policy_offset
+ 	};
  
- #include "gt/intel_gt.h"
- #include "gt/intel_lrc.h"
-+#include "gt/shmem_utils.h"
- #include "intel_guc_ads.h"
- #include "intel_guc_fwif.h"
- #include "intel_uc.h"
-@@ -33,6 +34,10 @@
-  *      +---------------------------------------+ <== dynamic
-  *      | padding                               |
-  *      +---------------------------------------+ <== 4K aligned
-+ *      | golden contexts                       |
-+ *      +---------------------------------------+
-+ *      | padding                               |
-+ *      +---------------------------------------+ <== 4K aligned
-  *      | private data                          |
-  *      +---------------------------------------+
-  *      | padding                               |
-@@ -52,6 +57,11 @@ static u32 guc_ads_regset_size(struct intel_guc *guc)
- 	return guc->ads_regset_size;
+-	return intel_guc_send(guc, action, ARRAY_SIZE(action));
++	return intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), 0, true);
  }
  
-+static u32 guc_ads_golden_ctxt_size(struct intel_guc *guc)
-+{
-+	return PAGE_ALIGN(guc->ads_golden_ctxt_size);
-+}
+ int intel_guc_global_policies_update(struct intel_guc *guc)
+diff --git a/drivers/gpu/drm/i915/i915_debugfs_params.c b/drivers/gpu/drm/i915/i915_debugfs_params.c
+index 4e2b077692cb..20424275d41e 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs_params.c
++++ b/drivers/gpu/drm/i915/i915_debugfs_params.c
+@@ -6,9 +6,21 @@
+ #include <linux/kernel.h>
+ 
+ #include "i915_debugfs_params.h"
++#include "gt/intel_gt.h"
++#include "gt/uc/intel_guc.h"
+ #include "i915_drv.h"
+ #include "i915_params.h"
+ 
++#define MATCH_DEBUGFS_NODE_NAME(_file, _name) \
++	(strcmp((_file)->f_path.dentry->d_name.name, (_name)) == 0)
 +
- static u32 guc_ads_private_data_size(struct intel_guc *guc)
++#define GET_I915(i915, name, ptr)	\
++	do {	\
++		struct i915_params *params;	\
++		params = container_of(((void *)(ptr)), typeof(*params), name);	\
++		(i915) = container_of(params, typeof(*(i915)), params);	\
++	} while (0)
++
+ /* int param */
+ static int i915_param_int_show(struct seq_file *m, void *data)
  {
- 	return PAGE_ALIGN(guc->fw.private_data_size);
-@@ -62,12 +72,23 @@ static u32 guc_ads_regset_offset(struct intel_guc *guc)
- 	return offsetof(struct __guc_ads_blob, regset);
+@@ -24,6 +36,16 @@ static int i915_param_int_open(struct inode *inode, struct file *file)
+ 	return single_open(file, i915_param_int_show, inode->i_private);
  }
  
--static u32 guc_ads_private_data_offset(struct intel_guc *guc)
-+static u32 guc_ads_golden_ctxt_offset(struct intel_guc *guc)
++static int notify_guc(struct drm_i915_private *i915)
++{
++	int ret = 0;
++
++	if (intel_uc_uses_guc_submission(&i915->gt.uc))
++		ret = intel_guc_global_policies_update(&i915->gt.uc.guc);
++
++	return ret;
++}
++
+ static ssize_t i915_param_int_write(struct file *file,
+ 				    const char __user *ubuf, size_t len,
+ 				    loff_t *offp)
+@@ -81,8 +103,10 @@ static ssize_t i915_param_uint_write(struct file *file,
+ 				     const char __user *ubuf, size_t len,
+ 				     loff_t *offp)
  {
- 	u32 offset;
++	struct drm_i915_private *i915;
+ 	struct seq_file *m = file->private_data;
+ 	unsigned int *value = m->private;
++	unsigned int old = *value;
+ 	int ret;
  
- 	offset = guc_ads_regset_offset(guc) +
- 		 guc_ads_regset_size(guc);
-+
-+	return PAGE_ALIGN(offset);
-+}
-+
-+static u32 guc_ads_private_data_offset(struct intel_guc *guc)
-+{
-+	u32 offset;
-+
-+	offset = guc_ads_golden_ctxt_offset(guc) +
-+		 guc_ads_golden_ctxt_size(guc);
-+
- 	return PAGE_ALIGN(offset);
- }
- 
-@@ -319,53 +340,166 @@ static void guc_mmio_reg_state_init(struct intel_guc *guc,
- 	GEM_BUG_ON(temp_set.size);
- }
- 
--/*
-- * The first 80 dwords of the register state context, containing the
-- * execlists and ppgtt registers.
-- */
--#define LR_HW_CONTEXT_SIZE	(80 * sizeof(u32))
-+static void fill_engine_enable_masks(struct intel_gt *gt,
-+				     struct guc_gt_system_info *info)
-+{
-+	info->engine_enabled_masks[GUC_RENDER_CLASS] = 1;
-+	info->engine_enabled_masks[GUC_BLITTER_CLASS] = 1;
-+	info->engine_enabled_masks[GUC_VIDEO_CLASS] = VDBOX_MASK(gt);
-+	info->engine_enabled_masks[GUC_VIDEOENHANCE_CLASS] = VEBOX_MASK(gt);
-+}
- 
--static void __guc_ads_init(struct intel_guc *guc)
-+static int guc_prep_golden_context(struct intel_guc *guc,
-+				   struct __guc_ads_blob *blob)
- {
- 	struct intel_gt *gt = guc_to_gt(guc);
--	struct drm_i915_private *i915 = gt->i915;
-+	u32 addr_ggtt, offset;
-+	u32 total_size = 0, alloc_size, real_size;
-+	u8 engine_class, guc_class;
-+	struct guc_gt_system_info *info, local_info;
-+
-+	/*
-+	 * Reserve the memory for the golden contexts and point GuC at it but
-+	 * leave it empty for now. The context data will be filled in later
-+	 * once there is something available to put there.
-+	 *
-+	 * Note that the HWSP and ring context are not included.
-+	 *
-+	 * Note also that the storage must be pinned in the GGTT, so that the
-+	 * address won't change after GuC has been told where to find it. The
-+	 * GuC will also validate that the LRC base + size fall within the
-+	 * allowed GGTT range.
-+	 */
-+	if (blob) {
-+		offset = guc_ads_golden_ctxt_offset(guc);
-+		addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
-+		info = &blob->system_info;
-+	} else {
-+		memset(&local_info, 0, sizeof(local_info));
-+		info = &local_info;
-+		fill_engine_enable_masks(gt, info);
-+	}
-+
-+	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
-+		if (engine_class == OTHER_CLASS)
-+			continue;
-+
-+		guc_class = engine_class_to_guc_class(engine_class);
-+
-+		if (!info->engine_enabled_masks[guc_class])
-+			continue;
-+
-+		real_size = intel_engine_context_size(gt, engine_class);
-+		alloc_size = PAGE_ALIGN(real_size);
-+		total_size += alloc_size;
-+
-+		if (!blob)
-+			continue;
-+
-+		blob->ads.eng_state_size[guc_class] = real_size;
-+		blob->ads.golden_context_lrca[guc_class] = addr_ggtt;
-+		addr_ggtt += alloc_size;
-+	}
-+
-+	if (!blob)
-+		return total_size;
-+
-+	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
-+	return total_size;
-+}
-+
-+static struct intel_engine_cs *find_engine_state(struct intel_gt *gt, u8 engine_class)
-+{
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+
-+	for_each_engine(engine, gt, id) {
-+		if (engine->class != engine_class)
-+			continue;
-+
-+		if (!engine->default_state)
-+			continue;
-+
-+		return engine;
-+	}
-+
-+	return NULL;
-+}
-+
-+static void guc_init_golden_context(struct intel_guc *guc)
-+{
- 	struct __guc_ads_blob *blob = guc->ads_blob;
--	const u32 skipped_size = LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SIZE;
--	u32 base;
-+	struct intel_engine_cs *engine;
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	u32 addr_ggtt, offset;
-+	u32 total_size = 0, alloc_size, real_size;
- 	u8 engine_class, guc_class;
-+	u8 *ptr;
- 
--	/* GuC scheduling policies */
--	guc_policies_init(guc, &blob->policies);
-+	/* Skip execlist and PPGTT registers + HWSP */
-+	const u32 lr_hw_context_size = 80 * sizeof(u32);
-+	const u32 skip_size = LRC_PPHWSP_SZ * PAGE_SIZE +
-+		lr_hw_context_size;
-+
-+	if (!intel_uc_uses_guc_submission(&gt->uc))
-+		return;
-+
-+	GEM_BUG_ON(!blob);
- 
- 	/*
--	 * GuC expects a per-engine-class context image and size
--	 * (minus hwsp and ring context). The context image will be
--	 * used to reinitialize engines after a reset. It must exist
--	 * and be pinned in the GGTT, so that the address won't change after
--	 * we have told GuC where to find it. The context size will be used
--	 * to validate that the LRC base + size fall within allowed GGTT.
-+	 * Go back and fill in the golden context data now that it is
-+	 * available.
- 	 */
-+	offset = guc_ads_golden_ctxt_offset(guc);
-+	addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
-+	ptr = ((u8 *)blob) + offset;
-+
- 	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
- 		if (engine_class == OTHER_CLASS)
- 			continue;
- 
- 		guc_class = engine_class_to_guc_class(engine_class);
- 
--		/*
--		 * TODO: Set context pointer to default state to allow
--		 * GuC to re-init guilty contexts after internal reset.
--		 */
--		blob->ads.golden_context_lrca[guc_class] = 0;
--		blob->ads.eng_state_size[guc_class] =
--			intel_engine_context_size(gt, engine_class) -
--			skipped_size;
-+		if (!blob->system_info.engine_enabled_masks[guc_class])
-+			continue;
-+
-+		real_size = intel_engine_context_size(gt, engine_class);
-+		alloc_size = PAGE_ALIGN(real_size);
-+		total_size += alloc_size;
-+
-+		engine = find_engine_state(gt, engine_class);
-+		if (!engine) {
-+			drm_err(&gt->i915->drm, "No engine state recorded for class %d!\n",
-+				engine_class);
-+			blob->ads.eng_state_size[guc_class] = 0;
-+			blob->ads.golden_context_lrca[guc_class] = 0;
-+			continue;
-+		}
-+
-+		GEM_BUG_ON(blob->ads.eng_state_size[guc_class] != real_size);
-+		GEM_BUG_ON(blob->ads.golden_context_lrca[guc_class] != addr_ggtt);
-+		addr_ggtt += alloc_size;
-+
-+		shmem_read(engine->default_state, skip_size, ptr + skip_size,
-+			   real_size - skip_size);
-+		ptr += alloc_size;
+ 	ret = kstrtouint_from_user(ubuf, len, 0, value);
+@@ -95,6 +119,14 @@ static ssize_t i915_param_uint_write(struct file *file,
+ 			*value = b;
  	}
  
-+	GEM_BUG_ON(guc->ads_golden_ctxt_size != total_size);
-+}
++	if (!ret && MATCH_DEBUGFS_NODE_NAME(file, "reset")) {
++		GET_I915(i915, reset, value);
 +
-+static void __guc_ads_init(struct intel_guc *guc)
-+{
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	struct drm_i915_private *i915 = gt->i915;
-+	struct __guc_ads_blob *blob = guc->ads_blob;
-+	u32 base;
++		ret = notify_guc(i915);
++		if (ret)
++			*value = old;
++	}
 +
-+	/* GuC scheduling policies */
-+	guc_policies_init(guc, &blob->policies);
-+
- 	/* System info */
--	blob->system_info.engine_enabled_masks[GUC_RENDER_CLASS] = 1;
--	blob->system_info.engine_enabled_masks[GUC_BLITTER_CLASS] = 1;
--	blob->system_info.engine_enabled_masks[GUC_VIDEO_CLASS] = VDBOX_MASK(gt);
--	blob->system_info.engine_enabled_masks[GUC_VIDEOENHANCE_CLASS] = VEBOX_MASK(gt);
-+	fill_engine_enable_masks(gt, &blob->system_info);
- 
- 	blob->system_info.generic_gt_sysinfo[GUC_GENERIC_GT_SYSINFO_SLICE_ENABLED] =
- 		hweight8(gt->info.sseu.slice_mask);
-@@ -380,6 +514,9 @@ static void __guc_ads_init(struct intel_guc *guc)
- 			 GEN12_DOORBELLS_PER_SQIDI) + 1;
- 	}
- 
-+	/* Golden contexts for re-initialising after a watchdog reset */
-+	guc_prep_golden_context(guc, blob);
-+
- 	guc_mapping_table_init(guc_to_gt(guc), &blob->system_info);
- 
- 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
-@@ -417,6 +554,13 @@ int intel_guc_ads_create(struct intel_guc *guc)
- 		return ret;
- 	guc->ads_regset_size = ret;
- 
-+	/* Likewise the golden contexts: */
-+	ret = guc_prep_golden_context(guc, NULL);
-+	if (ret < 0)
-+		return ret;
-+	guc->ads_golden_ctxt_size = ret;
-+
-+	/* Now the total size can be determined: */
- 	size = guc_ads_blob_size(guc);
- 
- 	ret = intel_guc_allocate_and_map_vma(guc, size, &guc->ads_vma,
-@@ -429,6 +573,18 @@ int intel_guc_ads_create(struct intel_guc *guc)
- 	return 0;
+ 	return ret ?: len;
  }
  
-+void intel_guc_ads_init_late(struct intel_guc *guc)
-+{
-+	/*
-+	 * The golden context setup requires the saved engine state from
-+	 * __engines_record_defaults(). However, that requires engines to be
-+	 * operational which means the ADS must already have been configured.
-+	 * Fortunately, the golden context state is not needed until a hang
-+	 * occurs, so it can be filled in during this late init phase.
-+	 */
-+	guc_init_golden_context(guc);
-+}
-+
- void intel_guc_ads_destroy(struct intel_guc *guc)
- {
- 	i915_vma_unpin_and_release(&guc->ads_vma, I915_VMA_RELEASE_MAP);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
-index bdcb339a5321..3d85051d57e4 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h
-@@ -11,6 +11,7 @@ struct drm_printer;
- 
- int intel_guc_ads_create(struct intel_guc *guc);
- void intel_guc_ads_destroy(struct intel_guc *guc);
-+void intel_guc_ads_init_late(struct intel_guc *guc);
- void intel_guc_ads_reset(struct intel_guc *guc);
- void intel_guc_ads_print_policy_info(struct intel_guc *guc,
- 				     struct drm_printer *p);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 77c1fe2ed883..7a69c3c027e9 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -120,6 +120,11 @@ void intel_uc_init_early(struct intel_uc *uc)
- 		uc->ops = &uc_ops_off;
- }
- 
-+void intel_uc_init_late(struct intel_uc *uc)
-+{
-+	intel_guc_init_late(&uc->guc);
-+}
-+
- void intel_uc_driver_late_release(struct intel_uc *uc)
- {
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-index 91315e3f1c58..e2da2b6e76e1 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-@@ -35,6 +35,7 @@ struct intel_uc {
- };
- 
- void intel_uc_init_early(struct intel_uc *uc);
-+void intel_uc_init_late(struct intel_uc *uc);
- void intel_uc_driver_late_release(struct intel_uc *uc);
- void intel_uc_driver_remove(struct intel_uc *uc);
- void intel_uc_init_mmio(struct intel_uc *uc);
 -- 
 2.28.0
 
