@@ -2,41 +2,46 @@ Return-Path: <SRS0=MV7T=MT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3FA2C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 17:51:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12F9BC4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:03:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A905360E78
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 17:51:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A905360E78
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id C969F60F0F
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 18:03:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C969F60F0F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDA26EA68;
-	Tue, 27 Jul 2021 17:51:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id D17716E804;
- Tue, 27 Jul 2021 17:51:19 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id CD5D3AA01E;
- Tue, 27 Jul 2021 17:51:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 738416EA70;
+	Tue, 27 Jul 2021 18:03:09 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A0CC6E9EF;
+ Tue, 27 Jul 2021 18:03:08 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10058"; a="212222304"
+X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="212222304"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2021 11:03:06 -0700
+X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="662922381"
+Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2021 11:03:06 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <igt-dev@lists.freedesktop.org>
+Date: Tue, 27 Jul 2021 11:20:57 -0700
+Message-Id: <20210727182057.78409-2-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20210727182057.78409-1-matthew.brost@intel.com>
+References: <20210727182057.78409-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Lucas De Marchi" <lucas.demarchi@intel.com>
-Date: Tue, 27 Jul 2021 17:51:19 -0000
-Message-ID: <162740827983.18664.3876569270617582767@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210727071845.841554-1-lucas.demarchi@intel.com>
-In-Reply-To: <20210727071845.841554-1-lucas.demarchi@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?series_starting_with_=5BCI=2C01/28=5D_drm/i915/display=3A_remov?=
- =?utf-8?q?e_PORT=5FF_workaround_for_CNL_=28rev2=29?=
+Subject: [Intel-gfx] [PATCH i-g-t 1/1] i915/gem_scheduler: Ensure submission
+ order in manycontexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,132 +54,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+With GuC submission contexts can get reordered (compared to submission
+order), if contexts get reordered the sequential nature of the batches
+releasing the next batch's semaphore in function timesliceN() get broken
+resulting in the test taking much longer than if should. e.g. Every
+contexts needs to be timesliced to release the next batch. Corking the
+first submission until all the batches have been submitted should ensure
+submission order.
 
-Series: series starting with [CI,01/28] drm/i915/display: remove PORT_F workaround for CNL (rev2)
-URL   : https://patchwork.freedesktop.org/series/93056/
-State : warning
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ tests/i915/gem_exec_schedule.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-== Summary ==
-
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
--
-+drivers/gpu/drm/i915/display/intel_display.c:1900:21:    expected struct i915_vma *[assigned] vma
-+drivers/gpu/drm/i915/display/intel_display.c:1900:21:    got void [noderef] __iomem *[assigned] iomem
-+drivers/gpu/drm/i915/display/intel_display.c:1900:21: warning: incorrect type in assignment (different address spaces)
-+drivers/gpu/drm/i915/gem/i915_gem_context.c:1413:34:    expected struct i915_address_space *vm
-+drivers/gpu/drm/i915/gem/i915_gem_context.c:1413:34:    got struct i915_address_space [noderef] __rcu *vm
-+drivers/gpu/drm/i915/gem/i915_gem_context.c:1413:34: warning: incorrect type in argument 1 (different address spaces)
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:43:25:    expected struct i915_address_space [noderef] __rcu *vm
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:43:25:    got struct i915_address_space *
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:43:25: warning: incorrect type in assignment (different address spaces)
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:60:34:    expected struct i915_address_space *vm
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:60:34:    got struct i915_address_space [noderef] __rcu *vm
-+drivers/gpu/drm/i915/gem/selftests/mock_context.c:60:34: warning: incorrect type in argument 1 (different address spaces)
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
-+drivers/gpu/drm/i915/gt/intel_reset.c:1402:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
-+drivers/gpu/drm/i915/gt/intel_ring_submission.c:1210:24: warning: Using plain integer as NULL pointer
-+drivers/gpu/drm/i915/i915_perf.c:1442:15: warning: memset with byte count of 16777216
-+drivers/gpu/drm/i915/i915_perf.c:1496:15: warning: memset with byte count of 16777216
-+./include/asm-generic/bitops/find.h:112:45: warning: shift count is negative (-262080)
-+./include/asm-generic/bitops/find.h:32:31: warning: shift count is negative (-262080)
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'xehp_fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'xehp_fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'xehp_fwtable_write8' - different lock contexts for basic block
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+./include/linux/stddef.h:17:9: this was the original definition
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-+/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
-
+diff --git a/tests/i915/gem_exec_schedule.c b/tests/i915/gem_exec_schedule.c
+index f03842478..41f2591a5 100644
+--- a/tests/i915/gem_exec_schedule.c
++++ b/tests/i915/gem_exec_schedule.c
+@@ -597,12 +597,13 @@ static void timesliceN(int i915, const intel_ctx_cfg_t *cfg,
+ 	struct drm_i915_gem_execbuffer2 execbuf  = {
+ 		.buffers_ptr = to_user_pointer(&obj),
+ 		.buffer_count = 1,
+-		.flags = engine | I915_EXEC_FENCE_OUT,
++		.flags = engine | I915_EXEC_FENCE_OUT | I915_EXEC_FENCE_SUBMIT,
+ 	};
+ 	uint32_t *result =
+ 		gem_mmap__device_coherent(i915, obj.handle, 0, sz, PROT_READ);
+ 	const intel_ctx_t *ctx;
+ 	int fence[count];
++	IGT_CORK_FENCE(cork);
+ 
+ 	/*
+ 	 * Create a pair of interlocking batches, that ping pong
+@@ -614,6 +615,17 @@ static void timesliceN(int i915, const intel_ctx_cfg_t *cfg,
+ 	igt_require(gem_scheduler_has_timeslicing(i915));
+ 	igt_require(intel_gen(intel_get_drm_devid(i915)) >= 8);
+ 
++	/*
++	 * With GuC submission contexts can get reordered (compared to
++	 * submission order), if contexts get reordered the sequential
++	 * nature of the batches releasing the next batch's semaphore gets
++	 * broken resulting in the test taking much longer than it should (e.g.
++	 * every context needs to be timesliced to release the next batch).
++	 * Corking the first submission until all batches have been
++	 * submitted should ensure submission order.
++	 */
++	execbuf.rsvd2 = igt_cork_plug(&cork, i915);
++
+ 	/* No coupling between requests; free to timeslice */
+ 
+ 	for (int i = 0; i < count; i++) {
+@@ -624,8 +636,10 @@ static void timesliceN(int i915, const intel_ctx_cfg_t *cfg,
+ 		intel_ctx_destroy(i915, ctx);
+ 
+ 		fence[i] = execbuf.rsvd2 >> 32;
++		execbuf.rsvd2 >>= 32;
+ 	}
+ 
++	igt_cork_unplug(&cork);
+ 	gem_sync(i915, obj.handle);
+ 	gem_close(i915, obj.handle);
+ 
+-- 
+2.28.0
 
 _______________________________________________
 Intel-gfx mailing list
