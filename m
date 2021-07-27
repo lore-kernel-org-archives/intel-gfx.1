@@ -7,41 +7,38 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29877C4320A
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 15:04:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B33FC4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 15:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E87FD61B20
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 15:04:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E87FD61B20
+	by mail.kernel.org (Postfix) with ESMTPS id 410A061B03
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 15:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 410A061B03
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9035D6E8D3;
-	Tue, 27 Jul 2021 15:04:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E73C46E1BD;
+	Tue, 27 Jul 2021 15:04:38 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3489C6E1BD;
- Tue, 27 Jul 2021 15:04:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="192739986"
-X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="192739986"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59A246E1BD;
+ Tue, 27 Jul 2021 15:04:17 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="192739973"
+X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="192739973"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 08:04:16 -0700
-X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="505919099"
+ 27 Jul 2021 08:04:15 -0700
+X-IronPort-AV: E=Sophos;i="5.84,274,1620716400"; d="scan'208";a="505919087"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 08:04:16 -0700
+ 27 Jul 2021 08:04:15 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <igt-dev@lists.freedesktop.org>
-Date: Tue, 27 Jul 2021 08:22:02 -0700
-Message-Id: <20210727152202.9527-8-matthew.brost@intel.com>
+Date: Tue, 27 Jul 2021 08:21:55 -0700
+Message-Id: <20210727152202.9527-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210727152202.9527-1-matthew.brost@intel.com>
-References: <20210727152202.9527-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 7/7] i915/gem_ctx_shared: Make
- gem_ctx_shared understand static priority mapping
+Subject: [Intel-gfx] [PATCH i-g-t 0/7] Updates for GuC & parallel submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,48 +57,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The i915 currently has 2k visible priority levels which are currently
-unique. This is changing to statically map these 2k levels into 3
-buckets:
+IGT updates for GuC submission [1] and parallel submission (aka multi-bb
+execbuf) [2]. This entails adding tests for parallel submission and
+teaching IGTs to know of static priority mapping.
 
-low: < 0
-mid: 0
-high: > 0
+More IGTs likely need to be updated gem_ctx_persistence and i915_hangman
+come to mind. Expect following series to address those tests.
 
-Update gem_scheduler to understand this. This entails updating promotion
-test to use 3 levels that will map into different buckets and also
-delete a racey check.
+v2:
+ (CI)
+  - Fix off by 1 error in reserved fields of drm_i915_engine_info
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- tests/i915/gem_ctx_shared.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/tests/i915/gem_ctx_shared.c b/tests/i915/gem_ctx_shared.c
-index 4441e6eb7..0d95df8a5 100644
---- a/tests/i915/gem_ctx_shared.c
-+++ b/tests/i915/gem_ctx_shared.c
-@@ -771,10 +771,10 @@ static void promotion(int i915, const intel_ctx_cfg_t *cfg, unsigned ring)
- 	gem_context_set_priority(i915, ctx[LO]->id, MIN_PRIO);
- 
- 	ctx[HI] = intel_ctx_create(i915, &q_cfg);
--	gem_context_set_priority(i915, ctx[HI]->id, 0);
-+	gem_context_set_priority(i915, ctx[HI]->id, MAX_PRIO);
- 
- 	ctx[NOISE] = intel_ctx_create(i915, &q_cfg);
--	gem_context_set_priority(i915, ctx[NOISE]->id, MIN_PRIO/2);
-+	gem_context_set_priority(i915, ctx[NOISE]->id, 0);
- 
- 	result = gem_create(i915, 4096);
- 	dep = gem_create(i915, 4096);
-@@ -811,7 +811,6 @@ static void promotion(int i915, const intel_ctx_cfg_t *cfg, unsigned ring)
- 			I915_GEM_DOMAIN_GTT, I915_GEM_DOMAIN_GTT);
- 	gem_close(i915, result);
- 
--	igt_assert_eq_u32(ptr[0], ctx[NOISE]->id);
- 	munmap(ptr, 4096);
- 
- 	intel_ctx_destroy(i915, ctx[NOISE]);
+[1] https://patchwork.freedesktop.org/series/91840/
+[2] https://patchwork.freedesktop.org/series/92789/
+
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+
+Matthew Brost (7):
+  include/drm-uapi: Add parallel context configuration uAPI
+  include/drm-uapi: Add logical mapping uAPI
+  lib/intel_ctx: Add support for parallel contexts to intel_ctx library
+  i915/gem_exec_balancer: Test parallel execbuf
+  include/drm-uapi: Add static priority mapping UAPI
+  i915/gem_scheduler: Make gem_scheduler understand static priority
+    mapping
+  i915/gem_ctx_shared: Make gem_ctx_shared understand static priority
+    mapping
+
+ include/drm-uapi/i915_drm.h    | 145 +++++++++-
+ lib/i915/gem_scheduler.c       |  13 +
+ lib/i915/gem_scheduler.h       |   1 +
+ lib/intel_ctx.c                |  28 +-
+ lib/intel_ctx.h                |   2 +
+ lib/intel_reg.h                |   5 +
+ tests/i915/gem_ctx_shared.c    |   5 +-
+ tests/i915/gem_exec_balancer.c | 487 +++++++++++++++++++++++++++++++++
+ tests/i915/gem_exec_schedule.c |  47 ++--
+ 9 files changed, 709 insertions(+), 24 deletions(-)
+
 -- 
 2.28.0
 
