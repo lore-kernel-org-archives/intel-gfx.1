@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9D5EC4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BAD8DC432BE
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:01:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA6D360E94
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BA6D360E94
+	by mail.kernel.org (Postfix) with ESMTPS id 8C87C60232
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:01:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8C87C60232
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 569496EB46;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB9A6EB52;
 	Wed, 28 Jul 2021 22:00:59 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7C206E9FC
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 22:00:07 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="212786407"
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="212786407"
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C0156E9FC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 22:00:09 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="193035289"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="193035289"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Jul 2021 15:00:06 -0700
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="663663285"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="663663265"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 15:00:06 -0700
+ 28 Jul 2021 15:00:05 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Jul 2021 14:59:43 -0700
-Message-Id: <20210728215946.1573015-23-lucas.demarchi@intel.com>
+Date: Wed, 28 Jul 2021 14:59:38 -0700
+Message-Id: <20210728215946.1573015-18-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210728215946.1573015-1-lucas.demarchi@intel.com>
 References: <20210728215946.1573015-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 22/25] drm/i915: switch num_scalers/num_sprites
- to consider DISPLAY_VER
+Subject: [Intel-gfx] [PATCH 17/25] drm/i915: remove explicit CNL handling
+ from intel_pm.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,59 +59,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The numbers of scalers and sprites depend on the display version, so use
-it instead of GRAPHICS_VER. We were mixing both, which let me confused
-while removing CNL and GRAPHICS_VER == 10.
-
-v2 (Rodrigo): Switch IS_GEMINILAKE to DISPLAY_VER == 10
-v3 (Lucas): Change check to DISPLAY_VER >= 9, to cover the GLK's num_scalers,
-otherwise it remains set to 0.
+Remove support for CNL as it's highly untested, probably broken, and
+there is no real platform that requires this code. This is part of CNL
+removal from i915.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/intel_device_info.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_reg.h |  2 +-
+ drivers/gpu/drm/i915/intel_pm.c | 41 +--------------------------------
+ 2 files changed, 2 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 99b51c292942..b674d03e6047 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -267,10 +267,10 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
- 	if (IS_ADLS_DISPLAY_STEP(dev_priv, STEP_A0, STEP_A2))
- 		for_each_pipe(dev_priv, pipe)
- 			runtime->num_scalers[pipe] = 0;
--	else if (GRAPHICS_VER(dev_priv) >= 10) {
-+	else if (DISPLAY_VER(dev_priv) >= 11) {
- 		for_each_pipe(dev_priv, pipe)
- 			runtime->num_scalers[pipe] = 2;
--	} else if (GRAPHICS_VER(dev_priv) == 9) {
-+	} else if (DISPLAY_VER(dev_priv) >= 9) {
- 		runtime->num_scalers[PIPE_A] = 2;
- 		runtime->num_scalers[PIPE_B] = 2;
- 		runtime->num_scalers[PIPE_C] = 1;
-@@ -281,10 +281,10 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
- 	if (DISPLAY_VER(dev_priv) >= 13 || HAS_D12_PLANE_MINIMIZATION(dev_priv))
- 		for_each_pipe(dev_priv, pipe)
- 			runtime->num_sprites[pipe] = 4;
--	else if (GRAPHICS_VER(dev_priv) >= 11)
-+	else if (DISPLAY_VER(dev_priv) >= 11)
- 		for_each_pipe(dev_priv, pipe)
- 			runtime->num_sprites[pipe] = 6;
--	else if (GRAPHICS_VER(dev_priv) == 10 || IS_GEMINILAKE(dev_priv))
-+	else if (DISPLAY_VER(dev_priv) == 10)
- 		for_each_pipe(dev_priv, pipe)
- 			runtime->num_sprites[pipe] = 3;
- 	else if (IS_BROXTON(dev_priv)) {
-@@ -303,7 +303,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
- 	} else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
- 		for_each_pipe(dev_priv, pipe)
- 			runtime->num_sprites[pipe] = 2;
--	} else if (GRAPHICS_VER(dev_priv) >= 5 || IS_G4X(dev_priv)) {
-+	} else if (DISPLAY_VER(dev_priv) >= 5 || IS_G4X(dev_priv)) {
- 		for_each_pipe(dev_priv, pipe)
- 			runtime->num_sprites[pipe] = 1;
- 	}
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 02d645c573f9..d98c0c97c134 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -8234,7 +8234,7 @@ enum {
+ 
+ #define GEN8_CHICKEN_DCPR_1		_MMIO(0x46430)
+ #define   SKL_SELECT_ALTERNATE_DC_EXIT	(1 << 30)
+-#define   CNL_DELAY_PMRSP		(1 << 22)
++#define   ICL_DELAY_PMRSP		(1 << 22)
+ #define   MASK_WAKEMEM			(1 << 13)
+ #define   CNL_DDI_CLOCK_REG_ACCESS_ON	(1 << 7)
+ 
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 10a39a7d8150..197169f01226 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -7469,7 +7469,7 @@ static void icl_init_clock_gating(struct drm_i915_private *dev_priv)
+ 
+ 	/*Wa_14010594013:icl, ehl */
+ 	intel_uncore_rmw(&dev_priv->uncore, GEN8_CHICKEN_DCPR_1,
+-			 0, CNL_DELAY_PMRSP);
++			 0, ICL_DELAY_PMRSP);
+ }
+ 
+ static void gen12lp_init_clock_gating(struct drm_i915_private *dev_priv)
+@@ -7521,43 +7521,6 @@ static void cnp_init_clock_gating(struct drm_i915_private *dev_priv)
+ 		   CNP_PWM_CGE_GATING_DISABLE);
+ }
+ 
+-static void cnl_init_clock_gating(struct drm_i915_private *dev_priv)
+-{
+-	u32 val;
+-	cnp_init_clock_gating(dev_priv);
+-
+-	/* This is not an Wa. Enable for better image quality */
+-	intel_uncore_write(&dev_priv->uncore, _3D_CHICKEN3,
+-		   _MASKED_BIT_ENABLE(_3D_CHICKEN3_AA_LINE_QUALITY_FIX_ENABLE));
+-
+-	/* WaEnableChickenDCPR:cnl */
+-	intel_uncore_write(&dev_priv->uncore, GEN8_CHICKEN_DCPR_1,
+-		   intel_uncore_read(&dev_priv->uncore, GEN8_CHICKEN_DCPR_1) | MASK_WAKEMEM);
+-
+-	/*
+-	 * WaFbcWakeMemOn:cnl
+-	 * Display WA #0859: cnl
+-	 */
+-	intel_uncore_write(&dev_priv->uncore, DISP_ARB_CTL, intel_uncore_read(&dev_priv->uncore, DISP_ARB_CTL) |
+-		   DISP_FBC_MEMORY_WAKE);
+-
+-	val = intel_uncore_read(&dev_priv->uncore, SLICE_UNIT_LEVEL_CLKGATE);
+-	/* ReadHitWriteOnlyDisable:cnl */
+-	val |= RCCUNIT_CLKGATE_DIS;
+-	intel_uncore_write(&dev_priv->uncore, SLICE_UNIT_LEVEL_CLKGATE, val);
+-
+-	/* Wa_2201832410:cnl */
+-	val = intel_uncore_read(&dev_priv->uncore, SUBSLICE_UNIT_LEVEL_CLKGATE);
+-	val |= GWUNIT_CLKGATE_DIS;
+-	intel_uncore_write(&dev_priv->uncore, SUBSLICE_UNIT_LEVEL_CLKGATE, val);
+-
+-	/* WaDisableVFclkgate:cnl */
+-	/* WaVFUnitClockGatingDisable:cnl */
+-	val = intel_uncore_read(&dev_priv->uncore, UNSLICE_UNIT_LEVEL_CLKGATE);
+-	val |= VFUNIT_CLKGATE_DIS;
+-	intel_uncore_write(&dev_priv->uncore, UNSLICE_UNIT_LEVEL_CLKGATE, val);
+-}
+-
+ static void cfl_init_clock_gating(struct drm_i915_private *dev_priv)
+ {
+ 	cnp_init_clock_gating(dev_priv);
+@@ -7986,8 +7949,6 @@ void intel_init_clock_gating_hooks(struct drm_i915_private *dev_priv)
+ 		dev_priv->display.init_clock_gating = gen12lp_init_clock_gating;
+ 	else if (GRAPHICS_VER(dev_priv) == 11)
+ 		dev_priv->display.init_clock_gating = icl_init_clock_gating;
+-	else if (IS_CANNONLAKE(dev_priv))
+-		dev_priv->display.init_clock_gating = cnl_init_clock_gating;
+ 	else if (IS_COFFEELAKE(dev_priv) || IS_COMETLAKE(dev_priv))
+ 		dev_priv->display.init_clock_gating = cfl_init_clock_gating;
+ 	else if (IS_SKYLAKE(dev_priv))
 -- 
 2.31.1
 
