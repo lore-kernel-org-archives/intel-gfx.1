@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97489C432BE
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A55B6C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 60B1660FED
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 60B1660FED
+	by mail.kernel.org (Postfix) with ESMTPS id 725F560FED
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 725F560FED
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 918906E972;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6643B6EA74;
 	Wed, 28 Jul 2021 22:00:13 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D53036E972
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D53F26E9FC
  for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 22:00:06 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="199937033"
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="199937033"
+X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="212786398"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="212786398"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Jul 2021 15:00:05 -0700
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="663663259"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="663663232"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 15:00:05 -0700
+ 28 Jul 2021 15:00:04 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Jul 2021 14:59:36 -0700
-Message-Id: <20210728215946.1573015-16-lucas.demarchi@intel.com>
+Date: Wed, 28 Jul 2021 14:59:29 -0700
+Message-Id: <20210728215946.1573015-9-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210728215946.1573015-1-lucas.demarchi@intel.com>
 References: <20210728215946.1573015-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 15/25] drm/i915/display: rename CNL references
- in skl_scaler.c
+Subject: [Intel-gfx] [PATCH 08/25] drm/i915/display: remove explicit CNL
+ handling from intel_dmc.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,76 +59,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the removal of CNL, let's consider GLK as the first platform using
-those constants since GLK has DISPLAY_VER == 10.
+Remove DMC firmware for CNL.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_scaler.c | 10 +++++-----
- drivers/gpu/drm/i915/i915_reg.h           |  4 ++--
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dmc.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index 911a113ee006..ebdd3115de16 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -341,12 +341,12 @@ static u16 cnl_nearest_filter_coef(int t)
-  *
-  */
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index 9895fd957df9..3c3c6cb5c0df 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -70,11 +70,6 @@ MODULE_FIRMWARE(TGL_DMC_PATH);
+ #define ICL_DMC_MAX_FW_SIZE		0x6000
+ MODULE_FIRMWARE(ICL_DMC_PATH);
  
--static void cnl_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
-+static void glk_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
- 					     enum pipe pipe, int id, int set)
- {
- 	int i;
- 
--	intel_de_write_fw(dev_priv, CNL_PS_COEF_INDEX_SET(pipe, id, set),
-+	intel_de_write_fw(dev_priv, GLK_PS_COEF_INDEX_SET(pipe, id, set),
- 			  PS_COEE_INDEX_AUTO_INC);
- 
- 	for (i = 0; i < 17 * 7; i += 2) {
-@@ -359,11 +359,11 @@ static void cnl_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
- 		t = cnl_coef_tap(i + 1);
- 		tmp |= cnl_nearest_filter_coef(t) << 16;
- 
--		intel_de_write_fw(dev_priv, CNL_PS_COEF_DATA_SET(pipe, id, set),
-+		intel_de_write_fw(dev_priv, GLK_PS_COEF_DATA_SET(pipe, id, set),
- 				  tmp);
- 	}
- 
--	intel_de_write_fw(dev_priv, CNL_PS_COEF_INDEX_SET(pipe, id, set), 0);
-+	intel_de_write_fw(dev_priv, GLK_PS_COEF_INDEX_SET(pipe, id, set), 0);
- }
- 
- static u32 skl_scaler_get_filter_select(enum drm_scaling_filter filter, int set)
-@@ -386,7 +386,7 @@ static void skl_scaler_setup_filter(struct drm_i915_private *dev_priv, enum pipe
- 	case DRM_SCALING_FILTER_DEFAULT:
- 		break;
- 	case DRM_SCALING_FILTER_NEAREST_NEIGHBOR:
--		cnl_program_nearest_filter_coefs(dev_priv, pipe, id, set);
-+		glk_program_nearest_filter_coefs(dev_priv, pipe, id, set);
- 		break;
- 	default:
- 		MISSING_CASE(filter);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 0086b165f03a..bf1d0cadc208 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7720,11 +7720,11 @@ enum {
- #define SKL_PS_ECC_STAT(pipe, id)  _MMIO_PIPE(pipe,     \
- 			_ID(id, _PS_ECC_STAT_1A, _PS_ECC_STAT_2A),   \
- 			_ID(id, _PS_ECC_STAT_1B, _PS_ECC_STAT_2B))
--#define CNL_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
-+#define GLK_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
- 			_ID(id, _PS_COEF_SET0_INDEX_1A, _PS_COEF_SET0_INDEX_2A) + (set) * 8, \
- 			_ID(id, _PS_COEF_SET0_INDEX_1B, _PS_COEF_SET0_INDEX_2B) + (set) * 8)
- 
--#define CNL_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
-+#define GLK_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
- 			_ID(id, _PS_COEF_SET0_DATA_1A, _PS_COEF_SET0_DATA_2A) + (set) * 8, \
- 			_ID(id, _PS_COEF_SET0_DATA_1B, _PS_COEF_SET0_DATA_2B) + (set) * 8)
- /* legacy palette */
+-#define CNL_DMC_PATH			DMC_PATH(cnl, 1, 07)
+-#define CNL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 7)
+-#define CNL_DMC_MAX_FW_SIZE		GLK_DMC_MAX_FW_SIZE
+-MODULE_FIRMWARE(CNL_DMC_PATH);
+-
+ #define GLK_DMC_PATH			DMC_PATH(glk, 1, 04)
+ #define GLK_DMC_VERSION_REQUIRED	DMC_VERSION(1, 4)
+ #define GLK_DMC_MAX_FW_SIZE		0x4000
+@@ -718,10 +713,6 @@ void intel_dmc_ucode_init(struct drm_i915_private *dev_priv)
+ 		dmc->fw_path = ICL_DMC_PATH;
+ 		dmc->required_version = ICL_DMC_VERSION_REQUIRED;
+ 		dmc->max_fw_size = ICL_DMC_MAX_FW_SIZE;
+-	} else if (IS_CANNONLAKE(dev_priv)) {
+-		dmc->fw_path = CNL_DMC_PATH;
+-		dmc->required_version = CNL_DMC_VERSION_REQUIRED;
+-		dmc->max_fw_size = CNL_DMC_MAX_FW_SIZE;
+ 	} else if (IS_GEMINILAKE(dev_priv)) {
+ 		dmc->fw_path = GLK_DMC_PATH;
+ 		dmc->required_version = GLK_DMC_VERSION_REQUIRED;
 -- 
 2.31.1
 
