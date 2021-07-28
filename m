@@ -7,41 +7,40 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4885EC432BE
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AB1FC4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18DA960FED
+	by mail.kernel.org (Postfix) with ESMTPS id D4FE660FED
 	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 18DA960FED
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D4FE660FED
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86EE36EA94;
-	Wed, 28 Jul 2021 22:00:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 400DE6EB0B;
+	Wed, 28 Jul 2021 22:00:14 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E7FC6E9FC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8776EA16
  for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 22:00:07 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="212786400"
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="212786400"
+X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="212786409"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="212786409"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 15:00:05 -0700
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="663663247"
+ 28 Jul 2021 15:00:06 -0700
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="663663288"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 15:00:05 -0700
+ 28 Jul 2021 15:00:06 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Jul 2021 14:59:33 -0700
-Message-Id: <20210728215946.1573015-13-lucas.demarchi@intel.com>
+Date: Wed, 28 Jul 2021 14:59:44 -0700
+Message-Id: <20210728215946.1573015-24-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210728215946.1573015-1-lucas.demarchi@intel.com>
 References: <20210728215946.1573015-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/25] drm/i915/display: remove explicit CNL
- handling from skl_universal_plane.c
+Subject: [Intel-gfx] [PATCH 23/25] drm/i915: remove GRAPHICS_VER == 10
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,77 +58,150 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The only real platform with DISPLAY_VER == 10 is GLK. We don't need to
-handle CNL explicitly in skl_universal_plane.c.
-
-Remove code and rename functions/macros accordingly to use ICL prefix.
+Replace all remaining handling of GRAPHICS_VER {==,>=} 10 with
+{==,>=} 11. With the removal of CNL, there is no platform with graphics
+version equals 10.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c |  1 -
+ drivers/gpu/drm/i915/gvt/gtt.c             |  2 +-
+ drivers/gpu/drm/i915/i915_debugfs.c        |  6 +++---
+ drivers/gpu/drm/i915/i915_drv.h            |  2 +-
+ drivers/gpu/drm/i915/i915_perf.c           | 21 ++++++++-------------
+ 5 files changed, 13 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 3ad04bf2a0fd..0f40f8b07724 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -835,7 +835,7 @@ static u32 skl_plane_ctl_rotate(unsigned int rotate)
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index b0c3a7dc60d1..34070d0ea325 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -447,7 +447,6 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
+ 		break;
+ 	case 8:
+ 	case 9:
+-	case 10:
+ 		if (IS_LP(i915))
+ 			chv_get_stolen_reserved(i915, uncore,
+ 						&reserved_base, &reserved_size);
+diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
+index cc2c05e18206..e5c2fdfc20e3 100644
+--- a/drivers/gpu/drm/i915/gvt/gtt.c
++++ b/drivers/gpu/drm/i915/gvt/gtt.c
+@@ -1055,7 +1055,7 @@ static bool vgpu_ips_enabled(struct intel_vgpu *vgpu)
+ {
+ 	struct drm_i915_private *dev_priv = vgpu->gvt->gt->i915;
+ 
+-	if (GRAPHICS_VER(dev_priv) == 9 || GRAPHICS_VER(dev_priv) == 10) {
++	if (GRAPHICS_VER(dev_priv) == 9) {
+ 		u32 ips = vgpu_vreg_t(vgpu, GEN8_GAMW_ECO_DEV_RW_IA) &
+ 			GAMW_ECO_ENABLE_64K_IPS_FIELD;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index 0529576f069c..44969f5dde50 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -538,20 +538,20 @@ static int i915_frequency_info(struct seq_file *m, void *unused)
+ 		max_freq = (IS_GEN9_LP(dev_priv) ? rp_state_cap >> 0 :
+ 			    rp_state_cap >> 16) & 0xff;
+ 		max_freq *= (IS_GEN9_BC(dev_priv) ||
+-			     GRAPHICS_VER(dev_priv) >= 10 ? GEN9_FREQ_SCALER : 1);
++			     GRAPHICS_VER(dev_priv) >= 11 ? GEN9_FREQ_SCALER : 1);
+ 		seq_printf(m, "Lowest (RPN) frequency: %dMHz\n",
+ 			   intel_gpu_freq(rps, max_freq));
+ 
+ 		max_freq = (rp_state_cap & 0xff00) >> 8;
+ 		max_freq *= (IS_GEN9_BC(dev_priv) ||
+-			     GRAPHICS_VER(dev_priv) >= 10 ? GEN9_FREQ_SCALER : 1);
++			     GRAPHICS_VER(dev_priv) >= 11 ? GEN9_FREQ_SCALER : 1);
+ 		seq_printf(m, "Nominal (RP1) frequency: %dMHz\n",
+ 			   intel_gpu_freq(rps, max_freq));
+ 
+ 		max_freq = (IS_GEN9_LP(dev_priv) ? rp_state_cap >> 16 :
+ 			    rp_state_cap >> 0) & 0xff;
+ 		max_freq *= (IS_GEN9_BC(dev_priv) ||
+-			     GRAPHICS_VER(dev_priv) >= 10 ? GEN9_FREQ_SCALER : 1);
++			     GRAPHICS_VER(dev_priv) >= 11 ? GEN9_FREQ_SCALER : 1);
+ 		seq_printf(m, "Max non-overclocked (RP0) frequency: %dMHz\n",
+ 			   intel_gpu_freq(rps, max_freq));
+ 		seq_printf(m, "Max overclocked frequency: %dMHz\n",
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index d4bb42246904..5d5cf5ad0513 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1597,7 +1597,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 	 IS_SKL_GT4(dev_priv))
+ 
+ #define HAS_GMBUS_IRQ(dev_priv) (GRAPHICS_VER(dev_priv) >= 4)
+-#define HAS_GMBUS_BURST_READ(dev_priv) (GRAPHICS_VER(dev_priv) >= 10 || \
++#define HAS_GMBUS_BURST_READ(dev_priv) (GRAPHICS_VER(dev_priv) >= 11 || \
+ 					IS_GEMINILAKE(dev_priv) || \
+ 					IS_KABYLAKE(dev_priv))
+ 
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 9f94914958c3..05e941cd1065 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -1256,7 +1256,6 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
+ 
+ 	case 8:
+ 	case 9:
+-	case 10:
+ 		if (intel_engine_uses_guc(ce->engine)) {
+ 			/*
+ 			 * When using GuC, the context descriptor we write in
+@@ -2580,7 +2579,7 @@ static void gen8_disable_metric_set(struct i915_perf_stream *stream)
+ 	intel_uncore_rmw(uncore, GDT_CHICKEN_BITS, GT_NOA_ENABLE, 0);
  }
  
--static u32 cnl_plane_ctl_flip(unsigned int reflect)
-+static u32 icl_plane_ctl_flip(unsigned int reflect)
+-static void gen10_disable_metric_set(struct i915_perf_stream *stream)
++static void gen11_disable_metric_set(struct i915_perf_stream *stream)
  {
- 	switch (reflect) {
- 	case 0:
-@@ -917,8 +917,8 @@ static u32 skl_plane_ctl(const struct intel_crtc_state *crtc_state,
- 	plane_ctl |= skl_plane_ctl_tiling(fb->modifier);
- 	plane_ctl |= skl_plane_ctl_rotate(rotation & DRM_MODE_ROTATE_MASK);
+ 	struct intel_uncore *uncore = stream->uncore;
  
--	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
--		plane_ctl |= cnl_plane_ctl_flip(rotation &
-+	if (DISPLAY_VER(dev_priv) >= 11)
-+		plane_ctl |= icl_plane_ctl_flip(rotation &
- 						DRM_MODE_REFLECT_MASK);
+@@ -3887,7 +3886,7 @@ static bool gen8_is_valid_mux_addr(struct i915_perf *perf, u32 addr)
+ 	       REG_IN_RANGE(addr, RPM_CONFIG0, NOA_CONFIG(8));
+ }
  
- 	if (key->flags & I915_SET_COLORKEY_DESTINATION)
-@@ -1828,7 +1828,7 @@ static bool skl_plane_has_ccs(struct drm_i915_private *dev_priv,
- 	if (plane_id == PLANE_CURSOR)
- 		return false;
+-static bool gen10_is_valid_mux_addr(struct i915_perf *perf, u32 addr)
++static bool gen11_is_valid_mux_addr(struct i915_perf *perf, u32 addr)
+ {
+ 	return gen8_is_valid_mux_addr(perf, addr) ||
+ 	       REG_EQUAL(addr, GEN10_NOA_WRITE_HIGH) ||
+@@ -4395,27 +4394,23 @@ void i915_perf_init(struct drm_i915_private *i915)
  
--	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 11)
- 		return true;
+ 				perf->gen8_valid_ctx_bit = BIT(16);
+ 			}
+-		} else if (IS_GRAPHICS_VER(i915, 10, 11)) {
++		} else if (GRAPHICS_VER(i915) == 11) {
+ 			perf->ops.is_valid_b_counter_reg =
+ 				gen7_is_valid_b_counter_addr;
+ 			perf->ops.is_valid_mux_reg =
+-				gen10_is_valid_mux_addr;
++				gen11_is_valid_mux_addr;
+ 			perf->ops.is_valid_flex_reg =
+ 				gen8_is_valid_flex_addr;
  
- 	if (IS_GEMINILAKE(dev_priv))
-@@ -2144,7 +2144,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
- 			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
- 			DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
+ 			perf->ops.oa_enable = gen8_oa_enable;
+ 			perf->ops.oa_disable = gen8_oa_disable;
+ 			perf->ops.enable_metric_set = gen8_enable_metric_set;
+-			perf->ops.disable_metric_set = gen10_disable_metric_set;
++			perf->ops.disable_metric_set = gen11_disable_metric_set;
+ 			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
  
--	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 11)
- 		supported_rotations |= DRM_MODE_REFLECT_X;
- 
- 	drm_plane_create_rotation_property(&plane->base,
-@@ -2174,7 +2174,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
- 	if (DISPLAY_VER(dev_priv) >= 12)
- 		drm_plane_enable_fb_damage_clips(&plane->base);
- 
--	if (DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 11)
- 		drm_plane_create_scaling_filter_property(&plane->base,
- 						BIT(DRM_SCALING_FILTER_DEFAULT) |
- 						BIT(DRM_SCALING_FILTER_NEAREST_NEIGHBOR));
-@@ -2295,7 +2295,7 @@ skl_get_initial_plane_config(struct intel_crtc *crtc,
- 		break;
- 	}
- 
--	if ((DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) && val & PLANE_CTL_FLIP_HORIZONTAL)
-+	if (DISPLAY_VER(dev_priv) >= 11 && val & PLANE_CTL_FLIP_HORIZONTAL)
- 		plane_config->rotation |= DRM_MODE_REFLECT_X;
- 
- 	/* 90/270 degree rotation would require extra work */
+-			if (GRAPHICS_VER(i915) == 10) {
+-				perf->ctx_oactxctrl_offset = 0x128;
+-				perf->ctx_flexeu0_offset = 0x3de;
+-			} else {
+-				perf->ctx_oactxctrl_offset = 0x124;
+-				perf->ctx_flexeu0_offset = 0x78e;
+-			}
++			perf->ctx_oactxctrl_offset = 0x124;
++			perf->ctx_flexeu0_offset = 0x78e;
++
+ 			perf->gen8_valid_ctx_bit = BIT(16);
+ 		} else if (GRAPHICS_VER(i915) == 12) {
+ 			perf->ops.is_valid_b_counter_reg =
 -- 
 2.31.1
 
