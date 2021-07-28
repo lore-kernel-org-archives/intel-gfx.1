@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A55B6C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1E3CC432BE
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 725F560FED
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 725F560FED
+	by mail.kernel.org (Postfix) with ESMTPS id 8BEA160F5E
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 22:00:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8BEA160F5E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6643B6EA74;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60EE06EA5F;
 	Wed, 28 Jul 2021 22:00:13 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D53F26E9FC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EEC76E56D
  for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 22:00:06 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="212786398"
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="212786398"
+X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="212786395"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="212786395"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Jul 2021 15:00:05 -0700
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="663663232"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="663663229"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Jul 2021 15:00:04 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Jul 2021 14:59:29 -0700
-Message-Id: <20210728215946.1573015-9-lucas.demarchi@intel.com>
+Date: Wed, 28 Jul 2021 14:59:28 -0700
+Message-Id: <20210728215946.1573015-8-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210728215946.1573015-1-lucas.demarchi@intel.com>
 References: <20210728215946.1573015-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/25] drm/i915/display: remove explicit CNL
- handling from intel_dmc.c
+Subject: [Intel-gfx] [PATCH 07/25] drm/i915/display: remove explicit CNL
+ handling from intel_display_debugfs.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,41 +59,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove DMC firmware for CNL.
+Only one reference to CNL that is not needed, but code is the same for
+DISPLAY_VER >= 11, so leave the code around and just remove the special
+case for CNL.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dmc.c | 9 ---------
- 1 file changed, 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_debugfs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index 9895fd957df9..3c3c6cb5c0df 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -70,11 +70,6 @@ MODULE_FIRMWARE(TGL_DMC_PATH);
- #define ICL_DMC_MAX_FW_SIZE		0x6000
- MODULE_FIRMWARE(ICL_DMC_PATH);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 2cf742a0b957..8fdacb252bb1 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -2500,7 +2500,7 @@ int intel_connector_debugfs_add(struct drm_connector *connector)
+ 				    connector, &i915_hdcp_sink_capability_fops);
+ 	}
  
--#define CNL_DMC_PATH			DMC_PATH(cnl, 1, 07)
--#define CNL_DMC_VERSION_REQUIRED	DMC_VERSION(1, 7)
--#define CNL_DMC_MAX_FW_SIZE		GLK_DMC_MAX_FW_SIZE
--MODULE_FIRMWARE(CNL_DMC_PATH);
--
- #define GLK_DMC_PATH			DMC_PATH(glk, 1, 04)
- #define GLK_DMC_VERSION_REQUIRED	DMC_VERSION(1, 4)
- #define GLK_DMC_MAX_FW_SIZE		0x4000
-@@ -718,10 +713,6 @@ void intel_dmc_ucode_init(struct drm_i915_private *dev_priv)
- 		dmc->fw_path = ICL_DMC_PATH;
- 		dmc->required_version = ICL_DMC_VERSION_REQUIRED;
- 		dmc->max_fw_size = ICL_DMC_MAX_FW_SIZE;
--	} else if (IS_CANNONLAKE(dev_priv)) {
--		dmc->fw_path = CNL_DMC_PATH;
--		dmc->required_version = CNL_DMC_VERSION_REQUIRED;
--		dmc->max_fw_size = CNL_DMC_MAX_FW_SIZE;
- 	} else if (IS_GEMINILAKE(dev_priv)) {
- 		dmc->fw_path = GLK_DMC_PATH;
- 		dmc->required_version = GLK_DMC_VERSION_REQUIRED;
+-	if ((DISPLAY_VER(dev_priv) >= 11 || IS_CANNONLAKE(dev_priv)) &&
++	if (DISPLAY_VER(dev_priv) >= 11 &&
+ 	    ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort &&
+ 	    !to_intel_connector(connector)->mst_port) ||
+ 	    connector->connector_type == DRM_MODE_CONNECTOR_eDP)) {
 -- 
 2.31.1
 
