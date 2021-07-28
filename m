@@ -5,44 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88D89C43216
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 21:12:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2A0FC4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 21:12:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C70F6101B
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 21:12:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5C70F6101B
+	by mail.kernel.org (Postfix) with ESMTPS id A27E96101C
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 21:12:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A27E96101C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E4AA6E8C1;
-	Wed, 28 Jul 2021 21:12:20 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 053086E8BA;
- Wed, 28 Jul 2021 21:12:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="193028877"
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="193028877"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FED06E940;
+	Wed, 28 Jul 2021 21:12:33 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 677D26E940;
+ Wed, 28 Jul 2021 21:12:29 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="209637315"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="209637315"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 14:12:17 -0700
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2021 14:12:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="580995526"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="580995562"
 Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.27.27])
- by fmsmga001.fm.intel.com with ESMTP; 28 Jul 2021 14:12:17 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 28 Jul 2021 14:12:26 -0700
 From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed, 28 Jul 2021 14:11:39 -0700
-Message-Id: <20210728211144.15322-10-vinay.belgaumkar@intel.com>
+Date: Wed, 28 Jul 2021 14:11:41 -0700
+Message-Id: <20210728211144.15322-12-vinay.belgaumkar@intel.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20210728211144.15322-1-vinay.belgaumkar@intel.com>
 References: <20210728211144.15322-1-vinay.belgaumkar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/14] drm/i915/guc/slpc: Add debugfs for SLPC
- info
+Subject: [Intel-gfx] [PATCH 11/14] drm/i915/guc/slpc: Cache platform
+ frequency limits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,129 +60,241 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This prints out relevant SLPC info from the SLPC shared structure.
+Cache rp0, rp1 and rpn platform limits into SLPC structure
+for range checking while setting min/max frequencies.
 
-We will send a H2G message which forces SLPC to update the
-shared data structure with latest information before reading it.
+Also add "soft" limits which keep track of frequency changes
+made from userland. These are initially set to platform min
+and max.
 
 v2: Address review comments (Michal W)
-v3: Remove unnecessary tasks from slpc_info (Michal W)
-v4: Rename function to intel_guc_slpc_print_info() (Michal W)
+v3: Formatting (Michal W)
+v4: Add separate function to parse rp values (Michal W)
+v5: Perform range checking for set min/max (Michal W)
 
-Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Signed-off-by: Sundaresan Sujaritha <sujaritha.sundaresan@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    | 22 ++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   | 29 +++++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h   |  3 ++
- 3 files changed, 54 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   | 115 ++++++++++++++++++
+ .../gpu/drm/i915/gt/uc/intel_guc_slpc_types.h |   9 ++
+ drivers/gpu/drm/i915/i915_reg.h               |   3 +
+ 3 files changed, 127 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
-index 72ddfff42f7d..887c8c8f35db 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_debugfs.c
-@@ -12,6 +12,7 @@
- #include "gt/uc/intel_guc_ct.h"
- #include "gt/uc/intel_guc_ads.h"
- #include "gt/uc/intel_guc_submission.h"
-+#include "gt/uc/intel_guc_slpc.h"
- 
- static int guc_info_show(struct seq_file *m, void *data)
- {
-@@ -50,11 +51,32 @@ static int guc_registered_contexts_show(struct seq_file *m, void *data)
- }
- DEFINE_GT_DEBUGFS_ATTRIBUTE(guc_registered_contexts);
- 
-+static int guc_slpc_info_show(struct seq_file *m, void *unused)
-+{
-+	struct intel_guc *guc = m->private;
-+	struct intel_guc_slpc *slpc = &guc->slpc;
-+	struct drm_printer p = drm_seq_file_printer(m);
-+
-+	if (!intel_guc_slpc_is_used(guc))
-+		return -ENODEV;
-+
-+	return intel_guc_slpc_print_info(slpc, &p);
-+}
-+DEFINE_GT_DEBUGFS_ATTRIBUTE(guc_slpc_info);
-+
-+static bool intel_eval_slpc_support(void *data)
-+{
-+	struct intel_guc *guc = (struct intel_guc *)data;
-+
-+	return intel_guc_slpc_is_used(guc);
-+}
-+
- void intel_guc_debugfs_register(struct intel_guc *guc, struct dentry *root)
- {
- 	static const struct debugfs_gt_file files[] = {
- 		{ "guc_info", &guc_info_fops, NULL },
- 		{ "guc_registered_contexts", &guc_registered_contexts_fops, NULL },
-+		{ "guc_slpc_info", &guc_slpc_info_fops, &intel_eval_slpc_support},
- 	};
- 
- 	if (!intel_guc_is_supported(guc))
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index 816c9ee301bf..2643d207009b 100644
+index 742918875593..bfd5fb0751fd 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -439,6 +439,35 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
- 	return 0;
+@@ -94,6 +94,9 @@ static int slpc_shared_data_init(struct intel_guc_slpc *slpc)
+ 		return err;
+ 	}
+ 
++	slpc->max_freq_softlimit = 0;
++	slpc->min_freq_softlimit = 0;
++
+ 	return err;
  }
  
-+int intel_guc_slpc_print_info(struct intel_guc_slpc *slpc, struct drm_printer *p)
+@@ -124,6 +127,18 @@ static int guc_action_slpc_set_param(struct intel_guc *guc, u8 id, u32 value)
+ 	return ret > 0 ? -EPROTO : ret;
+ }
+ 
++static int guc_action_slpc_unset_param(struct intel_guc *guc, u8 id)
 +{
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	struct slpc_shared_data *data = slpc->vaddr;
-+	struct slpc_task_state_data *slpc_tasks;
-+	intel_wakeref_t wakeref;
++	u32 request[] = {
++		GUC_ACTION_HOST2GUC_PC_SLPC_REQUEST,
++		SLPC_EVENT(SLPC_EVENT_PARAMETER_UNSET, 2),
++		id,
++	};
++
++	return intel_guc_send(guc, request, ARRAY_SIZE(request));
++}
++
++
+ static bool slpc_is_running(struct intel_guc_slpc *slpc)
+ {
+ 	return slpc_get_state(slpc) == SLPC_GLOBAL_STATE_RUNNING;
+@@ -177,6 +192,16 @@ static int slpc_set_param(struct intel_guc_slpc *slpc, u8 id, u32 value)
+ 	return ret;
+ }
+ 
++static int slpc_unset_param(struct intel_guc_slpc *slpc,
++				u8 id)
++{
++	struct intel_guc *guc = slpc_to_guc(slpc);
++
++	GEM_BUG_ON(id >= SLPC_MAX_PARAM);
++
++	return guc_action_slpc_unset_param(guc, id);
++}
++
+ static const char *slpc_global_state_to_string(enum slpc_global_state state)
+ {
+ 	switch (state) {
+@@ -307,6 +332,11 @@ int intel_guc_slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 val)
+ 	intel_wakeref_t wakeref;
+ 	int ret;
+ 
++	if ((val < slpc->min_freq) ||
++	    (val > slpc->rp0_freq) ||
++	    (val < slpc->min_freq_softlimit))
++		return -EINVAL;
++
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+ 		ret = slpc_set_param(slpc,
+ 			       SLPC_PARAM_GLOBAL_MAX_GT_UNSLICE_FREQ_MHZ,
+@@ -317,6 +347,8 @@ int intel_guc_slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 val)
+ 			ret = -EIO;
+ 	}
+ 
++	slpc->max_freq_softlimit = val;
++
+ 	return ret;
+ }
+ 
+@@ -363,6 +395,11 @@ int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val)
+ 	intel_wakeref_t wakeref;
+ 	int ret;
+ 
++	if ((val < slpc->min_freq) ||
++	    (val > slpc->rp0_freq) ||
++	    (val > slpc->max_freq_softlimit))
++		return -EINVAL;
++
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+ 		ret = slpc_set_param(slpc,
+ 			       SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
+@@ -373,6 +410,8 @@ int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val)
+ 			ret = -EIO;
+ 	}
+ 
++	slpc->min_freq_softlimit = val;
++
+ 	return ret;
+ }
+ 
+@@ -418,6 +457,71 @@ void intel_guc_pm_intrmsk_enable(struct intel_gt *gt)
+ 			   GEN6_PMINTRMSK, pm_intrmsk_mbz, 0);
+ }
+ 
++static int slpc_set_softlimits(struct intel_guc_slpc *slpc)
++{
 +	int ret = 0;
 +
-+	GEM_BUG_ON(!slpc->vma);
++	/*
++	 * Softlimits are initially equivalent to platform limits
++	 * unless they have deviated from defaults, in which case,
++	 * we retain the values and set min/max accordingly.
++	 */
++	if (!slpc->max_freq_softlimit)
++		slpc->max_freq_softlimit = slpc->rp0_freq;
++	else if (slpc->max_freq_softlimit != slpc->rp0_freq)
++		ret = intel_guc_slpc_set_max_freq(slpc,
++					slpc->max_freq_softlimit);
 +
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+		ret = slpc_query_task_state(slpc);
-+
-+		if (!ret) {
-+			slpc_tasks = &data->task_state_data;
-+
-+			drm_printf(p, "\tSLPC state: %s\n", slpc_get_state_string(slpc));
-+			drm_printf(p, "\tGTPERF task active: %s\n",
-+				yesno(slpc_tasks->status & SLPC_GTPERF_TASK_ENABLED));
-+			drm_printf(p, "\tMax freq: %u MHz\n",
-+					slpc_decode_max_freq(slpc));
-+			drm_printf(p, "\tMin freq: %u MHz\n",
-+					slpc_decode_min_freq(slpc));
-+		}
-+	}
++	if (!slpc->min_freq_softlimit)
++		slpc->min_freq_softlimit = slpc->min_freq;
++	else if (slpc->min_freq_softlimit != slpc->min_freq)
++		ret = intel_guc_slpc_set_min_freq(slpc,
++					slpc->min_freq_softlimit);
 +
 +	return ret;
 +}
 +
- void intel_guc_slpc_fini(struct intel_guc_slpc *slpc)
- {
- 	if (!slpc->vma)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-index 78a7893ce489..3ffd4f2e3151 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-@@ -9,6 +9,8 @@
- #include "intel_guc_submission.h"
- #include "intel_guc_slpc_types.h"
- 
-+struct drm_printer;
++static void intel_guc_slpc_ignore_eff_freq(struct intel_guc_slpc *slpc, bool ignore)
++{
++	/* A failure here does not affect the algorithm in a fatal way */
++	if (ignore) {
++		slpc_set_param(slpc,
++		   SLPC_PARAM_IGNORE_EFFICIENT_FREQUENCY,
++		   ignore);
++		slpc_set_param(slpc,
++		   SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
++		   slpc->min_freq);
++	} else {
++		slpc_unset_param(slpc,
++		   SLPC_PARAM_IGNORE_EFFICIENT_FREQUENCY);
++		slpc_unset_param(slpc,
++		   SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ);
++	}
++}
 +
- static inline bool intel_guc_slpc_is_supported(struct intel_guc *guc)
- {
- 	return guc->slpc.supported;
-@@ -33,5 +35,6 @@ int intel_guc_slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 val);
- int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val);
- int intel_guc_slpc_get_max_freq(struct intel_guc_slpc *slpc, u32 *val);
- int intel_guc_slpc_get_min_freq(struct intel_guc_slpc *slpc, u32 *val);
-+int intel_guc_slpc_print_info(struct intel_guc_slpc *slpc, struct drm_printer *p);
++static void intel_guc_slpc_use_fused_rp0(struct intel_guc_slpc *slpc)
++{
++	/* Force SLPC to used platform rp0 */
++	slpc_set_param(slpc,
++			SLPC_PARAM_GLOBAL_MAX_GT_UNSLICE_FREQ_MHZ,
++			slpc->rp0_freq);
++}
++
++static void slpc_get_rp_values(struct intel_guc_slpc *slpc)
++{
++	u32 rp_state_cap;
++
++	rp_state_cap = intel_uncore_read(slpc_to_gt(slpc)->uncore,
++					 GEN6_RP_STATE_CAP);
++
++	slpc->rp0_freq = REG_FIELD_GET(RP0_CAP_MASK, rp_state_cap) *
++					GT_FREQUENCY_MULTIPLIER;
++	slpc->rp1_freq = REG_FIELD_GET(RP1_CAP_MASK, rp_state_cap) *
++					GT_FREQUENCY_MULTIPLIER;
++	slpc->min_freq = REG_FIELD_GET(RPN_CAP_MASK, rp_state_cap) *
++					GT_FREQUENCY_MULTIPLIER;
++}
++
+ /*
+  * intel_guc_slpc_enable() - Start SLPC
+  * @slpc: pointer to intel_guc_slpc.
+@@ -453,6 +557,17 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ 
+ 	intel_guc_pm_intrmsk_enable(&i915->gt);
+ 
++	slpc_get_rp_values(slpc);
++
++	/* Ignore efficient freq and set min/max to platform min/max */
++	intel_guc_slpc_ignore_eff_freq(slpc, true);
++	intel_guc_slpc_use_fused_rp0(slpc);
++
++	ret = slpc_set_softlimits(slpc);
++	if (ret)
++		drm_err(&i915->drm, "Failed to set SLPC softlimits (%pe)\n",
++					ERR_PTR(ret));
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
+index 3cefe19b17b2..41d13527666f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
+@@ -15,6 +15,15 @@ struct intel_guc_slpc {
+ 	struct slpc_shared_data *vaddr;
+ 	bool supported;
+ 	bool selected;
++
++	/* platform frequency limits */
++	u32 min_freq;
++	u32 rp0_freq;
++	u32 rp1_freq;
++
++	/* frequency softlimits */
++	u32 min_freq_softlimit;
++	u32 max_freq_softlimit;
+ };
  
  #endif
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 5603377e06ca..f3a445f79a36 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4109,6 +4109,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define BXT_GT_PERF_STATUS      _MMIO(MCHBAR_MIRROR_BASE_SNB + 0x7070)
+ #define GEN6_RP_STATE_LIMITS	_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5994)
+ #define GEN6_RP_STATE_CAP	_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5998)
++#define   RP0_CAP_MASK		REG_GENMASK(7, 0)
++#define   RP1_CAP_MASK		REG_GENMASK(15, 8)
++#define   RPN_CAP_MASK		REG_GENMASK(23, 16)
+ #define BXT_RP_STATE_CAP        _MMIO(0x138170)
+ #define GEN9_RP_STATE_LIMITS	_MMIO(0x138148)
+ 
 -- 
 2.25.0
 
