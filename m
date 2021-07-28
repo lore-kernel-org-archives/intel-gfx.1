@@ -2,49 +2,49 @@ Return-Path: <SRS0=kgP7=MU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 013D6C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 14:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5A19C432BE
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 15:21:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC75C60F91
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 14:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BC75C60F91
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 772A360FED
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 15:21:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 772A360FED
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7420B6EAD8;
-	Wed, 28 Jul 2021 14:40:27 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6097E6EAD8
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 14:40:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10058"; a="199896606"
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="199896606"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 07:40:22 -0700
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="663438784"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 07:40:20 -0700
-Date: Wed, 28 Jul 2021 17:40:16 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: "Gupta, Anshuman" <anshuman.gupta@intel.com>
-Message-ID: <20210728144016.GC129487@ideak-desk.fi.intel.com>
-References: <20210701125346.10005-2-anshuman.gupta@intel.com>
- <20210728115216.1797-1-anshuman.gupta@intel.com>
- <20210728133133.GA129487@ideak-desk.fi.intel.com>
- <78695ed4285241dbbe6238f230038e18@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27D226E4F8;
+	Wed, 28 Jul 2021 15:21:15 +0000 (UTC)
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50A2B6E1D6;
+ Wed, 28 Jul 2021 15:21:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
+ bh=1WnwC+3EXs5c8VfBZDFJ7PRTMAGdpqCKrOWn6WyssQM=; 
+ b=LUytcxR2nCFmj4M/m9Bfs7ollqulcS4j9XhLo19EvtUuIg+08LhkHn6ETW7uSK4YHf5//nGWXwkgl9zY6oXtyu7ph0tG62miVryuTl2e7ohcV9ss1LVulaJnriKJXI0JsD3SuVf5nfagNypD/siTUbXWveUoD0ctW2N63QXMP8AnkCw7v3v7k2loZaSYOhMphyn4bstLnzC8dShccqiAdVZsTS3i+079LoMFvxzn5UnS9pksbhQ5QNuGycNrwhsof+2x32rNNj2pdhN3rTvog3KSFzCdTpoVx6huCvAwb0Hx0HGaA/U24XGjsUh3J/DGbjwwXwS7dhaBAqdfAkredg==;
+Received: from a95-92-181-29.cpe.netcabo.pt ([95.92.181.29]
+ helo=mail.igalia.com) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1m8lMm-0002xE-LB; Wed, 28 Jul 2021 17:21:04 +0200
+Date: Wed, 28 Jul 2021 16:20:44 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20210728152044.ygq4cw7i2tm5mcyy@mail.igalia.com>
+References: <20210712175352.802687-1-daniel.vetter@ffwll.ch>
+ <20210712175352.802687-4-daniel.vetter@ffwll.ch>
+ <CAKMK7uG8bMuDP=7-z9nZ38WgMdbeUk96eNx3buTCiaKatYOJxw@mail.gmail.com>
+ <2bcfba05-b7d5-1bd9-d74a-b9aac1147e20@gmail.com>
+ <CAKMK7uE7GBZYih=KZm5t7-_0P8i7M0tA2KgSOgJsm+-HUE+HzA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <78695ed4285241dbbe6238f230038e18@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915/dg1: Adjust the AUDIO power
- domain
+In-Reply-To: <CAKMK7uE7GBZYih=KZm5t7-_0P8i7M0tA2KgSOgJsm+-HUE+HzA@mail.gmail.com>
+Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH v4 03/18] drm/sched: Add
+ dependency tracking
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,466 +57,142 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: "moderated list:DMA BUFFER SHARING FRAMEWORK"
+ <linaro-mm-sig@lists.linaro.org>, Jack Zhang <Jack.Zhang1@amd.com>,
+ David Airlie <airlied@linux.ie>,
+ Christian =?utf-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Steven Price <steven.price@arm.com>, Melissa Wen <melissa.srw@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Lee Jones <lee.jones@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Nirmoy Das <nirmoy.aiemd@gmail.com>
+Content-Type: multipart/mixed; boundary="===============0140634850=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 28, 2021 at 04:59:26PM +0300, Gupta, Anshuman wrote:
-> =
 
-> =
+--===============0140634850==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xrz7dfzdxflucf5v"
+Content-Disposition: inline
 
-> > -----Original Message-----
-> > From: Deak, Imre <imre.deak@intel.com>
-> > Sent: Wednesday, July 28, 2021 7:02 PM
-> > To: Gupta, Anshuman <anshuman.gupta@intel.com>
-> > Cc: intel-gfx@lists.freedesktop.org; Ville Syrj=E4l=E4 <ville.syrjala@l=
-inux.intel.com>;
-> > Kai Vehmanen <kai.vehmanen@linux.intel.com>; Shankar, Uma
-> > <uma.shankar@intel.com>
-> > Subject: Re: [PATCH 1/3] drm/i915/dg1: Adjust the AUDIO power domain
-> > =
 
-> > On Wed, Jul 28, 2021 at 05:22:16PM +0530, Anshuman Gupta wrote:
-> > > DG1 and XE_PLD platforms has Audio MMIO/VERBS lies in PG0 power well.
-> > > Adjusting the power domain accordingly to POWER_DOMAIN_AUDIO_VERBS
-> > for
-> > > audio detection and POWER_DOMAIN_AUDIO for audio playback.
-> > >
-> > > v1: Changes since RFC
-> > > - changed power domain names. [Imre]
-> > > - Removed TC{3,6}, AUX_USBC{3,6} and TBT from DG1
-> > >   power well and PW_3 power domains. [Imre]
-> > > - Fixed the order of powe wells , power domains and its
-> > >   registration. [Imre]
-> > >
-> > > v2:
-> > > - Not allowe DC states when AUDIO_MMIO domain enabled. [Imre]
-> > >
-> > > Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > > Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> > > Cc: Uma Shankar <uma.shankar@intel.com>
-> > > Cc: Imre Deak <imre.deak@intel.com>
-> > > Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> > =
+--xrz7dfzdxflucf5v
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> > On the patchset:
-> > Reviewed-by: Imre Deak <imre.deak@intel.com>
-> Thanks Imre for providing RB. =
+On 07/28, Daniel Vetter wrote:
+> On Wed, Jul 28, 2021 at 1:29 PM Christian K=F6nig
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+> > Am 27.07.21 um 13:09 schrieb Daniel Vetter:
+> > > Adding a few more people to this bikeshed.
+> > >
+> > > On Mon, Jul 12, 2021 at 10:02 PM Daniel Vetter <daniel.vetter@ffwll.c=
+h> wrote:
+> > >
+> > >> @@ -349,6 +367,13 @@ int drm_sched_job_init(struct drm_sched_job *jo=
+b,
+> > >>                         struct drm_sched_entity *entity,
+> > >>                         void *owner);
+> > >>   void drm_sched_job_arm(struct drm_sched_job *job);
+> > >> +int drm_sched_job_await_fence(struct drm_sched_job *job,
+> > >> +                             struct dma_fence *fence);
+> > >> +int drm_sched_job_await_implicit(struct drm_sched_job *job,
+> > >> +                                struct drm_gem_object *obj,
+> > >> +                                bool write);
+> > >> +
+> > >> +
+> > > I'm still waiting on the paint delivery for these two functions so I
+> > > can finish this shed.
+> >
+> > Well I wouldn't call that bike shedding, good names are important.
+> >
+> > Just imaging we would have called the exclusive-fence write-fence inste=
+ad.
+>=20
+> Sure naming matters, but at least to my English understanding there's
+> not a semantic different between telling something to await for
+> something else (i.e. add a dependency) or to tell something to add a
+> dependency (i.e. await that thing later on before you start doing your
+> own thing).
+>=20
+> Exclusive vs write fence otoh is a pretty big difference in what it means.
+>=20
+> But also if there's consensus that I'm wrong then I'm happy to pick
+> the more preferred of the two options I deem equivalent.
+>=20
+> > What speaks against calling them add_dependency() and
+> > _add_implicit_depencencies() ?
+>=20
+> Nothing. I just like another ack on this before I rename it all. Also
+> I wasnt sure what you'd want to name the implicit dependency thing.
+>=20
+> Lucas, Boris, Melissa, any acks here?
 
-> Does RB on patchset means RB for all three patches in the series?
+so, my English is far from good; but _add_dependency sounds good to me.
 
-Yes, patchset =3D series of 3 patches.
+Melissa
 
-> Br,
-> Anshuman Gupta.
->  =
+> -Daniel
+>=20
+> > Regards,
+> > Christian.
+> >
+> > >
+> > > Thanks, Daniel
+> > >
+> > >>   void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
+> > >>                                      struct drm_gpu_scheduler **sche=
+d_list,
+> > >>                                      unsigned int num_sched_list);
+> > >> --
+> > >> 2.32.0
+> > >>
+> > >
+> >
+>=20
+>=20
+> --=20
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
 
-> > =
+--xrz7dfzdxflucf5v
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> > > ---
-> > >  .../drm/i915/display/intel_display_power.c    | 234 ++++++++++++++++=
---
-> > >  .../drm/i915/display/intel_display_power.h    |   3 +-
-> > >  2 files changed, 221 insertions(+), 16 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c
-> > > b/drivers/gpu/drm/i915/display/intel_display_power.c
-> > > index 81efc77bada0..2675b48d707e 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> > > @@ -106,8 +106,10 @@ intel_display_power_domain_str(enum
-> > intel_display_power_domain domain)
-> > >  		return "PORT_OTHER";
-> > >  	case POWER_DOMAIN_VGA:
-> > >  		return "VGA";
-> > > -	case POWER_DOMAIN_AUDIO:
-> > > -		return "AUDIO";
-> > > +	case POWER_DOMAIN_AUDIO_MMIO:
-> > > +		return "AUDIO_MMIO";
-> > > +	case POWER_DOMAIN_AUDIO_PLAYBACK:
-> > > +		return "AUDIO_PLAYBAK";
-> > >  	case POWER_DOMAIN_AUX_A:
-> > >  		return "AUX_A";
-> > >  	case POWER_DOMAIN_AUX_B:
-> > > @@ -2519,7 +2521,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DSI) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_CRT) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |			\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_B) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_C) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_GMBUS) |		\
-> > > @@ -2569,7 +2572,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |	\
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DSI) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |			\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_B) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_C) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_D) |		\
-> > > @@ -2602,7 +2606,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_CRT) | /* DDI E */	\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |				\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_INIT))
-> > >
-> > >  #define BDW_DISPLAY_POWER_DOMAINS (			\
-> > > @@ -2618,7 +2623,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_CRT) | /* DDI E */	\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |				\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_INIT))
-> > >
-> > >  #define SKL_DISPLAY_POWERWELL_2_POWER_DOMAINS (		\
-> > > @@ -2636,7 +2642,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_B) |                       \
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_D) |			\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |				\
-> > >  	BIT_ULL(POWER_DOMAIN_INIT))
-> > >  #define SKL_DISPLAY_DDI_IO_A_E_POWER_DOMAINS (		\
-> > > @@ -2671,7 +2678,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |				\
-> > >  	BIT_ULL(POWER_DOMAIN_INIT))
-> > >  #define BXT_DISPLAY_DC_OFF_POWER_DOMAINS (		\
-> > > @@ -2704,7 +2712,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_B) |                       \
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |				\
-> > >  	BIT_ULL(POWER_DOMAIN_INIT))
-> > >  #define GLK_DISPLAY_DDI_IO_A_POWER_DOMAINS (		\
-> > > @@ -2759,7 +2768,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_D) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_F) |			\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |				\
-> > >  	BIT_ULL(POWER_DOMAIN_INIT))
-> > >  #define CNL_DISPLAY_DDI_A_IO_POWER_DOMAINS (		\
-> > > @@ -2841,7 +2851,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_E_TBT) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_F_TBT) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |			\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_INIT))
-> > >  	/*
-> > >  	 * - transcoder WD
-> > > @@ -2933,7 +2944,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_TBT5) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_TBT6) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |			\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_INIT))
-> > >
-> > >  #define TGL_PW_2_POWER_DOMAINS (			\
-> > > @@ -3003,7 +3015,8 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	RKL_PW_4_POWER_DOMAINS |			\
-> > >  	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC1) |	\
-> > > @@ -3040,6 +3053,35 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_INIT))
-> > >
-> > > +/*
-> > > + * DG1 onwards Audio MMIO/VERBS lies in PG0 power well.
-> > > + */
-> > > +#define DG1_PW_3_POWER_DOMAINS (			\
-> > > +	TGL_PW_4_POWER_DOMAINS |			\
-> > > +	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
-> > > +	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC1) |	\
-> > > +	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC2) |	\
-> > > +	BIT_ULL(POWER_DOMAIN_AUX_USBC1) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_AUX_USBC2) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_VGA) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_INIT))
-> > > +
-> > > +#define DG1_PW_2_POWER_DOMAINS (			\
-> > > +	DG1_PW_3_POWER_DOMAINS |			\
-> > > +	BIT_ULL(POWER_DOMAIN_TRANSCODER_VDSC_PW2) |	\
-> > > +	BIT_ULL(POWER_DOMAIN_INIT))
-> > > +
-> > > +#define DG1_DISPLAY_DC_OFF_POWER_DOMAINS (		\
-> > > +	DG1_PW_3_POWER_DOMAINS |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > > +	BIT_ULL(POWER_DOMAIN_MODESET) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_INIT))
-> > > +
-> > >  /*
-> > >   * XE_LPD Power Domains
-> > >   *
-> > > @@ -3085,7 +3127,7 @@ intel_display_power_put_mask_in_set(struct
-> > drm_i915_private *i915,
-> > >  	XELPD_PW_B_POWER_DOMAINS |			\
-> > >  	XELPD_PW_C_POWER_DOMAINS |			\
-> > >  	XELPD_PW_D_POWER_DOMAINS |			\
-> > > -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_VGA) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
-> > >  	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D_XELPD) |	\
-> > > @@ -3126,6 +3168,7 @@ intel_display_power_put_mask_in_set(struct
-> > > drm_i915_private *i915,
-> > >
-> > >  #define XELPD_DISPLAY_DC_OFF_POWER_DOMAINS (		\
-> > >  	XELPD_PW_2_POWER_DOMAINS |			\
-> > > +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
-> > >  	BIT_ULL(POWER_DOMAIN_MODESET) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
-> > >  	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
-> > > @@ -4654,6 +4697,165 @@ static const struct i915_power_well_desc
-> > rkl_power_wells[] =3D {
-> > >  	},
-> > >  };
-> > >
-> > > +static const struct i915_power_well_desc dg1_power_wells[] =3D {
-> > > +	{
-> > > +		.name =3D "always-on",
-> > > +		.always_on =3D true,
-> > > +		.domains =3D POWER_DOMAIN_MASK,
-> > > +		.ops =3D &i9xx_always_on_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +	},
-> > > +	{
-> > > +		.name =3D "power well 1",
-> > > +		/* Handled by the DMC firmware */
-> > > +		.always_on =3D true,
-> > > +		.domains =3D 0,
-> > > +		.ops =3D &hsw_power_well_ops,
-> > > +		.id =3D SKL_DISP_PW_1,
-> > > +		{
-> > > +			.hsw.regs =3D &hsw_power_well_regs,
-> > > +			.hsw.idx =3D ICL_PW_CTL_IDX_PW_1,
-> > > +			.hsw.has_fuses =3D true,
-> > > +		},
-> > > +	},
-> > > +	{
-> > > +		.name =3D "DC off",
-> > > +		.domains =3D DG1_DISPLAY_DC_OFF_POWER_DOMAINS,
-> > > +		.ops =3D &gen9_dc_off_power_well_ops,
-> > > +		.id =3D SKL_DISP_DC_OFF,
-> > > +	},
-> > > +	{
-> > > +		.name =3D "power well 2",
-> > > +		.domains =3D DG1_PW_2_POWER_DOMAINS,
-> > > +		.ops =3D &hsw_power_well_ops,
-> > > +		.id =3D SKL_DISP_PW_2,
-> > > +		{
-> > > +			.hsw.regs =3D &hsw_power_well_regs,
-> > > +			.hsw.idx =3D ICL_PW_CTL_IDX_PW_2,
-> > > +			.hsw.has_fuses =3D true,
-> > > +		},
-> > > +	},
-> > > +	{
-> > > +		.name =3D "power well 3",
-> > > +		.domains =3D DG1_PW_3_POWER_DOMAINS,
-> > > +		.ops =3D &hsw_power_well_ops,
-> > > +		.id =3D ICL_DISP_PW_3,
-> > > +		{
-> > > +			.hsw.regs =3D &hsw_power_well_regs,
-> > > +			.hsw.idx =3D ICL_PW_CTL_IDX_PW_3,
-> > > +			.hsw.irq_pipe_mask =3D BIT(PIPE_B),
-> > > +			.hsw.has_vga =3D true,
-> > > +			.hsw.has_fuses =3D true,
-> > > +		},
-> > > +	},
-> > > +	{
-> > > +		.name =3D "DDI A IO",
-> > > +		.domains =3D ICL_DDI_IO_A_POWER_DOMAINS,
-> > > +		.ops =3D &hsw_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &icl_ddi_power_well_regs,
-> > > +			.hsw.idx =3D ICL_PW_CTL_IDX_DDI_A,
-> > > +		}
-> > > +	},
-> > > +	{
-> > > +		.name =3D "DDI B IO",
-> > > +		.domains =3D ICL_DDI_IO_B_POWER_DOMAINS,
-> > > +		.ops =3D &hsw_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &icl_ddi_power_well_regs,
-> > > +			.hsw.idx =3D ICL_PW_CTL_IDX_DDI_B,
-> > > +		}
-> > > +	},
-> > > +	{
-> > > +		.name =3D "DDI IO TC1",
-> > > +		.domains =3D TGL_DDI_IO_TC1_POWER_DOMAINS,
-> > > +		.ops =3D &hsw_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &icl_ddi_power_well_regs,
-> > > +			.hsw.idx =3D TGL_PW_CTL_IDX_DDI_TC1,
-> > > +		},
-> > > +	},
-> > > +	{
-> > > +		.name =3D "DDI IO TC2",
-> > > +		.domains =3D TGL_DDI_IO_TC2_POWER_DOMAINS,
-> > > +		.ops =3D &hsw_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &icl_ddi_power_well_regs,
-> > > +			.hsw.idx =3D TGL_PW_CTL_IDX_DDI_TC2,
-> > > +		},
-> > > +	},
-> > > +	{
-> > > +		.name =3D "AUX A",
-> > > +		.domains =3D TGL_AUX_A_IO_POWER_DOMAINS,
-> > > +		.ops =3D &icl_aux_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &icl_aux_power_well_regs,
-> > > +			.hsw.idx =3D ICL_PW_CTL_IDX_AUX_A,
-> > > +		},
-> > > +	},
-> > > +	{
-> > > +		.name =3D "AUX B",
-> > > +		.domains =3D TGL_AUX_B_IO_POWER_DOMAINS,
-> > > +		.ops =3D &icl_aux_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &icl_aux_power_well_regs,
-> > > +			.hsw.idx =3D ICL_PW_CTL_IDX_AUX_B,
-> > > +		},
-> > > +	},
-> > > +	{
-> > > +		.name =3D "AUX USBC1",
-> > > +		.domains =3D TGL_AUX_IO_USBC1_POWER_DOMAINS,
-> > > +		.ops =3D &icl_aux_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &icl_aux_power_well_regs,
-> > > +			.hsw.idx =3D TGL_PW_CTL_IDX_AUX_TC1,
-> > > +			.hsw.is_tc_tbt =3D false,
-> > > +		},
-> > > +	},
-> > > +	{
-> > > +		.name =3D "AUX USBC2",
-> > > +		.domains =3D TGL_AUX_IO_USBC2_POWER_DOMAINS,
-> > > +		.ops =3D &icl_aux_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &icl_aux_power_well_regs,
-> > > +			.hsw.idx =3D TGL_PW_CTL_IDX_AUX_TC2,
-> > > +			.hsw.is_tc_tbt =3D false,
-> > > +		},
-> > > +	},
-> > > +	{
-> > > +		.name =3D "power well 4",
-> > > +		.domains =3D TGL_PW_4_POWER_DOMAINS,
-> > > +		.ops =3D &hsw_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &hsw_power_well_regs,
-> > > +			.hsw.idx =3D ICL_PW_CTL_IDX_PW_4,
-> > > +			.hsw.has_fuses =3D true,
-> > > +			.hsw.irq_pipe_mask =3D BIT(PIPE_C),
-> > > +		}
-> > > +	},
-> > > +	{
-> > > +		.name =3D "power well 5",
-> > > +		.domains =3D TGL_PW_5_POWER_DOMAINS,
-> > > +		.ops =3D &hsw_power_well_ops,
-> > > +		.id =3D DISP_PW_ID_NONE,
-> > > +		{
-> > > +			.hsw.regs =3D &hsw_power_well_regs,
-> > > +			.hsw.idx =3D TGL_PW_CTL_IDX_PW_5,
-> > > +			.hsw.has_fuses =3D true,
-> > > +			.hsw.irq_pipe_mask =3D BIT(PIPE_D),
-> > > +		},
-> > > +	},
-> > > +};
-> > > +
-> > >  static const struct i915_power_well_desc xelpd_power_wells[] =3D {
-> > >  	{
-> > >  		.name =3D "always-on",
-> > > @@ -5138,7 +5340,9 @@ int intel_power_domains_init(struct
-> > drm_i915_private *dev_priv)
-> > >  		err =3D 0;
-> > >  	} else if (DISPLAY_VER(dev_priv) >=3D 13) {
-> > >  		err =3D set_power_wells(power_domains, xelpd_power_wells);
-> > > -	} else if (IS_ALDERLAKE_S(dev_priv) || IS_DG1(dev_priv)) {
-> > > +	} else if (IS_DG1(dev_priv)) {
-> > > +		err =3D set_power_wells(power_domains, dg1_power_wells);
-> > > +	} else if (IS_ALDERLAKE_S(dev_priv)) {
-> > >  		err =3D set_power_wells_mask(power_domains, tgl_power_wells,
-> > >
-> > BIT_ULL(TGL_DISP_PW_TC_COLD_OFF));
-> > >  	} else if (IS_ROCKETLAKE(dev_priv)) { diff --git
-> > > a/drivers/gpu/drm/i915/display/intel_display_power.h
-> > > b/drivers/gpu/drm/i915/display/intel_display_power.h
-> > > index ad788bbd727d..521072be412c 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_display_power.h
-> > > +++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-> > > @@ -76,7 +76,8 @@ enum intel_display_power_domain {
-> > >  	POWER_DOMAIN_PORT_CRT,
-> > >  	POWER_DOMAIN_PORT_OTHER,
-> > >  	POWER_DOMAIN_VGA,
-> > > -	POWER_DOMAIN_AUDIO,
-> > > +	POWER_DOMAIN_AUDIO_MMIO,
-> > > +	POWER_DOMAIN_AUDIO_PLAYBACK,
-> > >  	POWER_DOMAIN_AUX_A,
-> > >  	POWER_DOMAIN_AUX_B,
-> > >  	POWER_DOMAIN_AUX_C,
-> > > --
-> > > 2.26.2
-> > >
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmEBdccACgkQwqF3j0dL
+ehyj8g/+NHSkYxFoA0/Cwejk1IUV9MmWHSH6GJ4Ri5WEI12QjJobZjaA3elSeseo
+EBSKRNf6Vlc/8qDfr0ngsKBt17MhjrvMy9RzQrc/c82097PQW1he/df2pMluLmBb
+caqvFQjyq8yo9pGXofnEO8otBLchuByLAhhAYCXLyTIfbfcglI7fe0y9kIcjfo6d
+vR0BEcfeZN3RHG2VAK3W383U8N29ChfO7fa3Z4UlMb+YYgYhDMqj0jkuTgyubvWl
+WDGdj4YM3rfBWQw62f5kc1bDgRHJa52/jGE2ZkeIxHYFihvvdnEPvKbTBQhY4fD2
+LZrKyzEmdMRrlHxzyEBZzhcu+ceyM4bMb04ETYkueVwYCcPsclKirNcmOkM7Vb8a
+XX6TGzj/u/Ho+/3bzsrHASi8EKHgWizzFSSoy+wlADtEZC2LedW5q6WjSBzSY0rS
+BVEDk61nc5bfyIvTJj6+E4qZy4uwmsbCTl4LVoZwFu5422oFEJ25vRdOsyU523xD
+MKs8IlfZ8HoC/A++CLO3luv+GDC8JuNLwal5ShZOuB+ej02TFM1W/NXE/8M5lUuv
+MQMarxCw5X4EhfuMi92SglwXo4Jw77von1L1ncOY3m0EBlcliRDObDf9TFe3jSte
+q6gZ7uhqats2HMrVm/zCOhpC295Z1qpYWy9hvIZu7j6ZNCeIcKA=
+=cI4x
+-----END PGP SIGNATURE-----
+
+--xrz7dfzdxflucf5v--
+
+--===============0140634850==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0140634850==--
