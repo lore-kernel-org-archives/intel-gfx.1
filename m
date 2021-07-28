@@ -1,50 +1,48 @@
-Return-Path: <SRS0=MV7T=MT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=kgP7=MU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58176C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 22:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74923C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 13:31:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2155D60F9B
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jul 2021 22:53:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2155D60F9B
+	by mail.kernel.org (Postfix) with ESMTPS id 3D93C60EC0
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jul 2021 13:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3D93C60EC0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2C3D6EB31;
-	Tue, 27 Jul 2021 22:53:23 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F8416EB31
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Jul 2021 22:53:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10058"; a="212575994"
-X-IronPort-AV: E=Sophos;i="5.84,275,1620716400"; d="scan'208";a="212575994"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 15:53:21 -0700
-X-IronPort-AV: E=Sophos;i="5.84,275,1620716400"; d="scan'208";a="498981858"
-Received: from rmcisaac-mobl.amr.corp.intel.com (HELO msatwood-mobl)
- ([10.251.19.226])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 15:53:21 -0700
-Date: Tue, 27 Jul 2021 15:53:07 -0700
-From: Matt Atwood <matthew.s.atwood@intel.com>
-To: =?utf-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>;,
- intel-gfx@lists.freedesktop.org
-Message-ID: <20210727225307.GB9810@msatwood-mobl>
-References: <20210722054338.12891-1-jose.souza@intel.com>
- <20210722054338.12891-6-jose.souza@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9A086E237;
+	Wed, 28 Jul 2021 13:31:40 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 344FD6E237
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jul 2021 13:31:39 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10058"; a="192257789"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="192257789"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2021 06:31:38 -0700
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="437770267"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2021 06:31:37 -0700
+Date: Wed, 28 Jul 2021 16:31:33 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: Anshuman Gupta <anshuman.gupta@intel.com>
+Message-ID: <20210728133133.GA129487@ideak-desk.fi.intel.com>
+References: <20210701125346.10005-2-anshuman.gupta@intel.com>
+ <20210728115216.1797-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210722054338.12891-6-jose.souza@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 06/10] drm/i915/bios: Enable parse of two
- integrated panels PSR data
+In-Reply-To: <20210728115216.1797-1-anshuman.gupta@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915/dg1: Adjust the AUDIO power
+ domain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,281 +55,448 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBKdWwgMjEsIDIwMjEgYXQgMTA6NDM6MzRQTSAtMDcwMCwgSm9zw6kgUm9iZXJ0byBk
-ZSBTb3V6YSB3cm90ZToKPiBDb250aW51aW5nIHRoZSBjb252ZXJzaW9uIGZyb20gc2luZ2xlIGlu
-dGVncmF0ZWQgVkJUIGRhdGEgdG8gdHdvLCBub3cKPiBoYW5kbGluZyBQU1IgZGF0YS4KPiAKPiBD
-YzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KPiBDYzog
-SmFuaSBOaWt1bGEgPGphbmkubmlrdWxhQGludGVsLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBKb3PD
-qSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IE1h
-dHQgQXR3b29kIDxtYXR0aGV3LnMuYXR3b29kQGludGVsLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9iaW9zLmMgfCA3MyArKysrKysrKysrKysrLS0tLS0t
-LS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Jpb3MuaCB8ICAyICsK
-PiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYyAgfCAzMCArKysrKyst
-LS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmggICAgICAgICAgIHwgMzQgKysr
-KystLS0tLS0KPiAgNCBmaWxlcyBjaGFuZ2VkLCA3NyBpbnNlcnRpb25zKCspLCA2MiBkZWxldGlv
-bnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
-bF9iaW9zLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Jpb3MuYwo+IGlu
-ZGV4IGYwZDQ5YWY4YmUwMzYuLmRlNjkwZTk2ZGU3MjMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9iaW9zLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2Jpb3MuYwo+IEBAIC03MjksMTUgKzcyOSwxMiBAQCBwYXJzZV9k
-cml2ZXJfZmVhdHVyZXMoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsCj4gIAkJICAgIGRy
-aXZlci0+bHZkc19jb25maWcgIT0gQkRCX0RSSVZFUl9GRUFUVVJFX0lOVF9TRFZPX0xWRFMpCj4g
-IAkJCWk5MTUtPnZidC5pbnRfbHZkc19zdXBwb3J0ID0gMDsKPiAgCX0KPiAtCj4gLQlpZiAoYmRi
-LT52ZXJzaW9uIDwgMjI4KQo+IC0JCWk5MTUtPnZidC5wc3IuZW5hYmxlID0gZHJpdmVyLT5wc3Jf
-ZW5hYmxlZDsKPiAgfQo+ICAKPiAgc3RhdGljIHZvaWQKPiAtcGFyc2VfZHJpdmVyX2ZlYXR1cmVz
-X2RycnNfb25seShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwKPiAtCQkJCWNvbnN0IHN0
-cnVjdCBiZGJfaGVhZGVyICpiZGIsCj4gLQkJCQlzdHJ1Y3QgZGRpX3ZidF9wb3J0X2luZm8gKmlu
-Zm8pCj4gK3BhcnNlX2RyaXZlcl9mZWF0dXJlc19kcnJzX3Bzcl9vbmx5KHN0cnVjdCBkcm1faTkx
-NV9wcml2YXRlICppOTE1LAo+ICsJCQkJICAgIGNvbnN0IHN0cnVjdCBiZGJfaGVhZGVyICpiZGIs
-Cj4gKwkJCQkgICAgc3RydWN0IGRkaV92YnRfcG9ydF9pbmZvICppbmZvKQo+ICB7Cj4gIAljb25z
-dCBzdHJ1Y3QgYmRiX2RyaXZlcl9mZWF0dXJlcyAqZHJpdmVyOwo+ICAKPiBAQCAtNzU3LDYgKzc1
-NCw4IEBAIHBhcnNlX2RyaXZlcl9mZWF0dXJlc19kcnJzX29ubHkoc3RydWN0IGRybV9pOTE1X3By
-aXZhdGUgKmk5MTUsCj4gIAkgKi8KPiAgCWlmICghZHJpdmVyLT5kcnJzX2VuYWJsZWQpCj4gIAkJ
-aW5mby0+ZHJyc190eXBlID0gRFJSU19OT1RfU1VQUE9SVEVEOwo+ICsKPiArCWluZm8tPnBzci5l
-bmFibGUgPSBkcml2ZXItPnBzcl9lbmFibGVkOwo+ICB9Cj4gIAo+ICBzdGF0aWMgdm9pZAo+IEBA
-IC03NzQsNyArNzczLDcgQEAgcGFyc2VfcG93ZXJfY29uc2VydmF0aW9uX2ZlYXR1cmVzKHN0cnVj
-dCBkcm1faTkxNV9wcml2YXRlICppOTE1LAo+ICAJaWYgKCFwb3dlcikKPiAgCQlyZXR1cm47Cj4g
-IAo+IC0JaTkxNS0+dmJ0LnBzci5lbmFibGUgPSBwb3dlci0+cHNyICYgQklUKHBhbmVsX2luZGV4
-KTsKPiArCWluZm8tPnBzci5lbmFibGUgPSBwb3dlci0+cHNyICYgQklUKHBhbmVsX2luZGV4KTsK
-PiAgCj4gIAkvKgo+ICAJICogSWYgRFJSUyBpcyBub3Qgc3VwcG9ydGVkLCBkcnJzX3R5cGUgaGFz
-IHRvIGJlIHNldCB0byAwLgo+IEBAIC05MDUsMTEgKzkwNCwxMSBAQCBwYXJzZV9lZHAoc3RydWN0
-IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsIGNvbnN0IHN0cnVjdCBiZGJfaGVhZGVyICpiZGIsCj4g
-IH0KPiAgCj4gIHN0YXRpYyB2b2lkCj4gLXBhcnNlX3BzcihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0
-ZSAqaTkxNSwgY29uc3Qgc3RydWN0IGJkYl9oZWFkZXIgKmJkYikKPiArcGFyc2VfcHNyKHN0cnVj
-dCBkcm1faTkxNV9wcml2YXRlICppOTE1LCBjb25zdCBzdHJ1Y3QgYmRiX2hlYWRlciAqYmRiLAo+
-ICsJICBzdHJ1Y3QgZGRpX3ZidF9wb3J0X2luZm8gKmluZm8sIGludCBwYW5lbF9pbmRleCkKPiAg
-ewo+ICAJY29uc3Qgc3RydWN0IGJkYl9wc3IgKnBzcjsKPiAgCWNvbnN0IHN0cnVjdCBwc3JfdGFi
-bGUgKnBzcl90YWJsZTsKPiAtCWludCBwYW5lbF90eXBlID0gaTkxNS0+dmJ0LnBhbmVsX3R5cGU7
-Cj4gIAo+ICAJcHNyID0gZmluZF9zZWN0aW9uKGJkYiwgQkRCX1BTUik7Cj4gIAlpZiAoIXBzcikg
-ewo+IEBAIC05MTcsMjcgKzkxNiwyNyBAQCBwYXJzZV9wc3Ioc3RydWN0IGRybV9pOTE1X3ByaXZh
-dGUgKmk5MTUsIGNvbnN0IHN0cnVjdCBiZGJfaGVhZGVyICpiZGIpCj4gIAkJcmV0dXJuOwo+ICAJ
-fQo+ICAKPiAtCXBzcl90YWJsZSA9ICZwc3ItPnBzcl90YWJsZVtwYW5lbF90eXBlXTsKPiArCXBz
-cl90YWJsZSA9ICZwc3ItPnBzcl90YWJsZVtwYW5lbF9pbmRleF07Cj4gIAo+IC0JaTkxNS0+dmJ0
-LnBzci5mdWxsX2xpbmsgPSBwc3JfdGFibGUtPmZ1bGxfbGluazsKPiAtCWk5MTUtPnZidC5wc3Iu
-cmVxdWlyZV9hdXhfd2FrZXVwID0gcHNyX3RhYmxlLT5yZXF1aXJlX2F1eF90b193YWtldXA7Cj4g
-KwlpbmZvLT5wc3IuZnVsbF9saW5rID0gcHNyX3RhYmxlLT5mdWxsX2xpbms7Cj4gKwlpbmZvLT5w
-c3IucmVxdWlyZV9hdXhfd2FrZXVwID0gcHNyX3RhYmxlLT5yZXF1aXJlX2F1eF90b193YWtldXA7
-Cj4gIAo+ICAJLyogQWxsb3dlZCBWQlQgdmFsdWVzIGdvZXMgZnJvbSAwIHRvIDE1ICovCj4gLQlp
-OTE1LT52YnQucHNyLmlkbGVfZnJhbWVzID0gcHNyX3RhYmxlLT5pZGxlX2ZyYW1lcyA8IDAgPyAw
-IDoKPiArCWluZm8tPnBzci5pZGxlX2ZyYW1lcyA9IHBzcl90YWJsZS0+aWRsZV9mcmFtZXMgPCAw
-ID8gMCA6Cj4gIAkJcHNyX3RhYmxlLT5pZGxlX2ZyYW1lcyA+IDE1ID8gMTUgOiBwc3JfdGFibGUt
-PmlkbGVfZnJhbWVzOwo+ICAKPiAgCXN3aXRjaCAocHNyX3RhYmxlLT5saW5lc190b193YWl0KSB7
-Cj4gIAljYXNlIDA6Cj4gLQkJaTkxNS0+dmJ0LnBzci5saW5lc190b193YWl0ID0gUFNSXzBfTElO
-RVNfVE9fV0FJVDsKPiArCQlpbmZvLT5wc3IubGluZXNfdG9fd2FpdCA9IFBTUl8wX0xJTkVTX1RP
-X1dBSVQ7Cj4gIAkJYnJlYWs7Cj4gIAljYXNlIDE6Cj4gLQkJaTkxNS0+dmJ0LnBzci5saW5lc190
-b193YWl0ID0gUFNSXzFfTElORV9UT19XQUlUOwo+ICsJCWluZm8tPnBzci5saW5lc190b193YWl0
-ID0gUFNSXzFfTElORV9UT19XQUlUOwo+ICAJCWJyZWFrOwo+ICAJY2FzZSAyOgo+IC0JCWk5MTUt
-PnZidC5wc3IubGluZXNfdG9fd2FpdCA9IFBTUl80X0xJTkVTX1RPX1dBSVQ7Cj4gKwkJaW5mby0+
-cHNyLmxpbmVzX3RvX3dhaXQgPSBQU1JfNF9MSU5FU19UT19XQUlUOwo+ICAJCWJyZWFrOwo+ICAJ
-Y2FzZSAzOgo+IC0JCWk5MTUtPnZidC5wc3IubGluZXNfdG9fd2FpdCA9IFBTUl84X0xJTkVTX1RP
-X1dBSVQ7Cj4gKwkJaW5mby0+cHNyLmxpbmVzX3RvX3dhaXQgPSBQU1JfOF9MSU5FU19UT19XQUlU
-Owo+ICAJCWJyZWFrOwo+ICAJZGVmYXVsdDoKPiAgCQlkcm1fZGJnX2ttcygmaTkxNS0+ZHJtLAo+
-IEBAIC05NTQsMTMgKzk1MywxMyBAQCBwYXJzZV9wc3Ioc3RydWN0IGRybV9pOTE1X3ByaXZhdGUg
-Kmk5MTUsIGNvbnN0IHN0cnVjdCBiZGJfaGVhZGVyICpiZGIpCj4gIAkgICAgKERJU1BMQVlfVkVS
-KGk5MTUpID49IDkgJiYgIUlTX0JST1hUT04oaTkxNSkpKSB7Cj4gIAkJc3dpdGNoIChwc3JfdGFi
-bGUtPnRwMV93YWtldXBfdGltZSkgewo+ICAJCWNhc2UgMDoKPiAtCQkJaTkxNS0+dmJ0LnBzci50
-cDFfd2FrZXVwX3RpbWVfdXMgPSA1MDA7Cj4gKwkJCWluZm8tPnBzci50cDFfd2FrZXVwX3RpbWVf
-dXMgPSA1MDA7Cj4gIAkJCWJyZWFrOwo+ICAJCWNhc2UgMToKPiAtCQkJaTkxNS0+dmJ0LnBzci50
-cDFfd2FrZXVwX3RpbWVfdXMgPSAxMDA7Cj4gKwkJCWluZm8tPnBzci50cDFfd2FrZXVwX3RpbWVf
-dXMgPSAxMDA7Cj4gIAkJCWJyZWFrOwo+ICAJCWNhc2UgMzoKPiAtCQkJaTkxNS0+dmJ0LnBzci50
-cDFfd2FrZXVwX3RpbWVfdXMgPSAwOwo+ICsJCQlpbmZvLT5wc3IudHAxX3dha2V1cF90aW1lX3Vz
-ID0gMDsKPiAgCQkJYnJlYWs7Cj4gIAkJZGVmYXVsdDoKPiAgCQkJZHJtX2RiZ19rbXMoJmk5MTUt
-PmRybSwKPiBAQCAtOTY4LDE5ICs5NjcsMTkgQEAgcGFyc2VfcHNyKHN0cnVjdCBkcm1faTkxNV9w
-cml2YXRlICppOTE1LCBjb25zdCBzdHJ1Y3QgYmRiX2hlYWRlciAqYmRiKQo+ICAJCQkJICAgIHBz
-cl90YWJsZS0+dHAxX3dha2V1cF90aW1lKTsKPiAgCQkJZmFsbHRocm91Z2g7Cj4gIAkJY2FzZSAy
-Ogo+IC0JCQlpOTE1LT52YnQucHNyLnRwMV93YWtldXBfdGltZV91cyA9IDI1MDA7Cj4gKwkJCWlu
-Zm8tPnBzci50cDFfd2FrZXVwX3RpbWVfdXMgPSAyNTAwOwo+ICAJCQlicmVhazsKPiAgCQl9Cj4g
-IAo+ICAJCXN3aXRjaCAocHNyX3RhYmxlLT50cDJfdHAzX3dha2V1cF90aW1lKSB7Cj4gIAkJY2Fz
-ZSAwOgo+IC0JCQlpOTE1LT52YnQucHNyLnRwMl90cDNfd2FrZXVwX3RpbWVfdXMgPSA1MDA7Cj4g
-KwkJCWluZm8tPnBzci50cDJfdHAzX3dha2V1cF90aW1lX3VzID0gNTAwOwo+ICAJCQlicmVhazsK
-PiAgCQljYXNlIDE6Cj4gLQkJCWk5MTUtPnZidC5wc3IudHAyX3RwM193YWtldXBfdGltZV91cyA9
-IDEwMDsKPiArCQkJaW5mby0+cHNyLnRwMl90cDNfd2FrZXVwX3RpbWVfdXMgPSAxMDA7Cj4gIAkJ
-CWJyZWFrOwo+ICAJCWNhc2UgMzoKPiAtCQkJaTkxNS0+dmJ0LnBzci50cDJfdHAzX3dha2V1cF90
-aW1lX3VzID0gMDsKPiArCQkJaW5mby0+cHNyLnRwMl90cDNfd2FrZXVwX3RpbWVfdXMgPSAwOwo+
-ICAJCQlicmVhazsKPiAgCQlkZWZhdWx0Ogo+ICAJCQlkcm1fZGJnX2ttcygmaTkxNS0+ZHJtLAo+
-IEBAIC05ODgsMTggKzk4NywxOCBAQCBwYXJzZV9wc3Ioc3RydWN0IGRybV9pOTE1X3ByaXZhdGUg
-Kmk5MTUsIGNvbnN0IHN0cnVjdCBiZGJfaGVhZGVyICpiZGIpCj4gIAkJCQkgICAgcHNyX3RhYmxl
-LT50cDJfdHAzX3dha2V1cF90aW1lKTsKPiAgCQkJZmFsbHRocm91Z2g7Cj4gIAkJY2FzZSAyOgo+
-IC0JCQlpOTE1LT52YnQucHNyLnRwMl90cDNfd2FrZXVwX3RpbWVfdXMgPSAyNTAwOwo+ICsJCQlp
-bmZvLT5wc3IudHAyX3RwM193YWtldXBfdGltZV91cyA9IDI1MDA7Cj4gIAkJYnJlYWs7Cj4gIAkJ
-fQo+ICAJfSBlbHNlIHsKPiAtCQlpOTE1LT52YnQucHNyLnRwMV93YWtldXBfdGltZV91cyA9IHBz
-cl90YWJsZS0+dHAxX3dha2V1cF90aW1lICogMTAwOwo+IC0JCWk5MTUtPnZidC5wc3IudHAyX3Rw
-M193YWtldXBfdGltZV91cyA9IHBzcl90YWJsZS0+dHAyX3RwM193YWtldXBfdGltZSAqIDEwMDsK
-PiArCQlpbmZvLT5wc3IudHAxX3dha2V1cF90aW1lX3VzID0gcHNyX3RhYmxlLT50cDFfd2FrZXVw
-X3RpbWUgKiAxMDA7Cj4gKwkJaW5mby0+cHNyLnRwMl90cDNfd2FrZXVwX3RpbWVfdXMgPSBwc3Jf
-dGFibGUtPnRwMl90cDNfd2FrZXVwX3RpbWUgKiAxMDA7Cj4gIAl9Cj4gIAo+ICAJaWYgKGJkYi0+
-dmVyc2lvbiA+PSAyMjYpIHsKPiAgCQl1MzIgd2FrZXVwX3RpbWUgPSBwc3ItPnBzcjJfdHAyX3Rw
-M193YWtldXBfdGltZTsKPiAgCj4gLQkJd2FrZXVwX3RpbWUgPSAod2FrZXVwX3RpbWUgPj4gKDIg
-KiBwYW5lbF90eXBlKSkgJiAweDM7Cj4gKwkJd2FrZXVwX3RpbWUgPSAod2FrZXVwX3RpbWUgPj4g
-KDIgKiBwYW5lbF9pbmRleCkpICYgMHgzOwo+ICAJCXN3aXRjaCAod2FrZXVwX3RpbWUpIHsKPiAg
-CQljYXNlIDA6Cj4gIAkJCXdha2V1cF90aW1lID0gNTAwOwo+IEBAIC0xMDE1LDEwICsxMDE0LDEw
-IEBAIHBhcnNlX3BzcihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwgY29uc3Qgc3RydWN0
-IGJkYl9oZWFkZXIgKmJkYikKPiAgCQkJd2FrZXVwX3RpbWUgPSAyNTAwOwo+ICAJCQlicmVhazsK
-PiAgCQl9Cj4gLQkJaTkxNS0+dmJ0LnBzci5wc3IyX3RwMl90cDNfd2FrZXVwX3RpbWVfdXMgPSB3
-YWtldXBfdGltZTsKPiArCQlpbmZvLT5wc3IucHNyMl90cDJfdHAzX3dha2V1cF90aW1lX3VzID0g
-d2FrZXVwX3RpbWU7Cj4gIAl9IGVsc2Ugewo+ICAJCS8qIFJldXNpbmcgUFNSMSB3YWtldXAgdGlt
-ZSBmb3IgUFNSMiBpbiBvbGRlciBWQlRzICovCj4gLQkJaTkxNS0+dmJ0LnBzci5wc3IyX3RwMl90
-cDNfd2FrZXVwX3RpbWVfdXMgPSBpOTE1LT52YnQucHNyLnRwMl90cDNfd2FrZXVwX3RpbWVfdXM7
-Cj4gKwkJaW5mby0+cHNyLnBzcjJfdHAyX3RwM193YWtldXBfdGltZV91cyA9IGluZm8tPnBzci50
-cDJfdHAzX3dha2V1cF90aW1lX3VzOwo+ICAJfQo+ICB9Cj4gIAo+IEBAIC0xOTg2LDEwICsxOTg1
-LDExIEBAIHN0YXRpYyB2b2lkIHBhcnNlX2ludGVncmF0ZWRfcGFuZWwoc3RydWN0IGRybV9pOTE1
-X3ByaXZhdGUgKmk5MTUsCj4gIAo+ICAJcGFyc2VfcGFuZWxfb3B0aW9ucyhpOTE1LCBiZGIsIGlu
-Zm8sIHBhbmVsX2luZGV4KTsKPiAgCXBhcnNlX3Bvd2VyX2NvbnNlcnZhdGlvbl9mZWF0dXJlcyhp
-OTE1LCBiZGIsIGluZm8sIHBhbmVsX2luZGV4KTsKPiAtCXBhcnNlX2RyaXZlcl9mZWF0dXJlc19k
-cnJzX29ubHkoaTkxNSwgYmRiLCBpbmZvKTsKPiArCXBhcnNlX2RyaXZlcl9mZWF0dXJlc19kcnJz
-X3Bzcl9vbmx5KGk5MTUsIGJkYiwgaW5mbyk7Cj4gIAlwYXJzZV9wYW5lbF9kdGQoaTkxNSwgYmRi
-LCBpbmZvLCBwYW5lbF9pbmRleCk7Cj4gIAlwYXJzZV9sZnBfYmFja2xpZ2h0KGk5MTUsIGJkYiwg
-aW5mbywgcGFuZWxfaW5kZXgpOwo+ICAJcGFyc2VfZWRwKGk5MTUsIGJkYiwgaW5mbywgcGFuZWxf
-aW5kZXgpOwo+ICsJcGFyc2VfcHNyKGk5MTUsIGJkYiwgaW5mbywgcGFuZWxfaW5kZXgpOwo+ICB9
-Cj4gIAo+ICBzdGF0aWMgdm9pZCBwYXJzZV9kZGlfcG9ydChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0
-ZSAqaTkxNSwKPiBAQCAtMjQ4Niw3ICsyNDg2LDYgQEAgdm9pZCBpbnRlbF9iaW9zX2luaXQoc3Ry
-dWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCj4gIAlwYXJzZV9wYW5lbF90eXBlKGk5MTUsIGJk
-Yik7Cj4gIAlwYXJzZV9zZHZvX3BhbmVsX2RhdGEoaTkxNSwgYmRiKTsKPiAgCXBhcnNlX2RyaXZl
-cl9mZWF0dXJlcyhpOTE1LCBiZGIpOwo+IC0JcGFyc2VfcHNyKGk5MTUsIGJkYik7Cj4gIAlwYXJz
-ZV9taXBpX2NvbmZpZyhpOTE1LCBiZGIpOwo+ICAJcGFyc2VfbWlwaV9zZXF1ZW5jZShpOTE1LCBi
-ZGIpOwo+ICAKPiBAQCAtMzE0MCwzICszMTM5LDEzIEBAIGludGVsX2Jpb3NfZWRwX2luZm8oc3Ry
-dWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIpCj4gIAo+ICAJcmV0dXJuICZpOTE1LT52YnQuZGRp
-X3BvcnRfaW5mb1tlbmNvZGVyLT5wb3J0XS5lZHA7Cj4gIH0KPiArCj4gK2NvbnN0IHN0cnVjdCB2
-YnRfcHNyX2luZm8gKgo+ICtpbnRlbF9iaW9zX3Bzcl9pbmZvKHN0cnVjdCBpbnRlbF9kcCAqaW50
-ZWxfZHApCj4gK3sKPiArCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1ID0gZHBfdG9faTkx
-NShpbnRlbF9kcCk7Cj4gKwlzdHJ1Y3QgaW50ZWxfZGlnaXRhbF9wb3J0ICpkaWdfcG9ydCA9IGRw
-X3RvX2RpZ19wb3J0KGludGVsX2RwKTsKPiArCXN0cnVjdCBpbnRlbF9lbmNvZGVyICplbmNvZGVy
-ID0gJmRpZ19wb3J0LT5iYXNlOwo+ICsKPiArCXJldHVybiAmaTkxNS0+dmJ0LmRkaV9wb3J0X2lu
-Zm9bZW5jb2Rlci0+cG9ydF0ucHNyOwo+ICt9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfYmlvcy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
-eS9pbnRlbF9iaW9zLmgKPiBpbmRleCA4ZmQ5YjUyZjkyMWY3Li5jNzAxODcxZDlhNzRkIDEwMDY0
-NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYmlvcy5oCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9iaW9zLmgKPiBAQCAtMzUsNiAr
-MzUsNyBAQAo+ICBzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZTsKPiAgc3RydWN0IGludGVsX2Jpb3Nf
-ZW5jb2Rlcl9kYXRhOwo+ICBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZTsKPiArc3RydWN0IGludGVs
-X2RwOwo+ICBzdHJ1Y3QgaW50ZWxfZW5jb2RlcjsKPiAgZW51bSBwb3J0Owo+ICAKPiBAQCAtMjcw
-LDUgKzI3MSw2IEBAIGVudW0gZHJyc19zdXBwb3J0X3R5cGUgaW50ZWxfYmlvc19kcnJzX3R5cGUo
-c3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIpOwo+ICBjb25zdCBzdHJ1Y3QgZHJtX2Rpc3Bs
-YXlfbW9kZSAqaW50ZWxfYmlvc19sZnBfbHZkc19pbmZvKHN0cnVjdCBpbnRlbF9lbmNvZGVyICpl
-bmNvZGVyKTsKPiAgY29uc3Qgc3RydWN0IHZidF9iYWNrbGlnaHRfaW5mbyAqaW50ZWxfYmlvc19i
-YWNrbGlnaHRfaW5mbyhzdHJ1Y3QgaW50ZWxfZW5jb2RlciAqZW5jb2Rlcik7Cj4gIHN0cnVjdCB2
-YnRfZWRwX2luZm8gKmludGVsX2Jpb3NfZWRwX2luZm8oc3RydWN0IGludGVsX2VuY29kZXIgKmVu
-Y29kZXIpOwo+ICtjb25zdCBzdHJ1Y3QgdmJ0X3Bzcl9pbmZvICppbnRlbF9iaW9zX3Bzcl9pbmZv
-KHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApOwo+ICAKPiAgI2VuZGlmIC8qIF9JTlRFTF9CSU9T
-X0hfICovCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
-cHNyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jCj4gaW5kZXgg
-YTU0ZTcxZTRlNTY4Yy4uNGJlOTJjY2ZiMGFkZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9wc3IuYwo+IEBAIC00MjgsNiArNDI4LDcgQEAgc3RhdGljIHZvaWQgaW50
-ZWxfcHNyX2VuYWJsZV9zaW5rKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCj4gIAo+ICBzdGF0
-aWMgdTMyIGludGVsX3BzcjFfZ2V0X3RwX3RpbWUoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCkK
-PiAgewo+ICsJY29uc3Qgc3RydWN0IHZidF9wc3JfaW5mbyAqdmJ0X3Bzcl9pbmZvID0gaW50ZWxf
-Ymlvc19wc3JfaW5mbyhpbnRlbF9kcCk7Cj4gIAlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2
-X3ByaXYgPSBkcF90b19pOTE1KGludGVsX2RwKTsKPiAgCXUzMiB2YWwgPSAwOwo+ICAKPiBAQCAt
-NDQwLDIwICs0NDEsMjAgQEAgc3RhdGljIHUzMiBpbnRlbF9wc3IxX2dldF90cF90aW1lKHN0cnVj
-dCBpbnRlbF9kcCAqaW50ZWxfZHApCj4gIAkJZ290byBjaGVja190cDNfc2VsOwo+ICAJfQo+ICAK
-PiAtCWlmIChkZXZfcHJpdi0+dmJ0LnBzci50cDFfd2FrZXVwX3RpbWVfdXMgPT0gMCkKPiArCWlm
-ICh2YnRfcHNyX2luZm8tPnRwMV93YWtldXBfdGltZV91cyA9PSAwKQo+ICAJCXZhbCB8PSBFRFBf
-UFNSX1RQMV9USU1FXzB1czsKPiAtCWVsc2UgaWYgKGRldl9wcml2LT52YnQucHNyLnRwMV93YWtl
-dXBfdGltZV91cyA8PSAxMDApCj4gKwllbHNlIGlmICh2YnRfcHNyX2luZm8tPnRwMV93YWtldXBf
-dGltZV91cyA8PSAxMDApCj4gIAkJdmFsIHw9IEVEUF9QU1JfVFAxX1RJTUVfMTAwdXM7Cj4gLQll
-bHNlIGlmIChkZXZfcHJpdi0+dmJ0LnBzci50cDFfd2FrZXVwX3RpbWVfdXMgPD0gNTAwKQo+ICsJ
-ZWxzZSBpZiAodmJ0X3Bzcl9pbmZvLT50cDFfd2FrZXVwX3RpbWVfdXMgPD0gNTAwKQo+ICAJCXZh
-bCB8PSBFRFBfUFNSX1RQMV9USU1FXzUwMHVzOwo+ICAJZWxzZQo+ICAJCXZhbCB8PSBFRFBfUFNS
-X1RQMV9USU1FXzI1MDB1czsKPiAgCj4gLQlpZiAoZGV2X3ByaXYtPnZidC5wc3IudHAyX3RwM193
-YWtldXBfdGltZV91cyA9PSAwKQo+ICsJaWYgKHZidF9wc3JfaW5mby0+dHAyX3RwM193YWtldXBf
-dGltZV91cyA9PSAwKQo+ICAJCXZhbCB8PSBFRFBfUFNSX1RQMl9UUDNfVElNRV8wdXM7Cj4gLQll
-bHNlIGlmIChkZXZfcHJpdi0+dmJ0LnBzci50cDJfdHAzX3dha2V1cF90aW1lX3VzIDw9IDEwMCkK
-PiArCWVsc2UgaWYgKHZidF9wc3JfaW5mby0+dHAyX3RwM193YWtldXBfdGltZV91cyA8PSAxMDAp
-Cj4gIAkJdmFsIHw9IEVEUF9QU1JfVFAyX1RQM19USU1FXzEwMHVzOwo+IC0JZWxzZSBpZiAoZGV2
-X3ByaXYtPnZidC5wc3IudHAyX3RwM193YWtldXBfdGltZV91cyA8PSA1MDApCj4gKwllbHNlIGlm
-ICh2YnRfcHNyX2luZm8tPnRwMl90cDNfd2FrZXVwX3RpbWVfdXMgPD0gNTAwKQo+ICAJCXZhbCB8
-PSBFRFBfUFNSX1RQMl9UUDNfVElNRV81MDB1czsKPiAgCWVsc2UKPiAgCQl2YWwgfD0gRURQX1BT
-Ul9UUDJfVFAzX1RJTUVfMjUwMHVzOwo+IEBAIC00NzAsMTMgKzQ3MSwxNCBAQCBzdGF0aWMgdTMy
-IGludGVsX3BzcjFfZ2V0X3RwX3RpbWUoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCkKPiAgCj4g
-IHN0YXRpYyB1OCBwc3JfY29tcHV0ZV9pZGxlX2ZyYW1lcyhzdHJ1Y3QgaW50ZWxfZHAgKmludGVs
-X2RwKQo+ICB7Cj4gKwljb25zdCBzdHJ1Y3QgdmJ0X3Bzcl9pbmZvICp2YnRfcHNyX2luZm8gPSBp
-bnRlbF9iaW9zX3Bzcl9pbmZvKGludGVsX2RwKTsKPiAgCXN0cnVjdCBkcm1faTkxNV9wcml2YXRl
-ICpkZXZfcHJpdiA9IGRwX3RvX2k5MTUoaW50ZWxfZHApOwo+ICAJaW50IGlkbGVfZnJhbWVzOwo+
-ICAKPiAgCS8qIExldCdzIHVzZSA2IGFzIHRoZSBtaW5pbXVtIHRvIGNvdmVyIGFsbCBrbm93biBj
-YXNlcyBpbmNsdWRpbmcgdGhlCj4gIAkgKiBvZmYtYnktb25lIGlzc3VlIHRoYXQgSFcgaGFzIGlu
-IHNvbWUgY2FzZXMuCj4gIAkgKi8KPiAtCWlkbGVfZnJhbWVzID0gbWF4KDYsIGRldl9wcml2LT52
-YnQucHNyLmlkbGVfZnJhbWVzKTsKPiArCWlkbGVfZnJhbWVzID0gbWF4KDYsIHZidF9wc3JfaW5m
-by0+aWRsZV9mcmFtZXMpOwo+ICAJaWRsZV9mcmFtZXMgPSBtYXgoaWRsZV9mcmFtZXMsIGludGVs
-X2RwLT5wc3Iuc2lua19zeW5jX2xhdGVuY3kgKyAxKTsKPiAgCj4gIAlpZiAoZHJtX1dBUk5fT04o
-JmRldl9wcml2LT5kcm0sIGlkbGVfZnJhbWVzID4gMHhmKSkKPiBAQCAtNTEyLDE4ICs1MTQsMTkg
-QEAgc3RhdGljIHZvaWQgaHN3X2FjdGl2YXRlX3BzcjEoc3RydWN0IGludGVsX2RwICppbnRlbF9k
-cCkKPiAgCj4gIHN0YXRpYyB1MzIgaW50ZWxfcHNyMl9nZXRfdHBfdGltZShzdHJ1Y3QgaW50ZWxf
-ZHAgKmludGVsX2RwKQo+ICB7Cj4gKwljb25zdCBzdHJ1Y3QgdmJ0X3Bzcl9pbmZvICp2YnRfcHNy
-X2luZm8gPSBpbnRlbF9iaW9zX3Bzcl9pbmZvKGludGVsX2RwKTsKPiAgCXN0cnVjdCBkcm1faTkx
-NV9wcml2YXRlICpkZXZfcHJpdiA9IGRwX3RvX2k5MTUoaW50ZWxfZHApOwo+ICAJdTMyIHZhbCA9
-IDA7Cj4gIAo+ICAJaWYgKGRldl9wcml2LT5wYXJhbXMucHNyX3NhZmVzdF9wYXJhbXMpCj4gIAkJ
-cmV0dXJuIEVEUF9QU1IyX1RQMl9USU1FXzI1MDB1czsKPiAgCj4gLQlpZiAoZGV2X3ByaXYtPnZi
-dC5wc3IucHNyMl90cDJfdHAzX3dha2V1cF90aW1lX3VzID49IDAgJiYKPiAtCSAgICBkZXZfcHJp
-di0+dmJ0LnBzci5wc3IyX3RwMl90cDNfd2FrZXVwX3RpbWVfdXMgPD0gNTApCj4gKwlpZiAodmJ0
-X3Bzcl9pbmZvLT5wc3IyX3RwMl90cDNfd2FrZXVwX3RpbWVfdXMgPj0gMCAmJgo+ICsJICAgIHZi
-dF9wc3JfaW5mby0+cHNyMl90cDJfdHAzX3dha2V1cF90aW1lX3VzIDw9IDUwKQo+ICAJCXZhbCB8
-PSBFRFBfUFNSMl9UUDJfVElNRV81MHVzOwo+IC0JZWxzZSBpZiAoZGV2X3ByaXYtPnZidC5wc3Iu
-cHNyMl90cDJfdHAzX3dha2V1cF90aW1lX3VzIDw9IDEwMCkKPiArCWVsc2UgaWYgKHZidF9wc3Jf
-aW5mby0+cHNyMl90cDJfdHAzX3dha2V1cF90aW1lX3VzIDw9IDEwMCkKPiAgCQl2YWwgfD0gRURQ
-X1BTUjJfVFAyX1RJTUVfMTAwdXM7Cj4gLQllbHNlIGlmIChkZXZfcHJpdi0+dmJ0LnBzci5wc3Iy
-X3RwMl90cDNfd2FrZXVwX3RpbWVfdXMgPD0gNTAwKQo+ICsJZWxzZSBpZiAodmJ0X3Bzcl9pbmZv
-LT5wc3IyX3RwMl90cDNfd2FrZXVwX3RpbWVfdXMgPD0gNTAwKQo+ICAJCXZhbCB8PSBFRFBfUFNS
-Ml9UUDJfVElNRV81MDB1czsKPiAgCWVsc2UKPiAgCQl2YWwgfD0gRURQX1BTUjJfVFAyX1RJTUVf
-MjUwMHVzOwo+IEBAIC0yMTU0LDYgKzIxNTcsNyBAQCB2b2lkIGludGVsX3Bzcl9mbHVzaChzdHJ1
-Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCj4gICAqLwo+ICB2b2lkIGludGVsX3Bzcl9p
-bml0KHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCj4gIHsKPiArCWNvbnN0IHN0cnVjdCB2YnRf
-cHNyX2luZm8gKnZidF9wc3JfaW5mbyA9IGludGVsX2Jpb3NfcHNyX2luZm8oaW50ZWxfZHApOwo+
-ICAJc3RydWN0IGludGVsX2RpZ2l0YWxfcG9ydCAqZGlnX3BvcnQgPSBkcF90b19kaWdfcG9ydChp
-bnRlbF9kcCk7Cj4gIAlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYgPSBkcF90b19p
-OTE1KGludGVsX2RwKTsKPiAgCj4gQEAgLTIxODYsNyArMjE5MCw3IEBAIHZvaWQgaW50ZWxfcHNy
-X2luaXQoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCkKPiAgCQlkZXZfcHJpdi0+aHN3X3Bzcl9t
-bWlvX2FkanVzdCA9IF9TUkRfQ1RMX0VEUCAtIF9IU1dfRURQX1BTUl9CQVNFOwo+ICAKPiAgCWlm
-IChkZXZfcHJpdi0+cGFyYW1zLmVuYWJsZV9wc3IgPT0gLTEpCj4gLQkJaWYgKERJU1BMQVlfVkVS
-KGRldl9wcml2KSA8IDkgfHwgIWRldl9wcml2LT52YnQucHNyLmVuYWJsZSkKPiArCQlpZiAoRElT
-UExBWV9WRVIoZGV2X3ByaXYpIDwgOSB8fCAhdmJ0X3Bzcl9pbmZvLT5lbmFibGUpCj4gIAkJCWRl
-dl9wcml2LT5wYXJhbXMuZW5hYmxlX3BzciA9IDA7Cj4gIAo+ICAJLyogU2V0IGxpbmtfc3RhbmRi
-eSB4IGxpbmtfb2ZmIGRlZmF1bHRzICovCj4gQEAgLTIxOTUsNyArMjE5OSw3IEBAIHZvaWQgaW50
-ZWxfcHNyX2luaXQoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCkKPiAgCQlpbnRlbF9kcC0+cHNy
-Lmxpbmtfc3RhbmRieSA9IGZhbHNlOwo+ICAJZWxzZSBpZiAoRElTUExBWV9WRVIoZGV2X3ByaXYp
-IDwgMTIpCj4gIAkJLyogRm9yIG5ldyBwbGF0Zm9ybXMgdXAgdG8gVEdMIGxldCdzIHJlc3BlY3Qg
-VkJUIGJhY2sgYWdhaW4gKi8KPiAtCQlpbnRlbF9kcC0+cHNyLmxpbmtfc3RhbmRieSA9IGRldl9w
-cml2LT52YnQucHNyLmZ1bGxfbGluazsKPiArCQlpbnRlbF9kcC0+cHNyLmxpbmtfc3RhbmRieSA9
-IHZidF9wc3JfaW5mby0+ZnVsbF9saW5rOwo+ICAKPiAgCUlOSVRfV09SSygmaW50ZWxfZHAtPnBz
-ci53b3JrLCBpbnRlbF9wc3Jfd29yayk7Cj4gIAlJTklUX0RFTEFZRURfV09SSygmaW50ZWxfZHAt
-PnBzci5kYzNjb193b3JrLCB0Z2xfZGMzY29fZGlzYWJsZV93b3JrKTsKPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5
-MTVfZHJ2LmgKPiBpbmRleCAwZTk1N2JhODA0NmYyLi4yMzNkZmNmODU0YjUyIDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmgKPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9pOTE1X2Rydi5oCj4gQEAgLTY0Miw2ICs2NDIsMTMgQEAgaTkxNV9mZW5jZV90aW1l
-b3V0KGNvbnN0IHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1KQo+ICAKPiAgI2RlZmluZSBI
-QVNfSFdfU0FHVl9XTShpOTE1KSAoRElTUExBWV9WRVIoaTkxNSkgPj0gMTMgJiYgIUlTX0RHRlgo
-aTkxNSkpCj4gIAo+ICtlbnVtIHBzcl9saW5lc190b193YWl0IHsKPiArCVBTUl8wX0xJTkVTX1RP
-X1dBSVQgPSAwLAo+ICsJUFNSXzFfTElORV9UT19XQUlULAo+ICsJUFNSXzRfTElORVNfVE9fV0FJ
-VCwKPiArCVBTUl84X0xJTkVTX1RPX1dBSVQKPiArfTsKPiArCj4gIHN0cnVjdCBkZGlfdmJ0X3Bv
-cnRfaW5mbyB7Cj4gIAkvKiBOb24tTlVMTCBpZiBwb3J0IHByZXNlbnQuICovCj4gIAlzdHJ1Y3Qg
-aW50ZWxfYmlvc19lbmNvZGVyX2RhdGEgKmRldmRhdGE7Cj4gQEAgLTY4MSwxMyArNjg4LDE3IEBA
-IHN0cnVjdCBkZGlfdmJ0X3BvcnRfaW5mbyB7Cj4gIAkJc3RydWN0IGVkcF9wb3dlcl9zZXEgcHBz
-Owo+ICAJCWJvb2wgaG9ibDsKPiAgCX0gZWRwOwo+IC19Owo+ICAKPiAtZW51bSBwc3JfbGluZXNf
-dG9fd2FpdCB7Cj4gLQlQU1JfMF9MSU5FU19UT19XQUlUID0gMCwKPiAtCVBTUl8xX0xJTkVfVE9f
-V0FJVCwKPiAtCVBTUl80X0xJTkVTX1RPX1dBSVQsCj4gLQlQU1JfOF9MSU5FU19UT19XQUlUCj4g
-KwlzdHJ1Y3QgdmJ0X3Bzcl9pbmZvIHsKPiArCQlib29sIGVuYWJsZTsKPiArCQlib29sIGZ1bGxf
-bGluazsKPiArCQlib29sIHJlcXVpcmVfYXV4X3dha2V1cDsKPiArCQlpbnQgaWRsZV9mcmFtZXM7
-Cj4gKwkJZW51bSBwc3JfbGluZXNfdG9fd2FpdCBsaW5lc190b193YWl0Owo+ICsJCWludCB0cDFf
-d2FrZXVwX3RpbWVfdXM7Cj4gKwkJaW50IHRwMl90cDNfd2FrZXVwX3RpbWVfdXM7Cj4gKwkJaW50
-IHBzcjJfdHAyX3RwM193YWtldXBfdGltZV91czsKPiArCX0gcHNyOwo+ICB9Owo+ICAKPiAgc3Ry
-dWN0IGludGVsX3ZidF9kYXRhIHsKPiBAQCAtNzA4LDE3ICs3MTksNiBAQCBzdHJ1Y3QgaW50ZWxf
-dmJ0X2RhdGEgewo+ICAJdW5zaWduZWQgaW50IGJpb3NfbHZkc192YWw7IC8qIGluaXRpYWwgW1BD
-SF9dTFZEUyByZWcgdmFsIGluIFZCSU9TICovCj4gIAllbnVtIGRybV9wYW5lbF9vcmllbnRhdGlv
-biBvcmllbnRhdGlvbjsKPiAgCj4gLQlzdHJ1Y3Qgewo+IC0JCWJvb2wgZW5hYmxlOwo+IC0JCWJv
-b2wgZnVsbF9saW5rOwo+IC0JCWJvb2wgcmVxdWlyZV9hdXhfd2FrZXVwOwo+IC0JCWludCBpZGxl
-X2ZyYW1lczsKPiAtCQllbnVtIHBzcl9saW5lc190b193YWl0IGxpbmVzX3RvX3dhaXQ7Cj4gLQkJ
-aW50IHRwMV93YWtldXBfdGltZV91czsKPiAtCQlpbnQgdHAyX3RwM193YWtldXBfdGltZV91czsK
-PiAtCQlpbnQgcHNyMl90cDJfdHAzX3dha2V1cF90aW1lX3VzOwo+IC0JfSBwc3I7Cj4gLQo+ICAJ
-LyogTUlQSSBEU0kgKi8KPiAgCXN0cnVjdCB7Cj4gIAkJdTE2IHBhbmVsX2lkOwo+IC0tIAo+IDIu
-MzIuMAo+IAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Cj4gSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdAo+IEludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVs
-LWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRl
-bC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+On Wed, Jul 28, 2021 at 05:22:16PM +0530, Anshuman Gupta wrote:
+> DG1 and XE_PLD platforms has Audio MMIO/VERBS lies in PG0 power
+> well. Adjusting the power domain accordingly to
+> POWER_DOMAIN_AUDIO_VERBS for audio detection and POWER_DOMAIN_AUDIO
+> for audio playback.
+> =
+
+> v1: Changes since RFC
+> - changed power domain names. [Imre]
+> - Removed TC{3,6}, AUX_USBC{3,6} and TBT from DG1
+>   power well and PW_3 power domains. [Imre]
+> - Fixed the order of powe wells , power domains and its
+>   registration. [Imre]
+> =
+
+> v2:
+> - Not allowe DC states when AUDIO_MMIO domain enabled. [Imre]
+> =
+
+> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+
+On the patchset:
+Reviewed-by: Imre Deak <imre.deak@intel.com>
+
+> ---
+>  .../drm/i915/display/intel_display_power.c    | 234 ++++++++++++++++--
+>  .../drm/i915/display/intel_display_power.h    |   3 +-
+>  2 files changed, 221 insertions(+), 16 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers=
+/gpu/drm/i915/display/intel_display_power.c
+> index 81efc77bada0..2675b48d707e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -106,8 +106,10 @@ intel_display_power_domain_str(enum intel_display_po=
+wer_domain domain)
+>  		return "PORT_OTHER";
+>  	case POWER_DOMAIN_VGA:
+>  		return "VGA";
+> -	case POWER_DOMAIN_AUDIO:
+> -		return "AUDIO";
+> +	case POWER_DOMAIN_AUDIO_MMIO:
+> +		return "AUDIO_MMIO";
+> +	case POWER_DOMAIN_AUDIO_PLAYBACK:
+> +		return "AUDIO_PLAYBAK";
+>  	case POWER_DOMAIN_AUX_A:
+>  		return "AUX_A";
+>  	case POWER_DOMAIN_AUX_B:
+> @@ -2519,7 +2521,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_PORT_DSI) |		\
+>  	BIT_ULL(POWER_DOMAIN_PORT_CRT) |		\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |			\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |		\
+>  	BIT_ULL(POWER_DOMAIN_AUX_B) |		\
+>  	BIT_ULL(POWER_DOMAIN_AUX_C) |		\
+>  	BIT_ULL(POWER_DOMAIN_GMBUS) |		\
+> @@ -2569,7 +2572,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |	\
+>  	BIT_ULL(POWER_DOMAIN_PORT_DSI) |		\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |			\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |		\
+>  	BIT_ULL(POWER_DOMAIN_AUX_B) |		\
+>  	BIT_ULL(POWER_DOMAIN_AUX_C) |		\
+>  	BIT_ULL(POWER_DOMAIN_AUX_D) |		\
+> @@ -2602,7 +2606,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |		\
+>  	BIT_ULL(POWER_DOMAIN_PORT_CRT) | /* DDI E */	\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |				\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_INIT))
+>  =
+
+>  #define BDW_DISPLAY_POWER_DOMAINS (			\
+> @@ -2618,7 +2623,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |		\
+>  	BIT_ULL(POWER_DOMAIN_PORT_CRT) | /* DDI E */	\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |				\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_INIT))
+>  =
+
+>  #define SKL_DISPLAY_POWERWELL_2_POWER_DOMAINS (		\
+> @@ -2636,7 +2642,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_AUX_B) |                       \
+>  	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
+>  	BIT_ULL(POWER_DOMAIN_AUX_D) |			\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |				\
+>  	BIT_ULL(POWER_DOMAIN_INIT))
+>  #define SKL_DISPLAY_DDI_IO_A_E_POWER_DOMAINS (		\
+> @@ -2671,7 +2678,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
+>  	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
+>  	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |				\
+>  	BIT_ULL(POWER_DOMAIN_INIT))
+>  #define BXT_DISPLAY_DC_OFF_POWER_DOMAINS (		\
+> @@ -2704,7 +2712,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |		\
+>  	BIT_ULL(POWER_DOMAIN_AUX_B) |                       \
+>  	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |				\
+>  	BIT_ULL(POWER_DOMAIN_INIT))
+>  #define GLK_DISPLAY_DDI_IO_A_POWER_DOMAINS (		\
+> @@ -2759,7 +2768,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_AUX_C) |			\
+>  	BIT_ULL(POWER_DOMAIN_AUX_D) |			\
+>  	BIT_ULL(POWER_DOMAIN_AUX_F) |			\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |				\
+>  	BIT_ULL(POWER_DOMAIN_INIT))
+>  #define CNL_DISPLAY_DDI_A_IO_POWER_DOMAINS (		\
+> @@ -2841,7 +2851,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_AUX_E_TBT) |		\
+>  	BIT_ULL(POWER_DOMAIN_AUX_F_TBT) |		\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |			\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_INIT))
+>  	/*
+>  	 * - transcoder WD
+> @@ -2933,7 +2944,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_AUX_TBT5) |		\
+>  	BIT_ULL(POWER_DOMAIN_AUX_TBT6) |		\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |			\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_INIT))
+>  =
+
+>  #define TGL_PW_2_POWER_DOMAINS (			\
+> @@ -3003,7 +3015,8 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	RKL_PW_4_POWER_DOMAINS |			\
+>  	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+>  	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |			\
+>  	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+>  	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC1) |	\
+> @@ -3040,6 +3053,35 @@ intel_display_power_put_mask_in_set(struct drm_i91=
+5_private *i915,
+>  	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
+>  	BIT_ULL(POWER_DOMAIN_INIT))
+>  =
+
+> +/*
+> + * DG1 onwards Audio MMIO/VERBS lies in PG0 power well.
+> + */
+> +#define DG1_PW_3_POWER_DOMAINS (			\
+> +	TGL_PW_4_POWER_DOMAINS |			\
+> +	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
+> +	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
+> +	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
+> +	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC1) |	\
+> +	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_TC2) |	\
+> +	BIT_ULL(POWER_DOMAIN_AUX_USBC1) |		\
+> +	BIT_ULL(POWER_DOMAIN_AUX_USBC2) |		\
+> +	BIT_ULL(POWER_DOMAIN_VGA) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+> +	BIT_ULL(POWER_DOMAIN_INIT))
+> +
+> +#define DG1_PW_2_POWER_DOMAINS (			\
+> +	DG1_PW_3_POWER_DOMAINS |			\
+> +	BIT_ULL(POWER_DOMAIN_TRANSCODER_VDSC_PW2) |	\
+> +	BIT_ULL(POWER_DOMAIN_INIT))
+> +
+> +#define DG1_DISPLAY_DC_OFF_POWER_DOMAINS (		\
+> +	DG1_PW_3_POWER_DOMAINS |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+> +	BIT_ULL(POWER_DOMAIN_MODESET) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
+> +	BIT_ULL(POWER_DOMAIN_INIT))
+> +
+>  /*
+>   * XE_LPD Power Domains
+>   *
+> @@ -3085,7 +3127,7 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  	XELPD_PW_B_POWER_DOMAINS |			\
+>  	XELPD_PW_C_POWER_DOMAINS |			\
+>  	XELPD_PW_D_POWER_DOMAINS |			\
+> -	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_PLAYBACK) |			\
+>  	BIT_ULL(POWER_DOMAIN_VGA) |			\
+>  	BIT_ULL(POWER_DOMAIN_PORT_DDI_C_LANES) |	\
+>  	BIT_ULL(POWER_DOMAIN_PORT_DDI_LANES_D_XELPD) |	\
+> @@ -3126,6 +3168,7 @@ intel_display_power_put_mask_in_set(struct drm_i915=
+_private *i915,
+>  =
+
+>  #define XELPD_DISPLAY_DC_OFF_POWER_DOMAINS (		\
+>  	XELPD_PW_2_POWER_DOMAINS |			\
+> +	BIT_ULL(POWER_DOMAIN_AUDIO_MMIO) |		\
+>  	BIT_ULL(POWER_DOMAIN_MODESET) |			\
+>  	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
+>  	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
+> @@ -4654,6 +4697,165 @@ static const struct i915_power_well_desc rkl_powe=
+r_wells[] =3D {
+>  	},
+>  };
+>  =
+
+> +static const struct i915_power_well_desc dg1_power_wells[] =3D {
+> +	{
+> +		.name =3D "always-on",
+> +		.always_on =3D true,
+> +		.domains =3D POWER_DOMAIN_MASK,
+> +		.ops =3D &i9xx_always_on_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +	},
+> +	{
+> +		.name =3D "power well 1",
+> +		/* Handled by the DMC firmware */
+> +		.always_on =3D true,
+> +		.domains =3D 0,
+> +		.ops =3D &hsw_power_well_ops,
+> +		.id =3D SKL_DISP_PW_1,
+> +		{
+> +			.hsw.regs =3D &hsw_power_well_regs,
+> +			.hsw.idx =3D ICL_PW_CTL_IDX_PW_1,
+> +			.hsw.has_fuses =3D true,
+> +		},
+> +	},
+> +	{
+> +		.name =3D "DC off",
+> +		.domains =3D DG1_DISPLAY_DC_OFF_POWER_DOMAINS,
+> +		.ops =3D &gen9_dc_off_power_well_ops,
+> +		.id =3D SKL_DISP_DC_OFF,
+> +	},
+> +	{
+> +		.name =3D "power well 2",
+> +		.domains =3D DG1_PW_2_POWER_DOMAINS,
+> +		.ops =3D &hsw_power_well_ops,
+> +		.id =3D SKL_DISP_PW_2,
+> +		{
+> +			.hsw.regs =3D &hsw_power_well_regs,
+> +			.hsw.idx =3D ICL_PW_CTL_IDX_PW_2,
+> +			.hsw.has_fuses =3D true,
+> +		},
+> +	},
+> +	{
+> +		.name =3D "power well 3",
+> +		.domains =3D DG1_PW_3_POWER_DOMAINS,
+> +		.ops =3D &hsw_power_well_ops,
+> +		.id =3D ICL_DISP_PW_3,
+> +		{
+> +			.hsw.regs =3D &hsw_power_well_regs,
+> +			.hsw.idx =3D ICL_PW_CTL_IDX_PW_3,
+> +			.hsw.irq_pipe_mask =3D BIT(PIPE_B),
+> +			.hsw.has_vga =3D true,
+> +			.hsw.has_fuses =3D true,
+> +		},
+> +	},
+> +	{
+> +		.name =3D "DDI A IO",
+> +		.domains =3D ICL_DDI_IO_A_POWER_DOMAINS,
+> +		.ops =3D &hsw_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &icl_ddi_power_well_regs,
+> +			.hsw.idx =3D ICL_PW_CTL_IDX_DDI_A,
+> +		}
+> +	},
+> +	{
+> +		.name =3D "DDI B IO",
+> +		.domains =3D ICL_DDI_IO_B_POWER_DOMAINS,
+> +		.ops =3D &hsw_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &icl_ddi_power_well_regs,
+> +			.hsw.idx =3D ICL_PW_CTL_IDX_DDI_B,
+> +		}
+> +	},
+> +	{
+> +		.name =3D "DDI IO TC1",
+> +		.domains =3D TGL_DDI_IO_TC1_POWER_DOMAINS,
+> +		.ops =3D &hsw_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &icl_ddi_power_well_regs,
+> +			.hsw.idx =3D TGL_PW_CTL_IDX_DDI_TC1,
+> +		},
+> +	},
+> +	{
+> +		.name =3D "DDI IO TC2",
+> +		.domains =3D TGL_DDI_IO_TC2_POWER_DOMAINS,
+> +		.ops =3D &hsw_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &icl_ddi_power_well_regs,
+> +			.hsw.idx =3D TGL_PW_CTL_IDX_DDI_TC2,
+> +		},
+> +	},
+> +	{
+> +		.name =3D "AUX A",
+> +		.domains =3D TGL_AUX_A_IO_POWER_DOMAINS,
+> +		.ops =3D &icl_aux_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &icl_aux_power_well_regs,
+> +			.hsw.idx =3D ICL_PW_CTL_IDX_AUX_A,
+> +		},
+> +	},
+> +	{
+> +		.name =3D "AUX B",
+> +		.domains =3D TGL_AUX_B_IO_POWER_DOMAINS,
+> +		.ops =3D &icl_aux_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &icl_aux_power_well_regs,
+> +			.hsw.idx =3D ICL_PW_CTL_IDX_AUX_B,
+> +		},
+> +	},
+> +	{
+> +		.name =3D "AUX USBC1",
+> +		.domains =3D TGL_AUX_IO_USBC1_POWER_DOMAINS,
+> +		.ops =3D &icl_aux_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &icl_aux_power_well_regs,
+> +			.hsw.idx =3D TGL_PW_CTL_IDX_AUX_TC1,
+> +			.hsw.is_tc_tbt =3D false,
+> +		},
+> +	},
+> +	{
+> +		.name =3D "AUX USBC2",
+> +		.domains =3D TGL_AUX_IO_USBC2_POWER_DOMAINS,
+> +		.ops =3D &icl_aux_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &icl_aux_power_well_regs,
+> +			.hsw.idx =3D TGL_PW_CTL_IDX_AUX_TC2,
+> +			.hsw.is_tc_tbt =3D false,
+> +		},
+> +	},
+> +	{
+> +		.name =3D "power well 4",
+> +		.domains =3D TGL_PW_4_POWER_DOMAINS,
+> +		.ops =3D &hsw_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &hsw_power_well_regs,
+> +			.hsw.idx =3D ICL_PW_CTL_IDX_PW_4,
+> +			.hsw.has_fuses =3D true,
+> +			.hsw.irq_pipe_mask =3D BIT(PIPE_C),
+> +		}
+> +	},
+> +	{
+> +		.name =3D "power well 5",
+> +		.domains =3D TGL_PW_5_POWER_DOMAINS,
+> +		.ops =3D &hsw_power_well_ops,
+> +		.id =3D DISP_PW_ID_NONE,
+> +		{
+> +			.hsw.regs =3D &hsw_power_well_regs,
+> +			.hsw.idx =3D TGL_PW_CTL_IDX_PW_5,
+> +			.hsw.has_fuses =3D true,
+> +			.hsw.irq_pipe_mask =3D BIT(PIPE_D),
+> +		},
+> +	},
+> +};
+> +
+>  static const struct i915_power_well_desc xelpd_power_wells[] =3D {
+>  	{
+>  		.name =3D "always-on",
+> @@ -5138,7 +5340,9 @@ int intel_power_domains_init(struct drm_i915_privat=
+e *dev_priv)
+>  		err =3D 0;
+>  	} else if (DISPLAY_VER(dev_priv) >=3D 13) {
+>  		err =3D set_power_wells(power_domains, xelpd_power_wells);
+> -	} else if (IS_ALDERLAKE_S(dev_priv) || IS_DG1(dev_priv)) {
+> +	} else if (IS_DG1(dev_priv)) {
+> +		err =3D set_power_wells(power_domains, dg1_power_wells);
+> +	} else if (IS_ALDERLAKE_S(dev_priv)) {
+>  		err =3D set_power_wells_mask(power_domains, tgl_power_wells,
+>  					   BIT_ULL(TGL_DISP_PW_TC_COLD_OFF));
+>  	} else if (IS_ROCKETLAKE(dev_priv)) {
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers=
+/gpu/drm/i915/display/intel_display_power.h
+> index ad788bbd727d..521072be412c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.h
+> @@ -76,7 +76,8 @@ enum intel_display_power_domain {
+>  	POWER_DOMAIN_PORT_CRT,
+>  	POWER_DOMAIN_PORT_OTHER,
+>  	POWER_DOMAIN_VGA,
+> -	POWER_DOMAIN_AUDIO,
+> +	POWER_DOMAIN_AUDIO_MMIO,
+> +	POWER_DOMAIN_AUDIO_PLAYBACK,
+>  	POWER_DOMAIN_AUX_A,
+>  	POWER_DOMAIN_AUX_B,
+>  	POWER_DOMAIN_AUX_C,
+> -- =
+
+> 2.26.2
+> =
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
