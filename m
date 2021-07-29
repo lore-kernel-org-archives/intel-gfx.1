@@ -2,43 +2,55 @@ Return-Path: <SRS0=bte8=MW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD47AC4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 13:01:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42096C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 13:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72D936052B
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 13:01:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 72D936052B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7CD8160F6B
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 13:12:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7CD8160F6B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA1746F449;
-	Fri, 30 Jul 2021 13:01:24 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 52808890D2;
- Fri, 30 Jul 2021 13:01:23 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4A96DA47EB;
- Fri, 30 Jul 2021 13:01:23 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7388665861087065651=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20FD36E342;
+	Fri, 30 Jul 2021 13:12:44 +0000 (UTC)
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED43F6EE2D;
+ Thu, 29 Jul 2021 19:01:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=iEnu2V13dWd3Tk47Au3q+xCArofi4eI3XAUeIwTJOvs=; 
+ b=Bq6P3gjfltLAMg8g14Q1pHEmF2If2n8x3JwoczYJUXnz4MWIU9UqEiwFINnS/KtxkXX21rkziMlpGqYzcyAj+OgmcHKVWGhgIK01xwAbujqghtArDEldpi1+2L5lxX+9FerK2IuYa+IBWb2b+dzrhMsDm/gsbZY2rmhRiSRmeemyM5TMOpl8DwRIi0cSpo0xvqZOU/VmJTK769RUM9F0bCXumkDqJE+UMhb+T10e0YlHA90Ds0sfbOfnf/lUQjrtWYdEXgTBZUEoGwSDNDadOdOpK6F0cd190X6k01MC825KE10HBYmLpMmjqvdbTbRnFmfsUS7S0415lpcePyukyA==;
+Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
+ helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1m9BHs-000134-IJ; Thu, 29 Jul 2021 21:01:44 +0200
+Message-ID: <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "events@lists.x.org" <events@lists.x.org>, 
+ "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org
+Date: Thu, 29 Jul 2021 21:01:34 +0200
+In-Reply-To: <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
+References: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
+ <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-JoibIQI5zrLH+tK95jc7"
+User-Agent: Evolution 3.40.3 (3.40.3-1.fc34) 
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
-Date: Fri, 30 Jul 2021 13:01:23 -0000
-Message-ID: <162765008328.582.14928202924977140734@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210730095251.4343-1-daniel.vetter@ffwll.ch>
-In-Reply-To: <20210730095251.4343-1-daniel.vetter@ffwll.ch>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?=3A_Fix_oops_in_damage_self-tests_by_mocking_damage_property?=
+X-Mailman-Approved-At: Fri, 30 Jul 2021 13:12:42 +0000
+Subject: Re: [Intel-gfx] [Mesa-dev] Requests For Proposals for hosting XDC
+ 2022 are now open
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,168 +63,114 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: "board@foundation.x.org" <board@foundation.x.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7388665861087065651==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+
+--=-JoibIQI5zrLH+tK95jc7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Remember before enjoying your holiday that the deadline for XDC 2022
+proposals is *September 1st, 2021* :-)
+
+Feel free to submit your proposal before, so we can give you early
+feedback on it!
+
+Sam
+
+On Thu, 2021-07-01 at 18:14 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> This is a reminder that the call for proposals for hosting XDC 2022
+> period finishes in two months.
+>=20
+> Be sure to prepare your submission before you leave on holiday!
+>=20
+> Sam
+>=20
+> On Thu, 2021-05-20 at 12:15 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> > Hello everyone!
+> >=20
+> > The X.org board is soliciting proposals to host XDC in 2022. Since
+> > XDC 2021 is being held in Europe this year (although virtually),
+> > we've
+> > decided to host in North America. However, the board is open to
+> > other
+> > locations, especially if there's an interesting co-location with
+> > another conference.
+> >=20
+> > Of course though, due to the ongoing COVID-19 pandemic it's not yet
+> > clear whether or not it will be possible to host XDC 2022 in
+> > person,
+> > although is seems very likely. Because of this, we would like to
+> > make it clear that sponsors should prepare for both the possibility
+> > of an in person conference, and the possibility of a virtual
+> > conference. We will work with organizers on coming up with a
+> > deadline for deciding whether or not we'll be going virtual, likely
+> > sometime around July 2022.
+> >=20
+> > If you're considering hosting XDC, we've assembled a wiki page with
+> > what's generally expected and needed:
+> >=20
+> > https://www.x.org/wiki/Events/RFP/
+> >=20
+> > When submitting your proposal, please make sure to include at least
+> > the
+> > key information about the potential location in question, possible
+> > dates along with estimated costs. Proposals can be submitted to
+> > board
+> > at foundation.x.org until the deadline of *September 1st, 2021*.=C2=A0
+> >=20
+> > Additionally, an quirk early heads-up to the board if you're
+> > considering hosting would be appreciated, in case we need to adjust
+> > the
+> > schedule a bit. Also, earlier is better since there generally will
+> > be
+> > a
+> > bit of Q&A with organizers.
+> >=20
+> > And if you just have some questions about what organizing XDC
+> > entails,
+> > please feel free to chat with previous organizers, or someone from
+> > the
+> > board.
+> >=20
+> > Thanks,
+> >=20
+> > Sam
+> >=20
+> > _______________________________________________
+> > mesa-dev mailing list
+> > mesa-dev@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+>=20
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+
+
+--=-JoibIQI5zrLH+tK95jc7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
-== Series Details ==
+-----BEGIN PGP SIGNATURE-----
 
-Series: drm: Fix oops in damage self-tests by mocking damage property
-URL   : https://patchwork.freedesktop.org/series/93233/
-State : success
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmEC+w4ACgkQf/S6MvF9
+w0NE9RAAhftJFlMlh6LVSXN2Ez53ZwKl30J9rV+EJLEze+/nkNg/vXJbeaAfjOGC
+dgIVbn5bBylrv3T3tYnwAO4VtbuLwu016c1OTpcl4bqZ1c73Uj1WKYQ+yP0LXNMV
+HFVk1kI2cBdoF791QevvAp872E2xyyH2Zm9EW0zqoNJuktm31yLyW2FIC3snBcQi
+P0saE+SEJKtg1RQuKlGow5JUbH6kmsXno8aY6p/vXE5BIwAZX7CCqXPzDYj+SXgf
+fSbi0jEJneL/GhRGHcv3HbPCCTvx8g/kBkXOmIQe2yfYBCwIIG5x0UYqO7f6jWnN
+tUgTD2iCyB2rMbK4ODIY4XPUYa4n2fBCRbJ27WngBMjejuiRfDvH8bsWJVafkOJV
+likkzpY1sbrVcocP5vYgHObsOIBFE72aGZWHNOR310Zqacd/bLVM78E9crHT7FSw
+SJlFIBOywh6EED0aCoc+1/nJ7ta9KDrVrSOFoFa0WWK6QKaqpEiyLfwEoU3zizKi
+shFPfFPpvL18GDWWGah12qntQbx0TVx8/bRAwoqusVw6A65V6SebeEBxhCYMzcS3
+OJDMhH7Jcw13P6O/w52Ox2sRO9u3ANYNz8fbujE2cmQ/8WQqvBbU/m8M19/Bh8BO
+EeCRGMQsCN84+r8nVS+0dDmwe85Weu0Elbkrt2mZvJ4WyWjZOVg=
+=rA1c
+-----END PGP SIGNATURE-----
 
-== Summary ==
+--=-JoibIQI5zrLH+tK95jc7--
 
-CI Bug Log - changes from CI_DRM_10426 -> Patchwork_20748
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20748 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@execlists:
-    - fi-bsw-nick:        [PASS][1] -> [INCOMPLETE][2] ([i915#2782] / [i915#2940])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10426/fi-bsw-nick/igt@i915_selftest@live@execlists.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/fi-bsw-nick/igt@i915_selftest@live@execlists.html
-
-  * igt@runner@aborted:
-    - fi-bsw-nick:        NOTRUN -> [FAIL][3] ([fdo#109271] / [i915#1436])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/fi-bsw-nick/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s0:
-    - fi-tgl-1115g4:      [FAIL][4] ([i915#1888]) -> [PASS][5]
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10426/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
-  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
-  [i915#2782]: https://gitlab.freedesktop.org/drm/intel/issues/2782
-  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
-
-
-Participating hosts (38 -> 31)
-------------------------------
-
-  Missing    (7): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-apl-guc fi-bdw-samus bat-jsl-1 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10426 -> Patchwork_20748
-
-  CI-20190529: 20190529
-  CI_DRM_10426: 58e0d826a80edc36a35a3d394448ccfb3428f237 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6159: 6135b9cc319ed965e3aafb5b2ae2abf4762a06b2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20748: 3efd59452f81f0b99cf1b063fe82707dcdc1bd79 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-3efd59452f81 drm: Fix oops in damage self-tests by mocking damage property
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/index.html
-
---===============7388665861087065651==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm: Fix oops in damage self-tests by mocking damage property</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93233/">https://patchwork.freedesktop.org/series/93233/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10426 -&gt; Patchwork_20748</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20748 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@execlists:</p>
-<ul>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10426/fi-bsw-nick/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/fi-bsw-nick/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2782">i915#2782</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/fi-bsw-nick/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@gem_exec_suspend@basic-s0:<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10426/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20748/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (38 -&gt; 31)</h2>
-<p>Missing    (7): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-apl-guc fi-bdw-samus bat-jsl-1 </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10426 -&gt; Patchwork_20748</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10426: 58e0d826a80edc36a35a3d394448ccfb3428f237 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6159: 6135b9cc319ed965e3aafb5b2ae2abf4762a06b2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20748: 3efd59452f81f0b99cf1b063fe82707dcdc1bd79 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>3efd59452f81 drm: Fix oops in damage self-tests by mocking damage property</p>
-
-</body>
-</html>
-
---===============7388665861087065651==--
