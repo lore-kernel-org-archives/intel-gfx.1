@@ -2,45 +2,48 @@ Return-Path: <SRS0=MAHO=MV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73B36C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 00:16:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1498EC4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 00:32:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3317760F12
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 00:16:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3317760F12
+	by mail.kernel.org (Postfix) with ESMTPS id A0D6D60F9B
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 00:32:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A0D6D60F9B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C24F6E296;
-	Thu, 29 Jul 2021 00:16:14 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B38726E231;
- Thu, 29 Jul 2021 00:16:12 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="212500655"
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="212500655"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 17:16:11 -0700
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="456666795"
-Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 17:16:10 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Wed, 28 Jul 2021 17:33:59 -0700
-Message-Id: <20210729003400.151864-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.28.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BACA6E217;
+	Thu, 29 Jul 2021 00:32:48 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC146E217
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 00:32:47 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="273853990"
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="273853990"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2021 17:32:45 -0700
+X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; d="scan'208";a="476066690"
+Received: from dmiller7-mobl.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.252.138.208])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2021 17:32:44 -0700
+Date: Wed, 28 Jul 2021 17:32:43 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Message-ID: <20210729003243.nyv6ztueggogcjuv@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <20210728215946.1573015-1-lucas.demarchi@intel.com>
+ <20210728215946.1573015-26-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/1] Fix gem_ctx_persistence failures with GuC
- submission
+Content-Disposition: inline
+In-Reply-To: <20210728215946.1573015-26-lucas.demarchi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 25/25] drm/i915: finish removal of CNL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,41 +56,190 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Should fix below failures with GuC submission for the following tests:
-gem_exec_balancer --r noheartbeat
-gem_ctx_persistence --r heartbeat-close
+On Wed, Jul 28, 2021 at 02:59:46PM -0700, Lucas De Marchi wrote:
+>With all the users removed, finish removing the CNL platform definitions.
+>We will leave the PCI IDs around as those are exposed to userspace.
+>Even if mesa doesn't support CNL anymore, let's avoid build breakages
+>due to changing the headers.
+>
+>Also, due to drm/i915/gt still using IS_CANNONLAKE() let's just redefine
+>it instead of removing.
 
-Not going to fix:
-gem_ctx_persistence --r heartbeat-many
-gem_ctx_persistence --r heartbeat-stop
++Rodrigo
 
-As the above tests change the heartbeat value to 0 (off) after the
-context is closed and we have no way to detect that with GuC submission
-unless we keep a list of closed but running contexts which seems like
-overkill for a non-real world use case. We likely should just skip these
-tests with GuC submission.
+Rodrigo, when I was going to merge this patch I noticed it was not
+really possible. IS_CANNONLAKE() is used in drm/i915/gt/ so it can't be
+removed if part of the patches are merged in one branch and the other
+part in another.
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+I also checked if it would be possible to do this by using a topic branch, but that
+gives conflicts when trying to use the merge base. So, I re-submitted
+the series split in 2: one for drm-intel-next and another for
+drm-intel-gt-next. Here instead of removing IS_CANNONLAKE() I only
+redefine it to 0.  I'm keeping your previous r-b below, but please let
+me know if all above is fine and your r-b still stands.
 
-Matthew Brost (1):
-  drm/i915: Check if engine has heartbeat when closing a context
+thanks
+Lucas De Marchi
 
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  5 +++--
- drivers/gpu/drm/i915/gt/intel_context_types.h |  2 ++
- drivers/gpu/drm/i915/gt/intel_engine.h        | 21 ++-----------------
- .../drm/i915/gt/intel_execlists_submission.c  | 14 +++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  6 +++++-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.h |  2 --
- 6 files changed, 26 insertions(+), 24 deletions(-)
 
--- 
-2.28.0
-
+>
+>Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+>Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>---
+> drivers/gpu/drm/i915/i915_drv.h          |  8 ++------
+> drivers/gpu/drm/i915/i915_pci.c          | 23 +++++------------------
+> drivers/gpu/drm/i915/i915_perf.c         |  1 -
+> drivers/gpu/drm/i915/intel_device_info.c |  2 --
+> drivers/gpu/drm/i915/intel_device_info.h |  2 --
+> 5 files changed, 7 insertions(+), 29 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+>index 5d5cf5ad0513..6ac90ccbee0b 100644
+>--- a/drivers/gpu/drm/i915/i915_drv.h
+>+++ b/drivers/gpu/drm/i915/i915_drv.h
+>@@ -1380,7 +1380,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+> #define IS_GEMINILAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_GEMINILAKE)
+> #define IS_COFFEELAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_COFFEELAKE)
+> #define IS_COMETLAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_COMETLAKE)
+>-#define IS_CANNONLAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_CANNONLAKE)
+>+#define IS_CANNONLAKE(dev_priv)	0
+> #define IS_ICELAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_ICELAKE)
+> #define IS_JSL_EHL(dev_priv)	(IS_PLATFORM(dev_priv, INTEL_JASPERLAKE) || \
+> 				IS_PLATFORM(dev_priv, INTEL_ELKHARTLAKE))
+>@@ -1446,8 +1446,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+> #define IS_CML_GT2(dev_priv)	(IS_COMETLAKE(dev_priv) && \
+> 				 INTEL_INFO(dev_priv)->gt == 2)
+>
+>-#define IS_CNL_WITH_PORT_F(dev_priv) \
+>-	IS_SUBPLATFORM(dev_priv, INTEL_CANNONLAKE, INTEL_SUBPLATFORM_PORTF)
+> #define IS_ICL_WITH_PORT_F(dev_priv) \
+> 	IS_SUBPLATFORM(dev_priv, INTEL_ICELAKE, INTEL_SUBPLATFORM_PORTF)
+>
+>@@ -1592,9 +1590,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+>
+> /* WaRsDisableCoarsePowerGating:skl,cnl */
+> #define NEEDS_WaRsDisableCoarsePowerGating(dev_priv)			\
+>-	(IS_CANNONLAKE(dev_priv) ||					\
+>-	 IS_SKL_GT3(dev_priv) ||					\
+>-	 IS_SKL_GT4(dev_priv))
+>+	(IS_SKL_GT3(dev_priv) || IS_SKL_GT4(dev_priv))
+>
+> #define HAS_GMBUS_IRQ(dev_priv) (GRAPHICS_VER(dev_priv) >= 4)
+> #define HAS_GMBUS_BURST_READ(dev_priv) (GRAPHICS_VER(dev_priv) >= 11 || \
+>diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+>index ec80cd1cd00c..cb4a46174513 100644
+>--- a/drivers/gpu/drm/i915/i915_pci.c
+>+++ b/drivers/gpu/drm/i915/i915_pci.c
+>@@ -787,27 +787,13 @@ static const struct intel_device_info cml_gt2_info = {
+> 	.gt = 2,
+> };
+>
+>-#define GEN10_FEATURES \
+>-	GEN9_FEATURES, \
+>-	GEN(10), \
+>-	.dbuf.size = 1024 - 4, /* 4 blocks for bypass path allocation */ \
+>-	.display.has_dsc = 1, \
+>-	.has_coherent_ggtt = false, \
+>-	GLK_COLORS
+>-
+>-static const struct intel_device_info cnl_info = {
+>-	GEN10_FEATURES,
+>-	PLATFORM(INTEL_CANNONLAKE),
+>-	.gt = 2,
+>-};
+>-
+> #define GEN11_DEFAULT_PAGE_SIZES \
+> 	.page_sizes = I915_GTT_PAGE_SIZE_4K | \
+> 		      I915_GTT_PAGE_SIZE_64K | \
+> 		      I915_GTT_PAGE_SIZE_2M
+>
+> #define GEN11_FEATURES \
+>-	GEN10_FEATURES, \
+>+	GEN9_FEATURES, \
+> 	GEN11_DEFAULT_PAGE_SIZES, \
+> 	.abox_mask = BIT(0), \
+> 	.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
+>@@ -830,10 +816,12 @@ static const struct intel_device_info cnl_info = {
+> 		[TRANSCODER_DSI_1] = TRANSCODER_DSI1_OFFSET, \
+> 	}, \
+> 	GEN(11), \
+>+	.color = { .degamma_lut_size = 33, .gamma_lut_size = 262145 }, \
+> 	.dbuf.size = 2048, \
+> 	.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2), \
+>-	.has_logical_ring_elsq = 1, \
+>-	.color = { .degamma_lut_size = 33, .gamma_lut_size = 262145 }
+>+	.display.has_dsc = 1, \
+>+	.has_coherent_ggtt = false, \
+>+	.has_logical_ring_elsq = 1
+>
+> static const struct intel_device_info icl_info = {
+> 	GEN11_FEATURES,
+>@@ -1123,7 +1111,6 @@ static const struct pci_device_id pciidlist[] = {
+> 	INTEL_CML_GT2_IDS(&cml_gt2_info),
+> 	INTEL_CML_U_GT1_IDS(&cml_gt1_info),
+> 	INTEL_CML_U_GT2_IDS(&cml_gt2_info),
+>-	INTEL_CNL_IDS(&cnl_info),
+> 	INTEL_ICL_11_IDS(&icl_info),
+> 	INTEL_EHL_IDS(&ehl_info),
+> 	INTEL_JSL_IDS(&jsl_info),
+>diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+>index 05e941cd1065..efef89e53440 100644
+>--- a/drivers/gpu/drm/i915/i915_perf.c
+>+++ b/drivers/gpu/drm/i915/i915_perf.c
+>@@ -4309,7 +4309,6 @@ static void oa_init_supported_formats(struct i915_perf *perf)
+> 	case INTEL_GEMINILAKE:
+> 	case INTEL_COFFEELAKE:
+> 	case INTEL_COMETLAKE:
+>-	case INTEL_CANNONLAKE:
+> 	case INTEL_ICELAKE:
+> 	case INTEL_ELKHARTLAKE:
+> 	case INTEL_JASPERLAKE:
+>diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+>index 1ccaeb03ad6d..305facedd284 100644
+>--- a/drivers/gpu/drm/i915/intel_device_info.c
+>+++ b/drivers/gpu/drm/i915/intel_device_info.c
+>@@ -59,7 +59,6 @@ static const char * const platform_names[] = {
+> 	PLATFORM_NAME(GEMINILAKE),
+> 	PLATFORM_NAME(COFFEELAKE),
+> 	PLATFORM_NAME(COMETLAKE),
+>-	PLATFORM_NAME(CANNONLAKE),
+> 	PLATFORM_NAME(ICELAKE),
+> 	PLATFORM_NAME(ELKHARTLAKE),
+> 	PLATFORM_NAME(JASPERLAKE),
+>@@ -175,7 +174,6 @@ static const u16 subplatform_ulx_ids[] = {
+> };
+>
+> static const u16 subplatform_portf_ids[] = {
+>-	INTEL_CNL_PORT_F_IDS(0),
+> 	INTEL_ICL_PORT_F_IDS(0),
+> };
+>
+>diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+>index 316edad22eb0..ef1eecd259e0 100644
+>--- a/drivers/gpu/drm/i915/intel_device_info.h
+>+++ b/drivers/gpu/drm/i915/intel_device_info.h
+>@@ -76,8 +76,6 @@ enum intel_platform {
+> 	INTEL_GEMINILAKE,
+> 	INTEL_COFFEELAKE,
+> 	INTEL_COMETLAKE,
+>-	/* gen10 */
+>-	INTEL_CANNONLAKE,
+> 	/* gen11 */
+> 	INTEL_ICELAKE,
+> 	INTEL_ELKHARTLAKE,
+>-- 
+>2.31.1
+>
+>_______________________________________________
+>Intel-gfx mailing list
+>Intel-gfx@lists.freedesktop.org
+>https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
