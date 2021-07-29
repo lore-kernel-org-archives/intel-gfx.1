@@ -2,149 +2,67 @@ Return-Path: <SRS0=MAHO=MV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F936C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 21:55:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 393FFC4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 21:56:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0457560F4B
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 21:55:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0457560F4B
+	by mail.kernel.org (Postfix) with ESMTPS id ED9ED608FB
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 21:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ED9ED608FB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9474F6EE7E;
-	Thu, 29 Jul 2021 21:55:21 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89B5E6EE7E
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 21:55:20 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="209872284"
-X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="209872284"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2021 14:55:20 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2CC26EE80;
+	Thu, 29 Jul 2021 21:56:38 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95EB86EE80
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 21:56:37 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="276763631"
+X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="276763631"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jul 2021 14:56:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="666814562"
-Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
- by fmsmga005.fm.intel.com with ESMTP; 29 Jul 2021 14:55:19 -0700
-Received: from orsmsx602.amr.corp.intel.com (10.22.229.15) by
- ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="417778771"
+Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+ by orsmga006.jf.intel.com with ESMTP; 29 Jul 2021 14:56:36 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10; Thu, 29 Jul 2021 14:55:19 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ 15.1.2242.4; Thu, 29 Jul 2021 14:56:36 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10 via Frontend Transport; Thu, 29 Jul 2021 14:55:19 -0700
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.101)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2242.10; Thu, 29 Jul 2021 14:55:19 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d206LvWpzeq8DlKb6MEYLhsVfW5+UEsdOAQoYZEUEA+0XgPpq/r+bFZgFCfQVZnKGWz56Zt97+exFWmagkY6Tfe3C0K5MHt5mD7RbPEZFWg475+8MmBPOf1b82QD/NQOM0WiC/+KMq7sgUAoAzDfUF1qX8Mr3StO+IzWutdyR84KM4BaZFguEFcsxpFHOdy8f9b2iGSKrvzhgbbRioka6jWmFcZaAptTL5uiUtqf0rJmjhu7ogEUcS4J3TSXzZj+2Rq9NrG73rShWoEFIumRQ3bbXc+OfgzbIsGl3VHCyWWtMWwTxW+iXSr8G0j7sY2g4GwYcJvGOCSEjT5KOJSHsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l26gwTQki5wzF4uSRzg6fjzYW8eDv7QSQPSBSjXywLM=;
- b=jTj8cWuAYFy5cRcHdrYb9lnH6HHJLG/38UBSoAYR6s/X1UQ4Tdu0vVuYUu7dGJCd6WB6UDiNNq7nGmAF/chJ6h4iaMOu8oDyhxGVjqHyYACBvQIxurTOTJvx6MUEGq3hqm7rellAy1ig7fcEgXVeIS95+rvoNjdgaFts6RdB3WY3KaoS9aj10fKxMlCk0bjd8Ze2SqpvutzbCU2+oNEbC7gmyPTT/2pCVuBs/xjyrsyPN434vmhbDdC+aDm5txILIbJq+nrdA4JwSLJzuK+VEHHzBs6g3RarDTSwL1P7fxuqYnGKSy0UuLAHJc4nWgUhSiSvghhH3S5rnKf4ZEajfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l26gwTQki5wzF4uSRzg6fjzYW8eDv7QSQPSBSjXywLM=;
- b=tBv+zVlkk93RpN8yJrzz17cqn31zHOyP3mKiHhmNBJWFOiG7WQ2iZofZrENkgAV6eaCHtRP4GJuPcY6kb8l/vaPf1HbpDEXVaQci5ZRiMFkXtcJhi5ums/twEboCMWtDSv/ixyS5Eq/AAHuc0jwsSwm2my7Kd4tzMdmKkX27n34=
-Received: from MN2PR11MB4661.namprd11.prod.outlook.com (2603:10b6:208:26b::16)
- by MN2PR11MB4366.namprd11.prod.outlook.com (2603:10b6:208:190::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.19; Thu, 29 Jul
- 2021 21:55:17 +0000
-Received: from MN2PR11MB4661.namprd11.prod.outlook.com
- ([fe80::f97a:a66f:73be:c044]) by MN2PR11MB4661.namprd11.prod.outlook.com
- ([fe80::f97a:a66f:73be:c044%5]) with mapi id 15.20.4352.033; Thu, 29 Jul 2021
- 21:55:17 +0000
-From: "Yokoyama, Caz" <caz.yokoyama@intel.com>
-To: "Roper, Matthew D" <matthew.d.roper@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [Intel-gfx] [PATCH v2 3/6] drm/i915: Make shadow tables
- range-based
-Thread-Index: AQHXhI2kyybuxrbHtkG1/vDDuzZEM6taf7eA
-Date: Thu, 29 Jul 2021 21:55:17 +0000
-Message-ID: <c658dc81d234511b6ec194784b9322b1da3b5639.camel@intel.com>
-References: <20210729054118.2458523-4-matthew.d.roper@intel.com>
- <20210729152158.2646246-1-matthew.d.roper@intel.com>
-In-Reply-To: <20210729152158.2646246-1-matthew.d.roper@intel.com>
+ 15.1.2242.10; Thu, 29 Jul 2021 14:56:35 -0700
+Received: from fmsmsx610.amr.corp.intel.com ([10.18.126.90]) by
+ fmsmsx610.amr.corp.intel.com ([10.18.126.90]) with mapi id 15.01.2242.010;
+ Thu, 29 Jul 2021 14:56:35 -0700
+From: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>
+To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "De
+ Marchi, Lucas" <lucas.demarchi@intel.com>
+Thread-Topic: [Intel-gfx] [PATCH 25/25] drm/i915: finish removal of CNL
+Thread-Index: AQHXg/wUq+icx5YcWUWfbAvuqOJ1+qtZj92AgAFmtAA=
+Date: Thu, 29 Jul 2021 21:56:35 +0000
+Message-ID: <83fb838f7d4291b702f09162cccb1cc1a016ef4d.camel@intel.com>
+References: <20210728215946.1573015-1-lucas.demarchi@intel.com>
+ <20210728215946.1573015-26-lucas.demarchi@intel.com>
+ <20210729003243.nyv6ztueggogcjuv@ldmartin-desk2>
+In-Reply-To: <20210729003243.nyv6ztueggogcjuv@ldmartin-desk2>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4815c104-b836-48a3-f86d-08d952db8d8c
-x-ms-traffictypediagnostic: MN2PR11MB4366:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR11MB43669F60BC5FB673426EB5A39FEB9@MN2PR11MB4366.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3383;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: KcQfI0bCaCYIGl3eTeHAAL/J6m1W2STVvCJaObG5D9kMC+4qGWjHWjFBeOgDsQ+fx9ljopXtY6XJUebwYDuZZrKrgJ5hkkQJPNa2i7VsC9EgSFNJzFK4pGJCxnHMPMyy6dQVwd2RoegREL1koA/UBxim4UagcjV0odJ2fPV25DbOQS0VRCumNzCvVEmINQxm0DMzkeS0K/nZBtMQYnmhBVcD6OGaRgEWDljR+msXUK5xc4oht7jFmPK61n+smugq1EEIbn6KUJfUZSURN0YM67k5sp6vjJoMmvGsS1ZPy0/cRy3AgqQ4TCp/0BxVShmFu4xmekO3K9TGAjtmVz15UTQ2nAdCx1GrCd1Xd//759C0yQf8G1n7EDWYHHYRLsPbDXhWs+mIi6a9wdYabqudlJUCJLadpm1pdycpea4ZbZnRrWb1RDTlwd64dPp5BpSSoFf2f3beJQhZZi7UVlIVnSjgBS+Er4LV0fuVKXp2TifO7fyKDrLqUUs0FVqGiFFJap2griJojC5NeoPRDwZzZRrkrKQYbRW+NWnMP/AAtl4HM1BdgmBJY9qpcrMjIT1JqRDGin6CvBfpKqGGEUKoaRGIvr4ui30L1YYSsu9Ek/RokA5bI1SR4OQf9A/AeiF1FYEJmLQ7l7k10EwwC4yFoUPY29+KeV4TKRVWqESHOsUaUsmQrhcnLmo7IuTKI8zPqje9EomUhqzj+w5ZIMDC+Q==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR11MB4661.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(136003)(346002)(366004)(396003)(36756003)(2906002)(6506007)(186003)(478600001)(76116006)(8676002)(8936002)(26005)(316002)(83380400001)(110136005)(2616005)(64756008)(30864003)(91956017)(122000001)(66946007)(38100700002)(5660300002)(66446008)(38070700005)(66476007)(66556008)(71200400001)(6486002)(6512007)(86362001);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aEJzb0FlL2kyVFBxaEZMcjNSSElhQ0RMQUxjVngyS1g3aXFDY29QYkRDbWhR?=
- =?utf-8?B?REZUWUd1enFvOGEzSkFqdUEwd29QMjNnUVFITVdUZmlrKzVTdGc5aDZFdisw?=
- =?utf-8?B?YWZsM2YweFZ1TWZ0NytkckFOelVsSCtOaTBxdWxiRi9lQnpRcHdqUEFKMHg2?=
- =?utf-8?B?UndVbklnZEJ4dzVKcWFyTklqajBlVE5rQmt1TXhIQzJUMmpyS0dzL2tnbzZp?=
- =?utf-8?B?MlR0WnRCM1gzSHdHNHFzcTRpSjRDWjd2SWlEQTZSV2drMmRsQ0R2MVJrQlFS?=
- =?utf-8?B?azMvRGVCMzg2MWRxNnFvZVdBK2xtc0pSWGFRL3k2ZzUxbEFFS3VONW5EUUtT?=
- =?utf-8?B?UFY4ZFJmSGZ6VEtxcDhtQzRvNTJVRWREQ2N3MHJVUXBJWnM2UHNHOS93MmRk?=
- =?utf-8?B?bTVNeFFrOWx5MmVMY2dYMytCMDIvbGtBQ3VjZ1dqRTJsRFNSbGRMdVZ3bG1H?=
- =?utf-8?B?TjgxMEZZL0NFeUtuSW0ySHdLTjE2UDFBU3lPbjFjYmhTVFZzNlhEWkRoZ3lR?=
- =?utf-8?B?bldnZHFnTXdhQ29FVkpQd2RYUGV0NHRVU3l6dUlKUDdZN1IzdXlhSzJzUUpQ?=
- =?utf-8?B?TFRzTjlGR2NPbWlDbktxYm05WGM1OUc3SXlZemdUWnJCRFNqTkVxQTRiejR6?=
- =?utf-8?B?SG5XZzZGOWRyaWtwd3l1RGdsc1BacUVLbmpXVzlQdXdxMjRWdzlzOEEzZXNn?=
- =?utf-8?B?M2FERHlFY2xqdVg3TzVaSmF2azJ1azNOV3NETDZFcFFzR2htU21SK0gwNEZD?=
- =?utf-8?B?UzZady9Ebzc2aU5BZE1YRzlvZkFTOXNBaGE0ak82TVRRaWtsT21ldUZsNi9L?=
- =?utf-8?B?MDJYaW1Nb0RDb3BNVVJFWjd6Y3NDRllnVzZyNFhjVm84QmdISGl5dTh5VUVD?=
- =?utf-8?B?THlrbk05VHkvL2QvWUNFVlJtS3hob284ajFCTHdEWWh2NE01SVIzc0NrZXF3?=
- =?utf-8?B?anQ1UmRoTHRQc1hvckY0cXlDV3ZBN3ZBV2QwWng5SWtRYmhkSWRLTEpiZW5O?=
- =?utf-8?B?S2Z0YUJrR2pWNXJobWZMRVdSYkVJQ0xuZDlBNStUVFlkcS83Yk9tL0NSZzlU?=
- =?utf-8?B?eVYrMVh6Y2c2MkdtSWZqMjVLT0dqV29RbHZockRSVCt1bFM5aXI5V2JFTkVW?=
- =?utf-8?B?WVBvM3hDcE55dzhENGxIVlRsMGhNUi9vVUFRbVkvdUF4TTM2ZGtLU0lKaFVx?=
- =?utf-8?B?V3lXNkxCajlWWHIrbnlTYmJpM3R2UzZxYm1BTGRCemx1cUNUb0NYWmRjRFRr?=
- =?utf-8?B?OFlIN3hXeXNJT1J6WnhFZGRxVFNSUnJMSUtXQ0NJVGg1RlVyMjcrMVFWb2dZ?=
- =?utf-8?B?L0lDOWE2VUcrYWhVMWRHeUFjSWlHZHY3OEN0MXkxOUNqNzJPZllmZC9nTHc2?=
- =?utf-8?B?Uklza2VpU3diMjVUMlZIRi9ySVVIcG01aHl5M1M1NE1ETDdOcFFwc1VtbTlX?=
- =?utf-8?B?ZXltVHZ2Z21FSW9raFZZY295OVg0SVIweVMzM3ErRjVkODJSYkhONjhXakts?=
- =?utf-8?B?NlA5Vkw2NG1tbS9XOFQ3aFdITkEyclNJd0gvL1hoRmM0V05KczNHUXNaR1p0?=
- =?utf-8?B?MDdKbHVXaUZjbENXU2t6NFFaN2pGQnlsQW41NmR0Q1QxNTR3SUQ1aXBDN1RQ?=
- =?utf-8?B?dXRsVjVmVzYyczQzcW9qVHhBL25aamppWEpUMnhkek1jLy9raFpBY3gxbmNX?=
- =?utf-8?B?Vkw0eVZuTCthRExrRFdIa1hvbzZCK1V4Nk9Ra1l2MkErdElablhMTENlWVBx?=
- =?utf-8?Q?YldDFDZqHaIRiyzv4yEPAj6Sypv/p66XlOMMual?=
-Content-ID: <DE4CC2CB72C85A40B98202A4A8A0DB5F@namprd11.prod.outlook.com>
+user-agent: Evolution 3.40.3 (3.40.3-1.fc34) 
+x-originating-ip: [10.1.200.100]
+Content-ID: <3F287DEEE67FED49BA1C3F7CFDB8DBD9@intel.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR11MB4661.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4815c104-b836-48a3-f86d-08d952db8d8c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2021 21:55:17.4343 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Ir+Hahq8gz8+TPrSfU0ln7vgPlCEhbXM12Nyu7AoRUzoFPKxejqq3SaOKv5JoWtUZMtzQeB+pURewQJmcxXhWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4366
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v2 3/6] drm/i915: Make shadow tables
- range-based
+Subject: Re: [Intel-gfx] [PATCH 25/25] drm/i915: finish removal of CNL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,413 +75,168 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2021-07-29 at 08:21 -0700, Matt Roper wrote:
-> Rather than defining our shadow tables as a list of individual
-> registers, provide them as a list of register ranges; we'll have some
-> ranges of multiple registers being added soon (and we already have a
-> couple adjacent registers that we can squash into a single range
-> now).
-> 
-> This change also defines the table with hex literal values rather
-> than
-> symbolic register names; since that's how the tables are defined in
-> the
-> bspec, this change will make it easier to review the tables overall.
-> 
-> v2:
->  - Force signed comparison on range overlap sanity check
-> 
-> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_workarounds.c   |  13 +-
->  drivers/gpu/drm/i915/intel_uncore.c           | 160 +++++++++-------
-> --
->  drivers/gpu/drm/i915/intel_uncore.h           |   6 +
->  drivers/gpu/drm/i915/selftests/intel_uncore.c |  32 ++--
->  4 files changed, 108 insertions(+), 103 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> index 9173df59821a..7558414bafb2 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> @@ -1963,12 +1963,7 @@ void intel_engine_apply_workarounds(struct
-> intel_engine_cs *engine)
->  	wa_list_apply(engine->gt, &engine->wa_list);
->  }
->  
-> -struct mcr_range {
-> -	u32 start;
-> -	u32 end;
-> -};
-> -
-> -static const struct mcr_range mcr_ranges_gen8[] = {
-> +static const struct i915_range mcr_ranges_gen8[] = {
->  	{ .start = 0x5500, .end = 0x55ff },
->  	{ .start = 0x7000, .end = 0x7fff },
->  	{ .start = 0x9400, .end = 0x97ff },
-> @@ -1977,7 +1972,7 @@ static const struct mcr_range mcr_ranges_gen8[]
-> = {
->  	{},
->  };
->  
-> -static const struct mcr_range mcr_ranges_gen12[] = {
-> +static const struct i915_range mcr_ranges_gen12[] = {
->  	{ .start =  0x8150, .end =  0x815f },
->  	{ .start =  0x9520, .end =  0x955f },
->  	{ .start =  0xb100, .end =  0xb3ff },
-> @@ -1986,7 +1981,7 @@ static const struct mcr_range
-> mcr_ranges_gen12[] = {
->  	{},
->  };
->  
-> -static const struct mcr_range mcr_ranges_xehp[] = {
-> +static const struct i915_range mcr_ranges_xehp[] = {
->  	{ .start =  0x4000, .end =  0x4aff },
->  	{ .start =  0x5200, .end =  0x52ff },
->  	{ .start =  0x5400, .end =  0x7fff },
-> @@ -2004,7 +1999,7 @@ static const struct mcr_range mcr_ranges_xehp[]
-> = {
->  
->  static bool mcr_range(struct drm_i915_private *i915, u32 offset)
->  {
-> -	const struct mcr_range *mcr_ranges;
-> +	const struct i915_range *mcr_ranges;
->  	int i;
->  
->  	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
-> diff --git a/drivers/gpu/drm/i915/intel_uncore.c
-> b/drivers/gpu/drm/i915/intel_uncore.c
-> index ea910f7ee635..2cfbc16f7dee 100644
-> --- a/drivers/gpu/drm/i915/intel_uncore.c
-> +++ b/drivers/gpu/drm/i915/intel_uncore.c
-> @@ -946,101 +946,95 @@ static const struct intel_forcewake_range
-> __vlv_fw_ranges[] = {
->  	find_fw_domain(uncore, offset)
->  
->  /* *Must* be sorted by offset! See intel_shadow_table_check(). */
-> -static const i915_reg_t gen8_shadowed_regs[] = {
-> -	RING_TAIL(RENDER_RING_BASE),	/* 0x2000 (base) */
-> -	GEN6_RPNSWREQ,			/* 0xA008 *
-> -	GEN6_RC_VIDEO_FREQ,		/* 0xA00C */
-> -	RING_TAIL(GEN6_BSD_RING_BASE),	/* 0x12000 (base) */
-> -	RING_TAIL(VEBOX_RING_BASE),	/* 0x1a000 (base) */
-> -	RING_TAIL(BLT_RING_BASE),	/* 0x22000 (base) */
-> +static const struct i915_range gen8_shadowed_regs[] = {
-> +	{ .start =  0x2030, .end =  0x2030 },
-> +	{ .start =  0xA008, .end =  0xA00C },
-> +	{ .start = 0x12030, .end = 0x12030 },
-> +	{ .start = 0x1a030, .end = 0x1a030 },
-> +	{ .start = 0x22030, .end = 0x22030 },
-You are replacing macro defined values by literal values. These macro
-defined values are no longer used in this patch, but used in other
-places such as intel_rps.c:gen6_rps_set(). What plan do you have about
-the same address is defined in 2 ways, i.e. macro and literal value?
--caz
-
->  	/* TODO: Other registers are not yet used */
->  };
->  
-> -static const i915_reg_t gen11_shadowed_regs[] = {
-> -	RING_TAIL(RENDER_RING_BASE),			/* 0x2000
-> (base) */
-> -	RING_EXECLIST_CONTROL(RENDER_RING_BASE),        /* 0x2550 */
-> -	GEN6_RPNSWREQ,					/* 0xA008 */
-> -	GEN6_RC_VIDEO_FREQ,				/* 0xA00C */
-> -	RING_TAIL(BLT_RING_BASE),			/* 0x22000 (base) */
-> -	RING_EXECLIST_CONTROL(BLT_RING_BASE),		/* 0x22550 */
-> -	RING_TAIL(GEN11_BSD_RING_BASE),			/* 0x1C0000
-> (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD_RING_BASE),	/* 0x1C0550
-> */
-> -	RING_TAIL(GEN11_BSD2_RING_BASE),		/* 0x1C4000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD2_RING_BASE),	/* 0x1C4550
-> */
-> -	RING_TAIL(GEN11_VEBOX_RING_BASE),		/* 0x1C8000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_VEBOX_RING_BASE),	/* 0x1C8550
-> */
-> -	RING_TAIL(GEN11_BSD3_RING_BASE),		/* 0x1D0000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD3_RING_BASE),	/* 0x1D0550
-> */
-> -	RING_TAIL(GEN11_BSD4_RING_BASE),		/* 0x1D4000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD4_RING_BASE),	/* 0x1D4550
-> */
-> -	RING_TAIL(GEN11_VEBOX2_RING_BASE),		/* 0x1D8000
-> (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_VEBOX2_RING_BASE),	/* 0x1D8550
-> */
-> +static const struct i915_range gen11_shadowed_regs[] = {
-> +	{ .start =   0x2030, .end =   0x2030 },
-> +	{ .start =   0x2550, .end =   0x2550 },
-> +	{ .start =   0xA008, .end =   0xA00C },
-> +	{ .start =  0x22030, .end =  0x22030 },
-> +	{ .start =  0x22550, .end =  0x22550 },
-> +	{ .start = 0x1C0030, .end = 0x1C0030 },
-> +	{ .start = 0x1C0550, .end = 0x1C0550 },
-> +	{ .start = 0x1C4030, .end = 0x1C4030 },
-> +	{ .start = 0x1C4550, .end = 0x1C4550 },
-> +	{ .start = 0x1C8030, .end = 0x1C8030 },
-> +	{ .start = 0x1C8550, .end = 0x1C8550 },
-> +	{ .start = 0x1D0030, .end = 0x1D0030 },
-> +	{ .start = 0x1D0550, .end = 0x1D0550 },
-> +	{ .start = 0x1D4030, .end = 0x1D4030 },
-> +	{ .start = 0x1D4550, .end = 0x1D4550 },
-> +	{ .start = 0x1D8030, .end = 0x1D8030 },
-> +	{ .start = 0x1D8550, .end = 0x1D8550 },
->  	/* TODO: Other registers are not yet used */
->  };
->  
-> -static const i915_reg_t gen12_shadowed_regs[] = {
-> -	RING_TAIL(RENDER_RING_BASE),			/* 0x2000
-> (base) */
-> -	RING_EXECLIST_CONTROL(RENDER_RING_BASE),	/* 0x2550 */
-> -	GEN6_RPNSWREQ,					/* 0xA008 */
-> -	GEN6_RC_VIDEO_FREQ,				/* 0xA00C */
-> -	RING_TAIL(BLT_RING_BASE),			/* 0x22000 (base) */
-> -	RING_EXECLIST_CONTROL(BLT_RING_BASE),		/* 0x22550 */
-> -	RING_TAIL(GEN11_BSD_RING_BASE),			/* 0x1C0000
-> (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD_RING_BASE),	/* 0x1C0550
-> */
-> -	RING_TAIL(GEN11_BSD2_RING_BASE),		/* 0x1C4000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD2_RING_BASE),	/* 0x1C4550
-> */
-> -	RING_TAIL(GEN11_VEBOX_RING_BASE),		/* 0x1C8000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_VEBOX_RING_BASE),	/* 0x1C8550
-> */
-> -	RING_TAIL(GEN11_BSD3_RING_BASE),		/* 0x1D0000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD3_RING_BASE),	/* 0x1D0550
-> */
-> -	RING_TAIL(GEN11_BSD4_RING_BASE),		/* 0x1D4000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD4_RING_BASE),	/* 0x1D4550
-> */
-> -	RING_TAIL(GEN11_VEBOX2_RING_BASE),		/* 0x1D8000
-> (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_VEBOX2_RING_BASE),	/* 0x1D8550
-> */
-> +static const struct i915_range gen12_shadowed_regs[] = {
-> +	{ .start =   0x2030, .end =   0x2030 },
-> +	{ .start =   0x2550, .end =   0x2550 },
-> +	{ .start =   0xA008, .end =   0xA00C },
-> +	{ .start =  0x22030, .end =  0x22030 },
-> +	{ .start =  0x22550, .end =  0x22550 },
-> +	{ .start = 0x1C0030, .end = 0x1C0030 },
-> +	{ .start = 0x1C0550, .end = 0x1C0550 },
-> +	{ .start = 0x1C4030, .end = 0x1C4030 },
-> +	{ .start = 0x1C4550, .end = 0x1C4550 },
-> +	{ .start = 0x1C8030, .end = 0x1C8030 },
-> +	{ .start = 0x1C8550, .end = 0x1C8550 },
-> +	{ .start = 0x1D0030, .end = 0x1D0030 },
-> +	{ .start = 0x1D0550, .end = 0x1D0550 },
-> +	{ .start = 0x1D4030, .end = 0x1D4030 },
-> +	{ .start = 0x1D4550, .end = 0x1D4550 },
-> +	{ .start = 0x1D8030, .end = 0x1D8030 },
-> +	{ .start = 0x1D8550, .end = 0x1D8550 },
->  	/* TODO: Other registers are not yet used */
->  };
->  
-> -static const i915_reg_t xehp_shadowed_regs[] = {
-> -	RING_TAIL(RENDER_RING_BASE),			/* 0x2000
-> (base) */
-> -	RING_EXECLIST_CONTROL(RENDER_RING_BASE),        /* 0x2550 */
-> -	GEN6_RPNSWREQ,					/* 0xA008 */
-> -	GEN6_RC_VIDEO_FREQ,				/* 0xA00C */
-> -	RING_TAIL(BLT_RING_BASE),			/* 0x22000 (base) */
-> -	RING_EXECLIST_CONTROL(BLT_RING_BASE),		/* 0x22550 */
-> -	RING_TAIL(GEN11_BSD_RING_BASE),			/* 0x1C0000
-> (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD_RING_BASE),	/* 0x1C0550
-> */
-> -	RING_TAIL(GEN11_BSD2_RING_BASE),		/* 0x1C4000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD2_RING_BASE),	/* 0x1C4550
-> */
-> -	RING_TAIL(GEN11_VEBOX_RING_BASE),		/* 0x1C8000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_VEBOX_RING_BASE),	/* 0x1C8550
-> */
-> -	RING_TAIL(GEN11_BSD3_RING_BASE),		/* 0x1D0000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD3_RING_BASE),	/* 0x1D0550
-> */
-> -	RING_TAIL(GEN11_BSD4_RING_BASE),		/* 0x1D4000 (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_BSD4_RING_BASE),	/* 0x1D4550
-> */
-> -	RING_TAIL(GEN11_VEBOX2_RING_BASE),		/* 0x1D8000
-> (base) */
-> -	RING_EXECLIST_CONTROL(GEN11_VEBOX2_RING_BASE),	/* 0x1D8550
-> */
-> -	RING_TAIL(XEHP_BSD5_RING_BASE),			/* 0x1E0000
-> (base) */
-> -	RING_EXECLIST_CONTROL(XEHP_BSD5_RING_BASE),	/* 0x1E0550
-> */
-> -	RING_TAIL(XEHP_BSD6_RING_BASE),			/* 0x1E4000
-> (base) */
-> -	RING_EXECLIST_CONTROL(XEHP_BSD6_RING_BASE),	/* 0x1E4550
-> */
-> -	RING_TAIL(XEHP_VEBOX3_RING_BASE),		/* 0x1E8000 (base) */
-> -	RING_EXECLIST_CONTROL(XEHP_VEBOX3_RING_BASE),	/* 0x1E8550
-> */
-> -	RING_TAIL(XEHP_BSD7_RING_BASE),			/* 0x1F0000
-> (base) */
-> -	RING_EXECLIST_CONTROL(XEHP_BSD7_RING_BASE),	/* 0x1F0550
-> */
-> -	RING_TAIL(XEHP_BSD8_RING_BASE),			/* 0x1F4000
-> (base) */
-> -	RING_EXECLIST_CONTROL(XEHP_BSD8_RING_BASE),	/* 0x1F4550
-> */
-> -	RING_TAIL(XEHP_VEBOX4_RING_BASE),		/* 0x1F8000 (base) */
-> -	RING_EXECLIST_CONTROL(XEHP_VEBOX4_RING_BASE),	/* 0x1F8550
-> */
-> +static const struct i915_range xehp_shadowed_regs[] = {
-> +	{ .start =   0x2000, .end =   0x2030 },
-> +	{ .start =   0x2550, .end =   0x2550 },
-> +	{ .start =   0xA008, .end =   0xA00C },
-> +	{ .start =  0x22030, .end =  0x22030 },
-> +	{ .start =  0x22550, .end =  0x22550 },
-> +	{ .start = 0x1C0030, .end = 0x1C0030 },
-> +	{ .start = 0x1C0550, .end = 0x1C0550 },
-> +	{ .start = 0x1C4030, .end = 0x1C4030 },
-> +	{ .start = 0x1C4550, .end = 0x1C4550 },
-> +	{ .start = 0x1C8030, .end = 0x1C8030 },
-> +	{ .start = 0x1C8550, .end = 0x1C8550 },
-> +	{ .start = 0x1D0030, .end = 0x1D0030 },
-> +	{ .start = 0x1D0550, .end = 0x1D0550 },
-> +	{ .start = 0x1D4030, .end = 0x1D4030 },
-> +	{ .start = 0x1D4550, .end = 0x1D4550 },
-> +	{ .start = 0x1D8030, .end = 0x1D8030 },
-> +	{ .start = 0x1D8550, .end = 0x1D8550 },
-> +	{ .start = 0x1E0030, .end = 0x1E0030 },
-> +	{ .start = 0x1E0550, .end = 0x1E0550 },
-> +	{ .start = 0x1E4030, .end = 0x1E4030 },
-> +	{ .start = 0x1E4550, .end = 0x1E4550 },
-> +	{ .start = 0x1E8030, .end = 0x1E8030 },
-> +	{ .start = 0x1E8550, .end = 0x1E8550 },
-> +	{ .start = 0x1F0030, .end = 0x1F0030 },
-> +	{ .start = 0x1F0550, .end = 0x1F0550 },
-> +	{ .start = 0x1F4030, .end = 0x1F4030 },
-> +	{ .start = 0x1F4550, .end = 0x1F4550 },
-> +	{ .start = 0x1F8030, .end = 0x1F8030 },
-> +	{ .start = 0x1F8550, .end = 0x1F8550 },
->  	/* TODO: Other registers are not yet used */
->  };
->  
-> -static int mmio_reg_cmp(u32 key, const i915_reg_t *reg)
-> +static int mmio_range_cmp(u32 key, const struct i915_range *range)
->  {
-> -	u32 offset = i915_mmio_reg_offset(*reg);
-> -
-> -	if (key < offset)
-> +	if (key < range->start)
->  		return -1;
-> -	else if (key > offset)
-> +	else if (key > range->end)
->  		return 1;
->  	else
->  		return 0;
-> @@ -1049,9 +1043,9 @@ static int mmio_reg_cmp(u32 key, const
-> i915_reg_t *reg)
->  #define __is_X_shadowed(x) \
->  static bool is_##x##_shadowed(u32 offset) \
->  { \
-> -	const i915_reg_t *regs = x##_shadowed_regs; \
-> +	const struct i915_range *regs = x##_shadowed_regs; \
->  	return BSEARCH(offset, regs, ARRAY_SIZE(x##_shadowed_regs), \
-> -		       mmio_reg_cmp); \
-> +		       mmio_range_cmp); \
->  }
->  
->  __is_X_shadowed(gen8)
-> diff --git a/drivers/gpu/drm/i915/intel_uncore.h
-> b/drivers/gpu/drm/i915/intel_uncore.h
-> index 3c0b0a8b5250..531665b08039 100644
-> --- a/drivers/gpu/drm/i915/intel_uncore.h
-> +++ b/drivers/gpu/drm/i915/intel_uncore.h
-> @@ -119,6 +119,12 @@ struct intel_forcewake_range {
->  	enum forcewake_domains domains;
->  };
->  
-> +/* Other register ranges (e.g., shadow tables, MCR tables, etc.) */
-> +struct i915_range {
-> +	u32 start;
-> +	u32 end;
-> +};
-> +
->  struct intel_uncore {
->  	void __iomem *regs;
->  
-> diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c
-> b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-> index 720b60853f8b..d6a9c11afa23 100644
-> --- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
-> +++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-> @@ -62,30 +62,40 @@ static int intel_fw_table_check(const struct
-> intel_forcewake_range *ranges,
->  static int intel_shadow_table_check(void)
->  {
->  	struct {
-> -		const i915_reg_t *regs;
-> +		const struct i915_range *regs;
->  		unsigned int size;
-> -	} reg_lists[] = {
-> +	} range_lists[] = {
->  		{ gen8_shadowed_regs, ARRAY_SIZE(gen8_shadowed_regs) },
->  		{ gen11_shadowed_regs, ARRAY_SIZE(gen11_shadowed_regs)
-> },
->  		{ gen12_shadowed_regs, ARRAY_SIZE(gen12_shadowed_regs)
-> },
->  		{ xehp_shadowed_regs, ARRAY_SIZE(xehp_shadowed_regs) },
->  	};
-> -	const i915_reg_t *reg;
-> +	const struct i915_range *range;
->  	unsigned int i, j;
->  	s32 prev;
->  
-> -	for (j = 0; j < ARRAY_SIZE(reg_lists); ++j) {
-> -		reg = reg_lists[j].regs;
-> -		for (i = 0, prev = -1; i < reg_lists[j].size; i++,
-> reg++) {
-> -			u32 offset = i915_mmio_reg_offset(*reg);
-> +	for (j = 0; j < ARRAY_SIZE(range_lists); ++j) {
-> +		range = range_lists[j].regs;
-> +		for (i = 0, prev = -1; i < range_lists[j].size; i++,
-> range++) {
-> +			if (range->end < range->start) {
-> +				pr_err("%s: range[%d]:(%06x-%06x) has
-> end before start\n",
-> +				       __func__, i, range->start,
-> range->end);
-> +				return -EINVAL;
-> +			}
-> +
-> +			if (prev >= (s32)range->start) {
-> +				pr_err("%s: range[%d]:(%06x-%06x) is
-> before end of previous (%06x)\n",
-> +				       __func__, i, range->start,
-> range->end, prev);
-> +				return -EINVAL;
-> +			}
->  
-> -			if (prev >= (s32)offset) {
-> -				pr_err("%s: entry[%d]:(%x) is before
-> previous (%x)\n",
-> -				       __func__, i, offset, prev);
-> +			if (range->start % 4) {
-> +				pr_err("%s: range[%d]:(%06x-%06x) has
-> non-dword-aligned start\n",
-> +				       __func__, i, range->start,
-> range->end);
->  				return -EINVAL;
->  			}
->  
-> -			prev = offset;
-> +			prev = range->end;
->  		}
->  	}
->  
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gV2VkLCAyMDIxLTA3LTI4IGF0IDE3OjMyIC0wNzAwLCBMdWNhcyBEZSBNYXJjaGkgd3JvdGU6
+Cj4gT24gV2VkLCBKdWwgMjgsIDIwMjEgYXQgMDI6NTk6NDZQTSAtMDcwMCwgTHVjYXMgRGUgTWFy
+Y2hpIHdyb3RlOgo+ID4gV2l0aCBhbGwgdGhlIHVzZXJzIHJlbW92ZWQsIGZpbmlzaCByZW1vdmlu
+ZyB0aGUgQ05MIHBsYXRmb3JtCj4gPiBkZWZpbml0aW9ucy4KPiA+IFdlIHdpbGwgbGVhdmUgdGhl
+IFBDSSBJRHMgYXJvdW5kIGFzIHRob3NlIGFyZSBleHBvc2VkIHRvIHVzZXJzcGFjZS4KPiA+IEV2
+ZW4gaWYgbWVzYSBkb2Vzbid0IHN1cHBvcnQgQ05MIGFueW1vcmUsIGxldCdzIGF2b2lkIGJ1aWxk
+Cj4gPiBicmVha2FnZXMKPiA+IGR1ZSB0byBjaGFuZ2luZyB0aGUgaGVhZGVycy4KPiA+IAo+ID4g
+QWxzbywgZHVlIHRvIGRybS9pOTE1L2d0IHN0aWxsIHVzaW5nIElTX0NBTk5PTkxBS0UoKSBsZXQn
+cyBqdXN0Cj4gPiByZWRlZmluZQo+ID4gaXQgaW5zdGVhZCBvZiByZW1vdmluZy4KPiAKPiArUm9k
+cmlnbwo+IAo+IFJvZHJpZ28sIHdoZW4gSSB3YXMgZ29pbmcgdG8gbWVyZ2UgdGhpcyBwYXRjaCBJ
+IG5vdGljZWQgaXQgd2FzIG5vdAo+IHJlYWxseSBwb3NzaWJsZS4gSVNfQ0FOTk9OTEFLRSgpIGlz
+IHVzZWQgaW4gZHJtL2k5MTUvZ3QvIHNvIGl0IGNhbid0Cj4gYmUKPiByZW1vdmVkIGlmIHBhcnQg
+b2YgdGhlIHBhdGNoZXMgYXJlIG1lcmdlZCBpbiBvbmUgYnJhbmNoIGFuZCB0aGUgb3RoZXIKPiBw
+YXJ0IGluIGFub3RoZXIuCj4gCj4gSSBhbHNvIGNoZWNrZWQgaWYgaXQgd291bGQgYmUgcG9zc2li
+bGUgdG8gZG8gdGhpcyBieSB1c2luZyBhIHRvcGljCj4gYnJhbmNoLCBidXQgdGhhdAo+IGdpdmVz
+IGNvbmZsaWN0cyB3aGVuIHRyeWluZyB0byB1c2UgdGhlIG1lcmdlIGJhc2UuIFNvLCBJIHJlLXN1
+Ym1pdHRlZAo+IHRoZSBzZXJpZXMgc3BsaXQgaW4gMjogb25lIGZvciBkcm0taW50ZWwtbmV4dCBh
+bmQgYW5vdGhlciBmb3IKPiBkcm0taW50ZWwtZ3QtbmV4dC4gSGVyZSBpbnN0ZWFkIG9mIHJlbW92
+aW5nIElTX0NBTk5PTkxBS0UoKSBJIG9ubHkKPiByZWRlZmluZSBpdCB0byAwLsKgIEknbSBrZWVw
+aW5nIHlvdXIgcHJldmlvdXMgci1iIGJlbG93LCBidXQgcGxlYXNlCj4gbGV0Cj4gbWUga25vdyBp
+ZiBhbGwgYWJvdmUgaXMgZmluZSBhbmQgeW91ciByLWIgc3RpbGwgc3RhbmRzLgoKb2gsIEkgaGFk
+IG1pc3NlZCB0aGlzIGJ1dCBJIHNhdyB0aGF0IGFuZCBhY2tlZCBhbHJlYWR5LgpBbGwgcnYtYiBh
+cmUgc3RpbGwgdmFsaWQhCgo+IAo+IHRoYW5rcwo+IEx1Y2FzIERlIE1hcmNoaQo+IAo+IAo+ID4g
+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBMdWNhcyBEZSBNYXJjaGkgPGx1Y2FzLmRlbWFyY2hpQGludGVs
+LmNvbT4KPiA+IFJldmlld2VkLWJ5OiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2aUBpbnRlbC5j
+b20+Cj4gPiAtLS0KPiA+IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmjCoMKgwqDCoMKg
+wqDCoMKgwqAgfMKgIDggKystLS0tLS0KPiA+IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGNp
+LmPCoMKgwqDCoMKgwqDCoMKgwqAgfCAyMyArKysrKy0tLS0tLS0tLS0tLS0tLS0KPiA+IC0tCj4g
+PiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BlcmYuY8KgwqDCoMKgwqDCoMKgwqAgfMKgIDEg
+LQo+ID4gZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNlX2luZm8uYyB8wqAgMiAtLQo+
+ID4gZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNlX2luZm8uaCB8wqAgMiAtLQo+ID4g
+NSBmaWxlcyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDI5IGRlbGV0aW9ucygtKQo+ID4gCj4g
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaAo+ID4gYi9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oCj4gPiBpbmRleCA1ZDVjZjVhZDA1MTMuLjZhYzkw
+Y2NiZWUwYiAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmgK
+PiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmgKPiA+IEBAIC0xMzgwLDcg
+KzEzODAsNyBAQCBJU19TVUJQTEFURk9STShjb25zdCBzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZQo+
+ID4gKmk5MTUsCj4gPiAjZGVmaW5lIElTX0dFTUlOSUxBS0UoZGV2X3ByaXYpwqBJU19QTEFURk9S
+TShkZXZfcHJpdiwKPiA+IElOVEVMX0dFTUlOSUxBS0UpCj4gPiAjZGVmaW5lIElTX0NPRkZFRUxB
+S0UoZGV2X3ByaXYpwqBJU19QTEFURk9STShkZXZfcHJpdiwKPiA+IElOVEVMX0NPRkZFRUxBS0Up
+Cj4gPiAjZGVmaW5lIElTX0NPTUVUTEFLRShkZXZfcHJpdinCoMKgSVNfUExBVEZPUk0oZGV2X3By
+aXYsCj4gPiBJTlRFTF9DT01FVExBS0UpCj4gPiAtI2RlZmluZSBJU19DQU5OT05MQUtFKGRldl9w
+cml2KcKgwqDCoMKgwqDCoMKgwqBJU19QTEFURk9STShkZXZfcHJpdiwKPiA+IElOVEVMX0NBTk5P
+TkxBS0UpCj4gPiArI2RlZmluZSBJU19DQU5OT05MQUtFKGRldl9wcml2KcKgwqDCoMKgwqDCoMKg
+wqAwCj4gPiAjZGVmaW5lIElTX0lDRUxBS0UoZGV2X3ByaXYpwqDCoMKgwqBJU19QTEFURk9STShk
+ZXZfcHJpdiwKPiA+IElOVEVMX0lDRUxBS0UpCj4gPiAjZGVmaW5lIElTX0pTTF9FSEwoZGV2X3By
+aXYpwqDCoMKgwqAoSVNfUExBVEZPUk0oZGV2X3ByaXYsCj4gPiBJTlRFTF9KQVNQRVJMQUtFKSB8
+fCBcCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgSVNfUExBVEZPUk0oZGV2X3ByaXYsCj4gPiBJTlRFTF9FTEtIQVJUTEFL
+RSkpCj4gPiBAQCAtMTQ0Niw4ICsxNDQ2LDYgQEAgSVNfU1VCUExBVEZPUk0oY29uc3Qgc3RydWN0
+IGRybV9pOTE1X3ByaXZhdGUKPiA+ICppOTE1LAo+ID4gI2RlZmluZSBJU19DTUxfR1QyKGRldl9w
+cml2KcKgwqDCoMKgKElTX0NPTUVUTEFLRShkZXZfcHJpdikgJiYgXAo+ID4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBJTlRF
+TF9JTkZPKGRldl9wcml2KS0+Z3QgPT0gMikKPiA+IAo+ID4gLSNkZWZpbmUgSVNfQ05MX1dJVEhf
+UE9SVF9GKGRldl9wcml2KSBcCj4gPiAtwqDCoMKgwqDCoMKgwqBJU19TVUJQTEFURk9STShkZXZf
+cHJpdiwgSU5URUxfQ0FOTk9OTEFLRSwKPiA+IElOVEVMX1NVQlBMQVRGT1JNX1BPUlRGKQo+ID4g
+I2RlZmluZSBJU19JQ0xfV0lUSF9QT1JUX0YoZGV2X3ByaXYpIFwKPiA+IMKgwqDCoMKgwqDCoMKg
+wqBJU19TVUJQTEFURk9STShkZXZfcHJpdiwgSU5URUxfSUNFTEFLRSwKPiA+IElOVEVMX1NVQlBM
+QVRGT1JNX1BPUlRGKQo+ID4gCj4gPiBAQCAtMTU5Miw5ICsxNTkwLDcgQEAgSVNfU1VCUExBVEZP
+Uk0oY29uc3Qgc3RydWN0IGRybV9pOTE1X3ByaXZhdGUKPiA+ICppOTE1LAo+ID4gCj4gPiAvKiBX
+YVJzRGlzYWJsZUNvYXJzZVBvd2VyR2F0aW5nOnNrbCxjbmwgKi8KPiA+ICNkZWZpbmUKPiA+IE5F
+RURTX1dhUnNEaXNhYmxlQ29hcnNlUG93ZXJHYXRpbmcoZGV2X3ByaXYpwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoFwKPiA+IC3CoMKgwqDCoMKgwqDCoChJU19DQU5OT05M
+QUtFKGRldl9wcml2KQo+ID4gfHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoFwKPiA+IC3CoMKgwqDCoMKgwqDC
+oCBJU19TS0xfR1QzKGRldl9wcml2KQo+ID4gfHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoFwKPiA+
+IC3CoMKgwqDCoMKgwqDCoCBJU19TS0xfR1Q0KGRldl9wcml2KSkKPiA+ICvCoMKgwqDCoMKgwqDC
+oChJU19TS0xfR1QzKGRldl9wcml2KSB8fCBJU19TS0xfR1Q0KGRldl9wcml2KSkKPiA+IAo+ID4g
+I2RlZmluZSBIQVNfR01CVVNfSVJRKGRldl9wcml2KSAoR1JBUEhJQ1NfVkVSKGRldl9wcml2KSA+
+PSA0KQo+ID4gI2RlZmluZSBIQVNfR01CVVNfQlVSU1RfUkVBRChkZXZfcHJpdikgKEdSQVBISUNT
+X1ZFUihkZXZfcHJpdikgPj0KPiA+IDExIHx8IFwKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9pOTE1X3BjaS5jCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGNp
+LmMKPiA+IGluZGV4IGVjODBjZDFjZDAwYy4uY2I0YTQ2MTc0NTEzIDEwMDY0NAo+ID4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9wY2kuYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvaTkxNV9wY2kuYwo+ID4gQEAgLTc4NywyNyArNzg3LDEzIEBAIHN0YXRpYyBjb25zdCBz
+dHJ1Y3QgaW50ZWxfZGV2aWNlX2luZm8KPiA+IGNtbF9ndDJfaW5mbyA9IHsKPiA+IMKgwqDCoMKg
+wqDCoMKgwqAuZ3QgPSAyLAo+ID4gfTsKPiA+IAo+ID4gLSNkZWZpbmUgR0VOMTBfRkVBVFVSRVMg
+XAo+ID4gLcKgwqDCoMKgwqDCoMKgR0VOOV9GRUFUVVJFUywgXAo+ID4gLcKgwqDCoMKgwqDCoMKg
+R0VOKDEwKSwgXAo+ID4gLcKgwqDCoMKgwqDCoMKgLmRidWYuc2l6ZSA9IDEwMjQgLSA0LCAvKiA0
+IGJsb2NrcyBmb3IgYnlwYXNzIHBhdGgKPiA+IGFsbG9jYXRpb24gKi8gXAo+ID4gLcKgwqDCoMKg
+wqDCoMKgLmRpc3BsYXkuaGFzX2RzYyA9IDEsIFwKPiA+IC3CoMKgwqDCoMKgwqDCoC5oYXNfY29o
+ZXJlbnRfZ2d0dCA9IGZhbHNlLCBcCj4gPiAtwqDCoMKgwqDCoMKgwqBHTEtfQ09MT1JTCj4gPiAt
+Cj4gPiAtc3RhdGljIGNvbnN0IHN0cnVjdCBpbnRlbF9kZXZpY2VfaW5mbyBjbmxfaW5mbyA9IHsK
+PiA+IC3CoMKgwqDCoMKgwqDCoEdFTjEwX0ZFQVRVUkVTLAo+ID4gLcKgwqDCoMKgwqDCoMKgUExB
+VEZPUk0oSU5URUxfQ0FOTk9OTEFLRSksCj4gPiAtwqDCoMKgwqDCoMKgwqAuZ3QgPSAyLAo+ID4g
+LX07Cj4gPiAtCj4gPiAjZGVmaW5lIEdFTjExX0RFRkFVTFRfUEFHRV9TSVpFUyBcCj4gPiDCoMKg
+wqDCoMKgwqDCoMKgLnBhZ2Vfc2l6ZXMgPSBJOTE1X0dUVF9QQUdFX1NJWkVfNEsgfCBcCj4gPiDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgSTkxNV9HVFRfUEFHRV9T
+SVpFXzY0SyB8IFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBJOTE1X0dUVF9QQUdFX1NJWkVfMk0KPiA+IAo+ID4gI2RlZmluZSBHRU4xMV9GRUFUVVJFUyBc
+Cj4gPiAtwqDCoMKgwqDCoMKgwqBHRU4xMF9GRUFUVVJFUywgXAo+ID4gK8KgwqDCoMKgwqDCoMKg
+R0VOOV9GRUFUVVJFUywgXAo+ID4gwqDCoMKgwqDCoMKgwqDCoEdFTjExX0RFRkFVTFRfUEFHRV9T
+SVpFUywgXAo+ID4gwqDCoMKgwqDCoMKgwqDCoC5hYm94X21hc2sgPSBCSVQoMCksIFwKPiA+IMKg
+wqDCoMKgwqDCoMKgwqAuY3B1X3RyYW5zY29kZXJfbWFzayA9IEJJVChUUkFOU0NPREVSX0EpIHwK
+PiA+IEJJVChUUkFOU0NPREVSX0IpIHwgXAo+ID4gQEAgLTgzMCwxMCArODE2LDEyIEBAIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgaW50ZWxfZGV2aWNlX2luZm8KPiA+IGNubF9pbmZvID0gewo+ID4gwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBbVFJBTlNDT0RFUl9EU0lfMV0gPSBUUkFOU0NP
+REVSX0RTSTFfT0ZGU0VULCBcCj4gPiDCoMKgwqDCoMKgwqDCoMKgfSwgXAo+ID4gwqDCoMKgwqDC
+oMKgwqDCoEdFTigxMSksIFwKPiA+ICvCoMKgwqDCoMKgwqDCoC5jb2xvciA9IHsgLmRlZ2FtbWFf
+bHV0X3NpemUgPSAzMywgLmdhbW1hX2x1dF9zaXplID0gMjYyMTQ1Cj4gPiB9LCBcCj4gPiDCoMKg
+wqDCoMKgwqDCoMKgLmRidWYuc2l6ZSA9IDIwNDgsIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqAuZGJ1
+Zi5zbGljZV9tYXNrID0gQklUKERCVUZfUzEpIHwgQklUKERCVUZfUzIpLCBcCj4gPiAtwqDCoMKg
+wqDCoMKgwqAuaGFzX2xvZ2ljYWxfcmluZ19lbHNxID0gMSwgXAo+ID4gLcKgwqDCoMKgwqDCoMKg
+LmNvbG9yID0geyAuZGVnYW1tYV9sdXRfc2l6ZSA9IDMzLCAuZ2FtbWFfbHV0X3NpemUgPSAyNjIx
+NDUKPiA+IH0KPiA+ICvCoMKgwqDCoMKgwqDCoC5kaXNwbGF5Lmhhc19kc2MgPSAxLCBcCj4gPiAr
+wqDCoMKgwqDCoMKgwqAuaGFzX2NvaGVyZW50X2dndHQgPSBmYWxzZSwgXAo+ID4gK8KgwqDCoMKg
+wqDCoMKgLmhhc19sb2dpY2FsX3JpbmdfZWxzcSA9IDEKPiA+IAo+ID4gc3RhdGljIGNvbnN0IHN0
+cnVjdCBpbnRlbF9kZXZpY2VfaW5mbyBpY2xfaW5mbyA9IHsKPiA+IMKgwqDCoMKgwqDCoMKgwqBH
+RU4xMV9GRUFUVVJFUywKPiA+IEBAIC0xMTIzLDcgKzExMTEsNiBAQCBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IHBjaV9kZXZpY2VfaWQgcGNpaWRsaXN0W10KPiA+ID0gewo+ID4gwqDCoMKgwqDCoMKgwqDC
+oElOVEVMX0NNTF9HVDJfSURTKCZjbWxfZ3QyX2luZm8pLAo+ID4gwqDCoMKgwqDCoMKgwqDCoElO
+VEVMX0NNTF9VX0dUMV9JRFMoJmNtbF9ndDFfaW5mbyksCj4gPiDCoMKgwqDCoMKgwqDCoMKgSU5U
+RUxfQ01MX1VfR1QyX0lEUygmY21sX2d0Ml9pbmZvKSwKPiA+IC3CoMKgwqDCoMKgwqDCoElOVEVM
+X0NOTF9JRFMoJmNubF9pbmZvKSwKPiA+IMKgwqDCoMKgwqDCoMKgwqBJTlRFTF9JQ0xfMTFfSURT
+KCZpY2xfaW5mbyksCj4gPiDCoMKgwqDCoMKgwqDCoMKgSU5URUxfRUhMX0lEUygmZWhsX2luZm8p
+LAo+ID4gwqDCoMKgwqDCoMKgwqDCoElOVEVMX0pTTF9JRFMoJmpzbF9pbmZvKSwKPiA+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BlcmYuYwo+ID4gYi9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9pOTE1X3BlcmYuYwo+ID4gaW5kZXggMDVlOTQxY2QxMDY1Li5lZmVmODllNTM0
+NDAgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BlcmYuYwo+ID4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9wZXJmLmMKPiA+IEBAIC00MzA5LDcgKzQz
+MDksNiBAQCBzdGF0aWMgdm9pZCBvYV9pbml0X3N1cHBvcnRlZF9mb3JtYXRzKHN0cnVjdAo+ID4g
+aTkxNV9wZXJmICpwZXJmKQo+ID4gwqDCoMKgwqDCoMKgwqDCoGNhc2UgSU5URUxfR0VNSU5JTEFL
+RToKPiA+IMKgwqDCoMKgwqDCoMKgwqBjYXNlIElOVEVMX0NPRkZFRUxBS0U6Cj4gPiDCoMKgwqDC
+oMKgwqDCoMKgY2FzZSBJTlRFTF9DT01FVExBS0U6Cj4gPiAtwqDCoMKgwqDCoMKgwqBjYXNlIElO
+VEVMX0NBTk5PTkxBS0U6Cj4gPiDCoMKgwqDCoMKgwqDCoMKgY2FzZSBJTlRFTF9JQ0VMQUtFOgo+
+ID4gwqDCoMKgwqDCoMKgwqDCoGNhc2UgSU5URUxfRUxLSEFSVExBS0U6Cj4gPiDCoMKgwqDCoMKg
+wqDCoMKgY2FzZSBJTlRFTF9KQVNQRVJMQUtFOgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2ludGVsX2RldmljZV9pbmZvLmMKPiA+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aW50ZWxfZGV2aWNlX2luZm8uYwo+ID4gaW5kZXggMWNjYWViMDNhZDZkLi4zMDVmYWNlZGQyODQg
+MTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5j
+Cj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5jCj4gPiBA
+QCAtNTksNyArNTksNiBAQCBzdGF0aWMgY29uc3QgY2hhciAqIGNvbnN0IHBsYXRmb3JtX25hbWVz
+W10gPSB7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgUExBVEZPUk1fTkFNRShHRU1JTklMQUtFKSwKPiA+
+IMKgwqDCoMKgwqDCoMKgwqBQTEFURk9STV9OQU1FKENPRkZFRUxBS0UpLAo+ID4gwqDCoMKgwqDC
+oMKgwqDCoFBMQVRGT1JNX05BTUUoQ09NRVRMQUtFKSwKPiA+IC3CoMKgwqDCoMKgwqDCoFBMQVRG
+T1JNX05BTUUoQ0FOTk9OTEFLRSksCj4gPiDCoMKgwqDCoMKgwqDCoMKgUExBVEZPUk1fTkFNRShJ
+Q0VMQUtFKSwKPiA+IMKgwqDCoMKgwqDCoMKgwqBQTEFURk9STV9OQU1FKEVMS0hBUlRMQUtFKSwK
+PiA+IMKgwqDCoMKgwqDCoMKgwqBQTEFURk9STV9OQU1FKEpBU1BFUkxBS0UpLAo+ID4gQEAgLTE3
+NSw3ICsxNzQsNiBAQCBzdGF0aWMgY29uc3QgdTE2IHN1YnBsYXRmb3JtX3VseF9pZHNbXSA9IHsK
+PiA+IH07Cj4gPiAKPiA+IHN0YXRpYyBjb25zdCB1MTYgc3VicGxhdGZvcm1fcG9ydGZfaWRzW10g
+PSB7Cj4gPiAtwqDCoMKgwqDCoMKgwqBJTlRFTF9DTkxfUE9SVF9GX0lEUygwKSwKPiA+IMKgwqDC
+oMKgwqDCoMKgwqBJTlRFTF9JQ0xfUE9SVF9GX0lEUygwKSwKPiA+IH07Cj4gPiAKPiA+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2VfaW5mby5oCj4gPiBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RldmljZV9pbmZvLmgKPiA+IGluZGV4IDMxNmVkYWQy
+MmViMC4uZWYxZWVjZDI1OWUwIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aW50ZWxfZGV2aWNlX2luZm8uaAo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxf
+ZGV2aWNlX2luZm8uaAo+ID4gQEAgLTc2LDggKzc2LDYgQEAgZW51bSBpbnRlbF9wbGF0Zm9ybSB7
+Cj4gPiDCoMKgwqDCoMKgwqDCoMKgSU5URUxfR0VNSU5JTEFLRSwKPiA+IMKgwqDCoMKgwqDCoMKg
+wqBJTlRFTF9DT0ZGRUVMQUtFLAo+ID4gwqDCoMKgwqDCoMKgwqDCoElOVEVMX0NPTUVUTEFLRSwK
+PiA+IC3CoMKgwqDCoMKgwqDCoC8qIGdlbjEwICovCj4gPiAtwqDCoMKgwqDCoMKgwqBJTlRFTF9D
+QU5OT05MQUtFLAo+ID4gwqDCoMKgwqDCoMKgwqDCoC8qIGdlbjExICovCj4gPiDCoMKgwqDCoMKg
+wqDCoMKgSU5URUxfSUNFTEFLRSwKPiA+IMKgwqDCoMKgwqDCoMKgwqBJTlRFTF9FTEtIQVJUTEFL
+RSwKPiA+IC0tIAo+ID4gMi4zMS4xCj4gPiAKPiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCj4gPiBJbnRlbC1nZnggbWFpbGluZyBsaXN0Cj4gPiBJbnRl
+bC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
