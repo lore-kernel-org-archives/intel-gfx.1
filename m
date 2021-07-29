@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8A23C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 07:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BDEAAC4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 07:26:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8A2D360ED4
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 07:21:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8A2D360ED4
+	by mail.kernel.org (Postfix) with ESMTPS id 5EE1A60FD7
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 07:26:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5EE1A60FD7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33EE86ECA9;
-	Thu, 29 Jul 2021 07:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0835F6ECB8;
+	Thu, 29 Jul 2021 07:26:15 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8D4F6ECA9;
- Thu, 29 Jul 2021 07:21:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDAF86ECB8;
+ Thu, 29 Jul 2021 07:26:13 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id BCB4968AFE; Thu, 29 Jul 2021 09:21:55 +0200 (CEST)
-Date: Thu, 29 Jul 2021 09:21:55 +0200
+ id 10BA568AFE; Thu, 29 Jul 2021 09:26:10 +0200 (CEST)
+Date: Thu, 29 Jul 2021 09:26:09 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Jason Gunthorpe <jgg@nvidia.com>
-Message-ID: <20210729072155.GC31896@lst.de>
+Message-ID: <20210729072609.GD31896@lst.de>
 References: <0-v3-6c9e19cc7d44+15613-vfio_reflck_jgg@nvidia.com>
- <2-v3-6c9e19cc7d44+15613-vfio_reflck_jgg@nvidia.com>
+ <4-v3-6c9e19cc7d44+15613-vfio_reflck_jgg@nvidia.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <2-v3-6c9e19cc7d44+15613-vfio_reflck_jgg@nvidia.com>
+In-Reply-To: <4-v3-6c9e19cc7d44+15613-vfio_reflck_jgg@nvidia.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v3 02/14] vfio/mbochs: Fix missing error
- unwind of mbochs_used_mbytes
+Subject: Re: [Intel-gfx] [PATCH v3 04/14] vfio: Provide better generic
+ support for open/release vfio_device_ops
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,7 +70,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Looks good,
+> +	device->open_count++;
+> +	if (device->open_count == 1 && device->ops->open_device) {
+
+I would have written this as
+
+	if (++device->open_count == 1 && device->ops->open_device) {
+
+to make the pattern more clear, but that is just a minor nitpick.
+
+Otherwise looks good:
 
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 _______________________________________________
