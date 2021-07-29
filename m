@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1732DC432BE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD78CC43216
 	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 17:00:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B3736608FB
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 17:00:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B3736608FB
+	by mail.kernel.org (Postfix) with ESMTPS id 7AD0A608FB
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 17:00:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7AD0A608FB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 102546EDF7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33B206EE01;
 	Thu, 29 Jul 2021 17:00:24 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 911CF6EDF4
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEB7A6EDFA
  for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 17:00:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="212966801"
-X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="212966801"
+X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="212966815"
+X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="212966815"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2021 10:00:21 -0700
-X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="417712138"
+ 29 Jul 2021 10:00:22 -0700
+X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="417712147"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2021 10:00:21 -0700
+ 29 Jul 2021 10:00:22 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 29 Jul 2021 09:59:57 -0700
-Message-Id: <20210729170008.2836648-8-matthew.d.roper@intel.com>
+Date: Thu, 29 Jul 2021 09:59:59 -0700
+Message-Id: <20210729170008.2836648-10-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210729170008.2836648-1-matthew.d.roper@intel.com>
 References: <20210729170008.2836648-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 07/18] drm/i915/dg2: Report INSTDONE_GEOM
- values in error state
+Subject: [Intel-gfx] [PATCH v4 09/18] drm/i915/xehpsdv: Add maximum sseu
+ limits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,101 +59,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Xe_HPG adds some additional INSTDONE_GEOM debug registers; the Mesa team
-has indicated that having these reported in the error state would be
-useful for debugging GPU hangs.  These registers are replicated per-DSS
-with gslice steering.
+Due to the removal of legacy slices and the transition to a
+gslice/cslice/mslice/etc. design, we'll internally store all DSS under
+"slice0."
 
-Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Acked-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
+Reviewed-by: Caz Yokoyama <caz.yokoyama@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  7 +++++++
- drivers/gpu/drm/i915/gt/intel_engine_types.h |  3 +++
- drivers/gpu/drm/i915/i915_gpu_error.c        | 10 ++++++++--
- drivers/gpu/drm/i915/i915_reg.h              |  1 +
- 4 files changed, 19 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_sseu.c         | 5 ++++-
+ drivers/gpu/drm/i915/gt/intel_sseu.h         | 2 +-
+ drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c | 2 +-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 06733e86e88b..0a70a3baef9d 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1205,6 +1205,13 @@ void intel_engine_get_instdone(const struct intel_engine_cs *engine,
- 							  GEN7_ROW_INSTDONE);
- 			}
- 		}
-+
-+		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55)) {
-+			for_each_instdone_gslice_dss_xehp(i915, sseu, iter, slice, subslice)
-+				instdone->geom_svg[slice][subslice] =
-+					read_subslice_reg(engine, slice, subslice,
-+							  XEHPG_INSTDONE_GEOM_SVG);
-+		}
- 	} else if (GRAPHICS_VER(i915) >= 7) {
- 		instdone->instdone =
- 			intel_uncore_read(uncore, RING_INSTDONE(mmio_base));
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 0b4846b01626..bfbfe53c23dd 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -69,6 +69,9 @@ struct intel_instdone {
- 	u32 slice_common_extra[2];
- 	u32 sampler[GEN_MAX_GSLICES][I915_MAX_SUBSLICES];
- 	u32 row[GEN_MAX_GSLICES][I915_MAX_SUBSLICES];
-+
-+	/* Added in XeHPG */
-+	u32 geom_svg[GEN_MAX_GSLICES][I915_MAX_SUBSLICES];
- };
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index 5d1b7d06c96b..16c0552fcd1d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -145,7 +145,10 @@ static void gen12_sseu_info_init(struct intel_gt *gt)
+ 	 * across the entire device. Then calculate out the DSS for each
+ 	 * workload type within that software slice.
+ 	 */
+-	intel_sseu_set_info(sseu, 1, 6, 16);
++	if (IS_XEHPSDV(gt->i915))
++		intel_sseu_set_info(sseu, 1, 32, 16);
++	else
++		intel_sseu_set_info(sseu, 1, 6, 16);
  
- /*
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 8230bc3ac8a9..91d5da7b0a2b 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -431,6 +431,7 @@ static void error_print_instdone(struct drm_i915_error_state_buf *m,
- 	const struct sseu_dev_info *sseu = &ee->engine->gt->info.sseu;
- 	int slice;
- 	int subslice;
-+	int iter;
+ 	/*
+ 	 * As mentioned above, Xe_HP does not have the concept of a slice.
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
+index 74487650b08f..204ea6709460 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.h
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
+@@ -16,7 +16,7 @@ struct intel_gt;
+ struct drm_printer;
  
- 	err_printf(m, "  INSTDONE: 0x%08x\n",
- 		   ee->instdone.instdone);
-@@ -445,8 +446,6 @@ static void error_print_instdone(struct drm_i915_error_state_buf *m,
- 		return;
- 
- 	if (GRAPHICS_VER_FULL(m->i915) >= IP_VER(12, 50)) {
--		int iter;
--
- 		for_each_instdone_gslice_dss_xehp(m->i915, sseu, iter, slice, subslice)
- 			err_printf(m, "  SAMPLER_INSTDONE[%d][%d]: 0x%08x\n",
- 				   slice, subslice,
-@@ -471,6 +470,13 @@ static void error_print_instdone(struct drm_i915_error_state_buf *m,
- 	if (GRAPHICS_VER(m->i915) < 12)
- 		return;
- 
-+	if (GRAPHICS_VER_FULL(m->i915) >= IP_VER(12, 55)) {
-+		for_each_instdone_gslice_dss_xehp(m->i915, sseu, iter, slice, subslice)
-+			err_printf(m, "  GEOM_SVGUNIT_INSTDONE[%d][%d]: 0x%08x\n",
-+				   slice, subslice,
-+				   ee->instdone.geom_svg[slice][subslice]);
-+	}
-+
- 	err_printf(m, "  SC_INSTDONE_EXTRA: 0x%08x\n",
- 		   ee->instdone.slice_common_extra[0]);
- 	err_printf(m, "  SC_INSTDONE_EXTRA2: 0x%08x\n",
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 39ce6befff52..62af453c8c54 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2757,6 +2757,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define GEN12_SC_INSTDONE_EXTRA2	_MMIO(0x7108)
- #define GEN7_SAMPLER_INSTDONE	_MMIO(0xe160)
- #define GEN7_ROW_INSTDONE	_MMIO(0xe164)
-+#define XEHPG_INSTDONE_GEOM_SVG		_MMIO(0x666c)
- #define MCFG_MCR_SELECTOR		_MMIO(0xfd0)
- #define SF_MCR_SELECTOR			_MMIO(0xfd8)
- #define GEN8_MCR_SELECTOR		_MMIO(0xfdc)
+ #define GEN_MAX_SLICES		(6) /* CNL upper bound */
+-#define GEN_MAX_SUBSLICES	(8) /* ICL upper bound */
++#define GEN_MAX_SUBSLICES	(32) /* XEHPSDV upper bound */
+ #define GEN_SSEU_STRIDE(max_entries) DIV_ROUND_UP(max_entries, BITS_PER_BYTE)
+ #define GEN_MAX_SUBSLICE_STRIDE GEN_SSEU_STRIDE(GEN_MAX_SUBSLICES)
+ #define GEN_MAX_EUS		(16) /* TGL upper bound */
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
+index 714fe8495775..a424150b052e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c
+@@ -53,7 +53,7 @@ static void cherryview_sseu_device_status(struct intel_gt *gt,
+ static void gen10_sseu_device_status(struct intel_gt *gt,
+ 				     struct sseu_dev_info *sseu)
+ {
+-#define SS_MAX 6
++#define SS_MAX 8
+ 	struct intel_uncore *uncore = gt->uncore;
+ 	const struct intel_gt_info *info = &gt->info;
+ 	u32 s_reg[SS_MAX], eu_reg[2 * SS_MAX], eu_mask[2];
 -- 
 2.25.4
 
