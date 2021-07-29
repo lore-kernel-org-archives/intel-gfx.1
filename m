@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B7F0C4320E
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 17:00:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38E07C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 17:00:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3DCF060560
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 17:00:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3DCF060560
+	by mail.kernel.org (Postfix) with ESMTPS id 00FD8608FB
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jul 2021 17:00:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 00FD8608FB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22F546EDF3;
-	Thu, 29 Jul 2021 17:00:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A7FC6EE02;
+	Thu, 29 Jul 2021 17:00:48 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 854F76EDFA
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 17:00:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="212966799"
-X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="212966799"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A63D6EE10
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jul 2021 17:00:26 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="212966853"
+X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="212966853"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2021 10:00:21 -0700
-X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="417712134"
+ 29 Jul 2021 10:00:26 -0700
+X-IronPort-AV: E=Sophos;i="5.84,279,1620716400"; d="scan'208";a="417712215"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2021 10:00:21 -0700
+ 29 Jul 2021 10:00:25 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 29 Jul 2021 09:59:56 -0700
-Message-Id: <20210729170008.2836648-7-matthew.d.roper@intel.com>
+Date: Thu, 29 Jul 2021 10:00:07 -0700
+Message-Id: <20210729170008.2836648-18-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210729170008.2836648-1-matthew.d.roper@intel.com>
 References: <20210729170008.2836648-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 06/18] drm/i915/xehp: Loop over all gslices
- for INSTDONE processing
+Subject: [Intel-gfx] [PATCH v4 17/18] drm/i915/dg2: Maintain
+ backward-compatible nested batch behavior
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,217 +59,105 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We no longer have traditional slices on Xe_HP platforms, but the
-INSTDONE registers are replicated according to gslice representation
-which is similar.  We can mostly re-use the existing instdone code with
-just a few modifications:
+For tgl+, the per-context setting of MI_MODE[12] determines whether
+the bits of a nested MI_BATCH_BUFFER_START instruction should be
+interpreted in the traditional manner or whether they should
+instead use a new tgl+ meaning that breaks backward compatibility, but
+allows nesting into 3rd-level batchbuffers.  For previous platforms,
+the hardware default for this register bit is to maintain
+backward-compatible behavior unless a context intentionally opts into
+the new behavior; however Xe_HPG flips the hardware default behavior.
 
- * Create an alternate instdone loop macro that will iterate over the
-   flat DSS space, but still provide the gslice/dss steering values for
-   compatibility with the legacy code.
+From a SW perspective, we want to maintain the backward-compatible
+behavior for userspace, so we'll apply a fake workaround to set it back
+to the legacy behavior on platforms where the hardware default is to
+break compatibility.  At the moment there is no Linux userspace that
+utilizes third-level batchbuffers, so this will avoid userspace from
+needing to make any changes.  using the legacy meaning is the correct
+thing to do.  If/when we have userspace consumers that want to utilize
+third-level batch nesting, we can provide a context parameter to allow
+them to opt-in.
 
- * We should allocate INSTDONE storage space according to the maximum
-   number of gslices rather than the maximum number of legacy slices to
-   ensure we have enough storage space to hold all of the values.  XeHP
-   design has 8 gslices, whereas older platforms never had more than 3
-   slices.
-
+Bspec: 45974, 45718
+Cc: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 48 +++++++++++---------
- drivers/gpu/drm/i915/gt/intel_engine_types.h | 12 ++++-
- drivers/gpu/drm/i915/gt/intel_sseu.h         |  7 +++
- drivers/gpu/drm/i915/i915_gpu_error.c        | 32 +++++++++----
- 4 files changed, 66 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 39 +++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_reg.h             |  1 +
+ 2 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index dea0e522c5c7..06733e86e88b 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1166,16 +1166,16 @@ void intel_engine_get_instdone(const struct intel_engine_cs *engine,
- 	u32 mmio_base = engine->mmio_base;
- 	int slice;
- 	int subslice;
-+	int iter;
- 
- 	memset(instdone, 0, sizeof(*instdone));
- 
--	switch (GRAPHICS_VER(i915)) {
--	default:
-+	if (GRAPHICS_VER(i915) >= 8) {
- 		instdone->instdone =
- 			intel_uncore_read(uncore, RING_INSTDONE(mmio_base));
- 
- 		if (engine->id != RCS0)
--			break;
-+			return;
- 
- 		instdone->slice_common =
- 			intel_uncore_read(uncore, GEN7_SC_INSTDONE);
-@@ -1185,21 +1185,32 @@ void intel_engine_get_instdone(const struct intel_engine_cs *engine,
- 			instdone->slice_common_extra[1] =
- 				intel_uncore_read(uncore, GEN12_SC_INSTDONE_EXTRA2);
- 		}
--		for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
--			instdone->sampler[slice][subslice] =
--				read_subslice_reg(engine, slice, subslice,
--						  GEN7_SAMPLER_INSTDONE);
--			instdone->row[slice][subslice] =
--				read_subslice_reg(engine, slice, subslice,
--						  GEN7_ROW_INSTDONE);
-+
-+		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
-+			for_each_instdone_gslice_dss_xehp(i915, sseu, iter, slice, subslice) {
-+				instdone->sampler[slice][subslice] =
-+					read_subslice_reg(engine, slice, subslice,
-+							  GEN7_SAMPLER_INSTDONE);
-+				instdone->row[slice][subslice] =
-+					read_subslice_reg(engine, slice, subslice,
-+							  GEN7_ROW_INSTDONE);
-+			}
-+		} else {
-+			for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
-+				instdone->sampler[slice][subslice] =
-+					read_subslice_reg(engine, slice, subslice,
-+							  GEN7_SAMPLER_INSTDONE);
-+				instdone->row[slice][subslice] =
-+					read_subslice_reg(engine, slice, subslice,
-+							  GEN7_ROW_INSTDONE);
-+			}
- 		}
--		break;
--	case 7:
-+	} else if (GRAPHICS_VER(i915) >= 7) {
- 		instdone->instdone =
- 			intel_uncore_read(uncore, RING_INSTDONE(mmio_base));
- 
- 		if (engine->id != RCS0)
--			break;
-+			return;
- 
- 		instdone->slice_common =
- 			intel_uncore_read(uncore, GEN7_SC_INSTDONE);
-@@ -1207,22 +1218,15 @@ void intel_engine_get_instdone(const struct intel_engine_cs *engine,
- 			intel_uncore_read(uncore, GEN7_SAMPLER_INSTDONE);
- 		instdone->row[0][0] =
- 			intel_uncore_read(uncore, GEN7_ROW_INSTDONE);
--
--		break;
--	case 6:
--	case 5:
--	case 4:
-+	} else if (GRAPHICS_VER(i915) >= 4) {
- 		instdone->instdone =
- 			intel_uncore_read(uncore, RING_INSTDONE(mmio_base));
- 		if (engine->id == RCS0)
- 			/* HACK: Using the wrong struct member */
- 			instdone->slice_common =
- 				intel_uncore_read(uncore, GEN4_INSTDONE1);
--		break;
--	case 3:
--	case 2:
-+	} else {
- 		instdone->instdone = intel_uncore_read(uncore, GEN2_INSTDONE);
--		break;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 6895b083523d..3e756b761526 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -644,6 +644,37 @@ static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 		     DG1_HZ_READ_SUPPRESSION_OPTIMIZATION_DISABLE);
  }
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index ed91bcff20eb..0b4846b01626 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -67,8 +67,8 @@ struct intel_instdone {
- 	/* The following exist only in the RCS engine */
- 	u32 slice_common;
- 	u32 slice_common_extra[2];
--	u32 sampler[I915_MAX_SLICES][I915_MAX_SUBSLICES];
--	u32 row[I915_MAX_SLICES][I915_MAX_SUBSLICES];
-+	u32 sampler[GEN_MAX_GSLICES][I915_MAX_SUBSLICES];
-+	u32 row[GEN_MAX_GSLICES][I915_MAX_SUBSLICES];
- };
- 
- /*
-@@ -578,4 +578,12 @@ intel_engine_has_relative_mmio(const struct intel_engine_cs * const engine)
- 		for_each_if((instdone_has_slice(dev_priv_, sseu_, slice_)) && \
- 			    (instdone_has_subslice(dev_priv_, sseu_, slice_, \
- 						    subslice_)))
++static void fakewa_disable_nestedbb_mode(struct intel_engine_cs *engine,
++					 struct i915_wa_list *wal)
++{
++	/*
++	 * This is a "fake" workaround defined by software to ensure we
++	 * maintain reliable, backward-compatible behavior for userspace with
++	 * regards to how nested MI_BATCH_BUFFER_START commands are handled.
++	 *
++	 * The per-context setting of MI_MODE[12] determines whether the bits
++	 * of a nested MI_BATCH_BUFFER_START instruction should be interpreted
++	 * in the traditional manner or whether they should instead use a new
++	 * tgl+ meaning that breaks backward compatibility, but allows nesting
++	 * into 3rd-level batchbuffers.  When this new capability was first
++	 * added in TGL, it remained off by default unless a context
++	 * intentionally opted in to the new behavior.  However Xe_HPG now
++	 * flips this on by default and requires that we explicitly opt out if
++	 * we don't want the new behavior.
++	 *
++	 * From a SW perspective, we want to maintain the backward-compatible
++	 * behavior for userspace, so we'll apply a fake workaround to set it
++	 * back to the legacy behavior on platforms where the hardware default
++	 * is to break compatibility.  At the moment there is no Linux
++	 * userspace that utilizes third-level batchbuffers, so this will avoid
++	 * userspace from needing to make any changes.  using the legacy
++	 * meaning is the correct thing to do.  If/when we have userspace
++	 * consumers that want to utilize third-level batch nesting, we can
++	 * provide a context parameter to allow them to opt-in.
++	 */
++	wa_masked_dis(wal, RING_MI_MODE(engine->mmio_base), TGL_NESTED_BB_EN);
++}
 +
-+#define for_each_instdone_gslice_dss_xehp(dev_priv_, sseu_, iter_, gslice_, dss_) \
-+	for ((iter_) = 0, (gslice_) = 0, (dss_) = 0; \
-+	     (iter_) < GEN_MAX_SUBSLICES; \
-+	     (iter_)++, (gslice_) = (iter_) / GEN_DSS_PER_GSLICE, \
-+	     (dss_) = (iter_) % GEN_DSS_PER_GSLICE) \
-+		for_each_if(intel_sseu_has_subslice((sseu_), 0, (iter_)))
-+
- #endif /* __INTEL_ENGINE_TYPES_H__ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
-index 1073471d1980..74487650b08f 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu.h
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
-@@ -26,6 +26,9 @@ struct drm_printer;
- #define GEN_DSS_PER_CSLICE	8
- #define GEN_DSS_PER_MSLICE	8
+ static void
+ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+ 			   struct i915_wa_list *wal,
+@@ -651,11 +682,15 @@ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
  
-+#define GEN_MAX_GSLICES		(GEN_MAX_SUBSLICES / GEN_DSS_PER_GSLICE)
-+#define GEN_MAX_CSLICES		(GEN_MAX_SUBSLICES / GEN_DSS_PER_CSLICE)
++	wa_init_start(wal, name, engine->name);
 +
- struct sseu_dev_info {
- 	u8 slice_mask;
- 	u8 subslice_mask[GEN_MAX_SLICES * GEN_MAX_SUBSLICE_STRIDE];
-@@ -78,6 +81,10 @@ intel_sseu_has_subslice(const struct sseu_dev_info *sseu, int slice,
- 	u8 mask;
- 	int ss_idx = subslice / BITS_PER_BYTE;
- 
-+	if (slice >= sseu->max_slices ||
-+	    subslice >= sseu->max_subslices)
-+		return false;
++	/* Applies to all engines */
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55))
++		fakewa_disable_nestedbb_mode(engine, wal);
 +
- 	GEM_BUG_ON(ss_idx >= sseu->ss_stride);
- 
- 	mask = sseu->subslice_mask[slice * sseu->ss_stride + ss_idx];
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 0f08bcfbe964..8230bc3ac8a9 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -444,15 +444,29 @@ static void error_print_instdone(struct drm_i915_error_state_buf *m,
- 	if (GRAPHICS_VER(m->i915) <= 6)
+ 	if (engine->class != RENDER_CLASS)
  		return;
  
--	for_each_instdone_slice_subslice(m->i915, sseu, slice, subslice)
--		err_printf(m, "  SAMPLER_INSTDONE[%d][%d]: 0x%08x\n",
--			   slice, subslice,
--			   ee->instdone.sampler[slice][subslice]);
+-	wa_init_start(wal, name, engine->name);
 -
--	for_each_instdone_slice_subslice(m->i915, sseu, slice, subslice)
--		err_printf(m, "  ROW_INSTDONE[%d][%d]: 0x%08x\n",
--			   slice, subslice,
--			   ee->instdone.row[slice][subslice]);
-+	if (GRAPHICS_VER_FULL(m->i915) >= IP_VER(12, 50)) {
-+		int iter;
-+
-+		for_each_instdone_gslice_dss_xehp(m->i915, sseu, iter, slice, subslice)
-+			err_printf(m, "  SAMPLER_INSTDONE[%d][%d]: 0x%08x\n",
-+				   slice, subslice,
-+				   ee->instdone.sampler[slice][subslice]);
-+
-+		for_each_instdone_gslice_dss_xehp(m->i915, sseu, iter, slice, subslice)
-+			err_printf(m, "  ROW_INSTDONE[%d][%d]: 0x%08x\n",
-+				   slice, subslice,
-+				   ee->instdone.row[slice][subslice]);
-+	} else {
-+		for_each_instdone_slice_subslice(m->i915, sseu, slice, subslice)
-+			err_printf(m, "  SAMPLER_INSTDONE[%d][%d]: 0x%08x\n",
-+				   slice, subslice,
-+				   ee->instdone.sampler[slice][subslice]);
-+
-+		for_each_instdone_slice_subslice(m->i915, sseu, slice, subslice)
-+			err_printf(m, "  ROW_INSTDONE[%d][%d]: 0x%08x\n",
-+				   slice, subslice,
-+				   ee->instdone.row[slice][subslice]);
-+	}
- 
- 	if (GRAPHICS_VER(m->i915) < 12)
- 		return;
+ 	if (IS_DG1(i915))
+ 		dg1_ctx_workarounds_init(engine, wal);
+ 	else if (GRAPHICS_VER(i915) == 12)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index ed85f3ec1727..c192c1e096d7 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2893,6 +2893,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define MI_MODE		_MMIO(0x209c)
+ # define VS_TIMER_DISPATCH				(1 << 6)
+ # define MI_FLUSH_ENABLE				(1 << 12)
++# define TGL_NESTED_BB_EN				(1 << 12)
+ # define ASYNC_FLIP_PERF_DISABLE			(1 << 14)
+ # define MODE_IDLE					(1 << 9)
+ # define STOP_RING					(1 << 8)
 -- 
 2.25.4
 
