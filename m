@@ -2,55 +2,54 @@ Return-Path: <SRS0=bte8=MW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42096C4338F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84B01C4320A
 	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 13:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7CD8160F6B
+	by mail.kernel.org (Postfix) with ESMTPS id E4F2C60F94
 	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 13:12:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7CD8160F6B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E4F2C60F94
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=baidu.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20FD36E342;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 581F66F43D;
 	Fri, 30 Jul 2021 13:12:44 +0000 (UTC)
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED43F6EE2D;
- Thu, 29 Jul 2021 19:01:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=iEnu2V13dWd3Tk47Au3q+xCArofi4eI3XAUeIwTJOvs=; 
- b=Bq6P3gjfltLAMg8g14Q1pHEmF2If2n8x3JwoczYJUXnz4MWIU9UqEiwFINnS/KtxkXX21rkziMlpGqYzcyAj+OgmcHKVWGhgIK01xwAbujqghtArDEldpi1+2L5lxX+9FerK2IuYa+IBWb2b+dzrhMsDm/gsbZY2rmhRiSRmeemyM5TMOpl8DwRIi0cSpo0xvqZOU/VmJTK769RUM9F0bCXumkDqJE+UMhb+T10e0YlHA90Ds0sfbOfnf/lUQjrtWYdEXgTBZUEoGwSDNDadOdOpK6F0cd190X6k01MC825KE10HBYmLpMmjqvdbTbRnFmfsUS7S0415lpcePyukyA==;
-Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
- helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1m9BHs-000134-IJ; Thu, 29 Jul 2021 21:01:44 +0200
-Message-ID: <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "events@lists.x.org" <events@lists.x.org>, 
- "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org
-Date: Thu, 29 Jul 2021 21:01:34 +0200
-In-Reply-To: <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
-References: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
- <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-JoibIQI5zrLH+tK95jc7"
-User-Agent: Evolution 3.40.3 (3.40.3-1.fc34) 
+X-Greylist: delayed 1800 seconds by postgrey-1.36 at gabe;
+ Fri, 30 Jul 2021 10:35:21 UTC
+Received: from baidu.com (mx20.baidu.com [111.202.115.85])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E077C6F42E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Jul 2021 10:35:21 +0000 (UTC)
+Received: from BJHW-Mail-Ex06.internal.baidu.com (unknown [10.127.64.16])
+ by Forcepoint Email with ESMTPS id DB1152873DCECF55FD6D;
+ Fri, 30 Jul 2021 17:49:25 +0800 (CST)
+Received: from BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) by
+ BJHW-Mail-Ex06.internal.baidu.com (10.127.64.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2308.14; Fri, 30 Jul 2021 17:49:25 +0800
+Received: from LAPTOP-UKSR4ENP.internal.baidu.com (172.31.63.8) by
+ BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2308.14; Fri, 30 Jul 2021 17:49:25 +0800
+From: Cai Huoqing <caihuoqing@baidu.com>
+To: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
+Date: Fri, 30 Jul 2021 17:49:18 +0800
+Message-ID: <20210730094918.2928-1-caihuoqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [172.31.63.8]
+X-ClientProxiedBy: BC-Mail-EX02.internal.baidu.com (172.31.51.42) To
+ BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42)
+X-Baidu-BdMsfe-DateCheck: 1_BJHW-Mail-Ex06_2021-07-30 17:49:25:882
 X-Mailman-Approved-At: Fri, 30 Jul 2021 13:12:42 +0000
-Subject: Re: [Intel-gfx] [Mesa-dev] Requests For Proposals for hosting XDC
- 2022 are now open
+Subject: [Intel-gfx] [PATCH] drm/i915: Fix typo in comments and Kconfig.debug
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,114 +62,300 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
+Cc: intel-gfx@lists.freedesktop.org, Cai Huoqing <caihuoqing@baidu.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Fix typo:
+*iff  ==> if
+*specifc  ==> specific
+*adjustement  ==> adjustment
+*preferrably  ==> preferably
+*forseeable  ==> foreseeable
+*overwritting  ==> overwriting
+*sempahores  ==> semaphores
+*additonally  ==> additionally
+*allcoated  ==> allocated
+*contigious  ==> contiguous
+*priorty  ==> priority
+*priviliged  ==> privileged
+*fullfilling  ==> fulfilling
+*Timestmap  ==> Timestamp
+*accesible  ==> accessible
+*becaue  ==> because
+*overriden  ==> overridden
+*prarameter  ==> parameter
+*the the  ==> the
 
---=-JoibIQI5zrLH+tK95jc7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Cai Huoqing <caihuoqing@baidu.com>
+---
+ drivers/gpu/drm/i915/Kconfig.debug      |  2 +-
+ drivers/gpu/drm/i915/i915_drv.h         |  6 +++---
+ drivers/gpu/drm/i915/i915_gpu_error.c   |  2 +-
+ drivers/gpu/drm/i915/i915_irq.c         |  2 +-
+ drivers/gpu/drm/i915/i915_pci.c         |  4 ++--
+ drivers/gpu/drm/i915/i915_perf.c        |  4 ++--
+ drivers/gpu/drm/i915/i915_pmu.h         |  2 +-
+ drivers/gpu/drm/i915/i915_reg.h         |  2 +-
+ drivers/gpu/drm/i915/i915_request.c     |  4 ++--
+ drivers/gpu/drm/i915/i915_vma.c         |  4 ++--
+ drivers/gpu/drm/i915/intel_pm.c         | 10 +++++-----
+ drivers/gpu/drm/i915/intel_region_ttm.c |  2 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.c |  2 +-
+ 13 files changed, 23 insertions(+), 23 deletions(-)
 
-Remember before enjoying your holiday that the deadline for XDC 2022
-proposals is *September 1st, 2021* :-)
-
-Feel free to submit your proposal before, so we can give you early
-feedback on it!
-
-Sam
-
-On Thu, 2021-07-01 at 18:14 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> This is a reminder that the call for proposals for hosting XDC 2022
-> period finishes in two months.
->=20
-> Be sure to prepare your submission before you leave on holiday!
->=20
-> Sam
->=20
-> On Thu, 2021-05-20 at 12:15 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> > Hello everyone!
-> >=20
-> > The X.org board is soliciting proposals to host XDC in 2022. Since
-> > XDC 2021 is being held in Europe this year (although virtually),
-> > we've
-> > decided to host in North America. However, the board is open to
-> > other
-> > locations, especially if there's an interesting co-location with
-> > another conference.
-> >=20
-> > Of course though, due to the ongoing COVID-19 pandemic it's not yet
-> > clear whether or not it will be possible to host XDC 2022 in
-> > person,
-> > although is seems very likely. Because of this, we would like to
-> > make it clear that sponsors should prepare for both the possibility
-> > of an in person conference, and the possibility of a virtual
-> > conference. We will work with organizers on coming up with a
-> > deadline for deciding whether or not we'll be going virtual, likely
-> > sometime around July 2022.
-> >=20
-> > If you're considering hosting XDC, we've assembled a wiki page with
-> > what's generally expected and needed:
-> >=20
-> > https://www.x.org/wiki/Events/RFP/
-> >=20
-> > When submitting your proposal, please make sure to include at least
-> > the
-> > key information about the potential location in question, possible
-> > dates along with estimated costs. Proposals can be submitted to
-> > board
-> > at foundation.x.org until the deadline of *September 1st, 2021*.=C2=A0
-> >=20
-> > Additionally, an quirk early heads-up to the board if you're
-> > considering hosting would be appreciated, in case we need to adjust
-> > the
-> > schedule a bit. Also, earlier is better since there generally will
-> > be
-> > a
-> > bit of Q&A with organizers.
-> >=20
-> > And if you just have some questions about what organizing XDC
-> > entails,
-> > please feel free to chat with previous organizers, or someone from
-> > the
-> > board.
-> >=20
-> > Thanks,
-> >=20
-> > Sam
-> >=20
-> > _______________________________________________
-> > mesa-dev mailing list
-> > mesa-dev@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-
-
---=-JoibIQI5zrLH+tK95jc7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmEC+w4ACgkQf/S6MvF9
-w0NE9RAAhftJFlMlh6LVSXN2Ez53ZwKl30J9rV+EJLEze+/nkNg/vXJbeaAfjOGC
-dgIVbn5bBylrv3T3tYnwAO4VtbuLwu016c1OTpcl4bqZ1c73Uj1WKYQ+yP0LXNMV
-HFVk1kI2cBdoF791QevvAp872E2xyyH2Zm9EW0zqoNJuktm31yLyW2FIC3snBcQi
-P0saE+SEJKtg1RQuKlGow5JUbH6kmsXno8aY6p/vXE5BIwAZX7CCqXPzDYj+SXgf
-fSbi0jEJneL/GhRGHcv3HbPCCTvx8g/kBkXOmIQe2yfYBCwIIG5x0UYqO7f6jWnN
-tUgTD2iCyB2rMbK4ODIY4XPUYa4n2fBCRbJ27WngBMjejuiRfDvH8bsWJVafkOJV
-likkzpY1sbrVcocP5vYgHObsOIBFE72aGZWHNOR310Zqacd/bLVM78E9crHT7FSw
-SJlFIBOywh6EED0aCoc+1/nJ7ta9KDrVrSOFoFa0WWK6QKaqpEiyLfwEoU3zizKi
-shFPfFPpvL18GDWWGah12qntQbx0TVx8/bRAwoqusVw6A65V6SebeEBxhCYMzcS3
-OJDMhH7Jcw13P6O/w52Ox2sRO9u3ANYNz8fbujE2cmQ/8WQqvBbU/m8M19/Bh8BO
-EeCRGMQsCN84+r8nVS+0dDmwe85Weu0Elbkrt2mZvJ4WyWjZOVg=
-=rA1c
------END PGP SIGNATURE-----
-
---=-JoibIQI5zrLH+tK95jc7--
+diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
+index 72a38f28393f..c444d97b7c9c 100644
+--- a/drivers/gpu/drm/i915/Kconfig.debug
++++ b/drivers/gpu/drm/i915/Kconfig.debug
+@@ -2,7 +2,7 @@
+ config DRM_I915_WERROR
+ 	bool "Force GCC to throw an error instead of a warning when compiling"
+ 	# As this may inadvertently break the build, only allow the user
+-	# to shoot oneself in the foot iff they aim really hard
++	# to shoot oneself in the foot if they aim really hard
+ 	depends on EXPERT
+ 	# We use the dependency on !COMPILE_TEST to not be enabled in
+ 	# allmodconfig or allyesconfig configurations
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 734a2fce1efe..3ae32edf367a 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -335,7 +335,7 @@ struct drm_i915_display_funcs {
+ enum i915_cache_level {
+ 	I915_CACHE_NONE = 0,
+ 	I915_CACHE_LLC, /* also used for snoopable memory on non-LLC */
+-	I915_CACHE_L3_LLC, /* gen7+, L3 sits between the domain specifc
++	I915_CACHE_L3_LLC, /* gen7+, L3 sits between the domain specific
+ 			      caches, eg sampler/render caches, and the
+ 			      large Last-Level-Cache. LLC is coherent with
+ 			      the CPU, but L3 is only visible to the GPU. */
+@@ -383,7 +383,7 @@ struct intel_fbc {
+ 			int src_h;
+ 			bool visible;
+ 			/*
+-			 * Display surface base address adjustement for
++			 * Display surface base address adjustment for
+ 			 * pageflips. Note that on gen4+ this only adjusts up
+ 			 * to a tile, offsets within a tile are handled in
+ 			 * the hw itself (with the TILEOFF register).
+@@ -795,7 +795,7 @@ struct drm_i915_private {
+ 	 */
+ 	struct resource dsm;
+ 	/**
+-	 * Reseved portion of Data Stolen Memory
++	 * Reserved portion of Data Stolen Memory
+ 	 */
+ 	struct resource dsm_reserved;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 35c97c39f125..601401a510c5 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -1498,7 +1498,7 @@ gt_record_uc(struct intel_gt_coredump *gt,
+ 	memcpy(&error_uc->huc_fw, &uc->huc.fw, sizeof(uc->huc.fw));
+ 
+ 	/* Non-default firmware paths will be specified by the modparam.
+-	 * As modparams are generally accesible from the userspace make
++	 * As modparams are generally accessible from the userspace make
+ 	 * explicit copies of the firmware paths.
+ 	 */
+ 	error_uc->guc_fw.path = kstrdup(uc->guc.fw.path, ALLOW_FAIL);
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index e2171bd2820e..b426236e16e9 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -62,7 +62,7 @@
+ 
+ /*
+  * Interrupt statistic for PMU. Increments the counter only if the
+- * interrupt originated from the the GPU so interrupts from a device which
++ * interrupt originated from the GPU so interrupts from a device which
+  * shares the interrupt line are not accounted.
+  */
+ static inline void pmu_irq_stats(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index ec80cd1cd00c..7be7087e9433 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1264,8 +1264,8 @@ static int __init i915_init(void)
+ 		return err > 0 ? 0 : err;
+ 
+ 	/*
+-	 * Enable KMS by default, unless explicitly overriden by
+-	 * either the i915.modeset prarameter or by the
++	 * Enable KMS by default, unless explicitly overridden by
++	 * either the i915.modeset parameter or by the
+ 	 * vga_text_mode_force boot option.
+ 	 */
+ 
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 9f94914958c3..9e6043c1b65f 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -3457,7 +3457,7 @@ i915_perf_open_ioctl_locked(struct i915_perf *perf,
+ 	}
+ 
+ 	/*
+-	 * Asking for SSEU configuration is a priviliged operation.
++	 * Asking for SSEU configuration is a privileged operation.
+ 	 */
+ 	if (props->has_sseu)
+ 		privileged_op = true;
+@@ -3939,7 +3939,7 @@ static u32 mask_reg_value(u32 reg, u32 val)
+ 	if (REG_EQUAL(reg, HALF_SLICE_CHICKEN2))
+ 		val = val & ~_MASKED_BIT_ENABLE(GEN8_ST_PO_DISABLE);
+ 
+-	/* WAIT_FOR_RC6_EXIT has only one bit fullfilling the function
++	/* WAIT_FOR_RC6_EXIT has only one bit fulfilling the function
+ 	 * indicated by its name and a bunch of selection fields used by OA
+ 	 * configs.
+ 	 */
+diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
+index 60f9595f902c..4f315a6bc10f 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.h
++++ b/drivers/gpu/drm/i915/i915_pmu.h
+@@ -95,7 +95,7 @@ struct i915_pmu {
+ 	/**
+ 	 * @timer_last:
+ 	 *
+-	 * Timestmap of the previous timer invocation.
++	 * Timestamp of the previous timer invocation.
+ 	 */
+ 	ktime_t timer_last;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 730afa341f8a..a7ba32e66de2 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2955,7 +2955,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define   HDPORT_DDI_USED(phy)		REG_BIT(2 * (phy) + 1)
+ #define   HDPORT_ENABLED		REG_BIT(0)
+ 
+-/* Make render/texture TLB fetches lower priorty than associated data
++/* Make render/texture TLB fetches lower priority than associated data
+  *   fetches. This is not turned on by default
+  */
+ #define   MI_ARB_RENDER_TLB_LOW_PRIORITY	(1 << 15)
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 37aef1308573..865aaf8378e4 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -489,7 +489,7 @@ static bool __request_in_flight(const struct i915_request *signal)
+ 	 * to avoid tearing.]
+ 	 *
+ 	 * Note that the read of *execlists->active may race with the promotion
+-	 * of execlists->pending[] to execlists->inflight[], overwritting
++	 * of execlists->pending[] to execlists->inflight[], overwriting
+ 	 * the value at *execlists->active. This is fine. The promotion implies
+ 	 * that we received an ACK from the HW, and so the context is not
+ 	 * stuck -- if we do not see ourselves in *active, the inflight status
+@@ -1239,7 +1239,7 @@ emit_semaphore_wait(struct i915_request *to,
+ 	/*
+ 	 * If this or its dependents are waiting on an external fence
+ 	 * that may fail catastrophically, then we want to avoid using
+-	 * sempahores as they bypass the fence signaling metadata, and we
++	 * semaphores as they bypass the fence signaling metadata, and we
+ 	 * lose the fence->error propagation.
+ 	 */
+ 	if (from->sched.flags & I915_SCHED_HAS_EXTERNAL_CHAIN)
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 0f227f28b280..1ecbf94370dd 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -626,7 +626,7 @@ bool i915_gem_valid_gtt_space(struct i915_vma *vma, unsigned long color)
+  *
+  * First we try to allocate some free space that meets the requirements for
+  * the VMA. Failiing that, if the flags permit, it will evict an old VMA,
+- * preferrably the oldest idle entry to make room for the new VMA.
++ * preferably the oldest idle entry to make room for the new VMA.
+  *
+  * Returns:
+  * 0 on success, negative error code otherwise.
+@@ -696,7 +696,7 @@ i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
+ 		 * objects which need to be tightly packed into the low 32bits.
+ 		 *
+ 		 * Note that we assume that GGTT are limited to 4GiB for the
+-		 * forseeable future. See also i915_ggtt_offset().
++		 * foreseeable future. See also i915_ggtt_offset().
+ 		 */
+ 		if (upper_32_bits(end - 1) &&
+ 		    vma->page_sizes.sg > I915_GTT_PAGE_SIZE) {
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 10a39a7d8150..740f0c8c1d30 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -660,7 +660,7 @@ static const struct intel_watermark_params i845_wm_info = {
+  * @latency: Memory wakeup latency in 0.1us units
+  *
+  * Compute the watermark using the method 1 or "small buffer"
+- * formula. The caller may additonally add extra cachelines
++ * formula. The caller may additionally add extra cachelines
+  * to account for TLB misses and clock crossings.
+  *
+  * This method is concerned with the short term drain rate
+@@ -707,7 +707,7 @@ static unsigned int intel_wm_method1(unsigned int pixel_rate,
+  * @latency: Memory wakeup latency in 0.1us units
+  *
+  * Compute the watermark using the method 2 or "large buffer"
+- * formula. The caller may additonally add extra cachelines
++ * formula. The caller may additionally add extra cachelines
+  * to account for TLB misses and clock crossings.
+  *
+  * This method is concerned with the long term drain rate
+@@ -1719,7 +1719,7 @@ static int vlv_compute_fifo(struct intel_crtc_state *crtc_state)
+ 	/*
+ 	 * When enabling sprite0 after sprite1 has already been enabled
+ 	 * we tend to get an underrun unless sprite0 already has some
+-	 * FIFO space allcoated. Hence we always allocate at least one
++	 * FIFO space allocated. Hence we always allocate at least one
+ 	 * cacheline for sprite0 whenever sprite1 is enabled.
+ 	 *
+ 	 * All other plane enable sequences appear immune to this problem.
+@@ -2919,7 +2919,7 @@ static void intel_read_wm_latency(struct drm_i915_private *dev_priv,
+ 		 * WaWmMemoryReadLatency
+ 		 *
+ 		 * punit doesn't take into account the read latency so we need
+-		 * to add proper adjustement to each valid level we retrieve
++		 * to add proper adjustment to each valid level we retrieve
+ 		 * from the punit when level 0 response data is 0us.
+ 		 */
+ 		if (wm[0] == 0) {
+@@ -4091,7 +4091,7 @@ u32 skl_ddb_dbuf_slice_mask(struct drm_i915_private *dev_priv,
+ 
+ 	/*
+ 	 * Per plane DDB entry can in a really worst case be on multiple slices
+-	 * but single entry is anyway contigious.
++	 * but single entry is anyway contiguous.
+ 	 */
+ 	while (start_slice <= end_slice) {
+ 		slice_mask |= BIT(start_slice);
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
+index 27fe0668d094..d0d1972343b7 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.c
++++ b/drivers/gpu/drm/i915/intel_region_ttm.c
+@@ -204,7 +204,7 @@ intel_region_ttm_node_alloc(struct intel_memory_region *mem,
+ 
+ 	/*
+ 	 * We ignore the flags for now since we're using the range
+-	 * manager and contigous and min page size would be fulfilled
++	 * manager and contiguous and min page size would be fulfilled
+ 	 * by default if size is min page size aligned.
+ 	 */
+ 	mock_bo.base.size = size;
+diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
+index eaf7688f517d..dfcf43e55fc0 100644
+--- a/drivers/gpu/drm/i915/intel_runtime_pm.c
++++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
+@@ -575,7 +575,7 @@ void intel_runtime_pm_enable(struct intel_runtime_pm *rpm)
+ 	 * leave the device suspended skipping the driver's suspend handlers
+ 	 * if the device was already runtime suspended. This is needed due to
+ 	 * the difference in our runtime and system suspend sequence and
+-	 * becaue the HDA driver may require us to enable the audio power
++	 * because the HDA driver may require us to enable the audio power
+ 	 * domain during system suspend.
+ 	 */
+ 	dev_pm_set_driver_flags(kdev, DPM_FLAG_NO_DIRECT_COMPLETE);
+-- 
+2.25.1
 
