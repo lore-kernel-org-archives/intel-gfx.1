@@ -2,42 +2,52 @@ Return-Path: <SRS0=bte8=MW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DBC01C4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 13:30:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7F41C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 14:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 94D34603E7
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 13:30:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 94D34603E7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 5F33E60720
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 14:20:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5F33E60720
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40BA66F444;
-	Fri, 30 Jul 2021 13:30:28 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7AE6F6F441;
- Fri, 30 Jul 2021 13:30:26 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 71F57A8830;
- Fri, 30 Jul 2021 13:30:26 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB08C6E2BC;
+	Fri, 30 Jul 2021 14:19:59 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD2996E2BC;
+ Fri, 30 Jul 2021 14:19:57 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="276882042"
+X-IronPort-AV: E=Sophos;i="5.84,282,1620716400"; d="scan'208";a="276882042"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2021 07:19:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,282,1620716400"; d="scan'208";a="417979839"
+Received: from lkp-server01.sh.intel.com (HELO d053b881505b) ([10.239.97.150])
+ by orsmga006.jf.intel.com with ESMTP; 30 Jul 2021 07:19:55 -0700
+Received: from kbuild by d053b881505b with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1m9TMg-000A2u-Br; Fri, 30 Jul 2021 14:19:54 +0000
+Date: Fri, 30 Jul 2021 22:19:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ DRI Development <dri-devel@lists.freedesktop.org>
+Message-ID: <20210730141948.GA11955@243d74413310>
+References: <20210730095251.4343-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Cai Huoqing" <caihuoqing@baidu.com>
-Date: Fri, 30 Jul 2021 13:30:26 -0000
-Message-ID: <162765182643.590.14942510560281326511@emeril.freedesktop.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210730095251.4343-1-daniel.vetter@ffwll.ch>
 X-Patchwork-Hint: ignore
-References: <20210730094918.2928-1-caihuoqing@baidu.com>
-In-Reply-To: <20210730094918.2928-1-caihuoqing@baidu.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?rm/i915=3A_Fix_typo_in_comments_and_Kconfig=2Edebug?=
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: [Intel-gfx] [RFC PATCH] drm: mock_device can be static
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,52 +60,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: kbuild-all@lists.01.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+drivers/gpu/drm/selftests/test-drm_damage_helper.c:15:19: warning: symbol 'mock_device' was not declared. Should it be static?
+drivers/gpu/drm/selftests/test-drm_damage_helper.c:16:30: warning: symbol 'mock_obj_props' was not declared. Should it be static?
+drivers/gpu/drm/selftests/test-drm_damage_helper.c:17:18: warning: symbol 'mock_plane' was not declared. Should it be static?
+drivers/gpu/drm/selftests/test-drm_damage_helper.c:18:21: warning: symbol 'mock_prop' was not declared. Should it be static?
 
-Series: drm/i915: Fix typo in comments and Kconfig.debug
-URL   : https://patchwork.freedesktop.org/series/93239/
-State : failure
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: kernel test robot <lkp@intel.com>
+---
+ test-drm_damage_helper.c |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-== Summary ==
-
-Applying: drm/i915: Fix typo in comments and Kconfig.debug
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/Kconfig.debug
-M	drivers/gpu/drm/i915/i915_drv.h
-M	drivers/gpu/drm/i915/i915_gpu_error.c
-M	drivers/gpu/drm/i915/i915_pci.c
-M	drivers/gpu/drm/i915/i915_perf.c
-M	drivers/gpu/drm/i915/i915_pmu.h
-M	drivers/gpu/drm/i915/i915_reg.h
-M	drivers/gpu/drm/i915/i915_request.c
-M	drivers/gpu/drm/i915/i915_vma.c
-M	drivers/gpu/drm/i915/intel_pm.c
-M	drivers/gpu/drm/i915/intel_region_ttm.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/intel_region_ttm.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/intel_region_ttm.c
-Auto-merging drivers/gpu/drm/i915/intel_pm.c
-Auto-merging drivers/gpu/drm/i915/i915_vma.c
-Auto-merging drivers/gpu/drm/i915/i915_request.c
-Auto-merging drivers/gpu/drm/i915/i915_reg.h
-Auto-merging drivers/gpu/drm/i915/i915_pmu.h
-Auto-merging drivers/gpu/drm/i915/i915_perf.c
-Auto-merging drivers/gpu/drm/i915/i915_pci.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/i915_pci.c
-Auto-merging drivers/gpu/drm/i915/i915_gpu_error.c
-Auto-merging drivers/gpu/drm/i915/i915_drv.h
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/i915_drv.h
-Auto-merging drivers/gpu/drm/i915/Kconfig.debug
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915: Fix typo in comments and Kconfig.debug
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-
-
+diff --git a/drivers/gpu/drm/selftests/test-drm_damage_helper.c b/drivers/gpu/drm/selftests/test-drm_damage_helper.c
+index 1b585c13e042fe..1c19a5d3eefbf8 100644
+--- a/drivers/gpu/drm/selftests/test-drm_damage_helper.c
++++ b/drivers/gpu/drm/selftests/test-drm_damage_helper.c
+@@ -12,10 +12,10 @@
+ #include "test-drm_modeset_common.h"
+ 
+ struct drm_driver mock_driver;
+-struct drm_device mock_device;
+-struct drm_object_properties mock_obj_props;
+-struct drm_plane mock_plane;
+-struct drm_property mock_prop;
++static struct drm_device mock_device;
++static struct drm_object_properties mock_obj_props;
++static struct drm_plane mock_plane;
++static struct drm_property mock_prop;
+ 
+ static void mock_setup(struct drm_plane_state *state)
+ {
