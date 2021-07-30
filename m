@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DFA9EC4320A
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 08:54:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2F5FC4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 08:54:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ADA4A60FED
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 08:54:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ADA4A60FED
+	by mail.kernel.org (Postfix) with ESMTPS id 8060160F6B
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 08:54:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8060160F6B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 730656F416;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 789906F419;
 	Fri, 30 Jul 2021 08:54:12 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF5FF6F415;
- Fri, 30 Jul 2021 08:54:07 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="298644859"
-X-IronPort-AV: E=Sophos;i="5.84,281,1620716400"; d="scan'208";a="298644859"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E41CD6F413;
+ Fri, 30 Jul 2021 08:54:03 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="298644849"
+X-IronPort-AV: E=Sophos;i="5.84,281,1620716400"; d="scan'208";a="298644849"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2021 01:54:07 -0700
-X-IronPort-AV: E=Sophos;i="5.84,281,1620716400"; d="scan'208";a="664763879"
+ 30 Jul 2021 01:54:03 -0700
+X-IronPort-AV: E=Sophos;i="5.84,281,1620716400"; d="scan'208";a="664763853"
 Received: from asleatox-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.213.201.173])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2021 01:54:05 -0700
+ 30 Jul 2021 01:54:02 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Fri, 30 Jul 2021 09:53:44 +0100
-Message-Id: <20210730085348.2326899-7-matthew.auld@intel.com>
+Date: Fri, 30 Jul 2021 09:53:42 +0100
+Message-Id: <20210730085348.2326899-5-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210730085348.2326899-1-matthew.auld@intel.com>
 References: <20210730085348.2326899-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t v3 07/11] lib/intel_bufops: update
- mmap_{read, write} for discrete
+Subject: [Intel-gfx] [PATCH i-g-t v3 05/11] lib/i915/gem_mman: update
+ mmap_offset_types with FIXED
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,8 +61,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On discrete we can no longer call get_caching or set_domain, and the
-mmap mode must be FIXED.
+We need to also iterate the fixed mode in the tests which rely on this.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
@@ -70,52 +69,21 @@ Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: Ramalingam C <ramalingam.c@intel.com>
 ---
- lib/intel_bufops.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+ lib/i915/gem_mman.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/lib/intel_bufops.c b/lib/intel_bufops.c
-index 3ce68663..faca4406 100644
---- a/lib/intel_bufops.c
-+++ b/lib/intel_bufops.c
-@@ -424,7 +424,18 @@ static void *mmap_write(int fd, struct intel_buf *buf)
- {
- 	void *map = NULL;
+diff --git a/lib/i915/gem_mman.c b/lib/i915/gem_mman.c
+index c134e973..c69dc6f5 100644
+--- a/lib/i915/gem_mman.c
++++ b/lib/i915/gem_mman.c
+@@ -621,6 +621,7 @@ const struct mmap_offset mmap_offset_types[] = {
+ 	{ "wb", I915_MMAP_OFFSET_WB, I915_GEM_DOMAIN_CPU },
+ 	{ "wc", I915_MMAP_OFFSET_WC, I915_GEM_DOMAIN_WC },
+ 	{ "uc", I915_MMAP_OFFSET_UC, I915_GEM_DOMAIN_WC },
++	{ "fixed", I915_MMAP_OFFSET_FIXED, 0},
+ 	{},
+ };
  
--	if (is_cache_coherent(fd, buf->handle)) {
-+	if (gem_has_lmem(fd)) {
-+		/*
-+		 * set/get_caching and set_domain are no longer supported on
-+		 * discrete, also the only mmap mode supportd is FIXED.
-+		 */
-+		map = gem_mmap_offset__fixed(fd, buf->handle, 0,
-+					     buf->surface[0].size,
-+					     PROT_READ | PROT_WRITE);
-+		igt_assert_eq(gem_wait(fd, buf->handle, 0), 0);
-+	}
-+
-+	if (!map && is_cache_coherent(fd, buf->handle)) {
- 		map = __gem_mmap_offset__cpu(fd, buf->handle, 0, buf->surface[0].size,
- 					     PROT_READ | PROT_WRITE);
- 		if (!map)
-@@ -455,7 +466,17 @@ static void *mmap_read(int fd, struct intel_buf *buf)
- {
- 	void *map = NULL;
- 
--	if (gem_has_llc(fd) || is_cache_coherent(fd, buf->handle)) {
-+	if (gem_has_lmem(fd)) {
-+		/*
-+		 * set/get_caching and set_domain are no longer supported on
-+		 * discrete, also the only supported mmap mode is FIXED.
-+		 */
-+		map = gem_mmap_offset__fixed(fd, buf->handle, 0,
-+					     buf->surface[0].size, PROT_READ);
-+		igt_assert_eq(gem_wait(fd, buf->handle, 0), 0);
-+	}
-+
-+	if (!map && (gem_has_llc(fd) || is_cache_coherent(fd, buf->handle))) {
- 		map = __gem_mmap_offset__cpu(fd, buf->handle, 0,
- 					     buf->surface[0].size, PROT_READ);
- 		if (!map)
 -- 
 2.26.3
 
