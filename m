@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26B89C4320E
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 02:01:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D5CBC432BE
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 02:01:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA80D603E9
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 02:01:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EA80D603E9
+	by mail.kernel.org (Postfix) with ESMTPS id 0D44B60FE7
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jul 2021 02:01:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0D44B60FE7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 397A46EEB9;
-	Fri, 30 Jul 2021 02:01:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25BA26EEB7;
+	Fri, 30 Jul 2021 02:01:45 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FCBC6EEB9;
- Fri, 30 Jul 2021 02:01:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="200185985"
-X-IronPort-AV: E=Sophos;i="5.84,280,1620716400"; d="scan'208";a="200185985"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B79776EEBD;
+ Fri, 30 Jul 2021 02:01:38 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="200185995"
+X-IronPort-AV: E=Sophos;i="5.84,280,1620716400"; d="scan'208";a="200185995"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2021 19:01:33 -0700
+ 29 Jul 2021 19:01:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,280,1620716400"; d="scan'208";a="664637471"
+X-IronPort-AV: E=Sophos;i="5.84,280,1620716400"; d="scan'208";a="664637543"
 Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.27.27])
- by fmsmga006.fm.intel.com with ESMTP; 29 Jul 2021 19:01:32 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 29 Jul 2021 19:01:38 -0700
 From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 29 Jul 2021 19:00:57 -0700
-Message-Id: <20210730020107.31415-5-vinay.belgaumkar@intel.com>
+Date: Thu, 29 Jul 2021 19:00:59 -0700
+Message-Id: <20210730020107.31415-7-vinay.belgaumkar@intel.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20210730020107.31415-1-vinay.belgaumkar@intel.com>
 References: <20210730020107.31415-1-vinay.belgaumkar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/14] drm/i915/guc/slpc: Allocate,
- initialize and release SLPC
+Subject: [Intel-gfx] [PATCH 06/14] drm/i915/guc/slpc: Remove BUG_ON in
+ guc_submission_disable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,123 +60,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allocate data structures for SLPC and functions for
-initializing on host side.
+The assumption when it was added was that GT would not be
+holding any gt_pm references. However, uc_init is called
+from gt_init_hw, which holds a forcewake ref. If SLPC
+enable fails, we will still be holding this ref, which will
+result in the BUG_ON.
 
-v2: Address review comments (Michal W)
-v3: Remove unnecessary header includes (Michal W)
-v4: Rebase
-v5: Move allocation of shared data into slpc_init() (Michal W)
-
-Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Signed-off-by: Sundaresan Sujaritha <sujaritha.sundaresan@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 11 +++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   | 31 ++++++++++++++++++-
- .../gpu/drm/i915/gt/uc/intel_guc_slpc_types.h |  2 ++
- 3 files changed, 43 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index 5b0f8c541b69..13d162353b1a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -336,6 +336,12 @@ int intel_guc_init(struct intel_guc *guc)
- 			goto err_ct;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index b6338742a594..48cbd800ca54 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -2523,10 +2523,6 @@ void intel_guc_submission_enable(struct intel_guc *guc)
  
-+	if (intel_guc_slpc_is_used(guc)) {
-+		ret = intel_guc_slpc_init(&guc->slpc);
-+		if (ret)
-+			goto err_submission;
-+	}
-+
- 	/* now that everything is perma-pinned, initialize the parameters */
- 	guc_init_params(guc);
- 
-@@ -346,6 +352,8 @@ int intel_guc_init(struct intel_guc *guc)
- 
- 	return 0;
- 
-+err_submission:
-+	intel_guc_submission_fini(guc);
- err_ct:
- 	intel_guc_ct_fini(&guc->ct);
- err_ads:
-@@ -368,6 +376,9 @@ void intel_guc_fini(struct intel_guc *guc)
- 
- 	i915_ggtt_disable_guc(gt->ggtt);
- 
-+	if (intel_guc_slpc_is_used(guc))
-+		intel_guc_slpc_fini(&guc->slpc);
-+
- 	if (intel_guc_submission_is_used(guc))
- 		intel_guc_submission_fini(guc);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index 40950f1bf05c..377e09187e9f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -12,6 +12,16 @@ static inline struct intel_guc *slpc_to_guc(struct intel_guc_slpc *slpc)
- 	return container_of(slpc, struct intel_guc, slpc);
+ void intel_guc_submission_disable(struct intel_guc *guc)
+ {
+-	struct intel_gt *gt = guc_to_gt(guc);
+-
+-	GEM_BUG_ON(gt->awake); /* GT should be parked first */
+-
+ 	/* Note: By the time we're here, GuC may have already been reset */
  }
  
-+static inline struct intel_gt *slpc_to_gt(struct intel_guc_slpc *slpc)
-+{
-+	return guc_to_gt(slpc_to_guc(slpc));
-+}
-+
-+static inline struct drm_i915_private *slpc_to_i915(struct intel_guc_slpc *slpc)
-+{
-+	return slpc_to_gt(slpc)->i915;
-+}
-+
- static bool __detect_slpc_supported(struct intel_guc *guc)
- {
- 	/* GuC SLPC is unavailable for pre-Gen12 */
-@@ -37,9 +47,28 @@ void intel_guc_slpc_init_early(struct intel_guc_slpc *slpc)
- 
- int intel_guc_slpc_init(struct intel_guc_slpc *slpc)
- {
--	return 0;
-+	struct intel_guc *guc = slpc_to_guc(slpc);
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	u32 size = PAGE_ALIGN(sizeof(struct slpc_shared_data));
-+	int err;
-+
-+	GEM_BUG_ON(slpc->vma);
-+
-+	err = intel_guc_allocate_and_map_vma(guc, size, &slpc->vma, (void **)&slpc->vaddr);
-+	if (unlikely(err)) {
-+		drm_err(&i915->drm,
-+			"Failed to allocate SLPC struct (err=%pe)\n",
-+			ERR_PTR(err));
-+		return err;
-+	}
-+
-+	return err;
- }
- 
- void intel_guc_slpc_fini(struct intel_guc_slpc *slpc)
- {
-+	if (!slpc->vma)
-+		return;
-+
-+	i915_vma_unpin_and_release(&slpc->vma, I915_VMA_RELEASE_MAP);
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-index 769c162305a0..8bd753167234 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-@@ -9,6 +9,8 @@
- #include <linux/types.h>
- 
- struct intel_guc_slpc {
-+	struct i915_vma *vma;
-+	struct slpc_shared_data *vaddr;
- 	bool supported;
- 	bool selected;
- };
 -- 
 2.25.0
 
