@@ -2,50 +2,45 @@ Return-Path: <SRS0=RkM0=MZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 859A2C4320A
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F051C4338F
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:28:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 568F761132
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:25:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 568F761132
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B185360EFF
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Aug 2021 13:28:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B185360EFF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F5066E0FF;
-	Mon,  2 Aug 2021 13:25:05 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5866B6E0FF
- for <intel-gfx@lists.freedesktop.org>; Mon,  2 Aug 2021 13:25:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10063"; a="200626527"
-X-IronPort-AV: E=Sophos;i="5.84,289,1620716400"; d="scan'208";a="200626527"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2021 06:25:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,289,1620716400"; d="scan'208";a="583962757"
-Received: from akn-lab.iind.intel.com ([10.223.74.111])
- by fmsmga001.fm.intel.com with ESMTP; 02 Aug 2021 06:24:57 -0700
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: uma.shankar@intel.com, paulo.r.zanoni@intel.com,
- ville.syrjala@linux.intel.com, daniel.vetter@ffwll.ch,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, stable@vger.kernel.org
-Date: Mon,  2 Aug 2021 18:26:37 +0530
-Message-Id: <1627908997-32236-1-git-send-email-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.8.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51E706E0E5;
+	Mon,  2 Aug 2021 13:28:48 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 40C116E0E5;
+ Mon,  2 Aug 2021 13:28:47 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 397D5A73C7;
+ Mon,  2 Aug 2021 13:28:47 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915/display: Fix the 12 BPC bits for
- PIPE_MISC reg
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Desmond Cheong Zhi Xi" <desmondcheongzx@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 02 Aug 2021 13:28:47 -0000
+Message-ID: <162791092721.3902.10714610190952381857@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210802105957.77692-1-desmondcheongzx@gmail.com>
+In-Reply-To: <20210802105957.77692-1-desmondcheongzx@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_locking/lockdep=2C_drm=3A_apply_new_lockdep_assert_in_drm?=
+ =?utf-8?q?=5Fauth=2Ec?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,116 +53,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+== Series Details ==
 
-Till DISPLAY12 the PIPE_MISC bits 5-7 are used to set the
-Dithering BPC, with valid values of 6, 8, 10 BPC, with Dithering bit enabled.
-Also, these bits are used in case of HW readout for pipe_bpp in case of
-DSI.
-For ADLP+ these bits are used to set the PORT OUTPUT BPC, with valid
-values of: 6, 8, 10, 12 BPC, and need to be programmed whether
-dithering is enabled or not.
+Series: locking/lockdep, drm: apply new lockdep assert in drm_auth.c
+URL   : https://patchwork.freedesktop.org/series/93304/
+State : warning
 
-This patch:
--corrects the bits 5-7 for PIPE MISC register for 12 BPC.
--renames the bits and mask to have generic names for these bits for
-dithering bpc and port output bpc.
+== Summary ==
 
-v2: Addressed the comments and suggestions from Uma Shankar:
--Add 'display' in subject
--Add Fixes tag in the commit message.
--Take care of DSI case which uses the bits for getting pipe_bpp.
+$ dim checkpatch origin/drm-tip
+60bc4f495a48 locking/lockdep: Provide lockdep_assert{, _once}() helpers
+-:30: WARNING:SINGLE_STATEMENT_DO_WHILE_MACRO: Single statement macros should not use a do {} while (0) loop
+#30: FILE: include/linux/lockdep.h:309:
++#define lockdep_assert(cond)		\
++	do { WARN_ON(debug_locks && !(cond)); } while (0)
 
-Fixes: 756f85cffef2 ("drm/i915/bdw: Broadwell has PIPEMISC")
-Cc: Paulo Zanoni <paulo.r.zanoni@intel.com> (v1)
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v3.13+
+-:37: WARNING:SINGLE_STATEMENT_DO_WHILE_MACRO: Single statement macros should not use a do {} while (0) loop
+#37: FILE: include/linux/lockdep.h:312:
++#define lockdep_assert_once(cond)	\
++	do { WARN_ON_ONCE(debug_locks && !(cond)); } while (0)
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 18 +++++++++---------
- drivers/gpu/drm/i915/i915_reg.h              | 15 ++++++++++-----
- 2 files changed, 19 insertions(+), 14 deletions(-)
+-:81: CHECK:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email comments mismatch: 'From: Peter Zijlstra <peterz@infradead.org>' != 'Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>'
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 65ddb6c..9766b36 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5760,16 +5760,16 @@ static void bdw_set_pipemisc(const struct intel_crtc_state *crtc_state)
- 
- 	switch (crtc_state->pipe_bpp) {
- 	case 18:
--		val |= PIPEMISC_DITHER_6_BPC;
-+		val |= PIPEMISC_6_BPC;
- 		break;
- 	case 24:
--		val |= PIPEMISC_DITHER_8_BPC;
-+		val |= PIPEMISC_8_BPC;
- 		break;
- 	case 30:
--		val |= PIPEMISC_DITHER_10_BPC;
-+		val |= PIPEMISC_10_BPC;
- 		break;
- 	case 36:
--		val |= PIPEMISC_DITHER_12_BPC;
-+		val |= PIPEMISC_12_BPC;
- 		break;
- 	default:
- 		MISSING_CASE(crtc_state->pipe_bpp);
-@@ -5822,14 +5822,14 @@ int bdw_get_pipemisc_bpp(struct intel_crtc *crtc)
- 
- 	tmp = intel_de_read(dev_priv, PIPEMISC(crtc->pipe));
- 
--	switch (tmp & PIPEMISC_DITHER_BPC_MASK) {
--	case PIPEMISC_DITHER_6_BPC:
-+	switch (tmp & PIPEMISC_BPC_MASK) {
-+	case PIPEMISC_6_BPC:
- 		return 18;
--	case PIPEMISC_DITHER_8_BPC:
-+	case PIPEMISC_8_BPC:
- 		return 24;
--	case PIPEMISC_DITHER_10_BPC:
-+	case PIPEMISC_10_BPC:
- 		return 30;
--	case PIPEMISC_DITHER_12_BPC:
-+	case PIPEMISC_12_BPC:
- 		return 36;
- 	default:
- 		MISSING_CASE(tmp);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 943fe48..bbfe4f4 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -6166,11 +6166,16 @@ enum {
- #define   PIPEMISC_HDR_MODE_PRECISION	(1 << 23) /* icl+ */
- #define   PIPEMISC_OUTPUT_COLORSPACE_YUV  (1 << 11)
- #define   PIPEMISC_PIXEL_ROUNDING_TRUNC	REG_BIT(8) /* tgl+ */
--#define   PIPEMISC_DITHER_BPC_MASK	(7 << 5)
--#define   PIPEMISC_DITHER_8_BPC		(0 << 5)
--#define   PIPEMISC_DITHER_10_BPC	(1 << 5)
--#define   PIPEMISC_DITHER_6_BPC		(2 << 5)
--#define   PIPEMISC_DITHER_12_BPC	(3 << 5)
-+/*
-+ * For Display < 13, Bits 5-7 of PIPE MISC represent DITHER BPC.
-+ * ADLP+, the bits 5-7 represent PORT OUTPUT BPC with valid values of:
-+ * 6, 8, 10, 12 BPC.
-+ */
-+#define   PIPEMISC_BPC_MASK		(7 << 5)
-+#define   PIPEMISC_8_BPC		(0 << 5)
-+#define   PIPEMISC_10_BPC		(1 << 5)
-+#define   PIPEMISC_6_BPC		(2 << 5)
-+#define   PIPEMISC_12_BPC		(4 << 5) /* adlp+ */
- #define   PIPEMISC_DITHER_ENABLE	(1 << 4)
- #define   PIPEMISC_DITHER_TYPE_MASK	(3 << 2)
- #define   PIPEMISC_DITHER_TYPE_SP	(0 << 2)
--- 
-2.8.1
+total: 0 errors, 2 warnings, 1 checks, 58 lines checked
+e5ac42473801 drm: add lockdep assert to drm_is_current_master_locked
+
 
