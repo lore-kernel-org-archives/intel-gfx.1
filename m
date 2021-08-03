@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EB28C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:12:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D736C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:12:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 47DE860184
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:12:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 47DE860184
+	by mail.kernel.org (Postfix) with ESMTPS id DAB3A601FC
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:12:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DAB3A601FC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 382A76E15F;
-	Tue,  3 Aug 2021 22:11:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 127EB6E13A;
+	Tue,  3 Aug 2021 22:11:54 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E106289D00;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B866B89B48;
  Tue,  3 Aug 2021 22:11:53 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="235745894"
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="235745894"
+X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="235745887"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="235745887"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:53 -0700
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512699"
+ 03 Aug 2021 15:11:52 -0700
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512690"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:53 -0700
+ 03 Aug 2021 15:11:52 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue,  3 Aug 2021 15:29:04 -0700
-Message-Id: <20210803222943.27686-8-matthew.brost@intel.com>
+Date: Tue,  3 Aug 2021 15:28:57 -0700
+Message-Id: <20210803222943.27686-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210803222943.27686-1-matthew.brost@intel.com>
-References: <20210803222943.27686-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/46] drm/i915/guc: Non-static lrc descriptor
- registration buffer
+Subject: [Intel-gfx] [PATCH 00/46] Parallel submission aka multi-bb execbuf
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,420 +56,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Dynamically allocate space for lrc descriptor registration with the GuC
-rather than using a large static buffer indexed by the guc_id. If no
-space is available to register a context, fall back to tasklet flow
-control mechanism. Only allow 1/2 of the space to be allocated outside
-the tasklet to prevent unready requests/contexts from consuming all
-registration space.
+As discussed in [1] we are introducing a new parallel submission uAPI
+for the i915 which allows more than 1 BB to be submitted in an execbuf
+IOCTL. This is the implemenation for both GuC and execlists.
+
+In addition to selftests in the series, an IGT is available implemented
+in the first 4 patches [2].
+
+Media UMD changes to land soon.
+
+This series is broken into 5 parts.
+
+1. A series of GuC patches which introduces a state machine to deal with
+flow control conditions gracefully (e.g. don't punt them to the user).
+These are patches 1-12.
+
+2. Update the GuC backend / connections to uAPI to configure it for
+parallel submission. These are patches 13-30. 
+
+3. Update execbuf IOCTL to accept more than 1 BB in a single IOCTL.
+These are patches 31-44.
+
+4. A weak execlists implemenation for parallel submission. Patch 45. 
+
+5. Add a heuristic to enable issue schedule disables immediately after
+unpin. Not all that related but wanted to get this out on the list for
+review and based on the tip of all of these patches. Patch 46.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_context_types.h |   3 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   9 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 202 ++++++++++++------
- 3 files changed, 150 insertions(+), 64 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index c01530d7dc67..2df79ba39867 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -179,6 +179,9 @@ struct intel_context {
- 	/* GuC scheduling state flags that do not require a lock. */
- 	atomic_t guc_sched_state_no_lock;
- 
-+	/* GuC lrc descriptor registration buffer */
-+	unsigned int guc_lrcd_reg_idx;
-+
- 	/* GuC LRC descriptor ID */
- 	u16 guc_id;
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 8ac016201658..c0a12ae95ba5 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -69,8 +69,13 @@ struct intel_guc {
- 	u32 ads_regset_size;
- 	u32 ads_golden_ctxt_size;
- 
--	struct i915_vma *lrc_desc_pool;
--	void *lrc_desc_pool_vaddr;
-+	/* GuC LRC descriptor registration */
-+	struct {
-+		struct i915_vma *vma;
-+		void *vaddr;
-+		struct ida ida;
-+		unsigned int max_idx;
-+	} lrcd_reg;
- 
- 	/* guc_id to intel_context lookup */
- 	struct xarray context_lookup;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index a7f7174b5343..bfda15bf9182 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -439,65 +439,54 @@ static inline struct i915_priolist *to_priolist(struct rb_node *rb)
- 	return rb_entry(rb, struct i915_priolist, node);
- }
- 
--static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
-+static u32 __get_lrc_desc_offset(struct intel_guc *guc, int index)
- {
--	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
--
-+	GEM_BUG_ON(index >= guc->lrcd_reg.max_idx);
- 	GEM_BUG_ON(index >= guc->max_guc_ids);
- 
--	return &base[index];
-+	return intel_guc_ggtt_offset(guc, guc->lrcd_reg.vma) +
-+		(index * sizeof(struct guc_lrc_desc));
- }
- 
--static inline struct intel_context *__get_context(struct intel_guc *guc, u32 id)
-+static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, int index)
- {
--	struct intel_context *ce = xa_load(&guc->context_lookup, id);
-+	struct guc_lrc_desc *desc;
- 
--	GEM_BUG_ON(id >= guc->max_guc_ids);
-+	GEM_BUG_ON(index >= guc->lrcd_reg.max_idx);
-+	GEM_BUG_ON(index >= guc->max_guc_ids);
- 
--	return ce;
-+	desc = guc->lrcd_reg.vaddr;
-+	desc = &desc[index];
-+	memset(desc, 0, sizeof(*desc));
-+
-+	return desc;
- }
- 
--static int guc_lrc_desc_pool_create(struct intel_guc *guc)
-+static inline struct intel_context *__get_context(struct intel_guc *guc, u32 id)
- {
--	u32 size;
--	int ret;
--
--	size = PAGE_ALIGN(sizeof(struct guc_lrc_desc) * guc->max_guc_ids);
--	ret = intel_guc_allocate_and_map_vma(guc, size, &guc->lrc_desc_pool,
--					     (void **)&guc->lrc_desc_pool_vaddr);
--	if (ret)
--		return ret;
-+	struct intel_context *ce = xa_load(&guc->context_lookup, id);
- 
--	return 0;
--}
-+	GEM_BUG_ON(id >= guc->max_guc_ids);
- 
--static void guc_lrc_desc_pool_destroy(struct intel_guc *guc)
--{
--	guc->lrc_desc_pool_vaddr = NULL;
--	i915_vma_unpin_and_release(&guc->lrc_desc_pool, I915_VMA_RELEASE_MAP);
-+	return ce;
- }
- 
- static inline bool guc_submission_initialized(struct intel_guc *guc)
- {
--	return !!guc->lrc_desc_pool_vaddr;
-+	return !!guc->lrcd_reg.max_idx;
- }
- 
--static inline void reset_lrc_desc(struct intel_guc *guc, u32 id)
-+static inline void clr_lrc_desc_registered(struct intel_guc *guc, u32 id)
- {
--	if (likely(guc_submission_initialized(guc))) {
--		struct guc_lrc_desc *desc = __get_lrc_desc(guc, id);
--		unsigned long flags;
--
--		memset(desc, 0, sizeof(*desc));
-+	unsigned long flags;
- 
--		/*
--		 * xarray API doesn't have xa_erase_irqsave wrapper, so calling
--		 * the lower level functions directly.
--		 */
--		xa_lock_irqsave(&guc->context_lookup, flags);
--		__xa_erase(&guc->context_lookup, id);
--		xa_unlock_irqrestore(&guc->context_lookup, flags);
--	}
-+	/*
-+	 * xarray API doesn't have xa_erase_irqsave wrapper, so calling
-+	 * the lower level functions directly.
-+	 */
-+	xa_lock_irqsave(&guc->context_lookup, flags);
-+	__xa_erase(&guc->context_lookup, id);
-+	xa_unlock_irqrestore(&guc->context_lookup, flags);
- }
- 
- static inline bool lrc_desc_registered(struct intel_guc *guc, u32 id)
-@@ -1385,6 +1374,9 @@ static void retire_worker_func(struct work_struct *w)
- 	}
- }
- 
-+static int guc_lrcd_reg_init(struct intel_guc *guc);
-+static void guc_lrcd_reg_fini(struct intel_guc *guc);
-+
- /*
-  * Set up the memory resources to be shared with the GuC (via the GGTT)
-  * at firmware loading time.
-@@ -1393,17 +1385,12 @@ int intel_guc_submission_init(struct intel_guc *guc)
- {
- 	int ret;
- 
--	if (guc->lrc_desc_pool)
-+	if (guc_submission_initialized(guc))
- 		return 0;
- 
--	ret = guc_lrc_desc_pool_create(guc);
-+	ret = guc_lrcd_reg_init(guc);
- 	if (ret)
- 		return ret;
--	/*
--	 * Keep static analysers happy, let them know that we allocated the
--	 * vma after testing that it didn't exist earlier.
--	 */
--	GEM_BUG_ON(!guc->lrc_desc_pool);
- 
- 	xa_init_flags(&guc->context_lookup, XA_FLAGS_LOCK_IRQ);
- 
-@@ -1419,10 +1406,10 @@ void intel_guc_submission_fini(struct intel_guc *guc)
- {
- 	int i;
- 
--	if (!guc->lrc_desc_pool)
-+	if (!guc_submission_initialized(guc))
- 		return;
- 
--	guc_lrc_desc_pool_destroy(guc);
-+	guc_lrcd_reg_fini(guc);
- 
- 	for (i = 0; i < GUC_SUBMIT_ENGINE_MAX; ++i) {
- 		struct i915_sched_engine *sched_engine =
-@@ -1495,6 +1482,7 @@ static bool need_tasklet(struct guc_submit_engine *gse, struct intel_context *ce
- 	return guc_ids_exhausted(gse) || submission_disabled(guc) ||
- 		gse->stalled_rq || gse->stalled_context ||
- 		!lrc_desc_registered(guc, ce->guc_id) ||
-+		context_needs_register(ce) ||
- 		!i915_sched_engine_is_empty(sched_engine);
- }
- 
-@@ -1546,7 +1534,7 @@ static void __release_guc_id(struct intel_guc *guc, struct intel_context *ce)
- {
- 	if (!context_guc_id_invalid(ce)) {
- 		ida_simple_remove(&guc->guc_ids, ce->guc_id);
--		reset_lrc_desc(guc, ce->guc_id);
-+		clr_lrc_desc_registered(guc, ce->guc_id);
- 		set_context_guc_id_invalid(ce);
- 	}
- 	if (!list_empty(&ce->guc_id_link))
-@@ -1743,14 +1731,14 @@ static void unpin_guc_id(struct intel_guc *guc,
- }
- 
- static int __guc_action_register_context(struct intel_guc *guc,
-+					 struct intel_context *ce,
- 					 u32 guc_id,
--					 u32 offset,
- 					 bool loop)
- {
- 	u32 action[] = {
- 		INTEL_GUC_ACTION_REGISTER_CONTEXT,
- 		guc_id,
--		offset,
-+		__get_lrc_desc_offset(guc, ce->guc_lrcd_reg_idx),
- 	};
- 
- 	return guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
-@@ -1760,13 +1748,11 @@ static int __guc_action_register_context(struct intel_guc *guc,
- static int register_context(struct intel_context *ce, bool loop)
- {
- 	struct intel_guc *guc = ce_to_guc(ce);
--	u32 offset = intel_guc_ggtt_offset(guc, guc->lrc_desc_pool) +
--		ce->guc_id * sizeof(struct guc_lrc_desc);
- 	int ret;
- 
- 	trace_intel_context_register(ce);
- 
--	ret = __guc_action_register_context(guc, ce->guc_id, offset, loop);
-+	ret = __guc_action_register_context(guc, ce, ce->guc_id, loop);
- 	if (likely(!ret))
- 		set_context_registered(ce);
- 
-@@ -1828,6 +1814,86 @@ static void guc_context_policy_init(struct intel_engine_cs *engine,
- 
- static inline u8 map_i915_prio_to_guc_prio(int prio);
- 
-+static int alloc_lrcd_reg_idx_buffer(struct intel_guc *guc, int num_per_vma)
-+{
-+	u32 size = num_per_vma * sizeof(struct guc_lrc_desc);
-+	struct i915_vma **vma = &guc->lrcd_reg.vma;
-+	void **vaddr = &guc->lrcd_reg.vaddr;
-+	int ret;
-+
-+	GEM_BUG_ON(!is_power_of_2(size));
-+
-+	ret = intel_guc_allocate_and_map_vma(guc, size, vma, vaddr);
-+	if (unlikely(ret))
-+		return ret;
-+
-+	guc->lrcd_reg.max_idx += num_per_vma;
-+
-+	return 0;
-+}
-+
-+static int alloc_lrcd_reg_idx(struct intel_guc *guc, bool tasklet)
-+{
-+	int ret;
-+	gfp_t gfp = tasklet ? GFP_ATOMIC :
-+		GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-+
-+	might_sleep_if(!tasklet);
-+
-+	/*
-+	 * We only allow 1/2 of the space to be allocated outside of tasklet
-+	 * (flow control) to ensure requests that are not ready don't consume
-+	 * all context registration space.
-+	 */
-+	ret = ida_simple_get(&guc->lrcd_reg.ida, 0,
-+			     tasklet ? guc->lrcd_reg.max_idx :
-+			     guc->lrcd_reg.max_idx / 2, gfp);
-+	if (unlikely(ret < 0))
-+		return -EBUSY;
-+
-+	return ret;
-+}
-+
-+static void __free_lrcd_reg_idx(struct intel_guc *guc, struct intel_context *ce)
-+{
-+	if (ce->guc_lrcd_reg_idx && guc->lrcd_reg.max_idx) {
-+		ida_simple_remove(&guc->lrcd_reg.ida, ce->guc_lrcd_reg_idx);
-+		ce->guc_lrcd_reg_idx = 0;
-+	}
-+}
-+
-+static void free_lrcd_reg_idx(struct intel_guc *guc, struct intel_context *ce)
-+{
-+	__free_lrcd_reg_idx(guc, ce);
-+}
-+
-+static int guc_lrcd_reg_init(struct intel_guc *guc)
-+{
-+	unsigned int buffer_size = I915_GTT_PAGE_SIZE_4K * 16;
-+	int ret;
-+
-+	ida_init(&guc->lrcd_reg.ida);
-+
-+	ret = alloc_lrcd_reg_idx_buffer(guc, buffer_size /
-+					sizeof(struct guc_lrc_desc));
-+	if (unlikely(ret))
-+		return ret;
-+
-+	/* Zero is reserved */
-+	ret = alloc_lrcd_reg_idx(guc, false);
-+	GEM_BUG_ON(ret);
-+
-+	return ret;
-+}
-+
-+static void guc_lrcd_reg_fini(struct intel_guc *guc)
-+{
-+	i915_vma_unpin_and_release(&guc->lrcd_reg.vma,
-+				   I915_VMA_RELEASE_MAP);
-+	ida_destroy(&guc->lrcd_reg.ida);
-+	guc->lrcd_reg.max_idx = 0;
-+}
-+
- static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- {
- 	struct intel_engine_cs *engine = ce->engine;
-@@ -1851,6 +1917,14 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	GEM_BUG_ON(i915_gem_object_is_lmem(guc->ct.vma->obj) !=
- 		   i915_gem_object_is_lmem(ce->ring->vma->obj));
- 
-+	/* Allocate space for registration */
-+	if (likely(!ce->guc_lrcd_reg_idx)) {
-+		ret = alloc_lrcd_reg_idx(guc, !loop);
-+		if (unlikely(ret < 0))
-+			return ret;
-+		ce->guc_lrcd_reg_idx = ret;
-+	}
-+
- 	context_registered = lrc_desc_registered(guc, desc_idx);
- 
- 	rcu_read_lock();
-@@ -1859,12 +1933,11 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 		prio = ctx->sched.priority;
- 	rcu_read_unlock();
- 
--	reset_lrc_desc(guc, desc_idx);
- 	ret = set_lrc_desc_registered(guc, desc_idx, ce);
- 	if (unlikely(ret))
- 		return ret;
- 
--	desc = __get_lrc_desc(guc, desc_idx);
-+	desc = __get_lrc_desc(guc, ce->guc_lrcd_reg_idx);
- 	desc->engine_class = engine_class_to_guc_class(engine->class);
- 	desc->engine_submit_mask = adjust_engine_mask(engine->class,
- 						      engine->mask);
-@@ -1902,7 +1975,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 			}
- 			spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 			if (unlikely(disabled)) {
--				reset_lrc_desc(guc, desc_idx);
-+				clr_lrc_desc_registered(guc, desc_idx);
- 				return 0;	/* Will get registered later */
- 			}
- 		}
-@@ -1930,7 +2003,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 		with_intel_runtime_pm(runtime_pm, wakeref)
- 			ret = register_context(ce, loop);
- 		if (unlikely(ret == -EBUSY))
--			reset_lrc_desc(guc, desc_idx);
-+			clr_lrc_desc_registered(guc, desc_idx);
- 		else if (unlikely(ret == -ENODEV))
- 			ret = 0;	/* Will get registered later */
- 	}
-@@ -2296,6 +2369,7 @@ static void __guc_context_destroy(struct intel_context *ce)
- 
- 	lrc_fini(ce);
- 	intel_context_fini(ce);
-+	__free_lrcd_reg_idx(ce_to_guc(ce), ce);
- 
- 	if (intel_engine_is_virtual(ce->engine)) {
- 		struct guc_virtual_engine *ve =
-@@ -2807,11 +2881,11 @@ static int guc_request_alloc(struct i915_request *rq)
- 
- 	if (context_needs_lrc_desc_pin(ce, !!ret)) {
- 		ret = guc_lrc_desc_pin(ce, true);
--		if (unlikely(ret)) {	/* unwind */
--			if (ret == -EPIPE) {
--				disable_submission(guc);
--				goto out;	/* GPU will be reset */
--			}
-+		if (unlikely(ret == -EBUSY))
-+			set_context_needs_register(ce);
-+		else if (ret == -EPIPE)
-+			disable_submission(guc); /* GPU will be reset */
-+		else if (unlikely(ret)) {	/* unwind */
- 			atomic_dec(&ce->guc_id_ref);
- 			unpin_guc_id(guc, ce, true);
- 			return ret;
-@@ -3438,6 +3512,8 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
- 
- 	if (context_pending_enable(ce)) {
- 		clr_context_pending_enable(ce);
-+
-+		free_lrcd_reg_idx(guc, ce);
- 	} else if (context_pending_disable(ce)) {
- 		bool banned;
- 
-@@ -3706,6 +3782,8 @@ void intel_guc_submission_print_info(struct intel_guc *guc,
- 		   atomic_read(&guc->outstanding_submission_g2h));
- 	drm_printf(p, "GuC Number GuC IDs: %d\n", guc->num_guc_ids);
- 	drm_printf(p, "GuC Max Number GuC IDs: %d\n\n", guc->max_guc_ids);
-+	drm_printf(p, "GuC max context registered: %u\n\n",
-+		   guc->lrcd_reg.max_idx);
- 
- 	for (i = 0; i < GUC_SUBMIT_ENGINE_MAX; ++i)
- 		gse_log_submission_info(guc->gse[i], p, i);
+[1] https://patchwork.freedesktop.org/series/92028/
+[2] https://patchwork.freedesktop.org/series/93071/
+
+Matthew Brost (46):
+  drm/i915/guc: Allow flexible number of context ids
+  drm/i915/guc: Connect the number of guc_ids to debugfs
+  drm/i915/guc: Don't return -EAGAIN to user when guc_ids exhausted
+  drm/i915/guc: Don't allow requests not ready to consume all guc_ids
+  drm/i915/guc: Introduce guc_submit_engine object
+  drm/i915/guc: Check return of __xa_store when registering a context
+  drm/i915/guc: Non-static lrc descriptor registration buffer
+  drm/i915/guc: Take GT PM ref when deregistering context
+  drm/i915: Add GT PM unpark worker
+  drm/i915/guc: Take engine PM when a context is pinned with GuC
+    submission
+  drm/i915/guc: Don't call switch_to_kernel_context with GuC submission
+  drm/i915/guc: Selftest for GuC flow control
+  drm/i915: Add logical engine mapping
+  drm/i915: Expose logical engine instance to user
+  drm/i915/guc: Introduce context parent-child relationship
+  drm/i915/guc: Implement GuC parent-child context pin / unpin functions
+  drm/i915/guc: Add multi-lrc context registration
+  drm/i915/guc: Ensure GuC schedule operations do not operate on child
+    contexts
+  drm/i915/guc: Assign contexts in parent-child relationship consecutive
+    guc_ids
+  drm/i915/guc: Add hang check to GuC submit engine
+  drm/i915/guc: Add guc_child_context_destroy
+  drm/i915/guc: Implement multi-lrc submission
+  drm/i915/guc: Insert submit fences between requests in parent-child
+    relationship
+  drm/i915/guc: Implement multi-lrc reset
+  drm/i915/guc: Update debugfs for GuC multi-lrc
+  drm/i915: Connect UAPI to GuC multi-lrc interface
+  drm/i915/doc: Update parallel submit doc to point to i915_drm.h
+  drm/i915/guc: Add basic GuC multi-lrc selftest
+  drm/i915/guc: Extend GuC flow control selftest for multi-lrc
+  drm/i915/guc: Implement no mid batch preemption for multi-lrc
+  drm/i915: Move secure execbuf check to execbuf2
+  drm/i915: Move input/exec fence handling to i915_gem_execbuffer2
+  drm/i915: Move output fence handling to i915_gem_execbuffer2
+  drm/i915: Return output fence from i915_gem_do_execbuffer
+  drm/i915: Store batch index in struct i915_execbuffer
+  drm/i915: Allow callers of i915_gem_do_execbuffer to override the
+    batch index
+  drm/i915: Teach execbuf there can be more than one batch in the
+    objects list
+  drm/i915: Only track object dependencies on first request
+  drm/i915: Force parallel contexts to use copy engine for reloc
+  drm/i915: Multi-batch execbuffer2
+  drm/i915: Eliminate unnecessary VMA calls for multi-BB submission
+  drm/i915: Hold all parallel requests until last request, properly
+    handle error
+  drm/i915/guc: Handle errors in multi-lrc requests
+  drm/i915: Enable multi-bb execbuf
+  drm/i915/execlists: Weak parallel submission support for execlists
+  drm/i915/guc: Add delay before disabling scheduling on contexts
+
+ Documentation/gpu/rfc/i915_parallel_execbuf.h |  122 -
+ Documentation/gpu/rfc/i915_scheduler.rst      |    4 +-
+ drivers/gpu/drm/i915/Makefile                 |    1 +
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |  159 +-
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |    6 +
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  582 ++-
+ .../i915/gem/selftests/i915_gem_coherency.c   |    2 +-
+ .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |    2 +-
+ .../i915/gem/selftests/i915_gem_execbuffer.c  |   14 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |    2 +-
+ .../drm/i915/gem/selftests/i915_gem_object.c  |    2 +-
+ drivers/gpu/drm/i915/gt/intel_context.c       |  236 +-
+ drivers/gpu/drm/i915/gt/intel_context.h       |   81 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h |   62 +-
+ drivers/gpu/drm/i915/gt/intel_engine.h        |   12 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   66 +-
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c     |    4 +
+ drivers/gpu/drm/i915/gt/intel_engine_pm.h     |    5 +
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |    1 +
+ .../drm/i915/gt/intel_execlists_submission.c  |  233 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c            |    3 +
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |    8 +
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h         |   13 +
+ .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.c |   35 +
+ .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.h |   32 +
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      |    3 +
+ drivers/gpu/drm/i915/gt/intel_lrc.c           |   31 +-
+ drivers/gpu/drm/i915/gt/intel_lrc.h           |    6 +-
+ drivers/gpu/drm/i915/gt/intel_reset.c         |   10 +
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |    5 +-
+ drivers/gpu/drm/i915/gt/mock_engine.c         |    4 +-
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  |   12 +-
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |    1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   46 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |    2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   43 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |    9 +
+ .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |   59 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   10 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 3159 +++++++++++++++--
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.h |    2 +
+ .../i915/gt/uc/intel_guc_submission_types.h   |   67 +
+ .../i915/gt/uc/selftest_guc_flow_control.c    |  891 +++++
+ .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   |  179 +
+ drivers/gpu/drm/i915/i915_query.c             |    2 +
+ drivers/gpu/drm/i915/i915_request.c           |  120 +-
+ drivers/gpu/drm/i915/i915_request.h           |   23 +
+ drivers/gpu/drm/i915/i915_scheduler.c         |   22 +-
+ drivers/gpu/drm/i915/i915_scheduler.h         |    3 +
+ drivers/gpu/drm/i915/i915_selftest.h          |    2 +
+ drivers/gpu/drm/i915/i915_trace.h             |   10 +
+ drivers/gpu/drm/i915/i915_vma.c               |   13 +-
+ drivers/gpu/drm/i915/i915_vma.h               |   16 +-
+ drivers/gpu/drm/i915/intel_wakeref.c          |    5 +
+ drivers/gpu/drm/i915/intel_wakeref.h          |    1 +
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |    2 +-
+ .../drm/i915/selftests/i915_live_selftests.h  |    2 +
+ drivers/gpu/drm/i915/selftests/i915_perf.c    |    2 +-
+ drivers/gpu/drm/i915/selftests/i915_request.c |    2 +-
+ drivers/gpu/drm/i915/selftests/i915_vma.c     |    2 +-
+ .../i915/selftests/intel_scheduler_helpers.c  |   12 +
+ .../i915/selftests/intel_scheduler_helpers.h  |    2 +
+ include/uapi/drm/i915_drm.h                   |  136 +-
+ 63 files changed, 5741 insertions(+), 862 deletions(-)
+ delete mode 100644 Documentation/gpu/rfc/i915_parallel_execbuf.h
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_submission_types.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc_flow_control.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
+
 -- 
 2.28.0
 
