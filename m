@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47545C432BE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B00CDC43214
 	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 04:53:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 17EBF60249
+	by mail.kernel.org (Postfix) with ESMTPS id 81B9660249
 	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 04:53:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 17EBF60249
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 81B9660249
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E10B6E32F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6235B6E3B2;
 	Tue,  3 Aug 2021 04:53:34 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4940E89DE1;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17DD989E03;
  Tue,  3 Aug 2021 04:53:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10064"; a="200782765"
-X-IronPort-AV: E=Sophos;i="5.84,290,1620716400"; d="scan'208";a="200782765"
+X-IronPort-AV: E=McAfee;i="6200,9189,10064"; a="200782764"
+X-IronPort-AV: E=Sophos;i="5.84,290,1620716400"; d="scan'208";a="200782764"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Aug 2021 21:53:31 -0700
-X-IronPort-AV: E=Sophos;i="5.84,290,1620716400"; d="scan'208";a="666911359"
+X-IronPort-AV: E=Sophos;i="5.84,290,1620716400"; d="scan'208";a="666911358"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2021 21:53:31 -0700
+ 02 Aug 2021 21:53:30 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Mon,  2 Aug 2021 22:11:21 -0700
-Message-Id: <20210803051121.72017-5-matthew.brost@intel.com>
+Date: Mon,  2 Aug 2021 22:11:20 -0700
+Message-Id: <20210803051121.72017-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210803051121.72017-1-matthew.brost@intel.com>
 References: <20210803051121.72017-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/guc: Enable GuC submission by
- default on DG1
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/guc: Add DG1 GuC / HuC firmware
+ defs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,22 +61,21 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_uc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index da57d18d9f6b..fc2fc8d111d8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -35,7 +35,7 @@ static void uc_expand_default_options(struct intel_uc *uc)
- 	}
- 
- 	/* Intermediate platforms are HuC authentication only */
--	if (IS_DG1(i915) || IS_ALDERLAKE_S(i915)) {
-+	if (IS_ALDERLAKE_S(i915)) {
- 		i915->params.enable_guc = ENABLE_GUC_LOAD_HUC;
- 		return;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index f8cb00ffb506..a685d563df72 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -51,6 +51,7 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+ #define INTEL_UC_FIRMWARE_DEFS(fw_def, guc_def, huc_def) \
+ 	fw_def(ALDERLAKE_P, 0, guc_def(adlp, 62, 0, 3), huc_def(tgl, 7, 9, 3)) \
+ 	fw_def(ALDERLAKE_S, 0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
++	fw_def(DG1,         0, guc_def(dg1, 62, 0, 0), huc_def(dg1,  7, 9, 3)) \
+ 	fw_def(ROCKETLAKE,  0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
+ 	fw_def(TIGERLAKE,   0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
+ 	fw_def(JASPERLAKE,  0, guc_def(ehl, 62, 0, 0), huc_def(ehl,  9, 0, 0)) \
 -- 
 2.28.0
 
