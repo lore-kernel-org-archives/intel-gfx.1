@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38E35C4338F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D80D0C432BE
 	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:12:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 08B2C601FC
+	by mail.kernel.org (Postfix) with ESMTPS id AC63F601FC
 	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:12:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 08B2C601FC
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AC63F601FC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3BA36E944;
-	Tue,  3 Aug 2021 22:12:03 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 420726E8E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 593036E8E7;
+	Tue,  3 Aug 2021 22:12:04 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADA3B6E17E;
  Tue,  3 Aug 2021 22:11:56 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="235745915"
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="235745915"
+X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="193393475"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="193393475"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:54 -0700
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512722"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2021 15:11:55 -0700
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512727"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:54 -0700
+ 03 Aug 2021 15:11:55 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue,  3 Aug 2021 15:29:21 -0700
-Message-Id: <20210803222943.27686-25-matthew.brost@intel.com>
+Date: Tue,  3 Aug 2021 15:29:26 -0700
+Message-Id: <20210803222943.27686-30-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210803222943.27686-1-matthew.brost@intel.com>
 References: <20210803222943.27686-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 24/46] drm/i915/guc: Implement multi-lrc reset
+Subject: [Intel-gfx] [PATCH 29/46] drm/i915/guc: Extend GuC flow control
+ selftest for multi-lrc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,174 +59,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Update context and full GPU reset to work with multi-lrc. The idea is
-parent context tracks all the active requests inflight for itself and
-its' children. The parent context owns the reset replaying / canceling
-requests as needed.
+Prove multi-lrc and single-lrc are independent.
+Prove multi-lrc guc_ids flow control works.
+Prove multi-lrc hanging the tastlet can recover from a GPU reset.
 
+Cc: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       | 12 ++--
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 57 ++++++++++++++-----
- 2 files changed, 49 insertions(+), 20 deletions(-)
+ .../i915/gt/uc/selftest_guc_flow_control.c    | 299 ++++++++++++++++++
+ .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   |  15 +-
+ 2 files changed, 312 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 98ef2d0f7a39..c327fd1c24c2 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -595,20 +595,22 @@ struct i915_request *intel_context_create_request(struct intel_context *ce)
- 
- struct i915_request *intel_context_find_active_request(struct intel_context *ce)
- {
-+	struct intel_context *parent = intel_context_is_child(ce) ?
-+		ce->parent : ce;
- 	struct i915_request *rq, *active = NULL;
- 	unsigned long flags;
- 
- 	GEM_BUG_ON(!intel_engine_uses_guc(ce->engine));
- 
--	spin_lock_irqsave(&ce->guc_active.lock, flags);
--	list_for_each_entry_reverse(rq, &ce->guc_active.requests,
-+	spin_lock_irqsave(&parent->guc_active.lock, flags);
-+	list_for_each_entry_reverse(rq, &parent->guc_active.requests,
- 				    sched.link) {
--		if (i915_request_completed(rq))
-+		if (i915_request_completed(rq) && rq->context == ce)
- 			break;
- 
--		active = rq;
-+		active = (rq->context == ce) ? rq : active;
- 	}
--	spin_unlock_irqrestore(&ce->guc_active.lock, flags);
-+	spin_unlock_irqrestore(&parent->guc_active.lock, flags);
- 
- 	return active;
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 1cb382f7d79d..30df1c8db491 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -818,6 +818,11 @@ static inline int rq_prio(const struct i915_request *rq)
- 	return rq->sched.attr.priority;
+diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_flow_control.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_flow_control.c
+index f31ab2674b2b..9cfecf9d368e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/selftest_guc_flow_control.c
++++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_flow_control.c
+@@ -110,6 +110,65 @@ static int nop_request_wait(struct intel_engine_cs *engine, bool kernel,
+ 	return ret;
  }
  
-+static inline bool is_multi_lrc(struct intel_context *ce)
++static int multi_lrc_not_blocked(struct intel_gt *gt, bool flow_control)
 +{
-+	return intel_context_is_parallel(ce);
++	struct intel_guc *guc = &gt->uc.guc;
++	struct i915_gpu_error *global = &gt->i915->gpu_error;
++	struct guc_submit_engine *gse = guc->gse[GUC_SUBMIT_ENGINE_MULTI_LRC];
++	unsigned int reset_count = i915_reset_count(global);
++	u64 tasklets_submit_count = gse->tasklets_submit_count;
++	struct intel_context *parent;
++	struct i915_request *rq;
++	int ret;
++
++	parent = multi_lrc_create_parent(gt, VIDEO_DECODE_CLASS, 0);
++	if (IS_ERR(parent)) {
++		pr_err("Failed creating multi-lrc contexts: %ld",
++		       PTR_ERR(parent));
++		return PTR_ERR(parent);
++	} else if (!parent) {
++		pr_debug("Not enough engines in class: %d",
++			 VIDEO_DECODE_CLASS);
++		return 0;
++	}
++
++	rq = multi_lrc_nop_request(parent, NULL);
++	if (IS_ERR(rq)) {
++		ret = PTR_ERR(rq);
++		pr_err("Failed creating multi-lrc requests: %d", ret);
++		goto out;
++	}
++
++	ret = intel_selftest_wait_for_rq(rq);
++	if (ret)
++		pr_err("Failed waiting on multi-lrc request: %d", ret);
++
++	i915_request_put(rq);
++	if (ret)
++		goto out;
++
++	if (!flow_control &&
++	    gse->tasklets_submit_count != tasklets_submit_count) {
++		pr_err("Flow control for multi-lrc unexpectedly kicked in\n");
++		ret = -EINVAL;
++	}
++
++	if (flow_control &&
++	    gse->tasklets_submit_count == tasklets_submit_count) {
++		pr_err("Flow control for multi-lrc did not kick in\n");
++		ret = -EINVAL;
++	}
++
++	if (i915_reset_count(global) != reset_count) {
++		pr_err("Unexpected GPU reset during multi-lrc submit\n");
++		ret = -EINVAL;
++	}
++
++out:
++	multi_lrc_context_put(parent);
++	return ret;
 +}
 +
- static inline bool is_multi_lrc_rq(struct i915_request *rq)
- {
- 	return intel_context_is_parallel(rq->context);
-@@ -1381,6 +1386,8 @@ __unwind_incomplete_requests(struct intel_context *ce)
- 		ce->engine->sched_engine;
- 	unsigned long flags;
- 
-+	GEM_BUG_ON(intel_context_is_child(ce));
-+
- 	spin_lock_irqsave(&sched_engine->lock, flags);
- 	spin_lock(&ce->guc_active.lock);
- 	list_for_each_entry_safe(rq, rn,
-@@ -1413,8 +1420,12 @@ __unwind_incomplete_requests(struct intel_context *ce)
- 
- static void __guc_reset_context(struct intel_context *ce, bool stalled)
- {
-+	bool local_stalled;
- 	struct i915_request *rq;
- 	u32 head;
-+	int i, number_children = ce->guc_number_children;
-+
-+	GEM_BUG_ON(intel_context_is_child(ce));
- 
- 	intel_context_get(ce);
- 
-@@ -1426,22 +1437,32 @@ static void __guc_reset_context(struct intel_context *ce, bool stalled)
- 	 */
- 	clr_context_enabled(ce);
- 
--	rq = intel_context_find_active_request(ce);
--	if (!rq) {
--		head = ce->ring->tail;
--		stalled = false;
--		goto out_replay;
--	}
-+	for (i = 0; i < number_children + 1; ++i) {
-+		if (!intel_context_is_pinned(ce))
-+			goto next_context;
-+
-+		local_stalled = false;
-+		rq = intel_context_find_active_request(ce);
-+		if (!rq) {
-+			head = ce->ring->tail;
-+			goto out_replay;
-+		}
- 
--	if (!i915_request_started(rq))
--		stalled = false;
-+		GEM_BUG_ON(i915_active_is_idle(&ce->active));
-+		head = intel_ring_wrap(ce->ring, rq->head);
- 
--	GEM_BUG_ON(i915_active_is_idle(&ce->active));
--	head = intel_ring_wrap(ce->ring, rq->head);
--	__i915_request_reset(rq, stalled);
-+		if (i915_request_started(rq))
-+			local_stalled = true;
- 
-+		__i915_request_reset(rq, local_stalled && stalled);
- out_replay:
--	guc_reset_state(ce, head, stalled);
-+		guc_reset_state(ce, head, local_stalled && stalled);
-+next_context:
-+		if (i != number_children)
-+			ce = list_next_entry(ce, guc_child_link);
-+	}
-+	ce = intel_context_to_parent(ce);
-+
- 	__unwind_incomplete_requests(ce);
- 	ce->guc_num_rq_submit_no_id = 0;
- 	intel_context_put(ce);
-@@ -1458,9 +1479,11 @@ void intel_guc_submission_reset(struct intel_guc *guc, bool stalled)
+ #define NUM_GUC_ID		256
+ #define NUM_CONTEXT		1024
+ #define NUM_RQ_PER_CONTEXT	2
+@@ -240,6 +299,13 @@ static int __intel_guc_flow_control_guc(void *arg, bool limit_guc_ids, bool hang
+ 		goto err_spin_rq;
  	}
  
- 	xa_for_each(&guc->context_lookup, index, ce)
--		if (intel_context_is_pinned(ce))
-+		if (intel_context_is_pinned(ce) &&
-+		    !intel_context_is_child(ce))
- 			__guc_reset_context(ce, stalled);
- 
-+	/* GuC is blown away, drop all references to contexts */
- 	xa_destroy(&guc->context_lookup);
++	/* Ensure Multi-LRC not blocked */
++	ret = multi_lrc_not_blocked(gt, !limit_guc_ids);
++	if (ret < 0) {
++		pr_err("Multi-lrc can't make progress: %d\n", ret);
++		goto err_spin_rq;
++	}
++
+ 	/* Inject hang in flow control state machine */
+ 	if (hang) {
+ 		guc->gse_hang_expected = true;
+@@ -559,6 +625,237 @@ static int intel_guc_flow_control_bad_desc_h2g(void *arg)
+ 	return __intel_guc_flow_control_deadlock_h2g(arg, true);
  }
  
-@@ -1513,7 +1536,8 @@ gse_cancel_requests(struct guc_submit_engine *gse)
- 		struct i915_priolist *p = to_priolist(rb);
- 
- 		priolist_for_each_request_consume(rq, rn, p) {
--			struct intel_context *ce = rq->context;
-+			struct intel_context *ce =
-+				request_to_scheduling_context(rq);
- 
- 			list_del_init(&rq->sched.link);
- 
-@@ -1543,7 +1567,8 @@ void intel_guc_submission_cancel_requests(struct intel_guc *guc)
- 	int i;
- 
- 	xa_for_each(&guc->context_lookup, index, ce)
--		if (intel_context_is_pinned(ce))
-+		if (intel_context_is_pinned(ce) &&
-+		    !intel_context_is_child(ce))
- 			guc_cancel_context_requests(ce);
- 
- 	for (i = 0; i < GUC_SUBMIT_ENGINE_MAX; ++i)
-@@ -2823,6 +2848,8 @@ static void guc_context_ban(struct intel_context *ce, struct i915_request *rq)
- 	intel_wakeref_t wakeref;
- 	unsigned long flags;
- 
-+	GEM_BUG_ON(intel_context_is_child(ce));
++#define NUM_CONTEXT_MULTI_LRC	256
 +
- 	gse_flush_submissions(ce_to_gse(ce));
++static int
++__intel_guc_flow_control_multi_lrc_guc(void *arg, bool limit_guc_ids, bool hang)
++{
++	struct intel_gt *gt = arg;
++	struct intel_guc *guc = &gt->uc.guc;
++	struct guc_submit_engine *gse = guc->gse[GUC_SUBMIT_ENGINE_MULTI_LRC];
++	struct intel_context **contexts;
++	int ret = 0;
++	int i, j, k;
++	struct intel_context *ce;
++	struct igt_spinner spin;
++	struct i915_request *spin_rq, *last = NULL;
++	intel_wakeref_t wakeref;
++	struct intel_engine_cs *engine;
++	struct i915_gpu_error *global = &gt->i915->gpu_error;
++	unsigned int reset_count;
++	u64 tasklets_submit_count = gse->tasklets_submit_count;
++	u32 old_beat;
++
++	if (limit_guc_ids)
++		guc->num_guc_ids = NUM_GUC_ID;
++
++	contexts = kmalloc(sizeof(*contexts) * NUM_CONTEXT, GFP_KERNEL);
++	if (!contexts) {
++		pr_err("Context array allocation failed\n");
++		return -ENOMEM;
++	}
++
++	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
++
++	ce = intel_context_create(intel_selftest_find_any_engine(gt));
++	if (IS_ERR(ce)) {
++		ret = PTR_ERR(ce);
++		pr_err("Failed to create context: %d\n", ret);
++		goto err;
++	}
++
++	reset_count = i915_reset_count(global);
++	engine = ce->engine;
++
++	old_beat = engine->props.heartbeat_interval_ms;
++	if (hang) {
++		ret = intel_engine_set_heartbeat(engine, HEARTBEAT_INTERVAL);
++		if (ret) {
++			pr_err("Failed to boost heatbeat interval: %d\n", ret);
++			intel_context_put(ce);
++			goto err;
++		}
++	}
++
++	/* Create spinner to block requests in below loop */
++	ret = igt_spinner_init(&spin, engine->gt);
++	if (ret) {
++		pr_err("Failed to create spinner: %d\n", ret);
++		intel_context_put(ce);
++		goto err_heartbeat;
++	}
++	spin_rq = igt_spinner_create_request(&spin, ce, MI_ARB_CHECK);
++	intel_context_put(ce);
++	if (IS_ERR(spin_rq)) {
++		ret = PTR_ERR(spin_rq);
++		pr_err("Failed to create spinner request: %d\n", ret);
++		goto err_spin_rq;
++	}
++	ret = __request_add_spin(spin_rq, &spin);
++	if (ret) {
++		pr_err("Failed to add Spinner request: %d\n", ret);
++		goto err_spin_rq;
++	}
++
++	for (i = 0; i < NUM_RQ_PER_CONTEXT; ++i) {
++		for (j = 0; j < NUM_CONTEXT_MULTI_LRC; ++j) {
++			for (k = 0; k < NUM_RQ_PER_CONTEXT; ++k) {
++				bool first_pass = !i && !k;
++
++				if (last)
++					i915_request_put(last);
++				last = NULL;
++				if (first_pass)
++					contexts[j] = multi_lrc_create_parent(gt, VIDEO_DECODE_CLASS, 0);
++				ce = contexts[j];
++
++				if (IS_ERR(ce)) {
++					ret = PTR_ERR(ce);
++					pr_err("Failed to create context: %d\n", ret);
++					goto err_spin_rq;
++				} else if (!ce) {
++					ret = 0;
++					goto err_spin_rq;
++				}
++
++				last = multi_lrc_nop_request(ce, spin_rq);
++				if (first_pass)
++					multi_lrc_context_put(ce);
++				if (IS_ERR(last)) {
++					ret = PTR_ERR(last);
++					pr_err("Failed to create request: %d\n", ret);
++					goto err_spin_rq;
++				}
++			}
++		}
++	}
++
++	/* Verify GuC submit engine state */
++	if (limit_guc_ids && !guc_ids_exhausted(gse)) {
++		pr_err("guc_ids not exhausted\n");
++		ret = -EINVAL;
++		goto err_spin_rq;
++	}
++	if (!limit_guc_ids && guc_ids_exhausted(gse)) {
++		pr_err("guc_ids exhausted\n");
++		ret = -EINVAL;
++		goto err_spin_rq;
++	}
++
++	/* Ensure no DoS from unready requests */
++	ret = multi_lrc_not_blocked(gt, true);
++	if (ret < 0) {
++		pr_err("Multi-lrc DoS: %d\n", ret);
++		goto err_spin_rq;
++	}
++
++	/* Ensure Single-LRC not blocked, not in flow control */
++	ret = nop_request_wait(engine, false, !limit_guc_ids);
++	if (ret < 0) {
++		pr_err("User NOP request DoS: %d\n", ret);
++		goto err_spin_rq;
++	}
++
++	/* Inject hang in flow control state machine */
++	if (hang) {
++		guc->gse_hang_expected = true;
++		guc->inject_bad_sched_disable = true;
++	}
++
++	/* Release blocked requests */
++	igt_spinner_end(&spin);
++	ret = intel_selftest_wait_for_rq(spin_rq);
++	if (ret) {
++		pr_err("Spin request failed to complete: %d\n", ret);
++		goto err_spin_rq;
++	}
++	i915_request_put(spin_rq);
++	igt_spinner_fini(&spin);
++	spin_rq = NULL;
++
++	/* Wait for last request / GT to idle */
++	ret = i915_request_wait(last, 0, hang ? HZ * 30 : HZ * 5);
++	if (ret < 0) {
++		pr_err("Last request failed to complete: %d\n", ret);
++		goto err_spin_rq;
++	}
++	i915_request_put(last);
++	last = NULL;
++	ret = intel_gt_wait_for_idle(gt, HZ * 5);
++	if (ret < 0) {
++		pr_err("GT failed to idle: %d\n", ret);
++		goto err_spin_rq;
++	}
++
++	/* Check state after idle */
++	if (guc_ids_exhausted(gse)) {
++		pr_err("guc_ids exhausted after last request signaled\n");
++		ret = -EINVAL;
++		goto err_spin_rq;
++	}
++	if (hang) {
++		if (i915_reset_count(global) == reset_count) {
++			pr_err("Failed to record a GPU reset\n");
++			ret = -EINVAL;
++			goto err_spin_rq;
++		}
++	} else {
++		if (i915_reset_count(global) != reset_count) {
++			pr_err("Unexpected GPU reset\n");
++			ret = -EINVAL;
++			goto err_spin_rq;
++		}
++		if (gse->tasklets_submit_count == tasklets_submit_count) {
++			pr_err("Flow control failed to kick in\n");
++			ret = -EINVAL;
++			goto err_spin_rq;
++		}
++	}
++
++	/* Verify requests can be submitted after flow control */
++	ret = nop_request_wait(engine, true, false);
++	if (ret < 0) {
++		pr_err("Kernel NOP failed to complete: %d\n", ret);
++		goto err_spin_rq;
++	}
++	ret = nop_request_wait(engine, false, false);
++	if (ret < 0) {
++		pr_err("User NOP failed to complete: %d\n", ret);
++		goto err_spin_rq;
++	}
++
++err_spin_rq:
++	if (spin_rq) {
++		igt_spinner_end(&spin);
++		intel_selftest_wait_for_rq(spin_rq);
++		i915_request_put(spin_rq);
++		igt_spinner_fini(&spin);
++		intel_gt_wait_for_idle(gt, HZ * 5);
++	}
++err_heartbeat:
++	if (last)
++		i915_request_put(last);
++	intel_engine_set_heartbeat(engine, old_beat);
++err:
++	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
++	guc->num_guc_ids = guc->max_guc_ids;
++	guc->gse_hang_expected = false;
++	guc->inject_bad_sched_disable = false;
++	kfree(contexts);
++
++	return ret;
++}
++
++static int intel_guc_flow_control_multi_lrc_guc_ids(void *arg)
++{
++	return __intel_guc_flow_control_multi_lrc_guc(arg, true, false);
++}
++
++static int intel_guc_flow_control_multi_lrc_hang(void *arg)
++{
++	return __intel_guc_flow_control_multi_lrc_guc(arg, true, true);
++}
++
+ int intel_guc_flow_control(struct drm_i915_private *i915)
+ {
+ 	static const struct i915_subtest tests[] = {
+@@ -566,6 +863,8 @@ int intel_guc_flow_control(struct drm_i915_private *i915)
+ 		SUBTEST(intel_guc_flow_control_guc_ids),
+ 		SUBTEST(intel_guc_flow_control_lrcd_reg),
+ 		SUBTEST(intel_guc_flow_control_hang_state_machine),
++		SUBTEST(intel_guc_flow_control_multi_lrc_guc_ids),
++		SUBTEST(intel_guc_flow_control_multi_lrc_hang),
+ 		SUBTEST(intel_guc_flow_control_deadlock_h2g),
+ 		SUBTEST(intel_guc_flow_control_bad_desc_h2g),
+ 	};
+diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
+index 82eb666bba51..21b4a79778ef 100644
+--- a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
++++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
+@@ -62,11 +62,12 @@ static void multi_lrc_context_put(struct intel_context *ce)
+ }
  
- 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ static struct i915_request *
+-multi_lrc_nop_request(struct intel_context *ce)
++multi_lrc_nop_request(struct intel_context *ce, struct i915_request *from)
+ {
+ 	struct intel_context *child;
+ 	struct i915_request *rq, *child_rq;
+ 	int i = 0;
++	int ret;
+ 
+ 	GEM_BUG_ON(!intel_context_is_parent(ce));
+ 
+@@ -74,6 +75,16 @@ multi_lrc_nop_request(struct intel_context *ce)
+ 	if (IS_ERR(rq))
+ 		return rq;
+ 
++	if (from) {
++		ret = i915_sw_fence_await_dma_fence(&rq->submit,
++						    &from->fence, 0,
++						    I915_FENCE_GFP);
++		if (ret < 0) {
++			i915_request_put(rq);
++			return ERR_PTR(ret);
++		}
++	}
++
+ 	i915_request_get(rq);
+ 	i915_request_add(rq);
+ 
+@@ -112,7 +123,7 @@ static int __intel_guc_multi_lrc_basic(struct intel_gt *gt, unsigned int class)
+ 		return 0;
+ 	}
+ 
+-	rq = multi_lrc_nop_request(parent);
++	rq = multi_lrc_nop_request(parent, NULL);
+ 	if (IS_ERR(rq)) {
+ 		ret = PTR_ERR(rq);
+ 		pr_err("Failed creating requests: %d", ret);
 -- 
 2.28.0
 
