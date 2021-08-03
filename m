@@ -2,48 +2,43 @@ Return-Path: <SRS0=Vnqj=M2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B00CDC43214
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 04:53:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17136C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 05:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 81B9660249
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 04:53:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 81B9660249
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B0DFA60D07
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 05:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B0DFA60D07
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6235B6E3B2;
-	Tue,  3 Aug 2021 04:53:34 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17DD989E03;
- Tue,  3 Aug 2021 04:53:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10064"; a="200782764"
-X-IronPort-AV: E=Sophos;i="5.84,290,1620716400"; d="scan'208";a="200782764"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2021 21:53:31 -0700
-X-IronPort-AV: E=Sophos;i="5.84,290,1620716400"; d="scan'208";a="666911358"
-Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2021 21:53:30 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-Date: Mon,  2 Aug 2021 22:11:20 -0700
-Message-Id: <20210803051121.72017-4-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20210803051121.72017-1-matthew.brost@intel.com>
-References: <20210803051121.72017-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AEB16E334;
+	Tue,  3 Aug 2021 05:04:19 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2D9A76E2C7;
+ Tue,  3 Aug 2021 05:04:18 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 25E93A73C7;
+ Tue,  3 Aug 2021 05:04:18 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915/guc: Add DG1 GuC / HuC firmware
- defs
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 03 Aug 2021 05:04:18 -0000
+Message-ID: <162796705815.9816.13252799622928147540@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210803051121.72017-1-matthew.brost@intel.com>
+In-Reply-To: <20210803051121.72017-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Enable_GuC_submission_by_default_on_DG1?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,26 +51,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 1 +
- 1 file changed, 1 insertion(+)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index f8cb00ffb506..a685d563df72 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -51,6 +51,7 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- #define INTEL_UC_FIRMWARE_DEFS(fw_def, guc_def, huc_def) \
- 	fw_def(ALDERLAKE_P, 0, guc_def(adlp, 62, 0, 3), huc_def(tgl, 7, 9, 3)) \
- 	fw_def(ALDERLAKE_S, 0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
-+	fw_def(DG1,         0, guc_def(dg1, 62, 0, 0), huc_def(dg1,  7, 9, 3)) \
- 	fw_def(ROCKETLAKE,  0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
- 	fw_def(TIGERLAKE,   0, guc_def(tgl, 62, 0, 0), huc_def(tgl,  7, 9, 3)) \
- 	fw_def(JASPERLAKE,  0, guc_def(ehl, 62, 0, 0), huc_def(ehl,  9, 0, 0)) \
--- 
-2.28.0
+Series: Enable GuC submission by default on DG1
+URL   : https://patchwork.freedesktop.org/series/93325/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+9d575da473a3 drm/i915: Do not define vma on stack
+-:12: WARNING:BAD_SIGN_OFF: Non-standard signature: 'Signef-off-by:' - perhaps 'Signed-off-by:'?
+#12: 
+Signef-off-by: Matthew Brost <matthew.brost@intel.com>
+
+total: 0 errors, 1 warnings, 0 checks, 43 lines checked
+d90a57170211 drm/i915/guc: put all guc objects in lmem when available
+-:110: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#110: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c:45:
++static int guc_xfer_rsa(struct intel_uc_fw *guc_fw,
+ 			 struct intel_uncore *uncore)
+
+total: 0 errors, 0 warnings, 1 checks, 234 lines checked
+dab0f2596b90 drm/i915/guc: Add DG1 GuC / HuC firmware defs
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 7 lines checked
+a06cd563cc84 drm/i915/guc: Enable GuC submission by default on DG1
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 8 lines checked
+
 
