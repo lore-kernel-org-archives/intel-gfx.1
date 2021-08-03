@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10E9AC432BE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB413C4338F
 	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D657160184
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D657160184
+	by mail.kernel.org (Postfix) with ESMTPS id 8FB5360184
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FB5360184
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53A846E948;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2311F6E940;
 	Tue,  3 Aug 2021 22:12:12 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 003F46E909;
- Tue,  3 Aug 2021 22:11:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="193393486"
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="193393486"
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DDA96E8E1;
+ Tue,  3 Aug 2021 22:11:56 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="235745910"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="235745910"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:56 -0700
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512739"
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2021 15:11:54 -0700
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512717"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:56 -0700
+ 03 Aug 2021 15:11:54 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue,  3 Aug 2021 15:29:36 -0700
-Message-Id: <20210803222943.27686-40-matthew.brost@intel.com>
+Date: Tue,  3 Aug 2021 15:29:17 -0700
+Message-Id: <20210803222943.27686-21-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210803222943.27686-1-matthew.brost@intel.com>
 References: <20210803222943.27686-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 39/46] drm/i915: Force parallel contexts to use
- copy engine for reloc
+Subject: [Intel-gfx] [PATCH 20/46] drm/i915/guc: Add hang check to GuC
+ submit engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,38 +59,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Submitting to a subset of hardware contexts is not allowed, so use the
-copy engine for GPU relocations when using a parallel context.
+The heartbeat uses a single instance of a GuC submit engine (GSE) to do
+the hang check. As such if a different GSE's state machine hangs, the
+heartbeat cannot detect this hang. Add timer to each GSE which in turn
+can disable all submissions if it is hung.
 
+Cc: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 36 +++++++++++++++++++
+ .../i915/gt/uc/intel_guc_submission_types.h   |  3 ++
+ 2 files changed, 39 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index b224b28530d1..b6143973ac67 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1386,7 +1386,8 @@ static int __reloc_gpu_alloc(struct i915_execbuffer *eb,
- 	if (err)
- 		goto err_unmap;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index afb9b4bb8971..2d8296bcc583 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -105,15 +105,21 @@ static bool tasklet_blocked(struct guc_submit_engine *gse)
+ 	return test_bit(GSE_STATE_TASKLET_BLOCKED, &gse->flags);
+ }
  
--	if (engine == eb->context->engine) {
-+	if (engine == eb->context->engine &&
-+	    !intel_context_is_parallel(eb->context)) {
- 		rq = i915_request_create(eb->context);
- 	} else {
- 		struct intel_context *ce = eb->reloc_context;
-@@ -1483,7 +1484,8 @@ static u32 *reloc_gpu(struct i915_execbuffer *eb,
- 		if (eb_use_cmdparser(eb))
- 			return ERR_PTR(-EWOULDBLOCK);
++/* 2 seconds seems like a reasonable timeout waiting for a G2H */
++#define MAX_TASKLET_BLOCKED_NS	2000000000
+ static void set_tasklet_blocked(struct guc_submit_engine *gse)
+ {
+ 	lockdep_assert_held(&gse->sched_engine.lock);
++	hrtimer_start_range_ns(&gse->hang_timer,
++			       ns_to_ktime(MAX_TASKLET_BLOCKED_NS), 0,
++			       HRTIMER_MODE_REL_PINNED);
+ 	set_bit(GSE_STATE_TASKLET_BLOCKED, &gse->flags);
+ }
  
--		if (!reloc_can_use_engine(engine)) {
-+		if (!reloc_can_use_engine(engine) ||
-+		    intel_context_is_parallel(eb->context)) {
- 			engine = engine->gt->engine_class[COPY_ENGINE_CLASS][0];
- 			if (!engine)
- 				return ERR_PTR(-ENODEV);
+ static void __clr_tasklet_blocked(struct guc_submit_engine *gse)
+ {
+ 	lockdep_assert_held(&gse->sched_engine.lock);
++	hrtimer_cancel(&gse->hang_timer);
+ 	clear_bit(GSE_STATE_TASKLET_BLOCKED, &gse->flags);
+ }
+ 
+@@ -1028,6 +1034,7 @@ static void disable_submission(struct intel_guc *guc)
+ 		if (__tasklet_is_enabled(&sched_engine->tasklet)) {
+ 			GEM_BUG_ON(!guc->ct.enabled);
+ 			__tasklet_disable_sync_once(&sched_engine->tasklet);
++			hrtimer_try_to_cancel(&guc->gse[i]->hang_timer);
+ 			sched_engine->tasklet.callback = NULL;
+ 		}
+ 	}
+@@ -3750,6 +3757,33 @@ static void guc_sched_engine_destroy(struct kref *kref)
+ 	kfree(gse);
+ }
+ 
++static enum hrtimer_restart gse_hang(struct hrtimer *hrtimer)
++{
++	struct guc_submit_engine *gse =
++		container_of(hrtimer, struct guc_submit_engine, hang_timer);
++	struct intel_guc *guc = gse->sched_engine.private_data;
++
++#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
++	if (guc->gse_hang_expected)
++		drm_dbg(&guc_to_gt(guc)->i915->drm,
++			"GSE[%i] hung, disabling submission", gse->id);
++	else
++		drm_err(&guc_to_gt(guc)->i915->drm,
++			"GSE[%i] hung, disabling submission", gse->id);
++#else
++	drm_err(&guc_to_gt(guc)->i915->drm,
++		"GSE[%i] hung, disabling submission", gse->id);
++#endif
++
++	/*
++	 * Tasklet not making forward progress, disable submission which in turn
++	 * will kick in the heartbeat to do a full GPU reset.
++	 */
++	disable_submission(guc);
++
++	return HRTIMER_NORESTART;
++}
++
+ static void guc_submit_engine_init(struct intel_guc *guc,
+ 				   struct guc_submit_engine *gse,
+ 				   int id)
+@@ -3767,6 +3801,8 @@ static void guc_submit_engine_init(struct intel_guc *guc,
+ 	sched_engine->retire_inflight_request_prio =
+ 		guc_retire_inflight_request_prio;
+ 	sched_engine->private_data = guc;
++	hrtimer_init(&gse->hang_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
++	gse->hang_timer.function = gse_hang;
+ 	gse->id = id;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission_types.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission_types.h
+index a5933e07bdd2..eae2e9725ede 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission_types.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission_types.h
+@@ -6,6 +6,8 @@
+ #ifndef _INTEL_GUC_SUBMISSION_TYPES_H_
+ #define _INTEL_GUC_SUBMISSION_TYPES_H_
+ 
++#include <linux/xarray.h>
++
+ #include "gt/intel_engine_types.h"
+ #include "gt/intel_context_types.h"
+ #include "i915_scheduler_types.h"
+@@ -41,6 +43,7 @@ struct guc_submit_engine {
+ 	unsigned long flags;
+ 	int total_num_rq_with_no_guc_id;
+ 	atomic_t num_guc_ids_not_ready;
++	struct hrtimer hang_timer;
+ 	int id;
+ 
+ 	/*
 -- 
 2.28.0
 
