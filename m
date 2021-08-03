@@ -6,39 +6,39 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2234CC4338F
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:53:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D782C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:57:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B6C1960525
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:53:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B6C1960525
+	by mail.kernel.org (Postfix) with ESMTPS id 41C26604AC
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:57:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 41C26604AC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C0916E974;
-	Tue,  3 Aug 2021 22:53:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E282B6E977;
+	Tue,  3 Aug 2021 22:57:13 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 08AD36E974;
- Tue,  3 Aug 2021 22:53:46 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BD9246E976;
+ Tue,  3 Aug 2021 22:57:12 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 02240A8830;
- Tue,  3 Aug 2021 22:53:45 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 9B6FDAA0EA;
+ Tue,  3 Aug 2021 22:57:12 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 03 Aug 2021 22:53:45 -0000
-Message-ID: <162803122599.9815.11136315256665271854@emeril.freedesktop.org>
+Date: Tue, 03 Aug 2021 22:57:12 -0000
+Message-ID: <162803143260.9816.2422325925082224993@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210803222943.27686-1-matthew.brost@intel.com>
 In-Reply-To: <20210803222943.27686-1-matthew.brost@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?Parallel_submission_aka_multi-bb_execbuf_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIFBh?=
+ =?utf-8?q?rallel_submission_aka_multi-bb_execbuf_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,9 +63,11 @@ State : warning
 
 == Summary ==
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
-+drivers/gpu/drm/i915/intel_wakeref.c:142:19: warning: context imbalance in 'wakeref_auto_timeout' - unexpected unlock
+$ make htmldocs 2>&1 > /dev/null | grep i915
+/home/cidrm/kernel/Documentation/gpu/i915:525: ./drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:75: WARNING: Unexpected indentation.
+/home/cidrm/kernel/Documentation/gpu/i915:525: ./drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:76: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/cidrm/kernel/Documentation/gpu/i915:525: ./drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:78: WARNING: Unexpected indentation.
+/home/cidrm/kernel/Documentation/gpu/i915:525: ./drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:79: WARNING: Block quote ends without a blank line; unexpected unindent.
+/home/cidrm/kernel/Documentation/gpu/i915:525: ./drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:81: WARNING: Unexpected indentation.
 
 
