@@ -7,44 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE4ACC4338F
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DE49C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9029760184
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9029760184
+	by mail.kernel.org (Postfix) with ESMTPS id 4510960EE8
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4510960EE8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 059416E96B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 641116E970;
 	Tue,  3 Aug 2021 22:12:13 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A2EC6E8F8;
- Tue,  3 Aug 2021 22:11:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="193393474"
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="193393474"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 625136E90D;
+ Tue,  3 Aug 2021 22:11:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="193393490"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="193393490"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:55 -0700
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512726"
+ 03 Aug 2021 15:11:56 -0700
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512748"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:55 -0700
+ 03 Aug 2021 15:11:56 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue,  3 Aug 2021 15:29:25 -0700
-Message-Id: <20210803222943.27686-29-matthew.brost@intel.com>
+Date: Tue,  3 Aug 2021 15:29:40 -0700
+Message-Id: <20210803222943.27686-44-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210803222943.27686-1-matthew.brost@intel.com>
 References: <20210803222943.27686-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 28/46] drm/i915/guc: Add basic GuC multi-lrc
- selftest
+Subject: [Intel-gfx] [PATCH 43/46] drm/i915/guc: Handle errors in multi-lrc
+ requests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,212 +59,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add very basic (single submission) multi-lrc selftest.
+If an error occurs in the front end when multi-lrc requests are getting
+generated we need to skip these in the backend but we still need to
+emit the breadcrumbs seqno. An issues arrises because with multi-lrc
+breadcrumbs there is a handshake between the parent and children to make
+forwad progress. If all the requests are not present this handshake
+doesn't work. To work around this, if multi-lrc request has an error we
+skip the handshake but still emit the breadcrumbs seqno.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |   1 +
- .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   | 168 ++++++++++++++++++
- .../drm/i915/selftests/i915_live_selftests.h  |   1 +
- 3 files changed, 170 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 61 ++++++++++++++++++-
+ 1 file changed, 58 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 89528624710a..bc6cb9adca92 100644
+index d61c45d1ac2c..cd1893edf43a 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4772,5 +4772,6 @@ bool intel_guc_virtual_engine_has_heartbeat(const struct intel_engine_cs *ve)
+@@ -4394,8 +4394,8 @@ static int emit_bb_start_child_no_preempt_mid_batch(struct i915_request *rq,
  }
  
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
-+#include "selftest_guc_multi_lrc.c"
- #include "selftest_guc_flow_control.c"
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-new file mode 100644
-index 000000000000..82eb666bba51
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-@@ -0,0 +1,168 @@
-+// SPDX-License-Identifier: MIT
+ static u32 *
+-emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
+-						 u32 *cs)
++__emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
++						   u32 *cs)
+ {
+ 	struct intel_context *ce = rq->context;
+ 	u8 i;
+@@ -4423,6 +4423,41 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
+ 				  get_children_go_addr(ce),
+ 				  0);
+ 
++	return cs;
++}
++
 +/*
-+ * Copyright �� 2019 Intel Corporation
++ * If this true, a submission of multi-lrc requests had an error and the
++ * requests need to be skipped. The front end (execuf IOCTL) should've called
++ * i915_request_skip which squashes the BB but we still need to emit the fini
++ * breadrcrumbs seqno write. At this point we don't know how many of the
++ * requests in the multi-lrc submission were generated so we can't do the
++ * handshake between the parent and children (e.g. if 4 requests should be
++ * generated but 2nd hit an error only 1 would be seen by the GuC backend).
++ * Simply skip the handshake, but still emit the breadcrumbd seqno, if an error
++ * has occurred on any of the requests in submission / relationship.
 + */
-+
-+#include "selftests/igt_spinner.h"
-+#include "selftests/igt_reset.h"
-+#include "selftests/intel_scheduler_helpers.h"
-+#include "gt/intel_engine_heartbeat.h"
-+#include "gem/selftests/mock_context.h"
-+
-+static void logical_sort(struct intel_engine_cs **engines, int num_engines)
++static inline bool skip_handshake(struct i915_request *rq)
 +{
-+	struct intel_engine_cs *sorted[MAX_ENGINE_INSTANCE + 1];
-+	int i, j;
-+
-+	for (i = 0; i < num_engines; ++i)
-+		for (j = 0; j < MAX_ENGINE_INSTANCE + 1; ++j) {
-+			if (engines[j]->logical_mask & BIT(i)) {
-+				sorted[i] = engines[j];
-+				break;
-+			}
-+		}
-+
-+	memcpy(*engines, *sorted,
-+	       sizeof(struct intel_engine_cs *) * num_engines);
++	return test_bit(I915_FENCE_FLAG_SKIP_PARALLEL, &rq->fence.flags);
 +}
 +
-+static struct intel_context *
-+multi_lrc_create_parent(struct intel_gt *gt, u8 class,
-+			unsigned long flags)
++static u32 *
++emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
++						 u32 *cs)
 +{
-+	struct intel_engine_cs *siblings[MAX_ENGINE_INSTANCE + 1];
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+	int i = 0;
-+
-+	for_each_engine(engine, gt, id) {
-+		if (engine->class != class)
-+			continue;
-+
-+		siblings[i++] = engine;
-+	}
-+
-+	if (i <= 1)
-+		return ERR_PTR(0);
-+
-+	logical_sort(siblings, i);
-+
-+	return intel_engine_create_parallel(siblings, 1, i);
-+}
-+
-+static void multi_lrc_context_put(struct intel_context *ce)
-+{
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	/*
-+	 * Only the parent gets the creation ref put in the uAPI, the parent
-+	 * itself is responsible for creation ref put on the children.
-+	 */
-+	intel_context_put(ce);
-+}
-+
-+static struct i915_request *
-+multi_lrc_nop_request(struct intel_context *ce)
-+{
-+	struct intel_context *child;
-+	struct i915_request *rq, *child_rq;
-+	int i = 0;
++	struct intel_context *ce = rq->context;
 +
 +	GEM_BUG_ON(!intel_context_is_parent(ce));
 +
-+	rq = intel_context_create_request(ce);
-+	if (IS_ERR(rq))
-+		return rq;
-+
-+	i915_request_get(rq);
-+	i915_request_add(rq);
-+
-+	for_each_child(ce, child) {
-+		child_rq = intel_context_create_request(child);
-+		if (IS_ERR(child_rq))
-+			goto child_error;
-+
-+		if (++i == ce->guc_number_children)
-+			set_bit(I915_FENCE_FLAG_SUBMIT_PARALLEL,
-+				&child_rq->fence.flags);
-+		i915_request_add(child_rq);
++	if (unlikely(skip_handshake(rq))) {
++		memset(cs, 0, sizeof(u32) *
++		       (ce->engine->emit_fini_breadcrumb_dw - 6));
++		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
++	} else {
++		cs = __emit_fini_breadcrumb_parent_no_preempt_mid_batch(rq, cs);
 +	}
 +
-+	return rq;
-+
-+child_error:
-+	i915_request_put(rq);
-+
-+	return ERR_PTR(-ENOMEM);
+ 	/* Emit fini breadcrumb */
+ 	cs = gen8_emit_ggtt_write(cs,
+ 				  rq->fence.seqno,
+@@ -4439,7 +4474,8 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
+ }
+ 
+ static u32 *
+-emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs)
++__emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
++						  u32 *cs)
+ {
+ 	struct intel_context *ce = rq->context;
+ 
+@@ -4465,6 +4501,25 @@ emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs
+ 	*cs++ = get_children_go_addr(ce->parent);
+ 	*cs++ = 0;
+ 
++	return cs;
 +}
 +
-+static int __intel_guc_multi_lrc_basic(struct intel_gt *gt, unsigned int class)
++static u32 *
++emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
++						u32 *cs)
 +{
-+	struct intel_context *parent;
-+	struct i915_request *rq;
-+	int ret;
++	struct intel_context *ce = rq->context;
 +
-+	parent = multi_lrc_create_parent(gt, class, 0);
-+	if (IS_ERR(parent)) {
-+		pr_err("Failed creating contexts: %ld", PTR_ERR(parent));
-+		return PTR_ERR(parent);
-+	} else if (!parent) {
-+		pr_debug("Not enough engines in class: %d",
-+			 VIDEO_DECODE_CLASS);
-+		return 0;
++	GEM_BUG_ON(!intel_context_is_child(ce));
++
++	if (unlikely(skip_handshake(rq))) {
++		memset(cs, 0, sizeof(u32) *
++		       (ce->engine->emit_fini_breadcrumb_dw - 6));
++		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
++	} else {
++		cs = __emit_fini_breadcrumb_child_no_preempt_mid_batch(rq, cs);
 +	}
 +
-+	rq = multi_lrc_nop_request(parent);
-+	if (IS_ERR(rq)) {
-+		ret = PTR_ERR(rq);
-+		pr_err("Failed creating requests: %d", ret);
-+		goto out;
-+	}
-+
-+	ret = intel_selftest_wait_for_rq(rq);
-+	if (ret)
-+		pr_err("Failed waiting on request: %d", ret);
-+
-+	i915_request_put(rq);
-+
-+	if (ret >= 0) {
-+		ret = intel_gt_wait_for_idle(gt, HZ * 5);
-+		if (ret < 0)
-+			pr_err("GT failed to idle: %d\n", ret);
-+	}
-+
-+out:
-+	multi_lrc_context_put(parent);
-+	return ret;
-+}
-+
-+static int intel_guc_multi_lrc_basic(void *arg)
-+{
-+	struct intel_gt *gt = arg;
-+	unsigned int class;
-+	int ret;
-+
-+	for (class = 0; class < MAX_ENGINE_CLASS + 1; ++class) {
-+		ret = __intel_guc_multi_lrc_basic(gt, class);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+int intel_guc_multi_lrc(struct drm_i915_private *i915)
-+{
-+	static const struct i915_subtest tests[] = {
-+		SUBTEST(intel_guc_multi_lrc_basic),
-+	};
-+	struct intel_gt *gt = &i915->gt;
-+
-+	if (intel_gt_is_wedged(gt))
-+		return 0;
-+
-+	if (!intel_uc_uses_guc_submission(&gt->uc))
-+		return 0;
-+
-+	return intel_gt_live_subtests(tests, gt);
-+}
-diff --git a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-index d9bd732b741a..2ddb72bbab69 100644
---- a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-+++ b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-@@ -48,5 +48,6 @@ selftest(execlists, intel_execlists_live_selftests)
- selftest(ring_submission, intel_ring_submission_live_selftests)
- selftest(perf, i915_perf_live_selftests)
- selftest(guc_flow_control, intel_guc_flow_control)
-+selftest(guc_multi_lrc, intel_guc_multi_lrc)
- /* Here be dragons: keep last to run last! */
- selftest(late_gt_pm, intel_gt_pm_late_selftests)
+ 	/* Emit fini breadcrumb */
+ 	cs = gen8_emit_ggtt_write(cs,
+ 				  rq->fence.seqno,
 -- 
 2.28.0
 
