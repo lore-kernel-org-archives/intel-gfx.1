@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7ABCC4320A
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:13:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BE65C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:13:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 847BB60F45
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:13:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 847BB60F45
+	by mail.kernel.org (Postfix) with ESMTPS id 29F8760F45
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:13:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 29F8760F45
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 235EB6E8C1;
-	Tue,  3 Aug 2021 20:13:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A35016E8BF;
+	Tue,  3 Aug 2021 20:13:52 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 302DE6E8BE;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F39C6E12B;
  Tue,  3 Aug 2021 20:13:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="213499168"
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="213499168"
+X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="213499171"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="213499171"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  03 Aug 2021 13:13:50 -0700
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="568776533"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="568776539"
 Received: from unerlige-ril-10.jf.intel.com ([10.165.21.208])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  03 Aug 2021 13:13:50 -0700
@@ -37,15 +37,15 @@ To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>, daniel@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org
-Date: Tue,  3 Aug 2021 13:13:42 -0700
-Message-Id: <20210803201349.31031-2-umesh.nerlige.ramappa@intel.com>
+Date: Tue,  3 Aug 2021 13:13:44 -0700
+Message-Id: <20210803201349.31031-4-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
 References: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/8] drm/i915/gt: Lock
- intel_engine_apply_whitelist with uncore->lock
+Subject: [Intel-gfx] [PATCH 3/8] drm/i915/gt: Check for conflicting
+ RING_NONPRIV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,117 +61,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Refactor intel_engine_apply_whitelist into locked and unlocked versions
-so that a caller who already has the lock can apply whitelist.
+From: Chris Wilson <chris@chris-wilson.co.uk>
 
-v2: Fix sparse warning
-v3: (Chris)
-- Drop prefix and suffix for static function
-- Use longest to shortest line ordering for variable declaration
+Strip the encoded bits from the register offset so that we only use the
+address for looking up the RING_NONPRIV entry.
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Chris Wilson <chris.p.wilson@intel.com>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 46 ++++++++++++++-------
- 1 file changed, 32 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 66 +++++++++++++--------
+ 1 file changed, 42 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 053fa7251cd0..011cde0bc38d 100644
+index 94540cdb90c4..7dda5a0a8e75 100644
 --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1108,7 +1108,8 @@ void intel_gt_init_workarounds(struct drm_i915_private *i915)
+@@ -80,18 +80,44 @@ static void wa_init_finish(struct i915_wa_list *wal)
+ 			 wal->wa_count, wal->name, wal->engine_name);
  }
  
- static enum forcewake_domains
--wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
-+wal_get_fw(struct intel_uncore *uncore, const struct i915_wa_list *wal,
-+	   unsigned int op)
- {
- 	enum forcewake_domains fw = 0;
- 	struct i915_wa *wa;
-@@ -1117,8 +1118,7 @@ wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
- 	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
- 		fw |= intel_uncore_forcewake_for_reg(uncore,
- 						     wa->reg,
--						     FW_REG_READ |
--						     FW_REG_WRITE);
-+						     op);
- 
- 	return fw;
- }
-@@ -1149,7 +1149,7 @@ wa_list_apply(struct intel_gt *gt, const struct i915_wa_list *wal)
- 	if (!wal->count)
- 		return;
- 
--	fw = wal_get_fw_for_rmw(uncore, wal);
-+	fw = wal_get_fw(uncore, wal, FW_REG_READ | FW_REG_WRITE);
- 
- 	spin_lock_irqsave(&uncore->lock, flags);
- 	intel_uncore_forcewake_get__locked(uncore, fw);
-@@ -1188,7 +1188,7 @@ static bool wa_list_verify(struct intel_gt *gt,
- 	unsigned int i;
- 	bool ok = true;
- 
--	fw = wal_get_fw_for_rmw(uncore, wal);
-+	fw = wal_get_fw(uncore, wal, FW_REG_READ | FW_REG_WRITE);
- 
- 	spin_lock_irqsave(&uncore->lock, flags);
- 	intel_uncore_forcewake_get__locked(uncore, fw);
-@@ -1477,27 +1477,45 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
- 	wa_init_finish(w);
- }
- 
--void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
-+static void __engine_apply_whitelist(struct intel_engine_cs *engine)
- {
- 	const struct i915_wa_list *wal = &engine->whitelist;
- 	struct intel_uncore *uncore = engine->uncore;
- 	const u32 base = engine->mmio_base;
-+	enum forcewake_domains fw;
- 	struct i915_wa *wa;
- 	unsigned int i;
- 
--	if (!wal->count)
--		return;
-+	lockdep_assert_held(&uncore->lock);
-+
-+	fw = wal_get_fw(uncore, wal, FW_REG_WRITE);
-+	intel_uncore_forcewake_get__locked(uncore, fw);
- 
- 	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
--		intel_uncore_write(uncore,
--				   RING_FORCE_TO_NONPRIV(base, i),
--				   i915_mmio_reg_offset(wa->reg));
-+		intel_uncore_write_fw(uncore,
-+				      RING_FORCE_TO_NONPRIV(base, i),
-+				      i915_mmio_reg_offset(wa->reg));
- 
- 	/* And clear the rest just in case of garbage */
- 	for (; i < RING_MAX_NONPRIV_SLOTS; i++)
--		intel_uncore_write(uncore,
--				   RING_FORCE_TO_NONPRIV(base, i),
--				   i915_mmio_reg_offset(RING_NOPID(base)));
-+		intel_uncore_write_fw(uncore,
-+				      RING_FORCE_TO_NONPRIV(base, i),
-+				      i915_mmio_reg_offset(RING_NOPID(base)));
-+
-+	intel_uncore_forcewake_put__locked(uncore, fw);
++static u32 reg_offset(i915_reg_t reg)
++{
++	return i915_mmio_reg_offset(reg) & RING_FORCE_TO_NONPRIV_ADDRESS_MASK;
 +}
 +
-+void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
++static u32 reg_flags(i915_reg_t reg)
 +{
-+	const struct i915_wa_list *wal = &engine->whitelist;
-+	unsigned long flags;
++	return i915_mmio_reg_offset(reg) & ~RING_FORCE_TO_NONPRIV_ADDRESS_MASK;
++}
 +
-+	if (!wal->count)
-+		return;
++__maybe_unused
++static bool is_nonpriv_flags_valid(u32 flags)
++{
++	/* Check only valid flag bits are set */
++	if (flags & ~RING_FORCE_TO_NONPRIV_MASK_VALID)
++		return false;
 +
-+	spin_lock_irqsave(&engine->uncore->lock, flags);
-+	__engine_apply_whitelist(engine);
-+	spin_unlock_irqrestore(&engine->uncore->lock, flags);
++	/* NB: Only 3 out of 4 enum values are valid for access field */
++	if ((flags & RING_FORCE_TO_NONPRIV_ACCESS_MASK) ==
++	    RING_FORCE_TO_NONPRIV_ACCESS_INVALID)
++		return false;
++
++	return true;
++}
++
+ static int wa_index(struct i915_wa_list *wal, i915_reg_t reg)
+ {
+-	unsigned int addr = i915_mmio_reg_offset(reg);
+ 	int start = 0, end = wal->count;
++	u32 addr = reg_offset(reg);
+ 
+ 	/* addr and wal->list[].reg, both include the R/W flags */
+ 	while (start < end) {
+ 		unsigned int mid = start + (end - start) / 2;
++		u32 pos = reg_offset(wal->list[mid].reg);
+ 
+-		if (i915_mmio_reg_offset(wal->list[mid].reg) < addr)
++		if (pos < addr)
+ 			start = mid + 1;
+-		else if (i915_mmio_reg_offset(wal->list[mid].reg) > addr)
++		else if (pos > addr)
+ 			end = mid;
+ 		else
+ 			return mid;
+@@ -117,13 +143,22 @@ static void __wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
+ 	struct i915_wa *wa_;
+ 	int index;
+ 
++	GEM_BUG_ON(!is_nonpriv_flags_valid(reg_flags(wa->reg)));
++
+ 	index = wa_index(wal, wa->reg);
+ 	if (index >= 0) {
+ 		wa_ = &wal->list[index];
+ 
++		if (i915_mmio_reg_offset(wa->reg) !=
++		    i915_mmio_reg_offset(wa_->reg)) {
++			DRM_ERROR("Discarding incompatible w/a for reg %04x\n",
++				  reg_offset(wa->reg));
++			return;
++		}
++
+ 		if ((wa->clr | wa_->clr) && !(wa->clr & ~wa_->clr)) {
+ 			DRM_ERROR("Discarding overwritten w/a for reg %04x (clear: %08x, set: %08x)\n",
+-				  i915_mmio_reg_offset(wa_->reg),
++				  reg_offset(wa_->reg),
+ 				  wa_->clr, wa_->set);
+ 
+ 			wa_->set &= ~wa->clr;
+@@ -141,10 +176,8 @@ static void __wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
+ 	*wa_ = *wa;
+ 
+ 	while (wa_-- > wal->list) {
+-		GEM_BUG_ON(i915_mmio_reg_offset(wa_[0].reg) ==
+-			   i915_mmio_reg_offset(wa_[1].reg));
+-		if (i915_mmio_reg_offset(wa_[1].reg) >
+-		    i915_mmio_reg_offset(wa_[0].reg))
++		GEM_BUG_ON(reg_offset(wa_[0].reg) == reg_offset(wa_[1].reg));
++		if (reg_offset(wa_[1].reg) > reg_offset(wa_[0].reg))
+ 			break;
+ 
+ 		swap(wa_[1], wa_[0]);
+@@ -160,7 +193,7 @@ static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
+ 	if (IS_ALIGNED(wal->count, grow) && /* Either uninitialized or full. */
+ 	    wa_list_grow(wal, ALIGN(wal->count + 1, grow), GFP_KERNEL)) {
+ 		DRM_ERROR("Unable to store w/a for reg %04x\n",
+-			  i915_mmio_reg_offset(wa->reg));
++			  reg_offset(wa->reg));
+ 		return;
+ 	}
+ 
+@@ -1227,21 +1260,6 @@ bool intel_gt_verify_workarounds(struct intel_gt *gt, const char *from)
+ 	return wa_list_verify(gt, &gt->i915->gt_wa_list, from);
  }
  
+-__maybe_unused
+-static bool is_nonpriv_flags_valid(u32 flags)
+-{
+-	/* Check only valid flag bits are set */
+-	if (flags & ~RING_FORCE_TO_NONPRIV_MASK_VALID)
+-		return false;
+-
+-	/* NB: Only 3 out of 4 enum values are valid for access field */
+-	if ((flags & RING_FORCE_TO_NONPRIV_ACCESS_MASK) ==
+-	    RING_FORCE_TO_NONPRIV_ACCESS_INVALID)
+-		return false;
+-
+-	return true;
+-}
+-
  static void
+ whitelist_reg_ext(struct i915_wa_list *wal, i915_reg_t reg, u32 flags)
+ {
 -- 
 2.20.1
 
