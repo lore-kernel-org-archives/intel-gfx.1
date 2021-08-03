@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC0EBC4338F
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3B31C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 709E860F45
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 709E860F45
+	by mail.kernel.org (Postfix) with ESMTPS id C289D601FD
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C289D601FD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E26286E8C2;
-	Tue,  3 Aug 2021 20:13:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B4246E8CD;
+	Tue,  3 Aug 2021 20:13:55 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB1E46E8BE;
- Tue,  3 Aug 2021 20:13:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="213499172"
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="213499172"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 034D96E12B;
+ Tue,  3 Aug 2021 20:13:50 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="213499167"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="213499167"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 13:13:51 -0700
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="568776549"
+ 03 Aug 2021 13:13:50 -0700
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="568776531"
 Received: from unerlige-ril-10.jf.intel.com ([10.165.21.208])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  03 Aug 2021 13:13:50 -0700
@@ -37,15 +37,12 @@ To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>, daniel@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org
-Date: Tue,  3 Aug 2021 13:13:48 -0700
-Message-Id: <20210803201349.31031-8-umesh.nerlige.ramappa@intel.com>
+Date: Tue,  3 Aug 2021 13:13:41 -0700
+Message-Id: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
-References: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 7/8] drm/i915/perf: Whitelist OA counter and
- buffer registers
+Subject: [Intel-gfx] [PATCH 0/8] Enable triggered perf query for Xe_HP
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,121 +58,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It is useful to have markers in the OA reports to identify triggered
-reports. Whitelist some OA counters that can be used as markers.
+This is a revival of the patch series to support triggered perf query reports
+from here - https://patchwork.freedesktop.org/series/83831/
 
-A triggered report can be found faster if we can sample the HW tail and
-head registers when the report was triggered. Whitelist OA buffer
-specific registers.
+The patches were not pushed earlier because corresponding UMD changes were
+missing. This revival addresses UMD changes in GPUvis for this series. GPUvis
+uses the perf library in igt-gpu-tools. Changes to the library are here -
+https://patchwork.freedesktop.org/series/93355/
 
-v2:
-- Bump up the perf revision (Lionel)
-- Use indexing for counters (Lionel)
-- Fix selftest for oa ticking register (Umesh)
+GPUvis changes will be posted as a PR once the above library and kernel changes
+are pushed.
 
-v3: Pardon whitelisted registers for selftest (Umesh)
+Summary of the feature:
 
-v4:
-- Document whitelisted registers (Lionel)
-- Fix live isolated whitelist for OA regs (Umesh)
+Current platforms provide MI_REPORT_PERF_COUNT to query a snapshot of perf
+counters from a batch. This mechanism does not have consistent support on all
+engines for newer platforms. To support perf query, all new platforms use a
+mechanism to trigger OA report snapshots into the OA buffer by writing to a HW
+register from a batch. To lookup this report in the OA buffer quickly, the OA
+buffer is mmapped into the user space.
 
-v5:
-- Free up whitelist slots. Remove GPU_TICKS and A20 counter (Piotr)
-- Whitelist registers only if perf_stream_paranoid is set to 0 (Jon)
+This series implements the new query mechanism.
 
-v6: Move oa whitelist array to i915_perf (Chris)
-
-Signed-off-by: Piotr Maciejewski <piotr.maciejewski@intel.com>
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
----
- drivers/gpu/drm/i915/i915_perf.c | 18 +++++++++++++++++-
- drivers/gpu/drm/i915/i915_reg.h  | 16 ++++++++++++++--
- 2 files changed, 31 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 30f5025b2ff6..de3d1738aabe 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1367,11 +1367,19 @@ free_noa_wait(struct i915_perf_stream *stream)
- static const i915_reg_t gen9_oa_wl_regs[] = {
- 	{ __OAREPORTTRIG2 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
- 	{ __OAREPORTTRIG6 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+	{ __OA_PERF_COUNTER_A(18) | (RING_FORCE_TO_NONPRIV_ACCESS_RW |
-+				     RING_FORCE_TO_NONPRIV_RANGE_4) },
-+	{ __GEN8_OASTATUS | (RING_FORCE_TO_NONPRIV_ACCESS_RD |
-+			     RING_FORCE_TO_NONPRIV_RANGE_4) },
- };
- 
- static const i915_reg_t gen12_oa_wl_regs[] = {
- 	{ __GEN12_OAG_OAREPORTTRIG2 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
- 	{ __GEN12_OAG_OAREPORTTRIG6 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+	{ __GEN12_OAG_PERF_COUNTER_A(18) | (RING_FORCE_TO_NONPRIV_ACCESS_RW |
-+					    RING_FORCE_TO_NONPRIV_RANGE_4) },
-+	{ __GEN12_OAG_OASTATUS | (RING_FORCE_TO_NONPRIV_ACCESS_RD |
-+				  RING_FORCE_TO_NONPRIV_RANGE_4) },
- };
- 
- static int intel_engine_apply_oa_whitelist(struct i915_perf_stream *stream)
-@@ -4623,8 +4631,16 @@ int i915_perf_ioctl_version(void)
- 	 *    into the OA buffer. This applies only to gen8+. The feature can
- 	 *    only be accessed if perf_stream_paranoid is set to 0 by privileged
- 	 *    user.
-+	 *
-+	 * 7: Whitelist below OA registers for user to identify the location of
-+	 *    triggered reports in the OA buffer. This applies only to gen8+.
-+	 *    The feature can only be accessed if perf_stream_paranoid is set to
-+	 *    0 by privileged user.
-+	 *
-+	 *    - OA buffer head/tail/status/buffer registers for read only
-+	 *    - OA counters A18, A19, A20 for read/write
- 	 */
--	return 6;
-+	return 7;
- }
- 
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 114958854d67..09940d7d00cf 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -695,7 +695,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define  GEN7_OASTATUS2_HEAD_MASK           0xffffffc0
- #define  GEN7_OASTATUS2_MEM_SELECT_GGTT     (1 << 0) /* 0: PPGTT, 1: GGTT */
- 
--#define GEN8_OASTATUS _MMIO(0x2b08)
-+#define __GEN8_OASTATUS 0x2b08
-+#define GEN8_OASTATUS _MMIO(__GEN8_OASTATUS)
- #define  GEN8_OASTATUS_TAIL_POINTER_WRAP    (1 << 17)
- #define  GEN8_OASTATUS_HEAD_POINTER_WRAP    (1 << 16)
- #define  GEN8_OASTATUS_OVERRUN_STATUS	    (1 << 3)
-@@ -755,7 +756,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define  GEN12_OAG_OA_DEBUG_DISABLE_GO_1_0_REPORTS     (1 << 2)
- #define  GEN12_OAG_OA_DEBUG_DISABLE_CTX_SWITCH_REPORTS (1 << 1)
- 
--#define GEN12_OAG_OASTATUS _MMIO(0xdafc)
-+#define __GEN12_OAG_OASTATUS 0xdafc
-+#define GEN12_OAG_OASTATUS _MMIO(__GEN12_OAG_OASTATUS)
- #define  GEN12_OAG_OASTATUS_COUNTER_OVERFLOW (1 << 2)
- #define  GEN12_OAG_OASTATUS_BUFFER_OVERFLOW  (1 << 1)
- #define  GEN12_OAG_OASTATUS_REPORT_LOST      (1 << 0)
-@@ -998,6 +1000,16 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define OAREPORTTRIG8_NOA_SELECT_6_SHIFT    24
- #define OAREPORTTRIG8_NOA_SELECT_7_SHIFT    28
- 
-+/* Performance counters registers */
-+#define __OA_PERF_COUNTER_A(idx)	(0x2800 + 8 * (idx))
-+#define OA_PERF_COUNTER_A(idx)		_MMIO(__OA_PERF_COUNTER_A(idx))
-+#define OA_PERF_COUNTER_A_UDW(idx)		_MMIO(__OA_PERF_COUNTER_A(idx) + 4)
-+
-+/* Gen12 Performance counters registers */
-+#define __GEN12_OAG_PERF_COUNTER_A(idx)	(0xD980 + 8 * (idx))
-+#define GEN12_OAG_PERF_COUNTER_A(idx)	_MMIO(__GEN12_OAG_PERF_COUNTER_A(idx))
-+#define GEN12_OAG_PERF_COUNTER_A_UDW(idx) _MMIO(__GEN12_OAG_PERF_COUNTER_A(idx) + 4)
-+
- /* Same layout as OASTARTTRIGX */
- #define GEN12_OAG_OASTARTTRIG1 _MMIO(0xd900)
- #define GEN12_OAG_OASTARTTRIG2 _MMIO(0xd904)
+Chris Wilson (3):
+  drm/i915/gt: Refactor _wa_add to reuse wa_index and wa_list_grow
+  drm/i915/gt: Check for conflicting RING_NONPRIV
+  drm/i915/gt: Enable dynamic adjustment of RING_NONPRIV
+
+Piotr Maciejewski (1):
+  drm/i915/perf: Ensure observation logic is not clock gated
+
+Umesh Nerlige Ramappa (4):
+  drm/i915/gt: Lock intel_engine_apply_whitelist with uncore->lock
+  drm/i915/perf: Whitelist OA report trigger registers
+  drm/i915/perf: Whitelist OA counter and buffer registers
+  drm/i915/perf: Map OA buffer to user space for gen12 performance query
+
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.h      |   2 +
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   | 269 +++++++++++++-----
+ drivers/gpu/drm/i915/gt/intel_workarounds.h   |   7 +
+ .../gpu/drm/i915/gt/selftest_workarounds.c    | 237 +++++++++++++++
+ drivers/gpu/drm/i915/i915_perf.c              | 228 ++++++++++++++-
+ drivers/gpu/drm/i915/i915_perf_types.h        |   8 +
+ drivers/gpu/drm/i915/i915_reg.h               |  30 +-
+ include/uapi/drm/i915_drm.h                   |  33 +++
+ 9 files changed, 728 insertions(+), 88 deletions(-)
+
 -- 
 2.20.1
 
