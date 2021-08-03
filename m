@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BD282C432BE
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65AA0C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DFA5601FC
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7DFA5601FC
+	by mail.kernel.org (Postfix) with ESMTPS id 22713601FC
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 22:13:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 22713601FC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9ABD6E910;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6CFC6E903;
 	Tue,  3 Aug 2021 22:12:08 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6DBA6E8F5;
- Tue,  3 Aug 2021 22:11:56 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="193393472"
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="193393472"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D8E46E252;
+ Tue,  3 Aug 2021 22:11:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="193393488"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="193393488"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:55 -0700
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512724"
+ 03 Aug 2021 15:11:56 -0700
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="511512743"
 Received: from dhiatt-server.jf.intel.com ([10.54.81.3])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 15:11:54 -0700
+ 03 Aug 2021 15:11:56 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Tue,  3 Aug 2021 15:29:23 -0700
-Message-Id: <20210803222943.27686-27-matthew.brost@intel.com>
+Date: Tue,  3 Aug 2021 15:29:38 -0700
+Message-Id: <20210803222943.27686-42-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20210803222943.27686-1-matthew.brost@intel.com>
 References: <20210803222943.27686-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 26/46] drm/i915: Connect UAPI to GuC multi-lrc
- interface
+Subject: [Intel-gfx] [PATCH 41/46] drm/i915: Eliminate unnecessary VMA calls
+ for multi-BB submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,735 +59,429 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Introduce 'set parallel submit' extension to connect UAPI to GuC
-multi-lrc interface. Kernel doc in new uAPI should explain it all.
+Certain VMA functions in the execbuf IOCTL only need to be called on
+first or last BB of a multi-BB submission. eb_relocate() on the first
+and eb_release_vmas() on the last. Doing so will save CPU / GPU cycles.
 
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 157 +++++++++++++++++-
- .../gpu/drm/i915/gem/i915_gem_context_types.h |   6 +
- drivers/gpu/drm/i915/gt/intel_context_types.h |   8 +-
- drivers/gpu/drm/i915/gt/intel_engine.h        |  12 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   6 +-
- .../drm/i915/gt/intel_execlists_submission.c  |   6 +-
- drivers/gpu/drm/i915/gt/selftest_execlists.c  |  12 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 111 +++++++++++--
- include/uapi/drm/i915_drm.h                   | 128 ++++++++++++++
- 9 files changed, 417 insertions(+), 29 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 127 +++++++++++-------
+ .../i915/gem/selftests/i915_gem_execbuffer.c  |  14 +-
+ 2 files changed, 83 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index cff72679ad7c..2b0dd3ff4db8 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -515,9 +515,149 @@ set_proto_ctx_engines_bond(struct i915_user_extension __user *base, void *data)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index ecdb583cc2eb..70784779872a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -270,7 +270,7 @@ struct i915_execbuffer {
+ 	/** list of vma that have execobj.relocation_count */
+ 	struct list_head relocs;
  
-+static int
-+set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
-+				      void *data)
-+{
-+	struct i915_context_engines_parallel_submit __user *ext =
-+		container_of_user(base, typeof(*ext), base);
-+	const struct set_proto_ctx_engines *set = data;
-+	struct drm_i915_private *i915 = set->i915;
-+	u64 flags;
-+	int err = 0, n, i, j;
-+	u16 slot, width, num_siblings;
-+	struct intel_engine_cs **siblings = NULL;
-+	intel_engine_mask_t prev_mask;
-+
-+	/* Disabling for now */
-+	return -ENODEV;
-+
-+	if (!(intel_uc_uses_guc_submission(&i915->gt.uc)))
-+		return -ENODEV;
-+
-+	if (get_user(slot, &ext->engine_index))
-+		return -EFAULT;
-+
-+	if (get_user(width, &ext->width))
-+		return -EFAULT;
-+
-+	if (get_user(num_siblings, &ext->num_siblings))
-+		return -EFAULT;
-+
-+	if (slot >= set->num_engines) {
-+		drm_dbg(&i915->drm, "Invalid placement value, %d >= %d\n",
-+			slot, set->num_engines);
-+		return -EINVAL;
-+	}
-+
-+	if (set->engines[slot].type != I915_GEM_ENGINE_TYPE_INVALID) {
-+		drm_dbg(&i915->drm,
-+			"Invalid placement[%d], already occupied\n", slot);
-+		return -EINVAL;
-+	}
-+
-+	if (get_user(flags, &ext->flags))
-+		return -EFAULT;
-+
-+	if (flags) {
-+		drm_dbg(&i915->drm, "Unknown flags 0x%02llx", flags);
-+		return -EINVAL;
-+	}
-+
-+	for (n = 0; n < ARRAY_SIZE(ext->mbz64); n++) {
-+		err = check_user_mbz(&ext->mbz64[n]);
-+		if (err)
-+			return err;
-+	}
-+
-+	if (width < 2) {
-+		drm_dbg(&i915->drm, "Width (%d) < 2\n", width);
-+		return -EINVAL;
-+	}
-+
-+	if (num_siblings < 1) {
-+		drm_dbg(&i915->drm, "Number siblings (%d) < 1\n",
-+			num_siblings);
-+		return -EINVAL;
-+	}
-+
-+	siblings = kmalloc_array(num_siblings * width,
-+				 sizeof(*siblings),
-+				 GFP_KERNEL);
-+	if (!siblings)
-+		return -ENOMEM;
-+
-+	/* Create contexts / engines */
-+	for (i = 0; i < width; ++i) {
-+		intel_engine_mask_t current_mask = 0;
-+		struct i915_engine_class_instance prev_engine;
-+
-+		for (j = 0; j < num_siblings; ++j) {
-+			struct i915_engine_class_instance ci;
-+
-+			n = i * num_siblings + j;
-+			if (copy_from_user(&ci, &ext->engines[n], sizeof(ci))) {
-+				err = -EFAULT;
-+				goto out_err;
-+			}
-+
-+			siblings[n] =
-+				intel_engine_lookup_user(i915, ci.engine_class,
-+							 ci.engine_instance);
-+			if (!siblings[n]) {
-+				drm_dbg(&i915->drm,
-+					"Invalid sibling[%d]: { class:%d, inst:%d }\n",
-+					n, ci.engine_class, ci.engine_instance);
-+				err = -EINVAL;
-+				goto out_err;
-+			}
-+
-+			if (n) {
-+				if (prev_engine.engine_class !=
-+				    ci.engine_class) {
-+					drm_dbg(&i915->drm,
-+						"Mismatched class %d, %d\n",
-+						prev_engine.engine_class,
-+						ci.engine_class);
-+					err = -EINVAL;
-+					goto out_err;
-+				}
-+			}
-+
-+			prev_engine = ci;
-+			current_mask |= siblings[n]->logical_mask;
-+		}
-+
-+		if (i > 0) {
-+			if (current_mask != prev_mask << 1) {
-+				drm_dbg(&i915->drm,
-+					"Non contiguous logical mask 0x%x, 0x%x\n",
-+					prev_mask, current_mask);
-+				err = -EINVAL;
-+				goto out_err;
-+			}
-+		}
-+		prev_mask = current_mask;
-+	}
-+
-+	set->engines[slot].type = I915_GEM_ENGINE_TYPE_PARALLEL;
-+	set->engines[slot].num_siblings = num_siblings;
-+	set->engines[slot].width = width;
-+	set->engines[slot].siblings = siblings;
-+
-+	return 0;
-+
-+out_err:
-+	kfree(siblings);
-+
-+	return err;
-+}
-+
- static const i915_user_extension_fn set_proto_ctx_engines_extensions[] = {
- 	[I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE] = set_proto_ctx_engines_balance,
- 	[I915_CONTEXT_ENGINES_EXT_BOND] = set_proto_ctx_engines_bond,
-+	[I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT] =
-+		set_proto_ctx_engines_parallel_submit,
- };
+-	struct i915_gem_ww_ctx ww;
++	struct i915_gem_ww_ctx *ww;
  
- static int set_proto_ctx_engines(struct drm_i915_file_private *fpriv,
-@@ -938,7 +1078,7 @@ static struct i915_gem_engines *user_engines(struct i915_gem_context *ctx,
+ 	/**
+ 	 * Track the most recently used object for relocations, as we
+@@ -448,7 +448,7 @@ eb_pin_vma(struct i915_execbuffer *eb,
+ 		pin_flags |= PIN_GLOBAL;
  
- 	e = alloc_engines(num_engines);
- 	for (n = 0; n < num_engines; n++) {
--		struct intel_context *ce;
-+		struct intel_context *ce, *child;
- 		int ret;
+ 	/* Attempt to reuse the current location if available */
+-	err = i915_vma_pin_ww(vma, &eb->ww, 0, 0, pin_flags);
++	err = i915_vma_pin_ww(vma, eb->ww, 0, 0, pin_flags);
+ 	if (err == -EDEADLK)
+ 		return err;
  
- 		switch (pe[n].type) {
-@@ -948,7 +1088,13 @@ static struct i915_gem_engines *user_engines(struct i915_gem_context *ctx,
+@@ -457,11 +457,11 @@ eb_pin_vma(struct i915_execbuffer *eb,
+ 			return err;
  
- 		case I915_GEM_ENGINE_TYPE_BALANCED:
- 			ce = intel_engine_create_virtual(pe[n].siblings,
--							 pe[n].num_siblings);
-+							 pe[n].num_siblings, 0);
-+			break;
-+
-+		case I915_GEM_ENGINE_TYPE_PARALLEL:
-+			ce = intel_engine_create_parallel(pe[n].siblings,
-+							  pe[n].num_siblings,
-+							  pe[n].width);
- 			break;
- 
- 		case I915_GEM_ENGINE_TYPE_INVALID:
-@@ -969,6 +1115,13 @@ static struct i915_gem_engines *user_engines(struct i915_gem_context *ctx,
- 			err = ERR_PTR(ret);
- 			goto free_engines;
- 		}
-+		for_each_child(ce, child) {
-+			ret = intel_context_set_gem(child, ctx, pe->sseu);
-+			if (ret) {
-+				err = ERR_PTR(ret);
-+				goto free_engines;
-+			}
-+		}
+ 		/* Failing that pick any _free_ space if suitable */
+-		err = i915_vma_pin_ww(vma, &eb->ww,
+-					     entry->pad_to_size,
+-					     entry->alignment,
+-					     eb_pin_flags(entry, ev->flags) |
+-					     PIN_USER | PIN_NOEVICT);
++		err = i915_vma_pin_ww(vma, eb->ww,
++				      entry->pad_to_size,
++				      entry->alignment,
++				      eb_pin_flags(entry, ev->flags) |
++				      PIN_USER | PIN_NOEVICT);
+ 		if (unlikely(err))
+ 			return err;
  	}
- 	e->num_engines = num_engines;
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index 94c03a97cb77..7b096d83bca1 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -78,6 +78,9 @@ enum i915_gem_engine_type {
- 
- 	/** @I915_GEM_ENGINE_TYPE_BALANCED: A load-balanced engine set */
- 	I915_GEM_ENGINE_TYPE_BALANCED,
-+
-+	/** @I915_GEM_ENGINE_TYPE_PARALLEL: A parallel engine set */
-+	I915_GEM_ENGINE_TYPE_PARALLEL,
- };
- 
- /**
-@@ -108,6 +111,9 @@ struct i915_gem_proto_engine {
- 	/** @num_siblings: Number of balanced siblings */
- 	unsigned int num_siblings;
- 
-+	/** @width: Width of each sibling */
-+	unsigned int width;
-+
- 	/** @siblings: Balanced siblings */
- 	struct intel_engine_cs **siblings;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index f4fc81f64921..9cdbea752014 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -55,9 +55,13 @@ struct intel_context_ops {
- 	void (*reset)(struct intel_context *ce);
- 	void (*destroy)(struct kref *kref);
- 
--	/* virtual engine/context interface */
-+	/* virtual/parallel engine/context interface */
- 	struct intel_context *(*create_virtual)(struct intel_engine_cs **engine,
--						unsigned int count);
-+						unsigned int count,
-+						unsigned long flags);
-+	struct intel_context *(*create_parallel)(struct intel_engine_cs **engines,
-+						 unsigned int num_siblings,
-+						 unsigned int width);
- 	struct intel_engine_cs *(*get_sibling)(struct intel_engine_cs *engine,
- 					       unsigned int sibling);
- };
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 87579affb952..43f16a8347ee 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -279,9 +279,19 @@ intel_engine_has_preempt_reset(const struct intel_engine_cs *engine)
- 	return intel_engine_has_preemption(engine);
- }
- 
-+#define FORCE_VIRTUAL	BIT(0)
- struct intel_context *
- intel_engine_create_virtual(struct intel_engine_cs **siblings,
--			    unsigned int count);
-+			    unsigned int count, unsigned long flags);
-+
-+static inline struct intel_context *
-+intel_engine_create_parallel(struct intel_engine_cs **engines,
-+			     unsigned int num_engines,
-+			     unsigned int width)
-+{
-+	GEM_BUG_ON(!engines[0]->cops->create_parallel);
-+	return engines[0]->cops->create_parallel(engines, num_engines, width);
-+}
- 
- static inline bool
- intel_virtual_engine_has_heartbeat(const struct intel_engine_cs *engine)
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 4d790f9a65dd..f66c75c77584 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1923,16 +1923,16 @@ ktime_t intel_engine_get_busy_time(struct intel_engine_cs *engine, ktime_t *now)
- 
- struct intel_context *
- intel_engine_create_virtual(struct intel_engine_cs **siblings,
--			    unsigned int count)
-+			    unsigned int count, unsigned long flags)
- {
- 	if (count == 0)
- 		return ERR_PTR(-EINVAL);
- 
--	if (count == 1)
-+	if (count == 1 && !(flags & FORCE_VIRTUAL))
- 		return intel_context_create(siblings[0]);
- 
- 	GEM_BUG_ON(!siblings[0]->cops->create_virtual);
--	return siblings[0]->cops->create_virtual(siblings, count);
-+	return siblings[0]->cops->create_virtual(siblings, count, flags);
- }
- 
- struct i915_request *
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index fc74ca28f245..769480e026bb 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -201,7 +201,8 @@ static struct virtual_engine *to_virtual_engine(struct intel_engine_cs *engine)
- }
- 
- static struct intel_context *
--execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count);
-+execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
-+			 unsigned long flags);
- 
- static struct i915_request *
- __active_request(const struct intel_timeline * const tl,
-@@ -3785,7 +3786,8 @@ static void virtual_submit_request(struct i915_request *rq)
- }
- 
- static struct intel_context *
--execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
-+execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
-+			 unsigned long flags)
- {
- 	struct virtual_engine *ve;
- 	unsigned int n;
-diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index f12ffe797639..e876a9d88a5c 100644
---- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -3733,7 +3733,7 @@ static int nop_virtual_engine(struct intel_gt *gt,
- 	GEM_BUG_ON(!nctx || nctx > ARRAY_SIZE(ve));
- 
- 	for (n = 0; n < nctx; n++) {
--		ve[n] = intel_engine_create_virtual(siblings, nsibling);
-+		ve[n] = intel_engine_create_virtual(siblings, nsibling, 0);
- 		if (IS_ERR(ve[n])) {
- 			err = PTR_ERR(ve[n]);
- 			nctx = n;
-@@ -3929,7 +3929,7 @@ static int mask_virtual_engine(struct intel_gt *gt,
- 	 * restrict it to our desired engine within the virtual engine.
- 	 */
- 
--	ve = intel_engine_create_virtual(siblings, nsibling);
-+	ve = intel_engine_create_virtual(siblings, nsibling, 0);
- 	if (IS_ERR(ve)) {
- 		err = PTR_ERR(ve);
- 		goto out_close;
-@@ -4060,7 +4060,7 @@ static int slicein_virtual_engine(struct intel_gt *gt,
- 		i915_request_add(rq);
+@@ -643,9 +643,9 @@ static int eb_reserve_vma(struct i915_execbuffer *eb,
+ 			return err;
  	}
  
--	ce = intel_engine_create_virtual(siblings, nsibling);
-+	ce = intel_engine_create_virtual(siblings, nsibling, 0);
- 	if (IS_ERR(ce)) {
- 		err = PTR_ERR(ce);
- 		goto out;
-@@ -4112,7 +4112,7 @@ static int sliceout_virtual_engine(struct intel_gt *gt,
- 
- 	/* XXX We do not handle oversubscription and fairness with normal rq */
- 	for (n = 0; n < nsibling; n++) {
--		ce = intel_engine_create_virtual(siblings, nsibling);
-+		ce = intel_engine_create_virtual(siblings, nsibling, 0);
- 		if (IS_ERR(ce)) {
- 			err = PTR_ERR(ce);
- 			goto out;
-@@ -4214,7 +4214,7 @@ static int preserved_virtual_engine(struct intel_gt *gt,
+-	err = i915_vma_pin_ww(vma, &eb->ww,
+-			   entry->pad_to_size, entry->alignment,
+-			   eb_pin_flags(entry, ev->flags) | pin_flags);
++	err = i915_vma_pin_ww(vma, eb->ww,
++			      entry->pad_to_size, entry->alignment,
++			      eb_pin_flags(entry, ev->flags) | pin_flags);
  	if (err)
- 		goto out_scratch;
+ 		return err;
  
--	ve = intel_engine_create_virtual(siblings, nsibling);
-+	ve = intel_engine_create_virtual(siblings, nsibling, 0);
- 	if (IS_ERR(ve)) {
- 		err = PTR_ERR(ve);
- 		goto out_scratch;
-@@ -4354,7 +4354,7 @@ static int reset_virtual_engine(struct intel_gt *gt,
- 	if (igt_spinner_init(&spin, gt))
- 		return -ENOMEM;
+@@ -940,7 +940,7 @@ static int eb_lock_vmas(struct i915_execbuffer *eb)
+ 		struct eb_vma *ev = &eb->vma[i];
+ 		struct i915_vma *vma = ev->vma;
  
--	ve = intel_engine_create_virtual(siblings, nsibling);
-+	ve = intel_engine_create_virtual(siblings, nsibling, 0);
- 	if (IS_ERR(ve)) {
- 		err = PTR_ERR(ve);
- 		goto out_spin;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 44a7582c9aed..89528624710a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -82,7 +82,8 @@
-  */
- 
- static struct intel_context *
--guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count);
-+guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
-+		   unsigned long flags);
- 
- #define GUC_REQUEST_SIZE 64 /* bytes */
- 
-@@ -2514,8 +2515,6 @@ static void guc_context_post_unpin(struct intel_context *ce)
- 	__guc_context_post_unpin(ce);
+-		err = i915_gem_object_lock(vma->obj, &eb->ww);
++		err = i915_gem_object_lock(vma->obj, eb->ww);
+ 		if (err)
+ 			return err;
+ 	}
+@@ -1020,12 +1020,13 @@ eb_get_vma(const struct i915_execbuffer *eb, unsigned long handle)
+ 	}
  }
  
--/* Future patches will use this function */
--__maybe_unused
- static int guc_parent_context_pre_pin(struct intel_context *ce,
- 				      struct i915_gem_ww_ctx *ww)
+-static void eb_release_vmas(struct i915_execbuffer *eb, bool final)
++static void eb_release_vmas(struct i915_execbuffer *eb, bool final,
++			    bool unreserve)
  {
-@@ -2559,8 +2558,6 @@ static int guc_parent_context_pre_pin(struct intel_context *ce,
+ 	const unsigned int count = eb->buffer_count;
+ 	unsigned int i;
+ 
+-	for (i = 0; i < count; i++) {
++	for (i = 0; unreserve && i < count; i++) {
+ 		struct eb_vma *ev = &eb->vma[i];
+ 		struct i915_vma *vma = ev->vma;
+ 
+@@ -1237,7 +1238,7 @@ static void *reloc_iomap(struct drm_i915_gem_object *obj,
+ 		if (err)
+ 			return ERR_PTR(err);
+ 
+-		vma = i915_gem_object_ggtt_pin_ww(obj, &eb->ww, NULL, 0, 0,
++		vma = i915_gem_object_ggtt_pin_ww(obj, eb->ww, NULL, 0, 0,
+ 						  PIN_MAPPABLE |
+ 						  PIN_NONBLOCK /* NOWARN */ |
+ 						  PIN_NOEVICT);
+@@ -1361,7 +1362,7 @@ static int __reloc_gpu_alloc(struct i915_execbuffer *eb,
+ 	}
+ 	eb->reloc_pool = NULL;
+ 
+-	err = i915_gem_object_lock(pool->obj, &eb->ww);
++	err = i915_gem_object_lock(pool->obj, eb->ww);
+ 	if (err)
+ 		goto err_pool;
+ 
+@@ -1380,7 +1381,7 @@ static int __reloc_gpu_alloc(struct i915_execbuffer *eb,
+ 		goto err_unmap;
+ 	}
+ 
+-	err = i915_vma_pin_ww(batch, &eb->ww, 0, 0, PIN_USER | PIN_NONBLOCK);
++	err = i915_vma_pin_ww(batch, eb->ww, 0, 0, PIN_USER | PIN_NONBLOCK);
+ 	if (err)
+ 		goto err_unmap;
+ 
+@@ -1402,7 +1403,7 @@ static int __reloc_gpu_alloc(struct i915_execbuffer *eb,
+ 			eb->reloc_context = ce;
+ 		}
+ 
+-		err = intel_context_pin_ww(ce, &eb->ww);
++		err = intel_context_pin_ww(ce, eb->ww);
+ 		if (err)
+ 			goto err_unpin;
+ 
+@@ -2017,8 +2018,8 @@ static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb,
+ 	}
+ 
+ 	/* We may process another execbuffer during the unlock... */
+-	eb_release_vmas(eb, false);
+-	i915_gem_ww_ctx_fini(&eb->ww);
++	eb_release_vmas(eb, false, true);
++	i915_gem_ww_ctx_fini(eb->ww);
+ 
+ 	if (rq) {
+ 		/* nonblocking is always false */
+@@ -2062,7 +2063,7 @@ static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb,
+ 		err = eb_reinit_userptr(eb);
+ 
+ err_relock:
+-	i915_gem_ww_ctx_init(&eb->ww, true);
++	i915_gem_ww_ctx_init(eb->ww, true);
+ 	if (err)
+ 		goto out;
+ 
+@@ -2119,8 +2120,8 @@ static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb,
+ 
+ err:
+ 	if (err == -EDEADLK) {
+-		eb_release_vmas(eb, false);
+-		err = i915_gem_ww_ctx_backoff(&eb->ww);
++		eb_release_vmas(eb, false, true);
++		err = i915_gem_ww_ctx_backoff(eb->ww);
+ 		if (!err)
+ 			goto repeat_validate;
+ 	}
+@@ -2152,7 +2153,7 @@ static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb,
  	return err;
  }
  
--/* Future patches will use this function */
--__maybe_unused
- static void guc_parent_context_post_unpin(struct intel_context *ce)
+-static int eb_relocate_parse(struct i915_execbuffer *eb)
++static int eb_relocate_parse(struct i915_execbuffer *eb, bool first)
  {
- 	struct intel_context *child;
-@@ -2576,8 +2573,6 @@ static void guc_parent_context_post_unpin(struct intel_context *ce)
+ 	int err;
+ 	struct i915_request *rq = NULL;
+@@ -2189,14 +2190,16 @@ static int eb_relocate_parse(struct i915_execbuffer *eb)
+ 	/* only throttle once, even if we didn't need to throttle */
+ 	throttle = false;
+ 
+-	err = eb_validate_vmas(eb);
+-	if (err == -EAGAIN)
+-		goto slow;
+-	else if (err)
+-		goto err;
++	if (first) {
++		err = eb_validate_vmas(eb);
++		if (err == -EAGAIN)
++			goto slow;
++		else if (err)
++			goto err;
++	}
+ 
+ 	/* The objects are in their final locations, apply the relocations. */
+-	if (eb->args->flags & __EXEC_HAS_RELOC) {
++	if (eb->args->flags & __EXEC_HAS_RELOC && first) {
+ 		struct eb_vma *ev;
+ 
+ 		list_for_each_entry(ev, &eb->relocs, reloc_link) {
+@@ -2211,13 +2214,13 @@ static int eb_relocate_parse(struct i915_execbuffer *eb)
+ 			goto slow;
  	}
- }
  
--/* Future patches will use this function */
--__maybe_unused
- static int guc_parent_context_pin(struct intel_context *ce)
+-	if (!err)
++	if (!err && first)
+ 		err = eb_parse(eb);
+ 
+ err:
+ 	if (err == -EDEADLK) {
+-		eb_release_vmas(eb, false);
+-		err = i915_gem_ww_ctx_backoff(&eb->ww);
++		eb_release_vmas(eb, false, true);
++		err = i915_gem_ww_ctx_backoff(eb->ww);
+ 		if (!err)
+ 			goto retry;
+ 	}
+@@ -2398,7 +2401,7 @@ shadow_batch_pin(struct i915_execbuffer *eb,
+ 	if (IS_ERR(vma))
+ 		return vma;
+ 
+-	err = i915_vma_pin_ww(vma, &eb->ww, 0, 0, flags);
++	err = i915_vma_pin_ww(vma, eb->ww, 0, 0, flags);
+ 	if (err)
+ 		return ERR_PTR(err);
+ 
+@@ -2412,7 +2415,7 @@ static struct i915_vma *eb_dispatch_secure(struct i915_execbuffer *eb, struct i9
+ 	 * batch" bit. Hence we need to pin secure batches into the global gtt.
+ 	 * hsw should have this fixed, but bdw mucks it up again. */
+ 	if (eb->batch_flags & I915_DISPATCH_SECURE)
+-		return i915_gem_object_ggtt_pin_ww(vma->obj, &eb->ww, NULL, 0, 0, 0);
++		return i915_gem_object_ggtt_pin_ww(vma->obj, eb->ww, NULL, 0, 0, 0);
+ 
+ 	return NULL;
+ }
+@@ -2458,7 +2461,7 @@ static int eb_parse(struct i915_execbuffer *eb)
+ 		eb->batch_pool = pool;
+ 	}
+ 
+-	err = i915_gem_object_lock(pool->obj, &eb->ww);
++	err = i915_gem_object_lock(pool->obj, eb->ww);
+ 	if (err)
+ 		goto err;
+ 
+@@ -2666,7 +2669,7 @@ static struct i915_request *eb_pin_engine(struct i915_execbuffer *eb, bool throt
+ 	 * GGTT space, so do this first before we reserve a seqno for
+ 	 * ourselves.
+ 	 */
+-	err = intel_context_pin_ww(ce, &eb->ww);
++	err = intel_context_pin_ww(ce, eb->ww);
+ 	if (err)
+ 		return ERR_PTR(err);
+ 
+@@ -3218,7 +3221,8 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 		       unsigned int batch_number,
+ 		       struct dma_fence *in_fence,
+ 		       struct dma_fence *exec_fence,
+-		       struct dma_fence **out_fence)
++		       struct dma_fence **out_fence,
++		       struct i915_gem_ww_ctx *ww)
  {
- 	int ret, i = 0, j = 0;
-@@ -2623,8 +2618,6 @@ static int guc_parent_context_pin(struct intel_context *ce)
- 	return ret;
- }
+ 	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct i915_execbuffer eb;
+@@ -3239,7 +3243,8 @@ i915_gem_do_execbuffer(struct drm_device *dev,
  
--/* Future patches will use this function */
--__maybe_unused
- static void guc_parent_context_unpin(struct intel_context *ce)
- {
- 	struct intel_context *child;
-@@ -3048,8 +3041,6 @@ static void destroy_worker_func(struct work_struct *w)
- 		intel_gt_pm_unpark_work_add(gt, destroy_worker);
- }
+ 	eb.exec = exec;
+ 	eb.vma = (struct eb_vma *)(exec + args->buffer_count + 1);
+-	eb.vma[0].vma = NULL;
++	if (first)
++		eb.vma[0].vma = NULL;
+ 	eb.reloc_pool = eb.batch_pool = NULL;
+ 	eb.reloc_context = NULL;
  
--/* Future patches will use this function */
--__maybe_unused
- static void guc_child_context_destroy(struct kref *kref)
- {
- 	__guc_context_destroy(container_of(kref, struct intel_context, ref));
-@@ -3272,6 +3263,11 @@ static void remove_from_context(struct i915_request *rq)
- 	i915_request_notify_execute_cb_imm(rq);
- }
+@@ -3251,6 +3256,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 	eb.batch_len = args->batch_len;
+ 	eb.trampoline = NULL;
+ 	eb.composite_fence = NULL;
++	eb.ww = ww;
  
-+static struct intel_context *
-+guc_create_parallel(struct intel_engine_cs **engines,
-+		    unsigned int num_siblings,
-+		    unsigned int width);
-+
- static const struct intel_context_ops guc_context_ops = {
- 	.alloc = guc_context_alloc,
+ 	eb.fences = NULL;
+ 	eb.num_fences = 0;
+@@ -3269,9 +3275,14 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 	if (err)
+ 		goto err_ext;
  
-@@ -3293,6 +3289,7 @@ static const struct intel_context_ops guc_context_ops = {
- 	.destroy = guc_context_destroy,
- 
- 	.create_virtual = guc_create_virtual,
-+	.create_parallel = guc_create_parallel,
- };
- 
- static void __guc_signal_context_fence(struct intel_context *ce)
-@@ -3782,6 +3779,91 @@ static void guc_retire_inflight_request_prio(struct i915_request *rq)
- 	spin_unlock(&ce->guc_active.lock);
- }
- 
-+static const struct intel_context_ops virtual_parent_context_ops = {
-+	.alloc = guc_virtual_context_alloc,
-+
-+	.pre_pin = guc_parent_context_pre_pin,
-+	.pin = guc_parent_context_pin,
-+	.unpin = guc_parent_context_unpin,
-+	.post_unpin = guc_parent_context_post_unpin,
-+
-+	.ban = guc_context_ban,
-+
-+	.enter = guc_virtual_context_enter,
-+	.exit = guc_virtual_context_exit,
-+
-+	.sched_disable = guc_context_sched_disable,
-+
-+	.destroy = guc_context_destroy,
-+
-+	.get_sibling = guc_virtual_get_sibling,
-+};
-+
-+static const struct intel_context_ops virtual_child_context_ops = {
-+	.alloc = guc_virtual_context_alloc,
-+
-+	.enter = guc_virtual_context_enter,
-+	.exit = guc_virtual_context_exit,
-+
-+	.destroy = guc_child_context_destroy,
-+};
-+
-+static struct intel_context *
-+guc_create_parallel(struct intel_engine_cs **engines,
-+		    unsigned int num_siblings,
-+		    unsigned int width)
-+{
-+	struct intel_engine_cs **siblings = NULL;
-+	struct intel_context *parent = NULL, *ce, *err;
-+	int i, j;
-+	int ret;
-+
-+	siblings = kmalloc_array(num_siblings,
-+				 sizeof(*siblings),
-+				 GFP_KERNEL);
-+	if (!siblings)
-+		return ERR_PTR(-ENOMEM);
-+
-+	for (i = 0; i < width; ++i) {
-+		for (j = 0; j < num_siblings; ++j)
-+			siblings[j] = engines[i * num_siblings + j];
-+
-+		ce = intel_engine_create_virtual(siblings, num_siblings,
-+						 FORCE_VIRTUAL);
-+		if (!ce) {
-+			err = ERR_PTR(-ENOMEM);
-+			goto unwind;
-+		}
-+
-+		if (i == 0) {
-+			parent = ce;
-+		} else {
-+			intel_context_bind_parent_child(parent, ce);
-+			ret = intel_context_alloc_state(ce);
-+			if (ret) {
-+				err = ERR_PTR(ret);
-+				goto unwind;
-+			}
-+		}
+-	err = eb_create(&eb);
+-	if (err)
+-		goto err_ext;
++	if (first) {
++		err = eb_create(&eb);
++		if (err)
++			goto err_ext;
++	} else {
++		eb.lut_size = -eb.buffer_count;
 +	}
 +
-+	parent->ops = &virtual_parent_context_ops;
-+	for_each_child(parent, ce)
-+		ce->ops = &virtual_child_context_ops;
+ 
+ 	GEM_BUG_ON(!eb.lut_size);
+ 
+@@ -3286,15 +3297,22 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 	if (unlikely(err))
+ 		goto err_context;
+ 
+-	err = eb_lookup_vmas(&eb);
+-	if (err) {
+-		eb_release_vmas(&eb, true);
+-		goto err_engine;
++	if (first) {
++		err = eb_lookup_vmas(&eb);
++		if (err) {
++			eb_release_vmas(&eb, true, true);
++			goto err_engine;
++		}
 +
-+	kfree(siblings);
-+	return parent;
++	} else {
++		eb.batch = &eb.vma[eb.batch_index];
+ 	}
+ 
+-	i915_gem_ww_ctx_init(&eb.ww, true);
+ 
+-	err = eb_relocate_parse(&eb);
++	if (first)
++		i915_gem_ww_ctx_init(eb.ww, true);
 +
-+unwind:
-+	if (parent) {
-+		for_each_child(parent, ce)
-+			intel_context_put(ce);
-+		intel_context_put(parent);
-+	}
-+	kfree(siblings);
-+	return err;
-+}
-+
- static void sanitize_hwsp(struct intel_engine_cs *engine)
++	err = eb_relocate_parse(&eb, first);
+ 	if (err) {
+ 		/*
+ 		 * If the user expects the execobject.offset and
+@@ -3307,7 +3325,8 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 		goto err_vma;
+ 	}
+ 
+-	ww_acquire_done(&eb.ww.ctx);
++	if (first)
++		ww_acquire_done(&eb.ww->ctx);
+ 
+ 	batch = eb.batch->vma;
+ 
+@@ -3410,11 +3429,12 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 	i915_request_put(eb.request);
+ 
+ err_vma:
+-	eb_release_vmas(&eb, true);
++	eb_release_vmas(&eb, true, err || last);
+ 	if (eb.trampoline)
+ 		i915_vma_unpin(eb.trampoline);
+ 	WARN_ON(err == -EDEADLK);
+-	i915_gem_ww_ctx_fini(&eb.ww);
++	if (err || last)
++		i915_gem_ww_ctx_fini(eb.ww);
+ 
+ 	if (eb.batch_pool)
+ 		intel_gt_buffer_pool_put(eb.batch_pool);
+@@ -3476,6 +3496,7 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
+ 	const size_t count = args->buffer_count;
+ 	int err;
+ 	struct i915_gem_context *ctx;
++	struct i915_gem_ww_ctx ww;
+ 	struct intel_context *parent = NULL;
+ 	unsigned int num_batches = 1, i;
+ 	bool is_parallel = false;
+@@ -3602,7 +3623,8 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
+ 				     0,
+ 				     in_fence,
+ 				     exec_fence,
+-				     out_fences);
++				     out_fences,
++				     &ww);
+ 
+ 	for (i = 1; err == 0 && i < num_batches; i++)
+ 		err = i915_gem_do_execbuffer(dev, file, args, exec2_list,
+@@ -3612,7 +3634,8 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
+ 					     i,
+ 					     NULL,
+ 					     NULL,
+-					     out_fences);
++					     out_fences,
++					     &ww);
+ 
+ 	if (is_parallel)
+ 		mutex_unlock(&parent->parallel_submit);
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
+index 16162fc2782d..710d2700e5b4 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
+@@ -32,11 +32,11 @@ static int __igt_gpu_reloc(struct i915_execbuffer *eb,
+ 	if (IS_ERR(vma))
+ 		return PTR_ERR(vma);
+ 
+-	err = i915_gem_object_lock(obj, &eb->ww);
++	err = i915_gem_object_lock(obj, eb->ww);
+ 	if (err)
+ 		return err;
+ 
+-	err = i915_vma_pin_ww(vma, &eb->ww, 0, 0, PIN_USER | PIN_HIGH);
++	err = i915_vma_pin_ww(vma, eb->ww, 0, 0, PIN_USER | PIN_HIGH);
+ 	if (err)
+ 		return err;
+ 
+@@ -106,10 +106,12 @@ static int __igt_gpu_reloc(struct i915_execbuffer *eb,
+ static int igt_gpu_reloc(void *arg)
  {
- 	struct intel_timeline *tl;
-@@ -4578,7 +4660,8 @@ void intel_guc_submission_print_context_info(struct intel_guc *guc,
- }
+ 	struct i915_execbuffer eb;
++	struct i915_gem_ww_ctx ww;
+ 	struct drm_i915_gem_object *scratch;
+ 	int err = 0;
+ 	u32 *map;
  
- static struct intel_context *
--guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
-+guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
-+		   unsigned long flags)
- {
- 	struct guc_virtual_engine *ve;
- 	struct intel_guc *guc;
-@@ -4591,7 +4674,9 @@ guc_create_virtual(struct intel_engine_cs **siblings, unsigned int count)
- 		return ERR_PTR(-ENOMEM);
++	eb.ww = &ww;
+ 	eb.i915 = arg;
  
- 	guc = &siblings[0]->gt->uc.guc;
--	sched_engine = guc_to_sched_engine(guc, GUC_SUBMIT_ENGINE_SINGLE_LRC);
-+	sched_engine = guc_to_sched_engine(guc, (flags & FORCE_VIRTUAL) ?
-+					   GUC_SUBMIT_ENGINE_MULTI_LRC :
-+					   GUC_SUBMIT_ENGINE_SINGLE_LRC);
+ 	scratch = i915_gem_object_create_internal(eb.i915, 4096);
+@@ -141,20 +143,20 @@ static int igt_gpu_reloc(void *arg)
+ 		eb.reloc_pool = NULL;
+ 		eb.reloc_context = NULL;
  
- 	ve->base.i915 = siblings[0]->i915;
- 	ve->base.gt = siblings[0]->gt;
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index ef72e07fe08c..a16f0f8908de 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1821,6 +1821,7 @@ struct drm_i915_gem_context_param {
-  * Extensions:
-  *   i915_context_engines_load_balance (I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE)
-  *   i915_context_engines_bond (I915_CONTEXT_ENGINES_EXT_BOND)
-+ *   i915_context_engines_parallel_submit (I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT)
-  */
- #define I915_CONTEXT_PARAM_ENGINES	0xa
+-		i915_gem_ww_ctx_init(&eb.ww, false);
++		i915_gem_ww_ctx_init(eb.ww, false);
+ retry:
+-		err = intel_context_pin_ww(eb.context, &eb.ww);
++		err = intel_context_pin_ww(eb.context, eb.ww);
+ 		if (!err) {
+ 			err = __igt_gpu_reloc(&eb, scratch);
  
-@@ -2046,6 +2047,132 @@ struct i915_context_engines_bond {
- 	struct i915_engine_class_instance engines[N__]; \
- } __attribute__((packed)) name__
+ 			intel_context_unpin(eb.context);
+ 		}
+ 		if (err == -EDEADLK) {
+-			err = i915_gem_ww_ctx_backoff(&eb.ww);
++			err = i915_gem_ww_ctx_backoff(eb.ww);
+ 			if (!err)
+ 				goto retry;
+ 		}
+-		i915_gem_ww_ctx_fini(&eb.ww);
++		i915_gem_ww_ctx_fini(eb.ww);
  
-+/**
-+ * struct i915_context_engines_parallel_submit - Configure engine for
-+ * parallel submission.
-+ *
-+ * Setup a slot in the context engine map to allow multiple BBs to be submitted
-+ * in a single execbuf IOCTL. Those BBs will then be scheduled to run on the GPU
-+ * in parallel. Multiple hardware contexts are created internally in the i915
-+ * run these BBs. Once a slot is configured for N BBs only N BBs can be
-+ * submitted in each execbuf IOCTL and this is implicit behavior e.g. The user
-+ * doesn't tell the execbuf IOCTL there are N BBs, the execbuf IOCTL knows how
-+ * many BBs there are based on the slot's configuration. The N BBs are the last
-+ * N buffer objects or first N if I915_EXEC_BATCH_FIRST is set.
-+ *
-+ * The default placement behavior is to create implicit bonds between each
-+ * context if each context maps to more than 1 physical engine (e.g. context is
-+ * a virtual engine). Also we only allow contexts of same engine class and these
-+ * contexts must be in logically contiguous order. Examples of the placement
-+ * behavior described below. Lastly, the default is to not allow BBs to
-+ * preempted mid BB rather insert coordinated preemption on all hardware
-+ * contexts between each set of BBs. Flags may be added in the future to change
-+ * both of these default behaviors.
-+ *
-+ * Returns -EINVAL if hardware context placement configuration is invalid or if
-+ * the placement configuration isn't supported on the platform / submission
-+ * interface.
-+ * Returns -ENODEV if extension isn't supported on the platform / submission
-+ * interface.
-+ *
-+ * .. code-block:: none
-+ *
-+ *	Example 1 pseudo code:
-+ *	CS[X] = generic engine of same class, logical instance X
-+ *	INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-+ *	set_engines(INVALID)
-+ *	set_parallel(engine_index=0, width=2, num_siblings=1,
-+ *		     engines=CS[0],CS[1])
-+ *
-+ *	Results in the following valid placement:
-+ *	CS[0], CS[1]
-+ *
-+ *	Example 2 pseudo code:
-+ *	CS[X] = generic engine of same class, logical instance X
-+ *	INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-+ *	set_engines(INVALID)
-+ *	set_parallel(engine_index=0, width=2, num_siblings=2,
-+ *		     engines=CS[0],CS[2],CS[1],CS[3])
-+ *
-+ *	Results in the following valid placements:
-+ *	CS[0], CS[1]
-+ *	CS[2], CS[3]
-+ *
-+ *	This can also be thought of as 2 virtual engines described by 2-D array
-+ *	in the engines the field with bonds placed between each index of the
-+ *	virtual engines. e.g. CS[0] is bonded to CS[1], CS[2] is bonded to
-+ *	CS[3].
-+ *	VE[0] = CS[0], CS[2]
-+ *	VE[1] = CS[1], CS[3]
-+ *
-+ *	Example 3 pseudo code:
-+ *	CS[X] = generic engine of same class, logical instance X
-+ *	INVALID = I915_ENGINE_CLASS_INVALID, I915_ENGINE_CLASS_INVALID_NONE
-+ *	set_engines(INVALID)
-+ *	set_parallel(engine_index=0, width=2, num_siblings=2,
-+ *		     engines=CS[0],CS[1],CS[1],CS[3])
-+ *
-+ *	Results in the following valid and invalid placements:
-+ *	CS[0], CS[1]
-+ *	CS[1], CS[3] - Not logical contiguous, return -EINVAL
-+ */
-+struct i915_context_engines_parallel_submit {
-+	/**
-+	 * @base: base user extension.
-+	 */
-+	struct i915_user_extension base;
-+
-+	/**
-+	 * @engine_index: slot for parallel engine
-+	 */
-+	__u16 engine_index;
-+
-+	/**
-+	 * @width: number of contexts per parallel engine
-+	 */
-+	__u16 width;
-+
-+	/**
-+	 * @num_siblings: number of siblings per context
-+	 */
-+	__u16 num_siblings;
-+
-+	/**
-+	 * @mbz16: reserved for future use; must be zero
-+	 */
-+	__u16 mbz16;
-+
-+	/**
-+	 * @flags: all undefined flags must be zero, currently not defined flags
-+	 */
-+	__u64 flags;
-+
-+	/**
-+	 * @mbz64: reserved for future use; must be zero
-+	 */
-+	__u64 mbz64[3];
-+
-+	/**
-+	 * @engines: 2-d array of engine instances to configure parallel engine
-+	 *
-+	 * length = width (i) * num_siblings (j)
-+	 * index = j + i * num_siblings
-+	 */
-+	struct i915_engine_class_instance engines[0];
-+
-+} __packed;
-+
-+#define I915_DEFINE_CONTEXT_ENGINES_PARALLEL_SUBMIT(name__, N__) struct { \
-+	struct i915_user_extension base; \
-+	__u16 engine_index; \
-+	__u16 width; \
-+	__u16 num_siblings; \
-+	__u16 mbz16; \
-+	__u64 flags; \
-+	__u64 mbz64[3]; \
-+	struct i915_engine_class_instance engines[N__]; \
-+} __attribute__((packed)) name__
-+
- /**
-  * DOC: Context Engine Map uAPI
-  *
-@@ -2105,6 +2232,7 @@ struct i915_context_param_engines {
- 	__u64 extensions; /* linked chain of extension blocks, 0 terminates */
- #define I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE 0 /* see i915_context_engines_load_balance */
- #define I915_CONTEXT_ENGINES_EXT_BOND 1 /* see i915_context_engines_bond */
-+#define I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT 2 /* see i915_context_engines_parallel_submit */
- 	struct i915_engine_class_instance engines[0];
- } __attribute__((packed));
- 
+ 		if (eb.reloc_pool)
+ 			intel_gt_buffer_pool_put(eb.reloc_pool);
 -- 
 2.28.0
 
