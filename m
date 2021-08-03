@@ -2,50 +2,52 @@ Return-Path: <SRS0=Vnqj=M2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88A16C4320E
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF1FBC4338F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:18:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 504A0601FD
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 504A0601FD
+	by mail.kernel.org (Postfix) with ESMTPS id 9A64B61078
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:18:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9A64B61078
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13FA66E8D5;
-	Tue,  3 Aug 2021 20:13:56 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07B9F6E8BF;
- Tue,  3 Aug 2021 20:13:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="193364059"
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="193364059"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 13:13:51 -0700
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="568776551"
-Received: from unerlige-ril-10.jf.intel.com ([10.165.21.208])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 13:13:50 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 677D56E8D2;
+	Tue,  3 Aug 2021 20:18:41 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04E636E8CB;
+ Tue,  3 Aug 2021 20:18:39 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="213500060"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="213500060"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2021 13:18:39 -0700
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="441325077"
+Received: from unerlige-ril-10.jf.intel.com (HELO unerlige-ril-10.165.21.208)
+ ([10.165.21.208])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2021 13:18:38 -0700
+Date: Tue, 3 Aug 2021 13:18:38 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
- Ashutosh Dixit <ashutosh.dixit@intel.com>, daniel@ffwll.ch
+ Ashutosh Dixit <ashutosh.dixit@intel.com>, daniel@ffwll.ch,
+ joonas.lahtinen@linux.intel.com
 Cc: dri-devel@lists.freedesktop.org
-Date: Tue,  3 Aug 2021 13:13:46 -0700
-Message-Id: <20210803201349.31031-6-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
+Message-ID: <20210803201838.GB15814@unerlige-ril-10.165.21.208>
 References: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/8] drm/i915/perf: Ensure observation logic is
- not clock gated
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Subject: Re: [Intel-gfx] [PATCH 0/8] Enable triggered perf query for Xe_HP
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,64 +63,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Piotr Maciejewski <piotr.maciejewski@intel.com>
++ Joonas
 
-A clock gating switch can control if the performance monitoring and
-observation logic is enaled or not. Ensure that we enable the clocks.
-
-v2: Separate code from other patches (Lionel)
-v3: Reset PMON enable when disabling perf to save power (Lionel)
-v4: Use intel_uncore_rmw and REG_BIT (Chris)
-
-Fixes: 00a7f0d7155c ("drm/i915/tgl: Add perf support on TGL")
-Signed-off-by: Piotr Maciejewski <piotr.maciejewski@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
----
- drivers/gpu/drm/i915/i915_perf.c | 9 +++++++++
- drivers/gpu/drm/i915/i915_reg.h  | 2 ++
- 2 files changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 2f01b8c0284c..3ded6e7d8526 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -2553,6 +2553,12 @@ gen12_enable_metric_set(struct i915_perf_stream *stream,
- 			    (period_exponent << GEN12_OAG_OAGLBCTXCTRL_TIMER_PERIOD_SHIFT))
- 			    : 0);
- 
-+	/*
-+	 * Initialize Super Queue Internal Cnt Register
-+	 * Set PMON Enable in order to collect valid metrics.
-+	 */
-+	intel_uncore_rmw(uncore, GEN12_SQCNT1, 0, GEN12_SQCNT1_PMON_ENABLE);
-+
- 	/*
- 	 * Update all contexts prior writing the mux configurations as we need
- 	 * to make sure all slices/subslices are ON before writing to NOA
-@@ -2612,6 +2618,9 @@ static void gen12_disable_metric_set(struct i915_perf_stream *stream)
- 
- 	/* Make sure we disable noa to save power. */
- 	intel_uncore_rmw(uncore, RPM_CONFIG1, GEN10_GT_NOA_ENABLE, 0);
-+
-+	/* Reset PMON Enable to save power. */
-+	intel_uncore_rmw(uncore, GEN12_SQCNT1, GEN12_SQCNT1_PMON_ENABLE, 0);
- }
- 
- static void gen7_oa_enable(struct i915_perf_stream *stream)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index bd395d967634..138b35da3057 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -718,6 +718,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define OABUFFER_SIZE_16M   (7 << 3)
- 
- #define GEN12_OA_TLB_INV_CR _MMIO(0xceec)
-+#define GEN12_SQCNT1 _MMIO(0x8718)
-+#define  GEN12_SQCNT1_PMON_ENABLE REG_BIT(30)
- 
- /* Gen12 OAR unit */
- #define GEN12_OAR_OACONTROL _MMIO(0x2960)
--- 
-2.20.1
-
+On Tue, Aug 03, 2021 at 01:13:41PM -0700, Umesh Nerlige Ramappa wrote:
+>This is a revival of the patch series to support triggered perf query reports
+>from here - https://patchwork.freedesktop.org/series/83831/
+>
+>The patches were not pushed earlier because corresponding UMD changes were
+>missing. This revival addresses UMD changes in GPUvis for this series. GPUvis
+>uses the perf library in igt-gpu-tools. Changes to the library are here -
+>https://patchwork.freedesktop.org/series/93355/
+>
+>GPUvis changes will be posted as a PR once the above library and kernel changes
+>are pushed.
+>
+>Summary of the feature:
+>
+>Current platforms provide MI_REPORT_PERF_COUNT to query a snapshot of perf
+>counters from a batch. This mechanism does not have consistent support on all
+>engines for newer platforms. To support perf query, all new platforms use a
+>mechanism to trigger OA report snapshots into the OA buffer by writing to a HW
+>register from a batch. To lookup this report in the OA buffer quickly, the OA
+>buffer is mmapped into the user space.
+>
+>This series implements the new query mechanism.
+>
+>Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+>
+>Chris Wilson (3):
+>  drm/i915/gt: Refactor _wa_add to reuse wa_index and wa_list_grow
+>  drm/i915/gt: Check for conflicting RING_NONPRIV
+>  drm/i915/gt: Enable dynamic adjustment of RING_NONPRIV
+>
+>Piotr Maciejewski (1):
+>  drm/i915/perf: Ensure observation logic is not clock gated
+>
+>Umesh Nerlige Ramappa (4):
+>  drm/i915/gt: Lock intel_engine_apply_whitelist with uncore->lock
+>  drm/i915/perf: Whitelist OA report trigger registers
+>  drm/i915/perf: Whitelist OA counter and buffer registers
+>  drm/i915/perf: Map OA buffer to user space for gen12 performance query
+>
+> drivers/gpu/drm/i915/gem/i915_gem_mman.c      |   2 +-
+> drivers/gpu/drm/i915/gem/i915_gem_mman.h      |   2 +
+> drivers/gpu/drm/i915/gt/intel_workarounds.c   | 269 +++++++++++++-----
+> drivers/gpu/drm/i915/gt/intel_workarounds.h   |   7 +
+> .../gpu/drm/i915/gt/selftest_workarounds.c    | 237 +++++++++++++++
+> drivers/gpu/drm/i915/i915_perf.c              | 228 ++++++++++++++-
+> drivers/gpu/drm/i915/i915_perf_types.h        |   8 +
+> drivers/gpu/drm/i915/i915_reg.h               |  30 +-
+> include/uapi/drm/i915_drm.h                   |  33 +++
+> 9 files changed, 728 insertions(+), 88 deletions(-)
+>
+>-- 
+>2.20.1
+>
