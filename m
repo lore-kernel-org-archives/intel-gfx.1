@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7ED9DC4320A
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F13A3C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4BB8B601FD
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4BB8B601FD
+	by mail.kernel.org (Postfix) with ESMTPS id BE26661040
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Aug 2021 20:14:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE26661040
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 947BD6E8CE;
-	Tue,  3 Aug 2021 20:13:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 139D36E8D4;
+	Tue,  3 Aug 2021 20:13:56 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECBFA6E12B;
- Tue,  3 Aug 2021 20:13:51 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="213499173"
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="213499173"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F03F6E8BE;
+ Tue,  3 Aug 2021 20:13:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10065"; a="213499174"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="213499174"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  03 Aug 2021 13:13:51 -0700
-X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="568776546"
+X-IronPort-AV: E=Sophos;i="5.84,292,1620716400"; d="scan'208";a="568776553"
 Received: from unerlige-ril-10.jf.intel.com ([10.165.21.208])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  03 Aug 2021 13:13:50 -0700
@@ -37,15 +37,15 @@ To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>, daniel@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org
-Date: Tue,  3 Aug 2021 13:13:45 -0700
-Message-Id: <20210803201349.31031-5-umesh.nerlige.ramappa@intel.com>
+Date: Tue,  3 Aug 2021 13:13:49 -0700
+Message-Id: <20210803201349.31031-9-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
 References: <20210803201349.31031-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/8] drm/i915/gt: Enable dynamic adjustment of
- RING_NONPRIV
+Subject: [Intel-gfx] [PATCH 8/8] drm/i915/perf: Map OA buffer to user space
+ for gen12 performance query
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,376 +61,346 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris@chris-wilson.co.uk>
+i915 used to support time based sampling mode which is good for overall
+system monitoring, but is not enough for query mode used to measure a
+single draw call or dispatch. Gen9-Gen11 are using current i915 perf
+implementation for query, but Gen12+ requires a new approach for query
+based on triggered reports within oa buffer.
 
-The OA subsystem would like to enable its privileged clients access to
-the OA registers from execbuf. This requires temporarily removing the
-HW validation from those registers for the duration of the OA client,
-for which we need to allow OA to dynamically adjust the set of
-RING_NONPRIV.
+Triggering reports into the OA buffer is achieved by writing into a
+a trigger register. Optionally an unused counter/register is set with a
+marker value such that a triggered report can be identified in the OA
+buffer. Reports are usually triggered at the start and end of work that
+is measured.
 
-Care must still be taken since the RING_NONPRIV are global, so any and
-all contexts that run at the same time as the OA client, will also be
-able to adjust the registers from their execbuf.
+Since OA buffer is large and queries can be frequent, an efficient way
+to look for triggered reports is required. By knowing the current head
+and tail offsets into the OA buffer, it is easier to determine the
+locality of the reports of interest.
 
-v2: Fix memmove size (Umesh)
+Current perf OA interface does not expose head/tail information to the
+user and it filters out invalid reports before sending data to user.
+Also considering limited size of user buffer used during a query,
+creating a 1:1 copy of the OA buffer at the user space added undesired
+complexity.
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+The solution was to map the OA buffer to user space provided
+
+(1) that it is accessed from a privileged user.
+(2) OA report filtering is not used.
+
+These 2 conditions would satisfy the safety criteria that the current
+perf interface addresses.
+
+To enable the query:
+- Add an ioctl to expose head and tail to the user
+- Add an ioctl to return size and offset of the OA buffer
+- Map the OA buffer to the user space
+
+v2:
+- Improve commit message (Chris)
+- Do not mmap based on gem object filp. Instead, use perf_fd and support
+  mmap syscall (Chris)
+- Pass non-zero offset in mmap to enforce the right object is
+  mapped (Chris)
+- Do not expose gpu_address (Chris)
+- Verify start and length of vma for page alignment (Lionel)
+- Move SQNTL config out (Lionel)
+
+v3: (Chris)
+- Omit redundant checks
+- Return VM_FAULT_SIGBUS is old stream is closed
+- Maintain reference counts to stream in vm_open and vm_close
+- Use switch to identify object to be mapped
+
+v4: Call kref_put on closing perf fd (Chris)
+v5:
+- Strip access to OA buffer from unprivileged child of a privileged
+  parent. Use VM_DONTCOPY
+- Enforce MAP_PRIVATE by checking for VM_MAYSHARE
+
+v6:
+(Chris)
+- Use len of -1 in unmap_mapping_range
+- Don't use stream->oa_buffer.vma->obj in vm_fault_oa
+- Use kernel block comment style
+- do_mmap gets a reference to the file and puts it in do_munmap, so
+  no need to maintain a reference to i915_perf_stream. Hence, remove
+  vm_open/vm_close and stream->closed hooks/checks.
+(Umesh)
+- Do not allow mmap if SAMPLE_OA_REPORT is not set during
+  i915_perf_open_ioctl.
+- Drop ioctl returning head/tail since this information is already
+  whitelisted. Remove hooks to read head register.
+
+v7: (Chris)
+- unmap before destroy
+- change ioctl argument struct
+
+v8: Documentation and more checks (Chris)
+
+Signed-off-by: Piotr Maciejewski <piotr.maciejewski@intel.com>
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c   |  59 +++++
- drivers/gpu/drm/i915/gt/intel_workarounds.h   |   7 +
- .../gpu/drm/i915/gt/selftest_workarounds.c    | 237 ++++++++++++++++++
- 3 files changed, 303 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.h |   2 +
+ drivers/gpu/drm/i915/i915_perf.c         | 126 ++++++++++++++++++++++-
+ include/uapi/drm/i915_drm.h              |  33 ++++++
+ 4 files changed, 161 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 7dda5a0a8e75..3da7b5486251 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -200,6 +200,18 @@ static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
- 	__wa_add(wal, wa);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index 5130e8ed9564..84cdce2ee447 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -213,7 +213,7 @@ compute_partial_view(const struct drm_i915_gem_object *obj,
+ 	return view;
  }
  
-+static void _wa_del(struct i915_wa_list *wal, i915_reg_t reg)
-+{
-+	struct i915_wa *wa = wal->list;
-+	int index;
-+
-+	index = wa_index(wal, reg);
-+	if (GEM_DEBUG_WARN_ON(index < 0))
-+		return;
-+
-+	memmove(wa + index, wa + index + 1, (--wal->count - index) * sizeof(*wa));
-+}
-+
- static void wa_add(struct i915_wa_list *wal, i915_reg_t reg,
- 		   u32 clear, u32 set, u32 read_mask, bool masked_reg)
+-static vm_fault_t i915_error_to_vmf_fault(int err)
++vm_fault_t i915_error_to_vmf_fault(int err)
  {
-@@ -2012,6 +2024,53 @@ void intel_engine_init_workarounds(struct intel_engine_cs *engine)
- 	wa_init_finish(wal);
- }
+ 	switch (err) {
+ 	default:
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.h b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
+index efee9e0d2508..1190a3a228ea 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
+@@ -29,4 +29,6 @@ void i915_gem_object_release_mmap_gtt(struct drm_i915_gem_object *obj);
  
-+int intel_engine_allow_user_register_access(struct intel_engine_cs *engine,
-+					    const i915_reg_t *reg,
-+					    unsigned int count)
-+{
-+	struct i915_wa_list *wal = &engine->whitelist;
-+	unsigned long flags;
-+	int err;
-+
-+	if (GEM_DEBUG_WARN_ON(wal->count + count >= RING_MAX_NONPRIV_SLOTS))
-+		return -ENOSPC;
-+
-+	spin_lock_irqsave(&engine->uncore->lock, flags);
-+
-+	err = wa_list_grow(wal, wal->count + count, GFP_ATOMIC | __GFP_NOWARN);
-+	if (err)
-+		goto out;
-+
-+	while (count--) {
-+		struct i915_wa wa = { .reg = *reg++ };
-+
-+		__wa_add(wal, &wa);
-+	}
-+
-+	__engine_apply_whitelist(engine);
-+
-+out:
-+	spin_unlock_irqrestore(&engine->uncore->lock, flags);
-+	return err;
-+}
-+
-+void intel_engine_deny_user_register_access(struct intel_engine_cs *engine,
-+					    const i915_reg_t *reg,
-+					    unsigned int count)
-+{
-+	struct i915_wa_list *wal = &engine->whitelist;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&engine->uncore->lock, flags);
-+
-+	while (count--)
-+		_wa_del(wal, *reg++);
-+
-+	__engine_apply_whitelist(engine);
-+
-+	spin_unlock_irqrestore(&engine->uncore->lock, flags);
-+}
-+
- void intel_engine_apply_workarounds(struct intel_engine_cs *engine)
- {
- 	wa_list_apply(engine->gt, &engine->wa_list);
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.h b/drivers/gpu/drm/i915/gt/intel_workarounds.h
-index 15abb68b6c00..3c50390e3a7f 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.h
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.h
-@@ -36,4 +36,11 @@ void intel_engine_apply_workarounds(struct intel_engine_cs *engine);
- int intel_engine_verify_workarounds(struct intel_engine_cs *engine,
- 				    const char *from);
+ void i915_gem_object_release_mmap_offset(struct drm_i915_gem_object *obj);
  
-+int intel_engine_allow_user_register_access(struct intel_engine_cs *engine,
-+					    const i915_reg_t *reg,
-+					    unsigned int count);
-+void intel_engine_deny_user_register_access(struct intel_engine_cs *engine,
-+					    const i915_reg_t *reg,
-+					    unsigned int count);
++vm_fault_t i915_error_to_vmf_fault(int err);
 +
  #endif
-diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-index e623ac45f4aa..8290e02d4663 100644
---- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-@@ -1177,6 +1177,242 @@ static int live_isolated_whitelist(void *arg)
- 	return err;
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index de3d1738aabe..1f8d4f3a2148 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -192,10 +192,12 @@
+  */
+ 
+ #include <linux/anon_inodes.h>
++#include <linux/mman.h>
+ #include <linux/sizes.h>
+ #include <linux/uuid.h>
+ 
+ #include "gem/i915_gem_context.h"
++#include "gem/i915_gem_mman.h"
+ #include "gt/intel_engine_pm.h"
+ #include "gt/intel_engine_user.h"
+ #include "gt/intel_execlists_submission.h"
+@@ -3322,6 +3324,44 @@ static long i915_perf_config_locked(struct i915_perf_stream *stream,
+ 	return ret;
  }
  
-+static int rmw_reg(struct intel_engine_cs *engine, const i915_reg_t reg)
++#define I915_PERF_OA_BUFFER_MMAP_OFFSET 1
++
++/**
++ * i915_perf_oa_buffer_info_locked - size and offset of the OA buffer
++ * @stream: i915 perf stream
++ * @cmd: ioctl command
++ * @arg: pointer to oa buffer info filled by this function.
++ */
++static int i915_perf_oa_buffer_info_locked(struct i915_perf_stream *stream,
++					   unsigned int cmd,
++					   unsigned long arg)
 +{
-+	const u32 values[] = {
-+		0x00000000,
-+		0x01010101,
-+		0x10100101,
-+		0x03030303,
-+		0x30300303,
-+		0x05050505,
-+		0x50500505,
-+		0x0f0f0f0f,
-+		0xf00ff00f,
-+		0x10101010,
-+		0xf0f01010,
-+		0x30303030,
-+		0xa0a03030,
-+		0x50505050,
-+		0xc0c05050,
-+		0xf0f0f0f0,
-+		0x11111111,
-+		0x33333333,
-+		0x55555555,
-+		0x0000ffff,
-+		0x00ff00ff,
-+		0xff0000ff,
-+		0xffff00ff,
-+		0xffffffff,
-+	};
-+	struct i915_vma *vma, *batch;
-+	struct intel_context *ce;
-+	struct i915_request *rq;
-+	u32 srm, lrm, idx;
-+	u32 *cs, *results;
-+	u64 addr;
++	struct drm_i915_perf_oa_buffer_info info;
++	void __user *output = (void __user *)arg;
++
++	if (i915_perf_stream_paranoid && !perfmon_capable()) {
++		DRM_DEBUG("Insufficient privileges to access OA buffer info\n");
++		return -EACCES;
++	}
++
++	if (_IOC_SIZE(cmd) != sizeof(info))
++		return -EINVAL;
++
++	if (copy_from_user(&info, output, sizeof(info)))
++		return -EFAULT;
++
++	if (info.type || info.flags || info.rsvd)
++		return -EINVAL;
++
++	info.size = stream->oa_buffer.vma->size;
++	info.offset = I915_PERF_OA_BUFFER_MMAP_OFFSET * PAGE_SIZE;
++
++	if (copy_to_user(output, &info, sizeof(info)))
++		return -EFAULT;
++
++	return 0;
++}
++
+ /**
+  * i915_perf_ioctl_locked - support ioctl() usage with i915 perf stream FDs
+  * @stream: An i915 perf stream
+@@ -3347,6 +3387,8 @@ static long i915_perf_ioctl_locked(struct i915_perf_stream *stream,
+ 		return 0;
+ 	case I915_PERF_IOCTL_CONFIG:
+ 		return i915_perf_config_locked(stream, arg);
++	case I915_PERF_IOCTL_GET_OA_BUFFER_INFO:
++		return i915_perf_oa_buffer_info_locked(stream, cmd, arg);
+ 	}
+ 
+ 	return -EINVAL;
+@@ -3418,6 +3460,14 @@ static int i915_perf_release(struct inode *inode, struct file *file)
+ 	struct i915_perf_stream *stream = file->private_data;
+ 	struct i915_perf *perf = stream->perf;
+ 
++	/*
++	 * User could have multiple vmas from multiple mmaps. We want to zap
++	 * them all here. Note that a fresh fault cannot occur as the mmap holds
++	 * a reference to the stream via the vma->vm_file, so before user's
++	 * munmap, the stream cannot be destroyed.
++	 */
++	unmap_mapping_range(file->f_mapping, 0, -1, 1);
++
+ 	mutex_lock(&perf->lock);
+ 	i915_perf_destroy_locked(stream);
+ 	mutex_unlock(&perf->lock);
+@@ -3428,6 +3478,75 @@ static int i915_perf_release(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
++static vm_fault_t vm_fault_oa(struct vm_fault *vmf)
++{
++	struct vm_area_struct *vma = vmf->vma;
++	struct i915_perf_stream *stream = vma->vm_private_data;
 +	int err;
-+	int v;
 +
-+	ce = intel_context_create(engine);
-+	if (IS_ERR(ce))
-+		return PTR_ERR(ce);
++	err = remap_io_sg(vma,
++			  vma->vm_start, vma->vm_end - vma->vm_start,
++			  stream->oa_buffer.vma->pages->sgl, -1);
 +
-+	vma = __vm_create_scratch_for_read(&ce->engine->gt->ggtt->vm,
-+					   sizeof(u32));
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto out_context;
-+	}
-+
-+	batch = create_batch(ce->vm);
-+	if (IS_ERR(batch)) {
-+		err = PTR_ERR(batch);
-+		goto out_vma;
-+	}
-+
-+	srm = MI_STORE_REGISTER_MEM;
-+	lrm = MI_LOAD_REGISTER_MEM;
-+	if (GRAPHICS_VER(ce->vm->i915) >= 8)
-+		lrm++, srm++;
-+
-+	addr = vma->node.start;
-+
-+	cs = i915_gem_object_pin_map(batch->obj, I915_MAP_WC);
-+	if (IS_ERR(cs)) {
-+		err = PTR_ERR(cs);
-+		goto out_batch;
-+	}
-+
-+	/* SRM original */
-+	*cs++ = srm;
-+	*cs++ = i915_mmio_reg_offset(reg);
-+	*cs++ = lower_32_bits(addr);
-+	*cs++ = upper_32_bits(addr);
-+
-+	idx = 1;
-+	for (v = 0; v < ARRAY_SIZE(values); v++) {
-+		/* LRI garbage */
-+		*cs++ = MI_LOAD_REGISTER_IMM(1);
-+		*cs++ = i915_mmio_reg_offset(reg);
-+		*cs++ = values[v];
-+
-+		/* SRM result */
-+		*cs++ = srm;
-+		*cs++ = i915_mmio_reg_offset(reg);
-+		*cs++ = lower_32_bits(addr + sizeof(u32) * idx);
-+		*cs++ = upper_32_bits(addr + sizeof(u32) * idx);
-+		idx++;
-+	}
-+	for (v = 0; v < ARRAY_SIZE(values); v++) {
-+		/* LRI garbage */
-+		*cs++ = MI_LOAD_REGISTER_IMM(1);
-+		*cs++ = i915_mmio_reg_offset(reg);
-+		*cs++ = ~values[v];
-+
-+		/* SRM result */
-+		*cs++ = srm;
-+		*cs++ = i915_mmio_reg_offset(reg);
-+		*cs++ = lower_32_bits(addr + sizeof(u32) * idx);
-+		*cs++ = upper_32_bits(addr + sizeof(u32) * idx);
-+		idx++;
-+	}
-+
-+	/* LRM original -- don't leave garbage in the context! */
-+	*cs++ = lrm;
-+	*cs++ = i915_mmio_reg_offset(reg);
-+	*cs++ = lower_32_bits(addr);
-+	*cs++ = upper_32_bits(addr);
-+
-+	*cs++ = MI_BATCH_BUFFER_END;
-+
-+	i915_gem_object_flush_map(batch->obj);
-+	i915_gem_object_unpin_map(batch->obj);
-+	intel_gt_chipset_flush(engine->gt);
-+
-+	rq = intel_context_create_request(ce);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_batch;
-+	}
-+
-+	if (engine->emit_init_breadcrumb) { /* Be nice if we hang */
-+		err = engine->emit_init_breadcrumb(rq);
-+		if (err)
-+			goto err_request;
-+	}
-+
-+	i915_vma_lock(batch);
-+	err = i915_request_await_object(rq, batch->obj, false);
-+	if (err == 0)
-+		err = i915_vma_move_to_active(batch, rq, 0);
-+	i915_vma_unlock(batch);
-+	if (err)
-+		goto err_request;
-+
-+	i915_vma_lock(vma);
-+	err = i915_request_await_object(rq, vma->obj, true);
-+	if (err == 0)
-+		err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
-+	i915_vma_unlock(vma);
-+	if (err)
-+		goto err_request;
-+
-+	err = engine->emit_bb_start(rq, batch->node.start, PAGE_SIZE, 0);
-+	if (err)
-+		goto err_request;
-+
-+err_request:
-+	err = request_add_sync(rq, err);
-+	if (err) {
-+		pr_err("%s: Futzing %04x timedout; cancelling test\n",
-+		       engine->name, i915_mmio_reg_offset(reg));
-+		intel_gt_set_wedged(engine->gt);
-+		goto out_batch;
-+	}
-+
-+	results = i915_gem_object_pin_map(vma->obj, I915_MAP_WB);
-+	if (IS_ERR(results)) {
-+		err = PTR_ERR(results);
-+		goto out_batch;
-+	}
-+
-+	for (v = 0, idx = 0; v < 2 * ARRAY_SIZE(values); v++) {
-+		if (results[++idx] != results[0]) {
-+			err = idx;
-+			break;
-+		}
-+	}
-+
-+out_batch:
-+	i915_vma_put(batch);
-+out_vma:
-+	i915_vma_put(vma);
-+out_context:
-+	intel_context_put(ce);
-+	return err;
++	return i915_error_to_vmf_fault(err);
 +}
 +
-+static int live_dynamic_whitelist(void *arg)
++static const struct vm_operations_struct vm_ops_oa = {
++	.fault = vm_fault_oa,
++};
++
++static int i915_perf_mmap(struct file *file, struct vm_area_struct *vma)
 +{
-+	struct intel_gt *gt = arg;
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+	int err = 0;
++	struct i915_perf_stream *stream = file->private_data;
 +
-+	if (GRAPHICS_VER(gt->i915) < 8)
-+		return 0;
-+
-+	for_each_engine(engine, gt, id) {
-+		const i915_reg_t reg = RING_MAX_IDLE(engine->mmio_base);
-+
-+		err = rmw_reg(engine, reg);
-+		if (err < 0)
-+			break;
-+
-+		if (err) {
-+			pr_err("%s: Able to write to protected reg:%04x!\n",
-+			       engine->name, i915_mmio_reg_offset(reg));
-+			err = -EINVAL;
-+			break;
-+		}
-+
-+		err = intel_engine_allow_user_register_access(engine, &reg, 1);
-+		if (err)
-+			break;
-+
-+		err = rmw_reg(engine, reg);
-+		intel_engine_deny_user_register_access(engine, &reg, 1);
-+		if (err < 0)
-+			break;
-+
-+		if (!err) {
-+			pr_err("%s: Unable to write to allowed reg:%04x!\n",
-+			       engine->name, i915_mmio_reg_offset(reg));
-+			err = -EINVAL;
-+			break;
-+		}
-+
-+		err = rmw_reg(engine, reg);
-+		if (err < 0)
-+			break;
-+
-+		if (err) {
-+			pr_err("%s: Able to write to denied reg:%04x!\n",
-+			       engine->name, i915_mmio_reg_offset(reg));
-+			err = -EINVAL;
-+			break;
-+		}
-+
-+		err = 0;
++	/* mmap-ing OA buffer to user space MUST absolutely be privileged */
++	if (i915_perf_stream_paranoid && !perfmon_capable()) {
++		DRM_DEBUG("Insufficient privileges to map OA buffer\n");
++		return -EACCES;
 +	}
 +
-+	if (igt_flush_test(gt->i915))
-+		err = -EIO;
++	switch (vma->vm_pgoff) {
++	/*
++	 * A non-zero offset ensures that we are mapping the right object. Also
++	 * leaves room for future objects added to this implementation.
++	 */
++	case I915_PERF_OA_BUFFER_MMAP_OFFSET:
++		if (!(stream->sample_flags & SAMPLE_OA_REPORT))
++			return -EINVAL;
 +
-+	return err;
++		if (vma->vm_end - vma->vm_start > stream->oa_buffer.vma->size)
++			return -EINVAL;
++
++		/*
++		 * Only support VM_READ. Enforce MAP_PRIVATE by checking for
++		 * VM_MAYSHARE.
++		 */
++		if (vma->vm_flags & (VM_WRITE | VM_EXEC |
++				     VM_SHARED | VM_MAYSHARE))
++			return -EINVAL;
++
++		vma->vm_flags &= ~(VM_MAYWRITE | VM_MAYEXEC);
++
++		/*
++		 * If the privileged parent forks and child drops root
++		 * privilege, we do not want the child to retain access to the
++		 * mapped OA buffer. Explicitly set VM_DONTCOPY to avoid such
++		 * cases.
++		 */
++		vma->vm_flags |= VM_PFNMAP | VM_DONTEXPAND |
++				 VM_DONTDUMP | VM_DONTCOPY;
++		break;
++
++	default:
++		return -EINVAL;
++	}
++
++	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
++	vma->vm_private_data = stream;
++	vma->vm_ops = &vm_ops_oa;
++
++	return 0;
 +}
+ 
+ static const struct file_operations fops = {
+ 	.owner		= THIS_MODULE,
+@@ -3440,6 +3559,7 @@ static const struct file_operations fops = {
+ 	 * to handle 32bits compatibility.
+ 	 */
+ 	.compat_ioctl   = i915_perf_ioctl,
++	.mmap		= i915_perf_mmap,
+ };
+ 
+ 
+@@ -4639,8 +4759,12 @@ int i915_perf_ioctl_version(void)
+ 	 *
+ 	 *    - OA buffer head/tail/status/buffer registers for read only
+ 	 *    - OA counters A18, A19, A20 for read/write
++	 *
++	 * 8: Added an option to map oa buffer at umd driver level and trigger
++	 *    oa reports within oa buffer from command buffer. See
++	 *    I915_PERF_IOCTL_GET_OA_BUFFER_INFO.
+ 	 */
+-	return 7;
++	return 8;
+ }
+ 
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 7f13d241417f..7f6493bb5bba 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2397,6 +2397,39 @@ struct drm_i915_perf_open_param {
+  */
+ #define I915_PERF_IOCTL_CONFIG	_IO('i', 0x2)
+ 
++/*
++ * Returns OA buffer properties to be used with mmap.
++ *
++ * This ioctl is available in perf revision 8.
++ */
++#define I915_PERF_IOCTL_GET_OA_BUFFER_INFO _IOWR('i', 0x3, struct drm_i915_perf_oa_buffer_info)
 +
- static bool
- verify_wa_lists(struct intel_gt *gt, struct wa_lists *lists,
- 		const char *str)
-@@ -1383,6 +1619,7 @@ int intel_workarounds_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(live_dirty_whitelist),
- 		SUBTEST(live_reset_whitelist),
- 		SUBTEST(live_isolated_whitelist),
-+		SUBTEST(live_dynamic_whitelist),
- 		SUBTEST(live_gpu_reset_workarounds),
- 		SUBTEST(live_engine_reset_workarounds),
- 	};
++/**
++ * OA buffer size and offset.
++ *
++ * OA output buffer
++ *   type: 0
++ *   flags: mbz
++ *
++ *   After querying the info, pass (size,offset) to mmap(),
++ *
++ *   mmap(0, info.size, PROT_READ, MAP_PRIVATE, perf_fd, info.offset).
++ *
++ *   Note that only a private (not shared between processes, or across fork())
++ *   read-only mmapping is allowed.
++ *
++ *   Userspace must treat the incoming data as tainted, but it conforms to the OA
++ *   format as specified by user config. The buffer provides reports that have
++ *   OA counters - A, B and C.
++ */
++struct drm_i915_perf_oa_buffer_info {
++	__u32 type;   /* in */
++	__u32 flags;  /* in */
++	__u64 size;   /* out */
++	__u64 offset; /* out */
++	__u64 rsvd;   /* mbz */
++};
++
+ /*
+  * Common to all i915 perf records
+  */
 -- 
 2.20.1
 
