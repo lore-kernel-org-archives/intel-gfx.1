@@ -2,79 +2,82 @@ Return-Path: <SRS0=rjwL=M3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 258CAC4338F
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 14:26:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CEAAC4338F
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 14:35:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC72860C41
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 14:26:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EC72860C41
+	by mail.kernel.org (Postfix) with ESMTPS id 273B960FC4
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 14:35:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 273B960FC4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23A36890FF;
-	Wed,  4 Aug 2021 14:26:18 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A78016EA83
- for <intel-gfx@lists.freedesktop.org>; Wed,  4 Aug 2021 14:25:39 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id m12so2447629wru.12
- for <intel-gfx@lists.freedesktop.org>; Wed, 04 Aug 2021 07:25:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A7536E9EC;
+	Wed,  4 Aug 2021 14:35:33 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0B516E9EC
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Aug 2021 14:35:17 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id u10so3087646oiw.4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 04 Aug 2021 07:35:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=L1dU2VRW9yzeqs6L9InEWQBnuUdR4GHcwK/O0BzgGF8=;
- b=bydpjPyBVpxY7xMuLzqiB/Snhg5BIx5BgfMNRHNWjbXR+rm4sXXeG3dC17eJj0+bKh
- gW2QRw+d9UZpTR5ufXFLYlBRKA+EotTucdGtYaIffsWyZOK9W5FWeo7i0+qf2XMevGBE
- IfWKeFbOp6LEESGxo3OXD0+hiUuotY5ptybWg=
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=1YKmXG3sEYrWfC+00uSI9tFWY5t/fO7iBjyGET08Dl4=;
+ b=SwSMS16isfxreGdIQLvE4RqRnptNEhz6l99EME5JlCspnJhkXxpJMR6Q0gEmIwDlIj
+ McZOSRi6a+OwIJiGsKpgDS6fQyQ549OKcPp9q4fGr5b9Ou3IrsSUTjED0Deoxx+pEuxi
+ hwa586VTI4pDgmh7ZxGTLwrA4PaSFlpd3vxb4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=L1dU2VRW9yzeqs6L9InEWQBnuUdR4GHcwK/O0BzgGF8=;
- b=KugBqeAYZ44kUdvGBVCZZtL1QqAkTCj9PCN81kB61QrfjmkxUFik6buWOtRAZ9Rvge
- /AKErlAZYJmT6QMvh/YG0U1MrzZogMXTZepWJejgD/0Hrmgq/c74AqTKAYxJcz4JbTFb
- 4fCGDByGUrdp0p9Q5GzLnhOSpbarqxQ+E79qKc/VEFRRZkPOkZODtUIkb2xwg8JRQ1rg
- jtLEp6i98DhFIG+5fcnW+nmt2gNKoc9XI49uqNuTTl/aoBDVyuDNXSv9gPdk8+d6vxGZ
- gs/gcIIz9sPObPhINPdXQsNNSRC7EOLocjE8kjGwdBdAdLoBMv5GNv+GHFUsXBGkFRhh
- RkZA==
-X-Gm-Message-State: AOAM530CfKYyIaOhWOM96ny0a7tWWAM/7W35NKId6+DCRY1we2Ixnl3i
- vOx7wpUtgeFTVavMr/fvcJl54+0Aw4R/aA==
-X-Google-Smtp-Source: ABdhPJzDiqG80hNDzMbKpLRpsdS6yeVKcGVBHpQZLnCtzWmYwoIHM9MwFeI9eGy7BtiByDdSqJAjsw==
-X-Received: by 2002:a5d:45c5:: with SMTP id b5mr29020382wrs.32.1628087138200; 
- Wed, 04 Aug 2021 07:25:38 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id b6sm3222682wrn.9.2021.08.04.07.25.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Aug 2021 07:25:37 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Cc: DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Jon Bloomfield <jon.bloomfield@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- Dave Airlie <airlied@redhat.com>, Jason Ekstrand <jason@jlekstrand.net>
-Date: Wed,  4 Aug 2021 16:25:19 +0200
-Message-Id: <20210804142522.4113021-7-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210804142522.4113021-1-daniel.vetter@ffwll.ch>
-References: <20210804142522.4113021-1-daniel.vetter@ffwll.ch>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=1YKmXG3sEYrWfC+00uSI9tFWY5t/fO7iBjyGET08Dl4=;
+ b=iNJ9mL2pWwX+V+ctbVK/4aFnNIuzWbk0szx7PzNrkLOaYjGNe5Tx2YDRe0lwNxI2yA
+ NVKIFZuNqyV1/TFoiHwq4C3Co1Y1DAcY2tirbx03xdCyyLz9pAi8hFVzjoq07h6M7/nr
+ VdRywMSaHbroMjhEomG3kp//yUsaTh84iRd+C6+qjpEes9OUJBoirwjd/zCtB5mCaaGg
+ y3liaeC0D325tbTko4FeNSDmgQUvsud/No18iVb8ySVDK/S5ebfgrHA0SXend9vBi27H
+ YrITturek3U2PCXFWyZFAODUBekLROkQjan9axmRd2fbjJfetvID6326gblluTA10s2o
+ zkpA==
+X-Gm-Message-State: AOAM531Z5BZCBV3oNVt34ql7OnngdGnf/nlFUX3Gd7br2eIkkv9uYCXZ
+ /jWqUqgpQt4Ck9lPHnGTZaaoIqYd8e77X3WmnRq4Ow==
+X-Google-Smtp-Source: ABdhPJzR5dYeJvb3aZoFQiYP69j3Pzu7z0knLl0ybrO1DZa8p75+HsqpO+3KKTv0DG7i4JGR8CdTIu/J7FJNGIyc4/4=
+X-Received: by 2002:a05:6808:2109:: with SMTP id
+ r9mr5341991oiw.101.1628087716798; 
+ Wed, 04 Aug 2021 07:35:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 6/9] drm/i915: Drop __rcu from gem_context->vm
+References: <20210715223900.1840576-1-jason@jlekstrand.net>
+ <20210715223900.1840576-6-jason@jlekstrand.net>
+ <CAM0jSHPu1EBfnAJ06Dp51a1Qbg+9QnmP=EyUfYXS0fZnJzxR8g@mail.gmail.com>
+ <CAOFGe95gEUNsjCh+30AXhrQLz8_OKbHwwxv=_OhaGKQxGpvcew@mail.gmail.com>
+ <CAM0jSHO4EU_gBXo-56GtDJffezfVHYoUhCeOnb97ZgBj5vyA7Q@mail.gmail.com>
+ <CAM0jSHOHCr6ppLhUBVSd_JUnBDFAcsYEYtma01benzs_nkhtGg@mail.gmail.com>
+ <CAOFGe95YYjS=k9SnQg0EuOR02FWGPyCAvJH7Ymm6ZhiHq5iNCw@mail.gmail.com>
+ <CAM0jSHP8vS9FeEjKx9sQqek2-eGVEK+=6y03eNnf0zpnxmmP6w@mail.gmail.com>
+ <CAOFGe94C48djm1uWXC2Tn-ssSvGr=sTOaEDORG355s72ysfqQg@mail.gmail.com>
+ <CAM0jSHOTjp-zSdOR1u9H_YM8ryQbA-H9N3RQh-7cQvGr0k5wjw@mail.gmail.com>
+ <CAOFGe9705fJxg4L5W9y_WA5T4PaohsEzgEMJcuojg7aKWTJSfA@mail.gmail.com>
+ <CAM0jSHOXb_y-s46NUQ-jMJKfBc1FnDxC8ngkKYX29yEE+A7MVg@mail.gmail.com>
+ <CAM0jSHNRE2tb4tS4q62MMAA7-WSGZE4_PryVFE7i1j13Sax1Mg@mail.gmail.com>
+ <a53c7d07-15f5-0029-7e09-68c588832852@linux.intel.com>
+In-Reply-To: <a53c7d07-15f5-0029-7e09-68c588832852@linux.intel.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed, 4 Aug 2021 16:35:05 +0200
+Message-ID: <CAKMK7uEurFMB6PUsYCKBezQsT63=pJ3WCQ07F=V6cvfnY2+RGw@mail.gmail.com>
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Auld <matthew.william.auld@gmail.com>,
+ Jason Ekstrand <jason@jlekstrand.net>, 
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 5/7] drm/i915/gem/ttm: Respect the objection
+ region in placement_from_obj
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,352 +93,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's been invariant since
+On Wed, Aug 4, 2021 at 10:00 AM Thomas Hellstr=C3=B6m
+<thomas.hellstrom@linux.intel.com> wrote:
+>
+> Hi,
+>
+> On 7/22/21 11:59 AM, Matthew Auld wrote:
+> > On Thu, 22 Jul 2021 at 10:49, Matthew Auld
+> > <matthew.william.auld@gmail.com> wrote:
+> >> On Wed, 21 Jul 2021 at 21:11, Jason Ekstrand <jason@jlekstrand.net> wr=
+ote:
+> >>> On Mon, Jul 19, 2021 at 8:35 AM Matthew Auld
+> >>> <matthew.william.auld@gmail.com> wrote:
+> >>>> On Fri, 16 Jul 2021 at 20:49, Jason Ekstrand <jason@jlekstrand.net> =
+wrote:
+> >>>>> On Fri, Jul 16, 2021 at 1:45 PM Matthew Auld
+> >>>>> <matthew.william.auld@gmail.com> wrote:
+> >>>>>> On Fri, 16 Jul 2021 at 18:39, Jason Ekstrand <jason@jlekstrand.net=
+> wrote:
+> >>>>>>> On Fri, Jul 16, 2021 at 11:00 AM Matthew Auld
+> >>>>>>> <matthew.william.auld@gmail.com> wrote:
+> >>>>>>>> On Fri, 16 Jul 2021 at 16:52, Matthew Auld
+> >>>>>>>> <matthew.william.auld@gmail.com> wrote:
+> >>>>>>>>> On Fri, 16 Jul 2021 at 15:10, Jason Ekstrand <jason@jlekstrand.=
+net> wrote:
+> >>>>>>>>>> On Fri, Jul 16, 2021 at 8:54 AM Matthew Auld
+> >>>>>>>>>> <matthew.william.auld@gmail.com> wrote:
+> >>>>>>>>>>> On Thu, 15 Jul 2021 at 23:39, Jason Ekstrand <jason@jlekstran=
+d.net> wrote:
+> >>>>>>>>>>>> Whenever we had a user object (n_placements > 0), we were ig=
+noring
+> >>>>>>>>>>>> obj->mm.region and always putting obj->placements[0] as the =
+requested
+> >>>>>>>>>>>> region.  For LMEM+SMEM objects, this was causing them to get=
+ shoved into
+> >>>>>>>>>>>> LMEM on every i915_ttm_get_pages() even when SMEM was reques=
+ted by, say,
+> >>>>>>>>>>>> i915_gem_object_migrate().
+> >>>>>>>>>>> i915_ttm_migrate calls i915_ttm_place_from_region() directly =
+with the
+> >>>>>>>>>>> requested region, so there shouldn't be an issue with migrati=
+on right?
+> >>>>>>>>>>> Do you have some more details?
+> >>>>>>>>>> With i915_ttm_migrate directly, no.  But, in the last patch in=
+ the
+> >>>>>>>>>> series, we're trying to migrate LMEM+SMEM buffers into SMEM on
+> >>>>>>>>>> attach() and pin it there.  This blows up in a very unexpected=
+ (IMO)
+> >>>>>>>>>> way.  The flow goes something like this:
+> >>>>>>>>>>
+> >>>>>>>>>>   - Client attempts a dma-buf import from another device
+> >>>>>>>>>>   - In attach() we call i915_gem_object_migrate() which calls
+> >>>>>>>>>> i915_ttm_migrate() which migrates as requested.
+> >>>>>>>>>>   - Once the migration is complete, we call i915_gem_object_pi=
+n_pages()
+> >>>>>>>>>> which calls i915_ttm_get_pages() which depends on
+> >>>>>>>>>> i915_ttm_placement_from_obj() and so migrates it right back to=
+ LMEM.
+> >>>>>>>>> The mm.pages must be NULL here, otherwise it would just increme=
+nt the
+> >>>>>>>>> pages_pin_count?
+> >>>>>>> Given that the test is using the ____four_underscores version, it
+> >>>>>>> doesn't have that check.  However, this executes after we've done=
+ the
+> >>>>>>> dma-buf import which pinned pages.  So we should definitely have
+> >>>>>>> pages.
+> >>>>>> We shouldn't call ____four_underscores() if we might already have
+> >>>>>> pages though. Under non-TTM that would leak the pages, and in TTM =
+we
+> >>>>>> might hit the WARN_ON(mm->pages) in __i915_ttm_get_pages(), if for
+> >>>>>> example nothing was moved. I take it we can't just call pin_pages(=
+)?
+> >>>>>> Four scary underscores usually means "don't call this in normal co=
+de".
+> >>>>> I've switched the ____four_underscores call to a __two_underscores =
+in
+> >>>>> the selftests and it had no effect, good or bad.  But, still, proba=
+bly
+> >>>>> better to call that one.
+> >>>>>
+> >>>>>>>>>> Maybe the problem here is actually that our TTM code isn't res=
+pecting
+> >>>>>>>>>> obj->mm.pages_pin_count?
+> >>>>>>>>> I think if the resource is moved, we always nuke the mm.pages a=
+fter
+> >>>>>>>>> being notified of the move. Also TTM is also not allowed to mov=
+e
+> >>>>>>>>> pinned buffers.
+> >>>>>>>>>
+> >>>>>>>>> I guess if we are evicted/swapped, so assuming we are not holdi=
+ng the
+> >>>>>>>>> object lock, and it's not pinned, the future call to get_pages(=
+) will
+> >>>>>>>>> see mm.pages =3D NULL, even though the ttm_resource is still th=
+ere, and
+> >>>>>>>>> because we prioritise the placements[0], instead of mm.region w=
+e end
+> >>>>>>>>> up moving it for no good reason. But in your case you are holdi=
+ng the
+> >>>>>>>>> lock, or it's pinned? Also is this just with the selftest, or
+> >>>>>>>>> something real?
+> >>>>>>>> Or at least in the selftest I see ____i915_gem_object_get_pages(=
+)
+> >>>>>>>> which doesn't even consider the mm.pages AFAIK.
+> >>>>>>> The bogus migration is happening as part of the
+> >>>>>>> __i915_gem_object_get_pages() (2 __underscores) call in
+> >>>>>>> i915_gem_dmabuf_attach (see last patch).  That code is attempting=
+ to
+> >>>>>>> migrate the BO to SMEM and then pin it there using the obvious ca=
+lls
+> >>>>>>> to do so.  However, in the pin_pages call, it gets implicitly mig=
+rated
+> >>>>>>> back to LMEM thanks to i915_ttm_get_pages().  Why is _get_pages()
+> >>>>>>> migrating things at all?
+> >>>>>> Not sure yet, but __two_underscores() checks if
+> >>>>>> i915_gem_object_has_pages() before actually calling into
+> >>>>>> i915_ttm_get_pages(), so the mm.pages would have to be NULL here f=
+or
+> >>>>>> some reason, so best guess is something to do with move_notify().
+> >>>>> Did a bit of experimenting along those lines and added the followin=
+g
+> >>>>> to the self-test BEFORE the export/import:
+> >>>>>
+> >>>>>      i915_gem_object_lock(obj, NULL);
+> >>>>>      err =3D __i915_gem_object_get_pages(obj);
+> >>>>>      __i915_gem_object_unpin_pages(obj);
+> >>>>>      i915_gem_object_unlock(obj);
+> >>>>>      if (err) {
+> >>>>>          pr_err("__i915_gem_object_get_pages failed with err=3D%d\n=
+", err);
+> >>>>>          goto out_ret;
+> >>>>>      }
+> >>>>>
+> >>>>> This seems to make the migration happen as expected without this
+> >>>>> patch.  So it seems the problem only exists on buffers that haven't
+> >>>>> gotten any backing storage yet (if I'm understanding get_pages
+> >>>>> correctly).
+> >>>>>
+> >>>>> One potential work-around (not sure if this is a good idea or not!)
+> >>>>> would be to do this inside dmabuf_attach().  Is this reliable?  Onc=
+e
+> >>>>> it has pages will it always have pages?  Or are there crazy races I
+> >>>>> need to be worried about here?
+> >>>> It turns out that the i915_ttm_adjust_gem_after_move() call in
+> >>>> ttm_object_init will always update the mm.region to system memory(so
+> >>>> that it matches the ttm resource), which seems reasonable given the
+> >>>> default system placeholder thing, but does seem slightly iffy since =
+we
+> >>>> haven't actually moved/allocated anything.
+> >>>>
+> >>>> So effectively i915_ttm_migrate(SYSTEM) becomes a noop here since
+> >>>> mm.region =3D=3D mr. Which ofc means when we actually call get_pages=
+() all
+> >>>> that happens is that we allocate the pages in system memory(or witho=
+ut
+> >>>> this patch placements[0]). Also with this patch lmem+smem, will alwa=
+ys
+> >>>> be placed in smem first, regardless of the placements ordering.
+> >>>>
+> >>>> For now we could maybe just split i915_ttm_adjust_gem_after_move() s=
+o
+> >>>> we skip the part which updates the mm.region here in the init portio=
+n,
+> >>>> since that should only happen when we try to place the object for
+> >>>> real?
+> >>> Doesn't that mean we would end up with obj->mm.region and
+> >>> obj->mm.res->mem_type are out-of-sync?  That seems bad.  I would thin=
+k
+> >>> we'd want the two in sync at all times.
+> >> It likely doesn't matter since all roads lead to i915_ttm_get_pages()
+> >> when we need to actually use the object?
+> >>
+> >> Also updating the mm.region in ttm_object_init() to reflect the dummy
+> >> ttm resource seems a little scary, since any existing is_lmem() check
+> >> now needs to happen after we place the object. Or at least the
+> >> existing callers(for kernel internal objects) might not have expected
+> >> that behaviour. Not sure if we checked all the callers.
+> >>
+> >>> It seems like the fundamental problem here is that, when it's created=
+,
+> >>> the object isn't really in any memory region at all.  While I don't
+> >>> think obj->mm.region =3D=3D NULL is allowed or a good idea, it does s=
+eem
+> >>> closer to the ground truth.
+> >> Yeah, seems reasonable, especially for create_user where we don't know
+> >> the placement until we actually call get_pages(). I think for internal
+> >> users like with create_lmem() setting the mm.region early still makes
+> >> some sense?
+> >>
+> >>> Perhaps what we really want is for i915_gem_object_migrate to
+> >>> get_pages before it does the migration to ensure that pages exist.
+> >>> The only call to i915_gem_object_migrate in the code-base today is in
+> >>> the display code and it's immediately followed by pin_pages().  For
+> >>> that matter, maybe the call we actually want is
+> >>> i915_object_migrate_and_pin that does the whole lot.
+> >> I guess the only downside is that we might end up doing a real
+> >> migration, with mempy or the blitter vs just changing the preferred
+> >> placement for later? I think just go with whatever you feel is the
+> >> simplest for now.
+> > Another cheapo could be to drop the mr =3D=3D mm.region noop, and just =
+try
+> > to place the object at mr anyway?
+> >
+> There are a number of things to consider here,
+>
+> First, as Jason found out what's keeping thing from working as intended
+> is that we actually call into TTM get_pages() after migration, since the
+> object isn't populated with pages yet. That's indeed a bug.
+>
+> We should probably have migrate be migrate_and_populate(): Whatever
+> kernel code decides to migrate needs to hold the object lock over the
+> operation where data needs to be migrated or in the worst case call
+> pin() under the lock which currently needs to be the case for dma-buf
+> and display.
+>
+> If we blindly just look at obj->mm.region() in get_pages() then if an
+> object with allowable placements in lmem and smem initially gets placed
+> in lmem, and then evicted to smem it will never migrate back to lmem
+> unless if there is an explicit i915_gem_object_migrate(), but again,
+> that's perhaps what we want? I guess we need to more clearly define the
+> migration policies; for example should we attempt to migrate evicted
+> buffers back to lmem on each execbuf where they are referenced, even if
+> they haven't lost their pages?
 
-    commit ccbc1b97948ab671335e950271e39766729736c3
-    Author: Jason Ekstrand <jason@jlekstrand.net>
-    Date:   Thu Jul 8 10:48:30 2021 -0500
+Looking at amdgpu things are indeed complicated:
+- mmap adds some hints that cpu access is preferred (iirc at least) so
+that the unmappable vram problems aren't too awful
+- execbuf adds vram to the non-evict placement list whenever that
+makes sense (i.e. preferred place and no inferred hint like mmap
+access countering that)
+- for eviction there's a ratelimit, to make sure we're not thrashing
+terribly and spending all the gpu time moving buffers around with the
+copy engine
 
-        drm/i915/gem: Don't allow changing the VM on running contexts (v4)
+Maybe another interim strategy would be to only evict non-busy
+buffers, not sure ttm supports that already. We definitely don't want
+to unconditionally force all buffers into lmem on every execbuf.
+-Daniel
 
-this just completes the deed. I've tried to split out prep work for
-more careful review as much as possible, this is what's left:
 
-- get_ppgtt gets simplified since we don't need to grab a temporary
-  reference - we can rely on the temporary reference for the gem_ctx
-  while we inspect the vm. The new vm_id still needs a full
-  i915_vm_open ofc. This also removes the final caller of context_get_vm_rcu
+> On region dicrepance between gem and TTM there is a short DOC: section
+> in i915_gem_ttm.c
+>
+> /Thomas
+>
+>
+> >>> Thoughts?
+> >>>
+> >>> --Jason
+> >>>
+> >>> P.S.  I'm going to go ahead and send another version with your other
+> >>> comments addressed.  We can keep this discussion going here for now.
 
-- A pile of selftests can now just look at ctx->vm instead of
-  rcu_dereference_protected( , true) or similar things.
 
-- All callers of i915_gem_context_vm also disappear.
 
-- I've changed the hugepage selftest to set scrub_64K without any
-  locking, because when we inspect that setting we're also not taking
-  any locks either. It works because it's a selftests that's careful
-  (single threaded gives you nice ordering) and not a live driver
-  where races can happen from anywhere.
-
-These can only be split up further if we have some intermediate state
-with a bunch more rcu_dereference_protected(ctx->vm, true), just to
-shut up lockdep and sparse.
-
-The conversion to __rcu happened in
-
-commit a4e7ccdac38ec8335d9e4e2656c1a041c77feae1
-Author: Chris Wilson <chris@chris-wilson.co.uk>
-Date:   Fri Oct 4 14:40:09 2019 +0100
-
-    drm/i915: Move context management under GEM
-
-Note that we're not breaking the actual bugfix in there: The real
-bugfix is pushing the i915_vm_relase onto a separate worker, to avoid
-locking inversion issues. The rcu conversion was just thrown in for
-entertainment value on top (no vm lookup isn't even close to anything
-that's a hotpath where removing the single spinlock can be measured).
-
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Jon Bloomfield <jon.bloomfield@intel.com>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Jason Ekstrand <jason@jlekstrand.net>
----
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 53 ++-----------------
- drivers/gpu/drm/i915/gem/i915_gem_context.h   | 14 ++---
- .../gpu/drm/i915/gem/i915_gem_context_types.h |  2 +-
- .../gpu/drm/i915/gem/selftests/huge_pages.c   |  4 +-
- .../drm/i915/gem/selftests/i915_gem_context.c | 24 ++++-----
- drivers/gpu/drm/i915/i915_trace.h             |  2 +-
- drivers/gpu/drm/i915/selftests/i915_vma.c     |  2 +-
- 7 files changed, 21 insertions(+), 80 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index fd24a1236682..2f3cc73d4710 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -735,44 +735,6 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
- 	return ret;
- }
- 
--static struct i915_address_space *
--context_get_vm_rcu(struct i915_gem_context *ctx)
--{
--	GEM_BUG_ON(!rcu_access_pointer(ctx->vm));
--
--	do {
--		struct i915_address_space *vm;
--
--		/*
--		 * We do not allow downgrading from full-ppgtt [to a shared
--		 * global gtt], so ctx->vm cannot become NULL.
--		 */
--		vm = rcu_dereference(ctx->vm);
--		if (!kref_get_unless_zero(&vm->ref))
--			continue;
--
--		/*
--		 * This ppgtt may have be reallocated between
--		 * the read and the kref, and reassigned to a third
--		 * context. In order to avoid inadvertent sharing
--		 * of this ppgtt with that third context (and not
--		 * src), we have to confirm that we have the same
--		 * ppgtt after passing through the strong memory
--		 * barrier implied by a successful
--		 * kref_get_unless_zero().
--		 *
--		 * Once we have acquired the current ppgtt of ctx,
--		 * we no longer care if it is released from ctx, as
--		 * it cannot be reallocated elsewhere.
--		 */
--
--		if (vm == rcu_access_pointer(ctx->vm))
--			return rcu_pointer_handoff(vm);
--
--		i915_vm_put(vm);
--	} while (1);
--}
--
- static int intel_context_set_gem(struct intel_context *ce,
- 				 struct i915_gem_context *ctx,
- 				 struct intel_sseu sseu)
-@@ -1193,7 +1155,7 @@ static void context_close(struct i915_gem_context *ctx)
- 
- 	set_closed_name(ctx);
- 
--	vm = i915_gem_context_vm(ctx);
-+	vm = ctx->vm;
- 	if (vm)
- 		i915_vm_close(vm);
- 
-@@ -1350,7 +1312,7 @@ i915_gem_create_context(struct drm_i915_private *i915,
- 		vm = &ppgtt->vm;
- 	}
- 	if (vm) {
--		RCU_INIT_POINTER(ctx->vm, i915_vm_open(vm));
-+		ctx->vm = i915_vm_open(vm);
- 
- 		/* i915_vm_open() takes a reference */
- 		i915_vm_put(vm);
-@@ -1576,15 +1538,12 @@ static int get_ppgtt(struct drm_i915_file_private *file_priv,
- 	if (!i915_gem_context_is_full_ppgtt(ctx))
- 		return -ENODEV;
- 
--	rcu_read_lock();
--	vm = context_get_vm_rcu(ctx);
--	rcu_read_unlock();
--	if (!vm)
--		return -ENODEV;
-+	vm = ctx->vm;
-+	GEM_BUG_ON(!vm);
- 
- 	err = xa_alloc(&file_priv->vm_xa, &id, vm, xa_limit_32b, GFP_KERNEL);
- 	if (err)
--		goto err_put;
-+		return err;
- 
- 	i915_vm_open(vm);
- 
-@@ -1592,8 +1551,6 @@ static int get_ppgtt(struct drm_i915_file_private *file_priv,
- 	args->value = id;
- 	args->size = 0;
- 
--err_put:
--	i915_vm_put(vm);
- 	return err;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-index 37536a260e6e..7696bc91647d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-@@ -148,17 +148,11 @@ static inline void i915_gem_context_put(struct i915_gem_context *ctx)
- 	kref_put(&ctx->ref, i915_gem_context_release);
- }
- 
--static inline struct i915_address_space *
--i915_gem_context_vm(struct i915_gem_context *ctx)
--{
--	return rcu_dereference_protected(ctx->vm, lockdep_is_held(&ctx->mutex));
--}
--
- static inline bool i915_gem_context_is_full_ppgtt(struct i915_gem_context *ctx)
- {
--	GEM_BUG_ON(!!rcu_access_pointer(ctx->vm) != HAS_FULL_PPGTT(ctx->i915));
-+	GEM_BUG_ON(!!ctx->vm != HAS_FULL_PPGTT(ctx->i915));
- 
--	return !!rcu_access_pointer(ctx->vm);
-+	return !!ctx->vm;
- }
- 
- static inline struct i915_address_space *
-@@ -166,12 +160,10 @@ i915_gem_context_get_eb_vm(struct i915_gem_context *ctx)
- {
- 	struct i915_address_space *vm;
- 
--	rcu_read_lock();
--	vm = rcu_dereference(ctx->vm);
-+	vm = ctx->vm;
- 	if (!vm)
- 		vm = &ctx->i915->ggtt.vm;
- 	vm = i915_vm_get(vm);
--	rcu_read_unlock();
- 
- 	return vm;
- }
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index 94c03a97cb77..540ad16204a9 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -262,7 +262,7 @@ struct i915_gem_context {
- 	 * In other modes, this is a NULL pointer with the expectation that
- 	 * the caller uses the shared global GTT.
- 	 */
--	struct i915_address_space __rcu *vm;
-+	struct i915_address_space *vm;
- 
- 	/**
- 	 * @pid: process id of creator
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index 6c68fe26bb32..5d71626a1ee5 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -1688,11 +1688,9 @@ int i915_gem_huge_page_live_selftests(struct drm_i915_private *i915)
- 		goto out_file;
- 	}
- 
--	mutex_lock(&ctx->mutex);
--	vm = i915_gem_context_vm(ctx);
-+	vm = ctx->vm;
- 	if (vm)
- 		WRITE_ONCE(vm->scrub_64K, true);
--	mutex_unlock(&ctx->mutex);
- 
- 	err = i915_subtests(tests, ctx);
- 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-index 0708b9cdeb9f..4370a90d8a50 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-@@ -27,12 +27,6 @@
- 
- #define DW_PER_PAGE (PAGE_SIZE / sizeof(u32))
- 
--static inline struct i915_address_space *ctx_vm(struct i915_gem_context *ctx)
--{
--	/* single threaded, private ctx */
--	return rcu_dereference_protected(ctx->vm, true);
--}
--
- static int live_nop_switch(void *arg)
- {
- 	const unsigned int nctx = 1024;
-@@ -813,7 +807,7 @@ static int igt_shared_ctx_exec(void *arg)
- 			struct i915_gem_context *ctx;
- 			struct intel_context *ce;
- 
--			ctx = kernel_context(i915, ctx_vm(parent));
-+			ctx = kernel_context(i915, parent->vm);
- 			if (IS_ERR(ctx)) {
- 				err = PTR_ERR(ctx);
- 				goto out_test;
-@@ -823,7 +817,7 @@ static int igt_shared_ctx_exec(void *arg)
- 			GEM_BUG_ON(IS_ERR(ce));
- 
- 			if (!obj) {
--				obj = create_test_object(ctx_vm(parent),
-+				obj = create_test_object(parent->vm,
- 							 file, &objects);
- 				if (IS_ERR(obj)) {
- 					err = PTR_ERR(obj);
-@@ -1380,7 +1374,7 @@ static int igt_ctx_readonly(void *arg)
- 		goto out_file;
- 	}
- 
--	vm = ctx_vm(ctx) ?: &i915->ggtt.alias->vm;
-+	vm = ctx->vm ?: &i915->ggtt.alias->vm;
- 	if (!vm || !vm->has_read_only) {
- 		err = 0;
- 		goto out_file;
-@@ -1499,7 +1493,7 @@ static int write_to_scratch(struct i915_gem_context *ctx,
- 
- 	GEM_BUG_ON(offset < I915_GTT_PAGE_SIZE);
- 
--	err = check_scratch(ctx_vm(ctx), offset);
-+	err = check_scratch(ctx->vm, offset);
- 	if (err)
- 		return err;
- 
-@@ -1596,7 +1590,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
- 
- 	GEM_BUG_ON(offset < I915_GTT_PAGE_SIZE);
- 
--	err = check_scratch(ctx_vm(ctx), offset);
-+	err = check_scratch(ctx->vm, offset);
- 	if (err)
- 		return err;
- 
-@@ -1739,7 +1733,7 @@ static int check_scratch_page(struct i915_gem_context *ctx, u32 *out)
- 	u32 *vaddr;
- 	int err = 0;
- 
--	vm = ctx_vm(ctx);
-+	vm = ctx->vm;
- 	if (!vm)
- 		return -ENODEV;
- 
-@@ -1801,7 +1795,7 @@ static int igt_vm_isolation(void *arg)
- 	}
- 
- 	/* We can only test vm isolation, if the vm are distinct */
--	if (ctx_vm(ctx_a) == ctx_vm(ctx_b))
-+	if (ctx_a->vm == ctx_b->vm)
- 		goto out_file;
- 
- 	/* Read the initial state of the scratch page */
-@@ -1813,8 +1807,8 @@ static int igt_vm_isolation(void *arg)
- 	if (err)
- 		goto out_file;
- 
--	vm_total = ctx_vm(ctx_a)->total;
--	GEM_BUG_ON(ctx_vm(ctx_b)->total != vm_total);
-+	vm_total = ctx_a->vm->total;
-+	GEM_BUG_ON(ctx_b->vm->total != vm_total);
- 
- 	count = 0;
- 	num_engines = 0;
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index 806ad688274b..237e5061381b 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -1246,7 +1246,7 @@ DECLARE_EVENT_CLASS(i915_context,
- 	TP_fast_assign(
- 			__entry->dev = ctx->i915->drm.primary->index;
- 			__entry->ctx = ctx;
--			__entry->vm = rcu_access_pointer(ctx->vm);
-+			__entry->vm = ctx->vm;
- 	),
- 
- 	TP_printk("dev=%u, ctx=%p, ctx_vm=%p",
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 79ba72da0813..1f10fe36619b 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -39,7 +39,7 @@ static bool assert_vma(struct i915_vma *vma,
- {
- 	bool ok = true;
- 
--	if (vma->vm != rcu_access_pointer(ctx->vm)) {
-+	if (vma->vm != ctx->vm) {
- 		pr_err("VMA created with wrong VM\n");
- 		ok = false;
- 	}
--- 
-2.32.0
-
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
