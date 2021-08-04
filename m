@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 760B8C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 20:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88851C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 20:16:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3435560FC3
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 20:13:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3435560FC3
+	by mail.kernel.org (Postfix) with ESMTPS id 2FC4D60F94
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 20:16:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2FC4D60F94
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D751D6E444;
-	Wed,  4 Aug 2021 20:13:50 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C84C76E444
- for <intel-gfx@lists.freedesktop.org>; Wed,  4 Aug 2021 20:13:48 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10066"; a="210891419"
-X-IronPort-AV: E=Sophos;i="5.84,295,1620716400"; d="scan'208";a="210891419"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A06646E44E;
+	Wed,  4 Aug 2021 20:16:35 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 426276E44E
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Aug 2021 20:16:34 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10066"; a="275056461"
+X-IronPort-AV: E=Sophos;i="5.84,295,1620716400"; d="scan'208";a="275056461"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2021 13:13:47 -0700
-X-IronPort-AV: E=Sophos;i="5.84,295,1620716400"; d="scan'208";a="441883312"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2021 13:16:33 -0700
+X-IronPort-AV: E=Sophos;i="5.84,295,1620716400"; d="scan'208";a="441883839"
 Received: from ssyedfar-mobl1.amr.corp.intel.com (HELO ldmartin-desk2)
  ([10.212.201.224])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2021 13:13:47 -0700
-Date: Wed, 4 Aug 2021 13:13:46 -0700
+ 04 Aug 2021 13:16:33 -0700
+Date: Wed, 4 Aug 2021 13:16:32 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: Matt Roper <matthew.d.roper@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <20210804201346.4mo7pqr5xwmjsa3l@ldmartin-desk2>
+Message-ID: <20210804201632.ldvuac6wg7ftvizl@ldmartin-desk2>
 X-Patchwork-Hint: comment
 References: <20210729170008.2836648-1-matthew.d.roper@intel.com>
- <20210729170008.2836648-3-matthew.d.roper@intel.com>
+ <20210729170008.2836648-5-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20210729170008.2836648-3-matthew.d.roper@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v4 02/18] drm/i915/xehpsdv: Define steering
- tables
+In-Reply-To: <20210729170008.2836648-5-matthew.d.roper@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v4 04/18] drm/i915/dg2: Update LNCF steering
+ ranges
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,94 +62,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 29, 2021 at 09:59:52AM -0700, Matt Roper wrote:
->Define and initialize the MMIO ranges for which XeHP SDV requires MSLICE
->and LNCF steering.
+On Thu, Jul 29, 2021 at 09:59:54AM -0700, Matt Roper wrote:
+>DG2's replicated register ranges are almost the same at XeHP SDV with
+>the exception of one LNCF sub-range that switches to gslice steering.
+>We can re-use the XeHP SDV mslice steering table and just provide a
+>DG2-specific LNCF steering table.
 >
 >Bspec: 66534
->Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 >Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 >Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-
-
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Lucas De Marchi
-
 >---
-> drivers/gpu/drm/i915/gt/intel_gt.c          | 19 ++++++++++++++++++-
-> drivers/gpu/drm/i915/gt/intel_workarounds.c | 11 +++++++++--
-> 2 files changed, 27 insertions(+), 3 deletions(-)
+> drivers/gpu/drm/i915/gt/intel_gt.c | 11 ++++++++++-
+> 1 file changed, 10 insertions(+), 1 deletion(-)
 >
 >diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
->index 39b224600f38..8e13bfc81634 100644
+>index 8e13bfc81634..1971e34da254 100644
 >--- a/drivers/gpu/drm/i915/gt/intel_gt.c
 >+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
->@@ -89,6 +89,20 @@ static const struct intel_mmio_range icl_l3bank_steering_table[] = {
+>@@ -103,6 +103,12 @@ static const struct intel_mmio_range xehpsdv_lncf_steering_table[] = {
 > 	{},
 > };
 >
->+static const struct intel_mmio_range xehpsdv_mslice_steering_table[] = {
->+	{ 0x004000, 0x004AFF },
->+	{ 0x00C800, 0x00CFFF },
->+	{ 0x00DD00, 0x00DDFF },
->+	{ 0x00E900, 0x00FFFF }, /* 0xEA00 - OxEFFF is unused */
->+	{},
->+};
->+
->+static const struct intel_mmio_range xehpsdv_lncf_steering_table[] = {
+>+static const struct intel_mmio_range dg2_lncf_steering_table[] = {
 >+	{ 0x00B000, 0x00B0FF },
->+	{ 0x00D800, 0x00D8FF },
+>+	{ 0x00D880, 0x00D8FF },
 >+	{},
 >+};
 >+
 > static u16 slicemask(struct intel_gt *gt, int count)
 > {
 > 	u64 dss_mask = intel_sseu_get_subslices(&gt->info.sseu, 0);
->@@ -115,7 +129,10 @@ int intel_gt_init_mmio(struct intel_gt *gt)
+>@@ -129,7 +135,10 @@ int intel_gt_init_mmio(struct intel_gt *gt)
 > 			(intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3) &
 > 			 GEN12_MEML3_EN_MASK);
 >
->-	if (GRAPHICS_VER(i915) >= 11 &&
->+	if (IS_XEHPSDV(i915)) {
+>-	if (IS_XEHPSDV(i915)) {
+>+	if (IS_DG2(i915)) {
 >+		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
->+		gt->steering_table[LNCF] = xehpsdv_lncf_steering_table;
->+	} else if (GRAPHICS_VER(i915) >= 11 &&
-> 		   GRAPHICS_VER_FULL(i915) < IP_VER(12, 50)) {
-> 		gt->steering_table[L3BANK] = icl_l3bank_steering_table;
-> 		gt->info.l3bank_mask =
->diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
->index f2ceabb0e2ea..8717337a6c81 100644
->--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
->+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
->@@ -934,7 +934,6 @@ icl_wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> 	__add_mcr_wa(i915, wal, slice, subslice);
-> }
->
->-__maybe_unused
-> static void
-> xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
-> {
->@@ -1136,10 +1135,18 @@ dg1_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> 			    VSUNIT_CLKGATE_DIS_TGL);
-> }
->
->+static void
->+xehpsdv_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
->+{
->+	xehp_init_mcr(&i915->gt, wal);
->+}
->+
-> static void
-> gt_init_workarounds(struct drm_i915_private *i915, struct i915_wa_list *wal)
-> {
->-	if (IS_DG1(i915))
->+	if (IS_XEHPSDV(i915))
->+		xehpsdv_gt_workarounds_init(i915, wal);
->+	else if (IS_DG1(i915))
-> 		dg1_gt_workarounds_init(i915, wal);
-> 	else if (IS_TIGERLAKE(i915))
-> 		tgl_gt_workarounds_init(i915, wal);
+
+
+a title "Update steering tables" would be more appropriate as this is
+also setting the mslice table, even if just re-using from xehpsdv.
+
+
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+
+
+Lucas De Marchi
+
+>+		gt->steering_table[LNCF] = dg2_lncf_steering_table;
+>+	} else if (IS_XEHPSDV(i915)) {
+> 		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
+> 		gt->steering_table[LNCF] = xehpsdv_lncf_steering_table;
+> 	} else if (GRAPHICS_VER(i915) >= 11 &&
 >-- 
 >2.25.4
 >
