@@ -5,56 +5,54 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3A22C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 14:25:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1170BC4338F
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 14:25:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 83AFE60EBC
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 14:25:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 83AFE60EBC
+	by mail.kernel.org (Postfix) with ESMTPS id D547160EBC
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Aug 2021 14:25:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D547160EBC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 252C16EA82;
-	Wed,  4 Aug 2021 14:25:38 +0000 (UTC)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD7E36EA87
- for <intel-gfx@lists.freedesktop.org>; Wed,  4 Aug 2021 14:25:31 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- e25-20020a05600c4b99b0290253418ba0fbso1591790wmp.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 04 Aug 2021 07:25:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FCA16EA83;
+	Wed,  4 Aug 2021 14:25:43 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 178F96EA94
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Aug 2021 14:25:36 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id b13so2497424wrs.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 04 Aug 2021 07:25:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=VqZRQ+c8SxDVpAU3bLWG1pPTG4VXpxPAuTx45jDOor0=;
- b=JhlOXa5UinmLWyFLtbsE4mCNj6UAS8udwKsovFv8f9UvRj3VnCVP+R70puSkCNpkuI
- DQNSxmqEd3fYZLSud9lsg6pt627ls4qyqvpeT3Lp/31kexCv4ivF9fef/hGYU/LarY3U
- VQi6U0N7+WOOuiUUkBhwfkv0TBWqYxrpMyu4o=
+ bh=VTUsQ+lGN+oTAvTdvP/CXdYHrIH9A60NwRkDwSBv14w=;
+ b=GTK/A7iJrEqlcik5qajFAEa05wW2l+wWkPjF5iJT+esAiVPg1Khdz2KaR+fL+scJ+D
+ zPJbcfw/t5SKx15zMchVPjLXYq08MhDBkyDuDwd6fMjwm9vJF+G+U/+nsxx6yIHrymlv
+ 9NZfYl9rteMHnS70N4XRvxlNLsPVf+xVb1Kgw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=VqZRQ+c8SxDVpAU3bLWG1pPTG4VXpxPAuTx45jDOor0=;
- b=UHJUXRgy4Qmj/Z4PgkqRggoY6jirDqRRpmCG1/BwAYp4EyX20NnQWPrDZTqF1/oSkS
- 1aApa4pfQN77e1X/xg5TrTbYd8uTLzKflbu9pVT6C2L2QOxdngivqKySeDV2nKAA0nyO
- xX87h35OnFESF6cKLKPKCaTt/on11v5k5DgIc5TyFTzQTFYoRlo4EKE4wglTEc6Wn++k
- ZBSX8mDV7FWSh2JEQXX8CFh4KT52513pBhqoO4ZrkZ2/XwK0pV9BZApzGCbff8NHu4A4
- 1G7bvkoTO0uSE7DebKvuyNchHTylW6Bm7jzbXipy06LAKqD0YmLffdfD8PHe7UpoArYo
- NYvA==
-X-Gm-Message-State: AOAM533Wyucf5UqsIygTOJ7uQufCGDWzJL2WV3JP1YDYGkHV9ir0mlCh
- 6DGS+sPTVC7gwxrJlJl/UaOy+uqEUAjEfw==
-X-Google-Smtp-Source: ABdhPJyhwDpLUFvk6flbRvs/0bsYmLZrTsMvni6+b3bZ3yrSetSTiOLPwjl8wcCU1KFm8btYyE6f5A==
-X-Received: by 2002:a05:600c:4101:: with SMTP id
- j1mr27627204wmi.110.1628087130372; 
- Wed, 04 Aug 2021 07:25:30 -0700 (PDT)
+ bh=VTUsQ+lGN+oTAvTdvP/CXdYHrIH9A60NwRkDwSBv14w=;
+ b=XVDX7Ih/BpANWQIjrgZq8Sspj+PcmaknjDoObLlc1fShAF/tcQlw5uv2jDpYns7NnD
+ GxqKdOl0EuD8GxakxJ3GaE3s/TF7FLq5/MeWcMgS4tuBIjmQ2XMFOTVtY++13PQWm99I
+ V8LTG4z6ErbmRFVblC0HbyZE6zpNqvSLsvCJ91l1dbLg+JiP21fQBxPiTct4Ubx9ypet
+ f8HSgrNe7Fd/PVMhNuiqAeO1RIjqBhzuz33l9cyedcli7UfcG94TbXZBlbNzEKb06iFV
+ Y/rkOwDxOOI9pgfEyKi6jKHYySr019Bs4hTqy0MVqYXFMQOfEM2vdCOE+ZpuIsijXFa0
+ iR0g==
+X-Gm-Message-State: AOAM531f65afP/fNVoIYbvg+jZjLEz5QtOHvdwUCGHXOo0ydvyRf/xtp
+ BaAH9Q2vWmp06B1n0y4UTpVzUy0xEqPpyw==
+X-Google-Smtp-Source: ABdhPJzegxiyfZAo19D/4s26hJwIzazWogNxlFQob82eIVBlVBwJ3VAC22KVhBWS/mvKMiQdvxl2wA==
+X-Received: by 2002:adf:dd8b:: with SMTP id x11mr28894503wrl.357.1628087134578; 
+ Wed, 04 Aug 2021 07:25:34 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id b6sm3222682wrn.9.2021.08.04.07.25.29
+ by smtp.gmail.com with ESMTPSA id b6sm3222682wrn.9.2021.08.04.07.25.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Aug 2021 07:25:29 -0700 (PDT)
+ Wed, 04 Aug 2021 07:25:34 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
 Cc: DRI Development <dri-devel@lists.freedesktop.org>,
@@ -68,16 +66,16 @@ Cc: DRI Development <dri-devel@lists.freedesktop.org>,
  Matthew Auld <matthew.auld@intel.com>,
  Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
  Dave Airlie <airlied@redhat.com>, Jason Ekstrand <jason@jlekstrand.net>
-Date: Wed,  4 Aug 2021 16:25:14 +0200
-Message-Id: <20210804142522.4113021-2-daniel.vetter@ffwll.ch>
+Date: Wed,  4 Aug 2021 16:25:17 +0200
+Message-Id: <20210804142522.4113021-5-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210804142522.4113021-1-daniel.vetter@ffwll.ch>
 References: <20210804142522.4113021-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/9] drm/i915: Drop code to handle set-vm
- races from execbuf
+Subject: [Intel-gfx] [PATCH v2 4/9] drm/i915: Add
+ i915_gem_context_is_full_ppgtt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,15 +91,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Changing the vm from a finalized gem ctx is no longer possible, which
-means we don't have to check for that anymore.
+And use it anywhere we have open-coded checks for ctx->vm that really
+only check for full ppgtt.
 
-I was pondering whether to keep the check as a WARN_ON, but things go
-boom real bad real fast if the vm of a vma is wrong. Plus we'd need to
-also get the ggtt vm for !full-ppgtt platforms. Ditching it all seemed
-like a better idea.
+Plus for paranoia add a GEM_BUG_ON that checks it's really only set
+when we have full ppgtt, just in case. gem_context->vm is different
+since it's NULL in ggtt mode, unlike intel_context->vm or gt->vm,
+which is always set.
 
-References: ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")
+v2: 0day found a testcase that I missed.
+
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Jon Bloomfield <jon.bloomfield@intel.com>
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
@@ -114,26 +113,87 @@ Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 Cc: Dave Airlie <airlied@redhat.com>
 Cc: Jason Ekstrand <jason@jlekstrand.net>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c           | 2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.h           | 7 +++++++
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c        | 2 +-
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 6 +++---
+ 4 files changed, 12 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 6263563e15d6..a80b06c98dba 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1581,7 +1581,7 @@ static int get_ppgtt(struct drm_i915_file_private *file_priv,
+ 	int err;
+ 	u32 id;
+ 
+-	if (!rcu_access_pointer(ctx->vm))
++	if (!i915_gem_context_is_full_ppgtt(ctx))
+ 		return -ENODEV;
+ 
+ 	rcu_read_lock();
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+index da6e8b506d96..37536a260e6e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+@@ -154,6 +154,13 @@ i915_gem_context_vm(struct i915_gem_context *ctx)
+ 	return rcu_dereference_protected(ctx->vm, lockdep_is_held(&ctx->mutex));
+ }
+ 
++static inline bool i915_gem_context_is_full_ppgtt(struct i915_gem_context *ctx)
++{
++	GEM_BUG_ON(!!rcu_access_pointer(ctx->vm) != HAS_FULL_PPGTT(ctx->i915));
++
++	return !!rcu_access_pointer(ctx->vm);
++}
++
+ static inline struct i915_address_space *
+ i915_gem_context_get_eb_vm(struct i915_gem_context *ctx)
+ {
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 538d9d2e52b7..69e47b97d786 100644
+index 69e47b97d786..bdf2b5785a81 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -775,11 +775,7 @@ static int __eb_add_lut(struct i915_execbuffer *eb,
- 	/* Check that the context hasn't been closed in the meantime */
- 	err = -EINTR;
- 	if (!mutex_lock_interruptible(&ctx->lut_mutex)) {
--		struct i915_address_space *vm = rcu_access_pointer(ctx->vm);
--
--		if (unlikely(vm && vma->vm != vm))
--			err = -EAGAIN; /* user racing with ctx set-vm */
--		else if (likely(!i915_gem_context_is_closed(ctx)))
-+		if (likely(!i915_gem_context_is_closed(ctx)))
- 			err = radix_tree_insert(&ctx->handles_vma, handle, vma);
- 		else
- 			err = -ENOENT;
+@@ -749,7 +749,7 @@ static int eb_select_context(struct i915_execbuffer *eb)
+ 		return PTR_ERR(ctx);
+ 
+ 	eb->gem_context = ctx;
+-	if (rcu_access_pointer(ctx->vm))
++	if (i915_gem_context_is_full_ppgtt(ctx))
+ 		eb->invalid_flags |= EXEC_OBJECT_NEEDS_GTT;
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index d436ce7fa25c..0708b9cdeb9f 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -704,7 +704,7 @@ static int igt_ctx_exec(void *arg)
+ 				pr_err("Failed to fill dword %lu [%lu/%lu] with gpu (%s) [full-ppgtt? %s], err=%d\n",
+ 				       ndwords, dw, max_dwords(obj),
+ 				       engine->name,
+-				       yesno(!!rcu_access_pointer(ctx->vm)),
++				       yesno(i915_gem_context_is_full_ppgtt(ctx)),
+ 				       err);
+ 				intel_context_put(ce);
+ 				kernel_context_close(ctx);
+@@ -838,7 +838,7 @@ static int igt_shared_ctx_exec(void *arg)
+ 				pr_err("Failed to fill dword %lu [%lu/%lu] with gpu (%s) [full-ppgtt? %s], err=%d\n",
+ 				       ndwords, dw, max_dwords(obj),
+ 				       engine->name,
+-				       yesno(!!rcu_access_pointer(ctx->vm)),
++				       yesno(i915_gem_context_is_full_ppgtt(ctx)),
+ 				       err);
+ 				intel_context_put(ce);
+ 				kernel_context_close(ctx);
+@@ -1417,7 +1417,7 @@ static int igt_ctx_readonly(void *arg)
+ 				pr_err("Failed to fill dword %lu [%lu/%lu] with gpu (%s) [full-ppgtt? %s], err=%d\n",
+ 				       ndwords, dw, max_dwords(obj),
+ 				       ce->engine->name,
+-				       yesno(!!ctx_vm(ctx)),
++				       yesno(i915_gem_context_is_full_ppgtt(ctx)),
+ 				       err);
+ 				i915_gem_context_unlock_engines(ctx);
+ 				goto out_file;
 -- 
 2.32.0
 
