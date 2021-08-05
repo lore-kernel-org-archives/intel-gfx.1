@@ -5,74 +5,76 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D9D6C4320A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:48:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2476CC4338F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:48:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 53BB36105A
+	by mail.kernel.org (Postfix) with ESMTPS id E0ED26105A
 	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 53BB36105A
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E0ED26105A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCE76E9B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA0BD6E9CF;
 	Thu,  5 Aug 2021 10:47:30 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BC336E99B
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:47:26 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id e19so8784570ejs.9
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:47:26 -0700 (PDT)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC45A6E9A2
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:47:24 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id qk33so8763106ejc.12
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:47:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=atjioHvLQRKknYmCGJ4eBGUqx5TO0gjlW2lZ+WMiMlA=;
- b=GA6EI7Msn6oW/vaJ8BL9d1KpmQ/F8Tu+cQ5S5rJ2ahWIG0oUKBHfJXFPp+Q+V1Es8r
- Zh/GqTqVIs/obQHAdk/l4zl+pL6+gaqELu+kvgI/7zSHS4lLbg/lCHQbGxr3MHSk0EtW
- S4Uxx3romwWVZ+eaIIogeRJub8KhZejUR8afc=
+ bh=jSzJFH8CtxTJYEXcCZZIbr2vCkG9eURdQPO2UTEKnBM=;
+ b=ayI8hGndL92HshvSFXNFZ0Lc8C4Aysey6TTy9xUBOIGjEiQywtqJB6PF96tdkgDZ2l
+ wibdOONFuc1ptidH5N9sZf+EOc+VO64/5FoMngFp+wDvf6rNgBZOE87s+ZA2LgYHKrot
+ 11rc7PxMuWEcdU0tdJjtMlYmDpYdWg750L3K8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=atjioHvLQRKknYmCGJ4eBGUqx5TO0gjlW2lZ+WMiMlA=;
- b=tVGAqkeWMLke0cWvR3HTnXHdn8zZTtOmwO7YWCtZIwIWDMdTB9yei4vAD2n/e5jthX
- p7F5TzGnquxH7MdUVPU+yqACfDeFm4Mc7MaCn72lURWLIeiG5HRKfCM6vvg4g0kQ9mIR
- BYTggWlQx3j+ucM/NoR934zypzpqcGjjttUCV30XK4anbnwyQSyGgGzI6YOPf6ycsVps
- Rqdthgzxo+mOHrGJHDXHcSSPLj0SFasIZpFYnfMwx9rg7nrmbq8OHxTkRnLnu8/y/P/h
- U3ErIoFm1YtUmgbtf2rl/RGMgUalUX5KfPj8OFA8qxIqwaVqPC11N4SzawBNacUZX6K/
- p7QA==
-X-Gm-Message-State: AOAM533d4XBhyP3KoQ48hi5C4QO0FIjugMrUXvk4RZfNHNA0oo4wc2+0
- 23B96icNT8aIR81j1rNVDn/r9g==
-X-Google-Smtp-Source: ABdhPJwh1gwy3gDUyVvHxv2Pb9bLD8NKlQeFntVNfpvwaexXBBVHmZGrt0E8EcVv2+YqzYfycv1fhg==
-X-Received: by 2002:a17:906:158f:: with SMTP id
- k15mr4118057ejd.241.1628160444981; 
- Thu, 05 Aug 2021 03:47:24 -0700 (PDT)
+ bh=jSzJFH8CtxTJYEXcCZZIbr2vCkG9eURdQPO2UTEKnBM=;
+ b=QJ/And3JCoSHoHeWvB8nxmFC/gPTlW9eTvSnZp1VpDQrO6QRvRQEuZ4SO3Orzou3ek
+ GlY5ueSu2GyEmEn7WFQac3yy+meCsYArqumoQMLeNSWDBxIxw9RSFu6cdDLDmuLe+ogm
+ YZLuxccfRjRzqL5m4uquwqLxCQXVRC/uYrxgr8l5KSifwRvUvsMSdcGv2qXks43imehL
+ BPNL2N9/JORLOOqlL+HGA3JltEm8ZiR6vODzhqS78sGSPDFd0rJn3BnTVWtGBhLxXvKX
+ Z5F8eTp7jBEVYXdtfOG94OJ5XpxcrxuIlY/btcb5DfVucl7dAjVdR7YYtxVviRLvMnto
+ llOQ==
+X-Gm-Message-State: AOAM533xuaJ5n8Z8wDg3oTjtC29hAnUZ1WESJcHaM6hElZK/RWSRtEQ/
+ MRMZKzJ4YE+VAumchCStiuCl4w==
+X-Google-Smtp-Source: ABdhPJxpyljfbXPxATlcHpARHjEIH7oeB91EwoMvWsvYfgqp1K5k09Ko2eLFP/1UgvQ1s0WMr1+EkA==
+X-Received: by 2002:a17:906:e089:: with SMTP id
+ gh9mr4309138ejb.80.1628160443331; 
+ Thu, 05 Aug 2021 03:47:23 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id p5sm1578809ejl.73.2021.08.05.03.47.24
+ by smtp.gmail.com with ESMTPSA id p5sm1578809ejl.73.2021.08.05.03.47.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Aug 2021 03:47:24 -0700 (PDT)
+ Thu, 05 Aug 2021 03:47:22 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
 Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Melissa Wen <mwen@igalia.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Daniel Vetter <daniel.vetter@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Date: Thu,  5 Aug 2021 12:47:00 +0200
-Message-Id: <20210805104705.862416-16-daniel.vetter@ffwll.ch>
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Date: Thu,  5 Aug 2021 12:46:58 +0200
+Message-Id: <20210805104705.862416-14-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
 References: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 15/20] drm/sched: Check locking in
- drm_sched_job_await_implicit
+Subject: [Intel-gfx] [PATCH v5 13/20] drm/gem: Delete gem array fencing
+ helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,33 +90,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-You really need to hold the reservation here or all kinds of funny
-things can happen between grabbing the dependencies and inserting the
-new fences.
+Integrated into the scheduler now and all users converted over.
 
-Acked-by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
 Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Luben Tuikov <luben.tuikov@amd.com>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/drm_gem.c | 96 ---------------------------------------
+ include/drm/drm_gem.h     |  5 --
+ 2 files changed, 101 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 49e507f91ec0..1abb40b07324 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -715,6 +715,8 @@ int drm_sched_job_add_implicit_dependencies(struct drm_sched_job *job,
- 	struct dma_fence **fences;
- 	unsigned int i, fence_count;
- 
-+	dma_resv_assert_held(obj->resv);
-+
- 	if (!write) {
- 		struct dma_fence *fence = dma_resv_get_excl_unlocked(obj->resv);
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 09c820045859..37e2e2820f08 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1272,99 +1272,3 @@ drm_gem_unlock_reservations(struct drm_gem_object **objs, int count,
+ 	ww_acquire_fini(acquire_ctx);
+ }
+ EXPORT_SYMBOL(drm_gem_unlock_reservations);
+-
+-/**
+- * drm_gem_fence_array_add - Adds the fence to an array of fences to be
+- * waited on, deduplicating fences from the same context.
+- *
+- * @fence_array: array of dma_fence * for the job to block on.
+- * @fence: the dma_fence to add to the list of dependencies.
+- *
+- * This functions consumes the reference for @fence both on success and error
+- * cases.
+- *
+- * Returns:
+- * 0 on success, or an error on failing to expand the array.
+- */
+-int drm_gem_fence_array_add(struct xarray *fence_array,
+-			    struct dma_fence *fence)
+-{
+-	struct dma_fence *entry;
+-	unsigned long index;
+-	u32 id = 0;
+-	int ret;
+-
+-	if (!fence)
+-		return 0;
+-
+-	/* Deduplicate if we already depend on a fence from the same context.
+-	 * This lets the size of the array of deps scale with the number of
+-	 * engines involved, rather than the number of BOs.
+-	 */
+-	xa_for_each(fence_array, index, entry) {
+-		if (entry->context != fence->context)
+-			continue;
+-
+-		if (dma_fence_is_later(fence, entry)) {
+-			dma_fence_put(entry);
+-			xa_store(fence_array, index, fence, GFP_KERNEL);
+-		} else {
+-			dma_fence_put(fence);
+-		}
+-		return 0;
+-	}
+-
+-	ret = xa_alloc(fence_array, &id, fence, xa_limit_32b, GFP_KERNEL);
+-	if (ret != 0)
+-		dma_fence_put(fence);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL(drm_gem_fence_array_add);
+-
+-/**
+- * drm_gem_fence_array_add_implicit - Adds the implicit dependencies tracked
+- * in the GEM object's reservation object to an array of dma_fences for use in
+- * scheduling a rendering job.
+- *
+- * This should be called after drm_gem_lock_reservations() on your array of
+- * GEM objects used in the job but before updating the reservations with your
+- * own fences.
+- *
+- * @fence_array: array of dma_fence * for the job to block on.
+- * @obj: the gem object to add new dependencies from.
+- * @write: whether the job might write the object (so we need to depend on
+- * shared fences in the reservation object).
+- */
+-int drm_gem_fence_array_add_implicit(struct xarray *fence_array,
+-				     struct drm_gem_object *obj,
+-				     bool write)
+-{
+-	int ret;
+-	struct dma_fence **fences;
+-	unsigned int i, fence_count;
+-
+-	if (!write) {
+-		struct dma_fence *fence =
+-			dma_resv_get_excl_unlocked(obj->resv);
+-
+-		return drm_gem_fence_array_add(fence_array, fence);
+-	}
+-
+-	ret = dma_resv_get_fences(obj->resv, NULL,
+-						&fence_count, &fences);
+-	if (ret || !fence_count)
+-		return ret;
+-
+-	for (i = 0; i < fence_count; i++) {
+-		ret = drm_gem_fence_array_add(fence_array, fences[i]);
+-		if (ret)
+-			break;
+-	}
+-
+-	for (; i < fence_count; i++)
+-		dma_fence_put(fences[i]);
+-	kfree(fences);
+-	return ret;
+-}
+-EXPORT_SYMBOL(drm_gem_fence_array_add_implicit);
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 35e7f44c2a75..e55a767188af 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -407,11 +407,6 @@ int drm_gem_lock_reservations(struct drm_gem_object **objs, int count,
+ 			      struct ww_acquire_ctx *acquire_ctx);
+ void drm_gem_unlock_reservations(struct drm_gem_object **objs, int count,
+ 				 struct ww_acquire_ctx *acquire_ctx);
+-int drm_gem_fence_array_add(struct xarray *fence_array,
+-			    struct dma_fence *fence);
+-int drm_gem_fence_array_add_implicit(struct xarray *fence_array,
+-				     struct drm_gem_object *obj,
+-				     bool write);
+ int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+ 			    u32 handle, u64 *offset);
  
 -- 
 2.32.0
