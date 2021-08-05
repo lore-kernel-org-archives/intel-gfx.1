@@ -2,47 +2,49 @@ Return-Path: <SRS0=p3Ij=M4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66251C4320A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 16:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34242C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 16:37:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 30A1D60EE9
+	by mail.kernel.org (Postfix) with ESMTPS id 01A9261050
 	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 16:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 30A1D60EE9
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 01A9261050
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0329E6EB0E;
-	Thu,  5 Aug 2021 16:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16AAB6EB13;
+	Thu,  5 Aug 2021 16:37:02 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 937BE6E39B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063DB6E4EC
  for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 16:36:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10067"; a="194470753"
-X-IronPort-AV: E=Sophos;i="5.84,296,1620716400"; d="scan'208";a="194470753"
+X-IronPort-AV: E=McAfee;i="6200,9189,10067"; a="194470764"
+X-IronPort-AV: E=Sophos;i="5.84,296,1620716400"; d="scan'208";a="194470764"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2021 09:36:55 -0700
-X-IronPort-AV: E=Sophos;i="5.84,296,1620716400"; d="scan'208";a="419886345"
+ 05 Aug 2021 09:36:57 -0700
+X-IronPort-AV: E=Sophos;i="5.84,296,1620716400"; d="scan'208";a="419886369"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2021 09:36:54 -0700
+ 05 Aug 2021 09:36:57 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: matthew.d.roper@intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- James Ausmus <james.ausmus@intel.com>
-Date: Thu,  5 Aug 2021 09:36:38 -0700
-Message-Id: <20210805163647.801064-1-matthew.d.roper@intel.com>
+Cc: matthew.d.roper@intel.com, Akeem G Abodunrin <akeem.g.abodunrin@intel.com>,
+ Chris P Wilson <chris.p.wilson@intel.com>,
+ Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Date: Thu,  5 Aug 2021 09:36:45 -0700
+Message-Id: <20210805163647.801064-8-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20210805163647.801064-1-matthew.d.roper@intel.com>
+References: <20210805163647.801064-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 0/9] Begin enabling Xe_HP SDV and DG2
- platforms
+Subject: [Intel-gfx] [PATCH v5 7/9] drm/i915/dg2: Add new LRI reg offsets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,91 +60,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series provides some of the initial enablement patches for two
-upcoming discrete GPUs:
- * XeHP SDV:  Xe_HP (version 12.50) graphics IP, no display IP
- * DG2:  Xe_HPG (version 12.55) graphics IP, Xe_LPD (version 13) display IP
+From: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
 
-Both platforms will need additional enablement patches beyond what's
-present in this series before they're truly usable, including various
-LMEM and GuC work that's already happening separately.  The new
-features/functionality that these platforms bring (such as multi-tile
-support, dedicated compute engines, etc.) may be referenced in passing
-in some of these patches but will be fully enabled in future series.
+New LRI register offsets were introduced for DG2, this patch adds
+those extra registers, and create new register table for setting offsets
+to compare with HW generated context image - especially for gt_lrc test.
+Also updates general purpose register with scratch offset for DG2, in
+order to use it for live_lrc_fixed selftest.
 
-v2:
- - General rebase and incorporation of r-b's.
- - Re-order intel_gt_info and intel_device_info structures to eliminate
-   some unnecessary padding after the size change of
-   intel_engine_mask_t.  (Tvrtko)
- - Use 'intel_step' mechanisms for revid->stepping mapping.  (Jani)
- - Drop the DSC patches for now; they need some rework.  (Jani)
+Cc: Chris P Wilson <chris.p.wilson@intel.com>
+Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Signed-off-by: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 85 ++++++++++++++++++++++++++++-
+ 1 file changed, 83 insertions(+), 2 deletions(-)
 
-v3:
- - About 20 of the patches have landed upstream now.  Rebase and resend
-   the rest.  Some of these are already reviewed, but have dependencies
-   on other unreviewed patches (e.g., the new engine definitions, the
-   initial SNPS PHY support, etc.).
-
-v4:
- - Several more patches have landed upstream; rebase and re-send the
-   rest.  Some of the remaining patches are reviewed but still have
-   dependencies on non-reviewed patches, so the order is shuffled this
-   time to group patches by dependency rather than by xehp vs xehpsdv vs
-   dg2.
- - Minor cleanup to "drm/i915/xehp: handle new steering options"
-   suggested by Caz.
-
-v5:
- - Rebase remaining patches after several more have landed upstream.
- - Drop the two MOCS patches for now; we need to wait for some prep work
-   from Ayaz to land before we apply those.
- - Make a comment about uapi in the compute DSS patch more general; the
-   uapi itself will show up in a future series once the corresponding
-   userspace driver code is published.  (Lucas)
- - Add an extra patch for a new DG2-G11 stepping that has appeared.
-
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: James Ausmus <james.ausmus@intel.com>
-
-
-Akeem G Abodunrin (1):
-  drm/i915/dg2: Add new LRI reg offsets
-
-Ankit Nautiyal (1):
-  drm/i915/dg2: Configure PCON in DP pre-enable path
-
-Lucas De Marchi (1):
-  drm/i915/xehpsdv: factor out function to read RP_STATE_CAP
-
-Matt Roper (5):
-  drm/i915/dg2: Add support for new DG2-G11 revid 0x5
-  drm/i915/xehp: Loop over all gslices for INSTDONE processing
-  drm/i915/dg2: Report INSTDONE_GEOM values in error state
-  drm/i915/xehpsdv: Read correct RP_STATE_CAP register
-  drm/i915/dg2: Maintain backward-compatible nested batch behavior
-
-Stuart Summers (1):
-  drm/i915/xehpsdv: Add compute DSS type
-
- drivers/gpu/drm/i915/display/intel_ddi.c     |  3 +
- drivers/gpu/drm/i915/gt/debugfs_gt_pm.c      |  8 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 55 ++++++++-----
- drivers/gpu/drm/i915/gt/intel_engine_types.h | 15 +++-
- drivers/gpu/drm/i915/gt/intel_lrc.c          | 85 +++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_rps.c          | 19 +++--
- drivers/gpu/drm/i915/gt/intel_rps.h          |  1 +
- drivers/gpu/drm/i915/gt/intel_sseu.c         | 66 +++++++++++----
- drivers/gpu/drm/i915/gt/intel_sseu.h         | 12 ++-
- drivers/gpu/drm/i915/gt/intel_workarounds.c  | 39 ++++++++-
- drivers/gpu/drm/i915/i915_debugfs.c          |  8 +-
- drivers/gpu/drm/i915/i915_gpu_error.c        | 36 +++++++--
- drivers/gpu/drm/i915/i915_reg.h              |  6 +-
- drivers/gpu/drm/i915/intel_step.c            |  1 +
- include/uapi/drm/i915_drm.h                  |  3 -
- 15 files changed, 284 insertions(+), 73 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index bb4af4977920..6ba8daea2f56 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -226,6 +226,40 @@ static const u8 gen12_xcs_offsets[] = {
+ 	END
+ };
+ 
++static const u8 dg2_xcs_offsets[] = {
++	NOP(1),
++	LRI(15, POSTED),
++	REG16(0x244),
++	REG(0x034),
++	REG(0x030),
++	REG(0x038),
++	REG(0x03c),
++	REG(0x168),
++	REG(0x140),
++	REG(0x110),
++	REG(0x1c0),
++	REG(0x1c4),
++	REG(0x1c8),
++	REG(0x180),
++	REG16(0x2b4),
++	REG(0x120),
++	REG(0x124),
++
++	NOP(1),
++	LRI(9, POSTED),
++	REG16(0x3a8),
++	REG16(0x28c),
++	REG16(0x288),
++	REG16(0x284),
++	REG16(0x280),
++	REG16(0x27c),
++	REG16(0x278),
++	REG16(0x274),
++	REG16(0x270),
++
++	END
++};
++
+ static const u8 gen8_rcs_offsets[] = {
+ 	NOP(1),
+ 	LRI(14, POSTED),
+@@ -525,6 +559,49 @@ static const u8 xehp_rcs_offsets[] = {
+ 	END
+ };
+ 
++static const u8 dg2_rcs_offsets[] = {
++	NOP(1),
++	LRI(15, POSTED),
++	REG16(0x244),
++	REG(0x034),
++	REG(0x030),
++	REG(0x038),
++	REG(0x03c),
++	REG(0x168),
++	REG(0x140),
++	REG(0x110),
++	REG(0x1c0),
++	REG(0x1c4),
++	REG(0x1c8),
++	REG(0x180),
++	REG16(0x2b4),
++	REG(0x120),
++	REG(0x124),
++
++	NOP(1),
++	LRI(9, POSTED),
++	REG16(0x3a8),
++	REG16(0x28c),
++	REG16(0x288),
++	REG16(0x284),
++	REG16(0x280),
++	REG16(0x27c),
++	REG16(0x278),
++	REG16(0x274),
++	REG16(0x270),
++
++	LRI(3, POSTED),
++	REG(0x1b0),
++	REG16(0x5a8),
++	REG16(0x5ac),
++
++	NOP(6),
++	LRI(1, 0),
++	REG(0x0c8),
++
++	END
++};
++
+ #undef END
+ #undef REG16
+ #undef REG
+@@ -543,7 +620,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		   !intel_engine_has_relative_mmio(engine));
+ 
+ 	if (engine->class == RENDER_CLASS) {
+-		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++			return dg2_rcs_offsets;
++		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
+ 			return xehp_rcs_offsets;
+ 		else if (GRAPHICS_VER(engine->i915) >= 12)
+ 			return gen12_rcs_offsets;
+@@ -554,7 +633,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		else
+ 			return gen8_rcs_offsets;
+ 	} else {
+-		if (GRAPHICS_VER(engine->i915) >= 12)
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++			return dg2_xcs_offsets;
++		else if (GRAPHICS_VER(engine->i915) >= 12)
+ 			return gen12_xcs_offsets;
+ 		else if (GRAPHICS_VER(engine->i915) >= 9)
+ 			return gen9_xcs_offsets;
 -- 
 2.25.4
 
