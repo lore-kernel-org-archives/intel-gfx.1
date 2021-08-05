@@ -2,82 +2,44 @@ Return-Path: <SRS0=p3Ij=M4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-17.4 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CB38C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 18:40:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5ACA8C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 18:45:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE2B26024A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 18:40:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DE2B26024A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id C844460F01
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 18:45:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C844460F01
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 013116E8D1;
-	Thu,  5 Aug 2021 18:40:12 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65C546E408;
- Thu,  5 Aug 2021 18:40:10 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C66901FE76;
- Thu,  5 Aug 2021 18:40:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628188808; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=waXWZeZbrZpwHf6cYwfpj1aXbKeZESlw3gmddpo7AUQ=;
- b=ROQ6P81aVCCQP8QJ0Js562/Ql+bZfOW+PoMt5lyNw87DtTXnUT5K4f4ZhtNiayX7hmRoqR
- jzkXVvX+M2AEaIVa23cHWsw8jd6lmnqNAeDJ7afEN2PAuIGkLEExUoQSlFocow3KSTzQqg
- mBBVyAXc7OFGKpNQVtAyQo/p+Fn1tww=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628188808;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=waXWZeZbrZpwHf6cYwfpj1aXbKeZESlw3gmddpo7AUQ=;
- b=I82DmhCeMzvNTawziO+fZLsYOetHQL2Rg83CN/qu3vxEqbyrbbbCksOgjkJtEEklSgA3Ec
- /SCVS5CcTobHy5Dg==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 8668013A5D;
- Thu,  5 Aug 2021 18:40:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id t7MMH4gwDGHkfQAAGKfGzw
- (envelope-from <tzimmermann@suse.de>); Thu, 05 Aug 2021 18:40:08 +0000
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20210713205153.1896059-1-daniel.vetter@ffwll.ch>
- <20210713205153.1896059-4-daniel.vetter@ffwll.ch>
- <0e4eefe0-9282-672c-7678-8d3162de35e3@suse.de>
- <YPpxh0QhILXESykX@phenom.ffwll.local>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <ea741e89-6ed0-fe7d-6462-7ca01b14c4b9@suse.de>
-Date: Thu, 5 Aug 2021 20:40:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 598D56E8D8;
+	Thu,  5 Aug 2021 18:45:01 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9BFC46E8D8;
+ Thu,  5 Aug 2021 18:45:00 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 92ECFA8830;
+ Thu,  5 Aug 2021 18:45:00 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-In-Reply-To: <YPpxh0QhILXESykX@phenom.ffwll.local>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="GDOaXABZ9cXJXn60nZxob2czYg06HXaQS"
-Subject: Re: [Intel-gfx] [PATCH v4 3/4] drm/shmem-helpers: Allocate wc pages
- on x86
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 05 Aug 2021 18:45:00 -0000
+Message-ID: <162818910059.30836.10713753721888094153@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210805103916.860853-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20210805103916.860853-1-daniel.vetter@ffwll.ch>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_remove_rcu_support_from_i915=5Faddress=5Fspace_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,126 +52,148 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---GDOaXABZ9cXJXn60nZxob2czYg06HXaQS
-Content-Type: multipart/mixed; boundary="hvSqbUatCvThoUwY9hDhBeC551W4wEtm0";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <ea741e89-6ed0-fe7d-6462-7ca01b14c4b9@suse.de>
-Subject: Re: [PATCH v4 3/4] drm/shmem-helpers: Allocate wc pages on x86
-References: <20210713205153.1896059-1-daniel.vetter@ffwll.ch>
- <20210713205153.1896059-4-daniel.vetter@ffwll.ch>
- <0e4eefe0-9282-672c-7678-8d3162de35e3@suse.de>
- <YPpxh0QhILXESykX@phenom.ffwll.local>
-In-Reply-To: <YPpxh0QhILXESykX@phenom.ffwll.local>
+== Series Details ==
 
---hvSqbUatCvThoUwY9hDhBeC551W4wEtm0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Series: remove rcu support from i915_address_space (rev5)
+URL   : https://patchwork.freedesktop.org/series/93314/
+State : warning
 
-Hi
+== Summary ==
 
-Am 23.07.21 um 09:36 schrieb Daniel Vetter:
->=20
-> The real fix is to get at the architecture-specific wc allocator, which=
- is
-> currently not something that's exposed, but hidden within the dma api. =
-I
-> think having this stick out like this is better than hiding it behind f=
-ake
-> generic code (like we do with drm_clflush, which defacto also only real=
-ly
-> works on x86).
->=20
-> Also note that ttm has the exact same ifdef in its page allocator, but =
-it
-> does fall back to using dma_alloc_coherent on other platforms.
+$ dim checkpatch origin/drm-tip
+0b21f453cdfb drm/i915: Drop code to handle set-vm races from execbuf
+-:17: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#17: 
+References: ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")
 
-If this fixes a real problem and there's no full solution yet, let's=20
-take what we have. So if you can extract the essence of this comment=20
-into a TODO comment that tells how to fix the issue, fell free to add my
+-:17: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")'
+#17: 
+References: ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+-:46: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
 
-Best regards
-Thomas
+total: 1 errors, 2 warnings, 0 checks, 12 lines checked
+d23b18f97bd9 drm/i915: Rename i915_gem_context_get_vm_rcu to i915_gem_context_get_eb_vm
+-:148: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
 
-> -Daniel
->=20
->> Best regard
->> Thomas
->>
->>> +
->>>    	shmem->pages =3D pages;
->>>    	return 0;
->>> @@ -203,6 +212,11 @@ static void drm_gem_shmem_put_pages_locked(struc=
-t drm_gem_shmem_object *shmem)
->>>    	if (--shmem->pages_use_count > 0)
->>>    		return;
->>> +#ifdef CONFIG_X86
->>> +	if (shmem->map_wc)
->>> +		set_pages_array_wb(shmem->pages, obj->size >> PAGE_SHIFT);
->>> +#endif
->>> +
->>>    	drm_gem_put_pages(obj, shmem->pages,
->>>    			  shmem->pages_mark_dirty_on_put,
->>>    			  shmem->pages_mark_accessed_on_put);
->>>
->>
->> --=20
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
->> (HRB 36809, AG N=C3=BCrnberg)
->> Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
->>
->=20
->=20
->=20
->=20
+total: 0 errors, 1 warnings, 0 checks, 80 lines checked
+07bcc7e00033 drm/i915: Use i915_gem_context_get_eb_vm in ctx_getparam
+-:54: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
 
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+total: 0 errors, 1 warnings, 0 checks, 23 lines checked
+b2e1515de24d drm/i915: Add i915_gem_context_is_full_ppgtt
+-:105: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 53 lines checked
+ba6c948d717d drm/i915: Use i915_gem_context_get_eb_vm in intel_context_set_gem
+-:12: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")'
+#12: 
+commit ccbc1b97948ab671335e950271e39766729736c3
+
+-:61: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 1 errors, 1 warnings, 0 checks, 18 lines checked
+04ad005ea013 drm/i915: Drop __rcu from gem_context->vm
+-:11: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")'
+#11: 
+    commit ccbc1b97948ab671335e950271e39766729736c3
+
+-:23: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#23: 
+  i915_vm_open ofc. This also removes the final caller of context_get_vm_rcu
+
+-:42: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit a4e7ccdac38e ("drm/i915: Move context management under GEM")'
+#42: 
+commit a4e7ccdac38ec8335d9e4e2656c1a041c77feae1
+
+-:345: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 2 errors, 2 warnings, 0 checks, 232 lines checked
+89f791357ea9 drm/i915: use xa_lock/unlock for fpriv->vm_xa lookups
+-:15: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit aabbe344dc3c ("drm/i915: Use RCU for unlocked vm_idr lookup")'
+#15: 
+commit aabbe344dc3ca5f7d8263a02608ba6179e8a4499
+
+-:52: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 1 errors, 1 warnings, 0 checks, 13 lines checked
+57adc91192e3 drm/i915: Stop rcu support for i915_address_space
+-:11: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#11: 
+- i915_dpt has very simple lifetime (somehow we create a display pagetable vm
+
+-:27: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit cf977e18610e ("drm/i915/gem: Spring clean debugfs")'
+#27: 
+	commit cf977e18610e66e48c31619e7e0cfa871be9eada
+
+-:35: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit db80a1294c23 ("drm/i915/gem: Remove per-client stats from debugfs/i915_gem_objects")'
+#35: 
+	commit db80a1294c231b6ac725085f046bb2931e00c9db
+
+-:47: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")'
+#47: 
+	commit ccbc1b97948ab671335e950271e39766729736c3
+
+-:59: WARNING:TYPO_SPELLING: 'Preceeding' may be misspelled - perhaps 'Preceding'?
+#59: 
+  Preceeding patches removed all vestiges of rcu use from gem_ctx->vm
+  ^^^^^^^^^^
+
+-:64: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit a4e7ccdac38e ("drm/i915: Move context management under GEM")'
+#64: 
+	commit a4e7ccdac38ec8335d9e4e2656c1a041c77feae1
+
+-:88: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit c744d50363b7 ("drm/i915/gt: Split the breadcrumb spinlock between global and contexts")'
+#88: 
+	commit c744d50363b714783bbc88d986cc16def13710f7
+
+-:94: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit added5fce61e ("ARM: mxs_defconfig: add CONFIG_USB_PHY")'
+#94: 
+  its parent commit added the intel_context rcu protection:
+
+-:96: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 14d1eaf08845 ("drm/i915/gt: Protect context lifetime with RCU")'
+#96: 
+	commit 14d1eaf08845c534963c83f754afe0cb14cb2512
+
+-:114: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 4d8151ae5329 ("drm/i915: Don't free shared locks while shared")'
+#114: 
+	commit 4d8151ae5329cf50781a02fd2298a909589a5bab
+
+-:130: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit e6ba76480299 ("drm/i915: Remove i915->kernel_context")'
+#130: 
+	commit e6ba76480299a0d77c51d846f7467b1673aad25b
+
+-:143: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 4ff4b44cbb70 ("drm/i915: Store a direct lookup from object handle to vma")'
+#143: 
+	commit 4ff4b44cbb70c269259958cbcc48d7b8a2cb9ec8
+
+-:152: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit d1b48c1e7184 ("drm/i915: Replace execbuf vma ht with an idr")'
+#152: 
+	commit d1b48c1e7184d9bc4ae6d7f9fe2eed9efed11ffc
+
+-:160: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 93159e12353c ("drm/i915/gem: Avoid gem_context->mutex for simple vma lookup")'
+#160: 
+	commit 93159e12353c2a47e5576d642845a91fa00530bf
+
+-:183: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit b32fa8111563 ("drm/i915/gtt: Defer address space cleanup to an RCU worker")'
+#183: 
+commit b32fa811156328aea5a3c2ff05cc096490382456
+
+-:201: WARNING:TYPO_SPELLING: 'wont' may be misspelled - perhaps 'won't'?
+#201: 
+that's a preexisting condition in the codeebase that we wont fix in
+                                                        ^^^^
+
+-:206: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 60a4233a4952 ("drm/i915: Flush the i915_vm_release before ggtt shutdown")'
+#206: 
+commit 60a4233a4952729089e4df152e730f8f4d0e82ce
+
+-:279: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
+
+total: 14 errors, 4 warnings, 0 checks, 39 lines checked
 
 
---hvSqbUatCvThoUwY9hDhBeC551W4wEtm0--
-
---GDOaXABZ9cXJXn60nZxob2czYg06HXaQS
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmEMMIcFAwAAAAAACgkQlh/E3EQov+D+
-NQ/7Bt4FLIlW0dFG2DEbpeNGYaL+gv3LgX8u2uoo5UiZxLibSUfBAX6usZd/ZJzohiBVKsNINnkC
-WY5fvH+zA+O412ESs8JM4J3zjIQrccEpLAUjFImbaNtb+0E1DHHeK8aDqIW2eGvLtAeFvGs8BSqA
-/HxdxOxkp5VuzFIb+YplUrxnFpDVzhb/AbbTtGIXR5+sh59Fe0ZLXcLyF1abx4fAauVbvLIo4Ux0
-Tnbfucu+5pekvn/4D5nv3zfR9JigPKd4CsB9ucU3xpSEEg7242FWsvA413TEAPusdtmZx55Lh14r
-07b7uw6GccWtj6kWFjNJ3AGAEIDagjhxRLJl9pHHSSvjyMKkzHgf4NhhM5o7Go86jgPXTaAZggil
-yHDFzRaOHi7dXtSi3ceCfSN4zHdq2aGRqRUqCEDm7V9deZh48ntVR9oXVoAYhoTuSGNtq5BDEGNP
-/gq6zoORg5lsLyS7F9ILRx6oRzWkzYV+F6hcSQIft9VgOT4lAC6IHDhC4gyDeUuiVmkU5lbB0E7v
-c8BhnfkXj8T7vvvrh3X4mFTPJoXmc4RffvuPYgN/CtF3sRbpmSZ7R3JfkfrJGVSC4gCuHICrMbr4
-aDwe77kZ7t2DGXR6bv7O8gBzr4kLVVqUGiI08MTimuNMbEKXLewZxZyT24NoqMdvYyrLG7FTq6ne
-O8Y=
-=+dRj
------END PGP SIGNATURE-----
-
---GDOaXABZ9cXJXn60nZxob2czYg06HXaQS--
