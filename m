@@ -7,52 +7,53 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49F6EC4338F
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:40:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 77E04C432BE
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:40:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19A966105A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:40:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 19A966105A
+	by mail.kernel.org (Postfix) with ESMTPS id 15D43610CC
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:40:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 15D43610CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 509456E5B9;
-	Thu,  5 Aug 2021 10:40:01 +0000 (UTC)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCFE6E5A3
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:39:25 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id b7so7704578edu.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:39:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EA4A6E5CE;
+	Thu,  5 Aug 2021 10:40:05 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EAB36E5CA
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:39:28 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id go31so8780468ejc.6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:39:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Nl7Irs71vJM1YfQMLmrkQe1rncHUCMW4+W0FSdH/emo=;
- b=M6ohG+idAqy15wfuxeRZHTWTR38bHKJwynIyoraQI9vNb0jOe4zf5tVB/LA5qJg6th
- 8Y6Cv3RAQZGyjYYKI+zW42NcKmfKJHKn4gvA3DZCaPqe0zwtRUgklNJu/bQ28MQq1ibB
- p5vHQWe1EKVxr5vnx3mQ/iE7WU1AEjq3weVO0=
+ bh=L1dU2VRW9yzeqs6L9InEWQBnuUdR4GHcwK/O0BzgGF8=;
+ b=OVPrgjEFpeBmJl+8V/mctRwlRwzCB1WdeJYWTjq4406UB1SaqwKyQC9Y1ATwzR4+Md
+ 7AFu7zCZuScNvSEI0A0dgkMqwl0JS+jhAZ0hU8ydBHjuUK2SgnFPta/wTMuB15ByAT6Z
+ ov09yJJ9sGVmAzALfHuR7sWnnwGTbGv4NnLPA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Nl7Irs71vJM1YfQMLmrkQe1rncHUCMW4+W0FSdH/emo=;
- b=D3aApZ+PO2foJfutQlJr8B9I8VqvEGM2ZbKUxUyX7QIVR+2SXP0wQ1xFa4utea2fiG
- TWUOm7MtFwDijls7m6MWIkx17OjNd+740qiMU7OqR1AVPYDZM4mnO1DWDtM8YjpvgT50
- ZINYS3Zpr3mQy0yTS2WU/CmHsKnSe5cyuovzOcDpoB6sXE4J57UPdgpUhm7U4rH0SRxS
- 9Dij1u9k5xT+HFkav0pUuy0UAK5E9k5RVUTcGr3WR0fw/5UK5WYcjbZj1EebghETLRZU
- reAduCly4/vLDBPm3QH6Eq+8An/GwzzULsNGhJVvUFnjQwMIakQDCFH9Cc+GcLujvhrE
- au1Q==
-X-Gm-Message-State: AOAM531AcLpcZs57spiTnerp8cbUMDsBHU3KMkIlMQ8XFbsU1qjjfbEz
- ZfNm0M1UkZ4EYxelPO10VkBnTfQUSVOI+w==
-X-Google-Smtp-Source: ABdhPJwNBOwHcfoSa8r7HghfIMuc2j7/+6j9feXb3Uom2t6cw7MT4X3uejo7sJM4LWo51SBvng4jYA==
-X-Received: by 2002:aa7:cf98:: with SMTP id z24mr5736833edx.136.1628159964120; 
- Thu, 05 Aug 2021 03:39:24 -0700 (PDT)
+ bh=L1dU2VRW9yzeqs6L9InEWQBnuUdR4GHcwK/O0BzgGF8=;
+ b=oj++XOWWbKMFfkVSF2Zplksi4wGOtNyAgYvWsdhv8iGMSD9/InDtC1UhxLsK+xqyuA
+ U1c+IumUaY07CRAg6gdTJDr7f7UncVJfoPbGsSofTg/YSZyPk1dsUCFIp32iIvVyCqah
+ Gb9dKTMX1cwXrOEJ4SvPO9iYQoWENusXFcNhLS005QX3tkXe1g9HUvSLJYnodLsEzzja
+ ij6PMiSMKdjX0HnW1NkqXrLy9+YMlqTv7kaHRZ3+DjyvX2NJh2WM7qk3Z0xll86rB8lK
+ X6OftZYTISFURDB+6IlBsi2KGHqzJypwLRruI3OPI0x+UFR3UET3mBlWQ6+DmY1f9IMK
+ UhtA==
+X-Gm-Message-State: AOAM533aHCOfny3Kq17xPpBC8ix876l1jPyCek60oQWBYxZ48VfjS7Jb
+ rMT2T83m5OLcvMfX2g9x3oOfCjChrB2FVw==
+X-Google-Smtp-Source: ABdhPJybUVYns6tPHuv307nC7nspwc8ElaPVFxgff05eNN7+UMp+ktU+NpPP+CCmiHLj78KEwrBAPA==
+X-Received: by 2002:a17:906:b750:: with SMTP id
+ fx16mr4134071ejb.108.1628159966719; 
+ Thu, 05 Aug 2021 03:39:26 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id j22sm1593727ejt.11.2021.08.05.03.39.23
+ by smtp.gmail.com with ESMTPSA id j22sm1593727ejt.11.2021.08.05.03.39.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Aug 2021 03:39:23 -0700 (PDT)
+ Thu, 05 Aug 2021 03:39:26 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
@@ -65,16 +66,15 @@ Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
  Matthew Auld <matthew.auld@intel.com>,
  Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
  Dave Airlie <airlied@redhat.com>, Jason Ekstrand <jason@jlekstrand.net>
-Date: Thu,  5 Aug 2021 12:39:11 +0200
-Message-Id: <20210805103916.860853-4-daniel.vetter@ffwll.ch>
+Date: Thu,  5 Aug 2021 12:39:14 +0200
+Message-Id: <20210805103916.860853-7-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210805103916.860853-1-daniel.vetter@ffwll.ch>
 References: <20210805103916.860853-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 3/8] drm/i915: Use i915_gem_context_get_eb_vm
- in ctx_getparam
+Subject: [Intel-gfx] [PATCH v3 6/8] drm/i915: Drop __rcu from gem_context->vm
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,10 +90,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Consolidates the "which is the vm my execbuf runs in" code a bit. We
-do some get/put which isn't really required, but all the other users
-want the refcounting, and I figured doing a function just for this
-getparam to avoid 2 atomis is a bit much.
+It's been invariant since
+
+    commit ccbc1b97948ab671335e950271e39766729736c3
+    Author: Jason Ekstrand <jason@jlekstrand.net>
+    Date:   Thu Jul 8 10:48:30 2021 -0500
+
+        drm/i915/gem: Don't allow changing the VM on running contexts (v4)
+
+this just completes the deed. I've tried to split out prep work for
+more careful review as much as possible, this is what's left:
+
+- get_ppgtt gets simplified since we don't need to grab a temporary
+  reference - we can rely on the temporary reference for the gem_ctx
+  while we inspect the vm. The new vm_id still needs a full
+  i915_vm_open ofc. This also removes the final caller of context_get_vm_rcu
+
+- A pile of selftests can now just look at ctx->vm instead of
+  rcu_dereference_protected( , true) or similar things.
+
+- All callers of i915_gem_context_vm also disappear.
+
+- I've changed the hugepage selftest to set scrub_64K without any
+  locking, because when we inspect that setting we're also not taking
+  any locks either. It works because it's a selftests that's careful
+  (single threaded gives you nice ordering) and not a live driver
+  where races can happen from anywhere.
+
+These can only be split up further if we have some intermediate state
+with a bunch more rcu_dereference_protected(ctx->vm, true), just to
+shut up lockdep and sparse.
+
+The conversion to __rcu happened in
+
+commit a4e7ccdac38ec8335d9e4e2656c1a041c77feae1
+Author: Chris Wilson <chris@chris-wilson.co.uk>
+Date:   Fri Oct 4 14:40:09 2019 +0100
+
+    drm/i915: Move context management under GEM
+
+Note that we're not breaking the actual bugfix in there: The real
+bugfix is pushing the i915_vm_relase onto a separate worker, to avoid
+locking inversion issues. The rcu conversion was just thrown in for
+entertainment value on top (no vm lookup isn't even close to anything
+that's a hotpath where removing the single spinlock can be measured).
 
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Jon Bloomfield <jon.bloomfield@intel.com>
@@ -107,38 +147,295 @@ Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 Cc: Dave Airlie <airlied@redhat.com>
 Cc: Jason Ekstrand <jason@jlekstrand.net>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 53 ++-----------------
+ drivers/gpu/drm/i915/gem/i915_gem_context.h   | 14 ++---
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |  2 +-
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |  4 +-
+ .../drm/i915/gem/selftests/i915_gem_context.c | 24 ++++-----
+ drivers/gpu/drm/i915/i915_trace.h             |  2 +-
+ drivers/gpu/drm/i915/selftests/i915_vma.c     |  2 +-
+ 7 files changed, 21 insertions(+), 80 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index cff72679ad7c..6263563e15d6 100644
+index fd24a1236682..2f3cc73d4710 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -2124,6 +2124,7 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
- 	struct drm_i915_file_private *file_priv = file->driver_priv;
- 	struct drm_i915_gem_context_param *args = data;
- 	struct i915_gem_context *ctx;
+@@ -735,44 +735,6 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
+ 	return ret;
+ }
+ 
+-static struct i915_address_space *
+-context_get_vm_rcu(struct i915_gem_context *ctx)
+-{
+-	GEM_BUG_ON(!rcu_access_pointer(ctx->vm));
+-
+-	do {
+-		struct i915_address_space *vm;
+-
+-		/*
+-		 * We do not allow downgrading from full-ppgtt [to a shared
+-		 * global gtt], so ctx->vm cannot become NULL.
+-		 */
+-		vm = rcu_dereference(ctx->vm);
+-		if (!kref_get_unless_zero(&vm->ref))
+-			continue;
+-
+-		/*
+-		 * This ppgtt may have be reallocated between
+-		 * the read and the kref, and reassigned to a third
+-		 * context. In order to avoid inadvertent sharing
+-		 * of this ppgtt with that third context (and not
+-		 * src), we have to confirm that we have the same
+-		 * ppgtt after passing through the strong memory
+-		 * barrier implied by a successful
+-		 * kref_get_unless_zero().
+-		 *
+-		 * Once we have acquired the current ppgtt of ctx,
+-		 * we no longer care if it is released from ctx, as
+-		 * it cannot be reallocated elsewhere.
+-		 */
+-
+-		if (vm == rcu_access_pointer(ctx->vm))
+-			return rcu_pointer_handoff(vm);
+-
+-		i915_vm_put(vm);
+-	} while (1);
+-}
+-
+ static int intel_context_set_gem(struct intel_context *ce,
+ 				 struct i915_gem_context *ctx,
+ 				 struct intel_sseu sseu)
+@@ -1193,7 +1155,7 @@ static void context_close(struct i915_gem_context *ctx)
+ 
+ 	set_closed_name(ctx);
+ 
+-	vm = i915_gem_context_vm(ctx);
++	vm = ctx->vm;
+ 	if (vm)
+ 		i915_vm_close(vm);
+ 
+@@ -1350,7 +1312,7 @@ i915_gem_create_context(struct drm_i915_private *i915,
+ 		vm = &ppgtt->vm;
+ 	}
+ 	if (vm) {
+-		RCU_INIT_POINTER(ctx->vm, i915_vm_open(vm));
++		ctx->vm = i915_vm_open(vm);
+ 
+ 		/* i915_vm_open() takes a reference */
+ 		i915_vm_put(vm);
+@@ -1576,15 +1538,12 @@ static int get_ppgtt(struct drm_i915_file_private *file_priv,
+ 	if (!i915_gem_context_is_full_ppgtt(ctx))
+ 		return -ENODEV;
+ 
+-	rcu_read_lock();
+-	vm = context_get_vm_rcu(ctx);
+-	rcu_read_unlock();
+-	if (!vm)
+-		return -ENODEV;
++	vm = ctx->vm;
++	GEM_BUG_ON(!vm);
+ 
+ 	err = xa_alloc(&file_priv->vm_xa, &id, vm, xa_limit_32b, GFP_KERNEL);
+ 	if (err)
+-		goto err_put;
++		return err;
+ 
+ 	i915_vm_open(vm);
+ 
+@@ -1592,8 +1551,6 @@ static int get_ppgtt(struct drm_i915_file_private *file_priv,
+ 	args->value = id;
+ 	args->size = 0;
+ 
+-err_put:
+-	i915_vm_put(vm);
+ 	return err;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+index 37536a260e6e..7696bc91647d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+@@ -148,17 +148,11 @@ static inline void i915_gem_context_put(struct i915_gem_context *ctx)
+ 	kref_put(&ctx->ref, i915_gem_context_release);
+ }
+ 
+-static inline struct i915_address_space *
+-i915_gem_context_vm(struct i915_gem_context *ctx)
+-{
+-	return rcu_dereference_protected(ctx->vm, lockdep_is_held(&ctx->mutex));
+-}
+-
+ static inline bool i915_gem_context_is_full_ppgtt(struct i915_gem_context *ctx)
+ {
+-	GEM_BUG_ON(!!rcu_access_pointer(ctx->vm) != HAS_FULL_PPGTT(ctx->i915));
++	GEM_BUG_ON(!!ctx->vm != HAS_FULL_PPGTT(ctx->i915));
+ 
+-	return !!rcu_access_pointer(ctx->vm);
++	return !!ctx->vm;
+ }
+ 
+ static inline struct i915_address_space *
+@@ -166,12 +160,10 @@ i915_gem_context_get_eb_vm(struct i915_gem_context *ctx)
+ {
+ 	struct i915_address_space *vm;
+ 
+-	rcu_read_lock();
+-	vm = rcu_dereference(ctx->vm);
++	vm = ctx->vm;
+ 	if (!vm)
+ 		vm = &ctx->i915->ggtt.vm;
+ 	vm = i915_vm_get(vm);
+-	rcu_read_unlock();
+ 
+ 	return vm;
+ }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+index 94c03a97cb77..540ad16204a9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+@@ -262,7 +262,7 @@ struct i915_gem_context {
+ 	 * In other modes, this is a NULL pointer with the expectation that
+ 	 * the caller uses the shared global GTT.
+ 	 */
+-	struct i915_address_space __rcu *vm;
 +	struct i915_address_space *vm;
- 	int ret = 0;
  
- 	ctx = i915_gem_context_lookup(file_priv, args->ctx_id);
-@@ -2133,12 +2134,10 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
- 	switch (args->param) {
- 	case I915_CONTEXT_PARAM_GTT_SIZE:
- 		args->size = 0;
--		rcu_read_lock();
--		if (rcu_access_pointer(ctx->vm))
--			args->value = rcu_dereference(ctx->vm)->total;
--		else
--			args->value = to_i915(dev)->ggtt.vm.total;
--		rcu_read_unlock();
-+		vm = i915_gem_context_get_eb_vm(ctx);
-+		args->value = vm->total;
-+		i915_vm_put(vm);
-+
- 		break;
+ 	/**
+ 	 * @pid: process id of creator
+diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+index 6c68fe26bb32..5d71626a1ee5 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
++++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+@@ -1688,11 +1688,9 @@ int i915_gem_huge_page_live_selftests(struct drm_i915_private *i915)
+ 		goto out_file;
+ 	}
  
- 	case I915_CONTEXT_PARAM_NO_ERROR_CAPTURE:
+-	mutex_lock(&ctx->mutex);
+-	vm = i915_gem_context_vm(ctx);
++	vm = ctx->vm;
+ 	if (vm)
+ 		WRITE_ONCE(vm->scrub_64K, true);
+-	mutex_unlock(&ctx->mutex);
+ 
+ 	err = i915_subtests(tests, ctx);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index 0708b9cdeb9f..4370a90d8a50 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -27,12 +27,6 @@
+ 
+ #define DW_PER_PAGE (PAGE_SIZE / sizeof(u32))
+ 
+-static inline struct i915_address_space *ctx_vm(struct i915_gem_context *ctx)
+-{
+-	/* single threaded, private ctx */
+-	return rcu_dereference_protected(ctx->vm, true);
+-}
+-
+ static int live_nop_switch(void *arg)
+ {
+ 	const unsigned int nctx = 1024;
+@@ -813,7 +807,7 @@ static int igt_shared_ctx_exec(void *arg)
+ 			struct i915_gem_context *ctx;
+ 			struct intel_context *ce;
+ 
+-			ctx = kernel_context(i915, ctx_vm(parent));
++			ctx = kernel_context(i915, parent->vm);
+ 			if (IS_ERR(ctx)) {
+ 				err = PTR_ERR(ctx);
+ 				goto out_test;
+@@ -823,7 +817,7 @@ static int igt_shared_ctx_exec(void *arg)
+ 			GEM_BUG_ON(IS_ERR(ce));
+ 
+ 			if (!obj) {
+-				obj = create_test_object(ctx_vm(parent),
++				obj = create_test_object(parent->vm,
+ 							 file, &objects);
+ 				if (IS_ERR(obj)) {
+ 					err = PTR_ERR(obj);
+@@ -1380,7 +1374,7 @@ static int igt_ctx_readonly(void *arg)
+ 		goto out_file;
+ 	}
+ 
+-	vm = ctx_vm(ctx) ?: &i915->ggtt.alias->vm;
++	vm = ctx->vm ?: &i915->ggtt.alias->vm;
+ 	if (!vm || !vm->has_read_only) {
+ 		err = 0;
+ 		goto out_file;
+@@ -1499,7 +1493,7 @@ static int write_to_scratch(struct i915_gem_context *ctx,
+ 
+ 	GEM_BUG_ON(offset < I915_GTT_PAGE_SIZE);
+ 
+-	err = check_scratch(ctx_vm(ctx), offset);
++	err = check_scratch(ctx->vm, offset);
+ 	if (err)
+ 		return err;
+ 
+@@ -1596,7 +1590,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
+ 
+ 	GEM_BUG_ON(offset < I915_GTT_PAGE_SIZE);
+ 
+-	err = check_scratch(ctx_vm(ctx), offset);
++	err = check_scratch(ctx->vm, offset);
+ 	if (err)
+ 		return err;
+ 
+@@ -1739,7 +1733,7 @@ static int check_scratch_page(struct i915_gem_context *ctx, u32 *out)
+ 	u32 *vaddr;
+ 	int err = 0;
+ 
+-	vm = ctx_vm(ctx);
++	vm = ctx->vm;
+ 	if (!vm)
+ 		return -ENODEV;
+ 
+@@ -1801,7 +1795,7 @@ static int igt_vm_isolation(void *arg)
+ 	}
+ 
+ 	/* We can only test vm isolation, if the vm are distinct */
+-	if (ctx_vm(ctx_a) == ctx_vm(ctx_b))
++	if (ctx_a->vm == ctx_b->vm)
+ 		goto out_file;
+ 
+ 	/* Read the initial state of the scratch page */
+@@ -1813,8 +1807,8 @@ static int igt_vm_isolation(void *arg)
+ 	if (err)
+ 		goto out_file;
+ 
+-	vm_total = ctx_vm(ctx_a)->total;
+-	GEM_BUG_ON(ctx_vm(ctx_b)->total != vm_total);
++	vm_total = ctx_a->vm->total;
++	GEM_BUG_ON(ctx_b->vm->total != vm_total);
+ 
+ 	count = 0;
+ 	num_engines = 0;
+diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
+index 806ad688274b..237e5061381b 100644
+--- a/drivers/gpu/drm/i915/i915_trace.h
++++ b/drivers/gpu/drm/i915/i915_trace.h
+@@ -1246,7 +1246,7 @@ DECLARE_EVENT_CLASS(i915_context,
+ 	TP_fast_assign(
+ 			__entry->dev = ctx->i915->drm.primary->index;
+ 			__entry->ctx = ctx;
+-			__entry->vm = rcu_access_pointer(ctx->vm);
++			__entry->vm = ctx->vm;
+ 	),
+ 
+ 	TP_printk("dev=%u, ctx=%p, ctx_vm=%p",
+diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
+index 79ba72da0813..1f10fe36619b 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_vma.c
++++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
+@@ -39,7 +39,7 @@ static bool assert_vma(struct i915_vma *vma,
+ {
+ 	bool ok = true;
+ 
+-	if (vma->vm != rcu_access_pointer(ctx->vm)) {
++	if (vma->vm != ctx->vm) {
+ 		pr_err("VMA created with wrong VM\n");
+ 		ok = false;
+ 	}
 -- 
 2.32.0
 
