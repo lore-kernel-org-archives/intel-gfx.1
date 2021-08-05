@@ -7,78 +7,68 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78048C4320E
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1603C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A16661078
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4A16661078
+	by mail.kernel.org (Postfix) with ESMTPS id 9226261078
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9226261078
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A26DB6E986;
-	Thu,  5 Aug 2021 10:47:21 +0000 (UTC)
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8356E829
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:47:18 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id gs8so8724034ejc.13
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:47:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C2E16E808;
+	Thu,  5 Aug 2021 10:47:23 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 537AF89C96
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:47:21 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id x11so8793122ejj.8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:47:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=A7RhZiI3rAjiHxwbY9Gj7sBgIl6thtdQfyAyOBbglMU=;
- b=bJFeS0YqW+3y3L7cezh/zNDvod0WsVDsS5Q5fC/Wk3qa1zjOJSL3zL5q/FoGkpMty2
- FRxnNSdsVTqNK7roNStyphinXlMgXH9IhLfVo6x1lDTMgqmHVspuC6stjNOKUd0WicYj
- eXgGRaWxoVAJnZlU9A4evSSCwZ2oDtsMa+v80=
+ bh=pYLkHsGqt60JltYFT2vjvXXJg5Fe+Mi6aHW/NkDNU+w=;
+ b=O7sf/RIxvVLDXY62DlgOmkXPum8kQ0I+7dM5EJvdql6vdPgDlHf6k9X6eH0LEON6nl
+ E4rk605dk5h2uJdQmd7cUg2Pqpkg7D0Hp6PsAo2Kl9KzpQJzj6h+//L1K6zNKz+1UOy9
+ R8TAL0sifo+M/UdYlm/NGW/wM+EzUdFoVyf2g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=A7RhZiI3rAjiHxwbY9Gj7sBgIl6thtdQfyAyOBbglMU=;
- b=S1+k1TvEnMvgImjiUvE2VoE/RDoCr92kD+xwzCysJybpPF710IAyOWkCNj+n5596LE
- u8A4orQs398Mxav7URjcWjzYNWJ+EkeYdyMkBUgzMBL6F0PSTQRlbof+o2pI64DjiP+M
- BWc5isfF9mRZUWpt49A11pj5BV/SFgQEjfDn1VSyBWASQHOojabw5KQDb/PfzpMm2c+k
- vPJ6fv4yKxvI6umQWEZeK4eEcSi07gTSNSdnjQYRkL6zf6Ac7+ZEWygsmqzXhph3TWit
- BMURxcdZoF4T2VbAF3/MsgePj/685GtqmvoU8cXhHjaZVoj3q/RtPo1XwSrlursq/Ry+
- K80A==
-X-Gm-Message-State: AOAM530F6wvC0ei1YmxDwJ5fpOp0/SdvBGWSCX3o9uFF2b8tTt9XLD/Y
- gfeHmi86UFV7hNFQgNArbAAbng==
-X-Google-Smtp-Source: ABdhPJw78QiVlfq8sJw8tkKAd3QtUFeK51FEfgBoohguGsn7LS5yxKZDPp9GnAK/aCquQrIB8T8CsQ==
-X-Received: by 2002:a17:906:cb96:: with SMTP id
- mf22mr4185795ejb.50.1628160436980; 
- Thu, 05 Aug 2021 03:47:16 -0700 (PDT)
+ bh=pYLkHsGqt60JltYFT2vjvXXJg5Fe+Mi6aHW/NkDNU+w=;
+ b=aLuKn4LkKNzO3UZpQBrTRgjP1JOA5NYgxHmz9I3cPSXzeJVOFR68kCpyUbUDtg4fU8
+ jNU9TD42Mi6MF8EzQfeDr8hdoVYH44vOT9wiB4C555NFa5UTxZaSyB8mDLqJH/K2gsyK
+ Ss/mHCXMxDfg05O005jx2+od8lQ7TQv8WeS8X9lx8MXhYkHpccncpo5CQbvZymP4UyeK
+ lteHL7cD3ViONzB7GDTl+U1bmzc8DVIzBCcKG8KXG/j8aIYivTMLm7B2DqzHadl2wiKp
+ MM5/fysoUbmdoCMhCD7DKtbfHvrH5HhahYhBxm7eoAR4y0AnHUw/5wb67t2bI8/Idi5i
+ Iu1Q==
+X-Gm-Message-State: AOAM530hDaTTg/PixSemZ9HTz7roj4V/Qfh71ZqE+aDpanhaJshq9JO9
+ PqoPQDi6deEmAhfinpHjkdTxfw==
+X-Google-Smtp-Source: ABdhPJy45XWOMxVci/8wjFic7k6aX62oMouzNW9/6hxcIb9C44x6C6UwRb+0hZPKZSz1wBxs9/0JhA==
+X-Received: by 2002:a17:906:f28f:: with SMTP id
+ gu15mr4216729ejb.7.1628160439831; 
+ Thu, 05 Aug 2021 03:47:19 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id p5sm1578809ejl.73.2021.08.05.03.47.16
+ by smtp.gmail.com with ESMTPSA id p5sm1578809ejl.73.2021.08.05.03.47.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Aug 2021 03:47:16 -0700 (PDT)
+ Thu, 05 Aug 2021 03:47:19 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
 Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Daniel Vetter <daniel.vetter@ffwll.ch>, Melissa Wen <mwen@igalia.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Lucas Stach <l.stach@pengutronix.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Steven Price <steven.price@arm.com>, Emma Anholt <emma@anholt.net>,
- Lee Jones <lee.jones@linaro.org>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Date: Thu,  5 Aug 2021 12:46:51 +0200
-Message-Id: <20210805104705.862416-7-daniel.vetter@ffwll.ch>
+ Emma Anholt <emma@anholt.net>, Melissa Wen <melissa.srw@gmail.com>,
+ Daniel Vetter <daniel.vetter@intel.com>
+Date: Thu,  5 Aug 2021 12:46:54 +0200
+Message-Id: <20210805104705.862416-10-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
 References: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 06/20] drm/sched: improve docs around
- drm_sched_entity
+Subject: [Intel-gfx] [PATCH v5 09/20] drm/v3d: Move drm_sched_job_init to
+ v3d_job_init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,416 +84,350 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I found a few too many things that are tricky and not documented, so I
-started typing.
+Prep work for using the scheduler dependency handling. We need to call
+drm_sched_job_init earlier so we can use the new drm_sched_job_await*
+functions for dependency handling here.
 
-I found a few more things that looked broken while typing, see the
-varios FIXME in drm_sched_entity.
+v2: Slightly better commit message and rebase to include the
+drm_sched_job_arm() call (Emma).
 
-Also some of the usual logics:
-- actually include sched_entity.c declarations, that was lost in the
-  move here: 620e762f9a98 ("drm/scheduler: move entity handling into
-  separate file")
+v3: Cleanup jobs under construction correctly (Emma)
 
-- Ditch the kerneldoc for internal functions, keep the comments where
-  they're describing more than what the function name already implies.
+v4: Rebase over perfmon patch
 
-- Switch drm_sched_entity to inline docs.
-
-Acked-by: Melissa Wen <mwen@igalia.com>
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> (v1)
+Reviewed-by: Melissa Wen <mwen@igalia.com> (v3)
+Acked-by: Emma Anholt <emma@anholt.net>
+Cc: Melissa Wen <melissa.srw@gmail.com>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Lucas Stach <l.stach@pengutronix.de>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>
 Cc: Emma Anholt <emma@anholt.net>
-Cc: Lee Jones <lee.jones@linaro.org>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- Documentation/gpu/drm-mm.rst             |   3 +
- drivers/gpu/drm/scheduler/sched_entity.c |  85 ++++---------
- include/drm/gpu_scheduler.h              | 145 ++++++++++++++++++-----
- 3 files changed, 146 insertions(+), 87 deletions(-)
+ drivers/gpu/drm/v3d/v3d_drv.h   |  1 +
+ drivers/gpu/drm/v3d/v3d_gem.c   | 86 ++++++++++++++-------------------
+ drivers/gpu/drm/v3d/v3d_sched.c | 15 +++---
+ 3 files changed, 44 insertions(+), 58 deletions(-)
 
-diff --git a/Documentation/gpu/drm-mm.rst b/Documentation/gpu/drm-mm.rst
-index d5a73fa2c9ef..0198fa43d254 100644
---- a/Documentation/gpu/drm-mm.rst
-+++ b/Documentation/gpu/drm-mm.rst
-@@ -504,3 +504,6 @@ Scheduler Function References
- 
- .. kernel-doc:: drivers/gpu/drm/scheduler/sched_main.c
-    :export:
-+
-+.. kernel-doc:: drivers/gpu/drm/scheduler/sched_entity.c
-+   :export:
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index e4d33db1eb45..27e1573af96e 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -45,8 +45,14 @@
-  * @guilty: atomic_t set to 1 when a job on this queue
-  *          is found to be guilty causing a timeout
-  *
-- * Note: the sched_list should have at least one element to schedule
-- *       the entity
-+ * Note that the &sched_list must have at least one element to schedule the entity.
-+ *
-+ * For changing @priority later on at runtime see
-+ * drm_sched_entity_set_priority(). For changing the set of schedulers
-+ * @sched_list at runtime see drm_sched_entity_modify_sched().
-+ *
-+ * An entity is cleaned up by callind drm_sched_entity_fini(). See also
-+ * drm_sched_entity_destroy().
-  *
-  * Returns 0 on success or a negative error code on failure.
-  */
-@@ -92,6 +98,11 @@ EXPORT_SYMBOL(drm_sched_entity_init);
-  * @sched_list: the list of new drm scheds which will replace
-  *		 existing entity->sched_list
-  * @num_sched_list: number of drm sched in sched_list
-+ *
-+ * Note that this must be called under the same common lock for @entity as
-+ * drm_sched_job_arm() and drm_sched_entity_push_job(), or the driver needs to
-+ * guarantee through some other means that this is never called while new jobs
-+ * can be pushed to @entity.
-  */
- void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- 				    struct drm_gpu_scheduler **sched_list,
-@@ -104,13 +115,6 @@ void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- }
- EXPORT_SYMBOL(drm_sched_entity_modify_sched);
- 
--/**
-- * drm_sched_entity_is_idle - Check if entity is idle
-- *
-- * @entity: scheduler entity
-- *
-- * Returns true if the entity does not have any unscheduled jobs.
-- */
- static bool drm_sched_entity_is_idle(struct drm_sched_entity *entity)
- {
- 	rmb(); /* for list_empty to work without lock */
-@@ -123,13 +127,7 @@ static bool drm_sched_entity_is_idle(struct drm_sched_entity *entity)
- 	return false;
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+index 270134779073..c1d433b4cf93 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.h
++++ b/drivers/gpu/drm/v3d/v3d_drv.h
+@@ -379,6 +379,7 @@ int v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+ 			 struct drm_file *file_priv);
+ int v3d_wait_bo_ioctl(struct drm_device *dev, void *data,
+ 		      struct drm_file *file_priv);
++void v3d_job_cleanup(struct v3d_job *job);
+ void v3d_job_put(struct v3d_job *job);
+ void v3d_reset(struct v3d_dev *v3d);
+ void v3d_invalidate_caches(struct v3d_dev *v3d);
+diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
+index 957228bef29c..42587248c54e 100644
+--- a/drivers/gpu/drm/v3d/v3d_gem.c
++++ b/drivers/gpu/drm/v3d/v3d_gem.c
+@@ -397,6 +397,12 @@ v3d_render_job_free(struct kref *ref)
+ 	v3d_job_free(ref);
  }
  
--/**
-- * drm_sched_entity_is_ready - Check if entity is ready
-- *
-- * @entity: scheduler entity
-- *
-- * Return true if entity could provide a job.
-- */
-+/* Return true if entity could provide a job. */
- bool drm_sched_entity_is_ready(struct drm_sched_entity *entity)
++void v3d_job_cleanup(struct v3d_job *job)
++{
++	drm_sched_job_cleanup(&job->base);
++	v3d_job_put(job);
++}
++
+ void v3d_job_put(struct v3d_job *job)
  {
- 	if (spsc_queue_peek(&entity->job_queue) == NULL)
-@@ -192,14 +190,7 @@ long drm_sched_entity_flush(struct drm_sched_entity *entity, long timeout)
- }
- EXPORT_SYMBOL(drm_sched_entity_flush);
+ 	kref_put(&job->refcount, job->free);
+@@ -438,9 +444,10 @@ v3d_wait_bo_ioctl(struct drm_device *dev, void *data,
+ static int
+ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+ 	     struct v3d_job *job, void (*free)(struct kref *ref),
+-	     u32 in_sync)
++	     u32 in_sync, enum v3d_queue queue)
+ {
+ 	struct dma_fence *in_fence = NULL;
++	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
+ 	int ret;
  
--/**
-- * drm_sched_entity_kill_jobs_cb - helper for drm_sched_entity_kill_jobs
-- *
-- * @f: signaled fence
-- * @cb: our callback structure
-- *
-- * Signal the scheduler finished fence when the entity in question is killed.
-- */
-+/* Signal the scheduler finished fence when the entity in question is killed. */
- static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
- 					  struct dma_fence_cb *cb)
- {
-@@ -224,14 +215,6 @@ drm_sched_job_dependency(struct drm_sched_job *job,
- 	return NULL;
- }
+ 	job->v3d = v3d;
+@@ -451,35 +458,33 @@ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+ 		return ret;
  
--/**
-- * drm_sched_entity_kill_jobs - Make sure all remaining jobs are killed
-- *
-- * @entity: entity which is cleaned up
-- *
-- * Makes sure that all remaining jobs in an entity are killed before it is
-- * destroyed.
-- */
- static void drm_sched_entity_kill_jobs(struct drm_sched_entity *entity)
- {
- 	struct drm_sched_job *job;
-@@ -273,9 +256,11 @@ static void drm_sched_entity_kill_jobs(struct drm_sched_entity *entity)
-  *
-  * @entity: scheduler entity
-  *
-- * This should be called after @drm_sched_entity_do_release. It goes over the
-- * entity and signals all jobs with an error code if the process was killed.
-+ * Cleanups up @entity which has been initialized by drm_sched_entity_init().
-  *
-+ * If there are potentially job still in flight or getting newly queued
-+ * drm_sched_entity_flush() must be called first. This function then goes over
-+ * the entity and signals all jobs with an error code if the process was killed.
-  */
- void drm_sched_entity_fini(struct drm_sched_entity *entity)
- {
-@@ -315,10 +300,10 @@ EXPORT_SYMBOL(drm_sched_entity_fini);
+ 	xa_init_flags(&job->deps, XA_FLAGS_ALLOC);
++	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
++				 v3d_priv);
++	if (ret)
++		goto fail;
  
- /**
-  * drm_sched_entity_destroy - Destroy a context entity
-- *
-  * @entity: scheduler entity
-  *
-- * Calls drm_sched_entity_do_release() and drm_sched_entity_cleanup()
-+ * Calls drm_sched_entity_flush() and drm_sched_entity_fini() as a
-+ * convenience wrapper.
-  */
- void drm_sched_entity_destroy(struct drm_sched_entity *entity)
- {
-@@ -327,9 +312,7 @@ void drm_sched_entity_destroy(struct drm_sched_entity *entity)
- }
- EXPORT_SYMBOL(drm_sched_entity_destroy);
+ 	ret = drm_syncobj_find_fence(file_priv, in_sync, 0, 0, &in_fence);
+ 	if (ret == -EINVAL)
+-		goto fail;
++		goto fail_job;
  
--/*
-- * drm_sched_entity_clear_dep - callback to clear the entities dependency
-- */
-+/* drm_sched_entity_clear_dep - callback to clear the entities dependency */
- static void drm_sched_entity_clear_dep(struct dma_fence *f,
- 				       struct dma_fence_cb *cb)
- {
-@@ -371,11 +354,7 @@ void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
- }
- EXPORT_SYMBOL(drm_sched_entity_set_priority);
+ 	ret = drm_gem_fence_array_add(&job->deps, in_fence);
+ 	if (ret)
+-		goto fail;
++		goto fail_job;
  
--/**
-- * drm_sched_entity_add_dependency_cb - add callback for the entities dependency
-- *
-- * @entity: entity with dependency
-- *
-+/*
-  * Add a callback to the current dependency of the entity to wake up the
-  * scheduler when the entity becomes available.
-  */
-@@ -423,13 +402,6 @@ static bool drm_sched_entity_add_dependency_cb(struct drm_sched_entity *entity)
- 	return false;
+ 	kref_init(&job->refcount);
+ 
+ 	return 0;
++fail_job:
++	drm_sched_job_cleanup(&job->base);
+ fail:
+ 	xa_destroy(&job->deps);
+ 	pm_runtime_put_autosuspend(v3d->drm.dev);
+ 	return ret;
  }
  
--/**
-- * drm_sched_entity_pop_job - get a ready to be scheduled job from the entity
-- *
-- * @entity: entity to get the job from
-- *
-- * Process all dependencies and try to get one job from the entities queue.
-- */
- struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+-static int
+-v3d_push_job(struct v3d_file_priv *v3d_priv,
+-	     struct v3d_job *job, enum v3d_queue queue)
++static void
++v3d_push_job(struct v3d_job *job)
  {
- 	struct drm_sched_job *sched_job;
-@@ -465,14 +437,6 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 	return sched_job;
+-	int ret;
+-
+-	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
+-				 v3d_priv);
+-	if (ret)
+-		return ret;
+-
+ 	drm_sched_job_arm(&job->base);
+ 
+ 	job->done_fence = dma_fence_get(&job->base.s_fence->finished);
+@@ -488,8 +493,6 @@ v3d_push_job(struct v3d_file_priv *v3d_priv,
+ 	kref_get(&job->refcount);
+ 
+ 	drm_sched_entity_push_job(&job->base);
+-
+-	return 0;
  }
  
--/**
-- * drm_sched_entity_select_rq - select a new rq for the entity
-- *
-- * @entity: scheduler entity
-- *
-- * Check all prerequisites and select a new rq for the entity for load
-- * balancing.
-- */
- void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ static void
+@@ -564,7 +567,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 	INIT_LIST_HEAD(&render->unref_list);
+ 
+ 	ret = v3d_job_init(v3d, file_priv, &render->base,
+-			   v3d_render_job_free, args->in_sync_rcl);
++			   v3d_render_job_free, args->in_sync_rcl, V3D_RENDER);
+ 	if (ret) {
+ 		kfree(render);
+ 		return ret;
+@@ -578,7 +581,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 		}
+ 
+ 		ret = v3d_job_init(v3d, file_priv, &bin->base,
+-				   v3d_job_free, args->in_sync_bcl);
++				   v3d_job_free, args->in_sync_bcl, V3D_BIN);
+ 		if (ret) {
+ 			v3d_job_put(&render->base);
+ 			kfree(bin);
+@@ -600,7 +603,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 			goto fail;
+ 		}
+ 
+-		ret = v3d_job_init(v3d, file_priv, clean_job, v3d_job_free, 0);
++		ret = v3d_job_init(v3d, file_priv, clean_job, v3d_job_free, 0, V3D_CACHE_CLEAN);
+ 		if (ret) {
+ 			kfree(clean_job);
+ 			clean_job = NULL;
+@@ -635,9 +638,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 	if (bin) {
+ 		bin->base.perfmon = render->base.perfmon;
+ 		v3d_perfmon_get(bin->base.perfmon);
+-		ret = v3d_push_job(v3d_priv, &bin->base, V3D_BIN);
+-		if (ret)
+-			goto fail_unreserve;
++		v3d_push_job(&bin->base);
+ 
+ 		ret = drm_gem_fence_array_add(&render->base.deps,
+ 					      dma_fence_get(bin->base.done_fence));
+@@ -645,9 +646,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 			goto fail_unreserve;
+ 	}
+ 
+-	ret = v3d_push_job(v3d_priv, &render->base, V3D_RENDER);
+-	if (ret)
+-		goto fail_unreserve;
++	v3d_push_job(&render->base);
+ 
+ 	if (clean_job) {
+ 		struct dma_fence *render_fence =
+@@ -657,9 +656,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 			goto fail_unreserve;
+ 		clean_job->perfmon = render->base.perfmon;
+ 		v3d_perfmon_get(clean_job->perfmon);
+-		ret = v3d_push_job(v3d_priv, clean_job, V3D_CACHE_CLEAN);
+-		if (ret)
+-			goto fail_unreserve;
++		v3d_push_job(clean_job);
+ 	}
+ 
+ 	mutex_unlock(&v3d->sched_lock);
+@@ -684,10 +681,10 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 				    last_job->bo_count, &acquire_ctx);
+ fail:
+ 	if (bin)
+-		v3d_job_put(&bin->base);
+-	v3d_job_put(&render->base);
++		v3d_job_cleanup(&bin->base);
++	v3d_job_cleanup(&render->base);
+ 	if (clean_job)
+-		v3d_job_put(clean_job);
++		v3d_job_cleanup(clean_job);
+ 
+ 	return ret;
+ }
+@@ -706,7 +703,6 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+ 		     struct drm_file *file_priv)
  {
- 	struct dma_fence *fence;
-@@ -520,7 +484,8 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
-  *
-  * Note: To guarantee that the order of insertion to queue matches the job's
-  * fence sequence number this function should be called with drm_sched_job_arm()
-- * under common lock.
-+ * under common lock for the struct drm_sched_entity that was set up for
-+ * @sched_job in drm_sched_job_init().
-  *
-  * Returns 0 for success, negative error code otherwise.
-  */
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index b72f73b375a2..7f77a455722c 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -53,56 +53,147 @@ enum drm_sched_priority {
-  * struct drm_sched_entity - A wrapper around a job queue (typically
-  * attached to the DRM file_priv).
-  *
-- * @list: used to append this struct to the list of entities in the
-- *        runqueue.
-- * @rq: runqueue on which this entity is currently scheduled.
-- * @sched_list: A list of schedulers (drm_gpu_schedulers).
-- *              Jobs from this entity can be scheduled on any scheduler
-- *              on this list.
-- * @num_sched_list: number of drm_gpu_schedulers in the sched_list.
-- * @priority: priority of the entity
-- * @rq_lock: lock to modify the runqueue to which this entity belongs.
-- * @job_queue: the list of jobs of this entity.
-- * @fence_seq: a linearly increasing seqno incremented with each
-- *             new &drm_sched_fence which is part of the entity.
-- * @fence_context: a unique context for all the fences which belong
-- *                 to this entity.
-- *                 The &drm_sched_fence.scheduled uses the
-- *                 fence_context but &drm_sched_fence.finished uses
-- *                 fence_context + 1.
-- * @dependency: the dependency fence of the job which is on the top
-- *              of the job queue.
-- * @cb: callback for the dependency fence above.
-- * @guilty: points to ctx's guilty.
-- * @fini_status: contains the exit status in case the process was signalled.
-- * @last_scheduled: points to the finished fence of the last scheduled job.
-- * @last_user: last group leader pushing a job into the entity.
-- * @stopped: Marks the enity as removed from rq and destined for termination.
-- * @entity_idle: Signals when enityt is not in use
-- *
-  * Entities will emit jobs in order to their corresponding hardware
-  * ring, and the scheduler will alternate between entities based on
-  * scheduling policy.
-  */
- struct drm_sched_entity {
-+	/**
-+	 * @list:
-+	 *
-+	 * Used to append this struct to the list of entities in the runqueue
-+	 * @rq under &drm_sched_rq.entities.
-+	 *
-+	 * Protected by &drm_sched_rq.lock of @rq.
-+	 */
- 	struct list_head		list;
-+
-+	/**
-+	 * @rq:
-+	 *
-+	 * Runqueue on which this entity is currently scheduled.
-+	 *
-+	 * FIXME: Locking is very unclear for this. Writers are protected by
-+	 * @rq_lock, but readers are generally lockless and seem to just race
-+	 * with not even a READ_ONCE.
-+	 */
- 	struct drm_sched_rq		*rq;
-+
-+	/**
-+	 * @sched_list:
-+	 *
-+	 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from this entity can
-+	 * be scheduled on any scheduler on this list.
-+	 *
-+	 * This can be modified by calling drm_sched_entity_modify_sched().
-+	 * Locking is entirely up to the driver, see the above function for more
-+	 * details.
-+	 *
-+	 * This will be set to NULL if &num_sched_list equals 1 and @rq has been
-+	 * set already.
-+	 *
-+	 * FIXME: This means priority changes through
-+	 * drm_sched_entity_set_priority() will be lost henceforth in this case.
-+	 */
- 	struct drm_gpu_scheduler        **sched_list;
-+
-+	/**
-+	 * @num_sched_list:
-+	 *
-+	 * Number of drm_gpu_schedulers in the @sched_list.
-+	 */
- 	unsigned int                    num_sched_list;
-+
-+	/**
-+	 * @priority:
-+	 *
-+	 * Priority of the entity. This can be modified by calling
-+	 * drm_sched_entity_set_priority(). Protected by &rq_lock.
-+	 */
- 	enum drm_sched_priority         priority;
-+
-+	/**
-+	 * @rq_lock:
-+	 *
-+	 * Lock to modify the runqueue to which this entity belongs.
-+	 */
- 	spinlock_t			rq_lock;
+ 	struct v3d_dev *v3d = to_v3d_dev(dev);
+-	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
+ 	struct drm_v3d_submit_tfu *args = data;
+ 	struct v3d_tfu_job *job;
+ 	struct ww_acquire_ctx acquire_ctx;
+@@ -719,7 +715,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+ 		return -ENOMEM;
  
-+	/**
-+	 * @job_queue: the list of jobs of this entity.
-+	 */
- 	struct spsc_queue		job_queue;
+ 	ret = v3d_job_init(v3d, file_priv, &job->base,
+-			   v3d_job_free, args->in_sync);
++			   v3d_job_free, args->in_sync, V3D_TFU);
+ 	if (ret) {
+ 		kfree(job);
+ 		return ret;
+@@ -763,9 +759,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+ 		goto fail;
  
-+	/**
-+	 * @fence_seq:
-+	 *
-+	 * A linearly increasing seqno incremented with each new
-+	 * &drm_sched_fence which is part of the entity.
-+	 *
-+	 * FIXME: Callers of drm_sched_job_arm() need to ensure correct locking,
-+	 * this doesn't need to be atomic.
-+	 */
- 	atomic_t			fence_seq;
-+
-+	/**
-+	 * @fence_context:
-+	 *
-+	 * A unique context for all the fences which belong to this entity.  The
-+	 * &drm_sched_fence.scheduled uses the fence_context but
-+	 * &drm_sched_fence.finished uses fence_context + 1.
-+	 */
- 	uint64_t			fence_context;
+ 	mutex_lock(&v3d->sched_lock);
+-	ret = v3d_push_job(v3d_priv, &job->base, V3D_TFU);
+-	if (ret)
+-		goto fail_unreserve;
++	v3d_push_job(&job->base);
+ 	mutex_unlock(&v3d->sched_lock);
  
-+	/**
-+	 * @dependency:
-+	 *
-+	 * The dependency fence of the job which is on the top of the job queue.
-+	 */
- 	struct dma_fence		*dependency;
-+
-+	/**
-+	 * @cb:
-+	 *
-+	 * Callback for the dependency fence above.
-+	 */
- 	struct dma_fence_cb		cb;
-+
-+	/**
-+	 * @guilty:
-+	 *
-+	 * Points to entities' guilty.
-+	 */
- 	atomic_t			*guilty;
-+
-+	/**
-+	 * @last_scheduled:
-+	 *
-+	 * Points to the finished fence of the last scheduled job. Only written
-+	 * by the scheduler thread, can be accessed locklessly from
-+	 * drm_sched_job_arm() iff the queue is empty.
-+	 */
- 	struct dma_fence                *last_scheduled;
-+
-+	/**
-+	 * @last_user: last group leader pushing a job into the entity.
-+	 */
- 	struct task_struct		*last_user;
-+
-+	/**
-+	 * @stopped:
-+	 *
-+	 * Marks the enity as removed from rq and destined for
-+	 * termination. This is set by calling drm_sched_entity_flush() and by
-+	 * drm_sched_fini().
-+	 */
- 	bool 				stopped;
-+
-+	/**
-+	 * @entity_idle:
-+	 *
-+	 * Signals when entity is not in use, used to sequence entity cleanup in
-+	 * drm_sched_entity_fini().
-+	 */
- 	struct completion		entity_idle;
+ 	v3d_attach_fences_and_unlock_reservation(file_priv,
+@@ -777,12 +771,8 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+ 
+ 	return 0;
+ 
+-fail_unreserve:
+-	mutex_unlock(&v3d->sched_lock);
+-	drm_gem_unlock_reservations(job->base.bo, job->base.bo_count,
+-				    &acquire_ctx);
+ fail:
+-	v3d_job_put(&job->base);
++	v3d_job_cleanup(&job->base);
+ 
+ 	return ret;
+ }
+@@ -820,7 +810,7 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+ 		return -ENOMEM;
+ 
+ 	ret = v3d_job_init(v3d, file_priv, &job->base,
+-			   v3d_job_free, args->in_sync);
++			   v3d_job_free, args->in_sync, V3D_CSD);
+ 	if (ret) {
+ 		kfree(job);
+ 		return ret;
+@@ -833,7 +823,7 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+ 		return -ENOMEM;
+ 	}
+ 
+-	ret = v3d_job_init(v3d, file_priv, clean_job, v3d_job_free, 0);
++	ret = v3d_job_init(v3d, file_priv, clean_job, v3d_job_free, 0, V3D_CACHE_CLEAN);
+ 	if (ret) {
+ 		v3d_job_put(&job->base);
+ 		kfree(clean_job);
+@@ -861,18 +851,14 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 
+ 	mutex_lock(&v3d->sched_lock);
+-	ret = v3d_push_job(v3d_priv, &job->base, V3D_CSD);
+-	if (ret)
+-		goto fail_unreserve;
++	v3d_push_job(&job->base);
+ 
+ 	ret = drm_gem_fence_array_add(&clean_job->deps,
+ 				      dma_fence_get(job->base.done_fence));
+ 	if (ret)
+ 		goto fail_unreserve;
+ 
+-	ret = v3d_push_job(v3d_priv, clean_job, V3D_CACHE_CLEAN);
+-	if (ret)
+-		goto fail_unreserve;
++	v3d_push_job(clean_job);
+ 	mutex_unlock(&v3d->sched_lock);
+ 
+ 	v3d_attach_fences_and_unlock_reservation(file_priv,
+@@ -891,8 +877,8 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+ 	drm_gem_unlock_reservations(clean_job->bo, clean_job->bo_count,
+ 				    &acquire_ctx);
+ fail:
+-	v3d_job_put(&job->base);
+-	v3d_job_put(clean_job);
++	v3d_job_cleanup(&job->base);
++	v3d_job_cleanup(clean_job);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index dd7fcc36d726..7969797793d0 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -55,12 +55,11 @@ to_csd_job(struct drm_sched_job *sched_job)
+ }
+ 
+ static void
+-v3d_job_free(struct drm_sched_job *sched_job)
++v3d_sched_job_free(struct drm_sched_job *sched_job)
+ {
+ 	struct v3d_job *job = to_v3d_job(sched_job);
+ 
+-	drm_sched_job_cleanup(sched_job);
+-	v3d_job_put(job);
++	v3d_job_cleanup(job);
+ }
+ 
+ static void
+@@ -376,35 +375,35 @@ static const struct drm_sched_backend_ops v3d_bin_sched_ops = {
+ 	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_bin_job_run,
+ 	.timedout_job = v3d_bin_job_timedout,
+-	.free_job = v3d_job_free,
++	.free_job = v3d_sched_job_free,
  };
  
+ static const struct drm_sched_backend_ops v3d_render_sched_ops = {
+ 	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_render_job_run,
+ 	.timedout_job = v3d_render_job_timedout,
+-	.free_job = v3d_job_free,
++	.free_job = v3d_sched_job_free,
+ };
+ 
+ static const struct drm_sched_backend_ops v3d_tfu_sched_ops = {
+ 	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_tfu_job_run,
+ 	.timedout_job = v3d_generic_job_timedout,
+-	.free_job = v3d_job_free,
++	.free_job = v3d_sched_job_free,
+ };
+ 
+ static const struct drm_sched_backend_ops v3d_csd_sched_ops = {
+ 	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_csd_job_run,
+ 	.timedout_job = v3d_csd_job_timedout,
+-	.free_job = v3d_job_free
++	.free_job = v3d_sched_job_free
+ };
+ 
+ static const struct drm_sched_backend_ops v3d_cache_clean_sched_ops = {
+ 	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_cache_clean_job_run,
+ 	.timedout_job = v3d_generic_job_timedout,
+-	.free_job = v3d_job_free
++	.free_job = v3d_sched_job_free
+ };
+ 
+ int
 -- 
 2.32.0
 
