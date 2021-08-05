@@ -4,52 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF1DEC432BE
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 21:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99B91C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 21:47:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C84360F42
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 21:29:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9C84360F42
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=collabora.com
+	by mail.kernel.org (Postfix) with ESMTPS id 24891600D4
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 21:47:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 24891600D4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D32BF6EB5E;
-	Thu,  5 Aug 2021 21:29:16 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 044586EAC8;
- Thu,  5 Aug 2021 15:10:51 +0000 (UTC)
-Received: from maud (unknown [IPv6:2600:1010:b067:a83:f7:84ff:f2af:72c9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: alyssa)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 532D81F44159;
- Thu,  5 Aug 2021 16:10:45 +0100 (BST)
-Date: Thu, 5 Aug 2021 11:10:38 -0400
-From: Alyssa Rosenzweig <alyssa@collabora.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: DRI Development <dri-devel@lists.freedesktop.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Emma Anholt <emma@anholt.net>, Steven Price <steven.price@arm.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Rob Herring <robh@kernel.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian K??nig <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Message-ID: <YQv/biyC3WXd1gla@maud>
-References: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
- <20210805104705.862416-8-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE066EB60;
+	Thu,  5 Aug 2021 21:47:23 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 841AD6EB60
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 21:47:22 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10067"; a="193852409"
+X-IronPort-AV: E=Sophos;i="5.84,296,1620716400"; d="scan'208";a="193852409"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2021 14:47:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,296,1620716400"; d="scan'208";a="437949715"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by orsmga002.jf.intel.com with ESMTP; 05 Aug 2021 14:47:20 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Thu, 5 Aug 2021 14:47:20 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Thu, 5 Aug 2021 14:47:19 -0700
+Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
+ ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2242.010;
+ Thu, 5 Aug 2021 14:47:19 -0700
+From: "Souza, Jose" <jose.souza@intel.com>
+To: "Mun, Gwan-gyeong" <gwan-gyeong.mun@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [Intel-gfx] [PATCH 4/4] DO_NOT_MERGE: drm/i915/display: Enable
+ PSR2 selective fetch by default
+Thread-Index: AQHXhZ/TYYAYurSVXUWj36lC0Mpc1atiHG+AgABmJwCAAzZXAIAAOWgA
+Date: Thu, 5 Aug 2021 21:47:19 +0000
+Message-ID: <b5f44963ce603ef0864bc55c0fe97d5fccfb119b.camel@intel.com>
+References: <20210731001019.150373-1-jose.souza@intel.com>
+ <20210731001019.150373-4-jose.souza@intel.com>
+ <c0055e67-2841-0ef9-c18f-d60e9e186897@intel.com>
+ <c30de5129bec44f07238d2e8906c031820a5e36d.camel@intel.com>
+ <701ae0b8-7e24-de5a-286d-e12bc0a44a07@intel.com>
+In-Reply-To: <701ae0b8-7e24-de5a-286d-e12bc0a44a07@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.22.254.132]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <606BD78DF77C8C4EAFE8690A056ECDF0@intel.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210805104705.862416-8-daniel.vetter@ffwll.ch>
-X-Mailman-Approved-At: Thu, 05 Aug 2021 21:29:15 +0000
-Subject: Re: [Intel-gfx] [PATCH v5 07/20] drm/panfrost: use scheduler
- dependency tracking
+Subject: Re: [Intel-gfx] [PATCH 4/4] DO_NOT_MERGE: drm/i915/display: Enable
+ PSR2 selective fetch by default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,220 +83,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
-
-On Thu, Aug 05, 2021 at 12:46:52PM +0200, Daniel Vetter wrote:
-> Just deletes some code that's now more shared.
-> 
-> Note that thanks to the split into drm_sched_job_init/arm we can now
-> easily pull the _init() part from under the submission lock way ahead
-> where we're adding the sync file in-fences as dependencies.
-> 
-> v2: Correctly clean up the partially set up job, now that job_init()
-> and job_arm() are apart (Emma).
-> 
-> v3: Rebased over renamed functions for adding depdencies
-> 
-> Acked-by: Emma Anholt <emma@anholt.net>
-> Reviewed-by: Steven Price <steven.price@arm.com> (v3)
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Tomeu Vizoso <tomeu.vizoso@collabora.com>
-> Cc: Steven Price <steven.price@arm.com>
-> Cc: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
-> Cc: Sumit Semwal <sumit.semwal@linaro.org>
-> Cc: "Christian K??nig" <christian.koenig@amd.com>
-> Cc: linux-media@vger.kernel.org
-> Cc: linaro-mm-sig@lists.linaro.org
-> Cc: Emma Anholt <emma@anholt.net>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_drv.c | 16 ++++++++---
->  drivers/gpu/drm/panfrost/panfrost_job.c | 38 ++++---------------------
->  drivers/gpu/drm/panfrost/panfrost_job.h |  5 +---
->  3 files changed, 18 insertions(+), 41 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 1ffaef5ec5ff..16212b6b202e 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -218,7 +218,7 @@ panfrost_copy_in_sync(struct drm_device *dev,
->  		if (ret)
->  			goto fail;
->  
-> -		ret = drm_gem_fence_array_add(&job->deps, fence);
-> +		ret = drm_sched_job_add_dependency(&job->base, fence);
->  
->  		if (ret)
->  			goto fail;
-> @@ -236,7 +236,7 @@ static int panfrost_ioctl_submit(struct drm_device *dev, void *data,
->  	struct drm_panfrost_submit *args = data;
->  	struct drm_syncobj *sync_out = NULL;
->  	struct panfrost_job *job;
-> -	int ret = 0;
-> +	int ret = 0, slot;
->  
->  	if (!args->jc)
->  		return -EINVAL;
-> @@ -258,14 +258,20 @@ static int panfrost_ioctl_submit(struct drm_device *dev, void *data,
->  
->  	kref_init(&job->refcount);
->  
-> -	xa_init_flags(&job->deps, XA_FLAGS_ALLOC);
-> -
->  	job->pfdev = pfdev;
->  	job->jc = args->jc;
->  	job->requirements = args->requirements;
->  	job->flush_id = panfrost_gpu_get_latest_flush_id(pfdev);
->  	job->file_priv = file->driver_priv;
->  
-> +	slot = panfrost_job_get_slot(job);
-> +
-> +	ret = drm_sched_job_init(&job->base,
-> +				 &job->file_priv->sched_entity[slot],
-> +				 NULL);
-> +	if (ret)
-> +		goto fail_job_put;
-> +
->  	ret = panfrost_copy_in_sync(dev, file, args, job);
->  	if (ret)
->  		goto fail_job;
-> @@ -283,6 +289,8 @@ static int panfrost_ioctl_submit(struct drm_device *dev, void *data,
->  		drm_syncobj_replace_fence(sync_out, job->render_done_fence);
->  
->  fail_job:
-> +	drm_sched_job_cleanup(&job->base);
-> +fail_job_put:
->  	panfrost_job_put(job);
->  fail_out_sync:
->  	if (sync_out)
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-> index 4bc962763e1f..a98f507dc779 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -102,7 +102,7 @@ static struct dma_fence *panfrost_fence_create(struct panfrost_device *pfdev, in
->  	return &fence->base;
->  }
->  
-> -static int panfrost_job_get_slot(struct panfrost_job *job)
-> +int panfrost_job_get_slot(struct panfrost_job *job)
->  {
->  	/* JS0: fragment jobs.
->  	 * JS1: vertex/tiler jobs
-> @@ -242,13 +242,14 @@ static void panfrost_job_hw_submit(struct panfrost_job *job, int js)
->  
->  static int panfrost_acquire_object_fences(struct drm_gem_object **bos,
->  					  int bo_count,
-> -					  struct xarray *deps)
-> +					  struct drm_sched_job *job)
->  {
->  	int i, ret;
->  
->  	for (i = 0; i < bo_count; i++) {
->  		/* panfrost always uses write mode in its current uapi */
-> -		ret = drm_gem_fence_array_add_implicit(deps, bos[i], true);
-> +		ret = drm_sched_job_add_implicit_dependencies(job, bos[i],
-> +							      true);
->  		if (ret)
->  			return ret;
->  	}
-> @@ -269,31 +270,21 @@ static void panfrost_attach_object_fences(struct drm_gem_object **bos,
->  int panfrost_job_push(struct panfrost_job *job)
->  {
->  	struct panfrost_device *pfdev = job->pfdev;
-> -	int slot = panfrost_job_get_slot(job);
-> -	struct drm_sched_entity *entity = &job->file_priv->sched_entity[slot];
->  	struct ww_acquire_ctx acquire_ctx;
->  	int ret = 0;
->  
-> -
->  	ret = drm_gem_lock_reservations(job->bos, job->bo_count,
->  					    &acquire_ctx);
->  	if (ret)
->  		return ret;
->  
->  	mutex_lock(&pfdev->sched_lock);
-> -
-> -	ret = drm_sched_job_init(&job->base, entity, NULL);
-> -	if (ret) {
-> -		mutex_unlock(&pfdev->sched_lock);
-> -		goto unlock;
-> -	}
-> -
->  	drm_sched_job_arm(&job->base);
->  
->  	job->render_done_fence = dma_fence_get(&job->base.s_fence->finished);
->  
->  	ret = panfrost_acquire_object_fences(job->bos, job->bo_count,
-> -					     &job->deps);
-> +					     &job->base);
->  	if (ret) {
->  		mutex_unlock(&pfdev->sched_lock);
->  		goto unlock;
-> @@ -318,15 +309,8 @@ static void panfrost_job_cleanup(struct kref *ref)
->  {
->  	struct panfrost_job *job = container_of(ref, struct panfrost_job,
->  						refcount);
-> -	struct dma_fence *fence;
-> -	unsigned long index;
->  	unsigned int i;
->  
-> -	xa_for_each(&job->deps, index, fence) {
-> -		dma_fence_put(fence);
-> -	}
-> -	xa_destroy(&job->deps);
-> -
->  	dma_fence_put(job->done_fence);
->  	dma_fence_put(job->render_done_fence);
->  
-> @@ -365,17 +349,6 @@ static void panfrost_job_free(struct drm_sched_job *sched_job)
->  	panfrost_job_put(job);
->  }
->  
-> -static struct dma_fence *panfrost_job_dependency(struct drm_sched_job *sched_job,
-> -						 struct drm_sched_entity *s_entity)
-> -{
-> -	struct panfrost_job *job = to_panfrost_job(sched_job);
-> -
-> -	if (!xa_empty(&job->deps))
-> -		return xa_erase(&job->deps, job->last_dep++);
-> -
-> -	return NULL;
-> -}
-> -
->  static struct dma_fence *panfrost_job_run(struct drm_sched_job *sched_job)
->  {
->  	struct panfrost_job *job = to_panfrost_job(sched_job);
-> @@ -765,7 +738,6 @@ static void panfrost_reset_work(struct work_struct *work)
->  }
->  
->  static const struct drm_sched_backend_ops panfrost_sched_ops = {
-> -	.dependency = panfrost_job_dependency,
->  	.run_job = panfrost_job_run,
->  	.timedout_job = panfrost_job_timedout,
->  	.free_job = panfrost_job_free
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.h b/drivers/gpu/drm/panfrost/panfrost_job.h
-> index 82306a03b57e..77e6d0e6f612 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.h
-> @@ -19,10 +19,6 @@ struct panfrost_job {
->  	struct panfrost_device *pfdev;
->  	struct panfrost_file_priv *file_priv;
->  
-> -	/* Contains both explicit and implicit fences */
-> -	struct xarray deps;
-> -	unsigned long last_dep;
-> -
->  	/* Fence to be signaled by IRQ handler when the job is complete. */
->  	struct dma_fence *done_fence;
->  
-> @@ -42,6 +38,7 @@ int panfrost_job_init(struct panfrost_device *pfdev);
->  void panfrost_job_fini(struct panfrost_device *pfdev);
->  int panfrost_job_open(struct panfrost_file_priv *panfrost_priv);
->  void panfrost_job_close(struct panfrost_file_priv *panfrost_priv);
-> +int panfrost_job_get_slot(struct panfrost_job *job);
->  int panfrost_job_push(struct panfrost_job *job);
->  void panfrost_job_put(struct panfrost_job *job);
->  void panfrost_job_enable_interrupts(struct panfrost_device *pfdev);
-> -- 
-> 2.32.0
-> 
+T24gVGh1LCAyMDIxLTA4LTA1IGF0IDIxOjI2ICswMzAwLCBHd2FuLWd5ZW9uZyBNdW4gd3JvdGU6
+DQo+IA0KPiBPbiA4LzMvMjEgODoxOCBQTSwgU291emEsIEpvc2Ugd3JvdGU6DQo+ID4gT24gVHVl
+LCAyMDIxLTA4LTAzIGF0IDE0OjE3ICswMzAwLCBHd2FuLWd5ZW9uZyBNdW4gd3JvdGU6DQo+ID4g
+PiANCj4gPiA+IE9uIDcvMzEvMjEgMzoxMCBBTSwgSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSB3cm90
+ZToNCj4gPiA+ID4gT25seSB0byBleGVjdXRlIHRlc3RzIHdpdGggUFNSMiBzZWxlY3RpdmUgZmV0
+Y2ggZW5hYmxlZCBhbmQgY2hlY2sgd2hhdA0KPiA+ID4gPiBpcyBicm9rZW4uDQo+ID4gPiA+IA0K
+PiA+ID4gPiBJR1QgdGVzdHMga25vdyB0byBmYWlsIHdpdGggdGhpczoNCj4gPiA+ID4gLSBrbXNf
+Y3Vyc29yX2xlZ2FjeTogYWxsIHRlc3RzIHRoYXQgY2hlY2tzIGlmIGV2YXNpb24gaGFwcGVuZCwg
+SSBoYXZlDQo+ID4gPiA+IGZpeCBmb3IgaXQgbWFraW5nIGN1cnNvcl9zbG93cGF0aCgpIHJldHVy
+bnMgdHJ1ZSBmb3IgZGlzcGxheSAxMisuDQo+ID4gPiA+IA0KPiA+ID4gPiAtIGttc19wc3IyX3N1
+OiBUaGUgcGFnZWZsaXAgdGVzdCwgaXQgbmVlZHMgdG8gaGF2ZSB0aGUgZGFtYWdlIGNsaXAgc2V0
+DQo+ID4gPiA+IG90aGVyd2lzZSBpdCB3aWxsIHVwZGF0ZSB0aGUgd2hvbGUgc2NyZWVuIGFuZCB0
+aGUgc2VsZWN0aXZlIGJsb2Nrcw0KPiA+ID4gPiB3aWxsIG5vdCBtYXRjaCB3aXRoIGV4cGVjdGVk
+Lg0KPiA+ID4gPiANCj4gPiA+IGttc19wc3IyX3N1IGlzIGEgdGVzdCBjYXNlIGZvciBpbnRlbCBQ
+U1IyIEhXIHRyYWNraW5nIGFuZCBrbXNfcHNyMl9zZiBpcw0KPiA+ID4gdXNlZCBhcyBhIHRlc3Qg
+Zm9yIGludGVsIFBTUjIgbWFudWFsIHRyYWNraW5nLiBJcyBpdCBuZWNlc3NhcnkgdG8gbW9kaWZ5
+DQo+ID4gPiBrbXNfcHNyMl9zdSBmb3IgdGVzdGluZyBQU1IyIG1hbnVhbCB0cmFja2luZz8NCj4g
+PiANCj4gPiBrbXNfcHNyMl9zdSBpcyB0byB0ZXN0IHRoYXQgUFNSMiBpcyBzZW5kaW5nIHNlbGVj
+dGl2ZSB1cGRhdGVzLCBqdXN0IGFkZGluZyBhIGNvdXBsZSBvZiBsaW5lcyB3ZSBjYW4gbWFrZSBp
+dCB3b3JrIHdpdGggc2VsZWN0aXZlIGZldGNoLg0KPiA+IA0KPiA+ID4gPiAtIGttc19wc3I6IHBz
+cjJfKl8obW1hcF9ndHQsIG1tYXBfY3B1LCBibHQgYW5kIHJlbmRlciksIGFsbCB0aG9zZQ0KPiA+
+ID4gPiB0ZXN0cyBzaG91bGQgYmUgZHJvcHBlZCBvciBza2lwcGVkIGZvciBkaXNwbGF5IDEyKy4N
+Cj4gPiA+ID4gDQo+ID4gPiBDb3VsZCB5b3UgZXhwbGFpbiBpbiBtb3JlIGRldGFpbCB3aHkgd2Ug
+bmVlZCB0byBza2lwIG9uIGRpc3BsYXkgMTIrPw0KPiA+IA0KPiA+IFRoaXMgYXJlIHN0dWZmIHRo
+YXQgd291bGQgZW5kIHVwIGNhbGxpbmcgaW50ZWxfcHNyX2ludmFsaWRhdGUvZmx1c2goKS4NCj4g
+PiANCj4gDQo+IFRoYW5rcyBmb3IgdGhlIGV4cGxhbmF0aW9uLg0KPiBBbmQgdGhlcmUgaXMgYW4g
+aXNzdWUgY29uZmlybWVkIGluIGxvY2FsIHRlc3RzLCBzbyBJIGxlYXZlIGFkZGl0aW9uYWwgDQo+
+IGNvbW1lbnRzLg0KPiA+ID4gDQo+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IEpvc8OpIFJvYmVydG8g
+ZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPg0KPiA+ID4gPiAtLS0NCj4gPiA+ID4gICAg
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYyB8IDkgLS0tLS0tLS0tDQo+
+ID4gPiA+ICAgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGFyYW1zLmggICAgICAgfCAyICst
+DQo+ID4gPiA+ICAgIDIgZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEwIGRlbGV0aW9u
+cygtKQ0KPiA+ID4gPiANCj4gPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2Rpc3BsYXkvaW50ZWxfcHNyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X3Bzci5jDQo+ID4gPiA+IGluZGV4IDg5NGEyZDM1NjY4YTIuLmUxMjhmMGMyYWVlY2MgMTAwNjQ0
+DQo+ID4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMN
+Cj4gPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0K
+PiA+ID4gPiBAQCAtODc3LDE1ICs4NzcsNiBAQCBzdGF0aWMgYm9vbCBpbnRlbF9wc3IyX2NvbmZp
+Z192YWxpZChzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwLA0KPiA+ID4gPiAgICByZXR1cm4gZmFs
+c2U7DQo+ID4gPiA+ICAgIH0NCj4gPiA+ID4gDQo+ID4gPiA+IC0vKg0KPiA+ID4gPiAtICogV2Ug
+YXJlIG1pc3NpbmcgdGhlIGltcGxlbWVudGF0aW9uIG9mIHNvbWUgd29ya2Fyb3VuZHMgdG8gZW5h
+YmxlZCBQU1IyDQo+ID4gPiA+IC0gKiBpbiBBbGRlcmxha2VfUCwgdW50aWwgcmVhZHkgUFNSMiBz
+aG91bGQgYmUga2VwdCBkaXNhYmxlZC4NCj4gPiA+ID4gLSAqLw0KPiA+ID4gPiAtaWYgKElTX0FM
+REVSTEFLRV9QKGRldl9wcml2KSkgew0KPiA+ID4gPiAtZHJtX2RiZ19rbXMoJmRldl9wcml2LT5k
+cm0sICJQU1IyIGlzIG1pc3NpbmcgdGhlIGltcGxlbWVudGF0aW9uIG9mIHdvcmthcm91bmRzXG4i
+KTsNCj4gPiA+ID4gLXJldHVybiBmYWxzZTsNCj4gPiA+ID4gLX0NCj4gPiA+ID4gLQ0KPiA+ID4g
+PiAgICBpZiAoIXRyYW5zY29kZXJfaGFzX3BzcjIoZGV2X3ByaXYsIGNydGNfc3RhdGUtPmNwdV90
+cmFuc2NvZGVyKSkgew0KPiA+ID4gPiAgICBkcm1fZGJnX2ttcygmZGV2X3ByaXYtPmRybSwNCj4g
+PiA+ID4gICAgICAgICJQU1IyIG5vdCBzdXBwb3J0ZWQgaW4gdHJhbnNjb2RlciAlc1xuIiwNCj4g
+PiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcGFyYW1zLmggYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BhcmFtcy5oDQo+ID4gPiA+IGluZGV4IGYyN2VjZWI4
+MmMwZjUuLjhkNzI1YjY0NTkyZDggMTAwNjQ0DQo+ID4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2k5MTVfcGFyYW1zLmgNCj4gPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aTkxNV9wYXJhbXMuaA0KPiA+ID4gPiBAQCAtNTUsNyArNTUsNyBAQCBzdHJ1Y3QgZHJtX3ByaW50
+ZXI7DQo+ID4gPiA+ICAgIHBhcmFtKGludCwgZW5hYmxlX2ZiYywgLTEsIDA2MDApIFwNCj4gPiA+
+ID4gICAgcGFyYW0oaW50LCBlbmFibGVfcHNyLCAtMSwgMDYwMCkgXA0KPiA+ID4gPiAgICBwYXJh
+bShib29sLCBwc3Jfc2FmZXN0X3BhcmFtcywgZmFsc2UsIDA0MDApIFwNCj4gPiA+ID4gLXBhcmFt
+KGJvb2wsIGVuYWJsZV9wc3IyX3NlbF9mZXRjaCwgZmFsc2UsIDA0MDApIFwNCj4gPiA+ID4gK3Bh
+cmFtKGJvb2wsIGVuYWJsZV9wc3IyX3NlbF9mZXRjaCwgdHJ1ZSwgMDQwMCkgXA0KPiBJZiB3ZSBk
+byBub3QgbW9kaWZ5IHRoaXMgcGFydCBhbmQgZG8gbm90IGVuYWJsZSBpdCBieSBkZWZhdWx0IGF0
+IGJvb3QgDQo+IHRpbWUgYXMgc2hvd24gaW4gdGhlIG9yaWdpbmFsIGNvZGUgYmVsb3csDQo+IHBh
+cmFtKGJvb2wsIGVuYWJsZV9wc3IyX3NlbF9mZXRjaCwgZmFsc2UsIDA0MDApIFwNCj4gDQo+IHdo
+ZW4gd2UgZXhlY3V0ZSB0aGUga21zX3BzcjJfc2YgdGVzdCBjYXNlIG9mIGlndCwgdGhlIEZJRk8g
+dW5kZXJydW4gYXMgDQo+IGJlbG93IHN0aWxsIG9jY3Vycy4NCj4gDQo+IGk5MTUgMDAwMDowMDow
+Mi4wOiBbZHJtXSAqRVJST1IqIENQVSBwaXBlIEEgRklGTyB1bmRlcnJ1bjogcG9ydCx0cmFuc2Nv
+ZGVyLA0KPiANCj4gV2hlbiBQU1IyIHBhbmVsIGlzIHVzZWQsIFBTUjEgaXMgZW5hYmxlZCBieSBk
+ZWZhdWx0IHdoZW4gDQo+IGVuYWJsZV9wc3IyX3NlbF9mZXRjaCBpcyBub3QgZW5hYmxlZCBieSBk
+ZWZhdWx0Lg0KPiBBbmQgd2hlbiBrbXNfcHNyMl9zZiBpcyBleGVjdXRlZCwgdGhlIG1vZGUgaXMg
+Y2hhbmdlZCB0byBQU1IyLCBhbmQgd2hlbiANCj4ga21zX3BzcjJfc2YgaXMgdGVybWluYXRlZCwg
+UFNSMiBpcyBkZWFjdGl2YXRlZCBhbmQgUFNSMSBpcyByZS1lbmFibGVkLiANCj4gQXQgdGhpcyBw
+b2ludC4gSSBzdXNwZWN0IHRoZXJlIGlzIGEgcHJvYmxlbS4NCg0KV2FzIGFibGUgdG8gcmVwcm9k
+dWNlIHRoaXMgZXZlbiB3aXRoIGVuYWJsZV9wc3IyX3NlbF9mZXRjaCBzZXQgdG8gdHJ1ZS4NCkFk
+ZGVkIHNvbWUgZGVidWcgbWVzc2FnZXMgdG8gaW50ZWxfcHNyX2V4aXQoKSBhbmQgaW50ZWxfcHNy
+X2FjdGl2YXRlKCkgYW5kIHRob3NlIGZ1bmN0aW9ucyBhcmUgbm90IGNhbGxlZCBhbmQgdGhlIHVu
+ZGVycnVuIHN0aWxsIGhhcHBlbnMuDQoNCkNvdWxkIGJlIGEgcmVncmVzc2lvbiByZWNlbnRseSBp
+bnRyb2R1Y2VkIGJlY2F1c2UgSSB3YXMgbm90IHNlZWluZyB0aGlzIHVuZGVycnVuIGEgZmV3IHdl
+ZWtzIGFnby4NCkFueXdheXMgdGhpcyB1bmRlcnJ1biBoYXBwZW5zIHdpdGggYW5kIHdpdGhvdXQo
+anVzdCBkb2luZyB0aGUgY2hhbmdlcyB0byBhbGxvdyBQU1IyIGluIGFsZGVybGFrZS1QIGluIGlu
+dGVsX3BzcjJfY29uZmlnX3ZhbGlkKCkpIHRoaXMgcGF0Y2hlcy4NCg0KPiANCj4gPiA+ID4gICAg
+cGFyYW0oaW50LCBkaXNhYmxlX3Bvd2VyX3dlbGwsIC0xLCAwNDAwKSBcDQo+ID4gPiA+ICAgIHBh
+cmFtKGludCwgZW5hYmxlX2lwcywgMSwgMDYwMCkgXA0KPiA+ID4gPiAgICBwYXJhbShpbnQsIGlu
+dmVydF9icmlnaHRuZXNzLCAwLCAwNjAwKSBcDQo+ID4gPiA+IA0KPiA+IA0KDQo=
