@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43503C43214
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7464AC432BE
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 122076105A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:40:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 122076105A
+	by mail.kernel.org (Postfix) with ESMTPS id 43988610CC
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 43988610CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF146E5CA;
-	Thu,  5 Aug 2021 10:40:05 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC096E573
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:39:23 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id u3so8802699ejz.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:39:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 624626E5D5;
+	Thu,  5 Aug 2021 10:47:13 +0000 (UTC)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99F8A89356
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:47:11 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id hw6so8786286ejc.10
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:47:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=nEhSWkigAaOfWaZKnIIHk2rBZ9MlD+oJszdpR+hXuQE=;
- b=Cu4k+Z+ngAhUaa5PzpDlfdCHjBibsN4g5JlNhZ29CNS5WufR1VbFPIlYXKjQCDRqM/
- z62y363XwLHwNQRl5rDgMt6PTl8KiOfLYz1P14h9oXRiJv8UrvMU0hnJc1SHk8q3G8Kx
- c+9GrKLKgYLpiwwBoIt/iRLhgj0h3nvNlnarE=
+ bh=WOWQETYUBS18BlBuqEjYVev3m5KfOF4vIMNH7mhUHtE=;
+ b=MjfOcyPmziCIZJjIx5Fw5IVacBJk68mF+kX6xwFtVsqsyYE5qO3fyO0ad424pN6BX5
+ vlyzEc8v5gSX3pUEHorKUSwlQ1CCahYshgUcevphCSyLx/UzGQe2dlSCxuI0Wc/Tk4F6
+ /Yj8nKpoiZI4Lyl3RAQZ60tOpX4MvK9pVFbCg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=nEhSWkigAaOfWaZKnIIHk2rBZ9MlD+oJszdpR+hXuQE=;
- b=hHxTFa8m0JJ/zpy5RooEl22DtSrt/pJrJeraEsLc7Xx/jwZXhYJkBBcU7YWiIeS04P
- XDaD8OZ/SB/vFFXp7+h6WZX/ScmgZSa9TzmcrmT4BrCUtzJrmGiUqhwlarRhGYUB8FHZ
- iSqTcu8tJnHCOpp43UbsTA2A9QIRnrePPTcpRC/bnTOkViZxiwCJdgf/6FImb4b57nnp
- pO+fvidJP6ZzR6fetEt0OkN9VTzj1h8ib6mYimlGmQlxx8v7byQ0LwAsDDFQXiK8Bokb
- galez/599VQckBUoYxbmRB/PDUZm1zk4wAtoHGpDi2V/gcEfz0w8obXqRRYwawdfjw42
- 6hkQ==
-X-Gm-Message-State: AOAM532Xa1ig10+9XZGVEaRVHa9tozk3z7bVrXb863ktOYAkq5GIhmgI
- OsJu+/3dMta9fwUyf/UUkHmzhGy43aqGQQ==
-X-Google-Smtp-Source: ABdhPJz5IfvBojc6FiqajANRxmJryjLWT7PMLpjcy6+isGfWRn2m0XRiYfTB6Sneft9s9woYk2xI8w==
-X-Received: by 2002:a17:906:30d0:: with SMTP id
- b16mr4124963ejb.495.1628159961595; 
- Thu, 05 Aug 2021 03:39:21 -0700 (PDT)
+ bh=WOWQETYUBS18BlBuqEjYVev3m5KfOF4vIMNH7mhUHtE=;
+ b=sZ/FkXo0KTmZ0erg+iyzH5UCwm8WJ0T6enracmCOw08IM/L1jAf9rr+JVnkfW7nAXk
+ EsxpOx0RXP/droXBJXFM5shHDSjfA27Dj0aX19yguEXGKDo1HtVYd2SMZazeYUxtAxz4
+ QQCDsWQerNPlOaeYiTH2ljIEqB3lvc9Dr+9eK9LdYDQUjIE5bFEZzt7naWNin95XQyyL
+ ec/V6TqZiBk9ko9/A9D/yKqhq5BqMD9WkFSJ/t2DcYr73QLSRRKhF6KkeUdPRV4mwIB+
+ t7I2StYmuXYZEzjwWLpbDoR2kBbAYCsGTOctCLLEs6NzgxAI4SDLpHWh7QOv0Xc4uO+c
+ MydA==
+X-Gm-Message-State: AOAM5319d7jpadKr4f1hpxi6R2BeDGy5HT2K+b1ILr2aHgZ8ByUEhoJY
+ QGYwauSNzPfLOpkfEEC8NqorJQ==
+X-Google-Smtp-Source: ABdhPJz7pf6xSTb9NpuuK/wQ518JupVZp8hg118xTHA9d9XZYbyjxYkAPqvoHVV5jXYe+NSHTNXvLQ==
+X-Received: by 2002:a17:906:b34c:: with SMTP id
+ cd12mr4237484ejb.104.1628160430187; 
+ Thu, 05 Aug 2021 03:47:10 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id j22sm1593727ejt.11.2021.08.05.03.39.20
+ by smtp.gmail.com with ESMTPSA id p5sm1578809ejl.73.2021.08.05.03.47.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Aug 2021 03:39:21 -0700 (PDT)
+ Thu, 05 Aug 2021 03:47:09 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu,  5 Aug 2021 12:39:08 +0200
-Message-Id: <20210805103916.860853-1-daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu,  5 Aug 2021 12:46:45 +0200
+Message-Id: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/8] remove rcu support from
- i915_address_space
+Subject: [Intel-gfx] [PATCH v5 00/20] drm/sched dependency handling and
+ implicit sync fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,42 +83,75 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Hi all,
 
-My seemingly trivial but totally not cleanup patch at the end now leaks,
-so clearly the fixup in v2 did improve things but I still don't understand
-that. Anyway that was fairly orthogonal, so I dropped it for later.
+Two big changes:
+- bikeshed repainted in new paint, pls don't touch, it's all fresh! The
+  functions are now called _add_dependency and _add_implicit_dependencies.
 
-v1: https://lore.kernel.org/dri-devel/20210802154806.3710472-1-daniel.vetter@ffwll.ch/
-v2: https://lore.kernel.org/dri-devel/20210804142522.4113021-1-daniel.vetter@ffwll.ch/
+- msm conversion, which includes a bugfix for the msm drm/sched
+  conversion. I think it would be really good if the first two patches
+  could land asap, but that means testing by some of the other drivers.
+  Etnaviv especially is pending some testing/reviewed-by.
 
-Cheers, Daniel
+In general please review and test.
 
-Daniel Vetter (8):
-  drm/i915: Drop code to handle set-vm races from execbuf
-  drm/i915: Rename i915_gem_context_get_vm_rcu to
-    i915_gem_context_get_eb_vm
-  drm/i915: Use i915_gem_context_get_eb_vm in ctx_getparam
-  drm/i915: Add i915_gem_context_is_full_ppgtt
-  drm/i915: Use i915_gem_context_get_eb_vm in intel_context_set_gem
-  drm/i915: Drop __rcu from gem_context->vm
-  drm/i915: use xa_lock/unlock for fpriv->vm_xa lookups
-  drm/i915: Stop rcu support for i915_address_space
+Thanks, Daniel
 
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 78 ++++---------------
- drivers/gpu/drm/i915/gem/i915_gem_context.h   | 13 ++--
- .../gpu/drm/i915/gem/i915_gem_context_types.h |  2 +-
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  8 +-
- .../gpu/drm/i915/gem/selftests/huge_pages.c   |  8 +-
- .../drm/i915/gem/selftests/i915_gem_context.c | 34 ++++----
- drivers/gpu/drm/i915/gt/intel_ggtt.c          |  1 -
- drivers/gpu/drm/i915/gt/intel_gtt.c           |  6 +-
- drivers/gpu/drm/i915/gt/intel_gtt.h           |  2 +-
- drivers/gpu/drm/i915/gt/selftest_execlists.c  |  2 +-
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  2 +-
- drivers/gpu/drm/i915/i915_drv.h               |  4 +-
- drivers/gpu/drm/i915/i915_trace.h             |  2 +-
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  4 +-
- drivers/gpu/drm/i915/selftests/i915_vma.c     |  4 +-
- 15 files changed, 52 insertions(+), 118 deletions(-)
+Daniel Vetter (20):
+  drm/sched: Split drm_sched_job_init
+  drm/msm: Fix drm/sched point of no return rules
+  drm/sched: Barriers are needed for entity->last_scheduled
+  drm/sched: Add dependency tracking
+  drm/sched: drop entity parameter from drm_sched_push_job
+  drm/sched: improve docs around drm_sched_entity
+  drm/panfrost: use scheduler dependency tracking
+  drm/lima: use scheduler dependency tracking
+  drm/v3d: Move drm_sched_job_init to v3d_job_init
+  drm/v3d: Use scheduler dependency handling
+  drm/etnaviv: Use scheduler dependency handling
+  drm/msm: Use scheduler dependency handling
+  drm/gem: Delete gem array fencing helpers
+  drm/sched: Don't store self-dependencies
+  drm/sched: Check locking in drm_sched_job_await_implicit
+  drm/msm: Don't break exclusive fence ordering
+  drm/etnaviv: Don't break exclusive fence ordering
+  drm/i915: delete exclude argument from i915_sw_fence_await_reservation
+  drm/i915: Don't break exclusive fence ordering
+  dma-resv: Give the docs a do-over
+
+ Documentation/gpu/drm-mm.rst                  |   3 +
+ drivers/dma-buf/dma-resv.c                    |  24 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |   4 +-
+ drivers/gpu/drm/drm_gem.c                     |  96 ---------
+ drivers/gpu/drm/etnaviv/etnaviv_gem.h         |   5 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c  |  66 +++---
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c       |  65 +-----
+ drivers/gpu/drm/etnaviv/etnaviv_sched.h       |   3 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |   4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_clflush.c   |   2 +-
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |   6 +-
+ drivers/gpu/drm/i915/i915_sw_fence.c          |   6 +-
+ drivers/gpu/drm/i915/i915_sw_fence.h          |   1 -
+ drivers/gpu/drm/lima/lima_gem.c               |   9 +-
+ drivers/gpu/drm/lima/lima_sched.c             |  28 +--
+ drivers/gpu/drm/lima/lima_sched.h             |   6 +-
+ drivers/gpu/drm/msm/msm_gem.h                 |   5 -
+ drivers/gpu/drm/msm/msm_gem_submit.c          |  36 ++--
+ drivers/gpu/drm/msm/msm_ringbuffer.c          |  12 --
+ drivers/gpu/drm/panfrost/panfrost_drv.c       |  16 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  40 +---
+ drivers/gpu/drm/panfrost/panfrost_job.h       |   5 +-
+ drivers/gpu/drm/scheduler/sched_entity.c      | 140 +++++++------
+ drivers/gpu/drm/scheduler/sched_fence.c       |  19 +-
+ drivers/gpu/drm/scheduler/sched_main.c        | 182 ++++++++++++++++-
+ drivers/gpu/drm/v3d/v3d_drv.h                 |   6 +-
+ drivers/gpu/drm/v3d/v3d_gem.c                 | 114 +++++------
+ drivers/gpu/drm/v3d/v3d_sched.c               |  44 +---
+ include/drm/drm_gem.h                         |   5 -
+ include/drm/gpu_scheduler.h                   | 188 +++++++++++++++---
+ include/linux/dma-buf.h                       |   7 +
+ include/linux/dma-resv.h                      | 104 +++++++++-
+ 33 files changed, 693 insertions(+), 562 deletions(-)
 
 -- 
 2.32.0
