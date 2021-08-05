@@ -7,73 +7,91 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00A2DC4320A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90A28C432BE
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BBFA661078
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BBFA661078
+	by mail.kernel.org (Postfix) with ESMTPS id 5E75C61078
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5E75C61078
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 471006E859;
-	Thu,  5 Aug 2021 10:47:19 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0401B6E7DD
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:47:14 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id zb12so4006013ejb.5
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:47:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FEEE6E983;
+	Thu,  5 Aug 2021 10:47:21 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 680EE6E808
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:47:17 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id qk33so8762580ejc.12
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:47:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Vk90JgGb8fo71IctIWrWmaKFEp9mmVzEBcxFqwXTPis=;
- b=R8ENjC6zpXH4/pdpJHVYfz/G4epLWVKHywZeba8tr+KA25Zq7uDTHviqCX3yC2uxf/
- cN0pAm7nPlidmEull30353JwccsQjPYtuSsJikQuCGgJERCbH1BB9ovQDtQoeaX6KN5r
- mQB2uaDm4VWEz2Pfpk63aVeH+VX4MCpGS8sDw=
+ bh=QGgyLQM9fjpIJHEqIqszmKIM4QjRrF1HCjvx1q5xP7s=;
+ b=DsqS+KaQtS2qyGKSch/axaBdtn1FMdHUMfonxEVGlFxFOMdhnog4yaxz8Crg6xES/s
+ oii+NWpftF9DkPehN+4iRGRRXtX8UujsfnUZBt0c/4pzBHEU9lY3loXie9hSTn2SlFrr
+ 5Qhj8DevpKf1l+38kIiYc0cjt8SCDARbkaT0c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Vk90JgGb8fo71IctIWrWmaKFEp9mmVzEBcxFqwXTPis=;
- b=T04kmPUlVWjCqRP6nSY6Xi4oxFVsSAf6GG4um508HGDiRpyPp0ByI4OTLLltO+lJFf
- TzaDhHuF4ca00btpSlneMcAEfbHiBzWDWYHZ6B/jQxPzbUT+nXCwGyCVmfjZFu0sPTDe
- +hhbP6kj1wB7jbx2HE6I4Vz5XCu+LD/iSO+nKP7nHTIrUyLa3Pr2U3svsQHPViNg9z/W
- 3FWFDvbY4FpXPAUnjF0TdNn92MtTr4SYFUp90TNMfexsL9XZxwlKaZMrwSni+G4ahUY+
- mAciRQTW/xKafmDSdUc+uoGVCasHtWkz+99AjbI3SKEqDduYVaLMAmCqURngoATQy7MJ
- 0FvQ==
-X-Gm-Message-State: AOAM531BciWo0kW0JsyEwEApQy9+VlE0//d9ZbP97ogZCjPvOgv745wr
- vdInTVCZ3A0qgge3bxlf3oQkMw==
-X-Google-Smtp-Source: ABdhPJzQWlIJuekxnGW62C6E14BFG9DW8nzQUwW80y3fLAi9LCxvroE4ZSxyI8gjBo6fkzqzjpAegg==
-X-Received: by 2002:a17:906:b794:: with SMTP id
- dt20mr4027358ejb.363.1628160433446; 
- Thu, 05 Aug 2021 03:47:13 -0700 (PDT)
+ bh=QGgyLQM9fjpIJHEqIqszmKIM4QjRrF1HCjvx1q5xP7s=;
+ b=cXdg99evz+H9yzCr5j1qUBHr2jz2B0TSVU86uRmep9QPm4m1npEInLrZaWHVbx6KCP
+ 5ZDpbsfRsz4Ry8PJuiLyYY24AUH14HPGSfgFYtTS+KpgXabZqYZYuu5rxm7TPOGNQtiV
+ FN82QkLAv1bDlPj0VvOsa688sVML5cABp+foNxAqZcwsmq2eaD1iEhKWKuEd9TdZhBnv
+ N+WRvSvFXhpGBBWggEfXMkNOgrj0EUNNMu0zl5Oq3ehTZTMNU+FJjXtU4/FJuE1OHjQ0
+ 5d/K4Gd7Zyzx+X8wsmHAtIoekplbNqmHJ4iGNJo3aKy5qnXzShzSx/dzuNpBKG5P6mii
+ uIqw==
+X-Gm-Message-State: AOAM533/1OP+Ga45u/WaeC0rOoavDHxKEOw9NLw5YhYv5leE2w6enPRJ
+ GQ7D4qmB0AWID0S1QEmEiYxx8w==
+X-Google-Smtp-Source: ABdhPJzC2OA7k5M8A16QFTlxnjaxNky1IVgCYtegib7d2hNvvFwM1r28DXONj14/49w/U91xQTf1Lg==
+X-Received: by 2002:a17:906:35d0:: with SMTP id
+ p16mr4288877ejb.284.1628160435867; 
+ Thu, 05 Aug 2021 03:47:15 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id p5sm1578809ejl.73.2021.08.05.03.47.12
+ by smtp.gmail.com with ESMTPSA id p5sm1578809ejl.73.2021.08.05.03.47.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Aug 2021 03:47:13 -0700 (PDT)
+ Thu, 05 Aug 2021 03:47:15 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
 Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Melissa Wen <mwen@igalia.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Emma Anholt <emma@anholt.net>,
+ Melissa Wen <mwen@igalia.com>, Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
  Daniel Vetter <daniel.vetter@intel.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Qiang Yu <yuq825@gmail.com>, Rob Herring <robh@kernel.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Steven Price <steven.price@arm.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Nirmoy Das <nirmoy.das@amd.com>,
+ Dave Airlie <airlied@redhat.com>, Chen Li <chenli@uniontech.com>,
+ Lee Jones <lee.jones@linaro.org>, Deepak R Varma <mh12gx2825@gmail.com>,
+ Kevin Wang <kevin1.wang@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Lee Jones <lee.jones@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu,  5 Aug 2021 12:46:48 +0200
-Message-Id: <20210805104705.862416-4-daniel.vetter@ffwll.ch>
+ Dennis Li <Dennis.Li@amd.com>, etnaviv@lists.freedesktop.org,
+ lima@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Date: Thu,  5 Aug 2021 12:46:50 +0200
+Message-Id: <20210805104705.862416-6-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
 References: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 03/20] drm/sched: Barriers are needed for
- entity->last_scheduled
+Subject: [Intel-gfx] [PATCH v5 05/20] drm/sched: drop entity parameter from
+ drm_sched_push_job
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,88 +107,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It might be good enough on x86 with just READ_ONCE, but the write side
-should then at least be WRITE_ONCE because x86 has total store order.
+Originally a job was only bound to the queue when we pushed this, but
+now that's done in drm_sched_job_init, making that parameter entirely
+redundant.
 
-It's definitely not enough on arm.
+Remove it.
 
-Fix this proplery, which means
-- explain the need for the barrier in both places
-- point at the other side in each comment
+The same applies to the context parameter in
+lima_sched_context_queue_task, simplify that too.
 
-Also pull out the !sched_list case as the first check, so that the
-code flow is clearer.
+v2:
+Rebase on top of msm adopting drm/sched
 
-While at it sprinkle some comments around because it was very
-non-obvious to me what's actually going on here and why.
-
-Note that we really need full barriers here, at first I thought
-store-release and load-acquire on ->last_scheduled would be enough,
-but we actually requiring ordering between that and the queue state.
-
-v2: Put smp_rmp() in the right place and fix up comment (Andrey)
-
+Acked-by: Emma Anholt <emma@anholt.net>
 Acked-by: Melissa Wen <mwen@igalia.com>
+Reviewed-by: Steven Price <steven.price@arm.com> (v1)
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> (v1)
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Lucas Stach <l.stach@pengutronix.de>
+Cc: Russell King <linux+etnaviv@armlinux.org.uk>
+Cc: Christian Gmeiner <christian.gmeiner@gmail.com>
+Cc: Qiang Yu <yuq825@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Tomeu Vizoso <tomeu.vizoso@collabora.com>
 Cc: Steven Price <steven.price@arm.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
+Cc: Emma Anholt <emma@anholt.net>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Nirmoy Das <nirmoy.das@amd.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Chen Li <chenli@uniontech.com>
 Cc: Lee Jones <lee.jones@linaro.org>
+Cc: Deepak R Varma <mh12gx2825@gmail.com>
+Cc: Kevin Wang <kevin1.wang@amd.com>
+Cc: Luben Tuikov <luben.tuikov@amd.com>
+Cc: "Marek Olšák" <marek.olsak@amd.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: Dennis Li <Dennis.Li@amd.com>
 Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: etnaviv@lists.freedesktop.org
+Cc: lima@lists.freedesktop.org
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
 ---
- drivers/gpu/drm/scheduler/sched_entity.c | 27 ++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c  | 2 +-
+ drivers/gpu/drm/lima/lima_gem.c          | 3 +--
+ drivers/gpu/drm/lima/lima_sched.c        | 5 ++---
+ drivers/gpu/drm/lima/lima_sched.h        | 3 +--
+ drivers/gpu/drm/msm/msm_gem_submit.c     | 2 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c  | 2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c | 6 ++----
+ drivers/gpu/drm/v3d/v3d_gem.c            | 2 +-
+ include/drm/gpu_scheduler.h              | 3 +--
+ 11 files changed, 13 insertions(+), 19 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 32e80bc6af22..1d8a914108af 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1267,7 +1267,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 
+ 	trace_amdgpu_cs_ioctl(job);
+ 	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->ticket);
+-	drm_sched_entity_push_job(&job->base, entity);
++	drm_sched_entity_push_job(&job->base);
+ 
+ 	amdgpu_vm_move_to_lru_tail(p->adev, &fpriv->vm);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 5ddb955d2315..b8609cccc9c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -174,7 +174,7 @@ int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
+ 
+ 	*f = dma_fence_get(&job->base.s_fence->finished);
+ 	amdgpu_job_free_resources(job);
+-	drm_sched_entity_push_job(&job->base, entity);
++	drm_sched_entity_push_job(&job->base);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+index 05f412204118..180bb633d5c5 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+@@ -178,7 +178,7 @@ int etnaviv_sched_push_job(struct drm_sched_entity *sched_entity,
+ 	/* the scheduler holds on to the job now */
+ 	kref_get(&submit->refcount);
+ 
+-	drm_sched_entity_push_job(&submit->sched_job, sched_entity);
++	drm_sched_entity_push_job(&submit->sched_job);
+ 
+ out_unlock:
+ 	mutex_unlock(&submit->gpu->fence_lock);
+diff --git a/drivers/gpu/drm/lima/lima_gem.c b/drivers/gpu/drm/lima/lima_gem.c
+index de62966243cd..c528f40981bb 100644
+--- a/drivers/gpu/drm/lima/lima_gem.c
++++ b/drivers/gpu/drm/lima/lima_gem.c
+@@ -359,8 +359,7 @@ int lima_gem_submit(struct drm_file *file, struct lima_submit *submit)
+ 			goto err_out2;
+ 	}
+ 
+-	fence = lima_sched_context_queue_task(
+-		submit->ctx->context + submit->pipe, submit->task);
++	fence = lima_sched_context_queue_task(submit->task);
+ 
+ 	for (i = 0; i < submit->nr_bos; i++) {
+ 		if (submit->bos[i].flags & LIMA_SUBMIT_BO_WRITE)
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index 38f755580507..e968b5a8f0b0 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -177,13 +177,12 @@ void lima_sched_context_fini(struct lima_sched_pipe *pipe,
+ 	drm_sched_entity_fini(&context->base);
+ }
+ 
+-struct dma_fence *lima_sched_context_queue_task(struct lima_sched_context *context,
+-						struct lima_sched_task *task)
++struct dma_fence *lima_sched_context_queue_task(struct lima_sched_task *task)
+ {
+ 	struct dma_fence *fence = dma_fence_get(&task->base.s_fence->finished);
+ 
+ 	trace_lima_task_submit(task);
+-	drm_sched_entity_push_job(&task->base, &context->base);
++	drm_sched_entity_push_job(&task->base);
+ 	return fence;
+ }
+ 
+diff --git a/drivers/gpu/drm/lima/lima_sched.h b/drivers/gpu/drm/lima/lima_sched.h
+index 90f03c48ef4a..ac70006b0e26 100644
+--- a/drivers/gpu/drm/lima/lima_sched.h
++++ b/drivers/gpu/drm/lima/lima_sched.h
+@@ -98,8 +98,7 @@ int lima_sched_context_init(struct lima_sched_pipe *pipe,
+ 			    atomic_t *guilty);
+ void lima_sched_context_fini(struct lima_sched_pipe *pipe,
+ 			     struct lima_sched_context *context);
+-struct dma_fence *lima_sched_context_queue_task(struct lima_sched_context *context,
+-						struct lima_sched_task *task);
++struct dma_fence *lima_sched_context_queue_task(struct lima_sched_task *task);
+ 
+ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name);
+ void lima_sched_pipe_fini(struct lima_sched_pipe *pipe);
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index d0ed4ddc509e..96cea0ba4cfd 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -909,7 +909,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	/* The scheduler owns a ref now: */
+ 	msm_gem_submit_get(submit);
+ 
+-	drm_sched_entity_push_job(&submit->base, &queue->entity);
++	drm_sched_entity_push_job(&submit->base);
+ 
+ 	args->fence = submit->fence_id;
+ 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 2992dc85325f..4bc962763e1f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -301,7 +301,7 @@ int panfrost_job_push(struct panfrost_job *job)
+ 
+ 	kref_get(&job->refcount); /* put by scheduler job completion */
+ 
+-	drm_sched_entity_push_job(&job->base, entity);
++	drm_sched_entity_push_job(&job->base);
+ 
+ 	mutex_unlock(&pfdev->sched_lock);
+ 
 diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index f7347c284886..89e3f6eaf519 100644
+index 381fbf462ea7..e4d33db1eb45 100644
 --- a/drivers/gpu/drm/scheduler/sched_entity.c
 +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -439,8 +439,16 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 		dma_fence_set_error(&sched_job->s_fence->finished, -ECANCELED);
+@@ -516,9 +516,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
  
- 	dma_fence_put(entity->last_scheduled);
-+
- 	entity->last_scheduled = dma_fence_get(&sched_job->s_fence->finished);
+ /**
+  * drm_sched_entity_push_job - Submit a job to the entity's job queue
+- *
+  * @sched_job: job to submit
+- * @entity: scheduler entity
+  *
+  * Note: To guarantee that the order of insertion to queue matches the job's
+  * fence sequence number this function should be called with drm_sched_job_arm()
+@@ -526,9 +524,9 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+  *
+  * Returns 0 for success, negative error code otherwise.
+  */
+-void drm_sched_entity_push_job(struct drm_sched_job *sched_job,
+-			       struct drm_sched_entity *entity)
++void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ {
++	struct drm_sched_entity *entity = sched_job->entity;
+ 	bool first;
  
-+	/*
-+	 * If the queue is empty we allow drm_sched_entity_select_rq() to
-+	 * locklessly access ->last_scheduled. This only works if we set the
-+	 * pointer before we dequeue and if we a write barrier here.
-+	 */
-+	smp_wmb();
-+
- 	spsc_queue_pop(&entity->job_queue);
- 	return sched_job;
+ 	trace_drm_sched_job(sched_job, entity);
+diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
+index 2e808097b4d1..957228bef29c 100644
+--- a/drivers/gpu/drm/v3d/v3d_gem.c
++++ b/drivers/gpu/drm/v3d/v3d_gem.c
+@@ -487,7 +487,7 @@ v3d_push_job(struct v3d_file_priv *v3d_priv,
+ 	/* put by scheduler job completion */
+ 	kref_get(&job->refcount);
+ 
+-	drm_sched_entity_push_job(&job->base, &v3d_priv->sched_entity[queue]);
++	drm_sched_entity_push_job(&job->base);
+ 
+ 	return 0;
  }
-@@ -459,10 +467,25 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	struct drm_gpu_scheduler *sched;
- 	struct drm_sched_rq *rq;
- 
--	if (spsc_queue_count(&entity->job_queue) || !entity->sched_list)
-+	/* single possible engine and already selected */
-+	if (!entity->sched_list)
-+		return;
-+
-+	/* queue non-empty, stay on the same engine */
-+	if (spsc_queue_count(&entity->job_queue))
- 		return;
- 
--	fence = READ_ONCE(entity->last_scheduled);
-+	/*
-+	 * Only when the queue is empty are we guaranteed that the scheduler
-+	 * thread cannot change ->last_scheduled. To enforce ordering we need
-+	 * a read barrier here. See drm_sched_entity_pop_job() for the other
-+	 * side.
-+	 */
-+	smp_rmb();
-+
-+	fence = entity->last_scheduled;
-+
-+	/* stay on the same engine if the previous job hasn't finished */
- 	if (fence && !dma_fence_is_signaled(fence))
- 		return;
- 
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index a47946f904b6..b72f73b375a2 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -409,8 +409,7 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity);
+ void drm_sched_entity_destroy(struct drm_sched_entity *entity);
+ void drm_sched_entity_select_rq(struct drm_sched_entity *entity);
+ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
+-void drm_sched_entity_push_job(struct drm_sched_job *sched_job,
+-			       struct drm_sched_entity *entity);
++void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
+ void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
+ 				   enum drm_sched_priority priority);
+ bool drm_sched_entity_is_ready(struct drm_sched_entity *entity);
 -- 
 2.32.0
 
