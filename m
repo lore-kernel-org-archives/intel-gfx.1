@@ -5,74 +5,69 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FBA1C43214
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31D80C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 193626105A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 193626105A
+	by mail.kernel.org (Postfix) with ESMTPS id 017AA610CC
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:47:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 017AA610CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A40256E988;
-	Thu,  5 Aug 2021 10:47:22 +0000 (UTC)
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54D386E829
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:47:20 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id c25so8821097ejb.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:47:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C96D66E9A1;
+	Thu,  5 Aug 2021 10:47:24 +0000 (UTC)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DDA36E989
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:47:22 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id cf5so7731286edb.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:47:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=R7FRzFn+3bOqW5k/RlK+Qi1RBn9846dunMWgTD41oxg=;
- b=G/BLtpp/N6RvEE/jwPRm2hU4oWm01qvUFTWsg0ns/TWLxtm5hxzj3TH0CVghO4hegZ
- TLToDLTmF27+QdccU88mEdoc/IVzdG9zDPtMD0/+ilYxrJ2y6FdP9IYEEsT4v23Nfye+
- CdoLd0Xxa6xgsBJqpQHYGjQSokWg0gQAy/PgY=
+ bh=mS/2qj/YoP3wHNECb3bcIBaYcl6/9vObJYy6XAzcDBk=;
+ b=H7+ENf7cckAeSO6IgwJq9X5NQNV1nTMewPXwGaE4OBSnx9kQleI+3gtyB4pgwi/Dzr
+ d2ZjGKMq0cgXZTVAm2I/2L0BrnHZtRZnzmXJjSKhtOAI5VmFX2Tvy5tZDYMQ4GBS+T+j
+ fjkgJOicSVxHonacPKcdnjoasONFveFgUij4w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=R7FRzFn+3bOqW5k/RlK+Qi1RBn9846dunMWgTD41oxg=;
- b=EpWfkXFLVgMrlr978Oa2ig0t19U7no71Z1n8fiRBr6sKDQMOyp1M2qoj5aS59z5ed/
- nhSpqPZ0TwJxzdoUdLqYlHZl+Xo1Sh/SDkdxqOJpmkj3RqndoxdUJHDiYOoDkvYNxh0L
- koR8gfpBOJIbR7BKrpVeVEjhD5xycouAOQX/Za+6S3B6PPwl/fqjQpZqAZPBzrYa5hC6
- O5w0RqdwUgdJ6kMLxwB4FBwF4PU+u0x1eN1A2ppcsGanYFpGn8tKd/3J+H4HDN0XzhYP
- Ite+U075Wp/txGW7yREvXC1q1tylzq1qWttVaFb2ZtrNpEfQ//HPqwHhbCdID2jjAZtr
- VtXQ==
-X-Gm-Message-State: AOAM531Mi8WnpShYgYHKMIFQ+Ir8xfUrH9dtSsjR+0MWXeWg2vVEIZdZ
- aPW6m30alN8OvaIR4jjdwdGqDQ==
-X-Google-Smtp-Source: ABdhPJwa3WKwZA5kKMU6enAzHf/lI37YHpURmmY1zTbkiaRQLs0fy3Fys/wNWxlo7jId+efob6unzw==
-X-Received: by 2002:a17:907:7faa:: with SMTP id
- qk42mr4182248ejc.291.1628160438862; 
- Thu, 05 Aug 2021 03:47:18 -0700 (PDT)
+ bh=mS/2qj/YoP3wHNECb3bcIBaYcl6/9vObJYy6XAzcDBk=;
+ b=Y7Vvx1p/MIdv/u4Pe/+W+Dcw6SBwZDRnHkGzxDyHXvv330OEFiVxZX9JauiPU3H6/V
+ JOS6D33glVqwlt8wsAqnPB4fybzCKVxdyQhsTyNufUNSElg7Qi5AGd/tK8krYhtIpYTR
+ lQ6ZXpCN1hqNs9lvfEaJldfVVotiU6t+ukLwqH6wNvs+RAPysjtfgrm6HGXvkqzuNNuh
+ n0PPDD/zyd7Cv2GnoN5FpvWEXvn0koYBTk5hxxE0ZvKgvWWWC55PIJtYzemOXtLvVYCk
+ NoNfiWo1OtqAJRxqeu/3rQWls5U+jMMAeCN5hMwCKAunS3mY+j65aEUGMWGQfnU5tIuc
+ YhWA==
+X-Gm-Message-State: AOAM530+u6VwsVsV/lgSOAbozCQou8t4lXuWUGOZh00yqm/fihnmd6kv
+ PGs4yxyLTroQvXolUUrUdLcFWA==
+X-Google-Smtp-Source: ABdhPJyQMdxQkAILO8juv3Ms70VbtTUKmxc6rvvhBmTSxFnYHFbYx8vRzHpfag+q1tf1oCbmC/96Qg==
+X-Received: by 2002:a50:f1d8:: with SMTP id y24mr5636341edl.275.1628160440724; 
+ Thu, 05 Aug 2021 03:47:20 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id p5sm1578809ejl.73.2021.08.05.03.47.18
+ by smtp.gmail.com with ESMTPSA id p5sm1578809ejl.73.2021.08.05.03.47.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Aug 2021 03:47:18 -0700 (PDT)
+ Thu, 05 Aug 2021 03:47:20 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
 Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Daniel Vetter <daniel.vetter@intel.com>, Qiang Yu <yuq825@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- lima@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-Date: Thu,  5 Aug 2021 12:46:53 +0200
-Message-Id: <20210805104705.862416-9-daniel.vetter@ffwll.ch>
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Melissa Wen <mwen@igalia.com>,
+ Emma Anholt <emma@anholt.net>, Melissa Wen <melissa.srw@gmail.com>,
+ Daniel Vetter <daniel.vetter@intel.com>
+Date: Thu,  5 Aug 2021 12:46:55 +0200
+Message-Id: <20210805104705.862416-11-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
 References: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 08/20] drm/lima: use scheduler dependency
- tracking
+Subject: [Intel-gfx] [PATCH v5 10/20] drm/v3d: Use scheduler dependency
+ handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,121 +83,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Nothing special going on here.
+With the prep work out of the way this isn't tricky anymore.
 
-Aside reviewing the code, it seems like drm_sched_job_arm() should be
-moved into lima_sched_context_queue_task and put under some mutex
-together with drm_sched_push_job(). See the kerneldoc for
-drm_sched_push_job().
+Aside: The chaining of the various jobs is a bit awkward, with the
+possibility of failure in bad places. I think with the
+drm_sched_job_init/arm split and maybe preloading the
+job->dependencies xarray this should be fixable.
 
-v2: Rebase over renamed functions to add dependencies.
+v2: Rebase over renamed function names for adding dependencies.
 
+Reviewed-by: Melissa Wen <mwen@igalia.com> (v1)
+Acked-by: Emma Anholt <emma@anholt.net>
+Cc: Melissa Wen <melissa.srw@gmail.com>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Qiang Yu <yuq825@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: lima@lists.freedesktop.org
-Cc: linux-media@vger.kernel.org
-Cc: linaro-mm-sig@lists.linaro.org
+Cc: Emma Anholt <emma@anholt.net>
 ---
- drivers/gpu/drm/lima/lima_gem.c   |  6 ++++--
- drivers/gpu/drm/lima/lima_sched.c | 21 ---------------------
- drivers/gpu/drm/lima/lima_sched.h |  3 ---
- 3 files changed, 4 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/v3d/v3d_drv.h   |  5 -----
+ drivers/gpu/drm/v3d/v3d_gem.c   | 26 +++++++++-----------------
+ drivers/gpu/drm/v3d/v3d_sched.c | 29 +----------------------------
+ 3 files changed, 10 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/gpu/drm/lima/lima_gem.c b/drivers/gpu/drm/lima/lima_gem.c
-index c528f40981bb..640acc060467 100644
---- a/drivers/gpu/drm/lima/lima_gem.c
-+++ b/drivers/gpu/drm/lima/lima_gem.c
-@@ -267,7 +267,9 @@ static int lima_gem_sync_bo(struct lima_sched_task *task, struct lima_bo *bo,
- 	if (explicit)
- 		return 0;
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+index c1d433b4cf93..b900a050d5e2 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.h
++++ b/drivers/gpu/drm/v3d/v3d_drv.h
+@@ -234,11 +234,6 @@ struct v3d_job {
+ 	struct drm_gem_object **bo;
+ 	u32 bo_count;
  
--	return drm_gem_fence_array_add_implicit(&task->deps, &bo->base.base, write);
-+	return drm_sched_job_add_implicit_dependencies(&task->base,
-+						       &bo->base.base,
-+						       write);
- }
- 
- static int lima_gem_add_deps(struct drm_file *file, struct lima_submit *submit)
-@@ -285,7 +287,7 @@ static int lima_gem_add_deps(struct drm_file *file, struct lima_submit *submit)
- 		if (err)
- 			return err;
- 
--		err = drm_gem_fence_array_add(&submit->task->deps, fence);
-+		err = drm_sched_job_add_dependency(&submit->task->base, fence);
- 		if (err) {
- 			dma_fence_put(fence);
- 			return err;
-diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
-index e968b5a8f0b0..99d5f6f1a882 100644
---- a/drivers/gpu/drm/lima/lima_sched.c
-+++ b/drivers/gpu/drm/lima/lima_sched.c
-@@ -134,24 +134,15 @@ int lima_sched_task_init(struct lima_sched_task *task,
- 	task->num_bos = num_bos;
- 	task->vm = lima_vm_get(vm);
- 
--	xa_init_flags(&task->deps, XA_FLAGS_ALLOC);
+-	/* Array of struct dma_fence * to block on before submitting this job.
+-	 */
+-	struct xarray deps;
+-	unsigned long last_dep;
 -
- 	return 0;
- }
+ 	/* v3d fence to be signaled by IRQ handler when the job is complete. */
+ 	struct dma_fence *irq_fence;
  
- void lima_sched_task_fini(struct lima_sched_task *task)
+diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
+index 42587248c54e..a3529809d547 100644
+--- a/drivers/gpu/drm/v3d/v3d_gem.c
++++ b/drivers/gpu/drm/v3d/v3d_gem.c
+@@ -259,8 +259,8 @@ v3d_lock_bo_reservations(struct v3d_job *job,
+ 		return ret;
+ 
+ 	for (i = 0; i < job->bo_count; i++) {
+-		ret = drm_gem_fence_array_add_implicit(&job->deps,
+-						       job->bo[i], true);
++		ret = drm_sched_job_add_implicit_dependencies(&job->base,
++							      job->bo[i], true);
+ 		if (ret) {
+ 			drm_gem_unlock_reservations(job->bo, job->bo_count,
+ 						    acquire_ctx);
+@@ -356,8 +356,6 @@ static void
+ v3d_job_free(struct kref *ref)
  {
--	struct dma_fence *fence;
+ 	struct v3d_job *job = container_of(ref, struct v3d_job, refcount);
 -	unsigned long index;
+-	struct dma_fence *fence;
  	int i;
  
- 	drm_sched_job_cleanup(&task->base);
+ 	for (i = 0; i < job->bo_count; i++) {
+@@ -366,11 +364,6 @@ v3d_job_free(struct kref *ref)
+ 	}
+ 	kvfree(job->bo);
  
--	xa_for_each(&task->deps, index, fence) {
+-	xa_for_each(&job->deps, index, fence) {
 -		dma_fence_put(fence);
 -	}
--	xa_destroy(&task->deps);
+-	xa_destroy(&job->deps);
 -
- 	if (task->bos) {
- 		for (i = 0; i < task->num_bos; i++)
- 			drm_gem_object_put(&task->bos[i]->base.base);
-@@ -186,17 +177,6 @@ struct dma_fence *lima_sched_context_queue_task(struct lima_sched_task *task)
- 	return fence;
+ 	dma_fence_put(job->irq_fence);
+ 	dma_fence_put(job->done_fence);
+ 
+@@ -457,7 +450,6 @@ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	xa_init_flags(&job->deps, XA_FLAGS_ALLOC);
+ 	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
+ 				 v3d_priv);
+ 	if (ret)
+@@ -467,7 +459,7 @@ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+ 	if (ret == -EINVAL)
+ 		goto fail_job;
+ 
+-	ret = drm_gem_fence_array_add(&job->deps, in_fence);
++	ret = drm_sched_job_add_dependency(&job->base, in_fence);
+ 	if (ret)
+ 		goto fail_job;
+ 
+@@ -477,7 +469,6 @@ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+ fail_job:
+ 	drm_sched_job_cleanup(&job->base);
+ fail:
+-	xa_destroy(&job->deps);
+ 	pm_runtime_put_autosuspend(v3d->drm.dev);
+ 	return ret;
+ }
+@@ -640,8 +631,8 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 		v3d_perfmon_get(bin->base.perfmon);
+ 		v3d_push_job(&bin->base);
+ 
+-		ret = drm_gem_fence_array_add(&render->base.deps,
+-					      dma_fence_get(bin->base.done_fence));
++		ret = drm_sched_job_add_dependency(&render->base.base,
++						   dma_fence_get(bin->base.done_fence));
+ 		if (ret)
+ 			goto fail_unreserve;
+ 	}
+@@ -651,7 +642,8 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 	if (clean_job) {
+ 		struct dma_fence *render_fence =
+ 			dma_fence_get(render->base.done_fence);
+-		ret = drm_gem_fence_array_add(&clean_job->deps, render_fence);
++		ret = drm_sched_job_add_dependency(&clean_job->base,
++						   render_fence);
+ 		if (ret)
+ 			goto fail_unreserve;
+ 		clean_job->perfmon = render->base.perfmon;
+@@ -853,8 +845,8 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+ 	mutex_lock(&v3d->sched_lock);
+ 	v3d_push_job(&job->base);
+ 
+-	ret = drm_gem_fence_array_add(&clean_job->deps,
+-				      dma_fence_get(job->base.done_fence));
++	ret = drm_sched_job_add_dependency(&clean_job->base,
++					   dma_fence_get(job->base.done_fence));
+ 	if (ret)
+ 		goto fail_unreserve;
+ 
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 7969797793d0..e0cb7d0697a7 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -13,7 +13,7 @@
+  * jobs when bulk background jobs are queued up, we submit a new job
+  * to the HW only when it has completed the last one, instead of
+  * filling up the CT[01]Q FIFOs with jobs.  Similarly, we use
+- * v3d_job_dependency() to manage the dependency between bin and
++ * drm_sched_job_add_dependency() to manage the dependency between bin and
+  * render, instead of having the clients submit jobs using the HW's
+  * semaphores to interlock between them.
+  */
+@@ -72,28 +72,6 @@ v3d_switch_perfmon(struct v3d_dev *v3d, struct v3d_job *job)
+ 		v3d_perfmon_start(v3d, job->perfmon);
  }
  
--static struct dma_fence *lima_sched_dependency(struct drm_sched_job *job,
--					       struct drm_sched_entity *entity)
+-/*
+- * Returns the fences that the job depends on, one by one.
+- *
+- * If placed in the scheduler's .dependency method, the corresponding
+- * .run_job won't be called until all of them have been signaled.
+- */
+-static struct dma_fence *
+-v3d_job_dependency(struct drm_sched_job *sched_job,
+-		   struct drm_sched_entity *s_entity)
 -{
--	struct lima_sched_task *task = to_lima_task(job);
+-	struct v3d_job *job = to_v3d_job(sched_job);
 -
--	if (!xa_empty(&task->deps))
--		return xa_erase(&task->deps, task->last_dep++);
+-	/* XXX: Wait on a fence for switching the GMP if necessary,
+-	 * and then do so.
+-	 */
+-
+-	if (!xa_empty(&job->deps))
+-		return xa_erase(&job->deps, job->last_dep++);
 -
 -	return NULL;
 -}
 -
- static int lima_pm_busy(struct lima_device *ldev)
+ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
  {
- 	int ret;
-@@ -472,7 +452,6 @@ static void lima_sched_free_job(struct drm_sched_job *job)
+ 	struct v3d_bin_job *job = to_bin_job(sched_job);
+@@ -372,35 +350,30 @@ v3d_csd_job_timedout(struct drm_sched_job *sched_job)
  }
  
- static const struct drm_sched_backend_ops lima_sched_ops = {
--	.dependency = lima_sched_dependency,
- 	.run_job = lima_sched_run_job,
- 	.timedout_job = lima_sched_timedout_job,
- 	.free_job = lima_sched_free_job,
-diff --git a/drivers/gpu/drm/lima/lima_sched.h b/drivers/gpu/drm/lima/lima_sched.h
-index ac70006b0e26..6a11764d87b3 100644
---- a/drivers/gpu/drm/lima/lima_sched.h
-+++ b/drivers/gpu/drm/lima/lima_sched.h
-@@ -23,9 +23,6 @@ struct lima_sched_task {
- 	struct lima_vm *vm;
- 	void *frame;
+ static const struct drm_sched_backend_ops v3d_bin_sched_ops = {
+-	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_bin_job_run,
+ 	.timedout_job = v3d_bin_job_timedout,
+ 	.free_job = v3d_sched_job_free,
+ };
  
--	struct xarray deps;
--	unsigned long last_dep;
--
- 	struct lima_bo **bos;
- 	int num_bos;
+ static const struct drm_sched_backend_ops v3d_render_sched_ops = {
+-	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_render_job_run,
+ 	.timedout_job = v3d_render_job_timedout,
+ 	.free_job = v3d_sched_job_free,
+ };
  
+ static const struct drm_sched_backend_ops v3d_tfu_sched_ops = {
+-	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_tfu_job_run,
+ 	.timedout_job = v3d_generic_job_timedout,
+ 	.free_job = v3d_sched_job_free,
+ };
+ 
+ static const struct drm_sched_backend_ops v3d_csd_sched_ops = {
+-	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_csd_job_run,
+ 	.timedout_job = v3d_csd_job_timedout,
+ 	.free_job = v3d_sched_job_free
+ };
+ 
+ static const struct drm_sched_backend_ops v3d_cache_clean_sched_ops = {
+-	.dependency = v3d_job_dependency,
+ 	.run_job = v3d_cache_clean_job_run,
+ 	.timedout_job = v3d_generic_job_timedout,
+ 	.free_job = v3d_sched_job_free
 -- 
 2.32.0
 
