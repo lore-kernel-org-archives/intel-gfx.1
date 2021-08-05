@@ -2,54 +2,80 @@ Return-Path: <SRS0=p3Ij=M4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E3FFC4338F
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:23:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 867A2C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:40:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0947F6112D
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:23:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0947F6112D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id F38B160F02
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Aug 2021 10:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F38B160F02
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67B866E5A1;
-	Thu,  5 Aug 2021 10:23:00 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0826C6E529;
- Thu,  5 Aug 2021 10:22:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10066"; a="277873379"
-X-IronPort-AV: E=Sophos;i="5.84,296,1620716400"; d="scan'208";a="277873379"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2021 03:22:56 -0700
-X-IronPort-AV: E=Sophos;i="5.84,296,1620716400"; d="scan'208";a="480779902"
-Received: from ppietrus-mobl1.ger.corp.intel.com (HELO [10.252.51.65])
- ([10.252.51.65])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2021 03:22:54 -0700
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 479196E51A;
+	Thu,  5 Aug 2021 10:40:00 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4659B6E5C5
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Aug 2021 10:39:27 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id z11so7644705edb.11
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Aug 2021 03:39:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=EtY8w55rWgTu3+ITCZzz1nxFZlO+pftQJE9iliktvAg=;
+ b=YdKg4OhjfGV3lGvaam0sw2R57rRtzI/stCEp2nupVJftq7udVmBbyaukKoASb+G2C5
+ z+H9+/vgDtSL8TsnAmxezzw0uMCOUI3QqY/IJBfgxcvHWqY1x6gvzz1AgcCkr3+TooP8
+ xi9OM6F1r4atcAX0NM47MJw8z/4HmiMeNFAmg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=EtY8w55rWgTu3+ITCZzz1nxFZlO+pftQJE9iliktvAg=;
+ b=HY+jU9jMu7ITmg8K+vAA3jXRAri3Dwb7S7XWTxO/MnC2qPgLNUPre2pkuuNQiE20w2
+ 6Z7MBZzZkbm/Zd77TzHlbvlY58cKsK4puhCz0HvuE/kDuJE4yxx2q18nyqy70gNm3yis
+ fb8tbadtPWqp1KtIRd5RoR47UeDYjrX060zr3NYMuWr3zoHrtaGnMkluJ1OPjWL0v3PQ
+ Z+CPriD935h3/S9GoBHRnuhznyd1SgHwmaCOL3Dkzd99cMHU6YTbQVUDr9x+J/F+N7Xp
+ zHlFKJlUfBkwB5OkEPANPQTDm7d4j+m1+KSdW0irggSyXWdy2gVgfz1MXQFVkh8Iz+EQ
+ XwTQ==
+X-Gm-Message-State: AOAM53052geaIs4oeTH27Md1yd1vLlKJkc4HFidKv9d8/VllITa/nR7w
+ ma3RvV+FT44OHApiRyke2tSJ7Nrnj5IKZQ==
+X-Google-Smtp-Source: ABdhPJzwr7Q/JAZxZOSmmJN8VKN/58JpiwbhXtmMxi/HoU/X/WMI5pd3jU1LDYSgsy+vnQgn54YrLw==
+X-Received: by 2002:a05:6402:2073:: with SMTP id
+ bd19mr5490774edb.262.1628159965801; 
+ Thu, 05 Aug 2021 03:39:25 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id j22sm1593727ejt.11.2021.08.05.03.39.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Aug 2021 03:39:25 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Jon Bloomfield <jon.bloomfield@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Message-ID: <e460fece-cfd9-6aa4-37c1-0fb1b473196d@linux.intel.com>
-Date: Thu, 5 Aug 2021 12:22:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.12.0
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+ Dave Airlie <airlied@redhat.com>, Jason Ekstrand <jason@jlekstrand.net>
+Date: Thu,  5 Aug 2021 12:39:13 +0200
+Message-Id: <20210805103916.860853-6-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210805103916.860853-1-daniel.vetter@ffwll.ch>
+References: <20210805103916.860853-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: [Intel-gfx] [PULL] drm-misc-next
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3 5/8] drm/i915: Use i915_gem_context_get_eb_vm
+ in intel_context_set_gem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,166 +91,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm-misc-next-2021-08-05:
-drm-misc-next for v5.15:
+Since
 
-UAPI Changes:
+commit ccbc1b97948ab671335e950271e39766729736c3
+Author: Jason Ekstrand <jason@jlekstrand.net>
+Date:   Thu Jul 8 10:48:30 2021 -0500
 
-Cross-subsystem Changes:
+    drm/i915/gem: Don't allow changing the VM on running contexts (v4)
 
-Core Changes:
-- Assorted docbook updates.
-- Unbreak damage selftests.
-- Define DRM_FORMAT_MAX_PLANES, maximum planes for a planar format.
-- Add gem fb vmap/vunmap helpers, use them in gud and vkms drivers.
+the gem_ctx->vm can't change anymore. Plus we always set the
+intel_context->vm, so might as well use the helper we have for that.
 
-Driver Changes:
-- Bridge fixes for ti-sn65dsi86.
-- Use a full-featured driver for ATNA33XC20 to get backlight right,
-  instead of the simple panel driver.
-- Assorted fixes to pl111,.
-- Support E Ink VB3300-KCA panel.
-- Add support for Gopher 2b LCD and ilitek ili9341 panels.
-The following changes since commit 04d505de7f82c8f2daa6139b460b05dc01e354e0:
+This makes it very clear that we always overwrite intel_context->vm
+for userspace contexts, since the default is gt->vm, which is
+explicitly reserved for kernel context use. It would be good to split
+things up a bit further and avoid any possibility for an accident
+where we run kernel stuff in userspace vm or the other way round.
 
-  Merge tag 'amd-drm-next-5.15-2021-07-29' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2021-07-30 16:48:35 +1000)
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Jon Bloomfield <jon.bloomfield@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Jason Ekstrand <jason@jlekstrand.net>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
 
-are available in the Git repository at:
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index a80b06c98dba..fd24a1236682 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -784,16 +784,8 @@ static int intel_context_set_gem(struct intel_context *ce,
+ 
+ 	ce->ring_size = SZ_16K;
+ 
+-	if (rcu_access_pointer(ctx->vm)) {
+-		struct i915_address_space *vm;
+-
+-		rcu_read_lock();
+-		vm = context_get_vm_rcu(ctx); /* hmm */
+-		rcu_read_unlock();
+-
+-		i915_vm_put(ce->vm);
+-		ce->vm = vm;
+-	}
++	i915_vm_put(ce->vm);
++	ce->vm = i915_gem_context_get_eb_vm(ctx);
+ 
+ 	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
+ 	    intel_engine_has_timeslices(ce->engine) &&
+-- 
+2.32.0
 
-  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-2021-08-05
-
-for you to fetch changes up to 5a04227326b04c15b015181772f5c853172fdb68:
-
-  drm/panel: Add ilitek ili9341 panel driver (2021-08-05 11:09:23 +0200)
-
-----------------------------------------------------------------
-drm-misc-next for v5.15:
-
-UAPI Changes:
-
-Cross-subsystem Changes:
-
-Core Changes:
-- Assorted docbook updates.
-- Unbreak damage selftests.
-- Define DRM_FORMAT_MAX_PLANES, maximum planes for a planar format.
-- Add gem fb vmap/vunmap helpers, use them in gud and vkms drivers.
-
-Driver Changes:
-- Bridge fixes for ti-sn65dsi86.
-- Use a full-featured driver for ATNA33XC20 to get backlight right,
-  instead of the simple panel driver.
-- Assorted fixes to pl111,.
-- Support E Ink VB3300-KCA panel.
-- Add support for Gopher 2b LCD and ilitek ili9341 panels.
-
-----------------------------------------------------------------
-Alistair Francis (1):
-      drm/panel: Add support for E Ink VB3300-KCA
-
-Artjom Vejsel (2):
-      dt-bindings: Add DT bindings for QiShenglong Gopher 2b panel
-      drm/panel-simple: add Gopher 2b LCD panel
-
-Cai Huoqing (2):
-      drm/pl111: Remove unused including <linux/version.h>
-      drm: Fix typo in comments
-
-Daniel Vetter (1):
-      drm: Fix oops in damage self-tests by mocking damage property
-
-Desmond Cheong Zhi Xi (1):
-      drm: clean up unused kerneldoc in drm_lease.c
-
-Dillon Min (2):
-      dt-bindings: display: panel: Add ilitek ili9341 panel bindings
-      drm/panel: Add ilitek ili9341 panel driver
-
-Douglas Anderson (6):
-      drm/dp: Don't zero PWMGEN_BIT_COUNT when driver_pwm_freq_hz not specified
-      drm/bridge: ti-sn65dsi86: Fix power off sequence
-      drm/bridge: ti-sn65dsi86: Add some 100 us delays
-      Revert "drm/panel-simple: Add Samsung ATNA33XC20"
-      Revert "drm/panel-simple: Support for delays between GPIO & regulator"
-      drm/panel: atna33xc20: Introduce the Samsung ATNA33XC20 panel
-
-Gregory Williams (1):
-      DRM: ast: Fixed coding style issues of ast_mode.c
-
-Simon Ser (2):
-      drm/connector: add ref to drm_connector_get in iter docs
-      drm: document drm_mode_get_property
-
-Thomas Zimmermann (5):
-      drm: Define DRM_FORMAT_MAX_PLANES
-      drm/gem: Provide drm_gem_fb_{vmap,vunmap}()
-      drm/gem: Clear mapping addresses for unused framebuffer planes
-      drm/gud: Map framebuffer BOs with drm_gem_fb_vmap()
-      drm/vkms: Map output framebuffer BOs with drm_gem_fb_vmap()
-
- .../bindings/display/panel/ilitek,ili9341.yaml     |  78 ++
- .../bindings/display/panel/panel-simple.yaml       |   4 +
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- Documentation/gpu/drm-kms.rst                      |   2 +
- drivers/gpu/drm/ast/ast_mode.c                     |  31 +-
- drivers/gpu/drm/bridge/ti-sn65dsi86.c              |  17 +-
- drivers/gpu/drm/drm_aperture.c                     |   2 +-
- drivers/gpu/drm/drm_atomic.c                       |   2 +-
- drivers/gpu/drm/drm_atomic_helper.c                |  10 +-
- drivers/gpu/drm/drm_atomic_uapi.c                  |   6 +-
- drivers/gpu/drm/drm_auth.c                         |   2 +-
- drivers/gpu/drm/drm_bridge.c                       |   2 +-
- drivers/gpu/drm/drm_bufs.c                         |   2 +-
- drivers/gpu/drm/drm_cache.c                        |   2 +-
- drivers/gpu/drm/drm_damage_helper.c                |   2 +-
- drivers/gpu/drm/drm_dp_helper.c                    |  18 +-
- drivers/gpu/drm/drm_drv.c                          |   4 +-
- drivers/gpu/drm/drm_dsc.c                          |   2 +-
- drivers/gpu/drm/drm_edid.c                         |   4 +-
- drivers/gpu/drm/drm_fb_helper.c                    |   2 +-
- drivers/gpu/drm/drm_file.c                         |   6 +-
- drivers/gpu/drm/drm_format_helper.c                |   2 +-
- drivers/gpu/drm/drm_framebuffer.c                  |   2 +-
- drivers/gpu/drm/drm_gem.c                          |   4 +-
- drivers/gpu/drm/drm_gem_atomic_helper.c            |  39 +-
- drivers/gpu/drm/drm_gem_framebuffer_helper.c       |  95 ++-
- drivers/gpu/drm/drm_gem_shmem_helper.c             |   2 +-
- drivers/gpu/drm/drm_gem_vram_helper.c              |   2 +-
- drivers/gpu/drm/drm_hdcp.c                         |   2 +-
- drivers/gpu/drm/drm_ioctl.c                        |   4 +-
- drivers/gpu/drm/drm_irq.c                          |   2 +-
- drivers/gpu/drm/drm_lease.c                        | 131 +---
- drivers/gpu/drm/drm_mm.c                           |   2 +-
- drivers/gpu/drm/drm_mode_object.c                  |   2 +-
- drivers/gpu/drm/drm_modes.c                        |   4 +-
- drivers/gpu/drm/drm_plane.c                        |   2 +-
- drivers/gpu/drm/drm_plane_helper.c                 |   2 +-
- drivers/gpu/drm/drm_prime.c                        |   2 +-
- drivers/gpu/drm/drm_probe_helper.c                 |   2 +-
- drivers/gpu/drm/drm_property.c                     |   2 +-
- drivers/gpu/drm/drm_scdc_helper.c                  |   2 +-
- drivers/gpu/drm/drm_syncobj.c                      |   2 +-
- drivers/gpu/drm/drm_vblank.c                       |  12 +-
- drivers/gpu/drm/drm_vma_manager.c                  |   2 +-
- drivers/gpu/drm/gud/gud_pipe.c                     |  10 +-
- drivers/gpu/drm/panel/Kconfig                      |  23 +
- drivers/gpu/drm/panel/Makefile                     |   2 +
- drivers/gpu/drm/panel/panel-ilitek-ili9341.c       | 792 +++++++++++++++++++++
- drivers/gpu/drm/panel/panel-samsung-atna33xc20.c   | 366 ++++++++++
- drivers/gpu/drm/panel/panel-simple.c               | 134 ++--
- drivers/gpu/drm/pl111/pl111_display.c              |   1 -
- drivers/gpu/drm/pl111/pl111_drv.c                  |   1 -
- drivers/gpu/drm/selftests/test-drm_damage_helper.c | 287 ++------
- drivers/gpu/drm/vkms/vkms_composer.c               |   2 +-
- drivers/gpu/drm/vkms/vkms_drv.h                    |   6 +-
- drivers/gpu/drm/vkms/vkms_writeback.c              |  28 +-
- include/drm/drm_connector.h                        |   5 +
- include/drm/drm_fourcc.h                           |  13 +-
- include/drm/drm_framebuffer.h                      |   8 +-
- include/drm/drm_gem_atomic_helper.h                |   3 +-
- include/drm/drm_gem_framebuffer_helper.h           |   6 +
- include/uapi/drm/drm_mode.h                        |  60 +-
- 62 files changed, 1716 insertions(+), 552 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9341.c
- create mode 100644 drivers/gpu/drm/panel/panel-samsung-atna33xc20.c
