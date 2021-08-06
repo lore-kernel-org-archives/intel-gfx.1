@@ -5,30 +5,30 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C1A0CC4338F
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 05:30:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 115A0C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 05:31:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78987611C9
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 05:30:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 78987611C9
+	by mail.kernel.org (Postfix) with ESMTPS id BD04460C3E
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 05:31:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BD04460C3E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED6BC6EA26;
-	Fri,  6 Aug 2021 05:30:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A43586EA3C;
+	Fri,  6 Aug 2021 05:30:50 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5DD66EA26;
- Fri,  6 Aug 2021 05:30:30 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10067"; a="214041532"
-X-IronPort-AV: E=Sophos;i="5.84,299,1620716400"; d="scan'208";a="214041532"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 645366EA29;
+ Fri,  6 Aug 2021 05:30:35 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10067"; a="214041534"
+X-IronPort-AV: E=Sophos;i="5.84,299,1620716400"; d="scan'208";a="214041534"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  05 Aug 2021 22:30:30 -0700
-X-IronPort-AV: E=Sophos;i="5.84,299,1620716400"; d="scan'208";a="481274630"
+X-IronPort-AV: E=Sophos;i="5.84,299,1620716400"; d="scan'208";a="481274635"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
  05 Aug 2021 22:30:30 -0700
@@ -37,13 +37,15 @@ To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: daniel.vetter@intel.com, chris.p.wilson@intel.com,
  thomas.hellstrom@intel.com, paulo.r.zanoni@intel.com
-Date: Thu,  5 Aug 2021 22:30:30 -0700
-Message-Id: <20210806053032.2462-1-niranjana.vishwanathapura@intel.com>
+Date: Thu,  5 Aug 2021 22:30:32 -0700
+Message-Id: <20210806053032.2462-3-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
+In-Reply-To: <20210806053032.2462-1-niranjana.vishwanathapura@intel.com>
+References: <20210806053032.2462-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 0/2] drm/doc/rfc: i915 VM_BIND feature design +
- uapi
+Subject: [Intel-gfx] [RFC 2/2] drm/doc/rfc: VM_BIND uapi definition
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,22 +61,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is the i915 driver VM_BIND feature design RFC patch series along
-with the required uapi definition and description of intended use cases.
+VM_BIND and GEM_WAIT_USER_FENCE uapi document
 
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-
-Niranjana Vishwanathapura (2):
-  drm/doc/rfc: VM_BIND feature design document
-  drm/doc/rfc: VM_BIND uapi definition
-
- Documentation/gpu/rfc/i915_vm_bind.h   | 113 +++++++++++++++++++++
- Documentation/gpu/rfc/i915_vm_bind.rst | 132 +++++++++++++++++++++++++
- Documentation/gpu/rfc/index.rst        |   4 +
- 3 files changed, 249 insertions(+)
+---
+ Documentation/gpu/rfc/i915_vm_bind.h   | 113 +++++++++++++++++++++++++
+ Documentation/gpu/rfc/i915_vm_bind.rst |   6 ++
+ 2 files changed, 119 insertions(+)
  create mode 100644 Documentation/gpu/rfc/i915_vm_bind.h
- create mode 100644 Documentation/gpu/rfc/i915_vm_bind.rst
 
+diff --git a/Documentation/gpu/rfc/i915_vm_bind.h b/Documentation/gpu/rfc/i915_vm_bind.h
+new file mode 100644
+index 000000000000..3aaf66e62aa0
+--- /dev/null
++++ b/Documentation/gpu/rfc/i915_vm_bind.h
+@@ -0,0 +1,113 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2021 Intel Corporation
++ */
++
++/* VM_BIND feature availability through drm_i915_getparam */
++#define I915_PARAM_HAS_VM_BIND          59
++
++/**
++ * struct drm_i915_gem_vm_bind - VA to object/buffer mapping to [un]bind.
++ */
++struct drm_i915_gem_vm_bind {
++	/** vm to [un]bind **/
++	__u32 vm_id;
++
++	/** BO handle or file descriptor. 'fd' to -1 for system pages (SVM) **/
++	union {
++		__u32 handle;
++		__s32 fd;
++	}
++
++	/** VA start to [un]bind **/
++	__u64 start;
++
++	/** Offset in object to [un]bind **/
++	__u64 offset;
++
++	/** VA length to [un]bind **/
++	__u64 length;
++
++	/** Flags **/
++	__u64 flags;
++	/** Bind the mapping immediately instead of during next submission */
++#define I915_GEM_VM_BIND_IMMEDIATE   (1 << 0)
++	/** Read-only mapping */
++#define I915_GEM_VM_BIND_READONLY    (1 << 1)
++	/** Capture this mapping in the dump upon GPU error */
++#define I915_GEM_VM_BIND_CAPTURE     (1 << 2)
++
++	/**
++	 * Zero-terminated chain of extensions.
++	 *
++	 * No current extensions defined; mbz.
++	 */
++	__u64 extensions;
++};
++
++/**
++ * struct drm_i915_vm_bind_ext_sync_fence - Bind completion signaling extension.
++ */
++struct drm_i915_vm_bind_ext_sync_fence {
++#define I915_VM_BIND_EXT_SYNC_FENCE     0
++	/** @base: Extension link. See struct i915_user_extension. */
++	struct i915_user_extension base;
++
++	/** User/Memory fence address */
++	__u64 addr;
++
++	/** User/Memory fence value to be written after bind completion */
++	__u64 val;
++};
++
++/**
++ * struct drm_i915_gem_wait_user_fence
++ *
++ * Wait on user/memory fence. User/Memory fence can be woken up either by,
++ *    1. GPU context indicated by 'ctx_id', or,
++ *    2. Kerrnel driver async worker upon I915_UFENCE_WAIT_SOFT.
++ *       'ctx_id' is ignored when this flag is set.
++ *
++ * Wakeup when below condition is true.
++ * (*addr & MASK) OP (VALUE & MASK)
++ *
++ */
++struct drm_i915_gem_wait_user_fence {
++	/** @base: Extension link. See struct i915_user_extension. */
++	__u64 extensions;
++
++	/** User/Memory fence address */
++	__u64 addr;
++
++	/** Id of the Context which will signal the fence. */
++	__u32 ctx_id;
++
++	/** Wakeup condition operator */
++	__u16 op;
++#define I915_UFENCE_WAIT_EQ      0
++#define I915_UFENCE_WAIT_NEQ     1
++#define I915_UFENCE_WAIT_GT      2
++#define I915_UFENCE_WAIT_GTE     3
++#define I915_UFENCE_WAIT_LT      4
++#define I915_UFENCE_WAIT_LTE     5
++#define I915_UFENCE_WAIT_BEFORE  6
++#define I915_UFENCE_WAIT_AFTER   7
++
++	/** Flags */
++	__u16 flags;
++#define I915_UFENCE_WAIT_SOFT    0x1
++#define I915_UFENCE_WAIT_ABSTIME 0x2
++
++	/** Wakeup value */
++	__u64 value;
++
++	/** Wakeup mask */
++	__u64 mask;
++#define I915_UFENCE_WAIT_U8     0xffu
++#define I915_UFENCE_WAIT_U16    0xffffu
++#define I915_UFENCE_WAIT_U32    0xfffffffful
++#define I915_UFENCE_WAIT_U64    0xffffffffffffffffull
++
++	/** Timeout */
++	__s64 timeout;
++};
+diff --git a/Documentation/gpu/rfc/i915_vm_bind.rst b/Documentation/gpu/rfc/i915_vm_bind.rst
+index dbc35262a554..dc843e32a1cd 100644
+--- a/Documentation/gpu/rfc/i915_vm_bind.rst
++++ b/Documentation/gpu/rfc/i915_vm_bind.rst
+@@ -117,6 +117,12 @@ VM_BIND interface can be used to map system memory directly (without gem BO
+ abstraction) using the HMM interface.
+ 
+ 
++UAPI
++=====
++Uapi definiton can be found here:
++.. kernel-doc:: Documentation/gpu/rfc/i915_vm_bind.h
++
++
+ Links:
+ ======
+ - Reference WIP VM_BIND implementation can be found here.
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
