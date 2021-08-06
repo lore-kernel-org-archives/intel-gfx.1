@@ -2,49 +2,51 @@ Return-Path: <SRS0=dm/n=M5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05C94C4338F
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 05:31:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A364C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 05:50:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C7A160E52
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 05:31:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9C7A160E52
+	by mail.kernel.org (Postfix) with ESMTPS id 9E24961102
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Aug 2021 05:50:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E24961102
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B48786EA4C;
-	Fri,  6 Aug 2021 05:30:57 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAF5B6EA3C;
- Fri,  6 Aug 2021 05:30:38 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10067"; a="214041533"
-X-IronPort-AV: E=Sophos;i="5.84,299,1620716400"; d="scan'208";a="214041533"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B7BC6EA50;
+	Fri,  6 Aug 2021 05:50:35 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24E6B6EA50;
+ Fri,  6 Aug 2021 05:50:34 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10067"; a="278061765"
+X-IronPort-AV: E=Sophos;i="5.84,299,1620716400"; d="scan'208";a="278061765"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2021 22:30:30 -0700
-X-IronPort-AV: E=Sophos;i="5.84,299,1620716400"; d="scan'208";a="481274633"
-Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 05 Aug 2021 22:30:30 -0700
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: daniel.vetter@intel.com, chris.p.wilson@intel.com,
- thomas.hellstrom@intel.com, paulo.r.zanoni@intel.com
-Date: Thu,  5 Aug 2021 22:30:31 -0700
-Message-Id: <20210806053032.2462-2-niranjana.vishwanathapura@intel.com>
-X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
-In-Reply-To: <20210806053032.2462-1-niranjana.vishwanathapura@intel.com>
-References: <20210806053032.2462-1-niranjana.vishwanathapura@intel.com>
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2021 22:50:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,299,1620716400"; d="scan'208";a="481278257"
+Received: from unknown (HELO coxu-arch-shz) ([10.239.160.21])
+ by fmsmga008.fm.intel.com with ESMTP; 05 Aug 2021 22:50:22 -0700
+Date: Fri, 6 Aug 2021 13:50:20 +0800 (CST)
+From: Colin Xu <colin.xu@intel.com>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>
+cc: intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ stable@vger.kernel.org, "Xu, Terrence" <terrence.xu@intel.com>, 
+ "Bloomfield, Jon" <jon.bloomfield@intel.com>, 
+ "Ekstrand, Jason" <jason.ekstrand@intel.com>
+In-Reply-To: <20210806044056.648016-1-zhenyuw@linux.intel.com>
+Message-ID: <facea19-1a97-9cd8-c4a5-cb5dc557ed4d@outlook.office365.com>
+References: <20210721062607.512307-1-zhenyuw@linux.intel.com>
+ <20210806044056.648016-1-zhenyuw@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 1/2] drm/doc/rfc: VM_BIND feature design document
+Content-Type: text/plain; format=flowed; charset=US-ASCII
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/gvt: Fix cached atomics setting
+ for Windows VM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,159 +62,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VM_BIND design document with description of intended use cases.
+On Fri, 6 Aug 2021, Zhenyu Wang wrote:
 
-Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
----
- Documentation/gpu/rfc/i915_vm_bind.rst | 126 +++++++++++++++++++++++++
- Documentation/gpu/rfc/index.rst        |   4 +
- 2 files changed, 130 insertions(+)
- create mode 100644 Documentation/gpu/rfc/i915_vm_bind.rst
+Thanks for the fix! Otherwise Windows VM is unusable with recent kernel.
 
-diff --git a/Documentation/gpu/rfc/i915_vm_bind.rst b/Documentation/gpu/rfc/i915_vm_bind.rst
-new file mode 100644
-index 000000000000..dbc35262a554
---- /dev/null
-+++ b/Documentation/gpu/rfc/i915_vm_bind.rst
-@@ -0,0 +1,126 @@
-+==========================================
-+I915 VM_BIND feature design and use cases
-+==========================================
-+
-+VM_BIND feature
-+================
-+DRM_I915_GEM_VM_BIND/UNBIND ioctls allows UMD to bind/unbind GEM buffer
-+objects (BOs) or sections of a BOs at specified GPU virtual addresses on
-+a specified address space (VM).
-+
-+These mappings (also referred to as persistent mappings) will be persistent
-+across multiple GPU submissions (execbuff) issued by the UMD, making execbuff
-+path leaner with fast path submission latency of O(1) w.r.t the number of
-+objects required for that submission.
-+
-+UMDs can still send BOs of these persistent mappings in execlist of execbuff
-+for specifying BO dependencies (implicit fencing) and to use BO as a batch.
-+
-+The persistent mappings are not individually tracked, instead the address
-+space (VM) they are mapped in is tracked to determine if the mappings are
-+being referred by GPU job (active) or not.
-+
-+VM_BIND features include:
-+- Different VA mappings can map to the same physical pages of an object
-+  (aliasing).
-+- VA mapping can map to a partial section of the BO (partial binding).
-+- Support capture of mapping in the dump upon GPU error.
-+- TLB is flushed upon unbind completion.
-+- Asynchronous vm_bind and vm_unbind support.
-+- VM_BIND uses user/memory fence mechanism (explained below) for signaling
-+  bind completion.
-+
-+
-+User/Memory Fence
-+==================
-+The idea is to take a user process virtual address and install an interrupt
-+handler to wake up the current task when the memory location passes the user
-+supplied filter.
-+
-+It also allows the user to emit their own MI_FLUSH/PIPE_CONTROL notify
-+interrupt within their batches after updating the value on the GPU to
-+have sub-batch precision on the wakeup.
-+
-+User/Memory fence <user address and value pair> can also be supplied to the
-+kernel driver to signal/wake up the user process after completion of an
-+asynchronous operation.
-+
-+This feature will be derived from the below original work:
-+https://patchwork.freedesktop.org/patch/349417/
-+
-+When VM_BIND ioctl was provided with a user/memory fence via SYNC_FENCE
-+extension, it will be signaled upon the completion of binding of that
-+mapping. All async binds/unbinds are serialized, hence signaling of
-+user/memory fence also indicate the completion of all previous binds/unbinds.
-+
-+
-+TODOs
-+======
-+- Rebase VM_BIND on top of ongoing i915 TTM adoption changes including
-+  eviction support.
-+- Various optimizations like around LRU ordering of persistent mappings,
-+  batching of TLB flushes etc.
-+
-+
-+Intended use cases
-+===================
-+
-+Debugger
-+---------
-+With debug event interface user space process (debugger) is able to keep track
-+of and act upon resources created by another process (debuggee) and attached
-+to GPU via vm_bind interface.
-+
-+Mesa/Valkun
-+------------
-+VM_BIND can potentially reduce the CPU-overhead in Mesa thus improving
-+performance. For Vulkan it should be straightforward to use VM_BIND.
-+For Iris implicit buffer tracking must be implemented before we can harness
-+VM_BIND benefits. With increasing GPU hardware performance reducing CPU
-+overhead becomes more important.
-+
-+Page level hints settings
-+--------------------------
-+VM_BIND allows any hints setting per mapping instead of per BO.
-+Possible hints include read-only, placement and atomicity.
-+Sub-BO level placement hint will be even more relevant with
-+upcoming GPU on-demand page fault support.
-+
-+Page level Cache/CLOS settings
-+-------------------------------
-+VM_BIND allows cache/CLOS settings per mapping instead of per BO.
-+
-+Compute
-+--------
-+Usage of dma-fence expects that they complete in reasonable amount of time.
-+Compute on the other hand can be long running. Hence it is appropriate for
-+compute to use user/memory fence (explained above) and dma-fence usage will
-+be limited to in kernel consumption only. Compute must opt-in for this
-+mechanism during context creation time with a 'compute_ctx' flag.
-+
-+Where GPU page faults are not available, kernel driver upon buffer invalidation
-+must initiate a compute context suspend with a dma-fence attached to it.
-+And upon completion of that suspend fence, finish the invalidation and then
-+resume the compute context.
-+
-+This is much easier to support with VM_BIND instead of the current heavier
-+execbuff path resource attachment.
-+
-+Low Latency Submission
-+-----------------------
-+Allow compute UMDs to directly submit GPU jobs instead of through execbuff
-+ioctl. VM_BIND allows map/unmap of BOs required for directly submitted jobs.
-+
-+Shared Virtual Memory (SVM) support
-+------------------------------------
-+VM_BIND interface can be used to map system memory directly (without gem BO
-+abstraction) using the HMM interface.
-+
-+
-+Links:
-+======
-+- Reference WIP VM_BIND implementation can be found here.
-+  https://gitlab.freedesktop.org/nvishwa1/nvishwa1-drm-tip
-+
-+  NOTE: It is WIP and not fully functional. There are known issues which
-+  are being worked upon.
-diff --git a/Documentation/gpu/rfc/index.rst b/Documentation/gpu/rfc/index.rst
-index 91e93a705230..7d10c36b268d 100644
---- a/Documentation/gpu/rfc/index.rst
-+++ b/Documentation/gpu/rfc/index.rst
-@@ -23,3 +23,7 @@ host such documentation:
- .. toctree::
- 
-     i915_scheduler.rst
-+
-+.. toctree::
-+
-+    i915_vm_bind.rst
--- 
-2.21.0.rc0.32.g243a4c7e27
+Reviewed-by: Colin Xu <colin.xu@intel.com>
 
+> We've seen recent regression with host and windows VM running
+> simultaneously that cause gpu hang or even crash. Finally bisect to
+> commit 58586680ffad ("drm/i915: Disable atomics in L3 for gen9"),
+> which seems cached atomics behavior difference caused regression
+> issue.
+>
+> This tries to add new scratch register handler and add those in mmio
+> save/restore list for context switch. No gpu hang produced with this one.
+>
+> Cc: stable@vger.kernel.org # 5.12+
+> Cc: "Xu, Terrence" <terrence.xu@intel.com>
+> Cc: "Bloomfield, Jon" <jon.bloomfield@intel.com>
+> Cc: "Ekstrand, Jason" <jason.ekstrand@intel.com>
+> Fixes: 58586680ffad ("drm/i915: Disable atomics in L3 for gen9")
+> Signed-off-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+> ---
+> drivers/gpu/drm/i915/gvt/handlers.c     | 1 +
+> drivers/gpu/drm/i915/gvt/mmio_context.c | 2 ++
+> 2 files changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
+> index 06024d321a1a..cde0a477fb49 100644
+> --- a/drivers/gpu/drm/i915/gvt/handlers.c
+> +++ b/drivers/gpu/drm/i915/gvt/handlers.c
+> @@ -3149,6 +3149,7 @@ static int init_bdw_mmio_info(struct intel_gvt *gvt)
+> 	MMIO_DFH(_MMIO(0xb100), D_BDW, F_CMD_ACCESS, NULL, NULL);
+> 	MMIO_DFH(_MMIO(0xb10c), D_BDW, F_CMD_ACCESS, NULL, NULL);
+> 	MMIO_D(_MMIO(0xb110), D_BDW);
+> +	MMIO_D(GEN9_SCRATCH_LNCF1, D_BDW_PLUS);
+>
+> 	MMIO_F(_MMIO(0x24d0), 48, F_CMD_ACCESS | F_CMD_WRITE_PATCH, 0, 0,
+> 		D_BDW_PLUS, NULL, force_nonpriv_write);
+> diff --git a/drivers/gpu/drm/i915/gvt/mmio_context.c b/drivers/gpu/drm/i915/gvt/mmio_context.c
+> index b8ac80765461..f776c470914d 100644
+> --- a/drivers/gpu/drm/i915/gvt/mmio_context.c
+> +++ b/drivers/gpu/drm/i915/gvt/mmio_context.c
+> @@ -105,6 +105,8 @@ static struct engine_mmio gen9_engine_mmio_list[] __cacheline_aligned = {
+> 	{RCS0, COMMON_SLICE_CHICKEN2, 0xffff, true}, /* 0x7014 */
+> 	{RCS0, GEN9_CS_DEBUG_MODE1, 0xffff, false}, /* 0x20ec */
+> 	{RCS0, GEN8_L3SQCREG4, 0, false}, /* 0xb118 */
+> +	{RCS0, GEN9_SCRATCH1, 0, false}, /* 0xb11c */
+> +	{RCS0, GEN9_SCRATCH_LNCF1, 0, false}, /* 0xb008 */
+> 	{RCS0, GEN7_HALF_SLICE_CHICKEN1, 0xffff, true}, /* 0xe100 */
+> 	{RCS0, HALF_SLICE_CHICKEN2, 0xffff, true}, /* 0xe180 */
+> 	{RCS0, HALF_SLICE_CHICKEN3, 0xffff, true}, /* 0xe184 */
+> -- 
+> 2.32.0.rc2
+>
+>
+
+--
+Best Regards,
+Colin Xu
