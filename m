@@ -2,71 +2,75 @@ Return-Path: <SRS0=mdfT=NA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 699E0C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 13:38:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DD72C4338F
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 13:47:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D8E1A61019
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 13:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D8E1A61019
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 2694F60F25
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Aug 2021 13:47:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2694F60F25
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C9189B5F;
-	Mon,  9 Aug 2021 13:38:43 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 958D189B5F
- for <intel-gfx@lists.freedesktop.org>; Mon,  9 Aug 2021 13:38:42 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id f5so5714913wrm.13
- for <intel-gfx@lists.freedesktop.org>; Mon, 09 Aug 2021 06:38:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=PUoT48Kepu/WtsZ2zSXdg3rVEV6q2hzCreGMpVRHbBY=;
- b=dRDp3P0MjiNOTlyUFXjf9e+528S552qdXJ7krg52p0OSY36FdlpRvaHvEY1J4HZpfx
- cXwGcrKEaXw0BbV2yplnU8EM9AwDasAVq2p8sRVh9dInVZOonHVH20GOp1tjv3zydsc/
- hTfrwT30/9D+TAxgkiulYHv1IuEc3r9br+Ces=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D72A89BAC;
+	Mon,  9 Aug 2021 13:47:47 +0000 (UTC)
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [IPv6:2607:f8b0:4864:20::72b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E161489ACD;
+ Mon,  9 Aug 2021 02:34:22 +0000 (UTC)
+Received: by mail-qk1-x72b.google.com with SMTP id t68so16870768qkf.8;
+ Sun, 08 Aug 2021 19:34:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mvNc8KEp40u8XM5bp+0t7D+wLd2rEwsp3dCzstYaaGU=;
+ b=nlnkEnMrOuWtZqj+HBSQ8uXnTHHiGWsAH91m80fdrlrjvhbG6KKsH/L1/cCrsJCJek
+ tj0YvgVhbLKLhUb3+0LoTDv0L7y1Svp/+7uw5+5T+0Erv7OgmER/988Hn4S7WL0oIrJf
+ k3vkisJuJ1k+oO2hXaaVhXHA2hJSaDkHEeIZKlxF13GwV0TxXXAzId+VInnpji6lfQCV
+ HClkQXSnm5+z7MpwJtWPfXuwvhcH/8bpKY7SHHUQ/dAbc8BwJvpq+qfV41ov6kmiLJLY
+ 2XVrsBtP+nR81+YDVYufYi5L6GUBuxVzvTdzkWbswSvuW54/tFHLjxNhNhkBaQIUab+i
+ rPZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=PUoT48Kepu/WtsZ2zSXdg3rVEV6q2hzCreGMpVRHbBY=;
- b=UqmUhZnrp6cbnkkBiBLt0+U82YTEJV0gcZtqupScVGaEzs8BiolZQ2HanuqT/jArPS
- jbFJeiVivmLmIGtZVbIFOxkIS9384nPdEUL98nbHZh5JoIVRpZgy3rX55h55gvd+U+2F
- SPRLF357/3NSPNCwn8/2Y0Yj1D/8t2pueak7VAKOfq58fU1bKZ20quyiZVZaSVuO07EF
- 5slpsH+xggILkBZcYpflMgsJl36L7tdQqOBoJBFHXy8kXxHSD8j2VaY1jpAvXhbEIe4C
- JLqY4HAz39UEJX7nDMyCP9ptLvzq42flUVzKqWEosqn6U2s3JgK38H7yXlKRrJtMo5BB
- Cjdw==
-X-Gm-Message-State: AOAM531eIhX2I0dMdcFu33lADVN57KuGYT2JDQlhhWLKuI8mrLsmdup0
- ZtN2QQkL9sSt163ORiiV4PgJog==
-X-Google-Smtp-Source: ABdhPJwNMIksoNnfwnDL94M6cCLC469zciqEj6l/tCwCCWMtveboPOpy0iUcTZQMtdzk16jAFXwx2Q==
-X-Received: by 2002:a5d:5750:: with SMTP id q16mr25440040wrw.9.1628516321122; 
- Mon, 09 Aug 2021 06:38:41 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id 140sm18782060wmb.43.2021.08.09.06.38.40
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mvNc8KEp40u8XM5bp+0t7D+wLd2rEwsp3dCzstYaaGU=;
+ b=TF0vBt3NGotDw/UyqsQjWyrbr4/BVJkSD3hW8ciS+DFWOVhkDNTVs0cRe1BlRMK1ec
+ +OI//chZ9mAiUZt2bW9U0JFhMTgf33vYfXKx4l+yi6piyd6/L5A32Ug5MuHtBr+Oqnfb
+ WNPfHZno5P9toAJhUbPag7E71Zbe7tjascZ9sWo97meoHVVeHws9MD5j9NXLtbcTRR0M
+ l8VbISa4rFKAqJRo8H16UCbcYbkeC0ISwJEH+/jm/nJYjZVMVsbrcgGAHGuDfrHjUu/+
+ k4i5m0XWpaTu5G96lT7zBRPdKYEU2S4Dn4pY8IZiGr5DMF9HTvWiZAE4PS2B4fk7UfLp
+ /DGg==
+X-Gm-Message-State: AOAM531v0EAYI7W0Vo3cEm+/lb3wnNLMBU2/VnJiSOHL1oMtfuBcF5yn
+ Bn0LmOZITHxQhWcB7ppzsSo=
+X-Google-Smtp-Source: ABdhPJzY2bUH6lQr8pQrRnAPmCymeUJuoWEhinskSxMJQ5axmW91ZJ55W+jSIReeuOVzOHoElT86RQ==
+X-Received: by 2002:a37:4641:: with SMTP id t62mr20756456qka.389.1628476461792; 
+ Sun, 08 Aug 2021 19:34:21 -0700 (PDT)
+Received: from localhost.localdomain (ip70-186-197-128.hr.hr.cox.net.
+ [70.186.197.128])
+ by smtp.gmail.com with ESMTPSA id u6sm9085018qkp.49.2021.08.08.19.34.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Aug 2021 06:38:40 -0700 (PDT)
-Date: Mon, 9 Aug 2021 15:38:38 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Message-ID: <YREv3mwWxH6cN9I7@phenom.ffwll.local>
-References: <20210808180757.81440-1-matthew.brost@intel.com>
- <20210808180757.81440-3-matthew.brost@intel.com>
+ Sun, 08 Aug 2021 19:34:21 -0700 (PDT)
+From: Julius Victorian <julius.victorian.home@gmail.com>
+To: airlied@linux.ie
+Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ linux-kernel@vger.kernel.org, rodrigo.vivi@intel.com, daniel@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Julius <julius.victorian.home@gmail.com>
+Date: Sun,  8 Aug 2021 22:33:42 -0400
+Message-Id: <20210809023342.377422-1-julius.victorian.home@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210808180757.81440-3-matthew.brost@intel.com>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
-Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915/selftests: Fix memory
- corruption in live_lrc_isolation
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 09 Aug 2021 13:47:46 +0000
+Subject: [Intel-gfx] [PATCH] DRM: i915: i915_perf: Fixed compiler warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,82 +86,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Aug 08, 2021 at 11:07:56AM -0700, Matthew Brost wrote:
-> GuC submission has exposed an existing memory corruption in
-> live_lrc_isolation. We believe that some writes to the watchdog offsets
-> in the LRC (0x178 & 0x17c) can result in trashing of portions of the
-> address space. With GuC submission there are additional objects which
-> can move the context redzone into the space that is trashed. To
-> workaround this avoid poisoning the watchdog.
+From: Julius <julius.victorian.home@gmail.com>
 
-A Bspec reference here would be good (we can quote anything that's marked
-for public release, so doesn't have one of the IP markers).
+Fixed compiler warning: "left shift of negative value"
 
-Also I think the above should be replicated in condensed form instead of
-the XXX comment.
+Signed-off-by: Julius Victorian <julius.victorian.home@gmail.com>
+---
+ drivers/gpu/drm/i915/i915_perf.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-With those: Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch> since I
-definitely have enough clue here for a detailed review.
--Daniel
-
-> 
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/selftest_lrc.c | 29 +++++++++++++++++++++++++-
->  1 file changed, 28 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-> index b0977a3b699b..6500e9fce8a0 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-> @@ -1074,6 +1074,32 @@ record_registers(struct intel_context *ce,
->  	goto err_after;
->  }
->  
-> +static u32 safe_offset(u32 offset, u32 reg)
-> +{
-> +	/* XXX skip testing of watchdog */
-> +	if (offset == 0x178 || offset == 0x17c)
-> +		reg = 0;
-> +
-> +	return reg;
-> +}
-> +
-> +static int get_offset_mask(struct intel_engine_cs *engine)
-> +{
-> +	if (GRAPHICS_VER(engine->i915) < 12)
-> +		return 0xfff;
-> +
-> +	switch (engine->class) {
-> +	default:
-> +	case RENDER_CLASS:
-> +		return 0x07ff;
-> +	case COPY_ENGINE_CLASS:
-> +		return 0x0fff;
-> +	case VIDEO_DECODE_CLASS:
-> +	case VIDEO_ENHANCEMENT_CLASS:
-> +		return 0x3fff;
-> +	}
-> +}
-> +
->  static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
->  {
->  	struct i915_vma *batch;
-> @@ -1117,7 +1143,8 @@ static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
->  		len = (len + 1) / 2;
->  		*cs++ = MI_LOAD_REGISTER_IMM(len);
->  		while (len--) {
-> -			*cs++ = hw[dw];
-> +			*cs++ = safe_offset(hw[dw] & get_offset_mask(ce->engine),
-> +					    hw[dw]);
->  			*cs++ = poison;
->  			dw += 2;
->  		}
-> -- 
-> 2.28.0
-> 
-
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 9f94914958c3..7b852974241e 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -2804,7 +2804,7 @@ get_default_sseu_config(struct intel_sseu *out_sseu,
+ 		 * all available subslices per slice.
+ 		 */
+ 		out_sseu->subslice_mask =
+-			~(~0 << (hweight8(out_sseu->subslice_mask) / 2));
++			~(~0U << (hweight8(out_sseu->subslice_mask) / 2));
+ 		out_sseu->slice_mask = 0x1;
+ 	}
+ }
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.30.2
+
