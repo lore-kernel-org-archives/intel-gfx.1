@@ -2,50 +2,53 @@ Return-Path: <SRS0=Fgr2=NB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47959C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 11:48:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A06BCC4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 11:51:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 070F7604D7
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 11:48:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 070F7604D7
+	by mail.kernel.org (Postfix) with ESMTPS id 64A6260E09
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 11:51:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 64A6260E09
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4852989D99;
-	Tue, 10 Aug 2021 11:48:41 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB1289D99
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 11:48:38 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10070"; a="214912944"
-X-IronPort-AV: E=Sophos;i="5.84,310,1620716400"; d="scan'208";a="214912944"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2021 04:48:38 -0700
-X-IronPort-AV: E=Sophos;i="5.84,310,1620716400"; d="scan'208";a="674937638"
-Received: from genxfsim-desktop.iind.intel.com ([10.223.74.179])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2021 04:48:35 -0700
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: david.e.box@intel.com, Anshuman Gupta <anshuman.gupta@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Imre Deak <imre.deak@intel.com>
-Date: Tue, 10 Aug 2021 17:01:12 +0530
-Message-Id: <20210810113112.31739-2-anshuman.gupta@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210810113112.31739-1-anshuman.gupta@intel.com>
-References: <20210810113112.31739-1-anshuman.gupta@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AB0D89E0D;
+	Tue, 10 Aug 2021 11:51:41 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE18489E0C;
+ Tue, 10 Aug 2021 11:51:39 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10070"; a="214871368"
+X-IronPort-AV: E=Sophos;i="5.84,310,1620716400"; d="scan'208";a="214871368"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2021 04:51:38 -0700
+X-IronPort-AV: E=Sophos;i="5.84,310,1620716400"; d="scan'208";a="515767016"
+Received: from aktiwary-mobl3.amr.corp.intel.com (HELO localhost)
+ ([10.249.40.8])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2021 04:51:34 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Thomas
+ =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, Matthew Auld
+ <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <YRJUFIlXtyxT1m/Q@phenom.ffwll.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210810084128.17242-1-jani.nikula@intel.com>
+ <YRJUFIlXtyxT1m/Q@phenom.ffwll.local>
+Date: Tue, 10 Aug 2021 14:51:30 +0300
+Message-ID: <87mtppo6v1.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI v2 1/1] drm/i915: Tweaked Wa_14010685332 for all
- PCHs
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gem/ttm: prefer kernel types
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,112 +64,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dispcnlunit1_cp_xosc_clkreq clock observed to be active on TGL-H platform
-despite Wa_14010685332 original sequence, thus blocks entry to deeper s0ix state.
+On Tue, 10 Aug 2021, Daniel Vetter <daniel@ffwll.ch> wrote:
+> On Tue, Aug 10, 2021 at 11:41:28AM +0300, Jani Nikula wrote:
+>> Avoid uintXX_t types in the driver.
+>>=20
+>> Fixes: 213d50927763 ("drm/i915/ttm: Introduce a TTM i915 gem object back=
+end")
+>> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+>> Cc: Matthew Auld <matthew.auld@intel.com>
+>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i=
+915/gem/i915_gem_ttm.c
+>> index 771eb2963123..ffda88156e32 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>> @@ -168,7 +168,7 @@ i915_ttm_placement_from_obj(const struct drm_i915_ge=
+m_object *obj,
+>>  }
+>>=20=20
+>>  static struct ttm_tt *i915_ttm_tt_create(struct ttm_buffer_object *bo,
+>> -					 uint32_t page_flags)
+>> +					 u32 page_flags)
+>
+> It's for the ttm_device_funcs ops table, I thinhk we should fix it there
+> and across the board?
+>
+> Otherwise a bit ocd mismatch :-)
 
-The Tweaked Wa_14010685332 sequence fixes this issue, therefore use tweaked
-Wa_14010685332 sequence for every PCH since PCH_CNP.
+Well, the above is the only uintXX_t reference in i915.
 
-v2:
-- removed RKL from comment and simplified condition. [Rodrigo]
+BR,
+Jani.
 
-Fixes: b896898c7369 ("drm/i915: Tweaked Wa_14010685332 for PCHs used on gen11 platforms")
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- .../drm/i915/display/intel_display_power.c    | 16 +++++++-------
- drivers/gpu/drm/i915/i915_irq.c               | 21 -------------------
- 2 files changed, 8 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 5da293369f30..cce1a926fcc1 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -6329,13 +6329,13 @@ void intel_display_power_suspend_late(struct drm_i915_private *i915)
- 	if (DISPLAY_VER(i915) >= 11 || IS_GEMINILAKE(i915) ||
- 	    IS_BROXTON(i915)) {
- 		bxt_enable_dc9(i915);
--		/* Tweaked Wa_14010685332:icp,jsp,mcc */
--		if (INTEL_PCH_TYPE(i915) >= PCH_ICP && INTEL_PCH_TYPE(i915) <= PCH_MCC)
--			intel_de_rmw(i915, SOUTH_CHICKEN1,
--				     SBCLK_RUN_REFCLK_DIS, SBCLK_RUN_REFCLK_DIS);
- 	} else if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
- 		hsw_enable_pc8(i915);
- 	}
-+
-+	/* Tweaked Wa_14010685332:cnp,icp,jsp,mcc,tgp,adp */
-+	if (INTEL_PCH_TYPE(i915) >= PCH_CNP && INTEL_PCH_TYPE(i915) < PCH_DG1)
-+		intel_de_rmw(i915, SOUTH_CHICKEN1, SBCLK_RUN_REFCLK_DIS, SBCLK_RUN_REFCLK_DIS);
- }
- 
- void intel_display_power_resume_early(struct drm_i915_private *i915)
-@@ -6344,13 +6344,13 @@ void intel_display_power_resume_early(struct drm_i915_private *i915)
- 	    IS_BROXTON(i915)) {
- 		gen9_sanitize_dc_state(i915);
- 		bxt_disable_dc9(i915);
--		/* Tweaked Wa_14010685332:icp,jsp,mcc */
--		if (INTEL_PCH_TYPE(i915) >= PCH_ICP && INTEL_PCH_TYPE(i915) <= PCH_MCC)
--			intel_de_rmw(i915, SOUTH_CHICKEN1, SBCLK_RUN_REFCLK_DIS, 0);
--
- 	} else if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
- 		hsw_disable_pc8(i915);
- 	}
-+
-+	/* Tweaked Wa_14010685332:cnp,icp,jsp,mcc,tgp,adp */
-+	if (INTEL_PCH_TYPE(i915) >= PCH_CNP && INTEL_PCH_TYPE(i915) < PCH_DG1)
-+		intel_de_rmw(i915, SOUTH_CHICKEN1, SBCLK_RUN_REFCLK_DIS, 0);
- }
- 
- void intel_display_power_suspend(struct drm_i915_private *i915)
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 17d336218b67..9bc4f4a8e12e 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -3079,24 +3079,6 @@ static void valleyview_irq_reset(struct drm_i915_private *dev_priv)
- 	spin_unlock_irq(&dev_priv->irq_lock);
- }
- 
--static void cnp_display_clock_wa(struct drm_i915_private *dev_priv)
--{
--	struct intel_uncore *uncore = &dev_priv->uncore;
--
--	/*
--	 * Wa_14010685332:cnp/cmp,tgp,adp
--	 * TODO: Clarify which platforms this applies to
--	 * TODO: Figure out if this workaround can be applied in the s0ix suspend/resume handlers as
--	 * on earlier platforms and whether the workaround is also needed for runtime suspend/resume
--	 */
--	if (INTEL_PCH_TYPE(dev_priv) == PCH_CNP ||
--	    (INTEL_PCH_TYPE(dev_priv) >= PCH_TGP && INTEL_PCH_TYPE(dev_priv) < PCH_DG1)) {
--		intel_uncore_rmw(uncore, SOUTH_CHICKEN1, SBCLK_RUN_REFCLK_DIS,
--				 SBCLK_RUN_REFCLK_DIS);
--		intel_uncore_rmw(uncore, SOUTH_CHICKEN1, SBCLK_RUN_REFCLK_DIS, 0);
--	}
--}
--
- static void gen8_display_irq_reset(struct drm_i915_private *dev_priv)
- {
- 	struct intel_uncore *uncore = &dev_priv->uncore;
-@@ -3130,7 +3112,6 @@ static void gen8_irq_reset(struct drm_i915_private *dev_priv)
- 	if (HAS_PCH_SPLIT(dev_priv))
- 		ibx_irq_reset(dev_priv);
- 
--	cnp_display_clock_wa(dev_priv);
- }
- 
- static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
-@@ -3174,8 +3155,6 @@ static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
- 
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 		GEN3_IRQ_RESET(uncore, SDE);
--
--	cnp_display_clock_wa(dev_priv);
- }
- 
- static void gen11_irq_reset(struct drm_i915_private *dev_priv)
--- 
-2.26.2
+> -Daniel
+>
+>>  {
+>>  	struct ttm_resource_manager *man =3D
+>>  		ttm_manager_type(bo->bdev, bo->resource->mem_type);
+>> --=20
+>> 2.20.1
+>>=20
 
+--=20
+Jani Nikula, Intel Open Source Graphics Center
