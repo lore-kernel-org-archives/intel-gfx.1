@@ -2,44 +2,53 @@ Return-Path: <SRS0=Fgr2=NB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AF60C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 05:10:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4AB7C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 05:24:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA26260F25
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 05:10:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BA26260F25
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 3EB1C60EC0
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 05:24:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3EB1C60EC0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3044D89CB3;
-	Tue, 10 Aug 2021 05:10:55 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4E55489CA0;
- Tue, 10 Aug 2021 05:10:54 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 38BD1A7E03;
- Tue, 10 Aug 2021 05:10:54 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8472881463306701472=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id B520089DF7;
+	Tue, 10 Aug 2021 05:23:59 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78AD989DF7;
+ Tue, 10 Aug 2021 05:23:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10070"; a="202016620"
+X-IronPort-AV: E=Sophos;i="5.84,309,1620716400"; 
+ d="asc'?scan'208";a="202016620"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Aug 2021 22:23:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,309,1620716400"; 
+ d="asc'?scan'208";a="444936220"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
+ by fmsmga007.fm.intel.com with ESMTP; 09 Aug 2021 22:23:55 -0700
+Date: Tue, 10 Aug 2021 13:01:33 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>,
+ Zhi Wang <zhi.a.wang@intel.com>, "Lv, Zhiyuan" <zhiyuan.lv@intel.com>,
+ "Yuan, Hang" <hang.yuan@intel.com>
+Message-ID: <20210810050133.GO13928@zhen-hp.sh.intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Lucas De Marchi" <lucas.demarchi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Aug 2021 05:10:54 -0000
-Message-ID: <162857225422.29683.13097975678459111421@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210809194805.3793060-1-lucas.demarchi@intel.com>
-In-Reply-To: <20210809194805.3793060-1-lucas.demarchi@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Free_all_DMC_payloads_=28rev2=29?=
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="0et/Au7PJwzVwd4K"
+Content-Disposition: inline
+Subject: [Intel-gfx] [PULL] gvt-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,178 +61,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8472881463306701472==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 
-== Series Details ==
-
-Series: drm/i915: Free all DMC payloads (rev2)
-URL   : https://patchwork.freedesktop.org/series/93521/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_10462 -> Patchwork_20790
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20790 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_cursor_legacy@basic-flip-after-cursor-atomic:
-    - fi-rkl-11600:       [PASS][1] -> [SKIP][2] ([fdo#111825])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10462/fi-rkl-11600/igt@kms_cursor_legacy@basic-flip-after-cursor-atomic.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/fi-rkl-11600/igt@kms_cursor_legacy@basic-flip-after-cursor-atomic.html
-
-  * igt@prime_vgem@basic-userptr:
-    - fi-pnv-d510:        NOTRUN -> [SKIP][3] ([fdo#109271]) +48 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/fi-pnv-d510/igt@prime_vgem@basic-userptr.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_parallel@engines@userptr:
-    - fi-pnv-d510:        [INCOMPLETE][4] ([i915#299]) -> [PASS][5]
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10462/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html
-
-  * igt@i915_selftest@live@gt_lrc:
-    - fi-rkl-guc:         [DMESG-WARN][6] -> [PASS][7] +1 similar issue
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10462/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111825]: https://bugs.freedesktop.org/show_bug.cgi?id=111825
-  [i915#299]: https://gitlab.freedesktop.org/drm/intel/issues/299
+--0et/Au7PJwzVwd4K
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
 
-Participating hosts (37 -> 34)
-------------------------------
+Hi,
 
-  Missing    (3): fi-bdw-samus fi-bsw-cyan bat-jsl-1 
+Here's one regression fix for windows VM hang issue on recent drivers.
 
+Thanks
+--
+The following changes since commit c90b4503ccf42d9d367e843c223df44aa550e82a:
 
-Build changes
--------------
+  drm/i915/gvt: Clear d3_entered on elsp cmd submission. (2021-07-08 16:42:34 +0800)
 
-  * Linux: CI_DRM_10462 -> Patchwork_20790
+are available in the Git repository at:
 
-  CI-20190529: 20190529
-  CI_DRM_10462: 1ab8dc433360478c35eba12661f1dd9327588830 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6163: 9f9d82df8c8e68c304e84aba717a9937b65e10e6 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20790: 6af2cfb574c5ad55400b5af104a8477ab8715817 @ git://anongit.freedesktop.org/gfx-ci/linux
+  https://github.com/intel/gvt-linux tags/gvt-fixes-2021-08-10
 
+for you to fetch changes up to 699aa57b35672c3b2f230e2b7e5d0ab8c2bde80a:
 
-== Linux commits ==
+  drm/i915/gvt: Fix cached atomics setting for Windows VM (2021-08-09 14:42:09 +0800)
 
-6af2cfb574c5 drm/i915: Free all DMC payloads
+----------------------------------------------------------------
+gvt-fixes-2021-08-10
 
-== Logs ==
+- Fix windows VM hang issue for atomics workaround (Zhenyu)
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/index.html
+----------------------------------------------------------------
+Zhenyu Wang (1):
+      drm/i915/gvt: Fix cached atomics setting for Windows VM
 
---===============8472881463306701472==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ drivers/gpu/drm/i915/gvt/handlers.c     | 1 +
+ drivers/gpu/drm/i915/gvt/mmio_context.c | 2 ++
+ 2 files changed, 3 insertions(+)
 
+--0et/Au7PJwzVwd4K
+Content-Type: application/pgp-signature; name="signature.asc"
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
+-----BEGIN PGP SIGNATURE-----
 
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYRIIIwAKCRCxBBozTXgY
+J5VxAJ0Zq9s/40VlWt5Fc70UI/ws5rCSSwCfdXdE4mWH5k1gJjfQbcxkDpscSGY=
+=oZVH
+-----END PGP SIGNATURE-----
 
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Free all DMC payloads (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93521/">https://patchwork.freedesktop.org/series/93521/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10462 -&gt; Patchwork_20790</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20790 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@kms_cursor_legacy@basic-flip-after-cursor-atomic:</p>
-<ul>
-<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10462/fi-rkl-11600/igt@kms_cursor_legacy@basic-flip-after-cursor-atomic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/fi-rkl-11600/igt@kms_cursor_legacy@basic-flip-after-cursor-atomic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111825">fdo#111825</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/fi-pnv-d510/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +48 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_parallel@engines@userptr:</p>
-<ul>
-<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10462/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/299">i915#299</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/fi-pnv-d510/igt@gem_exec_parallel@engines@userptr.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_lrc:</p>
-<ul>
-<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10462/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html">DMESG-WARN</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20790/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html">PASS</a> +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (37 -&gt; 34)</h2>
-<p>Missing    (3): fi-bdw-samus fi-bsw-cyan bat-jsl-1 </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10462 -&gt; Patchwork_20790</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10462: 1ab8dc433360478c35eba12661f1dd9327588830 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6163: 9f9d82df8c8e68c304e84aba717a9937b65e10e6 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20790: 6af2cfb574c5ad55400b5af104a8477ab8715817 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>6af2cfb574c5 drm/i915: Free all DMC payloads</p>
-
-</body>
-</html>
-
---===============8472881463306701472==--
+--0et/Au7PJwzVwd4K--
