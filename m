@@ -2,45 +2,76 @@ Return-Path: <SRS0=Fgr2=NB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D568C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 16:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A8ABC4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 16:13:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DBFAC60EB5
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 16:00:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DBFAC60EB5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id BF57860234
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Aug 2021 16:13:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BF57860234
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DFF689FEA;
-	Tue, 10 Aug 2021 16:00:17 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2354189FEA;
- Tue, 10 Aug 2021 16:00:16 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1AC17AA0EA;
- Tue, 10 Aug 2021 16:00:16 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 335886E04A;
+	Tue, 10 Aug 2021 16:13:21 +0000 (UTC)
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93936897C3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 14:50:33 +0000 (UTC)
+Received: by mail-pj1-x102a.google.com with SMTP id
+ 28-20020a17090a031cb0290178dcd8a4d1so2158356pje.0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Aug 2021 07:50:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=6bWvrTdryJ9Kr+Y1iNZlAE5XmrjtHq6EDhqbPAS8m0o=;
+ b=mFTNiEePHCF7XmyJghvQPKq30kaOpRtFtuYP6xhlzI6pVuGt2sl7m0mZrrark+VIUG
+ yoCyQPbjLzBvvKkYaPnOpnoVrtR+mJOHttmB3QyYTrXt8g6gbr0I6/v3wrdqE12UkgfS
+ GjkpHMA9yccRsMnmaODhdCBUWYLX+Bouc4Z7DN+p8mPNsfslT+54rv+4E28P4EubVlPq
+ GMlF5RYYOVcym8KVDjuyDJSgIbjn4FegzlT4rnIm8SMOQewO1vs+Nlc+mSOuyDLVbGOz
+ YE+dQ4cmhGLTkVXIvHZDB7QeDLGC7zWrnb4BtkLVBFf97YSYvkkzmY3Flcm07LHtq6x7
+ FE1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=6bWvrTdryJ9Kr+Y1iNZlAE5XmrjtHq6EDhqbPAS8m0o=;
+ b=AxfwGQ1bz37gZIE4GCjFtPFVJmKfteTrfAH0Z8a+gZb72qIOUykZCwFKMVdpeyd8Pe
+ WZ/UR2cPh3pX2ce8NwVDKGbOvA9p/4fYFHNIaDZy4YQ0C3AZw+2aheyA/MbO7hMDtPuY
+ OitVMqxG2BwwP2OyM0TJvsb5JEIWibvKYdZlSGn8oighsKZvZlUrgncW3AMvW7gvwlIF
+ SOjT3rLXM35qjAoG3+v/StXAZ3wYfEsxsy87xII8Gb3A+bi0TVjJkiM3oShD0beB80Vq
+ yMrJNkSHF2khhyw4fZWsEYKzHXZpKShYncZT5ioDNiZ8l5uEYKj68jZ/1mOOlkvWVV9T
+ ugKA==
+X-Gm-Message-State: AOAM531kkkPTLS5zShW2me41XTyZDY1CF1EtL6MWJvjxyhvqjEQGtFhb
+ g0pc8YhOdMPbHCSxtQj/9g8=
+X-Google-Smtp-Source: ABdhPJwkOSfcfZo6LGbrekBJx5KKCk3AMDZVd3aoAe8eSroO+qK8UyLljCVix2ubOaGyFkcjCkMulA==
+X-Received: by 2002:aa7:8c56:0:b029:3c2:ca37:800 with SMTP id
+ e22-20020aa78c560000b02903c2ca370800mr29525852pfd.54.1628607033175; 
+ Tue, 10 Aug 2021 07:50:33 -0700 (PDT)
+Received: from localhost.localdomain ([143.244.60.168])
+ by smtp.gmail.com with ESMTPSA id u20sm27404885pgm.4.2021.08.10.07.50.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Aug 2021 07:50:32 -0700 (PDT)
+From: youling257 <youling257@gmail.com>
+To: imre.deak@intel.com
+Cc: alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
+ tiwai@suse.de, tv@lio96.de
+Date: Tue, 10 Aug 2021 22:50:18 +0800
+Message-Id: <20210810145018.24001-1-youling257@gmail.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210623134601.2128663-1-imre.deak@intel.com>
+References: <20210623134601.2128663-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Aug 2021 16:00:16 -0000
-Message-ID: <162861121608.29683.13563268025149594348@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210810130523.1972031-1-daniel.vetter@ffwll.ch>
-In-Reply-To: <20210810130523.1972031-1-daniel.vetter@ffwll.ch>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Use_locked_access_to_ctx-=3Eengines_in_set=5Fpr?=
- =?utf-8?q?iority?=
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 10 Aug 2021 16:13:19 +0000
+Subject: Re: [Intel-gfx] [PATCH 1/2] ALSA: hda: Release controller display
+ power during shutdown/reboot
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,42 +84,7 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: drm/i915: Use locked access to ctx->engines in set_priority
-URL   : https://patchwork.freedesktop.org/series/93558/
-State : warning
-
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-cc99b1d7369b drm/i915: Use locked access to ctx->engines in set_priority
--:8: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 89ff76bf9b3b ("drm/i915/gem: Utilize rcu iteration of context engines")'
-#8: 
-commit 89ff76bf9b3b0b86e6bbe344bd6378d8661303fc
-
--:17: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#17: 
-ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")
-
--:17: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")'
-#17: 
-ccbc1b97948a ("drm/i915/gem: Don't allow changing the VM on running contexts (v4)")
-
--:18: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit c7a71fc8ee04 ("drm/i915: Drop getparam support for I915_CONTEXT_PARAM_ENGINES")'
-#18: 
-c7a71fc8ee04 ("drm/i915: Drop getparam support for I915_CONTEXT_PARAM_ENGINES")
-
--:19: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 4a766ae40ec8 ("drm/i915: Drop the CONTEXT_CLONE API (v2)")'
-#19: 
-4a766ae40ec8 ("drm/i915: Drop the CONTEXT_CLONE API (v2)")
-
--:139: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
-
-total: 4 errors, 2 warnings, 0 checks, 93 lines checked
-
-
+it cause my intel 7820hk cpu failed shutdown.
