@@ -2,53 +2,49 @@ Return-Path: <SRS0=hgVn=NC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AA36C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 21:04:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 939ECC4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 21:23:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0F81B60F46
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 21:04:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0F81B60F46
+	by mail.kernel.org (Postfix) with ESMTPS id 5861160560
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Aug 2021 21:23:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5861160560
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE266E1BB;
-	Wed, 11 Aug 2021 21:04:19 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E14BB6E1BB
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Aug 2021 21:04:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10073"; a="215248631"
-X-IronPort-AV: E=Sophos;i="5.84,313,1620716400"; d="scan'208";a="215248631"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2021 14:04:17 -0700
-X-IronPort-AV: E=Sophos;i="5.84,313,1620716400"; d="scan'208";a="460860839"
-Received: from mdroper-desk1.fm.intel.com (HELO
- mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2021 14:04:17 -0700
-Date: Wed, 11 Aug 2021 14:04:15 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
-To: "Souza, Jose" <jose.souza@intel.com>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "mika.kuoppala@linux.intel.com" <mika.kuoppala@linux.intel.com>,
- "Ceraolo Spurio, Daniele" <daniele.ceraolospurio@intel.com>
-Message-ID: <20210811210415.GI1556418@mdroper-desk1.amr.corp.intel.com>
-References: <20210806174130.1058960-1-matthew.d.roper@intel.com>
- <c53a507f96eadee5178062305c999ff1250999c9.camel@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D0756E1D2;
+	Wed, 11 Aug 2021 21:23:37 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9CB86E1D2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Aug 2021 21:23:36 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10073"; a="195493258"
+X-IronPort-AV: E=Sophos;i="5.84,313,1620716400"; d="scan'208";a="195493258"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2021 14:23:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,313,1620716400"; d="scan'208";a="676383494"
+Received: from jhli-desk1.jf.intel.com ([10.54.74.156])
+ by fmsmga005.fm.intel.com with ESMTP; 11 Aug 2021 14:23:36 -0700
+From: Juston Li <juston.li@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: seanpaul@chromium.org, anshuman.gupta@intel.com, ramalingam.c@intel.com,
+ rodrigo.vivi@intel.com, Juston Li <juston.li@intel.com>
+Date: Wed, 11 Aug 2021 14:23:12 -0700
+Message-Id: <20210811212314.153269-2-juston.li@intel.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210811212314.153269-1-juston.li@intel.com>
+References: <20210811212314.153269-1-juston.li@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c53a507f96eadee5178062305c999ff1250999c9.camel@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Only access SFC_DONE when media
- domain is not fused off
+Subject: [Intel-gfx] [PATCH v4 1/3] drm/i915/hdcp: update
+ cp_irq_count_cached in intel_dp_hdcp2_read_msg()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,82 +60,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 11, 2021 at 01:55:48PM -0700, Souza, Jose wrote:
-> On Fri, 2021-08-06 at 10:41 -0700, Matt Roper wrote:
-> > The SFC_DONE register lives within the corresponding VD0/VD2/VD4/VD6
-> > forcewake domain and is not accessible if the vdbox in that domain is
-> > fused off and the forcewake is not initialized.
-> > 
-> > This mistake went unnoticed because until recently we were using the
-> > wrong register offset for the SFC_DONE register; once the register
-> > offset was corrected, we started hitting errors like
-> > 
-> >   <4> [544.989065] i915 0000:cc:00.0: Uninitialized forcewake domain(s) 0x80 accessed at 0x1ce000
-> > 
-> > on parts with fused-off vdbox engines.
-> 
-> Reviewed-by: José Roberto de Souza <jose.souza@intel.com>
+Update cp_irq_count_cached when reading messages rather than when
+writing a message to make sure the value is up to date and not
+stale from a previously handled CP_IRQ.
 
-Applied to drm-intel-next.  Thanks for the review.
+AKE flow  doesn't always respond to a read with a ACK write msg.
+E.g. AKE_Send_Pairing_Info will "timeout" because we received
+a CP_IRQ for reading AKE_Send_H_Prime but no write occurred between that
+and reading AKE_Send_Pairing_Info so cp_irq_count_cached is stale
+causing the wait to return right away rather than waiting for a new
+CP_IRQ.
 
+Signed-off-by: Juston Li <juston.li@intel.com>
+Acked-by: Anshuman Gupta <anshuman.gupta@intel.com>
+Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Matt
-
-> 
-> > 
-> > Fixes: e50dbdbfd9fb ("drm/i915/tgl: Add SFC instdone to error state")
-> > Fixes: 82929a2140eb ("drm/i915: Correct SFC_DONE register offset")
-> > Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> > Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-> > Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/i915_gpu_error.c | 19 ++++++++++++++++++-
-> >  1 file changed, 18 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-> > index 0f08bcfbe964..9cf6ac575de1 100644
-> > --- a/drivers/gpu/drm/i915/i915_gpu_error.c
-> > +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-> > @@ -727,9 +727,18 @@ static void err_print_gt(struct drm_i915_error_state_buf *m,
-> >  	if (GRAPHICS_VER(m->i915) >= 12) {
-> >  		int i;
-> >  
-> > -		for (i = 0; i < GEN12_SFC_DONE_MAX; i++)
-> > +		for (i = 0; i < GEN12_SFC_DONE_MAX; i++) {
-> > +			/*
-> > +			 * SFC_DONE resides in the VD forcewake domain, so it
-> > +			 * only exists if the corresponding VCS engine is
-> > +			 * present.
-> > +			 */
-> > +			if (!HAS_ENGINE(gt->_gt, _VCS(i * 2)))
-> > +				continue;
-> > +
-> >  			err_printf(m, "  SFC_DONE[%d]: 0x%08x\n", i,
-> >  				   gt->sfc_done[i]);
-> > +		}
-> >  
-> >  		err_printf(m, "  GAM_DONE: 0x%08x\n", gt->gam_done);
-> >  	}
-> > @@ -1598,6 +1607,14 @@ static void gt_record_regs(struct intel_gt_coredump *gt)
-> >  
-> >  	if (GRAPHICS_VER(i915) >= 12) {
-> >  		for (i = 0; i < GEN12_SFC_DONE_MAX; i++) {
-> > +			/*
-> > +			 * SFC_DONE resides in the VD forcewake domain, so it
-> > +			 * only exists if the corresponding VCS engine is
-> > +			 * present.
-> > +			 */
-> > +			if (!HAS_ENGINE(gt->_gt, _VCS(i * 2)))
-> > +				continue;
-> > +
-> >  			gt->sfc_done[i] =
-> >  				intel_uncore_read(uncore, GEN12_SFC_DONE(i));
-> >  		}
-> 
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+index d697d169e8c1..1d0096654776 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+@@ -446,8 +446,6 @@ static
+ int intel_dp_hdcp2_write_msg(struct intel_digital_port *dig_port,
+ 			     void *buf, size_t size)
+ {
+-	struct intel_dp *dp = &dig_port->dp;
+-	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
+ 	unsigned int offset;
+ 	u8 *byte = buf;
+ 	ssize_t ret, bytes_to_write, len;
+@@ -463,8 +461,6 @@ int intel_dp_hdcp2_write_msg(struct intel_digital_port *dig_port,
+ 	bytes_to_write = size - 1;
+ 	byte++;
+ 
+-	hdcp->cp_irq_count_cached = atomic_read(&hdcp->cp_irq_count);
+-
+ 	while (bytes_to_write) {
+ 		len = bytes_to_write > DP_AUX_MAX_PAYLOAD_BYTES ?
+ 				DP_AUX_MAX_PAYLOAD_BYTES : bytes_to_write;
+@@ -530,6 +526,8 @@ int intel_dp_hdcp2_read_msg(struct intel_digital_port *dig_port,
+ 			    u8 msg_id, void *buf, size_t size)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_dp *dp = &dig_port->dp;
++	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
+ 	unsigned int offset;
+ 	u8 *byte = buf;
+ 	ssize_t ret, bytes_to_recv, len;
+@@ -546,6 +544,8 @@ int intel_dp_hdcp2_read_msg(struct intel_digital_port *dig_port,
+ 	if (ret < 0)
+ 		return ret;
+ 
++	hdcp->cp_irq_count_cached = atomic_read(&hdcp->cp_irq_count);
++
+ 	if (msg_id == HDCP_2_2_REP_SEND_RECVID_LIST) {
+ 		ret = get_receiver_id_list_size(dig_port);
+ 		if (ret < 0)
 -- 
-Matt Roper
-Graphics Software Engineer
-VTT-OSGC Platform Enablement
-Intel Corporation
-(916) 356-2795
+2.31.1
+
