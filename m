@@ -2,73 +2,73 @@ Return-Path: <SRS0=LDoR=ND=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BE94C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 16:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9ED4FC4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 16:15:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A93F560FC4
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 16:10:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A93F560FC4
+	by mail.kernel.org (Postfix) with ESMTPS id 62C3460C40
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 16:15:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 62C3460C40
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9DF6E42A;
-	Thu, 12 Aug 2021 16:10:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E01236E42E;
+	Thu, 12 Aug 2021 16:15:46 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5A126E42A
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 16:10:11 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10074"; a="215116018"
-X-IronPort-AV: E=Sophos;i="5.84,316,1620716400"; d="scan'208";a="215116018"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AAB26E42E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 16:15:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10074"; a="215118582"
+X-IronPort-AV: E=Sophos;i="5.84,316,1620716400"; d="scan'208";a="215118582"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2021 09:05:31 -0700
+ 12 Aug 2021 09:15:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,316,1620716400"; d="scan'208";a="469806243"
-Received: from fmsmsx606.amr.corp.intel.com ([10.18.126.86])
- by orsmga008.jf.intel.com with ESMTP; 12 Aug 2021 09:05:31 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.84,316,1620716400"; d="scan'208";a="507793504"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga004.fm.intel.com with ESMTP; 12 Aug 2021 09:15:44 -0700
+Received: from bgsmsx603.gar.corp.intel.com (10.109.78.82) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10; Thu, 12 Aug 2021 09:05:30 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ 15.1.2242.10; Thu, 12 Aug 2021 09:15:43 -0700
+Received: from pgsmsx602.gar.corp.intel.com (10.108.199.137) by
+ BGSMSX603.gar.corp.intel.com (10.109.78.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10; Thu, 12 Aug 2021 09:05:30 -0700
-Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
- fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2242.010;
- Thu, 12 Aug 2021 09:05:30 -0700
-From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "Roper, Matthew D" <matthew.d.roper@intel.com>, "De Marchi, Lucas"
- <lucas.demarchi@intel.com>
-Thread-Topic: [Intel-gfx] [CI 1/2] drm/i915/step: Add macro magic for handling
- steps
-Thread-Index: AQHXfOZx7KmcR5MySkGeqtG9msbcd6twPPqA///wyXA=
-Date: Thu, 12 Aug 2021 16:05:29 +0000
-Message-ID: <14f8c2ebed0c4fe8b48421cecd6b2e84@intel.com>
-References: <20210719213828.5738-1-anusha.srivatsa@intel.com>
- <87a6lnm1ag.fsf@intel.com>
-In-Reply-To: <87a6lnm1ag.fsf@intel.com>
-Accept-Language: en-US
+ 15.1.2242.10; Thu, 12 Aug 2021 21:45:40 +0530
+Received: from pgsmsx602.gar.corp.intel.com ([10.108.199.137]) by
+ pgsmsx602.gar.corp.intel.com ([10.108.199.137]) with mapi id 15.01.2242.010;
+ Fri, 13 Aug 2021 00:15:40 +0800
+From: "Vudum, Lakshminarayana" <lakshminarayana.vudum@intel.com>
+To: "Gupta, Anshuman" <anshuman.gupta@intel.com>
+CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: =?utf-8?B?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgVHdlYWtlZCBXYV8xNDAxMDY4?=
+ =?utf-8?Q?5332_for_all_PCHs?=
+Thread-Index: AQHXjf4PwQRREfCA6EyGKDGo6Et2HatwDoow
+Date: Thu, 12 Aug 2021 16:15:39 +0000
+Message-ID: <b9ad8d8206274e658e01fb9bb68b5042@intel.com>
+References: <20210810113112.31739-1-anshuman.gupta@intel.com>
+ <162860384942.29683.15649135811749450065@emeril.freedesktop.org>
+ <20210810152230.GA814@intel.com>
+In-Reply-To: <20210810152230.GA814@intel.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
 dlp-product: dlpe-windows
 dlp-reaction: no-action
+dlp-version: 11.2.0.6
 x-originating-ip: [10.22.254.132]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [CI 1/2] drm/i915/step: Add macro magic for
- handling steps
+Subject: Re: [Intel-gfx] 
+ =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgVHdl?=
+ =?utf-8?q?aked_Wa=5F14010685332_for_all_PCHs?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,137 +84,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-
-> -----Original Message-----
-> From: Jani Nikula <jani.nikula@linux.intel.com>
-> Sent: Thursday, August 12, 2021 2:59 AM
-> To: Srivatsa, Anusha <anusha.srivatsa@intel.com>; intel-
-> gfx@lists.freedesktop.org
-> Cc: Roper, Matthew D <matthew.d.roper@intel.com>; De Marchi, Lucas
-> <lucas.demarchi@intel.com>
-> Subject: Re: [Intel-gfx] [CI 1/2] drm/i915/step: Add macro magic for hand=
-ling
-> steps
->=20
-> On Mon, 19 Jul 2021, Anusha Srivatsa <anusha.srivatsa@intel.com> wrote:
-> > With the addition of stepping info for all platforms, lets use macros
-> > for handling them and autogenerating code for all steps at a time.
-> >
-> > Suggested-by: Matt Roper <matthew.d.roper@intel.com>
-> > Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> > Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-> > Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/intel_step.c | 14 ++++++++++++
-> > drivers/gpu/drm/i915/intel_step.h | 37 +++++++++++++++++++------------
-> >  2 files changed, 37 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/intel_step.c
-> > b/drivers/gpu/drm/i915/intel_step.c
-> > index 9fcf17708cc8..d150d138e889 100644
-> > --- a/drivers/gpu/drm/i915/intel_step.c
-> > +++ b/drivers/gpu/drm/i915/intel_step.c
-> > @@ -182,3 +182,17 @@ void intel_step_init(struct drm_i915_private
-> > *i915)
-> >
-> >  	RUNTIME_INFO(i915)->step =3D step;
-> >  }
-> > +
-> > +#define STEP_NAME_CASE(name)	\
-> > +	(case STEP_##name:	\
-> > +		return #name)
-> > +
-> > +const char *intel_step_name(enum intel_step step) {
-> > +	switch (step) {
-> > +	STEP_NAME_LIST(STEP_NAME_CASE);
-> > +
-> > +	default:
-> > +		return "**";
-> > +	}
-> > +}
-> > diff --git a/drivers/gpu/drm/i915/intel_step.h
-> > b/drivers/gpu/drm/i915/intel_step.h
-> > index 88a77159703e..f6641e2a3c77 100644
-> > --- a/drivers/gpu/drm/i915/intel_step.h
-> > +++ b/drivers/gpu/drm/i915/intel_step.h
-> > @@ -15,30 +15,39 @@ struct intel_step_info {
-> >  	u8 display_step;
-> >  };
-> >
-> > +#define STEP_ENUM_VAL(name)  STEP_##name,
-> > +
-> > +#define STEP_NAME_LIST(func)		\
-> > +	func(A0)			\
-> > +	func(A1)			\
-> > +	func(A2)			\
-> > +	func(B0)			\
-> > +	func(B1)			\
-> > +	func(B2)			\
-> > +	func(C0)			\
-> > +	func(C1)			\
-> > +	func(D0)			\
-> > +	func(D1)			\
-> > +	func(E0)			\
-> > +	func(F0)			\
-> > +	func(G0)			\
-> > +	func(H0)			\
-> > +	func(I0)			\
-> > +	func(I1)			\
-> > +	func(J0)
-> > +
-> >  /*
-> >   * Symbolic steppings that do not match the hardware. These are valid
-> both as gt
-> >   * and display steppings as symbolic names.
-> >   */
-> >  enum intel_step {
-> >  	STEP_NONE =3D 0,
-> > -	STEP_A0,
-> > -	STEP_A2,
-> > -	STEP_B0,
-> > -	STEP_B1,
-> > -	STEP_C0,
-> > -	STEP_D0,
-> > -	STEP_D1,
-> > -	STEP_E0,
-> > -	STEP_F0,
-> > -	STEP_G0,
-> > -	STEP_H0,
-> > -	STEP_I0,
-> > -	STEP_I1,
-> > -	STEP_J0,
-> > +	STEP_NAME_LIST(STEP_ENUM_VAL)
-> >  	STEP_FUTURE,
-> >  	STEP_FOREVER,
-> >  };
->=20
-> It's been merged already, and so be it.
->=20
-> I'll just note that the main reason I don't like adding this kind of macr=
-o
-> abstractions is that it throws off source code tagging tools like ctags a=
-nd gnu
-> global. I can no longer navigate the definition and all the references of
-> STEP_* using the tools, and it degenerates to git grep which is much wors=
-e as
-> it doesn't know about C syntax or semantics. It's not always about how th=
-e
-> code looks, it's also about how people can navigate the code base.
-
-Had not considered that :-/ will keep this in mind from now on.
-Thanks for the feedback.
-
-Anusha
-> BR,
-> Jani.
->=20
->=20
-> >
-> >  void intel_step_init(struct drm_i915_private *i915);
-> > +const char *intel_step_name(enum intel_step step);
-> >
-> >  #endif /* __INTEL_STEP_H__ */
->=20
-> --
-> Jani Nikula, Intel Open Source Graphics Center
+UmUtcmVwb3J0ZWQuDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBHdXB0YSwg
+QW5zaHVtYW4gPGFuc2h1bWFuLmd1cHRhQGludGVsLmNvbT4gDQpTZW50OiBUdWVzZGF5LCBBdWd1
+c3QgMTAsIDIwMjEgODoyMyBBTQ0KVG86IFZ1ZHVtLCBMYWtzaG1pbmFyYXlhbmEgPGxha3NobWlu
+YXJheWFuYS52dWR1bUBpbnRlbC5jb20+DQpDYzogaW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZw0KU3ViamVjdDogUmU6IOKclyBGaS5DSS5CQVQ6IGZhaWx1cmUgZm9yIFR3ZWFrZWQgV2Ff
+MTQwMTA2ODUzMzIgZm9yIGFsbCBQQ0hzDQoNCk9uIDIwMjEtMDgtMTAgYXQgMTM6NTc6MjkgKzAw
+MDAsIFBhdGNod29yayB3cm90ZToNCj4gPT0gU2VyaWVzIERldGFpbHMgPT0NCj4gDQo+IFNlcmll
+czogVHdlYWtlZCBXYV8xNDAxMDY4NTMzMiBmb3IgYWxsIFBDSHMNCj4gVVJMICAgOiBodHRwczov
+L3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvc2VyaWVzLzkzNTQ4Lw0KPiBTdGF0ZSA6IGZhaWx1
+cmUNCj4gDQo+ID09IFN1bW1hcnkgPT0NCj4gDQo+IENJIEJ1ZyBMb2cgLSBjaGFuZ2VzIGZyb20g
+Q0lfRFJNXzEwNDY0IC0+IFBhdGNod29ya18yMDc5MiANCj4gPT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQ0KPiANCj4gU3VtbWFyeQ0KPiAtLS0tLS0t
+DQo+IA0KPiAgICoqRkFJTFVSRSoqDQo+IA0KPiAgIFNlcmlvdXMgdW5rbm93biBjaGFuZ2VzIGNv
+bWluZyB3aXRoIFBhdGNod29ya18yMDc5MiBhYnNvbHV0ZWx5IG5lZWQgdG8gYmUNCj4gICB2ZXJp
+ZmllZCBtYW51YWxseS4NCj4gICANCj4gICBJZiB5b3UgdGhpbmsgdGhlIHJlcG9ydGVkIGNoYW5n
+ZXMgaGF2ZSBub3RoaW5nIHRvIGRvIHdpdGggdGhlIGNoYW5nZXMNCj4gICBpbnRyb2R1Y2VkIGlu
+IFBhdGNod29ya18yMDc5MiwgcGxlYXNlIG5vdGlmeSB5b3VyIGJ1ZyB0ZWFtIHRvIGFsbG93IHRo
+ZW0NCj4gICB0byBkb2N1bWVudCB0aGlzIG5ldyBmYWlsdXJlIG1vZGUsIHdoaWNoIHdpbGwgcmVk
+dWNlIGZhbHNlIHBvc2l0aXZlcyBpbiBDSS4NCj4gDQo+ICAgRXh0ZXJuYWwgVVJMOiANCj4gaHR0
+cHM6Ly9pbnRlbC1nZngtY2kuMDEub3JnL3RyZWUvZHJtLXRpcC9QYXRjaHdvcmtfMjA3OTIvaW5k
+ZXguaHRtbA0KPiANCj4gUG9zc2libGUgbmV3IGlzc3Vlcw0KPiAtLS0tLS0tLS0tLS0tLS0tLS0t
+DQo+IA0KPiAgIEhlcmUgYXJlIHRoZSB1bmtub3duIGNoYW5nZXMgdGhhdCBtYXkgaGF2ZSBiZWVu
+IGludHJvZHVjZWQgaW4gUGF0Y2h3b3JrXzIwNzkyOg0KPiANCj4gIyMjIElHVCBjaGFuZ2VzICMj
+Iw0KPiANCj4gIyMjIyBQb3NzaWJsZSByZWdyZXNzaW9ucyAjIyMjDQo+IA0KPiAgICogaWd0QGNv
+cmVfaG90dW5wbHVnQHVuYmluZC1yZWJpbmQ6DQo+ICAgICAtIGZpLXJrbC1ndWM6ICAgICAgICAg
+Tk9UUlVOIC0+IFtETUVTRy1XQVJOXVsxXQ0KPiAgICBbMV06IA0KPiBodHRwczovL2ludGVsLWdm
+eC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL1BhdGNod29ya18yMDc5Mi9maS1ya2wtZ3VjL2lnDQo+
+IHRAY29yZV9ob3R1bnBsdWdAdW5iaW5kLXJlYmluZC5odG1sDQoJSGkgTGFrc2htaSAsDQoJQWJv
+dmUgQ0kgQkFUIGZhaWx1cmUgaXMgYSB1bnJlYWx0ZWQgZmFpbHVyZShub3QgcmVhbHRlZCB0byBk
+aXNwbGF5KSwgaXQgc2VlbXMgcmVsYXRlZCB0byBjb3JlIHBvd2VyLg0KCWNvdWxkIHlvdSBwbGVz
+ZSBjcmVhdGUgdGhlIGlzc3VlIGFuZCByZS1yZXBvcnQgdGhlIHJlc3VsdC4NCglUaGFua3MsDQoJ
+QW5zaHVtYW4gR3VwdGEuCQ0KPiANCj4gICANCj4gS25vd24gaXNzdWVzDQo+IC0tLS0tLS0tLS0t
+LQ0KPiANCj4gICBIZXJlIGFyZSB0aGUgY2hhbmdlcyBmb3VuZCBpbiBQYXRjaHdvcmtfMjA3OTIg
+dGhhdCBjb21lIGZyb20ga25vd24gaXNzdWVzOg0KPiANCj4gIyMjIENJIGNoYW5nZXMgIyMjDQo+
+IA0KPiAjIyMjIElzc3VlcyBoaXQgIyMjIw0KPiANCj4gICAqIGJvb3Q6DQo+ICAgICAtIGZpLWti
+bC1zb3Jha2E6ICAgICAgW1BBU1NdWzJdIC0+IFtGQUlMXVszXSAoW2k5MTUjMzg5NV0pDQo+ICAg
+IFsyXTogaHR0cHM6Ly9pbnRlbC1nZngtY2kuMDEub3JnL3RyZWUvZHJtLXRpcC9DSV9EUk1fMTA0
+NjQvZmkta2JsLXNvcmFrYS9ib290Lmh0bWwNCj4gICAgWzNdOiANCj4gaHR0cHM6Ly9pbnRlbC1n
+ZngtY2kuMDEub3JnL3RyZWUvZHJtLXRpcC9QYXRjaHdvcmtfMjA3OTIvZmkta2JsLXNvcmFrYQ0K
+PiAvYm9vdC5odG1sDQo+IA0KPiAgIA0KPiANCj4gIyMjIElHVCBjaGFuZ2VzICMjIw0KPiANCj4g
+IyMjIyBJc3N1ZXMgaGl0ICMjIyMNCj4gDQo+ICAgKiBpZ3RAcHJpbWVfdmdlbUBiYXNpYy11c2Vy
+cHRyOg0KPiAgICAgLSBmaS1ya2wtZ3VjOiAgICAgICAgIE5PVFJVTiAtPiBbU0tJUF1bNF0gKFtp
+OTE1IzMzMDFdKQ0KPiAgICBbNF06IA0KPiBodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJl
+ZS9kcm0tdGlwL1BhdGNod29ya18yMDc5Mi9maS1ya2wtZ3VjL2lnDQo+IHRAcHJpbWVfdmdlbUBi
+YXNpYy11c2VycHRyLmh0bWwNCj4gDQo+ICAgKiBpZ3RAcHJpbWVfdmdlbUBiYXNpYy13cml0ZToN
+Cj4gICAgIC0gZmktcmtsLWd1YzogICAgICAgICBOT1RSVU4gLT4gW1NLSVBdWzVdIChbaTkxNSMz
+MjkxXSkgKzIgc2ltaWxhciBpc3N1ZXMNCj4gICAgWzVdOiANCj4gaHR0cHM6Ly9pbnRlbC1nZngt
+Y2kuMDEub3JnL3RyZWUvZHJtLXRpcC9QYXRjaHdvcmtfMjA3OTIvZmktcmtsLWd1Yy9pZw0KPiB0
+QHByaW1lX3ZnZW1AYmFzaWMtd3JpdGUuaHRtbA0KPiANCj4gICANCj4gIyMjIyBQb3NzaWJsZSBm
+aXhlcyAjIyMjDQo+IA0KPiAgICogaWd0QGk5MTVfcG1fcnBzQGJhc2ljLWFwaToNCj4gICAgIC0g
+ZmktcmtsLWd1YzogICAgICAgICBbRE1FU0ctV0FSTl1bNl0gKFtpOTE1IzM5MjVdKSAtPiBbUEFT
+U11bN10NCj4gICAgWzZdOiBodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlw
+L0NJX0RSTV8xMDQ2NC9maS1ya2wtZ3VjL2lndEBpOTE1X3BtX3Jwc0BiYXNpYy1hcGkuaHRtbA0K
+PiAgICBbN106IA0KPiBodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL1Bh
+dGNod29ya18yMDc5Mi9maS1ya2wtZ3VjL2lnDQo+IHRAaTkxNV9wbV9ycHNAYmFzaWMtYXBpLmh0
+bWwNCj4gDQo+ICAgDQo+ICMjIyMgV2FybmluZ3MgIyMjIw0KPiANCj4gICAqIGlndEBydW5uZXJA
+YWJvcnRlZDoNCj4gICAgIC0gZmktcmtsLWd1YzogICAgICAgICBbRkFJTF1bOF0gKFtpOTE1IzM5
+MjVdKSAtPiBbRkFJTF1bOV0gKFtpOTE1IzE2MDJdKQ0KPiAgICBbOF06IGh0dHBzOi8vaW50ZWwt
+Z2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAvQ0lfRFJNXzEwNDY0L2ZpLXJrbC1ndWMvaWd0QHJ1
+bm5lckBhYm9ydGVkLmh0bWwNCj4gICAgWzldOiANCj4gaHR0cHM6Ly9pbnRlbC1nZngtY2kuMDEu
+b3JnL3RyZWUvZHJtLXRpcC9QYXRjaHdvcmtfMjA3OTIvZmktcmtsLWd1Yy9pZw0KPiB0QHJ1bm5l
+ckBhYm9ydGVkLmh0bWwNCj4gDQo+ICAgDQo+ICAgW2k5MTUjMTYwMl06IGh0dHBzOi8vZ2l0bGFi
+LmZyZWVkZXNrdG9wLm9yZy9kcm0vaW50ZWwvaXNzdWVzLzE2MDINCj4gICBbaTkxNSMzMjkxXTog
+aHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9pbnRlbC9pc3N1ZXMvMzI5MQ0KPiAg
+IFtpOTE1IzMzMDFdOiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2ludGVsL2lz
+c3Vlcy8zMzAxDQo+ICAgW2k5MTUjMzg5NV06IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9y
+Zy9kcm0vaW50ZWwvaXNzdWVzLzM4OTUNCj4gICBbaTkxNSMzOTI1XTogaHR0cHM6Ly9naXRsYWIu
+ZnJlZWRlc2t0b3Aub3JnL2RybS9pbnRlbC9pc3N1ZXMvMzkyNQ0KPiANCj4gDQo+IFBhcnRpY2lw
+YXRpbmcgaG9zdHMgKDM3IC0+IDM0KQ0KPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0N
+Cj4gDQo+ICAgTWlzc2luZyAgICAoMyk6IGZpLWJkdy1zYW11cyBmaS1ic3ctY3lhbiBiYXQtanNs
+LTEgDQo+IA0KPiANCj4gQnVpbGQgY2hhbmdlcw0KPiAtLS0tLS0tLS0tLS0tDQo+IA0KPiAgICog
+TGludXg6IENJX0RSTV8xMDQ2NCAtPiBQYXRjaHdvcmtfMjA3OTINCj4gDQo+ICAgQ0ktMjAxOTA1
+Mjk6IDIwMTkwNTI5DQo+ICAgQ0lfRFJNXzEwNDY0OiAyOTRhNTVmMzI4MDIzYTRlMzZmNDZlNWVi
+NmM0ODU5MDc2ZWZkODUwIEAgZ2l0Oi8vYW5vbmdpdC5mcmVlZGVza3RvcC5vcmcvZ2Z4LWNpL2xp
+bnV4DQo+ICAgSUdUXzYxNjU6IGRmNWQwNWQ3NDIyNzViMDQ5ZjZmM2M4NTJhODZjNDc2OTk2NmIx
+MjYgQCBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2lndC1ncHUtdG9vbHMuZ2l0
+DQo+ICAgUGF0Y2h3b3JrXzIwNzkyOiAwYWYzNjRiOTQ4OTM0M2U3YmYwZWI0OThmMzRkNzBmNjdk
+ZDc1NTFjIEAgDQo+IGdpdDovL2Fub25naXQuZnJlZWRlc2t0b3Aub3JnL2dmeC1jaS9saW51eA0K
+PiANCj4gDQo+ID09IExpbnV4IGNvbW1pdHMgPT0NCj4gDQo+IDBhZjM2NGI5NDg5MyBkcm0vaTkx
+NTogVHdlYWtlZCBXYV8xNDAxMDY4NTMzMiBmb3IgYWxsIFBDSHMNCj4gDQo+ID09IExvZ3MgPT0N
+Cj4gDQo+IEZvciBtb3JlIGRldGFpbHMgc2VlOiANCj4gaHR0cHM6Ly9pbnRlbC1nZngtY2kuMDEu
+b3JnL3RyZWUvZHJtLXRpcC9QYXRjaHdvcmtfMjA3OTIvaW5kZXguaHRtbA0K
