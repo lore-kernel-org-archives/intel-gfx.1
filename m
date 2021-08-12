@@ -5,37 +5,36 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0770EC4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 10:36:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75898C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 10:36:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D7AF60C3F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 10:36:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9D7AF60C3F
+	by mail.kernel.org (Postfix) with ESMTPS id A1C9460FD7
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 10:36:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A1C9460FD7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEAD76E08A;
-	Thu, 12 Aug 2021 10:36:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A5AD6E3DB;
+	Thu, 12 Aug 2021 10:36:21 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1EC48979E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7228895B2;
  Thu, 12 Aug 2021 10:36:19 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Thu, 12 Aug 2021 12:36:15 +0200
-Message-Id: <20210812103615.491293-3-maarten.lankhorst@linux.intel.com>
+Date: Thu, 12 Aug 2021 12:36:14 +0200
+Message-Id: <20210812103615.491293-2-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210812103615.491293-1-maarten.lankhorst@linux.intel.com>
 References: <20210812103615.491293-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/topic/for-CI: Disable fake LMEM
- implementation
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915: Add pci ids for DG1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,25 +50,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-see if anything breaks.
-
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig.debug | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/i915/i915_pci.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index e7fd3e76f8a2..f27c0b5873f7 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -48,7 +48,6 @@ config DRM_I915_DEBUG
- 	select DRM_I915_DEBUG_RUNTIME_PM
- 	select DRM_I915_SW_FENCE_DEBUG_OBJECTS
- 	select DRM_I915_SELFTEST
--	select BROKEN # for prototype uAPI
- 	default n
- 	help
- 	  Choose this option to turn on extra driver debugging that may affect
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 1bbd09ad5287..93ccdc6bbd03 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1115,6 +1115,7 @@ static const struct pci_device_id pciidlist[] = {
+ 	INTEL_RKL_IDS(&rkl_info),
+ 	INTEL_ADLS_IDS(&adl_s_info),
+ 	INTEL_ADLP_IDS(&adl_p_info),
++	INTEL_DG1_IDS(&dg1_info),
+ 	{0, 0, 0}
+ };
+ MODULE_DEVICE_TABLE(pci, pciidlist);
 -- 
 2.32.0
 
