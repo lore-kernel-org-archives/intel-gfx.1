@@ -2,52 +2,73 @@ Return-Path: <SRS0=LDoR=ND=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-20.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49CEBC4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 08:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC26AC4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 08:29:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D0A2C61038
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 08:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D0A2C61038
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6687660ED5
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 08:29:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6687660ED5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA5956E311;
-	Thu, 12 Aug 2021 08:00:41 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC7F6E0EF
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 08:00:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10073"; a="215330442"
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="215330442"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2021 01:00:21 -0700
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="590550469"
-Received: from genxfsim-desktop.iind.intel.com (HELO intel.com)
- ([10.223.74.179])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2021 01:00:18 -0700
-Date: Thu, 12 Aug 2021 13:13:04 +0530
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: Juston Li <juston.li@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, seanpaul@chromium.org,
- ramalingam.c@intel.com, rodrigo.vivi@intel.com
-Message-ID: <20210812074303.GC814@intel.com>
-References: <20210811212314.153269-1-juston.li@intel.com>
- <20210811212314.153269-3-juston.li@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 768C56E329;
+	Thu, 12 Aug 2021 08:29:53 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F07A36E311;
+ Thu, 12 Aug 2021 08:29:50 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 295EC1FF27;
+ Thu, 12 Aug 2021 08:29:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1628756988; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gqce+MGHHAIMGxUT4gRVAmTc5R6KqmWj1xsQZ8yIXfo=;
+ b=V9drmKJ4KNSKW/LrkQALSh8iVQ1KwLRouuRwyALIDKbej9NNVBqed6Ae2GZxgVFb0Zx7Bq
+ ++YL0ZYExPb+aVml3izD7TiTesTTTkh+SziBvnsNV9ka+mnqZXOcDtlSn/JGTyK9L8lshz
+ 9ARCkadCzNXXlgUfYxhc1Iq6wqnGz9Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1628756988;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gqce+MGHHAIMGxUT4gRVAmTc5R6KqmWj1xsQZ8yIXfo=;
+ b=cubfCAHY4Bhxd2AHtqHjU9yQ8Q7rtR1+as/lCjUsHCjHWMouJuZWdwcgK9x7ncNo14p9PC
+ kkxiyM6YhxS0AuDw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id CEE2013846;
+ Thu, 12 Aug 2021 08:29:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id isAzMfvbFGFUDAAAGKfGzw
+ (envelope-from <tzimmermann@suse.de>); Thu, 12 Aug 2021 08:29:47 +0000
+Date: Thu, 12 Aug 2021 10:29:46 +0200
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Message-ID: <YRTb+qUuBYWjJDVg@linux-uq9g.fritz.box>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20210811212314.153269-3-juston.li@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH v4 2/3] drm/i915/hdcp: read RxInfo once when
- reading RepeaterAuth_Send_ReceiverID_List
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PULL] drm-misc-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,124 +84,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-08-11 at 14:23:13 -0700, Juston Li wrote:
-> When reading RepeaterAuth_Send_ReceiverID_List, RxInfo is read by itself
-> once to retrieve the DEVICE_COUNT to calculate the size of the
-> ReceiverID list then read a second time as a part of reading ReceiverID
-> list.
-> 
-> On some MST docking stations, RxInfo can only be read after the RxStatus
-> READY bit is set otherwise the read will return -EIO. The spec states that
-> the READY bit should be cleared as soon as RxInfo has been read.
-> 
-> In this case, the first RxInfo read succeeds but after the READY bit is
-> cleared, the second read fails.
-> 
-> Fix it by reading RxInfo once and storing it before reading the rest of
-> RepeaterAuth_Send_ReceiverID_List once we know the size.
-> 
-> Modify get_receiver_id_list_size() to read and store RxInfo in the
-> message buffer and also parse DEVICE_COUNT so we know the size of
-> RepeaterAuth_Send_ReceiverID_List.
-> 
-> Afterwards, retrieve the rest of the message at the offset for
-> seq_num_V.
-> 
-> Changes in v5:
-> - Don't change the offset define for Send_ReceiverID_List
->   When reading, update message offset to account for RxInfo being read
-v5 looks good to me 
-Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> 
-> Changes in v4:
-> - rebase and edit commit message
-> 
-> Changes in v3:
-> - remove comment
-> 
-> Changes in v2:
-> - remove unnecessary moving of drm_i915_private from patch 1
-> 
-> Signed-off-by: Juston Li <juston.li@intel.com>
-> Acked-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 31 ++++++++++----------
->  1 file changed, 16 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-> index 1d0096654776..fbfb3c4d16bb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-> @@ -496,11 +496,10 @@ get_rxinfo_hdcp_1_dev_downstream(struct intel_digital_port *dig_port, bool *hdcp
->  }
->  
->  static
-> -ssize_t get_receiver_id_list_size(struct intel_digital_port *dig_port)
-> +ssize_t get_receiver_id_list_rx_info(struct intel_digital_port *dig_port, u32 *dev_cnt, u8 *byte)
->  {
-> -	u8 rx_info[HDCP_2_2_RXINFO_LEN];
-> -	u32 dev_cnt;
->  	ssize_t ret;
-> +	u8 *rx_info = byte;
->  
->  	ret = drm_dp_dpcd_read(&dig_port->dp.aux,
->  			       DP_HDCP_2_2_REG_RXINFO_OFFSET,
-> @@ -508,15 +507,11 @@ ssize_t get_receiver_id_list_size(struct intel_digital_port *dig_port)
->  	if (ret != HDCP_2_2_RXINFO_LEN)
->  		return ret >= 0 ? -EIO : ret;
->  
-> -	dev_cnt = (HDCP_2_2_DEV_COUNT_HI(rx_info[0]) << 4 |
-> +	*dev_cnt = (HDCP_2_2_DEV_COUNT_HI(rx_info[0]) << 4 |
->  		   HDCP_2_2_DEV_COUNT_LO(rx_info[1]));
->  
-> -	if (dev_cnt > HDCP_2_2_MAX_DEVICE_COUNT)
-> -		dev_cnt = HDCP_2_2_MAX_DEVICE_COUNT;
-> -
-> -	ret = sizeof(struct hdcp2_rep_send_receiverid_list) -
-> -		HDCP_2_2_RECEIVER_IDS_MAX_LEN +
-> -		(dev_cnt * HDCP_2_2_RECEIVER_ID_LEN);
-> +	if (*dev_cnt > HDCP_2_2_MAX_DEVICE_COUNT)
-> +		*dev_cnt = HDCP_2_2_MAX_DEVICE_COUNT;
->  
->  	return ret;
->  }
-> @@ -534,6 +529,7 @@ int intel_dp_hdcp2_read_msg(struct intel_digital_port *dig_port,
->  	const struct hdcp2_dp_msg_data *hdcp2_msg_data;
->  	ktime_t msg_end = ktime_set(0, 0);
->  	bool msg_expired;
-> +	u32 dev_cnt;
->  
->  	hdcp2_msg_data = get_hdcp2_dp_msg_data(msg_id);
->  	if (!hdcp2_msg_data)
-> @@ -546,17 +542,22 @@ int intel_dp_hdcp2_read_msg(struct intel_digital_port *dig_port,
->  
->  	hdcp->cp_irq_count_cached = atomic_read(&hdcp->cp_irq_count);
->  
-> +	/* DP adaptation msgs has no msg_id */
-> +	byte++;
-> +
->  	if (msg_id == HDCP_2_2_REP_SEND_RECVID_LIST) {
-> -		ret = get_receiver_id_list_size(dig_port);
-> +		ret = get_receiver_id_list_rx_info(dig_port, &dev_cnt, byte);
->  		if (ret < 0)
->  			return ret;
->  
-> -		size = ret;
-> +		byte += ret;
-> +		size = sizeof(struct hdcp2_rep_send_receiverid_list) -
-> +		HDCP_2_2_RXINFO_LEN - HDCP_2_2_RECEIVER_IDS_MAX_LEN +
-> +		(dev_cnt * HDCP_2_2_RECEIVER_ID_LEN);
-> +		offset += HDCP_2_2_RXINFO_LEN;
->  	}
-> -	bytes_to_recv = size - 1;
->  
-> -	/* DP adaptation msgs has no msg_id */
-> -	byte++;
-> +	bytes_to_recv = size - 1;
->  
->  	while (bytes_to_recv) {
->  		len = bytes_to_recv > DP_AUX_MAX_PAYLOAD_BYTES ?
-> -- 
-> 2.31.1
-> 
+Hi Dave and Daniel,
+
+only one bug fix in this week's drm-misc-fixes.
+
+Best regards
+Thomas
+
+drm-misc-fixes-2021-08-12:
+Short summary of fixes pull:
+
+ * meson: Fix colors when booting with HDR
+The following changes since commit e89afb51f97ae03ee246c1fd0b47e3e491266aef:
+
+  drm/vmwgfx: Fix a 64bit regression on svga3 (2021-08-02 21:00:37 +0200)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2021-08-12
+
+for you to fetch changes up to bf33677a3c394bb8fddd48d3bbc97adf0262e045:
+
+  drm/meson: fix colour distortion from HDR set during vendor u-boot (2021-08-10 10:00:02 +0200)
+
+----------------------------------------------------------------
+Short summary of fixes pull:
+
+ * meson: Fix colors when booting with HDR
+
+----------------------------------------------------------------
+Christian Hewitt (1):
+      drm/meson: fix colour distortion from HDR set during vendor u-boot
+
+ drivers/gpu/drm/meson/meson_registers.h | 5 +++++
+ drivers/gpu/drm/meson/meson_viu.c       | 7 ++++++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 Nürnberg, Germany
+(HRB 36809, AG Nürnberg)
+Geschäftsführer: Felix Imendörffer
