@@ -2,51 +2,44 @@ Return-Path: <SRS0=LDoR=ND=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AAF28C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 09:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10235C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 10:28:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 55A8D60FC4
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 09:59:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 55A8D60FC4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9412460FBF
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 10:28:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9412460FBF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8E446E30D;
-	Thu, 12 Aug 2021 09:59:26 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E89306E30D
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 09:59:25 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10073"; a="194902887"
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="194902887"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2021 02:59:25 -0700
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="517373789"
-Received: from cfetzer-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.251.209.235])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2021 02:59:22 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Anusha Srivatsa <anusha.srivatsa@intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: Matt Roper <matthew.d.roper@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
-In-Reply-To: <20210719213828.5738-1-anusha.srivatsa@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210719213828.5738-1-anusha.srivatsa@intel.com>
-Date: Thu, 12 Aug 2021 12:59:19 +0300
-Message-ID: <87a6lnm1ag.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 234256E3D8;
+	Thu, 12 Aug 2021 10:28:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3190A6E3D6;
+ Thu, 12 Aug 2021 10:28:36 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 275CFAA917;
+ Thu, 12 Aug 2021 10:28:36 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7604116195909419259=="
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [CI 1/2] drm/i915/step: Add macro magic for
- handling steps
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ayaz A Siddiqui" <ayaz.siddiqui@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 12 Aug 2021 10:28:36 -0000
+Message-ID: <162876411612.21761.14531019249045983386@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210812064758.4102925-1-ayaz.siddiqui@intel.com>
+In-Reply-To: <20210812064758.4102925-1-ayaz.siddiqui@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/gt=3A_Initialize_unused_MOCS_entries_to_L3=5FWB?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,118 +52,152 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 19 Jul 2021, Anusha Srivatsa <anusha.srivatsa@intel.com> wrote:
-> With the addition of stepping info for
-> all platforms, lets use macros for handling them
-> and autogenerating code for all steps at a time.
->
-> Suggested-by: Matt Roper <matthew.d.roper@intel.com>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-> Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> ---
->  drivers/gpu/drm/i915/intel_step.c | 14 ++++++++++++
->  drivers/gpu/drm/i915/intel_step.h | 37 +++++++++++++++++++------------
->  2 files changed, 37 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
-> index 9fcf17708cc8..d150d138e889 100644
-> --- a/drivers/gpu/drm/i915/intel_step.c
-> +++ b/drivers/gpu/drm/i915/intel_step.c
-> @@ -182,3 +182,17 @@ void intel_step_init(struct drm_i915_private *i915)
->  
->  	RUNTIME_INFO(i915)->step = step;
->  }
-> +
-> +#define STEP_NAME_CASE(name)	\
-> +	(case STEP_##name:	\
-> +		return #name)
-> +
-> +const char *intel_step_name(enum intel_step step)
-> +{
-> +	switch (step) {
-> +	STEP_NAME_LIST(STEP_NAME_CASE);
-> +
-> +	default:
-> +		return "**";
-> +	}
-> +}
-> diff --git a/drivers/gpu/drm/i915/intel_step.h b/drivers/gpu/drm/i915/intel_step.h
-> index 88a77159703e..f6641e2a3c77 100644
-> --- a/drivers/gpu/drm/i915/intel_step.h
-> +++ b/drivers/gpu/drm/i915/intel_step.h
-> @@ -15,30 +15,39 @@ struct intel_step_info {
->  	u8 display_step;
->  };
->  
-> +#define STEP_ENUM_VAL(name)  STEP_##name,
-> +
-> +#define STEP_NAME_LIST(func)		\
-> +	func(A0)			\
-> +	func(A1)			\
-> +	func(A2)			\
-> +	func(B0)			\
-> +	func(B1)			\
-> +	func(B2)			\
-> +	func(C0)			\
-> +	func(C1)			\
-> +	func(D0)			\
-> +	func(D1)			\
-> +	func(E0)			\
-> +	func(F0)			\
-> +	func(G0)			\
-> +	func(H0)			\
-> +	func(I0)			\
-> +	func(I1)			\
-> +	func(J0)
-> +
->  /*
->   * Symbolic steppings that do not match the hardware. These are valid both as gt
->   * and display steppings as symbolic names.
->   */
->  enum intel_step {
->  	STEP_NONE = 0,
-> -	STEP_A0,
-> -	STEP_A2,
-> -	STEP_B0,
-> -	STEP_B1,
-> -	STEP_C0,
-> -	STEP_D0,
-> -	STEP_D1,
-> -	STEP_E0,
-> -	STEP_F0,
-> -	STEP_G0,
-> -	STEP_H0,
-> -	STEP_I0,
-> -	STEP_I1,
-> -	STEP_J0,
-> +	STEP_NAME_LIST(STEP_ENUM_VAL)
->  	STEP_FUTURE,
->  	STEP_FOREVER,
->  };
+--===============7604116195909419259==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-It's been merged already, and so be it.
+== Series Details ==
 
-I'll just note that the main reason I don't like adding this kind of
-macro abstractions is that it throws off source code tagging tools like
-ctags and gnu global. I can no longer navigate the definition and all
-the references of STEP_* using the tools, and it degenerates to git grep
-which is much worse as it doesn't know about C syntax or semantics. It's
-not always about how the code looks, it's also about how people can
-navigate the code base.
+Series: drm/i915/gt: Initialize unused MOCS entries to L3_WB
+URL   : https://patchwork.freedesktop.org/series/93626/
+State : failure
 
-BR,
-Jani.
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10473 -> Patchwork_20801
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_20801 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_20801, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20801/index.html
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_20801:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@gt_mocs:
+    - fi-rkl-guc:         [PASS][1] -> [DMESG-FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10473/fi-rkl-guc/igt@i915_selftest@live@gt_mocs.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20801/fi-rkl-guc/igt@i915_selftest@live@gt_mocs.html
+
+  
 
 
->  
->  void intel_step_init(struct drm_i915_private *i915);
-> +const char *intel_step_name(enum intel_step step);
->  
->  #endif /* __INTEL_STEP_H__ */
+Participating hosts (39 -> 34)
+------------------------------
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+  Missing    (5): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan bat-jsl-1 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10473 -> Patchwork_20801
+
+  CI-20190529: 20190529
+  CI_DRM_10473: 1603b5ab0a40191b8d840ea4bf20021786322dbe @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6171: 975035ac89d3d092e9b5d83e259c0c5dee7fcfdc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20801: 4f3306739a7e9c2c2d7a6df1346fa874f95c11fd @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+4f3306739a7e drm/i95/adl: Define MOCS table for Alderlake
+702829c25d98 drm/i915/gt: Initialize unused MOCS entries with device specific values
+fd32a98d8b4f drm/i915/gt: Set BLIT_CCTL reg to un-cached
+ee1214c8eb4d drm/i915/gt: Use cmd_cctl override for platforms >= gen12
+ea863ae02268 drm/i915/gt: Add support of mocs propagation
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20801/index.html
+
+--===============7604116195909419259==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gt: Initialize unused MOCS entries to L3_WB</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93626/">https://patchwork.freedesktop.org/series/93626/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20801/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20801/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10473 -&gt; Patchwork_20801</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_20801 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_20801, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20801/index.html</p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_20801:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@gt_mocs:<ul>
+<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10473/fi-rkl-guc/igt@i915_selftest@live@gt_mocs.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20801/fi-rkl-guc/igt@i915_selftest@live@gt_mocs.html">DMESG-FAIL</a></li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (39 -&gt; 34)</h2>
+<p>Missing    (5): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan bat-jsl-1 </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10473 -&gt; Patchwork_20801</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10473: 1603b5ab0a40191b8d840ea4bf20021786322dbe @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6171: 975035ac89d3d092e9b5d83e259c0c5dee7fcfdc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20801: 4f3306739a7e9c2c2d7a6df1346fa874f95c11fd @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>4f3306739a7e drm/i95/adl: Define MOCS table for Alderlake<br />
+702829c25d98 drm/i915/gt: Initialize unused MOCS entries with device specific values<br />
+fd32a98d8b4f drm/i915/gt: Set BLIT_CCTL reg to un-cached<br />
+ee1214c8eb4d drm/i915/gt: Use cmd_cctl override for platforms &gt;= gen12<br />
+ea863ae02268 drm/i915/gt: Add support of mocs propagation</p>
+
+</body>
+</html>
+
+--===============7604116195909419259==--
