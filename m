@@ -2,49 +2,51 @@ Return-Path: <SRS0=LDoR=ND=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E245C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 06:10:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D33B8C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 06:29:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6545060C3F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 06:10:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6545060C3F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3D15160F91
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 06:29:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3D15160F91
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ubuntu.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E8AB6E250;
-	Thu, 12 Aug 2021 06:10:33 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77ADD6E24E
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 06:10:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10073"; a="215017909"
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="215017909"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2021 23:10:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="676648441"
-Received: from amanna.iind.intel.com ([10.223.74.76])
- by fmsmga005.fm.intel.com with ESMTP; 11 Aug 2021 23:10:20 -0700
-From: Animesh Manna <animesh.manna@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@intel.com>, Imre Deak <imre.deak@intel.com>,
- Animesh Manna <animesh.manna@intel.com>
-Date: Thu, 12 Aug 2021 11:18:05 +0530
-Message-Id: <20210812054806.22745-5-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20210812054806.22745-1-animesh.manna@intel.com>
-References: <20210812054806.22745-1-animesh.manna@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACDAF6E24E;
+	Thu, 12 Aug 2021 06:29:18 +0000 (UTC)
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 725FA6E24E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 06:29:16 +0000 (UTC)
+Received: from [192.168.50.13] (mobile-user-2e84bb-128.dhcp.inet.fi
+ [46.132.187.128])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 7DA9E40C9B; 
+ Thu, 12 Aug 2021 06:29:14 +0000 (UTC)
+From: Timo Aaltonen <tjaalton@ubuntu.com>
+To: =?UTF-8?Q?Jos=c3=a9_Roberto_de_Souza?= <jose.souza@intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20210708211827.288601-1-jose.souza@intel.com>
+ <20210708211827.288601-2-jose.souza@intel.com>
+ <a33d19b3-8ee0-2923-ab18-85bf65454b8a@ubuntu.com>
+Message-ID: <b4d84d43-a11d-2607-49ee-e1109f781435@ubuntu.com>
+Date: Thu, 12 Aug 2021 09:29:13 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <a33d19b3-8ee0-2923-ab18-85bf65454b8a@ubuntu.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915/dp: fix DG1 and RKL max source
- rates
+Subject: Re: [Intel-gfx] [PATCH 2/7] drm/i915: Implement Wa_1508744258
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,54 +62,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Jani Nikula <jani.nikula@intel.com>
+On 12.8.2021 6.27, Timo Aaltonen wrote:
+> On 9.7.2021 0.18, José Roberto de Souza wrote:
+>> Same bit was required for Wa_14012131227 in DG1 now it is also
+>> required as Wa_1508744258 to TGL, RKL, DG1, ADL-S and ADL-P.
+>>
+>> Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+>> Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/gt/intel_workarounds.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c 
+>> b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+>> index e5e3f820074a9..c346229e2be00 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+>> @@ -670,6 +670,13 @@ static void gen12_ctx_workarounds_init(struct 
+>> intel_engine_cs *engine,
+>>              FF_MODE2_GS_TIMER_MASK,
+>>              FF_MODE2_GS_TIMER_224,
+>>              0);
+>> +
+>> +    /*
+>> +     * Wa_14012131227:dg1
+>> +     * Wa_1508744258:tgl,rkl,dg1,adl-s,adl-p
+>> +     */
+>> +    wa_masked_en(wal, GEN7_COMMON_SLICE_CHICKEN1,
+>> +             GEN9_RHWO_OPTIMIZATION_DISABLE);
+>>   }
+>>   static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
+>>
+> 
+> Hi, I don't see this (or patches 3, 4) in drm-intel-next, are they not 
+> needed anymore?
 
-Combo phy is limited to 5.4 GHz on low-voltage SKUs, but both eDP and DP
-can do 8.1 GHz on combo phy.
+but is in drm-intel-gt-next..
 
-Bspec: 49182, 49205, 49202
 
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d27f29477713..e8d2d381c587 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -258,6 +258,18 @@ static int ehl_max_source_rate(struct intel_dp *intel_dp)
- 	return 810000;
- }
- 
-+static int dg1_max_source_rate(struct intel_dp *intel_dp)
-+{
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-+	enum phy phy = intel_port_to_phy(i915, dig_port->base.port);
-+
-+	if (intel_phy_is_combo(i915, phy) && is_low_voltage_sku(i915, phy))
-+		return 540000;
-+
-+	return 810000;
-+}
-+
- static void
- intel_dp_set_source_rates(struct intel_dp *intel_dp)
- {
-@@ -290,7 +302,9 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
- 	if (DISPLAY_VER(dev_priv) >= 11) {
- 		source_rates = icl_rates;
- 		size = ARRAY_SIZE(icl_rates);
--		if (IS_JSL_EHL(dev_priv))
-+		if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv))
-+			max_rate = dg1_max_source_rate(intel_dp);
-+		else if (IS_JSL_EHL(dev_priv))
- 			max_rate = ehl_max_source_rate(intel_dp);
- 		else
- 			max_rate = icl_max_source_rate(intel_dp);
 -- 
-2.29.0
-
+t
