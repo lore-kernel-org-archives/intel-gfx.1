@@ -7,31 +7,31 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3292C432BE
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 12:47:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91CA1C4320A
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:00:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C46361059
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 12:47:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7C46361059
+	by mail.kernel.org (Postfix) with ESMTPS id 258E160F35
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:00:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 258E160F35
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C26A6E088;
-	Thu, 12 Aug 2021 12:47:51 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9FD26E088
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 12:47:49 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10073"; a="237375582"
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="237375582"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 597B56E3DB;
+	Thu, 12 Aug 2021 13:00:12 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A106E3DB
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 13:00:11 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10073"; a="202533821"
+X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="202533821"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2021 05:47:49 -0700
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="527809569"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2021 06:00:10 -0700
+X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="527812311"
 Received: from linux-x299-aorus-gaming-3-pro.iind.intel.com ([10.223.34.130])
  by fmsmga002-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2021 05:47:45 -0700
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2021 06:00:06 -0700
 From: Swati Sharma <swati2.sharma@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Swati Sharma <swati2.sharma@intel.com>,
@@ -41,12 +41,12 @@ Cc: Swati Sharma <swati2.sharma@intel.com>,
  Imre Deak <imre.deak@intel.com>, Manasi Navare <manasi.d.navare@intel.com>,
  "Jos_ Roberto de Souza" <jose.souza@intel.com>,
  Sean Paul <seanpaul@chromium.org>, stable@vger.kernel.org
-Date: Thu, 12 Aug 2021 18:28:45 +0530
-Message-Id: <20210812125845.27787-1-swati2.sharma@intel.com>
+Date: Thu, 12 Aug 2021 18:41:07 +0530
+Message-Id: <20210812131107.5531-1-swati2.sharma@intel.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/display: Drop redundant debug print
+Subject: [Intel-gfx] [v3][PATCH] drm/i915/display: Drop redundant debug print
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,6 +66,9 @@ drm_dp_dpcd_read/write already has debug error message.
 Drop redundant error messages which gives false
 status even if correct value is read in drm_dp_dpcd_read().
 
+v2: -Added fixes tag (Ankit)
+v3: -Fixed build error (CI)
+
 Fixes: 9488a030ac91 ("drm/i915: Add support for enabling link status and recovery")
 Cc: Swati Sharma <swati2.sharma@intel.com>
 Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
@@ -80,16 +83,24 @@ Cc: Sean Paul <seanpaul@chromium.org>
 Cc: <stable@vger.kernel.org> # v5.12+
 
 Link: https://patchwork.freedesktop.org/patch/msgid/20201218103723.30844-12-ankit.k.nautiyal@intel.com
+
 Signed-off-by: Swati Sharma <swati2.sharma@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index c386ef8eb200..5c84f51ad41d 100644
+index c386ef8eb200..2526c9c8c690 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3871,16 +3871,12 @@ static void intel_dp_check_link_service_irq(struct intel_dp *intel_dp)
+@@ -3864,23 +3864,18 @@ static void intel_dp_check_device_service_irq(struct intel_dp *intel_dp)
+ 
+ static void intel_dp_check_link_service_irq(struct intel_dp *intel_dp)
+ {
+-	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	u8 val;
+ 
+ 	if (intel_dp->dpcd[DP_DPCD_REV] < 0x11)
  		return;
  
  	if (drm_dp_dpcd_readb(&intel_dp->aux,
