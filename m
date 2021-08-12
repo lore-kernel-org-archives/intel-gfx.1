@@ -2,80 +2,75 @@ Return-Path: <SRS0=LDoR=ND=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62BA0C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:05:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61371C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:14:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7352C610A3
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:05:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7352C610A3
+	by mail.kernel.org (Postfix) with ESMTPS id D35886109D
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:14:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D35886109D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B16BB6E3F0;
-	Thu, 12 Aug 2021 13:05:38 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D86316E3F0
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 13:05:37 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- c129-20020a1c35870000b02902e6b6135279so3059541wma.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 06:05:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 667396E3FE;
+	Thu, 12 Aug 2021 13:14:23 +0000 (UTC)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC4856E3F7
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 13:14:21 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id f5so8211943wrm.13
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 06:14:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=qr6f4k77kHnXw8xt8qMGKu5RU6zaq/z/nsP/XUbddOI=;
- b=S8XNQia+ZM5EbgOkxCHSGoHCjnu/BgLnrsRK8/FcxJUaM9sI8ReQ3TBIjptxBoo933
- Gp3yoqMG77GXguhWyTax/t84ClfnwMnixComvk24Dz32LRrxHGZj5MEEdMO1HBCy9l4L
- G4ymr21DFv88VV4M/m/ZzUDDzer4/v3JSNT7c=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=tqOrj10a9179UKwztaPmJuVVNVQxaF3GNdFLHYLGkEM=;
+ b=GVnpU5IUAzl7lF1hvjKlQYt8oyoS4Zr/koluyrY9NVNehhpfHQQc0UESmVpjVN4554
+ Bxz2W9Uzewh4bsVWuWPBoDGGw1MyFFMVGZhlagY8tU8SZigGrOCo95pMudPB8D7ATcmv
+ u5/wL9ea3tj+ae9IIKEZ48ll6wxIlYiKepjlA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=qr6f4k77kHnXw8xt8qMGKu5RU6zaq/z/nsP/XUbddOI=;
- b=pKYmeTmPjshAv0Ictsr7r6YaP2KvSdfNAdHbTSZLZgcGtYpqzfiE70A3IocnB3NkCV
- ALyM+vuXIpF9Jgcb0cie537wA6I5bBh6zeFBkWJKiqJAjN3eGdBRZT2JGWq8TYsyEdFO
- O+ynWgbgkwtRAZyuS4cRts2wjZqiy3SMiUx1rj6DYbeZQfSuKuPZni7Hh3J04o3IYqAB
- q+GVnjDHTIAT+GhQa521DTzoCwf8hRbr2YX9GS8GMB+5ev1za+ECsbh+UWl/x0GfDrI5
- DqN8s2zflRpd+mJew0ctBV9JC2KIj3wrf6slaH6LPxE7+VLDBf+QJg2wOfF18JWG2NQ8
- 6LHQ==
-X-Gm-Message-State: AOAM5314kQS8zN1s2hFhnUci0Rscdvy3cJMfS+Rz0it8pYrm4E5z9NDP
- cu6HKHqJzFo86+oJtraK0dQQ1g==
-X-Google-Smtp-Source: ABdhPJxiQHyS7qvybweMVTTp40D1ZYBnokPSEkDVj1mJeN/PbBMYt8p3DQ3M0FVsyRQmnVN/TIzmEw==
-X-Received: by 2002:a05:600c:1c28:: with SMTP id
- j40mr3052396wms.104.1628773536306; 
- Thu, 12 Aug 2021 06:05:36 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=tqOrj10a9179UKwztaPmJuVVNVQxaF3GNdFLHYLGkEM=;
+ b=J2z9DrhQ8jOpCs5Br++VY2xc9M7PkuPVXuzq8yziJL9hkNrxSMz8qf1yOAWdRKq1Sa
+ AVX1uoa4Uwa8IHMzb0+hZ/z8LsmYrNk3o9tZWVZMH3LsuE5Svh3K50kvqw/yYfIOjOEa
+ QSDrg1u5s6HR7u9P5jiRlVoHRpUOX4iNRMcjd2gsV7aRZckBOm7mGifCu5d099FbQPPg
+ p7XMr3c3uy5oBwkEbgQ6DzuEKjRUxOasKe+ZMoFApG7ZU2WvJefAmWOJ4GnsunGrBIu0
+ GAzKNWZ01hyLqSVNV/8RYzK9su0Jc/dnYB6HSz3wjiJ9VsPnMh5PZnT6e1epC1l9cRiF
+ Pd+w==
+X-Gm-Message-State: AOAM532B/pmulBLjAzR0rtXdO0dpeeWa+Db39J9tsVlLKBshEgjC3bJO
+ R26heJF0KejVGYH3zT5rI/VwFA==
+X-Google-Smtp-Source: ABdhPJwGUi1eOTCjxXVtheJwXqXw5z8VB6UiMQ1P7ZLTzMZl9LCJUQ6/83x1dJ38xlOBrh4JbXrzQQ==
+X-Received: by 2002:adf:d091:: with SMTP id y17mr4006752wrh.311.1628774060040; 
+ Thu, 12 Aug 2021 06:14:20 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id k186sm11206897wme.45.2021.08.12.06.05.35
+ by smtp.gmail.com with ESMTPSA id h4sm2914957wru.2.2021.08.12.06.14.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Aug 2021 06:05:35 -0700 (PDT)
-Date: Thu, 12 Aug 2021 15:05:33 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>
-Message-ID: <YRUcnaebyqhAcYLr@phenom.ffwll.local>
-References: <20210713205153.1896059-1-daniel.vetter@ffwll.ch>
- <20210713205153.1896059-3-daniel.vetter@ffwll.ch>
- <573242f9-a29e-73d9-3efb-51c436d636fd@suse.de>
+ Thu, 12 Aug 2021 06:14:19 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 12 Aug 2021 15:14:10 +0200
+Message-Id: <20210812131412.2487363-2-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210812131412.2487363-1-daniel.vetter@ffwll.ch>
+References: <20210812131412.2487363-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <573242f9-a29e-73d9-3efb-51c436d636fd@suse.de>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
-Subject: Re: [Intel-gfx] [PATCH v4 2/4] drm/shmem-helper: Switch to
- vmf_insert_pfn
+Subject: [Intel-gfx] [PATCH 2/4] drm/shmem-helper: Switch to vmf_insert_pfn
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,163 +86,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+We want to stop gup, which isn't the case if we use vmf_insert_page
+and VM_MIXEDMAP, because that does not set pte_special.
+
+The motivation here is to stop get_user_pages from working on buffer
+object mmaps in general. Quoting some discussion with Thomas:
+
 On Thu, Jul 22, 2021 at 08:22:43PM +0200, Thomas Zimmermann wrote:
-> Hi,
-> 
-> I'm not knowledgeable enougth to give this a full review. If you can just
-> answer my questions, fell free to add an
-> 
-> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-> 
-> to the patch. :)
-> 
 > Am 13.07.21 um 22:51 schrieb Daniel Vetter:
 > > We want to stop gup, which isn't the case if we use vmf_insert_page
-> 
+>
 > What is gup?
-> 
-> > and VM_MIXEDMAP, because that does not set pte_special.
-> > 
-> > v2: With this shmem gem helpers now definitely need CONFIG_MMU (0day)
-> > 
-> > v3: add more depends on MMU. For usb drivers this is a bit awkward,
-> > but really it's correct: To be able to provide a contig mapping of
-> > buffers to userspace on !MMU platforms we'd need to use the cma
-> > helpers for these drivers on those platforms. As-is this wont work.
-> > 
-> > Also not exactly sure why vm_insert_page doesn't go boom, because that
-> > definitely wont fly in practice since the pages are non-contig to
-> > begin with.
-> > 
-> > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Cc: David Airlie <airlied@linux.ie>
-> > Cc: Daniel Vetter <daniel@ffwll.ch>
-> > ---
-> >   drivers/gpu/drm/Kconfig                | 2 +-
-> >   drivers/gpu/drm/drm_gem_shmem_helper.c | 4 ++--
-> >   drivers/gpu/drm/gud/Kconfig            | 2 +-
-> >   drivers/gpu/drm/tiny/Kconfig           | 4 ++--
-> >   drivers/gpu/drm/udl/Kconfig            | 1 +
-> >   5 files changed, 7 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> > index 0d372354c2d0..314eefa39892 100644
-> > --- a/drivers/gpu/drm/Kconfig
-> > +++ b/drivers/gpu/drm/Kconfig
-> > @@ -211,7 +211,7 @@ config DRM_KMS_CMA_HELPER
-> >   config DRM_GEM_SHMEM_HELPER
-> >   	bool
-> > -	depends on DRM
-> > +	depends on DRM && MMU
-> >   	help
-> >   	  Choose this if you need the GEM shmem helper functions
-> > diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> > index d5e6d4568f99..296ab1b7c07f 100644
-> > --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> > +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> > @@ -542,7 +542,7 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
-> >   	} else {
-> >   		page = shmem->pages[page_offset];
-> > -		ret = vmf_insert_page(vma, vmf->address, page);
-> > +		ret = vmf_insert_pfn(vma, vmf->address, page_to_pfn(page));
-> >   	}
-> >   	mutex_unlock(&shmem->pages_lock);
-> > @@ -612,7 +612,7 @@ int drm_gem_shmem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
-> >   		return ret;
-> >   	}
-> > -	vma->vm_flags |= VM_MIXEDMAP | VM_DONTEXPAND;
-> > +	vma->vm_flags |= VM_PFNMAP | VM_DONTEXPAND;
-> >   	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
-> >   	if (shmem->map_wc)
-> >   		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
-> > diff --git a/drivers/gpu/drm/gud/Kconfig b/drivers/gpu/drm/gud/Kconfig
-> > index 1c8601bf4d91..9c1e61f9eec3 100644
-> > --- a/drivers/gpu/drm/gud/Kconfig
-> > +++ b/drivers/gpu/drm/gud/Kconfig
-> > @@ -2,7 +2,7 @@
-> >   config DRM_GUD
-> >   	tristate "GUD USB Display"
-> > -	depends on DRM && USB
-> > +	depends on DRM && USB && MMU
-> >   	select LZ4_COMPRESS
-> >   	select DRM_KMS_HELPER
-> >   	select DRM_GEM_SHMEM_HELPER
-> 
-> I'm a kconfig noob, so this is rather a question than a review comment:
-> 
-> 
-> 
-> If DRM_GEM_SHMEM_HELPER already depends on MMU, this select will fail on
-> non-MMU platforms? Why does the driver also depend on MMU? Simply to make
-> the item disappear in menuconfig?
 
-I totally missed this somehow. vmf_insert_pfn functions only exists for
-MMU based system. So we can't compile vgem without that. And yes it just
-makes it disappear.
+get_user_pages. It pins memory wherever it is, which badly wreaks at least
+ttm and could also cause trouble with cma allocations. In both cases
+becaue we can't move/reuse these pages anymore.
 
-tbh I'm not sure it even worked with the old code, because on !MMU
-platforms it's the mmap's implementation job to make sure the pages are
-physically contiguous. There's another mmap related callback which should
-return the physical address where the memory starts.
+Now get_user_pages fails when the memory isn't considered "normal", like
+with VM_PFNMAP and using vm_insert_pfn. For consistency across all dma-buf
+I'm trying (together with Christian KÃ¶nig) to roll this out everywhere,
+for fewer surprises.
 
-The cma helpers otoh should work on !MMU platforms, because they will give
-us a physically contig memory region.
--Daniel
+E.g. for 5.14 iirc we merged a patch to do the same for ttm, where it
+closes an actual bug (ttm gets really badly confused when there's suddenly
+pinned pages where it thought it can move them).
 
-> 
-> Best regards
-> Thomas
-> 
-> > diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-> > index 5593128eeff9..c11fb5be7d09 100644
-> > --- a/drivers/gpu/drm/tiny/Kconfig
-> > +++ b/drivers/gpu/drm/tiny/Kconfig
-> > @@ -44,7 +44,7 @@ config DRM_CIRRUS_QEMU
-> >   config DRM_GM12U320
-> >   	tristate "GM12U320 driver for USB projectors"
-> > -	depends on DRM && USB
-> > +	depends on DRM && USB && MMU
-> >   	select DRM_KMS_HELPER
-> >   	select DRM_GEM_SHMEM_HELPER
-> >   	help
-> > @@ -53,7 +53,7 @@ config DRM_GM12U320
-> >   config DRM_SIMPLEDRM
-> >   	tristate "Simple framebuffer driver"
-> > -	depends on DRM
-> > +	depends on DRM && MMU
-> >   	select DRM_GEM_SHMEM_HELPER
-> >   	select DRM_KMS_HELPER
-> >   	help
-> > diff --git a/drivers/gpu/drm/udl/Kconfig b/drivers/gpu/drm/udl/Kconfig
-> > index 1f497d8f1ae5..c744175c6992 100644
-> > --- a/drivers/gpu/drm/udl/Kconfig
-> > +++ b/drivers/gpu/drm/udl/Kconfig
-> > @@ -4,6 +4,7 @@ config DRM_UDL
-> >   	depends on DRM
-> >   	depends on USB
-> >   	depends on USB_ARCH_HAS_HCD
-> > +	depends on MMU
-> >   	select DRM_GEM_SHMEM_HELPER
-> >   	select DRM_KMS_HELPER
-> >   	help
-> > 
-> 
-> -- 
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Maxfeldstr. 5, 90409 Nürnberg, Germany
-> (HRB 36809, AG Nürnberg)
-> Geschäftsführer: Felix Imendörffer
-> 
+cma allcoations already use VM_PFNMAP (because that's what dma_mmap is
+using underneath), as is anything that's using remap_pfn_range. Worst case
+we have to revert this patch for shmem helpers if it breaks something, but
+I hope that's not the case. On the ttm side we've also had some fallout
+that we needed to paper over with clever tricks.
+v2: With this shmem gem helpers now definitely need CONFIG_MMU (0day)
 
+v3: add more depends on MMU. For usb drivers this is a bit awkward,
+but really it's correct: To be able to provide a contig mapping of
+buffers to userspace on !MMU platforms we'd need to use the cma
+helpers for these drivers on those platforms. As-is this wont work.
 
+Also not exactly sure why vm_insert_page doesn't go boom, because that
+definitely wont fly in practice since the pages are non-contig to
+begin with.
 
+v4: Explain the entire motivation a lot more (Thomas)
 
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+---
+ drivers/gpu/drm/Kconfig                | 2 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 4 ++--
+ drivers/gpu/drm/gud/Kconfig            | 2 +-
+ drivers/gpu/drm/tiny/Kconfig           | 4 ++--
+ drivers/gpu/drm/udl/Kconfig            | 1 +
+ 5 files changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 0d372354c2d0..314eefa39892 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -211,7 +211,7 @@ config DRM_KMS_CMA_HELPER
+ 
+ config DRM_GEM_SHMEM_HELPER
+ 	bool
+-	depends on DRM
++	depends on DRM && MMU
+ 	help
+ 	  Choose this if you need the GEM shmem helper functions
+ 
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index a61946374c82..cc96d1c3570e 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -542,7 +542,7 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
+ 	} else {
+ 		page = shmem->pages[page_offset];
+ 
+-		ret = vmf_insert_page(vma, vmf->address, page);
++		ret = vmf_insert_pfn(vma, vmf->address, page_to_pfn(page));
+ 	}
+ 
+ 	mutex_unlock(&shmem->pages_lock);
+@@ -612,7 +612,7 @@ int drm_gem_shmem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
+ 		return ret;
+ 	}
+ 
+-	vma->vm_flags |= VM_MIXEDMAP | VM_DONTEXPAND;
++	vma->vm_flags |= VM_PFNMAP | VM_DONTEXPAND;
+ 	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+ 	if (shmem->map_wc)
+ 		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
+diff --git a/drivers/gpu/drm/gud/Kconfig b/drivers/gpu/drm/gud/Kconfig
+index 1c8601bf4d91..9c1e61f9eec3 100644
+--- a/drivers/gpu/drm/gud/Kconfig
++++ b/drivers/gpu/drm/gud/Kconfig
+@@ -2,7 +2,7 @@
+ 
+ config DRM_GUD
+ 	tristate "GUD USB Display"
+-	depends on DRM && USB
++	depends on DRM && USB && MMU
+ 	select LZ4_COMPRESS
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_SHMEM_HELPER
+diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
+index d31be274a2bd..1ceb93fbdc50 100644
+--- a/drivers/gpu/drm/tiny/Kconfig
++++ b/drivers/gpu/drm/tiny/Kconfig
+@@ -44,7 +44,7 @@ config DRM_CIRRUS_QEMU
+ 
+ config DRM_GM12U320
+ 	tristate "GM12U320 driver for USB projectors"
+-	depends on DRM && USB
++	depends on DRM && USB && MMU
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_SHMEM_HELPER
+ 	help
+@@ -53,7 +53,7 @@ config DRM_GM12U320
+ 
+ config DRM_SIMPLEDRM
+ 	tristate "Simple framebuffer driver"
+-	depends on DRM
++	depends on DRM && MMU
+ 	select DRM_GEM_SHMEM_HELPER
+ 	select DRM_KMS_HELPER
+ 	help
+diff --git a/drivers/gpu/drm/udl/Kconfig b/drivers/gpu/drm/udl/Kconfig
+index 1f497d8f1ae5..c744175c6992 100644
+--- a/drivers/gpu/drm/udl/Kconfig
++++ b/drivers/gpu/drm/udl/Kconfig
+@@ -4,6 +4,7 @@ config DRM_UDL
+ 	depends on DRM
+ 	depends on USB
+ 	depends on USB_ARCH_HAS_HCD
++	depends on MMU
+ 	select DRM_GEM_SHMEM_HELPER
+ 	select DRM_KMS_HELPER
+ 	help
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.32.0
+
