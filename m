@@ -7,71 +7,74 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A30AC4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:14:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 566D3C432BE
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:14:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F390E6109D
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:14:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F390E6109D
+	by mail.kernel.org (Postfix) with ESMTPS id AF84A610A5
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 13:14:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AF84A610A5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1A36E405;
-	Thu, 12 Aug 2021 13:14:25 +0000 (UTC)
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11C0D6E3F7
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED0A06E417;
+	Thu, 12 Aug 2021 13:14:27 +0000 (UTC)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7491B6E3F7
  for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 13:14:22 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- k5-20020a05600c1c85b02902e699a4d20cso4547865wms.2
+Received: by mail-wm1-x32a.google.com with SMTP id
+ c129-20020a1c35870000b02902e6b6135279so3081451wma.0
  for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 06:14:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dmErGBV7VXck18Gc2qFrnojMPrzyI2EPrDXNv3U1XmY=;
- b=CYOg+LUjp256t2um90jzwNbIMAWQqkmOEyFN5EaBp2h4O1nKvX8H8o+CpGJVu0cvra
- Bi59H593zFqTO0Tjipd0y7gxXb6Ue/uv7MOnvMvMSbigvqtdo3oKpION6K2wkaAQM/Ot
- psaWaQkhb4+YONaercPJtRtGxTcp9kDY4zUv0=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=WxqUpVFpx2tiFToGJLko2apqstRuiXrL5jy/Fl17hvI=;
+ b=PlLaXI3ND8nW43bceBMwMvlYbhBhEF1SoTtkk5pIrNpEgvHRDRbYlYRTAF3pahlszw
+ 0/FkP2ZKRotvKEKzaXdFvarjGHqGmx/b9+qaowMeR9TkWYbpwYSSU8aVfsc9rO/hJNt9
+ s/m6/ObymMJOOiv3/w6g1fqfflZhYB9AzT7Bw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dmErGBV7VXck18Gc2qFrnojMPrzyI2EPrDXNv3U1XmY=;
- b=kM/VhercMRG9zFKV7TJGY8r+ilS6OfA/TMxFpn3m+1JiX9ZTBQgPFv9126mzt9yJeA
- f4a8Yp8PuxkUlJd5tIddJGaT0Gj4qCeQ7vkab9DXyLgfJJoyBqrQzIZk2x+/aV76MC0M
- TrSHd2YYPlUgfxLNenfLMSGR0TB9kX84ZR/VUwDQy4UHXb7+n6Zvd5XHSDT/QEe1297D
- OH+9x/y/b41Y+NcmukM4efVd6o7OnF3ei+pYxqZOTW5HDiLt5sayqzCt6hh5Q/HVxxx3
- mUblDI+Pg0kqA1ZmM9lrduBfxL51hIARgqpn4cuqYvjWU9KCZUJRQ0FqTn4FkpghGj/3
- J2NQ==
-X-Gm-Message-State: AOAM531nAXVVOnrCKdHdH8q7ikh79IEYKMUbYoLzf4KZVps9bwqtkEQd
- df44uekTkZm10c/fNyxcHKxf3A==
-X-Google-Smtp-Source: ABdhPJwkvxrgUNLDCUG2WS460z2SKSCQl05C+7mRo54qZ58QNtO0XiYEVEgB1vN4eNSqQUwqOsYJGA==
-X-Received: by 2002:a1c:4e02:: with SMTP id g2mr15899917wmh.150.1628774059127; 
- Thu, 12 Aug 2021 06:14:19 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=WxqUpVFpx2tiFToGJLko2apqstRuiXrL5jy/Fl17hvI=;
+ b=RNCUCpxXMiT2+V+M7FCUfBEIUzvHRLbbA84xlGH2N3lTItfxz/iDpOOab67VXbnK/L
+ S2NkOALLwrXoFoC6XG6HQanKZgVOUh/Bd7krY/wGn21pA2mt0wTYyTJJrZCU4I1v/Trs
+ lgTbreZcZM+wuCVbY0uOYHbzwHl0PBAkFWhrD6liFOaI5rf/VQ3j8fJrI2800WFJOXhQ
+ dXJXnW+Z9zUZOXheJ21637F4xQMoyUQjiLe8fCMMswpeiAE8d3MEzf00dJNCz97RDsYj
+ wWQ0P6OSDorvH6trlMNPaWxh3fz15JsJFuC6PZrcL2X2d+ede4oIOE7UGx6mkpVZtpSu
+ RZYA==
+X-Gm-Message-State: AOAM531X9fepahggBHAzSmilqY6O3T61W/F25BKvh6cDXUrxGUdnTCb+
+ vbxz3SHJS/fc3zOaCz5mcArInnnpar9kcw==
+X-Google-Smtp-Source: ABdhPJyKABZ+o5rsWzQn2DkQs6m58wjIVDRUiiRy0So84dzGVWpV2plsPptbDJFvO+0KTeeVQh8Beg==
+X-Received: by 2002:a05:600c:35cb:: with SMTP id
+ r11mr15666347wmq.31.1628774060926; 
+ Thu, 12 Aug 2021 06:14:20 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id h4sm2914957wru.2.2021.08.12.06.14.18
+ by smtp.gmail.com with ESMTPSA id h4sm2914957wru.2.2021.08.12.06.14.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Aug 2021 06:14:18 -0700 (PDT)
+ Thu, 12 Aug 2021 06:14:20 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
 Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jason Gunthorpe <jgg@ziepe.ca>,
- Suren Baghdasaryan <surenb@google.com>,
- Matthew Wilcox <willy@infradead.org>, John Stultz <john.stultz@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Daniel Vetter <daniel.vetter@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-Date: Thu, 12 Aug 2021 15:14:09 +0200
-Message-Id: <20210812131412.2487363-1-daniel.vetter@ffwll.ch>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 12 Aug 2021 15:14:11 +0200
+Message-Id: <20210812131412.2487363-3-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210812131412.2487363-1-daniel.vetter@ffwll.ch>
+References: <20210812131412.2487363-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] dma-buf: Require VM_PFNMAP vma for mmap
+Subject: [Intel-gfx] [PATCH 3/4] drm/shmem-helpers: Allocate wc pages on x86
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,110 +90,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-tldr; DMA buffers aren't normal memory, expecting that you can use
-them like that (like calling get_user_pages works, or that they're
-accounting like any other normal memory) cannot be guaranteed.
+intel-gfx-ci realized that something is not quite coherent anymore on
+some platforms for our i915+vgem tests, when I tried to switch vgem
+over to shmem helpers.
 
-Since some userspace only runs on integrated devices, where all
-buffers are actually all resident system memory, there's a huge
-temptation to assume that a struct page is always present and useable
-like for any more pagecache backed mmap. This has the potential to
-result in a uapi nightmare.
+After lots of head-scratching I realized that I've removed calls to
+drm_clflush. And we need those. To make this a bit cleaner use the
+same page allocation tooling as ttm, which does internally clflush
+(and more, as neeeded on any platform instead of just the intel x86
+cpus i915 can be combined with).
 
-To stop this gap require that DMA buffer mmaps are VM_PFNMAP, which
-blocks get_user_pages and all the other struct page based
-infrastructure for everyone. In spirit this is the uapi counterpart to
-the kernel-internal CONFIG_DMABUF_DEBUG.
+Unfortunately this doesn't exist on arm, or as a generic feature. For
+that I think only the dma-api can get at wc memory reliably, so maybe
+we'd need some kind of GFP_WC flag to do this properly.
 
-Motivated by a recent patch which wanted to swich the system dma-buf
-heap to vm_insert_page instead of vm_insert_pfn.
+v2: Add a TODO comment about what should be done to support this in
+other places (Thomas)
 
-v2:
-
-Jason brought up that we also want to guarantee that all ptes have the
-pte_special flag set, to catch fast get_user_pages (on architectures
-that support this). Allowing VM_MIXEDMAP (like VM_SPECIAL does) would
-still allow vm_insert_page, but limiting to VM_PFNMAP will catch that.
-
-From auditing the various functions to insert pfn pte entires
-(vm_insert_pfn_prot, remap_pfn_range and all it's callers like
-dma_mmap_wc) it looks like VM_PFNMAP is already required anyway, so
-this should be the correct flag to check for.
-
-v3: Change to WARN_ON_ONCE (Thomas Zimmermann)
-
-References: https://lore.kernel.org/lkml/CAKMK7uHi+mG0z0HUmNt13QCCvutuRVjpcR0NjRL12k-WbWzkRg@mail.gmail.com/
-Acked-by: Christian König <christian.koenig@amd.com>
 Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: John Stultz <john.stultz@linaro.org>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: linux-media@vger.kernel.org
-Cc: linaro-mm-sig@lists.linaro.org
---
-Resending this so I can test the next patches for vgem/shmem in
-intel-gfx-ci.
-
-No immediate plans to merge this patch here since ttm isn't addressed
-yet (and there we have the hugepte issue, for which I don't think we
-have a clear consensus yet).
--Daniel
+Cc: Christian König <christian.koenig@amd.com>
+Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
 ---
- drivers/dma-buf/dma-buf.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 63d32261b63f..d19b1cf6c34f 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -130,6 +130,7 @@ static struct file_system_type dma_buf_fs_type = {
- static int dma_buf_mmap_internal(struct file *file, struct vm_area_struct *vma)
- {
- 	struct dma_buf *dmabuf;
-+	int ret;
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index cc96d1c3570e..0e0986dfbe0c 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -10,6 +10,10 @@
+ #include <linux/slab.h>
+ #include <linux/vmalloc.h>
  
- 	if (!is_dma_buf_file(file))
- 		return -EINVAL;
-@@ -145,7 +146,11 @@ static int dma_buf_mmap_internal(struct file *file, struct vm_area_struct *vma)
- 	    dmabuf->size >> PAGE_SHIFT)
- 		return -EINVAL;
- 
--	return dmabuf->ops->mmap(dmabuf, vma);
-+	ret = dmabuf->ops->mmap(dmabuf, vma);
++#ifdef CONFIG_X86
++#include <asm/set_memory.h>
++#endif
 +
-+	WARN_ON_ONCE(!(vma->vm_flags & VM_PFNMAP));
-+
-+	return ret;
- }
+ #include <drm/drm.h>
+ #include <drm/drm_device.h>
+ #include <drm/drm_drv.h>
+@@ -162,6 +166,16 @@ static int drm_gem_shmem_get_pages_locked(struct drm_gem_shmem_object *shmem)
+ 		return PTR_ERR(pages);
+ 	}
  
- static loff_t dma_buf_llseek(struct file *file, loff_t offset, int whence)
-@@ -1260,6 +1265,8 @@ EXPORT_SYMBOL_GPL(dma_buf_end_cpu_access);
- int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 		 unsigned long pgoff)
- {
-+	int ret;
++	/*
++	 * TODO: Allocating WC pages which are correctly flushed is only
++	 * supported on x86. Ideal solution would be a GFP_WC flag, which also
++	 * ttm_pool.c could use.
++	 */
++#ifdef CONFIG_X86
++	if (shmem->map_wc)
++		set_pages_array_wc(pages, obj->size >> PAGE_SHIFT);
++#endif
 +
- 	if (WARN_ON(!dmabuf || !vma))
- 		return -EINVAL;
+ 	shmem->pages = pages;
  
-@@ -1280,7 +1287,11 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 	vma_set_file(vma, dmabuf->file);
- 	vma->vm_pgoff = pgoff;
+ 	return 0;
+@@ -203,6 +217,11 @@ static void drm_gem_shmem_put_pages_locked(struct drm_gem_shmem_object *shmem)
+ 	if (--shmem->pages_use_count > 0)
+ 		return;
  
--	return dmabuf->ops->mmap(dmabuf, vma);
-+	ret = dmabuf->ops->mmap(dmabuf, vma);
++#ifdef CONFIG_X86
++	if (shmem->map_wc)
++		set_pages_array_wb(shmem->pages, obj->size >> PAGE_SHIFT);
++#endif
 +
-+	WARN_ON_ONCE(!(vma->vm_flags & VM_PFNMAP));
-+
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(dma_buf_mmap);
- 
+ 	drm_gem_put_pages(obj, shmem->pages,
+ 			  shmem->pages_mark_dirty_on_put,
+ 			  shmem->pages_mark_accessed_on_put);
 -- 
 2.32.0
 
