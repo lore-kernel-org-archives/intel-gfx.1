@@ -2,52 +2,44 @@ Return-Path: <SRS0=LDoR=ND=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6CA9C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 07:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BFCBC4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 07:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4115D6103A
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 07:27:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4115D6103A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id EAA9260FC4
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Aug 2021 07:46:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EAA9260FC4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 696F06E027;
-	Thu, 12 Aug 2021 07:27:22 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 253D96E30F
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Aug 2021 07:27:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10073"; a="195565051"
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="195565051"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2021 00:27:18 -0700
-X-IronPort-AV: E=Sophos;i="5.84,315,1620716400"; d="scan'208";a="590541303"
-Received: from genxfsim-desktop.iind.intel.com (HELO intel.com)
- ([10.223.74.179])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2021 00:27:16 -0700
-Date: Thu, 12 Aug 2021 12:40:02 +0530
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: Juston Li <juston.li@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, seanpaul@chromium.org,
- ramalingam.c@intel.com, rodrigo.vivi@intel.com
-Message-ID: <20210812070958.GB814@intel.com>
-References: <20210811212314.153269-1-juston.li@intel.com>
- <20210811212314.153269-4-juston.li@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF2F89090;
+	Thu, 12 Aug 2021 07:46:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8553F89090;
+ Thu, 12 Aug 2021 07:46:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 30FF8A00F5;
+ Thu, 12 Aug 2021 07:46:21 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1650198687541205188=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20210811212314.153269-4-juston.li@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH v4 3/3] drm/i915/hdcp: reuse rx_info for mst
- stream type1 capability check
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Animesh Manna" <animesh.manna@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 12 Aug 2021 07:46:21 -0000
+Message-ID: <162875438117.21763.7709449702618154126@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210812054806.22745-1-animesh.manna@intel.com>
+In-Reply-To: <20210812054806.22745-1-animesh.manna@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRml4?=
+ =?utf-8?q?_in_max_source_calculation_for_dp/edp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,224 +52,236 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-08-11 at 14:23:14 -0700, Juston Li wrote:
-> On some MST docking stations, rx_info can only be read after
-> RepeaterAuth_Send_ReceiverID_List and the RxStatus READY bit is set
-> otherwise the read will return -EIO.
-> 
-> This behavior causes the mst stream type1 capability test to fail to
-> read rx_info and determine if the topology supports type1 and fallback
-> to type0.
-> 
-> To fix this, check for type1 capability when we receive rx_info within
-> the AKE flow when we read RepeaterAuth_Send_ReceiverID_List instead
-> of an explicit read just for type1 capability checking.
-> 
-> This does require moving where we set stream_types to after
-> hdcp2_authenticate_sink() when we get rx_info but this occurs before we
-> do hdcp2_propagate_stream_management_info.
-> 
-> Also, legacy HDCP 2.0/2.1 are not type 1 capable either so check for
-> that as well.
-> 
-> Changes since v2:
->  - Remove no longer used variables in _intel_hdcp2_enable()
-> 
-> Signed-off-by: Juston Li <juston.li@intel.com>
-> Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
-> ---
->  .../drm/i915/display/intel_display_types.h    |  2 +
->  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  | 39 ---------------
->  drivers/gpu/drm/i915/display/intel_hdcp.c     | 49 ++++++++-----------
->  3 files changed, 23 insertions(+), 67 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index dbdfe54d0340..c8b687ff0374 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -516,6 +516,8 @@ struct intel_hdcp {
->  	enum transcoder cpu_transcoder;
->  	/* Only used for DP MST stream encryption */
->  	enum transcoder stream_transcoder;
-> +
-> +	bool topology_type1_capable;
-Topology is not going to be change for each connector in mst topology.
-IMHO dig_port should contain this, prefix by mst as this is specific
-to mst usages.
->  };
->  
->  struct intel_connector {
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-> index fbfb3c4d16bb..540a669e01dd 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-> @@ -478,23 +478,6 @@ int intel_dp_hdcp2_write_msg(struct intel_digital_port *dig_port,
->  	return size;
->  }
->  
-> -static int
-> -get_rxinfo_hdcp_1_dev_downstream(struct intel_digital_port *dig_port, bool *hdcp_1_x)
-> -{
-> -	u8 rx_info[HDCP_2_2_RXINFO_LEN];
-> -	int ret;
-> -
-> -	ret = drm_dp_dpcd_read(&dig_port->dp.aux,
-> -			       DP_HDCP_2_2_REG_RXINFO_OFFSET,
-> -			       (void *)rx_info, HDCP_2_2_RXINFO_LEN);
-> -
-> -	if (ret != HDCP_2_2_RXINFO_LEN)
-> -		return ret >= 0 ? -EIO : ret;
-> -
-> -	*hdcp_1_x = HDCP_2_2_HDCP1_DEVICE_CONNECTED(rx_info[1]) ? true : false;
-> -	return 0;
-> -}
-> -
->  static
->  ssize_t get_receiver_id_list_rx_info(struct intel_digital_port *dig_port, u32 *dev_cnt, u8 *byte)
->  {
-> @@ -665,27 +648,6 @@ int intel_dp_hdcp2_capable(struct intel_digital_port *dig_port,
->  	return 0;
->  }
->  
-> -static
-> -int intel_dp_mst_streams_type1_capable(struct intel_connector *connector,
-> -				       bool *capable)
-> -{
-> -	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-> -	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> -	int ret;
-> -	bool hdcp_1_x;
-> -
-> -	ret = get_rxinfo_hdcp_1_dev_downstream(dig_port, &hdcp_1_x);
-> -	if (ret) {
-> -		drm_dbg_kms(&i915->drm,
-> -			    "[%s:%d] failed to read RxInfo ret=%d\n",
-> -			    connector->base.name, connector->base.base.id, ret);
-> -		return ret;
-> -	}
-> -
-> -	*capable = !hdcp_1_x;
-> -	return 0;
-> -}
-> -
->  static const struct intel_hdcp_shim intel_dp_hdcp_shim = {
->  	.write_an_aksv = intel_dp_hdcp_write_an_aksv,
->  	.read_bksv = intel_dp_hdcp_read_bksv,
-> @@ -834,7 +796,6 @@ static const struct intel_hdcp_shim intel_dp_mst_hdcp_shim = {
->  	.stream_2_2_encryption = intel_dp_mst_hdcp2_stream_encryption,
->  	.check_2_2_link = intel_dp_mst_hdcp2_check_link,
->  	.hdcp_2_2_capable = intel_dp_hdcp2_capable,
-> -	.streams_type1_capable = intel_dp_mst_streams_type1_capable,
->  	.protocol = HDCP_PROTOCOL_DP,
->  };
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-> index ebc2e32aec0b..1a2a98e2c6e3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-> @@ -33,21 +33,6 @@ static int intel_conn_to_vcpi(struct intel_connector *connector)
->  	return connector->port	? connector->port->vcpi.vcpi : 0;
->  }
->  
-> -static bool
-> -intel_streams_type1_capable(struct intel_connector *connector)
-> -{
-> -	const struct intel_hdcp_shim *shim = connector->hdcp.shim;
-> -	bool capable = false;
-> -
-> -	if (!shim)
-> -		return capable;
-> -
-> -	if (shim->streams_type1_capable)
-> -		shim->streams_type1_capable(connector, &capable);
-> -
-> -	return capable;
-> -}
-> -
->  /*
->   * intel_hdcp_required_content_stream selects the most highest common possible HDCP
->   * content_type for all streams in DP MST topology because security f/w doesn't
-> @@ -86,7 +71,7 @@ intel_hdcp_required_content_stream(struct intel_digital_port *dig_port)
->  		if (conn_dig_port != dig_port)
->  			continue;
->  
-> -		if (!enforce_type0 && !intel_streams_type1_capable(connector))
-> +		if (!enforce_type0 && !connector->hdcp.topology_type1_capable)
->  			enforce_type0 = true;
->  
->  		data->streams[data->k].stream_id = intel_conn_to_vcpi(connector);
-> @@ -1632,6 +1617,14 @@ int hdcp2_authenticate_repeater_topology(struct intel_connector *connector)
->  		return -EINVAL;
->  	}
->  
-> +	/*
-> +	 * A topology is not Type 1 capable if it contains a downstream device
-> +	 * that is HDCP 1.x or Legacy HDCP 2.0/2.1 compliant.
-> +	 */
-> +	hdcp->topology_type1_capable =
-> +		!HDCP_2_2_HDCP1_DEVICE_CONNECTED(rx_info[1]) &&
-> +		!HDCP_2_2_HDCP_2_0_REP_CONNECTED(rx_info[1]);
-> +
->  	/* Converting and Storing the seq_num_v to local variable as DWORD */
->  	seq_num_v =
->  		drm_hdcp_be24_to_cpu((const u8 *)msgs.recvid_list.seq_num_v);
-> @@ -1871,11 +1864,23 @@ static int hdcp2_authenticate_and_encrypt(struct intel_connector *connector)
->  {
->  	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
->  	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-> +	struct hdcp_port_data *data = &dig_port->hdcp_port_data;
-> +	struct intel_hdcp *hdcp = &connector->hdcp;
->  	int ret = 0, i, tries = 3;
->  
->  	for (i = 0; i < tries && !dig_port->hdcp_auth_status; i++) {
->  		ret = hdcp2_authenticate_sink(connector);
->  		if (!ret) {
-> +			/* Stream which requires encryption */
-> +			if (!intel_encoder_is_mst(intel_attached_encoder(connector))) {
-> +				data->k = 1;
-> +				data->streams[0].stream_type = hdcp->content_type;
-> +			} else {
-> +				ret = intel_hdcp_required_content_stream(dig_port);
-> +				if (ret)
-> +					return ret;
-> +			}
-> +
-It will be good to use helper function to init streams here.
-Thanks,
-Anshuman Gupta.
->  			ret = hdcp2_propagate_stream_management_info(connector);
->  			if (ret) {
->  				drm_dbg_kms(&i915->drm,
-> @@ -1921,9 +1926,7 @@ static int hdcp2_authenticate_and_encrypt(struct intel_connector *connector)
->  
->  static int _intel_hdcp2_enable(struct intel_connector *connector)
->  {
-> -	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
->  	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-> -	struct hdcp_port_data *data = &dig_port->hdcp_port_data;
->  	struct intel_hdcp *hdcp = &connector->hdcp;
->  	int ret;
->  
-> @@ -1931,16 +1934,6 @@ static int _intel_hdcp2_enable(struct intel_connector *connector)
->  		    connector->base.name, connector->base.base.id,
->  		    hdcp->content_type);
->  
-> -	/* Stream which requires encryption */
-> -	if (!intel_encoder_is_mst(intel_attached_encoder(connector))) {
-> -		data->k = 1;
-> -		data->streams[0].stream_type = hdcp->content_type;
-> -	} else {
-> -		ret = intel_hdcp_required_content_stream(dig_port);
-> -		if (ret)
-> -			return ret;
-> -	}
-> -
->  	ret = hdcp2_authenticate_and_encrypt(connector);
->  	if (ret) {
->  		drm_dbg_kms(&i915->drm, "HDCP2 Type%d  Enabling Failed. (%d)\n",
-> -- 
-> 2.31.1
-> 
+--===============1650198687541205188==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: Fix in max source calculation for dp/edp
+URL   : https://patchwork.freedesktop.org/series/93622/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10472 -> Patchwork_20800
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20800 that come from known issues:
+
+### CI changes ###
+
+#### Issues hit ####
+
+  * boot:
+    - fi-kbl-soraka:      [PASS][1] -> [FAIL][2] ([i915#3895])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10472/fi-kbl-soraka/boot.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-kbl-soraka/boot.html
+
+  
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@cs-gfx:
+    - fi-skl-6700k2:      NOTRUN -> [SKIP][3] ([fdo#109271]) +33 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-skl-6700k2/igt@amdgpu/amd_basic@cs-gfx.html
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-tgl-1115g4:      [PASS][4] -> [FAIL][5] ([i915#1888])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10472/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-skl-6700k2:      NOTRUN -> [SKIP][6] ([fdo#109271] / [i915#2190])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-skl-6700k2/igt@gem_huc_copy@huc-copy.html
+
+  * igt@i915_pm_rpm@basic-rte:
+    - fi-skl-6700k2:      NOTRUN -> [FAIL][7] ([i915#579])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-skl-6700k2/igt@i915_pm_rpm@basic-rte.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c:
+    - fi-tgl-1115g4:      [PASS][8] -> [DMESG-WARN][9] ([i915#1385] / [i915#1887])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10472/fi-tgl-1115g4/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-tgl-1115g4/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
+    - fi-skl-6700k2:      NOTRUN -> [SKIP][10] ([fdo#109271] / [i915#533])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-skl-6700k2/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
+
+  * igt@runner@aborted:
+    - fi-tgl-1115g4:      NOTRUN -> [FAIL][11] ([i915#1602])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-tgl-1115g4/igt@runner@aborted.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1385]: https://gitlab.freedesktop.org/drm/intel/issues/1385
+  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
+  [i915#1887]: https://gitlab.freedesktop.org/drm/intel/issues/1887
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#3895]: https://gitlab.freedesktop.org/drm/intel/issues/3895
+  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
+  [i915#579]: https://gitlab.freedesktop.org/drm/intel/issues/579
+
+
+Participating hosts (39 -> 35)
+------------------------------
+
+  Additional (1): fi-skl-6700k2 
+  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan bat-jsl-1 fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10472 -> Patchwork_20800
+
+  CI-20190529: 20190529
+  CI_DRM_10472: c5c1fcf35511df21cf435b1dcea1082db8de11a0 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6170: d4ff2b4ab88d62a1888cb0316e70a1729fe4a685 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20800: c92201975535d5a9d6dfd40d820d2900c72d3df4 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+c92201975535 drm/i915/dp: fix for ADL_P/S and DG2 dp/edp max source rates
+9d0d6ab4aaa2 drm/i915/dp: fix DG1 and RKL max source rates
+efac1c8cc038 drm/i915/dp: fix EHL/JSL max source rates calculation
+11ca6e858027 drm/i915/dp: fix TGL and ICL max source rates
+d3bee2d775fd drm/i915/dp: Fix eDP max rate for display 11+
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/index.html
+
+--===============1650198687541205188==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fix in max source calculation for dp/edp</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93622/">https://patchwork.freedesktop.org/series/93622/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10472 -&gt; Patchwork_20800</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20800 that come from known issues:</p>
+<h3>CI changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>boot:<ul>
+<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10472/fi-kbl-soraka/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-kbl-soraka/boot.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3895">i915#3895</a>)</li>
+</ul>
+</li>
+</ul>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@cs-gfx:</p>
+<ul>
+<li>fi-skl-6700k2:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-skl-6700k2/igt@amdgpu/amd_basic@cs-gfx.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +33 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10472/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-skl-6700k2:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-skl-6700k2/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@basic-rte:</p>
+<ul>
+<li>fi-skl-6700k2:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-skl-6700k2/igt@i915_pm_rpm@basic-rte.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/579">i915#579</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10472/fi-tgl-1115g4/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-tgl-1115g4/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1385">i915#1385</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1887">i915#1887</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
+<ul>
+<li>fi-skl-6700k2:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-skl-6700k2/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20800/fi-tgl-1115g4/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (39 -&gt; 35)</h2>
+<p>Additional (1): fi-skl-6700k2 <br />
+  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan bat-jsl-1 fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10472 -&gt; Patchwork_20800</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10472: c5c1fcf35511df21cf435b1dcea1082db8de11a0 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6170: d4ff2b4ab88d62a1888cb0316e70a1729fe4a685 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20800: c92201975535d5a9d6dfd40d820d2900c72d3df4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>c92201975535 drm/i915/dp: fix for ADL_P/S and DG2 dp/edp max source rates<br />
+9d0d6ab4aaa2 drm/i915/dp: fix DG1 and RKL max source rates<br />
+efac1c8cc038 drm/i915/dp: fix EHL/JSL max source rates calculation<br />
+11ca6e858027 drm/i915/dp: fix TGL and ICL max source rates<br />
+d3bee2d775fd drm/i915/dp: Fix eDP max rate for display 11+</p>
+
+</body>
+</html>
+
+--===============1650198687541205188==--
