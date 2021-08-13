@@ -7,44 +7,43 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26BA9C4338F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82BBAC4320A
 	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 07:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E212B60241
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 07:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E212B60241
+	by mail.kernel.org (Postfix) with ESMTPS id 52A5161038
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 07:14:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 52A5161038
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB5D6E558;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C640F6E55E;
 	Fri, 13 Aug 2021 07:14:26 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8126E54C
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Aug 2021 07:14:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10074"; a="215509523"
-X-IronPort-AV: E=Sophos;i="5.84,318,1620716400"; d="scan'208";a="215509523"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A7FE6E558
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Aug 2021 07:14:25 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10074"; a="215509540"
+X-IronPort-AV: E=Sophos;i="5.84,318,1620716400"; d="scan'208";a="215509540"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2021 00:14:22 -0700
+ 13 Aug 2021 00:14:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,318,1620716400"; d="scan'208";a="571727794"
+X-IronPort-AV: E=Sophos;i="5.84,318,1620716400"; d="scan'208";a="571727818"
 Received: from linux-z370-aorus-gaming-5.iind.intel.com ([10.223.34.160])
- by orsmga004.jf.intel.com with ESMTP; 13 Aug 2021 00:14:20 -0700
+ by orsmga004.jf.intel.com with ESMTP; 13 Aug 2021 00:14:23 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Swati Sharma <swati2.sharma@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Date: Fri, 13 Aug 2021 12:31:19 +0530
-Message-Id: <20210813070121.48530-5-ankit.k.nautiyal@intel.com>
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Date: Fri, 13 Aug 2021 12:31:21 +0530
+Message-Id: <20210813070121.48530-7-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210813070121.48530-1-ankit.k.nautiyal@intel.com>
 References: <20210813070121.48530-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/6] drm/i915: Implement readout for AVI
- infoframe SDP
+Subject: [Intel-gfx] [PATCH v2 6/6] drm/drm_edid: Avoid HDMI2.1 VICs in
+ AVIInfoframe for older HDMI sinks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,202 +59,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Swati Sharma <swati2.sharma@intel.com>
+Modify the check for CEA modes, to avoid writing VICs added in
+CEA-861-G (meant for HDMI2.1) in AVI infoframes for older HDMI sinks.
 
-In this patch readout for AVI infoframes enclosed in GMP
-DIP is implemented.
+This patch also adds a function to determine if sink is HDMI2.1
+and uses corrects the drm message to show HDMI2.1 sink detetction.
 
-v2:
--Added new case for AVI infoframe in intel_dp_read_sdp, and a call
-to test AVI infoframe during ddi_get_config (Gwan-gyeong Mun).
--Used AVI infoframe unpack only to avoid parsing the header twice
-(Ankit).
--Added new infoframes_enabled function for DP with HDMI2.1 as branched
-device (Ankit).
-
-Signed-off-by: Swati Sharma <swati2.sharma@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c |  4 +
- drivers/gpu/drm/i915/display/intel_dp.c  | 98 +++++++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_dp.h  |  3 +
- 3 files changed, 104 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_edid.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index d8162951b78f..7c0c689d4ce2 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3576,6 +3576,9 @@ static void intel_ddi_read_func_ctl(struct intel_encoder *encoder,
- 		if (dig_port->lspcon.active && dig_port->dp.has_hdmi_sink)
- 			pipe_config->infoframes.enable |=
- 				intel_lspcon_infoframes_enabled(encoder, pipe_config);
-+		else if (intel_dp_is_hdmi_2_1_sink(&dig_port->dp))
-+			pipe_config->infoframes.enable |=
-+			intel_dp_hdmi_21_infoframes_enabled(encoder, pipe_config);
- 		else
- 			pipe_config->infoframes.enable |=
- 				intel_hdmi_infoframes_enabled(encoder, pipe_config);
-@@ -3677,6 +3680,7 @@ static void intel_ddi_get_config(struct intel_encoder *encoder,
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 6325877c5fd6..0e7da78c842f 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -4915,10 +4915,12 @@ static void drm_parse_hdmi_forum_vsdb(struct drm_connector *connector,
+ 		u8 dsc_max_slices;
+ 		struct drm_hdmi_dsc_cap *hdmi_dsc = &hdmi->dsc_cap;
  
- 	intel_read_dp_sdp(encoder, pipe_config, HDMI_PACKET_TYPE_GAMUT_METADATA);
- 	intel_read_dp_sdp(encoder, pipe_config, DP_SDP_VSC);
-+	intel_read_dp_sdp(encoder, pipe_config, HDMI_INFOFRAME_TYPE_AVI);
+-		DRM_DEBUG_KMS("hdmi_21 sink detected. parsing edid\n");
+ 		max_frl_rate = (hf_vsdb[7] & DRM_EDID_MAX_FRL_RATE_MASK) >> 4;
+ 		drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
+ 				     &hdmi->max_frl_rate_per_lane);
++		if (max_frl_rate)
++			DRM_DEBUG_KMS("hdmi_21 sink detected. parsing edid\n");
++
+ 		hdmi_dsc->v_1p2 = hf_vsdb[11] & DRM_EDID_DSC_1P2;
  
- 	intel_psr_get_config(encoder, pipe_config);
+ 		if (hdmi_dsc->v_1p2) {
+@@ -5490,6 +5492,18 @@ void drm_set_preferred_mode(struct drm_connector *connector,
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 2990a9e78a9d..66595931e548 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1676,7 +1676,7 @@ static int intel_dp_hdmi_sink_max_frl(struct intel_dp *intel_dp)
- 	return max_frl_rate;
- }
+ EXPORT_SYMBOL(drm_set_preferred_mode);
  
--static bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp)
-+bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp)
- {
- 	if (drm_dp_is_branch(intel_dp->dpcd) &&
- 	    intel_dp->has_hdmi_sink &&
-@@ -3044,6 +3044,44 @@ intel_dp_hdr_metadata_infoframe_sdp_unpack(struct hdmi_drm_infoframe *drm_infofr
- 	return ret;
- }
- 
-+static int
-+intel_dp_avi_infoframe_sdp_unpack(struct hdmi_avi_infoframe *frame,
-+				  const void *buffer, size_t size)
++static bool is_hdmi21_sink(const struct drm_connector *connector)
 +{
-+	int ret;
-+
-+	const struct dp_sdp *sdp = buffer;
-+
-+	if (size < sizeof(struct dp_sdp))
-+		return -EINVAL;
-+
-+	if (sdp->sdp_header.HB0 != 0)
-+		return -EINVAL;
-+
-+	if (sdp->sdp_header.HB1 != HDMI_INFOFRAME_TYPE_AVI)
-+		return -EINVAL;
-+
-+	if (sdp->sdp_header.HB2 != 0x1D)
-+		return -EINVAL;
-+
-+	if ((sdp->sdp_header.HB3 & 0x3) != 0)
-+		return -EINVAL;
-+
-+	if (((sdp->sdp_header.HB3 >> 2) & 0x3f) != 0x13)
-+		return -EINVAL;
-+
-+	if (sdp->db[0] != 2)
-+		return -EINVAL;
-+
-+	if (sdp->db[1] != HDMI_AVI_INFOFRAME_SIZE)
-+		return -EINVAL;
-+
-+	ret = hdmi_avi_infoframe_unpack_only(frame, &sdp->db[2],
-+					     HDMI_AVI_INFOFRAME_SIZE);
-+
-+	return ret;
-+}
-+
- static void intel_read_dp_vsc_sdp(struct intel_encoder *encoder,
- 				  struct intel_crtc_state *crtc_state,
- 				  struct drm_dp_vsc_sdp *vsc)
-@@ -3095,19 +3133,59 @@ static void intel_read_dp_hdr_metadata_infoframe_sdp(struct intel_encoder *encod
- 			    "Failed to unpack DP HDR Metadata Infoframe SDP\n");
- }
- 
-+static void intel_read_dp_avi_infoframe_sdp(struct intel_encoder *encoder,
-+					    struct intel_crtc_state *crtc_state,
-+					    struct hdmi_avi_infoframe *frame)
-+{
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+	unsigned int type = HDMI_PACKET_TYPE_GAMUT_METADATA;
-+	struct dp_sdp sdp = {};
-+	int ret;
-+
-+	if ((crtc_state->infoframes.enable &
-+	    intel_hdmi_infoframe_enable(type)) == 0)
-+		return;
-+
-+	dig_port->read_infoframe(encoder, crtc_state, type, &sdp,
-+				 sizeof(sdp));
-+
-+	ret = intel_dp_avi_infoframe_sdp_unpack(frame, &sdp,
-+						sizeof(sdp));
-+
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm,
-+			    "Failed to unpack DP AVI Infoframe SDP\n");
-+}
-+
- void intel_read_dp_sdp(struct intel_encoder *encoder,
- 		       struct intel_crtc_state *crtc_state,
- 		       unsigned int type)
- {
-+	struct intel_dp *intel_dp;
-+
-+	if (!intel_encoder_is_dig_port(encoder))
-+		return;
-+
-+	intel_dp = enc_to_intel_dp(encoder);
-+
- 	switch (type) {
- 	case DP_SDP_VSC:
- 		intel_read_dp_vsc_sdp(encoder, crtc_state,
- 				      &crtc_state->infoframes.vsc);
- 		break;
- 	case HDMI_PACKET_TYPE_GAMUT_METADATA:
-+		if (intel_dp_is_hdmi_2_1_sink(intel_dp))
-+			break;
- 		intel_read_dp_hdr_metadata_infoframe_sdp(encoder, crtc_state,
- 							 &crtc_state->infoframes.drm.drm);
- 		break;
-+	case HDMI_INFOFRAME_TYPE_AVI:
-+		if (!intel_dp_is_hdmi_2_1_sink(intel_dp))
-+			break;
-+		intel_read_dp_avi_infoframe_sdp(encoder, crtc_state,
-+						&crtc_state->infoframes.avi.avi);
-+		break;
- 	default:
- 		MISSING_CASE(type);
- 		break;
-@@ -5525,3 +5603,21 @@ void intel_dp_mst_resume(struct drm_i915_private *dev_priv)
- 		}
- 	}
- }
-+
-+u32 intel_dp_hdmi_21_infoframes_enabled(struct intel_encoder *encoder,
-+					struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+	u32 val, ret = 0;
-+
 +	/*
-+	 * For HDMI2.1 connected via PCON, AVI infoframes are sent via
-+	 * GMP SDP packets.
++	 * FIXME: sil-sii8620 doesn't have a connector around when
++	 * we need one, so we have to be prepared for a NULL connector.
 +	 */
-+	val = dig_port->infoframes_enabled(encoder, crtc_state);
++	if (!connector)
++		return true;
 +
-+	if (val & VIDEO_DIP_ENABLE_GMP_HSW)
-+		ret |= intel_hdmi_infoframe_enable(HDMI_INFOFRAME_TYPE_AVI);
-+
-+	return ret;
++	return connector->display_info.hdmi.max_frl_rate_per_lane ? true : false;
 +}
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 680631b5b437..d1ad4c3488f7 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -128,5 +128,8 @@ void intel_dp_check_frl_training(struct intel_dp *intel_dp);
- void intel_dp_pcon_dsc_configure(struct intel_dp *intel_dp,
- 				 const struct intel_crtc_state *crtc_state);
- void intel_dp_phy_test(struct intel_encoder *encoder);
-+bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp);
-+u32 intel_dp_hdmi_21_infoframes_enabled(struct intel_encoder *encoder,
-+					struct intel_crtc_state *crtc_state);
++
+ static bool is_hdmi2_sink(const struct drm_connector *connector)
+ {
+ 	/*
+@@ -5611,8 +5625,18 @@ static u8 drm_mode_cea_vic(const struct drm_connector *connector,
+ 	 * HDMI 1.4 VIC range: 1 <= VIC <= 64 (CEA-861-D) but
+ 	 * HDMI 2.0 VIC range: 1 <= VIC <= 107 (CEA-861-F). So we
+ 	 * have to make sure we dont break HDMI 1.4 sinks.
++	 * Similarly,
++	 * HDMI 2.1 VIC range: 1 <= VIC <= 219 (CEA-861-G), we have
++	 * to make sure we dont break HDMI2.0 sinks.
+ 	 */
+-	if (!is_hdmi2_sink(connector) && vic > 64)
++
++	if (!is_hdmi21_sink(connector) && !is_hdmi2_sink(connector) && vic > 64)
++		return 0;
++
++	if (!is_hdmi21_sink(connector) && vic > 107)
++		return 0;
++
++	if (vic > 219)
+ 		return 0;
  
- #endif /* __INTEL_DP_H__ */
+ 	return vic;
 -- 
 2.25.1
 
