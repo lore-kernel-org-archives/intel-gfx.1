@@ -2,57 +2,45 @@ Return-Path: <SRS0=Fb8f=NE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F1C1C4320A
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 14:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCB3AC4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 14:07:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 399AA60F57
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 14:03:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 399AA60F57
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 766E360F14
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 14:07:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 766E360F14
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A03F16E7F5;
-	Fri, 13 Aug 2021 14:03:33 +0000 (UTC)
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4764E6E51C;
- Fri, 13 Aug 2021 06:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=2BDYHROUGREoCWD93TahQhvltPOcCQ9Rqb/VhTH2opE=; 
- b=Mv8o2IQqonJgFKICzXh2FrFhFwTUonW8QwaIUORNoLJB5AMK7lvVvI8n2SEPIRzhVOSmNvMxz4C0+vaLxtyxV0VEyuAgUJytiAIvGq5lRwYLUn9VtK2VXLqZt12dSXUoPvhfVfmIeLJbBEYBBJycRNZ9GrGe91h2R+O9vqK6GIj/HgKNfWYlk9y2I3lQLgv7Pz6kzQ90uXh6idNLc96IUclje5ZJzjoxE4oHh5TTG5nWeV4qIVeaX0o6y3ypFaPo48eq7mXQlEvr8ZUUvdDi8q6jkMWZsW/T1r2+FvKcvgIfYe1NKt9OCfAMPC6GrpHBig6UT+q+Chhh6N9HAHP9HQ==;
-Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
- helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1mEQtK-0004jz-LK; Fri, 13 Aug 2021 08:42:06 +0200
-Message-ID: <472cd2efff2a53809dc2e8ec0ece7f475256005d.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "events@lists.x.org" <events@lists.x.org>, 
- "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, libre-soc-dev@lists.libre-soc.org
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Date: Fri, 13 Aug 2021 08:41:56 +0200
-In-Reply-To: <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
-References: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
- <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
- <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-HussvbpJOUQoFuLCPOPI"
-User-Agent: Evolution 3.38.3-1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD0B16E802;
+	Fri, 13 Aug 2021 14:07:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A3EFA6E7FA;
+ Fri, 13 Aug 2021 14:07:44 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 9CE4AA47E1;
+ Fri, 13 Aug 2021 14:07:44 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3741432514827670277=="
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 13 Aug 2021 14:03:32 +0000
-Subject: Re: [Intel-gfx] [Mesa-dev] Requests For Proposals for hosting XDC
- 2022 are now open
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 13 Aug 2021 14:07:44 -0000
+Message-ID: <162886366459.17682.16113231477294502026@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210813115610.20010-1-jani.nikula@intel.com>
+In-Reply-To: <20210813115610.20010-1-jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/mst=3A_use_intel=5Fde=5Frmw=28=29_to_simplify_VC_payload_?=
+ =?utf-8?q?alloc_set/clear?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,136 +53,317 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
---=-HussvbpJOUQoFuLCPOPI
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Deadline is at the end of this month. Do not forget to submit your XDC
-2022 hosting proposal!
-
-Sam
-
-On Thu, 2021-07-29 at 21:01 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> Remember before enjoying your holiday that the deadline for XDC 2022
-> proposals is *September 1st, 2021* :-)
->=20
-> Feel free to submit your proposal before, so we can give you early
-> feedback on it!
->=20
-> Sam
->=20
-> On Thu, 2021-07-01 at 18:14 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> > This is a reminder that the call for proposals for hosting XDC 2022
-> > period finishes in two months.
-> >=20
-> > Be sure to prepare your submission before you leave on holiday!
-> >=20
-> > Sam
-> >=20
-> > On Thu, 2021-05-20 at 12:15 +0200, Samuel Iglesias Gons=C3=A1lvez wrote=
-:
-> > > Hello everyone!
-> > >=20
-> > > The X.org board is soliciting proposals to host XDC in 2022.
-> > > Since
-> > > XDC 2021 is being held in Europe this year (although virtually),
-> > > we've
-> > > decided to host in North America. However, the board is open to
-> > > other
-> > > locations, especially if there's an interesting co-location with
-> > > another conference.
-> > >=20
-> > > Of course though, due to the ongoing COVID-19 pandemic it's not
-> > > yet
-> > > clear whether or not it will be possible to host XDC 2022 in
-> > > person,
-> > > although is seems very likely. Because of this, we would like to
-> > > make it clear that sponsors should prepare for both the
-> > > possibility
-> > > of an in person conference, and the possibility of a virtual
-> > > conference. We will work with organizers on coming up with a
-> > > deadline for deciding whether or not we'll be going virtual,
-> > > likely
-> > > sometime around July 2022.
-> > >=20
-> > > If you're considering hosting XDC, we've assembled a wiki page
-> > > with
-> > > what's generally expected and needed:
-> > >=20
-> > > https://www.x.org/wiki/Events/RFP/
-> > >=20
-> > > When submitting your proposal, please make sure to include at
-> > > least
-> > > the
-> > > key information about the potential location in question,
-> > > possible
-> > > dates along with estimated costs. Proposals can be submitted to
-> > > board
-> > > at foundation.x.org until the deadline of *September 1st, 2021*.=C2=
-=A0
-> > >=20
-> > > Additionally, an quirk early heads-up to the board if you're
-> > > considering hosting would be appreciated, in case we need to
-> > > adjust
-> > > the
-> > > schedule a bit. Also, earlier is better since there generally
-> > > will
-> > > be
-> > > a
-> > > bit of Q&A with organizers.
-> > >=20
-> > > And if you just have some questions about what organizing XDC
-> > > entails,
-> > > please feel free to chat with previous organizers, or someone
-> > > from
-> > > the
-> > > board.
-> > >=20
-> > > Thanks,
-> > >=20
-> > > Sam
-> > >=20
-> > > _______________________________________________
-> > > mesa-dev mailing list
-> > > mesa-dev@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-> >=20
-> > _______________________________________________
-> > mesa-dev mailing list
-> > mesa-dev@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-
-
---=-HussvbpJOUQoFuLCPOPI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+--===============3741432514827670277==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+== Series Details ==
 
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmEWFDQACgkQf/S6MvF9
-w0PpBQ/+LKbsYVBGGMAGgaH52TYRAurvN22z9+7CzfCioK4x2ebgtKaGwXs7C4en
-htjd5yFiaEQQJpjOx7l3J4eVjs75qmZNws3QwU20Dadl2TrbOgpStlLL3xY/U6iX
-WCuWQiyACbDjdb5Cwd1F+0rne1r/FBwf/uLkYlIslvSGdp9Ryl/wkV3GFDc+ptIv
-PAiIyye2wpRdJAWP6peqYiW6fB/iohOJdInic/hgZ1ajPCafiH/3NPwFWmo64cWH
-FEpnEmu82KOk22sSnSWZx0gei2krv/u+rnlKvKGi6Fs5PWEEg1SDRRy7I2kpUCsr
-Kz0y+9I7fWYii+CKphENwcmLjTqRvpEZguqukfzwtr7aap1fwQuVETgvtCDFDUle
-6v0tkP0nbQrV/TqH/8xE2h+2zVKhM+w2eCFNIjDyTxKcPTgLL2yrIzF123Iwk6QF
-4aoNhSMY2X6+5N23ksjTB3iWzaPNofz3yBlwUz09z4ZK/2H8a/2RSCOojYYdx8B5
-asadkS+o2HoCbv7kZfCdi+yKT3AlAGKgQokWoIY0r4KGxakXeTC3HWVmLVdRiNaM
-aZPNhvLXeS6onZDyQsneCQNdNX5/YVGXJm77dso1p7y2oSFmdICTIYIK2R5ma4N+
-bOp6NhIABv5Sfjabt1vAWof9PH18RxvwWjtX1IpSPzSHaGtBdkM=
-=ZcQa
------END PGP SIGNATURE-----
+Series: drm/i915/mst: use intel_de_rmw() to simplify VC payload alloc set/clear
+URL   : https://patchwork.freedesktop.org/series/93674/
+State : success
 
---=-HussvbpJOUQoFuLCPOPI--
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_10482 -> Patchwork_20816
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20816 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@query-info:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][1] ([fdo#109315])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@amdgpu/amd_basic@query-info.html
+
+  * igt@amdgpu/amd_basic@semaphore:
+    - fi-bdw-5557u:       NOTRUN -> [SKIP][2] ([fdo#109271]) +29 similar issues
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html
+
+  * igt@amdgpu/amd_cs_nop@nop-gfx0:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][3] ([fdo#109315] / [i915#2575]) +16 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@amdgpu/amd_cs_nop@nop-gfx0.html
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-rkl-guc:         [PASS][4] -> [DMESG-WARN][5] ([i915#3925])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10482/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html
+    - fi-bdw-5557u:       NOTRUN -> [WARN][6] ([i915#3718])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][7] ([i915#2190])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@gem_huc_copy@huc-copy.html
+
+  * igt@i915_pm_backlight@basic-brightness:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][8] ([i915#1155])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@i915_pm_backlight@basic-brightness.html
+
+  * igt@i915_pm_rpm@basic-rte:
+    - fi-tgl-1115g4:      NOTRUN -> [FAIL][9] ([i915#579])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@i915_pm_rpm@basic-rte.html
+    - fi-bdw-5557u:       NOTRUN -> [FAIL][10] ([i915#579])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bdw-5557u/igt@i915_pm_rpm@basic-rte.html
+
+  * igt@i915_pm_rpm@module-reload:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][11] ([i915#579]) +1 similar issue
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live@execlists:
+    - fi-bsw-kefka:       [PASS][12] -> [INCOMPLETE][13] ([i915#2940])
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10482/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bsw-kefka/igt@i915_selftest@live@execlists.html
+
+  * igt@kms_chamelium@common-hpd-after-suspend:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][14] ([fdo#111827]) +8 similar issues
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@kms_chamelium@common-hpd-after-suspend.html
+
+  * igt@kms_chamelium@dp-crc-fast:
+    - fi-bdw-5557u:       NOTRUN -> [SKIP][15] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][16] ([fdo#109285])
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_psr@primary_mmap_gtt:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][17] ([i915#1072]) +3 similar issues
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@kms_psr@primary_mmap_gtt.html
+
+  * igt@prime_vgem@basic-userptr:
+    - fi-tgl-1115g4:      NOTRUN -> [SKIP][18] ([i915#3301])
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@prime_vgem@basic-userptr.html
+
+  * igt@runner@aborted:
+    - fi-bsw-kefka:       NOTRUN -> [FAIL][19] ([fdo#109271] / [i915#1436] / [i915#2722])
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bsw-kefka/igt@runner@aborted.html
+    - fi-rkl-guc:         NOTRUN -> [FAIL][20] ([i915#1602])
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-rkl-guc/igt@runner@aborted.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
+  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
+  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
+  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
+  [i915#2722]: https://gitlab.freedesktop.org/drm/intel/issues/2722
+  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3718]: https://gitlab.freedesktop.org/drm/intel/issues/3718
+  [i915#3925]: https://gitlab.freedesktop.org/drm/intel/issues/3925
+  [i915#579]: https://gitlab.freedesktop.org/drm/intel/issues/579
+
+
+Participating hosts (35 -> 34)
+------------------------------
+
+  Additional (2): fi-tgl-1115g4 fi-bdw-5557u 
+  Missing    (3): fi-bdw-samus fi-bsw-cyan bat-jsl-1 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10482 -> Patchwork_20816
+
+  CI-20190529: 20190529
+  CI_DRM_10482: 772cc2d9bb24a9f750e3a88c6b2172873830e095 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6175: c91f99c74b966f635d7e2eb898bf0f78383d281b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20816: a499e18e42a108642608cb2834bc8347fbed7720 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+a499e18e42a1 drm/i915/mst: use intel_de_rmw() to simplify VC payload alloc set/clear
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/index.html
+
+--===============3741432514827670277==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/mst: use intel_de_rmw() to simplify VC payload alloc set/clear</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93674/">https://patchwork.freedesktop.org/series/93674/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10482 -&gt; Patchwork_20816</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20816 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@query-info:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_basic@semaphore:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +29 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@amdgpu/amd_cs_nop@nop-gfx0:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@amdgpu/amd_cs_nop@nop-gfx0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2575">i915#2575</a>) +16 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>
+<p>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10482/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3925">i915#3925</a>)</p>
+</li>
+<li>
+<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html">WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3718">i915#3718</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_backlight@basic-brightness:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@i915_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1155">i915#1155</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@basic-rte:</p>
+<ul>
+<li>
+<p>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@i915_pm_rpm@basic-rte.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/579">i915#579</a>)</p>
+</li>
+<li>
+<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bdw-5557u/igt@i915_pm_rpm@basic-rte.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/579">i915#579</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/579">i915#579</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@execlists:</p>
+<ul>
+<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10482/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bsw-kefka/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-crc-fast:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@primary_mmap_gtt:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@kms_psr@primary_mmap_gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1072">i915#1072</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-tgl-1115g4/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3301">i915#3301</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>
+<p>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-bsw-kefka/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2722">i915#2722</a>)</p>
+</li>
+<li>
+<p>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20816/fi-rkl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (35 -&gt; 34)</h2>
+<p>Additional (2): fi-tgl-1115g4 fi-bdw-5557u <br />
+  Missing    (3): fi-bdw-samus fi-bsw-cyan bat-jsl-1 </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10482 -&gt; Patchwork_20816</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10482: 772cc2d9bb24a9f750e3a88c6b2172873830e095 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6175: c91f99c74b966f635d7e2eb898bf0f78383d281b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20816: a499e18e42a108642608cb2834bc8347fbed7720 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>a499e18e42a1 drm/i915/mst: use intel_de_rmw() to simplify VC payload alloc set/clear</p>
+
+</body>
+</html>
+
+--===============3741432514827670277==--
