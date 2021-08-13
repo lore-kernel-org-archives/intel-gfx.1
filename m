@@ -2,86 +2,54 @@ Return-Path: <SRS0=Opgb=NH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D51CAC4320A
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 09:58:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2482C432BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 09:58:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9818461B7D
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 09:58:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9818461B7D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B15C561B7B
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 09:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B15C561B7B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A76ED89D9A;
-	Mon, 16 Aug 2021 09:58:19 +0000 (UTC)
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2602D89DA7;
- Sun, 15 Aug 2021 07:10:23 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id bo18so21846236pjb.0;
- Sun, 15 Aug 2021 00:10:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:subject:to:references:cc:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=DZlBN09sx+gq4Xv1ZK/2Nhj0nCpAtanNF90jl33DvHU=;
- b=KnzsSnIB0WzLJgD+0AY3ByPyenOAd4Avl+PMl32cfHCFo3+0w3+0H7y1ZEnnU1Hmdt
- MiuNhsL7/QFXW6ZnKwqtSXjudOcY8wp8haH/NrD0HBXTyB1s3+58/v1bzHv2aMiuIcQa
- /5FoaEhD6c5vBpmX/aKbFXHq2m0mKNZSvTYv/8DqIKfAYvgk5GDs9mCLOScAQBWLRfZQ
- DzkDVkN1u6vkJKrjC7L/X5/4A6WLy6fG7SonmAXDU673lLMMz82/6kAdAGJOKLN6SNlr
- faiO4ihfzr2XYC0AWvAhvzDA6PBejrkeBySSGWSTaX0XWR4m8re+3zh0nnZjtq5lq+2N
- 0Wvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:subject:to:references:cc:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=DZlBN09sx+gq4Xv1ZK/2Nhj0nCpAtanNF90jl33DvHU=;
- b=JTx4P1ZzcS9xQNdrnr6AC5iVnXVl9Lc4RuLDw6eDoLOcV29GSluq691JdQGAOy1k3p
- PfD7lcKWwckK9KsoopYNNP2hIuYXXOt3SLNfn353u7uvkv4KI6kK2hzkJMhUKPrbjXWv
- c7p8vdOqLAA3N8+W+h3+ceWOM4c5pQQVbuY50H82240IXMoMxv3k4urjzZee67Y0oZxr
- b+1pm5SI0v0J4/dPHAmUM/PnXadhwFgUq1tUi5wnWPMCOQ8rIlKUJ3DUOvVrXyW4k/Rc
- NkBf+fBVCV6d6H34YGGMTp4ji7tzgQDb09iNCgBU4gn/FB+C64aila6W5vqpsvynP13l
- M6XA==
-X-Gm-Message-State: AOAM533UAoy7V3Egnk0oFTYxLxS3iDOIBnM+deYUVeMw2tAODR4gI1wA
- MQ0jM6jg+0LfPdPNCF+VSbc=
-X-Google-Smtp-Source: ABdhPJwNfM7DKZwK7tu3EHvXNIjH04V1yStzRg9FbM0AYB6SkO/vt0TMCtnqOG1RfJIdytzsjelBdw==
-X-Received: by 2002:a17:90a:44:: with SMTP id 4mr10463481pjb.130.1629011422639; 
- Sun, 15 Aug 2021 00:10:22 -0700 (PDT)
-Received: from [192.168.1.237] ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id t10sm6036370pji.30.2021.08.15.00.10.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 15 Aug 2021 00:10:21 -0700 (PDT)
-From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20210813085450.32494-1-desmondcheongzx@gmail.com>
- <20210813085450.32494-2-desmondcheongzx@gmail.com>
- <YRaUetPzT5EKaZkf@phenom.ffwll.local>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@linux.ie, sumit.semwal@linaro.org,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, intel-gfx@lists.freedesktop.org,
- skhan@linuxfoundation.org, gregkh@linuxfoundation.org,
- linux-kernel-mentees@lists.linuxfoundation.org
-Message-ID: <2d5290a0-b3ad-1719-c862-c004fe2342de@gmail.com>
-Date: Sun, 15 Aug 2021 15:10:16 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 930F189D9B;
+	Mon, 16 Aug 2021 09:58:20 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B83C26E8A5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Aug 2021 17:13:17 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4CBA961102;
+ Fri, 13 Aug 2021 17:13:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1628874797;
+ bh=Ye6ux6gsSOYuKdnM8xs7kUfqlN15AdCOL55n3kBtvyM=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=K6GH6FvSCN/rjrKcXrIuMm7FkpQ1Fm6aDgA497ASnfdG7Pn0vqyuJO79fCr92x3mt
+ wLL+WyW7mxL9sLya/Xbbu3YyK4azqxHnZHr0xAeXoEisA+nAJ6fMr45FuQy2yW9boo
+ milZyLiPRx9rBP0NXUaJlpAQb/Qgupds3dCPiYv/nPG9Og+c8+GTg47gBli4Jn+Vwi
+ 8oixL+kxOR0tpo0e54iApPWVmk9ZZxMnexpUOfVAabMDUfVty0GcQ1L32XZ3O1QeXK
+ ltZAhwR4QXG7YyMr6pkl+AOeVP0bm/Vr8CoQad4LMFaAx5hhKJeDY57KsBvDLVK3rC
+ O/KmE+kBon71A==
+To: Dan Carpenter <dan.carpenter@oracle.com>, thomas.hellstrom@linux.intel.com
+Cc: intel-gfx@lists.freedesktop.org
+References: <20210813113120.GA30489@kili>
+From: Nathan Chancellor <nathan@kernel.org>
+Message-ID: <70702840-5346-e14c-5fb2-b1ad6feac1c9@kernel.org>
+Date: Fri, 13 Aug 2021 10:13:16 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <YRaUetPzT5EKaZkf@phenom.ffwll.local>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+In-Reply-To: <20210813113120.GA30489@kili>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 16 Aug 2021 09:58:06 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm: avoid races with modesetting rights
+X-Mailman-Approved-At: Mon, 16 Aug 2021 09:58:05 +0000
+Subject: Re: [Intel-gfx] [bug report] drm/i915/gem: Correct the locking and
+ pin pattern for dma-buf (v8)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,439 +65,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 13/8/21 11:49 pm, Daniel Vetter wrote:
-> On Fri, Aug 13, 2021 at 04:54:49PM +0800, Desmond Cheong Zhi Xi wrote:
->> In drm_client_modeset.c and drm_fb_helper.c,
->> drm_master_internal_{acquire,release} are used to avoid races with DRM
->> userspace. These functions hold onto drm_device.master_mutex while
->> committing, and bail if there's already a master.
->>
->> However, ioctls can still race between themselves. A
->> time-of-check-to-time-of-use error can occur if an ioctl that changes
->> the modeset has its rights revoked after it validates its permissions,
->> but before it completes.
->>
->> There are three ioctls that can affect modesetting permissions:
->>
->> - DROP_MASTER ioctl removes rights for a master and its leases
->>
->> - REVOKE_LEASE ioctl revokes rights for a specific lease
->>
->> - SET_MASTER ioctl sets the device master if the master role hasn't
->> been acquired yet
->>
->> All these races can be avoided by introducing an SRCU that acts as a
->> barrier for ioctls that can change modesetting permissions. Processes
->> that perform modesetting should hold a read lock on the new
->> drm_device.master_barrier_srcu, and ioctls that change these
->> permissions should call synchronize_srcu before returning.
->>
->> This ensures that any process that might have seen old permissions are
->> flushed out before DROP_MASTER/REVOKE_LEASE/SET_MASTER ioctls return
->> to userspace.
->>
->> Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->> Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-> 
-> This looks pretty solid, but I think there's one gap where we can still
-> race. Scenario.
-> 
-> Process A has a drm fd with master rights and two threads:
-> - thread 1 does a long-running display operation (like a modeset or
->    whatever)
-> - thread 2 does a drop-master
-> 
-> Then we start a new process B, which acquires master in drm_open (there is
-> no other one left). This is like setmaster ioctl, but your
-> DRM_MASTER_FLUSH bit doesn't work there.
-> 
+On 8/13/2021 4:31 AM, Dan Carpenter wrote:
+> Nathan has probably already sent fixes for these.  Nathan, could you CC
+> kernel-janitors on static checker fixes?  That way we wouldn't send so
+> many duplicate patches.
 
-Ah, I see the race. I think a good place to plug this would be in 
-drm_master_open using the drm_master_flush (or 
-drm_master_unlock_and_flush) that you suggested below.
+Sure. I did not send any fixes prior to this email but I just sent
+https://lore.kernel.org/r/20210813171158.2665823-1-nathan@kernel.org/ 
+with kernel-janitors and you CC'd.
 
-> The other thing is that for modeset stuff (which this all is) srcu is
-> probably massive overkill, and a simple rwsem should be good enough too.
-> Maybe even better, since the rwsem guarantees that no new reader can start
-> once you try to acquire the write side.
+> Uninitialized variable warnings are really frustrating.  We disabled the
+> GCC warning for them because the new GCC is crap.  So now they take up
+> a lot of my time.  A few of these are because Smatch doesn't always know
+> when we enter loops, but more than half are clear bugs.
 > 
+> drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c:189 i915_gem_dmabuf_attach() error: uninitialized symbol 'err'.
+> drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c:80 igt_dmabuf_import_self() error: uninitialized symbol 'import_obj'.
+> drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c:104 igt_dmabuf_import_same_driver_lmem() error: uninitialized symbol 'dmabuf'.
+> drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c:138 igt_dmabuf_import_same_driver_lmem() error: uninitialized symbol 'err'.
+> drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c:158 igt_dmabuf_import_same_driver() error: uninitialized symbol 'dmabuf'.
+> drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c:231 igt_dmabuf_import_same_driver() error: uninitialized symbol 'import_obj'.
+> drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c:197 igt_lmem_pages_migrate() error: uninitialized symbol 'err'.
 
-Makes sense, I'll switch to a rwsem then.
+...
 
-> Finally, and this is a bit a bikeshed: I don't like much how
-> DRM_MASTER_FLUSH leaks the need of these very few places into the very
-> core drm_ioctl function. One idea I had was to use task_work in a special
-> function, roughly
-> 
-> void master_flush()
-> {
-> 	down_write(master_rwsem);
-> 	up_write(master_rwms);
-> }
-> void drm_master_flush()
-> {
-> 	init_task_work(fpriv->master_flush_work, master_flush)
-> 	task_work_add(fpriv->master_flush_work);
-> 	/* if task_work_add fails we're exiting, at which point the lack
-> 	 * of master flush doesn't matter);
-> }
-> 
-> And maybe put a comment above the function explaining why and how this
-> works.
-> 
-> We could even do a drm_master_unlock_and_flush helper, since that's really
-> what everyone wants, and it would make it very clear which master state
-> changes need this flush. Instead of setting a flag bit in an ioctl table
-> very far away ...
-> 
-> Thoughts?
-> -Daniel
-> 
+> drivers/gpu/drm/i915/gt/selftest_hangcheck.c:465 igt_reset_nop_engine() error: uninitialized symbol 'err'.
+> drivers/gpu/drm/i915/gt/selftest_hangcheck.c:580 igt_reset_fail_engine() error: uninitialized symbol 'err'.
 
-Sounds good. I wasn't aware of the task_work_add mechanism to queue work 
-before the task returns to usermode, but this seems like a more explicit 
-way to flush.
+Clang caught these two but none of the rest and it is an obvious fix so 
+that is the only one I am going to fix.
 
-Thanks for the feedback, Daniel. I'll fix this up in a v2.
+> drivers/gpu/drm/i915/gt/selftest_migrate.c:102 copy() error: uninitialized symbol 'rq'.
+> drivers/gpu/drm/i915/gt/selftest_migrate.c:113 copy() error: uninitialized symbol 'vaddr'.
+> drivers/gpu/drm/i915/gt/selftest_migrate.c:182 clear() error: uninitialized symbol 'rq'.
+> drivers/gpu/drm/i915/gt/selftest_migrate.c:193 clear() error: uninitialized symbol 'vaddr'.
+> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:819 __unwind_incomplete_requests() error: uninitialized symbol 'pl'.
 
->> ---
->>   drivers/gpu/drm/drm_auth.c           | 17 ++++++++++++++---
->>   drivers/gpu/drm/drm_client_modeset.c | 10 ++++++----
->>   drivers/gpu/drm/drm_drv.c            |  2 ++
->>   drivers/gpu/drm/drm_fb_helper.c      | 20 ++++++++++++--------
->>   drivers/gpu/drm/drm_internal.h       |  5 +++--
->>   drivers/gpu/drm/drm_ioctl.c          | 25 +++++++++++++++++++++----
->>   include/drm/drm_device.h             | 11 +++++++++++
->>   include/drm/drm_ioctl.h              |  7 +++++++
->>   8 files changed, 76 insertions(+), 21 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
->> index 60a6b21474b1..004506608e76 100644
->> --- a/drivers/gpu/drm/drm_auth.c
->> +++ b/drivers/gpu/drm/drm_auth.c
->> @@ -29,6 +29,7 @@
->>    */
->>   
->>   #include <linux/slab.h>
->> +#include <linux/srcu.h>
->>   
->>   #include <drm/drm_auth.h>
->>   #include <drm/drm_drv.h>
->> @@ -448,21 +449,31 @@ void drm_master_put(struct drm_master **master)
->>   EXPORT_SYMBOL(drm_master_put);
->>   
->>   /* Used by drm_client and drm_fb_helper */
->> -bool drm_master_internal_acquire(struct drm_device *dev)
->> +bool drm_master_internal_acquire(struct drm_device *dev, int *idx)
->>   {
->> +	*idx = srcu_read_lock(&dev->master_barrier_srcu);
->> +
->>   	mutex_lock(&dev->master_mutex);
->>   	if (dev->master) {
->>   		mutex_unlock(&dev->master_mutex);
->> +		srcu_read_unlock(&dev->master_barrier_srcu, *idx);
->>   		return false;
->>   	}
->> +	mutex_unlock(&dev->master_mutex);
->>   
->>   	return true;
->>   }
->>   EXPORT_SYMBOL(drm_master_internal_acquire);
->>   
->>   /* Used by drm_client and drm_fb_helper */
->> -void drm_master_internal_release(struct drm_device *dev)
->> +void drm_master_internal_release(struct drm_device *dev, int idx)
->>   {
->> -	mutex_unlock(&dev->master_mutex);
->> +	srcu_read_unlock(&dev->master_barrier_srcu, idx);
->>   }
->>   EXPORT_SYMBOL(drm_master_internal_release);
->> +
->> +/* Used by drm_ioctl */
->> +void drm_master_flush(struct drm_device *dev)
->> +{
->> +	synchronize_srcu(&dev->master_barrier_srcu);
->> +}
->> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
->> index ced09c7c06f9..9885f36f71b7 100644
->> --- a/drivers/gpu/drm/drm_client_modeset.c
->> +++ b/drivers/gpu/drm/drm_client_modeset.c
->> @@ -1165,13 +1165,14 @@ int drm_client_modeset_commit(struct drm_client_dev *client)
->>   {
->>   	struct drm_device *dev = client->dev;
->>   	int ret;
->> +	int idx;
->>   
->> -	if (!drm_master_internal_acquire(dev))
->> +	if (!drm_master_internal_acquire(dev, &idx))
->>   		return -EBUSY;
->>   
->>   	ret = drm_client_modeset_commit_locked(client);
->>   
->> -	drm_master_internal_release(dev);
->> +	drm_master_internal_release(dev, idx);
->>   
->>   	return ret;
->>   }
->> @@ -1215,8 +1216,9 @@ int drm_client_modeset_dpms(struct drm_client_dev *client, int mode)
->>   {
->>   	struct drm_device *dev = client->dev;
->>   	int ret = 0;
->> +	int idx;
->>   
->> -	if (!drm_master_internal_acquire(dev))
->> +	if (!drm_master_internal_acquire(dev, &idx))
->>   		return -EBUSY;
->>   
->>   	mutex_lock(&client->modeset_mutex);
->> @@ -1226,7 +1228,7 @@ int drm_client_modeset_dpms(struct drm_client_dev *client, int mode)
->>   		drm_client_modeset_dpms_legacy(client, mode);
->>   	mutex_unlock(&client->modeset_mutex);
->>   
->> -	drm_master_internal_release(dev);
->> +	drm_master_internal_release(dev, idx);
->>   
->>   	return ret;
->>   }
->> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
->> index 7a5097467ba5..c313f0674db3 100644
->> --- a/drivers/gpu/drm/drm_drv.c
->> +++ b/drivers/gpu/drm/drm_drv.c
->> @@ -574,6 +574,7 @@ static void drm_dev_init_release(struct drm_device *dev, void *res)
->>   	mutex_destroy(&dev->clientlist_mutex);
->>   	mutex_destroy(&dev->filelist_mutex);
->>   	mutex_destroy(&dev->struct_mutex);
->> +	cleanup_srcu_struct(&dev->master_barrier_srcu);
->>   	drm_legacy_destroy_members(dev);
->>   }
->>   
->> @@ -612,6 +613,7 @@ static int drm_dev_init(struct drm_device *dev,
->>   	mutex_init(&dev->filelist_mutex);
->>   	mutex_init(&dev->clientlist_mutex);
->>   	mutex_init(&dev->master_mutex);
->> +	init_srcu_struct(&dev->master_barrier_srcu);
->>   
->>   	ret = drmm_add_action(dev, drm_dev_init_release, NULL);
->>   	if (ret)
->> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
->> index 3ab078321045..0d594bc15f18 100644
->> --- a/drivers/gpu/drm/drm_fb_helper.c
->> +++ b/drivers/gpu/drm/drm_fb_helper.c
->> @@ -1116,13 +1116,14 @@ int drm_fb_helper_setcmap(struct fb_cmap *cmap, struct fb_info *info)
->>   	struct drm_fb_helper *fb_helper = info->par;
->>   	struct drm_device *dev = fb_helper->dev;
->>   	int ret;
->> +	int idx;
->>   
->>   	if (oops_in_progress)
->>   		return -EBUSY;
->>   
->>   	mutex_lock(&fb_helper->lock);
->>   
->> -	if (!drm_master_internal_acquire(dev)) {
->> +	if (!drm_master_internal_acquire(dev, &idx)) {
->>   		ret = -EBUSY;
->>   		goto unlock;
->>   	}
->> @@ -1136,7 +1137,7 @@ int drm_fb_helper_setcmap(struct fb_cmap *cmap, struct fb_info *info)
->>   		ret = setcmap_legacy(cmap, info);
->>   	mutex_unlock(&fb_helper->client.modeset_mutex);
->>   
->> -	drm_master_internal_release(dev);
->> +	drm_master_internal_release(dev, idx);
->>   unlock:
->>   	mutex_unlock(&fb_helper->lock);
->>   
->> @@ -1160,9 +1161,10 @@ int drm_fb_helper_ioctl(struct fb_info *info, unsigned int cmd,
->>   	struct drm_device *dev = fb_helper->dev;
->>   	struct drm_crtc *crtc;
->>   	int ret = 0;
->> +	int idx;
->>   
->>   	mutex_lock(&fb_helper->lock);
->> -	if (!drm_master_internal_acquire(dev)) {
->> +	if (!drm_master_internal_acquire(dev, &idx)) {
->>   		ret = -EBUSY;
->>   		goto unlock;
->>   	}
->> @@ -1204,7 +1206,7 @@ int drm_fb_helper_ioctl(struct fb_info *info, unsigned int cmd,
->>   		ret = -ENOTTY;
->>   	}
->>   
->> -	drm_master_internal_release(dev);
->> +	drm_master_internal_release(dev, idx);
->>   unlock:
->>   	mutex_unlock(&fb_helper->lock);
->>   	return ret;
->> @@ -1474,12 +1476,13 @@ int drm_fb_helper_pan_display(struct fb_var_screeninfo *var,
->>   	struct drm_fb_helper *fb_helper = info->par;
->>   	struct drm_device *dev = fb_helper->dev;
->>   	int ret;
->> +	int idx;
->>   
->>   	if (oops_in_progress)
->>   		return -EBUSY;
->>   
->>   	mutex_lock(&fb_helper->lock);
->> -	if (!drm_master_internal_acquire(dev)) {
->> +	if (!drm_master_internal_acquire(dev, &idx)) {
->>   		ret = -EBUSY;
->>   		goto unlock;
->>   	}
->> @@ -1489,7 +1492,7 @@ int drm_fb_helper_pan_display(struct fb_var_screeninfo *var,
->>   	else
->>   		ret = pan_display_legacy(var, info);
->>   
->> -	drm_master_internal_release(dev);
->> +	drm_master_internal_release(dev, idx);
->>   unlock:
->>   	mutex_unlock(&fb_helper->lock);
->>   
->> @@ -1948,6 +1951,7 @@ EXPORT_SYMBOL(drm_fb_helper_initial_config);
->>   int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper)
->>   {
->>   	int err = 0;
->> +	int idx;
->>   
->>   	if (!drm_fbdev_emulation || !fb_helper)
->>   		return 0;
->> @@ -1959,13 +1963,13 @@ int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper)
->>   		return err;
->>   	}
->>   
->> -	if (!fb_helper->fb || !drm_master_internal_acquire(fb_helper->dev)) {
->> +	if (!fb_helper->fb || !drm_master_internal_acquire(fb_helper->dev, &idx)) {
->>   		fb_helper->delayed_hotplug = true;
->>   		mutex_unlock(&fb_helper->lock);
->>   		return err;
->>   	}
->>   
->> -	drm_master_internal_release(fb_helper->dev);
->> +	drm_master_internal_release(fb_helper->dev, idx);
->>   
->>   	drm_dbg_kms(fb_helper->dev, "\n");
->>   
->> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
->> index 17f3548c8ed2..578fd2769913 100644
->> --- a/drivers/gpu/drm/drm_internal.h
->> +++ b/drivers/gpu/drm/drm_internal.h
->> @@ -142,8 +142,9 @@ int drm_dropmaster_ioctl(struct drm_device *dev, void *data,
->>   			 struct drm_file *file_priv);
->>   int drm_master_open(struct drm_file *file_priv);
->>   void drm_master_release(struct drm_file *file_priv);
->> -bool drm_master_internal_acquire(struct drm_device *dev);
->> -void drm_master_internal_release(struct drm_device *dev);
->> +bool drm_master_internal_acquire(struct drm_device *dev, int *idx);
->> +void drm_master_internal_release(struct drm_device *dev, int idx);
->> +void drm_master_flush(struct drm_device *dev);
->>   
->>   /* drm_sysfs.c */
->>   extern struct class *drm_class;
->> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
->> index be4a52dc4d6f..eb4ec3fab7d1 100644
->> --- a/drivers/gpu/drm/drm_ioctl.c
->> +++ b/drivers/gpu/drm/drm_ioctl.c
->> @@ -600,8 +600,10 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
->>   	DRM_LEGACY_IOCTL_DEF(DRM_IOCTL_SET_SAREA_CTX, drm_legacy_setsareactx, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
->>   	DRM_LEGACY_IOCTL_DEF(DRM_IOCTL_GET_SAREA_CTX, drm_legacy_getsareactx, DRM_AUTH),
->>   
->> -	DRM_IOCTL_DEF(DRM_IOCTL_SET_MASTER, drm_setmaster_ioctl, 0),
->> -	DRM_IOCTL_DEF(DRM_IOCTL_DROP_MASTER, drm_dropmaster_ioctl, 0),
->> +	DRM_IOCTL_DEF(DRM_IOCTL_SET_MASTER, drm_setmaster_ioctl,
->> +		      DRM_MASTER_FLUSH),
->> +	DRM_IOCTL_DEF(DRM_IOCTL_DROP_MASTER, drm_dropmaster_ioctl,
->> +		      DRM_MASTER_FLUSH),
->>   
->>   	DRM_LEGACY_IOCTL_DEF(DRM_IOCTL_ADD_CTX, drm_legacy_addctx, DRM_AUTH|DRM_ROOT_ONLY),
->>   	DRM_LEGACY_IOCTL_DEF(DRM_IOCTL_RM_CTX, drm_legacy_rmctx, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
->> @@ -722,7 +724,8 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
->>   	DRM_IOCTL_DEF(DRM_IOCTL_MODE_CREATE_LEASE, drm_mode_create_lease_ioctl, DRM_MASTER),
->>   	DRM_IOCTL_DEF(DRM_IOCTL_MODE_LIST_LESSEES, drm_mode_list_lessees_ioctl, DRM_MASTER),
->>   	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GET_LEASE, drm_mode_get_lease_ioctl, DRM_MASTER),
->> -	DRM_IOCTL_DEF(DRM_IOCTL_MODE_REVOKE_LEASE, drm_mode_revoke_lease_ioctl, DRM_MASTER),
->> +	DRM_IOCTL_DEF(DRM_IOCTL_MODE_REVOKE_LEASE, drm_mode_revoke_lease_ioctl,
->> +		      DRM_MASTER | DRM_MASTER_FLUSH),
->>   };
->>   
->>   #define DRM_CORE_IOCTL_COUNT	ARRAY_SIZE( drm_ioctls )
->> @@ -781,13 +784,17 @@ long drm_ioctl_kernel(struct file *file, drm_ioctl_t *func, void *kdata,
->>   	struct drm_file *file_priv = file->private_data;
->>   	struct drm_device *dev = file_priv->minor->dev;
->>   	int retcode;
->> +	int idx;
->>   
->>   	if (drm_dev_is_unplugged(dev))
->>   		return -ENODEV;
->>   
->> +	if (unlikely(flags & DRM_MASTER))
->> +		idx = srcu_read_lock(&dev->master_barrier_srcu);
->> +
->>   	retcode = drm_ioctl_permit(flags, file_priv);
->>   	if (unlikely(retcode))
->> -		return retcode;
->> +		goto release_master;
->>   
->>   	/* Enforce sane locking for modern driver ioctls. */
->>   	if (likely(!drm_core_check_feature(dev, DRIVER_LEGACY)) ||
->> @@ -798,6 +805,16 @@ long drm_ioctl_kernel(struct file *file, drm_ioctl_t *func, void *kdata,
->>   		retcode = func(dev, kdata, file_priv);
->>   		mutex_unlock(&drm_global_mutex);
->>   	}
->> +
->> +release_master:
->> +	if (unlikely(flags & DRM_MASTER))
->> +		srcu_read_unlock(&dev->master_barrier_srcu, idx);
->> +	/* After flushing, processes are guaranteed to see the new master/lease
->> +	 * permissions, and any process which might have seen the old
->> +	 * permissions is guaranteed to have finished.
->> +	 */
->> +	if (unlikely(flags & DRM_MASTER_FLUSH))
->> +		drm_master_flush(dev);
->>   	return retcode;
->>   }
->>   EXPORT_SYMBOL(drm_ioctl_kernel);
->> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
->> index 604b1d1b2d72..0ac5fdb375f8 100644
->> --- a/include/drm/drm_device.h
->> +++ b/include/drm/drm_device.h
->> @@ -111,6 +111,17 @@ struct drm_device {
->>   	 */
->>   	struct drm_master *master;
->>   
->> +	/**
->> +	 * @master_barrier_srcu:
->> +	 *
->> +	 * Used to synchronize modesetting rights between multiple users. Users
->> +	 * that can change the modeset or display state must hold an
->> +	 * srcu_read_lock() on @master_barrier_srcu, and ioctls that can change
->> +	 * modesetting rights should call synchronize_srcu() before returning
->> +	 * to userspace.
->> +	 */
->> +	struct srcu_struct master_barrier_srcu;
->> +
->>   	/**
->>   	 * @driver_features: per-device driver features
->>   	 *
->> diff --git a/include/drm/drm_ioctl.h b/include/drm/drm_ioctl.h
->> index afb27cb6a7bd..13a68cdcea36 100644
->> --- a/include/drm/drm_ioctl.h
->> +++ b/include/drm/drm_ioctl.h
->> @@ -130,6 +130,13 @@ enum drm_ioctl_flags {
->>   	 * not set DRM_AUTH because they do not require authentication.
->>   	 */
->>   	DRM_RENDER_ALLOW	= BIT(5),
->> +	/**
->> +	 * @DRM_MASTER_FLUSH:
->> +	 *
->> +	 * This must be set for any ioctl which can change the modesetting
->> +	 * permissions for DRM users.
->> +	 */
->> +	DRM_MASTER_FLUSH	= BIT(6),
->>   };
->>   
->>   /**
->> -- 
->> 2.25.1
->>
-> 
-
+Cheers,
+Nathan
