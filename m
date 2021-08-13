@@ -7,75 +7,76 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8D1CC4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 20:31:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FB3BC432BE
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 20:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A34060560
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 20:31:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9A34060560
+	by mail.kernel.org (Postfix) with ESMTPS id 5DB4E6103A
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Aug 2021 20:31:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5DB4E6103A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FC486E8D9;
-	Fri, 13 Aug 2021 20:30:50 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE9DB6E8D9
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Aug 2021 20:30:48 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id z11so17098990edb.11
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Aug 2021 13:30:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 742BE6E8DA;
+	Fri, 13 Aug 2021 20:30:51 +0000 (UTC)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EEEB6E8D4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Aug 2021 20:30:44 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id b7so17200574edu.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Aug 2021 13:30:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=XxcJ4iRx+uQorCD2l2uBaNCpQD/P7b5uicGWO5Pfa74=;
- b=lRFg3+GvEv6bN88cEUEBbHcyq0YDboHjSpDhOyVKpqnbmeObHPjQKE5/yqnMV9l6+r
- xpyDKmvms9nTKQqfQzY306OVCQRLnxlix7Z1PTaepm97LoMKkzfmLy+D1IbiNPVnGJ9G
- A+B0ig+Z7LSYM1CxiKQWXdBoyERdMvEqgD6rc=
+ bh=E4CcYYJFCPlQ7uaOsIHMZUXG6jOh7KMRwfyaNLCKewo=;
+ b=KSVcy351WkbH4KSoR+kx97Hv93UyyB33KdJsYqT5R0mnPZj0cufQC2NYHla2WJ3kgW
+ J/Y7rYKQ4/A1Dc3KAZ+6srUp+PxQqy5Si+sKw3idMnb3wM44jjIzj9Wwb+YWM/66O41X
+ 1A1Pe0x8rjyQfqubTQdRwQKz4MSR8gnnInwwo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=XxcJ4iRx+uQorCD2l2uBaNCpQD/P7b5uicGWO5Pfa74=;
- b=ons01u6dHFu/3xzCmI3/EJ5LSiO7s9Hzuj/SphaAGdbiQsJ7/JU2mPbYBy6o0z47t7
- rd4ypCmWWfeQhu8qWeAokJBdnD0u64bdyJrNwhlUXvY8TtlyeoL7hQWkwRm/tEbc4Kq3
- nx1likhhE3mGCj/ajEvs+WCJh7bR+IfmU0PG1Kc/1uLd2aONcpS2LKN1ygo0ZEMrlPII
- fNDX982lgFtpwQAeFQZ2gu0duSQmTvU1J8A2mybvn/jFpU/c5IJ4fDe+/VN/68Il4iP+
- 7fSHLLn8XIxnJr2OoPWEWdOJcj0MJVcoahc3m1Zg1hbqLIkSTeog63AZx0JoJYVH9osx
- 9EBA==
-X-Gm-Message-State: AOAM532LMqU+FnlgwAxUHjI1dnf8x6GfzMpMURilDstVi5WO/tS5f7m7
- wyejC/UtvbNYSllhcvyDZ3BYUQ==
-X-Google-Smtp-Source: ABdhPJyGciGGw9et/LDhD0OVFvzQ2GCo+zuRJu+zvH+g8ZPAj5GXTzZIVlBvo6IBy27R+VVe9xj0ng==
-X-Received: by 2002:aa7:c952:: with SMTP id h18mr5450162edt.18.1628886647213; 
- Fri, 13 Aug 2021 13:30:47 -0700 (PDT)
+ bh=E4CcYYJFCPlQ7uaOsIHMZUXG6jOh7KMRwfyaNLCKewo=;
+ b=cTup2BpD9lmt3tAAfahxnUSB2VCfZwv0HXxL7R2bCOzTG7AQlPnRF492BfDOd3pyfR
+ zbkkgHom2Ppeh0AuP9lGJh3WTNauNU1KrG3VfJ3fNFet4OUdNW2VOVz2Itf9+0OLvsp3
+ 8ph0JdV+4XmYXFQkSEV02NrA0lP5Z5a3T49gk21Quo80FJ3l3uBy2kFp5JZ3ih/GF/N/
+ HxKKYnPxCoaCgEUPY2bx1AsLvIQQoyxLKVToSRH9dMrPm010WCF/ucdOP0vX3Fvo+YeB
+ TlBDkkSJfkVMdZc1GAtineRLAdlqIlPXui2dw8c2e08hZOrGlkszTMsu325q/P60pAam
+ AJxw==
+X-Gm-Message-State: AOAM5328pQPrVtauv/LcO4j/Fxl/ZoRN/7Do7wDAxtNDkC5rHzN3qIp3
+ u9BM6W1NVJ3GQW0gjtsRyryBgg==
+X-Google-Smtp-Source: ABdhPJwv6e1Ladicbp3JPnE7fcY1Ss+1ji1QWn3zjDb/eK/fPBO5K62W1UZauqnLW3z5LWbOnPHKUg==
+X-Received: by 2002:a50:fd87:: with SMTP id o7mr5409566edt.289.1628886642886; 
+ Fri, 13 Aug 2021 13:30:42 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id y17sm1347027edv.51.2021.08.13.13.30.46
+ by smtp.gmail.com with ESMTPSA id y17sm1347027edv.51.2021.08.13.13.30.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Aug 2021 13:30:46 -0700 (PDT)
+ Fri, 13 Aug 2021 13:30:42 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
 Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Jon Bloomfield <jon.bloomfield@intel.com>,
+ Jason Ekstrand <jason@jlekstrand.net>,
  Chris Wilson <chris@chris-wilson.co.uk>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
  Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
  Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- Dave Airlie <airlied@redhat.com>, Jason Ekstrand <jason@jlekstrand.net>
-Date: Fri, 13 Aug 2021 22:30:30 +0200
-Message-Id: <20210813203033.3179400-8-daniel.vetter@ffwll.ch>
+ Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>
+Date: Fri, 13 Aug 2021 22:30:25 +0200
+Message-Id: <20210813203033.3179400-3-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210813203033.3179400-1-daniel.vetter@ffwll.ch>
 References: <20210813203033.3179400-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/11] drm/i915: Use i915_gem_context_get_eb_vm
- in intel_context_set_gem
+Subject: [Intel-gfx] [PATCH 03/11] drm/i915: Keep gem ctx->vm alive until
+ the final put
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,61 +92,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since
+The comment added in
 
-commit ccbc1b97948ab671335e950271e39766729736c3
-Author: Jason Ekstrand <jason@jlekstrand.net>
-Date:   Thu Jul 8 10:48:30 2021 -0500
+    commit b81dde719439c8f09bb61e742ed95bfc4b33946b
+    Author: Chris Wilson <chris@chris-wilson.co.uk>
+    Date:   Tue May 21 22:11:29 2019 +0100
 
-    drm/i915/gem: Don't allow changing the VM on running contexts (v4)
+        drm/i915: Allow userspace to clone contexts on creation
 
-the gem_ctx->vm can't change anymore. Plus we always set the
-intel_context->vm, so might as well use the helper we have for that.
+and moved in
 
-This makes it very clear that we always overwrite intel_context->vm
-for userspace contexts, since the default is gt->vm, which is
-explicitly reserved for kernel context use. It would be good to split
-things up a bit further and avoid any possibility for an accident
-where we run kernel stuff in userspace vm or the other way round.
+    commit 27dbae8f36c1c25008b7885fc07c57054b7dfba3
+    Author: Chris Wilson <chris@chris-wilson.co.uk>
+    Date:   Wed Nov 6 09:13:12 2019 +0000
 
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Jon Bloomfield <jon.bloomfield@intel.com>
+        drm/i915/gem: Safely acquire the ctx->vm when copying
+
+suggested that i915_address_space were at least intended to be managed
+through SLAB_TYPESAFE_BY_RCU:
+
+                * This ppgtt may have be reallocated between
+                * the read and the kref, and reassigned to a third
+                * context. In order to avoid inadvertent sharing
+                * of this ppgtt with that third context (and not
+                * src), we have to confirm that we have the same
+                * ppgtt after passing through the strong memory
+                * barrier implied by a successful
+                * kref_get_unless_zero().
+
+But extensive git history search has not brough any such reuse to
+light.
+
+What has come to light though is that ever since
+
+commit 2850748ef8763ab46958e43a4d1c445f29eeb37d
+Author: Chris Wilson <chris@chris-wilson.co.uk>
+Date:   Fri Oct 4 14:39:58 2019 +0100
+
+    drm/i915: Pull i915_vma_pin under the vm->mutex
+
+(yes this commit is earlier) the final i915_vma_put call has been
+moved from i915_gem_context_free (now called _release) to
+context_close, which means it's not actually safe anymore to access
+the ctx->vm pointer without lock helds, because it might disappear at
+any moment. Note that superficially things all still work, because the
+i915_address_space is RCU protected since
+
+    commit b32fa811156328aea5a3c2ff05cc096490382456
+    Author: Chris Wilson <chris@chris-wilson.co.uk>
+    Date:   Thu Jun 20 19:37:05 2019 +0100
+
+        drm/i915/gtt: Defer address space cleanup to an RCU worker
+
+except the very clever macro above (which is designed to protected
+against object reuse due to SLAB_TYPESAFE_BY_RCU or similar tricks)
+results in an endless loop if the refcount of the ctx->vm ever
+permanently drops to 0. Which it totally now can.
+
+Fix that by moving the final i915_vm_put to where it should be.
+
+Note that i915_gem_context is rcu protected, but _only_ the final
+kfree. This means anyone who chases a pointer to a gem ctx solely
+under the protection can pretty only call kref_get_unless_zero(). This
+seems to be pretty much the case, aside from a bunch of cases that
+consult the scheduling information without any further protection.
+
+Cc: Jason Ekstrand <jason@jlekstrand.net>
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: "Thomas Hellström" <thomas.hellstrom@intel.com>
 Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 Cc: Dave Airlie <airlied@redhat.com>
-Cc: Jason Ekstrand <jason@jlekstrand.net>
+Fixes: 2850748ef876 ("drm/i915: Pull i915_vma_pin under the vm->mutex")
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 1eec85944c1f..18e23d9220ae 100644
+index 5a053cf14948..12e2de1db1a2 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -791,16 +791,8 @@ static int intel_context_set_gem(struct intel_context *ce,
+@@ -990,6 +990,7 @@ static void i915_gem_context_release_work(struct work_struct *work)
+ {
+ 	struct i915_gem_context *ctx = container_of(work, typeof(*ctx),
+ 						    release_work);
++	struct i915_address_space *vm;
  
- 	ce->ring_size = SZ_16K;
+ 	trace_i915_context_free(ctx);
+ 	GEM_BUG_ON(!i915_gem_context_is_closed(ctx));
+@@ -997,6 +998,10 @@ static void i915_gem_context_release_work(struct work_struct *work)
+ 	if (ctx->syncobj)
+ 		drm_syncobj_put(ctx->syncobj);
  
--	if (rcu_access_pointer(ctx->vm)) {
--		struct i915_address_space *vm;
--
--		rcu_read_lock();
--		vm = context_get_vm_rcu(ctx); /* hmm */
--		rcu_read_unlock();
--
--		i915_vm_put(ce->vm);
--		ce->vm = vm;
--	}
-+	i915_vm_put(ce->vm);
-+	ce->vm = i915_gem_context_get_eb_vm(ctx);
++	vm = i915_gem_context_vm(ctx);
++	if (vm)
++		i915_vm_put(vm);
++
+ 	mutex_destroy(&ctx->engines_mutex);
+ 	mutex_destroy(&ctx->lut_mutex);
  
- 	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
- 	    intel_engine_has_timeslices(ce->engine) &&
+@@ -1220,8 +1225,15 @@ static void context_close(struct i915_gem_context *ctx)
+ 	set_closed_name(ctx);
+ 
+ 	vm = i915_gem_context_vm(ctx);
+-	if (vm)
++	if (vm) {
++		/* i915_vm_close drops the final reference, which is a bit too
++		 * early and could result in surprises with concurrent
++		 * operations racing with thist ctx close. Keep a full reference
++		 * until the end.
++		 */
++		i915_vm_get(vm);
+ 		i915_vm_close(vm);
++	}
+ 
+ 	ctx->file_priv = ERR_PTR(-EBADF);
+ 
 -- 
 2.32.0
 
