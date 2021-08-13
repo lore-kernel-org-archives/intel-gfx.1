@@ -2,43 +2,58 @@ Return-Path: <SRS0=Opgb=NH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A259C4320A
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 09:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0578DC4338F
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 09:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 02C7D61B60
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 09:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 02C7D61B60
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id C503D61B72
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 09:58:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C503D61B72
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1B78887E;
-	Mon, 16 Aug 2021 09:41:41 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 49C778887E;
- Mon, 16 Aug 2021 09:41:40 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 3C39BAA0EA;
- Mon, 16 Aug 2021 09:41:40 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D973789C1B;
+	Mon, 16 Aug 2021 09:58:07 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0604B6E8AC;
+ Fri, 13 Aug 2021 17:12:15 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8BA1C60F91;
+ Fri, 13 Aug 2021 17:12:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1628874734;
+ bh=E0Rd8uuRj9V4s/5yGBq/lhcjLlVd74GgQ8rhT3/6j30=;
+ h=From:To:Cc:Subject:Date:From;
+ b=I7vDjYOooR5E8ZiW45+6N1xtm/mJrPRPb5euk0MUhVfuKc70li+mGDWSl7rEqCNal
+ VOtH/VfAENMm4DX3NV4NI8HNHpB46LuykNqvljA4xEcq7/Z7tMVdIeB5wFE5U/0Zzo
+ l61AEPIU5XtzQWTdyhg8ApGEA6dRaNgVKR664feL0ft0K7tZOqDRQdG/FVG2Ecq3Tj
+ 64Tr224tTPLOsuEDF/gAW+MU7ag0UPygynlPfj+okX6sLHym8ICUpFCs+x3g45WTvb
+ Iys7/GqrN7KogTtmrhw+RCePqdi27xK/Fm50R3tzBkITRLVa16ByxeVWOhExaWgG8B
+ W7Z7wDEHg+9BA==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: John Harrison <John.C.Harrison@Intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Date: Fri, 13 Aug 2021 10:11:58 -0700
+Message-Id: <20210813171158.2665823-1-nathan@kernel.org>
+X-Mailer: git-send-email 2.33.0.rc2
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 16 Aug 2021 09:41:40 -0000
-Message-ID: <162910690021.26194.451803896590941276@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210816084855.75586-1-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20210816084855.75586-1-thomas.hellstrom@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Ditch_the_i915=5Fgem=5Fww=5Fctx_loop_member?=
+X-Patchwork-Bot: notify
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 16 Aug 2021 09:58:05 +0000
+Subject: [Intel-gfx] [PATCH] drm/i915/selftest: Fix use of err in
+ igt_reset_{fail, nop}_engine()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,34 +66,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Clang warns:
 
-Series: drm/i915: Ditch the i915_gem_ww_ctx loop member
-URL   : https://patchwork.freedesktop.org/series/93711/
-State : warning
+In file included from drivers/gpu/drm/i915/gt/intel_reset.c:1514:
+drivers/gpu/drm/i915/gt/selftest_hangcheck.c:465:62: warning: variable
+'err' is uninitialized when used here [-Wuninitialized]
+        pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+                                                                  ^~~
+...
+drivers/gpu/drm/i915/gt/selftest_hangcheck.c:580:62: warning: variable
+'err' is uninitialized when used here [-Wuninitialized]
+        pr_err("[%s] Create context failed: %d!\n", engine->name, err);
+                                                                  ^~~
+...
+2 warnings generated.
 
-== Summary ==
+This appears to be a copy and paste issue. Use ce directly using the %pe
+specifier to pretty print the error code so that err is not used
+uninitialized in these functions.
 
-$ dim checkpatch origin/drm-tip
-e82160475e8e drm/i915: Ditch the i915_gem_ww_ctx loop member
--:67: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_ww' - possible side-effects?
-#67: FILE: drivers/gpu/drm/i915/i915_gem_ww.h:39:
-+#define for_i915_gem_ww(_ww, _err, _intr)			  \
-+	for (i915_gem_ww_ctx_init(_ww, _intr), (_err) = -EDEADLK; \
-+	     fetch_and_zero(&_err) == -EDEADLK;			  \
- 	     _err = __i915_gem_ww_fini(_ww, _err))
+Fixes: 3a7b72665ea5 ("drm/i915/selftest: Bump selftest timeouts for hangcheck")
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
--:67: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_err' - possible side-effects?
-#67: FILE: drivers/gpu/drm/i915/i915_gem_ww.h:39:
-+#define for_i915_gem_ww(_ww, _err, _intr)			  \
-+	for (i915_gem_ww_ctx_init(_ww, _intr), (_err) = -EDEADLK; \
-+	     fetch_and_zero(&_err) == -EDEADLK;			  \
- 	     _err = __i915_gem_ww_fini(_ww, _err))
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 08f011f893b2..2c1ed32ca5ac 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -462,7 +462,7 @@ static int igt_reset_nop_engine(void *arg)
+ 
+ 		ce = intel_context_create(engine);
+ 		if (IS_ERR(ce)) {
+-			pr_err("[%s] Create context failed: %d!\n", engine->name, err);
++			pr_err("[%s] Create context failed: %pe!\n", engine->name, ce);
+ 			return PTR_ERR(ce);
+ 		}
+ 
+@@ -577,7 +577,7 @@ static int igt_reset_fail_engine(void *arg)
+ 
+ 		ce = intel_context_create(engine);
+ 		if (IS_ERR(ce)) {
+-			pr_err("[%s] Create context failed: %d!\n", engine->name, err);
++			pr_err("[%s] Create context failed: %pe!\n", engine->name, ce);
+ 			return PTR_ERR(ce);
+ 		}
+ 
 
-total: 0 errors, 0 warnings, 2 checks, 48 lines checked
-
+base-commit: 927dfdd09d8c03ba100ed0c8c3915f8e1d1f5556
+-- 
+2.33.0.rc2
 
