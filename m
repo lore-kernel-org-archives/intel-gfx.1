@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F0C0C432BE
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5071C4320A
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D105A6120E
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D105A6120E
+	by mail.kernel.org (Postfix) with ESMTPS id 94D836120E
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 94D836120E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A98C689D63;
-	Sun, 15 Aug 2021 20:21:26 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 237DE88C07
- for <intel-gfx@lists.freedesktop.org>; Sun, 15 Aug 2021 20:21:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="215793677"
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="215793677"
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC4D889175;
+	Sun, 15 Aug 2021 20:21:27 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F914891D5
+ for <intel-gfx@lists.freedesktop.org>; Sun, 15 Aug 2021 20:21:21 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="213914006"
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="213914006"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Aug 2021 13:21:19 -0700
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="461849469"
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="461849465"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Aug 2021 13:21:18 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>, drmdevel@freedesktop.org
 Cc: <daniel.vetter@ffwll.ch>
-Date: Sun, 15 Aug 2021 13:15:46 -0700
-Message-Id: <20210815201559.1150-9-matthew.brost@intel.com>
+Date: Sun, 15 Aug 2021 13:15:44 -0700
+Message-Id: <20210815201559.1150-7-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210815201559.1150-1-matthew.brost@intel.com>
 References: <20210815201559.1150-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/21] drm/i915/selftests: Fix memory corruption
- in live_lrc_isolation
+Subject: [Intel-gfx] [PATCH 06/21] drm/i915/selftests: Add a cancel request
+ selftest that triggers a reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,69 +59,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-GuC submission has exposed an existing memory corruption in
-live_lrc_isolation. We believe that some writes to the watchdog offsets
-in the LRC (0x178 & 0x17c) can result in trashing of portions of the
-address space. With GuC submission there are additional objects which
-can move the context redzone into the space that is trashed. To
-workaround this avoid poisoning the watchdog.
-
-v2:
- (Daniel Vetter)
-  - Add VLK ref in code to workaround
+Add a cancel request selftest that results in an engine reset to cancel
+the request as it is non-preemptable. Also insert a NOP request after
+the cancelled request and confirm that it completely successfully.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_lrc.c | 29 +++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/selftests/i915_request.c | 94 +++++++++++++++++++
+ 1 file changed, 94 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-index b0977a3b699b..cdc6ae48a1e1 100644
---- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-@@ -1074,6 +1074,32 @@ record_registers(struct intel_context *ce,
- 	goto err_after;
+diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
+index d67710d10615..bf1cf7b5af76 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_request.c
++++ b/drivers/gpu/drm/i915/selftests/i915_request.c
+@@ -772,6 +772,98 @@ static int __cancel_completed(struct intel_engine_cs *engine)
+ 	return err;
  }
  
-+static u32 safe_offset(u32 offset, u32 reg)
++static int __cancel_reset(struct intel_engine_cs *engine)
 +{
-+	/* XXX skip testing of watchdog - VLK-22772 */
-+	if (offset == 0x178 || offset == 0x17c)
-+		reg = 0;
++	struct intel_context *ce;
++	struct igt_spinner spin;
++	struct i915_request *rq, *nop;
++	unsigned long preempt_timeout_ms;
++	int err = 0;
 +
-+	return reg;
-+}
++	preempt_timeout_ms = engine->props.preempt_timeout_ms;
++	engine->props.preempt_timeout_ms = 100;
 +
-+static int get_offset_mask(struct intel_engine_cs *engine)
-+{
-+	if (GRAPHICS_VER(engine->i915) < 12)
-+		return 0xfff;
++	if (igt_spinner_init(&spin, engine->gt))
++		goto out_restore;
 +
-+	switch (engine->class) {
-+	default:
-+	case RENDER_CLASS:
-+		return 0x07ff;
-+	case COPY_ENGINE_CLASS:
-+		return 0x0fff;
-+	case VIDEO_DECODE_CLASS:
-+	case VIDEO_ENHANCEMENT_CLASS:
-+		return 0x3fff;
++	ce = intel_context_create(engine);
++	if (IS_ERR(ce)) {
++		err = PTR_ERR(ce);
++		goto out_spin;
 +	}
++
++	rq = igt_spinner_create_request(&spin, ce, MI_NOOP);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_ce;
++	}
++
++	pr_debug("%s: Cancelling active request\n", engine->name);
++	i915_request_get(rq);
++	i915_request_add(rq);
++	if (!igt_wait_for_spinner(&spin, rq)) {
++		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
++
++		pr_err("Failed to start spinner on %s\n", engine->name);
++		intel_engine_dump(engine, &p, "%s\n", engine->name);
++		err = -ETIME;
++		goto out_rq;
++	}
++
++	nop = intel_context_create_request(ce);
++	if (IS_ERR(nop))
++		goto out_nop;
++	i915_request_get(nop);
++	i915_request_add(nop);
++
++	i915_request_cancel(rq, -EINTR);
++
++	if (i915_request_wait(rq, 0, HZ) < 0) {
++		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
++
++		pr_err("%s: Failed to cancel hung request\n", engine->name);
++		intel_engine_dump(engine, &p, "%s\n", engine->name);
++		err = -ETIME;
++		goto out_nop;
++	}
++
++	if (rq->fence.error != -EINTR) {
++		pr_err("%s: fence not cancelled (%u)\n",
++		       engine->name, rq->fence.error);
++		err = -EINVAL;
++		goto out_nop;
++	}
++
++	if (i915_request_wait(nop, 0, HZ) < 0) {
++		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
++
++		pr_err("%s: Failed to complete nop request\n", engine->name);
++		intel_engine_dump(engine, &p, "%s\n", engine->name);
++		err = -ETIME;
++		goto out_nop;
++	}
++
++	if (nop->fence.error != 0) {
++		pr_err("%s: Nop request errored (%u)\n",
++		       engine->name, nop->fence.error);
++		err = -EINVAL;
++	}
++
++out_nop:
++	i915_request_put(nop);
++out_rq:
++	i915_request_put(rq);
++out_ce:
++	intel_context_put(ce);
++out_spin:
++	igt_spinner_fini(&spin);
++out_restore:
++	engine->props.preempt_timeout_ms = preempt_timeout_ms;
++	if (err)
++		pr_err("%s: %s error %d\n", __func__, engine->name, err);
++	return err;
 +}
 +
- static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
+ static int live_cancel_request(void *arg)
  {
- 	struct i915_vma *batch;
-@@ -1117,7 +1143,8 @@ static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
- 		len = (len + 1) / 2;
- 		*cs++ = MI_LOAD_REGISTER_IMM(len);
- 		while (len--) {
--			*cs++ = hw[dw];
-+			*cs++ = safe_offset(hw[dw] & get_offset_mask(ce->engine),
-+					    hw[dw]);
- 			*cs++ = poison;
- 			dw += 2;
- 		}
+ 	struct drm_i915_private *i915 = arg;
+@@ -798,6 +890,8 @@ static int live_cancel_request(void *arg)
+ 			err = __cancel_active(engine);
+ 		if (err == 0)
+ 			err = __cancel_completed(engine);
++		if (err == 0)
++			err = __cancel_reset(engine);
+ 
+ 		err2 = igt_live_test_end(&t);
+ 		if (err)
 -- 
 2.32.0
 
