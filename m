@@ -2,48 +2,48 @@ Return-Path: <SRS0=Oivi=NG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75A50C4338F
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FF5DC4320E
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3CAAF6120E
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3CAAF6120E
+	by mail.kernel.org (Postfix) with ESMTPS id 1DE666120E
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1DE666120E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF5189192;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4DD89D5E;
 	Sun, 15 Aug 2021 20:21:32 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E8A789C08
- for <intel-gfx@lists.freedesktop.org>; Sun, 15 Aug 2021 20:21:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="276792973"
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="276792973"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD45C898F5
+ for <intel-gfx@lists.freedesktop.org>; Sun, 15 Aug 2021 20:21:21 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="276792971"
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="276792971"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Aug 2021 13:21:19 -0700
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="461849483"
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="461849479"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Aug 2021 13:21:19 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>, drmdevel@freedesktop.org
 Cc: <daniel.vetter@ffwll.ch>
-Date: Sun, 15 Aug 2021 13:15:53 -0700
-Message-Id: <20210815201559.1150-16-matthew.brost@intel.com>
+Date: Sun, 15 Aug 2021 13:15:51 -0700
+Message-Id: <20210815201559.1150-14-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210815201559.1150-1-matthew.brost@intel.com>
 References: <20210815201559.1150-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 15/21] drm/i915/guc: Release submit fence from
- an IRQ
+Subject: [Intel-gfx] [PATCH 13/21] drm/i915: Allocate error capture in
+ atomic context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,76 +59,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A subsequent patch will flip the locking hierarchy from
-ce->guc_state.lock -> sched_engine->lock to sched_engine->lock ->
-ce->guc_state.lock. As such we need to release the submit fence for a
-request from an IRQ to break a lock inversion - i.e. the fence must be
-release went holding ce->guc_state.lock and the releasing of the can
-acquire sched_engine->lock.
+Error captures can now be done in a work queue processing G2H messages.
+These messages need to be completely done being processed in the reset
+path, to avoid races in the missing G2H cleanup, which create a
+dependency on memory allocations and dma fences (i915_requests).
+Requests depend on resets, thus now we have a circular dependency. To
+work around this, allocate the error capture in an atomic context.
 
+Fixes: dc0dad365c5e ("Fix for error capture after full GPU reset with GuC")
+Fixes: 573ba126aef3 ("Capture error state on context reset")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 15 ++++++++++++++-
- drivers/gpu/drm/i915/i915_request.h               |  5 +++++
- 2 files changed, 19 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_gpu_error.c | 37 +++++++++++++--------------
+ 1 file changed, 18 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 54c0914b21f3..b09be9b88cb3 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2016,6 +2016,14 @@ static const struct intel_context_ops guc_context_ops = {
- 	.create_virtual = guc_create_virtual,
- };
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 0f08bcfbe964..453376aa6d9f 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -49,7 +49,6 @@
+ #include "i915_memcpy.h"
+ #include "i915_scatterlist.h"
  
-+static void submit_work_cb(struct irq_work *wrk)
-+{
-+	struct i915_request *rq = container_of(wrk, typeof(*rq), submit_work);
-+
-+	might_lock(&rq->engine->sched_engine->lock);
-+	i915_sw_fence_complete(&rq->submit);
-+}
-+
- static void __guc_signal_context_fence(struct intel_context *ce)
+-#define ALLOW_FAIL (GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
+ #define ATOMIC_MAYFAIL (GFP_ATOMIC | __GFP_NOWARN)
+ 
+ static void __sg_set_buf(struct scatterlist *sg,
+@@ -79,7 +78,7 @@ static bool __i915_error_grow(struct drm_i915_error_state_buf *e, size_t len)
+ 	if (e->cur == e->end) {
+ 		struct scatterlist *sgl;
+ 
+-		sgl = (typeof(sgl))__get_free_page(ALLOW_FAIL);
++		sgl = (typeof(sgl))__get_free_page(ATOMIC_MAYFAIL);
+ 		if (!sgl) {
+ 			e->err = -ENOMEM;
+ 			return false;
+@@ -99,10 +98,10 @@ static bool __i915_error_grow(struct drm_i915_error_state_buf *e, size_t len)
+ 	}
+ 
+ 	e->size = ALIGN(len + 1, SZ_64K);
+-	e->buf = kmalloc(e->size, ALLOW_FAIL);
++	e->buf = kmalloc(e->size, ATOMIC_MAYFAIL);
+ 	if (!e->buf) {
+ 		e->size = PAGE_ALIGN(len + 1);
+-		e->buf = kmalloc(e->size, GFP_KERNEL);
++		e->buf = kmalloc(e->size, ATOMIC_MAYFAIL);
+ 	}
+ 	if (!e->buf) {
+ 		e->err = -ENOMEM;
+@@ -243,12 +242,12 @@ static bool compress_init(struct i915_vma_compress *c)
  {
- 	struct i915_request *rq;
-@@ -2025,8 +2033,12 @@ static void __guc_signal_context_fence(struct intel_context *ce)
- 	if (!list_empty(&ce->guc_state.fences))
- 		trace_intel_context_fence_release(ce);
+ 	struct z_stream_s *zstream = &c->zstream;
  
-+	/*
-+	 * Use an IRQ to ensure locking order of sched_engine->lock ->
-+	 * ce->guc_state.lock is preserved.
-+	 */
- 	list_for_each_entry(rq, &ce->guc_state.fences, guc_fence_link)
--		i915_sw_fence_complete(&rq->submit);
-+		irq_work_queue(&rq->submit_work);
+-	if (pool_init(&c->pool, ALLOW_FAIL))
++	if (pool_init(&c->pool, ATOMIC_MAYFAIL))
+ 		return false;
  
- 	INIT_LIST_HEAD(&ce->guc_state.fences);
+ 	zstream->workspace =
+ 		kmalloc(zlib_deflate_workspacesize(MAX_WBITS, MAX_MEM_LEVEL),
+-			ALLOW_FAIL);
++			ATOMIC_MAYFAIL);
+ 	if (!zstream->workspace) {
+ 		pool_fini(&c->pool);
+ 		return false;
+@@ -256,7 +255,7 @@ static bool compress_init(struct i915_vma_compress *c)
+ 
+ 	c->tmp = NULL;
+ 	if (i915_has_memcpy_from_wc())
+-		c->tmp = pool_alloc(&c->pool, ALLOW_FAIL);
++		c->tmp = pool_alloc(&c->pool, ATOMIC_MAYFAIL);
+ 
+ 	return true;
  }
-@@ -2136,6 +2148,7 @@ static int guc_request_alloc(struct i915_request *rq)
- 	spin_lock_irqsave(&ce->guc_state.lock, flags);
- 	if (context_wait_for_deregister_to_register(ce) ||
- 	    context_pending_disable(ce)) {
-+		init_irq_work(&rq->submit_work, submit_work_cb);
- 		i915_sw_fence_await(&rq->submit);
+@@ -280,7 +279,7 @@ static void *compress_next_page(struct i915_vma_compress *c,
+ 	if (dst->page_count >= dst->num_pages)
+ 		return ERR_PTR(-ENOSPC);
  
- 		list_add_tail(&rq->guc_fence_link, &ce->guc_state.fences);
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 1bc1349ba3c2..d818cfbfc41d 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -218,6 +218,11 @@ struct i915_request {
- 	};
- 	struct llist_head execute_cb;
- 	struct i915_sw_fence semaphore;
-+	/**
-+	 * @submit_work: complete submit fence from an IRQ if needed for
-+	 * locking hierarchy reasons.
-+	 */
-+	struct irq_work submit_work;
+-	page = pool_alloc(&c->pool, ALLOW_FAIL);
++	page = pool_alloc(&c->pool, ATOMIC_MAYFAIL);
+ 	if (!page)
+ 		return ERR_PTR(-ENOMEM);
  
- 	/*
- 	 * A list of everyone we wait upon, and everyone who waits upon us.
+@@ -376,7 +375,7 @@ struct i915_vma_compress {
+ 
+ static bool compress_init(struct i915_vma_compress *c)
+ {
+-	return pool_init(&c->pool, ALLOW_FAIL) == 0;
++	return pool_init(&c->pool, ATOMIC_MAYFAIL) == 0;
+ }
+ 
+ static bool compress_start(struct i915_vma_compress *c)
+@@ -391,7 +390,7 @@ static int compress_page(struct i915_vma_compress *c,
+ {
+ 	void *ptr;
+ 
+-	ptr = pool_alloc(&c->pool, ALLOW_FAIL);
++	ptr = pool_alloc(&c->pool, ATOMIC_MAYFAIL);
+ 	if (!ptr)
+ 		return -ENOMEM;
+ 
+@@ -997,7 +996,7 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+ 
+ 	num_pages = min_t(u64, vma->size, vma->obj->base.size) >> PAGE_SHIFT;
+ 	num_pages = DIV_ROUND_UP(10 * num_pages, 8); /* worstcase zlib growth */
+-	dst = kmalloc(sizeof(*dst) + num_pages * sizeof(u32 *), ALLOW_FAIL);
++	dst = kmalloc(sizeof(*dst) + num_pages * sizeof(u32 *), ATOMIC_MAYFAIL);
+ 	if (!dst)
+ 		return NULL;
+ 
+@@ -1433,7 +1432,7 @@ capture_engine(struct intel_engine_cs *engine,
+ 	struct i915_request *rq = NULL;
+ 	unsigned long flags;
+ 
+-	ee = intel_engine_coredump_alloc(engine, GFP_KERNEL);
++	ee = intel_engine_coredump_alloc(engine, ATOMIC_MAYFAIL);
+ 	if (!ee)
+ 		return NULL;
+ 
+@@ -1481,7 +1480,7 @@ gt_record_engines(struct intel_gt_coredump *gt,
+ 		struct intel_engine_coredump *ee;
+ 
+ 		/* Refill our page pool before entering atomic section */
+-		pool_refill(&compress->pool, ALLOW_FAIL);
++		pool_refill(&compress->pool, ATOMIC_MAYFAIL);
+ 
+ 		ee = capture_engine(engine, compress);
+ 		if (!ee)
+@@ -1507,7 +1506,7 @@ gt_record_uc(struct intel_gt_coredump *gt,
+ 	const struct intel_uc *uc = &gt->_gt->uc;
+ 	struct intel_uc_coredump *error_uc;
+ 
+-	error_uc = kzalloc(sizeof(*error_uc), ALLOW_FAIL);
++	error_uc = kzalloc(sizeof(*error_uc), ATOMIC_MAYFAIL);
+ 	if (!error_uc)
+ 		return NULL;
+ 
+@@ -1518,8 +1517,8 @@ gt_record_uc(struct intel_gt_coredump *gt,
+ 	 * As modparams are generally accesible from the userspace make
+ 	 * explicit copies of the firmware paths.
+ 	 */
+-	error_uc->guc_fw.path = kstrdup(uc->guc.fw.path, ALLOW_FAIL);
+-	error_uc->huc_fw.path = kstrdup(uc->huc.fw.path, ALLOW_FAIL);
++	error_uc->guc_fw.path = kstrdup(uc->guc.fw.path, ATOMIC_MAYFAIL);
++	error_uc->huc_fw.path = kstrdup(uc->huc.fw.path, ATOMIC_MAYFAIL);
+ 	error_uc->guc_log =
+ 		i915_vma_coredump_create(gt->_gt,
+ 					 uc->guc.log.vma, "GuC log buffer",
+@@ -1778,7 +1777,7 @@ i915_vma_capture_prepare(struct intel_gt_coredump *gt)
+ {
+ 	struct i915_vma_compress *compress;
+ 
+-	compress = kmalloc(sizeof(*compress), ALLOW_FAIL);
++	compress = kmalloc(sizeof(*compress), ATOMIC_MAYFAIL);
+ 	if (!compress)
+ 		return NULL;
+ 
+@@ -1811,11 +1810,11 @@ i915_gpu_coredump(struct intel_gt *gt, intel_engine_mask_t engine_mask)
+ 	if (IS_ERR(error))
+ 		return error;
+ 
+-	error = i915_gpu_coredump_alloc(i915, ALLOW_FAIL);
++	error = i915_gpu_coredump_alloc(i915, ATOMIC_MAYFAIL);
+ 	if (!error)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	error->gt = intel_gt_coredump_alloc(gt, ALLOW_FAIL);
++	error->gt = intel_gt_coredump_alloc(gt, ATOMIC_MAYFAIL);
+ 	if (error->gt) {
+ 		struct i915_vma_compress *compress;
+ 
 -- 
 2.32.0
 
