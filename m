@@ -2,51 +2,45 @@ Return-Path: <SRS0=Oivi=NG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FA9FC4338F
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 02:07:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 199C2C4338F
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 02:19:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EADA860E9B
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 02:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EADA860E9B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id BA8FE61002
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 02:19:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BA8FE61002
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE9989DFA;
-	Sun, 15 Aug 2021 02:07:10 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A75E89DA4
- for <intel-gfx@lists.freedesktop.org>; Sun, 15 Aug 2021 02:07:07 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10076"; a="202911129"
-X-IronPort-AV: E=Sophos;i="5.84,322,1620716400"; d="scan'208";a="202911129"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2021 19:07:04 -0700
-X-IronPort-AV: E=Sophos;i="5.84,322,1620716400"; d="scan'208";a="518782884"
-Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
- ([10.24.14.59])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2021 19:07:04 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Date: Sat, 14 Aug 2021 19:11:51 -0700
-Message-Id: <20210815021152.410835-2-jose.souza@intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210815021152.410835-1-jose.souza@intel.com>
-References: <20210815021152.410835-1-jose.souza@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36B1F89DDF;
+	Sun, 15 Aug 2021 02:19:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E122E89DA4;
+ Sun, 15 Aug 2021 02:19:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D916CAA0EA;
+ Sun, 15 Aug 2021 02:19:03 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8578508150384958479=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915/display: Drop PSR support from HSW
- and BDW
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 15 Aug 2021 02:19:03 -0000
+Message-ID: <162899394385.6204.11152114926938209415@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210815014346.373945-1-jose.souza@intel.com>
+In-Reply-To: <20210815014346.373945-1-jose.souza@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5BCI=2C1/2=5D_drm/i915/display=3A_Fix_sel_fe?=
+ =?utf-8?q?tch_plane_offset_calculation?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,287 +53,222 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-At this point is sure that HSW and BDW will never have PSR enabled by
-default, so here dropping it from device info and cleaning up code.
+--===============8578508150384958479==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 97 ++++--------------------
- drivers/gpu/drm/i915/i915_drv.h          |  2 -
- drivers/gpu/drm/i915/i915_irq.c          | 16 ----
- drivers/gpu/drm/i915/i915_pci.c          |  2 -
- drivers/gpu/drm/i915/i915_reg.h          | 21 ++---
- 5 files changed, 18 insertions(+), 120 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 1b0daf649e823..5726f8dd8e8e3 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -364,41 +364,6 @@ void intel_psr_init_dpcd(struct intel_dp *intel_dp)
- 	}
- }
- 
--static void hsw_psr_setup_aux(struct intel_dp *intel_dp)
--{
--	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
--	u32 aux_clock_divider, aux_ctl;
--	int i;
--	static const u8 aux_msg[] = {
--		[0] = DP_AUX_NATIVE_WRITE << 4,
--		[1] = DP_SET_POWER >> 8,
--		[2] = DP_SET_POWER & 0xff,
--		[3] = 1 - 1,
--		[4] = DP_SET_POWER_D0,
--	};
--	u32 psr_aux_mask = EDP_PSR_AUX_CTL_TIME_OUT_MASK |
--			   EDP_PSR_AUX_CTL_MESSAGE_SIZE_MASK |
--			   EDP_PSR_AUX_CTL_PRECHARGE_2US_MASK |
--			   EDP_PSR_AUX_CTL_BIT_CLOCK_2X_MASK;
--
--	BUILD_BUG_ON(sizeof(aux_msg) > 20);
--	for (i = 0; i < sizeof(aux_msg); i += 4)
--		intel_de_write(dev_priv,
--			       EDP_PSR_AUX_DATA(intel_dp->psr.transcoder, i >> 2),
--			       intel_dp_pack_aux(&aux_msg[i], sizeof(aux_msg) - i));
--
--	aux_clock_divider = intel_dp->get_aux_clock_divider(intel_dp, 0);
--
--	/* Start with bits set for DDI_AUX_CTL register */
--	aux_ctl = intel_dp->get_aux_send_ctl(intel_dp, sizeof(aux_msg),
--					     aux_clock_divider);
--
--	/* Select only valid bits for SRD_AUX_CTL */
--	aux_ctl &= psr_aux_mask;
--	intel_de_write(dev_priv, EDP_PSR_AUX_CTL(intel_dp->psr.transcoder),
--		       aux_ctl);
--}
--
- static void intel_psr_enable_sink(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-@@ -621,9 +586,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
- static bool
- transcoder_has_psr2(struct drm_i915_private *dev_priv, enum transcoder trans)
- {
--	if (DISPLAY_VER(dev_priv) < 9)
--		return false;
--	else if (DISPLAY_VER(dev_priv) >= 12)
-+	if (DISPLAY_VER(dev_priv) >= 12)
- 		return trans == TRANSCODER_A;
- 	else
- 		return trans == TRANSCODER_EDP;
-@@ -1114,12 +1077,6 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp)
- 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
- 	u32 mask;
- 
--	/* Only HSW and BDW have PSR AUX registers that need to be setup. SKL+
--	 * use hardcoded values PSR AUX transactions
--	 */
--	if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv))
--		hsw_psr_setup_aux(intel_dp);
--
- 	if (intel_dp->psr.psr2_enabled && DISPLAY_VER(dev_priv) == 9) {
- 		i915_reg_t reg = CHICKEN_TRANS(cpu_transcoder);
- 		u32 chicken = intel_de_read(dev_priv, reg);
-@@ -1460,23 +1417,16 @@ static void psr_force_hw_tracking_exit(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 
--	if (DISPLAY_VER(dev_priv) >= 9)
--		/*
--		 * Display WA #0884: skl+
--		 * This documented WA for bxt can be safely applied
--		 * broadly so we can force HW tracking to exit PSR
--		 * instead of disabling and re-enabling.
--		 * Workaround tells us to write 0 to CUR_SURFLIVE_A,
--		 * but it makes more sense write to the current active
--		 * pipe.
--		 */
--		intel_de_write(dev_priv, CURSURFLIVE(intel_dp->psr.pipe), 0);
--	else
--		/*
--		 * A write to CURSURFLIVE do not cause HW tracking to exit PSR
--		 * on older gens so doing the manual exit instead.
--		 */
--		intel_psr_exit(intel_dp);
-+	/*
-+	 * Display WA #0884: skl+
-+	 * This documented WA for bxt can be safely applied
-+	 * broadly so we can force HW tracking to exit PSR
-+	 * instead of disabling and re-enabling.
-+	 * Workaround tells us to write 0 to CUR_SURFLIVE_A,
-+	 * but it makes more sense write to the current active
-+	 * pipe.
-+	 */
-+	intel_de_write(dev_priv, CURSURFLIVE(intel_dp->psr.pipe), 0);
- }
- 
- void intel_psr2_program_plane_sel_fetch(struct intel_plane *plane,
-@@ -1748,7 +1698,6 @@ void intel_psr_update(struct intel_dp *intel_dp,
- 		      const struct intel_crtc_state *crtc_state,
- 		      const struct drm_connector_state *conn_state)
- {
--	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	struct intel_psr *psr = &intel_dp->psr;
- 	bool enable, psr2_enable;
- 
-@@ -1765,15 +1714,6 @@ void intel_psr_update(struct intel_dp *intel_dp,
- 		/* Force a PSR exit when enabling CRC to avoid CRC timeouts */
- 		if (crtc_state->crc_enabled && psr->enabled)
- 			psr_force_hw_tracking_exit(intel_dp);
--		else if (DISPLAY_VER(dev_priv) < 9 && psr->enabled) {
--			/*
--			 * Activate PSR again after a force exit when enabling
--			 * CRC in older gens
--			 */
--			if (!intel_dp->psr.active &&
--			    !intel_dp->psr.busy_frontbuffer_bits)
--				schedule_work(&intel_dp->psr.work);
--		}
- 
- 		goto unlock;
- 	}
-@@ -2186,23 +2126,12 @@ void intel_psr_init(struct intel_dp *intel_dp)
- 
- 	intel_dp->psr.source_support = true;
- 
--	if (IS_HASWELL(dev_priv))
--		/*
--		 * HSW don't have PSR registers on the same space as transcoder
--		 * so set this to a value that when subtract to the register
--		 * in transcoder space results in the right offset for HSW
--		 */
--		dev_priv->hsw_psr_mmio_adjust = _SRD_CTL_EDP - _HSW_EDP_PSR_BASE;
--
- 	if (dev_priv->params.enable_psr == -1)
--		if (DISPLAY_VER(dev_priv) < 9 || !dev_priv->vbt.psr.enable)
-+		if (!dev_priv->vbt.psr.enable)
- 			dev_priv->params.enable_psr = 0;
- 
- 	/* Set link_standby x link_off defaults */
--	if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv))
--		/* HSW and BDW require workarounds that we don't implement. */
--		intel_dp->psr.link_standby = false;
--	else if (DISPLAY_VER(dev_priv) < 12)
-+	if (DISPLAY_VER(dev_priv) < 12)
- 		/* For new platforms up to TGL let's respect VBT back again */
- 		intel_dp->psr.link_standby = dev_priv->vbt.psr.full_link;
- 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 41e3a421efcec..fe1dc8b7871a0 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -886,8 +886,6 @@ struct drm_i915_private {
- 	 */
- 	u32 gpio_mmio_base;
- 
--	u32 hsw_psr_mmio_adjust;
--
- 	/* MMIO base address for MIPI regs */
- 	u32 mipi_mmio_base;
- 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 9bc4f4a8e12ec..45c0b51a8da17 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -2093,22 +2093,6 @@ static void ivb_display_irq_handler(struct drm_i915_private *dev_priv,
- 	if (de_iir & DE_ERR_INT_IVB)
- 		ivb_err_int_handler(dev_priv);
- 
--	if (de_iir & DE_EDP_PSR_INT_HSW) {
--		struct intel_encoder *encoder;
--
--		for_each_intel_encoder_with_psr(&dev_priv->drm, encoder) {
--			struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
--
--			u32 psr_iir = intel_uncore_read(&dev_priv->uncore,
--							EDP_PSR_IIR);
--
--			intel_psr_irq_handler(intel_dp, psr_iir);
--			intel_uncore_write(&dev_priv->uncore,
--					   EDP_PSR_IIR, psr_iir);
--			break;
--		}
--	}
--
- 	if (de_iir & DE_AUX_CHANNEL_A_IVB)
- 		dp_aux_irq_handler(dev_priv);
- 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 2c1cb9b6b5567..68ca9fcdd4f64 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -537,8 +537,6 @@ static const struct intel_device_info vlv_info = {
- 		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP), \
- 	.display.has_ddi = 1, \
- 	.display.has_fpga_dbg = 1, \
--	.display.has_psr = 1, \
--	.display.has_psr_hw_tracking = 1, \
- 	.display.has_dp_mst = 1, \
- 	.has_rc6p = 0 /* RC6p removed-by HSW */, \
- 	HSW_PIPE_OFFSETS, \
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index e7215722b8d3a..87a7a23378a81 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4511,11 +4511,9 @@ enum {
-  * HSW PSR registers are relative to DDIA(_DDI_BUF_CTL_A + 0x800) with just one
-  * instance of it
-  */
--#define _HSW_EDP_PSR_BASE			0x64800
- #define _SRD_CTL_A				0x60800
- #define _SRD_CTL_EDP				0x6f800
--#define _PSR_ADJ(tran, reg)			(_TRANS2(tran, reg) - dev_priv->hsw_psr_mmio_adjust)
--#define EDP_PSR_CTL(tran)			_MMIO(_PSR_ADJ(tran, _SRD_CTL_A))
-+#define EDP_PSR_CTL(tran)			_MMIO(_TRANS2(tran, _SRD_CTL_A))
- #define   EDP_PSR_ENABLE			(1 << 31)
- #define   BDW_PSR_SINGLE_FRAME			(1 << 30)
- #define   EDP_PSR_RESTORE_PSR_ACTIVE_CTX_MASK	(1 << 29) /* SW can't modify */
-@@ -4559,22 +4557,13 @@ enum {
- #define   EDP_PSR_POST_EXIT(trans)		(0x2 << _EDP_PSR_TRANS_SHIFT(trans))
- #define   EDP_PSR_PRE_ENTRY(trans)		(0x1 << _EDP_PSR_TRANS_SHIFT(trans))
- 
--#define _SRD_AUX_CTL_A				0x60810
--#define _SRD_AUX_CTL_EDP			0x6f810
--#define EDP_PSR_AUX_CTL(tran)			_MMIO(_PSR_ADJ(tran, _SRD_AUX_CTL_A))
--#define   EDP_PSR_AUX_CTL_TIME_OUT_MASK		(3 << 26)
--#define   EDP_PSR_AUX_CTL_MESSAGE_SIZE_MASK	(0x1f << 20)
--#define   EDP_PSR_AUX_CTL_PRECHARGE_2US_MASK	(0xf << 16)
--#define   EDP_PSR_AUX_CTL_ERROR_INTERRUPT	(1 << 11)
--#define   EDP_PSR_AUX_CTL_BIT_CLOCK_2X_MASK	(0x7ff)
--
- #define _SRD_AUX_DATA_A				0x60814
- #define _SRD_AUX_DATA_EDP			0x6f814
--#define EDP_PSR_AUX_DATA(tran, i)		_MMIO(_PSR_ADJ(tran, _SRD_AUX_DATA_A) + (i) + 4) /* 5 registers */
-+#define EDP_PSR_AUX_DATA(tran, i)		_MMIO(_TRANS2(tran, _SRD_AUX_DATA_A) + (i) + 4) /* 5 registers */
- 
- #define _SRD_STATUS_A				0x60840
- #define _SRD_STATUS_EDP				0x6f840
--#define EDP_PSR_STATUS(tran)			_MMIO(_PSR_ADJ(tran, _SRD_STATUS_A))
-+#define EDP_PSR_STATUS(tran)			_MMIO(_TRANS2(tran, _SRD_STATUS_A))
- #define   EDP_PSR_STATUS_STATE_MASK		(7 << 29)
- #define   EDP_PSR_STATUS_STATE_SHIFT		29
- #define   EDP_PSR_STATUS_STATE_IDLE		(0 << 29)
-@@ -4601,13 +4590,13 @@ enum {
- 
- #define _SRD_PERF_CNT_A			0x60844
- #define _SRD_PERF_CNT_EDP		0x6f844
--#define EDP_PSR_PERF_CNT(tran)		_MMIO(_PSR_ADJ(tran, _SRD_PERF_CNT_A))
-+#define EDP_PSR_PERF_CNT(tran)		_MMIO(_TRANS2(tran, _SRD_PERF_CNT_A))
- #define   EDP_PSR_PERF_CNT_MASK		0xffffff
- 
- /* PSR_MASK on SKL+ */
- #define _SRD_DEBUG_A				0x60860
- #define _SRD_DEBUG_EDP				0x6f860
--#define EDP_PSR_DEBUG(tran)			_MMIO(_PSR_ADJ(tran, _SRD_DEBUG_A))
-+#define EDP_PSR_DEBUG(tran)			_MMIO(_TRANS2(tran, _SRD_DEBUG_A))
- #define   EDP_PSR_DEBUG_MASK_MAX_SLEEP         (1 << 28)
- #define   EDP_PSR_DEBUG_MASK_LPSP              (1 << 27)
- #define   EDP_PSR_DEBUG_MASK_MEMUP             (1 << 26)
--- 
-2.32.0
+Series: series starting with [CI,1/2] drm/i915/display: Fix sel fetch plane offset calculation
+URL   : https://patchwork.freedesktop.org/series/93695/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10484 -> Patchwork_20823
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20823 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@cs-gfx:
+    - fi-rkl-guc:         NOTRUN -> [SKIP][1] ([fdo#109315]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-rkl-guc/igt@amdgpu/amd_basic@cs-gfx.html
+
+  * igt@gem_exec_suspend@basic-s0:
+    - fi-skl-6700k2:      [PASS][2] -> [DMESG-WARN][3] ([i915#1602])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-skl-6700k2/igt@gem_exec_suspend@basic-s0.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-skl-6700k2/igt@gem_exec_suspend@basic-s0.html
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-tgl-1115g4:      [PASS][4] -> [FAIL][5] ([i915#1888])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@kms_chamelium@dp-crc-fast:
+    - fi-kbl-7500u:       [PASS][6] -> [FAIL][7] ([i915#1372])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
+
+  * igt@runner@aborted:
+    - fi-skl-6700k2:      NOTRUN -> [FAIL][8] ([i915#3363])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-skl-6700k2/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_module_load@reload:
+    - {fi-tgl-dsi}:       [DMESG-WARN][9] ([i915#1982] / [k.org#205379]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-tgl-dsi/igt@i915_module_load@reload.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-tgl-dsi/igt@i915_module_load@reload.html
+
+  * igt@i915_selftest@live@workarounds:
+    - fi-rkl-guc:         [DMESG-FAIL][11] ([i915#3928]) -> [PASS][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-rkl-guc/igt@i915_selftest@live@workarounds.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-rkl-guc/igt@i915_selftest@live@workarounds.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [i915#1372]: https://gitlab.freedesktop.org/drm/intel/issues/1372
+  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#3363]: https://gitlab.freedesktop.org/drm/intel/issues/3363
+  [i915#3928]: https://gitlab.freedesktop.org/drm/intel/issues/3928
+  [k.org#205379]: https://bugzilla.kernel.org/show_bug.cgi?id=205379
+
+
+Participating hosts (37 -> 34)
+------------------------------
+
+  Missing    (3): fi-bdw-samus fi-bsw-cyan bat-jsl-1 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10484 -> Patchwork_20823
+
+  CI-20190529: 20190529
+  CI_DRM_10484: 7de02d5cb1f35bd3f068237444063844dea47ddc @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6175: c91f99c74b966f635d7e2eb898bf0f78383d281b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20823: 5e8067b59d8748d4a67da5cb8415ef8b3f4babdb @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+5e8067b59d87 drm/i915: Nuke ORIGIN_GTT
+67ee6ec0be69 drm/i915/display: Fix sel fetch plane offset calculation
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/index.html
+
+--===============8578508150384958479==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [CI,1/2] drm/i915/display: Fix sel fetch plane offset calculation</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93695/">https://patchwork.freedesktop.org/series/93695/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10484 -&gt; Patchwork_20823</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20823 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@cs-gfx:</p>
+<ul>
+<li>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-rkl-guc/igt@amdgpu/amd_basic@cs-gfx.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s0:</p>
+<ul>
+<li>fi-skl-6700k2:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-skl-6700k2/igt@gem_exec_suspend@basic-s0.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-skl-6700k2/igt@gem_exec_suspend@basic-s0.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s3.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-crc-fast:</p>
+<ul>
+<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1372">i915#1372</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-skl-6700k2:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-skl-6700k2/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3363">i915#3363</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-tgl-dsi/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a> / <a href="https://bugzilla.kernel.org/show_bug.cgi?id=205379">k.org#205379</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-tgl-dsi/igt@i915_module_load@reload.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10484/fi-rkl-guc/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3928">i915#3928</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20823/fi-rkl-guc/igt@i915_selftest@live@workarounds.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (37 -&gt; 34)</h2>
+<p>Missing    (3): fi-bdw-samus fi-bsw-cyan bat-jsl-1 </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10484 -&gt; Patchwork_20823</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10484: 7de02d5cb1f35bd3f068237444063844dea47ddc @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6175: c91f99c74b966f635d7e2eb898bf0f78383d281b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20823: 5e8067b59d8748d4a67da5cb8415ef8b3f4babdb @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>5e8067b59d87 drm/i915: Nuke ORIGIN_GTT<br />
+67ee6ec0be69 drm/i915/display: Fix sel fetch plane offset calculation</p>
+
+</body>
+</html>
+
+--===============8578508150384958479==--
