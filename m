@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1747C4338F
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2505C432BE
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74D376120E
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 74D376120E
+	by mail.kernel.org (Postfix) with ESMTPS id 1C60160EE2
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:21:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1C60160EE2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96324891D1;
-	Sun, 15 Aug 2021 20:21:24 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B61FD89C07
- for <intel-gfx@lists.freedesktop.org>; Sun, 15 Aug 2021 20:21:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="213914000"
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="213914000"
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3081898F5;
+	Sun, 15 Aug 2021 20:21:28 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFF9589089
+ for <intel-gfx@lists.freedesktop.org>; Sun, 15 Aug 2021 20:21:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="276792968"
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="276792968"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2021 13:21:18 -0700
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="461849454"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2021 13:21:19 -0700
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="461849473"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2021 13:21:18 -0700
+ 15 Aug 2021 13:21:19 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>, drmdevel@freedesktop.org
 Cc: <daniel.vetter@ffwll.ch>
-Date: Sun, 15 Aug 2021 13:15:39 -0700
-Message-Id: <20210815201559.1150-2-matthew.brost@intel.com>
+Date: Sun, 15 Aug 2021 13:15:48 -0700
+Message-Id: <20210815201559.1150-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210815201559.1150-1-matthew.brost@intel.com>
 References: <20210815201559.1150-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/21] drm/i915/guc: Fix blocked context
- accounting
+Subject: [Intel-gfx] [PATCH 10/21] drm/i915/guc: Take context ref when
+ cancelling request
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,32 +59,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prior to this patch the blocked context counter was cleared on
-init_sched_state (used during registering a context & resets) which is
-incorrect. This state needs to be persistent or the counter can read the
-incorrect value resulting in scheduling never getting enabled again.
+A context can get destroyed after cancelling a request so take a
+reference to context when cancelling a request.
 
 Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: <stable@vger.kernel.org>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 87d8dc8f51b9..69faa39da178 100644
+index 76c32fc24e0a..edaaa386d189 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -152,7 +152,7 @@ static inline void init_sched_state(struct intel_context *ce)
+@@ -1612,8 +1612,10 @@ static void guc_context_cancel_request(struct intel_context *ce,
+ 				       struct i915_request *rq)
  {
- 	/* Only should be called from guc_lrc_desc_pin() */
- 	atomic_set(&ce->guc_sched_state_no_lock, 0);
--	ce->guc_state.sched_state = 0;
-+	ce->guc_state.sched_state &= SCHED_STATE_BLOCKED_MASK;
+ 	if (i915_sw_fence_signaled(&rq->submit)) {
+-		struct i915_sw_fence *fence = guc_context_block(ce);
++		struct i915_sw_fence *fence;
+ 
++		intel_context_get(ce);
++		fence = guc_context_block(ce);
+ 		i915_sw_fence_wait(fence);
+ 		if (!i915_request_completed(rq)) {
+ 			__i915_request_skip(rq);
+@@ -1628,6 +1630,7 @@ static void guc_context_cancel_request(struct intel_context *ce,
+ 		flush_work(&ce_to_guc(ce)->ct.requests.worker);
+ 
+ 		guc_context_unblock(ce);
++		intel_context_put(ce);
+ 	}
  }
  
- static inline bool
 -- 
 2.32.0
 
