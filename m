@@ -2,48 +2,44 @@ Return-Path: <SRS0=Oivi=NG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6ECCBC4338F
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:22:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CB3FC4338F
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:33:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A8CE60EE2
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:22:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3A8CE60EE2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E09FD60FC3
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Aug 2021 20:33:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E09FD60FC3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 799B589DDF;
-	Sun, 15 Aug 2021 20:22:07 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BAC088635
- for <intel-gfx@lists.freedesktop.org>; Sun, 15 Aug 2021 20:21:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="213914003"
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="213914003"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2021 13:21:18 -0700
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="461849459"
-Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2021 13:21:18 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-gfx@lists.freedesktop.org>, drmdevel@freedesktop.org
-Cc: <daniel.vetter@ffwll.ch>
-Date: Sun, 15 Aug 2021 13:15:41 -0700
-Message-Id: <20210815201559.1150-4-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210815201559.1150-1-matthew.brost@intel.com>
-References: <20210815201559.1150-1-matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0890389856;
+	Sun, 15 Aug 2021 20:33:28 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8BDC2891D1;
+ Sun, 15 Aug 2021 20:33:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 678CBAADE1;
+ Sun, 15 Aug 2021 20:33:26 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/21] drm/i915/guc: Unwind context requests in
- reverse order
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 15 Aug 2021 20:33:26 -0000
+Message-ID: <162905960640.6205.10301066325399312738@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210815201559.1150-1-matthew.brost@intel.com>
+In-Reply-To: <20210815201559.1150-1-matthew.brost@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Clean_up_GuC_CI_failures=2C_simplify_locking=2C_and_kernel_?=
+ =?utf-8?q?DOC?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,47 +52,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When unwinding requests on a reset context, if other requests in the
-context are in the priority list the requests could be resubmitted out
-of seqno order. Traverse the list of active requests in reverse and
-append to the head of the priority list to fix this.
+== Series Details ==
 
-Fixes: eb5e7da736f3 ("drm/i915/guc: Reset implementation for new GuC interface")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Cc: <stable@vger.kernel.org>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Series: Clean up GuC CI failures, simplify locking, and kernel DOC
+URL   : https://patchwork.freedesktop.org/series/93704/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index b5d3972ae164..bc51caba50d0 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -799,9 +799,9 @@ __unwind_incomplete_requests(struct intel_context *ce)
- 
- 	spin_lock_irqsave(&sched_engine->lock, flags);
- 	spin_lock(&ce->guc_active.lock);
--	list_for_each_entry_safe(rq, rn,
--				 &ce->guc_active.requests,
--				 sched.link) {
-+	list_for_each_entry_safe_reverse(rq, rn,
-+					 &ce->guc_active.requests,
-+					 sched.link) {
- 		if (i915_request_completed(rq))
- 			continue;
- 
-@@ -818,7 +818,7 @@ __unwind_incomplete_requests(struct intel_context *ce)
- 		}
- 		GEM_BUG_ON(i915_sched_engine_is_empty(sched_engine));
- 
--		list_add_tail(&rq->sched.link, pl);
-+		list_add(&rq->sched.link, pl);
- 		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- 
- 		spin_lock(&ce->guc_active.lock);
--- 
-2.32.0
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+c9f3859e5dce drm/i915/guc: Fix blocked context accounting
+7fe738f56abc drm/i915/guc: outstanding G2H accounting
+1d414637d838 drm/i915/guc: Unwind context requests in reverse order
+2739b8f8966f drm/i915/guc: Don't drop ce->guc_active.lock when unwinding context
+8ec967ce47da drm/i915/guc: Workaround reset G2H is received after schedule done G2H
+-:7: WARNING:TYPO_SPELLING: 'cancelation' may be misspelled - perhaps 'cancellation'?
+#7: 
+If the context is reset as a result of the request cancelation the
+                                                   ^^^^^^^^^^^
+
+-:10: WARNING:TYPO_SPELLING: 'cancelation' may be misspelled - perhaps 'cancellation'?
+#10: 
+waiting request cancelation code which resubmits the context. This races
+                ^^^^^^^^^^^
+
+-:12: WARNING:TYPO_SPELLING: 'cancelation' may be misspelled - perhaps 'cancellation'?
+#12: 
+in this case it really should be a NOP as request cancelation code owns
+                                                  ^^^^^^^^^^^
+
+-:43: WARNING:TYPO_SPELLING: 'cancelation' may be misspelled - perhaps 'cancellation'?
+#43: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:840:
++	 * XXX: If the context is reset as a result of the request cancelation
+ 	                                                           ^^^^^^^^^^^
+
+-:45: WARNING:TYPO_SPELLING: 'cancelation' may be misspelled - perhaps 'cancellation'?
+#45: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:842:
++	 * likely wrong as this creates a race between the request cancelation
+ 	                                                           ^^^^^^^^^^^
+
+-:49: WARNING:TYPO_SPELLING: 'cancelation' may be misspelled - perhaps 'cancellation'?
+#49: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:846:
++	 * enable is in flight as this indicates that a request cancelation has
+ 	                                                        ^^^^^^^^^^^
+
+-:50: WARNING:TYPO_SPELLING: 'occured' may be misspelled - perhaps 'occurred'?
+#50: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:847:
++	 * occured.
+ 	   ^^^^^^^
+
+-:92: WARNING:TYPO_SPELLING: 'cancelation' may be misspelled - perhaps 'cancellation'?
+#92: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2748:
++	 * XXX: Racey if request cancelation has occurred, see comment in
+ 	                         ^^^^^^^^^^^
+
+total: 0 errors, 8 warnings, 0 checks, 72 lines checked
+0c0928ba1ba8 drm/i915/selftests: Add a cancel request selftest that triggers a reset
+c18da32e671c drm/i915/guc: Don't enable scheduling on a banned context, guc_id invalid, not registered
+cddf94c9bda0 drm/i915/selftests: Fix memory corruption in live_lrc_isolation
+b5e8c08dff35 drm/i915/selftests: Add initial GuC selftest for scrubbing lost G2H
+-:101: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#101: 
+new file mode 100644
+
+-:161: ERROR:SPACING: space required before the open parenthesis '('
+#161: FILE: drivers/gpu/drm/i915/gt/uc/selftest_guc.c:56:
++		switch(i) {
+
+total: 1 errors, 1 warnings, 0 checks, 232 lines checked
+b929abcf3b59 drm/i915/guc: Take context ref when cancelling request
+025e88fa74d3 drm/i915/guc: Don't touch guc_state.sched_state without a lock
+6c1c488a3654 drm/i915/guc: Reset LRC descriptor if register returns -ENODEV
+c0ad63d810e6 drm/i915: Allocate error capture in atomic context
+14dc302536e1 drm/i915/guc: Flush G2H work queue during reset
+1c2b4c0ac62a drm/i915/guc: Release submit fence from an IRQ
+4c980575f7af drm/i915/guc: Move guc_blocked fence to struct guc_state
+d97ab34c8bac drm/i915/guc: Rework and simplify locking
+7057a0daff8c drm/i915/guc: Proper xarray usage for contexts_lookup
+-:27: WARNING:LINE_SPACING: Missing a blank line after declarations
+#27: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:610:
++		bool do_put = kref_get_unless_zero(&ce->ref);
++		xa_unlock(&guc->context_lookup);
+
+total: 0 errors, 1 warnings, 0 checks, 187 lines checked
+eb8a352e7c1f drm/i915/guc: Drop pin count check trick between sched_disable and re-pin
+af14e3698d19 drm/i915/guc: Move GuC priority fields in context under guc_active
+f7ff315bfe3a drm/i915/guc: Add GuC kernel doc
+
 
