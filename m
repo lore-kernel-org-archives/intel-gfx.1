@@ -2,54 +2,49 @@ Return-Path: <SRS0=Opgb=NH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60DF4C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 03:08:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D615FC4338F
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 04:55:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1EE3661458
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 03:08:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1EE3661458
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A21B5613AC
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 04:55:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A21B5613AC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5DF89AAE;
-	Mon, 16 Aug 2021 03:08:14 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA9B789A75;
- Mon, 16 Aug 2021 03:08:12 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="213936220"
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; 
- d="asc'?scan'208";a="213936220"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2021 20:08:12 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02C0D8995F;
+	Mon, 16 Aug 2021 04:55:56 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBCB989BCD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 04:55:42 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="215823999"
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="215823999"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2021 21:55:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; 
- d="asc'?scan'208";a="487056715"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
- by fmsmga008.fm.intel.com with ESMTP; 15 Aug 2021 20:08:10 -0700
-Date: Mon, 16 Aug 2021 10:45:34 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Zhenyu Wang <zhenyuw@linux.intel.com>,
- Zhi Wang <zhi.a.wang@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org
-Message-ID: <20210816024534.GV13928@zhen-hp.sh.intel.com>
-References: <YRYRwG5jscfl54pj@infradead.org>
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="422739342"
+Received: from ayazahma-nuc8i7beh.iind.intel.com ([10.145.162.59])
+ by orsmga006.jf.intel.com with ESMTP; 15 Aug 2021 21:55:40 -0700
+From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>,
+	CQ Tang <cq.tang@intel.com>
+Date: Mon, 16 Aug 2021 10:22:25 +0530
+Message-Id: <20210816045229.423234-2-ayaz.siddiqui@intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210816045229.423234-1-ayaz.siddiqui@intel.com>
+References: <20210816045229.423234-1-ayaz.siddiqui@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="N1feavoG/SlNLCrA"
-Content-Disposition: inline
-In-Reply-To: <YRYRwG5jscfl54pj@infradead.org>
-Subject: Re: [Intel-gfx] i915 timeouts delaying boot under GVT
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH V2 1/5] drm/i915/gt: Add support of mocs
+ propagation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,80 +57,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Now there are lots of Command and registers that require mocs index
+programming.
+So propagating mocs_index from mocs to gt so that it can be
+used directly without having platform-specific checks.
 
---N1feavoG/SlNLCrA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+Reviewed-by: CQ Tang<cq.tang@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_types.h |  4 ++++
+ drivers/gpu/drm/i915/gt/intel_mocs.c     | 10 ++++++++++
+ 2 files changed, 14 insertions(+)
 
-On 2021.08.13 08:31:28 +0200, Christoph Hellwig wrote:
-> Hi all,
->=20
-> when botting a current 4.14-rc tree in a VM using GVT-g (with the host
-> also running a current 4.14-rc tree), I see bunch of long timeouts
-> followed by i915 errors:
->=20
-> [    4.252066] i915 0000:00:03.0: [drm] VGT balloon successfully
-> [    5.095190] i915 0000:00:03.0: [drm] *ERROR* Failed to disable SAGV (-=
-110)
-> [   15.334559] [drm:drm_atomic_helper_wait_for_flip_done] *ERROR* [CRTC:5=
-1:pipe
-> A] flip_done timed out
-> [   15.346934] [drm] Initialized i915 1.6.0 20201103 for 0000:00:03.0 on =
-minor
-> 0
->=20
-> I did a hackjob to track them down and just if out the offending code,
-> which speeds up the boot by ~11 seconds but is probably dangerous as hell:
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index a81e21bf1bd1a..88601a2d2c229 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -192,6 +192,10 @@ struct intel_gt {
+ 
+ 		unsigned long mslice_mask;
+ 	} info;
++
++	struct i915_mocs_index_gt {
++		u8 uc_index;
++	} mocs;
+ };
+ 
+ enum intel_gt_scratch_field {
+diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
+index 582c4423b95d6..10cc508c1a4f6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_mocs.c
++++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
+@@ -22,6 +22,7 @@ struct drm_i915_mocs_table {
+ 	unsigned int size;
+ 	unsigned int n_entries;
+ 	const struct drm_i915_mocs_entry *table;
++	u8 uc_index;
+ };
+ 
+ /* Defines for the tables (XXX_MOCS_0 - XXX_MOCS_63) */
+@@ -340,6 +341,8 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
+ {
+ 	unsigned int flags;
+ 
++	memset(table, 0, sizeof(struct drm_i915_mocs_table));
++
+ 	if (IS_DG1(i915)) {
+ 		table->size = ARRAY_SIZE(dg1_mocs_table);
+ 		table->table = dg1_mocs_table;
+@@ -504,6 +507,12 @@ static u32 global_mocs_offset(void)
+ 	return i915_mmio_reg_offset(GEN12_GLOBAL_MOCS(0));
+ }
+ 
++static void set_mocs_index(struct intel_gt *gt,
++			   struct drm_i915_mocs_table *table)
++{
++	gt->mocs.uc_index = table->uc_index;
++}
++
+ void intel_mocs_init(struct intel_gt *gt)
+ {
+ 	struct drm_i915_mocs_table table;
+@@ -515,6 +524,7 @@ void intel_mocs_init(struct intel_gt *gt)
+ 	flags = get_mocs_settings(gt->i915, &table);
+ 	if (flags & HAS_GLOBAL_MOCS)
+ 		__init_mocs_table(gt->uncore, &table, global_mocs_offset());
++	set_mocs_index(gt, &table);
+ }
+ 
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+-- 
+2.26.2
 
-Hi, Christoph, what platform is this? And what's your guest i915 config?
-
-I'll try to reproduce on our side. Thanks for reporting this.
-
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index 2d5d21740c25..ee82fd67f386 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -10696,7 +10696,7 @@ static void intel_atomic_commit_tail(struct intel=
-_atomic_state *state)
->  	 * - switch over to the vblank wait helper in the core after that since
->  	 *   we don't need out special handling any more.
->  	 */
-> -	drm_atomic_helper_wait_for_flip_done(dev, &state->base);
-> +//	drm_atomic_helper_wait_for_flip_done(dev, &state->base);
-> =20
->  	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
->  		if (new_crtc_state->uapi.async_flip)
-> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel=
-_pm.c
-> index 45fefa0ed160..f03ce729cc4b 100644
-> --- a/drivers/gpu/drm/i915/intel_pm.c
-> +++ b/drivers/gpu/drm/i915/intel_pm.c
-> @@ -3753,7 +3753,7 @@ intel_disable_sagv(struct drm_i915_private *dev_pri=
-v)
->  	if (!intel_has_sagv(dev_priv))
->  		return 0;
-> =20
-> -	if (dev_priv->sagv_status =3D=3D I915_SAGV_DISABLED)
-> +	if (1 || dev_priv->sagv_status =3D=3D I915_SAGV_DISABLED)
->  		return 0;
-> =20
->  	drm_dbg_kms(&dev_priv->drm, "Disabling SAGV\n");
-
---N1feavoG/SlNLCrA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYRnRQwAKCRCxBBozTXgY
-J7Q8AJsHTvAvpGJUskW0DHYOUnKA6cxcCQCZAaaJks+wH8DDmB43G8ppNAMDYPs=
-=8+Rv
------END PGP SIGNATURE-----
-
---N1feavoG/SlNLCrA--
