@@ -2,44 +2,57 @@ Return-Path: <SRS0=Opgb=NH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-19.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A3E29C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78663C4338F
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:49:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6798E6323E
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:36:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6798E6323E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 323E7632CF
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:49:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 323E7632CF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B554089EFF;
-	Mon, 16 Aug 2021 13:36:07 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A28F689EFF
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 13:36:05 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="203018248"
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="203018248"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2793C89ED6;
+	Mon, 16 Aug 2021 13:49:36 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A53289939;
+ Mon, 16 Aug 2021 13:49:34 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="215863460"
+X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="215863460"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 06:36:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="519656741"
-Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
- by FMSMGA003.fm.intel.com with ESMTP; 16 Aug 2021 06:35:45 -0700
-From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 16 Aug 2021 18:57:58 +0530
-Message-Id: <20210816132758.1112403-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-X-Mailer: git-send-email 2.31.1
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2021 06:49:33 -0700
+X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="519661653"
+Received: from yifeiren-mobl.ccr.corp.intel.com (HELO [10.249.254.101])
+ ([10.249.254.101])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2021 06:49:31 -0700
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Matthew Auld <matthew.william.auld@gmail.com>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>
+References: <20210816084855.75586-1-thomas.hellstrom@linux.intel.com>
+ <CAM0jSHPLAtyYofaLzMsrPsyLX=13UAfw3tzbAQoW+F5+XJgrfQ@mail.gmail.com>
+ <ffc6a66a-555f-9c39-4131-90dc33395f23@linux.intel.com>
+ <00736b43-8abf-ff15-e9dd-5ed54da77379@linux.intel.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
+Message-ID: <85d1661e-d9bb-f64a-70d5-ffe98e2acf12@linux.intel.com>
+Date: Mon, 16 Aug 2021 15:49:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <00736b43-8abf-ff15-e9dd-5ed54da77379@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V2] drm/i915/adl_s: Update ADL-S PCI IDs
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Ditch the i915_gem_ww_ctx loop
+ member
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,38 +68,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sync PCI IDs with Bspec.
 
-Bspec:53655
+On 8/16/21 3:34 PM, Maarten Lankhorst wrote:
+> Op 16-08-2021 om 15:30 schreef Thomas Hellström:
+>> On 8/16/21 3:25 PM, Matthew Auld wrote:
+>>> On Mon, 16 Aug 2021 at 09:49, Thomas Hellström
+>>> <thomas.hellstrom@linux.intel.com> wrote:
+>>>> It's only used by the for_i915_gem_ww() macro and we can use
+>>>> the (typically) on-stack _err variable in its place.
+>>>>
+>>>> While initially setting the _err variable to -EDEADLK to enter the
+>>>> loop, we clear it before actually entering using fetch_and_zero() to
+>>>> avoid empty loops or code not setting the _err variable running forever.
+>>>>
+>>>> Suggested-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>>> ---
+>>>>    drivers/gpu/drm/i915/i915_gem_ww.h | 23 ++++++++---------------
+>>>>    1 file changed, 8 insertions(+), 15 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/i915/i915_gem_ww.h b/drivers/gpu/drm/i915/i915_gem_ww.h
+>>>> index f6b1a796667b..98348b1e6182 100644
+>>>> --- a/drivers/gpu/drm/i915/i915_gem_ww.h
+>>>> +++ b/drivers/gpu/drm/i915/i915_gem_ww.h
+>>>> @@ -7,12 +7,13 @@
+>>>>
+>>>>    #include <drm/drm_drv.h>
+>>>>
+>>>> +#include "i915_utils.h"
+>>>> +
+>>>>    struct i915_gem_ww_ctx {
+>>>>           struct ww_acquire_ctx ctx;
+>>>>           struct list_head obj_list;
+>>>>           struct drm_i915_gem_object *contended;
+>>>> -       unsigned short intr;
+>>>> -       unsigned short loop;
+>>>> +       bool intr;
+>>>>    };
+>>>>
+>>>>    void i915_gem_ww_ctx_init(struct i915_gem_ww_ctx *ctx, bool intr);
+>>>> @@ -23,28 +24,20 @@ void i915_gem_ww_unlock_single(struct drm_i915_gem_object *obj);
+>>>>    /* Internal functions used by the inlines! Don't use. */
+>>>>    static inline int __i915_gem_ww_fini(struct i915_gem_ww_ctx *ww, int err)
+>>>>    {
+>>>> -       ww->loop = 0;
+>>>>           if (err == -EDEADLK) {
+>>>>                   err = i915_gem_ww_ctx_backoff(ww);
+>>>>                   if (!err)
+>>>> -                       ww->loop = 1;
+>>>> +                       err = -EDEADLK;
+>>>>           }
+>>>>
+>>>> -       if (!ww->loop)
+>>>> +       if (err != -EDEADLK)
+>>>>                   i915_gem_ww_ctx_fini(ww);
+>>>>
+>>>>           return err;
+>>>>    }
+>>>>
+>>>> -static inline void
+>>>> -__i915_gem_ww_init(struct i915_gem_ww_ctx *ww, bool intr)
+>>>> -{
+>>>> -       i915_gem_ww_ctx_init(ww, intr);
+>>>> -       ww->loop = 1;
+>>>> -}
+>>>> -
+>>>> -#define for_i915_gem_ww(_ww, _err, _intr)                      \
+>>>> -       for (__i915_gem_ww_init(_ww, _intr); (_ww)->loop;       \
+>>>> +#define for_i915_gem_ww(_ww, _err, _intr)                        \
+>>>> +       for (i915_gem_ww_ctx_init(_ww, _intr), (_err) = -EDEADLK; \
+>>>> +            fetch_and_zero(&_err) == -EDEADLK;                   \
+>>> Doesn't this now hide "normal" errors, like say get_pages() returning
+>>> -ENOSPC or so?
+>> Yes, good catch. We should either just clear the -EDEADLK case, or not clear the error at all..
+>>
+>> /Thomas
+> I believe not setting _err is a bug anyway. Why would you do such a loop without at least one err = ww_mutex_lock(&ww); ?
+>
+> Infinite loop would catch that at first test.
 
-Changes since V1:
-	- All POR and Non POR Ids needs to be upstreamed - James Asmus
+OK, I'll skip the clearing then.
 
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
----
- include/drm/i915_pciids.h | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+/Thomas
 
-diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
-index eee18fa53b54..55606f53ab7c 100644
---- a/include/drm/i915_pciids.h
-+++ b/include/drm/i915_pciids.h
-@@ -642,10 +642,14 @@
- 	INTEL_VGA_DEVICE(0x4683, info), \
- 	INTEL_VGA_DEVICE(0x4688, info), \
- 	INTEL_VGA_DEVICE(0x4689, info), \
-+	INTEL_VGA_DEVICE(0x468A, info), \
-+	INTEL_VGA_DEVICE(0x468B, info), \
- 	INTEL_VGA_DEVICE(0x4690, info), \
- 	INTEL_VGA_DEVICE(0x4691, info), \
- 	INTEL_VGA_DEVICE(0x4692, info), \
--	INTEL_VGA_DEVICE(0x4693, info)
-+	INTEL_VGA_DEVICE(0x4693, info), \
-+	INTEL_VGA_DEVICE(0x4698, info), \
-+	INTEL_VGA_DEVICE(0x4699, info)
- 
- /* ADL-P */
- #define INTEL_ADLP_IDS(info) \
--- 
-2.31.1
 
+>
+> ~Maarten
+>
