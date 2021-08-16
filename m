@@ -5,45 +5,46 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2E9AC4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 888BAC4338F
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 08:49:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9DAFB61A0C
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 07:17:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9DAFB61A0C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 29CDF61B2F
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 08:49:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 29CDF61B2F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A7489CAA;
-	Mon, 16 Aug 2021 07:17:56 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E173D89C97
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Aug 2021 07:17:54 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="237872014"
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="237872014"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 00:17:44 -0700
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="519457036"
-Received: from ifridman-mobl.ger.corp.intel.com (HELO localhost)
- ([10.251.210.77])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 00:17:42 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	Imre Deak <imre.deak@intel.com>
-Date: Mon, 16 Aug 2021 10:17:37 +0300
-Message-Id: <20210816071737.2917-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1CBB89CB2;
+	Mon, 16 Aug 2021 08:49:19 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C848089CAF;
+ Mon, 16 Aug 2021 08:49:17 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="215820804"
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="215820804"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2021 01:49:16 -0700
+X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="592581225"
+Received: from vanderss-mobl.ger.corp.intel.com (HELO
+ thellstr-mobl1.intel.com) ([10.249.254.118])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2021 01:49:12 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Date: Mon, 16 Aug 2021 10:48:55 +0200
+Message-Id: <20210816084855.75586-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/dp: remove superfluous EXPORT_SYMBOL()
+Subject: [Intel-gfx] [PATCH] drm/i915: Ditch the i915_gem_ww_ctx loop member
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,28 +60,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The symbol isn't needed outside of i915.ko.
+It's only used by the for_i915_gem_ww() macro and we can use
+the (typically) on-stack _err variable in its place.
 
-Fixes: b30edfd8d0b4 ("drm/i915: Switch to LTTPR non-transparent mode link training")
-Fixes: 264613b406eb ("drm/i915: Disable LTTPR support when the DPCD rev < 1.4")
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+While initially setting the _err variable to -EDEADLK to enter the
+loop, we clear it before actually entering using fetch_and_zero() to
+avoid empty loops or code not setting the _err variable running forever.
+
+Suggested-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_link_training.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/i915/i915_gem_ww.h | 23 ++++++++---------------
+ 1 file changed, 8 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 08bceae40aa8..053a3c2f7267 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -206,7 +206,6 @@ int intel_dp_init_lttpr_and_dprx_caps(struct intel_dp *intel_dp)
+diff --git a/drivers/gpu/drm/i915/i915_gem_ww.h b/drivers/gpu/drm/i915/i915_gem_ww.h
+index f6b1a796667b..98348b1e6182 100644
+--- a/drivers/gpu/drm/i915/i915_gem_ww.h
++++ b/drivers/gpu/drm/i915/i915_gem_ww.h
+@@ -7,12 +7,13 @@
  
- 	return lttpr_count;
- }
--EXPORT_SYMBOL(intel_dp_init_lttpr_and_dprx_caps);
+ #include <drm/drm_drv.h>
  
- static u8 dp_voltage_max(u8 preemph)
++#include "i915_utils.h"
++
+ struct i915_gem_ww_ctx {
+ 	struct ww_acquire_ctx ctx;
+ 	struct list_head obj_list;
+ 	struct drm_i915_gem_object *contended;
+-	unsigned short intr;
+-	unsigned short loop;
++	bool intr;
+ };
+ 
+ void i915_gem_ww_ctx_init(struct i915_gem_ww_ctx *ctx, bool intr);
+@@ -23,28 +24,20 @@ void i915_gem_ww_unlock_single(struct drm_i915_gem_object *obj);
+ /* Internal functions used by the inlines! Don't use. */
+ static inline int __i915_gem_ww_fini(struct i915_gem_ww_ctx *ww, int err)
  {
+-	ww->loop = 0;
+ 	if (err == -EDEADLK) {
+ 		err = i915_gem_ww_ctx_backoff(ww);
+ 		if (!err)
+-			ww->loop = 1;
++			err = -EDEADLK;
+ 	}
+ 
+-	if (!ww->loop)
++	if (err != -EDEADLK)
+ 		i915_gem_ww_ctx_fini(ww);
+ 
+ 	return err;
+ }
+ 
+-static inline void
+-__i915_gem_ww_init(struct i915_gem_ww_ctx *ww, bool intr)
+-{
+-	i915_gem_ww_ctx_init(ww, intr);
+-	ww->loop = 1;
+-}
+-
+-#define for_i915_gem_ww(_ww, _err, _intr)			\
+-	for (__i915_gem_ww_init(_ww, _intr); (_ww)->loop;	\
++#define for_i915_gem_ww(_ww, _err, _intr)			  \
++	for (i915_gem_ww_ctx_init(_ww, _intr), (_err) = -EDEADLK; \
++	     fetch_and_zero(&_err) == -EDEADLK;			  \
+ 	     _err = __i915_gem_ww_fini(_ww, _err))
+-
+ #endif
 -- 
-2.20.1
+2.31.1
 
