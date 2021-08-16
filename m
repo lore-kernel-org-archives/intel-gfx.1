@@ -2,49 +2,49 @@ Return-Path: <SRS0=Opgb=NH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15050C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DECF2C4320A
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D98E8632F2
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:58:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D98E8632F2
+	by mail.kernel.org (Postfix) with ESMTPS id AEA7C632F2
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:58:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AEA7C632F2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A571889FC8;
-	Mon, 16 Aug 2021 13:57:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9187089FC0;
+	Mon, 16 Aug 2021 13:57:37 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00A9E89EEB;
- Mon, 16 Aug 2021 13:57:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="279607077"
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="279607077"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0DAA89F01;
+ Mon, 16 Aug 2021 13:57:05 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="279607086"
+X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="279607086"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 06:56:59 -0700
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="441091179"
+ 16 Aug 2021 06:57:00 -0700
+X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="441091191"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 06:56:59 -0700
+ 16 Aug 2021 06:57:00 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>
-Date: Mon, 16 Aug 2021 06:51:30 -0700
-Message-Id: <20210816135139.10060-14-matthew.brost@intel.com>
+Date: Mon, 16 Aug 2021 06:51:38 -0700
+Message-Id: <20210816135139.10060-22-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210816135139.10060-1-matthew.brost@intel.com>
 References: <20210816135139.10060-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 13/22] drm/i915/guc: Reset LRC descriptor if
- register returns -ENODEV
+Subject: [Intel-gfx] [PATCH 21/22] drm/i915/guc: Move GuC priority fields in
+ context under guc_active
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,34 +60,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reset LRC descriptor if a context register returns -ENODEV as this means
-we are mid-reset.
+Move GuC management fields in context under guc_active struct as this is
+where the lock that protects theses fields lives. Also only set guc_prio
+field once during context init.
 
-Fixes: eb5e7da736f3 ("drm/i915/guc: Reset implementation for new GuC interface")
+Fixes: ee242ca704d3 ("drm/i915/guc: Implement GuC priority management")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context_types.h | 12 ++--
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 68 +++++++++++--------
+ drivers/gpu/drm/i915/i915_trace.h             |  2 +-
+ 3 files changed, 45 insertions(+), 37 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 524a35a78bf4..f6989e6807f7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -112,6 +112,7 @@ struct intel_context {
+ #define CONTEXT_FORCE_SINGLE_SUBMISSION	7
+ #define CONTEXT_NOPREEMPT		8
+ #define CONTEXT_LRCA_DIRTY		9
++#define CONTEXT_GUC_INIT		10
+ 
+ 	struct {
+ 		u64 timeout_us;
+@@ -178,6 +179,11 @@ struct intel_context {
+ 		spinlock_t lock;
+ 		/** requests: active requests on this context */
+ 		struct list_head requests;
++		/*
++		 * GuC priority management
++		 */
++		u8 guc_prio;
++		u32 guc_prio_count[GUC_CLIENT_PRIORITY_NUM];
+ 	} guc_active;
+ 
+ 	/* GuC LRC descriptor ID */
+@@ -191,12 +197,6 @@ struct intel_context {
+ 	 */
+ 	struct list_head guc_id_link;
+ 
+-	/*
+-	 * GuC priority management
+-	 */
+-	u8 guc_prio;
+-	u32 guc_prio_count[GUC_CLIENT_PRIORITY_NUM];
+-
+ #ifdef CONFIG_DRM_I915_SELFTEST
+ 	/**
+ 	 * @drop_schedule_enable: Force drop of schedule enable G2H for selftest
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 8d45585773f3..3a01743e09ea 100644
+index c6ae6b4417c2..eb06a4c7534e 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1399,10 +1399,12 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	} else {
- 		with_intel_runtime_pm(runtime_pm, wakeref)
- 			ret = register_context(ce, loop);
--		if (unlikely(ret == -EBUSY))
-+		if (unlikely(ret == -EBUSY)) {
-+			reset_lrc_desc(guc, desc_idx);
-+		} else if (unlikely(ret == -ENODEV)) {
- 			reset_lrc_desc(guc, desc_idx);
--		else if (unlikely(ret == -ENODEV))
- 			ret = 0;	/* Will get registered later */
-+		}
- 	}
+@@ -1354,8 +1354,6 @@ static void guc_context_policy_init(struct intel_engine_cs *engine,
+ 	desc->preemption_timeout = engine->props.preempt_timeout_ms * 1000;
+ }
  
- 	return ret;
+-static inline u8 map_i915_prio_to_guc_prio(int prio);
+-
+ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+ {
+ 	struct intel_engine_cs *engine = ce->engine;
+@@ -1363,8 +1361,6 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+ 	struct intel_guc *guc = &engine->gt->uc.guc;
+ 	u32 desc_idx = ce->guc_id;
+ 	struct guc_lrc_desc *desc;
+-	const struct i915_gem_context *ctx;
+-	int prio = I915_CONTEXT_DEFAULT_PRIORITY;
+ 	bool context_registered;
+ 	intel_wakeref_t wakeref;
+ 	int ret = 0;
+@@ -1381,12 +1377,6 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+ 
+ 	context_registered = lrc_desc_registered(guc, desc_idx);
+ 
+-	rcu_read_lock();
+-	ctx = rcu_dereference(ce->gem_context);
+-	if (ctx)
+-		prio = ctx->sched.priority;
+-	rcu_read_unlock();
+-
+ 	reset_lrc_desc(guc, desc_idx);
+ 	set_lrc_desc_registered(guc, desc_idx, ce);
+ 
+@@ -1395,8 +1385,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
+ 	desc->engine_submit_mask = adjust_engine_mask(engine->class,
+ 						      engine->mask);
+ 	desc->hw_context_desc = ce->lrc.lrca;
+-	ce->guc_prio = map_i915_prio_to_guc_prio(prio);
+-	desc->priority = ce->guc_prio;
++	desc->priority = ce->guc_active.guc_prio;
+ 	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
+ 	guc_context_policy_init(engine, desc);
+ 
+@@ -1798,10 +1787,10 @@ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
+ 
+ static void __guc_context_destroy(struct intel_context *ce)
+ {
+-	GEM_BUG_ON(ce->guc_prio_count[GUC_CLIENT_PRIORITY_KMD_HIGH] ||
+-		   ce->guc_prio_count[GUC_CLIENT_PRIORITY_HIGH] ||
+-		   ce->guc_prio_count[GUC_CLIENT_PRIORITY_KMD_NORMAL] ||
+-		   ce->guc_prio_count[GUC_CLIENT_PRIORITY_NORMAL]);
++	GEM_BUG_ON(ce->guc_active.guc_prio_count[GUC_CLIENT_PRIORITY_KMD_HIGH] ||
++		   ce->guc_active.guc_prio_count[GUC_CLIENT_PRIORITY_HIGH] ||
++		   ce->guc_active.guc_prio_count[GUC_CLIENT_PRIORITY_KMD_NORMAL] ||
++		   ce->guc_active.guc_prio_count[GUC_CLIENT_PRIORITY_NORMAL]);
+ 	GEM_BUG_ON(ce->guc_state.number_committed_requests);
+ 
+ 	lrc_fini(ce);
+@@ -1911,14 +1900,17 @@ static void guc_context_set_prio(struct intel_guc *guc,
+ 
+ 	GEM_BUG_ON(prio < GUC_CLIENT_PRIORITY_KMD_HIGH ||
+ 		   prio > GUC_CLIENT_PRIORITY_NORMAL);
++	lockdep_assert_held(&ce->guc_active.lock);
+ 
+-	if (ce->guc_prio == prio || submission_disabled(guc) ||
+-	    !context_registered(ce))
++	if (ce->guc_active.guc_prio == prio || submission_disabled(guc) ||
++	    !context_registered(ce)) {
++		ce->guc_active.guc_prio = prio;
+ 		return;
++	}
+ 
+ 	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action), 0, true);
+ 
+-	ce->guc_prio = prio;
++	ce->guc_active.guc_prio = prio;
+ 	trace_intel_context_set_prio(ce);
+ }
+ 
+@@ -1938,24 +1930,24 @@ static inline void add_context_inflight_prio(struct intel_context *ce,
+ 					     u8 guc_prio)
+ {
+ 	lockdep_assert_held(&ce->guc_active.lock);
+-	GEM_BUG_ON(guc_prio >= ARRAY_SIZE(ce->guc_prio_count));
++	GEM_BUG_ON(guc_prio >= ARRAY_SIZE(ce->guc_active.guc_prio_count));
+ 
+-	++ce->guc_prio_count[guc_prio];
++	++ce->guc_active.guc_prio_count[guc_prio];
+ 
+ 	/* Overflow protection */
+-	GEM_WARN_ON(!ce->guc_prio_count[guc_prio]);
++	GEM_WARN_ON(!ce->guc_active.guc_prio_count[guc_prio]);
+ }
+ 
+ static inline void sub_context_inflight_prio(struct intel_context *ce,
+ 					     u8 guc_prio)
+ {
+ 	lockdep_assert_held(&ce->guc_active.lock);
+-	GEM_BUG_ON(guc_prio >= ARRAY_SIZE(ce->guc_prio_count));
++	GEM_BUG_ON(guc_prio >= ARRAY_SIZE(ce->guc_active.guc_prio_count));
+ 
+ 	/* Underflow protection */
+-	GEM_WARN_ON(!ce->guc_prio_count[guc_prio]);
++	GEM_WARN_ON(!ce->guc_active.guc_prio_count[guc_prio]);
+ 
+-	--ce->guc_prio_count[guc_prio];
++	--ce->guc_active.guc_prio_count[guc_prio];
+ }
+ 
+ static inline void update_context_prio(struct intel_context *ce)
+@@ -1968,8 +1960,8 @@ static inline void update_context_prio(struct intel_context *ce)
+ 
+ 	lockdep_assert_held(&ce->guc_active.lock);
+ 
+-	for (i = 0; i < ARRAY_SIZE(ce->guc_prio_count); ++i) {
+-		if (ce->guc_prio_count[i]) {
++	for (i = 0; i < ARRAY_SIZE(ce->guc_active.guc_prio_count); ++i) {
++		if (ce->guc_active.guc_prio_count[i]) {
+ 			guc_context_set_prio(guc, ce, i);
+ 			break;
+ 		}
+@@ -2108,6 +2100,20 @@ static bool context_needs_register(struct intel_context *ce, bool new_guc_id)
+ 		!submission_disabled(ce_to_guc(ce));
+ }
+ 
++static void guc_context_init(struct intel_context *ce)
++{
++	const struct i915_gem_context *ctx;
++	int prio = I915_CONTEXT_DEFAULT_PRIORITY;
++
++	rcu_read_lock();
++	ctx = rcu_dereference(ce->gem_context);
++	if (ctx)
++		prio = ctx->sched.priority;
++	rcu_read_unlock();
++
++	ce->guc_active.guc_prio = map_i915_prio_to_guc_prio(prio);
++}
++
+ static int guc_request_alloc(struct i915_request *rq)
+ {
+ 	struct intel_context *ce = rq->context;
+@@ -2139,6 +2145,9 @@ static int guc_request_alloc(struct i915_request *rq)
+ 
+ 	rq->reserved_space -= GUC_REQUEST_SIZE;
+ 
++	if (unlikely(!test_bit(CONTEXT_GUC_INIT, &ce->flags)))
++		guc_context_init(ce);
++
+ 	/*
+ 	 * Call pin_guc_id here rather than in the pinning step as with
+ 	 * dma_resv, contexts can be repeatedly pinned / unpinned trashing the
+@@ -3018,13 +3027,12 @@ static inline void guc_log_context_priority(struct drm_printer *p,
+ {
+ 	int i;
+ 
+-	drm_printf(p, "\t\tPriority: %d\n",
+-		   ce->guc_prio);
++	drm_printf(p, "\t\tPriority: %d\n", ce->guc_active.guc_prio);
+ 	drm_printf(p, "\t\tNumber Requests (lower index == higher priority)\n");
+ 	for (i = GUC_CLIENT_PRIORITY_KMD_HIGH;
+ 	     i < GUC_CLIENT_PRIORITY_NUM; ++i) {
+ 		drm_printf(p, "\t\tNumber requests in priority band[%d]: %d\n",
+-			   i, ce->guc_prio_count[i]);
++			   i, ce->guc_active.guc_prio_count[i]);
+ 	}
+ 	drm_printf(p, "\n");
+ }
+diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
+index 0a77eb2944b5..518a6fa2cca7 100644
+--- a/drivers/gpu/drm/i915/i915_trace.h
++++ b/drivers/gpu/drm/i915/i915_trace.h
+@@ -910,7 +910,7 @@ DECLARE_EVENT_CLASS(intel_context,
+ 			   __entry->guc_id = ce->guc_id;
+ 			   __entry->pin_count = atomic_read(&ce->pin_count);
+ 			   __entry->sched_state = ce->guc_state.sched_state;
+-			   __entry->guc_prio = ce->guc_prio;
++			   __entry->guc_prio = ce->guc_active.guc_prio;
+ 			   ),
+ 
+ 		    TP_printk("guc_id=%d, pin_count=%d sched_state=0x%x, guc_prio=%u",
 -- 
 2.32.0
 
