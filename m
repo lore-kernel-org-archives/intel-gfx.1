@@ -2,88 +2,72 @@ Return-Path: <SRS0=Opgb=NH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AD09C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:24:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 807F0C432BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:26:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3613600D4
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:24:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D3613600D4
+	by mail.kernel.org (Postfix) with ESMTPS id 5085F601FA
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:26:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5085F601FA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 465A189BB2;
-	Mon, 16 Aug 2021 13:24:30 +0000 (UTC)
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13B4D898CE;
- Mon, 16 Aug 2021 10:31:29 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id
- mq2-20020a17090b3802b0290178911d298bso26763944pjb.1; 
- Mon, 16 Aug 2021 03:31:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E828389EA6;
+	Mon, 16 Aug 2021 13:26:14 +0000 (UTC)
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [IPv6:2607:f8b0:4864:20::72b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07CBD89E32;
+ Mon, 16 Aug 2021 13:26:12 +0000 (UTC)
+Received: by mail-qk1-x72b.google.com with SMTP id 22so9629179qkg.2;
+ Mon, 16 Aug 2021 06:26:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=ccX+otJKzYiw7fTpASq5EiKmXI5wu1oM2Rkshyanugg=;
- b=nyTjql4kPU5b2tlliqQClzMia17+fqOan4LwezfDCn5/sGGbjPNeN6UdQ602MiLmVS
- yRdL5HwSNqxX3TLwsbGgi1lkq5yoZapTrurxpvYwULnFJ+gBBw23X3lri9m096BgDT//
- IKposJALqA9eUslVUf0jlBwS/RXtBzOUApWV+mV6x54TX3w2wIDBL8y/bixUv3TDGLkh
- ighUtLEpkT1PzcFgJuxUHLVrwA0kmYRY/yFPoIiNLH35qyj6sNMT+0/CWqALrtkrCkUF
- PoqiSd/WVIQT+61eYpyy7yVLmNbqV346PvlJ1Y3xjC52QVqGblfnU+7olmsm/vtjEadr
- qy6g==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Ax8I8rYKM4hKa/LJED1Fy41aTKRfXHhWe2ILaJfWVR4=;
+ b=kyOtCZzQ9+Yf16rjneW6/pL2LgDn9LjKkdQj0lXNoz9WM0ZdSaeYiLdXOJerXHnIQn
+ yKKUpzETD1NvRQwzkIbrAkImTQ4frv7Y3aMSPZFtHAieGg5hRczpJ1SiXzQo/qLdx1Vf
+ LczNyqXhNMsg2yVZA2kAmxbOQ63RGooAUyrPFH5wS+Hn8wuGHeZqPcwE64t9LtNq97Ya
+ y1gEBx2+p0wpBFR7EjjNpESj+tTvWkRE9M8/ucS3KjRAyM6r+yjDhSnYWEzLT2yrRyXF
+ p/J9arPPsM4AEIiXpHAaonPB4b+qIaskiEwdmfkvIqwsEdyhk7JBYhmbWxKwD+UdMvft
+ 36VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=ccX+otJKzYiw7fTpASq5EiKmXI5wu1oM2Rkshyanugg=;
- b=d2uzAjV231RyQ8tbPCI5+Au389kbGa4PgXZoC+pUJrJ5tBxjI90hf2lA26q+MpNCLP
- trvazXJVGiUayC8051+TVzaj/CZ5G30WWuoxnZxZBCkr2CcePZLUF1vj5Dwsu9oIn1nD
- FACsSReSGsYQC6LbzlvgwNG+XyD8l0zDggGisC1ZQb/GgklQthAXzPk2JMJate2uwpEC
- decV2X2BE0hdYnHmCnkBPStoPqFcyiOUEw+c9sSJ+5Fxwjm+PM/IiqkDBlaFCaQRRYIT
- WbVk80eTTbM+mFY9wtL0z2uHz7ybJO32/fCT8Gll1U9qlKeZIBAixaCgasmf8Id4ylp/
- YVjw==
-X-Gm-Message-State: AOAM530CXaUkRb9CR3ktuNenpHyKNZUzErnt5lK5cE73InWZA3oMNi3m
- B/WFlhZEKOqxcFjKzwTeJSk=
-X-Google-Smtp-Source: ABdhPJw/StLL2fZrdUNp2CW5UwXdwfF+A7iXrh+hhQZgPdXKrA2dAk8JDe77PoSA4AlMAWZTB6qcTQ==
-X-Received: by 2002:a63:111f:: with SMTP id g31mr15459522pgl.80.1629109888650; 
- Mon, 16 Aug 2021 03:31:28 -0700 (PDT)
-Received: from [192.168.1.237] ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id f137sm10813481pfa.160.2021.08.16.03.31.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Aug 2021 03:31:28 -0700 (PDT)
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: kernel test robot <lkp@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Dave Airlie <airlied@linux.ie>, kbuild-all@lists.01.org,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20210815153740.195330-1-desmondcheongzx@gmail.com>
- <202108160208.ONHHWxXy-lkp@intel.com>
- <f88fe698-b40c-b309-96c2-32b314280aad@gmail.com>
- <CAKMK7uEWMjaDEuMpc1__EwD5rpaouJ-dhahQBEQ5rsBz3VV=qg@mail.gmail.com>
-From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-Message-ID: <3a5ffd83-3d91-73dc-0cae-e822ba381b2b@gmail.com>
-Date: Mon, 16 Aug 2021 18:31:23 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Ax8I8rYKM4hKa/LJED1Fy41aTKRfXHhWe2ILaJfWVR4=;
+ b=exFnaIVb5e9qstMPHgyGSgW0eENCq4/I/tw3bK0gqCNLiLCMlh3Q5mWQx4ckuTe7VU
+ FwJ1iYqQXYnn+3yeYQflX60qE0z0lsv72y6IMfnL2wt2bsMnKP3CZrU3RmPAZNgWeyTW
+ amKpmfcU6aks2Lj7Suz3HP5rJz76bvqZ7WFF3Xq2Dc+EodFIurkNG6bUADQ9zl7wUZU3
+ bykGIaGzU+cZVZEh3E8uUmq0JlhnNmnvGpb9M6/CwCA9jdiFfIEsl+aIMxxHdcYV1TcL
+ ZKFhPHYyUePAJLumVgVy4PjR70DtNUMpgFmlQhjHX1VmuD2lu6V1/84WoCeeLlsGaEG7
+ t7gQ==
+X-Gm-Message-State: AOAM5338ZGtJgpwioOsqK63oBhqv2496igdYxxdspAg3yAS5MDXBoB8N
+ 3Kf4dQiOVbVQ2EfinkfFrGmk3sCmypbw4wQ+9gA=
+X-Google-Smtp-Source: ABdhPJyxL8OyMPJYvzvMlDr0XYYcY2x1Tv7C9KMybtcsAaF9gQnsB4XxLBtakgDqQihuf0MsE4J7nI15YeTslVyiML0=
+X-Received: by 2002:a05:620a:29d0:: with SMTP id
+ s16mr15509411qkp.460.1629120371183; 
+ Mon, 16 Aug 2021 06:26:11 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAKMK7uEWMjaDEuMpc1__EwD5rpaouJ-dhahQBEQ5rsBz3VV=qg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 16 Aug 2021 13:24:28 +0000
-Subject: Re: [Intel-gfx] [PATCH v2] drm: avoid races with modesetting rights
+References: <20210816084855.75586-1-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20210816084855.75586-1-thomas.hellstrom@linux.intel.com>
+From: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Mon, 16 Aug 2021 14:25:44 +0100
+Message-ID: <CAM0jSHPLAtyYofaLzMsrPsyLX=13UAfw3tzbAQoW+F5+XJgrfQ@mail.gmail.com>
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
+ ML dri-devel <dri-devel@lists.freedesktop.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Ditch the i915_gem_ww_ctx loop
+ member
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,95 +83,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 16/8/21 5:04 pm, Daniel Vetter wrote:
-> On Mon, Aug 16, 2021 at 10:53 AM Desmond Cheong Zhi Xi
-> <desmondcheongzx@gmail.com> wrote:
->> On 16/8/21 2:47 am, kernel test robot wrote:
->>> Hi Desmond,
->>>
->>> Thank you for the patch! Yet something to improve:
->>>
->>> [auto build test ERROR on next-20210813]
->>> [also build test ERROR on v5.14-rc5]
->>> [cannot apply to linus/master v5.14-rc5 v5.14-rc4 v5.14-rc3]
->>> [If your patch is applied to the wrong git tree, kindly drop us a note.
->>> And when submitting patch, we suggest to use '--base' as documented in
->>> https://git-scm.com/docs/git-format-patch]
->>>
->>> url:    https://github.com/0day-ci/linux/commits/Desmond-Cheong-Zhi-Xi/drm-avoid-races-with-modesetting-rights/20210815-234145
->>> base:    4b358aabb93a2c654cd1dcab1a25a589f6e2b153
->>> config: i386-randconfig-a004-20210815 (attached as .config)
->>> compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
->>> reproduce (this is a W=1 build):
->>>           # https://github.com/0day-ci/linux/commit/cf6d8354b7d7953cd866fad004cbb189adfa074f
->>>           git remote add linux-review https://github.com/0day-ci/linux
->>>           git fetch --no-tags linux-review Desmond-Cheong-Zhi-Xi/drm-avoid-races-with-modesetting-rights/20210815-234145
->>>           git checkout cf6d8354b7d7953cd866fad004cbb189adfa074f
->>>           # save the attached .config to linux build tree
->>>           make W=1 ARCH=i386
->>>
->>> If you fix the issue, kindly add following tag as appropriate
->>> Reported-by: kernel test robot <lkp@intel.com>
->>>
->>> All errors (new ones prefixed by >>, old ones prefixed by <<):
->>>
->>>>> ERROR: modpost: "task_work_add" [drivers/gpu/drm/drm.ko] undefined!
->>>
->>
->> I'm a bit uncertain about this. Looking into the .config used, this
->> error seems to happen because task_work_add isn't an exported symbol,
->> but DRM is being compiled as a loadable kernel module (CONFIG_DRM=m).
->>
->> One way to deal with this is to export the symbol, but there was a
->> proposed patch to do this a few months back that wasn't picked up [1],
->> so I'm not sure what to make of this.
->>
->> I'll export the symbol as part of a v3 series, and check in with the
->> task-work maintainers.
->>
->> Link:
->> https://lore.kernel.org/lkml/20210127150029.13766-3-joshi.k@samsung.com/ [1]
-> 
-> Yeah that sounds best. I have two more thoughts on the patch:
-> - drm_master_flush isn't used by any modules outside of drm.ko, so we
-> can unexport it and drop the kerneldoc (the comment is still good).
-> These kind of internal functions have their declaration in
-> drm-internal.h - there's already a few there from drm_auth.c
-> 
+On Mon, 16 Aug 2021 at 09:49, Thomas Hellstr=C3=B6m
+<thomas.hellstrom@linux.intel.com> wrote:
+>
+> It's only used by the for_i915_gem_ww() macro and we can use
+> the (typically) on-stack _err variable in its place.
+>
+> While initially setting the _err variable to -EDEADLK to enter the
+> loop, we clear it before actually entering using fetch_and_zero() to
+> avoid empty loops or code not setting the _err variable running forever.
+>
+> Suggested-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/i915_gem_ww.h | 23 ++++++++---------------
+>  1 file changed, 8 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/i915_gem_ww.h b/drivers/gpu/drm/i915/i9=
+15_gem_ww.h
+> index f6b1a796667b..98348b1e6182 100644
+> --- a/drivers/gpu/drm/i915/i915_gem_ww.h
+> +++ b/drivers/gpu/drm/i915/i915_gem_ww.h
+> @@ -7,12 +7,13 @@
+>
+>  #include <drm/drm_drv.h>
+>
+> +#include "i915_utils.h"
+> +
+>  struct i915_gem_ww_ctx {
+>         struct ww_acquire_ctx ctx;
+>         struct list_head obj_list;
+>         struct drm_i915_gem_object *contended;
+> -       unsigned short intr;
+> -       unsigned short loop;
+> +       bool intr;
+>  };
+>
+>  void i915_gem_ww_ctx_init(struct i915_gem_ww_ctx *ctx, bool intr);
+> @@ -23,28 +24,20 @@ void i915_gem_ww_unlock_single(struct drm_i915_gem_ob=
+ject *obj);
+>  /* Internal functions used by the inlines! Don't use. */
+>  static inline int __i915_gem_ww_fini(struct i915_gem_ww_ctx *ww, int err=
+)
+>  {
+> -       ww->loop =3D 0;
+>         if (err =3D=3D -EDEADLK) {
+>                 err =3D i915_gem_ww_ctx_backoff(ww);
+>                 if (!err)
+> -                       ww->loop =3D 1;
+> +                       err =3D -EDEADLK;
+>         }
+>
+> -       if (!ww->loop)
+> +       if (err !=3D -EDEADLK)
+>                 i915_gem_ww_ctx_fini(ww);
+>
+>         return err;
+>  }
+>
+> -static inline void
+> -__i915_gem_ww_init(struct i915_gem_ww_ctx *ww, bool intr)
+> -{
+> -       i915_gem_ww_ctx_init(ww, intr);
+> -       ww->loop =3D 1;
+> -}
+> -
+> -#define for_i915_gem_ww(_ww, _err, _intr)                      \
+> -       for (__i915_gem_ww_init(_ww, _intr); (_ww)->loop;       \
+> +#define for_i915_gem_ww(_ww, _err, _intr)                        \
+> +       for (i915_gem_ww_ctx_init(_ww, _intr), (_err) =3D -EDEADLK; \
+> +            fetch_and_zero(&_err) =3D=3D -EDEADLK;                   \
 
-Sounds good, I'll do that and move the declaration from drm_auth.h to 
-drm_internal.h.
+Doesn't this now hide "normal" errors, like say get_pages() returning
+-ENOSPC or so?
 
-> - We know have 3 locks for master state, that feels a bit like
-> overkill. The spinlock I think we need to keep due to lock inversions,
-> but the master_mutex and master_rwsem look like we should be able to
-> merge them? I.e. anywhere we currently grab the master_mutex we could
-> instead grab the rwsem in either write mode (when we change stuff) or
-> read mode (when we just check, like in master_internal_acquire).
-> 
-> Thoughts?
-> -Daniel
-> 
-
-Using rwsem in the places where we currently hold the mutex seems pretty 
-doable.
-
-There are some tricky bits once we add rwsem read locks to the ioctl 
-handler. Some ioctl functions like drm_authmagic need a write lock.
-
-In this particular case, it might make sense to break master_mutex down 
-into finer-grained locks, since the function doesn't change master 
-permissions. It just needs to prevent concurrent writes to the 
-drm_master.magic_map idr.
-
-For other ioctls, I'll take a closer look on a case-by-case basis.
-
->>
->>> ---
->>> 0-DAY CI Kernel Test Service, Intel Corporation
->>> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
->>>
->>
-> 
-> 
-
+>              _err =3D __i915_gem_ww_fini(_ww, _err))
+> -
+>  #endif
+> --
+> 2.31.1
+>
