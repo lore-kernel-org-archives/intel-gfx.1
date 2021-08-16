@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05CE3C432BE
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FEF8C4338F
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9553632DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:57:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C9553632DF
+	by mail.kernel.org (Postfix) with ESMTPS id 6581C632D6
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Aug 2021 13:57:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6581C632D6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F04F89F33;
-	Mon, 16 Aug 2021 13:57:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C7C289F43;
+	Mon, 16 Aug 2021 13:57:16 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73BE989E7B;
- Mon, 16 Aug 2021 13:57:00 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="279607068"
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="279607068"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D106989E3F;
+ Mon, 16 Aug 2021 13:56:59 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="279607067"
+X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="279607067"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Aug 2021 06:56:58 -0700
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="441091172"
+X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="441091170"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Aug 2021 06:56:58 -0700
@@ -36,15 +36,15 @@ From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>
-Date: Mon, 16 Aug 2021 06:51:26 -0700
-Message-Id: <20210816135139.10060-10-matthew.brost@intel.com>
+Date: Mon, 16 Aug 2021 06:51:25 -0700
+Message-Id: <20210816135139.10060-9-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210816135139.10060-1-matthew.brost@intel.com>
 References: <20210816135139.10060-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/22] drm/i915/selftests: Fix memory corruption
- in live_lrc_isolation
+Subject: [Intel-gfx] [PATCH 08/22] drm/i915/guc: Don't enable scheduling on
+ a banned context, guc_id invalid, not registered
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,69 +60,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-GuC submission has exposed an existing memory corruption in
-live_lrc_isolation. We believe that some writes to the watchdog offsets
-in the LRC (0x178 & 0x17c) can result in trashing of portions of the
-address space. With GuC submission there are additional objects which
-can move the context redzone into the space that is trashed. To
-workaround this avoid poisoning the watchdog.
+When unblocking a context, do not enable scheduling if the context is
+banned, guc_id invalid, or not registered.
 
-v2:
- (Daniel Vetter)
-  - Add VLK ref in code to workaround
-
+Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/gpu/drm/i915/gt/selftest_lrc.c | 29 +++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-index b0977a3b699b..cdc6ae48a1e1 100644
---- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-@@ -1074,6 +1074,32 @@ record_registers(struct intel_context *ce,
- 	goto err_after;
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index c3b7bf7319dd..353899634fa8 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1579,6 +1579,9 @@ static void guc_context_unblock(struct intel_context *ce)
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
  
-+static u32 safe_offset(u32 offset, u32 reg)
-+{
-+	/* XXX skip testing of watchdog - VLK-22772 */
-+	if (offset == 0x178 || offset == 0x17c)
-+		reg = 0;
-+
-+	return reg;
-+}
-+
-+static int get_offset_mask(struct intel_engine_cs *engine)
-+{
-+	if (GRAPHICS_VER(engine->i915) < 12)
-+		return 0xfff;
-+
-+	switch (engine->class) {
-+	default:
-+	case RENDER_CLASS:
-+		return 0x07ff;
-+	case COPY_ENGINE_CLASS:
-+		return 0x0fff;
-+	case VIDEO_DECODE_CLASS:
-+	case VIDEO_ENHANCEMENT_CLASS:
-+		return 0x3fff;
-+	}
-+}
-+
- static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
- {
- 	struct i915_vma *batch;
-@@ -1117,7 +1143,8 @@ static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
- 		len = (len + 1) / 2;
- 		*cs++ = MI_LOAD_REGISTER_IMM(len);
- 		while (len--) {
--			*cs++ = hw[dw];
-+			*cs++ = safe_offset(hw[dw] & get_offset_mask(ce->engine),
-+					    hw[dw]);
- 			*cs++ = poison;
- 			dw += 2;
- 		}
+ 	if (unlikely(submission_disabled(guc) ||
++		     intel_context_is_banned(ce) ||
++		     context_guc_id_invalid(ce) ||
++		     !lrc_desc_registered(guc, ce->guc_id) ||
+ 		     !intel_context_is_pinned(ce) ||
+ 		     context_pending_disable(ce) ||
+ 		     context_blocked(ce) > 1)) {
 -- 
 2.32.0
 
