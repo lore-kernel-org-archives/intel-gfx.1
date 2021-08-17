@@ -2,69 +2,50 @@ Return-Path: <SRS0=BxN5=NI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C59FC432BE
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 01:32:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94A81C4320A
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 05:41:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C17B60241
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 01:32:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4C17B60241
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5A45D60F35
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 05:41:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5A45D60F35
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C63BC6E0DF;
-	Tue, 17 Aug 2021 01:31:33 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 289CE6E0DF;
- Tue, 17 Aug 2021 01:31:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10078"; a="238049580"
-X-IronPort-AV: E=Sophos;i="5.84,327,1620716400"; 
- d="asc'?scan'208";a="238049580"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 18:31:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,327,1620716400"; 
- d="asc'?scan'208";a="510166288"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
- by fmsmga004.fm.intel.com with ESMTP; 16 Aug 2021 18:31:29 -0700
-Date: Tue, 17 Aug 2021 09:08:51 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Greg KH <gregkh@linuxfoundation.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "Wang, Zhi A" <zhi.a.wang@intel.com>, Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20210817010851.GW13928@zhen-hp.sh.intel.com>
-References: <DM4PR11MB55496531B246A4604FC86998CAE49@DM4PR11MB5549.namprd11.prod.outlook.com>
- <20210722112636.wj277vqhg4dez5ug@sirius.home.kraxel.org>
- <20210727121224.GA2145868@nvidia.com>
- <DM4PR11MB5549EC882AA6076F3468274DCAEA9@DM4PR11MB5549.namprd11.prod.outlook.com>
- <20210728175925.GU1721383@nvidia.com>
- <20210729072022.GB31896@lst.de>
- <20210803094315.GF13928@zhen-hp.sh.intel.com>
- <20210803143058.GA1721383@nvidia.com>
- <20210804052606.GG13928@zhen-hp.sh.intel.com>
- <20210816173458.GA9183@lst.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B65A96E0FC;
+	Tue, 17 Aug 2021 05:41:03 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5B7A6E0FC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Aug 2021 05:41:02 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10078"; a="214150158"
+X-IronPort-AV: E=Sophos;i="5.84,328,1620716400"; d="scan'208";a="214150158"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2021 22:41:02 -0700
+X-IronPort-AV: E=Sophos;i="5.84,328,1620716400"; d="scan'208";a="520302932"
+Received: from bbartede-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.249.41.183])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2021 22:41:01 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Matt Roper <matthew.d.roper@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210816204927.GK1556418@mdroper-desk1.amr.corp.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210813123330.31431-1-jani.nikula@intel.com>
+ <20210816204927.GK1556418@mdroper-desk1.amr.corp.intel.com>
+Date: Tue, 17 Aug 2021 08:40:58 +0300
+Message-ID: <87bl5wiq6t.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="VouvK5X/VR+fp5FT"
-Content-Disposition: inline
-In-Reply-To: <20210816173458.GA9183@lst.de>
-Subject: Re: [Intel-gfx] refactor the i915 GVT support
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/dg2: DG2 intermediate DP source
+ rates are different from CNL+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,51 +58,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Mon, 16 Aug 2021, Matt Roper <matthew.d.roper@intel.com> wrote:
+> On Fri, Aug 13, 2021 at 03:33:30PM +0300, Jani Nikula wrote:
+>> DG2 has 243000 but not 648000.
+>
+> Am I looking in the wrong place?  When I check the bspec page I still
+> see:
+>
+>         eDP/DP link bit rates: 1.62, 2.16, 2.7, 3.24, 4.32, 5.4, 6.48,
+>         8.1 GHz, SSC and Non-SSC
+>
+> which matches the ICL rates list (i.e., 648000 included, but no
+> reference to 243000).
 
---VouvK5X/VR+fp5FT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I see the same thing. I can see no recent edits on the page either, so I
+can only assume I've screwed up something, somehow when I wrote the
+patch.
 
-On 2021.08.16 19:34:58 +0200, Christoph Hellwig wrote:
-> On Wed, Aug 04, 2021 at 01:26:06PM +0800, Zhenyu Wang wrote:
-> > On 2021.08.03 11:30:58 -0300, Jason Gunthorpe wrote:
-> > > On Tue, Aug 03, 2021 at 05:43:15PM +0800, Zhenyu Wang wrote:
-> > > > Acked-by: Zhenyu Wang <zhenyuw@linux.intel.com>
-> > > >=20
-> > > > Thanks a lot for this effort!
-> > >=20
-> > > Great, do we have a submission plan for this? how much does it clash
-> > > with my open_device/etc patch? ie does the whole thing have to go
-> > > through the vfio tree?
-> > >=20
-> >=20
-> > I think Alex would determine when to merge open_device series, gvt part
-> > can be through vfio tree without problem. For this refactor, I would fi=
-rst
-> > merge for gvt staging to do more regression testing before sending thro=
-ugh
-> > i915 tree.
->=20
-> Any updates on this?  I'd really hate to miss this merge window.
+Never mind, and sorry for the noise.
 
-I'm still waiting for our validation team's report on this. I'm afraid
-it might be missing for next version as i915 merge window is mostly
-till rc5...and for any change outside of gvt, it still needs to be
-acked by i915 maintainers.
+BR,
+Jani.
 
---VouvK5X/VR+fp5FT
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
 
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYRsMHgAKCRCxBBozTXgY
-J/uZAJ9O1Xv+jB7s4e9+XWerKNMKnBieGACZAXpb2Wyjk+BSDBYt8ZZFoPvmEAw=
-=wtSd
------END PGP SIGNATURE-----
+>
+>
+> Matt
+>
+>> 
+>> Bspec: 54034
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_dp.c | 8 +++++++-
+>>  1 file changed, 7 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+>> index 75d4ebc66941..e21de08fea32 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+>> @@ -247,6 +247,9 @@ static void
+>>  intel_dp_set_source_rates(struct intel_dp *intel_dp)
+>>  {
+>>  	/* The values must be in increasing order */
+>> +	static const int dg2_rates[] = {
+>> +		162000, 216000, 243000, 270000, 324000, 432000, 540000, 810000,
+>> +	};
+>>  	static const int icl_rates[] = {
+>>  		162000, 216000, 270000, 324000, 432000, 540000, 648000, 810000
+>>  	};
+>> @@ -272,7 +275,10 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
+>>  	drm_WARN_ON(&dev_priv->drm,
+>>  		    intel_dp->source_rates || intel_dp->num_source_rates);
+>>  
+>> -	if (DISPLAY_VER(dev_priv) >= 11) {
+>> +	if (IS_DG2(dev_priv)) {
+>> +		source_rates = dg2_rates;
+>> +		size = ARRAY_SIZE(dg2_rates);
+>> +	} else if (DISPLAY_VER(dev_priv) >= 11) {
+>>  		source_rates = icl_rates;
+>>  		size = ARRAY_SIZE(icl_rates);
+>>  		if (IS_JSL_EHL(dev_priv))
+>> -- 
+>> 2.20.1
+>> 
 
---VouvK5X/VR+fp5FT--
+-- 
+Jani Nikula, Intel Open Source Graphics Center
