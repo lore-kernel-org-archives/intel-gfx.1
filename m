@@ -2,90 +2,44 @@ Return-Path: <SRS0=BxN5=NI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA983C432BE
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 15:53:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66FC3C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 16:02:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90A0360ED5
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 15:53:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 90A0360ED5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 29D1760F58
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 16:02:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 29D1760F58
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A5586E1ED;
-	Tue, 17 Aug 2021 15:53:39 +0000 (UTC)
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1EFB89DE1;
- Tue, 17 Aug 2021 15:06:46 +0000 (UTC)
-Received: by mail-pj1-x102e.google.com with SMTP id
- hv22-20020a17090ae416b0290178c579e424so6828744pjb.3; 
- Tue, 17 Aug 2021 08:06:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=LpkZBa2fI/bYsQxq9sk9M9KeuouMiRNZFmA74yYIQV0=;
- b=j0i8qQ9XUBeROPzmbWZw8vWTpBvY6xEiHt0KyVbvUrEiaHyP/EQhmKs4jYwkxLLCN8
- 6ODYJvPsdpazSb2gIEI1HXlm3/a/6iD5HJpBOImFOgHGhMWB+AhyGKy4M3iAs3K3PXSv
- nELNq/5EegfdGmDkooXCaV0bHgRrtXJKLTlwxBdtidFTZeTXkeLtkw16Y6Cml3A2FPVb
- LNYh2NoZu4a71V/ihGAmRqwbewO2lEa5xu+AIBH5w4N2KmzLadZcEjhWYnuxtrq8tRwP
- bmxIRLc1tUXwbt1I13k2ijZkXLlsDxm0Od2W5VrRP1rvG9czHbguhwNx0n39M+rprriW
- OY3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=LpkZBa2fI/bYsQxq9sk9M9KeuouMiRNZFmA74yYIQV0=;
- b=TRYULE17As5fLIgZbPVawin7qftaP+QWjFMMm18jeFf7ke/nuNUEcffAL91iY2Qj/U
- KCgvQYeLzI+4lqHCUuJufN4E+aex0qiBe3XmdB6wpDP+3/AR/xmlMdpd2lGbHr+tUjr1
- WDr1ChBdUaso/bFYpQ+RvAJAeGXF6logE3EdK3W6HJzgFA7hwodOeMd3LJQ7cPGgoBKY
- 02FPtxu7gYEKivm+tIkrLUled7wYiN/H4+Dfm7gzRonW3bqh5wEtq33KBgFdjthoL1gT
- YfO3gxlFo+WOyxwh/Tx43ME/OS8NxcrTqD/7DTCo1UguOmGZixoPDYcTRhDOMvTRlcYO
- zO6A==
-X-Gm-Message-State: AOAM531quLgMrjdIt4CjZDo3loTReMLur7NcNnopI5r0P0mg9FnPLjSX
- 3+AeCZczyZZu4DIrhFweu/A=
-X-Google-Smtp-Source: ABdhPJzpTJOaj86+5qk5L1FiVyrjb9elmIqw7HVimJVxm3/WttTK8stT0Fip8y/bEPPMu3YfDpbSyQ==
-X-Received: by 2002:a63:798f:: with SMTP id u137mr3893376pgc.321.1629212806292; 
- Tue, 17 Aug 2021 08:06:46 -0700 (PDT)
-Received: from [192.168.1.237] ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id f24sm2666833pjh.15.2021.08.17.08.06.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Aug 2021 08:06:45 -0700 (PDT)
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: kernel test robot <lkp@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Dave Airlie <airlied@linux.ie>, kbuild-all@lists.01.org,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20210815153740.195330-1-desmondcheongzx@gmail.com>
- <202108160208.ONHHWxXy-lkp@intel.com>
- <f88fe698-b40c-b309-96c2-32b314280aad@gmail.com>
- <CAKMK7uEWMjaDEuMpc1__EwD5rpaouJ-dhahQBEQ5rsBz3VV=qg@mail.gmail.com>
- <3a5ffd83-3d91-73dc-0cae-e822ba381b2b@gmail.com>
- <CAKMK7uFe6y5W7ZuTGV1rc8vPmpLdDd-rN4aC=1CXWjZLOAOQsQ@mail.gmail.com>
-From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-Message-ID: <82ff2e78-7d52-8d4e-03a6-3ad52427261e@gmail.com>
-Date: Tue, 17 Aug 2021 23:06:41 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1275D6E1F1;
+	Tue, 17 Aug 2021 16:02:32 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 66C2C6E1F1;
+ Tue, 17 Aug 2021 16:02:17 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id EB9FDA8836;
+ Tue, 17 Aug 2021 16:02:14 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2556817990078881381=="
 MIME-Version: 1.0
-In-Reply-To: <CAKMK7uFe6y5W7ZuTGV1rc8vPmpLdDd-rN4aC=1CXWjZLOAOQsQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 17 Aug 2021 15:53:37 +0000
-Subject: Re: [Intel-gfx] [PATCH v2] drm: avoid races with modesetting rights
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matt Roper" <matthew.d.roper@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 17 Aug 2021 16:02:14 -0000
+Message-ID: <162921613493.22609.5351941758725285675@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210816204112.2960624-1-matthew.d.roper@intel.com>
+In-Reply-To: <20210816204112.2960624-1-matthew.d.roper@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/adl=5Fp=3A_Also_disable_underrun_recovery_with_MSO?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,129 +52,203 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 16/8/21 9:59 pm, Daniel Vetter wrote:
-> On Mon, Aug 16, 2021 at 12:31 PM Desmond Cheong Zhi Xi
-> <desmondcheongzx@gmail.com> wrote:
->>
->> On 16/8/21 5:04 pm, Daniel Vetter wrote:
->>> On Mon, Aug 16, 2021 at 10:53 AM Desmond Cheong Zhi Xi
->>> <desmondcheongzx@gmail.com> wrote:
->>>> On 16/8/21 2:47 am, kernel test robot wrote:
->>>>> Hi Desmond,
->>>>>
->>>>> Thank you for the patch! Yet something to improve:
->>>>>
->>>>> [auto build test ERROR on next-20210813]
->>>>> [also build test ERROR on v5.14-rc5]
->>>>> [cannot apply to linus/master v5.14-rc5 v5.14-rc4 v5.14-rc3]
->>>>> [If your patch is applied to the wrong git tree, kindly drop us a note.
->>>>> And when submitting patch, we suggest to use '--base' as documented in
->>>>> https://git-scm.com/docs/git-format-patch]
->>>>>
->>>>> url:    https://github.com/0day-ci/linux/commits/Desmond-Cheong-Zhi-Xi/drm-avoid-races-with-modesetting-rights/20210815-234145
->>>>> base:    4b358aabb93a2c654cd1dcab1a25a589f6e2b153
->>>>> config: i386-randconfig-a004-20210815 (attached as .config)
->>>>> compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
->>>>> reproduce (this is a W=1 build):
->>>>>            # https://github.com/0day-ci/linux/commit/cf6d8354b7d7953cd866fad004cbb189adfa074f
->>>>>            git remote add linux-review https://github.com/0day-ci/linux
->>>>>            git fetch --no-tags linux-review Desmond-Cheong-Zhi-Xi/drm-avoid-races-with-modesetting-rights/20210815-234145
->>>>>            git checkout cf6d8354b7d7953cd866fad004cbb189adfa074f
->>>>>            # save the attached .config to linux build tree
->>>>>            make W=1 ARCH=i386
->>>>>
->>>>> If you fix the issue, kindly add following tag as appropriate
->>>>> Reported-by: kernel test robot <lkp@intel.com>
->>>>>
->>>>> All errors (new ones prefixed by >>, old ones prefixed by <<):
->>>>>
->>>>>>> ERROR: modpost: "task_work_add" [drivers/gpu/drm/drm.ko] undefined!
->>>>>
->>>>
->>>> I'm a bit uncertain about this. Looking into the .config used, this
->>>> error seems to happen because task_work_add isn't an exported symbol,
->>>> but DRM is being compiled as a loadable kernel module (CONFIG_DRM=m).
->>>>
->>>> One way to deal with this is to export the symbol, but there was a
->>>> proposed patch to do this a few months back that wasn't picked up [1],
->>>> so I'm not sure what to make of this.
->>>>
->>>> I'll export the symbol as part of a v3 series, and check in with the
->>>> task-work maintainers.
->>>>
->>>> Link:
->>>> https://lore.kernel.org/lkml/20210127150029.13766-3-joshi.k@samsung.com/ [1]
->>>
->>> Yeah that sounds best. I have two more thoughts on the patch:
->>> - drm_master_flush isn't used by any modules outside of drm.ko, so we
->>> can unexport it and drop the kerneldoc (the comment is still good).
->>> These kind of internal functions have their declaration in
->>> drm-internal.h - there's already a few there from drm_auth.c
->>>
->>
->> Sounds good, I'll do that and move the declaration from drm_auth.h to
->> drm_internal.h.
->>
->>> - We know have 3 locks for master state, that feels a bit like
->>> overkill. The spinlock I think we need to keep due to lock inversions,
->>> but the master_mutex and master_rwsem look like we should be able to
->>> merge them? I.e. anywhere we currently grab the master_mutex we could
->>> instead grab the rwsem in either write mode (when we change stuff) or
->>> read mode (when we just check, like in master_internal_acquire).
->>>
->>> Thoughts?
->>> -Daniel
->>>
->>
->> Using rwsem in the places where we currently hold the mutex seems pretty
->> doable.
->>
->> There are some tricky bits once we add rwsem read locks to the ioctl
->> handler. Some ioctl functions like drm_authmagic need a write lock.
-> 
-> Ah yes, I only looked at the dropmaster/setmaster ioctl, and those
-> don't have the DRM_MASTER bit set.
-> 
->> In this particular case, it might make sense to break master_mutex down
->> into finer-grained locks, since the function doesn't change master
->> permissions. It just needs to prevent concurrent writes to the
->> drm_master.magic_map idr.
-> 
-> Yeah for authmagic we could perhaps just reuse the spinlock to protect
-> ->magic_map?
-> 
+--===============2556817990078881381==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Yup, I had to move the spinlock from struct drm_file to struct 
-drm_device, but I think that should work.
+== Series Details ==
 
->> For other ioctls, I'll take a closer look on a case-by-case basis.
-> 
-> If it's too much shuffling then I think totally fine to leave things
-> as-is. Just feels a bit silly to have 3 locks, on of which is an
-> rwlock itself, for this fairly small amount of state.
-> -Daniel
-> 
+Series: drm/i915/adl_p: Also disable underrun recovery with MSO
+URL   : https://patchwork.freedesktop.org/series/93732/
+State : failure
 
-Agreed, there's a lot of overlap between the master_mutex and rwsem so 
-this a good opportunity to refactor things.
+== Summary ==
 
-I'm cleaning up a v3 series now. There's some movement, but most of it 
-are fixes to potential bugs that I saw while refactoring. We can see if 
-the new version is a better design.
+CI Bug Log - changes from CI_DRM_10490 -> Patchwork_20835
+====================================================
 
->>
->>>>
->>>>> ---
->>>>> 0-DAY CI Kernel Test Service, Intel Corporation
->>>>> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
->>>>>
->>>>
->>>
->>>
->>
-> 
-> 
+Summary
+-------
 
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_20835 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_20835, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/index.html
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_20835:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-ivb-3770:        [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10490/fi-ivb-3770/igt@i915_selftest@live@hangcheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-ivb-3770/igt@i915_selftest@live@hangcheck.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20835 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@semaphore:
+    - fi-bdw-5557u:       NOTRUN -> [SKIP][3] ([fdo#109271]) +27 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-bdw-5557u:       NOTRUN -> [WARN][4] ([i915#3718])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@kms_chamelium@dp-crc-fast:
+    - fi-bdw-5557u:       NOTRUN -> [SKIP][5] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html
+
+  * igt@runner@aborted:
+    - fi-ivb-3770:        NOTRUN -> [FAIL][6] ([fdo#109271])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-ivb-3770/igt@runner@aborted.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#3718]: https://gitlab.freedesktop.org/drm/intel/issues/3718
+
+
+Participating hosts (36 -> 34)
+------------------------------
+
+  Missing    (2): fi-bsw-cyan fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10490 -> Patchwork_20835
+
+  CI-20190529: 20190529
+  CI_DRM_10490: 3bd74b377986fcb89cf4563629f97c5b3199ca6f @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6177: f474644e7226dd319195ca03b3cde82ad10ac54c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20835: 4a9bac99ddffb1e355f2084d1b46465aac20b6c8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+4a9bac99ddff drm/i915/adl_p: Also disable underrun recovery with MSO
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/index.html
+
+--===============2556817990078881381==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/adl_p: Also disable underrun recovery with MSO</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93732/">https://patchwork.freedesktop.org/series/93732/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10490 -&gt; Patchwork_20835</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_20835 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_20835, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/index.html</p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_20835:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>fi-ivb-3770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10490/fi-ivb-3770/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-ivb-3770/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20835 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@semaphore:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-bdw-5557u/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +27 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-bdw-5557u/igt@core_hotunplug@unbind-rebind.html">WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3718">i915#3718</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-crc-fast:</p>
+<ul>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-bdw-5557u/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-ivb-3770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20835/fi-ivb-3770/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (36 -&gt; 34)</h2>
+<p>Missing    (2): fi-bsw-cyan fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10490 -&gt; Patchwork_20835</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10490: 3bd74b377986fcb89cf4563629f97c5b3199ca6f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6177: f474644e7226dd319195ca03b3cde82ad10ac54c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20835: 4a9bac99ddffb1e355f2084d1b46465aac20b6c8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>4a9bac99ddff drm/i915/adl_p: Also disable underrun recovery with MSO</p>
+
+</body>
+</html>
+
+--===============2556817990078881381==--
