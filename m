@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3DB8C4338F
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 15:09:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 77C97C4338F
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 15:13:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 651B061053
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 15:09:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 651B061053
+	by mail.kernel.org (Postfix) with ESMTPS id 0CA1F60524
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Aug 2021 15:13:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0CA1F60524
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E26F76E03C;
-	Tue, 17 Aug 2021 15:09:07 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00B226E02D;
- Tue, 17 Aug 2021 15:09:05 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="212998893"
-X-IronPort-AV: E=Sophos;i="5.84,329,1620716400"; d="scan'208";a="212998893"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2021 08:08:53 -0700
-X-IronPort-AV: E=Sophos;i="5.84,329,1620716400"; d="scan'208";a="510508456"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 749016E03C;
+	Tue, 17 Aug 2021 15:13:24 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB076E03C;
+ Tue, 17 Aug 2021 15:13:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="196381182"
+X-IronPort-AV: E=Sophos;i="5.84,329,1620716400"; d="scan'208";a="196381182"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2021 08:13:22 -0700
+X-IronPort-AV: E=Sophos;i="5.84,329,1620716400"; d="scan'208";a="680397106"
 Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
  ([10.1.27.20])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2021 08:08:53 -0700
-Date: Tue, 17 Aug 2021 08:03:39 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2021 08:13:22 -0700
+Date: Tue, 17 Aug 2021 08:08:09 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: Daniel Vetter <daniel@ffwll.ch>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  daniel.vetter@ffwll.ch
-Message-ID: <20210817150337.GA19129@jons-linux-dev-box>
+Message-ID: <20210817150809.GA19163@jons-linux-dev-box>
 References: <20210816135139.10060-1-matthew.brost@intel.com>
- <20210816135139.10060-6-matthew.brost@intel.com>
- <YRuCSLVnbr+k05uL@phenom.ffwll.local>
+ <20210816135139.10060-7-matthew.brost@intel.com>
+ <YRt/lynczP00iJqF@phenom.ffwll.local>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YRuCSLVnbr+k05uL@phenom.ffwll.local>
+In-Reply-To: <YRt/lynczP00iJqF@phenom.ffwll.local>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 05/22] drm/i915/guc: Workaround reset G2H is
- received after schedule done G2H
+Subject: Re: [Intel-gfx] [PATCH 06/22] drm/i915/execlists: Do not propagate
+ errors to dependent fences
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,138 +64,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 17, 2021 at 11:32:56AM +0200, Daniel Vetter wrote:
-> On Mon, Aug 16, 2021 at 06:51:22AM -0700, Matthew Brost wrote:
-> > If the context is reset as a result of the request cancelation the
-> > context reset G2H is received after schedule disable done G2H which is
-> > likely the wrong order. The schedule disable done G2H release the
-> > waiting request cancelation code which resubmits the context. This races
-> > with the context reset G2H which also wants to resubmit the context but
-> > in this case it really should be a NOP as request cancelation code owns
-> > the resubmit. Use some clever tricks of checking the context state to
-> > seal this race until if / when the GuC firmware is fixed.
-> > 
-> > v2:
-> >  (Checkpatch)
-> >   - Fix typos
-> > 
-> > Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
+On Tue, Aug 17, 2021 at 11:21:27AM +0200, Daniel Vetter wrote:
+> On Mon, Aug 16, 2021 at 06:51:23AM -0700, Matthew Brost wrote:
+> > Progagating errors to dependent fences is wrong, don't do it. Selftest
+> > in following patch exposes this bug.
+> 
+> Please explain what "this bug" is, it's hard to read minds, especially at
+> a distance in spacetime :-)
+> 
+
+Not a very good explaination.
+
+> > Fixes: 8e9f84cf5cac ("drm/i915/gt: Propagate change in error status to children on unhold")
+> 
+> I think it would be better to outright revert this, instead of just
+> disabling it like this.
+>
+
+I tried revert and git did some really odd things that I couldn't
+resolve, hence the new patch.
+ 
+> Also please cite the dma_fence error propagation revert from Jason:
+> 
+> commit 93a2711cddd5760e2f0f901817d71c93183c3b87
+> Author: Jason Ekstrand <jason@jlekstrand.net>
+> Date:   Wed Jul 14 14:34:16 2021 -0500
+> 
+>     Revert "drm/i915: Propagate errors on awaiting already signaled fences"
+> 
+> Maybe in full, if you need the justification.
+>
+
+Will site.
+
 > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 > > Cc: <stable@vger.kernel.org>
+> 
+> Unless "this bug" is some real world impact thing I wouldn't put cc:
+> stable on this.
+
+Got it.
+
+Matt
+
+> -Daniel
 > > ---
-> >  .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 43 ++++++++++++++++---
-> >  1 file changed, 37 insertions(+), 6 deletions(-)
+> >  drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 4 ----
+> >  1 file changed, 4 deletions(-)
 > > 
-> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > index 3cd2da6f5c03..c3b7bf7319dd 100644
-> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > @@ -826,17 +826,35 @@ __unwind_incomplete_requests(struct intel_context *ce)
-> >  static void __guc_reset_context(struct intel_context *ce, bool stalled)
-> >  {
-> >  	struct i915_request *rq;
-> > +	unsigned long flags;
-> >  	u32 head;
-> > +	bool skip = false;
+> > diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> > index de5f9c86b9a4..cafb0608ffb4 100644
+> > --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> > +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> > @@ -2140,10 +2140,6 @@ static void __execlists_unhold(struct i915_request *rq)
+> >  			if (p->flags & I915_DEPENDENCY_WEAK)
+> >  				continue;
 > >  
-> >  	intel_context_get(ce);
+> > -			/* Propagate any change in error status */
+> > -			if (rq->fence.error)
+> > -				i915_request_set_error_once(w, rq->fence.error);
+> > -
+> >  			if (w->engine != rq->engine)
+> >  				continue;
 > >  
-> >  	/*
-> > -	 * GuC will implicitly mark the context as non-schedulable
-> > -	 * when it sends the reset notification. Make sure our state
-> > -	 * reflects this change. The context will be marked enabled
-> > -	 * on resubmission.
-> > +	 * GuC will implicitly mark the context as non-schedulable when it sends
-> > +	 * the reset notification. Make sure our state reflects this change. The
-> > +	 * context will be marked enabled on resubmission.
-> > +	 *
-> > +	 * XXX: If the context is reset as a result of the request cancellation
-> > +	 * this G2H is received after the schedule disable complete G2H which is
-> > +	 * likely wrong as this creates a race between the request cancellation
-> > +	 * code re-submitting the context and this G2H handler. This likely
-> > +	 * should be fixed in the GuC but until if / when that gets fixed we
-> > +	 * need to workaround this. Convert this function to a NOP if a pending
-> > +	 * enable is in flight as this indicates that a request cancellation has
-> > +	 * occurred.
-> >  	 */
-> > -	clr_context_enabled(ce);
-> > +	spin_lock_irqsave(&ce->guc_state.lock, flags);
-> > +	if (likely(!context_pending_enable(ce))) {
-> > +		clr_context_enabled(ce);
-> > +	} else {
-> > +		skip = true;
-> > +	}
-> > +	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-> > +	if (unlikely(skip))
-> > +		goto out_put;
-> >  
-> >  	rq = intel_context_find_active_request(ce);
-> >  	if (!rq) {
-> > @@ -855,6 +873,7 @@ static void __guc_reset_context(struct intel_context *ce, bool stalled)
-> >  out_replay:
-> >  	guc_reset_state(ce, head, stalled);
-> >  	__unwind_incomplete_requests(ce);
-> > +out_put:
-> >  	intel_context_put(ce);
-> >  }
-> >  
-> > @@ -1599,6 +1618,13 @@ static void guc_context_cancel_request(struct intel_context *ce,
-> >  			guc_reset_state(ce, intel_ring_wrap(ce->ring, rq->head),
-> >  					true);
-> >  		}
-> > +
-> > +		/*
-> > +		 * XXX: Racey if context is reset, see comment in
-> > +		 * __guc_reset_context().
-> > +		 */
-> > +		flush_work(&ce_to_guc(ce)->ct.requests.worker);
-> 
-> This looks racy, and I think that holds in general for all the flush_work
-> you're adding: This only flushes the processing of the work, it doesn't
-> stop any re-queueing (as far as I can tell at least), which means it
-> doesn't do a hole lot.
-> 
-> Worse, your task is re-queue because it only processes one item at a time.
-> That means flush_work only flushes the first invocation, but not even
-> drains them all. So even if you do prevent requeueing somehow, this isn't
-> what you want. Two solutions.
-> 
-> - flush_work_sync, which flushes until self-requeues are all done too
-> 
-> - Or more preferred, make you're worker a bit more standard for this
->   stuff: a) under the spinlock, take the entire list, not just the first
->   entry, with list_move or similar to a local list b) process that local
->   list in a loop b) don't requeue youreself.
-
-This seems better, not sure what it currently doesn't do that as I
-didn't write that code.
-
-Also BTW, confirmed with the GuC team the order of the G2H is incorrect
-and will get fixed in an upcoming release, once that happens most of
-this patch can get dropped.
-
-Matt 
-
-> 
-> Cheers, Daniel
-> > +
-> >  		guc_context_unblock(ce);
-> >  	}
-> >  }
-> > @@ -2719,7 +2745,12 @@ static void guc_handle_context_reset(struct intel_guc *guc,
-> >  {
-> >  	trace_intel_context_reset(ce);
-> >  
-> > -	if (likely(!intel_context_is_banned(ce))) {
-> > +	/*
-> > +	 * XXX: Racey if request cancellation has occurred, see comment in
-> > +	 * __guc_reset_context().
-> > +	 */
-> > +	if (likely(!intel_context_is_banned(ce) &&
-> > +		   !context_blocked(ce))) {
-> >  		capture_error_state(guc, ce);
-> >  		guc_context_replay(ce);
-> >  	}
 > > -- 
 > > 2.32.0
 > > 
