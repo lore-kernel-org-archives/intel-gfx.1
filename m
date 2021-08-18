@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BA16C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 00:37:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17911C432BE
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 00:37:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0014160FD7
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 00:37:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0014160FD7
+	by mail.kernel.org (Postfix) with ESMTPS id B475560FD7
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 00:37:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B475560FD7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29D5B6E2C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 439FE6E2C7;
 	Wed, 18 Aug 2021 00:37:35 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B947B6E247
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 00:37:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="279966462"
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="279966462"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6A526E2B4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 00:37:33 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="279966466"
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="279966466"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2021 17:37:32 -0700
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="676844447"
+ 17 Aug 2021 17:37:33 -0700
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="676844462"
 Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
  ([10.24.14.59])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Aug 2021 17:37:32 -0700
 From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Date: Tue, 17 Aug 2021 17:42:12 -0700
-Message-Id: <20210818004216.220279-5-jose.souza@intel.com>
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+Date: Tue, 17 Aug 2021 17:42:16 -0700
+Message-Id: <20210818004216.220279-9-jose.souza@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210818004216.220279-1-jose.souza@intel.com>
 References: <20210818004216.220279-1-jose.souza@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/8] drm/i915/display: Some code improvements
- and code style fixes for DRRS
+Subject: [Intel-gfx] [PATCH 8/8] drm/i915/display: Drop PSR frontbuffer
+ rendering support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,165 +62,361 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It started as a code style fix for the lines above 100 col but it
-turned out to simplyfications to intel_dp_set_drrs_state().
-Now it receives the desired refresh rate type, high or low.
+After commit "drm/i915/display/skl+: Drop frontbuffer rendering
+support" frontbuffer rendering is not supported for display 9 and
+newer and as PSR is only supported by default in display 9 and newer
+we can now drop all frontbuffer rendering support for PSR code.
 
+Some DC3CO code was commented with a macro, because the function
+caller is being dropped. As DC3CO is already disabled by default
+because it requires changes in its sequences
+
+Two DC3CO functions lost their callers while dropping frontbuffer
+rendering but as DC3CO is already disabled by default because it
+requires fixes, will leave this task to whoever will fix DC3CO.
+
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_drrs.c | 60 ++++++++---------------
- 1 file changed, 21 insertions(+), 39 deletions(-)
+ .../drm/i915/display/intel_display_debugfs.c  |   2 -
+ .../drm/i915/display/intel_display_types.h    |   2 -
+ .../gpu/drm/i915/display/intel_frontbuffer.c  |   2 -
+ drivers/gpu/drm/i915/display/intel_psr.c      | 186 ++----------------
+ drivers/gpu/drm/i915/display/intel_psr.h      |   8 +-
+ 5 files changed, 18 insertions(+), 182 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
-index be9b6d4482f04..e96033bc6c658 100644
---- a/drivers/gpu/drm/i915/display/intel_drrs.c
-+++ b/drivers/gpu/drm/i915/display/intel_drrs.c
-@@ -91,7 +91,7 @@ intel_dp_drrs_compute_config(struct intel_dp *intel_dp,
-  * intel_dp_set_drrs_state - program registers for RR switch to take effect
-  * @dev_priv: i915 device
-  * @crtc_state: a pointer to the active intel_crtc_state
-- * @refresh_rate: RR to be programmed
-+ * @refresh_type: high or low refresh rate to be programmed
-  *
-  * This function gets called when refresh rate (RR) has to be changed from
-  * one frequency to another. Switches can be between high and low RR
-@@ -102,19 +102,13 @@ intel_dp_drrs_compute_config(struct intel_dp *intel_dp,
-  */
- static void intel_dp_set_drrs_state(struct drm_i915_private *dev_priv,
- 				    const struct intel_crtc_state *crtc_state,
--				    int refresh_rate)
-+				    enum drrs_refresh_rate_type refresh_type)
- {
- 	struct intel_dp *intel_dp = dev_priv->drrs.dp;
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	enum drrs_refresh_rate_type index = DRRS_HIGH_RR;
-+	struct drm_display_mode *mode;
- 
--	if (refresh_rate <= 0) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "Refresh rate should be positive non-zero.\n");
--		return;
--	}
--
--	if (intel_dp == NULL) {
-+	if (!intel_dp) {
- 		drm_dbg_kms(&dev_priv->drm, "DRRS not supported.\n");
- 		return;
- 	}
-@@ -130,15 +124,8 @@ static void intel_dp_set_drrs_state(struct drm_i915_private *dev_priv,
- 		return;
- 	}
- 
--	if (drm_mode_vrefresh(intel_dp->attached_connector->panel.downclock_mode) ==
--			refresh_rate)
--		index = DRRS_LOW_RR;
--
--	if (index == dev_priv->drrs.refresh_rate_type) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "DRRS requested for previously set RR...ignoring\n");
-+	if (refresh_type == dev_priv->drrs.refresh_rate_type)
- 		return;
--	}
- 
- 	if (!crtc_state->hw.active) {
- 		drm_dbg_kms(&dev_priv->drm,
-@@ -147,7 +134,7 @@ static void intel_dp_set_drrs_state(struct drm_i915_private *dev_priv,
- 	}
- 
- 	if (DISPLAY_VER(dev_priv) >= 8 && !IS_CHERRYVIEW(dev_priv)) {
--		switch (index) {
-+		switch (refresh_type) {
- 		case DRRS_HIGH_RR:
- 			intel_dp_set_m_n(crtc_state, M1_N1);
- 			break;
-@@ -164,7 +151,7 @@ static void intel_dp_set_drrs_state(struct drm_i915_private *dev_priv,
- 		u32 val;
- 
- 		val = intel_de_read(dev_priv, reg);
--		if (index > DRRS_HIGH_RR) {
-+		if (refresh_type == DRRS_LOW_RR) {
- 			if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
- 				val |= PIPECONF_EDP_RR_MODE_SWITCH_VLV;
- 			else
-@@ -178,10 +165,14 @@ static void intel_dp_set_drrs_state(struct drm_i915_private *dev_priv,
- 		intel_de_write(dev_priv, reg, val);
- 	}
- 
--	dev_priv->drrs.refresh_rate_type = index;
-+	dev_priv->drrs.refresh_rate_type = refresh_type;
- 
-+	if (refresh_type == DRRS_LOW_RR)
-+		mode = intel_dp->attached_connector->panel.fixed_mode;
-+	else
-+		mode = intel_dp->attached_connector->panel.downclock_mode;
- 	drm_dbg_kms(&dev_priv->drm, "eDP Refresh Rate set to : %dHz\n",
--		    refresh_rate);
-+		    drm_mode_vrefresh(mode));
- }
- 
- static void
-@@ -229,13 +220,7 @@ intel_edp_drrs_disable_locked(struct intel_dp *intel_dp,
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 
--	if (dev_priv->drrs.refresh_rate_type == DRRS_LOW_RR) {
--		int refresh;
--
--		refresh = drm_mode_vrefresh(intel_dp->attached_connector->panel.fixed_mode);
--		intel_dp_set_drrs_state(dev_priv, crtc_state, refresh);
--	}
--
-+	intel_dp_set_drrs_state(dev_priv, crtc_state, DRRS_HIGH_RR);
- 	dev_priv->drrs.dp = NULL;
- }
- 
-@@ -303,6 +288,7 @@ static void intel_edp_drrs_downclock_work(struct work_struct *work)
- 	struct drm_i915_private *dev_priv =
- 		container_of(work, typeof(*dev_priv), drrs.work.work);
- 	struct intel_dp *intel_dp;
-+	struct drm_crtc *crtc;
- 
- 	mutex_lock(&dev_priv->drrs.mutex);
- 
-@@ -319,12 +305,8 @@ static void intel_edp_drrs_downclock_work(struct work_struct *work)
- 	if (dev_priv->drrs.busy_frontbuffer_bits)
- 		goto unlock;
- 
--	if (dev_priv->drrs.refresh_rate_type != DRRS_LOW_RR) {
--		struct drm_crtc *crtc = dp_to_dig_port(intel_dp)->base.base.crtc;
--
--		intel_dp_set_drrs_state(dev_priv, to_intel_crtc(crtc)->config,
--					drm_mode_vrefresh(intel_dp->attached_connector->panel.downclock_mode));
--	}
-+	crtc = dp_to_dig_port(intel_dp)->base.base.crtc;
-+	intel_dp_set_drrs_state(dev_priv, to_intel_crtc(crtc)->config, DRRS_LOW_RR);
- 
- unlock:
- 	mutex_unlock(&dev_priv->drrs.mutex);
-@@ -367,9 +349,9 @@ void intel_edp_drrs_invalidate(struct drm_i915_private *dev_priv,
- 	dev_priv->drrs.busy_frontbuffer_bits |= frontbuffer_bits;
- 
- 	/* invalidate means busy screen hence upclock */
--	if (frontbuffer_bits && dev_priv->drrs.refresh_rate_type == DRRS_LOW_RR)
-+	if (frontbuffer_bits)
- 		intel_dp_set_drrs_state(dev_priv, to_intel_crtc(crtc)->config,
--					drm_mode_vrefresh(intel_dp->attached_connector->panel.fixed_mode));
-+					DRRS_HIGH_RR);
- 
- 	mutex_unlock(&dev_priv->drrs.mutex);
- }
-@@ -413,9 +395,9 @@ void intel_edp_drrs_flush(struct drm_i915_private *dev_priv,
- 	dev_priv->drrs.busy_frontbuffer_bits &= ~frontbuffer_bits;
- 
- 	/* flush means busy screen hence upclock */
--	if (frontbuffer_bits && dev_priv->drrs.refresh_rate_type == DRRS_LOW_RR)
-+	if (frontbuffer_bits)
- 		intel_dp_set_drrs_state(dev_priv, to_intel_crtc(crtc)->config,
--					drm_mode_vrefresh(intel_dp->attached_connector->panel.fixed_mode));
-+					DRRS_HIGH_RR);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index b136a0fc0963b..64a03ae56d6fe 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -374,8 +374,6 @@ static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
+ 	seq_printf(m, "Source PSR ctl: %s [0x%08x]\n",
+ 		   enableddisabled(enabled), val);
+ 	psr_source_status(intel_dp, m);
+-	seq_printf(m, "Busy frontbuffer bits: 0x%08x\n",
+-		   psr->busy_frontbuffer_bits);
  
  	/*
- 	 * flush also means no more activity hence schedule downclock, if all
+ 	 * SKL+ Perf counter is reset to 0 everytime DC state is entered
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 6beeeeba1bed2..a6b08032917a7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1512,7 +1512,6 @@ struct intel_psr {
+ 	enum transcoder transcoder;
+ 	bool active;
+ 	struct work_struct work;
+-	unsigned int busy_frontbuffer_bits;
+ 	bool sink_psr2_support;
+ 	bool link_standby;
+ 	bool colorimetry_support;
+@@ -1523,7 +1522,6 @@ struct intel_psr {
+ 	ktime_t last_entry_attempt;
+ 	ktime_t last_exit;
+ 	bool sink_not_reliable;
+-	bool irq_aux_error;
+ 	u16 su_w_granularity;
+ 	u16 su_y_granularity;
+ 	u32 dc3co_exitline;
+diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.c b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+index 6be2f767a203c..784aa423b84bf 100644
+--- a/drivers/gpu/drm/i915/display/intel_frontbuffer.c
++++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+@@ -96,7 +96,6 @@ static void frontbuffer_flush(struct drm_i915_private *i915,
+ 
+ 	might_sleep();
+ 	intel_edp_drrs_flush(i915, frontbuffer_bits);
+-	intel_psr_flush(i915, frontbuffer_bits, origin);
+ 	intel_fbc_flush(i915, frontbuffer_bits, origin);
+ }
+ 
+@@ -186,7 +185,6 @@ void __intel_fb_invalidate(struct intel_frontbuffer *front,
+ 		return;
+ 
+ 	might_sleep();
+-	intel_psr_invalidate(i915, frontbuffer_bits, origin);
+ 	intel_edp_drrs_invalidate(i915, frontbuffer_bits);
+ 	intel_fbc_invalidate(i915, frontbuffer_bits, origin);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 3f6fb7d67f84d..8c9bd5846a8d0 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -224,15 +224,12 @@ void intel_psr_irq_handler(struct intel_dp *intel_dp, u32 psr_iir)
+ 		drm_warn(&dev_priv->drm, "[transcoder %s] PSR aux error\n",
+ 			 transcoder_name(cpu_transcoder));
+ 
+-		intel_dp->psr.irq_aux_error = true;
+-
+ 		/*
+ 		 * If this interruption is not masked it will keep
+ 		 * interrupting so fast that it prevents the scheduled
+ 		 * work to run.
+ 		 * Also after a PSR error, we don't want to arm PSR
+ 		 * again so we don't care about unmask the interruption
+-		 * or unset irq_aux_error.
+ 		 */
+ 		val = intel_de_read(dev_priv, imr_reg);
+ 		val |= EDP_PSR_ERROR(trans_shift);
+@@ -614,14 +611,6 @@ static void psr2_program_idle_frames(struct intel_dp *intel_dp,
+ 	intel_de_write(dev_priv, EDP_PSR2_CTL(intel_dp->psr.transcoder), val);
+ }
+ 
+-static void tgl_psr2_enable_dc3co(struct intel_dp *intel_dp)
+-{
+-	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+-
+-	psr2_program_idle_frames(intel_dp, 0);
+-	intel_display_power_set_target_dc_state(dev_priv, DC_STATE_EN_DC3CO);
+-}
+-
+ static void tgl_psr2_disable_dc3co(struct intel_dp *intel_dp)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+@@ -1177,7 +1166,6 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ 	drm_WARN_ON(&dev_priv->drm, intel_dp->psr.enabled);
+ 
+ 	intel_dp->psr.psr2_enabled = crtc_state->has_psr2;
+-	intel_dp->psr.busy_frontbuffer_bits = 0;
+ 	intel_dp->psr.pipe = to_intel_crtc(crtc_state->uapi.crtc)->pipe;
+ 	intel_dp->psr.transcoder = crtc_state->cpu_transcoder;
+ 	/* DC5/DC6 requires at least 6 idle frames */
+@@ -1784,36 +1772,6 @@ void intel_psr_wait_for_idle(const struct intel_crtc_state *new_crtc_state)
+ 	}
+ }
+ 
+-static bool __psr_wait_for_idle_locked(struct intel_dp *intel_dp)
+-{
+-	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+-	i915_reg_t reg;
+-	u32 mask;
+-	int err;
+-
+-	if (!intel_dp->psr.enabled)
+-		return false;
+-
+-	if (intel_dp->psr.psr2_enabled) {
+-		reg = EDP_PSR2_STATUS(intel_dp->psr.transcoder);
+-		mask = EDP_PSR2_STATUS_STATE_MASK;
+-	} else {
+-		reg = EDP_PSR_STATUS(intel_dp->psr.transcoder);
+-		mask = EDP_PSR_STATUS_STATE_MASK;
+-	}
+-
+-	mutex_unlock(&intel_dp->psr.lock);
+-
+-	err = intel_de_wait_for_clear(dev_priv, reg, mask, 50);
+-	if (err)
+-		drm_err(&dev_priv->drm,
+-			"Timed out waiting for PSR Idle for re-enable\n");
+-
+-	/* After the unlocked wait, verify that PSR is still wanted! */
+-	mutex_lock(&intel_dp->psr.lock);
+-	return err == 0 && intel_dp->psr.enabled;
+-}
+-
+ static int intel_psr_fastset_force(struct drm_i915_private *dev_priv)
+ {
+ 	struct drm_connector_list_iter conn_iter;
+@@ -1912,16 +1870,6 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
+ 	return ret;
+ }
+ 
+-static void intel_psr_handle_irq(struct intel_dp *intel_dp)
+-{
+-	struct intel_psr *psr = &intel_dp->psr;
+-
+-	intel_psr_disable_locked(intel_dp);
+-	psr->sink_not_reliable = true;
+-	/* let's make sure that sink is awaken */
+-	drm_dp_dpcd_writeb(&intel_dp->aux, DP_SET_POWER, DP_SET_POWER_D0);
+-}
+-
+ static void intel_psr_work(struct work_struct *work)
+ {
+ 	struct intel_dp *intel_dp =
+@@ -1929,75 +1877,30 @@ static void intel_psr_work(struct work_struct *work)
+ 
+ 	mutex_lock(&intel_dp->psr.lock);
+ 
+-	if (!intel_dp->psr.enabled)
+-		goto unlock;
+-
+-	if (READ_ONCE(intel_dp->psr.irq_aux_error))
+-		intel_psr_handle_irq(intel_dp);
+-
+-	/*
+-	 * We have to make sure PSR is ready for re-enable
+-	 * otherwise it keeps disabled until next full enable/disable cycle.
+-	 * PSR might take some time to get fully disabled
+-	 * and be ready for re-enable.
+-	 */
+-	if (!__psr_wait_for_idle_locked(intel_dp))
+-		goto unlock;
+-
+-	/*
+-	 * The delayed work can race with an invalidate hence we need to
+-	 * recheck. Since psr_flush first clears this and then reschedules we
+-	 * won't ever miss a flush when bailing out here.
+-	 */
+-	if (intel_dp->psr.busy_frontbuffer_bits || intel_dp->psr.active)
+-		goto unlock;
++	/* Handling PSR error interruption */
++	intel_psr_disable_locked(intel_dp);
++	intel_dp->psr.sink_not_reliable = true;
++	/* let's make sure that sink is awaken */
++	drm_dp_dpcd_writeb(&intel_dp->aux, DP_SET_POWER, DP_SET_POWER_D0);
+ 
+-	intel_psr_activate(intel_dp);
+-unlock:
+ 	mutex_unlock(&intel_dp->psr.lock);
+ }
+ 
+-/**
+- * intel_psr_invalidate - Invalidade PSR
+- * @dev_priv: i915 device
+- * @frontbuffer_bits: frontbuffer plane tracking bits
+- * @origin: which operation caused the invalidate
+- *
+- * Since the hardware frontbuffer tracking has gaps we need to integrate
+- * with the software frontbuffer tracking. This function gets called every
+- * time frontbuffer rendering starts and a buffer gets dirtied. PSR must be
+- * disabled if the frontbuffer mask contains a buffer relevant to PSR.
+- *
+- * Dirty frontbuffers relevant to PSR are tracked in busy_frontbuffer_bits."
++/*
++ * TODO: Functions below lost their callers to a refactor but as DC3CO is
++ * already disabled by default because it requires fixes, will leave this task
++ * to whoever will fix DC3CO.
+  */
+-void intel_psr_invalidate(struct drm_i915_private *dev_priv,
+-			  unsigned frontbuffer_bits, enum fb_op_origin origin)
+-{
+-	struct intel_encoder *encoder;
+-
+-	if (origin == ORIGIN_FLIP)
+-		return;
+-
+-	for_each_intel_encoder_with_psr(&dev_priv->drm, encoder) {
+-		unsigned int pipe_frontbuffer_bits = frontbuffer_bits;
+-		struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+-
+-		mutex_lock(&intel_dp->psr.lock);
+-		if (!intel_dp->psr.enabled) {
+-			mutex_unlock(&intel_dp->psr.lock);
+-			continue;
+-		}
+-
+-		pipe_frontbuffer_bits &=
+-			INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe);
+-		intel_dp->psr.busy_frontbuffer_bits |= pipe_frontbuffer_bits;
++#if 0
+ 
+-		if (pipe_frontbuffer_bits)
+-			intel_psr_exit(intel_dp);
++static void tgl_psr2_enable_dc3co(struct intel_dp *intel_dp)
++{
++	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+ 
+-		mutex_unlock(&intel_dp->psr.lock);
+-	}
++	psr2_program_idle_frames(intel_dp, 0);
++	intel_display_power_set_target_dc_state(dev_priv, DC_STATE_EN_DC3CO);
+ }
++
+ /*
+  * When we will be completely rely on PSR2 S/W tracking in future,
+  * intel_psr_flush() will invalidate and flush the PSR for ORIGIN_FLIP
+@@ -2032,62 +1935,7 @@ tgl_dc3co_flush(struct intel_dp *intel_dp, unsigned int frontbuffer_bits,
+ 	mutex_unlock(&intel_dp->psr.lock);
+ }
+ 
+-/**
+- * intel_psr_flush - Flush PSR
+- * @dev_priv: i915 device
+- * @frontbuffer_bits: frontbuffer plane tracking bits
+- * @origin: which operation caused the flush
+- *
+- * Since the hardware frontbuffer tracking has gaps we need to integrate
+- * with the software frontbuffer tracking. This function gets called every
+- * time frontbuffer rendering has completed and flushed out to memory. PSR
+- * can be enabled again if no other frontbuffer relevant to PSR is dirty.
+- *
+- * Dirty frontbuffers relevant to PSR are tracked in busy_frontbuffer_bits.
+- */
+-void intel_psr_flush(struct drm_i915_private *dev_priv,
+-		     unsigned frontbuffer_bits, enum fb_op_origin origin)
+-{
+-	struct intel_encoder *encoder;
+-
+-	for_each_intel_encoder_with_psr(&dev_priv->drm, encoder) {
+-		unsigned int pipe_frontbuffer_bits = frontbuffer_bits;
+-		struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+-
+-		if (origin == ORIGIN_FLIP) {
+-			tgl_dc3co_flush(intel_dp, frontbuffer_bits, origin);
+-			continue;
+-		}
+-
+-		mutex_lock(&intel_dp->psr.lock);
+-		if (!intel_dp->psr.enabled) {
+-			mutex_unlock(&intel_dp->psr.lock);
+-			continue;
+-		}
+-
+-		pipe_frontbuffer_bits &=
+-			INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe);
+-		intel_dp->psr.busy_frontbuffer_bits &= ~pipe_frontbuffer_bits;
+-
+-		/*
+-		 * If the PSR is paused by an explicit intel_psr_paused() call,
+-		 * we have to ensure that the PSR is not activated until
+-		 * intel_psr_resume() is called.
+-		 */
+-		if (intel_dp->psr.paused) {
+-			mutex_unlock(&intel_dp->psr.lock);
+-			continue;
+-		}
+-
+-		/* By definition flush = invalidate + flush */
+-		if (pipe_frontbuffer_bits)
+-			psr_force_hw_tracking_exit(intel_dp);
+-
+-		if (!intel_dp->psr.active && !intel_dp->psr.busy_frontbuffer_bits)
+-			schedule_work(&intel_dp->psr.work);
+-		mutex_unlock(&intel_dp->psr.lock);
+-	}
+-}
++#endif
+ 
+ /**
+  * intel_psr_init - Init basic PSR work and mutex.
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.h b/drivers/gpu/drm/i915/display/intel_psr.h
+index 641521b101c82..58e2e5c2b81ef 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.h
++++ b/drivers/gpu/drm/i915/display/intel_psr.h
+@@ -6,7 +6,7 @@
+ #ifndef __INTEL_PSR_H__
+ #define __INTEL_PSR_H__
+ 
+-#include "intel_frontbuffer.h"
++#include <linux/types.h>
+ 
+ struct drm_connector;
+ struct drm_connector_state;
+@@ -29,12 +29,6 @@ void intel_psr_update(struct intel_dp *intel_dp,
+ 		      const struct intel_crtc_state *crtc_state,
+ 		      const struct drm_connector_state *conn_state);
+ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 value);
+-void intel_psr_invalidate(struct drm_i915_private *dev_priv,
+-			  unsigned frontbuffer_bits,
+-			  enum fb_op_origin origin);
+-void intel_psr_flush(struct drm_i915_private *dev_priv,
+-		     unsigned frontbuffer_bits,
+-		     enum fb_op_origin origin);
+ void intel_psr_init(struct intel_dp *intel_dp);
+ void intel_psr_compute_config(struct intel_dp *intel_dp,
+ 			      struct intel_crtc_state *crtc_state);
 -- 
 2.32.0
 
