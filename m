@@ -3,42 +3,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E944C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:30:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38B6DC4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:32:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 35EA960EE0
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:30:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 35EA960EE0
+	by mail.kernel.org (Postfix) with ESMTPS id 06CA86108F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:32:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 06CA86108F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 994F26E558;
-	Wed, 18 Aug 2021 11:30:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4081E6E544;
+	Wed, 18 Aug 2021 11:32:09 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 63F396E544;
- Wed, 18 Aug 2021 11:30:28 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3ED076E544;
+ Wed, 18 Aug 2021 11:32:06 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4A6BBAADCF;
- Wed, 18 Aug 2021 11:30:28 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 366B5AADCF;
+ Wed, 18 Aug 2021 11:32:06 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Aug 2021 11:30:28 -0000
-Message-ID: <162928622829.16674.12807579053229297435@emeril.freedesktop.org>
+Date: Wed, 18 Aug 2021 11:32:06 -0000
+Message-ID: <162928632622.16672.14738778035590219784@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <cover.1629281426.git.jani.nikula@intel.com>
 In-Reply-To: <cover.1629281426.git.jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_header_cleanups?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_header_cleanups?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,17 +63,15 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-ddebfe5d1496 drm/i915/irq: reduce inlines to reduce header dependencies
-e2382f06ea1f drm/i915: intel_runtime_pm.h does not actually need intel_display.h
-95ad020b21a2 drm/i915/pm: use forward declaration to remove an include
-33cd75959166 drm/i915/panel: move intel_panel_use_ssc() out of headers
--:55: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
-#55: FILE: drivers/gpu/drm/i915/display/intel_panel.c:49:
-+	return i915->vbt.lvds_use_ssc
-+		&& !(i915->quirks & QUIRK_LVDS_SSC_DISABLE);
-
-total: 0 errors, 0 warnings, 1 checks, 42 lines checked
-bd3b1339d175 drm/i915/fdi: move intel_fdi_link_freq() to intel_fdi.[ch]
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
++drivers/gpu/drm/i915/intel_wakeref.c:137:19: warning: context imbalance in 'wakeref_auto_timeout' - unexpected unlock
++./include/linux/stddef.h:17:9: this was the original definition
++./include/linux/stddef.h:17:9: this was the original definition
++./include/linux/stddef.h:17:9: this was the original definition
++/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
++/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
++/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h:417:9: warning: preprocessor token offsetof redefined
 
 
