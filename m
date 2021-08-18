@@ -2,91 +2,46 @@ Return-Path: <SRS0=K2GL=NJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49729C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 10:11:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D697C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 10:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A0B060524
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 10:11:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1A0B060524
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id E018160EFE
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 10:11:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E018160EFE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7470A6E525;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9C5D6E528;
 	Wed, 18 Aug 2021 10:11:17 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74C8E6E527
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 10:11:10 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id d6so2280340edt.7
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 03:11:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=H6PUEJyT8yWFOs/eHUeXPFvL6SwbW/T0LWe0T2e8WmE=;
- b=GKjpI8oonPri08s2r40yIS07xBV5kd2Qcb0M+wEuCc48wKNdDQIcz1gsIg0w4AFPZH
- fTpmm7yg9dJmucZ4YwxqzV+MpHC7nNcfaQkUUDSl0ws5L1i10t9UlUGKJQLYp2Mrjnr1
- vXTDxTOZGh7Zh9xS2H8s1TXo6uM0qU+/eBKhc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=H6PUEJyT8yWFOs/eHUeXPFvL6SwbW/T0LWe0T2e8WmE=;
- b=Phem1c1ZT3pOTDndnebi2aAON5ixDgYrUY9LORsHpOU1Nb0ZjLIZYRQfBJBH4vVqG7
- LfJX2Uur8fGDfdE/rLKJKwO1gjxUW1wt5fRqPR7l1Lcy7Vr4HY8miUX3tKEL5BRa9v1j
- Q6xHOUzkd3SdnTHbTeYSv8Q1GT9+kaPylv6Lobg4uc5AA0IAgOJ63i7GrYSereP8HjFv
- CcwFOvyEdKEQbZvNv9oRN8+tcCSsiQeDn5VljRcHVtndv4pBOT7Xgexo7WoZgcC2zsYB
- ADlMkmJ1LfPQMij5CLqUFKBodPv2o3Y3hxxKevczx44OxMI+id7hg/8z11dFjoiQKqAA
- Um6g==
-X-Gm-Message-State: AOAM532DiWaS9abZNCY/JWbKxD45WjUrf1nss9QXAEpIUc5KJFRaBwPp
- YZ0iEaNKohlSO/hhSX5jwFxtFUkp6jKX7g==
-X-Google-Smtp-Source: ABdhPJxpWiWQ18UJm+hCSjJLPLxbcWNd9HkyUYKyAPssMAGCuTk1/N1o8a5V6hH6cJCPXAjYQUffNg==
-X-Received: by 2002:a05:6402:b88:: with SMTP id
- cf8mr9311655edb.281.1629281469070; 
- Wed, 18 Aug 2021 03:11:09 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id j22sm1805495ejt.11.2021.08.18.03.11.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Aug 2021 03:11:08 -0700 (PDT)
-Date: Wed, 18 Aug 2021 12:11:06 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@linux.ie, daniel@ffwll.ch,
- sumit.semwal@linaro.org, christian.koenig@amd.com, axboe@kernel.dk,
- oleg@redhat.com, tglx@linutronix.de, dvyukov@google.com,
- walter-zh.wu@mediatek.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- skhan@linuxfoundation.org, gregkh@linuxfoundation.org,
- linux-kernel-mentees@lists.linuxfoundation.org
-Message-ID: <YRzcuiQrLFsWowas@phenom.ffwll.local>
-Mail-Followup-To: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@linux.ie, sumit.semwal@linaro.org,
- christian.koenig@amd.com, axboe@kernel.dk, oleg@redhat.com,
- tglx@linutronix.de, dvyukov@google.com, walter-zh.wu@mediatek.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, skhan@linuxfoundation.org,
- gregkh@linuxfoundation.org,
- linux-kernel-mentees@lists.linuxfoundation.org
-References: <20210818073824.1560124-1-desmondcheongzx@gmail.com>
- <20210818073824.1560124-5-desmondcheongzx@gmail.com>
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45A066E525
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 10:11:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="216022646"
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="216022646"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 03:11:15 -0700
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="520891334"
+Received: from mdbadill-mobl1.amr.corp.intel.com (HELO localhost)
+ ([10.249.42.92])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 03:11:14 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Date: Wed, 18 Aug 2021 13:11:04 +0300
+Message-Id: <cover.1629281426.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210818073824.1560124-5-desmondcheongzx@gmail.com>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
-Subject: Re: [Intel-gfx] [PATCH v3 4/9] drm: fix potential null ptr
- dereferences in drm_{auth, ioctl}
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 0/5] drm/i915: header cleanups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,121 +57,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 18, 2021 at 03:38:19PM +0800, Desmond Cheong Zhi Xi wrote:
-> There are three areas where we dereference struct drm_master without
-> checking if the pointer is non-NULL.
-> 
-> 1. drm_getmagic is called from the ioctl_handler. Since
-> DRM_IOCTL_GET_MAGIC has no ioctl flags, drm_getmagic is run without
-> any check that drm_file.master has been set.
-> 
-> 2. Similarly, drm_getunique is called from the ioctl_handler, but
-> DRM_IOCTL_GET_UNIQUE has no ioctl flags. So there is no guarantee that
-> drm_file.master has been set.
+Some header cleanups I've had around but never posted.
 
-I think the above two are impossible, due to the refcounting rules for
-struct file.
+Jani Nikula (5):
+  drm/i915/irq: reduce inlines to reduce header dependencies
+  drm/i915: intel_runtime_pm.h does not actually need intel_display.h
+  drm/i915/pm: use forward declaration to remove an include
+  drm/i915/panel: move intel_panel_use_ssc() out of headers
+  drm/i915/fdi: move intel_fdi_link_freq() to intel_fdi.[ch]
 
-> 3. drm_master_release can also be called without having a
-> drm_file.master set. Here is one error path:
->   drm_open():
->     drm_open_helper():
->       drm_master_open():
->         drm_new_set_master(); <--- returns -ENOMEM,
->                                    drm_file.master not set
->       drm_file_free():
->         drm_master_release(); <--- NULL ptr dereference
->                                    (file_priv->master->magic_map)
-> 
-> Fix these by checking if the master pointers are NULL before use.
-> 
-> Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-> ---
->  drivers/gpu/drm/drm_auth.c  | 16 ++++++++++++++--
->  drivers/gpu/drm/drm_ioctl.c |  5 +++++
->  2 files changed, 19 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-> index f9267b21556e..b7230604496b 100644
-> --- a/drivers/gpu/drm/drm_auth.c
-> +++ b/drivers/gpu/drm/drm_auth.c
-> @@ -95,11 +95,18 @@ EXPORT_SYMBOL(drm_is_current_master);
->  int drm_getmagic(struct drm_device *dev, void *data, struct drm_file *file_priv)
->  {
->  	struct drm_auth *auth = data;
-> +	struct drm_master *master;
->  	int ret = 0;
->  
->  	mutex_lock(&dev->master_mutex);
-> +	master = file_priv->master;
-> +	if (!master) {
-> +		mutex_unlock(&dev->master_mutex);
-> +		return -EINVAL;
-> +	}
-> +
->  	if (!file_priv->magic) {
-> -		ret = idr_alloc(&file_priv->master->magic_map, file_priv,
-> +		ret = idr_alloc(&master->magic_map, file_priv,
->  				1, 0, GFP_KERNEL);
->  		if (ret >= 0)
->  			file_priv->magic = ret;
-> @@ -355,8 +362,12 @@ void drm_master_release(struct drm_file *file_priv)
->  
->  	mutex_lock(&dev->master_mutex);
->  	master = file_priv->master;
-> +
-> +	if (!master)
-> +		goto unlock;
-
-This is a bit convoluted, since we're in the single-threaded release path
-we don't need any locking for file_priv related things. Therefore we can
-pull the master check out and just directly return.
-
-But since it's a bit surprising maybe a comment that this can happen when
-drm_master_open in drm_open_helper fails?
-
-Another option, and maybe cleaner, would be to move the drm_master_release
-from drm_file_free into drm_close_helper. That would be fully symmetrical
-and should also fix the bug here?
--Daniel
-
-
-> +
->  	if (file_priv->magic)
-> -		idr_remove(&file_priv->master->magic_map, file_priv->magic);
-> +		idr_remove(&master->magic_map, file_priv->magic);
->  
->  	if (!drm_is_current_master_locked(file_priv))
->  		goto out;
-> @@ -379,6 +390,7 @@ void drm_master_release(struct drm_file *file_priv)
->  		drm_master_put(&file_priv->master);
->  		spin_unlock(&dev->master_lookup_lock);
->  	}
-> +unlock:
->  	mutex_unlock(&dev->master_mutex);
->  }
->  
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index 26f3a9ede8fe..4d029d3061d9 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -121,6 +121,11 @@ int drm_getunique(struct drm_device *dev, void *data,
->  
->  	mutex_lock(&dev->master_mutex);
->  	master = file_priv->master;
-> +	if (!master) {
-> +		mutex_unlock(&dev->master_mutex);
-> +		return -EINVAL;
-> +	}
-> +
->  	if (u->unique_len >= master->unique_len) {
->  		if (copy_to_user(u->unique, master->unique, master->unique_len)) {
->  			mutex_unlock(&dev->master_mutex);
-> -- 
-> 2.25.1
-> 
+ drivers/gpu/drm/i915/display/intel_display.c  |  1 +
+ .../drm/i915/display/intel_display_types.h    | 17 -------
+ drivers/gpu/drm/i915/display/intel_fdi.c      |  9 ++++
+ drivers/gpu/drm/i915/display/intel_fdi.h      |  4 ++
+ drivers/gpu/drm/i915/display/intel_panel.c    |  8 +++
+ drivers/gpu/drm/i915/display/intel_panel.h    |  1 +
+ drivers/gpu/drm/i915/i915_irq.c               | 50 ++++++++++++++----
+ drivers/gpu/drm/i915/i915_irq.h               | 51 ++++---------------
+ drivers/gpu/drm/i915/intel_pm.h               |  2 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.h       |  2 -
+ 10 files changed, 74 insertions(+), 71 deletions(-)
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.20.1
+
