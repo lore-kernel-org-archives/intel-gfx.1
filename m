@@ -2,98 +2,73 @@ Return-Path: <SRS0=K2GL=NJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B75BC4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:37:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29BF3C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A1771610A6
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:37:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A1771610A6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id EE0CD610FD
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EE0CD610FD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3A396E8CE;
-	Wed, 18 Aug 2021 21:36:43 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2E296E8CD
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 21:35:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1629322535;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bAbD/eVam4u1SYhNVAX23sMHxA0bG00/tb6Wr76aYKM=;
- b=Ak3tClSjTlSNz2fPEJuV/uMMZ8eVv+TBh9XW6rrEm1nRfQqUoea0bzb0TAve6RRcn8xj1V
- 7AvfTBmEpbmV445a4tm//ycvKcEi19XoVLOUxHbSqRd9mTVCJVwXr+koAbNaejdrPRB/ea
- GddY7HNd58WhPHK2yQ3Aa2ZpKNO3M6c=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-66-U89Lm2tgPkmhLjCu0js5_A-1; Wed, 18 Aug 2021 17:35:33 -0400
-X-MC-Unique: U89Lm2tgPkmhLjCu0js5_A-1
-Received: by mail-qk1-f199.google.com with SMTP id
- p23-20020a05620a22f700b003d5ac11ac5cso2701209qki.15
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 14:35:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=bAbD/eVam4u1SYhNVAX23sMHxA0bG00/tb6Wr76aYKM=;
- b=FEfMs3SShKrljrTtCRP0WMTbZQ+hSnin71M4tvM/JVWRXV4IQ1/fWi9zltDaL+AE3x
- /JfSBQZ10unThYi3Konn2OAl7gv8a/cc3VkUgstD5oopSeQ/37KITN0DE6y4V8yr4rPP
- ItSmH4Trb6WfwIsE7Cv1kN014jHpI358E+chKPXVjegBJWUrvAukIJAhBHSVNkbN+mJF
- W6N58JrqMRsop7FeXQP1bf4XSHyz66ljVkUNgKhzuDKbJZVRx3Eso8t1kqe8Hmlic+/Q
- 7AouuZrpe3kR5ILuX0pTuPocke6q1rltMZSWFfeEDXjhQAbZRYC47hw0KvO8D+XG58ve
- 5D2Q==
-X-Gm-Message-State: AOAM530S61VsmqtKTo8pvbpcVs/VM/GssqtapswQMhdDAmeBQQbUg63f
- lAZ9ug7im2V0tnszJTQnkOGwcOKSqPXn0zMdZjITmD4hNY83LNxmAVQdWxagygCr83+ams88EBR
- NlB4yEYE6t+fXrwKMH/FxjWvBmbq6
-X-Received: by 2002:a37:a20f:: with SMTP id l15mr407102qke.24.1629322533474;
- Wed, 18 Aug 2021 14:35:33 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyab94WdMZQNzhRfZljOGpr8kFn3ZnlXdrrtrXo2AH/UwoRuFvOGPN7L8HPmN/brDTP7nCFjw==
-X-Received: by 2002:a37:a20f:: with SMTP id l15mr407091qke.24.1629322533300;
- Wed, 18 Aug 2021 14:35:33 -0700 (PDT)
-Received: from Ruby.lyude.net (pool-108-49-102-102.bstnma.fios.verizon.net.
- [108.49.102.102])
- by smtp.gmail.com with ESMTPSA id f7sm543379qko.52.2021.08.18.14.35.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Aug 2021 14:35:32 -0700 (PDT)
-Message-ID: <5fe94acc12b0f845cd55436056368c3bf9e48544.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: Hans de Goede <hdegoede@redhat.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Imre Deak <imre.deak@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>, Heikki
- Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org,  linux-usb@vger.kernel.org
-Date: Wed, 18 Aug 2021 17:35:31 -0400
-In-Reply-To: <20210817215201.795062-2-hdegoede@redhat.com>
-References: <20210817215201.795062-1-hdegoede@redhat.com>
- <20210817215201.795062-2-hdegoede@redhat.com>
-Organization: Red Hat
-User-Agent: Evolution 3.38.4 (3.38.4-1.fc33)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF9766E8D8;
+	Wed, 18 Aug 2021 21:58:00 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF5D890A5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 21:56:38 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="203635120"
+X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="203635120"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 14:56:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="641484737"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by orsmga005.jf.intel.com with ESMTP; 18 Aug 2021 14:56:35 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Wed, 18 Aug 2021 14:56:35 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Wed, 18 Aug 2021 14:56:34 -0700
+Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
+ fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2242.010;
+ Wed, 18 Aug 2021 14:56:34 -0700
+From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
+To: "Roper, Matthew D" <matthew.d.roper@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+CC: "Roper, Matthew D" <matthew.d.roper@intel.com>, "Harrison, John C"
+ <john.c.harrison@intel.com>
+Thread-Topic: [Intel-gfx] [PATCH v5 8/9] drm/i915/dg2: Maintain
+ backward-compatible nested batch behavior
+Thread-Index: AQHXihgkV+CAu7JHSkmqel2bRRpXYqt5433A
+Date: Wed, 18 Aug 2021 21:56:34 +0000
+Message-ID: <3ba20812b10d4b4981794cafc663fb95@intel.com>
+References: <20210805163647.801064-1-matthew.d.roper@intel.com>
+ <20210805163647.801064-9-matthew.d.roper@intel.com>
+In-Reply-To: <20210805163647.801064-9-matthew.d.roper@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.132]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH 1/8] drm/connector: Give connector sysfs
- devices there own device_type
+Subject: Re: [Intel-gfx] [PATCH v5 8/9] drm/i915/dg2: Maintain
+ backward-compatible nested batch behavior
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,126 +84,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2021-08-17 at 23:51 +0200, Hans de Goede wrote:
-> Give connector sysfs devices there own device_type, this allows us to
-> check if a device passed to functions dealing with generic devices is
-> a drm_connector or not.
-> 
-> A check like this is necessary in the drm_connector_acpi_bus_match()
-> function added in the next patch in this series.
-> 
-> Tested-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+
+
+> -----Original Message-----
+> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Ma=
+tt
+> Roper
+> Sent: Thursday, August 5, 2021 9:37 AM
+> To: intel-gfx@lists.freedesktop.org
+> Cc: Roper, Matthew D <matthew.d.roper@intel.com>; Harrison, John C
+> <john.c.harrison@intel.com>
+> Subject: [Intel-gfx] [PATCH v5 8/9] drm/i915/dg2: Maintain backward-
+> compatible nested batch behavior
+>=20
+> For tgl+, the per-context setting of MI_MODE[12] determines whether the
+> bits of a nested MI_BATCH_BUFFER_START instruction should be interpreted
+> in the traditional manner or whether they should instead use a new tgl+
+> meaning that breaks backward compatibility, but allows nesting into 3rd-
+> level batchbuffers.  For previous platforms, the hardware default for thi=
+s
+> register bit is to maintain backward-compatible behavior unless a context
+> intentionally opts into the new behavior; however Xe_HPG flips the hardwa=
+re
+> default behavior.
+>=20
+> From a SW perspective, we want to maintain the backward-compatible
+> behavior for userspace, so we'll apply a fake workaround to set it back t=
+o the
+> legacy behavior on platforms where the hardware default is to break
+> compatibility.  At the moment there is no Linux userspace that utilizes t=
+hird-
+> level batchbuffers, so this will avoid userspace from needing to make any
+> changes.  using the legacy meaning is the correct thing to do.  If/when w=
+e
+> have userspace consumers that want to utilize third-level batch nesting, =
+we
+> can provide a context parameter to allow them to opt-in.
+>=20
+> Bspec: 45974, 45718
+> Cc: John Harrison <John.C.Harrison@Intel.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+
+Looks good.
+
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+
 > ---
->  drivers/gpu/drm/drm_sysfs.c | 50 +++++++++++++++++++++++++++----------
->  1 file changed, 37 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-> index 968a9560b4aa..f9d92bbb1f98 100644
-> --- a/drivers/gpu/drm/drm_sysfs.c
-> +++ b/drivers/gpu/drm/drm_sysfs.c
-> @@ -50,6 +50,10 @@ static struct device_type drm_sysfs_device_minor = {
->         .name = "drm_minor"
->  };
->  
-> +static struct device_type drm_sysfs_device_connector = {
-> +       .name = "drm_connector",
-> +};
-> +
->  struct class *drm_class;
->  
->  static char *drm_devnode(struct device *dev, umode_t *mode)
-> @@ -102,6 +106,11 @@ void drm_sysfs_destroy(void)
->         drm_class = NULL;
->  }
->  
-> +static void drm_sysfs_release(struct device *dev)
+>  drivers/gpu/drm/i915/gt/intel_workarounds.c | 39 +++++++++++++++++++--
+>  drivers/gpu/drm/i915/i915_reg.h             |  1 +
+>  2 files changed, 38 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> index aae609d7d85d..97b3cd81b721 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> @@ -644,6 +644,37 @@ static void dg1_ctx_workarounds_init(struct
+> intel_engine_cs *engine,
+>  		     DG1_HZ_READ_SUPPRESSION_OPTIMIZATION_DISABLE);
+>  }
+>=20
+> +static void fakewa_disable_nestedbb_mode(struct intel_engine_cs *engine,
+> +					 struct i915_wa_list *wal)
 > +{
-> +       kfree(dev);
+> +	/*
+> +	 * This is a "fake" workaround defined by software to ensure we
+> +	 * maintain reliable, backward-compatible behavior for userspace
+> with
+> +	 * regards to how nested MI_BATCH_BUFFER_START commands are
+> handled.
+> +	 *
+> +	 * The per-context setting of MI_MODE[12] determines whether the
+> bits
+> +	 * of a nested MI_BATCH_BUFFER_START instruction should be
+> interpreted
+> +	 * in the traditional manner or whether they should instead use a
+> new
+> +	 * tgl+ meaning that breaks backward compatibility, but allows
+> nesting
+> +	 * into 3rd-level batchbuffers.  When this new capability was first
+> +	 * added in TGL, it remained off by default unless a context
+> +	 * intentionally opted in to the new behavior.  However Xe_HPG now
+> +	 * flips this on by default and requires that we explicitly opt out if
+> +	 * we don't want the new behavior.
+> +	 *
+> +	 * From a SW perspective, we want to maintain the backward-
+> compatible
+> +	 * behavior for userspace, so we'll apply a fake workaround to set it
+> +	 * back to the legacy behavior on platforms where the hardware
+> default
+> +	 * is to break compatibility.  At the moment there is no Linux
+> +	 * userspace that utilizes third-level batchbuffers, so this will avoid
+> +	 * userspace from needing to make any changes.  using the legacy
+> +	 * meaning is the correct thing to do.  If/when we have userspace
+> +	 * consumers that want to utilize third-level batch nesting, we can
+> +	 * provide a context parameter to allow them to opt-in.
+> +	 */
+> +	wa_masked_dis(wal, RING_MI_MODE(engine->mmio_base),
+> TGL_NESTED_BB_EN);
 > +}
 > +
->  /*
->   * Connector properties
->   */
-> @@ -273,27 +282,47 @@ static const struct attribute_group
-> *connector_dev_groups[] = {
->  int drm_sysfs_connector_add(struct drm_connector *connector)
->  {
->         struct drm_device *dev = connector->dev;
-> +       struct device *kdev;
-> +       int r;
->  
->         if (connector->kdev)
->                 return 0;
->  
-> -       connector->kdev =
-> -               device_create_with_groups(drm_class, dev->primary->kdev, 0,
-> -                                         connector, connector_dev_groups,
-> -                                         "card%d-%s", dev->primary->index,
-> -                                         connector->name);
-> +       kdev = kzalloc(sizeof(*kdev), GFP_KERNEL);
-> +       if (!kdev)
-> +               return -ENOMEM;
+>  static void
+>  __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+>  			   struct i915_wa_list *wal,
+> @@ -651,11 +682,15 @@ __intel_engine_init_ctx_wa(struct intel_engine_cs
+> *engine,  {
+>  	struct drm_i915_private *i915 =3D engine->i915;
+>=20
+> +	wa_init_start(wal, name, engine->name);
 > +
-> +       device_initialize(kdev);
-> +       kdev->class = drm_class;
-> +       kdev->type = &drm_sysfs_device_connector;
-> +       kdev->parent = dev->primary->kdev;
-> +       kdev->groups = connector_dev_groups;
-> +       kdev->release = drm_sysfs_release;
-> +       dev_set_drvdata(kdev, connector);
+> +	/* Applies to all engines */
+> +	if (GRAPHICS_VER_FULL(i915) >=3D IP_VER(12, 55))
+> +		fakewa_disable_nestedbb_mode(engine, wal);
 > +
-> +       r = dev_set_name(kdev, "card%d-%s", dev->primary->index, connector-
-> >name);
-> +       if (r)
-> +               goto err_free;
-> +
->         DRM_DEBUG("adding \"%s\" to sysfs\n",
->                   connector->name);
->  
-> -       if (IS_ERR(connector->kdev)) {
-> -               DRM_ERROR("failed to register connector device: %ld\n",
-> PTR_ERR(connector->kdev));
-> -               return PTR_ERR(connector->kdev);
-> +       r = device_add(kdev);
-> +       if (r) {
-> +               DRM_ERROR("failed to register connector device: %d\n", r);
-> +               goto err_free;
-
-Should probably be using drm_err() here since we have access to struct
-drm_device *
-
->         }
->  
-> +       connector->kdev = kdev;
-> +
->         if (connector->ddc)
->                 return sysfs_create_link(&connector->kdev->kobj,
->                                  &connector->ddc->dev.kobj, "ddc");
->         return 0;
-> +
-> +err_free:
-> +       put_device(kdev);
-> +       return r;
->  }
->  
->  void drm_sysfs_connector_remove(struct drm_connector *connector)
-> @@ -374,11 +403,6 @@ void drm_sysfs_connector_status_event(struct
-> drm_connector *connector,
->  }
->  EXPORT_SYMBOL(drm_sysfs_connector_status_event);
->  
-> -static void drm_sysfs_release(struct device *dev)
-> -{
-> -       kfree(dev);
-> -}
+>  	if (engine->class !=3D RENDER_CLASS)
+>  		return;
+>=20
+> -	wa_init_start(wal, name, engine->name);
 > -
->  struct device *drm_sysfs_minor_alloc(struct drm_minor *minor)
->  {
->         const char *minor_str;
-
--- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+>  	if (IS_DG1(i915))
+>  		dg1_ctx_workarounds_init(engine, wal);
+>  	else if (GRAPHICS_VER(i915) =3D=3D 12)
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h
+> b/drivers/gpu/drm/i915/i915_reg.h index 77f6dcaba2b9..269685955fbd
+> 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -2821,6 +2821,7 @@ static inline bool i915_mmio_reg_valid(i915_reg_t
+> reg)
+>  #define MI_MODE		_MMIO(0x209c)
+>  # define VS_TIMER_DISPATCH				(1 << 6)
+>  # define MI_FLUSH_ENABLE				(1 << 12)
+> +# define TGL_NESTED_BB_EN				(1 << 12)
+>  # define ASYNC_FLIP_PERF_DISABLE			(1 << 14)
+>  # define MODE_IDLE					(1 << 9)
+>  # define STOP_RING					(1 << 8)
+> --
+> 2.25.4
 
