@@ -2,51 +2,69 @@ Return-Path: <SRS0=K2GL=NJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F2BCC4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:13:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B25AC4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:37:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DC9C560E76
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:13:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DC9C560E76
+	by mail.kernel.org (Postfix) with ESMTPS id 2D4A3610CD
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 21:37:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2D4A3610CD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A1D56E8C7;
-	Wed, 18 Aug 2021 21:13:30 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99AC06E8C7;
- Wed, 18 Aug 2021 21:13:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216426133"
-X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="216426133"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 14:13:22 -0700
-X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="521235962"
-Received: from ygagnonx-mobl1.amr.corp.intel.com (HELO intel.com)
- ([10.255.34.119])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 14:13:20 -0700
-Date: Wed, 18 Aug 2021 17:13:19 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Message-ID: <YR137zkSAIbun1Ed@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26AE06E8D1;
+	Wed, 18 Aug 2021 21:37:40 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 721308930E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 21:35:57 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="277455512"
+X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="277455512"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 14:35:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="424381175"
+Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
+ by orsmga003.jf.intel.com with ESMTP; 18 Aug 2021 14:35:56 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Wed, 18 Aug 2021 14:35:56 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Wed, 18 Aug 2021 14:35:55 -0700
+Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
+ ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2242.010;
+ Wed, 18 Aug 2021 14:35:55 -0700
+From: "Souza, Jose" <jose.souza@intel.com>
+To: "Roper, Matthew D" <matthew.d.roper@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+CC: "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>
+Thread-Topic: [Intel-gfx] [PATCH] drm/i915/adl_p: Also disable underrun
+ recovery with MSO
+Thread-Index: AQHXkt8er5cYewL2BUeH2Hdz2e63J6t6QwYA
+Date: Wed, 18 Aug 2021 21:35:55 +0000
+Message-ID: <44704aac36d264f17d5673bf844310d1154ea49e.camel@intel.com>
+References: <20210816204112.2960624-1-matthew.d.roper@intel.com>
+In-Reply-To: <20210816204112.2960624-1-matthew.d.roper@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.22.254.132]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <9B4A4F3C4848954E907790BB0403E609@intel.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] drm-intel-fixes
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/adl_p: Also disable underrun
+ recovery with MSO
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,44 +80,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave and Daniel,
-
-Here goes drm-intel-fixes-2021-08-18:
-
-- Expand a tweaked display workaround for all PCHs. (Anshuman)
-- Fix eDP MSO pipe sanity checks for ADL-P. (Jani)
-- Remove superfluous EXPORT_SYMBOL(). (Jani)
-
-Thanks,
-Rodrigo.
-
-The following changes since commit 7c60610d476766e128cc4284bb6349732cbd6606:
-
-  Linux 5.14-rc6 (2021-08-15 13:40:53 -1000)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2021-08-18
-
-for you to fetch changes up to e3e86f41385b2b5d5f771de6009748b584334366:
-
-  drm/i915/dp: remove superfluous EXPORT_SYMBOL() (2021-08-18 07:23:57 -0400)
-
-----------------------------------------------------------------
-- Expand a tweaked display workaround for all PCHs. (Anshuman)
-- Fix eDP MSO pipe sanity checks for ADL-P. (Jani)
-- Remove superfluous EXPORT_SYMBOL(). (Jani)
-
-----------------------------------------------------------------
-Anshuman Gupta (1):
-      drm/i915: Tweaked Wa_14010685332 for all PCHs
-
-Jani Nikula (2):
-      drm/i915/edp: fix eDP MSO pipe sanity checks for ADL-P
-      drm/i915/dp: remove superfluous EXPORT_SYMBOL()
-
- drivers/gpu/drm/i915/display/intel_ddi.c           | 24 +++++++++++-----------
- drivers/gpu/drm/i915/display/intel_display_power.c | 16 +++++++--------
- .../gpu/drm/i915/display/intel_dp_link_training.c  |  1 -
- drivers/gpu/drm/i915/i915_irq.c                    | 21 -------------------
- 4 files changed, 20 insertions(+), 42 deletions(-)
+T24gTW9uLCAyMDIxLTA4LTE2IGF0IDEzOjQxIC0wNzAwLCBNYXR0IFJvcGVyIHdyb3RlOg0KPiBP
+bmUgb2YgdGhlIGNhc2VzIHRoYXQgdGhlIGJzcGVjIGxpc3RzIGZvciB3aGVuIHVuZGVycnVuIHJl
+Y292ZXJ5IG11c3QgYmUNCj4gZGlzYWJsZWQgaXMgIkNPRzsiIHRoYXQgbm90ZSBhY3R1YWxseSBy
+ZWZlcnMgdG8gZURQIG11bHRpLXNlZ21lbnRlZA0KPiBvcGVyYXRpb24gKE1TTykuICBMZXQncyBl
+bnN1cmUgdGhlIHRoaXMgYWRkaXRpb25hbCByZXN0cmljdGlvbiBpcw0KPiBob25vcmVkIGJ5IHRo
+ZSBkcml2ZXIuDQoNClJldmlld2VkLWJ5OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNv
+dXphQGludGVsLmNvbT4NCg0KPiANCj4gQnNwZWM6IDUwMzUxDQo+IENjOiBWaWxsZSBTeXJqw6Rs
+w6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPg0KPiBGaXhlczogYmEzYjA0OWY0Nzc0
+ICgiZHJtL2k5MTUvYWRsX3A6IEFsbG93IHVuZGVycnVuIHJlY292ZXJ5IHdoZW4gcG9zc2libGUi
+KQ0KPiBTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwuY29t
+Pg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5j
+IHwgMyArKysNCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykNCj4gDQo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jDQo+IGluZGV4IGEyNTdl
+NWRjMzgxYy4uMTM0YTZhY2JkOGZiIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2Rpc3BsYXkuYw0KPiBAQCAtMjIyNiw2ICsyMjI2LDkgQEAgc3RhdGljIGJv
+b2wgdW5kZXJydW5fcmVjb3Zlcnlfc3VwcG9ydGVkKGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0
+YXRlICpjcnRjX3N0YXQNCj4gIAlpZiAoY3J0Y19zdGF0ZS0+aGFzX3BzcjIpDQo+ICAJCXJldHVy
+biBmYWxzZTsNCj4gIA0KPiArCWlmIChjcnRjX3N0YXRlLT5zcGxpdHRlci5lbmFibGUpDQo+ICsJ
+CXJldHVybiBmYWxzZTsNCj4gKw0KPiAgCXJldHVybiB0cnVlOw0KPiAgfQ0KPiAgDQoNCg==
