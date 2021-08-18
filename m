@@ -2,82 +2,107 @@ Return-Path: <SRS0=K2GL=NJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9BFDC4320A
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:26:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB7A0C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:26:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72E6E60E90
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:26:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 72E6E60E90
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7F9BC60EE0
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:26:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7F9BC60EE0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D71D26E570;
-	Wed, 18 Aug 2021 11:26:02 +0000 (UTC)
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B52FA89E98;
- Wed, 18 Aug 2021 07:41:28 +0000 (UTC)
-Received: by mail-pf1-x432.google.com with SMTP id i133so1270791pfe.12;
- Wed, 18 Aug 2021 00:41:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=1bkLMEw2t/totCFLQIzrVHXO8lyHlY0O9pr/RZGsdI0=;
- b=bLirg/ekc0It+7MhEmdqeKW1uskct7uSLEYEWb5Ts5xbzkUlwtt0MXY+lJk9DGWH0b
- Uqv9IwaVom6h+9HWW2VpWO/ZrDFqJx917Te1eyb59FUAVKaVVQ6cIDAYwQZGA/SqTxQ3
- okt1jnoVvDtYswWK6eXPFUwy4mbZ41c62jY+cFma3PrODfQ6olrM1dkWU8e+fnUdhuA6
- LcRvdhF2laqs5TgwKBgnqpmuons9CZfNplWWsgdfHzRXRlDU4/zxRj0MD2cYdlg/kgz6
- uQy/f3qvZI+gA9UJxHE+io77IuzIlxyEJuKlHcVdF3i4FEKKISV1yS+JwxrBszCcmW6+
- ed/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=1bkLMEw2t/totCFLQIzrVHXO8lyHlY0O9pr/RZGsdI0=;
- b=Vd0BsOvi0gSrbnSZBysGD5jm7S7HuHjyLzeSr+aGMCwXhvOBZlfrmUHOmHDeFzdlBX
- OWstgwBcfcdMpY1rFJEyWdy1bTVxYvmJTAYTfc/W6yjpRi1f3g9ca44UPwy3kwSMAN0F
- EFhauO9xUOXLuo3Vm0BUti1mqjV6Qx0LXzY5asf6FYXv+QWONdIHEwkhu1uD8K4HUz1U
- MmiHOrxzapPPl3L7p0ZiN6HF9lC8uNYFIlr5Bh/X5qMt54uFYI8DQJ+wdQu43iKn6WEx
- oI7+xwi5QZ49nZcLN/LAyK9BQkg903dG6Pc1J4h17O6gdVmFg9Tk2IDrVfR8Zv5nKP/y
- ubjQ==
-X-Gm-Message-State: AOAM532eVRTxaCh37HfytaTNHFB8xY7OuZk/lC2IPQSfbEsbBbvBr2ws
- /Ers/SC4J4HAiw/wM79Cu1I=
-X-Google-Smtp-Source: ABdhPJys3HPHWTRsAjT+5YnD6rJNYZL136LiYwwEF8beumJZ6hVGWSIIaE7eeFYyLYOhAlW2I2XuJQ==
-X-Received: by 2002:a05:6a00:181c:b029:3c6:2258:a844 with SMTP id
- y28-20020a056a00181cb02903c62258a844mr8044761pfa.6.1629272488381; 
- Wed, 18 Aug 2021 00:41:28 -0700 (PDT)
-Received: from localhost.localdomain ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id u3sm3886729pjr.2.2021.08.18.00.41.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Aug 2021 00:41:27 -0700 (PDT)
-From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
- christian.koenig@amd.com, axboe@kernel.dk, oleg@redhat.com,
- tglx@linutronix.de, dvyukov@google.com, walter-zh.wu@mediatek.com
-Cc: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, skhan@linuxfoundation.org,
- gregkh@linuxfoundation.org, linux-kernel-mentees@lists.linuxfoundation.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed, 18 Aug 2021 15:38:24 +0800
-Message-Id: <20210818073824.1560124-10-desmondcheongzx@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210818073824.1560124-1-desmondcheongzx@gmail.com>
-References: <20210818073824.1560124-1-desmondcheongzx@gmail.com>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C350F6E575;
+	Wed, 18 Aug 2021 11:26:15 +0000 (UTC)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4706E53C;
+ Wed, 18 Aug 2021 11:21:12 +0000 (UTC)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 17IB31lO156050; Wed, 18 Aug 2021 07:21:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=date : from : to : cc :
+ subject : message-id : references : content-type : in-reply-to :
+ content-transfer-encoding : mime-version; s=pp1;
+ bh=Edn45vo36K8lU6chCt343f0Z8Lrbpyo+EM+iBU5jXQs=;
+ b=D/UJ5aOle8HgbA72+BqLI4XbUmsjoVjOsGYAEyzbOi49FxouXj1C95qkmUkkO56LB4Se
+ +sLphIGQ/TcZ9X/6EhOYoF7PNC03C032DiFCAxZTdYg/N8KejWAoEZ6Iea7KoQ7l7/3e
+ v1PyNI2vKh2S0K1cGV5qMwyznzQAppmdlsCla9UAoUrqR/6iXEhu4LMNVQdqMtbel/Pu
+ EnxfDVQ+xIDKtfHlhxrkjL6vTdyitRX5W7HDrwscym2mqhY2CYILO4M9+RgJp3CfEMbU
+ vdMaDag+pOgY6f8HlFnsIk17mOqHMh6mMed9znQCkWO0SCa0QcOYlp6oMC/jbxW4NQsB wQ== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3agp1p052q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Aug 2021 07:21:07 -0400
+Received: from m0098417.ppops.net (m0098417.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 17IB42KI159416;
+ Wed, 18 Aug 2021 07:21:07 -0400
+Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.102])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3agp1p0522-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Aug 2021 07:21:07 -0400
+Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
+ by ppma06ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17IBJhh5008650;
+ Wed, 18 Aug 2021 11:21:05 GMT
+Received: from b06avi18878370.portsmouth.uk.ibm.com
+ (b06avi18878370.portsmouth.uk.ibm.com [9.149.26.194])
+ by ppma06ams.nl.ibm.com with ESMTP id 3ae53hxgd7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Aug 2021 11:21:05 +0000
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com
+ (b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
+ by b06avi18878370.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
+ id 17IBHXA459507010
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 18 Aug 2021 11:17:33 GMT
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CA6F3A4054;
+ Wed, 18 Aug 2021 11:21:02 +0000 (GMT)
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 710A5A4068;
+ Wed, 18 Aug 2021 11:21:02 +0000 (GMT)
+Received: from osiris (unknown [9.145.167.240])
+ by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Wed, 18 Aug 2021 11:21:02 +0000 (GMT)
+Date: Wed, 18 Aug 2021 13:20:54 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+ Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Cc: Dave Airlie <airlied@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Message-ID: <YRztFhtGS9RkP2Bf@osiris>
+References: <YRe7I67h4gMVOWuu@osiris>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+In-Reply-To: <YRe7I67h4gMVOWuu@osiris>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: XETsc40UgQ0fkxOGqhka2r3N4Jy-ZLq_
+X-Proofpoint-ORIG-GUID: JfZTvNTVeQIUs6qj7U_gh0cetlGOrhZr
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 18 Aug 2021 11:25:39 +0000
-Subject: [Intel-gfx] [PATCH v3 9/9] drm: avoid races with modesetting rights
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
+ definitions=2021-08-18_03:2021-08-17,
+ 2021-08-18 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 mlxlogscore=999
+ mlxscore=0 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ phishscore=0 priorityscore=1501 spamscore=0 impostorscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
+ definitions=main-2108180069
+X-Mailman-Approved-At: Wed, 18 Aug 2021 11:25:37 +0000
+Subject: Re: [Intel-gfx] [BUG - BISECTED] display not detected anymore
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,183 +118,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In drm_client_modeset.c and drm_fb_helper.c,
-drm_master_internal_{acquire,release} are used to avoid races with DRM
-userspace. These functions hold onto drm_device.master_rwsem while
-committing, and bail if there's already a master.
+On Sat, Aug 14, 2021 at 02:46:27PM +0200, Heiko Carstens wrote:
+> Hello,
+> 
+> I have Fedora 33 running, and with the Fedore kernel update from 5.11
+> series to 5.12 my external monitor was not detected anymore. Same is
+> true with the Fedora supplied 5.13 kernel version.
+> 
+> So I tried with vanilla kernel 5.11 and latest git head from Linus'
+> tree. 5.11 works while latest git head does not. Bisecting the problem
+> points to commit 32c3d9b0f51e ("Merge tag 'drm-intel-next-2021-01-27'
+> of git://anongit.freedesktop.org/drm/drm-intel into drm-next").
+> 
+> Unfortunately it is a merge commit, so it looks like conflicting
+> changes have been made in the parent branches.
+> 
+> Hardware in use:
+> 
+> - ThinkPad X1 Yoga 4th / Carbon 7th
+> - Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz
+> 
+> The Thinkpad is connected to a ThinkPad Thunderbolt 3 Dock with a
+> Thunderbolt cable and a monitor (Eizo EV3285) is connected via
+> Displayport to the docking station.
+> 
+> The monitor is detected and works without any problems (4k@60HZ)
+> before the above mentioned merge commit. With the commit and
+> afterwards it is not detected anymore and only the Thinkpad builtin
+> display can be used.
+> 
+> Any idea what went wrong? I can provide more information, or test
+> debug patches if wanted. Just let me know.
 
-However, there are other places where modesetting rights can race. A
-time-of-check-to-time-of-use error can occur if an ioctl that changes
-the modeset has its rights revoked after it validates its permissions,
-but before it completes.
+So looks like I made a mistake when bisecting (it literally took me
+two days due to the low power machine, even with a minimized kernel
+config). Anyway, looking into it again the first bad commit is
 
-There are four places where modesetting permissions can change:
+ef79d62b5ce5 ("drm/i915: Encapsulate dbuf state handling harder")
 
-- DROP_MASTER ioctl removes rights for a master and its leases
+With that commit the display is not detected anymore, one commit
+before that it still works. So this one seems to be broken.
 
-- REVOKE_LEASE ioctl revokes rights for a specific lease
+Ville, Stanislav, any idea how to fix this?
 
-- SET_MASTER ioctl sets the device master if the master role hasn't
-been acquired yet
+commit ef79d62b5ce53851901d6c1d21b74cbb9e27219b
+Author: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Date:   Fri Jan 22 22:56:32 2021 +0200
 
-- drm_open which can create a new master for a device if one does not
-currently exist
-
-These races can be avoided using drm_device.master_rwsem: users that
-perform modesetting should hold a read lock on the new
-drm_device.master_rwsem, and users that change these permissions
-should either hold a write lock, or should flush readers before
-returning to userspace.
-
-Reported-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
----
- drivers/gpu/drm/drm_auth.c     | 29 +++++++++++++++++++++++++++++
- drivers/gpu/drm/drm_internal.h |  1 +
- drivers/gpu/drm/drm_ioctl.c    |  8 ++++++--
- drivers/gpu/drm/drm_lease.c    |  1 +
- include/drm/drm_device.h       | 10 +++++++++-
- 5 files changed, 46 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-index b65681ff42fc..84d00275ff8a 100644
---- a/drivers/gpu/drm/drm_auth.c
-+++ b/drivers/gpu/drm/drm_auth.c
-@@ -29,6 +29,7 @@
-  */
- 
- #include <linux/slab.h>
-+#include <linux/task_work.h>
- 
- #include <drm/drm_auth.h>
- #include <drm/drm_drv.h>
-@@ -127,6 +128,7 @@ int drm_authmagic(struct drm_device *dev, void *data,
- 
- 	DRM_DEBUG("%u\n", auth->magic);
- 
-+	lockdep_assert_held_once(&dev->master_rwsem);
- 	spin_lock(&dev->master_lookup_lock);
- 	file = idr_find(&file_priv->master->magic_map, auth->magic);
- 	if (file) {
-@@ -485,3 +487,30 @@ void drm_master_internal_release(struct drm_device *dev)
- 	up_read(&dev->master_rwsem);
- }
- EXPORT_SYMBOL(drm_master_internal_release);
-+
-+/* After flushing, all readers that might have seen old master/lease
-+ * permissions are guaranteed to have completed.
-+ */
-+static void master_flush(struct callback_head *cb)
-+{
-+	struct drm_device *dev = container_of(cb, struct drm_device,
-+					      master_flush_work);
-+
-+	down_write(&dev->master_rwsem);
-+	up_write(&dev->master_rwsem);
-+}
-+
-+/* Queues up work to flush all readers of master/lease permissions. This work
-+ * is run before this task returns to user mode. Calling this function when a
-+ * task changes modesetting rights ensures that other processes that perform
-+ * modesetting do not race with userspace.
-+ */
-+void drm_master_flush(struct drm_device *dev)
-+{
-+	init_task_work(&dev->master_flush_work, master_flush);
-+	task_work_add(current, &dev->master_flush_work, TWA_RESUME);
-+	/* If task_work_add fails, then the task is exiting. In this case, it
-+	 * doesn't matter if master_flush is run, so we don't need an
-+	 * alternative mechanism for flushing.
-+	 */
-+}
-diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
-index 17f3548c8ed2..b1cd39338756 100644
---- a/drivers/gpu/drm/drm_internal.h
-+++ b/drivers/gpu/drm/drm_internal.h
-@@ -144,6 +144,7 @@ int drm_master_open(struct drm_file *file_priv);
- void drm_master_release(struct drm_file *file_priv);
- bool drm_master_internal_acquire(struct drm_device *dev);
- void drm_master_internal_release(struct drm_device *dev);
-+void drm_master_flush(struct drm_device *dev);
- 
- /* drm_sysfs.c */
- extern struct class *drm_class;
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 2cb57378a787..7f523e1c5650 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -390,7 +390,7 @@ static int drm_setversion(struct drm_device *dev, void *data, struct drm_file *f
- 	struct drm_set_version *sv = data;
- 	int if_version, retcode = 0;
- 
--	down_read(&dev->master_rwsem);
-+	lockdep_assert_held_once(&dev->master_rwsem);
- 	if (sv->drm_di_major != -1) {
- 		if (sv->drm_di_major != DRM_IF_MAJOR ||
- 		    sv->drm_di_minor < 0 || sv->drm_di_minor > DRM_IF_MINOR) {
-@@ -427,7 +427,6 @@ static int drm_setversion(struct drm_device *dev, void *data, struct drm_file *f
- 	sv->drm_di_minor = DRM_IF_MINOR;
- 	sv->drm_dd_major = dev->driver->major;
- 	sv->drm_dd_minor = dev->driver->minor;
--	up_read(&dev->master_rwsem);
- 
- 	return retcode;
- }
-@@ -783,6 +782,9 @@ long drm_ioctl_kernel(struct file *file, drm_ioctl_t *func, void *kdata,
- 	if (unlikely(drm_dev_needs_global_mutex(dev)) && !(flags & DRM_UNLOCKED))
- 		mutex_lock(&drm_global_mutex);
- 
-+	if (unlikely(flags & DRM_MASTER))
-+		down_read(&dev->master_rwsem);
-+
- 	retcode = drm_ioctl_permit(flags, file_priv);
- 	if (unlikely(retcode))
- 		goto out;
-@@ -790,6 +792,8 @@ long drm_ioctl_kernel(struct file *file, drm_ioctl_t *func, void *kdata,
- 	retcode = func(dev, kdata, file_priv);
- 
- out:
-+	if (unlikely(flags & DRM_MASTER))
-+		up_read(&dev->master_rwsem);
- 	if (unlikely(drm_dev_needs_global_mutex(dev)) && !(flags & DRM_UNLOCKED))
- 		mutex_unlock(&drm_global_mutex);
- 	return retcode;
-diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
-index dee4f24a1808..983701198ffd 100644
---- a/drivers/gpu/drm/drm_lease.c
-+++ b/drivers/gpu/drm/drm_lease.c
-@@ -723,6 +723,7 @@ int drm_mode_revoke_lease_ioctl(struct drm_device *dev,
- 	}
- 
- 	_drm_lease_revoke(lessee);
-+	drm_master_flush(dev);
- 
- fail:
- 	mutex_unlock(&dev->mode_config.idr_mutex);
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index f1ae4570a20a..617f7fe1d3bf 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -151,10 +151,18 @@ struct drm_device {
- 	 * Synchronizes modesetting rights between multiple users. Users that
- 	 * can change the modeset or display state must hold a read lock on
- 	 * @master_rwsem, and users that change modesetting rights should hold
--	 * a write lock.
-+	 * a write lock or flush readers before returning to userspace.
- 	 */
- 	struct rw_semaphore master_rwsem;
- 
-+	/**
-+	 * @master_flush_work:
-+	 *
-+	 * Callback structure used internally to queue work to flush readers of
-+	 * master/lease permissions.
-+	 */
-+	struct callback_head master_flush_work;
-+
- 	/**
- 	 * @master_lookup_lock:
- 	 *
--- 
-2.25.1
-
+    drm/i915: Encapsulate dbuf state handling harder
+    
+    In order to make the dbuf state computation less fragile
+    let's make it stand on its own feet by not requiring someone
+    to peek into a crystall ball ahead of time to figure out
+    which pipes need to be added to the state under which potential
+    future conditions. Instead we compute each piece of the state
+    as we go along, and if any fallout occurs that affects more than
+    the current set of pipes we add the affected pipes to the state
+    naturally.
+    
+    That requires that we track a few extra thigns in the global
+    dbuf state: dbuf slices for each pipe, and the weight each
+    pipe has when distributing the same set of slice(s) between
+    multiple pipes. Easy enough.
+    
+    We do need to follow a somewhat careful sequence of computations
+    though as there are several steps involved in cooking up the dbuf
+    state. Thoguh we could avoid some of that by computing more things
+    on demand instead of relying on earlier step of the algorithm to
+    have filled it out. I think the end result is still reasonable
+    as the entire sequence is pretty much consolidated into a single
+    function instead of being spread around all over.
+    
+    The rough sequence is this:
+    1. calculate active_pipes
+    2. calculate dbuf slices for every pipe
+    3. calculate total enabled slices
+    4. calculate new dbuf weights for any crtc in the state
+    5. calculate new ddb entry for every pipe based on the sets of
+       slices and weights, and add any affected crtc to the state
+    6. calculate new plane ddb entries for all crtcs in the state,
+       and add any affected plane to the state so that we'll perform
+       the requisite hw reprogramming
+    
+    And as a nice bonus we get to throw dev_priv->wm.distrust_bios_wm
+    out the window.
+    
+    v2: Keep crtc_state->wm.skl.ddb
+    
+    Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+    Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+    Link: https://patchwork.freedesktop.org/patch/msgid/20210122205633.18492-8-ville.syrjala@linux.intel.com
