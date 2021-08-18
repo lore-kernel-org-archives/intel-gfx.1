@@ -2,33 +2,33 @@ Return-Path: <SRS0=K2GL=NJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 881B9C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 00:37:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74467C4320A
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 00:37:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B34060FD7
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 00:37:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4B34060FD7
+	by mail.kernel.org (Postfix) with ESMTPS id 40D4E60FA0
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 00:37:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 40D4E60FA0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9CB56E2DC;
-	Wed, 18 Aug 2021 00:37:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 101C56E2E6;
+	Wed, 18 Aug 2021 00:37:39 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 045756E247
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E36676E2B4
  for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 00:37:32 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="279966464"
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="279966464"
+X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="279966463"
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="279966463"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Aug 2021 17:37:32 -0700
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="676844454"
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="676844450"
 Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
  ([10.24.14.59])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -36,16 +36,16 @@ Received: from josouza-mobl2.jf.intel.com (HELO josouza-mobl2.intel.com)
 From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Date: Tue, 17 Aug 2021 17:42:14 -0700
-Message-Id: <20210818004216.220279-7-jose.souza@intel.com>
+Date: Tue, 17 Aug 2021 17:42:13 -0700
+Message-Id: <20210818004216.220279-6-jose.souza@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210818004216.220279-1-jose.souza@intel.com>
 References: <20210818004216.220279-1-jose.souza@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/8] drm/i915/display: Prepare DRRS for
- frontbuffer rendering drop
+Subject: [Intel-gfx] [PATCH 5/8] drm/i915/display: Share code between
+ intel_edp_drrs_flush and invalidate
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,83 +61,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Frontbuffer rendering will be dropped for modern platforms but
-before that we to prepare DRRS for it.
-
-intel_edp_drrs_flush and intel_edp_drrs_invalidate will not be called
-for platforms that will not support frontbuffer rendering so DRRS
-needs another way to be notified about to page flips so it can change
-between high and low refresh rates as needed.
+Both functions are pretty much equal, with minor changes that can be
+handled by a single parameter.
 
 Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 2 ++
- drivers/gpu/drm/i915/display/intel_drrs.c    | 9 +++++++++
- drivers/gpu/drm/i915/display/intel_drrs.h    | 4 ++++
- 3 files changed, 15 insertions(+)
+ drivers/gpu/drm/i915/display/intel_drrs.c | 82 +++++++++--------------
+ 1 file changed, 32 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index a257e5dc381c6..e55c9e2cb254a 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -52,6 +52,7 @@
- #include "display/intel_dp_mst.h"
- #include "display/intel_dpll.h"
- #include "display/intel_dpll_mgr.h"
-+#include "display/intel_drrs.h"
- #include "display/intel_dsi.h"
- #include "display/intel_dvo.h"
- #include "display/intel_fb.h"
-@@ -2872,6 +2873,7 @@ static void intel_post_plane_update(struct intel_atomic_state *state,
- 		hsw_enable_ips(new_crtc_state);
- 
- 	intel_fbc_post_update(state, crtc);
-+	intel_edp_drrs_page_flip(state, crtc);
- 
- 	if (needs_nv12_wa(old_crtc_state) &&
- 	    !needs_nv12_wa(new_crtc_state))
 diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
-index b885c1ec76bf9..c5509ed9666be 100644
+index e96033bc6c658..b885c1ec76bf9 100644
 --- a/drivers/gpu/drm/i915/display/intel_drrs.c
 +++ b/drivers/gpu/drm/i915/display/intel_drrs.c
-@@ -391,6 +391,15 @@ void intel_edp_drrs_flush(struct drm_i915_private *dev_priv,
- 	intel_edp_drrs_frontbuffer_update(dev_priv, frontbuffer_bits, false);
+@@ -312,18 +312,9 @@ static void intel_edp_drrs_downclock_work(struct work_struct *work)
+ 	mutex_unlock(&dev_priv->drrs.mutex);
  }
  
-+void intel_edp_drrs_page_flip(struct intel_atomic_state *state,
-+			      struct intel_crtc *crtc)
+-/**
+- * intel_edp_drrs_invalidate - Disable Idleness DRRS
+- * @dev_priv: i915 device
+- * @frontbuffer_bits: frontbuffer plane tracking bits
+- *
+- * This function gets called everytime rendering on the given planes start.
+- * Hence DRRS needs to be Upclocked, i.e. (LOW_RR -> HIGH_RR).
+- *
+- * Dirty frontbuffers relevant to DRRS are tracked in busy_frontbuffer_bits.
+- */
+-void intel_edp_drrs_invalidate(struct drm_i915_private *dev_priv,
+-			       unsigned int frontbuffer_bits)
++static void intel_edp_drrs_frontbuffer_update(struct drm_i915_private *dev_priv,
++					      unsigned int frontbuffer_bits,
++					      bool invalidate)
+ {
+ 	struct intel_dp *intel_dp;
+ 	struct drm_crtc *crtc;
+@@ -346,16 +337,42 @@ void intel_edp_drrs_invalidate(struct drm_i915_private *dev_priv,
+ 	pipe = to_intel_crtc(crtc)->pipe;
+ 
+ 	frontbuffer_bits &= INTEL_FRONTBUFFER_ALL_MASK(pipe);
+-	dev_priv->drrs.busy_frontbuffer_bits |= frontbuffer_bits;
++	if (invalidate)
++		dev_priv->drrs.busy_frontbuffer_bits |= frontbuffer_bits;
++	else
++		dev_priv->drrs.busy_frontbuffer_bits &= ~frontbuffer_bits;
+ 
+-	/* invalidate means busy screen hence upclock */
++	/* flush/invalidate means busy screen hence upclock */
+ 	if (frontbuffer_bits)
+ 		intel_dp_set_drrs_state(dev_priv, to_intel_crtc(crtc)->config,
+ 					DRRS_HIGH_RR);
+ 
++	/*
++	 * flush also means no more activity hence schedule downclock, if all
++	 * other fbs are quiescent too
++	 */
++	if (!dev_priv->drrs.busy_frontbuffer_bits)
++		schedule_delayed_work(&dev_priv->drrs.work,
++				      msecs_to_jiffies(1000));
+ 	mutex_unlock(&dev_priv->drrs.mutex);
+ }
+ 
++/**
++ * intel_edp_drrs_invalidate - Disable Idleness DRRS
++ * @dev_priv: i915 device
++ * @frontbuffer_bits: frontbuffer plane tracking bits
++ *
++ * This function gets called everytime rendering on the given planes start.
++ * Hence DRRS needs to be Upclocked, i.e. (LOW_RR -> HIGH_RR).
++ *
++ * Dirty frontbuffers relevant to DRRS are tracked in busy_frontbuffer_bits.
++ */
++void intel_edp_drrs_invalidate(struct drm_i915_private *dev_priv,
++			       unsigned int frontbuffer_bits)
 +{
-+	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
-+	unsigned int frontbuffer_bits = INTEL_FRONTBUFFER_ALL_MASK(crtc->pipe);
-+
-+	intel_edp_drrs_frontbuffer_update(dev_priv, frontbuffer_bits, false);
++	intel_edp_drrs_frontbuffer_update(dev_priv, frontbuffer_bits, true);
 +}
 +
  /**
-  * intel_dp_drrs_init - Init basic DRRS work and mutex.
-  * @connector: eDP connector
-diff --git a/drivers/gpu/drm/i915/display/intel_drrs.h b/drivers/gpu/drm/i915/display/intel_drrs.h
-index ffa175b4cf4f4..5ae3769700bf3 100644
---- a/drivers/gpu/drm/i915/display/intel_drrs.h
-+++ b/drivers/gpu/drm/i915/display/intel_drrs.h
-@@ -9,6 +9,8 @@
- #include <linux/types.h>
- 
- struct drm_i915_private;
-+struct intel_atomic_state;
-+struct intel_crtc;
- struct intel_crtc_state;
- struct intel_connector;
- struct intel_dp;
-@@ -23,6 +25,8 @@ void intel_edp_drrs_invalidate(struct drm_i915_private *dev_priv,
- 			       unsigned int frontbuffer_bits);
+  * intel_edp_drrs_flush - Restart Idleness DRRS
+  * @dev_priv: i915 device
+@@ -371,42 +388,7 @@ void intel_edp_drrs_invalidate(struct drm_i915_private *dev_priv,
  void intel_edp_drrs_flush(struct drm_i915_private *dev_priv,
- 			  unsigned int frontbuffer_bits);
-+void intel_edp_drrs_page_flip(struct intel_atomic_state *state,
-+			      struct intel_crtc *crtc);
- void intel_dp_drrs_compute_config(struct intel_dp *intel_dp,
- 				  struct intel_crtc_state *pipe_config,
- 				  int output_bpp, bool constant_n);
+ 			  unsigned int frontbuffer_bits)
+ {
+-	struct intel_dp *intel_dp;
+-	struct drm_crtc *crtc;
+-	enum pipe pipe;
+-
+-	if (dev_priv->drrs.type == DRRS_NOT_SUPPORTED)
+-		return;
+-
+-	cancel_delayed_work(&dev_priv->drrs.work);
+-
+-	mutex_lock(&dev_priv->drrs.mutex);
+-
+-	intel_dp = dev_priv->drrs.dp;
+-	if (!intel_dp) {
+-		mutex_unlock(&dev_priv->drrs.mutex);
+-		return;
+-	}
+-
+-	crtc = dp_to_dig_port(intel_dp)->base.base.crtc;
+-	pipe = to_intel_crtc(crtc)->pipe;
+-
+-	frontbuffer_bits &= INTEL_FRONTBUFFER_ALL_MASK(pipe);
+-	dev_priv->drrs.busy_frontbuffer_bits &= ~frontbuffer_bits;
+-
+-	/* flush means busy screen hence upclock */
+-	if (frontbuffer_bits)
+-		intel_dp_set_drrs_state(dev_priv, to_intel_crtc(crtc)->config,
+-					DRRS_HIGH_RR);
+-
+-	/*
+-	 * flush also means no more activity hence schedule downclock, if all
+-	 * other fbs are quiescent too
+-	 */
+-	if (!dev_priv->drrs.busy_frontbuffer_bits)
+-		schedule_delayed_work(&dev_priv->drrs.work,
+-				      msecs_to_jiffies(1000));
+-	mutex_unlock(&dev_priv->drrs.mutex);
++	intel_edp_drrs_frontbuffer_update(dev_priv, frontbuffer_bits, false);
+ }
+ 
+ /**
 -- 
 2.32.0
 
