@@ -2,53 +2,82 @@ Return-Path: <SRS0=K2GL=NJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7548DC4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94664C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:25:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 319EE606A5
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:11:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 319EE606A5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 662426102A
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:25:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 662426102A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BF736E530;
-	Wed, 18 Aug 2021 11:11:07 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F2466E530
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Aug 2021 11:11:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="203499699"
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="203499699"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 04:11:00 -0700
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="521016053"
-Received: from mdbadill-mobl1.amr.corp.intel.com (HELO localhost)
- ([10.249.42.92])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 04:10:57 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lee Shawn C <shawn.c.lee@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: Lee Shawn C <shawn.c.lee@intel.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>,
- Vandita Kulkarni <vandita.kulkarni@intel.com>,
- Cooper Chiou <cooper.chiou@intel.com>, William Tseng <william.tseng@intel.com>
-In-Reply-To: <20210813024649.7197-1-shawn.c.lee@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210812154237.13911-8-shawn.c.lee@intel.com>
- <20210813024649.7197-1-shawn.c.lee@intel.com>
-Date: Wed, 18 Aug 2021 14:10:54 +0300
-Message-ID: <87zgtfgg8x.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9646E558;
+	Wed, 18 Aug 2021 11:25:40 +0000 (UTC)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45FB16E461;
+ Wed, 18 Aug 2021 07:40:38 +0000 (UTC)
+Received: by mail-pj1-x1036.google.com with SMTP id j1so2057161pjv.3;
+ Wed, 18 Aug 2021 00:40:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=he3hjgMVhcOXzxQ8ZzPKGe5qy8qOVQuZUYfKXwOfAPg=;
+ b=V3ChonAMDLG13W4R9mt1UZfcDRlf3NYYG5Rp6zwLe9hoPv7kNaLSz1SBaGSu4gacb2
+ IG7pihFofk738zo0sUjjMECc8BKbXHoRFgXUaz+rksmgG1umJdIhslaO4DouScE25nrz
+ QhQN0KBGfOlxOAV5gm+r9YxMmPtBF13v/W8YFP2iCl19RlJ5zdD+L2hOm2sa+1iKHZGz
+ CgFFYbvwQ/FegyZK22MDmuuW+iQHHAazsx4WnIW9u2x3s0WyVCRHOYH7otiYZitptlk3
+ 7J02sZUKJx/5shMUykUIDn5WogVBsFWvX2MIVtWcImlFFB8LyqmG2vbSKdj3J6amSb+W
+ /hSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=he3hjgMVhcOXzxQ8ZzPKGe5qy8qOVQuZUYfKXwOfAPg=;
+ b=HfMeYy2T+SCd8KtL83IYjrPKeWTZvyQbohmLA44q1F9eLWaR66nwiLucgdJotctEuC
+ OC96nchsD3gsxxw8HV7s5FsCsbgpQ+IW6IzmTm094yLZ5m+0jrJN/ocv7qZLL3eAneWV
+ 3jvCd51vPGuPvoNmcEHdBPvoYr/Kvar/PKHKEpxgWejLdZlLJ5PdVK7RBtaLiPTjBCLo
+ l5tIAK4mI1HiWzPqVW01CSVJ354lClLkNQ/HkirMmqPqyHX3KR+WYU3xVNHYp8SsPaZo
+ cMpNYwBh1nYGpm+MLpJNbaA2amQNeJE2ks96/pvo56g+t7Y5N7Hw8rjHEm4Vo0H4h6pS
+ AXtw==
+X-Gm-Message-State: AOAM530JSiwe3kRO64JMqq6FcMCfxiMwp2dJ+gnslY83bVTjisJQPD/o
+ hVRgkRQW7km2vEeH4bu5gy8=
+X-Google-Smtp-Source: ABdhPJykotiJspllqjLdDweoNoswYBNnKnCEjOlyfwnrSucYaBkYPe1fsbb0KtPlQEnYeO0NwCNLag==
+X-Received: by 2002:a17:90a:b009:: with SMTP id
+ x9mr7893927pjq.97.1629272437819; 
+ Wed, 18 Aug 2021 00:40:37 -0700 (PDT)
+Received: from localhost.localdomain ([118.200.190.93])
+ by smtp.gmail.com with ESMTPSA id u3sm3886729pjr.2.2021.08.18.00.40.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Aug 2021 00:40:37 -0700 (PDT)
+From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
+ christian.koenig@amd.com, axboe@kernel.dk, oleg@redhat.com,
+ tglx@linutronix.de, dvyukov@google.com, walter-zh.wu@mediatek.com
+Cc: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, skhan@linuxfoundation.org,
+ gregkh@linuxfoundation.org, linux-kernel-mentees@lists.linuxfoundation.org
+Date: Wed, 18 Aug 2021 15:38:18 +0800
+Message-Id: <20210818073824.1560124-4-desmondcheongzx@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210818073824.1560124-1-desmondcheongzx@gmail.com>
+References: <20210818073824.1560124-1-desmondcheongzx@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [v4] drm/i915/dsi: Send proper brightness value via
- MIPI DCS command
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 18 Aug 2021 11:25:38 +0000
+Subject: [Intel-gfx] [PATCH v3 3/9] drm: check for null master in
+ drm_is_current_master_locked
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,54 +93,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Aug 2021, Lee Shawn C <shawn.c.lee@intel.com> wrote:
-> Driver has to swap the endian before send brightness level value
-> to tcon.
->
-> v2: Use __be16 instead of u16 to fix sparse warning.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
-> Cc: Cooper Chiou <cooper.chiou@intel.com>
-> Cc: William Tseng <william.tseng@intel.com>
-> Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-> index cd85520d36e2..71c2adfa8931 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-> @@ -66,10 +66,9 @@ static void dcs_set_backlight(const struct drm_connector_state *conn_state, u32
->  {
->  	struct intel_dsi *intel_dsi = enc_to_intel_dsi(to_intel_encoder(conn_state->best_encoder));
->  	struct mipi_dsi_device *dsi_device;
-> -	u8 data = level;
-> +	__be16 data = cpu_to_be16(level);
+There is a window after calling drm_master_release, and before a file
+is freed, where drm_file can have is_master set to true, but both the
+drm_file and drm_device have no master.
 
-Just discussed this with Vandita. Both the set and get brightness need
-to be adjusted, and the read/write size (one or two bytes) has to depend
-on the precision. From MIPI DCS spec:
+This could result in wrongly approving permissions in
+drm_is_current_master_locked. Add a check that fpriv->master is
+non-NULl to guard against this scenario.
 
-	Note: It is up to display manufacturer to determine the
-	implementation of this register and background logic. Only one
-	parameter shall be sent for devices that support 8-bit
-	brightness levels. Two parameters shall be sent for devices that
-	support between 9-bit and 16-bit brightness levels.
+Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
+---
+ drivers/gpu/drm/drm_auth.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-BR,
-Jani.
-
-
->  	enum port port;
->  
-> -	/* FIXME: Need to take care of 16 bit brightness level */
->  	for_each_dsi_port(port, intel_dsi->dcs_backlight_ports) {
->  		dsi_device = intel_dsi->dsi_hosts[port]->device;
->  		mipi_dsi_dcs_write(dsi_device, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
-
+diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
+index 8c0e0dba1611..f9267b21556e 100644
+--- a/drivers/gpu/drm/drm_auth.c
++++ b/drivers/gpu/drm/drm_auth.c
+@@ -66,7 +66,8 @@ static bool drm_is_current_master_locked(struct drm_file *fpriv)
+ 	lockdep_assert_once(lockdep_is_held(&fpriv->minor->dev->master_lookup_lock) ||
+ 			    lockdep_is_held(&fpriv->minor->dev->master_mutex));
+ 
+-	return fpriv->is_master && drm_lease_owner(fpriv->master) == fpriv->minor->dev->master;
++	return (fpriv->is_master && fpriv->master &&
++		drm_lease_owner(fpriv->master) == fpriv->minor->dev->master);
+ }
+ 
+ /**
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.25.1
+
