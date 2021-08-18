@@ -7,46 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1467C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 18:11:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F385C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 18:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92A2061100
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 18:11:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 92A2061100
+	by mail.kernel.org (Postfix) with ESMTPS id D76D2610A6
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 18:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D76D2610A6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25D236E5D4;
-	Wed, 18 Aug 2021 18:11:37 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A19646E5D4;
- Wed, 18 Aug 2021 18:11:35 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="203591032"
-X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="203591032"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 11:11:34 -0700
-X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="681356006"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2040F6E89A;
+	Wed, 18 Aug 2021 18:11:40 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECF656E89A;
+ Wed, 18 Aug 2021 18:11:37 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216119736"
+X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="216119736"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 11:11:28 -0700
+X-IronPort-AV: E=Sophos;i="5.84,332,1620716400"; d="scan'208";a="678671114"
 Received: from jcarwana-mobl1.amr.corp.intel.com (HELO localhost)
  ([10.249.42.192])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 11:11:32 -0700
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 11:11:26 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com, manasi.d.navare@intel.com,
  ville.syrjala@linux.intel.com, dri-devel@lists.freedesktop.org
-Date: Wed, 18 Aug 2021 21:10:39 +0300
-Message-Id: <b287d95f995cd48143e2e14fa21b431e0cd9ee78.1629310010.git.jani.nikula@intel.com>
+Date: Wed, 18 Aug 2021 21:10:38 +0300
+Message-Id: <6c62971d1988721e06936a412533c124b6c90d4d.1629310010.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <cover.1629310010.git.jani.nikula@intel.com>
 References: <cover.1629310010.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/17] drm/dp: add helper for extracting adjust
- 128b/132b TX FFE preset
+Subject: [Intel-gfx] [PATCH 03/17] drm/dp: add LTTPR DP 2.0 DPCD addresses
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,54 +61,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The DP 2.0 128b/132b channel coding uses TX FFE presets instead of
-vswing and pre-emphasis.
+DP 2.0 brings some new DPCD addresses for PHY repeaters.
 
 Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_dp_helper.c | 14 ++++++++++++++
- include/drm/drm_dp_helper.h     |  2 ++
- 2 files changed, 16 insertions(+)
+ include/drm/drm_dp_helper.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index 9389f92cb944..2843238a78e6 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -130,6 +130,20 @@ u8 drm_dp_get_adjust_request_pre_emphasis(const u8 link_status[DP_LINK_STATUS_SI
- }
- EXPORT_SYMBOL(drm_dp_get_adjust_request_pre_emphasis);
- 
-+/* DP 2.0 128b/132b */
-+u8 drm_dp_get_adjust_tx_ffe_preset(const u8 link_status[DP_LINK_STATUS_SIZE],
-+				   int lane)
-+{
-+	int i = DP_ADJUST_REQUEST_LANE0_1 + (lane >> 1);
-+	int s = ((lane & 1) ?
-+		 DP_ADJUST_TX_FFE_PRESET_LANE1_SHIFT :
-+		 DP_ADJUST_TX_FFE_PRESET_LANE0_SHIFT);
-+	u8 l = dp_link_status(link_status, i);
-+
-+	return (l >> s) & 0xf;
-+}
-+EXPORT_SYMBOL(drm_dp_get_adjust_tx_ffe_preset);
-+
- u8 drm_dp_get_adjust_request_post_cursor(const u8 link_status[DP_LINK_STATUS_SIZE],
- 					 unsigned int lane)
- {
 diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index f3a61341011d..3ee0b3ffb8a5 100644
+index 1d5b3dbb6e56..f3a61341011d 100644
 --- a/include/drm/drm_dp_helper.h
 +++ b/include/drm/drm_dp_helper.h
-@@ -1494,6 +1494,8 @@ u8 drm_dp_get_adjust_request_voltage(const u8 link_status[DP_LINK_STATUS_SIZE],
- 				     int lane);
- u8 drm_dp_get_adjust_request_pre_emphasis(const u8 link_status[DP_LINK_STATUS_SIZE],
- 					  int lane);
-+u8 drm_dp_get_adjust_tx_ffe_preset(const u8 link_status[DP_LINK_STATUS_SIZE],
-+				   int lane);
- u8 drm_dp_get_adjust_request_post_cursor(const u8 link_status[DP_LINK_STATUS_SIZE],
- 					 unsigned int lane);
+@@ -1319,6 +1319,10 @@ struct drm_panel;
+ #define DP_MAX_LANE_COUNT_PHY_REPEATER			    0xf0004 /* 1.4a */
+ #define DP_Repeater_FEC_CAPABILITY			    0xf0004 /* 1.4 */
+ #define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT		    0xf0005 /* 1.4a */
++#define DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER	    0xf0006 /* 2.0 */
++# define DP_PHY_REPEATER_128B132B_SUPPORTED		    (1 << 0)
++/* See DP_128B132B_SUPPORTED_LINK_RATES for values */
++#define DP_PHY_REPEATER_128B132B_RATES			    0xf0007 /* 2.0 */
  
+ enum drm_dp_phy {
+ 	DP_PHY_DPRX,
 -- 
 2.20.1
 
