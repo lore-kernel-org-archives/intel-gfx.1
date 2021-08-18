@@ -5,59 +5,58 @@ X-Spam-Level:
 X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6E0FC4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 873F1C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:26:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB7EB6109E
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:25:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AB7EB6109E
+	by mail.kernel.org (Postfix) with ESMTPS id 4E35E60E90
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Aug 2021 11:26:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4E35E60E90
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8BF6E566;
-	Wed, 18 Aug 2021 11:25:54 +0000 (UTC)
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB6FB6E479;
- Wed, 18 Aug 2021 07:41:20 +0000 (UTC)
-Received: by mail-pj1-x102e.google.com with SMTP id j1so2058219pjv.3;
- Wed, 18 Aug 2021 00:41:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC9C56E56A;
+	Wed, 18 Aug 2021 11:26:02 +0000 (UTC)
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
+ [IPv6:2607:f8b0:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 039426E45C;
+ Wed, 18 Aug 2021 07:40:47 +0000 (UTC)
+Received: by mail-pf1-x42a.google.com with SMTP id 7so1267503pfl.10;
+ Wed, 18 Aug 2021 00:40:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=E3tKLo4xSINmwLRhCWFdK6hj3HPWsZp310jfHIOH2bI=;
- b=eYlqI7+uh+RIUCvEG+ElTKQ65oYiO/7b9n5s4gD+lLB6dI3+1tBTrfM+E9gHq8+ghC
- pG+mnIdCtT+Qw/TcAMOTN1jsKNfeHJwUKNjPciJDepeHxgQuMRRs7kyHxyN3OR70HFEk
- fH+FOFElAQ4Gsek+UHpdno02wP1O8QQA6kKroGAfCuSk73VvPdce0uYe68NM9b0/lhWN
- +ViMb30Poox2EIE3XtkHQvZtKdTkqedODzSILqubxYNdgynB3qc8Ix+Nz5Uqdi4f6qGm
- 3QkmjB9cvkubT2qFaKfHNev6sn1lvzQ9lLvI0mmtvOsFiagT4KeuiRaSXnwiqAQmm3v2
- i6Qg==
+ bh=mFOgIpjzv+0bmcGv4vm2OOJINfqELHBLGwipgYh0veE=;
+ b=o+x1KZlkVTKqKNyo5p3TLMCoT0qWpyoPnNTtq+ITkI4Pzgmqcny9JnnM6+BU32Ic++
+ NIHLgw53T6dLUv4xSKK8r51aNniDvQ256JSzhIFWVVBCxd8yiYCtzftljjsKNkgI5T9a
+ uVuTiOrkTpn378RVUD7dUnndTDVWNJOnjwXaJrR5wihPkrhlaezlgg83nqDCMXWOY1Ww
+ C+8x5Ub+11oRbFZInkBkF8WSnGMY9Yui8rSGNBlTPjq5y4kkvfCGzvD5Y9Dn0cG8nEL9
+ 3Bm8bUE/ETlXNItyff701RIdDHlHTrmfLXV2HgwhJy2IE1LVstkrXOJwBlc2/60be+zB
+ SLrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=E3tKLo4xSINmwLRhCWFdK6hj3HPWsZp310jfHIOH2bI=;
- b=EyIYx18MzFvlEiusbIRGw8dtQ1Vu2io2POXzw8F+FfrpuSfhQWxSMn3v0wA2LSSzuc
- NzVfPZusfaSvxF6hcAlIcawXErM8Z3sXXCdpZmP8sThszQk7W5DXfl03fEBWhJ9ByBev
- rW3AlkGGCxZRtepO7INJC8zB6/N78MOyRDummrAG5U+DcAYFYWphP7lYyfzwaRyZhlB5
- eXcyHt9K+arGuj91HgnT2NBrhbD0jvca0mdS0ExKIQDq8mW9Oz2F2GaOecfqw++e8OrL
- I5E75unOv/IhG+IlNnkdAluA1y7yazkIfKWo1N4twgQf99UahpQrJ0PAgYYGnP9dVqtW
- UiXQ==
-X-Gm-Message-State: AOAM530AwQrQ3v6JMucH32PMMaJHT17elOs4luyL2Ew2jW6X98LT3Saa
- XUXI7Y6XhhNBRVBgAj4/oxg=
-X-Google-Smtp-Source: ABdhPJyntCa9RBP+wiR85wtfYtfjM9dTewB7E46OvMfEVp35CNo8y0LFchz5LQwPRQnlto9UE/Tv5g==
-X-Received: by 2002:a17:902:a406:b029:12b:c50a:4289 with SMTP id
- p6-20020a170902a406b029012bc50a4289mr6303191plq.56.1629272480446; 
- Wed, 18 Aug 2021 00:41:20 -0700 (PDT)
+ bh=mFOgIpjzv+0bmcGv4vm2OOJINfqELHBLGwipgYh0veE=;
+ b=Ff4/78FNj6/gronOuxr7RcL30wuSV4XUxGdasp5+DBw5K4LF5cRMX9m5AmMCvecrMf
+ e3YUmFWbTmzVGLLOvFwKmaXUo0P/TYNcqMjr6lwc86AJfvbWDitqF1qJBJKuwuJBdnT2
+ gLEzLlWaWK9Bce8rJyCAMjNLl2QTu9XOoZaXkjwchO9NYtsyBuVeo6ygNnhdQKtzyt/v
+ ISPIIeHiYNCKItX2QCXST07yuIlK2juIWdCqhrFpQU+iJC4J+qmAjeUvZKIfDK6eFwLC
+ ZtCEuXmLROB0Bj3+hVyZy/bpg4N9Vk1FVSGSlGyi4I2ZGpKwhBmsAs/ffXzJWkYZMITA
+ +c1w==
+X-Gm-Message-State: AOAM533BdFLt7IS7HItm3BVNEQz0qHLfG4brD4oPnx65frpUfrphvHfn
+ szEi2O9j5HXUtT+6KarvX1Y=
+X-Google-Smtp-Source: ABdhPJxBMmWazD9VqaTxeOw102ORy+uNq4+YO72IPobEWWxoH8LISt1jcYAt8BMciaPRg1MZYxt1pA==
+X-Received: by 2002:a63:b1a:: with SMTP id 26mr7471369pgl.12.1629272446700;
+ Wed, 18 Aug 2021 00:40:46 -0700 (PDT)
 Received: from localhost.localdomain ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id u3sm3886729pjr.2.2021.08.18.00.41.15
+ by smtp.gmail.com with ESMTPSA id u3sm3886729pjr.2.2021.08.18.00.40.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Aug 2021 00:41:20 -0700 (PDT)
+ Wed, 18 Aug 2021 00:40:46 -0700 (PDT)
 From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
@@ -67,17 +66,17 @@ Cc: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org, skhan@linuxfoundation.org,
- gregkh@linuxfoundation.org, linux-kernel-mentees@lists.linuxfoundation.org,
- kernel test robot <lkp@intel.com>
-Date: Wed, 18 Aug 2021 15:38:23 +0800
-Message-Id: <20210818073824.1560124-9-desmondcheongzx@gmail.com>
+ gregkh@linuxfoundation.org, linux-kernel-mentees@lists.linuxfoundation.org
+Date: Wed, 18 Aug 2021 15:38:19 +0800
+Message-Id: <20210818073824.1560124-5-desmondcheongzx@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210818073824.1560124-1-desmondcheongzx@gmail.com>
 References: <20210818073824.1560124-1-desmondcheongzx@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 18 Aug 2021 11:25:39 +0000
-Subject: [Intel-gfx] [PATCH v3 8/9] kernel: export task_work_add
+X-Mailman-Approved-At: Wed, 18 Aug 2021 11:25:38 +0000
+Subject: [Intel-gfx] [PATCH v3 4/9] drm: fix potential null ptr dereferences
+ in drm_{auth, ioctl}
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,39 +92,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The task_work_add function is needed to prevent userspace races with
-DRM modesetting rights.
+There are three areas where we dereference struct drm_master without
+checking if the pointer is non-NULL.
 
-Some DRM ioctls can change modesetting permissions while other
-concurrent users are performing modesetting. To prevent races with
-userspace, such functions should flush readers of old permissions
-before returning to user mode. As the function that changes
-permissions might itself be a reader of the old permissions, we intend
-to schedule this flush using task_work_add.
+1. drm_getmagic is called from the ioctl_handler. Since
+DRM_IOCTL_GET_MAGIC has no ioctl flags, drm_getmagic is run without
+any check that drm_file.master has been set.
 
-However, when DRM is compiled as a loadable kernel module without
-exporting task_work_add, we get the following compilation error:
+2. Similarly, drm_getunique is called from the ioctl_handler, but
+DRM_IOCTL_GET_UNIQUE has no ioctl flags. So there is no guarantee that
+drm_file.master has been set.
 
-ERROR: modpost: "task_work_add" [drivers/gpu/drm/drm.ko] undefined!
+3. drm_master_release can also be called without having a
+drm_file.master set. Here is one error path:
+  drm_open():
+    drm_open_helper():
+      drm_master_open():
+        drm_new_set_master(); <--- returns -ENOMEM,
+                                   drm_file.master not set
+      drm_file_free():
+        drm_master_release(); <--- NULL ptr dereference
+                                   (file_priv->master->magic_map)
 
-Reported-by: kernel test robot <lkp@intel.com>
+Fix these by checking if the master pointers are NULL before use.
+
 Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
 ---
- kernel/task_work.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/drm_auth.c  | 16 ++++++++++++++--
+ drivers/gpu/drm/drm_ioctl.c |  5 +++++
+ 2 files changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/task_work.c b/kernel/task_work.c
-index 1698fbe6f0e1..90000404af2b 100644
---- a/kernel/task_work.c
-+++ b/kernel/task_work.c
-@@ -60,6 +60,7 @@ int task_work_add(struct task_struct *task, struct callback_head *work,
+diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
+index f9267b21556e..b7230604496b 100644
+--- a/drivers/gpu/drm/drm_auth.c
++++ b/drivers/gpu/drm/drm_auth.c
+@@ -95,11 +95,18 @@ EXPORT_SYMBOL(drm_is_current_master);
+ int drm_getmagic(struct drm_device *dev, void *data, struct drm_file *file_priv)
+ {
+ 	struct drm_auth *auth = data;
++	struct drm_master *master;
+ 	int ret = 0;
  
- 	return 0;
+ 	mutex_lock(&dev->master_mutex);
++	master = file_priv->master;
++	if (!master) {
++		mutex_unlock(&dev->master_mutex);
++		return -EINVAL;
++	}
++
+ 	if (!file_priv->magic) {
+-		ret = idr_alloc(&file_priv->master->magic_map, file_priv,
++		ret = idr_alloc(&master->magic_map, file_priv,
+ 				1, 0, GFP_KERNEL);
+ 		if (ret >= 0)
+ 			file_priv->magic = ret;
+@@ -355,8 +362,12 @@ void drm_master_release(struct drm_file *file_priv)
+ 
+ 	mutex_lock(&dev->master_mutex);
+ 	master = file_priv->master;
++
++	if (!master)
++		goto unlock;
++
+ 	if (file_priv->magic)
+-		idr_remove(&file_priv->master->magic_map, file_priv->magic);
++		idr_remove(&master->magic_map, file_priv->magic);
+ 
+ 	if (!drm_is_current_master_locked(file_priv))
+ 		goto out;
+@@ -379,6 +390,7 @@ void drm_master_release(struct drm_file *file_priv)
+ 		drm_master_put(&file_priv->master);
+ 		spin_unlock(&dev->master_lookup_lock);
+ 	}
++unlock:
+ 	mutex_unlock(&dev->master_mutex);
  }
-+EXPORT_SYMBOL(task_work_add);
  
- /**
-  * task_work_cancel_match - cancel a pending work added by task_work_add()
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index 26f3a9ede8fe..4d029d3061d9 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -121,6 +121,11 @@ int drm_getunique(struct drm_device *dev, void *data,
+ 
+ 	mutex_lock(&dev->master_mutex);
+ 	master = file_priv->master;
++	if (!master) {
++		mutex_unlock(&dev->master_mutex);
++		return -EINVAL;
++	}
++
+ 	if (u->unique_len >= master->unique_len) {
+ 		if (copy_to_user(u->unique, master->unique, master->unique_len)) {
+ 			mutex_unlock(&dev->master_mutex);
 -- 
 2.25.1
 
