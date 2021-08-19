@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 64899C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64206C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:23:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C916610FF
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2C916610FF
+	by mail.kernel.org (Postfix) with ESMTPS id 37BB5610FF
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:23:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 37BB5610FF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16A816E96C;
-	Thu, 19 Aug 2021 06:22:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7599C6E96E;
+	Thu, 19 Aug 2021 06:22:05 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C77166E942;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2176E8AF;
  Thu, 19 Aug 2021 06:21:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220764"
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220764"
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220758"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220758"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2021 23:21:55 -0700
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675183"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675176"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 23:21:55 -0700
+ 18 Aug 2021 23:21:54 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>
-Date: Wed, 18 Aug 2021 23:16:31 -0700
-Message-Id: <20210819061639.21051-20-matthew.brost@intel.com>
+Date: Wed, 18 Aug 2021 23:16:25 -0700
+Message-Id: <20210819061639.21051-14-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210819061639.21051-1-matthew.brost@intel.com>
 References: <20210819061639.21051-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 19/27] drm/i915/guc: Move guc_blocked fence to
- struct guc_state
+Subject: [Intel-gfx] [PATCH 13/27] drm/i915/guc: Take context ref when
+ cancelling request
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,111 +60,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move guc_blocked fence to struct guc_state as the lock which protects
-the fence lives there.
+A context can get destroyed after cancelling a request so take a
+reference to context when cancelling a request.
 
-s/ce->guc_blocked/ce->guc_state.blocked_fence/g
-
+Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c        |  5 +++--
- drivers/gpu/drm/i915/gt/intel_context_types.h  |  5 ++---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c  | 18 +++++++++---------
- 3 files changed, 14 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 745e84c72c90..0e48939ec85f 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -405,8 +405,9 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
- 	 * Initialize fence to be complete as this is expected to be complete
- 	 * unless there is a pending schedule disable outstanding.
- 	 */
--	i915_sw_fence_init(&ce->guc_blocked, sw_fence_dummy_notify);
--	i915_sw_fence_commit(&ce->guc_blocked);
-+	i915_sw_fence_init(&ce->guc_state.blocked_fence,
-+			   sw_fence_dummy_notify);
-+	i915_sw_fence_commit(&ce->guc_state.blocked_fence);
- 
- 	i915_active_init(&ce->active,
- 			 __intel_context_active, __intel_context_retire, 0);
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 3a73f3117873..c06171ee8792 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -167,6 +167,8 @@ struct intel_context {
- 		 * fence related to GuC submission
- 		 */
- 		struct list_head fences;
-+		/* GuC context blocked fence */
-+		struct i915_sw_fence blocked_fence;
- 	} guc_state;
- 
- 	struct {
-@@ -190,9 +192,6 @@ struct intel_context {
- 	 */
- 	struct list_head guc_id_link;
- 
--	/* GuC context blocked fence */
--	struct i915_sw_fence guc_blocked;
--
- 	/*
- 	 * GuC priority management
- 	 */
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index deb2e821e441..053f4485d6e9 100644
+index e0e85e4ad512..85f96d325048 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1490,24 +1490,24 @@ static void guc_blocked_fence_complete(struct intel_context *ce)
+@@ -1620,8 +1620,10 @@ static void guc_context_cancel_request(struct intel_context *ce,
+ 				       struct i915_request *rq)
  {
- 	lockdep_assert_held(&ce->guc_state.lock);
+ 	if (i915_sw_fence_signaled(&rq->submit)) {
+-		struct i915_sw_fence *fence = guc_context_block(ce);
++		struct i915_sw_fence *fence;
  
--	if (!i915_sw_fence_done(&ce->guc_blocked))
--		i915_sw_fence_complete(&ce->guc_blocked);
-+	if (!i915_sw_fence_done(&ce->guc_state.blocked_fence))
-+		i915_sw_fence_complete(&ce->guc_state.blocked_fence);
- }
++		intel_context_get(ce);
++		fence = guc_context_block(ce);
+ 		i915_sw_fence_wait(fence);
+ 		if (!i915_request_completed(rq)) {
+ 			__i915_request_skip(rq);
+@@ -1636,6 +1638,7 @@ static void guc_context_cancel_request(struct intel_context *ce,
+ 		flush_work(&ce_to_guc(ce)->ct.requests.worker);
  
- static void guc_blocked_fence_reinit(struct intel_context *ce)
- {
- 	lockdep_assert_held(&ce->guc_state.lock);
--	GEM_BUG_ON(!i915_sw_fence_done(&ce->guc_blocked));
-+	GEM_BUG_ON(!i915_sw_fence_done(&ce->guc_state.blocked_fence));
- 
- 	/*
- 	 * This fence is always complete unless a pending schedule disable is
- 	 * outstanding. We arm the fence here and complete it when we receive
- 	 * the pending schedule disable complete message.
- 	 */
--	i915_sw_fence_fini(&ce->guc_blocked);
--	i915_sw_fence_reinit(&ce->guc_blocked);
--	i915_sw_fence_await(&ce->guc_blocked);
--	i915_sw_fence_commit(&ce->guc_blocked);
-+	i915_sw_fence_fini(&ce->guc_state.blocked_fence);
-+	i915_sw_fence_reinit(&ce->guc_state.blocked_fence);
-+	i915_sw_fence_await(&ce->guc_state.blocked_fence);
-+	i915_sw_fence_commit(&ce->guc_state.blocked_fence);
- }
- 
- static u16 prep_context_pending_disable(struct intel_context *ce)
-@@ -1547,7 +1547,7 @@ static struct i915_sw_fence *guc_context_block(struct intel_context *ce)
- 		if (enabled)
- 			clr_context_enabled(ce);
- 		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
--		return &ce->guc_blocked;
-+		return &ce->guc_state.blocked_fence;
+ 		guc_context_unblock(ce);
++		intel_context_put(ce);
  	}
- 
- 	/*
-@@ -1563,7 +1563,7 @@ static struct i915_sw_fence *guc_context_block(struct intel_context *ce)
- 	with_intel_runtime_pm(runtime_pm, wakeref)
- 		__guc_context_sched_disable(guc, ce, guc_id);
- 
--	return &ce->guc_blocked;
-+	return &ce->guc_state.blocked_fence;
  }
  
- static void guc_context_unblock(struct intel_context *ce)
 -- 
 2.32.0
 
