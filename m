@@ -2,81 +2,69 @@ Return-Path: <SRS0=FEgb=NK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC630C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 08:41:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F1FFC432BE
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 08:52:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 52FE860E78
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 08:41:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 52FE860E78
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id C790D61131
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 08:52:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C790D61131
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB4BC6E916;
-	Thu, 19 Aug 2021 08:41:08 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007CE6E916
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 08:41:07 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- f13-20020a1c6a0d000000b002e6fd0b0b3fso4627669wmc.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 01:41:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=o9+bz9xYU5JsIuncp2IYc1juRh8CoRxogtXF7nP8As0=;
- b=eXQeEBPE/PKUjNtuDrmfkJKnwRQmkeV18owHqIy/8kei5beiR9F6Cp0xtSAGSGO/G5
- Nmugb+FrCSDQvIlSUlN70EO76Oo5NMxOz/64oJOjOEFHgKeMiAJy1BmA4A/LMs9TnvES
- 9J/L0LAgFeO2qgGJNmAqGbgWpco9jucIvKxcU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=o9+bz9xYU5JsIuncp2IYc1juRh8CoRxogtXF7nP8As0=;
- b=Lz9Hi/NsIeIo9NmRRx2QOzzfadtI6KefX0YX7jEDSpD64ixEBh0WiJufPyah57eFRk
- V6t30d+IV06QLIr3imRjuqlNlxswERPce+1xTk4HqoNRSLKHAlSR3TPnPSMwINxwbzxp
- tlrS44lF2clXEJbr3HVfaSH9FejB46hRHk+mw9i9t1o7QoSnE7ZeQZsT4uba4/O67wdA
- ue9WnPjjSdv+plCEX1ZFIv8I/e06ph3IJ3eRd0FTZMO93jntJ0Yx2qpy/ytEy92MDR7O
- c2M3feXsAzM3vcLxRRGQWtsvslw8KWxJ61nWXkNIonLE5tiOa/NmrQ4kEbTp5F+OpTtm
- BJZg==
-X-Gm-Message-State: AOAM530IErAB9clqDlnm121chSAWHwzyf2bPMZLfQdnZeG+HshmF2FvG
- OiuSy1sh6elbevVf7IfksrLYZg==
-X-Google-Smtp-Source: ABdhPJxClcK3NRbTU/mCIxI9eSRlZdizwBn8ACl1VjtXU4ecrqxceKRQM4XFRE2pm2GWoJs/ezlnTQ==
-X-Received: by 2002:a7b:cc16:: with SMTP id f22mr12479637wmh.99.1629362466505; 
- Thu, 19 Aug 2021 01:41:06 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id w9sm1932333wmc.19.2021.08.19.01.41.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Aug 2021 01:41:06 -0700 (PDT)
-Date: Thu, 19 Aug 2021 10:41:04 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: "Souza, Jose" <jose.souza@intel.com>
-Cc: "daniel@ffwll.ch" <daniel@ffwll.ch>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EFCF6E851;
+	Thu, 19 Aug 2021 08:52:18 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE3FE892A6;
+ Thu, 19 Aug 2021 08:52:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="280250121"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; 
+ d="asc'?scan'208";a="280250121"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2021 01:52:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; 
+ d="asc'?scan'208";a="489211385"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
+ by fmsmga008.fm.intel.com with ESMTP; 19 Aug 2021 01:52:12 -0700
+Date: Thu, 19 Aug 2021 16:29:29 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "drawat@vmware.com" <drawat@vmware.com>,
- "Vetter, Daniel" <daniel.vetter@intel.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
+ Greg KH <gregkh@linuxfoundation.org>,
  "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "Mun, Gwan-gyeong" <gwan-gyeong.mun@intel.com>
-Message-ID: <YR4ZIFAITm04ISei@phenom.ffwll.local>
-References: <20210817232604.160029-1-jose.souza@intel.com>
- <YRzYv6lj5k3KOrPC@phenom.ffwll.local>
- <33375174e318c2772c0d5053ad6d7fd10bef8c49.camel@intel.com>
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
+ "Wang, Zhi A" <zhi.a.wang@intel.com>, Jani Nikula <jani.nikula@intel.com>
+Message-ID: <20210819082929.GB13928@zhen-hp.sh.intel.com>
+References: <20210727121224.GA2145868@nvidia.com>
+ <DM4PR11MB5549EC882AA6076F3468274DCAEA9@DM4PR11MB5549.namprd11.prod.outlook.com>
+ <20210728175925.GU1721383@nvidia.com>
+ <20210729072022.GB31896@lst.de>
+ <20210803094315.GF13928@zhen-hp.sh.intel.com>
+ <20210803143058.GA1721383@nvidia.com>
+ <20210804052606.GG13928@zhen-hp.sh.intel.com>
+ <20210816173458.GA9183@lst.de>
+ <20210817010851.GW13928@zhen-hp.sh.intel.com>
+ <20210817052203.GX13928@zhen-hp.sh.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="K6Vt3zCKtaqyTnPU"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <33375174e318c2772c0d5053ad6d7fd10bef8c49.camel@intel.com>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
-Subject: Re: [Intel-gfx] [PATCH] drm/damage_helper: Fix handling of cursor
- dirty buffers
+In-Reply-To: <20210817052203.GX13928@zhen-hp.sh.intel.com>
+Subject: Re: [Intel-gfx] refactor the i915 GVT support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,86 +77,150 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 18, 2021 at 04:44:44PM +0000, Souza, Jose wrote:
-> On Wed, 2021-08-18 at 11:54 +0200, Daniel Vetter wrote:
-> > On Tue, Aug 17, 2021 at 04:26:04PM -0700, José Roberto de Souza wrote:
-> > > Cursors don't have a framebuffer so the fb comparisson was always
-> > > failing and atomic state was being committed without any plane state.
-> > > 
-> > > So here checking if objects match when checking cursors.
-> > 
-> > This looks extremely backwards ... what exactly is this fixing? If this
-> > isn't based on a real world compositor usage but some igt, then I'd say
-> > the igt here is very wrong.
-> 
-> Yes it is IGT.
-> Writing to cursor buffer current in the screen and calling
-> drmModeDirtyFB() causes a empty atomic commit by
-> drm_atomic_helper_dirtyfb().
 
-Ok if the cursor write is done through legacy cursor uapi then trying to
-make that work with dirtyfb doesn't make sense.
+--K6Vt3zCKtaqyTnPU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-But you've found a bug at least, namely the empty commit. I think that
-should be filtered out, and our dirtyfb testcases (I hope we have some
-vendor-agnostic kms_dirtyfb already) should be extended with a testcase
-where we call dirtyfb on an fb which is not currently used anywhere.
+On 2021.08.17 13:22:03 +0800, Zhenyu Wang wrote:
+> > On 2021.08.16 19:34:58 +0200, Christoph Hellwig wrote:
+> > > Any updates on this?  I'd really hate to miss this merge window.
+> >=20
+> > I'm still waiting for our validation team's report on this. I'm afraid
+> > it might be missing for next version as i915 merge window is mostly
+> > till rc5...and for any change outside of gvt, it still needs to be
+> > acked by i915 maintainers.
+>=20
+> Looks our validation team did have problem against recent i915 change.
+> If you like to try, we have a gvt-staging branch on
+> https://github.com/intel/gvt-linux which is generated against drm-tip
+> with gvt changes for testing, currently it's broken.
+>=20
+> One issue is with i915 export that intel_context_unpin has been
+> changed into static inline function. Another is that intel_gvt.c
+> should be part of i915 for gvt interface instead of depending on KVMGT
+> config.
 
-Wrt the cursor: The legacy cursor ioctls get remapped onto the cursor
-plane, which means they come in as full commits. So there's really not
-dirtyfb required afterwards. The funny thing about the cursor ioctls is
-that they never supported frontbuffer rendering. You _always_ had to call
-them to upload data. So the test is invalid from a functional pov too.
--Daniel
+I'm working on below patch to resolve this. But I met a weird issue in
+case when building i915 as module and also kvmgt module, it caused
+busy wait on request_module("kvmgt") when boot, it doesn't happen if
+building i915 into kernel. I'm not sure what could be the reason?
 
-> 
-> 
-> > -Daniel
-> > 
-> > > Fixes: b9fc5e01d1ce ("drm: Add helper to implement legacy dirtyfb")
-> > > Cc: Daniel Vetter <daniel.vetter@intel.com>
-> > > Cc: Rob Clark <robdclark@gmail.com>
-> > > Cc: Deepak Rawat <drawat@vmware.com>
-> > > Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-> > > Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/drm_damage_helper.c | 8 +++++++-
-> > >  1 file changed, 7 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
-> > > index 8eeff0c7bdd47..595187d97c131 100644
-> > > --- a/drivers/gpu/drm/drm_damage_helper.c
-> > > +++ b/drivers/gpu/drm/drm_damage_helper.c
-> > > @@ -157,12 +157,18 @@ int drm_atomic_helper_dirtyfb(struct drm_framebuffer *fb,
-> > >  retry:
-> > >  	drm_for_each_plane(plane, fb->dev) {
-> > >  		struct drm_plane_state *plane_state;
-> > > +		bool match;
-> > >  
-> > >  		ret = drm_modeset_lock(&plane->mutex, state->acquire_ctx);
-> > >  		if (ret)
-> > >  			goto out;
-> > >  
-> > > -		if (plane->state->fb != fb) {
-> > > +		match = plane->state->fb == fb;
-> > > +		/* Check if objs match to handle dirty buffers of cursors */
-> > > +		if (plane->type == DRM_PLANE_TYPE_CURSOR && plane->state->fb)
-> > > +			match |= fb->obj[0] == plane->state->fb->obj[0];
-> > > +
-> > > +		if (!match) {
-> > >  			drm_modeset_unlock(&plane->mutex);
-> > >  			continue;
-> > >  		}
-> > > -- 
-> > > 2.32.0
-> > > 
-> > 
-> 
+> But the problem I see is that after moving gvt device model (gvt/*.c
+> except kvmgt.c) into kvmgt module, we'll have issue with initial mmio
+> state which current gvt relies on, that is in design supposed to get
+> initial HW state before i915 driver has taken any operation.  Before
+> we can ensure that, I think we may only remove MPT part first but
+> still keep gvt device model as part of i915 with config. I'll try to
+> split that out.
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Sorry I misread the code that as we always request kvmgt module when
+gvt init, so it should still apply original method that this isn't a
+problem. Our current validation result has shown no regression as well.
+
+---8<---
+=46rom 58ff84572f1a0f9d79ca1d7ec0cff5ecbe78d280 Mon Sep 17 00:00:00 2001
+=46rom: Zhenyu Wang <zhenyuw@linux.intel.com>
+Date: Thu, 19 Aug 2021 16:36:33 +0800
+Subject: [PATCH] TESTONLY:drm/i915/gvt: potential fix for refactor against
+ current tip
+
+---
+ drivers/gpu/drm/i915/Makefile           | 4 +++-
+ drivers/gpu/drm/i915/gt/intel_context.c | 5 +++++
+ drivers/gpu/drm/i915/gt/intel_context.h | 3 ++-
+ drivers/gpu/drm/i915/i915_trace.h       | 1 +
+ 4 files changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index c4f953837f72..2248574428a1 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -296,7 +296,9 @@ i915-$(CONFIG_DRM_I915_SELFTEST) +=3D \
+=20
+ # virtual gpu code
+ i915-y +=3D i915_vgpu.o
+-i915-$(CONFIG_DRM_I915_GVT_KVMGT) +=3D intel_gvt.o
++ifneq ($(CONFIG_DRM_I915_GVT_KVMGT),)
++i915-y +=3D intel_gvt.o
++endif
+=20
+ kvmgt-y +=3D gvt/kvmgt.o \
+ 	gvt/gvt.o \
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915=
+/gt/intel_context.c
+index 745e84c72c90..20e7522fed84 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -328,6 +328,11 @@ void __intel_context_do_unpin(struct intel_context *ce=
+, int sub)
+ 	intel_context_put(ce);
+ }
+=20
++void intel_context_unpin(struct intel_context *ce)
++{
++	_intel_context_unpin(ce);
++}
++
+ static void __intel_context_retire(struct i915_active *active)
+ {
+ 	struct intel_context *ce =3D container_of(active, typeof(*ce), active);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915=
+/gt/intel_context.h
+index c41098950746..f942cbf6300a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.h
++++ b/drivers/gpu/drm/i915/gt/intel_context.h
+@@ -131,7 +131,7 @@ static inline void intel_context_sched_disable_unpin(st=
+ruct intel_context *ce)
+ 	__intel_context_do_unpin(ce, 2);
+ }
+=20
+-static inline void intel_context_unpin(struct intel_context *ce)
++static inline void _intel_context_unpin(struct intel_context *ce)
+ {
+ 	if (!ce->ops->sched_disable) {
+ 		__intel_context_do_unpin(ce, 1);
+@@ -150,6 +150,7 @@ static inline void intel_context_unpin(struct intel_con=
+text *ce)
+ 		}
+ 	}
+ }
++void intel_context_unpin(struct intel_context *ce);
+=20
+ void intel_context_enter_engine(struct intel_context *ce);
+ void intel_context_exit_engine(struct intel_context *ce);
+diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_=
+trace.h
+index 806ad688274b..2c6a8bcef7c1 100644
+--- a/drivers/gpu/drm/i915/i915_trace.h
++++ b/drivers/gpu/drm/i915/i915_trace.h
+@@ -17,6 +17,7 @@
+=20
+ #undef TRACE_SYSTEM
+ #define TRACE_SYSTEM i915
++#undef TRACE_INCLUDE_FILE
+ #define TRACE_INCLUDE_FILE i915_trace
+=20
+ /* watermark/fifo updates */
+--=20
+2.32.0
+---8<---
+
+
+
+--K6Vt3zCKtaqyTnPU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYR4WYwAKCRCxBBozTXgY
+Jz5wAJ0Y4scJuN6eaj1LfxVvM10MGHqLWQCfbKjmCTtsgpFG9klYOK1/9x0p4Nc=
+=kW5F
+-----END PGP SIGNATURE-----
+
+--K6Vt3zCKtaqyTnPU--
