@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0F82C4320E
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BF5FC4320A
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BBF5F610FF
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BBF5F610FF
+	by mail.kernel.org (Postfix) with ESMTPS id 4CB55610FF
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4CB55610FF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 534C96E951;
-	Thu, 19 Aug 2021 06:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF95D6E94F;
+	Thu, 19 Aug 2021 06:21:58 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D009B6E51D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A64C76E4B5;
  Thu, 19 Aug 2021 06:21:55 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220748"
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220748"
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220744"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220744"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2021 23:21:54 -0700
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675168"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675164"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2021 23:21:54 -0700
@@ -36,15 +36,15 @@ From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>
-Date: Wed, 18 Aug 2021 23:16:17 -0700
-Message-Id: <20210819061639.21051-6-matthew.brost@intel.com>
+Date: Wed, 18 Aug 2021 23:16:13 -0700
+Message-Id: <20210819061639.21051-2-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210819061639.21051-1-matthew.brost@intel.com>
 References: <20210819061639.21051-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/27] drm/i915/guc: Process all G2H message at
- once in work queue
+Subject: [Intel-gfx] [PATCH 01/27] drm/i915/guc: Fix blocked context
+ accounting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,34 +60,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather than processing 1 G2H at a time and re-queuing the work queue if
-more messages exist, process all the G2H in a single pass of the work
-queue.
+Prior to this patch the blocked context counter was cleared on
+init_sched_state (used during registering a context & resets) which is
+incorrect. This state needs to be persistent or the counter can read the
+incorrect value resulting in scheduling never getting enabled again.
 
+Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 22b4733b55e2..20c710a74498 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -1042,9 +1042,9 @@ static void ct_incoming_request_worker_func(struct work_struct *w)
- 		container_of(w, struct intel_guc_ct, requests.worker);
- 	bool done;
- 
--	done = ct_process_incoming_requests(ct);
--	if (!done)
--		queue_work(system_unbound_wq, &ct->requests.worker);
-+	do {
-+		done = ct_process_incoming_requests(ct);
-+	} while (!done);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 87d8dc8f51b9..69faa39da178 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -152,7 +152,7 @@ static inline void init_sched_state(struct intel_context *ce)
+ {
+ 	/* Only should be called from guc_lrc_desc_pin() */
+ 	atomic_set(&ce->guc_sched_state_no_lock, 0);
+-	ce->guc_state.sched_state = 0;
++	ce->guc_state.sched_state &= SCHED_STATE_BLOCKED_MASK;
  }
  
- static int ct_handle_event(struct intel_guc_ct *ct, struct ct_incoming_msg *request)
+ static inline bool
 -- 
 2.32.0
 
