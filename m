@@ -2,78 +2,43 @@ Return-Path: <SRS0=FEgb=NK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 452F1C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 10:53:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AA2DC4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 11:09:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA8B761151
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 10:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EA8B761151
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 46193610CF
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 11:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 46193610CF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38CC66E8B0;
-	Thu, 19 Aug 2021 10:53:07 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 173836E7EC
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 10:53:06 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id z9so8374786wrh.10
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Aug 2021 03:53:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:reply-to:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=rkKLc0olkX040pjUzFC5Bcza+SY7P2nXXyB4vFs7svo=;
- b=FtFQXzp9aGhnV7w09o3MDqH1nRBIVPbYwRn8BD6OtNKS65RVRdhqc15XOW6Xjojfzu
- Jbqx+6vWXW7rs50YjCm7HnO6vmRfnf/H4z7pRMaSDxeVehr5yaCzcZSn8SsIrzLh98Vv
- CFRWHk2FoDjduwqPo/+tpXLodhy73NY/6Wld8CBkEd/v08ttdYG+aIMvEKF8No2//fTA
- pI0f17hg94SEM3psxWsZjLMfenxOcCJo484N61P+CjifgmwBC+b2rvC6fiPFYC5bfrb/
- braep7pjOE1rB3g2LlT3ER9NW2uuCtra+a+EEq4mgFiT6qJ807ShYoMiFymxtN9BtIhC
- gCZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:reply-to:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=rkKLc0olkX040pjUzFC5Bcza+SY7P2nXXyB4vFs7svo=;
- b=sIksRcpbtdjvh4y51PpkJ4T9ewhaOgZWhQ2qz9gA1rwIPk1Ve8uYQ6w6CfWzZohxBG
- 9PscapFbb7TPP+X/VGQzFlqZQyqnWpzT65kiunwaZcdCyowuSrg8MeiCK9mn6pOArUWi
- JV0AazTLmddN13OOutdqk9ED7vfnRowEnxyA1DwJFPjXHfURos1TGJ9mfiDbNQlKVThU
- nd3u8evwZU9VmADWHRCljaLdn3veF2nbpHn9ZJhotV3Tnsl7rHzMsfm7ND7v2fB8BvuB
- KFcqWGZY6RQrFVfjtIQ4d9y1C45DuyWSHBaGap06kZyb9YsEsunCwyPky2+SUDaBD5LK
- 7GQQ==
-X-Gm-Message-State: AOAM531DTQJxwiDDZGP7UaqoGra7JLW9RS7Z/YgZF6rnsY9oaytPeDjR
- H4YfMFZDbxpD9Rzd4JW5z3qTX/ZVyE+Xaa9b
-X-Google-Smtp-Source: ABdhPJxHY3842gr0FHDNPtxffHykZ1IUzPgbyFm8u4MVKqxPSJ1CP/f69sW3/KDx1A9PeEdV3uIAig==
-X-Received: by 2002:adf:f285:: with SMTP id k5mr3037725wro.117.1629370384326; 
- Thu, 19 Aug 2021 03:53:04 -0700 (PDT)
-Received: from [0.0.0.0] ([134.134.137.86])
- by smtp.googlemail.com with ESMTPSA id a11sm2585157wrw.67.2021.08.19.03.53.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Aug 2021 03:53:04 -0700 (PDT)
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-References: <20210702204603.596-1-ville.syrjala@linux.intel.com>
- <20210702204603.596-8-ville.syrjala@linux.intel.com>
-From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Message-ID: <1df9034c-2ef7-2e0b-e660-30dbc833e75b@gmail.com>
-Date: Thu, 19 Aug 2021 13:52:58 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C561B6E5C3;
+	Thu, 19 Aug 2021 11:09:46 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B89F26E5C3;
+ Thu, 19 Aug 2021 11:09:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id A4A52A01BB;
+ Thu, 19 Aug 2021 11:09:45 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-In-Reply-To: <20210702204603.596-8-ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH 7/8] drm/i915/fbc: Implement Wa_16011863758
- for icl+
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Desmond Cheong Zhi Xi" <desmondcheongzx@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 19 Aug 2021 11:09:45 -0000
+Message-ID: <162937138564.11704.6825589634797382560@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210818073824.1560124-1-desmondcheongzx@gmail.com>
+In-Reply-To: <20210818073824.1560124-1-desmondcheongzx@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm=2C_kernel=3A_update_locking_for_DRM_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,53 +51,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: juhapekka.heikkila@gmail.com
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Maybe that TODO comment could be moved into the code instead of leaving 
-it just into commit message?
+== Series Details ==
 
-Either way, patch look ok to me.
+Series: drm, kernel: update locking for DRM (rev2)
+URL   : https://patchwork.freedesktop.org/series/93782/
+State : failure
 
-Reviewed-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+== Summary ==
 
-On 2.7.2021 23.46, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> There's some kind of weird corner cases in FBC which requires
-> FBC segments to be separated by at least one extra cacheline.
-> Make sure that is present.
-> 
-> TODO: the formula laid out in the spec seem to be semi-nonsense
-> so this is mostly my interpretation on what it is actually trying
-> to say. Need to wait for clarification from the hw folks to know
-> for sure.
-> 
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> ---
->   drivers/gpu/drm/i915/display/intel_fbc.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-> index 2da5295092e7..daf2191dd3f6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-> @@ -88,6 +88,16 @@ static unsigned int intel_fbc_cfb_stride(struct drm_i915_private *i915,
->   {
->   	unsigned int stride = _intel_fbc_cfb_stride(cache);
->   
-> +	/*
-> +	 * Wa_16011863758: icl+
-> +	 * CFB segment stride needs at least one extra cacheline.
-> +	 * We make sure each line has an extra cacheline so that
-> +	 * the 4 line segment will have one regarless of the
-> +	 * compression limit we choose later.
-> +	 */
-> +	if (DISPLAY_VER(i915) >= 11)
-> +		stride = max(stride, cache->plane.src_w * 4 + 64u);
-> +
->   	/*
->   	 * At least some of the platforms require each 4 line segment to
->   	 * be 512 byte aligned. Aligning each line to 512 bytes guarantees
-> 
+Applying: drm: move master_lookup_lock into drm_device
+Applying: drm: hold master_lookup_lock when releasing a drm_file's master
+Applying: drm: check for null master in drm_is_current_master_locked
+Applying: drm: fix potential null ptr dereferences in drm_{auth, ioctl}
+Applying: drm: protect magic_map, unique{_len} with master_lookup_lock
+Applying: drm: convert drm_device.master_mutex into a rwsem
+Applying: drm: update global mutex lock in the ioctl handler
+error: patch failed: drivers/gpu/drm/drm_ioctl.c:712
+error: drivers/gpu/drm/drm_ioctl.c: patch does not apply
+error: patch failed: drivers/gpu/drm/drm_lease.c:500
+error: drivers/gpu/drm/drm_lease.c: patch does not apply
+error: Did you hand edit your patch?
+It does not apply to blobs recorded in its index.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/drm_ioctl.c
+M	drivers/gpu/drm/drm_lease.c
+Patch failed at 0007 drm: update global mutex lock in the ioctl handler
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
+
