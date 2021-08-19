@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5368EC432BE
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D888C4338F
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2798E610E5
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2798E610E5
+	by mail.kernel.org (Postfix) with ESMTPS id 0B3DC610E5
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0B3DC610E5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03A846E96D;
-	Thu, 19 Aug 2021 06:22:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C16FF6E96A;
+	Thu, 19 Aug 2021 06:22:03 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A5166E51D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B401E6E940;
  Thu, 19 Aug 2021 06:21:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220759"
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220759"
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220763"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220763"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2021 23:21:55 -0700
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675177"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675181"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 23:21:54 -0700
+ 18 Aug 2021 23:21:55 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>
-Date: Wed, 18 Aug 2021 23:16:26 -0700
-Message-Id: <20210819061639.21051-15-matthew.brost@intel.com>
+Date: Wed, 18 Aug 2021 23:16:30 -0700
+Message-Id: <20210819061639.21051-19-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210819061639.21051-1-matthew.brost@intel.com>
 References: <20210819061639.21051-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 14/27] drm/i915/guc: Don't touch
- guc_state.sched_state without a lock
+Subject: [Intel-gfx] [PATCH 18/27] drm/i915/guc: Release submit fence from
+ an irq_work
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,151 +60,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Before we did some clever tricks to not use the a lock when touching
-guc_state.sched_state in certain cases. Don't do that, enforce the use
-of the lock.
-
-Part of this is removing a dead code path from guc_lrc_desc_pin where a
-context could be deregistered when the aforementioned function was
-called from the submission path. Remove this dead code and add a
-GEM_BUG_ON if this path is ever attempted to be used.
-
-v2:
- (kernel test robo )
-  - Add __maybe_unused to sched_state_is_init()
+A subsequent patch will flip the locking hierarchy from
+ce->guc_state.lock -> sched_engine->lock to sched_engine->lock ->
+ce->guc_state.lock. As such we need to release the submit fence for a
+request from an IRQ to break a lock inversion - i.e. the fence must be
+release went holding ce->guc_state.lock and the releasing of the can
+acquire sched_engine->lock.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 58 ++++++++++---------
- 1 file changed, 32 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 15 ++++++++++++++-
+ drivers/gpu/drm/i915/i915_request.h               |  5 +++++
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 85f96d325048..fa87470ea576 100644
+index 9a53bae367b1..deb2e821e441 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -150,11 +150,23 @@ static inline void clr_context_registered(struct intel_context *ce)
- #define SCHED_STATE_BLOCKED_MASK	(0xfff << SCHED_STATE_BLOCKED_SHIFT)
- static inline void init_sched_state(struct intel_context *ce)
- {
--	/* Only should be called from guc_lrc_desc_pin() */
-+	lockdep_assert_held(&ce->guc_state.lock);
- 	atomic_set(&ce->guc_sched_state_no_lock, 0);
- 	ce->guc_state.sched_state &= SCHED_STATE_BLOCKED_MASK;
- }
+@@ -2025,6 +2025,14 @@ static const struct intel_context_ops guc_context_ops = {
+ 	.create_virtual = guc_create_virtual,
+ };
  
-+__maybe_unused
-+static bool sched_state_is_init(struct intel_context *ce)
++static void submit_work_cb(struct irq_work *wrk)
 +{
-+	/*
-+	 * XXX: Kernel contexts can have SCHED_STATE_NO_LOCK_REGISTERED after
-+	 * suspend.
-+	 */
-+	return !(atomic_read(&ce->guc_sched_state_no_lock) &
-+		 ~SCHED_STATE_NO_LOCK_REGISTERED) &&
-+		!(ce->guc_state.sched_state &= ~SCHED_STATE_BLOCKED_MASK);
++	struct i915_request *rq = container_of(wrk, typeof(*rq), submit_work);
++
++	might_lock(&rq->engine->sched_engine->lock);
++	i915_sw_fence_complete(&rq->submit);
 +}
 +
- static inline bool
- context_wait_for_deregister_to_register(struct intel_context *ce)
+ static void __guc_signal_context_fence(struct intel_context *ce)
  {
-@@ -165,7 +177,7 @@ context_wait_for_deregister_to_register(struct intel_context *ce)
- static inline void
- set_context_wait_for_deregister_to_register(struct intel_context *ce)
- {
--	/* Only should be called from guc_lrc_desc_pin() without lock */
-+	lockdep_assert_held(&ce->guc_state.lock);
- 	ce->guc_state.sched_state |=
- 		SCHED_STATE_WAIT_FOR_DEREGISTER_TO_REGISTER;
+ 	struct i915_request *rq;
+@@ -2034,8 +2042,12 @@ static void __guc_signal_context_fence(struct intel_context *ce)
+ 	if (!list_empty(&ce->guc_state.fences))
+ 		trace_intel_context_fence_release(ce);
+ 
++	/*
++	 * Use an IRQ to ensure locking order of sched_engine->lock ->
++	 * ce->guc_state.lock is preserved.
++	 */
+ 	list_for_each_entry(rq, &ce->guc_state.fences, guc_fence_link)
+-		i915_sw_fence_complete(&rq->submit);
++		irq_work_queue(&rq->submit_work);
+ 
+ 	INIT_LIST_HEAD(&ce->guc_state.fences);
  }
-@@ -605,9 +617,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 	bool pending_disable, pending_enable, deregister, destroyed, banned;
+@@ -2145,6 +2157,7 @@ static int guc_request_alloc(struct i915_request *rq)
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 	if (context_wait_for_deregister_to_register(ce) ||
+ 	    context_pending_disable(ce)) {
++		init_irq_work(&rq->submit_work, submit_work_cb);
+ 		i915_sw_fence_await(&rq->submit);
  
- 	xa_for_each(&guc->context_lookup, index, ce) {
--		/* Flush context */
- 		spin_lock_irqsave(&ce->guc_state.lock, flags);
--		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 
- 		/*
- 		 * Once we are at this point submission_disabled() is guaranteed
-@@ -623,6 +633,8 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 		banned = context_banned(ce);
- 		init_sched_state(ce);
- 
-+		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-+
- 		if (pending_enable || destroyed || deregister) {
- 			decr_outstanding_submission_g2h(guc);
- 			if (deregister)
-@@ -1325,6 +1337,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	int ret = 0;
- 
- 	GEM_BUG_ON(!engine->mask);
-+	GEM_BUG_ON(!sched_state_is_init(ce));
+ 		list_add_tail(&rq->guc_fence_link, &ce->guc_state.fences);
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index 1bc1349ba3c2..d818cfbfc41d 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -218,6 +218,11 @@ struct i915_request {
+ 	};
+ 	struct llist_head execute_cb;
+ 	struct i915_sw_fence semaphore;
++	/**
++	 * @submit_work: complete submit fence from an IRQ if needed for
++	 * locking hierarchy reasons.
++	 */
++	struct irq_work submit_work;
  
  	/*
- 	 * Ensure LRC + CT vmas are is same region as write barrier is done
-@@ -1353,7 +1366,6 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	desc->priority = ce->guc_prio;
- 	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
- 	guc_context_policy_init(engine, desc);
--	init_sched_state(ce);
- 
- 	/*
- 	 * The context_lookup xarray is used to determine if the hardware
-@@ -1364,26 +1376,23 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	 * registering this context.
- 	 */
- 	if (context_registered) {
-+		bool disabled;
-+		unsigned long flags;
-+
- 		trace_intel_context_steal_guc_id(ce);
--		if (!loop) {
-+		GEM_BUG_ON(!loop);
-+
-+		/* Seal race with Reset */
-+		spin_lock_irqsave(&ce->guc_state.lock, flags);
-+		disabled = submission_disabled(guc);
-+		if (likely(!disabled)) {
- 			set_context_wait_for_deregister_to_register(ce);
- 			intel_context_get(ce);
--		} else {
--			bool disabled;
--			unsigned long flags;
--
--			/* Seal race with Reset */
--			spin_lock_irqsave(&ce->guc_state.lock, flags);
--			disabled = submission_disabled(guc);
--			if (likely(!disabled)) {
--				set_context_wait_for_deregister_to_register(ce);
--				intel_context_get(ce);
--			}
--			spin_unlock_irqrestore(&ce->guc_state.lock, flags);
--			if (unlikely(disabled)) {
--				reset_lrc_desc(guc, desc_idx);
--				return 0;	/* Will get registered later */
--			}
-+		}
-+		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-+		if (unlikely(disabled)) {
-+			reset_lrc_desc(guc, desc_idx);
-+			return 0;	/* Will get registered later */
- 		}
- 
- 		/*
-@@ -1392,10 +1401,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 		 */
- 		with_intel_runtime_pm(runtime_pm, wakeref)
- 			ret = deregister_context(ce, ce->guc_id, loop);
--		if (unlikely(ret == -EBUSY)) {
--			clr_context_wait_for_deregister_to_register(ce);
--			intel_context_put(ce);
--		} else if (unlikely(ret == -ENODEV)) {
-+		if (unlikely(ret == -ENODEV)) {
- 			ret = 0;	/* Will get registered later */
- 		}
- 	} else {
+ 	 * A list of everyone we wait upon, and everyone who waits upon us.
 -- 
 2.32.0
 
