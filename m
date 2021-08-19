@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B85F3C432BE
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5481C43214
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8785761152
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8785761152
+	by mail.kernel.org (Postfix) with ESMTPS id 60F45610E5
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 60F45610E5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1F776E94E;
-	Thu, 19 Aug 2021 06:21:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C70E6E51D;
+	Thu, 19 Aug 2021 06:22:00 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 700476E858;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 946C96E869;
  Thu, 19 Aug 2021 06:21:56 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220752"
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220752"
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220755"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220755"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2021 23:21:54 -0700
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675171"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675173"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2021 23:21:54 -0700
@@ -36,15 +36,15 @@ From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>
-Date: Wed, 18 Aug 2021 23:16:20 -0700
-Message-Id: <20210819061639.21051-9-matthew.brost@intel.com>
+Date: Wed, 18 Aug 2021 23:16:22 -0700
+Message-Id: <20210819061639.21051-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210819061639.21051-1-matthew.brost@intel.com>
 References: <20210819061639.21051-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/27] drm/i915/selftests: Add a cancel request
- selftest that triggers a reset
+Subject: [Intel-gfx] [PATCH 10/27] drm/i915/guc: Don't enable scheduling on
+ a banned context, guc_id invalid, not registered
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,133 +60,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a cancel request selftest that results in an engine reset to cancel
-the request as it is non-preemptable. Also insert a NOP request after
-the cancelled request and confirm that it completely successfully.
+When unblocking a context, do not enable scheduling if the context is
+banned, guc_id invalid, or not registered.
 
+Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/gpu/drm/i915/selftests/i915_request.c | 100 ++++++++++++++++++
- 1 file changed, 100 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index d67710d10615..e2c5db77f087 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -772,6 +772,98 @@ static int __cancel_completed(struct intel_engine_cs *engine)
- 	return err;
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index d61f906105ef..e53a4ef7d442 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1586,6 +1586,9 @@ static void guc_context_unblock(struct intel_context *ce)
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
  
-+static int __cancel_reset(struct intel_engine_cs *engine)
-+{
-+	struct intel_context *ce;
-+	struct igt_spinner spin;
-+	struct i915_request *rq, *nop;
-+	unsigned long preempt_timeout_ms;
-+	int err = 0;
-+
-+	preempt_timeout_ms = engine->props.preempt_timeout_ms;
-+	engine->props.preempt_timeout_ms = 100;
-+
-+	if (igt_spinner_init(&spin, engine->gt))
-+		goto out_restore;
-+
-+	ce = intel_context_create(engine);
-+	if (IS_ERR(ce)) {
-+		err = PTR_ERR(ce);
-+		goto out_spin;
-+	}
-+
-+	rq = igt_spinner_create_request(&spin, ce, MI_NOOP);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_ce;
-+	}
-+
-+	pr_debug("%s: Cancelling active request\n", engine->name);
-+	i915_request_get(rq);
-+	i915_request_add(rq);
-+	if (!igt_wait_for_spinner(&spin, rq)) {
-+		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
-+
-+		pr_err("Failed to start spinner on %s\n", engine->name);
-+		intel_engine_dump(engine, &p, "%s\n", engine->name);
-+		err = -ETIME;
-+		goto out_rq;
-+	}
-+
-+	nop = intel_context_create_request(ce);
-+	if (IS_ERR(nop))
-+		goto out_nop;
-+	i915_request_get(nop);
-+	i915_request_add(nop);
-+
-+	i915_request_cancel(rq, -EINTR);
-+
-+	if (i915_request_wait(rq, 0, HZ) < 0) {
-+		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
-+
-+		pr_err("%s: Failed to cancel hung request\n", engine->name);
-+		intel_engine_dump(engine, &p, "%s\n", engine->name);
-+		err = -ETIME;
-+		goto out_nop;
-+	}
-+
-+	if (rq->fence.error != -EINTR) {
-+		pr_err("%s: fence not cancelled (%u)\n",
-+		       engine->name, rq->fence.error);
-+		err = -EINVAL;
-+		goto out_nop;
-+	}
-+
-+	if (i915_request_wait(nop, 0, HZ) < 0) {
-+		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
-+
-+		pr_err("%s: Failed to complete nop request\n", engine->name);
-+		intel_engine_dump(engine, &p, "%s\n", engine->name);
-+		err = -ETIME;
-+		goto out_nop;
-+	}
-+
-+	if (nop->fence.error != 0) {
-+		pr_err("%s: Nop request errored (%u)\n",
-+		       engine->name, nop->fence.error);
-+		err = -EINVAL;
-+	}
-+
-+out_nop:
-+	i915_request_put(nop);
-+out_rq:
-+	i915_request_put(rq);
-+out_ce:
-+	intel_context_put(ce);
-+out_spin:
-+	igt_spinner_fini(&spin);
-+out_restore:
-+	engine->props.preempt_timeout_ms = preempt_timeout_ms;
-+	if (err)
-+		pr_err("%s: %s error %d\n", __func__, engine->name, err);
-+	return err;
-+}
-+
- static int live_cancel_request(void *arg)
- {
- 	struct drm_i915_private *i915 = arg;
-@@ -804,6 +896,14 @@ static int live_cancel_request(void *arg)
- 			return err;
- 		if (err2)
- 			return err2;
-+
-+		/* Expects reset so call outside of igt_live_test_* */
-+		err = __cancel_reset(engine);
-+		if (err)
-+			return err;
-+
-+		if (igt_flush_test(i915))
-+			return -EIO;
- 	}
- 
- 	return 0;
+ 	if (unlikely(submission_disabled(guc) ||
++		     intel_context_is_banned(ce) ||
++		     context_guc_id_invalid(ce) ||
++		     !lrc_desc_registered(guc, ce->guc_id) ||
+ 		     !intel_context_is_pinned(ce) ||
+ 		     context_pending_disable(ce) ||
+ 		     context_blocked(ce) > 1)) {
 -- 
 2.32.0
 
