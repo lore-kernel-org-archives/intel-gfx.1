@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5A02C4338F
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B85F3C432BE
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6D27F610E5
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6D27F610E5
+	by mail.kernel.org (Postfix) with ESMTPS id 8785761152
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Aug 2021 06:22:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8785761152
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66E2F6E8C1;
-	Thu, 19 Aug 2021 06:21:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1F776E94E;
+	Thu, 19 Aug 2021 06:21:58 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3D566E4B5;
- Thu, 19 Aug 2021 06:21:55 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220745"
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220745"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 700476E858;
+ Thu, 19 Aug 2021 06:21:56 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216220752"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="216220752"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2021 23:21:54 -0700
-X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675165"
+X-IronPort-AV: E=Sophos;i="5.84,334,1620716400"; d="scan'208";a="511675171"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2021 23:21:54 -0700
@@ -36,15 +36,15 @@ From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>
-Date: Wed, 18 Aug 2021 23:16:14 -0700
-Message-Id: <20210819061639.21051-3-matthew.brost@intel.com>
+Date: Wed, 18 Aug 2021 23:16:20 -0700
+Message-Id: <20210819061639.21051-9-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210819061639.21051-1-matthew.brost@intel.com>
 References: <20210819061639.21051-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/27] drm/i915/guc: Fix outstanding G2H
- accounting
+Subject: [Intel-gfx] [PATCH 08/27] drm/i915/selftests: Add a cancel request
+ selftest that triggers a reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,86 +60,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A small race that could result in incorrect accounting of the number
-of outstanding G2H. Basically prior to this patch we did not increment
-the number of outstanding G2H if we encoutered a GT reset while sending
-a H2G. This was incorrect as the context state had already been updated
-to anticipate a G2H response thus the counter should be incremented.
+Add a cancel request selftest that results in an engine reset to cancel
+the request as it is non-preemptable. Also insert a NOP request after
+the cancelled request and confirm that it completely successfully.
 
-Also always use helper when decrementing this value.
-
-Fixes: f4eb1f3fe946 ("drm/i915/guc: Ensure G2H response has space in buffer")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Cc: <stable@vger.kernel.org>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 24 ++++++++++---------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/selftests/i915_request.c | 100 ++++++++++++++++++
+ 1 file changed, 100 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 69faa39da178..32c414aa9009 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -352,6 +352,12 @@ static inline void set_lrc_desc_registered(struct intel_guc *guc, u32 id,
- 	xa_unlock_irqrestore(&guc->context_lookup, flags);
- }
- 
-+static void decr_outstanding_submission_g2h(struct intel_guc *guc)
-+{
-+	if (atomic_dec_and_test(&guc->outstanding_submission_g2h))
-+		wake_up_all(&guc->ct.wq);
-+}
-+
- static int guc_submission_send_busy_loop(struct intel_guc *guc,
- 					 const u32 *action,
- 					 u32 len,
-@@ -360,11 +366,13 @@ static int guc_submission_send_busy_loop(struct intel_guc *guc,
- {
- 	int err;
- 
--	err = intel_guc_send_busy_loop(guc, action, len, g2h_len_dw, loop);
--
--	if (!err && g2h_len_dw)
-+	if (g2h_len_dw)
- 		atomic_inc(&guc->outstanding_submission_g2h);
- 
-+	err = intel_guc_send_busy_loop(guc, action, len, g2h_len_dw, loop);
-+	if (err == -EBUSY && g2h_len_dw)
-+		decr_outstanding_submission_g2h(guc);
-+
+diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
+index d67710d10615..e2c5db77f087 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_request.c
++++ b/drivers/gpu/drm/i915/selftests/i915_request.c
+@@ -772,6 +772,98 @@ static int __cancel_completed(struct intel_engine_cs *engine)
  	return err;
  }
  
-@@ -616,7 +624,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 		init_sched_state(ce);
++static int __cancel_reset(struct intel_engine_cs *engine)
++{
++	struct intel_context *ce;
++	struct igt_spinner spin;
++	struct i915_request *rq, *nop;
++	unsigned long preempt_timeout_ms;
++	int err = 0;
++
++	preempt_timeout_ms = engine->props.preempt_timeout_ms;
++	engine->props.preempt_timeout_ms = 100;
++
++	if (igt_spinner_init(&spin, engine->gt))
++		goto out_restore;
++
++	ce = intel_context_create(engine);
++	if (IS_ERR(ce)) {
++		err = PTR_ERR(ce);
++		goto out_spin;
++	}
++
++	rq = igt_spinner_create_request(&spin, ce, MI_NOOP);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_ce;
++	}
++
++	pr_debug("%s: Cancelling active request\n", engine->name);
++	i915_request_get(rq);
++	i915_request_add(rq);
++	if (!igt_wait_for_spinner(&spin, rq)) {
++		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
++
++		pr_err("Failed to start spinner on %s\n", engine->name);
++		intel_engine_dump(engine, &p, "%s\n", engine->name);
++		err = -ETIME;
++		goto out_rq;
++	}
++
++	nop = intel_context_create_request(ce);
++	if (IS_ERR(nop))
++		goto out_nop;
++	i915_request_get(nop);
++	i915_request_add(nop);
++
++	i915_request_cancel(rq, -EINTR);
++
++	if (i915_request_wait(rq, 0, HZ) < 0) {
++		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
++
++		pr_err("%s: Failed to cancel hung request\n", engine->name);
++		intel_engine_dump(engine, &p, "%s\n", engine->name);
++		err = -ETIME;
++		goto out_nop;
++	}
++
++	if (rq->fence.error != -EINTR) {
++		pr_err("%s: fence not cancelled (%u)\n",
++		       engine->name, rq->fence.error);
++		err = -EINVAL;
++		goto out_nop;
++	}
++
++	if (i915_request_wait(nop, 0, HZ) < 0) {
++		struct drm_printer p = drm_info_printer(engine->i915->drm.dev);
++
++		pr_err("%s: Failed to complete nop request\n", engine->name);
++		intel_engine_dump(engine, &p, "%s\n", engine->name);
++		err = -ETIME;
++		goto out_nop;
++	}
++
++	if (nop->fence.error != 0) {
++		pr_err("%s: Nop request errored (%u)\n",
++		       engine->name, nop->fence.error);
++		err = -EINVAL;
++	}
++
++out_nop:
++	i915_request_put(nop);
++out_rq:
++	i915_request_put(rq);
++out_ce:
++	intel_context_put(ce);
++out_spin:
++	igt_spinner_fini(&spin);
++out_restore:
++	engine->props.preempt_timeout_ms = preempt_timeout_ms;
++	if (err)
++		pr_err("%s: %s error %d\n", __func__, engine->name, err);
++	return err;
++}
++
+ static int live_cancel_request(void *arg)
+ {
+ 	struct drm_i915_private *i915 = arg;
+@@ -804,6 +896,14 @@ static int live_cancel_request(void *arg)
+ 			return err;
+ 		if (err2)
+ 			return err2;
++
++		/* Expects reset so call outside of igt_live_test_* */
++		err = __cancel_reset(engine);
++		if (err)
++			return err;
++
++		if (igt_flush_test(i915))
++			return -EIO;
+ 	}
  
- 		if (pending_enable || destroyed || deregister) {
--			atomic_dec(&guc->outstanding_submission_g2h);
-+			decr_outstanding_submission_g2h(guc);
- 			if (deregister)
- 				guc_signal_context_fence(ce);
- 			if (destroyed) {
-@@ -635,7 +643,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 				intel_engine_signal_breadcrumbs(ce->engine);
- 			}
- 			intel_context_sched_disable_unpin(ce);
--			atomic_dec(&guc->outstanding_submission_g2h);
-+			decr_outstanding_submission_g2h(guc);
- 			spin_lock_irqsave(&ce->guc_state.lock, flags);
- 			guc_blocked_fence_complete(ce);
- 			spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-@@ -2583,12 +2591,6 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
- 	return ce;
- }
- 
--static void decr_outstanding_submission_g2h(struct intel_guc *guc)
--{
--	if (atomic_dec_and_test(&guc->outstanding_submission_g2h))
--		wake_up_all(&guc->ct.wq);
--}
--
- int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 					  const u32 *msg,
- 					  u32 len)
+ 	return 0;
 -- 
 2.32.0
 
