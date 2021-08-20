@@ -5,30 +5,30 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FCDFC19F37
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2BA5C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD948601FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DD948601FE
+	by mail.kernel.org (Postfix) with ESMTPS id C76AB610FF
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C76AB610FF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 008416EB46;
-	Fri, 20 Aug 2021 22:50:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB4506EB4B;
+	Fri, 20 Aug 2021 22:50:10 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3F6D6EB2B;
- Fri, 20 Aug 2021 22:50:01 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580029"
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580029"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEC66EB2C;
+ Fri, 20 Aug 2021 22:50:03 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580036"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580036"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:01 -0700
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098553"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098575"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:01 -0700
@@ -38,12 +38,15 @@ To: <intel-gfx@lists.freedesktop.org>,
 Cc: <daniel.vetter@ffwll.ch>,
 	<tony.ye@intel.com>,
 	<zhengguo.xu@intel.com>
-Date: Fri, 20 Aug 2021 15:44:19 -0700
-Message-Id: <20210820224446.30620-1-matthew.brost@intel.com>
+Date: Fri, 20 Aug 2021 15:44:25 -0700
+Message-Id: <20210820224446.30620-7-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210820224446.30620-1-matthew.brost@intel.com>
+References: <20210820224446.30620-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/27] Parallel submission aka multi-bb execbuf
+Subject: [Intel-gfx] [PATCH 06/27] drm/i915/guc: Take engine PM when a
+ context is pinned with GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,128 +62,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As discussed in [1] we are introducing a new parallel submission uAPI
-for the i915 which allows more than 1 BB to be submitted in an execbuf
-IOCTL. This is the implemenation for both GuC and execlists.
+Taking a PM reference to prevent intel_gt_wait_for_idle from short
+circuiting while a scheduling of user context could be enabled.
 
-In addition to selftests in the series, an IGT is available implemented
-in the first 4 patches [2].
-
-Media UMD changes to land soon.
-
-First patch in the series in a squashed patch of [3] and does not need
-to be reviewed here.
-
-The execbuf IOCTL changes have been done in a single large patch (#24)
-as all the changes flow together and I believe a single patch will be
-better if some one has to lookup this change in the future. Can split in
-a series of smaller patches if desired.
-
-This code is available in a public [4] repo for UMD teams to test there
-code on.
-
-v2: Drop complicated state machine to block in kernel if no guc_ids
-available, perma-pin parallel contexts, reworker execbuf IOCTL to be a
-series of loops inside the IOCTL rather than 1 large one on the outside,
-address Daniel Vetter's comments, rebase on [3]  
+v2:
+ (Daniel Vetter)
+  - Add might_lock annotations to pin / unpin function
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_context.c       |  3 ++
+ drivers/gpu/drm/i915/gt/intel_engine_pm.h     | 15 ++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h         | 10 ++++++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 36 +++++++++++++++++--
+ drivers/gpu/drm/i915/intel_wakeref.h          | 12 +++++++
+ 5 files changed, 73 insertions(+), 3 deletions(-)
 
-[1] https://patchwork.freedesktop.org/series/92028/
-[2] https://patchwork.freedesktop.org/series/93071/
-[3] https://patchwork.freedesktop.org/series/93704/
-[4] https://gitlab.freedesktop.org/mbrost/mbrost-drm-intel/-/tree/drm-intel-parallel
-
-Matthew Brost (27):
-  drm/i915/guc: Squash Clean up GuC CI failures, simplify locking, and
-    kernel DOC
-  drm/i915/guc: Allow flexible number of context ids
-  drm/i915/guc: Connect the number of guc_ids to debugfs
-  drm/i915/guc: Take GT PM ref when deregistering context
-  drm/i915: Add GT PM unpark worker
-  drm/i915/guc: Take engine PM when a context is pinned with GuC
-    submission
-  drm/i915/guc: Don't call switch_to_kernel_context with GuC submission
-  drm/i915: Add logical engine mapping
-  drm/i915: Expose logical engine instance to user
-  drm/i915/guc: Introduce context parent-child relationship
-  drm/i915/guc: Implement parallel context pin / unpin functions
-  drm/i915/guc: Add multi-lrc context registration
-  drm/i915/guc: Ensure GuC schedule operations do not operate on child
-    contexts
-  drm/i915/guc: Assign contexts in parent-child relationship consecutive
-    guc_ids
-  drm/i915/guc: Implement multi-lrc submission
-  drm/i915/guc: Insert submit fences between requests in parent-child
-    relationship
-  drm/i915/guc: Implement multi-lrc reset
-  drm/i915/guc: Update debugfs for GuC multi-lrc
-  drm/i915: Fix bug in user proto-context creation that leaked contexts
-  drm/i915/guc: Connect UAPI to GuC multi-lrc interface
-  drm/i915/doc: Update parallel submit doc to point to i915_drm.h
-  drm/i915/guc: Add basic GuC multi-lrc selftest
-  drm/i915/guc: Implement no mid batch preemption for multi-lrc
-  drm/i915: Multi-BB execbuf
-  drm/i915/guc: Handle errors in multi-lrc requests
-  drm/i915: Enable multi-bb execbuf
-  drm/i915/execlists: Weak parallel submission support for execlists
-
- Documentation/gpu/rfc/i915_parallel_execbuf.h |  122 -
- Documentation/gpu/rfc/i915_scheduler.rst      |    4 +-
- drivers/gpu/drm/i915/Makefile                 |    1 +
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  222 +-
- .../gpu/drm/i915/gem/i915_gem_context_types.h |    6 +
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  765 ++++--
- drivers/gpu/drm/i915/gt/intel_context.c       |   58 +-
- drivers/gpu/drm/i915/gt/intel_context.h       |   52 +-
- drivers/gpu/drm/i915/gt/intel_context_types.h |  148 +-
- drivers/gpu/drm/i915/gt/intel_engine.h        |   12 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   66 +-
- drivers/gpu/drm/i915/gt/intel_engine_pm.c     |    9 +
- drivers/gpu/drm/i915/gt/intel_engine_pm.h     |   20 +
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |    5 +
- .../drm/i915/gt/intel_execlists_submission.c  |   68 +-
- drivers/gpu/drm/i915/gt/intel_gt.c            |    3 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.c         |    8 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.h         |   23 +
- .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.c |   35 +
- .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.h |   40 +
- drivers/gpu/drm/i915/gt/intel_gt_types.h      |   10 +
- drivers/gpu/drm/i915/gt/intel_lrc.c           |    7 +
- drivers/gpu/drm/i915/gt/selftest_execlists.c  |   12 +-
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |    6 +-
- drivers/gpu/drm/i915/gt/selftest_lrc.c        |   29 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |    1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   21 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   61 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |    2 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   30 +-
- .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |   36 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   10 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 2312 +++++++++++++----
- drivers/gpu/drm/i915/gt/uc/selftest_guc.c     |  126 +
- .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   |  180 ++
- drivers/gpu/drm/i915/i915_gpu_error.c         |   39 +-
- drivers/gpu/drm/i915/i915_query.c             |    2 +
- drivers/gpu/drm/i915/i915_request.c           |  120 +-
- drivers/gpu/drm/i915/i915_request.h           |   40 +-
- drivers/gpu/drm/i915/i915_trace.h             |   12 +-
- drivers/gpu/drm/i915/i915_vma.c               |   21 +-
- drivers/gpu/drm/i915/i915_vma.h               |   13 +-
- drivers/gpu/drm/i915/intel_wakeref.c          |    5 +
- drivers/gpu/drm/i915/intel_wakeref.h          |   13 +
- .../drm/i915/selftests/i915_live_selftests.h  |    2 +
- drivers/gpu/drm/i915/selftests/i915_request.c |  100 +
- .../i915/selftests/intel_scheduler_helpers.c  |   12 +
- .../i915/selftests/intel_scheduler_helpers.h  |    2 +
- include/uapi/drm/i915_drm.h                   |  136 +-
- 49 files changed, 3928 insertions(+), 1099 deletions(-)
- delete mode 100644 Documentation/gpu/rfc/i915_parallel_execbuf.h
- create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c
- create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h
- create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc.c
- create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index c8595da64ad8..508cfe5770c0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -240,6 +240,8 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
+ 	if (err)
+ 		goto err_post_unpin;
+ 
++	intel_engine_pm_might_get(ce->engine);
++
+ 	if (unlikely(intel_context_is_closed(ce))) {
+ 		err = -ENOENT;
+ 		goto err_unlock;
+@@ -313,6 +315,7 @@ void __intel_context_do_unpin(struct intel_context *ce, int sub)
+ 		return;
+ 
+ 	CE_TRACE(ce, "unpin\n");
++	intel_engine_pm_might_put(ce->engine);
+ 	ce->ops->unpin(ce);
+ 	ce->ops->post_unpin(ce);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.h b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+index 17a5028ea177..3fe2ae1bcc26 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+@@ -9,6 +9,7 @@
+ #include "i915_request.h"
+ #include "intel_engine_types.h"
+ #include "intel_wakeref.h"
++#include "intel_gt_pm.h"
+ 
+ static inline bool
+ intel_engine_pm_is_awake(const struct intel_engine_cs *engine)
+@@ -31,6 +32,13 @@ static inline bool intel_engine_pm_get_if_awake(struct intel_engine_cs *engine)
+ 	return intel_wakeref_get_if_active(&engine->wakeref);
+ }
+ 
++static inline void intel_engine_pm_might_get(struct intel_engine_cs *engine)
++{
++	if (!intel_engine_is_virtual(engine))
++		intel_wakeref_might_get(&engine->wakeref);
++	intel_gt_pm_might_get(engine->gt);
++}
++
+ static inline void intel_engine_pm_put(struct intel_engine_cs *engine)
+ {
+ 	intel_wakeref_put(&engine->wakeref);
+@@ -52,6 +60,13 @@ static inline void intel_engine_pm_flush(struct intel_engine_cs *engine)
+ 	intel_wakeref_unlock_wait(&engine->wakeref);
+ }
+ 
++static inline void intel_engine_pm_might_put(struct intel_engine_cs *engine)
++{
++	if (!intel_engine_is_virtual(engine))
++		intel_wakeref_might_put(&engine->wakeref);
++	intel_gt_pm_might_put(engine->gt);
++}
++
+ static inline struct i915_request *
+ intel_engine_create_kernel_request(struct intel_engine_cs *engine)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+index a17bf0d4592b..3c173033ce23 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+@@ -31,6 +31,11 @@ static inline bool intel_gt_pm_get_if_awake(struct intel_gt *gt)
+ 	return intel_wakeref_get_if_active(&gt->wakeref);
+ }
+ 
++static inline void intel_gt_pm_might_get(struct intel_gt *gt)
++{
++	intel_wakeref_might_get(&gt->wakeref);
++}
++
+ static inline void intel_gt_pm_put(struct intel_gt *gt)
+ {
+ 	intel_wakeref_put(&gt->wakeref);
+@@ -41,6 +46,11 @@ static inline void intel_gt_pm_put_async(struct intel_gt *gt)
+ 	intel_wakeref_put_async(&gt->wakeref);
+ }
+ 
++static inline void intel_gt_pm_might_put(struct intel_gt *gt)
++{
++	intel_wakeref_might_put(&gt->wakeref);
++}
++
+ #define with_intel_gt_pm(gt, tmp) \
+ 	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
+ 	     intel_gt_pm_put(gt), tmp = 0)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index dbf919801de2..e0eed70f9b92 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1550,7 +1550,12 @@ static int guc_context_pre_pin(struct intel_context *ce,
+ 
+ static int guc_context_pin(struct intel_context *ce, void *vaddr)
+ {
+-	return __guc_context_pin(ce, ce->engine, vaddr);
++	int ret = __guc_context_pin(ce, ce->engine, vaddr);
++
++	if (likely(!ret && !intel_context_is_barrier(ce)))
++		intel_engine_pm_get(ce->engine);
++
++	return ret;
+ }
+ 
+ static void guc_context_unpin(struct intel_context *ce)
+@@ -1559,6 +1564,9 @@ static void guc_context_unpin(struct intel_context *ce)
+ 
+ 	unpin_guc_id(guc, ce);
+ 	lrc_unpin(ce);
++
++	if (likely(!intel_context_is_barrier(ce)))
++		intel_engine_pm_put_async(ce->engine);
+ }
+ 
+ static void guc_context_post_unpin(struct intel_context *ce)
+@@ -2328,8 +2336,30 @@ static int guc_virtual_context_pre_pin(struct intel_context *ce,
+ static int guc_virtual_context_pin(struct intel_context *ce, void *vaddr)
+ {
+ 	struct intel_engine_cs *engine = guc_virtual_get_sibling(ce->engine, 0);
++	int ret = __guc_context_pin(ce, engine, vaddr);
++	intel_engine_mask_t tmp, mask = ce->engine->mask;
++
++	if (likely(!ret))
++		for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
++			intel_engine_pm_get(engine);
+ 
+-	return __guc_context_pin(ce, engine, vaddr);
++	return ret;
++}
++
++static void guc_virtual_context_unpin(struct intel_context *ce)
++{
++	intel_engine_mask_t tmp, mask = ce->engine->mask;
++	struct intel_engine_cs *engine;
++	struct intel_guc *guc = ce_to_guc(ce);
++
++	GEM_BUG_ON(context_enabled(ce));
++	GEM_BUG_ON(intel_context_is_barrier(ce));
++
++	unpin_guc_id(guc, ce);
++	lrc_unpin(ce);
++
++	for_each_engine_masked(engine, ce->engine->gt, mask, tmp)
++		intel_engine_pm_put_async(engine);
+ }
+ 
+ static void guc_virtual_context_enter(struct intel_context *ce)
+@@ -2366,7 +2396,7 @@ static const struct intel_context_ops virtual_guc_context_ops = {
+ 
+ 	.pre_pin = guc_virtual_context_pre_pin,
+ 	.pin = guc_virtual_context_pin,
+-	.unpin = guc_context_unpin,
++	.unpin = guc_virtual_context_unpin,
+ 	.post_unpin = guc_context_post_unpin,
+ 
+ 	.ban = guc_context_ban,
+diff --git a/drivers/gpu/drm/i915/intel_wakeref.h b/drivers/gpu/drm/i915/intel_wakeref.h
+index ef7e6a698e8a..dd530ae028e0 100644
+--- a/drivers/gpu/drm/i915/intel_wakeref.h
++++ b/drivers/gpu/drm/i915/intel_wakeref.h
+@@ -124,6 +124,12 @@ enum {
+ 	__INTEL_WAKEREF_PUT_LAST_BIT__
+ };
+ 
++static inline void
++intel_wakeref_might_get(struct intel_wakeref *wf)
++{
++	might_lock(&wf->mutex);
++}
++
+ /**
+  * intel_wakeref_put_flags: Release the wakeref
+  * @wf: the wakeref
+@@ -171,6 +177,12 @@ intel_wakeref_put_delay(struct intel_wakeref *wf, unsigned long delay)
+ 			    FIELD_PREP(INTEL_WAKEREF_PUT_DELAY, delay));
+ }
+ 
++static inline void
++intel_wakeref_might_put(struct intel_wakeref *wf)
++{
++	might_lock(&wf->mutex);
++}
++
+ /**
+  * intel_wakeref_lock: Lock the wakeref (mutex)
+  * @wf: the wakeref
 -- 
 2.32.0
 
