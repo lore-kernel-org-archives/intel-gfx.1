@@ -5,30 +5,30 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27767C19F33
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FCDFC19F37
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E70E0601FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E70E0601FE
+	by mail.kernel.org (Postfix) with ESMTPS id DD948601FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DD948601FE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D42476EB45;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 008416EB46;
 	Fri, 20 Aug 2021 22:50:06 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2F796EB2D;
- Fri, 20 Aug 2021 22:50:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580035"
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580035"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3F6D6EB2B;
+ Fri, 20 Aug 2021 22:50:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580029"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580029"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:01 -0700
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098572"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098553"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:01 -0700
@@ -38,15 +38,12 @@ To: <intel-gfx@lists.freedesktop.org>,
 Cc: <daniel.vetter@ffwll.ch>,
 	<tony.ye@intel.com>,
 	<zhengguo.xu@intel.com>
-Date: Fri, 20 Aug 2021 15:44:24 -0700
-Message-Id: <20210820224446.30620-6-matthew.brost@intel.com>
+Date: Fri, 20 Aug 2021 15:44:19 -0700
+Message-Id: <20210820224446.30620-1-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210820224446.30620-1-matthew.brost@intel.com>
-References: <20210820224446.30620-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/27] drm/i915: Add GT PM unpark worker
+Subject: [Intel-gfx] [PATCH 00/27] Parallel submission aka multi-bb execbuf
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,302 +59,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sometimes it is desirable to queue work up for later if the GT PM isn't
-held and run that work on next GT PM unpark.
+As discussed in [1] we are introducing a new parallel submission uAPI
+for the i915 which allows more than 1 BB to be submitted in an execbuf
+IOCTL. This is the implemenation for both GuC and execlists.
 
-Implemented with a list in the GT of all pending work, workqueues in
-the list, a callback to add a workqueue to the list, and finally a
-wakeref post_get callback that iterates / drains the list + queues the
-workqueues.
+In addition to selftests in the series, an IGT is available implemented
+in the first 4 patches [2].
 
-First user of this is deregistration of GuC contexts.
+Media UMD changes to land soon.
+
+First patch in the series in a squashed patch of [3] and does not need
+to be reviewed here.
+
+The execbuf IOCTL changes have been done in a single large patch (#24)
+as all the changes flow together and I believe a single patch will be
+better if some one has to lookup this change in the future. Can split in
+a series of smaller patches if desired.
+
+This code is available in a public [4] repo for UMD teams to test there
+code on.
+
+v2: Drop complicated state machine to block in kernel if no guc_ids
+available, perma-pin parallel contexts, reworker execbuf IOCTL to be a
+series of loops inside the IOCTL rather than 1 large one on the outside,
+address Daniel Vetter's comments, rebase on [3]  
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/Makefile                 |  1 +
- drivers/gpu/drm/i915/gt/intel_gt.c            |  3 ++
- drivers/gpu/drm/i915/gt/intel_gt_pm.c         |  8 ++++
- .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.c | 35 ++++++++++++++++
- .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.h | 40 +++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_types.h      | 10 +++++
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  8 ++--
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 15 +++++--
- drivers/gpu/drm/i915/intel_wakeref.c          |  5 +++
- drivers/gpu/drm/i915/intel_wakeref.h          |  1 +
- 10 files changed, 119 insertions(+), 7 deletions(-)
+
+[1] https://patchwork.freedesktop.org/series/92028/
+[2] https://patchwork.freedesktop.org/series/93071/
+[3] https://patchwork.freedesktop.org/series/93704/
+[4] https://gitlab.freedesktop.org/mbrost/mbrost-drm-intel/-/tree/drm-intel-parallel
+
+Matthew Brost (27):
+  drm/i915/guc: Squash Clean up GuC CI failures, simplify locking, and
+    kernel DOC
+  drm/i915/guc: Allow flexible number of context ids
+  drm/i915/guc: Connect the number of guc_ids to debugfs
+  drm/i915/guc: Take GT PM ref when deregistering context
+  drm/i915: Add GT PM unpark worker
+  drm/i915/guc: Take engine PM when a context is pinned with GuC
+    submission
+  drm/i915/guc: Don't call switch_to_kernel_context with GuC submission
+  drm/i915: Add logical engine mapping
+  drm/i915: Expose logical engine instance to user
+  drm/i915/guc: Introduce context parent-child relationship
+  drm/i915/guc: Implement parallel context pin / unpin functions
+  drm/i915/guc: Add multi-lrc context registration
+  drm/i915/guc: Ensure GuC schedule operations do not operate on child
+    contexts
+  drm/i915/guc: Assign contexts in parent-child relationship consecutive
+    guc_ids
+  drm/i915/guc: Implement multi-lrc submission
+  drm/i915/guc: Insert submit fences between requests in parent-child
+    relationship
+  drm/i915/guc: Implement multi-lrc reset
+  drm/i915/guc: Update debugfs for GuC multi-lrc
+  drm/i915: Fix bug in user proto-context creation that leaked contexts
+  drm/i915/guc: Connect UAPI to GuC multi-lrc interface
+  drm/i915/doc: Update parallel submit doc to point to i915_drm.h
+  drm/i915/guc: Add basic GuC multi-lrc selftest
+  drm/i915/guc: Implement no mid batch preemption for multi-lrc
+  drm/i915: Multi-BB execbuf
+  drm/i915/guc: Handle errors in multi-lrc requests
+  drm/i915: Enable multi-bb execbuf
+  drm/i915/execlists: Weak parallel submission support for execlists
+
+ Documentation/gpu/rfc/i915_parallel_execbuf.h |  122 -
+ Documentation/gpu/rfc/i915_scheduler.rst      |    4 +-
+ drivers/gpu/drm/i915/Makefile                 |    1 +
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |  222 +-
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |    6 +
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  765 ++++--
+ drivers/gpu/drm/i915/gt/intel_context.c       |   58 +-
+ drivers/gpu/drm/i915/gt/intel_context.h       |   52 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  148 +-
+ drivers/gpu/drm/i915/gt/intel_engine.h        |   12 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   66 +-
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c     |    9 +
+ drivers/gpu/drm/i915/gt/intel_engine_pm.h     |   20 +
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |    5 +
+ .../drm/i915/gt/intel_execlists_submission.c  |   68 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c            |    3 +
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |    8 +
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h         |   23 +
+ .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.c |   35 +
+ .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.h |   40 +
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      |   10 +
+ drivers/gpu/drm/i915/gt/intel_lrc.c           |    7 +
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  |   12 +-
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |    6 +-
+ drivers/gpu/drm/i915/gt/selftest_lrc.c        |   29 +-
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |    1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   21 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   61 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |    2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   30 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_debugfs.c    |   36 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   10 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 2312 +++++++++++++----
+ drivers/gpu/drm/i915/gt/uc/selftest_guc.c     |  126 +
+ .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   |  180 ++
+ drivers/gpu/drm/i915/i915_gpu_error.c         |   39 +-
+ drivers/gpu/drm/i915/i915_query.c             |    2 +
+ drivers/gpu/drm/i915/i915_request.c           |  120 +-
+ drivers/gpu/drm/i915/i915_request.h           |   40 +-
+ drivers/gpu/drm/i915/i915_trace.h             |   12 +-
+ drivers/gpu/drm/i915/i915_vma.c               |   21 +-
+ drivers/gpu/drm/i915/i915_vma.h               |   13 +-
+ drivers/gpu/drm/i915/intel_wakeref.c          |    5 +
+ drivers/gpu/drm/i915/intel_wakeref.h          |   13 +
+ .../drm/i915/selftests/i915_live_selftests.h  |    2 +
+ drivers/gpu/drm/i915/selftests/i915_request.c |  100 +
+ .../i915/selftests/intel_scheduler_helpers.c  |   12 +
+ .../i915/selftests/intel_scheduler_helpers.h  |    2 +
+ include/uapi/drm/i915_drm.h                   |  136 +-
+ 49 files changed, 3928 insertions(+), 1099 deletions(-)
+ delete mode 100644 Documentation/gpu/rfc/i915_parallel_execbuf.h
  create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c
  create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 642a5b5a1b81..579bdc069f25 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -103,6 +103,7 @@ gt-y += \
- 	gt/intel_gt_clock_utils.o \
- 	gt/intel_gt_irq.o \
- 	gt/intel_gt_pm.o \
-+	gt/intel_gt_pm_unpark_work.o \
- 	gt/intel_gt_pm_irq.o \
- 	gt/intel_gt_requests.o \
- 	gt/intel_gtt.o \
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 62d40c986642..7e690e74baa2 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -29,6 +29,9 @@ void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915)
- 
- 	spin_lock_init(&gt->irq_lock);
- 
-+	spin_lock_init(&gt->pm_unpark_work_lock);
-+	INIT_LIST_HEAD(&gt->pm_unpark_work_list);
-+
- 	INIT_LIST_HEAD(&gt->closed_vma);
- 	spin_lock_init(&gt->closed_lock);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-index dea8e2479897..564c11a3748b 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-@@ -90,6 +90,13 @@ static int __gt_unpark(struct intel_wakeref *wf)
- 	return 0;
- }
- 
-+static void __gt_unpark_work_queue(struct intel_wakeref *wf)
-+{
-+	struct intel_gt *gt = container_of(wf, typeof(*gt), wakeref);
-+
-+	intel_gt_pm_unpark_work_queue(gt);
-+}
-+
- static int __gt_park(struct intel_wakeref *wf)
- {
- 	struct intel_gt *gt = container_of(wf, typeof(*gt), wakeref);
-@@ -118,6 +125,7 @@ static int __gt_park(struct intel_wakeref *wf)
- 
- static const struct intel_wakeref_ops wf_ops = {
- 	.get = __gt_unpark,
-+	.post_get = __gt_unpark_work_queue,
- 	.put = __gt_park,
- };
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c
-new file mode 100644
-index 000000000000..23162dbd0c35
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c
-@@ -0,0 +1,35 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2021 Intel Corporation
-+ */
-+
-+#include "i915_drv.h"
-+#include "intel_runtime_pm.h"
-+#include "intel_gt_pm.h"
-+
-+void intel_gt_pm_unpark_work_queue(struct intel_gt *gt)
-+{
-+	struct intel_gt_pm_unpark_work *work, *next;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&gt->pm_unpark_work_lock, flags);
-+	list_for_each_entry_safe(work, next,
-+				 &gt->pm_unpark_work_list, link) {
-+		list_del_init(&work->link);
-+		queue_work(system_unbound_wq, &work->worker);
-+	}
-+	spin_unlock_irqrestore(&gt->pm_unpark_work_lock, flags);
-+}
-+
-+void intel_gt_pm_unpark_work_add(struct intel_gt *gt,
-+				 struct intel_gt_pm_unpark_work *work)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&gt->pm_unpark_work_lock, flags);
-+	if (intel_gt_pm_is_awake(gt))
-+		queue_work(system_unbound_wq, &work->worker);
-+	else if (list_empty(&work->link))
-+		list_add_tail(&work->link, &gt->pm_unpark_work_list);
-+	spin_unlock_irqrestore(&gt->pm_unpark_work_lock, flags);
-+}
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h b/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h
-new file mode 100644
-index 000000000000..eaf1dc313aa2
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h
-@@ -0,0 +1,40 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2021 Intel Corporation
-+ */
-+
-+#ifndef INTEL_GT_PM_UNPARK_WORK_H
-+#define INTEL_GT_PM_UNPARK_WORK_H
-+
-+#include <linux/list.h>
-+#include <linux/workqueue.h>
-+
-+struct intel_gt;
-+
-+/**
-+ * struct intel_gt_pm_unpark_work - work to be scheduled when GT unparked
-+ */
-+struct intel_gt_pm_unpark_work {
-+	/**
-+	 * @link: link into gt->pm_unpark_work_list of workers that need to be
-+	 * scheduled when GT is unpark, protected by gt->pm_unpark_work_lock
-+	 */
-+	struct list_head link;
-+	/** @worker: will be scheduled when GT unparked */
-+	struct work_struct worker;
-+};
-+
-+void intel_gt_pm_unpark_work_queue(struct intel_gt *gt);
-+
-+void intel_gt_pm_unpark_work_add(struct intel_gt *gt,
-+				 struct intel_gt_pm_unpark_work *work);
-+
-+static inline void
-+intel_gt_pm_unpark_work_init(struct intel_gt_pm_unpark_work *work,
-+			     work_func_t fn)
-+{
-+	INIT_LIST_HEAD(&work->link);
-+	INIT_WORK(&work->worker, fn);
-+}
-+
-+#endif /* INTEL_GT_PM_UNPARK_WORK_H */
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index a81e21bf1bd1..4480312f0add 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -96,6 +96,16 @@ struct intel_gt {
- 	struct intel_wakeref wakeref;
- 	atomic_t user_wakeref;
- 
-+	/**
-+	 * @pm_unpark_work_list: list of delayed work to scheduled which GT is
-+	 * unparked, protected by pm_unpark_work_lock
-+	 */
-+	struct list_head pm_unpark_work_list;
-+	/**
-+	 * @pm_unpark_work_lock: protects pm_unpark_work_list
-+	 */
-+	spinlock_t pm_unpark_work_lock;
-+
- 	struct list_head closed_vma;
- 	spinlock_t closed_lock; /* guards the list of closed_vma */
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 7358883f1540..023953e77553 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -19,6 +19,7 @@
- #include "intel_uc_fw.h"
- #include "i915_utils.h"
- #include "i915_vma.h"
-+#include "gt/intel_gt_pm_unpark_work.h"
- 
- struct __guc_ads_blob;
- 
-@@ -78,11 +79,12 @@ struct intel_guc {
- 		 */
- 		struct list_head destroyed_contexts;
- 		/**
--		 * @destroyed_worker: worker to deregister contexts, need as we
-+		 * @destroyed_worker: Worker to deregister contexts, need as we
- 		 * need to take a GT PM reference and can't from destroy
--		 * function as it might be in an atomic context (no sleeping)
-+		 * function as it might be in an atomic context (no sleeping).
-+		 * Worker only issues deregister when GT is unparked.
- 		 */
--		struct work_struct destroyed_worker;
-+		struct intel_gt_pm_unpark_work destroyed_worker;
- 	} submission_state;
- 
- 	bool submission_supported;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index f835e06e5f9f..dbf919801de2 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1135,7 +1135,8 @@ int intel_guc_submission_init(struct intel_guc *guc)
- 	INIT_LIST_HEAD(&guc->submission_state.guc_id_list);
- 	ida_init(&guc->submission_state.guc_ids);
- 	INIT_LIST_HEAD(&guc->submission_state.destroyed_contexts);
--	INIT_WORK(&guc->submission_state.destroyed_worker, destroyed_worker_func);
-+	intel_gt_pm_unpark_work_init(&guc->submission_state.destroyed_worker,
-+				     destroyed_worker_func);
- 
- 	return 0;
- }
-@@ -1942,13 +1943,18 @@ static void deregister_destroyed_contexts(struct intel_guc *guc)
- 
- static void destroyed_worker_func(struct work_struct *w)
- {
--	struct intel_guc *guc = container_of(w, struct intel_guc,
-+	struct intel_gt_pm_unpark_work *destroyed_worker =
-+		container_of(w, struct intel_gt_pm_unpark_work, worker);
-+	struct intel_guc *guc = container_of(destroyed_worker, struct intel_guc,
- 					     submission_state.destroyed_worker);
- 	struct intel_gt *gt = guc_to_gt(guc);
- 	int tmp;
- 
--	with_intel_gt_pm(gt, tmp)
-+	with_intel_gt_pm_if_awake(gt, tmp)
- 		deregister_destroyed_contexts(guc);
-+
-+	if (!list_empty(&guc->submission_state.destroyed_contexts))
-+		intel_gt_pm_unpark_work_add(gt, destroyed_worker);
- }
- 
- static void guc_context_destroy(struct kref *kref)
-@@ -1985,7 +1991,8 @@ static void guc_context_destroy(struct kref *kref)
- 	 * take the GT PM for the first time which isn't allowed from an atomic
- 	 * context.
- 	 */
--	queue_work(system_unbound_wq, &guc->submission_state.destroyed_worker);
-+	intel_gt_pm_unpark_work_add(guc_to_gt(guc),
-+				    &guc->submission_state.destroyed_worker);
- }
- 
- static int guc_context_alloc(struct intel_context *ce)
-diff --git a/drivers/gpu/drm/i915/intel_wakeref.c b/drivers/gpu/drm/i915/intel_wakeref.c
-index dfd87d082218..282fc4f312e3 100644
---- a/drivers/gpu/drm/i915/intel_wakeref.c
-+++ b/drivers/gpu/drm/i915/intel_wakeref.c
-@@ -24,6 +24,8 @@ static void rpm_put(struct intel_wakeref *wf)
- 
- int __intel_wakeref_get_first(struct intel_wakeref *wf)
- {
-+	bool do_post = false;
-+
- 	/*
- 	 * Treat get/put as different subclasses, as we may need to run
- 	 * the put callback from under the shrinker and do not want to
-@@ -44,8 +46,11 @@ int __intel_wakeref_get_first(struct intel_wakeref *wf)
- 		}
- 
- 		smp_mb__before_atomic(); /* release wf->count */
-+		do_post = true;
- 	}
- 	atomic_inc(&wf->count);
-+	if (do_post && wf->ops->post_get)
-+		wf->ops->post_get(wf);
- 	mutex_unlock(&wf->mutex);
- 
- 	INTEL_WAKEREF_BUG_ON(atomic_read(&wf->count) <= 0);
-diff --git a/drivers/gpu/drm/i915/intel_wakeref.h b/drivers/gpu/drm/i915/intel_wakeref.h
-index 545c8f277c46..ef7e6a698e8a 100644
---- a/drivers/gpu/drm/i915/intel_wakeref.h
-+++ b/drivers/gpu/drm/i915/intel_wakeref.h
-@@ -30,6 +30,7 @@ typedef depot_stack_handle_t intel_wakeref_t;
- 
- struct intel_wakeref_ops {
- 	int (*get)(struct intel_wakeref *wf);
-+	void (*post_get)(struct intel_wakeref *wf);
- 	int (*put)(struct intel_wakeref *wf);
- };
- 
 -- 
 2.32.0
 
