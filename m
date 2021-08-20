@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8B57C4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2A97C4320E
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ACB29601FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ACB29601FE
+	by mail.kernel.org (Postfix) with ESMTPS id A234561057
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A234561057
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B6D96EB35;
-	Fri, 20 Aug 2021 22:50:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 320F56EB4F;
+	Fri, 20 Aug 2021 22:50:11 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AFF86EB31;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 685C86EB30;
  Fri, 20 Aug 2021 22:50:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580041"
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580041"
+X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580040"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580040"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:02 -0700
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098592"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098588"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2021 15:50:02 -0700
+ 20 Aug 2021 15:50:01 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>,
 	<tony.ye@intel.com>,
 	<zhengguo.xu@intel.com>
-Date: Fri, 20 Aug 2021 15:44:30 -0700
-Message-Id: <20210820224446.30620-12-matthew.brost@intel.com>
+Date: Fri, 20 Aug 2021 15:44:29 -0700
+Message-Id: <20210820224446.30620-11-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210820224446.30620-1-matthew.brost@intel.com>
 References: <20210820224446.30620-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/27] drm/i915/guc: Implement parallel context
- pin / unpin functions
+Subject: [Intel-gfx] [PATCH 10/27] drm/i915/guc: Introduce context
+ parent-child relationship
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,102 +62,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Parallel contexts are perma-pinned by the upper layers which makes the
-backend implementation rather simple. The parent pins the guc_id and
-children increment the parent's pin count on pin to ensure all the
-contexts are unpinned before we disable scheduling with the GuC / or
-deregister the context.
+Introduce context parent-child relationship. Once this relationship is
+created all pinning / unpinning operations are directed to the parent
+context. The parent context is responsible for pinning all of its'
+children and itself.
+
+This is a precursor to the full GuC multi-lrc implementation but aligns
+to how GuC mutli-lrc interface is defined - a single H2G is used
+register / deregister all of the contexts simultaneously.
+
+Subsequent patches in the series will implement the pinning / unpinning
+operations for parent / child contexts.
 
 v2:
  (Daniel Vetter)
-  - Perma-pin parallel contexts
+  - Add kernel doc, add wrapper to access parent to ensure safety
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 70 +++++++++++++++++++
- 1 file changed, 70 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_context.c       | 29 ++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_context.h       | 39 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_context_types.h | 23 +++++++++++
+ 3 files changed, 91 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index ffafbac7335e..14b24298cdd7 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2395,6 +2395,76 @@ static const struct intel_context_ops virtual_guc_context_ops = {
- 	.get_sibling = guc_virtual_get_sibling,
- };
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 508cfe5770c0..00d1aee6d199 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -404,6 +404,8 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
  
-+/* Future patches will use this function */
-+__maybe_unused
-+static int guc_parent_context_pin(struct intel_context *ce, void *vaddr)
-+{
-+	struct intel_engine_cs *engine = guc_virtual_get_sibling(ce->engine, 0);
-+	struct intel_guc *guc = ce_to_guc(ce);
-+	int ret;
+ 	INIT_LIST_HEAD(&ce->destroyed_link);
+ 
++	INIT_LIST_HEAD(&ce->guc_child_list);
 +
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	ret = pin_guc_id(guc, ce);
-+	if (unlikely(ret < 0))
-+		return ret;
-+
-+	return __guc_context_pin(ce, engine, vaddr);
-+}
-+
-+/* Future patches will use this function */
-+__maybe_unused
-+static int guc_child_context_pin(struct intel_context *ce, void *vaddr)
-+{
-+	struct intel_engine_cs *engine = guc_virtual_get_sibling(ce->engine, 0);
-+
-+	GEM_BUG_ON(!intel_context_is_child(ce));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	__intel_context_pin(ce->parent);
-+	return __guc_context_pin(ce, engine, vaddr);
-+}
-+
-+/* Future patches will use this function */
-+__maybe_unused
-+static void guc_parent_context_unpin(struct intel_context *ce)
-+{
-+	struct intel_guc *guc = ce_to_guc(ce);
-+
-+	GEM_BUG_ON(context_enabled(ce));
-+	GEM_BUG_ON(intel_context_is_barrier(ce));
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	unpin_guc_id(guc, ce);
-+	lrc_unpin(ce);
-+}
-+
-+/* Future patches will use this function */
-+__maybe_unused
-+static void guc_child_context_unpin(struct intel_context *ce)
-+{
-+	GEM_BUG_ON(context_enabled(ce));
-+	GEM_BUG_ON(intel_context_is_barrier(ce));
-+	GEM_BUG_ON(!intel_context_is_child(ce));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	lrc_unpin(ce);
-+}
-+
-+/* Future patches will use this function */
-+__maybe_unused
-+static void guc_child_context_post_unpin(struct intel_context *ce)
-+{
-+	GEM_BUG_ON(!intel_context_is_child(ce));
-+	GEM_BUG_ON(!intel_context_is_pinned(ce->parent));
-+	GEM_BUG_ON(!intel_engine_is_virtual(ce->engine));
-+
-+	lrc_post_unpin(ce);
-+	intel_context_unpin(ce->parent);
-+}
-+
- static bool
- guc_irq_enable_breadcrumbs(struct intel_breadcrumbs *b)
+ 	/*
+ 	 * Initialize fence to be complete as this is expected to be complete
+ 	 * unless there is a pending schedule disable outstanding.
+@@ -418,10 +420,17 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ 
+ void intel_context_fini(struct intel_context *ce)
  {
++	struct intel_context *child, *next;
++
+ 	if (ce->timeline)
+ 		intel_timeline_put(ce->timeline);
+ 	i915_vm_put(ce->vm);
+ 
++	/* Need to put the creation ref for the children */
++	if (intel_context_is_parent(ce))
++		for_each_child_safe(ce, child, next)
++			intel_context_put(child);
++
+ 	mutex_destroy(&ce->pin_mutex);
+ 	i915_active_fini(&ce->active);
+ }
+@@ -537,6 +546,26 @@ struct i915_request *intel_context_find_active_request(struct intel_context *ce)
+ 	return active;
+ }
+ 
++void intel_context_bind_parent_child(struct intel_context *parent,
++				     struct intel_context *child)
++{
++	/*
++	 * Callers responsibility to validate that this function is used
++	 * correctly but we use GEM_BUG_ON here ensure that they do.
++	 */
++	GEM_BUG_ON(!intel_engine_uses_guc(parent->engine));
++	GEM_BUG_ON(intel_context_is_pinned(parent));
++	GEM_BUG_ON(intel_context_is_child(parent));
++	GEM_BUG_ON(intel_context_is_pinned(child));
++	GEM_BUG_ON(intel_context_is_child(child));
++	GEM_BUG_ON(intel_context_is_parent(child));
++
++	parent->guc_number_children++;
++	list_add_tail(&child->guc_child_link,
++		      &parent->guc_child_list);
++	child->parent = parent;
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftest_context.c"
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
+index c41098950746..c2985822ab74 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.h
++++ b/drivers/gpu/drm/i915/gt/intel_context.h
+@@ -44,6 +44,45 @@ void intel_context_free(struct intel_context *ce);
+ int intel_context_reconfigure_sseu(struct intel_context *ce,
+ 				   const struct intel_sseu sseu);
+ 
++static inline bool intel_context_is_child(struct intel_context *ce)
++{
++	return !!ce->parent;
++}
++
++static inline bool intel_context_is_parent(struct intel_context *ce)
++{
++	return !!ce->guc_number_children;
++}
++
++static inline bool intel_context_is_pinned(struct intel_context *ce);
++
++static inline struct intel_context *
++intel_context_to_parent(struct intel_context *ce)
++{
++        if (intel_context_is_child(ce)) {
++		/*
++		 * The parent holds ref count to the child so it is always safe
++		 * for the parent to access the child, but the child has pointer
++		 * to the parent without a ref. To ensure this is safe the child
++		 * should only access the parent pointer while the parent is
++		 * pinned.
++		 */
++                GEM_BUG_ON(!intel_context_is_pinned(ce->parent));
++
++                return ce->parent;
++        } else {
++                return ce;
++        }
++}
++
++void intel_context_bind_parent_child(struct intel_context *parent,
++				     struct intel_context *child);
++
++#define for_each_child(parent, ce)\
++	list_for_each_entry(ce, &(parent)->guc_child_list, guc_child_link)
++#define for_each_child_safe(parent, ce, cn)\
++	list_for_each_entry_safe(ce, cn, &(parent)->guc_child_list, guc_child_link)
++
+ /**
+  * intel_context_lock_pinned - Stablises the 'pinned' status of the HW context
+  * @ce - the context
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index fd338a30617e..0fafc178cf2c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -213,6 +213,29 @@ struct intel_context {
+ 	 */
+ 	struct list_head destroyed_link;
+ 
++	/** anonymous struct for parent / children only members */
++	struct {
++		union {
++			/**
++			 * @guc_child_list: parent's list of of children
++			 * contexts, no protection as immutable after context
++			 * creation
++			 */
++			struct list_head guc_child_list;
++			/**
++			 * @guc_child_link: child's link into parent's list of
++			 * children
++			 */
++			struct list_head guc_child_link;
++		};
++
++		/** @parent: pointer to parent if child */
++		struct intel_context *parent;
++
++		/** @guc_number_children: number of children if parent */
++		u8 guc_number_children;
++	};
++
+ #ifdef CONFIG_DRM_I915_SELFTEST
+ 	/**
+ 	 * @drop_schedule_enable: Force drop of schedule enable G2H for selftest
 -- 
 2.32.0
 
