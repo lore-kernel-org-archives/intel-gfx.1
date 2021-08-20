@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65419C432BE
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27767C19F33
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 310EF601FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 310EF601FE
+	by mail.kernel.org (Postfix) with ESMTPS id E70E0601FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E70E0601FE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B15A6EB31;
-	Fri, 20 Aug 2021 22:50:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D42476EB45;
+	Fri, 20 Aug 2021 22:50:06 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92BE56EB33;
- Fri, 20 Aug 2021 22:50:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580042"
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580042"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2F796EB2D;
+ Fri, 20 Aug 2021 22:50:02 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580035"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580035"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2021 15:50:02 -0700
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098595"
+ 20 Aug 2021 15:50:01 -0700
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098572"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2021 15:50:02 -0700
+ 20 Aug 2021 15:50:01 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniel.vetter@ffwll.ch>,
 	<tony.ye@intel.com>,
 	<zhengguo.xu@intel.com>
-Date: Fri, 20 Aug 2021 15:44:31 -0700
-Message-Id: <20210820224446.30620-13-matthew.brost@intel.com>
+Date: Fri, 20 Aug 2021 15:44:24 -0700
+Message-Id: <20210820224446.30620-6-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210820224446.30620-1-matthew.brost@intel.com>
 References: <20210820224446.30620-1-matthew.brost@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 12/27] drm/i915/guc: Add multi-lrc context
- registration
+Subject: [Intel-gfx] [PATCH 05/27] drm/i915: Add GT PM unpark worker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,235 +62,301 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add multi-lrc context registration H2G. In addition a workqueue and
-process descriptor are setup during multi-lrc context registration as
-these data structures are needed for multi-lrc submission.
+Sometimes it is desirable to queue work up for later if the GT PM isn't
+held and run that work on next GT PM unpark.
+
+Implemented with a list in the GT of all pending work, workqueues in
+the list, a callback to add a workqueue to the list, and finally a
+wakeref post_get callback that iterates / drains the list + queues the
+workqueues.
+
+First user of this is deregistration of GuC contexts.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context_types.h |  12 ++
- drivers/gpu/drm/i915/gt/intel_lrc.c           |   5 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   2 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 109 +++++++++++++++++-
- 4 files changed, 126 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/Makefile                 |  1 +
+ drivers/gpu/drm/i915/gt/intel_gt.c            |  3 ++
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |  8 ++++
+ .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.c | 35 ++++++++++++++++
+ .../gpu/drm/i915/gt/intel_gt_pm_unpark_work.h | 40 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      | 10 +++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  8 ++--
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 15 +++++--
+ drivers/gpu/drm/i915/intel_wakeref.c          |  5 +++
+ drivers/gpu/drm/i915/intel_wakeref.h          |  1 +
+ 10 files changed, 119 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 0fafc178cf2c..6f567ebeb039 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -232,8 +232,20 @@ struct intel_context {
- 		/** @parent: pointer to parent if child */
- 		struct intel_context *parent;
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 642a5b5a1b81..579bdc069f25 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -103,6 +103,7 @@ gt-y += \
+ 	gt/intel_gt_clock_utils.o \
+ 	gt/intel_gt_irq.o \
+ 	gt/intel_gt_pm.o \
++	gt/intel_gt_pm_unpark_work.o \
+ 	gt/intel_gt_pm_irq.o \
+ 	gt/intel_gt_requests.o \
+ 	gt/intel_gtt.o \
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 62d40c986642..7e690e74baa2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -29,6 +29,9 @@ void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915)
  
-+
-+		/** @guc_wqi_head: head pointer in work queue */
-+		u16 guc_wqi_head;
-+		/** @guc_wqi_tail: tail pointer in work queue */
-+		u16 guc_wqi_tail;
-+
- 		/** @guc_number_children: number of children if parent */
- 		u8 guc_number_children;
-+
-+		/**
-+		 * @parent_page: page in context used by parent for work queue,
-+		 * work queue descriptor
-+		 */
-+		u8 parent_page;
- 	};
+ 	spin_lock_init(&gt->irq_lock);
  
- #ifdef CONFIG_DRM_I915_SELFTEST
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index bb4af4977920..0ddbad4e062a 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -861,6 +861,11 @@ __lrc_alloc_state(struct intel_context *ce, struct intel_engine_cs *engine)
- 		context_size += PAGE_SIZE;
- 	}
++	spin_lock_init(&gt->pm_unpark_work_lock);
++	INIT_LIST_HEAD(&gt->pm_unpark_work_list);
++
+ 	INIT_LIST_HEAD(&gt->closed_vma);
+ 	spin_lock_init(&gt->closed_lock);
  
-+	if (intel_context_is_parent(ce)) {
-+		ce->parent_page = context_size / PAGE_SIZE;
-+		context_size += PAGE_SIZE;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+index dea8e2479897..564c11a3748b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+@@ -90,6 +90,13 @@ static int __gt_unpark(struct intel_wakeref *wf)
+ 	return 0;
+ }
+ 
++static void __gt_unpark_work_queue(struct intel_wakeref *wf)
++{
++	struct intel_gt *gt = container_of(wf, typeof(*gt), wakeref);
++
++	intel_gt_pm_unpark_work_queue(gt);
++}
++
+ static int __gt_park(struct intel_wakeref *wf)
+ {
+ 	struct intel_gt *gt = container_of(wf, typeof(*gt), wakeref);
+@@ -118,6 +125,7 @@ static int __gt_park(struct intel_wakeref *wf)
+ 
+ static const struct intel_wakeref_ops wf_ops = {
+ 	.get = __gt_unpark,
++	.post_get = __gt_unpark_work_queue,
+ 	.put = __gt_park,
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c
+new file mode 100644
+index 000000000000..23162dbd0c35
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.c
+@@ -0,0 +1,35 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2021 Intel Corporation
++ */
++
++#include "i915_drv.h"
++#include "intel_runtime_pm.h"
++#include "intel_gt_pm.h"
++
++void intel_gt_pm_unpark_work_queue(struct intel_gt *gt)
++{
++	struct intel_gt_pm_unpark_work *work, *next;
++	unsigned long flags;
++
++	spin_lock_irqsave(&gt->pm_unpark_work_lock, flags);
++	list_for_each_entry_safe(work, next,
++				 &gt->pm_unpark_work_list, link) {
++		list_del_init(&work->link);
++		queue_work(system_unbound_wq, &work->worker);
 +	}
++	spin_unlock_irqrestore(&gt->pm_unpark_work_lock, flags);
++}
 +
- 	obj = i915_gem_object_create_lmem(engine->i915, context_size, 0);
- 	if (IS_ERR(obj))
- 		obj = i915_gem_object_create_shmem(engine->i915, context_size);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index fa4be13c8854..0e600a3b8f1e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -52,7 +52,7 @@
++void intel_gt_pm_unpark_work_add(struct intel_gt *gt,
++				 struct intel_gt_pm_unpark_work *work)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&gt->pm_unpark_work_lock, flags);
++	if (intel_gt_pm_is_awake(gt))
++		queue_work(system_unbound_wq, &work->worker);
++	else if (list_empty(&work->link))
++		list_add_tail(&work->link, &gt->pm_unpark_work_list);
++	spin_unlock_irqrestore(&gt->pm_unpark_work_lock, flags);
++}
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h b/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h
+new file mode 100644
+index 000000000000..eaf1dc313aa2
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_unpark_work.h
+@@ -0,0 +1,40 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2021 Intel Corporation
++ */
++
++#ifndef INTEL_GT_PM_UNPARK_WORK_H
++#define INTEL_GT_PM_UNPARK_WORK_H
++
++#include <linux/list.h>
++#include <linux/workqueue.h>
++
++struct intel_gt;
++
++/**
++ * struct intel_gt_pm_unpark_work - work to be scheduled when GT unparked
++ */
++struct intel_gt_pm_unpark_work {
++	/**
++	 * @link: link into gt->pm_unpark_work_list of workers that need to be
++	 * scheduled when GT is unpark, protected by gt->pm_unpark_work_lock
++	 */
++	struct list_head link;
++	/** @worker: will be scheduled when GT unparked */
++	struct work_struct worker;
++};
++
++void intel_gt_pm_unpark_work_queue(struct intel_gt *gt);
++
++void intel_gt_pm_unpark_work_add(struct intel_gt *gt,
++				 struct intel_gt_pm_unpark_work *work);
++
++static inline void
++intel_gt_pm_unpark_work_init(struct intel_gt_pm_unpark_work *work,
++			     work_func_t fn)
++{
++	INIT_LIST_HEAD(&work->link);
++	INIT_WORK(&work->worker, fn);
++}
++
++#endif /* INTEL_GT_PM_UNPARK_WORK_H */
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index a81e21bf1bd1..4480312f0add 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -96,6 +96,16 @@ struct intel_gt {
+ 	struct intel_wakeref wakeref;
+ 	atomic_t user_wakeref;
  
- #define GUC_DOORBELL_INVALID		256
++	/**
++	 * @pm_unpark_work_list: list of delayed work to scheduled which GT is
++	 * unparked, protected by pm_unpark_work_lock
++	 */
++	struct list_head pm_unpark_work_list;
++	/**
++	 * @pm_unpark_work_lock: protects pm_unpark_work_list
++	 */
++	spinlock_t pm_unpark_work_lock;
++
+ 	struct list_head closed_vma;
+ 	spinlock_t closed_lock; /* guards the list of closed_vma */
  
--#define GUC_WQ_SIZE			(PAGE_SIZE * 2)
-+#define GUC_WQ_SIZE			(PAGE_SIZE / 2)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 7358883f1540..023953e77553 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -19,6 +19,7 @@
+ #include "intel_uc_fw.h"
+ #include "i915_utils.h"
+ #include "i915_vma.h"
++#include "gt/intel_gt_pm_unpark_work.h"
  
- /* Work queue item header definitions */
- #define WQ_STATUS_ACTIVE		1
+ struct __guc_ads_blob;
+ 
+@@ -78,11 +79,12 @@ struct intel_guc {
+ 		 */
+ 		struct list_head destroyed_contexts;
+ 		/**
+-		 * @destroyed_worker: worker to deregister contexts, need as we
++		 * @destroyed_worker: Worker to deregister contexts, need as we
+ 		 * need to take a GT PM reference and can't from destroy
+-		 * function as it might be in an atomic context (no sleeping)
++		 * function as it might be in an atomic context (no sleeping).
++		 * Worker only issues deregister when GT is unparked.
+ 		 */
+-		struct work_struct destroyed_worker;
++		struct intel_gt_pm_unpark_work destroyed_worker;
+ 	} submission_state;
+ 
+ 	bool submission_supported;
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 14b24298cdd7..dbcb9ab28a9a 100644
+index f835e06e5f9f..dbf919801de2 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -340,6 +340,39 @@ static struct i915_priolist *to_priolist(struct rb_node *rb)
- 	return rb_entry(rb, struct i915_priolist, node);
+@@ -1135,7 +1135,8 @@ int intel_guc_submission_init(struct intel_guc *guc)
+ 	INIT_LIST_HEAD(&guc->submission_state.guc_id_list);
+ 	ida_init(&guc->submission_state.guc_ids);
+ 	INIT_LIST_HEAD(&guc->submission_state.destroyed_contexts);
+-	INIT_WORK(&guc->submission_state.destroyed_worker, destroyed_worker_func);
++	intel_gt_pm_unpark_work_init(&guc->submission_state.destroyed_worker,
++				     destroyed_worker_func);
+ 
+ 	return 0;
+ }
+@@ -1942,13 +1943,18 @@ static void deregister_destroyed_contexts(struct intel_guc *guc)
+ 
+ static void destroyed_worker_func(struct work_struct *w)
+ {
+-	struct intel_guc *guc = container_of(w, struct intel_guc,
++	struct intel_gt_pm_unpark_work *destroyed_worker =
++		container_of(w, struct intel_gt_pm_unpark_work, worker);
++	struct intel_guc *guc = container_of(destroyed_worker, struct intel_guc,
+ 					     submission_state.destroyed_worker);
+ 	struct intel_gt *gt = guc_to_gt(guc);
+ 	int tmp;
+ 
+-	with_intel_gt_pm(gt, tmp)
++	with_intel_gt_pm_if_awake(gt, tmp)
+ 		deregister_destroyed_contexts(guc);
++
++	if (!list_empty(&guc->submission_state.destroyed_contexts))
++		intel_gt_pm_unpark_work_add(gt, destroyed_worker);
  }
  
-+/*
-+ * When using multi-lrc submission an extra page in the context state is
-+ * reserved for the process descriptor and work queue.
-+ *
-+ * The layout of this page is below:
-+ * 0						guc_process_desc
-+ * ...						unused
-+ * PAGE_SIZE / 2				work queue start
-+ * ...						work queue
-+ * PAGE_SIZE - 1				work queue end
-+ */
-+#define WQ_OFFSET	(PAGE_SIZE / 2)
-+static u32 __get_process_desc_offset(struct intel_context *ce)
-+{
-+	GEM_BUG_ON(!ce->parent_page);
-+
-+	return ce->parent_page * PAGE_SIZE;
-+}
-+
-+static u32 __get_wq_offset(struct intel_context *ce)
-+{
-+	return __get_process_desc_offset(ce) + WQ_OFFSET;
-+}
-+
-+static struct guc_process_desc *
-+__get_process_desc(struct intel_context *ce)
-+{
-+	return (struct guc_process_desc *)
-+		(ce->lrc_reg_state +
-+		 ((__get_process_desc_offset(ce) -
-+		   LRC_STATE_OFFSET) / sizeof(u32)));
-+}
-+
- static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
- {
- 	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
-@@ -1342,6 +1375,30 @@ static void unpin_guc_id(struct intel_guc *guc, struct intel_context *ce)
- 	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
+ static void guc_context_destroy(struct kref *kref)
+@@ -1985,7 +1991,8 @@ static void guc_context_destroy(struct kref *kref)
+ 	 * take the GT PM for the first time which isn't allowed from an atomic
+ 	 * context.
+ 	 */
+-	queue_work(system_unbound_wq, &guc->submission_state.destroyed_worker);
++	intel_gt_pm_unpark_work_add(guc_to_gt(guc),
++				    &guc->submission_state.destroyed_worker);
  }
  
-+static int __guc_action_register_multi_lrc(struct intel_guc *guc,
-+					   struct intel_context *ce,
-+					   u32 guc_id,
-+					   u32 offset,
-+					   bool loop)
-+{
-+	struct intel_context *child;
-+	u32 action[4 + MAX_ENGINE_INSTANCE];
-+	int len = 0;
-+
-+	GEM_BUG_ON(ce->guc_number_children > MAX_ENGINE_INSTANCE);
-+
-+	action[len++] = INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC;
-+	action[len++] = guc_id;
-+	action[len++] = ce->guc_number_children + 1;
-+	action[len++] = offset;
-+	for_each_child(ce, child) {
-+		offset += sizeof(struct guc_lrc_desc);
-+		action[len++] = offset;
-+	}
-+
-+	return guc_submission_send_busy_loop(guc, action, len, 0, loop);
-+}
-+
- static int __guc_action_register_context(struct intel_guc *guc,
- 					 u32 guc_id,
- 					 u32 offset,
-@@ -1364,9 +1421,15 @@ static int register_context(struct intel_context *ce, bool loop)
- 		ce->guc_id.id * sizeof(struct guc_lrc_desc);
- 	int ret;
+ static int guc_context_alloc(struct intel_context *ce)
+diff --git a/drivers/gpu/drm/i915/intel_wakeref.c b/drivers/gpu/drm/i915/intel_wakeref.c
+index dfd87d082218..282fc4f312e3 100644
+--- a/drivers/gpu/drm/i915/intel_wakeref.c
++++ b/drivers/gpu/drm/i915/intel_wakeref.c
+@@ -24,6 +24,8 @@ static void rpm_put(struct intel_wakeref *wf)
  
-+	GEM_BUG_ON(intel_context_is_child(ce));
- 	trace_intel_context_register(ce);
- 
--	ret = __guc_action_register_context(guc, ce->guc_id.id, offset, loop);
-+	if (intel_context_is_parent(ce))
-+		ret = __guc_action_register_multi_lrc(guc, ce, ce->guc_id.id,
-+						      offset, loop);
-+	else
-+		ret = __guc_action_register_context(guc, ce->guc_id.id, offset,
-+						    loop);
- 	if (likely(!ret)) {
- 		unsigned long flags;
- 
-@@ -1396,6 +1459,7 @@ static int deregister_context(struct intel_context *ce, u32 guc_id, bool loop)
+ int __intel_wakeref_get_first(struct intel_wakeref *wf)
  {
- 	struct intel_guc *guc = ce_to_guc(ce);
- 
-+	GEM_BUG_ON(intel_context_is_child(ce));
- 	trace_intel_context_deregister(ce);
- 
- 	return __guc_action_deregister_context(guc, guc_id, loop);
-@@ -1423,6 +1487,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	struct guc_lrc_desc *desc;
- 	bool context_registered;
- 	intel_wakeref_t wakeref;
-+	struct intel_context *child;
- 	int ret = 0;
- 
- 	GEM_BUG_ON(!engine->mask);
-@@ -1448,6 +1513,42 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
- 	guc_context_policy_init(engine, desc);
- 
-+	/*
-+	 * Context is a parent, we need to register a process descriptor
-+	 * describing a work queue and register all child contexts.
-+	 */
-+	if (intel_context_is_parent(ce)) {
-+		struct guc_process_desc *pdesc;
-+
-+		ce->guc_wqi_tail = 0;
-+		ce->guc_wqi_head = 0;
-+
-+		desc->process_desc = i915_ggtt_offset(ce->state) +
-+			__get_process_desc_offset(ce);
-+		desc->wq_addr = i915_ggtt_offset(ce->state) +
-+			__get_wq_offset(ce);
-+		desc->wq_size = GUC_WQ_SIZE;
-+
-+		pdesc = __get_process_desc(ce);
-+		memset(pdesc, 0, sizeof(*(pdesc)));
-+		pdesc->stage_id = ce->guc_id.id;
-+		pdesc->wq_base_addr = desc->wq_addr;
-+		pdesc->wq_size_bytes = desc->wq_size;
-+		pdesc->priority = GUC_CLIENT_PRIORITY_KMD_NORMAL;
-+		pdesc->wq_status = WQ_STATUS_ACTIVE;
-+
-+		for_each_child(ce, child) {
-+			desc = __get_lrc_desc(guc, child->guc_id.id);
-+
-+			desc->engine_class =
-+				engine_class_to_guc_class(engine->class);
-+			desc->hw_context_desc = child->lrc.lrca;
-+			desc->priority = GUC_CLIENT_PRIORITY_KMD_NORMAL;
-+			desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
-+			guc_context_policy_init(engine, desc);
-+		}
-+	}
++	bool do_post = false;
 +
  	/*
- 	 * The context_lookup xarray is used to determine if the hardware
- 	 * context is currently registered. There are two cases in which it
-@@ -2858,6 +2959,12 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
- 		return NULL;
- 	}
+ 	 * Treat get/put as different subclasses, as we may need to run
+ 	 * the put callback from under the shrinker and do not want to
+@@ -44,8 +46,11 @@ int __intel_wakeref_get_first(struct intel_wakeref *wf)
+ 		}
  
-+	if (unlikely(intel_context_is_child(ce))) {
-+		drm_err(&guc_to_gt(guc)->i915->drm,
-+			"Context is child, desc_idx %u", desc_idx);
-+		return NULL;
-+	}
-+
- 	return ce;
- }
+ 		smp_mb__before_atomic(); /* release wf->count */
++		do_post = true;
+ 	}
+ 	atomic_inc(&wf->count);
++	if (do_post && wf->ops->post_get)
++		wf->ops->post_get(wf);
+ 	mutex_unlock(&wf->mutex);
+ 
+ 	INTEL_WAKEREF_BUG_ON(atomic_read(&wf->count) <= 0);
+diff --git a/drivers/gpu/drm/i915/intel_wakeref.h b/drivers/gpu/drm/i915/intel_wakeref.h
+index 545c8f277c46..ef7e6a698e8a 100644
+--- a/drivers/gpu/drm/i915/intel_wakeref.h
++++ b/drivers/gpu/drm/i915/intel_wakeref.h
+@@ -30,6 +30,7 @@ typedef depot_stack_handle_t intel_wakeref_t;
+ 
+ struct intel_wakeref_ops {
+ 	int (*get)(struct intel_wakeref *wf);
++	void (*post_get)(struct intel_wakeref *wf);
+ 	int (*put)(struct intel_wakeref *wf);
+ };
  
 -- 
 2.32.0
