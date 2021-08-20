@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01B11C19F34
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2D27C19F37
 	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2F3860F11
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2F3860F11
+	by mail.kernel.org (Postfix) with ESMTPS id 8FB2060F11
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FB2060F11
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 573F96EB5C;
-	Fri, 20 Aug 2021 22:50:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 638846EB67;
+	Fri, 20 Aug 2021 22:50:18 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD2446EB36;
- Fri, 20 Aug 2021 22:50:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580043"
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580043"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FDD86EB3E;
+ Fri, 20 Aug 2021 22:50:04 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580049"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580049"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:02 -0700
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098598"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098614"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:02 -0700
@@ -38,15 +38,15 @@ To: <intel-gfx@lists.freedesktop.org>,
 Cc: <daniel.vetter@ffwll.ch>,
 	<tony.ye@intel.com>,
 	<zhengguo.xu@intel.com>
-Date: Fri, 20 Aug 2021 15:44:32 -0700
-Message-Id: <20210820224446.30620-14-matthew.brost@intel.com>
+Date: Fri, 20 Aug 2021 15:44:37 -0700
+Message-Id: <20210820224446.30620-19-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210820224446.30620-1-matthew.brost@intel.com>
 References: <20210820224446.30620-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 13/27] drm/i915/guc: Ensure GuC schedule
- operations do not operate on child contexts
+Subject: [Intel-gfx] [PATCH 18/27] drm/i915/guc: Update debugfs for GuC
+ multi-lrc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,84 +62,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In GuC parent-child contexts the parent context controls the scheduling,
-ensure only the parent does the scheduling operations.
+Display the workqueue status in debugfs for GuC contexts that are in
+parent-child relationship.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 24 ++++++++++++++-----
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 51 ++++++++++++++-----
+ 1 file changed, 37 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index dbcb9ab28a9a..00d54bb00bfb 100644
+index e34e0ea9136a..07eee9a399c8 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -320,6 +320,12 @@ static void decr_context_committed_requests(struct intel_context *ce)
- 	GEM_BUG_ON(ce->guc_state.number_committed_requests < 0);
+@@ -3673,6 +3673,26 @@ static void guc_log_context_priority(struct drm_printer *p,
+ 	drm_printf(p, "\n");
  }
  
-+static struct intel_context *
-+request_to_scheduling_context(struct i915_request *rq)
++
++static inline void guc_log_context(struct drm_printer *p,
++				   struct intel_context *ce)
 +{
-+	return intel_context_to_parent(rq->context);
++	drm_printf(p, "GuC lrc descriptor %u:\n", ce->guc_id.id);
++	drm_printf(p, "\tHW Context Desc: 0x%08x\n", ce->lrc.lrca);
++	drm_printf(p, "\t\tLRC Head: Internal %u, Memory %u\n",
++		   ce->ring->head,
++		   ce->lrc_reg_state[CTX_RING_HEAD]);
++	drm_printf(p, "\t\tLRC Tail: Internal %u, Memory %u\n",
++		   ce->ring->tail,
++		   ce->lrc_reg_state[CTX_RING_TAIL]);
++	drm_printf(p, "\t\tContext Pin Count: %u\n",
++		   atomic_read(&ce->pin_count));
++	drm_printf(p, "\t\tGuC ID Ref Count: %u\n",
++		   atomic_read(&ce->guc_id.ref));
++	drm_printf(p, "\t\tSchedule State: 0x%x\n\n",
++		   ce->guc_state.sched_state);
 +}
 +
- static bool context_guc_id_invalid(struct intel_context *ce)
+ void intel_guc_submission_print_context_info(struct intel_guc *guc,
+ 					     struct drm_printer *p)
  {
- 	return ce->guc_id.id == GUC_INVALID_LRC_ID;
-@@ -1684,6 +1690,7 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
+@@ -3682,22 +3702,25 @@ void intel_guc_submission_print_context_info(struct intel_guc *guc,
  
- 	GEM_BUG_ON(guc_id == GUC_INVALID_LRC_ID);
+ 	xa_lock_irqsave(&guc->context_lookup, flags);
+ 	xa_for_each(&guc->context_lookup, index, ce) {
+-		drm_printf(p, "GuC lrc descriptor %u:\n", ce->guc_id.id);
+-		drm_printf(p, "\tHW Context Desc: 0x%08x\n", ce->lrc.lrca);
+-		drm_printf(p, "\t\tLRC Head: Internal %u, Memory %u\n",
+-			   ce->ring->head,
+-			   ce->lrc_reg_state[CTX_RING_HEAD]);
+-		drm_printf(p, "\t\tLRC Tail: Internal %u, Memory %u\n",
+-			   ce->ring->tail,
+-			   ce->lrc_reg_state[CTX_RING_TAIL]);
+-		drm_printf(p, "\t\tContext Pin Count: %u\n",
+-			   atomic_read(&ce->pin_count));
+-		drm_printf(p, "\t\tGuC ID Ref Count: %u\n",
+-			   atomic_read(&ce->guc_id.ref));
+-		drm_printf(p, "\t\tSchedule State: 0x%x\n\n",
+-			   ce->guc_state.sched_state);
++		GEM_BUG_ON(intel_context_is_child(ce));
  
-+	GEM_BUG_ON(intel_context_is_child(ce));
- 	trace_intel_context_sched_disable(ce);
- 
- 	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
-@@ -1898,6 +1905,8 @@ static void guc_context_sched_disable(struct intel_context *ce)
- 	u16 guc_id;
- 	bool enabled;
- 
-+	GEM_BUG_ON(intel_context_is_child(ce));
++		guc_log_context(p, ce);
+ 		guc_log_context_priority(p, ce);
 +
- 	if (submission_disabled(guc) || context_guc_id_invalid(ce) ||
- 	    !lrc_desc_registered(guc, ce->guc_id.id)) {
- 		spin_lock_irqsave(&ce->guc_state.lock, flags);
-@@ -2286,6 +2295,8 @@ static void guc_signal_context_fence(struct intel_context *ce)
- {
- 	unsigned long flags;
- 
-+	GEM_BUG_ON(intel_context_is_child(ce));
++		if (intel_context_is_parent(ce)) {
++			struct guc_process_desc *desc = __get_process_desc(ce);
++			struct intel_context *child;
 +
- 	spin_lock_irqsave(&ce->guc_state.lock, flags);
- 	clr_context_wait_for_deregister_to_register(ce);
- 	__guc_signal_context_fence(ce);
-@@ -2315,7 +2326,7 @@ static void guc_context_init(struct intel_context *ce)
- 
- static int guc_request_alloc(struct i915_request *rq)
- {
--	struct intel_context *ce = rq->context;
-+	struct intel_context *ce = request_to_scheduling_context(rq);
- 	struct intel_guc *guc = ce_to_guc(ce);
- 	unsigned long flags;
- 	int ret;
-@@ -2358,11 +2369,12 @@ static int guc_request_alloc(struct i915_request *rq)
- 	 * exhausted and return -EAGAIN to the user indicating that they can try
- 	 * again in the future.
- 	 *
--	 * There is no need for a lock here as the timeline mutex ensures at
--	 * most one context can be executing this code path at once. The
--	 * guc_id_ref is incremented once for every request in flight and
--	 * decremented on each retire. When it is zero, a lock around the
--	 * increment (in pin_guc_id) is needed to seal a race with unpin_guc_id.
-+	 * There is no need for a lock here as the timeline mutex (or
-+	 * parallel_submit mutex in the case of multi-lrc) ensures at most one
-+	 * context can be executing this code path at once. The guc_id_ref is
-+	 * incremented once for every request in flight and decremented on each
-+	 * retire. When it is zero, a lock around the increment (in pin_guc_id)
-+	 * is needed to seal a race with unpin_guc_id.
- 	 */
- 	if (atomic_add_unless(&ce->guc_id.ref, 1, 0))
- 		goto out;
++			drm_printf(p, "\t\tWQI Head: %u\n",
++				   READ_ONCE(desc->head));
++			drm_printf(p, "\t\tWQI Tail: %u\n",
++				   READ_ONCE(desc->tail));
++			drm_printf(p, "\t\tWQI Status: %u\n\n",
++				   READ_ONCE(desc->wq_status));
++
++			for_each_child(ce, child)
++				guc_log_context(p, child);
++		}
+ 	}
+ 	xa_unlock_irqrestore(&guc->context_lookup, flags);
+ }
 -- 
 2.32.0
 
