@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C2D27C19F37
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EC20C4320A
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FB2060F11
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FB2060F11
+	by mail.kernel.org (Postfix) with ESMTPS id 4F3A861057
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4F3A861057
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 638846EB67;
-	Fri, 20 Aug 2021 22:50:18 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FDD86EB3E;
- Fri, 20 Aug 2021 22:50:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580049"
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580049"
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBA696EB3D;
+	Fri, 20 Aug 2021 22:50:15 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F26A96EB3C;
+ Fri, 20 Aug 2021 22:50:03 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="302441050"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="302441050"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:02 -0700
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098614"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098638"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:02 -0700
@@ -38,15 +38,15 @@ To: <intel-gfx@lists.freedesktop.org>,
 Cc: <daniel.vetter@ffwll.ch>,
 	<tony.ye@intel.com>,
 	<zhengguo.xu@intel.com>
-Date: Fri, 20 Aug 2021 15:44:37 -0700
-Message-Id: <20210820224446.30620-19-matthew.brost@intel.com>
+Date: Fri, 20 Aug 2021 15:44:44 -0700
+Message-Id: <20210820224446.30620-26-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210820224446.30620-1-matthew.brost@intel.com>
 References: <20210820224446.30620-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 18/27] drm/i915/guc: Update debugfs for GuC
- multi-lrc
+Subject: [Intel-gfx] [PATCH 25/27] drm/i915/guc: Handle errors in multi-lrc
+ requests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,85 +62,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Display the workqueue status in debugfs for GuC contexts that are in
-parent-child relationship.
+If an error occurs in the front end when multi-lrc requests are getting
+generated we need to skip these in the backend but we still need to
+emit the breadcrumbs seqno. An issues arrises because with multi-lrc
+breadcrumbs there is a handshake between the parent and children to make
+forwad progress. If all the requests are not present this handshake
+doesn't work. To work around this, if multi-lrc request has an error we
+skip the handshake but still emit the breadcrumbs seqno.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 51 ++++++++++++++-----
- 1 file changed, 37 insertions(+), 14 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 61 ++++++++++++++++++-
+ 1 file changed, 58 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index e34e0ea9136a..07eee9a399c8 100644
+index 2ef38557b0f0..61e737fd1eee 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -3673,6 +3673,26 @@ static void guc_log_context_priority(struct drm_printer *p,
- 	drm_printf(p, "\n");
+@@ -3546,8 +3546,8 @@ static int emit_bb_start_child_no_preempt_mid_batch(struct i915_request *rq,
  }
  
-+
-+static inline void guc_log_context(struct drm_printer *p,
-+				   struct intel_context *ce)
-+{
-+	drm_printf(p, "GuC lrc descriptor %u:\n", ce->guc_id.id);
-+	drm_printf(p, "\tHW Context Desc: 0x%08x\n", ce->lrc.lrca);
-+	drm_printf(p, "\t\tLRC Head: Internal %u, Memory %u\n",
-+		   ce->ring->head,
-+		   ce->lrc_reg_state[CTX_RING_HEAD]);
-+	drm_printf(p, "\t\tLRC Tail: Internal %u, Memory %u\n",
-+		   ce->ring->tail,
-+		   ce->lrc_reg_state[CTX_RING_TAIL]);
-+	drm_printf(p, "\t\tContext Pin Count: %u\n",
-+		   atomic_read(&ce->pin_count));
-+	drm_printf(p, "\t\tGuC ID Ref Count: %u\n",
-+		   atomic_read(&ce->guc_id.ref));
-+	drm_printf(p, "\t\tSchedule State: 0x%x\n\n",
-+		   ce->guc_state.sched_state);
+ static u32 *
+-emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
+-						 u32 *cs)
++__emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
++						   u32 *cs)
+ {
+ 	struct intel_context *ce = rq->context;
+ 	u8 i;
+@@ -3575,6 +3575,41 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
+ 				  get_children_go_addr(ce),
+ 				  0);
+ 
++	return cs;
 +}
 +
- void intel_guc_submission_print_context_info(struct intel_guc *guc,
- 					     struct drm_printer *p)
- {
-@@ -3682,22 +3702,25 @@ void intel_guc_submission_print_context_info(struct intel_guc *guc,
- 
- 	xa_lock_irqsave(&guc->context_lookup, flags);
- 	xa_for_each(&guc->context_lookup, index, ce) {
--		drm_printf(p, "GuC lrc descriptor %u:\n", ce->guc_id.id);
--		drm_printf(p, "\tHW Context Desc: 0x%08x\n", ce->lrc.lrca);
--		drm_printf(p, "\t\tLRC Head: Internal %u, Memory %u\n",
--			   ce->ring->head,
--			   ce->lrc_reg_state[CTX_RING_HEAD]);
--		drm_printf(p, "\t\tLRC Tail: Internal %u, Memory %u\n",
--			   ce->ring->tail,
--			   ce->lrc_reg_state[CTX_RING_TAIL]);
--		drm_printf(p, "\t\tContext Pin Count: %u\n",
--			   atomic_read(&ce->pin_count));
--		drm_printf(p, "\t\tGuC ID Ref Count: %u\n",
--			   atomic_read(&ce->guc_id.ref));
--		drm_printf(p, "\t\tSchedule State: 0x%x\n\n",
--			   ce->guc_state.sched_state);
-+		GEM_BUG_ON(intel_context_is_child(ce));
- 
-+		guc_log_context(p, ce);
- 		guc_log_context_priority(p, ce);
++/*
++ * If this true, a submission of multi-lrc requests had an error and the
++ * requests need to be skipped. The front end (execuf IOCTL) should've called
++ * i915_request_skip which squashes the BB but we still need to emit the fini
++ * breadrcrumbs seqno write. At this point we don't know how many of the
++ * requests in the multi-lrc submission were generated so we can't do the
++ * handshake between the parent and children (e.g. if 4 requests should be
++ * generated but 2nd hit an error only 1 would be seen by the GuC backend).
++ * Simply skip the handshake, but still emit the breadcrumbd seqno, if an error
++ * has occurred on any of the requests in submission / relationship.
++ */
++static inline bool skip_handshake(struct i915_request *rq)
++{
++	return test_bit(I915_FENCE_FLAG_SKIP_PARALLEL, &rq->fence.flags);
++}
 +
-+		if (intel_context_is_parent(ce)) {
-+			struct guc_process_desc *desc = __get_process_desc(ce);
-+			struct intel_context *child;
++static u32 *
++emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
++						 u32 *cs)
++{
++	struct intel_context *ce = rq->context;
 +
-+			drm_printf(p, "\t\tWQI Head: %u\n",
-+				   READ_ONCE(desc->head));
-+			drm_printf(p, "\t\tWQI Tail: %u\n",
-+				   READ_ONCE(desc->tail));
-+			drm_printf(p, "\t\tWQI Status: %u\n\n",
-+				   READ_ONCE(desc->wq_status));
++	GEM_BUG_ON(!intel_context_is_parent(ce));
 +
-+			for_each_child(ce, child)
-+				guc_log_context(p, child);
-+		}
- 	}
- 	xa_unlock_irqrestore(&guc->context_lookup, flags);
++	if (unlikely(skip_handshake(rq))) {
++		memset(cs, 0, sizeof(u32) *
++		       (ce->engine->emit_fini_breadcrumb_dw - 6));
++		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
++	} else {
++		cs = __emit_fini_breadcrumb_parent_no_preempt_mid_batch(rq, cs);
++	}
++
+ 	/* Emit fini breadcrumb */
+ 	cs = gen8_emit_ggtt_write(cs,
+ 				  rq->fence.seqno,
+@@ -3591,7 +3626,8 @@ emit_fini_breadcrumb_parent_no_preempt_mid_batch(struct i915_request *rq,
  }
+ 
+ static u32 *
+-emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs)
++__emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
++						  u32 *cs)
+ {
+ 	struct intel_context *ce = rq->context;
+ 
+@@ -3617,6 +3653,25 @@ emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq, u32 *cs
+ 	*cs++ = get_children_go_addr(ce->parent);
+ 	*cs++ = 0;
+ 
++	return cs;
++}
++
++static u32 *
++emit_fini_breadcrumb_child_no_preempt_mid_batch(struct i915_request *rq,
++						u32 *cs)
++{
++	struct intel_context *ce = rq->context;
++
++	GEM_BUG_ON(!intel_context_is_child(ce));
++
++	if (unlikely(skip_handshake(rq))) {
++		memset(cs, 0, sizeof(u32) *
++		       (ce->engine->emit_fini_breadcrumb_dw - 6));
++		cs += ce->engine->emit_fini_breadcrumb_dw - 6;
++	} else {
++		cs = __emit_fini_breadcrumb_child_no_preempt_mid_batch(rq, cs);
++	}
++
+ 	/* Emit fini breadcrumb */
+ 	cs = gen8_emit_ggtt_write(cs,
+ 				  rq->fence.seqno,
 -- 
 2.32.0
 
