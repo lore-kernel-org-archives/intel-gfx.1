@@ -2,54 +2,70 @@ Return-Path: <SRS0=BHe2=NL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB475C4338F
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 18:47:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E083C4338F
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 19:47:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B899960FE8
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 18:47:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B899960FE8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 00D9961029
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 19:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 00D9961029
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44CF76EB07;
-	Fri, 20 Aug 2021 18:47:25 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0747A6EB07;
- Fri, 20 Aug 2021 18:47:23 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="197079892"
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="197079892"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2021 11:47:23 -0700
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="680376415"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2021 11:47:23 -0700
-Date: Fri, 20 Aug 2021 11:42:11 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel.vetter@ffwll.ch
-Message-ID: <20210820184211.GA19591@jons-linux-dev-box>
-References: <20210819061639.21051-1-matthew.brost@intel.com>
- <20210819061639.21051-11-matthew.brost@intel.com>
- <ee8d2276-99cb-e7aa-7a60-97f0774105a4@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A9876EB11;
+	Fri, 20 Aug 2021 19:47:26 +0000 (UTC)
+Received: from mail-yb1-xb2f.google.com (mail-yb1-xb2f.google.com
+ [IPv6:2607:f8b0:4864:20::b2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F1246EB11
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 19:47:25 +0000 (UTC)
+Received: by mail-yb1-xb2f.google.com with SMTP id a9so17285911ybr.5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 12:47:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=UPazTA8XfYDofR3TTbgJCmTrgHuhd4C1O3xYxHBaRgA=;
+ b=sovvk+jZAwI03HPoKkw1IqgblckMcsumwaChDH6tokVz1UIRHfZYwuktnjWOGwZs0l
+ BRoD6LlHv12QAfy5WGXJG+Q3HGSlCFyLDCw9UMzcgVl6kuk3GvCigvaf/Yb9bFg2rfDW
+ nIyP097VMhSURmUSNDTs3eE1AF0SrmhM/+8QxpH8jO1pWMYpGqnTL2L4xb6n6wORtedc
+ 3v3x/u+AieeEBmmlwftMrnFGYtcjjxNqIS8OVKqdup7RObbhXx5PTkCSK9stzIegJBpx
+ chEVB7O5+l7YlAyH53LzDTg0dkw/BhKlW7NO6R374F1dtkO6pCUqvDbKTDfKSDBjCodp
+ mM6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UPazTA8XfYDofR3TTbgJCmTrgHuhd4C1O3xYxHBaRgA=;
+ b=Alib5JIEshYzN/S8ivxVANbcMbwgFbSmsG5LVTwHCNNx2noMjTBYB2SxvyQTIhBWDQ
+ V2TzLNofXQSq0mfP4ZeWOdLUy/VsJTOs7TwVmKfEi+oKxTW6VDo8T6RNpYaADc+tYBwN
+ OakuwwNjsUrOCa2gBGHnmqtVh9jdZOApgVwzqwH/V5roNucnNKIn1/X3TiYYBc1H9DoQ
+ jkzNU5dyLHmMBYC0jAf3aMU2WMeOhUGWHypT2NEQ3UPYIQmsyRcVApGwn4J17F5GGCdm
+ tZj+PMWKRmY+uFbvVHYUUzLjc0fzQlf5AFfQBH/WNei/fxPVraJfkE+bAmT/ac5FPSP4
+ 1h2w==
+X-Gm-Message-State: AOAM533RnL05JeYbM1LbApuOTV1wQXs1JShCx0skFhT56uL0kszYBsl9
+ UUFTfP03RP39RhSgxDSdd+Xl9nV2amCUL8g/5pQ0KQ==
+X-Google-Smtp-Source: ABdhPJz8efchEEtUD6Dnh303QK8PsVpJvln5XS5F8I1XZ8ZcJOuh55zPL5i3oVgC06kbp7IKIEmLQZYa5ZRPA/1qLxU=
+X-Received: by 2002:a25:ef04:: with SMTP id g4mr25763462ybd.287.1629488844597; 
+ Fri, 20 Aug 2021 12:47:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ee8d2276-99cb-e7aa-7a60-97f0774105a4@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 10/27] drm/i915/guc: Don't enable scheduling
- on a banned context, guc_id invalid, not registered
+References: <20210819061639.21051-1-matthew.brost@intel.com>
+ <20210819061639.21051-8-matthew.brost@intel.com>
+In-Reply-To: <20210819061639.21051-8-matthew.brost@intel.com>
+From: Jason Ekstrand <jason@jlekstrand.net>
+Date: Fri, 20 Aug 2021 14:47:13 -0500
+Message-ID: <CAOFGe97YVWwj8HrMXdJvv1rRZmss75W35pnAGXKwKQfLYHMCoQ@mail.gmail.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Intel GFX <intel-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] [PATCH 07/27] Revert "drm/i915/gt: Propagate change
+ in error status to children on unhold"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,60 +81,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 20, 2021 at 11:42:38AM -0700, Daniele Ceraolo Spurio wrote:
-> 
-> 
-> On 8/18/2021 11:16 PM, Matthew Brost wrote:
-> > When unblocking a context, do not enable scheduling if the context is
-> > banned, guc_id invalid, or not registered.
-> > 
-> > Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > Cc: <stable@vger.kernel.org>
-> > ---
-> >   drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 3 +++
-> >   1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > index d61f906105ef..e53a4ef7d442 100644
-> > --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> > @@ -1586,6 +1586,9 @@ static void guc_context_unblock(struct intel_context *ce)
-> >   	spin_lock_irqsave(&ce->guc_state.lock, flags);
-> >   	if (unlikely(submission_disabled(guc) ||
-> > +		     intel_context_is_banned(ce) ||
-> > +		     context_guc_id_invalid(ce) ||
-> > +		     !lrc_desc_registered(guc, ce->guc_id) ||
-> >   		     !intel_context_is_pinned(ce) ||
-> >   		     context_pending_disable(ce) ||
-> >   		     context_blocked(ce) > 1)) {
-> 
-> This is getting to a lot of conditions. Maybe we can simplify it a bit? E.g
+On Thu, Aug 19, 2021 at 1:22 AM Matthew Brost <matthew.brost@intel.com> wrote:
+>
+> Propagating errors to dependent fences is wrong, don't do it. A selftest
+> in the following exposed the propagating of an error to a dependent
+> fence after an engine reset.
 
-Yea, this some defensive programming to cover all the basis if another
-async operation (ban, reset, unpin) happens when this op is in flight.
-Probably some of the conditions are not needed but being extra safe
-here.
+I feel like we could still have a bit of a better message.  Maybe
+something like this:
 
-> it should be possible to check context_blocked, context_banned and
-> context_pending_disable as a single op:
-> 
-> #define SCHED_STATE_MULTI_BLOCKED_MASK \  /* 2 or more blocks */
->     (SCHED_STATE_BLOCKED_MASK & ~SCHED_STATE_BLOCKED)
-> #define SCHED_STATE_NO_UNBLOCK \
->     SCHED_STATE_MULTI_BLOCKED_MASK | \
->     SCHED_STATE_PENDING_DISABLE | \
->     SCHED_STATE_BANNED
+Propagating errors to dependent fences is broken and can lead to
+errors from one client ending up in another.  In 3761baae908a (Revert
+"drm/i915: Propagate errors on awaiting already signaled fences"), we
+attempted to get rid of fence error propagation but missed the case
+added in 8e9f84cf5cac ("drm/i915/gt: Propagate change in error status
+to children on unhold").  Revert that one too.  This error was found
+by an up-and-coming selftest which <salient information here>.
 
-Good idea, let me move this to helper in the next spin.
+Otherwise, looks good to me.
 
-Matt
+--Jason
 
-> 
-> Not a blocker.
-> 
-> Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> 
-> Daniele
-> 
-> 
+>
+> This reverts commit 8e9f84cf5cac248a1c6a5daa4942879c8b765058.
+>
+> v2:
+>  (Daniel Vetter)
+>   - Use revert
+>
+> References: 3761baae908a (Revert "drm/i915: Propagate errors on awaiting already signaled fences")
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 4 ----
+>  1 file changed, 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> index de5f9c86b9a4..cafb0608ffb4 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> @@ -2140,10 +2140,6 @@ static void __execlists_unhold(struct i915_request *rq)
+>                         if (p->flags & I915_DEPENDENCY_WEAK)
+>                                 continue;
+>
+> -                       /* Propagate any change in error status */
+> -                       if (rq->fence.error)
+> -                               i915_request_set_error_once(w, rq->fence.error);
+> -
+>                         if (w->engine != rq->engine)
+>                                 continue;
+>
+> --
+> 2.32.0
+>
