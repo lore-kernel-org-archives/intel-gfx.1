@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89B20C4320E
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01B11C19F34
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E0BC60F11
+	by mail.kernel.org (Postfix) with ESMTPS id C2F3860F11
 	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:51:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5E0BC60F11
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2F3860F11
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D961C6EB60;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 573F96EB5C;
 	Fri, 20 Aug 2021 22:50:16 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA5996EB34;
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD2446EB36;
  Fri, 20 Aug 2021 22:50:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216858339"
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216858339"
+X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580043"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580043"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:02 -0700
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098628"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098598"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:02 -0700
@@ -38,16 +38,15 @@ To: <intel-gfx@lists.freedesktop.org>,
 Cc: <daniel.vetter@ffwll.ch>,
 	<tony.ye@intel.com>,
 	<zhengguo.xu@intel.com>
-Date: Fri, 20 Aug 2021 15:44:41 -0700
-Message-Id: <20210820224446.30620-23-matthew.brost@intel.com>
+Date: Fri, 20 Aug 2021 15:44:32 -0700
+Message-Id: <20210820224446.30620-14-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210820224446.30620-1-matthew.brost@intel.com>
 References: <20210820224446.30620-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 22/27] drm/i915/guc: Add basic GuC multi-lrc
- selftest
+Subject: [Intel-gfx] [PATCH 13/27] drm/i915/guc: Ensure GuC schedule
+ operations do not operate on child contexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,223 +62,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add very basic (single submission) multi-lrc selftest.
+In GuC parent-child contexts the parent context controls the scheduling,
+ensure only the parent does the scheduling operations.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |   1 +
- .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   | 180 ++++++++++++++++++
- .../drm/i915/selftests/i915_live_selftests.h  |   1 +
- 3 files changed, 182 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 24 ++++++++++++++-----
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 2554d0eb4afd..91330525330d 100644
+index dbcb9ab28a9a..00d54bb00bfb 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -3924,4 +3924,5 @@ bool intel_guc_virtual_engine_has_heartbeat(const struct intel_engine_cs *ve)
+@@ -320,6 +320,12 @@ static void decr_context_committed_requests(struct intel_context *ce)
+ 	GEM_BUG_ON(ce->guc_state.number_committed_requests < 0);
+ }
  
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftest_guc.c"
-+#include "selftest_guc_multi_lrc.c"
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-new file mode 100644
-index 000000000000..dacfc5dfadd6
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-@@ -0,0 +1,180 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright �� 2019 Intel Corporation
-+ */
-+
-+#include "selftests/igt_spinner.h"
-+#include "selftests/igt_reset.h"
-+#include "selftests/intel_scheduler_helpers.h"
-+#include "gt/intel_engine_heartbeat.h"
-+#include "gem/selftests/mock_context.h"
-+
-+static void logical_sort(struct intel_engine_cs **engines, int num_engines)
-+{
-+	struct intel_engine_cs *sorted[MAX_ENGINE_INSTANCE + 1];
-+	int i, j;
-+
-+	for (i = 0; i < num_engines; ++i)
-+		for (j = 0; j < MAX_ENGINE_INSTANCE + 1; ++j) {
-+			if (engines[j]->logical_mask & BIT(i)) {
-+				sorted[i] = engines[j];
-+				break;
-+			}
-+		}
-+
-+	memcpy(*engines, *sorted,
-+	       sizeof(struct intel_engine_cs *) * num_engines);
-+}
-+
 +static struct intel_context *
-+multi_lrc_create_parent(struct intel_gt *gt, u8 class,
-+			unsigned long flags)
++request_to_scheduling_context(struct i915_request *rq)
 +{
-+	struct intel_engine_cs *siblings[MAX_ENGINE_INSTANCE + 1];
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+	int i = 0;
-+
-+	for_each_engine(engine, gt, id) {
-+		if (engine->class != class)
-+			continue;
-+
-+		siblings[i++] = engine;
-+	}
-+
-+	if (i <= 1)
-+		return ERR_PTR(0);
-+
-+	logical_sort(siblings, i);
-+
-+	return intel_engine_create_parallel(siblings, 1, i);
++	return intel_context_to_parent(rq->context);
 +}
 +
-+static void multi_lrc_context_unpin(struct intel_context *ce)
-+{
-+	struct intel_context *child;
+ static bool context_guc_id_invalid(struct intel_context *ce)
+ {
+ 	return ce->guc_id.id == GUC_INVALID_LRC_ID;
+@@ -1684,6 +1690,7 @@ static void __guc_context_sched_disable(struct intel_guc *guc,
+ 
+ 	GEM_BUG_ON(guc_id == GUC_INVALID_LRC_ID);
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
+ 	trace_intel_context_sched_disable(ce);
+ 
+ 	guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
+@@ -1898,6 +1905,8 @@ static void guc_context_sched_disable(struct intel_context *ce)
+ 	u16 guc_id;
+ 	bool enabled;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
 +
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
+ 	if (submission_disabled(guc) || context_guc_id_invalid(ce) ||
+ 	    !lrc_desc_registered(guc, ce->guc_id.id)) {
+ 		spin_lock_irqsave(&ce->guc_state.lock, flags);
+@@ -2286,6 +2295,8 @@ static void guc_signal_context_fence(struct intel_context *ce)
+ {
+ 	unsigned long flags;
+ 
++	GEM_BUG_ON(intel_context_is_child(ce));
 +
-+	for_each_child(ce, child)
-+		intel_context_unpin(child);
-+	intel_context_unpin(ce);
-+}
-+
-+static void multi_lrc_context_put(struct intel_context *ce)
-+{
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	/*
-+	 * Only the parent gets the creation ref put in the uAPI, the parent
-+	 * itself is responsible for creation ref put on the children.
-+	 */
-+	intel_context_put(ce);
-+}
-+
-+static struct i915_request *
-+multi_lrc_nop_request(struct intel_context *ce)
-+{
-+	struct intel_context *child;
-+	struct i915_request *rq, *child_rq;
-+	int i = 0;
-+
-+	GEM_BUG_ON(!intel_context_is_parent(ce));
-+
-+	rq = intel_context_create_request(ce);
-+	if (IS_ERR(rq))
-+		return rq;
-+
-+	i915_request_get(rq);
-+	i915_request_add(rq);
-+
-+	for_each_child(ce, child) {
-+		child_rq = intel_context_create_request(child);
-+		if (IS_ERR(child_rq))
-+			goto child_error;
-+
-+		if (++i == ce->guc_number_children)
-+			set_bit(I915_FENCE_FLAG_SUBMIT_PARALLEL,
-+				&child_rq->fence.flags);
-+		i915_request_add(child_rq);
-+	}
-+
-+	return rq;
-+
-+child_error:
-+	i915_request_put(rq);
-+
-+	return ERR_PTR(-ENOMEM);
-+}
-+
-+static int __intel_guc_multi_lrc_basic(struct intel_gt *gt, unsigned int class)
-+{
-+	struct intel_context *parent;
-+	struct i915_request *rq;
-+	int ret;
-+
-+	parent = multi_lrc_create_parent(gt, class, 0);
-+	if (IS_ERR(parent)) {
-+		pr_err("Failed creating contexts: %ld", PTR_ERR(parent));
-+		return PTR_ERR(parent);
-+	} else if (!parent) {
-+		pr_debug("Not enough engines in class: %d",
-+			 VIDEO_DECODE_CLASS);
-+		return 0;
-+	}
-+
-+	rq = multi_lrc_nop_request(parent);
-+	if (IS_ERR(rq)) {
-+		ret = PTR_ERR(rq);
-+		pr_err("Failed creating requests: %d", ret);
-+		goto out;
-+	}
-+
-+	ret = intel_selftest_wait_for_rq(rq);
-+	if (ret)
-+		pr_err("Failed waiting on request: %d", ret);
-+
-+	i915_request_put(rq);
-+
-+	if (ret >= 0) {
-+		ret = intel_gt_wait_for_idle(gt, HZ * 5);
-+		if (ret < 0)
-+			pr_err("GT failed to idle: %d\n", ret);
-+	}
-+
-+out:
-+	multi_lrc_context_unpin(parent);
-+	multi_lrc_context_put(parent);
-+	return ret;
-+}
-+
-+static int intel_guc_multi_lrc_basic(void *arg)
-+{
-+	struct intel_gt *gt = arg;
-+	unsigned int class;
-+	int ret;
-+
-+	for (class = 0; class < MAX_ENGINE_CLASS + 1; ++class) {
-+		ret = __intel_guc_multi_lrc_basic(gt, class);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+int intel_guc_multi_lrc_live_selftests(struct drm_i915_private *i915)
-+{
-+	static const struct i915_subtest tests[] = {
-+		SUBTEST(intel_guc_multi_lrc_basic),
-+	};
-+	struct intel_gt *gt = &i915->gt;
-+
-+	if (intel_gt_is_wedged(gt))
-+		return 0;
-+
-+	if (!intel_uc_uses_guc_submission(&gt->uc))
-+		return 0;
-+
-+	return intel_gt_live_subtests(tests, gt);
-+}
-diff --git a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-index 3cf6758931f9..bdd290f2bf3c 100644
---- a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-+++ b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-@@ -48,5 +48,6 @@ selftest(ring_submission, intel_ring_submission_live_selftests)
- selftest(perf, i915_perf_live_selftests)
- selftest(slpc, intel_slpc_live_selftests)
- selftest(guc, intel_guc_live_selftests)
-+selftest(guc_multi_lrc, intel_guc_multi_lrc_live_selftests)
- /* Here be dragons: keep last to run last! */
- selftest(late_gt_pm, intel_gt_pm_late_selftests)
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 	clr_context_wait_for_deregister_to_register(ce);
+ 	__guc_signal_context_fence(ce);
+@@ -2315,7 +2326,7 @@ static void guc_context_init(struct intel_context *ce)
+ 
+ static int guc_request_alloc(struct i915_request *rq)
+ {
+-	struct intel_context *ce = rq->context;
++	struct intel_context *ce = request_to_scheduling_context(rq);
+ 	struct intel_guc *guc = ce_to_guc(ce);
+ 	unsigned long flags;
+ 	int ret;
+@@ -2358,11 +2369,12 @@ static int guc_request_alloc(struct i915_request *rq)
+ 	 * exhausted and return -EAGAIN to the user indicating that they can try
+ 	 * again in the future.
+ 	 *
+-	 * There is no need for a lock here as the timeline mutex ensures at
+-	 * most one context can be executing this code path at once. The
+-	 * guc_id_ref is incremented once for every request in flight and
+-	 * decremented on each retire. When it is zero, a lock around the
+-	 * increment (in pin_guc_id) is needed to seal a race with unpin_guc_id.
++	 * There is no need for a lock here as the timeline mutex (or
++	 * parallel_submit mutex in the case of multi-lrc) ensures at most one
++	 * context can be executing this code path at once. The guc_id_ref is
++	 * incremented once for every request in flight and decremented on each
++	 * retire. When it is zero, a lock around the increment (in pin_guc_id)
++	 * is needed to seal a race with unpin_guc_id.
+ 	 */
+ 	if (atomic_add_unless(&ce->guc_id.ref, 1, 0))
+ 		goto out;
 -- 
 2.32.0
 
