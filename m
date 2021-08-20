@@ -7,28 +7,28 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0F52C43214
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EAA60C432BE
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C3B38610FF
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C3B38610FF
+	by mail.kernel.org (Postfix) with ESMTPS id 8E746601FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 22:50:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8E746601FE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A43E6EB44;
-	Fri, 20 Aug 2021 22:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AD5D6EB2B;
+	Fri, 20 Aug 2021 22:50:06 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 680276EB2B;
- Fri, 20 Aug 2021 22:50:02 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580032"
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580032"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66D1C6EB2B;
+ Fri, 20 Aug 2021 22:50:03 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10082"; a="216580039"
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="216580039"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2021 15:50:01 -0700
-X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098560"
+ 20 Aug 2021 15:50:02 -0700
+X-IronPort-AV: E=Sophos;i="5.84,338,1620716400"; d="scan'208";a="513098584"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Aug 2021 15:50:01 -0700
@@ -38,15 +38,15 @@ To: <intel-gfx@lists.freedesktop.org>,
 Cc: <daniel.vetter@ffwll.ch>,
 	<tony.ye@intel.com>,
 	<zhengguo.xu@intel.com>
-Date: Fri, 20 Aug 2021 15:44:21 -0700
-Message-Id: <20210820224446.30620-3-matthew.brost@intel.com>
+Date: Fri, 20 Aug 2021 15:44:28 -0700
+Message-Id: <20210820224446.30620-10-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210820224446.30620-1-matthew.brost@intel.com>
 References: <20210820224446.30620-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/27] drm/i915/guc: Allow flexible number of
- context ids
+Subject: [Intel-gfx] [PATCH 09/27] drm/i915: Expose logical engine instance
+ to user
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,99 +62,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Number of available GuC contexts ids might be limited.
-Stop referring in code to macro and use variable instead.
+Expose logical engine instance to user via query engine info IOCTL. This
+is required for split-frame workloads as these needs to be placed on
+engines in a logically contiguous order. The logical mapping can change
+based on fusing. Rather than having user have knowledge of the fusing we
+simply just expose the logical mapping with the existing query engine
+info IOCTL.
 
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+IGT: https://patchwork.freedesktop.org/patch/445637/?series=92854&rev=1
+media UMD: link coming soon
+
+v2:
+ (Daniel Vetter)
+  - Add IGT link, placeholder for media UMD
+
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h            |  4 ++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 15 +++++++++------
- 2 files changed, 13 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_query.c | 2 ++
+ include/uapi/drm/i915_drm.h       | 8 +++++++-
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 112dd29a63fe..6fd2719d1b75 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -60,6 +60,10 @@ struct intel_guc {
- 	spinlock_t contexts_lock;
- 	/** @guc_ids: used to allocate new guc_ids */
- 	struct ida guc_ids;
-+	/** @num_guc_ids: number of guc_ids that can be used */
-+	u32 num_guc_ids;
-+	/** @max_guc_ids: max number of guc_ids that can be used */
-+	u32 max_guc_ids;
- 	/**
- 	 * @guc_id_list: list of intel_context with valid guc_ids but no refs
- 	 */
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 46158d996bf6..8235e49bb347 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -344,7 +344,7 @@ static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
- {
- 	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
+diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+index e49da36c62fb..8a72923fbdba 100644
+--- a/drivers/gpu/drm/i915/i915_query.c
++++ b/drivers/gpu/drm/i915/i915_query.c
+@@ -124,7 +124,9 @@ query_engine_info(struct drm_i915_private *i915,
+ 	for_each_uabi_engine(engine, i915) {
+ 		info.engine.engine_class = engine->uabi_class;
+ 		info.engine.engine_instance = engine->uabi_instance;
++		info.flags = I915_ENGINE_INFO_HAS_LOGICAL_INSTANCE;
+ 		info.capabilities = engine->uabi_capabilities;
++		info.logical_instance = ilog2(engine->logical_mask);
  
--	GEM_BUG_ON(index >= GUC_MAX_LRC_DESCRIPTORS);
-+	GEM_BUG_ON(index >= guc->max_guc_ids);
+ 		if (copy_to_user(info_ptr, &info, sizeof(info)))
+ 			return -EFAULT;
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index bde5860b3686..b1248a67b4f8 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2726,14 +2726,20 @@ struct drm_i915_engine_info {
  
- 	return &base[index];
- }
-@@ -353,7 +353,7 @@ static struct intel_context *__get_context(struct intel_guc *guc, u32 id)
- {
- 	struct intel_context *ce = xa_load(&guc->context_lookup, id);
+ 	/** @flags: Engine flags. */
+ 	__u64 flags;
++#define I915_ENGINE_INFO_HAS_LOGICAL_INSTANCE		(1 << 0)
  
--	GEM_BUG_ON(id >= GUC_MAX_LRC_DESCRIPTORS);
-+	GEM_BUG_ON(id >= guc->max_guc_ids);
+ 	/** @capabilities: Capabilities of this engine. */
+ 	__u64 capabilities;
+ #define I915_VIDEO_CLASS_CAPABILITY_HEVC		(1 << 0)
+ #define I915_VIDEO_AND_ENHANCE_CLASS_CAPABILITY_SFC	(1 << 1)
  
- 	return ce;
- }
-@@ -363,8 +363,7 @@ static int guc_lrc_desc_pool_create(struct intel_guc *guc)
- 	u32 size;
- 	int ret;
++	/** @logical_instance: Logical instance of engine */
++	__u16 logical_instance;
++
+ 	/** @rsvd1: Reserved fields. */
+-	__u64 rsvd1[4];
++	__u16 rsvd1[3];
++	/** @rsvd2: Reserved fields. */
++	__u64 rsvd2[3];
+ };
  
--	size = PAGE_ALIGN(sizeof(struct guc_lrc_desc) *
--			  GUC_MAX_LRC_DESCRIPTORS);
-+	size = PAGE_ALIGN(sizeof(struct guc_lrc_desc) * guc->max_guc_ids);
- 	ret = intel_guc_allocate_and_map_vma(guc, size, &guc->lrc_desc_pool,
- 					     (void **)&guc->lrc_desc_pool_vaddr);
- 	if (ret)
-@@ -1193,7 +1192,7 @@ static void guc_submit_request(struct i915_request *rq)
- static int new_guc_id(struct intel_guc *guc)
- {
- 	return ida_simple_get(&guc->guc_ids, 0,
--			      GUC_MAX_LRC_DESCRIPTORS, GFP_KERNEL |
-+			      guc->num_guc_ids, GFP_KERNEL |
- 			      __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
- }
- 
-@@ -2704,6 +2703,8 @@ static bool __guc_submission_selected(struct intel_guc *guc)
- 
- void intel_guc_submission_init_early(struct intel_guc *guc)
- {
-+	guc->max_guc_ids = GUC_MAX_LRC_DESCRIPTORS;
-+	guc->num_guc_ids = GUC_MAX_LRC_DESCRIPTORS;
- 	guc->submission_supported = __guc_submission_supported(guc);
- 	guc->submission_selected = __guc_submission_selected(guc);
- }
-@@ -2713,7 +2714,7 @@ g2h_context_lookup(struct intel_guc *guc, u32 desc_idx)
- {
- 	struct intel_context *ce;
- 
--	if (unlikely(desc_idx >= GUC_MAX_LRC_DESCRIPTORS)) {
-+	if (unlikely(desc_idx >= guc->max_guc_ids)) {
- 		drm_err(&guc_to_gt(guc)->i915->drm,
- 			"Invalid desc_idx %u", desc_idx);
- 		return NULL;
-@@ -3063,6 +3064,8 @@ void intel_guc_submission_print_info(struct intel_guc *guc,
- 
- 	drm_printf(p, "GuC Number Outstanding Submission G2H: %u\n",
- 		   atomic_read(&guc->outstanding_submission_g2h));
-+	drm_printf(p, "GuC Number GuC IDs: %u\n", guc->num_guc_ids);
-+	drm_printf(p, "GuC Max GuC IDs: %u\n", guc->max_guc_ids);
- 	drm_printf(p, "GuC tasklet count: %u\n\n",
- 		   atomic_read(&sched_engine->tasklet.count));
- 
+ /**
 -- 
 2.32.0
 
