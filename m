@@ -2,58 +2,77 @@ Return-Path: <SRS0=BHe2=NL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1251C432BE
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 14:17:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0363C4320A
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 15:49:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2763F610FF
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 14:17:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2763F610FF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 302EA6113E
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Aug 2021 15:49:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 302EA6113E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E7F86EAA0;
-	Fri, 20 Aug 2021 14:17:29 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 370546EAA4;
- Fri, 20 Aug 2021 14:17:28 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 13C3E6736F; Fri, 20 Aug 2021 16:17:25 +0200 (CEST)
-Date: Fri, 20 Aug 2021 16:17:24 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: Christoph Hellwig <hch@lst.de>, Jason Gunthorpe <jgg@nvidia.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Greg KH <gregkh@linuxfoundation.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D3B36EABA;
+	Fri, 20 Aug 2021 15:49:41 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD6226EABA
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 15:49:39 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id v2so14601087edq.10
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Aug 2021 08:49:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UtNeTmgoiZcPk1JSgXzArMDLFQ7uyWrhQGFfSByBQ7M=;
+ b=MK40LJ6sIILP8blP52ErfqZoZcDDmWgweORCe7WTpElzY2MciNTPNW7VyNwkHyMwz8
+ icNZk0zB07vARCzcPcFp/VIElsxr4WI3hdeUq3/itGYkpbs5wEkBFUxcU9TQw9ocaN5A
+ c4hxkaxxE5Pb83mZydlkmyX6nmNzjMH+Y8uYg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UtNeTmgoiZcPk1JSgXzArMDLFQ7uyWrhQGFfSByBQ7M=;
+ b=lQCOcZ1mhDFziefz8UbWXWMGTCh08+ArC62wSPUGWgtZpvJx3V1h9cyJaU+MymQDUb
+ ysa+H2I43Hz2hoQFNgXIaz3QMTKO7Reyni8SfEon4Gs+OCOjztLrq17E9+1Ky0aWD1Ni
+ 5KaHXXzdkDmGQ7WGi+0ErHmL5C9XKYPaAd5a+s3AfhbxpRS1OYF+mHSUMpg/nAeg1Pux
+ bBSM/G05xyD3ejBY3RVPFdk+2hSPVRplZvbfzHXuw/e/oqpMWrxJufXGKCQtoh0lDvuh
+ 42+veMR5eL8RxCpKbmGGcqT+PINqWCUUkzmjtRO9Wa2cIWR1/WBWoHzc4b3eKQDPShMO
+ c9pQ==
+X-Gm-Message-State: AOAM530EIc8/2WImRxTXQ3GW2JO89yL0/cbSNdz7PoWS6mBjxpamDQAI
+ ZW2iwGXiHwmmhAqsayVVb9peUBAd7dNnVg==
+X-Google-Smtp-Source: ABdhPJzssPhTMgBFV7lxdNncZy00uIJNrcz0HgtX1aR1NRNCUjavvMJfEFthh1AFnmQPL/5Naw+Ciw==
+X-Received: by 2002:aa7:d499:: with SMTP id b25mr22672576edr.360.1629474578427; 
+ Fri, 20 Aug 2021 08:49:38 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id b3sm3036565ejb.7.2021.08.20.08.49.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Aug 2021 08:49:37 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Cc: DRI Development <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Jon Bloomfield <jon.bloomfield@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "Wang, Zhi A" <zhi.a.wang@intel.com>, Jani Nikula <jani.nikula@intel.com>,
- Luis Chamberlain <mcgrof@kernel.org>
-Message-ID: <20210820141724.GA29034@lst.de>
-References: <DM4PR11MB5549EC882AA6076F3468274DCAEA9@DM4PR11MB5549.namprd11.prod.outlook.com>
- <20210728175925.GU1721383@nvidia.com> <20210729072022.GB31896@lst.de>
- <20210803094315.GF13928@zhen-hp.sh.intel.com>
- <20210803143058.GA1721383@nvidia.com>
- <20210804052606.GG13928@zhen-hp.sh.intel.com> <20210816173458.GA9183@lst.de>
- <20210817010851.GW13928@zhen-hp.sh.intel.com>
- <20210817052203.GX13928@zhen-hp.sh.intel.com>
- <20210819082929.GB13928@zhen-hp.sh.intel.com>
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+ Dave Airlie <airlied@redhat.com>, Jason Ekstrand <jason@jlekstrand.net>
+Date: Fri, 20 Aug 2021 17:49:32 +0200
+Message-Id: <20210820154932.296628-1-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210819082929.GB13928@zhen-hp.sh.intel.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] refactor the i915 GVT support
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915: Actually delete gpu reloc selftests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,49 +88,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 19, 2021 at 04:29:29PM +0800, Zhenyu Wang wrote:
-> I'm working on below patch to resolve this. But I met a weird issue in
-> case when building i915 as module and also kvmgt module, it caused
-> busy wait on request_module("kvmgt") when boot, it doesn't happen if
-> building i915 into kernel. I'm not sure what could be the reason?
+In
 
-Luis, do you know if there is a problem with a request_module from
-a driver ->probe routine that is probably called by a module_init
-function itself?
+commit 8e02cceb1f1f4f254625e5338dd997ff61ab40d7
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date:   Tue Aug 3 14:48:33 2021 +0200
 
-In the meantime I'll try to reproduce it locally, but I always had a
-hard time getting useful results out of a modular i915, especially
-when combined with module paramters. (no blame on i915, just the problem
-with modules needed early on).
+    drm/i915: delete gpu reloc code
 
-> 
-> > But the problem I see is that after moving gvt device model (gvt/*.c
-> > except kvmgt.c) into kvmgt module, we'll have issue with initial mmio
-> > state which current gvt relies on, that is in design supposed to get
-> > initial HW state before i915 driver has taken any operation.  Before
-> > we can ensure that, I think we may only remove MPT part first but
-> > still keep gvt device model as part of i915 with config. I'll try to
-> > split that out.
-> 
-> Sorry I misread the code that as we always request kvmgt module when
-> gvt init, so it should still apply original method that this isn't a
-> problem. Our current validation result has shown no regression as well.
+I deleted the gpu relocation code and the selftest include and
+enabling, but accidentally forgot about the selftest source code.
 
-What does initial mmio state mean?  This is something new to me.  But
-as you said in this mail unless I missed something very big it should
-work the same as before.
+Fix this oversight.
 
-> -static inline void intel_context_unpin(struct intel_context *ce)
-> +static inline void _intel_context_unpin(struct intel_context *ce)
->  {
->  	if (!ce->ops->sched_disable) {
->  		__intel_context_do_unpin(ce, 1);
-> @@ -150,6 +150,7 @@ static inline void intel_context_unpin(struct intel_context *ce)
->  		}
->  	}
->  }
-> +void intel_context_unpin(struct intel_context *ce);
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Jon Bloomfield <jon.bloomfield@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Jason Ekstrand <jason@jlekstrand.net>
+---
+ .../i915/gem/selftests/i915_gem_execbuffer.c  | 190 ------------------
+ 1 file changed, 190 deletions(-)
+ delete mode 100644 drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
 
-Looking at intel_context_unpin/_intel_context_unpin is there really
-a need to have this inline to start with?  It don't see much the compiler
-could optimize by inlining it.
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
+deleted file mode 100644
+index 16162fc2782d..000000000000
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
++++ /dev/null
+@@ -1,190 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-/*
+- * Copyright © 2020 Intel Corporation
+- */
+-
+-#include "i915_selftest.h"
+-
+-#include "gt/intel_engine_pm.h"
+-#include "selftests/igt_flush_test.h"
+-
+-static u64 read_reloc(const u32 *map, int x, const u64 mask)
+-{
+-	u64 reloc;
+-
+-	memcpy(&reloc, &map[x], sizeof(reloc));
+-	return reloc & mask;
+-}
+-
+-static int __igt_gpu_reloc(struct i915_execbuffer *eb,
+-			   struct drm_i915_gem_object *obj)
+-{
+-	const unsigned int offsets[] = { 8, 3, 0 };
+-	const u64 mask =
+-		GENMASK_ULL(eb->reloc_cache.use_64bit_reloc ? 63 : 31, 0);
+-	const u32 *map = page_mask_bits(obj->mm.mapping);
+-	struct i915_request *rq;
+-	struct i915_vma *vma;
+-	int err;
+-	int i;
+-
+-	vma = i915_vma_instance(obj, eb->context->vm, NULL);
+-	if (IS_ERR(vma))
+-		return PTR_ERR(vma);
+-
+-	err = i915_gem_object_lock(obj, &eb->ww);
+-	if (err)
+-		return err;
+-
+-	err = i915_vma_pin_ww(vma, &eb->ww, 0, 0, PIN_USER | PIN_HIGH);
+-	if (err)
+-		return err;
+-
+-	/* 8-Byte aligned */
+-	err = __reloc_entry_gpu(eb, vma, offsets[0] * sizeof(u32), 0);
+-	if (err <= 0)
+-		goto reloc_err;
+-
+-	/* !8-Byte aligned */
+-	err = __reloc_entry_gpu(eb, vma, offsets[1] * sizeof(u32), 1);
+-	if (err <= 0)
+-		goto reloc_err;
+-
+-	/* Skip to the end of the cmd page */
+-	i = PAGE_SIZE / sizeof(u32) - 1;
+-	i -= eb->reloc_cache.rq_size;
+-	memset32(eb->reloc_cache.rq_cmd + eb->reloc_cache.rq_size,
+-		 MI_NOOP, i);
+-	eb->reloc_cache.rq_size += i;
+-
+-	/* Force next batch */
+-	err = __reloc_entry_gpu(eb, vma, offsets[2] * sizeof(u32), 2);
+-	if (err <= 0)
+-		goto reloc_err;
+-
+-	GEM_BUG_ON(!eb->reloc_cache.rq);
+-	rq = i915_request_get(eb->reloc_cache.rq);
+-	reloc_gpu_flush(eb, &eb->reloc_cache);
+-	GEM_BUG_ON(eb->reloc_cache.rq);
+-
+-	err = i915_gem_object_wait(obj, I915_WAIT_INTERRUPTIBLE, HZ / 2);
+-	if (err) {
+-		intel_gt_set_wedged(eb->engine->gt);
+-		goto put_rq;
+-	}
+-
+-	if (!i915_request_completed(rq)) {
+-		pr_err("%s: did not wait for relocations!\n", eb->engine->name);
+-		err = -EINVAL;
+-		goto put_rq;
+-	}
+-
+-	for (i = 0; i < ARRAY_SIZE(offsets); i++) {
+-		u64 reloc = read_reloc(map, offsets[i], mask);
+-
+-		if (reloc != i) {
+-			pr_err("%s[%d]: map[%d] %llx != %x\n",
+-			       eb->engine->name, i, offsets[i], reloc, i);
+-			err = -EINVAL;
+-		}
+-	}
+-	if (err)
+-		igt_hexdump(map, 4096);
+-
+-put_rq:
+-	i915_request_put(rq);
+-unpin_vma:
+-	i915_vma_unpin(vma);
+-	return err;
+-
+-reloc_err:
+-	if (!err)
+-		err = -EIO;
+-	goto unpin_vma;
+-}
+-
+-static int igt_gpu_reloc(void *arg)
+-{
+-	struct i915_execbuffer eb;
+-	struct drm_i915_gem_object *scratch;
+-	int err = 0;
+-	u32 *map;
+-
+-	eb.i915 = arg;
+-
+-	scratch = i915_gem_object_create_internal(eb.i915, 4096);
+-	if (IS_ERR(scratch))
+-		return PTR_ERR(scratch);
+-
+-	map = i915_gem_object_pin_map_unlocked(scratch, I915_MAP_WC);
+-	if (IS_ERR(map)) {
+-		err = PTR_ERR(map);
+-		goto err_scratch;
+-	}
+-
+-	intel_gt_pm_get(&eb.i915->gt);
+-
+-	for_each_uabi_engine(eb.engine, eb.i915) {
+-		if (intel_engine_requires_cmd_parser(eb.engine) ||
+-		    intel_engine_using_cmd_parser(eb.engine))
+-			continue;
+-
+-		reloc_cache_init(&eb.reloc_cache, eb.i915);
+-		memset(map, POISON_INUSE, 4096);
+-
+-		intel_engine_pm_get(eb.engine);
+-		eb.context = intel_context_create(eb.engine);
+-		if (IS_ERR(eb.context)) {
+-			err = PTR_ERR(eb.context);
+-			goto err_pm;
+-		}
+-		eb.reloc_pool = NULL;
+-		eb.reloc_context = NULL;
+-
+-		i915_gem_ww_ctx_init(&eb.ww, false);
+-retry:
+-		err = intel_context_pin_ww(eb.context, &eb.ww);
+-		if (!err) {
+-			err = __igt_gpu_reloc(&eb, scratch);
+-
+-			intel_context_unpin(eb.context);
+-		}
+-		if (err == -EDEADLK) {
+-			err = i915_gem_ww_ctx_backoff(&eb.ww);
+-			if (!err)
+-				goto retry;
+-		}
+-		i915_gem_ww_ctx_fini(&eb.ww);
+-
+-		if (eb.reloc_pool)
+-			intel_gt_buffer_pool_put(eb.reloc_pool);
+-		if (eb.reloc_context)
+-			intel_context_put(eb.reloc_context);
+-
+-		intel_context_put(eb.context);
+-err_pm:
+-		intel_engine_pm_put(eb.engine);
+-		if (err)
+-			break;
+-	}
+-
+-	if (igt_flush_test(eb.i915))
+-		err = -EIO;
+-
+-	intel_gt_pm_put(&eb.i915->gt);
+-err_scratch:
+-	i915_gem_object_put(scratch);
+-	return err;
+-}
+-
+-int i915_gem_execbuffer_live_selftests(struct drm_i915_private *i915)
+-{
+-	static const struct i915_subtest tests[] = {
+-		SUBTEST(igt_gpu_reloc),
+-	};
+-
+-	if (intel_gt_is_wedged(&i915->gt))
+-		return 0;
+-
+-	return i915_live_subtests(tests, i915);
+-}
+-- 
+2.32.0
+
