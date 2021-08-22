@@ -8,71 +8,72 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 68AC2C4320E
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54799C4320A
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 39AD76127B
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 39AD76127B
+	by mail.kernel.org (Postfix) with ESMTPS id 249916126A
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 249916126A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3254F89ED6;
-	Sun, 22 Aug 2021 22:21:02 +0000 (UTC)
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 979A389ECB;
- Sun, 22 Aug 2021 22:20:55 +0000 (UTC)
-Received: by mail-ot1-x329.google.com with SMTP id
- c19-20020a9d6153000000b0051829acbfc7so31199886otk.9; 
- Sun, 22 Aug 2021 15:20:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA7889F49;
+	Sun, 22 Aug 2021 22:21:01 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83E2689F0A;
+ Sun, 22 Aug 2021 22:20:57 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ i3-20020a056830210300b0051af5666070so21501707otc.4; 
+ Sun, 22 Aug 2021 15:20:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=NImqTCiBgLna+lubDsLYPmHeBlSQY6fcNq9UxNqMtcA=;
- b=gcJjRMlmfyYaQaYcrxuoWI1sdIm6jiEox/ljCzceKl0L/Ap7JN0JsfIVafUKj85N9E
- G2lf+V18utvTMHSTWSczKVtnsc9ojwXdzhWmjbN1h1chu80rse41Md3rXCB/KyyyKHAU
- oXmvVPNUBehVI0LR71zTk8V1gFHsz+KYfcXvw0IBrK3phXdZ4PzOibutYFjjBibz8UvR
- 3ZHnWYFJf8+XbrjQqmlGkEoCZ+n41dwRooGhtPKX6L4SYvGB1n58F82g6BBeIqwNSmEv
- e0SbHjYFsc7gRBMWNL1Y2o+tAAszwzWbU50TEs3rfWU9ZXATaHtvpXJxuvkK5zVFBkiM
- feoQ==
+ bh=RGFh1ocE7GYNytaK9ZVTk/INwYTyxPotKB7s3KrmExE=;
+ b=JPWE+YmgJlBbdQhhKNkRpvMJ0ojOSmUS9FePAMQGlTfPDjeNpo3zhNdxkBSWX6yeXZ
+ f8w8Drri6PMkZN9qsTYerEzg53OkH4cb+sQrQ+xriq3D/Q8ZyXZni+YxRuhAWY5nK6Bb
+ YM3F8KR1vJ0RB0kifp57wduOe3YgOmHIvr5cfMv/baXSDDHujQhLdqWI3ZDaTNhrJ88x
+ Bo/RD1WgWLkk16UJCzFa2M036CAH3EgtskC9fyVTvGhcvxYbE0XdJBBIBurWLdIPFiRF
+ oIIDrqlIspA9tI+iZN7QtN+knEbbmggtkHfLFI9apQBhV6WTlZK5xn3E74VPhi5s3JJv
+ MVyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=NImqTCiBgLna+lubDsLYPmHeBlSQY6fcNq9UxNqMtcA=;
- b=hYds2tR4ED5SeQTObk0sHu7J3t2RxoihIrueIWxS0fR23dmdkR+jp0TFZG55pXdx18
- 6xTkd5mOp6HHEz4p+0m1YwcRZNmxnaECHF0ZjFWnQrAe6blWOJnFlIgAX5xd85FpN30R
- eS3WBLUh8JwKJdVgvq1RMqO0aOv90QrgLwBRcgxWzzBqof6carcbwdTH61tJhUF+iiuW
- AOj7nG4pNBrHg1ILosiv+3t9crIBkSNtRrkcLCL7QnNY4UeBtTc/pFzgvwgXgu3Re2se
- 6vJBB8Os2K+95KuXUEvhz27DnDLW3qOLk8HdAjj7vc92RozJUHiYbHWEcXfjUXHMh+Vh
- bB9Q==
-X-Gm-Message-State: AOAM532hAArHMSN5Osrve4BBRomP1HVoCrkhTmkNYzCAAshUG6DOFlcg
- 8I20TFJPT3DiZRk7NlHONY8=
-X-Google-Smtp-Source: ABdhPJyM08jOd2qVALAViUlN3DnSciVGzMWk6TyGhrmK2Jl2EvKGNdE0c+udOzGzbasoNVBn1iQpjQ==
-X-Received: by 2002:a05:6808:9b4:: with SMTP id
- e20mr9610450oig.57.1629670854613; 
- Sun, 22 Aug 2021 15:20:54 -0700 (PDT)
+ bh=RGFh1ocE7GYNytaK9ZVTk/INwYTyxPotKB7s3KrmExE=;
+ b=pMB73+VSxG21vqOm5u/HsL0hsXKjguYxeuN+AV76mAPmTcw8rxsTVw15MOACQYtYEv
+ vAHaCYeK0yOBzrzLzJvbl09Vp637fv2AoJGNI2HeD8QgbSRzX0MyEEA2jNnSbmgN3e+y
+ FPcOuIEOw8E9+zCwDzL/k/dIgzL0rniTRyF/t3LBZXnocABUWWnWyNrLb1lVr8AN5OU3
+ V3bxmLbHvr/jP/7b9mYMjuV6Dc6yT1vnkPj9vc3CiTdN+MeyIKS/up80NkTx6MKe+rgK
+ 76eO1fgpayTsQkk/659NqXoC1eVFyZe214JNYgMlLVb7Kn1l0zIlbbjL2djT6OWr7hHS
+ thLg==
+X-Gm-Message-State: AOAM531TjZnJJgk7ohOE1lUFeVoVsdhmsIE2ob51XrkAD3+AVdHf3ZIM
+ pjjyx/L2+kguIIYLcqeuxBE=
+X-Google-Smtp-Source: ABdhPJx+yWcZ3I+WyB6O09Vf/MP/6Q/RWo3l1z8RmQISKj4KBmaNhmIqVPxxO7TcXUeuhViA5nMR6w==
+X-Received: by 2002:a05:6808:209b:: with SMTP id
+ s27mr9403654oiw.98.1629670856722; 
+ Sun, 22 Aug 2021 15:20:56 -0700 (PDT)
 Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.53
+ by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Aug 2021 15:20:54 -0700 (PDT)
+ Sun, 22 Aug 2021 15:20:56 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, seanpaul@chromium.org,
  jeyu@kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Cc: Jim Cromie <jim.cromie@gmail.com>
-Date: Sun, 22 Aug 2021 16:20:05 -0600
-Message-Id: <20210822222009.2035788-8-jim.cromie@gmail.com>
+Date: Sun, 22 Aug 2021 16:20:07 -0600
+Message-Id: <20210822222009.2035788-10-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210822222009.2035788-1-jim.cromie@gmail.com>
 References: <20210822222009.2035788-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 07/11] drm_print: instrument drm_debug_enabled
+Subject: [Intel-gfx] [PATCH v6 09/11] nouveau: fold multiple
+ DRM_DEBUG_DRIVERs together
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,77 +89,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Duplicate drm_debug_enabled() code into both "basic" and "dyndbg"
-ifdef branches.  Then add a pr_debug("todo: ...") into the "dyndbg"
-branch.
-
-Then convert the "dyndbg" branch's code to a macro, so that its
-pr_debug() get its callsite info from the invoking function, instead
-of from drm_debug_enabled() itself.
-
-This gives us unique callsite info for the 8 remaining users of
-drm_debug_enabled(), and lets us enable them individually to see how
-much logging traffic they generate.  The oft-visited callsites can
-then be reviewed for runtime cost and possible optimizations.
-
-Heres what we get:
-
-bash-5.1# modprobe drm
-dyndbg: 384 debug prints in module drm
-bash-5.1# grep todo: /proc/dynamic_debug/control
-drivers/gpu/drm/drm_edid.c:1843 [drm]connector_bad_edid =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_print.c:309 [drm]___drm_dbg =p "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_print.c:286 [drm]__drm_dev_dbg =p "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_vblank.c:1491 [drm]drm_vblank_restore =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_vblank.c:787 [drm]drm_crtc_vblank_helper_get_vblank_timestamp_internal =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_vblank.c:410 [drm]drm_crtc_accurate_vblank_count =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_atomic_uapi.c:1457 [drm]drm_mode_atomic_ioctl =_ "todo: maybe avoid via dyndbg\012"
-drivers/gpu/drm/drm_edid_load.c:178 [drm]edid_load =_ "todo: maybe avoid via dyndbg\012"
-
-At quick glance, edid won't qualify, drm_print might, drm_vblank is
-strongest chance, maybe atomic-ioctl too.
+With DRM_USE_DYNAMIC_DEBUG, each callsite record requires 56 bytes.
+We can combine 12 into one here and save ~620 bytes.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
 ---
- include/drm/drm_print.h | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 36 +++++++++++++++++----------
+ 1 file changed, 23 insertions(+), 13 deletions(-)
 
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 8775b67ecb30..1f8a65eb5d9a 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -378,6 +378,11 @@ enum drm_debug_category {
- #define DRM_DBG_CAT_DP		DRM_UT_DP
- #define DRM_DBG_CAT_DRMRES	DRM_UT_DRMRES
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index a616cf4573b8..58693e40b447 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -1246,19 +1246,29 @@ nouveau_drm_pci_table[] = {
  
-+static inline bool drm_debug_enabled(enum drm_debug_category category)
-+{
-+	return unlikely(__drm_debug & category);
-+}
-+
- #else /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
+ static void nouveau_display_options(void)
+ {
+-	DRM_DEBUG_DRIVER("Loading Nouveau with parameters:\n");
+-
+-	DRM_DEBUG_DRIVER("... tv_disable   : %d\n", nouveau_tv_disable);
+-	DRM_DEBUG_DRIVER("... ignorelid    : %d\n", nouveau_ignorelid);
+-	DRM_DEBUG_DRIVER("... duallink     : %d\n", nouveau_duallink);
+-	DRM_DEBUG_DRIVER("... nofbaccel    : %d\n", nouveau_nofbaccel);
+-	DRM_DEBUG_DRIVER("... config       : %s\n", nouveau_config);
+-	DRM_DEBUG_DRIVER("... debug        : %s\n", nouveau_debug);
+-	DRM_DEBUG_DRIVER("... noaccel      : %d\n", nouveau_noaccel);
+-	DRM_DEBUG_DRIVER("... modeset      : %d\n", nouveau_modeset);
+-	DRM_DEBUG_DRIVER("... runpm        : %d\n", nouveau_runtime_pm);
+-	DRM_DEBUG_DRIVER("... vram_pushbuf : %d\n", nouveau_vram_pushbuf);
+-	DRM_DEBUG_DRIVER("... hdmimhz      : %d\n", nouveau_hdmimhz);
++	DRM_DEBUG_DRIVER("Loading Nouveau with parameters:\n"
++			 "... tv_disable   : %d\n"
++			 "... ignorelid    : %d\n"
++			 "... duallink     : %d\n"
++			 "... nofbaccel    : %d\n"
++			 "... config       : %s\n"
++			 "... debug        : %s\n"
++			 "... noaccel      : %d\n"
++			 "... modeset      : %d\n"
++			 "... runpm        : %d\n"
++			 "... vram_pushbuf : %d\n"
++			 "... hdmimhz      : %d\n"
++			 , nouveau_tv_disable
++			 , nouveau_ignorelid
++			 , nouveau_duallink
++			 , nouveau_nofbaccel
++			 , nouveau_config
++			 , nouveau_debug
++			 , nouveau_noaccel
++			 , nouveau_modeset
++			 , nouveau_runtime_pm
++			 , nouveau_vram_pushbuf
++			 , nouveau_hdmimhz);
+ }
  
- /* join prefix+format in cpp so dyndbg can see it */
-@@ -397,12 +402,13 @@ enum drm_debug_category {
- #define DRM_DBG_CAT_DP		"drm:dp: "
- #define DRM_DBG_CAT_DRMRES	"drm:res: " /* not in MODULE_PARM_DESC */
- 
--#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
-+#define drm_debug_enabled(category)			\
-+	({						\
-+	pr_debug("todo: maybe avoid via dyndbg\n");	\
-+	unlikely(__drm_debug & category);		\
-+	})
- 
--static inline bool drm_debug_enabled(enum drm_debug_category category)
--{
--	return unlikely(__drm_debug & category);
--}
-+#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
- 
- /*
-  * struct device based logging
+ static const struct dev_pm_ops nouveau_pm_ops = {
 -- 
 2.31.1
 
