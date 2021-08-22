@@ -7,45 +7,43 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A366DC432BE
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 16:30:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEB5FC4338F
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 16:30:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 687D16125F
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 16:30:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 687D16125F
+	by mail.kernel.org (Postfix) with ESMTPS id B6BC861267
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 16:30:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B6BC861267
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3CEB89E32;
-	Sun, 22 Aug 2021 16:30:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8284589F06;
+	Sun, 22 Aug 2021 16:30:29 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5F989E32
- for <intel-gfx@lists.freedesktop.org>; Sun, 22 Aug 2021 16:30:25 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10084"; a="302567444"
-X-IronPort-AV: E=Sophos;i="5.84,342,1620716400"; d="scan'208";a="302567444"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E6A489E52
+ for <intel-gfx@lists.freedesktop.org>; Sun, 22 Aug 2021 16:30:28 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10084"; a="302567448"
+X-IronPort-AV: E=Sophos;i="5.84,342,1620716400"; d="scan'208";a="302567448"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2021 09:30:24 -0700
+ 22 Aug 2021 09:30:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,342,1620716400"; d="scan'208";a="596395758"
+X-IronPort-AV: E=Sophos;i="5.84,342,1620716400"; d="scan'208";a="596395771"
 Received: from ayazahma-nuc8i7beh.iind.intel.com ([10.145.162.59])
- by fmsmga001.fm.intel.com with ESMTP; 22 Aug 2021 09:30:22 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 22 Aug 2021 09:30:26 -0700
 From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Matthew Auld <matthew.auld@intel.com>,
- Stuart Summers <stuart.summers@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Date: Sun, 22 Aug 2021 21:56:56 +0530
-Message-Id: <20210822162706.819507-4-ayaz.siddiqui@intel.com>
+ Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+Date: Sun, 22 Aug 2021 21:56:58 +0530
+Message-Id: <20210822162706.819507-6-ayaz.siddiqui@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210822162706.819507-1-ayaz.siddiqui@intel.com>
 References: <20210822162706.819507-1-ayaz.siddiqui@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 03/13] drm/i915/xehpsdv: enforce min GTT alignment
+Subject: [Intel-gfx] [RFC 05/13] drm/i915: enforce min page size for scratch
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,37 +61,42 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Matthew Auld <matthew.auld@intel.com>
 
-For local-memory objects we need to align the GTT addresses to 64K, both
-for the ppgtt and ggtt.
+If the device needs 64K minimum GTT pages for device local-memory,
+like on XEHPSDV, then we need to fail the allocation if we can't
+meet it, instead of falling back to 4K pages, otherwise we can't
+safely support the insertion of device local-memory pages for
+this vm, since the HW expects the correct physical alignment and
+size for every PTE, if we mark the page-table as 64K GTT mode.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Stuart Summers <stuart.summers@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 ---
- drivers/gpu/drm/i915/i915_vma.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gtt.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 4b7fc4647e46..1ea1fa08efdf 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -670,8 +670,13 @@ i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
+index e137dd32b5b8..e9c01f72fc18 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
+@@ -333,6 +333,18 @@ int setup_scratch_page(struct i915_address_space *vm)
+ 		if (size == I915_GTT_PAGE_SIZE_4K)
+ 			return -ENOMEM;
  
- 	color = 0;
--	if (vma->obj && i915_vm_has_cache_coloring(vma->vm))
--		color = vma->obj->cache_level;
-+	if (vma->obj) {
-+		if (HAS_64K_PAGES(vma->vm->i915) && i915_gem_object_is_lmem(vma->obj))
-+			alignment = max(alignment, I915_GTT_PAGE_SIZE_64K);
++		/*
++		 * If we need 64K minimum GTT pages for device local-memory,
++		 * like on XEHPSDV, then we need to fail the allocation here,
++		 * otherwise we can't safely support the insertion of
++		 * local-memory pages for this vm, since the HW expects the
++		 * correct physical alignment and size when the page-table is
++		 * operating in 64K GTT mode, which includes any scratch PTEs,
++		 * since userpsace can still touch them.
++		 */
++		if (HAS_64K_PAGES(vm->i915))
++			return -ENOMEM;
 +
-+		if (i915_vm_has_cache_coloring(vma->vm))
-+			color = vma->obj->cache_level;
-+	}
- 
- 	if (flags & PIN_OFFSET_FIXED) {
- 		u64 offset = flags & PIN_OFFSET_MASK;
+ 		size = I915_GTT_PAGE_SIZE_4K;
+ 	} while (1);
+ }
 -- 
 2.26.2
 
