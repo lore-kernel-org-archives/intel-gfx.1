@@ -8,71 +8,71 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 957E0C4320A
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37C85C4338F
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 68B7E61267
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 68B7E61267
+	by mail.kernel.org (Postfix) with ESMTPS id 007956126A
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 007956126A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 054FB89F41;
-	Sun, 22 Aug 2021 22:21:01 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED0789EB1;
- Sun, 22 Aug 2021 22:20:53 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- x9-20020a056830278900b0051b8be1192fso10541325otu.7; 
- Sun, 22 Aug 2021 15:20:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2D1389EA6;
+	Sun, 22 Aug 2021 22:21:04 +0000 (UTC)
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [IPv6:2607:f8b0:4864:20::c2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8BD89EFF;
+ Sun, 22 Aug 2021 22:20:56 +0000 (UTC)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ t1-20020a4a54010000b02902638ef0f883so4818422ooa.11; 
+ Sun, 22 Aug 2021 15:20:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Di0vKi6q1FQK7H2Iauu5LRuMFu/619Qh3TdTrNtKXuA=;
- b=tkqpGHbOO1QfJaHHrjSYZV7sKqxU8LscpiATOjdtyBrYvalZ9xwCc/QRtKMPRBeM3O
- 3Us3/BDJ4e3nAf9cDIu/wobznv7ozP+Ugyrsovxtni/JsiGp3ida5BX2QiI/BKJ7IqM+
- 5o2DgNteMcs2dC9Vmhwqr6H/3bD/84053Ep9+9JWmx7kmr991Qn/nGMylV4vpljJ3mtl
- uSM3sWRDNqrC8waHsm8aGd5lvmKEFTxng2l9oCVRXHSlHlqmPJ4WgOdRkGK2bNqIlrT8
- 1AA/n7ESClY5iOu7PmhraN4cZVc6ru94/0E6PkaU5fF5xy4LhGx/HjNWGzCCBPto8CCC
- gkNw==
+ bh=Ni3xpdDB8GNK9rWlWBqu7x4KSLePVRdyQjYMRMyg+sQ=;
+ b=ITF1mY6xsorBFKwlhUEO+A76vVdmszAinrXETKotnURFjNZTS/FKpzv1ydJWQq4zla
+ I2fF5JDyjIXuzRNWC7eM4jO1Vb4Pjj51d2LPeuK/v8BEjP4tIKA6cmNyCYakWaE6rCZI
+ 2SnN7IO6sRavuiIgtSzAMAXbsLvTgwe3t7rrKPBuXLD02ayAxgQhH+Lli6KXew4EcjVf
+ 9ExgyGs5ig/Lfr+GYONVbxf+5vig2oR4j5muzdSYp7lTz6T/oRcQDZKc8ZKKTJseqLtI
+ Bf27w3grpW7rol1YfrFb4jMQmKQckke/jPr17gxZLV5vxZYkcQrLcoTKKFu1tk+6VIt1
+ 3jMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Di0vKi6q1FQK7H2Iauu5LRuMFu/619Qh3TdTrNtKXuA=;
- b=sW8qP8FAF5uhCFRtfZ9OKULlL9okEmNEXMEqmGtklWjHYSXcHw5mb8WvCRwkj60Oym
- pE2DxoDfS4clXHaatGsFOPxa20X19zvbMPGfZjtwcwvVmz5Q/senYMlIT38tGSlUHAa0
- f9Frnu7KTM28JNKXg8wcfwDmiXmmi2Tvo5q3n+YT3ghPWTk0aXj/jgkl0slMDHJfaQtp
- OxYejRc+bn6xha7qjy3noBEC7BXgx9TRNeb/G+VIdhN0EDpsgM7xAxI4Weo9f534wLVr
- XJAcKr7CMhp3R/2kM8aVRofmh1T/PnXfPZKXaif1W/T8BauAqsaqqHyAevqVlfI/ukmZ
- 3DJw==
-X-Gm-Message-State: AOAM531Nm6EfsuQpMRk/GK+hHEP36yRqhsy3MMh9dyZmufPgtt4jBxr2
- k7vzBR+jke2qrnpMiEmRXv4=
-X-Google-Smtp-Source: ABdhPJyPpT9XiFfOy8V8QORSZfW/NxURz4DN+wweH36YGXMRDoirpmpnVsnD73+/3/1paYsfg+mTUA==
-X-Received: by 2002:a9d:6b8b:: with SMTP id b11mr25581181otq.351.1629670852237; 
- Sun, 22 Aug 2021 15:20:52 -0700 (PDT)
+ bh=Ni3xpdDB8GNK9rWlWBqu7x4KSLePVRdyQjYMRMyg+sQ=;
+ b=OepJkK0qhoJT1PeaVHKwo0xqpOdOUjkS4/iUl+U2dtMABbUgzDjTJwporqQHmtYCKC
+ uvcVoHzGB24cySYV5XQZJXJvPv93sTdznOO1nV5WmyYWmOvTKyMWOQTLBxUQueszKkes
+ iiINBfM8PjsWz0HNOdnvZpsG2fL+BMB2cgtJ2hs7fbuP8JVWjddGx+W2g05qz1ZkwrbU
+ kVG+I54KHAzTGEcUUBqpMJjB0VNqZDVTytg2Y5BMThkAy3Fx5s1crrDqvBV0FznQvsRI
+ 5aEy/dEMI99Uz8AnAS71JlwZR/aq8gBBdh7ofPCgG+UfPrcdJQ+gfA8fC6ugrdmVd0KQ
+ DpcQ==
+X-Gm-Message-State: AOAM530E2047YAETAza/ZJ8wRooqQ+uJbvEmrj3KodZBm181DshS+pHB
+ poT0bTzTVuvpkHv995sZlYU=
+X-Google-Smtp-Source: ABdhPJz404u/1g2+oJbV9V75M6/ioujQS6ZTGZExEausMuc7tZu1OAuPN0oNjiVT1+1okKn9GpbvQg==
+X-Received: by 2002:a4a:44:: with SMTP id 65mr23591498ooh.40.1629670855570;
+ Sun, 22 Aug 2021 15:20:55 -0700 (PDT)
 Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.51
+ by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Aug 2021 15:20:51 -0700 (PDT)
+ Sun, 22 Aug 2021 15:20:55 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, seanpaul@chromium.org,
  jeyu@kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Cc: Jim Cromie <jim.cromie@gmail.com>
-Date: Sun, 22 Aug 2021 16:20:03 -0600
-Message-Id: <20210822222009.2035788-6-jim.cromie@gmail.com>
+Date: Sun, 22 Aug 2021 16:20:06 -0600
+Message-Id: <20210822222009.2035788-9-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210822222009.2035788-1-jim.cromie@gmail.com>
 References: <20210822222009.2035788-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 05/11] amdgpu: use
- DEFINE_DYNAMIC_DEBUG_CATEGORIES to control categorized pr_debugs
+Subject: [Intel-gfx] [PATCH v6 08/11] amdgpu_ucode: reduce number of
+ pr_debug calls
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,76 +88,403 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-logger_types.h defines many DC_LOG_*() categorized debug wrappers.
-Most of these use DRM debug API, so are controllable using drm.debug,
-but others use bare pr_debug("$prefix: .."), each with a different
-class-prefix matching "^\[\w+\]:"
+There are blocks of DRM_DEBUG calls, consolidate their args into
+single calls.  With dynamic-debug in use, each callsite consumes 56
+bytes of ro callsite data, and this patch removes about 65 calls, so
+it saves ~3.5kb.
 
-Use DEFINE_DYNAMIC_DEBUG_CATEGORIES to create a /sys debug_dc
-parameter, modinfos, and to specify a map from bits -> categorized
-pr_debugs to be controlled.
+no functional changes.
+
+RFC: this creates multi-line log messages, does that break any syslog
+conventions ?
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_debug.c    | 44 ++++++++++++++++++-
- 1 file changed, 43 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 293 ++++++++++++----------
+ 1 file changed, 158 insertions(+), 135 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-index 21be2a684393..69e68d721512 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
-@@ -36,8 +36,50 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index 2834981f8c08..14a9fef1f4c6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -30,17 +30,26 @@
  
- #include "resource.h"
+ static void amdgpu_ucode_print_common_hdr(const struct common_firmware_header *hdr)
+ {
+-	DRM_DEBUG("size_bytes: %u\n", le32_to_cpu(hdr->size_bytes));
+-	DRM_DEBUG("header_size_bytes: %u\n", le32_to_cpu(hdr->header_size_bytes));
+-	DRM_DEBUG("header_version_major: %u\n", le16_to_cpu(hdr->header_version_major));
+-	DRM_DEBUG("header_version_minor: %u\n", le16_to_cpu(hdr->header_version_minor));
+-	DRM_DEBUG("ip_version_major: %u\n", le16_to_cpu(hdr->ip_version_major));
+-	DRM_DEBUG("ip_version_minor: %u\n", le16_to_cpu(hdr->ip_version_minor));
+-	DRM_DEBUG("ucode_version: 0x%08x\n", le32_to_cpu(hdr->ucode_version));
+-	DRM_DEBUG("ucode_size_bytes: %u\n", le32_to_cpu(hdr->ucode_size_bytes));
+-	DRM_DEBUG("ucode_array_offset_bytes: %u\n",
+-		  le32_to_cpu(hdr->ucode_array_offset_bytes));
+-	DRM_DEBUG("crc32: 0x%08x\n", le32_to_cpu(hdr->crc32));
++	DRM_DEBUG("size_bytes: %u\n"
++		  "header_size_bytes: %u\n"
++		  "header_version_major: %u\n"
++		  "header_version_minor: %u\n"
++		  "ip_version_major: %u\n"
++		  "ip_version_minor: %u\n"
++		  "ucode_version: 0x%08x\n"
++		  "ucode_size_bytes: %u\n"
++		  "ucode_array_offset_bytes: %u\n"
++		  "crc32: 0x%08x\n",
++		  le32_to_cpu(hdr->size_bytes),
++		  le32_to_cpu(hdr->header_size_bytes),
++		  le16_to_cpu(hdr->header_version_major),
++		  le16_to_cpu(hdr->header_version_minor),
++		  le16_to_cpu(hdr->ip_version_major),
++		  le16_to_cpu(hdr->ip_version_minor),
++		  le32_to_cpu(hdr->ucode_version),
++		  le32_to_cpu(hdr->ucode_size_bytes),
++		  le32_to_cpu(hdr->ucode_array_offset_bytes),
++		  le32_to_cpu(hdr->crc32));
+ }
  
--#define DC_LOGGER_INIT(logger)
-+#ifdef DRM_USE_DYNAMIC_DEBUG
-+/* define a drm.debug style dyndbg pr-debug control point */
-+#include <linux/dynamic_debug.h>
-+
-+unsigned long __debug_dc;
-+EXPORT_SYMBOL(__debug_dc);
-+
-+#define _help_(key)	"\t   " key "\t- help for " key "\n"
-+
-+/* Id like to do these inside DEFINE_DYNAMIC_DEBUG_CATEGORIES, if possible */
-+#define DC_DYNDBG_BITMAP_DESC(name)					\
-+	"Control pr_debugs via /sys/module/amdgpu/parameters/" #name	\
-+	", where each bit controls a debug category.\n"			\
-+	_help_("[SURFACE]:")						\
-+	_help_("[CURSOR]:")						\
-+	_help_("[PFLIP]:")						\
-+	_help_("[VBLANK]:")						\
-+	_help_("[HW_LINK_TRAINING]:")					\
-+	_help_("[HW_AUDIO]:")						\
-+	_help_("[SCALER]:")						\
-+	_help_("[BIOS]:")						\
-+	_help_("[BANDWIDTH_CALCS]:")					\
-+	_help_("[DML]:")						\
-+	_help_("[IF_TRACE]:")						\
-+	_help_("[GAMMA]:")						\
-+	_help_("[SMU_MSG]:")
-+
-+DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_dc, __debug_dc,
-+	DC_DYNDBG_BITMAP_DESC(debug_dc),
-+	_DD_cat_("[CURSOR]:"),
-+	_DD_cat_("[PFLIP]:"),
-+	_DD_cat_("[VBLANK]:"),
-+	_DD_cat_("[HW_LINK_TRAINING]:"),
-+	_DD_cat_("[HW_AUDIO]:"),
-+	_DD_cat_("[SCALER]:"),
-+	_DD_cat_("[BIOS]:"),
-+	_DD_cat_("[BANDWIDTH_CALCS]:"),
-+	_DD_cat_("[DML]:"),
-+	_DD_cat_("[IF_TRACE]:"),
-+	_DD_cat_("[GAMMA]:"),
-+	_DD_cat_("[SMU_MSG]:"));
-+#endif
+ void amdgpu_ucode_print_mc_hdr(const struct common_firmware_header *hdr)
+@@ -55,9 +64,9 @@ void amdgpu_ucode_print_mc_hdr(const struct common_firmware_header *hdr)
+ 		const struct mc_firmware_header_v1_0 *mc_hdr =
+ 			container_of(hdr, struct mc_firmware_header_v1_0, header);
  
-+#define DC_LOGGER_INIT(logger)
+-		DRM_DEBUG("io_debug_size_bytes: %u\n",
+-			  le32_to_cpu(mc_hdr->io_debug_size_bytes));
+-		DRM_DEBUG("io_debug_array_offset_bytes: %u\n",
++		DRM_DEBUG("io_debug_size_bytes: %u\n"
++			  "io_debug_array_offset_bytes: %u\n",
++			  le32_to_cpu(mc_hdr->io_debug_size_bytes),
+ 			  le32_to_cpu(mc_hdr->io_debug_array_offset_bytes));
+ 	} else {
+ 		DRM_ERROR("Unknown MC ucode version: %u.%u\n", version_major, version_minor);
+@@ -82,13 +91,17 @@ void amdgpu_ucode_print_smc_hdr(const struct common_firmware_header *hdr)
+ 		switch (version_minor) {
+ 		case 0:
+ 			v2_0_hdr = container_of(hdr, struct smc_firmware_header_v2_0, v1_0.header);
+-			DRM_DEBUG("ppt_offset_bytes: %u\n", le32_to_cpu(v2_0_hdr->ppt_offset_bytes));
+-			DRM_DEBUG("ppt_size_bytes: %u\n", le32_to_cpu(v2_0_hdr->ppt_size_bytes));
++			DRM_DEBUG("ppt_offset_bytes: %u\n"
++				  "ppt_size_bytes: %u\n",
++				  le32_to_cpu(v2_0_hdr->ppt_offset_bytes),
++				  le32_to_cpu(v2_0_hdr->ppt_size_bytes));
+ 			break;
+ 		case 1:
+ 			v2_1_hdr = container_of(hdr, struct smc_firmware_header_v2_1, v1_0.header);
+-			DRM_DEBUG("pptable_count: %u\n", le32_to_cpu(v2_1_hdr->pptable_count));
+-			DRM_DEBUG("pptable_entry_offset: %u\n", le32_to_cpu(v2_1_hdr->pptable_entry_offset));
++			DRM_DEBUG("pptable_count: %u\n"
++				  "pptable_entry_offset: %u\n",
++				  le32_to_cpu(v2_1_hdr->pptable_count),
++				  le32_to_cpu(v2_1_hdr->pptable_entry_offset));
+ 			break;
+ 		default:
+ 			break;
+@@ -111,10 +124,12 @@ void amdgpu_ucode_print_gfx_hdr(const struct common_firmware_header *hdr)
+ 		const struct gfx_firmware_header_v1_0 *gfx_hdr =
+ 			container_of(hdr, struct gfx_firmware_header_v1_0, header);
  
- #define SURFACE_TRACE(...) do {\
- 		if (dc->debug.surface_trace) \
+-		DRM_DEBUG("ucode_feature_version: %u\n",
+-			  le32_to_cpu(gfx_hdr->ucode_feature_version));
+-		DRM_DEBUG("jt_offset: %u\n", le32_to_cpu(gfx_hdr->jt_offset));
+-		DRM_DEBUG("jt_size: %u\n", le32_to_cpu(gfx_hdr->jt_size));
++		DRM_DEBUG("ucode_feature_version: %u\n"
++			  "jt_offset: %u\n"
++			  "jt_size: %u\n",
++			  le32_to_cpu(gfx_hdr->ucode_feature_version),
++			  le32_to_cpu(gfx_hdr->jt_offset),
++			  le32_to_cpu(gfx_hdr->jt_size));
+ 	} else {
+ 		DRM_ERROR("Unknown GFX ucode version: %u.%u\n", version_major, version_minor);
+ 	}
+@@ -132,82 +147,88 @@ void amdgpu_ucode_print_rlc_hdr(const struct common_firmware_header *hdr)
+ 		const struct rlc_firmware_header_v1_0 *rlc_hdr =
+ 			container_of(hdr, struct rlc_firmware_header_v1_0, header);
+ 
+-		DRM_DEBUG("ucode_feature_version: %u\n",
+-			  le32_to_cpu(rlc_hdr->ucode_feature_version));
+-		DRM_DEBUG("save_and_restore_offset: %u\n",
+-			  le32_to_cpu(rlc_hdr->save_and_restore_offset));
+-		DRM_DEBUG("clear_state_descriptor_offset: %u\n",
+-			  le32_to_cpu(rlc_hdr->clear_state_descriptor_offset));
+-		DRM_DEBUG("avail_scratch_ram_locations: %u\n",
+-			  le32_to_cpu(rlc_hdr->avail_scratch_ram_locations));
+-		DRM_DEBUG("master_pkt_description_offset: %u\n",
++		DRM_DEBUG("ucode_feature_version: %u\n"
++			  "save_and_restore_offset: %u\n"
++			  "clear_state_descriptor_offset: %u\n"
++			  "avail_scratch_ram_locations: %u\n"
++			  "master_pkt_description_offset: %u\n",
++			  le32_to_cpu(rlc_hdr->ucode_feature_version),
++			  le32_to_cpu(rlc_hdr->save_and_restore_offset),
++			  le32_to_cpu(rlc_hdr->clear_state_descriptor_offset),
++			  le32_to_cpu(rlc_hdr->avail_scratch_ram_locations),
+ 			  le32_to_cpu(rlc_hdr->master_pkt_description_offset));
++
+ 	} else if (version_major == 2) {
+ 		const struct rlc_firmware_header_v2_0 *rlc_hdr =
+ 			container_of(hdr, struct rlc_firmware_header_v2_0, header);
+ 
+-		DRM_DEBUG("ucode_feature_version: %u\n",
+-			  le32_to_cpu(rlc_hdr->ucode_feature_version));
+-		DRM_DEBUG("jt_offset: %u\n", le32_to_cpu(rlc_hdr->jt_offset));
+-		DRM_DEBUG("jt_size: %u\n", le32_to_cpu(rlc_hdr->jt_size));
+-		DRM_DEBUG("save_and_restore_offset: %u\n",
+-			  le32_to_cpu(rlc_hdr->save_and_restore_offset));
+-		DRM_DEBUG("clear_state_descriptor_offset: %u\n",
+-			  le32_to_cpu(rlc_hdr->clear_state_descriptor_offset));
+-		DRM_DEBUG("avail_scratch_ram_locations: %u\n",
+-			  le32_to_cpu(rlc_hdr->avail_scratch_ram_locations));
+-		DRM_DEBUG("reg_restore_list_size: %u\n",
+-			  le32_to_cpu(rlc_hdr->reg_restore_list_size));
+-		DRM_DEBUG("reg_list_format_start: %u\n",
+-			  le32_to_cpu(rlc_hdr->reg_list_format_start));
+-		DRM_DEBUG("reg_list_format_separate_start: %u\n",
++		DRM_DEBUG("ucode_feature_version: %u\n"
++			  "jt_offset: %u\n"
++			  "jt_size: %u\n"
++			  "save_and_restore_offset: %u\n"
++			  "clear_state_descriptor_offset: %u\n"
++			  "avail_scratch_ram_locations: %u\n"
++			  "reg_restore_list_size: %u\n"
++			  "reg_list_format_start: %u\n"
++			  "reg_list_format_separate_start: %u\n",
++			  le32_to_cpu(rlc_hdr->ucode_feature_version),
++			  le32_to_cpu(rlc_hdr->jt_offset),
++			  le32_to_cpu(rlc_hdr->jt_size),
++			  le32_to_cpu(rlc_hdr->save_and_restore_offset),
++			  le32_to_cpu(rlc_hdr->clear_state_descriptor_offset),
++			  le32_to_cpu(rlc_hdr->avail_scratch_ram_locations),
++			  le32_to_cpu(rlc_hdr->reg_restore_list_size),
++			  le32_to_cpu(rlc_hdr->reg_list_format_start),
+ 			  le32_to_cpu(rlc_hdr->reg_list_format_separate_start));
+-		DRM_DEBUG("starting_offsets_start: %u\n",
+-			  le32_to_cpu(rlc_hdr->starting_offsets_start));
+-		DRM_DEBUG("reg_list_format_size_bytes: %u\n",
+-			  le32_to_cpu(rlc_hdr->reg_list_format_size_bytes));
+-		DRM_DEBUG("reg_list_format_array_offset_bytes: %u\n",
+-			  le32_to_cpu(rlc_hdr->reg_list_format_array_offset_bytes));
+-		DRM_DEBUG("reg_list_size_bytes: %u\n",
+-			  le32_to_cpu(rlc_hdr->reg_list_size_bytes));
+-		DRM_DEBUG("reg_list_array_offset_bytes: %u\n",
+-			  le32_to_cpu(rlc_hdr->reg_list_array_offset_bytes));
+-		DRM_DEBUG("reg_list_format_separate_size_bytes: %u\n",
+-			  le32_to_cpu(rlc_hdr->reg_list_format_separate_size_bytes));
+-		DRM_DEBUG("reg_list_format_separate_array_offset_bytes: %u\n",
+-			  le32_to_cpu(rlc_hdr->reg_list_format_separate_array_offset_bytes));
+-		DRM_DEBUG("reg_list_separate_size_bytes: %u\n",
+-			  le32_to_cpu(rlc_hdr->reg_list_separate_size_bytes));
+-		DRM_DEBUG("reg_list_separate_array_offset_bytes: %u\n",
++
++		DRM_DEBUG("starting_offsets_start: %u\n"
++			  "reg_list_format_size_bytes: %u\n"
++			  "reg_list_format_array_offset_bytes: %u\n"
++			  "reg_list_size_bytes: %u\n"
++			  "reg_list_array_offset_bytes: %u\n"
++			  "reg_list_format_separate_size_bytes: %u\n"
++			  "reg_list_format_separate_array_offset_bytes: %u\n"
++			  "reg_list_separate_size_bytes: %u\n"
++			  "reg_list_separate_array_offset_bytes: %u\n",
++			  le32_to_cpu(rlc_hdr->starting_offsets_start),
++			  le32_to_cpu(rlc_hdr->reg_list_format_size_bytes),
++			  le32_to_cpu(rlc_hdr->reg_list_format_array_offset_bytes),
++			  le32_to_cpu(rlc_hdr->reg_list_size_bytes),
++			  le32_to_cpu(rlc_hdr->reg_list_array_offset_bytes),
++			  le32_to_cpu(rlc_hdr->reg_list_format_separate_size_bytes),
++			  le32_to_cpu(rlc_hdr->reg_list_format_separate_array_offset_bytes),
++			  le32_to_cpu(rlc_hdr->reg_list_separate_size_bytes),
+ 			  le32_to_cpu(rlc_hdr->reg_list_separate_array_offset_bytes));
++
+ 		if (version_minor == 1) {
+ 			const struct rlc_firmware_header_v2_1 *v2_1 =
+ 				container_of(rlc_hdr, struct rlc_firmware_header_v2_1, v2_0);
+-			DRM_DEBUG("reg_list_format_direct_reg_list_length: %u\n",
+-				  le32_to_cpu(v2_1->reg_list_format_direct_reg_list_length));
+-			DRM_DEBUG("save_restore_list_cntl_ucode_ver: %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_cntl_ucode_ver));
+-			DRM_DEBUG("save_restore_list_cntl_feature_ver: %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_cntl_feature_ver));
+-			DRM_DEBUG("save_restore_list_cntl_size_bytes %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_cntl_size_bytes));
+-			DRM_DEBUG("save_restore_list_cntl_offset_bytes: %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_cntl_offset_bytes));
+-			DRM_DEBUG("save_restore_list_gpm_ucode_ver: %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_gpm_ucode_ver));
+-			DRM_DEBUG("save_restore_list_gpm_feature_ver: %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_gpm_feature_ver));
+-			DRM_DEBUG("save_restore_list_gpm_size_bytes %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_gpm_size_bytes));
+-			DRM_DEBUG("save_restore_list_gpm_offset_bytes: %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_gpm_offset_bytes));
+-			DRM_DEBUG("save_restore_list_srm_ucode_ver: %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_srm_ucode_ver));
+-			DRM_DEBUG("save_restore_list_srm_feature_ver: %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_srm_feature_ver));
+-			DRM_DEBUG("save_restore_list_srm_size_bytes %u\n",
+-				  le32_to_cpu(v2_1->save_restore_list_srm_size_bytes));
+-			DRM_DEBUG("save_restore_list_srm_offset_bytes: %u\n",
++
++			DRM_DEBUG("reg_list_format_direct_reg_list_length: %u\n"
++				  "save_restore_list_cntl_ucode_ver: %u\n"
++				  "save_restore_list_cntl_feature_ver: %u\n"
++				  "save_restore_list_cntl_size_bytes %u\n"
++				  "save_restore_list_cntl_offset_bytes: %u\n"
++				  "save_restore_list_gpm_ucode_ver: %u\n"
++				  "save_restore_list_gpm_feature_ver: %u\n"
++				  "save_restore_list_gpm_size_bytes %u\n"
++				  "save_restore_list_gpm_offset_bytes: %u\n"
++				  "save_restore_list_srm_ucode_ver: %u\n"
++				  "save_restore_list_srm_feature_ver: %u\n"
++				  "save_restore_list_srm_size_bytes %u\n"
++				  "save_restore_list_srm_offset_bytes: %u\n",
++				  le32_to_cpu(v2_1->reg_list_format_direct_reg_list_length),
++				  le32_to_cpu(v2_1->save_restore_list_cntl_ucode_ver),
++				  le32_to_cpu(v2_1->save_restore_list_cntl_feature_ver),
++				  le32_to_cpu(v2_1->save_restore_list_cntl_size_bytes),
++				  le32_to_cpu(v2_1->save_restore_list_cntl_offset_bytes),
++				  le32_to_cpu(v2_1->save_restore_list_gpm_ucode_ver),
++				  le32_to_cpu(v2_1->save_restore_list_gpm_feature_ver),
++				  le32_to_cpu(v2_1->save_restore_list_gpm_size_bytes),
++				  le32_to_cpu(v2_1->save_restore_list_gpm_offset_bytes),
++				  le32_to_cpu(v2_1->save_restore_list_srm_ucode_ver),
++				  le32_to_cpu(v2_1->save_restore_list_srm_feature_ver),
++				  le32_to_cpu(v2_1->save_restore_list_srm_size_bytes),
+ 				  le32_to_cpu(v2_1->save_restore_list_srm_offset_bytes));
+ 		}
+ 	} else {
+@@ -227,12 +248,14 @@ void amdgpu_ucode_print_sdma_hdr(const struct common_firmware_header *hdr)
+ 		const struct sdma_firmware_header_v1_0 *sdma_hdr =
+ 			container_of(hdr, struct sdma_firmware_header_v1_0, header);
+ 
+-		DRM_DEBUG("ucode_feature_version: %u\n",
+-			  le32_to_cpu(sdma_hdr->ucode_feature_version));
+-		DRM_DEBUG("ucode_change_version: %u\n",
+-			  le32_to_cpu(sdma_hdr->ucode_change_version));
+-		DRM_DEBUG("jt_offset: %u\n", le32_to_cpu(sdma_hdr->jt_offset));
+-		DRM_DEBUG("jt_size: %u\n", le32_to_cpu(sdma_hdr->jt_size));
++		DRM_DEBUG("ucode_feature_version: %u\n"
++			  "ucode_change_version: %u\n"
++			  "jt_offset: %u\n"
++			  "jt_size: %u\n",
++			  le32_to_cpu(sdma_hdr->ucode_feature_version),
++			  le32_to_cpu(sdma_hdr->ucode_change_version),
++			  le32_to_cpu(sdma_hdr->jt_offset),
++			  le32_to_cpu(sdma_hdr->jt_size));
+ 		if (version_minor >= 1) {
+ 			const struct sdma_firmware_header_v1_1 *sdma_v1_1_hdr =
+ 				container_of(sdma_hdr, struct sdma_firmware_header_v1_1, v1_0);
+@@ -256,36 +279,36 @@ void amdgpu_ucode_print_psp_hdr(const struct common_firmware_header *hdr)
+ 		const struct psp_firmware_header_v1_0 *psp_hdr =
+ 			container_of(hdr, struct psp_firmware_header_v1_0, header);
+ 
+-		DRM_DEBUG("ucode_feature_version: %u\n",
+-			  le32_to_cpu(psp_hdr->sos.fw_version));
+-		DRM_DEBUG("sos_offset_bytes: %u\n",
+-			  le32_to_cpu(psp_hdr->sos.offset_bytes));
+-		DRM_DEBUG("sos_size_bytes: %u\n",
++		DRM_DEBUG("ucode_feature_version: %u\n"
++			  "sos_offset_bytes: %u\n"
++			  "sos_size_bytes: %u\n",
++			  le32_to_cpu(psp_hdr->sos.fw_version),
++			  le32_to_cpu(psp_hdr->sos.offset_bytes),
+ 			  le32_to_cpu(psp_hdr->sos.size_bytes));
+ 		if (version_minor == 1) {
+ 			const struct psp_firmware_header_v1_1 *psp_hdr_v1_1 =
+ 				container_of(psp_hdr, struct psp_firmware_header_v1_1, v1_0);
+-			DRM_DEBUG("toc_header_version: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_1->toc.fw_version));
+-			DRM_DEBUG("toc_offset_bytes: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_1->toc.offset_bytes));
+-			DRM_DEBUG("toc_size_bytes: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_1->toc.size_bytes));
+-			DRM_DEBUG("kdb_header_version: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_1->kdb.fw_version));
+-			DRM_DEBUG("kdb_offset_bytes: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_1->kdb.offset_bytes));
+-			DRM_DEBUG("kdb_size_bytes: %u\n",
++			DRM_DEBUG("toc_header_version: %u\n"
++				  "toc_offset_bytes: %u\n"
++				  "toc_size_bytes: %u\n"
++				  "kdb_header_version: %u\n"
++				  "kdb_offset_bytes: %u\n"
++				  "kdb_size_bytes: %u\n",
++				  le32_to_cpu(psp_hdr_v1_1->toc.fw_version),
++				  le32_to_cpu(psp_hdr_v1_1->toc.offset_bytes),
++				  le32_to_cpu(psp_hdr_v1_1->toc.size_bytes),
++				  le32_to_cpu(psp_hdr_v1_1->kdb.fw_version),
++				  le32_to_cpu(psp_hdr_v1_1->kdb.offset_bytes),
+ 				  le32_to_cpu(psp_hdr_v1_1->kdb.size_bytes));
+ 		}
+ 		if (version_minor == 2) {
+ 			const struct psp_firmware_header_v1_2 *psp_hdr_v1_2 =
+ 				container_of(psp_hdr, struct psp_firmware_header_v1_2, v1_0);
+-			DRM_DEBUG("kdb_header_version: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_2->kdb.fw_version));
+-			DRM_DEBUG("kdb_offset_bytes: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_2->kdb.offset_bytes));
+-			DRM_DEBUG("kdb_size_bytes: %u\n",
++			DRM_DEBUG("kdb_header_version: %u\n"
++				  "kdb_offset_bytes: %u\n"
++				  "kdb_size_bytes: %u\n",
++				  le32_to_cpu(psp_hdr_v1_2->kdb.fw_version),
++				  le32_to_cpu(psp_hdr_v1_2->kdb.offset_bytes),
+ 				  le32_to_cpu(psp_hdr_v1_2->kdb.size_bytes));
+ 		}
+ 		if (version_minor == 3) {
+@@ -293,23 +316,23 @@ void amdgpu_ucode_print_psp_hdr(const struct common_firmware_header *hdr)
+ 				container_of(psp_hdr, struct psp_firmware_header_v1_1, v1_0);
+ 			const struct psp_firmware_header_v1_3 *psp_hdr_v1_3 =
+ 				container_of(psp_hdr_v1_1, struct psp_firmware_header_v1_3, v1_1);
+-			DRM_DEBUG("toc_header_version: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.fw_version));
+-			DRM_DEBUG("toc_offset_bytes: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.offset_bytes));
+-			DRM_DEBUG("toc_size_bytes: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.size_bytes));
+-			DRM_DEBUG("kdb_header_version: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.fw_version));
+-			DRM_DEBUG("kdb_offset_bytes: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.offset_bytes));
+-			DRM_DEBUG("kdb_size_bytes: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.size_bytes));
+-			DRM_DEBUG("spl_header_version: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_3->spl.fw_version));
+-			DRM_DEBUG("spl_offset_bytes: %u\n",
+-				  le32_to_cpu(psp_hdr_v1_3->spl.offset_bytes));
+-			DRM_DEBUG("spl_size_bytes: %u\n",
++			DRM_DEBUG("toc_header_version: %u\n"
++				  "toc_offset_bytes: %u\n"
++				  "toc_size_bytes: %u\n"
++				  "kdb_header_version: %u\n"
++				  "kdb_offset_bytes: %u\n"
++				  "kdb_size_bytes: %u\n"
++				  "spl_header_version: %u\n"
++				  "spl_offset_bytes: %u\n"
++				  "spl_size_bytes: %u\n",
++				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.fw_version),
++				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.offset_bytes),
++				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.size_bytes),
++				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.fw_version),
++				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.offset_bytes),
++				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.size_bytes),
++				  le32_to_cpu(psp_hdr_v1_3->spl.fw_version),
++				  le32_to_cpu(psp_hdr_v1_3->spl.offset_bytes),
+ 				  le32_to_cpu(psp_hdr_v1_3->spl.size_bytes));
+ 		}
+ 	} else {
+@@ -330,9 +353,9 @@ void amdgpu_ucode_print_gpu_info_hdr(const struct common_firmware_header *hdr)
+ 		const struct gpu_info_firmware_header_v1_0 *gpu_info_hdr =
+ 			container_of(hdr, struct gpu_info_firmware_header_v1_0, header);
+ 
+-		DRM_DEBUG("version_major: %u\n",
+-			  le16_to_cpu(gpu_info_hdr->version_major));
+-		DRM_DEBUG("version_minor: %u\n",
++		DRM_DEBUG("version_major: %u\n"
++			  "version_minor: %u\n",
++			  le16_to_cpu(gpu_info_hdr->version_major),
+ 			  le16_to_cpu(gpu_info_hdr->version_minor));
+ 	} else {
+ 		DRM_ERROR("Unknown gpu_info ucode version: %u.%u\n", version_major, version_minor);
 -- 
 2.31.1
 
