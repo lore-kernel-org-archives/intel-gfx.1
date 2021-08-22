@@ -8,71 +8,71 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10CA9C4338F
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68AC2C4320E
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D068D61267
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D068D61267
+	by mail.kernel.org (Postfix) with ESMTPS id 39AD76127B
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 39AD76127B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00DB189F27;
-	Sun, 22 Aug 2021 22:20:57 +0000 (UTC)
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B731A89E9B;
- Sun, 22 Aug 2021 22:20:50 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- i3-20020a056830210300b0051af5666070so21501189otc.4; 
- Sun, 22 Aug 2021 15:20:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3254F89ED6;
+	Sun, 22 Aug 2021 22:21:02 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 979A389ECB;
+ Sun, 22 Aug 2021 22:20:55 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ c19-20020a9d6153000000b0051829acbfc7so31199886otk.9; 
+ Sun, 22 Aug 2021 15:20:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=V5vqhjeJwhM7E6Pt089X9QON5NrjkvFV308x6a56U3o=;
- b=TQ7xu2IpCflARc8FKk474nyH5tm12zi4tObsZCwfPlOFFS/LnC6EZsd4Q7FlNVTOLf
- zCj+kX2dOXM8dNEhSu9VMaxvyigkwfLB7U6TquFc/fMx8AKjHg5MsrugWDPWsvS+sIHg
- 8+Iu3rRzOUAaybZi3h95K+QtyfNAUNZ3zvHefmjva3DaJuhnSQEWm9lKs+dV/72tmPf/
- nOaa0nUCC0nbDuFE9W5aFz2R/RAWfnHzl52cV46KL1yG6uCd6MtBiIudESWB0TPTLid+
- 4tLlcJMKwSRciEg1Odw8RHrAkCfM7ZUXOuuDEUNwOTP4HB/Md/aqSIAnJ06xnFlODgKn
- J55A==
+ bh=NImqTCiBgLna+lubDsLYPmHeBlSQY6fcNq9UxNqMtcA=;
+ b=gcJjRMlmfyYaQaYcrxuoWI1sdIm6jiEox/ljCzceKl0L/Ap7JN0JsfIVafUKj85N9E
+ G2lf+V18utvTMHSTWSczKVtnsc9ojwXdzhWmjbN1h1chu80rse41Md3rXCB/KyyyKHAU
+ oXmvVPNUBehVI0LR71zTk8V1gFHsz+KYfcXvw0IBrK3phXdZ4PzOibutYFjjBibz8UvR
+ 3ZHnWYFJf8+XbrjQqmlGkEoCZ+n41dwRooGhtPKX6L4SYvGB1n58F82g6BBeIqwNSmEv
+ e0SbHjYFsc7gRBMWNL1Y2o+tAAszwzWbU50TEs3rfWU9ZXATaHtvpXJxuvkK5zVFBkiM
+ feoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=V5vqhjeJwhM7E6Pt089X9QON5NrjkvFV308x6a56U3o=;
- b=byldCVQwY+ZmJxN3sA99duydRmGl2NtyJOsc+dt7hN/ajwydkpAKmd0Z5/7qcVGa33
- CFir4kPO4l2lMRF1c3s1/vLD01gY9+d5NSXvDgjMIw8TMfEf2H1LB77Vaam3bfFeo86R
- H9cYSY905Id4Divm6MY+y4QlcwW+sVY4fZFlbU7mfUCcJtNyu0884BoT6ASW3U2yr/Tp
- 7GVVNltxfAC1/zc26vDN9p9ly7bSo4jh42OHH0J+9+L1TdwKNCIlwSo197RRT1ORZV7l
- gbi2ps2JjXM61tmy75F33fgznKuAijDMOicbY2eKab+KYPbsT4/swW7kQGifdlutISOi
- QdmQ==
-X-Gm-Message-State: AOAM531VqRGDJsCZ/OWw4WjIqIXdGA/OYKVl3xk48p2IGH3WkdZU/j37
- 2cSPpedKLkJklVKUX19/4G8=
-X-Google-Smtp-Source: ABdhPJwOuCAjc2+TBpcJ9GNUOPER2Y36eRiOD00lA2cNZH9TVsLUwf3djGHOtmZlh5lnw24liyxq6w==
-X-Received: by 2002:aca:c6ce:: with SMTP id w197mr9883707oif.6.1629670849838; 
- Sun, 22 Aug 2021 15:20:49 -0700 (PDT)
+ bh=NImqTCiBgLna+lubDsLYPmHeBlSQY6fcNq9UxNqMtcA=;
+ b=hYds2tR4ED5SeQTObk0sHu7J3t2RxoihIrueIWxS0fR23dmdkR+jp0TFZG55pXdx18
+ 6xTkd5mOp6HHEz4p+0m1YwcRZNmxnaECHF0ZjFWnQrAe6blWOJnFlIgAX5xd85FpN30R
+ eS3WBLUh8JwKJdVgvq1RMqO0aOv90QrgLwBRcgxWzzBqof6carcbwdTH61tJhUF+iiuW
+ AOj7nG4pNBrHg1ILosiv+3t9crIBkSNtRrkcLCL7QnNY4UeBtTc/pFzgvwgXgu3Re2se
+ 6vJBB8Os2K+95KuXUEvhz27DnDLW3qOLk8HdAjj7vc92RozJUHiYbHWEcXfjUXHMh+Vh
+ bB9Q==
+X-Gm-Message-State: AOAM532hAArHMSN5Osrve4BBRomP1HVoCrkhTmkNYzCAAshUG6DOFlcg
+ 8I20TFJPT3DiZRk7NlHONY8=
+X-Google-Smtp-Source: ABdhPJyM08jOd2qVALAViUlN3DnSciVGzMWk6TyGhrmK2Jl2EvKGNdE0c+udOzGzbasoNVBn1iQpjQ==
+X-Received: by 2002:a05:6808:9b4:: with SMTP id
+ e20mr9610450oig.57.1629670854613; 
+ Sun, 22 Aug 2021 15:20:54 -0700 (PDT)
 Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.48
+ by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Aug 2021 15:20:49 -0700 (PDT)
+ Sun, 22 Aug 2021 15:20:54 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, seanpaul@chromium.org,
  jeyu@kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Cc: Jim Cromie <jim.cromie@gmail.com>
-Date: Sun, 22 Aug 2021 16:20:01 -0600
-Message-Id: <20210822222009.2035788-4-jim.cromie@gmail.com>
+Date: Sun, 22 Aug 2021 16:20:05 -0600
+Message-Id: <20210822222009.2035788-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210822222009.2035788-1-jim.cromie@gmail.com>
 References: <20210822222009.2035788-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 03/11] i915/gvt: remove spaces in pr_debug
- "gvt: core:" etc prefixes
+Subject: [Intel-gfx] [PATCH v6 07/11] drm_print: instrument drm_debug_enabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,85 +88,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Taking embedded spaces out of existing prefixes makes them better
-class-prefixes; simplifying the nested quoting needed otherwise:
+Duplicate drm_debug_enabled() code into both "basic" and "dyndbg"
+ifdef branches.  Then add a pr_debug("todo: ...") into the "dyndbg"
+branch.
 
-  $> echo "format '^gvt: core:' +p" >control
+Then convert the "dyndbg" branch's code to a macro, so that its
+pr_debug() get its callsite info from the invoking function, instead
+of from drm_debug_enabled() itself.
 
-Dropping the internal spaces means any trailing space in a query will
-more clearly terminate the prefix being searched for.
+This gives us unique callsite info for the 8 remaining users of
+drm_debug_enabled(), and lets us enable them individually to see how
+much logging traffic they generate.  The oft-visited callsites can
+then be reviewed for runtime cost and possible optimizations.
 
-Consider a generic drm-debug example:
+Heres what we get:
 
-  # turn off ATOMIC reports
-  echo format "^drm:atomic: " -p > control
+bash-5.1# modprobe drm
+dyndbg: 384 debug prints in module drm
+bash-5.1# grep todo: /proc/dynamic_debug/control
+drivers/gpu/drm/drm_edid.c:1843 [drm]connector_bad_edid =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_print.c:309 [drm]___drm_dbg =p "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_print.c:286 [drm]__drm_dev_dbg =p "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_vblank.c:1491 [drm]drm_vblank_restore =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_vblank.c:787 [drm]drm_crtc_vblank_helper_get_vblank_timestamp_internal =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_vblank.c:410 [drm]drm_crtc_accurate_vblank_count =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_atomic_uapi.c:1457 [drm]drm_mode_atomic_ioctl =_ "todo: maybe avoid via dyndbg\012"
+drivers/gpu/drm/drm_edid_load.c:178 [drm]edid_load =_ "todo: maybe avoid via dyndbg\012"
 
-  # turn off all ATOMIC:* reports, including any sub-categories
-  echo format "^drm:atomic:" -p > control
-
-  # turn on ATOMIC:FAIL: reports
-  echo format "^drm:atomic:fail: " +p > control
-
-Removing embedded spaces in the class-prefixes simplifies the
-corresponding match-prefix.  This means that "quoted" match-prefixes
-are only needed when the trailing space is desired, in order to
-exclude explicitly sub-categorized pr-debugs; in this example,
-"drm:atomic:fail:".
-
-RFC: maybe the prefix catenation should paste in the " " class-prefix
-terminator explicitly.  A pr_debug_() flavor could exclude the " ",
-allowing ad-hoc sub-categorization by appending for example, "fail:"
-to "drm:atomic:".
+At quick glance, edid won't qualify, drm_print might, drm_vblank is
+strongest chance, maybe atomic-ioctl too.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/i915/gvt/debug.h | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+---
+ include/drm/drm_print.h | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/debug.h b/drivers/gpu/drm/i915/gvt/debug.h
-index c6027125c1ec..b4021f41c546 100644
---- a/drivers/gpu/drm/i915/gvt/debug.h
-+++ b/drivers/gpu/drm/i915/gvt/debug.h
-@@ -36,30 +36,30 @@ do {									\
- } while (0)
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 8775b67ecb30..1f8a65eb5d9a 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -378,6 +378,11 @@ enum drm_debug_category {
+ #define DRM_DBG_CAT_DP		DRM_UT_DP
+ #define DRM_DBG_CAT_DRMRES	DRM_UT_DRMRES
  
- #define gvt_dbg_core(fmt, args...) \
--	pr_debug("gvt: core: "fmt, ##args)
-+	pr_debug("gvt:core: "fmt, ##args)
++static inline bool drm_debug_enabled(enum drm_debug_category category)
++{
++	return unlikely(__drm_debug & category);
++}
++
+ #else /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
  
- #define gvt_dbg_irq(fmt, args...) \
--	pr_debug("gvt: irq: "fmt, ##args)
-+	pr_debug("gvt:irq: "fmt, ##args)
+ /* join prefix+format in cpp so dyndbg can see it */
+@@ -397,12 +402,13 @@ enum drm_debug_category {
+ #define DRM_DBG_CAT_DP		"drm:dp: "
+ #define DRM_DBG_CAT_DRMRES	"drm:res: " /* not in MODULE_PARM_DESC */
  
- #define gvt_dbg_mm(fmt, args...) \
--	pr_debug("gvt: mm: "fmt, ##args)
-+	pr_debug("gvt:mm: "fmt, ##args)
+-#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
++#define drm_debug_enabled(category)			\
++	({						\
++	pr_debug("todo: maybe avoid via dyndbg\n");	\
++	unlikely(__drm_debug & category);		\
++	})
  
- #define gvt_dbg_mmio(fmt, args...) \
--	pr_debug("gvt: mmio: "fmt, ##args)
-+	pr_debug("gvt:mmio: "fmt, ##args)
+-static inline bool drm_debug_enabled(enum drm_debug_category category)
+-{
+-	return unlikely(__drm_debug & category);
+-}
++#endif /* CONFIG_DRM_USE_DYNAMIC_DEBUG */
  
- #define gvt_dbg_dpy(fmt, args...) \
--	pr_debug("gvt: dpy: "fmt, ##args)
-+	pr_debug("gvt:dpy: "fmt, ##args)
- 
- #define gvt_dbg_el(fmt, args...) \
--	pr_debug("gvt: el: "fmt, ##args)
-+	pr_debug("gvt:el: "fmt, ##args)
- 
- #define gvt_dbg_sched(fmt, args...) \
--	pr_debug("gvt: sched: "fmt, ##args)
-+	pr_debug("gvt:sched: "fmt, ##args)
- 
- #define gvt_dbg_render(fmt, args...) \
--	pr_debug("gvt: render: "fmt, ##args)
-+	pr_debug("gvt:render: "fmt, ##args)
- 
- #define gvt_dbg_cmd(fmt, args...) \
--	pr_debug("gvt: cmd: "fmt, ##args)
-+	pr_debug("gvt:cmd: "fmt, ##args)
- 
- #endif
+ /*
+  * struct device based logging
 -- 
 2.31.1
 
