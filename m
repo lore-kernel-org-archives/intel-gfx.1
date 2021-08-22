@@ -8,71 +8,71 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 879ADC4320A
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:20:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0C4CC4320E
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B5226024A
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:20:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4B5226024A
+	by mail.kernel.org (Postfix) with ESMTPS id 743816127B
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Aug 2021 22:21:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 743816127B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 940ED89E63;
-	Sun, 22 Aug 2021 22:20:49 +0000 (UTC)
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC35D89CD3;
- Sun, 22 Aug 2021 22:20:47 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- o16-20020a9d2210000000b0051b1e56c98fso16407250ota.8; 
- Sun, 22 Aug 2021 15:20:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6221F89F07;
+	Sun, 22 Aug 2021 22:20:57 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFBFF89EA3;
+ Sun, 22 Aug 2021 22:20:51 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ i8-20020a056830402800b0051afc3e373aso19980539ots.5; 
+ Sun, 22 Aug 2021 15:20:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=EX0kJLbWPO/gGvtWZrYlXdMUmieVpPmj3inuxYZYEK8=;
- b=X905vpcVix5dUgIXcsYBm48sGOvY6Q9tAbuMJ2FITzzDKkNhvDuVF1Bjpu1CsY2e4B
- ia5jh5z8Dzml8Y6oAhfulLubQTeCQk0gpgNdxvOUxbNf9eVph0fUmjZAtkqEVKzedBOB
- PRaJYB5VS1a0Lfr71gVkdZgJju8OCPzsnlctQijn8TohOgNxIl+NIq33lrVfvGfaCyNj
- 0gue81LwfmJdROMdiu+D9KMp5gpcb7wNUeZtAnzZZ5XTxnqj4oOqqlK9rGJ6bRMh0E++
- SpvofwwTSa3O5fGQNKhp6Wd5pBAJgk6/1P0d9AaznKGm5pHG7V7/ctt/vgvr1z6Zq0yt
- BGgw==
+ bh=HcxXOS2YF8uquZi7kiX9qsCJzDtlyXVg/tWg1kXIEfw=;
+ b=Lt3kAYxhulbTWzHw+KRuN9FilPfa/EzpwZR9uYqxRniMUOewDlJ4DGDT8qecdeIdMb
+ CDj4rDXnMKefO6KQWz1XdVcSRAsJyfeuabR8mYqwE6NeAzqc73aEtG+EMfgnzZnRbBHw
+ aUIoY4KEupW8c8za+nlCgiX5usqNljYfAin+m5PENm/85RqyKpQJOZqI4lTGCcrU2ony
+ 4cXIMTEP7H7VrSkoTEfudzitfhwRzFBfaryP7wk//ofLSWWhatIXLq9Z2B19XvkDs8qS
+ 4Ur8y+2bJmFRzvYQoPky3KY26CfC1RjNcSjjQPX0+groURVxmIE8aFjBmfe0wt2TpQoH
+ MM1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=EX0kJLbWPO/gGvtWZrYlXdMUmieVpPmj3inuxYZYEK8=;
- b=M+v0iXLTXFckqU7zdPOT7hbhAgVa883Ft2Vy7qxB8AlF0XBD3lw02fF+wx2uRd7Rnk
- vO1JbQx/qI/Mmodm7x75qe0ku2LHfOEhAlOllXLtKTBeccKJ0lMrF7XiaZojbsjWECCp
- zg/rSP3tXE4t9ixYxP6NRULyljCeELQbkP+Jaaf8dlOx0X0jqsK2fQTgPQQ+U9Ygl+VV
- +OnhRaBPTmL5IoOhkLcvH2u4kXgdDVBha7CqgZxrCMjs5JlokY2sPDSThoEUHlIBoMMi
- i0m3vSikWDUR7mHS85dM04Jqv2UiAMGxU27625rML8Ez0dLjjBvBcWy/kMDEG1arYh4l
- FcrQ==
-X-Gm-Message-State: AOAM532tokoaZ1KT5Uwz7ElhvFAterp8dnTBDMpjERtSVzwtQ5toyC2e
- XHOfLlwy1QR4Mn29ldkXWHE=
-X-Google-Smtp-Source: ABdhPJwE15NCa8WKtdgeR3/dbe7hhgznsV40g1M14s3dtqtT45Pgz97wR93Mn+yQFFpQHuuV4Xgv3g==
-X-Received: by 2002:a9d:6c48:: with SMTP id g8mr26939243otq.199.1629670847204; 
- Sun, 22 Aug 2021 15:20:47 -0700 (PDT)
+ bh=HcxXOS2YF8uquZi7kiX9qsCJzDtlyXVg/tWg1kXIEfw=;
+ b=PK1lZSq2sU3XAgtTT73uR7K67WseenidYXyYOuqd26K+bKhUNwWs4kl6pim1zFsqfs
+ +4nFoxGzUtT1rKOSw8jwcyKJqyg+xRC59aK1gN1ulVFmndAZHW5hXVFFt6wiHYbdTlxT
+ spQwgdjWMqxwkhxS0hgZwwTgTU9SpiYDJDT9e3aCkrAudILBfMWko9sUj9PynfP8Ls7l
+ JaRMV2ciwv+3TkmGICAGh1a0GnMvGR1+ub/GjIFlRraz1SXn832ZivQp+JAzTUNN0xu/
+ DXC9ZTm7rkxmFpMf0yDZrsusbN7OowCgmYPBeECxvaFV7pI7C7Y3OF1BjmoEh9qQRavu
+ sgoQ==
+X-Gm-Message-State: AOAM5337g5R2OL7uqRnAou8L/wGl57o8FrdRpT2RIp2kFkpGOsqc1mEQ
+ 2cJlJW9bgS8sK0ALdiVufKY=
+X-Google-Smtp-Source: ABdhPJyKh74f82CLns65Ub2YpnD6FguJkzgMrm73NZeDP62Hn3m6BcP++K3oGODLJTjANh7XmyyENg==
+X-Received: by 2002:a9d:6c1:: with SMTP id 59mr24916964otx.318.1629670851093; 
+ Sun, 22 Aug 2021 15:20:51 -0700 (PDT)
 Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.46
+ by smtp.googlemail.com with ESMTPSA id x198sm2964122ooa.43.2021.08.22.15.20.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Aug 2021 15:20:46 -0700 (PDT)
+ Sun, 22 Aug 2021 15:20:50 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, seanpaul@chromium.org,
  jeyu@kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Cc: Jim Cromie <jim.cromie@gmail.com>
-Date: Sun, 22 Aug 2021 16:19:59 -0600
-Message-Id: <20210822222009.2035788-2-jim.cromie@gmail.com>
+Date: Sun, 22 Aug 2021 16:20:02 -0600
+Message-Id: <20210822222009.2035788-5-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210822222009.2035788-1-jim.cromie@gmail.com>
 References: <20210822222009.2035788-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 01/11] moduleparam: add data member to struct
- kernel_param
+Subject: [Intel-gfx] [PATCH v6 04/11] i915/gvt: use
+ DEFINE_DYNAMIC_DEBUG_CATEGORIES to create "gvt:core:" etc categories
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,73 +88,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a const void* data member to the struct, to allow attaching
-private data that will be used soon by a setter method (via kp->data)
-to perform more elaborate actions.
+The gvt component of this driver has ~120 pr_debugs, in 9 categories
+quite similar to those in DRM.  Following the interface model of
+drm.debug, add a parameter to map bits to these categorizations.
 
-To attach the data at compile time, add new macros:
+DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_gvt, __gvt_debug,
+	"dyndbg bitmap desc",
+	{ "gvt:cmd: ",  "command processing" },
+	{ "gvt:core: ", "core help" },
+	{ "gvt:dpy: ",  "display help" },
+	{ "gvt:el: ",   "help" },
+	{ "gvt:irq: ",  "help" },
+	{ "gvt:mm: ",   "help" },
+	{ "gvt:mmio: ", "help" },
+	{ "gvt:render: ", "help" },
+	{ "gvt:sched: " "help" });
 
-module_param_cb_data() derives from module_param_cb(), adding data
-param, and latter is redefined to use former.
+The actual patch has a few details different, cmd_help() macro emits
+the initialization construct.
 
-It calls __module_param_call_with_data(), which accepts new data param
-and inits .data with it. Re-define __module_param_call() to use it.
-
-Use of this new data member will be rare, it might be worth redoing
-this as a separate/sub-type to de-bloat the base case.
+if CONFIG_DRM_USE_DYNAMIC_DEBUG, then -DDYNAMIC_DEBUG_MODULE is added
+cflags, by gvt/Makefile.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v6:
-. const void* data - <emil.l.velikov@gmail.com>
-. better macro names s/_cbd/_cb_data/, s/_wdata/_with_data/
-. more const, no cast - Willy
+v4+:
+. static decl of vector of bit->class descriptors - Emil.V
+. relocate gvt-makefile chunk from elsewhere
 ---
- include/linux/moduleparam.h | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gvt/Makefile  |  4 ++++
+ drivers/gpu/drm/i915/i915_params.c | 35 ++++++++++++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
 
-diff --git a/include/linux/moduleparam.h b/include/linux/moduleparam.h
-index eed280fae433..b8871e514de5 100644
---- a/include/linux/moduleparam.h
-+++ b/include/linux/moduleparam.h
-@@ -78,6 +78,7 @@ struct kernel_param {
- 		const struct kparam_string *str;
- 		const struct kparam_array *arr;
- 	};
-+	const void *data;
- };
+diff --git a/drivers/gpu/drm/i915/gvt/Makefile b/drivers/gpu/drm/i915/gvt/Makefile
+index ea8324abc784..846ba73b8de6 100644
+--- a/drivers/gpu/drm/i915/gvt/Makefile
++++ b/drivers/gpu/drm/i915/gvt/Makefile
+@@ -7,3 +7,7 @@ GVT_SOURCE := gvt.o aperture_gm.o handlers.o vgpu.o trace_points.o firmware.o \
  
- extern const struct kernel_param __start___param[], __stop___param[];
-@@ -175,6 +176,9 @@ struct kparam_array
- #define module_param_cb(name, ops, arg, perm)				      \
- 	__module_param_call(MODULE_PARAM_PREFIX, name, ops, arg, perm, -1, 0)
- 
-+#define module_param_cb_data(name, ops, arg, perm, data)			\
-+	__module_param_call_with_data(MODULE_PARAM_PREFIX, name, ops, arg, perm, -1, 0, data)
+ ccflags-y				+= -I $(srctree)/$(src) -I $(srctree)/$(src)/$(GVT_DIR)/
+ i915-y					+= $(addprefix $(GVT_DIR)/, $(GVT_SOURCE))
 +
- #define module_param_cb_unsafe(name, ops, arg, perm)			      \
- 	__module_param_call(MODULE_PARAM_PREFIX, name, ops, arg, perm, -1,    \
- 			    KERNEL_PARAM_FL_UNSAFE)
-@@ -284,14 +288,17 @@ struct kparam_array
- 
- /* This is the fundamental function for registering boot/module
-    parameters. */
--#define __module_param_call(prefix, name, ops, arg, perm, level, flags)	\
-+#define __module_param_call(prefix, name, ops, arg, perm, level, flags) \
-+	__module_param_call_with_data(prefix, name, ops, arg, perm, level, flags, NULL)
++#ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
++ccflags-y	+= -DDYNAMIC_DEBUG_MODULE
++#endif
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index e07f4cfea63a..683e942a074e 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -265,3 +265,38 @@ void i915_params_free(struct i915_params *params)
+ 	I915_PARAMS_FOR_EACH(FREE);
+ #undef FREE
+ }
 +
-+#define __module_param_call_with_data(prefix, name, ops, arg, perm, level, flags, data) \
- 	/* Default value instead of permissions? */			\
- 	static const char __param_str_##name[] = prefix #name;		\
- 	static struct kernel_param __moduleparam_const __param_##name	\
- 	__used __section("__param")					\
- 	__aligned(__alignof__(struct kernel_param))			\
- 	= { __param_str_##name, THIS_MODULE, ops,			\
--	    VERIFY_OCTAL_PERMISSIONS(perm), level, flags, { arg } }
-+	    VERIFY_OCTAL_PERMISSIONS(perm), level, flags, { arg }, data }
- 
- /* Obsolete - use module_param_cb() */
- #define module_param_call(name, _set, _get, arg, perm)			\
++#ifdef DRM_USE_DYNAMIC_DEBUG
++/* todo: needs DYNAMIC_DEBUG_MODULE in some cases */
++
++unsigned long __gvt_debug;
++EXPORT_SYMBOL(__gvt_debug);
++
++#define _help(key)	"\t    \"" key "\"\t: help for " key "\n"
++
++#define I915_GVT_CATEGORIES(name) \
++	" Enable debug output via /sys/module/i915/parameters/" #name	\
++	", where each bit enables a debug category.\n"			\
++	_help("gvt:cmd:")						\
++	_help("gvt:core:")						\
++	_help("gvt:dpy:")						\
++	_help("gvt:el:")						\
++	_help("gvt:irq:")						\
++	_help("gvt:mm:")						\
++	_help("gvt:mmio:")						\
++	_help("gvt:render:")						\
++	_help("gvt:sched:")
++
++DEFINE_DYNAMIC_DEBUG_CATEGORIES(debug_gvt, __gvt_debug,
++				I915_GVT_CATEGORIES(debug_gvt),
++				_DD_cat_("gvt:cmd:"),
++				_DD_cat_("gvt:core:"),
++				_DD_cat_("gvt:dpy:"),
++				_DD_cat_("gvt:el:"),
++				_DD_cat_("gvt:irq:"),
++				_DD_cat_("gvt:mm:"),
++				_DD_cat_("gvt:mmio:"),
++				_DD_cat_("gvt:render:"),
++				_DD_cat_("gvt:sched:"));
++
++#endif
 -- 
 2.31.1
 
