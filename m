@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3356AC432BE
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 11:29:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06466C4320A
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 11:29:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0442D6120C
+	by mail.kernel.org (Postfix) with ESMTPS id CABAF6120C
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 11:29:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0442D6120C
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CABAF6120C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5317089DC9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 385BF89DC7;
 	Mon, 23 Aug 2021 11:29:35 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B17CC89D83;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 061D389D9B;
  Mon, 23 Aug 2021 11:29:26 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10084"; a="197331610"
-X-IronPort-AV: E=Sophos;i="5.84,344,1620716400"; d="scan'208";a="197331610"
+X-IronPort-AV: E=McAfee;i="6200,9189,10084"; a="197331612"
+X-IronPort-AV: E=Sophos;i="5.84,344,1620716400"; d="scan'208";a="197331612"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Aug 2021 04:29:25 -0700
-X-IronPort-AV: E=Sophos;i="5.84,344,1620716400"; d="scan'208";a="525910328"
+X-IronPort-AV: E=Sophos;i="5.84,344,1620716400"; d="scan'208";a="525910335"
 Received: from mhartley-mobl1.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.253.18])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2021 04:29:18 -0700
+ 23 Aug 2021 04:29:22 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
  David M Nieto <David.Nieto@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Daniel Stone <daniel@fooishbar.org>
-Date: Mon, 23 Aug 2021 12:28:57 +0100
-Message-Id: <20210823112859.103561-7-tvrtko.ursulin@linux.intel.com>
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Mon, 23 Aug 2021 12:28:59 +0100
+Message-Id: <20210823112859.103561-9-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210823112859.103561-1-tvrtko.ursulin@linux.intel.com>
 References: <20210823112859.103561-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 6/8] drm: Document fdinfo format specification
+Subject: [Intel-gfx] [RFC 8/8] drm/amdgpu: Convert to common fdinfo format
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,155 +65,132 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Proposal to standardise the fdinfo text format as optionally output by DRM
-drivers.
+Convert fdinfo format to one documented in drm-usage-stats.rst.
 
-Idea is that a simple but, well defined, spec will enable generic
-userspace tools to be written while at the same time avoiding a more heavy
-handed approach of adding a mid-layer to DRM.
-
-i915 implements a subset of the spec, everything apart from the memory
-stats currently, and a matching intel_gpu_top tool exists.
-
-Open is to see if AMD can migrate to using the proposed GPU utilisation
-key-value pairs, or if they are not workable to see whether to go
-vendor specific, or if a standardised  alternative can be found which is
-workable for both drivers.
-
-Same for the memory utilisation key-value pairs proposal.
-
-v2:
- * Update for removal of name and pid.
-
-v3:
- * 'Drm-driver' tag will be obtained from struct drm_driver.name. (Daniel)
+Opens:
+ * Does it work for AMD?
+ * What are the semantics of AMD engine utilisation reported in percents?
+   Can it align with what i915 does or needs to document the alternative
+   in the specification document?
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Cc: David M Nieto <David.Nieto@amd.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Daniel Stone <daniel@fooishbar.org>
 ---
- Documentation/gpu/drm-usage-stats.rst | 97 +++++++++++++++++++++++++++
- Documentation/gpu/index.rst           |  1 +
- 2 files changed, 98 insertions(+)
- create mode 100644 Documentation/gpu/drm-usage-stats.rst
+ Documentation/gpu/amdgpu.rst               | 26 ++++++++++++++++++++++
+ Documentation/gpu/drm-usage-stats.rst      |  7 +++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 19 +++++++++++-----
+ 3 files changed, 46 insertions(+), 6 deletions(-)
 
+diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst
+index 364680cdad2e..b9b79c810f28 100644
+--- a/Documentation/gpu/amdgpu.rst
++++ b/Documentation/gpu/amdgpu.rst
+@@ -322,3 +322,29 @@ smartshift_bias
+ 
+ .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: smartshift_bias
++
++.. _amdgpu-usage-stats:
++
++amdgpu DRM client usage stats implementation
++============================================
++
++The amdgpu driver implements the DRM client usage stats specification as
++documented in :ref:`drm-client-usage-stats`.
++
++Example of the output showing the implemented key value pairs and entirety of
++the currenly possible format options:
++
++::
++
++      pos:    0
++      flags:  0100002
++      mnt_id: 21
++      drm-driver: amdgpu
++      drm-pdev:   0000:00:02.0
++      drm-client-id:      7
++      drm-engine-... TODO
++      drm-memory-... TODO
++
++Possible `drm-engine-` key names are: ``,... TODO.
++
++Possible `drm-memory-` key names are: ``,... TODO.
 diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-new file mode 100644
-index 000000000000..c669026be244
---- /dev/null
+index 6952f8389d07..f02a51130cba 100644
+--- a/Documentation/gpu/drm-usage-stats.rst
 +++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -0,0 +1,97 @@
-+.. _drm-client-usage-stats:
+@@ -69,7 +69,7 @@ scope of each device, in which case `drm-pdev` shall be present as well.
+ Userspace should make sure to not double account any usage statistics by using
+ the above described criteria in order to associate data to individual clients.
+ 
+-- drm-engine-<str>: <uint> ns
++- drm-engine-<str>: <uint> [ns|%]
+ 
+ GPUs usually contain multiple execution engines. Each shall be given a stable
+ and unique name (str), with possible values documented in the driver specific
+@@ -84,6 +84,9 @@ larger value within a reasonable period. Upon observing a value lower than what
+ was previously read, userspace is expected to stay with that larger previous
+ value until a monotonic update is seen.
+ 
++Where time unit is given as a percentage...[AMD folks to fill the semantics
++and interpretation of that]...
 +
-+======================
-+DRM client usage stats
-+======================
+ - drm-memory-<str>: <uint> [KiB|MiB]
+ 
+ Each possible memory type which can be used to store buffer objects by the
+@@ -101,3 +104,5 @@ Driver specific implementations
+ ===============================
+ 
+ :ref:`i915-usage-stats`
 +
-+DRM drivers can choose to export partly standardised text output via the
-+`fops->show_fdinfo()` as part of the driver specific file operations registered
-+in the `struct drm_driver` object registered with the DRM core.
++:ref:`amdgpu-usage-stats`
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+index d94c5419ec25..2023a9a6bb47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+@@ -32,6 +32,7 @@
+ 
+ #include <drm/amdgpu_drm.h>
+ #include <drm/drm_debugfs.h>
++#include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_vm.h"
+@@ -76,11 +77,19 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+ 	}
+ 	amdgpu_vm_get_memory(&fpriv->vm, &vram_mem, &gtt_mem, &cpu_mem);
+ 	amdgpu_bo_unreserve(fpriv->vm.root.bo);
+-	seq_printf(m, "pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", domain, bus,
 +
-+One purpose of this output is to enable writing as generic as practicaly
-+feasible `top(1)` like userspace monitoring tools.
++	/*
++	 * ******************************************************************
++	 * For text output format description please see drm-usage-stats.rst!
++	 * ******************************************************************
++	 */
 +
-+Given the differences between various DRM drivers the specification of the
-+output is split between common and driver specific parts. Having said that,
-+wherever possible effort should still be made to standardise as much as
-+possible.
-+
-+File format specification
-+=========================
-+
-+- File shall contain one key value pair per one line of text.
-+- Colon character (`:`) must be used to delimit keys and values.
-+- All keys shall be prefixed with `drm-`.
-+- Whitespace between the delimiter and first non-whitespace character shall be
-+  ignored when parsing.
-+- Neither keys or values are allowed to contain whitespace characters.
-+- Numerical key value pairs can end with optional unit string.
-+- Data type of the value is fixed as defined in the specification.
-+
-+Key types
-+---------
-+
-+1. Mandatory, fully standardised.
-+2. Optional, fully standardised.
-+3. Driver specific.
-+
-+Data types
-+----------
-+
-+- <uint> - Unsigned integer without defining the maximum value.
-+- <str> - String excluding any above defined reserved characters or whitespace.
-+
-+Mandatory fully standardised keys
-+---------------------------------
-+
-+- drm-driver: <str>
-+
-+String shall contain the name this driver registered as via the respective
-+`struct drm_driver` data structure.
-+
-+Optional fully standardised keys
-+--------------------------------
-+
-+- drm-pdev: <aaaa:bb.cc.d>
-+
-+For PCI devices this should contain the PCI slot address of the device in
-+question.
-+
-+- drm-client-id: <uint>
-+
-+Unique value relating to the open DRM file descriptor used to distinguish
-+duplicated and shared file descriptors. Conceptually the value should map 1:1
-+to the in kernel representation of `struct drm_file` instances.
-+
-+Uniqueness of the value shall be either globally unique, or unique within the
-+scope of each device, in which case `drm-pdev` shall be present as well.
-+
-+Userspace should make sure to not double account any usage statistics by using
-+the above described criteria in order to associate data to individual clients.
-+
-+- drm-engine-<str>: <uint> ns
-+
-+GPUs usually contain multiple execution engines. Each shall be given a stable
-+and unique name (str), with possible values documented in the driver specific
-+documentation.
-+
-+Value shall be in specified time units which the respective GPU engine spent
-+busy executing workloads belonging to this client.
-+
-+Values are not required to be constantly monotonic if it makes the driver
-+implementation easier, but are required to catch up with the previously reported
-+larger value within a reasonable period. Upon observing a value lower than what
-+was previously read, userspace is expected to stay with that larger previous
-+value until a monotonic update is seen.
-+
-+- drm-memory-<str>: <uint> [KiB|MiB]
-+
-+Each possible memory type which can be used to store buffer objects by the
-+GPU in question shall be given a stable and unique name to be returned as the
-+string here.
-+
-+Value shall reflect the amount of storage currently consumed by the buffer
-+object belong to this client, in the respective memory region.
-+
-+Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
-+indicating kibi- or mebi-bytes.
-diff --git a/Documentation/gpu/index.rst b/Documentation/gpu/index.rst
-index b9c1214d8f23..b99dede9a5b1 100644
---- a/Documentation/gpu/index.rst
-+++ b/Documentation/gpu/index.rst
-@@ -10,6 +10,7 @@ Linux GPU Driver Developer's Guide
-    drm-kms
-    drm-kms-helpers
-    drm-uapi
-+   drm-usage-stats
-    driver-uapi
-    drm-client
-    drivers
++	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
++	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\npasid:\t%u\n", domain, bus,
+ 			dev, fn, fpriv->vm.pasid);
+-	seq_printf(m, "vram mem:\t%llu kB\n", vram_mem/1024UL);
+-	seq_printf(m, "gtt mem:\t%llu kB\n", gtt_mem/1024UL);
+-	seq_printf(m, "cpu mem:\t%llu kB\n", cpu_mem/1024UL);
++	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
++	seq_printf(m, "drm-memory-gtt:\t%llu KiB\n", gtt_mem/1024UL);
++	seq_printf(m, "drm-memory-cpu:\t%llu KiB\n", cpu_mem/1024UL);
+ 	for (i = 0; i < AMDGPU_HW_IP_NUM; i++) {
+ 		uint32_t count = amdgpu_ctx_num_entities[i];
+ 		int idx = 0;
+@@ -96,7 +105,7 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+ 			perc = div64_u64(10000 * total, min);
+ 			frac = perc % 100;
+ 
+-			seq_printf(m, "%s%d:\t%d.%d%%\n",
++			seq_printf(m, "drm-engine-%s%d:\t%d.%d %%\n",
+ 					amdgpu_ip_name[i],
+ 					idx, perc/100, frac);
+ 		}
 -- 
 2.30.2
 
