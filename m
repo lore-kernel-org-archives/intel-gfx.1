@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08FF5C4338F
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 16:19:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94A76C4338F
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 16:19:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA6D9613DA
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 16:19:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CA6D9613DA
+	by mail.kernel.org (Postfix) with ESMTPS id 5B196613DA
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Aug 2021 16:19:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5B196613DA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 564D86E075;
-	Mon, 23 Aug 2021 16:19:05 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F8716E064
- for <intel-gfx@lists.freedesktop.org>; Mon, 23 Aug 2021 16:19:04 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10085"; a="216857992"
-X-IronPort-AV: E=Sophos;i="5.84,344,1620716400"; d="scan'208";a="216857992"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2021 09:19:03 -0700
-X-IronPort-AV: E=Sophos;i="5.84,344,1620716400"; d="scan'208";a="454858120"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7BB46E077;
+	Mon, 23 Aug 2021 16:19:10 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74AF76E077
+ for <intel-gfx@lists.freedesktop.org>; Mon, 23 Aug 2021 16:19:09 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10085"; a="278148322"
+X-IronPort-AV: E=Sophos;i="5.84,344,1620716400"; d="scan'208";a="278148322"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2021 09:19:08 -0700
+X-IronPort-AV: E=Sophos;i="5.84,344,1620716400"; d="scan'208";a="683375081"
 Received: from todonova-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.249.44.47])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2021 09:19:01 -0700
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2021 09:19:06 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  manasi.d.navare@intel.com
-Date: Mon, 23 Aug 2021 19:18:08 +0300
-Message-Id: <0d3529df4501c5dd8ad1da0b6dbaabcfa97510b4.1629735412.git.jani.nikula@intel.com>
+Date: Mon, 23 Aug 2021 19:18:09 +0300
+Message-Id: <a449e984e14ee0a493a471fad54dc49deb72a5cd.1629735412.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <cover.1629735412.git.jani.nikula@intel.com>
 References: <cover.1629735412.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 07/19] drm/i915/dg2: add TRANS_DP2_CTL
- register definition
+Subject: [Intel-gfx] [PATCH v2 08/19] drm/i915/dg2: add DG2+
+ TRANS_DDI_FUNC_CTL DP 2.0 128b/132b mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,35 +62,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This register controls the DP 2.0 datapath.
+Unfortunately, the DP 2.0 128b/132b DDI mode selection in the register
+conflicts with FDI. Since we have to deal with both meanings in the same
+code, for different platforms, clarify the macro name so we don't
+forget.
 
-Bspec: 69967
-Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+Bspec: 50493
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 6 +++---
+ drivers/gpu/drm/i915/i915_reg.h          | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 1ef7a65feb66..203a54f905f6 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -488,7 +488,7 @@ intel_ddi_transcoder_func_reg_val_get(struct intel_encoder *encoder,
+ 		if (crtc_state->hdmi_high_tmds_clock_ratio)
+ 			temp |= TRANS_DDI_HIGH_TMDS_CHAR_RATE;
+ 	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_ANALOG)) {
+-		temp |= TRANS_DDI_MODE_SELECT_FDI;
++		temp |= TRANS_DDI_MODE_SELECT_FDI_OR_128B132B;
+ 		temp |= (crtc_state->fdi_lanes - 1) << 1;
+ 	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST)) {
+ 		temp |= TRANS_DDI_MODE_SELECT_DP_MST;
+@@ -678,7 +678,7 @@ bool intel_ddi_connector_get_hw_state(struct intel_connector *intel_connector)
+ 		ret = false;
+ 		break;
+ 
+-	case TRANS_DDI_MODE_SELECT_FDI:
++	case TRANS_DDI_MODE_SELECT_FDI_OR_128B132B:
+ 		ret = type == DRM_MODE_CONNECTOR_VGA;
+ 		break;
+ 
+@@ -3557,7 +3557,7 @@ static void intel_ddi_read_func_ctl(struct intel_encoder *encoder,
+ 		pipe_config->output_types |= BIT(INTEL_OUTPUT_HDMI);
+ 		pipe_config->lane_count = 4;
+ 		break;
+-	case TRANS_DDI_MODE_SELECT_FDI:
++	case TRANS_DDI_MODE_SELECT_FDI_OR_128B132B:
+ 		pipe_config->output_types |= BIT(INTEL_OUTPUT_ANALOG);
+ 		break;
+ 	case TRANS_DDI_MODE_SELECT_DP_SST:
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 4b7c69c70b66..bd400553f9ea 100644
+index bd400553f9ea..93b51ba2da87 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -9101,6 +9101,15 @@ enum {
- #define  TRANS_DP_HSYNC_ACTIVE_LOW	0
- #define  TRANS_DP_SYNC_MASK	(3 << 3)
- 
-+#define _TRANS_DP2_CTL_A			0x600a0
-+#define _TRANS_DP2_CTL_B			0x610a0
-+#define _TRANS_DP2_CTL_C			0x620a0
-+#define _TRANS_DP2_CTL_D			0x630a0
-+#define TRANS_DP2_CTL(trans)			_MMIO_TRANS(trans, _TRANS_DP2_CTL_A, _TRANS_DP2_CTL_B)
-+#define  TRANS_DP2_128B132B_CHANNEL_CODING	REG_BIT(31)
-+#define  TRANS_DP2_PANEL_REPLAY_ENABLE		REG_BIT(30)
-+#define  TRANS_DP2_DEBUG_ENABLE			REG_BIT(23)
-+
- /* SNB eDP training params */
- /* SNB A-stepping */
- #define  EDP_LINK_TRAIN_400MV_0DB_SNB_A		(0x38 << 22)
+@@ -10169,7 +10169,7 @@ enum skl_power_gate {
+ #define  TRANS_DDI_MODE_SELECT_DVI	(1 << 24)
+ #define  TRANS_DDI_MODE_SELECT_DP_SST	(2 << 24)
+ #define  TRANS_DDI_MODE_SELECT_DP_MST	(3 << 24)
+-#define  TRANS_DDI_MODE_SELECT_FDI	(4 << 24)
++#define  TRANS_DDI_MODE_SELECT_FDI_OR_128B132B	(4 << 24)
+ #define  TRANS_DDI_BPC_MASK		(7 << 20)
+ #define  TRANS_DDI_BPC_8		(0 << 20)
+ #define  TRANS_DDI_BPC_10		(1 << 20)
 -- 
 2.20.1
 
