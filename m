@@ -2,51 +2,43 @@ Return-Path: <SRS0=Bjkn=NP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3667C4320E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 18:03:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1A00C4320A
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 19:11:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5188610F8
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 18:03:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A5188610F8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 861FF61052
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Aug 2021 19:11:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 861FF61052
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2766E0B9;
-	Tue, 24 Aug 2021 18:03:14 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CE486E0B8
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Aug 2021 18:03:12 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10086"; a="204566655"
-X-IronPort-AV: E=Sophos;i="5.84,347,1620716400"; d="scan'208";a="204566655"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2021 11:03:11 -0700
-X-IronPort-AV: E=Sophos;i="5.84,347,1620716400"; d="scan'208";a="526720533"
-Received: from romerosa-mobl.amr.corp.intel.com (HELO localhost)
- ([10.249.44.170])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2021 11:03:09 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com,
- daniel@ffwll.ch
-In-Reply-To: <87tujfezzr.fsf@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1629721467.git.jani.nikula@intel.com>
- <YSTfKKa1Zkr6o4l+@intel.com> <87tujfezzr.fsf@intel.com>
-Date: Tue, 24 Aug 2021 21:03:05 +0300
-Message-ID: <87ilzug1pi.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C11596E0B9;
+	Tue, 24 Aug 2021 19:11:11 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 686CB6E0B8;
+ Tue, 24 Aug 2021 19:11:11 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 3FE2FAA917;
+ Tue, 24 Aug 2021 19:11:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 0/6] drm/i915/display: split out some dpt
- and fb stuff from intel_display.c
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lee, Shawn C" <shawn.c.lee@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 24 Aug 2021 19:11:11 -0000
+Message-ID: <162983227123.27154.2196755358868612908@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210812154237.13911-1-shawn.c.lee@intel.com>
+In-Reply-To: <20210812154237.13911-1-shawn.c.lee@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_MIPI_DSI_driver_enhancements_=28rev8=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,59 +51,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 24 Aug 2021, Jani Nikula <jani.nikula@intel.com> wrote:
-> On Tue, 24 Aug 2021, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
->> On Mon, Aug 23, 2021 at 03:25:30PM +0300, Jani Nikula wrote:
->>> Make some forward progress on reducing intel_display.c size.
->>> 
->>> Jani Nikula (6):
->>>   drm/i915/display: split out dpt out of intel_display.c
->>>   drm/i915: add HAS_ASYNC_FLIPS feature macro
->>>   drm/i915/fb: move intel_tile_width_bytes() to intel_fb.c
->>>   drm/i915/fb: move intel_fb_align_height() to intel_fb.c
->>>   drm/i915/fb: move intel_surf_alignment() to intel_fb.c
->>>   drm/i915/fb: move user framebuffer stuff to intel_fb.c
->>> 
->>>  drivers/gpu/drm/i915/Makefile                |   1 +
->>>  drivers/gpu/drm/i915/display/intel_display.c | 709 +------------------
->>>  drivers/gpu/drm/i915/display/intel_display.h |   6 -
->>>  drivers/gpu/drm/i915/display/intel_dpt.c     | 229 ++++++
->>>  drivers/gpu/drm/i915/display/intel_dpt.h     |  19 +
->>>  drivers/gpu/drm/i915/display/intel_fb.c      | 481 +++++++++++++
->>>  drivers/gpu/drm/i915/display/intel_fb.h      |  20 +-
->>>  drivers/gpu/drm/i915/display/intel_fbdev.c   |   1 +
->>>  drivers/gpu/drm/i915/i915_drv.h              |   2 +
->>>  9 files changed, 752 insertions(+), 716 deletions(-)
->>>  create mode 100644 drivers/gpu/drm/i915/display/intel_dpt.c
->>>  create mode 100644 drivers/gpu/drm/i915/display/intel_dpt.h
->>
->> I believe it would be good to add a /** DOC: */ or at least
->> a simple comment block explaining a bit what DPT is.
->
-> I agree, but I'm not signing up for that!
->
->> But other than that the series looks good, so, up to you:
->>
->> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
->> (for the series)
->
-> Thanks,
-> Jani
+== Series Details ==
 
-And pushed.
+Series: MIPI DSI driver enhancements (rev8)
+URL   : https://patchwork.freedesktop.org/series/92695/
+State : warning
 
-BR,
-Jani.
+== Summary ==
 
->
->>
->>> 
->>> -- 
->>> 2.20.1
->>> 
+$ dim checkpatch origin/drm-tip
+07b88ff475db drm/i915/dsi: send correct gpio_number on gen11 platform
+d6923c203e23 drm/i915/jsl: program DSI panel GPIOs
+ce55c52173da drm/i915/dsi: wait for header and payload credit available
+255ca7c1ec48 drm/i915/dsi: refine send MIPI DCS command sequence
+10e485919308 drm/i915: Get proper min cdclk if vDSC enabled
+5de9e51eab61 drm/i915/dsi: Retrieve max brightness level from VBT
+-:52: WARNING:LINE_CONTINUATIONS: Avoid unnecessary line continuations
+#52: FILE: drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c:154:
++	panel->backlight.max = (dev_priv->vbt.backlight.brightness_precision_bits > 8) \
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+total: 0 errors, 1 warnings, 0 checks, 32 lines checked
+5ecaff623347 drm/i915/dsi: Read/write proper brightness value via MIPI DCS command
+
+
