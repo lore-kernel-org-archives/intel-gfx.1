@@ -2,78 +2,140 @@ Return-Path: <SRS0=ZGLP=NQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B2D2C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D072C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:42:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05AFE610C7
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:33:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 05AFE610C7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id D9EF0610CE
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:42:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D9EF0610CE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A14E66E215;
-	Wed, 25 Aug 2021 14:33:00 +0000 (UTC)
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB5496E215;
- Wed, 25 Aug 2021 14:32:59 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id n27so13786366oij.0;
- Wed, 25 Aug 2021 07:32:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=C+KRFd7Kqkl0ah0lvdFARlhhhNjXHD7Ea7yp+15DaDY=;
- b=mhlGodFfpCV6toic780Q1UR0OvCGBEVUwmLR5r0G0/46x64grwFjfLAWAz0eZSxGFL
- kBhoFK82Fc7TGJPnxpYzGJ9fkLsCVhScVInta255RbCuDx1VBjTMGIoKUXXeF7eiqZQC
- D4UtivTNdlc4pzofbN4fCPhx/h6TH5l4xUkMOh59j5yQbLxV8c2vwp6Wx3lc6egitFcC
- M5aUta1sxM/+tMjwKlHwwyJDdtxvzcYmCJw2W1a7yk6jcqdn7jxLUDJnJZDpIUxXu7x/
- pXmeq0T7CFxeT9K3C1b0ImhSv9XUo63Zb/9g3g/RV69YqN15oekhWnYwxgQlKbW/BPSg
- YkfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=C+KRFd7Kqkl0ah0lvdFARlhhhNjXHD7Ea7yp+15DaDY=;
- b=R/Dc5AkCo3Fp+1JgPXufCVT9ZFOwvia0DEtlPvoeRo6ysL4gEqTDkE41Pm/7Y2p1hg
- Cw17Eu0wSpdEobE35S9fsRRTjiOSOn3DXlgnbPqyBKKC1NNtliSBZahfwbNjk0JMqy4C
- f0cSfQ9gJ+CKNq6QzQomP3KH9v/Im6SwplNtPskmDqD2YgBL0xZBkWKSP/bJ/gKnfeO5
- S8csXYbxvshhWQuDJ5uBrvQko30SqtJdCoXLCxTDc0l1r++xgrTOmNn+D5xbWi9q8VDL
- hTKJvy17JwhNu3FZrBzAJq5nZhfRKogaIEGGBA5OStg7PZlRopnKfFD518yispINpRF/
- jmkQ==
-X-Gm-Message-State: AOAM532QR3yFQlbOnwT9ZQKS8fvSm3lovWNKnrtNKVPfWZcMGBQBdkmD
- AN7IGu5xSk3OMjHZaEqXMI7JgXKCe+EIj6PxTM4=
-X-Google-Smtp-Source: ABdhPJwWKUX/O0nYAsMs0WtOtdblcPCQzOjH9MS/sF36R8S9vjimx3RkQhbpzOMtoa0Khc0WGxQsio3aLtthsVUUEVc=
-X-Received: by 2002:a05:6808:1310:: with SMTP id
- y16mr6948256oiv.123.1629901979099; 
- Wed, 25 Aug 2021 07:32:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56D2B8932A;
+	Wed, 25 Aug 2021 14:42:40 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2063.outbound.protection.outlook.com [40.107.101.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF61F8932A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 14:42:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fmOMDSWmoMqCsCq7tnKk4fcZXAiRO8fVKxodc8U8muWZzF5FKTMFSC6HGn0pAnj9ZtxuYCp/kkh5ByKqsqhGK7yEugA6Og7aPcsg6xkXaIObEj/5IyfFxwQK8Ag8KUv9m96v+uhfK/vSq1enApD6GtVkyQMlLjdYtyPMYEWx9+2PmUZPOOK8fMWPtBow9JCkIgOEjKDZ984DLXUBva/7YQ6P/6cq9s2K2lQttME8fygBv5kibK6LeO8bHgtVSnfqz/mKE0xR1gc2lE6nNWCxfMAsQdMeUJnxJk3gMO1XaEZkvi5ZDmnc1XDUCvOnRCwnxQroXVJOfnHxitGvQdr3SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+7cCNzajqyc1EZVk7UtTuWNkQ+kKdIo5ieq2E5WTAl8=;
+ b=WAu+ua6sn6c3wfWqPOvY8vCdBGaCgfoMqVFVDBIH0ZkEkXrbrz4wTqEfJGn6/TNtjwzIG7i+5L5akvtfk8OnwkGGf90RHY+uxar6HpLdOShIcTmNyQsxLVRegDubZaOdZvCM3uftN1wtPzycxk6aObosH2Ns+KGaYi/AD+v0otWI7rgTFbExOiKqi4gJDpQ5G1UjHR57mPF7n3GatR0GkPcvKe2hNPEmZC7ZZPDVhUrYs+JdnhQV9dUnXvGXHnoVdQLNP5Nb4F3GflXzzzv0O+LE6lKUhvQrDUNZZtxsFFbsnNcUC34nPLj45ZBQU4M2dyr9MyDbAPcjX77AIdzVNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+7cCNzajqyc1EZVk7UtTuWNkQ+kKdIo5ieq2E5WTAl8=;
+ b=ONyPm9zzOOdfX4MgyeRJvVEutve46UjAss17e5x7PuLsFMsreToypkhxQojOcdh4YGpfjEAK9lt4h852gOYzWA3G2M4CCAEssMyv1WUwygRBvUPEX/3ENw/cTpfZdqB8VgEIG3sErsc2abiW6mSuwzA4kNNJNbVQeaXy0wbvhvseG3t5Eq+H+8jU9P5+BV7ABoz99E1VjGdcvwySAGpdnEWMT18j1akigx6CMM/VHGOkmzRQP4oeMtkHRirz52h24J3dqI6IPCjZzH5kxmVKbYKYx9NjECJU4eXAwdy4p9q9icOdd2Z2Mc6XdG1/BEStFU43agvzbMPEfAdmFGXdeQ==
+Authentication-Results: nvidia.com; dkim=none (message not signed)
+ header.d=none;nvidia.com; dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
+ by BL1PR12MB5127.namprd12.prod.outlook.com (2603:10b6:208:31b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.23; Wed, 25 Aug
+ 2021 13:09:26 +0000
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::1de1:52a9:cf66:f336]) by BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::1de1:52a9:cf66:f336%8]) with mapi id 15.20.4436.024; Wed, 25 Aug 2021
+ 13:09:26 +0000
+Date: Wed, 25 Aug 2021 10:09:23 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Maor Gottlieb <maorg@nvidia.com>
+Cc: dledford@redhat.com, hch@infradead.org, leonro@nvidia.com,
+ aelior@marvell.com, daniel@ffwll.ch, airlied@linux.ie,
+ dennis.dalessandro@cornelisnetworks.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ mkalderon@marvell.com, mike.marciniszyn@cornelisnetworks.com,
+ mustafa.ismail@intel.com, rodrigo.vivi@intel.com,
+ sroland@vmware.com, shiraz.saleem@intel.com, tzimmermann@suse.de,
+ linux-graphics-maintainer@vmware.com, liweihang@huawei.com,
+ liangwenpeng@huawei.com, yishaih@nvidia.com, zackr@vmware.com,
+ zyjzyj2000@gmail.com
+Message-ID: <20210825130923.GF1721383@nvidia.com>
+References: <20210824142531.3877007-1-maorg@nvidia.com>
+ <20210824142531.3877007-3-maorg@nvidia.com>
+ <20210824191248.GY1721383@nvidia.com>
+ <4f4a712a-71d4-ebac-48f2-766bfda61f1e@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4f4a712a-71d4-ebac-48f2-766bfda61f1e@nvidia.com>
+X-ClientProxiedBy: BL1PR13CA0159.namprd13.prod.outlook.com
+ (2603:10b6:208:2bd::14) To BL0PR12MB5506.namprd12.prod.outlook.com
+ (2603:10b6:208:1cb::22)
 MIME-Version: 1.0
-References: <20210825043522.346512-1-koba.ko@canonical.com>
- <20210825043522.346512-2-koba.ko@canonical.com> <87y28pev59.fsf@intel.com>
- <CAJB-X+X2Vbj9bAj98yxfAhi2-LMk0=_Hq=b1-1o5iOykQRj5fQ@mail.gmail.com>
- <87sfyxes9b.fsf@intel.com>
- <CAJB-X+WAS0-O436qbXAHO9Q0GDEoUW8bU7VvgX74fonUiBD1Ew@mail.gmail.com>
- <b784af82-4876-6c76-db7a-d130c3991894@amd.com>
-In-Reply-To: <b784af82-4876-6c76-db7a-d130c3991894@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 25 Aug 2021 10:32:48 -0400
-Message-ID: <CADnq5_MSeTeFcrceejjUHL_ftckAvYxMZ964nLFkj5r3k=gN0A@mail.gmail.com>
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Koba Ko <koba.ko@canonical.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>, Alex Deucher <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/amdgpu: Disable PCIE_DPM on Intel
- RKL Platform
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (142.162.113.129) by
+ BL1PR13CA0159.namprd13.prod.outlook.com (2603:10b6:208:2bd::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.6 via Frontend
+ Transport; Wed, 25 Aug 2021 13:09:25 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1mIseh-004tWi-Tm; Wed, 25 Aug 2021 10:09:23 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 55eb86c5-7a5f-43a7-6dea-08d967c99025
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5127:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL1PR12MB512773DF61803FBD7211467FC2C69@BL1PR12MB5127.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1332;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jKXRPtHghVdMrXDbNWWaUIe3y5MLcRgMWTgmJY1N74pyNGRy5SqB1Jbt0be4IWNiyTHhj28Onk3PhfS1ZFUlr6fTwbYEXXETw5eOE3LROVRzLu3VCoy+AE/Gg92euRoa9ExORXW62hYNK+HuPcOBT20a9PaMExswXeMsHxXm2voDEsATV/9YJo5+ZumgfWA1z5o50SKfXVxGxSCnklisMHtJ9LGxNaIAxjI70WyN3x4qt0fFnCONJ3g14oWt3X+JyPK6uovmpE1xdpNfveJf2peX66H5/jAhYwOHYfjDP2fBXghCO7ZMp+20/DQ0EmVNEnZ+QoAm6zb+4ncSw53D8sI8sj/B8GSG6qqpM/ZhcaYBXSO0Wq43RBQRE9xrKIYk8Rz5OLokN5Oahwg5n89TUjXA/LY5OUhQMF9V135Ddd9EeBdI1wKgmEkuk1aYDHrDvZYLUdls6cxOs0Z7oLDQcDdyXzweyjUPaH9TZdJ7HDUsdVvDFHQbh0e6kQZvZVPHVhznwdM9Ca7c/DMBtpsza0zkOPfYJ1iaWI5TUxPhGQ7MQ/r7pc7iOKQopnfpcQraP/ugNNfQBQgdg8dIg1MZyWZDbJ7035bo4+0S1ECAeiKVBP2CdWm13wd+m6dYvdx7/Ysa7ei2EwSrF5KISaEOSA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB5506.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(39860400002)(376002)(396003)(366004)(66556008)(66946007)(1076003)(426003)(6636002)(37006003)(66476007)(316002)(5660300002)(2906002)(9786002)(9746002)(38100700002)(86362001)(4326008)(6862004)(8936002)(7416002)(478600001)(8676002)(53546011)(186003)(26005)(83380400001)(36756003)(33656002)(2616005)(15650500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?QC2HKcf36c/s+oibZmTNtcA78lnYhG+ixkUirhDXmpwQTtH/KN1r6NH6U+aG?=
+ =?us-ascii?Q?fzC5XRHvUdwsrxnRu9l0I8Oyf+0u+rulS2Kyixg+ca2opPrQvkTe0EEpJy6P?=
+ =?us-ascii?Q?DGMZD0fWZO0eBNUEuVFuRlOoz4bcyO/9frir2EN/1uOyuu9F5V5NYW4rkbk/?=
+ =?us-ascii?Q?2rj0ekGqFUHcd04+TvvYEZLgJV+2RwWa5VDiuk+N+epclIR9mI3B5ySVjG0a?=
+ =?us-ascii?Q?c2LsJPbLqEPVOYUULYjs/AcNQXzaVSxAEj2Xe3U8AaGZm8ZkQNavwx0TliVH?=
+ =?us-ascii?Q?6ujccgdYzYttUZOag/r/h3RdUZiBSMPlI2baQ1cNk1uKc6R21DvlPNpaGm+6?=
+ =?us-ascii?Q?dz/BrBw1Re2aBWdpX6u0zqDI4eU3Klsc3Fs5dez2ou1A3dooqe3ZllEnyCjr?=
+ =?us-ascii?Q?f0y0zL55vRMq2i/fZCB2A/NCQ6PdBtFjnAJQrC1KYt9ywgVOqJLRMjny00y7?=
+ =?us-ascii?Q?hSskqmKpgwVCWLUO5KrsLGkUq+z3GVMkwhcmb5/Nk89Zlqz/N/nb24d7UeDH?=
+ =?us-ascii?Q?GpUqlH/Cb36sPsfnOuilB+k8Ac11/IgP1xcvM7qvd8NdfVzT9sVGg7aFBhTu?=
+ =?us-ascii?Q?OLTzVFiY/nJrPgYu+m5zKgvBd4G47lHzJNT2VMOwZ1ChsSWjXBiV1cJcvZBa?=
+ =?us-ascii?Q?7pW2jtThGQq4tE7sEN4pvv/sdaZNcTm6gohK9bHQ1Qdffx7KwoMKCrgiePtp?=
+ =?us-ascii?Q?SY5206Ui+f7ioobxrI6v/91tRBwOVVkMggDwxJIxv1lYEG171jxmIw4GD1mM?=
+ =?us-ascii?Q?WuEVcsMzkTAREwqHrGeN2z7lPwP6Gdd42t35JCsqv4eodkbKiY5XcFADmJ+J?=
+ =?us-ascii?Q?/j1weMIijyZXYhn8hfmGUPOdDP/wqADfkKCbyljj7Lk7HrDSonsAippQmtWw?=
+ =?us-ascii?Q?UH8qBrd4O7v1evspt6vjy9BEMoj3Gj12WslnrrHHWn8R5bqrK5R0iwjiA0uU?=
+ =?us-ascii?Q?MZg/k7m6di5jcVWjJe2+i2lPIjm/Lz3xjCgp4nCJzBGbbF0J5Bjr9OZOF1dR?=
+ =?us-ascii?Q?m2iFx6NErYuxZaLMLOa8L/Qx219eCnEhnw98BPxw4tmRGzXkW/yb0tWoSmdm?=
+ =?us-ascii?Q?y7qXa385YBEMqsXvTXdG/6xk2C7yB+U9hpboHdQ+E+PNa/lBQYJ9QBP9e9Cl?=
+ =?us-ascii?Q?txsipn2Z9LEPXgcBDmTPRY9Rt7mlRBnBEVVopFKrThmGeBOnix1PagSEkevZ?=
+ =?us-ascii?Q?wxRMTOSVQFnj+4UAc2PvueN1KKMW6SWP6x/onVx4gqlquxlsD8Yhf20wIDFR?=
+ =?us-ascii?Q?H8uf+HiiPMz9qy8g7LqH8qDgsN2I5PGVWHHXtWfOGyzUsmru3Dpo9RS7z/fW?=
+ =?us-ascii?Q?/RubLX9LjBwrpTQebIffZxPa?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55eb86c5-7a5f-43a7-6dea-08d967c99025
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2021 13:09:26.0776 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fz3iXxxhA4MEAMAQUOoJSB5rK9bKG/Y6lGyZoDVOD3uwWD6ldZlS3LwmSUCos9yX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5127
+Subject: Re: [Intel-gfx] [PATCH rdma-next v4 2/3] lib/scatterlist: Fix wrong
+ update of orig_nents
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,180 +151,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 25, 2021 at 10:22 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
->
->
->
-> On 8/25/2021 4:46 PM, Koba Ko wrote:
-> > On Wed, Aug 25, 2021 at 6:24 PM Jani Nikula <jani.nikula@linux.intel.co=
-m> wrote:
-> >>
-> >> On Wed, 25 Aug 2021, Koba Ko <koba.ko@canonical.com> wrote:
-> >>> On Wed, Aug 25, 2021 at 5:22 PM Jani Nikula <jani.nikula@linux.intel.=
-com> wrote:
-> >>>>
-> >>>> On Wed, 25 Aug 2021, Koba Ko <koba.ko@canonical.com> wrote:
-> >>>>> AMD polaris GPUs have an issue about audio noise on RKL platform,
-> >>>>> they provide a commit to fix but for SMU7-based GPU still
-> >>>>> need another module parameter,
-> >>>>>
-> >>>>> For avoiding the module parameter, switch PCI_DPM by determining
-> >>>>> intel platform in amd drm driver.
-> >>>>
-> >>>> I'll just note that you could have a Tiger Lake PCH combined with a
-> >>>> number of platforms other than Rocket Lake, including not just the
-> >>>> obvious Tiger Lake but also Sky Lake, Kaby Lake, Coffee Lake, and Co=
-met
-> >>>> Lake.
-> >>>>
-> >>>> Again, I don't know what the root cause or fix should be, the workar=
-ound
-> >>>> presented here impacts a much larger number of platforms than where
-> >>>> you're claiming the issue is.
-> >>>
-> >>> Hi Jani, thanks for your feedback.
-> >>> Is there any way to identify the RKL PCH?
-> >>> I trace the intel_pch.c and can't find the only pch id for RKL.
-> >>>
-> >>> INTEL_PCH_TGP_DEVICE_ID_TYPE is used by both TGL and RKL.
-> >>>
-> >>> so it seems that using IS_ROCKETLAKE() is the only way.
-> >>
-> >> I don't think there is a Rocket Lake PCH. But is the problem related t=
-o
-> >> the PCH or not?
-> >
-> > I thought its' not because the issue wouldn't be observed on the TGL pl=
-atform.
-> > I only tried RKL platform and it use
-> > INTEL_PCH_TGP_DEVICE_ID_TYPE/INTEL_PCH_TGP2_DEVICE_ID_TYPE,
-> > As per AMD guys, they said the issue is only triggered in RKL platform.
-> >
-> >>
-> >> The GPU PCI IDs are in i915_pciids.h. See INTEL_RKL_IDS() for
-> >> RKL. There's a lot of indirection, but that's what IS_ROCKETLAKE() boi=
-ls
-> >> down to. But again, I'm not sure if that's what you want or not.
-> > Thanks for suggestions,
-> >
-> > Just want a way to check if it's a RKL platform,
-> > After tracing the kernel, can check by CPU VENDOR(lacks type), check
-> > igpu(but there're cpus without igpu)
-> > and check pch type(it seems one pch has multiple combinations with CPU)=
-.
-> > for check igpu, as per my current understanding,  only found RKL CPU wi=
-th igpu.
-> > Is there a RKL CPU without integrated gpu?
-> >
->
-> Just for RKL - you could do fetch the x86 info and check
->
-> #ifdef CONFIG_X86_64
->          struct cpuinfo_x86 *c =3D &cpu_data(0);
->         // Family/Model check, find the model
->         (c->x86 =3D=3D 6 && c->x86_model =3D=3D INTEL_FAM6_ROCKETLAKE)
-> #endif
->
-> I think we don't use anything like this so far. So Alex should give a
-> nod as well.
+On Wed, Aug 25, 2021 at 07:59:27AM +0300, Maor Gottlieb wrote:
+> 
+> On 8/24/2021 10:12 PM, Jason Gunthorpe wrote:
+> > On Tue, Aug 24, 2021 at 05:25:30PM +0300, Maor Gottlieb wrote:
+> > > @@ -514,11 +531,13 @@ struct scatterlist *sg_alloc_append_table_from_pages(struct sg_table *sgt,
+> > >   		offset = 0;
+> > >   		cur_page = j;
+> > >   	}
+> > > -	sgt->nents += added_nents;
+> > > +	sgt_append->sgt.nents += added_nents;
+> > > +	sgt_append->sgt.orig_nents = sgt_append->sgt.nents;
+> > > +	sgt_append->prv = s;
+> > Why is nents being touched here?
+> > 
+> > Shouldn't it just be
+> > 
+> >      sgt_append->sgt.orig_nents += added_nents;
+> >      sgt_append->prv = s;
+> > 
+> > ?
+> 
+> In general yes, but all the sg_alloc_* functions update both
+> orig_nents and nents (to same value). May be drivers that pass nents
+> instead of orig_nents to dma_map_sg* (like umem did before this
+> patch set). So I prefer to set it here as well, also not to break
+> sg_alloc_table_from_pages_segment which use the same path. This kind
+> of change could be done very carefully next cycle for all
+> sg_alloc_*.
 
-I think that makes sense.  For some background the issue that was
-observed with RKL was that the PCIE gen switching has a very high
-latency which can lead to audio problems during playback if PCIE DPM
-is enabled.
+Ok, interesting
 
-Alex
-
->
-> Thanks,
-> Lijo
->
-> >>
-> >> BR,
-> >> Jani.
-> >>
-> >>
-> >>>
-> >>> Thanks
-> >>>>
-> >>>> BR,
-> >>>> Jani.
-> >>>>
-> >>>>
-> >>>>>
-> >>>>> Fixes: 1a31474cdb48 ("drm/amd/pm: workaround for audio noise issue"=
-)
-> >>>>> Ref: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A=
-%2F%2Flists.freedesktop.org%2Farchives%2Famd-gfx%2F2021-August%2F067413.htm=
-l&amp;data=3D04%7C01%7Clijo.lazar%40amd.com%7C888ab428f2bb4f32e4d408d967c4a=
-e08%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637654916721463596%7CUnkno=
-wn%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVC=
-I6Mn0%3D%7C1000&amp;sdata=3DBgf14CmIx%2FTOD54LN6dccZL0U5gT9lv9yTw7MfKc2sQ%3=
-D&amp;reserved=3D0
-> >>>>> Signed-off-by: Koba Ko <koba.ko@canonical.com>
-> >>>>> ---
-> >>>>>   .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 21 ++++++++++++++=
-++++-
-> >>>>>   1 file changed, 20 insertions(+), 1 deletion(-)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/=
-drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> >>>>> index 0541bfc81c1b..346110dd0f51 100644
-> >>>>> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> >>>>> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> >>>>> @@ -1733,6 +1733,25 @@ static int smu7_disable_dpm_tasks(struct pp_=
-hwmgr *hwmgr)
-> >>>>>        return result;
-> >>>>>   }
-> >>>>>
-> >>>>> +#include <drm/intel_pch.h>
-> >>>>> +
-> >>>>> +static bool intel_tgp_chk(void)
-> >>>>> +{
-> >>>>> +     struct pci_dev *pch =3D NULL;
-> >>>>> +     unsigned short id;
-> >>>>> +
-> >>>>> +     while ((pch =3D pci_get_class(PCI_CLASS_BRIDGE_ISA << 8, pch)=
-)) {
-> >>>>> +             if (pch->vendor !=3D PCI_VENDOR_ID_INTEL)
-> >>>>> +                     continue;
-> >>>>> +
-> >>>>> +             id =3D pch->device & INTEL_PCH_DEVICE_ID_MASK;
-> >>>>> +             if (id =3D=3D INTEL_PCH_TGP_DEVICE_ID_TYPE || INTEL_P=
-CH_TGP2_DEVICE_ID_TYPE)
-> >>>>
-> >>>> PS. This is always true. ;)
-> >>>
-> >>> got, thanks
-> >>>
-> >>>>
-> >>>>> +                     return true;
-> >>>>> +     }
-> >>>>> +
-> >>>>> +     return false;
-> >>>>> +}
-> >>>>> +
-> >>>>>   static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
-> >>>>>   {
-> >>>>>        struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->bac=
-kend);
-> >>>>> @@ -1758,7 +1777,7 @@ static void smu7_init_dpm_defaults(struct pp_=
-hwmgr *hwmgr)
-> >>>>>
-> >>>>>        data->mclk_dpm_key_disabled =3D hwmgr->feature_mask & PP_MCL=
-K_DPM_MASK ? false : true;
-> >>>>>        data->sclk_dpm_key_disabled =3D hwmgr->feature_mask & PP_SCL=
-K_DPM_MASK ? false : true;
-> >>>>> -     data->pcie_dpm_key_disabled =3D hwmgr->feature_mask & PP_PCIE=
-_DPM_MASK ? false : true;
-> >>>>> +     data->pcie_dpm_key_disabled =3D intel_tgp_chk() || !(hwmgr->f=
-eature_mask & PP_PCIE_DPM_MASK);
-> >>>>>        /* need to set voltage control types before EVV patching */
-> >>>>>        data->voltage_control =3D SMU7_VOLTAGE_CONTROL_NONE;
-> >>>>>        data->vddci_control =3D SMU7_VOLTAGE_CONTROL_NONE;
-> >>>>
-> >>>> --
-> >>>> Jani Nikula, Intel Open Source Graphics Center
-> >>
-> >> --
-> >> Jani Nikula, Intel Open Source Graphics Center
+Jason
