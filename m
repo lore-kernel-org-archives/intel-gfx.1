@@ -2,163 +2,44 @@ Return-Path: <SRS0=ZGLP=NQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6923C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 12:16:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A46B4C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 12:44:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6EF6460238
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 12:16:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6EF6460238
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 5AC4361181
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 12:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5AC4361181
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC65589857;
-	Wed, 25 Aug 2021 12:16:53 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB239895E2
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Aug 2021 12:16:52 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10086"; a="214385964"
-X-IronPort-AV: E=Sophos;i="5.84,350,1620716400"; d="scan'208";a="214385964"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2021 05:16:52 -0700
-X-IronPort-AV: E=Sophos;i="5.84,350,1620716400"; d="scan'208";a="527238420"
-Received: from mburkard-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.251.213.64])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2021 05:16:51 -0700
-Resent-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7,
- 02160 Espoo
-Resent-To: intel-gfx@lists.freedesktop.org
-Resent-From: Jani Nikula <jani.nikula@intel.com>
-Resent-Date: Wed, 25 Aug 2021 15:16:48 +0300
-Resent-Message-ID: <87mtp5en2n.fsf@intel.com>
-Received: from linux.intel.com [10.54.29.200]
- by jnikula-mobl3.ger.corp.intel.com with IMAP (fetchmail-6.4.0.beta4)
- for <jani@localhost> (single-drop); Wed, 25 Aug 2021 10:05:10 +0300 (EEST)
-Received: from fmsmga002.fm.intel.com (fmsmga002.fm.intel.com [10.253.24.26])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id A290D5808AC;
- Tue, 24 Aug 2021 16:23:08 -0700 (PDT)
-X-IronPort-AV: E=McAfee;i="6200,9189,10086"; a="536040427"
-X-IronPort-AV: E=Sophos;i="5.84,348,1620716400"; d="scan'208";a="536040427"
-Received: from orsmga102-1.jf.intel.com (HELO mga09.intel.com) ([10.7.208.27])
- by fmsmga002-1.fm.intel.com with ESMTP; 24 Aug 2021 16:23:08 -0700
-Authentication-Results: mtab.intel.com; spf=None smtp.pra=nathan@kernel.org;
- spf=Pass smtp.mailfrom=nathan@kernel.org;
- spf=None smtp.helo=postmaster@mail.kernel.org;
- dkim=pass (signature verified) header.i=@kernel.org;
- dmarc=pass (p=none dis=none) d=kernel.org
-IronPort-SDR: 3LbhXxnAP6vdCjL9lcmG6Uy3dpZ3THPTAkTCBRPIsiQwMWAUgs8/ld+7uQX6cfVjWr94PbFqP/
- Xd3Px98iIiWRZrWxWY8sNxx6T0qI0Dfos=
-X-IPAS-Result: =?us-ascii?q?A0GxBABEfiVhe2MdkcZagmICgiJ+ViwECzEDlU6bdhSBa?=
- =?us-ascii?q?AsBAQEBAQEBAQEJNQwEAQEDBIRjgi4CHQcBBDAJDQEBAgECAQEBAQEDAgECA?=
- =?us-ascii?q?QEBAQEBAwEBAQICAQEBAgEBAgMCAQEBAQIQAQGBKGRnAYFOAYF5BgQwDUAWA?=
- =?us-ascii?q?YFeKQF0gQgBAQEBAQEBAQEBAQEBAQEBAQEBFgINUoEfAQ0BATcBTm8BEoJxA?=
- =?us-ascii?q?YMHBQqsBIEBggcBAQYEBQGBNAGERYFaAwaBOokDg3mBIRyCDYEVgTuCLIQqA?=
- =?us-ascii?q?S6FZoUdclkBNAErIIFeoRqdHYM0gTeJCZN/GiyBO6U8AZYVimKBXpNtJDOER?=
- =?us-ascii?q?oFhOYFcfQiDJBM6AQIBAg0BAgIDAQIBAgEIAQECAZcihWokMAIBNQIGCwEBA?=
- =?us-ascii?q?wmMFoJpAQE?=
-IronPort-PHdr: A9a23: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
-IronPort-HdrOrdr: A9a23:APtn7qr04UhMEOiGMl0a5P4aV5oteYIsimQD101hICG9vPb2qy
- nIpoV+6faQslwssR4b+OxoVJPsfZq+z+8W3WBuB9eftWDd0QPCEGgI1+XfKlPbdxEWjtQttp
- tIQuxGAMD7DEZ9lsS/yw+keuxQpeW6zA==
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=McAfee;i="6200,9189,10086"; a="217420588"
-X-IronPort-AV: E=Sophos;i="5.84,348,1620716400"; d="scan'208";a="217420588"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from mail.kernel.org ([198.145.29.99])
- by mtab.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2021 16:23:07 -0700
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 36A46610F8;
- Tue, 24 Aug 2021 23:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629847387;
- bh=4ZASDukXEFD6gzQ3txH7gkEOWmXTrxFmwK+P5dWdDlQ=;
- h=From:To:Cc:Subject:Date:From;
- b=XeCbBM0ZbkYIgSeNifwC91fAm1WEGYJ4JuxoYgQNpeKuCb0Ywt2jQyVCfiqNSOueh
- PPdJiAzTR+c1jJ4HFcOC+MJRftf2zrRXXBlxWvg8dA4wmqwd61xMesXxsEJX+F1TYP
- 6Lx6yT8AorZRbQFNNprX7Jhh1VX4YBaY5HO1/wbxzdCJ5hjGvL2VsEruzzHsgRLJ+s
- w1BH2Sm81RjXH/WrbEl6Ov/4Sd110xIuXb69BxzYYoXDxdGe/yrY83+A74mNIoT4Le
- rL5tDOhGF2CluFIaYjVoCy9iNfa/vTbP7cocrExi24clP7R+jaaH1n7G/wcee7q1IR
- DrlnnY64ASetQ==
-From: Nathan Chancellor <nathan@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
- llvm@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>
-Date: Tue, 24 Aug 2021 16:22:38 -0700
-Message-Id: <20210824232237.2085342-1-nathan@kernel.org>
-X-Mailer: git-send-email 2.33.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 070066E213;
+	Wed, 25 Aug 2021 12:44:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3FDB66E210;
+ Wed, 25 Aug 2021 12:44:22 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 38960A66C9;
+ Wed, 25 Aug 2021 12:44:22 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3550063109779888817=="
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Clean up disabled warnings
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 25 Aug 2021 12:44:22 -0000
+Message-ID: <162989546220.17673.513507770024703715@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <cover.1629888677.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1629888677.git.jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_better_backlight_=26_panel_abstractions?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,85 +52,225 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i915 enables a wider set of warnings with '-Wall -Wextra' then disables
-several with cc-disable-warning. If an unknown flag gets added to
-KBUILD_CFLAGS when building with clang, all subsequent calls to
-cc-{disable-warning,option} will fail, meaning that all of these
-warnings do not get disabled [1].
+--===============3550063109779888817==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-A separate series will address the root cause of the issue by not adding
-these flags when building with clang [2]; however, the symptom of these
-extra warnings appearing can be addressed separately by just removing
-the calls to cc-disable-warning, which makes the build ever so slightly
-faster because the compiler does not need to be called as much before
-building.
+== Series Details ==
 
-The following warnings are supported by GCC 4.9 and clang 10.0.1, which
-are the minimum supported versions of these compilers so the call to
-cc-disable-warning is not necessary. Masahiro cleaned this up for the
-reset of the kernel in commit 4c8dd95a723d ("kbuild: add some extra
-warning flags unconditionally").
+Series: drm/i915: better backlight & panel abstractions
+URL   : https://patchwork.freedesktop.org/series/94004/
+State : success
 
-* -Wmissing-field-initializers
-* -Wsign-compare
-* -Wtype-limits
-* -Wunused-parameter
+== Summary ==
 
--Wunused-but-set-variable was implemented in clang 13.0.0 and
--Wframe-address was implemented in clang 12.0.0 so the
-cc-disable-warning calls are kept for these two warnings.
+CI Bug Log - changes from CI_DRM_10519 -> Patchwork_20886
+====================================================
 
-Lastly, -Winitializer-overrides is clang's version of -Woverride-init,
-which is disabled for the specific files that are problematic. clang
-added a compatibility alias in clang 8.0.0 so -Winitializer-overrides
-can be removed.
+Summary
+-------
 
-[1]: https://lore.kernel.org/r/202108210311.CBtcgoUL-lkp@intel.com/
-[2]: https://lore.kernel.org/r/20210824022640.2170859-1-nathan@kernel.org/
+  **SUCCESS**
 
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
+  No regressions found.
 
-NOTE: This is based on my series to enable -Wsometimes-initialized here:
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/index.html
 
-https://lore.kernel.org/r/20210824225427.2065517-1-nathan@kernel.org/
+Known issues
+------------
 
-I sent it separately as this can go into whatever release but I would
-like for that series to go into 5.15.
+  Here are the changes found in Patchwork_20886 that come from known issues:
 
- drivers/gpu/drm/i915/Makefile | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+### IGT changes ###
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 335ba9f43d8f..6b38547543b1 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -13,13 +13,11 @@
- # will most likely get a sudden build breakage... Hopefully we will fix
- # new warnings before CI updates!
- subdir-ccflags-y := -Wall -Wextra
--subdir-ccflags-y += $(call cc-disable-warning, unused-parameter)
--subdir-ccflags-y += $(call cc-disable-warning, type-limits)
--subdir-ccflags-y += $(call cc-disable-warning, missing-field-initializers)
-+subdir-ccflags-y += -Wno-unused-parameter
-+subdir-ccflags-y += -Wno-type-limits
-+subdir-ccflags-y += -Wno-missing-field-initializers
-+subdir-ccflags-y += -Wno-sign-compare
- subdir-ccflags-y += $(call cc-disable-warning, unused-but-set-variable)
--# clang warnings
--subdir-ccflags-y += $(call cc-disable-warning, sign-compare)
--subdir-ccflags-y += $(call cc-disable-warning, initializer-overrides)
- subdir-ccflags-y += $(call cc-disable-warning, frame-address)
- subdir-ccflags-$(CONFIG_DRM_I915_WERROR) += -Werror
- 
+#### Issues hit ####
 
-base-commit: fb43ebc83e069625cfeeb2490efc3ffa0013bfa4
-prerequisite-patch-id: 31c28450ed7e8785dce967a16db6d52eff3d7d6d
-prerequisite-patch-id: 372dfa0e07249f207acc1942ab0e39b13ff229b2
-prerequisite-patch-id: 1a585fa6cda50c32ad1e3ac8235d3cff1b599978
--- 
-2.33.0
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-bsw-n3050:       [PASS][1] -> [DMESG-FAIL][2] ([i915#2927])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-bsw-n3050/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-bsw-n3050/igt@i915_selftest@live@late_gt_pm.html
 
+  * igt@i915_selftest@live@workarounds:
+    - fi-rkl-guc:         [PASS][3] -> [DMESG-FAIL][4] ([i915#3928])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-rkl-guc/igt@i915_selftest@live@workarounds.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-rkl-guc/igt@i915_selftest@live@workarounds.html
+
+  * igt@runner@aborted:
+    - fi-rkl-guc:         NOTRUN -> [FAIL][5] ([i915#3928])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-rkl-guc/igt@runner@aborted.html
+    - fi-bsw-n3050:       NOTRUN -> [FAIL][6] ([fdo#109271] / [i915#1436])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-bsw-n3050/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-tgl-1115g4:      [DMESG-WARN][7] ([i915#4002]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-tgl-1115g4/igt@core_hotunplug@unbind-rebind.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-tgl-1115g4/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@kms_pipe_crc_basic@read-crc-pipe-a-frame-sequence:
+    - fi-rkl-11600:       [SKIP][9] ([i915#3919]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-rkl-11600/igt@kms_pipe_crc_basic@read-crc-pipe-a-frame-sequence.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-rkl-11600/igt@kms_pipe_crc_basic@read-crc-pipe-a-frame-sequence.html
+
+  
+#### Warnings ####
+
+  * igt@gem_exec_suspend@basic-s0:
+    - fi-tgl-1115g4:      [DMESG-FAIL][11] ([i915#1888]) -> [DMESG-WARN][12] ([i915#4002])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
+  [i915#1888]: https://gitlab.freedesktop.org/drm/intel/issues/1888
+  [i915#2927]: https://gitlab.freedesktop.org/drm/intel/issues/2927
+  [i915#3919]: https://gitlab.freedesktop.org/drm/intel/issues/3919
+  [i915#3928]: https://gitlab.freedesktop.org/drm/intel/issues/3928
+  [i915#4002]: https://gitlab.freedesktop.org/drm/intel/issues/4002
+  [i915#541]: https://gitlab.freedesktop.org/drm/intel/issues/541
+
+
+Participating hosts (40 -> 34)
+------------------------------
+
+  Missing    (6): fi-ilk-m540 bat-adls-5 fi-hsw-4200u fi-bsw-cyan fi-bdw-samus bat-jsl-1 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10519 -> Patchwork_20886
+
+  CI-20190529: 20190529
+  CI_DRM_10519: 3edb12bf2c3cd732bc930e3e418e4aeaaaf32ffa @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6185: 5dca04416f50576f464ebbd9aea96edccd7e4eab @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20886: 65bd1bc02fc9efab3dd5e9cd906c958151601c45 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+65bd1bc02fc9 drm/i915/panel: mass rename functions to have intel_panel_ prefix
+46ca4e1f64e6 drm/i915/backlight: mass rename functions to have intel_backlight_ prefix
+46e4b18ff71c drm/i915/backlight: extract backlight code to a separate file
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/index.html
+
+--===============3550063109779888817==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: better backlight &amp; panel abstractions</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/94004/">https://patchwork.freedesktop.org/series/94004/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10519 -&gt; Patchwork_20886</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20886 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-bsw-n3050/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-bsw-n3050/igt@i915_selftest@live@late_gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2927">i915#2927</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-rkl-guc/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-rkl-guc/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3928">i915#3928</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>
+<p>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-rkl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3928">i915#3928</a>)</p>
+</li>
+<li>
+<p>fi-bsw-n3050:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-bsw-n3050/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-tgl-1115g4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4002">i915#4002</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-tgl-1115g4/igt@core_hotunplug@unbind-rebind.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc-pipe-a-frame-sequence:</p>
+<ul>
+<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-rkl-11600/igt@kms_pipe_crc_basic@read-crc-pipe-a-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3919">i915#3919</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-rkl-11600/igt@kms_pipe_crc_basic@read-crc-pipe-a-frame-sequence.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@gem_exec_suspend@basic-s0:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10519/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1888">i915#1888</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20886/fi-tgl-1115g4/igt@gem_exec_suspend@basic-s0.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4002">i915#4002</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (40 -&gt; 34)</h2>
+<p>Missing    (6): fi-ilk-m540 bat-adls-5 fi-hsw-4200u fi-bsw-cyan fi-bdw-samus bat-jsl-1 </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10519 -&gt; Patchwork_20886</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10519: 3edb12bf2c3cd732bc930e3e418e4aeaaaf32ffa @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6185: 5dca04416f50576f464ebbd9aea96edccd7e4eab @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20886: 65bd1bc02fc9efab3dd5e9cd906c958151601c45 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>65bd1bc02fc9 drm/i915/panel: mass rename functions to have intel_panel_ prefix<br />
+46ca4e1f64e6 drm/i915/backlight: mass rename functions to have intel_backlight_ prefix<br />
+46e4b18ff71c drm/i915/backlight: extract backlight code to a separate file</p>
+
+</body>
+</html>
+
+--===============3550063109779888817==--
