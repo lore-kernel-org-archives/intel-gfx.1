@@ -2,86 +2,54 @@ Return-Path: <SRS0=ZGLP=NQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CA71C4338F
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 10:27:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 207E7C432BE
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 10:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6110E611C9
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 10:27:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6110E611C9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id D98426108F
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 10:39:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D98426108F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D366E1BB;
-	Wed, 25 Aug 2021 10:27:08 +0000 (UTC)
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29E5B6E1BB;
- Wed, 25 Aug 2021 10:27:07 +0000 (UTC)
-Received: by mail-pf1-x429.google.com with SMTP id w68so20847506pfd.0;
- Wed, 25 Aug 2021 03:27:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ZiZptxAG6LZlwjR95iOzUI6M5xQ+c4I+M1PZ5LikpHE=;
- b=hBK8jLnz+Qvhn9vJow4RjUvNtdb4EOIVfTN9Df0pqvZGRzhpFOHLBNw4tmkYhbXP0O
- i3vrPrX8jjED7W2mAwTWfMFP5b7/t2FRtMrR0FJSt/U864PEVKnvw/mdUciFtytnvkm2
- 1l5QOWUEHAkfaK5MP7d9rEzDG7b4YQiT4Z5Cvh2ZeCvnFXVF1B6kGaeXbj01mPn4oFtn
- gCHjyg6d0MeG30CGzA/ue2z4P+bVseZblBqnXX57g2D7sc4DuEahkPuGRf9MgePRzusT
- lo55pmUHaBLL0JHGbN9FHNSYfBZu7+fWjP0aiJ0i3PCkjFF7P/w2CHrn5k/U/+cLQ1fi
- L3lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ZiZptxAG6LZlwjR95iOzUI6M5xQ+c4I+M1PZ5LikpHE=;
- b=YUJxZQKL4JbUWv4ZaqlpnbOX3HUFKOfW1Wz4J7CoGnMA5yTUeCgQOTHf4M1uW9qhNS
- 8tgLcL6VW3koqzhSeJIdK9kpfF8cpNKC6H6jf/0BGeCMa3AHu+d0h1J9NlOw1oo1eqB0
- 4EuaNuEM7lXfo1t4p9cJRRagY8CTdMMyHPG/oRt0P5xIpl7gkQfsIWZNl4GDss4MXHbC
- uEWwEhZmO7uA4AgPsD5lt+1ERtyhWKWIVOYb/wNVS+VueBa4RUoZciVDa567bM9UyiB6
- E4tCUx0JgRMPX8bAfMsPvtThQdknhuzHZoIpSSsYBimECYzVISn7epDXEPSBpHRoYUEM
- zSKg==
-X-Gm-Message-State: AOAM5305mMX97v4ljSIrFJj7a2ORInVoB/bft5dqEQUASRLqb3B84Vwh
- ITufEhH2G/pkOveU6WB4f98=
-X-Google-Smtp-Source: ABdhPJwpGHyw/JNX8vQV+9CxZcjmMtcAfrqRTNZJ2G1s/7vSRd37Xu0JMq88+7TSzkG9QKgoG6Pv9A==
-X-Received: by 2002:a05:6a00:2491:b0:3ef:5233:8f6 with SMTP id
- c17-20020a056a00249100b003ef523308f6mr3421378pfv.45.1629887226719; 
- Wed, 25 Aug 2021 03:27:06 -0700 (PDT)
-Received: from localhost.localdomain ([118.200.190.93])
- by smtp.gmail.com with ESMTPSA id t42sm10228377pfg.30.2021.08.25.03.26.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Aug 2021 03:27:06 -0700 (PDT)
-From: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@linux.ie, daniel@ffwll.ch, sumit.semwal@linaro.org,
- christian.koenig@amd.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- chris@chris-wilson.co.uk, ville.syrjala@linux.intel.com,
- matthew.auld@intel.com, dan.carpenter@oracle.com, tvrtko.ursulin@intel.com,
- matthew.d.roper@intel.com, lucas.demarchi@intel.com, karthik.b.s@intel.com,
- jose.souza@intel.com, manasi.d.navare@intel.com, airlied@redhat.com,
- aditya.swarup@intel.com, andrescj@chromium.org,
- linux-graphics-maintainer@vmware.com, zackr@vmware.com
-Cc: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, skhan@linuxfoundation.org,
- gregkh@linuxfoundation.org, linux-kernel-mentees@lists.linuxfoundation.org
-Date: Wed, 25 Aug 2021 18:24:11 +0800
-Message-Id: <20210825102411.1084220-8-desmondcheongzx@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210825102411.1084220-1-desmondcheongzx@gmail.com>
-References: <20210825102411.1084220-1-desmondcheongzx@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B04DF6E1B7;
+	Wed, 25 Aug 2021 10:39:17 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A66F06E1B1;
+ Wed, 25 Aug 2021 10:39:15 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10086"; a="278510824"
+X-IronPort-AV: E=Sophos;i="5.84,350,1620716400"; d="scan'208";a="278510824"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2021 03:39:14 -0700
+X-IronPort-AV: E=Sophos;i="5.84,350,1620716400"; d="scan'208";a="684475344"
+Received: from asleatox-mobl.ger.corp.intel.com (HELO [10.213.252.107])
+ ([10.213.252.107])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2021 03:39:12 -0700
+To: Matthew Brost <matthew.brost@intel.com>, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+References: <20210727002348.97202-1-matthew.brost@intel.com>
+ <20210727002348.97202-25-matthew.brost@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <dfba1e19-0b6f-7e03-0eea-cc6c3d3b4a9a@linux.intel.com>
+Date: Wed, 25 Aug 2021 11:39:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 7/7] drm: remove drm_file.master_lookup_lock
+In-Reply-To: <20210727002348.97202-25-matthew.brost@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 24/33] drm/i915/guc: Implement banned
+ contexts for GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,273 +65,578 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Previously, master_lookup_lock was introduced in
-commit 0b0860a3cf5e ("drm: serialize drm_file.master with a new
-spinlock") to serialize accesses to drm_file.master. This then allowed
-us to write drm_file_get_master in commit 56f0729a510f ("drm: protect
-drm_master pointers in drm_lease.c").
 
-The rationale behind introducing a new spinlock at the time was that
-the other lock that could have been used (drm_device.master_mutex) was
-the outermost lock, so embedding calls to drm_file_get_master and
-drm_is_current_master in various functions easily caused us to invert
-the lock hierarchy.
+On 27/07/2021 01:23, Matthew Brost wrote:
+> When using GuC submission, if a context gets banned disable scheduling
+> and mark all inflight requests as complete.
+> 
+> Cc: John Harrison <John.C.Harrison@Intel.com>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+> ---
+>   drivers/gpu/drm/i915/gem/i915_gem_context.c   |   2 +-
+>   drivers/gpu/drm/i915/gt/intel_context.h       |  13 ++
+>   drivers/gpu/drm/i915/gt/intel_context_types.h |   2 +
+>   drivers/gpu/drm/i915/gt/intel_reset.c         |  32 +---
+>   .../gpu/drm/i915/gt/intel_ring_submission.c   |  20 +++
+>   drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +
+>   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 151 ++++++++++++++++--
+>   drivers/gpu/drm/i915/i915_trace.h             |  10 ++
+>   8 files changed, 195 insertions(+), 37 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> index e3df01a201d7..05c3ee191710 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> @@ -1084,7 +1084,7 @@ static void kill_engines(struct i915_gem_engines *engines, bool ban)
+>   	for_each_gem_engine(ce, engines, it) {
+>   		struct intel_engine_cs *engine;
+>   
+> -		if (ban && intel_context_set_banned(ce))
+> +		if (ban && intel_context_ban(ce, NULL))
+>   			continue;
+>   
+>   		/*
+> diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
+> index 2ed9bf5f91a5..814d9277096a 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_context.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_context.h
+> @@ -16,6 +16,7 @@
+>   #include "intel_engine_types.h"
+>   #include "intel_ring_types.h"
+>   #include "intel_timeline_types.h"
+> +#include "i915_trace.h"
+>   
+>   #define CE_TRACE(ce, fmt, ...) do {					\
+>   	const struct intel_context *ce__ = (ce);			\
+> @@ -243,6 +244,18 @@ static inline bool intel_context_set_banned(struct intel_context *ce)
+>   	return test_and_set_bit(CONTEXT_BANNED, &ce->flags);
+>   }
+>   
+> +static inline bool intel_context_ban(struct intel_context *ce,
+> +				     struct i915_request *rq)
+> +{
+> +	bool ret = intel_context_set_banned(ce);
+> +
+> +	trace_intel_context_ban(ce);
+> +	if (ce->ops->ban)
+> +		ce->ops->ban(ce, rq);
+> +
+> +	return ret;
+> +}
+> +
+>   static inline bool
+>   intel_context_force_single_submission(const struct intel_context *ce)
+>   {
+> diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+> index 035108c10b2c..57c19ee3e313 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_context_types.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+> @@ -35,6 +35,8 @@ struct intel_context_ops {
+>   
+>   	int (*alloc)(struct intel_context *ce);
+>   
+> +	void (*ban)(struct intel_context *ce, struct i915_request *rq);
+> +
+>   	int (*pre_pin)(struct intel_context *ce, struct i915_gem_ww_ctx *ww, void **vaddr);
+>   	int (*pin)(struct intel_context *ce, void *vaddr);
+>   	void (*unpin)(struct intel_context *ce);
+> diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+> index 4d281bc8a38c..91200c43951f 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_reset.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+> @@ -22,7 +22,6 @@
+>   #include "intel_reset.h"
+>   
+>   #include "uc/intel_guc.h"
+> -#include "uc/intel_guc_submission.h"
+>   
+>   #define RESET_MAX_RETRIES 3
+>   
+> @@ -39,21 +38,6 @@ static void rmw_clear_fw(struct intel_uncore *uncore, i915_reg_t reg, u32 clr)
+>   	intel_uncore_rmw_fw(uncore, reg, clr, 0);
+>   }
+>   
+> -static void skip_context(struct i915_request *rq)
+> -{
+> -	struct intel_context *hung_ctx = rq->context;
+> -
+> -	list_for_each_entry_from_rcu(rq, &hung_ctx->timeline->requests, link) {
+> -		if (!i915_request_is_active(rq))
+> -			return;
+> -
+> -		if (rq->context == hung_ctx) {
+> -			i915_request_set_error_once(rq, -EIO);
+> -			__i915_request_skip(rq);
+> -		}
+> -	}
+> -}
+> -
+>   static void client_mark_guilty(struct i915_gem_context *ctx, bool banned)
+>   {
+>   	struct drm_i915_file_private *file_priv = ctx->file_priv;
+> @@ -88,10 +72,8 @@ static bool mark_guilty(struct i915_request *rq)
+>   	bool banned;
+>   	int i;
+>   
+> -	if (intel_context_is_closed(rq->context)) {
+> -		intel_context_set_banned(rq->context);
+> +	if (intel_context_is_closed(rq->context))
+>   		return true;
+> -	}
+>   
+>   	rcu_read_lock();
+>   	ctx = rcu_dereference(rq->context->gem_context);
+> @@ -123,11 +105,9 @@ static bool mark_guilty(struct i915_request *rq)
+>   	banned = !i915_gem_context_is_recoverable(ctx);
+>   	if (time_before(jiffies, prev_hang + CONTEXT_FAST_HANG_JIFFIES))
+>   		banned = true;
+> -	if (banned) {
+> +	if (banned)
+>   		drm_dbg(&ctx->i915->drm, "context %s: guilty %d, banned\n",
+>   			ctx->name, atomic_read(&ctx->guilty_count));
+> -		intel_context_set_banned(rq->context);
+> -	}
+>   
+>   	client_mark_guilty(ctx, banned);
+>   
+> @@ -149,6 +129,8 @@ static void mark_innocent(struct i915_request *rq)
+>   
+>   void __i915_request_reset(struct i915_request *rq, bool guilty)
+>   {
+> +	bool banned = false;
+> +
+>   	RQ_TRACE(rq, "guilty? %s\n", yesno(guilty));
+>   	GEM_BUG_ON(__i915_request_is_complete(rq));
+>   
+> @@ -156,13 +138,15 @@ void __i915_request_reset(struct i915_request *rq, bool guilty)
+>   	if (guilty) {
+>   		i915_request_set_error_once(rq, -EIO);
+>   		__i915_request_skip(rq);
+> -		if (mark_guilty(rq) && !intel_engine_uses_guc(rq->engine))
+> -			skip_context(rq);
+> +		banned = mark_guilty(rq);
+>   	} else {
+>   		i915_request_set_error_once(rq, -EAGAIN);
+>   		mark_innocent(rq);
+>   	}
+>   	rcu_read_unlock();
+> +
+> +	if (banned)
+> +		intel_context_ban(rq->context, rq);
+>   }
+>   
+>   static bool i915_in_reset(struct pci_dev *pdev)
+> diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+> index a5404c7b600f..05bb9f449df1 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+> @@ -586,9 +586,29 @@ static void ring_context_reset(struct intel_context *ce)
+>   	clear_bit(CONTEXT_VALID_BIT, &ce->flags);
+>   }
+>   
+> +static void ring_context_ban(struct intel_context *ce,
+> +			     struct i915_request *rq)
+> +{
+> +	struct intel_engine_cs *engine;
+> +
+> +	if (!rq || !i915_request_is_active(rq))
+> +		return;
+When this gets called from context close, via intel_context_ban, rq will 
+be always NULL - so the below loop which skips a line of executing 
+requests never gets to run.
 
-Following the conversion of master_mutex into a rwsem, and its use to
-plug races with modesetting rights, we've untangled some lock
-hierarchies and removed the need for using drm_file_get_master and the
-unlocked version of drm_is_current_master in multiple places.
+This appears a functional change versus previous state of the codebase, 
+where skip_context() would run in any case.
 
-Hence, we can take this opportunity to clean up the locking design by
-replacing master_lookup_lock with drm_device.master_rwsem.
+I had this observation from a patch I am working on 
+(https://intel-gfx-ci.01.org/tree/drm-tip/Trybot_7950/shard-snb6/igt@gem_ctx_exec@basic-nohangcheck.html 
+- so a long line of executing requests which did not get zapped post 
+reset), but may be wrong. Maybe I am missing something since I don't yet 
+understand why would I be first to hit this issue. So take it with a 
+grain of salt for now.
 
-Signed-off-by: Desmond Cheong Zhi Xi <desmondcheongzx@gmail.com>
----
- drivers/gpu/drm/drm_auth.c     | 19 +++++++------------
- drivers/gpu/drm/drm_file.c     |  1 -
- drivers/gpu/drm/drm_internal.h |  1 +
- drivers/gpu/drm/drm_ioctl.c    |  4 ++--
- drivers/gpu/drm/drm_lease.c    | 18 ++++++++----------
- include/drm/drm_file.h         |  9 +--------
- 6 files changed, 19 insertions(+), 33 deletions(-)
+Ah.. maybe the key is that in my patch I made intel_context_ban not call 
+ce->ops->"ban" (I renamed it to revoke) unconditionally. Hence there may 
+be a path there intel_context_ban is first called wo/ a rq, then from 
+within __i915_request_reset it gets called with rq, which now fails to 
+call the vfunc. Hm that's clunky and fragile which ever way I look at 
+it. I'll trybot one more experiment..
 
-diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
-index f2b2f197052a..232416119407 100644
---- a/drivers/gpu/drm/drm_auth.c
-+++ b/drivers/gpu/drm/drm_auth.c
-@@ -61,10 +61,9 @@
-  * trusted clients.
-  */
- 
--static bool drm_is_current_master_locked(struct drm_file *fpriv)
-+bool drm_is_current_master_locked(struct drm_file *fpriv)
- {
--	lockdep_assert_once(lockdep_is_held(&fpriv->master_lookup_lock) ||
--			    lockdep_is_held(&fpriv->minor->dev->master_rwsem));
-+	lockdep_assert_held_once(&fpriv->minor->dev->master_rwsem);
- 
- 	return fpriv->is_master && drm_lease_owner(fpriv->master) == fpriv->minor->dev->master;
- }
-@@ -83,9 +82,9 @@ bool drm_is_current_master(struct drm_file *fpriv)
- {
- 	bool ret;
- 
--	spin_lock(&fpriv->master_lookup_lock);
-+	down_read(&fpriv->minor->dev->master_rwsem);
- 	ret = drm_is_current_master_locked(fpriv);
--	spin_unlock(&fpriv->master_lookup_lock);
-+	up_read(&fpriv->minor->dev->master_rwsem);
- 
- 	return ret;
- }
-@@ -120,7 +119,7 @@ int drm_authmagic(struct drm_device *dev, void *data,
- 	DRM_DEBUG("%u\n", auth->magic);
- 
- 	down_write(&dev->master_rwsem);
--	if (unlikely(!drm_is_current_master(file_priv))) {
-+	if (unlikely(!drm_is_current_master_locked(file_priv))) {
- 		up_write(&dev->master_rwsem);
- 		return -EACCES;
- 	}
-@@ -178,9 +177,7 @@ static int drm_new_set_master(struct drm_device *dev, struct drm_file *fpriv)
- 	new_master = drm_master_create(dev);
- 	if (!new_master)
- 		return -ENOMEM;
--	spin_lock(&fpriv->master_lookup_lock);
- 	fpriv->master = new_master;
--	spin_unlock(&fpriv->master_lookup_lock);
- 
- 	fpriv->is_master = 1;
- 	fpriv->authenticated = 1;
-@@ -343,9 +340,7 @@ int drm_master_open(struct drm_file *file_priv)
- 	if (!dev->master) {
- 		ret = drm_new_set_master(dev, file_priv);
- 	} else {
--		spin_lock(&file_priv->master_lookup_lock);
- 		file_priv->master = drm_master_get(dev->master);
--		spin_unlock(&file_priv->master_lookup_lock);
- 	}
- 	up_write(&dev->master_rwsem);
- 
-@@ -413,13 +408,13 @@ struct drm_master *drm_file_get_master(struct drm_file *file_priv)
- 	if (!file_priv)
- 		return NULL;
- 
--	spin_lock(&file_priv->master_lookup_lock);
-+	down_read(&file_priv->minor->dev->master_rwsem);
- 	if (!file_priv->master)
- 		goto unlock;
- 	master = drm_master_get(file_priv->master);
- 
- unlock:
--	spin_unlock(&file_priv->master_lookup_lock);
-+	up_read(&file_priv->minor->dev->master_rwsem);
- 	return master;
- }
- EXPORT_SYMBOL(drm_file_get_master);
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index 90b62f360da1..8c846e0179d7 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -176,7 +176,6 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
- 	init_waitqueue_head(&file->event_wait);
- 	file->event_space = 4096; /* set aside 4k for event buffer */
- 
--	spin_lock_init(&file->master_lookup_lock);
- 	mutex_init(&file->event_read_lock);
- 
- 	if (drm_core_check_feature(dev, DRIVER_GEM))
-diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
-index 17f3548c8ed2..5d421f749a17 100644
---- a/drivers/gpu/drm/drm_internal.h
-+++ b/drivers/gpu/drm/drm_internal.h
-@@ -132,6 +132,7 @@ int drm_crtc_queue_sequence_ioctl(struct drm_device *dev, void *data,
- 				  struct drm_file *filp);
- 
- /* drm_auth.c */
-+bool drm_is_current_master_locked(struct drm_file *fpriv);
- int drm_getmagic(struct drm_device *dev, void *data,
- 		 struct drm_file *file_priv);
- int drm_authmagic(struct drm_device *dev, void *data,
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 8bea39ffc5c0..c728437466c3 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -386,7 +386,7 @@ static int drm_setversion(struct drm_device *dev, void *data, struct drm_file *f
- 	int if_version, retcode = 0;
- 
- 	down_write(&dev->master_rwsem);
--	if (unlikely(!drm_is_current_master(file_priv))) {
-+	if (unlikely(!drm_is_current_master_locked(file_priv))) {
- 		retcode = -EACCES;
- 		goto unlock;
- 	}
-@@ -540,7 +540,7 @@ static int drm_ioctl_permit(u32 flags, struct drm_file *file_priv)
- 
- 	/* MASTER is only for master or control clients */
- 	if (unlikely((flags & DRM_MASTER) &&
--		     !drm_is_current_master(file_priv)))
-+		     !drm_is_current_master_locked(file_priv)))
- 		return -EACCES;
- 
- 	/* Render clients must be explicitly allowed */
-diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
-index 15bf3a3c76d1..0eecf320b1ab 100644
---- a/drivers/gpu/drm/drm_lease.c
-+++ b/drivers/gpu/drm/drm_lease.c
-@@ -498,12 +498,12 @@ int drm_mode_create_lease_ioctl(struct drm_device *dev,
- 		return PTR_ERR(lessee_file);
- 
- 	down_read(&dev->master_rwsem);
--	if (unlikely(!drm_is_current_master(lessor_priv))) {
-+	if (unlikely(!drm_is_current_master_locked(lessor_priv))) {
- 		ret = -EACCES;
- 		goto out_file;
- 	}
- 
--	lessor = drm_file_get_master(lessor_priv);
-+	lessor = lessor_priv->master;
- 	/* Do not allow sub-leases */
- 	if (lessor->lessor) {
- 		DRM_DEBUG_LEASE("recursive leasing not allowed\n");
-@@ -565,7 +565,6 @@ int drm_mode_create_lease_ioctl(struct drm_device *dev,
- 	/* Hook up the fd */
- 	fd_install(fd, lessee_file);
- 
--	drm_master_put(&lessor);
- 	up_read(&dev->master_rwsem);
- 	DRM_DEBUG_LEASE("drm_mode_create_lease_ioctl succeeded\n");
- 	return 0;
-@@ -600,7 +599,8 @@ int drm_mode_list_lessees_ioctl(struct drm_device *dev,
- 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
- 		return -EOPNOTSUPP;
- 
--	lessor = drm_file_get_master(lessor_priv);
-+	lockdep_assert_held_once(&dev->master_rwsem);
-+	lessor = lessor_priv->master;
- 	DRM_DEBUG_LEASE("List lessees for %d\n", lessor->lessee_id);
- 
- 	mutex_lock(&dev->mode_config.idr_mutex);
-@@ -624,7 +624,6 @@ int drm_mode_list_lessees_ioctl(struct drm_device *dev,
- 		arg->count_lessees = count;
- 
- 	mutex_unlock(&dev->mode_config.idr_mutex);
--	drm_master_put(&lessor);
- 
- 	return ret;
- }
-@@ -650,7 +649,8 @@ int drm_mode_get_lease_ioctl(struct drm_device *dev,
- 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
- 		return -EOPNOTSUPP;
- 
--	lessee = drm_file_get_master(lessee_priv);
-+	lockdep_assert_held_once(&dev->master_rwsem);
-+	lessee = lessee_priv->master;
- 	DRM_DEBUG_LEASE("get lease for %d\n", lessee->lessee_id);
- 
- 	mutex_lock(&dev->mode_config.idr_mutex);
-@@ -678,7 +678,6 @@ int drm_mode_get_lease_ioctl(struct drm_device *dev,
- 		arg->count_objects = count;
- 
- 	mutex_unlock(&dev->mode_config.idr_mutex);
--	drm_master_put(&lessee);
- 
- 	return ret;
- }
-@@ -703,11 +702,11 @@ int drm_mode_revoke_lease_ioctl(struct drm_device *dev,
- 		return -EOPNOTSUPP;
- 
- 	down_write(&dev->master_rwsem);
--	if (unlikely(!drm_is_current_master(lessor_priv))) {
-+	if (unlikely(!drm_is_current_master_locked(lessor_priv))) {
- 		ret = -EACCES;
- 		goto unlock;
- 	}
--	lessor = drm_file_get_master(lessor_priv);
-+	lessor = lessor_priv->master;
- 	mutex_lock(&dev->mode_config.idr_mutex);
- 
- 	lessee = _drm_find_lessee(lessor, arg->lessee_id);
-@@ -728,7 +727,6 @@ int drm_mode_revoke_lease_ioctl(struct drm_device *dev,
- 
- fail:
- 	mutex_unlock(&dev->mode_config.idr_mutex);
--	drm_master_put(&lessor);
- 
- unlock:
- 	up_write(&dev->master_rwsem);
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index d12bb2ba7814..e2d49fe3e32d 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -227,16 +227,12 @@ struct drm_file {
- 	 * @master:
- 	 *
- 	 * Master this node is currently associated with. Protected by struct
--	 * &drm_device.master_rwsem, and serialized by @master_lookup_lock.
-+	 * &drm_device.master_rwsem.
- 	 *
- 	 * Only relevant if drm_is_primary_client() returns true. Note that
- 	 * this only matches &drm_device.master if the master is the currently
- 	 * active one.
- 	 *
--	 * To update @master, both &drm_device.master_rwsem and
--	 * @master_lookup_lock need to be held, therefore holding either of
--	 * them is safe and enough for the read side.
--	 *
- 	 * When dereferencing this pointer, either hold struct
- 	 * &drm_device.master_rwsem for the duration of the pointer's use, or
- 	 * use drm_file_get_master() if struct &drm_device.master_rwsem is not
-@@ -248,9 +244,6 @@ struct drm_file {
- 	 */
- 	struct drm_master *master;
- 
--	/** @master_lock: Serializes @master. */
--	spinlock_t master_lookup_lock;
--
- 	/** @pid: Process that opened this file. */
- 	struct pid *pid;
- 
--- 
-2.25.1
+Regards,
 
+Tvrtko
+
+> +
+> +	engine = rq->engine;
+> +	lockdep_assert_held(&engine->sched_engine->lock);
+> +	list_for_each_entry_continue(rq, &engine->sched_engine->requests,
+> +				     sched.link)
+> +		if (rq->context == ce) {
+> +			i915_request_set_error_once(rq, -EIO);
+> +			__i915_request_skip(rq);
+> +		}
+> +}
+> +
+>   static const struct intel_context_ops ring_context_ops = {
+>   	.alloc = ring_context_alloc,
+>   
+> +	.ban = ring_context_ban,
+> +
+>   	.pre_pin = ring_context_pre_pin,
+>   	.pin = ring_context_pin,
+>   	.unpin = ring_context_unpin,
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> index 1875303c3bca..8ab70a2223b0 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> @@ -281,6 +281,8 @@ void intel_guc_find_hung_context(struct intel_engine_cs *engine);
+>   
+>   int intel_guc_global_policies_update(struct intel_guc *guc);
+>   
+> +void intel_guc_context_ban(struct intel_context *ce, struct i915_request *rq);
+> +
+>   void intel_guc_submission_reset_prepare(struct intel_guc *guc);
+>   void intel_guc_submission_reset(struct intel_guc *guc, bool stalled);
+>   void intel_guc_submission_reset_finish(struct intel_guc *guc);
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> index cea3e3073a71..ad9a38a861df 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> @@ -125,6 +125,7 @@ static inline void clr_context_pending_enable(struct intel_context *ce)
+>   #define SCHED_STATE_WAIT_FOR_DEREGISTER_TO_REGISTER	BIT(0)
+>   #define SCHED_STATE_DESTROYED				BIT(1)
+>   #define SCHED_STATE_PENDING_DISABLE			BIT(2)
+> +#define SCHED_STATE_BANNED				BIT(3)
+>   static inline void init_sched_state(struct intel_context *ce)
+>   {
+>   	/* Only should be called from guc_lrc_desc_pin() */
+> @@ -185,6 +186,23 @@ static inline void clr_context_pending_disable(struct intel_context *ce)
+>   	ce->guc_state.sched_state &= ~SCHED_STATE_PENDING_DISABLE;
+>   }
+>   
+> +static inline bool context_banned(struct intel_context *ce)
+> +{
+> +	return ce->guc_state.sched_state & SCHED_STATE_BANNED;
+> +}
+> +
+> +static inline void set_context_banned(struct intel_context *ce)
+> +{
+> +	lockdep_assert_held(&ce->guc_state.lock);
+> +	ce->guc_state.sched_state |= SCHED_STATE_BANNED;
+> +}
+> +
+> +static inline void clr_context_banned(struct intel_context *ce)
+> +{
+> +	lockdep_assert_held(&ce->guc_state.lock);
+> +	ce->guc_state.sched_state &= ~SCHED_STATE_BANNED;
+> +}
+> +
+>   static inline bool context_guc_id_invalid(struct intel_context *ce)
+>   {
+>   	return ce->guc_id == GUC_INVALID_LRC_ID;
+> @@ -357,13 +375,23 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop);
+>   
+>   static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+>   {
+> -	int err;
+> +	int err = 0;
+>   	struct intel_context *ce = rq->context;
+>   	u32 action[3];
+>   	int len = 0;
+>   	u32 g2h_len_dw = 0;
+>   	bool enabled;
+>   
+> +	/*
+> +	 * Corner case where requests were sitting in the priority list or a
+> +	 * request resubmitted after the context was banned.
+> +	 */
+> +	if (unlikely(intel_context_is_banned(ce))) {
+> +		i915_request_put(i915_request_mark_eio(rq));
+> +		intel_engine_signal_breadcrumbs(ce->engine);
+> +		goto out;
+> +	}
+> +
+>   	GEM_BUG_ON(!atomic_read(&ce->guc_id_ref));
+>   	GEM_BUG_ON(context_guc_id_invalid(ce));
+>   
+> @@ -399,6 +427,8 @@ static int guc_add_request(struct intel_guc *guc, struct i915_request *rq)
+>   		clr_context_pending_enable(ce);
+>   		intel_context_put(ce);
+>   	}
+> +	if (likely(!err))
+> +		trace_i915_request_guc_submit(rq);
+>   
+>   out:
+>   	return err;
+> @@ -463,7 +493,6 @@ static int guc_dequeue_one_context(struct intel_guc *guc)
+>   			guc->stalled_request = last;
+>   			return false;
+>   		}
+> -		trace_i915_request_guc_submit(last);
+>   	}
+>   
+>   	guc->stalled_request = NULL;
+> @@ -502,12 +531,13 @@ static void cs_irq_handler(struct intel_engine_cs *engine, u16 iir)
+>   static void __guc_context_destroy(struct intel_context *ce);
+>   static void release_guc_id(struct intel_guc *guc, struct intel_context *ce);
+>   static void guc_signal_context_fence(struct intel_context *ce);
+> +static void guc_cancel_context_requests(struct intel_context *ce);
+>   
+>   static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
+>   {
+>   	struct intel_context *ce;
+>   	unsigned long index, flags;
+> -	bool pending_disable, pending_enable, deregister, destroyed;
+> +	bool pending_disable, pending_enable, deregister, destroyed, banned;
+>   
+>   	xa_for_each(&guc->context_lookup, index, ce) {
+>   		/* Flush context */
+> @@ -525,6 +555,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
+>   		pending_enable = context_pending_enable(ce);
+>   		pending_disable = context_pending_disable(ce);
+>   		deregister = context_wait_for_deregister_to_register(ce);
+> +		banned = context_banned(ce);
+>   		init_sched_state(ce);
+>   
+>   		if (pending_enable || destroyed || deregister) {
+> @@ -542,6 +573,10 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
+>   		/* Not mutualy exclusive with above if statement. */
+>   		if (pending_disable) {
+>   			guc_signal_context_fence(ce);
+> +			if (banned) {
+> +				guc_cancel_context_requests(ce);
+> +				intel_engine_signal_breadcrumbs(ce->engine);
+> +			}
+>   			intel_context_sched_disable_unpin(ce);
+>   			atomic_dec(&guc->outstanding_submission_g2h);
+>   			intel_context_put(ce);
+> @@ -661,6 +696,9 @@ static void guc_reset_state(struct intel_context *ce, u32 head, bool scrub)
+>   {
+>   	struct intel_engine_cs *engine = __context_to_physical_engine(ce);
+>   
+> +	if (intel_context_is_banned(ce))
+> +		return;
+> +
+>   	GEM_BUG_ON(!intel_context_is_pinned(ce));
+>   
+>   	/*
+> @@ -731,6 +769,8 @@ static void __guc_reset_context(struct intel_context *ce, bool stalled)
+>   	struct i915_request *rq;
+>   	u32 head;
+>   
+> +	intel_context_get(ce);
+> +
+>   	/*
+>   	 * GuC will implicitly mark the context as non-schedulable
+>   	 * when it sends the reset notification. Make sure our state
+> @@ -756,6 +796,7 @@ static void __guc_reset_context(struct intel_context *ce, bool stalled)
+>   out_replay:
+>   	guc_reset_state(ce, head, stalled);
+>   	__unwind_incomplete_requests(ce);
+> +	intel_context_put(ce);
+>   }
+>   
+>   void intel_guc_submission_reset(struct intel_guc *guc, bool stalled)
+> @@ -940,8 +981,6 @@ static int guc_bypass_tasklet_submit(struct intel_guc *guc,
+>   	ret = guc_add_request(guc, rq);
+>   	if (ret == -EBUSY)
+>   		guc->stalled_request = rq;
+> -	else
+> -		trace_i915_request_guc_submit(rq);
+>   
+>   	if (unlikely(ret == -EPIPE))
+>   		disable_submission(guc);
+> @@ -1344,13 +1383,77 @@ static u16 prep_context_pending_disable(struct intel_context *ce)
+>   	return ce->guc_id;
+>   }
+>   
+> +static void __guc_context_set_preemption_timeout(struct intel_guc *guc,
+> +						 u16 guc_id,
+> +						 u32 preemption_timeout)
+> +{
+> +	u32 action[] = {
+> +		INTEL_GUC_ACTION_SET_CONTEXT_PREEMPTION_TIMEOUT,
+> +		guc_id,
+> +		preemption_timeout
+> +	};
+> +
+> +	intel_guc_send_busy_loop(guc, action, ARRAY_SIZE(action), 0, true);
+> +}
+> +
+> +static void guc_context_ban(struct intel_context *ce, struct i915_request *rq)
+> +{
+> +	struct intel_guc *guc = ce_to_guc(ce);
+> +	struct intel_runtime_pm *runtime_pm =
+> +		&ce->engine->gt->i915->runtime_pm;
+> +	intel_wakeref_t wakeref;
+> +	unsigned long flags;
+> +
+> +	guc_flush_submissions(guc);
+> +
+> +	spin_lock_irqsave(&ce->guc_state.lock, flags);
+> +	set_context_banned(ce);
+> +
+> +	if (submission_disabled(guc) ||
+> +	    (!context_enabled(ce) && !context_pending_disable(ce))) {
+> +		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+> +
+> +		guc_cancel_context_requests(ce);
+> +		intel_engine_signal_breadcrumbs(ce->engine);
+> +	} else if (!context_pending_disable(ce)) {
+> +		u16 guc_id;
+> +
+> +		/*
+> +		 * We add +2 here as the schedule disable complete CTB handler
+> +		 * calls intel_context_sched_disable_unpin (-2 to pin_count).
+> +		 */
+> +		atomic_add(2, &ce->pin_count);
+> +
+> +		guc_id = prep_context_pending_disable(ce);
+> +		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+> +
+> +		/*
+> +		 * In addition to disabling scheduling, set the preemption
+> +		 * timeout to the minimum value (1 us) so the banned context
+> +		 * gets kicked off the HW ASAP.
+> +		 */
+> +		with_intel_runtime_pm(runtime_pm, wakeref) {
+> +			__guc_context_set_preemption_timeout(guc, guc_id, 1);
+> +			__guc_context_sched_disable(guc, ce, guc_id);
+> +		}
+> +	} else {
+> +		if (!context_guc_id_invalid(ce))
+> +			with_intel_runtime_pm(runtime_pm, wakeref)
+> +				__guc_context_set_preemption_timeout(guc,
+> +								     ce->guc_id,
+> +								     1);
+> +		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+> +	}
+> +}
+> +
+>   static void guc_context_sched_disable(struct intel_context *ce)
+>   {
+>   	struct intel_guc *guc = ce_to_guc(ce);
+> -	struct intel_runtime_pm *runtime_pm = &ce->engine->gt->i915->runtime_pm;
+>   	unsigned long flags;
+> -	u16 guc_id;
+> +	struct intel_runtime_pm *runtime_pm = &ce->engine->gt->i915->runtime_pm;
+>   	intel_wakeref_t wakeref;
+> +	u16 guc_id;
+> +	bool enabled;
+>   
+>   	if (submission_disabled(guc) || context_guc_id_invalid(ce) ||
+>   	    !lrc_desc_registered(guc, ce->guc_id)) {
+> @@ -1364,14 +1467,22 @@ static void guc_context_sched_disable(struct intel_context *ce)
+>   	spin_lock_irqsave(&ce->guc_state.lock, flags);
+>   
+>   	/*
+> -	 * We have to check if the context has been pinned again as another pin
+> -	 * operation is allowed to pass this function. Checking the pin count,
+> -	 * within ce->guc_state.lock, synchronizes this function with
+> +	 * We have to check if the context has been disabled by another thread.
+> +	 * We also have to check if the context has been pinned again as another
+> +	 * pin operation is allowed to pass this function. Checking the pin
+> +	 * count, within ce->guc_state.lock, synchronizes this function with
+>   	 * guc_request_alloc ensuring a request doesn't slip through the
+>   	 * 'context_pending_disable' fence. Checking within the spin lock (can't
+>   	 * sleep) ensures another process doesn't pin this context and generate
+>   	 * a request before we set the 'context_pending_disable' flag here.
+>   	 */
+> +	enabled = context_enabled(ce);
+> +	if (unlikely(!enabled || submission_disabled(guc))) {
+> +		if (enabled)
+> +			clr_context_enabled(ce);
+> +		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+> +		goto unpin;
+> +	}
+>   	if (unlikely(atomic_add_unless(&ce->pin_count, -2, 2))) {
+>   		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+>   		return;
+> @@ -1529,6 +1640,8 @@ static const struct intel_context_ops guc_context_ops = {
+>   	.unpin = guc_context_unpin,
+>   	.post_unpin = guc_context_post_unpin,
+>   
+> +	.ban = guc_context_ban,
+> +
+>   	.enter = intel_context_enter_engine,
+>   	.exit = intel_context_exit_engine,
+>   
+> @@ -1722,6 +1835,8 @@ static const struct intel_context_ops virtual_guc_context_ops = {
+>   	.unpin = guc_context_unpin,
+>   	.post_unpin = guc_context_post_unpin,
+>   
+> +	.ban = guc_context_ban,
+> +
+>   	.enter = guc_virtual_context_enter,
+>   	.exit = guc_virtual_context_exit,
+>   
+> @@ -2164,6 +2279,8 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
+>   	if (context_pending_enable(ce)) {
+>   		clr_context_pending_enable(ce);
+>   	} else if (context_pending_disable(ce)) {
+> +		bool banned;
+> +
+>   		/*
+>   		 * Unpin must be done before __guc_signal_context_fence,
+>   		 * otherwise a race exists between the requests getting
+> @@ -2174,9 +2291,16 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
+>   		intel_context_sched_disable_unpin(ce);
+>   
+>   		spin_lock_irqsave(&ce->guc_state.lock, flags);
+> +		banned = context_banned(ce);
+> +		clr_context_banned(ce);
+>   		clr_context_pending_disable(ce);
+>   		__guc_signal_context_fence(ce);
+>   		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+> +
+> +		if (banned) {
+> +			guc_cancel_context_requests(ce);
+> +			intel_engine_signal_breadcrumbs(ce->engine);
+> +		}
+>   	}
+>   
+>   	decr_outstanding_submission_g2h(guc);
+> @@ -2211,8 +2335,11 @@ static void guc_handle_context_reset(struct intel_guc *guc,
+>   				     struct intel_context *ce)
+>   {
+>   	trace_intel_context_reset(ce);
+> -	capture_error_state(guc, ce);
+> -	guc_context_replay(ce);
+> +
+> +	if (likely(!intel_context_is_banned(ce))) {
+> +		capture_error_state(guc, ce);
+> +		guc_context_replay(ce);
+> +	}
+>   }
+>   
+>   int intel_guc_context_reset_process_msg(struct intel_guc *guc,
+> diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
+> index 3f43d904f043..9613a7c19661 100644
+> --- a/drivers/gpu/drm/i915/i915_trace.h
+> +++ b/drivers/gpu/drm/i915/i915_trace.h
+> @@ -925,6 +925,11 @@ DEFINE_EVENT(intel_context, intel_context_reset,
+>   	     TP_ARGS(ce)
+>   );
+>   
+> +DEFINE_EVENT(intel_context, intel_context_ban,
+> +	     TP_PROTO(struct intel_context *ce),
+> +	     TP_ARGS(ce)
+> +);
+> +
+>   DEFINE_EVENT(intel_context, intel_context_register,
+>   	     TP_PROTO(struct intel_context *ce),
+>   	     TP_ARGS(ce)
+> @@ -1017,6 +1022,11 @@ trace_intel_context_reset(struct intel_context *ce)
+>   {
+>   }
+>   
+> +static inline void
+> +trace_intel_context_ban(struct intel_context *ce)
+> +{
+> +}
+> +
+>   static inline void
+>   trace_intel_context_register(struct intel_context *ce)
+>   {
+> 
