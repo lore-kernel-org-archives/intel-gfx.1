@@ -2,63 +2,53 @@ Return-Path: <SRS0=ZGLP=NQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF724C4320E
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:24:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B490C4338F
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 83F9C610C8
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:24:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 83F9C610C8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 256B5610C8
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Aug 2021 14:30:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 256B5610C8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D09096E24D;
-	Wed, 25 Aug 2021 14:24:39 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD8316E0E6;
- Tue, 24 Aug 2021 22:54:49 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C9DBF61139;
- Tue, 24 Aug 2021 22:54:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629845689;
- bh=soYdqs0Qs7xCVvPch05cxgy1fyh2lip8GCF4qssf2PA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=vIYXerymKENVREB2YJr0myqfiT+haL9C5Kk2wzNPhXo/BAjH8MM2i+/kGyW1v3jZr
- g5RZ8cCWNXVnFD2zQ4K53bgZbKVfygJ1UjrLWmHHQ0SHKYWG0WQyJgvCgIlbK7R0IB
- wROIp6NwWMuDFgWhdCjBpDIEw9ByiO4YoT/Yl2XiFNqd5bf+8N0UTyM/0UuiUPlTeD
- nsJu5bixEpR4ux0D3P2lqz9vPUVHFhU4QGT6GBI7XteNt7Cigab2BmWYYWv24hJ3w1
- Y1RYNWAm52byXpxddb/K3PWdHwOC7SNUdm8Y2x6mBkv6z5RBWQCRejbbezXR9zHr6u
- yuast6MJAW/9w==
-From: Nathan Chancellor <nathan@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Jason Ekstrand <jason@jlekstrand.net>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- "Michael J. Ruhl" <michael.j.ruhl@intel.com>,
- Nick Desaulniers <ndesaulniers@google.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
- llvm@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>,
- Dan Carpenter <dan.carpenter@oracle.com>
-Date: Tue, 24 Aug 2021 15:54:26 -0700
-Message-Id: <20210824225427.2065517-3-nathan@kernel.org>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210824225427.2065517-1-nathan@kernel.org>
-References: <20210824225427.2065517-1-nathan@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 649E36E237;
+	Wed, 25 Aug 2021 14:30:30 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 005486E237;
+ Wed, 25 Aug 2021 14:30:28 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10086"; a="217252962"
+X-IronPort-AV: E=Sophos;i="5.84,350,1620716400"; d="scan'208";a="217252962"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2021 07:30:28 -0700
+X-IronPort-AV: E=Sophos;i="5.84,350,1620716400"; d="scan'208";a="527347137"
+Received: from mburkard-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.251.213.64])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2021 07:30:26 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Manasi Navare <manasi.d.navare@intel.com>
+In-Reply-To: <YR6R6oveiFbF8xmg@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1628851334.git.jani.nikula@intel.com>
+ <ab2ca82226fd954a61a5674cf0531508bd18cef7.1628851334.git.jani.nikula@intel.com>
+ <YR6R6oveiFbF8xmg@intel.com>
+Date: Wed, 25 Aug 2021 17:30:23 +0300
+Message-ID: <87eeahegw0.fsf@intel.com>
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 25 Aug 2021 14:24:33 +0000
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915/selftests: Always initialize err
- in igt_dmabuf_import_same_driver_lmem()
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 2/4] drm/dp: use more of the extended
+ receiver cap
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,50 +64,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Clang warns:
+On Thu, 19 Aug 2021, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Fri, Aug 13, 2021 at 01:43:20PM +0300, Jani Nikula wrote:
+>> Extend the use of extended receiver cap at 0x2200 to cover
+>> MAIN_LINK_CHANNEL_CODING_CAP in 0x2206, in case an implementation hides
+>> the DP 2.0 128b/132b channel encoding cap.
+>>=20
+>> Cc: Manasi Navare <manasi.d.navare@intel.com>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+>>  drivers/gpu/drm/drm_dp_helper.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_he=
+lper.c
+>> index 9b2a2961fca8..9389f92cb944 100644
+>> --- a/drivers/gpu/drm/drm_dp_helper.c
+>> +++ b/drivers/gpu/drm/drm_dp_helper.c
+>> @@ -608,7 +608,7 @@ static u8 drm_dp_downstream_port_count(const u8 dpcd=
+[DP_RECEIVER_CAP_SIZE])
+>>  static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
+>>  					  u8 dpcd[DP_RECEIVER_CAP_SIZE])
+>>  {
+>> -	u8 dpcd_ext[6];
+>> +	u8 dpcd_ext[DP_MAIN_LINK_CHANNEL_CODING + 1];
+>
+> Why are we even reading less of this than the normal receiver caps?
 
-drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c:127:13: warning:
-variable 'err' is used uninitialized whenever 'if' condition is false
-[-Wsometimes-uninitialized]
-        } else if (PTR_ERR(import) != -EOPNOTSUPP) {
-                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c:138:9: note:
-uninitialized use occurs here
-        return err;
-               ^~~
-drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c:127:9: note: remove
-the 'if' if its condition is always true
-        } else if (PTR_ERR(import) != -EOPNOTSUPP) {
-               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c:95:9: note:
-initialize the variable 'err' to silence this warning
-        int err;
-               ^
-                = 0
+Good question. I forget my reasoning to only extend to what might affect
+this use case. Should we extend to the size of the usual receiver caps?
 
-The test is expected to pass if i915_gem_prime_import() returns
--EOPNOTSUPP so initialize err to zero in this case.
+BR,
+Jani.
 
-Fixes: cdb35d1ed6d2 ("drm/i915/gem: Migrate to system at dma-buf attach time (v7)")
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-index 532c7955b300..4a6bb64c3a35 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-@@ -128,6 +128,8 @@ static int igt_dmabuf_import_same_driver_lmem(void *arg)
- 		pr_err("i915_gem_prime_import failed with the wrong err=%ld\n",
- 		       PTR_ERR(import));
- 		err = PTR_ERR(import);
-+	} else {
-+		err = 0;
- 	}
- 
- 	dma_buf_put(dmabuf);
--- 
-2.33.0
+>
+>>  	int ret;
+>>=20=20
+>>  	/*
+>> --=20
+>> 2.20.1
 
+--=20
+Jani Nikula, Intel Open Source Graphics Center
