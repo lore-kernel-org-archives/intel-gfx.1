@@ -2,45 +2,74 @@ Return-Path: <SRS0=HVxp=NR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.9 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4944FC432BE
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 16:17:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FAFFC432BE
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 16:21:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2D796103E
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 16:17:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F2D796103E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 5D2EB6103A
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 16:21:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5D2EB6103A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 967BA6E883;
-	Thu, 26 Aug 2021 16:17:08 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id A55226E881;
- Thu, 26 Aug 2021 16:17:07 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 9E9A2A008A;
- Thu, 26 Aug 2021 16:17:07 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2447209965105222049=="
-MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matthew Brost" <matthew.brost@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Aug 2021 16:17:07 -0000
-Message-ID: <162999462762.15048.16301274628038623814@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA6046E881;
+	Thu, 26 Aug 2021 16:21:31 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C7A56E881
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 16:21:30 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id u14so7438732ejf.13
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 09:21:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=JUItK3hy4e88+e5Egr0dALC4TWt+hPEg+fhUoqT58E8=;
+ b=QhMqRaBrCt5NTLGzdDU9zCwx4hUi57d1H3lTVy7pQMpxEfrcrGt+fNdiZ7MfeIuyo7
+ LbnnM/z5jebmd6pv1AMrQ3nDfZ2Tu9J/3cIA9ijzgfEtaDmpw7zDcdZheMtNBX7RXjfi
+ R4BCoHpnqB1arjheGo/mCpbf5bacD7FUSZUQA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=JUItK3hy4e88+e5Egr0dALC4TWt+hPEg+fhUoqT58E8=;
+ b=hSMAMCaZ+FOur9rC2TgjiE8Bj9ga1qTUKNyg68y224sCryLiXu4eLrGIwsgHZMO7dy
+ lrKEeWTeiqKrFFAmuAFCjzyVSQx4lpdTNhkw3rRpSDblDhQPjgYxCbLfcCXgkWhCsUSv
+ 5XkGSiJeeED+3KtBMS6yrn9o19dUhXjEusOJ+hbSj0flesds0seuwa5uDnxybuQbx1S4
+ 5+6t0Su5mo5xYiU/rV/+L7vhJ4RkTNJzzMp22293X/rH6VWPJ1npBkaiAHi+J04d/SQp
+ L8Rne6pstFR1Y2tIIyLWdUja+F1+5wHBLYCDG2xYgAM3F/hed8yHA3UHKNifjprk1H8C
+ CVtQ==
+X-Gm-Message-State: AOAM532pmh7rfFIYz7aoYMe+q7bOtqrfiKmVS4B2stF6FS0AV6r0X1xt
+ T2RztDSXSPcbT/q9HpuBv0agpHOxihtEug==
+X-Google-Smtp-Source: ABdhPJwoVjTM62zVAxKadzL0vAWGXMd67157mNBMk81hG9HnnlXwi28Ycp+zzWZli668ZQO5nT592A==
+X-Received: by 2002:a17:906:d8a8:: with SMTP id
+ qc8mr5001571ejb.368.1629994889104; 
+ Thu, 26 Aug 2021 09:21:29 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id y32sm2173829ede.22.2021.08.26.09.21.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Aug 2021 09:21:28 -0700 (PDT)
+Date: Thu, 26 Aug 2021 18:21:26 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniele.ceraolospurio@intel.com
+Message-ID: <YSe/hg+e+uYYIMue@phenom.ffwll.local>
 References: <20210826032327.18078-1-matthew.brost@intel.com>
-In-Reply-To: <20210826032327.18078-1-matthew.brost@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgQ2xl?=
- =?utf-8?q?an_up_GuC_CI_failures=2C_simplify_locking=2C_and_kernel_DOC_=28?=
- =?utf-8?q?rev6=29?=
+ <20210826032327.18078-17-matthew.brost@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210826032327.18078-17-matthew.brost@intel.com>
+X-Operating-System: Linux phenom 5.10.0-7-amd64 
+Subject: Re: [Intel-gfx] [PATCH 16/27] drm/i915: Allocate error capture in
+ nowait context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,264 +82,198 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2447209965105222049==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Wed, Aug 25, 2021 at 08:23:16PM -0700, Matthew Brost wrote:
+> Error captures can now be done in a work queue processing G2H messages.
+> These messages need to be completely done being processed in the reset
+> path, to avoid races in the missing G2H cleanup, which create a
+> dependency on memory allocations and dma fences (i915_requests).
+> Requests depend on resets, thus now we have a circular dependency. To
+> work around this, allocate the error capture in a nowait context.
+> 
+> v2:
+>  (Daniel Vetter)
+>   - Use GFP_NOWAIT instead GFP_ATOMIC
+> 
+> Fixes: dc0dad365c5e ("Fix for error capture after full GPU reset with GuC")
+> Fixes: 573ba126aef3 ("Capture error state on context reset")
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
-== Series Details ==
+Would be good to include an example splat here, since memory inversions
+are a bit wtf due to the fake lockdep locks involved. In generally always
+good to put all the data you have into the commit message (maybe condensed
+down) so it's easier to dig out things again.
 
-Series: Clean up GuC CI failures, simplify locking, and kernel DOC (rev6)
-URL   : https://patchwork.freedesktop.org/series/93704/
-State : failure
+With that: Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-== Summary ==
+> ---
+>  drivers/gpu/drm/i915/i915_gpu_error.c | 39 +++++++++++++--------------
+>  1 file changed, 19 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+> index b9f66dbd46bb..8696ead02118 100644
+> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> @@ -49,8 +49,7 @@
+>  #include "i915_memcpy.h"
+>  #include "i915_scatterlist.h"
+>  
+> -#define ALLOW_FAIL (GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
+> -#define ATOMIC_MAYFAIL (GFP_ATOMIC | __GFP_NOWARN)
+> +#define ATOMIC_MAYFAIL (GFP_NOWAIT | __GFP_NOWARN)
+>  
+>  static void __sg_set_buf(struct scatterlist *sg,
+>  			 void *addr, unsigned int len, loff_t it)
+> @@ -79,7 +78,7 @@ static bool __i915_error_grow(struct drm_i915_error_state_buf *e, size_t len)
+>  	if (e->cur == e->end) {
+>  		struct scatterlist *sgl;
+>  
+> -		sgl = (typeof(sgl))__get_free_page(ALLOW_FAIL);
+> +		sgl = (typeof(sgl))__get_free_page(ATOMIC_MAYFAIL);
+>  		if (!sgl) {
+>  			e->err = -ENOMEM;
+>  			return false;
+> @@ -99,10 +98,10 @@ static bool __i915_error_grow(struct drm_i915_error_state_buf *e, size_t len)
+>  	}
+>  
+>  	e->size = ALIGN(len + 1, SZ_64K);
+> -	e->buf = kmalloc(e->size, ALLOW_FAIL);
+> +	e->buf = kmalloc(e->size, ATOMIC_MAYFAIL);
+>  	if (!e->buf) {
+>  		e->size = PAGE_ALIGN(len + 1);
+> -		e->buf = kmalloc(e->size, GFP_KERNEL);
+> +		e->buf = kmalloc(e->size, ATOMIC_MAYFAIL);
+>  	}
+>  	if (!e->buf) {
+>  		e->err = -ENOMEM;
+> @@ -243,12 +242,12 @@ static bool compress_init(struct i915_vma_compress *c)
+>  {
+>  	struct z_stream_s *zstream = &c->zstream;
+>  
+> -	if (pool_init(&c->pool, ALLOW_FAIL))
+> +	if (pool_init(&c->pool, ATOMIC_MAYFAIL))
+>  		return false;
+>  
+>  	zstream->workspace =
+>  		kmalloc(zlib_deflate_workspacesize(MAX_WBITS, MAX_MEM_LEVEL),
+> -			ALLOW_FAIL);
+> +			ATOMIC_MAYFAIL);
+>  	if (!zstream->workspace) {
+>  		pool_fini(&c->pool);
+>  		return false;
+> @@ -256,7 +255,7 @@ static bool compress_init(struct i915_vma_compress *c)
+>  
+>  	c->tmp = NULL;
+>  	if (i915_has_memcpy_from_wc())
+> -		c->tmp = pool_alloc(&c->pool, ALLOW_FAIL);
+> +		c->tmp = pool_alloc(&c->pool, ATOMIC_MAYFAIL);
+>  
+>  	return true;
+>  }
+> @@ -280,7 +279,7 @@ static void *compress_next_page(struct i915_vma_compress *c,
+>  	if (dst->page_count >= dst->num_pages)
+>  		return ERR_PTR(-ENOSPC);
+>  
+> -	page = pool_alloc(&c->pool, ALLOW_FAIL);
+> +	page = pool_alloc(&c->pool, ATOMIC_MAYFAIL);
+>  	if (!page)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> @@ -376,7 +375,7 @@ struct i915_vma_compress {
+>  
+>  static bool compress_init(struct i915_vma_compress *c)
+>  {
+> -	return pool_init(&c->pool, ALLOW_FAIL) == 0;
+> +	return pool_init(&c->pool, ATOMIC_MAYFAIL) == 0;
+>  }
+>  
+>  static bool compress_start(struct i915_vma_compress *c)
+> @@ -391,7 +390,7 @@ static int compress_page(struct i915_vma_compress *c,
+>  {
+>  	void *ptr;
+>  
+> -	ptr = pool_alloc(&c->pool, ALLOW_FAIL);
+> +	ptr = pool_alloc(&c->pool, ATOMIC_MAYFAIL);
+>  	if (!ptr)
+>  		return -ENOMEM;
+>  
+> @@ -1026,7 +1025,7 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+>  
+>  	num_pages = min_t(u64, vma->size, vma->obj->base.size) >> PAGE_SHIFT;
+>  	num_pages = DIV_ROUND_UP(10 * num_pages, 8); /* worstcase zlib growth */
+> -	dst = kmalloc(sizeof(*dst) + num_pages * sizeof(u32 *), ALLOW_FAIL);
+> +	dst = kmalloc(sizeof(*dst) + num_pages * sizeof(u32 *), ATOMIC_MAYFAIL);
+>  	if (!dst)
+>  		return NULL;
+>  
+> @@ -1462,7 +1461,7 @@ capture_engine(struct intel_engine_cs *engine,
+>  	struct i915_request *rq = NULL;
+>  	unsigned long flags;
+>  
+> -	ee = intel_engine_coredump_alloc(engine, GFP_KERNEL);
+> +	ee = intel_engine_coredump_alloc(engine, ATOMIC_MAYFAIL);
+>  	if (!ee)
+>  		return NULL;
+>  
+> @@ -1510,7 +1509,7 @@ gt_record_engines(struct intel_gt_coredump *gt,
+>  		struct intel_engine_coredump *ee;
+>  
+>  		/* Refill our page pool before entering atomic section */
+> -		pool_refill(&compress->pool, ALLOW_FAIL);
+> +		pool_refill(&compress->pool, ATOMIC_MAYFAIL);
+>  
+>  		ee = capture_engine(engine, compress);
+>  		if (!ee)
+> @@ -1536,7 +1535,7 @@ gt_record_uc(struct intel_gt_coredump *gt,
+>  	const struct intel_uc *uc = &gt->_gt->uc;
+>  	struct intel_uc_coredump *error_uc;
+>  
+> -	error_uc = kzalloc(sizeof(*error_uc), ALLOW_FAIL);
+> +	error_uc = kzalloc(sizeof(*error_uc), ATOMIC_MAYFAIL);
+>  	if (!error_uc)
+>  		return NULL;
+>  
+> @@ -1547,8 +1546,8 @@ gt_record_uc(struct intel_gt_coredump *gt,
+>  	 * As modparams are generally accesible from the userspace make
+>  	 * explicit copies of the firmware paths.
+>  	 */
+> -	error_uc->guc_fw.path = kstrdup(uc->guc.fw.path, ALLOW_FAIL);
+> -	error_uc->huc_fw.path = kstrdup(uc->huc.fw.path, ALLOW_FAIL);
+> +	error_uc->guc_fw.path = kstrdup(uc->guc.fw.path, ATOMIC_MAYFAIL);
+> +	error_uc->huc_fw.path = kstrdup(uc->huc.fw.path, ATOMIC_MAYFAIL);
+>  	error_uc->guc_log =
+>  		i915_vma_coredump_create(gt->_gt,
+>  					 uc->guc.log.vma, "GuC log buffer",
+> @@ -1815,7 +1814,7 @@ i915_vma_capture_prepare(struct intel_gt_coredump *gt)
+>  {
+>  	struct i915_vma_compress *compress;
+>  
+> -	compress = kmalloc(sizeof(*compress), ALLOW_FAIL);
+> +	compress = kmalloc(sizeof(*compress), ATOMIC_MAYFAIL);
+>  	if (!compress)
+>  		return NULL;
+>  
+> @@ -1848,11 +1847,11 @@ i915_gpu_coredump(struct intel_gt *gt, intel_engine_mask_t engine_mask)
+>  	if (IS_ERR(error))
+>  		return error;
+>  
+> -	error = i915_gpu_coredump_alloc(i915, ALLOW_FAIL);
+> +	error = i915_gpu_coredump_alloc(i915, ATOMIC_MAYFAIL);
+>  	if (!error)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	error->gt = intel_gt_coredump_alloc(gt, ALLOW_FAIL);
+> +	error->gt = intel_gt_coredump_alloc(gt, ATOMIC_MAYFAIL);
+>  	if (error->gt) {
+>  		struct i915_vma_compress *compress;
+>  
+> -- 
+> 2.32.0
+> 
 
-CI Bug Log - changes from CI_DRM_10525 -> Patchwork_20904
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_20904 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_20904, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/index.html
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_20904:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-rkl-guc:         [PASS][1] -> [INCOMPLETE][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10525/fi-rkl-guc/igt@i915_selftest@live@hangcheck.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/fi-rkl-guc/igt@i915_selftest@live@hangcheck.html
-
-  
-New tests
----------
-
-  New tests have been introduced between CI_DRM_10525 and Patchwork_20904:
-
-### New IGT tests (1) ###
-
-  * igt@i915_selftest@live@guc:
-    - Statuses : 30 pass(s)
-    - Exec time: [0.41, 5.26] s
-
-  
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20904 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_cs_nop@sync-compute0:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][3] ([fdo#109271]) +5 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/fi-kbl-soraka/igt@amdgpu/amd_cs_nop@sync-compute0.html
-
-  * igt@runner@aborted:
-    - fi-rkl-guc:         NOTRUN -> [FAIL][4] ([i915#3928])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/fi-rkl-guc/igt@runner@aborted.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-  [i915#2411]: https://gitlab.freedesktop.org/drm/intel/issues/2411
-  [i915#3928]: https://gitlab.freedesktop.org/drm/intel/issues/3928
-
-
-Participating hosts (40 -> 33)
-------------------------------
-
-  Missing    (7): fi-ilk-m540 bat-adls-5 fi-hsw-4200u fi-tgl-1115g4 fi-bsw-cyan fi-bdw-samus bat-jsl-1 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10525 -> Patchwork_20904
-
-  CI-20190529: 20190529
-  CI_DRM_10525: 059309d37ac2de5d93cf6d71fd7fe33c9c2c66ea @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6186: 250081b306c6fa8f95405fab6a7604f1968dd4ec @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20904: 0c1d27ac9fce7e231e7dddebcf56905e05302cae @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-0c1d27ac9fce drm/i915/guc: Drop static inline functions intel_guc_submission.c
-50ada01b3d95 drm/i915/guc: Add GuC kernel doc
-883eccfa8221 drm/i915/guc: Drop guc_active move everything into guc_state
-fa075902c938 drm/i915/guc: Move fields protected by guc->contexts_lock into sub structure
-a1c73c8c481a drm/i915/guc: Move GuC priority fields in context under guc_active
-f16c0554ae08 drm/i915/guc: Drop pin count check trick between sched_disable and re-pin
-42ac1b77a019 drm/i915/guc: Proper xarray usage for contexts_lookup
-9b9222998c83 drm/i915/guc: Rework and simplify locking
-244934484f63 drm/i915/guc: Move guc_blocked fence to struct guc_state
-ba695a58136a drm/i915/guc: Release submit fence from an irq_work
-3bd5803d5e25 drm/i915/guc: Flush G2H work queue during reset
-b87ba9121748 drm/i915: Allocate error capture in nowait context
-adb35ad83c76 drm/i915/guc: Reset LRC descriptor if register returns -ENODEV
-97e616063006 drm/i915/guc: Don't touch guc_state.sched_state without a lock
-1ff99308ef88 drm/i915/guc: Take context ref when cancelling request
-ff84f14ddceb drm/i915/selftests: Add initial GuC selftest for scrubbing lost G2H
-abd6a8884cf4 drm/i915/guc: Copy whole golden context, set engine state size of subset
-a19ba1f51009 drm/i915/guc: Don't enable scheduling on a banned context, guc_id invalid, not registered
-f29b2b338002 drm/i915/guc: Kick tasklet after queuing a request
-f577a4fdeeab drm/i915/selftests: Add a cancel request selftest that triggers a reset
-da3d87dfe8c5 Revert "drm/i915/gt: Propagate change in error status to children on unhold"
-25273a034c8d drm/i915/guc: Workaround reset G2H is received after schedule done G2H
-c00d543957c2 drm/i915/guc: Process all G2H message at once in work queue
-5b7ff1fa9e43 drm/i915/guc: Don't drop ce->guc_active.lock when unwinding context
-54cd904fa232 drm/i915/guc: Unwind context requests in reverse order
-593f21493fda drm/i915/guc: Fix outstanding G2H accounting
-6b511953d015 drm/i915/guc: Fix blocked context accounting
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/index.html
-
---===============2447209965105222049==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Clean up GuC CI failures, simplify locking, and kernel DOC (rev6)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/93704/">https://patchwork.freedesktop.org/series/93704/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10525 -&gt; Patchwork_20904</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_20904 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_20904, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_20904:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live@hangcheck:<ul>
-<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10525/fi-rkl-guc/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/fi-rkl-guc/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a></li>
-</ul>
-</li>
-</ul>
-<h2>New tests</h2>
-<p>New tests have been introduced between CI_DRM_10525 and Patchwork_20904:</p>
-<h3>New IGT tests (1)</h3>
-<ul>
-<li>igt@i915_selftest@live@guc:<ul>
-<li>Statuses : 30 pass(s)</li>
-<li>Exec time: [0.41, 5.26] s</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20904 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_cs_nop@sync-compute0:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/fi-kbl-soraka/igt@amdgpu/amd_cs_nop@sync-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +5 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20904/fi-rkl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3928">i915#3928</a>)</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (40 -&gt; 33)</h2>
-<p>Missing    (7): fi-ilk-m540 bat-adls-5 fi-hsw-4200u fi-tgl-1115g4 fi-bsw-cyan fi-bdw-samus bat-jsl-1 </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10525 -&gt; Patchwork_20904</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10525: 059309d37ac2de5d93cf6d71fd7fe33c9c2c66ea @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6186: 250081b306c6fa8f95405fab6a7604f1968dd4ec @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20904: 0c1d27ac9fce7e231e7dddebcf56905e05302cae @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>0c1d27ac9fce drm/i915/guc: Drop static inline functions intel_guc_submission.c<br />
-50ada01b3d95 drm/i915/guc: Add GuC kernel doc<br />
-883eccfa8221 drm/i915/guc: Drop guc_active move everything into guc_state<br />
-fa075902c938 drm/i915/guc: Move fields protected by guc-&gt;contexts_lock into sub structure<br />
-a1c73c8c481a drm/i915/guc: Move GuC priority fields in context under guc_active<br />
-f16c0554ae08 drm/i915/guc: Drop pin count check trick between sched_disable and re-pin<br />
-42ac1b77a019 drm/i915/guc: Proper xarray usage for contexts_lookup<br />
-9b9222998c83 drm/i915/guc: Rework and simplify locking<br />
-244934484f63 drm/i915/guc: Move guc_blocked fence to struct guc_state<br />
-ba695a58136a drm/i915/guc: Release submit fence from an irq_work<br />
-3bd5803d5e25 drm/i915/guc: Flush G2H work queue during reset<br />
-b87ba9121748 drm/i915: Allocate error capture in nowait context<br />
-adb35ad83c76 drm/i915/guc: Reset LRC descriptor if register returns -ENODEV<br />
-97e616063006 drm/i915/guc: Don't touch guc_state.sched_state without a lock<br />
-1ff99308ef88 drm/i915/guc: Take context ref when cancelling request<br />
-ff84f14ddceb drm/i915/selftests: Add initial GuC selftest for scrubbing lost G2H<br />
-abd6a8884cf4 drm/i915/guc: Copy whole golden context, set engine state size of subset<br />
-a19ba1f51009 drm/i915/guc: Don't enable scheduling on a banned context, guc_id invalid, not registered<br />
-f29b2b338002 drm/i915/guc: Kick tasklet after queuing a request<br />
-f577a4fdeeab drm/i915/selftests: Add a cancel request selftest that triggers a reset<br />
-da3d87dfe8c5 Revert "drm/i915/gt: Propagate change in error status to children on unhold"<br />
-25273a034c8d drm/i915/guc: Workaround reset G2H is received after schedule done G2H<br />
-c00d543957c2 drm/i915/guc: Process all G2H message at once in work queue<br />
-5b7ff1fa9e43 drm/i915/guc: Don't drop ce-&gt;guc_active.lock when unwinding context<br />
-54cd904fa232 drm/i915/guc: Unwind context requests in reverse order<br />
-593f21493fda drm/i915/guc: Fix outstanding G2H accounting<br />
-6b511953d015 drm/i915/guc: Fix blocked context accounting</p>
-
-</body>
-</html>
-
---===============2447209965105222049==--
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
