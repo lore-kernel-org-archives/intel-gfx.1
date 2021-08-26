@@ -5,30 +5,30 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3365C4320E
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8370AC43214
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 924FA61008
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 924FA61008
+	by mail.kernel.org (Postfix) with ESMTPS id 4F77661008
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4F77661008
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AD596E500;
-	Thu, 26 Aug 2021 03:28:47 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40A126E4D2;
- Thu, 26 Aug 2021 03:28:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="215811072"
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="215811072"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0656E505;
+	Thu, 26 Aug 2021 03:28:46 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50D1D6E4C1;
+ Thu, 26 Aug 2021 03:28:41 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="217660056"
+X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="217660056"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Aug 2021 20:28:40 -0700
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="684738559"
+X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="684738553"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Aug 2021 20:28:39 -0700
@@ -36,15 +36,16 @@ From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniele.ceraolospurio@intel.com>
-Date: Wed, 25 Aug 2021 20:23:14 -0700
-Message-Id: <20210826032327.18078-15-matthew.brost@intel.com>
+Date: Wed, 25 Aug 2021 20:23:12 -0700
+Message-Id: <20210826032327.18078-13-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210826032327.18078-1-matthew.brost@intel.com>
 References: <20210826032327.18078-1-matthew.brost@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 14/27] drm/i915/guc: Don't touch
- guc_state.sched_state without a lock
+Subject: [Intel-gfx] [PATCH 12/27] drm/i915/selftests: Add initial GuC
+ selftest for scrubbing lost G2H
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,152 +61,302 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Before we did some clever tricks to not use the a lock when touching
-guc_state.sched_state in certain cases. Don't do that, enforce the use
-of the lock.
-
-Part of this is removing a dead code path from guc_lrc_desc_pin where a
-context could be deregistered when the aforementioned function was
-called from the submission path. Remove this dead code and add a
-GEM_BUG_ON if this path is ever attempted to be used.
+While debugging an issue with full GT resets I went down a rabbit hole
+thinking the scrubbing of lost G2H wasn't working correctly. This proved
+to be incorrect as this was working just fine but this chase inspired me
+to write a selftest to prove that this works. This simple selftest
+injects errors dropping various G2H and then issues a full GT reset
+proving that the scrubbing of these G2H doesn't blow up.
 
 v2:
- (kernel test robo )
-  - Add __maybe_unused to sched_state_is_init()
+ (Daniel Vetter)
+  - Use ifdef instead of macros for selftests
+v3:
+ (Checkpatch)
+  - A space after 'switch' statement
+v4:
+ (Daniele)
+  - A comment saying GT won't idle if G2H are lost
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
 Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 58 ++++++++++---------
- 1 file changed, 32 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  18 +++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  25 ++++
+ drivers/gpu/drm/i915/gt/uc/selftest_guc.c     | 127 ++++++++++++++++++
+ .../drm/i915/selftests/i915_live_selftests.h  |   1 +
+ .../i915/selftests/intel_scheduler_helpers.c  |  12 ++
+ .../i915/selftests/intel_scheduler_helpers.h  |   2 +
+ 6 files changed, 185 insertions(+)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc.c
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index e54351a170e2..3a73f3117873 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -198,6 +198,24 @@ struct intel_context {
+ 	 */
+ 	u8 guc_prio;
+ 	u32 guc_prio_count[GUC_CLIENT_PRIORITY_NUM];
++
++#ifdef CONFIG_DRM_I915_SELFTEST
++	/**
++	 * @drop_schedule_enable: Force drop of schedule enable G2H for selftest
++	 */
++	bool drop_schedule_enable;
++
++	/**
++	 * @drop_schedule_disable: Force drop of schedule disable G2H for
++	 * selftest
++	 */
++	bool drop_schedule_disable;
++
++	/**
++	 * @drop_deregister: Force drop of deregister G2H for selftest
++	 */
++	bool drop_deregister;
++#endif
+ };
+ 
+ #endif /* __INTEL_CONTEXT_TYPES__ */
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 1cb97e98871c..901d867a4d90 100644
+index 56f11accd6cc..5844bb954922 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -151,11 +151,23 @@ static inline void clr_context_registered(struct intel_context *ce)
+@@ -2645,6 +2645,13 @@ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
  
- static inline void init_sched_state(struct intel_context *ce)
- {
--	/* Only should be called from guc_lrc_desc_pin() */
-+	lockdep_assert_held(&ce->guc_state.lock);
- 	atomic_set(&ce->guc_sched_state_no_lock, 0);
- 	ce->guc_state.sched_state &= SCHED_STATE_BLOCKED_MASK;
+ 	trace_intel_context_deregister_done(ce);
+ 
++#ifdef CONFIG_DRM_I915_SELFTEST
++	if (unlikely(ce->drop_deregister)) {
++		ce->drop_deregister = false;
++		return 0;
++	}
++#endif
++
+ 	if (context_wait_for_deregister_to_register(ce)) {
+ 		struct intel_runtime_pm *runtime_pm =
+ 			&ce->engine->gt->i915->runtime_pm;
+@@ -2699,10 +2706,24 @@ int intel_guc_sched_done_process_msg(struct intel_guc *guc,
+ 	trace_intel_context_sched_done(ce);
+ 
+ 	if (context_pending_enable(ce)) {
++#ifdef CONFIG_DRM_I915_SELFTEST
++		if (unlikely(ce->drop_schedule_enable)) {
++			ce->drop_schedule_enable = false;
++			return 0;
++		}
++#endif
++
+ 		clr_context_pending_enable(ce);
+ 	} else if (context_pending_disable(ce)) {
+ 		bool banned;
+ 
++#ifdef CONFIG_DRM_I915_SELFTEST
++		if (unlikely(ce->drop_schedule_disable)) {
++			ce->drop_schedule_disable = false;
++			return 0;
++		}
++#endif
++
+ 		/*
+ 		 * Unpin must be done before __guc_signal_context_fence,
+ 		 * otherwise a race exists between the requests getting
+@@ -3079,3 +3100,7 @@ bool intel_guc_virtual_engine_has_heartbeat(const struct intel_engine_cs *ve)
+ 
+ 	return false;
  }
- 
-+__maybe_unused
-+static bool sched_state_is_init(struct intel_context *ce)
++
++#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
++#include "selftest_guc.c"
++#endif
+diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc.c
+new file mode 100644
+index 000000000000..fb0e4a7bd8ca
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc.c
+@@ -0,0 +1,127 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright �� 2021 Intel Corporation
++ */
++
++#include "selftests/intel_scheduler_helpers.h"
++
++static struct i915_request *nop_user_request(struct intel_context *ce,
++					     struct i915_request *from)
 +{
-+	/*
-+	 * XXX: Kernel contexts can have SCHED_STATE_NO_LOCK_REGISTERED after
-+	 * suspend.
-+	 */
-+	return !(atomic_read(&ce->guc_sched_state_no_lock) &
-+		 ~SCHED_STATE_NO_LOCK_REGISTERED) &&
-+		!(ce->guc_state.sched_state &= ~SCHED_STATE_BLOCKED_MASK);
++	struct i915_request *rq;
++	int ret;
++
++	rq = intel_context_create_request(ce);
++	if (IS_ERR(rq))
++		return rq;
++
++	if (from) {
++		ret = i915_sw_fence_await_dma_fence(&rq->submit,
++						    &from->fence, 0,
++						    I915_FENCE_GFP);
++		if (ret < 0) {
++			i915_request_put(rq);
++			return ERR_PTR(ret);
++		}
++	}
++
++	i915_request_get(rq);
++	i915_request_add(rq);
++
++	return rq;
 +}
 +
- static inline bool
- context_wait_for_deregister_to_register(struct intel_context *ce)
- {
-@@ -166,7 +178,7 @@ context_wait_for_deregister_to_register(struct intel_context *ce)
- static inline void
- set_context_wait_for_deregister_to_register(struct intel_context *ce)
- {
--	/* Only should be called from guc_lrc_desc_pin() without lock */
-+	lockdep_assert_held(&ce->guc_state.lock);
- 	ce->guc_state.sched_state |=
- 		SCHED_STATE_WAIT_FOR_DEREGISTER_TO_REGISTER;
- }
-@@ -605,9 +617,7 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 	bool pending_disable, pending_enable, deregister, destroyed, banned;
- 
- 	xa_for_each(&guc->context_lookup, index, ce) {
--		/* Flush context */
- 		spin_lock_irqsave(&ce->guc_state.lock, flags);
--		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 
- 		/*
- 		 * Once we are at this point submission_disabled() is guaranteed
-@@ -623,6 +633,8 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 		banned = context_banned(ce);
- 		init_sched_state(ce);
- 
-+		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++static int intel_guc_scrub_ctbs(void *arg)
++{
++	struct intel_gt *gt = arg;
++	int ret = 0;
++	int i;
++	struct i915_request *last[3] = {NULL, NULL, NULL}, *rq;
++	intel_wakeref_t wakeref;
++	struct intel_engine_cs *engine;
++	struct intel_context *ce;
 +
- 		if (pending_enable || destroyed || deregister) {
- 			decr_outstanding_submission_g2h(guc);
- 			if (deregister)
-@@ -1323,6 +1335,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	int ret = 0;
- 
- 	GEM_BUG_ON(!engine->mask);
-+	GEM_BUG_ON(!sched_state_is_init(ce));
- 
- 	/*
- 	 * Ensure LRC + CT vmas are is same region as write barrier is done
-@@ -1351,7 +1364,6 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	desc->priority = ce->guc_prio;
- 	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
- 	guc_context_policy_init(engine, desc);
--	init_sched_state(ce);
- 
- 	/*
- 	 * The context_lookup xarray is used to determine if the hardware
-@@ -1362,26 +1374,23 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 	 * registering this context.
- 	 */
- 	if (context_registered) {
-+		bool disabled;
-+		unsigned long flags;
++	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
++	engine = intel_selftest_find_any_engine(gt);
 +
- 		trace_intel_context_steal_guc_id(ce);
--		if (!loop) {
-+		GEM_BUG_ON(!loop);
-+
-+		/* Seal race with Reset */
-+		spin_lock_irqsave(&ce->guc_state.lock, flags);
-+		disabled = submission_disabled(guc);
-+		if (likely(!disabled)) {
- 			set_context_wait_for_deregister_to_register(ce);
- 			intel_context_get(ce);
--		} else {
--			bool disabled;
--			unsigned long flags;
--
--			/* Seal race with Reset */
--			spin_lock_irqsave(&ce->guc_state.lock, flags);
--			disabled = submission_disabled(guc);
--			if (likely(!disabled)) {
--				set_context_wait_for_deregister_to_register(ce);
--				intel_context_get(ce);
--			}
--			spin_unlock_irqrestore(&ce->guc_state.lock, flags);
--			if (unlikely(disabled)) {
--				reset_lrc_desc(guc, desc_idx);
--				return 0;	/* Will get registered later */
--			}
++	/* Submit requests and inject errors forcing G2H to be dropped */
++	for (i = 0; i < 3; ++i) {
++		ce = intel_context_create(engine);
++		if (IS_ERR(ce)) {
++			ret = PTR_ERR(ce);
++			pr_err("Failed to create context, %d: %d\n", i, ret);
++			goto err;
 +		}
-+		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
-+		if (unlikely(disabled)) {
-+			reset_lrc_desc(guc, desc_idx);
-+			return 0;	/* Will get registered later */
- 		}
++
++		switch (i) {
++		case 0:
++			ce->drop_schedule_enable = true;
++			break;
++		case 1:
++			ce->drop_schedule_disable = true;
++			break;
++		case 2:
++			ce->drop_deregister = true;
++			break;
++		}
++
++		rq = nop_user_request(ce, NULL);
++		intel_context_put(ce);
++
++		if (IS_ERR(rq)) {
++			ret = PTR_ERR(rq);
++			pr_err("Failed to create request, %d: %d\n", i, ret);
++			goto err;
++		}
++
++		last[i] = rq;
++	}
++
++	for (i = 0; i < 3; ++i) {
++		ret = i915_request_wait(last[i], 0, HZ);
++		if (ret < 0) {
++			pr_err("Last request failed to complete: %d\n", ret);
++			goto err;
++		}
++		i915_request_put(last[i]);
++		last[i] = NULL;
++	}
++
++	/* Force all H2G / G2H to be submitted / processed */
++	intel_gt_retire_requests(gt);
++	msleep(500);
++
++	/* Scrub missing G2H */
++	intel_gt_handle_error(engine->gt, -1, 0, "selftest reset");
++
++	/* GT will not idle if G2H are lost */
++	ret = intel_gt_wait_for_idle(gt, HZ);
++	if (ret < 0) {
++		pr_err("GT failed to idle: %d\n", ret);
++		goto err;
++	}
++
++err:
++	for (i = 0; i < 3; ++i)
++		if (last[i])
++			i915_request_put(last[i]);
++	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
++
++	return ret;
++}
++
++int intel_guc_live_selftests(struct drm_i915_private *i915)
++{
++	static const struct i915_subtest tests[] = {
++		SUBTEST(intel_guc_scrub_ctbs),
++	};
++	struct intel_gt *gt = &i915->gt;
++
++	if (intel_gt_is_wedged(gt))
++		return 0;
++
++	if (!intel_uc_uses_guc_submission(&gt->uc))
++		return 0;
++
++	return intel_gt_live_subtests(tests, gt);
++}
+diff --git a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
+index cfa5c4165a4f..3cf6758931f9 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
++++ b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
+@@ -47,5 +47,6 @@ selftest(execlists, intel_execlists_live_selftests)
+ selftest(ring_submission, intel_ring_submission_live_selftests)
+ selftest(perf, i915_perf_live_selftests)
+ selftest(slpc, intel_slpc_live_selftests)
++selftest(guc, intel_guc_live_selftests)
+ /* Here be dragons: keep last to run last! */
+ selftest(late_gt_pm, intel_gt_pm_late_selftests)
+diff --git a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
+index 4b328346b48a..310fb83c527e 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
++++ b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
+@@ -14,6 +14,18 @@
+ #define REDUCED_PREEMPT		10
+ #define WAIT_FOR_RESET_TIME	10000
  
- 		/*
-@@ -1390,10 +1399,7 @@ static int guc_lrc_desc_pin(struct intel_context *ce, bool loop)
- 		 */
- 		with_intel_runtime_pm(runtime_pm, wakeref)
- 			ret = deregister_context(ce, ce->guc_id, loop);
--		if (unlikely(ret == -EBUSY)) {
--			clr_context_wait_for_deregister_to_register(ce);
--			intel_context_put(ce);
--		} else if (unlikely(ret == -ENODEV)) {
-+		if (unlikely(ret == -ENODEV)) {
- 			ret = 0;	/* Will get registered later */
- 		}
- 	} else {
++struct intel_engine_cs *intel_selftest_find_any_engine(struct intel_gt *gt)
++{
++	struct intel_engine_cs *engine;
++	enum intel_engine_id id;
++
++	for_each_engine(engine, gt, id)
++		return engine;
++
++	pr_err("No valid engine found!\n");
++	return NULL;
++}
++
+ int intel_selftest_modify_policy(struct intel_engine_cs *engine,
+ 				 struct intel_selftest_saved_policy *saved,
+ 				 u32 modify_type)
+diff --git a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
+index 35c098601ac0..ae60bb507f45 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
++++ b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.h
+@@ -10,6 +10,7 @@
+ 
+ struct i915_request;
+ struct intel_engine_cs;
++struct intel_gt;
+ 
+ struct intel_selftest_saved_policy {
+ 	u32 flags;
+@@ -23,6 +24,7 @@ enum selftest_scheduler_modify {
+ 	SELFTEST_SCHEDULER_MODIFY_FAST_RESET,
+ };
+ 
++struct intel_engine_cs *intel_selftest_find_any_engine(struct intel_gt *gt);
+ int intel_selftest_modify_policy(struct intel_engine_cs *engine,
+ 				 struct intel_selftest_saved_policy *saved,
+ 				 enum selftest_scheduler_modify modify_type);
 -- 
 2.32.0
 
