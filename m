@@ -2,68 +2,53 @@ Return-Path: <SRS0=HVxp=NR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2868DC432BE
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 06:35:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD4B3C432BE
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 06:48:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E42AC610CB
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 06:35:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E42AC610CB
+	by mail.kernel.org (Postfix) with ESMTPS id 6D583610CB
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 06:48:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6D583610CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 487FB6E50C;
-	Thu, 26 Aug 2021 06:35:44 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96C7089A91;
- Thu, 26 Aug 2021 06:35:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="278689518"
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; 
- d="asc'?scan'208";a="278689518"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2021 23:35:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; 
- d="asc'?scan'208";a="527640870"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.143])
- by FMSMGA003.fm.intel.com with ESMTP; 25 Aug 2021 23:35:18 -0700
-Date: Thu, 26 Aug 2021 14:12:19 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Luis Chamberlain <mcgrof@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>, Jason Gunthorpe <jgg@nvidia.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Greg KH <gregkh@linuxfoundation.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "Wang, Zhi A" <zhi.a.wang@intel.com>, Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20210826061219.GD9942@zhen-hp.sh.intel.com>
-References: <20210729072022.GB31896@lst.de>
- <20210803094315.GF13928@zhen-hp.sh.intel.com>
- <20210803143058.GA1721383@nvidia.com>
- <20210804052606.GG13928@zhen-hp.sh.intel.com>
- <20210816173458.GA9183@lst.de>
- <20210817010851.GW13928@zhen-hp.sh.intel.com>
- <20210817052203.GX13928@zhen-hp.sh.intel.com>
- <20210819082929.GB13928@zhen-hp.sh.intel.com>
- <20210820141724.GA29034@lst.de>
- <YSAI8pKAvvW/8S2O@bombadil.infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22D276E513;
+	Thu, 26 Aug 2021 06:48:02 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D5EC6E513;
+ Thu, 26 Aug 2021 06:48:01 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="204816334"
+X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="204816334"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2021 23:48:01 -0700
+X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="516381278"
+Received: from lapeders-mobl.ger.corp.intel.com (HELO
+ thellstr-mobl1.intel.com) ([10.249.254.132])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2021 23:47:58 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Brost Matthew <matthew.brost@intel.com>
+Date: Thu, 26 Aug 2021 08:47:50 +0200
+Message-Id: <20210826064750.372557-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="GZVR6ND4mMseVXL/"
-Content-Disposition: inline
-In-Reply-To: <YSAI8pKAvvW/8S2O@bombadil.infradead.org>
-Subject: Re: [Intel-gfx] refactor the i915 GVT support
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/gt: Register the migrate contexts with
+ their engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,64 +61,162 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Pinned contexts, like the migrate contexts need reset after resume
+since their context image may have been lost. Also the GuC needs to
+register pinned contexts.
 
---GZVR6ND4mMseVXL/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add a list to struct intel_engine_cs where we add all pinned contexts on
+creation, and traverse that list at __engine_unpark() time to reset the
+pinned contexts.
 
-On 2021.08.20 12:56:34 -0700, Luis Chamberlain wrote:
-> On Fri, Aug 20, 2021 at 04:17:24PM +0200, Christoph Hellwig wrote:
-> > On Thu, Aug 19, 2021 at 04:29:29PM +0800, Zhenyu Wang wrote:
-> > > I'm working on below patch to resolve this. But I met a weird issue in
-> > > case when building i915 as module and also kvmgt module, it caused
-> > > busy wait on request_module("kvmgt") when boot, it doesn't happen if
-> > > building i915 into kernel. I'm not sure what could be the reason?
-> >=20
-> > Luis, do you know if there is a problem with a request_module from
-> > a driver ->probe routine that is probably called by a module_init
-> > function itself?
->=20
-> Generally no, but you can easily foot yourself in the feet by creating
-> cross dependencies and not dealing with them properly. I'd make sure
-> to keep module initialization as simple as possible, and run whatever
-> takes more time asynchronously, then use a state machine to allow
-> you to verify where you are in the initialization phase or query it
-> or wait for a completion with a timeout.
->=20
-> It seems the code in question is getting some spring cleaning, and its
-> unclear where the code is I can inspect. If there's a tree somewhere I
-> can take a peak I'd be happy to review possible oddities that may stick
-> out.
+This fixes the kms_pipe_crc_basic@suspend-read-crc-pipe-a selftest for now,
+but proper LMEM backup / restore is needed for full suspend functionality.
+However, note that even with full LMEM backup / restore it may be
+desirable to keep the reset since backing up the migrate context images
+must happen using memcpy() after the migrate context has become inactive,
+and for performance- and other reasons we want to avoid memcpy() from
+LMEM.
 
-I tried to put current patches under test here: https://github.com/intel/gv=
-t-linux/tree/gvt-staging
-The issue can be produced with CONFIG_DRM_I915=3Dm and CONFIG_DRM_I915_GVT_=
-KVMGT=3Dm.
+Also traverse the list at guc_init_lrc_mapping() calling
+guc_kernel_context_pin() for the pinned contexts, like is already done
+for the kernel context.
 
->=20
-> My goto model for these sorts of problems is to abstract the issue
-> *outside* of the driver in question and implement new selftests to
-> try to reproduce. This serves two purposes, 1) helps with testing
-> 2) may allow you to see the problem more clearly.
->=20
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Brost Matthew <matthew.brost@intel.com>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_context_types.h     |  8 ++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c         |  4 ++++
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c         |  9 +++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_types.h      |  7 +++++++
+ drivers/gpu/drm/i915/gt/mock_engine.c             |  1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 10 +++++++---
+ 6 files changed, 36 insertions(+), 3 deletions(-)
 
-I'll see if can abstract that.
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index e54351a170e2..a63631ea0ec4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -152,6 +152,14 @@ struct intel_context {
+ 	/** sseu: Control eu/slice partitioning */
+ 	struct intel_sseu sseu;
+ 
++	/**
++	 * pinned_contexts_link: List link for the engine's pinned contexts.
++	 * This is only used if this is a perma-pinned kernel context and
++	 * the list is assumed to only be manipulated during driver load
++	 * or unload time so no mutex protection currently.
++	 */
++	struct list_head pinned_contexts_link;
++
+ 	u8 wa_bb_page; /* if set, page num reserved for context workarounds */
+ 
+ 	struct {
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 332efea696a5..c606a4714904 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -320,6 +320,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+ 
+ 	BUILD_BUG_ON(BITS_PER_TYPE(engine->mask) < I915_NUM_ENGINES);
+ 
++	INIT_LIST_HEAD(&engine->pinned_contexts_list);
+ 	engine->id = id;
+ 	engine->legacy_idx = INVALID_ENGINE;
+ 	engine->mask = BIT(id);
+@@ -875,6 +876,8 @@ intel_engine_create_pinned_context(struct intel_engine_cs *engine,
+ 		return ERR_PTR(err);
+ 	}
+ 
++	list_add_tail(&ce->pinned_contexts_link, &engine->pinned_contexts_list);
++
+ 	/*
+ 	 * Give our perma-pinned kernel timelines a separate lockdep class,
+ 	 * so that we can use them from within the normal user timelines
+@@ -897,6 +900,7 @@ void intel_engine_destroy_pinned_context(struct intel_context *ce)
+ 	list_del(&ce->timeline->engine_link);
+ 	mutex_unlock(&hwsp->vm->mutex);
+ 
++	list_del(&ce->pinned_contexts_link);
+ 	intel_context_unpin(ce);
+ 	intel_context_put(ce);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index 1f07ac4e0672..3a5cbbf3e3fe 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -72,6 +72,15 @@ static int __engine_unpark(struct intel_wakeref *wf)
+ 			   READ_ONCE(*ce->timeline->hwsp_seqno));
+ 	}
+ 
++	list_for_each_entry(ce, &engine->pinned_contexts_list,
++			    pinned_contexts_link) {
++		if (ce == engine->kernel_context)
++			continue;
++
++		dbg_poison_ce(ce);
++		ce->ops->reset(ce);
++	}
++
+ 	if (engine->unpark)
+ 		engine->unpark(engine);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index bfbfe53c23dd..5ae1207c363b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -307,6 +307,13 @@ struct intel_engine_cs {
+ 
+ 	struct intel_context *kernel_context; /* pinned */
+ 
++	/**
++	 * pinned_contexts_list: List of pinned contexts. This list is only
++	 * assumed to be manipulated during driver load- or unload time and
++	 * does therefore not have any additional protection.
++	 */
++	struct list_head pinned_contexts_list;
++
+ 	intel_engine_mask_t saturated; /* submitting semaphores too late? */
+ 
+ 	struct {
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index 2c1af030310c..8a14982a9691 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -376,6 +376,7 @@ int mock_engine_init(struct intel_engine_cs *engine)
+ {
+ 	struct intel_context *ce;
+ 
++	INIT_LIST_HEAD(&engine->pinned_contexts_list);
+ 	engine->sched_engine = i915_sched_engine_create(ENGINE_MOCK);
+ 	if (!engine->sched_engine)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 87d8dc8f51b9..55709206b95e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -2385,9 +2385,13 @@ static inline void guc_init_lrc_mapping(struct intel_guc *guc)
+ 	 * and even it did this code would be run again.
+ 	 */
+ 
+-	for_each_engine(engine, gt, id)
+-		if (engine->kernel_context)
+-			guc_kernel_context_pin(guc, engine->kernel_context);
++	for_each_engine(engine, gt, id) {
++		struct intel_context *ce;
++
++		list_for_each_entry(ce, &engine->pinned_contexts_list,
++				    pinned_contexts_link)
++			guc_kernel_context_pin(guc, ce);
++	}
+ }
+ 
+ static void guc_release(struct intel_engine_cs *engine)
+-- 
+2.31.1
 
-Thanks, Luis.
-
---GZVR6ND4mMseVXL/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYScwwwAKCRCxBBozTXgY
-J4yKAJ0d9jcEa21+qw9af0hJvQT2LXk0WACggn/GD2G8nFh6SY4kc8+7qqXkpi0=
-=fIjO
------END PGP SIGNATURE-----
-
---GZVR6ND4mMseVXL/--
