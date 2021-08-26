@@ -2,33 +2,33 @@ Return-Path: <SRS0=HVxp=NR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 589DCC4320A
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 557BFC432BE
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1DBDB610A7
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1DBDB610A7
+	by mail.kernel.org (Postfix) with ESMTPS id 22603610A7
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 22603610A7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F3FE6E4F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D5AE6E507;
 	Thu, 26 Aug 2021 03:28:47 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69E996E4D7;
- Thu, 26 Aug 2021 03:28:42 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="215811075"
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="215811075"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8976E4B6;
+ Thu, 26 Aug 2021 03:28:41 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="215811064"
+X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="215811064"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Aug 2021 20:28:40 -0700
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="684738564"
+X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="684738533"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Aug 2021 20:28:39 -0700
@@ -36,15 +36,15 @@ From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniele.ceraolospurio@intel.com>
-Date: Wed, 25 Aug 2021 20:23:16 -0700
-Message-Id: <20210826032327.18078-17-matthew.brost@intel.com>
+Date: Wed, 25 Aug 2021 20:23:06 -0700
+Message-Id: <20210826032327.18078-7-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210826032327.18078-1-matthew.brost@intel.com>
 References: <20210826032327.18078-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 16/27] drm/i915: Allocate error capture in
- nowait context
+Subject: [Intel-gfx] [PATCH 06/27] drm/i915/guc: Workaround reset G2H is
+ received after schedule done G2H
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,181 +60,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Error captures can now be done in a work queue processing G2H messages.
-These messages need to be completely done being processed in the reset
-path, to avoid races in the missing G2H cleanup, which create a
-dependency on memory allocations and dma fences (i915_requests).
-Requests depend on resets, thus now we have a circular dependency. To
-work around this, allocate the error capture in a nowait context.
+If the context is reset as a result of the request cancellation the
+context reset G2H is received after schedule disable done G2H which is
+the wrong order. The schedule disable done G2H release the waiting
+request cancellation code which resubmits the context. This races
+with the context reset G2H which also wants to resubmit the context but
+in this case it really should be a NOP as request cancellation code owns
+the resubmit. Use some clever tricks of checking the context state to
+seal this race until the GuC firmware is fixed.
 
 v2:
- (Daniel Vetter)
-  - Use GFP_NOWAIT instead GFP_ATOMIC
+ (Checkpatch)
+  - Fix typos
+v3:
+ (Daniele)
+  - State that is a bug in the GuC firmware
 
-Fixes: dc0dad365c5e ("Fix for error capture after full GPU reset with GuC")
-Fixes: 573ba126aef3 ("Capture error state on context reset")
+Fixes: 62eaf0ae217d ("drm/i915/guc: Support request cancellation")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/gpu/drm/i915/i915_gpu_error.c | 39 +++++++++++++--------------
- 1 file changed, 19 insertions(+), 20 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 41 ++++++++++++++++---
+ 1 file changed, 35 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index b9f66dbd46bb..8696ead02118 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -49,8 +49,7 @@
- #include "i915_memcpy.h"
- #include "i915_scatterlist.h"
- 
--#define ALLOW_FAIL (GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
--#define ATOMIC_MAYFAIL (GFP_ATOMIC | __GFP_NOWARN)
-+#define ATOMIC_MAYFAIL (GFP_NOWAIT | __GFP_NOWARN)
- 
- static void __sg_set_buf(struct scatterlist *sg,
- 			 void *addr, unsigned int len, loff_t it)
-@@ -79,7 +78,7 @@ static bool __i915_error_grow(struct drm_i915_error_state_buf *e, size_t len)
- 	if (e->cur == e->end) {
- 		struct scatterlist *sgl;
- 
--		sgl = (typeof(sgl))__get_free_page(ALLOW_FAIL);
-+		sgl = (typeof(sgl))__get_free_page(ATOMIC_MAYFAIL);
- 		if (!sgl) {
- 			e->err = -ENOMEM;
- 			return false;
-@@ -99,10 +98,10 @@ static bool __i915_error_grow(struct drm_i915_error_state_buf *e, size_t len)
- 	}
- 
- 	e->size = ALIGN(len + 1, SZ_64K);
--	e->buf = kmalloc(e->size, ALLOW_FAIL);
-+	e->buf = kmalloc(e->size, ATOMIC_MAYFAIL);
- 	if (!e->buf) {
- 		e->size = PAGE_ALIGN(len + 1);
--		e->buf = kmalloc(e->size, GFP_KERNEL);
-+		e->buf = kmalloc(e->size, ATOMIC_MAYFAIL);
- 	}
- 	if (!e->buf) {
- 		e->err = -ENOMEM;
-@@ -243,12 +242,12 @@ static bool compress_init(struct i915_vma_compress *c)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index d94e7e1a876f..592b421e1429 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -831,17 +831,33 @@ __unwind_incomplete_requests(struct intel_context *ce)
+ static void __guc_reset_context(struct intel_context *ce, bool stalled)
  {
- 	struct z_stream_s *zstream = &c->zstream;
+ 	struct i915_request *rq;
++	unsigned long flags;
+ 	u32 head;
++	bool skip = false;
  
--	if (pool_init(&c->pool, ALLOW_FAIL))
-+	if (pool_init(&c->pool, ATOMIC_MAYFAIL))
- 		return false;
+ 	intel_context_get(ce);
  
- 	zstream->workspace =
- 		kmalloc(zlib_deflate_workspacesize(MAX_WBITS, MAX_MEM_LEVEL),
--			ALLOW_FAIL);
-+			ATOMIC_MAYFAIL);
- 	if (!zstream->workspace) {
- 		pool_fini(&c->pool);
- 		return false;
-@@ -256,7 +255,7 @@ static bool compress_init(struct i915_vma_compress *c)
- 
- 	c->tmp = NULL;
- 	if (i915_has_memcpy_from_wc())
--		c->tmp = pool_alloc(&c->pool, ALLOW_FAIL);
-+		c->tmp = pool_alloc(&c->pool, ATOMIC_MAYFAIL);
- 
- 	return true;
- }
-@@ -280,7 +279,7 @@ static void *compress_next_page(struct i915_vma_compress *c,
- 	if (dst->page_count >= dst->num_pages)
- 		return ERR_PTR(-ENOSPC);
- 
--	page = pool_alloc(&c->pool, ALLOW_FAIL);
-+	page = pool_alloc(&c->pool, ATOMIC_MAYFAIL);
- 	if (!page)
- 		return ERR_PTR(-ENOMEM);
- 
-@@ -376,7 +375,7 @@ struct i915_vma_compress {
- 
- static bool compress_init(struct i915_vma_compress *c)
- {
--	return pool_init(&c->pool, ALLOW_FAIL) == 0;
-+	return pool_init(&c->pool, ATOMIC_MAYFAIL) == 0;
- }
- 
- static bool compress_start(struct i915_vma_compress *c)
-@@ -391,7 +390,7 @@ static int compress_page(struct i915_vma_compress *c,
- {
- 	void *ptr;
- 
--	ptr = pool_alloc(&c->pool, ALLOW_FAIL);
-+	ptr = pool_alloc(&c->pool, ATOMIC_MAYFAIL);
- 	if (!ptr)
- 		return -ENOMEM;
- 
-@@ -1026,7 +1025,7 @@ i915_vma_coredump_create(const struct intel_gt *gt,
- 
- 	num_pages = min_t(u64, vma->size, vma->obj->base.size) >> PAGE_SHIFT;
- 	num_pages = DIV_ROUND_UP(10 * num_pages, 8); /* worstcase zlib growth */
--	dst = kmalloc(sizeof(*dst) + num_pages * sizeof(u32 *), ALLOW_FAIL);
-+	dst = kmalloc(sizeof(*dst) + num_pages * sizeof(u32 *), ATOMIC_MAYFAIL);
- 	if (!dst)
- 		return NULL;
- 
-@@ -1462,7 +1461,7 @@ capture_engine(struct intel_engine_cs *engine,
- 	struct i915_request *rq = NULL;
- 	unsigned long flags;
- 
--	ee = intel_engine_coredump_alloc(engine, GFP_KERNEL);
-+	ee = intel_engine_coredump_alloc(engine, ATOMIC_MAYFAIL);
- 	if (!ee)
- 		return NULL;
- 
-@@ -1510,7 +1509,7 @@ gt_record_engines(struct intel_gt_coredump *gt,
- 		struct intel_engine_coredump *ee;
- 
- 		/* Refill our page pool before entering atomic section */
--		pool_refill(&compress->pool, ALLOW_FAIL);
-+		pool_refill(&compress->pool, ATOMIC_MAYFAIL);
- 
- 		ee = capture_engine(engine, compress);
- 		if (!ee)
-@@ -1536,7 +1535,7 @@ gt_record_uc(struct intel_gt_coredump *gt,
- 	const struct intel_uc *uc = &gt->_gt->uc;
- 	struct intel_uc_coredump *error_uc;
- 
--	error_uc = kzalloc(sizeof(*error_uc), ALLOW_FAIL);
-+	error_uc = kzalloc(sizeof(*error_uc), ATOMIC_MAYFAIL);
- 	if (!error_uc)
- 		return NULL;
- 
-@@ -1547,8 +1546,8 @@ gt_record_uc(struct intel_gt_coredump *gt,
- 	 * As modparams are generally accesible from the userspace make
- 	 * explicit copies of the firmware paths.
+ 	/*
+-	 * GuC will implicitly mark the context as non-schedulable
+-	 * when it sends the reset notification. Make sure our state
+-	 * reflects this change. The context will be marked enabled
+-	 * on resubmission.
++	 * GuC will implicitly mark the context as non-schedulable when it sends
++	 * the reset notification. Make sure our state reflects this change. The
++	 * context will be marked enabled on resubmission.
++	 *
++	 * XXX: If the context is reset as a result of the request cancellation
++	 * this G2H is received after the schedule disable complete G2H which is
++	 * wrong as this creates a race between the request cancellation code
++	 * re-submitting the context and this G2H handler. This is a bug in the
++	 * GuC but can be worked around in the meantime but converting this to a
++	 * NOP if a pending enable is in flight as this indicates that a request
++	 * cancellation has occurred.
  	 */
--	error_uc->guc_fw.path = kstrdup(uc->guc.fw.path, ALLOW_FAIL);
--	error_uc->huc_fw.path = kstrdup(uc->huc.fw.path, ALLOW_FAIL);
-+	error_uc->guc_fw.path = kstrdup(uc->guc.fw.path, ATOMIC_MAYFAIL);
-+	error_uc->huc_fw.path = kstrdup(uc->huc.fw.path, ATOMIC_MAYFAIL);
- 	error_uc->guc_log =
- 		i915_vma_coredump_create(gt->_gt,
- 					 uc->guc.log.vma, "GuC log buffer",
-@@ -1815,7 +1814,7 @@ i915_vma_capture_prepare(struct intel_gt_coredump *gt)
+-	clr_context_enabled(ce);
++	spin_lock_irqsave(&ce->guc_state.lock, flags);
++	if (likely(!context_pending_enable(ce)))
++		clr_context_enabled(ce);
++	else
++		skip = true;
++	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++	if (unlikely(skip))
++		goto out_put;
+ 
+ 	rq = intel_context_find_active_request(ce);
+ 	if (!rq) {
+@@ -860,6 +876,7 @@ static void __guc_reset_context(struct intel_context *ce, bool stalled)
+ out_replay:
+ 	guc_reset_state(ce, head, stalled);
+ 	__unwind_incomplete_requests(ce);
++out_put:
+ 	intel_context_put(ce);
+ }
+ 
+@@ -1604,6 +1621,13 @@ static void guc_context_cancel_request(struct intel_context *ce,
+ 			guc_reset_state(ce, intel_ring_wrap(ce->ring, rq->head),
+ 					true);
+ 		}
++
++		/*
++		 * XXX: Racey if context is reset, see comment in
++		 * __guc_reset_context().
++		 */
++		flush_work(&ce_to_guc(ce)->ct.requests.worker);
++
+ 		guc_context_unblock(ce);
+ 	}
+ }
+@@ -2718,7 +2742,12 @@ static void guc_handle_context_reset(struct intel_guc *guc,
  {
- 	struct i915_vma_compress *compress;
+ 	trace_intel_context_reset(ce);
  
--	compress = kmalloc(sizeof(*compress), ALLOW_FAIL);
-+	compress = kmalloc(sizeof(*compress), ATOMIC_MAYFAIL);
- 	if (!compress)
- 		return NULL;
- 
-@@ -1848,11 +1847,11 @@ i915_gpu_coredump(struct intel_gt *gt, intel_engine_mask_t engine_mask)
- 	if (IS_ERR(error))
- 		return error;
- 
--	error = i915_gpu_coredump_alloc(i915, ALLOW_FAIL);
-+	error = i915_gpu_coredump_alloc(i915, ATOMIC_MAYFAIL);
- 	if (!error)
- 		return ERR_PTR(-ENOMEM);
- 
--	error->gt = intel_gt_coredump_alloc(gt, ALLOW_FAIL);
-+	error->gt = intel_gt_coredump_alloc(gt, ATOMIC_MAYFAIL);
- 	if (error->gt) {
- 		struct i915_vma_compress *compress;
- 
+-	if (likely(!intel_context_is_banned(ce))) {
++	/*
++	 * XXX: Racey if request cancellation has occurred, see comment in
++	 * __guc_reset_context().
++	 */
++	if (likely(!intel_context_is_banned(ce) &&
++		   !context_blocked(ce))) {
+ 		capture_error_state(guc, ce);
+ 		guc_context_replay(ce);
+ 	}
 -- 
 2.32.0
 
