@@ -5,30 +5,30 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E216C4320E
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DF557C43216
 	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2029610A7
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F2029610A7
+	by mail.kernel.org (Postfix) with ESMTPS id B066A61008
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 03:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B066A61008
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 922756E508;
-	Thu, 26 Aug 2021 03:28:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8F96E503;
+	Thu, 26 Aug 2021 03:28:50 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B0206E4C7;
- Thu, 26 Aug 2021 03:28:41 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="215811065"
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="215811065"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80D536E4C7;
+ Thu, 26 Aug 2021 03:28:42 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="215811076"
+X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="215811076"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Aug 2021 20:28:40 -0700
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="684738537"
+X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="684738568"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Aug 2021 20:28:39 -0700
@@ -36,15 +36,15 @@ From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
 Cc: <daniele.ceraolospurio@intel.com>
-Date: Wed, 25 Aug 2021 20:23:07 -0700
-Message-Id: <20210826032327.18078-8-matthew.brost@intel.com>
+Date: Wed, 25 Aug 2021 20:23:17 -0700
+Message-Id: <20210826032327.18078-18-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210826032327.18078-1-matthew.brost@intel.com>
 References: <20210826032327.18078-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/27] Revert "drm/i915/gt: Propagate change in
- error status to children on unhold"
+Subject: [Intel-gfx] [PATCH 17/27] drm/i915/guc: Flush G2H work queue during
+ reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,44 +60,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Propagating errors to dependent fences is broken and can lead to
-errors from one client ending up in another.  In 3761baae908a (Revert
-"drm/i915: Propagate errors on awaiting already signaled fences"), we
-attempted to get rid of fence error propagation but missed the case
-added in 8e9f84cf5cac ("drm/i915/gt: Propagate change in error status
-to children on unhold").  Revert that one too.  This error was found
-by an up-and-coming selftest which triggers a reset during request
-cancellation and verifies that subsequent requests complete
-successfully.
+It isn't safe to scrub for missing G2H or continue with the reset until
+all G2H processing is complete. Flush the G2H work queue during reset to
+ensure it is done running. No need to call the IRQ handler directly
+either as the scrubbing code can deal with any missing G2H.
 
-v2:
- (Daniel Vetter)
-  - Use revert
-v3:
- (Jason)
-  - Update commit message
-
-References: '3761baae908a ("Revert "drm/i915: Propagate errors on awaiting already signaled fences"")'
+Fixes: eb5e7da736f3 ("drm/i915/guc: Reset implementation for new GuC interface")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 4 ----
- 1 file changed, 4 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c  | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index de5f9c86b9a4..cafb0608ffb4 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2140,10 +2140,6 @@ static void __execlists_unhold(struct i915_request *rq)
- 			if (p->flags & I915_DEPENDENCY_WEAK)
- 				continue;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 2949dce57489..baf789f37d42 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -714,8 +714,6 @@ static void guc_flush_submissions(struct intel_guc *guc)
  
--			/* Propagate any change in error status */
--			if (rq->fence.error)
--				i915_request_set_error_once(w, rq->fence.error);
+ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ {
+-	int i;
 -
- 			if (w->engine != rq->engine)
- 				continue;
+ 	if (unlikely(!guc_submission_initialized(guc))) {
+ 		/* Reset called during driver load? GuC not yet initialised! */
+ 		return;
+@@ -731,20 +729,8 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ 
+ 	guc_flush_submissions(guc);
+ 
+-	/*
+-	 * Handle any outstanding G2Hs before reset. Call IRQ handler directly
+-	 * each pass as interrupt have been disabled. We always scrub for
+-	 * outstanding G2H as it is possible for outstanding_submission_g2h to
+-	 * be incremented after the context state update.
+-	 */
+-	for (i = 0; i < 4 && atomic_read(&guc->outstanding_submission_g2h); ++i) {
+-		intel_guc_to_host_event_handler(guc);
+-#define wait_for_reset(guc, wait_var) \
+-		intel_guc_wait_for_pending_msg(guc, wait_var, false, (HZ / 20))
+-		do {
+-			wait_for_reset(guc, &guc->outstanding_submission_g2h);
+-		} while (!list_empty(&guc->ct.requests.incoming));
+-	}
++	flush_work(&guc->ct.requests.worker);
++
+ 	scrub_guc_desc_for_outstanding_g2h(guc);
+ }
  
 -- 
 2.32.0
