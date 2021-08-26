@@ -2,68 +2,45 @@ Return-Path: <SRS0=HVxp=NR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B48FC432BE
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 05:59:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AEE7C432BE
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 06:21:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 24FDB610CA
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 05:59:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 24FDB610CA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 54B5760EE4
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Aug 2021 06:21:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 54B5760EE4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A65D06E4F1;
-	Thu, 26 Aug 2021 05:59:47 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEA3F6E4F1
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Aug 2021 05:59:45 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="239867092"
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="239867092"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2021 22:59:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,352,1620716400"; d="scan'208";a="598371283"
-Received: from irsmsx603.ger.corp.intel.com ([163.33.146.9])
- by fmsmga001.fm.intel.com with ESMTP; 25 Aug 2021 22:59:44 -0700
-Received: from bgsmsx602.gar.corp.intel.com (10.109.78.81) by
- irsmsx603.ger.corp.intel.com (163.33.146.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.10; Thu, 26 Aug 2021 06:59:43 +0100
-Received: from bgsmsx602.gar.corp.intel.com ([10.109.78.81]) by
- BGSMSX602.gar.corp.intel.com ([10.109.78.81]) with mapi id 15.01.2242.010;
- Thu, 26 Aug 2021 11:29:42 +0530
-From: "Kulkarni, Vandita" <vandita.kulkarni@intel.com>
-To: "Nikula, Jani" <jani.nikula@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [v2] drm/i915/dsi/xelpd: Add WA to program LP to HS wakeup
- guardband
-Thread-Index: AQHXl9i3dqRtpcRWPkicLvm9xUF+YauD6XMAgAFlwwA=
-Date: Thu, 26 Aug 2021 05:59:41 +0000
-Message-ID: <dc4ddc0899954b76852d7308f617fb2c@intel.com>
-References: <20210823032136.2564-2-vandita.kulkarni@intel.com>
- <20210823043837.24517-1-vandita.kulkarni@intel.com>
- <87ilztehwl.fsf@intel.com>
-In-Reply-To: <87ilztehwl.fsf@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [10.223.10.1]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFD2F6E508;
+	Thu, 26 Aug 2021 06:21:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CEC476E509;
+ Thu, 26 Aug 2021 06:21:13 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C4931A008A;
+ Thu, 26 Aug 2021 06:21:13 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0058353297694043343=="
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [v2] drm/i915/dsi/xelpd: Add WA to program LP to HS
- wakeup guardband
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matt Roper" <matthew.d.roper@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 Aug 2021 06:21:13 -0000
+Message-ID: <162995887377.15049.11166709675948250964@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210826033559.1209020-1-matthew.d.roper@intel.com>
+In-Reply-To: <20210826033559.1209020-1-matthew.d.roper@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Ensure_wa=5Finit=5Ffinish=28=29_is_called_for_ctx_work?=
+ =?utf-8?q?around_list?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,120 +53,210 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thanks for the review. Have fixed in the latest version, will merge once CI=
- is green.
-> -----Original Message-----
-> From: Nikula, Jani <jani.nikula@intel.com>
-> Sent: Wednesday, August 25, 2021 7:38 PM
-> To: Kulkarni, Vandita <vandita.kulkarni@intel.com>; intel-
-> gfx@lists.freedesktop.org
-> Cc: Kulkarni, Vandita <vandita.kulkarni@intel.com>
-> Subject: Re: [v2] drm/i915/dsi/xelpd: Add WA to program LP to HS wakeup
-> guardband
->=20
-> On Mon, 23 Aug 2021, Vandita Kulkarni <vandita.kulkarni@intel.com> wrote:
-> > Wa_16012360555 SW will have to program the "LP to HS Wakeup
-> Guardband"
-> > field to account for the repeaters on the HS Request/Ready PPI
-> > signaling between the Display engine and the DPHY.
-> >
-> > v2: Fix build issue.
-> >
-> > Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/icl_dsi.c | 25
-> +++++++++++++++++++++++++
-> >  drivers/gpu/drm/i915/i915_reg.h        |  8 ++++++++
-> >  2 files changed, 33 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c
-> > b/drivers/gpu/drm/i915/display/icl_dsi.c
-> > index 43ec7fcd3f5d..b075defb88bb 100644
-> > --- a/drivers/gpu/drm/i915/display/icl_dsi.c
-> > +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-> > @@ -1270,6 +1270,28 @@ static void icl_apply_kvmr_pipe_a_wa(struct
-> intel_encoder *encoder,
-> >  			     IGNORE_KVMR_PIPE_A,
-> >  			     enable ? IGNORE_KVMR_PIPE_A : 0);  }
-> > +
-> > +/*
-> > + * Wa_16012360555:ADLP
->=20
-> It should be adl-p, i.e. lower case and with a hyphen.
->=20
-> > + * SW will have to program the "LP to HS Wakeup Guardband"
-> > + * field (bits 15:12) of register offset 0x6B0C0 (DSI0)
-> > + * and 0x6B8C0 (DSI1) to a value of 4 to account for the repeaters
-> > + * on the HS Request/Ready PPI signaling between
-> > + * the Display engine and the DPHY.
-> > + */
->=20
-> I think that's a bit verbose for the comment. In particular the register
-> addresses and bits and values are redundant with the code.
->=20
-> > +static void adlp_set_lp_hs_wakeup_gb(struct intel_encoder *encoder) {
-> > +	struct drm_i915_private *dev_priv =3D to_i915(encoder->base.dev);
->=20
-> i915 variable name is preferred for all new code.
->=20
-> > +	struct intel_dsi *intel_dsi =3D enc_to_intel_dsi(encoder);
-> > +	enum port port;
-> > +
-> > +	if (DISPLAY_VER(dev_priv) =3D=3D 13) {
-> > +		for_each_dsi_port(port, intel_dsi->ports)
-> > +			intel_de_rmw(dev_priv, TGL_DSI_CHKN_REG(port),
-> > +				     TGL_DSI_CHKN_LSHS_GB, 0x4);
-> > +	}
-> > +}
-> > +
-> >  static void gen11_dsi_enable(struct intel_atomic_state *state,
-> >  			     struct intel_encoder *encoder,
-> >  			     const struct intel_crtc_state *crtc_state, @@ -
-> 1283,6 +1305,9
-> > @@ static void gen11_dsi_enable(struct intel_atomic_state *state,
-> >  	/* Wa_1409054076:icl,jsl,ehl */
-> >  	icl_apply_kvmr_pipe_a_wa(encoder, crtc->pipe, true);
-> >
-> > +	/* Wa_16012360555: adlp */
->=20
-> No space after : and adl-p.
->=20
-> > +	adlp_set_lp_hs_wakeup_gb(encoder);
-> > +
-> >  	/* step6d: enable dsi transcoder */
-> >  	gen11_dsi_enable_transcoder(encoder);
-> >
-> > diff --git a/drivers/gpu/drm/i915/i915_reg.h
-> > b/drivers/gpu/drm/i915/i915_reg.h index 72dd3a6d205d..4c90d45343d6
-> > 100644
-> > --- a/drivers/gpu/drm/i915/i915_reg.h
-> > +++ b/drivers/gpu/drm/i915/i915_reg.h
-> > @@ -11614,6 +11614,14 @@ enum skl_power_gate {
-> >  						    _ICL_DSI_IO_MODECTL_1)
-> >  #define  COMBO_PHY_MODE_DSI				(1 << 0)
-> >
-> > +/* TGL DSI Chicken register */
-> > +#define _TGL_DSI_CHKN_REG_0			0x6B0C0
-> > +#define _TGL_DSI_CHKN_REG_1			0x6B8C0
-> > +#define TGL_DSI_CHKN_REG(port)		_MMIO_PORT(port,	\
-> > +						    _TGL_DSI_CHKN_REG_0, \
-> > +						    _TGL_DSI_CHKN_REG_1)
-> > +#define TGL_DSI_CHKN_LSHS_GB			(0xF << 12)
->=20
-> Please use REG_GENMASK(15, 12)
->=20
-> With the issues fixed,
->=20
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
->=20
->=20
-> > +
-> >  /* Display Stream Splitter Control */
-> >  #define DSS_CTL1				_MMIO(0x67400)
-> >  #define  SPLITTER_ENABLE			(1 << 31)
->=20
-> --
-> Jani Nikula, Intel Open Source Graphics Center
+--===============0058353297694043343==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: drm/i915: Ensure wa_init_finish() is called for ctx workaround list
+URL   : https://patchwork.freedesktop.org/series/94053/
+State : failure
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_10522 -> Patchwork_20897
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_20897 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_20897, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/index.html
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_20897:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-rkl-11600:       [PASS][1] -> [DMESG-FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10522/fi-rkl-11600/igt@i915_selftest@live@gt_heartbeat.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-11600/igt@i915_selftest@live@gt_heartbeat.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_20897 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@cs-gfx:
+    - fi-rkl-guc:         NOTRUN -> [SKIP][3] ([fdo#109315]) +17 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-guc/igt@amdgpu/amd_basic@cs-gfx.html
+
+  * igt@i915_selftest@live@gt_lrc:
+    - fi-rkl-guc:         NOTRUN -> [DMESG-WARN][4] ([i915#3958])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html
+
+  * igt@kms_cursor_legacy@basic-flip-after-cursor-legacy:
+    - fi-rkl-11600:       [PASS][5] -> [SKIP][6] ([fdo#111825])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10522/fi-rkl-11600/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-11600/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@workarounds:
+    - fi-rkl-guc:         [INCOMPLETE][7] ([i915#3920]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10522/fi-rkl-guc/igt@i915_selftest@live@workarounds.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-guc/igt@i915_selftest@live@workarounds.html
+
+  
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111825]: https://bugs.freedesktop.org/show_bug.cgi?id=111825
+  [i915#3920]: https://gitlab.freedesktop.org/drm/intel/issues/3920
+  [i915#3958]: https://gitlab.freedesktop.org/drm/intel/issues/3958
+
+
+Participating hosts (40 -> 33)
+------------------------------
+
+  Missing    (7): fi-ilk-m540 bat-adls-5 fi-hsw-4200u fi-tgl-1115g4 fi-bsw-cyan fi-bdw-samus bat-jsl-1 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_10522 -> Patchwork_20897
+
+  CI-20190529: 20190529
+  CI_DRM_10522: b9b50258869989a477e7c04ac6d21a6e3660048e @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6186: 250081b306c6fa8f95405fab6a7604f1968dd4ec @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_20897: 62aa62c0a572e2f0d442321e5dc197c51e896e1c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+62aa62c0a572 drm/i915: Ensure wa_init_finish() is called for ctx workaround list
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/index.html
+
+--===============0058353297694043343==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Ensure wa_init_finish() is called for ctx workaround list</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/94053/">https://patchwork.freedesktop.org/series/94053/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_10522 -&gt; Patchwork_20897</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_20897 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_20897, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/index.html</p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_20897:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@gt_heartbeat:<ul>
+<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10522/fi-rkl-11600/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-11600/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_20897 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@cs-gfx:</p>
+<ul>
+<li>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-guc/igt@amdgpu/amd_basic@cs-gfx.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_lrc:</p>
+<ul>
+<li>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3958">i915#3958</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-flip-after-cursor-legacy:</p>
+<ul>
+<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10522/fi-rkl-11600/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-11600/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111825">fdo#111825</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@workarounds:<ul>
+<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10522/fi-rkl-guc/igt@i915_selftest@live@workarounds.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3920">i915#3920</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20897/fi-rkl-guc/igt@i915_selftest@live@workarounds.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (40 -&gt; 33)</h2>
+<p>Missing    (7): fi-ilk-m540 bat-adls-5 fi-hsw-4200u fi-tgl-1115g4 fi-bsw-cyan fi-bdw-samus bat-jsl-1 </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_10522 -&gt; Patchwork_20897</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_10522: b9b50258869989a477e7c04ac6d21a6e3660048e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6186: 250081b306c6fa8f95405fab6a7604f1968dd4ec @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_20897: 62aa62c0a572e2f0d442321e5dc197c51e896e1c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>62aa62c0a572 drm/i915: Ensure wa_init_finish() is called for ctx workaround list</p>
+
+</body>
+</html>
+
+--===============0058353297694043343==--
