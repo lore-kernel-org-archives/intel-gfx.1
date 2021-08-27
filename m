@@ -2,44 +2,49 @@ Return-Path: <SRS0=r//I=NS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3E29C432BE
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 14:21:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 230A0C432BE
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 14:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6DDBC60C40
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 14:21:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6DDBC60C40
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id D3F9260EFE
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Aug 2021 14:40:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D3F9260EFE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4E8A6E97A;
-	Fri, 27 Aug 2021 14:21:29 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 359476E975;
- Fri, 27 Aug 2021 14:21:29 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2DFBFA363C;
- Fri, 27 Aug 2021 14:21:29 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6074263645174491879=="
-MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Aug 2021 14:21:29 -0000
-Message-ID: <163007408918.12587.2131706885093931214@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210827133039.287075-1-tvrtko.ursulin@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7E506E987;
+	Fri, 27 Aug 2021 14:40:05 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CBE16E986;
+ Fri, 27 Aug 2021 14:40:04 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10089"; a="198207854"
+X-IronPort-AV: E=Sophos;i="5.84,356,1620716400"; d="scan'208";a="198207854"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2021 07:40:03 -0700
+X-IronPort-AV: E=Sophos;i="5.84,356,1620716400"; d="scan'208";a="538123918"
+Received: from aleenaha-mobl1.ger.corp.intel.com (HELO tursulin-mobl2.home)
+ ([10.213.228.247])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2021 07:40:01 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Date: Fri, 27 Aug 2021 15:39:41 +0100
+Message-Id: <20210827143941.287958-1-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210827133039.287075-1-tvrtko.ursulin@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Handle_Intel_igfx_+_Intel_dgfx_hybrid_graphics_setup?=
+References: <20210827133039.287075-1-tvrtko.ursulin@linux.intel.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2] drm/i915: Handle Intel igfx + Intel dgfx
+ hybrid graphics setup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,189 +57,173 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6074263645174491879==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-== Series Details ==
+In short this makes i915 work for hybrid setups (DRI_PRIME=1 with Mesa)
+when rendering is done on Intel dgfx and scanout/composition on Intel
+igfx.
 
-Series: drm/i915: Handle Intel igfx + Intel dgfx hybrid graphics setup
-URL   : https://patchwork.freedesktop.org/series/94105/
-State : success
+Before this patch the driver was not quite ready for that setup, mainly
+because it was able to emit a semaphore wait between the two GPUs, which
+results in deadlocks because semaphore target location in HWSP is neither
+shared between the two, nor mapped in both GGTT spaces.
 
-== Summary ==
+To fix it the patch adds an additional check to a couple of relevant code
+paths in order to prevent using semaphores for inter-engine
+synchronisation between different driver instances.
 
-CI Bug Log - changes from CI_DRM_10530 -> Patchwork_20909
-====================================================
+Patch also moves singly used i915_gem_object_last_write_engine to be
+private in its only calling unit (debugfs), while modifying it to only
+show activity belonging to the respective driver instance.
 
-Summary
--------
+What remains in this problem space is the question of the GEM busy ioctl.
+We have a somewhat ambigous comment there saying only status of native
+fences will be reported, which could be interpreted as either i915, or
+native to the drm fd. For now I have decided to leave that as is, meaning
+any i915 instance activity continues to be reported.
 
-  **SUCCESS**
+v2:
+ * Avoid adding rq->i915. (Chris)
 
-  No regressions found.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_object.h | 17 ----------
+ drivers/gpu/drm/i915/i915_debugfs.c        | 39 ++++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_request.c        | 12 ++++++-
+ 3 files changed, 47 insertions(+), 21 deletions(-)
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/index.html
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index 48112b9d76df..3043fcbd31bd 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -503,23 +503,6 @@ i915_gem_object_finish_access(struct drm_i915_gem_object *obj)
+ 	i915_gem_object_unpin_pages(obj);
+ }
+ 
+-static inline struct intel_engine_cs *
+-i915_gem_object_last_write_engine(struct drm_i915_gem_object *obj)
+-{
+-	struct intel_engine_cs *engine = NULL;
+-	struct dma_fence *fence;
+-
+-	rcu_read_lock();
+-	fence = dma_resv_get_excl_unlocked(obj->base.resv);
+-	rcu_read_unlock();
+-
+-	if (fence && dma_fence_is_i915(fence) && !dma_fence_is_signaled(fence))
+-		engine = to_request(fence)->engine;
+-	dma_fence_put(fence);
+-
+-	return engine;
+-}
+-
+ void i915_gem_object_set_cache_coherency(struct drm_i915_gem_object *obj,
+ 					 unsigned int cache_level);
+ void i915_gem_object_flush_if_display(struct drm_i915_gem_object *obj);
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index 04351a851586..55fd6191eb32 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -135,13 +135,46 @@ static const char *stringify_vma_type(const struct i915_vma *vma)
+ 	return "ppgtt";
+ }
+ 
++static char *
++last_write_engine(struct drm_i915_private *i915,
++		  struct drm_i915_gem_object *obj)
++{
++	struct intel_engine_cs *engine;
++	struct dma_fence *fence;
++	char *res = NULL;
++
++	rcu_read_lock();
++	fence = dma_resv_get_excl_unlocked(obj->base.resv);
++	rcu_read_unlock();
++
++	if (!fence || dma_fence_is_signaled(fence))
++		goto out;
++
++	if (!dma_fence_is_i915(fence)) {
++		res = "<external-fence>";
++		goto out;
++	}
++
++	engine = to_request(fence)->engine;
++	if (engine->gt->i915 != i915) {
++		res = "<external-i915>";
++		goto out;
++	}
++
++	res = engine->name;
++
++out:
++	dma_fence_put(fence);
++	return res;
++}
++
+ void
+ i915_debugfs_describe_obj(struct seq_file *m, struct drm_i915_gem_object *obj)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(obj->base.dev);
+-	struct intel_engine_cs *engine;
+ 	struct i915_vma *vma;
+ 	int pin_count = 0;
++	char *engine;
+ 
+ 	seq_printf(m, "%pK: %c%c%c %8zdKiB %02x %02x %s%s%s",
+ 		   &obj->base,
+@@ -230,9 +263,9 @@ i915_debugfs_describe_obj(struct seq_file *m, struct drm_i915_gem_object *obj)
+ 	if (i915_gem_object_is_framebuffer(obj))
+ 		seq_printf(m, " (fb)");
+ 
+-	engine = i915_gem_object_last_write_engine(obj);
++	engine = last_write_engine(dev_priv, obj);
+ 	if (engine)
+-		seq_printf(m, " (%s)", engine->name);
++		seq_printf(m, " (%s)", engine);
+ }
+ 
+ static int i915_gem_object_info(struct seq_file *m, void *data)
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index ce446716d092..64adf619fe82 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -1152,6 +1152,12 @@ __emit_semaphore_wait(struct i915_request *to,
+ 	return 0;
+ }
+ 
++static bool
++can_use_semaphore_wait(struct i915_request *to, struct i915_request *from)
++{
++	return to->engine->gt == from->engine->gt;
++}
++
+ static int
+ emit_semaphore_wait(struct i915_request *to,
+ 		    struct i915_request *from,
+@@ -1160,6 +1166,9 @@ emit_semaphore_wait(struct i915_request *to,
+ 	const intel_engine_mask_t mask = READ_ONCE(from->engine)->mask;
+ 	struct i915_sw_fence *wait = &to->submit;
+ 
++	if (!can_use_semaphore_wait(to, from))
++		goto await_fence;
++
+ 	if (!intel_context_use_semaphores(to->context))
+ 		goto await_fence;
+ 
+@@ -1263,7 +1272,8 @@ __i915_request_await_execution(struct i915_request *to,
+ 	 * immediate execution, and so we must wait until it reaches the
+ 	 * active slot.
+ 	 */
+-	if (intel_engine_has_semaphores(to->engine) &&
++	if (can_use_semaphore_wait(to, from) &&
++	    intel_engine_has_semaphores(to->engine) &&
+ 	    !i915_request_has_initial_breadcrumb(to)) {
+ 		err = __emit_semaphore_wait(to, from, from->fence.seqno - 1);
+ 		if (err < 0)
+-- 
+2.30.2
 
-Known issues
-------------
-
-  Here are the changes found in Patchwork_20909 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@cs-gfx:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][1] ([fdo#109271]) +4 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-kbl-soraka/igt@amdgpu/amd_basic@cs-gfx.html
-
-  * igt@core_hotunplug@unbind-rebind:
-    - fi-rkl-guc:         [PASS][2] -> [DMESG-WARN][3] ([i915#3925])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10530/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html
-
-  * igt@kms_force_connector_basic@force-connector-state:
-    - fi-rkl-11600:       [PASS][4] -> [FAIL][5] ([i915#3983])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10530/fi-rkl-11600/igt@kms_force_connector_basic@force-connector-state.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-rkl-11600/igt@kms_force_connector_basic@force-connector-state.html
-
-  * igt@runner@aborted:
-    - fi-rkl-guc:         NOTRUN -> [FAIL][6] ([i915#1602])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-rkl-guc/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@kms_chamelium@hdmi-hpd-fast:
-    - fi-icl-u2:          [DMESG-WARN][7] ([i915#2203] / [i915#2868]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10530/fi-icl-u2/igt@kms_chamelium@hdmi-hpd-fast.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-icl-u2/igt@kms_chamelium@hdmi-hpd-fast.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
-  [i915#2203]: https://gitlab.freedesktop.org/drm/intel/issues/2203
-  [i915#2868]: https://gitlab.freedesktop.org/drm/intel/issues/2868
-  [i915#3925]: https://gitlab.freedesktop.org/drm/intel/issues/3925
-  [i915#3983]: https://gitlab.freedesktop.org/drm/intel/issues/3983
-
-
-Participating hosts (38 -> 33)
-------------------------------
-
-  Missing    (5): fi-ilk-m540 bat-adls-5 fi-bsw-cyan bat-jsl-1 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_10530 -> Patchwork_20909
-
-  CI-20190529: 20190529
-  CI_DRM_10530: 63bca765c920120bd9746d9093190d82c4ace341 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6187: 1afd52c1471dafdf521eae431f3e228826de6de2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20909: 2758fcf46edb870b8a654d0a5de589b846b11861 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-2758fcf46edb drm/i915: Handle Intel igfx + Intel dgfx hybrid graphics setup
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/index.html
-
---===============6074263645174491879==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Handle Intel igfx + Intel dgfx hybrid graphics setup</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/94105/">https://patchwork.freedesktop.org/series/94105/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10530 -&gt; Patchwork_20909</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20909 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@cs-gfx:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-kbl-soraka/igt@amdgpu/amd_basic@cs-gfx.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +4 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@core_hotunplug@unbind-rebind:</p>
-<ul>
-<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10530/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-rkl-guc/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3925">i915#3925</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-connector-state:</p>
-<ul>
-<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10530/fi-rkl-11600/igt@kms_force_connector_basic@force-connector-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-rkl-11600/igt@kms_force_connector_basic@force-connector-state.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3983">i915#3983</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-rkl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_chamelium@hdmi-hpd-fast:<ul>
-<li>fi-icl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10530/fi-icl-u2/igt@kms_chamelium@hdmi-hpd-fast.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2203">i915#2203</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2868">i915#2868</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20909/fi-icl-u2/igt@kms_chamelium@hdmi-hpd-fast.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (38 -&gt; 33)</h2>
-<p>Missing    (5): fi-ilk-m540 bat-adls-5 fi-bsw-cyan bat-jsl-1 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_10530 -&gt; Patchwork_20909</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10530: 63bca765c920120bd9746d9093190d82c4ace341 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6187: 1afd52c1471dafdf521eae431f3e228826de6de2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20909: 2758fcf46edb870b8a654d0a5de589b846b11861 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>2758fcf46edb drm/i915: Handle Intel igfx + Intel dgfx hybrid graphics setup</p>
-
-</body>
-</html>
-
---===============6074263645174491879==--
