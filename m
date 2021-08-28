@@ -7,51 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 582A3C19F35
-	for <intel-gfx@archiver.kernel.org>; Sat, 28 Aug 2021 01:30:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 436C8C43214
+	for <intel-gfx@archiver.kernel.org>; Sat, 28 Aug 2021 01:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2845760F58
-	for <intel-gfx@archiver.kernel.org>; Sat, 28 Aug 2021 01:30:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2845760F58
+	by mail.kernel.org (Postfix) with ESMTPS id 1603A60F58
+	for <intel-gfx@archiver.kernel.org>; Sat, 28 Aug 2021 01:30:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1603A60F58
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 850776EA15;
-	Sat, 28 Aug 2021 01:30:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36F9A6E9F6;
+	Sat, 28 Aug 2021 01:30:12 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37C246EA01;
- Sat, 28 Aug 2021 01:29:50 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10089"; a="303630238"
-X-IronPort-AV: E=Sophos;i="5.84,358,1620716400"; d="scan'208";a="303630238"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1B26EA0A;
+ Sat, 28 Aug 2021 01:29:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10089"; a="303630242"
+X-IronPort-AV: E=Sophos;i="5.84,358,1620716400"; d="scan'208";a="303630242"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2021 18:29:50 -0700
-X-IronPort-AV: E=Sophos;i="5.84,358,1620716400"; d="scan'208";a="517537158"
+ 27 Aug 2021 18:29:52 -0700
+X-IronPort-AV: E=Sophos;i="5.84,358,1620716400"; d="scan'208";a="517537172"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2021 18:29:49 -0700
+ 27 Aug 2021 18:29:52 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Anshuman Gupta <anshuman.gupta@intel.com>,
- Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
- Huang Sean Z <sean.z.huang@intel.com>,
- Gaurav Kumar <kumar.gaurav@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+Cc: dri-devel@lists.freedesktop.org,
  Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Juston Li <juston.li@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Uma Shankar <uma.shankar@intel.com>
-Date: Fri, 27 Aug 2021 18:27:34 -0700
-Message-Id: <20210828012738.317661-14-daniele.ceraolospurio@intel.com>
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Fri, 27 Aug 2021 18:27:37 -0700
+Message-Id: <20210828012738.317661-17-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210828012738.317661-1-daniele.ceraolospurio@intel.com>
 References: <20210828012738.317661-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 13/17] drm/i915/pxp: Add plane decryption
- support
+Subject: [Intel-gfx] [PATCH v7 16/17] drm/i915/pxp: add PXP documentation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,255 +61,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Anshuman Gupta <anshuman.gupta@intel.com>
+Now that all the pieces are in place we can add a description of how the
+feature works. Also modify the comments in struct intel_pxp into
+kerneldoc.
 
-Add support to enable/disable PLANE_SURF Decryption Request bit.
-It requires only to enable plane decryption support when following
-condition met.
-1. PXP session is enabled.
-2. Buffer object is protected.
-
-v2:
-- Used gen fb obj user_flags instead gem_object_metadata. [Krishna]
-
-v3:
-- intel_pxp_gem_object_status() API changes.
-
-v4: use intel_pxp_is_active (Daniele)
-
-v5: rebase and use the new protected object status checker (Daniele)
-
-v6: used plane state for plane_decryption to handle async flip
-    as suggested by Ville.
-
-v7: check pxp session while plane decrypt state computation. [Ville]
-    removed pointless code. [Ville]
-
-v8 (Daniele): update PXP check
-
-v9: move decrypt check after icl_check_nv12_planes() when overlays
-    have fb set (Juston)
-
-v10 (Daniele): update PXP check again to match rework in earlier patches and
-don't consider protection valid if the object has not been used in an
-execbuf beforehand.
-
-Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-Cc: Huang Sean Z <sean.z.huang@intel.com>
-Cc: Gaurav Kumar <kumar.gaurav@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Juston Li <juston.li@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com> #v8
-Reviewed-by: Uma Shankar <uma.shankar@intel.com> #v9
+Cc: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  | 26 +++++++++++++++++++
- .../drm/i915/display/intel_display_types.h    |  3 +++
- .../drm/i915/display/skl_universal_plane.c    | 15 ++++++++---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
- drivers/gpu/drm/i915/i915_reg.h               |  1 +
- drivers/gpu/drm/i915/pxp/intel_pxp.c          |  9 ++++---
- drivers/gpu/drm/i915/pxp/intel_pxp.h          |  7 +++--
- 7 files changed, 54 insertions(+), 9 deletions(-)
+ Documentation/gpu/i915.rst                 |  8 ++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.c       | 28 +++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h | 47 ++++++++++++++++------
+ 3 files changed, 71 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index fe5ad599c218..f04d98fcea46 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -70,6 +70,8 @@
- #include "gt/intel_rps.h"
- #include "gt/gen8_ppgtt.h"
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index 204ebdaadb45..2e267ecd7651 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -474,6 +474,14 @@ Object Tiling IOCTLs
+ .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_tiling.c
+    :doc: buffer object tiling
  
-+#include "pxp/intel_pxp.h"
++Protected Objects
++-----------------
 +
- #include "g4x_dp.h"
- #include "g4x_hdmi.h"
- #include "i915_drv.h"
-@@ -9148,13 +9150,23 @@ static int intel_bigjoiner_add_affected_planes(struct intel_atomic_state *state)
- 	return 0;
- }
- 
-+static bool bo_has_valid_encryption(struct drm_i915_gem_object *obj)
-+{
-+	struct drm_i915_private *i915 = to_i915(obj->base.dev);
++.. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp.c
++   :doc: PXP
 +
-+	return intel_pxp_key_check(&i915->gt.pxp, obj, false) == 0;
-+}
++.. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp_types.h
 +
- static int intel_atomic_check_planes(struct intel_atomic_state *state)
- {
- 	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
- 	struct intel_crtc_state *old_crtc_state, *new_crtc_state;
- 	struct intel_plane_state *plane_state;
- 	struct intel_plane *plane;
-+	struct intel_plane_state *new_plane_state;
-+	struct intel_plane_state *old_plane_state;
- 	struct intel_crtc *crtc;
-+	const struct drm_framebuffer *fb;
- 	int i, ret;
+ Microcontrollers
+ ================
  
- 	ret = icl_add_linked_planes(state);
-@@ -9202,6 +9214,16 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
- 			return ret;
- 	}
- 
-+	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
-+		new_plane_state = intel_atomic_get_new_plane_state(state, plane);
-+		old_plane_state = intel_atomic_get_old_plane_state(state, plane);
-+		fb = new_plane_state->hw.fb;
-+		if (fb)
-+			new_plane_state->decrypt = bo_has_valid_encryption(intel_fb_obj(fb));
-+		else
-+			new_plane_state->decrypt = old_plane_state->decrypt;
-+	}
-+
- 	return 0;
- }
- 
-@@ -9488,6 +9510,10 @@ static int intel_atomic_check_async(struct intel_atomic_state *state)
- 			drm_dbg_kms(&i915->drm, "Color range cannot be changed in async flip\n");
- 			return -EINVAL;
- 		}
-+
-+		/* plane decryption is allow to change only in synchronous flips */
-+		if (old_plane_state->decrypt != new_plane_state->decrypt)
-+			return -EINVAL;
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index c7bcf9183447..6d4ea1d5bf7b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -629,6 +629,9 @@ struct intel_plane_state {
- 
- 	struct intel_fb_view view;
- 
-+	/* Plane pxp decryption state */
-+	bool decrypt;
-+
- 	/* plane control register */
- 	u32 ctl;
- 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 724e7b04f3b6..55e3f093b951 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -18,6 +18,7 @@
- #include "intel_sprite.h"
- #include "skl_scaler.h"
- #include "skl_universal_plane.h"
-+#include "pxp/intel_pxp.h"
- 
- static const u32 skl_plane_formats[] = {
- 	DRM_FORMAT_C8,
-@@ -1024,7 +1025,7 @@ skl_program_plane(struct intel_plane *plane,
- 	u8 alpha = plane_state->hw.alpha >> 8;
- 	u32 plane_color_ctl = 0, aux_dist = 0;
- 	unsigned long irqflags;
--	u32 keymsk, keymax;
-+	u32 keymsk, keymax, plane_surf;
- 	u32 plane_ctl = plane_state->ctl;
- 
- 	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
-@@ -1113,8 +1114,16 @@ skl_program_plane(struct intel_plane *plane,
- 	 * the control register just before the surface register.
- 	 */
- 	intel_de_write_fw(dev_priv, PLANE_CTL(pipe, plane_id), plane_ctl);
--	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id),
--			  intel_plane_ggtt_offset(plane_state) + surf_addr);
-+	plane_surf = intel_plane_ggtt_offset(plane_state) + surf_addr;
-+
-+	/*
-+	 * FIXME: pxp session invalidation can hit any time even at time of commit
-+	 * or after the commit, display content will be garbage.
-+	 */
-+	if (plane_state->decrypt)
-+		plane_surf |= PLANE_SURF_DECRYPT;
-+
-+	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id), plane_surf);
- 
- 	spin_unlock_irqrestore(&dev_priv->uncore.lock, irqflags);
- }
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index bd17741f462f..1b2e4d70896d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -836,7 +836,7 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
- 		 */
- 		if (i915_gem_context_uses_protected_content(eb->gem_context) &&
- 		    i915_gem_object_is_protected(obj)) {
--			err = intel_pxp_key_check(&vm->gt->pxp, obj);
-+			err = intel_pxp_key_check(&vm->gt->pxp, obj, true);
- 			if (err) {
- 				i915_gem_object_put(obj);
- 				return ERR_PTR(err);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 1d870c059d8c..148cfc859c63 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7357,6 +7357,7 @@ enum {
- #define _PLANE_SURF_3(pipe)	_PIPE(pipe, _PLANE_SURF_3_A, _PLANE_SURF_3_B)
- #define PLANE_SURF(pipe, plane)	\
- 	_MMIO_PLANE(plane, _PLANE_SURF_1(pipe), _PLANE_SURF_2(pipe))
-+#define   PLANE_SURF_DECRYPT			REG_BIT(2)
- 
- #define _PLANE_OFFSET_1_B			0x711a4
- #define _PLANE_OFFSET_2_B			0x712a4
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 045a8402ebb3..8c73ab0f2e7c 100644
+index 8c73ab0f2e7c..29e011cf7139 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -179,7 +179,9 @@ void intel_pxp_fini_hw(struct intel_pxp *pxp)
- 	intel_pxp_irq_disable(pxp);
- }
+@@ -11,6 +11,34 @@
+ #include "gt/intel_context.h"
+ #include "i915_drv.h"
  
--int intel_pxp_key_check(struct intel_pxp *pxp, struct drm_i915_gem_object *obj)
-+int intel_pxp_key_check(struct intel_pxp *pxp,
-+			struct drm_i915_gem_object *obj,
-+			bool assign)
- {
- 	if (!intel_pxp_is_active(pxp))
- 		return -ENODEV;
-@@ -195,9 +197,10 @@ int intel_pxp_key_check(struct intel_pxp *pxp, struct drm_i915_gem_object *obj)
- 	 * as such. If the object is already encrypted, check instead if the
- 	 * used key is still valid.
- 	 */
--	if (!obj->pxp_key_instance)
-+	if (!obj->pxp_key_instance && assign)
- 		obj->pxp_key_instance = pxp->key_instance;
--	else if (obj->pxp_key_instance != pxp->key_instance)
++/**
++ * DOC: PXP
++ *
++ * PXP (Protected Xe Path) is a Gen12+ feature that allows execution and
++ * flip to display of protected (i.e. encrypted) objects. The SW support is
++ * enabled via the CONFIG_DRM_I915_PXP kconfig.
++ *
++ * Some of the PXP setup operations are performed by the Management Engine,
++ * which is handled by the mei driver; communication between i915 and mei is
++ * performed via the mei_pxp component module.
++ *
++ * Objects can opt-in to PXP encryption at creation time via the
++ * I915_GEM_CREATE_EXT_PROTECTED_CONTENT create_ext flag. For objects to be
++ * correctly protected they must be used in conjunction with a context created
++ * with the I915_CONTEXT_PARAM_PROTECTED_CONTENT flag. See the documentation
++ * of those two uapi flags for details and restrictions.
++ *
++ * Protected objects are tied to a pxp session; currently we only support one
++ * session, which i915 manages and whose index is available in the uapi
++ * (I915_PROTECTED_CONTENT_DEFAULT_SESSION) for use in instructions targeting
++ * protected objects.
++ * The session is invalidated by the HW when certain events occur (e.g.
++ * suspend/resume). When this happens, all the objects that were used with the
++ * session are marked as invalid and all contexts marked as using protected
++ * content are banned. Any further attempt at using them in an execbuf call is
++ * rejected, while flips are converted to black frames.
++ */
 +
-+	if (obj->pxp_key_instance != pxp->key_instance)
- 		return -ENOEXEC;
+ /* KCR register definitions */
+ #define KCR_INIT _MMIO(0x320f0)
  
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 424fe00a91fb..edafbfbe9ff4 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -37,7 +37,9 @@ void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+index ae24064bb57e..73ef7d1754e1 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+@@ -16,42 +16,65 @@
+ struct intel_context;
+ struct i915_pxp_component;
  
- int intel_pxp_start(struct intel_pxp *pxp);
++/**
++ * struct intel_pxp - pxp state
++ */
+ struct intel_pxp {
++	/**
++	 * @pxp_component: i915_pxp_component struct of the bound mei_pxp
++	 * module. Only set and cleared inside component bind/unbind functions,
++	 * which are protected by &tee_mutex.
++	 */
+ 	struct i915_pxp_component *pxp_component;
++	/**
++	 * @pxp_component_added: track if the pxp component has been added.
++	 * Set and cleared in tee init and fini functions respectively.
++	 */
+ 	bool pxp_component_added;
  
--int intel_pxp_key_check(struct intel_pxp *pxp, struct drm_i915_gem_object *obj);
-+int intel_pxp_key_check(struct intel_pxp *pxp,
-+			struct drm_i915_gem_object *obj,
-+			bool assign);
++	/** @ce: kernel-owned context used for PXP operations */
+ 	struct intel_context *ce;
  
- void intel_pxp_invalidate(struct intel_pxp *pxp);
- #else
-@@ -55,7 +57,8 @@ static inline int intel_pxp_start(struct intel_pxp *pxp)
- }
+-	/*
++	/** @arb_mutex: protects arb session start */
++	struct mutex arb_mutex;
++	/**
++	 * @arb_is_valid: tracks arb session status.
+ 	 * After a teardown, the arb session can still be in play on the HW
+ 	 * even if the keys are gone, so we can't rely on the HW state of the
+ 	 * session to know if it's valid and need to track the status in SW.
+ 	 */
+-	struct mutex arb_mutex; /* protects arb session start */
+ 	bool arb_is_valid;
  
- static inline int intel_pxp_key_check(struct intel_pxp *pxp,
--				      struct drm_i915_gem_object *obj)
-+				      struct drm_i915_gem_object *obj,
-+				      bool assing)
- {
- 	return -ENODEV;
- }
+-	/*
+-	 * Keep track of which key instance we're on, so we can use it to
+-	 * determine if an object was created using the current key or a
++	/**
++	 * @key_instance: tracks which key instance we're on, so we can use it
++	 * to determine if an object was created using the current key or a
+ 	 * previous one.
+ 	 */
+ 	u32 key_instance;
+ 
+-	struct mutex tee_mutex; /* protects the tee channel binding */
++	/** @tee_mutex: protects the tee channel binding and messaging. */
++	struct mutex tee_mutex;
+ 
+-	/*
+-	 * If the HW perceives an attack on the integrity of the encryption it
+-	 * will invalidate the keys and expect SW to re-initialize the session.
+-	 * We keep track of this state to make sure we only re-start the arb
+-	 * session when required.
++	/**
++	 * @hw_state_invalidated: if the HW perceives an attack on the integrity
++	 * of the encryption it will invalidate the keys and expect SW to
++	 * re-initialize the session. We keep track of this state to make sure
++	 * we only re-start the arb session when required.
+ 	 */
+ 	bool hw_state_invalidated;
+ 
++	/** @irq_enabled: tracks the status of the kcr irqs */
+ 	bool irq_enabled;
++	/**
++	 * @termination: tracks the status of a pending termination. Only
++	 * re-initialized under gt->irq_lock and completed in &session_work.
++	 */
+ 	struct completion termination;
+ 
++	/** @session_work: worker that manages session events. */
+ 	struct work_struct session_work;
+-	u32 session_events; /* protected with gt->irq_lock */
++	/** @session_events: pending session events, protected with gt->irq_lock. */
++	u32 session_events;
+ #define PXP_TERMINATION_REQUEST  BIT(0)
+ #define PXP_TERMINATION_COMPLETE BIT(1)
+ #define PXP_INVAL_REQUIRED       BIT(2)
 -- 
 2.25.1
 
