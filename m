@@ -2,45 +2,49 @@ Return-Path: <SRS0=pIl2=NV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FA08C432BE
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:25:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B40BC432BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4019660C3E
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:25:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4019660C3E
+	by mail.kernel.org (Postfix) with ESMTPS id 26B2F60ED6
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 26B2F60ED6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD09E89C9A;
-	Mon, 30 Aug 2021 16:25:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B67A89CA0;
+	Mon, 30 Aug 2021 16:26:02 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B36EC89C9A
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:25:57 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="279318015"
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="279318015"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FCDC89CA0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:25:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="279318021"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="279318021"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2021 09:25:57 -0700
+ 30 Aug 2021 09:25:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497802497"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497802507"
 Received: from ayazahma-nuc8i7beh.iind.intel.com ([10.145.162.59])
- by fmsmga008.fm.intel.com with ESMTP; 30 Aug 2021 09:25:55 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 30 Aug 2021 09:25:57 -0700
 From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
-Date: Mon, 30 Aug 2021 21:52:32 +0530
-Message-Id: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
+Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>,
+	CQ Tang <cq.tang@intel.com>
+Date: Mon, 30 Aug 2021 21:52:33 +0530
+Message-Id: <20210830162240.3891502-2-ayaz.siddiqui@intel.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
+References: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V3 0/8] drm/i915/gt: Initialize unused MOCS
- entries to L3_WB
+Subject: [Intel-gfx] [PATCH V3 1/8] drm/i915/gt: Add support of mocs
+ propagation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,59 +60,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Gen >= 12 onwards MOCS table doesn't have a setting for PTE
-so I915_MOCS_PTE is not a valid index and it will have different
-MOCS values are based on the platform.
+Now there are lots of Command and registers that require mocs index
+programming.
+So propagating mocs_index from mocs to gt so that it can be
+used directly without having platform-specific checks.
 
-To detect these kinds of misprogramming, all the unspecified and
-reserved MOCS indexes are set to WB_L3. TGL/RKL unspecified MOCS
-indexes are pointing to L3 UC are kept intact to avoid API break.
+Cc: CQ Tang<cq.tang@intel.com>
+Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_types.h |  4 ++++
+ drivers/gpu/drm/i915/gt/intel_mocs.c     | 10 ++++++++++
+ 2 files changed, 14 insertions(+)
 
-This series also contains patches to program BLIT_CCTL and
-CMD_CCTL registers to UC.
-Since we are quite late to update MOCS table for TGL so added
-a new MOCS table for ADL family.
-
-V2:
-  1. Added CMD_CCTL to GUC regset list so that it can be restored
-     after engine reset.
-  2. Checkpatch warning removal.
-
-V3:
- 1. Changed implementation to have a framework only.
- 2. Added register type for proper application.
- 3. moved CMD_CCTL programming to a separate patch.
- 4. Added L3CC initialization during gt reset so that MOCS indexes are
-    set before GuC initialization. 
- 5. Removed Renderer check for L3CC verification in selftest.
-
-Apoorva Singh (1):
-  drm/i915/gt: Set BLIT_CCTL reg to un-cached
-
-Ayaz A Siddiqui (5):
-  drm/i915/gt: Add support of mocs propagation
-  drm/i915/gt: Set CMD_CCTL to UC for Gen12 Onward
-  drm/i915/gt: Initialize unused MOCS entries with device specific
-    values
-  drm/i95/adl: Define MOCS table for Alderlake
-  drm/i915/selftest: Remove Renderer class check for l3cc table read
-
-Sreedhar Telukuntla (1):
-  drm/i915/gt: Initialize L3CC table in mocs init
-
-Srinivasan Shanmugam (1):
-  drm/i915/gt: Add support of mocs auxiliary registers programming
-
- drivers/gpu/drm/i915/gt/intel_gt.c         |   5 +
- drivers/gpu/drm/i915/gt/intel_gt_types.h   |   4 +
- drivers/gpu/drm/i915/gt/intel_mocs.c       | 314 +++++++++++++++++++--
- drivers/gpu/drm/i915/gt/intel_mocs.h       |   5 +
- drivers/gpu/drm/i915/gt/selftest_mocs.c    |  53 +++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c |  17 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.h |  15 +
- drivers/gpu/drm/i915/i915_reg.h            |  23 ++
- 8 files changed, 399 insertions(+), 37 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index a81e21bf1bd1a..88601a2d2c229 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -192,6 +192,10 @@ struct intel_gt {
+ 
+ 		unsigned long mslice_mask;
+ 	} info;
++
++	struct i915_mocs_index_gt {
++		u8 uc_index;
++	} mocs;
+ };
+ 
+ enum intel_gt_scratch_field {
+diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
+index 582c4423b95d6..10cc508c1a4f6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_mocs.c
++++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
+@@ -22,6 +22,7 @@ struct drm_i915_mocs_table {
+ 	unsigned int size;
+ 	unsigned int n_entries;
+ 	const struct drm_i915_mocs_entry *table;
++	u8 uc_index;
+ };
+ 
+ /* Defines for the tables (XXX_MOCS_0 - XXX_MOCS_63) */
+@@ -340,6 +341,8 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
+ {
+ 	unsigned int flags;
+ 
++	memset(table, 0, sizeof(struct drm_i915_mocs_table));
++
+ 	if (IS_DG1(i915)) {
+ 		table->size = ARRAY_SIZE(dg1_mocs_table);
+ 		table->table = dg1_mocs_table;
+@@ -504,6 +507,12 @@ static u32 global_mocs_offset(void)
+ 	return i915_mmio_reg_offset(GEN12_GLOBAL_MOCS(0));
+ }
+ 
++static void set_mocs_index(struct intel_gt *gt,
++			   struct drm_i915_mocs_table *table)
++{
++	gt->mocs.uc_index = table->uc_index;
++}
++
+ void intel_mocs_init(struct intel_gt *gt)
+ {
+ 	struct drm_i915_mocs_table table;
+@@ -515,6 +524,7 @@ void intel_mocs_init(struct intel_gt *gt)
+ 	flags = get_mocs_settings(gt->i915, &table);
+ 	if (flags & HAS_GLOBAL_MOCS)
+ 		__init_mocs_table(gt->uncore, &table, global_mocs_offset());
++	set_mocs_index(gt, &table);
+ }
+ 
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
 -- 
 2.26.2
 
