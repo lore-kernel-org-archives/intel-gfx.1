@@ -7,44 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48E26C4320A
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EAE5C432BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B90E60ED6
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1B90E60ED6
+	by mail.kernel.org (Postfix) with ESMTPS id 0F3B160ED6
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0F3B160ED6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36EB789CA2;
-	Mon, 30 Aug 2021 16:26:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7787A89CB5;
+	Mon, 30 Aug 2021 16:26:11 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D100B89CA2
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:26:03 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="279318036"
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="279318036"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0BA89CAD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:26:07 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="279318048"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="279318048"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2021 09:26:03 -0700
+ 30 Aug 2021 09:26:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497802540"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497802557"
 Received: from ayazahma-nuc8i7beh.iind.intel.com ([10.145.162.59])
- by fmsmga008.fm.intel.com with ESMTP; 30 Aug 2021 09:26:02 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 30 Aug 2021 09:26:05 -0700
 From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>
-Date: Mon, 30 Aug 2021 21:52:35 +0530
-Message-Id: <20210830162240.3891502-4-ayaz.siddiqui@intel.com>
+Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+Date: Mon, 30 Aug 2021 21:52:37 +0530
+Message-Id: <20210830162240.3891502-6-ayaz.siddiqui@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
 References: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V3 3/8] drm/i915/gt: Set CMD_CCTL to UC for
- Gen12 Onward
+Subject: [Intel-gfx] [PATCH V3 5/8] drm/i915/gt: Initialize unused MOCS
+ entries with device specific values
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,76 +59,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Cache-control registers for Command Stream(CMD_CCTL) are used
-to set catchability for memory writes and reads outputted by
-Command Streamers on Gen12 onward platforms.
+Historically we've initialized all undefined/reserved entries in
+a platform's MOCS table to the contents of table entry #1 (i.e.,
+I915_MOCS_PTE).
+Going forward, we can't assume that table entry #1 will always
+contain suitable values to use for undefined/reserved table
+indices. We'll allow a platform-specific table index to be
+selected at table initialization time in these cases.
 
-These registers need to point un-cached(UC) MOCS index.
+This new mechanism to select L3 WB entry will be applicable for
+all the Gen12+ platforms except TGL and RKL.
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
+Since TGL and RLK are already in production so their mocs settings
+are intact to avoid ABI break.
+
 Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_mocs.c | 12 ++++++++++++
- drivers/gpu/drm/i915/i915_reg.h      | 16 ++++++++++++++++
- 2 files changed, 28 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_mocs.c | 41 +++++++++++++++-------------
+ 1 file changed, 22 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index c52640523c218..403bd48362b19 100644
+index 82eafa8d22453..a97cc08e5a395 100644
 --- a/drivers/gpu/drm/i915/gt/intel_mocs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -386,6 +386,17 @@ add_aux_reg(struct drm_i915_aux_table *aux,
- 	return x;
+@@ -25,6 +25,7 @@ struct drm_i915_mocs_table {
+ 	unsigned int n_entries;
+ 	const struct drm_i915_mocs_entry *table;
+ 	u8 uc_index;
++	u8 unused_entries_index;
+ };
+ 
+ enum register_type {
+@@ -113,18 +114,25 @@ struct drm_i915_aux_table {
+  *
+  * Entries not part of the following tables are undefined as far as
+  * userspace is concerned and shouldn't be relied upon.  For Gen < 12
+- * they will be initialized to PTE. Gen >= 12 onwards don't have a setting for
+- * PTE and will be initialized to an invalid value.
++ * they will be initialized to PTE. Gen >= 12 don't have a setting for
++ * PTE and those platforms except TGL/RKL will be initialized L3 WB to
++ * catch accidental use of reserved and unused mocs indexes.
+  *
+  * The last few entries are reserved by the hardware. For ICL+ they
+  * should be initialized according to bspec and never used, for older
+  * platforms they should never be written to.
+  *
+- * NOTE: These tables are part of bspec and defined as part of hardware
++ * NOTE1: These tables are part of bspec and defined as part of hardware
+  *       interface for ICL+. For older platforms, they are part of kernel
+  *       ABI. It is expected that, for specific hardware platform, existing
+  *       entries will remain constant and the table will only be updated by
+  *       adding new entries, filling unused positions.
++ *
++ * NOTE2: For GEN >= 12 except TGL and RKL, reserved and unspecified MOCS
++ *       indices have been set to L3 WB. These reserved entries should never
++ *       be used, they may be changed to low performant variants with better
++ *       coherency in the future if more entries are needed.
++ *       For TGL/RKL, all the unspecified MOCS indexes are mapped to L3 UC.
+  */
+ #define GEN9_MOCS_ENTRIES \
+ 	MOCS_ENTRY(I915_MOCS_UNCACHED, \
+@@ -307,17 +315,9 @@ static const struct drm_i915_mocs_entry icl_mocs_table[] = {
+ };
+ 
+ static const struct drm_i915_mocs_entry dg1_mocs_table[] = {
+-	/* Error */
+-	MOCS_ENTRY(0, 0, L3_0_DIRECT),
+ 
+ 	/* UC */
+ 	MOCS_ENTRY(1, 0, L3_1_UC),
+-
+-	/* Reserved */
+-	MOCS_ENTRY(2, 0, L3_0_DIRECT),
+-	MOCS_ENTRY(3, 0, L3_0_DIRECT),
+-	MOCS_ENTRY(4, 0, L3_0_DIRECT),
+-
+ 	/* WB - L3 */
+ 	MOCS_ENTRY(5, 0, L3_3_WB),
+ 	/* WB - L3 50% */
+@@ -469,6 +469,7 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
+ 		table->table = dg1_mocs_table;
+ 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
+ 		table->uc_index = 1;
++		table->unused_entries_index = 5;
+ 	} else if (GRAPHICS_VER(i915) >= 12) {
+ 		table->size  = ARRAY_SIZE(tgl_mocs_table);
+ 		table->table = tgl_mocs_table;
+@@ -600,16 +601,17 @@ int apply_mocs_aux_regs_ctx(struct i915_request *rq)
  }
  
-+static struct drm_i915_aux_table *
-+add_cmd_cctl_override(struct drm_i915_aux_table *aux, u8 idx)
-+{
-+	return add_aux_reg(aux,
-+			   REG_ENGINE,
-+			   "CMD_CCTL",
-+			   RING_CMD_CCTL(0),
-+			   CMD_CCTL_MOCS_OVERRIDE(idx, idx),
-+			   CMD_CCTL_WRITE_OVERRIDE_MASK | CMD_CCTL_READ_OVERRIDE_MASK);
-+}
-+
- static const struct drm_i915_aux_table *
- build_aux_regs(const struct intel_engine_cs *engine,
- 	       const struct drm_i915_mocs_table *mocs)
-@@ -400,6 +411,7 @@ build_aux_regs(const struct intel_engine_cs *engine,
- 		 * UC MOCS index. We need to call add_aux_reg() to add
- 		 * a entry in drm_i915_aux_table link list.
- 		 */
-+		aux = add_cmd_cctl_override(aux, mocs->uc_index);
- 	}
- 	return aux;
+ /*
+- * Get control_value from MOCS entry taking into account when it's not used:
+- * I915_MOCS_PTE's value is returned in this case.
++ * Get control_value from MOCS entry taking into account when it's not used
++ * then if unused_entries_index is non-zero then its value will be returned
++ * otherwise I915_MOCS_PTE's value is returned in this case.
+  */
+ static u32 get_entry_control(const struct drm_i915_mocs_table *table,
+ 			     unsigned int index)
+ {
+ 	if (index < table->size && table->table[index].used)
+ 		return table->table[index].control_value;
+-
+-	return table->table[I915_MOCS_PTE].control_value;
++	index = table->unused_entries_index ? : I915_MOCS_PTE;
++	return table->table[index].control_value;
  }
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 8d4cf1e203ab7..df7a4550fb50f 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2551,6 +2551,22 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define RING_HWS_PGA(base)	_MMIO((base) + 0x80)
- #define RING_ID(base)		_MMIO((base) + 0x8c)
- #define RING_HWS_PGA_GEN6(base)	_MMIO((base) + 0x2080)
-+
-+#define RING_CMD_CCTL(base)	_MMIO((base) + 0xc4)
-+/*
-+ * CMD_CCTL read/write fields take a MOCS value and _not_ a table index.
-+ * The lsb of each can be considered a separate enabling bit for encryption.
-+ * 6:0 == default MOCS value for reads  =>  6:1 == table index for reads.
-+ * 13:7 == default MOCS value for writes => 13:8 == table index for writes.
-+ * 15:14 == Reserved => 31:30 are set to 0.
-+ */
-+#define CMD_CCTL_WRITE_OVERRIDE_MASK REG_GENMASK(13, 7)
-+#define CMD_CCTL_READ_OVERRIDE_MASK REG_GENMASK(6, 0)
-+#define CMD_CCTL_MOCS_OVERRIDE(write, read)					\
-+	_MASKED_FIELD(CMD_CCTL_WRITE_OVERRIDE_MASK | CMD_CCTL_READ_OVERRIDE_MASK, \
-+		      REG_FIELD_PREP(CMD_CCTL_WRITE_OVERRIDE_MASK, (write) << 1) | \
-+		      REG_FIELD_PREP(CMD_CCTL_READ_OVERRIDE_MASK, (read) << 1))
-+
- #define RING_RESET_CTL(base)	_MMIO((base) + 0xd0)
- #define   RESET_CTL_CAT_ERROR	   REG_BIT(2)
- #define   RESET_CTL_READY_TO_RESET REG_BIT(1)
+ 
+ #define for_each_mocs(mocs, t, i) \
+@@ -650,16 +652,17 @@ static void init_mocs_table(struct intel_engine_cs *engine,
+ }
+ 
+ /*
+- * Get l3cc_value from MOCS entry taking into account when it's not used:
+- * I915_MOCS_PTE's value is returned in this case.
++ * Get l3cc_value from MOCS entry taking into account when it's not used
++ * then if unused_entries_index is not zero then its value will be returned
++ * otherwise I915_MOCS_PTE's value is returned in this case.
+  */
+ static u16 get_entry_l3cc(const struct drm_i915_mocs_table *table,
+ 			  unsigned int index)
+ {
+ 	if (index < table->size && table->table[index].used)
+ 		return table->table[index].l3cc_value;
+-
+-	return table->table[I915_MOCS_PTE].l3cc_value;
++	index = table->unused_entries_index ? : I915_MOCS_PTE;
++	return table->table[index].l3cc_value;
+ }
+ 
+ static u32 l3cc_combine(u16 low, u16 high)
 -- 
 2.26.2
 
