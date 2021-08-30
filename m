@@ -7,43 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A61C5C432BE
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54E5AC4320E
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4FF5D604D7
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4FF5D604D7
+	by mail.kernel.org (Postfix) with ESMTPS id 23A9460ED6
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 23A9460ED6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1CC089B03;
-	Mon, 30 Aug 2021 16:26:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7955C89B3C;
+	Mon, 30 Aug 2021 16:26:17 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A529489CDD
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:26:13 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="279318071"
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="279318071"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD94B89CAC
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:26:05 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="279318042"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="279318042"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2021 09:26:13 -0700
+ 30 Aug 2021 09:26:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497802579"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497802548"
 Received: from ayazahma-nuc8i7beh.iind.intel.com ([10.145.162.59])
- by fmsmga008.fm.intel.com with ESMTP; 30 Aug 2021 09:26:12 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 30 Aug 2021 09:26:03 -0700
 From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
-Date: Mon, 30 Aug 2021 21:52:40 +0530
-Message-Id: <20210830162240.3891502-9-ayaz.siddiqui@intel.com>
+Cc: Apoorva Singh <apoorva1.singh@intel.com>,
+ Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+Date: Mon, 30 Aug 2021 21:52:36 +0530
+Message-Id: <20210830162240.3891502-5-ayaz.siddiqui@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
 References: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V3 8/8] drm/i915/selftest: Remove Renderer class
- check for l3cc table read
+Subject: [Intel-gfx] [PATCH V3 4/8] drm/i915/gt: Set BLIT_CCTL reg to
+ un-cached
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,37 +60,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some platform like XEHPSVD does not have Renderer engines. since
-read_l3cc_table() is guarded by renderer class due to that check
-of L3CC table was not being performed on those platforms.
+From: Apoorva Singh <apoorva1.singh@intel.com>
 
+Blitter commands which do not have MOCS fields rely on
+cacheability of BlitterCacheControlRegister which was mapped
+to index 0 by default.Once we changed the MOCS value of
+index 0 to L3 WB, tests like gem_linear_blits started failing
+due to a change in cacheability from UC to WB.
+
+Program and place the BlitterCacheControlRegister in
+build_aux_regs().
+
+Signed-off-by: Apoorva Singh <apoorva1.singh@intel.com>
 Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_mocs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_mocs.c | 13 +++++++++++++
+ drivers/gpu/drm/i915/i915_reg.h      |  7 +++++++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_mocs.c b/drivers/gpu/drm/i915/gt/selftest_mocs.c
-index 2b0207dfbf21c..05f5c57f82699 100644
---- a/drivers/gpu/drm/i915/gt/selftest_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_mocs.c
-@@ -281,7 +281,7 @@ static int check_mocs_engine(struct live_mocs *arg,
- 	offset = i915_ggtt_offset(vma);
- 	if (!err)
- 		err = read_mocs_table(rq, arg->mocs, &offset);
--	if (!err && ce->engine->class == RENDER_CLASS)
-+	if (!err)
- 		err = read_l3cc_table(rq, arg->l3cc, &offset);
- 	if (!err)
- 		err = read_aux_regs(rq, aux, &offset);
-@@ -296,7 +296,7 @@ static int check_mocs_engine(struct live_mocs *arg,
- 	vaddr = arg->vaddr;
- 	if (!err)
- 		err = check_mocs_table(ce->engine, arg->mocs, &vaddr);
--	if (!err && ce->engine->class == RENDER_CLASS)
-+	if (!err)
- 		err = check_l3cc_table(ce->engine, arg->l3cc, &vaddr);
- 	if (!err)
- 		err = check_aux_regs(ce->engine, aux, &vaddr);
+diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
+index 403bd48362b19..82eafa8d22453 100644
+--- a/drivers/gpu/drm/i915/gt/intel_mocs.c
++++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
+@@ -386,6 +386,17 @@ add_aux_reg(struct drm_i915_aux_table *aux,
+ 	return x;
+ }
+ 
++static struct drm_i915_aux_table *
++add_blit_cctl_override(struct drm_i915_aux_table *aux, u8 idx)
++{
++	return add_aux_reg(aux,
++			   REG_ENGINE_CONTEXT,
++			   "BLIT_CCTL",
++			   BLIT_CCTL(0),
++			   BLIT_CCTL_MOCS(idx, idx),
++			   0);
++}
++
+ static struct drm_i915_aux_table *
+ add_cmd_cctl_override(struct drm_i915_aux_table *aux, u8 idx)
+ {
+@@ -412,6 +423,8 @@ build_aux_regs(const struct intel_engine_cs *engine,
+ 		 * a entry in drm_i915_aux_table link list.
+ 		 */
+ 		aux = add_cmd_cctl_override(aux, mocs->uc_index);
++		if (engine->class == COPY_ENGINE_CLASS)
++			aux = add_blit_cctl_override(aux, mocs->uc_index);
+ 	}
+ 	return aux;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index df7a4550fb50f..207e0ada179b2 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2567,6 +2567,13 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ 		      REG_FIELD_PREP(CMD_CCTL_WRITE_OVERRIDE_MASK, (write) << 1) | \
+ 		      REG_FIELD_PREP(CMD_CCTL_READ_OVERRIDE_MASK, (read) << 1))
+ 
++#define BLIT_CCTL(base)	_MMIO((base) + 0x204)
++#define   BLIT_CCTL_DST_MOCS_MASK	REG_GENMASK(14, 8)
++#define   BLIT_CCTL_SRC_MOCS_MASK	REG_GENMASK(6, 0)
++#define   BLIT_CCTL_DST_MOCS_SHIFT	8
++#define   BLIT_CCTL_MOCS(dst, src)							\
++	((((dst) << 1) << BLIT_CCTL_DST_MOCS_SHIFT) | ((src) << 1))
++
+ #define RING_RESET_CTL(base)	_MMIO((base) + 0xd0)
+ #define   RESET_CTL_CAT_ERROR	   REG_BIT(2)
+ #define   RESET_CTL_READY_TO_RESET REG_BIT(1)
 -- 
 2.26.2
 
