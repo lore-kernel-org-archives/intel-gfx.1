@@ -7,46 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E676DC4320A
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A61C5C432BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B662460ED6
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B662460ED6
+	by mail.kernel.org (Postfix) with ESMTPS id 4FF5D604D7
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4FF5D604D7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D14F289CB8;
-	Mon, 30 Aug 2021 16:26:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1CC089B03;
+	Mon, 30 Aug 2021 16:26:16 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A61E989CAD
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:26:10 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="279318063"
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="279318063"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A529489CDD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:26:13 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="279318071"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="279318071"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2021 09:26:10 -0700
+ 30 Aug 2021 09:26:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497802567"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497802579"
 Received: from ayazahma-nuc8i7beh.iind.intel.com ([10.145.162.59])
- by fmsmga008.fm.intel.com with ESMTP; 30 Aug 2021 09:26:07 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 30 Aug 2021 09:26:12 -0700
 From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>,
- Chris P Wilson <chris.p.wilson@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>
-Date: Mon, 30 Aug 2021 21:52:38 +0530
-Message-Id: <20210830162240.3891502-7-ayaz.siddiqui@intel.com>
+Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+Date: Mon, 30 Aug 2021 21:52:40 +0530
+Message-Id: <20210830162240.3891502-9-ayaz.siddiqui@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
 References: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V3 6/8] drm/i95/adl: Define MOCS table for
- Alderlake
+Subject: [Intel-gfx] [PATCH V3 8/8] drm/i915/selftest: Remove Renderer class
+ check for l3cc table read
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,79 +59,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In order to program unused and reserved mocs entries to L3_WB,
-we need to create a separate mocs table for alderlake.
+Some platform like XEHPSVD does not have Renderer engines. since
+read_l3cc_table() is guarded by renderer class due to that check
+of L3CC table was not being performed on those platforms.
 
-This patch will also covers wa_1608975824.
-
-Cc: Chris P Wilson <chris.p.wilson@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_mocs.c | 41 +++++++++++++++++++++++++++-
- 1 file changed, 40 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/selftest_mocs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index a97cc08e5a395..577a78dfedf99 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -339,6 +339,39 @@ static const struct drm_i915_mocs_entry dg1_mocs_table[] = {
- 	MOCS_ENTRY(63, 0, L3_1_UC),
- };
- 
-+static const struct drm_i915_mocs_entry adl_mocs_table[] = {
-+	/* wa_1608975824 */
-+	MOCS_ENTRY(0,
-+		   LE_3_WB | LE_TC_1_LLC | LE_LRUM(3),
-+		   L3_3_WB),
-+
-+	GEN11_MOCS_ENTRIES,
-+	/* Implicitly enable L1 - HDC:L1 + L3 + LLC */
-+	MOCS_ENTRY(48,
-+		   LE_3_WB | LE_TC_1_LLC | LE_LRUM(3),
-+		   L3_3_WB),
-+	/* Implicitly enable L1 - HDC:L1 + L3 */
-+	MOCS_ENTRY(49,
-+		   LE_1_UC | LE_TC_1_LLC,
-+		   L3_3_WB),
-+	/* Implicitly enable L1 - HDC:L1 + LLC */
-+	MOCS_ENTRY(50,
-+		   LE_3_WB | LE_TC_1_LLC | LE_LRUM(3),
-+		   L3_1_UC),
-+	/* Implicitly enable L1 - HDC:L1 */
-+	MOCS_ENTRY(51,
-+		   LE_1_UC | LE_TC_1_LLC,
-+		   L3_1_UC),
-+	/* HW Special Case (CCS) */
-+	MOCS_ENTRY(60,
-+		   LE_3_WB | LE_TC_1_LLC | LE_LRUM(3),
-+		   L3_1_UC),
-+	/* HW Special Case (Displayable) */
-+	MOCS_ENTRY(61,
-+		   LE_1_UC | LE_TC_1_LLC,
-+		   L3_3_WB),
-+};
-+
- enum {
- 	HAS_GLOBAL_MOCS = BIT(0),
- 	HAS_ENGINE_MOCS = BIT(1),
-@@ -464,7 +497,13 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
- 
- 	memset(table, 0, sizeof(struct drm_i915_mocs_table));
- 
--	if (IS_DG1(i915)) {
-+	if (IS_ALDERLAKE_S(i915) || IS_ALDERLAKE_P(i915)) {
-+		table->size = ARRAY_SIZE(adl_mocs_table);
-+		table->table = adl_mocs_table;
-+		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
-+		table->uc_index = 3;
-+		table->unused_entries_index = 2;
-+	} else if (IS_DG1(i915)) {
- 		table->size = ARRAY_SIZE(dg1_mocs_table);
- 		table->table = dg1_mocs_table;
- 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_mocs.c b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+index 2b0207dfbf21c..05f5c57f82699 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_mocs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+@@ -281,7 +281,7 @@ static int check_mocs_engine(struct live_mocs *arg,
+ 	offset = i915_ggtt_offset(vma);
+ 	if (!err)
+ 		err = read_mocs_table(rq, arg->mocs, &offset);
+-	if (!err && ce->engine->class == RENDER_CLASS)
++	if (!err)
+ 		err = read_l3cc_table(rq, arg->l3cc, &offset);
+ 	if (!err)
+ 		err = read_aux_regs(rq, aux, &offset);
+@@ -296,7 +296,7 @@ static int check_mocs_engine(struct live_mocs *arg,
+ 	vaddr = arg->vaddr;
+ 	if (!err)
+ 		err = check_mocs_table(ce->engine, arg->mocs, &vaddr);
+-	if (!err && ce->engine->class == RENDER_CLASS)
++	if (!err)
+ 		err = check_l3cc_table(ce->engine, arg->l3cc, &vaddr);
+ 	if (!err)
+ 		err = check_aux_regs(ce->engine, aux, &vaddr);
 -- 
 2.26.2
 
