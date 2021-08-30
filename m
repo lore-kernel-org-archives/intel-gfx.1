@@ -2,50 +2,51 @@ Return-Path: <SRS0=pIl2=NV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EE85C432BE
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 10:29:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D324C432BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 10:29:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 68AF0610C7
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 10:29:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 68AF0610C7
+	by mail.kernel.org (Postfix) with ESMTPS id F3015610CA
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 10:29:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F3015610CA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E095289DC1;
-	Mon, 30 Aug 2021 10:29:26 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26BFE89DC0;
- Mon, 30 Aug 2021 10:29:25 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10091"; a="197811431"
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="197811431"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2021 03:29:15 -0700
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497453615"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1198989DDD;
+	Mon, 30 Aug 2021 10:29:28 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6022589DC0;
+ Mon, 30 Aug 2021 10:29:26 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10091"; a="198486538"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="198486538"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2021 03:29:25 -0700
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="687129711"
 Received: from anikolae-mobl1.ccr.corp.intel.com (HELO localhost)
  ([10.249.47.21])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2021 03:29:13 -0700
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2021 03:29:24 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Date: Mon, 30 Aug 2021 13:28:59 +0300
-Message-Id: <1cbbea07dfcce46df37854d53f769a40a058a92d.1630319138.git.jani.nikula@intel.com>
+Date: Mon, 30 Aug 2021 13:29:01 +0300
+Message-Id: <09f57d55813f916578d1dd1e28bee3a621068bdd.1630319138.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <cover.1630319138.git.jani.nikula@intel.com>
 References: <cover.1630319138.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/5] drm/displayid: re-align data block macros
+Subject: [Intel-gfx] [PATCH 3/5] drm/edid: parse the DisplayID v2.0 VESA
+ vendor block for MSO
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,83 +62,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make the values easier to read. Also add DisplayID Structure version and
-revision information (this is different from the spec version).
+The VESA Organization Vendor-Specific Data Block, defined in VESA
+DisplayID Standard v2.0, specifies the eDP Multi-SST Operation (MSO)
+stream count and segment pixel overlap.
+
+DisplayID v1.3 has Appendix B: DisplayID as an EDID Extension,
+describing how DisplayID sections may be embedded in EDID extension
+blocks. DisplayID v2.0 does not have such a section, perhaps implying
+that DisplayID v2.0 data should not be included in EDID extensions, but
+rather in a "pure" DisplayID structure at its own DDC address pair
+A4h/A5h, as described in VESA E-DDC Standard v1.3 chapter 3.
+
+However, in practice, displays out in the field have embedded DisplayID
+v2.0 data blocks in EDID extensions, including, in particular, some eDP
+MSO displays, where a pure DisplayID structure is not available at all.
+
+Parse the MSO data from the DisplayID data block. Do it as part of
+drm_add_display_info(), extending it to parse also DisplayID data to
+avoid requiring extra calls to update the information.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- include/drm/drm_displayid.h | 57 +++++++++++++++++++------------------
- 1 file changed, 29 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/drm_edid.c  | 63 +++++++++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h | 12 +++++++
+ include/drm/drm_displayid.h | 11 +++++++
+ 3 files changed, 86 insertions(+)
 
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 6325877c5fd6..7e8083068f3f 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -28,6 +28,7 @@
+  * DEALINGS IN THE SOFTWARE.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/hdmi.h>
+ #include <linux/i2c.h>
+ #include <linux/kernel.h>
+@@ -5148,6 +5149,62 @@ void drm_get_monitor_range(struct drm_connector *connector,
+ 		      info->monitor_range.max_vfreq);
+ }
+ 
++static void drm_parse_vesa_mso_data(struct drm_connector *connector,
++				    const struct displayid_block *block)
++{
++	struct displayid_vesa_vendor_specific_block *vesa =
++		(struct displayid_vesa_vendor_specific_block *)block;
++	struct drm_display_info *info = &connector->display_info;
++
++	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
++		drm_dbg_kms(connector->dev, "Unexpected VESA vendor block size\n");
++		return;
++	}
++
++	switch (FIELD_GET(DISPLAYID_VESA_MSO_MODE, vesa->mso)) {
++	default:
++		drm_dbg_kms(connector->dev, "Reserved MSO mode value\n");
++		fallthrough;
++	case 0:
++		info->mso_stream_count = 0;
++		break;
++	case 1:
++		info->mso_stream_count = 2; /* 2 or 4 links */
++		break;
++	case 2:
++		info->mso_stream_count = 4; /* 4 links */
++		break;
++	}
++
++	if (!info->mso_stream_count) {
++		info->mso_pixel_overlap = 0;
++		return;
++	}
++
++	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
++	if (info->mso_pixel_overlap > 8) {
++		drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
++			    info->mso_pixel_overlap);
++		info->mso_pixel_overlap = 8;
++	}
++
++	drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
++		    info->mso_stream_count, info->mso_pixel_overlap);
++}
++
++static void drm_update_mso(struct drm_connector *connector, const struct edid *edid)
++{
++	const struct displayid_block *block;
++	struct displayid_iter iter;
++
++	displayid_iter_edid_begin(edid, &iter);
++	displayid_iter_for_each(block, &iter) {
++		if (block->tag == DATA_BLOCK_2_VENDOR_SPECIFIC)
++			drm_parse_vesa_mso_data(connector, block);
++	}
++	displayid_iter_end(&iter);
++}
++
+ /* A connector has no EDID information, so we've got no EDID to compute quirks from. Reset
+  * all of the values which would have been set from EDID
+  */
+@@ -5171,6 +5228,9 @@ drm_reset_display_info(struct drm_connector *connector)
+ 
+ 	info->non_desktop = 0;
+ 	memset(&info->monitor_range, 0, sizeof(info->monitor_range));
++
++	info->mso_stream_count = 0;
++	info->mso_pixel_overlap = 0;
+ }
+ 
+ u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edid)
+@@ -5249,6 +5309,9 @@ u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edi
+ 		info->color_formats |= DRM_COLOR_FORMAT_YCRCB444;
+ 	if (edid->features & DRM_EDID_FEATURE_RGB_YCRCB422)
+ 		info->color_formats |= DRM_COLOR_FORMAT_YCRCB422;
++
++	drm_update_mso(connector, edid);
++
+ 	return quirks;
+ }
+ 
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 79fa34e5ccdb..379746d3266f 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -590,6 +590,18 @@ struct drm_display_info {
+ 	 * @monitor_range: Frequency range supported by monitor range descriptor
+ 	 */
+ 	struct drm_monitor_range_info monitor_range;
++
++	/**
++	 * @mso_stream_count: eDP Multi-SST Operation (MSO) stream count from
++	 * the DisplayID VESA vendor block. 0 for conventional Single-Stream
++	 * Transport (SST), or 2 or 4 MSO streams.
++	 */
++	u8 mso_stream_count;
++
++	/**
++	 * @mso_pixel_overlap: eDP MSO segment pixel overlap, 0-8 pixels.
++	 */
++	u8 mso_pixel_overlap;
+ };
+ 
+ int drm_display_info_set_bus_formats(struct drm_display_info *info,
 diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
-index ec64d141f578..0ed9445b5482 100644
+index 79771091771a..b18611e016a2 100644
 --- a/include/drm/drm_displayid.h
 +++ b/include/drm/drm_displayid.h
-@@ -26,35 +26,36 @@
+@@ -23,6 +23,7 @@
+ #define DRM_DISPLAYID_H
+ 
+ #include <linux/types.h>
++#include <linux/bits.h>
  
  struct edid;
  
--#define DATA_BLOCK_PRODUCT_ID 0x00
--#define DATA_BLOCK_DISPLAY_PARAMETERS 0x01
--#define DATA_BLOCK_COLOR_CHARACTERISTICS 0x02
--#define DATA_BLOCK_TYPE_1_DETAILED_TIMING 0x03
--#define DATA_BLOCK_TYPE_2_DETAILED_TIMING 0x04
--#define DATA_BLOCK_TYPE_3_SHORT_TIMING 0x05
--#define DATA_BLOCK_TYPE_4_DMT_TIMING 0x06
--#define DATA_BLOCK_VESA_TIMING 0x07
--#define DATA_BLOCK_CEA_TIMING 0x08
--#define DATA_BLOCK_VIDEO_TIMING_RANGE 0x09
--#define DATA_BLOCK_PRODUCT_SERIAL_NUMBER 0x0a
--#define DATA_BLOCK_GP_ASCII_STRING 0x0b
--#define DATA_BLOCK_DISPLAY_DEVICE_DATA 0x0c
--#define DATA_BLOCK_INTERFACE_POWER_SEQUENCING 0x0d
--#define DATA_BLOCK_TRANSFER_CHARACTERISTICS 0x0e
--#define DATA_BLOCK_DISPLAY_INTERFACE 0x0f
--#define DATA_BLOCK_STEREO_DISPLAY_INTERFACE 0x10
--#define DATA_BLOCK_TILED_DISPLAY 0x12
--#define DATA_BLOCK_CTA 0x81
-+/* DisplayID Structure v1r2 Data Blocks */
-+#define DATA_BLOCK_PRODUCT_ID			0x00
-+#define DATA_BLOCK_DISPLAY_PARAMETERS		0x01
-+#define DATA_BLOCK_COLOR_CHARACTERISTICS	0x02
-+#define DATA_BLOCK_TYPE_1_DETAILED_TIMING	0x03
-+#define DATA_BLOCK_TYPE_2_DETAILED_TIMING	0x04
-+#define DATA_BLOCK_TYPE_3_SHORT_TIMING		0x05
-+#define DATA_BLOCK_TYPE_4_DMT_TIMING		0x06
-+#define DATA_BLOCK_VESA_TIMING			0x07
-+#define DATA_BLOCK_CEA_TIMING			0x08
-+#define DATA_BLOCK_VIDEO_TIMING_RANGE		0x09
-+#define DATA_BLOCK_PRODUCT_SERIAL_NUMBER	0x0a
-+#define DATA_BLOCK_GP_ASCII_STRING		0x0b
-+#define DATA_BLOCK_DISPLAY_DEVICE_DATA		0x0c
-+#define DATA_BLOCK_INTERFACE_POWER_SEQUENCING	0x0d
-+#define DATA_BLOCK_TRANSFER_CHARACTERISTICS	0x0e
-+#define DATA_BLOCK_DISPLAY_INTERFACE		0x0f
-+#define DATA_BLOCK_STEREO_DISPLAY_INTERFACE	0x10
-+#define DATA_BLOCK_TILED_DISPLAY		0x12
-+#define DATA_BLOCK_VENDOR_SPECIFIC		0x7f
-+#define DATA_BLOCK_CTA				0x81
+@@ -126,6 +127,16 @@ struct displayid_detailed_timing_block {
+ 	struct displayid_detailed_timings_1 timings[];
+ };
  
--#define DATA_BLOCK_VENDOR_SPECIFIC 0x7f
--
--#define PRODUCT_TYPE_EXTENSION 0
--#define PRODUCT_TYPE_TEST 1
--#define PRODUCT_TYPE_PANEL 2
--#define PRODUCT_TYPE_MONITOR 3
--#define PRODUCT_TYPE_TV 4
--#define PRODUCT_TYPE_REPEATER 5
--#define PRODUCT_TYPE_DIRECT_DRIVE 6
-+/* DisplayID Structure v1r2 Product Type */
-+#define PRODUCT_TYPE_EXTENSION			0
-+#define PRODUCT_TYPE_TEST			1
-+#define PRODUCT_TYPE_PANEL			2
-+#define PRODUCT_TYPE_MONITOR			3
-+#define PRODUCT_TYPE_TV				4
-+#define PRODUCT_TYPE_REPEATER			5
-+#define PRODUCT_TYPE_DIRECT_DRIVE		6
- 
- struct displayid_header {
- 	u8 rev;
++#define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
++#define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
++
++struct displayid_vesa_vendor_specific_block {
++	struct displayid_block base;
++	u8 oui[3];
++	u8 data_structure_type;
++	u8 mso;
++} __packed;
++
+ /* DisplayID iteration */
+ struct displayid_iter {
+ 	const struct edid *edid;
 -- 
 2.20.1
 
