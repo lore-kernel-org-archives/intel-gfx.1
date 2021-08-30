@@ -7,35 +7,33 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D054C432BE
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 12:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 125D5C43214
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 12:10:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 00D6360FC3
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 12:10:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 00D6360FC3
+	by mail.kernel.org (Postfix) with ESMTPS id D616060FC3
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 12:10:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D616060FC3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CCF889D8A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B39D389DC1;
 	Mon, 30 Aug 2021 12:09:59 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC11D89CCE
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 12:09:55 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFEC389D39
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 12:09:54 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Mon, 30 Aug 2021 14:10:02 +0200
-Message-Id: <20210830121006.2978297-16-maarten.lankhorst@linux.intel.com>
+Date: Mon, 30 Aug 2021 14:09:58 +0200
+Message-Id: <20210830121006.2978297-12-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210830121006.2978297-1-maarten.lankhorst@linux.intel.com>
 References: <20210830121006.2978297-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 15/19] drm/i915: Remove support for unlocked
- i915_vma unbind
+Subject: [Intel-gfx] [PATCH 11/19] drm/i915: Remove resv from i915_vma
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,96 +49,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we require the object lock for all ops, some code handling
-race conditions can be removed.
-
-This is required to not take short-term pins inside execbuf.
+It's just an alias to vma->obj->base.resv, no need to duplicate it.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_vma.c | 40 +++++----------------------------
- 1 file changed, 5 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 4 ++--
+ drivers/gpu/drm/i915/i915_vma.c                | 9 ++++-----
+ drivers/gpu/drm/i915/i915_vma.h                | 6 +++---
+ drivers/gpu/drm/i915/i915_vma_types.h          | 1 -
+ 4 files changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index da54e6882650..f6dacfc3e840 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -748,7 +748,6 @@ i915_vma_detach(struct i915_vma *vma)
- static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
- {
- 	unsigned int bound;
--	bool pinned = true;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 4f10a81befd1..6832b255294e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -975,7 +975,7 @@ static int eb_validate_vmas(struct i915_execbuffer *eb)
+ 		}
  
- 	bound = atomic_read(&vma->flags);
- 	do {
-@@ -758,34 +757,10 @@ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
- 		if (unlikely(bound & (I915_VMA_OVERFLOW | I915_VMA_ERROR)))
- 			return false;
- 
--		if (!(bound & I915_VMA_PIN_MASK))
--			goto unpinned;
--
- 		GEM_BUG_ON(((bound + 1) & I915_VMA_PIN_MASK) == 0);
- 	} while (!atomic_try_cmpxchg(&vma->flags, &bound, bound + 1));
- 
- 	return true;
--
--unpinned:
--	/*
--	 * If pin_count==0, but we are bound, check under the lock to avoid
--	 * racing with a concurrent i915_vma_unbind().
--	 */
--	mutex_lock(&vma->vm->mutex);
--	do {
--		if (unlikely(bound & (I915_VMA_OVERFLOW | I915_VMA_ERROR))) {
--			pinned = false;
--			break;
--		}
--
--		if (unlikely(flags & ~bound)) {
--			pinned = false;
--			break;
--		}
--	} while (!atomic_try_cmpxchg(&vma->flags, &bound, bound + 1));
--	mutex_unlock(&vma->vm->mutex);
--
--	return pinned;
- }
- 
- 
-@@ -1085,13 +1060,7 @@ __i915_vma_get_pages(struct i915_vma *vma)
- 			vma->ggtt_view.type, ret);
+ 		if (!(ev->flags & EXEC_OBJECT_WRITE)) {
+-			err = dma_resv_reserve_shared(vma->resv, 1);
++			err = dma_resv_reserve_shared(vma->obj->base.resv, 1);
+ 			if (err)
+ 				return err;
+ 		}
+@@ -2121,7 +2121,7 @@ static int eb_parse(struct i915_execbuffer *eb)
+ 		goto err_trampoline;
  	}
  
--	pages = xchg(&vma->pages, pages);
--
--	/* did we race against a put_pages? */
--	if (pages && pages != vma->obj->mm.pages) {
--		sg_free_table(vma->pages);
--		kfree(vma->pages);
--	}
-+	vma->pages = pages;
+-	err = dma_resv_reserve_shared(shadow->resv, 1);
++	err = dma_resv_reserve_shared(shadow->obj->base.resv, 1);
+ 	if (err)
+ 		goto err_trampoline;
  
- 	return ret;
- }
-@@ -1125,13 +1094,14 @@ I915_SELFTEST_EXPORT int i915_vma_get_pages(struct i915_vma *vma)
- static void __vma_put_pages(struct i915_vma *vma, unsigned int count)
- {
- 	/* We allocate under vma_get_pages, so beware the shrinker */
--	struct sg_table *pages = READ_ONCE(vma->pages);
-+	struct sg_table *pages = vma->pages;
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index ad5d52b33eb6..36db641e863e 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -116,7 +116,6 @@ vma_create(struct drm_i915_gem_object *obj,
+ 	vma->vm = i915_vm_get(vm);
+ 	vma->ops = &vm->vma_ops;
+ 	vma->obj = obj;
+-	vma->resv = obj->base.resv;
+ 	vma->size = obj->base.size;
+ 	vma->display_alignment = I915_GTT_MIN_ALIGNMENT;
  
- 	GEM_BUG_ON(atomic_read(&vma->pages_count) < count);
+@@ -1032,7 +1031,7 @@ int i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 	GEM_BUG_ON(!i915_vma_is_ggtt(vma));
  
- 	if (atomic_sub_return(count, &vma->pages_count) == 0) {
--		if (pages == cmpxchg(&vma->pages, pages, NULL) &&
--		    pages != vma->obj->mm.pages) {
-+		vma->pages = NULL;
-+
-+		if (pages != vma->obj->mm.pages) {
- 			sg_free_table(pages);
- 			kfree(pages);
+ #ifdef CONFIG_LOCKDEP
+-	WARN_ON(!ww && dma_resv_held(vma->resv));
++	WARN_ON(!ww && dma_resv_held(vma->obj->base.resv));
+ #endif
+ 
+ 	do {
+@@ -1249,17 +1248,17 @@ int i915_vma_move_to_active(struct i915_vma *vma,
+ 			intel_frontbuffer_put(front);
  		}
+ 
+-		dma_resv_add_excl_fence(vma->resv, &rq->fence);
++		dma_resv_add_excl_fence(vma->obj->base.resv, &rq->fence);
+ 		obj->write_domain = I915_GEM_DOMAIN_RENDER;
+ 		obj->read_domains = 0;
+ 	} else {
+ 		if (!(flags & __EXEC_OBJECT_NO_RESERVE)) {
+-			err = dma_resv_reserve_shared(vma->resv, 1);
++			err = dma_resv_reserve_shared(vma->obj->base.resv, 1);
+ 			if (unlikely(err))
+ 				return err;
+ 		}
+ 
+-		dma_resv_add_shared_fence(vma->resv, &rq->fence);
++		dma_resv_add_shared_fence(vma->obj->base.resv, &rq->fence);
+ 		obj->write_domain = 0;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 1ba82bf863a5..0b11c188f749 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -225,16 +225,16 @@ static inline void __i915_vma_put(struct i915_vma *vma)
+ 	kref_put(&vma->ref, i915_vma_release);
+ }
+ 
+-#define assert_vma_held(vma) dma_resv_assert_held((vma)->resv)
++#define assert_vma_held(vma) dma_resv_assert_held((vma)->obj->base.resv)
+ 
+ static inline void i915_vma_lock(struct i915_vma *vma)
+ {
+-	dma_resv_lock(vma->resv, NULL);
++	dma_resv_lock(vma->obj->base.resv, NULL);
+ }
+ 
+ static inline void i915_vma_unlock(struct i915_vma *vma)
+ {
+-	dma_resv_unlock(vma->resv);
++	dma_resv_unlock(vma->obj->base.resv);
+ }
+ 
+ int __must_check
+diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
+index 995b502d7e5d..47573ed2d11f 100644
+--- a/drivers/gpu/drm/i915/i915_vma_types.h
++++ b/drivers/gpu/drm/i915/i915_vma_types.h
+@@ -177,7 +177,6 @@ struct i915_vma {
+ 	const struct i915_vma_ops *ops;
+ 
+ 	struct drm_i915_gem_object *obj;
+-	struct dma_resv *resv; /** Alias of obj->resv */
+ 
+ 	struct sg_table *pages;
+ 	void __iomem *iomap;
 -- 
 2.32.0
 
