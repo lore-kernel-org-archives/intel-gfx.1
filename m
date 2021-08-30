@@ -2,49 +2,59 @@ Return-Path: <SRS0=pIl2=NV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC34EC4320E
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE8D2C4320A
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:43:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C82060ED6
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8C82060ED6
+	by mail.kernel.org (Postfix) with ESMTPS id 98B5D60F56
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 16:43:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 98B5D60F56
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00A1589CE2;
-	Mon, 30 Aug 2021 16:26:23 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2870589CDD
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 16:26:12 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="279318066"
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="279318066"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2021 09:26:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="497802572"
-Received: from ayazahma-nuc8i7beh.iind.intel.com ([10.145.162.59])
- by fmsmga008.fm.intel.com with ESMTP; 30 Aug 2021 09:26:10 -0700
-From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Sreedhar Telukuntla <sreedhar.telukuntla@intel.com>,
- Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
-Date: Mon, 30 Aug 2021 21:52:39 +0530
-Message-Id: <20210830162240.3891502-8-ayaz.siddiqui@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
-References: <20210830162240.3891502-1-ayaz.siddiqui@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 253B289A94;
+	Mon, 30 Aug 2021 16:43:04 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E85CB89A86;
+ Mon, 30 Aug 2021 16:43:02 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="240547750"
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="240547750"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2021 09:43:02 -0700
+X-IronPort-AV: E=Sophos;i="5.84,363,1620716400"; d="scan'208";a="530497798"
+Received: from jasauer1-mobl4.amr.corp.intel.com (HELO intel.com)
+ ([10.255.38.180])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2021 09:43:00 -0700
+Date: Mon, 30 Aug 2021 12:42:58 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Imre Deak <imre.deak@intel.com>, Uma Shankar <uma.shankar@intel.com>,
+ Manasi Navare <manasi.d.navare@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>,
+ Sean Paul <seanpaul@chromium.org>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Message-ID: <YS0KkvYfvwbQTjfC@intel.com>
+References: <20210820075301.693099-1-kai.heng.feng@canonical.com>
+ <YR/ltlF5jRTYzQ3F@intel.com> <YSfRXjuRWa57uxXN@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V3 7/8] drm/i915/gt: Initialize L3CC table in
- mocs init
+In-Reply-To: <YSfRXjuRWa57uxXN@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v3] drm/i915/dp: Use max params for panels <
+ eDP 1.4
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +70,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sreedhar Telukuntla <sreedhar.telukuntla@intel.com>
+On Thu, Aug 26, 2021 at 01:37:34PM -0400, Rodrigo Vivi wrote:
+> On Fri, Aug 20, 2021 at 08:26:14PM +0300, Ville Syrjälä wrote:
+> > On Fri, Aug 20, 2021 at 03:52:59PM +0800, Kai-Heng Feng wrote:
+> > > Users reported that after commit 2bbd6dba84d4 ("drm/i915: Try to use
+> > > fast+narrow link on eDP again and fall back to the old max strategy on
+> > > failure"), the screen starts to have wobbly effect.
+> > > 
+> > > Commit a5c936add6a2 ("drm/i915/dp: Use slow and wide link training for
+> > > everything") doesn't help either, that means the affected eDP 1.2 panels
+> > > only work with max params.
+> > > 
+> > > So use max params for panels < eDP 1.4 as Windows does to solve the
+> > > issue.
+> > > 
+> > > v3:
+> > >  - Do the eDP rev check in intel_edp_init_dpcd()
+> > > 
+> > > v2:
+> > >  - Check eDP 1.4 instead of DPCD 1.1 to apply max params
+> > > 
+> > > Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3714
+> > > Fixes: 2bbd6dba84d4 ("drm/i915: Try to use fast+narrow link on eDP again and fall back to the old max strategy on failure")
+> > > Fixes: a5c936add6a2 ("drm/i915/dp: Use slow and wide link training for everything")
+> > > Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> > 
+> > Slapped a cc:stable on it and pushed to drm-intel-next. Thanks.
+> 
+> Since I got a strange failure on CI_DIF_604 that I don't see on CI_DIF_603,
+> I'm avoiding the display patches. This one and also
+> dab1b47e57e0 ("drm/i915/dp: return proper DPRX link training result")
+> 
+> I know, it is probably the other one, but I had to remove both patches for
+> now and I'm not confident the CI will allow me to test with this one alone.
+> 
+> If we have -rc8 I will check again later. Otherwise we will have to send
+> to the stable mailing list later.
 
-Initialize the L3CC table as part of mocs initalization to program
-LNCFCMOCSx registers, so that the mocs settings are available for
-selection for subsequent memory transactions in driver load path.
+CI didn't run on TGL again, so I couldn't send this patch last week.
+And 5.14 got released.
 
-Signed-off-by: Sreedhar Telukuntla <sreedhar.telukuntla@intel.com>
-Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_mocs.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+If this is important for 5.14 or any other stable release, please
+confirm this is not the one breaking linking training on TGL and then
+please send it to the stable mailing list.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index 577a78dfedf99..405374f1d8ed2 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -717,10 +717,9 @@ static u32 l3cc_combine(u16 low, u16 high)
- 	     0; \
- 	     i++)
- 
--static void init_l3cc_table(struct intel_engine_cs *engine,
-+static void init_l3cc_table(struct intel_uncore *uncore,
- 			    const struct drm_i915_mocs_table *table)
- {
--	struct intel_uncore *uncore = engine->uncore;
- 	unsigned int i;
- 	u32 l3cc;
- 
-@@ -746,7 +745,7 @@ void intel_mocs_init_engine(struct intel_engine_cs *engine)
- 		init_mocs_table(engine, &table);
- 
- 	if (flags & HAS_RENDER_L3CC && engine->class == RENDER_CLASS)
--		init_l3cc_table(engine, &table);
-+		init_l3cc_table(engine->uncore, &table);
- 
- 	aux = build_aux_regs(engine, &table);
- 	apply_aux_regs_engine(engine, aux);
-@@ -776,6 +775,14 @@ void intel_mocs_init(struct intel_gt *gt)
- 	if (flags & HAS_GLOBAL_MOCS)
- 		__init_mocs_table(gt->uncore, &table, global_mocs_offset());
- 	set_mocs_index(gt, &table);
-+
-+	/*
-+	 * Initialize the L3CC table as part of mocs initalization to make
-+	 * sure the LNCFCMOCSx registers are programmed for the subsequent
-+	 * memory transactions including guc transactions
-+	 */
-+	if (flags & HAS_RENDER_L3CC)
-+		init_l3cc_table(gt->uncore, &table);
- }
- 
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
--- 
-2.26.2
+https://www.kernel.org/doc/Documentation/process/stable-kernel-rules.rst
 
+Sorry,
+Rodrigo.
+
+> 
+> > 
+> > > ---
+> > >  drivers/gpu/drm/i915/display/intel_dp.c | 5 ++++-
+> > >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> > > index 75d4ebc669411..e0dbd35ae7bc0 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > > @@ -2445,11 +2445,14 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
+> > >  	 */
+> > >  	if (drm_dp_dpcd_read(&intel_dp->aux, DP_EDP_DPCD_REV,
+> > >  			     intel_dp->edp_dpcd, sizeof(intel_dp->edp_dpcd)) ==
+> > > -			     sizeof(intel_dp->edp_dpcd))
+> > > +			     sizeof(intel_dp->edp_dpcd)) {
+> > >  		drm_dbg_kms(&dev_priv->drm, "eDP DPCD: %*ph\n",
+> > >  			    (int)sizeof(intel_dp->edp_dpcd),
+> > >  			    intel_dp->edp_dpcd);
+> > >  
+> > > +		intel_dp->use_max_params = intel_dp->edp_dpcd[0] < DP_EDP_14;
+> > > +	}
+> > > +
+> > >  	/*
+> > >  	 * This has to be called after intel_dp->edp_dpcd is filled, PSR checks
+> > >  	 * for SET_POWER_CAPABLE bit in intel_dp->edp_dpcd[1]
+> > > -- 
+> > > 2.32.0
+> > 
+> > -- 
+> > Ville Syrjälä
+> > Intel
