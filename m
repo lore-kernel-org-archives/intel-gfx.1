@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2F9CC4320E
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 12:10:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DFFFC432BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 12:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A7FD461041
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 12:10:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A7FD461041
+	by mail.kernel.org (Postfix) with ESMTPS id 7136461041
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Aug 2021 12:10:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7136461041
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1284A89CF6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C181289D7C;
 	Mon, 30 Aug 2021 12:09:58 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8626289CCE
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 12:09:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF54C89CE2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Aug 2021 12:09:55 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Mon, 30 Aug 2021 14:09:54 +0200
-Message-Id: <20210830121006.2978297-8-maarten.lankhorst@linux.intel.com>
+Date: Mon, 30 Aug 2021 14:10:05 +0200
+Message-Id: <20210830121006.2978297-19-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210830121006.2978297-1-maarten.lankhorst@linux.intel.com>
 References: <20210830121006.2978297-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/19] drm/i915: vma is always backed by an
- object.
+Subject: [Intel-gfx] [PATCH 18/19] drm/i915: Add support for asynchronous
+ moving fence waiting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,186 +51,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-vma->obj and vma->resv are now never NULL, and some checks can be removed.
+For now, we will only allow async migration when TTM is used,
+so the paths we care about are related to TTM.
+
+The mmap path is handled by having the fence in ttm_bo->moving,
+when pinning, the binding only becomes available after the moving
+fence is signaled, and pinning a cpu map will only work after
+the moving fence signals.
+
+This should close all holes where userspace can read a buffer
+before it's fully migrated.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       |  2 +-
- .../gpu/drm/i915/gt/intel_ring_submission.c   |  2 +-
- drivers/gpu/drm/i915/i915_vma.c               | 48 ++++++++-----------
- drivers/gpu/drm/i915/i915_vma.h               |  3 --
- 4 files changed, 22 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c | 10 ++++++++++
+ drivers/gpu/drm/i915/i915_vma.c           | 10 ++++++++--
+ 2 files changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 745e84c72c90..d3ad16df3ca2 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -219,7 +219,7 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
- 	 */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 8eb1c3a6fc9c..a044d1829729 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -345,6 +345,7 @@ void *i915_gem_object_pin_map(struct drm_i915_gem_object *obj,
+ 			      enum i915_map_type type)
+ {
+ 	enum i915_map_type has_type;
++	struct dma_fence *moving;
+ 	bool pinned;
+ 	void *ptr;
+ 	int err;
+@@ -355,6 +356,15 @@ void *i915_gem_object_pin_map(struct drm_i915_gem_object *obj,
  
- 	err = i915_gem_object_lock(ce->timeline->hwsp_ggtt->obj, ww);
--	if (!err && ce->ring->vma->obj)
-+	if (!err)
- 		err = i915_gem_object_lock(ce->ring->vma->obj, ww);
- 	if (!err && ce->state)
- 		err = i915_gem_object_lock(ce->state->obj, ww);
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 3c65efcb7bed..cc31ccc13bfb 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -1354,7 +1354,7 @@ int intel_ring_submission_setup(struct intel_engine_cs *engine)
- 	err = i915_gem_object_lock(timeline->hwsp_ggtt->obj, &ww);
- 	if (!err && gen7_wa_vma)
- 		err = i915_gem_object_lock(gen7_wa_vma->obj, &ww);
--	if (!err && engine->legacy.ring->vma->obj)
-+	if (!err)
- 		err = i915_gem_object_lock(engine->legacy.ring->vma->obj, &ww);
- 	if (!err)
- 		err = intel_timeline_pin(timeline, &ww);
+ 	assert_object_held(obj);
+ 
++	moving = i915_gem_object_get_moving_fence(obj);
++	if (moving) {
++		err = dma_fence_wait(moving, true);
++		dma_fence_put(moving);
++
++		if (err)
++			return ERR_PTR(err);
++	}
++
+ 	pinned = !(type & I915_MAP_OVERRIDE);
+ 	type &= ~I915_MAP_OVERRIDE;
+ 
 diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index f9ac33e0bac9..ad5d52b33eb6 100644
+index bfba299d905c..320678e9b4e1 100644
 --- a/drivers/gpu/drm/i915/i915_vma.c
 +++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -40,12 +40,12 @@
- 
- static struct kmem_cache *slab_vmas;
- 
--struct i915_vma *i915_vma_alloc(void)
-+static struct i915_vma *i915_vma_alloc(void)
- {
- 	return kmem_cache_zalloc(slab_vmas, GFP_KERNEL);
- }
- 
--void i915_vma_free(struct i915_vma *vma)
-+static void i915_vma_free(struct i915_vma *vma)
- {
- 	return kmem_cache_free(slab_vmas, vma);
- }
-@@ -426,10 +426,8 @@ int i915_vma_bind(struct i915_vma *vma,
- 
- 		work->base.dma.error = 0; /* enable the queue_work() */
- 
--		if (vma->obj) {
--			__i915_gem_object_pin_pages(vma->obj);
--			work->pinned = i915_gem_object_get(vma->obj);
--		}
-+		__i915_gem_object_pin_pages(vma->obj);
-+		work->pinned = i915_gem_object_get(vma->obj);
- 	} else {
- 		vma->ops->bind_vma(vma->vm, NULL, vma, cache_level, bind_flags);
- 	}
-@@ -670,7 +668,7 @@ i915_vma_insert(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
- 	}
- 
- 	color = 0;
--	if (vma->obj && i915_vm_has_cache_coloring(vma->vm))
-+	if (i915_vm_has_cache_coloring(vma->vm))
- 		color = vma->obj->cache_level;
- 
- 	if (flags & PIN_OFFSET_FIXED) {
-@@ -795,17 +793,14 @@ static bool try_qad_pin(struct i915_vma *vma, unsigned int flags)
- static int vma_get_pages(struct i915_vma *vma)
- {
- 	int err = 0;
--	bool pinned_pages = false;
-+	bool pinned_pages = true;
- 
- 	if (atomic_add_unless(&vma->pages_count, 1, 0))
- 		return 0;
- 
--	if (vma->obj) {
--		err = i915_gem_object_pin_pages(vma->obj);
--		if (err)
--			return err;
--		pinned_pages = true;
--	}
-+	err = i915_gem_object_pin_pages(vma->obj);
-+	if (err)
-+		return err;
- 
- 	/* Allocations ahoy! */
- 	if (mutex_lock_interruptible(&vma->pages_mutex)) {
-@@ -838,8 +833,8 @@ static void __vma_put_pages(struct i915_vma *vma, unsigned int count)
- 	if (atomic_sub_return(count, &vma->pages_count) == 0) {
- 		vma->ops->clear_pages(vma);
- 		GEM_BUG_ON(vma->pages);
--		if (vma->obj)
--			i915_gem_object_unpin_pages(vma->obj);
-+
-+		i915_gem_object_unpin_pages(vma->obj);
- 	}
- 	mutex_unlock(&vma->pages_mutex);
- }
-@@ -875,7 +870,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	int err;
- 
- #ifdef CONFIG_PROVE_LOCKING
--	if (debug_locks && !WARN_ON(!ww) && vma->resv)
-+	if (debug_locks && !WARN_ON(!ww))
- 		assert_vma_held(vma);
- #endif
- 
-@@ -983,7 +978,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 
+@@ -398,7 +398,7 @@ int i915_vma_bind(struct i915_vma *vma,
  	GEM_BUG_ON(!vma->pages);
- 	err = i915_vma_bind(vma,
--			    vma->obj ? vma->obj->cache_level : 0,
-+			    vma->obj->cache_level,
- 			    flags, work);
- 	if (err)
- 		goto err_remove;
-@@ -1037,7 +1032,7 @@ int i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	GEM_BUG_ON(!i915_vma_is_ggtt(vma));
  
- #ifdef CONFIG_LOCKDEP
--	WARN_ON(!ww && vma->resv && dma_resv_held(vma->resv));
-+	WARN_ON(!ww && dma_resv_held(vma->resv));
- #endif
+ 	trace_i915_vma_bind(vma, bind_flags);
+-	if (work && bind_flags & vma->vm->bind_async_flags) {
++	if (work) {
+ 		struct dma_fence *prev;
  
- 	do {
-@@ -1116,6 +1111,7 @@ void i915_vma_reopen(struct i915_vma *vma)
- void i915_vma_release(struct kref *ref)
+ 		work->vma = vma;
+@@ -1145,6 +1145,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 		    u64 size, u64 alignment, u64 flags)
  {
- 	struct i915_vma *vma = container_of(ref, typeof(*vma), ref);
-+	struct drm_i915_gem_object *obj = vma->obj;
+ 	struct i915_vma_work *work = NULL;
++	struct dma_fence *moving = NULL;
+ 	intel_wakeref_t wakeref = 0;
+ 	unsigned int bound;
+ 	int err;
+@@ -1168,7 +1169,8 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 	if (flags & PIN_GLOBAL)
+ 		wakeref = intel_runtime_pm_get(&vma->vm->i915->runtime_pm);
  
- 	if (drm_mm_node_allocated(&vma->node)) {
- 		mutex_lock(&vma->vm->mutex);
-@@ -1126,15 +1122,11 @@ void i915_vma_release(struct kref *ref)
- 	}
- 	GEM_BUG_ON(i915_vma_is_active(vma));
+-	if (flags & vma->vm->bind_async_flags) {
++	moving = i915_gem_object_get_moving_fence(vma->obj);
++	if (flags & vma->vm->bind_async_flags || moving) {
+ 		/* lock VM */
+ 		err = i915_vm_lock_objects(vma->vm, ww);
+ 		if (err)
+@@ -1182,6 +1184,8 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
  
--	if (vma->obj) {
--		struct drm_i915_gem_object *obj = vma->obj;
--
--		spin_lock(&obj->vma.lock);
--		list_del(&vma->obj_link);
--		if (!RB_EMPTY_NODE(&vma->obj_node))
--			rb_erase(&vma->obj_node, &obj->vma.tree);
--		spin_unlock(&obj->vma.lock);
--	}
-+	spin_lock(&obj->vma.lock);
-+	list_del(&vma->obj_link);
-+	if (!RB_EMPTY_NODE(&vma->obj_node))
-+		rb_erase(&vma->obj_node, &obj->vma.tree);
-+	spin_unlock(&obj->vma.lock);
+ 		work->vm = i915_vm_get(vma->vm);
  
- 	__i915_vma_remove_closed(vma);
- 	i915_vm_put(vma->vm);
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 1c930515ec3d..1ba82bf863a5 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -409,9 +409,6 @@ static inline void i915_vma_clear_scanout(struct i915_vma *vma)
- 	list_for_each_entry(V, &(OBJ)->vma.list, obj_link)		\
- 		for_each_until(!i915_vma_is_ggtt(V))
- 
--struct i915_vma *i915_vma_alloc(void);
--void i915_vma_free(struct i915_vma *vma);
--
- struct i915_vma *i915_vma_make_unshrinkable(struct i915_vma *vma);
- void i915_vma_make_shrinkable(struct i915_vma *vma);
- void i915_vma_make_purgeable(struct i915_vma *vma);
++		dma_fence_work_chain(&work->base, moving);
++
+ 		/* Allocate enough page directories to used PTE */
+ 		if (vma->vm->allocate_va_range) {
+ 			err = i915_vm_alloc_pt_stash(vma->vm,
+@@ -1289,6 +1293,8 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ err_rpm:
+ 	if (wakeref)
+ 		intel_runtime_pm_put(&vma->vm->i915->runtime_pm, wakeref);
++	if (moving)
++		dma_fence_put(moving);
+ 	i915_vma_put_pages(vma);
+ 	return err;
+ }
 -- 
 2.32.0
 
