@@ -2,76 +2,56 @@ Return-Path: <SRS0=BQmx=NW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-20.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FB4FC43214
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 20:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 463E3C432BE
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 20:35:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E10561026
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 20:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6E10561026
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1B5626103A
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Aug 2021 20:35:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1B5626103A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAD1B89B0C;
-	Tue, 31 Aug 2021 20:21:52 +0000 (UTC)
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01F766E0E8;
- Tue, 31 Aug 2021 20:21:47 +0000 (UTC)
-Received: by mail-io1-xd36.google.com with SMTP id b10so544676ioq.9;
- Tue, 31 Aug 2021 13:21:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=CGySo7k0NjjBiBRbyy4yXpdKe55PNlaZiqwyz/FCdfQ=;
- b=ir3uzG5WWTJFolSb1sYBDCw/UIk4h6RndVJpeCEq5QmT8Ef/swAfxUtF+SFK7QST9G
- XNSGc364C56lKCxMmClZ5E8su+eLsHeew13fCEMEpROT1PvIJHf6aDnaW57Q/Luw1rMG
- ZfTkV8v+lvmGhJTmxRdlWrU/4wPovDJqbnHHuYHky30cpeBipgzgElBeOHVlSrVuEoJm
- bCekDLxJ3Jib5O56smBvJV3GfYmYFHYjbUekEw+1O5w+7wNZB5VpHZEB7UCwH2i6Xevy
- ot25lykn1ODx4nVImiuN0rI8Ftufs53EHXem+LKW0YQir8bhJDSLt7by2OVbYe0VvYaK
- 3yXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=CGySo7k0NjjBiBRbyy4yXpdKe55PNlaZiqwyz/FCdfQ=;
- b=n5WpNEVPbr5z5bX4L1ks9/6oyErO0OuaY2DQ/DV5I0916tK97ZiaQFyBex87ookgjP
- qz/VsrPosjs1HDyWquBF3RkD6pt8+yprvdBi7IMSrJkvHfdcNPk3nJr09H1TdAYNaSWr
- KnR+Wbvj/Tky2Y+unF6Z4retJkyWWfb2G/82o/M0wZ5h+mMlBsgzhKHnlVhslD3P1A7X
- +j7uTMYXwb93SKzI6Ubu6SSyQeGg0uGdUvKOP2eUpK+4ZH5inDb2po3sP7AOgyRETPPs
- 88Ik8tYC7XrNyVSFolfewB+3XylwizY14a+gaQCTOsuTXPF03qFqac9Ia+0nyprKyZ7d
- qWYg==
-X-Gm-Message-State: AOAM531GQu+7T3mXJcBULnfqHa42Kw5L7mhOREE+1n+hfBeDwDace6KW
- UZyNZbdUcLki82ynM+JwLJ2blNJ1Euc=
-X-Google-Smtp-Source: ABdhPJwdr98zKKjNO0Q6O+V2kZ7qwXQ3ezaDeGDNaFY0crkYFQAFqbrjUdCBP5kRdy4v1hekzumHDQ==
-X-Received: by 2002:a02:90d0:: with SMTP id c16mr4496608jag.106.1630441307234; 
- Tue, 31 Aug 2021 13:21:47 -0700 (PDT)
-Received: from frodo.. (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id u15sm10597384ilk.53.2021.08.31.13.21.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Aug 2021 13:21:46 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: Jim Cromie <jim.cromie@gmail.com>
-Date: Tue, 31 Aug 2021 14:21:32 -0600
-Message-Id: <20210831202133.2165222-8-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210831202133.2165222-1-jim.cromie@gmail.com>
-References: <20210831202133.2165222-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8A776E069;
+	Tue, 31 Aug 2021 20:35:52 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B6296E069;
+ Tue, 31 Aug 2021 20:35:51 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10093"; a="279573537"
+X-IronPort-AV: E=Sophos;i="5.84,367,1620716400"; d="scan'208";a="279573537"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2021 13:35:50 -0700
+X-IronPort-AV: E=Sophos;i="5.84,367,1620716400"; d="scan'208";a="466579571"
+Received: from unerlige-ril-10.jf.intel.com (HELO unerlige-ril-10.165.21.208)
+ ([10.165.21.208])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2021 13:35:50 -0700
+Date: Tue, 31 Aug 2021 13:35:45 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org,
+ Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
+ Ashutosh Dixit <ashutosh.dixit@intel.com>,
+ dri-devel@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, jason@jlekstrand.net
+Message-ID: <20210831203545.GA15813@unerlige-ril-10.165.21.208>
+References: <20210830193851.15607-1-umesh.nerlige.ramappa@intel.com>
+ <20210830193851.15607-9-umesh.nerlige.ramappa@intel.com>
+ <YS4myWfCp2IP4iFn@phenom.ffwll.local>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 7/8] amdgpu_ucode: reduce number of pr_debug
- calls
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+In-Reply-To: <YS4myWfCp2IP4iFn@phenom.ffwll.local>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Subject: Re: [Intel-gfx] [PATCH 8/8] drm/i915/perf: Map OA buffer to user
+ space for gen12 performance query
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,403 +67,420 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are blocks of DRM_DEBUG calls, consolidate their args into
-single calls.  With dynamic-debug in use, each callsite consumes 56
-bytes of callsite data, and this patch removes about 65 calls, so
-it saves ~3.5kb.
+On Tue, Aug 31, 2021 at 02:55:37PM +0200, Daniel Vetter wrote:
+>On Mon, Aug 30, 2021 at 12:38:51PM -0700, Umesh Nerlige Ramappa wrote:
+>> i915 used to support time based sampling mode which is good for overall
+>> system monitoring, but is not enough for query mode used to measure a
+>> single draw call or dispatch. Gen9-Gen11 are using current i915 perf
+>> implementation for query, but Gen12+ requires a new approach for query
+>> based on triggered reports within oa buffer.
+>>
+>> Triggering reports into the OA buffer is achieved by writing into a
+>> a trigger register. Optionally an unused counter/register is set with a
+>> marker value such that a triggered report can be identified in the OA
+>> buffer. Reports are usually triggered at the start and end of work that
+>> is measured.
+>>
+>> Since OA buffer is large and queries can be frequent, an efficient way
+>> to look for triggered reports is required. By knowing the current head
+>> and tail offsets into the OA buffer, it is easier to determine the
+>> locality of the reports of interest.
+>>
+>> Current perf OA interface does not expose head/tail information to the
+>> user and it filters out invalid reports before sending data to user.
+>> Also considering limited size of user buffer used during a query,
+>> creating a 1:1 copy of the OA buffer at the user space added undesired
+>> complexity.
+>>
+>> The solution was to map the OA buffer to user space provided
+>>
+>> (1) that it is accessed from a privileged user.
+>> (2) OA report filtering is not used.
+>>
+>> These 2 conditions would satisfy the safety criteria that the current
+>> perf interface addresses.
+>
+>This is a perf improvement. Please include benchmark numbers to justify
+>it.
 
-no functional changes.
+OA supports 2 mechanisms of perf measurements.
 
-RFC: this creates multi-line log messages, does that break any syslog
-conventions ?
+1) query interface where perf countes can be queried.
+2) OA buffer use case where counter-snapshots are captured periodically 
+and analyzed for performance.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 293 ++++++++++++----------
- 1 file changed, 158 insertions(+), 135 deletions(-)
+This patch series is actually just (1) query interface implementation 
+for discrete and not a perf improvement.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index 2834981f8c08..14a9fef1f4c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -30,17 +30,26 @@
- 
- static void amdgpu_ucode_print_common_hdr(const struct common_firmware_header *hdr)
- {
--	DRM_DEBUG("size_bytes: %u\n", le32_to_cpu(hdr->size_bytes));
--	DRM_DEBUG("header_size_bytes: %u\n", le32_to_cpu(hdr->header_size_bytes));
--	DRM_DEBUG("header_version_major: %u\n", le16_to_cpu(hdr->header_version_major));
--	DRM_DEBUG("header_version_minor: %u\n", le16_to_cpu(hdr->header_version_minor));
--	DRM_DEBUG("ip_version_major: %u\n", le16_to_cpu(hdr->ip_version_major));
--	DRM_DEBUG("ip_version_minor: %u\n", le16_to_cpu(hdr->ip_version_minor));
--	DRM_DEBUG("ucode_version: 0x%08x\n", le32_to_cpu(hdr->ucode_version));
--	DRM_DEBUG("ucode_size_bytes: %u\n", le32_to_cpu(hdr->ucode_size_bytes));
--	DRM_DEBUG("ucode_array_offset_bytes: %u\n",
--		  le32_to_cpu(hdr->ucode_array_offset_bytes));
--	DRM_DEBUG("crc32: 0x%08x\n", le32_to_cpu(hdr->crc32));
-+	DRM_DEBUG("size_bytes: %u\n"
-+		  "header_size_bytes: %u\n"
-+		  "header_version_major: %u\n"
-+		  "header_version_minor: %u\n"
-+		  "ip_version_major: %u\n"
-+		  "ip_version_minor: %u\n"
-+		  "ucode_version: 0x%08x\n"
-+		  "ucode_size_bytes: %u\n"
-+		  "ucode_array_offset_bytes: %u\n"
-+		  "crc32: 0x%08x\n",
-+		  le32_to_cpu(hdr->size_bytes),
-+		  le32_to_cpu(hdr->header_size_bytes),
-+		  le16_to_cpu(hdr->header_version_major),
-+		  le16_to_cpu(hdr->header_version_minor),
-+		  le16_to_cpu(hdr->ip_version_major),
-+		  le16_to_cpu(hdr->ip_version_minor),
-+		  le32_to_cpu(hdr->ucode_version),
-+		  le32_to_cpu(hdr->ucode_size_bytes),
-+		  le32_to_cpu(hdr->ucode_array_offset_bytes),
-+		  le32_to_cpu(hdr->crc32));
- }
- 
- void amdgpu_ucode_print_mc_hdr(const struct common_firmware_header *hdr)
-@@ -55,9 +64,9 @@ void amdgpu_ucode_print_mc_hdr(const struct common_firmware_header *hdr)
- 		const struct mc_firmware_header_v1_0 *mc_hdr =
- 			container_of(hdr, struct mc_firmware_header_v1_0, header);
- 
--		DRM_DEBUG("io_debug_size_bytes: %u\n",
--			  le32_to_cpu(mc_hdr->io_debug_size_bytes));
--		DRM_DEBUG("io_debug_array_offset_bytes: %u\n",
-+		DRM_DEBUG("io_debug_size_bytes: %u\n"
-+			  "io_debug_array_offset_bytes: %u\n",
-+			  le32_to_cpu(mc_hdr->io_debug_size_bytes),
- 			  le32_to_cpu(mc_hdr->io_debug_array_offset_bytes));
- 	} else {
- 		DRM_ERROR("Unknown MC ucode version: %u.%u\n", version_major, version_minor);
-@@ -82,13 +91,17 @@ void amdgpu_ucode_print_smc_hdr(const struct common_firmware_header *hdr)
- 		switch (version_minor) {
- 		case 0:
- 			v2_0_hdr = container_of(hdr, struct smc_firmware_header_v2_0, v1_0.header);
--			DRM_DEBUG("ppt_offset_bytes: %u\n", le32_to_cpu(v2_0_hdr->ppt_offset_bytes));
--			DRM_DEBUG("ppt_size_bytes: %u\n", le32_to_cpu(v2_0_hdr->ppt_size_bytes));
-+			DRM_DEBUG("ppt_offset_bytes: %u\n"
-+				  "ppt_size_bytes: %u\n",
-+				  le32_to_cpu(v2_0_hdr->ppt_offset_bytes),
-+				  le32_to_cpu(v2_0_hdr->ppt_size_bytes));
- 			break;
- 		case 1:
- 			v2_1_hdr = container_of(hdr, struct smc_firmware_header_v2_1, v1_0.header);
--			DRM_DEBUG("pptable_count: %u\n", le32_to_cpu(v2_1_hdr->pptable_count));
--			DRM_DEBUG("pptable_entry_offset: %u\n", le32_to_cpu(v2_1_hdr->pptable_entry_offset));
-+			DRM_DEBUG("pptable_count: %u\n"
-+				  "pptable_entry_offset: %u\n",
-+				  le32_to_cpu(v2_1_hdr->pptable_count),
-+				  le32_to_cpu(v2_1_hdr->pptable_entry_offset));
- 			break;
- 		default:
- 			break;
-@@ -111,10 +124,12 @@ void amdgpu_ucode_print_gfx_hdr(const struct common_firmware_header *hdr)
- 		const struct gfx_firmware_header_v1_0 *gfx_hdr =
- 			container_of(hdr, struct gfx_firmware_header_v1_0, header);
- 
--		DRM_DEBUG("ucode_feature_version: %u\n",
--			  le32_to_cpu(gfx_hdr->ucode_feature_version));
--		DRM_DEBUG("jt_offset: %u\n", le32_to_cpu(gfx_hdr->jt_offset));
--		DRM_DEBUG("jt_size: %u\n", le32_to_cpu(gfx_hdr->jt_size));
-+		DRM_DEBUG("ucode_feature_version: %u\n"
-+			  "jt_offset: %u\n"
-+			  "jt_size: %u\n",
-+			  le32_to_cpu(gfx_hdr->ucode_feature_version),
-+			  le32_to_cpu(gfx_hdr->jt_offset),
-+			  le32_to_cpu(gfx_hdr->jt_size));
- 	} else {
- 		DRM_ERROR("Unknown GFX ucode version: %u.%u\n", version_major, version_minor);
- 	}
-@@ -132,82 +147,88 @@ void amdgpu_ucode_print_rlc_hdr(const struct common_firmware_header *hdr)
- 		const struct rlc_firmware_header_v1_0 *rlc_hdr =
- 			container_of(hdr, struct rlc_firmware_header_v1_0, header);
- 
--		DRM_DEBUG("ucode_feature_version: %u\n",
--			  le32_to_cpu(rlc_hdr->ucode_feature_version));
--		DRM_DEBUG("save_and_restore_offset: %u\n",
--			  le32_to_cpu(rlc_hdr->save_and_restore_offset));
--		DRM_DEBUG("clear_state_descriptor_offset: %u\n",
--			  le32_to_cpu(rlc_hdr->clear_state_descriptor_offset));
--		DRM_DEBUG("avail_scratch_ram_locations: %u\n",
--			  le32_to_cpu(rlc_hdr->avail_scratch_ram_locations));
--		DRM_DEBUG("master_pkt_description_offset: %u\n",
-+		DRM_DEBUG("ucode_feature_version: %u\n"
-+			  "save_and_restore_offset: %u\n"
-+			  "clear_state_descriptor_offset: %u\n"
-+			  "avail_scratch_ram_locations: %u\n"
-+			  "master_pkt_description_offset: %u\n",
-+			  le32_to_cpu(rlc_hdr->ucode_feature_version),
-+			  le32_to_cpu(rlc_hdr->save_and_restore_offset),
-+			  le32_to_cpu(rlc_hdr->clear_state_descriptor_offset),
-+			  le32_to_cpu(rlc_hdr->avail_scratch_ram_locations),
- 			  le32_to_cpu(rlc_hdr->master_pkt_description_offset));
-+
- 	} else if (version_major == 2) {
- 		const struct rlc_firmware_header_v2_0 *rlc_hdr =
- 			container_of(hdr, struct rlc_firmware_header_v2_0, header);
- 
--		DRM_DEBUG("ucode_feature_version: %u\n",
--			  le32_to_cpu(rlc_hdr->ucode_feature_version));
--		DRM_DEBUG("jt_offset: %u\n", le32_to_cpu(rlc_hdr->jt_offset));
--		DRM_DEBUG("jt_size: %u\n", le32_to_cpu(rlc_hdr->jt_size));
--		DRM_DEBUG("save_and_restore_offset: %u\n",
--			  le32_to_cpu(rlc_hdr->save_and_restore_offset));
--		DRM_DEBUG("clear_state_descriptor_offset: %u\n",
--			  le32_to_cpu(rlc_hdr->clear_state_descriptor_offset));
--		DRM_DEBUG("avail_scratch_ram_locations: %u\n",
--			  le32_to_cpu(rlc_hdr->avail_scratch_ram_locations));
--		DRM_DEBUG("reg_restore_list_size: %u\n",
--			  le32_to_cpu(rlc_hdr->reg_restore_list_size));
--		DRM_DEBUG("reg_list_format_start: %u\n",
--			  le32_to_cpu(rlc_hdr->reg_list_format_start));
--		DRM_DEBUG("reg_list_format_separate_start: %u\n",
-+		DRM_DEBUG("ucode_feature_version: %u\n"
-+			  "jt_offset: %u\n"
-+			  "jt_size: %u\n"
-+			  "save_and_restore_offset: %u\n"
-+			  "clear_state_descriptor_offset: %u\n"
-+			  "avail_scratch_ram_locations: %u\n"
-+			  "reg_restore_list_size: %u\n"
-+			  "reg_list_format_start: %u\n"
-+			  "reg_list_format_separate_start: %u\n",
-+			  le32_to_cpu(rlc_hdr->ucode_feature_version),
-+			  le32_to_cpu(rlc_hdr->jt_offset),
-+			  le32_to_cpu(rlc_hdr->jt_size),
-+			  le32_to_cpu(rlc_hdr->save_and_restore_offset),
-+			  le32_to_cpu(rlc_hdr->clear_state_descriptor_offset),
-+			  le32_to_cpu(rlc_hdr->avail_scratch_ram_locations),
-+			  le32_to_cpu(rlc_hdr->reg_restore_list_size),
-+			  le32_to_cpu(rlc_hdr->reg_list_format_start),
- 			  le32_to_cpu(rlc_hdr->reg_list_format_separate_start));
--		DRM_DEBUG("starting_offsets_start: %u\n",
--			  le32_to_cpu(rlc_hdr->starting_offsets_start));
--		DRM_DEBUG("reg_list_format_size_bytes: %u\n",
--			  le32_to_cpu(rlc_hdr->reg_list_format_size_bytes));
--		DRM_DEBUG("reg_list_format_array_offset_bytes: %u\n",
--			  le32_to_cpu(rlc_hdr->reg_list_format_array_offset_bytes));
--		DRM_DEBUG("reg_list_size_bytes: %u\n",
--			  le32_to_cpu(rlc_hdr->reg_list_size_bytes));
--		DRM_DEBUG("reg_list_array_offset_bytes: %u\n",
--			  le32_to_cpu(rlc_hdr->reg_list_array_offset_bytes));
--		DRM_DEBUG("reg_list_format_separate_size_bytes: %u\n",
--			  le32_to_cpu(rlc_hdr->reg_list_format_separate_size_bytes));
--		DRM_DEBUG("reg_list_format_separate_array_offset_bytes: %u\n",
--			  le32_to_cpu(rlc_hdr->reg_list_format_separate_array_offset_bytes));
--		DRM_DEBUG("reg_list_separate_size_bytes: %u\n",
--			  le32_to_cpu(rlc_hdr->reg_list_separate_size_bytes));
--		DRM_DEBUG("reg_list_separate_array_offset_bytes: %u\n",
-+
-+		DRM_DEBUG("starting_offsets_start: %u\n"
-+			  "reg_list_format_size_bytes: %u\n"
-+			  "reg_list_format_array_offset_bytes: %u\n"
-+			  "reg_list_size_bytes: %u\n"
-+			  "reg_list_array_offset_bytes: %u\n"
-+			  "reg_list_format_separate_size_bytes: %u\n"
-+			  "reg_list_format_separate_array_offset_bytes: %u\n"
-+			  "reg_list_separate_size_bytes: %u\n"
-+			  "reg_list_separate_array_offset_bytes: %u\n",
-+			  le32_to_cpu(rlc_hdr->starting_offsets_start),
-+			  le32_to_cpu(rlc_hdr->reg_list_format_size_bytes),
-+			  le32_to_cpu(rlc_hdr->reg_list_format_array_offset_bytes),
-+			  le32_to_cpu(rlc_hdr->reg_list_size_bytes),
-+			  le32_to_cpu(rlc_hdr->reg_list_array_offset_bytes),
-+			  le32_to_cpu(rlc_hdr->reg_list_format_separate_size_bytes),
-+			  le32_to_cpu(rlc_hdr->reg_list_format_separate_array_offset_bytes),
-+			  le32_to_cpu(rlc_hdr->reg_list_separate_size_bytes),
- 			  le32_to_cpu(rlc_hdr->reg_list_separate_array_offset_bytes));
-+
- 		if (version_minor == 1) {
- 			const struct rlc_firmware_header_v2_1 *v2_1 =
- 				container_of(rlc_hdr, struct rlc_firmware_header_v2_1, v2_0);
--			DRM_DEBUG("reg_list_format_direct_reg_list_length: %u\n",
--				  le32_to_cpu(v2_1->reg_list_format_direct_reg_list_length));
--			DRM_DEBUG("save_restore_list_cntl_ucode_ver: %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_cntl_ucode_ver));
--			DRM_DEBUG("save_restore_list_cntl_feature_ver: %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_cntl_feature_ver));
--			DRM_DEBUG("save_restore_list_cntl_size_bytes %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_cntl_size_bytes));
--			DRM_DEBUG("save_restore_list_cntl_offset_bytes: %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_cntl_offset_bytes));
--			DRM_DEBUG("save_restore_list_gpm_ucode_ver: %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_gpm_ucode_ver));
--			DRM_DEBUG("save_restore_list_gpm_feature_ver: %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_gpm_feature_ver));
--			DRM_DEBUG("save_restore_list_gpm_size_bytes %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_gpm_size_bytes));
--			DRM_DEBUG("save_restore_list_gpm_offset_bytes: %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_gpm_offset_bytes));
--			DRM_DEBUG("save_restore_list_srm_ucode_ver: %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_srm_ucode_ver));
--			DRM_DEBUG("save_restore_list_srm_feature_ver: %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_srm_feature_ver));
--			DRM_DEBUG("save_restore_list_srm_size_bytes %u\n",
--				  le32_to_cpu(v2_1->save_restore_list_srm_size_bytes));
--			DRM_DEBUG("save_restore_list_srm_offset_bytes: %u\n",
-+
-+			DRM_DEBUG("reg_list_format_direct_reg_list_length: %u\n"
-+				  "save_restore_list_cntl_ucode_ver: %u\n"
-+				  "save_restore_list_cntl_feature_ver: %u\n"
-+				  "save_restore_list_cntl_size_bytes %u\n"
-+				  "save_restore_list_cntl_offset_bytes: %u\n"
-+				  "save_restore_list_gpm_ucode_ver: %u\n"
-+				  "save_restore_list_gpm_feature_ver: %u\n"
-+				  "save_restore_list_gpm_size_bytes %u\n"
-+				  "save_restore_list_gpm_offset_bytes: %u\n"
-+				  "save_restore_list_srm_ucode_ver: %u\n"
-+				  "save_restore_list_srm_feature_ver: %u\n"
-+				  "save_restore_list_srm_size_bytes %u\n"
-+				  "save_restore_list_srm_offset_bytes: %u\n",
-+				  le32_to_cpu(v2_1->reg_list_format_direct_reg_list_length),
-+				  le32_to_cpu(v2_1->save_restore_list_cntl_ucode_ver),
-+				  le32_to_cpu(v2_1->save_restore_list_cntl_feature_ver),
-+				  le32_to_cpu(v2_1->save_restore_list_cntl_size_bytes),
-+				  le32_to_cpu(v2_1->save_restore_list_cntl_offset_bytes),
-+				  le32_to_cpu(v2_1->save_restore_list_gpm_ucode_ver),
-+				  le32_to_cpu(v2_1->save_restore_list_gpm_feature_ver),
-+				  le32_to_cpu(v2_1->save_restore_list_gpm_size_bytes),
-+				  le32_to_cpu(v2_1->save_restore_list_gpm_offset_bytes),
-+				  le32_to_cpu(v2_1->save_restore_list_srm_ucode_ver),
-+				  le32_to_cpu(v2_1->save_restore_list_srm_feature_ver),
-+				  le32_to_cpu(v2_1->save_restore_list_srm_size_bytes),
- 				  le32_to_cpu(v2_1->save_restore_list_srm_offset_bytes));
- 		}
- 	} else {
-@@ -227,12 +248,14 @@ void amdgpu_ucode_print_sdma_hdr(const struct common_firmware_header *hdr)
- 		const struct sdma_firmware_header_v1_0 *sdma_hdr =
- 			container_of(hdr, struct sdma_firmware_header_v1_0, header);
- 
--		DRM_DEBUG("ucode_feature_version: %u\n",
--			  le32_to_cpu(sdma_hdr->ucode_feature_version));
--		DRM_DEBUG("ucode_change_version: %u\n",
--			  le32_to_cpu(sdma_hdr->ucode_change_version));
--		DRM_DEBUG("jt_offset: %u\n", le32_to_cpu(sdma_hdr->jt_offset));
--		DRM_DEBUG("jt_size: %u\n", le32_to_cpu(sdma_hdr->jt_size));
-+		DRM_DEBUG("ucode_feature_version: %u\n"
-+			  "ucode_change_version: %u\n"
-+			  "jt_offset: %u\n"
-+			  "jt_size: %u\n",
-+			  le32_to_cpu(sdma_hdr->ucode_feature_version),
-+			  le32_to_cpu(sdma_hdr->ucode_change_version),
-+			  le32_to_cpu(sdma_hdr->jt_offset),
-+			  le32_to_cpu(sdma_hdr->jt_size));
- 		if (version_minor >= 1) {
- 			const struct sdma_firmware_header_v1_1 *sdma_v1_1_hdr =
- 				container_of(sdma_hdr, struct sdma_firmware_header_v1_1, v1_0);
-@@ -256,36 +279,36 @@ void amdgpu_ucode_print_psp_hdr(const struct common_firmware_header *hdr)
- 		const struct psp_firmware_header_v1_0 *psp_hdr =
- 			container_of(hdr, struct psp_firmware_header_v1_0, header);
- 
--		DRM_DEBUG("ucode_feature_version: %u\n",
--			  le32_to_cpu(psp_hdr->sos.fw_version));
--		DRM_DEBUG("sos_offset_bytes: %u\n",
--			  le32_to_cpu(psp_hdr->sos.offset_bytes));
--		DRM_DEBUG("sos_size_bytes: %u\n",
-+		DRM_DEBUG("ucode_feature_version: %u\n"
-+			  "sos_offset_bytes: %u\n"
-+			  "sos_size_bytes: %u\n",
-+			  le32_to_cpu(psp_hdr->sos.fw_version),
-+			  le32_to_cpu(psp_hdr->sos.offset_bytes),
- 			  le32_to_cpu(psp_hdr->sos.size_bytes));
- 		if (version_minor == 1) {
- 			const struct psp_firmware_header_v1_1 *psp_hdr_v1_1 =
- 				container_of(psp_hdr, struct psp_firmware_header_v1_1, v1_0);
--			DRM_DEBUG("toc_header_version: %u\n",
--				  le32_to_cpu(psp_hdr_v1_1->toc.fw_version));
--			DRM_DEBUG("toc_offset_bytes: %u\n",
--				  le32_to_cpu(psp_hdr_v1_1->toc.offset_bytes));
--			DRM_DEBUG("toc_size_bytes: %u\n",
--				  le32_to_cpu(psp_hdr_v1_1->toc.size_bytes));
--			DRM_DEBUG("kdb_header_version: %u\n",
--				  le32_to_cpu(psp_hdr_v1_1->kdb.fw_version));
--			DRM_DEBUG("kdb_offset_bytes: %u\n",
--				  le32_to_cpu(psp_hdr_v1_1->kdb.offset_bytes));
--			DRM_DEBUG("kdb_size_bytes: %u\n",
-+			DRM_DEBUG("toc_header_version: %u\n"
-+				  "toc_offset_bytes: %u\n"
-+				  "toc_size_bytes: %u\n"
-+				  "kdb_header_version: %u\n"
-+				  "kdb_offset_bytes: %u\n"
-+				  "kdb_size_bytes: %u\n",
-+				  le32_to_cpu(psp_hdr_v1_1->toc.fw_version),
-+				  le32_to_cpu(psp_hdr_v1_1->toc.offset_bytes),
-+				  le32_to_cpu(psp_hdr_v1_1->toc.size_bytes),
-+				  le32_to_cpu(psp_hdr_v1_1->kdb.fw_version),
-+				  le32_to_cpu(psp_hdr_v1_1->kdb.offset_bytes),
- 				  le32_to_cpu(psp_hdr_v1_1->kdb.size_bytes));
- 		}
- 		if (version_minor == 2) {
- 			const struct psp_firmware_header_v1_2 *psp_hdr_v1_2 =
- 				container_of(psp_hdr, struct psp_firmware_header_v1_2, v1_0);
--			DRM_DEBUG("kdb_header_version: %u\n",
--				  le32_to_cpu(psp_hdr_v1_2->kdb.fw_version));
--			DRM_DEBUG("kdb_offset_bytes: %u\n",
--				  le32_to_cpu(psp_hdr_v1_2->kdb.offset_bytes));
--			DRM_DEBUG("kdb_size_bytes: %u\n",
-+			DRM_DEBUG("kdb_header_version: %u\n"
-+				  "kdb_offset_bytes: %u\n"
-+				  "kdb_size_bytes: %u\n",
-+				  le32_to_cpu(psp_hdr_v1_2->kdb.fw_version),
-+				  le32_to_cpu(psp_hdr_v1_2->kdb.offset_bytes),
- 				  le32_to_cpu(psp_hdr_v1_2->kdb.size_bytes));
- 		}
- 		if (version_minor == 3) {
-@@ -293,23 +316,23 @@ void amdgpu_ucode_print_psp_hdr(const struct common_firmware_header *hdr)
- 				container_of(psp_hdr, struct psp_firmware_header_v1_1, v1_0);
- 			const struct psp_firmware_header_v1_3 *psp_hdr_v1_3 =
- 				container_of(psp_hdr_v1_1, struct psp_firmware_header_v1_3, v1_1);
--			DRM_DEBUG("toc_header_version: %u\n",
--				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.fw_version));
--			DRM_DEBUG("toc_offset_bytes: %u\n",
--				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.offset_bytes));
--			DRM_DEBUG("toc_size_bytes: %u\n",
--				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.size_bytes));
--			DRM_DEBUG("kdb_header_version: %u\n",
--				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.fw_version));
--			DRM_DEBUG("kdb_offset_bytes: %u\n",
--				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.offset_bytes));
--			DRM_DEBUG("kdb_size_bytes: %u\n",
--				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.size_bytes));
--			DRM_DEBUG("spl_header_version: %u\n",
--				  le32_to_cpu(psp_hdr_v1_3->spl.fw_version));
--			DRM_DEBUG("spl_offset_bytes: %u\n",
--				  le32_to_cpu(psp_hdr_v1_3->spl.offset_bytes));
--			DRM_DEBUG("spl_size_bytes: %u\n",
-+			DRM_DEBUG("toc_header_version: %u\n"
-+				  "toc_offset_bytes: %u\n"
-+				  "toc_size_bytes: %u\n"
-+				  "kdb_header_version: %u\n"
-+				  "kdb_offset_bytes: %u\n"
-+				  "kdb_size_bytes: %u\n"
-+				  "spl_header_version: %u\n"
-+				  "spl_offset_bytes: %u\n"
-+				  "spl_size_bytes: %u\n",
-+				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.fw_version),
-+				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.offset_bytes),
-+				  le32_to_cpu(psp_hdr_v1_3->v1_1.toc.size_bytes),
-+				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.fw_version),
-+				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.offset_bytes),
-+				  le32_to_cpu(psp_hdr_v1_3->v1_1.kdb.size_bytes),
-+				  le32_to_cpu(psp_hdr_v1_3->spl.fw_version),
-+				  le32_to_cpu(psp_hdr_v1_3->spl.offset_bytes),
- 				  le32_to_cpu(psp_hdr_v1_3->spl.size_bytes));
- 		}
- 	} else {
-@@ -330,9 +353,9 @@ void amdgpu_ucode_print_gpu_info_hdr(const struct common_firmware_header *hdr)
- 		const struct gpu_info_firmware_header_v1_0 *gpu_info_hdr =
- 			container_of(hdr, struct gpu_info_firmware_header_v1_0, header);
- 
--		DRM_DEBUG("version_major: %u\n",
--			  le16_to_cpu(gpu_info_hdr->version_major));
--		DRM_DEBUG("version_minor: %u\n",
-+		DRM_DEBUG("version_major: %u\n"
-+			  "version_minor: %u\n",
-+			  le16_to_cpu(gpu_info_hdr->version_major),
- 			  le16_to_cpu(gpu_info_hdr->version_minor));
- 	} else {
- 		DRM_ERROR("Unknown gpu_info ucode version: %u.%u\n", version_major, version_minor);
--- 
-2.31.1
+The old mechanism to query OA report (MI_REPORT_PERF_COUNT) is not 
+available for all engines. In the new mechanism, a query is triggered 
+from a batch by writing to a whitelisted OA trigger register. Once a 
+query is triggered, the resulting report is captured in the OA buffer.  
+To locate the report quickly, the batch also captures the OA HW tail 
+pointer before/after writing to the trigger register. This gives the 
+user a window/locality in the OA buffer where the report of interest 
+lies.  
 
+For this new mechanism, the current interface to read reports from the 
+OA buffer is inefficient since the reads are sequential and reports are 
+copied to user buffer.
+
+mmap provides an accurate and faster way to fetch the queried reports 
+based on locality.
+
+Note that mmap does not replace the OA buffer use case from (2) which 
+still reads reports sequentially to analyze performance.
+
+>
+>>
+>> To enable the query:
+>> - Add an ioctl to expose head and tail to the user
+>> - Add an ioctl to return size and offset of the OA buffer
+>> - Map the OA buffer to the user space
+>>
+>> v2:
+>> - Improve commit message (Chris)
+>> - Do not mmap based on gem object filp. Instead, use perf_fd and support
+>>   mmap syscall (Chris)
+>> - Pass non-zero offset in mmap to enforce the right object is
+>>   mapped (Chris)
+>> - Do not expose gpu_address (Chris)
+>> - Verify start and length of vma for page alignment (Lionel)
+>> - Move SQNTL config out (Lionel)
+>>
+>> v3: (Chris)
+>> - Omit redundant checks
+>> - Return VM_FAULT_SIGBUS is old stream is closed
+>> - Maintain reference counts to stream in vm_open and vm_close
+>> - Use switch to identify object to be mapped
+>>
+>> v4: Call kref_put on closing perf fd (Chris)
+>> v5:
+>> - Strip access to OA buffer from unprivileged child of a privileged
+>>   parent. Use VM_DONTCOPY
+>> - Enforce MAP_PRIVATE by checking for VM_MAYSHARE
+>>
+>> v6:
+>> (Chris)
+>> - Use len of -1 in unmap_mapping_range
+>> - Don't use stream->oa_buffer.vma->obj in vm_fault_oa
+>> - Use kernel block comment style
+>> - do_mmap gets a reference to the file and puts it in do_munmap, so
+>>   no need to maintain a reference to i915_perf_stream. Hence, remove
+>>   vm_open/vm_close and stream->closed hooks/checks.
+>> (Umesh)
+>> - Do not allow mmap if SAMPLE_OA_REPORT is not set during
+>>   i915_perf_open_ioctl.
+>> - Drop ioctl returning head/tail since this information is already
+>>   whitelisted. Remove hooks to read head register.
+>>
+>> v7: (Chris)
+>> - unmap before destroy
+>> - change ioctl argument struct
+>>
+>> v8: Documentation and more checks (Chris)
+>> v9: Fix comment style (Umesh)
+>> v10: Update uapi comment (Ashutosh)
+>>
+>> Signed-off-by: Piotr Maciejewski <piotr.maciejewski@intel.com>
+>> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+>> Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+>> ---
+>>  drivers/gpu/drm/i915/gem/i915_gem_mman.c |   2 +-
+>>  drivers/gpu/drm/i915/gem/i915_gem_mman.h |   2 +
+>>  drivers/gpu/drm/i915/i915_perf.c         | 126 ++++++++++++++++++++++-
+>>  include/uapi/drm/i915_drm.h              |  33 ++++++
+>>  4 files changed, 161 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+>> index 5130e8ed9564..84cdce2ee447 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+>> @@ -213,7 +213,7 @@ compute_partial_view(const struct drm_i915_gem_object *obj,
+>>  	return view;
+>>  }
+>>
+>> -static vm_fault_t i915_error_to_vmf_fault(int err)
+>> +vm_fault_t i915_error_to_vmf_fault(int err)
+>>  {
+>>  	switch (err) {
+>>  	default:
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.h b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
+>> index efee9e0d2508..1190a3a228ea 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.h
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
+>> @@ -29,4 +29,6 @@ void i915_gem_object_release_mmap_gtt(struct drm_i915_gem_object *obj);
+>>
+>>  void i915_gem_object_release_mmap_offset(struct drm_i915_gem_object *obj);
+>>
+>> +vm_fault_t i915_error_to_vmf_fault(int err);
+>> +
+>>  #endif
+>> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+>> index de3d1738aabe..1f8d4f3a2148 100644
+>> --- a/drivers/gpu/drm/i915/i915_perf.c
+>> +++ b/drivers/gpu/drm/i915/i915_perf.c
+>> @@ -192,10 +192,12 @@
+>>   */
+>>
+>>  #include <linux/anon_inodes.h>
+>> +#include <linux/mman.h>
+>>  #include <linux/sizes.h>
+>>  #include <linux/uuid.h>
+>>
+>>  #include "gem/i915_gem_context.h"
+>> +#include "gem/i915_gem_mman.h"
+>>  #include "gt/intel_engine_pm.h"
+>>  #include "gt/intel_engine_user.h"
+>>  #include "gt/intel_execlists_submission.h"
+>> @@ -3322,6 +3324,44 @@ static long i915_perf_config_locked(struct i915_perf_stream *stream,
+>>  	return ret;
+>>  }
+>>
+>> +#define I915_PERF_OA_BUFFER_MMAP_OFFSET 1
+>> +
+>> +/**
+>> + * i915_perf_oa_buffer_info_locked - size and offset of the OA buffer
+>> + * @stream: i915 perf stream
+>> + * @cmd: ioctl command
+>> + * @arg: pointer to oa buffer info filled by this function.
+>> + */
+>> +static int i915_perf_oa_buffer_info_locked(struct i915_perf_stream *stream,
+>> +					   unsigned int cmd,
+>> +					   unsigned long arg)
+>> +{
+>> +	struct drm_i915_perf_oa_buffer_info info;
+>> +	void __user *output = (void __user *)arg;
+>> +
+>> +	if (i915_perf_stream_paranoid && !perfmon_capable()) {
+>> +		DRM_DEBUG("Insufficient privileges to access OA buffer info\n");
+>> +		return -EACCES;
+>> +	}
+>> +
+>> +	if (_IOC_SIZE(cmd) != sizeof(info))
+>> +		return -EINVAL;
+>> +
+>> +	if (copy_from_user(&info, output, sizeof(info)))
+>> +		return -EFAULT;
+>> +
+>> +	if (info.type || info.flags || info.rsvd)
+>> +		return -EINVAL;
+>> +
+>> +	info.size = stream->oa_buffer.vma->size;
+>> +	info.offset = I915_PERF_OA_BUFFER_MMAP_OFFSET * PAGE_SIZE;
+>> +
+>> +	if (copy_to_user(output, &info, sizeof(info)))
+>> +		return -EFAULT;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>  /**
+>>   * i915_perf_ioctl_locked - support ioctl() usage with i915 perf stream FDs
+>>   * @stream: An i915 perf stream
+>> @@ -3347,6 +3387,8 @@ static long i915_perf_ioctl_locked(struct i915_perf_stream *stream,
+>>  		return 0;
+>>  	case I915_PERF_IOCTL_CONFIG:
+>>  		return i915_perf_config_locked(stream, arg);
+>> +	case I915_PERF_IOCTL_GET_OA_BUFFER_INFO:
+>> +		return i915_perf_oa_buffer_info_locked(stream, cmd, arg);
+>>  	}
+>>
+>>  	return -EINVAL;
+>> @@ -3418,6 +3460,14 @@ static int i915_perf_release(struct inode *inode, struct file *file)
+>>  	struct i915_perf_stream *stream = file->private_data;
+>>  	struct i915_perf *perf = stream->perf;
+>>
+>> +	/*
+>> +	 * User could have multiple vmas from multiple mmaps. We want to zap
+>> +	 * them all here. Note that a fresh fault cannot occur as the mmap holds
+>> +	 * a reference to the stream via the vma->vm_file, so before user's
+>> +	 * munmap, the stream cannot be destroyed.
+>> +	 */
+>> +	unmap_mapping_range(file->f_mapping, 0, -1, 1);
+>> +
+>>  	mutex_lock(&perf->lock);
+>>  	i915_perf_destroy_locked(stream);
+>>  	mutex_unlock(&perf->lock);
+>> @@ -3428,6 +3478,75 @@ static int i915_perf_release(struct inode *inode, struct file *file)
+>>  	return 0;
+>>  }
+>>
+>> +static vm_fault_t vm_fault_oa(struct vm_fault *vmf)
+>> +{
+>> +	struct vm_area_struct *vma = vmf->vma;
+>> +	struct i915_perf_stream *stream = vma->vm_private_data;
+>> +	int err;
+>> +
+>> +	err = remap_io_sg(vma,
+>> +			  vma->vm_start, vma->vm_end - vma->vm_start,
+>> +			  stream->oa_buffer.vma->pages->sgl, -1);
+>> +
+>> +	return i915_error_to_vmf_fault(err);
+>> +}
+>> +
+>> +static const struct vm_operations_struct vm_ops_oa = {
+>> +	.fault = vm_fault_oa,
+>> +};
+>> +
+>> +static int i915_perf_mmap(struct file *file, struct vm_area_struct *vma)
+>> +{
+>> +	struct i915_perf_stream *stream = file->private_data;
+>> +
+>> +	/* mmap-ing OA buffer to user space MUST absolutely be privileged */
+>> +	if (i915_perf_stream_paranoid && !perfmon_capable()) {
+>> +		DRM_DEBUG("Insufficient privileges to map OA buffer\n");
+>> +		return -EACCES;
+>> +	}
+>> +
+>> +	switch (vma->vm_pgoff) {
+>> +	/*
+>> +	 * A non-zero offset ensures that we are mapping the right object. Also
+>> +	 * leaves room for future objects added to this implementation.
+>> +	 */
+>> +	case I915_PERF_OA_BUFFER_MMAP_OFFSET:
+>> +		if (!(stream->sample_flags & SAMPLE_OA_REPORT))
+>> +			return -EINVAL;
+>> +
+>> +		if (vma->vm_end - vma->vm_start > stream->oa_buffer.vma->size)
+>> +			return -EINVAL;
+>> +
+>> +		/*
+>> +		 * Only support VM_READ. Enforce MAP_PRIVATE by checking for
+>> +		 * VM_MAYSHARE.
+>> +		 */
+>> +		if (vma->vm_flags & (VM_WRITE | VM_EXEC |
+>> +				     VM_SHARED | VM_MAYSHARE))
+>> +			return -EINVAL;
+>> +
+>> +		vma->vm_flags &= ~(VM_MAYWRITE | VM_MAYEXEC);
+>> +
+>> +		/*
+>> +		 * If the privileged parent forks and child drops root
+>> +		 * privilege, we do not want the child to retain access to the
+>> +		 * mapped OA buffer. Explicitly set VM_DONTCOPY to avoid such
+>> +		 * cases.
+>> +		 */
+>> +		vma->vm_flags |= VM_PFNMAP | VM_DONTEXPAND |
+>> +				 VM_DONTDUMP | VM_DONTCOPY;
+>> +		break;
+>> +
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+>> +	vma->vm_private_data = stream;
+>> +	vma->vm_ops = &vm_ops_oa;
+>> +
+>> +	return 0;
+>> +}
+>>
+>>  static const struct file_operations fops = {
+>>  	.owner		= THIS_MODULE,
+>> @@ -3440,6 +3559,7 @@ static const struct file_operations fops = {
+>>  	 * to handle 32bits compatibility.
+>>  	 */
+>>  	.compat_ioctl   = i915_perf_ioctl,
+>> +	.mmap		= i915_perf_mmap,
+>>  };
+>>
+>>
+>> @@ -4639,8 +4759,12 @@ int i915_perf_ioctl_version(void)
+>>  	 *
+>>  	 *    - OA buffer head/tail/status/buffer registers for read only
+>>  	 *    - OA counters A18, A19, A20 for read/write
+>> +	 *
+>> +	 * 8: Added an option to map oa buffer at umd driver level and trigger
+>> +	 *    oa reports within oa buffer from command buffer. See
+>> +	 *    I915_PERF_IOCTL_GET_OA_BUFFER_INFO.
+>>  	 */
+>> -	return 7;
+>> +	return 8;
+>>  }
+>>
+>>  #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+>> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+>> index bde5860b3686..2c17fe845604 100644
+>> --- a/include/uapi/drm/i915_drm.h
+>> +++ b/include/uapi/drm/i915_drm.h
+>> @@ -2417,6 +2417,39 @@ struct drm_i915_perf_open_param {
+>>   */
+>>  #define I915_PERF_IOCTL_CONFIG	_IO('i', 0x2)
+>>
+>> +/*
+>
+>Please make this proper kerneldoc. Ideally also fix up all the other perf
+>related uapi and also document it all with kerneldoc.
+>
+>Please make sure the result looks good with
+>
+>$ make htmldocs
+
+>Also, this is uapi, therefore your patch needs to include
+>- link to the igts for this
+IGT tests: https://patchwork.freedesktop.org/series/94172/ Patches 1,2
+
+>- link to the userspace MR that uses this (I guess it's mesa?)
+
+For now GPUvis is the userspace for all perf OA interfaces.
+
+GPUvis provides the visualization for OA reports. It has 2 parts
+1) It uses perf library from IGT. The perf library changes are here:
+IGT: https://patchwork.freedesktop.org/series/94172/ Patches 3,4 and 5.
+
+2) GPUvis changes:
+https://github.com/unerlige/gpuvis/commit/1c19c134a64564f7b8d7ca3b46449324040a40be
+Should I create an MR for GPUvis while this kernel patch and (1) are not 
+yet merged? Please advise.
+
+Thanks,
+Umesh
+
+>
+>Cheers, Daniel
+>
+>> + * Returns OA buffer properties to be used with mmap.
+>> + *
+>> + * This ioctl is available in perf revision 8.
+>> + */
+>> +#define I915_PERF_IOCTL_GET_OA_BUFFER_INFO _IOWR('i', 0x3, struct drm_i915_perf_oa_buffer_info)
+>> +
+>> +/*
+>> + * OA buffer size and offset.
+>> + *
+>> + * OA output buffer
+>> + *   type: 0
+>> + *   flags: mbz
+>> + *
+>> + *   After querying the info, pass (size,offset) to mmap(),
+>> + *
+>> + *   mmap(0, info.size, PROT_READ, MAP_PRIVATE, perf_fd, info.offset).
+>> + *
+>> + *   Note that only a private (not shared between processes, or across fork())
+>> + *   read-only mmapping is allowed.
+>> + *
+>> + *   HW is continually writing data to the mapped  OA buffer and it conforms to
+>> + *   the OA format as specified by user config. The buffer provides reports that
+>> + *   have OA counters - A, B and C.
+>> + */
+>> +struct drm_i915_perf_oa_buffer_info {
+>> +	__u32 type;   /* in */
+>> +	__u32 flags;  /* in */
+>> +	__u64 size;   /* out */
+>> +	__u64 offset; /* out */
+>> +	__u64 rsvd;   /* mbz */
+>> +};
+>> +
+>>  /*
+>>   * Common to all i915 perf records
+>>   */
+>> --
+>> 2.20.1
+>>
+>
+>-- 
+>Daniel Vetter
+>Software Engineer, Intel Corporation
+GPUvis pro
+>http://blog.ffwll.ch
