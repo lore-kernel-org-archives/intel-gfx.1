@@ -2,51 +2,44 @@ Return-Path: <SRS0=4rgl=NX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F2ADC4320A
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 02:21:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 041ACC432BE
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 02:37:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D06AF603E7
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 02:21:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D06AF603E7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B9D376102A
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 02:37:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B9D376102A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566096E120;
-	Wed,  1 Sep 2021 02:20:59 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5A836E044;
- Wed,  1 Sep 2021 02:20:53 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10093"; a="218324971"
-X-IronPort-AV: E=Sophos;i="5.84,368,1620716400"; d="scan'208";a="218324971"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2021 19:20:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,368,1620716400"; d="scan'208";a="519983666"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by fmsmga004.fm.intel.com with ESMTP; 31 Aug 2021 19:20:44 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Cc: DRI-Devel@Lists.FreeDesktop.Org,
-	Matthew Brost <matthew.brost@intel.com>
-Date: Tue, 31 Aug 2021 19:20:40 -0700
-Message-Id: <20210901022043.2395135-5-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210901022043.2395135-1-John.C.Harrison@Intel.com>
-References: <20210901022043.2395135-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 448ED894B7;
+	Wed,  1 Sep 2021 02:37:28 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6DC37894B7;
+ Wed,  1 Sep 2021 02:37:27 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 65FC9A8830;
+ Wed,  1 Sep 2021 02:37:27 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/7] drm/i915/guc: Enable GuC submission by
- default on DG1
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 01 Sep 2021 02:37:27 -0000
+Message-ID: <163046384735.2831.3081711947168083952@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210901022043.2395135-1-John.C.Harrison@Intel.com>
+In-Reply-To: <20210901022043.2395135-1-John.C.Harrison@Intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Enable_GuC_submission_by_default_on_DG1_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,31 +52,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Brost <matthew.brost@intel.com>
+== Series Details ==
 
-Enable GuC submission by default on DG1
+Series: Enable GuC submission by default on DG1 (rev2)
+URL   : https://patchwork.freedesktop.org/series/93325/
+State : warning
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_uc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index b104fb7607eb..d94ff12fdb95 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -35,7 +35,7 @@ static void uc_expand_default_options(struct intel_uc *uc)
- 	}
- 
- 	/* Intermediate platforms are HuC authentication only */
--	if (IS_DG1(i915) || IS_ALDERLAKE_S(i915)) {
-+	if (IS_ALDERLAKE_S(i915)) {
- 		i915->params.enable_guc = ENABLE_GUC_LOAD_HUC;
- 		return;
- 	}
--- 
-2.25.1
+$ dim checkpatch origin/drm-tip
+6980dea021fa drm/i915: Do not define vma on stack
+8e2a5b71ad3f drm/i915/guc: put all guc objects in lmem when available
+86c5db967bd1 drm/i915/guc: Add DG1 GuC / HuC firmware defs
+c88604227edc drm/i915/guc: Enable GuC submission by default on DG1
+97b71fbd31ae Me: Allow relocs on DG1 for CI
+-:8: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:19: ERROR:MISSING_SIGN_OFF: Missing Signed-off-by: line(s)
+
+total: 1 errors, 1 warnings, 0 checks, 8 lines checked
+4ec48c0b396e Me: Workaround LMEM blow up
+-:8: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:19: ERROR:MISSING_SIGN_OFF: Missing Signed-off-by: line(s)
+
+total: 1 errors, 1 warnings, 0 checks, 8 lines checked
+edda215da5e9 Me: Dump GuC log to dmesg on SLPC load failure
+-:8: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:17: CHECK:SPACING: No space is necessary after a cast
+#17: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c:267:
++						 (intel_engine_mask_t) ~0U);
+
+-:56: WARNING:OOM_MESSAGE: Possible unnecessary 'out of memory' message
+#56: FILE: drivers/gpu/drm/i915/i915_gpu_error.c:1999:
++	if (!buf) {
++		drm_err(&i915->drm, "Failed to allocate buffer for error capture!\n");
+
+-:68: WARNING:LINE_SPACING: Missing a blank line after declarations
+#68: FILE: drivers/gpu/drm/i915/i915_gpu_error.c:2011:
++		ssize_t got = i915_gpu_coredump_copy_to_buffer(error, buf, pos_err, buf_size - 1);
++		if (got <= 0)
+
+-:91: CHECK:BRACES: braces {} should be used on all arms of this statement
+#91: FILE: drivers/gpu/drm/i915/i915_gpu_error.c:2034:
++			if (count > MAX_CHUNK) {
+[...]
++			} else
+[...]
+
+-:97: WARNING:LINE_SPACING: Missing a blank line after declarations
+#97: FILE: drivers/gpu/drm/i915/i915_gpu_error.c:2040:
++					char chr = ptr[pos];
++					ptr[pos] = 0;
+
+-:104: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#104: FILE: drivers/gpu/drm/i915/i915_gpu_error.c:2047:
++					drm_info(&i915->drm, "Capture %c%s%c\n", tag[0], ptr2, tag[1]);
+
+-:107: CHECK:BRACES: Unbalanced braces around else statement
+#107: FILE: drivers/gpu/drm/i915/i915_gpu_error.c:2050:
++			} else
+
+-:139: ERROR:MISSING_SIGN_OFF: Missing Signed-off-by: line(s)
+
+total: 1 errors, 5 warnings, 3 checks, 118 lines checked
+
 
