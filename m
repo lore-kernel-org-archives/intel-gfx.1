@@ -2,56 +2,51 @@ Return-Path: <SRS0=4rgl=NX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A30DDC432BE
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:49:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1926CC432BE
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 17:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E06760525
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:49:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6E06760525
+	by mail.kernel.org (Postfix) with ESMTPS id CD45461074
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 17:03:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CD45461074
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BFEB6E21A;
-	Wed,  1 Sep 2021 16:49:47 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F06D16E21A
- for <intel-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 16:49:45 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="218524628"
-X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="218524628"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 09:49:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="690784880"
-Received: from lkp-server01.sh.intel.com (HELO 4fbc2b3ce5aa) ([10.239.97.150])
- by fmsmga005.fm.intel.com with ESMTP; 01 Sep 2021 09:49:29 -0700
-Received: from kbuild by 4fbc2b3ce5aa with local (Exim 4.92)
- (envelope-from <lkp@intel.com>)
- id 1mLTQX-00084x-Br; Wed, 01 Sep 2021 16:49:29 +0000
-Date: Thu, 2 Sep 2021 00:48:38 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: kbuild-all@lists.01.org, Srinivasan Shanmugam <srinivasan.s@intel.com>,
- Chris Wilson <chris.p.wilson@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
-Message-ID: <20210901164838.GA30097@475bea7bda0e>
-References: <20210830162240.3891502-3-ayaz.siddiqui@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38BB36E218;
+	Wed,  1 Sep 2021 17:03:51 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 055666E218
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 17:03:49 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="215682754"
+X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="215682754"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2021 10:02:56 -0700
+X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="532286785"
+Received: from josearun-mobl1.gar.corp.intel.com (HELO localhost)
+ ([10.251.212.211])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2021 10:02:55 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+In-Reply-To: <YS+oRXeF6HB5McQs@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1630327990.git.jani.nikula@intel.com>
+ <346562ccef2282ccdbdea54409fab1d2b48f313c.1630327990.git.jani.nikula@intel.com>
+ <YS+oRXeF6HB5McQs@intel.com>
+Date: Wed, 01 Sep 2021 20:02:51 +0300
+Message-ID: <87wno09qkk.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210830162240.3891502-3-ayaz.siddiqui@intel.com>
-X-Patchwork-Hint: ignore
-drivers/gpu/drm/i915/gt/intel_gt.c: intel_mocs.h is included more than once.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: [Intel-gfx] [RFC PATCH] drm/i915/gt: fix duplicated inclusion
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 4/5] drm/i915/display: stop returning errors
+ from debugfs registration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,23 +62,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Generated by: scripts/checkincludes.pl
+On Wed, 01 Sep 2021, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
+> On Mon, Aug 30, 2021 at 03:53:43PM +0300, Jani Nikula wrote:
+>> Failures to register debugfs should be ignored anyway, so stop
+>> propagating errors altogether for clarity and simplicity. No functional
+>> changes.
+>
+> not even a drm_debug if that fails?
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: kernel test robot <lkp@intel.com>
----
- intel_gt.c |    1 -
- 1 file changed, 1 deletion(-)
+*shrug* the only error we were returning anyway was if debugfs hadn't
+been added at the drm level.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index ccb257d5282f4..4643fbf753455 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -14,7 +14,6 @@
- #include "intel_gt_pm.h"
- #include "intel_gt_requests.h"
- #include "intel_migrate.h"
--#include "intel_mocs.h"
- #include "intel_rc6.h"
- #include "intel_renderstate.h"
- #include "intel_rps.h"
+BR,
+Jani.
+
+>
+>> 
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+>>  .../drm/i915/display/intel_display_debugfs.c  | 19 +++++--------------
+>>  .../drm/i915/display/intel_display_debugfs.h  |  8 ++++----
+>>  2 files changed, 9 insertions(+), 18 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+>> index c1cd5d005e08..845e2dc76f87 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+>> @@ -2443,17 +2443,15 @@ static const struct file_operations i915_dsc_bpp_fops = {
+>>   *
+>>   * Cleanup will be done by drm_connector_unregister() through a call to
+>>   * drm_debugfs_connector_remove().
+>> - *
+>> - * Returns 0 on success, negative error codes on error.
+>>   */
+>> -int intel_connector_debugfs_add(struct drm_connector *connector)
+>> +void intel_connector_debugfs_add(struct drm_connector *connector)
+>>  {
+>>  	struct dentry *root = connector->debugfs_entry;
+>>  	struct drm_i915_private *dev_priv = to_i915(connector->dev);
+>>  
+>>  	/* The connector must have been registered beforehands. */
+>>  	if (!root)
+>> -		return -ENODEV;
+>> +		return;
+>>  
+>>  	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
+>>  		debugfs_create_file("i915_panel_timings", S_IRUGO, root,
+>> @@ -2493,23 +2491,16 @@ int intel_connector_debugfs_add(struct drm_connector *connector)
+>>  	    connector->connector_type == DRM_MODE_CONNECTOR_HDMIB)
+>>  		debugfs_create_file("i915_lpsp_capability", 0444, root,
+>>  				    connector, &i915_lpsp_capability_fops);
+>> -
+>> -	return 0;
+>>  }
+>>  
+>>  /**
+>>   * intel_crtc_debugfs_add - add i915 specific crtc debugfs files
+>>   * @crtc: pointer to a drm_crtc
+>>   *
+>> - * Returns 0 on success, negative error codes on error.
+>> - *
+>>   * Failure to add debugfs entries should generally be ignored.
+>>   */
+>> -int intel_crtc_debugfs_add(struct drm_crtc *crtc)
+>> +void intel_crtc_debugfs_add(struct drm_crtc *crtc)
+>>  {
+>> -	if (!crtc->debugfs_entry)
+>> -		return -ENODEV;
+>> -
+>> -	crtc_updates_add(crtc);
+>> -	return 0;
+>> +	if (crtc->debugfs_entry)
+>> +		crtc_updates_add(crtc);
+>>  }
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.h b/drivers/gpu/drm/i915/display/intel_display_debugfs.h
+>> index 557901f3eb90..c72e35ecba1f 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.h
+>> @@ -12,12 +12,12 @@ struct drm_i915_private;
+>>  
+>>  #ifdef CONFIG_DEBUG_FS
+>>  void intel_display_debugfs_register(struct drm_i915_private *i915);
+>> -int intel_connector_debugfs_add(struct drm_connector *connector);
+>> -int intel_crtc_debugfs_add(struct drm_crtc *crtc);
+>> +void intel_connector_debugfs_add(struct drm_connector *connector);
+>> +void intel_crtc_debugfs_add(struct drm_crtc *crtc);
+>>  #else
+>>  static inline void intel_display_debugfs_register(struct drm_i915_private *i915) {}
+>> -static inline int intel_connector_debugfs_add(struct drm_connector *connector) { return 0; }
+>> -static inline int intel_crtc_debugfs_add(struct drm_crtc *crtc) { return 0; }
+>> +static inline void intel_connector_debugfs_add(struct drm_connector *connector) {}
+>> +static inline void intel_crtc_debugfs_add(struct drm_crtc *crtc) {}
+>>  #endif
+>>  
+>>  #endif /* __INTEL_DISPLAY_DEBUGFS_H__ */
+>> -- 
+>> 2.20.1
+>> 
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
