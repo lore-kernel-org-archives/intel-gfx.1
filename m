@@ -2,50 +2,51 @@ Return-Path: <SRS0=4rgl=NX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B3BEC4320A
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47486C432BE
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:10:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D138610A8
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:09:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2D138610A8
+	by mail.kernel.org (Postfix) with ESMTPS id 0BF0D610A2
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:10:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0BF0D610A2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD9256E197;
-	Wed,  1 Sep 2021 16:09:27 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19C806E197
- for <intel-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 16:09:27 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="218803085"
-X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="218803085"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 09:09:26 -0700
-X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="466953152"
-Received: from frodasgo-mobl3.amr.corp.intel.com (HELO intel.com)
- ([10.255.39.35])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 09:09:25 -0700
-Date: Wed, 1 Sep 2021 12:09:24 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <YS+ltHMztdRb5qMM@intel.com>
-References: <cover.1630327990.git.jani.nikula@intel.com>
- <a557a46d452b20c186f4735e9f15bf37e2845c99.1630327990.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B36E16E1F8;
+	Wed,  1 Sep 2021 16:10:14 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44AA56E197
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 16:10:13 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="198352506"
+X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="198352506"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2021 09:10:12 -0700
+X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="532264189"
+Received: from josearun-mobl1.gar.corp.intel.com (HELO localhost)
+ ([10.251.212.211])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2021 09:10:10 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com,
+	jose.souza@intel.com,
+	ankit.k.nautiyal@intel.com
+Date: Wed,  1 Sep 2021 19:09:58 +0300
+Message-Id: <cover.1630512523.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a557a46d452b20c186f4735e9f15bf37e2845c99.1630327990.git.jani.nikula@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 5/5] drm/i915/debugfs: pass intel_connector
- to intel_connector_debugfs_add()
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 0/7] drm/i915/bios: remove vbt ddi_port_info
+ caching
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,71 +62,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 30, 2021 at 03:53:44PM +0300, Jani Nikula wrote:
-> Prefer the intel_ types. No functional changes.
-> 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+v2 of https://patchwork.freedesktop.org/series/93957/ with the CI issues
+fixed (fingers crossed!).
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+BR,
+Jani.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_connector.c       | 2 +-
->  drivers/gpu/drm/i915/display/intel_display_debugfs.c | 3 ++-
->  drivers/gpu/drm/i915/display/intel_display_debugfs.h | 4 ++--
->  3 files changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-> index 4f49d782eca2..c65f95a9a1ec 100644
-> --- a/drivers/gpu/drm/i915/display/intel_connector.c
-> +++ b/drivers/gpu/drm/i915/display/intel_connector.c
-> @@ -124,7 +124,7 @@ int intel_connector_register(struct drm_connector *connector)
->  		goto err_backlight;
->  	}
->  
-> -	intel_connector_debugfs_add(connector);
-> +	intel_connector_debugfs_add(intel_connector);
->  
->  	return 0;
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> index 845e2dc76f87..82043a71e91f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> @@ -2444,8 +2444,9 @@ static const struct file_operations i915_dsc_bpp_fops = {
->   * Cleanup will be done by drm_connector_unregister() through a call to
->   * drm_debugfs_connector_remove().
->   */
-> -void intel_connector_debugfs_add(struct drm_connector *connector)
-> +void intel_connector_debugfs_add(struct intel_connector *intel_connector)
->  {
-> +	struct drm_connector *connector = &intel_connector->base;
->  	struct dentry *root = connector->debugfs_entry;
->  	struct drm_i915_private *dev_priv = to_i915(connector->dev);
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.h b/drivers/gpu/drm/i915/display/intel_display_debugfs.h
-> index c72e35ecba1f..9b89b707ffe6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.h
-> @@ -6,9 +6,9 @@
->  #ifndef __INTEL_DISPLAY_DEBUGFS_H__
->  #define __INTEL_DISPLAY_DEBUGFS_H__
->  
-> -struct drm_connector;
->  struct drm_crtc;
->  struct drm_i915_private;
-> +struct intel_connector;
->  
->  #ifdef CONFIG_DEBUG_FS
->  void intel_display_debugfs_register(struct drm_i915_private *i915);
-> @@ -16,7 +16,7 @@ void intel_connector_debugfs_add(struct drm_connector *connector);
->  void intel_crtc_debugfs_add(struct drm_crtc *crtc);
->  #else
->  static inline void intel_display_debugfs_register(struct drm_i915_private *i915) {}
-> -static inline void intel_connector_debugfs_add(struct drm_connector *connector) {}
-> +static inline void intel_connector_debugfs_add(struct intel_connector *connector) {}
->  static inline void intel_crtc_debugfs_add(struct drm_crtc *crtc) {}
->  #endif
->  
-> -- 
-> 2.20.1
-> 
+Jani Nikula (7):
+  drm/i915/bios: use hdmi level shift directly from child data
+  drm/i915/bios: use max tmds clock directly from child data
+  drm/i915/bios: use dp max link rate directly from child data
+  drm/i915/bios: use alternate aux channel directly from child data
+  drm/i915/bios: move ddc pin mapping code next to ddc pin sanitize
+  drm/i915/bios: use ddc pin directly from child data
+  drm/i915/bios: get rid of vbt ddi_port_info
+
+ drivers/gpu/drm/i915/display/intel_bios.c | 372 +++++++++++-----------
+ drivers/gpu/drm/i915/i915_drv.h           |  18 +-
+ 2 files changed, 187 insertions(+), 203 deletions(-)
+
+-- 
+2.30.2
+
