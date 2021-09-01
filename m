@@ -2,50 +2,45 @@ Return-Path: <SRS0=4rgl=NX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC349C4320E
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71D37C432BE
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:26:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 835E56069E
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:20:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 835E56069E
+	by mail.kernel.org (Postfix) with ESMTPS id 3913360E98
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 16:26:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3913360E98
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33BB76E1F8;
-	Wed,  1 Sep 2021 16:20:26 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5753B6E1F8
- for <intel-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 16:20:25 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="218807109"
-X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="218807109"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 09:20:24 -0700
-X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="476242960"
-Received: from frodasgo-mobl3.amr.corp.intel.com (HELO intel.com)
- ([10.255.39.35])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 09:20:23 -0700
-Date: Wed, 1 Sep 2021 12:20:21 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Message-ID: <YS+oRXeF6HB5McQs@intel.com>
-References: <cover.1630327990.git.jani.nikula@intel.com>
- <346562ccef2282ccdbdea54409fab1d2b48f313c.1630327990.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 977BC89861;
+	Wed,  1 Sep 2021 16:26:34 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18BBE8972B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 16:26:33 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="282512521"
+X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="282512521"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2021 09:26:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,369,1620716400"; d="scan'208";a="688431201"
+Received: from amanna.iind.intel.com ([10.223.74.76])
+ by fmsmga006.fm.intel.com with ESMTP; 01 Sep 2021 09:26:31 -0700
+From: Animesh Manna <animesh.manna@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Animesh Manna <animesh.manna@intel.com>
+Date: Wed,  1 Sep 2021 21:33:57 +0530
+Message-Id: <20210901160402.24816-1-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <346562ccef2282ccdbdea54409fab1d2b48f313c.1630327990.git.jani.nikula@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 4/5] drm/i915/display: stop returning errors
- from debugfs registration
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 0/5] Fix in max source calculation for dp/edp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,92 +56,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 30, 2021 at 03:53:43PM +0300, Jani Nikula wrote:
-> Failures to register debugfs should be ignored anyway, so stop
-> propagating errors altogether for clarity and simplicity. No functional
-> changes.
+HBR3 support for display gen11+ platform is depends upon some
+conditions which are mentioned below.
 
-not even a drm_debug if that fails?
+ICL:
+- eDP (only on DDI-A): Up to HBR3 for higher Vccio.
+- DP:
+        - (DDI-B, combo phy): upto HBR2.
+        - (DDI-C to DDI-F): upto HBR3
+ 
+RKLC:
+- eDP/DP: Up to HBR3? Vccio dependent? (missing bspec pages)
+ 
+JSL/EHL:
+- eDP (DDI-A): Up to HBR2.
+- DP (DDI-B to DDI-D): Up to HBR3 for higher Vccio _and_ retimers.
+ 
+TGL:
+- eDP (DDI-A to DDI-C): Up to HBR3 for higher Vccio.
+- DP:
+        - (DDI-A to DDI-C, combo phy): Up to HBR2.
+        - (DDI-TC1 to DDI-TC6): Up to HBR3
+ 
+DG1/ADL_S:
+- eDP (all DDI is part of combo phy): Up to HBR3 for higher Vccio.
+- DP (all DDI is part of combo phy): Up to HBR3 for higher Vccio _and_ retimers.
+ 
+ADL_P/D13:
+- eDP (DDI-A to DDI-B): Up to HBR3 for higher Vccio.
+- DP:
+        - (DDI-A to DDI-E): Up to HBR3 for higher Vccio.
+        - (DDI-TC1 to DDI-TC4): Up to HBR3 for higher Vccio.
 
-> 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->  .../drm/i915/display/intel_display_debugfs.c  | 19 +++++--------------
->  .../drm/i915/display/intel_display_debugfs.h  |  8 ++++----
->  2 files changed, 9 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> index c1cd5d005e08..845e2dc76f87 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> @@ -2443,17 +2443,15 @@ static const struct file_operations i915_dsc_bpp_fops = {
->   *
->   * Cleanup will be done by drm_connector_unregister() through a call to
->   * drm_debugfs_connector_remove().
-> - *
-> - * Returns 0 on success, negative error codes on error.
->   */
-> -int intel_connector_debugfs_add(struct drm_connector *connector)
-> +void intel_connector_debugfs_add(struct drm_connector *connector)
->  {
->  	struct dentry *root = connector->debugfs_entry;
->  	struct drm_i915_private *dev_priv = to_i915(connector->dev);
->  
->  	/* The connector must have been registered beforehands. */
->  	if (!root)
-> -		return -ENODEV;
-> +		return;
->  
->  	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
->  		debugfs_create_file("i915_panel_timings", S_IRUGO, root,
-> @@ -2493,23 +2491,16 @@ int intel_connector_debugfs_add(struct drm_connector *connector)
->  	    connector->connector_type == DRM_MODE_CONNECTOR_HDMIB)
->  		debugfs_create_file("i915_lpsp_capability", 0444, root,
->  				    connector, &i915_lpsp_capability_fops);
-> -
-> -	return 0;
->  }
->  
->  /**
->   * intel_crtc_debugfs_add - add i915 specific crtc debugfs files
->   * @crtc: pointer to a drm_crtc
->   *
-> - * Returns 0 on success, negative error codes on error.
-> - *
->   * Failure to add debugfs entries should generally be ignored.
->   */
-> -int intel_crtc_debugfs_add(struct drm_crtc *crtc)
-> +void intel_crtc_debugfs_add(struct drm_crtc *crtc)
->  {
-> -	if (!crtc->debugfs_entry)
-> -		return -ENODEV;
-> -
-> -	crtc_updates_add(crtc);
-> -	return 0;
-> +	if (crtc->debugfs_entry)
-> +		crtc_updates_add(crtc);
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.h b/drivers/gpu/drm/i915/display/intel_display_debugfs.h
-> index 557901f3eb90..c72e35ecba1f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.h
-> @@ -12,12 +12,12 @@ struct drm_i915_private;
->  
->  #ifdef CONFIG_DEBUG_FS
->  void intel_display_debugfs_register(struct drm_i915_private *i915);
-> -int intel_connector_debugfs_add(struct drm_connector *connector);
-> -int intel_crtc_debugfs_add(struct drm_crtc *crtc);
-> +void intel_connector_debugfs_add(struct drm_connector *connector);
-> +void intel_crtc_debugfs_add(struct drm_crtc *crtc);
->  #else
->  static inline void intel_display_debugfs_register(struct drm_i915_private *i915) {}
-> -static inline int intel_connector_debugfs_add(struct drm_connector *connector) { return 0; }
-> -static inline int intel_crtc_debugfs_add(struct drm_crtc *crtc) { return 0; }
-> +static inline void intel_connector_debugfs_add(struct drm_connector *connector) {}
-> +static inline void intel_crtc_debugfs_add(struct drm_crtc *crtc) {}
->  #endif
->  
->  #endif /* __INTEL_DISPLAY_DEBUGFS_H__ */
-> -- 
-> 2.20.1
-> 
+Some condition added during max rate calculation in this patch series
+based on above conditions.
+
+Animesh Manna (2):
+  drm/i915/dp: fix EHL/JSL max source rates calculation
+  drm/i915/dp: fix for ADL_P/S dp/edp max source rates
+
+Jani Nikula (2):
+  drm/i915/dp: fix TGL and ICL max source rates
+  drm/i915/dp: fix DG1 and RKL max source rates
+
+Matt Atwood (1):
+  drm/i915/dp: Fix eDP max rate for display 11+
+
+ drivers/gpu/drm/i915/display/intel_dp.c | 62 +++++++++++++++++--------
+ 1 file changed, 42 insertions(+), 20 deletions(-)
+
+-- 
+2.29.0
+
