@@ -7,31 +7,31 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B025C432BE
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 08:52:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05EA2C4320A
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 08:52:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C36B61057
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 08:52:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C36B61057
+	by mail.kernel.org (Postfix) with ESMTPS id C3B9E61057
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Sep 2021 08:52:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C3B9E61057
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEA9E8924C;
-	Wed,  1 Sep 2021 08:52:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 556FB6E059;
+	Wed,  1 Sep 2021 08:52:03 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14C218924C
- for <intel-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 08:52:00 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10093"; a="218695096"
-X-IronPort-AV: E=Sophos;i="5.84,368,1620716400"; d="scan'208";a="218695096"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1757F6E059
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Sep 2021 08:52:02 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10093"; a="218695100"
+X-IronPort-AV: E=Sophos;i="5.84,368,1620716400"; d="scan'208";a="218695100"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 01:51:59 -0700
+ 01 Sep 2021 01:52:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,368,1620716400"; d="scan'208";a="510275902"
+X-IronPort-AV: E=Sophos;i="5.84,368,1620716400"; d="scan'208";a="510275916"
 Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.12])
- by orsmga001.jf.intel.com with ESMTP; 01 Sep 2021 01:51:58 -0700
+ by orsmga001.jf.intel.com with ESMTP; 01 Sep 2021 01:52:00 -0700
 From: Lee Shawn C <shawn.c.lee@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Lee Shawn C <shawn.c.lee@intel.com>,
@@ -40,13 +40,13 @@ Cc: Lee Shawn C <shawn.c.lee@intel.com>,
  Vandita Kulkarni <vandita.kulkarni@intel.com>,
  Cooper Chiou <cooper.chiou@intel.com>,
  William Tseng <william.tseng@intel.com>
-Date: Wed,  1 Sep 2021 16:54:41 +0800
-Message-Id: <20210901085445.427-2-shawn.c.lee@intel.com>
+Date: Wed,  1 Sep 2021 16:54:42 +0800
+Message-Id: <20210901085445.427-3-shawn.c.lee@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210901085445.427-1-shawn.c.lee@intel.com>
 References: <20210901085445.427-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [PATCH 1/5] drm/i915/dsi: wait for header and payload
- credit available
+Subject: [Intel-gfx] [PATCH 2/5] drm/i915/dsi: refine send MIPI DCS command
+ sequence
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,10 +62,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Driver should wait for free header or payload buffer in FIFO.
-It would be good to wait a while for HW to release credit before
-give it up to write to HW. Without sending initailize command
-sets completely. It would caused MIPI display can't light up properly.
+According to chapter "Sending Commands to the Panel" in bspec #29738
+and #49188. If driver try to send DCS long pakcet, we have to program
+TX payload register at first. And configure TX header HW register later.
+DSC long packet would not be sent properly if we don't follow this
+sequence.
 
 Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
@@ -75,105 +76,37 @@ Cc: William Tseng <william.tseng@intel.com>
 Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
 Reviewed-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 40 ++++++++++++--------------
- 1 file changed, 19 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 43ec7fcd3f5d..1780830d9909 100644
+index 1780830d9909..60413bbf565f 100644
 --- a/drivers/gpu/drm/i915/display/icl_dsi.c
 +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -54,20 +54,28 @@ static int payload_credits_available(struct drm_i915_private *dev_priv,
- 		>> FREE_PLOAD_CREDIT_SHIFT;
- }
+@@ -1807,11 +1807,6 @@ static ssize_t gen11_dsi_host_transfer(struct mipi_dsi_host *host,
+ 	if (msg->flags & MIPI_DSI_MSG_USE_LPM)
+ 		enable_lpdt = true;
  
--static void wait_for_header_credits(struct drm_i915_private *dev_priv,
--				    enum transcoder dsi_trans)
-+static bool wait_for_header_credits(struct drm_i915_private *dev_priv,
-+				    enum transcoder dsi_trans, int hdr_credit)
- {
- 	if (wait_for_us(header_credits_available(dev_priv, dsi_trans) >=
--			MAX_HEADER_CREDIT, 100))
-+			hdr_credit, 100)) {
- 		drm_err(&dev_priv->drm, "DSI header credits not released\n");
-+		return false;
-+	}
-+
-+	return true;
- }
- 
--static void wait_for_payload_credits(struct drm_i915_private *dev_priv,
--				     enum transcoder dsi_trans)
-+static bool wait_for_payload_credits(struct drm_i915_private *dev_priv,
-+				     enum transcoder dsi_trans, int payld_credit)
- {
- 	if (wait_for_us(payload_credits_available(dev_priv, dsi_trans) >=
--			MAX_PLOAD_CREDIT, 100))
-+			payld_credit, 100)) {
- 		drm_err(&dev_priv->drm, "DSI payload credits not released\n");
-+		return false;
-+	}
-+
-+	return true;
- }
- 
- static enum transcoder dsi_port_to_transcoder(enum port port)
-@@ -90,8 +98,8 @@ static void wait_for_cmds_dispatched_to_panel(struct intel_encoder *encoder)
- 	/* wait for header/payload credits to be released */
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		dsi_trans = dsi_port_to_transcoder(port);
--		wait_for_header_credits(dev_priv, dsi_trans);
--		wait_for_payload_credits(dev_priv, dsi_trans);
-+		wait_for_header_credits(dev_priv, dsi_trans, MAX_HEADER_CREDIT);
-+		wait_for_payload_credits(dev_priv, dsi_trans, MAX_PLOAD_CREDIT);
+-	/* send packet header */
+-	ret  = dsi_send_pkt_hdr(intel_dsi_host, dsi_pkt, enable_lpdt);
+-	if (ret < 0)
+-		return ret;
+-
+ 	/* only long packet contains payload */
+ 	if (mipi_dsi_packet_format_is_long(msg->type)) {
+ 		ret = dsi_send_pkt_payld(intel_dsi_host, dsi_pkt);
+@@ -1819,6 +1814,11 @@ static ssize_t gen11_dsi_host_transfer(struct mipi_dsi_host *host,
+ 			return ret;
  	}
  
- 	/* send nop DCS command */
-@@ -108,7 +116,7 @@ static void wait_for_cmds_dispatched_to_panel(struct intel_encoder *encoder)
- 	/* wait for header credits to be released */
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		dsi_trans = dsi_port_to_transcoder(port);
--		wait_for_header_credits(dev_priv, dsi_trans);
-+		wait_for_header_credits(dev_priv, dsi_trans, MAX_HEADER_CREDIT);
- 	}
++	/* send packet header */
++	ret  = dsi_send_pkt_hdr(intel_dsi_host, dsi_pkt, enable_lpdt);
++	if (ret < 0)
++		return ret;
++
+ 	//TODO: add payload receive code if needed
  
- 	/* wait for LP TX in progress bit to be cleared */
-@@ -126,18 +134,13 @@ static bool add_payld_to_queue(struct intel_dsi_host *host, const u8 *data,
- 	struct intel_dsi *intel_dsi = host->intel_dsi;
- 	struct drm_i915_private *dev_priv = to_i915(intel_dsi->base.base.dev);
- 	enum transcoder dsi_trans = dsi_port_to_transcoder(host->port);
--	int free_credits;
- 	int i, j;
- 
- 	for (i = 0; i < len; i += 4) {
- 		u32 tmp = 0;
- 
--		free_credits = payload_credits_available(dev_priv, dsi_trans);
--		if (free_credits < 1) {
--			drm_err(&dev_priv->drm,
--				"Payload credit not available\n");
-+		if (!wait_for_payload_credits(dev_priv, dsi_trans, 1))
- 			return false;
--		}
- 
- 		for (j = 0; j < min_t(u32, len - i, 4); j++)
- 			tmp |= *data++ << 8 * j;
-@@ -155,15 +158,10 @@ static int dsi_send_pkt_hdr(struct intel_dsi_host *host,
- 	struct drm_i915_private *dev_priv = to_i915(intel_dsi->base.base.dev);
- 	enum transcoder dsi_trans = dsi_port_to_transcoder(host->port);
- 	u32 tmp;
--	int free_credits;
- 
- 	/* check if header credit available */
--	free_credits = header_credits_available(dev_priv, dsi_trans);
--	if (free_credits < 1) {
--		drm_err(&dev_priv->drm,
--			"send pkt header failed, not enough hdr credits\n");
-+	if (!wait_for_header_credits(dev_priv, dsi_trans, 1))
- 		return -1;
--	}
- 
- 	tmp = intel_de_read(dev_priv, DSI_CMD_TXHDR(dsi_trans));
- 
+ 	ret = sizeof(dsi_pkt.header) + dsi_pkt.payload_length;
 -- 
 2.17.1
 
