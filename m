@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F117C4320A
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 00:53:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E151C4320A
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 00:53:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4BF6D61057
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 00:53:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4BF6D61057
+	by mail.kernel.org (Postfix) with ESMTPS id 39DF56108B
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 00:53:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 39DF56108B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 524D26E415;
-	Thu,  2 Sep 2021 00:52:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A09626E413;
+	Thu,  2 Sep 2021 00:52:44 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0993F6E40B;
- Thu,  2 Sep 2021 00:52:41 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="198468239"
-X-IronPort-AV: E=Sophos;i="5.84,370,1620716400"; d="scan'208";a="198468239"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 472B66E413;
+ Thu,  2 Sep 2021 00:52:43 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="198468241"
+X-IronPort-AV: E=Sophos;i="5.84,370,1620716400"; d="scan'208";a="198468241"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 17:52:40 -0700
-X-IronPort-AV: E=Sophos;i="5.84,370,1620716400"; d="scan'208";a="646030155"
+ 01 Sep 2021 17:52:42 -0700
+X-IronPort-AV: E=Sophos;i="5.84,370,1620716400"; d="scan'208";a="646030158"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 17:52:40 -0700
+ 01 Sep 2021 17:52:41 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, John.C.Harrison@Intel.com,
  matthew.brost@intel.com
-Date: Wed,  1 Sep 2021 17:50:00 -0700
-Message-Id: <20210902005022.711767-4-daniele.ceraolospurio@intel.com>
+Date: Wed,  1 Sep 2021 17:50:01 -0700
+Message-Id: <20210902005022.711767-5-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210902005022.711767-1-daniele.ceraolospurio@intel.com>
 References: <20210902005022.711767-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 03/25] drm/i915/guc: Unwind context requests
- in reverse order
+Subject: [Intel-gfx] [PATCH v5 04/25] drm/i915/guc: Don't drop
+ ce->guc_active.lock when unwinding context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,45 +62,40 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Matthew Brost <matthew.brost@intel.com>
 
-When unwinding requests on a reset context, if other requests in the
-context are in the priority list the requests could be resubmitted out
-of seqno order. Traverse the list of active requests in reverse and
-append to the head of the priority list to fix this.
+Don't drop ce->guc_active.lock when unwinding a context after reset.
+At one point we had to drop this because of a lock inversion but that is
+no longer the case. It is much safer to hold the lock so let's do that.
 
 Fixes: eb5e7da736f3 ("drm/i915/guc: Reset implementation for new GuC interface")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Cc: <stable@vger.kernel.org>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index aff5dd247a88..0c1e6b465fba 100644
+index 0c1e6b465fba..31bbfe5479ae 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -806,9 +806,9 @@ __unwind_incomplete_requests(struct intel_context *ce)
- 
- 	spin_lock_irqsave(&sched_engine->lock, flags);
- 	spin_lock(&ce->guc_active.lock);
--	list_for_each_entry_safe(rq, rn,
--				 &ce->guc_active.requests,
--				 sched.link) {
-+	list_for_each_entry_safe_reverse(rq, rn,
-+					 &ce->guc_active.requests,
-+					 sched.link) {
- 		if (i915_request_completed(rq))
+@@ -813,8 +813,6 @@ __unwind_incomplete_requests(struct intel_context *ce)
  			continue;
  
-@@ -825,7 +825,7 @@ __unwind_incomplete_requests(struct intel_context *ce)
- 		}
- 		GEM_BUG_ON(i915_sched_engine_is_empty(sched_engine));
+ 		list_del_init(&rq->sched.link);
+-		spin_unlock(&ce->guc_active.lock);
+-
+ 		__i915_request_unsubmit(rq);
  
--		list_add_tail(&rq->sched.link, pl);
-+		list_add(&rq->sched.link, pl);
+ 		/* Push the request back into the queue for later resubmission. */
+@@ -827,8 +825,6 @@ __unwind_incomplete_requests(struct intel_context *ce)
+ 
+ 		list_add(&rq->sched.link, pl);
  		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- 
- 		spin_lock(&ce->guc_active.lock);
+-
+-		spin_lock(&ce->guc_active.lock);
+ 	}
+ 	spin_unlock(&ce->guc_active.lock);
+ 	spin_unlock_irqrestore(&sched_engine->lock, flags);
 -- 
 2.25.1
 
