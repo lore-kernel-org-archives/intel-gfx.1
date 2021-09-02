@@ -4,57 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27B4DC432BE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6686C4320A
 	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 14:21:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EAA16610A4
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 14:21:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EAA16610A4
+	by mail.kernel.org (Postfix) with ESMTPS id 7D02E610A4
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 14:21:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D02E610A4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 000066E591;
-	Thu,  2 Sep 2021 14:21:18 +0000 (UTC)
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 919A36E58B
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Sep 2021 14:21:16 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- k20-20020a05600c0b5400b002e87ad6956eso1499610wmr.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 02 Sep 2021 07:21:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C53C76E5A5;
+	Thu,  2 Sep 2021 14:21:19 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DCE86E59F
+ for <intel-gfx@lists.freedesktop.org>; Thu,  2 Sep 2021 14:21:18 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id g138so1401900wmg.4
+ for <intel-gfx@lists.freedesktop.org>; Thu, 02 Sep 2021 07:21:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=N4wPVPyBecvwRFld+uitLPXJoYdixYmJlAF+KwwPizE=;
- b=VtMmJOprd6xlORttLLAuvmRZSWS8P9shxNMb0Ot5FiFnJHu9wICE43zfAkPt+7G7uo
- w3jmHJuG719UFu/MkbNk1q59xo5djvkiAT+HCwMnBA1SumGJYPg+RKOr/DCZXAXHIcDu
- Idm50G1EffdfI60trEuPR90udhPnHpmaoOwgY=
+ bh=YOmOX7arcziZoRA45kxze5LtueB4TaipRCXT18IYUQA=;
+ b=c8PndkG79GfbCbia0KFrKhMRLut5VTI0RejRxo/0d4noeG8hoVDcfa4a1orLkpZeDA
+ eW7ZDXKgK5UsL5bPI4tGl4uQWdUTXvqoZ9QwxfoD1ucijNfrUxHucVdwi/VtHGFF64Yi
+ Nb47hA1jr9sOkItjFBgkGmVuhL4hp1WwNW6Bw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=N4wPVPyBecvwRFld+uitLPXJoYdixYmJlAF+KwwPizE=;
- b=Ea4focoetTpNgU29lsEPC0qFPQ31tUBxfn8P+ZLmBpZr4hfxVbZCrjUJSuVjv1YavN
- 4aRvdZRnuR6ddy3qOjLbMjJaOTvRx5IWDFRC9koWLkP38+kCunwmuRmRZ2QoH2uhPBFV
- Cl67Qt05Wp+52ZCPYR8HyGHu31e7SsiV0v85g9v6Lqnik2Y7+yjDhm625oSTYArnNWjW
- lEzKGmeUjnWrwC28sEroPys9bCfjohFmzJ4DtG3OIWvCm9ZbINCZ1VEZoinSc2/mJF5W
- coiuzXnV+yMavs7y3z9HVGsEuXX+mfOa4wpmx3pnQ4yoTKkB4xGubhM7Pw1bmp+fdhiG
- KepQ==
-X-Gm-Message-State: AOAM5308bhkCCIKRqIo/prrPfj+fyRJNXK0WWMnfNpRMZ8X5+queh5Q+
- jd10N5akQGUDFTopcizaBJ8lZw==
-X-Google-Smtp-Source: ABdhPJyR2uas7E1wYZEjzZtvTb9nomtvVGP8X4pCYKt4jDR1decniPdT6QD9rXLkDg806Pi5qXWlIQ==
-X-Received: by 2002:a05:600c:2058:: with SMTP id
- p24mr3400942wmg.108.1630592475044; 
- Thu, 02 Sep 2021 07:21:15 -0700 (PDT)
+ bh=YOmOX7arcziZoRA45kxze5LtueB4TaipRCXT18IYUQA=;
+ b=CFtAUoISOUfqKqsYr511JvmjI0VSrecHnI7yHq1viNqK1vWsCHfPmFAqhR3ZjkqIOj
+ o4sOFHwkAz8A4twKEAogMvX+zzmsh3AYrzHE/oAB/5aCt4cu9P35m22EqnWuwgGCMloo
+ 8Dff/w1qmBEZZrLNkoW0FkgXRFKvJERTr7jYGeARqsI7PJu56M3F4WOr6ha2NyHYIy8O
+ JnUjP5wNdZiWMhHnNKI5Nbu3cWE8LUp/wobrz1YS6+L5Mxi/zOuITv/HG0yTM+LZ2CXC
+ idyI8F2tyaAm9FDh6+it06bPPp05u9fze9egIcdvpb1336BMhoAhILVrr8cUNBqFyeZ8
+ upwQ==
+X-Gm-Message-State: AOAM532XUDGRk7G9H6mh5Jiah8dpPlojul/7J2oRHHno+DXR5sMizVfJ
+ SDRBl5bfJ74Z62vQMONc+dbHDw==
+X-Google-Smtp-Source: ABdhPJx9mEK1Dfjs19Ier6VOBTsiAT6aNKqNBWHxrGUMLacEWdjFVHXjycuv3RQRoz6WRzeFDXfkWA==
+X-Received: by 2002:a1c:448a:: with SMTP id r132mr3347718wma.117.1630592477075; 
+ Thu, 02 Sep 2021 07:21:17 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id l2sm1841811wmi.1.2021.09.02.07.21.14
+ by smtp.gmail.com with ESMTPSA id l2sm1841811wmi.1.2021.09.02.07.21.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Sep 2021 07:21:14 -0700 (PDT)
+ Thu, 02 Sep 2021 07:21:16 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
 Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
@@ -68,16 +66,16 @@ Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Matthew Auld <matthew.auld@intel.com>,
  Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
  Dave Airlie <airlied@redhat.com>, Jason Ekstrand <jason@jlekstrand.net>
-Date: Thu,  2 Sep 2021 16:20:54 +0200
-Message-Id: <20210902142057.929669-8-daniel.vetter@ffwll.ch>
+Date: Thu,  2 Sep 2021 16:20:56 +0200
+Message-Id: <20210902142057.929669-10-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210902142057.929669-1-daniel.vetter@ffwll.ch>
 References: <20210902142057.929669-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/11] drm/i915: Use i915_gem_context_get_eb_vm
- in intel_context_set_gem
+Subject: [Intel-gfx] [PATCH 10/11] drm/i915: use xa_lock/unlock for
+ fpriv->vm_xa lookups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,22 +91,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since
+We don't need the absolute speed of rcu for this. And
+i915_address_space in general dont need rcu protection anywhere else,
+after we've made gem contexts and engines a lot more immutable.
 
-commit ccbc1b97948ab671335e950271e39766729736c3
-Author: Jason Ekstrand <jason@jlekstrand.net>
-Date:   Thu Jul 8 10:48:30 2021 -0500
+Note that this semantically reverts
 
-    drm/i915/gem: Don't allow changing the VM on running contexts (v4)
+commit aabbe344dc3ca5f7d8263a02608ba6179e8a4499
+Author: Chris Wilson <chris@chris-wilson.co.uk>
+Date:   Fri Aug 30 19:03:25 2019 +0100
 
-the gem_ctx->vm can't change anymore. Plus we always set the
-intel_context->vm, so might as well use the helper we have for that.
+    drm/i915: Use RCU for unlocked vm_idr lookup
 
-This makes it very clear that we always overwrite intel_context->vm
-for userspace contexts, since the default is gt->vm, which is
-explicitly reserved for kernel context use. It would be good to split
-things up a bit further and avoid any possibility for an accident
-where we run kernel stuff in userspace vm or the other way round.
+except we have the conversion from idr to xarray in between.
+
+v2: kref_get_unless_zero is no longer required (Maarten)
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
@@ -123,32 +120,29 @@ Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 Cc: Dave Airlie <airlied@redhat.com>
 Cc: Jason Ekstrand <jason@jlekstrand.net>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 1eec85944c1f..18e23d9220ae 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -791,16 +791,8 @@ static int intel_context_set_gem(struct intel_context *ce,
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index be2392bbcecc..d89ff55d8fc8 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1874,11 +1874,11 @@ i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id)
+ {
+ 	struct i915_address_space *vm;
  
- 	ce->ring_size = SZ_16K;
+-	rcu_read_lock();
++	xa_lock(&file_priv->vm_xa);
+ 	vm = xa_load(&file_priv->vm_xa, id);
+-	if (vm && !kref_get_unless_zero(&vm->ref))
+-		vm = NULL;
+-	rcu_read_unlock();
++	if (vm)
++		kref_get(&vm->ref);
++	xa_unlock(&file_priv->vm_xa);
  
--	if (rcu_access_pointer(ctx->vm)) {
--		struct i915_address_space *vm;
--
--		rcu_read_lock();
--		vm = context_get_vm_rcu(ctx); /* hmm */
--		rcu_read_unlock();
--
--		i915_vm_put(ce->vm);
--		ce->vm = vm;
--	}
-+	i915_vm_put(ce->vm);
-+	ce->vm = i915_gem_context_get_eb_vm(ctx);
- 
- 	if (ctx->sched.priority >= I915_PRIORITY_NORMAL &&
- 	    intel_engine_has_timeslices(ce->engine) &&
+ 	return vm;
+ }
 -- 
 2.33.0
 
