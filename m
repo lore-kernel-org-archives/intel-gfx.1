@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80293C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 19:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79F28C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 19:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 473AE610FB
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 19:00:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 473AE610FB
+	by mail.kernel.org (Postfix) with ESMTPS id 45156610FB
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 19:00:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 45156610FB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCA306E7EF;
-	Thu,  2 Sep 2021 19:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 071BD6E7F1;
+	Thu,  2 Sep 2021 19:00:19 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DBB06E7EC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 490696E7EF
  for <intel-gfx@lists.freedesktop.org>; Thu,  2 Sep 2021 19:00:17 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10095"; a="217357021"
-X-IronPort-AV: E=Sophos;i="5.85,262,1624345200"; d="scan'208";a="217357021"
+X-IronPort-AV: E=McAfee;i="6200,9189,10095"; a="217357041"
+X-IronPort-AV: E=Sophos;i="5.85,262,1624345200"; d="scan'208";a="217357041"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2021 11:59:49 -0700
+ 02 Sep 2021 11:59:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,262,1624345200"; d="scan'208";a="689262653"
+X-IronPort-AV: E=Sophos;i="5.85,262,1624345200"; d="scan'208";a="689262664"
 Received: from ayazahma-nuc8i7beh.iind.intel.com ([10.145.162.59])
- by fmsmga006.fm.intel.com with ESMTP; 02 Sep 2021 11:59:48 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 02 Sep 2021 11:59:51 -0700
 From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>, CQ Tang <cq.tang@intel.com>,
+Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>
-Date: Fri,  3 Sep 2021 00:26:30 +0530
-Message-Id: <20210902185635.290538-2-ayaz.siddiqui@intel.com>
+Date: Fri,  3 Sep 2021 00:26:32 +0530
+Message-Id: <20210902185635.290538-4-ayaz.siddiqui@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210902185635.290538-1-ayaz.siddiqui@intel.com>
 References: <20210902185635.290538-1-ayaz.siddiqui@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH V4 1/6] drm/i915/gt: Add support of mocs
- propagation
+Subject: [Intel-gfx] [PATCH V4 3/6] drm/i915/gt: Set BLIT_CCTL reg to
+ un-cached
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,106 +60,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now there are lots of Command and registers that require mocs index
-programming.
-So propagating mocs_index from mocs to gt so that it can be
-used directly without having platform-specific checks.
+Blitter commands which do not have MOCS fields rely on
+cacheability of BlitterCacheControlRegister which was mapped
+to index 0 by default.Once we changed the MOCS value of
+index 0 to L3 WB, tests like gem_linear_blits started failing
+due to a change in cacheability from UC to WB.
 
-Cc: CQ Tang<cq.tang@intel.com>
+Program and place the BlitterCacheControlRegister in
+build_aux_regs().
+
 Cc: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c       |  2 ++
- drivers/gpu/drm/i915/gt/intel_gt_types.h |  4 ++++
- drivers/gpu/drm/i915/gt/intel_mocs.c     | 13 +++++++++++++
- drivers/gpu/drm/i915/gt/intel_mocs.h     |  1 +
- 4 files changed, 20 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 43 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_reg.h             |  9 +++++
+ 2 files changed, 50 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 62d40c9866427..2aeaae036a6f8 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -682,6 +682,8 @@ int intel_gt_init(struct intel_gt *gt)
- 		goto err_pm;
- 	}
- 
-+	set_mocs_index(gt);
-+
- 	err = intel_engines_init(gt);
- 	if (err)
- 		goto err_engines;
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index a81e21bf1bd1a..88601a2d2c229 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -192,6 +192,10 @@ struct intel_gt {
- 
- 		unsigned long mslice_mask;
- 	} info;
-+
-+	struct i915_mocs_index_gt {
-+		u8 uc_index;
-+	} mocs;
- };
- 
- enum intel_gt_scratch_field {
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index 582c4423b95d6..7ccac15d9a331 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -22,6 +22,7 @@ struct drm_i915_mocs_table {
- 	unsigned int size;
- 	unsigned int n_entries;
- 	const struct drm_i915_mocs_entry *table;
-+	u8 uc_index;
- };
- 
- /* Defines for the tables (XXX_MOCS_0 - XXX_MOCS_63) */
-@@ -340,14 +341,18 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
- {
- 	unsigned int flags;
- 
-+	memset(table, 0, sizeof(struct drm_i915_mocs_table));
-+
- 	if (IS_DG1(i915)) {
- 		table->size = ARRAY_SIZE(dg1_mocs_table);
- 		table->table = dg1_mocs_table;
-+		table->uc_index = 1;
- 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
- 	} else if (GRAPHICS_VER(i915) >= 12) {
- 		table->size  = ARRAY_SIZE(tgl_mocs_table);
- 		table->table = tgl_mocs_table;
- 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
-+		table->uc_index = 3;
- 	} else if (GRAPHICS_VER(i915) == 11) {
- 		table->size  = ARRAY_SIZE(icl_mocs_table);
- 		table->table = icl_mocs_table;
-@@ -504,6 +509,14 @@ static u32 global_mocs_offset(void)
- 	return i915_mmio_reg_offset(GEN12_GLOBAL_MOCS(0));
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 38c66765ff94c..04fc977ec27fc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -675,6 +675,41 @@ static void fakewa_disable_nestedbb_mode(struct intel_engine_cs *engine,
+ 	wa_masked_dis(wal, RING_MI_MODE(engine->mmio_base), TGL_NESTED_BB_EN);
  }
  
-+void set_mocs_index(struct intel_gt *gt)
++static void gen12_ctx_gt_mocs_init(struct intel_engine_cs *engine,
++				   struct i915_wa_list *wal)
 +{
-+	struct drm_i915_mocs_table table;
++	u8 mocs;
 +
-+	get_mocs_settings(gt->i915, &table);
-+	gt->mocs.uc_index = table.uc_index;
++	if (engine->class == COPY_ENGINE_CLASS) {
++	/*
++	 * Some blitter commands do not have a field for MOCS, those
++	 * commands will use MOCS index pointed by BLIT_CCTL.
++	 * BLIT_CCTL registers are needed to be programmed to un-cached.
++	 */
++		mocs = engine->gt->mocs.uc_index;
++		wa_masked_field_set(wal,
++				    BLIT_CCTL(engine->mmio_base),
++				    BLIT_CCTL_MASK,
++				    BLIT_CCTL_MOCS(mocs, mocs));
++	}
 +}
 +
- void intel_mocs_init(struct intel_gt *gt)
- {
- 	struct drm_i915_mocs_table table;
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.h b/drivers/gpu/drm/i915/gt/intel_mocs.h
-index d83274f5163bd..8a09d64b115f7 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.h
-@@ -36,5 +36,6 @@ struct intel_gt;
++/*
++ * gen12_ctx_gt_fake_wa_init() aren't programming actual workarounds,
++ * but it programming general context registers.
++ * Adding those context register programming in context workaround
++ * allow us to use the wa framework for proper application and validation.
++ */
++static void
++gen12_ctx_gt_fake_wa_init(struct intel_engine_cs *engine,
++			  struct i915_wa_list *wal)
++{
++	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++		fakewa_disable_nestedbb_mode(engine, wal);
++
++	gen12_ctx_gt_mocs_init(engine, wal);
++}
++
+ static void
+ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+ 			   struct i915_wa_list *wal,
+@@ -685,8 +720,12 @@ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+ 	wa_init_start(wal, name, engine->name);
  
- void intel_mocs_init(struct intel_gt *gt);
- void intel_mocs_init_engine(struct intel_engine_cs *engine);
-+void set_mocs_index(struct intel_gt *gt);
+ 	/* Applies to all engines */
+-	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55))
+-		fakewa_disable_nestedbb_mode(engine, wal);
++	/*
++	 * Fake workarounds are not the actual workaround but
++	 * programming of context registers using workaround framework.
++	 */
++	if (GRAPHICS_VER(i915) >= 12)
++		gen12_ctx_gt_fake_wa_init(engine, wal);
  
- #endif
+ 	if (engine->class != RENDER_CLASS)
+ 		goto done;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 92fda75751eef..99cb9321adac9 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2568,6 +2568,15 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ 		(REG_FIELD_PREP(CMD_CCTL_WRITE_OVERRIDE_MASK, (write) << 1) | \
+ 		 REG_FIELD_PREP(CMD_CCTL_READ_OVERRIDE_MASK, (read) << 1))
+ 
++#define BLIT_CCTL(base) _MMIO((base) + 0x204)
++#define   BLIT_CCTL_DST_MOCS_MASK       REG_GENMASK(14, 8)
++#define   BLIT_CCTL_SRC_MOCS_MASK       REG_GENMASK(6, 0)
++#define   BLIT_CCTL_MASK (BLIT_CCTL_DST_MOCS_MASK | \
++			  BLIT_CCTL_SRC_MOCS_MASK)
++#define   BLIT_CCTL_MOCS(dst, src)				       \
++		(REG_FIELD_PREP(BLIT_CCTL_DST_MOCS_MASK, (dst) << 1) | \
++		 REG_FIELD_PREP(BLIT_CCTL_SRC_MOCS_MASK, (src) << 1))
++
+ #define RING_RESET_CTL(base)	_MMIO((base) + 0xd0)
+ #define   RESET_CTL_CAT_ERROR	   REG_BIT(2)
+ #define   RESET_CTL_READY_TO_RESET REG_BIT(1)
 -- 
 2.26.2
 
