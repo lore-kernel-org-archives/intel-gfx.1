@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C773EC43214
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 00:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DAE7C4320A
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 00:53:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 960996108B
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 00:53:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 960996108B
+	by mail.kernel.org (Postfix) with ESMTPS id 2C6B661057
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Sep 2021 00:53:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2C6B661057
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A93CE6E41B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A71986E41A;
 	Thu,  2 Sep 2021 00:52:49 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32F776E441;
- Thu,  2 Sep 2021 00:52:47 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="217058124"
-X-IronPort-AV: E=Sophos;i="5.84,370,1620716400"; d="scan'208";a="217058124"
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76F1D6E42F;
+ Thu,  2 Sep 2021 00:52:46 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="198468251"
+X-IronPort-AV: E=Sophos;i="5.84,370,1620716400"; d="scan'208";a="198468251"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 17:52:46 -0700
-X-IronPort-AV: E=Sophos;i="5.84,370,1620716400"; d="scan'208";a="646030182"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2021 17:52:45 -0700
+X-IronPort-AV: E=Sophos;i="5.84,370,1620716400"; d="scan'208";a="646030175"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2021 17:52:46 -0700
+ 01 Sep 2021 17:52:44 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, John.C.Harrison@Intel.com,
  matthew.brost@intel.com
-Date: Wed,  1 Sep 2021 17:50:07 -0700
-Message-Id: <20210902005022.711767-11-daniele.ceraolospurio@intel.com>
+Date: Wed,  1 Sep 2021 17:50:05 -0700
+Message-Id: <20210902005022.711767-9-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210902005022.711767-1-daniele.ceraolospurio@intel.com>
 References: <20210902005022.711767-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 10/25] drm/i915/guc: Copy whole golden
- context, set engine state size of subset
+Subject: [Intel-gfx] [PATCH v5 08/25] drm/i915/guc: Kick tasklet after
+ queuing a request
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,87 +62,27 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Matthew Brost <matthew.brost@intel.com>
 
-When the GuC does a media reset, it copies a golden context state back
-into the corrupted context's state. The address of the golden context
-and the size of the engine state restore are passed in via the GuC ADS.
-The i915 had a bug where it passed in the whole size of the golden
-context, not the size of the engine state to restore resulting in a
-memory corruption.
+Kick tasklet after queuing a request so it submitted in a timely manner.
 
-Also copy the entire golden context on init rather than just the engine
-state that is restored.
-
-v2 (Daniele): use defines to avoid duplicated const variables (John).
-
-Fixes: 481d458caede ("drm/i915/guc: Add golden context to GuC ADS")
+Fixes: 3a4cdf1982f0 ("drm/i915/guc: Implement GuC context operations for new inteface")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 26 ++++++++++++++--------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 6926919bcac6..2c6ea64af7ec 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -349,6 +349,8 @@ static void fill_engine_enable_masks(struct intel_gt *gt,
- 	info->engine_enabled_masks[GUC_VIDEOENHANCE_CLASS] = VEBOX_MASK(gt);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index f9e3725b94c1..bd401a5be87c 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1049,6 +1049,7 @@ static inline void queue_request(struct i915_sched_engine *sched_engine,
+ 	list_add_tail(&rq->sched.link,
+ 		      i915_sched_lookup_priolist(sched_engine, prio));
+ 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
++	tasklet_hi_schedule(&sched_engine->tasklet);
  }
  
-+#define LR_HW_CONTEXT_SIZE (80 * sizeof(u32))
-+#define LRC_SKIP_SIZE (LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SIZE)
- static int guc_prep_golden_context(struct intel_guc *guc,
- 				   struct __guc_ads_blob *blob)
- {
-@@ -396,7 +398,18 @@ static int guc_prep_golden_context(struct intel_guc *guc,
- 		if (!blob)
- 			continue;
- 
--		blob->ads.eng_state_size[guc_class] = real_size;
-+		/*
-+		 * This interface is slightly confusing. We need to pass the
-+		 * base address of the full golden context and the size of just
-+		 * the engine state, which is the section of the context image
-+		 * that starts after the execlists context. This is required to
-+		 * allow the GuC to restore just the engine state when a
-+		 * watchdog reset occurs.
-+		 * We calculate the engine state size by removing the size of
-+		 * what comes before it in the context image (which is identical
-+		 * on all engines).
-+		 */
-+		blob->ads.eng_state_size[guc_class] = real_size - LRC_SKIP_SIZE;
- 		blob->ads.golden_context_lrca[guc_class] = addr_ggtt;
- 		addr_ggtt += alloc_size;
- 	}
-@@ -436,11 +449,6 @@ static void guc_init_golden_context(struct intel_guc *guc)
- 	u8 engine_class, guc_class;
- 	u8 *ptr;
- 
--	/* Skip execlist and PPGTT registers + HWSP */
--	const u32 lr_hw_context_size = 80 * sizeof(u32);
--	const u32 skip_size = LRC_PPHWSP_SZ * PAGE_SIZE +
--		lr_hw_context_size;
--
- 	if (!intel_uc_uses_guc_submission(&gt->uc))
- 		return;
- 
-@@ -476,12 +484,12 @@ static void guc_init_golden_context(struct intel_guc *guc)
- 			continue;
- 		}
- 
--		GEM_BUG_ON(blob->ads.eng_state_size[guc_class] != real_size);
-+		GEM_BUG_ON(blob->ads.eng_state_size[guc_class] !=
-+			   real_size - LRC_SKIP_SIZE);
- 		GEM_BUG_ON(blob->ads.golden_context_lrca[guc_class] != addr_ggtt);
- 		addr_ggtt += alloc_size;
- 
--		shmem_read(engine->default_state, skip_size, ptr + skip_size,
--			   real_size - skip_size);
-+		shmem_read(engine->default_state, 0, ptr, real_size);
- 		ptr += alloc_size;
- 	}
- 
+ static int guc_bypass_tasklet_submit(struct intel_guc *guc,
 -- 
 2.25.1
 
