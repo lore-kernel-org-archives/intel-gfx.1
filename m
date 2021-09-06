@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE73AC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 16:55:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36B60C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 16:56:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A4B2606A5
+	by mail.kernel.org (Postfix) with ESMTPS id 04277606A5
 	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 16:55:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5A4B2606A5
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 04277606A5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF80889BF1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D614989BF3;
 	Mon,  6 Sep 2021 16:55:46 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19FDA89BD2;
- Mon,  6 Sep 2021 16:55:45 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="219697389"
-X-IronPort-AV: E=Sophos;i="5.85,272,1624345200"; d="scan'208";a="219697389"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E85C89B20;
+ Mon,  6 Sep 2021 16:55:41 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="219697354"
+X-IronPort-AV: E=Sophos;i="5.85,272,1624345200"; d="scan'208";a="219697354"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2021 09:55:44 -0700
-X-IronPort-AV: E=Sophos;i="5.85,272,1624345200"; d="scan'208";a="579695104"
+ 06 Sep 2021 09:55:41 -0700
+X-IronPort-AV: E=Sophos;i="5.85,272,1624345200"; d="scan'208";a="579695087"
 Received: from mkrygin-mobl1.ccr.corp.intel.com (HELO
  thellstr-mobl1.intel.com) ([10.249.254.45])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2021 09:55:43 -0700
+ 06 Sep 2021 09:55:39 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Mon,  6 Sep 2021 18:55:14 +0200
-Message-Id: <20210906165515.450541-7-thomas.hellstrom@linux.intel.com>
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Brost Matthew <matthew.brost@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
+Date: Mon,  6 Sep 2021 18:55:12 +0200
+Message-Id: <20210906165515.450541-5-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210906165515.450541-1-thomas.hellstrom@linux.intel.com>
 References: <20210906165515.450541-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 6/6] drm/i915: Reduce the number of objects
- subject to memcpy recover
+Subject: [Intel-gfx] [PATCH v2 4/6] drm/i915/gt: Register the migrate
+ contexts with their engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,381 +66,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We really only need memcpy restore for objects that affect the
-operability of the migrate context. That is, primarily the page-table
-objects of the migrate VM.
+Pinned contexts, like the migrate contexts need reset after resume
+since their context image may have been lost. Also the GuC needs to
+register pinned contexts.
 
-Add an object flag, I915_BO_ALLOC_PM_EARLY for objects that need early
-restores using memcpy and a way to assign LMEM page-table object flags
-to be used by the vms.
+Add a list to struct intel_engine_cs where we add all pinned contexts on
+creation, and traverse that list at resume time to reset the pinned
+contexts.
 
-Restore objects without this flag with the gpu blitter and only objects
-carrying the flag using TTM memcpy.
+This fixes the kms_pipe_crc_basic@suspend-read-crc-pipe-a selftest for now,
+but proper LMEM backup / restore is needed for full suspend functionality.
+However, note that even with full LMEM backup / restore it may be
+desirable to keep the reset since backing up the migrate context images
+must happen using memcpy() after the migrate context has become inactive,
+and for performance- and other reasons we want to avoid memcpy() from
+LMEM.
 
-Initially mark the migrate, gt, gtt and vgpu vms to use this flag, and
-defer for a later audit which vms actually need it. Most importantly, user-
-allocated vms with pinned page-table objects can be restored using the
-blitter.
+Also traverse the list at guc_init_lrc_mapping() calling
+guc_kernel_context_pin() for the pinned contexts, like is already done
+for the kernel context.
 
-Performance-wise memcpy restore is probably as fast as gpu restore if not
-faster, but using gpu restore will help tackling future restrictions in
-mappable LMEM size.
+v2:
+- Don't reset the contexts on each __engine_unpark() but rather at
+  resume time (Chris Wilson).
+v3:
+- Reset contexts in the engine sanitize callback. (Chris Wilson)
 
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Brost Matthew <matthew.brost@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c      |  4 ++--
- drivers/gpu/drm/i915/gem/i915_gem_object_types.h |  9 ++++++---
- drivers/gpu/drm/i915/gem/i915_gem_pm.c           |  6 ++++--
- drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c       |  6 ++++--
- drivers/gpu/drm/i915/gem/selftests/huge_pages.c  |  2 +-
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c             |  2 +-
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c             |  5 +++--
- drivers/gpu/drm/i915/gt/gen8_ppgtt.h             |  4 +++-
- drivers/gpu/drm/i915/gt/intel_ggtt.c             |  2 +-
- drivers/gpu/drm/i915/gt/intel_gt.c               |  2 +-
- drivers/gpu/drm/i915/gt/intel_gtt.c              |  3 ++-
- drivers/gpu/drm/i915/gt/intel_gtt.h              |  9 +++++++--
- drivers/gpu/drm/i915/gt/intel_migrate.c          |  2 +-
- drivers/gpu/drm/i915/gt/intel_ppgtt.c            | 13 ++++++++-----
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c     |  2 +-
- drivers/gpu/drm/i915/gvt/scheduler.c             |  2 +-
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c    |  4 ++--
- 17 files changed, 48 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  8 +++++++
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  4 ++++
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c     | 23 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_pm.h     |  2 ++
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  7 ++++++
+ .../drm/i915/gt/intel_execlists_submission.c  |  2 ++
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |  3 +++
+ drivers/gpu/drm/i915/gt/mock_engine.c         |  2 ++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 12 +++++++---
+ 9 files changed, 60 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index fd169cf2f75a..3dbebced0950 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1312,7 +1312,7 @@ i915_gem_create_context(struct drm_i915_private *i915,
- 	} else if (HAS_FULL_PPGTT(i915)) {
- 		struct i915_ppgtt *ppgtt;
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index e54351a170e2..a63631ea0ec4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -152,6 +152,14 @@ struct intel_context {
+ 	/** sseu: Control eu/slice partitioning */
+ 	struct intel_sseu sseu;
  
--		ppgtt = i915_ppgtt_create(&i915->gt);
-+		ppgtt = i915_ppgtt_create(&i915->gt, 0);
- 		if (IS_ERR(ppgtt)) {
- 			drm_dbg(&i915->drm, "PPGTT setup failed (%ld)\n",
- 				PTR_ERR(ppgtt));
-@@ -1490,7 +1490,7 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
- 	if (args->flags)
- 		return -EINVAL;
- 
--	ppgtt = i915_ppgtt_create(&i915->gt);
-+	ppgtt = i915_ppgtt_create(&i915->gt, 0);
- 	if (IS_ERR(ppgtt))
- 		return PTR_ERR(ppgtt);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index 66123ba46247..477b98b656b4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -294,13 +294,16 @@ struct drm_i915_gem_object {
- #define I915_BO_ALLOC_USER        BIT(3)
- /* Object may lose its contents on suspend / resume */
- #define I915_BO_ALLOC_PM_VOLATILE BIT(4)
-+/* Object needs to be restored early using memcpy during resume */
-+#define I915_BO_ALLOC_PM_EARLY    BIT(5)
- #define I915_BO_ALLOC_FLAGS (I915_BO_ALLOC_CONTIGUOUS | \
- 			     I915_BO_ALLOC_VOLATILE | \
- 			     I915_BO_ALLOC_CPU_CLEAR | \
- 			     I915_BO_ALLOC_USER | \
--			     I915_BO_ALLOC_PM_VOLATILE)
--#define I915_BO_READONLY          BIT(5)
--#define I915_TILING_QUIRK_BIT     6 /* unknown swizzling; do not release! */
-+			     I915_BO_ALLOC_PM_VOLATILE | \
-+			     I915_BO_ALLOC_PM_EARLY)
-+#define I915_BO_READONLY          BIT(6)
-+#define I915_TILING_QUIRK_BIT     7 /* unknown swizzling; do not release! */
- 
- 	/**
- 	 * @mem_flags - Mutable placement-related flags
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-index 9746c255ddcc..cdd344f64404 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-@@ -98,9 +98,11 @@ int i915_gem_backup_suspend(struct drm_i915_private *i915)
- 	 * More objects may have become unpinned as requests were
- 	 * retired. Now try to evict again. The gt may be wedged here
- 	 * in which case we automatically fall back to memcpy.
-+	 * We allow also backing up pinned objects that have not been
-+	 * marked for early recover, and that may contain, for example,
-+	 * page-tables for the migrate context.
- 	 */
--
--	ret = lmem_suspend(i915, true, false);
-+	ret = lmem_suspend(i915, true, true);
- 	if (ret)
- 		goto out_recover;
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-index eaceecfc3f19..bedd0bdd8302 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-@@ -58,7 +58,8 @@ static int i915_ttm_backup(struct i915_gem_apply_to_region *apply,
- 	if (pm_apply->allow_gpu && i915_gem_object_evictable(obj))
- 		return ttm_bo_validate(bo, i915_ttm_sys_placement(), &ctx);
- 
--	if (!pm_apply->backup_pinned)
-+	if (!pm_apply->backup_pinned ||
-+	    (pm_apply->allow_gpu && (obj->flags & I915_BO_ALLOC_PM_EARLY)))
- 		return 0;
- 
- 	if (obj->flags & I915_BO_ALLOC_PM_VOLATILE)
-@@ -160,7 +161,8 @@ static int i915_ttm_restore(struct i915_gem_apply_to_region *apply,
- 	if (!obj->ttm.backup)
- 		return 0;
- 
--	if (!pm_apply->allow_gpu && (obj->flags & I915_BO_ALLOC_USER))
-+	if (!pm_apply->allow_gpu && ((obj->flags & I915_BO_ALLOC_USER) ||
-+				     !(obj->flags & I915_BO_ALLOC_PM_EARLY)))
- 		return 0;
- 
- 	err = i915_gem_object_lock(backup, apply->ww);
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index a094f3ce1a90..149f62221a83 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -1629,7 +1629,7 @@ int i915_gem_huge_page_mock_selftests(void)
- 	mkwrite_device_info(dev_priv)->ppgtt_type = INTEL_PPGTT_FULL;
- 	mkwrite_device_info(dev_priv)->ppgtt_size = 48;
- 
--	ppgtt = i915_ppgtt_create(&dev_priv->gt);
-+	ppgtt = i915_ppgtt_create(&dev_priv->gt, 0);
- 	if (IS_ERR(ppgtt)) {
- 		err = PTR_ERR(ppgtt);
- 		goto out_unlock;
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-index 1aee5e6b1b23..890191f286e3 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-@@ -429,7 +429,7 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
- 	mutex_init(&ppgtt->flush);
- 	mutex_init(&ppgtt->pin_mutex);
- 
--	ppgtt_init(&ppgtt->base, gt);
-+	ppgtt_init(&ppgtt->base, gt, 0);
- 	ppgtt->base.vm.pd_shift = ilog2(SZ_4K * SZ_4K / sizeof(gen6_pte_t));
- 	ppgtt->base.vm.top = 1;
- 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index 6e0e52eeb87a..da4aa73f46a9 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -751,7 +751,8 @@ gen8_alloc_top_pd(struct i915_address_space *vm)
-  * space.
-  *
-  */
--struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
-+struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
-+				     unsigned long lmem_pt_obj_flags)
- {
- 	struct i915_ppgtt *ppgtt;
- 	int err;
-@@ -760,7 +761,7 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
- 	if (!ppgtt)
- 		return ERR_PTR(-ENOMEM);
- 
--	ppgtt_init(ppgtt, gt);
-+	ppgtt_init(ppgtt, gt, lmem_pt_obj_flags);
- 	ppgtt->vm.top = i915_vm_is_4lvl(&ppgtt->vm) ? 3 : 2;
- 	ppgtt->vm.pd_shift = ilog2(SZ_4K * SZ_4K / sizeof(gen8_pte_t));
- 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.h b/drivers/gpu/drm/i915/gt/gen8_ppgtt.h
-index b9028c2ad3c7..f541d19264b4 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.h
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.h
-@@ -12,7 +12,9 @@ struct i915_address_space;
- struct intel_gt;
- enum i915_cache_level;
- 
--struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt);
-+struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
-+				     unsigned long lmem_pt_obj_flags);
++	/**
++	 * pinned_contexts_link: List link for the engine's pinned contexts.
++	 * This is only used if this is a perma-pinned kernel context and
++	 * the list is assumed to only be manipulated during driver load
++	 * or unload time so no mutex protection currently.
++	 */
++	struct list_head pinned_contexts_link;
 +
- u64 gen8_ggtt_pte_encode(dma_addr_t addr,
- 			 enum i915_cache_level level,
- 			 u32 flags);
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index de3ac58fceec..6e5d2f82b1f2 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -644,7 +644,7 @@ static int init_aliasing_ppgtt(struct i915_ggtt *ggtt)
- 	struct i915_ppgtt *ppgtt;
- 	int err;
+ 	u8 wa_bb_page; /* if set, page num reserved for context workarounds */
  
--	ppgtt = i915_ppgtt_create(ggtt->vm.gt);
-+	ppgtt = i915_ppgtt_create(ggtt->vm.gt, I915_BO_ALLOC_PM_EARLY);
- 	if (IS_ERR(ppgtt))
- 		return PTR_ERR(ppgtt);
+ 	struct {
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 332efea696a5..c606a4714904 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -320,6 +320,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 62d40c986642..70c06d6eeec8 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -481,7 +481,7 @@ static void intel_gt_fini_scratch(struct intel_gt *gt)
- static struct i915_address_space *kernel_vm(struct intel_gt *gt)
- {
- 	if (INTEL_PPGTT(gt->i915) > INTEL_PPGTT_ALIASING)
--		return &i915_ppgtt_create(gt)->vm;
-+		return &i915_ppgtt_create(gt, I915_BO_ALLOC_PM_EARLY)->vm;
- 	else
- 		return i915_vm_get(&gt->ggtt->vm);
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index e137dd32b5b8..ea6ea97a7a62 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -28,7 +28,8 @@ struct drm_i915_gem_object *alloc_pt_lmem(struct i915_address_space *vm, int sz)
- 	 * used the passed in size for the page size, which should ensure it
- 	 * also has the same alignment.
- 	 */
--	obj = __i915_gem_object_create_lmem_with_ps(vm->i915, sz, sz, 0);
-+	obj = __i915_gem_object_create_lmem_with_ps(vm->i915, sz, sz,
-+						    vm->lmem_pt_obj_flags);
+ 	BUILD_BUG_ON(BITS_PER_TYPE(engine->mask) < I915_NUM_ENGINES);
+ 
++	INIT_LIST_HEAD(&engine->pinned_contexts_list);
+ 	engine->id = id;
+ 	engine->legacy_idx = INVALID_ENGINE;
+ 	engine->mask = BIT(id);
+@@ -875,6 +876,8 @@ intel_engine_create_pinned_context(struct intel_engine_cs *engine,
+ 		return ERR_PTR(err);
+ 	}
+ 
++	list_add_tail(&ce->pinned_contexts_link, &engine->pinned_contexts_list);
++
  	/*
- 	 * Ensure all paging structures for this vm share the same dma-resv
- 	 * object underneath, with the idea that one object_lock() will lock
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index bc7153018ebd..8361a1e38c98 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -260,6 +260,9 @@ struct i915_address_space {
- 	u8 pd_shift;
- 	u8 scratch_order;
+ 	 * Give our perma-pinned kernel timelines a separate lockdep class,
+ 	 * so that we can use them from within the normal user timelines
+@@ -897,6 +900,7 @@ void intel_engine_destroy_pinned_context(struct intel_context *ce)
+ 	list_del(&ce->timeline->engine_link);
+ 	mutex_unlock(&hwsp->vm->mutex);
  
-+	/* Flags used when creating page-table objects for this vm */
-+	unsigned long lmem_pt_obj_flags;
-+
- 	struct drm_i915_gem_object *
- 		(*alloc_pt_dma)(struct i915_address_space *vm, int sz);
- 
-@@ -519,7 +522,8 @@ i915_page_dir_dma_addr(const struct i915_ppgtt *ppgtt, const unsigned int n)
- 	return __px_dma(pt ? px_base(pt) : ppgtt->vm.scratch[ppgtt->vm.top]);
++	list_del(&ce->pinned_contexts_link);
+ 	intel_context_unpin(ce);
+ 	intel_context_put(ce);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index 1f07ac4e0672..dacd62773735 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -298,6 +298,29 @@ void intel_engine_init__pm(struct intel_engine_cs *engine)
+ 	intel_engine_init_heartbeat(engine);
  }
  
--void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt);
-+void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
-+		unsigned long lmem_pt_obj_flags);
++/**
++ * intel_engine_reset_pinned_contexts - Reset the pinned contexts of
++ * an engine.
++ * @engine: The engine whose pinned contexts we want to reset.
++ *
++ * Typically the pinned context LMEM images lose or get their content
++ * corrupted on suspend. This function resets their images.
++ */
++void intel_engine_reset_pinned_contexts(struct intel_engine_cs *engine)
++{
++	struct intel_context *ce;
++
++	list_for_each_entry(ce, &engine->pinned_contexts_list,
++			    pinned_contexts_link) {
++		/* kernel context gets reset at __engine_unpark() */
++		if (ce == engine->kernel_context)
++			continue;
++
++		dbg_poison_ce(ce);
++		ce->ops->reset(ce);
++	}
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftest_engine_pm.c"
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.h b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+index 70ea46d6cfb0..8520c595f5e1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+@@ -69,4 +69,6 @@ intel_engine_create_kernel_request(struct intel_engine_cs *engine)
  
- int i915_ggtt_probe_hw(struct drm_i915_private *i915);
- int i915_ggtt_init_hw(struct drm_i915_private *i915);
-@@ -537,7 +541,8 @@ static inline bool i915_ggtt_has_aperture(const struct i915_ggtt *ggtt)
+ void intel_engine_init__pm(struct intel_engine_cs *engine);
  
- int i915_ppgtt_init_hw(struct intel_gt *gt);
++void intel_engine_reset_pinned_contexts(struct intel_engine_cs *engine);
++
+ #endif /* INTEL_ENGINE_PM_H */
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index bfbfe53c23dd..5ae1207c363b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -307,6 +307,13 @@ struct intel_engine_cs {
  
--struct i915_ppgtt *i915_ppgtt_create(struct intel_gt *gt);
-+struct i915_ppgtt *i915_ppgtt_create(struct intel_gt *gt,
-+				     unsigned long lmem_pt_obj_flags);
+ 	struct intel_context *kernel_context; /* pinned */
  
- void i915_ggtt_suspend(struct i915_ggtt *gtt);
- void i915_ggtt_resume(struct i915_ggtt *ggtt);
-diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
-index 1dac21aa7e5c..afb1cce9a352 100644
---- a/drivers/gpu/drm/i915/gt/intel_migrate.c
-+++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
-@@ -78,7 +78,7 @@ static struct i915_address_space *migrate_vm(struct intel_gt *gt)
- 	 * TODO: Add support for huge LMEM PTEs
++	/**
++	 * pinned_contexts_list: List of pinned contexts. This list is only
++	 * assumed to be manipulated during driver load- or unload time and
++	 * does therefore not have any additional protection.
++	 */
++	struct list_head pinned_contexts_list;
++
+ 	intel_engine_mask_t saturated; /* submitting semaphores too late? */
+ 
+ 	struct {
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index de5f9c86b9a4..e80d6a1c7cde 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -2791,6 +2791,8 @@ static void execlists_sanitize(struct intel_engine_cs *engine)
+ 
+ 	/* And scrub the dirty cachelines for the HWSP */
+ 	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
++
++	intel_engine_reset_pinned_contexts(engine);
+ }
+ 
+ static void enable_error_interrupt(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 3c65efcb7bed..593524195707 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -17,6 +17,7 @@
+ #include "intel_ring.h"
+ #include "shmem_utils.h"
+ #include "intel_engine_heartbeat.h"
++#include "intel_engine_pm.h"
+ 
+ /* Rough estimate of the typical request size, performing a flush,
+  * set-context and then emitting the batch.
+@@ -292,6 +293,8 @@ static void xcs_sanitize(struct intel_engine_cs *engine)
+ 
+ 	/* And scrub the dirty cachelines for the HWSP */
+ 	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
++
++	intel_engine_reset_pinned_contexts(engine);
+ }
+ 
+ static void reset_prepare(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index 2c1af030310c..8b89215afe46 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -376,6 +376,8 @@ int mock_engine_init(struct intel_engine_cs *engine)
+ {
+ 	struct intel_context *ce;
+ 
++	INIT_LIST_HEAD(&engine->pinned_contexts_list);
++
+ 	engine->sched_engine = i915_sched_engine_create(ENGINE_MOCK);
+ 	if (!engine->sched_engine)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 87d8dc8f51b9..58bc50d3abe5 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -2310,6 +2310,8 @@ static void guc_sanitize(struct intel_engine_cs *engine)
+ 
+ 	/* And scrub the dirty cachelines for the HWSP */
+ 	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
++
++	intel_engine_reset_pinned_contexts(engine);
+ }
+ 
+ static void setup_hwsp(struct intel_engine_cs *engine)
+@@ -2385,9 +2387,13 @@ static inline void guc_init_lrc_mapping(struct intel_guc *guc)
+ 	 * and even it did this code would be run again.
  	 */
  
--	vm = i915_ppgtt_create(gt);
-+	vm = i915_ppgtt_create(gt, I915_BO_ALLOC_PM_EARLY);
- 	if (IS_ERR(vm))
- 		return ERR_CAST(vm);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-index 886060f7e6fc..4396bfd630d8 100644
---- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-@@ -155,19 +155,20 @@ int i915_ppgtt_init_hw(struct intel_gt *gt)
+-	for_each_engine(engine, gt, id)
+-		if (engine->kernel_context)
+-			guc_kernel_context_pin(guc, engine->kernel_context);
++	for_each_engine(engine, gt, id) {
++		struct intel_context *ce;
++
++		list_for_each_entry(ce, &engine->pinned_contexts_list,
++				    pinned_contexts_link)
++			guc_kernel_context_pin(guc, ce);
++	}
  }
  
- static struct i915_ppgtt *
--__ppgtt_create(struct intel_gt *gt)
-+__ppgtt_create(struct intel_gt *gt, unsigned long lmem_pt_obj_flags)
- {
- 	if (GRAPHICS_VER(gt->i915) < 8)
- 		return gen6_ppgtt_create(gt);
- 	else
--		return gen8_ppgtt_create(gt);
-+		return gen8_ppgtt_create(gt, lmem_pt_obj_flags);
- }
- 
--struct i915_ppgtt *i915_ppgtt_create(struct intel_gt *gt)
-+struct i915_ppgtt *i915_ppgtt_create(struct intel_gt *gt,
-+				     unsigned long lmem_pt_obj_flags)
- {
- 	struct i915_ppgtt *ppgtt;
- 
--	ppgtt = __ppgtt_create(gt);
-+	ppgtt = __ppgtt_create(gt, lmem_pt_obj_flags);
- 	if (IS_ERR(ppgtt))
- 		return ppgtt;
- 
-@@ -298,7 +299,8 @@ int ppgtt_set_pages(struct i915_vma *vma)
- 	return 0;
- }
- 
--void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt)
-+void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
-+		unsigned long lmem_pt_obj_flags)
- {
- 	struct drm_i915_private *i915 = gt->i915;
- 
-@@ -306,6 +308,7 @@ void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt)
- 	ppgtt->vm.i915 = i915;
- 	ppgtt->vm.dma = i915->drm.dev;
- 	ppgtt->vm.total = BIT_ULL(INTEL_INFO(i915)->ppgtt_size);
-+	ppgtt->vm.lmem_pt_obj_flags = lmem_pt_obj_flags;
- 
- 	dma_resv_init(&ppgtt->vm._resv);
- 	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
-diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-index 2c1ed32ca5ac..b9e1e86f0e21 100644
---- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-@@ -1596,7 +1596,7 @@ static int igt_reset_evict_ppgtt(void *arg)
- 	if (INTEL_PPGTT(gt->i915) < INTEL_PPGTT_FULL)
- 		return 0;
- 
--	ppgtt = i915_ppgtt_create(gt);
-+	ppgtt = i915_ppgtt_create(gt, 0);
- 	if (IS_ERR(ppgtt))
- 		return PTR_ERR(ppgtt);
- 
-diff --git a/drivers/gpu/drm/i915/gvt/scheduler.c b/drivers/gpu/drm/i915/gvt/scheduler.c
-index b56a8e37a3cd..0d18e13e3468 100644
---- a/drivers/gpu/drm/i915/gvt/scheduler.c
-+++ b/drivers/gpu/drm/i915/gvt/scheduler.c
-@@ -1386,7 +1386,7 @@ int intel_vgpu_setup_submission(struct intel_vgpu *vgpu)
- 	enum intel_engine_id i;
- 	int ret;
- 
--	ppgtt = i915_ppgtt_create(&i915->gt);
-+	ppgtt = i915_ppgtt_create(&i915->gt, I915_BO_ALLOC_PM_EARLY);
- 	if (IS_ERR(ppgtt))
- 		return PTR_ERR(ppgtt);
- 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index f843a5040706..f0645807518e 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -155,7 +155,7 @@ static int igt_ppgtt_alloc(void *arg)
- 	if (!HAS_PPGTT(dev_priv))
- 		return 0;
- 
--	ppgtt = i915_ppgtt_create(&dev_priv->gt);
-+	ppgtt = i915_ppgtt_create(&dev_priv->gt, 0);
- 	if (IS_ERR(ppgtt))
- 		return PTR_ERR(ppgtt);
- 
-@@ -1053,7 +1053,7 @@ static int exercise_ppgtt(struct drm_i915_private *dev_priv,
- 	if (IS_ERR(file))
- 		return PTR_ERR(file);
- 
--	ppgtt = i915_ppgtt_create(&dev_priv->gt);
-+	ppgtt = i915_ppgtt_create(&dev_priv->gt, 0);
- 	if (IS_ERR(ppgtt)) {
- 		err = PTR_ERR(ppgtt);
- 		goto out_free;
+ static void guc_release(struct intel_engine_cs *engine)
 -- 
 2.31.1
 
