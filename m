@@ -2,77 +2,59 @@ Return-Path: <SRS0=0xFZ=N4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACF30C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 07:36:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B805AC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 07:39:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 810BC60E8B
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 07:36:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 810BC60E8B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5622260E8B
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 07:39:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5622260E8B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E334789BBE;
-	Mon,  6 Sep 2021 07:36:18 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 649E689BB2
- for <intel-gfx@lists.freedesktop.org>; Mon,  6 Sep 2021 07:36:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1630913777;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=L2xDCwjGqujDFwbVMCgJGuluXsFQyyzGlc2vy9kgugU=;
- b=SofXsTNnVju64lKuznyTDDwePQbptF1nHU0z0ss/fr2q8m2L9f0GZomH/31qIa9D8x900N
- SqL97D0ei+21PEIn2jFf2Xify+40ftuNtEjGzzwtw4lqX4M8Hz//qmzG3j9kwowxPIyTvo
- 2McQIljNb1p9LU/d2wfo4Hwy74i73Hg=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-174-okzN28HzNrq1U5ju8zK8Hw-1; Mon, 06 Sep 2021 03:36:16 -0400
-X-MC-Unique: okzN28HzNrq1U5ju8zK8Hw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E956B107ACE3;
- Mon,  6 Sep 2021 07:36:13 +0000 (UTC)
-Received: from x1.localdomain.com (unknown [10.39.194.133])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4EF8017A98;
- Mon,  6 Sep 2021 07:36:09 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rajat Jain <rajatja@google.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude <lyude@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Mark Gross <mgross@linux.intel.com>,
- Andy Shevchenko <andy@infradead.org>
-Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Mario Limonciello <mario.limonciello@outlook.com>,
- Mark Pearson <markpearson@lenovo.com>,
- Sebastien Bacher <seb128@ubuntu.com>,
- Marco Trevisan <marco.trevisan@canonical.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
-Date: Mon,  6 Sep 2021 09:35:19 +0200
-Message-Id: <20210906073519.4615-10-hdegoede@redhat.com>
-In-Reply-To: <20210906073519.4615-1-hdegoede@redhat.com>
-References: <20210906073519.4615-1-hdegoede@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADEF089A72;
+	Mon,  6 Sep 2021 07:39:06 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B942B89A72;
+ Mon,  6 Sep 2021 07:39:05 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10098"; a="219928948"
+X-IronPort-AV: E=Sophos;i="5.85,271,1624345200"; d="scan'208";a="219928948"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2021 00:39:05 -0700
+X-IronPort-AV: E=Sophos;i="5.85,271,1624345200"; d="scan'208";a="536560328"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2021 00:39:01 -0700
+Date: Mon, 6 Sep 2021 10:32:32 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
+ rodrigo.vivi@intel.com, David Airlie <airlied@linux.ie>, 
+ Daniel Vetter <daniel@ffwll.ch>, 
+ =?ISO-8859-15?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Imre Deak <imre.deak@intel.com>, Uma Shankar <uma.shankar@intel.com>, 
+ Matt Roper <matthew.d.roper@intel.com>, 
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20210906041300.508458-1-kai.heng.feng@canonical.com>
+Message-ID: <alpine.DEB.2.22.394.2109061031450.3554566@eliteleevi.tm.intel.com>
+References: <20210906041300.508458-1-kai.heng.feng@canonical.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Subject: [Intel-gfx] [PATCH 9/9] drm/i915: Add privacy-screen support
+Content-Type: text/plain; charset=US-ASCII
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/audio: Use BIOS provided value for
+ RKL HDA link
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,138 +70,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add support for eDP panels with a built-in privacy screen using the
-new drm_privacy_screen class.
+Hi,
 
-One thing which stands out here is the addition of these 2 lines to
-intel_atomic_commit_tail:
+On Mon, 6 Sep 2021, Kai-Heng Feng wrote:
 
-	for_each_new_connector_in_state(&state->base, connector, ...
-		drm_connector_update_privacy_screen(connector, state);
+> Commit 989634fb49ad ("drm/i915/audio: set HDA link parameters in
+> driver") makes HDMI audio on Lenovo P350 disappear.
+> 
+> So in addition to TGL, extend the logic to RKL to use BIOS provided
+> value to fix the regression.
 
-It may seem more logical to instead take care of updating the
-privacy-screen state by marking the crtc as needing a modeset and then
-do this in both the encoder update_pipe (for fast-sets) and enable
-(for full modesets) callbacks. But ATM these callbacks only get passed
-the new connector_state and these callbacks are all called after
-drm_atomic_helper_swap_state() at which point there is no way to get
-the old state from the new state.
+thanks Kai-Heng! We were not aware of commercial RKL systems following the
+old BIOS guidance, but given you just hit one, then this definitely is
+needed:
 
-Without access to the old state, we do not know if the sw_state of
-the privacy-screen has changes so we would need to call
-drm_privacy_screen_set_sw_state() unconditionally. This is undesirable
-since all current known privacy-screen providers use ACPI calls which
-are somewhat expensive to make.
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>          
 
-Also, as all providers use ACPI calls, rather then poking GPU registers,
-there is no need to order this together with other encoder operations.
-Since no GPU poking is involved having this as a separate step of the
-commit process actually is the logical thing to do.
-
-Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- drivers/gpu/drm/i915/display/intel_display.c |  5 +++++
- drivers/gpu/drm/i915/display/intel_dp.c      | 10 ++++++++++
- drivers/gpu/drm/i915/i915_pci.c              | 12 ++++++++++++
- 3 files changed, 27 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 5560d2f4c352..7285873d329a 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -10140,6 +10140,8 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	struct drm_device *dev = state->base.dev;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct intel_crtc_state *new_crtc_state, *old_crtc_state;
-+	struct drm_connector_state *new_connector_state;
-+	struct drm_connector *connector;
- 	struct intel_crtc *crtc;
- 	u64 put_domains[I915_MAX_PIPES] = {};
- 	intel_wakeref_t wakeref = 0;
-@@ -10237,6 +10239,9 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 			intel_color_load_luts(new_crtc_state);
- 	}
- 
-+	for_each_new_connector_in_state(&state->base, connector, new_connector_state, i)
-+		drm_connector_update_privacy_screen(connector, &state->base);
-+
- 	/*
- 	 * Now that the vblank has passed, we can go ahead and program the
- 	 * optimal watermarks on platforms that need two-step watermark
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 7f8e8865048f..3aa2072cccf6 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -37,6 +37,7 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_dp_helper.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_privacy_screen_consumer.h>
- #include <drm/drm_probe_helper.h>
- 
- #include "g4x_dp.h"
-@@ -5217,6 +5218,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 	struct drm_connector *connector = &intel_connector->base;
- 	struct drm_display_mode *fixed_mode = NULL;
- 	struct drm_display_mode *downclock_mode = NULL;
-+	struct drm_privacy_screen *privacy_screen;
- 	bool has_dpcd;
- 	enum pipe pipe = INVALID_PIPE;
- 	struct edid *edid;
-@@ -5308,6 +5310,14 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 				fixed_mode->hdisplay, fixed_mode->vdisplay);
- 	}
- 
-+	privacy_screen = drm_privacy_screen_get(dev->dev, NULL);
-+	if (!IS_ERR(privacy_screen)) {
-+		drm_connector_attach_privacy_screen_provider(connector,
-+							     privacy_screen);
-+	} else if (PTR_ERR(privacy_screen) != -ENODEV) {
-+		drm_warn(&dev_priv->drm, "Error getting privacy-screen\n");
-+	}
-+
- 	return true;
- 
- out_vdd_off:
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 146f7e39182a..d6913f567a1c 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -25,6 +25,7 @@
- #include <linux/vga_switcheroo.h>
- 
- #include <drm/drm_drv.h>
-+#include <drm/drm_privacy_screen_consumer.h>
- #include <drm/i915_pciids.h>
- 
- #include "i915_drv.h"
-@@ -1167,6 +1168,7 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- {
- 	struct intel_device_info *intel_info =
- 		(struct intel_device_info *) ent->driver_data;
-+	struct drm_privacy_screen *privacy_screen;
- 	int err;
- 
- 	if (intel_info->require_force_probe &&
-@@ -1195,7 +1197,17 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (vga_switcheroo_client_probe_defer(pdev))
- 		return -EPROBE_DEFER;
- 
-+	/*
-+	 * We do not handle -EPROBE_DEFER further into the probe process, so
-+	 * check if we have a laptop-panel privacy-screen for which the driver
-+	 * has not loaded yet here.
-+	 */
-+	privacy_screen = drm_privacy_screen_get(&pdev->dev, NULL);
-+	if (IS_ERR(privacy_screen) && PTR_ERR(privacy_screen) == -EPROBE_DEFER)
-+		return -EPROBE_DEFER;
-+
- 	err = i915_driver_probe(pdev, ent);
-+	drm_privacy_screen_put(privacy_screen);
- 	if (err)
- 		return err;
- 
--- 
-2.31.1
-
+Br, Kai
