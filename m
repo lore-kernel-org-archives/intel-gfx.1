@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3875AC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:27:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8909EC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:27:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DEC976103B
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:27:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DEC976103B
+	by mail.kernel.org (Postfix) with ESMTPS id 5BA096103B
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5BA096103B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE8C89BFD;
-	Mon,  6 Sep 2021 18:27:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57A4289BF8;
+	Mon,  6 Sep 2021 18:27:24 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87E7789BF8
- for <intel-gfx@lists.freedesktop.org>; Mon,  6 Sep 2021 18:27:22 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="219713099"
-X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="219713099"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3C9E89BF8
+ for <intel-gfx@lists.freedesktop.org>; Mon,  6 Sep 2021 18:27:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="219713101"
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="219713101"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2021 11:27:22 -0700
-X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="464124855"
+ 06 Sep 2021 11:27:23 -0700
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="464124864"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2021 11:27:21 -0700
+ 06 Sep 2021 11:27:22 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Date: Mon,  6 Sep 2021 21:27:12 +0300
-Message-Id: <20210906182715.3915100-4-imre.deak@intel.com>
+Date: Mon,  6 Sep 2021 21:27:13 +0300
+Message-Id: <20210906182715.3915100-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210906182715.3915100-1-imre.deak@intel.com>
 References: <20210906182715.3915100-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/6] drm/i915/adlp: Assert that VMAs in DPT
- start at 0
+Subject: [Intel-gfx] [PATCH v2 4/6] drm/i915: Follow a new->old platform
+ check order in intel_fb_stride_alignment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,32 +59,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Atm the DPT object can accommodate only one VMA, so the VMA offset will
-be always 0. Add an assert for this.
+Follow the usual new->old order in intel_fb_stride_alignment() platform
+check ladder.
 
 Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 Reviewed-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 ---
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/i915/display/intel_fb.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 724e7b04f3b63..f50282b60de44 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -993,6 +993,11 @@ static u32 skl_surf_address(const struct intel_plane_state *plane_state,
- 	u32 offset = plane_state->view.color_plane[color_plane].offset;
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index a0db67e85c717..479c76c7958ce 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -1158,6 +1158,12 @@ intel_fb_stride_alignment(const struct drm_framebuffer *fb, int color_plane)
  
- 	if (intel_fb_uses_dpt(fb)) {
+ 	tile_width = intel_tile_width_bytes(fb, color_plane);
+ 	if (is_ccs_modifier(fb->modifier)) {
 +		/*
-+		 * The DPT object contains only one vma, so the VMA's offset
-+		 * within the DPT is always 0.
++		 * On TGL the surface stride must be 4 tile aligned, mapped by
++		 * one 64 byte cacheline on the CCS AUX surface.
 +		 */
-+		WARN_ON(plane_state->dpt_vma->node.start);
- 		WARN_ON(offset & 0x1fffff);
- 		return offset >> 9;
- 	} else {
++		if (DISPLAY_VER(dev_priv) >= 12)
++			tile_width *= 4;
+ 		/*
+ 		 * Display WA #0531: skl,bxt,kbl,glk
+ 		 *
+@@ -1167,14 +1173,8 @@ intel_fb_stride_alignment(const struct drm_framebuffer *fb, int color_plane)
+ 		 * require the entire fb to accommodate that to avoid
+ 		 * potential runtime errors at plane configuration time.
+ 		 */
+-		if ((DISPLAY_VER(dev_priv) == 9 || IS_GEMINILAKE(dev_priv)) &&
+-		    color_plane == 0 && fb->width > 3840)
+-			tile_width *= 4;
+-		/*
+-		 * The main surface pitch must be padded to a multiple of four
+-		 * tile widths.
+-		 */
+-		else if (DISPLAY_VER(dev_priv) >= 12)
++		else if ((DISPLAY_VER(dev_priv) == 9 || IS_GEMINILAKE(dev_priv)) &&
++			 color_plane == 0 && fb->width > 3840)
+ 			tile_width *= 4;
+ 	}
+ 	return tile_width;
 -- 
 2.27.0
 
