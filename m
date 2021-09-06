@@ -8,42 +8,42 @@ X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2E51C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 03:51:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D21CC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 03:51:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 714CC60ED8
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 03:51:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 714CC60ED8
+	by mail.kernel.org (Postfix) with ESMTPS id AEEB760EB7
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 03:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AEEB760EB7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E157F89A59;
-	Mon,  6 Sep 2021 03:51:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 011D6899E8;
+	Mon,  6 Sep 2021 03:51:06 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
  (us-smtp-delivery-44.mimecast.com [207.211.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C1E3899E8
- for <intel-gfx@lists.freedesktop.org>; Mon,  6 Sep 2021 03:51:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 468BC899B5
+ for <intel-gfx@lists.freedesktop.org>; Mon,  6 Sep 2021 03:51:05 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-559-x-KakoHiPx-BEwaixfcUsQ-1; Sun, 05 Sep 2021 23:44:13 -0400
-X-MC-Unique: x-KakoHiPx-BEwaixfcUsQ-1
+ us-mta-34-RNOXxiCfPl233dj2bLtqHg-1; Sun, 05 Sep 2021 23:44:18 -0400
+X-MC-Unique: RNOXxiCfPl233dj2bLtqHg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5B61D80196C;
- Mon,  6 Sep 2021 03:44:12 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D59DB80196C;
+ Mon,  6 Sep 2021 03:44:17 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 157E65D9DE;
- Mon,  6 Sep 2021 03:44:10 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8FA7A5D9DE;
+ Mon,  6 Sep 2021 03:44:16 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Mon,  6 Sep 2021 13:43:49 +1000
-Message-Id: <20210906034356.2946530-4-airlied@gmail.com>
+Date: Mon,  6 Sep 2021 13:43:52 +1000
+Message-Id: <20210906034356.2946530-7-airlied@gmail.com>
 In-Reply-To: <20210906034356.2946530-1-airlied@gmail.com>
 References: <20210906034356.2946530-1-airlied@gmail.com>
 MIME-Version: 1.0
@@ -52,8 +52,8 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 03/10] drm/i915: move more pll/clocks into
- display struct.
+Subject: [Intel-gfx] [PATCH 06/10] drm/i915/display: move mipi_mmio_base to
+ display struct
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,492 +73,564 @@ From: Dave Airlie <airlied@redhat.com>
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c   | 24 ++++++++++----------
- drivers/gpu/drm/i915/display/intel_crt.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++------
- drivers/gpu/drm/i915/display/intel_dp.c      |  4 ++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_dsi.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_dvo.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_fdi.c     |  8 +++----
- drivers/gpu/drm/i915/display/intel_hdmi.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_lvds.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_tv.c      |  2 +-
- drivers/gpu/drm/i915/gt/debugfs_gt_pm.c      |  2 +-
- drivers/gpu/drm/i915/gt/intel_rc6.c          |  2 +-
- drivers/gpu/drm/i915/gt/intel_rps.c          |  4 ++--
- drivers/gpu/drm/i915/i915_debugfs.c          |  2 +-
- drivers/gpu/drm/i915/i915_drv.h              | 13 ++++++-----
- 17 files changed, 45 insertions(+), 44 deletions(-)
+ drivers/gpu/drm/i915/display/vlv_dsi.c |   4 +-
+ drivers/gpu/drm/i915/i915_drv.h        |   6 +-
+ drivers/gpu/drm/i915/i915_reg.h        | 186 ++++++++++++-------------
+ 3 files changed, 98 insertions(+), 98 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i=
-915/display/intel_cdclk.c
-index cb54a0c8b4e0..e52f97c3ecab 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -434,7 +434,7 @@ static void hsw_get_cdclk(struct drm_i915_private *dev_=
-priv,
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/=
+display/vlv_dsi.c
+index b0a2b6b96799..7c2a8ce97227 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -1843,9 +1843,9 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
+ =09=09return;
 =20
- static int vlv_calc_cdclk(struct drm_i915_private *dev_priv, int min_cdclk=
-)
- {
--=09int freq_320 =3D (dev_priv->hpll_freq <<  1) % 320000 !=3D 0 ?
-+=09int freq_320 =3D (dev_priv->display.hpll_freq <<  1) % 320000 !=3D 0 ?
- =09=09333333 : 320000;
-=20
- =09/*
-@@ -467,7 +467,7 @@ static u8 vlv_calc_voltage_level(struct drm_i915_privat=
-e *dev_priv, int cdclk)
- =09=09 * hardware has shown that we just need to write the desired
- =09=09 * CCK divider into the Punit register.
- =09=09 */
--=09=09return DIV_ROUND_CLOSEST(dev_priv->hpll_freq << 1, cdclk) - 1;
-+=09=09return DIV_ROUND_CLOSEST(dev_priv->display.hpll_freq << 1, cdclk) - =
-1;
- =09}
- }
-=20
-@@ -506,7 +506,7 @@ static void vlv_program_pfi_credits(struct drm_i915_pri=
-vate *dev_priv)
+ =09if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
+-=09=09dev_priv->mipi_mmio_base =3D BXT_MIPI_BASE;
++=09=09dev_priv->display.mipi_mmio_base =3D BXT_MIPI_BASE;
  =09else
- =09=09default_credits =3D PFI_CREDIT(8);
+-=09=09dev_priv->mipi_mmio_base =3D VLV_MIPI_BASE;
++=09=09dev_priv->display.mipi_mmio_base =3D VLV_MIPI_BASE;
 =20
--=09if (dev_priv->display.cdclk.hw.cdclk >=3D dev_priv->czclk_freq) {
-+=09if (dev_priv->display.cdclk.hw.cdclk >=3D dev_priv->display.czclk_freq)=
- {
- =09=09/* CHV suggested value is 31 or 63 */
- =09=09if (IS_CHERRYVIEW(dev_priv))
- =09=09=09credits =3D PFI_CREDIT_63;
-@@ -581,7 +581,7 @@ static void vlv_set_cdclk(struct drm_i915_private *dev_=
-priv,
- =09if (cdclk =3D=3D 400000) {
- =09=09u32 divider;
-=20
--=09=09divider =3D DIV_ROUND_CLOSEST(dev_priv->hpll_freq << 1,
-+=09=09divider =3D DIV_ROUND_CLOSEST(dev_priv->display.hpll_freq << 1,
- =09=09=09=09=09    cdclk) - 1;
-=20
- =09=09/* adjust cdclk divider */
-@@ -942,9 +942,9 @@ static int skl_cdclk_decimal(int cdclk)
- static void skl_set_preferred_cdclk_vco(struct drm_i915_private *dev_priv,
- =09=09=09=09=09int vco)
- {
--=09bool changed =3D dev_priv->skl_preferred_vco_freq !=3D vco;
-+=09bool changed =3D dev_priv->display.skl_preferred_vco_freq !=3D vco;
-=20
--=09dev_priv->skl_preferred_vco_freq =3D vco;
-+=09dev_priv->display.skl_preferred_vco_freq =3D vco;
-=20
- =09if (changed)
- =09=09intel_update_max_cdclk(dev_priv);
-@@ -1151,7 +1151,7 @@ static void skl_cdclk_init_hw(struct drm_i915_private=
- *dev_priv)
- =09=09 * Use the current vco as our initial
- =09=09 * guess as to what the preferred vco is.
- =09=09 */
--=09=09if (dev_priv->skl_preferred_vco_freq =3D=3D 0)
-+=09=09if (dev_priv->display.skl_preferred_vco_freq =3D=3D 0)
- =09=09=09skl_set_preferred_cdclk_vco(dev_priv,
- =09=09=09=09=09=09    dev_priv->display.cdclk.hw.vco);
- =09=09return;
-@@ -1159,7 +1159,7 @@ static void skl_cdclk_init_hw(struct drm_i915_private=
- *dev_priv)
-=20
- =09cdclk_config =3D dev_priv->display.cdclk.hw;
-=20
--=09cdclk_config.vco =3D dev_priv->skl_preferred_vco_freq;
-+=09cdclk_config.vco =3D dev_priv->display.skl_preferred_vco_freq;
- =09if (cdclk_config.vco =3D=3D 0)
- =09=09cdclk_config.vco =3D 8100000;
- =09cdclk_config.cdclk =3D skl_calc_cdclk(0, cdclk_config.vco);
-@@ -2331,7 +2331,7 @@ static int skl_dpll0_vco(struct intel_cdclk_state *cd=
-clk_state)
-=20
- =09vco =3D cdclk_state->logical.vco;
- =09if (!vco)
--=09=09vco =3D dev_priv->skl_preferred_vco_freq;
-+=09=09vco =3D dev_priv->display.skl_preferred_vco_freq;
-=20
- =09for_each_new_intel_crtc_in_state(state, crtc, crtc_state, i) {
- =09=09if (!crtc_state->hw.enable)
-@@ -2636,7 +2636,7 @@ void intel_update_max_cdclk(struct drm_i915_private *=
-dev_priv)
- =09=09u32 limit =3D intel_de_read(dev_priv, SKL_DFSM) & SKL_DFSM_CDCLK_LIM=
-IT_MASK;
- =09=09int max_cdclk, vco;
-=20
--=09=09vco =3D dev_priv->skl_preferred_vco_freq;
-+=09=09vco =3D dev_priv->display.skl_preferred_vco_freq;
- =09=09drm_WARN_ON(&dev_priv->drm, vco !=3D 8100000 && vco !=3D 8640000);
-=20
- =09=09/*
-@@ -2678,13 +2678,13 @@ void intel_update_max_cdclk(struct drm_i915_private=
- *dev_priv)
- =09=09dev_priv->display.max_cdclk_freq =3D dev_priv->display.cdclk.hw.cdcl=
-k;
- =09}
-=20
--=09dev_priv->max_dotclk_freq =3D intel_compute_max_dotclk(dev_priv);
-+=09dev_priv->display.max_dotclk_freq =3D intel_compute_max_dotclk(dev_priv=
-);
-=20
- =09drm_dbg(&dev_priv->drm, "Max CD clock rate: %d kHz\n",
- =09=09dev_priv->display.max_cdclk_freq);
-=20
- =09drm_dbg(&dev_priv->drm, "Max dotclock rate: %d kHz\n",
--=09=09dev_priv->max_dotclk_freq);
-+=09=09dev_priv->display.max_dotclk_freq);
- }
-=20
- /**
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i91=
-5/display/intel_crt.c
-index 408f82b0dc7d..466ce68ae5e0 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -342,7 +342,7 @@ intel_crt_mode_valid(struct drm_connector *connector,
- {
- =09struct drm_device *dev =3D connector->dev;
- =09struct drm_i915_private *dev_priv =3D to_i915(dev);
--=09int max_dotclk =3D dev_priv->max_dotclk_freq;
-+=09int max_dotclk =3D dev_priv->display.max_dotclk_freq;
- =09int max_clock;
-=20
- =09if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
-/i915/display/intel_display.c
-index 035a55c8abec..f421bc69e197 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -160,10 +160,10 @@ int vlv_get_cck_clock_hpll(struct drm_i915_private *d=
-ev_priv,
-=20
- =09vlv_cck_get(dev_priv);
-=20
--=09if (dev_priv->hpll_freq =3D=3D 0)
--=09=09dev_priv->hpll_freq =3D vlv_get_hpll_vco(dev_priv);
-+=09if (dev_priv->display.hpll_freq =3D=3D 0)
-+=09=09dev_priv->display.hpll_freq =3D vlv_get_hpll_vco(dev_priv);
-=20
--=09hpll =3D vlv_get_cck_clock(dev_priv, name, reg, dev_priv->hpll_freq);
-+=09hpll =3D vlv_get_cck_clock(dev_priv, name, reg, dev_priv->display.hpll_=
-freq);
-=20
- =09vlv_cck_put(dev_priv);
-=20
-@@ -175,11 +175,11 @@ static void intel_update_czclk(struct drm_i915_privat=
-e *dev_priv)
- =09if (!(IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)))
- =09=09return;
-=20
--=09dev_priv->czclk_freq =3D vlv_get_cck_clock_hpll(dev_priv, "czclk",
-+=09dev_priv->display.czclk_freq =3D vlv_get_cck_clock_hpll(dev_priv, "czcl=
-k",
- =09=09=09=09=09=09      CCK_CZ_CLOCK_CONTROL);
-=20
- =09drm_dbg(&dev_priv->drm, "CZ clock rate: %d kHz\n",
--=09=09dev_priv->czclk_freq);
-+=09=09dev_priv->display.czclk_freq);
- }
-=20
- /* WA Display #0827: Gen9:all */
-@@ -4006,7 +4006,7 @@ static int intel_crtc_compute_config(struct intel_crt=
-c *crtc,
- {
- =09struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
- =09struct drm_display_mode *pipe_mode =3D &pipe_config->hw.pipe_mode;
--=09int clock_limit =3D dev_priv->max_dotclk_freq;
-+=09int clock_limit =3D dev_priv->display.max_dotclk_freq;
-=20
- =09drm_mode_copy(pipe_mode, &pipe_config->hw.adjusted_mode);
-=20
-@@ -4046,7 +4046,7 @@ static int intel_crtc_compute_config(struct intel_crt=
-c *crtc,
- =09=09 */
- =09=09if (intel_crtc_supports_double_wide(crtc) &&
- =09=09    pipe_mode->crtc_clock > clock_limit) {
--=09=09=09clock_limit =3D dev_priv->max_dotclk_freq;
-+=09=09=09clock_limit =3D dev_priv->display.max_dotclk_freq;
- =09=09=09pipe_config->double_wide =3D true;
- =09=09}
- =09}
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915=
-/display/intel_dp.c
-index 40a8e7cef42a..18f221d7f252 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -785,7 +785,7 @@ intel_dp_mode_valid(struct drm_connector *connector,
- =09struct drm_i915_private *dev_priv =3D to_i915(connector->dev);
- =09int target_clock =3D mode->clock;
- =09int max_rate, mode_rate, max_lanes, max_link_clock;
--=09int max_dotclk =3D dev_priv->max_dotclk_freq;
-+=09int max_dotclk =3D dev_priv->display.max_dotclk_freq;
- =09u16 dsc_max_output_bpp =3D 0;
- =09u8 dsc_slice_count =3D 0;
- =09enum drm_mode_status status;
-@@ -1427,7 +1427,7 @@ intel_dp_compute_link_config(struct intel_encoder *en=
-coder,
- =09=09    limits.max_lane_count, limits.max_rate,
- =09=09    limits.max_bpp, adjusted_mode->crtc_clock);
-=20
--=09if ((adjusted_mode->crtc_clock > i915->max_dotclk_freq ||
-+=09if ((adjusted_mode->crtc_clock > i915->display.max_dotclk_freq ||
- =09     adjusted_mode->crtc_hdisplay > 5120) &&
- =09    intel_dp_can_bigjoiner(intel_dp))
- =09=09pipe_config->bigjoiner =3D true;
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/=
-i915/display/intel_dp_mst.c
-index d104441344c0..99a127e8704a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -683,7 +683,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *conne=
-ctor,
- =09struct drm_dp_mst_topology_mgr *mgr =3D &intel_dp->mst_mgr;
- =09struct drm_dp_mst_port *port =3D intel_connector->port;
- =09const int min_bpp =3D 18;
--=09int max_dotclk =3D to_i915(connector->dev)->max_dotclk_freq;
-+=09int max_dotclk =3D to_i915(connector->dev)->display.max_dotclk_freq;
- =09int max_rate, mode_rate, max_lanes, max_link_clock;
- =09int ret;
-=20
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi.c b/drivers/gpu/drm/i91=
-5/display/intel_dsi.c
-index f453ceb8d149..1b96d2aa0730 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi.c
-@@ -59,7 +59,7 @@ enum drm_mode_status intel_dsi_mode_valid(struct drm_conn=
-ector *connector,
- =09struct drm_i915_private *dev_priv =3D to_i915(connector->dev);
- =09struct intel_connector *intel_connector =3D to_intel_connector(connecto=
-r);
- =09const struct drm_display_mode *fixed_mode =3D intel_connector->panel.fi=
-xed_mode;
--=09int max_dotclk =3D to_i915(connector->dev)->max_dotclk_freq;
-+=09int max_dotclk =3D to_i915(connector->dev)->display.max_dotclk_freq;
-=20
- =09drm_dbg_kms(&dev_priv->drm, "\n");
-=20
-diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i91=
-5/display/intel_dvo.c
-index 86c903e9df60..e06de60f4970 100644
---- a/drivers/gpu/drm/i915/display/intel_dvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_dvo.c
-@@ -226,7 +226,7 @@ intel_dvo_mode_valid(struct drm_connector *connector,
- =09struct intel_dvo *intel_dvo =3D intel_attached_dvo(to_intel_connector(c=
-onnector));
- =09const struct drm_display_mode *fixed_mode =3D
- =09=09to_intel_connector(connector)->panel.fixed_mode;
--=09int max_dotclk =3D to_i915(connector->dev)->max_dotclk_freq;
-+=09int max_dotclk =3D to_i915(connector->dev)->display.max_dotclk_freq;
- =09int target_clock =3D mode->clock;
-=20
- =09if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i91=
-5/display/intel_fdi.c
-index aaa0207f483e..58dfa97304c4 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -104,14 +104,14 @@ void intel_fdi_pll_freq_update(struct drm_i915_privat=
-e *i915)
- =09=09u32 fdi_pll_clk =3D
- =09=09=09intel_de_read(i915, FDI_PLL_BIOS_0) & FDI_PLL_FB_CLOCK_MASK;
-=20
--=09=09i915->fdi_pll_freq =3D (fdi_pll_clk + 2) * 10000;
-+=09=09i915->display.fdi_pll_freq =3D (fdi_pll_clk + 2) * 10000;
- =09} else if (IS_SANDYBRIDGE(i915) || IS_IVYBRIDGE(i915)) {
--=09=09i915->fdi_pll_freq =3D 270000;
-+=09=09i915->display.fdi_pll_freq =3D 270000;
- =09} else {
- =09=09return;
- =09}
-=20
--=09drm_dbg(&i915->drm, "FDI PLL freq=3D%d\n", i915->fdi_pll_freq);
-+=09drm_dbg(&i915->drm, "FDI PLL freq=3D%d\n", i915->display.fdi_pll_freq);
- }
-=20
- int intel_fdi_link_freq(struct drm_i915_private *i915,
-@@ -120,7 +120,7 @@ int intel_fdi_link_freq(struct drm_i915_private *i915,
- =09if (HAS_DDI(i915))
- =09=09return pipe_config->port_clock; /* SPLL */
- =09else
--=09=09return i915->fdi_pll_freq;
-+=09=09return i915->display.fdi_pll_freq;
- }
-=20
- int ilk_fdi_compute_config(struct intel_crtc *crtc,
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i9=
-15/display/intel_hdmi.c
-index 1bc33766ed39..f536da3d05d8 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -1950,7 +1950,7 @@ intel_hdmi_mode_valid(struct drm_connector *connector=
-,
- =09struct drm_i915_private *dev_priv =3D to_i915(dev);
- =09enum drm_mode_status status;
- =09int clock =3D mode->clock;
--=09int max_dotclk =3D to_i915(connector->dev)->max_dotclk_freq;
-+=09int max_dotclk =3D to_i915(connector->dev)->display.max_dotclk_freq;
- =09bool has_hdmi_sink =3D intel_has_hdmi_sink(hdmi, connector->state);
- =09bool ycbcr_420_only;
-=20
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i9=
-15/display/intel_lvds.c
-index e9fb402708a7..137e11cc40b5 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -388,7 +388,7 @@ intel_lvds_mode_valid(struct drm_connector *connector,
- {
- =09struct intel_connector *intel_connector =3D to_intel_connector(connecto=
-r);
- =09struct drm_display_mode *fixed_mode =3D intel_connector->panel.fixed_mo=
-de;
--=09int max_pixclk =3D to_i915(connector->dev)->max_dotclk_freq;
-+=09int max_pixclk =3D to_i915(connector->dev)->display.max_dotclk_freq;
-=20
- =09if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
- =09=09return MODE_NO_DBLESCAN;
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i9=
-15/display/intel_sdvo.c
-index 6cb27599ea03..7691468571dc 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -1866,7 +1866,7 @@ intel_sdvo_mode_valid(struct drm_connector *connector=
-,
- =09struct intel_sdvo *intel_sdvo =3D intel_attached_sdvo(to_intel_connecto=
-r(connector));
- =09struct intel_sdvo_connector *intel_sdvo_connector =3D
- =09=09to_intel_sdvo_connector(connector);
--=09int max_dotclk =3D to_i915(connector->dev)->max_dotclk_freq;
-+=09int max_dotclk =3D to_i915(connector->dev)->display.max_dotclk_freq;
- =09bool has_hdmi_sink =3D intel_has_hdmi_sink(intel_sdvo, connector->state=
-);
- =09int clock =3D mode->clock;
-=20
-diff --git a/drivers/gpu/drm/i915/display/intel_tv.c b/drivers/gpu/drm/i915=
-/display/intel_tv.c
-index d02f09f7e750..c2f317aa5840 100644
---- a/drivers/gpu/drm/i915/display/intel_tv.c
-+++ b/drivers/gpu/drm/i915/display/intel_tv.c
-@@ -956,7 +956,7 @@ intel_tv_mode_valid(struct drm_connector *connector,
- =09=09    struct drm_display_mode *mode)
- {
- =09const struct tv_mode *tv_mode =3D intel_tv_mode_find(connector->state);
--=09int max_dotclk =3D to_i915(connector->dev)->max_dotclk_freq;
-+=09int max_dotclk =3D to_i915(connector->dev)->display.max_dotclk_freq;
-=20
- =09if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
- =09=09return MODE_NO_DBLESCAN;
-diff --git a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c b/drivers/gpu/drm/i915=
-/gt/debugfs_gt_pm.c
-index 352989fefe60..c95754aed784 100644
---- a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-@@ -476,7 +476,7 @@ static int frequency_show(struct seq_file *m, void *unu=
-sed)
-=20
- =09seq_printf(m, "Current CD clock frequency: %d kHz\n", i915->display.cdc=
-lk.hw.cdclk);
- =09seq_printf(m, "Max CD clock frequency: %d kHz\n", i915->display.max_cdc=
-lk_freq);
--=09seq_printf(m, "Max pixel clock frequency: %d kHz\n", i915->max_dotclk_f=
-req);
-+=09seq_printf(m, "Max pixel clock frequency: %d kHz\n", i915->display.max_=
-dotclk_freq);
-=20
- =09intel_runtime_pm_put(uncore->rpm, wakeref);
-=20
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/=
-intel_rc6.c
-index 799d382eea79..7fedff85e495 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
-@@ -757,7 +757,7 @@ u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, const=
- i915_reg_t reg)
- =09/* On VLV and CHV, residency time is in CZ units rather than 1.28us */
- =09if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915)) {
- =09=09mul =3D 1000000;
--=09=09div =3D i915->czclk_freq;
-+=09=09div =3D i915->display.czclk_freq;
- =09=09overflow_hw =3D BIT_ULL(40);
- =09=09time_hw =3D vlv_residency_raw(uncore, reg);
- =09} else {
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/=
-intel_rps.c
-index d812b27835f8..25f2767f582b 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1514,7 +1514,7 @@ static void vlv_init_gpll_ref_freq(struct intel_rps *=
-rps)
- =09rps->gpll_ref_freq =3D
- =09=09vlv_get_cck_clock(i915, "GPLL ref",
- =09=09=09=09  CCK_GPLL_CLOCK_CONTROL,
--=09=09=09=09  i915->czclk_freq);
-+=09=09=09=09  i915->display.czclk_freq);
-=20
- =09drm_dbg(&i915->drm, "GPLL reference freq: %d kHz\n",
- =09=09rps->gpll_ref_freq);
-@@ -1646,7 +1646,7 @@ static u32 vlv_wa_c0_ei(struct intel_rps *rps, u32 pm=
-_iir)
-=20
- =09=09time =3D ktime_us_delta(now.ktime, prev->ktime);
-=20
--=09=09time *=3D rps_to_i915(rps)->czclk_freq;
-+=09=09time *=3D rps_to_i915(rps)->display.czclk_freq;
-=20
- =09=09/* Workload can be split between render + media,
- =09=09 * e.g. SwapBuffers being blitted in X after being rendered in
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i91=
-5_debugfs.c
-index 7610defe855b..37f5ab15a8d4 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -577,7 +577,7 @@ static int i915_frequency_info(struct seq_file *m, void=
- *unused)
-=20
- =09seq_printf(m, "Current CD clock frequency: %d kHz\n", dev_priv->display=
-.cdclk.hw.cdclk);
- =09seq_printf(m, "Max CD clock frequency: %d kHz\n", dev_priv->display.max=
-_cdclk_freq);
--=09seq_printf(m, "Max pixel clock frequency: %d kHz\n", dev_priv->max_dotc=
-lk_freq);
-+=09seq_printf(m, "Max pixel clock frequency: %d kHz\n", dev_priv->display.=
-max_dotclk_freq);
-=20
- =09intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
- =09return 0;
+ =09intel_dsi =3D kzalloc(sizeof(*intel_dsi), GFP_KERNEL);
+ =09if (!intel_dsi)
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_dr=
 v.h
-index b99a8edd1ca2..424d06cdc4d6 100644
+index b27d0857a038..2d4cac666de9 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -840,6 +840,13 @@ struct drm_i915_display {
- =09=09struct intel_global_obj obj;
- =09} cdclk;
- =09unsigned int max_cdclk_freq;
-+
-+=09unsigned int skl_preferred_vco_freq;
-+
-+=09unsigned int max_dotclk_freq;
-+=09unsigned int hpll_freq;
-+=09unsigned int fdi_pll_freq;
-+=09unsigned int czclk_freq;
- };
+@@ -854,6 +854,9 @@ struct drm_i915_display {
+ =09 */
+ =09u32 gpio_mmio_base;
 =20
- struct drm_i915_private {
-@@ -951,12 +958,6 @@ struct drm_i915_private {
- =09struct mutex pps_mutex;
++=09/* MMIO base address for MIPI regs */
++=09u32 mipi_mmio_base;
++
+ =09struct intel_gmbus gmbus[GMBUS_NUM_PINS];
 =20
- =09unsigned int fsb_freq, mem_freq, is_ddr3;
--=09unsigned int skl_preferred_vco_freq;
+ =09/** gmbus_mutex protects against concurrent usage of the single hw gmbu=
+s
+@@ -912,9 +915,6 @@ struct drm_i915_private {
+=20
+ =09struct intel_wopcm wopcm;
+=20
+-=09/* MMIO base address for MIPI regs */
+-=09u32 mipi_mmio_base;
 -
--=09unsigned int max_dotclk_freq;
--=09unsigned int hpll_freq;
--=09unsigned int fdi_pll_freq;
--=09unsigned int czclk_freq;
+ =09u32 pps_mmio_base;
 =20
- =09struct {
- =09=09/* The current hardware dbuf configuration */
+ =09struct pci_dev *bridge_dev;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_re=
+g.h
+index 2e74c5c4699a..948949c15396 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -11731,8 +11731,8 @@ enum skl_power_gate {
+=20
+ /* MIPI DSI Controller and D-PHY registers */
+=20
+-#define _MIPIA_DEVICE_READY=09=09(dev_priv->mipi_mmio_base + 0xb000)
+-#define _MIPIC_DEVICE_READY=09=09(dev_priv->mipi_mmio_base + 0xb800)
++#define _MIPIA_DEVICE_READY=09=09(dev_priv->display.mipi_mmio_base + 0xb00=
+0)
++#define _MIPIC_DEVICE_READY=09=09(dev_priv->display.mipi_mmio_base + 0xb80=
+0)
+ #define MIPI_DEVICE_READY(port)=09=09_MMIO_MIPI(port, _MIPIA_DEVICE_READY,=
+ _MIPIC_DEVICE_READY)
+ #define  BUS_POSSESSION=09=09=09=09=09(1 << 3) /* set to give bus to recei=
+ver */
+ #define  ULPS_STATE_MASK=09=09=09=09(3 << 1)
+@@ -11741,11 +11741,11 @@ enum skl_power_gate {
+ #define  ULPS_STATE_NORMAL_OPERATION=09=09=09(0 << 1)
+ #define  DEVICE_READY=09=09=09=09=09(1 << 0)
+=20
+-#define _MIPIA_INTR_STAT=09=09(dev_priv->mipi_mmio_base + 0xb004)
+-#define _MIPIC_INTR_STAT=09=09(dev_priv->mipi_mmio_base + 0xb804)
++#define _MIPIA_INTR_STAT=09=09(dev_priv->display.mipi_mmio_base + 0xb004)
++#define _MIPIC_INTR_STAT=09=09(dev_priv->display.mipi_mmio_base + 0xb804)
+ #define MIPI_INTR_STAT(port)=09=09_MMIO_MIPI(port, _MIPIA_INTR_STAT, _MIPI=
+C_INTR_STAT)
+-#define _MIPIA_INTR_EN=09=09=09(dev_priv->mipi_mmio_base + 0xb008)
+-#define _MIPIC_INTR_EN=09=09=09(dev_priv->mipi_mmio_base + 0xb808)
++#define _MIPIA_INTR_EN=09=09=09(dev_priv->display.mipi_mmio_base + 0xb008)
++#define _MIPIC_INTR_EN=09=09=09(dev_priv->display.mipi_mmio_base + 0xb808)
+ #define MIPI_INTR_EN(port)=09=09_MMIO_MIPI(port, _MIPIA_INTR_EN, _MIPIC_IN=
+TR_EN)
+ #define  TEARING_EFFECT=09=09=09=09=09(1 << 31)
+ #define  SPL_PKT_SENT_INTERRUPT=09=09=09=09(1 << 30)
+@@ -11780,8 +11780,8 @@ enum skl_power_gate {
+ #define  RXSOT_SYNC_ERROR=09=09=09=09(1 << 1)
+ #define  RXSOT_ERROR=09=09=09=09=09(1 << 0)
+=20
+-#define _MIPIA_DSI_FUNC_PRG=09=09(dev_priv->mipi_mmio_base + 0xb00c)
+-#define _MIPIC_DSI_FUNC_PRG=09=09(dev_priv->mipi_mmio_base + 0xb80c)
++#define _MIPIA_DSI_FUNC_PRG=09=09(dev_priv->display.mipi_mmio_base + 0xb00=
+c)
++#define _MIPIC_DSI_FUNC_PRG=09=09(dev_priv->display.mipi_mmio_base + 0xb80=
+c)
+ #define MIPI_DSI_FUNC_PRG(port)=09=09_MMIO_MIPI(port, _MIPIA_DSI_FUNC_PRG,=
+ _MIPIC_DSI_FUNC_PRG)
+ #define  CMD_MODE_DATA_WIDTH_MASK=09=09=09(7 << 13)
+ #define  CMD_MODE_NOT_SUPPORTED=09=09=09=09(0 << 13)
+@@ -11803,78 +11803,78 @@ enum skl_power_gate {
+ #define  DATA_LANES_PRG_REG_SHIFT=09=09=090
+ #define  DATA_LANES_PRG_REG_MASK=09=09=09(7 << 0)
+=20
+-#define _MIPIA_HS_TX_TIMEOUT=09=09(dev_priv->mipi_mmio_base + 0xb010)
+-#define _MIPIC_HS_TX_TIMEOUT=09=09(dev_priv->mipi_mmio_base + 0xb810)
++#define _MIPIA_HS_TX_TIMEOUT=09=09(dev_priv->display.mipi_mmio_base + 0xb0=
+10)
++#define _MIPIC_HS_TX_TIMEOUT=09=09(dev_priv->display.mipi_mmio_base + 0xb8=
+10)
+ #define MIPI_HS_TX_TIMEOUT(port)=09_MMIO_MIPI(port, _MIPIA_HS_TX_TIMEOUT, =
+_MIPIC_HS_TX_TIMEOUT)
+ #define  HIGH_SPEED_TX_TIMEOUT_COUNTER_MASK=09=090xffffff
+=20
+-#define _MIPIA_LP_RX_TIMEOUT=09=09(dev_priv->mipi_mmio_base + 0xb014)
+-#define _MIPIC_LP_RX_TIMEOUT=09=09(dev_priv->mipi_mmio_base + 0xb814)
++#define _MIPIA_LP_RX_TIMEOUT=09=09(dev_priv->display.mipi_mmio_base + 0xb0=
+14)
++#define _MIPIC_LP_RX_TIMEOUT=09=09(dev_priv->display.mipi_mmio_base + 0xb8=
+14)
+ #define MIPI_LP_RX_TIMEOUT(port)=09_MMIO_MIPI(port, _MIPIA_LP_RX_TIMEOUT, =
+_MIPIC_LP_RX_TIMEOUT)
+ #define  LOW_POWER_RX_TIMEOUT_COUNTER_MASK=09=090xffffff
+=20
+-#define _MIPIA_TURN_AROUND_TIMEOUT=09(dev_priv->mipi_mmio_base + 0xb018)
+-#define _MIPIC_TURN_AROUND_TIMEOUT=09(dev_priv->mipi_mmio_base + 0xb818)
++#define _MIPIA_TURN_AROUND_TIMEOUT=09(dev_priv->display.mipi_mmio_base + 0=
+xb018)
++#define _MIPIC_TURN_AROUND_TIMEOUT=09(dev_priv->display.mipi_mmio_base + 0=
+xb818)
+ #define MIPI_TURN_AROUND_TIMEOUT(port)=09_MMIO_MIPI(port, _MIPIA_TURN_AROU=
+ND_TIMEOUT, _MIPIC_TURN_AROUND_TIMEOUT)
+ #define  TURN_AROUND_TIMEOUT_MASK=09=09=090x3f
+=20
+-#define _MIPIA_DEVICE_RESET_TIMER=09(dev_priv->mipi_mmio_base + 0xb01c)
+-#define _MIPIC_DEVICE_RESET_TIMER=09(dev_priv->mipi_mmio_base + 0xb81c)
++#define _MIPIA_DEVICE_RESET_TIMER=09(dev_priv->display.mipi_mmio_base + 0x=
+b01c)
++#define _MIPIC_DEVICE_RESET_TIMER=09(dev_priv->display.mipi_mmio_base + 0x=
+b81c)
+ #define MIPI_DEVICE_RESET_TIMER(port)=09_MMIO_MIPI(port, _MIPIA_DEVICE_RES=
+ET_TIMER, _MIPIC_DEVICE_RESET_TIMER)
+ #define  DEVICE_RESET_TIMER_MASK=09=09=090xffff
+=20
+-#define _MIPIA_DPI_RESOLUTION=09=09(dev_priv->mipi_mmio_base + 0xb020)
+-#define _MIPIC_DPI_RESOLUTION=09=09(dev_priv->mipi_mmio_base + 0xb820)
++#define _MIPIA_DPI_RESOLUTION=09=09(dev_priv->display.mipi_mmio_base + 0xb=
+020)
++#define _MIPIC_DPI_RESOLUTION=09=09(dev_priv->display.mipi_mmio_base + 0xb=
+820)
+ #define MIPI_DPI_RESOLUTION(port)=09_MMIO_MIPI(port, _MIPIA_DPI_RESOLUTION=
+, _MIPIC_DPI_RESOLUTION)
+ #define  VERTICAL_ADDRESS_SHIFT=09=09=09=0916
+ #define  VERTICAL_ADDRESS_MASK=09=09=09=09(0xffff << 16)
+ #define  HORIZONTAL_ADDRESS_SHIFT=09=09=090
+ #define  HORIZONTAL_ADDRESS_MASK=09=09=090xffff
+=20
+-#define _MIPIA_DBI_FIFO_THROTTLE=09(dev_priv->mipi_mmio_base + 0xb024)
+-#define _MIPIC_DBI_FIFO_THROTTLE=09(dev_priv->mipi_mmio_base + 0xb824)
++#define _MIPIA_DBI_FIFO_THROTTLE=09(dev_priv->display.mipi_mmio_base + 0xb=
+024)
++#define _MIPIC_DBI_FIFO_THROTTLE=09(dev_priv->display.mipi_mmio_base + 0xb=
+824)
+ #define MIPI_DBI_FIFO_THROTTLE(port)=09_MMIO_MIPI(port, _MIPIA_DBI_FIFO_TH=
+ROTTLE, _MIPIC_DBI_FIFO_THROTTLE)
+ #define  DBI_FIFO_EMPTY_HALF=09=09=09=09(0 << 0)
+ #define  DBI_FIFO_EMPTY_QUARTER=09=09=09=09(1 << 0)
+ #define  DBI_FIFO_EMPTY_7_LOCATIONS=09=09=09(2 << 0)
+=20
+ /* regs below are bits 15:0 */
+-#define _MIPIA_HSYNC_PADDING_COUNT=09(dev_priv->mipi_mmio_base + 0xb028)
+-#define _MIPIC_HSYNC_PADDING_COUNT=09(dev_priv->mipi_mmio_base + 0xb828)
++#define _MIPIA_HSYNC_PADDING_COUNT=09(dev_priv->display.mipi_mmio_base + 0=
+xb028)
++#define _MIPIC_HSYNC_PADDING_COUNT=09(dev_priv->display.mipi_mmio_base + 0=
+xb828)
+ #define MIPI_HSYNC_PADDING_COUNT(port)=09_MMIO_MIPI(port, _MIPIA_HSYNC_PAD=
+DING_COUNT, _MIPIC_HSYNC_PADDING_COUNT)
+=20
+-#define _MIPIA_HBP_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb02c)
+-#define _MIPIC_HBP_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb82c)
++#define _MIPIA_HBP_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb02c)
++#define _MIPIC_HBP_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb82c)
+ #define MIPI_HBP_COUNT(port)=09=09_MMIO_MIPI(port, _MIPIA_HBP_COUNT, _MIPI=
+C_HBP_COUNT)
+=20
+-#define _MIPIA_HFP_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb030)
+-#define _MIPIC_HFP_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb830)
++#define _MIPIA_HFP_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb030)
++#define _MIPIC_HFP_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb830)
+ #define MIPI_HFP_COUNT(port)=09=09_MMIO_MIPI(port, _MIPIA_HFP_COUNT, _MIPI=
+C_HFP_COUNT)
+=20
+-#define _MIPIA_HACTIVE_AREA_COUNT=09(dev_priv->mipi_mmio_base + 0xb034)
+-#define _MIPIC_HACTIVE_AREA_COUNT=09(dev_priv->mipi_mmio_base + 0xb834)
++#define _MIPIA_HACTIVE_AREA_COUNT=09(dev_priv->display.mipi_mmio_base + 0x=
+b034)
++#define _MIPIC_HACTIVE_AREA_COUNT=09(dev_priv->display.mipi_mmio_base + 0x=
+b834)
+ #define MIPI_HACTIVE_AREA_COUNT(port)=09_MMIO_MIPI(port, _MIPIA_HACTIVE_AR=
+EA_COUNT, _MIPIC_HACTIVE_AREA_COUNT)
+=20
+-#define _MIPIA_VSYNC_PADDING_COUNT=09(dev_priv->mipi_mmio_base + 0xb038)
+-#define _MIPIC_VSYNC_PADDING_COUNT=09(dev_priv->mipi_mmio_base + 0xb838)
++#define _MIPIA_VSYNC_PADDING_COUNT=09(dev_priv->display.mipi_mmio_base + 0=
+xb038)
++#define _MIPIC_VSYNC_PADDING_COUNT=09(dev_priv->display.mipi_mmio_base + 0=
+xb838)
+ #define MIPI_VSYNC_PADDING_COUNT(port)=09_MMIO_MIPI(port, _MIPIA_VSYNC_PAD=
+DING_COUNT, _MIPIC_VSYNC_PADDING_COUNT)
+=20
+-#define _MIPIA_VBP_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb03c)
+-#define _MIPIC_VBP_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb83c)
++#define _MIPIA_VBP_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb03c)
++#define _MIPIC_VBP_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb83c)
+ #define MIPI_VBP_COUNT(port)=09=09_MMIO_MIPI(port, _MIPIA_VBP_COUNT, _MIPI=
+C_VBP_COUNT)
+=20
+-#define _MIPIA_VFP_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb040)
+-#define _MIPIC_VFP_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb840)
++#define _MIPIA_VFP_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb040)
++#define _MIPIC_VFP_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb840)
+ #define MIPI_VFP_COUNT(port)=09=09_MMIO_MIPI(port, _MIPIA_VFP_COUNT, _MIPI=
+C_VFP_COUNT)
+=20
+-#define _MIPIA_HIGH_LOW_SWITCH_COUNT=09(dev_priv->mipi_mmio_base + 0xb044)
+-#define _MIPIC_HIGH_LOW_SWITCH_COUNT=09(dev_priv->mipi_mmio_base + 0xb844)
++#define _MIPIA_HIGH_LOW_SWITCH_COUNT=09(dev_priv->display.mipi_mmio_base +=
+ 0xb044)
++#define _MIPIC_HIGH_LOW_SWITCH_COUNT=09(dev_priv->display.mipi_mmio_base +=
+ 0xb844)
+ #define MIPI_HIGH_LOW_SWITCH_COUNT(port)=09_MMIO_MIPI(port,=09_MIPIA_HIGH_=
+LOW_SWITCH_COUNT, _MIPIC_HIGH_LOW_SWITCH_COUNT)
+=20
+ /* regs above are bits 15:0 */
+=20
+-#define _MIPIA_DPI_CONTROL=09=09(dev_priv->mipi_mmio_base + 0xb048)
+-#define _MIPIC_DPI_CONTROL=09=09(dev_priv->mipi_mmio_base + 0xb848)
++#define _MIPIA_DPI_CONTROL=09=09(dev_priv->display.mipi_mmio_base + 0xb048=
+)
++#define _MIPIC_DPI_CONTROL=09=09(dev_priv->display.mipi_mmio_base + 0xb848=
+)
+ #define MIPI_DPI_CONTROL(port)=09=09_MMIO_MIPI(port, _MIPIA_DPI_CONTROL, _=
+MIPIC_DPI_CONTROL)
+ #define  DPI_LP_MODE=09=09=09=09=09(1 << 6)
+ #define  BACKLIGHT_OFF=09=09=09=09=09(1 << 5)
+@@ -11884,27 +11884,27 @@ enum skl_power_gate {
+ #define  TURN_ON=09=09=09=09=09(1 << 1)
+ #define  SHUTDOWN=09=09=09=09=09(1 << 0)
+=20
+-#define _MIPIA_DPI_DATA=09=09=09(dev_priv->mipi_mmio_base + 0xb04c)
+-#define _MIPIC_DPI_DATA=09=09=09(dev_priv->mipi_mmio_base + 0xb84c)
++#define _MIPIA_DPI_DATA=09=09=09(dev_priv->display.mipi_mmio_base + 0xb04c=
+)
++#define _MIPIC_DPI_DATA=09=09=09(dev_priv->display.mipi_mmio_base + 0xb84c=
+)
+ #define MIPI_DPI_DATA(port)=09=09_MMIO_MIPI(port, _MIPIA_DPI_DATA, _MIPIC_=
+DPI_DATA)
+ #define  COMMAND_BYTE_SHIFT=09=09=09=090
+ #define  COMMAND_BYTE_MASK=09=09=09=09(0x3f << 0)
+=20
+-#define _MIPIA_INIT_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb050)
+-#define _MIPIC_INIT_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb850)
++#define _MIPIA_INIT_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb050)
++#define _MIPIC_INIT_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0xb850)
+ #define MIPI_INIT_COUNT(port)=09=09_MMIO_MIPI(port, _MIPIA_INIT_COUNT, _MI=
+PIC_INIT_COUNT)
+ #define  MASTER_INIT_TIMER_SHIFT=09=09=090
+ #define  MASTER_INIT_TIMER_MASK=09=09=09=09(0xffff << 0)
+=20
+-#define _MIPIA_MAX_RETURN_PKT_SIZE=09(dev_priv->mipi_mmio_base + 0xb054)
+-#define _MIPIC_MAX_RETURN_PKT_SIZE=09(dev_priv->mipi_mmio_base + 0xb854)
++#define _MIPIA_MAX_RETURN_PKT_SIZE=09(dev_priv->display.mipi_mmio_base + 0=
+xb054)
++#define _MIPIC_MAX_RETURN_PKT_SIZE=09(dev_priv->display.mipi_mmio_base + 0=
+xb854)
+ #define MIPI_MAX_RETURN_PKT_SIZE(port)=09_MMIO_MIPI(port, \
+ =09=09=09_MIPIA_MAX_RETURN_PKT_SIZE, _MIPIC_MAX_RETURN_PKT_SIZE)
+ #define  MAX_RETURN_PKT_SIZE_SHIFT=09=09=090
+ #define  MAX_RETURN_PKT_SIZE_MASK=09=09=09(0x3ff << 0)
+=20
+-#define _MIPIA_VIDEO_MODE_FORMAT=09(dev_priv->mipi_mmio_base + 0xb058)
+-#define _MIPIC_VIDEO_MODE_FORMAT=09(dev_priv->mipi_mmio_base + 0xb858)
++#define _MIPIA_VIDEO_MODE_FORMAT=09(dev_priv->display.mipi_mmio_base + 0xb=
+058)
++#define _MIPIC_VIDEO_MODE_FORMAT=09(dev_priv->display.mipi_mmio_base + 0xb=
+858)
+ #define MIPI_VIDEO_MODE_FORMAT(port)=09_MMIO_MIPI(port, _MIPIA_VIDEO_MODE_=
+FORMAT, _MIPIC_VIDEO_MODE_FORMAT)
+ #define  RANDOM_DPI_DISPLAY_RESOLUTION=09=09=09(1 << 4)
+ #define  DISABLE_VIDEO_BTA=09=09=09=09(1 << 3)
+@@ -11913,8 +11913,8 @@ enum skl_power_gate {
+ #define  VIDEO_MODE_NON_BURST_WITH_SYNC_EVENTS=09=09(2 << 0)
+ #define  VIDEO_MODE_BURST=09=09=09=09(3 << 0)
+=20
+-#define _MIPIA_EOT_DISABLE=09=09(dev_priv->mipi_mmio_base + 0xb05c)
+-#define _MIPIC_EOT_DISABLE=09=09(dev_priv->mipi_mmio_base + 0xb85c)
++#define _MIPIA_EOT_DISABLE=09=09(dev_priv->display.mipi_mmio_base + 0xb05c=
+)
++#define _MIPIC_EOT_DISABLE=09=09(dev_priv->display.mipi_mmio_base + 0xb85c=
+)
+ #define MIPI_EOT_DISABLE(port)=09=09_MMIO_MIPI(port, _MIPIA_EOT_DISABLE, _=
+MIPIC_EOT_DISABLE)
+ #define  BXT_DEFEATURE_DPI_FIFO_CTR=09=09=09(1 << 9)
+ #define  BXT_DPHY_DEFEATURE_EN=09=09=09=09(1 << 8)
+@@ -11927,35 +11927,35 @@ enum skl_power_gate {
+ #define  CLOCKSTOP=09=09=09=09=09(1 << 1)
+ #define  EOT_DISABLE=09=09=09=09=09(1 << 0)
+=20
+-#define _MIPIA_LP_BYTECLK=09=09(dev_priv->mipi_mmio_base + 0xb060)
+-#define _MIPIC_LP_BYTECLK=09=09(dev_priv->mipi_mmio_base + 0xb860)
++#define _MIPIA_LP_BYTECLK=09=09(dev_priv->display.mipi_mmio_base + 0xb060)
++#define _MIPIC_LP_BYTECLK=09=09(dev_priv->display.mipi_mmio_base + 0xb860)
+ #define MIPI_LP_BYTECLK(port)=09=09_MMIO_MIPI(port, _MIPIA_LP_BYTECLK, _MI=
+PIC_LP_BYTECLK)
+ #define  LP_BYTECLK_SHIFT=09=09=09=090
+ #define  LP_BYTECLK_MASK=09=09=09=09(0xffff << 0)
+=20
+-#define _MIPIA_TLPX_TIME_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb0a4)
+-#define _MIPIC_TLPX_TIME_COUNT=09=09(dev_priv->mipi_mmio_base + 0xb8a4)
++#define _MIPIA_TLPX_TIME_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b0a4)
++#define _MIPIC_TLPX_TIME_COUNT=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b8a4)
+ #define MIPI_TLPX_TIME_COUNT(port)=09 _MMIO_MIPI(port, _MIPIA_TLPX_TIME_CO=
+UNT, _MIPIC_TLPX_TIME_COUNT)
+=20
+-#define _MIPIA_CLK_LANE_TIMING=09=09(dev_priv->mipi_mmio_base + 0xb098)
+-#define _MIPIC_CLK_LANE_TIMING=09=09(dev_priv->mipi_mmio_base + 0xb898)
++#define _MIPIA_CLK_LANE_TIMING=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b098)
++#define _MIPIC_CLK_LANE_TIMING=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b898)
+ #define MIPI_CLK_LANE_TIMING(port)=09 _MMIO_MIPI(port, _MIPIA_CLK_LANE_TIM=
+ING, _MIPIC_CLK_LANE_TIMING)
+=20
+ /* bits 31:0 */
+-#define _MIPIA_LP_GEN_DATA=09=09(dev_priv->mipi_mmio_base + 0xb064)
+-#define _MIPIC_LP_GEN_DATA=09=09(dev_priv->mipi_mmio_base + 0xb864)
++#define _MIPIA_LP_GEN_DATA=09=09(dev_priv->display.mipi_mmio_base + 0xb064=
+)
++#define _MIPIC_LP_GEN_DATA=09=09(dev_priv->display.mipi_mmio_base + 0xb864=
+)
+ #define MIPI_LP_GEN_DATA(port)=09=09_MMIO_MIPI(port, _MIPIA_LP_GEN_DATA, _=
+MIPIC_LP_GEN_DATA)
+=20
+ /* bits 31:0 */
+-#define _MIPIA_HS_GEN_DATA=09=09(dev_priv->mipi_mmio_base + 0xb068)
+-#define _MIPIC_HS_GEN_DATA=09=09(dev_priv->mipi_mmio_base + 0xb868)
++#define _MIPIA_HS_GEN_DATA=09=09(dev_priv->display.mipi_mmio_base + 0xb068=
+)
++#define _MIPIC_HS_GEN_DATA=09=09(dev_priv->display.mipi_mmio_base + 0xb868=
+)
+ #define MIPI_HS_GEN_DATA(port)=09=09_MMIO_MIPI(port, _MIPIA_HS_GEN_DATA, _=
+MIPIC_HS_GEN_DATA)
+=20
+-#define _MIPIA_LP_GEN_CTRL=09=09(dev_priv->mipi_mmio_base + 0xb06c)
+-#define _MIPIC_LP_GEN_CTRL=09=09(dev_priv->mipi_mmio_base + 0xb86c)
++#define _MIPIA_LP_GEN_CTRL=09=09(dev_priv->display.mipi_mmio_base + 0xb06c=
+)
++#define _MIPIC_LP_GEN_CTRL=09=09(dev_priv->display.mipi_mmio_base + 0xb86c=
+)
+ #define MIPI_LP_GEN_CTRL(port)=09=09_MMIO_MIPI(port, _MIPIA_LP_GEN_CTRL, _=
+MIPIC_LP_GEN_CTRL)
+-#define _MIPIA_HS_GEN_CTRL=09=09(dev_priv->mipi_mmio_base + 0xb070)
+-#define _MIPIC_HS_GEN_CTRL=09=09(dev_priv->mipi_mmio_base + 0xb870)
++#define _MIPIA_HS_GEN_CTRL=09=09(dev_priv->display.mipi_mmio_base + 0xb070=
+)
++#define _MIPIC_HS_GEN_CTRL=09=09(dev_priv->display.mipi_mmio_base + 0xb870=
+)
+ #define MIPI_HS_GEN_CTRL(port)=09=09_MMIO_MIPI(port, _MIPIA_HS_GEN_CTRL, _=
+MIPIC_HS_GEN_CTRL)
+ #define  LONG_PACKET_WORD_COUNT_SHIFT=09=09=098
+ #define  LONG_PACKET_WORD_COUNT_MASK=09=09=09(0xffff << 8)
+@@ -11967,8 +11967,8 @@ enum skl_power_gate {
+ #define  DATA_TYPE_MASK=09=09=09=09=09(0x3f << 0)
+ /* data type values, see include/video/mipi_display.h */
+=20
+-#define _MIPIA_GEN_FIFO_STAT=09=09(dev_priv->mipi_mmio_base + 0xb074)
+-#define _MIPIC_GEN_FIFO_STAT=09=09(dev_priv->mipi_mmio_base + 0xb874)
++#define _MIPIA_GEN_FIFO_STAT=09=09(dev_priv->display.mipi_mmio_base + 0xb0=
+74)
++#define _MIPIC_GEN_FIFO_STAT=09=09(dev_priv->display.mipi_mmio_base + 0xb8=
+74)
+ #define MIPI_GEN_FIFO_STAT(port)=09_MMIO_MIPI(port, _MIPIA_GEN_FIFO_STAT, =
+_MIPIC_GEN_FIFO_STAT)
+ #define  DPI_FIFO_EMPTY=09=09=09=09=09(1 << 28)
+ #define  DBI_FIFO_EMPTY=09=09=09=09=09(1 << 27)
+@@ -11985,15 +11985,15 @@ enum skl_power_gate {
+ #define  HS_DATA_FIFO_HALF_EMPTY=09=09=09(1 << 1)
+ #define  HS_DATA_FIFO_FULL=09=09=09=09(1 << 0)
+=20
+-#define _MIPIA_HS_LS_DBI_ENABLE=09=09(dev_priv->mipi_mmio_base + 0xb078)
+-#define _MIPIC_HS_LS_DBI_ENABLE=09=09(dev_priv->mipi_mmio_base + 0xb878)
++#define _MIPIA_HS_LS_DBI_ENABLE=09=09(dev_priv->display.mipi_mmio_base + 0=
+xb078)
++#define _MIPIC_HS_LS_DBI_ENABLE=09=09(dev_priv->display.mipi_mmio_base + 0=
+xb878)
+ #define MIPI_HS_LP_DBI_ENABLE(port)=09_MMIO_MIPI(port, _MIPIA_HS_LS_DBI_EN=
+ABLE, _MIPIC_HS_LS_DBI_ENABLE)
+ #define  DBI_HS_LP_MODE_MASK=09=09=09=09(1 << 0)
+ #define  DBI_LP_MODE=09=09=09=09=09(1 << 0)
+ #define  DBI_HS_MODE=09=09=09=09=09(0 << 0)
+=20
+-#define _MIPIA_DPHY_PARAM=09=09(dev_priv->mipi_mmio_base + 0xb080)
+-#define _MIPIC_DPHY_PARAM=09=09(dev_priv->mipi_mmio_base + 0xb880)
++#define _MIPIA_DPHY_PARAM=09=09(dev_priv->display.mipi_mmio_base + 0xb080)
++#define _MIPIC_DPHY_PARAM=09=09(dev_priv->display.mipi_mmio_base + 0xb880)
+ #define MIPI_DPHY_PARAM(port)=09=09_MMIO_MIPI(port, _MIPIA_DPHY_PARAM, _MI=
+PIC_DPHY_PARAM)
+ #define  EXIT_ZERO_COUNT_SHIFT=09=09=09=0924
+ #define  EXIT_ZERO_COUNT_MASK=09=09=09=09(0x3f << 24)
+@@ -12242,34 +12242,34 @@ enum skl_power_gate {
+ #define  TA_TIMEOUT_VALUE(x)=09=09((x) << 0)
+=20
+ /* bits 31:0 */
+-#define _MIPIA_DBI_BW_CTRL=09=09(dev_priv->mipi_mmio_base + 0xb084)
+-#define _MIPIC_DBI_BW_CTRL=09=09(dev_priv->mipi_mmio_base + 0xb884)
++#define _MIPIA_DBI_BW_CTRL=09=09(dev_priv->display.mipi_mmio_base + 0xb084=
+)
++#define _MIPIC_DBI_BW_CTRL=09=09(dev_priv->display.mipi_mmio_base + 0xb884=
+)
+ #define MIPI_DBI_BW_CTRL(port)=09=09_MMIO_MIPI(port, _MIPIA_DBI_BW_CTRL, _=
+MIPIC_DBI_BW_CTRL)
+=20
+-#define _MIPIA_CLK_LANE_SWITCH_TIME_CNT=09=09(dev_priv->mipi_mmio_base + 0=
+xb088)
+-#define _MIPIC_CLK_LANE_SWITCH_TIME_CNT=09=09(dev_priv->mipi_mmio_base + 0=
+xb888)
++#define _MIPIA_CLK_LANE_SWITCH_TIME_CNT=09=09(dev_priv->display.mipi_mmio_=
+base + 0xb088)
++#define _MIPIC_CLK_LANE_SWITCH_TIME_CNT=09=09(dev_priv->display.mipi_mmio_=
+base + 0xb888)
+ #define MIPI_CLK_LANE_SWITCH_TIME_CNT(port)=09_MMIO_MIPI(port, _MIPIA_CLK_=
+LANE_SWITCH_TIME_CNT, _MIPIC_CLK_LANE_SWITCH_TIME_CNT)
+ #define  LP_HS_SSW_CNT_SHIFT=09=09=09=0916
+ #define  LP_HS_SSW_CNT_MASK=09=09=09=09(0xffff << 16)
+ #define  HS_LP_PWR_SW_CNT_SHIFT=09=09=09=090
+ #define  HS_LP_PWR_SW_CNT_MASK=09=09=09=09(0xffff << 0)
+=20
+-#define _MIPIA_STOP_STATE_STALL=09=09(dev_priv->mipi_mmio_base + 0xb08c)
+-#define _MIPIC_STOP_STATE_STALL=09=09(dev_priv->mipi_mmio_base + 0xb88c)
++#define _MIPIA_STOP_STATE_STALL=09=09(dev_priv->display.mipi_mmio_base + 0=
+xb08c)
++#define _MIPIC_STOP_STATE_STALL=09=09(dev_priv->display.mipi_mmio_base + 0=
+xb88c)
+ #define MIPI_STOP_STATE_STALL(port)=09_MMIO_MIPI(port, _MIPIA_STOP_STATE_S=
+TALL, _MIPIC_STOP_STATE_STALL)
+ #define  STOP_STATE_STALL_COUNTER_SHIFT=09=09=090
+ #define  STOP_STATE_STALL_COUNTER_MASK=09=09=09(0xff << 0)
+=20
+-#define _MIPIA_INTR_STAT_REG_1=09=09(dev_priv->mipi_mmio_base + 0xb090)
+-#define _MIPIC_INTR_STAT_REG_1=09=09(dev_priv->mipi_mmio_base + 0xb890)
++#define _MIPIA_INTR_STAT_REG_1=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b090)
++#define _MIPIC_INTR_STAT_REG_1=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b890)
+ #define MIPI_INTR_STAT_REG_1(port)=09_MMIO_MIPI(port, _MIPIA_INTR_STAT_REG=
+_1, _MIPIC_INTR_STAT_REG_1)
+-#define _MIPIA_INTR_EN_REG_1=09=09(dev_priv->mipi_mmio_base + 0xb094)
+-#define _MIPIC_INTR_EN_REG_1=09=09(dev_priv->mipi_mmio_base + 0xb894)
++#define _MIPIA_INTR_EN_REG_1=09=09(dev_priv->display.mipi_mmio_base + 0xb0=
+94)
++#define _MIPIC_INTR_EN_REG_1=09=09(dev_priv->display.mipi_mmio_base + 0xb8=
+94)
+ #define MIPI_INTR_EN_REG_1(port)=09_MMIO_MIPI(port, _MIPIA_INTR_EN_REG_1, =
+_MIPIC_INTR_EN_REG_1)
+ #define  RX_CONTENTION_DETECTED=09=09=09=09(1 << 0)
+=20
+ /* XXX: only pipe A ?!? */
+-#define MIPIA_DBI_TYPEC_CTRL=09=09(dev_priv->mipi_mmio_base + 0xb100)
++#define MIPIA_DBI_TYPEC_CTRL=09=09(dev_priv->display.mipi_mmio_base + 0xb1=
+00)
+ #define  DBI_TYPEC_ENABLE=09=09=09=09(1 << 31)
+ #define  DBI_TYPEC_WIP=09=09=09=09=09(1 << 30)
+ #define  DBI_TYPEC_OPTION_SHIFT=09=09=09=0928
+@@ -12283,8 +12283,8 @@ enum skl_power_gate {
+=20
+ /* MIPI adapter registers */
+=20
+-#define _MIPIA_CTRL=09=09=09(dev_priv->mipi_mmio_base + 0xb104)
+-#define _MIPIC_CTRL=09=09=09(dev_priv->mipi_mmio_base + 0xb904)
++#define _MIPIA_CTRL=09=09=09(dev_priv->display.mipi_mmio_base + 0xb104)
++#define _MIPIC_CTRL=09=09=09(dev_priv->display.mipi_mmio_base + 0xb904)
+ #define MIPI_CTRL(port)=09=09=09_MMIO_MIPI(port, _MIPIA_CTRL, _MIPIC_CTRL)
+ #define  ESCAPE_CLOCK_DIVIDER_SHIFT=09=09=095 /* A only */
+ #define  ESCAPE_CLOCK_DIVIDER_MASK=09=09=09(3 << 5)
+@@ -12316,21 +12316,21 @@ enum skl_power_gate {
+ #define  GLK_MIPIIO_PORT_POWERED=09=09=09(1 << 1) /* RO */
+ #define  GLK_MIPIIO_ENABLE=09=09=09=09(1 << 0)
+=20
+-#define _MIPIA_DATA_ADDRESS=09=09(dev_priv->mipi_mmio_base + 0xb108)
+-#define _MIPIC_DATA_ADDRESS=09=09(dev_priv->mipi_mmio_base + 0xb908)
++#define _MIPIA_DATA_ADDRESS=09=09(dev_priv->display.mipi_mmio_base + 0xb10=
+8)
++#define _MIPIC_DATA_ADDRESS=09=09(dev_priv->display.mipi_mmio_base + 0xb90=
+8)
+ #define MIPI_DATA_ADDRESS(port)=09=09_MMIO_MIPI(port, _MIPIA_DATA_ADDRESS,=
+ _MIPIC_DATA_ADDRESS)
+ #define  DATA_MEM_ADDRESS_SHIFT=09=09=09=095
+ #define  DATA_MEM_ADDRESS_MASK=09=09=09=09(0x7ffffff << 5)
+ #define  DATA_VALID=09=09=09=09=09(1 << 0)
+=20
+-#define _MIPIA_DATA_LENGTH=09=09(dev_priv->mipi_mmio_base + 0xb10c)
+-#define _MIPIC_DATA_LENGTH=09=09(dev_priv->mipi_mmio_base + 0xb90c)
++#define _MIPIA_DATA_LENGTH=09=09(dev_priv->display.mipi_mmio_base + 0xb10c=
+)
++#define _MIPIC_DATA_LENGTH=09=09(dev_priv->display.mipi_mmio_base + 0xb90c=
+)
+ #define MIPI_DATA_LENGTH(port)=09=09_MMIO_MIPI(port, _MIPIA_DATA_LENGTH, _=
+MIPIC_DATA_LENGTH)
+ #define  DATA_LENGTH_SHIFT=09=09=09=090
+ #define  DATA_LENGTH_MASK=09=09=09=09(0xfffff << 0)
+=20
+-#define _MIPIA_COMMAND_ADDRESS=09=09(dev_priv->mipi_mmio_base + 0xb110)
+-#define _MIPIC_COMMAND_ADDRESS=09=09(dev_priv->mipi_mmio_base + 0xb910)
++#define _MIPIA_COMMAND_ADDRESS=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b110)
++#define _MIPIC_COMMAND_ADDRESS=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b910)
+ #define MIPI_COMMAND_ADDRESS(port)=09_MMIO_MIPI(port, _MIPIA_COMMAND_ADDRE=
+SS, _MIPIC_COMMAND_ADDRESS)
+ #define  COMMAND_MEM_ADDRESS_SHIFT=09=09=095
+ #define  COMMAND_MEM_ADDRESS_MASK=09=09=09(0x7ffffff << 5)
+@@ -12338,18 +12338,18 @@ enum skl_power_gate {
+ #define  MEMORY_WRITE_DATA_FROM_PIPE_RENDERING=09=09(1 << 1)
+ #define  COMMAND_VALID=09=09=09=09=09(1 << 0)
+=20
+-#define _MIPIA_COMMAND_LENGTH=09=09(dev_priv->mipi_mmio_base + 0xb114)
+-#define _MIPIC_COMMAND_LENGTH=09=09(dev_priv->mipi_mmio_base + 0xb914)
++#define _MIPIA_COMMAND_LENGTH=09=09(dev_priv->display.mipi_mmio_base + 0xb=
+114)
++#define _MIPIC_COMMAND_LENGTH=09=09(dev_priv->display.mipi_mmio_base + 0xb=
+914)
+ #define MIPI_COMMAND_LENGTH(port)=09_MMIO_MIPI(port, _MIPIA_COMMAND_LENGTH=
+, _MIPIC_COMMAND_LENGTH)
+ #define  COMMAND_LENGTH_SHIFT(n)=09=09=09(8 * (n)) /* n: 0...3 */
+ #define  COMMAND_LENGTH_MASK(n)=09=09=09=09(0xff << (8 * (n)))
+=20
+-#define _MIPIA_READ_DATA_RETURN0=09(dev_priv->mipi_mmio_base + 0xb118)
+-#define _MIPIC_READ_DATA_RETURN0=09(dev_priv->mipi_mmio_base + 0xb918)
++#define _MIPIA_READ_DATA_RETURN0=09(dev_priv->display.mipi_mmio_base + 0xb=
+118)
++#define _MIPIC_READ_DATA_RETURN0=09(dev_priv->display.mipi_mmio_base + 0xb=
+918)
+ #define MIPI_READ_DATA_RETURN(port, n) _MMIO(_MIPI(port, _MIPIA_READ_DATA_=
+RETURN0, _MIPIC_READ_DATA_RETURN0) + 4 * (n)) /* n: 0...7 */
+=20
+-#define _MIPIA_READ_DATA_VALID=09=09(dev_priv->mipi_mmio_base + 0xb138)
+-#define _MIPIC_READ_DATA_VALID=09=09(dev_priv->mipi_mmio_base + 0xb938)
++#define _MIPIA_READ_DATA_VALID=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b138)
++#define _MIPIC_READ_DATA_VALID=09=09(dev_priv->display.mipi_mmio_base + 0x=
+b938)
+ #define MIPI_READ_DATA_VALID(port)=09_MMIO_MIPI(port, _MIPIA_READ_DATA_VAL=
+ID, _MIPIC_READ_DATA_VALID)
+ #define  READ_DATA_VALID(n)=09=09=09=09(1 << (n))
+=20
 --=20
 2.31.1
 
