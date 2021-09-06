@@ -2,46 +2,48 @@ Return-Path: <SRS0=0xFZ=N4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 558F9C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:27:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7294C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1D2CE6103B
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:27:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1D2CE6103B
+	by mail.kernel.org (Postfix) with ESMTPS id 848056103B
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 18:27:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 848056103B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5EA899F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E445B89A86;
 	Mon,  6 Sep 2021 18:27:21 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA43F899F2
- for <intel-gfx@lists.freedesktop.org>; Mon,  6 Sep 2021 18:27:19 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="219713089"
-X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="219713089"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2E1899F2
+ for <intel-gfx@lists.freedesktop.org>; Mon,  6 Sep 2021 18:27:20 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="219713096"
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="219713096"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2021 11:27:18 -0700
-X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="464124849"
+ 06 Sep 2021 11:27:19 -0700
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="464124850"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2021 11:27:17 -0700
+ 06 Sep 2021 11:27:19 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
- Nanley G Chery <nanley.g.chery@intel.com>
-Date: Mon,  6 Sep 2021 21:27:09 +0300
-Message-Id: <20210906182715.3915100-1-imre.deak@intel.com>
+Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+Date: Mon,  6 Sep 2021 21:27:10 +0300
+Message-Id: <20210906182715.3915100-2-imre.deak@intel.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210906182715.3915100-1-imre.deak@intel.com>
+References: <20210906182715.3915100-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/6] drm/i915/adlp: Add support for remapping
- CCS FBs
+Subject: [Intel-gfx] [PATCH v2 1/6] drm/i915: Use tile block based
+ dimensions for CCS origin x, y check
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,39 +59,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is v2 of [1] fixing the initialization of plane_alignment in patch
-5 and issues reported by checkpatch, sparse. Also the last patch in this
-series adds a description to drm_fourcc.h about the main and CCS surface
-stride requirements for all CCS modifiers on ADL-P.
+The tile size for all surface types is 4 kbyte (or 2 kbyte on old
+platforms), with the exception of the TGL/ADL CCS surface where the tile
+size is 64 bytes. To be able to remap CCS FBs the CCS surface tile needs
+to be defined as 4 kbyte as well (the granularity of GTT pages in a
+remapped view).
 
-The corresponding IGT changes are at:
-https://patchwork.freedesktop.org/series/94107/
+The only place using the dimension of the 64 byte CCS area is the initial
+check for the main vs. CCS plane origin coordinate match. To prepare for
+adding support for remapping CCS FBs let's call the 64 byte CCS area a
+'tile block' and add a helper to retrieve the dimensions for it.
 
-[1] https://patchwork.freedesktop.org/series/94108/
-
-Test-with: 20210906181736.3914421-1-imre.deak@intel.com
+No functional change.
 
 Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Cc: Nanley G Chery <nanley.g.chery@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Reviewed-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_fb.c | 30 ++++++++++++++++++++-----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
 
-Imre Deak (6):
-  drm/i915: Use tile block based dimensions for CCS origin x, y check
-  drm/i915/adlp: Require always a power-of-two sized CCS surface stride
-  drm/i915/adlp: Assert that VMAs in DPT start at 0
-  drm/i915: Follow a new->old platform check order in
-    intel_fb_stride_alignment
-  drm/i915/adlp: Add support for remapping CCS FBs
-  drm/fourcc: Add the ADL-P specific pitch requirements of CCS modifiers
-
- drivers/gpu/drm/i915/display/intel_display.c  |   5 +-
- .../drm/i915/display/intel_display_types.h    |   2 -
- drivers/gpu/drm/i915/display/intel_fb.c       | 171 ++++++++++++------
- .../drm/i915/display/skl_universal_plane.c    |   5 +
- drivers/gpu/drm/i915/gt/intel_ggtt.c          |  29 ++-
- drivers/gpu/drm/i915/i915_vma_types.h         |   7 +-
- include/uapi/drm/drm_fourcc.h                 |  24 ++-
- 7 files changed, 174 insertions(+), 69 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index e4b8602ec0cd2..0cf568a9cb1c6 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -143,14 +143,14 @@ intel_tile_width_bytes(const struct drm_framebuffer *fb, int color_plane)
+ 
+ unsigned int intel_tile_height(const struct drm_framebuffer *fb, int color_plane)
+ {
+-	if (is_gen12_ccs_plane(fb, color_plane))
+-		return 1;
+-
+ 	return intel_tile_size(to_i915(fb->dev)) /
+ 		intel_tile_width_bytes(fb, color_plane);
+ }
+ 
+-/* Return the tile dimensions in pixel units */
++/*
++ * Return the tile dimensions in pixel units, based on the (2 or 4 kbyte) GTT
++ * page tile size.
++ */
+ static void intel_tile_dims(const struct drm_framebuffer *fb, int color_plane,
+ 			    unsigned int *tile_width,
+ 			    unsigned int *tile_height)
+@@ -162,6 +162,21 @@ static void intel_tile_dims(const struct drm_framebuffer *fb, int color_plane,
+ 	*tile_height = intel_tile_height(fb, color_plane);
+ }
+ 
++/*
++ * Return the tile dimensions in pixel units, based on the tile block size.
++ * The block covers the full GTT page sized tile on all tiled surfaces and
++ * it's a 64 byte portion of the tile on TGL+ CCS surfaces.
++ */
++static void intel_tile_block_dims(const struct drm_framebuffer *fb, int color_plane,
++				  unsigned int *tile_width,
++				  unsigned int *tile_height)
++{
++	intel_tile_dims(fb, color_plane, tile_width, tile_height);
++
++	if (is_gen12_ccs_plane(fb, color_plane))
++		*tile_height = 1;
++}
++
+ unsigned int intel_tile_row_size(const struct drm_framebuffer *fb, int color_plane)
+ {
+ 	unsigned int tile_width, tile_height;
+@@ -567,7 +582,12 @@ static int intel_fb_check_ccs_xy(const struct drm_framebuffer *fb, int ccs_plane
+ 	if (!is_ccs_plane(fb, ccs_plane) || is_gen12_ccs_cc_plane(fb, ccs_plane))
+ 		return 0;
+ 
+-	intel_tile_dims(fb, ccs_plane, &tile_width, &tile_height);
++	/*
++	 * While all the tile dimensions are based on a 2k or 4k GTT page size
++	 * here the main and CCS coordinates must match only within a (64 byte
++	 * on TGL+) block inside the tile.
++	 */
++	intel_tile_block_dims(fb, ccs_plane, &tile_width, &tile_height);
+ 	intel_fb_plane_get_subsampling(&hsub, &vsub, fb, ccs_plane);
+ 
+ 	tile_width *= hsub;
 -- 
 2.27.0
 
