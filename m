@@ -2,44 +2,48 @@ Return-Path: <SRS0=0xFZ=N4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83D10C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 19:49:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD964C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 21:01:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 072E061052
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 19:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 072E061052
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7F18A60F43
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 21:01:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7F18A60F43
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B86D89C29;
-	Mon,  6 Sep 2021 19:49:50 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1CFF989C28;
- Mon,  6 Sep 2021 19:49:49 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 150DEAADCF;
- Mon,  6 Sep 2021 19:49:49 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2023099190268272497=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ADE589CD3;
+	Mon,  6 Sep 2021 21:01:09 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4BF889CCB;
+ Mon,  6 Sep 2021 21:01:07 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="283747359"
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="283747359"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2021 14:00:54 -0700
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="537362054"
+Received: from linux-desktop.iind.intel.com ([10.223.34.178])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2021 14:00:50 -0700
+From: Uma Shankar <uma.shankar@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: harry.wentland@amd.com, ville.syrjala@linux.intel.com, ppaalanen@gmail.com,
+ brian.starkey@arm.com, sebastian@sebastianwick.net,
+ Shashank.Sharma@amd.com, Uma Shankar <uma.shankar@intel.com>
+Date: Tue,  7 Sep 2021 03:08:42 +0530
+Message-Id: <20210906213904.27918-1-uma.shankar@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Imre Deak" <imre.deak@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 06 Sep 2021 19:49:49 -0000
-Message-ID: <163095778906.30430.281266378627128882@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210906182715.3915100-1-imre.deak@intel.com>
-In-Reply-To: <20210906182715.3915100-1-imre.deak@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/adlp=3A_Add_support_for_remapping_CCS_FBs_=28rev2=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [RFC v2 00/22] Add Support for Plane Color Lut and CSC
+ features
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,185 +56,136 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2023099190268272497==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+This is how a typical display color hardware pipeline looks like:
+ +-------------------------------------------+
+ |                RAM                        |
+ |  +------+    +---------+    +---------+   |
+ |  | FB 1 |    |  FB 2   |    | FB N    |   |
+ |  +------+    +---------+    +---------+   |
+ +-------------------------------------------+
+       |  Plane Color Hardware Block |
+ +--------------------------------------------+
+ | +---v-----+   +---v-------+   +---v------+ |
+ | | Plane A |   | Plane B   |   | Plane N  | |
+ | | DeGamma |   | Degamma   |   | Degamma  | |
+ | +---+-----+   +---+-------+   +---+------+ |
+ |     |             |               |        |
+ | +---v-----+   +---v-------+   +---v------+ |
+ | |Plane A  |   | Plane B   |   | Plane N  | |
+ | |CSC/CTM  |   | CSC/CTM   |   | CSC/CTM  | |
+ | +---+-----+   +----+------+   +----+-----+ |
+ |     |              |               |       |
+ | +---v-----+   +----v------+   +----v-----+ |
+ | | Plane A |   | Plane B   |   | Plane N  | |
+ | | Gamma   |   | Gamma     |   | Gamma    | |
+ | +---+-----+   +----+------+   +----+-----+ |
+ |     |              |               |       |
+ +--------------------------------------------+
++------v--------------v---------------v-------|
+||                                           ||
+||           Pipe Blender                    ||
++--------------------+------------------------+
+|                    |                        |
+|        +-----------v----------+             |
+|        |  Pipe DeGamma        |             |
+|        |                      |             |
+|        +-----------+----------+             |
+|                    |            Pipe Color  |
+|        +-----------v----------+ Hardware    |
+|        |  Pipe CSC/CTM        |             |
+|        |                      |             |
+|        +-----------+----------+             |
+|                    |                        |
+|        +-----------v----------+             |
+|        |  Pipe Gamma          |             |
+|        |                      |             |
+|        +-----------+----------+             |
+|                    |                        |
++---------------------------------------------+
+                     |
+                     v
+               Pipe Output
 
-== Series Details ==
+This patch series adds properties for plane color features. It adds
+properties for degamma used to linearize data and CSC used for gamut
+conversion. It also includes Gamma support used to again non-linearize
+data as per panel supported color space. These can be utilize by user
+space to convert planes from one format to another, one color space to
+another etc.
 
-Series: drm/i915/adlp: Add support for remapping CCS FBs (rev2)
-URL   : https://patchwork.freedesktop.org/series/94108/
-State : success
+Userspace can take smart blending decisions and utilize these hardware
+supported plane color features to get accurate color profile. The same
+can help in consistent color quality from source to panel taking
+advantage of advanced color features in hardware.
 
-== Summary ==
+These patches add the property interfaces and enable helper functions.
+This series adds Intel's XE_LPD hw specific plane gamma feature. We
+can build up and add other platform/hardware specific implementation
+on top of this series.
 
-CI Bug Log - changes from CI_DRM_10553 -> Patchwork_20968
-====================================================
+Credits: Special mention and credits to Ville Syrjala for coming up
+with a design for this feature and inputs. This series is based on
+his original design and idea.
 
-Summary
--------
+Note: Userspace support for this new UAPI will be done on Chrome in
+alignment with weston and general opensource community.
+Discussion ongoing with Harry Wentland, Pekka and community on color
+pipeline and UAPI design. Harry's RFC below:
+https://patchwork.freedesktop.org/series/89506/
+We need to converge on a common UAPI interface which caters to
+all the modern color hardware pipelines. 
 
-  **SUCCESS**
+ToDo: State readout for this feature will be added next.
 
-  No regressions found.
+v2: Added UAPI description and added change in the rfc section of
+kernel Documentation folder
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/index.html
+Uma Shankar (22):
+  drm: RFC for Plane Color Hardware Pipeline
+  drm: Add Enhanced Gamma and color lut range attributes
+  drm: Add Plane Degamma Mode property
+  drm: Add Plane Degamma Lut property
+  drm/i915/xelpd: Define Degamma Lut range struct for HDR planes
+  drm/i915/xelpd: Add register definitions for Plane Degamma
+  drm/i915/xelpd: Enable plane color features
+  drm/i915/xelpd: Add color capabilities of SDR planes
+  drm/i915/xelpd: Program Plane Degamma Registers
+  drm/i915/xelpd: Add plane color check to glk_plane_color_ctl
+  drm/i915/xelpd: Initialize plane color features
+  drm/i915/xelpd: Load plane color luts from atomic flip
+  drm: Add Plane CTM property
+  drm: Add helper to attach Plane ctm property
+  drm/i915/xelpd: Define Plane CSC Registers
+  drm/i915/xelpd: Enable Plane CSC
+  drm: Add Plane Gamma Mode property
+  drm: Add Plane Gamma Lut property
+  drm/i915/xelpd: Define and Initialize Plane Gamma Lut range
+  drm/i915/xelpd: Add register definitions for Plane Gamma
+  drm/i915/xelpd: Program Plane Gamma Registers
+  drm/i915/xelpd: Enable plane gamma
 
-Known issues
-------------
+ Documentation/gpu/drm-kms.rst                 |  90 +++
+ Documentation/gpu/rfc/drm_color_pipeline.rst  | 167 ++++++
+ drivers/gpu/drm/drm_atomic.c                  |   1 +
+ drivers/gpu/drm/drm_atomic_state_helper.c     |  12 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |  38 ++
+ drivers/gpu/drm/drm_color_mgmt.c              | 177 +++++-
+ .../gpu/drm/i915/display/intel_atomic_plane.c |   6 +
+ .../gpu/drm/i915/display/intel_atomic_plane.h |   2 +
+ drivers/gpu/drm/i915/display/intel_color.c    | 513 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_color.h    |   2 +
+ .../drm/i915/display/skl_universal_plane.c    |  15 +-
+ drivers/gpu/drm/i915/i915_drv.h               |   3 +
+ drivers/gpu/drm/i915/i915_reg.h               | 176 +++++-
+ include/drm/drm_mode_object.h                 |   2 +-
+ include/drm/drm_plane.h                       |  81 +++
+ include/uapi/drm/drm_mode.h                   |  58 ++
+ 16 files changed, 1337 insertions(+), 6 deletions(-)
+ create mode 100644 Documentation/gpu/rfc/drm_color_pipeline.rst
 
-  Here are the changes found in Patchwork_20968 that come from known issues:
+-- 
+2.26.2
 
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_cs_nop@sync-fork-gfx0:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][1] ([fdo#109271]) +18 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/fi-skl-6600u/igt@amdgpu/amd_cs_nop@sync-fork-gfx0.html
-
-  * igt@runner@aborted:
-    - fi-bdw-5557u:       NOTRUN -> [FAIL][2] ([i915#1602] / [i915#2029])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/fi-bdw-5557u/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a:
-    - fi-skl-6600u:       [INCOMPLETE][3] ([i915#198]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10553/fi-skl-6600u/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/fi-skl-6600u/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
-  [i915#198]: https://gitlab.freedesktop.org/drm/intel/issues/198
-  [i915#2029]: https://gitlab.freedesktop.org/drm/intel/issues/2029
-  [i915#541]: https://gitlab.freedesktop.org/drm/intel/issues/541
-
-
-Participating hosts (45 -> 39)
-------------------------------
-
-  Missing    (6): bat-adls-5 bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 bat-jsl-1 
-
-
-Build changes
--------------
-
-  * IGT: IGT_6197 -> IGTPW_6201
-  * Linux: CI_DRM_10553 -> Patchwork_20968
-
-  CI-20190529: 20190529
-  CI_DRM_10553: 47b2bd2caa7b29b5741ff2521206657853b85165 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGTPW_6201: https://intel-gfx-ci.01.org/tree/drm-tip/IGTPW_6201/index.html
-  IGT_6197: 40888f97a6ad219f4ed48a1830d0ef3c9617d006 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_20968: d59a5a203c014fdbd06b4b01215c5f0c1c433fac @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-d59a5a203c01 drm/fourcc: Add the ADL-P specific pitch requirements of CCS modifiers
-6de7a755ff6b drm/i915/adlp: Add support for remapping CCS FBs
-db26d072b678 drm/i915: Follow a new->old platform check order in intel_fb_stride_alignment
-69f8d6cd402f drm/i915/adlp: Assert that VMAs in DPT start at 0
-f008405ab6cc drm/i915/adlp: Require always a power-of-two sized CCS surface stride
-5ea74ea48d04 drm/i915: Use tile block based dimensions for CCS origin x, y check
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/index.html
-
---===============2023099190268272497==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/adlp: Add support for remapping CCS FBs (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/94108/">https://patchwork.freedesktop.org/series/94108/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_10553 -&gt; Patchwork_20968</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_20968 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_cs_nop@sync-fork-gfx0:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/fi-skl-6600u/igt@amdgpu/amd_cs_nop@sync-fork-gfx0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +18 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2029">i915#2029</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a:<ul>
-<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_10553/fi-skl-6600u/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/198">i915#198</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_20968/fi-skl-6600u/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (45 -&gt; 39)</h2>
-<p>Missing    (6): bat-adls-5 bat-dg1-6 bat-dg1-5 fi-bsw-cyan bat-adlp-4 bat-jsl-1 </p>
-<h2>Build changes</h2>
-<ul>
-<li>IGT: IGT_6197 -&gt; IGTPW_6201</li>
-<li>Linux: CI_DRM_10553 -&gt; Patchwork_20968</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_10553: 47b2bd2caa7b29b5741ff2521206657853b85165 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGTPW_6201: https://intel-gfx-ci.01.org/tree/drm-tip/IGTPW_6201/index.html<br />
-  IGT_6197: 40888f97a6ad219f4ed48a1830d0ef3c9617d006 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_20968: d59a5a203c014fdbd06b4b01215c5f0c1c433fac @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>d59a5a203c01 drm/fourcc: Add the ADL-P specific pitch requirements of CCS modifiers<br />
-6de7a755ff6b drm/i915/adlp: Add support for remapping CCS FBs<br />
-db26d072b678 drm/i915: Follow a new-&gt;old platform check order in intel_fb_stride_alignment<br />
-69f8d6cd402f drm/i915/adlp: Assert that VMAs in DPT start at 0<br />
-f008405ab6cc drm/i915/adlp: Require always a power-of-two sized CCS surface stride<br />
-5ea74ea48d04 drm/i915: Use tile block based dimensions for CCS origin x, y check</p>
-
-</body>
-</html>
-
---===============2023099190268272497==--
