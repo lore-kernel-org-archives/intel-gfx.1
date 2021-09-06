@@ -2,52 +2,51 @@ Return-Path: <SRS0=0xFZ=N4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE5F4C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 21:01:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69103C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 21:01:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE28B60041
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 21:01:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE28B60041
+	by mail.kernel.org (Postfix) with ESMTPS id 372DB60F43
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Sep 2021 21:01:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 372DB60F43
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E511289CDB;
-	Mon,  6 Sep 2021 21:01:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2546C89CF6;
+	Mon,  6 Sep 2021 21:01:15 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4646789CCE;
- Mon,  6 Sep 2021 21:01:08 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="283747366"
-X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="283747366"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C99289CE1;
+ Mon,  6 Sep 2021 21:01:11 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="283747437"
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="283747437"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2021 14:00:56 -0700
-X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="537362088"
+ 06 Sep 2021 14:01:11 -0700
+X-IronPort-AV: E=Sophos;i="5.85,273,1624345200"; d="scan'208";a="537362178"
 Received: from linux-desktop.iind.intel.com ([10.223.34.178])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2021 14:00:53 -0700
+ 06 Sep 2021 14:01:08 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: harry.wentland@amd.com, ville.syrjala@linux.intel.com, ppaalanen@gmail.com,
  brian.starkey@arm.com, sebastian@sebastianwick.net,
  Shashank.Sharma@amd.com, Uma Shankar <uma.shankar@intel.com>
-Date: Tue,  7 Sep 2021 03:08:43 +0530
-Message-Id: <20210906213904.27918-2-uma.shankar@intel.com>
+Date: Tue,  7 Sep 2021 03:08:48 +0530
+Message-Id: <20210906213904.27918-7-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210906213904.27918-1-uma.shankar@intel.com>
 References: <20210906213904.27918-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC v2 01/22] drm: RFC for Plane Color Hardware
- Pipeline
+Subject: [Intel-gfx] [RFC v2 06/22] drm/i915/xelpd: Add register definitions
+ for Plane Degamma
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,191 +62,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a RFC proposal for plane color hardware blocks.
-It exposes the property interface to userspace and calls
-out the details or interfaces created and the intended
-purpose.
+Add macros to define Plane Degamma registers
 
-Credits: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- Documentation/gpu/rfc/drm_color_pipeline.rst | 167 +++++++++++++++++++
- 1 file changed, 167 insertions(+)
- create mode 100644 Documentation/gpu/rfc/drm_color_pipeline.rst
+ drivers/gpu/drm/i915/i915_reg.h | 52 +++++++++++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
 
-diff --git a/Documentation/gpu/rfc/drm_color_pipeline.rst b/Documentation/gpu/rfc/drm_color_pipeline.rst
-new file mode 100644
-index 000000000000..0d1ca858783b
---- /dev/null
-+++ b/Documentation/gpu/rfc/drm_color_pipeline.rst
-@@ -0,0 +1,167 @@
-+==================================================
-+Display Color Pipeline: Proposed DRM Properties
-+==================================================
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 313432ed6196..919982c878ac 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -262,6 +262,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ 					      INTEL_INFO(dev_priv)->cursor_offsets[PIPE_A] + (reg) + \
+ 					      DISPLAY_MMIO_BASE(dev_priv))
+ 
++/* Plane Gamma Registers */
++#define _MMIO_PLANE_GAMC(plane, i, a, b)  _MMIO(_PIPE(plane, a, b) + (i) * 4)
 +
-+This is how a typical display color hardware pipeline looks like:
-+ +-------------------------------------------+
-+ |                RAM                        |
-+ |  +------+    +---------+    +---------+   |
-+ |  | FB 1 |    |  FB 2   |    | FB N    |   |
-+ |  +------+    +---------+    +---------+   |
-+ +-------------------------------------------+
-+       |  Plane Color Hardware Block |
-+ +--------------------------------------------+
-+ | +---v-----+   +---v-------+   +---v------+ |
-+ | | Plane A |   | Plane B   |   | Plane N  | |
-+ | | DeGamma |   | Degamma   |   | Degamma  | |
-+ | +---+-----+   +---+-------+   +---+------+ |
-+ |     |             |               |        |
-+ | +---v-----+   +---v-------+   +---v------+ |
-+ | |Plane A  |   | Plane B   |   | Plane N  | |
-+ | |CSC/CTM  |   | CSC/CTM   |   | CSC/CTM  | |
-+ | +---+-----+   +----+------+   +----+-----+ |
-+ |     |              |               |       |
-+ | +---v-----+   +----v------+   +----v-----+ |
-+ | | Plane A |   | Plane B   |   | Plane N  | |
-+ | | Gamma   |   | Gamma     |   | Gamma    | |
-+ | +---+-----+   +----+------+   +----+-----+ |
-+ |     |              |               |       |
-+ +--------------------------------------------+
-++------v--------------v---------------v-------|
-+||                                           ||
-+||           Pipe Blender                    ||
-++--------------------+------------------------+
-+|                    |                        |
-+|        +-----------v----------+             |
-+|        |  Pipe DeGamma        |             |
-+|        |                      |             |
-+|        +-----------+----------+             |
-+|                    |            Pipe Color  |
-+|        +-----------v----------+ Hardware    |
-+|        |  Pipe CSC/CTM        |             |
-+|        |                      |             |
-+|        +-----------+----------+             |
-+|                    |                        |
-+|        +-----------v----------+             |
-+|        |  Pipe Gamma          |             |
-+|        |                      |             |
-+|        +-----------+----------+             |
-+|                    |                        |
-++---------------------------------------------+
-+                     |
-+                     v
-+               Pipe Output
+ #define __MASKED_FIELD(mask, value) ((mask) << 16 | (value))
+ #define _MASKED_FIELD(mask, value) ({					   \
+ 	if (__builtin_constant_p(mask))					   \
+@@ -11366,6 +11369,55 @@ enum skl_power_gate {
+ 					_PAL_PREC_MULTI_SEG_DATA_A, \
+ 					_PAL_PREC_MULTI_SEG_DATA_B)
+ 
++/* Display13 Plane Degmma Reg */
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_1_A	0x701d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_1_B	0x711d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_2_A	0x702d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_2_B	0x712d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_1(pipe)	_PIPE(pipe, _PLANE_PRE_CSC_GAMC_INDEX_ENH_1_A, \
++						_PLANE_PRE_CSC_GAMC_INDEX_ENH_1_B)
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_2(pipe)	_PIPE(pipe, _PLANE_PRE_CSC_GAMC_INDEX_ENH_2_A, \
++						_PLANE_PRE_CSC_GAMC_INDEX_ENH_2_B)
++#define PLANE_PRE_CSC_GAMC_INDEX_ENH(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_PRE_CSC_GAMC_INDEX_ENH_1(pipe), \
++		_PLANE_PRE_CSC_GAMC_INDEX_ENH_2(pipe))
 +
-+Proposal is to have below properties for a plane:
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_1_A	0x701d4
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_1_B	0x711d4
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_2_A	0x702d4
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_2_B	0x712d4
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_1(pipe)	_PIPE(pipe, _PLANE_PRE_CSC_GAMC_DATA_ENH_1_A, \
++						_PLANE_PRE_CSC_GAMC_DATA_ENH_1_B)
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_2(pipe)	_PIPE(pipe, _PLANE_PRE_CSC_GAMC_DATA_ENH_2_A, \
++						_PLANE_PRE_CSC_GAMC_DATA_ENH_2_B)
++#define PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_PRE_CSC_GAMC_DATA_ENH_1(pipe), \
++		_PLANE_PRE_CSC_GAMC_DATA_ENH_2(pipe))
 +
-+* Plane Degamma or Pre-Curve:
-+	* This will be used to linearize the input framebuffer data.
-+	* It will apply the reverse of the color transfer function.
-+	* It can be a degamma curve or OETF for HDR.
-+	* This linear data can be further acted on by the following
-+	* color hardware blocks in the display hardware pipeline
++#define _PLANE_PRE_CSC_GAMC_INDEX_1_A	0x704d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_1_B	0x714d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_2_A	0x705d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_2_B	0x715d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_1(pipe)	_PIPE(pipe, _PLANE_PRE_CSC_GAMC_INDEX_1_A, \
++						_PLANE_PRE_CSC_GAMC_INDEX_1_B)
++#define _PLANE_PRE_CSC_GAMC_INDEX_2(pipe)	_PIPE(pipe, _PLANE_PRE_CSC_GAMC_INDEX_2_A, \
++						_PLANE_PRE_CSC_GAMC_INDEX_2_B)
++#define PLANE_PRE_CSC_GAMC_INDEX(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_PRE_CSC_GAMC_INDEX_1(pipe), \
++		_PLANE_PRE_CSC_GAMC_INDEX_2(pipe))
 +
-+UAPI Name: PLANE_DEGAMMA_MODE
-+Description: Enum property with values as blob_id's which advertizes the
-+	    possible degamma modes and lut ranges supported by the platform.
-+	    This  allows userspace to query and get the plane degamma color
-+	    caps and choose the appropriate degamma mode and create lut values
-+	    accordingly.
++#define _PLANE_PRE_CSC_GAMC_DATA_1_A	0x704d4
++#define _PLANE_PRE_CSC_GAMC_DATA_1_B	0x714d4
++#define _PLANE_PRE_CSC_GAMC_DATA_2_A	0x705d4
++#define _PLANE_PRE_CSC_GAMC_DATA_2_B	0x715d4
++#define _PLANE_PRE_CSC_GAMC_DATA_1(pipe)	_PIPE(pipe, _PLANE_PRE_CSC_GAMC_DATA_1_A, \
++						_PLANE_PRE_CSC_GAMC_DATA_1_B)
++#define _PLANE_PRE_CSC_GAMC_DATA_2(pipe)	_PIPE(pipe, _PLANE_PRE_CSC_GAMC_DATA_2_A, \
++						_PLANE_PRE_CSC_GAMC_DATA_2_B)
++#define PLANE_PRE_CSC_GAMC_DATA(pipe, plane, i)	\
++		_MMIO_PLANE_GAMC(plane, i, _PLANE_PRE_CSC_GAMC_DATA_1(pipe), \
++		_PLANE_PRE_CSC_GAMC_DATA_2(pipe))
 +
-+UAPI Name: PLANE_DEGAMMA_LUT
-+Description: Blob property which allows a userspace to provide LUT values
-+	     to apply degamma curve using the h/w plane degamma processing
-+	     engine, thereby making the content as linear for further color
-+	     processing. Userspace gets the size of LUT and precision etc
-+	     from PLANE_DEGAMA_MODE_PROPERTY
-+	
-+* Plane CTM
-+	* This is a Property to program the color transformation matrix.
-+	* This can be used to perform a color space conversion like
-+	* BT2020 to BT709 or BT601 etc.
-+	* This block is generally kept after the degamma unit so that
-+	* linear data can be fed to it for conversion.
-+
-+UAPI Name: PLANE_CTM
-+Description: Blob property which allows a userspace to provide CTM coefficients
-+	     to do color space conversion or any other enhancement by doing a
-+	     matrix multiplication using the h/w CTM processing engine
-+
-+* Plane Gamma or Post-Curve
-+	* This can be used to perform 2 operations:
-+		* non-lineralize the framebuffer data. Can be used for
-+		* non linear blending. It can be a gamma curve or EOTF
-+		* for HDR.
-+		* Perform Tone Mapping operation. This is an operation
-+		* done when blending is done with HDR and SDR content.
-+
-+UAPI Name: PLANE_GAMMA_MODE
-+Description: Enum property with values as blob_id's which advertizes the
-+	    possible gamma modes and lut ranges supported by the platform.
-+	    This  allows userspace to query and get the plane gamma color
-+	    caps and choose the appropriate gamma mode and create lut values
-+	    accordingly.
-+
-+UAPI Name: PLANE_GAMMA_LUT
-+Description: Blob property which allows a userspace to provide LUT values
-+	     to apply gamma curve or perform tone mapping using the h/w plane
-+	     gamma processing engine, thereby making the content as linear
-+	     for further color processing. Userspace gets the size of LUT and
-+	     precision etc from PLANE_GAMA_MODE_PROPERTY
-+	
-+This is part of one plane engine. Data from multiple planes will be
-+then fed to pipe where it will get blended. There is a similar set of
-+properties available at crtc level which acts on this blended data.
-+
-+Below is a sample usecase:
-+
-+  ┌────────────┐      ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-+  │FB1         │      │Degamma Block│     │ CTM Matrix  │     │ Gamma Block │
-+  │            ├─────►│Linearize-   ├────►│ BT709 to    ├────►│ SDR to HDR  │
-+  │BT709 SDR   │      │BT709 inverse│     │ BT2020      │     │ Tone Mapping├────────┐
-+  └────────────┘      └─────────────┘     └─────────────┘     └─────────────┘        │
-+                                                                                     │
-+  ┌────────────┐      ┌─────────────┐     ┌─────────────┐     ┌─────────────┐        │
-+  │FB2         │      │Degamma Block│     │ CTM Matrix  │     │ Gamma Block │        │
-+  │            ├─────►│Linearize-   ├────►│ BT601 to    ├────►│ SDR to HDR  ├─────┐  │
-+  │BT601 SDR   │      │BT601 inverse│     │ BT2020      │     │ Tone Mapping│     │  │
-+  └────────────┘      └─────────────┘     └─────────────┘     └─────────────┘     │  │
-+                                                                                  │  │
-+  ┌────────────┐      ┌─────────────┐     ┌─────────────┐     ┌─────────────┐     │  │
-+  │FB3         │      │Degamma Block│     │ CTM Matrix  │     │ Gamma Block │     │  │
-+  │            ├─────►│Linearize-   ├────►│ NOP (Data in├────►│ NOP (Data in├───┐ │  │
-+  │BT2020 HDR  │      │HDR OETF     │     │ BT2020)     │     │ HDR)        │   │ │  │
-+  └────────────┘      └─────────────┘     └─────────────┘     └─────────────┘   │ │  │
-+                                                                                │ │  │
-+                                                                                │ │  │
-+                                                                                │ │  │
-+┌───────────────────────────────────────────────────────────────────────────────┴─┴──┘
-+│
-+│ ┌─────────────┐      ┌─────────────┐      ┌───────────────┐
-+│ │ CRTC Degamma│      │ CRTC CTM    │      │ CRTC Gamma    │
-+└─┤ Use to make ├─────►│ Use for any ├─────►│ Use for Tone  ├─────► TO Port
-+  │ data linear │      │ Color Space │      │ Mapping/apply │
-+  │ after blend │      │ Conversion  │      │ transfer func │
-+  └─────────────┘      └─────────────┘      └───────────────┘
-+
-+
-+This patch series adds properties for plane color features. It adds
-+properties for degamma used to linearize data and CSC used for gamut
-+conversion. It also includes Gamma support used to again non-linearize
-+data as per panel supported color space. These can be utilize by user
-+space to convert planes from one format to another, one color space to
-+another etc.
-+
-+Userspace can take smart blending decisions and utilize these hardware
-+supported plane color features to get accurate color profile. The same
-+can help in consistent color quality from source to panel taking
-+advantage of advanced color features in hardware.
-+
-+These patches add the property interfaces and enable helper functions.
-+This series adds Intel's XE_LPD hw specific plane gamma feature. We
-+can build up and add other platform/hardware specific implementation
-+on top of this series.
-+
-+Credits: Special mention and credits to Ville Syrjala for coming up
-+with a design for this feature and inputs. This series is based on
-+his original design and idea.
+ /* pipe CSC & degamma/gamma LUTs on CHV */
+ #define _CGM_PIPE_A_CSC_COEFF01	(VLV_DISPLAY_BASE + 0x67900)
+ #define _CGM_PIPE_A_CSC_COEFF23	(VLV_DISPLAY_BASE + 0x67904)
 -- 
 2.26.2
 
