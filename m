@@ -2,57 +2,43 @@ Return-Path: <SRS0=ObOY=N5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.9 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B88B3C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:27:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C977C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:57:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 829A5610A3
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:27:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 829A5610A3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1C754610C8
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:57:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1C754610C8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B74D89DA7;
-	Tue,  7 Sep 2021 07:27:02 +0000 (UTC)
-Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [207.211.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47F4B89DA7
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Sep 2021 07:27:01 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-525-reNallsMOe2vRbZvuIVo3Q-1; Tue, 07 Sep 2021 03:26:32 -0400
-X-MC-Unique: reNallsMOe2vRbZvuIVo3Q-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E38F5107ACE3;
- Tue,  7 Sep 2021 07:26:31 +0000 (UTC)
-Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9EAAE77C16;
- Tue,  7 Sep 2021 07:26:30 +0000 (UTC)
-From: Dave Airlie <airlied@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com,
-	Dave Airlie <airlied@redhat.com>
-Date: Tue,  7 Sep 2021 17:25:43 +1000
-Message-Id: <20210907072549.2962226-20-airlied@gmail.com>
-In-Reply-To: <20210907072549.2962226-1-airlied@gmail.com>
-References: <20210907072549.2962226-1-airlied@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FBC28972D;
+	Tue,  7 Sep 2021 07:57:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 703078972D;
+ Tue,  7 Sep 2021 07:57:29 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 68824AA0EA;
+ Tue,  7 Sep 2021 07:57:29 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 19/25] drm/i915/display: move delay and pch
- values to display struct
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dave Airlie" <airlied@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 07 Sep 2021 07:57:29 -0000
+Message-ID: <163100144939.24492.18367875677019891916@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210907072549.2962226-1-airlied@gmail.com>
+In-Reply-To: <20210907072549.2962226-1-airlied@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_refactor_display_struct?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,272 +51,201 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dave Airlie <airlied@redhat.com>
+== Series Details ==
 
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- drivers/gpu/drm/i915/display/intel_display.c  | 34 +++++++++----------
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  4 +--
- drivers/gpu/drm/i915/display/intel_vrr.c      |  6 ++--
- drivers/gpu/drm/i915/i915_drv.h               | 14 ++++----
- 4 files changed, 29 insertions(+), 29 deletions(-)
+Series: refactor display struct
+URL   : https://patchwork.freedesktop.org/series/94413/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
-/i915/display/intel_display.c
-index 60ef938aed0e..7a4100a58b48 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -632,7 +632,7 @@ static void ilk_enable_pch_transcoder(const struct inte=
-l_crtc_state *crtc_state)
- =09=09val |=3D TRANS_CHICKEN2_TIMING_OVERRIDE;
- =09=09/* Configure frame start delay to match the CPU */
- =09=09val &=3D ~TRANS_CHICKEN2_FRAME_START_DELAY_MASK;
--=09=09val |=3D TRANS_CHICKEN2_FRAME_START_DELAY(dev_priv->framestart_delay=
- - 1);
-+=09=09val |=3D TRANS_CHICKEN2_FRAME_START_DELAY(dev_priv->display->framest=
-art_delay - 1);
- =09=09intel_de_write(dev_priv, reg, val);
- =09}
-=20
-@@ -643,7 +643,7 @@ static void ilk_enable_pch_transcoder(const struct inte=
-l_crtc_state *crtc_state)
- =09if (HAS_PCH_IBX(dev_priv)) {
- =09=09/* Configure frame start delay to match the CPU */
- =09=09val &=3D ~TRANS_FRAME_START_DELAY_MASK;
--=09=09val |=3D TRANS_FRAME_START_DELAY(dev_priv->framestart_delay - 1);
-+=09=09val |=3D TRANS_FRAME_START_DELAY(dev_priv->display->framestart_delay=
- - 1);
-=20
- =09=09/*
- =09=09 * Make the BPC in transcoder be consistent with
-@@ -688,7 +688,7 @@ static void lpt_enable_pch_transcoder(struct drm_i915_p=
-rivate *dev_priv,
- =09val |=3D TRANS_CHICKEN2_TIMING_OVERRIDE;
- =09/* Configure frame start delay to match the CPU */
- =09val &=3D ~TRANS_CHICKEN2_FRAME_START_DELAY_MASK;
--=09val |=3D TRANS_CHICKEN2_FRAME_START_DELAY(dev_priv->framestart_delay - =
-1);
-+=09val |=3D TRANS_CHICKEN2_FRAME_START_DELAY(dev_priv->display->framestart=
-_delay - 1);
- =09intel_de_write(dev_priv, TRANS_CHICKEN2(PIPE_A), val);
-=20
- =09val =3D TRANS_ENABLE;
-@@ -2991,7 +2991,7 @@ static void hsw_set_frame_start_delay(const struct in=
-tel_crtc_state *crtc_state)
-=20
- =09val =3D intel_de_read(dev_priv, reg);
- =09val &=3D ~HSW_FRAME_START_DELAY_MASK;
--=09val |=3D HSW_FRAME_START_DELAY(dev_priv->framestart_delay - 1);
-+=09val |=3D HSW_FRAME_START_DELAY(dev_priv->display->framestart_delay - 1)=
-;
- =09intel_de_write(dev_priv, reg, val);
- }
-=20
-@@ -4463,7 +4463,7 @@ static void i9xx_set_pipeconf(const struct intel_crtc=
-_state *crtc_state)
-=20
- =09pipeconf |=3D PIPECONF_GAMMA_MODE(crtc_state->gamma_mode);
-=20
--=09pipeconf |=3D PIPECONF_FRAME_START_DELAY(dev_priv->framestart_delay - 1=
-);
-+=09pipeconf |=3D PIPECONF_FRAME_START_DELAY(dev_priv->display->framestart_=
-delay - 1);
-=20
- =09intel_de_write(dev_priv, PIPECONF(crtc->pipe), pipeconf);
- =09intel_de_posting_read(dev_priv, PIPECONF(crtc->pipe));
-@@ -5096,24 +5096,24 @@ static void lpt_init_pch_refclk(struct drm_i915_pri=
-vate *dev_priv)
- =09 * clock hierarchy. That would also allow us to do
- =09 * clock bending finally.
- =09 */
--=09dev_priv->pch_ssc_use =3D 0;
-+=09dev_priv->display->pch_ssc_use =3D 0;
-=20
- =09if (spll_uses_pch_ssc(dev_priv)) {
- =09=09drm_dbg_kms(&dev_priv->drm, "SPLL using PCH SSC\n");
--=09=09dev_priv->pch_ssc_use |=3D BIT(DPLL_ID_SPLL);
-+=09=09dev_priv->display->pch_ssc_use |=3D BIT(DPLL_ID_SPLL);
- =09}
-=20
- =09if (wrpll_uses_pch_ssc(dev_priv, DPLL_ID_WRPLL1)) {
- =09=09drm_dbg_kms(&dev_priv->drm, "WRPLL1 using PCH SSC\n");
--=09=09dev_priv->pch_ssc_use |=3D BIT(DPLL_ID_WRPLL1);
-+=09=09dev_priv->display->pch_ssc_use |=3D BIT(DPLL_ID_WRPLL1);
- =09}
-=20
- =09if (wrpll_uses_pch_ssc(dev_priv, DPLL_ID_WRPLL2)) {
- =09=09drm_dbg_kms(&dev_priv->drm, "WRPLL2 using PCH SSC\n");
--=09=09dev_priv->pch_ssc_use |=3D BIT(DPLL_ID_WRPLL2);
-+=09=09dev_priv->display->pch_ssc_use |=3D BIT(DPLL_ID_WRPLL2);
- =09}
-=20
--=09if (dev_priv->pch_ssc_use)
-+=09if (dev_priv->display->pch_ssc_use)
- =09=09return;
-=20
- =09if (has_fdi) {
-@@ -5186,7 +5186,7 @@ static void ilk_set_pipeconf(const struct intel_crtc_=
-state *crtc_state)
-=20
- =09val |=3D PIPECONF_GAMMA_MODE(crtc_state->gamma_mode);
-=20
--=09val |=3D PIPECONF_FRAME_START_DELAY(dev_priv->framestart_delay - 1);
-+=09val |=3D PIPECONF_FRAME_START_DELAY(dev_priv->display->framestart_delay=
- - 1);
-=20
- =09intel_de_write(dev_priv, PIPECONF(pipe), val);
- =09intel_de_posting_read(dev_priv, PIPECONF(pipe));
-@@ -11573,9 +11573,9 @@ int intel_modeset_init_noirq(struct drm_i915_privat=
-e *i915)
- =09i915->flip_wq =3D alloc_workqueue("i915_flip", WQ_HIGHPRI |
- =09=09=09=09=09WQ_UNBOUND, WQ_UNBOUND_MAX_ACTIVE);
-=20
--=09i915->framestart_delay =3D 1; /* 1-4 */
-+=09i915->display->framestart_delay =3D 1; /* 1-4 */
-=20
--=09i915->window2_delay =3D 0; /* No DSB so no window2 delay */
-+=09i915->display->window2_delay =3D 0; /* No DSB so no window2 delay */
-=20
- =09intel_mode_config_init(i915);
-=20
-@@ -11915,7 +11915,7 @@ static void intel_sanitize_frame_start_delay(const =
-struct intel_crtc_state *crtc
-=20
- =09=09val =3D intel_de_read(dev_priv, reg);
- =09=09val &=3D ~HSW_FRAME_START_DELAY_MASK;
--=09=09val |=3D HSW_FRAME_START_DELAY(dev_priv->framestart_delay - 1);
-+=09=09val |=3D HSW_FRAME_START_DELAY(dev_priv->display->framestart_delay -=
- 1);
- =09=09intel_de_write(dev_priv, reg, val);
- =09} else {
- =09=09i915_reg_t reg =3D PIPECONF(cpu_transcoder);
-@@ -11923,7 +11923,7 @@ static void intel_sanitize_frame_start_delay(const =
-struct intel_crtc_state *crtc
-=20
- =09=09val =3D intel_de_read(dev_priv, reg);
- =09=09val &=3D ~PIPECONF_FRAME_START_DELAY_MASK;
--=09=09val |=3D PIPECONF_FRAME_START_DELAY(dev_priv->framestart_delay - 1);
-+=09=09val |=3D PIPECONF_FRAME_START_DELAY(dev_priv->display->framestart_de=
-lay - 1);
- =09=09intel_de_write(dev_priv, reg, val);
- =09}
-=20
-@@ -11936,7 +11936,7 @@ static void intel_sanitize_frame_start_delay(const =
-struct intel_crtc_state *crtc
-=20
- =09=09val =3D intel_de_read(dev_priv, reg);
- =09=09val &=3D ~TRANS_FRAME_START_DELAY_MASK;
--=09=09val |=3D TRANS_FRAME_START_DELAY(dev_priv->framestart_delay - 1);
-+=09=09val |=3D TRANS_FRAME_START_DELAY(dev_priv->display->framestart_delay=
- - 1);
- =09=09intel_de_write(dev_priv, reg, val);
- =09} else {
- =09=09enum pipe pch_transcoder =3D intel_crtc_pch_transcoder(crtc);
-@@ -11945,7 +11945,7 @@ static void intel_sanitize_frame_start_delay(const =
-struct intel_crtc_state *crtc
-=20
- =09=09val =3D intel_de_read(dev_priv, reg);
- =09=09val &=3D ~TRANS_CHICKEN2_FRAME_START_DELAY_MASK;
--=09=09val |=3D TRANS_CHICKEN2_FRAME_START_DELAY(dev_priv->framestart_delay=
- - 1);
-+=09=09val |=3D TRANS_CHICKEN2_FRAME_START_DELAY(dev_priv->display->framest=
-art_delay - 1);
- =09=09intel_de_write(dev_priv, reg, val);
- =09}
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/dr=
-m/i915/display/intel_dpll_mgr.c
-index 11fefa6de27e..47036316fbf9 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -574,7 +574,7 @@ static void hsw_ddi_wrpll_disable(struct drm_i915_priva=
-te *dev_priv,
- =09 * Try to set up the PCH reference clock once all DPLLs
- =09 * that depend on it have been shut down.
- =09 */
--=09if (dev_priv->pch_ssc_use & BIT(id))
-+=09if (dev_priv->display->pch_ssc_use & BIT(id))
- =09=09intel_init_pch_refclk(dev_priv);
- }
-=20
-@@ -592,7 +592,7 @@ static void hsw_ddi_spll_disable(struct drm_i915_privat=
-e *dev_priv,
- =09 * Try to set up the PCH reference clock once all DPLLs
- =09 * that depend on it have been shut down.
- =09 */
--=09if (dev_priv->pch_ssc_use & BIT(id))
-+=09if (dev_priv->display->pch_ssc_use & BIT(id))
- =09=09intel_init_pch_refclk(dev_priv);
- }
-=20
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i91=
-5/display/intel_vrr.c
-index c335b1dbafcf..ce4419ee11f2 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -69,9 +69,9 @@ static int intel_vrr_vblank_exit_length(const struct inte=
-l_crtc_state *crtc_stat
-=20
- =09/* The hw imposes the extra scanline before frame start */
- =09if (DISPLAY_VER(i915) >=3D 13)
--=09=09return crtc_state->vrr.guardband + i915->framestart_delay + 1;
-+=09=09return crtc_state->vrr.guardband + i915->display->framestart_delay +=
- 1;
- =09else
--=09=09return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
-+=09=09return crtc_state->vrr.pipeline_full + i915->display->framestart_del=
-ay + 1;
- }
-=20
- int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_state)
-@@ -135,7 +135,7 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_=
-state,
- =09if (DISPLAY_VER(i915) >=3D 13)
- =09=09crtc_state->vrr.guardband =3D
- =09=09=09crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay -
--=09=09=09i915->window2_delay;
-+=09=09=09i915->display->window2_delay;
- =09else
- =09=09/*
- =09=09 * FIXME: s/4/framestart_delay+1/ to get consistent
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_dr=
-v.h
-index a487686b1b71..6eba551396fc 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -848,6 +848,13 @@ struct drm_i915_display {
- =09unsigned int fdi_pll_freq;
- =09unsigned int czclk_freq;
-=20
-+=09u8 framestart_delay;
-+
-+=09/* Window2 specifies time required to program DSB (Window2) in number o=
-f scan lines */
-+=09u8 window2_delay;
-+
-+=09u8 pch_ssc_use;
-+
- =09/**
- =09 * Base address of where the gmbus and gpio blocks are located (either
- =09 * on PCH or on SoC for platforms without PCH).
-@@ -1199,13 +1206,6 @@ struct drm_i915_private {
- =09=09struct file *mmap_singleton;
- =09} gem;
-=20
--=09u8 framestart_delay;
--
--=09/* Window2 specifies time required to program DSB (Window2) in number o=
-f scan lines */
--=09u8 window2_delay;
--
--=09u8 pch_ssc_use;
--
- =09/* For i915gm/i945gm vblank irq workaround */
- =09u8 vblank_enabled;
-=20
---=20
-2.31.1
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+191aa552f294 drm/i915: move display funcs into a display struct. (v3)
+675cb420d0d5 drm/i915/display: move cdclk info into display
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:662: WARNING:LONG_LINE: line length of 121 exceeds 100 columns
+#662: FILE: drivers/gpu/drm/i915/display/intel_cdclk.h:77:
++	to_intel_cdclk_state(intel_atomic_get_old_global_obj_state(state, &to_i915(state->base.dev)->display->cdclk.obj))
+
+-:665: WARNING:LONG_LINE: line length of 121 exceeds 100 columns
+#665: FILE: drivers/gpu/drm/i915/display/intel_cdclk.h:79:
++	to_intel_cdclk_state(intel_atomic_get_new_global_obj_state(state, &to_i915(state->base.dev)->display->cdclk.obj))
+
+-:711: CHECK:MULTIPLE_ASSIGNMENTS: multiple assignments should be avoided
+#711: FILE: drivers/gpu/drm/i915/display/intel_display.c:11273:
++	cdclk_state->logical = cdclk_state->actual = i915->display->cdclk.hw;
+
+total: 0 errors, 3 warnings, 1 checks, 782 lines checked
+e3baf407701c drm/i915: move more pll/clocks into display struct.
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:149: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#149: FILE: drivers/gpu/drm/i915/display/intel_display.c:179:
++	dev_priv->display->czclk_freq = vlv_get_cck_clock_hpll(dev_priv, "czclk",
+ 						      CCK_CZ_CLOCK_CONTROL);
+
+total: 0 errors, 1 warnings, 1 checks, 302 lines checked
+5040a27ce12a drm/i915/display: move gmbus into display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:231: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
+#231: FILE: drivers/gpu/drm/i915/i915_drv.h:860:
++	 * controller on different i2c buses. */
+
+-:300: WARNING:LONG_LINE_COMMENT: line length of 105 exceeds 100 columns
+#300: FILE: drivers/gpu/drm/i915/i915_reg.h:3453:
++#define GMBUS0			_MMIO(dev_priv->display->gpio_mmio_base + 0x5100) /* clock/port select */
+
+-:309: WARNING:LONG_LINE_COMMENT: line length of 102 exceeds 100 columns
+#309: FILE: drivers/gpu/drm/i915/i915_reg.h:3462:
++#define GMBUS1			_MMIO(dev_priv->display->gpio_mmio_base + 0x5104) /* command/status */
+
+-:328: WARNING:LONG_LINE_COMMENT: line length of 109 exceeds 100 columns
+#328: FILE: drivers/gpu/drm/i915/i915_reg.h:3485:
++#define GMBUS3			_MMIO(dev_priv->display->gpio_mmio_base + 0x510c) /* data buffer bytes 3-0 */
+
+-:329: WARNING:LONG_LINE_COMMENT: line length of 114 exceeds 100 columns
+#329: FILE: drivers/gpu/drm/i915/i915_reg.h:3486:
++#define GMBUS4			_MMIO(dev_priv->display->gpio_mmio_base + 0x5110) /* interrupt mask (Pineview+) */
+
+total: 0 errors, 6 warnings, 0 checks, 282 lines checked
+d8649e4e0a68 drm/i915/display: move intel_dmc into display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:81: WARNING:LONG_LINE: line length of 114 exceeds 100 columns
+#81: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:968:
++				     DMC_PROGRAM(dev_priv->display->dmc.dmc_info[DMC_FW_MAIN].start_mmioaddr, 0)),
+
+total: 0 errors, 2 warnings, 0 checks, 322 lines checked
+35bbd187afd0 drm/i915/display: move mipi_mmio_base to display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 404 lines checked
+25c356adc849 drm/i915/display: move pps_mmio_base to display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 36 lines checked
+e4f81d31c1d5 drm/i915/drrs: just use some local vars to simplify drrs code
+0e0a6ffa4329 drm/i915/display: move drrs into display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 146 lines checked
+cc85ebb38f7a drm/i915/display: move fbc into display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 420 lines checked
+1a85a7c162f2 drm/i915/display: move pipe/plane mappings to display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:19: WARNING:AVOID_BUG: Avoid crashing the kernel - try using WARN_ON & recovery code rather than BUG() or BUG_ON()
+#19: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:326:
++	BUG_ON(pipe >= ARRAY_SIZE(dev_priv->display->pipe_to_crtc_mapping) ||
+
+-:20: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "dev_priv->display->pipe_to_crtc_mapping[pipe]"
+#20: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:327:
++	       dev_priv->display->pipe_to_crtc_mapping[pipe] != NULL);
+
+-:29: WARNING:AVOID_BUG: Avoid crashing the kernel - try using WARN_ON & recovery code rather than BUG() or BUG_ON()
+#29: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:333:
++		BUG_ON(i9xx_plane >= ARRAY_SIZE(dev_priv->display->plane_to_crtc_mapping) ||
+
+-:30: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "dev_priv->display->plane_to_crtc_mapping[i9xx_plane]"
+#30: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:334:
++		       dev_priv->display->plane_to_crtc_mapping[i9xx_plane] != NULL);
+
+total: 0 errors, 3 warnings, 2 checks, 66 lines checked
+5172cf469738 drm/i915/display: move properties into display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 75 lines checked
+cbb25f490c34 drm/i915/display: move audio related members into display struct
+-:8: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:274: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "display->lpe_audio.platdev"
+#274: FILE: drivers/gpu/drm/i915/display/intel_audio.c:1359:
++	if ((dev_priv)->display->lpe_audio.platdev != NULL)
+
+-:287: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "display->lpe_audio.platdev"
+#287: FILE: drivers/gpu/drm/i915/display/intel_lpe_audio.c:77:
++#define HAS_LPE_AUDIO(dev_priv) ((dev_priv)->display->lpe_audio.platdev != NULL)
+
+-:296: CHECK:MULTIPLE_ASSIGNMENTS: multiple assignments should be avoided
+#296: FILE: drivers/gpu/drm/i915/display/intel_lpe_audio.c:99:
++	rsc[0].start    = rsc[0].end = dev_priv->display->lpe_audio.irq;
+
+total: 0 errors, 1 warnings, 3 checks, 420 lines checked
+adaf555cdd95 drm/i915/display: move HDCP related items into display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 360 lines checked
+ef7e716d5ec3 drm/i915/display: move hotplug struct to display struct
+-:363: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#363: FILE: drivers/gpu/drm/i915/display/intel_hotplug.c:576:
++		queue_work(dev_priv->_display.hotplug.dp_wq, &dev_priv->_display.hotplug.dig_port_work);
+
+-:519: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!dev_priv->display->hotplug.dp_wq"
+#519: FILE: drivers/gpu/drm/i915/i915_drv.c:240:
++	if (dev_priv->display->hotplug.dp_wq == NULL)
+
+total: 0 errors, 1 warnings, 1 checks, 639 lines checked
+d9b07b132b95 drm/i915/display: move overlay into display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 74 lines checked
+5ed9b4591952 drm/i915/display: move fbdev info to display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 126 lines checked
+03a98bbdc906 drm/i915/display: move fb_tracking to display struct
+bc5e519534b7 drm/i915/display: move delay and pch values to display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 181 lines checked
+4205bb4cb2ac drm/intel/display: move atomic related things to display
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 134 lines checked
+cc5ba8e76b3a drm/i915/display: move a bunch of platform misc regs to display
+-:8: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:289: CHECK:MULTIPLE_ASSIGNMENTS: multiple assignments should be avoided
+#289: FILE: drivers/gpu/drm/i915/display/intel_dpio_phy.c:434:
++		val = dev_priv->display->bxt_phy_grc = bxt_get_grc(dev_priv,
+
+total: 0 errors, 1 warnings, 1 checks, 344 lines checked
+78d513b8e7f4 drm/i915/display: move dpll struct into display
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:515: WARNING:AVOID_BUG: Avoid crashing the kernel - try using WARN_ON & recovery code rather than BUG() or BUG_ON()
+#515: FILE: drivers/gpu/drm/i915/display/intel_dpll_mgr.c:4103:
++	BUG_ON(dev_priv->display->dpll.num_shared_dpll > I915_NUM_PLLS);
+
+-:605: CHECK:UNCOMMENTED_DEFINITION: struct mutex definition without comment
+#605: FILE: drivers/gpu/drm/i915/i915_drv.h:957:
++		struct mutex lock;
+
+total: 0 errors, 2 warnings, 1 checks, 563 lines checked
+d51c54a76b1c drm/i915/display: move fdi_rx_config into display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+-:18: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#18: FILE: drivers/gpu/drm/i915/display/intel_crt.c:1115:
++		dev_priv->display->fdi_rx_config = intel_de_read(dev_priv,
+ 							FDI_RX_CTL(PIPE_A)) & fdi_config;
+
+total: 0 errors, 1 warnings, 1 checks, 32 lines checked
+af49c401bbaa drm/i915/display: move workqueues to display struct
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 67 lines checked
+7773cefe49b1 drm/i915/display: move pps/backlight mutexes into display
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 291 lines checked
+
 
