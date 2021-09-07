@@ -8,54 +8,52 @@ X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8C1CC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:26:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DFD4C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:26:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A00356109D
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:26:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A00356109D
+	by mail.kernel.org (Postfix) with ESMTPS id 0E06F610A3
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:26:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0E06F610A3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21D8C88FAE;
-	Tue,  7 Sep 2021 07:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E13989780;
+	Tue,  7 Sep 2021 07:26:33 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4583489762
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Sep 2021 07:26:28 +0000 (UTC)
+ (us-smtp-delivery-44.mimecast.com [207.211.30.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C01F58979F
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Sep 2021 07:26:31 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-82-FHSpnS6uOb-GBmiuO6-PsQ-1; Tue, 07 Sep 2021 03:26:23 -0400
-X-MC-Unique: FHSpnS6uOb-GBmiuO6-PsQ-1
+ us-mta-359-6FK5FvhZNXCwcjSy5azyAA-1; Tue, 07 Sep 2021 03:26:29 -0400
+X-MC-Unique: 6FK5FvhZNXCwcjSy5azyAA-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EBEBA19611A4;
- Tue,  7 Sep 2021 07:26:22 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5B32C10054F6;
+ Tue,  7 Sep 2021 07:26:28 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A78EC60936;
- Tue,  7 Sep 2021 07:26:21 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 16A4F60936;
+ Tue,  7 Sep 2021 07:26:26 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Tue,  7 Sep 2021 17:25:38 +1000
-Message-Id: <20210907072549.2962226-15-airlied@gmail.com>
+Date: Tue,  7 Sep 2021 17:25:41 +1000
+Message-Id: <20210907072549.2962226-18-airlied@gmail.com>
 In-Reply-To: <20210907072549.2962226-1-airlied@gmail.com>
 References: <20210907072549.2962226-1-airlied@gmail.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=airlied@gmail.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 14/25] drm/i915/display: move HDCP related items
- into display struct
+Subject: [Intel-gfx] [PATCH 17/25] drm/i915/display: move fbdev info to
+ display struct
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,441 +73,183 @@ From: Dave Airlie <airlied@redhat.com>
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 134 +++++++++++-----------
- drivers/gpu/drm/i915/i915_drv.c           |   2 +-
- drivers/gpu/drm/i915/i915_drv.h           |  12 +-
- 3 files changed, 74 insertions(+), 74 deletions(-)
+ .../drm/i915/display/intel_display_debugfs.c  |  4 +--
+ drivers/gpu/drm/i915/display/intel_fbdev.c    | 26 +++++++++----------
+ drivers/gpu/drm/i915/i915_drv.h               |  8 +++---
+ 3 files changed, 19 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i9=
-15/display/intel_hdcp.c
-index ebc2e32aec0b..db073065a968 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -182,12 +182,12 @@ bool intel_hdcp2_capable(struct intel_connector *conn=
-ector)
- =09=09return false;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers=
+/gpu/drm/i915/display/intel_display_debugfs.c
+index 4504f5730712..1d38007106d9 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -201,8 +201,8 @@ static int i915_gem_framebuffer_info(struct seq_file *m=
+, void *data)
+ =09struct drm_framebuffer *drm_fb;
 =20
- =09/* MEI interface is solid */
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09if (!dev_priv->hdcp_comp_added ||  !dev_priv->hdcp_master) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09if (!dev_priv->display->hdcp_comp_added ||  !dev_priv->display->hdcp_ma=
-ster) {
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return false;
- =09}
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
+ #ifdef CONFIG_DRM_FBDEV_EMULATION
+-=09if (dev_priv->fbdev && dev_priv->fbdev->helper.fb) {
+-=09=09fbdev_fb =3D to_intel_framebuffer(dev_priv->fbdev->helper.fb);
++=09if (dev_priv->display->fbdev && dev_priv->display->fbdev->helper.fb) {
++=09=09fbdev_fb =3D to_intel_framebuffer(dev_priv->display->fbdev->helper.f=
+b);
 =20
- =09/* Sink's capability for HDCP2.2 */
- =09hdcp->shim->hdcp_2_2_capable(dig_port, &capable);
-@@ -1119,11 +1119,11 @@ hdcp2_prepare_ake_init(struct intel_connector *conn=
-ector,
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
-@@ -1131,7 +1131,7 @@ hdcp2_prepare_ake_init(struct intel_connector *connec=
-tor,
- =09if (ret)
- =09=09drm_dbg_kms(&dev_priv->drm, "Prepare_ake_init failed. %d\n",
- =09=09=09    ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
+ =09=09seq_printf(m, "fbcon size: %d x %d, depth %d, %d bpp, modifier 0x%ll=
+x, refcount %d, obj ",
+ =09=09=09   fbdev_fb->base.width,
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i=
+915/display/intel_fbdev.c
+index 60d3ded27047..8af2b3088af4 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -484,7 +484,7 @@ static void intel_fbdev_suspend_worker(struct work_stru=
+ct *work)
+ {
+ =09intel_fbdev_set_suspend(&container_of(work,
+ =09=09=09=09=09      struct drm_i915_private,
+-=09=09=09=09=09      fbdev_suspend_work)->drm,
++=09=09=09=09=09      _display.fbdev_suspend_work)->drm,
+ =09=09=09=09FBINFO_STATE_RUNNING,
+ =09=09=09=09true);
  }
-@@ -1149,11 +1149,11 @@ hdcp2_verify_rx_cert_prepare_km(struct intel_connec=
-tor *connector,
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
+@@ -514,8 +514,8 @@ int intel_fbdev_init(struct drm_device *dev)
+ =09=09return ret;
  =09}
 =20
-@@ -1163,7 +1163,7 @@ hdcp2_verify_rx_cert_prepare_km(struct intel_connecto=
-r *connector,
- =09if (ret < 0)
- =09=09drm_dbg_kms(&dev_priv->drm, "Verify rx_cert failed. %d\n",
- =09=09=09    ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -1177,18 +1177,18 @@ static int hdcp2_verify_hprime(struct intel_connect=
-or *connector,
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
- =09ret =3D comp->ops->verify_hprime(comp->mei_dev, data, rx_hprime);
- =09if (ret < 0)
- =09=09drm_dbg_kms(&dev_priv->drm, "Verify hprime failed. %d\n", ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -1203,11 +1203,11 @@ hdcp2_store_pairing_info(struct intel_connector *co=
-nnector,
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
-@@ -1215,7 +1215,7 @@ hdcp2_store_pairing_info(struct intel_connector *conn=
-ector,
- =09if (ret < 0)
- =09=09drm_dbg_kms(&dev_priv->drm, "Store pairing info failed. %d\n",
- =09=09=09    ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -1230,11 +1230,11 @@ hdcp2_prepare_lc_init(struct intel_connector *conne=
-ctor,
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
-@@ -1242,7 +1242,7 @@ hdcp2_prepare_lc_init(struct intel_connector *connect=
-or,
- =09if (ret < 0)
- =09=09drm_dbg_kms(&dev_priv->drm, "Prepare lc_init failed. %d\n",
- =09=09=09    ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -1257,11 +1257,11 @@ hdcp2_verify_lprime(struct intel_connector *connect=
-or,
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
-@@ -1269,7 +1269,7 @@ hdcp2_verify_lprime(struct intel_connector *connector=
-,
- =09if (ret < 0)
- =09=09drm_dbg_kms(&dev_priv->drm, "Verify L_Prime failed. %d\n",
- =09=09=09    ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -1283,11 +1283,11 @@ static int hdcp2_prepare_skey(struct intel_connecto=
-r *connector,
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
-@@ -1295,7 +1295,7 @@ static int hdcp2_prepare_skey(struct intel_connector =
-*connector,
- =09if (ret < 0)
- =09=09drm_dbg_kms(&dev_priv->drm, "Get session key failed. %d\n",
- =09=09=09    ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -1312,11 +1312,11 @@ hdcp2_verify_rep_topology_prepare_ack(struct intel_=
-connector *connector,
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
-@@ -1326,7 +1326,7 @@ hdcp2_verify_rep_topology_prepare_ack(struct intel_co=
-nnector *connector,
- =09if (ret < 0)
- =09=09drm_dbg_kms(&dev_priv->drm,
- =09=09=09    "Verify rep topology failed. %d\n", ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -1341,18 +1341,18 @@ hdcp2_verify_mprime(struct intel_connector *connect=
-or,
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
- =09ret =3D comp->ops->verify_mprime(comp->mei_dev, data, stream_ready);
- =09if (ret < 0)
- =09=09drm_dbg_kms(&dev_priv->drm, "Verify mprime failed. %d\n", ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -1365,11 +1365,11 @@ static int hdcp2_authenticate_port(struct intel_con=
-nector *connector)
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
-@@ -1377,7 +1377,7 @@ static int hdcp2_authenticate_port(struct intel_conne=
-ctor *connector)
- =09if (ret < 0)
- =09=09drm_dbg_kms(&dev_priv->drm, "Enable hdcp auth failed. %d\n",
- =09=09=09    ret);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -1389,17 +1389,17 @@ static int hdcp2_close_mei_session(struct intel_con=
-nector *connector)
- =09struct i915_hdcp_comp_master *comp;
- =09int ret;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09comp =3D dev_priv->hdcp_master;
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09comp =3D dev_priv->display->hdcp_master;
-=20
- =09if (!comp || !comp->ops) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return -EINVAL;
- =09}
-=20
- =09ret =3D comp->ops->close_hdcp_session(comp->mei_dev,
- =09=09=09=09=09     &dig_port->hdcp_port_data);
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
-=20
- =09return ret;
- }
-@@ -2113,10 +2113,10 @@ static int i915_hdcp_component_bind(struct device *=
-i915_kdev,
- =09struct drm_i915_private *dev_priv =3D kdev_to_i915(i915_kdev);
-=20
- =09drm_dbg(&dev_priv->drm, "I915 HDCP comp bind\n");
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09dev_priv->hdcp_master =3D (struct i915_hdcp_comp_master *)data;
--=09dev_priv->hdcp_master->mei_dev =3D mei_kdev;
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09dev_priv->display->hdcp_master =3D (struct i915_hdcp_comp_master *)data=
-;
-+=09dev_priv->display->hdcp_master->mei_dev =3D mei_kdev;
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
+-=09dev_priv->fbdev =3D ifbdev;
+-=09INIT_WORK(&dev_priv->fbdev_suspend_work, intel_fbdev_suspend_worker);
++=09dev_priv->display->fbdev =3D ifbdev;
++=09INIT_WORK(&dev_priv->display->fbdev_suspend_work, intel_fbdev_suspend_w=
+orker);
 =20
  =09return 0;
  }
-@@ -2127,9 +2127,9 @@ static void i915_hdcp_component_unbind(struct device =
-*i915_kdev,
- =09struct drm_i915_private *dev_priv =3D kdev_to_i915(i915_kdev);
+@@ -532,7 +532,7 @@ static void intel_fbdev_initial_config(void *data, asyn=
+c_cookie_t cookie)
 =20
- =09drm_dbg(&dev_priv->drm, "I915 HDCP comp unbind\n");
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09dev_priv->hdcp_master =3D NULL;
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09dev_priv->display->hdcp_master =3D NULL;
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- }
-=20
- static const struct component_ops i915_hdcp_component_ops =3D {
-@@ -2220,19 +2220,19 @@ void intel_hdcp_component_init(struct drm_i915_priv=
-ate *dev_priv)
- =09if (!is_hdcp2_supported(dev_priv))
- =09=09return;
-=20
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09drm_WARN_ON(&dev_priv->drm, dev_priv->hdcp_comp_added);
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09drm_WARN_ON(&dev_priv->drm, dev_priv->display->hdcp_comp_added);
-=20
--=09dev_priv->hdcp_comp_added =3D true;
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09dev_priv->display->hdcp_comp_added =3D true;
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09ret =3D component_add_typed(dev_priv->drm.dev, &i915_hdcp_component_ops=
-,
- =09=09=09=09  I915_COMPONENT_HDCP);
- =09if (ret < 0) {
- =09=09drm_dbg_kms(&dev_priv->drm, "Failed at component add(%d)\n",
- =09=09=09    ret);
--=09=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09=09dev_priv->hdcp_comp_added =3D false;
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09=09dev_priv->display->hdcp_comp_added =3D false;
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
- =09=09return;
- =09}
- }
-@@ -2445,14 +2445,14 @@ void intel_hdcp_update_pipe(struct intel_atomic_sta=
-te *state,
-=20
- void intel_hdcp_component_fini(struct drm_i915_private *dev_priv)
+ void intel_fbdev_initial_config_async(struct drm_device *dev)
  {
--=09mutex_lock(&dev_priv->hdcp_comp_mutex);
--=09if (!dev_priv->hdcp_comp_added) {
--=09=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09mutex_lock(&dev_priv->display->hdcp_comp_mutex);
-+=09if (!dev_priv->display->hdcp_comp_added) {
-+=09=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
+-=09struct intel_fbdev *ifbdev =3D to_i915(dev)->fbdev;
++=09struct intel_fbdev *ifbdev =3D to_i915(dev)->display->fbdev;
+=20
+ =09if (!ifbdev)
  =09=09return;
+@@ -552,12 +552,12 @@ static void intel_fbdev_sync(struct intel_fbdev *ifbd=
+ev)
+=20
+ void intel_fbdev_unregister(struct drm_i915_private *dev_priv)
+ {
+-=09struct intel_fbdev *ifbdev =3D dev_priv->fbdev;
++=09struct intel_fbdev *ifbdev =3D dev_priv->display->fbdev;
+=20
+ =09if (!ifbdev)
+ =09=09return;
+=20
+-=09cancel_work_sync(&dev_priv->fbdev_suspend_work);
++=09cancel_work_sync(&dev_priv->display->fbdev_suspend_work);
+ =09if (!current_is_async())
+ =09=09intel_fbdev_sync(ifbdev);
+=20
+@@ -566,7 +566,7 @@ void intel_fbdev_unregister(struct drm_i915_private *de=
+v_priv)
+=20
+ void intel_fbdev_fini(struct drm_i915_private *dev_priv)
+ {
+-=09struct intel_fbdev *ifbdev =3D fetch_and_zero(&dev_priv->fbdev);
++=09struct intel_fbdev *ifbdev =3D fetch_and_zero(&dev_priv->display->fbdev=
+);
+=20
+ =09if (!ifbdev)
+ =09=09return;
+@@ -580,7 +580,7 @@ void intel_fbdev_fini(struct drm_i915_private *dev_priv=
+)
+  */
+ static void intel_fbdev_hpd_set_suspend(struct drm_i915_private *i915, int=
+ state)
+ {
+-=09struct intel_fbdev *ifbdev =3D i915->fbdev;
++=09struct intel_fbdev *ifbdev =3D i915->display->fbdev;
+ =09bool send_hpd =3D false;
+=20
+ =09mutex_lock(&ifbdev->hpd_lock);
+@@ -598,7 +598,7 @@ static void intel_fbdev_hpd_set_suspend(struct drm_i915=
+_private *i915, int state
+ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synch=
+ronous)
+ {
+ =09struct drm_i915_private *dev_priv =3D to_i915(dev);
+-=09struct intel_fbdev *ifbdev =3D dev_priv->fbdev;
++=09struct intel_fbdev *ifbdev =3D dev_priv->display->fbdev;
+ =09struct fb_info *info;
+=20
+ =09if (!ifbdev || !ifbdev->vma)
+@@ -615,7 +615,7 @@ void intel_fbdev_set_suspend(struct drm_device *dev, in=
+t state, bool synchronous
+ =09=09 * ourselves, so only flush outstanding work upon suspend!
+ =09=09 */
+ =09=09if (state !=3D FBINFO_STATE_RUNNING)
+-=09=09=09flush_work(&dev_priv->fbdev_suspend_work);
++=09=09=09flush_work(&dev_priv->display->fbdev_suspend_work);
+=20
+ =09=09console_lock();
+ =09} else {
+@@ -629,7 +629,7 @@ void intel_fbdev_set_suspend(struct drm_device *dev, in=
+t state, bool synchronous
+ =09=09=09/* Don't block our own workqueue as this can
+ =09=09=09 * be run in parallel with other i915.ko tasks.
+ =09=09=09 */
+-=09=09=09schedule_work(&dev_priv->fbdev_suspend_work);
++=09=09=09schedule_work(&dev_priv->display->fbdev_suspend_work);
+ =09=09=09return;
+ =09=09}
  =09}
+@@ -650,7 +650,7 @@ void intel_fbdev_set_suspend(struct drm_device *dev, in=
+t state, bool synchronous
 =20
--=09dev_priv->hdcp_comp_added =3D false;
--=09mutex_unlock(&dev_priv->hdcp_comp_mutex);
-+=09dev_priv->display->hdcp_comp_added =3D false;
-+=09mutex_unlock(&dev_priv->display->hdcp_comp_mutex);
+ void intel_fbdev_output_poll_changed(struct drm_device *dev)
+ {
+-=09struct intel_fbdev *ifbdev =3D to_i915(dev)->fbdev;
++=09struct intel_fbdev *ifbdev =3D to_i915(dev)->display->fbdev;
+ =09bool send_hpd;
 =20
- =09component_del(dev_priv->drm.dev, &i915_hdcp_component_ops);
- }
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_dr=
-v.c
-index d0d97a6d37ba..ddc183b7711c 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -323,7 +323,7 @@ static int i915_driver_early_probe(struct drm_i915_priv=
-ate *dev_priv)
- =09mutex_init(&dev_priv->display->av_mutex);
- =09mutex_init(&dev_priv->wm.wm_mutex);
- =09mutex_init(&dev_priv->pps_mutex);
--=09mutex_init(&dev_priv->hdcp_comp_mutex);
-+=09mutex_init(&dev_priv->display->hdcp_comp_mutex);
+ =09if (!ifbdev)
+@@ -669,7 +669,7 @@ void intel_fbdev_output_poll_changed(struct drm_device =
+*dev)
 =20
- =09i915_memcpy_init_early(dev_priv);
- =09intel_runtime_pm_init_early(&dev_priv->runtime_pm);
+ void intel_fbdev_restore_mode(struct drm_device *dev)
+ {
+-=09struct intel_fbdev *ifbdev =3D to_i915(dev)->fbdev;
++=09struct intel_fbdev *ifbdev =3D to_i915(dev)->display->fbdev;
+=20
+ =09if (!ifbdev)
+ =09=09return;
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_dr=
 v.h
-index be496ec4917a..3f9bebb8478f 100644
+index 19be9b84cb19..5eaa06c98244 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -893,6 +893,12 @@ struct drm_i915_display {
+@@ -904,6 +904,10 @@ struct drm_i915_display {
 =20
- =09struct drm_property *broadcast_rgb_property;
- =09struct drm_property *force_audio_property;
+ =09/* overlay */
+ =09struct intel_overlay *overlay;
 +
-+=09struct i915_hdcp_comp_master *hdcp_master;
-+=09bool hdcp_comp_added;
-+
-+=09/* Mutex to protect the above hdcp component related values. */
-+=09struct mutex hdcp_comp_mutex;
++=09/* list of fbdev register on this device */
++=09struct intel_fbdev *fbdev;
++=09struct work_struct fbdev_suspend_work;
  };
 =20
  struct drm_i915_private {
-@@ -1211,12 +1217,6 @@ struct drm_i915_private {
+@@ -1080,10 +1084,6 @@ struct drm_i915_private {
 =20
- =09struct i915_pmu pmu;
+ =09struct drm_i915_gem_object *vlv_pctx;
 =20
--=09struct i915_hdcp_comp_master *hdcp_master;
--=09bool hdcp_comp_added;
+-=09/* list of fbdev register on this device */
+-=09struct intel_fbdev *fbdev;
+-=09struct work_struct fbdev_suspend_work;
 -
--=09/* Mutex to protect the above hdcp component related values. */
--=09struct mutex hdcp_comp_mutex;
--
- =09/* The TTM device structure. */
- =09struct ttm_device bdev;
+ =09u32 fdi_rx_config;
 =20
+ =09/* Shadow for DISPLAY_PHY_CONTROL which can't be safely read */
 --=20
 2.31.1
 
