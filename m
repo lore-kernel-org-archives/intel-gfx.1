@@ -5,49 +5,48 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 20EE7C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD85FC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E84B16108D
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E84B16108D
+	by mail.kernel.org (Postfix) with ESMTPS id 8FC86610D0
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FC86610D0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA57E6E0AD;
-	Tue,  7 Sep 2021 17:19:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 170226E09C;
+	Tue,  7 Sep 2021 17:19:37 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 301E56E08C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B8AD6E08E;
  Tue,  7 Sep 2021 17:19:28 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="220322737"
-X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="220322737"
+X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="220322738"
+X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="220322738"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Sep 2021 10:19:27 -0700
-X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="605352263"
+X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="605352257"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Sep 2021 10:19:26 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
+Cc: dri-devel@lists.freedesktop.org,
  Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Date: Tue,  7 Sep 2021 10:19:15 -0700
-Message-Id: <20210907171916.2548047-8-matthew.d.roper@intel.com>
+ Aravind Iddamsetty <aravind.iddamsetty@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>
+Date: Tue,  7 Sep 2021 10:19:13 -0700
+Message-Id: <20210907171916.2548047-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210907171916.2548047-1-matthew.d.roper@intel.com>
 References: <20210907171916.2548047-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 7/8] drm/i915/xehp: Enable ccs/dual-ctx in
- RCU_MODE
+Subject: [Intel-gfx] [PATCH 5/8] drm/i915/xehp: compute engine pipe_control
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,125 +62,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We have to specify in the Render Control Unit Mode register
-when CCS is enabled.
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Bspec: 46034
-Original-patch-by: Michel Thierry
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+CCS re-uses the RCS functions for breadcrumb and flush emission.
+However, CCS pipe_control has additional programming restrictions:
+
+- Command Streamer Stall Enable must be always set
+- Post Sync Operations must not be set to Write PS Depth Count
+- 3D-related bits must not be set
+
+Bspec: 47112
 Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 26 +++++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 26 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h               |  3 +++
- 3 files changed, 55 insertions(+)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c     | 31 ++++++++++++++------
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h | 15 ++++++++++
+ 2 files changed, 37 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 2b36ec7f3a04..046f7da67ba6 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2874,6 +2874,29 @@ static int execlists_resume(struct intel_engine_cs *engine)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 461844dffd7e..bf79e5ee3e45 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -200,6 +200,8 @@ static u32 *gen12_emit_aux_table_inv(const i915_reg_t inv_reg, u32 *cs)
  
-+static int gen12_rcs_resume(struct intel_engine_cs *engine)
-+{
-+	int ret;
-+
-+	ret = execlists_resume(engine);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Multi Context programming.
-+	 * just need to program this register once no matter how many CCS
-+	 * engines there are. Since some of the CCS engines might be fused off,
-+	 * we can't do this as part of the init of a specific CCS and we do
-+	 * it during RCS init instead. RCS and all CCS engines are reset
-+	 * together, so post-reset re-init is covered as well.
-+	 */
-+	if (CCS_MASK(engine->gt))
-+		intel_uncore_write(engine->uncore, GEN12_RCU_MODE,
-+			   _MASKED_BIT_ENABLE(GEN12_RCU_MODE_CCS_ENABLE));
-+
-+	return 0;
-+}
-+
- static void execlists_reset_prepare(struct intel_engine_cs *engine)
+ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
  {
- 	ENGINE_TRACE(engine, "depth<-%d\n",
-@@ -3394,6 +3417,9 @@ static void rcs_submission_override(struct intel_engine_cs *engine)
- 		engine->emit_fini_breadcrumb = gen8_emit_fini_breadcrumb_rcs;
- 		break;
- 	}
++	struct intel_engine_cs *engine = rq->engine;
 +
-+	if (engine->class == RENDER_CLASS)
-+		engine->resume = gen12_rcs_resume;
- }
+ 	if (mode & EMIT_FLUSH) {
+ 		u32 flags = 0;
+ 		u32 *cs;
+@@ -218,6 +220,9 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
  
- int intel_execlists_submission_setup(struct intel_engine_cs *engine)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 2f5bf7aa7e3b..db956255d076 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2350,6 +2350,29 @@ static bool guc_sched_engine_disabled(struct i915_sched_engine *sched_engine)
- 	return !sched_engine->tasklet.callback;
- }
+ 		flags |= PIPE_CONTROL_CS_STALL;
  
-+static int gen12_rcs_resume(struct intel_engine_cs *engine)
-+{
-+	int ret;
++		if (engine->class == COMPUTE_CLASS)
++			flags &= ~PIPE_CONTROL_RENDER_ONLY_FLAGS;
 +
-+	ret = guc_resume(engine);
-+	if (ret)
-+		return ret;
+ 		cs = intel_ring_begin(rq, 6);
+ 		if (IS_ERR(cs))
+ 			return PTR_ERR(cs);
+@@ -245,6 +250,9 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 
+ 		flags |= PIPE_CONTROL_CS_STALL;
+ 
++		if (engine->class == COMPUTE_CLASS)
++			flags &= ~PIPE_CONTROL_RENDER_ONLY_FLAGS;
 +
-+	/*
-+	 * Multi Context programming.
-+	 * just need to program this register once no matter how many CCS
-+	 * engines there are. Since some of the CCS engines might be fused off,
-+	 * we can't do this as part of the init of a specific CCS and we do
-+	 * it during RCS init instead. RCS and all CCS engines are reset
-+	 * together, so post-reset re-init is covered as well.
-+	 */
-+	if (CCS_MASK(engine->gt))
-+		intel_uncore_write(engine->uncore, GEN12_RCU_MODE,
-+			   _MASKED_BIT_ENABLE(GEN12_RCU_MODE_CCS_ENABLE));
-+
-+	return 0;
-+}
-+
- static void guc_set_default_submission(struct intel_engine_cs *engine)
+ 		cs = intel_ring_begin(rq, 8 + 4);
+ 		if (IS_ERR(cs))
+ 			return PTR_ERR(cs);
+@@ -617,19 +625,24 @@ u32 *gen12_emit_fini_breadcrumb_xcs(struct i915_request *rq, u32 *cs)
+ 
+ u32 *gen12_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
  {
- 	engine->submit_request = guc_submit_request;
-@@ -2464,6 +2487,9 @@ static void rcs_submission_override(struct intel_engine_cs *engine)
- 		engine->emit_fini_breadcrumb = gen8_emit_fini_breadcrumb_rcs;
- 		break;
- 	}
++	u32 flags = (PIPE_CONTROL_CS_STALL |
++		     PIPE_CONTROL_TILE_CACHE_FLUSH |
++		     PIPE_CONTROL_FLUSH_L3 |
++		     PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
++		     PIPE_CONTROL_DEPTH_CACHE_FLUSH |
++		     /* Wa_1409600907:tgl,rkl,dg1,adl-p */
++		     PIPE_CONTROL_DEPTH_STALL |
++		     PIPE_CONTROL_DC_FLUSH_ENABLE |
++		     PIPE_CONTROL_FLUSH_ENABLE);
 +
-+	if (engine->class == RENDER_CLASS)
-+		engine->resume = gen12_rcs_resume;
++	if (rq->engine->class == COMPUTE_CLASS)
++		flags &= ~PIPE_CONTROL_RENDER_ONLY_FLAGS;
++
+ 	cs = gen12_emit_ggtt_write_rcs(cs,
+ 				       rq->fence.seqno,
+ 				       hwsp_offset(rq),
+ 				       PIPE_CONTROL0_HDC_PIPELINE_FLUSH,
+-				       PIPE_CONTROL_CS_STALL |
+-				       PIPE_CONTROL_TILE_CACHE_FLUSH |
+-				       PIPE_CONTROL_FLUSH_L3 |
+-				       PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
+-				       PIPE_CONTROL_DEPTH_CACHE_FLUSH |
+-				       /* Wa_1409600907:tgl */
+-				       PIPE_CONTROL_DEPTH_STALL |
+-				       PIPE_CONTROL_DC_FLUSH_ENABLE |
+-				       PIPE_CONTROL_FLUSH_ENABLE);
++				       flags);
+ 
+ 	return gen12_emit_fini_breadcrumb_tail(rq, cs);
  }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
+index 1c3af0fc0456..a3c1047a2c71 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
++++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
+@@ -223,11 +223,14 @@
+ #define   PIPE_CONTROL_COMMAND_CACHE_INVALIDATE		(1<<29) /* gen11+ */
+ #define   PIPE_CONTROL_TILE_CACHE_FLUSH			(1<<28) /* gen11+ */
+ #define   PIPE_CONTROL_FLUSH_L3				(1<<27)
++#define   PIPE_CONTROL_AMFS_FLUSH			(1<<25) /* gen12+ */
+ #define   PIPE_CONTROL_GLOBAL_GTT_IVB			(1<<24) /* gen7+ */
+ #define   PIPE_CONTROL_MMIO_WRITE			(1<<23)
+ #define   PIPE_CONTROL_STORE_DATA_INDEX			(1<<21)
+ #define   PIPE_CONTROL_CS_STALL				(1<<20)
++#define   PIPE_CONTROL_GLOBAL_SNAPSHOT_RESET		(1<<19)
+ #define   PIPE_CONTROL_TLB_INVALIDATE			(1<<18)
++#define   PIPE_CONTROL_PSD_SYNC				(1<<17) /* gen11+ */
+ #define   PIPE_CONTROL_MEDIA_STATE_CLEAR		(1<<16)
+ #define   PIPE_CONTROL_WRITE_TIMESTAMP			(3<<14)
+ #define   PIPE_CONTROL_QW_WRITE				(1<<14)
+@@ -249,6 +252,18 @@
+ #define   PIPE_CONTROL_DEPTH_CACHE_FLUSH		(1<<0)
+ #define   PIPE_CONTROL_GLOBAL_GTT (1<<2) /* in addr dword */
  
- static inline void guc_default_irqs(struct intel_engine_cs *engine)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 5b68c02c35af..57f9456f8c61 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -498,6 +498,9 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define   ECOBITS_PPGTT_CACHE64B	(3 << 8)
- #define   ECOBITS_PPGTT_CACHE4B		(0 << 8)
- 
-+#define GEN12_RCU_MODE			_MMIO(0x14800)
-+#define   GEN12_RCU_MODE_CCS_ENABLE	REG_BIT(0)
++/* 3D-related flags can't be set on compute engine */
++#define PIPE_CONTROL_RENDER_ONLY_FLAGS (\
++		PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH | \
++		PIPE_CONTROL_DEPTH_CACHE_FLUSH | \
++		PIPE_CONTROL_TILE_CACHE_FLUSH | \
++		PIPE_CONTROL_DEPTH_STALL | \
++		PIPE_CONTROL_STALL_AT_SCOREBOARD | \
++		PIPE_CONTROL_PSD_SYNC | \
++		PIPE_CONTROL_AMFS_FLUSH | \
++		PIPE_CONTROL_VF_CACHE_INVALIDATE | \
++		PIPE_CONTROL_GLOBAL_SNAPSHOT_RESET)
 +
- #define GAB_CTL				_MMIO(0x24000)
- #define   GAB_CTL_CONT_AFTER_PAGEFAULT	(1 << 8)
- 
+ #define MI_MATH(x)			MI_INSTR(0x1a, (x) - 1)
+ #define MI_MATH_INSTR(opcode, op1, op2) ((opcode) << 20 | (op1) << 10 | (op2))
+ /* Opcodes for MI_MATH_INSTR */
 -- 
 2.25.4
 
