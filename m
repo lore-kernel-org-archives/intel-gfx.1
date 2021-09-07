@@ -8,54 +8,52 @@ X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE07AC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E84A2C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A999260E52
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A999260E52
+	by mail.kernel.org (Postfix) with ESMTPS id B768D610A3
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 07:26:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B768D610A3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD0B89D67;
-	Tue,  7 Sep 2021 07:26:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33D2088FF7;
+	Tue,  7 Sep 2021 07:26:27 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [207.211.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 656F489D67
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Sep 2021 07:26:22 +0000 (UTC)
+ (us-smtp-delivery-44.mimecast.com [205.139.111.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3925D89709
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Sep 2021 07:26:26 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-485-vFXkRPBxP0mkbydyNfoTTw-1; Tue, 07 Sep 2021 03:26:09 -0400
-X-MC-Unique: vFXkRPBxP0mkbydyNfoTTw-1
+ us-mta-556-XPjyHehnNKisUlsJNAZ9uw-1; Tue, 07 Sep 2021 03:26:16 -0400
+X-MC-Unique: XPjyHehnNKisUlsJNAZ9uw-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C39551009446;
- Tue,  7 Sep 2021 07:26:08 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1584D1009469;
+ Tue,  7 Sep 2021 07:26:16 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.0.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 7F3F577C16;
- Tue,  7 Sep 2021 07:26:07 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9ABA260936;
+ Tue,  7 Sep 2021 07:26:14 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com,
 	Dave Airlie <airlied@redhat.com>
-Date: Tue,  7 Sep 2021 17:25:32 +1000
-Message-Id: <20210907072549.2962226-9-airlied@gmail.com>
+Date: Tue,  7 Sep 2021 17:25:36 +1000
+Message-Id: <20210907072549.2962226-13-airlied@gmail.com>
 In-Reply-To: <20210907072549.2962226-1-airlied@gmail.com>
 References: <20210907072549.2962226-1-airlied@gmail.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=airlied@gmail.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
-Subject: [Intel-gfx] [PATCH 08/25] drm/i915/drrs: just use some local vars
- to simplify drrs code
+Subject: [Intel-gfx] [PATCH 12/25] drm/i915/display: move properties into
+ display struct
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,293 +71,117 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-this makes it easier to move this struct later.
-
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_drrs.c | 90 ++++++++++++-----------
- 1 file changed, 49 insertions(+), 41 deletions(-)
+ drivers/gpu/drm/i915/display/intel_atomic.c    | 8 ++++----
+ drivers/gpu/drm/i915/display/intel_connector.c | 8 ++++----
+ drivers/gpu/drm/i915/i915_drv.h                | 6 +++---
+ 3 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i9=
-15/display/intel_drrs.c
-index a2b65eca1441..670bcd50a56f 100644
---- a/drivers/gpu/drm/i915/display/intel_drrs.c
-+++ b/drivers/gpu/drm/i915/display/intel_drrs.c
-@@ -191,15 +191,16 @@ void intel_drrs_enable(struct intel_dp *intel_dp,
- =09=09       const struct intel_crtc_state *crtc_state)
- {
- =09struct drm_i915_private *dev_priv =3D dp_to_i915(intel_dp);
-+=09struct i915_drrs *drrs =3D &dev_priv->drrs;
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/=
+i915/display/intel_atomic.c
+index b4e7ac51aa31..ee6c088f84f5 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -61,9 +61,9 @@ int intel_digital_connector_atomic_get_property(struct dr=
+m_connector *connector,
+ =09struct intel_digital_connector_state *intel_conn_state =3D
+ =09=09to_intel_digital_connector_state(state);
 =20
- =09if (!crtc_state->has_drrs)
- =09=09return;
+-=09if (property =3D=3D dev_priv->force_audio_property)
++=09if (property =3D=3D dev_priv->display->force_audio_property)
+ =09=09*val =3D intel_conn_state->force_audio;
+-=09else if (property =3D=3D dev_priv->broadcast_rgb_property)
++=09else if (property =3D=3D dev_priv->display->broadcast_rgb_property)
+ =09=09*val =3D intel_conn_state->broadcast_rgb;
+ =09else {
+ =09=09drm_dbg_atomic(&dev_priv->drm,
+@@ -94,12 +94,12 @@ int intel_digital_connector_atomic_set_property(struct =
+drm_connector *connector,
+ =09struct intel_digital_connector_state *intel_conn_state =3D
+ =09=09to_intel_digital_connector_state(state);
 =20
- =09drm_dbg_kms(&dev_priv->drm, "Enabling DRRS\n");
-=20
--=09mutex_lock(&dev_priv->drrs.mutex);
-+=09mutex_lock(&drrs->mutex);
-=20
--=09if (dev_priv->drrs.dp) {
-+=09if (drrs->dp) {
- =09=09drm_warn(&dev_priv->drm, "DRRS already enabled\n");
- =09=09goto unlock;
- =09}
-@@ -207,7 +208,7 @@ void intel_drrs_enable(struct intel_dp *intel_dp,
- =09intel_drrs_enable_locked(intel_dp);
-=20
- unlock:
--=09mutex_unlock(&dev_priv->drrs.mutex);
-+=09mutex_unlock(&drrs->mutex);
- }
-=20
- static void
-@@ -215,15 +216,16 @@ intel_drrs_disable_locked(struct intel_dp *intel_dp,
- =09=09=09  const struct intel_crtc_state *crtc_state)
- {
- =09struct drm_i915_private *dev_priv =3D dp_to_i915(intel_dp);
-+=09struct i915_drrs *drrs =3D &dev_priv->drrs;
-=20
--=09if (dev_priv->drrs.refresh_rate_type =3D=3D DRRS_LOW_RR) {
-+=09if (drrs->refresh_rate_type =3D=3D DRRS_LOW_RR) {
- =09=09int refresh;
-=20
- =09=09refresh =3D drm_mode_vrefresh(intel_dp->attached_connector->panel.fi=
-xed_mode);
- =09=09intel_drrs_set_state(dev_priv, crtc_state, refresh);
+-=09if (property =3D=3D dev_priv->force_audio_property) {
++=09if (property =3D=3D dev_priv->display->force_audio_property) {
+ =09=09intel_conn_state->force_audio =3D val;
+ =09=09return 0;
  =09}
 =20
--=09dev_priv->drrs.dp =3D NULL;
-+=09drrs->dp =3D NULL;
+-=09if (property =3D=3D dev_priv->broadcast_rgb_property) {
++=09if (property =3D=3D dev_priv->display->broadcast_rgb_property) {
+ =09=09intel_conn_state->broadcast_rgb =3D val;
+ =09=09return 0;
+ =09}
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/d=
+rm/i915/display/intel_connector.c
+index 4f49d782eca2..233a2df9e2c0 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.c
++++ b/drivers/gpu/drm/i915/display/intel_connector.c
+@@ -227,7 +227,7 @@ intel_attach_force_audio_property(struct drm_connector =
+*connector)
+ =09struct drm_i915_private *dev_priv =3D to_i915(dev);
+ =09struct drm_property *prop;
+=20
+-=09prop =3D dev_priv->force_audio_property;
++=09prop =3D dev_priv->display->force_audio_property;
+ =09if (prop =3D=3D NULL) {
+ =09=09prop =3D drm_property_create_enum(dev, 0,
+ =09=09=09=09=09   "audio",
+@@ -236,7 +236,7 @@ intel_attach_force_audio_property(struct drm_connector =
+*connector)
+ =09=09if (prop =3D=3D NULL)
+ =09=09=09return;
+=20
+-=09=09dev_priv->force_audio_property =3D prop;
++=09=09dev_priv->display->force_audio_property =3D prop;
+ =09}
+ =09drm_object_attach_property(&connector->base, prop, 0);
  }
+@@ -254,7 +254,7 @@ intel_attach_broadcast_rgb_property(struct drm_connecto=
+r *connector)
+ =09struct drm_i915_private *dev_priv =3D to_i915(dev);
+ =09struct drm_property *prop;
 =20
- /**
-@@ -236,20 +238,21 @@ void intel_drrs_disable(struct intel_dp *intel_dp,
- =09=09=09const struct intel_crtc_state *old_crtc_state)
- {
- =09struct drm_i915_private *dev_priv =3D dp_to_i915(intel_dp);
-+=09struct i915_drrs *drrs =3D &dev_priv->drrs;
+-=09prop =3D dev_priv->broadcast_rgb_property;
++=09prop =3D dev_priv->display->broadcast_rgb_property;
+ =09if (prop =3D=3D NULL) {
+ =09=09prop =3D drm_property_create_enum(dev, DRM_MODE_PROP_ENUM,
+ =09=09=09=09=09   "Broadcast RGB",
+@@ -263,7 +263,7 @@ intel_attach_broadcast_rgb_property(struct drm_connecto=
+r *connector)
+ =09=09if (prop =3D=3D NULL)
+ =09=09=09return;
 =20
- =09if (!old_crtc_state->has_drrs)
- =09=09return;
-=20
--=09mutex_lock(&dev_priv->drrs.mutex);
--=09if (!dev_priv->drrs.dp) {
--=09=09mutex_unlock(&dev_priv->drrs.mutex);
-+=09mutex_lock(&drrs->mutex);
-+=09if (!drrs->dp) {
-+=09=09mutex_unlock(&drrs->mutex);
- =09=09return;
+-=09=09dev_priv->broadcast_rgb_property =3D prop;
++=09=09dev_priv->display->broadcast_rgb_property =3D prop;
  =09}
 =20
- =09intel_drrs_disable_locked(intel_dp, old_crtc_state);
--=09mutex_unlock(&dev_priv->drrs.mutex);
-+=09mutex_unlock(&drrs->mutex);
+ =09drm_object_attach_property(&connector->base, prop, 0);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_dr=
+v.h
+index 1abeda306d05..3c2308a0c861 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -872,6 +872,9 @@ struct drm_i915_display {
 =20
--=09cancel_delayed_work_sync(&dev_priv->drrs.work);
-+=09cancel_delayed_work_sync(&drrs->work);
- }
+ =09struct intel_crtc *plane_to_crtc_mapping[I915_MAX_PIPES];
+ =09struct intel_crtc *pipe_to_crtc_mapping[I915_MAX_PIPES];
++
++=09struct drm_property *broadcast_rgb_property;
++=09struct drm_property *force_audio_property;
+ };
 =20
- /**
-@@ -266,14 +269,15 @@ intel_drrs_update(struct intel_dp *intel_dp,
- =09=09  const struct intel_crtc_state *crtc_state)
- {
- =09struct drm_i915_private *dev_priv =3D dp_to_i915(intel_dp);
-+=09struct i915_drrs *drrs =3D &dev_priv->drrs;
+ struct drm_i915_private {
+@@ -1056,9 +1059,6 @@ struct drm_i915_private {
+ =09struct intel_fbdev *fbdev;
+ =09struct work_struct fbdev_suspend_work;
 =20
--=09if (dev_priv->drrs.type !=3D SEAMLESS_DRRS_SUPPORT)
-+=09if (drrs->type !=3D SEAMLESS_DRRS_SUPPORT)
- =09=09return;
-=20
--=09mutex_lock(&dev_priv->drrs.mutex);
-+=09mutex_lock(&drrs->mutex);
-=20
- =09/* New state matches current one? */
--=09if (crtc_state->has_drrs =3D=3D !!dev_priv->drrs.dp)
-+=09if (crtc_state->has_drrs =3D=3D !!drrs->dp)
- =09=09goto unlock;
-=20
- =09if (crtc_state->has_drrs)
-@@ -282,18 +286,19 @@ intel_drrs_update(struct intel_dp *intel_dp,
- =09=09intel_drrs_disable_locked(intel_dp, crtc_state);
-=20
- unlock:
--=09mutex_unlock(&dev_priv->drrs.mutex);
-+=09mutex_unlock(&drrs->mutex);
- }
-=20
- static void intel_drrs_downclock_work(struct work_struct *work)
- {
- =09struct drm_i915_private *dev_priv =3D
- =09=09container_of(work, typeof(*dev_priv), drrs.work.work);
-+=09struct i915_drrs *drrs =3D &dev_priv->drrs;
- =09struct intel_dp *intel_dp;
-=20
--=09mutex_lock(&dev_priv->drrs.mutex);
-+=09mutex_lock(&drrs->mutex);
-=20
--=09intel_dp =3D dev_priv->drrs.dp;
-+=09intel_dp =3D drrs->dp;
-=20
- =09if (!intel_dp)
- =09=09goto unlock;
-@@ -303,10 +308,10 @@ static void intel_drrs_downclock_work(struct work_str=
-uct *work)
- =09 * recheck.
- =09 */
-=20
--=09if (dev_priv->drrs.busy_frontbuffer_bits)
-+=09if (drrs->busy_frontbuffer_bits)
- =09=09goto unlock;
-=20
--=09if (dev_priv->drrs.refresh_rate_type !=3D DRRS_LOW_RR) {
-+=09if (drrs->refresh_rate_type !=3D DRRS_LOW_RR) {
- =09=09struct drm_crtc *crtc =3D dp_to_dig_port(intel_dp)->base.base.crtc;
-=20
- =09=09intel_drrs_set_state(dev_priv, to_intel_crtc(crtc)->config,
-@@ -314,7 +319,7 @@ static void intel_drrs_downclock_work(struct work_struc=
-t *work)
- =09}
-=20
- unlock:
--=09mutex_unlock(&dev_priv->drrs.mutex);
-+=09mutex_unlock(&drrs->mutex);
- }
-=20
- /**
-@@ -330,20 +335,21 @@ static void intel_drrs_downclock_work(struct work_str=
-uct *work)
- void intel_drrs_invalidate(struct drm_i915_private *dev_priv,
- =09=09=09   unsigned int frontbuffer_bits)
- {
-+=09struct i915_drrs *drrs =3D &dev_priv->drrs;
- =09struct intel_dp *intel_dp;
- =09struct drm_crtc *crtc;
- =09enum pipe pipe;
-=20
--=09if (dev_priv->drrs.type =3D=3D DRRS_NOT_SUPPORTED)
-+=09if (drrs->type =3D=3D DRRS_NOT_SUPPORTED)
- =09=09return;
-=20
--=09cancel_delayed_work(&dev_priv->drrs.work);
-+=09cancel_delayed_work(&drrs->work);
-=20
--=09mutex_lock(&dev_priv->drrs.mutex);
-+=09mutex_lock(&drrs->mutex);
-=20
--=09intel_dp =3D dev_priv->drrs.dp;
-+=09intel_dp =3D drrs->dp;
- =09if (!intel_dp) {
--=09=09mutex_unlock(&dev_priv->drrs.mutex);
-+=09=09mutex_unlock(&drrs->mutex);
- =09=09return;
- =09}
-=20
-@@ -351,14 +357,14 @@ void intel_drrs_invalidate(struct drm_i915_private *d=
-ev_priv,
- =09pipe =3D to_intel_crtc(crtc)->pipe;
-=20
- =09frontbuffer_bits &=3D INTEL_FRONTBUFFER_ALL_MASK(pipe);
--=09dev_priv->drrs.busy_frontbuffer_bits |=3D frontbuffer_bits;
-+=09drrs->busy_frontbuffer_bits |=3D frontbuffer_bits;
-=20
- =09/* invalidate means busy screen hence upclock */
--=09if (frontbuffer_bits && dev_priv->drrs.refresh_rate_type =3D=3D DRRS_LO=
-W_RR)
-+=09if (frontbuffer_bits && drrs->refresh_rate_type =3D=3D DRRS_LOW_RR)
- =09=09intel_drrs_set_state(dev_priv, to_intel_crtc(crtc)->config,
- =09=09=09=09     drm_mode_vrefresh(intel_dp->attached_connector->panel.fix=
-ed_mode));
-=20
--=09mutex_unlock(&dev_priv->drrs.mutex);
-+=09mutex_unlock(&drrs->mutex);
- }
-=20
- /**
-@@ -376,20 +382,21 @@ void intel_drrs_invalidate(struct drm_i915_private *d=
-ev_priv,
- void intel_drrs_flush(struct drm_i915_private *dev_priv,
- =09=09      unsigned int frontbuffer_bits)
- {
-+=09struct i915_drrs *drrs =3D &dev_priv->drrs;
- =09struct intel_dp *intel_dp;
- =09struct drm_crtc *crtc;
- =09enum pipe pipe;
-=20
--=09if (dev_priv->drrs.type =3D=3D DRRS_NOT_SUPPORTED)
-+=09if (drrs->type =3D=3D DRRS_NOT_SUPPORTED)
- =09=09return;
-=20
--=09cancel_delayed_work(&dev_priv->drrs.work);
-+=09cancel_delayed_work(&drrs->work);
-=20
--=09mutex_lock(&dev_priv->drrs.mutex);
-+=09mutex_lock(&drrs->mutex);
-=20
--=09intel_dp =3D dev_priv->drrs.dp;
-+=09intel_dp =3D drrs->dp;
- =09if (!intel_dp) {
--=09=09mutex_unlock(&dev_priv->drrs.mutex);
-+=09=09mutex_unlock(&drrs->mutex);
- =09=09return;
- =09}
-=20
-@@ -397,10 +404,10 @@ void intel_drrs_flush(struct drm_i915_private *dev_pr=
-iv,
- =09pipe =3D to_intel_crtc(crtc)->pipe;
-=20
- =09frontbuffer_bits &=3D INTEL_FRONTBUFFER_ALL_MASK(pipe);
--=09dev_priv->drrs.busy_frontbuffer_bits &=3D ~frontbuffer_bits;
-+=09drrs->busy_frontbuffer_bits &=3D ~frontbuffer_bits;
-=20
- =09/* flush means busy screen hence upclock */
--=09if (frontbuffer_bits && dev_priv->drrs.refresh_rate_type =3D=3D DRRS_LO=
-W_RR)
-+=09if (frontbuffer_bits && drrs->refresh_rate_type =3D=3D DRRS_LOW_RR)
- =09=09intel_drrs_set_state(dev_priv, to_intel_crtc(crtc)->config,
- =09=09=09=09     drm_mode_vrefresh(intel_dp->attached_connector->panel.fix=
-ed_mode));
-=20
-@@ -408,10 +415,10 @@ void intel_drrs_flush(struct drm_i915_private *dev_pr=
-iv,
- =09 * flush also means no more activity hence schedule downclock, if all
- =09 * other fbs are quiescent too
- =09 */
--=09if (!dev_priv->drrs.busy_frontbuffer_bits)
--=09=09schedule_delayed_work(&dev_priv->drrs.work,
-+=09if (!drrs->busy_frontbuffer_bits)
-+=09=09schedule_delayed_work(&drrs->work,
- =09=09=09=09      msecs_to_jiffies(1000));
--=09mutex_unlock(&dev_priv->drrs.mutex);
-+=09mutex_unlock(&drrs->mutex);
- }
-=20
- /**
-@@ -432,10 +439,11 @@ intel_drrs_init(struct intel_connector *connector,
- =09=09struct drm_display_mode *fixed_mode)
- {
- =09struct drm_i915_private *dev_priv =3D to_i915(connector->base.dev);
-+=09struct i915_drrs *drrs =3D &dev_priv->drrs;
- =09struct drm_display_mode *downclock_mode =3D NULL;
-=20
--=09INIT_DELAYED_WORK(&dev_priv->drrs.work, intel_drrs_downclock_work);
--=09mutex_init(&dev_priv->drrs.mutex);
-+=09INIT_DELAYED_WORK(&drrs->work, intel_drrs_downclock_work);
-+=09mutex_init(&drrs->mutex);
-=20
- =09if (DISPLAY_VER(dev_priv) <=3D 6) {
- =09=09drm_dbg_kms(&dev_priv->drm,
-@@ -455,9 +463,9 @@ intel_drrs_init(struct intel_connector *connector,
- =09=09return NULL;
- =09}
-=20
--=09dev_priv->drrs.type =3D dev_priv->vbt.drrs_type;
-+=09drrs->type =3D dev_priv->vbt.drrs_type;
-=20
--=09dev_priv->drrs.refresh_rate_type =3D DRRS_HIGH_RR;
-+=09drrs->refresh_rate_type =3D DRRS_HIGH_RR;
- =09drm_dbg_kms(&dev_priv->drm,
- =09=09    "seamless DRRS supported for eDP panel.\n");
- =09return downclock_mode;
+-=09struct drm_property *broadcast_rgb_property;
+-=09struct drm_property *force_audio_property;
+-
+ =09/* hda/i915 audio component */
+ =09struct i915_audio_component *audio_component;
+ =09bool audio_component_registered;
 --=20
 2.31.1
 
