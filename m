@@ -5,48 +5,44 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD85FC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1E89C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:20:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FC86610D0
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:19:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8FC86610D0
+	by mail.kernel.org (Postfix) with ESMTPS id 90884610C9
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Sep 2021 17:20:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 90884610C9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 170226E09C;
-	Tue,  7 Sep 2021 17:19:37 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B8AD6E08E;
- Tue,  7 Sep 2021 17:19:28 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="220322738"
-X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="220322738"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2021 10:19:27 -0700
-X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="605352257"
-Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2021 10:19:26 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E87516E0B7;
+	Tue,  7 Sep 2021 17:20:08 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 611EB6E0B7
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Sep 2021 17:20:07 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="281280093"
+X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="281280093"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2021 10:20:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="469282080"
+Received: from ayazahma-nuc8i7beh.iind.intel.com ([10.145.162.59])
+ by orsmga007.jf.intel.com with ESMTP; 07 Sep 2021 10:20:05 -0700
+From: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- Aravind Iddamsetty <aravind.iddamsetty@intel.com>,
+Cc: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>
-Date: Tue,  7 Sep 2021 10:19:13 -0700
-Message-Id: <20210907171916.2548047-6-matthew.d.roper@intel.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20210907171916.2548047-1-matthew.d.roper@intel.com>
-References: <20210907171916.2548047-1-matthew.d.roper@intel.com>
+Date: Tue,  7 Sep 2021 22:46:39 +0530
+Message-Id: <20210907171639.1221287-1-ayaz.siddiqui@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/8] drm/i915/xehp: compute engine pipe_control
+Subject: [Intel-gfx] [PATCH] drm/i915/gt: Add separate MOCS table for Gen12
+ devices other than TGL/RKL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,130 +58,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+MOCS table of TGL/RKL has MOCS[1] set to L3_UC.
+While for other gen12 devices we need to set MOCS[1] as L3_WB,
+So adding a new MOCS table for other gen 12 devices eg. ADL.
 
-CCS re-uses the RCS functions for breadcrumb and flush emission.
-However, CCS pipe_control has additional programming restrictions:
-
-- Command Streamer Stall Enable must be always set
-- Post Sync Operations must not be set to Write PS Depth Count
-- 3D-related bits must not be set
-
-Bspec: 47112
-Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Fixes: cfbe5291a189 ("drm/i915/gt: Initialize unused MOCS entries with device specific values")
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c     | 31 ++++++++++++++------
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h | 15 ++++++++++
- 2 files changed, 37 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_mocs.c | 41 +++++++++++++++++++++++++---
+ 1 file changed, 37 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 461844dffd7e..bf79e5ee3e45 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -200,6 +200,8 @@ static u32 *gen12_emit_aux_table_inv(const i915_reg_t inv_reg, u32 *cs)
+diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
+index e96afd7beb49..c8d289b00de4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_mocs.c
++++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
+@@ -315,6 +315,35 @@ static const struct drm_i915_mocs_entry dg1_mocs_table[] = {
+ 	MOCS_ENTRY(63, 0, L3_1_UC),
+ };
  
- int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
- {
-+	struct intel_engine_cs *engine = rq->engine;
++static const struct drm_i915_mocs_entry gen12_mocs_table[] = {
 +
- 	if (mode & EMIT_FLUSH) {
- 		u32 flags = 0;
- 		u32 *cs;
-@@ -218,6 +220,9 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
- 
- 		flags |= PIPE_CONTROL_CS_STALL;
- 
-+		if (engine->class == COMPUTE_CLASS)
-+			flags &= ~PIPE_CONTROL_RENDER_ONLY_FLAGS;
++	GEN11_MOCS_ENTRIES,
++	/* Implicitly enable L1 - HDC:L1 + L3 + LLC */
++	MOCS_ENTRY(48,
++		   LE_3_WB | LE_TC_1_LLC | LE_LRUM(3),
++		   L3_3_WB),
++	/* Implicitly enable L1 - HDC:L1 + L3 */
++	MOCS_ENTRY(49,
++		   LE_1_UC | LE_TC_1_LLC,
++		   L3_3_WB),
++	/* Implicitly enable L1 - HDC:L1 + LLC */
++	MOCS_ENTRY(50,
++		   LE_3_WB | LE_TC_1_LLC | LE_LRUM(3),
++		   L3_1_UC),
++	/* Implicitly enable L1 - HDC:L1 */
++	MOCS_ENTRY(51,
++		   LE_1_UC | LE_TC_1_LLC,
++		   L3_1_UC),
++	/* HW Special Case (CCS) */
++	MOCS_ENTRY(60,
++		   LE_3_WB | LE_TC_1_LLC | LE_LRUM(3),
++		   L3_1_UC),
++	/* HW Special Case (Displayable) */
++	MOCS_ENTRY(61,
++		   LE_1_UC | LE_TC_1_LLC,
++		   L3_3_WB),
++};
 +
- 		cs = intel_ring_begin(rq, 6);
- 		if (IS_ERR(cs))
- 			return PTR_ERR(cs);
-@@ -245,6 +250,9 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
- 
- 		flags |= PIPE_CONTROL_CS_STALL;
- 
-+		if (engine->class == COMPUTE_CLASS)
-+			flags &= ~PIPE_CONTROL_RENDER_ONLY_FLAGS;
-+
- 		cs = intel_ring_begin(rq, 8 + 4);
- 		if (IS_ERR(cs))
- 			return PTR_ERR(cs);
-@@ -617,19 +625,24 @@ u32 *gen12_emit_fini_breadcrumb_xcs(struct i915_request *rq, u32 *cs)
- 
- u32 *gen12_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
- {
-+	u32 flags = (PIPE_CONTROL_CS_STALL |
-+		     PIPE_CONTROL_TILE_CACHE_FLUSH |
-+		     PIPE_CONTROL_FLUSH_L3 |
-+		     PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
-+		     PIPE_CONTROL_DEPTH_CACHE_FLUSH |
-+		     /* Wa_1409600907:tgl,rkl,dg1,adl-p */
-+		     PIPE_CONTROL_DEPTH_STALL |
-+		     PIPE_CONTROL_DC_FLUSH_ENABLE |
-+		     PIPE_CONTROL_FLUSH_ENABLE);
-+
-+	if (rq->engine->class == COMPUTE_CLASS)
-+		flags &= ~PIPE_CONTROL_RENDER_ONLY_FLAGS;
-+
- 	cs = gen12_emit_ggtt_write_rcs(cs,
- 				       rq->fence.seqno,
- 				       hwsp_offset(rq),
- 				       PIPE_CONTROL0_HDC_PIPELINE_FLUSH,
--				       PIPE_CONTROL_CS_STALL |
--				       PIPE_CONTROL_TILE_CACHE_FLUSH |
--				       PIPE_CONTROL_FLUSH_L3 |
--				       PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
--				       PIPE_CONTROL_DEPTH_CACHE_FLUSH |
--				       /* Wa_1409600907:tgl */
--				       PIPE_CONTROL_DEPTH_STALL |
--				       PIPE_CONTROL_DC_FLUSH_ENABLE |
--				       PIPE_CONTROL_FLUSH_ENABLE);
-+				       flags);
- 
- 	return gen12_emit_fini_breadcrumb_tail(rq, cs);
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-index 1c3af0fc0456..a3c1047a2c71 100644
---- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-@@ -223,11 +223,14 @@
- #define   PIPE_CONTROL_COMMAND_CACHE_INVALIDATE		(1<<29) /* gen11+ */
- #define   PIPE_CONTROL_TILE_CACHE_FLUSH			(1<<28) /* gen11+ */
- #define   PIPE_CONTROL_FLUSH_L3				(1<<27)
-+#define   PIPE_CONTROL_AMFS_FLUSH			(1<<25) /* gen12+ */
- #define   PIPE_CONTROL_GLOBAL_GTT_IVB			(1<<24) /* gen7+ */
- #define   PIPE_CONTROL_MMIO_WRITE			(1<<23)
- #define   PIPE_CONTROL_STORE_DATA_INDEX			(1<<21)
- #define   PIPE_CONTROL_CS_STALL				(1<<20)
-+#define   PIPE_CONTROL_GLOBAL_SNAPSHOT_RESET		(1<<19)
- #define   PIPE_CONTROL_TLB_INVALIDATE			(1<<18)
-+#define   PIPE_CONTROL_PSD_SYNC				(1<<17) /* gen11+ */
- #define   PIPE_CONTROL_MEDIA_STATE_CLEAR		(1<<16)
- #define   PIPE_CONTROL_WRITE_TIMESTAMP			(3<<14)
- #define   PIPE_CONTROL_QW_WRITE				(1<<14)
-@@ -249,6 +252,18 @@
- #define   PIPE_CONTROL_DEPTH_CACHE_FLUSH		(1<<0)
- #define   PIPE_CONTROL_GLOBAL_GTT (1<<2) /* in addr dword */
- 
-+/* 3D-related flags can't be set on compute engine */
-+#define PIPE_CONTROL_RENDER_ONLY_FLAGS (\
-+		PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH | \
-+		PIPE_CONTROL_DEPTH_CACHE_FLUSH | \
-+		PIPE_CONTROL_TILE_CACHE_FLUSH | \
-+		PIPE_CONTROL_DEPTH_STALL | \
-+		PIPE_CONTROL_STALL_AT_SCOREBOARD | \
-+		PIPE_CONTROL_PSD_SYNC | \
-+		PIPE_CONTROL_AMFS_FLUSH | \
-+		PIPE_CONTROL_VF_CACHE_INVALIDATE | \
-+		PIPE_CONTROL_GLOBAL_SNAPSHOT_RESET)
-+
- #define MI_MATH(x)			MI_INSTR(0x1a, (x) - 1)
- #define MI_MATH_INSTR(opcode, op1, op2) ((opcode) << 20 | (op1) << 10 | (op2))
- /* Opcodes for MI_MATH_INSTR */
+ enum {
+ 	HAS_GLOBAL_MOCS = BIT(0),
+ 	HAS_ENGINE_MOCS = BIT(1),
+@@ -351,14 +380,18 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
+ 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
+ 		table->uc_index = 1;
+ 		table->unused_entries_index = 5;
+-	} else if (GRAPHICS_VER(i915) >= 12) {
++	} else if (IS_TIGERLAKE(i915) || IS_ROCKETLAKE(i915)) {
++		/* For TGL/RKL, Can't be changed now for ABI reasons */
+ 		table->size  = ARRAY_SIZE(tgl_mocs_table);
+ 		table->table = tgl_mocs_table;
+ 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
+ 		table->uc_index = 3;
+-		/* For TGL/RKL, Can't be changed now for ABI reasons */
+-		if (!IS_TIGERLAKE(i915) && !IS_ROCKETLAKE(i915))
+-			table->unused_entries_index = 2;
++	} else if (GRAPHICS_VER(i915) >= 12) {
++		table->size  = ARRAY_SIZE(gen12_mocs_table);
++		table->table = gen12_mocs_table;
++		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
++		table->uc_index = 3;
++		table->unused_entries_index = 2;
+ 	} else if (GRAPHICS_VER(i915) == 11) {
+ 		table->size  = ARRAY_SIZE(icl_mocs_table);
+ 		table->table = icl_mocs_table;
 -- 
-2.25.4
+2.26.2
 
